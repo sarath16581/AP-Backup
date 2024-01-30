@@ -14,6 +14,8 @@
                 <elementReference>vCase.Id</elementReference>
             </value>
         </inputParameters>
+        <nameSegment>Case.ACIC_Send_Case_Status_Notification</nameSegment>
+        <versionSegment>1</versionSegment>
     </actionCalls>
     <actionCalls>
         <name>ASH_Email_Alert_on_new_case_creation</name>
@@ -32,6 +34,8 @@
                 <elementReference>vCase.Id</elementReference>
             </value>
         </inputParameters>
+        <nameSegment>Case.ASH_Email_Alert_on_new_case_creation</nameSegment>
+        <versionSegment>1</versionSegment>
     </actionCalls>
     <actionCalls>
         <name>CAR_Auto_Email_response_for_Queue_Owner</name>
@@ -50,6 +54,8 @@
                 <elementReference>vCase.Id</elementReference>
             </value>
         </inputParameters>
+        <nameSegment>Case.Customer_Analytics_Reporting_Cases_Auto_Email_Response</nameSegment>
+        <versionSegment>1</versionSegment>
     </actionCalls>
     <actionCalls>
         <description>Send Email to the CAR case requestor when the associated Case is closed/resolved</description>
@@ -66,6 +72,8 @@
                 <elementReference>vCase.Id</elementReference>
             </value>
         </inputParameters>
+        <nameSegment>Case.CAR_Send_Email_Closed_Alert</nameSegment>
+        <versionSegment>1</versionSegment>
     </actionCalls>
     <actionCalls>
         <name>CAR_Send_Email_Closed_Bounce_Back_Alert</name>
@@ -81,6 +89,8 @@
                 <elementReference>vCase.Id</elementReference>
             </value>
         </inputParameters>
+        <nameSegment>Case.CAR_Send_Email_Closed_Bounce_Back_Alert</nameSegment>
+        <versionSegment>1</versionSegment>
     </actionCalls>
     <actionCalls>
         <name>Dispute_Case_Approved</name>
@@ -99,6 +109,8 @@
                 <elementReference>vCase.Id</elementReference>
             </value>
         </inputParameters>
+        <nameSegment>Case.Dispute_Case_Approved</nameSegment>
+        <versionSegment>1</versionSegment>
     </actionCalls>
     <actionCalls>
         <name>Dispute_Case_Approved_StarTrack</name>
@@ -117,6 +129,8 @@
                 <elementReference>vCase.Id</elementReference>
             </value>
         </inputParameters>
+        <nameSegment>Case.Dispute_Case_Approved_StarTrack</nameSegment>
+        <versionSegment>1</versionSegment>
     </actionCalls>
     <actionCalls>
         <name>Email_non_compliance_case</name>
@@ -132,6 +146,8 @@
                 <elementReference>vCase.Id</elementReference>
             </value>
         </inputParameters>
+        <nameSegment>Case.email_non_compliance_case</nameSegment>
+        <versionSegment>1</versionSegment>
     </actionCalls>
     <actionCalls>
         <name>Late_Payment_Dispute_Case_Approved</name>
@@ -150,6 +166,8 @@
                 <elementReference>vCase.Id</elementReference>
             </value>
         </inputParameters>
+        <nameSegment>Case.Late_Payment_Dispute_Case_Approved</nameSegment>
+        <versionSegment>1</versionSegment>
     </actionCalls>
     <actionCalls>
         <name>New_Dispute_Claim_Case_Created</name>
@@ -168,6 +186,8 @@
                 <elementReference>vCase.Id</elementReference>
             </value>
         </inputParameters>
+        <nameSegment>Case.New_Dispute_Claim_Case_Created</nameSegment>
+        <versionSegment>1</versionSegment>
     </actionCalls>
     <actionCalls>
         <name>New_Dispute_Claim_Case_Created_Origin_Email</name>
@@ -186,6 +206,8 @@
                 <elementReference>vCase.Id</elementReference>
             </value>
         </inputParameters>
+        <nameSegment>Case.New_Dispute_Claim_Case_Created_Origin_Email</nameSegment>
+        <versionSegment>1</versionSegment>
     </actionCalls>
     <actionCalls>
         <name>New_Dispute_Claim_Case_Created_StarTrack</name>
@@ -204,6 +226,8 @@
                 <elementReference>vCase.Id</elementReference>
             </value>
         </inputParameters>
+        <nameSegment>Case.New_Dispute_Claim_Case_Created_StarTrack</nameSegment>
+        <versionSegment>1</versionSegment>
     </actionCalls>
     <actionCalls>
         <name>New_Dispute_Claim_Case_Created_StarTrack_Origin_Email</name>
@@ -222,6 +246,8 @@
                 <elementReference>vCase.Id</elementReference>
             </value>
         </inputParameters>
+        <nameSegment>Case.New_Dispute_Claim_Case_Created_StarTrack_Origin_Email</nameSegment>
+        <versionSegment>1</versionSegment>
     </actionCalls>
     <actionCalls>
         <name>New_Late_Payment_Dispute_Claim_Case_Created</name>
@@ -240,6 +266,8 @@
                 <elementReference>vCase.Id</elementReference>
             </value>
         </inputParameters>
+        <nameSegment>Case.New_Late_Payment_Dispute_Claim_Case_Created</nameSegment>
+        <versionSegment>1</versionSegment>
     </actionCalls>
     <actionCalls>
         <name>Notify_Account_Manager_Dispute_Case_Result</name>
@@ -255,6 +283,8 @@
                 <elementReference>vCase.Id</elementReference>
             </value>
         </inputParameters>
+        <nameSegment>Case.Notify_Account_Manager_Dispute_Case_Result</nameSegment>
+        <versionSegment>1</versionSegment>
     </actionCalls>
     <actionCalls>
         <name>Sales_Coordinator_Case_Created_Notification</name>
@@ -273,6 +303,8 @@
                 <elementReference>vCase.Id</elementReference>
             </value>
         </inputParameters>
+        <nameSegment>Case.Sales_Coordinator_Case_Created_Notification</nameSegment>
+        <versionSegment>1</versionSegment>
     </actionCalls>
     <actionCalls>
         <name>Security_Express_Case_Creation_Email_Alert</name>
@@ -291,6 +323,8 @@
                 <elementReference>vCase.Id</elementReference>
             </value>
         </inputParameters>
+        <nameSegment>Case.Security_Express_Case_Creation_Email_Alert</nameSegment>
+        <versionSegment>1</versionSegment>
     </actionCalls>
     <actionCalls>
         <name>Special_Services_Case_Creation_Email_Alert</name>
@@ -306,6 +340,8 @@
                 <elementReference>vCase.Id</elementReference>
             </value>
         </inputParameters>
+        <nameSegment>Case.Special_Services_Case_Creation_Email_Alert</nameSegment>
+        <versionSegment>1</versionSegment>
     </actionCalls>
     <apiVersion>57.0</apiVersion>
     <constants>

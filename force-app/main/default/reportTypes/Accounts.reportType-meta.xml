@@ -1218,11 +1218,6 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>Post_Office_Assigned__c.RNPReportingAccess__c</field>
-            <table>Account</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
             <field>Post_Office_Assigned__c.Id</field>
             <table>Account</table>
         </columns>
