@@ -18,15 +18,11 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Readonly</behavior>
-                <field>APT_Compile_and_Send_for_eSignatures__c</field>
+                <field>CompileAndSendForAdobeESignatures__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
                 <field>APT_Is_Create_Contract_Batch_Job_Running__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Readonly</behavior>
-                <field>CompileAndSendForAdobeESignatures__c</field>
             </layoutItems>
         </layoutColumns>
         <layoutColumns>

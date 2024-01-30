@@ -14,10 +14,6 @@
                 <behavior>Readonly</behavior>
                 <field>Progress_Bar__c</field>
             </layoutItems>
-            <layoutItems>
-                <behavior>Readonly</behavior>
-                <field>CompileAndSendForAdobeESignatures__c</field>
-            </layoutItems>
         </layoutColumns>
         <layoutColumns/>
         <style>TwoColumnsLeftToRight</style>
@@ -34,7 +30,7 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Readonly</behavior>
-                <field>APT_Compile_and_Send_for_eSignatures__c</field>
+                <field>CompileAndSendForAdobeESignatures__c</field>
             </layoutItems>
         </layoutColumns>
         <layoutColumns>
