@@ -294,7 +294,7 @@ public with sharing class BG_LeadUtility {
     /**
     * @description       Method to remove lead from sales cadence for Disqualified leads
     * @param             List <lead> leadsForcadence
-    * @return            Void
+    * @return            Void 
     */ 
     public static void removeLeadsFromCadence(List<Lead> disqualifiedLeads){
         List<SalesCadenceEvent__e> cadenceEvents = new List<SalesCadenceEvent__e>();

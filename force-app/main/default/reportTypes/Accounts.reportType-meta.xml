@@ -143,6 +143,11 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
+            <field>Next_Activity_Due_Date__c</field>
+            <table>Account</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
             <field>Archiving_Flag__c</field>
             <table>Account</table>
         </columns>
@@ -159,6 +164,11 @@
         <columns>
             <checkedByDefault>false</checkedByDefault>
             <field>Balance_Of_Trade__c</field>
+            <table>Account</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>NextActivityDueinDays__c</field>
             <table>Account</table>
         </columns>
         <columns>
@@ -1208,11 +1218,6 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>Post_Office_Assigned__c.RNPReportingAccess__c</field>
-            <table>Account</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
             <field>Post_Office_Assigned__c.Id</field>
             <table>Account</table>
         </columns>
@@ -1244,6 +1249,21 @@
         <columns>
             <checkedByDefault>false</checkedByDefault>
             <field>Account_Coverage_Gateway__c</field>
+            <table>Account</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Post_Office_Assigned__c.Status__c</field>
+            <table>Account</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Post_Office_Assigned__c.RecordType</field>
+            <table>Account</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Post_Office_Assigned__c.Record_Type_Id__c</field>
             <table>Account</table>
         </columns>
         <masterLabel>Accounts</masterLabel>

@@ -98,12 +98,12 @@ public with sharing class APT_LandingCartController {
 				}
 				//User should be able to create proposal if field IsStartrackProposal__c is having values and stagename field is not 'closed Lost'
 				if(opp.IsStartrackProposal__c == APT_Constants.OPTION_NO  && opp.stagename != APT_Constants.OPPORTUNITY_STAGENAME_CLOSED_LOST){
-					proposal = createProposalRecord(opp,profileName,loggedInUserId, isSalesSpecialist, opportunityOwnerId);
+					proposal = createProposalRecord(opp,profileName,loggedInUserId, isSalesSpecialist);
 					proposalList.add(proposal);
 				}
 				//User should be able to create proposal if IsStartrackProposal__c is yes and  field APTMinimumMonthlySpend__c and APTPostcodeSuburb__c having values'
 				if(opp.IsStartrackProposal__c == APT_Constants.OPTION_YES && opp.APTPostcodeSuburb__c != null && opp.APTMinimumMonthlySpend__c != null && opp.stagename != APT_Constants.OPPORTUNITY_STAGENAME_CLOSED_LOST){
-						proposal = createProposalRecord(opp,profileName,loggedInUserId, isSalesSpecialist, opportunityOwnerId);
+						proposal = createProposalRecord(opp,profileName,loggedInUserId, isSalesSpecialist);
 					proposalList.add(proposal);
 				}
 			}
@@ -173,7 +173,7 @@ public with sharing class APT_LandingCartController {
 	*@param String OpportunityId
 	*@return proposal record
 	*/
-	public Static Apttus_Proposal__Proposal__c  createProposalRecord(opportunity opp,string profileName,ID loggedInUserId, Boolean isSalesSpecialistRole, ID opportunityOwnerId){
+	public Static Apttus_Proposal__Proposal__c  createProposalRecord(opportunity opp,string profileName,ID loggedInUserId, Boolean isSalesSpecialistRole){
 		auraHandledException exceptionHandler;
 		boolean newProposal= APT_Constants.BOOL_FALSE;
 		string proposalRecordId = Schema.SObjectType.Apttus_Proposal__Proposal__c.getRecordTypeInfosByName().get('Proposal').getRecordTypeId();
@@ -212,14 +212,14 @@ public with sharing class APT_LandingCartController {
 						}
 						//Throwing Error message when config owner is not loggedin user and profile is other than system admin
 						if(prodConfigOwnerId != null){
-							if(cartOwnerCheck(prodConfigOwnerId, loggedInUserId, profileName, isSalesSpecialistRole, opportunityOwnerId)) {
+							if(cartOwnerCheck(prodConfigOwnerId, loggedInUserId, profileName, isSalesSpecialistRole)) {
 								exceptionHandler = new AuraHandledException(System.Label.Abandon_Shopping_Cart_Error);
 								exceptionHandler.setMessage(System.Label.Abandon_Shopping_Cart_Error);
 								throw exceptionHandler;
 							}
 						}
 						if(prodConfigOwnerId2 != null){
-							if(cartOwnerCheck(prodConfigOwnerId2, loggedInUserId, profileName, isSalesSpecialistRole, opportunityOwnerId)){
+							if(cartOwnerCheck(prodConfigOwnerId2, loggedInUserId, profileName, isSalesSpecialistRole)){
 								exceptionHandler = new AuraHandledException(System.Label.Abandon_Shopping_Cart_Error);
 								exceptionHandler.setMessage(System.Label.Abandon_Shopping_Cart_Error);
 								throw exceptionHandler;
@@ -290,8 +290,8 @@ public with sharing class APT_LandingCartController {
 	 *@param Boolean isSalesSpecialistRole
 	 *@return boolean value
 	 */
-	private static Boolean cartOwnerCheck(Id configOwnerId, Id loggedInUserId, String profileName, Boolean isSalesSpecialistRole, Id opportunityOwnerId) {
+	private static Boolean cartOwnerCheck(Id configOwnerId, Id loggedInUserId, String profileName, Boolean isSalesSpecialistRole) {
 		Set<String> profileListCheck = new Set<String>{APT_Constants.STRING_SYSTEM_ADMINISTRATOR, APT_Constants.STRING_ONBOARDING};
-		return (configOwnerId != loggedInUserId && !profileListCheck.contains(profileName) && isSalesSpecialistRole == false && (loggedInUserId != opportunityOwnerId && profileName != APT_Constants.STRING_BG_BASE));
+		return (configOwnerId != loggedInUserId && !profileListCheck.contains(profileName) && isSalesSpecialistRole == false);
 	}
 }
