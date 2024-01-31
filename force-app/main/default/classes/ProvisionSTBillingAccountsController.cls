@@ -496,6 +496,10 @@ public with sharing class ProvisionSTBillingAccountsController {
 			return result;
 		}
 
+		if (dealSupportRequest.Opportunity__c == null) {
+			result.addErrorMessage(System.Label.StarTrackOpportunityRequiredOnDSRForNewAccountsErrorMessage);
+		}
+
 		if(String.isEmpty(request.team.organisations?.billingAddress?.addressLine1)
 			|| String.isEmpty(request.team.organisations?.billingAddress?.suburb)
 			|| request.team.organisations?.billingAddress?.postcode == null) {
