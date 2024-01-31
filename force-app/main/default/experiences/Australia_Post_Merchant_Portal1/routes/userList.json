@@ -1,7 +1,8 @@
 {
-  "activeViewId" : null,
+  "activeViewId" : "5df6aba9-5ccc-468a-b038-9fb04ec1c6f1",
   "appPageId" : "f0ece192-bbb3-4e19-81f5-60ac876978d3",
   "configurationTags" : [ ],
+  "devName" : "User_List",
   "id" : "655dd49c-7ee7-45f2-a850-9ee792916c34",
   "label" : "User List",
   "routeType" : "list-005",

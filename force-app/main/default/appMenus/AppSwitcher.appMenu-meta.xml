@@ -760,4 +760,8 @@
         <name>NPE_Connected_Clients</name>
         <type>ConnectedApp</type>
     </appMenuItems>
+    <appMenuItems>
+        <name>bbtest</name>
+        <type>ConnectedApp</type>
+    </appMenuItems>
 </AppMenu>

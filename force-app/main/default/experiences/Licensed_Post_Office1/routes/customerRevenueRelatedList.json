@@ -2,6 +2,7 @@
   "activeViewId" : "d000ed58-d649-40dd-91df-a56848c1fc23",
   "appPageId" : "87c9a7eb-d6e7-4f0e-81ba-729aee3cd763",
   "configurationTags" : [ ],
+  "devName" : "Customer_Revenue_Related_List__c",
   "id" : "abd14358-59e0-490f-86e1-17d009a9abdd",
   "label" : "Customer Revenue Related List",
   "objectApiName" : "Budget_and_Revenue__c",

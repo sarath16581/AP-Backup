@@ -13,6 +13,8 @@
                 <elementReference>varCaseID</elementReference>
             </value>
         </inputParameters>
+        <nameSegment>Case.Business_Enablement_Feedback_Survey</nameSegment>
+        <versionSegment>1</versionSegment>
     </actionCalls>
     <apiVersion>49.0</apiVersion>
     <constants>

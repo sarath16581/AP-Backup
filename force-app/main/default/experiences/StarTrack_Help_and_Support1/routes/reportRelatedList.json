@@ -2,6 +2,7 @@
   "activeViewId" : null,
   "appPageId" : "6d5c3778-b66f-403b-9857-fd1a52cc4f9b",
   "configurationTags" : [ ],
+  "devName" : "Report_Related_List__c",
   "id" : "84c0469f-a4dc-45f9-97fe-7dc536958819",
   "label" : "Report Related List",
   "routeType" : "relatedlist-00O",

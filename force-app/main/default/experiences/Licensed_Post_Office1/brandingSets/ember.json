@@ -1,0 +1,28 @@
+{
+  "definitionName" : "ember:branding-ember",
+  "id" : "e1ce0652-a5ff-4483-9ed3-75ca1a2e4c53",
+  "label" : "Ember",
+  "type" : "brandingSet",
+  "values" : {
+    "ActionColor" : "rgb(213, 30, 16)",
+    "BorderColor" : "rgb(212, 212, 212)",
+    "CardBackgroundColor" : "rgba(255, 255, 255, 0)",
+    "CompanyLogo" : "/file-asset/AusPost_Logo?v=1&amp;height=300&amp;width=300",
+    "DetailTextColor" : "rgba(0, 0, 0, 0.6)",
+    "ErrorFontColor" : "#ff9e9e",
+    "HeaderFonts" : "Montserrat",
+    "LinkColor" : "rgb(0, 95, 178)",
+    "LoginBackgroundColor" : "#F4F4F4",
+    "LoginBackgroundImage" : "../../../../sfsites/picasso/core/external/salesforceIdentity/images/background.jpg?v=1",
+    "OverlayTextColor" : "rgb(255, 255, 255)",
+    "PageBackgroundColor" : "rgb(255, 255, 255)",
+    "PrimaryFont" : "Lato",
+    "TextColor" : "rgba(0, 0, 0, 0.8)",
+    "TextTransformStyle" : "none",
+    "_ActionColorDarker" : "rgb(166, 23, 12)",
+    "_ActionColorTrans" : "rgba(213, 30, 16, 0.9)",
+    "_HoverColor" : "rgba(213, 30, 16, 0.05)",
+    "_LinkColorDarker" : "rgb(0, 73, 137)",
+    "_OverlayTextColorShadow" : "#000000"
+  }
+}

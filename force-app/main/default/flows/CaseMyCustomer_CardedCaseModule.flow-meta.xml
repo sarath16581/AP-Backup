@@ -14,6 +14,8 @@
                 <elementReference>vCase.Id</elementReference>
             </value>
         </inputParameters>
+        <nameSegment>Case.Carded_Case_Notification_Parcel_NSW_ACT</nameSegment>
+        <versionSegment>1</versionSegment>
     </actionCalls>
     <actionCalls>
         <name>Blue_QLD_Email_Alert</name>
@@ -29,6 +31,8 @@
                 <elementReference>vCase.Id</elementReference>
             </value>
         </inputParameters>
+        <nameSegment>Case.Carded_Case_Notification_Parcel_QLD</nameSegment>
+        <versionSegment>1</versionSegment>
     </actionCalls>
     <actionCalls>
         <name>Blue_SA_NT_Email_Alert</name>
@@ -44,6 +48,8 @@
                 <elementReference>vCase.Id</elementReference>
             </value>
         </inputParameters>
+        <nameSegment>Case.Carded_Case_Notification_Parcel_SA_NT</nameSegment>
+        <versionSegment>1</versionSegment>
     </actionCalls>
     <actionCalls>
         <name>Blue_VIC_TAS_Email_Alert</name>
@@ -59,6 +65,8 @@
                 <elementReference>vCase.Id</elementReference>
             </value>
         </inputParameters>
+        <nameSegment>Case.Carded_Case_Notification_Parcel_VIC_TAS</nameSegment>
+        <versionSegment>1</versionSegment>
     </actionCalls>
     <actionCalls>
         <name>Blue_WA_Email_Alert</name>
@@ -74,6 +82,8 @@
                 <elementReference>vCase.Id</elementReference>
             </value>
         </inputParameters>
+        <nameSegment>Case.Carded_Case_Notification_Parcel_WA</nameSegment>
+        <versionSegment>1</versionSegment>
     </actionCalls>
     <actionCalls>
         <name>Red_NSW_ACT_Email_Alert</name>
@@ -89,6 +99,8 @@
                 <elementReference>vCase.Id</elementReference>
             </value>
         </inputParameters>
+        <nameSegment>Case.Carded_Case_Notification_LMN_NSW_ACT</nameSegment>
+        <versionSegment>1</versionSegment>
     </actionCalls>
     <actionCalls>
         <name>Red_QLD_Email_Alert</name>
@@ -104,6 +116,8 @@
                 <elementReference>vCase.Id</elementReference>
             </value>
         </inputParameters>
+        <nameSegment>Case.Carded_Case_Notification_LMN_QLD</nameSegment>
+        <versionSegment>1</versionSegment>
     </actionCalls>
     <actionCalls>
         <name>Red_SA_NT_Email_Alert</name>
@@ -119,6 +133,8 @@
                 <elementReference>vCase.Id</elementReference>
             </value>
         </inputParameters>
+        <nameSegment>Case.Carded_Case_Notification_LMN_SA_NT</nameSegment>
+        <versionSegment>1</versionSegment>
     </actionCalls>
     <actionCalls>
         <name>Red_VIC_TAS_Email_Alert</name>
@@ -134,6 +150,8 @@
                 <elementReference>vCase.Id</elementReference>
             </value>
         </inputParameters>
+        <nameSegment>Case.Carded_Case_Notification_LMN_VIC_TAS</nameSegment>
+        <versionSegment>1</versionSegment>
     </actionCalls>
     <actionCalls>
         <name>Red_WA_Email_Alert</name>
@@ -149,6 +167,8 @@
                 <elementReference>vCase.Id</elementReference>
             </value>
         </inputParameters>
+        <nameSegment>Case.Carded_Case_Notification_LMN_WA</nameSegment>
+        <versionSegment>1</versionSegment>
     </actionCalls>
     <apiVersion>52.0</apiVersion>
     <decisions>

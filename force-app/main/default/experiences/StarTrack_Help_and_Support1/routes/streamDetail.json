@@ -2,6 +2,7 @@
   "activeViewId" : null,
   "appPageId" : "6d5c3778-b66f-403b-9857-fd1a52cc4f9b",
   "configurationTags" : [ ],
+  "devName" : "Stream_Detail",
   "id" : "d0796923-4e6a-4f3c-a4c2-c8589a017dfe",
   "label" : "Stream Detail",
   "routeType" : "detail-0Fq",

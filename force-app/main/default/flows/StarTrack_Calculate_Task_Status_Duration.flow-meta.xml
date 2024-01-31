@@ -59,6 +59,8 @@
                 <elementReference>myVariable_current.Id</elementReference>
             </value>
         </inputParameters>
+        <nameSegment>StarTrackSetStatusDate</nameSegment>
+        <versionSegment>1</versionSegment>
     </actionCalls>
     <actionCalls>
         <processMetadataValues>
@@ -248,6 +250,8 @@
                 <elementReference>myVariable_current.LastModifiedBy.Profile.Name</elementReference>
             </value>
         </inputParameters>
+        <nameSegment>Create_Comment</nameSegment>
+        <versionSegment>1</versionSegment>
     </actionCalls>
     <actionCalls>
         <processMetadataValues>
@@ -305,6 +309,8 @@
                 <elementReference>myVariable_current.Id</elementReference>
             </value>
         </inputParameters>
+        <nameSegment>StarTrackSetStatusDate</nameSegment>
+        <versionSegment>1</versionSegment>
     </actionCalls>
     <actionCalls>
         <processMetadataValues>
@@ -365,6 +371,8 @@
                 <elementReference>myVariable_current.Id</elementReference>
             </value>
         </inputParameters>
+        <nameSegment>StarTrackSetStatusDate</nameSegment>
+        <versionSegment>1</versionSegment>
     </actionCalls>
     <actionCalls>
         <processMetadataValues>
@@ -554,6 +562,8 @@
                 <elementReference>myVariable_current.LastModifiedBy.Profile.Name</elementReference>
             </value>
         </inputParameters>
+        <nameSegment>Create_Comment</nameSegment>
+        <versionSegment>1</versionSegment>
     </actionCalls>
     <apiVersion>49.0</apiVersion>
     <decisions>

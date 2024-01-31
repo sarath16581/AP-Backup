@@ -2,6 +2,7 @@
   "activeViewId" : "8ca1a12c-f046-4550-add4-f9690506e920",
   "appPageId" : "87c9a7eb-d6e7-4f0e-81ba-729aee3cd763",
   "configurationTags" : [ ],
+  "devName" : "Article_Detail",
   "id" : "24f5b2d7-2009-4136-a067-54d97aa4fd8a",
   "label" : "Article Detail",
   "routeType" : "article",

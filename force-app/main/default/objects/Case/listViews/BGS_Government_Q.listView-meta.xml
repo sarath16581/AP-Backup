@@ -23,7 +23,7 @@
     <filters>
         <field>OWNER_NAME</field>
         <operation>equals</operation>
-        <value>BGS Government</value>
+        <value>Service Advisor</value>
     </filters>
     <label>BGS Government Q</label>
     <sharedTo>

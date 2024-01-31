@@ -1,6 +1,7 @@
 {
   "appPageId" : "068b9d00-2e06-471b-bce8-a65c187ff73b",
   "componentName" : "siteforce:sldsOneColLayout",
+  "dataProviders" : [ ],
   "id" : "32a1e8a9-0ae7-4368-b4d9-f90f9cd922a0",
   "label" : "Campaign List",
   "regions" : [ {

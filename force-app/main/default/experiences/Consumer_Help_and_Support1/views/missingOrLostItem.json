@@ -1,6 +1,7 @@
 {
   "appPageId" : "6f87ce43-8103-412d-b337-9119174263c8",
   "componentName" : "siteforce:sldsOneColLayout",
+  "dataProviders" : [ ],
   "id" : "5e4ecd0e-f5bc-49d7-84f3-ffd609716b6c",
   "label" : "Missing or lost item",
   "regions" : [ {

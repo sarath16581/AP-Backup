@@ -1,6 +1,7 @@
 {
   "appPageId" : "09e90440-dbed-4496-b14c-1a294d7bc2e4",
   "componentName" : "siteforce:dynamicLayout",
+  "dataProviders" : [ ],
   "id" : "f525a853-976d-4813-9353-4c02f3ea5cc9",
   "label" : "myNetwork Happy Parcels Wrapper",
   "regions" : [ {

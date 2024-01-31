@@ -1117,7 +1117,11 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Handover - Onboarding to Service</fullName>
+            <fullName>Closed to BAU</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Go Live - Hypercare</fullName>
             <default>false</default>
         </values>
         <values>
@@ -1126,10 +1130,6 @@
         </values>
         <values>
             <fullName>Scope - Onboarding</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Trading%2FGo Live - Onboarding</fullName>
             <default>false</default>
         </values>
     </picklistValues>
@@ -1847,7 +1847,7 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Renewals Management</fullName>
+            <fullName>Strategic</fullName>
             <default>false</default>
         </values>
     </picklistValues>

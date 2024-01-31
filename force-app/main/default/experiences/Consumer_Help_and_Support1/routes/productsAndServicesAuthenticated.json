@@ -2,6 +2,7 @@
   "activeViewId" : "a7e1a4ad-cc8a-4c8f-a34a-b3cb20f7995d",
   "appPageId" : "6f87ce43-8103-412d-b337-9119174263c8",
   "configurationTags" : [ ],
+  "devName" : "Products_and_services_authenticated__c",
   "id" : "2e0174a2-c5c3-40ad-a306-780f68c5b431",
   "label" : "Products and services (authenticated)",
   "pageAccess" : "RequiresLogin",

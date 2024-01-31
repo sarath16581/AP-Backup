@@ -1,6 +1,7 @@
 {
   "appPageId" : "a0cffe62-33a5-4c74-bbaf-768c894475b5",
   "componentName" : "siteforce:sldsTwoCol66Layout",
+  "dataProviders" : [ ],
   "id" : "eca57153-a90d-4249-8a86-b7562c52cb7d",
   "label" : "Home3",
   "regions" : [ {
@@ -22,7 +23,7 @@
       "componentAttributes" : {
         "numberOfArticles" : 10,
         "title" : "Trending Articles - Product",
-        "topicId" : "{!topicId}"
+        "topicId" : "0TO1m00000000zuGAA"
       },
       "componentName" : "selfService:topicTrendingArticles42",
       "id" : "2f5b11d3-0847-470c-b3cb-d2dc025f874c",
@@ -38,7 +39,7 @@
       "componentAttributes" : {
         "numberOfArticles" : 10,
         "title" : "Trending Articles - Star Track",
-        "topicId" : "{!topicId}"
+        "topicId" : "0TO1m00000000zvGAA"
       },
       "componentName" : "selfService:topicTrendingArticles42",
       "id" : "358e98f6-fa4d-46eb-aadf-6070aab6dcf1",

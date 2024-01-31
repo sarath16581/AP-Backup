@@ -1,6 +1,7 @@
 {
   "appPageId" : "c4945705-a694-4a05-8987-0e3f88bd71b9",
   "componentName" : "siteforce:sldsOneColLayout",
+  "dataProviders" : [ ],
   "id" : "a3047b42-e21d-4ccb-a604-695f729d1420",
   "label" : "Login Error",
   "regions" : [ {
