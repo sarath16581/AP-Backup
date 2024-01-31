@@ -1,278 +1,278 @@
 <template>
-        <div class="slds-m-horizontal_large slds-p-horizontal_large">
-            <div class="slds-text-heading_large slds-m-around_medium text-center">Lost article
-            </div>
-            <template if:true={submitted}>
-                <div class="slds-m-around_large slds-p-around_large">
-                    <template if:true={fileUploaded}>
-                        <div class="text-center">File {fileName} succesfully uploaded and attached to case {caseNumber}.</div>
-                        <div class="text-center slds-m-around_large">Customer name : {customerName}</div>
-                        <div class="text-center">If paying compensation, please process in EPOS using TC 1068 for contents and TC 141 for postage.</div>
-                    </template>
-                    <template if:false={fileUploaded}>
-                        <div class="text-center slds-m-around_large">Case {caseNumber} was successfully created.</div>
-                        <div class="text-center slds-m-around_large">Customer name : {customerName}</div>
-                        <div class="text-center">If paying compensation, please process in EPOS using TC 1068 for contents and TC 141 for postage.</div>
-                        <div class="slds-box text-center slds-no-print">If you would like to include a photo or file, attach here.
-                            <div class="slds-align_absolute-center slds-m-around_large">
-                                <lightning-file-upload
-                                    label="Attach file (jpg, png, or pdf)"
-                                    name="fileUploader"
-                                    accept={acceptedFormats}
-                                    record-id={caseId}
-                                    onuploadfinished={handleUploadFinished}
-                                    >
-                                </lightning-file-upload>
-                            </div>
-                        </div>
-                    </template>
-                    <div class="slds-p-around_medium">
-                        <button class="slds-align_absolute-center slds-button slds-button_outline-brand slds-no-print" 
-                                onclick={printScreen} title="Print" aria-label="Print">Print</button>
-                    </div>
-                </div>
-            </template>
-            <template if:false={submitted}>
-                <template if:true={submitting}>
-                    <lightning-spinner alternative-text="Loading"></lightning-spinner>
-                </template>
-                <div class="slds-grid slds-wrap">
-                        <lightning-layout-item size="6" padding="horizontal-small">
-                            <lightning-combobox class="form-input" label="Select your outlet" required placeholder="Please select" value={values.facility} name="facility"
-                                options={facilityOptions} onchange={handleFacilityValueChange} field-level-help={selectYourOutlet}>
-                            </lightning-combobox>
-                        </lightning-layout-item>
-                        <lightning-layout-item size="6"></lightning-layout-item>
-                        <lightning-layout-item size="6" padding="horizontal-small">
-                            <c-article-search label="Article ID" name="articleId" get-only-articles
-                                form-update-callback={handleFormUpdateWithAtricleData}  form-update-articleid={handleFormArticleID} onchange={handleArticleIDValueChange}>
-                            </c-article-search>
-                        </lightning-layout-item>
-                        <lightning-layout-item size="6"></lightning-layout-item>
-                        <lightning-layout-item size="6" padding="horizontal-small">
-                            <c-customer-search search-result-select-handler={searchResultSelectHandler}></c-customer-search>
-                        </lightning-layout-item>
-                        <lightning-layout-item size="6" padding="horizontal-small">
-                            <lightning-input 
-                                required 
-                                class="form-input" 
-                                type="text" 
-                                label="First name" 
-                                name="FirstName" 
-                                value={values.FirstName}
-                                onchange={handleValueChange}>
-                            </lightning-input>
-                        </lightning-layout-item>
-                        <lightning-layout-item size="6" padding="horizontal-small">
-                            <lightning-input 
-                                required 
-                                class="form-input" 
-                                type="text" 
-                                label="Last name" 
-                                name="LastName" 
-                                value={values.LastName}
-                                onchange={handleValueChange}>
-                            </lightning-input>
-                        </lightning-layout-item>
-                        <lightning-layout-item size="6" padding="horizontal-small">
-                            <lightning-input 
-                                required
-                                class="form-input"
-                                type="tel" 
-                                label="Contact number" 
-                                placeholder="Please enter contact number"
-                                name="MobilePhone"
-                                pattern={phoneNumberRegEx}
-                                field-level-help="When a phone number cannot be obtained, please enter 137678."
-                                message-when-pattern-mismatch="Enter a valid contact number"
-                                value={values.MobilePhone}
-                                onchange={handleValueChange}>
-                            </lightning-input>
-                        </lightning-layout-item>
-                        <lightning-layout-item size="6" padding="horizontal-small">
-                            <lightning-input 
-                                class="form-input" 
-                                type="email" 
-                                label="Email" 
-                                placeholder="Please enter email address"
-                                message-when-type-mismatch="Please enter a valid email address"
-                                field-level-help="Please try to obtain an email address to enable prompt resolution for customer."
-                                name="Email"
-                                value={values.Email}
-                                onchange={handleValueChange}>
-                            </lightning-input>
-                        </lightning-layout-item>
-                        <lightning-layout-item size="6" padding="horizontal-small">
-                                <c-qas-address-validation 
-                                required 
-                                class="form-input customer-address" 
-                                label="Customer address"
-                                address-change-handler={customerAddressChangeHandler}
-                                address-search-term-change-handler={customerAddressSearchTermChangeHandler}
-                                >
-                            </c-qas-address-validation>
-                        </lightning-layout-item>
-                        <lightning-layout-item size="6" padding="horizontal-small">
-                            <div class="slds-p-vertical_small">
-                                <lightning-button label="Copy customer details" variant="brand" onclick={handleCopyToSenderDetails}></lightning-button>
-                            </div>                            
-                        </lightning-layout-item>
-                        <lightning-layout-item size="6" padding="horizontal-small">
-                            <div class="slds-p-vertical_small">
-                                <lightning-button label="Copy customer details" variant="brand" onclick={handleCopyToAddresseeDetails}></lightning-button>
-                            </div>
-                        </lightning-layout-item>
-                            <lightning-layout-item size="6" padding="horizontal-small">
-                                <lightning-input class="form-input" type="text" label="Sender name" name="senderName"
-                                    value={values.senderName} onchange={handleValueChange}>
-                                </lightning-input>
-                                <lightning-input class="form-input" type="email" label="Sender email" name="senderEmail"
-                                    message-when-type-mismatch="Please enter a valid email address" value={values.senderEmail} onchange={handleValueChange}>
-                                </lightning-input>
-                                <c-qas-address-validation 
-                                    class="form-input sender-address" 
-                                    label="Sender address"
-                                    address-change-handler={senderAddressChangeHandler}
-                                    address-search-term-change-handler={senderAddressSearchTermChangeHandler}
-                                    >
-                                </c-qas-address-validation>
-                                <lightning-input class="form-input" type="text" label="Sender company" name="senderCompany"
-                                    value={values.senderCompany} onchange={handleValueChange}>
-                                </lightning-input>
-                            </lightning-layout-item>
-                        <lightning-layout-item size="6" padding="horizontal-small">
-                            <lightning-input required class="form-input" type="text" label="Addressee name" name="addresseeName"
-                                value={values.addresseeName} onchange={handleValueChange}>
-                            </lightning-input>
-                            <lightning-input class="form-input" type="email" label="Addressee email" name="addresseeEmail"
-                                message-when-type-mismatch="Please enter a valid email address" value={values.addresseeEmail} onchange={handleValueChange}>
-                            </lightning-input>
-                            <c-qas-address-validation 
-                                required 
-                                class="form-input addressee-address" 
-                                label="Addressee address"
-                                address-change-handler={addresseeAddressChangeHandler}
-                                address-search-term-change-handler={addresseeAddressSearchTermChangeHandler}
-                                >
-                            </c-qas-address-validation>
-                        </lightning-layout-item>
-                            <lightning-layout-item size="12" padding="around-small">
-                                <c-lwc-form-element visibility-state={visibilities} name="caseOriginator">
-                                    <lightning-radio-group 
-                                        required class="form-input" 
-                                        label="Is customer the sender or addressee?" 
-                                        value={values.caseOriginator}
-                                        options={senderOrAddresseeOptions}>
-                                    </lightning-radio-group>
-                                </c-lwc-form-element>
-                            </lightning-layout-item>
-                                <lightning-layout-item size="6" padding="horizontal-small">
-                                    <c-lwc-form-element visibility-state={visibilities} name="productCategory">
-                                        <lightning-combobox 
-                                            class="form-input" 
-                                            label="Product category" 
-                                            placeholder="Please select" 
-                                            value={values.productCategory}
-                                            options={productCategoryOptions}
-                                            onchange={handleProductCategoryChange}
-                                            required>
-                                        </lightning-combobox>
-                                    </c-lwc-form-element>
-                                </lightning-layout-item>
-                                <lightning-layout-item size="6" padding="horizontal-small">
-                                    <c-lwc-form-element visibility-state={visibilities} name="productSubCategory">
-                                        <lightning-combobox 
-                                            class="form-input productSubCategory"
-                                            label="Product sub category" 
-                                            placeholder="Please select" 
-                                            value={values.productSubCategory}
-                                            options={productSubCategoryOptions}
-                                            onchange={handleProductSubCategoryChange}
-                                            required>
-                                        </lightning-combobox>
-                                    </c-lwc-form-element>
-                                </lightning-layout-item>
-                                <template if:true={displayCompensationMessage}>
-                                    <lightning-layout-item size="12" padding="around-small">
-                                        <c-lwc-form-element visibility-state={visibilities} name="compensationMessage">
-                                            <div class="slds-text-heading_small slds-text-color_error">Compensation is not payable by retail for this product type.</div>
-                                        </c-lwc-form-element>
-                                    </lightning-layout-item>
-                                </template>
-                            <lightning-layout-item size="12" padding="horizontal-small">
-                                <div class="slds-text-heading_small slds-m-around_medium text-center">Provide details about the lost article</div>
-                            </lightning-layout-item>
-                                <lightning-layout-item size="6" padding="horizontal-small">
-                                    <c-lwc-form-element visibility-state={visibilities} name="comments">
-                                        <lightning-textarea 
-                                            required
-                                            class="form-input"
-                                            name="comments" 
-                                            field-level-help="Info to help contact centre close case eg high sentimental value, one of a kind collector's item."
-                                            value={values.comments} 
-                                            label="Additional comments">
-                                        </lightning-textarea>
-                                    </c-lwc-form-element>
-                                    <c-lwc-form-element visibility-state={visibilities} name="contents">
-                                        <lightning-textarea 
-                                            required
-                                            class="form-input"
-                                            name="contents"
-                                            field-level-help="Provide as much detail as possible to assist with Mail Redistribution Centre search."
-                                            value={values.contents} 
-                                            label="Description of contents"
-                                            max-length={maxlength}
-                                            onchange={calculatetextlength}>
-                                        </lightning-textarea>
-                                        <span>{contentlength} characters remaining</span>
-                                    </c-lwc-form-element>
-                                    <c-lwc-form-element visibility-state={visibilities} name="valueOfContents">
-                                            <lightning-input 
-                                                required
-                                                class="form-input"
-                                                type="number"
-                                                name="valueOfContents"
-                                                min=0
-                                                step=any
-                                                value={values.valueOfContents} 
-                                                label="Value of contents">
-                                            </lightning-input>
-                                    </c-lwc-form-element>
-                                </lightning-layout-item>
-                                <template if:true={displayCompensationSection}> 
-                                    <lightning-layout-item size="12" padding="around-small">
-                                        <c-lwc-form-element visibility-state={visibilities} name="compensationBeingPaid">
-                                            <lightning-radio-group 
-                                                required 
-                                                class="form-input" 
-                                                label="Are you paying compensation to the customer?"
-                                                value={values.compensationBeingPaid}
-                                                options={yesNoOptions}>
-                                            </lightning-radio-group>
-                                        </c-lwc-form-element>
-                                    </lightning-layout-item>
-                                
-                                <lightning-layout-item size="6" padding="horizontal-small">
-                                    <c-lwc-form-element visibility-state={visibilities} name="compensation" render-config={compensationRenderConfig}>
-                                        <c-compensation-and-postage-value  
-                                        class="form-input compensation-section"
-                                        label="Compensation section"
-                                        compensation-postage-change-handler={postageValueChangeHandler}
-                                        compensation-change-handler={compensationAmountChangeHandler}                                        
-                                        >
-                                        </c-compensation-and-postage-value>
-                                    </c-lwc-form-element>
-                                </lightning-layout-item>
-                            </template>
-                            </div>
-                    <template if:true={displayErrorMsg}>
-                        <lightning-layout-item size="12" padding="around-small">
-                            <div class="slds-box slds-align_absolute-center slds-m-around_large slds-text-color_error">Please complete highlighted fields above</div>
-                        </lightning-layout-item>
-                    </template>
-                    <div class="slds-p-around_small slds-align_absolute-center">
-                        <lightning-button label="Submit" variant="brand" onclick={handleSubmit}></lightning-button>
-                    </div>
-            </template>
-        </div>
-    </template>
+		<div class="slds-m-horizontal_large slds-p-horizontal_large">
+			<div class="slds-text-heading_large slds-m-around_medium text-center">Lost article
+			</div>
+			<template if:true={submitted}>
+				<div class="slds-m-around_large slds-p-around_large">
+					<template if:true={fileUploaded}>
+						<div class="text-center">File {fileName} succesfully uploaded and attached to case {caseNumber}.</div>
+						<div class="text-center slds-m-around_large">Customer name : {customerName}</div>
+						<div class="text-center">If paying compensation, please process using TC 1068 for contents and TC 141 for postage.</div>
+					</template>
+					<template if:false={fileUploaded}>
+						<div class="text-center slds-m-around_large">Case {caseNumber} was successfully created.</div>
+						<div class="text-center slds-m-around_large">Customer name : {customerName}</div>
+						<div class="text-center">If paying compensation, please process using TC 1068 for contents and TC 141 for postage.</div>
+						<div class="slds-box text-center slds-no-print">If you would like to include a photo or file, attach here.
+							<div class="slds-align_absolute-center slds-m-around_large">
+								<lightning-file-upload
+									label="Attach file (jpg, png, or pdf)"
+									name="fileUploader"
+									accept={acceptedFormats}
+									record-id={caseId}
+									onuploadfinished={handleUploadFinished}
+									>
+								</lightning-file-upload>
+							</div>
+						</div>
+					</template>
+					<div class="slds-p-around_medium">
+						<button class="slds-align_absolute-center slds-button slds-button_outline-brand slds-no-print" 
+								onclick={printScreen} title="Print" aria-label="Print">Print</button>
+					</div>
+				</div>
+			</template>
+			<template if:false={submitted}>
+				<template if:true={submitting}>
+					<lightning-spinner alternative-text="Loading"></lightning-spinner>
+				</template>
+				<div class="slds-grid slds-wrap">
+						<lightning-layout-item size="6" padding="horizontal-small">
+							<lightning-combobox class="form-input" label="Select your outlet" required placeholder="Please select" value={values.facility} name="facility"
+								options={facilityOptions} onchange={handleFacilityValueChange} field-level-help={selectYourOutlet}>
+							</lightning-combobox>
+						</lightning-layout-item>
+						<lightning-layout-item size="6"></lightning-layout-item>
+						<lightning-layout-item size="6" padding="horizontal-small">
+							<c-article-search label="Article ID" name="articleId" get-only-articles
+								form-update-callback={handleFormUpdateWithAtricleData}  form-update-articleid={handleFormArticleID} onchange={handleArticleIDValueChange}>
+							</c-article-search>
+						</lightning-layout-item>
+						<lightning-layout-item size="6"></lightning-layout-item>
+						<lightning-layout-item size="6" padding="horizontal-small">
+							<c-customer-search search-result-select-handler={searchResultSelectHandler}></c-customer-search>
+						</lightning-layout-item>
+						<lightning-layout-item size="6" padding="horizontal-small">
+							<lightning-input 
+								required 
+								class="form-input" 
+								type="text" 
+								label="First name" 
+								name="FirstName" 
+								value={values.FirstName}
+								onchange={handleValueChange}>
+							</lightning-input>
+						</lightning-layout-item>
+						<lightning-layout-item size="6" padding="horizontal-small">
+							<lightning-input 
+								required 
+								class="form-input" 
+								type="text" 
+								label="Last name" 
+								name="LastName" 
+								value={values.LastName}
+								onchange={handleValueChange}>
+							</lightning-input>
+						</lightning-layout-item>
+						<lightning-layout-item size="6" padding="horizontal-small">
+							<lightning-input 
+								required
+								class="form-input"
+								type="tel" 
+								label="Contact number" 
+								placeholder="Please enter contact number"
+								name="MobilePhone"
+								pattern={phoneNumberRegEx}
+								field-level-help="When a phone number cannot be obtained, please enter 137678."
+								message-when-pattern-mismatch="Enter a valid contact number"
+								value={values.MobilePhone}
+								onchange={handleValueChange}>
+							</lightning-input>
+						</lightning-layout-item>
+						<lightning-layout-item size="6" padding="horizontal-small">
+							<lightning-input 
+								class="form-input" 
+								type="email" 
+								label="Email" 
+								placeholder="Please enter email address"
+								message-when-type-mismatch="Please enter a valid email address"
+								field-level-help="Please try to obtain an email address to enable prompt resolution for customer."
+								name="Email"
+								value={values.Email}
+								onchange={handleValueChange}>
+							</lightning-input>
+						</lightning-layout-item>
+						<lightning-layout-item size="6" padding="horizontal-small">
+								<c-qas-address-validation 
+								required 
+								class="form-input customer-address" 
+								label="Customer address"
+								address-change-handler={customerAddressChangeHandler}
+								address-search-term-change-handler={customerAddressSearchTermChangeHandler}
+								>
+							</c-qas-address-validation>
+						</lightning-layout-item>
+						<lightning-layout-item size="6" padding="horizontal-small">
+							<div class="slds-p-vertical_small">
+								<lightning-button label="Copy customer details" variant="brand" onclick={handleCopyToSenderDetails}></lightning-button>
+							</div>                            
+						</lightning-layout-item>
+						<lightning-layout-item size="6" padding="horizontal-small">
+							<div class="slds-p-vertical_small">
+								<lightning-button label="Copy customer details" variant="brand" onclick={handleCopyToAddresseeDetails}></lightning-button>
+							</div>
+						</lightning-layout-item>
+							<lightning-layout-item size="6" padding="horizontal-small">
+								<lightning-input class="form-input" type="text" label="Sender name" name="senderName"
+									value={values.senderName} onchange={handleValueChange}>
+								</lightning-input>
+								<lightning-input class="form-input" type="email" label="Sender email" name="senderEmail"
+									message-when-type-mismatch="Please enter a valid email address" value={values.senderEmail} onchange={handleValueChange}>
+								</lightning-input>
+								<c-qas-address-validation 
+									class="form-input sender-address" 
+									label="Sender address"
+									address-change-handler={senderAddressChangeHandler}
+									address-search-term-change-handler={senderAddressSearchTermChangeHandler}
+									>
+								</c-qas-address-validation>
+								<lightning-input class="form-input" type="text" label="Sender company" name="senderCompany"
+									value={values.senderCompany} onchange={handleValueChange}>
+								</lightning-input>
+							</lightning-layout-item>
+						<lightning-layout-item size="6" padding="horizontal-small">
+							<lightning-input required class="form-input" type="text" label="Addressee name" name="addresseeName"
+								value={values.addresseeName} onchange={handleValueChange}>
+							</lightning-input>
+							<lightning-input class="form-input" type="email" label="Addressee email" name="addresseeEmail"
+								message-when-type-mismatch="Please enter a valid email address" value={values.addresseeEmail} onchange={handleValueChange}>
+							</lightning-input>
+							<c-qas-address-validation 
+								required 
+								class="form-input addressee-address" 
+								label="Addressee address"
+								address-change-handler={addresseeAddressChangeHandler}
+								address-search-term-change-handler={addresseeAddressSearchTermChangeHandler}
+								>
+							</c-qas-address-validation>
+						</lightning-layout-item>
+							<lightning-layout-item size="12" padding="around-small">
+								<c-lwc-form-element visibility-state={visibilities} name="caseOriginator">
+									<lightning-radio-group 
+										required class="form-input" 
+										label="Is customer the sender or addressee?" 
+										value={values.caseOriginator}
+										options={senderOrAddresseeOptions}>
+									</lightning-radio-group>
+								</c-lwc-form-element>
+							</lightning-layout-item>
+								<lightning-layout-item size="6" padding="horizontal-small">
+									<c-lwc-form-element visibility-state={visibilities} name="productCategory">
+										<lightning-combobox 
+											class="form-input" 
+											label="Product category" 
+											placeholder="Please select" 
+											value={values.productCategory}
+											options={productCategoryOptions}
+											onchange={handleProductCategoryChange}
+											required>
+										</lightning-combobox>
+									</c-lwc-form-element>
+								</lightning-layout-item>
+								<lightning-layout-item size="6" padding="horizontal-small">
+									<c-lwc-form-element visibility-state={visibilities} name="productSubCategory">
+										<lightning-combobox 
+											class="form-input productSubCategory"
+											label="Product sub category" 
+											placeholder="Please select" 
+											value={values.productSubCategory}
+											options={productSubCategoryOptions}
+											onchange={handleProductSubCategoryChange}
+											required>
+										</lightning-combobox>
+									</c-lwc-form-element>
+								</lightning-layout-item>
+								<template if:true={displayCompensationMessage}>
+									<lightning-layout-item size="12" padding="around-small">
+										<c-lwc-form-element visibility-state={visibilities} name="compensationMessage">
+											<div class="slds-text-heading_small slds-text-color_error">Compensation is not payable by retail for this product type.</div>
+										</c-lwc-form-element>
+									</lightning-layout-item>
+								</template>
+							<lightning-layout-item size="12" padding="horizontal-small">
+								<div class="slds-text-heading_small slds-m-around_medium text-center">Provide details about the lost article</div>
+							</lightning-layout-item>
+								<lightning-layout-item size="6" padding="horizontal-small">
+									<c-lwc-form-element visibility-state={visibilities} name="comments">
+										<lightning-textarea 
+											required
+											class="form-input"
+											name="comments" 
+											field-level-help="Info to help contact centre close case eg high sentimental value, one of a kind collector's item."
+											value={values.comments} 
+											label="Additional comments">
+										</lightning-textarea>
+									</c-lwc-form-element>
+									<c-lwc-form-element visibility-state={visibilities} name="contents">
+										<lightning-textarea 
+											required
+											class="form-input"
+											name="contents"
+											field-level-help="Provide as much detail as possible to assist with Mail Redistribution Centre search."
+											value={values.contents} 
+											label="Description of contents"
+											max-length={maxlength}
+											onchange={calculatetextlength}>
+										</lightning-textarea>
+										<span>{contentlength} characters remaining</span>
+									</c-lwc-form-element>
+									<c-lwc-form-element visibility-state={visibilities} name="valueOfContents">
+											<lightning-input 
+												required
+												class="form-input"
+												type="number"
+												name="valueOfContents"
+												min=0
+												step=any
+												value={values.valueOfContents} 
+												label="Value of contents">
+											</lightning-input>
+									</c-lwc-form-element>
+								</lightning-layout-item>
+								<template if:true={displayCompensationSection}> 
+									<lightning-layout-item size="12" padding="around-small">
+										<c-lwc-form-element visibility-state={visibilities} name="compensationBeingPaid">
+											<lightning-radio-group 
+												required 
+												class="form-input" 
+												label="Are you paying compensation to the customer?"
+												value={values.compensationBeingPaid}
+												options={yesNoOptions}>
+											</lightning-radio-group>
+										</c-lwc-form-element>
+									</lightning-layout-item>
+								
+								<lightning-layout-item size="6" padding="horizontal-small">
+									<c-lwc-form-element visibility-state={visibilities} name="compensation" render-config={compensationRenderConfig}>
+										<c-compensation-and-postage-value  
+										class="form-input compensation-section"
+										label="Compensation section"
+										compensation-postage-change-handler={postageValueChangeHandler}
+										compensation-change-handler={compensationAmountChangeHandler}                                        
+										>
+										</c-compensation-and-postage-value>
+									</c-lwc-form-element>
+								</lightning-layout-item>
+							</template>
+							</div>
+					<template if:true={displayErrorMsg}>
+						<lightning-layout-item size="12" padding="around-small">
+							<div class="slds-box slds-align_absolute-center slds-m-around_large slds-text-color_error">Please complete highlighted fields above</div>
+						</lightning-layout-item>
+					</template>
+					<div class="slds-p-around_small slds-align_absolute-center">
+						<lightning-button label="Submit" variant="brand" onclick={handleSubmit}></lightning-button>
+					</div>
+			</template>
+		</div>
+	</template>
