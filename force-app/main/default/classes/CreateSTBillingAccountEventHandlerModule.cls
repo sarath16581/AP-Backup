@@ -32,6 +32,10 @@ public inherited sharing class CreateSTBillingAccountEventHandlerModule extends 
 	// key - deal support request id, value - billing account number (LEGACY_ID__c) of the new leader billing account.
 	private static final Map<Id, String> dsrLeaderBillingAccountNumberMapping = new Map<Id, String>();
 
+	// mapping of sub account request id to billing account number of follower only parents.
+	// key - sub account request id, value - billing account number (LEGACY_ID__c) of the new follower only parent billing account.
+	private static final Map<Id, String> parentFollowerRequestBillingAccountNumberMapping = new Map<Id, String>();
+
 	// id of DSR record type 'Customer Onboarding'. for each successful sub account, a new 'Customer Onboarding' DSR is
 	// created for manual surcharge setup and activation.
 	private static final Id CUSTOMER_ONBOARDING_DSR_RECORDTYPEID {
@@ -326,8 +330,24 @@ public inherited sharing class CreateSTBillingAccountEventHandlerModule extends 
 		if (subAccountRequest != null) {
 			// this event is related to a sub account request. Note that this could have been initiated in either of the two flows.
 
-			APT_Sub_Account__c updatableSubAccountRequest = getUpdatableSubAccountRequest(event);
+			APT_Sub_Account__c updatableSubAccountRequest = getUpdatableSubAccountRequest(event, subAccountRequest, dealSupportRequest, uow);
 			uow.registerDirty(updatableSubAccountRequest, false, uowSourceTraceId);
+
+			if (!subAccountRequest.OffspringAccountRequests__r.isEmpty()) {
+				// new account is a follower with existing offspring account requests. if child offspring account requests
+				// were not submitted with this follower account request (i.e. still in 'Draft' or 'Error' status), we need
+				// to update such offspring account requests to populate parent billing account lookup. this is to ensure
+				// when offspring account requests are eventually submitted for provisioning, we include parent's billing
+				// account number instead of the parent sub account request id.
+				parentFollowerRequestBillingAccountNumberMapping.put(subAccountRequest.Id, event.Billing_Account_Number__c);
+				for (APT_Sub_Account__c offspringSubAccountRequest: subAccountRequest.OffspringAccountRequests__r) {
+					if (offspringSubAccountRequest.APT_Sub_Account_Request_Status__c == 'Draft' || offspringSubAccountRequest.APT_Sub_Account_Request_Status__c == 'Error') {
+						APT_Sub_Account__c updatableOffspringAccountRequest = new APT_Sub_Account__c(Id=offspringSubAccountRequest.Id);
+						uow.registerDirty(updatableOffspringAccountRequest, false, uowSourceTraceId);
+						uow.registerRelationship(updatableOffspringAccountRequest, APT_Sub_Account__c.ParentBillingAccount__c, newBillingAccount);
+					}
+				}
+			}
 
 			// for each successful sub account, new 'Customer Onboarding' DSR is to be created for surcharge setup and activation.
 			// note that this isn't required for leader accounts.
@@ -375,18 +395,7 @@ public inherited sharing class CreateSTBillingAccountEventHandlerModule extends 
 		} else {
 			// this event is related to a sub account request. Note that this could have been initiated in either of the two flows.
 
-			APT_Sub_Account__c updatableSubAccountRequest = getUpdatableSubAccountRequest(event);
-			if (dealSupportRequest != null) {
-				// this is a sub account creation error in DSR flow. we need to update billing account lookup on sub account request
-				// if leader account has been provisioned successfully.
-				String leaderAccountNumber = dsrLeaderBillingAccountNumberMapping.get(dealSupportRequest.Id);
-				if (String.isNotBlank(leaderAccountNumber)) {
-					uow.registerRelationship(updatableSubAccountRequest, APT_Sub_Account__c.APT_Billing_Account__c, newBillingAccounts.get(leaderAccountNumber));
-				} else if (String.isNotBlank(dealSupportRequest.Billing_Number__c)) {
-					leaderAccountNumber = dealSupportRequest.Billing_Number__c;
-					updatableSubAccountRequest.APT_Billing_Account__r = new Billing_Account__c(LEGACY_ID__c=leaderAccountNumber);
-				}
-			}
+			APT_Sub_Account__c updatableSubAccountRequest = getUpdatableSubAccountRequest(event, subAccountRequest, dealSupportRequest, uow);
 			uow.registerDirty(updatableSubAccountRequest, false, CreateSTBillingAccountEventHandlerModule.class.getName() + ':handleBillingAccountProvisionErrorEvent');
 
 			// add billing account provision 'error' result to the external onboarding results summary.
@@ -462,16 +471,58 @@ public inherited sharing class CreateSTBillingAccountEventHandlerModule extends 
 	/**
 	 * Returns updatable sub account request based on the billing account creation event.
 	 * @param event platform event received from Camunda. Could be success or error.
+	 * @param subAccountRequest sub account request record referenced in the event.
+	 * @param dealSupportRequest deal support request record referenced in the event. pass null if not available.
+	 * @param uow application unit of work instance.
 	 *
 	 * @return sub account request instance containing the updates from event passed in
 	 */
-	private APT_Sub_Account__c getUpdatableSubAccountRequest(BillingAccountCreationEvent__e event) {
+	private APT_Sub_Account__c getUpdatableSubAccountRequest(BillingAccountCreationEvent__e event, APT_Sub_Account__c subAccountRequest, Deal_Support_Request__c dealSupportRequest, ApplicationUnitOfWork uow) {
 		APT_Sub_Account__c updatableSubAccountRequest = new APT_Sub_Account__c(Id=event.Sub_Account_Request_Id__c);
-		if (String.isNotBlank(event.Billing_Account_Number__c)) {
+		Boolean isSuccessEvent = String.isNotBlank(event.Billing_Account_Number__c);
+		if (isSuccessEvent) {
 			updatableSubAccountRequest.Sub_Account_Number__c = event.Billing_Account_Number__c;
 		}
 		updatableSubAccountRequest.APT_Sub_Account_Request_Status__c = event.Status__c;
 		updatableSubAccountRequest.Sub_Account_Request_Status_Description__c = event.Status_Description__c;
+
+		if (subAccountRequest.ParentAccountRequest__r != null) {
+			// this is a offspring account request having a parent account request. if offspring is successfully
+			// provisioned (means parent is also successful), parent billing account number is returned in platform event.
+			// if offspring request failed, then we check successful parent accounts included in current batch of platform
+			// events and attempt to grab parent billing account.
+			String parentBillingAccountNumber = (isSuccessEvent ? event.Parent_Account_Number__c : parentFollowerRequestBillingAccountNumberMapping.get(subAccountRequest.ParentAccountRequest__r.Id));
+			if (String.isNotBlank(parentBillingAccountNumber) && newBillingAccounts.containsKey(parentBillingAccountNumber)) {
+				// parent billing account number is found and the parent billing account is registered for insert with
+				// the unit of work. register relationship with uow to populate 'ParentBillingAccount__c' lookup.
+				uow.registerRelationship(updatableSubAccountRequest, APT_Sub_Account__c.ParentBillingAccount__c, newBillingAccounts.get(parentBillingAccountNumber));
+			} else if (String.isNotBlank(subAccountRequest.ParentAccountRequest__r?.Sub_Account_Number__c)) {
+				// parent billing account was already available in Salesforce. populate 'ParentBillingAccount__c' lookup
+				// using parent's billing account number (LEGACY_ID__c) as the external id.
+				updatableSubAccountRequest.ParentBillingAccount__r = new Billing_Account__c(LEGACY_ID__c=subAccountRequest.ParentAccountRequest__r.Sub_Account_Number__c);
+			}
+		}
+
+		if (dealSupportRequest != null) {
+			// this is a sub account in DSR flow. we need to update billing account lookup on sub account request
+			// if leader account has been provisioned successfully.
+			// if sub account request is successfully provisioned (means leader is also successful), leader billing account
+			// number is returned in platform event. if sub account request failed, then we check successful leader accounts
+			// included in current batch of platform events and attempt to grab leader billing account.
+			String leaderAccountNumber = (isSuccessEvent ? event.LeaderAccountNumber__c : dsrLeaderBillingAccountNumberMapping.get(dealSupportRequest.Id));
+			if (String.isNotBlank(leaderAccountNumber) && newBillingAccounts.containsKey(leaderAccountNumber)) {
+				// leader billing account number is found and the leader billing account is registered for insert with
+				// the unit of work. register relationship with uow to populate 'APT_Billing_Account__c' lookup.
+				uow.registerRelationship(updatableSubAccountRequest, APT_Sub_Account__c.APT_Billing_Account__c, newBillingAccounts.get(leaderAccountNumber));
+			} else if (String.isNotBlank(dealSupportRequest.Billing_Number__c)) {
+				// leader billing account was already available in Salesforce. this is possible if leader and sub account
+				// platform events returned by Camunda are included in two different batches of platform events handled by
+				// trigger.
+				// populate 'APT_Billing_Account__c' lookup using leader's billing account number (LEGACY_ID__c) as the external id.
+				updatableSubAccountRequest.APT_Billing_Account__r = new Billing_Account__c(LEGACY_ID__c=dealSupportRequest.Billing_Number__c);
+			}
+		}
+
 		return updatableSubAccountRequest;
 	}
 
@@ -759,7 +810,9 @@ public inherited sharing class CreateSTBillingAccountEventHandlerModule extends 
 						APT_Sub_Account__c.APT_Street_Address_Street_Number__c, APT_Sub_Account__c.APT_Street_Address_Street_Name__c,
 						APT_Sub_Account__c.APT_Street_Address_Street_Type__c, APT_Sub_Account__c.APT_Street_Address_Suburb__c,
 						APT_Sub_Account__c.APT_Street_Address_Street_Postcode__c, APT_Sub_Account__c.APT_Street_Address_State__c,
-						APT_Sub_Account__c.APT_Street_Address_Country_Code__c, APT_Sub_Account__c.Name
+						APT_Sub_Account__c.APT_Street_Address_Country_Code__c, APT_Sub_Account__c.Name, APT_Sub_Account__c.Sub_Account_Number__c,
+						APT_Sub_Account__c.APT_Sub_Account_Request_Status__c, APT_Sub_Account__c.ParentBillingAccount__c,
+						APT_Sub_Account__c.ParentAccountRequest__c
 				},
 				Billing_Account__c.SObjectType => new Set<SObjectField>{
 						Billing_Account__c.Id, Billing_Account__c.LEGACY_ID__c, Billing_Account__c.Name
@@ -769,7 +822,10 @@ public inherited sharing class CreateSTBillingAccountEventHandlerModule extends 
 				}
 		};
 		return ((SubAccountRequestsSelector)SubAccountRequestsSelector.newInstance().setFieldOverrides(fieldOverrides)).selectByIds(subAccountRequestIds, new Set<Object>{
-				SubAccountRequestsSelector.Options.WITH_SUB_ACCOUNT_CONTACT, SubAccountRequestsSelector.Options.WITH_BILLING_ACCOUNT
+				SubAccountRequestsSelector.Options.WITH_SUB_ACCOUNT_CONTACT,
+				SubAccountRequestsSelector.Options.WITH_BILLING_ACCOUNT,
+				SubAccountRequestsSelector.Options.WITH_ST_PARENT_ACCOUNT_REQUEST,
+				SubAccountRequestsSelector.Options.WITH_ST_OFFSPRING_ACCOUNT_REQUESTS
 		});
 	}
 
@@ -866,7 +922,7 @@ public inherited sharing class CreateSTBillingAccountEventHandlerModule extends 
 	 * @param externalOnboardingResults external onboarding results
 	 */
 	private static void sendCustomNotifications(List<ExternalOnboardingResult> externalOnboardingResults) {
-		Notifications notificationSender = Notifications.getInstance();
+		Notifications notificationSender = Notifications.newInstance();
 		for (ExternalOnboardingResult externalOnboardingResult: externalOnboardingResults) {
 			if (externalOnboardingResult.requestObjectType == Deal_Support_Request__c.SObjectType) {
 				// DSR flow

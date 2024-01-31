@@ -24,8 +24,8 @@ public inherited sharing class Notifications {
 	// 'send()' method is invoked.
 	private List<Notifications.CustomNotification> notifications = new List<Notifications.CustomNotification>();
 
-	public static Notifications getInstance() {
-		return (Notifications) Application.Utilities.getInstance(Notifications.class);
+	public static Notifications newInstance() {
+		return (Notifications) Application.Utilities.newInstance(Notifications.class);
 	}
 
 	/**

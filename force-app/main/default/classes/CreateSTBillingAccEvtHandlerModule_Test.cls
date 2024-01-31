@@ -801,6 +801,9 @@ private class CreateSTBillingAccEvtHandlerModule_Test {
 
 		// setup sub account requests to be included in the same provisioning request
 		List<APT_Sub_Account__c> subAccountRequests = ApplicationTestDataFactory.getSubAccountRequest(3, 'test', true);
+		subAccountRequests[2] = (APT_Sub_Account__c) ApplicationTestDataFactory.setUnwritableFields(subAccountRequests[2], new Map<String, Object>{
+				'ParentAccountRequest__r' => subAccountRequests[0]
+		});
 
 		BAMExternalOnboardingRequest__c externalOnboardingRequest = ApplicationTestDataFactory.getBAMExternalOnboardingRequests(1, leaderBillingAccount.Id, String.valueOf(Billing_Account__c.SObjectType), true)[0];
 
@@ -930,6 +933,151 @@ private class CreateSTBillingAccEvtHandlerModule_Test {
 		Assert.areEqual(events[2].Billing_Account_Number__c, params[0].billingAccountNumber, 'Only the successful offspring billing account must be passed into async worker to populate parent  lookup.');
 		Assert.areEqual(1,  params[0].relatedBillingAccountNumbers.size(), 'Only parent relationship need to be populated by async worker.');
 		Assert.areEqual(events[0].Billing_Account_Number__c, params[0].relatedBillingAccountNumbers.values()[0], 'Incorrect parent account passed into async worker.');
+
+		// verify one notification is sent for the external onboarding request covering 2 successful sub account creations and one sub account failure.
+		((Notifications)MockUtility.Mocks.verify(mockNotifications, 1)).add((Notifications.CustomNotification) fflib_Match.anyObject());
+		((Notifications)MockUtility.Mocks.verify(mockNotifications, 1)).send();
+	}
+
+	/**
+	 * Ensure any existing offspring sub account requests in 'Draft' and 'Error' status are updated to populate the parent account
+	 * lookup on receiving successful follower billing account creation platform event from external system. This is to ensure
+	 * offspring sub account requests not submitted with the follower account can be submitted later.
+	 */
+	@IsTest
+	static void testUpdatingOffspringSubAccountRequestsOnReceivingFollowerSuccessEvent() {
+		// =====================================
+		// Data Preparation
+		// =====================================
+		Account organisation = ApplicationTestDataFactory.getAccounts(1, true)[0];
+		Billing_Account__c leaderBillingAccount = ApplicationTestDataFactory.getBillingAccounts(1, organisation.Id, 'TEAM', true)[0];
+
+		APT_Sub_Account__c followerSubAccountRequest = ApplicationTestDataFactory.getSubAccountRequest(1, 'followeronly', true)[0];
+
+		// setup offspring sub account requests of the follower to be included in the same provisioning request
+		List<APT_Sub_Account__c> offSpringSubAccountRequests = ApplicationTestDataFactory.getSubAccountRequest(2, 'offspring', true);
+		offspringSubAccountRequests[0] = (APT_Sub_Account__c) ApplicationTestDataFactory.setUnwritableFields(offspringSubAccountRequests[0], new Map<String, Object>{
+				'ParentAccountRequest__r' => followerSubAccountRequest
+		});
+		offspringSubAccountRequests[1] = (APT_Sub_Account__c) ApplicationTestDataFactory.setUnwritableFields(offspringSubAccountRequests[1], new Map<String, Object>{
+				'ParentAccountRequest__r' => followerSubAccountRequest
+		});
+
+
+		// setup offspring sub account requests of the follower not submitted for provisioning yet.
+		List<APT_Sub_Account__c> offSpringSubAccountRequestsNotSubmitted = ApplicationTestDataFactory.getSubAccountRequest(2, 'offspring_not_submitted', true);
+		offSpringSubAccountRequestsNotSubmitted[0].APT_Sub_Account_Request_Status__c = 'Draft';
+		offSpringSubAccountRequestsNotSubmitted[1].APT_Sub_Account_Request_Status__c = 'Error';
+		offSpringSubAccountRequestsNotSubmitted[0] = (APT_Sub_Account__c) ApplicationTestDataFactory.setUnwritableFields(offSpringSubAccountRequestsNotSubmitted[0], new Map<String, Object>{
+				'ParentAccountRequest__r' => followerSubAccountRequest
+		});
+
+		offSpringSubAccountRequestsNotSubmitted[1] = (APT_Sub_Account__c) ApplicationTestDataFactory.setUnwritableFields(offSpringSubAccountRequestsNotSubmitted[1], new Map<String, Object>{
+				'ParentAccountRequest__r' => followerSubAccountRequest
+		});
+
+		// populate offspring child relationships on follower sub account request
+		followerSubAccountRequest = (APT_Sub_Account__c) ApplicationTestDataFactory.setChildRelationships(followerSubAccountRequest, new Map<String, List<SObject>>{
+				'OffspringAccountRequests__r' => new List<APT_Sub_Account__c>{offSpringSubAccountRequests[0], offSpringSubAccountRequests[1], offSpringSubAccountRequestsNotSubmitted[0], offSpringSubAccountRequestsNotSubmitted[1]}
+		});
+
+		BAMExternalOnboardingRequest__c externalOnboardingRequest = ApplicationTestDataFactory.getBAMExternalOnboardingRequests(1, leaderBillingAccount.Id, String.valueOf(Billing_Account__c.SObjectType), true)[0];
+
+		// =====================================
+		// Stubbing
+		// =====================================
+
+		ApplicationUnitOfWork mockUow = MockUtility.mockUnitOfWork();
+		AccountsSelector mockAccountsSelector = (AccountsSelector) MockUtility.mockSelector(AccountsSelector.class);
+		ExternalOnboardingRequestSelector mockExternalOnboardingRequestSelector = (ExternalOnboardingRequestSelector) MockUtility.mockSelector(ExternalOnboardingRequestSelector.class);
+		SubAccountRequestsSelector mockSubAccountRequestsSelector = (SubAccountRequestsSelector) MockUtility.mockSelector(SubAccountRequestsSelector.class);
+		Notifications mockNotifications = (Notifications) MockUtility.mockUtility(Notifications.class);
+
+		MockUtility.Mocks.startStubbing();
+		MockUtility.Mocks.when(mockExternalOnboardingRequestSelector.selectById((Set<Id>)fflib_Match.anyObject())).thenReturn(new Map<Id, BAMExternalOnboardingRequest__c>{externalOnboardingRequest.Id => externalOnboardingRequest});
+		MockUtility.Mocks.when(mockAccountsSelector.selectById((Set<Id>)fflib_Match.anyObject(), (Set<Object>)fflib_Match.anyObject())).thenReturn(new Map<Id, Account>{organisation.Id => organisation});
+		MockUtility.Mocks.when(mockSubAccountRequestsSelector.selectByIds((Set<Id>)fflib_Match.anyObject(), (Set<Object>)fflib_Match.anyObject())).thenReturn(new Map<Id, APT_Sub_Account__c>{
+				followerSubAccountRequest.Id => followerSubAccountRequest,
+				offSpringSubAccountRequests[0].Id => offSpringSubAccountRequests[0],
+				offSpringSubAccountRequests[1].Id => offSpringSubAccountRequests[1]
+		});
+		MockUtility.Mocks.when(mockSubAccountRequestsSelector.selectByChargeAcountRequestIdAndStatus((Set<Id>)fflib_Match.anyObject(), (Set<String>)fflib_Match.anyObject())).thenReturn(new Map<Id, APT_Sub_Account__c>());
+		MockUtility.Mocks.when(mockUow.registerDirty((List<SObject>)fflib_Match.anyObject(), fflib_Match.eqBoolean(false), fflib_Match.anyString())).thenAnswer(new MockUtility.AnswerGenericRegisterUnitOfWorkDML());
+		MockUtility.Mocks.when(mockUow.registerNew((SObject)fflib_Match.anyObject(), fflib_Match.eqBoolean(false), fflib_Match.anyString())).thenAnswer(new MockUtility.AnswerGenericRegisterUnitOfWorkDML());
+		MockUtility.Mocks.stopStubbing();
+
+		// =====================================
+		// Testing
+		// =====================================
+		Test.startTest();
+
+		List<BillingAccountCreationEvent__e> events = new List<BillingAccountCreationEvent__e>();
+
+		events.add(new BillingAccountCreationEvent__e(
+				Source_System__c = 'TEAM',
+				Organisation_Record_Id__c = organisation.Id,
+				Billing_Account_Name__c = 'FOBillingAccountName1',
+				Request_Object_Id__c = leaderBillingAccount.Id,
+				Status_Description__c = 'Success',
+				Status__c = 'Success',
+				Transaction_Id__c = externalOnboardingRequest.Id,
+				Credit_Person_Code__c = 'A11',
+				Billing_Account_Number__c = 'FO1000001',
+				Credit_Person__c = 'TEST OFFICER',
+				Credit_Officer_Phone__c = '1234512345',
+				LeaderAccountNumber__c = 'L1000000',
+				Sub_Account_Request_Id__c = followerSubAccountRequest.Id
+		));
+
+		events.add(new BillingAccountCreationEvent__e(
+				Source_System__c = 'TEAM',
+				Organisation_Record_Id__c = organisation.Id,
+				Request_Object_Id__c = leaderBillingAccount.Id,
+				Status_Description__c = 'Error',
+				Status__c = 'Error',
+				Transaction_Id__c = externalOnboardingRequest.Id,
+				Sub_Account_Request_Id__c = offSpringSubAccountRequests[0].Id
+		));
+
+		events.add(new BillingAccountCreationEvent__e(
+				Source_System__c = 'TEAM',
+				Organisation_Record_Id__c = organisation.Id,
+				Billing_Account_Name__c = 'OSBillingAccountName1',
+				Request_Object_Id__c = leaderBillingAccount.Id,
+				Status_Description__c = 'Success',
+				Status__c = 'Success',
+				Transaction_Id__c = externalOnboardingRequest.Id,
+				Credit_Person_Code__c = 'A11',
+				Billing_Account_Number__c = 'OS1000002',
+				Credit_Person__c = 'TEST OFFICER',
+				Credit_Officer_Phone__c = '1234512345',
+				LeaderAccountNumber__c = 'L1000000',
+				Parent_Account_Number__c = 'FO1000001', //off spring of follower
+				Sub_Account_Request_Id__c = offSpringSubAccountRequests[1].Id
+		));
+
+		new CreateSTBillingAccountEventHandlerModule().onAfterInsert(events, mockUow);
+
+		Test.stopTest();
+
+		// only asserting APT_Sub_Account__c record updates for clarity. other behaviours are covered in other test cases in this class.
+		fflib_ArgumentCaptor updatedSObjectsCaptor = fflib_ArgumentCaptor.forClass(SObject.class);
+
+		// verify that offspring sub account request records are registered with the unit of work to populate
+		// parent billing account relationship. all 4 offspring sub account requests are expected to be updated,
+		// including the 2 that wasn't submitted (was in 'Draft' and 'Error')
+		((ApplicationUnitOfWork)MockUtility.Mocks.verify(mockUow, MockUtility.Mocks.times(4))).registerRelationship((SObject)updatedSObjectsCaptor.capture(), fflib_Match.eqSObjectField(APT_Sub_Account__c.ParentBillingAccount__c), fflib_Match.sObjectOfType(Billing_Account__c.SObjectType));
+		List<Object> updatedSObjects = (List<Object>) updatedSObjectsCaptor.getAllValues();
+		Assert.areEqual(4, updatedSObjects.size(), 'Expected all four offspring sub account request records registered with the unit of work');
+		for (Object obj: updatedSObjects) {
+			APT_Sub_Account__c updated = (APT_Sub_Account__c) obj;
+			Assert.isTrue(new Set<Id>{
+					offSpringSubAccountRequests[0].Id,
+					offSpringSubAccountRequests[1].Id,
+					offSpringSubAccountRequestsNotSubmitted[0].Id,
+					offSpringSubAccountRequestsNotSubmitted[1].Id
+			}.contains(updated.Id), 'Expected parent billing account lookup to be populated on all four offspring sub account requests.');
+		}
 
 		// verify one notification is sent for the external onboarding request covering 2 successful sub account creations and one sub account failure.
 		((Notifications)MockUtility.Mocks.verify(mockNotifications, 1)).add((Notifications.CustomNotification) fflib_Match.anyObject());
