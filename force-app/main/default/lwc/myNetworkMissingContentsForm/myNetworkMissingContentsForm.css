@@ -1,13 +1,12 @@
 .text-center {
-    text-align:center;
+	text-align:center;
 }
-
 .icon {
-    display: inline-flex;
-    position:relative;
-    flex-direction: row;
-    justify-content: space-between;
+	display: inline-flex;
+	position:relative;
+	flex-direction: row;
+	justify-content: space-between;
 }
 .textAreaBody {
-    --sds-c-textarea-sizing-min-height:130px;
+	--sds-c-textarea-sizing-min-height:130px;
 }
