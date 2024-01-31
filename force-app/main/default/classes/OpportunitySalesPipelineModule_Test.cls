@@ -8,6 +8,7 @@
  * 2023-10-16 - Mahesh Parvathaneni - Added test method testOpportunitySplitsAreValidatedOnOpportunityStageChangeBeforeUpdate
  * 2023-10-26 - Mahesh Parvathaneni - Added test method testOpportunityProductsQuantityIsValidOnOpportunityStageChangeBeforeUpdate
  * 2024-01-22 - Mahesh Parvathaneni - Added test method testOpportunityProductsRevenueStartDateIsValidOnOpportunityStageChangeBeforeUpdate
+ * 2024-01-25 - Mahesh Parvathaneni - Added test method testByPassErrorsForOpportunityValidationsPermissionOnBeforeUpdate
  */
 @IsTest
 private class OpportunitySalesPipelineModule_Test {
@@ -454,5 +455,59 @@ private class OpportunitySalesPipelineModule_Test {
 
 		// verify errors are added to opportunity record
 		System.assert(updatedOpportunities[1].hasErrors(), 'Error expected on opportunity moving to Qualify as the Revenue Start Date is less than the opportunity close date for one of the product');
+	}
+
+	/**
+	 * Test to ensure user with custom permission ByPassErrorsForOpportunityValidationsPermission is bypassed for custom validations 
+	 * when opportunities are moved into monitored stages.
+	 */
+	@IsTest
+	static void testByPassErrorsForOpportunityValidationsPermissionOnBeforeUpdate() {
+		// =====================================
+		// Data Preparation
+		// =====================================
+		Account organisation = ApplicationTestDataFactory.getAccounts(1, true)[0];
+		List<Opportunity> opportunities = ApplicationTestDataFactory.getOpportunities(2, organisation.Id, true);
+		// only one opportunity record has competitors populated
+		List<Competitor__c> competitors = ApplicationTestDataFactorySales.getCompetitors(1, opportunities[0].Id, true);
+		opportunities[0] = (Opportunity) ApplicationTestDataFactory.setChildRelationships(opportunities[0], new Map<String, List<SObject>>{'Competitors__r' => competitors});
+		// update stage on both opportunities from 'Identify'
+		List<Opportunity> updatedOpportunities = opportunities.deepClone(true);
+		updatedOpportunities[0].StageName = OpportunitySalesPipelineModule.OPPORTUNITY_STAGES_VALIDATE_COMPETITORS.iterator().next();
+		updatedOpportunities[1].StageName = OpportunitySalesPipelineModule.OPPORTUNITY_STAGES_VALIDATE_COMPETITORS.iterator().next();
+		//get permission set 
+		Id byPassErrorsPermissionSetId = [SELECT Id FROM PermissionSet WHERE Name='BypassErrorsForOpportunityValidations' LIMIT 1].Id ;
+		//insert sales admin user
+		User salesAdminUser = ApplicationTestDataFactory.getUsers(1, false)[0];
+		insert salesAdminUser;
+
+		//assign BypassErrorsForOpportunityValidations to sales admin user
+		System.runAs(new User(Id = UserInfo.getUserId())) {
+			PermissionSetAssignment psa = new PermissionSetAssignment (PermissionSetId = byPassErrorsPermissionSetId, AssigneeId = salesAdminUser.Id);
+			insert psa;
+		}
+		// =====================================
+		// Stubbing
+		// =====================================
+		OpportunitiesSelector mockOpportunitiesSelector = ((OpportunitiesSelector) MockUtility.mockSelector(OpportunitiesSelector.class));
+		ApplicationUnitOfWork mockUow = MockUtility.mockUnitOfWork();
+		// set up responses
+		MockUtility.Mocks.startStubbing();
+		MockUtility.Mocks.when(mockOpportunitiesSelector.selectById((Set<Id>)fflib_Match.anyObject(),(Set<Object>)fflib_Match.anyObject())).thenReturn(new Map<Id, Opportunity>(opportunities));
+		MockUtility.Mocks.stopStubbing();
+		// =====================================
+		// Testing
+		// =====================================
+		System.runAs(salesAdminUser) {
+			Test.startTest();
+			new OpportunitySalesPipelineModule().onBeforeUpdate(updatedOpportunities, new Map<Id, Opportunity>(opportunities), mockUow);
+			Test.stopTest();
+		}
+		// verify selector method is invoked to query opportunities with related records.
+		fflib_ArgumentCaptor opportunityIdCaptor = fflib_ArgumentCaptor.forClass(Set<Id>.class);
+		((OpportunitiesSelector)MockUtility.Mocks.verify(mockOpportunitiesSelector, 1)).selectById((Set<Id>)opportunityIdCaptor.capture(),(Set<Object>)fflib_Match.anyObject());
+		// verify no errors are added to opportunity record as custom permission is added to sales admin user
+		System.assert(!updatedOpportunities[0].hasErrors(), 'No errors expected on opportunity with related competitors.');
+		System.assert(!updatedOpportunities[1].hasErrors(), 'No errors expected on opportunity without related competitors.');
 	}
 }

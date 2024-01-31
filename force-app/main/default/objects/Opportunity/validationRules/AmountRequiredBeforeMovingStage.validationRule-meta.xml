@@ -10,7 +10,8 @@
  &quot;Propose&quot;), ISPICKVAL(StageName, &quot;Negotiate&quot;),
  ISPICKVAL(StageName, &quot;Closed Won&quot;) ),
  OR(ISBLANK( Amount ), AND(Count_of_Opportunity_Line_Items__c = 0, 
- Amount &lt; 300))
+ Amount &lt; 300)),
+ NOT( $Permission.ByPassErrorsForOpportunityValidations )
 )</errorConditionFormula>
     <errorDisplayField>Amount</errorDisplayField>
     <errorMessage>Add the Total Opportunity Value. Your initial sales estimate must be assigned in the Total Opportunity Value field prior to adding products.</errorMessage>
