@@ -143,6 +143,7 @@ public with sharing class DealSupportRequestsSelector extends ApplicationSelecto
 		Set<Id> opportunityIds = (Set<Id>)(searchParams.get('opportunityIds') == null ? new Set<Id>() : (searchParams.get('opportunityIds') instanceof Set<Id> ? searchParams.get('opportunityIds') : new Set<Id>{(Id)searchParams.get('opportunityIds')}));
 		Set<Id> recTypeIds = (Set<Id>)(searchParams.get('recTypeIds') == null ? new Set<Id>() : (searchParams.get('recTypeIds') instanceof Set<Id> ? searchParams.get('recTypeIds') : new Set<Id>{(Id)searchParams.get('recTypeIds')}));
 		Set<String> productNames = (Set<String>)(searchParams.get('productNames') == null ? new Set<String>() : (searchParams.get('productNames') instanceof Set<String> ? searchParams.get('productNames') : new Set<String>{String.valueOf(searchParams.get('productNames'))}));
+		Set<String> dsrIds = (Set<String>)(searchParams.get('dsrIds') == null ? new Set<String>() : (searchParams.get('dsrIds') instanceof Set<String> ? searchParams.get('dsrIds') : new Set<String>{String.valueOf(searchParams.get('dsrIds'))}));
 
 		Integer conditionCount = 0;
 		if(searchParams.containsKey('opportunityIds')) {
@@ -155,6 +156,10 @@ public with sharing class DealSupportRequestsSelector extends ApplicationSelecto
 		}
 		if(searchParams.containsKey('productNames')) {
 			conditions.add(new QueryBuilder.SimpleCondition(Deal_Support_Request__c.Product__c + ' in :productNames'));
+			conditionCount++;
+		}
+		if(searchParams.containsKey('dsrIds')) {
+			conditions.add(new QueryBuilder.SimpleCondition(Deal_Support_Request__c.Name + ' in :dsrIds'));
 			conditionCount++;
 		}
 

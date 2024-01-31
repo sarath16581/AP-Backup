@@ -1337,4 +1337,10 @@ public without sharing class APT_AmendRenewUtility {
             ApplicationDatabase.getInstance().dmlupdate(opportunityProposalsToUpdate);
         }
 	}
+
+	public static List<Deal_Support_Request__c> getDealSupportRequestByDsrId(String dsrId) {
+		Map<String, Object> searchParams = new Map<String, Object>();
+        searchParams.put('dsrIds', new Set<String>{dsrId});
+        return DealSupportRequestsSelector.newInstance().search(searchParams, true);
+	}
 }

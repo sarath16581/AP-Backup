@@ -89,6 +89,7 @@ public with sharing class APT_AmendRenewController {
 	// Agreement
 	public static Apttus__APTS_Agreement__c agreement;
 	public static final string ERROR_SELECT_REASON ='Please select a DOV Reason.';
+	public static final String ERROR_OPP_DSR = 'Please select either existing opportunity or link to DSR';
 
 	/* Shashwat.Nath@Auspost.com Added the below Variables to be used in lookupToOpportunity method added for User Story STP-2209 */
 
@@ -96,6 +97,8 @@ public with sharing class APT_AmendRenewController {
 	public Id oppId{get;set;}
 	public List<Opportunity> oppList {get;set;}
 	Public string accountName;
+	public String dsrId {get; set;}
+	public Deal_Support_Request__c dsr {get; set;}
 
 	/* Shashwat.Nath@auspost.com Code ends*/
 
@@ -816,6 +819,25 @@ public with sharing class APT_AmendRenewController {
 				haserrorMessages = true;
 				ApexPages.AddMessage(new ApexPages.Message(ApexPages.Severity.ERROR, ERROR_SELECT_REVENUE));
 				return null;
+			}
+
+			// return error if both opportunity and DSR-ID are entered
+			if (!String.isBlank(oppId) && !String.isBlank(dsrId)) {
+				haserrorMessages = true;
+				ApexPages.AddMessage(new ApexPages.Message(ApexPages.Severity.ERROR, ERROR_OPP_DSR));
+				return null;
+			}
+
+			// return error if no DSR exists with the DSR-ID
+			if (!String.isBlank(dsrId)) {
+				List<Deal_Support_Request__c> dsrList = APT_AmendRenewUtility.getDealSupportRequestByDsrId(String.escapeSingleQuotes(dsrId));
+				if (dsrList.isEmpty()) {
+					haserrorMessages = true;
+					ApexPages.AddMessage(new ApexPages.Message(ApexPages.Severity.ERROR, 'No Valid DSR record found'));
+					return null;
+				} else {
+					dsr = dsrList[0];
+				}
 			}
 
 			/* Shashwat.Nath@auspost.com has added the below if condition display an error on page if user does not selects a

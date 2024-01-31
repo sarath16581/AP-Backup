@@ -85,6 +85,12 @@ Last Modified By - Mansi Shah on 27/05/2021 | Removed Dov Reason field and relat
                 <apex:inputText value="{!oppName}" style="float:left" rendered="{!displayLookup}">
                     <apex:image url="{!$Resource.CustomLookupIcon}" height="20"  onclick="callAction()" rendered="{!displayLookup}"/>
                 </apex:inputText>
+				<br/>
+				<apex:outputLabel value="OR" rendered="{!displayLookup}" styleClass="aptOutputLabel"></apex:outputLabel>
+				<br/>
+				<apex:outputLabel value="Link the DSR-ID to specify Opportunity Driver, Key Contact" rendered="{!displayLookup}" styleClass="aptOutputLabel"></apex:outputLabel> <br/>
+                <apex:inputText value="{!dsrId}" style="float:left" rendered="{!displayLookup}">
+                </apex:inputText>
             </div>
         </apex:pageBlockSection>
         <!-- Shashwat.Nath@Auspost.com.au code ends -->    
