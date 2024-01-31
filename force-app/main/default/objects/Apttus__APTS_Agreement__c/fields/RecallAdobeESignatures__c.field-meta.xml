@@ -3,7 +3,7 @@
     <fullName>RecallAdobeESignatures__c</fullName>
     <description>Recall E-Signature Request</description>
     <externalId>false</externalId>
-    <formula>IF(AND(ISPICKVAL(Apttus__Status_Category__c,&quot;In Signatures&quot;),ISPICKVAL(Apttus__Status__c,&quot;Other Party Signatures&quot;)),HYPERLINK(&quot;/apex/echosign_dev1__EchoSignAgreementAdvanced?id=aKu1m0000004CGOCA2&amp;onLoadAction=cancel&quot;, IMAGE(&quot;/resource/Apttus_DocuApi__RecallEnvelope&quot;,&quot;Recall E-Signature Document&quot;), &quot;_self&quot;),NULL)</formula>
+    <formula>IF(AND(ISPICKVAL(Apttus__Status_Category__c,&quot;In Signatures&quot;),ISPICKVAL(Apttus__Status__c,&quot;Other Party Signatures&quot;)),HYPERLINK(&quot;/apex/AdobeSignApttusCancel?Id=&quot;&amp;Id, IMAGE(&quot;/resource/Apttus_DocuApi__RecallEnvelope&quot;,&quot;Recall E-Signature Document&quot;), &quot;_self&quot;),NULL)</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <inlineHelpText>Recall E-Signature Request</inlineHelpText>
     <label>Recall E-Signature Request</label>
