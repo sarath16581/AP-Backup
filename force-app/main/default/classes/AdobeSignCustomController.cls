@@ -11,8 +11,10 @@ History:
 public with sharing class AdobeSignCustomController {
 	public Id masterId {get; set;}
 	private static String ADOBE_SIGN_TEMPLATE_PAGE = '/apex/echosign_dev1__AgreementTemplateProcess';
+	private static String ADOBE_SIGN_CANCEL_AGREEMENT_PAGE = '/apex/echosign_dev1__EchoSignAgreementAdvanced';
 	@TestVisible private static String PAGE_ADOBESIGN_VOI = 'AdobeSignVOI';
 	@TestVisible private static String PAGE_ADOBESIGN_APT = 'AdobeSignApttus';
+	@TestVisible private static String PAGE_ADOBESIGN_APT_CANCEL = 'AdobeSignApttusCancel';
 	@TestVisible private static String TEMPLATE_VOI_PROPERTY = 'VOI_Property';
 	@TestVisible private static String TEMPLATE_APTTUS = 'Apttus';
 	@TestVisible private static String MSG_ERROR_ORG_MISSING_CONTACT = 'The Organisation has missing a primary contact';
@@ -22,7 +24,7 @@ public with sharing class AdobeSignCustomController {
 	@TestVisible private static String MSG_ERROR_APT_MISSING_CONTRACT = 'No contract found with the provided Id';
 
 	/**
-	 * Base on the page being called route to the requestedno agreement
+	 * Base on the page being called route to the requested agreement
 	 * @return target PageReference
 	 */
 	public PageReference redirect(){
@@ -132,6 +134,63 @@ public with sharing class AdobeSignCustomController {
 			// read the custom setting to get the template ID by the custom setting name
 			AdobeSignTemplateSettings__c apptusSetting = getTemplateSetting(TEMPLATE_APTTUS);
 			pageRef.getParameters().put('templateId', apptusSetting.TemplateId__c);
+		}
+		else {
+			//throws UI exception message when there is no primary contact found
+			ApexPages.Message errorMsg = new ApexPages.Message(ApexPages.Severity.ERROR, MSG_ERROR_APT_MISSING_CONTRACT);
+			ApexPages.addMessage(errorMsg);
+			return null;
+		}
+
+		return pageRef;
+	}
+
+	/**
+	 * Cancel an agreement
+	 * @return target PageReference
+	 */
+	public PageReference cancelAgreement(){
+		Pagereference pageRef = ApexPages.currentPage();
+		try {
+			String strUrl = ApexPages.currentPage().getUrl();
+			if (strUrl.containsIgnoreCase(PAGE_ADOBESIGN_APT_CANCEL)) {
+				pageRef = cancelApttusAgreement();
+			} else {
+				ApexPages.Message errorMsg = new ApexPages.Message(ApexPages.Severity.ERROR, MSG_ERROR_PAGE_NOT_SUPPORTED);
+				ApexPages.addMessage(errorMsg);
+				return null;
+			}
+		} catch(Exception ex){
+			ApexPages.Message errorMsg = new ApexPages.Message(ApexPages.Severity.ERROR,MSG_ERROR_PAGE_GENERIC);
+			ApexPages.addMessage(errorMsg);
+			return null;
+		}
+
+		return pageRef;
+	}
+	
+	/**
+	 *	Navigate to Cancel Apttus Agreement Page
+	 *	@return Page Reference
+	 */
+	private PageReference cancelApttusAgreement() {
+		Pagereference pageRef = new Pagereference(ADOBE_SIGN_CANCEL_AGREEMENT_PAGE);
+
+		// Query the Adobe Agreement based on parent Apttus Contract Id
+		// There should only be a single "Out for Signatures" document for a given Apttus Contract
+		Map <Id, echosign_dev1__SIGN_Agreement__c> envelopes = AdobeSignAgreementSelector.newInstance(1).selectOutForSignatureByApttusContractId(new Set <Id> { masterId }, new Set<Object>());
+
+		if (envelopes.keySet().size() == 1) {
+			Map <String, String> params = ApexPages.currentPage().getParameters();
+		
+			// Pass through any parameters that were passed to this page
+			for (String key : params.keySet()) {
+				pageRef.getParameters().put(key, params.get(key));
+			}
+
+			pageRef.getParameters().put('id', envelopes.values()[0].Id);
+			pageRef.getParameters().put('sfdc.override', '1');
+			pageRef.getParameters().put('onLoadAction', 'cancel');	
 		}
 		else {
 			//throws UI exception message when there is no primary contact found

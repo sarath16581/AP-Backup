@@ -1,0 +1,9 @@
+<!--
+	Description: This VisualForce page is used in conjunction with the "Recall eSignature" button on the Apttus Contract page layout to recall an Adobe Sign agreement.
+	History:
+	31/01/2024 boris.bachovski2@auspost.com.au Created
+-->
+
+<apex:page standardController="Apttus__APTS_Agreement__c" extensions="AdobeSignCustomController" action="{!cancelAgreement}">
+	<apex:messages  />
+</apex:page>
