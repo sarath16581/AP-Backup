@@ -1350,7 +1350,7 @@ public without sharing class APT_AmendRenewUtility {
 	public static Deal_Support_Request__c getDealSupportRequestByDsrId(String dsrId) {
 		Map<String, Object> searchParams = new Map<String, Object>();
         searchParams.put('dsrIds', new Set<String>{dsrId});
-        List<Deal_Support_Request__c> dsrList = DealSupportRequestsSelector.newInstance().search(searchParams, true);
+        List<Deal_Support_Request__c> dsrList = DealSupportRequestsSelector.newInstance().search(searchParams, new Set<Object>{}, true);
 		return !dsrList.isEmpty() ? dsrList[0] : null;
 	}
 
@@ -1363,8 +1363,9 @@ public without sharing class APT_AmendRenewUtility {
 		clonedOpportunity.Description = null;
 		clonedOpportunity.Closed_Reason__c = null;
 		clonedOpportunity.Closed_Comments__c = null;
-		clonedOpportunity.Primary_Campaign_Name__c = null;
+		clonedOpportunity.CampaignId = null;
 		clonedOpportunity.LPO_WCC__c = null;
+		clonedOpportunity.Lead_Seeker__c = false;
 		clonedOpportunity.LBP_Tier_1__c = null;
 		clonedOpportunity.LBP_Tier_2__c = null;
 		clonedOpportunity.Amount = null;

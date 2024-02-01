@@ -89,7 +89,8 @@ public with sharing class APT_AmendRenewController {
 	// Agreement
 	public static Apttus__APTS_Agreement__c agreement;
 	public static final string ERROR_SELECT_REASON ='Please select a DOV Reason.';
-	public static final String ERROR_OPP_DSR = 'Please select either existing opportunity or link to DSR';
+	public static final String ERROR_OPP_DSR = 'Please specify either the Existing Opportunity Record OR a DSR ID below';
+	public static final String ERROR_INVALID_DSR = 'No Valid DSR record found';
 
 	/* Shashwat.Nath@Auspost.com Added the below Variables to be used in lookupToOpportunity method added for User Story STP-2209 */
 
@@ -511,6 +512,23 @@ public with sharing class APT_AmendRenewController {
 				 }
 			 }
 
+			 // return error if both opportunity and DSR-ID are entered
+			if (!String.isBlank(oppId) && !String.isBlank(dsrId)) {
+				haserrorMessages = true;
+				ApexPages.AddMessage(new ApexPages.Message(ApexPages.Severity.ERROR, ERROR_OPP_DSR));
+				return null;
+			}
+
+			// return error if no DSR exists with the DSR-ID
+			if (!String.isBlank(dsrId)) {
+				dsr = APT_AmendRenewUtility.getDealSupportRequestByDsrId(String.escapeSingleQuotes(dsrId));
+				if (dsr == null) {
+					haserrorMessages = true;
+					ApexPages.AddMessage(new ApexPages.Message(ApexPages.Severity.ERROR, ERROR_INVALID_DSR));
+					return null;
+				}
+			}
+
 			/*Shashwat.Nath@auspost.com.au code ends */
 
 			Boolean bCreateCase = false;
@@ -598,6 +616,10 @@ public with sharing class APT_AmendRenewController {
 
 					if(String.isBlank(oppId) || (!String.isBlank(oppId) && String.isBlank(oppName))){
 						Opportunity clonedOpportunity = APT_AmendRenewUtility.cloneOpporunity(agreement, APT_Constants.ACTION_TYPE_RENEWAL);
+						if (dsr != null) {
+							clonedOpportunity.OwnerId = dsr.Requestor__c != null ? dsr.Requestor__c : clonedOpportunity.OwnerId;
+							clonedOpportunity.KeyContact__c = dsr.CustomerContact1__c != null ? dsr.CustomerContact1__c : clonedOpportunity.KeyContact__c;
+						}
 						insert clonedOpportunity;
 						opportunityId = clonedOpportunity.Id;
 					}
@@ -833,7 +855,7 @@ public with sharing class APT_AmendRenewController {
 				dsr = APT_AmendRenewUtility.getDealSupportRequestByDsrId(String.escapeSingleQuotes(dsrId));
 				if (dsr == null) {
 					haserrorMessages = true;
-					ApexPages.AddMessage(new ApexPages.Message(ApexPages.Severity.ERROR, 'No Valid DSR record found'));
+					ApexPages.AddMessage(new ApexPages.Message(ApexPages.Severity.ERROR, ERROR_INVALID_DSR));
 					return null;
 				}
 			}
@@ -982,6 +1004,11 @@ public with sharing class APT_AmendRenewController {
 								//Modified By: Mansi Shah - commented the below code as we are not showing DoV Reason on this page anymore as per User Story - STP-5134
 								//clonedOpportunity.DOV_Reason__c = selectedReason ;
 								clonedOpportunity.Opportunity_SubType__c = 'DoV Increase';
+								//set opportunity driver and key contact from DSR if exists
+								if (dsr != null) {
+									clonedOpportunity.OwnerId = dsr.Requestor__c != null ? dsr.Requestor__c : clonedOpportunity.OwnerId;
+									clonedOpportunity.KeyContact__c = dsr.CustomerContact1__c != null ? dsr.CustomerContact1__c : clonedOpportunity.KeyContact__c;
+								}
 								insert clonedOpportunity;
 								opportunityId = clonedOpportunity.Id;
 							}
