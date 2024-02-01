@@ -830,13 +830,11 @@ public with sharing class APT_AmendRenewController {
 
 			// return error if no DSR exists with the DSR-ID
 			if (!String.isBlank(dsrId)) {
-				List<Deal_Support_Request__c> dsrList = APT_AmendRenewUtility.getDealSupportRequestByDsrId(String.escapeSingleQuotes(dsrId));
-				if (dsrList.isEmpty()) {
+				dsr = APT_AmendRenewUtility.getDealSupportRequestByDsrId(String.escapeSingleQuotes(dsrId));
+				if (dsr == null) {
 					haserrorMessages = true;
 					ApexPages.AddMessage(new ApexPages.Message(ApexPages.Severity.ERROR, 'No Valid DSR record found'));
 					return null;
-				} else {
-					dsr = dsrList[0];
 				}
 			}
 

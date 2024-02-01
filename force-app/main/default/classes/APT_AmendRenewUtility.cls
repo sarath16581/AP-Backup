@@ -62,6 +62,8 @@ public without sharing class APT_AmendRenewUtility {
 				clonedOpportunity.Name = APT_Constants.CLASSIFICATION_RENEWAL + APT_Constants.SEPARATOR_COLON + removeDovRenewalPartsFromOppName(originalOpportunity.Name);
 				clonedOpportunity.LeadSource = APT_Constants.LEAD_SOURCE_CONTRACT_RENEWAL;
 				clonedOpportunity.ECLM_IsRenewal__c = true;
+				//reset the fields on the cloned opportunity
+				resetClonedOpportunityFields(clonedOpportunity);
 			} 
 			/*
 				* Update the Action Type from original "DoV" to "DoV Increase"
@@ -71,6 +73,8 @@ public without sharing class APT_AmendRenewUtility {
 				clonedOpportunity.Opportunity_SubType__c = APT_Constants.OPPORTUNITY_SUBTYPE_DoV_Increase;
 				clonedOpportunity.Name = APT_Constants.ACTION_NAME_DoV + APT_Constants.SEPARATOR_COLON  + removeDovRenewalPartsFromOppName(originalOpportunity.Name);
 				clonedOpportunity.LeadSource = APT_Constants.ACTION_NAME_DoV;
+				//reset the fields on the cloned opportunity
+				resetClonedOpportunityFields(clonedOpportunity);
 				} 
 			/*Shashwat.Nath@Auspost.Com.au Added the below else if Condition for Decrease Revenue DOV Scenario to Set the Opportunity Sub Type , Name fields and 
 				also supersede the Original Opportunity Similar to Increase Revenue Scenario */
@@ -1338,9 +1342,31 @@ public without sharing class APT_AmendRenewUtility {
         }
 	}
 
-	public static List<Deal_Support_Request__c> getDealSupportRequestByDsrId(String dsrId) {
+	/**
+	 * @description This method returns the DSR record based on the DSR-Id
+	 * @param  dsrId 
+	 * @return  Deal Support request record
+	 */
+	public static Deal_Support_Request__c getDealSupportRequestByDsrId(String dsrId) {
 		Map<String, Object> searchParams = new Map<String, Object>();
         searchParams.put('dsrIds', new Set<String>{dsrId});
-        return DealSupportRequestsSelector.newInstance().search(searchParams, true);
+        List<Deal_Support_Request__c> dsrList = DealSupportRequestsSelector.newInstance().search(searchParams, true);
+		return !dsrList.isEmpty() ? dsrList[0] : null;
+	}
+
+	/**
+	 * @description This method will reset the fields on the cloned opportunity
+	 * @param  clonedOpportunity opportunity record
+	 */
+	private static void resetClonedOpportunityFields(Opportunity clonedOpportunity) {
+		clonedOpportunity.Monthly_Executive_Summary__c = null;
+		clonedOpportunity.Description = null;
+		clonedOpportunity.Closed_Reason__c = null;
+		clonedOpportunity.Closed_Comments__c = null;
+		clonedOpportunity.Primary_Campaign_Name__c = null;
+		clonedOpportunity.LPO_WCC__c = null;
+		clonedOpportunity.LBP_Tier_1__c = null;
+		clonedOpportunity.LBP_Tier_2__c = null;
+		clonedOpportunity.Amount = null;
 	}
 }
