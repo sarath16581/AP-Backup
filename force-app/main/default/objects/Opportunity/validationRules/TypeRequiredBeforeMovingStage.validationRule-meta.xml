@@ -3,7 +3,8 @@
     <fullName>TypeRequiredBeforeMovingStage</fullName>
     <active>true</active>
     <description>Ensure Type is populated before progressing opportunity from &quot;Identify&quot; to &quot;Qualify&quot; stage and beyond.</description>
-    <errorConditionFormula>AND( NOT(ISNEW()), ISCHANGED( StageName ), ISBLANK(TEXT(Type)), OR( ISPICKVAL(StageName, &quot;Qualify&quot;), ISPICKVAL(StageName, &quot;Propose&quot;), ISPICKVAL(StageName, &quot;Negotiate&quot;), ISPICKVAL(StageName, &quot;Closed Won&quot;) ) )</errorConditionFormula>
+    <errorConditionFormula>AND( NOT(ISNEW()), ISCHANGED( StageName ), ISBLANK(TEXT(Type)), OR( ISPICKVAL(StageName, &quot;Qualify&quot;), ISPICKVAL(StageName, &quot;Propose&quot;), ISPICKVAL(StageName, &quot;Negotiate&quot;), ISPICKVAL(StageName, &quot;Closed Won&quot;) ), 
+NOT( $Permission.ByPassErrorsForOpportunityValidations ) )</errorConditionFormula>
     <errorDisplayField>Type</errorDisplayField>
     <errorMessage>Add the Type. Please populate the Customer type to identify if the Customer is new or existing.</errorMessage>
 </ValidationRule>

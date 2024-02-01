@@ -5,7 +5,7 @@
     <alertText>We found some other organisations with similar names. Use one of these?</alertText>
     <description>Warn users when similar account names with existing accounts are detected</description>
     <duplicateRuleFilter>
-        <booleanFilter>2 AND 4 AND  (1 OR 3 OR 5 OR 6 OR 7 OR 8 OR 9)</booleanFilter>
+        <booleanFilter>2 AND 4 AND  (1 OR 3 OR 5 OR 6 OR 7 )</booleanFilter>
         <duplicateRuleFilterItems>
             <field>Profile_Name_in_Text__c</field>
             <operation>equals</operation>
@@ -30,14 +30,14 @@
         <duplicateRuleFilterItems>
             <field>Profile_Name_in_Text__c</field>
             <operation>equals</operation>
-            <value>Sales Admin</value>
+            <value>Hub Users</value>
             <sortOrder>4</sortOrder>
             <table>User</table>
         </duplicateRuleFilterItems>
         <duplicateRuleFilterItems>
             <field>Profile_Name_in_Text__c</field>
             <operation>equals</operation>
-            <value>System Administrator</value>
+            <value>Credit Management</value>
             <sortOrder>5</sortOrder>
             <table>User</table>
         </duplicateRuleFilterItems>
@@ -49,25 +49,11 @@
             <table>User</table>
         </duplicateRuleFilterItems>
         <duplicateRuleFilterItems>
-            <field>Profile_Name_in_Text__c</field>
-            <operation>equals</operation>
-            <value>Credit Management</value>
-            <sortOrder>7</sortOrder>
-            <table>User</table>
-        </duplicateRuleFilterItems>
-        <duplicateRuleFilterItems>
             <field>RecordType</field>
             <operation>equals</operation>
             <value>Organisation</value>
-            <sortOrder>8</sortOrder>
+            <sortOrder>7</sortOrder>
             <table>Account</table>
-        </duplicateRuleFilterItems>
-        <duplicateRuleFilterItems>
-            <field>Profile_Name_in_Text__c</field>
-            <operation>equals</operation>
-            <value>Hub Users</value>
-            <sortOrder>9</sortOrder>
-            <table>User</table>
         </duplicateRuleFilterItems>
     </duplicateRuleFilter>
     <duplicateRuleMatchRules>

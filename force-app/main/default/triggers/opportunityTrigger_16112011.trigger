@@ -165,5 +165,13 @@ trigger opportunityTrigger_16112011 on Opportunity (before insert, before update
 			}
 		}
 	}
+
+    if (!SystemSettings__c.getInstance().Disable_Triggers__c) {
+		if(trigger.isAfter){
+			if(trigger.isUpdate){
+				OpportunityUtility_part2.setOpportunityPrimaryProposalFieldValues(trigger.new, trigger.oldMap);
+            }
+        }
+    }
 	// --------------------------------------------------Apttus Code Ends----------------------------------------------------
 }
