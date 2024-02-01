@@ -61,15 +61,6 @@
       "type" : "component"
     }, {
       "componentAttributes" : {
-        "recordId" : "{!recordId}"
-      },
-      "componentName" : "c:myNetworkRelatedEventMessages",
-      "id" : "4a02f2cc-5f9f-4a86-9ab5-28437082153e",
-      "renderPriority" : "NEUTRAL",
-      "renditionMap" : { },
-      "type" : "component"
-    }, {
-      "componentAttributes" : {
         "tabsetConfig" : {
           "UUID" : "cbcbf0bc-ac26-49b9-be51-fc4f99ac2ab1",
           "activeTab" : "",
@@ -94,6 +85,15 @@
       "componentName" : "forceCommunity:tabset",
       "id" : "cbcbf0bc-ac26-49b9-be51-fc4f99ac2ab1",
       "regions" : [ {
+        "components" : [ {
+          "componentAttributes" : {
+            "recordId" : "{!recordId}"
+          },
+          "componentName" : "c:myNetworkRelatedEventMessages",
+          "id" : "4a02f2cc-5f9f-4a86-9ab5-28437082153e",
+          "renditionMap" : { },
+          "type" : "component"
+        } ],
         "id" : "885a8a32-1753-45df-934e-6bd6a642475c",
         "regionLabel" : "EVENT MESSAGES",
         "regionName" : "1",

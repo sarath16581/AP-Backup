@@ -12,9 +12,9 @@
     <columns>CREATEDBY_USER</columns>
     <filterScope>Everything</filterScope>
     <filters>
-        <field>Application__c</field>
+        <field>CREATED_DATE</field>
         <operation>equals</operation>
-        <value>LPO/CPO handling</value>
+        <value>TODAY</value>
     </filters>
     <label>All -Today</label>
 </ListView>

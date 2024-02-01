@@ -509,7 +509,7 @@ public with sharing class AccountsSelector_Test {
 	 *  Ensures that testSelectArchivedAccountsByClosureDateLessThanEqualNDaysAgo is returning expected results
 	 */
 	@IsTest
-	public static void testselectArchivedAccountsByClosureDateLessThanEqualNDaysAgo() {
+	public static void testSelectArchivedAccountsByClosureDateLessThanEqualNDaysAgo() {
 		// =====================================
 		// Data Preparation
 		// =====================================
