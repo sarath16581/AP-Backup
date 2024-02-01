@@ -874,6 +874,8 @@ public without sharing class bspEnquiryUplift {
 				selectedStatuses.add('Closed');
 				selectedStatuses.add('Waiting on customer');
 				selectedStatuses.add('Awaiting Customer Response');
+				selectedStatuses.add('Under investigation - Awaiting responses');
+				selectedStatuses.add('Invalid');
 				queryWhere += ' AND (Status NOT IN: selectedStatuses) ';
 			}
 		}
