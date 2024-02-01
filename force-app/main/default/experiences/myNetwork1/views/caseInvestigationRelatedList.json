@@ -1,0 +1,39 @@
+{
+  "appPageId" : "09e90440-dbed-4496-b14c-1a294d7bc2e4",
+  "componentName" : "siteforce:sldsOneColLayout",
+  "dataProviders" : [ ],
+  "id" : "5612c5da-5e48-4f22-b0f2-12a5cc7c5d65",
+  "label" : "Case Investigation Related List",
+  "regions" : [ {
+    "id" : "1abd8e66-8382-4ce1-9daf-0bc1a5c05d3e",
+    "regionName" : "header",
+    "type" : "region"
+  }, {
+    "components" : [ {
+      "componentAttributes" : {
+        "customTitle" : "",
+        "parentRecordId" : "{!recordId}",
+        "relatedListName" : "{!relationshipApiName}",
+        "showBreadCrumbs" : true,
+        "showCustomTitle" : false,
+        "showManualRefreshButton" : true,
+        "showRowNumbers" : true
+      },
+      "componentName" : "forceCommunity:relatedList",
+      "id" : "c30029dc-57b2-45da-96d3-ce5f38abc6b8",
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "0b0952dd-a299-47a2-92de-8f0ce452defa",
+    "regionName" : "content",
+    "type" : "region"
+  }, {
+    "id" : "2466f8a3-8d56-4ee1-b59b-9e9c42b771bb",
+    "regionName" : "footer",
+    "type" : "region"
+  } ],
+  "themeLayoutType" : "Inner",
+  "type" : "view",
+  "viewType" : "relatedlist-aEg"
+}

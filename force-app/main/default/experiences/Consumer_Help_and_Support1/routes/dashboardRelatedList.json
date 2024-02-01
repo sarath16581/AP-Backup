@@ -2,6 +2,7 @@
   "activeViewId" : "7888f31b-3693-40d6-ba8e-fb50d3eac5c4",
   "appPageId" : "6f87ce43-8103-412d-b337-9119174263c8",
   "configurationTags" : [ ],
+  "devName" : "Dashboard_Related_List",
   "id" : "a98cb54f-b125-4072-9832-211be3e42f56",
   "label" : "Dashboard Related List",
   "routeType" : "relatedlist-01Z",

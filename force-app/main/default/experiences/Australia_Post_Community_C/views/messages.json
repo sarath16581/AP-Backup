@@ -1,0 +1,45 @@
+{
+  "appPageId" : "f75d9d97-cb1b-4c52-a72d-ef857a71439a",
+  "componentName" : "c:CommunityInnerPageLayout",
+  "dataProviders" : [ ],
+  "id" : "d55bb552-f696-4ba4-abe5-efe8af9b89f1",
+  "label" : "Messages",
+  "regions" : [ {
+    "components" : [ {
+      "componentAttributes" : { },
+      "componentName" : "forceChatter:messages",
+      "id" : "17d4b6f7-ced7-4456-b031-16ce2885c779",
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "77895c06-a100-419f-8c0d-c8990b57ecac",
+    "regionName" : "Content",
+    "type" : "region"
+  }, {
+    "id" : "0fce0277-db14-4c37-9fa5-b2bf9e0a47b1",
+    "regionName" : "ContentHeaderBlock1",
+    "type" : "region"
+  }, {
+    "id" : "22303666-4e78-4020-98b0-0691c3d9d1df",
+    "regionName" : "ContentHeaderBlock2",
+    "type" : "region"
+  }, {
+    "components" : [ {
+      "componentAttributes" : {
+        "pageName" : "Messages"
+      },
+      "componentName" : "c:cpAdobeAnalyticsPageView",
+      "id" : "95f430f5-1df5-4fb0-b240-d44b9397d996",
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "7518c37d-8391-4d34-87c5-407c50c98ef1",
+    "regionName" : "ContentFooter",
+    "type" : "region"
+  } ],
+  "themeLayoutType" : "xjl9AizPLik7YDQQWJ2nqZBIU8M3WM",
+  "type" : "view",
+  "viewType" : "messages"
+}

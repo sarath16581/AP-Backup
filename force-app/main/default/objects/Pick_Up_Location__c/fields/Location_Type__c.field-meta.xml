@@ -41,16 +41,6 @@ Region 3 = Coffs Harbour-Newcastle-Port Macquarie-Tuggerah</inlineHelpText>
                 <label>Regional 2 (MAC, TVL, ROC)</label>
             </value>
             <value>
-                <fullName>Regional 1 (CBR,WOL,ALB,WAG)</fullName>
-                <default>false</default>
-                <label>Regional 1 (CBR,WOL,ALB,WAG)</label>
-            </value>
-            <value>
-                <fullName>Regional 2 (ORG,TAM)</fullName>
-                <default>false</default>
-                <label>Regional 2 (ORG,TAM)</label>
-            </value>
-            <value>
                 <fullName>Regional 3 (COF,NCL,PTM,TUG)</fullName>
                 <default>false</default>
                 <label>Regional 3 (COF,NCL,PTM,TUG)</label>
@@ -64,6 +54,39 @@ Region 3 = Coffs Harbour-Newcastle-Port Macquarie-Tuggerah</inlineHelpText>
                 <fullName>Melbourne South East</fullName>
                 <default>false</default>
                 <label>Melbourne South East</label>
+            </value>
+            <value>
+                <fullName>Regional 1 (WOL)</fullName>
+                <default>false</default>
+                <label>Regional 1 (WOL)</label>
+            </value>
+            <value>
+                <fullName>Regional 2 (CBR, ALB, WAG, ORG)</fullName>
+                <default>false</default>
+                <label>Regional 2 (CBR, ALB, WAG, ORG)</label>
+            </value>
+            <value>
+                <fullName>Regional 4 (COF, NCL, PTM, TUG, TAM)</fullName>
+                <default>false</default>
+                <label>Regional 4 (COF, NCL, PTM, TUG, TAM)</label>
+            </value>
+            <value>
+                <fullName>Regional 1 (CBR, WOL, ALB, WAG, ORG)</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Regional 1 (CBR, WOL, ALB, WAG, ORG)</label>
+            </value>
+            <value>
+                <fullName>Regional 1 (CBR,WOL,ALB,WAG)</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Regional 1 (CBR,WOL,ALB,WAG)</label>
+            </value>
+            <value>
+                <fullName>Regional 2 (ORG,TAM)</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Regional 2 (ORG,TAM)</label>
             </value>
         </valueSetDefinition>
         <valueSettings>
@@ -80,17 +103,22 @@ Region 3 = Coffs Harbour-Newcastle-Port Macquarie-Tuggerah</inlineHelpText>
         <valueSettings>
             <controllingFieldValue>NSW</controllingFieldValue>
             <controllingFieldValue>ACT</controllingFieldValue>
-            <valueName>Regional 1 (CBR,WOL,ALB,WAG)</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>NSW</controllingFieldValue>
-            <controllingFieldValue>ACT</controllingFieldValue>
-            <valueName>Regional 2 (ORG,TAM)</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>NSW</controllingFieldValue>
-            <controllingFieldValue>ACT</controllingFieldValue>
             <valueName>Regional 3 (COF,NCL,PTM,TUG)</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>NSW</controllingFieldValue>
+            <controllingFieldValue>ACT</controllingFieldValue>
+            <valueName>Regional 1 (WOL)</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>NSW</controllingFieldValue>
+            <controllingFieldValue>ACT</controllingFieldValue>
+            <valueName>Regional 2 (CBR, ALB, WAG, ORG)</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>NSW</controllingFieldValue>
+            <controllingFieldValue>ACT</controllingFieldValue>
+            <valueName>Regional 4 (COF, NCL, PTM, TUG, TAM)</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>QLD</controllingFieldValue>
@@ -112,6 +140,7 @@ Region 3 = Coffs Harbour-Newcastle-Port Macquarie-Tuggerah</inlineHelpText>
             <valueName>Regional (Bendigo-Geelong-Hobart-Shepparton-Traralgon-Launceston)</valueName>
         </valueSettings>
         <valueSettings>
+            <controllingFieldValue>TAS</controllingFieldValue>
             <controllingFieldValue>VIC</controllingFieldValue>
             <valueName>Melbourne South East</valueName>
         </valueSettings>

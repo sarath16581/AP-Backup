@@ -2,6 +2,7 @@
   "activeViewId" : "8627ec2e-fe47-43bc-af3a-2e932dddd199",
   "appPageId" : "87c9a7eb-d6e7-4f0e-81ba-729aee3cd763",
   "configurationTags" : [ ],
+  "devName" : "Task_Related_List__c",
   "id" : "776da8e6-ab46-4f42-afcc-bd8cf1344ec3",
   "label" : "Task Related List",
   "routeType" : "relatedlist-00T",

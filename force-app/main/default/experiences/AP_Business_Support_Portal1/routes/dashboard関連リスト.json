@@ -2,6 +2,7 @@
   "activeViewId" : null,
   "appPageId" : "d5d19161-a65a-41cf-81d4-d7d67de3e4ce",
   "configurationTags" : [ ],
+  "devName" : "relatedlist_01Z",
   "id" : "de098309-1600-4013-837e-b8f76c6538a7",
   "label" : "Dashboard 関連リスト",
   "routeType" : "relatedlist-01Z",

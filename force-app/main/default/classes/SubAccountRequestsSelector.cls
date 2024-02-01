@@ -15,7 +15,7 @@
 public inherited sharing class SubAccountRequestsSelector extends ApplicationSelector{
 	public enum Options {
 		WITH_SUB_ACCOUNT_CONTACT, WITH_ORGANISATION, WITH_BILLING_ACCOUNT, WITH_ST_PARENT_BILLING_ACCOUNT, WITH_ST_PARENT_ACCOUNT_REQUEST,
-		WITH_ST_OFFSPRING_ACCOUNT_REQUESTS, FILTER_UNPROVISIONED_FOLLOWER_ONLY, FILTER_DRAFT_ERROR, FILTER_DRAFT_ERROR_PENDING
+		WITH_ST_OFFSPRING_ACCOUNT_REQUESTS, FILTER_UNPROVISIONED_FOLLOWER_ONLY, FILTER_DRAFT_ERROR_SUBMITTED, FILTER_DRAFT_ERROR_PENDING
 	}
 	public static SubAccountRequestsSelector newInstance() {
 		return (SubAccountRequestsSelector)Application.Selectors.newInstance(SubAccountRequestsSelector.class);
@@ -156,8 +156,8 @@ public inherited sharing class SubAccountRequestsSelector extends ApplicationSel
 					add(new QueryBuilder.InCondition(APT_Sub_Account__c.APT_Sub_Account_Request_Status__c).inCollection(new List<String>{'Draft', 'Error'})).
 					endConditions();
 		}
-		if(selectorOptions.contains(Options.FILTER_DRAFT_ERROR)) {
-			builder.addConditions().add(new QueryBuilder.InCondition(APT_Sub_Account__c.APT_Sub_Account_Request_Status__c).inCollection(new List<String>{'Draft', 'Error'})).
+		if(selectorOptions.contains(Options.FILTER_DRAFT_ERROR_SUBMITTED)) {
+			builder.addConditions().add(new QueryBuilder.InCondition(APT_Sub_Account__c.APT_Sub_Account_Request_Status__c).inCollection(new List<String>{'Draft', 'Error', 'Submitted'})).
 					endConditions();
 		}
 		if(selectorOptions.contains(Options.FILTER_DRAFT_ERROR_PENDING)) {

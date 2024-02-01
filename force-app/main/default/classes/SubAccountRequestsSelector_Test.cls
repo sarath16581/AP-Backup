@@ -171,7 +171,7 @@ private with sharing class SubAccountRequestsSelector_Test {
 		System.assertEquals(1, subAccounts.size(), 'Expecting 1');
 		System.assertEquals(billingAccount.Id, subAccounts[0].APT_Billing_Account__c, 'Id not matched');
 
-		List<APT_Sub_Account__c> subAccounts2 = selector.selectByChargeAccountId(new Set<Id>{chargeAccountRequest.Id}, new Set<Object>{SubAccountRequestsSelector.Options.FILTER_DRAFT_ERROR});
+		List<APT_Sub_Account__c> subAccounts2 = selector.selectByChargeAccountId(new Set<Id>{chargeAccountRequest.Id}, new Set<Object>{SubAccountRequestsSelector.Options.FILTER_DRAFT_ERROR_SUBMITTED});
 		System.assertEquals(1, subAccounts2.size(), 'Expecting 1');
 		System.assertEquals(chargeAccountRequest.Id, subAccounts2[0].APT_Charge_Account__c, 'Id not matched');
 		Test.stopTest();

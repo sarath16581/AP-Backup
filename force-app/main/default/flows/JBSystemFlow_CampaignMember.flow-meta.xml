@@ -56,6 +56,8 @@
                 <stringValue>{&quot;objects&quot;:[{&quot;relationshipIdName&quot;:&quot;&quot;,&quot;referenceObject&quot;:&quot;&quot;,&quot;isPolymorphic&quot;:false,&quot;relationshipName&quot;:&quot;&quot;,&quot;dePrefix&quot;:&quot;CampaignMember:&quot;,&quot;fields&quot;:[&quot;Id&quot;]},{&quot;relationshipIdName&quot;:null,&quot;referenceObject&quot;:&quot;Contacts and Leads&quot;,&quot;isPolymorphic&quot;:false,&quot;relationshipName&quot;:&quot;Common&quot;,&quot;dePrefix&quot;:&quot;CampaignMember:Common:&quot;,&quot;fields&quot;:[&quot;Id&quot;,&quot;Email&quot;,&quot;FirstName&quot;,&quot;HasOptedOutOfEmail&quot;]}]}</stringValue>
             </value>
         </inputParameters>
+        <nameSegment>et4ae5__JBintFireBulkEvent</nameSegment>
+        <versionSegment>1</versionSegment>
     </actionCalls>
     <apiVersion>49.0</apiVersion>
     <decisions>

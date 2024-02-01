@@ -98,7 +98,21 @@
 				<lightning-datatable
 						key-field="id"
 						data={finalisedSubAccountsList}
-						columns={finalisedColumns}
+						columns={readOnlyColumns}
+						hide-checkbox-column>
+				</lightning-datatable>
+			</div>
+		</template>
+		<template lwc:if={hasSubmittedSubAccounts}>
+			<div class="slds-p-around_small">
+				<lightning-icon icon-name="standard:custom" size="small" class="slds-m-right_x-small"></lightning-icon>
+				<label class="slds-text-heading_small slds-p-top_xx-small">Submitted Sub Account Requests</label>
+			</div>
+			<div class="slds-border_top slds-scrollable_y slds-p-bottom_medium" style="max-height: 400px">
+				<lightning-datatable
+						key-field="id"
+						data={submittedSubAccountsList}
+						columns={readOnlyColumns}
 						hide-checkbox-column>
 				</lightning-datatable>
 			</div>

@@ -1,0 +1,12 @@
+{
+  "activeViewId" : null,
+  "appPageId" : "f75d9d97-cb1b-4c52-a72d-ef857a71439a",
+  "configurationTags" : [ ],
+  "devName" : "Discussions__c",
+  "id" : "9ce73fe3-bbf6-42c2-b8e3-09e3044b00a7",
+  "label" : "Discussions",
+  "pageAccess" : "UseParent",
+  "routeType" : "custom-discussion",
+  "type" : "route",
+  "urlPrefix" : "discussions"
+}

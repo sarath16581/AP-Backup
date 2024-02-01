@@ -1,6 +1,7 @@
 {
   "appPageId" : "d5d19161-a65a-41cf-81d4-d7d67de3e4ce",
   "componentName" : "siteforce:sldsOneColLayout",
+  "dataProviders" : [ ],
   "id" : "616a9ff2-9f74-46fd-96a0-a4d72dfef774",
   "label" : "BSP AP Enquiry Form",
   "regions" : [ {

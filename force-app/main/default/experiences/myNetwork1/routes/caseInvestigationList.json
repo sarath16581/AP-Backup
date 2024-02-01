@@ -1,0 +1,12 @@
+{
+  "activeViewId" : "c9bf7346-4d99-4988-b0a4-64653848e339",
+  "appPageId" : "09e90440-dbed-4496-b14c-1a294d7bc2e4",
+  "configurationTags" : [ ],
+  "devName" : "Case_Investigation_List__c",
+  "id" : "586763d3-29f3-45fa-84ed-0a878d724ce4",
+  "label" : "Case Investigation List",
+  "objectApiName" : "CaseInvestigation__c",
+  "routeType" : "list-aEg",
+  "type" : "route",
+  "urlPrefix" : "caseinvestigation"
+}

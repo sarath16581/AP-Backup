@@ -61,6 +61,8 @@
                 <stringValue>{&quot;objects&quot;:[{&quot;relationshipIdName&quot;:&quot;&quot;,&quot;referenceObject&quot;:&quot;&quot;,&quot;isPolymorphic&quot;:false,&quot;relationshipName&quot;:&quot;&quot;,&quot;dePrefix&quot;:&quot;Authorization_Rule__c:&quot;,&quot;fields&quot;:[&quot;Id&quot;]},{&quot;relationshipIdName&quot;:null,&quot;referenceObject&quot;:&quot;Contact&quot;,&quot;isPolymorphic&quot;:false,&quot;relationshipName&quot;:&quot;Contact__r&quot;,&quot;dePrefix&quot;:&quot;Authorization_Rule__c:Contact__r:&quot;,&quot;fields&quot;:[&quot;Id&quot;,&quot;Name&quot;,&quot;Email&quot;,&quot;LastName&quot;,&quot;FirstName&quot;,&quot;AccountId&quot;,&quot;MobilePhone&quot;,&quot;HasOptedOutOfEmail&quot;]},{&quot;relationshipIdName&quot;:null,&quot;referenceObject&quot;:&quot;Account&quot;,&quot;isPolymorphic&quot;:false,&quot;relationshipName&quot;:&quot;Account__r&quot;,&quot;dePrefix&quot;:&quot;Authorization_Rule__c:Account__r:&quot;,&quot;fields&quot;:[&quot;Id&quot;,&quot;Name&quot;,&quot;LEGACY_ID__c&quot;]}]}</stringValue>
             </value>
         </inputParameters>
+        <nameSegment>et4ae5__JBintFireBulkEvent</nameSegment>
+        <versionSegment>1</versionSegment>
     </actionCalls>
     <actionCalls>
         <name>SalesforceObj465ea03baa1d19af98bb2f817be42170_FireJBTrigger</name>
@@ -117,6 +119,8 @@
                 <stringValue>{&quot;objects&quot;:[{&quot;relationshipIdName&quot;:&quot;&quot;,&quot;referenceObject&quot;:&quot;&quot;,&quot;isPolymorphic&quot;:false,&quot;relationshipName&quot;:&quot;&quot;,&quot;dePrefix&quot;:&quot;Authorization_Rule__c:&quot;,&quot;fields&quot;:[&quot;Id&quot;]},{&quot;relationshipIdName&quot;:null,&quot;referenceObject&quot;:&quot;Contact&quot;,&quot;isPolymorphic&quot;:false,&quot;relationshipName&quot;:&quot;Contact__r&quot;,&quot;dePrefix&quot;:&quot;Authorization_Rule__c:Contact__r:&quot;,&quot;fields&quot;:[&quot;Id&quot;,&quot;Email&quot;,&quot;LastName&quot;,&quot;FirstName&quot;,&quot;MobilePhone&quot;,&quot;HasOptedOutOfEmail&quot;]},{&quot;relationshipIdName&quot;:null,&quot;referenceObject&quot;:&quot;Account&quot;,&quot;isPolymorphic&quot;:false,&quot;relationshipName&quot;:&quot;Account__r&quot;,&quot;dePrefix&quot;:&quot;Authorization_Rule__c:Account__r:&quot;,&quot;fields&quot;:[&quot;Id&quot;,&quot;LastName&quot;,&quot;FirstName&quot;,&quot;LEGACY_ID__c&quot;,&quot;Legal_Name__c&quot;,&quot;LegalLastName__pc&quot;,&quot;LegalFirstName__pc&quot;,&quot;Preferred_Name__pc&quot;,&quot;Account_Owner_Name__pc&quot;,&quot;Primary_Organisation__pc&quot;,&quot;Organisation_Trading_Name__c&quot;]}]}</stringValue>
             </value>
         </inputParameters>
+        <nameSegment>et4ae5__JBintFireBulkEvent</nameSegment>
+        <versionSegment>1</versionSegment>
     </actionCalls>
     <apiVersion>49.0</apiVersion>
     <decisions>

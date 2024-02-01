@@ -8,6 +8,8 @@
         <actionName>Case.Create_Incident_Outbound_msg</actionName>
         <actionType>outboundMessage</actionType>
         <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <nameSegment>Case.Create_Incident_Outbound_msg</nameSegment>
+        <versionSegment>1</versionSegment>
     </actionCalls>
     <actionCalls>
         <name>Update_Incident_Outbound_Msg</name>
@@ -17,6 +19,8 @@
         <actionName>Case.Update_Incident_Outbound_Msg</actionName>
         <actionType>outboundMessage</actionType>
         <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <nameSegment>Case.Update_Incident_Outbound_Msg</nameSegment>
+        <versionSegment>1</versionSegment>
     </actionCalls>
     <apiVersion>52.0</apiVersion>
     <decisions>

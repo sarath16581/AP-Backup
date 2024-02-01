@@ -5,13 +5,13 @@
   "isProgressiveRenderingEnabled" : false,
   "loginAppPageId" : "b67e956c-d854-4559-b1e0-8969ea9a2b41",
   "mainAppPageId" : "d5d19161-a65a-41cf-81d4-d7d67de3e4ce",
-  "preferredDomain" : "ptest.npe.bsp.auspost.com.au",
+  "preferredDomain" : "bsp.auspost.com.au",
   "selfRegistrationRouteId" : "15067454-5177-42b8-8ed4-af225f1a4ba2",
   "trustedSitesForScript" : [ {
     "id" : "c4d518e5-7add-44fd-a3a7-6ee1edd9002b",
     "isActive" : true,
     "trustedSiteName" : "Live agent init",
-    "trustedSiteUrl" : "https://d.la1-c1cs-ukb.salesforceliveagent.com",
+    "trustedSiteUrl" : "https://d.la2s-core1.sfdc-vwfla6.salesforceliveagent.com",
     "type" : "trustedSitesForScripts"
   } ],
   "type" : "site"

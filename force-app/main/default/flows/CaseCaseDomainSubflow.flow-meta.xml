@@ -3,7 +3,7 @@
     <actionCalls>
         <name>ACIC_Send_Case_Status_Notification</name>
         <label>ACIC - Send Case Status Notification</label>
-        <locationX>1810</locationX>
+        <locationX>2503</locationX>
         <locationY>926</locationY>
         <actionName>Case.ACIC_Send_Case_Status_Notification</actionName>
         <actionType>emailAlert</actionType>
@@ -14,11 +14,13 @@
                 <elementReference>vCase.Id</elementReference>
             </value>
         </inputParameters>
+        <nameSegment>Case.ACIC_Send_Case_Status_Notification</nameSegment>
+        <versionSegment>1</versionSegment>
     </actionCalls>
     <actionCalls>
         <name>ASH_Email_Alert_on_new_case_creation</name>
         <label>ASH - Email Alert on new case creation</label>
-        <locationX>1315</locationX>
+        <locationX>1810</locationX>
         <locationY>350</locationY>
         <actionName>Case.ASH_Email_Alert_on_new_case_creation</actionName>
         <actionType>emailAlert</actionType>
@@ -32,11 +34,13 @@
                 <elementReference>vCase.Id</elementReference>
             </value>
         </inputParameters>
+        <nameSegment>Case.ASH_Email_Alert_on_new_case_creation</nameSegment>
+        <versionSegment>1</versionSegment>
     </actionCalls>
     <actionCalls>
         <name>CAR_Auto_Email_response_for_Queue_Owner</name>
         <label>CAR Auto Email response for Queue Owner</label>
-        <locationX>1051</locationX>
+        <locationX>1546</locationX>
         <locationY>350</locationY>
         <actionName>Case.Customer_Analytics_Reporting_Cases_Auto_Email_Response</actionName>
         <actionType>emailAlert</actionType>
@@ -50,12 +54,14 @@
                 <elementReference>vCase.Id</elementReference>
             </value>
         </inputParameters>
+        <nameSegment>Case.Customer_Analytics_Reporting_Cases_Auto_Email_Response</nameSegment>
+        <versionSegment>1</versionSegment>
     </actionCalls>
     <actionCalls>
         <description>Send Email to the CAR case requestor when the associated Case is closed/resolved</description>
         <name>CAR_Send_Email_Closed_Alert</name>
         <label>CAR Send Email Closed Alert</label>
-        <locationX>1018</locationX>
+        <locationX>1711</locationX>
         <locationY>1034</locationY>
         <actionName>Case.CAR_Send_Email_Closed_Alert</actionName>
         <actionType>emailAlert</actionType>
@@ -66,11 +72,13 @@
                 <elementReference>vCase.Id</elementReference>
             </value>
         </inputParameters>
+        <nameSegment>Case.CAR_Send_Email_Closed_Alert</nameSegment>
+        <versionSegment>1</versionSegment>
     </actionCalls>
     <actionCalls>
         <name>CAR_Send_Email_Closed_Bounce_Back_Alert</name>
         <label>CAR Send Email Closed Bounce Back Alert</label>
-        <locationX>1282</locationX>
+        <locationX>1975</locationX>
         <locationY>1034</locationY>
         <actionName>Case.CAR_Send_Email_Closed_Bounce_Back_Alert</actionName>
         <actionType>emailAlert</actionType>
@@ -81,11 +89,13 @@
                 <elementReference>vCase.Id</elementReference>
             </value>
         </inputParameters>
+        <nameSegment>Case.CAR_Send_Email_Closed_Bounce_Back_Alert</nameSegment>
+        <versionSegment>1</versionSegment>
     </actionCalls>
     <actionCalls>
         <name>Dispute_Case_Approved</name>
         <label>Dispute Case Approved</label>
-        <locationX>50</locationX>
+        <locationX>743</locationX>
         <locationY>1034</locationY>
         <actionName>Case.Dispute_Case_Approved</actionName>
         <actionType>emailAlert</actionType>
@@ -99,11 +109,13 @@
                 <elementReference>vCase.Id</elementReference>
             </value>
         </inputParameters>
+        <nameSegment>Case.Dispute_Case_Approved</nameSegment>
+        <versionSegment>1</versionSegment>
     </actionCalls>
     <actionCalls>
         <name>Dispute_Case_Approved_StarTrack</name>
         <label>Dispute Case Approved StarTrack</label>
-        <locationX>578</locationX>
+        <locationX>1271</locationX>
         <locationY>1034</locationY>
         <actionName>Case.Dispute_Case_Approved_StarTrack</actionName>
         <actionType>emailAlert</actionType>
@@ -117,11 +129,13 @@
                 <elementReference>vCase.Id</elementReference>
             </value>
         </inputParameters>
+        <nameSegment>Case.Dispute_Case_Approved_StarTrack</nameSegment>
+        <versionSegment>1</versionSegment>
     </actionCalls>
     <actionCalls>
         <name>Email_non_compliance_case</name>
         <label>Email non compliance case</label>
-        <locationX>2074</locationX>
+        <locationX>2767</locationX>
         <locationY>926</locationY>
         <actionName>Case.email_non_compliance_case</actionName>
         <actionType>emailAlert</actionType>
@@ -132,11 +146,13 @@
                 <elementReference>vCase.Id</elementReference>
             </value>
         </inputParameters>
+        <nameSegment>Case.email_non_compliance_case</nameSegment>
+        <versionSegment>1</versionSegment>
     </actionCalls>
     <actionCalls>
         <name>Late_Payment_Dispute_Case_Approved</name>
         <label>Late Payment Dispute Case Approved</label>
-        <locationX>314</locationX>
+        <locationX>1007</locationX>
         <locationY>1034</locationY>
         <actionName>Case.Late_Payment_Dispute_Case_Approved</actionName>
         <actionType>emailAlert</actionType>
@@ -150,11 +166,13 @@
                 <elementReference>vCase.Id</elementReference>
             </value>
         </inputParameters>
+        <nameSegment>Case.Late_Payment_Dispute_Case_Approved</nameSegment>
+        <versionSegment>1</versionSegment>
     </actionCalls>
     <actionCalls>
         <name>New_Dispute_Claim_Case_Created</name>
         <label>New Dispute Claim Case Created</label>
-        <locationX>83</locationX>
+        <locationX>50</locationX>
         <locationY>458</locationY>
         <actionName>Case.New_Dispute_Claim_Case_Created</actionName>
         <actionType>emailAlert</actionType>
@@ -168,11 +186,33 @@
                 <elementReference>vCase.Id</elementReference>
             </value>
         </inputParameters>
+        <nameSegment>Case.New_Dispute_Claim_Case_Created</nameSegment>
+        <versionSegment>1</versionSegment>
+    </actionCalls>
+    <actionCalls>
+        <name>New_Dispute_Claim_Case_Created_Origin_Email</name>
+        <label>New Dispute Claim Case Created Origin Email</label>
+        <locationX>842</locationX>
+        <locationY>458</locationY>
+        <actionName>Case.New_Dispute_Claim_Case_Created_Origin_Email</actionName>
+        <actionType>emailAlert</actionType>
+        <connector>
+            <targetReference>CaseDomain_scenarios</targetReference>
+        </connector>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>SObjectRowId</name>
+            <value>
+                <elementReference>vCase.Id</elementReference>
+            </value>
+        </inputParameters>
+        <nameSegment>Case.New_Dispute_Claim_Case_Created_Origin_Email</nameSegment>
+        <versionSegment>1</versionSegment>
     </actionCalls>
     <actionCalls>
         <name>New_Dispute_Claim_Case_Created_StarTrack</name>
         <label>New Dispute Claim Case Created StarTrack</label>
-        <locationX>611</locationX>
+        <locationX>578</locationX>
         <locationY>458</locationY>
         <actionName>Case.New_Dispute_Claim_Case_Created_StarTrack</actionName>
         <actionType>emailAlert</actionType>
@@ -186,11 +226,33 @@
                 <elementReference>vCase.Id</elementReference>
             </value>
         </inputParameters>
+        <nameSegment>Case.New_Dispute_Claim_Case_Created_StarTrack</nameSegment>
+        <versionSegment>1</versionSegment>
+    </actionCalls>
+    <actionCalls>
+        <name>New_Dispute_Claim_Case_Created_StarTrack_Origin_Email</name>
+        <label>New Dispute Claim Case Created StarTrack Origin Email</label>
+        <locationX>1106</locationX>
+        <locationY>458</locationY>
+        <actionName>Case.New_Dispute_Claim_Case_Created_StarTrack_Origin_Email</actionName>
+        <actionType>emailAlert</actionType>
+        <connector>
+            <targetReference>CaseDomain_scenarios</targetReference>
+        </connector>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>SObjectRowId</name>
+            <value>
+                <elementReference>vCase.Id</elementReference>
+            </value>
+        </inputParameters>
+        <nameSegment>Case.New_Dispute_Claim_Case_Created_StarTrack_Origin_Email</nameSegment>
+        <versionSegment>1</versionSegment>
     </actionCalls>
     <actionCalls>
         <name>New_Late_Payment_Dispute_Claim_Case_Created</name>
         <label>New Late Payment Dispute Claim Case Created</label>
-        <locationX>347</locationX>
+        <locationX>314</locationX>
         <locationY>458</locationY>
         <actionName>Case.New_Late_Payment_Dispute_Claim_Case_Created</actionName>
         <actionType>emailAlert</actionType>
@@ -204,11 +266,13 @@
                 <elementReference>vCase.Id</elementReference>
             </value>
         </inputParameters>
+        <nameSegment>Case.New_Late_Payment_Dispute_Claim_Case_Created</nameSegment>
+        <versionSegment>1</versionSegment>
     </actionCalls>
     <actionCalls>
         <name>Notify_Account_Manager_Dispute_Case_Result</name>
         <label>Notify Account Manager Dispute Case Result</label>
-        <locationX>314</locationX>
+        <locationX>1007</locationX>
         <locationY>1334</locationY>
         <actionName>Case.Notify_Account_Manager_Dispute_Case_Result</actionName>
         <actionType>emailAlert</actionType>
@@ -219,11 +283,13 @@
                 <elementReference>vCase.Id</elementReference>
             </value>
         </inputParameters>
+        <nameSegment>Case.Notify_Account_Manager_Dispute_Case_Result</nameSegment>
+        <versionSegment>1</versionSegment>
     </actionCalls>
     <actionCalls>
         <name>Sales_Coordinator_Case_Created_Notification</name>
         <label>Sales Coordinator Case Created Notification</label>
-        <locationX>1579</locationX>
+        <locationX>2074</locationX>
         <locationY>350</locationY>
         <actionName>Case.Sales_Coordinator_Case_Created_Notification</actionName>
         <actionType>emailAlert</actionType>
@@ -237,11 +303,13 @@
                 <elementReference>vCase.Id</elementReference>
             </value>
         </inputParameters>
+        <nameSegment>Case.Sales_Coordinator_Case_Created_Notification</nameSegment>
+        <versionSegment>1</versionSegment>
     </actionCalls>
     <actionCalls>
         <name>Security_Express_Case_Creation_Email_Alert</name>
         <label>Security Express Case Creation Email Alert</label>
-        <locationX>1843</locationX>
+        <locationX>2338</locationX>
         <locationY>350</locationY>
         <actionName>Case.Security_Express_Case_Creation_Email_Alert</actionName>
         <actionType>emailAlert</actionType>
@@ -255,27 +323,13 @@
                 <elementReference>vCase.Id</elementReference>
             </value>
         </inputParameters>
-    </actionCalls>
-    <actionCalls>
-        <description>Sends an email to customer when new email is created via email-to-case</description>
-        <name>Send_an_email_when_case_is_created</name>
-        <label>Send an email when case is created</label>
-        <locationX>2602</locationX>
-        <locationY>1034</locationY>
-        <actionName>Case.Transport_Enquiry_Send_a_Email_when_a_new_Email_to_Case_has_been_created</actionName>
-        <actionType>emailAlert</actionType>
-        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
-        <inputParameters>
-            <name>SObjectRowId</name>
-            <value>
-                <elementReference>vCase.Id</elementReference>
-            </value>
-        </inputParameters>
+        <nameSegment>Case.Security_Express_Case_Creation_Email_Alert</nameSegment>
+        <versionSegment>1</versionSegment>
     </actionCalls>
     <actionCalls>
         <name>Special_Services_Case_Creation_Email_Alert</name>
         <label>Special Services Case Creation Email Alert</label>
-        <locationX>2338</locationX>
+        <locationX>3031</locationX>
         <locationY>926</locationY>
         <actionName>Case.Special_Services_Case_Creation_Email_Alert</actionName>
         <actionType>emailAlert</actionType>
@@ -286,6 +340,8 @@
                 <elementReference>vCase.Id</elementReference>
             </value>
         </inputParameters>
+        <nameSegment>Case.Special_Services_Case_Creation_Email_Alert</nameSegment>
+        <versionSegment>1</versionSegment>
     </actionCalls>
     <apiVersion>57.0</apiVersion>
     <constants>
@@ -300,7 +356,7 @@
         <description>condition - When a CAR case is created or updated involving specific scenario (excluding created only scenarios).</description>
         <name>CAR_Scenarios</name>
         <label>CAR Scenarios</label>
-        <locationX>1282</locationX>
+        <locationX>1975</locationX>
         <locationY>926</locationY>
         <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
         <rules>
@@ -407,7 +463,7 @@
     <decisions>
         <name>CaseDomain_create_only_scenarios</name>
         <label>CaseDomain create only scenarios</label>
-        <locationX>1293</locationX>
+        <locationX>1656</locationX>
         <locationY>242</locationY>
         <defaultConnector>
             <targetReference>CaseDomain_scenarios</targetReference>
@@ -541,7 +597,7 @@
     <decisions>
         <name>CaseDomain_scenarios</name>
         <label>CaseDomain scenarios</label>
-        <locationX>1788</locationX>
+        <locationX>2217</locationX>
         <locationY>818</locationY>
         <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
         <rules>
@@ -668,27 +724,12 @@
             </connector>
             <label>Special Services Case</label>
         </rules>
-        <rules>
-            <name>Transport_Enquiry_Case</name>
-            <conditionLogic>and</conditionLogic>
-            <conditions>
-                <leftValueReference>vCase.RecordType.DeveloperName</leftValueReference>
-                <operator>EqualTo</operator>
-                <rightValue>
-                    <elementReference>$Label.REC_TYPE_DEV_TRANSPORT_ENQUIRY</elementReference>
-                </rightValue>
-            </conditions>
-            <connector>
-                <targetReference>Transport_Enquiry_Scenarios</targetReference>
-            </connector>
-            <label>Transport Enquiry Case</label>
-        </rules>
     </decisions>
     <decisions>
         <description>Condition - When a Dispute Claim case is created or updated involving specific scenario (excluding created only scenarios).</description>
         <name>Dispute_Claim_scenarios</name>
         <label>Dispute Claim scenarios</label>
-        <locationX>446</locationX>
+        <locationX>1139</locationX>
         <locationY>926</locationY>
         <defaultConnector>
             <targetReference>Dispute_Claim_status_check</targetReference>
@@ -743,7 +784,7 @@
     <decisions>
         <name>Dispute_Claim_status_check</name>
         <label>Status Check</label>
-        <locationX>446</locationX>
+        <locationX>1139</locationX>
         <locationY>1226</locationY>
         <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
         <rules>
@@ -779,7 +820,7 @@
     <decisions>
         <name>Is_new_or_existing</name>
         <label>Is new or existing</label>
-        <locationX>1788</locationX>
+        <locationX>2217</locationX>
         <locationY>134</locationY>
         <defaultConnector>
             <targetReference>CaseDomain_scenarios</targetReference>
@@ -804,7 +845,7 @@
     <decisions>
         <name>New_Dispute_Claim_Scenarios</name>
         <label>New Dispute Claim Scenarios</label>
-        <locationX>479</locationX>
+        <locationX>710</locationX>
         <locationY>350</locationY>
         <defaultConnector>
             <targetReference>CaseDomain_scenarios</targetReference>
@@ -855,58 +896,38 @@
             </connector>
             <label>New ACK StarTrack</label>
         </rules>
-    </decisions>
-    <decisions>
-        <name>Transport_Enquiry_Scenarios</name>
-        <label>Transport Enquiry Scenarios</label>
-        <locationX>2734</locationX>
-        <locationY>926</locationY>
-        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
         <rules>
-            <name>Case_created_and_Email_to_case_address_is_populated</name>
+            <name>New_ACK_Origin_Email</name>
             <conditionLogic>and</conditionLogic>
             <conditions>
-                <leftValueReference>vCase.Origin</leftValueReference>
-                <operator>EqualTo</operator>
-                <rightValue>
-                    <stringValue>Email</stringValue>
-                </rightValue>
-            </conditions>
-            <conditions>
-                <leftValueReference>vCase.EmailToCaseAddress__c</leftValueReference>
-                <operator>NotEqualTo</operator>
-                <rightValue>
-                    <elementReference>vOldCase.EmailToCaseAddress__c</elementReference>
-                </rightValue>
-            </conditions>
-            <conditions>
-                <leftValueReference>vCase.EmailToCaseAddress__c</leftValueReference>
-                <operator>IsNull</operator>
-                <rightValue>
-                    <booleanValue>false</booleanValue>
-                </rightValue>
-            </conditions>
-            <conditions>
-                <leftValueReference>vCase.Owner_is_Queue__c</leftValueReference>
+                <leftValueReference>vNewACKOriginEmail</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
                     <booleanValue>true</booleanValue>
                 </rightValue>
             </conditions>
+            <connector>
+                <targetReference>New_Dispute_Claim_Case_Created_Origin_Email</targetReference>
+            </connector>
+            <label>New ACK Origin Email</label>
+        </rules>
+        <rules>
+            <name>New_ACK_StarTrack_Origin_Email</name>
+            <conditionLogic>and</conditionLogic>
             <conditions>
-                <leftValueReference>vCase.IsClosed</leftValueReference>
+                <leftValueReference>vNewACKStarTrackOriginEmail</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
-                    <booleanValue>false</booleanValue>
+                    <booleanValue>true</booleanValue>
                 </rightValue>
             </conditions>
             <connector>
-                <targetReference>Send_an_email_when_case_is_created</targetReference>
+                <targetReference>New_Dispute_Claim_Case_Created_StarTrack_Origin_Email</targetReference>
             </connector>
-            <label>Case created and Email to case address is populated</label>
+            <label>New ACK StarTrack Origin Email</label>
         </rules>
     </decisions>
-    <description>subflow for CaseDomain triggerred from CaseCommon AfterSave flow</description>
+    <description>Subflow for CaseDomain triggerred from CaseCommon AfterSave flow.</description>
     <environments>Default</environments>
     <formulas>
         <name>vClosedACK</name>
@@ -926,7 +947,7 @@
     <formulas>
         <name>vNewACK</name>
         <dataType>Boolean</dataType>
-        <expression>AND(NOT(ISBLANK({!vCase.Email_Address__c})), ISPICKVAL({!vCase.Status}, &apos;New&apos;), {!vCase.Exclude_Notification_Automation__c} = false, ISPICKVAL({!vCase.Business_Unit__c}, &apos;Australia Post&apos;), NOT(ISPICKVAL({!vCase.ReasonforCreditClaim__c}, &apos;Late payment&apos;)))</expression>
+        <expression>AND(NOT(ISBLANK({!vCase.Email_Address__c})), ISPICKVAL({!vCase.Status}, &apos;New&apos;), {!vCase.Exclude_Notification_Automation__c} = false, ISPICKVAL({!vCase.Business_Unit__c}, &apos;Australia Post&apos;), NOT(ISPICKVAL({!vCase.ReasonforCreditClaim__c}, &apos;Late payment&apos;)),  NOT(ISPICKVAL({!vCase.Origin}, &apos;Email&apos;))  )</expression>
     </formulas>
     <formulas>
         <name>vNewACKLatePayment</name>
@@ -934,9 +955,19 @@
         <expression>AND(NOT(ISBLANK({!vCase.Email_Address__c})), ISPICKVAL({!vCase.Status}, &apos;New&apos;), {!vCase.Exclude_Notification_Automation__c} = false, OR(ISPICKVAL({!vCase.Business_Unit__c}, &apos;Australia Post&apos;), ISPICKVAL({!vCase.Business_Unit__c}, &apos;StarTrack&apos;)), ISPICKVAL({!vCase.Enquiry_Type__c}, &apos;Billing Dispute&apos;), ISPICKVAL({!vCase.ReasonforCreditClaim__c}, &apos;Late payment&apos;))</expression>
     </formulas>
     <formulas>
+        <name>vNewACKOriginEmail</name>
+        <dataType>Boolean</dataType>
+        <expression>AND(NOT(ISBLANK({!vCase.Email_Address__c})), ISPICKVAL({!vCase.Status}, &apos;New&apos;), {!vCase.Exclude_Notification_Automation__c} = false, ISPICKVAL({!vCase.Business_Unit__c}, &apos;Australia Post&apos;), NOT(ISPICKVAL({!vCase.ReasonforCreditClaim__c}, &apos;Late payment&apos;)),  ISPICKVAL({!vCase.Origin}, &apos;Email&apos;)  )</expression>
+    </formulas>
+    <formulas>
         <name>vNewACKStarTrack</name>
         <dataType>Boolean</dataType>
-        <expression>AND(NOT(ISBLANK({!vCase.Email_Address__c})), ISPICKVAL({!vCase.Status}, &apos;New&apos;), {!vCase.Exclude_Notification_Automation__c} = false, ISPICKVAL({!vCase.Business_Unit__c}, &apos;StarTrack&apos;), NOT(ISPICKVAL({!vCase.ReasonforCreditClaim__c}, &apos;Late payment&apos;)))</expression>
+        <expression>AND(NOT(ISBLANK({!vCase.Email_Address__c})), ISPICKVAL({!vCase.Status}, &apos;New&apos;), {!vCase.Exclude_Notification_Automation__c} = false, ISPICKVAL({!vCase.Business_Unit__c}, &apos;StarTrack&apos;), NOT(ISPICKVAL({!vCase.ReasonforCreditClaim__c}, &apos;Late payment&apos;)), NOT(ISPICKVAL({!vCase.Origin}, &apos;Email&apos;)) )</expression>
+    </formulas>
+    <formulas>
+        <name>vNewACKStarTrackOriginEmail</name>
+        <dataType>Boolean</dataType>
+        <expression>AND(NOT(ISBLANK({!vCase.Email_Address__c})), ISPICKVAL({!vCase.Status}, &apos;New&apos;), {!vCase.Exclude_Notification_Automation__c} = false, ISPICKVAL({!vCase.Business_Unit__c}, &apos;StarTrack&apos;), NOT(ISPICKVAL({!vCase.ReasonforCreditClaim__c}, &apos;Late payment&apos;)), ISPICKVAL({!vCase.Origin}, &apos;Email&apos;))</expression>
     </formulas>
     <formulas>
         <name>vNewCaseArticleDamage</name>
@@ -1035,7 +1066,7 @@ NOT({!vCase.Owner_is_Queue__c}) )</expression>
     </processMetadataValues>
     <processType>AutoLaunchedFlow</processType>
     <start>
-        <locationX>1662</locationX>
+        <locationX>2091</locationX>
         <locationY>0</locationY>
         <connector>
             <targetReference>Is_new_or_existing</targetReference>

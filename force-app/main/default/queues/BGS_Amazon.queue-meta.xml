@@ -2,7 +2,7 @@
 <Queue xmlns="http://soap.sforce.com/2006/04/metadata">
     <doesSendEmailToMembers>true</doesSendEmailToMembers>
     <email>vernon.keogh@auspost.com.au</email>
-    <name>BGS Amazon</name>
+    <name>General Spare</name>
     <queueMembers>
         <users>
             <user>vernon.keogh@auspost.com.au</user>

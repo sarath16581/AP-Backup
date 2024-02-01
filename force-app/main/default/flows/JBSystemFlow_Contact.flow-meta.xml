@@ -60,6 +60,8 @@
                 <stringValue>{&quot;objects&quot;:[{&quot;relationshipIdName&quot;:&quot;&quot;,&quot;referenceObject&quot;:&quot;&quot;,&quot;isPolymorphic&quot;:false,&quot;relationshipName&quot;:&quot;&quot;,&quot;dePrefix&quot;:&quot;Contact:&quot;,&quot;fields&quot;:[&quot;Id&quot;,&quot;Email&quot;,&quot;LastName&quot;,&quot;FirstName&quot;,&quot;LeadSource&quot;,&quot;CreatedDate&quot;,&quot;EmailProvided__c&quot;,&quot;HasOptedOutOfEmail&quot;,&quot;Contact_Report_ID__c&quot;,&quot;Email_Electronic_Opt_In__c&quot;]}]}</stringValue>
             </value>
         </inputParameters>
+        <nameSegment>et4ae5__JBintFireBulkEvent</nameSegment>
+        <versionSegment>1</versionSegment>
     </actionCalls>
     <apiVersion>49.0</apiVersion>
     <decisions>
