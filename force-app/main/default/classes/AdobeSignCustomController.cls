@@ -178,9 +178,9 @@ public with sharing class AdobeSignCustomController {
 
 		// Query the Adobe Agreement based on parent Apttus Contract Id
 		// There should only be a single "Out for Signatures" document for a given Apttus Contract
-		Map <Id, echosign_dev1__SIGN_Agreement__c> envelopes = AdobeSignAgreementSelector.newInstance(1).selectOutForSignatureByApttusContractId(new Set <Id> { masterId }, new Set<Object>());
+		List <echosign_dev1__SIGN_Agreement__c> envelopes = AdobeSignAgreementSelector.newInstance(1).selectOutForSignatureByApttusContractId(new Set <Id> { masterId }, new Set<Object>());
 
-		if (envelopes.keySet().size() == 1) {
+		if (envelopes != null && envelopes.size() == 1) {
 			Map <String, String> params = ApexPages.currentPage().getParameters();
 		
 			// Pass through any parameters that were passed to this page
@@ -188,7 +188,7 @@ public with sharing class AdobeSignCustomController {
 				pageRef.getParameters().put(key, params.get(key));
 			}
 
-			pageRef.getParameters().put('id', envelopes.values()[0].Id);
+			pageRef.getParameters().put('id', envelopes[0].Id);
 			pageRef.getParameters().put('sfdc.override', '1');
 			pageRef.getParameters().put('onLoadAction', 'cancel');	
 		}

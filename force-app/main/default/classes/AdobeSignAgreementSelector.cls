@@ -50,7 +50,7 @@ public inherited sharing class AdobeSignAgreementSelector extends ApplicationSel
 		return (List<echosign_dev1__SIGN_Agreement__c>)Database.query(qb.toSoqlString());
 	}
 
-	public Map<Id, echosign_dev1__SIGN_Agreement__c> selectOutForSignatureByApttusContractId(Set<Id> apttusContractIds, Set<Object>selectorOptions) {
+	public List< echosign_dev1__SIGN_Agreement__c> selectOutForSignatureByApttusContractId(Set<Id> apttusContractIds, Set<Object>selectorOptions) {
 		QueryBuilder qb = newQueryBuilder(selectorOptions);
 		QueryBuilder.ConditionsManager conditions = qb.addConditions();
 		conditions
@@ -60,7 +60,7 @@ public inherited sharing class AdobeSignAgreementSelector extends ApplicationSel
 
 		qb.addOrder(new QueryBuilder.Order(echosign_dev1__SIGN_Agreement__c.CreatedDate).setSortingOrderDesc());
 
-		return new Map<Id, echosign_dev1__SIGN_Agreement__c>((List<echosign_dev1__SIGN_Agreement__c>) Database.query(qb.toSoqlString()));
+		return (List<echosign_dev1__SIGN_Agreement__c>) Database.query(qb.toSoqlString());
 	}
 
 	public virtual override QueryBuilder newQueryBuilder(Set<Object> selectorOptions) {
