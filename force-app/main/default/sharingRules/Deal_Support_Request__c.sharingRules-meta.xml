@@ -76,21 +76,6 @@
         <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
-        <fullName>Share_Commercial_Analytics_Modelling</fullName>
-        <accessLevel>Edit</accessLevel>
-        <description>This rule share Commercial Analytics Modelling DSR access with various other support teams.</description>
-        <label>Share Commercial Analytics Modelling</label>
-        <sharedTo>
-            <group>Commercial_Analytics_Modelling</group>
-        </sharedTo>
-        <criteriaItems>
-            <field>RecordTypeId</field>
-            <operation>equals</operation>
-            <value>Commercial Analytics &amp; Modelling</value>
-        </criteriaItems>
-        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
-    </sharingCriteriaRules>
-    <sharingCriteriaRules>
         <fullName>Share_Credit_DSR_Request_with_Credit_Management_Team</fullName>
         <accessLevel>Edit</accessLevel>
         <description>Provide the Credit DSR Request access to the Credit Management Team</description>
