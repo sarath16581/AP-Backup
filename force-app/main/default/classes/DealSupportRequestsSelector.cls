@@ -18,6 +18,7 @@
 * 2023-02-13- sarath.burra@auspost.com.au - Removed Deal_Support_Request__c.Compass_Quote_Reference__c duplicate field from getSObjectFieldList()
 * 2023-06-21 - sarath.burra@auspost.com.au - CI 834-Added Transit Cover fields
 * 2023-10-31 - Ranjeewa Silva - Updated newQueryBuilder to pass fieldOverrides and selectorOptions to related object query builder instances.
+* 2024-02-02 - Mahesh Parvathaneni - Added Name field condition in search method
 */
 public with sharing class DealSupportRequestsSelector extends ApplicationSelector{
 	public enum Options {

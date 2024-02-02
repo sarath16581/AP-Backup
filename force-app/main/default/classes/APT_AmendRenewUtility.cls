@@ -1348,9 +1348,10 @@ public without sharing class APT_AmendRenewUtility {
 	 * @return  Deal Support request record
 	 */
 	public static Deal_Support_Request__c getDealSupportRequestByDsrId(String dsrId) {
+		Set<SObjectField> fieldOverrides = new Set<SObjectField>{Deal_Support_Request__c.Id,Deal_Support_Request__c.Name,Deal_Support_Request__c.Requestor__c,Deal_Support_Request__c.CustomerContact1__c};
 		Map<String, Object> searchParams = new Map<String, Object>();
         searchParams.put('dsrIds', new Set<String>{dsrId});
-        List<Deal_Support_Request__c> dsrList = DealSupportRequestsSelector.newInstance().search(searchParams, new Set<Object>{}, true);
+        List<Deal_Support_Request__c> dsrList = DealSupportRequestsSelector.newInstance(fieldOverrides).search(searchParams, new Set<Object>{}, true);
 		return !dsrList.isEmpty() ? dsrList[0] : null;
 	}
 
