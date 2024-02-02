@@ -430,11 +430,25 @@ public with sharing class ProvisionSTBillingAccountsController {
 			BillingAccountWrapperForTeams.StarTrackSubAccount subAccount = new BillingAccountWrapperForTeams.StarTrackSubAccount(subAccountRequest.Id, subAccountRequest.Sub_Account_Name__c);
 			// populate parent based on the account type set in sub account request.
 			if (subAccountRequest.AccountType__c == INVOICE_PAID_BY_LEADER_ACCOUNT_TYPE) {
-				subAccount.parentObjectId = subAccountRequest.APT_Charge_Account__c;
-				subAccount.parentBillingAccountNo = subAccountRequest.APT_Billing_Account__r?.LEGACY_ID__c;
+				// invoices are paid by leader for this sub account request.
+				// if leader billing account has been provisioned previously, set leader billing account number as the
+				// 'parentBillingAccountNo' in this request. otherwise include charge account request id in 'parentObjectId'
+				// as the leader is not provisioned yet.
+				if (String.isNotBlank(subAccountRequest.APT_Billing_Account__r?.LEGACY_ID__c)) {
+					subAccount.parentBillingAccountNo = subAccountRequest.APT_Billing_Account__r?.LEGACY_ID__c;
+				} else {
+					subAccount.parentObjectId = subAccountRequest.APT_Charge_Account__c;
+				}
 			} else if (subAccountRequest.AccountType__c == INVOICE_PAID_BY_OTHER_ACCOUNT_TYPE) {
-				subAccount.parentObjectId = subAccountRequest.ParentAccountRequest__c;
-				subAccount.parentBillingAccountNo = subAccountRequest.ParentBillingAccount__r?.LEGACY_ID__c;
+				// invoices are paid by another follower billing account.
+				// if parent billing account has been provisioned previously, set parent billing account number as the
+				// 'parentBillingAccountNo' in this request. otherwise include parent account request id in 'parentObjectId'
+				// as the selected parent is not provisioned yet.
+				if (String.isNotBlank(subAccountRequest.ParentBillingAccount__r?.LEGACY_ID__c)) {
+					subAccount.parentBillingAccountNo = subAccountRequest.ParentBillingAccount__r?.LEGACY_ID__c;
+				} else {
+					subAccount.parentObjectId = subAccountRequest.ParentAccountRequest__c;
+				}
 			}
 
 			// populate primary and secondary contacts on sub account
@@ -480,6 +494,10 @@ public with sharing class ProvisionSTBillingAccountsController {
 			result.isValid = false;
 			result.status = PreConditionsCheckStatus.PREVIOUSLY_SUBMITTED.name();
 			return result;
+		}
+
+		if (dealSupportRequest.Opportunity__c == null) {
+			result.addErrorMessage(System.Label.StarTrackOpportunityRequiredOnDSRForNewAccountsErrorMessage);
 		}
 
 		if(String.isEmpty(request.team.organisations?.billingAddress?.addressLine1)

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customPermissions>
+        <enabled>true</enabled>
+        <name>ByPassErrorsForOpportunityValidations</name>
+    </customPermissions>
+    <description>Permission set assigned to sales admin users to bypass errors for validations on opportunity. Custom permission ByPassErrorsForOpportunityValidations is assigned to this permission set.</description>
+    <hasActivationRequired>false</hasActivationRequired>
+    <label>Bypass Errors For Opportunity Validations</label>
+</PermissionSet>

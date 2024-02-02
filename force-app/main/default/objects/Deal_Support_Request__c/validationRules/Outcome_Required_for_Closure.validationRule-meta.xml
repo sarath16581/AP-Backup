@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Outcome_Required_for_Closure</fullName>
-    <active>true</active>
-    <description>When a DSR is&apos; Closed&apos; for Record Type Commercial Analytics Modelling then Outcome field cannot be null.</description>
+    <active>false</active>
+    <description>When a DSR is&apos; Closed&apos; for Record Type Commercial Analytics Modelling then Outcome field cannot be null. DEACTIVATED - REQ3395277</description>
     <errorConditionFormula>AND(
       NOT($Profile.Name = &apos;System Administrator&apos;), 
       RecordType.DeveloperName =&apos;Commercial_Analytics_Modelling&apos;,

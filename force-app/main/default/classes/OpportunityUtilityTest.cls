@@ -17,6 +17,7 @@ History:
 2020-11-30  Seth Heang   - Added test method testCloseDateUpdateOnOppClosure() to test the 'Close Date' field auto-populated to Today's date during Opportunity Closure
 2022-07-22      ken.mcguire                         OPC Uplift.
 2023-08-24 - Ranjeewa Silva - Updates to existing tests to ensure test data conforms to new sales pipeline governance validations on Opportunity.
+2024-01-30 - Bharat Patel - Set APTMinimumMonthlySpend__c value in testClassificationCS(), to validate setOpportunityPrimaryProposalFieldValues()
 *****************************************************************************************/
 
 @isTest
@@ -1071,6 +1072,7 @@ private class OpportunityUtilityTest {
         newOpty.Offline_Contract_Received__c = TRUE;
         //[Jansi:12-03-2020]added below line - To fix the ERROR - FIELD_CUSTOM_VALIDATION_EXCEPTION, Please use the 'Opportunity Closure' button to Close the Opportunity:
         newOpty.Hidden_Restrict_Path_Closure__c =TRUE;
+        newOpty.APTMinimumMonthlySpend__c = 30000;
         newOptyList.add(newOpty);
         UPDATE newOptyList;
 

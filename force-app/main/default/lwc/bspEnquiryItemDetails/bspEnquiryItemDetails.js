@@ -37,6 +37,7 @@ export default class BspEnquiryItemDetails extends NavigationMixin(LightningElem
 		} else if (data) {
 			if (this.recordTypeId){
 				this.enquiryTypes = data;	
+				this.getEnquiryTypeLabels();						
 			}
 		}
 	}
@@ -48,7 +49,7 @@ export default class BspEnquiryItemDetails extends NavigationMixin(LightningElem
 		} else if (data) {
 			if (this.recordTypeId){
 				this.reasonsForCreditClaim = data;
-				this.getPicklistLabels();
+				this.getReasonCreditClaimLabels();
 			}
 		}
 	}
@@ -140,15 +141,18 @@ export default class BspEnquiryItemDetails extends NavigationMixin(LightningElem
 	 * This approach is implemented to avoid altering the API value, which could lead to potential issues in other areas in the system.
 	 * eg: Billing Dispute to Billing dispute (see the 'D' in dispute)
 	 */
-	getPicklistLabels() {
-		if (this.reasonsForCreditClaim){
-			let formattedReasonForCreditClaimValues = this.reasonsForCreditClaim.values.filter(opt => opt.value.includes(this.caseDetailWrapper.enq.ReasonforCreditClaim__c));
-			if (formattedReasonForCreditClaimValues.length > 0) this.formattedReasonForCreditClaim = formattedReasonForCreditClaimValues[0].label;
-		}
+	getEnquiryTypeLabels() {
 		if (this.enquiryTypes){
 			let formattedEnquiryTypeValues = this.enquiryTypes.values.filter(opt => opt.value.includes(this.caseDetailWrapper.enq.Enquiry_Type__c));	
 			if (formattedEnquiryTypeValues.length > 0)  this.formattedEnquiryType = formattedEnquiryTypeValues[0].label;
 		}
 	}
+
+	getReasonCreditClaimLabels() {
+		if (this.reasonsForCreditClaim){
+			let formattedReasonForCreditClaimValues = this.reasonsForCreditClaim.values.filter(opt => opt.value.includes(this.caseDetailWrapper.enq.ReasonforCreditClaim__c));
+			if (formattedReasonForCreditClaimValues.length > 0) this.formattedReasonForCreditClaim = formattedReasonForCreditClaimValues[0].label;
+		}
+	}	
 
 }

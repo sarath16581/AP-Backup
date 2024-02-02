@@ -71,7 +71,7 @@ public with sharing class CompensationUtilityModule extends ApplicationModule {
             } else {
                 // if the reference ID on the case is available and has more than one compensation records for any case id
                 //List<Compensation__c> compensationsForCaseId = groupedCompensationByCaseIds.get(compensation.Case__c);
-            if(!groupedCompensationByCaseIds.values().isEmpty() && groupedCompensationByCaseIds.size() > 1 ) {
+            if(!groupedCompensationByCaseIds.values().isEmpty() && groupedCompensationByCaseIds.size() >= 1 ) {
                     // add message The Reference ID already have a compensation record and only supervisor can create more than one.
                     compensation.addError(Label.CompensationMsgMoreThanOnePerCaseReference);
                 }
