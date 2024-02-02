@@ -26,6 +26,7 @@
         <value>Service Advisor</value>
     </filters>
     <label>BGS Government Q</label>
+    <language>en_US</language>
     <sharedTo>
         <group>SalesOpsSupport</group>
         <group>Sales_Ops_Delivery</group>

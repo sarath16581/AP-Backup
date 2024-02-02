@@ -107,11 +107,6 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>Account</field>
-            <table>Account.Activities</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
             <field>Owner</field>
             <table>Account</table>
         </columns>
@@ -2650,21 +2645,6 @@
             <field>Post_Office_Assigned__c.RNPNetworkManager__c</field>
             <table>Account</table>
         </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>Post_Office_Assigned__c.RecordType</field>
-            <table>Account</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>Post_Office_Assigned__c.Record_Type_Id__c</field>
-            <table>Account</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>Post_Office_Assigned__c.Status__c</field>
-            <table>Account</table>
-        </columns>
         <masterLabel>Accounts</masterLabel>
     </sections>
     <sections>
@@ -3356,11 +3336,6 @@
         <columns>
             <checkedByDefault>false</checkedByDefault>
             <field>WrapTime__c</field>
-            <table>Account.Activities</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>Owner.UserRole</field>
             <table>Account.Activities</table>
         </columns>
         <masterLabel>Activities</masterLabel>

@@ -2,7 +2,7 @@
 <ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Commercial_Analytics_Criteria_Not_Met</fullName>
     <active>false</active>
-    <description>STP-2299 - MC - Validate if criteria met for Commercial Analytics &amp; Modelling DSR to be created. DEACTIVATED - REQ3395277</description>
+    <description>STP-2299 - MC - Validate if criteria met for Commercial Analytics &amp; Modelling DSR to be created.</description>
     <errorConditionFormula>IF(RecordType.DeveloperName =&quot;Commercial_Analytics_Modelling&quot;,  
    IF(Opportunity__r.Opportunity_Annualised_Value__c &lt; 1000000,  
        IF( Opportunity__r.Has_Solution_Consultant__c = FALSE,  
