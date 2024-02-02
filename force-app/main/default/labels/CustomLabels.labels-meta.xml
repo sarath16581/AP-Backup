@@ -8320,6 +8320,14 @@ We&apos;ll let you if it&apos;s successful. Thank you. Please do not reply.</val
         <value>Follower(s)/Offspring(s) {0} for {1} has been successfully created. Click here to go to Deal Support Request record {2}.</value>
     </labels>
     <labels>
+        <fullName>StarTrackOpportunityRequiredOnDSRForNewAccountsErrorMessage</fullName>
+        <categories>Billing Account Provisioning</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>StarTrackOpportunityRequiredOnDSRForNewAccountsErrorMessage</shortDescription>
+        <value>Opportunity is required on the Deal Support Request.</value>
+    </labels>
+    <labels>
         <fullName>StarTrackSubAccountActivationDSRDescription</fullName>
         <categories>Billing Account Provisioning</categories>
         <language>en_US</language>
