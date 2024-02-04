@@ -3,7 +3,7 @@
     <fullName>NextStepRequiredBeforeMovingStage</fullName>
     <active>true</active>
     <description>Ensure Next Step is populated before progressing opportunity from &quot;Identify&quot; to &quot;Qualify&quot; stage and beyond.</description>
-    <errorConditionFormula>AND( NOT(ISNEW()), ISCHANGED( StageName ), ISBLANK( TEXT(Next_Step__c) ), OR( ISPICKVAL(StageName, &quot;Qualify&quot;), ISPICKVAL(StageName, &quot;Propose&quot;), ISPICKVAL(StageName, &quot;Negotiate&quot;), ISPICKVAL(StageName, &quot;Closed Won&quot;) ) )</errorConditionFormula>
+    <errorConditionFormula>AND( NOT(ISNEW()), ISCHANGED( StageName ), ISBLANK( TEXT(Next_Step__c) ), OR( ISPICKVAL(StageName, &quot;Qualify&quot;), ISPICKVAL(StageName, &quot;Propose&quot;), ISPICKVAL(StageName, &quot;Negotiate&quot;), ISPICKVAL(StageName, &quot;Closed Won&quot;) ), NOT( $Permission.ByPassErrorsForOpportunityValidations ) )</errorConditionFormula>
     <errorDisplayField>Next_Step__c</errorDisplayField>
     <errorMessage>Update the Next Step. The next sales step must be completed before progressing the opportunity.</errorMessage>
 </ValidationRule>

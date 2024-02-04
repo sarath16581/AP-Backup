@@ -433,6 +433,7 @@ public virtual inherited sharing class AccountsSelector extends ApplicationSelec
 				.add(new QueryBuilder.SimpleCondition('Winning_Master_Record__pc = null'))
 				.add(new QueryBuilder.SimpleCondition('IsInactiveCustomer__pc = true'))
 				.add(new QueryBuilder.SimpleCondition('PersonContactId != null'))
+				.add(new QueryBuilder.SimpleCondition('Special_Treatment_Notes__pc = null'))
 				.endConditions();
 		return Database.getQueryLocator(qb.toSoqlString());
 	}

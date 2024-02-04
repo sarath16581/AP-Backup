@@ -11,6 +11,7 @@
  * 2020-03-08 - seth.heang@auspost.com.au - Update Contract test data to fulfil the updated criteria in APT_SyncContractAndRatesSchedule class, and get picked up for the rate sync
  * 2021-11-17 - Mathew Jose - Fixing the test method failures created by the introduction of key contact lookup filter on Opportuntiy (CI-194)
  * 2022-02-11  REQ2723568: API version 52 upgrade
+ * 2024-01-30 - Ranjeewa Silva - Updates to existing tests to ensure test data conforms to new validation rule in APT_Sub_Account__c.
 */
 @isTest
 private class APT_SyncContractAndRatesBatch_Test {
@@ -46,11 +47,13 @@ private class APT_SyncContractAndRatesBatch_Test {
             APT_Sub_Account__c sub_Account = new APT_Sub_Account__c();
             sub_Account.Name = 'test';
             sub_Account.APT_Organisation__c = tempacct.Id;
+            sub_Account.APT_Sub_Account_Request_Status__c = 'Draft';
             insert sub_Account;
             
             APT_Sub_Account__c sub_Account2 = new APT_Sub_Account__c();
             sub_Account2.Name = 'test';
             sub_Account2.APT_Organisation__c = tempacct.Id;
+            sub_Account2.APT_Sub_Account_Request_Status__c = 'Draft';
             insert sub_Account2;
             
             List<APT_Sub_Account__c> lstsubacc = new List<APT_Sub_Account__c>();
@@ -528,11 +531,13 @@ private class APT_SyncContractAndRatesBatch_Test {
             APT_Sub_Account__c sub_Account = new APT_Sub_Account__c();
             sub_Account.Name = 'test';
             sub_Account.APT_Organisation__c = tempacct.Id;
+            sub_Account.APT_Sub_Account_Request_Status__c = 'Draft';
             insert sub_Account;
             
             APT_Sub_Account__c sub_Account2 = new APT_Sub_Account__c();
             sub_Account2.Name = 'test';
             sub_Account2.APT_Organisation__c = tempacct.Id;
+            sub_Account2.APT_Sub_Account_Request_Status__c = 'Draft';
             insert sub_Account2;
             
             Opportunity opp = APT_TestUtils.createOpportunity(tempacct.id);
@@ -761,6 +766,7 @@ private class APT_SyncContractAndRatesBatch_Test {
             APT_Sub_Account__c sub_Account = new APT_Sub_Account__c();
             sub_Account.Name = 'test';
             sub_Account.APT_Organisation__c = tempacct.Id;
+            sub_Account.APT_Sub_Account_Request_Status__c = 'Draft';
             insert sub_Account;
             
             
@@ -988,6 +994,7 @@ private class APT_SyncContractAndRatesBatch_Test {
             APT_Sub_Account__c sub_Account = new APT_Sub_Account__c();
             sub_Account.Name = 'test';
             sub_Account.APT_Organisation__c = tempacct.Id;
+            sub_Account.APT_Sub_Account_Request_Status__c = 'Draft';
             insert sub_Account;
             
             Opportunity opp = APT_TestUtils.createOpportunity(tempacct.id);
@@ -1212,6 +1219,7 @@ private class APT_SyncContractAndRatesBatch_Test {
             APT_Sub_Account__c sub_Account = new APT_Sub_Account__c();
             sub_Account.Name = 'test';
             sub_Account.APT_Organisation__c = tempacct.Id;
+            sub_Account.APT_Sub_Account_Request_Status__c = 'Draft';
             insert sub_Account;
             
             Opportunity opp = APT_TestUtils.createOpportunity(tempacct.id);
@@ -1438,6 +1446,7 @@ private class APT_SyncContractAndRatesBatch_Test {
             APT_Sub_Account__c sub_Account = new APT_Sub_Account__c();
             sub_Account.Name = 'test';
             sub_Account.APT_Organisation__c = tempacct.Id;
+            sub_Account.APT_Sub_Account_Request_Status__c = 'Draft';
             insert sub_Account;
             
             Opportunity opp = APT_TestUtils.createOpportunity(tempacct.id);
@@ -1670,6 +1679,7 @@ private class APT_SyncContractAndRatesBatch_Test {
             APT_Sub_Account__c sub_Account = new APT_Sub_Account__c();
             sub_Account.Name = 'test';
             sub_Account.APT_Organisation__c = tempacct.Id;
+            sub_Account.APT_Sub_Account_Request_Status__c = 'Draft';
             insert sub_Account;
             
             Opportunity opp = APT_TestUtils.createOpportunity(tempacct.id);
@@ -1962,6 +1972,7 @@ private class APT_SyncContractAndRatesBatch_Test {
             APT_Sub_Account__c sub_Account = new APT_Sub_Account__c();
             sub_Account.Name = 'test';
             sub_Account.APT_Organisation__c = tempacct.Id;
+            sub_Account.APT_Sub_Account_Request_Status__c = 'Draft';
             insert sub_Account;
             
             Opportunity opp = APT_TestUtils.createOpportunity(tempacct.id);
@@ -2215,6 +2226,7 @@ private class APT_SyncContractAndRatesBatch_Test {
             APT_Sub_Account__c sub_Account = new APT_Sub_Account__c();
             sub_Account.Name = 'test';
             sub_Account.APT_Organisation__c = tempacct.Id;
+            sub_Account.APT_Sub_Account_Request_Status__c = 'Draft';
             insert sub_Account;
             
             Opportunity opp = APT_TestUtils.createOpportunity(tempacct.id);
@@ -2509,6 +2521,7 @@ private static TestMethod void testMethodInternational4() {
             APT_Sub_Account__c sub_Account = new APT_Sub_Account__c();
             sub_Account.Name = 'test';
             sub_Account.APT_Organisation__c = tempacct.Id;
+            sub_Account.APT_Sub_Account_Request_Status__c = 'Draft';
             insert sub_Account;
             
             Opportunity opp = APT_TestUtils.createOpportunity(tempacct.id);
@@ -2770,6 +2783,7 @@ private static TestMethod void testMethodInternational4() {
             APT_Sub_Account__c sub_Account = new APT_Sub_Account__c();
             sub_Account.Name = 'test';
             sub_Account.APT_Organisation__c = tempacct.Id;
+            sub_Account.APT_Sub_Account_Request_Status__c = 'Draft';
             insert sub_Account;
             
             Opportunity opp = APT_TestUtils.createOpportunity(tempacct.id);
@@ -3031,6 +3045,7 @@ private static TestMethod void testMethodInternational4() {
             APT_Sub_Account__c sub_Account = new APT_Sub_Account__c();
             sub_Account.Name = 'test';
             sub_Account.APT_Organisation__c = tempacct.Id;
+            sub_Account.APT_Sub_Account_Request_Status__c = 'Draft';
             insert sub_Account;
             
             Opportunity opp = APT_TestUtils.createOpportunity(tempacct.id);
@@ -3300,6 +3315,7 @@ private static TestMethod void testMethodInternational4() {
             APT_Sub_Account__c sub_Account = new APT_Sub_Account__c();
             sub_Account.Name = 'test';
             sub_Account.APT_Organisation__c = tempacct.Id;
+            sub_Account.APT_Sub_Account_Request_Status__c = 'Draft';
             insert sub_Account;
             
             Opportunity opp = APT_TestUtils.createOpportunity(tempacct.id);
@@ -3567,6 +3583,7 @@ private static TestMethod void testMethodInternational4() {
             APT_Sub_Account__c sub_Account = new APT_Sub_Account__c();
             sub_Account.Name = 'test';
             sub_Account.APT_Organisation__c = tempacct.Id;
+            sub_Account.APT_Sub_Account_Request_Status__c = 'Draft';
             insert sub_Account;
             
             Opportunity opp = APT_TestUtils.createOpportunity(tempacct.id);

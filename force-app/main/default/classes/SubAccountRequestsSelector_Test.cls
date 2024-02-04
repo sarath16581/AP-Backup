@@ -10,7 +10,7 @@
 * 2020-12-18 - Seth Heang - Created
 * 2022-05-30 - Seth Heang - updated getSObjectFieldList, Added selectByProposalId and Added WITH_ORGANISATION related list
 * 2023-10-27 - Harry Wang - Added tests for selectByChargeAccountId and selectByBillingAccountId and option FILTER_UNPROVISIONED_FOLLOWER_ONLY, FILTER_DRAFT_ERROR
-* 2023-10-30 - Ranjeewa Silva - Updated tests for selecting related billing account fields
+* 2023-10-30 - Ranjeewa Silva - Updated tests for selecting related billing account, parent account request and offspring account requests
  */
 @IsTest
 private with sharing class SubAccountRequestsSelector_Test {
@@ -80,6 +80,14 @@ private with sharing class SubAccountRequestsSelector_Test {
 		System.assertEquals(true, Pattern.compile('(?ism)APT_Organisation__r\\..*?\\bfrom APT_Sub_Account__c\\b').matcher(soql).find(), 'Resulting query does not select organisation field');
 		System.assertEquals(true, Pattern.compile('(?ism)APT_Billing_Account__r\\..*?\\bfrom APT_Sub_Account__c\\b').matcher(soql).find(), 'Resulting query does not select billing account field');
 		System.assertEquals(true, Pattern.compile('(?ism)ParentBillingAccount__r\\..*?\\bfrom APT_Sub_Account__c\\b').matcher(soql).find(), 'Resulting query does not select StarTrack parent billing account field');
+
+		qb = selector.newQueryBuilder(new Set<Object>{
+				SubAccountRequestsSelector.Options.WITH_ST_PARENT_ACCOUNT_REQUEST,
+				SubAccountRequestsSelector.Options.WITH_ST_OFFSPRING_ACCOUNT_REQUESTS
+		});
+		soql = qb.toSoqlString();
+		Assert.isTrue(Pattern.compile('(?ism)Select.*?\\(Select.*?\\bfrom OffspringAccountRequests__r\\b.*?\\).*?\\bfrom APT_Sub_Account__c\\b').matcher(soql).find(), 'Resulting query does not select Offspring sub account request child records: ' + soql);
+		System.assertEquals(true, Pattern.compile('(?ism)ParentAccountRequest__r\\..*?\\bfrom APT_Sub_Account__c\\b').matcher(soql).find(), 'Resulting query does not select StarTrack parent sub account request field');
 
 		Test.stopTest();
 
