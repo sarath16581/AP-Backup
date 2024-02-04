@@ -10,6 +10,7 @@
 * 2020-04-10 - arjun.singh@auspost.com.au - Created
 * 2022-04-08 - seth.heang@auspost.com.au - updated test method to test search method
 * 2022-12-01 - Harry Wang - added test method for selectByAccountRelationshipQueryLocator
+* 2024-02-02 - Mahesh Parvathaneni - updated test method to include dsrIds to test search method
 */
 @IsTest
 public with sharing class DealSupportRequestsSelector_Test {
@@ -224,6 +225,7 @@ public with sharing class DealSupportRequestsSelector_Test {
         searchParams.put('opportunityIds', new Set<Id>{opportunityRecord.Id});
         searchParams.put('recTypeIds', new Set<Id>{psrAPPCRecTypeId});
         searchParams.put('productNames', new Set<String>{APT_Constants.PSR_APPC_PRODUCT_NAME});
+		searchParams.put('dsrIds', new Set<String>{results.values()[0].Name});
         List<Deal_Support_Request__c> resultsforAPPCPSRList = selector2.search(searchParams, new Set<Object>(), true);
         System.assertEquals(1, resultsforAPPCPSRList.size(), 'Result count was wrong');
 
