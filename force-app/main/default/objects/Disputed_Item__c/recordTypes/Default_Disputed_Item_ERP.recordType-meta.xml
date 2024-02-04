@@ -81,6 +81,17 @@
         </values>
     </picklistValues>
     <picklistValues>
+        <picklist>Is_APPC__c</picklist>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
         <picklist>Product_Sub_Category__c</picklist>
         <values>
             <fullName>3PL</fullName>
@@ -277,7 +288,51 @@
     <picklistValues>
         <picklist>Reason_Category__c</picklist>
         <values>
+            <fullName>Accounting adjustment</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Billing Processing error</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Bulk Mail Lodgement %28BML%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Capture ID %28Addressee only%29 fee</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Capture ID fee</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Customer Data Issue</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Delivery Issue</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Discretionary Settlement</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Force Majeure Fee</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Fuel Surcharge</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>International Surcharge</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Manifest Correction Fee</fullName>
             <default>false</default>
         </values>
         <values>
@@ -289,7 +344,59 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Order Processing Error</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Over Maximum Limits Fee</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Peak Fee</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Pick%2FPack Errors</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Rebate</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Reimbursement of Shipping Costs</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Return to Sender fee</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Returns Shipping costs</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Security surcharge</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Signature on Delivery fee</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Transit Cover fee</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Unmanifested Article fee</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Wine %26 Alcohol fee</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Write off</fullName>
             <default>false</default>
         </values>
     </picklistValues>
@@ -345,6 +452,10 @@
         </values>
         <values>
             <fullName>CCM Late Delivery Claim</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>CHQ Handling Fee Reversal</fullName>
             <default>false</default>
         </values>
         <values>
@@ -416,6 +527,10 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Force Majeure Fee</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>General Ledger Adjustment</fullName>
             <default>false</default>
         </values>
@@ -468,6 +583,14 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Incorrect Weight %28Customer%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Incorrect Weight %28Operations%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Incorrect service</fullName>
             <default>false</default>
         </values>
@@ -489,6 +612,10 @@
         </values>
         <values>
             <fullName>Late Delivery Claim</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Manifest Correction Fee</fullName>
             <default>false</default>
         </values>
         <values>
@@ -536,6 +663,18 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Over Maximum Limits Fee</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Oversize Charge</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Peak Fee</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Performance Failure %28Fleet%29</fullName>
             <default>false</default>
         </values>
@@ -577,6 +716,10 @@
         </values>
         <values>
             <fullName>Satchel Migration</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Schedule Rates</fullName>
             <default>false</default>
         </values>
         <values>
