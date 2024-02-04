@@ -3,6 +3,7 @@
     <fullName>ActivitiesRequiredBeyondProposeStage</fullName>
     <active>true</active>
     <description>Ensure activities are added before progressing opportunity from &quot;Propose&quot; to &quot;Negotiate&quot; stage and beyond.</description>
-    <errorConditionFormula>AND( NOT(ISNEW()), ISCHANGED( StageName ), ISBLANK(LastActivityDate), OR( ISPICKVAL(StageName, &quot;Negotiate&quot;), ISPICKVAL(StageName, &quot;Closed Won&quot;) ) )</errorConditionFormula>
+    <errorConditionFormula>AND( NOT(ISNEW()), ISCHANGED( StageName ), ISBLANK(LastActivityDate), OR( ISPICKVAL(StageName, &quot;Negotiate&quot;), ISPICKVAL(StageName, &quot;Closed Won&quot;) ), 
+NOT( $Permission.ByPassErrorsForOpportunityValidations ) )</errorConditionFormula>
     <errorMessage>Add an Activity. Sales tasks and events must be added to provide visibility of your customer interactions and details of your discussions with the customer.</errorMessage>
 </ValidationRule>

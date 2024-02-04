@@ -231,6 +231,16 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
+            <field>NextActivityDueinDays__c</field>
+            <table>Account</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Next_Activity_Due_Date__c</field>
+            <table>Account</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
             <field>Count_of_Email_Opted_In__c</field>
             <table>Account</table>
         </columns>
@@ -1277,6 +1287,21 @@
         <columns>
             <checkedByDefault>false</checkedByDefault>
             <field>Post_Office_Assigned__c.RecordType.DeveloperName</field>
+            <table>Account</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Post_Office_Assigned__c.Region__c</field>
+            <table>Account</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Post_Office_Assigned__c.Status__c</field>
+            <table>Account</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Post_Office_Assigned__c.Org_Unit_Type__c</field>
             <table>Account</table>
         </columns>
         <masterLabel>Accounts</masterLabel>
