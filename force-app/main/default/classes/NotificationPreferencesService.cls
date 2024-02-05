@@ -15,10 +15,10 @@ public with sharing class NotificationPreferencesService {
 	//constants
 	private static final String NOTIFICATION_PREFERENCE = 'NotificationPreference';
 
-    private static apsecrets.OAuth.TokenResponse AUTH0_TOKEN {
+	private static apsecrets.OAuth.TokenResponse AUTH0_TOKEN {
 		get {
 			if (AUTH0_TOKEN == null) {
-                apsecrets.Auth0AccessManager auth0mgr = new apsecrets.Auth0AccessManager(NOTIFICATION_PREFERENCE);
+				apsecrets.Auth0AccessManager auth0mgr = new apsecrets.Auth0AccessManager(NOTIFICATION_PREFERENCE);
 				AUTH0_TOKEN = auth0mgr.getAccessToken();
 			}
 
@@ -129,7 +129,7 @@ public with sharing class NotificationPreferencesService {
 			/** If 401 Unauthorized, force token regeneration*/
 			if (vRes.getStatusCode() == 401) {
 				apsecrets.Auth0AccessManager auth0mgr = new apsecrets.Auth0AccessManager(NOTIFICATION_PREFERENCE, apsecrets.CacheSettings.RunMode.FORCE_GENERATE);
-                AUTH0_TOKEN = auth0mgr.getAccessToken();
+				AUTH0_TOKEN = auth0mgr.getAccessToken();
 				req.setHeader('Authorization', 'Bearer ' + AUTH0_TOKEN.access_token);
 				vRes = vHTTP.send(req);
 			}
@@ -162,7 +162,7 @@ public with sharing class NotificationPreferencesService {
 			/** If 401 Unauthorized, force token regeneration*/
 			if (vRes.getStatusCode() == 401) {
 				apsecrets.Auth0AccessManager auth0mgr = new apsecrets.Auth0AccessManager(NOTIFICATION_PREFERENCE, apsecrets.CacheSettings.RunMode.FORCE_GENERATE);
-                AUTH0_TOKEN = auth0mgr.getAccessToken();
+				AUTH0_TOKEN = auth0mgr.getAccessToken();
 				vReq.setHeader('Authorization', 'Bearer ' + AUTH0_TOKEN.access_token);
 				vRes = vHTTP.send(vReq);
 			}
@@ -208,7 +208,7 @@ public with sharing class NotificationPreferencesService {
 			/** If 401 Unauthorized, force token regeneration*/
 			if (vRes.getStatusCode() == 401) {
 				apsecrets.Auth0AccessManager auth0mgr = new apsecrets.Auth0AccessManager(NOTIFICATION_PREFERENCE, apsecrets.CacheSettings.RunMode.FORCE_GENERATE);
-                AUTH0_TOKEN = auth0mgr.getAccessToken();
+				AUTH0_TOKEN = auth0mgr.getAccessToken();
 				vReq.setHeader('Authorization', 'Bearer ' + AUTH0_TOKEN.access_token);
 				vRes = vHTTP.send(vReq);
 			}
