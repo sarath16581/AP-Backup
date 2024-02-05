@@ -1,11 +1,11 @@
 /**************************************************
-Description:    Utility class to handle calls to Camunda
+Description:	Utility class to handle calls to Camunda
 History:
 --------------------------------------------------
 2019-06-04  Lija.Jawahar@auspost.com.au  	Created
 2019-06-07  Lija.Jawahar@auspost.com.au  	Added addition request/post methods for more flexibility
 2019-06-27  ajudd@salesforce.com 			Changes to use named credential for auth
-2019-08-12  ajudd@salesforce.com            Added BAM Record Type Id conditions
+2019-08-12  ajudd@salesforce.com			Added BAM Record Type Id conditions
 2023-12-12  mahesh.parvathaneni@auspost.com.au Changed the authentication mechanism to Auth0
 2023-12-19  boris.bachovski2@austpost.com.au Changes to use AP Secrets manage package for Auth0. Also removed getRequest() methods as they are not used.
 2024-02-02	mahesh.parvathaneni@auspost.com.au Updated getter to use the OAuth base class from the "AP Secrets" package
