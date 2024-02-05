@@ -29,6 +29,7 @@ Last Modified Date -  18th June, 2021 | INC1739984  : Making the SAP Contract In
 2023-10-19 - Bharat Patel - update afterAmend(), commented copyAttachments() execution, STP-9851 changes, remove copyAttachments(originalAgreementId, amendedAgreementId)
 2023-11-15 - Mahesh Parvathaneni - STP-9212 - Updated to remove the DoV: and Renewal: prefixes from the opportunity name while cloning
 2023-11-22 - Bharat Patel - STP-9770 - added resetOpportunityProposalPrimary(), to reset respected opportunity's proposal's primary flag
+2024-02-05 - Mahesh Parvathaneni - STP-8256 - Reset the cloned opportunity fields on Dov Increase and Renewal process 
 */
 public without sharing class APT_AmendRenewUtility {
 
@@ -587,7 +588,7 @@ public without sharing class APT_AmendRenewUtility {
 					system.debug('**Inside Cart Validation**');
 					Apttus_Config2.ConstraintWebService2.applyConstraintRulesOnAddAll(CartID);
 					system.debug('**After Cart Validation**');
-				}   
+				}
 			}
 		} catch (System.Exception ex) {
 			system.debug(Logginglevel.ERROR, 'Exception msg : ' + ex.getMessage());
@@ -1327,19 +1328,19 @@ public without sharing class APT_AmendRenewUtility {
 	 *This method will reset opportunity proposals Primary value
 	 *@param Id opportunityId
 	 */
-    private static void resetOpportunityProposalPrimary(Id opportunityId) {
-        //Querying the proposal record by using the opportunity id passed to the method newProposal() to check if there existing any proposal on the opportunity.
+	private static void resetOpportunityProposalPrimary(Id opportunityId) {
+		//Querying the proposal record by using the opportunity id passed to the method newProposal() to check if there existing any proposal on the opportunity.
 		List<Apttus_Proposal__Proposal__c> existingProposalList = APT_ProposalObjectsSelector.newInstance().selectByOpportunityId(new Set<Id>{opportunityId});
-        List<Apttus_Proposal__Proposal__c> opportunityProposalsToUpdate = new List<Apttus_Proposal__Proposal__c>();
-        for(Apttus_Proposal__Proposal__c proposal : existingProposalList){
-        	if(proposal.Apttus_Proposal__Primary__c) {
-             	proposal.Apttus_Proposal__Primary__c = APT_Constants.BOOL_FALSE;
-                opportunityProposalsToUpdate.add(proposal);
-            }
-        }
-        if(!opportunityProposalsToUpdate.isEmpty()) {
-            ApplicationDatabase.getInstance().dmlupdate(opportunityProposalsToUpdate);
-        }
+		List<Apttus_Proposal__Proposal__c> opportunityProposalsToUpdate = new List<Apttus_Proposal__Proposal__c>();
+		for(Apttus_Proposal__Proposal__c proposal : existingProposalList){
+			if(proposal.Apttus_Proposal__Primary__c) {
+				proposal.Apttus_Proposal__Primary__c = APT_Constants.BOOL_FALSE;
+				opportunityProposalsToUpdate.add(proposal);
+			}
+		}
+		if(!opportunityProposalsToUpdate.isEmpty()) {
+			ApplicationDatabase.getInstance().dmlupdate(opportunityProposalsToUpdate);
+		}
 	}
 
 	/**
@@ -1348,10 +1349,14 @@ public without sharing class APT_AmendRenewUtility {
 	 * @return  Deal Support request record
 	 */
 	public static Deal_Support_Request__c getDealSupportRequestByDsrId(String dsrId) {
-		Set<SObjectField> fieldOverrides = new Set<SObjectField>{Deal_Support_Request__c.Id,Deal_Support_Request__c.Name,Deal_Support_Request__c.Requestor__c,Deal_Support_Request__c.CustomerContact1__c};
+		Map<SObjectType, Set<SObjectField>> fieldOverridesMap = new Map<SObjectType, Set<SObjectField>>{
+			Deal_Support_Request__c.getSObjectType() => new Set<SObjectField>{
+				Deal_Support_Request__c.Id,Deal_Support_Request__c.Name,Deal_Support_Request__c.Requestor__c,Deal_Support_Request__c.CustomerContact1__c
+			}
+		};
 		Map<String, Object> searchParams = new Map<String, Object>();
-        searchParams.put('dsrIds', new Set<String>{dsrId});
-        List<Deal_Support_Request__c> dsrList = DealSupportRequestsSelector.newInstance(fieldOverrides).search(searchParams, new Set<Object>{}, true);
+		searchParams.put('dsrIds', new Set<String>{dsrId});
+		List<Deal_Support_Request__c> dsrList = DealSupportRequestsSelector.newInstance(fieldOverridesMap).search(searchParams, new Set<Object>{}, true);
 		return !dsrList.isEmpty() ? dsrList[0] : null;
 	}
 

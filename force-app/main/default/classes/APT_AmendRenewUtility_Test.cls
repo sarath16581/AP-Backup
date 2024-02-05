@@ -10,6 +10,7 @@ History:
 2022-10-05 - seth.heang@auspost.com.au - Uplift API version to 55, Modified testMethod1 to increase code coverage, testMethod3 to unit test a new method checkProductComponentOptions() 
 2023-10-31 - Bharat Patel - To increase code coverage for deployment of STP-9851
 2023-11-15 - Mahesh Parvathaneni - added tests for removeDovRenewalPartsFromOppName method
+2024-02-05 - Mahesh Parvathaneni - added tests for getDealSupportRequestByDsrId method
 **************************************************/
 @isTest
 private with sharing class APT_AmendRenewUtility_Test{ 
@@ -630,6 +631,42 @@ private with sharing class APT_AmendRenewUtility_Test{
 		Assert.areEqual('TestDov:Test', APT_AmendRenewUtility.removeDovRenewalPartsFromOppName(oppName2), 'Expected TestDov:Test to be returned');
 		Assert.areEqual('Test Opportunity', APT_AmendRenewUtility.removeDovRenewalPartsFromOppName(oppName3), 'Expected Test Opportunity to be returned');
 		Assert.areEqual(null, APT_AmendRenewUtility.removeDovRenewalPartsFromOppName(null), 'Expected null to be returned');
+
+		Test.stopTest();
+	}
+
+	/**
+	 * Test to ensure DSR record is returned from getDealSupportRequestByDsrId
+	 */
+	@IsTest
+	static void testGetDealSupportRequestByDsrId() {
+		// =====================================
+		// Data Preparation
+		// =====================================
+		Account account = ApplicationTestDataFactory.getAccounts(1, true)[0];
+		Opportunity opportunityRecord = ApplicationTestDataFactory.getOpportunities(1, account.Id, true)[0];
+		List<Deal_Support_Request__c> dealSupportReqList = ApplicationTestDataFactory.getDealSupportRequests(1, opportunityRecord.Id, account.Id, true);
+
+		Map<String, Object> searchParams = new Map<String, Object>();
+		searchParams.put('dsrIds', new Set<String>{dealSupportReqList[0].Name});
+
+		// =====================================
+		// Stubbing
+		// =====================================
+		DealSupportRequestsSelector mockSelector = (DealSupportRequestsSelector) MockUtility.mockSelector(DealSupportRequestsSelector.class);
+		MockUtility.Mocks.startStubbing();
+		MockUtility.Mocks.when(mockSelector.search((Map<String, Set<Id>>)fflib_Match.eq(searchParams),(Set<Object>)fflib_Match.eq(new Set<Object>()),fflib_Match.eqBoolean(true))).thenReturn(dealSupportReqList);
+		MockUtility.Mocks.stopStubbing();
+
+		// =====================================
+		// Testing
+		// =====================================
+		Test.startTest();
+
+		Deal_Support_Request__c dsr = APT_AmendRenewUtility.getDealSupportRequestByDsrId(dealSupportReqList[0].Name);
+
+		// make sure the DSR record is returned
+		Assert.areEqual(dsr.Id, dealSupportReqList[0].Id, 'Expected DSR record to be returned');
 
 		Test.stopTest();
 	}
