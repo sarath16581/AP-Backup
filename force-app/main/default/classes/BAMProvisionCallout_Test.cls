@@ -41,7 +41,7 @@ public class BAMProvisionCallout_Test {
 
 		Test.setMock(HttpCalloutMock.class, new EchoHttpMock(res));
 		// Mock response for Managed Package Callout
-		apsecrets.Auth0HTTPCalloutSimulator.setMock(new apsecrets.Auth0AccessManager_Test.Auth0HttpCalloutMock(null, null, true, null));
+		apsecrets.HTTPCalloutSimulator.setMock(new apsecrets.OAuth_Test.OAuthHttpCalloutMock(null, null, true, null));
 
 		Test.startTest();
 		
@@ -82,7 +82,7 @@ public class BAMProvisionCallout_Test {
 
 		Test.setMock(HttpCalloutMock.class, new EchoHttpMock(res));
 		// Mock response for Managed Package Callout
-		apsecrets.Auth0HTTPCalloutSimulator.setMock(new apsecrets.Auth0AccessManager_Test.Auth0HttpCalloutMock(null, null, true, null));
+		apsecrets.HTTPCalloutSimulator.setMock(new apsecrets.OAuth_Test.OAuthHttpCalloutMock(null, null, true, null));
 
 		Test.startTest();
 		
@@ -129,7 +129,7 @@ public class BAMProvisionCallout_Test {
 
 		Test.setMock(HttpCalloutMock.class, new EchoHttpMock(res));
 		// Mock response for Managed Package Callout
-		apsecrets.Auth0HTTPCalloutSimulator.setMock(new apsecrets.Auth0AccessManager_Test.Auth0HttpCalloutMock(null, null, true, null));
+		apsecrets.HTTPCalloutSimulator.setMock(new apsecrets.OAuth_Test.OAuthHttpCalloutMock(null, null, true, null));
 		
 		Test.startTest();
 		
@@ -168,7 +168,7 @@ public class BAMProvisionCallout_Test {
 
 		Test.setMock(HttpCalloutMock.class, new EchoHttpMock(res));
 		// Mock response for Managed Package Callout
-		apsecrets.Auth0HTTPCalloutSimulator.setMock(new apsecrets.Auth0AccessManager_Test.Auth0HttpCalloutMock(null, null, true, null));
+		apsecrets.HTTPCalloutSimulator.setMock(new apsecrets.OAuth_Test.OAuthHttpCalloutMock(null, null, true, null));
 
 		Test.startTest();
 		
@@ -223,7 +223,7 @@ public class BAMProvisionCallout_Test {
 
 		Test.setMock(HttpCalloutMock.class, new EchoHttpMock(res));
 		// Mock response for Managed Package Callout
-		apsecrets.Auth0HTTPCalloutSimulator.setMock(new apsecrets.Auth0AccessManager_Test.Auth0HttpCalloutMock(null, null, true, null));
+		apsecrets.HTTPCalloutSimulator.setMock(new apsecrets.OAuth_Test.OAuthHttpCalloutMock(null, null, true, null));
 
 		Test.startTest();
 		
@@ -266,7 +266,7 @@ public class BAMProvisionCallout_Test {
 
 		Test.setMock(HttpCalloutMock.class, new EchoHttpMock(res));
 		// Mock response for Managed Package Callout
-		apsecrets.Auth0HTTPCalloutSimulator.setMock(new apsecrets.Auth0AccessManager_Test.Auth0HttpCalloutMock(null, null, true, null));
+		apsecrets.HTTPCalloutSimulator.setMock(new apsecrets.OAuth_Test.OAuthHttpCalloutMock(null, null, true, null));
 
 		Test.startTest();
 		//Call cancel and expect request to be cancelled
@@ -309,7 +309,7 @@ public class BAMProvisionCallout_Test {
 
 		Test.setMock(HttpCalloutMock.class, new EchoHttpMock(res));
 		// Mock response for Managed Package Callout
-		apsecrets.Auth0HTTPCalloutSimulator.setMock(new apsecrets.Auth0AccessManager_Test.Auth0HttpCalloutMock(null, null, true, null));
+		apsecrets.HTTPCalloutSimulator.setMock(new apsecrets.OAuth_Test.OAuthHttpCalloutMock(null, null, true, null));
 
 		Test.startTest();
 		
@@ -349,7 +349,7 @@ public class BAMProvisionCallout_Test {
 
 		Test.setMock(HttpCalloutMock.class, new EchoHttpMock(res));
 		// Mock response for Managed Package Callout
-		apsecrets.Auth0HTTPCalloutSimulator.setMock(new apsecrets.Auth0AccessManager_Test.Auth0HttpCalloutMock(null, null, true, null));
+		apsecrets.HTTPCalloutSimulator.setMock(new apsecrets.OAuth_Test.OAuthHttpCalloutMock(null, null, true, null));
 		
 		Test.startTest();
 		
