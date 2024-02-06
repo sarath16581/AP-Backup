@@ -15,6 +15,8 @@
 	<aura:attribute name="isAmend" type="String" default="false"/>
 	<aura:attribute name="isRenew" type="String" default="false"/>
 
+	<!--<aura:attribute name="requestReference" type="String"/> -->
+
 	<aura:handler name="init" value="{!this}" action="{!c.onPageReferenceChange}"/>
 	<aura:handler name="change" value="{!v.pageReference}" action="{!c.onPageReferenceChange}"/>
 

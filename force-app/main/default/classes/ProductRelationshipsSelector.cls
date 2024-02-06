@@ -44,6 +44,21 @@ public virtual inherited sharing class ProductRelationshipsSelector extends Appl
 		.endConditions();
 		return (List<ProductRelationship__c>) Database.query(qb.toSoqlString());
 	}
+    
+  	public List<ProductRelationship__c> selectByParent(Set<Id> parentProductsToInclude) {
+		return selectByParent(parentProductsToInclude, new Set<Object>());
+	}
+
+	public List<ProductRelationship__c> selectByParent(Set<Id> parentProductsToInclude, Set<Object> selectorOptions) {
+		Date todaysDate = Date.today();
+		QueryBuilder qb = newQueryBuilder(selectorOptions)
+		.addConditions()
+		.add(new QueryBuilder.SimpleCondition('ParentProduct__c in :parentProductsToInclude'))
+		.add(new QueryBuilder.SimpleCondition('Relationship__c = \'Replaces\''))
+		.add(new QueryBuilder.SimpleCondition('(EndDate__c = NULL OR EndDate__c > :todaysDate)'))
+		.endConditions();
+		return (List<ProductRelationship__c>) Database.query(qb.toSoqlString());
+	}
 
 	public virtual override QueryBuilder newQueryBuilder(Set<Object> selectorOptions) {
 		QueryBuilder builder = super.newQueryBuilder(selectorOptions);

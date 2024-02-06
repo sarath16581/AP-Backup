@@ -7,7 +7,6 @@
  * 2023-04-12 - Harry Wang - Added new column Annualised Value on the datatable
  * 2023-05-05 - Harry Wang - refactor navigation and fix saving defects
  * 2023-10-16 - Bharat Patel - Implementation of STP-9640, 'Generation Proposal Document' & 'Generation Agreement' actions redirect to OPC
- * 2023-10-26 - Bharat Patel - Implementation of STP-9894, STP-9901, STP-9904, validation error reset on save, show progress of doc generation process
  */
 import {LightningElement, track, api , wire} from 'lwc';
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
@@ -44,24 +43,26 @@ export default class OppProductDataTable extends NavigationMixin(LightningElemen
 	get columns() {
 		return [
 			{ label: 'Product Name', fieldName: 'ProductName', editable: false, wrapText: true, initialWidth: 160},
-			{ label: 'Classification', fieldName: 'Classification__c', editable: false, initialWidth: 160},
-			{ label: 'Growth ?', fieldName: 'Growth', type: 'boolean',editable: true, wrapText: true, initialWidth: 160,
-				cellAttributes: { alignment: 'center' }
-			},
+			{ label: 'Expected Revenue Start Date', fieldName: 'Contract_Start_Date__c', type: 'date-local', editable: true, initialWidth: 160, iconName:'utility:stop'},
+			{ label: 'Expected Revenue End Date', fieldName: 'Contract_End_Date__c', type: 'date-local', editable: true, initialWidth: 160, iconName:'utility:stop'},
 			{ label: 'Quantity', fieldName: 'Quantity', type: 'Integer', editable: true, initialWidth: 160, iconName:'utility:stop'},
-			{ label: 'Revenue Start Date', fieldName: 'Contract_Start_Date__c', type: 'date-local', editable: true, initialWidth: 160, iconName:'utility:stop'},
-			{ label: 'Revenue End Date', fieldName: 'Contract_End_Date__c', type: 'date-local', editable: true, initialWidth: 160, iconName:'utility:stop'},
 			{ label: 'Unit Sales Price (Ex GST)', fieldName: 'UnitPrice', type: 'currency', editable: true ,initialWidth: 160, iconName:'utility:stop',
 				cellAttributes: { alignment: 'left' }
 			},
-			{ label: 'Total Price', fieldName: 'TotalPrice', type: 'currency', editable: false, initialWidth: 160,
+			{ label: 'Total Product Value', fieldName: 'TotalPrice', type: 'currency', editable: false, initialWidth: 160,
 				cellAttributes: { alignment: 'left' }
 			},
-			{ label: 'Annualised Value', fieldName: 'Annualised_Value__c', type: 'currency', editable: false, initialWidth: 160,
+			{ label: 'Annualised Product Value', fieldName: 'Annualised_Value__c', type: 'currency', editable: false, initialWidth: 160,
 				cellAttributes: { alignment: 'left' }
 			},
-			{ label: 'Contract Product?', fieldName: 'ContractProduct', type: 'boolean', editable: true, initialWidth: 160, iconName:'utility:stop',
-				cellAttributes: { alignment: 'center' }
+			{ label: 'Revenue Last 12 Months', fieldName: 'TweleveMonthRevenue__c', type: 'currency', editable: false, initialWidth: 160,
+				cellAttributes: { alignment: 'left' }
+			},
+			{ label: 'Retained Revenue', fieldName: 'RetainedRevenue__c', type: 'currency', editable: false, initialWidth: 160,
+				cellAttributes: { alignment: 'left' }
+			},
+			{ label: 'Incremental Revenue', fieldName: 'IncrementalRevenue__c', type: 'currency', editable: false, initialWidth: 160,
+				cellAttributes: { alignment: 'left' }
 			},
 			{ label: 'Quote Number', fieldName: 'Contract_Number__c', type: 'text', editable: true, initialWidth: 160}
 		];
@@ -152,6 +153,7 @@ export default class OppProductDataTable extends NavigationMixin(LightningElemen
 						// notifyRecordUpdateAvailable will not trigger cache refresh as expected when second time user save changes on the bulk edit screen
 						getRecordNotifyChange(ids);
 						this.template.querySelector('lightning-datatable').selectedRows=[];
+						//this.handleNavigateToOppProducts();
 						
 						if(this.proposalId !== 'noProposal' && this.proposalId !== undefined && this.recalculateopc === false) {
 							this.isProposalDocumentFlow = true;
@@ -265,6 +267,7 @@ export default class OppProductDataTable extends NavigationMixin(LightningElemen
 		//check for proposal APT_Document_Generation_in_Progress__c = false
 		getProposalDocGenerationProgress({ proposalId: proposalIdValue })
 			.then((result) => {
+				console.log('Is Proposal doc generation progress running ? : ' + result);
 				if(result === true) {
 					//still proposal doc generation is running, recheck after few seconds
 					this._interval = setTimeout(() => {

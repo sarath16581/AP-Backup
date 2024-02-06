@@ -26,7 +26,7 @@
                                               and not letting them cease as the method does not execute 
 02.12.2020   SaiSwetha Pingali                 Fix for guest user access issues to avoid duplicate Holding Role references being created after the activation of CRUD "Secure Guest users Sharing settings and record access"
 22.02.2021    L. Serafico (Mav3rik)           Added updateAccountTeamForLPO to add/update Team to allow Accounts to be visible to LPO
-24.01.2024 	 Swati Mogadala					  REQ3225476 -Added deleteRReconDelete() in BeforeHandler( on delete)
+1/12.2023		K. McGuire				OPC Replacement - update incremental and retained reveue for line items of reparented accounts
 **/
   
 public with sharing class AccountTriggerHandler{
@@ -118,7 +118,6 @@ public with sharing class AccountTriggerHandler{
             if(AccountTriggerUtility.RUN_TRIGGER_BEFORE_DELETE){
                 accUtil.beforeResetRoodId(trigger.old);
                 accUtil.updateBAondelete(trigger.old);
-                accUtil.deleteRReconDelete(trigger.old);
             }
         }
     }
@@ -149,6 +148,7 @@ public with sharing class AccountTriggerHandler{
                     accUtil.beforeConvLeadPersAcc(trigger.new);
                 }
                 accUtil.updateAccountTeamForLPO(trigger.oldMap, trigger.newMap);
+                accUtil.updateLIneItemRevenues(trigger.new);
             }
         }
           else if(Trigger.isUpdate){
@@ -162,6 +162,7 @@ public with sharing class AccountTriggerHandler{
                 //accUtil.ignoreOutOfSyncUpdates((Map<Id,Account>)trigger.newMap, (Map<Id,Account>)trigger.oldMap);
             }
             accUtil.activateLicence((Map<Id,Account>)trigger.newMap, (Map<Id,Account>)trigger.oldMap);
+            accUtil.updateLIneItemRevenues((List<Account>)trigger.new, (Map<Id,Account>)trigger.oldMap);
         }
         else if(Trigger.isDelete){
             // Methods to be invoked for after delete event

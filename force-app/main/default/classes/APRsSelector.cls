@@ -65,6 +65,27 @@ public inherited sharing class APRsSelector extends ApplicationSelector{
 		};
 	}
 
+    // Method to select APR__c.Confirmed_Rate__c based on a set of Account IDs
+    public Database.QueryLocator selectConfirmedRatesByAccountIdsQueryLocator(Set<Id> accountIds, Set<Object> selectorOptions) {
+        Set<Object> options = (selectorOptions != null ? selectorOptions : new Set<Object>());
+        QueryBuilder qb = newQueryBuilder(options);
+        QueryBuilder.ConditionsManager conditions = qb.addConditions();
+    
+        // Ensure we have Account IDs to filter by
+        if (accountIds != null && !accountIds.isEmpty()) {
+            conditions.add(new QueryBuilder.SimpleCondition('Legal_Entity_Name_LookUp__c IN :accountIds'));
+        }
+        
+        // Order by Account ID if needed, or apply other sorting options
+        qb.addOrderDesc(APR__c.Legal_Entity_Name_LookUp__c);
+    
+        // Finalize the conditions and return the QueryLocator
+        qb = conditions.endConditions();
+        return Database.getQueryLocator(qb.toSoqlString());
+    }
+
+
+
 	/**
 	* Returns a query locator to retrieve APR__c records based on the account ids passed in. If set of account ids
 	* is null or empty, returns all APR__c records having a parent account.
@@ -74,7 +95,7 @@ public inherited sharing class APRsSelector extends ApplicationSelector{
 	* @param selectorOptions set of additional selector options to augment the result set
 	* @return query locator of APR__c records
 	*/
-	public Database.QueryLocator selectByAccountOrderByAccountIdQueryLocator(Set<Id> accountIds, Set<Object> selectorOptions) {
+	public List<APR__c> selectByAccount(Set<Id> accountIds, Set<Object> selectorOptions) {
 
 		Set<Object> options = (selectorOptions != null ? selectorOptions : new Set<Object>());
 		options.add(ApplicationSelector.Options.WITHOUT_DEFAULT_ORDER);
@@ -86,9 +107,11 @@ public inherited sharing class APRsSelector extends ApplicationSelector{
 		} else {
 			conditions.add(new QueryBuilder.SimpleCondition(APR__c.Legal_Entity_Name_LookUp__c + ' != null'));
 		}
-
-		qb = conditions.endConditions().addOrderDesc(APR__c.Legal_Entity_Name_LookUp__c);
-		return Database.getQueryLocator(qb.toSoqlString());
+        qb.addOrderAsc(APR__c.RecordType.Name);
+		qb.addOrderAsc(APR__c.Year__c);
+        qb.addOrderAsc(Apr__c.LastModifiedDate);
+		qb = conditions.endConditions();
+		return (List<APR__c>)Database.query(qb.toSoqlString());
 	}
 
 	public virtual override QueryBuilder newQueryBuilder() {

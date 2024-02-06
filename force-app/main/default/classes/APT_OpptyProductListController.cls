@@ -24,7 +24,7 @@ public with sharing class APT_OpptyProductListController {
 						OpportunityLineItem.Id, OpportunityLineItem.Name, OpportunityLineItem.Classification__c, OpportunityLineItem.Change_Classification__c,
 						OpportunityLineItem.Quantity, OpportunityLineItem.Contract_Start_Date__c, OpportunityLineItem.Contract_End_Date__c,
 						OpportunityLineItem.UnitPrice, OpportunityLineItem.TotalPrice, OpportunityLineItem.Annualised_Value__c,
-						OpportunityLineItem.Contract_Product__c, OpportunityLineItem.Contract_Number__c,OpportunityLineItem.OPCOverride__c},
+						OpportunityLineItem.Contract_Product__c, OpportunityLineItem.Contract_Number__c,OpportunityLineItem.OPCOverride__c, OpportunityLineItem.IncrementalRevenue__c, OpportunityLineItem.RetainedRevenue__c,OpportunityLineItem.TweleveMonthRevenue__c},
 				Product2.SObjectType => new Set<SObjectField>{Product2.Name},
 				Opportunity.SObjectType => new Set<SObjectField>{Opportunity.Name,Opportunity.AccountId,Opportunity.Id}
 		};

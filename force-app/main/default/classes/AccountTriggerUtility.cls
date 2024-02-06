@@ -34,7 +34,7 @@ History
 03.02.2021  SaiSwetha Pingali                  INC1727549 - Moved the logic to create customer role to a inner class without sharing as guest users doesn't have access to accounts.
 22.02.2021  L. Serafico (Mav3rik)               Added updateAccountTeamForLPO to add/update Team to allow Accounts to be visible to LPO
 17.03.2023  Naveen Rajanna						Correct formatting error
-24.01.2024  Swati Mogadala 						REQ3225476-Added deleteRReconDelete() to delete 'Customer Rev' and 'Rev by Billing account'records related to an Account on merge/delete 
+1/12/2023 Ken McGuire			OPC Replacement - update incremental and retained reveue for line items of reparented accounts - updateLIneItemRevenues
 ------------------------------------------------------------**/ 
 public with sharing class AccountTriggerUtility {
     public  static final set<string> LICENCE_APPROVAL_STATUSES = LICENCE_APPROVAL_STATUSES__c.getAll().keySet();
@@ -992,6 +992,58 @@ public with sharing class AccountTriggerUtility {
             MyPostBusinessLeadConvert.convertLeadPersonAccount(targetedAccountIds);
         }
     }
+    
+    
+    /**
+    * @description       method called for updating product line item incremental and retained revenues
+    * @param             NA
+    * @return            NA
+    * @throws            NA
+    */
+    
+    Public void updateLIneItemRevenues(List<Account> newList, Map<Id,Account> oldMap) {
+        Set<id> reparentedAccountIds = new Set<Id>();
+        for (Account record : newList) {
+            Account oldValue = oldMap.get(record.id);
+            if (oldValue.parentId != record.parentId) {
+                reparentedAccountIds.add(record.Id);
+                if (oldValue.parentId != null) {
+                    reparentedAccountIds.add(oldValue.parentId);
+                }
+                if (record.parentId != null) {
+                     reparentedAccountIds.add(record.parentId);
+                }
+            }
+        }
+        updateLineItemRevenues(reparentedAccountIds);
+    }
+
+    Public void updateLIneItemRevenues(List<Account> newList) {
+        Set<id> reparentedAccountIds = new Set<Id>();
+        for (Account record : newList) {
+                if (record.parentId != null) {
+                   reparentedAccountIds.add(record.Id);
+                   reparentedAccountIds.add(record.parentId);
+                }
+            }
+         updateLineItemRevenues(reparentedAccountIds);
+    }
+          
+
+      private void updateLineItemRevenues (Set<Id> reparentedAccountIds){
+            if (reparentedAccountIds.isEmpty()) return;
+            ProductRevenueService service = ProductRevenueService.getInstance(); 
+            List<GroupedAccountProductRevenue__c> reCalculatedRevenues = service.reCalculateGroupRevenuesForAccounts(reparentedAccountIds);
+            List<OpportunityLineItem> updatedLineItems = service.reCalculateRetainedIncremental();
+            if (!updatedLineItems.isEmpty()) {
+                update(updatedLineItems);
+            }
+            if (!reCalculatedRevenues.isEmpty()) {
+                upsert(reCalculatedRevenues);
+            }
+            
+        }
+    
     
     /**
       * @description       Method to insert holding role

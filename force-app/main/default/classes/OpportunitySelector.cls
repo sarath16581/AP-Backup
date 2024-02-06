@@ -99,4 +99,28 @@
 		}
 	return builder;
  	}
+     
+     
+    /**
+     * Retrieves open opportunities for a set of accounts.
+     * 
+     * @param accountIds The set of account IDs to retrieve opportunities for
+     * @return A Map of Opportunity IDs to Opportunities
+     */
+    public Map<Id, Opportunity> selectOpenOpportunitiesByAccountIds(Set<Id> accountIds) {
+        // Check if accountIds is not null or empty
+        if(accountIds == null || accountIds.isEmpty()) {
+            return new Map<Id, Opportunity>();
+        }
+
+        // Construct the query
+        QueryBuilder qb = newQueryBuilder(new Set<Object>())
+            .addConditions()
+            .add(new QueryBuilder.SimpleCondition(Opportunity.AccountId + ' in :accountIds'))
+            .add(new QueryBuilder.SimpleCondition(Opportunity.IsClosed + '= false')) 
+            .endConditions();
+
+        // Execute the query and return the results
+        return new Map<Id, Opportunity>((List<Opportunity>)Database.query(qb.toSoqlString()));
+    }
 }
