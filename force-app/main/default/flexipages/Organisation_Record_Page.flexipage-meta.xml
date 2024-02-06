@@ -20,7 +20,6 @@
                     <value>3</value>
                 </componentInstanceProperties>
                 <componentName>force:highlightsPanel</componentName>
-                <identifier>force_highlightsPanel</identifier>
             </componentInstance>
         </itemInstances>
         <mode>Replace</mode>
@@ -31,7 +30,6 @@
         <itemInstances>
             <componentInstance>
                 <componentName>force:detailPanel</componentName>
-                <identifier>force_detailPanel</identifier>
             </componentInstance>
         </itemInstances>
         <mode>Replace</mode>
@@ -54,7 +52,6 @@
                     <value>true</value>
                 </componentInstanceProperties>
                 <componentName>force:relatedListContainer</componentName>
-                <identifier>force_relatedListContainer</identifier>
             </componentInstance>
         </itemInstances>
         <mode>Replace</mode>
@@ -99,7 +96,6 @@
                     <value>false</value>
                 </componentInstanceProperties>
                 <componentName>addressLookupRecordWrapper</componentName>
-                <identifier>addressLookupRecordWrapper</identifier>
                 <visibilityRule>
                     <booleanFilter>4 OR (3 AND (1 OR 2 OR (6 AND 7))) OR 5</booleanFilter>
                     <criteria>
@@ -151,7 +147,6 @@
                     <value>&lt;p style=&quot;text-align: center;&quot;&gt;&lt;b&gt;Address Search is unavailable for Organisations with Role other than Prospect or Known&lt;/b&gt;&lt;/p&gt;</value>
                 </componentInstanceProperties>
                 <componentName>flexipage:richText</componentName>
-                <identifier>flexipage_richText</identifier>
                 <visibilityRule>
                     <booleanFilter>1 AND 2 AND 3 AND 4 AND (NOT (5 AND 6 AND 3))</booleanFilter>
                     <criteria>
@@ -214,7 +209,6 @@
                     <value>true</value>
                 </componentInstanceProperties>
                 <componentName>force:relatedListSingleContainer</componentName>
-                <identifier>force_relatedListSingleContainer</identifier>
             </componentInstance>
         </itemInstances>
         <name>Facet-08b5ac99-0fce-45e4-92be-3a03ab0ec454</name>
@@ -268,7 +262,6 @@
                     <value>false</value>
                 </componentInstanceProperties>
                 <componentName>wave:waveDashboard</componentName>
-                <identifier>wave_waveDashboard</identifier>
                 <visibilityRule>
                     <criteria>
                         <leftValue>{!$Permission.StandardPermission.InsightsAppUser}</leftValue>
@@ -297,7 +290,6 @@
                     <value>Standard.Tab.detail</value>
                 </componentInstanceProperties>
                 <componentName>flexipage:tab</componentName>
-                <identifier>detailTab</identifier>
             </componentInstance>
         </itemInstances>
         <itemInstances>
@@ -315,7 +307,6 @@
                     <value>Standard.Tab.relatedLists</value>
                 </componentInstanceProperties>
                 <componentName>flexipage:tab</componentName>
-                <identifier>relatedListsTab</identifier>
             </componentInstance>
         </itemInstances>
         <itemInstances>
@@ -329,7 +320,6 @@
                     <value>Change Address</value>
                 </componentInstanceProperties>
                 <componentName>flexipage:tab</componentName>
-                <identifier>customTab</identifier>
             </componentInstance>
         </itemInstances>
         <itemInstances>
@@ -343,7 +333,6 @@
                     <value>Deal Support Requests</value>
                 </componentInstanceProperties>
                 <componentName>flexipage:tab</componentName>
-                <identifier>customTab2</identifier>
             </componentInstance>
         </itemInstances>
         <itemInstances>
@@ -357,7 +346,6 @@
                     <value>Customer 360</value>
                 </componentInstanceProperties>
                 <componentName>flexipage:tab</componentName>
-                <identifier>customTab3</identifier>
             </componentInstance>
         </itemInstances>
         <mode>Replace</mode>
@@ -372,7 +360,6 @@
                     <value>maintabs</value>
                 </componentInstanceProperties>
                 <componentName>flexipage:tabset</componentName>
-                <identifier>flexipage_tabset</identifier>
             </componentInstance>
         </itemInstances>
         <mode>Replace</mode>
@@ -387,7 +374,6 @@
                     <value>false</value>
                 </componentInstanceProperties>
                 <componentName>runtime_sales_activities:activityPanel</componentName>
-                <identifier>runtime_sales_activities_activityPanel</identifier>
             </componentInstance>
         </itemInstances>
         <mode>Replace</mode>
@@ -398,7 +384,6 @@
         <itemInstances>
             <componentInstance>
                 <componentName>forceChatter:recordFeedContainer</componentName>
-                <identifier>forceChatter_recordFeedContainer</identifier>
             </componentInstance>
         </itemInstances>
         <mode>Replace</mode>
@@ -421,7 +406,6 @@
                     <value>Standard.Tab.activity</value>
                 </componentInstanceProperties>
                 <componentName>flexipage:tab</componentName>
-                <identifier>activityTab</identifier>
             </componentInstance>
         </itemInstances>
         <itemInstances>
@@ -435,7 +419,6 @@
                     <value>Standard.Tab.collaborate</value>
                 </componentInstanceProperties>
                 <componentName>flexipage:tab</componentName>
-                <identifier>collaborateTab</identifier>
             </componentInstance>
         </itemInstances>
         <mode>Replace</mode>
@@ -450,7 +433,6 @@
                     <value>BOTH</value>
                 </componentInstanceProperties>
                 <componentName>runtime_sales_merge:mergeCandidatesPreviewCard</componentName>
-                <identifier>runtime_sales_merge_mergeCandidatesPreviewCard</identifier>
             </componentInstance>
         </itemInstances>
         <itemInstances>
@@ -460,7 +442,6 @@
                     <value>false</value>
                 </componentInstanceProperties>
                 <componentName>force:relatedListQuickLinksContainer</componentName>
-                <identifier>force_relatedListQuickLinksContainer</identifier>
             </componentInstance>
         </itemInstances>
         <itemInstances>
@@ -479,7 +460,7 @@
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>filter</name>
-                    <value>{&quot;datasets&quot;:{&quot;DIFOT_GCP&quot;:[{&quot;fields&quot;:[&quot;Account.Id&quot;],&quot;filter&quot;:{&quot;operator&quot;:&quot;in&quot;,&quot;values&quot;:[&quot;$Id&quot;]},&quot;locked&quot;:true,&quot;hidden&quot;:true}],&quot;NPS_GCP&quot;:[{&quot;fields&quot;:[&quot;Account.Id&quot;],&quot;filter&quot;:{&quot;operator&quot;:&quot;in&quot;,&quot;values&quot;:[&quot;$Id&quot;]},&quot;locked&quot;:true,&quot;hidden&quot;:true}],&quot;Healthscore_Melt_GCP&quot;:[{&quot;fields&quot;:[&quot;Account.Id&quot;],&quot;filter&quot;:{&quot;operator&quot;:&quot;in&quot;,&quot;values&quot;:[&quot;$Id&quot;]},&quot;locked&quot;:true,&quot;hidden&quot;:true}],&quot;Case1_NoPredicate&quot;:[{&quot;fields&quot;:[&quot;Account.Id&quot;],&quot;filter&quot;:{&quot;operator&quot;:&quot;in&quot;,&quot;values&quot;:[&quot;$Id&quot;]},&quot;locked&quot;:true,&quot;hidden&quot;:true}],&quot;opportunity1_NoPredicate&quot;:[{&quot;fields&quot;:[&quot;Account.Id&quot;],&quot;filter&quot;:{&quot;operator&quot;:&quot;in&quot;,&quot;values&quot;:[&quot;$Id&quot;]},&quot;locked&quot;:true,&quot;hidden&quot;:true}],&quot;REVENUE_VOLUME_PRES_GCP_ACTUALS&quot;:[{&quot;fields&quot;:[&quot;Account.Id&quot;],&quot;filter&quot;:{&quot;operator&quot;:&quot;in&quot;,&quot;values&quot;:[&quot;$Id&quot;]},&quot;locked&quot;:true,&quot;hidden&quot;:true}],&quot;REVENUE_VOLUME_PRES_GCP_ACTUALS_CUSTOMER&quot;:[{&quot;fields&quot;:[&quot;Account.Id&quot;],&quot;filter&quot;:{&quot;operator&quot;:&quot;in&quot;,&quot;values&quot;:[&quot;$Id&quot;]},&quot;locked&quot;:true,&quot;hidden&quot;:true}]}}</value>
+                    <value>{&quot;datasets&quot;:{&quot;DIFOT_GCP&quot;:[{&quot;fields&quot;:[&quot;Account.Id&quot;],&quot;filter&quot;:{&quot;operator&quot;:&quot;in&quot;,&quot;values&quot;:[&quot;$Id&quot;]},&quot;locked&quot;:true,&quot;hidden&quot;:true}],&quot;NPS_GCP&quot;:[{&quot;fields&quot;:[&quot;Account.Id&quot;],&quot;filter&quot;:{&quot;operator&quot;:&quot;in&quot;,&quot;values&quot;:[&quot;$Id&quot;]},&quot;locked&quot;:true,&quot;hidden&quot;:true}],&quot;Healthscore_Melt_GCP&quot;:[{&quot;fields&quot;:[&quot;Account.Id&quot;],&quot;filter&quot;:{&quot;operator&quot;:&quot;in&quot;,&quot;values&quot;:[&quot;$Id&quot;]},&quot;locked&quot;:true,&quot;hidden&quot;:true}],&quot;Case1_NoPredicate&quot;:[{&quot;fields&quot;:[&quot;Account.Id&quot;],&quot;filter&quot;:{&quot;operator&quot;:&quot;in&quot;,&quot;values&quot;:[&quot;$Id&quot;]},&quot;locked&quot;:true,&quot;hidden&quot;:true}],&quot;opportunity1_NoPredicate&quot;:[{&quot;fields&quot;:[&quot;Account.Id&quot;],&quot;filter&quot;:{&quot;operator&quot;:&quot;in&quot;,&quot;values&quot;:[&quot;$Id&quot;]},&quot;locked&quot;:true,&quot;hidden&quot;:true}],&quot;ODS_Revenue&quot;:[{&quot;fields&quot;:[&quot;Account.Id&quot;],&quot;filter&quot;:{&quot;operator&quot;:&quot;in&quot;,&quot;values&quot;:[&quot;$Id&quot;]},&quot;locked&quot;:true,&quot;hidden&quot;:true}]}}</value>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>height</name>
@@ -510,7 +491,6 @@
                     <value>false</value>
                 </componentInstanceProperties>
                 <componentName>wave:waveDashboard</componentName>
-                <identifier>wave_waveDashboard2</identifier>
                 <visibilityRule>
                     <criteria>
                         <leftValue>{!$Permission.StandardPermission.InsightsAppUser}</leftValue>
@@ -523,11 +503,91 @@
         <itemInstances>
             <componentInstance>
                 <componentInstanceProperties>
+                    <name>actionNames</name>
+                    <valueList>
+                        <valueListItems>
+                            <value>MassChangeOwner</value>
+                        </valueListItems>
+                        <valueListItems>
+                            <value>New</value>
+                        </valueListItems>
+                    </valueList>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>maxRecordsToDisplay</name>
+                    <value>10</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>parentFieldApiName</name>
+                    <value>Account.Id</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>relatedListApiName</name>
+                    <value>echosign_dev1__Agreements__r</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>relatedListDisplayType</name>
+                    <value>ADVGRID</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>relatedListFieldAliases</name>
+                    <valueList>
+                        <valueListItems>
+                            <value>NAME</value>
+                        </valueListItems>
+                        <valueListItems>
+                            <value>echosign_dev1__DateSentDate__c</value>
+                        </valueListItems>
+                        <valueListItems>
+                            <value>echosign_dev1__Recipient__c</value>
+                        </valueListItems>
+                        <valueListItems>
+                            <value>echosign_dev1__Status__c</value>
+                        </valueListItems>
+                        <valueListItems>
+                            <value>echosign_dev1__Document__c</value>
+                        </valueListItems>
+                    </valueList>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>relatedListLabel</name>
+                    <value>Adobe Sign Agreements</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>showActionBar</name>
+                    <value>true</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>sortFieldAlias</name>
+                    <value>CREATED_DATE</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>sortFieldOrder</name>
+                    <value>Descending</value>
+                </componentInstanceProperties>
+                <componentName>lst:dynamicRelatedList</componentName>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>recordId</name>
+                    <value>{$recordId}</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>recordLimit</name>
+                    <value>5</value>
+                </componentInstanceProperties>
+                <componentName>echoSignAgreements</componentName>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
                     <name>tabs</name>
                     <value>sidebartabs</value>
                 </componentInstanceProperties>
                 <componentName>flexipage:tabset</componentName>
-                <identifier>flexipage_tabset2</identifier>
             </componentInstance>
         </itemInstances>
         <itemInstances>
@@ -553,7 +613,6 @@
                     <value>true</value>
                 </componentInstanceProperties>
                 <componentName>force:relatedListSingleContainer</componentName>
-                <identifier>force_relatedListSingleContainer2</identifier>
             </componentInstance>
         </itemInstances>
         <itemInstances>
@@ -579,13 +638,11 @@
                     <value>true</value>
                 </componentInstanceProperties>
                 <componentName>force:relatedListSingleContainer</componentName>
-                <identifier>force_relatedListSingleContainer3</identifier>
             </componentInstance>
         </itemInstances>
         <itemInstances>
             <componentInstance>
                 <componentName>dfsle:Status</componentName>
-                <identifier>dfsle_Status</identifier>
                 <visibilityRule>
                     <criteria>
                         <leftValue>{!$User.dfsle__Status__c}</leftValue>
