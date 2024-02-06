@@ -3,6 +3,7 @@
 *@changelog:
 *2022-10-05	seth.heang@auspost.com.au	uplift API version to 55
 *2023-06-08 nasir.jawed2@auspost.com.au added a new method testDovUpdateOnOpportunity to test
+*2024-02-06 mahesh.parvathaneni@auspost.com.au Added test methods testInvalidDSRErrorForDovIncreaseAndRenewal and testOppDSRErrorForDovIncreaseAndRenewal
 */
 @isTest
 private class APT_AmendRenewController_Test{
@@ -1637,5 +1638,99 @@ private class APT_AmendRenewController_Test{
 			system.debug('Exception :'+ e);
 		}
 
+	}
+
+	/**
+	 * Test to ensure the error message is thrown when invalid DSR record is entered for Dov Increase and Renewal scenarios
+	 */
+	@IsTest
+	static void testInvalidDSRErrorForDovIncreaseAndRenewal(){
+		// =====================================
+		// Data Preparation
+		// =====================================
+		Account account = ApplicationTestDataFactory.getAccounts(1, true)[0];
+		Contact contact = ApplicationTestDataFactory.getContacts(1, account.Id, true)[0];
+		Opportunity opp = ApplicationTestDataFactory.getOpportunities(1, account.Id, true)[0];
+		Deal_Support_Request__c dsr = ApplicationTestDataFactory.getDealSupportRequests(1, opp.Id, account.Id, true)[0];
+		dsr = (Deal_Support_Request__c)ApplicationTestDataFactory.setUnwritableFields(dsr, new Map<String, Object>{'Name' => 'DS-0001213'});
+		dsr.Requestor__c = UserInfo.getUserId();
+		dsr.CustomerContact1__c = contact.Id; 
+
+		Map<String, Object> searchParams = new Map<String, Object>();
+		searchParams.put('dsrIds', new Set<String>{dsr.Name});
+
+		// =====================================
+		// Stubbing
+		// =====================================
+		DealSupportRequestsSelector mockDSRSelector = (DealSupportRequestsSelector) MockUtility.mockSelector(DealSupportRequestsSelector.class);
+		MockUtility.Mocks.startStubbing();
+		MockUtility.Mocks.when(mockDSRSelector.search((Map<String, Set<Id>>)fflib_Match.eq(searchParams),(Set<Object>)fflib_Match.eq(new Set<Object>()),fflib_Match.eqBoolean(true))).thenReturn(new List<Deal_Support_Request__c>());
+		MockUtility.Mocks.stopStubbing();
+
+		// =====================================
+		// Testing
+		// =====================================
+		Test.StartTest();
+
+		APT_AmendRenewController dov = new APT_AmendRenewController();
+		dov.selectedRevenue ='Increase Revenue';
+		dov.selectedCategory = 'Add new product to non-aligned contract';
+		dov.dsrId = dsr.Name;
+		dov.dsr = dsr;
+		PageReference pageRef = Page.APT_AmendRenew; // Add your VF page Name here
+		pageRef.getParameters().put('dsrId', dsr.Name); //Setting parameter
+		Test.setCurrentPage(pageRef);
+		dov.setOpportunityFieldsFromDSR(opp);
+		dov.doAmend();
+		dov.doRenew();
+
+		Test.stopTest();
+
+		//verify error message are returned for VF page
+		System.assertNotEquals(0, ApexPages.getMessages().size(), 'VF page should have error message');
+		System.assertEquals(true, ApexPages.hasMessages(ApexPages.SEVERITY.ERROR), 'VF page should have error message');
+	}
+
+	/**
+	 * Test to ensure the error message is thrown when both oppotunity and DSR record are entered for Dov Increase and Renewal scenarios
+	 */
+	@IsTest
+	static void testOppDSRErrorForDovIncreaseAndRenewal(){
+		// =====================================
+		// Data Preparation
+		// =====================================
+		Account account = ApplicationTestDataFactory.getAccounts(1, true)[0];
+		Contact contact = ApplicationTestDataFactory.getContacts(1, account.Id, true)[0];
+		Opportunity opp = ApplicationTestDataFactory.getOpportunities(1, account.Id, true)[0];
+		Deal_Support_Request__c dsr = ApplicationTestDataFactory.getDealSupportRequests(1, opp.Id, account.Id, true)[0];
+		dsr = (Deal_Support_Request__c)ApplicationTestDataFactory.setUnwritableFields(dsr, new Map<String, Object>{'Name' => 'DS-0001213'});
+
+		// =====================================
+		// Stubbing
+		// =====================================
+		// None!
+
+		// =====================================
+		// Testing
+		// =====================================
+		Test.StartTest();
+
+		APT_AmendRenewController dov = new APT_AmendRenewController();
+		dov.selectedRevenue ='Increase Revenue';
+		dov.selectedCategory = 'Add new product to non-aligned contract';
+		dov.oppId = opp.Id;
+		dov.dsrId = dsr.Name;
+		PageReference pageRef = Page.APT_AmendRenew; // Add your VF page Name here
+		pageRef.getParameters().put('dsrId', dsr.Name); //Setting parameter
+		pageRef.getParameters().put('oppId', opp.Id);
+		Test.setCurrentPage(pageRef);
+		dov.doAmend();
+		dov.doRenew();
+
+		Test.stopTest();
+
+		//verify error message are returned for VF page
+		System.assertNotEquals(0, ApexPages.getMessages().size(), 'VF page should have error message');
+		System.assertEquals(true, ApexPages.hasMessages(ApexPages.SEVERITY.ERROR), 'VF page should have error message');
 	}
 }

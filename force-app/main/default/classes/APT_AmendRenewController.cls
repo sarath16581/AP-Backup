@@ -44,6 +44,7 @@ Lat Modified Date - 28th May, 2021 | STP-5134 commented the code for DoV Reason 
 2023-07-06 nasir.jawed2@auspost.com.au Added method goToOpportunity(), and in doAmend(),doRenew() and when helps the user to select an opportunity for DOV.
 2023-05-09  Bharat Patel - update in condition to check key fields in doAmend(),doRenew() method to fix STP-9554.
 2023-11-23  Bharat Patel - STP-9770 - update to redirect to shopping cart instead of proposal
+2024-02-05	Mahesh Parvathaneni - STP-8256 - Reset opportunity fields and update opportunity driver, key contact from DSR on Dov Increase and Renewal scenarios
 **/
 
 public with sharing class APT_AmendRenewController {
@@ -89,8 +90,8 @@ public with sharing class APT_AmendRenewController {
 	// Agreement
 	public static Apttus__APTS_Agreement__c agreement;
 	public static final string ERROR_SELECT_REASON ='Please select a DOV Reason.';
-	public static final String ERROR_OPP_DSR = 'Please specify either the Existing Opportunity Record OR a DSR ID below';
-	public static final String ERROR_INVALID_DSR = 'No Valid DSR record found';
+	public static final String ERROR_OPP_DSR = 'Please specify either the Existing Opportunity Record OR a DSR ID below.';
+	public static final String ERROR_INVALID_DSR = 'No Valid DSR record found.';
 
 	/* Shashwat.Nath@Auspost.com Added the below Variables to be used in lookupToOpportunity method added for User Story STP-2209 */
 
@@ -616,10 +617,8 @@ public with sharing class APT_AmendRenewController {
 
 					if(String.isBlank(oppId) || (!String.isBlank(oppId) && String.isBlank(oppName))){
 						Opportunity clonedOpportunity = APT_AmendRenewUtility.cloneOpporunity(agreement, APT_Constants.ACTION_TYPE_RENEWAL);
-						if (dsr != null) {
-							clonedOpportunity.OwnerId = dsr.Requestor__c != null ? dsr.Requestor__c : clonedOpportunity.OwnerId;
-							clonedOpportunity.KeyContact__c = dsr.CustomerContact1__c != null ? dsr.CustomerContact1__c : clonedOpportunity.KeyContact__c;
-						}
+						//set opportunity driver and key contact from DSR if exists
+						setOpportunityFieldsFromDSR(clonedOpportunity);
 						insert clonedOpportunity;
 						opportunityId = clonedOpportunity.Id;
 					}
@@ -1005,10 +1004,7 @@ public with sharing class APT_AmendRenewController {
 								//clonedOpportunity.DOV_Reason__c = selectedReason ;
 								clonedOpportunity.Opportunity_SubType__c = 'DoV Increase';
 								//set opportunity driver and key contact from DSR if exists
-								if (dsr != null) {
-									clonedOpportunity.OwnerId = dsr.Requestor__c != null ? dsr.Requestor__c : clonedOpportunity.OwnerId;
-									clonedOpportunity.KeyContact__c = dsr.CustomerContact1__c != null ? dsr.CustomerContact1__c : clonedOpportunity.KeyContact__c;
-								}
+								setOpportunityFieldsFromDSR(clonedOpportunity);
 								insert clonedOpportunity;
 								opportunityId = clonedOpportunity.Id;
 							}
@@ -1176,7 +1172,7 @@ public with sharing class APT_AmendRenewController {
 					//proposalId = newProposal.Id;
 
 					//redirect to cart
-					String baseURL = URL.getSalesforceBaseUrl().toExternalForm();
+					String baseURL = URL.getOrgDomainUrl().toExternalForm();
 					baseURL += APT_Constants.STRING_URL_PROPOSAL_CART + newProposal.Id + APT_Constants.STRING_URL_AMEND_QUOTE_CART;
 					PageReference pageRef = new PageReference(baseURL);
 					pageRef.setRedirect(true);
@@ -1217,5 +1213,16 @@ public with sharing class APT_AmendRenewController {
 		}
 
 		return null;
+	}
+
+	/**
+	 * This method sets the Opportunity driver and Key contact on the cloned opportunity from DSR record.
+	 */
+	@TestVisible
+	private void setOpportunityFieldsFromDSR(Opportunity clonedOpportunity) {
+		if (dsr != null) {
+			clonedOpportunity.OwnerId = dsr.Requestor__c != null ? dsr.Requestor__c : clonedOpportunity.OwnerId;
+			clonedOpportunity.KeyContact__c = dsr.CustomerContact1__c != null ? dsr.CustomerContact1__c : clonedOpportunity.KeyContact__c;
+		}
 	}
 }
