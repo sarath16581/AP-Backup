@@ -373,6 +373,7 @@ export default class APT_CheckoutLWC extends LightningElement {
 		checkoutOnly({ configId: this.configId })
 			.then((result) => {
 				if (result === 'success') {
+					//STP-9317 logic
 					//checks if doc generation is required
 					this.docGenerationRequired();
 				} else {

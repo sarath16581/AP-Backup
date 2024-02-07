@@ -3,7 +3,7 @@
     <fullName>DescriptionRequiredBeforeMovingStage</fullName>
     <active>true</active>
     <description>Ensure Description is populated before progressing opportunity from &quot;Identify&quot; to &quot;Qualify&quot; stage and beyond.</description>
-    <errorConditionFormula>AND( NOT(ISNEW()), ISCHANGED( StageName ), ISBLANK( Description ), OR( ISPICKVAL(StageName, &quot;Qualify&quot;), ISPICKVAL(StageName, &quot;Propose&quot;), ISPICKVAL(StageName, &quot;Negotiate&quot;), ISPICKVAL(StageName, &quot;Closed Won&quot;) ) )</errorConditionFormula>
+    <errorConditionFormula>AND( NOT(ISNEW()), ISCHANGED( StageName ), ISBLANK( Description ), OR( ISPICKVAL(StageName, &quot;Qualify&quot;), ISPICKVAL(StageName, &quot;Propose&quot;), ISPICKVAL(StageName, &quot;Negotiate&quot;), ISPICKVAL(StageName, &quot;Closed Won&quot;) ), NOT( $Permission.ByPassErrorsForOpportunityValidations ) )</errorConditionFormula>
     <errorDisplayField>Description</errorDisplayField>
     <errorMessage>Add a Description. A summary is required so that others can understand the proposed opportunity and the customer’s requirements.</errorMessage>
 </ValidationRule>

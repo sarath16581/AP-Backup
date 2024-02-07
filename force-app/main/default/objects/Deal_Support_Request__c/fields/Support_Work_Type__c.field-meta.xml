@@ -1644,6 +1644,11 @@
                 <default>false</default>
                 <label>Wrapping/Packing</label>
             </value>
+            <value>
+                <fullName>Strategic</fullName>
+                <default>false</default>
+                <label>Strategic</label>
+            </value>
         </valueSetDefinition>
         <valueSettings>
             <controllingFieldValue>OE Renewal Exclusion</controllingFieldValue>
@@ -1709,6 +1714,10 @@
             <controllingFieldValue>Presale Support</controllingFieldValue>
             <controllingFieldValue>Strategic Onboarding</controllingFieldValue>
             <valueName>Renewals Management</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Strategic Onboarding</controllingFieldValue>
+            <valueName>Strategic</valueName>
         </valueSettings>
     </valueSet>
 </CustomField>

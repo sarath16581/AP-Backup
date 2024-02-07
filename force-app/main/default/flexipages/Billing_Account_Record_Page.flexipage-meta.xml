@@ -64,9 +64,6 @@
                             <value>Delete</value>
                         </valueListItems>
                         <valueListItems>
-                            <value>IsotopeSubscription</value>
-                        </valueListItems>
-                        <valueListItems>
                             <value>ChangeOwnerOne</value>
                         </valueListItems>
                         <valueListItems>
@@ -238,6 +235,10 @@
     <flexiPageRegions>
         <itemInstances>
             <componentInstance>
+                <componentInstanceProperties>
+                    <name>showLegacyActivityComposer</name>
+                    <value>false</value>
+                </componentInstanceProperties>
                 <componentName>runtime_sales_activities:activityPanel</componentName>
                 <identifier>runtime_sales_activities_activityPanel</identifier>
             </componentInstance>
