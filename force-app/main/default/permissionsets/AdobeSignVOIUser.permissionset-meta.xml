@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Permission for VOI related adobe sign users.</description>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Account.BillingAddressText__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Apttus__APTS_Agreement__c.DaysUntilContractExpires__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <hasActivationRequired>false</hasActivationRequired>
+    <label>Adobe Sign VOI User</label>
+    <pageAccesses>
+        <apexPage>AdobeSignVOI</apexPage>
+        <enabled>true</enabled>
+    </pageAccesses>
+</PermissionSet>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>PreventDeletingAdobeSignEnvelope</fullName>
+    <active>true</active>
+    <description>This is to prevent users from deleting an envelope this can be enabled by making the value of the field User.IsExcludedFromValidationRules__c to TRUE</description>
+    <errorConditionFormula>NOT(
+  OR($User.IsExcludedFromValidationRules__c
+  , $Profile.Name == &apos;System Administrator&apos;)
+  )</errorConditionFormula>
+    <errorMessage>You are not allowed to delete Adobe Sign Agreements.</errorMessage>
+</ValidationRule>
