@@ -8,7 +8,7 @@
 public inherited sharing class CSQPreApprovalAutomationModule extends ApplicationModule{
 	// Setup which triggers this module should respond to
 	public CSQPreApprovalAutomationModule() {
-		getTriggerEvents().enableBeforeUpdate();
+		getTriggerEvents().enableAfterUpdate();
 	}
 
 	/**
@@ -17,7 +17,7 @@ public inherited sharing class CSQPreApprovalAutomationModule extends Applicatio
 	 * @param existingRecords map of existing CSQ records
 	 * @param uow instance of UnitOfWork
 	 */
-	public override void onBeforeUpdate(List<SObject> records, Map<Id, SObject> existingRecords, ApplicationUnitOfWork uow) {
+	public override void onAfterUpdate(List<SObject> records, Map<Id, SObject> existingRecords, ApplicationUnitOfWork uow) {
 		try {
 			enterCSQApprovalUponPreApprovalNotApplicable(records);
 		} catch (Exception ex) {

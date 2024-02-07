@@ -6,7 +6,7 @@
  */
 
 public inherited sharing class CSQAutomationTriggerHandler extends ApplicationTriggerHandler{
-	private static final String PRE_APPROVAL_STATUS_NOT_APPLICABLE = 'Not Applicable';
+	private static final String PRE_APPROVAL_STATUS_NOT_APPLICABLE = 'Referred';
 
 	public override SObjectType getSObjectType() {
 		return Customer_Scoping_Questionnaire__c.SObjectType;
@@ -34,7 +34,7 @@ public inherited sharing class CSQAutomationTriggerHandler extends ApplicationTr
 	}
 
 	public override void registerModules() {
-		registerModule(CSQAutomationModule.class, 'filterCSQPreApproval');
+		registerModule(CSQPreApprovalAutomationModule.class, 'filterCSQPreApproval');
 	}
 
 	/**
