@@ -1099,7 +1099,7 @@ public with sharing class AccountTriggerUtility {
                                             SSSWConstants.ACCOUNT_TRIGGER, LoggingLevel.ERROR);
         }
     }
-/**
+	  /**
       * @description       Method to delete related Revenue by Billing account and Customer Revenue records when an account is deleted such as customer merge
       * @param             List<Account> acctList
       * @return            NA
@@ -1139,6 +1139,7 @@ public with sharing class AccountTriggerUtility {
         }
     
   	}
+
      /** spingali - Fix for issues identified after the CRUD "Secure Guest Users' Sharing Settings and Record Access"
         * Public inner class that elevates access privileges of the current user to query data without being limited by
         * sharing settings.

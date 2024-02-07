@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Commercial_Analytics_Modelling</fullName>
-    <active>false</active>
+    <active>true</active>
     <description>Provision of analytical &amp; modelling support for opportunities.</description>
     <label>Commercial Analytics &amp; Modelling</label>
     <picklistValues>
@@ -744,6 +744,17 @@
         </values>
     </picklistValues>
     <picklistValues>
+        <picklist>Customer_Checklist_attached__c</picklist>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
         <picklist>Customer_Request_Attached__c</picklist>
         <values>
             <fullName>No</fullName>
@@ -1052,10 +1063,6 @@
         </values>
         <values>
             <fullName>Signature on delivery</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Transit cover</fullName>
             <default>false</default>
         </values>
     </picklistValues>
@@ -3490,6 +3497,17 @@
         </values>
         <values>
             <fullName>6 Months</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Transit_Cover_Type__c</picklist>
+        <values>
+            <fullName>Adhoc</fullName>
+            <default>true</default>
+        </values>
+        <values>
+            <fullName>Always On</fullName>
             <default>false</default>
         </values>
     </picklistValues>

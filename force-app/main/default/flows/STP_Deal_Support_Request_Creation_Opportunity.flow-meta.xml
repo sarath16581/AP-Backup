@@ -27,6 +27,8 @@
                 <stringValue>edit</stringValue>
             </value>
         </inputParameters>
+        <nameSegment>c:navigateToRecord</nameSegment>
+        <versionSegment>1</versionSegment>
     </actionCalls>
     <apiVersion>52.0</apiVersion>
     <assignments>
@@ -162,6 +164,14 @@
         <dataType>String</dataType>
         <value>
             <stringValue>Business_Sales_Implementation_Request</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Choice_Commercial_Analytics_Modelling</name>
+        <choiceText>&lt;b&gt;Commercial Analytics &amp;amp; Modelling&lt;/b&gt;&lt;p&gt;Provision of analytical &amp;amp; modelling support for opportunities&lt;span class=&quot;ql-cursor&quot;&gt;﻿&lt;/span&gt;&lt;/p&gt;</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Commercial_Analytics_Modelling</stringValue>
         </value>
     </choices>
     <choices>
@@ -574,10 +584,10 @@ Check if Opp stage is &apos;Qualify&apos; or &apos;Identify&apos; and DSQ record
             <choiceReferences>Choice_Deal_Enablement_Centre</choiceReferences>
             <choiceReferences>Choice_Surcharge_Exemption</choiceReferences>
             <choiceReferences>Choice_BG_Deal_Desk</choiceReferences>
-            <choiceReferences>Choice_Commercial_Analytics_Modelling</choiceReferences>
             <dataType>String</dataType>
             <fieldText>Select the Deal Support Request Type</fieldText>
             <fieldType>RadioButtons</fieldType>
+            <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
             <isRequired>true</isRequired>
         </fields>
         <showFooter>true</showFooter>

@@ -1,13 +1,14 @@
 /**************************************************
-Description:    Utility class to handle calls to Camunda
+Description:	Utility class to handle calls to Camunda
 History:
 --------------------------------------------------
 2019-06-04  Lija.Jawahar@auspost.com.au  	Created
 2019-06-07  Lija.Jawahar@auspost.com.au  	Added addition request/post methods for more flexibility
 2019-06-27  ajudd@salesforce.com 			Changes to use named credential for auth
-2019-08-12  ajudd@salesforce.com            Added BAM Record Type Id conditions
+2019-08-12  ajudd@salesforce.com			Added BAM Record Type Id conditions
 2023-12-12  mahesh.parvathaneni@auspost.com.au Changed the authentication mechanism to Auth0
 2023-12-19  boris.bachovski2@austpost.com.au Changes to use AP Secrets manage package for Auth0. Also removed getRequest() methods as they are not used.
+2024-02-02	mahesh.parvathaneni@auspost.com.au Updated getter to use the OAuth base class from the "AP Secrets" package
 **************************************************/
 public class BAMIntegrationUtility {
 	@TestVisible
@@ -21,10 +22,11 @@ public class BAMIntegrationUtility {
 	//constants
 	private static final String BAM_LODGEMENT = 'BAMLodgement';
 
-	private static apsecrets.Auth0AccessManager.Auth0Token AUTH0_TOKEN {
+	private static apsecrets.OAuth.TokenResponse AUTH0_TOKEN {
 		get {
 			if (AUTH0_TOKEN == null) {
-				AUTH0_TOKEN = apsecrets.Auth0AccessManager.getAccessToken(BAM_LODGEMENT);
+				apsecrets.Auth0AccessManager auth0mgr = new apsecrets.Auth0AccessManager(BAM_LODGEMENT);
+				AUTH0_TOKEN = auth0mgr.getAccessToken();
 			}
 			return AUTH0_TOKEN;
 		}
@@ -64,8 +66,9 @@ public class BAMIntegrationUtility {
 			response = httpHandler.send(req);
 			
 			// If the response is 401, then the token has expired. Get a new token and retry the request.
-			if (response.getStatusCode() == 401) {	
-				AUTH0_TOKEN = apsecrets.Auth0AccessManager.getAccessToken(apsecrets.Auth0AccessManager.RunMode.FORCE_GENERATE, BAM_LODGEMENT);
+			if (response.getStatusCode() == 401) {
+				apsecrets.Auth0AccessManager auth0mgr = new apsecrets.Auth0AccessManager(BAM_LODGEMENT, apsecrets.CacheSettings.RunMode.FORCE_GENERATE);
+				AUTH0_TOKEN = auth0mgr.getAccessToken();	
 				req.setHeader('Authorization', 'Bearer ' + AUTH0_TOKEN.access_token);
 				response = httpHandler.send(req);
 			}

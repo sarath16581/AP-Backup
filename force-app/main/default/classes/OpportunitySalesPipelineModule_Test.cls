@@ -9,6 +9,7 @@
  * 2023-10-26 - Mahesh Parvathaneni - Added test method testOpportunityProductsQuantityIsValidOnOpportunityStageChangeBeforeUpdate
  * 2024-01-22 - Mahesh Parvathaneni - Added test method testOpportunityProductsRevenueStartDateIsValidOnOpportunityStageChangeBeforeUpdate
  * 2024-01-25 - Mahesh Parvathaneni - Added test method testByPassErrorsForOpportunityValidationsPermissionOnBeforeUpdate
+ * 2024-02-02 - Mahesh Parvathaneni - Added test method testByPassErrorForOpportunityLineItemQuantityValidationPermissionOnBeforeUpdate
  */
 @IsTest
 private class OpportunitySalesPipelineModule_Test {
@@ -509,5 +510,73 @@ private class OpportunitySalesPipelineModule_Test {
 		// verify no errors are added to opportunity record as custom permission is added to sales admin user
 		System.assert(!updatedOpportunities[0].hasErrors(), 'No errors expected on opportunity with related competitors.');
 		System.assert(!updatedOpportunities[1].hasErrors(), 'No errors expected on opportunity without related competitors.');
+	}
+
+	/**
+	 * Test to ensure user with custom permission ByPassErrorForOpportunityLineItemQuantityValidationPermission is bypassed for opportunity line item 
+	 * quantity custom validation
+	 */
+	@IsTest
+	static void testByPassErrorForOpportunityLineItemQuantityValidationPermissionOnBeforeUpdate() {
+		// =====================================
+		// Data Preparation
+		// =====================================
+		Account organisation = ApplicationTestDataFactory.getAccounts(1, true)[0];
+		List<Opportunity> opportunities = ApplicationTestDataFactory.getOpportunities(2, organisation.Id, true);
+		List<Product2> products = ApplicationTestDataFactory.getProducts(2, true);
+		Id priceBookId = Test.getStandardPricebookId();
+		List<PricebookEntry> pricebookEntries = ApplicationTestDataFactorySales.getPriceBookEntries(1, priceBookId, products[0].Id, true);
+		pricebookEntries.addAll(ApplicationTestDataFactorySales.getPriceBookEntries(1, priceBookId, products[1].Id, true));
+
+		//two opportunity product records are assigned to first opportunity record
+		//both of them have quantity = 1
+		List<OpportunityLineItem> opportunity0OppLineItems = ApplicationTestDataFactorySales.getOpportunityLineItems(2, opportunities[0].Id, pricebookEntries[0].Id, true);
+		opportunities[0] = (Opportunity) ApplicationTestDataFactory.setChildRelationships(opportunities[0], new Map<String, List<SObject>>{'OpportunityLineItems' => opportunity0OppLineItems});
+
+		//two opportunity product records are assigned to second opportunity record
+		//one of them have quantity = 1000 and other quantity = 1
+		List<OpportunityLineItem> opportunity1OppLineItems = ApplicationTestDataFactorySales.getOpportunityLineItems(2, opportunities[1].Id, pricebookEntries[1].Id, true);
+		opportunity1OppLineItems[0].Quantity = 1000;
+		opportunities[1] = (Opportunity) ApplicationTestDataFactory.setChildRelationships(opportunities[1], new Map<String, List<SObject>>{'OpportunityLineItems' => opportunity1OppLineItems});
+
+		// attempt to update opportunity stage to Qualify
+		List<Opportunity> updatedOpportunities = opportunities.deepClone(true);
+		updatedOpportunities[0].StageName = 'Qualify';
+		updatedOpportunities[1].StageName = 'Qualify';
+
+		//get permission set 
+		Id byPassOppLineItemQuantityPermissionSetId = [SELECT Id FROM PermissionSet WHERE Name='BypassErrorForOpportunityLineItemQuantityValidation' LIMIT 1].Id ;
+		//insert securepay user
+		User securePayUser = ApplicationTestDataFactory.getUsers(1, false)[0];
+		insert securePayUser;
+
+		//assign ByPassErrorForOpportunityLineItemQuantityValidation to secure pay user
+		System.runAs(new User(Id = UserInfo.getUserId())) {
+			PermissionSetAssignment psa = new PermissionSetAssignment (PermissionSetId = byPassOppLineItemQuantityPermissionSetId, AssigneeId = securePayUser.Id);
+			insert psa;
+		}
+		// =====================================
+		// Stubbing
+		// =====================================
+		OpportunitiesSelector mockOpportunitiesSelector = ((OpportunitiesSelector) MockUtility.mockSelector(OpportunitiesSelector.class));
+		ApplicationUnitOfWork mockUow = MockUtility.mockUnitOfWork();
+		// set up responses
+		MockUtility.Mocks.startStubbing();
+		MockUtility.Mocks.when(mockOpportunitiesSelector.selectById((Set<Id>)fflib_Match.anyObject(),(Set<Object>)fflib_Match.anyObject())).thenReturn(new Map<Id, Opportunity>(opportunities));
+		MockUtility.Mocks.stopStubbing();
+		// =====================================
+		// Testing
+		// =====================================
+		System.runAs(securePayUser) {
+			Test.startTest();
+			new OpportunitySalesPipelineModule().onBeforeUpdate(updatedOpportunities, new Map<Id, Opportunity>(opportunities), mockUow);
+			Test.stopTest();
+		}
+		// verify selector method is invoked to query opportunities with related records.
+		fflib_ArgumentCaptor opportunityIdCaptor = fflib_ArgumentCaptor.forClass(Set<Id>.class);
+		((OpportunitiesSelector)MockUtility.Mocks.verify(mockOpportunitiesSelector, 1)).selectById((Set<Id>)opportunityIdCaptor.capture(),(Set<Object>)fflib_Match.anyObject());
+		// verify no errors are added to opportunity record as custom permission is added to secure pay user
+		System.assert(!updatedOpportunities[0].hasErrors(), 'No errors expected on opportunity as permission set is assigned to user.');
+		System.assert(!updatedOpportunities[1].hasErrors(), 'No errors expected on opportunity as permission set is assigned to user.');
 	}
 }

@@ -8,8 +8,7 @@
  * @description Compensation Module class
  * @changelog
  * 2023-07-15 - Hasantha Liyanage - Created
- * 24.01.2024 	 Swati Mogaddala - REQ3225476 -Added deleteRReconDelete() in BeforeHandler( on delete)
-
+ * 2024-1-25 - Swati Mogadala	- Updated to check reference Id against all cases
  */
 
 public with sharing class CompensationUtilityModule extends ApplicationModule {
@@ -69,9 +68,11 @@ public with sharing class CompensationUtilityModule extends ApplicationModule {
                 // add message The Reference ID cannot be blank on the case
                 compensation.addError(Label.CompensationMsgCaseMustHaveReference);
             } else {
-                // if the reference ID on the case is available and has more than one compensation records for any case id
-                //List<Compensation__c> compensationsForCaseId = groupedCompensationByCaseIds.get(compensation.Case__c);
-            if(!groupedCompensationByCaseIds.values().isEmpty() && groupedCompensationByCaseIds.size() >= 1 ) {
+                 // if the reference ID on the case is available and has more than one compensation records
+                 //List<Compensation__c> compensationsForCaseId = groupedCompensationByCaseIds.get(compensation.Case__c);
+                // if a compensation record exists for the reference id for any case Id 
+                if (!groupedCompensationByCaseIds.values().isEmpty() && groupedCompensationByCaseIds.size() >= 1 )
+                {
                     // add message The Reference ID already have a compensation record and only supervisor can create more than one.
                     compensation.addError(Label.CompensationMsgMoreThanOnePerCaseReference);
                 }

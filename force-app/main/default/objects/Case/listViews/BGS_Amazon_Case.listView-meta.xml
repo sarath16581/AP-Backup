@@ -2,7 +2,7 @@
 <ListView xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>BGS_Amazon_Case</fullName>
     <filterScope>Queue</filterScope>
-    <label>BGS Amazon</label>
+    <label>General Spare</label>
     <queue>BGS_Amazon</queue>
     <sharedTo>
         <allInternalUsers></allInternalUsers>
