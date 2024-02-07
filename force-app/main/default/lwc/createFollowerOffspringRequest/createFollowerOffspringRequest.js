@@ -74,6 +74,7 @@ export default class CreateFollowerOffspringRequest extends NavigationMixin(Ligh
 			this.isListView = true;
 		} else if (data?.length === 0) {
 			this.isABNConfirmation = true;
+			this.isListView = false;
 		} else if (error) {
 			console.error(error);
 		}
@@ -136,5 +137,12 @@ export default class CreateFollowerOffspringRequest extends NavigationMixin(Ligh
 	handleFinalise(event) {
 		this.refreshListView();
 		this.countFinalised += event.detail;
+	}
+
+	/**
+	 * Handle submit event from list view - refreshing sub accounts
+	 */
+	handleSubmit() {
+		this.refreshListView();
 	}
 }

@@ -72,7 +72,21 @@ export default class FollowerOffspringRequestList extends NavigationMixin(Lightn
 	@api countFinalised;
 
 	// Sub Accounts passed from request wrapper
-	@api subAccounts = [];
+	_subAccounts = [];
+
+	@api get subAccounts() {
+		return this._subAccounts;
+	}
+	set subAccounts(val) {
+		// set reload properties if sub accounts are passed from different leader
+		if (val?.length > 0 && val[0].APT_Billing_Account__c !== this._subAccounts[0]?.APT_Billing_Account__c) {
+			this.filteredReload = true;
+			this.finalisedReload = true;
+			this.submittedReload = true;
+			this.searchTerm = null;
+		}
+		this._subAccounts = val;
+	}
 
 	// Finalised sub Accounts passed from request wrapper
 	@api finalisedSubAccounts = [];
@@ -95,6 +109,9 @@ export default class FollowerOffspringRequestList extends NavigationMixin(Lightn
 	selectedRows = [];
 	isLoading = true;
 	_subAccountsByIdMap;
+	filteredReload = false;
+	finalisedReload = false;
+	submittedReload = false;
 
 	// navigation bar & submit button
 	listViewUrl;
@@ -148,24 +165,6 @@ export default class FollowerOffspringRequestList extends NavigationMixin(Lightn
 			});
 		}
 
-		if (this.hasFinalisedSubAccounts) {
-			this.finalisedSubAccountsList.forEach(acc => {
-				acc.AccountTypeLabel = this.picklistMap.get(acc[SUB_ACCOUNT_ACCOUNT_TYPE.fieldApiName]);
-			});
-		}
-
-		if (this.hasSubmittedSubAccounts) {
-			this.submittedSubAccountsList.forEach(acc => {
-				acc.AccountTypeLabel = this.picklistMap.get(acc[SUB_ACCOUNT_ACCOUNT_TYPE.fieldApiName]);
-			});
-		}
-
-		if (this.hasFilteredSubAccounts) {
-			this.filteredSubAccounts.forEach(acc => {
-				acc.AccountTypeLabel = this.picklistMap.get(acc[SUB_ACCOUNT_ACCOUNT_TYPE.fieldApiName]);
-			});
-		}
-
 		if (this.hasFinalisedSubAccounts || this.hasFilteredSubAccounts || this.hasSubmittedSubAccounts) {
 			//Load columns from server and add Physical Address, Account Type and row actions columns
 			getDatatableColumns().then(c => {
@@ -208,8 +207,14 @@ export default class FollowerOffspringRequestList extends NavigationMixin(Lightn
 	}
 
 	get filteredSubAccounts() {
-		if (this._filteredSubAccounts == null && this.subAccounts?.length > 0) {
-			this._filteredSubAccounts = JSON.parse(JSON.stringify(this.subAccounts));
+		if (this._filteredSubAccounts == null && this.subAccounts?.length > 0
+			|| this.filteredReload) {
+			this._filteredSubAccounts = this.subAccounts;
+			this.filteredReload = false;
+		}
+		// map account type label
+		if (this.picklistMap?.size > 0 && this._filteredSubAccounts?.length > 0 && this._filteredSubAccounts[0].AccountTypeLabel == null) {
+			this._filteredSubAccounts = this.mapAccountTypeLabel(this._filteredSubAccounts);
 		}
 		return this._filteredSubAccounts;
 	}
@@ -219,8 +224,13 @@ export default class FollowerOffspringRequestList extends NavigationMixin(Lightn
 	}
 
 	get finalisedSubAccountsList() {
-		if (this._finalisedSubAccountsList == null && this.finalisedSubAccounts?.length > 0) {
-			this._finalisedSubAccountsList = JSON.parse(JSON.stringify(this.finalisedSubAccounts));
+		if (this._finalisedSubAccountsList == null && this.finalisedSubAccounts?.length > 0
+			|| (this._finalisedSubAccountsList != null && this.finalisedSubAccounts[0]?.APT_Billing_Account__c !== this._finalisedSubAccountsList[0]?.APT_Billing_Account__c && this.searchTerm == null)) {
+			this._finalisedSubAccountsList = this.finalisedSubAccounts;
+		}
+		// map account type label
+		if (this.picklistMap?.size > 0 && this._finalisedSubAccountsList?.length > 0 && this._finalisedSubAccountsList[0].AccountTypeLabel == null) {
+			this._finalisedSubAccountsList = this.mapAccountTypeLabel(this._finalisedSubAccountsList);
 		}
 		return this._finalisedSubAccountsList;
 	}
@@ -230,8 +240,14 @@ export default class FollowerOffspringRequestList extends NavigationMixin(Lightn
 	}
 
 	get submittedSubAccountsList() {
-		if (this._submittedSubAccountsList == null && this.submittedSubAccounts?.length > 0) {
-			this._submittedSubAccountsList = JSON.parse(JSON.stringify(this.submittedSubAccounts));
+		if (this._submittedSubAccountsList == null && this.submittedSubAccounts?.length > 0
+			|| this.submittedReload) {
+			this._submittedSubAccountsList = this.submittedSubAccounts;
+			this.submittedReload = false;
+		}
+		// map account type label
+		if (this.picklistMap?.size > 0 && this._submittedSubAccountsList?.length > 0 && this._submittedSubAccountsList[0].AccountTypeLabel == null) {
+			this._submittedSubAccountsList = this.mapAccountTypeLabel(this._submittedSubAccountsList);
 		}
 		return this._submittedSubAccountsList;
 	}
@@ -537,6 +553,8 @@ export default class FollowerOffspringRequestList extends NavigationMixin(Lightn
 									// user has acknowledged the alert. if the provisioning request has been submitted successfully
 									// update the table and navigate back to the leader billing account. in all other cases stay on sub account list view.
 									if (provisioningStatus.isSuccess) {
+										// Dispatch refresh apex event to parent
+										this.dispatchEvent(new CustomEvent('submit'));
 										const ids = this.selectedRows.map(item => item.Id);
 										this.filteredSubAccounts = [...this.filteredSubAccounts].filter(item => !ids.includes(item.Id));
 										this.subAccounts = [...this.subAccounts].filter(item => !ids.includes(item.Id));
@@ -546,7 +564,7 @@ export default class FollowerOffspringRequestList extends NavigationMixin(Lightn
 											return i;
 										});
 										this.submittedSubAccountsList = this.hasSubmittedSubAccounts ? updatedSubmittedSubAccounts.concat([...this.submittedSubAccountsList]) : [...updatedSubmittedSubAccounts];
-
+										this.resetSelection();
 										this[NavigationMixin.Navigate]({
 											type: 'standard__recordPage',
 											attributes: {
@@ -619,5 +637,19 @@ export default class FollowerOffspringRequestList extends NavigationMixin(Lightn
 		}, true);
 
 		return allParentsSelected;
+	}
+
+	/**
+	 * Map account type api name to label based on the picklist map from wiredPicklistValues
+	 * @param accountList sub account list without account type label mapped
+	 * @return new account list with mapped account type label
+	 */
+	mapAccountTypeLabel(accountList) {
+		return accountList.map(acc => {
+			return {
+				...acc,
+				AccountTypeLabel: this.picklistMap.get(acc[SUB_ACCOUNT_ACCOUNT_TYPE.fieldApiName])
+			};
+		});
 	}
 }
