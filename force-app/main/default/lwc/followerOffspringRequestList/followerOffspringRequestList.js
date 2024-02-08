@@ -81,7 +81,7 @@ export default class FollowerOffspringRequestList extends NavigationMixin(Lightn
 		this.filteredSubAccounts = null;
 		this.submittedSubAccountsList = null;
 		this.finalisedSubAccountsList = null;
-        this.searchTerm = null;
+		this.searchTerm = null;
 		if (this.picklistMap) {
 			// map account type label and store in computedSubAccounts
 			if (val?.length > 0) {
@@ -98,11 +98,11 @@ export default class FollowerOffspringRequestList extends NavigationMixin(Lightn
 	readOnlyColumns;
 	sortBy;
 	sortDirection;
-    searchTerm;
-    selectedRows = [];
+	searchTerm;
+	selectedRows = [];
 
 	// data
-    computedSubAccounts = [];
+	computedSubAccounts = [];
 	_filteredSubAccounts;
 	_finalisedSubAccountsList;
 	_submittedSubAccountsList;
@@ -153,7 +153,7 @@ export default class FollowerOffspringRequestList extends NavigationMixin(Lightn
 	 *  Get account type picklist API name and label map - required to render the datatable
 	 *  Upon receiving load datatable columns
 	 */
-    picklistMap;
+	picklistMap;
 	@wire(getPicklistValues, {recordTypeId: '$subAccountInfo.data.defaultRecordTypeId', fieldApiName: SUB_ACCOUNT_ACCOUNT_TYPE})
 	wiredPicklistValues({data}) {
 		if (data?.values) {
@@ -162,12 +162,12 @@ export default class FollowerOffspringRequestList extends NavigationMixin(Lightn
 				this.picklistMap.set(item.value, item.label);
 			});
 
-            // map account type label and store in computedSubAccounts
-            if (this.subAccounts.length > 0) {
-                this.computedSubAccounts = this.subAccounts.map(item => {
-                    return {...item, AccountTypeLabel: this.picklistMap?.get(item[SUB_ACCOUNT_ACCOUNT_TYPE.fieldApiName])};
-                });
-            }
+			// map account type label and store in computedSubAccounts
+			if (this.subAccounts.length > 0) {
+				this.computedSubAccounts = this.subAccounts.map(item => {
+					return {...item, AccountTypeLabel: this.picklistMap?.get(item[SUB_ACCOUNT_ACCOUNT_TYPE.fieldApiName])};
+				});
+			}
 		}
 
 		if (!this.columns) {
@@ -240,9 +240,9 @@ export default class FollowerOffspringRequestList extends NavigationMixin(Lightn
 
 	get finalisedSubAccountsList() {
 		if (!this._finalisedSubAccountsList && this.computedSubAccounts?.length > 0) {
-		    this._finalisedSubAccountsList = this.computedSubAccounts.filter(item => item[SUB_ACCOUNT_STAGE.fieldApiName] === 'Pending Charge Account');
-        }
-        return this._finalisedSubAccountsList;
+			this._finalisedSubAccountsList = this.computedSubAccounts.filter(item => item[SUB_ACCOUNT_STAGE.fieldApiName] === 'Pending Charge Account');
+		}
+		return this._finalisedSubAccountsList;
 	}
 
 	set finalisedSubAccountsList(value) {
@@ -454,8 +454,6 @@ export default class FollowerOffspringRequestList extends NavigationMixin(Lightn
 			const chargeAccountSubAccounts = this.selectedRows.map(item => {
 				return {Id: item.Id, [SUB_ACCOUNT_STAGE.fieldApiName]: 'Pending Charge Account'};
 			});
-			// extract IDs to refresh list view
-			const ids = chargeAccountSubAccounts.map(item => item.Id);
 
 			// finalise charge account sub accounts
 			if (chargeAccountSubAccounts.length > 0) {
