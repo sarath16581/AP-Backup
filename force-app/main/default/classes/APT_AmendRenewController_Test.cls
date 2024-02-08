@@ -47,7 +47,6 @@ private class APT_AmendRenewController_Test{
 			insert sysProperties;
 
 			Id renewalRecordTypeId = Schema.SObjectType.Apttus_Proposal__Proposal__c.getRecordTypeInfosByName().get('Renewal Quote').getRecordTypeId();
-			system.debug('renewalRecordTypeId+' + renewalRecordTypeId);
 
 			Apttus__APTS_Agreement__c aptContract = APT_TestUtils.createAgreement(con.Id);
 			aptContract.Apttus__Related_Opportunity__c =opp.id;

@@ -17,7 +17,8 @@ private with sharing class APT_AmendRenewUtility_Test{
 	/**
 		Creating test data
 	*/
-	private static testMethod void testMethod1() {
+	@IsTest
+	private static void testMethod1() {
 		Profile p = [SELECT Id FROM Profile WHERE Name='System Administrator'];
 		User testuser = new User(Alias = APT_Constants.ALIAS_TEST_USER, Email=APT_Constants.EMAIL_TEST_USER,
 		EmailEncodingKey=APT_Constants.EMAILENCODINGKEY_TEST_USER, LastName=APT_Constants.LASTNAME_TEST_USER, LanguageLocaleKey=APT_Constants.LANGUAGELOCALEKEY_TEST_USER,
@@ -265,7 +266,8 @@ private with sharing class APT_AmendRenewUtility_Test{
 		}
 	} */
 
-	private static testMethod void testMethod3() {
+	@IsTest
+	private static void testMethod3() {
 		Profile p = [SELECT Id FROM Profile WHERE Name='System Administrator'];
 		User testuser = new User(Alias = APT_Constants.ALIAS_TEST_USER, Email=APT_Constants.EMAIL_TEST_USER,
 		EmailEncodingKey=APT_Constants.EMAILENCODINGKEY_TEST_USER, LastName=APT_Constants.LASTNAME_TEST_USER, LanguageLocaleKey=APT_Constants.LANGUAGELOCALEKEY_TEST_USER,
@@ -414,7 +416,8 @@ private with sharing class APT_AmendRenewUtility_Test{
 	public static final string INSIGNATURE_STATUS_CATEGORY = 'In Signature';
 	public static final string RECONCILED_STATUS = 'Reconciled';
 
-	private static testMethod void testMethod4() {
+	@IsTest
+	private static void testMethod4() {
 
 		// Create test organisation
 		Account accVar = APT_TestUtil2.createOrganisation();
@@ -469,7 +472,8 @@ private with sharing class APT_AmendRenewUtility_Test{
 		//system.assert(tempAgrmnt != null);
 	}
 
-	public static testmethod void testSAPContractCloning(){
+	@IsTest
+	public static void testSAPContractCloning(){
 		// Create test records
 		
 		// Product
@@ -595,8 +599,6 @@ private with sharing class APT_AmendRenewUtility_Test{
 														FROM Apttus__APTS_Agreement__c 
 														WHERE Apttus__FF_Agreement_Number__c = :renewAgreeVar.Apttus_QPComply__RelatedProposalId__r.APT_Contract_Number__c]; 
 			
-			system.debug('renewAgreeVar:' + renewAgreeVar);
-			system.debug('origAgreeVar:' + origAgreeVar);
 		
 			// Cloning and postfixing action
 			APT_AmendRenewUtility.copySAPContratcs(origAgreeVar.Id, renewAgreeVar.Id, origAgreeVar.Apttus__Version_Number__c);
