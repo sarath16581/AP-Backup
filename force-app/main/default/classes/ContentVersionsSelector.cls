@@ -48,7 +48,8 @@ public virtual inherited sharing class ContentVersionsSelector extends Applicati
 				ContentVersion.Document_Type__c, ContentVersion.FileExtension, ContentVersion.FileType, ContentVersion.Id, ContentVersion.IsLatest,
 				ContentVersion.LastModifiedById, ContentVersion.LastModifiedDate, ContentVersion.NetworkId, ContentVersion.Origin,
 				ContentVersion.OwnerId, ContentVersion.PathOnClient, ContentVersion.PublishStatus, ContentVersion.RecordTypeId,
-				ContentVersion.SharingOption, ContentVersion.SharingPrivacy, ContentVersion.Title, ContentVersion.VersionNumber
+				ContentVersion.SharingOption, ContentVersion.SharingPrivacy, ContentVersion.Title, ContentVersion.VersionNumber,
+				ContentVersion.VersionData
 		};
 	}
 
