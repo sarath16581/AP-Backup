@@ -212,11 +212,6 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Network__c.RNPReportingAccess__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
         <field>Network__c.Region__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -273,11 +268,6 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Task.Type</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>User.RNPReportingManager__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <hasActivationRequired>false</hasActivationRequired>

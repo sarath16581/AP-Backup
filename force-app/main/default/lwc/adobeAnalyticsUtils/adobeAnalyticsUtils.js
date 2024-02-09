@@ -20,4 +20,3 @@ export function analyticsTrackPageLoad(pageData) {
 
 	analytics.sattrack("bsp-navigate");
 }
-

@@ -727,11 +727,6 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
-        <field>Network__c.RNPReportingAccess__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
         <editable>true</editable>
         <field>Network__c.Standalone_LPO__c</field>
         <readable>true</readable>
@@ -1124,11 +1119,6 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Partner_Info_Change__c.Total_Eq_Private_Transit_Mail_Points__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>User.RNPReportingManager__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <hasActivationRequired>false</hasActivationRequired>

@@ -46,7 +46,7 @@
     </recordTypeVisibilities>
     <recordTypeVisibilities>
         <recordType>Compensation__c.Money_Order_Number_Required</recordType>
-        <visible>true</visible>
+        <visible>false</visible>
     </recordTypeVisibilities>
     <recordTypeVisibilities>
         <recordType>Compensation__c.Retail_Compensation</recordType>
