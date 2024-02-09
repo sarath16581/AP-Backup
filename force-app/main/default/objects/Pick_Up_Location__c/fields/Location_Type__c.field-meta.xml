@@ -103,11 +103,6 @@ Region 3 = Coffs Harbour-Newcastle-Port Macquarie-Tuggerah</inlineHelpText>
         <valueSettings>
             <controllingFieldValue>NSW</controllingFieldValue>
             <controllingFieldValue>ACT</controllingFieldValue>
-            <valueName>Regional 3 (COF,NCL,PTM,TUG)</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>NSW</controllingFieldValue>
-            <controllingFieldValue>ACT</controllingFieldValue>
             <valueName>Regional 1 (WOL)</valueName>
         </valueSettings>
         <valueSettings>

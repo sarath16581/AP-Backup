@@ -10,15 +10,13 @@ History:
 2022-10-05 - seth.heang@auspost.com.au - Uplift API version to 55, Modified testMethod1 to increase code coverage, testMethod3 to unit test a new method checkProductComponentOptions() 
 2023-10-31 - Bharat Patel - To increase code coverage for deployment of STP-9851
 2023-11-15 - Mahesh Parvathaneni - added tests for removeDovRenewalPartsFromOppName method
-2024-02-05 - Mahesh Parvathaneni - added tests for getDealSupportRequestByDsrId method
 **************************************************/
 @isTest
 private with sharing class APT_AmendRenewUtility_Test{ 
 	/**
 		Creating test data
 	*/
-	@IsTest
-	private static void testMethod1() {
+	private static testMethod void testMethod1() {
 		Profile p = [SELECT Id FROM Profile WHERE Name='System Administrator'];
 		User testuser = new User(Alias = APT_Constants.ALIAS_TEST_USER, Email=APT_Constants.EMAIL_TEST_USER,
 		EmailEncodingKey=APT_Constants.EMAILENCODINGKEY_TEST_USER, LastName=APT_Constants.LASTNAME_TEST_USER, LanguageLocaleKey=APT_Constants.LANGUAGELOCALEKEY_TEST_USER,
@@ -68,7 +66,7 @@ private with sharing class APT_AmendRenewUtility_Test{
 			Apttus_Config2__ProductConfiguration__c pConfig = APT_TestUtils.getProductConfiguration2('TestConfig',123, quote.ID, 'Proposal', 'Product',
 																priceList.ID,'New', System.today()-1, System.Today()+2,False);
 			insert pConfig;
-			
+				
 				//Create Temp Obj
 				Apttus_Config2__TempObject__c tmp = new Apttus_Config2__TempObject__c();
 				tmp.Apttus_Config2__ConfigurationId__c  = pConfig.id;
@@ -266,8 +264,7 @@ private with sharing class APT_AmendRenewUtility_Test{
 		}
 	} */
 
-	@IsTest
-	private static void testMethod3() {
+	private static testMethod void testMethod3() {
 		Profile p = [SELECT Id FROM Profile WHERE Name='System Administrator'];
 		User testuser = new User(Alias = APT_Constants.ALIAS_TEST_USER, Email=APT_Constants.EMAIL_TEST_USER,
 		EmailEncodingKey=APT_Constants.EMAILENCODINGKEY_TEST_USER, LastName=APT_Constants.LASTNAME_TEST_USER, LanguageLocaleKey=APT_Constants.LANGUAGELOCALEKEY_TEST_USER,
@@ -416,8 +413,7 @@ private with sharing class APT_AmendRenewUtility_Test{
 	public static final string INSIGNATURE_STATUS_CATEGORY = 'In Signature';
 	public static final string RECONCILED_STATUS = 'Reconciled';
 
-	@IsTest
-	private static void testMethod4() {
+	private static testMethod void testMethod4() {
 
 		// Create test organisation
 		Account accVar = APT_TestUtil2.createOrganisation();
@@ -472,8 +468,7 @@ private with sharing class APT_AmendRenewUtility_Test{
 		//system.assert(tempAgrmnt != null);
 	}
 
-	@IsTest
-	public static void testSAPContractCloning(){
+	public static testmethod void testSAPContractCloning(){
 		// Create test records
 		
 		// Product
@@ -599,6 +594,8 @@ private with sharing class APT_AmendRenewUtility_Test{
 														FROM Apttus__APTS_Agreement__c 
 														WHERE Apttus__FF_Agreement_Number__c = :renewAgreeVar.Apttus_QPComply__RelatedProposalId__r.APT_Contract_Number__c]; 
 			
+			system.debug('renewAgreeVar:' + renewAgreeVar);
+			system.debug('origAgreeVar:' + origAgreeVar);
 		
 			// Cloning and postfixing action
 			APT_AmendRenewUtility.copySAPContratcs(origAgreeVar.Id, renewAgreeVar.Id, origAgreeVar.Apttus__Version_Number__c);
@@ -633,42 +630,6 @@ private with sharing class APT_AmendRenewUtility_Test{
 		Assert.areEqual('TestDov:Test', APT_AmendRenewUtility.removeDovRenewalPartsFromOppName(oppName2), 'Expected TestDov:Test to be returned');
 		Assert.areEqual('Test Opportunity', APT_AmendRenewUtility.removeDovRenewalPartsFromOppName(oppName3), 'Expected Test Opportunity to be returned');
 		Assert.areEqual(null, APT_AmendRenewUtility.removeDovRenewalPartsFromOppName(null), 'Expected null to be returned');
-
-		Test.stopTest();
-	}
-
-	/**
-	 * Test to ensure DSR record is returned from getDealSupportRequestByDsrId
-	 */
-	@IsTest
-	static void testGetDealSupportRequestByDsrId() {
-		// =====================================
-		// Data Preparation
-		// =====================================
-		Account account = ApplicationTestDataFactory.getAccounts(1, true)[0];
-		Opportunity opportunityRecord = ApplicationTestDataFactory.getOpportunities(1, account.Id, true)[0];
-		List<Deal_Support_Request__c> dealSupportReqList = ApplicationTestDataFactory.getDealSupportRequests(1, opportunityRecord.Id, account.Id, true);
-
-		Map<String, Object> searchParams = new Map<String, Object>();
-		searchParams.put('dsrIds', new Set<String>{dealSupportReqList[0].Name});
-
-		// =====================================
-		// Stubbing
-		// =====================================
-		DealSupportRequestsSelector mockSelector = (DealSupportRequestsSelector) MockUtility.mockSelector(DealSupportRequestsSelector.class);
-		MockUtility.Mocks.startStubbing();
-		MockUtility.Mocks.when(mockSelector.search((Map<String, Set<Id>>)fflib_Match.eq(searchParams),(Set<Object>)fflib_Match.eq(new Set<Object>()),fflib_Match.eqBoolean(true))).thenReturn(dealSupportReqList);
-		MockUtility.Mocks.stopStubbing();
-
-		// =====================================
-		// Testing
-		// =====================================
-		Test.startTest();
-
-		Deal_Support_Request__c dsr = APT_AmendRenewUtility.getDealSupportRequestByDsrId(dealSupportReqList[0].Name);
-
-		// make sure the DSR record is returned
-		Assert.areEqual(dsr.Id, dealSupportReqList[0].Id, 'Expected DSR record to be returned');
 
 		Test.stopTest();
 	}

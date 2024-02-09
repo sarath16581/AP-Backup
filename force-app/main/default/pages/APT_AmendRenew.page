@@ -9,7 +9,6 @@ Last Modified By - Mansi Shah on 27/05/2021 | Removed Dov Reason field and relat
 
 @changelog:
 2022-10-05	seth.heang@auspost.com.au	uplift API version to 55
-2024-02-02	mahesh.parvathaneni@auspost.com.au	STP-8256 - Added DSR-ID field to link opportunity driver, key contact
 **/
 -->
 <apex:page controller="APT_AmendRenewController" tabStyle="Apttus__APTS_Agreement__c">
@@ -18,116 +17,110 @@ Last Modified By - Mansi Shah on 27/05/2021 | Removed Dov Reason field and relat
 <apex:actionStatus id="ajaxStatus" onstart="wait(true)" onstop="wait(false)" />
 <apex:form >
 
-	<style>
-		.aptOutputLabel {
-			color: #4a4a56;
-			font-size: 91%;
-			font-weight: bold;
-			text-align: right;
-		}
-				
-	</style>
+    <style>
+        .aptOutputLabel {
+            color: #4a4a56;
+            font-size: 91%;
+            font-weight: bold;
+            text-align: right;
+        }
+                
+    </style>
+    
+    <!-- Modified by conrad.c.v.borbon on August 7, 2018 - START -->
+    <apex:pageBlock title="{!titleMsg}" >
+        <apex:pageBlockSection columns="1" id="errorMessageSection">
+            <apex:pagemessages rendered="{!haserrorMessages}"/>
+        </apex:pageBlockSection>
+            <apex:pageBlockSection >
+        <center>
+            <apex:outputLabel value="{!$Label.APT_Category}" styleClass="aptOutputLabel"></apex:outputLabel>
+                    <div align="center">
+            <apex:selectList value="{!selectedCategory}" multiselect="false" size="1">
+                <apex:selectOptions value="{!categories}" ></apex:selectOptions>
+                            <apex:actionSupport action="{!textmessage}" event="onchange"  reRender="category, txtmsg, lookup"/>
+            </apex:selectList>
+                    </div>
+         </center>
+            </apex:pageBlockSection>
 
-	<!-- Modified by conrad.c.v.borbon on August 7, 2018 - START -->
-	<apex:pageBlock title="{!titleMsg}" >
-		<apex:pageBlockSection columns="1" id="errorMessageSection">
-			<apex:pagemessages rendered="{!haserrorMessages}"/>
-		</apex:pageBlockSection>
-			<apex:pageBlockSection >
-		<center>
-			<apex:outputLabel value="{!$Label.APT_Category}" styleClass="aptOutputLabel"></apex:outputLabel>
-					<div align="center">
-			<apex:selectList value="{!selectedCategory}" multiselect="false" size="1">
-				<apex:selectOptions value="{!categories}" ></apex:selectOptions>
-							<apex:actionSupport action="{!textmessage}" event="onchange"  reRender="category, txtmsg, lookup"/>
-			</apex:selectList>
-					</div>
-			</center>
-			</apex:pageBlockSection>
+            <div align="center">
+                <apex:outputText value="{!textmessage}" style="font-weight : bold;" rendered="{!bDisplayRenew}" id="txtmsg" />
+            </div>
+         
+         <apex:pageBlockSection id="category">
+               <center>
+                    <apex:outputLabel value="Revenue Type" rendered="{!bDisplayRevenue}" styleClass="aptOutputLabel"></apex:outputLabel>
+                    <br/>
+                    <apex:selectList value="{!selectedRevenue}" rendered="{!bDisplayRevenue}" multiselect="false" size="1" >
+                        <apex:selectOptions value="{!revenueValues}" ></apex:selectOptions>
+                        <!--Mansi Shah commented DOV reason section for User Story - STP-5314-->
+                         <!--<apex:actionSupport action="{!renderDovReasonPicklist}" event="onchange"  reRender="reason,lookup,displayLookup"/>-->
+                         <apex:actionSupport action="{!checkOpprtunityDisplay}" event="onchange"  reRender="lookup,displayLookup"/>
+                    </apex:selectList>
+                </center>
+        </apex:pageBlockSection>
+        
+        <!-- Shashwat.Nath@auspost.com added new Section for DOV Reason as per user story STP-2234-->
+        <!--Mansi Shah commented DOV reason section for User Story - STP-5314-->
+        <!--<apex:pageBlockSection id="reason">
+                <center>
+                    <apex:outputLabel value="DOV Reason" rendered="{!displayReasonPicklist}" styleClass="aptOutputLabel"></apex:outputLabel>
+                    <br/>
+                    <apex:selectList value="{!selectedReason}" rendered="{!displayReasonPicklist}" multiselect="false" size="1" >
+                        <apex:selectOptions value="{!reasons}" ></apex:selectOptions>
+                    </apex:selectList>
+                </center>
+               
+        </apex:pageBlockSection>-->
+        <!-- Shashwat.Nath@Auspost.com.au code ends -->
+       
+        <!-- Shashwat.Nath@auspost.com added new Section for Opportunity Selection as per User Story STP-2209-->           
+        <apex:pageBlockSection id="lookup">
+            <apex:actionFunction name="callAction" action="{!lookupToOpportunity}"/>
+            <!--<apex:pageMessages />-->
+            <apex:outputPanel />
+            <div align="center">
+                <apex:outputLabel value="Do you want to associate an existing opportunity?" rendered="{!displayLookup}" styleClass="aptOutputLabel"></apex:outputLabel> <br/>
+                <apex:inputText value="{!oppName}" style="float:left" rendered="{!displayLookup}">
+                    <apex:image url="{!$Resource.CustomLookupIcon}" height="20"  onclick="callAction()" rendered="{!displayLookup}"/>
+                </apex:inputText>
+            </div>
+        </apex:pageBlockSection>
+        <!-- Shashwat.Nath@Auspost.com.au code ends -->    
+       
+               
+        
+            <!-- Modified by conrad.c.v.borbon on August 7, 2018 - END -->
 
-			<div align="center">
-				<apex:outputText value="{!textmessage}" style="font-weight : bold;" rendered="{!bDisplayRenew}" id="txtmsg" />
-			</div>
-			
-			<apex:pageBlockSection id="category">
-				<center>
-					<apex:outputLabel value="Revenue Type" rendered="{!bDisplayRevenue}" styleClass="aptOutputLabel"></apex:outputLabel>
-					<br/>
-					<apex:selectList value="{!selectedRevenue}" rendered="{!bDisplayRevenue}" multiselect="false" size="1" >
-						<apex:selectOptions value="{!revenueValues}" ></apex:selectOptions>
-						<!--Mansi Shah commented DOV reason section for User Story - STP-5314-->
-							<!--<apex:actionSupport action="{!renderDovReasonPicklist}" event="onchange"  reRender="reason,lookup,displayLookup"/>-->
-							<apex:actionSupport action="{!checkOpprtunityDisplay}" event="onchange"  reRender="lookup,displayLookup"/>
-					</apex:selectList>
-				</center>
-		</apex:pageBlockSection>
-		
-		<!-- Shashwat.Nath@auspost.com added new Section for DOV Reason as per user story STP-2234-->
-		<!--Mansi Shah commented DOV reason section for User Story - STP-5314-->
-		<!--<apex:pageBlockSection id="reason">
-				<center>
-					<apex:outputLabel value="DOV Reason" rendered="{!displayReasonPicklist}" styleClass="aptOutputLabel"></apex:outputLabel>
-					<br/>
-					<apex:selectList value="{!selectedReason}" rendered="{!displayReasonPicklist}" multiselect="false" size="1" >
-						<apex:selectOptions value="{!reasons}" ></apex:selectOptions>
-					</apex:selectList>
-				</center>
-				
-		</apex:pageBlockSection>-->
-		<!-- Shashwat.Nath@Auspost.com.au code ends -->
-		
-		<!-- Shashwat.Nath@auspost.com added new Section for Opportunity Selection as per User Story STP-2209-->
-		<apex:pageBlockSection id="lookup">
-			<apex:actionFunction name="callAction" action="{!lookupToOpportunity}"/>
-			<!--<apex:pageMessages />-->
-			<apex:outputPanel />
-			<div align="center">
-				<apex:outputLabel value="Do you want to associate an existing opportunity?" rendered="{!displayLookup}" styleClass="aptOutputLabel"></apex:outputLabel> <br/>
-				<apex:inputText value="{!oppName}" style="float:left" rendered="{!displayLookup}">
-					<apex:image url="{!$Resource.CustomLookupIcon}" height="20"  onclick="callAction()" rendered="{!displayLookup}"/>
-				</apex:inputText>
-				<br/>
-				<apex:outputLabel value="OR" rendered="{!displayLookup}" styleClass="aptOutputLabel"></apex:outputLabel>
-				<br/>
-				<apex:outputLabel value="Link the DSR-ID to specify Opportunity Driver, Key Contact" rendered="{!displayLookup}" styleClass="aptOutputLabel"></apex:outputLabel> <br/>
-				<apex:inputText value="{!dsrId}" style="float:left" rendered="{!displayLookup}">
-				</apex:inputText>
-			</div>
-		</apex:pageBlockSection>
-		<!-- Shashwat.Nath@Auspost.com.au code ends -->
-		
-				
-		
-			<!-- Modified by conrad.c.v.borbon on August 7, 2018 - END -->
+            <!-- Created by conrad.c.v.borbon on August 7, 2018 - START -->
+        <br/>
+            <apex:pageBlockTable value="{!displayCatValues}" var="cats" rendered="{!bDisplayAmend}">
+                <apex:column value="{!cats.APT_Category__c}" />
+                <apex:column value="{!cats.APT_Help_Text__c}" />
+            </apex:pageBlockTable>
+            <br/>
+            <!-- Created by conrad.c.v.borbon on August 7, 2018 - END -->
 
-			<!-- Created by conrad.c.v.borbon on August 7, 2018 - START -->
-		<br/>
-			<apex:pageBlockTable value="{!displayCatValues}" var="cats" rendered="{!bDisplayAmend}">
-				<apex:column value="{!cats.APT_Category__c}" />
-				<apex:column value="{!cats.APT_Help_Text__c}" />
-			</apex:pageBlockTable>
-			<br/>
-			<!-- Created by conrad.c.v.borbon on August 7, 2018 - END -->
-
-			<center>
-			<apex:actionStatus id="renewStatus">
-				<apex:facet name="start">
-					<apex:commandButton disabled="true" value="{!$Label.APT_Processing}" action="{!doRenew}" status="renewStatus" reRender="errorMessageSection"/>
-				</apex:facet>
-				<apex:facet name="stop">
-					<apex:commandButton disabled="false" value="{!$Label.APT_Renew}" action="{!doRenew}" rendered="{!bDisplayRenew}" status="renewStatus" reRender="errorMessageSection"/>
-				</apex:facet>
-			</apex:actionStatus>
-			<apex:actionStatus id="amendStatus">
-				<apex:facet name="start">
-					<apex:commandButton disabled="true" value="{!$Label.APT_Processing}" action="{!doAmend}" status="amendStatus" reRender="errorMessageSection"/>
-				</apex:facet>
-				<apex:facet name="stop">
-					<apex:commandButton disabled="false" value="{!$Label.APT_Continue}" action="{!doAmend}" rendered="{!bDisplayAmend}" status="amendStatus" reRender="errorMessageSection"/>
-				</apex:facet>
-			</apex:actionStatus>
-			<apex:commandButton value="{!$Label.APT_Cancel}" action="{!doCancel}"/>
-		</center>
-	</apex:pageBlock>
+         <center>
+            <apex:actionStatus id="renewStatus">
+                <apex:facet name="start">
+                    <apex:commandButton disabled="true" value="{!$Label.APT_Processing}" action="{!doRenew}" status="renewStatus" reRender="errorMessageSection"/>
+                </apex:facet>
+                <apex:facet name="stop">
+                    <apex:commandButton disabled="false" value="{!$Label.APT_Renew}" action="{!doRenew}" rendered="{!bDisplayRenew}" status="renewStatus" reRender="errorMessageSection"/>
+                </apex:facet>
+            </apex:actionStatus>
+            <apex:actionStatus id="amendStatus">
+                <apex:facet name="start">
+                    <apex:commandButton disabled="true" value="{!$Label.APT_Processing}" action="{!doAmend}" status="amendStatus" reRender="errorMessageSection"/>
+                </apex:facet>
+                <apex:facet name="stop">
+                    <apex:commandButton disabled="false" value="{!$Label.APT_Continue}" action="{!doAmend}" rendered="{!bDisplayAmend}" status="amendStatus" reRender="errorMessageSection"/>
+                </apex:facet>
+            </apex:actionStatus>
+            <apex:commandButton value="{!$Label.APT_Cancel}" action="{!doCancel}"/>
+        </center>
+    </apex:pageBlock>
 </apex:form>
 </apex:page>
