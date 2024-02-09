@@ -71,7 +71,7 @@ public virtual inherited sharing class ContentVersionsSelector extends Applicati
 	 * @description Run a simple query to get records based on Content Document Id's
 	 */
 	public virtual Map<Id, ContentVersion> selectByContentDocumentId(Set<Id> ids) {
-		return selectById(ids, new Set<Object>());
+		return selectByContentDocumentId(ids, new Set<Object>());
 	}
 
 	/**

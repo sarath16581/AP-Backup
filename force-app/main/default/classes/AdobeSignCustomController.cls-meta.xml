@@ -6,5 +6,10 @@
         <minorNumber>683</minorNumber>
         <namespace>Apttus</namespace>
     </packageVersions>
+    <packageVersions>
+        <majorNumber>24</majorNumber>
+        <minorNumber>35</minorNumber>
+        <namespace>echosign_dev1</namespace>
+    </packageVersions>
     <status>Active</status>
 </ApexClass>

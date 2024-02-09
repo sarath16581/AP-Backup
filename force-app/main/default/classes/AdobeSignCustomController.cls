@@ -12,6 +12,7 @@ public with sharing class AdobeSignCustomController {
 	public Id masterId {get; set;}
 	private static String ADOBE_SIGN_TEMPLATE_PAGE = '/apex/echosign_dev1__AgreementTemplateProcess';
 	private static String ADOBE_SIGN_CANCEL_AGREEMENT_PAGE = '/apex/echosign_dev1__EchoSignAgreementAdvanced';
+	private static String ADOBE_SIGN_AGREEMENT_VIEW_PAGE = '/lightning/r/echosign_dev1__SIGN_Agreement__c/';
 	@TestVisible private static String PAGE_ADOBESIGN_VOI = 'AdobeSignVOI';
 	@TestVisible private static String PAGE_ADOBESIGN_APT = 'AdobeSignApttus';
 	@TestVisible private static String PAGE_ADOBESIGN_APT_CANCEL = 'AdobeSignApttusCancel';
@@ -108,32 +109,63 @@ public with sharing class AdobeSignCustomController {
 	 *	@return Page Reference
 	 */
 	private PageReference navigateToApptusAgreement() {
-		Pagereference pageRef = new Pagereference(ADOBE_SIGN_TEMPLATE_PAGE);
 		
-		Map <Id, Apttus__APTS_Agreement__c> contracts = ApttusContractsSelector.newInstance(1, new Map<SObjectType, Set<SObjectField>> {
-														Apttus__APTS_Agreement__c.SObjectType => new Set<SObjectField>{Apttus__APTS_Agreement__c.DaysUntilContractExpires__c}
-													}).selectById(new Set <Id> {
-														masterId
-													});
+		Map <Id, Apttus__APTS_Agreement__c> contracts = ApttusContractsSelector.newInstance(1, new Map<SObjectType, Set<SObjectField>> { Apttus__APTS_Agreement__c.SObjectType => new Set<SObjectField>{Apttus__APTS_Agreement__c.DaysUntilContractExpires__c}})
+																				.selectById(new Set<Id> {masterId}, new Set<Object>{ApttusContractsSelector.Options.WITH_OPPORTUNITY});
+
 		if (contracts.keySet().size() == 1) {
-			if (contracts.get(masterId).DaysUntilContractExpires__c <= 0) {
+			Apttus__APTS_Agreement__c contract = contracts.get(masterId);
+
+			if (contract.DaysUntilContractExpires__c <= 0) {
 				// Throw UI exception message when the contract has expired
 				ApexPages.Message errorMsg = new ApexPages.Message(ApexPages.Severity.ERROR, MSG_ERROR_APT_CONTRACT_EXPIRED);
 				ApexPages.addMessage(errorMsg);
 				return null;
 			}
 
-			Map <String, String> params = ApexPages.currentPage().getParameters();
-			
-			// Pass through any parameters that were passed to this page
-			for (String key : params.keySet()) {
-				pageRef.getParameters().put(key, params.get(key));
-			}
+			try {
+				AdobeSignTemplateSettings__c apptusSetting = getTemplateSetting(TEMPLATE_APTTUS);
 
-			pageRef.getParameters().put('masterId', masterId);
-			// read the custom setting to get the template ID by the custom setting name
-			AdobeSignTemplateSettings__c apptusSetting = getTemplateSetting(TEMPLATE_APTTUS);
-			pageRef.getParameters().put('templateId', apptusSetting.TemplateId__c);
+				Map <String, String> params = ApexPages.currentPage().getParameters();
+		
+				// Additional adobe template runtime variables (template specific)
+				Map <String, echosign_dev1.AgreementTemplateVariable> vars = new Map <String, echosign_dev1.AgreementTemplateVariable> ();
+				
+				vars.put('keyContact', new echosign_dev1.AgreementTemplateVariable('keyContact', contract.Apttus__Related_Opportunity__r.KeyContact__c));
+				vars.put('ownerId', new echosign_dev1.AgreementTemplateVariable('ownerId', contract.Apttus__Related_Opportunity__r.OwnerId));
+
+				// Generate an agreement based on specified template Id and parent record (master Id), as well as any additional template variables, specified above (Adobe Sign Envelope)
+				// This is documented in the Adobe Sign Salesforce Developer Guide: https://helpx.adobe.com/sign/integrations/salesforce-developer-guide.html 
+				Id agreementId = echosign_dev1.AgreementTemplateService.load(apptusSetting.TemplateId__c, masterId, vars);
+
+				// Currently, Adobe Sign for Salesforce doesn't support the ability to attach multiple files (selected) to an agreement via the API or the UI
+				// The only options available are either Latest Document or All Documents.
+				// This is a workaround which creates new ContentVersion records for each attachment and then associates them with the agreement
+				if (String.isNotEmpty(params.get('attachmentids'))) {
+					List <Id> contentDocumentIds = params.get('attachmentids').split(',');					
+					Map<Id, ContentVersion> cvMap = ContentVersionsSelector.newInstance('CreatedDate', 'DESC').selectByContentDocumentId(new Set <Id> (contentDocumentIds), new set<Object> { ContentVersionsSelector.Options.IS_LATEST_VERSION });
+					List <ContentVersion> contentVersions = new List <ContentVersion> ();
+
+					for (ContentVersion existingVersion : cvMap.values()) {
+						ContentVersion newVersion = new ContentVersion();
+						newVersion.Title  = existingVersion.Title;
+						newVersion.PathOnClient  = existingVersion.PathOnClient;
+						newVersion.VersionData = existingVersion.VersionData;
+						newVersion.IsMajorVersion = true;
+						newVersion.FirstPublishLocationId  = agreementId;
+						contentVersions.add(newVersion);
+					}
+
+					insert contentVersions;
+				}
+
+				return new Pagereference(ADOBE_SIGN_AGREEMENT_VIEW_PAGE + agreementId + '/view');
+	
+			} catch (Exception e) {
+				ApexPages.Message errorMsg = new ApexPages.Message(ApexPages.Severity.ERROR, e.getMessage());
+				ApexPages.addMessage(errorMsg);
+				return null;	
+			}
 		}
 		else {
 			//throws UI exception message when there is no primary contact found
@@ -141,8 +173,6 @@ public with sharing class AdobeSignCustomController {
 			ApexPages.addMessage(errorMsg);
 			return null;
 		}
-
-		return pageRef;
 	}
 
 	/**

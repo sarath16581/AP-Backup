@@ -1,0 +1,30 @@
+<template>
+	<!-- Error Banner -->
+	<template if:true={error}>
+		<div class="slds-notify slds-notify_alert slds-theme_alert-texture slds-theme_error" role="alert">
+			<!--error graphic-->
+			<span class="slds-icon_container slds-icon-utility-error slds-m-right_x-small">
+			  <lightning-icon icon-name="utility:error" alternative-text="Error" title="Error" variant="inverse"></lightning-icon>
+			</span>
+			<!--error message-->
+			<h2>{error}</h2>
+		</div>
+	</template>
+	
+	<template lwc:if={graphql.data}>
+		<lightning-card title="Select Attachments">
+			<lightning-datatable
+				key-field="id"
+				data={files}
+				columns={columns}
+				onrowselection={handleSelect}>
+			</lightning-datatable>
+			<br/>
+			{recordid}
+			<br/>
+			{redirect}
+			<br/>
+			<lightning-button onclick={handleRedirect} label="Next" variant="brand"></lightning-button>
+		</lightning-card>
+	</template>
+</template>
