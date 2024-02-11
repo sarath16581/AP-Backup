@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>APT_Sub_Account_Contact_Telephone__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <description>This is Sub Account Contact Telephone. For TEAM this is Phone number for invoice contact</description>
     <externalId>false</externalId>
+    <inlineHelpText>This is Sub Account Contact Telephone. For TEAM this is Phone number for invoice contact</inlineHelpText>
     <label>Sub Account Contact Telephone</label>
     <length>13</length>
     <required>false</required>
