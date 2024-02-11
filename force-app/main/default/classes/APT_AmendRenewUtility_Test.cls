@@ -149,9 +149,9 @@ private with sharing class APT_AmendRenewUtility_Test{
 			APT_AmendRenewUtility.copyConfiguration(quote.Id,quote.Id);
 			Apttus__APTS_Agreement__c tempAgrmnt = APT_AmendRenewUtility.amendAgreement('MSA',opp.Id,quote.Id,agreement,'test');
 			Apttus__APTS_Agreement__c amendAgreementNullCheck = APT_AmendRenewUtility.amendAgreement('MSA',null,null,agreement,'test');
-			APT_AmendRenewUtility.afterAmend(agreement.id,tempAgrmnt.id,true);
+			//APT_AmendRenewUtility.afterAmend(agreement.id,tempAgrmnt.id,true);
 			APT_AmendRenewUtility.getAllFieldsAPIName('Apttus_Config2__LineItem__c');
-			APT_AmendRenewUtility.copyAttachments(agreement.id,tempAgrmnt.id);
+			//APT_AmendRenewUtility.copyAttachments(agreement.id,tempAgrmnt.id);
 			//APT_AmendRenewUtility.copyConfiguration
 			APT_AmendRenewUtility.createAgreementChildRecords(pConfig1.ID, agreement.Id);
 			APT_AmendRenewUtility.createAgreementChildRecords(null, agreement.Id);
@@ -391,7 +391,9 @@ private with sharing class APT_AmendRenewUtility_Test{
 			//Apttus__APTS_Agreement__c renewedagr = APT_AmendRenewUtility.renewAgreement('Proposal',opp.Id,quote.Id,agreement);
 			//APT_AmendRenewUtility.afterRenew(agreement.Id,renewedagr.Id);
 			//APT_AmendRenewUtility.copyConfiguration(quote.Id,quote2.Id);
-			//Apttus__APTS_Agreement__c tempAgrmnt = APT_AmendRenewUtility.amendAgreement('MSA',opp.Id,quote.Id,agreement);
+			Apttus__APTS_Agreement__c tempAgrmnt = APT_AmendRenewUtility.amendAgreement('MSA',opp.Id,quote.Id,agreement,'test');
+			APT_AmendRenewUtility.afterAmend(agreement.id,tempAgrmnt.id,true);
+			APT_AmendRenewUtility.copyAttachments(agreement.id,tempAgrmnt.id);
 			
 			// added unit test of checkProductComponentOptions() to check for decommisioned product after it's missing from product hierarchy
 			Set<Id> lineItemSet = new Set<Id>{bundleLine1.Id, optionLine1.Id};

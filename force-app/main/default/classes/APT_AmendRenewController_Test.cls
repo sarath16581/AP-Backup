@@ -955,14 +955,16 @@ private class APT_AmendRenewController_Test{
 				amendRenew.oppId=ExistingOpportunity.id;
 				amendRenew.oppName=ExistingOpportunity.name;
 				amendRenew.doAmend();
-			//Test Stops
-			Test.stopTest();
+			
 			//Asserting whether the new proposal created is associated to an existing Opportunity
 			List<Opportunity> oppList = [ Select id,ECLM_Original_Opportunity_No__c , (Select id from R00N70000001yUfDEAU__r) from Opportunity where id =: ExistingOpportunity.id];
 			//Assert if the proposal is associated to the existing opportunity which user would have selected
 			System.assert(oppList[0].R00N70000001yUfDEAU__r.size()>0);
 			//Asserting the existing opportunity is looking up to the Original opportunity
 			System.assertEquals(oppList[0].ECLM_Original_Opportunity_No__c , opp.id);
+
+		//Test Stops
+		Test.stopTest();
 		}
 	}
 
@@ -1324,8 +1326,6 @@ private class APT_AmendRenewController_Test{
 				amendRenew.oppName=ExistingOpportunity.name;
 				amendRenew.doRenew();
 
-			//Test Stops
-			Test.stopTest();
 			//Asserting whether the new proposal created is associated to an existing Opportunity
 			List<Opportunity> oppList = [ Select id,ECLM_Original_Opportunity_No__c , (Select id from R00N70000001yUfDEAU__r) from Opportunity where id =: ExistingOpportunity.id];
 			//Assert if the proposal is associated to the existing opportunity which user would have selected
@@ -1337,6 +1337,9 @@ private class APT_AmendRenewController_Test{
 			List<Opportunity> oppListNewOpportunity = [ Select id , DOV_Reason__c from Opportunity where ECLM_Original_Opportunity_No__c =:opp.id AND ID!=:ExistingOpportunity.ID];
 			//Asserting that there is no new opportunity created
 			System.assert(oppListNewOpportunity.Size()==0);
+
+			//Test Stops
+			Test.stopTest();
 		}
 	}
 
