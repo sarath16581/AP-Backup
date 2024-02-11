@@ -738,7 +738,19 @@
     <picklistValues>
         <picklist>Customer_Checklist_attached__c</picklist>
         <values>
+            <fullName>Duplicate</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Not required</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>RFP</fullName>
             <default>false</default>
         </values>
         <values>

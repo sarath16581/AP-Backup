@@ -928,6 +928,21 @@
         </values>
     </picklistValues>
     <picklistValues>
+        <picklist>Apttus__DocumentReviewLevel__c</picklist>
+        <values>
+            <fullName>0 - Skip Review</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>1 - One level - Review and Complete</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>2 - Two levels - Review and Approve</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
         <picklist>Apttus__Initiation_Type__c</picklist>
         <values>
             <fullName>Negotiate Contract</fullName>

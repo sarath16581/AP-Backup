@@ -447,8 +447,12 @@
         <fields>Invoice_Number__c</fields>
         <fields>Connote__c</fields>
         <fields>Transaction_ID__c</fields>
-        <fields>Amount__c</fields>
-        <fields>Amount_Claimed__c</fields>
+        <fields>Credit_Amount_Exclusive_GST__c</fields>
+        <fields>Product__c</fields>
+        <fields>Product_Sub_Category__c</fields>
+        <fields>Reason__c</fields>
+        <fields>Reason_Category__c</fields>
+        <fields>Status__c</fields>
         <relatedList>Disputed_Item__c.Case__c</relatedList>
     </relatedLists>
     <relatedLists>

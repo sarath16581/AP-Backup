@@ -66,7 +66,7 @@ private with sharing class APT_AmendRenewUtility_Test{
 			Apttus_Config2__ProductConfiguration__c pConfig = APT_TestUtils.getProductConfiguration2('TestConfig',123, quote.ID, 'Proposal', 'Product',
 																priceList.ID,'New', System.today()-1, System.Today()+2,False);
 			insert pConfig;
-			
+				
 				//Create Temp Obj
 				Apttus_Config2__TempObject__c tmp = new Apttus_Config2__TempObject__c();
 				tmp.Apttus_Config2__ConfigurationId__c  = pConfig.id;
