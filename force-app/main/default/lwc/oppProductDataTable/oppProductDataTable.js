@@ -154,7 +154,7 @@ export default class OppProductDataTable extends NavigationMixin(LightningElemen
 						getRecordNotifyChange(ids);
 						this.template.querySelector('lightning-datatable').selectedRows=[];
 						//this.handleNavigateToOppProducts();
-						
+
 						if(this.proposalId !== 'noProposal' && this.proposalId !== undefined && this.recalculateopc === false) {
 							this.isProposalDocumentFlow = true;
 						}
@@ -275,24 +275,24 @@ export default class OppProductDataTable extends NavigationMixin(LightningElemen
 					}, 3000);
 				}
 				else {
-					this.isSpinning = false;
-					this.isProposalDocumentGenerationRunning = false;
-					//identify contract flow or proposal flow
-					if(this.isST !== undefined) {
-						//redirect to contract record
-						window.location.href = this.contractServiceDetailsUrl + this.proposalId + '&c__isST=' + this.isST + '&c__isManualContract=' + this.isManualContract + '&c__isAmend=' + this.isAmend + '&c__isRenew=' + this.isRenew;
-					}
-					else {
-						//redirect to proposal record
-						this[NavigationMixin.Navigate]({
-							type: 'standard__recordPage',
-							attributes: {
-								recordId: this.proposalId,
-								objectApiName: 'Apttus_Proposal__Proposal__c',
-								actionName: 'view'
-							}
-						});
-					}
+						this.isSpinning = false;
+						this.isProposalDocumentGenerationRunning = false;
+						//identify contract flow or proposal flow
+						if(this.isST !== undefined) {
+							//redirect to contract record
+							window.location.href = this.contractServiceDetailsUrl + this.proposalId + '&c__isST=' + this.isST + '&c__isManualContract=' + this.isManualContract + '&c__isAmend=' + this.isAmend + '&c__isRenew=' + this.isRenew;
+						}
+						else {
+							//redirect to proposal record
+							this[NavigationMixin.Navigate]({
+								type: 'standard__recordPage',
+								attributes: {
+									recordId: this.proposalId,
+									objectApiName: 'Apttus_Proposal__Proposal__c',
+									actionName: 'view'
+								}
+							});
+						}
 				}
 			})
 			.catch((error) => {
@@ -300,5 +300,5 @@ export default class OppProductDataTable extends NavigationMixin(LightningElemen
 				this.isLoading = false;
 				this.isProposalDocumentGenerationRunning = false;
 			});
-		}
+	}
 }

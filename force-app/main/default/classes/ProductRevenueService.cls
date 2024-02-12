@@ -112,8 +112,8 @@ public with sharing class ProductRevenueService {
     // updates grouped revenues when changes are made to related budget and revenue records
     public List<GroupedAccountProductRevenue__c> updateGroupedRevenues(List<Budget_and_Revenue__c> records, Map<Id,Budget_and_Revenue__c> existingRecords) {
         //Filter records for those that should be processed (if the current month value has changed)
-        Map<String,Budget_and_Revenue__c> revenuesToProcess =  getRevenuesToProcess(records, existingRecords);
-        if (revenuesToProcess.size()== 0) {
+        Map<String,Budget_and_Revenue__c> revenuesToProcess = getRevenuesToProcess(records, existingRecords);
+        if (revenuesToProcess.isEmpty()) {
             return new List<GroupedAccountProductRevenue__c>();
         }
         return updateGroupedRevenues(revenuesToProcess,existingRecords);
@@ -179,10 +179,10 @@ public with sharing class ProductRevenueService {
     * @param 			Year - the financial year of the revenue record
     * @return        	A unique identifier that can be used to retrieve the revenue record   
     */
-    public static String getUID(Id AccountId, Id ProductId, String Year) {
-        String orgId = String.valueOf(AccountId).substring(0, 15);
-        String prodId = String.valueOf(ProductId).substring(0, 15);
-        return orgId + prodId + Year;
+    public static String getUID(Id accountId, Id productId, String year) {
+        String orgId = accountId == null ? '' : String.valueOf(accountId).substring(0, 15);
+        String prodId = productId == null ? '' : String.valueOf(productId).substring(0, 15);
+        return orgId + prodId + year;
     }
 
     // ***** PRIVATE METHODS ******* //
@@ -200,7 +200,7 @@ public with sharing class ProductRevenueService {
         return requiresProcessing;
     }
 
-    private List<GroupedAccountProductRevenue__c> updateGroupedRevenues( Map<String,Budget_and_Revenue__c> revenuesToProcess, Map<Id,Budget_and_Revenue__c> existingRecords) {
+    private List<GroupedAccountProductRevenue__c> updateGroupedRevenues(Map<String,Budget_and_Revenue__c> revenuesToProcess, Map<Id,Budget_and_Revenue__c> existingRecords) {
 
         // Grouped revenue records that have been updated by the budget and revenue record changes
         List<GroupedAccountProductRevenue__c> updatedGroupedRevenues = new List<GroupedAccountProductRevenue__c>();
@@ -234,7 +234,6 @@ public with sharing class ProductRevenueService {
         // convert related child accounts to related parent accounts
         Map<Id,Id> relatedParentAccount = getRelatedParentAccountMap();
 
-
         // calculate required updates
         for (Budget_and_Revenue__c record : revenuesToProcess.values()) {
             Integer currentMonth =   calculationDate.month();
@@ -260,7 +259,7 @@ public with sharing class ProductRevenueService {
         Integer currentMonth = calculationDate.month();
         // apply adjustments to grouped revenues
         for (String groupRevenueKey : unprocessedGroupRevenueAdjustments.keySet()) {
-            if (groupedRevenues.containsKey(groupRevenueKey)) {
+            if (groupedRevenues.containsKey(groupRevenueKey) && groupedRevenues.get(groupRevenueKey) != null) {
                 GroupedAccountProductRevenue__c groupRevenue = groupedRevenues.get(groupRevenueKey);
                 Double currentValue = getValueForMonth(groupRevenue,currentMonth);
                 Double adjustment = unprocessedGroupRevenueAdjustments.get(groupRevenueKey);
@@ -329,8 +328,8 @@ public with sharing class ProductRevenueService {
    * @param 			items  a list of opportunity line items to recalculate grouped revenues for
    * @return         A list of Grouped Revenue records which have been created or modified.
    */
+    @TestVisible
     private List<GroupedAccountProductRevenue__c> reCalculateGroupRevenues(List<OpportunityLineItem> items) {
-
         Set<String> uids = getUIDs(items);
         // get relevant grouped product revenues for the opportunity line items
         Map<String,GroupedAccountProductRevenue__c> unprocessedRevenueRecords =  loadGroupedProductRevenues(uids);
@@ -408,8 +407,8 @@ public with sharing class ProductRevenueService {
         Set<String> uids = new Set<String>();
         Integer currentFY = getAustralianFinancialYear(calculationDate);
         for(OpportunityLineItem item : items) {
-            uids.add(getUID(item.Opportunity.AccountId, item.Product2.Id,String.valueOf(currentFY)));
-            uids.add(getUID(item.Opportunity.AccountId, item.Product2.Id,String.valueOf(currentFY-1)));
+            uids.add(getUID(item?.Opportunity?.AccountId, item?.Product2?.Id,String.valueOf(currentFY)));
+            uids.add(getUID(item?.Opportunity?.AccountId, item?.Product2?.Id,String.valueOf(currentFY-1)));
         }
         // get relevant grouped product revenues for the opportunity line items
         return uids;
@@ -649,7 +648,6 @@ public with sharing class ProductRevenueService {
         }
 
         for (AccountRelationship__c arr: AccountRelationshipSelector.newInstance().selectByParent(unloadedAccountIds)) {
-            System.debug('**** Found related account '+arr.RelatedAccount__c +' for parent account '+arr.ParentAccount__c);
             relatedChildAccountsMap.get(arr.ParentAccount__c).add(arr.RelatedAccount__c);
             loadedRelatedAccountIds.add(arr.RelatedAccount__c);
         }
@@ -733,8 +731,10 @@ public with sharing class ProductRevenueService {
     private Map<Id,Id> getRelatedParentAccountMap() {
         Map<Id,Id> childToParentMap = new Map<Id,Id>();
         for (Id parentAccountId : relatedChildAccountsMap.keySet()) {
-            for (Id childAccountId : relatedChildAccountsMap.get(parentAccountId)) {
-                childToParentMap.put(childAccountId,parentAccountId);
+            if (relatedChildAccountsMap.get(parentAccountId) != null) {
+                for (Id childAccountId : relatedChildAccountsMap.get(parentAccountId)) {
+                    childToParentMap.put(childAccountId,parentAccountId);
+                }
             }
         }
         return childToParentMap;
@@ -772,14 +772,13 @@ public with sharing class ProductRevenueService {
     }
 
     private static Double getValueForMonth(SObject record, Integer month) {
-
         if (record.getSObjectType() == Budget_and_Revenue__c.SObjectType) {
-            return getSuffixedValueForMonth(record, month,BUDGET_REVENUE_SUFFIX);
+            return getSuffixedValueForMonth(record, month ,BUDGET_REVENUE_SUFFIX);
         }
         return getPrefixedValueForMonth(record,month,MONTHLY_REVENUE_PREFIX);
     }
 
-    Private static void setValueForMonth(SObject record, Integer month, Double value) {
+    private static void setValueForMonth(SObject record, Integer month, Double value) {
         if (record.getSObjectType() == Budget_and_Revenue__c.SObjectType) {
             setSuffixedValueForMonth(record, month,BUDGET_REVENUE_SUFFIX,value);
         }

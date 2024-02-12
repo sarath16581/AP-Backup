@@ -19,7 +19,6 @@ private class ProductRevenueService_Test {
         oppRec.AccountId = account.Id;
         Product2 prod =  ApplicationTestDataFactory.getProducts(1,true)[0];
 
-        
         Budget_and_Revenue__c budgrev = ApplicationTestDataFactory.getBudgetAndRevenue(1,account.Id,prod.Id,dateOfTest.year(),true)[0];
         budgrev.uid__c = ProductRevenueService.getUID(budgrev);
 		Budget_and_Revenue__c budgrevp = ApplicationTestDataFactory.getBudgetAndRevenue(1,account.Id,prod.Id,dateOfTest.year()-1,true)[0];

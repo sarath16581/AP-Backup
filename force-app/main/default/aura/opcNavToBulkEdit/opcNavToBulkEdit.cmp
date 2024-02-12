@@ -1,11 +1,11 @@
 <!--
- @description
- Aura wrapper to navigate to bulk edit screen
- @author Harry Wang
- @date 2023-05-09
- @changelog
- 2023-05-09 - Harry Wang created
- 2023-10-16 - Bharat Patel, added attribute for STP-9640 implementation
+	@description
+	Aura wrapper to navigate to bulk edit screen
+	@author Harry Wang
+	@date 2023-05-09
+	@changelog
+	2023-05-09 - Harry Wang created
+	2023-10-16 - Bharat Patel, added attribute for STP-9640 implementation
 -->
 <aura:component implements="lightning:isUrlAddressable" description="Aura wrapper navigate user to oppProductDataTable component">
 	<aura:attribute name="recordId" type="String" />

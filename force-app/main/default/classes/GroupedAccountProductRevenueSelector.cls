@@ -6,7 +6,6 @@ History:
 2023-09-21    Ken McGuire - Created
 **************************************************/
 public virtual inherited sharing class GroupedAccountProductRevenueSelector extends ApplicationSelector {
-
     public enum Options {
         WITH_ACCOUNT,
         WITH_PRODUCT
@@ -26,7 +25,7 @@ public virtual inherited sharing class GroupedAccountProductRevenueSelector exte
     public virtual override Set<SObjectField> getSObjectFieldList() {
         return new Set<SObjectField> {
                 GroupedAccountProductRevenue__c.Id, 
-                GroupedAccountProductRevenue__c.uid__c,     
+                GroupedAccountProductRevenue__c.UID__c,
                 GroupedAccountProductRevenue__c.AnchorOrganisation__c, 
                 GroupedAccountProductRevenue__c.PrimaryProduct__c,
                 GroupedAccountProductRevenue__c.FinancialYear__c,
@@ -84,10 +83,7 @@ public virtual inherited sharing class GroupedAccountProductRevenueSelector exte
 	 * @description Query revenues by accounts and products and financial years
 	 */
 	public Map<Id, GroupedAccountProductRevenue__c> selectByUniqueIds(Set<String> uniqueIds) {
-		QueryBuilder qb = newQueryBuilder().addConditions().add(new QueryBuilder.SimpleCondition(GroupedAccountProductRevenue__c.uid__c + ' in :uniqueIds')).endConditions();
-		System.debug('SOQL');
-		System.debug(qb.toSoqlString());
-
+		QueryBuilder qb = newQueryBuilder().addConditions().add(new QueryBuilder.SimpleCondition(GroupedAccountProductRevenue__c.UID__c + ' in :uniqueIds')).endConditions();
 		return new Map<Id, GroupedAccountProductRevenue__c>((List<GroupedAccountProductRevenue__c>)Database.query(qb.toSoqlString()));
 	}
 

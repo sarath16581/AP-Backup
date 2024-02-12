@@ -84,8 +84,6 @@ public inherited sharing class APRsSelector extends ApplicationSelector{
         return Database.getQueryLocator(qb.toSoqlString());
     }
 
-
-
 	/**
 	* Returns a query locator to retrieve APR__c records based on the account ids passed in. If set of account ids
 	* is null or empty, returns all APR__c records having a parent account.

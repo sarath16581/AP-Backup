@@ -5,7 +5,6 @@
  * @changelog
  */
 public inherited sharing class BudgetAndRevenueTriggerHandler extends ApplicationTriggerHandler {
-
     public override void registerModules() {
         registerModule(BudgetAndRevenueModule.class);
     }
@@ -13,8 +12,6 @@ public inherited sharing class BudgetAndRevenueTriggerHandler extends Applicatio
     public override SObjectType getSObjectType() {
         return Case.SObjectType;
     }
-
-
     
     public override ApplicationUnitOfWork newUnitOfWork() {
         return ApplicationUnitOfWork.newInstance(getUnitOfWorkSObjectTypes());
@@ -25,5 +22,4 @@ public inherited sharing class BudgetAndRevenueTriggerHandler extends Applicatio
             GroupedAccountProductRevenue__c.SObjectType
         };
     }
-
 }

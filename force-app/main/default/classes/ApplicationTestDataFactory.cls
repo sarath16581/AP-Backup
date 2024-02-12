@@ -885,26 +885,30 @@ public with sharing class ApplicationTestDataFactory {
 		}, count), generateIds);
 	}
 
-        public static List<Budget_And_Revenue__c> getBudgetAndRevenue(Integer count, Id accountId, Id productId, Integer financialYear, Boolean generateIds) {
-            return (List<Budget_And_Revenue__c>) maybeGenerateIds(populateSObjects(Budget_And_Revenue__c.SObjectType, new Map<SObjectField, Object> {
-                Budget_and_Revenue__c.Organisation__c => accountId,
-                Budget_and_Revenue__c.Product__c => productId,
-                Budget_and_Revenue__c.Financial_Year__c => String.ValueOf(financialYear),
-                Budget_and_Revenue__c.Transaction_Type__c => 'REVENUE',
-                Budget_and_Revenue__c.Jan_Revenue_Amount__c => 1000,
-                Budget_and_Revenue__c.Feb_Revenue_Amount__c => 1000,
-                Budget_and_Revenue__c.Mar_Revenue_Amount__c => 1000,
-                Budget_and_Revenue__c.Apr_Revenue_Amount__c => 1000,
-                Budget_and_Revenue__c.May_Revenue_Amount__c => 1000,
-                Budget_and_Revenue__c.Jun_Revenue_Amount__c => 1000,
-                Budget_and_Revenue__c.Jul_Revenue_Amount__c => 1000,
-                Budget_and_Revenue__c.Aug_Revenue_Amount__c => 1000,
-                Budget_and_Revenue__c.Sep_Revenue_Amount__c => 1000,
-                Budget_and_Revenue__c.Oct_Revenue_Amount__c => 1000,
-                Budget_and_Revenue__c.Nov_Revenue_Amount__c => 1000,
-                Budget_and_Revenue__c.Dec_Revenue_Amount__c => 1000
-            }, count), generateIds);
-        }
+	public static List<Budget_And_Revenue__c> getBudgetAndRevenue(Integer count, Id accountId, Boolean generateIds) {
+		return getBudgetAndRevenue(count, accountId, null, null, generateIds);
+	}
+
+	public static List<Budget_And_Revenue__c> getBudgetAndRevenue(Integer count, Id accountId, Id productId, Integer financialYear, Boolean generateIds) {
+		return (List<Budget_And_Revenue__c>) maybeGenerateIds(populateSObjects(Budget_And_Revenue__c.SObjectType, new Map<SObjectField, Object> {
+			Budget_and_Revenue__c.Organisation__c => accountId,
+			Budget_and_Revenue__c.Product__c => productId,
+			Budget_and_Revenue__c.Financial_Year__c => String.ValueOf(financialYear),
+			Budget_and_Revenue__c.Transaction_Type__c => 'REVENUE',
+			Budget_and_Revenue__c.Jan_Revenue_Amount__c => 1000,
+			Budget_and_Revenue__c.Feb_Revenue_Amount__c => 1000,
+			Budget_and_Revenue__c.Mar_Revenue_Amount__c => 1000,
+			Budget_and_Revenue__c.Apr_Revenue_Amount__c => 1000,
+			Budget_and_Revenue__c.May_Revenue_Amount__c => 1000,
+			Budget_and_Revenue__c.Jun_Revenue_Amount__c => 1000,
+			Budget_and_Revenue__c.Jul_Revenue_Amount__c => 1000,
+			Budget_and_Revenue__c.Aug_Revenue_Amount__c => 1000,
+			Budget_and_Revenue__c.Sep_Revenue_Amount__c => 1000,
+			Budget_and_Revenue__c.Oct_Revenue_Amount__c => 1000,
+			Budget_and_Revenue__c.Nov_Revenue_Amount__c => 1000,
+			Budget_and_Revenue__c.Dec_Revenue_Amount__c => 1000
+		}, count), generateIds);
+	}
     
 
     
@@ -1101,12 +1105,12 @@ public with sharing class ApplicationTestDataFactory {
 		}, count), generateIds);
 	}
     
-    public static List<GroupedAccountProductRevenue__c> getGroupedAccountProductRevenue(Integer count, Id accountId, Id productId, Integer Year, Boolean generateIds) {
+    public static List<GroupedAccountProductRevenue__c> getGroupedAccountProductRevenue(Integer count, Id accountId, Id productId, Integer year, Boolean generateIds) {
         decimal revenue = 10000;
         return (List<GroupedAccountProductRevenue__c>)maybeGenerateIds(populateSObjects(GroupedAccountProductRevenue__c.SObjectType, new Map<SObjectField, Object> {
 				GroupedAccountProductRevenue__c.AnchorOrganisation__c => accountId,
                 GroupedAccountProductRevenue__c.PrimaryProduct__c => productId,
-                GroupedAccountProductRevenue__c.FinancialYear__c => Year,
+                GroupedAccountProductRevenue__c.FinancialYear__c => year,
                 GroupedAccountProductRevenue__c.Rev1__c => revenue,
                 GroupedAccountProductRevenue__c.Rev2__c => revenue,
                 GroupedAccountProductRevenue__c.Rev3__c => revenue,
@@ -1118,7 +1122,8 @@ public with sharing class ApplicationTestDataFactory {
                 GroupedAccountProductRevenue__c.Rev9__c => revenue,
                 GroupedAccountProductRevenue__c.Rev10__c => revenue,
                 GroupedAccountProductRevenue__c.Rev11__c => revenue,
-                GroupedAccountProductRevenue__c.Rev12__c => revenue
+                GroupedAccountProductRevenue__c.Rev12__c => revenue,
+				GroupedAccountProductRevenue__c.UID__c => ProductRevenueService.getUID(accountId,productId,String.valueOf(year))
 		}, count), generateIds);
 	}
     

@@ -1,5 +1,16 @@
+/**
+ * @author KenM.
+ * @date 2023-03-03
+ * @group Selector
+ * @tag Selector
+ * @tag GroupedRevenueSchedule__c SObject
+ * @domain Core
+ * @description A very simple selector class that sits in the base domain
+ * @changelog
+ * 2023-03-03 - KenM.
+ */
 public virtual inherited sharing class GroupedRevenueScheduleSelector extends ApplicationSelector {
-  public enum Options {
+    public enum Options {
         WITH_PRODUCT,
         WITH_REVENUE
     }
@@ -17,10 +28,10 @@ public virtual inherited sharing class GroupedRevenueScheduleSelector extends Ap
 
     public virtual override Set<SObjectField> getSObjectFieldList() {
         return new Set<SObjectField> {
-                GroupedRevenueSchedule__c.Id,      
-                GroupedRevenueSchedule__c.GroupedAccountProductRevenue__c, 
+                GroupedRevenueSchedule__c.Id,
+                GroupedRevenueSchedule__c.GroupedAccountProductRevenue__c,
                 GroupedRevenueSchedule__c.OpportunityProduct__c,
-                GroupedRevenueSchedule__c.Opportunity__c,    
+                GroupedRevenueSchedule__c.Opportunity__c,
                 GroupedRevenueSchedule__c.For1__c,
                 GroupedRevenueSchedule__c.For2__c,
                 GroupedRevenueSchedule__c.For3__c,
@@ -44,10 +55,10 @@ public virtual inherited sharing class GroupedRevenueScheduleSelector extends Ap
         QueryBuilder qb = newQueryBuilder(selectorOptions).addConditions().add(new QueryBuilder.SimpleCondition(GroupedRevenueSchedule__c.Id + ' in :ids')).endConditions();
         return new Map<Id, GroupedRevenueSchedule__c>((List<GroupedRevenueSchedule__c>)Database.query(qb.toSoqlString()));
     }
-    
+
     public virtual List<GroupedRevenueSchedule__c> selectByOpportunityProductIds(Set<String> opportunityProductIds, Set<Object> selectorOptions) {
         Set<Object> options = (selectorOptions != null ? selectorOptions : new Set<Object>());
-		options.add(GroupedRevenueScheduleSelector.Options.WITH_REVENUE);
+        options.add(GroupedRevenueScheduleSelector.Options.WITH_REVENUE);
         QueryBuilder qb = newQueryBuilder(options).addConditions().add(new QueryBuilder.SimpleCondition(GroupedRevenueSchedule__c.OpportunityProduct__c + ' in :opportunityProductIds')).endConditions();
         return Database.query(qb.toSoqlString());
     }
@@ -59,7 +70,7 @@ public virtual inherited sharing class GroupedRevenueScheduleSelector extends Ap
         if(selectorOptions.contains(Options.WITH_PRODUCT)) {
             builder.addRelatedFields(ProductsSelector.newInstance().newQueryBuilder(), 'OpportunityProduct__r');
         }
-        
+
         if(selectorOptions.contains(Options.WITH_REVENUE)) {
             builder.addRelatedFields(GroupedAccountProductRevenueSelector.newInstance().newQueryBuilder(), 'GroupedAccountProductRevenue__r');
         }

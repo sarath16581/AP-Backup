@@ -37,9 +37,6 @@ public virtual inherited sharing class BudgetAndRevenueSelector extends Applicat
 
     public Map<Id, Budget_and_Revenue__c> selectByUniqueIds(Set<String> uniqueIds) {
 		QueryBuilder qb = newQueryBuilder().addConditions().add(new QueryBuilder.SimpleCondition(Budget_and_Revenue__c.uid__c + ' in :uniqueIds')).endConditions();
-		System.debug('SOQL');
-		System.debug(qb.toSoqlString());
-
 		return new Map<Id, Budget_and_Revenue__c>((List<Budget_and_Revenue__c>)Database.query(qb.toSoqlString()));
 	}
 
@@ -53,13 +50,10 @@ public virtual inherited sharing class BudgetAndRevenueSelector extends Applicat
 			qb.addConditions().add(new QueryBuilder.SimpleCondition(Budget_and_Revenue__c.Financial_Year__c + ' in :financialYears')).endConditions();
 		}
 
-		System.debug('SOQL');
-		System.debug(qb.toSoqlString());
-
 		return (List<Budget_and_Revenue__c>)Database.query(qb.toSoqlString());
 	}
     
-    public List<Budget_and_Revenue__c> selectByOrganisationAndProduct(Set<Id> organisationIds, Set<Id> productIds, Set<Integer> financialYears, set<Id> recordsToExclude) {
+    public List<Budget_and_Revenue__c> selectByOrganisationAndProduct(Set<Id> organisationIds, Set<Id> productIds, Set<Integer> financialYears, Set<Id> recordsToExclude) {
         Set<String> fy = new Set<String>();
         for (integer currentY : financialYears) {
             fy.add(String.ValueOf(currentY));
@@ -70,7 +64,7 @@ public virtual inherited sharing class BudgetAndRevenueSelector extends Applicat
 	/**
 	 * @description Query revenues by accounts and products and financial years
 	 */
-	public List<Budget_and_Revenue__c> selectByOrganisationAndProduct(Set<Id> organisationIds, Set<Id> productIds, Set<String> financialYears, set<Id> recordsToExclude) {
+	public List<Budget_and_Revenue__c> selectByOrganisationAndProduct(Set<Id> organisationIds, Set<Id> productIds, Set<String> financialYears, Set<Id> recordsToExclude) {
 		QueryBuilder qb = newQueryBuilder().addConditions().add(new QueryBuilder.SimpleCondition(Budget_and_Revenue__c.Organisation__c + ' in :organisationIds')).endConditions();
 
         if (!productIds.isEmpty()) {
@@ -85,10 +79,6 @@ public virtual inherited sharing class BudgetAndRevenueSelector extends Applicat
 			qb.addConditions().add(new QueryBuilder.SimpleCondition(Budget_and_Revenue__c.uid__c + 'not in :recordsToExclude')).endConditions();
 		}
 
-		System.debug('SOQL');
-		System.debug(qb.toSoqlString());
-
 		return (List<Budget_and_Revenue__c>)Database.query(qb.toSoqlString());
 	}
-
 }

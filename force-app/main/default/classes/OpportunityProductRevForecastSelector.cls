@@ -75,11 +75,6 @@ public virtual inherited sharing class OpportunityProductRevForecastSelector ext
 
     public virtual override QueryBuilder newQueryBuilder(Set<Object> selectorOptions) {
         QueryBuilder builder = super.newQueryBuilder(selectorOptions);
-
-        if(selectorOptions.contains(Options.WITH_OPPORTUNITY_PRODUCT)) {
-           // builder.addRelatedFields(OpportunityProductSelector.newInstance().newQueryBuilder(), 'OpportunityProduct__r');
-        }
-
         return builder;
     }
 }

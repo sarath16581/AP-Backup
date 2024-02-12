@@ -28,7 +28,5 @@
 
 		let isRenew = myPageRef.state.c__isRenew == undefined ? 'No': myPageRef.state.c__isRenew;
 		cmp.set("v.isManualContract", isRenew);
-
-		//cmp.set('v.requestReference', Math.random(0,100));
 	}
 });

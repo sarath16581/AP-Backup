@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Rev1__c</fullName>
+    <description>This field calculates the revenue forecast for the month of January.</description>
+    <externalId>false</externalId>
+    <formula>OpportunityProduct__r.TotalPrice *  FCT1__c</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <inlineHelpText>Calculated revenue forecast for January.</inlineHelpText>
+    <label>January Revenue</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>2</scale>
+    <trackTrending>false</trackTrending>
+    <type>Currency</type>
+</CustomField>

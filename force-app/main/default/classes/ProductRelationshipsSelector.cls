@@ -64,7 +64,7 @@ public virtual inherited sharing class ProductRelationshipsSelector extends Appl
 		QueryBuilder builder = super.newQueryBuilder(selectorOptions);
 
 		if (selectorOptions.contains(Options.WITH_PRODUCT_RELATIONSHIP)) {
-		builder.addRelatedFields(ProductsSelector.newInstance().newQueryBuilder(), 'ProductRelationship__c');
+			builder.addRelatedFields(ProductsSelector.newInstance().newQueryBuilder(), 'ProductRelationship__c');
 		}
 
 		return builder;

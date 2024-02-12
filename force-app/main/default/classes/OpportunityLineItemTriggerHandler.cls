@@ -29,12 +29,12 @@ public without sharing class OpportunityLineItemTriggerHandler extends Applicati
 	@TestVisible
 	private static Set<Id> processedOpportunitiesForScoringUpdate = new Set<Id> ();
 
-    // Applicaton Framework Implementation
+    // Application Framework Implementation
     public override void registerModules() {
         registerModule(GroupedLineItemSalesModule.class);
     }
     
-    	/**
+	/**
 	 * This defines a list of objects that may be 'touched' during module execution. 
 	 * It also defines the order in which the work will be committed
 	 */
@@ -408,21 +408,14 @@ public without sharing class OpportunityLineItemTriggerHandler extends Applicati
 			if (opli.Contract_Start_Date__c != Null)
 			{
 				populateClassificationFilteredList.add(opli);
-                oppIds.add(opli.opportunityId);
+                oppIds.add(opli.OpportunityId);
 			}
 		}
-		
-           // OpportunityLineItemService.populateClassification(populateClassificationFilteredList);
-		
 	}
 
-	public static void beforeUpdateActions(List<OpportunityLineItem> newOppLineItemList, Map<Id, OpportunityLineItem> oldRecMap)
-	{
-		 // OpportunityLineItemService.recalculateClassification(RecursionUtility.getUnprocessedRecords('Recalculate Classification', newOppLineItemList, Constants.optyLIComparisonFields()), oldRecMap); 
-	}
+	public static void beforeUpdateActions(List<OpportunityLineItem> newOppLineItemList, Map<Id, OpportunityLineItem> oldRecMap) {}
 
-	public static void beforeDeleteActions(List<OpportunityLineItem> newOppLineItemList, Map<Id, OpportunityLineItem> oldRecMap)
-	{
+	public static void beforeDeleteActions(List<OpportunityLineItem> newOppLineItemList, Map<Id, OpportunityLineItem> oldRecMap) {
 		OpportunityLineItemService.beforeDeleteValidation(newOppLineItemList);
 	}
 }

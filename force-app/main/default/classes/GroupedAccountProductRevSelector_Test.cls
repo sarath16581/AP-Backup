@@ -47,7 +47,7 @@ public with sharing class GroupedAccountProductRevSelector_Test {
         insert prod1;
         
         // Create test data
-        List<GroupedAccountProductRevenue__c> gaprRecs =  ApplicationTestDataFactory.getGroupedAccountProductRevenue(1, account.id, prod1.id, false);
+        List<GroupedAccountProductRevenue__c> gaprRecs =  ApplicationTestDataFactory.getGroupedAccountProductRevenue(1, account.id, prod1.id, 2024, false);
         insert gaprRecs;
 
         // Testing
@@ -61,7 +61,20 @@ public with sharing class GroupedAccountProductRevSelector_Test {
         Map<Id, GroupedAccountProductRevenue__c> resultsLimit = selectorLimit.selectById(new Set<Id> {gaprRecs[0].Id});
         System.assertEquals(1, resultsLimit.size(), 'Expected result size of 1');
 
-        Test.stopTest();
+        GroupedAccountProductRevenueSelector selector3 = GroupedAccountProductRevenueSelector.newInstance(1);
+        Map<Id, GroupedAccountProductRevenue__c> result3 = selector3.selectByAnchorOrganisationAndProductForFY(new Set<Id> {account.Id}, new Set<Id>{prod1.Id}, 2024);
+        System.assertEquals(1, result3.size(), 'Expected result size of 1');
 
+        GroupedAccountProductRevenueSelector selector4 = GroupedAccountProductRevenueSelector.newInstance(1);
+        String targetUID = ProductRevenueService.getUID(account.Id,prod1.Id,String.valueOf(2024));
+        Map<Id, GroupedAccountProductRevenue__c> result4 = selector4.selectByUniqueIds(new Set<String>{targetUID});
+        System.assertEquals(1, result4.size(), 'Expected result size of 1');
+        System.assertEquals(targetUID, result4.values().get(0).UID__c, 'Selector did not select by the correct UID');
+
+        GroupedAccountProductRevenueSelector selector5 = GroupedAccountProductRevenueSelector.newInstance(1);
+        Map<Id, GroupedAccountProductRevenue__c> result5 = selector5.selectByAnchorOrganisationIds(new Set<Id>{account.Id});
+        System.assertEquals(1, result5.size(), 'Expected result size of 1');
+
+        Test.stopTest();
     }
 }

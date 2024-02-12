@@ -80,20 +80,20 @@ public with sharing class APT_OpptyProductListController {
 
 	}
 	//Wrapper class used to determine the error type accepted by lightning datatable.
-	Public class Errors{
-		Public String status;
-		Public RowError[] rows;
-		Public TableError table;
+	public class Errors{
+		public String status;
+		public RowError[] rows;
+		public TableError table;
 	}
 
-	Public class RowError{
-		Public String rowId;
-		Public String title;
-		Public String[] fieldNames;
-		Public String[] errorMessages;
+	public class RowError{
+		public String rowId;
+		public String title;
+		public String[] fieldNames;
+		public String[] errorMessages;
 	}
-	Public class TableError{
-		Public String title;
-		Public String[] errorMessages;
+	public class TableError{
+		public String title;
+		public String[] errorMessages;
 	}
 }
