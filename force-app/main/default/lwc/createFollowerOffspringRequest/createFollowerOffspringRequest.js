@@ -81,6 +81,9 @@ export default class CreateFollowerOffspringRequest extends NavigationMixin(Ligh
 	handleCancel(event) {
 		if (event?.detail) {
 			if (this.subAccounts.length === 0) {
+				// User cancel the request, ABN to be reconfirmed
+				this.isABNConfirmation = true;
+				this.isEditView = false;
 				this[NavigationMixin.Navigate]({
 					type: 'standard__recordPage',
 					attributes: {
