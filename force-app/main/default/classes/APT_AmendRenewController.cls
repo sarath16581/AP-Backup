@@ -130,7 +130,7 @@ public with sharing class APT_AmendRenewController {
 
 		// Store picklist value in a selection option list
 		for( Schema.PicklistEntry picklistVal : revenueType) {
-			revenueValues.add(new SelectOption(picklistVal.getLabel(), picklistVal.getValue()));
+			revenueValues.add(new SelectOption(picklistVal.getValue(), picklistVal.getLabel()));
 		}
 		return revenueValues;
 	}
