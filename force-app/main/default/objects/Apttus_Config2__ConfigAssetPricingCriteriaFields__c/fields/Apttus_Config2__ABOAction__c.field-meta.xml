@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Apttus_Config2__ABOAction__c</fullName>
+    <deprecated>false</deprecated>
+    <description>The ABO action associated with the setting.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>The ABO action associated with the setting. 
+        Valid values are: 
+        -----------------
+        Renew
+        Change
+        Termination
+        Swap
+        Change: Configuration
+        Change: Merge
+        Change: Split
+        Change: Quantity</inlineHelpText>
+    <label>ABO Action (Deprecated)</label>
+    <length>255</length>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

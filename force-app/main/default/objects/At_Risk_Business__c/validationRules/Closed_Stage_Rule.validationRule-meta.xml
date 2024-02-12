@@ -2,13 +2,15 @@
 <ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Closed_Stage_Rule</fullName>
     <active>true</active>
+    <description>REQ3432662 new status for closed, added into Validation Rule</description>
     <errorConditionFormula>AND(
  ISPICKVAL(Stage__c, &quot;Closed&quot;),
  NOT(
   OR(
    ISPICKVAL(Status__c, &quot;Business Lost&quot;),
    ISPICKVAL(Status__c, &quot;Business Retained&quot;),
-   ISPICKVAL(Status__c, &quot;Business Migrated&quot;)
+   ISPICKVAL(Status__c, &quot;Business Migrated&quot;),
+   ISPICKVAL(Status__c, &quot;Closed - No Outcome&quot;)	
   )
  )
 )</errorConditionFormula>

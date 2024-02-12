@@ -5,7 +5,7 @@
     <description>Describes what the runtime user can see as a help or instruction description of this input control.</description>
     <externalId>false</externalId>
     <inlineHelpText>Describes what the runtime user can see as a help or instruction description of this input control.</inlineHelpText>
-    <label>Runtime Help Text</label>
+    <label>Runtime Help Text (OBSOLETE)</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>

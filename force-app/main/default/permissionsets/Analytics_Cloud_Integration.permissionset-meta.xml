@@ -5735,10 +5735,6 @@ Used by Integration User (Einstein Analytics)</description>
         <visible>true</visible>
     </recordTypeVisibilities>
     <recordTypeVisibilities>
-        <recordType>Deal_Support_Request__c.Commercial_Analytics_Modelling</recordType>
-        <visible>true</visible>
-    </recordTypeVisibilities>
-    <recordTypeVisibilities>
         <recordType>Deal_Support_Request__c.Commit_To_Action_Propose</recordType>
         <visible>true</visible>
     </recordTypeVisibilities>
