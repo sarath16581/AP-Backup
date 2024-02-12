@@ -44,11 +44,14 @@ import SUB_ACCOUNT_STAGE from "@salesforce/schema/APT_Sub_Account__c.APT_Sub_Acc
 import CONTACT_PHONE from "@salesforce/schema/Contact.Phone";
 import CONTACT_MOBILE from "@salesforce/schema/Contact.MobilePhone";
 import CONTACT_EMAIL from "@salesforce/schema/Contact.Email";
+import CONTACT_STATUS from "@salesforce/schema/Contact.Status__c";
+import LABEL_INACTIVE_KEY_CONTACT_ERROR from '@salesforce/label/c.StarTrackSubAccountInactiveKeyContactErrorMessage';
+import LABEL_BLANK_EMAIL_ERROR from '@salesforce/label/c.StarTrackSubAccountBlankEmailErrorMessage';
 import {ShowToastEvent} from "lightning/platformShowToastEvent";
 
 const BILLING_ACCOUNT_FIELDS = [BILLING_ACCOUNT_NAME, BILLING_ACCOUNT_ORG_NAME, BILLING_ACCOUNT_NUMBER, BILLING_ACCOUNT_CUSTOMER_NUMBER];
 const CHARGE_ACCOUNT_FIELDS = [CHARGE_ACCOUNT_OPPORTUNITY_NAME, CHARGE_ACCOUNT_ORG_NAME, CHARGE_ACCOUNT_REQUEST_NUMBER, CHARGE_ACCOUNT_CUSTOMER_NUMBER, CHARGE_ACCOUNT_OPPORTUNITY, CHARGE_ACCOUNT_OPPORTUNITY_KEY_CONTACT];
-const CONTACT_FIELDS = [CONTACT_PHONE, CONTACT_MOBILE, CONTACT_EMAIL];
+const CONTACT_FIELDS = [CONTACT_PHONE, CONTACT_MOBILE, CONTACT_EMAIL, CONTACT_STATUS];
 export default class FollowerOffspringRequestEditForm extends LightningElement {
 	// Can be either charge account ID or billing account ID
 	@api leaderId;
@@ -85,6 +88,7 @@ export default class FollowerOffspringRequestEditForm extends LightningElement {
 	physicalAddress = {};
 	mailingAddress = {};
 	selectedFollower;
+	errorMessage;
 	@api isLoading;
 
 	/**
@@ -332,7 +336,11 @@ export default class FollowerOffspringRequestEditForm extends LightningElement {
 		if (this.isAccountSearchable) {
 			followerOffspringValid = this.template.querySelector('c-follower-offspring-request-account-search').validate();
 		}
-		if (allAddressValid && allInputFieldValid && allInputValid && followerOffspringValid) {
+
+		// validate key contact
+		const keyContactValid = this.validateKeyContact();
+
+		if (allAddressValid && allInputFieldValid && allInputValid && followerOffspringValid && keyContactValid) {
 			const fields = {};
 			if (this.subAccount?.Id) {
 				fields[SUB_ACCOUNT_Id.fieldApiName] = this.subAccount.Id;
@@ -486,5 +494,23 @@ export default class FollowerOffspringRequestEditForm extends LightningElement {
 			}
 		}
 		return null;
+	}
+
+	/**
+	 *  Validate key contact status and email address for DSR flow, report validity error message if validation fails
+	 */
+	validateKeyContact() {
+		if (this.isBillingAccount === 'true') {
+			return true;
+		}
+		if (getFieldValue(this.primaryContact, CONTACT_STATUS) !== 'Active') {
+			this.errorMessage = LABEL_INACTIVE_KEY_CONTACT_ERROR;
+			return false;
+		}
+		if (!getFieldValue(this.primaryContact, CONTACT_EMAIL)) {
+			this.errorMessage = LABEL_BLANK_EMAIL_ERROR;
+			return false;
+		}
+		return true;
 	}
 }
