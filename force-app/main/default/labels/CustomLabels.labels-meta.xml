@@ -7457,7 +7457,7 @@ We&apos;ll let you if it&apos;s successful. Thank you. Please do not reply.</val
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>SubAccountNoABNErrorMessage</shortDescription>
-        <value>Leader account does not have an ABN in TEAM, please contact Credit for assistance.</value>
+        <value>Leader account does not have an ABN in TEAM, please contact Credit Management for assistance.</value>
     </labels>
     <labels>
         <fullName>SubAccountNotLeaderErrorMessage</fullName>
