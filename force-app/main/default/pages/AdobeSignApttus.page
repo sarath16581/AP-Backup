@@ -5,5 +5,5 @@
 -->
 
 <apex:page standardController="Apttus__APTS_Agreement__c" extensions="AdobeSignCustomController" action="{!redirect}">
-	<apex:messages  />
+	<apex:messages />
 </apex:page>

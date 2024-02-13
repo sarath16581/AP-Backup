@@ -631,6 +631,7 @@
         <fields>NAME</fields>
         <fields>echosign_dev1__DateSentDate__c</fields>
         <fields>echosign_dev1__Recipient__c</fields>
+        <fields>echosign_dev1__Recipient_User__c</fields>
         <fields>echosign_dev1__Status__c</fields>
         <fields>echosign_dev1__Document__c</fields>
         <relatedList>echosign_dev1__SIGN_Agreement__c.ApttusContract__c</relatedList>

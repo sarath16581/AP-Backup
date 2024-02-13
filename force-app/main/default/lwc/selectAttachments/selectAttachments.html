@@ -11,20 +11,25 @@
 		</div>
 	</template>
 	
-	<template lwc:if={graphql.data}>
+	<template lwc:if={data}>
 		<lightning-card title="Select Attachments">
 			<lightning-datatable
-				key-field="id"
-				data={files}
+				key-field="Id"
+				data={data}
 				columns={columns}
+				selected-rows={preSelectedRows}
 				onrowselection={handleSelect}>
 			</lightning-datatable>
-			<br/>
-			{recordid}
-			<br/>
-			{redirect}
-			<br/>
-			<lightning-button onclick={handleRedirect} label="Next" variant="brand"></lightning-button>
+
+			<template if:true={approvalMatrixImage}>
+				<br />
+				<img style="max-height: 400px" alt="DocuSign" src={approvalMatrixImage}/>
+			</template>
+			
+			<div class="slds-align_absolute-center">
+				<lightning-button variant="brand" label="Back" onclick={handleBack} title="Back" class="slds-m-around_small"></lightning-button>
+				<lightning-button variant="brand" label="Next" onclick={handleRedirect} title="Next" class="slds-m-around_small"></lightning-button>
+			</div>
 		</lightning-card>
 	</template>
 </template>

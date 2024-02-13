@@ -10,15 +10,15 @@ History:
 
 public with sharing class AdobeSignCustomController {
 	public Id masterId {get; set;}
+	private static String APTTUS_CONTRACT_VIEW_PAGE = '/lightning/r/' + Apttus__APTS_Agreement__c.SObjectType + '/';
 	private static String ADOBE_SIGN_TEMPLATE_PAGE = '/apex/echosign_dev1__AgreementTemplateProcess';
-	private static String ADOBE_SIGN_CANCEL_AGREEMENT_PAGE = '/apex/echosign_dev1__EchoSignAgreementAdvanced';
-	private static String ADOBE_SIGN_AGREEMENT_VIEW_PAGE = '/lightning/r/echosign_dev1__SIGN_Agreement__c/';
+	private static String ADOBE_SIGN_AGREEMENT_VIEW_PAGE = '/lightning/r/' + echosign_dev1__SIGN_Agreement__c.SObjectType + '/';
 	@TestVisible private static String PAGE_ADOBESIGN_VOI = 'AdobeSignVOI';
 	@TestVisible private static String PAGE_ADOBESIGN_APT = 'AdobeSignApttus';
 	@TestVisible private static String PAGE_ADOBESIGN_APT_CANCEL = 'AdobeSignApttusCancel';
 	@TestVisible private static String TEMPLATE_VOI_PROPERTY = 'VOI_Property';
 	@TestVisible private static String TEMPLATE_APTTUS = 'Apttus';
-	@TestVisible private static String MSG_ERROR_ORG_MISSING_CONTACT = 'The Organisation has missing a primary contact';
+	@TestVisible private static String MSG_ERROR_ORG_MISSING_CONTACT = 'The Organisation is missing a primary contact';
 	@TestVisible private static String MSG_ERROR_PAGE_NOT_SUPPORTED = 'Page not supported';
 	@TestVisible private static String MSG_ERROR_PAGE_GENERIC = 'Something went wrong please try again later';
 	@TestVisible private static String MSG_ERROR_APT_CONTRACT_EXPIRED = 'Cannot Send eSignature for an expired Contract. Please Create a new contract to continue.';
@@ -143,17 +143,28 @@ public with sharing class AdobeSignCustomController {
 				// This is a workaround which creates new ContentVersion records for each attachment and then associates them with the agreement
 				if (String.isNotEmpty(params.get('attachmentids'))) {
 					List <Id> contentDocumentIds = params.get('attachmentids').split(',');					
-					Map<Id, ContentVersion> cvMap = ContentVersionsSelector.newInstance('CreatedDate', 'DESC').selectByContentDocumentId(new Set <Id> (contentDocumentIds), new set<Object> { ContentVersionsSelector.Options.IS_LATEST_VERSION });
+					
+					Map <Id, ContentVersion> contentVersionByContentDocumentId = new Map <Id, ContentVersion> ();
+					for (ContentVersion cv : ContentVersionsSelector.newInstance('CreatedDate', 'DESC').selectByContentDocumentId(new Set <Id> (contentDocumentIds), new set<Object> { ContentVersionsSelector.Options.IS_LATEST_VERSION }).values()) {
+						contentVersionByContentDocumentId.put(cv.ContentDocumentId, cv);
+					}
+					
 					List <ContentVersion> contentVersions = new List <ContentVersion> ();
 
-					for (ContentVersion existingVersion : cvMap.values()) {
-						ContentVersion newVersion = new ContentVersion();
-						newVersion.Title  = existingVersion.Title;
-						newVersion.PathOnClient  = existingVersion.PathOnClient;
-						newVersion.VersionData = existingVersion.VersionData;
-						newVersion.IsMajorVersion = true;
-						newVersion.FirstPublishLocationId  = agreementId;
-						contentVersions.add(newVersion);
+					// Iterate this way to ensure the order of the attachments is preserved
+					// Intended behaviour is to have the same order of attachments in the agreement as they were in the attachment list in the previous step (select attachments page)
+					for (Id contentDocumentId : contentDocumentIds) {
+						ContentVersion existingVersion = contentVersionByContentDocumentId.get(contentDocumentId);
+						
+						if (existingVersion != null) {
+							ContentVersion newVersion = new ContentVersion();
+							newVersion.Title  = existingVersion.Title;
+							newVersion.PathOnClient  = existingVersion.PathOnClient;
+							newVersion.VersionData = existingVersion.VersionData;
+							newVersion.IsMajorVersion = true;
+							newVersion.FirstPublishLocationId  = agreementId;
+							contentVersions.add(newVersion);
+						}
 					}
 
 					insert contentVersions;
@@ -191,7 +202,7 @@ public with sharing class AdobeSignCustomController {
 				return null;
 			}
 		} catch(Exception ex){
-			ApexPages.Message errorMsg = new ApexPages.Message(ApexPages.Severity.ERROR,MSG_ERROR_PAGE_GENERIC);
+			ApexPages.Message errorMsg = new ApexPages.Message(ApexPages.Severity.ERROR, MSG_ERROR_PAGE_GENERIC);
 			ApexPages.addMessage(errorMsg);
 			return null;
 		}
@@ -204,23 +215,14 @@ public with sharing class AdobeSignCustomController {
 	 *	@return Page Reference
 	 */
 	private PageReference cancelApttusAgreement() {
-		Pagereference pageRef = new Pagereference(ADOBE_SIGN_CANCEL_AGREEMENT_PAGE);
-
 		// Query the Adobe Agreement based on parent Apttus Contract Id
 		// There should only be a single "Out for Signatures" document for a given Apttus Contract
 		List <echosign_dev1__SIGN_Agreement__c> envelopes = AdobeSignAgreementSelector.newInstance(1).selectOutForSignatureByApttusContractId(new Set <Id> { masterId }, new Set<Object>());
 
 		if (envelopes != null && envelopes.size() == 1) {
-			Map <String, String> params = ApexPages.currentPage().getParameters();
-		
-			// Pass through any parameters that were passed to this page
-			for (String key : params.keySet()) {
-				pageRef.getParameters().put(key, params.get(key));
-			}
-
-			pageRef.getParameters().put('id', envelopes[0].Id);
-			pageRef.getParameters().put('sfdc.override', '1');
-			pageRef.getParameters().put('onLoadAction', 'cancel');	
+			Id agreementId = envelopes[0].Id;
+			echosign_dev1.EchoSignApiService.cancelDocument(agreementId);
+			return new Pagereference(APTTUS_CONTRACT_VIEW_PAGE + masterId + '/view');
 		}
 		else {
 			//throws UI exception message when there is no primary contact found
@@ -228,8 +230,6 @@ public with sharing class AdobeSignCustomController {
 			ApexPages.addMessage(errorMsg);
 			return null;
 		}
-
-		return pageRef;
 	}
 
 	public AdobeSignCustomController(ApexPages.StandardController stdController){

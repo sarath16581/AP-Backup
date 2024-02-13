@@ -460,16 +460,6 @@
     <platformActionList>
         <actionListContext>Record</actionListContext>
         <platformActionListItems>
-            <actionName>Edit</actionName>
-            <actionType>StandardButton</actionType>
-            <sortOrder>0</sortOrder>
-        </platformActionListItems>
-        <platformActionListItems>
-            <actionName>ChangeOwnerOne</actionName>
-            <actionType>StandardButton</actionType>
-            <sortOrder>1</sortOrder>
-        </platformActionListItems>
-        <platformActionListItems>
             <actionName>APT_My_Approvals</actionName>
             <actionType>CustomButton</actionType>
             <sortOrder>2</sortOrder>
@@ -478,6 +468,16 @@
             <actionName>APT_Preview_Submit_Approvals</actionName>
             <actionType>CustomButton</actionType>
             <sortOrder>3</sortOrder>
+        </platformActionListItems>
+        <platformActionListItems>
+            <actionName>Edit</actionName>
+            <actionType>StandardButton</actionType>
+            <sortOrder>0</sortOrder>
+        </platformActionListItems>
+        <platformActionListItems>
+            <actionName>ChangeOwnerOne</actionName>
+            <actionType>StandardButton</actionType>
+            <sortOrder>1</sortOrder>
         </platformActionListItems>
     </platformActionList>
     <relatedLists>
@@ -600,6 +600,7 @@
         <fields>NAME</fields>
         <fields>echosign_dev1__DateSentDate__c</fields>
         <fields>echosign_dev1__Recipient__c</fields>
+        <fields>echosign_dev1__Recipient_User__c</fields>
         <fields>echosign_dev1__Status__c</fields>
         <fields>echosign_dev1__Document__c</fields>
         <relatedList>echosign_dev1__SIGN_Agreement__c.ApttusContract__c</relatedList>
