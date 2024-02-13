@@ -105,11 +105,11 @@ export default class FollowerOffspringRequestList extends NavigationMixin(Lightn
 	// need to be reactive whenever computedSubAccounts is updated
 	_filteredSubAccounts;
 
-	// filtered from computedSubAccounts. Used as data source of submitted sub account requests
+	// filtered from computedSubAccounts. Used as data source of finalised sub account requests
 	// need to be reactive whenever computedSubAccounts is updated
 	_finalisedSubAccountsList;
 
-	// filtered from computedSubAccounts. Used as data source of finalised sub account requests
+	// filtered from computedSubAccounts. Used as data source of submitted sub account requests
 	// need to be reactive whenever computedSubAccounts is updated
 	_submittedSubAccountsList;
 
