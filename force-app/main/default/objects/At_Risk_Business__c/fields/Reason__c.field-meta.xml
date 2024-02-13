@@ -74,11 +74,6 @@
                 <default>false</default>
                 <label>Service Performance</label>
             </value>
-            <value>
-                <fullName>Significant down trade (Covid 19)</fullName>
-                <default>false</default>
-                <label>Significant down trade (Covid 19)</label>
-            </value>
         </valueSetDefinition>
     </valueSet>
 </CustomField>

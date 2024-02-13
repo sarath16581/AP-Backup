@@ -98,7 +98,6 @@ public with sharing class APTS_MergeDocumentstoPDFController{
         
         //Template Table
         //Query the custom setting records that have the same Record Type and Subtype
-		system.debug('DDDD query before templateCS'+templateCS);
         templateCS = [SELECT Id, Name, Compare_against_IPL__c, Template_Product_Name__c, Sequence_No__c, Template_ID__c, Default_Document_Output__c, Security_Level__c, APT_Rate_Type__c
                      FROM APT_R2T_Templates_Settings__c 
                      WHERE Record_Type_API__c = :Agreement.RecordType.DeveloperName 
@@ -109,7 +108,7 @@ public with sharing class APTS_MergeDocumentstoPDFController{
                            AND
                            Settings_Type__c = 'Template'
                      ORDER BY Sequence_No__c];
-        system.debug('DDDD query after templateCS'+templateCS);
+                     
          //Find the list of custom setting records to be removed
         for(APT_R2T_Templates_Settings__c tmpCS : templateCS) {
 
@@ -141,7 +140,6 @@ public with sharing class APTS_MergeDocumentstoPDFController{
                     removeTemplateCS.add(tmpCS);
                 }
             }
-			system.debug('DDDD removeTemplateCS'+removeTemplateCS);
         }
         
         //Find the indexes of the templates to be removed
@@ -158,7 +156,6 @@ public with sharing class APTS_MergeDocumentstoPDFController{
         for(Integer i = 0; i < removeTemplateCSIndexes.size(); i++) {
             templateCS.remove(removeTemplateCSIndexes[i] - i);
         }
-		system.debug('DDDD templateCS after deletion of custom setting list'+templateCS);
         
         List<String> templatesRefList = new List<String>();
         
