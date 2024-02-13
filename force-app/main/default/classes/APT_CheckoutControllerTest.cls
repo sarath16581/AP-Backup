@@ -6,7 +6,8 @@
 * @domain Apttus
 * @description A test class for APT_CheckoutController
 * @changelog
-* 2023-08-14 - Yatika Bansal - Added test for docGenerationRequired 
+* 2023-08-14 - Yatika Bansal - Added test for docGenerationRequired
+* 2024-02-13 - SteveL - Added test for getProposalDocGenerationProgress
 */
 @IsTest
 public class APT_CheckoutControllerTest {
@@ -167,5 +168,19 @@ public class APT_CheckoutControllerTest {
 		Test.stoptest();
 
 		System.assertEquals(APT_Constants.SUCCESS_LABEL_SMALL, output, 'Validation should succeed');
+	}
+
+	@IsTest
+	private static void testGetProposalDocGenerationProgress() {
+		Account acc = ApplicationTestDataFactory.getAccounts(1, true)[0];
+		Opportunity opp = ApplicationTestDataFactory.getOpportunities(1, acc.Id, true)[0];
+		Apttus_Proposal__Proposal__c proposal = APT_TestDataFactory.getAPTProposalRecord(1, opp.Id, acc.Id, null, true)[0];
+
+		APT_ProposalObjectsSelector selector = (APT_ProposalObjectsSelector) MockUtility.mockSelector(APT_ProposalObjectsSelector.class);
+		MockUtility.Mocks.startStubbing();
+		MockUtility.Mocks.when(selector.selectByConfigIds((Set<Id>)fflib_Match.anyObject())).thenReturn(new List<Apttus_Proposal__Proposal__c>{proposal});
+		MockUtility.Mocks.stopStubbing();
+
+		System.assertEquals(proposal.APT_Document_Generation_in_Progress__c, APT_CheckoutController.getProposalDocGenerationProgress(proposal.Id), 'Method did not correctly locate the target Apttus_Proposal__Proposal__c record');
 	}
 }

@@ -8,6 +8,7 @@
 *1.0 : 24-05-2023 : Yatika Bansal: Modified method checkCreditAssessmentAndExecuteRateCardLogic to check only approved credit assessments
 *1.0 : 14-08-2023 : Yatika Bansal: Added method docGenerationRequired to check if document generation is required before agreement generation
 *1.0 : 22-08-2023 : Bharat Patel: Added method getProposalDocGenerationProgress() to
+*      12-02-2024 : Ken: added getProposalDocGenerationProgress
 **/
 public without sharing class APT_CheckoutController{
 
@@ -87,12 +88,12 @@ public without sharing class APT_CheckoutController{
 	* @return boolean
 	**/
 	@AuraEnabled
-	public static boolean getProposalDocGenerationProgress(String proposalId){
-		List<Apttus_Proposal__Proposal__c> proposalDetails = APT_ProposalObjectsSelector.newInstance().selectByConfigIds(new set<ID>{(ID)proposalId});
-		Boolean isDocGenerationRunning = false;
-		if(proposalDetails != null)
-			isDocGenerationRunning = proposalDetails[0].APT_Document_Generation_in_Progress__c;
-		return isDocGenerationRunning;
+	public static Boolean getProposalDocGenerationProgress(String proposalId){
+		List<Apttus_Proposal__Proposal__c> proposalDetails = APT_ProposalObjectsSelector.newInstance().selectByConfigIds(new Set<Id>{(Id)proposalId});
+		if (proposalDetails != null) {
+			return proposalDetails[0].APT_Document_Generation_in_Progress__c;
+		}
+		return false;
 	}
 
 	/**
