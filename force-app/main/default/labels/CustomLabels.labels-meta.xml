@@ -7473,7 +7473,7 @@ We&apos;ll let you if it&apos;s successful. Thank you. Please do not reply.</val
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>SubAccountPeopleSoftErrorMessage</shortDescription>
-        <value>his request does not meet the minimum criteria to create a sub-account or follower/offspring account. A sub-account or follower/offspring account cannot be created for a Billing Account with Source System PeopleSoft.</value>
+        <value>This request does not meet the minimum criteria to create a sub-account or follower/offspring account. A sub-account or follower/offspring account cannot be created for a Billing Account with Source System PeopleSoft.</value>
     </labels>
     <labels>
         <fullName>SubmitBillingAccountProvisioningRequestPermissionsError</fullName>
