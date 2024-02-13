@@ -21,9 +21,9 @@
 				<label>Increase Revenue</label>
 			</value>
 			<value>
-				<fullName>No Revenue Change or Decrease</fullName>
+				<fullName>No Revenue Change or Decrease Revenue</fullName>
 				<default>false</default>
-				<label>No Revenue Change or Decrease</label>
+				<label>No Revenue Change or Decrease Revenue</label>
 			</value>
 		</valueSetDefinition>
 		<valueSettings>
@@ -32,7 +32,7 @@
 		</valueSettings>
 		<valueSettings>
 			<controllingFieldValue>Addendum/DOV</controllingFieldValue>
-			<valueName>No Revenue Change or Decrease</valueName>
+			<valueName>No Revenue Change or Decrease Revenue</valueName>
 		</valueSettings>
 	</valueSet>
 </CustomField>

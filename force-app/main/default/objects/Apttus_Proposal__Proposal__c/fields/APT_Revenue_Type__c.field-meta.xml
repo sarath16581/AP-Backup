@@ -21,7 +21,7 @@
             <value>
                 <fullName>Decrease Revenue</fullName>
                 <default>false</default>
-                <label>Decrease Revenue</label>
+                <label>No Revenue Change or Decrease Revenue</label>
             </value>
         </valueSetDefinition>
     </valueSet>
