@@ -45,6 +45,7 @@ Lat Modified Date - 28th May, 2021 | STP-5134 commented the code for DoV Reason 
 2023-05-09  Bharat Patel - update in condition to check key fields in doAmend(),doRenew() method to fix STP-9554.
 2023-11-23  Bharat Patel - STP-9770 - update to redirect to shopping cart instead of proposal
 2024-02-05	Mahesh Parvathaneni - STP-8256 - Reset opportunity fields and update opportunity driver, key contact from DSR on Dov Increase and Renewal scenarios
+2024-02-13	Mahesh Parvathaneni - STP-8491 - updated SelectOption contructor to reflect the labels correctly in the UI
 **/
 
 public with sharing class APT_AmendRenewController {
@@ -135,7 +136,7 @@ public with sharing class APT_AmendRenewController {
 
 		// Store picklist value in a selection option list
 		for( Schema.PicklistEntry picklistVal : revenueType) {
-			revenueValues.add(new SelectOption(picklistVal.getLabel(), picklistVal.getValue()));
+			revenueValues.add(new SelectOption(picklistVal.getValue(), picklistVal.getLabel()));
 		}
 		return revenueValues;
 	}
