@@ -8,5 +8,6 @@
     <precision>18</precision>
     <required>false</required>
     <scale>2</scale>
+    <securityClassification>INTERNAL</securityClassification>
     <type>Currency</type>
 </CustomField>

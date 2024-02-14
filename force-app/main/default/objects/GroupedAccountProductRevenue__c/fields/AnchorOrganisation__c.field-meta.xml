@@ -10,6 +10,7 @@
     <relationshipName>GroupedAccountProductRevenues</relationshipName>
     <relationshipOrder>0</relationshipOrder>
     <reparentableMasterDetail>false</reparentableMasterDetail>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>MasterDetail</type>
     <writeRequiresMasterRead>false</writeRequiresMasterRead>

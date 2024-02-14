@@ -9,6 +9,7 @@
     <label>September Forecast</label>
     <precision>18</precision>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <scale>2</scale>
     <trackTrending>false</trackTrending>
     <type>Currency</type>
