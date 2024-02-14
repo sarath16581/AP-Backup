@@ -4,7 +4,7 @@
     <deprecated>false</deprecated>
     <description>The assignee value</description>
     <externalId>false</externalId>
-    <label>Assignee Value</label>
+    <label>Assignee Value (Deprecated)</label>
     <length>255</length>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>

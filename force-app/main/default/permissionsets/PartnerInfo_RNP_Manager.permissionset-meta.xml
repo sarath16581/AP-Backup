@@ -472,11 +472,6 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
-        <field>Network__c.RNPReportingAccess__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
         <editable>true</editable>
         <field>Partner_Acheivement_Award__c.Award_Date__c</field>
         <readable>true</readable>
@@ -519,11 +514,6 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Partner_Info_Change__c.Subjected_To_GST__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>User.RNPReportingManager__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <hasActivationRequired>false</hasActivationRequired>

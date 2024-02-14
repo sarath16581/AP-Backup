@@ -7457,7 +7457,7 @@ We&apos;ll let you if it&apos;s successful. Thank you. Please do not reply.</val
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>SubAccountNoABNErrorMessage</shortDescription>
-        <value>Leader account does not have an ABN in TEAM, please contact Credit for assistance.</value>
+        <value>Leader account does not have an ABN in TEAM, please contact Credit Management for assistance.</value>
     </labels>
     <labels>
         <fullName>SubAccountNotLeaderErrorMessage</fullName>
@@ -7473,7 +7473,7 @@ We&apos;ll let you if it&apos;s successful. Thank you. Please do not reply.</val
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>SubAccountPeopleSoftErrorMessage</shortDescription>
-        <value>his request does not meet the minimum criteria to create a sub-account or follower/offspring account. A sub-account or follower/offspring account cannot be created for a Billing Account with Source System PeopleSoft.</value>
+        <value>This request does not meet the minimum criteria to create a sub-account or follower/offspring account. A sub-account or follower/offspring account cannot be created for a Billing Account with Source System PeopleSoft.</value>
     </labels>
     <labels>
         <fullName>SubmitBillingAccountProvisioningRequestPermissionsError</fullName>
@@ -8200,44 +8200,132 @@ We&apos;ll let you if it&apos;s successful. Thank you. Please do not reply.</val
         <value>The Motor Vehicle Running Record (T2) is to be filled out before the commencement of, and at the cessation of use of any Aust. Post Vehicle.</value>
     </labels>
     <labels>
-        <fullName>StarTrackNewBillingAccountProvisonNotificationTitle</fullName>
+        <fullName>StarTrackLeaderAndSubAccountsErrorNotification</fullName>
         <categories>Billing Account Provisioning</categories>
         <language>en_US</language>
         <protected>false</protected>
-        <shortDescription>StarTrackNewBillingAccountProvisonNotificationTitle</shortDescription>
-        <value>Click here to go to the {0} record.</value>
+        <shortDescription>StarTrackLeaderAndSubAccountsErrorNotification</shortDescription>
+        <value>Leader Account request for {0} has encountered an Error. Please raise a Service Now Ticket via Report a Fault, and follow the required error handling sub account business process to ensure request is successfully completed. Click here to go to Deal Support Request record {1}.</value>
     </labels>
     <labels>
-        <fullName>StarTrackNewLeaderBillingAccountProvisonErrorNotification</fullName>
+        <fullName>StarTrackLeaderAndSubAccountsErrorNotificationTitle</fullName>
         <categories>Billing Account Provisioning</categories>
         <language>en_US</language>
         <protected>false</protected>
-        <shortDescription>StarTrackNewLeaderBillingAccountProvisonErrorNotification</shortDescription>
-        <value>Billing account creation request for {0} has encountered an error.</value>
+        <shortDescription>StarTrackLeaderAndSubAccountsErrorNotificationTitle</shortDescription>
+        <value>Leader with Follower/Offspring accounts encountered error.</value>
     </labels>
     <labels>
-        <fullName>StarTrackNewLeaderBillingAccountProvisonSuccessNotification</fullName>
+        <fullName>StarTrackLeaderAndSubAccountsSuccessNotification</fullName>
         <categories>Billing Account Provisioning</categories>
         <language>en_US</language>
         <protected>false</protected>
-        <shortDescription>StarTrackNewLeaderBillingAccountProvisonSuccessNotification</shortDescription>
-        <value>Billing account creation request for {0} is completed.</value>
+        <shortDescription>StarTrackLeaderAndSubAccountsSuccessNotification</shortDescription>
+        <value>Leader Billing Account {0} and Follower(s)/Offspring(s) {1} for {2} has been successfully created. Click here to go to Deal Support Request record {3}.</value>
     </labels>
     <labels>
-        <fullName>StarTrackNewSubAccountProvisonErrorNotification</fullName>
+        <fullName>StarTrackLeaderAndSubAccountsSuccessNotificationTitle</fullName>
         <categories>Billing Account Provisioning</categories>
         <language>en_US</language>
         <protected>false</protected>
-        <shortDescription>StarTrackNewSubAccountProvisonErrorNotification</shortDescription>
-        <value>Follower/Offspring request for TEAM Billing Account {0} has encountered an error. Please raise a Service Now Ticket via Report a Fault, and follow the required error handling sub account business process to ensure request is successfully completed.</value>
+        <shortDescription>StarTrackLeaderAndSubAccountsSuccessNotificationTitle</shortDescription>
+        <value>Leader with Follower/Offspring accounts created successfully.</value>
     </labels>
     <labels>
-        <fullName>StarTrackNewSubAccountProvisonSuccessNotification</fullName>
+        <fullName>StarTrackLeaderBillingAccountErrorNotification</fullName>
         <categories>Billing Account Provisioning</categories>
         <language>en_US</language>
         <protected>false</protected>
-        <shortDescription>StarTrackNewSubAccountProvisonSuccessNotification</shortDescription>
-        <value>Follower/Offspring Account {0} for TEAM Billing Account {1} has been successfully completed.</value>
+        <shortDescription>StarTrackLeaderBillingAccountErrorNotification</shortDescription>
+        <value>Leader Account request for {0} has encountered an error. Please raise a Service Now Ticket via Report a Fault, and follow the required error handling sub account business process to ensure request is successfully completed. Click here to go to Deal Support Request record {1}.</value>
+    </labels>
+    <labels>
+        <fullName>StarTrackLeaderBillingAccountErrorNotificationTitle</fullName>
+        <categories>Billing Account Provisioning</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>StarTrackLeaderBillingAccountErrorNotificationTitle</shortDescription>
+        <value>Leader account request encountered an error.</value>
+    </labels>
+    <labels>
+        <fullName>StarTrackLeaderBillingAccountSuccessNotification</fullName>
+        <categories>Billing Account Provisioning</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>StarTrackLeaderBillingAccountSuccessNotification</shortDescription>
+        <value>Leader Billing Account {0} for {1} has been successfully created. Click here to go to Deal Support Request record {2}.</value>
+    </labels>
+    <labels>
+        <fullName>StarTrackLeaderBillingAccountSuccessNotificationTitle</fullName>
+        <categories>Billing Account Provisioning</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>StarTrackLeaderBillingAccountSuccessNotificationTitle</shortDescription>
+        <value>Leader account created successfully.</value>
+    </labels>
+    <labels>
+        <fullName>StarTrackLeaderSuccessAndSubAccountsErrorNotification</fullName>
+        <categories>Billing Account Provisioning</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>StarTrackLeaderSuccessAndSubAccountsErrorNotification</shortDescription>
+        <value>Leader Billing Account {0} created successfully. Follower/Offspring accounts encountered error - {1}. Click here to go to Deal Support Request record {2}.</value>
+    </labels>
+    <labels>
+        <fullName>StarTrackLeaderSuccessAndSubAccountsErrorNotificationTitle</fullName>
+        <categories>Billing Account Provisioning</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>StarTrackLeaderSuccessAndSubAccountsErrorNotificationTitle</shortDescription>
+        <value>Leader account created successfully. One or more Follower/Offspring accounts encountered error.</value>
+    </labels>
+    <labels>
+        <fullName>StarTrackLeaderSuccessAndSubAccountsPartialSuccessNotification</fullName>
+        <categories>Billing Account Provisioning</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>StarTrackLeaderSuccessAndSubAccountsPartialSuccessNotification</shortDescription>
+        <value>Leader Billing Account {0} created successfully. Follower/Offspring accounts created successfully - {1}. Follower/Offspring accounts encountered error - {2}. Click here to go to Deal Support Request record {3}.</value>
+    </labels>
+    <labels>
+        <fullName>StarTrackLeaderSuccessAndSubAccountsPartialSuccessNotificationTitle</fullName>
+        <categories>Billing Account Provisioning</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>StarTrackLeaderSuccessAndSubAccountsPartialSuccessNotificationTitle</shortDescription>
+        <value>Leader account created successfully. One or more Follower/Offspring accounts encountered error.</value>
+    </labels>
+    <labels>
+        <fullName>StarTrackLeaderUnknownSubAccountsErrorNotification</fullName>
+        <categories>Billing Account Provisioning</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>StarTrackLeaderUnknownSubAccountsErrorNotification</shortDescription>
+        <value>Follower/Offspring account requests for {0} has encountered error - {1}. Click here to go to Deal Support Request record {2}.</value>
+    </labels>
+    <labels>
+        <fullName>StarTrackLeaderUnknownSubAccountsPartialSuccessNotification</fullName>
+        <categories>Billing Account Provisioning</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>StarTrackLeaderUnknownSubAccountsPartialSuccessNotification</shortDescription>
+        <value>Follower/Offspring accounts created successfully - {0}. Follower/Offspring accounts encountered error - {1}. Click here to go to Deal Support Request record {2}.</value>
+    </labels>
+    <labels>
+        <fullName>StarTrackLeaderUnknownSubAccountsSuccessNotification</fullName>
+        <categories>Billing Account Provisioning</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>StarTrackLeaderUnknownSubAccountsSuccessNotification</shortDescription>
+        <value>Follower(s)/Offspring(s) {0} for {1} has been successfully created. Click here to go to Deal Support Request record {2}.</value>
+    </labels>
+    <labels>
+        <fullName>StarTrackOpportunityRequiredOnDSRForNewAccountsErrorMessage</fullName>
+        <categories>Billing Account Provisioning</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>StarTrackOpportunityRequiredOnDSRForNewAccountsErrorMessage</shortDescription>
+        <value>Opportunity is required on the Deal Support Request.</value>
     </labels>
     <labels>
         <fullName>StarTrackSubAccountActivationDSRDescription</fullName>
@@ -8246,6 +8334,14 @@ We&apos;ll let you if it&apos;s successful. Thank you. Please do not reply.</val
         <protected>false</protected>
         <shortDescription>StarTrackSubAccountActivationDSRDescription</shortDescription>
         <value>Align additional charges, create dispatch ID, activate account &amp; provide Parcel Send access (if requested).</value>
+    </labels>
+    <labels>
+        <fullName>StarTrackSubAccountBlankEmailErrorMessage</fullName>
+        <categories>Billing Account Provisioning</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>StarTrackSubAccountBlankEmailErrorMessage</shortDescription>
+        <value>Email field on the Sub Account Contact record is blank. Please update the contact with valid email address.</value>
     </labels>
     <labels>
         <fullName>StarTrackSubAccountMaxFinalizeErrorMessage</fullName>
@@ -8328,6 +8424,54 @@ We&apos;ll let you if it&apos;s successful. Thank you. Please do not reply.</val
         <value>Create Sub Account Request(s)</value>
     </labels>
     <labels>
+        <fullName>StarTrackSubAccountsErrorNotification</fullName>
+        <categories>Billing Account Provisioning</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>StarTrackSubAccountsErrorNotification</shortDescription>
+        <value>For Leader Billing Account {0}, Follower/Offspring accounts encountered error- {1}. Click here to go to the Leader Billing Account record.</value>
+    </labels>
+    <labels>
+        <fullName>StarTrackSubAccountsErrorNotificationTitle</fullName>
+        <categories>Billing Account Provisioning</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>StarTrackSubAccountsErrorNotificationTitle</shortDescription>
+        <value>Follower/Offspring account creation encountered error.</value>
+    </labels>
+    <labels>
+        <fullName>StarTrackSubAccountsPartialSuccessNotification</fullName>
+        <categories>Billing Account Provisioning</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>StarTrackSubAccountsPartialSuccessNotification</shortDescription>
+        <value>For Leader Billing Account {0}, Follower/Offspring accounts created successfully - {1} and Follower/Offspring accounts encountered error - {2}. Click here to go to the Leader Billing Account record.</value>
+    </labels>
+    <labels>
+        <fullName>StarTrackSubAccountsPartialSuccessNotificationTitle</fullName>
+        <categories>Billing Account Provisioning</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>StarTrackSubAccountsPartialSuccessNotificationTitle</shortDescription>
+        <value>Follower/Offspring account creation encountered error.</value>
+    </labels>
+    <labels>
+        <fullName>StarTrackSubAccountsSuccessNotification</fullName>
+        <categories>Billing Account Provisioning</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>StarTrackSubAccountsSuccessNotification</shortDescription>
+        <value>For Leader Billing Account {0}, Follower/Offspring accounts created successfully - {1}. Click here to go to the Leader Billing Account record.</value>
+    </labels>
+    <labels>
+        <fullName>StarTrackSubAccountsSuccessNotificationTitle</fullName>
+        <categories>Billing Account Provisioning</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>StarTrackSubAccountsSuccessNotificationTitle</shortDescription>
+        <value>Follower/Offspring accounts created successfully.</value>
+    </labels>
+    <labels>
         <fullName>StarTrackSubAccountABNConfirmationErrorMessage</fullName>
         <categories>Billing Account Provisioning</categories>
         <language>en_US</language>
@@ -8342,6 +8486,14 @@ We&apos;ll let you if it&apos;s successful. Thank you. Please do not reply.</val
         <protected>false</protected>
         <shortDescription>StarTrackSubAccountFinaliseConfirmation</shortDescription>
         <value>You cannot modify or delete the requests once finalised. The sub accounts will be created when the charge account request is submitted.</value>
+    </labels>
+    <labels>
+        <fullName>StarTrackSubAccountInactiveKeyContactErrorMessage</fullName>
+        <categories>Billing Account Provisioning</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>StarTrackSubAccountInactiveKeyContactErrorMessage</shortDescription>
+        <value>Status of the Sub Account Contact record is not active. Please select an active contact record to proceed.</value>
     </labels>
     <labels>
         <fullName>StarTrackSubAccountsSubmitConfirmationMessage</fullName>

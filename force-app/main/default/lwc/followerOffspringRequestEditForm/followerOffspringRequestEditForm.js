@@ -5,6 +5,7 @@
  * @group Controller
  * @changelog
  * 2023-10-27 - Harry Wang - Created
+ * 2024-02-09 - Ranjeewa Silva - Implemented changes to populating invoicing contact email / phone from sub account contact.
  */
 import {api, LightningElement, wire} from 'lwc';
 import {getFieldValue, getRecord, updateRecord, createRecord} from "lightning/uiRecordApi";
@@ -43,11 +44,14 @@ import SUB_ACCOUNT_STAGE from "@salesforce/schema/APT_Sub_Account__c.APT_Sub_Acc
 import CONTACT_PHONE from "@salesforce/schema/Contact.Phone";
 import CONTACT_MOBILE from "@salesforce/schema/Contact.MobilePhone";
 import CONTACT_EMAIL from "@salesforce/schema/Contact.Email";
+import CONTACT_STATUS from "@salesforce/schema/Contact.Status__c";
+import LABEL_INACTIVE_KEY_CONTACT_ERROR from '@salesforce/label/c.StarTrackSubAccountInactiveKeyContactErrorMessage';
+import LABEL_BLANK_EMAIL_ERROR from '@salesforce/label/c.StarTrackSubAccountBlankEmailErrorMessage';
 import {ShowToastEvent} from "lightning/platformShowToastEvent";
 
 const BILLING_ACCOUNT_FIELDS = [BILLING_ACCOUNT_NAME, BILLING_ACCOUNT_ORG_NAME, BILLING_ACCOUNT_NUMBER, BILLING_ACCOUNT_CUSTOMER_NUMBER];
 const CHARGE_ACCOUNT_FIELDS = [CHARGE_ACCOUNT_OPPORTUNITY_NAME, CHARGE_ACCOUNT_ORG_NAME, CHARGE_ACCOUNT_REQUEST_NUMBER, CHARGE_ACCOUNT_CUSTOMER_NUMBER, CHARGE_ACCOUNT_OPPORTUNITY, CHARGE_ACCOUNT_OPPORTUNITY_KEY_CONTACT];
-const CONTACT_FIELDS = [CONTACT_PHONE, CONTACT_MOBILE, CONTACT_EMAIL];
+const CONTACT_FIELDS = [CONTACT_PHONE, CONTACT_MOBILE, CONTACT_EMAIL, CONTACT_STATUS];
 export default class FollowerOffspringRequestEditForm extends LightningElement {
 	// Can be either charge account ID or billing account ID
 	@api leaderId;
@@ -69,6 +73,8 @@ export default class FollowerOffspringRequestEditForm extends LightningElement {
 	subAccountContactField = SUB_ACCOUNT_CONTACT;
 	subAccountAccountTypeField = SUB_ACCOUNT_ACCOUNT_TYPE;
 	subAccountIsLoginRequiredField = SUB_ACCOUNT_IS_LOGIN_REQUIRED;
+	subAccountContactEmailField = SUB_ACCOUNT_CONTACT_EMAIL;
+	subAccountContactTelephoneField = SUB_ACCOUNT_CONTACT_TEL;
 
 	// lightning inputs
 	subAccountName;
@@ -76,12 +82,13 @@ export default class FollowerOffspringRequestEditForm extends LightningElement {
 	accountType;
 	subAccountLoginRequired;
 	contactDetailsSame = false;
-	subAccountContactTel;
-	subAccountContactEmail;
+	invoicingContactPhone;
+	invoicingContactEmail;
 
 	physicalAddress = {};
 	mailingAddress = {};
 	selectedFollower;
+	errorMessage;
 	@api isLoading;
 
 	/**
@@ -93,7 +100,7 @@ export default class FollowerOffspringRequestEditForm extends LightningElement {
 			this.primaryContact = data;
 			// toggle 'Invoicing Contact Same As Sub Account Contact?' to true if phone and email are matched
 			const phone = getFieldValue(this.primaryContact, CONTACT_PHONE) ? getFieldValue(this.primaryContact, CONTACT_PHONE) : getFieldValue(this.primaryContact, CONTACT_MOBILE);
-			this.contactDetailsSame = this.subAccountContactTel === phone && this.subAccountContactEmail === getFieldValue(this.primaryContact, CONTACT_EMAIL);
+			this.contactDetailsSame = this.invoicingContactPhone === phone && this.invoicingContactEmail === getFieldValue(this.primaryContact, CONTACT_EMAIL);
 		}
 		if (error) {
 			console.log('Error when loading leader: ' + error);
@@ -151,8 +158,10 @@ export default class FollowerOffspringRequestEditForm extends LightningElement {
 			this.subAccountName = this._subAccount[SUB_ACCOUNT_SUB_ACCOUNT_NAME.fieldApiName];
 			this.subAccountContact = this._subAccount[SUB_ACCOUNT_CONTACT.fieldApiName];
 			this.subAccountLoginRequired = this._subAccount[SUB_ACCOUNT_IS_LOGIN_REQUIRED.fieldApiName];
-			this.subAccountContactTel = this._subAccount[SUB_ACCOUNT_CONTACT_TEL.fieldApiName];
-			this.subAccountContactEmail = this._subAccount[SUB_ACCOUNT_CONTACT_EMAIL.fieldApiName];
+			// populate invoicing contact email and phone. note that the field API names are 'APT_Sub_Account_Contact_Telephone__c'
+			// and 'APT_Sub_Account_Contact_Email_Address__c' as they are used for AP sub accounts to store contact email and phone.
+			this.invoicingContactPhone = this._subAccount[SUB_ACCOUNT_CONTACT_TEL.fieldApiName];
+			this.invoicingContactEmail = this._subAccount[SUB_ACCOUNT_CONTACT_EMAIL.fieldApiName];
 			this.physicalAddress = {
 				street: this._subAccount[SUB_ACCOUNT_PHYSICAL_STREET.fieldApiName],
 				city: this._subAccount[SUB_ACCOUNT_PHYSICAL_SUBURB.fieldApiName],
@@ -189,6 +198,11 @@ export default class FollowerOffspringRequestEditForm extends LightningElement {
 	 */
 	handleSubAccountContactChange(event) {
 		this.subAccountContact = event.target.value;
+		if (this.contactDetailsSame && !event.target.value) {
+			this.contactDetailsSame = false;
+			this.invoicingContactPhone = '';
+			this.invoicingContactEmail = '';
+		}
 	}
 
 	/**
@@ -252,6 +266,25 @@ export default class FollowerOffspringRequestEditForm extends LightningElement {
 	 */
 	handleInvoicingToggleChange(event) {
 		this.contactDetailsSame = event.target.checked;
+		this.invoicingContactEmail = event.target.checked ? getFieldValue(this.primaryContact, CONTACT_EMAIL) : '';
+		const contactPhone = getFieldValue(this.primaryContact, CONTACT_PHONE) ? getFieldValue(this.primaryContact, CONTACT_PHONE) : getFieldValue(this.primaryContact, CONTACT_MOBILE);
+		this.invoicingContactPhone = event.target.checked ? contactPhone : '';
+	}
+
+	/**
+	 * Handler for editing invoicing contact email on the form.
+	 */
+	handleInvoicingContactEmailChange(e) {
+		this.contactDetailsSame = false;
+		this.invoicingContactEmail = e.target.value;
+	}
+
+	/**
+	 * Handler for editing invoicing contact phone on the form.
+	 */
+	handleInvoicingContactTelephoneChange(e) {
+		this.contactDetailsSame = false;
+		this.invoicingContactPhone = e.target.value;
 	}
 
 	/**
@@ -303,7 +336,11 @@ export default class FollowerOffspringRequestEditForm extends LightningElement {
 		if (this.isAccountSearchable) {
 			followerOffspringValid = this.template.querySelector('c-follower-offspring-request-account-search').validate();
 		}
-		if (allAddressValid && allInputFieldValid && allInputValid && followerOffspringValid) {
+
+		// validate key contact
+		const keyContactValid = this.validateKeyContact();
+
+		if (allAddressValid && allInputFieldValid && allInputValid && followerOffspringValid && keyContactValid) {
 			const fields = {};
 			if (this.subAccount?.Id) {
 				fields[SUB_ACCOUNT_Id.fieldApiName] = this.subAccount.Id;
@@ -322,21 +359,13 @@ export default class FollowerOffspringRequestEditForm extends LightningElement {
 			if (!this.subAccount || (this.subAccount && this.subAccount[SUB_ACCOUNT_IS_LOGIN_REQUIRED.fieldApiName] !== this.template.querySelector("[data-name='sub-account-is-login-required']").value)) {
 				fields[SUB_ACCOUNT_IS_LOGIN_REQUIRED.fieldApiName] = this.template.querySelector("[data-name='sub-account-is-login-required']").value;
 			}
-			if (!this.contactDetailsSame) {
-				if (!this.subAccount || (this.subAccount && this.subAccount[SUB_ACCOUNT_CONTACT_TEL.fieldApiName] !== this.template.querySelector("[data-name='sub-account-tel']").value)) {
-					fields[SUB_ACCOUNT_CONTACT_TEL.fieldApiName] = this.template.querySelector("[data-name='sub-account-tel']").value;
-				}
-				if (!this.subAccount || (this.subAccount && this.subAccount[SUB_ACCOUNT_CONTACT_EMAIL.fieldApiName] !== this.template.querySelector("[data-name='sub-account-email']").value)) {
-					fields[SUB_ACCOUNT_CONTACT_EMAIL.fieldApiName] = this.template.querySelector("[data-name='sub-account-email']").value;
-				}
-			} else {
-				const phone = getFieldValue(this.primaryContact, CONTACT_PHONE) ? getFieldValue(this.primaryContact, CONTACT_PHONE) : getFieldValue(this.primaryContact, CONTACT_MOBILE);
-				if (!this.subAccount || (this.subAccount && this.subAccount[SUB_ACCOUNT_CONTACT_TEL.fieldApiName] !== phone)) {
-					fields[SUB_ACCOUNT_CONTACT_TEL.fieldApiName] = getFieldValue(this.primaryContact, CONTACT_PHONE) ? getFieldValue(this.primaryContact, CONTACT_PHONE) : getFieldValue(this.primaryContact, CONTACT_MOBILE);
-				}
-				if (!this.subAccount || (this.subAccount && this.subAccount[SUB_ACCOUNT_CONTACT_EMAIL.fieldApiName] !== getFieldValue(this.primaryContact, CONTACT_EMAIL))) {
-					fields[SUB_ACCOUNT_CONTACT_EMAIL.fieldApiName] = getFieldValue(this.primaryContact, CONTACT_EMAIL);
-				}
+			// populate invoicing contact email and phone. note that the field API names are 'APT_Sub_Account_Contact_Telephone__c'
+			// and 'APT_Sub_Account_Contact_Email_Address__c' as they are used for AP sub accounts to store contact email and phone.
+			if (!this.subAccount || (this.subAccount[SUB_ACCOUNT_CONTACT_TEL.fieldApiName] !== this.invoicingContactPhone)) {
+				fields[SUB_ACCOUNT_CONTACT_TEL.fieldApiName] = this.invoicingContactPhone;
+			}
+			if (!this.subAccount || (this.subAccount[SUB_ACCOUNT_CONTACT_EMAIL.fieldApiName] !== this.invoicingContactEmail)) {
+				fields[SUB_ACCOUNT_CONTACT_EMAIL.fieldApiName] = this.invoicingContactEmail;
 			}
 			if (!this.subAccount || (this.subAccount && this.subAccount[SUB_ACCOUNT_PHYSICAL_STREET.fieldApiName] !== this.physicalAddress.street)) {
 				fields[SUB_ACCOUNT_PHYSICAL_STREET.fieldApiName] = this.physicalAddress.street;
@@ -465,5 +494,23 @@ export default class FollowerOffspringRequestEditForm extends LightningElement {
 			}
 		}
 		return null;
+	}
+
+	/**
+	 *  Validate key contact status and email address for DSR flow, report validity error message if validation fails
+	 */
+	validateKeyContact() {
+		if (this.isBillingAccount === 'true') {
+			return true;
+		}
+		if (getFieldValue(this.primaryContact, CONTACT_STATUS) !== 'Active') {
+			this.errorMessage = LABEL_INACTIVE_KEY_CONTACT_ERROR;
+			return false;
+		}
+		if (!getFieldValue(this.primaryContact, CONTACT_EMAIL)) {
+			this.errorMessage = LABEL_BLANK_EMAIL_ERROR;
+			return false;
+		}
+		return true;
 	}
 }

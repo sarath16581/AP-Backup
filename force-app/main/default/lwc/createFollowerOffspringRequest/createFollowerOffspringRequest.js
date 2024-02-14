@@ -12,15 +12,14 @@ import PHYSICAL_STREET from "@salesforce/schema/APT_Sub_Account__c.APT_Street_Ad
 import PHYSICAL_SUBURB from "@salesforce/schema/APT_Sub_Account__c.APT_Street_Address_Suburb__c";
 import PHYSICAL_STATE from "@salesforce/schema/APT_Sub_Account__c.APT_Street_Address_State__c";
 import PHYSICAL_POSTCODE from "@salesforce/schema/APT_Sub_Account__c.APT_Street_Address_Street_Postcode__c";
-import STATUS from "@salesforce/schema/APT_Sub_Account__c.APT_Sub_Account_Request_Status__c";
 import getSubAccounts from '@salesforce/apex/FollowerOffspringRequestController.getSubAccounts';
 import {refreshApex} from "@salesforce/apex";
 
 export default class CreateFollowerOffspringRequest extends NavigationMixin(LightningElement) {
-	// Can be either charge account ID or billing account ID
+	// can be either charge account ID or billing account ID
 	@api recordId;
 
-	// If current context is for billing account or charge account flow
+	// if current context is for billing account or charge account flow
 	@api isBillingAccount;
 
 	isEditLoading;
@@ -31,8 +30,6 @@ export default class CreateFollowerOffspringRequest extends NavigationMixin(Ligh
 	isListView = false;
 	subAccounts = [];
 	_wiredSubAccounts;
-	finalisedSubAccounts;
-	submittedSubAccounts;
 
 	/**
 	 * Wired sub accounts passed to list view
@@ -44,36 +41,16 @@ export default class CreateFollowerOffspringRequest extends NavigationMixin(Ligh
 		const {data, error} = result;
 		this._wiredSubAccounts = result;
 		if (data?.length > 0) {
-			this.subAccounts = data.filter(item => item[STATUS.fieldApiName] === 'Error' || item[STATUS.fieldApiName] === 'Draft').map(item => {
-				return {...item};
-			});
-			this.subAccounts.forEach(item => {
-				item.PhysicalAddressStr = item[PHYSICAL_STREET.fieldApiName] + ' ' + item[PHYSICAL_SUBURB.fieldApiName]
-					+ ' ' + item[PHYSICAL_STATE.fieldApiName] + ' ' + item[PHYSICAL_POSTCODE.fieldApiName];
-			});
-
-			this.finalisedSubAccounts = data.filter(item => item[STATUS.fieldApiName] === 'Pending Charge Account')
-				.map(item => {
-					return {...item};
-			});
-			this.finalisedSubAccounts.forEach(item => {
-				item.PhysicalAddressStr = item[PHYSICAL_STREET.fieldApiName] + ' ' + item[PHYSICAL_SUBURB.fieldApiName]
-					+ ' ' + item[PHYSICAL_STATE.fieldApiName] + ' ' + item[PHYSICAL_POSTCODE.fieldApiName];
-			});
-
-			this.submittedSubAccounts = data.filter(item => item[STATUS.fieldApiName] === 'Submitted')
-				.map(item => {
-					return {...item};
-				});
-			this.submittedSubAccounts.forEach(item => {
-				item.PhysicalAddressStr = item[PHYSICAL_STREET.fieldApiName] + ' ' + item[PHYSICAL_SUBURB.fieldApiName]
-					+ ' ' + item[PHYSICAL_STATE.fieldApiName] + ' ' + item[PHYSICAL_POSTCODE.fieldApiName];
+			this.subAccounts = data.map(item => {
+				return {...item, PhysicalAddressStr: item[PHYSICAL_STREET.fieldApiName] + ' ' + item[PHYSICAL_SUBURB.fieldApiName]
+						+ ' ' + item[PHYSICAL_STATE.fieldApiName] + ' ' + item[PHYSICAL_POSTCODE.fieldApiName]};
 			});
 
 			this.isABNConfirmation = false;
 			this.isListView = true;
 		} else if (data?.length === 0) {
 			this.isABNConfirmation = true;
+			this.isListView = false;
 		} else if (error) {
 			console.error(error);
 		}
@@ -104,6 +81,9 @@ export default class CreateFollowerOffspringRequest extends NavigationMixin(Ligh
 	handleCancel(event) {
 		if (event?.detail) {
 			if (this.subAccounts.length === 0) {
+				// User cancel the request, ABN to be reconfirmed
+				this.isABNConfirmation = true;
+				this.isEditView = false;
 				this[NavigationMixin.Navigate]({
 					type: 'standard__recordPage',
 					attributes: {
@@ -136,5 +116,12 @@ export default class CreateFollowerOffspringRequest extends NavigationMixin(Ligh
 	handleFinalise(event) {
 		this.refreshListView();
 		this.countFinalised += event.detail;
+	}
+
+	/**
+	 * Handle submit event from list view - refreshing sub accounts
+	 */
+	handleSubmit() {
+		this.refreshListView();
 	}
 }

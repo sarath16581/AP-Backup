@@ -30,7 +30,7 @@ export default class SubmitSubAccountsWrapper extends NavigationMixin(LightningE
 		if (data) {
 			if (data.SAP_marked_for_deletion__c === true) {
 				this.errorMessage = SUB_ACCOUNT_DELETION_ERROR_MESSAGE;
-			} else if (data.ABN__c == null) {
+			} else if (data.Source_System__c === 'TEAM' && data.ABN__c == null) {
 				this.errorMessage = SUB_ACCOUNT_NO_ABN_ERROR_MESSAGE;
 			} else if (data.Source_System__c === 'TEAM' && (data.LeaderAccount__c != null || data.PAYER_ACCOUNT_ID__c != null)) {
 				this.errorMessage = SUB_ACCOUNT_NOT_LEADER_ERROR_MESSAGE;

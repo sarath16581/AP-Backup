@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Apttus_Config2__AssetRestoreFields__c</fullName>
+    <deprecated>false</deprecated>
+    <description>Asset fields to be restored from original asset on re-selection of option during an abo operation. when this setting is having at least one asset field, start/end dates will be restored by default for renew operation.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Asset fields to be restored from original asset on re-selection of option during an abo operation. when this setting is having at least one asset field, start/end dates will be restored by default for renew operation.</inlineHelpText>
+    <label>Asset Restore Fields</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>TextArea</type>
+</CustomField>

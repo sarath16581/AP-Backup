@@ -30,7 +30,7 @@ private class CaseAutomationTriggerHandler_Test {
 
 		Map<String, List<SObject>> filteredGroupRecords = handler.primeRecordFilters(cases);
 
-		System.assertEquals(3, filteredGroupRecords.size());
+		System.assertEquals(4, filteredGroupRecords.size());
 
 		System.assertEquals(1, filteredGroupRecords.get('filterSSSW').size());
 		System.assertEquals(cases[0].Id, filteredGroupRecords.get('filterSSSW')[0].Id);
