@@ -6,7 +6,8 @@
  */
 
 public inherited sharing class CSQAutomationTriggerHandler extends ApplicationTriggerHandler{
-	private static final String PRE_APPROVAL_STATUS_NOT_APPLICABLE = 'Referred';
+	private static final String PRE_APPROVAL_STATUS_REFERRED = 'Referred';
+	private static final String PRE_APPROVAL_STATUS_PENDING_ONBOARDING = 'Pending Onboarding Approval';
 
 	public override SObjectType getSObjectType() {
 		return Customer_Scoping_Questionnaire__c.SObjectType;
@@ -23,18 +24,23 @@ public inherited sharing class CSQAutomationTriggerHandler extends ApplicationTr
 	 */
 	public override Map<String, List<SObject>> primeRecordFilters(List<SObject> records) {
 		Map<String, List<SObject>> filteredRecords = new Map<String, List<SObject>>{
-				'filterCSQPreApproval' => new List<SObject>()
+				'filterCSQPreApprovalReferred' => new List<SObject>(),
+				'filterCSQPreApprovalPending' => new List<SObject>()
 		};
 		for(SObject record : records) {
-			if ((String)record.get('PreApprovalStatus__c') == PRE_APPROVAL_STATUS_NOT_APPLICABLE) {
-				filteredRecords.get('filterCSQPreApproval').add(record);
+			if ((String)record.get('PreApprovalStatus__c') == PRE_APPROVAL_STATUS_REFERRED) {
+				filteredRecords.get('filterCSQPreApprovalReferred').add(record);
+			}
+			if ((String)record.get('PreApprovalStatus__c') == PRE_APPROVAL_STATUS_PENDING_ONBOARDING) {
+				filteredRecords.get('filterCSQPreApprovalPending').add(record);
 			}
 		}
 		return filteredRecords;
 	}
 
 	public override void registerModules() {
-		registerModule(CSQPreApprovalAutomationModule.class, 'filterCSQPreApproval');
+		registerModule(CSQPreApprovalAutomationModule.class, 'filterCSQPreApprovalReferred');
+		registerModule(CSQPreApprovalPendingModule.class, 'filterCSQPreApprovalPending');
 	}
 
 	/**

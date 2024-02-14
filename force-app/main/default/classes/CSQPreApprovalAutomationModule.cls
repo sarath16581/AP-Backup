@@ -6,9 +6,26 @@
  */
 
 public inherited sharing class CSQPreApprovalAutomationModule extends ApplicationModule{
+	private static final String REFERRAL_ERROR = 'Please go to the CSQ record to ensure the Pre-Approval Referral Reasons field is not blank before rejecting the CSQ Pre-Approval.';
+
 	// Setup which triggers this module should respond to
 	public CSQPreApprovalAutomationModule() {
-		getTriggerEvents().enableAfterUpdate();
+		getTriggerEvents().enableBeforeUpdate().enableAfterUpdate();
+	}
+
+	/**
+	 * Called when a CSQ is being updated.
+	 * @param records list of CSQ records
+	 * @param existingRecords map of existing CSQ records
+	 * @param uow instance of UnitOfWork
+	 */
+	public override void onBeforeUpdate(List<SObject> records, Map<Id, SObject> existingRecords, ApplicationUnitOfWork uow) {
+		try {
+			enforceReferralReasons(records);
+		} catch (Exception ex) {
+			// Error Logged to Exception object for analysis
+			ApplicationLogger.getInstance().logException(ApplicationLogger.wrapException(ex), 'CSQ', CSQPreApprovalAutomationModule.class.getName(), 'onBeforeUpdate', 'Customer_Scoping_Questionnaire__c', ApplicationLogger.LoggingLevel.ERROR);
+		}
 	}
 
 	/**
@@ -19,15 +36,26 @@ public inherited sharing class CSQPreApprovalAutomationModule extends Applicatio
 	 */
 	public override void onAfterUpdate(List<SObject> records, Map<Id, SObject> existingRecords, ApplicationUnitOfWork uow) {
 		try {
-			enterCSQApprovalUponPreApprovalNotApplicable(records);
+			Set<SObjectField> monitoredFields = new Set<SObjectField>{Customer_Scoping_Questionnaire__c.PreApprovalStatus__c};
+			List<ApplicationRecursion.RecordState> changedRecords = ApplicationRecursion.getInstance().getProcessableRecords('CSQPreApprovalAutomationModule', records, existingRecords, monitoredFields);
+			enterCSQApprovalUponPreApprovalNotApplicable(changedRecords);
 		} catch (Exception ex) {
 			// Error Logged to Exception object for analysis
-			ApplicationLogger.getInstance().logException(ApplicationLogger.wrapException(ex), 'CSQ', CSQPreApprovalAutomationModule.class.getName(), 'onBeforeUpdate', 'Customer_Scoping_Questionnaire__c', ApplicationLogger.LoggingLevel.ERROR);
+			ApplicationLogger.getInstance().logException(ApplicationLogger.wrapException(ex), 'CSQ', CSQPreApprovalAutomationModule.class.getName(), 'onAfterUpdate', 'Customer_Scoping_Questionnaire__c', ApplicationLogger.LoggingLevel.ERROR);
 		}
 	}
 
-	private static void enterCSQApprovalUponPreApprovalNotApplicable(List<SObject> records) {
+	private static void enforceReferralReasons(List<SObject> records) {
 		for (Customer_Scoping_Questionnaire__c csq : (List<Customer_Scoping_Questionnaire__c>) records) {
+			if (String.isEmpty(csq.PreApprovalReferralReasons__c)) {
+				csq.addError(REFERRAL_ERROR);
+			}
+		}
+	}
+
+	private static void enterCSQApprovalUponPreApprovalNotApplicable(List<ApplicationRecursion.RecordState> changedRecords) {
+		for (ApplicationRecursion.RecordState recordState : changedRecords) {
+			Customer_Scoping_Questionnaire__c csq = (Customer_Scoping_Questionnaire__c) recordState.record;
 			Approval.ProcessSubmitRequest req1 = new Approval.ProcessSubmitRequest();
 			req1.setComments('Submitting request for approval.');
 			req1.setObjectId(csq.Id);
