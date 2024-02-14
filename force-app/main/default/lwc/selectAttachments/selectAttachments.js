@@ -1,6 +1,6 @@
 import { LightningElement, api, wire, track } from 'lwc';
 import {NavigationMixin} from "lightning/navigation";
-import { gql, graphql } from 'lightning/uiGraphQLApi';
+import { gql, graphql, refreshGraphQL } from 'lightning/uiGraphQLApi';
 
 // For Apttus Contracts
 import approvalMatrixImage from "@salesforce/resourceUrl/APTSpendDelegationMatrix";
@@ -28,8 +28,13 @@ export default class SelectAttachments extends NavigationMixin(LightningElement)
 		query: '$query',
 		variables: '$myVariables'
 	})
-	graphqlQueryResult({ data, errors }) {
+	graphqlQueryResult(result) {
+		this.graphqlData = result; // Store the result so refreshGraphql() can refresh it later
+
+		const { errors, data } = result;		
+
 		if (data) {
+
 			this.data = data.uiapi.query.ContentDocumentLink.edges.map((edge) => ({
 				Id: edge.node.ContentDocument.Id,
 				Title: edge.node.ContentDocument.Title.value,
@@ -146,6 +151,10 @@ export default class SelectAttachments extends NavigationMixin(LightningElement)
 				actionName: 'view'
 			}
 		})
+	}
+	@api
+	async handleRefresh() {
+		await refreshGraphQL(this.graphqlData);
 	}
 }
 
