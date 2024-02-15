@@ -89,10 +89,10 @@ public without sharing class APT_CheckoutController{
 	@AuraEnabled
 	public static boolean getProposalDocGenerationProgress(String proposalId){
 		List<Apttus_Proposal__Proposal__c> proposalDetails = APT_ProposalObjectsSelector.newInstance().selectByConfigIds(new set<ID>{(ID)proposalId});
-		Boolean isDocGenerationRunning = false;
-		if(proposalDetails != null)
-			isDocGenerationRunning = proposalDetails[0].APT_Document_Generation_in_Progress__c;
-		return isDocGenerationRunning;
+		if(proposalDetails != null){
+			return proposalDetails[0].APT_Document_Generation_in_Progress__c;
+		}
+		return false;
 	}
 
 	/**
@@ -171,13 +171,13 @@ public without sharing class APT_CheckoutController{
 	**/
 	@AuraEnabled
 	public static Boolean docGenerationRequired(string configId, Id proposalId, Boolean notificationDisabled){
-        Set<String> productNames = new Set<String>();
-        for(APT_Proposal_Doc_Generation_Products__mdt proposalProduct : [SELECT APT_Product_Name__c FROM APT_Proposal_Doc_Generation_Products__mdt]){
-            productNames.add(proposalProduct.APT_Product_Name__c);
-        }
+		Set<String> productNames = new Set<String>();
+		for(APT_Proposal_Doc_Generation_Products__mdt proposalProduct : [SELECT APT_Product_Name__c FROM APT_Proposal_Doc_Generation_Products__mdt]){
+			productNames.add(proposalProduct.APT_Product_Name__c);
+		}
 
 		List<Apttus_Config2__LineItem__c> lineItem = LineItemsSelector.newInstance().selectByProdConfIdAndProductName(new set<ID>{(ID)configId}, productNames);
-        if(lineItem != null && lineItem.size() > 0){
+		if(lineItem != null && lineItem.size() > 0){
 			if(notificationDisabled == true) {
 				Apttus_Proposal__Proposal__c proposalRecord = new Apttus_Proposal__Proposal__c();
 				proposalRecord.Id= proposalId;
@@ -186,8 +186,8 @@ public without sharing class APT_CheckoutController{
 				proposalsToBeUpdatedList.add(proposalRecord);
 				ApplicationDatabase.getInstance().dmlUpdate(proposalsToBeUpdatedList);
 			}
-            return true;
-        }
+			return true;
+		}
 
 		return false;
 	}
