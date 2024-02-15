@@ -7,8 +7,8 @@
 @IsTest
 private class BudgetAndRevenueModule_Test{
 	/**
-     * Testing of field updates on the module for before insert
-     */
+		* Testing of field updates on the module for before insert
+	*/
 	@IsTest
 	private static void testBeforeInsertPopulateUID() {
 		// =====================================
@@ -44,8 +44,8 @@ private class BudgetAndRevenueModule_Test{
 	}
 
 	/**
-     * Testing of field updates on the module for before update
-     */
+	 	* Testing of field updates on the module for before update
+	 */
 	@IsTest
 	private static void testBeforeUpdatePopulateUID() {
 		// =====================================
@@ -80,8 +80,8 @@ private class BudgetAndRevenueModule_Test{
 	}
 
 	/**
-     * Testing of field updates on the module for after insert
-     */
+	 	* Testing of field updates on the module for after insert
+	 */
 	@IsTest
 	private static void testAfterInsertUpdateGroupedRevenues() {
 		// =====================================
@@ -113,8 +113,8 @@ private class BudgetAndRevenueModule_Test{
 	}
 
 	/**
-     * Testing of field updates on the module for after update
-     */
+		* Testing of field updates on the module for after update
+	*/
 	@IsTest
 	private static void testAfterUpdateUpdateGroupedRevenues() {
 		// =====================================

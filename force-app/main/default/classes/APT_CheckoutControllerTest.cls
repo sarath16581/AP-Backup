@@ -20,16 +20,16 @@ public class APT_CheckoutControllerTest {
 		Account tempacct = ApplicationTestDataFactory.getAccounts(1, true)[0];
 		Opportunity opp = ApplicationTestDataFactory.getOpportunities(1, tempacct.Id, true)[0];
 		Apttus_Proposal__Proposal__c quote = APT_TestDataFactory.getAPTProposalRecord(1, opp.id, tempacct.Id, null, true)[0];
-        APT_Credit_Assessment__c cred = APT_TestDataFactory.getApttusCreditAssessment(1, quote.Id, true)[0];
+		APT_Credit_Assessment__c cred = APT_TestDataFactory.getApttusCreditAssessment(1, quote.Id, true)[0];
 
-        APT_CreditAssessmentSelector mockSelector1 = (APT_CreditAssessmentSelector) MockUtility.mockSelector(APT_CreditAssessmentSelector.class);
+		APT_CreditAssessmentSelector mockSelector1 = (APT_CreditAssessmentSelector) MockUtility.mockSelector(APT_CreditAssessmentSelector.class);
 		ApplicationDatabase mockDatabase1 = MockUtility.mockDatabase();
 		MockUtility.Mocks.startStubbing();
 		MockUtility.Mocks.when(mockSelector1.selectByProposalAndAssessStatus(new Set<Id>{(ID)quote.Id},
 														new Set<String> {APT_Constants.CREDIT_ASSESSMENT_STATUS_APPROVED, APT_Constants.CREDIT_ASSESSMENT_STATUS_AUTO_APPROVED})).thenReturn(
 			new List<APT_Credit_Assessment__c>(new List<APT_Credit_Assessment__c>{cred}));
 		MockUtility.Mocks.stopStubbing();
-        
+
 		Test.startTest();
 			String status = APT_CheckoutController.checkCreditAssessmentAndExecuteRateCardLogic(quote.id);
 			boolean result = APT_CheckoutController.initiateRateCardGeneration(quote.id);
@@ -37,8 +37,8 @@ public class APT_CheckoutControllerTest {
 
 		System.assertEquals(status, APT_Constants.STRING_RESPONSE_COMPLETE, 'Credit Assessment is completed');
 	}
-    
-    /**
+
+	/**
 	 * Test: when the method checkCreditAssessment is called, validate that the method successfully checks if credit assessment is due
 	 */
 	@IsTest
@@ -46,7 +46,7 @@ public class APT_CheckoutControllerTest {
 		Account tempacct = ApplicationTestDataFactory.getAccounts(1, true)[0];
 		Opportunity opp = ApplicationTestDataFactory.getOpportunities(1, tempacct.Id, true)[0];
 		Apttus_Proposal__Proposal__c quote = APT_TestDataFactory.getAPTProposalRecord(1, opp.id, tempacct.Id, null, true)[0];
-       
+
 		Test.startTest();
 			String status = APT_CheckoutController.checkCreditAssessmentAndExecuteRateCardLogic(quote.id);
 			boolean result = APT_CheckoutController.initiateRateCardGeneration(quote.id);
@@ -54,7 +54,6 @@ public class APT_CheckoutControllerTest {
 
 		System.assertEquals(status, APT_Constants.STRING_RESPONSE_INCOMPLETE, 'Credit Assessment is due');
 	}
-    
 
 	/**
 	 * Test: when the method checkoutOnly is called, validate that the method successfully finalizes the config
@@ -103,8 +102,8 @@ public class APT_CheckoutControllerTest {
 		MockUtility.Mocks.when(mockSelector1.selectByProdConfId(new set<ID>{(ID)prodConfig.Id})).thenReturn(
 			new List<Apttus_Config2__LineItem__c>(new List<Apttus_Config2__LineItem__c>{lineItem}));
 		MockUtility.Mocks.stopStubbing();
-        
-        LineItemsSelector mockSelector2 = (LineItemsSelector) MockUtility.mockSelector(LineItemsSelector.class);
+
+		LineItemsSelector mockSelector2 = (LineItemsSelector) MockUtility.mockSelector(LineItemsSelector.class);
 		ApplicationDatabase mockDatabase2 = MockUtility.mockDatabase();
 		MockUtility.Mocks.startStubbing();
 		MockUtility.Mocks.when(mockSelector2.selectByProdConfIdAndProductName(new set<ID>{(ID)prodConfig.Id}, new set<String>{'Australia Post Parcel Contract'})).thenReturn(
@@ -114,7 +113,7 @@ public class APT_CheckoutControllerTest {
 		Test.startTest();
 			String output = APT_CheckoutController.checkoutOnly(prodConfig.id);
 			Boolean checkWorkVeri = APT_CheckoutController.checkWorkVerification(prodConfig.id);
-        	Boolean docGenReq = APT_CheckoutController.docGenerationRequired(prodConfig.id);
+			Boolean docGenReq = APT_CheckoutController.docGenerationRequired(prodConfig.id);
 		Test.stoptest();
 
 		System.assert(output.contains('Error'), 'Checkout operation should not be completed due to missing data');

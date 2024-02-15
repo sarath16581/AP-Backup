@@ -75,7 +75,6 @@ export default class OppProductDataTable extends NavigationMixin(LightningElemen
 		if (data) {
 			// data
 			try {
-				console.log(JSON.stringify(data));
 				this.data = JSON.parse(JSON.stringify(data));
 				if (this.data.length===0) {
 					this.error = 'To see products on this page, you will need to add them via the Product Catalogue page within Apttus. Once you have added products, they will then be displayed on this page. For further help, please contact your local CRM Specialist.';
@@ -138,7 +137,6 @@ export default class OppProductDataTable extends NavigationMixin(LightningElemen
 		setOppProducts({ oppProds: copyData })
 			.then((result) => {
 				result = JSON.parse(result);
-				console.log('Result Status'+result.status);
 				if(result.status === 'Success'){
 					refreshApex(this.responseData).then(() => {this.isSpinning = false});
 					this.draftValues = [];
@@ -194,8 +192,6 @@ export default class OppProductDataTable extends NavigationMixin(LightningElemen
 	}
 
 	updateDataValues(updateItems) {
-		console.log('Entered Update Data Vlues');
-		console.log(JSON.stringify(updateItems));
 		let copyData = [... this.data];
 		for (let i = 0; i < copyData.length; i++) {
 			for(let j = 0; j < updateItems.length; j++){
@@ -267,7 +263,6 @@ export default class OppProductDataTable extends NavigationMixin(LightningElemen
 		//check for proposal APT_Document_Generation_in_Progress__c = false
 		getProposalDocGenerationProgress({ proposalId: proposalIdValue })
 			.then((result) => {
-				console.log('Is Proposal doc generation progress running ? : ' + result);
 				if(result === true) {
 					//still proposal doc generation is running, recheck after few seconds
 					this._interval = setTimeout(() => {

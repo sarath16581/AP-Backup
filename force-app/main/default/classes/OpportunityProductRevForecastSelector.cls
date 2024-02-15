@@ -24,8 +24,8 @@ public virtual inherited sharing class OpportunityProductRevForecastSelector ext
 
     public virtual override Set<SObjectField> getSObjectFieldList() {
         return new Set<SObjectField> {
-                OpportunityProductRevenueForecast__c.Id, 
-                OpportunityProductRevenueForecast__c.OpportunityProduct__c, 
+                OpportunityProductRevenueForecast__c.Id,
+                OpportunityProductRevenueForecast__c.OpportunityProduct__c,
                 OpportunityProductRevenueForecast__c.FinancialYear__c,
                 OpportunityProductRevenueForecast__c.Rev1__c,
                 OpportunityProductRevenueForecast__c.Rev2__c,

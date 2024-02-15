@@ -44,7 +44,7 @@ public virtual inherited sharing class AccountRelationshipSelector extends Appli
         return new Map<Id, AccountRelationship__c>((List<AccountRelationship__c>) Database.query(qb.toSoqlString()));
     }
     
-   public List<AccountRelationship__c> selectByParent(Set<Id> parentAccountsToInclude) {
+	public List<AccountRelationship__c> selectByParent(Set<Id> parentAccountsToInclude) {
 		return selectByParent(parentAccountsToInclude, new Set<Object>());
 	}
 
@@ -53,9 +53,22 @@ public virtual inherited sharing class AccountRelationshipSelector extends Appli
 		QueryBuilder qb = newQueryBuilder(selectorOptions)
 		.addConditions()
 		.add(new QueryBuilder.SimpleCondition('ParentAccount__c in :parentAccountsToInclude'))
-		.add(new QueryBuilder.SimpleCondition('Relationship__c = \'OPC\''))
-		.add(new QueryBuilder.SimpleCondition('(EndDate__c = NULL OR EndDate__c > :todaysDate)'))
 		.endConditions();
+		return (List<AccountRelationship__c>) Database.query(qb.toSoqlString());
+	}
+
+	public List<AccountRelationship__c> selectByOPCParentEndDateInFuture(Set<Id> parentAccountsToInclude) {
+		return selectByOPCParentEndDateInFuture(parentAccountsToInclude, new Set<Object>());
+	}
+
+	public List<AccountRelationship__c> selectByOPCParentEndDateInFuture(Set<Id> parentAccountsToInclude, Set<Object> selectorOptions) {
+		Date todaysDate = Date.today();
+		QueryBuilder qb = newQueryBuilder(selectorOptions)
+				.addConditions()
+				.add(new QueryBuilder.SimpleCondition('ParentAccount__c in :parentAccountsToInclude'))
+				.add(new QueryBuilder.SimpleCondition('Relationship__c = \'OPC\''))
+				.add(new QueryBuilder.SimpleCondition('(EndDate__c = NULL OR EndDate__c > :todaysDate)'))
+				.endConditions();
 		return (List<AccountRelationship__c>) Database.query(qb.toSoqlString());
 	}
 

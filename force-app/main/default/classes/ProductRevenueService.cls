@@ -132,7 +132,7 @@ public with sharing class ProductRevenueService {
         for(OpportunityLineItem item : items) {
             accountIds.add(item.Opportunity.AccountId);
         }
-        
+
         loadRelatedAccounts(accountIds);
         return reCalculateGroupRevenues(items);
     }
@@ -171,7 +171,7 @@ public with sharing class ProductRevenueService {
         }
         return updatedItems;
     }
-    
+
     /**
     * @description 	constructs a UID used to retrieve revenue records.
     * @param 			acountId - the account for the revenue record
@@ -483,9 +483,9 @@ public with sharing class ProductRevenueService {
             if (targetData != null) {
                 Double monthValue = getValueForMonth(targetData,targetMonth);
                 if (monthValue != null) {
-					totalSum += monthValue;
+                    totalSum += monthValue;
                     //commenting out below rather than deleting it, in case business change their mind about full/partial month revenue decisions
-					//totalSum += (i == 13) ? calculatePartialMonthValue(monthValue): monthValue;
+                    //totalSum += (i == 13) ? calculatePartialMonthValue(monthValue): monthValue;
                 }
             }
             // adjust target month and financial year.
@@ -500,11 +500,11 @@ public with sharing class ProductRevenueService {
         return totalSum;
     }
 
-	/**
-     * @param monthValue i.e. the revenue value for the month
-     *
-     * @return the partial or full revenue for the month base on the calculationDate
-     */
+    /**
+	 * @param monthValue i.e. the revenue value for the month
+	 *
+	 * @return the partial or full revenue for the month base on the calculationDate
+	 */
     private Double calculatePartialMonthValue(Double monthValue) {
         return (1 - calculationDate.day() / Date.daysInMonth(calculationDate.year(), calculationDate.month())) * monthValue;
     }
@@ -647,7 +647,7 @@ public with sharing class ProductRevenueService {
             return loadedRelatedAccountIds;
         }
 
-        for (AccountRelationship__c arr: AccountRelationshipSelector.newInstance().selectByParent(unloadedAccountIds)) {
+        for (AccountRelationship__c arr: AccountRelationshipSelector.newInstance().selectByOPCParentEndDateInFuture(unloadedAccountIds)) {
             relatedChildAccountsMap.get(arr.ParentAccount__c).add(arr.RelatedAccount__c);
             loadedRelatedAccountIds.add(arr.RelatedAccount__c);
         }

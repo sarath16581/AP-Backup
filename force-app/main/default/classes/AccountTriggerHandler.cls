@@ -28,9 +28,9 @@
 22.02.2021    L. Serafico (Mav3rik)           Added updateAccountTeamForLPO to add/update Team to allow Accounts to be visible to LPO
 1/12.2023		K. McGuire				OPC Replacement - update incremental and retained reveue for line items of reparented accounts
 **/
-  
+
 public with sharing class AccountTriggerHandler{
-    
+
     // class Variables
     private static AccountTriggerUtility accUtil;    // Helper class variable to call methods based on scenario
     //spingali - Added a inner class to elevate sharing access to Guest users.
@@ -42,14 +42,14 @@ public with sharing class AccountTriggerHandler{
       * @param             NA 
       * @return            Void
       * @throws            NA
-      */        
+      */
     public static void execute(){
-        
+
         accUtil = new AccountTriggerUtility();
         //spingali - Inner class AccessHoldingRoleandUser executes without sharing for guest users to be able to access data.
         accHoldRole = new AccountTriggerUtility.AccessHoldingRoleandUser();
-        
-        
+
+
         // Check for event type of trigger
         if(Trigger.isBefore){
             beforeHandler();        // invoke of before handler
@@ -58,14 +58,14 @@ public with sharing class AccountTriggerHandler{
             afterHandler();         // invoke of after handler
         }
     }
-    
+
     /**
       * @description       This method is handler for before events invoked by execute method.
                            Method invokes the helper class methods based on the scenario.                       
       * @param             NA 
       * @return            Void
       * @throws            NA
-      */  
+      */
     private static void beforeHandler(){
         // Check for type of operation
         if(Trigger.isInsert){
@@ -80,15 +80,15 @@ public with sharing class AccountTriggerHandler{
                 accUtil.checkLicenceInsert(trigger.new);
                 //method to insert holding role reference if does not exist
                 accUtil.insertHoldingROleRef();
-                /*** START OF UPDATE DYU MPB 12-AUG-2016 -  Validate if MPB Account  ***/ 
+                /*** START OF UPDATE DYU MPB 12-AUG-2016 -  Validate if MPB Account  ***/
                 List<Account> accountList = new List<Account>();
                 accountList = AccountTriggerUtility.mpbFilter(trigger.new, trigger.isInsert);
                 if(!accountList.isEmpty()){
                     //accUtil.PopulateAccountRootID(trigger.new, trigger.isInsert); 
                     SegmentationUtil.updateHubCatchment(accountList);
-                    accUtil.assignSalesDirector(accountList); 
+                    accUtil.assignSalesDirector(accountList);
                 }
-                
+
             }
         }
         else if(Trigger.isUpdate){
@@ -121,14 +121,14 @@ public with sharing class AccountTriggerHandler{
             }
         }
     }
-    
+
     /**
       * @description       This method is handler for after events invoked by execute method.
                            Method invokes the helper class methods based on the scenario.                          
       * @param             NA 
       * @return            Void
       * @throws            NA
-      */  
+      */
     private static void afterHandler() {
         // Check for type of operation
         if(Trigger.isInsert){
@@ -151,7 +151,7 @@ public with sharing class AccountTriggerHandler{
                 accUtil.updateLIneItemRevenues(trigger.new);
             }
         }
-          else if(Trigger.isUpdate){
+        else if(Trigger.isUpdate){
             // Methods to be invoked for after update event    
             if(AccountTriggerUtility.RUN_TRIGGER_AFTER_UPDATE){
                 AccountTriggerUtility.RUN_TRIGGER_AFTER_UPDATE = false;

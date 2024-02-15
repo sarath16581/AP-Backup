@@ -38,14 +38,14 @@ public with sharing class GroupedAccountProductRevSelector_Test {
 
         // Data Preparation
         MockUtility.disableTriggerExecution();
-        
+
         Account account = ApplicationTestDataFactory.getAccounts(1, false)[0];
         insert account;
-        
+
         //Create your product
         Product2 prod1 = new Product2(Name = 'Product 1',ProductCode = 'Pro-1',isActive = true,Product_Level_2__c = 'Pro Test 1');
         insert prod1;
-        
+
         // Create test data
         List<GroupedAccountProductRevenue__c> gaprRecs =  ApplicationTestDataFactory.getGroupedAccountProductRevenue(1, account.id, prod1.id, 2024, false);
         insert gaprRecs;

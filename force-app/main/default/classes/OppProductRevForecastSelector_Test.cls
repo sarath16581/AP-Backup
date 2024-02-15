@@ -40,17 +40,17 @@ public with sharing class OppProductRevForecastSelector_Test {
         // MockUtility.disableTriggerExecution(); // Uncomment if you have this utility
 
         // Create test data
-        
+
         Account account = ApplicationTestDataFactory.getAccounts(1, false)[0];
         insert account;
-        
+
         Opportunity oppRec = ApplicationTestDataFactory.getOpportunities(1, account.Id, false)[0];
         insert oppRec;
-            
+
         //Create product
         Product2 prod1 = new Product2(Name = 'Product 2',ProductCode = 'Pro-2',isActive = true,Product_Level_2__c = 'Pro Test 2');
         insert prod1;
-                
+
         //Create your pricebook entry
         Id pricebookId = Test.getStandardPricebookId();
         PricebookEntry pbEntry1 = new PricebookEntry(Pricebook2Id = pricebookId,Product2Id = prod1.Id,UnitPrice = 100.00,IsActive = true);
@@ -60,7 +60,7 @@ public with sharing class OppProductRevForecastSelector_Test {
         OpportunityLineItem oli1 = new OpportunityLineItem(OpportunityId = oppRec.Id,Quantity = 5,PricebookEntryId = pbEntry1.Id,
                 TotalPrice = 5 * pbEntry1.UnitPrice,Contract_Start_Date__c = Date.today(),Contract_End_Date__c = Date.today().addDays(3));
         insert oli1;
-        
+
 
         List<OpportunityProductRevenueForecast__c> opRevForecastRecs = ApplicationTestDataFactory.getOpportunityProductRevenueForecasts(1, oli1.id, false);
         insert opRevForecastRecs;

@@ -81,9 +81,9 @@ public with sharing class APRsSelector_Test {
 	}
 
 	/**
-     * Test:
-     *  Ensures that the selectors QueryBuilder is generating the correct output with related fields
-     */
+  	* Test:
+  	*  Ensures that the selectors QueryBuilder is generating the correct output with related fields
+  	*/
 	@IsTest
 	public static void testEnsureQueryBuilderProducesCorrectStringWithRelatedFields() {
 

@@ -11,10 +11,10 @@ public class OpportunityRevenueReportController {
     public static final String[] months = new String[] { 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec' };
 
     @testVisible
-    private static date calculationDate {
+    private static Date calculationDate {
         get {
             if (calculationDate == null) {
-                calculationDate = system.today();
+                calculationDate = System.today();
             }
             return calculationDate;
         }
@@ -38,9 +38,9 @@ public class OpportunityRevenueReportController {
         // all the accounts relevant to this opportunity. Used to retrieve budget and revenue records.
         Set<Id> relevantAccounts = new Set<Id>();
         // load opportunity line items for this opportunity
-        Map<Id,OpportunityLineItem> items = loadProductLineItems(opportunityId);
+        Map<Id,OpportunityLineItem> oppLineItem = loadProductLineItems(opportunityId);
         // the opportunity accountId is returned with the items, use the first one.
-        Id mainAccountId = items.values()[0].Opportunity.AccountId;
+        Id mainAccountId = oppLineItem.values()[0].Opportunity.AccountId;
         // add the main account to the relevant accounts
         relevantAccounts.add(mainAccountId);
         // get all the child accounts for the main accounts
@@ -52,24 +52,26 @@ public class OpportunityRevenueReportController {
         // add these to the relevant accounts
         relevantAccounts.addAll(relatedAccounts.keySet());
         Integer FY = getAustralianFinancialYear(calculationDate);
-        Integer startMonth = calculationDate.Month()-1;
+        Integer startMonth = calculationDate.month() - 1;
+
+		// the calculation for past months revenue counts back wards, so if it reaches zero it means it should reset the month to 12, and go the previous year
         if (startMonth == 0) {
-            startMonth =12;
+            startMonth = 12;
             FY -=1;
         }
         // retrieve relevant budget and revenues for all relevant accounts for this year and last (we need 12 months of sales data)
         Set<String> financialYears = new Set<String> {String.valueOf(FY-1), String.valueOf(FY)};
-        Map<String,Budget_and_Revenue__c> customerRevenues =  loadBudgetAndRevenueRecords(relevantAccounts, items.keySet(), financialYears);
+        Map<String,Budget_and_Revenue__c> customerRevenues =  loadBudgetAndRevenueRecords(relevantAccounts, oppLineItem.keySet(), financialYears);
         List<RevenueData> revenues = new List<RevenueData>();
         // get data row for main account
         RevenueData data = new RevenueData(childAccounts.get(mainAccountId)?.Name);
-        buildRevenueData(mainAccountId,items.values(),FY,startMonth,customerRevenues,data);
+        buildRevenueData(mainAccountId,oppLineItem.values(),FY,startMonth,customerRevenues,data);
         revenues.add(data);
         // get data rows for child accounts
         for (Account child : childAccounts.values()) {
             if (child.Id != mainAccountId) {
                 data = new RevenueData(child.Name);
-                if (buildRevenueData(child.Id,items.values(),FY,startMonth,customerRevenues,data)) {
+                if (buildRevenueData(child.Id,oppLineItem.values(),FY,startMonth,customerRevenues,data)) {
                     revenues.add(data);
                 }
 
@@ -79,7 +81,7 @@ public class OpportunityRevenueReportController {
         for (AccountRelationship__c relatedAccount : relatedAccounts.values()) {
             if (relatedAccount.relatedAccount__c != mainAccountId && !childAccounts.containsKey(relatedAccount.relatedAccount__c)) {
                 data = new RevenueData(relatedAccount.relatedAccount__r.Name);
-                if (buildRevenueData(relatedAccount.relatedAccount__c,items.values(),FY,startMonth,customerRevenues,data)) {
+                if (buildRevenueData(relatedAccount.relatedAccount__c,oppLineItem.values(),FY,startMonth,customerRevenues,data)) {
                     revenues.add(data);
                 }
             }
@@ -88,9 +90,9 @@ public class OpportunityRevenueReportController {
         return revenues;
     }
 
-    private static Boolean buildRevenueData(Id accountId,List<OpportunityLineItem> items,Integer targetYear, Integer targetMonth,Map<String,Budget_and_Revenue__c> customerRevenues,RevenueData data) {
+    private static Boolean buildRevenueData(Id accountId,List<OpportunityLineItem> oppLineItem,Integer targetYear, Integer targetMonth,Map<String,Budget_and_Revenue__c> customerRevenues,RevenueData data) {
         Boolean hasData = false;
-        for(OpportunityLineItem item : items) {
+        for(OpportunityLineItem item : oppLineItem) {
             Double amt = getSumOfPastTwelveMonths(accountId,item.Product2.Id,targetYear,targetMonth,customerRevenues);
             data.productRevenues.put(item.Product2.Name,amt);
             if (!hasData && amt>0 ) {
@@ -102,7 +104,7 @@ public class OpportunityRevenueReportController {
 
     private static Double getSumOfPastTwelveMonths(String accountId, String productId,Integer targetYear, Integer targetMonth,Map<String,Budget_and_Revenue__c> customerRevenues) {
         Double totalSum = 0.0;
-        // Iterate through the past 13 months
+        // Iterate through the past 12 months
         for (Integer i = 1; i <= 12; i++) {
             String uniqueId = ProductRevenueService.getUID(accountId,productId,String.valueOf(targetYear));
             Budget_and_Revenue__c targetRevenue = customerRevenues.get(uniqueId);
@@ -125,8 +127,7 @@ public class OpportunityRevenueReportController {
     }
 
     private static Double getValueForMonth(SObject record, Integer month) {
-        Double value = (Double)record.get(months[month-1]+SUFFIX);
-        return value == null ? 0 : value;
+        return (Double)record.get(months[month-1] + SUFFIX) ?? 0;
     }
 
     private static Integer getAustralianFinancialYear(Date dateToUse) {
@@ -134,7 +135,7 @@ public class OpportunityRevenueReportController {
     }
 
     private static Map<Id,OpportunityLineItem> loadProductLineItems(Id opportunityId) {
-        Map<Id,OpportunityLineItem> items = new Map<Id,OpportunityLineItem>();
+        Map<Id,OpportunityLineItem> oppLineItemMap = new Map<Id,OpportunityLineItem>();
         Map<SObjectType, Set<SObjectField>> fieldOverrides = new Map<SObjectType, Set<SObjectField>>{
                 OpportunityLineItem.SObjectType => new Set<SObjectField>{OpportunityLineItem.Id, OpportunityLineItem.Name,OpportunityLineItem.Quantity, OpportunityLineItem.Contract_Start_Date__c, OpportunityLineItem.Contract_End_Date__c,OpportunityLineItem.UnitPrice, OpportunityLineItem.TotalPrice, OpportunityLineItem.Annualised_Value__c, OpportunityLineItem.RetainedRevenue__c,OpportunityLineItem.IncrementalRevenue__c, OpportunityLineItem.TweleveMonthRevenue__c},
                 Product2.SObjectType => new Set<SObjectField>{Product2.Id,Product2.Name},
@@ -142,9 +143,9 @@ public class OpportunityRevenueReportController {
         };
         List<OpportunityLineItem> loadedItems = OpportunityLineItemSelector.newInstance(0, fieldOverrides).selectByOpportunity(new Set<Id>{opportunityId}, new Set<Object>{OpportunityLineItemSelector.Options.WITH_OPPORTUNITY, OpportunityLineItemSelector.Options.WITH_PRODUCT});
         for (OpportunityLineItem item : loadedItems) {
-            items.put(item.Product2Id, item);
+            oppLineItemMap.put(item.Product2Id, item);
         }
-        return items;
+        return oppLineItemMap;
     }
 
     private static Map<Id,Account> loadChildAccountMap(Id accountId) {
@@ -166,7 +167,7 @@ public class OpportunityRevenueReportController {
     private static Map<Id,AccountRelationship__c> loadRelatedAccounts(id accountId) {
         Map<Id,AccountRelationship__c> loadedRelatedAccountRelationships = new Map<Id,AccountRelationship__c>();
         Set<Object> selectorOptions = new set<Object>{AccountRelationshipSelector.Options.WITH_RELATED_ACCOUNT};
-        for (AccountRelationship__c arr: AccountRelationshipSelector.newInstance().selectByParent(new Set<Id>{accountId},selectorOptions)) {
+        for (AccountRelationship__c arr: AccountRelationshipSelector.newInstance().selectByOPCParentEndDateInFuture(new Set<Id>{accountId},selectorOptions)) {
             loadedRelatedAccountRelationships.put(arr.RelatedAccount__c,arr);
         }
         return loadedRelatedAccountRelationships;
