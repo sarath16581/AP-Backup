@@ -55,6 +55,10 @@
 &apos;Un-manifested Fee Refund&apos;,&apos;45&apos;,
 &apos;Manifest Correction Fee Credit&apos;,&apos;40&apos;,
 &apos;Oversize Charge&apos;,&apos;54&apos;,
+&apos;Manifest Correction Fee&apos; ,&apos;40&apos;,
+&apos;Peak Fee&apos;,&apos;47&apos;,
+&apos;Force Majeure Fee&apos;,&apos;48&apos;,
+&apos;Over Maximum Limits fee&apos;,&apos;&apos;,
 &apos; &apos;)</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <label>TEAM Reason Code</label>
