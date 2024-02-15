@@ -8,6 +8,7 @@
 *1.0 : 24-05-2023 : Yatika Bansal: Modified method checkCreditAssessmentAndExecuteRateCardLogic to check only approved credit assessments
 *1.0 : 14-08-2023 : Yatika Bansal: Added method docGenerationRequired to check if document generation is required before agreement generation
 *1.0 : 22-08-2023 : Bharat Patel: Added method getProposalDocGenerationProgress() to
+*	 : 15-02-2024 : Bharat Patel: Modified method docGenerationRequired(), add logic related to APT_Document_Notification_Off__c
 **/
 public without sharing class APT_CheckoutController{
 
@@ -18,7 +19,6 @@ public without sharing class APT_CheckoutController{
 		// get parameters from VF Page
 		configId = apexpages.currentPage().getParameters().get('id');
 		proposalId = apexpages.currentPage().getParameters().get('businessObjectId');
-        system.debug(apexpages.currentPage().getParameters() + configId + proposalId);
 	}
 
 	public String checkoutAttributes{
@@ -170,7 +170,7 @@ public without sharing class APT_CheckoutController{
 	*@return boolean
 	**/
 	@AuraEnabled
-	public static Boolean docGenerationRequired(string configId){
+	public static Boolean docGenerationRequired(string configId, Id proposalId, Boolean notificationDisabled){
         Set<String> productNames = new Set<String>();
         for(APT_Proposal_Doc_Generation_Products__mdt proposalProduct : [SELECT APT_Product_Name__c FROM APT_Proposal_Doc_Generation_Products__mdt]){
             productNames.add(proposalProduct.APT_Product_Name__c);
@@ -178,6 +178,14 @@ public without sharing class APT_CheckoutController{
 
 		List<Apttus_Config2__LineItem__c> lineItem = LineItemsSelector.newInstance().selectByProdConfIdAndProductName(new set<ID>{(ID)configId}, productNames);
         if(lineItem != null && lineItem.size() > 0){
+			if(notificationDisabled == true) {
+				Apttus_Proposal__Proposal__c proposalRecord = new Apttus_Proposal__Proposal__c();
+				proposalRecord.Id= proposalId;
+				proposalRecord.APT_Document_Notification_Off__c = true;
+				List<Apttus_Proposal__Proposal__c> proposalsToBeUpdatedList = new List<Apttus_Proposal__Proposal__c>();
+				proposalsToBeUpdatedList.add(proposalRecord);
+				ApplicationDatabase.getInstance().dmlUpdate(proposalsToBeUpdatedList);
+			}
             return true;
         }
 

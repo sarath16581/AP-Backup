@@ -2,6 +2,8 @@
   This apex class is handler class for apex trigger - APT_AsyncMergeCallTrigger
   Created By - Mausam Padhiyar
   Created Date - 24th June, 2016
+*Modifications Log
+* 15-02-2024 : Bharat Patel: Modified method beforeUpdateEvent(), add logic related to APT_Document_Notification_Off__c
 **/ 
 public with sharing class APT_AsyncMergeCallTriggerHandler {
 
@@ -48,7 +50,7 @@ public with sharing class APT_AsyncMergeCallTriggerHandler {
                             emailAddresses = r2tSystemProperties.APT_PricingBatchStatusEmailNotification__c;
                         }
                     }
-                    List<Apttus_Proposal__Proposal__c> proposalList = [select Id,Name,Apttus_Proposal__Approval_Stage__c,APT_Batch_Error_Message__c,APT_Create_Proposal_Batch_Id__c from Apttus_Proposal__Proposal__c where Id IN:proposalIdsToBeProcessed];
+                    List<Apttus_Proposal__Proposal__c> proposalList = [select Id, APT_Document_Notification_Off__c,Name,Apttus_Proposal__Approval_Stage__c,APT_Batch_Error_Message__c,APT_Create_Proposal_Batch_Id__c from Apttus_Proposal__Proposal__c where Id IN:proposalIdsToBeProcessed];
                     Set<ID> JobIDSet = new Set<ID>();
                     for(Apttus_Proposal__Proposal__c proposal : proposalList){
                         JobIDSet.add(proposal.APT_Create_Proposal_Batch_Id__c);
@@ -68,11 +70,9 @@ public with sharing class APT_AsyncMergeCallTriggerHandler {
                             proposal.APT_Next_Steps__c = null;
                         }
                         
+                        if(!proposal.APT_Document_Notification_Off__c) {
                                            // Send an email to the Apex job's submitter notifying of job completion.
                         mail = new Messaging.SingleEmailMessage();
-                        
-                        
-                        
                         toAddresses = new list<String>();
                         if(!(String.isEmpty(emailAddresses)) && !String.isEmpty(APT_Constants.EMPTY_STRING) &&  !emailAddresses.equalsIgnoreCase(APT_Constants.EMPTY_STRING)) {
                             toAddresses = emailAddresses.split(APT_Constants.SEPERATOR_COMMA);
@@ -88,6 +88,7 @@ public with sharing class APT_AsyncMergeCallTriggerHandler {
                         emaillist = new List<Messaging.SingleEmailMessage> (); 
                         emaillist.add(mail);
                         Messaging.sendEmail(emaillist);
+                        }
                         proposal.APT_Batch_Error_Message__c = null;
                         proposal.APT_Create_Proposal_Batch_Id__c = null;
                         

@@ -7,6 +7,7 @@
 * @description A test class for APT_CheckoutController
 * @changelog
 * 2023-08-14 - Yatika Bansal - Added test for docGenerationRequired 
+* 2024-02-15 : Bharat Patel: Modified method docGenerationRequired() signature
 */
 @IsTest
 public class APT_CheckoutControllerTest {
@@ -113,7 +114,7 @@ public class APT_CheckoutControllerTest {
 		Test.startTest();
 			String output = APT_CheckoutController.checkoutOnly(prodConfig.id);
 			Boolean checkWorkVeri = APT_CheckoutController.checkWorkVerification(prodConfig.id);
-        	Boolean docGenReq = APT_CheckoutController.docGenerationRequired(prodConfig.id);
+        	Boolean docGenReq = APT_CheckoutController.docGenerationRequired(prodConfig.id, quote.Id, true);
 		Test.stoptest();
 
 		System.assert(output.contains('Error'), 'Checkout operation should not be completed due to missing data');
