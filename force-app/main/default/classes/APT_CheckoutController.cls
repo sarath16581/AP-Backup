@@ -1,14 +1,14 @@
 /**
-*@description       : A class which performs various Validations and Actions when Checkout button
+*@description:A class which performs various Validations and Actions when Checkout button
 						 is clicked in shopping cart
-*@author            : Yatika Bansal
+*@author:Yatika Bansal
 *Modifications Log
 *1.0 : 09-03-2023 : Bharat Patel : Added method for OOTB finalize API to finalize the Proposal on 'Checkout Only' action from LWC
 *1.0 : 19-04-2023 : Nasir Jawed: Added method checkWorkVerification to check work Verification product added on the cart
 *1.0 : 24-05-2023 : Yatika Bansal: Modified method checkCreditAssessmentAndExecuteRateCardLogic to check only approved credit assessments
 *1.0 : 14-08-2023 : Yatika Bansal: Added method docGenerationRequired to check if document generation is required before agreement generation
 *1.0 : 22-08-2023 : Bharat Patel: Added method getProposalDocGenerationProgress() to
-*	: 15-02-2024 : Bharat Patel: Modified method docGenerationRequired(), add logic related to APT_Document_Notification_Off__c
+*15-02-2024 : Bharat Patel: Modified method docGenerationRequired(), add logic related to APT_Document_Notification_Off__c
 **/
 public without sharing class APT_CheckoutController{
 
