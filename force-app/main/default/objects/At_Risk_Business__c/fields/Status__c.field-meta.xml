@@ -65,6 +65,11 @@
                 <default>false</default>
                 <label>Rejected by Service Performance Manager</label>
             </value>
+            <value>
+                <fullName>Closed - No Outcome</fullName>
+                <default>false</default>
+                <label>Closed - No Outcome</label>
+            </value>
         </valueSetDefinition>
         <valueSettings>
             <controllingFieldValue>New</controllingFieldValue>
@@ -105,6 +110,10 @@
         <valueSettings>
             <controllingFieldValue>Closed</controllingFieldValue>
             <valueName>Business Migrated</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Closed</controllingFieldValue>
+            <valueName>Closed - No Outcome</valueName>
         </valueSettings>
     </valueSet>
 </CustomField>

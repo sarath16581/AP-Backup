@@ -2150,6 +2150,11 @@
         <field>Deal_Support_Request__c.Returns__c</field>
         <readable>true</readable>
     </fieldPermissions>
+	<fieldPermissions>
+        <editable>true</editable>
+        <field>Deal_Support_Request__c.RevenueType__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
         <field>Deal_Support_Request__c.Revenue_Impact_of_Recommendation__c</field>
@@ -3314,10 +3319,6 @@
     </recordTypeVisibilities>
     <recordTypeVisibilities>
         <recordType>Deal_Support_Request__c.Bids_Support_Request</recordType>
-        <visible>true</visible>
-    </recordTypeVisibilities>
-    <recordTypeVisibilities>
-        <recordType>Deal_Support_Request__c.Commercial_Analytics_Modelling</recordType>
         <visible>true</visible>
     </recordTypeVisibilities>
     <recordTypeVisibilities>

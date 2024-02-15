@@ -113,7 +113,7 @@ public with sharing class APTS_MergeTemplatesController{
             }
             
             //Query the custom setting records that have the same Record Type and Subtype
-			templateCS = [SELECT Id, Name, Compare_against_IPL__c, Template_Product_Name__c, Sequence_No__c, Template_ID__c, Default_Document_Output__c, Security_Level__c,
+            templateCS = [SELECT Id, Name, Compare_against_IPL__c, Template_Product_Name__c, Sequence_No__c, Template_ID__c, Default_Document_Output__c, Security_Level__c,
                          APT_Check_Against_NPL__c, APT_Change_in_Pricing__c, APT_Rate_Type__c
                          FROM APT_R2T_Templates_Settings__c 
                          WHERE Record_Type_API__c = :Agreement.RecordType.DeveloperName 
@@ -124,7 +124,7 @@ public with sharing class APTS_MergeTemplatesController{
                                AND
                                Settings_Type__c = 'Template'
                          ORDER BY Sequence_No__c];
-		    system.debug('DDDD query after templateCS'+templateCS.size());
+            
             //Set noFile to false if there are at least one template retrived
             if(templateCS.size() > 0) {
                 noFile = false;
@@ -185,14 +185,6 @@ public with sharing class APTS_MergeTemplatesController{
                 for(R2T_Exempted_Contract_Settings__mdt rec : [SELECT MasterLabel,DeveloperName FROM R2T_Exempted_Contract_Settings__mdt]){
                     excludedProdLinesSet.add(rec.MasterLabel.toLowerCase());
                 }
-				
-				system.debug('DDDD tmpCS.Template_Product_Name__c'+tmpCS.Template_Product_Name__c);
-				//system.debug('DDDD excludedProdLinesSet.contains(Agreement.Included_Product_Lines__c.toLowerCase())'+excludedProdLinesSet.contains(Agreement.Included_Product_Lines__c.toLowerCase()));
-				
-				system.debug('DDDD EE tmpCS.Compare_against_IPL__c'+tmpCS.Compare_against_IPL__c);
-				//system.debug('DDDD EE excludedProdLinesSet.contains(Agreement.Included_Product_Lines__c.toLowerCase())'+excludedProdLinesSet.contains(Agreement.Included_Product_Lines__c.toLowerCase()));
-				//system.debug('DDDD EE Agreement.Included_Product_Lines__c.Contains(tmpCS.Template_Product_Name__c)'+Agreement.Included_Product_Lines__c.Contains(tmpCS.Template_Product_Name__c));
-				
                 //31052019-check for the custom setting record where no product is defined(i.e. cover page) and add in the remove list to not show it for the exempted prods
                 if(String.isBlank(tmpCS.Template_Product_Name__c) && (excludedProdLinesSet.contains(Agreement.Included_Product_Lines__c.toLowerCase()))){
                     removeTemplateCS.add(tmpCS);
@@ -204,7 +196,6 @@ public with sharing class APTS_MergeTemplatesController{
                         removeTemplateCS.add(tmpCS);
                     }
                 }
-				system.debug('DDDD removeTemplateCS'+removeTemplateCS.size());
 
                 //For startrack
                 if(!String.isEmpty(Agreement.Included_Product_Lines__c) && Agreement.Included_Product_Lines__c.Contains(APT_Constants.PRODUCTTYPE_STARTRACK)) 
@@ -311,7 +302,6 @@ public with sharing class APTS_MergeTemplatesController{
             for(Integer i = 0; i < removeTemplateCSIndexes.size(); i++) {
                 templateCS.remove(removeTemplateCSIndexes[i] - i);
             }
-			system.debug('DDDD templateCS after deletion of custom setting list'+templateCS.size());
             
             
             List<String> templatesRefList = new List<String>();
