@@ -337,6 +337,7 @@ export default class chasMissingItemAddressLookup extends LightningElement {
 
 	mergeAddressFields(address) {
 		// Creates the event with the data.
+		const streetDetails = this.address;
 		const manualChangeEvent = new CustomEvent("streetchange", {
 			detail: this.address
 		});

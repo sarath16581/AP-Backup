@@ -7457,7 +7457,7 @@ We&apos;ll let you if it&apos;s successful. Thank you. Please do not reply.</val
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>SubAccountNoABNErrorMessage</shortDescription>
-        <value>Leader account does not have an ABN in TEAM, please contact Credit for assistance.</value>
+        <value>Leader account does not have an ABN in TEAM, please contact Credit Management for assistance.</value>
     </labels>
     <labels>
         <fullName>SubAccountNotLeaderErrorMessage</fullName>
@@ -7473,7 +7473,7 @@ We&apos;ll let you if it&apos;s successful. Thank you. Please do not reply.</val
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>SubAccountPeopleSoftErrorMessage</shortDescription>
-        <value>his request does not meet the minimum criteria to create a sub-account or follower/offspring account. A sub-account or follower/offspring account cannot be created for a Billing Account with Source System PeopleSoft.</value>
+        <value>This request does not meet the minimum criteria to create a sub-account or follower/offspring account. A sub-account or follower/offspring account cannot be created for a Billing Account with Source System PeopleSoft.</value>
     </labels>
     <labels>
         <fullName>SubmitBillingAccountProvisioningRequestPermissionsError</fullName>
@@ -8336,6 +8336,14 @@ We&apos;ll let you if it&apos;s successful. Thank you. Please do not reply.</val
         <value>Align additional charges, create dispatch ID, activate account &amp; provide Parcel Send access (if requested).</value>
     </labels>
     <labels>
+        <fullName>StarTrackSubAccountBlankEmailErrorMessage</fullName>
+        <categories>Billing Account Provisioning</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>StarTrackSubAccountBlankEmailErrorMessage</shortDescription>
+        <value>Email field on the Sub Account Contact record is blank. Please update the contact with valid email address.</value>
+    </labels>
+    <labels>
         <fullName>StarTrackSubAccountMaxFinalizeErrorMessage</fullName>
         <categories>Billing Account Provisioning</categories>
         <language>en_US</language>
@@ -8478,6 +8486,14 @@ We&apos;ll let you if it&apos;s successful. Thank you. Please do not reply.</val
         <protected>false</protected>
         <shortDescription>StarTrackSubAccountFinaliseConfirmation</shortDescription>
         <value>You cannot modify or delete the requests once finalised. The sub accounts will be created when the charge account request is submitted.</value>
+    </labels>
+    <labels>
+        <fullName>StarTrackSubAccountInactiveKeyContactErrorMessage</fullName>
+        <categories>Billing Account Provisioning</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>StarTrackSubAccountInactiveKeyContactErrorMessage</shortDescription>
+        <value>Status of the Sub Account Contact record is not active. Please select an active contact record to proceed.</value>
     </labels>
     <labels>
         <fullName>StarTrackSubAccountsSubmitConfirmationMessage</fullName>
