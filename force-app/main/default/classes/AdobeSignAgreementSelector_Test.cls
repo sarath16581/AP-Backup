@@ -1,9 +1,7 @@
 /**
-* @author Hasantha Liyanage
-* @date 2024-01-31
-* @changelog
-* 2024-01-31 - Hasantha Liyanage - Created
-*/
+ * Created by hasan on 31/01/2024.
+ */
+
 @IsTest
 private class AdobeSignAgreementSelector_Test {
     /**
@@ -81,7 +79,7 @@ private class AdobeSignAgreementSelector_Test {
 
         List <echosign_dev1__SIGN_Agreement__c>  agreements = AdobeSignTestDataFactory.getSignAgreements(2, account.Id, apttusContract.Id, false);
         agreements[0].echosign_dev1__Status__c = 'Out for Signature';
-        agreements[1].echosign_dev1__Status__c = 'Out for Signature';
+        agreements[1].echosign_dev1__Status__c = 'Waiting for Counter-Signature';
         insert agreements;
 
         Map<Id, echosign_dev1__SIGN_Agreement__c> mappedContacts = new Map<Id, echosign_dev1__SIGN_Agreement__c>(agreements);
