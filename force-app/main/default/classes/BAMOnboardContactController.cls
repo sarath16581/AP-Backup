@@ -3,7 +3,7 @@
  * Methods to support the sending of the provisioning request from Salesforce to Camunda
  * Inputs: ContactId
  * Output: Map with up to two payload strings - one for Provision, another for Deprovision
- *
+ * @Test : BAMOnboardContactController_Test
  * @author Victor Cheng
  * @date 2019-06-27
  * @group Merchant Portal
