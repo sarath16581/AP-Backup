@@ -282,8 +282,9 @@ public without sharing class BAMOnboardContactController {
         for (Map<String, Object> mapAppState : pageState) {
             //System.debug('app :: ' + mapAppState);
             Id appId = (Id) mapAppState.get(FIELD_ID);
-			BSPCanViewAllConsignments = (Boolean) mapAppState.get('BSPCanViewAllConsignments__c');
-
+			if(mapAppState.containsKey('BSPCanViewAllConsignments__c')){
+				BSPCanViewAllConsignments = (Boolean) mapAppState.get('BSPCanViewAllConsignments__c');
+			}
             // Contact Roles to upsert for this application
             List<Object> upserts = (List<Object>) mapAppState.get(FIELD_UPSERT);
             //System.debug('upsert ---- ' + upserts);
