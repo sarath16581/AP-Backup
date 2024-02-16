@@ -50,6 +50,7 @@ export default class CreateFollowerOffspringRequest extends NavigationMixin(Ligh
 			this.isEditView = false;
 			this.isListView = true;
 		} else if (data?.length === 0) {
+			this.subAccounts = [];
 			this.isABNConfirmation = true;
 			this.isEditView = false;
 			this.isListView = false;
@@ -86,6 +87,7 @@ export default class CreateFollowerOffspringRequest extends NavigationMixin(Ligh
 				// User cancel the request, ABN to be reconfirmed
 				this.isABNConfirmation = true;
 				this.isEditView = false;
+				this.isListView = false;
 				this[NavigationMixin.Navigate]({
 					type: 'standard__recordPage',
 					attributes: {
