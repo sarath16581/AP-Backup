@@ -13,6 +13,10 @@
 	
 	<template lwc:if={data}>
 		<lightning-card title="Select Attachments">
+			<lightning-button slot="actions" label="Refresh" title="Refresh"
+				icon-name="utility:refresh" onclick={handleRefresh}
+				class="slds-m-left_x-small">
+			</lightning-button>
 			<lightning-datatable
 				key-field="Id"
 				data={data}
