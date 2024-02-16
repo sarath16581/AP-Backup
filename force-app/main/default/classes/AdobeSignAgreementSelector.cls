@@ -32,7 +32,7 @@ public inherited sharing class AdobeSignAgreementSelector extends ApplicationSel
 
 	public virtual override Set<SObjectField> getSObjectFieldList() {
 		return new Set<SObjectField> {
-			echosign_dev1__SIGN_Agreement__c.Id, echosign_dev1__SIGN_Agreement__c.Name, echosign_dev1__SIGN_Agreement__c.echosign_dev1__Account__c, echosign_dev1__SIGN_Agreement__c.ApttusContract__c, echosign_dev1__SIGN_Agreement__c.echosign_dev1__Status__c	
+			echosign_dev1__SIGN_Agreement__c.Id, echosign_dev1__SIGN_Agreement__c.Name, echosign_dev1__SIGN_Agreement__c.echosign_dev1__Account__c, echosign_dev1__SIGN_Agreement__c.ApttusContract__c, echosign_dev1__SIGN_Agreement__c.echosign_dev1__Status__c, echosign_dev1__SIGN_Agreement__c.echosign_dev1__Account__c
 		};
 	}
 
