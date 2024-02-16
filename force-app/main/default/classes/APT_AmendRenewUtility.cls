@@ -29,7 +29,8 @@ Last Modified Date -  18th June, 2021 | INC1739984  : Making the SAP Contract In
 2023-10-19 - Bharat Patel - update afterAmend(), commented copyAttachments() execution, STP-9851 changes, remove copyAttachments(originalAgreementId, amendedAgreementId)
 2023-11-15 - Mahesh Parvathaneni - STP-9212 - Updated to remove the DoV: and Renewal: prefixes from the opportunity name while cloning
 2023-11-22 - Bharat Patel - STP-9770 - added resetOpportunityProposalPrimary(), to reset respected opportunity's proposal's primary flag
-2024-02-05 - Mahesh Parvathaneni - STP-8256 - Reset the cloned opportunity fields on Dov Increase and Renewal process 
+2024-02-05 - Mahesh Parvathaneni - STP-8256 - Reset the cloned opportunity fields on Dov Increase and Renewal process
+2024-02-15 - Mahesh Parvathaneni - STP-8256 - Updated the close date logic on cloned opportunity.
 */
 public without sharing class APT_AmendRenewUtility {
 
@@ -63,6 +64,12 @@ public without sharing class APT_AmendRenewUtility {
 				clonedOpportunity.Name = APT_Constants.CLASSIFICATION_RENEWAL + APT_Constants.SEPARATOR_COLON + removeDovRenewalPartsFromOppName(originalOpportunity.Name);
 				clonedOpportunity.LeadSource = APT_Constants.LEAD_SOURCE_CONTRACT_RENEWAL;
 				clonedOpportunity.ECLM_IsRenewal__c = true;
+				//Set close date for Renewal scenario 
+				//1.If Contract end date in the future then close date = contract end date
+				//2.If Contract end date in the past or blank then close date = today + 60 days
+				clonedOpportunity.CloseDate = (agreement.Apttus__Contract_End_Date__c != null && 
+								agreement.Apttus__Contract_End_Date__c > Date.today()) ? agreement.Apttus__Contract_End_Date__c : Date.today().addDays(60);
+
 				//reset the fields on the cloned opportunity
 				resetClonedOpportunityFields(clonedOpportunity);
 			} 
@@ -74,6 +81,8 @@ public without sharing class APT_AmendRenewUtility {
 				clonedOpportunity.Opportunity_SubType__c = APT_Constants.OPPORTUNITY_SUBTYPE_DoV_Increase;
 				clonedOpportunity.Name = APT_Constants.ACTION_NAME_DoV + APT_Constants.SEPARATOR_COLON  + removeDovRenewalPartsFromOppName(originalOpportunity.Name);
 				clonedOpportunity.LeadSource = APT_Constants.ACTION_NAME_DoV;
+				//Set close date = today + 60 days for DoV increase scenario
+				clonedOpportunity.CloseDate = Date.today().addDays(60);
 				//reset the fields on the cloned opportunity
 				resetClonedOpportunityFields(clonedOpportunity);
 				} 
@@ -96,9 +105,6 @@ public without sharing class APT_AmendRenewUtility {
 			clonedOpportunity.Contract_Start_Date__c = agreement.Apttus__Contract_End_Date__c;
 			if(agreement.Apttus__Contract_End_Date__c != null) {
 				clonedOpportunity.Contract_End_Date__c = agreement.Apttus__Contract_End_Date__c.addDays(365);
-				clonedOpportunity.CloseDate = agreement.Apttus__Contract_End_Date__c;
-			} else {
-				clonedOpportunity.CloseDate = date.today().addDays(365);
 			}
 			clonedOpportunity.ECLM_Original_Opportunity_No__c = agreement.Apttus__Related_Opportunity__c;
 			clonedOpportunity.NextStep = APT_Constants.OPPORTUNITY_NEXTSTEP_UPDATE_OPPORTUNITY_DETAILS;
