@@ -47,9 +47,11 @@ export default class CreateFollowerOffspringRequest extends NavigationMixin(Ligh
 			});
 
 			this.isABNConfirmation = false;
+			this.isEditView = false;
 			this.isListView = true;
 		} else if (data?.length === 0) {
 			this.isABNConfirmation = true;
+			this.isEditView = false;
 			this.isListView = false;
 		} else if (error) {
 			console.error(error);
