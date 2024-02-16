@@ -1803,6 +1803,17 @@
         </values>
     </picklistValues>
     <picklistValues>
+        <picklist>RevenueType__c</picklist>
+        <values>
+            <fullName>Increase Revenue</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>No Revenue Change or Decrease Revenue</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
         <picklist>SBU__c</picklist>
         <values>
             <fullName>CMS</fullName>

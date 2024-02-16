@@ -13,7 +13,6 @@ History:
 2022-11-04  Naveen Rajanna - REQ3018517 Add null check to prevent nullpointerexception for startrackDuplicateInboundEmail
 2023-02-09  Swati.mogadala@auspost.com.au - Added 'From Email address' check when filtering ST duplicate cases created from incoming emails
 2023-05-29  mahesh.parvathaneni@auspost.com.au - Added record type check for Transport Enquiry record type to not to update the EmailToCaseAddress__c
-2024-02-15	Snigdha/Naveen - Incident fix related to Spring'24 new field EmailRoutingAddressId
 **************************************************/
 public inherited sharing class EmailMessageUtil {
 

@@ -104,7 +104,7 @@
                 <behavior>Required</behavior>
                 <field>Support_Work_Type__c</field>
             </layoutItems>
-			<layoutItems>
+            <layoutItems>
                 <behavior>Required</behavior>
                 <field>RevenueType__c</field>
             </layoutItems>

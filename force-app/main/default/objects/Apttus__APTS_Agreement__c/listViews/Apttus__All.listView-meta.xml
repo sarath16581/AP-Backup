@@ -9,6 +9,10 @@
     <columns>Apttus__Contract_End_Date__c</columns>
     <columns>Record_Type_Name__c</columns>
     <filterScope>Everything</filterScope>
+    <filters>
+        <field>Apttus__Account__c</field>
+        <operation>contains</operation>
+        <value>sandwich</value>
+    </filters>
     <label>All</label>
-    <language>en_US</language>
 </ListView>

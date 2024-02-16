@@ -1,6 +1,7 @@
 /**
  * 2020-05-27 - Nathan Franklin - Included the search billing account selector table and fixed some minor UI bugs
  * 2023-07-08 - Mahesh Parvathaneni - Updated the appState to include the billing accounts
+ * 2024-02-16 - Jacob.Isaac@auspost.com.au - Added Consignment Searching option in Merchant Portal - REQ2982613
  */
 ({
 	onInitLoad : function(component, event, helper) {
@@ -64,6 +65,10 @@
 		helper.updateBillingAccountsVisibility(component, idRole);
 	}
 
+	, onChangeViewAllConsignment:function(component, event, helper){
+		let viewAllConsignment = event.getSource().get("v.checked");
+		helper.updateBSPCanViewAllConsignments(component,viewAllConsignment);
+	}	
 	// placeholder
 	, onChangeBillingAccount:function(component, event, helper) {
 

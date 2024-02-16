@@ -1,6 +1,7 @@
 /**
  * 2020-05-27 - Nathan Franklin - Included the search billing account selector table and fixed some minor UI bugs
  * 2023-07-08 - Mahesh Parvathaneni - Updated the appState to include the billing accounts
+ * 2024-02-16 - Jacob.Isaac@auspost.com.au - Added Consignment Searching option in Merchant Portal - REQ2982613
  */
 ({
 	/**
@@ -42,7 +43,7 @@
 			{
 				// current app status
 				app.applicationStatus = contactApplication.Status__c;
-
+				app.BSPCanViewAllConsignments__c = contactApplication.BSPCanViewAllConsignments__c;
 				// store the existing, using the naming convention
 				app.ContactRole__c = contactRole;
 				// need to store the Application Id here for easier mapping when creating SF Records on save
@@ -214,6 +215,21 @@
 			}
 		}
 	}
+	,updateBSPCanViewAllConsignments:function(component, viewAllConsignment)
+	{
+		try{
+		//appState.BSPCanViewAllConsignments__c = viewAllConsignment;
+		let pageState = component.get('v.pageState');
+		for(let i = 0; i < pageState.length; ++i)
+		{
+			let app = pageState[i];
+			app.BSPCanViewAllConsignments__c = viewAllConsignment;
+		}
+		}
+		catch(err){
+			console.error(err);
+		}
+	}
 
 	, findApplicationRoleById:function(component, idRole)
 	{
@@ -293,7 +309,7 @@
 	}
 
 	, submitCancellationRequest: function(component) {
-		console.debug('submitCancellationRequest');
+		//console.debug('submitCancellationRequest');
 
 		var contactId = component.get('v.contactId');
 
@@ -309,7 +325,7 @@
 
 			if (response.getState() == "SUCCESS") {
 				var objResponse = response.getReturnValue();
-				console.debug(objResponse);
+				//console.debug(objResponse);
 
 				// check for any user creation errors
 				if(objResponse.status == 'Error') {
@@ -337,7 +353,7 @@
 
 	, saveProvisionState:function(component)
 	{
-		console.debug('saveProvisionState');
+		////console.debug('saveProvisionState');
 		var pageState = component.get('v.pageState');
 		var anyChanges = false;
 
@@ -395,6 +411,7 @@
 					}
 				}
 			}
+			appState.upsert.BSPCanViewAllConsignments__c = appState.BSPCanViewAllConsignments__c;
 
 			// check if billing accounts need to be added
 			let appRole = this.findApplicationRoleById(component, pageRole.ApplicationRole__c)
@@ -402,7 +419,7 @@
 				if(appRole && appRole.ShowBillingAccount__c == true
 					&& (!pageRole.selectedEntities || pageRole.selectedEntities.length < 1))
 				{
-					console.debug('missing billing accounts for ' + i);
+					//console.debug('missing billing accounts for ' + i);
 					missingBillingAccounts = true;
 				}
 				else if (!appRole || appRole.ShowBillingAccount__c == false)
@@ -426,14 +443,14 @@
 		// Set the updated Primary Billing Account to the Contact
 		var contact = component.get('v.contactObj');
 		var primaryBillingAccount = contact.BillingAccount__c;
-		console.debug('Set new primaryBillingAccount', primaryBillingAccount);
+		//console.debug('Set new primaryBillingAccount', primaryBillingAccount);
 
 		// attempt to save regardless of UI changes, in case a Primary Billing Account has been added
 
 		component.set('v.showSpinner', true);
 
-		console.debug('pageState to send');
-		console.debug(pageState);
+		//console.debug('pageState to send');
+		//console.debug(pageState);
 
 		var contactId = component.get('v.contactId');
 		// send to apex for DML
@@ -448,8 +465,8 @@
 
 			if (response.getState() == "SUCCESS") {
 				var objResponse = response.getReturnValue();
-				console.debug('OnboardContactComponent::after save');
-				console.debug(objResponse);
+				//console.debug('OnboardContactComponent::after save');
+				//console.debug(objResponse);
 
 				// check for any user creation errors
 				if(objResponse.status == 'Error')
@@ -499,11 +516,11 @@
 						alert("Error message: " + 
 									errors[0].message);
 					}
-	                }
-	                else
-	                {       
-	                    alert('Error saving changes, please try again');
-	                }
+				}
+				else
+				{
+				alert('Error saving changes, please try again');
+				}
 			}
 			component.set('v.showSpinner', false);
 		});
@@ -556,8 +573,8 @@
 
 			if (response.getState() == "SUCCESS") {
 				var objResponse = response.getReturnValue();
-				console.debug('on save Deprovisioning request:');
-				console.debug(objResponse);
+				//console.debug('on save Deprovisioning request:');
+				//console.debug(objResponse);
 				window.location.reload();
 				return;
 
@@ -592,11 +609,11 @@
 						alert("Error message: " + 
 									errors[0].message);
 					}
-	                }
-	                else
-	                {       
-	                    alert('Error saving changes, please try again');
-	                }
+			}
+			else
+			{
+			alert('Error saving changes, please try again');
+			}
 			}
 			component.set('v.showSpinner', false);
 		});

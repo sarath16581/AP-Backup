@@ -11,6 +11,7 @@
 *			20-08-2023: Bharat Patel: update creditAssessAndRateCardLogic()'s assesment 'Completed' execute docGenerationRequired() process (CI-1026 resolve)
 *			13-10-2023: Bharat Patel: Implementation of STP-9640, on 'Generation Proposal Document' & 'Generation Agreement' actions navigate to Product Bulk Edit interface
 *			19-12-2023: Bharat Patel: Implementation of STP-9317, on 'Checkout Only' action request proposal document geration process initiated (if applicable for products)
+*			08-02-2024: Bharat Patel: Updated for 'Checkout Only' actions's respected conditional navigation
 */
 import { LightningElement, api, wire } from 'lwc';
 import { getRecord, getFieldValue } from 'lightning/uiRecordApi';
@@ -373,9 +374,14 @@ export default class APT_CheckoutLWC extends LightningElement {
 		checkoutOnly({ configId: this.configId })
 			.then((result) => {
 				if (result === 'success') {
+					if(this.isAmend){
 					//STP-9317 logic
 					//checks if doc generation is required
 					this.docGenerationRequired();
+					}
+					else {
+						this.navigateToUrl('/' + this.oppId);
+					}
 				} else {
 					this.error = result;
 				}
