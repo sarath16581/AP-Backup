@@ -167,7 +167,7 @@ public with sharing class AdobeSignCustomController {
 						}
 					}
 
-					insert contentVersions;
+					ApplicationDatabase.getInstance().dmlInsert(contentVersions);
 				}
 
 				return new Pagereference(ADOBE_SIGN_AGREEMENT_VIEW_PAGE + agreementId + '/view');
