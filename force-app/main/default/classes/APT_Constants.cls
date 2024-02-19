@@ -309,7 +309,7 @@ public with sharing class APT_Constants {
 	public static final String PRODUCT_CODE_MIN_COLLECTION_VALUE = 'Minimum Collection Value';
 	public static final String PRODUCT_CODE_EPARCEL_POST_RETURN = 'eParcel Post Return';
 	public static final String PRODUCT_CODE_POST_BILLPAY = 'Post Billpay';
-    public static final String PRODUCT_CODE_METRO = 'Metro';
+	public static final String PRODUCT_CODE_METRO = 'Metro';
 	public static final String PRODUCT_CODE_UNADDRESSED_MAIL_SERVICES = 'Unaddressed Mail Services';
 
 	//New Optional Products for new bundles
@@ -1519,8 +1519,8 @@ public with sharing class APT_Constants {
 	public static final String PARMA_O_ID = '&oid=';
 
 	public static final String RECORD_TYPE_POST_BILLPAY_CONTRACT = 'Post Billpay Contract';
-    public static final String RECORD_TYPE_POST_BILLPAY_OS = 'Post_BillPay';
-    public static final String PRODUCT_CODE_POSTBILLPAY ='PBP';
+	public static final String RECORD_TYPE_POST_BILLPAY_OS = 'Post_BillPay';
+	public static final String PRODUCT_CODE_POSTBILLPAY ='PBP';
 
 	public static final String SAP_CONTRACT_OBJECT = 'APT_SAP_Contracts__c';
 	public static final String FROM_SAP_CONTRACT_OBJECT = ' FROM APT_SAP_Contracts__c WHERE APT_Apttus_Contract__c = :originalAgreementId';
