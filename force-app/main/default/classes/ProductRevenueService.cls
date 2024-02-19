@@ -163,8 +163,8 @@ public with sharing class ProductRevenueService {
             if (record.Contract_Start_Date__c != null && record.Contract_End_Date__c!= null) {
                 // get last twelve months sales history
                 Double pastSales = getSumOfPastTwelveMonths(record.Opportunity.AccountId, record.Product2.Id);
-                // update the record based on current values   
-                updateRetainedIncremental(record,pastSales);
+                // update the record based on current values
+                updateRetainedIncrementalAnnualised(record,pastSales);
                 // add this record to the ones having been updated
                 updatedItems.add(record);
             }
@@ -177,7 +177,7 @@ public with sharing class ProductRevenueService {
     * @param 			acountId - the account for the revenue record
     * @param 			productId - the product for the revenue record
     * @param 			Year - the financial year of the revenue record
-    * @return        	A unique identifier that can be used to retrieve the revenue record   
+    * @return        	A unique identifier that can be used to retrieve the revenue record
     */
     public static String getUID(Id accountId, Id productId, String year) {
         String orgId = accountId == null ? '' : String.valueOf(accountId).substring(0, 15);
@@ -287,9 +287,36 @@ public with sharing class ProductRevenueService {
   * @param record    The OpportunityLineItem object to be updated.
   * @param pastSales The sales amount for the past twelve months for the account and product related to the record.
   */
-    private void updateRetainedIncremental(OpportunityLineItem record, Double pastSales) {
+    private void updateRetainedIncrementalContractPeriod(OpportunityLineItem record, Double pastSales) {
         // Calculations will be rounded contract whole months.
         Integer contractMonths = contractMonths(record);
+        // the value of the opportunity line item over its contract period
+        updateRetainedIncremental(record, pastSales, contractMonths);
+    }
+
+    /**
+* Updates the retained and incremental revenue fields for a given OpportunityLineItem record s
+* bbased on annualised value
+* @param record    The OpportunityLineItem object to be updated.
+* @param pastSales The sales amount for the past twelve months for the account and product related to the record.
+*/
+    private void updateRetainedIncrementalAnnualised(OpportunityLineItem record, Double pastSales) {
+        // Calculations will be rounded contract whole months.
+        Integer contractMonths = contractMonths(record);
+        // annualise values
+        if (contractMonths >12) contractMonths = 12;
+        // the value of the opportunity line item over its contract period
+        updateRetainedIncremental(record, pastSales, contractMonths);
+    }
+
+
+    /**
+* Updates the retained and incremental revenue fields for a given OpportunityLineItem record.
+* based on the historical sales value.
+* @param record    The OpportunityLineItem object to be updated.
+* @param pastSales The sales amount for the past twelve months for the account and product related to the record.
+*/
+    private void updateRetainedIncremental(OpportunityLineItem record, Double pastSales, Integer contractMonths) {
         // the value of the opportunity line item over its contract period    
         Double totalValue = record.TotalPrice;
         // the annual value of the opportunity line item
@@ -471,8 +498,7 @@ public with sharing class ProductRevenueService {
    * @param 			acountId - the account for the revenue record
    * @param 			productId - the product for the revenue record
    * @return        	the total sales value for the last twelve months for the specified account and product.      */
-    @testVisible
-    private Double getSumOfPastTwelveMonths(String AccountId, String productId) {
+    public Double getSumOfPastTwelveMonths(String AccountId, String productId) {
         Double totalSum = 0.0;
         // Iterate through the past 13 months
         Integer targetYear = getAustralianFinancialYear(calculationDate);
@@ -547,7 +573,6 @@ public with sharing class ProductRevenueService {
      * @return        	true if the sales history record was found.
     */
     private Integer addChildAccountRevenueRecursive(Id parentAccountId,Id productId, String year, GroupedAccountProductRevenue__c currentGroupedRevenue, Map<Id,Set<Id>> parentToChildAccountMap, Integer updateCount) {
-        system.debug('Looking for child accounts for '+parentAccountId);
         if (!parentToChildAccountMap.containsKey(parentAccountId)) {
             return updateCount;
         }
@@ -556,12 +581,9 @@ public with sharing class ProductRevenueService {
             return updateCount;
         }
         // records for child accounts of item account
-        system.debug('immediate child accounts found '+childAccounts);
         for (Id childAccountId : childAccounts) {
             String currentRevenueKey = getUID(childAccountId,productId, year);
-            system.debug('***** looking at the next child account for a revenue record using key =  '+currentRevenueKey);
             if(addRevenueValues(currentGroupedRevenue,currentRevenueKey)) {
-                system.debug('***** found budget and revenue record for this child account '+childAccountId);
                 updateCount++;
             }
             updateCount = addChildAccountRevenueRecursive(childAccountId,ProductId,year,currentGroupedRevenue,parentToChildAccountMap,updateCount);
@@ -636,7 +658,7 @@ public with sharing class ProductRevenueService {
     }
 
     private Set<Id> loadRelatedChildAccountMap(Set<Id> parentAccountsToInclude) {
-        set<Id> loadedRelatedAccountIds = new Set<Id>();
+        Set<Id> loadedRelatedAccountIds = new Set<Id>();
         if ( parentAccountsToInclude==null  || parentAccountsToInclude.isEmpty()) {
             return loadedRelatedAccountIds;
         }
