@@ -8,6 +8,7 @@
  * @changelog
  * 2021-03-30 - Shashwat.nath@auspost.com.au - Created
  * 2023-10-10 - paul.perry5@auspost.com.au - Added options for selecting related tasks and filtering status pending information
+ * 2024-02-19 - SteveL - Added selectByParentId
  */
 public with sharing class PickUpLocationSelector extends ApplicationSelector{
 	public enum Options {
@@ -43,7 +44,7 @@ public with sharing class PickUpLocationSelector extends ApplicationSelector{
 	public virtual override Set<SObjectField> getSObjectFieldList() {
 		return new Set<SObjectField> {
 			Pick_Up_Location__c.Id,Pick_Up_Location__c.Primary_Pick_Up_Location__c,Pick_Up_Location__c.Address__c, Pick_Up_Location__c.Postcode__c, Pick_Up_Location__c.Suburb__c,
-			Pick_Up_Location__c.Pick_up_Location_Status__c,Pick_Up_Location__c.OwnerId__c
+			Pick_Up_Location__c.Pick_up_Location_Status__c
 		};
 	}
 	/**
@@ -63,6 +64,18 @@ public with sharing class PickUpLocationSelector extends ApplicationSelector{
 	}
 	public virtual override QueryBuilder newQueryBuilder() {
 		return newQueryBuilder(new Set<Object>());
+	}
+
+	/**
+	 * @description Run a simple query to get records based on CSQ Id's
+	 */
+	public virtual List<Pick_Up_Location__c> selectByParentId(Set<Id> parentIds, Set<Object> selectorOptions) {
+		QueryBuilder.ConditionsManager cm = newQueryBuilder(selectorOptions)
+				.addConditions()
+				.add(new QueryBuilder.SimpleCondition(Pick_Up_Location__c.CSQ__c + ' in :parentIds'));
+
+		QueryBuilder qb = cm.endConditions();
+		return (List<Pick_Up_Location__c>) Database.query(qb.toSoqlString());
 	}
 
 	public virtual override QueryBuilder newQueryBuilder(Set<Object> selectorOptions) {

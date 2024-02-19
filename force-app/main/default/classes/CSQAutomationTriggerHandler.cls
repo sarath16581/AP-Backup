@@ -6,8 +6,10 @@
  */
 
 public inherited sharing class CSQAutomationTriggerHandler extends ApplicationTriggerHandler{
-	private static final String PRE_APPROVAL_STATUS_REFERRED = 'Referred';
-	private static final String PRE_APPROVAL_STATUS_PENDING_ONBOARDING = 'Pending Onboarding Approval';
+	public static final String PRE_APPROVAL_STATUS_REFERRED = 'Referred';
+	public static final String PRE_APPROVAL_STATUS_PENDING_ONBOARDING = 'Pending Onboarding Approval';
+	public static final String PRE_APPROVAL_STATUS_APPROVED = 'Approved';
+	public static final String APPROVAL_STATUS_SUBMITTED_FOR_APPROVAL = 'Submitted for approved';
 
 	public override SObjectType getSObjectType() {
 		return Customer_Scoping_Questionnaire__c.SObjectType;
@@ -25,22 +27,28 @@ public inherited sharing class CSQAutomationTriggerHandler extends ApplicationTr
 	public override Map<String, List<SObject>> primeRecordFilters(List<SObject> records) {
 		Map<String, List<SObject>> filteredRecords = new Map<String, List<SObject>>{
 				'filterCSQPreApprovalReferred' => new List<SObject>(),
-				'filterCSQPreApprovalPending' => new List<SObject>()
+				'filterCSQPreApprovalPending' => new List<SObject>(),
+				'filterCSQPreApprovalApproved' => new List<SObject>(),
+				'filterCSQApprovalSubmitted' => new List<SObject>()
 		};
 		for(SObject record : records) {
+			if ((String)record.get('PreApprovalStatus__c') == PRE_APPROVAL_STATUS_PENDING_ONBOARDING) {
+				filteredRecords.get('filterCSQPreApprovalPending').add(record);
+			}
 			if ((String)record.get('PreApprovalStatus__c') == PRE_APPROVAL_STATUS_REFERRED) {
 				filteredRecords.get('filterCSQPreApprovalReferred').add(record);
 			}
-			if ((String)record.get('PreApprovalStatus__c') == PRE_APPROVAL_STATUS_PENDING_ONBOARDING) {
-				filteredRecords.get('filterCSQPreApprovalPending').add(record);
+			if ((String)record.get('PreApprovalStatus__c') == PRE_APPROVAL_STATUS_APPROVED) {
+				filteredRecords.get('filterCSQPreApprovalApproved').add(record);
 			}
 		}
 		return filteredRecords;
 	}
 
 	public override void registerModules() {
-		registerModule(CSQPreApprovalAutomationModule.class, 'filterCSQPreApprovalReferred');
 		registerModule(CSQPreApprovalPendingModule.class, 'filterCSQPreApprovalPending');
+		registerModule(CSQPreApprovalAutomationModule.class, 'filterCSQPreApprovalReferred');
+		registerModule(CSQPreApprovalApprovedModule.class, 'filterCSQPreApprovalApproved');
 	}
 
 	/**

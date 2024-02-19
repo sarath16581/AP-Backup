@@ -54,16 +54,18 @@ public inherited sharing class CSQPreApprovalAutomationModule extends Applicatio
 	}
 
 	private static void enterCSQApprovalUponPreApprovalNotApplicable(List<ApplicationRecursion.RecordState> changedRecords) {
+		List<Approval.ProcessSubmitRequest> apRequests = new List<Approval.ProcessSubmitRequest>();
 		for (ApplicationRecursion.RecordState recordState : changedRecords) {
 			Customer_Scoping_Questionnaire__c csq = (Customer_Scoping_Questionnaire__c) recordState.record;
-			Approval.ProcessSubmitRequest req1 = new Approval.ProcessSubmitRequest();
-			req1.setComments('Submitting request for approval.');
-			req1.setObjectId(csq.Id);
-			req1.setSubmitterId(UserInfo.getUserId());
-			req1.setProcessDefinitionNameOrId('CSQ_Approval_Process1');
-			req1.setSkipEntryCriteria(true);
+			Approval.ProcessSubmitRequest req = new Approval.ProcessSubmitRequest();
+			req.setComments('Submitting request for approval.');
+			req.setObjectId(csq.Id);
+			req.setSubmitterId(UserInfo.getUserId());
+			req.setProcessDefinitionNameOrId('CSQ_Approval_Process1');
+			req.setSkipEntryCriteria(true);
 
-			Approval.process(req1);
+			apRequests.add(req);
 		}
+		Approval.process(apRequests);
 	}
 }
