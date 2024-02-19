@@ -68,7 +68,7 @@ public without sharing class APT_AmendRenewUtility {
 				//1.If Contract end date in the future then close date = contract end date
 				//2.If Contract end date in the past or blank then close date = today + 30 days
 				clonedOpportunity.CloseDate = (agreement.Apttus__Contract_End_Date__c != null && 
-								agreement.Apttus__Contract_End_Date__c > Date.today()) ? agreement.Apttus__Contract_End_Date__c : Date.today().addDays(30);
+								agreement.Apttus__Contract_End_Date__c > Date.today()) ? agreement.Apttus__Contract_End_Date__c : Date.today().addDays(APT_Constants.CLOSE_DATE_DEFAULT_DAYS);
 
 				//reset the fields on the cloned opportunity
 				resetClonedOpportunityFields(clonedOpportunity);
@@ -82,7 +82,7 @@ public without sharing class APT_AmendRenewUtility {
 				clonedOpportunity.Name = APT_Constants.ACTION_NAME_DoV + APT_Constants.SEPARATOR_COLON  + removeDovRenewalPartsFromOppName(originalOpportunity.Name);
 				clonedOpportunity.LeadSource = APT_Constants.ACTION_NAME_DoV;
 				//Set close date = today + 30 days for DoV increase scenario
-				clonedOpportunity.CloseDate = Date.today().addDays(30);
+				clonedOpportunity.CloseDate = Date.today().addDays(APT_Constants.CLOSE_DATE_DEFAULT_DAYS);
 				//reset the fields on the cloned opportunity
 				resetClonedOpportunityFields(clonedOpportunity);
 				} 

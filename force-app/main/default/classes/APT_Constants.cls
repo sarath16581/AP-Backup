@@ -45,6 +45,7 @@ Last Modified Date: 15th Feb, 2017 | 1550 | Credit Assessment Status - Completed
 2023-04-27 - Yatika bansal - Added Constant for Proposal Stage
 2023-05-29 - Yatika bansal - Added Constant for credit assessment auto-approval status
 2023-07-27 - Nasir JAwed - Added Constant BG BASE and Enterprize Onboarding
+2024-02-19 - Mahesh Parvathaneni - Added constant CLOSE_DATE_DEFAULT_DAYS
 **/
 public with sharing class APT_Constants {
 	//label
@@ -1696,4 +1697,6 @@ public with sharing class APT_Constants {
 	//Email
 	public static final String EMAIL_TEMP_AGREEMENT_SIGNED_AFTER_EXPIRY = 'APT_AgreementSignedAfterOfferExpiry';
 	public static final String ORG_WIDE_EMAIL_NO_REPLY = 'noreply@auspost.com.au';
+
+	public static final Integer CLOSE_DATE_DEFAULT_DAYS = 30;
 }
