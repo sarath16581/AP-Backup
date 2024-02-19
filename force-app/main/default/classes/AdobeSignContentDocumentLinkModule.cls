@@ -16,7 +16,6 @@ public inherited sharing class  AdobeSignContentDocumentLinkModule extends Appli
 	// Setup which triggers this module should respond to
 	public AdobeSignContentDocumentLinkModule() {
 		getTriggerEvents().enableAfterInsert();
-		getTriggerEvents().enableBeforeDelete();
 	}
 
 

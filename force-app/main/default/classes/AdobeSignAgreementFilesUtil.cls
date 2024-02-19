@@ -36,7 +36,8 @@ public inherited sharing class AdobeSignAgreementFilesUtil {
 		Map<Id,ContentDocument> contentDocuments = ContentDocumentsSelector.newInstance().selectById(contentDocumentIds);
 
 		// Query echosign_dev1__SIGN_Agreement__c records related to the collected IDs
-		List <echosign_dev1__SIGN_Agreement__c> envelopes = AdobeSignAgreementSelector.newInstance().selectById(agreementIds);
+		// signed documents are only available in signed envelopes
+		List <echosign_dev1__SIGN_Agreement__c> envelopes = AdobeSignAgreementSelector.newInstance().selectById(agreementIds, new Set<Object>());
 
 		// Populate the map with echosign_dev1__SIGN_Agreement__c records
 		Map<Id, echosign_dev1__SIGN_Agreement__c> agreementsMap = new Map<Id, echosign_dev1__SIGN_Agreement__c>();
@@ -44,11 +45,18 @@ public inherited sharing class AdobeSignAgreementFilesUtil {
 			agreementsMap.put(envelope.Id, envelope);
 		}
 
+		// new links to be made with master records
 		List<ContentDocumentLink> linksToInsert = new List<ContentDocumentLink>();
+		// delete all the other documents except Signed document
+		List<ContentDocument> contentDocumentToDelete = new List<ContentDocument>();
 
 		for (ContentDocumentLink link : (List<ContentDocumentLink>)records) {
 			ContentDocument contentDocument = contentDocuments.get(link.ContentDocumentId);
+			// if the document is not the signed one then do not need to re-link but delete the document id the record status is signed.
 			if(!contentDocument.Title.containsIgnoreCase('- signed')) {
+				if(agreementsMap.get(link.LinkedEntityId) != null && 'Signed'.equalsIgnoreCase(agreementsMap.get(link.LinkedEntityId).echosign_dev1__Status__c)) {
+					contentDocumentToDelete.add(contentDocument);
+				}
 				continue;
 			}
 			if (link.LinkedEntityId.getSObjectType() == echosign_dev1__SIGN_Agreement__c.SObjectType) {
@@ -80,6 +88,10 @@ public inherited sharing class AdobeSignAgreementFilesUtil {
 			insert linksToInsert;
 		}
 
+		if (!contentDocumentToDelete.isEmpty()) {
+			delete contentDocumentToDelete;
+		}
+
 	}
 
 	/**
@@ -88,6 +100,8 @@ public inherited sharing class AdobeSignAgreementFilesUtil {
 	 * @param records ContentDocuments
 	 */
 	public static void preventDeletionOfSignedDocuments(List<SObject> records) {
+
+		// Prevent deletion of docusign -
 
 		Boolean hasCustomPermission = FeatureManagement.checkPermission('AllowDeleteOnAdobeSignContracts');
 		// Collect the Ids of ContentDocuments being deleted
