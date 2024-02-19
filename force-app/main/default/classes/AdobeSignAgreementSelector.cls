@@ -56,7 +56,8 @@ public inherited sharing class AdobeSignAgreementSelector extends ApplicationSel
 		conditions
 				.add(new QueryBuilder.SimpleCondition(echosign_dev1__SIGN_Agreement__c.ApttusContract__c + ' IN :apttusContractIds'))
 				.add(new QueryBuilder.CompareCondition(echosign_dev1__SIGN_Agreement__c.echosign_dev1__Status__c).eq('Out for Signature'))
-				.endConditions();
+				.add(new QueryBuilder.CompareCondition(echosign_dev1__SIGN_Agreement__c.echosign_dev1__Status__c).eq('Waiting for Counter-Signature'));
+				conditions.setConditionOrder('1 AND (2 OR 3)').endConditions();
 
 		qb.addOrder(new QueryBuilder.Order(echosign_dev1__SIGN_Agreement__c.CreatedDate).setSortingOrderDesc());
 
