@@ -20,7 +20,7 @@ public inherited sharing class CSQPreApprovalPendingModule extends ApplicationMo
 	 */
 	public override void onBeforeUpdate(List<SObject> records, Map<Id, SObject> existingRecords, ApplicationUnitOfWork uow) {
 		try {
-			checkPreApprovalEligibility(records);
+			checkPreApprovalEligibility(records, existingRecords);
 			unlockRecordForApprovalEditing(records);
 		} catch (Exception ex) {
 			// Error Logged to Exception object for analysis
@@ -32,12 +32,27 @@ public inherited sharing class CSQPreApprovalPendingModule extends ApplicationMo
 	/**
 	 * @description unlocks the record so the approver can edit the referral reasons
 	 * @param records List<SObject>
+	 * @param existingRecords Map<Id, SObject>
 	 */
-	private static void checkPreApprovalEligibility(List<SObject> records) {
+	private static void checkPreApprovalEligibility(List<SObject> records, Map<Id, SObject> existingRecords) {
 		Map<Id,Group> approverMap = GroupsSelector.newInstance().selectByGroupTypeAndDeveloperName(new Set<String>{'Queue'}, new Set<String>{'CSQ_Onboarding_Queue'});
+		List<Pick_Up_Location__c> locations = PickUpLocationSelector.newInstance().selectByParentId(existingRecords.keySet(), new Set<Object>());
+		Map<Id,Pick_Up_Location__c[]> csqLocations = new Map<Id,Pick_Up_Location__c[]>();
+		for (Pick_Up_Location__c location : locations) {
+			if (csqLocations.get(location.CSQ__c) == null || csqLocations.get(location.CSQ__c).isEmpty()) {
+				csqLocations.put(location.CSQ__c, new List<Pick_Up_Location__c>{location});
+			} else {
+				csqLocations.get(location.CSQ__c).add(location);
+			}
+		}
+
 		List<Approval.ProcessSubmitRequest> apRequests = new List<Approval.ProcessSubmitRequest>();
 		for (Customer_Scoping_Questionnaire__c csq : (List<Customer_Scoping_Questionnaire__c>) records) {
-			if (csq.Pick_up_Location_Record_Count_Total__c > 1) {
+			Set<String> uniqueAddress = new Set<String>();
+			for (Pick_Up_Location__c location : csqLocations.get(csq.Id)) {
+				uniqueAddress.add(concatenateLocationString(location));
+			}
+			if (uniqueAddress.size() > 1) {
 				csq.PreApprovalStatus__c = CSQAutomationTriggerHandler.PRE_APPROVAL_STATUS_REFERRED;
 				csq.PreApprovalReferralReasons__c = AUTO_REFERRAL_REASONS;
 			} else {
@@ -63,5 +78,15 @@ public inherited sharing class CSQPreApprovalPendingModule extends ApplicationMo
 		for (Customer_Scoping_Questionnaire__c csq : (List<Customer_Scoping_Questionnaire__c>) records) {
 			Approval.unlock(csq.Id);
 		}
+	}
+
+	/**
+	 * @param location Pick_Up_Location__c
+	 *
+	 * @return a single string containing address, state, and postcode with whitespace removed and to upper case
+	 */
+	private static String concatenateLocationString(Pick_Up_Location__c location) {
+		String locationString = location.Address__c + location.State__c + location.Postcode__c;
+		return locationString.deleteWhitespace().toUpperCase();
 	}
 }
