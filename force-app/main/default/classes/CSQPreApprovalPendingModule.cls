@@ -34,7 +34,7 @@ public inherited sharing class CSQPreApprovalPendingModule extends ApplicationMo
 	 * @param records List<SObject>
 	 */
 	private static void checkPreApprovalEligibility(List<SObject> records) {
-		Map<Id,Group> approverMap = GroupsSelector.newInstance().selectByGroupTypeAndName(new Set<String>{'Queue'}, new Set<String>{'CSQ_Onboarding_Queue'});
+		Map<Id,Group> approverMap = GroupsSelector.newInstance().selectByGroupTypeAndDeveloperName(new Set<String>{'Queue'}, new Set<String>{'CSQ_Onboarding_Queue'});
 		List<Approval.ProcessSubmitRequest> apRequests = new List<Approval.ProcessSubmitRequest>();
 		for (Customer_Scoping_Questionnaire__c csq : (List<Customer_Scoping_Questionnaire__c>) records) {
 			if (csq.Pick_up_Location_Record_Count_Total__c > 1) {
