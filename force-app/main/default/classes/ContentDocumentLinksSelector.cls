@@ -32,6 +32,11 @@ public virtual inherited sharing class ContentDocumentLinksSelector extends Appl
 		return (ContentDocumentLinksSelector)Application.Selectors.newInstance(ContentDocumentLinksSelector.class).setLimit(recordLimit).setFieldOverrides(fieldOverrides);
 	}
 
+	public static ContentDocumentLinksSelector newInstance(Map<SObjectType, Set<SObjectField>> fieldOverrides) {
+		ContentDocumentLinksSelector selector = (ContentDocumentLinksSelector)Application.Selectors.newInstance(ContentDocumentLinksSelector.class).setFieldOverrides(fieldOverrides);
+		return selector;
+	}
+
 	public  ContentDocumentLinksSelector newInstance(Integer recordLimit, Integer offsetLimit) {
 		return (ContentDocumentLinksSelector)Application.Selectors.newInstance(ContentDocumentLinksSelector.class).setLimit(recordLimit).setOffset(offsetLimit);
 	}
@@ -158,6 +163,7 @@ public virtual inherited sharing class ContentDocumentLinksSelector extends Appl
 	}
 
 	public virtual override QueryBuilder newQueryBuilder(Set<Object> selectorOptions) {
+		system.debug(selectorOptions);
 		QueryBuilder builder = super.newQueryBuilder(selectorOptions);
 
 		if(selectorOptions.contains(Options.WITH_CONTENTVERSION)) {

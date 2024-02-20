@@ -23,6 +23,7 @@ public inherited sharing class AdobeSignAgreementFilesUtil {
 	public static void processNewLinks(List<SObject> records) {
 
 		//TODO: handover to queueable?
+		//TODO: error handling to be added
 		// Collect IDs of echosign_dev1__SIGN_Agreement__c records linked to ContentDocumentLinks
 		Set<Id> agreementIds = new Set<Id>();
 		Set<Id> contentDocumentIds = new Set<Id>();
@@ -47,16 +48,11 @@ public inherited sharing class AdobeSignAgreementFilesUtil {
 
 		// new links to be made with master records
 		List<ContentDocumentLink> linksToInsert = new List<ContentDocumentLink>();
-		// delete all the other documents except Signed document
-		List<ContentDocument> contentDocumentToDelete = new List<ContentDocument>();
 
 		for (ContentDocumentLink link : (List<ContentDocumentLink>)records) {
 			ContentDocument contentDocument = contentDocuments.get(link.ContentDocumentId);
-			// if the document is not the signed one then do not need to re-link but delete the document id the record status is signed.
-			if(!contentDocument.Title.containsIgnoreCase('- signed')) {
-				if(agreementsMap.get(link.LinkedEntityId) != null && 'Signed'.equalsIgnoreCase(agreementsMap.get(link.LinkedEntityId).echosign_dev1__Status__c)) {
-					contentDocumentToDelete.add(contentDocument);
-				}
+			// if the document is not the signed one then do not need to re-link .
+			if(contentDocument == null || !contentDocument.Title.containsIgnoreCase('- signed')) {
 				continue;
 			}
 			if (link.LinkedEntityId.getSObjectType() == echosign_dev1__SIGN_Agreement__c.SObjectType) {
@@ -88,10 +84,57 @@ public inherited sharing class AdobeSignAgreementFilesUtil {
 			insert linksToInsert;
 		}
 
-		if (!contentDocumentToDelete.isEmpty()) {
-			delete contentDocumentToDelete;
+	}
+
+	/**
+	 * after update trigger logic to delete ContentDocuments which are not having '- Signed' in the Title
+	 * @param records new records
+	 * @param existingRecords old records
+	 */
+	public static void deleteContentDocuments(List<SObject> records, Map<Id, SObject> existingRecords) {
+		Set<Id> agreementIds = new Set<Id>();
+		Map<Id, List<ContentDocument>> agreementIdToContentDocumentsMap = new Map<Id, List<ContentDocument>>();
+
+		// Collecting Agreement Ids if the status has been changed to Signed
+		for (echosign_dev1__SIGN_Agreement__c agreement : (List<echosign_dev1__SIGN_Agreement__c>)records) {
+			echosign_dev1__SIGN_Agreement__c existingRecord = (echosign_dev1__SIGN_Agreement__c)existingRecords.get(agreement.Id);
+			if (existingRecord != null && agreement.echosign_dev1__Status__c == 'Signed' && existingRecord.echosign_dev1__Status__c != 'Signed') {
+				agreementIds.add(agreement.Id);
+			}
 		}
 
+
+		if (agreementIds.isEmpty()) {
+			return;
+		}
+
+		Map<Id, ContentDocumentLink> agreementContentDocumentLinks = ContentDocumentLinksSelector.newInstance().search(
+				new Map<String, Object>{ 'entityIds' => agreementIds},
+				new Set<Object>{
+						ContentDocumentLinksSelector.Options.WITH_CONTENTDOCUMENT
+				},true);
+		system.debug('HASANTHA agreementContentDocumentLinks ----- '+agreementContentDocumentLinks);
+		// Querying Related Content Documents
+		for (ContentDocumentLink link : agreementContentDocumentLinks.values()) {
+			if (!agreementIdToContentDocumentsMap.containsKey(link.LinkedEntityId)) {
+				agreementIdToContentDocumentsMap.put(link.LinkedEntityId, new List<ContentDocument>());
+			}
+			agreementIdToContentDocumentsMap.get(link.LinkedEntityId).add(link.ContentDocument);
+		}
+
+		List<ContentDocument> contentDocumentsToDelete = new List<ContentDocument>();
+		system.debug('HASANTHA agreementIdToContentDocumentsMap ----- '+agreementIdToContentDocumentsMap);
+		// Finding Content Documents without Title containing '- Signed'
+		for (Id agreementId : agreementIdToContentDocumentsMap.keySet()) {
+			for (ContentDocument document : agreementIdToContentDocumentsMap.get(agreementId)) {
+				if (document != null && !document.Title.containsIgnoreCase('- Signed')) {
+					contentDocumentsToDelete.add(document);
+				}
+			}
+		}
+		system.debug('HASANTHA contentDocumentsToDelete ----- '+contentDocumentsToDelete);
+		// Deleting Content Documents
+		delete contentDocumentsToDelete;
 	}
 
 	/**
@@ -101,9 +144,9 @@ public inherited sharing class AdobeSignAgreementFilesUtil {
 	 */
 	public static void preventDeletionOfSignedDocuments(List<SObject> records) {
 
-		// Prevent deletion of docusign -
-
+		// Prevent deletion of adobesign signed documnts
 		Boolean hasCustomPermission = FeatureManagement.checkPermission('AllowDeleteOnAdobeSignContracts');
+
 		// Collect the Ids of ContentDocuments being deleted
 		Set<Id> contentDocumentIds = new Set<Id>();
 		for (ContentDocument cd : (List<ContentDocument>)records) {
@@ -115,7 +158,7 @@ public inherited sharing class AdobeSignAgreementFilesUtil {
 
 
 		Map<Id, ContentDocumentLink> caseContentDocumentLinks = ContentDocumentLinksSelector.newInstance().search(
-				new Map<String, Object>{ 'entityIds' => contentDocumentIds},true);
+				new Map<String, Object>{ 'documentIds' => contentDocumentIds},true);
 		for (ContentDocumentLink cdl : caseContentDocumentLinks.values()) {
 			if (!contentDocumentLinksMap.containsKey(cdl.ContentDocumentId)) {
 				contentDocumentLinksMap.put(cdl.ContentDocumentId, new List<Id>());
@@ -127,8 +170,8 @@ public inherited sharing class AdobeSignAgreementFilesUtil {
 		for (ContentDocument cd : (List<ContentDocument>)records) {
 			if (contentDocumentLinksMap.containsKey(cd.Id)) {
 				for (Id linkedEntityId : contentDocumentLinksMap.get(cd.Id)) {
-					if (!hasCustomPermission && linkedEntityId.getSObjectType() == echosign_dev1__SIGN_Agreement__c.SObjectType) {
-						cd.addError('Cannot delete ContentDocument with a link to echosign_dev1__SIGN_Agreement__c');
+					if (!hasCustomPermission && linkedEntityId.getSObjectType() == echosign_dev1__SIGN_Agreement__c.SObjectType && cd.Title.containsIgnoreCase('- Signed')) {
+						cd.addError('Cannot delete ContentDocument with a link to a signed Agreement');
 					}
 				}
 			}
