@@ -1,4 +1,5 @@
 /**************************************************
+ * @test OpportunityLineItemTriggerHandler_Test
 Type: Trigger Handler for OpportunityLineItem Object
 Purpose: Handle Triggers for the OpportunityLineItem Object for a cleaner code coverage
 --------------------------------------------------
@@ -8,7 +9,7 @@ August 2, 2018 - Created by conrad.c.v.borbon
 14/03/2023 Nasir Jawed Added function populateRevenueDate() to inset the Revenue start/End Date when an OLI in inserted at beforeInsertActions
 02/05/2023 Ken McGuire modified opc recalculation calls to newly refactored methods.
 **************************************************/
-public without sharing class OpportunityLineItemTriggerHandler
+public without sharing class OpportunityLineItemTriggerHandler extends ApplicationTriggerHandler
 {
 	private static final String STR_LOWER_CASE_NO = 'no';
 	private static final Decimal THREE_MILLION = 3000000.00;
@@ -28,6 +29,32 @@ public without sharing class OpportunityLineItemTriggerHandler
 	@TestVisible
 	private static Set<Id> processedOpportunitiesForScoringUpdate = new Set<Id> ();
 
+    // Application Framework Implementation
+    public override void registerModules() {
+        registerModule(GroupedLineItemSalesModule.class);
+    }
+    
+	/**
+	 * This defines a list of objects that may be 'touched' during module execution. 
+	 * It also defines the order in which the work will be committed
+	 */
+	public static List<SObjectType> getUnitOfWorkSObjectTypes() {
+		return new List<SObjectType>{
+			OpportunityLineItem.SObjectType,
+			GroupedAccountProductRevenue__c.SObjectType
+		};
+	}
+    
+    public override SObjectType getSObjectType() {
+		return OpportunityLineItem.SObjectType;
+	}
+
+	public override ApplicationUnitOfWork newUnitOfWork() {
+		return ApplicationUnitOfWork.newInstance(getUnitOfWorkSObjectTypes());
+	}
+    
+    // Legacy
+    
 	public static void OpptyLineItemAfterDelete(List<OpportunityLineItem> oliList)
 	{
 		// Created by conrad.c.v.borbon - August 1, 2018 - START
@@ -375,25 +402,20 @@ public without sharing class OpportunityLineItemTriggerHandler
 		
 		// filter the line items for those which should be given OPC classifications
 		List<OpportunityLineItem> populateClassificationFilteredList = new List<OpportunityLineItem>();
-		
+		Set<id> oppIds = new Set<Id>();
 		for (OpportunityLineItem opli: newOppLineItemList)
 		{
 			if (opli.Contract_Start_Date__c != Null)
 			{
 				populateClassificationFilteredList.add(opli);
+                oppIds.add(opli.OpportunityId);
 			}
 		}
-		// assign the classification to the filtered list of line items.
-		OpportunityLineItemService.populateClassification(populateClassificationFilteredList);
 	}
 
-	public static void beforeUpdateActions(List<OpportunityLineItem> newOppLineItemList, Map<Id, OpportunityLineItem> oldRecMap)
-	{
-		OpportunityLineItemService.recalculateClassification(RecursionUtility.getUnprocessedRecords('Recalculate Classification', newOppLineItemList, Constants.optyLIComparisonFields()), oldRecMap);
-	}
+	public static void beforeUpdateActions(List<OpportunityLineItem> newOppLineItemList, Map<Id, OpportunityLineItem> oldRecMap) {}
 
-	public static void beforeDeleteActions(List<OpportunityLineItem> newOppLineItemList, Map<Id, OpportunityLineItem> oldRecMap)
-	{
+	public static void beforeDeleteActions(List<OpportunityLineItem> newOppLineItemList, Map<Id, OpportunityLineItem> oldRecMap) {
 		OpportunityLineItemService.beforeDeleteValidation(newOppLineItemList);
 	}
 }
