@@ -55,7 +55,7 @@ public inherited sharing class OpportunityRevenueScheduleModule extends Applicat
         Set<Id> closedWonOpportunityIds = new Set<Id>();
         for(ApplicationRecursion.RecordState recordState : changedRecords){
             Opportunity currentRecord = (Opportunity)recordState.record;
-            if(!String.isEmpty(currentRecord.StageName) && currentRecord.StageName == STAGE_CLOSED_WON){
+            if(currentRecord.StageName == STAGE_CLOSED_WON){
                 closedWonOpportunityIds.add(currentRecord.Id);
             }
         }
