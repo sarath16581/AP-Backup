@@ -6,6 +6,7 @@
  */
 
 public inherited sharing class CSQPreApprovalPendingModule extends ApplicationModule{
+	@TestVisible private static final String AUTO_REFERRAL_REASONS = 'Multiple pickup locations';
 	// Setup which triggers this module should respond to
 	public CSQPreApprovalPendingModule() {
 		getTriggerEvents().enableBeforeUpdate().enableAfterUpdate();
@@ -29,8 +30,8 @@ public inherited sharing class CSQPreApprovalPendingModule extends ApplicationMo
 	}
 
 	/**
-	 * @param changedRecords changed records
 	 * @description unlocks the record so the approver can edit the referral reasons
+	 * @param records List<SObject>
 	 */
 	private static void checkPreApprovalEligibility(List<SObject> records) {
 		Map<Id,Group> approverMap = GroupsSelector.newInstance().selectByGroupTypeAndName(new Set<String>{'Queue'}, new Set<String>{'CSQ_Onboarding_Queue'});
@@ -38,7 +39,7 @@ public inherited sharing class CSQPreApprovalPendingModule extends ApplicationMo
 		for (Customer_Scoping_Questionnaire__c csq : (List<Customer_Scoping_Questionnaire__c>) records) {
 			if (csq.Pick_up_Location_Record_Count_Total__c > 1) {
 				csq.PreApprovalStatus__c = CSQAutomationTriggerHandler.PRE_APPROVAL_STATUS_REFERRED;
-				csq.PreApprovalReferralReasons__c = 'DGs;Bulk Pallets'; //todo change this according to business decision
+				csq.PreApprovalReferralReasons__c = AUTO_REFERRAL_REASONS;
 			} else {
 				Approval.ProcessSubmitRequest req = new Approval.ProcessSubmitRequest();
 				req.setComments('Submitting request for approval.');
@@ -55,7 +56,7 @@ public inherited sharing class CSQPreApprovalPendingModule extends ApplicationMo
 	}
 
 	/**
-	 * @param changedRecords changed records
+	 * @param records List<SObject>
 	 * @description unlocks the record so the approver can edit the referral reasons
 	 */
 	private static void unlockRecordForApprovalEditing(List<SObject> records) {
