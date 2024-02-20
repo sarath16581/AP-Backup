@@ -4,10 +4,12 @@
 * @changelog
 * 2024-01-31 - Boris Bachovski - Created 
 */
-public inherited sharing class AdobeSignAgreementSelector extends ApplicationSelector {
+public virtual inherited sharing class AdobeSignAgreementSelector extends ApplicationSelector {
 
-	public enum Options {}
-
+	public enum Options {
+		FILTER_DRAFT_STATUS
+	}
+	
 	public static AdobeSignAgreementSelector newInstance() {
 		return (AdobeSignAgreementSelector)Application.Selectors.newInstance(AdobeSignAgreementSelector.class);
 	}
@@ -64,8 +66,26 @@ public inherited sharing class AdobeSignAgreementSelector extends ApplicationSel
 		return (List<echosign_dev1__SIGN_Agreement__c>) Database.query(qb.toSoqlString());
 	}
 
+	public virtual Database.QueryLocator selectDraftAgreementsOlderThan(Integer days, Set<Object> selectorOptions) {
+		QueryBuilder qb = selectDraftAgreementsOlderThanQueryBuilder(days, selectorOptions);
+		return Database.getQueryLocator(qb.toSoqlString());
+	}
+
+	public virtual QueryBuilder selectDraftAgreementsOlderThanQueryBuilder(Integer days, Set<Object> selectorOptions) {
+		QueryBuilder qb = newQueryBuilder(selectorOptions)
+				.addConditions()
+				.add(new QueryBuilder.SimpleCondition(echosign_dev1__SIGN_Agreement__c.CreatedDate + ' <= N_DAYS_AGO:' + days))
+				.endConditions();
+		return qb;
+	}
+
 	public virtual override QueryBuilder newQueryBuilder(Set<Object> selectorOptions) {
 		QueryBuilder builder = super.newQueryBuilder(selectorOptions);
+
+		if (selectorOptions.contains(Options.FILTER_DRAFT_STATUS)) {
+			builder.addConditions().add(new QueryBuilder.CompareCondition(echosign_dev1__SIGN_Agreement__c.echosign_dev1__Status__c).eq('Draft')).endConditions();
+		}
+
 		return builder;
 	}
 }

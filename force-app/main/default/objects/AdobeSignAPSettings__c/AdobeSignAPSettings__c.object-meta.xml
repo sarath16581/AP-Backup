@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customSettingsType>Hierarchy</customSettingsType>
+    <description>Custom settings for customisations related to the Adobe Sign implementation e.g. batch job to delete draft agreements.</description>
+    <enableFeeds>false</enableFeeds>
+    <label>Adobe Sign AP Settings</label>
+    <visibility>Public</visibility>
+</CustomObject>

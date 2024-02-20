@@ -109,7 +109,6 @@ public with sharing class AdobeSignCustomController {
 	 *	@return Page Reference
 	 */
 	private PageReference navigateToApptusAgreement() {
-		
 		Map <Id, Apttus__APTS_Agreement__c> contracts = ApttusContractsSelector.newInstance(1, new Map<SObjectType, Set<SObjectField>> { Apttus__APTS_Agreement__c.SObjectType => new Set<SObjectField>{Apttus__APTS_Agreement__c.DaysUntilContractExpires__c}})
 																				.selectById(new Set<Id> {masterId}, new Set<Object>{ApttusContractsSelector.Options.WITH_OPPORTUNITY});
 
@@ -138,36 +137,8 @@ public with sharing class AdobeSignCustomController {
 				// This is documented in the Adobe Sign Salesforce Developer Guide: https://helpx.adobe.com/sign/integrations/salesforce-developer-guide.html 
 				Id agreementId = echosign_dev1.AgreementTemplateService.load(apptusSetting.TemplateId__c, masterId, vars);
 
-				// Currently, Adobe Sign for Salesforce doesn't support the ability to attach multiple files (selected) to an agreement via the API or the UI
-				// The only options available are either Latest Document or All Documents.
-				// This is a workaround which creates new ContentVersion records for each attachment and then associates them with the agreement
 				if (String.isNotEmpty(params.get('attachmentids'))) {
-					List <Id> contentDocumentIds = params.get('attachmentids').split(',');					
-					
-					Map <Id, ContentVersion> contentVersionByContentDocumentId = new Map <Id, ContentVersion> ();
-					for (ContentVersion cv : ContentVersionsSelector.newInstance('CreatedDate', 'DESC').selectByContentDocumentId(new Set <Id> (contentDocumentIds), new set<Object> { ContentVersionsSelector.Options.IS_LATEST_VERSION }).values()) {
-						contentVersionByContentDocumentId.put(cv.ContentDocumentId, cv);
-					}
-					
-					List <ContentVersion> contentVersions = new List <ContentVersion> ();
-
-					// Iterate this way to ensure the order of the attachments is preserved
-					// Intended behaviour is to have the same order of attachments in the agreement as they were in the attachment list in the previous step (select attachments page)
-					for (Id contentDocumentId : contentDocumentIds) {
-						ContentVersion existingVersion = contentVersionByContentDocumentId.get(contentDocumentId);
-						
-						if (existingVersion != null) {
-							ContentVersion newVersion = new ContentVersion();
-							newVersion.Title  = existingVersion.Title;
-							newVersion.PathOnClient  = existingVersion.PathOnClient;
-							newVersion.VersionData = existingVersion.VersionData;
-							newVersion.IsMajorVersion = true;
-							newVersion.FirstPublishLocationId  = agreementId;
-							contentVersions.add(newVersion);
-						}
-					}
-
-					ApplicationDatabase.getInstance().dmlInsert(contentVersions);
+					createNewContentVersionsForSelectedDocuments(agreementId, params.get('attachmentids').split(','));
 				}
 
 				return new Pagereference(ADOBE_SIGN_AGREEMENT_VIEW_PAGE + agreementId + '/view');
@@ -184,6 +155,40 @@ public with sharing class AdobeSignCustomController {
 			ApexPages.addMessage(errorMsg);
 			return null;
 		}
+	}
+
+	// Create new contenet version for the documents attached to the agreement
+	// @param agreementId
+	// @param contentDocumentIds
+	// @return List<ContentVersion>
+	private void createNewContentVersionsForSelectedDocuments(Id agreementId, List <Id> contentDocumentIds) {
+		// Currently, Adobe Sign for Salesforce doesn't support the ability to attach multiple files (selected) to an agreement via the API or the UI
+		// The only options available are either Latest Document or All Documents.
+		// This is a workaround which creates new ContentVersion records for each attachment and then associates them with the agreement	
+		Map <Id, ContentVersion> contentVersionByContentDocumentId = new Map <Id, ContentVersion> ();
+		for (ContentVersion cv : ContentVersionsSelector.newInstance('CreatedDate', 'DESC').selectByContentDocumentId(new Set <Id> (contentDocumentIds), new set<Object> { ContentVersionsSelector.Options.IS_LATEST_VERSION }).values()) {
+			contentVersionByContentDocumentId.put(cv.ContentDocumentId, cv);
+		}
+		
+		List <ContentVersion> contentVersions = new List <ContentVersion> ();
+
+		// Iterate this way to ensure the order of the attachments is preserved
+		// Intended behaviour is to have the same order of attachments in the agreement as they were in the attachment list in the previous step (select attachments page)
+		for (Id contentDocumentId : contentDocumentIds) {
+			ContentVersion existingVersion = contentVersionByContentDocumentId.get(contentDocumentId);
+			
+			if (existingVersion != null) {
+				ContentVersion newVersion = new ContentVersion();
+				newVersion.Title  = existingVersion.Title;
+				newVersion.PathOnClient  = existingVersion.PathOnClient;
+				newVersion.VersionData = existingVersion.VersionData;
+				newVersion.IsMajorVersion = true;
+				newVersion.FirstPublishLocationId  = agreementId;
+				contentVersions.add(newVersion);
+			}
+		}
+
+		ApplicationDatabase.getInstance().dmlInsert(contentVersions);
 	}
 
 	/**
