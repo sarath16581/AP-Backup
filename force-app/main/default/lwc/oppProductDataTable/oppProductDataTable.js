@@ -7,7 +7,6 @@
  * 2023-04-12 - Harry Wang - Added new column Annualised Value on the datatable
  * 2023-05-05 - Harry Wang - refactor navigation and fix saving defects
  * 2023-10-16 - Bharat Patel - Implementation of STP-9640, 'Generation Proposal Document' & 'Generation Agreement' actions redirect to OPC
- * 2023-10-26 - Bharat Patel - Implementation of STP-9894, STP-9901, STP-9904, validation error reset on save, show progress of doc generation process
  */
 import {LightningElement, track, api , wire} from 'lwc';
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
@@ -44,24 +43,26 @@ export default class OppProductDataTable extends NavigationMixin(LightningElemen
 	get columns() {
 		return [
 			{ label: 'Product Name', fieldName: 'ProductName', editable: false, wrapText: true, initialWidth: 160},
-			{ label: 'Classification', fieldName: 'Classification__c', editable: false, initialWidth: 160},
-			{ label: 'Growth ?', fieldName: 'Growth', type: 'boolean',editable: true, wrapText: true, initialWidth: 160,
-				cellAttributes: { alignment: 'center' }
-			},
+			{ label: 'Expected Revenue Start Date', fieldName: 'Contract_Start_Date__c', type: 'date-local', editable: true, initialWidth: 160, iconName:'utility:stop'},
+			{ label: 'Expected Revenue End Date', fieldName: 'Contract_End_Date__c', type: 'date-local', editable: true, initialWidth: 160, iconName:'utility:stop'},
 			{ label: 'Quantity', fieldName: 'Quantity', type: 'Integer', editable: true, initialWidth: 160, iconName:'utility:stop'},
-			{ label: 'Revenue Start Date', fieldName: 'Contract_Start_Date__c', type: 'date-local', editable: true, initialWidth: 160, iconName:'utility:stop'},
-			{ label: 'Revenue End Date', fieldName: 'Contract_End_Date__c', type: 'date-local', editable: true, initialWidth: 160, iconName:'utility:stop'},
 			{ label: 'Unit Sales Price (Ex GST)', fieldName: 'UnitPrice', type: 'currency', editable: true ,initialWidth: 160, iconName:'utility:stop',
 				cellAttributes: { alignment: 'left' }
 			},
-			{ label: 'Total Price', fieldName: 'TotalPrice', type: 'currency', editable: false, initialWidth: 160,
+			{ label: 'Total Product Value', fieldName: 'TotalPrice', type: 'currency', editable: false, initialWidth: 160,
 				cellAttributes: { alignment: 'left' }
 			},
-			{ label: 'Annualised Value', fieldName: 'Annualised_Value__c', type: 'currency', editable: false, initialWidth: 160,
+			{ label: 'Annualised Product Value', fieldName: 'Annualised_Value__c', type: 'currency', editable: false, initialWidth: 160,
 				cellAttributes: { alignment: 'left' }
 			},
-			{ label: 'Contract Product?', fieldName: 'ContractProduct', type: 'boolean', editable: true, initialWidth: 160, iconName:'utility:stop',
-				cellAttributes: { alignment: 'center' }
+			{ label: 'Revenue Last 12 Months', fieldName: 'TweleveMonthRevenue__c', type: 'currency', editable: false, initialWidth: 160,
+				cellAttributes: { alignment: 'left' }
+			},
+			{ label: 'Retained Revenue', fieldName: 'RetainedRevenue__c', type: 'currency', editable: false, initialWidth: 160,
+				cellAttributes: { alignment: 'left' }
+			},
+			{ label: 'Incremental Revenue', fieldName: 'IncrementalRevenue__c', type: 'currency', editable: false, initialWidth: 160,
+				cellAttributes: { alignment: 'left' }
 			},
 			{ label: 'Quote Number', fieldName: 'Contract_Number__c', type: 'text', editable: true, initialWidth: 160}
 		];
@@ -74,7 +75,6 @@ export default class OppProductDataTable extends NavigationMixin(LightningElemen
 		if (data) {
 			// data
 			try {
-				console.log(JSON.stringify(data));
 				this.data = JSON.parse(JSON.stringify(data));
 				if (this.data.length===0) {
 					this.error = 'To see products on this page, you will need to add them via the Product Catalogue page within Apttus. Once you have added products, they will then be displayed on this page. For further help, please contact your local CRM Specialist.';
@@ -137,7 +137,6 @@ export default class OppProductDataTable extends NavigationMixin(LightningElemen
 		setOppProducts({ oppProds: copyData })
 			.then((result) => {
 				result = JSON.parse(result);
-				console.log('Result Status'+result.status);
 				if(result.status === 'Success'){
 					refreshApex(this.responseData).then(() => {this.isSpinning = false});
 					this.draftValues = [];
@@ -152,7 +151,8 @@ export default class OppProductDataTable extends NavigationMixin(LightningElemen
 						// notifyRecordUpdateAvailable will not trigger cache refresh as expected when second time user save changes on the bulk edit screen
 						getRecordNotifyChange(ids);
 						this.template.querySelector('lightning-datatable').selectedRows=[];
-						
+						//this.handleNavigateToOppProducts();
+
 						if(this.proposalId !== 'noProposal' && this.proposalId !== undefined && this.recalculateopc === false) {
 							this.isProposalDocumentFlow = true;
 						}
@@ -192,8 +192,6 @@ export default class OppProductDataTable extends NavigationMixin(LightningElemen
 	}
 
 	updateDataValues(updateItems) {
-		console.log('Entered Update Data Vlues');
-		console.log(JSON.stringify(updateItems));
 		let copyData = [... this.data];
 		for (let i = 0; i < copyData.length; i++) {
 			for(let j = 0; j < updateItems.length; j++){
@@ -272,24 +270,24 @@ export default class OppProductDataTable extends NavigationMixin(LightningElemen
 					}, 3000);
 				}
 				else {
-					this.isSpinning = false;
-					this.isProposalDocumentGenerationRunning = false;
-					//identify contract flow or proposal flow
-					if(this.isST !== undefined) {
-						//redirect to contract record
-						window.location.href = this.contractServiceDetailsUrl + this.proposalId + '&c__isST=' + this.isST + '&c__isManualContract=' + this.isManualContract + '&c__isAmend=' + this.isAmend + '&c__isRenew=' + this.isRenew;
-					}
-					else {
-						//redirect to proposal record
-						this[NavigationMixin.Navigate]({
-							type: 'standard__recordPage',
-							attributes: {
-								recordId: this.proposalId,
-								objectApiName: 'Apttus_Proposal__Proposal__c',
-								actionName: 'view'
-							}
-						});
-					}
+						this.isSpinning = false;
+						this.isProposalDocumentGenerationRunning = false;
+						//identify contract flow or proposal flow
+						if(this.isST !== undefined) {
+							//redirect to contract record
+							window.location.href = this.contractServiceDetailsUrl + this.proposalId + '&c__isST=' + this.isST + '&c__isManualContract=' + this.isManualContract + '&c__isAmend=' + this.isAmend + '&c__isRenew=' + this.isRenew;
+						}
+						else {
+							//redirect to proposal record
+							this[NavigationMixin.Navigate]({
+								type: 'standard__recordPage',
+								attributes: {
+									recordId: this.proposalId,
+									objectApiName: 'Apttus_Proposal__Proposal__c',
+									actionName: 'view'
+								}
+							});
+						}
 				}
 			})
 			.catch((error) => {
@@ -297,5 +295,5 @@ export default class OppProductDataTable extends NavigationMixin(LightningElemen
 				this.isLoading = false;
 				this.isProposalDocumentGenerationRunning = false;
 			});
-		}
+	}
 }

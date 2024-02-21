@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>RetainedRevenue__c</fullName>
+    <description>Represents the amount of revenue that the customer continues to provide in the current period, reflecting the consistency and stability of earnings from a particular customer.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Revenue consistently provided by the customer in the current period.</inlineHelpText>
+    <label>Retained Revenue</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>2</scale>
+    <securityClassification>INTERNAL</securityClassification>
+    <type>Currency</type>
+</CustomField>

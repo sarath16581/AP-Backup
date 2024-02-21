@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Rev7__c</fullName>
+    <description>This field captures the total revenue for the month of July.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Enter the total revenue for July.</inlineHelpText>
+    <label>Revenue July</label>
+    <precision>18</precision>
+    <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
+    <scale>2</scale>
+    <trackTrending>false</trackTrending>
+    <type>Currency</type>
+</CustomField>

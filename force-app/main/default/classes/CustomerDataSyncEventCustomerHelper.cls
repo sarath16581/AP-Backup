@@ -282,6 +282,11 @@ public inherited sharing class CustomerDataSyncEventCustomerHelper {
 	//map the fields from Person Account
 	private Account mapPersonAccountFields(CustomerDataSync__e e) {
 		Account acc = new Account();
+		if (e.archivedDateTime__c != null) {
+			acc.ArchivedDateTime__pc = e.archivedDateTime__c;
+			return acc;
+		}
+
 		acc.APCN__pc = e.apcn__c;
 		acc.APCN__c = e.apcn__c;
 		acc.OID_ID__pc = e.OIDID__c;
