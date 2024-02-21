@@ -402,7 +402,7 @@ private class AdobeSignCustomController_Test {
 		apttusContract = (Apttus__APTS_Agreement__c)ApplicationTestDataFactory.setUnwritableFields(apttusContract, new Map<String, Object>{'DaysUntilContractExpires__c' => '10'});
 		Map<Id, Apttus__APTS_Agreement__c> mockApttusContractMap = new Map<Id, Apttus__APTS_Agreement__c>{apttusContract.Id => apttusContract};
 
-		List <echosign_dev1__SIGN_Agreement__c>  agreements = AdobeSignTestDataFactory.getSignAgreements(1, account.Id, apttusContract.Id, true);
+		List <echosign_dev1__SIGN_Agreement__c>  agreements = ApplicationTestDataFactoryAdobeSign.getDraftAgreementsForApttusContract(1, apttusContract.Id, true);
 
 		// =====================================
 		// Stubbing
@@ -465,7 +465,7 @@ private class AdobeSignCustomController_Test {
 		// create contract
 		List<Apttus__APTS_Agreement__c> apttusContracts = ApplicationTestDataFactory.getApttusContracts(2, primaryContact.Id, opportunityRecord.Id, true);
 		// create agreement to pass to controller
-		echosign_dev1__SIGN_Agreement__c  agreement1 = AdobeSignTestDataFactory.getSignAgreements(1, account.Id, apttusContracts[0].Id, true)[0];
+		echosign_dev1__SIGN_Agreement__c  agreement1 = ApplicationTestDataFactoryAdobeSign.getDraftAgreementsForAccount(1, account.Id, true)[0];
 
 		// =====================================
 		// Stubbing not required
