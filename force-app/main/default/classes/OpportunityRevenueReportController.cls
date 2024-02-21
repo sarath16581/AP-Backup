@@ -138,7 +138,7 @@ public class OpportunityRevenueReportController {
 
     private static Map<Id,AccountRelationship__c> loadRelatedAccounts(id accountId) {
         Map<Id,AccountRelationship__c> loadedRelatedAccountRelationships = new Map<Id,AccountRelationship__c>();
-        Set<Object> selectorOptions = new set<Object>{AccountRelationshipSelector.Options.WITH_RELATED_ACCOUNT};
+        Set<Object> selectorOptions = new Set<Object>{AccountRelationshipSelector.Options.WITH_RELATED_ACCOUNT};
         for (AccountRelationship__c arr: AccountRelationshipSelector.newInstance().selectByOPCParentEndDateInFuture(new Set<Id>{accountId},selectorOptions)) {
             loadedRelatedAccountRelationships.put(arr.RelatedAccount__c,arr);
         }
