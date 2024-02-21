@@ -3,10 +3,13 @@
         
         // check if it is coming from a transfer to PO flow
         var mailProductsEnquiryType = component.get("v.wizardData.mailProductsEnquiryType");
-        if(!$A.util.isEmpty(mailProductsEnquiryType))
-        {
-           component.set("v.header","We've got your transfer request");
-        }
+        if(!$A.util.isEmpty(mailProductsEnquiryType)){
+			//Snigdha:Change for INC2297209	
+			if(mailProductsEnquiryType == 'Transfer to another post office')
+			{
+				component.set("v.header","We've got your transfer request");
+			}
+		}
 
 	    if(component.get('v.analyticsTriggerEvent')) {
             // identify whether the case created is new or there's an existing enquiry
