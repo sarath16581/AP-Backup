@@ -1,3 +1,0 @@
-<design:component label="cpMoreFeaturedContentOnLandingPage">
-	<design:attribute label="Number of Content Records" name="cppageSize" description="No. of Records per page"/>    
-</design:component>
