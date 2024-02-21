@@ -9,7 +9,7 @@ public class OpportunityRevenueReportController {
 
     public static final String SUFFIX = '_Revenue_Amount__c';
     public static final String[] months = new String[] { 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec' };
-
+	public static final String errorMessage = 'Failed to retrieve revenue data. Please contact your administrator.';
     @testVisible
     private static Date calculationDate {
         get {
@@ -37,56 +37,63 @@ public class OpportunityRevenueReportController {
     public static List<RevenueData> getRevenueData(String opportunityId) {
         // all the accounts relevant to this opportunity. Used to retrieve budget and revenue records.
         Set<Id> relevantAccounts = new Set<Id>();
-        // load opportunity line items for this opportunity
-        Map<Id,OpportunityLineItem> oppLineItem = loadProductLineItems(opportunityId);
-        // the opportunity accountId is returned with the items, use the first one.
-        Id mainAccountId = oppLineItem.values()[0].Opportunity.AccountId;
-        // add the main account to the relevant accounts
-        relevantAccounts.add(mainAccountId);
-        // get all the child accounts for the main accounts
-        Map<Id,Account> childAccounts = loadChildAccountMap(mainAccountId);
-        // add child accounts to relevant accounts
-        relevantAccounts.addAll(childAccounts.keySet());
-        // get any accounts manually related to the main account
-        Map<Id,AccountRelationship__c> relatedAccounts =  loadRelatedAccounts(mainAccountId);
-        // add these to the relevant accounts
-        relevantAccounts.addAll(relatedAccounts.keySet());
-        Integer FY = getAustralianFinancialYear(calculationDate);
-        Integer startMonth = calculationDate.month() - 1;
+		try {
+			// load opportunity line items for this opportunity
+			Map<Id,OpportunityLineItem> oppLineItem = loadProductLineItems(opportunityId);
+			// the opportunity accountId is returned with the items, use the first one.
+			Id mainAccountId = oppLineItem.values()[0].Opportunity.AccountId;
+			// add the main account to the relevant accounts
+			relevantAccounts.add(mainAccountId);
+			// get all the child accounts for the main accounts
+			Map<Id,Account> childAccounts = loadChildAccountMap(mainAccountId);
+			// add child accounts to relevant accounts
+			relevantAccounts.addAll(childAccounts.keySet());
+			// get any accounts manually related to the main account
+			Map<Id,AccountRelationship__c> relatedAccounts =  loadRelatedAccounts(mainAccountId);
+			// add these to the relevant accounts
+			relevantAccounts.addAll(relatedAccounts.keySet());
+			Integer FY = getAustralianFinancialYear(calculationDate);
+			Integer startMonth = calculationDate.month() - 1;
 
-		// the calculation for past months revenue counts back wards, so if it reaches zero it means it should reset the month to 12, and go the previous year
-        if (startMonth == 0) {
-            startMonth = 12;
-            FY -=1;
-        }
-        // retrieve relevant budget and revenues for all relevant accounts for this year and last (we need 12 months of sales data)
-        Set<String> financialYears = new Set<String> {String.valueOf(FY-1), String.valueOf(FY)};
-        Map<String,Budget_and_Revenue__c> customerRevenues =  loadBudgetAndRevenueRecords(relevantAccounts, oppLineItem.keySet(), financialYears);
-        List<RevenueData> revenues = new List<RevenueData>();
-        // get data row for main account
-        RevenueData data = new RevenueData(childAccounts.get(mainAccountId)?.Name);
-        buildRevenueData(mainAccountId,oppLineItem.values(),FY,startMonth,customerRevenues,data);
-        revenues.add(data);
-        // get data rows for child accounts
-        for (Account child : childAccounts.values()) {
-            if (child.Id != mainAccountId) {
-                data = new RevenueData(child.Name);
-                if (buildRevenueData(child.Id,oppLineItem.values(),FY,startMonth,customerRevenues,data)) {
-                    revenues.add(data);
-                }
+			// the calculation for past months revenue counts back wards, so if it reaches zero it means it should reset the month to 12, and go the previous year
+			if (startMonth == 0) {
+				startMonth = 12;
+				FY -=1;
+			}
+			// retrieve relevant budget and revenues for all relevant accounts for this year and last (we need 12 months of sales data)
+			Set<String> financialYears = new Set<String> {String.valueOf(FY-1), String.valueOf(FY)};
+			Map<String,Budget_and_Revenue__c> customerRevenues =  loadBudgetAndRevenueRecords(relevantAccounts, oppLineItem.keySet(), financialYears);
+			List<RevenueData> revenues = new List<RevenueData>();
+			// get data row for main account
+			RevenueData data = new RevenueData(childAccounts.get(mainAccountId)?.Name);
+			buildRevenueData(mainAccountId,oppLineItem.values(),FY,startMonth,customerRevenues,data);
+			revenues.add(data);
+			// get data rows for child accounts
+			for (Account child : childAccounts.values()) {
+				if (child.Id != mainAccountId) {
+					data = new RevenueData(child.Name);
+					if (buildRevenueData(child.Id,oppLineItem.values(),FY,startMonth,customerRevenues,data)) {
+						revenues.add(data);
+					}
 
-            }
-        }
-        // get data rows for related accounts
-        for (AccountRelationship__c relatedAccount : relatedAccounts.values()) {
-            if (relatedAccount.relatedAccount__c != mainAccountId && !childAccounts.containsKey(relatedAccount.relatedAccount__c)) {
-                data = new RevenueData(relatedAccount.relatedAccount__r.Name);
-                if (buildRevenueData(relatedAccount.relatedAccount__c,oppLineItem.values(),FY,startMonth,customerRevenues,data)) {
-                    revenues.add(data);
-                }
-            }
-        }
-
+				}
+			}
+			// get data rows for related accounts
+			for (AccountRelationship__c relatedAccount : relatedAccounts.values()) {
+				if (relatedAccount.relatedAccount__c != mainAccountId && !childAccounts.containsKey(relatedAccount.relatedAccount__c)) {
+					data = new RevenueData(relatedAccount.relatedAccount__r.Name);
+					if (buildRevenueData(relatedAccount.relatedAccount__c,oppLineItem.values(),FY,startMonth,customerRevenues,data)) {
+						revenues.add(data);
+					}
+				}
+			}
+		} catch (Exception ex) {
+			// Log the exception or perform any other error handling as needed
+			System.debug('Error retrieving revenue data: ' + ex.getMessage());
+			
+			// Rethrow as an AuraHandledException for the LWC to catch
+			throw new AuraHandledException(errorMessage);
+		}
         return revenues;
     }
 
