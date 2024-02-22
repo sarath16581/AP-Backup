@@ -1310,7 +1310,7 @@ public without sharing class APT_AmendRenewUtility {
 	 *This method will reset opportunity proposals Primary value
 	 *@param Id opportunityId
 	 */
-	private static void resetOpportunityProposalPrimary(Id opportunityId) {
+	public static void resetOpportunityProposalPrimary(Id opportunityId) {
 		//Querying the proposal record by using the opportunity id passed to the method newProposal() to check if there existing any proposal on the opportunity.
 		List<Apttus_Proposal__Proposal__c> existingProposalList = APT_ProposalObjectsSelector.newInstance().selectByOpportunityId(new Set<Id>{opportunityId});
 		List<Apttus_Proposal__Proposal__c> opportunityProposalsToUpdate = new List<Apttus_Proposal__Proposal__c>();
