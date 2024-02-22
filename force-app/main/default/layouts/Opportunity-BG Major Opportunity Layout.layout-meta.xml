@@ -2,6 +2,7 @@
 <Layout xmlns="http://soap.sforce.com/2006/04/metadata">
     <customButtons>Clone</customButtons>
     <customButtons>APT_Create_Quote_Proposal</customButtons>
+    <customButtons>RevenueReport</customButtons>
     <excludeButtons>ChangeRecordType</excludeButtons>
     <excludeButtons>Clone</excludeButtons>
     <excludeButtons>Delete</excludeButtons>
@@ -457,8 +458,8 @@
             <sortOrder>19</sortOrder>
         </platformActionListItems>
         <platformActionListItems>
-            <actionName>Opportunity.RevenueReport</actionName>
-            <actionType>QuickAction</actionType>
+            <actionName>RevenueReport</actionName>
+            <actionType>CustomButton</actionType>
             <sortOrder>20</sortOrder>
         </platformActionListItems>
     </platformActionList>

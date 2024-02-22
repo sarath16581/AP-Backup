@@ -61,12 +61,13 @@ public virtual inherited sharing class AccountRelationshipSelector extends Appli
 	}
 
 	public List<AccountRelationship__c> selectByOPCParentEndDateInFuture(Set<Id> parentAccountsToInclude, Set<Object> selectorOptions) {
+		Date todaysDate = System.today();
 		QueryBuilder qb = newQueryBuilder(selectorOptions)
 				.addConditions()
 				.add(new QueryBuilder.InCondition(AccountRelationship__c.ParentAccount__c).inCollection(parentAccountsToInclude))
 				.add(new QueryBuilder.CompareCondition(AccountRelationship__c.Relationship__c).eq('OPC'))
 				.add(new QueryBuilder.NullCondition(AccountRelationship__c.EndDate__c).isNull())
-				.add(new QueryBuilder.CompareCondition(AccountRelationship__c.EndDate__c).gt(System.today()))
+				.add(new QueryBuilder.SimpleCondition('EndDate__c > :todaysDate'))
 				.setConditionOrder('1 AND 2 AND (3 OR 4)')
 				.endConditions();
 		return (List<AccountRelationship__c>) Database.query(qb.toSoqlString());

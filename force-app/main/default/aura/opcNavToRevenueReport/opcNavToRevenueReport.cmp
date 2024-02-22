@@ -1,0 +1,17 @@
+<!--
+ @description
+ Aura wrapper to navigate to bulk edit screen
+ @author Ken McGuire
+ @date 2024-02-06
+ @changelog
+  2024-02-06 - KenMcGuire created
+
+-->
+<aura:component implements="lightning:isUrlAddressable" description="Aura wrapper navigate user to RevenueReport component">
+	<aura:attribute name="recordId" type="String" />
+
+	<aura:handler name="init" value="{!this}" action="{!c.onPageReferenceChange}"/>
+	<aura:handler name="change" value="{!v.pageReference}" action="{!c.onPageReferenceChange}"/>
+
+	<c:opportunityRevenueReport recordId="{!v.recordId}"/>
+</aura:component>
