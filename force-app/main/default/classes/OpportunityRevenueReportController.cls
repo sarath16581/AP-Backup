@@ -37,6 +37,7 @@ public class OpportunityRevenueReportController {
     public static List<RevenueData> getRevenueData(String opportunityId) {
         // all the accounts relevant to this opportunity. Used to retrieve budget and revenue records.
         Set<Id> relevantAccounts = new Set<Id>();
+		List<RevenueData> revenues = new List<RevenueData>();
 		try {
 			// load opportunity line items for this opportunity
 			Map<Id,OpportunityLineItem> oppLineItem = loadProductLineItems(opportunityId);
@@ -63,7 +64,6 @@ public class OpportunityRevenueReportController {
 			// retrieve relevant budget and revenues for all relevant accounts for this year and last (we need 12 months of sales data)
 			Set<String> financialYears = new Set<String> {String.valueOf(FY-1), String.valueOf(FY)};
 			Map<String,Budget_and_Revenue__c> customerRevenues =  loadBudgetAndRevenueRecords(relevantAccounts, oppLineItem.keySet(), financialYears);
-			List<RevenueData> revenues = new List<RevenueData>();
 			// get data row for main account
 			RevenueData data = new RevenueData(childAccounts.get(mainAccountId)?.Name);
 			buildRevenueData(mainAccountId,oppLineItem.values(),FY,startMonth,customerRevenues,data);
