@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Stage_Validation_For_FieldsUpdate</fullName>
+    <active>true</active>
+    <description>Validate Opportunity Stage before modification of “StarTrack Opportunity?”, “StarTrack Primary Pickup (Postocode)” or “StarTrack Minimum Monthly Spend”.</description>
+    <errorConditionFormula>OR(ISCHANGED(APTMinimumMonthlySpend__c), ISCHANGED(APTPostcodeSuburb__c), ISCHANGED(APTPostcodeSuburb__c)) &amp;&amp; OR(ISPICKVAL(StageName,&quot;Closed Won&quot;),ISPICKVAL(StageName,&quot;Closed Lost&quot;), ISPICKVAL(StageName,&quot;Closed Disqualified&quot;), ISPICKVAL(StageName,&quot;Closed Duplicate&quot;))</errorConditionFormula>
+    <errorMessage>You cannot update “StarTrack Opportunity?”, “StarTrack Primary Pickup (Postocode)” or “StarTrack Minimum Monthly Spend” as the Opportunity is closed. Please get in touch with your CRM Specialist partner.</errorMessage>
+</ValidationRule>
