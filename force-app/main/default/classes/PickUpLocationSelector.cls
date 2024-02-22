@@ -43,7 +43,7 @@ public with sharing class PickUpLocationSelector extends ApplicationSelector{
 	}	
 	public virtual override Set<SObjectField> getSObjectFieldList() {
 		return new Set<SObjectField> {
-			Pick_Up_Location__c.Id,Pick_Up_Location__c.Primary_Pick_Up_Location__c,Pick_Up_Location__c.Address__c, Pick_Up_Location__c.Postcode__c, Pick_Up_Location__c.Suburb__c,
+			Pick_Up_Location__c.Id,Pick_Up_Location__c.Primary_Pick_Up_Location__c,Pick_Up_Location__c.Address__c, Pick_Up_Location__c.State__c, Pick_Up_Location__c.Postcode__c, Pick_Up_Location__c.Suburb__c,
 			Pick_Up_Location__c.Pick_up_Location_Status__c
 		};
 	}
