@@ -94,7 +94,8 @@ export default class OppProductDataTable extends NavigationMixin(LightningElemen
 			}
 		}
 		else if (error) {
-			this.error = 'There was an issue retrieving the Opportunity.';
+			this.error = error;
+            this.revenueData = undefined;
 			this.showNotification('Error', this.error, 'error');
 		}
 	}
