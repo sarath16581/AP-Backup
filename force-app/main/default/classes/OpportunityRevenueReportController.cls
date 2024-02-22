@@ -88,9 +88,6 @@ public class OpportunityRevenueReportController {
 				}
 			}
 		} catch (Exception ex) {
-			// Log the exception or perform any other error handling as needed
-			System.debug('Error retrieving revenue data: ' + ex.getMessage());
-			
 			// Rethrow as an AuraHandledException for the LWC to catch
 			throw new AuraHandledException(errorMessage);
 		}
