@@ -692,13 +692,14 @@ public inherited sharing class CreateSTBillingAccountEventHandlerModule extends 
 	 * @return new deal support request for surcharge setup and activation.
 	 */
 	private Deal_Support_Request__c newDSRForSurchargeSetupAndActivation(BillingAccountCreationEvent__e event, Account organisation, APT_Sub_Account__c subAccountRequest) {
+		String parcelSendLoginRequired = String.isNotBlank(subAccountRequest.Is_Parcel_Send_Login_Required__c) ? subAccountRequest.Is_Parcel_Send_Login_Required__c : 'Not specified';
 		return new Deal_Support_Request__c(
 				RecordTypeId = CUSTOMER_ONBOARDING_DSR_RECORDTYPEID, Organisation__c=organisation.Id, Requestor__c=subAccountRequest.OwnerId,
 				Stage__c = 'Submitted', Status__c = 'Submitted', Sub_Accounts__c = event.Billing_Account_Number__c,
 				Product__c = 'StarTrack', CustomerContact1__c = subAccountRequest.SubAccountContact__c,
 				Work_Type__c = BILLING_ACCOUNT_CREATION_CONFIGURATION?.SurchargeSetupDSRWorkType__c,
 				Support_Work_Type__c = BILLING_ACCOUNT_CREATION_CONFIGURATION?.SurchargeSetupDSRSupportWorkType__c,
-				Description__c = System.Label.StarTrackSubAccountActivationDSRDescription, OwnerId= SURCHARGE_SETUP_DSR_OWNER_QUEUE.Id
+				Description__c = String.format(Label.StarTrackSubAccountActivationDSRDescription, new List<String>{parcelSendLoginRequired}), OwnerId= SURCHARGE_SETUP_DSR_OWNER_QUEUE.Id
 		);
 	}
 
@@ -812,7 +813,7 @@ public inherited sharing class CreateSTBillingAccountEventHandlerModule extends 
 						APT_Sub_Account__c.APT_Street_Address_Street_Postcode__c, APT_Sub_Account__c.APT_Street_Address_State__c,
 						APT_Sub_Account__c.APT_Street_Address_Country_Code__c, APT_Sub_Account__c.Name, APT_Sub_Account__c.Sub_Account_Number__c,
 						APT_Sub_Account__c.APT_Sub_Account_Request_Status__c, APT_Sub_Account__c.ParentBillingAccount__c,
-						APT_Sub_Account__c.ParentAccountRequest__c
+						APT_Sub_Account__c.ParentAccountRequest__c, APT_Sub_Account__c.Is_Parcel_Send_Login_Required__c
 				},
 				Billing_Account__c.SObjectType => new Set<SObjectField>{
 						Billing_Account__c.Id, Billing_Account__c.LEGACY_ID__c, Billing_Account__c.Name

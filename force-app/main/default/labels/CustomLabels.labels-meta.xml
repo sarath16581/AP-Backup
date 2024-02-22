@@ -8333,7 +8333,7 @@ We&apos;ll let you if it&apos;s successful. Thank you. Please do not reply.</val
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>StarTrackSubAccountActivationDSRDescription</shortDescription>
-        <value>Align additional charges, create dispatch ID, activate account &amp; provide Parcel Send access (if requested).</value>
+        <value>Align additional charges, create dispatch ID, activate account &amp; Parcel Send access required: {0}.</value>
     </labels>
     <labels>
         <fullName>StarTrackSubAccountBlankEmailErrorMessage</fullName>
