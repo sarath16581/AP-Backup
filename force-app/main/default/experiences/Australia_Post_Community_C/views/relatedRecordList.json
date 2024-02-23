@@ -1,0 +1,66 @@
+{
+  "appPageId" : "f75d9d97-cb1b-4c52-a72d-ef857a71439a",
+  "componentName" : "c:CommunityInnerPageLayout",
+  "dataProviders" : [ ],
+  "id" : "6f610e20-d336-4c8a-97da-5b381c8b2f2a",
+  "label" : "Related Record List",
+  "regions" : [ {
+    "id" : "62e3ca04-b84f-44c9-a027-0fe8c9032518",
+    "regionName" : "header",
+    "type" : "region"
+  }, {
+    "components" : [ {
+      "componentAttributes" : {
+        "parentRecordId" : "{!parentRecordId}",
+        "relatedListName" : "{!relatedListName}"
+      },
+      "componentName" : "forceCommunity:relatedList",
+      "id" : "ba56d87f-7441-42a5-bf89-534b9ff5d417",
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "3ccdc847-f391-4968-85ab-5035bd991215",
+    "regionName" : "Content",
+    "type" : "region"
+  }, {
+    "components" : [ {
+      "componentAttributes" : {
+        "pageName" : "UserRelatedList"
+      },
+      "componentName" : "c:cpAdobeAnalyticsPageView",
+      "id" : "7d4a453d-94e3-4270-8fec-d1f8ca289f0a",
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "a0351308-6ee3-46af-a014-80828ccc537f",
+    "regionName" : "footer",
+    "type" : "region"
+  }, {
+    "id" : "d62fc5b3-662c-4823-9cb8-a99791f2e930",
+    "regionName" : "ContentHeaderBlock1",
+    "type" : "region"
+  }, {
+    "id" : "9a1ac2a8-ba31-414e-bcbe-b2c5d99df962",
+    "regionName" : "ContentHeaderBlock2",
+    "type" : "region"
+  }, {
+    "components" : [ {
+      "componentAttributes" : {
+        "pageName" : "UserRelatedList"
+      },
+      "componentName" : "c:cpAdobeAnalyticsPageView",
+      "id" : "44647c8f-2b76-417d-bd38-c179d17aebad",
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "78bfd4ee-a840-4cd6-9dde-a14d7781520d",
+    "regionName" : "ContentFooter",
+    "type" : "region"
+  } ],
+  "themeLayoutType" : "Inner",
+  "type" : "view",
+  "viewType" : "relatedlist"
+}

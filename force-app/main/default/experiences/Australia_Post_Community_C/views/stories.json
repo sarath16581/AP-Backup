@@ -1,0 +1,54 @@
+{
+  "appPageId" : "f75d9d97-cb1b-4c52-a72d-ef857a71439a",
+  "componentName" : "siteforce:sldsOneColLayout",
+  "dataProviders" : [ ],
+  "id" : "77034b17-29ac-4675-bf2c-333d2e902494",
+  "label" : "Stories",
+  "regions" : [ {
+    "id" : "0c8c4113-ab62-4848-9ae5-c27369f94d76",
+    "regionName" : "header",
+    "type" : "region"
+  }, {
+    "id" : "aaa8137c-0b7a-46b6-b9a7-ca0711d5973b",
+    "regionName" : "content",
+    "type" : "region"
+  }, {
+    "components" : [ {
+      "componentAttributes" : {
+        "numberOfArticles" : 5,
+        "title" : "Trending Articles",
+        "topicId" : ""
+      },
+      "componentName" : "selfService:topicTrendingArticles42",
+      "id" : "0fe4fe96-1562-4de7-b54c-70e4acfb962c",
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "cae2c421-dbef-491a-8541-8bbde7329f7c",
+    "regionName" : "sidebar",
+    "type" : "region"
+  }, {
+    "id" : "f9a7b5d0-f0f1-4202-8ff1-3eb34555d5ac",
+    "regionName" : "footer",
+    "type" : "region"
+  }, {
+    "components" : [ {
+      "componentAttributes" : {
+        "customHeadTags" : "",
+        "description" : "Get the latest information, stories and insights we’ve shared to help and inspire the Community.",
+        "title" : "News"
+      },
+      "componentName" : "forceCommunity:seoAssistant",
+      "id" : "d69df65c-0c91-4645-9441-7353ba703222",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "195a9bb9-c600-45e1-94e3-695a8ebf7c49",
+    "regionName" : "sfdcHiddenRegion",
+    "type" : "region"
+  } ],
+  "themeLayoutType" : "Inner",
+  "type" : "view",
+  "viewType" : "custom-stories"
+}

@@ -1425,6 +1425,11 @@
                 <label>Status report</label>
             </value>
             <value>
+                <fullName>Strategic</fullName>
+                <default>false</default>
+                <label>Strategic</label>
+            </value>
+            <value>
                 <fullName>ST Courier StarTrack</fullName>
                 <default>false</default>
                 <label>ST Courier StarTrack</label>
@@ -1643,11 +1648,6 @@
                 <fullName>Wrapping/Packing</fullName>
                 <default>false</default>
                 <label>Wrapping/Packing</label>
-            </value>
-            <value>
-                <fullName>Strategic</fullName>
-                <default>false</default>
-                <label>Strategic</label>
             </value>
         </valueSetDefinition>
         <valueSettings>

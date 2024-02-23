@@ -1,0 +1,103 @@
+{
+  "appPageId" : "f75d9d97-cb1b-4c52-a72d-ef857a71439a",
+  "componentName" : "c:CommunityInnerPageLayout",
+  "dataProviders" : [ ],
+  "id" : "f02de58c-b8df-462d-a9ac-36dcc5b1f6c0",
+  "label" : "Surveys",
+  "regions" : [ {
+    "components" : [ {
+      "componentAttributes" : {
+        "richTextValue" : "<div class=\"cp-inner-page-heading-outer\"> \n <div class=\"cp-inner-page-heading-box cp-heading-box-with-p cp-inner-articles-landing-page-heading\"> \n  <h1 class=\"cp-inner-page-heading-text\">Surveys</h1> \n  \t<p>Complete any of our open surveys or polls that interest you. \n        <br>We’d love your input.\n     </p> \n </div> \n</div> \n<!--render facet: 13:2;a-->"
+      },
+      "componentName" : "forceCommunity:htmlBlock",
+      "id" : "0ff34fec-4be8-4689-aa93-54242c21b47b",
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "8eafccde-f507-4c9f-9a87-c0c8f8155fa5",
+    "regionName" : "header",
+    "type" : "region"
+  }, {
+    "components" : [ {
+      "componentAttributes" : {
+        "align" : "Center",
+        "height" : "550px",
+        "surveyToken" : "McfBXdb8",
+        "width" : "100%"
+      },
+      "componentName" : "Get_Feedback:GetFeedbackSurvey",
+      "id" : "1b2854c0-1f2f-4498-bb75-789923ba071b",
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "3d2199f5-5a8f-4c18-997e-495365597096",
+    "regionName" : "Content",
+    "type" : "region"
+  }, {
+    "components" : [ {
+      "componentAttributes" : {
+        "pageName" : "Surveys"
+      },
+      "componentName" : "c:cpAdobeAnalyticsPageView",
+      "id" : "420c0f5b-ea3e-46a6-b225-bc372c346b14",
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "8977c3ce-23ad-48fd-bba3-60ceb12a902b",
+    "regionName" : "footer",
+    "type" : "region"
+  }, {
+    "components" : [ {
+      "componentAttributes" : {
+        "customHeadTags" : "",
+        "description" : "Complete any of our open surveys or polls that interest you. We’d love your input.\n",
+        "title" : "Surveys"
+      },
+      "componentName" : "forceCommunity:seoAssistant",
+      "id" : "98e6d748-3d3a-495e-ac5d-e8bf3ee15eaa",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "3cce5e57-75e5-4793-995c-f01e88fa0113",
+    "regionName" : "sfdcHiddenRegion",
+    "type" : "region"
+  }, {
+    "components" : [ {
+      "componentAttributes" : {
+        "richTextValue" : "<h1>Surveys</h1>\n<br><p>Complete any of our open surveys or polls that interest you.\nWe’d love your input.</p>"
+      },
+      "componentName" : "forceCommunity:htmlBlock",
+      "id" : "a1504269-c622-4066-a0e3-d78bb8fb4eac",
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "b21d0227-e89f-4c23-855d-20522aa6adf1",
+    "regionName" : "ContentHeaderBlock1",
+    "type" : "region"
+  }, {
+    "id" : "a935172f-2373-46f1-b2c6-562227430637",
+    "regionName" : "ContentHeaderBlock2",
+    "type" : "region"
+  }, {
+    "components" : [ {
+      "componentAttributes" : {
+        "pageName" : "Surveys"
+      },
+      "componentName" : "c:cpAdobeAnalyticsPageView",
+      "id" : "7118a7be-25c1-4aff-9ff3-697abf5fa7c7",
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "5935e2de-8d9a-4b4f-ae26-4eb50a5f9afb",
+    "regionName" : "ContentFooter",
+    "type" : "region"
+  } ],
+  "themeLayoutType" : "Inner",
+  "type" : "view",
+  "viewType" : "custom-surveys"
+}

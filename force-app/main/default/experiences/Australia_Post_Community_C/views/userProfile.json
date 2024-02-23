@@ -1,0 +1,159 @@
+{
+  "appPageId" : "f75d9d97-cb1b-4c52-a72d-ef857a71439a",
+  "componentName" : "c:CommunityInnerTwoColumnLayout",
+  "dataProviders" : [ ],
+  "id" : "2a459acb-740f-41cb-9fbe-4af9f22d0075",
+  "label" : "User Profile",
+  "regions" : [ {
+    "components" : [ {
+      "componentAttributes" : {
+        "richTextValue" : "<div class=\"cp-inner-page-heading-outer\"> \n <div class=\"cp-inner-page-heading-box cp-inner-profile-page-heading\"> \n  <h1 class=\"cp-inner-page-heading-text\">Profile</h1> \n </div> \n</div> \n<!--render facet: 282:2;a-->"
+      },
+      "componentName" : "forceCommunity:htmlBlock",
+      "id" : "6541c0ee-ae50-4d98-a2f8-57b09138d8c8",
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "c233a651-32a3-4bfd-b7d9-4371a5f5ed96",
+    "regionName" : "header",
+    "type" : "region"
+  }, {
+    "components" : [ {
+      "componentAttributes" : {
+        "knowledgeableAboutTitle" : "Knows About",
+        "maxTopics" : 5,
+        "showFullPhotoAsCircle" : true,
+        "showKnowledgeableAbout" : false,
+        "showReputationInInfluenceCard" : true,
+        "showStats" : false,
+        "userId" : "{!recordId}"
+      },
+      "componentName" : "forceCommunity:userProfileBody",
+      "id" : "6bf80c40-c200-4ce5-8f95-c70003654014",
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    }, {
+      "componentAttributes" : {
+        "caseCreateLabel" : "",
+        "casesTabLabel" : "",
+        "feedTabLabel" : "Feed",
+        "filterName" : "My_Community_Cases",
+        "headerLabel" : "",
+        "userId" : "{!recordId}"
+      },
+      "componentName" : "forceCommunity:userProfileTabs",
+      "id" : "98378ced-d3b8-4c23-8cee-98290fb29df3",
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "eb462db2-f59d-4d6b-ae2f-328c0f60475d",
+    "regionName" : "Content",
+    "type" : "region"
+  }, {
+    "components" : [ {
+      "componentAttributes" : {
+        "pageName" : "UserProfile"
+      },
+      "componentName" : "c:cpAdobeAnalyticsPageView",
+      "id" : "5eca7806-0370-4c0a-9969-b3c6b0dcf232",
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "4eb737dc-b1cc-4152-bca8-b663c9e0ab4f",
+    "regionName" : "footer",
+    "type" : "region"
+  }, {
+    "components" : [ {
+      "componentAttributes" : {
+        "showReputation" : true,
+        "userId" : "{!recordId}",
+        "userStatsTitle" : ""
+      },
+      "componentName" : "forceCommunity:userProfileStats",
+      "id" : "4bc442e8-0042-42aa-b678-c56b64549de8",
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    }, {
+      "componentAttributes" : { },
+      "componentName" : "c:brideas_UserProfileIdeasStats",
+      "id" : "4491f0d5-3ebe-4964-9b68-f5e44a00e034",
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    }, {
+      "componentAttributes" : {
+        "buttonLabel" : "Give",
+        "userBadgesTitle" : "Recognition Badges",
+        "userId" : "{!recordId}"
+      },
+      "componentName" : "forceCommunity:userRecognitions",
+      "id" : "ce506ae3-e228-4594-b5c8-f77a45a3f862",
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    }, {
+      "componentAttributes" : {
+        "knowledgeableAboutTitle" : "Knows About",
+        "maxTopics" : 5,
+        "userId" : "{!recordId}"
+      },
+      "componentName" : "forceCommunity:userProfileKnowledgeableAbout",
+      "id" : "5fff3ca9-6011-44d5-beaa-3d1a455d5ce8",
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    }, {
+      "componentAttributes" : {
+        "userId" : "{!recordId}"
+      },
+      "componentName" : "forceCommunity:userRelatedList",
+      "id" : "c9eb03dc-087f-4be8-b24f-f688bee20f67",
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "bee098ca-2fed-4feb-b111-f10ca371486f",
+    "regionName" : "Sidebar",
+    "type" : "region"
+  }, {
+    "components" : [ {
+      "componentAttributes" : {
+        "richTextValue" : "<h1>Profile</h1>"
+      },
+      "componentName" : "forceCommunity:htmlBlock",
+      "id" : "ef3e2c0b-01fe-4ecd-9186-254989f343bd",
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "a447fb48-d3c9-41a6-8e3d-42c3f5372b03",
+    "regionName" : "ContentHeaderBlock1",
+    "type" : "region"
+  }, {
+    "id" : "8db0449d-4633-4eef-8a9b-9385fa4cfdc6",
+    "regionName" : "ContentHeaderBlock2",
+    "type" : "region"
+  }, {
+    "components" : [ {
+      "componentAttributes" : {
+        "pageName" : "UserProfile"
+      },
+      "componentName" : "c:cpAdobeAnalyticsPageView",
+      "id" : "ec57177c-2de2-4661-9d45-6c47fe714c9c",
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "745714bb-f1a8-48b8-9727-61463c1b7056",
+    "regionName" : "ContentFooter",
+    "type" : "region"
+  } ],
+  "themeLayoutType" : "Inner",
+  "type" : "view",
+  "viewType" : "detail-005"
+}

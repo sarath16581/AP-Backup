@@ -7,8 +7,8 @@
     <label>April Forecast</label>
     <precision>3</precision>
     <required>false</required>
-    <securityClassification>INTERNAL</securityClassification>
     <scale>0</scale>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Percent</type>
 </CustomField>
