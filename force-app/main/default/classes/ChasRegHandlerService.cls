@@ -134,10 +134,37 @@ public with sharing class ChasRegHandlerService {
 			}
 
 		} else {
+            Savepoint sp = Database.setSavepoint();
 			// couldn't find the person account record so one must be created
 			// NOTE: createPersonAccount performs a DML 
-			personAccountRecord = createPersonAccount(attributes);
-			personContactId = personAccountRecord.PersonContactId;
+			//personAccountRecord = createPersonAccount(attributes);
+			//personContactId = personAccountRecord.PersonContactId;
+            try{
+                personAccountRecord = createPersonAccount(attributes);
+				personContactId = personAccountRecord.PersonContactId;    
+            } catch (Exception ex) {
+				//this is for parallel operation from CustomerDataSyncEvent platform event that we subscribe from SAP
+				//and create the person account records based on APCN__c
+				if(ex.getMessage().contains('DUPLICATE_VALUE')) {
+					//person account is created due to parallel operation from CustomerDataSyncEvent platform event
+					//query the existing records again
+					existingRecords = getExistingRecords(attributes);
+                    if(existingRecords.get(User.SObjectType) != null) {
+						// we found a matching user from the person account record
+						personUserRecord = (User)existingRecords.get(User.SObjectType);
+                        Database.rollback(sp);
+                		Database.releaseSavepoint(sp);
+                        Http vHTTP = new Http();
+            			HttpRequest vReq = new HttpRequest();
+            			vReq.setEndpoint('callout:Salesforce_API'+'/v60.0/sobjects/User/'+personUserRecord.Id);
+            			vReq.setMethod('PATCH');
+            			vReq.setHeader('Content-Type', 'application/json');           
+            			vReq.setBody('{"IsActive" : "true"}');
+            			HttpResponse vRes = vHTTP.send(vReq);
+                        return personUserRecord;
+                    }
+				}
+			}
 		}
 
 		if(existingRecords.get(User.SObjectType) != null) {
@@ -214,7 +241,8 @@ public with sharing class ChasRegHandlerService {
 
 		// insert the record
 		// NOTE: This should trigger the outbound message to sync these details to SAP-CRM (thats if the outbound message is still active) - 2023-03
-		ApplicationDatabase.getInstance().dmlInsert(new List<SObject>{matchedAccount});
+		//ApplicationDatabase.getInstance().dmlInsert(new List<SObject>{matchedAccount});
+		insert matchedAccount;
 
 		// after the record has been inserted we need to select the PersonContactId so it can be assigned to the user record
 		matchedAccount = SSSWAccountsSelector.newInstance().selectById(new Set<Id>{matchedAccount.Id}).values()[0];
@@ -285,7 +313,8 @@ public with sharing class ChasRegHandlerService {
 		// NOTE: it's possible if the record details contain completely different data then we may overwrite it by doing this
 		//		 It's assumed that the data in the db is right and no-one has manually tampered with it
 		if(isUserDirty) {
-			ApplicationDatabase.getInstance().dmlUpdate(new List<User>{claimsGeneratedUserRecord});
+			//ApplicationDatabase.getInstance().dmlUpdate(new List<User>{claimsGeneratedUserRecord});
+			update claimsGeneratedUserRecord;
 		}
 
 		return claimsGeneratedUserRecord;

@@ -1,0 +1,48 @@
+{
+  "appPageId" : "f75d9d97-cb1b-4c52-a72d-ef857a71439a",
+  "componentName" : "c:brideas_HomeLayout",
+  "dataProviders" : [ ],
+  "id" : "cc6c8afe-e738-41b0-ba31-fc91b641838a",
+  "label" : "Ideas",
+  "regions" : [ {
+    "components" : [ {
+      "componentAttributes" : {
+        "richTextValue" : "<h2>About ideas</h2>\n<p>Ideas is a special group where people can submit ideas and help co-create solutions that meet the needs of our customers.</p>\n    <p>These could be ideas for new ways of doing things, or improvements to existing products and services.</p>\n    <p>Ideas are submitted under nominated themes which will change regularly.  All ideas must meet <a href=\"https://community.auspost.com.au/s/article/How-Ideas-are-assessed\"><b><em>key criteria</em></b></a> to progress to assessment stage. Ideas are assessed by Australia Post specialists and move through a series of <a href=\"https://community.auspost.com.au/s/article/How-Ideas-are-assessed\"><b><em>review stages</em></b></a> to determine the viability of the idea.  \n</p>\n<h2>How to get involved</h2>\n<p><a href=\"https://www.getfeedback.com/r/XMgX5AtD\"><b><em>Apply to join the Ideas group</em></b></a> to submit your ideas. Tell us why you’re interested in co-creating with us, and a bit more about you. \nWe’re looking for passionate, creative people, who want to help Australia Post find better ways to serve Australian communities and businesses.</p> \n<p>If you’re already a member of this online community you can comment and vote on any ideas in the current category.\n</p>"
+      },
+      "componentName" : "forceCommunity:htmlBlock",
+      "id" : "41f001c3-21e6-4ca0-863a-1dd468286cbe",
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "e0b910c0-4789-4a87-89ad-faa5022e8e19",
+    "regionName" : "DescriptionBlock",
+    "type" : "region"
+  }, {
+    "id" : "bbb832b2-1266-4678-9d3b-e23e3aac026a",
+    "regionName" : "FeaturedBlock",
+    "type" : "region"
+  }, {
+    "id" : "fba6b0fd-bd5b-4dfc-b9d1-48ed1ddde6f1",
+    "regionName" : "ArticlesBlock",
+    "type" : "region"
+  }, {
+    "components" : [ {
+      "componentAttributes" : {
+        "customHeadTags" : "",
+        "description" : "Share your ideas to help us find new ways of doing things, or to improve existing products and services to meet customer and community needs.",
+        "title" : "Ideas"
+      },
+      "componentName" : "forceCommunity:seoAssistant",
+      "id" : "1b6adc95-2586-41b2-b681-c3e2a6e7df9e",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "fe56d4aa-c5df-4147-9692-452fb73eabc3",
+    "regionName" : "sfdcHiddenRegion",
+    "type" : "region"
+  } ],
+  "themeLayoutType" : "Inner",
+  "type" : "view",
+  "viewType" : "custom-ideas"
+}

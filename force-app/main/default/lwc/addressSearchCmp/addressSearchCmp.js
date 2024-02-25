@@ -144,7 +144,7 @@ export default class AddressSearchCmp extends LightningElement {
         }
         const addressTyped = new CustomEvent("addressTyped", {
             detail: {
-                searchAddressTerm
+                "searchAddressTerm":searchAddressTerm
             }
         });
         // Fire the custom event to inform the parent component with the address typed

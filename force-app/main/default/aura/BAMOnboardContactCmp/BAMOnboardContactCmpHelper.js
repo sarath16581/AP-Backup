@@ -103,7 +103,7 @@
 							app.createdBy = '';
 							app.createdByUserType = '';
 
-							console.log(lastRequest.CreatedBy);
+							//console.log(lastRequest.CreatedBy);
 							if(lastRequest.CreatedBy) {
 								app.createdBy = lastRequest.CreatedBy.Name;
 								app.createdByUserType = (!lastRequest.CreatedBy.UserType ? '' : (lastRequest.CreatedBy.UserType != 'Standard' ? 'External' : 'Internal'));
@@ -220,10 +220,17 @@
 		try{
 		//appState.BSPCanViewAllConsignments__c = viewAllConsignment;
 		let pageState = component.get('v.pageState');
+		//console.log('pageState in console on checking box');
+		//console.log(JSON.stringify(pageState));
 		for(let i = 0; i < pageState.length; ++i)
 		{
 			let app = pageState[i];
-			app.BSPCanViewAllConsignments__c = viewAllConsignment;
+			
+			if(app.isBSP==true){
+				//console.log('app within for loop');
+			//console.log(app.Name);
+				app.BSPCanViewAllConsignments__c = viewAllConsignment;
+			}
 		}
 		}
 		catch(err){
@@ -356,13 +363,12 @@
 		////console.debug('saveProvisionState');
 		var pageState = component.get('v.pageState');
 		var anyChanges = false;
-
 		let missingBillingAccounts = false;
 
 		for(var i = 0; i < pageState.length; ++i) {
 			var appState = pageState[i];
 
-			console.log(JSON.stringify(appState));
+			//console.log(JSON.stringify(appState));
 
 			// store the changes per app
 			appState.destructive = [];
@@ -411,7 +417,6 @@
 					}
 				}
 			}
-			appState.upsert.BSPCanViewAllConsignments__c = appState.BSPCanViewAllConsignments__c;
 
 			// check if billing accounts need to be added
 			let appRole = this.findApplicationRoleById(component, pageRole.ApplicationRole__c)
@@ -451,7 +456,9 @@
 
 		//console.debug('pageState to send');
 		//console.debug(pageState);
-
+		// console.log('full structure');
+		// console.log(pageState);
+		// console.log(JSON.stringify(pageState));
 		var contactId = component.get('v.contactId');
 		// send to apex for DML
 		var actionSave = component.get("c.saveProvisionRequests");

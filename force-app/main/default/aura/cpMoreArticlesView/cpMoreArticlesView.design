@@ -1,4 +1,0 @@
-<design:component label="cp Knowledge Articles">
-	<design:attribute label="Number of Articles" name="cppageSize" description="No. of Records per page"/>
-	
-</design:component>

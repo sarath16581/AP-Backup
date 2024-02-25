@@ -32,7 +32,6 @@
 * 2023-09-14 mahesh.parvathaneni@auspost.com.au added cacheable=true for retrieveCommunityURL and getLoggedInUserInfo methods
 * 2023-10-10 jacob.isaac@auspost.com.au REQ3267978 - removing all reference of Mail Redirection picklist for International Letters/Parcel Product Cateogry
 * 2023-11-20 - Nathan Franklin - Adding a tactical reCAPTCHA implementation to assist with reducing botnet attack vectors (INC2251557)
-* 2024-02-14 - Swati Mogadala - REQ3414153 Adding address details to case description 
 */
 public with sharing class ChasApexController extends ChasBase{
 
@@ -1660,11 +1659,6 @@ toBeCreateCase.ReferenceID__c=trackingNumber;
                 if(issueDescription != null)
                 {
                     toBeCreateCase.Description = toBeCreateCase.Description + Label.HS_Issue_Details_Warning +'\n\n'+ issueDescription + '\n\n';
-                }
-				 // REQ3414153 Updated Description for Incorrect delivery issue
-				 if(issueDetailsType == 'Incorrect delivery address needs fixing')
-                {
-					toBeCreateCase.Description = toBeCreateCase.Description + '\n' +'Incorrect delivery address : '+inCorrectAddress + '\n' +'Correct delivery address : '+correctAddress;
                 }
 
             }

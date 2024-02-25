@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PermissionSetGroup xmlns="http://soap.sforce.com/2006/04/metadata">
+    <hasActivationRequired>false</hasActivationRequired>
+    <label>ST Team Leader Basic Permissions</label>
+    <permissionSets>Ability_to_edit_StarTrack_customer_restrictions</permissionSets>
+    <permissionSets>Create_Report_and_Dashboard</permissionSets>
+    <permissionSets>Edit_Business_Solutions_Customer_and_Transfer_Case_Queue_fields_on_account</permissionSets>
+    <permissionSets>Knowledge_Management_Manager_Article_Permisssions</permissionSets>
+    <permissionSets>StarTrack_Edit_Is_Bulk_Task_on_Task_and_Close_Bulk_Tasks_on_case</permissionSets>
+    <permissionSets>StarTrack_Override_Customer_Restriction_Permission_Set</permissionSets>
+    <status>Updated</status>
+</PermissionSetGroup>
