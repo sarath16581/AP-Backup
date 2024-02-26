@@ -81,7 +81,7 @@ public class TransactionSecurityPolicyUtil {
 					if (!reportFieldsByObjectMap.containsKey(objectName)) {
 						reportFieldsByObjectMap.put(objectName, new Set<String>());
 					}
-					reportFieldsByObjectMap.get(objectName).add(extractedFieldName);      
+					reportFieldsByObjectMap.get(objectName).add(extractedFieldName);  
 				}
 			}
 		}
