@@ -1,7 +1,11 @@
 /**
- * Created by hasan on 12/02/2024.
- */
-
+ * @description Trigger handler for ContentDocumentLink Trigger
+ * @author Hasantha L
+ * @date 2024-01-23
+ * @group TriggerHandler
+ * @domain Core
+ * @changelog
+*/
 public with sharing class ContentDocumentLinkTriggerHandler2 extends ApplicationTriggerHandler {
 	public override void registerModules() {
 		registerModule(AdobeSignContentDocumentLinkModule.class);
@@ -18,7 +22,9 @@ public with sharing class ContentDocumentLinkTriggerHandler2 extends Application
 	public static List<SObjectType> getUnitOfWorkSObjectTypes() {
 		return new List<SObjectType>{
 				Account.SObjectType,
-				ContentDocument.SObjectType
+				ContentDocument.SObjectType,
+				ContentDocumentLink.SObjectType,
+				ContentVersion.SObjectType
 		};
 	}
 }

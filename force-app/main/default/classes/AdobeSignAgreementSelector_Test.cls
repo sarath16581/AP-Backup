@@ -1,6 +1,10 @@
-/**
- * Created by hasan on 31/01/2024.
- */
+/***
+ * @author Hasantha Liyanage
+ * @date 2024-02-22
+ * @domain Core
+ * @description Test class for AdobeSignAgreementSelector
+ * @changelog
+ ***/
 
 @IsTest
 private class AdobeSignAgreementSelector_Test {
@@ -77,7 +81,7 @@ private class AdobeSignAgreementSelector_Test {
 		Apttus__APTS_Agreement__c apttusContract = ApplicationTestDataFactory.getApttusContracts(1, primaryContact.Id, opportunityRecord.Id, false)[0];
 		insert apttusContract;
 
-		List <echosign_dev1__SIGN_Agreement__c>  accountAgreements = ApplicationTestDataFactoryAdobeSign.getDraftAgreementsForAccount(2, account.Id, false);
+		List <echosign_dev1__SIGN_Agreement__c>  accountAgreements = ApplicationTestDataFactoryAdobeSign.getAgreementsForAccount(2, 'Draft', account.Id, false);
 		accountAgreements[0].echosign_dev1__Status__c = 'Out for Signature';
 		accountAgreements[1].echosign_dev1__Status__c = 'Waiting for Counter-Signature';
 		insert accountAgreements;

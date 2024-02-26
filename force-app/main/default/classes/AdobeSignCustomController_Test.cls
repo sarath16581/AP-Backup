@@ -1,6 +1,10 @@
-/**
- * Created by hasan on 28/01/2024.
- */
+/***
+ * @author Hasantha Liyanage
+ * @date 2024-01-28
+ * @domain Core
+ * @description Test class for AdobeSignCustomController
+ * @changelog
+ ***/
 
 @IsTest
 private class AdobeSignCustomController_Test {
@@ -465,7 +469,7 @@ private class AdobeSignCustomController_Test {
 		// create contract
 		List<Apttus__APTS_Agreement__c> apttusContracts = ApplicationTestDataFactory.getApttusContracts(2, primaryContact.Id, opportunityRecord.Id, true);
 		// create agreement to pass to controller
-		echosign_dev1__SIGN_Agreement__c  agreement1 = ApplicationTestDataFactoryAdobeSign.getDraftAgreementsForAccount(1, account.Id, true)[0];
+		echosign_dev1__SIGN_Agreement__c  agreement1 = ApplicationTestDataFactoryAdobeSign.getAgreementsForAccount(1, 'Draft', account.Id, true)[0];
 
 		// =====================================
 		// Stubbing not required

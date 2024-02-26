@@ -26,10 +26,52 @@ public inherited sharing class AdobeSignContentDocumentModule extends Applicatio
 	*/
 	public override void onBeforeDelete(List<SObject> records, ApplicationUnitOfWork uow) {
 		try {
-			AdobeSignAgreementFilesUtil.preventDeletionOfSignedDocuments(records);
+			system.debug('DELETE ---------onBeforeDelete------ '+records);
+			preventDeletionOfSignedDocuments(records, uow);
 		} catch(Exception ex) {
 			// Error Logged to Exception object for analysis
 			UTIL_LoggingService.logHandledException(ex, UserInfo.getOrganizationId(), 'ADOBE SIGN', AdobeSignContentDocumentModule.class.getName(), 'onAfterInsert', 'CONTENT DOCUMENT TRIGGER', LoggingLevel.ERROR);
+		}
+	}
+
+	/**
+	 * Prevent deletion of documents links to other objects which are originally created for echosign_dev1__SIGN_Agreement__c object.
+	 * echosign_dev1__SIGN_Agreement__c object hold the evidence of the sign document and this should not be deleted
+	 * @param records ContentDocuments
+	 */
+	public void preventDeletionOfSignedDocuments(List<SObject> records, ApplicationUnitOfWork uow) {
+
+		// Prevent deletion of adobesign signed documnts
+		Boolean hasCustomPermission = FeatureManagement.checkPermission('AllowDeleteOnAdobeSignContracts');
+
+		// Collect the Ids of ContentDocuments being deleted
+		Set<Id> contentDocumentIds = new Set<Id>();
+		for (ContentDocument cd : (List<ContentDocument>)records) {
+			contentDocumentIds.add(cd.Id);
+		}
+
+		// prepare a map of content document link Ids to look for entity IDs
+		Map<Id, List<Id>> contentDocumentLinksMap = new Map<Id, List<Id>>();
+
+
+		Map<Id, ContentDocumentLink> adobeAgreementContentDocumentLinks = ContentDocumentLinksSelector.newInstance().search(
+				new Map<String, Object>{ 'documentIds' => contentDocumentIds},true);
+		for (ContentDocumentLink cdl : adobeAgreementContentDocumentLinks.values()) {
+			if (!contentDocumentLinksMap.containsKey(cdl.ContentDocumentId)) {
+				contentDocumentLinksMap.put(cdl.ContentDocumentId, new List<Id>());
+			}
+			contentDocumentLinksMap.get(cdl.ContentDocumentId).add(cdl.LinkedEntityId);
+		}
+
+		// perform the check and add the error
+		for (ContentDocument cd : (List<ContentDocument>)records) {
+			if (contentDocumentLinksMap.containsKey(cd.Id)) {
+				for (Id linkedEntityId : contentDocumentLinksMap.get(cd.Id)) {
+					if (!hasCustomPermission && linkedEntityId.getSObjectType() == echosign_dev1__SIGN_Agreement__c.SObjectType && cd.Title.containsIgnoreCase('- Signed')) {
+						cd.addError('Cannot delete ContentDocument with a link to a signed Agreement');
+					}
+				}
+			}
 		}
 	}
 }

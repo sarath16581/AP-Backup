@@ -14,6 +14,7 @@
 * 2021-08-24 - Seth Heang - Uplift SF API Version to 52
 * 2022-07-19 - Sreenish Krishnan - Added new fields
 * 2023-07-05 - Mahesh Parvathaneni - Added tests for options WITH_BILLING_ACCOUNT
+* 2024-01-31 - Hasantha L - added ConveyancerContact__c field update to testSelectorIntegration()
 */
 @IsTest
 private with sharing class ContactsSelector_Test {

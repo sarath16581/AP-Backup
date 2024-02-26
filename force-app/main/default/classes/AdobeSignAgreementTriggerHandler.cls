@@ -1,5 +1,8 @@
 /**
- * Created by hasan on 19/02/2024.
+ * @description Trigger handler to execute all the registered ApplicationModule's
+ * @author Hasantha Liyanage
+ * @date 2023-02-19
+ * @changelog
  */
 
 public with sharing class AdobeSignAgreementTriggerHandler extends ApplicationTriggerHandler {
@@ -16,6 +19,9 @@ public with sharing class AdobeSignAgreementTriggerHandler extends ApplicationTr
 	}
 
 	public static List<SObjectType> getUnitOfWorkSObjectTypes() {
-		return new List<SObjectType>{};
+		return new List<SObjectType>{
+				Account.SObjectType,
+				ContentDocument.SObjectType
+		};
 	}
 }
