@@ -1,13 +1,13 @@
 <template>
 	<!-- Error Banner -->
-	<template if:true={error}>
+	<template if:true={errors}>
 		<div class="slds-notify slds-notify_alert slds-theme_alert-texture slds-theme_error" role="alert">
 			<!--error graphic-->
 			<span class="slds-icon_container slds-icon-utility-error slds-m-right_x-small">
 			  <lightning-icon icon-name="utility:error" alternative-text="Error" title="Error" variant="inverse"></lightning-icon>
 			</span>
 			<!--error message-->
-			<h2>{error}</h2>
+			<h2>{errors}</h2>
 		</div>
 	</template>
 	

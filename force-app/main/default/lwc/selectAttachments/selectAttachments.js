@@ -1,6 +1,7 @@
 import { LightningElement, api, wire, track } from 'lwc';
 import {NavigationMixin} from "lightning/navigation";
 import { gql, graphql, refreshGraphQL } from 'lightning/uiGraphQLApi';
+import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 
 // For Apttus Contracts
 import approvalMatrixImage from "@salesforce/resourceUrl/APTSpendDelegationMatrix";
@@ -135,12 +136,23 @@ export default class SelectAttachments extends NavigationMixin(LightningElement)
 
 	// Seleted attachment Ids will be passed as a parameter (comma separted values) to the specified destination URL
 	handleRedirect() {
-		this[NavigationMixin.Navigate]({
-			type: 'standard__webPage',
-			attributes: {
-				url: '/' + this.redirect + '?c__masterId=' + this.recordid + '&c__attachmentIds=' + this.preSelectedRows.join(',')
-			}
-		})
+		// throw an error if no attachments are selected
+		if (this.preSelectedRows.length == 0) {
+			let event = new ShowToastEvent({
+				message: 'Please select at least one attachment to proceed',
+				variant: 'error'
+			});
+
+			this.dispatchEvent(event);
+			return;
+		} else {
+			this[NavigationMixin.Navigate]({
+				type: 'standard__webPage',
+				attributes: {
+					url: '/' + this.redirect + '?c__masterId=' + this.recordid + '&c__attachmentIds=' + this.preSelectedRows.join(',')
+				}
+			})
+		}
 	}
 
 	handleBack() {
