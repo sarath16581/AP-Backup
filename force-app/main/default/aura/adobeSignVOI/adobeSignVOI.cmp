@@ -1,0 +1,9 @@
+<aura:component controller="AdobeSignCustomController" implements="lightning:isUrlAddressable" description="c:adobeSignVOI component">
+	<aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+	<aura:attribute name="masterId" type="String" />
+	<aura:attribute name="attachmentIds" type="String" />
+	<lightning:formattedText value="Generating Adobe Sign Envelope..." />
+	<div>
+		<lightning:spinner alternativeText="Loading" size="small" />
+	</div>
+</aura:component>	

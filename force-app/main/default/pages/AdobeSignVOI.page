@@ -1,9 +1,0 @@
-<!--
-	Description: This VisualForce page designed to facilitate seamless navigation between organisation record and VOI adobe sign agreements.
-	History:
-	22/01/2024 hasantha.liyanage@auspost.com.au Created
--->
-
-<apex:page id="AdobeSignVOI" standardController="Account" extensions="AdobeSignCustomController" action="{!redirect}">
-	<apex:messages  />
-</apex:page>

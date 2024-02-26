@@ -3,17 +3,18 @@
     <fullName>AdobeSignVOIPropertyTransfers</fullName>
     <availability>online</availability>
     <displayType>button</displayType>
+    <encodingKey>UTF-8</encodingKey>
     <hasMenubar>false</hasMenubar>
     <hasScrollbars>true</hasScrollbars>
     <hasToolbar>false</hasToolbar>
     <height>600</height>
     <isResizable>true</isResizable>
-    <linkType>page</linkType>
+    <linkType>url</linkType>
     <masterLabel>Adobe Sign (VOI - Property Transfers)</masterLabel>
     <openType>newWindow</openType>
-    <page>AdobeSignVOI</page>
     <position>none</position>
     <protected>false</protected>
     <showsLocation>false</showsLocation>
     <showsStatus>false</showsStatus>
+    <url>/lightning/cmp/c__adobeSignVOI?c__masterId={!Account.Id}</url>
 </WebLink>

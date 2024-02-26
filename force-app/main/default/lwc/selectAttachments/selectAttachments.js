@@ -138,7 +138,7 @@ export default class SelectAttachments extends NavigationMixin(LightningElement)
 		this[NavigationMixin.Navigate]({
 			type: 'standard__webPage',
 			attributes: {
-				url: this.redirect + '?id=' + this.recordid + '&attachmentids=' + this.preSelectedRows.join(',')
+				url: '/' + this.redirect + '?c__masterId=' + this.recordid + '&c__attachmentIds=' + this.preSelectedRows.join(',')
 			}
 		})
 	}
