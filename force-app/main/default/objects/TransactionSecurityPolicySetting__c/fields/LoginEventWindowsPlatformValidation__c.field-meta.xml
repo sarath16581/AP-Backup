@@ -6,6 +6,9 @@
     <externalId>false</externalId>
     <inlineHelpText>enable/disable Login event windows platform validation. Take action as per Transaction Security Policy if not windows platform.</inlineHelpText>
     <label>Login Event Windows Platform Validation</label>
+    <securityClassification>INTERNAL</securityClassification>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>GDPR</complianceGroup>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>
 </CustomField>
