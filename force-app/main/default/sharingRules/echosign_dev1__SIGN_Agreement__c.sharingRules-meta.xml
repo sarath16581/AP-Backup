@@ -30,4 +30,19 @@
         </criteriaItems>
         <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
+	<sharingCriteriaRules>
+        <fullName>ShareAdobeEnvelopesWithRetailOperations</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>Share Adobe Sign Envelopes with Retail Operations</description>
+        <label>Share Adobe Envelopes With Retail Operations</label>
+        <sharedTo>
+            <roleAndSubordinatesInternal>Retail_Operations</roleAndSubordinatesInternal>
+        </sharedTo>
+        <criteriaItems>
+            <field>OwnerId</field>
+            <operation>notEqual</operation>
+            <value></value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
 </SharingRules>
