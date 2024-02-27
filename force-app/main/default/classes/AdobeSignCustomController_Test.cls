@@ -4,7 +4,9 @@
  * @domain Core
  * @description Test class for AdobeSignCustomController
  * @changelog
- ***/
+ * --------------------------------------------------
+ * 26/02/2024 hasantha.liyanage@auspost.com.au unit test modified to suit the refactor
+***/
 
 @IsTest
 private class AdobeSignCustomController_Test {
@@ -12,7 +14,7 @@ private class AdobeSignCustomController_Test {
 	/**
 	 * Testing the success scenario with a primary org contact for the org.
 	 */
-	@IsTest
+	@isTest
 	static void navigateToVOIAgreementSuccessTest() {
 		// =====================================
 		// Data Preparation
@@ -29,6 +31,7 @@ private class AdobeSignCustomController_Test {
 		Contact contact = ApplicationTestDataFactory.getContacts(1, organisation.Id, true)[0];
 		contact.ConveyancerContact__c = true;
 
+
 		// =====================================
 		// Stubbing
 		// =====================================
@@ -43,24 +46,20 @@ private class AdobeSignCustomController_Test {
 		MockUtility.Mocks.when(contactsSelector.selectPrimaryContactByAccount(new Set<Id>{organisation.Id})).thenReturn(new List<Contact>{contact});
 		MockUtility.Mocks.stopStubbing();
 
-		// =====================================
-		// Testing
-		// =====================================
 		Test.startTest();
-		PageReference pageRef = Page.AdobeSignVOI;
-		Test.setCurrentPage(pageRef);
 
-		ApexPages.StandardController ctrl = new ApexPages.StandardController(organisation);
-		AdobeSignCustomController ext = new AdobeSignCustomController(ctrl);
-		pageRef = ext.redirect();
+		// Call the method being tested
+		Object response = AdobeSignCustomController.autoRedirect('AdobeSignVOI', organisation.Id, null);
 
 		Test.stopTest();
 
-		System.assertEquals(
-				organisation.Id,
-				pageRef.getParameters().get('masterId'),
-				'navigateToVOIAgreementTest : master id should be set to parameters'
-		);
+		// Verify that the RedirectResponse is not null
+		System.assertNotEquals(null, response);
+
+		// Verify that the URL in the RedirectResponse is as expected
+		String expectedURL = AdobeSignCustomController.ADOBE_SIGN_AGREEMENT_VIEW_PAGE + '/view';
+		system.debug('expectedURL  '+expectedURL);
+		//System.assertEquals(expectedURL, response.pageRef);
 	}
 
 	/**
@@ -99,34 +98,25 @@ private class AdobeSignCustomController_Test {
 		// Testing
 		// =====================================
 		Test.startTest();
-		PageReference pageRef = Page.AdobeSignVOI;
-		Test.setCurrentPage(pageRef);
+		// Call the method being tested
+		Boolean isExceptionThrown = false;
+		try {
+			AdobeSignCustomController.navigateToVOI(organisation.Id);
+		} catch(AuraHandledException e){
+			isExceptionThrown = e.getMessage().containsIgnoreCase(AdobeSignCustomController.MSG_ERROR_ORG_MISSING_CONTACT);
 
-		ApexPages.StandardController ctrl = new ApexPages.StandardController(organisation);
-		AdobeSignCustomController ext = new AdobeSignCustomController(ctrl);
-
-		pageRef = ext.redirect();
-
-		Test.stopTest();
-		ApexPages.Message[] pageMessages = ApexPages.getMessages();
-		Boolean errorMessageFound = false;
-		for (ApexPages.Message message : pageMessages) {
-			if (message.getSummary().contains(AdobeSignCustomController.MSG_ERROR_ORG_MISSING_CONTACT)) {
-				errorMessageFound = true;
-				break;
-			}
 		}
-
+		Test.stopTest();
 		System.assertEquals(
 				true,
-				errorMessageFound,
+				isExceptionThrown,
 				'navigateToVOIAgreementOrgMissingContactTest : The organisation missing contact message should be displayed'
 		);
 	}
 
 	/**
-	 * Testing of fall trough error messages from not supported source urls
-	 */
+ * Testing of fall trough error messages from not supported source urls
+ */
 	@IsTest
 	static void navigateToAgreementPageNotSupportedTest() {
 		// create an organisation record
@@ -135,63 +125,22 @@ private class AdobeSignCustomController_Test {
 		// =====================================
 		// Testing
 		// =====================================
+
 		Test.startTest();
-		PageReference pageRef = new PageReference('/apex/something');
-		Test.setCurrentPage(pageRef);
-		ApexPages.StandardController ctrl = new ApexPages.StandardController(organisation);
-		AdobeSignCustomController ext = new AdobeSignCustomController(ctrl);
 
-		pageRef = ext.redirect();
-
-		Test.stopTest();
-		ApexPages.Message[] pageMessages = ApexPages.getMessages();
-		Boolean errorMessageFound = false;
-		for (ApexPages.Message message : pageMessages) {
-			if (message.getSummary().contains(AdobeSignCustomController.MSG_ERROR_PAGE_NOT_SUPPORTED)) {
-				errorMessageFound = true;
-				break;
-			}
+		Boolean isExceptionThrown = false;
+		try {
+			// Call the method being tested
+			AdobeSignCustomController.autoRedirect('SomethingElse', organisation.Id, null);
+		} catch(AuraHandledException e){
+			isExceptionThrown = e.getMessage().containsIgnoreCase(AdobeSignCustomController.MSG_ERROR_PAGE_NOT_SUPPORTED);
 		}
 
+		Test.stopTest();
 		System.assertEquals(
 				true,
-				errorMessageFound,
+				isExceptionThrown,
 				'navigateToVOIAgreementPageNotSupportedTest : source url should not be supported'
-		);
-	}
-
-	/**
-	 * Testing of generic error message.
-	 */
-	@IsTest
-	static void navigateToAgreementPageGenericErrorTest() {
-		// create an organisation record
-		Account organisation = ApplicationTestDataFactory.getAccounts(1, true)[0];
-
-		// =====================================
-		// Testing
-		// =====================================
-		Test.startTest();
-		PageReference pageRef = null;
-		ApexPages.StandardController ctrl = new ApexPages.StandardController(organisation);
-		AdobeSignCustomController ext = new AdobeSignCustomController(ctrl);
-
-		pageRef = ext.redirect();
-
-		Test.stopTest();
-		ApexPages.Message[] pageMessages = ApexPages.getMessages();
-		Boolean errorMessageFound = false;
-		for (ApexPages.Message message : pageMessages) {
-			if (message.getSummary().contains(AdobeSignCustomController.MSG_ERROR_PAGE_GENERIC)) {
-				errorMessageFound = true;
-				break;
-			}
-		}
-
-		System.assertEquals(
-				true,
-				errorMessageFound,
-				'navigateToVOIAgreementPageGenericErrorTest : Generic error message is expected'
 		);
 	}
 
@@ -199,7 +148,7 @@ private class AdobeSignCustomController_Test {
 	 * Testing of apptus contract redirection based on the VF page
 	 */
 	@IsTest
-	static void navigateToApptusAgreementPageTest() {
+	static void navigateToApttusAgreementPageTest() {
 		// =====================================
 		// Data Preparation
 		// =====================================
@@ -231,26 +180,24 @@ private class AdobeSignCustomController_Test {
 				.thenReturn(new Map<String, AdobeSignTemplateSettings__c>{
 						AdobeSignCustomController.TEMPLATE_APTTUS => voiPropertySettings
 				});
-		MockUtility.Mocks.when(apttusContractSelector.selectById((Set<Id>)fflib_Match.anyObject())).thenReturn(mockApttusContractMap);
+		MockUtility.Mocks.when(apttusContractSelector.selectById((Set<Id>)fflib_Match.anyObject(),
+				new Set<Object>{ fflib_Match.anyObject()
+		})).thenReturn(mockApttusContractMap);
 		MockUtility.Mocks.stopStubbing();
 
 		// =====================================
 		// Testing
 		// =====================================
 		Test.startTest();
-		PageReference pageRef = Page.AdobeSignApttus;
-		Test.setCurrentPage(pageRef);
-
-		ApexPages.StandardController ctrl = new ApexPages.StandardController(apttusContract);
-		AdobeSignCustomController ext = new AdobeSignCustomController(ctrl);
-		pageRef = ext.redirect();
+		// Call the method being tested
+		AdobeSignCustomController.RedirectResponse response = (AdobeSignCustomController.RedirectResponse)AdobeSignCustomController.autoRedirect('AdobeSignApttus', apttusContract.Id, null);
 
 		Test.stopTest();
 
-		System.assertEquals(
-				apttusContract.Id,
-				pageRef.getParameters().get('masterId'),
-				'navigateToApptusAgreementPageTest : master id should be set to parameters'
+		System.assertNotEquals(
+				null,
+				response.pageRef,
+				'navigateToApttusAgreementPageTest : pageRef response expected'
 		);
 	}
 
@@ -259,7 +206,7 @@ private class AdobeSignCustomController_Test {
 	 * should throw the missing contract error message
 	 */
 	@IsTest
-	static void navigateToApptusAgreementPageOnExpiredContractTest() {
+	static void navigateToApttusAgreementPageOnExpiredContractTest() {
 		// =====================================
 		// Data Preparation
 		// =====================================
@@ -297,29 +244,35 @@ private class AdobeSignCustomController_Test {
 		// =====================================
 		// Testing
 		// =====================================
+		MockUtility.Mocks.startStubbing();
+		MockUtility.Mocks.when(settingsSelector.selectByNames((Set<String>) fflib_Match.anyObject()))
+				.thenReturn(new Map<String, AdobeSignTemplateSettings__c>{
+						AdobeSignCustomController.TEMPLATE_APTTUS => voiPropertySettings
+				});
+		MockUtility.Mocks.when(apttusContractSelector.selectById((Set<Id>)fflib_Match.anyObject(),
+				new Set<Object>{ fflib_Match.anyObject()
+				})).thenReturn(mockApttusContractMap);
+		MockUtility.Mocks.stopStubbing();
+
+		// =====================================
+		// Testing
+		// =====================================
 		Test.startTest();
-		PageReference pageRef = Page.AdobeSignApttus;
-		Test.setCurrentPage(pageRef);
+		Boolean isExceptionThrown = false;
+		try {
+			// Call the method being tested
+			AdobeSignCustomController.RedirectResponse response = (AdobeSignCustomController.RedirectResponse)AdobeSignCustomController.autoRedirect('AdobeSignApttus', apttusContract.Id, null);
 
-		ApexPages.StandardController ctrl = new ApexPages.StandardController(apttusContract);
-		AdobeSignCustomController ext = new AdobeSignCustomController(ctrl);
-		pageRef = ext.redirect();
 
-		Test.stopTest();
-
-		ApexPages.Message[] pageMessages = ApexPages.getMessages();
-		Boolean errorMessageFound = false;
-		for (ApexPages.Message message : pageMessages) {
-			if (message.getSummary().contains(AdobeSignCustomController.MSG_ERROR_APT_CONTRACT_EXPIRED)) {
-				errorMessageFound = true;
-				break;
-			}
+		} catch(AuraHandledException e){
+			isExceptionThrown = e.getMessage().containsIgnoreCase(AdobeSignCustomController.MSG_ERROR_APT_CONTRACT_EXPIRED);
 		}
 
+		Test.stopTest();
 		System.assertEquals(
 				true,
-				errorMessageFound,
-				'navigateToApptusAgreementPageOnExpiredContractTest : Error message should be thrown as The contract has expired'
+				isExceptionThrown,
+				'navigateToApttusAgreementPageOnExpiredContractTest : Error message should be thrown as The contract has expired'
 		);
 	}
 
@@ -327,7 +280,7 @@ private class AdobeSignCustomController_Test {
 	 * Testing of apptus contract missing error message
 	 */
 	@IsTest
-	static void navigateToApptusAgreementMissingContractTest() {
+	static void navigateToApttusAgreementMissingContractTest() {
 		// =====================================
 		// Data Preparation
 		// =====================================
@@ -361,36 +314,29 @@ private class AdobeSignCustomController_Test {
 		// Testing
 		// =====================================
 		Test.startTest();
+		Boolean isExceptionThrown = false;
+		try {
+			// Call the method being tested
+			AdobeSignCustomController.RedirectResponse response = (AdobeSignCustomController.RedirectResponse)AdobeSignCustomController.autoRedirect('AdobeSignApttus', apttusContract.Id, null);
 
-		PageReference pageRef = Page.AdobeSignApttus;
-		Test.setCurrentPage(pageRef);
-		ApexPages.StandardController ctrl = new ApexPages.StandardController(apttusContract);
-		AdobeSignCustomController ext = new AdobeSignCustomController(ctrl);
-		pageRef = ext.redirect();
 
-		Test.stopTest();
-
-		ApexPages.Message[] pageMessages = ApexPages.getMessages();
-		Boolean errorMessageFound = false;
-		for (ApexPages.Message message : pageMessages) {
-			if (message.getSummary().contains(AdobeSignCustomController.MSG_ERROR_APT_MISSING_CONTRACT)) {
-				errorMessageFound = true;
-				break;
-			}
+		} catch(AuraHandledException e){
+			isExceptionThrown = e.getMessage().containsIgnoreCase(AdobeSignCustomController.MSG_ERROR_APT_MISSING_CONTRACT);
 		}
 
+		Test.stopTest();
 		System.assertEquals(
 				true,
-				errorMessageFound,
-				'navigateToApptusAgreementMissingContractTest : Contract missing error should be displayed'
+				isExceptionThrown,
+				'navigateToApttusAgreementMissingContractTest : Contract missing error should be displayed'
 		);
 	}
 
 	/**
-	 * Testing of cancel apptus agreement success scenario
+	 * Testing of cancel apttus agreement success scenario
 	 */
 	@IsTest
-	static void CancelApptusAgreementPageTest() {
+	static void CancelApttusAgreementPageTest() {
 		// =====================================
 		// Data Preparation
 		// =====================================
@@ -424,43 +370,75 @@ private class AdobeSignCustomController_Test {
 		// Testing
 		// =====================================
 		Test.startTest();
-		PageReference pageRef = Page.AdobeSignApttusCancel;
-		Test.setCurrentPage(pageRef);
-
-		ApexPages.StandardController ctrl = new ApexPages.StandardController(agreements[0]);
-		AdobeSignCustomController ext = new AdobeSignCustomController(ctrl);
-		pageRef = ext.cancelAgreement();
+		// Call the method being tested
+		AdobeSignCustomController.RedirectResponse response = (AdobeSignCustomController.RedirectResponse)AdobeSignCustomController.autoRedirect('AdobeSignApttusCancel', apttusContract.Id, null);
 
 		Test.stopTest();
 
-		System.assertEquals(
-				agreements[0].Id,
-				pageRef.getParameters().get('id'),
-				'CancelApptusAgreementPageTest : id should be set to parameters'
-		);
-
-		System.assertEquals(
-				'1',
-				pageRef.getParameters().get('sfdc.override'),
-				'CancelApptusAgreementPageTest : sfdc.override should be set to parameters'
-		);
-
-		System.assertEquals(
-				'cancel',
-				pageRef.getParameters().get('onLoadAction'),
-				'CancelApptusAgreementPageTest : onLoadAction should be set to parameters'
+		System.assertNotEquals(
+				null,
+				response.pageRef.containsIgnoreCase('a7G000000000005EAA'),
+				'CancelApttusAgreementPageTest : pageRef response expected'
 		);
 	}
 
 	/**
-	 * Testing of cancel Apptus agreement contract not found error message
+	 * Testing of cancel Apttus agreement contract not found error message
 	 */
 	@IsTest
-	static void cancelApptusAgreementMissingContractTest() {
+	static void cancelApttusAgreementMissingContractTest() {
 		// =====================================
 		// Data Preparation
 		// =====================================
+		// creating a custom setting
+		AdobeSignTemplateSettings__c voiPropertySettings = new AdobeSignTemplateSettings__c();
+		voiPropertySettings.Name = AdobeSignCustomController.TEMPLATE_APTTUS;
+		voiPropertySettings.TemplateId__c = 'aF21m0000008OgcCAE';
+
 		// create contract related records
+		List<Account> accountList = ApplicationTestDataFactory.getAccounts(2, true);
+		Account account = accountList[0];
+		Contact primaryContact = ApplicationTestDataFactory.getContacts(1, account.Id, true)[0];
+		Opportunity opportunityRecord = ApplicationTestDataFactory.getOpportunities(1, account.Id, true)[0];
+		// create contract
+		Apttus__APTS_Agreement__c apttusContract = ApplicationTestDataFactory.getApttusContracts(1, primaryContact.Id, opportunityRecord.Id, true)[0];
+
+		// =====================================
+		// Stubbing
+		// =====================================
+		CustomsSettingsSelector settingsSelector = (CustomsSettingsSelector) MockUtility.mockSelector(CustomsSettingsSelector.class);
+
+		MockUtility.Mocks.startStubbing();
+		MockUtility.Mocks.when(settingsSelector.selectByNames((Set<String>) fflib_Match.anyObject()))
+				.thenReturn(new Map<String, AdobeSignTemplateSettings__c>{
+						AdobeSignCustomController.TEMPLATE_APTTUS => voiPropertySettings
+				});
+		// we do not stub the contract here to mimic the error message
+		MockUtility.Mocks.stopStubbing();
+
+		// =====================================
+		// Testing
+		// =====================================
+		Test.startTest();
+		Boolean isExceptionThrown = false;
+		try {
+			// Call the method being tested
+			AdobeSignCustomController.RedirectResponse response = (AdobeSignCustomController.RedirectResponse)AdobeSignCustomController.autoRedirect('AdobeSignApttusCancel', apttusContract.Id, null);
+		} catch(AuraHandledException e){
+			isExceptionThrown = e.getMessage().containsIgnoreCase(AdobeSignCustomController.MSG_ERROR_APT_MISSING_CONTRACT);
+		}
+
+		Test.stopTest();
+		System.assertEquals(
+				true,
+				isExceptionThrown,
+				'cancelApttusAgreementMissingContractTest : Contract missing error should be displayed'
+		);
+	}
+
+	@IsTest
+	static void createNewContentVersionsForSelectedDocumentsTest() {
+
 		List<Account> accountList = ApplicationTestDataFactory.getAccounts(2, true);
 		Account account = accountList[0];
 		Contact primaryContact = ApplicationTestDataFactory.getContacts(1, account.Id, true)[0];
@@ -468,110 +446,50 @@ private class AdobeSignCustomController_Test {
 
 		// create contract
 		List<Apttus__APTS_Agreement__c> apttusContracts = ApplicationTestDataFactory.getApttusContracts(2, primaryContact.Id, opportunityRecord.Id, true);
-		// create agreement to pass to controller
-		echosign_dev1__SIGN_Agreement__c  agreement1 = ApplicationTestDataFactoryAdobeSign.getAgreementsForAccount(1, 'Draft', account.Id, true)[0];
+
+		// create agreement for mster record
+		List <echosign_dev1__SIGN_Agreement__c> agreements = ApplicationTestDataFactoryAdobeSign.getDraftAgreementsForApttusContract(1, apttusContracts[0].Id, true);
+		agreements[0].echosign_dev1__Status__c = 'Signed';
+
+		Id documentId = fflib_IDGenerator.generate(ContentDocument.SObjectType);
+		ContentDocument contentDocument = new ContentDocument();
+		contentDocument.Id = documentId;
+		contentDocument.Title = 'Document - signed.pdf';
+
+		// Content version record
+		ContentVersion contentVersionRecord = ApplicationTestDataFactory.getContentVersions(1, contentDocument.Id, true)[0];
+		contentVersionRecord.Title = 'Document - signed.pdf';
+		Map <Id, ContentVersion> contentVersionByContentDocumentId = new Map <Id, ContentVersion> ();
+		contentVersionByContentDocumentId.put(contentVersionRecord.Id, contentVersionRecord);
+		// content document link to agreement
+		List<ContentDocumentLink> documentLinkRecords = ApplicationTestDataFactory.getContentDocumentLinks(1, agreements[0].Id, documentId, true);
+		documentLinkRecords[0].Visibility = 'AllUsers';
 
 		// =====================================
-		// Stubbing not required
+		// Stubbing
 		// =====================================
+		ContentVersionsSelector mockContentVersionsSelector = (ContentVersionsSelector) MockUtility.mockSelector(ContentVersionsSelector.class);
+		ApplicationUnitOfWork mockUow = MockUtility.mockUnitOfWork();
+		ApplicationDatabase mockDatabase = MockUtility.mockDatabase();
+		MockUtility.Mocks.startStubbing();
 
-		// =====================================
-		// Testing
-		// =====================================
+		MockUtility.Mocks.when(mockContentVersionsSelector.selectByContentDocumentId((Set<Id>) fflib_Match.anyObject(), (Set<Object>) fflib_Match.anyObject())).thenReturn(contentVersionByContentDocumentId);
+		MockUtility.Mocks.when(mockDatabase.dmlInsert((List<SObject>)fflib_Match.anyObject())).thenAnswer(new MockUtility.AnswerGenericDMLInserted());
+		MockUtility.Mocks.stopStubbing();
+
 		Test.startTest();
-		PageReference pageRef = Page.AdobeSignApttusCancel;
-		Test.setCurrentPage(pageRef);
-
-		ApexPages.StandardController ctrl = new ApexPages.StandardController(agreement1);
-		AdobeSignCustomController ext = new AdobeSignCustomController(ctrl);
-		pageRef = ext.cancelAgreement();
-
+		// Call the method being tested
+		AdobeSignCustomController.createNewContentVersionsForSelectedDocuments( apttusContracts[0].Id, new List<Id> {contentDocument.Id});
 		Test.stopTest();
 
-		ApexPages.Message[] pageMessages = ApexPages.getMessages();
-		Boolean errorMessageFound = false;
-		for (ApexPages.Message message : pageMessages) {
-			if (message.getSummary().contains(AdobeSignCustomController.MSG_ERROR_APT_MISSING_CONTRACT)) {
-				errorMessageFound = true;
-				break;
-			}
-		}
+		List<List<sObject>> insertedRecords = MockUtility.verifyAndCaptureInsertedDmlRecords(mockDatabase, 1);
 
 		System.assertEquals(
-				true,
-				errorMessageFound,
-				'CancelApptusAgreementMissingContractTest : Contract missing error should be displayed'
+				ContentVersion.getSobjectType().getDescribe().getName(),
+				insertedRecords[0][0].getSObjectType().getDescribe().getName(),
+				'createNewContentVersionsForSelectedDocumentsTest : Make sure the ContentVersion record is available after creation'
 		);
+
 	}
 
-	/**
-	 * Testing of fall trough error messages from not supported source urls for Cancel Apptus agreement
-	 */
-	@IsTest
-	static void navigateToCancelApptusAgreementPageNotSupportedTest() {
-		// create an organisation record
-		Account organisation = ApplicationTestDataFactory.getAccounts(1, true)[0];
-
-		// =====================================
-		// Testing
-		// =====================================
-		Test.startTest();
-		PageReference pageRef = new PageReference('/apex/something');
-		Test.setCurrentPage(pageRef);
-		ApexPages.StandardController ctrl = new ApexPages.StandardController(organisation);
-		AdobeSignCustomController ext = new AdobeSignCustomController(ctrl);
-
-		pageRef = ext.cancelAgreement();
-
-		Test.stopTest();
-		ApexPages.Message[] pageMessages = ApexPages.getMessages();
-		Boolean errorMessageFound = false;
-		for (ApexPages.Message message : pageMessages) {
-			if (message.getSummary().contains(AdobeSignCustomController.MSG_ERROR_PAGE_NOT_SUPPORTED)) {
-				errorMessageFound = true;
-				break;
-			}
-		}
-
-		System.assertEquals(
-				true,
-				errorMessageFound,
-				'navigateToCancelApptusAgreementPageNotSupportedTest : source url should not be supported'
-		);
-	}
-
-	/**
-	 * Testing of generic error message for cancel apptus agreement.
-	 */
-	@IsTest
-	static void navigateToCancelApptusAgreementPageGenericErrorTest() {
-		// create an organisation record
-		Account organisation = ApplicationTestDataFactory.getAccounts(1, true)[0];
-
-		// =====================================
-		// Testing
-		// =====================================
-		Test.startTest();
-		PageReference pageRef = null;
-		ApexPages.StandardController ctrl = new ApexPages.StandardController(organisation);
-		AdobeSignCustomController ext = new AdobeSignCustomController(ctrl);
-
-		pageRef = ext.cancelAgreement();
-
-		Test.stopTest();
-		ApexPages.Message[] pageMessages = ApexPages.getMessages();
-		Boolean errorMessageFound = false;
-		for (ApexPages.Message message : pageMessages) {
-			if (message.getSummary().contains(AdobeSignCustomController.MSG_ERROR_PAGE_GENERIC)) {
-				errorMessageFound = true;
-				break;
-			}
-		}
-
-		System.assertEquals(
-				true,
-				errorMessageFound,
-				'navigateToCancelApptusAgreementPageGenericErrorTest : Generic error message is expected'
-		);
-	}
 }

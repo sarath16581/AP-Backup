@@ -11,8 +11,8 @@ History:
 
 public with sharing class AdobeSignCustomController {
 	public Id masterId {get; set;}
-	private static String APTTUS_CONTRACT_VIEW_PAGE = '/lightning/r/' + Apttus__APTS_Agreement__c.SObjectType + '/';
-	private static String ADOBE_SIGN_AGREEMENT_VIEW_PAGE = '/lightning/r/' + echosign_dev1__SIGN_Agreement__c.SObjectType + '/';
+	@TestVisible private static String APTTUS_CONTRACT_VIEW_PAGE = '/lightning/r/' + Apttus__APTS_Agreement__c.SObjectType + '/';
+	@TestVisible private static String ADOBE_SIGN_AGREEMENT_VIEW_PAGE = '/lightning/r/' + echosign_dev1__SIGN_Agreement__c.SObjectType + '/';
 	@TestVisible private static String TEMPLATE_VOI_PROPERTY = 'VOI_Property';
 	@TestVisible private static String TEMPLATE_APTTUS = 'Apttus';
 	@TestVisible private static String MSG_ERROR_ORG_MISSING_CONTACT = 'The Organisation is missing a primary contact';
@@ -40,11 +40,16 @@ public with sharing class AdobeSignCustomController {
 					return cancelApttusAgreement((Id)masterId);
 				}
 				when else {
-					throw new AuraHandledException(MSG_ERROR_PAGE_NOT_SUPPORTED);
+					AuraHandledException ae = new AuraHandledException(MSG_ERROR_PAGE_NOT_SUPPORTED);
+					ae.setMessage(MSG_ERROR_PAGE_NOT_SUPPORTED);
+					throw ae;
 				}
 			}
 		} catch (Exception ex){
-			throw new AuraHandledException(MSG_ERROR_PAGE_GENERIC);
+			UTIL_LoggingService.logHandledException(ex, UserInfo.getOrganizationId(), 'Adobe Sign', AdobeSignCustomController.class.getName(), 'autoRedirect', 'N/A', LoggingLevel.ERROR);
+			AuraHandledException ae = new AuraHandledException(MSG_ERROR_PAGE_GENERIC);
+			ae.setMessage(ex.getMessage());
+			throw ae;
 		}
 	}
 
@@ -52,6 +57,7 @@ public with sharing class AdobeSignCustomController {
 	 * @param masterId the Id of the parent record (Account or Apttus Contract currently supported)
 	 * @return RedirectResponse inner class instance containing the pageRef that the aura component should auto redirect to
 	 */
+	@TestVisible
 	private static RedirectResponse navigateToVOI(Id masterId) {
 		List<contact> primaryContacts = ContactsSelector.newInstance().selectPrimaryContactByAccount(new Set<Id>{ masterId });
 
@@ -64,13 +70,17 @@ public with sharing class AdobeSignCustomController {
 			vars.put('contactId', new echosign_dev1.AgreementTemplateVariable('contactId', primaryContacts[0].Id));
 
 			// Generate an agreement based on specified template Id and parent record (master Id), as well as any additional template variables, specified above (Adobe Sign Envelope)
-			// This is documented in the Adobe Sign Salesforce Developer Guide: https://helpx.adobe.com/sign/integrations/salesforce-developer-guide.html 
-			Id agreementId = echosign_dev1.AgreementTemplateService.load(voiPropertySetting.TemplateId__c, masterId, vars);
-
-			return new RedirectResponse(ADOBE_SIGN_AGREEMENT_VIEW_PAGE + agreementId + '/view');	
+			// This is documented in the Adobe Sign Salesforce Developer Guide: https://helpx.adobe.com/sign/integrations/salesforce-developer-guide.html
+			Id agreementId = null;
+			if(!Test.isRunningTest()){
+				agreementId = echosign_dev1.AgreementTemplateService.load(voiPropertySetting.TemplateId__c, masterId, vars);
+			}
+			return new RedirectResponse(ADOBE_SIGN_AGREEMENT_VIEW_PAGE + agreementId + '/view');
 		} else {
 			// No primary contact found
-			throw new AuraHandledException(MSG_ERROR_ORG_MISSING_CONTACT);
+			AuraHandledException ae = new AuraHandledException(MSG_ERROR_ORG_MISSING_CONTACT);
+			ae.setMessage(MSG_ERROR_ORG_MISSING_CONTACT);
+			throw ae;
 		}
 	}
 
@@ -88,15 +98,16 @@ public with sharing class AdobeSignCustomController {
 																					new Set<Id> { masterId }, 
 																					new Set<Object>{ ApttusContractsSelector.Options.WITH_OPPORTUNITY
 																				});
-
 		if (contracts.keySet().size() == 1) {
 			Apttus__APTS_Agreement__c contract = contracts.get(masterId);
 
 			// Throw UI exception message when the contract has expired
 			if (contract.DaysUntilContractExpires__c <= 0) {
-				throw new AuraHandledException(MSG_ERROR_APT_CONTRACT_EXPIRED);
+				AuraHandledException ae = new AuraHandledException(MSG_ERROR_APT_CONTRACT_EXPIRED);
+				ae.setMessage(MSG_ERROR_APT_CONTRACT_EXPIRED);
+				throw ae;
 			}
-
+			system.debug('contracts 3 '+contracts);
 			try {
 				AdobeSignTemplateSettings__c apptusSetting = getTemplateSetting(TEMPLATE_APTTUS);
 
@@ -106,10 +117,13 @@ public with sharing class AdobeSignCustomController {
 				vars.put('ownerId', new echosign_dev1.AgreementTemplateVariable('ownerId', contract.Apttus__Related_Opportunity__r.OwnerId));
 
 				// Generate an agreement based on specified template Id and parent record (master Id), as well as any additional template variables, specified above (Adobe Sign Envelope)
-				// This is documented in the Adobe Sign Salesforce Developer Guide: https://helpx.adobe.com/sign/integrations/salesforce-developer-guide.html 
-				Id agreementId = echosign_dev1.AgreementTemplateService.load(apptusSetting.TemplateId__c, masterId, vars);
+				// This is documented in the Adobe Sign Salesforce Developer Guide: https://helpx.adobe.com/sign/integrations/salesforce-developer-guide.html
+				Id agreementId = null;
+				if(!Test.isRunningTest()){
+					agreementId = echosign_dev1.AgreementTemplateService.load(apptusSetting.TemplateId__c, masterId, vars);
+				}
 
-				if (!attachmentIds.isEmpty()) {
+				if (attachmentIds != null && !attachmentIds.isEmpty()) {
 					createNewContentVersionsForSelectedDocuments(agreementId, attachmentIds);
 				}
 
@@ -120,7 +134,9 @@ public with sharing class AdobeSignCustomController {
 		}
 		else {
 			// No primary contact found
-			throw new AuraHandledException(MSG_ERROR_APT_MISSING_CONTRACT);
+			AuraHandledException ae = new AuraHandledException(MSG_ERROR_APT_MISSING_CONTRACT);
+			ae.setMessage(MSG_ERROR_APT_MISSING_CONTRACT);
+			throw ae;
 		}
 	}
 
@@ -144,7 +160,9 @@ public with sharing class AdobeSignCustomController {
 		}
 		else {
 			// No primary contact, or multiple contracts found
-			throw new AuraHandledException(MSG_ERROR_APT_MISSING_CONTRACT);
+			AuraHandledException ae = new AuraHandledException(MSG_ERROR_APT_MISSING_CONTRACT);
+			ae.setMessage(MSG_ERROR_APT_MISSING_CONTRACT);
+			throw ae;
 		}
 	}
 
@@ -176,6 +194,7 @@ public with sharing class AdobeSignCustomController {
 	 * @param contentDocumentIds the Ids of the documents to attach to the agreement
 	 * @return void
 	 */
+	@TestVisible
 	private static void createNewContentVersionsForSelectedDocuments(Id agreementId, List <Id> contentDocumentIds) {
 		// Currently, Adobe Sign for Salesforce doesn't support the ability to attach multiple files (selected) to an agreement via the API or the UI
 		// The only options available are either Latest Document or All Documents.
@@ -210,6 +229,7 @@ public with sharing class AdobeSignCustomController {
 	// -------------
 	// Inner Classes
 	// -------------
+	@TestVisible
 	private class RedirectResponse {
 		@AuraEnabled
 		public String pageRef;
