@@ -5411,14 +5411,6 @@ Please choose to override the hotlist restriction or Cancel to quit the process.
         <value>Add Product Quantities. At least one product must have a valid quantity value.</value>
     </labels>
     <labels>
-        <fullName>OpportunityWithInvalidRevenueStartDateOnProducts</fullName>
-        <categories>Sales Pipeline</categories>
-        <language>en_US</language>
-        <protected>false</protected>
-        <shortDescription>Opportunity With Invalid Revenue Start Date On Products</shortDescription>
-        <value>Update the product Revenue Date(s) to a future date. Revenue Start Dates must be later than today. If this is a ‘pre-entry’ scenario where trade commences prior to closing, request Customer Onboarding update this via a DSR.</value>
-    </labels>
-    <labels>
         <fullName>Opportunity_BDD_Error</fullName>
         <language>en_US</language>
         <protected>false</protected>
@@ -8107,7 +8099,7 @@ something new for us, so we&apos;d love to know what you think.</value>
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>SubAccountPeopleSoftErrorMessage</shortDescription>
-        <value>his request does not meet the minimum criteria to create a sub-account or follower/offspring account. A sub-account or follower/offspring account cannot be created for a Billing Account with Source System PeopleSoft.</value>
+        <value>This request does not meet the minimum criteria to create a sub-account or follower/offspring account. A sub-account or follower/offspring account cannot be created for a Billing Account with Source System PeopleSoft.</value>
     </labels>
     <labels>
         <fullName>SubmitBillingAccountProvisioningRequestPermissionsError</fullName>
@@ -8821,4 +8813,938 @@ something new for us, so we&apos;d love to know what you think.</value>
         <shortDescription>withinEDDPlusBusinessDaysText</shortDescription>
         <value>Your delivery is expected on</value>
     </labels>
+<<<<<<< HEAD
+=======
+    <labels>
+        <fullName>HappyParcelAcceptableDeliveryHelpText</fullName>
+        <categories>Happy Parcel</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Happy Parcel Acceptable Delivery Help Text</shortDescription>
+        <value>Within acceptable delivery radius</value>
+    </labels>
+    <labels>
+        <fullName>HappyParcelAcceptableDistanceHelpText</fullName>
+        <categories>Happy Parcel</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Happy Parcel Acceptable Distance Help Text</shortDescription>
+        <value>Distance within 100m</value>
+    </labels>
+    <labels>
+        <fullName>HappyParcelCorrectDeliveryHelpText</fullName>
+        <categories>Happy Parcel</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Happy Parcel Correct Delivery Help Text</shortDescription>
+        <value>Driver indicated correct delivery address</value>
+    </labels>
+    <labels>
+        <fullName>HappyParcelDistanceCalculatedHelpText</fullName>
+        <categories>Happy Parcel</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Happy Parcel Distance Calculated Help Text</shortDescription>
+        <value>Distance between Delivered and Manifest locations</value>
+    </labels>
+    <labels>
+        <fullName>HappyParcelScanHelpText</fullName>
+        <categories>Happy Parcel</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Happy Parcel Scan Help Text</shortDescription>
+        <value>Parcel scanned within 100m range of manifested location</value>
+    </labels>
+    <labels>
+        <fullName>ICPSAddArticlesInvalidInputs</fullName>
+        <categories>ICPS</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>ICPSAddArticlesInvalidInputs</shortDescription>
+        <value>Please update the invalid entries and try again.</value>
+    </labels>
+    <labels>
+        <fullName>ICPSAddArticlesManualFieldMandatory</fullName>
+        <categories>ICPS</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>ICPSAddArticlesManualFieldMandatory</shortDescription>
+        <value>For articles not found in SAP EM, ensure that the Recipient, Sender, Contents, Declaration Value and Weight are specified.</value>
+    </labels>
+    <labels>
+        <fullName>Route_Printing_Static_Text_Top</fullName>
+        <categories>PUD Pickup Booking</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Route Printing Static Text Top</shortDescription>
+        <value>PTO’s are to familiarize themselves with duty statement at the commencement of their shift. Departures or alterations from these duties must be advised in writing and authorized by the O.I.C.</value>
+    </labels>
+    <labels>
+        <fullName>Route_Printing_Static_Text_Bottom</fullName>
+        <categories>PUD Pickup Booking</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Route Printing Static Text Bottom</shortDescription>
+        <value>The Motor Vehicle Running Record (T2) is to be filled out before the commencement of, and at the cessation of use of any Aust. Post Vehicle.</value>
+    </labels>
+    <labels>
+        <fullName>StarTrackLeaderAndSubAccountsErrorNotification</fullName>
+        <categories>Billing Account Provisioning</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>StarTrackLeaderAndSubAccountsErrorNotification</shortDescription>
+        <value>Leader Account request for {0} has encountered an Error. Please raise a Service Now Ticket via Report a Fault, and follow the required error handling sub account business process to ensure request is successfully completed. Click here to go to Deal Support Request record {1}.</value>
+    </labels>
+    <labels>
+        <fullName>StarTrackLeaderAndSubAccountsErrorNotificationTitle</fullName>
+        <categories>Billing Account Provisioning</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>StarTrackLeaderAndSubAccountsErrorNotificationTitle</shortDescription>
+        <value>Leader with Follower/Offspring accounts encountered error.</value>
+    </labels>
+    <labels>
+        <fullName>StarTrackLeaderAndSubAccountsSuccessNotification</fullName>
+        <categories>Billing Account Provisioning</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>StarTrackLeaderAndSubAccountsSuccessNotification</shortDescription>
+        <value>Leader Billing Account {0} and Follower(s)/Offspring(s) {1} for {2} has been successfully created. Click here to go to Deal Support Request record {3}.</value>
+    </labels>
+    <labels>
+        <fullName>StarTrackLeaderAndSubAccountsSuccessNotificationTitle</fullName>
+        <categories>Billing Account Provisioning</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>StarTrackLeaderAndSubAccountsSuccessNotificationTitle</shortDescription>
+        <value>Leader with Follower/Offspring accounts created successfully.</value>
+    </labels>
+    <labels>
+        <fullName>StarTrackLeaderBillingAccountErrorNotification</fullName>
+        <categories>Billing Account Provisioning</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>StarTrackLeaderBillingAccountErrorNotification</shortDescription>
+        <value>Leader Account request for {0} has encountered an error. Please raise a Service Now Ticket via Report a Fault, and follow the required error handling sub account business process to ensure request is successfully completed. Click here to go to Deal Support Request record {1}.</value>
+    </labels>
+    <labels>
+        <fullName>StarTrackLeaderBillingAccountErrorNotificationTitle</fullName>
+        <categories>Billing Account Provisioning</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>StarTrackLeaderBillingAccountErrorNotificationTitle</shortDescription>
+        <value>Leader account request encountered an error.</value>
+    </labels>
+    <labels>
+        <fullName>StarTrackLeaderBillingAccountSuccessNotification</fullName>
+        <categories>Billing Account Provisioning</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>StarTrackLeaderBillingAccountSuccessNotification</shortDescription>
+        <value>Leader Billing Account {0} for {1} has been successfully created. Click here to go to Deal Support Request record {2}.</value>
+    </labels>
+    <labels>
+        <fullName>StarTrackLeaderBillingAccountSuccessNotificationTitle</fullName>
+        <categories>Billing Account Provisioning</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>StarTrackLeaderBillingAccountSuccessNotificationTitle</shortDescription>
+        <value>Leader account created successfully.</value>
+    </labels>
+    <labels>
+        <fullName>StarTrackLeaderSuccessAndSubAccountsErrorNotification</fullName>
+        <categories>Billing Account Provisioning</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>StarTrackLeaderSuccessAndSubAccountsErrorNotification</shortDescription>
+        <value>Leader Billing Account {0} created successfully. Follower/Offspring accounts encountered error - {1}. Click here to go to Deal Support Request record {2}.</value>
+    </labels>
+    <labels>
+        <fullName>StarTrackLeaderSuccessAndSubAccountsErrorNotificationTitle</fullName>
+        <categories>Billing Account Provisioning</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>StarTrackLeaderSuccessAndSubAccountsErrorNotificationTitle</shortDescription>
+        <value>Leader account created successfully. One or more Follower/Offspring accounts encountered error.</value>
+    </labels>
+    <labels>
+        <fullName>StarTrackLeaderSuccessAndSubAccountsPartialSuccessNotification</fullName>
+        <categories>Billing Account Provisioning</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>StarTrackLeaderSuccessAndSubAccountsPartialSuccessNotification</shortDescription>
+        <value>Leader Billing Account {0} created successfully. Follower/Offspring accounts created successfully - {1}. Follower/Offspring accounts encountered error - {2}. Click here to go to Deal Support Request record {3}.</value>
+    </labels>
+    <labels>
+        <fullName>StarTrackLeaderSuccessAndSubAccountsPartialSuccessNotificationTitle</fullName>
+        <categories>Billing Account Provisioning</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>StarTrackLeaderSuccessAndSubAccountsPartialSuccessNotificationTitle</shortDescription>
+        <value>Leader account created successfully. One or more Follower/Offspring accounts encountered error.</value>
+    </labels>
+    <labels>
+        <fullName>StarTrackLeaderUnknownSubAccountsErrorNotification</fullName>
+        <categories>Billing Account Provisioning</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>StarTrackLeaderUnknownSubAccountsErrorNotification</shortDescription>
+        <value>Follower/Offspring account requests for {0} has encountered error - {1}. Click here to go to Deal Support Request record {2}.</value>
+    </labels>
+    <labels>
+        <fullName>StarTrackLeaderUnknownSubAccountsPartialSuccessNotification</fullName>
+        <categories>Billing Account Provisioning</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>StarTrackLeaderUnknownSubAccountsPartialSuccessNotification</shortDescription>
+        <value>Follower/Offspring accounts created successfully - {0}. Follower/Offspring accounts encountered error - {1}. Click here to go to Deal Support Request record {2}.</value>
+    </labels>
+    <labels>
+        <fullName>StarTrackLeaderUnknownSubAccountsSuccessNotification</fullName>
+        <categories>Billing Account Provisioning</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>StarTrackLeaderUnknownSubAccountsSuccessNotification</shortDescription>
+        <value>Follower(s)/Offspring(s) {0} for {1} has been successfully created. Click here to go to Deal Support Request record {2}.</value>
+    </labels>
+    <labels>
+        <fullName>StarTrackOpportunityRequiredOnDSRForNewAccountsErrorMessage</fullName>
+        <categories>Billing Account Provisioning</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>StarTrackOpportunityRequiredOnDSRForNewAccountsErrorMessage</shortDescription>
+        <value>Opportunity is required on the Deal Support Request.</value>
+    </labels>
+    <labels>
+        <fullName>StarTrackSubAccountActivationDSRDescription</fullName>
+        <categories>Billing Account Provisioning</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>StarTrackSubAccountActivationDSRDescription</shortDescription>
+        <value>Align additional charges, create dispatch ID, activate account &amp; Parcel Send access required: {0}.</value>
+    </labels>
+    <labels>
+        <fullName>StarTrackSubAccountBlankEmailErrorMessage</fullName>
+        <categories>Billing Account Provisioning</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>StarTrackSubAccountBlankEmailErrorMessage</shortDescription>
+        <value>Email field on the Sub Account Contact record is blank. Please update the contact with valid email address.</value>
+    </labels>
+    <labels>
+        <fullName>StarTrackSubAccountMaxFinalizeErrorMessage</fullName>
+        <categories>Billing Account Provisioning</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>StarTrackSubAccountMaxFinalizeErrorMessage</shortDescription>
+        <value>Please be advised that you can only finalize up to 10 follower/offspring requests at a time. If you have more than 10, you can finalize them in a subsequent request.</value>
+    </labels>
+    <labels>
+        <fullName>StarTrackSubAccountMaxSubmitLimitReachedErrorMessage</fullName>
+        <categories>Billing Account Provisioning</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>StarTrackSubAccountMaxSubmitLimitReachedErrorMessage</shortDescription>
+        <value>Please select only upto 10 records for submission.</value>
+    </labels>
+    <labels>
+        <fullName>StarTrackSubAccountParentNotSelectedForFinaliseError</fullName>
+        <categories>Billing Account Provisioning</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>StarTrackSubAccountParentNotSelectedForFinaliseError</shortDescription>
+        <value>Please add Parent Account for the Offspring to finalise.</value>
+    </labels>
+    <labels>
+        <fullName>StarTrackSubAccountParentNotSelectedForSubmitErrorMessage</fullName>
+        <categories>Billing Account Provisioning</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>StarTrackSubAccountParentNotSelectedForSubmitErrorMessage</shortDescription>
+        <value>Please add Parent Account for the Offspring to Submit.</value>
+    </labels>
+    <labels>
+        <fullName>StarTrackSubAccountRequestFailedNonTransientErrorAlert</fullName>
+        <categories>Billing Account Provisioning</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>StarTrackSubAccountRequestFailedNonTransientErrorAlert</shortDescription>
+        <value>Please report an IT issue via the &apos;Report a Fault&apos; icon on the MyIT Service Portal and select the details - Please select the area this relates to: 2. Applications &amp; Software, What does this relate to?: Salesforce, What best describes your issue?: Issues with Sales Cloud, Can you provide a short description?: TEAM Integration not working for Follower/Offspring creation.</value>
+    </labels>
+    <labels>
+        <fullName>StarTrackSubAccountRequestFailedTransientErrorAlert</fullName>
+        <categories>Billing Account Provisioning</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>StarTrackSubAccountRequestFailedTransientErrorAlert</shortDescription>
+        <value>Please report an IT issue via the &apos;Report a Fault&apos; icon on the MyIT Service Portal and select the details - Please select the area this relates to: 2. Applications &amp; Software, What does this relate to?: Salesforce, What best describes your issue?: Issues with Sales Cloud, Can you provide a short description?: TEAM Integration not working for Follower/Offspring creation.</value>
+    </labels>
+    <labels>
+        <fullName>StarTrackSubAccountRequestSubmittedSuccessfullyAlert</fullName>
+        <categories>Billing Account Provisioning</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>StarTrackSubAccountRequestSubmittedSuccessfullyAlert</shortDescription>
+        <value>Sub account creation request(s) submitted Successfully. Once the Follower/Offspring accounts have been created in the TEAM billing system, they will be made available in Salesforce and you will be notified via the bell icon notification.</value>
+    </labels>
+    <labels>
+        <fullName>StarTrackSubAccountsCreationNoAccessError</fullName>
+        <categories>Billing Account Provisioning</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>StarTrackSubAccountsCreationNoAccessError</shortDescription>
+        <value>You do not have access to create Follower/Offspring accounts, please raise a myIT ticket to Salesforce Support for assistance.</value>
+    </labels>
+    <labels>
+        <fullName>StarTrackSubAccountsCreationTabError</fullName>
+        <categories>Billing Account Provisioning</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>StarTrackSubAccountsCreationTabError</shortDescription>
+        <value>Create Sub Accounts tab can only be opened via Sub Account Request button on billing account or triggered from credit assessment flow.</value>
+    </labels>
+    <labels>
+        <fullName>StarTrackSubAccountsCreationTitle</fullName>
+        <categories>Billing Account Provisioning</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>StarTrackSubAccountsCreationTitle</shortDescription>
+        <value>Create Sub Account Request(s)</value>
+    </labels>
+    <labels>
+        <fullName>StarTrackSubAccountsErrorNotification</fullName>
+        <categories>Billing Account Provisioning</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>StarTrackSubAccountsErrorNotification</shortDescription>
+        <value>For Leader Billing Account {0}, Follower/Offspring accounts encountered error- {1}. Click here to go to the Leader Billing Account record.</value>
+    </labels>
+    <labels>
+        <fullName>StarTrackSubAccountsErrorNotificationTitle</fullName>
+        <categories>Billing Account Provisioning</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>StarTrackSubAccountsErrorNotificationTitle</shortDescription>
+        <value>Follower/Offspring account creation encountered error.</value>
+    </labels>
+    <labels>
+        <fullName>StarTrackSubAccountsPartialSuccessNotification</fullName>
+        <categories>Billing Account Provisioning</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>StarTrackSubAccountsPartialSuccessNotification</shortDescription>
+        <value>For Leader Billing Account {0}, Follower/Offspring accounts created successfully - {1} and Follower/Offspring accounts encountered error - {2}. Click here to go to the Leader Billing Account record.</value>
+    </labels>
+    <labels>
+        <fullName>StarTrackSubAccountsPartialSuccessNotificationTitle</fullName>
+        <categories>Billing Account Provisioning</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>StarTrackSubAccountsPartialSuccessNotificationTitle</shortDescription>
+        <value>Follower/Offspring account creation encountered error.</value>
+    </labels>
+    <labels>
+        <fullName>StarTrackSubAccountsSuccessNotification</fullName>
+        <categories>Billing Account Provisioning</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>StarTrackSubAccountsSuccessNotification</shortDescription>
+        <value>For Leader Billing Account {0}, Follower/Offspring accounts created successfully - {1}. Click here to go to the Leader Billing Account record.</value>
+    </labels>
+    <labels>
+        <fullName>StarTrackSubAccountsSuccessNotificationTitle</fullName>
+        <categories>Billing Account Provisioning</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>StarTrackSubAccountsSuccessNotificationTitle</shortDescription>
+        <value>Follower/Offspring accounts created successfully.</value>
+    </labels>
+    <labels>
+        <fullName>StarTrackSubAccountABNConfirmationErrorMessage</fullName>
+        <categories>Billing Account Provisioning</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>StarTrackSubAccountABNConfirmationErrorMessage</shortDescription>
+        <value>This request does not meet the minimum criteria to create a follower/offspring account. Please raise a Data Quality Management Case to link ABN to required Salesforce Organisation. Once this has been completed, please Self-Serve or raise a Customer Onboarding Deal Support Request for a New Agreement, account will be created post agreement fully signed.</value>
+    </labels>
+    <labels>
+        <fullName>StarTrackSubAccountFinaliseConfirmation</fullName>
+        <categories>Billing Account Provisioning</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>StarTrackSubAccountFinaliseConfirmation</shortDescription>
+        <value>You cannot modify or delete the requests once finalised. The sub accounts will be created when the charge account request is submitted.</value>
+    </labels>
+    <labels>
+        <fullName>StarTrackSubAccountInactiveKeyContactErrorMessage</fullName>
+        <categories>Billing Account Provisioning</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>StarTrackSubAccountInactiveKeyContactErrorMessage</shortDescription>
+        <value>Status of the Sub Account Contact record is not active. Please select an active contact record to proceed.</value>
+    </labels>
+    <labels>
+        <fullName>StarTrackSubAccountsSubmitConfirmationMessage</fullName>
+        <categories>Billing Account Provisioning</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>StarTrackSubAccountsSubmitConfirmationMessage</shortDescription>
+        <value>Follower/Offspring creation request(s) for Leader billing account will be submitted. Do you want to proceed?</value>
+    </labels>
+    <labels>
+        <fullName>StarTrackSubmitSubAccountRequestsTitle</fullName>
+        <categories>Billing Account Provisioning</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>StarTrackSubmitSubAccountRequestsTitle</shortDescription>
+        <value>Submit Sub Account Request(s)</value>
+    </labels>
+    <labels>
+        <fullName>STHSSenderReceiverValidationMessage</fullName>
+        <categories>StarTrack Help and Support</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>STHS sender or receiver Validation Message</shortDescription>
+        <value>Please tell us if you’re the sender or receiver</value>
+    </labels>
+    <labels>
+        <fullName>STHSDescriptionValidationMessage</fullName>
+        <categories>StarTrack Help and Support</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>STHS Description Validation Message</shortDescription>
+        <value>Please provide as much information as possible, this will assist us with your enquiry</value>
+    </labels>
+    <labels>
+        <fullName>STHSEmailValidationMessage</fullName>
+        <categories>StarTrack Help and Support</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>STHS Email Validation Message</shortDescription>
+        <value>Please enter a valid email address. For example: name@emailaddress.com.au</value>
+    </labels>
+    <labels>
+        <fullName>STHSEnquirySelectionValidationMessage</fullName>
+        <categories>StarTrack Help and Support</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>STHS Enquiry Selection Validation Message</shortDescription>
+        <value>Please select what your enquiry is about</value>
+    </labels>
+    <labels>
+        <fullName>STHSEnquiryValidationMessage</fullName>
+        <categories>StarTrack Help and Support</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>STHS Enquiry Validation Message</shortDescription>
+        <value>Please enter your enquiry</value>
+    </labels>
+    <labels>
+        <fullName>STHSEnquiryErrorStateMessage</fullName>
+        <categories>StarTrack Help and Support</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>STHS Enquiry Error State Message</shortDescription>
+        <value>Your enquiry couldn’t be submitted due to an error. Please wait a few moments and try again.</value>
+    </labels>
+    <labels>
+        <fullName>STHSFeedbackErrorStateMessage</fullName>
+        <categories>StarTrack Help and Support</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>STHS Feedback Error State Message</shortDescription>
+        <value>Your feedback couldn’t be submitted due to an error.
+            Please wait a few moments and try again.</value>
+    </labels>
+    <labels>
+        <fullName>STHSFeedbackSelectionValidationMessage</fullName>
+        <categories>StarTrack Help and Support</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>STHS Feedback Selection Validation Message</shortDescription>
+        <value>Please select what your feedback is about</value>
+    </labels>
+    <labels>
+        <fullName>STHSFeedbackValidationMessage</fullName>
+        <categories>StarTrack Help and Support</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>STHS Feedback Validation Message</shortDescription>
+        <value>Please enter your feedback</value>
+    </labels>
+    <labels>
+        <fullName>STHSFirstnameValidationMessage</fullName>
+        <categories>StarTrack Help and Support</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>STHS Firstname Validation Message</shortDescription>
+        <value>Please enter your first name</value>
+    </labels>
+    <labels>
+        <fullName>STHSIDSearchCommentsNoConsignment</fullName>
+        <categories>StarTrack Help and Support</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>No consignment found</shortDescription>
+        <value>No consignment data found. Connote number may be invalid or missing address data. Try assigning the consignment again and ask customer to check the consignment number/address details as required.</value>
+    </labels>
+    <labels>
+        <fullName>STHSIDSearchCommentsDuplicateConsignment</fullName>
+        <categories>StarTrack Help and Support</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Duplicate consignments found</shortDescription>
+        <value>More than one result was found. Try assigning the consignment again and select the correct consignment number.</value>
+    </labels>
+    <labels>
+        <fullName>STHSIDSearchCommentsTimeoutTechError</fullName>
+        <categories>StarTrack Help and Support</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Any timeout/technical error</shortDescription>
+        <value>The consignment couldn’t be assigned due to a technical issue. Try assigning the consignment again.</value>
+    </labels>
+    <labels>
+        <fullName>STHSLastnameValidationMessage</fullName>
+        <categories>StarTrack Help and Support</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>STHS Lastname Validation Message</shortDescription>
+        <value>Please enter your last name</value>
+    </labels>
+    <labels>
+        <fullName>STHSNameFieldCharactersValidationMessage</fullName>
+        <categories>StarTrack Help and Support</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>STHS name field validation message on characters</shortDescription>
+        <value>Please enter letters and/or special characters only</value>
+    </labels>
+    <labels>
+        <fullName>STHSPhoneValidationMessage</fullName>
+        <categories>StarTrack Help and Support</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>STHS Phone Validation Message</shortDescription>
+        <value>Enter valid phone number including area code</value>
+    </labels>
+    <labels>
+        <fullName>STHSReferenceValidationMessage</fullName>
+        <categories>StarTrack Help and Support</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>STHS Reference Validation Message</shortDescription>
+        <value>Please enter a reference</value>
+    </labels>
+    <labels>
+        <fullName>STHSSupportURL</fullName>
+        <categories>StarTrack Help and Support</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>STHS Support URL</shortDescription>
+        <value>https://startrack.com.au/support</value>
+    </labels>
+    <labels>
+        <fullName>PUDDuplicateBookingContainerErrorMessage</fullName>
+        <categories>PUD Pickup Booking</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>PUDDuplicateBookingContainerErrorMessage</shortDescription>
+        <value>Container type: {0} with condition: {1} already exists under a booking. Please update existing container type.</value>
+    </labels>
+    <labels>
+        <fullName>STHSMaxCharactersValidationMessage</fullName>
+        <categories>StarTrack Help and Support</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>STHS Max Characters Validation Message</shortDescription>
+        <value>Maximum 40 characters allowed</value>
+    </labels>
+    <labels>
+        <fullName>AttributeAPCNMapping</fullName>
+        <categories>Auth0</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Attribute APCN Mapping</shortDescription>
+        <value>https://auspost/apcn</value>
+    </labels>
+    <labels>
+        <fullName>AttributeCNumberMapping</fullName>
+        <categories>Auth0</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Attribute CNumber Mapping</shortDescription>
+        <value>https://auspost/cnumber</value>
+    </labels>
+    <labels>
+        <fullName>AutoLITExceptionYes</fullName>
+        <categories>Chas - Help and Support</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Case Comment Message to be included when it is Auto LIT Exception found</shortDescription>
+        <value>Exception found. Auto close = No</value>
+    </labels>
+    <labels>
+        <fullName>AutoLITExceptionNo</fullName>
+        <categories>Chas - Help and Support</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Case Comment Message to be included when it is Auto LIT Exception NOT found</shortDescription>
+        <value>Receiver, Lost, Refer to sender. Auto close = Yes</value>
+    </labels>
+    <labels>
+        <fullName>CaseInvestigationDuplicateErrorMessage</fullName>
+        <categories>MyNetwork StarTrack</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>CaseInvestigationDuplicateErrorMessage</shortDescription>
+        <value>Case Investigation already exists for this article {0} and network id {1} and case id {2}.</value>
+    </labels>
+    <labels>
+        <fullName>MyNetworkBlankNetworkErrorMessage</fullName>
+        <categories>MyNetwork StarTrack</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>MyNetwork Blank Network Error Message</shortDescription>
+        <value>Please select a network to submit a case investigation for this article</value>
+    </labels>
+    <labels>
+        <fullName>MyNetworkCaseInvestigationSuccessMessage</fullName>
+        <categories>MyNetwork StarTrack</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>MyNetwork Case Investigation Success Message</shortDescription>
+        <value>Case Investigation records created successfully!</value>
+    </labels>
+    <labels>
+        <fullName>MyNetworkConsignmentErrorMessage</fullName>
+        <categories>MyNetwork StarTrack</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>MyNetwork Consignment Error Message</shortDescription>
+        <value>None of the articles in this consignment have been scanned at an AusPost facility.</value>
+    </labels>
+    <labels>
+        <fullName>MyNetworkDuplicateCaseInvestigationErrorMessage</fullName>
+        <categories>MyNetwork StarTrack</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>MyNetwork Duplicate Case Investigation Error Message</shortDescription>
+        <value>There&apos;s already existing case investigation for this article and this network, please check the related case investigation list for latest status</value>
+    </labels>
+    <labels>
+        <fullName>MyNetworkInvalidCaseInvestigationErrorMessage</fullName>
+        <categories>MyNetwork StarTrack</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>MyNetwork Duplicate Invalid Investigation Error Message</shortDescription>
+        <value>Please select an article to submit a case investigation</value>
+    </labels>
+    <labels>
+        <fullName>MyNetworkInvalidNetworkErrorMessage</fullName>
+        <categories>MyNetwork StarTrack</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>MyNetwork Invalid Network Error Message</shortDescription>
+        <value>Network is not available on MyNetwork Portal</value>
+    </labels>
+    <labels>
+        <fullName>MyNetworkBlankCaseTypeErrorMessage</fullName>
+        <categories>MyNetwork StarTrack</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>MyNetwork Blank Case Type Error Message</shortDescription>
+        <value>Case Type is required when creating a case investigation.</value>
+    </labels>
+    <labels>
+        <fullName>leadSeakerIntoExistingOpportunity</fullName>
+        <categories>label</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Flag to allow linking of old Opportunity when converting Lead Seeker lead</shortDescription>
+        <value>You’ve attempted to convert a Lead Seeker lead into an existing opportunity. To proceed with this conversion, please email the Lead Seeker inbox for help (seekerrewards@seeker.auspost.com.au).</value>
+    </labels>
+    <labels>
+        <fullName>GPS_SDI_match_manifest_address</fullName>
+        <categories>FlagCaseForReview</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>GPS &amp; SDI match manifest address</shortDescription>
+        <value>Please flag when delivery GPS and Safe Drop Image match manifest address and there is not an issue with the safe drop location</value>
+    </labels>
+    <labels>
+        <fullName>Incorrect_facility</fullName>
+        <categories>FlagCaseForReview</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Incorrect facility</shortDescription>
+        <value>Please advise in Network Response correct facility if known, and re-assign</value>
+    </labels>
+    <labels>
+        <fullName>Invalid_Incorrect_Missing_data</fullName>
+        <categories>FlagCaseForReview</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Invalid/Incorrect/Missing data</shortDescription>
+        <value>Please provide details on missing data in Network Response</value>
+    </labels>
+    <labels>
+        <fullName>Manifest_only</fullName>
+        <categories>FlagCaseForReview</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Manifest only</shortDescription>
+        <value>Please flag when there are no physical scans for the parcel</value>
+    </labels>
+    <labels>
+        <fullName>The_agent_was_equipped_to_provide_a_response</fullName>
+        <categories>FlagCaseForReview</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>The agent was equipped to provide a response</shortDescription>
+        <value>Please provide further details in Network Response</value>
+    </labels>
+    <labels>
+        <fullName>Other</fullName>
+        <categories>FlagCaseForReview</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Other</shortDescription>
+        <value>Please provide further details in Network Response</value>
+    </labels>
+    <labels>
+        <fullName>Request_outside_service_offering</fullName>
+        <categories>FlagCaseForReview</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Request outside service offering</shortDescription>
+        <value>Please specify request - address change without redirection in place, redelivery request, etc</value>
+    </labels>
+    <labels>
+        <fullName>Unable_to_fulfil_request</fullName>
+        <categories>FlagCaseForReview</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Unable to fulfil request</shortDescription>
+        <value>Please include reason in Network Response</value>
+    </labels>
+    <labels>
+        <fullName>Within_EDD</fullName>
+        <categories>FlagCaseForReview</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Within EDD</shortDescription>
+        <value>Please flag when there is a query about a non-urgent parcel when it is within EDD</value>
+    </labels>
+    <labels>
+        <fullName>X2_weeks_past_delivered_date</fullName>
+        <categories>FlagCaseForReview</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>2+ weeks past delivered date</shortDescription>
+        <value>Please flag when an investigation is sent through more than 10 days after the delivery date and the contents are not high priority - medication, items with high resale value, etc</value>
+    </labels>
+    <labels>
+        <fullName>CHQ_Handling_Fee_Reversal</fullName>
+        <categories>CreditClaimReason</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Cheque handling fee charged incorrectly</shortDescription>
+        <value>Cheque handling fee charged incorrectly</value>
+    </labels>
+    <labels>
+        <fullName>Duplicate_Charge</fullName>
+        <categories>CreditClaimReason</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>This is a duplicate charge for the same article</shortDescription>
+        <value>This is a duplicate charge for the same article</value>
+    </labels>
+    <labels>
+        <fullName>Explanation_of_charge</fullName>
+        <categories>CreditClaimReason</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Unknown charge</shortDescription>
+        <value>Unknown charge</value>
+    </labels>
+    <labels>
+        <fullName>Incorrect_pricing_rates</fullName>
+        <categories>CreditClaimReason</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Article Pricing was charged incorrectly</shortDescription>
+        <value>Article Pricing was charged incorrectly</value>
+    </labels>
+    <labels>
+        <fullName>Incorrect_weight_cubic_charge</fullName>
+        <categories>CreditClaimReason</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>The article was charged for incorrect weight and/or dimensions</shortDescription>
+        <value>The article was charged for incorrect weight and/or dimensions</value>
+    </labels>
+    <labels>
+        <fullName>International_Fees_Taxes</fullName>
+        <categories>CreditClaimReason</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>International fees or taxes charged incorrectly</shortDescription>
+        <value>International fees or taxes charged incorrectly</value>
+    </labels>
+    <labels>
+        <fullName>Late_payment</fullName>
+        <categories>CreditClaimReason</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Late payment of the Tax Invoice fee charged incorrectly</shortDescription>
+        <value>Late payment of the Tax Invoice fee charged incorrectly</value>
+    </labels>
+    <labels>
+        <fullName>Manifest_Correction_Fee_Credit</fullName>
+        <categories>CreditClaimReason</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Manifest was charged incorrectly</shortDescription>
+        <value>Manifest was charged incorrectly</value>
+    </labels>
+    <labels>
+        <fullName>Manifested_not_sent</fullName>
+        <categories>CreditClaimReason</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Incorrect charges for articles that were not sent</shortDescription>
+        <value>Incorrect charges for articles that were not sent</value>
+    </labels>
+    <labels>
+        <fullName>Manual_handling_surcharge</fullName>
+        <categories>CreditClaimReason</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Manual handling surcharge charged incorrectly</shortDescription>
+        <value>Manual handling surcharge charged incorrectly</value>
+    </labels>
+    <labels>
+        <fullName>Not_our_charge</fullName>
+        <categories>CreditClaimReason</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Unknown charge</shortDescription>
+        <value>Unknown charge</value>
+    </labels>
+    <labels>
+        <fullName>Un_manifested_charge</fullName>
+        <categories>CreditClaimReason</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Un-manifested charge is incorrect</shortDescription>
+        <value>Un-manifested charge is incorrect</value>
+    </labels>
+    <labels>
+        <fullName>APT_AbandonCart</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Used in abandon cart custom action in cart</shortDescription>
+        <value>Abandon Cart</value>
+    </labels>
+    <labels>
+        <fullName>APT_AmendRenewal_StarTrackField</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>APT_AmendRenewal_StarTrackField</shortDescription>
+        <value>You cannot link this opportunity record to amendment/renewal process as it’s missing the following information: &quot;Is this Opportunity for a Startrack product?&quot;, If this opportunity is for Startrack product, then you are required to provide: &quot;Minimum monthly Spend&quot; and &quot;Primary Postcode&quot;</value>
+    </labels>
+    <labels>
+        <fullName>APT_Checkout</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>APT_Checkout</shortDescription>
+        <value>Checkout</value>
+    </labels>
+    <labels>
+        <fullName>Add_Product_On_Closed_Opportunity</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Add_Product_On_Closed_Opportunity</shortDescription>
+        <value>You cannot create Proposal when Opportunity is &quot;Close Lost&quot;</value>
+    </labels>
+    <labels>
+        <fullName>Send_for_eSignature_Custom_Message</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Send for eSignature Custom Message</shortDescription>
+        <value>Please confirm that you want to send this agreement for eSignature.
+                   
+                  Once the agreement is signed by Australia Post and Customer you will receive an
+                         email confirmation and Customer Onboarding team will be notified to provision the rates
+                          and activate the contract.</value>
+    </labels>
+    <labels>
+        <fullName>Yes_Its_StarTrackProduct</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Yes_Its_StarTrackProduct</shortDescription>
+        <value>Please fill the values for the field &quot;Primary pickup location&quot; and &quot;Minimum Monthly Spend&quot; when values for the field &quot;StarTrack Product&quot; is Yes</value>
+    </labels>
+    <labels>
+        <fullName>isStarTrackProduct</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>isStarTrackProduct</shortDescription>
+        <value>You cannot access Product Catalogue without having completed the following fields: &quot;StarTrack Opportunity?&quot; and &quot;Key Contact&quot;. If this opportunity is for StarTrack Product(s), then you are required to provide &quot;StarTrack Minimum Monthly Spend&quot; and &quot;StarTrack Primary Pickup (Postcode)”</value>
+    </labels>
+    <labels>
+        <fullName>keyContactErrorMsg</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>keyContactErrorMsg</shortDescription>
+        <value>Your opportunity record is missing Key Contact information</value>
+    </labels>
+    <labels>
+        <fullName>KeyContactError</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>KeyContactError</shortDescription>
+        <value>You cannot access Product Catalogue without having completed the following fields: &quot;StarTrack Opportunity?&quot; and &quot;Key Contact&quot;. If this opportunity is for StarTrack Product(s), then you are required to provide &quot;StarTrack Minimum Monthly Spend&quot; and &quot;StarTrack Primary Pickup (Postcode)”</value>
+    </labels>
+    <labels>
+        <fullName>viewRateCardControllerError</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>ViewRateCardControllerError</shortDescription>
+        <value>Your checkout transaction is still being processed, please try again later</value>
+    </labels>
+    <labels>
+        <fullName>BAMInvalidBillingAccountFields</fullName>
+        <categories>BAM</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>BAM Invalid Billing Account Fields</shortDescription>
+        <value>Billing Account field API Name: {0} defined in the filter is invalid.</value>
+    </labels>
+    <labels>
+        <fullName>BAMInvalidBillingAccountJsonFilter</fullName>
+        <categories>BAM</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>BAM Invalid Billing Account Json Filter</shortDescription>
+        <value>JSON provided is invalid. Please fix it.</value>
+    </labels>
+    <labels>
+        <fullName>Australia_Post_Email_Security_Disclaimer</fullName>
+        <categories>Message</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Australia Post Email Security Disclaimer</shortDescription>
+        <value>This email was sent by Australia Post. If you have any concerns, or don&apos;t think you should have received this email, please call us on 13 13 18. Visit auspost.com.au for further information on our online security. Australia Post does not represent, warrant or guarantee that the integrity of this email communication has been maintained nor that the communication is free from errors, viruses, or interference.</value>
+    </labels>
+    <labels>
+        <fullName>Australia_Post_No_Email_Phishing_Statement</fullName>
+        <categories>Message</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Australia Post No Email Phishing Statement</shortDescription>
+        <value>Australia Post will never send you an email asking for your password, credit card details or account information.</value>
+    </labels>
+>>>>>>> ptest
 </CustomLabels>

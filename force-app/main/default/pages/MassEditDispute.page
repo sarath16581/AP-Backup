@@ -45,6 +45,9 @@ Note: All modifications made on the page will be lost if Cancel button is clicke
     <apex:column headerValue="Status">
         <apex:inputField value="{!a.Status__c}"/>
     </apex:column>
+    <apex:column headerValue="Is APPC?">
+        <apex:inputField value="{!a.Is_APPC__c}"/>
+    </apex:column>
     <apex:column headerValue="Reason Category">
         <apex:inputField value="{!a.Reason_Category__c}"/>
     </apex:column>

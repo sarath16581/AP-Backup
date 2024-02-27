@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Commercial_Analytics_Modelling</fullName>
-    <active>true</active>
+    <active>false</active>
     <description>Provision of analytical &amp; modelling support for opportunities.</description>
     <label>Commercial Analytics &amp; Modelling</label>
     <picklistValues>
@@ -1947,6 +1947,17 @@
         </values>
         <values>
             <fullName>Organisation</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>RevenueType__c</picklist>
+        <values>
+            <fullName>Increase Revenue</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>No Revenue Change or Decrease Revenue</fullName>
             <default>false</default>
         </values>
     </picklistValues>

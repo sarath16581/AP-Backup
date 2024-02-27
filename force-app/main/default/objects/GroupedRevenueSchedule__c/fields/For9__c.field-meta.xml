@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>For9__c</fullName>
+    <description>Sales Forecast for September</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Sales Forecast for September</inlineHelpText>
+    <label>September Forecast</label>
+    <precision>5</precision>
+    <required>false</required>
+    <scale>1</scale>
+    <securityClassification>INTERNAL</securityClassification>
+    <trackTrending>false</trackTrending>
+    <type>Percent</type>
+</CustomField>

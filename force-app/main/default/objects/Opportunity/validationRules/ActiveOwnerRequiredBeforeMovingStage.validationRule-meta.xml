@@ -9,7 +9,8 @@
  OR( ISPICKVAL(StageName, &quot;Qualify&quot;), ISPICKVAL(StageName,
  &quot;Propose&quot;), ISPICKVAL(StageName, &quot;Negotiate&quot;),
  ISPICKVAL(StageName, &quot;Closed Won&quot;) ),
- Owner.IsActive = false
+ Owner.IsActive = false,
+ NOT( $Permission.ByPassErrorsForOpportunityValidations )
 )</errorConditionFormula>
     <errorDisplayField>OwnerId</errorDisplayField>
     <errorMessage>Update the Opportunity Driver. The current Opportunity Driver is not an active team member.</errorMessage>

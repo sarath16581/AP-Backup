@@ -509,6 +509,18 @@
         <template>Australia_Post_Case_Templates/Dispute_Case_Acknowledgement</template>
     </alerts>
     <alerts>
+        <fullName>New_Dispute_Claim_Case_Created_Origin_Email</fullName>
+        <description>New Dispute Claim Case Created Origin Email</description>
+        <protected>false</protected>
+        <recipients>
+            <field>Email_Address__c</field>
+            <type>email</type>
+        </recipients>
+        <senderAddress>credit.claims@auspost.com.au</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>Australia_Post_Case_Templates/Dispute_Case_Acknowledgement_Origin_Email</template>
+    </alerts>
+    <alerts>
         <fullName>New_Dispute_Claim_Case_Created_StarTrack</fullName>
         <description>New Dispute Claim Case Created StarTrack</description>
         <protected>false</protected>
@@ -519,6 +531,18 @@
         <senderAddress>credit.claims@startrack.com.au</senderAddress>
         <senderType>OrgWideEmailAddress</senderType>
         <template>Australia_Post_Case_Templates/Dispute_Case_Acknowledgement_StarTrack</template>
+    </alerts>
+    <alerts>
+        <fullName>New_Dispute_Claim_Case_Created_StarTrack_Origin_Email</fullName>
+        <description>New Dispute Claim Case Created StarTrack Origin Email</description>
+        <protected>false</protected>
+        <recipients>
+            <field>Email_Address__c</field>
+            <type>email</type>
+        </recipients>
+        <senderAddress>credit.claims@startrack.com.au</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>Australia_Post_Case_Templates/Dispute_Case_Acknowledgement_StarTrack_Origin_Email</template>
     </alerts>
     <alerts>
         <fullName>New_Late_Payment_Dispute_Claim_Case_Created</fullName>
@@ -811,7 +835,7 @@
     </alerts>
     <alerts>
         <fullName>SSSW_Send_a_Email_when_a_new_Case_has_been_created</fullName>
-        <ccEmails>customerservice@auspost.com.au</ccEmails>
+        <ccEmails>customerservice@7-2sw00juo2qexbggmk4l682xcotvk5xnxk33oer1n9mxdpf8qqn.bm-198h7mai.aus18s.case.sandbox.salesforce.com</ccEmails>
         <description>SSSW - Send a Email when a new Case has been created,</description>
         <protected>false</protected>
         <recipients>
@@ -824,7 +848,7 @@
     </alerts>
     <alerts>
         <fullName>SSSW_Send_a_Email_when_a_new_Case_has_been_created_Web_Portal</fullName>
-        <ccEmails>customerservice@auspost.com.au</ccEmails>
+        <ccEmails>customerservice@7-2sw00juo2qexbggmk4l682xcotvk5xnxk33oer1n9mxdpf8qqn.bm-198h7mai.aus18s.case.sandbox.salesforce.com</ccEmails>
         <description>SSSW - Send a Email when a new Case has been created Web/Portal</description>
         <protected>false</protected>
         <recipients>

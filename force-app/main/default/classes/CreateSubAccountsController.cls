@@ -22,13 +22,13 @@ public with sharing class CreateSubAccountsController {
 	private static final Map<SObjectType, Set<SObjectField>> BILLING_ACCOUNT_FIELD_OVERRIDES = new Map<SObjectType, Set<SObjectField>>{
 			Billing_Account__c.SObjectType => new Set<SObjectField>{Billing_Account__c.Id, Billing_Account__c.LEGACY_ID__c,
 					Billing_Account__c.Name, Billing_Account__c.SAP_marked_for_deletion__c, Billing_Account__c.Source_System__c,
-					Billing_Account__c.Type__c, Billing_Account__c.PAYER_ACCOUNT_ID__c, Billing_Account__c.LeaderAccount__c},
+					Billing_Account__c.Type__c, Billing_Account__c.PAYER_ACCOUNT_ID__c, Billing_Account__c.LeaderAccount__c, Billing_Account__c.ABN__c},
 			Account.SObjectType => new Set<SObjectField>{Account.Name}
 	};
 
 	@TestVisible private static stateInfo stateInfoVar;
 
-	@AuraEnabled
+	@AuraEnabled(cacheable=true)
 	public static Billing_Account__c getBillingAccountDetails(String billingAccountRecord){
 		Map<Id, Billing_Account__c> billingAccountMap = BillingAccountsSelector.newInstance(1, BILLING_ACCOUNT_FIELD_OVERRIDES).selectById(new Set<Id> {billingAccountRecord}, new Set<Object>{BillingAccountsSelector.Options.WITH_ORGANISATION});
 		if (billingAccountMap.values().size() > 0) {

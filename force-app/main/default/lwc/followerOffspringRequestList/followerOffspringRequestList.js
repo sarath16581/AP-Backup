@@ -72,23 +72,47 @@ export default class FollowerOffspringRequestList extends NavigationMixin(Lightn
 	@api countFinalised;
 
 	// Sub Accounts passed from request wrapper
-	@api subAccounts = [];
+	_subAccounts = [];
+	@api get subAccounts() {
+		return this._subAccounts;
+	}
+	set subAccounts(val) {
+		// state/catch of below need reset whenever subAccounts are changed from parent.
+		// Those changes may because the list is triggered from different parent(leader) or
+		// deletion, submission, or finalisation on the sub accounts
+		this._computedSubAccounts = null;
+		this._filteredSubAccounts = null;
+		this._submittedSubAccountsList = null;
+		this._finalisedSubAccountsList = null;
+		this.searchTerm = null;
 
-	// Finalised sub Accounts passed from request wrapper
-	@api finalisedSubAccounts = [];
+		this._subAccounts = val;
+	}
 
+	// datatable
 	columns;
-	finalisedColumns;
-
-	// Default sorting is on CreatedDate DESC
-	sortBy = 'CreatedDate';
-	sortDirection = 'desc';
-
-	picklistMap;
-	_filteredSubAccounts;
-	_finalisedSubAccountsList;
+	readOnlyColumns;
+	sortBy;
+	sortDirection;
 	searchTerm;
 	selectedRows = [];
+
+	// a deep clone of subAccounts with Account Type label mapped
+	// this list is used to compute filtered, finalised and submitted lists
+	_computedSubAccounts;
+
+	// filtered from computedSubAccounts. Used as data source of draft/error sub account requests
+	// need to be reactive whenever computedSubAccounts is updated
+	_filteredSubAccounts;
+
+	// filtered from computedSubAccounts. Used as data source of finalised sub account requests
+	// need to be reactive whenever computedSubAccounts is updated
+	_finalisedSubAccountsList;
+
+	// filtered from computedSubAccounts. Used as data source of submitted sub account requests
+	// need to be reactive whenever computedSubAccounts is updated
+	_submittedSubAccountsList;
+
 	isLoading = true;
 	_subAccountsByIdMap;
 
@@ -135,28 +159,17 @@ export default class FollowerOffspringRequestList extends NavigationMixin(Lightn
 	 *  Get account type picklist API name and label map - required to render the datatable
 	 *  Upon receiving load datatable columns
 	 */
+	picklistMap;
 	@wire(getPicklistValues, {recordTypeId: '$subAccountInfo.data.defaultRecordTypeId', fieldApiName: SUB_ACCOUNT_ACCOUNT_TYPE})
 	wiredPicklistValues({data}) {
-		this.picklistMap = new Map();
 		if (data?.values) {
+			this.picklistMap = new Map();
 			data.values.forEach(item => {
 				this.picklistMap.set(item.value, item.label);
 			});
 		}
 
-		if (this.hasFinalisedSubAccounts) {
-			this.finalisedSubAccountsList.forEach(acc => {
-				acc.AccountTypeLabel = this.picklistMap.get(acc[SUB_ACCOUNT_ACCOUNT_TYPE.fieldApiName]);
-			});
-		}
-
-		if (this.hasFilteredSubAccounts) {
-			this.filteredSubAccounts.forEach(acc => {
-				acc.AccountTypeLabel = this.picklistMap.get(acc[SUB_ACCOUNT_ACCOUNT_TYPE.fieldApiName]);
-			});
-		}
-
-		if (this.hasFinalisedSubAccounts || this.hasFilteredSubAccounts) {
+		if (!this.columns) {
 			//Load columns from server and add Physical Address, Account Type and row actions columns
 			getDatatableColumns().then(c => {
 				this.columns = c.map(item => {
@@ -166,7 +179,7 @@ export default class FollowerOffspringRequestList extends NavigationMixin(Lightn
 				this.columns.splice(2, 0, {label: 'Physical Address', fieldName: 'PhysicalAddressStr', type: 'text', sortable: 'true'});
 				// replace AccountType__c with AccountTypeLabel
 				this.columns.splice(0, 1, {label: 'Account Type', fieldName: 'AccountTypeLabel', type: 'text', sortable: 'true'})
-				this.finalisedColumns = [...this.columns];
+				this.readOnlyColumns = [...this.columns];
 				this.columns.push({type: 'action', typeAttributes: {rowActions: actions}});
 			}).catch(error => {
 				console.error(error);
@@ -185,41 +198,77 @@ export default class FollowerOffspringRequestList extends NavigationMixin(Lightn
 		return [CHARGE_ACCOUNT_OPPORTUNITY_ID, CHARGE_ACCOUNT_OPPORTUNITY_NAME];
 	}
 
+	get computedSubAccounts() {
+		if (this._computedSubAccounts) {
+			return this._computedSubAccounts;
+		}
+		if (this.picklistMap && this.subAccounts?.length > 0) {
+			// map account type label
+			this._computedSubAccounts = this.subAccounts.map(item => {
+				return {...item, AccountTypeLabel: this.picklistMap?.get(item[SUB_ACCOUNT_ACCOUNT_TYPE.fieldApiName])};
+			});
+		}
+		return this._computedSubAccounts;
+	}
+
 	get hasFinalisedSubAccounts() {
 		return this.finalisedSubAccountsList?.length > 0;
 	}
 
-	get hasFilteredSubAccounts() {
-		return this.filteredSubAccounts?.length > 0;
+	get hasSubmittedSubAccounts() {
+		return this.submittedSubAccountsList?.length > 0;
 	}
 
 	get filteredSubAccounts() {
-		if (this._filteredSubAccounts == null && this.subAccounts?.length > 0) {
-			this._filteredSubAccounts = JSON.parse(JSON.stringify(this.subAccounts));
+		if (this._filteredSubAccounts) {
+			return this._filteredSubAccounts;
 		}
+
+		if (!this._filteredSubAccounts && this.computedSubAccounts?.length > 0) {
+			this._filteredSubAccounts = this.computedSubAccounts?.filter(item => item[SUB_ACCOUNT_STAGE.fieldApiName] === 'Error' || item[SUB_ACCOUNT_STAGE.fieldApiName] === 'Draft');
+		}
+		// filter records based on the search term
+		if (this.searchTerm) {
+			this._filteredSubAccounts = this._filteredSubAccounts.filter(item => {
+				for (const field of SEARCHABLE_FIELDS) {
+					const fieldValueStr = item[field].toLowerCase();
+					if (fieldValueStr.includes(this.searchTerm.toLowerCase())) {
+						return true;
+					}
+				}
+				return false;
+			});
+		}
+		if (this.sortBy) {
+			this.sortData(this.sortBy, this.sortDirection);
+		}
+
 		return this._filteredSubAccounts;
 	}
 
-	set filteredSubAccounts(value) {
-		this._filteredSubAccounts = value;
-	}
-
 	get finalisedSubAccountsList() {
-		if (this._finalisedSubAccountsList == null && this.finalisedSubAccounts?.length > 0) {
-			this._finalisedSubAccountsList = JSON.parse(JSON.stringify(this.finalisedSubAccounts));
+		if (!this._finalisedSubAccountsList && this.computedSubAccounts?.length > 0) {
+			this._finalisedSubAccountsList = this.computedSubAccounts?.filter(item => item[SUB_ACCOUNT_STAGE.fieldApiName] === 'Pending Charge Account');
 		}
 		return this._finalisedSubAccountsList;
 	}
 
-	set finalisedSubAccountsList(value) {
-		this._finalisedSubAccountsList = value;
+	get submittedSubAccountsList() {
+		if (!this._submittedSubAccountsList && this.computedSubAccounts?.length > 0) {
+			this._submittedSubAccountsList = this.computedSubAccounts?.filter(item => item[SUB_ACCOUNT_STAGE.fieldApiName] === 'Submitted');
+		}
+		return this._submittedSubAccountsList;
+	}
+
+	set submittedSubAccountsList(value) {
+		this._submittedSubAccountsList = value;
 	}
 
 	get subAccountsByIdMap() {
 		if (!this._subAccountsByIdMap) {
 			const subAccountRequestsMap = {};
 			//grab the sub account requests by id so it is easier to access when iterating through the selected sub account requests
-			this.subAccounts.forEach(subAccount => {
+			this.errorDraftSubAccounts?.forEach(subAccount => {
 				subAccountRequestsMap[subAccount.Id] = subAccount;
 			});
 			this._subAccountsByIdMap = subAccountRequestsMap;
@@ -243,30 +292,13 @@ export default class FollowerOffspringRequestList extends NavigationMixin(Lightn
 	 * Update filteredSubAccounts based on search term
 	 */
 	handleSearchChange(event) {
-		const searchKey = event.target.value.toLowerCase();
-		const subAccountsCopy = JSON.parse(JSON.stringify(this.subAccounts));
-		subAccountsCopy.forEach(acc => {
-			acc.AccountTypeLabel = this.picklistMap.get(acc[SUB_ACCOUNT_ACCOUNT_TYPE.fieldApiName]);
-		});
-		if (searchKey) {
-			const searchRecords = [];
-			subAccountsCopy.forEach(item => {
-				for (const field of SEARCHABLE_FIELDS) {
-					const fieldValueStr = item[field].toLowerCase();
-					if (fieldValueStr.includes(searchKey)) {
-						searchRecords.push(item);
-						break;
-					}
-				}
-			});
-			this.filteredSubAccounts = searchRecords;
-		} else {
-			this.filteredSubAccounts = subAccountsCopy;
-		}
+		this.searchTerm = event.target.value;
+		// invalidate the state/cache, so it can be rebuilt based on the search term
+		this._filteredSubAccounts = null;
 	}
 
 	get searchCount() {
-		let text = this.subAccounts.length + ' account requests';
+		let text = this.errorDraftSubAccounts?.length + ' account requests';
 		if (this.filteredSubAccounts && this.template.querySelector('lightning-input')?.value) {
 			text = this.filteredSubAccounts.length + ' of ' + text;
 		}
@@ -277,8 +309,12 @@ export default class FollowerOffspringRequestList extends NavigationMixin(Lightn
 		return this.selectedRows.length + ' selected';
 	}
 
-	get hasSubAccounts() {
-		return this.subAccounts.length > 0;
+	get hasErrorDraftSubAccounts() {
+		return this.errorDraftSubAccounts?.length > 0;
+	}
+
+	get errorDraftSubAccounts() {
+		return this.computedSubAccounts?.filter(item => item[SUB_ACCOUNT_STAGE.fieldApiName] === 'Error' || item[SUB_ACCOUNT_STAGE.fieldApiName] === 'Draft');
 	}
 
 	get isActionDisabled() {
@@ -316,9 +352,6 @@ export default class FollowerOffspringRequestList extends NavigationMixin(Lightn
 			this.isLoading = true;
 			deleteRecord(row.Id).then(() => {
 				this.dispatchEvent(new CustomEvent('delete'));
-				// delete rows from filteredSubAccounts
-				this.filteredSubAccounts = [...this.filteredSubAccounts].filter(item => row.Id !== item.Id);
-				this.subAccounts = [...this.subAccounts].filter(item => row.Id !== item.Id);
 				this.resetSelection();
 				this.dispatchEvent(
 					new ShowToastEvent({
@@ -349,18 +382,18 @@ export default class FollowerOffspringRequestList extends NavigationMixin(Lightn
 	 */
 	handleNew() {
 		this.dispatchEvent(new CustomEvent('new'));
-		this.filteredSubAccounts = null;
+		this._filteredSubAccounts = null;
 	}
 
 	/**
 	 * Dispatch edit event with updated sub account to request wrapper for updating on server side
 	 */
 	editRow(row) {
-		this.filteredSubAccounts = null;
+		this._filteredSubAccounts = null;
 		this.dispatchEvent(new CustomEvent('edit', {
 			detail : row
 		}));
-		this.filteredSubAccounts = null;
+		this._filteredSubAccounts = null;
 	}
 
 	/**
@@ -386,7 +419,7 @@ export default class FollowerOffspringRequestList extends NavigationMixin(Lightn
 			y = keyValue(y) ? keyValue(y) : '';
 			return isReverse * ((x > y) - (y > x));
 		});
-		this.filteredSubAccounts = parseData;
+		this._filteredSubAccounts = parseData;
 	}
 
 	/**
@@ -425,8 +458,6 @@ export default class FollowerOffspringRequestList extends NavigationMixin(Lightn
 			const chargeAccountSubAccounts = this.selectedRows.map(item => {
 				return {Id: item.Id, [SUB_ACCOUNT_STAGE.fieldApiName]: 'Pending Charge Account'};
 			});
-			// extract IDs to refresh list view
-			const ids = chargeAccountSubAccounts.map(item => item.Id);
 
 			// finalise charge account sub accounts
 			if (chargeAccountSubAccounts.length > 0) {
@@ -440,19 +471,8 @@ export default class FollowerOffspringRequestList extends NavigationMixin(Lightn
 						});
 
 						this.dispatchEvent(new CustomEvent('finalise', {detail: chargeAccountSubAccounts.length}));
-						// delete selected rows from filteredSubAccounts and subAccounts
-						this.filteredSubAccounts = [...this.filteredSubAccounts].filter(item => !ids.includes(item.Id));
-						this.subAccounts = [...this.subAccounts].filter(item => !ids.includes(item.Id));
-
-						// add selected rows to finalised sub accounts
-						const updatedFinalisedSubAccounts = [...this.selectedRows].map(i => {
-							i[SUB_ACCOUNT_STAGE.fieldApiName] = 'Pending Charge Account';
-							return i;
-						});
-						this.finalisedSubAccountsList = this.hasFinalisedSubAccounts ? updatedFinalisedSubAccounts.concat([...this.finalisedSubAccountsList]) : [...updatedFinalisedSubAccounts];
-
-						// reset selection
 						this.resetSelection();
+
 						this.countFinalised = this.countFinalised + chargeAccountSubAccounts.length;
 					}).catch(error =>{
 					const errorMessages = JSON.stringify(error).match(/(?<="message":")(.*?)(?=")/g).join(' ');
@@ -479,18 +499,18 @@ export default class FollowerOffspringRequestList extends NavigationMixin(Lightn
 
 		// check if selected requests meet the validation requirements.
 		this.validateSubmitForProvisioning()
-			.then(result => {
-				if (result) {
+			.then(validationResult => {
+				if (validationResult) {
 					// extract selected request ids
 					const selectedIds = this.selectedRows.map(item => item.Id);
 
 					this.isLoading = true;
 					generateSubAccountsProvisioningRequest({leaderBillingAccountId: this.leaderId, subAccountRequestIds: selectedIds})
-						.then(result => {
+						.then(generateRequestResult => {
 							let provisioningStatus;
 							submitProvisioningRequest({
-								request: result.requestPayload,
-								externalOnboardingRequestId: result.externalOnboardingRequestId
+								request: generateRequestResult.requestPayload,
+								externalOnboardingRequestId: generateRequestResult.externalOnboardingRequestId
 							}).then(resp => {
 								if (resp.isSuccess) {
 									provisioningStatus = {isSuccess: true, label: LABEL_SUBMIT_NOTIFICATION_TITLE, message: LABEL_SUBMIT_SUCCESSFUL_ALERT, theme: 'success'};
@@ -510,8 +530,12 @@ export default class FollowerOffspringRequestList extends NavigationMixin(Lightn
 									label: provisioningStatus.label
 								}).then(result => {
 									// user has acknowledged the alert. if the provisioning request has been submitted successfully
-									// navigate back to the leader billing account. in all other cases stay on sub account list view.
+									// update the table and navigate back to the leader billing account. in all other cases stay on sub account list view.
 									if (provisioningStatus.isSuccess) {
+										// Dispatch refresh apex event to parent
+										this.dispatchEvent(new CustomEvent('submit'));
+										this.resetSelection();
+
 										this[NavigationMixin.Navigate]({
 											type: 'standard__recordPage',
 											attributes: {

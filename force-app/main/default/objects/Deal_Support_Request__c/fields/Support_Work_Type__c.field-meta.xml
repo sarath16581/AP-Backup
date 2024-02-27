@@ -1425,6 +1425,11 @@
                 <label>Status report</label>
             </value>
             <value>
+                <fullName>Strategic</fullName>
+                <default>false</default>
+                <label>Strategic</label>
+            </value>
+            <value>
                 <fullName>ST Courier StarTrack</fullName>
                 <default>false</default>
                 <label>ST Courier StarTrack</label>
@@ -1709,6 +1714,10 @@
             <controllingFieldValue>Presale Support</controllingFieldValue>
             <controllingFieldValue>Strategic Onboarding</controllingFieldValue>
             <valueName>Renewals Management</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Strategic Onboarding</controllingFieldValue>
+            <valueName>Strategic</valueName>
         </valueSettings>
     </valueSet>
 </CustomField>

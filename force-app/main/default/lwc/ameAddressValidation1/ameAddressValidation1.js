@@ -81,6 +81,7 @@ export default class Lookup extends LightningElement {
             this.searchAddressTerm = formattedAddress.address;
             const selectedEvent = new CustomEvent("searchtermchange", {
                 detail: this.address
+				//detail: {"address":this.address}
 
             });
             // Dispatches the event.

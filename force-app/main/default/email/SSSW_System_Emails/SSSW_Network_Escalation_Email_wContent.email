@@ -2,11 +2,11 @@
 
     <messaging:htmlEmailBody >
        <h3><span style="font-size: 10.0pt; font-family: 'AP Letter Light';">You are listed as a point of escalation for {!RelatedTo.NetworkName__c}</span></h3>
-<p><span style="font-size: 10.0pt; font-family: 'AP Letter Light';">Case {!RelatedTo.CaseNumber}  has not received a response from the team at {!RelatedTo.NetworkName__c} and requires your immediate attention. </span></p>
+<p><span style="font-size: 10.0pt; font-family: 'AP Letter Light';">Case {!RelatedTo.CaseNumber}  has not received a response from the team member at {!RelatedTo.NetworkName__c} and requires your immediate attention. </span></p>
 <h3><span style="font-size: 10.0pt; font-family: 'AP Letter Light';">Action required</span></h3>
 <ul>
 <li style="tab-stops: list 36.0pt;"><span style="font-size: 10.0pt; font-family: 'AP Letter Light'">provide a response to the Customer Contact Centre (CCC) by either replying to this email or responding through MyNetwork, or</span></li>
-<li style="tab-stops: list 36.0pt;"><span style="font-size: 10.0pt; font-family: 'AP Letter Light'">Forward to appropriate staff at {!RelatedTo.NetworkName__c}, ensuring they respond to the CCC via this email or MyNetwork.</span></li>
+<li style="tab-stops: list 36.0pt;"><span style="font-size: 10.0pt; font-family: 'AP Letter Light'">Forward to appropriate team member at {!RelatedTo.NetworkName__c}, ensuring they respond to the CCC via this email or MyNetwork.</span></li>
 </ul>
 <h3><span style="font-size: 10.0pt; font-family: 'AP Letter Light';">No longer the contact?</span></h3>
 <p><span style="font-size: 10.0pt; font-family: 'AP Letter Light';">If you are no longer the appropriate contact for {!RelatedTo.NetworkName__c} please arrange to have this updated as soon as possible via one of the options below </span></p>

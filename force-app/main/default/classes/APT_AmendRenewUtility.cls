@@ -29,6 +29,8 @@ Last Modified Date -  18th June, 2021 | INC1739984  : Making the SAP Contract In
 2023-10-19 - Bharat Patel - update afterAmend(), commented copyAttachments() execution, STP-9851 changes, remove copyAttachments(originalAgreementId, amendedAgreementId)
 2023-11-15 - Mahesh Parvathaneni - STP-9212 - Updated to remove the DoV: and Renewal: prefixes from the opportunity name while cloning
 2023-11-22 - Bharat Patel - STP-9770 - added resetOpportunityProposalPrimary(), to reset respected opportunity's proposal's primary flag
+2024-02-05 - Mahesh Parvathaneni - STP-8256 - Reset the cloned opportunity fields on Dov Increase and Renewal process
+2024-02-15 - Mahesh Parvathaneni - STP-8256 - Updated the close date logic on cloned opportunity.
 */
 public without sharing class APT_AmendRenewUtility {
 
@@ -62,6 +64,14 @@ public without sharing class APT_AmendRenewUtility {
 				clonedOpportunity.Name = APT_Constants.CLASSIFICATION_RENEWAL + APT_Constants.SEPARATOR_COLON + removeDovRenewalPartsFromOppName(originalOpportunity.Name);
 				clonedOpportunity.LeadSource = APT_Constants.LEAD_SOURCE_CONTRACT_RENEWAL;
 				clonedOpportunity.ECLM_IsRenewal__c = true;
+				//Set close date for Renewal scenario 
+				//1.If Contract end date in the future then close date = contract end date
+				//2.If Contract end date in the past or blank then close date = today + 30 days
+				clonedOpportunity.CloseDate = (agreement.Apttus__Contract_End_Date__c != null && 
+								agreement.Apttus__Contract_End_Date__c > Date.today()) ? agreement.Apttus__Contract_End_Date__c : Date.today().addDays(APT_Constants.CLOSE_DATE_DEFAULT_DAYS);
+
+				//reset the fields on the cloned opportunity
+				resetClonedOpportunityFields(clonedOpportunity);
 			} 
 			/*
 				* Update the Action Type from original "DoV" to "DoV Increase"
@@ -71,6 +81,10 @@ public without sharing class APT_AmendRenewUtility {
 				clonedOpportunity.Opportunity_SubType__c = APT_Constants.OPPORTUNITY_SUBTYPE_DoV_Increase;
 				clonedOpportunity.Name = APT_Constants.ACTION_NAME_DoV + APT_Constants.SEPARATOR_COLON  + removeDovRenewalPartsFromOppName(originalOpportunity.Name);
 				clonedOpportunity.LeadSource = APT_Constants.ACTION_NAME_DoV;
+				//Set close date = today + 30 days for DoV increase scenario
+				clonedOpportunity.CloseDate = Date.today().addDays(APT_Constants.CLOSE_DATE_DEFAULT_DAYS);
+				//reset the fields on the cloned opportunity
+				resetClonedOpportunityFields(clonedOpportunity);
 				} 
 			/*Shashwat.Nath@Auspost.Com.au Added the below else if Condition for Decrease Revenue DOV Scenario to Set the Opportunity Sub Type , Name fields and 
 				also supersede the Original Opportunity Similar to Increase Revenue Scenario */
@@ -91,9 +105,6 @@ public without sharing class APT_AmendRenewUtility {
 			clonedOpportunity.Contract_Start_Date__c = agreement.Apttus__Contract_End_Date__c;
 			if(agreement.Apttus__Contract_End_Date__c != null) {
 				clonedOpportunity.Contract_End_Date__c = agreement.Apttus__Contract_End_Date__c.addDays(365);
-				clonedOpportunity.CloseDate = agreement.Apttus__Contract_End_Date__c;
-			} else {
-				clonedOpportunity.CloseDate = date.today().addDays(365);
 			}
 			clonedOpportunity.ECLM_Original_Opportunity_No__c = agreement.Apttus__Related_Opportunity__c;
 			clonedOpportunity.NextStep = APT_Constants.OPPORTUNITY_NEXTSTEP_UPDATE_OPPORTUNITY_DETAILS;
@@ -255,15 +266,12 @@ public without sharing class APT_AmendRenewUtility {
 			//This code is as per story APOST 320
 			//integer daysDiff = clonedProposal.Expected_Revenue_Start_Date__c.daysBetween(clonedProposal.Expected_Revenue_End_Date__c);
 			//Updated if condition for QC-1584
-			system.debug('$$$$Kushak recordTypeId '+recordTypeId + '___recordTypeName  '+recordTypeName);
-			system.debug('$$$$Kushak APT_Constants.RECORD_TYPE_RENEWAL_QUOTE '+APT_Constants.RECORD_TYPE_RENEWAL_QUOTE);
 			if(recordTypeName == APT_Constants.RECORD_TYPE_RENEWAL_QUOTE){
 				//Updated as per APOST-475
 				clonedProposal.Expected_Revenue_Start_Date__c = agreement.Apttus__Contract_End_Date__c.addmonths(1);
 						
 				clonedProposal.Expected_Revenue_End_Date__c = clonedProposal.Expected_Revenue_Start_Date__c.addmonths(12).addDays(-1);
 				clonedProposal.Apttus_Proposal__Proposal_Expiration_Date__c= clonedProposal.Expected_Revenue_Start_Date__c.addmonths(12).addDays(-1);
-				system.debug('!!!!!!'+clonedProposal.Apttus_Proposal__Proposal_Expiration_Date__c);
 				//APOST-1553
 				clonedProposal.Apttus_QPApprov__Approval_Status__c = null;
 				clonedProposal.APT_Document_Generation_in_Progress__c =false;
@@ -363,8 +371,6 @@ public without sharing class APT_AmendRenewUtility {
 				List<Apttus_Config2__LineItem__c> pliListTobeDeleted = new List<Apttus_Config2__LineItem__c>();
 				List<Apttus_Config2__LineItem__c> pliListTobeUpdated = new List<Apttus_Config2__LineItem__c>();
 				set<Id> setLineItemId = new set<Id>();
-				System.debug('pliList --> ' + pliList);
-				System.debug('includedProductLines --> ' + includedProductLines);
 				//Apttus Support - Constraint Rule execution for International Bundle
 				String CartID;
 				/**
@@ -404,9 +410,7 @@ public without sharing class APT_AmendRenewUtility {
 
 						//pli.Apttus_Config2__PricingStatus__c= 'Pending';
 						pli.Apttus_Config2__ConstraintCheckStatus__c= 'Pending';
-						
-						System.debug('pli --> ' + pli);
-						
+												
 						//pli.APT_Pricing_Reason__c = null;
 						//pli.APT_Competitors__c = null;
 						//pli.Apttus_Config2__AdjustmentAmount__c = null;
@@ -484,7 +488,6 @@ public without sharing class APT_AmendRenewUtility {
 						}
 						//renew
 						
-						System.debug('pli.Apttus_Config2__ProductId__r.Non_contracted__c --> ' + pli.Apttus_Config2__ProductId__r.Non_contracted__c);
 						if(pli.Apttus_Config2__ProductId__r.Non_contracted__c){
 							if(!setLineItemId.contains(pli.Id) ) {
 								setLineItemId.add(pli.Id);
@@ -504,9 +507,6 @@ public without sharing class APT_AmendRenewUtility {
 								pliListTobeUpdated.add(pli);
 							}
 						}
-						
-						System.debug('pliListTobeDeleted --> ' + pliListTobeDeleted);
-						System.debug('pliListTobeUpdated --> ' + pliListTobeUpdated);
 					}
 
 					// check for decommisioned products based on latest product structure hierarchy and deleted related line items
@@ -529,7 +529,6 @@ public without sharing class APT_AmendRenewUtility {
 						update pliListTobeUpdated;
 					}
 					
-					System.debug('pliListTobeDeleted --> ' + pliListTobeDeleted);
 					if(pliListTobeDeleted != null && pliListTobeDeleted.size() > 0){
 						//temporary
 						deleteMultiBundleAndStandaloneLines(pliListTobeDeleted);
@@ -580,10 +579,8 @@ public without sharing class APT_AmendRenewUtility {
 				update lstOpcUpdate;
 				//Apttus Support - Constraint Rule execution for International Bundle
 				if(CartID != ''){
-					system.debug('**Inside Cart Validation**');
 					Apttus_Config2.ConstraintWebService2.applyConstraintRulesOnAddAll(CartID);
-					system.debug('**After Cart Validation**');
-				}   
+				}
 			}
 		} catch (System.Exception ex) {
 			system.debug(Logginglevel.ERROR, 'Exception msg : ' + ex.getMessage());
@@ -618,7 +615,6 @@ public without sharing class APT_AmendRenewUtility {
 			
 					}
 					
-					System.debug('pliListTobeDeleted --> ' + pliListTobeDeleted);
 					if(pliListTobeDeleted != null && pliListTobeDeleted.size() > 0){
 					delete pliListTobeDeleted;
 					}
@@ -644,7 +640,6 @@ public without sharing class APT_AmendRenewUtility {
 			proposal.Apttus_Proposal__Opportunity__c = opportunityId;
 			proposal.Apttus_Proposal__Approval_Stage__c = APT_Constants.APPROVAL_STAGE_DRAFT;
 			proposal.Apttus_Proposal__Proposal_Expiration_Date__c = date.Today().addDays(365);
-			system.debug('!!!!!!---'+proposal.Apttus_Proposal__Proposal_Expiration_Date__c);
 			//proposal.APT_Contract_Number__c = agreement.APT_Contract_Number__c;
 			proposal.Apttus_QPConfig__PriceListId__c = priceListId;
 			proposal.Apttus_Proposal__Primary_Contact__c = agreement.Apttus__Primary_Contact__c;
@@ -771,7 +766,6 @@ public without sharing class APT_AmendRenewUtility {
 
 		Boolean bResult = false;
 		try {
-			system.debug('-->');
 			bResult = Apttus.AgreementWebService.afterRenew(originalAgreementId, renewedAgreementId);
 			if(copyLineItems){
 				copyAgreementLineItems(originalAgreementId, renewedAgreementId);
@@ -921,7 +915,6 @@ public without sharing class APT_AmendRenewUtility {
 			for (Schema.SObjectField field : metadata.fields.getMap().values()) {
 				// use the fully qualified field name as the key
 				fldMetadata = field.getDescribe();
-	system.debug('checkpoint'+fldMetadata.isUpdateable());
 				if (fldMetadata!= null && fldMetadata.isUpdateable()) {
 					fieldNames.add(fldMetadata.getName());
 				}
@@ -1187,18 +1180,13 @@ public without sharing class APT_AmendRenewUtility {
 	*/
 	public static void copySAPContratcs(Id originalAgreementId, Id renewedAgreementId, decimal versionNumber) {
 		
-		system.debug('*** originalAgreementId ***'+originalAgreementId);
-		system.debug('*** renewedAgreementId ***'+renewedAgreementId);
-		system.debug('*** versionNumber ***'+versionNumber);
 		
 		String sapContractQuery = APT_Constants.SOQL_SELECT 
 								+ APT_AmendRenewUtility.getAllAgrFields(APT_Constants.SAP_CONTRACT_OBJECT) 
 								+ APT_Constants.FROM_WHERE_SAP_CONTRACT_STATUS;
 		
-		system.debug('*** sapContractQuery ***'+sapContractQuery);
 		
 		list<APT_SAP_Contracts__c> listSAPContracts = database.query(sapContractQuery);
-		system.debug('*** listSAPContracts ***'+listSAPContracts);
 		list<APT_SAP_Contracts__c> listClonedSAPContracts = new list<APT_SAP_Contracts__c>();
 		list<APT_SAP_Contracts__c> listUpdateSAPContracts = new list<APT_SAP_Contracts__c>();
 		APT_SAP_Contracts__c clonedSAPContract;
@@ -1250,7 +1238,6 @@ public without sharing class APT_AmendRenewUtility {
 				listUpdateSAPContracts.add(sapContract); // Add clone for update
 			}
 			
-			system.debug('*** listClonedSAPContracts ***'+listClonedSAPContracts.size());
 			if(listClonedSAPContracts.size() > 0) {
 				insert listClonedSAPContracts;
 			}
@@ -1323,18 +1310,52 @@ public without sharing class APT_AmendRenewUtility {
 	 *This method will reset opportunity proposals Primary value
 	 *@param Id opportunityId
 	 */
-    private static void resetOpportunityProposalPrimary(Id opportunityId) {
-        //Querying the proposal record by using the opportunity id passed to the method newProposal() to check if there existing any proposal on the opportunity.
+	public static void resetOpportunityProposalPrimary(Id opportunityId) {
+		//Querying the proposal record by using the opportunity id passed to the method newProposal() to check if there existing any proposal on the opportunity.
 		List<Apttus_Proposal__Proposal__c> existingProposalList = APT_ProposalObjectsSelector.newInstance().selectByOpportunityId(new Set<Id>{opportunityId});
-        List<Apttus_Proposal__Proposal__c> opportunityProposalsToUpdate = new List<Apttus_Proposal__Proposal__c>();
-        for(Apttus_Proposal__Proposal__c proposal : existingProposalList){
-        	if(proposal.Apttus_Proposal__Primary__c) {
-             	proposal.Apttus_Proposal__Primary__c = APT_Constants.BOOL_FALSE;
-                opportunityProposalsToUpdate.add(proposal);
-            }
-        }
-        if(!opportunityProposalsToUpdate.isEmpty()) {
-            ApplicationDatabase.getInstance().dmlupdate(opportunityProposalsToUpdate);
-        }
+		List<Apttus_Proposal__Proposal__c> opportunityProposalsToUpdate = new List<Apttus_Proposal__Proposal__c>();
+		for(Apttus_Proposal__Proposal__c proposal : existingProposalList){
+			if(proposal.Apttus_Proposal__Primary__c) {
+				proposal.Apttus_Proposal__Primary__c = APT_Constants.BOOL_FALSE;
+				opportunityProposalsToUpdate.add(proposal);
+			}
+		}
+		if(!opportunityProposalsToUpdate.isEmpty()) {
+			ApplicationDatabase.getInstance().dmlupdate(opportunityProposalsToUpdate);
+		}
+	}
+
+	/**
+	 * @description This method returns the DSR record based on the DSR-Id
+	 * @param  dsrId 
+	 * @return  Deal Support request record
+	 */
+	public static Deal_Support_Request__c getDealSupportRequestByDsrId(String dsrId) {
+		Map<SObjectType, Set<SObjectField>> fieldOverridesMap = new Map<SObjectType, Set<SObjectField>>{
+			Deal_Support_Request__c.getSObjectType() => new Set<SObjectField>{
+				Deal_Support_Request__c.Id,Deal_Support_Request__c.Name,Deal_Support_Request__c.Requestor__c,Deal_Support_Request__c.CustomerContact1__c
+			}
+		};
+		Map<String, Object> searchParams = new Map<String, Object>();
+		searchParams.put('dsrIds', new Set<String>{dsrId});
+		List<Deal_Support_Request__c> dsrList = DealSupportRequestsSelector.newInstance(fieldOverridesMap).search(searchParams, new Set<Object>{}, true);
+		return !dsrList.isEmpty() ? dsrList[0] : null;
+	}
+
+	/**
+	 * @description This method will reset the fields on the cloned opportunity
+	 * @param  clonedOpportunity opportunity record
+	 */
+	private static void resetClonedOpportunityFields(Opportunity clonedOpportunity) {
+		clonedOpportunity.Monthly_Executive_Summary__c = null;
+		clonedOpportunity.Description = null;
+		clonedOpportunity.Closed_Reason__c = null;
+		clonedOpportunity.Closed_Comments__c = null;
+		clonedOpportunity.CampaignId = null;
+		clonedOpportunity.LPO_WCC__c = null;
+		clonedOpportunity.Lead_Seeker__c = false;
+		clonedOpportunity.LBP_Tier_1__c = null;
+		clonedOpportunity.LBP_Tier_2__c = null;
+		clonedOpportunity.Amount = null;
 	}
 }

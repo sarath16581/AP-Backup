@@ -20,9 +20,12 @@ History:
 2021-03-01 - Alvin Zhou   Updated registerOpptyOwner method to reference to the Current_Owner_Role__c in the user object
 2021-03-04 - disha.kariya@auspost.com.au - Modified to use Current Owner Role field from User for rollup description for Opportunity Split closing owner.
 2023-09-12 - Ranjeewa Silva - Updated to check current closing owner on Opportunity Splits before performing update operation.
+
 **************************************************/
 
 public class OpportunityUtility_part2 {
+
+    public static final string STAGE_CLOSED_WON = 'Closed Won';
 
     // stores the queried user records as transactional cache when updating the opportunity with the owners employee number
     public static Map<Id, User> queriedOwnerUsers = new Map<Id, User>();
@@ -246,4 +249,50 @@ public class OpportunityUtility_part2 {
             System.enqueueJob(new OpportunitySplitQueueableUtil(opportunityMap));
         }
   }
+
+
+     /**
+    @Description : Set the Primary Proposal's field(s) value, only on Opportunity's respected field value change
+     */
+    public static void setOpportunityPrimaryProposalFieldValues(List<Opportunity> opportunities, Map<Id,Opportunity> oldOpportunities){
+        //Ref from :createGroupedRevenueSchedules(List<Opportunity> opportunities, Map<Id,Opportunity> oldOpportunities)
+        try{
+            Set<Id> fieldUpdatedOpportunityIds = new Set<Id>();
+            Opportunity updatedOpportunity;
+            for(Opportunity opp: opportunities){
+                Opportunity oldOpportunity = oldOpportunities.get(opp.Id);
+                if(opp.IsStartrackProposal__c != oldOpportunity.IsStartrackProposal__c
+                    || opp.APTPostcodeSuburb__c != oldOpportunity.APTPostcodeSuburb__c
+                    || opp.APTMinimumMonthlySpend__c != oldOpportunity.APTMinimumMonthlySpend__c){
+                    fieldUpdatedOpportunityIds.add(opp.id);
+                    updatedOpportunity = opp;
+                }
+            }
+
+            if(!fieldUpdatedOpportunityIds.isEmpty()) {
+                Boolean isFirstPrimary = false;
+                List<Apttus_Proposal__Proposal__c> proposalToUpdate = new List<Apttus_Proposal__Proposal__c>();
+                //get proposal(s) of opp
+                List<Apttus_Proposal__Proposal__c> existingProposalList = APT_ProposalObjectsSelector.newInstance().selectByOpportunityId(fieldUpdatedOpportunityIds);
+                for (Apttus_Proposal__Proposal__c proposal : existingProposalList) {
+                    //as per business need only update & check for latest primary proposal
+                    if(proposal.Apttus_Proposal__Primary__c && isFirstPrimary == false) {
+                        isFirstPrimary = true;
+                        proposal.Is_Startrack_Proposal__c = updatedOpportunity.IsStartrackProposal__c;
+                        proposal.APT_Postcode_Suburb__c = updatedOpportunity.APTPostcodeSuburb__c;
+                        proposal.APT_Minimum_Monthly_Spend__c = updatedOpportunity.APTMinimumMonthlySpend__c;
+
+                        proposalToUpdate.add(proposal);
+                    }
+                }
+
+                if(!proposalToUpdate.isEmpty()){
+                    ApplicationDatabase.getInstance().dmlUpdate(proposalToUpdate);
+                }
+            }
+
+        }Catch(Exception err){
+            GlobalUtility.logMessage('ERROR', 'OpportunityClosureRoleUpdate', 'setOpportunityPrimaryProposalFieldValues', '', '', err.getMessage(), '', null, 0);
+        }
+    }
 }

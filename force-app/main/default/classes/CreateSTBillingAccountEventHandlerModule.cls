@@ -7,7 +7,6 @@
  *			  execute following post commit actions:
  *			  1. Populate self lookup fields on billing account object (LeaderAccount__c, and PAYER_ACCOUNT_ID__c) when related
  *				 records are also newly inserted by this module in current transaction.
- *			  2. Send bell notifications to users on the successful creation of billing account.
  *
  *			  On receiving error status, updates the relevant request records and bell notifications are sent to users on
  *			  error response.
@@ -33,6 +32,10 @@ public inherited sharing class CreateSTBillingAccountEventHandlerModule extends 
 	// key - deal support request id, value - billing account number (LEGACY_ID__c) of the new leader billing account.
 	private static final Map<Id, String> dsrLeaderBillingAccountNumberMapping = new Map<Id, String>();
 
+	// mapping of sub account request id to billing account number of follower only parents.
+	// key - sub account request id, value - billing account number (LEGACY_ID__c) of the new follower only parent billing account.
+	private static final Map<Id, String> parentFollowerRequestBillingAccountNumberMapping = new Map<Id, String>();
+
 	// id of DSR record type 'Customer Onboarding'. for each successful sub account, a new 'Customer Onboarding' DSR is
 	// created for manual surcharge setup and activation.
 	private static final Id CUSTOMER_ONBOARDING_DSR_RECORDTYPEID {
@@ -44,19 +47,6 @@ public inherited sharing class CreateSTBillingAccountEventHandlerModule extends 
 				}
 			}
 			return CUSTOMER_ONBOARDING_DSR_RECORDTYPEID;
-		}
-		set;
-	}
-
-	// notification type referenced in custom bell notifications delivered to end users from this module to notify them
-	// of success/failure status.
-	private static final CustomNotificationType NOTIFICATION_TYPE {
-		get {
-			if (NOTIFICATION_TYPE == null) {
-				List<CustomNotificationType> notificationTypes = [SELECT Id FROM CustomNotificationType WHERE DeveloperName = 'Custom_Notification' LIMIT 1];
-				NOTIFICATION_TYPE = (!notificationTypes.isEmpty() ? notificationTypes[0] : new CustomNotificationType());
-			}
-			return NOTIFICATION_TYPE;
 		}
 		set;
 	}
@@ -116,15 +106,22 @@ public inherited sharing class CreateSTBillingAccountEventHandlerModule extends 
 				Set<Id> dealSupportRequestIds = new Set<Id>();
 				Set<Id> organisationIds = new Set<Id>();
 				Set<Id> subAccountRequestIds = new Set<Id>();
+				Set<Id> existingLeaderBillingAccountIds = new Set<Id>();
 				for (BillingAccountCreationEvent__e event: (List<BillingAccountCreationEvent__e>) records) {
 					if (String.isNotBlank(event.Transaction_Id__c)) {
 						// each platform event is expected to specify integration transaction id (Id of BAMExternalOnboardingRequest__c)
 						externalOnboardingRequestIds.add(event.Transaction_Id__c);
 					}
-					if (String.isNotBlank(event.Request_Object_Id__c) && isRecordIdOfType(event.Request_Object_Id__c, Deal_Support_Request__c.SObjectType)) {
-						// when request is initiated from a DSR record in Salesforce (i.e. in DSR flow), Id of the DSR record is specified
-						// as the event.Request_Object_ID__c.
-						dealSupportRequestIds.add(event.Request_Object_Id__c);
+					if (String.isNotBlank(event.Request_Object_Id__c)) {
+						if (isRecordIdOfType(event.Request_Object_Id__c, Deal_Support_Request__c.SObjectType)) {
+							// when request is initiated from a DSR record in Salesforce (i.e. in DSR flow), Id of the DSR record is specified
+							// as the event.Request_Object_ID__c.
+							dealSupportRequestIds.add(event.Request_Object_Id__c);
+						} else {
+							// when request is initiated from an existing leader billing account in Salesforce (i.e. in BA flow),
+							// Salesforce Id of the leader billing account record is specified as the event.Request_Object_ID__c.
+							existingLeaderBillingAccountIds.add(event.Request_Object_Id__c);
+						}
 					}
 
 					if (String.isNotBlank(event.Organisation_Record_Id__c)) {
@@ -139,7 +136,7 @@ public inherited sharing class CreateSTBillingAccountEventHandlerModule extends 
 					}
 				}
 
-				handleBillingAccountCreationEvents((List<BillingAccountCreationEvent__e>) records, externalOnboardingRequestIds, dealSupportRequestIds, organisationIds, subAccountRequestIds, uow);
+				handleBillingAccountCreationEvents((List<BillingAccountCreationEvent__e>) records, externalOnboardingRequestIds, dealSupportRequestIds, organisationIds, subAccountRequestIds, existingLeaderBillingAccountIds, uow);
 			}
 		} catch (Exception e) {
 			ApplicationLogger.getInstance().logException(ApplicationLogger.wrapException(e), 'Sales', CreateSTBillingAccountEventHandlerModule.class.getName(),
@@ -155,15 +152,17 @@ public inherited sharing class CreateSTBillingAccountEventHandlerModule extends 
 	 * @param dealSupportRequestIds deal support request ids referenced in the events
 	 * @param organisationIds organisation ids referenced in the events
 	 * @param subAccountRequestIds sub account request ids referenced in the events
+	 * @param existingLeaderBillingAccountIds leader billing account ids related to sub account request ids referenced in events
 	 * @param uow unit of work instance supplied by the application module framework
 	 */
-	private void handleBillingAccountCreationEvents(List<BillingAccountCreationEvent__e> events, Set<Id> externalOnboardingRequestIds, Set<Id> dealSupportRequestIds, Set<Id> organisationIds, Set<Id> subAccountRequestIds, ApplicationUnitOfWork uow) {
+	private void handleBillingAccountCreationEvents(List<BillingAccountCreationEvent__e> events, Set<Id> externalOnboardingRequestIds, Set<Id> dealSupportRequestIds, Set<Id> organisationIds, Set<Id> subAccountRequestIds, Set<Id> existingLeaderBillingAccountIds, ApplicationUnitOfWork uow) {
 		// query salesforce records referenced in the events.
 		Map<Id, Deal_Support_Request__c> dealSupportRequests = selectDealSupportRequests(dealSupportRequestIds);
 		Map<Id, BAMExternalOnboardingRequest__c> externalOnboardingRequests = selectExternalOnboardingRequests(externalOnboardingRequestIds);
 		Map<Id, Account> organisations = selectOrganisations(organisationIds);
 		Map<Id, APT_Sub_Account__c> subAccountRequests = selectSubAccountRequests(subAccountRequestIds);
 		Map<Id, Pick_Up_Location__c> pickupLocations = selectPrimaryPickupLocations(dealSupportRequests.values());
+		Map<Id, Billing_Account__c> existingLeaderBillingAccounts = selectBillingAccounts(existingLeaderBillingAccountIds);
 
 		// external onboarding request records containing updates from processing platform events. these are registered with
 		// unit of work at the end of processing all events. note that one external onboarding request record could be referenced by more than one event.
@@ -173,12 +172,16 @@ public inherited sharing class CreateSTBillingAccountEventHandlerModule extends 
 		Map<Id, Deal_Support_Request__c> updatableDealSupportRequests = new Map<Id, Deal_Support_Request__c>();
 
 		// populating self-lookups on newly created billing accounts (when related billing account is also newly inserted)
-		// and sending bell notifications related to newly created billing accounts are implemented in an async worker
-		// as currently application module/unit of work framework does not provide a way for the modules to execute
-		// post commit actions when the ids of newly inserted records are available.
+		// are implemented in an async worker as currently application module/unit of work framework does not provide a
+		// way for the modules to execute post commit actions when the ids of newly inserted records are available.
 		// below is a list of async worker parameters collected during processing. will be registered for async work at the
 		// end of processing events.
 		List<StarTrackBillingAccountPostCommitWorkerParam> postCommitAsyncWorkerParams = new List<StarTrackBillingAccountPostCommitWorkerParam>();
+
+		// collect billing account creation results (leader accounts and sub accounts) for external onboarding requests
+		// sent from Salesforce. bell notifications to end users will be generated per each onboarding request summarising
+		// success / error results.
+		Map<Id, ExternalOnboardingResult> externalOnboardingResults = new Map<Id, ExternalOnboardingResult>();
 
 		for (BillingAccountCreationEvent__e event: events) {
 			// is the event related to a leader account. used throughout the processing of this event.
@@ -210,11 +213,26 @@ public inherited sharing class CreateSTBillingAccountEventHandlerModule extends 
 				}
 			}
 
+			// check if we already have a results instance for the transaction id. if we have received a prior event
+			// with the same transaction id in current batch, we should already have a results instance. if not, create
+			// a new results instance as this is the first event (in current batch) for this transaction id.
+			ExternalOnboardingResult externalOnboardingResult = externalOnboardingResults.get(event.Transaction_Id__c);
+			if (externalOnboardingResult == null && externalOnboardingRequest != null) {
+				// this event is the first in current batch containing this transaction id. create a new results instance.
+				// grab the name of the record where the request was initiated from. this is either a DSR record or
+				// an existing Leader billing account.
+				String requestObjectName = (dealSupportRequest != null ? dealSupportRequest.Name : existingLeaderBillingAccounts.get(event.Request_Object_Id__c)?.LEGACY_ID__c);
+				externalOnboardingResult = new ExternalOnboardingResult(externalOnboardingRequest, event.Request_Object_Id__c, requestObjectName, organisations.get(event.Organisation_Record_Id__c)?.Name);
+				externalOnboardingResults.put(event.Transaction_Id__c, externalOnboardingResult);
+			}
+
 			if ('Success'.equalsIgnoreCase(event.Status__c)) {
-				StarTrackBillingAccountPostCommitWorkerParam postCommitWorkerParam = handleBillingAccountProvisionSuccessEvent(event, isLeaderAccount, organisations.get(event.Organisation_Record_Id__c), dealSupportRequest, subAccountRequests.get(event.Sub_Account_Request_Id__c), pickupLocations.get(dealSupportRequest?.Opportunity__r?.Primary_Pick_Up_Location__c),uow);
-				postCommitAsyncWorkerParams.add(postCommitWorkerParam);
+				StarTrackBillingAccountPostCommitWorkerParam postCommitWorkerParam = handleBillingAccountProvisionSuccessEvent(event, isLeaderAccount, organisations.get(event.Organisation_Record_Id__c), dealSupportRequest, subAccountRequests.get(event.Sub_Account_Request_Id__c), pickupLocations.get(dealSupportRequest?.Opportunity__r?.Primary_Pick_Up_Location__c), externalOnboardingResult, uow);
+				if (postCommitWorkerParam != null) {
+					postCommitAsyncWorkerParams.add(postCommitWorkerParam);
+				}
 			} else if ('Error'.equalsIgnoreCase(event.Status__c)) {
-				handleBillingAccountProvisionErrorEvent(event, isLeaderAccount, organisations.get(event.Organisation_Record_Id__c), dealSupportRequest, subAccountRequests.get(event.Sub_Account_Request_Id__c), uow);
+				handleBillingAccountProvisionErrorEvent(event, isLeaderAccount, organisations.get(event.Organisation_Record_Id__c), dealSupportRequest, subAccountRequests.get(event.Sub_Account_Request_Id__c), externalOnboardingResult, uow);
 			}
 		}
 
@@ -243,6 +261,11 @@ public inherited sharing class CreateSTBillingAccountEventHandlerModule extends 
 			// we have post commit work that needs to be registered as async work.
 			uow.registerAsyncWork(new ApplicationUnitOfWork.AsyncStagingWorker(CreateStarTrackBillingAccountPostCommitAsyncWorker.class, postCommitAsyncWorkerParams));
 		}
+
+		if (!externalOnboardingResults.isEmpty()) {
+			// notify end users on billing account onboarding results.
+			sendCustomNotifications(externalOnboardingResults.values());
+		}
 	}
 
 	/**
@@ -254,11 +277,12 @@ public inherited sharing class CreateSTBillingAccountEventHandlerModule extends 
 	 * @param dealSupportRequest deal support request record referenced in the event. pass null if not available.
 	 * @param subAccountRequest sub account request record referenced in the event. pass null if not available.
 	 * @param pickupLocation pickup location capturing the physical address relevant to the leader billing account in DSR flow. pass null if not available.
+	 * @param externalOnboardingResult onboarding results instance to update with this success result.
 	 * @param uow unit of work instance
 	 *
 	 * @return Parameters to async worker process to execute post commit actions.
 	 */
-	private StarTrackBillingAccountPostCommitWorkerParam handleBillingAccountProvisionSuccessEvent(BillingAccountCreationEvent__e event, Boolean isLeaderAccount, Account organisation, Deal_Support_Request__c dealSupportRequest, APT_Sub_Account__c subAccountRequest, Pick_Up_Location__c pickupLocation, ApplicationUnitOfWork uow) {
+	private StarTrackBillingAccountPostCommitWorkerParam handleBillingAccountProvisionSuccessEvent(BillingAccountCreationEvent__e event, Boolean isLeaderAccount, Account organisation, Deal_Support_Request__c dealSupportRequest, APT_Sub_Account__c subAccountRequest, Pick_Up_Location__c pickupLocation, ExternalOnboardingResult externalOnboardingResult, ApplicationUnitOfWork uow) {
 		// get a new billing account instance
 		Billing_Account__c newBillingAccount = newBillingAccount(event, isLeaderAccount, organisation, dealSupportRequest, subAccountRequest, pickupLocation);
 		// trace id to supply into uow register operations which helps to trace back to the source in the event of any errors.
@@ -298,30 +322,50 @@ public inherited sharing class CreateSTBillingAccountEventHandlerModule extends 
 				Account updatableOrganisation = new Account(Id=organisation.Id, Holding_Role_Reference__c=NEW_ACCOUNT_HOLDING_ROLE.Id);
 				uow.registerDirty(updatableOrganisation, false, uowSourceTraceId);
 			}
+
+			// add billing account provision 'success' result to the external onboarding results summary.
+			externalOnboardingResult.addBillingAccountProvisionResult(chargeAccountRequest, event.Billing_Account_Number__c);
 		}
 
 		if (subAccountRequest != null) {
 			// this event is related to a sub account request. Note that this could have been initiated in either of the two flows.
 
-			APT_Sub_Account__c updatableSubAccountRequest = getUpdatableSubAccountRequest(event);
+			APT_Sub_Account__c updatableSubAccountRequest = getUpdatableSubAccountRequest(event, subAccountRequest, dealSupportRequest, uow);
 			uow.registerDirty(updatableSubAccountRequest, false, uowSourceTraceId);
+
+			if (!subAccountRequest.OffspringAccountRequests__r.isEmpty()) {
+				// new account is a follower with existing offspring account requests. if child offspring account requests
+				// were not submitted with this follower account request (i.e. still in 'Draft' or 'Error' status), we need
+				// to update such offspring account requests to populate parent billing account lookup. this is to ensure
+				// when offspring account requests are eventually submitted for provisioning, we include parent's billing
+				// account number instead of the parent sub account request id.
+				parentFollowerRequestBillingAccountNumberMapping.put(subAccountRequest.Id, event.Billing_Account_Number__c);
+				for (APT_Sub_Account__c offspringSubAccountRequest: subAccountRequest.OffspringAccountRequests__r) {
+					if (offspringSubAccountRequest.APT_Sub_Account_Request_Status__c == 'Draft' || offspringSubAccountRequest.APT_Sub_Account_Request_Status__c == 'Error') {
+						APT_Sub_Account__c updatableOffspringAccountRequest = new APT_Sub_Account__c(Id=offspringSubAccountRequest.Id);
+						uow.registerDirty(updatableOffspringAccountRequest, false, uowSourceTraceId);
+						uow.registerRelationship(updatableOffspringAccountRequest, APT_Sub_Account__c.ParentBillingAccount__c, newBillingAccount);
+					}
+				}
+			}
 
 			// for each successful sub account, new 'Customer Onboarding' DSR is to be created for surcharge setup and activation.
 			// note that this isn't required for leader accounts.
 			Deal_Support_Request__c surchargeSetupAndActivationDSR = newDSRForSurchargeSetupAndActivation(event, organisation, subAccountRequest);
 			uow.registerNew(surchargeSetupAndActivationDSR, false, uowSourceTraceId);
 			uow.registerRelationship(surchargeSetupAndActivationDSR, Deal_Support_Request__c.Billing_Account__c, newBillingAccount);
+
+			// add billing account provision 'success' result to the external onboarding results summary.
+			externalOnboardingResult.addBillingAccountProvisionResult(subAccountRequest, event.Billing_Account_Number__c);
 		}
 
 		// get an instance of async worker parameters to be registered with unit of work for async processing. async processing
-		// is required in 2 scenarios:
-		//  - send bell notifications to users. this need to be invoked as a post commit action after new billing accounts are inserted
-		//	in the database.
+		// is required in below scenario:
 		//  - populate self lookups on new billing account instance (LeaderAccount__c and PAYER_ACCOUNT_ID__c). if related billing accounts are
 		//	  also new this needs to be done after the related records are inserted into the database. Apex does not allow
-		//	populating self lookup fields by reference (i.e. via '__r') when referenced records are also new.
-		//	see https://developer.salesforce.com/docs/atlas.en-us.apexcode.meta/apexcode/langCon_apex_dml_limitations.htm
-		return processSelfLookupsAndNotificationForNewBillingAccount(event, newBillingAccount, (isLeaderAccount ? dealSupportRequest?.OwnerId : subAccountRequest?.OwnerId));
+		//	  populating self lookup fields by reference (i.e. via '__r') when referenced records are also new.
+		//	  see https://developer.salesforce.com/docs/atlas.en-us.apexcode.meta/apexcode/langCon_apex_dml_limitations.htm
+		return processSelfLookupsForNewBillingAccount(event, newBillingAccount);
 	}
 
 	/**
@@ -333,9 +377,10 @@ public inherited sharing class CreateSTBillingAccountEventHandlerModule extends 
 	 * @param organisation customer organisation (account) record referenced in the event
 	 * @param dealSupportRequest deal support request record referenced in the event. pass null if not available.
 	 * @param subAccountRequest sub account request record referenced in the event. pass null if not available.
+	 * @param externalOnboardingResult external onboarding result instance to update with this error result.
 	 * @param uow unit of work instance
 	 */
-	private void handleBillingAccountProvisionErrorEvent(BillingAccountCreationEvent__e event, Boolean isLeaderAccount, Account organisation, Deal_Support_Request__c dealSupportRequest, APT_Sub_Account__c subAccountRequest, ApplicationUnitOfWork uow) {
+	private void handleBillingAccountProvisionErrorEvent(BillingAccountCreationEvent__e event, Boolean isLeaderAccount, Account organisation, Deal_Support_Request__c dealSupportRequest, APT_Sub_Account__c subAccountRequest, ExternalOnboardingResult externalOnboardingResult, ApplicationUnitOfWork uow) {
 		if (isLeaderAccount) {
 			// this event is related to a leader billing account in DSR flow.
 
@@ -344,29 +389,17 @@ public inherited sharing class CreateSTBillingAccountEventHandlerModule extends 
 			chargeAccountRequest.Status__c = 'Error';
 			uow.registerDirty(chargeAccountRequest, false, CreateSTBillingAccountEventHandlerModule.class.getName() + ':handleBillingAccountProvisionErrorEvent');
 
-			// send notification to dsr owner on provisioning error.
-			sendNotification(dealSupportRequest.OwnerId, dealSupportRequest, String.format(Label.StarTrackNewLeaderBillingAccountProvisonErrorNotification, new List<String>{organisation?.Name}));
+			// add billing account provision 'error' result to the external onboarding results summary.
+			externalOnboardingResult.addBillingAccountProvisionResult(chargeAccountRequest, null);
+
 		} else {
 			// this event is related to a sub account request. Note that this could have been initiated in either of the two flows.
 
-			APT_Sub_Account__c updatableSubAccountRequest = getUpdatableSubAccountRequest(event);
-			if (dealSupportRequest != null) {
-				// this is a sub account creation error in DSR flow. we need to update billing account lookup on sub account request
-				// if leader account has been provisioned successfully.
-				String leaderAccountNumber = dsrLeaderBillingAccountNumberMapping.get(dealSupportRequest.Id);
-				if (String.isNotBlank(leaderAccountNumber)) {
-					uow.registerRelationship(updatableSubAccountRequest, APT_Sub_Account__c.APT_Billing_Account__c, newBillingAccounts.get(leaderAccountNumber));
-				} else if (String.isNotBlank(dealSupportRequest.Billing_Number__c)) {
-					leaderAccountNumber = dealSupportRequest.Billing_Number__c;
-					updatableSubAccountRequest.APT_Billing_Account__r = new Billing_Account__c(LEGACY_ID__c=leaderAccountNumber);
-				}
-				// send notification to dsr owner on provisioning error.
-				sendNotification(dealSupportRequest.OwnerId, subAccountRequest, String.format(Label.StarTrackNewSubAccountProvisonErrorNotification, new List<String>{leaderAccountNumber}));
-			} else {
-				// this is billing account flow. send notification to sub account request owner on provisioning error.
-				sendNotification(subAccountRequest.OwnerId, subAccountRequest, String.format(Label.StarTrackNewSubAccountProvisonErrorNotification, new List<String>{subAccountRequest?.APT_Billing_Account__r?.Name}));
-			}
+			APT_Sub_Account__c updatableSubAccountRequest = getUpdatableSubAccountRequest(event, subAccountRequest, dealSupportRequest, uow);
 			uow.registerDirty(updatableSubAccountRequest, false, CreateSTBillingAccountEventHandlerModule.class.getName() + ':handleBillingAccountProvisionErrorEvent');
+
+			// add billing account provision 'error' result to the external onboarding results summary.
+			externalOnboardingResult.addBillingAccountProvisionResult(subAccountRequest, null);
 		}
 	}
 
@@ -438,16 +471,58 @@ public inherited sharing class CreateSTBillingAccountEventHandlerModule extends 
 	/**
 	 * Returns updatable sub account request based on the billing account creation event.
 	 * @param event platform event received from Camunda. Could be success or error.
+	 * @param subAccountRequest sub account request record referenced in the event.
+	 * @param dealSupportRequest deal support request record referenced in the event. pass null if not available.
+	 * @param uow application unit of work instance.
 	 *
 	 * @return sub account request instance containing the updates from event passed in
 	 */
-	private APT_Sub_Account__c getUpdatableSubAccountRequest(BillingAccountCreationEvent__e event) {
+	private APT_Sub_Account__c getUpdatableSubAccountRequest(BillingAccountCreationEvent__e event, APT_Sub_Account__c subAccountRequest, Deal_Support_Request__c dealSupportRequest, ApplicationUnitOfWork uow) {
 		APT_Sub_Account__c updatableSubAccountRequest = new APT_Sub_Account__c(Id=event.Sub_Account_Request_Id__c);
-		if (String.isNotBlank(event.Billing_Account_Number__c)) {
+		Boolean isSuccessEvent = String.isNotBlank(event.Billing_Account_Number__c);
+		if (isSuccessEvent) {
 			updatableSubAccountRequest.Sub_Account_Number__c = event.Billing_Account_Number__c;
 		}
 		updatableSubAccountRequest.APT_Sub_Account_Request_Status__c = event.Status__c;
 		updatableSubAccountRequest.Sub_Account_Request_Status_Description__c = event.Status_Description__c;
+
+		if (subAccountRequest.ParentAccountRequest__r != null) {
+			// this is a offspring account request having a parent account request. if offspring is successfully
+			// provisioned (means parent is also successful), parent billing account number is returned in platform event.
+			// if offspring request failed, then we check successful parent accounts included in current batch of platform
+			// events and attempt to grab parent billing account.
+			String parentBillingAccountNumber = (isSuccessEvent ? event.Parent_Account_Number__c : parentFollowerRequestBillingAccountNumberMapping.get(subAccountRequest.ParentAccountRequest__r.Id));
+			if (String.isNotBlank(parentBillingAccountNumber) && newBillingAccounts.containsKey(parentBillingAccountNumber)) {
+				// parent billing account number is found and the parent billing account is registered for insert with
+				// the unit of work. register relationship with uow to populate 'ParentBillingAccount__c' lookup.
+				uow.registerRelationship(updatableSubAccountRequest, APT_Sub_Account__c.ParentBillingAccount__c, newBillingAccounts.get(parentBillingAccountNumber));
+			} else if (String.isNotBlank(subAccountRequest.ParentAccountRequest__r?.Sub_Account_Number__c)) {
+				// parent billing account was already available in Salesforce. populate 'ParentBillingAccount__c' lookup
+				// using parent's billing account number (LEGACY_ID__c) as the external id.
+				updatableSubAccountRequest.ParentBillingAccount__r = new Billing_Account__c(LEGACY_ID__c=subAccountRequest.ParentAccountRequest__r.Sub_Account_Number__c);
+			}
+		}
+
+		if (dealSupportRequest != null) {
+			// this is a sub account in DSR flow. we need to update billing account lookup on sub account request
+			// if leader account has been provisioned successfully.
+			// if sub account request is successfully provisioned (means leader is also successful), leader billing account
+			// number is returned in platform event. if sub account request failed, then we check successful leader accounts
+			// included in current batch of platform events and attempt to grab leader billing account.
+			String leaderAccountNumber = (isSuccessEvent ? event.LeaderAccountNumber__c : dsrLeaderBillingAccountNumberMapping.get(dealSupportRequest.Id));
+			if (String.isNotBlank(leaderAccountNumber) && newBillingAccounts.containsKey(leaderAccountNumber)) {
+				// leader billing account number is found and the leader billing account is registered for insert with
+				// the unit of work. register relationship with uow to populate 'APT_Billing_Account__c' lookup.
+				uow.registerRelationship(updatableSubAccountRequest, APT_Sub_Account__c.APT_Billing_Account__c, newBillingAccounts.get(leaderAccountNumber));
+			} else if (String.isNotBlank(dealSupportRequest.Billing_Number__c)) {
+				// leader billing account was already available in Salesforce. this is possible if leader and sub account
+				// platform events returned by Camunda are included in two different batches of platform events handled by
+				// trigger.
+				// populate 'APT_Billing_Account__c' lookup using leader's billing account number (LEGACY_ID__c) as the external id.
+				updatableSubAccountRequest.APT_Billing_Account__r = new Billing_Account__c(LEGACY_ID__c=dealSupportRequest.Billing_Number__c);
+			}
+		}
+
 		return updatableSubAccountRequest;
 	}
 
@@ -562,19 +637,16 @@ public inherited sharing class CreateSTBillingAccountEventHandlerModule extends 
 	}
 
 	/**
-	 * Returns async worker param with relevant details to process custom notification and populate sekf lookups.
+	 * Returns async worker param with relevant details to populate self lookups.
 	 *
 	 * @param event success event received from Camunda.
 	 * @param newBillingAccount new billing account instance created as a result of the event
-	 * @param notificationRecipientId recipient id for the notification
 	 *
-	 * @return async worker param
+	 * @return async worker param, returns null if no post commit actions needed.
 	 */
-	private StarTrackBillingAccountPostCommitWorkerParam processSelfLookupsAndNotificationForNewBillingAccount(BillingAccountCreationEvent__e event, Billing_Account__c newBillingAccount, Id notificationRecipientId) {
+	private StarTrackBillingAccountPostCommitWorkerParam processSelfLookupsForNewBillingAccount(BillingAccountCreationEvent__e event, Billing_Account__c newBillingAccount) {
 		StarTrackBillingAccountPostCommitWorkerParam postCommitWorkerParam = new StarTrackBillingAccountPostCommitWorkerParam();
 		postCommitWorkerParam.billingAccountNumber = newBillingAccount.LEGACY_ID__c;
-		postCommitWorkerParam.leaderBillingAccountNumber = event.LeaderAccountNumber__c;
-		postCommitWorkerParam.notificationRecipientId = notificationRecipientId;
 
 		if (String.isNotBlank(event.LeaderAccountNumber__c)) {
 			populateBillingAccountSelfLookup(newBillingAccount, postCommitWorkerParam, Billing_Account__c.LeaderAccount__c, 'LeaderAccount__r', event.LeaderAccountNumber__c);
@@ -583,7 +655,11 @@ public inherited sharing class CreateSTBillingAccountEventHandlerModule extends 
 			populateBillingAccountSelfLookup(newBillingAccount, postCommitWorkerParam, Billing_Account__c.PAYER_ACCOUNT_ID__c,'PAYER_ACCOUNT_ID__r', event.Parent_Account_Number__c);
 		}
 
-		return postCommitWorkerParam;
+		if (!postCommitWorkerParam.relatedBillingAccountNumbers.isEmpty()) {
+			return postCommitWorkerParam;
+		}
+
+		return null;
 	}
 
 	/**
@@ -616,13 +692,14 @@ public inherited sharing class CreateSTBillingAccountEventHandlerModule extends 
 	 * @return new deal support request for surcharge setup and activation.
 	 */
 	private Deal_Support_Request__c newDSRForSurchargeSetupAndActivation(BillingAccountCreationEvent__e event, Account organisation, APT_Sub_Account__c subAccountRequest) {
+		String parcelSendLoginRequired = String.isNotBlank(subAccountRequest.Is_Parcel_Send_Login_Required__c) ? subAccountRequest.Is_Parcel_Send_Login_Required__c : 'Not specified';
 		return new Deal_Support_Request__c(
 				RecordTypeId = CUSTOMER_ONBOARDING_DSR_RECORDTYPEID, Organisation__c=organisation.Id, Requestor__c=subAccountRequest.OwnerId,
 				Stage__c = 'Submitted', Status__c = 'Submitted', Sub_Accounts__c = event.Billing_Account_Number__c,
 				Product__c = 'StarTrack', CustomerContact1__c = subAccountRequest.SubAccountContact__c,
 				Work_Type__c = BILLING_ACCOUNT_CREATION_CONFIGURATION?.SurchargeSetupDSRWorkType__c,
 				Support_Work_Type__c = BILLING_ACCOUNT_CREATION_CONFIGURATION?.SurchargeSetupDSRSupportWorkType__c,
-				Description__c = System.Label.StarTrackSubAccountActivationDSRDescription, OwnerId= SURCHARGE_SETUP_DSR_OWNER_QUEUE.Id
+				Description__c = String.format(Label.StarTrackSubAccountActivationDSRDescription, new List<String>{parcelSendLoginRequired}), OwnerId= SURCHARGE_SETUP_DSR_OWNER_QUEUE.Id
 		);
 	}
 
@@ -639,7 +716,8 @@ public inherited sharing class CreateSTBillingAccountEventHandlerModule extends 
 		}
 
 		Set<SObjectField> fieldOverrides = new Set<SObjectField>{
-				BAMExternalOnboardingRequest__c.Id, BAMExternalOnboardingRequest__c.Status__c, BAMExternalOnboardingRequest__c.Response_Payload__c
+				BAMExternalOnboardingRequest__c.Id, BAMExternalOnboardingRequest__c.Status__c, BAMExternalOnboardingRequest__c.Response_Payload__c,
+				BAMExternalOnboardingRequest__c.OwnerId
 		};
 		return ((ExternalOnboardingRequestSelector)ExternalOnboardingRequestSelector.newInstance().setFieldOverrides(fieldOverrides)).selectById(externalOnboardingRequestIds);
 	}
@@ -661,7 +739,7 @@ public inherited sharing class CreateSTBillingAccountEventHandlerModule extends 
 						Deal_Support_Request__c.Id, Deal_Support_Request__c.Billing_Number__c, Deal_Support_Request__c.Integration_Status__c,
 						Deal_Support_Request__c.Integration_Status_Description__c, Deal_Support_Request__c.Sub_Accounts__c,
 						Deal_Support_Request__c.APT_Contract__c, Deal_Support_Request__c.Organisation__c, Deal_Support_Request__c.Billing_Number__c,
-						Deal_Support_Request__c.OwnerId, Deal_Support_Request__c.Opportunity__c
+						Deal_Support_Request__c.OwnerId, Deal_Support_Request__c.Opportunity__c, Deal_Support_Request__c.Name
 				},
 				APT_Credit_Assessment__c.SObjectType => new Set<SObjectField>{
 						APT_Credit_Assessment__c.Id, APT_Credit_Assessment__c.APT_Charge_Account__c, APT_Credit_Assessment__c.StarTrack_Proposed_for_New_Account__c
@@ -733,7 +811,9 @@ public inherited sharing class CreateSTBillingAccountEventHandlerModule extends 
 						APT_Sub_Account__c.APT_Street_Address_Street_Number__c, APT_Sub_Account__c.APT_Street_Address_Street_Name__c,
 						APT_Sub_Account__c.APT_Street_Address_Street_Type__c, APT_Sub_Account__c.APT_Street_Address_Suburb__c,
 						APT_Sub_Account__c.APT_Street_Address_Street_Postcode__c, APT_Sub_Account__c.APT_Street_Address_State__c,
-						APT_Sub_Account__c.APT_Street_Address_Country_Code__c
+						APT_Sub_Account__c.APT_Street_Address_Country_Code__c, APT_Sub_Account__c.Name, APT_Sub_Account__c.Sub_Account_Number__c,
+						APT_Sub_Account__c.APT_Sub_Account_Request_Status__c, APT_Sub_Account__c.ParentBillingAccount__c,
+						APT_Sub_Account__c.ParentAccountRequest__c, APT_Sub_Account__c.Is_Parcel_Send_Login_Required__c
 				},
 				Billing_Account__c.SObjectType => new Set<SObjectField>{
 						Billing_Account__c.Id, Billing_Account__c.LEGACY_ID__c, Billing_Account__c.Name
@@ -743,7 +823,10 @@ public inherited sharing class CreateSTBillingAccountEventHandlerModule extends 
 				}
 		};
 		return ((SubAccountRequestsSelector)SubAccountRequestsSelector.newInstance().setFieldOverrides(fieldOverrides)).selectByIds(subAccountRequestIds, new Set<Object>{
-				SubAccountRequestsSelector.Options.WITH_SUB_ACCOUNT_CONTACT, SubAccountRequestsSelector.Options.WITH_BILLING_ACCOUNT
+				SubAccountRequestsSelector.Options.WITH_SUB_ACCOUNT_CONTACT,
+				SubAccountRequestsSelector.Options.WITH_BILLING_ACCOUNT,
+				SubAccountRequestsSelector.Options.WITH_ST_PARENT_ACCOUNT_REQUEST,
+				SubAccountRequestsSelector.Options.WITH_ST_OFFSPRING_ACCOUNT_REQUESTS
 		});
 	}
 
@@ -775,6 +858,23 @@ public inherited sharing class CreateSTBillingAccountEventHandlerModule extends 
 		}
 
 		return results;
+	}
+
+	/**
+	 * Select billing accounts with all required fields populated via field overrides.
+	 *
+	 * @param billingAccountIds Ids of the organisations to retrieve.
+	 *
+	 * @return billing accounts retrieved from database
+	 */
+	private Map<Id, Billing_Account__c> selectBillingAccounts(Set<Id> billingAccountIds) {
+		if (billingAccountIds.isEmpty()) {
+			return new Map<Id, Billing_Account__c>();
+		}
+
+		return ((BillingAccountsSelector)BillingAccountsSelector.newInstance().setFieldOverrides(new Set<SObjectField>{
+				Billing_Account__c.Id, Billing_Account__c.LEGACY_ID__c
+		})).selectById(billingAccountIds);
 	}
 
 	/**
@@ -818,28 +918,121 @@ public inherited sharing class CreateSTBillingAccountEventHandlerModule extends 
 	}
 
 	/**
-	 * Send bell notification with the specified message to specified recipient.
+	 * Send custom notifications to end users on billing account onboarding results.
 	 *
-	 * @param recipientId notification recipient
-	 * @param targetRecord target record the user is taken to when clicking on notification
-	 * @param messageBody message body.
+	 * @param externalOnboardingResults external onboarding results
 	 */
-	private static void sendNotification(Id recipientId, SObject targetRecord, String messageBody) {
-		if (NOTIFICATION_TYPE.Id != null && recipientId != null) {
-			Messaging.CustomNotification notification = new Messaging.CustomNotification();
-			notification.setSenderId(UserInfo.getUserId());
-			notification.setNotificationTypeId(NOTIFICATION_TYPE.Id);
-			notification.setTargetId(targetRecord.Id);
-			notification.setBody(messageBody);
-			notification.setTitle(String.format(Label.StarTrackNewBillingAccountProvisonNotificationTitle, new List<String>{String.valueOf(targetRecord.getSObjectType())}));
-			notification.send(new Set<String>{recipientId});
+	private static void sendCustomNotifications(List<ExternalOnboardingResult> externalOnboardingResults) {
+		Notifications notificationSender = Notifications.newInstance();
+		for (ExternalOnboardingResult externalOnboardingResult: externalOnboardingResults) {
+			if (externalOnboardingResult.requestObjectType == Deal_Support_Request__c.SObjectType) {
+				// DSR flow
+				notificationSender.add(newExternalOnboardingResultsNotificationForDSRFlow(externalOnboardingResult));
+			} else if (externalOnboardingResult.requestObjectType == Billing_Account__c.SObjectType) {
+				// Billing Account flow
+				notificationSender.add(newExternalOnboardingResultsNotificationForBAFlow(externalOnboardingResult));
+			}
 		}
+		notificationSender.send();
+	}
+
+	/**
+	 * Create a custom notification instance from the external onboarding results of a request initiated via DSR flow.
+	 *
+	 * @param externalOnboardingResult onboarding results summarising billing account success / error events for the external onboarding request.
+	 *
+	 * @return custom notification configured with all necessary parameters.
+	 */
+	private static Notifications.CustomNotification newExternalOnboardingResultsNotificationForDSRFlow(ExternalOnboardingResult externalOnboardingResult) {
+		String notificationTitle = '';
+		String notificationBody = '';
+		if (externalOnboardingResult.leaderBillingAccountProvisionResult != null) {
+			if (externalOnboardingResult.subAccountProvisionResults.isEmpty()) {
+				notificationTitle = externalOnboardingResult.leaderBillingAccountProvisionResult.isSuccess ? Label.StarTrackLeaderBillingAccountSuccessNotificationTitle : Label.StarTrackLeaderBillingAccountErrorNotificationTitle;
+				notificationBody = (externalOnboardingResult.leaderBillingAccountProvisionResult.isSuccess ?
+						String.format(Label.StarTrackLeaderBillingAccountSuccessNotification, new List<String>{externalOnboardingResult.leaderBillingAccountProvisionResult.newBillingAccountNumber, externalOnboardingResult.customerOrganisationName, externalOnboardingResult.requestObjectName}) :
+						String.format(Label.StarTrackLeaderBillingAccountErrorNotification, new List<String>{externalOnboardingResult.customerOrganisationName, externalOnboardingResult.requestObjectName})
+				);
+			} else {
+				// leader and follower/offspring
+				if (externalOnboardingResult.failedSubAccountCount == 0) {
+					// all successful (Refer scenario#4 in Custom Notification design in class header)
+					notificationTitle = Label.StarTrackLeaderAndSubAccountsSuccessNotificationTitle;
+					notificationBody = String.format(Label.StarTrackLeaderAndSubAccountsSuccessNotification, new List<String>{externalOnboardingResult.leaderBillingAccountProvisionResult.newBillingAccountNumber, externalOnboardingResult.getSuccessfulSubAccountNumberString(), externalOnboardingResult.customerOrganisationName, externalOnboardingResult.requestObjectName});
+				} else if (externalOnboardingResult.successfulSubAccountCount == 0) {
+					// all sub accounts failed (Refer scenario#3 and scenario#6 in Custom Notification design in class header)
+					notificationTitle = (externalOnboardingResult.leaderBillingAccountProvisionResult.isSuccess ? Label.StarTrackLeaderSuccessAndSubAccountsErrorNotificationTitle : Label.StarTrackLeaderAndSubAccountsErrorNotificationTitle);
+					notificationBody = (externalOnboardingResult.leaderBillingAccountProvisionResult.isSuccess ?
+							String.format(Label.StarTrackLeaderSuccessAndSubAccountsErrorNotification, new List<String>{externalOnboardingResult.leaderBillingAccountProvisionResult.newBillingAccountNumber, externalOnboardingResult.getFailedSubAccountRequestNumbers(), externalOnboardingResult.requestObjectName}) :
+							String.format(Label.StarTrackLeaderAndSubAccountsErrorNotification, new List<String>{externalOnboardingResult.customerOrganisationName, externalOnboardingResult.requestObjectName})
+					);
+				} else {
+					// sub accounts partial success (Refer scenario#5 in Custom Notification design in class header)
+					notificationTitle = Label.StarTrackLeaderSuccessAndSubAccountsPartialSuccessNotificationTitle;
+					notificationBody = String.format(Label.StarTrackLeaderSuccessAndSubAccountsPartialSuccessNotification, new List<String>{externalOnboardingResult.leaderBillingAccountProvisionResult.newBillingAccountNumber, externalOnboardingResult.getSuccessfulSubAccountNumberString(), externalOnboardingResult.getFailedSubAccountRequestNumbers(), externalOnboardingResult.requestObjectName});
+				}
+			}
+		} else {
+			// very unlikely. only possible if leader platform event was processed in a previous batch by the platform event trigger.
+			if (externalOnboardingResult.failedSubAccountCount == 0) {
+				//all successful
+				notificationTitle = Label.StarTrackSubAccountsSuccessNotificationTitle;
+				notificationBody = String.format(Label.StarTrackLeaderUnknownSubAccountsSuccessNotification, new List<String>{externalOnboardingResult.getSuccessfulSubAccountNumberString(), externalOnboardingResult.customerOrganisationName, externalOnboardingResult.requestObjectName});
+			} else if (externalOnboardingResult.successfulSubAccountCount == 0) {
+				// all sub accounts failed
+				notificationTitle = Label.StarTrackSubAccountsErrorNotificationTitle;
+				notificationBody = String.format(Label.StarTrackLeaderUnknownSubAccountsErrorNotification, new List<String>{externalOnboardingResult.customerOrganisationName, externalOnboardingResult.getFailedSubAccountRequestNumbers(), externalOnboardingResult.requestObjectName});
+			} else {
+				// sub accounts partial success
+				notificationTitle = Label.StarTrackSubAccountsPartialSuccessNotificationTitle;
+				notificationBody = String.format(Label.StarTrackLeaderUnknownSubAccountsPartialSuccessNotification, new List<String>{externalOnboardingResult.getSuccessfulSubAccountNumberString(), externalOnboardingResult.getFailedSubAccountRequestNumbers(), externalOnboardingResult.requestObjectName});
+			}
+		}
+
+		return Notifications.create()
+					.setNotificationTypeId(Notifications.DEFAULT_CUSTOM_NOTIFICATION_TYPE_ID)
+					.setSenderId(UserInfo.getUserId())
+					.setTitle(notificationTitle)
+					.setBody(notificationBody)
+					.setTargetId(externalOnboardingResult.requestObjectId)
+					.setRecipientIds(new Set<Id>{externalOnboardingResult.externalOnboardingRequest.OwnerId});
+	}
+
+	/**
+	 * Create a custom notification instance from the external onboarding results of a request initiated via billing account flow.
+	 *
+	 * @param externalOnboardingResult onboarding results summarising billing account success / error events for the external onboarding request.
+	 *
+	 * @return custom notification configured with all necessary parameters.
+	 */
+	private static Notifications.CustomNotification newExternalOnboardingResultsNotificationForBAFlow(ExternalOnboardingResult externalOnboardingResult) {
+		String notificationTitle = '';
+		String notificationBody = '';
+		if (externalOnboardingResult.failedSubAccountCount == 0) {
+			//all successful (Refer scenario#7 in Custom Notification design in class header)
+			notificationTitle = Label.StarTrackSubAccountsSuccessNotificationTitle;
+			notificationBody = String.format(Label.StarTrackSubAccountsSuccessNotification, new List<String>{externalOnboardingResult.requestObjectName, externalOnboardingResult.getSuccessfulSubAccountNumberString()});
+		} else if (externalOnboardingResult.successfulSubAccountCount == 0) {
+			// all failed (Refer scenario#8 in Custom Notification design in class header)
+			notificationTitle = Label.StarTrackSubAccountsErrorNotificationTitle;
+			notificationBody = String.format(Label.StarTrackSubAccountsErrorNotification, new List<String>{externalOnboardingResult.requestObjectName, externalOnboardingResult.getFailedSubAccountRequestNumbers()});
+		} else {
+			// partial (Refer scenario#9 in Custom Notification design in class header)
+			notificationTitle = Label.StarTrackSubAccountsPartialSuccessNotificationTitle;
+			notificationBody = String.format(Label.StarTrackSubAccountsPartialSuccessNotification, new List<String>{externalOnboardingResult.requestObjectName, externalOnboardingResult.getSuccessfulSubAccountNumberString(), externalOnboardingResult.getFailedSubAccountRequestNumbers()});
+		}
+		return Notifications.create()
+				.setNotificationTypeId(Notifications.DEFAULT_CUSTOM_NOTIFICATION_TYPE_ID)
+				.setSenderId(UserInfo.getUserId())
+				.setTitle(notificationTitle)
+				.setBody(notificationBody)
+				.setTargetId(externalOnboardingResult.requestObjectId)
+				.setRecipientIds(new Set<Id>{externalOnboardingResult.externalOnboardingRequest.OwnerId});
 	}
 
 	/**
 	 * Async worker for handling post commit actions required on newly inserted star track billing accounts.
 	 * Caters for below scenarios:
-	 *  - send bell notifications to users on newly created billing accounts.
 	 *  - populate self lookup fields on new billing accounts
 	 */
 	public inherited sharing class CreateStarTrackBillingAccountPostCommitAsyncWorker extends ApplicationUnitOfWork.AsyncWorker {
@@ -875,13 +1068,6 @@ public inherited sharing class CreateSTBillingAccountEventHandlerModule extends 
 						if (updatable.Id != null) {
 							// we have updates to be registered with uow. we only populate id when there are valid changes to be made.
 							uow.registerDirty(updatable, false, CreateStarTrackBillingAccountPostCommitAsyncWorker.class.getName());
-						}
-
-						// send notifications to end users.
-						if (String.isBlank(param.leaderBillingAccountNumber)) {
-							sendNotification(param.notificationRecipientId, billingAccount, String.format(Label.StarTrackNewLeaderBillingAccountProvisonSuccessNotification, new List<String>{billingAccount.Customer_Name__c}));
-						} else {
-							sendNotification(param.notificationRecipientId, billingAccount, String.format(Label.StarTrackNewSubAccountProvisonSuccessNotification, new List<String>{param.billingAccountNumber, param.leaderBillingAccountNumber}));
 						}
 					} else {
 						// billing account record with the matching billing account number does not exist. add to excluded relationships log.
@@ -967,7 +1153,6 @@ public inherited sharing class CreateSTBillingAccountEventHandlerModule extends 
 			ApplicationLogger.getInstance().logMessage(messages, additionalInfo, 'Sales', CreateStarTrackBillingAccountPostCommitAsyncWorker.class.getName(), 'execute', '', ApplicationLogger.LoggingLevel.ERROR);
 		}
 
-
 	}
 
 	/**
@@ -976,11 +1161,125 @@ public inherited sharing class CreateSTBillingAccountEventHandlerModule extends 
 	public class StarTrackBillingAccountPostCommitWorkerParam {
 		// billing account number (Billing_Account__c.LEGACY_ID__c)
 		public String billingAccountNumber;
-		// leader billing account number. only populated when billingAccountNumber is a sub account.
-		public String leaderBillingAccountNumber;
-		// id of the notification recipient
-		public Id notificationRecipientId;
 		// related billing account numbers to populate self lookups. key - lookup field API name, value - related billing account number.
 		public Map<String, String> relatedBillingAccountNumbers = new Map<String, String>();
+	}
+
+	/**
+	 * Summary of billing account provisioning results per external onboarding request sent from Salesforce. May contain
+	 * leader account results and/or sub account results depending on the contents of the onboarding request generated
+	 * in Salesforce.
+	 */
+	private class ExternalOnboardingResult {
+		// external onboarding request instance
+		private BAMExternalOnboardingRequest__c externalOnboardingRequest;
+		// record from which the onboarding request was initiated. could be either a deal support request (DSR flow) or a billing account (BA flow)
+		private Id requestObjectId;
+		// request record name known to business users
+		private String requestObjectName;
+		// SObjectType of the request object. Could be either DEal_Support_Request__c or Billing_Account__c
+		private SObjectType requestObjectType;
+		// customer organisation (i.e. Account) linked to the request object.
+		private String customerOrganisationName;
+		// results of leader billing account provision results. Only populated if leader accounts are included in external onboarding request.
+		private BillingAccountProvisionResult leaderBillingAccountProvisionResult;
+		// results of sub account provision results. Only populated if sub accounts are included in external onboarding request.
+		private List<BillingAccountProvisionResult> subAccountProvisionResults = new List<BillingAccountProvisionResult>();
+		// number of successfully provisioned sub accounts
+		private Integer successfulSubAccountCount;
+		// number of failed sub account requests
+		private Integer failedSubAccountCount;
+
+		/**
+		 * Creates a new instance of onboarding results
+		 *
+		 * @param externalOnboardingRequest Onboarding request instance (BAMExternalOnboardingRequest__c)
+		 * @param requestObjectId Record from which the onboarding request was initiated. could be either a deal support request (DSR flow) or a billing account (BA flow)
+		 * @param requestObjectName Request record name known to business users
+		 * @param customerOrganisationName customer organisation (i.e. Account) linked to the request object.
+		 */
+		private ExternalOnboardingResult(BAMExternalOnboardingRequest__c externalOnboardingRequest, Id requestObjectId, String requestObjectName, String customerOrganisationName) {
+			this.externalOnboardingRequest = externalOnboardingRequest;
+			this.requestObjectId = requestObjectId;
+			this.requestObjectType = requestObjectId.getSobjectType();
+			this.requestObjectName = requestObjectName;
+			this.customerOrganisationName = customerOrganisationName;
+			this.successfulSubAccountCount = 0;
+			this.failedSubAccountCount = 0;
+		}
+
+		/**
+		 * Record provision result of a billing account requested in the external onboarding request.
+		 *
+		 * @param accountRequest Account request record. Could be an instance of either APT_Charge_Account__c or APT_Sub_Account__c.
+		 * @param newBillingAccountNumber newly provisioned billing account number from external system. pass null if billing account was not provisioned.
+		 */
+		private void addBillingAccountProvisionResult(SObject accountRequest, String newBillingAccountNumber) {
+			BillingAccountProvisionResult result = new BillingAccountProvisionResult(accountRequest, newBillingAccountNumber);
+			if (accountRequest?.getSObjectType() == APT_Charge_Account__c.SObjectType) {
+				this.leaderBillingAccountProvisionResult = result;
+			} else {
+				this.subAccountProvisionResults.add(result);
+				if (result.isSuccess) {
+					++successfulSubAccountCount;
+				} else {
+					++failedSubAccountCount;
+				}
+			}
+		}
+
+		/**
+		 * Get failed sub account request numbers in a comma separated list.
+		 *
+		 * @return sub account request numbers
+		 */
+		private String getFailedSubAccountRequestNumbers() {
+			String result = '';
+			for (BillingAccountProvisionResult provisionResult: this.subAccountProvisionResults) {
+				if (!provisionResult.isSuccess) {
+					result += (provisionResult.accountRequest.get('Name') + ', ');
+				}
+			}
+			return result.removeEnd(', ');
+		}
+
+		/**
+		 * Get successfully provisioned new billing account numbers in a comma separated list.
+		 *
+		 * @return newly provisioned billing account numbers
+		 */
+		private String getSuccessfulSubAccountNumberString() {
+			String result = '';
+			for (BillingAccountProvisionResult provisionResult: this.subAccountProvisionResults) {
+				if (provisionResult.isSuccess) {
+					result += (provisionResult.newBillingAccountNumber + ', ');
+				}
+			}
+			return result.removeEnd(', ');
+		}
+
+	}
+
+	/**
+	 * Provision result of a single billing account request. Note that this could be a leader account or a sub account.
+	 */
+	private class BillingAccountProvisionResult {
+		// account request record. Could be an instance of either APT_Charge_Account__c or APT_Sub_Account__c.
+		private SObject accountRequest;
+		// newly provisioned billing account number from external system.
+		private String newBillingAccountNumber;
+		// indicates if billing account was provisioned successfully.
+		private Boolean isSuccess;
+
+		/**
+		 * Creates a new instance of billing account provision result.
+		 * @param accountRequest account request record. Could be an instance of either APT_Charge_Account__c or APT_Sub_Account__c.
+		 * @param newBillingAccountNumber newly provisioned billing account number from external system. pass null if billing account was not provisioned.
+		 */
+		private BillingAccountProvisionResult(SObject accountRequest, String newBillingAccountNumber) {
+			this.accountRequest = accountRequest;
+			this.newBillingAccountNumber = newBillingAccountNumber;
+			this.isSuccess = String.isNotBlank(newBillingAccountNumber);
+		}
 	}
 }

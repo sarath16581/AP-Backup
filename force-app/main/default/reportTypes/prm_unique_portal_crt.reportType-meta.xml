@@ -803,11 +803,6 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>RNPReportingManager__c</field>
-            <table>User</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
             <field>APSNumber__c</field>
             <table>User</table>
         </columns>

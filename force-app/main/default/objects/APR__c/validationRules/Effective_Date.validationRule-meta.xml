@@ -6,8 +6,8 @@
     <errorConditionFormula>AND(
 RecordType.DeveloperName = &apos;StarTrack&apos;,
 OR(
-Confirmed_Date__c &gt; DATE(YEAR(TODAY()) + 1, 6, 30),
-Confirmed_Date__c &lt; DATE(YEAR(TODAY()), 7, 1)
+Confirmed_Date__c &gt; DATE(YEAR(Published_Date__c) + 1, 6, 30),
+Confirmed_Date__c &lt; DATE(YEAR(Published_Date__c), 7, 1)
 )
 )</errorConditionFormula>
     <errorDisplayField>Confirmed_Date__c</errorDisplayField>

@@ -1,5 +1,5 @@
 /***
- * @description Test class for CaseAutomationTriggerHandler
+ * @description Test class for BillingAccountCreationEventHandler
  * @author Ranjeewa Silva
  * @date 2023-11-27
  * @changelog

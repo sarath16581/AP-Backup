@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Apttus_Config2__AllowGreaterPartialOrderQuantity__c</fullName>
+    <defaultValue>false</defaultValue>
+    <deprecated>false</deprecated>
+    <description>Allows to add quantity greater than the actual/remaining quantity of Price Agreement line items</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Allows to add quantity greater than the actual/remaining quantity of Price Agreement line items</inlineHelpText>
+    <label>Allow Greater Partial Order Quantity</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

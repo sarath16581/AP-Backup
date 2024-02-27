@@ -738,7 +738,19 @@
     <picklistValues>
         <picklist>Customer_Checklist_attached__c</picklist>
         <values>
+            <fullName>Duplicate</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Not required</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>RFP</fullName>
             <default>false</default>
         </values>
         <values>
@@ -1117,7 +1129,11 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Handover - Onboarding to Service</fullName>
+            <fullName>Closed to BAU</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Go Live - Hypercare</fullName>
             <default>false</default>
         </values>
         <values>
@@ -1126,10 +1142,6 @@
         </values>
         <values>
             <fullName>Scope - Onboarding</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Trading%2FGo Live - Onboarding</fullName>
             <default>false</default>
         </values>
     </picklistValues>
@@ -1711,6 +1723,17 @@
         </values>
     </picklistValues>
     <picklistValues>
+        <picklist>RevenueType__c</picklist>
+        <values>
+            <fullName>Increase Revenue</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>No Revenue Change or Decrease Revenue</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
         <picklist>SBU__c</picklist>
         <values>
             <fullName>CMS</fullName>
@@ -1847,7 +1870,7 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Renewals Management</fullName>
+            <fullName>Strategic</fullName>
             <default>false</default>
         </values>
     </picklistValues>

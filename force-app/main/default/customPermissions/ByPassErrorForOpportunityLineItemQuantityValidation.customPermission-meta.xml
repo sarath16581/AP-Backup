@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomPermission xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Custom permission to bypass the opportunity line item quantity validation to be more than 1 on opportunity. This permission is used in OpportunitySalesPipelineModule and assigned for Secure Pay Super Users.</description>
+    <isLicensed>false</isLicensed>
+    <label>ByPassErrorForOpportunityLineItemQuantityValidation</label>
+</CustomPermission>

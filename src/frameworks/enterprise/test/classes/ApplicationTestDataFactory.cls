@@ -34,8 +34,7 @@
  * 2023-06-30 - Pratyush Chalasani - Added getAdjustments
  * 2023-07-16 - SteveL- Added getEvents
  * 2023-07-20 - Mahesh Parvathaneni - Added method getBamApplications
- * 2023-08-09 - Mahesh Parvathaneni - Added method getNetworkMembers
- * 2023-10-03 - Hasantha Liyanage - Added methods getBamApplicationRoles, getBamContactRoles, getBamContactApplications
+ * 2023-09-22 - Ken McGuire - added methods for product revenue objects
 */
 @IsTest
 public with sharing class ApplicationTestDataFactory {
@@ -102,17 +101,6 @@ public with sharing class ApplicationTestDataFactory {
 				}, count), generateIds);
 	}
 
-	public static List<NetworkMember> getNetworkMembers(Integer count, Id networkId, Id memberId, Boolean generateIds) {
-		List<NetworkMember> output = (List<NetworkMember>)maybeGenerateIds(populateSObjects(NetworkMember.SObjectType, new Map<SObjectField, Object> {
-				}, count), generateIds);
-
-		for(Integer i = 0; i < output.size(); i++) {
-			output[i] = (NetworkMember)setUnwritableFields(output[i], new Map<String, Object>{'NetworkId' => networkId, 'MemberId' => memberId});
-		}
-
-		return output;
-	}
-
 	public static List<FeedItem> getChatterFeeds(Integer count, Id parentId, Boolean generateIds) {
 		return (List<FeedItem>)maybeGenerateIds(populateSObjects(FeedItem.SObjectType, new Map<SObjectField, Object> {
 			FeedItem.ParentId => parentId
@@ -126,18 +114,6 @@ public with sharing class ApplicationTestDataFactory {
 
 		for(Integer i = 0; i < output.size(); i++) {
 			output[i] = (FeedComment)setUnwritableFields(output[i], new Map<String, Object>{'ParentId' => parentId});
-		}
-
-		return output;
-	}
-
-	public static List<CaseComment> getCaseComments(Integer count, Id parentId, Boolean IsPublished, Boolean generateIds) {
-		List<CaseComment> output = (List<CaseComment>)maybeGenerateIds(populateSObjects(CaseComment.SObjectType, new Map<SObjectField, Object> {
-				CaseComment.IsPublished => IsPublished
-		}, count), generateIds);
-
-		for(Integer i = 0; i < output.size(); i++) {
-			output[i] = (CaseComment)setUnwritableFields(output[i], new Map<String, Object>{'ParentId' => parentId});
 		}
 
 		return output;
@@ -910,8 +886,15 @@ public with sharing class ApplicationTestDataFactory {
 	}
 
 	public static List<Budget_And_Revenue__c> getBudgetAndRevenue(Integer count, Id accountId, Boolean generateIds) {
+		return getBudgetAndRevenue(count, accountId, null, null, generateIds);
+	}
+
+	public static List<Budget_And_Revenue__c> getBudgetAndRevenue(Integer count, Id accountId, Id productId, Integer financialYear, Boolean generateIds) {
 		return (List<Budget_And_Revenue__c>) maybeGenerateIds(populateSObjects(Budget_And_Revenue__c.SObjectType, new Map<SObjectField, Object> {
 			Budget_and_Revenue__c.Organisation__c => accountId,
+			Budget_and_Revenue__c.Product__c => productId,
+			Budget_and_Revenue__c.Financial_Year__c => String.ValueOf(financialYear),
+			Budget_and_Revenue__c.Transaction_Type__c => 'REVENUE',
 			Budget_and_Revenue__c.Jan_Revenue_Amount__c => 1000,
 			Budget_and_Revenue__c.Feb_Revenue_Amount__c => 1000,
 			Budget_and_Revenue__c.Mar_Revenue_Amount__c => 1000,
@@ -926,12 +909,36 @@ public with sharing class ApplicationTestDataFactory {
 			Budget_and_Revenue__c.Dec_Revenue_Amount__c => 1000
 		}, count), generateIds);
 	}
+    
 
+    
 	public static List<Product2> getProducts(Integer count, Boolean generateIds) {
 		return (List<Product2>) maybeGenerateIds(populateSObjects(Product2.SObjectType, new Map<SObjectField, Object> {
 			Product2.Name => 'Product %count%'
 		}, count), generateIds);
 	}
+
+    
+    public static List<PricebookEntry> getPriceBookEntries(Integer count, Id productId, Boolean generateIds) {
+        Id pricebookId = Test.getStandardPricebookId();
+        return (List<PricebookEntry>) maybeGenerateIds(populateSObjects(PricebookEntry.SObjectType, new Map<SObjectField, Object> {
+            PricebookEntry.Pricebook2Id => pricebookId,
+            PricebookEntry.Product2Id => productId,
+            PricebookEntry.UnitPrice => 100.00,
+            PricebookEntry.IsActive => true
+        }, count), generateIds);
+    }
+
+    public static List<OpportunityLineItem> getOpportunityLineItems(Integer count, Id opportunityId, Id pricebookEntryId, Boolean generateIds) {
+        Date todaysDate = Date.today();
+        return (List<OpportunityLineItem>) maybeGenerateIds(populateSObjects(OpportunityLineItem.SObjectType, new Map<SObjectField, Object> {
+            OpportunityLineItem.OpportunityId => opportunityId,
+            OpportunityLineItem.PricebookEntryId => pricebookEntryId,
+            OpportunityLineItem.TotalPrice => 1000,
+            OpportunityLineItem.Contract_Start_Date__c => todaysDate,
+            OpportunityLineItem.Contract_End_Date__c => todaysDate.addDays(3)
+        }, count), generateIds);
+    }
 
 	public static List<BAMApplication__c> getBamApplications(Integer count, String appName, Id productId, Boolean generateIds) {
 		return (List<BAMApplication__c>)maybeGenerateIds(populateSObjects(BAMApplication__c.SObjectType, new Map<SObjectField, Object> {
@@ -941,33 +948,6 @@ public with sharing class ApplicationTestDataFactory {
 			BAMApplication__c.Product__c =>  productId,
 			BAMApplication__c.appKey__c => appName.substring(0,Math.min(appName.length(), 9)),
 			BAMApplication__c.ServiceType__c =>  'Salesforce'
-		}, count), generateIds);
-	}
-
-	public static List<BAMApplicationRole__c> getBamApplicationRoles(Integer count, String roleName, Id appId, Boolean generateIds) {
-		return (List<BAMApplicationRole__c>)maybeGenerateIds(populateSObjects(BAMApplicationRole__c.SObjectType, new Map<SObjectField, Object> {
-				BAMApplicationRole__c.Role__c => roleName,
-				BAMApplicationRole__c.Application__c => appId,
-				BAMApplicationRole__c.ShowBillingAccount__c => true,
-				BAMApplicationRole__c.ShowGroup__c =>  true,
-				BAMApplicationRole__c.ShowOrganisation__c => true,
-				BAMApplicationRole__c.status__c =>  'Active'
-		}, count), generateIds);
-	}
-
-	public static List<BAMContactRole__c> getBamContactRoles(Integer count, String roleId, Id appId, Boolean generateIds) {
-		return (List<BAMContactRole__c>)maybeGenerateIds(populateSObjects(BAMContactRole__c.SObjectType, new Map<SObjectField, Object> {
-				BAMContactRole__c.ContactApplication__c => appId,
-				BAMContactRole__c.ApplicationRole__c => roleId,
-				BAMContactRole__c.status__c =>  'Active'
-		}, count), generateIds);
-	}
-
-	public static List<BAMContactApplication__c> getBamContactApplications(Integer count, Id contactId, Id appId, Boolean generateIds) {
-		return (List<BAMContactApplication__c>)maybeGenerateIds(populateSObjects(BAMContactApplication__c.SObjectType, new Map<SObjectField, Object> {
-				BAMContactApplication__c.Contact__c => contactId,
-				BAMContactApplication__c.Application__c => appId,
-				BAMContactApplication__c.Status__c => 'Active'
 		}, count), generateIds);
 	}
 
@@ -1103,7 +1083,50 @@ public with sharing class ApplicationTestDataFactory {
 		}
 		private set;
 	}
-
+    
+    public static List<OpportunityProductRevenueForecast__c> getOpportunityProductRevenueForecasts(Integer count, Id opportunityProductId, Boolean generateIds) {
+		integer currentMonth = Date.today().Month();
+        decimal percentRevenue = 100/12;
+        return (List<OpportunityProductRevenueForecast__c>)maybeGenerateIds(populateSObjects(OpportunityProductRevenueForecast__c.SObjectType, new Map<SObjectField, Object> {
+				OpportunityProductRevenueForecast__c.OpportunityProduct__c => opportunityProductId,
+                OpportunityProductRevenueForecast__c.FinancialYear__c => currentMonth,
+                OpportunityProductRevenueForecast__c.FCT1__c => percentRevenue,
+                OpportunityProductRevenueForecast__c.FCT2__c => percentRevenue,
+                OpportunityProductRevenueForecast__c.FCT3__c => percentRevenue,
+                OpportunityProductRevenueForecast__c.FCT4__c => percentRevenue,
+                OpportunityProductRevenueForecast__c.FCT5__c => percentRevenue,
+                OpportunityProductRevenueForecast__c.FCT6__c => percentRevenue,
+                OpportunityProductRevenueForecast__c.FCT7__c => percentRevenue,
+                OpportunityProductRevenueForecast__c.FCT8__c => percentRevenue,
+                OpportunityProductRevenueForecast__c.FCT9__c => percentRevenue,
+                OpportunityProductRevenueForecast__c.FCT10__c => percentRevenue,
+                OpportunityProductRevenueForecast__c.FCT11__c => percentRevenue,
+                OpportunityProductRevenueForecast__c.FCT12__c => percentRevenue
+		}, count), generateIds);
+	}
+    
+    public static List<GroupedAccountProductRevenue__c> getGroupedAccountProductRevenue(Integer count, Id accountId, Id productId, Integer year, Boolean generateIds) {
+        decimal revenue = 10000;
+        return (List<GroupedAccountProductRevenue__c>)maybeGenerateIds(populateSObjects(GroupedAccountProductRevenue__c.SObjectType, new Map<SObjectField, Object> {
+				GroupedAccountProductRevenue__c.AnchorOrganisation__c => accountId,
+                GroupedAccountProductRevenue__c.PrimaryProduct__c => productId,
+                GroupedAccountProductRevenue__c.FinancialYear__c => year,
+                GroupedAccountProductRevenue__c.Rev1__c => revenue,
+                GroupedAccountProductRevenue__c.Rev2__c => revenue,
+                GroupedAccountProductRevenue__c.Rev3__c => revenue,
+                GroupedAccountProductRevenue__c.Rev4__c => revenue,
+                GroupedAccountProductRevenue__c.Rev5__c => revenue,
+                GroupedAccountProductRevenue__c.Rev6__c => revenue,
+                GroupedAccountProductRevenue__c.Rev7__c => revenue,
+                GroupedAccountProductRevenue__c.Rev8__c => revenue,
+                GroupedAccountProductRevenue__c.Rev9__c => revenue,
+                GroupedAccountProductRevenue__c.Rev10__c => revenue,
+                GroupedAccountProductRevenue__c.Rev11__c => revenue,
+                GroupedAccountProductRevenue__c.Rev12__c => revenue,
+				GroupedAccountProductRevenue__c.UID__c => ProductRevenueService.getUID(accountId,productId,String.valueOf(year))
+		}, count), generateIds);
+	}
+    
 	/**
 	 * @deprecated ApplicationTestDataFactoryCases
 	 */

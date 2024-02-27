@@ -8,16 +8,18 @@
  * @changelog
  * 2023-11-22 - Mahesh Parvathaneni - Changed the authentication mechanism from Authz to Auth0
  * 2023-12-18 - Boris Bachovski - Updated getter to not use Test.IsRunningTest() as the "AP Secrets" package now supports mocking
+ * 2024-02-02 - Mahesh Parvathaneni - Updated getter to use the OAuth base class from the "AP Secrets" package
  */
 public with sharing class NotificationPreferencesService {
 
 	//constants
 	private static final String NOTIFICATION_PREFERENCE = 'NotificationPreference';
 
-	private static apsecrets.Auth0AccessManager.Auth0Token AUTH0_TOKEN {
+	private static apsecrets.OAuth.TokenResponse AUTH0_TOKEN {
 		get {
-			if (AUTH0_TOKEN == null) { 
-				AUTH0_TOKEN = apsecrets.Auth0AccessManager.getAccessToken(NOTIFICATION_PREFERENCE);
+			if (AUTH0_TOKEN == null) {
+				apsecrets.Auth0AccessManager auth0mgr = new apsecrets.Auth0AccessManager(NOTIFICATION_PREFERENCE);
+				AUTH0_TOKEN = auth0mgr.getAccessToken();
 			}
 
 			return AUTH0_TOKEN;
@@ -126,7 +128,8 @@ public with sharing class NotificationPreferencesService {
 			HttpResponse vRes = vHTTP.send(req);
 			/** If 401 Unauthorized, force token regeneration*/
 			if (vRes.getStatusCode() == 401) {
-				AUTH0_TOKEN = apsecrets.Auth0AccessManager.getAccessToken(apsecrets.Auth0AccessManager.RunMode.FORCE_GENERATE, NOTIFICATION_PREFERENCE);
+				apsecrets.Auth0AccessManager auth0mgr = new apsecrets.Auth0AccessManager(NOTIFICATION_PREFERENCE, apsecrets.CacheSettings.RunMode.FORCE_GENERATE);
+				AUTH0_TOKEN = auth0mgr.getAccessToken();
 				req.setHeader('Authorization', 'Bearer ' + AUTH0_TOKEN.access_token);
 				vRes = vHTTP.send(req);
 			}
@@ -158,7 +161,8 @@ public with sharing class NotificationPreferencesService {
 			HttpResponse vRes = vHTTP.send(vReq);
 			/** If 401 Unauthorized, force token regeneration*/
 			if (vRes.getStatusCode() == 401) {
-				AUTH0_TOKEN = apsecrets.Auth0AccessManager.getAccessToken(apsecrets.Auth0AccessManager.RunMode.FORCE_GENERATE, NOTIFICATION_PREFERENCE);
+				apsecrets.Auth0AccessManager auth0mgr = new apsecrets.Auth0AccessManager(NOTIFICATION_PREFERENCE, apsecrets.CacheSettings.RunMode.FORCE_GENERATE);
+				AUTH0_TOKEN = auth0mgr.getAccessToken();
 				vReq.setHeader('Authorization', 'Bearer ' + AUTH0_TOKEN.access_token);
 				vRes = vHTTP.send(vReq);
 			}
@@ -203,7 +207,8 @@ public with sharing class NotificationPreferencesService {
 			HttpResponse vRes = vHTTP.send(vReq);
 			/** If 401 Unauthorized, force token regeneration*/
 			if (vRes.getStatusCode() == 401) {
-				AUTH0_TOKEN = apsecrets.Auth0AccessManager.getAccessToken(apsecrets.Auth0AccessManager.RunMode.FORCE_GENERATE, NOTIFICATION_PREFERENCE);
+				apsecrets.Auth0AccessManager auth0mgr = new apsecrets.Auth0AccessManager(NOTIFICATION_PREFERENCE, apsecrets.CacheSettings.RunMode.FORCE_GENERATE);
+				AUTH0_TOKEN = auth0mgr.getAccessToken();
 				vReq.setHeader('Authorization', 'Bearer ' + AUTH0_TOKEN.access_token);
 				vRes = vHTTP.send(vReq);
 			}
