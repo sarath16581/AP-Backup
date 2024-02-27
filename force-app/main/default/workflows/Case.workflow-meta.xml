@@ -5321,7 +5321,7 @@ Temp Fix: To exclude HeldtoOpen cases where in some eventmessagecode belonging t
             <type>FieldUpdate</type>
         </actions>
         <actions>
-            <name>SSSW_Set_Customer_Milestones_to_1</name>
+            <name>SSSW_Set_Customer_Milestones_to_3</name>
             <type>FieldUpdate</type>
         </actions>
         <active>true</active>
