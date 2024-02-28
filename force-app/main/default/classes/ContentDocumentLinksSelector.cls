@@ -158,7 +158,6 @@ public virtual inherited sharing class ContentDocumentLinksSelector extends Appl
 	}
 
 	public virtual override QueryBuilder newQueryBuilder(Set<Object> selectorOptions) {
-		system.debug(selectorOptions);
 		QueryBuilder builder = super.newQueryBuilder(selectorOptions);
 
 		if(selectorOptions.contains(Options.WITH_CONTENTVERSION)) {

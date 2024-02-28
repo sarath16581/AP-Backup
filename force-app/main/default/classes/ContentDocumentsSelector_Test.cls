@@ -36,11 +36,8 @@ private class ContentDocumentsSelector_Test {
 		insert versionRecord;
 
 		Id documentId = [SELECT ContentDocumentId FROM ContentVersion WHERE Id = :versionRecord.Id].ContentDocumentId;
-		ContentDocumentLink documentLinkRecord = new ContentDocumentLink();
-		documentLinkRecord.LinkedEntityId = accountRecord.Id;
-		documentLinkRecord.ContentDocumentId = documentId;
-		documentLinkRecord.ShareType = 'I';
-		documentLinkRecord.Visibility = 'AllUsers';
+		
+		ContentDocumentLink documentLinkRecord = ApplicationTestDataFactory.getContentDocumentLinks(1, accountRecord.Id, documentId, false);
 		insert documentLinkRecord;
 
 		// =====================================
