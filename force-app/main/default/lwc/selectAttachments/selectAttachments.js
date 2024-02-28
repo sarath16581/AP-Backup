@@ -92,7 +92,7 @@ export default class SelectAttachments extends NavigationMixin(LightningElement)
 				}
 			}
 		`
-	  }
+	}
 	
 	get myVariables() {
 		return {
@@ -102,7 +102,7 @@ export default class SelectAttachments extends NavigationMixin(LightningElement)
 
 	connectedCallback() {
 		// Specific to Apttus and Adobe Sign (mimic existing behaviour as per current Docusign business process)
-		if (this.redirect && this.redirect.indexOf('Apttus') != -1) {
+		if (this.redirect && this.redirect.indexOf('Apttus') !== -1) {
 			this.approvalMatrixImage = approvalMatrixImage;
 		}	
 	}
@@ -113,18 +113,18 @@ export default class SelectAttachments extends NavigationMixin(LightningElement)
 		}
 		else if (bytes >= 1024 && bytes < (1024 * 1024)) {
 			//KB
-			var totalSizeKB = (bytes / Math.pow(1024, 1)).toFixed(2);
+			const totalSizeKB = (bytes / Math.pow(1024, 1)).toFixed(2);
 			return totalSizeKB.toString() + ' KB';
 			
 		}
 		else if (bytes >= (1024 * 1024) && bytes < (1024 * 1024 * 1024)) {
 			//MB
-			var totalSizeMB = (bytes / Math.pow(1024, 2)).toFixed(2);
+			const totalSizeMB = (bytes / Math.pow(1024, 2)).toFixed(2);
 			return totalSizeMB.toString() + ' MB';
 		}
 		else {
 			//GB
-			var totalSizeGB = (bytes / Math.pow(1024, 3)).toFixed(2);
+			const totalSizeGB = (bytes / Math.pow(1024, 3)).toFixed(2);
 			return totalSizeGB.toString() + ' GB';
 		}
 	}
