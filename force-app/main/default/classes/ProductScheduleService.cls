@@ -47,12 +47,12 @@ public with sharing class ProductScheduleService {
     }
 
     @testVisible
-    private double[] defaultRevenueAllocation {
+    private Double[] defaultRevenueAllocation {
         get {
             if (defaultRevenueAllocation == null) {
-                defaultRevenueAllocation = new double[12];
-                for (integer m=0; m<12; m++) {
-                    defaultRevenueAllocation[m] = (double)Date.daysInMonth(2023, m)/365;
+                defaultRevenueAllocation = new Double[12];
+                for (Integer m = 0; m < 12; m++) {
+                    defaultRevenueAllocation[m] = (Double)Date.daysInMonth(2023, m+1)/365;
                 }
             }
             return defaultRevenueAllocation;

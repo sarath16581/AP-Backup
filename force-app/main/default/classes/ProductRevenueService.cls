@@ -282,11 +282,11 @@ public with sharing class ProductRevenueService {
 
 
     /**
-  * Updates the retained and incremental revenue fields for a given OpportunityLineItem record.
-  * based on the historical sales value.
-  * @param record    The OpportunityLineItem object to be updated.
-  * @param pastSales The sales amount for the past twelve months for the account and product related to the record.
-  */
+      * Updates the retained and incremental revenue fields for a given OpportunityLineItem record.
+      * based on the historical sales value.
+      * @param record    The OpportunityLineItem object to be updated.
+      * @param pastSales The sales amount for the past twelve months for the account and product related to the record.
+      */
     private void updateRetainedIncrementalContractPeriod(OpportunityLineItem record, Double pastSales) {
         // Calculations will be rounded contract whole months.
         Integer contractMonths = contractMonths(record);
@@ -295,11 +295,10 @@ public with sharing class ProductRevenueService {
     }
 
     /**
-* Updates the retained and incremental revenue fields for a given OpportunityLineItem record s
-* bbased on annualised value
-* @param record    The OpportunityLineItem object to be updated.
-* @param pastSales The sales amount for the past twelve months for the account and product related to the record.
-*/
+    * Updates the retained and incremental revenue fields for a given OpportunityLineItem record based on annualised value
+    * @param record    The OpportunityLineItem object to be updated.
+    * @param pastSales The sales amount for the past twelve months for the account and product related to the record.
+    */
     private void updateRetainedIncrementalAnnualised(OpportunityLineItem record, Double pastSales) {
         // Calculations will be rounded contract whole months.
         Integer contractMonths = contractMonths(record);
@@ -311,14 +310,14 @@ public with sharing class ProductRevenueService {
 
 
     /**
-* Updates the retained and incremental revenue fields for a given OpportunityLineItem record.
-* based on the historical sales value.
-* @param record    The OpportunityLineItem object to be updated.
-* @param pastSales The sales amount for the past twelve months for the account and product related to the record.
-*/
+    * Updates the retained and incremental revenue fields for a given OpportunityLineItem record. based on the historical sales value.
+    * @param record The OpportunityLineItem object to be updated.
+    * @param pastSales The sales amount for the past twelve months for the account and product related to the record.
+    * @param contractMonths contractMonths
+    */
     private void updateRetainedIncremental(OpportunityLineItem record, Double pastSales, Integer contractMonths) {
         // the value of the opportunity line item over its contract period    
-        Double totalValue = record.TotalPrice;
+        Double totalValue = record.Annualised_Value__c;
         // the annual value of the opportunity line item
         Double annualValue = totalValue/contractMonths*MONTHS_IN_YEAR;
         // sales for the past twelve months    
@@ -500,9 +499,9 @@ public with sharing class ProductRevenueService {
    * @return        	the total sales value for the last twelve months for the specified account and product.      */
     public Double getSumOfPastTwelveMonths(String AccountId, String productId) {
         Double totalSum = 0.0;
-        // Iterate through the past 13 months
+        // Iterate through the past 12 months
         Integer targetYear = getAustralianFinancialYear(calculationDate);
-        Integer targetMonth = calculationDate.month();
+        Integer targetMonth = calculationDate.month() - 1; // should not include the current month
         for (Integer i = 1; i <= 12; i++) {
             String uniqueId = getUID(AccountId,productId,String.valueOf(targetYear));
             GroupedAccountProductRevenue__c targetData = groupedRevenues.get(uniqueId);
@@ -670,7 +669,11 @@ public with sharing class ProductRevenueService {
         }
 
         for (AccountRelationship__c arr: AccountRelationshipSelector.newInstance().selectByOPCParentEndDateInFuture(unloadedAccountIds)) {
-            relatedChildAccountsMap.get(arr.ParentAccount__c).add(arr.RelatedAccount__c);
+			if (relatedChildAccountsMap.get(arr.ParentAccount__c) == null) {
+				relatedChildAccountsMap.put(arr.ParentAccount__c, new Set<Id>{arr.RelatedAccount__c});
+			} else {
+				relatedChildAccountsMap.get(arr.ParentAccount__c).add(arr.RelatedAccount__c);
+			}
             loadedRelatedAccountIds.add(arr.RelatedAccount__c);
         }
         return loadedRelatedAccountIds;

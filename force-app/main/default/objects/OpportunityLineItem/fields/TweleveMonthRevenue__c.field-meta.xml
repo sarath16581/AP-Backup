@@ -4,7 +4,7 @@
     <description>Revenue obtained in past 12 months.</description>
     <externalId>false</externalId>
     <inlineHelpText>Revenue obtained in past 12 months.</inlineHelpText>
-    <label>Revenue Last 12 Months</label>
+    <label>Last 12 months Revenue</label>
     <precision>18</precision>
     <required>false</required>
     <scale>2</scale>

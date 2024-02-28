@@ -70,11 +70,15 @@ public with sharing class OppProductRevForecastSelector_Test {
 
         OpportunityProductRevForecastSelector selector = OpportunityProductRevForecastSelector.newInstance();
         Map<Id, OpportunityProductRevenueForecast__c> results = selector.selectById(new Set<Id> {opRevForecastRecs[0].Id});
-        System.assert(results.size() >= 1, 'Expected result size greater than or equal to 1');
+        System.assertEquals(1, results.size(), 'Expected result size greater than or equal to 1');
 
-        OpportunityProductRevForecastSelector selectorLimit = OpportunityProductRevForecastSelector.newInstance(1);
-        Map<Id, OpportunityProductRevenueForecast__c> resultsLimit = selectorLimit.selectById(new Set<Id> {opRevForecastRecs[0].Id});
-        System.assertEquals(1, resultsLimit.size(), 'Expected result size of 1');
+		OpportunityProductRevForecastSelector selectorByProductIds = OpportunityProductRevForecastSelector.newInstance();
+        results = selectorByProductIds.selectByOpportunityProductIds(new Set<Id> {oli1.Id});
+        System.assertEquals(1, results.size(), 'Expected result size greater than or equal to 1');
+
+        OpportunityProductRevForecastSelector selectorWithLimit = OpportunityProductRevForecastSelector.newInstance(1);
+        results = selectorWithLimit.selectById(new Set<Id> {opRevForecastRecs[0].Id});
+        System.assertEquals(1, results.size(), 'Expected result size of 1');
 
         Test.stopTest();
 
