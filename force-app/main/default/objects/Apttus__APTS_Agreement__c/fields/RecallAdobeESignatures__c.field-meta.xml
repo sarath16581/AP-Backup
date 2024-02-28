@@ -6,6 +6,7 @@
     <formula>IF(AND(ISPICKVAL(Apttus__Status_Category__c,&quot;In Signatures&quot;),ISPICKVAL(Apttus__Status__c,&quot;Other Party Signatures&quot;)),HYPERLINK(&quot;/lightning/cmp/c__adobeSignCancelAgreement?c__masterId=&quot;&amp;Id, IMAGE(&quot;/resource/Apttus_DocuApi__RecallEnvelope&quot;,&quot;Recall E-Signature Document&quot;), &quot;_self&quot;),NULL)</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <inlineHelpText>Recall E-Signature Request</inlineHelpText>
+	<securityClassification>Internal</securityClassification>
     <label>Recall Adobe E-Signature Request</label>
     <required>false</required>
     <trackHistory>false</trackHistory>

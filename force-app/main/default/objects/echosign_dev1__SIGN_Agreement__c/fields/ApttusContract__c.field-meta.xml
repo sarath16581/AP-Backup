@@ -7,6 +7,9 @@
     <referenceTo>Apttus__APTS_Agreement__c</referenceTo>
     <relationshipLabel>Adobe Sign Envelopes</relationshipLabel>
     <relationshipName>AdobeSignEnvelopes</relationshipName>
+	<description>Lookup to an Apttus Contract</description>
+	<inlineHelpText>Lookup to an Apttus Contract</inlineHelpText>
+	<securityClassification>Internal</securityClassification>
     <required>false</required>
     <trackFeedHistory>false</trackFeedHistory>
     <trackTrending>false</trackTrending>
