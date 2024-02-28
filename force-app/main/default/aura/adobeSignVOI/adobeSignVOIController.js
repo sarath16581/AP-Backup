@@ -12,11 +12,7 @@
 							'attachmentIds' : attachmentIds
 						});
 		action.setCallback(this, function(response) {
-			if (response.getState() === "SUCCESS") {
-				// cmp.set('v.auraTest', response.getReturnValue());
-				console.log('response.getReturnValue() : ');
-				console.log(response.getReturnValue());
-				
+			if (response.getState() === "SUCCESS") {	
 				// Auto redirect to the Adobe Sign Agreement View Page
 				var urlEvent = $A.get("e.force:navigateToURL");
 				urlEvent.setParams({
@@ -28,7 +24,6 @@
 				var errors = response.getError();
 				if (errors) {
 					if (errors[0] && errors[0].message) {
-						console.log("Error message: " + errors[0].message);
 						var toastEvent = $A.get("e.force:showToast");
 						toastEvent.setParams({
 							"type":"error",

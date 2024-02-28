@@ -11,6 +11,7 @@
     <isResizable>true</isResizable>
     <linkType>url</linkType>
     <masterLabel>Adobe Sign (VOI - Property Transfers)</masterLabel>
+	<description>eSignature for VOI</description>
     <openType>newWindow</openType>
     <position>none</position>
     <protected>false</protected>

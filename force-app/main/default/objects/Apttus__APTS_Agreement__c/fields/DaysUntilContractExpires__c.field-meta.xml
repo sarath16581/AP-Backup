@@ -6,6 +6,7 @@
     <formula>IF(ISBLANK(Contract_Expiration_Date__c), 30, IF(Contract_Expiration_Date__c - TODAY() > 180, 180, Contract_Expiration_Date__c - TODAY()))</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <inlineHelpText>Number of days before the contract expires</inlineHelpText>
+	<securityClassification>Internal</securityClassification>
     <label>Days Until Contract Expires</label>
     <precision>18</precision>
     <required>false</required>
