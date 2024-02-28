@@ -37,7 +37,7 @@ private class ContentDocumentsSelector_Test {
 
 		Id documentId = [SELECT ContentDocumentId FROM ContentVersion WHERE Id = :versionRecord.Id].ContentDocumentId;
 		
-		ContentDocumentLink documentLinkRecord = ApplicationTestDataFactory.getContentDocumentLinks(1, accountRecord.Id, documentId, false);
+		ContentDocumentLink documentLinkRecord = ApplicationTestDataFactory.getContentDocumentLinks(1, accountRecord.Id, documentId, false)[0];
 		insert documentLinkRecord;
 
 		// =====================================
