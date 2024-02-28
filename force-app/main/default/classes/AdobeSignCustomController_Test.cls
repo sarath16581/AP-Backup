@@ -22,7 +22,7 @@ private class AdobeSignCustomController_Test {
 		// creating a custom setting
 		AdobeSignTemplateSettings__c voiPropertySettings = new AdobeSignTemplateSettings__c();
 		voiPropertySettings.Name = 'VOI_Property';
-		voiPropertySettings.TemplateId__c = 'aF21m0000008OgcCAE';
+		voiPropertySettings.TemplateId__c = fflib_IDGenerator.generate(echosign_dev1__Agreement_Template__c.SObjectType);
 
 		// create an organisation record
 		Account organisation = ApplicationTestDataFactory.getAccounts(1, true)[0];
@@ -74,7 +74,7 @@ private class AdobeSignCustomController_Test {
 		// creating a custom setting
 		AdobeSignTemplateSettings__c voiPropertySettings = new AdobeSignTemplateSettings__c();
 		voiPropertySettings.Name = 'VOI_Property';
-		voiPropertySettings.TemplateId__c = 'aF21m0000008OgcCAE';
+		voiPropertySettings.TemplateId__c = fflib_IDGenerator.generate(echosign_dev1__Agreement_Template__c.SObjectType);
 
 		// create an organisation record
 		Account organisation = ApplicationTestDataFactory.getAccounts(1, true)[0];
@@ -155,7 +155,7 @@ private class AdobeSignCustomController_Test {
 		// creating a custom setting
 		AdobeSignTemplateSettings__c voiPropertySettings = new AdobeSignTemplateSettings__c();
 		voiPropertySettings.Name = AdobeSignCustomController.TEMPLATE_APTTUS;
-		voiPropertySettings.TemplateId__c = 'aF21m0000008OgcCAE';
+		voiPropertySettings.TemplateId__c = fflib_IDGenerator.generate(echosign_dev1__Agreement_Template__c.SObjectType);
 
 		// create contract related records
 		List<Account> accountList = ApplicationTestDataFactory.getAccounts(2, true);
@@ -213,7 +213,7 @@ private class AdobeSignCustomController_Test {
 		// creating a custom setting
 		AdobeSignTemplateSettings__c voiPropertySettings = new AdobeSignTemplateSettings__c();
 		voiPropertySettings.Name = AdobeSignCustomController.TEMPLATE_APTTUS;
-		voiPropertySettings.TemplateId__c = 'aF21m0000008OgcCAE';
+		voiPropertySettings.TemplateId__c = fflib_IDGenerator.generate(echosign_dev1__Agreement_Template__c.SObjectType);
 
 		// create contract related records
 		List<Account> accountList = ApplicationTestDataFactory.getAccounts(2, true);
@@ -287,7 +287,7 @@ private class AdobeSignCustomController_Test {
 		// creating a custom setting
 		AdobeSignTemplateSettings__c voiPropertySettings = new AdobeSignTemplateSettings__c();
 		voiPropertySettings.Name = AdobeSignCustomController.TEMPLATE_APTTUS;
-		voiPropertySettings.TemplateId__c = 'aF21m0000008OgcCAE';
+		voiPropertySettings.TemplateId__c = fflib_IDGenerator.generate(echosign_dev1__Agreement_Template__c.SObjectType);
 
 		// create contract related records
 		List<Account> accountList = ApplicationTestDataFactory.getAccounts(2, true);
@@ -393,7 +393,7 @@ private class AdobeSignCustomController_Test {
 		// creating a custom setting
 		AdobeSignTemplateSettings__c voiPropertySettings = new AdobeSignTemplateSettings__c();
 		voiPropertySettings.Name = AdobeSignCustomController.TEMPLATE_APTTUS;
-		voiPropertySettings.TemplateId__c = 'aF21m0000008OgcCAE';
+		voiPropertySettings.TemplateId__c = fflib_IDGenerator.generate(echosign_dev1__Agreement_Template__c.SObjectType);
 
 		// create contract related records
 		List<Account> accountList = ApplicationTestDataFactory.getAccounts(2, true);
