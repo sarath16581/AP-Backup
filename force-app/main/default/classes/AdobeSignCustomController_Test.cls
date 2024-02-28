@@ -55,11 +55,6 @@ private class AdobeSignCustomController_Test {
 
 		// Verify that the RedirectResponse is not null
 		System.assertNotEquals(null, response);
-
-		// Verify that the URL in the RedirectResponse is as expected
-		String expectedURL = AdobeSignCustomController.ADOBE_SIGN_AGREEMENT_VIEW_PAGE + '/view';
-		system.debug('expectedURL  '+expectedURL);
-		//System.assertEquals(expectedURL, response.pageRef);
 	}
 
 	/**

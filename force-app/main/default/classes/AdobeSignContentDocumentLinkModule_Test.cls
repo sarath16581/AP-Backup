@@ -15,7 +15,7 @@ private class AdobeSignContentDocumentLinkModule_Test {
 	@IsTest
 	static void linkSignedDocumentsToMasterRecordForApttusContractsTest() {
 		// =====================================
-		// Data Preparationccccccccccc
+		// Data Preparation
 		// =====================================
 		// create contract related records
 		List<Account> accountList = ApplicationTestDataFactory.getAccounts(2, true);
@@ -136,7 +136,4 @@ private class AdobeSignContentDocumentLinkModule_Test {
 		System.assertEquals(1, MockUtility.mockUnitOfWorkDMLs.size());
 		System.assertEquals(account.Id, ((ContentDocumentLink)MockUtility.mockUnitOfWorkDMLs[0]).LinkedEntityId, 'Linked entity should be that account id');
 	}
-
-
-
 }

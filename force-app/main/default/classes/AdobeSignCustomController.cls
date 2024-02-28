@@ -107,7 +107,7 @@ public with sharing class AdobeSignCustomController {
 				ae.setMessage(MSG_ERROR_APT_CONTRACT_EXPIRED);
 				throw ae;
 			}
-			system.debug('contracts 3 '+contracts);
+
 			try {
 				AdobeSignTemplateSettings__c apptusSetting = getTemplateSetting(TEMPLATE_APTTUS);
 

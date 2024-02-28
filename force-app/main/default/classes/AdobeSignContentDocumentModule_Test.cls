@@ -88,11 +88,8 @@ private class AdobeSignContentDocumentModule_Test {
 			}
 		Test.stopTest();
 
-		for(ContentDocument  document : contentDocuments) {
-			System.assertEquals(
-					'Cannot delete ContentDocument with a link to a signed Agreement',
-					document.getErrors()[0].getMessage(),
-					'deleteContentDocumentsValidationTestSuccess: User should not be able to create more than one compensation record');
+		for (ContentDocument document : contentDocuments) {
+			System.assertEquals('Cannot delete ContentDocument with a link to a signed Agreement', document.getErrors()[0].getMessage());
 		}
 
 	}
@@ -150,11 +147,7 @@ private class AdobeSignContentDocumentModule_Test {
 		}
 		Test.stopTest();
 
-		System.assertEquals(
-				0,
-				cd.getErrors().size(),
-				'deleteContentDocumentsValidationAllowedTest: User should not be able to create more than one compensation record'
-		);
+		System.assertEquals(0, cd.getErrors().size());
 	}
 
 	/**
@@ -210,10 +203,6 @@ private class AdobeSignContentDocumentModule_Test {
 		}
 		Test.stopTest();
 
-		System.assertEquals(
-				0,
-				cd.getErrors().size(),
-				'deleteContentDocumentsValidationAllowedToDeleteOtherTest: User should not be able to create more than one compensation record'
-		);
+		System.assertEquals(0, cd.getErrors().size());
 	}
 }

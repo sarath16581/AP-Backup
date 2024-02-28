@@ -26,7 +26,6 @@ public inherited sharing class AdobeSignContentDocumentModule extends Applicatio
 	*/
 	public override void onBeforeDelete(List<SObject> records, ApplicationUnitOfWork uow) {
 		try {
-			system.debug('DELETE ---------onBeforeDelete------ '+records);
 			preventDeletionOfSignedDocuments(records, uow);
 		} catch(Exception ex) {
 			// Error Logged to Exception object for analysis
