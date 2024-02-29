@@ -357,10 +357,6 @@
         <minutesCustomClass>CalculateMilestoneTime</minutesCustomClass>
         <timeTriggers>
             <actions>
-                <name>Send_Customer_Notification_Email</name>
-                <type>Alert</type>
-            </actions>
-            <actions>
                 <name>SSSW_Case_Milestone_Violation_to_TRUE</name>
                 <type>FieldUpdate</type>
             </actions>
