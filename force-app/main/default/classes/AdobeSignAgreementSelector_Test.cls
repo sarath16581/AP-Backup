@@ -82,11 +82,11 @@ private class AdobeSignAgreementSelector_Test {
 		insert apttusContract;
 
 		List <echosign_dev1__SIGN_Agreement__c>  accountAgreements = ApplicationTestDataFactoryAdobeSign.getAgreementsForAccount(2, 'Draft', account.Id, false);
-		accountAgreements[0].echosign_dev1__Status__c = 'Out for Signature';
-		accountAgreements[1].echosign_dev1__Status__c = 'Waiting for Counter-Signature';
 		insert accountAgreements;
 
 		List <echosign_dev1__SIGN_Agreement__c>  contractAgreements = ApplicationTestDataFactoryAdobeSign.getDraftAgreementsForApttusContract(2, apttusContract.Id, false);
+		contractAgreements[0].echosign_dev1__Status__c = 'Out for Signature';
+		contractAgreements[1].echosign_dev1__Status__c = 'Waiting for Counter-Signature';
 		insert contractAgreements;
 
 		Map<Id, echosign_dev1__SIGN_Agreement__c> mappedContacts = new Map<Id, echosign_dev1__SIGN_Agreement__c>(accountAgreements);
