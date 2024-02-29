@@ -1,0 +1,6 @@
+<aura:component controller="AdobeSignCustomController" implements="lightning:isUrlAddressable" description="c:adobeSignApttus component">
+	<aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+	<aura:attribute name="masterId" type="String" />
+	<aura:attribute name="attachmentIds" type="String" />
+	<lightning:spinner class="spins" size="large" variant="brand" alternativeText="Loading" />
+</aura:component>	
