@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>ReportEventSensitiveFieldValidation__c</fullName>
+    <defaultValue>true</defaultValue>
+    <description>enable/disable validation of report events for sensitive fields. Take action as per Transaction Security Policy for detected sensitive fields report events.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>enable/disable validation of report events for sensitive fields. Take action as per Transaction Security Policy for detected sensitive fields report events.</inlineHelpText>
+    <label>Report Event Sensitive Field Validation</label>
+    <securityClassification>INTERNAL</securityClassification>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>GDPR</complianceGroup>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>
