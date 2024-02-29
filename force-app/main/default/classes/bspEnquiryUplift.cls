@@ -950,11 +950,6 @@ public without sharing class bspEnquiryUplift {
 				queryWhere += ' (Subject <> \'' + bspBaseUplift.excludeSubject + '\' AND ((RecordTypeId IN : apRecordTypes ) OR ( Business_Unit__c = \'Australia Post\' AND RecordTypeId IN : creditClaimRecordTypes AND Origin = \'BSP\')) ))';
 			}
 		}
-	/*		queryWhere += selectedEnquiryType == 'ALL' ? ' ( ' : '';
-		queryWhere += (selectedEnquiryType == 'ST' || selectedEnquiryType == 'ALL') ? ' ( ((RecordTypeId IN : stRecordTypes ) OR (Business_Unit__c = \'StarTrack\' AND RecordTypeId IN : creditClaimRecordTypes )) AND Enquiry_Type__c NOT IN :excludeCaseTypes AND call_purpose__c NOT IN :excludeCasePurpose )' : '';
-		queryWhere += selectedEnquiryType == 'ALL' ? ' OR ' : '';
-		queryWhere += (selectedEnquiryType == 'AP' || selectedEnquiryType == 'ALL') ? ' ( Subject <> \'' + bspBaseUplift.excludeSubject + '\' AND ((RecordTypeId IN : apRecordTypes ) OR ( Business_Unit__c = \'Australia Post\' AND RecordTypeId IN : creditClaimRecordTypes)))' : '';
-		queryWhere += selectedEnquiryType == 'ALL' ? ' )' : '';*/
 
 		return queryWhere;
 	}
