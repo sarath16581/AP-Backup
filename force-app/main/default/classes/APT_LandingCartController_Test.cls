@@ -390,9 +390,12 @@ public with sharing class APT_LandingCartController_Test {
 			opp.IsStartrackProposal__c = 'No';
 			opp.stagename = 'Identify';
 			opp.KeyContact__c = con.id;
-
+			opp.OwnerId = UserInfo.getUserID();
 			Apttus_Proposal__Proposal__c quote1 = APT_TestDataFactory.getAPTProposalRecord(1, opp.id, account.Id, con.id, true)[0];
-			quote1.Apttus_Proposal__Approval_Stage__c = 'Draft';
+			quote1.Apttus_Proposal__Approval_Stage__c = APT_Constants.APPROVAL_STAGE_DRAFT;
+
+			Apttus_Config2__ProductConfiguration__c prodConfig = APT_TestDataFactory.getAPTProductConfig(1,null,quote1.id,true)[0];
+			prodConfig.Apttus_Config2__Status__c= APT_Constants.CASE_STATUS_NEW;
 
 			OpportunitySelector mockSelectorOpp = (OpportunitySelector) MockUtility.mockSelector(OpportunitySelector.class);
 			ApplicationDatabase mockDatabaseOpp = MockUtility.mockDatabase();
@@ -411,6 +414,13 @@ public with sharing class APT_LandingCartController_Test {
 			MockUtility.Mocks.startStubbing();
 			MockUtility.Mocks.when(mockSelectorProposal1.selectByConfigIds((set<Id>)fflib_Match.eq(new Set<Id>{quote1.id}))).thenReturn(
 				new List<Apttus_Proposal__Proposal__c>(new List<Apttus_Proposal__Proposal__c>{quote1}));
+			MockUtility.Mocks.stopStubbing();
+
+			ProductConfigurationSelector mockSelectorProdConfig = (ProductConfigurationSelector) MockUtility.mockSelector(ProductConfigurationSelector.class);
+			ApplicationDatabase mockDatabase3 = MockUtility.mockDatabase();
+			MockUtility.Mocks.startStubbing();
+			MockUtility.Mocks.when(mockSelectorProdConfig.selectByProposalId(new set<ID>{(ID)quote1.Id})).thenReturn(
+				new List<Apttus_Config2__ProductConfiguration__c>(new List<Apttus_Config2__ProductConfiguration__c>{prodConfig}));
 			MockUtility.Mocks.stopStubbing();
 
 			Test.startTest();

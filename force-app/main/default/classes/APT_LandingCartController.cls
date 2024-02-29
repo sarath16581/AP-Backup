@@ -116,6 +116,18 @@ public with sharing class APT_LandingCartController {
 				if( existingProposalRedirect[0].Apttus_Proposal__Primary__c == APT_Constants.BOOL_TRUE  && (existingProposalRedirect[0].Apttus_Proposal__Approval_Stage__c != APT_Constants.APPROVAL_STAGE_ACCEPTED) || (existingProposalRedirect[0].Apttus_Proposal__Approval_Stage__c != APT_Constants.APPROVAL_STAGE_DENIED) || (existingProposalRedirect[0].Apttus_Proposal__Approval_Stage__c != APT_Constants.APPROVAL_STAGE_ACCEPTED_WITHOUT_PROP_DOC)){
 					proposalExist= APT_Constants.BOOL_TRUE;
 					proposalID = existingProposalRedirect[0].id;
+
+					if(opportunityOwnerId == loggedInUserId) {
+						List<Apttus_Config2__ProductConfiguration__c>  prodConfig = ProductConfigurationSelector.newInstance().selectByProposalId(new Set<Id>{proposal.id});
+						if(prodConfig.size() > 0){
+							if(configurationCheck(loggedInUserId, prodConfig[0])) {
+								Apttus_Config2__ProductConfiguration__c  prodConfigToUpdate = new Apttus_Config2__ProductConfiguration__c();
+								prodConfigToUpdate.Id = prodConfig[0].Id;
+								prodConfigToUpdate.OwnerId = loggedInUserId;
+								ApplicationDatabase.getInstance().dmlUpdate(new List<Apttus_Config2__ProductConfiguration__c>{prodConfigToUpdate});
+							}
+						}
+					}
 				}
 			}
 			else{
@@ -293,5 +305,16 @@ public with sharing class APT_LandingCartController {
 	private static Boolean cartOwnerCheck(Id configOwnerId, Id loggedInUserId, String profileName, Boolean isSalesSpecialistRole, Id opportunityOwnerId) {
 		Set<String> profileListCheck = new Set<String>{APT_Constants.STRING_SYSTEM_ADMINISTRATOR, APT_Constants.STRING_ONBOARDING};
 		return (configOwnerId != loggedInUserId && !profileListCheck.contains(profileName) && isSalesSpecialistRole == false && (loggedInUserId != opportunityOwnerId && profileName != APT_Constants.STRING_BG_BASE));
+	}
+
+	/**
+	 *This method will check the configuration's status and owner
+	 *@param Id loggedInUserId
+	 *@param Apttus_Config2__ProductConfiguration__c prodConfig
+	 *@return boolean value
+	 */
+	private static Boolean configurationCheck(Id loggedInUserId, Apttus_Config2__ProductConfiguration__c prodConfig) {
+		Set<String> configurationStatusCheck = new Set<String>{APT_Constants.CASE_STATUS_NEW, APT_Constants.URL_SAVED};
+		return (configurationStatusCheck.contains(prodConfig.Apttus_Config2__Status__c) && loggedInUserId != prodConfig.OwnerId);
 	}
 }
