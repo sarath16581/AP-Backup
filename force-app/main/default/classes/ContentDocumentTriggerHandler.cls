@@ -19,6 +19,6 @@ public with sharing class ContentDocumentTriggerHandler extends ApplicationTrigg
 	}
 
 	public static List<SObjectType> getUnitOfWorkSObjectTypes() {
-		return new List<SObjectType>{};
+		return new List<SObjectType>{ContentDocument.SObjectType};
 	}
 }
