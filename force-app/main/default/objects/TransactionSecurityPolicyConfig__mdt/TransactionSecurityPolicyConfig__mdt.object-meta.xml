@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Transaction security policy configurations required for Enhanced Apex Transaction Security, used by TransactionSecurityPolicyManager Apex class</description>
+    <label>Transaction Security Policy Config</label>
+    <pluralLabel>Transaction Security Policy Configs</pluralLabel>
+    <visibility>Public</visibility>
+</CustomObject>

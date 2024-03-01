@@ -9,16 +9,6 @@
     "regionName" : "header",
     "type" : "region"
   }, {
-    "components" : [ {
-      "componentAttributes" : {
-        "richTextValue" : "<div style='text-align: center;'>We’ve made some improvements to the Australia Post Online Community.\n    <br><br>Stories has been renamed News, you can find it<a href=\"https://community.auspost.com.au/s/news\"><b>here</b></a>\n</div>"
-      },
-      "componentName" : "forceCommunity:htmlBlock",
-      "id" : "68754dbc-a9f1-4d0b-8f71-3e5324acb306",
-      "renderPriority" : "NEUTRAL",
-      "renditionMap" : { },
-      "type" : "component"
-    } ],
     "id" : "c8806063-d33d-476a-8f2a-b5d1733ca7d0",
     "regionName" : "content",
     "type" : "region"
@@ -42,7 +32,7 @@
     "regionName" : "sfdcHiddenRegion",
     "type" : "region"
   } ],
-  "themeLayoutType" : "xjl9AizPLik7YDQQWJ2nqZBIU8M3WM",
+  "themeLayoutType" : "Inner",
   "type" : "view",
   "viewType" : "custom-stories-1"
 }

@@ -11,6 +11,7 @@
  * 2023-10-23 - Hasantha Liyanage - added credit claim reason display help text capability
  * 2023-12-05 - Thang Nguyen - added adobe analytics details
  * 2024-01-23 - Thang Nguyen - fixed defect SB-269
+ * 2024-02-28 - Thang Nguyen - fixed defect SB-279
  */
 import {LightningElement, wire} from 'lwc';
 import {CurrentPageReference, NavigationMixin} from 'lightning/navigation';
@@ -203,6 +204,7 @@ export default class bspFormCreditClaim extends NavigationMixin(LightningElement
 				if(this.allBillingAccOptions.length === 1) {
 					this.defaultValue = this.allBillingAccOptions[0];
 					this.businessAccountNumber = this.allBillingAccOptions[0].value;
+					this.autoSelectAccountHeldWith(this.allBillingAccOptions[0].value);
 				}
 
 			})

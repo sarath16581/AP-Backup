@@ -45,6 +45,7 @@ Last Modified Date: 15th Feb, 2017 | 1550 | Credit Assessment Status - Completed
 2023-04-27 - Yatika bansal - Added Constant for Proposal Stage
 2023-05-29 - Yatika bansal - Added Constant for credit assessment auto-approval status
 2023-07-27 - Nasir JAwed - Added Constant BG BASE and Enterprize Onboarding
+2024-02-19 - Mahesh Parvathaneni - Added constant CLOSE_DATE_DEFAULT_DAYS
 **/
 public with sharing class APT_Constants {
 	//label
@@ -308,7 +309,7 @@ public with sharing class APT_Constants {
 	public static final String PRODUCT_CODE_MIN_COLLECTION_VALUE = 'Minimum Collection Value';
 	public static final String PRODUCT_CODE_EPARCEL_POST_RETURN = 'eParcel Post Return';
 	public static final String PRODUCT_CODE_POST_BILLPAY = 'Post Billpay';
-    public static final String PRODUCT_CODE_METRO = 'Metro';
+	public static final String PRODUCT_CODE_METRO = 'Metro';
 	public static final String PRODUCT_CODE_UNADDRESSED_MAIL_SERVICES = 'Unaddressed Mail Services';
 
 	//New Optional Products for new bundles
@@ -1518,8 +1519,8 @@ public with sharing class APT_Constants {
 	public static final String PARMA_O_ID = '&oid=';
 
 	public static final String RECORD_TYPE_POST_BILLPAY_CONTRACT = 'Post Billpay Contract';
-    public static final String RECORD_TYPE_POST_BILLPAY_OS = 'Post_BillPay';
-    public static final String PRODUCT_CODE_POSTBILLPAY ='PBP';
+	public static final String RECORD_TYPE_POST_BILLPAY_OS = 'Post_BillPay';
+	public static final String PRODUCT_CODE_POSTBILLPAY ='PBP';
 
 	public static final String SAP_CONTRACT_OBJECT = 'APT_SAP_Contracts__c';
 	public static final String FROM_SAP_CONTRACT_OBJECT = ' FROM APT_SAP_Contracts__c WHERE APT_Apttus_Contract__c = :originalAgreementId';
@@ -1696,4 +1697,6 @@ public with sharing class APT_Constants {
 	//Email
 	public static final String EMAIL_TEMP_AGREEMENT_SIGNED_AFTER_EXPIRY = 'APT_AgreementSignedAfterOfferExpiry';
 	public static final String ORG_WIDE_EMAIL_NO_REPLY = 'noreply@auspost.com.au';
+
+	public static final Integer CLOSE_DATE_DEFAULT_DAYS = 30;
 }

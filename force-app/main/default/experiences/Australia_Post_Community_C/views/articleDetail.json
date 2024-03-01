@@ -9,50 +9,16 @@
     "regionName" : "header",
     "type" : "region"
   }, {
-    "components" : [ {
-      "componentAttributes" : {
-        "enableVoting" : true,
-        "recordId" : "{!recordId}",
-        "showTitleInArticleHeader" : true,
-        "urlName" : "{!urlName}"
-      },
-      "componentName" : "selfService:singleArticleView",
-      "id" : "53cc5794-1a99-4b3d-90bc-3a1a76d71bb6",
-      "renderPriority" : "NEUTRAL",
-      "renditionMap" : { },
-      "type" : "component"
-    } ],
     "id" : "d4402212-876b-4de4-bea9-c0f05308b5be",
     "regionName" : "Content",
     "type" : "region"
   }, {
-    "components" : [ {
-      "componentAttributes" : { },
-      "componentName" : "c:cpSocialMediaSharing",
-      "id" : "c7f63e10-1376-49a7-bc6b-eb17b5daf509",
-      "renderPriority" : "NEUTRAL",
-      "renditionMap" : { },
-      "type" : "component"
-    }, {
-      "componentAttributes" : {
-        "numberOfArticles" : 5,
-        "title" : "Trending stories",
-        "topicId" : ""
-      },
-      "componentName" : "selfService:topicTrendingArticles42",
-      "id" : "359dbcee-f45e-47e7-886a-51336a2cc9a9",
-      "renderPriority" : "NEUTRAL",
-      "renditionMap" : { },
-      "type" : "component"
-    } ],
     "id" : "6ee6d7a1-5655-482e-997d-9a4ab1c9be41",
     "regionName" : "Sidebar",
     "type" : "region"
   }, {
     "components" : [ {
-      "componentAttributes" : {
-        "cppageSize" : 3
-      },
+      "componentAttributes" : { },
       "componentName" : "c:cpMoreFeaturedContentOnLandingPage",
       "id" : "8d06d86e-e23d-47f7-bb14-4966e8edfa36",
       "renderPriority" : "NEUTRAL",
@@ -95,21 +61,11 @@
     "regionName" : "ContentHeaderBlock2",
     "type" : "region"
   }, {
-    "components" : [ {
-      "componentAttributes" : {
-        "pageName" : "ArticleDetail"
-      },
-      "componentName" : "c:cpAdobeAnalyticsPageView",
-      "id" : "23a9d6f1-f183-40e4-bf59-9ca2893861c1",
-      "renderPriority" : "NEUTRAL",
-      "renditionMap" : { },
-      "type" : "component"
-    } ],
     "id" : "2e98a7ae-98c8-4f5d-8ee5-f3eeba90c577",
     "regionName" : "ContentFooter",
     "type" : "region"
   } ],
-  "themeLayoutType" : "xjl9AizPLik7YDQQWJ2nqZBIU8M3WM",
+  "themeLayoutType" : "Inner",
   "type" : "view",
   "viewType" : "article"
 }

@@ -1,11 +1,12 @@
 <!--
- @description
- Aura wrapper to navigate to bulk edit screen
- @author Harry Wang
- @date 2023-05-09
- @changelog
- 2023-05-09 - Harry Wang created
- 2023-10-16 - Bharat Patel, added attribute for STP-9640 implementation
+	@description
+	Aura wrapper to navigate to bulk edit screen
+	@author Harry Wang
+	@date 2023-05-09
+	@changelog
+	2023-05-09 - Harry Wang created
+	2023-10-16 - Bharat Patel, added attribute for STP-9640 implementation
+	2024-02-15 - Ken McGuire, Added link to revenue report
 -->
 <aura:component implements="lightning:isUrlAddressable" description="Aura wrapper navigate user to oppProductDataTable component">
 	<aura:attribute name="recordId" type="String" />
@@ -14,6 +15,10 @@
 	<aura:attribute name="isManualContract" type="String" default="false"/>
 	<aura:attribute name="isAmend" type="String" default="false"/>
 	<aura:attribute name="isRenew" type="String" default="false"/>
+
+	<!--<aura:attribute name="requestReference" type="String"/> -->
+    
+    <lightning:button label="Open Revenue Report" onclick="{!c.openRevenueReport}" />
 
 	<aura:handler name="init" value="{!this}" action="{!c.onPageReferenceChange}"/>
 	<aura:handler name="change" value="{!v.pageReference}" action="{!c.onPageReferenceChange}"/>

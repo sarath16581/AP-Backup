@@ -10,7 +10,11 @@ History
 * @changelog
 * 2020-07-23 - Nathan Franklin - Adding Option to Bypass Trigger
 ------------------------------------------------------------*/
-trigger ContentDocumentLinkTrigger on ContentDocumentLink (before insert, after delete) {
+trigger ContentDocumentLinkTrigger on ContentDocumentLink (before insert, after insert, before delete,after delete) {
+
+	if(!TriggerHelper.isTriggerDisabled(String.valueOf(ContentDocumentLink.sObjectType))){  // verify if triggers are disabled
+		(new ContentDocumentLinkTriggerHandler2()).dispatch();
+	}
 	if (!SystemSettings__c.getInstance().Disable_Triggers__c) {
 		// trigger before
 		if (trigger.isBefore) {

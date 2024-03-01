@@ -429,11 +429,11 @@ public virtual inherited sharing class AccountsSelector extends ApplicationSelec
 	*/
 	public Database.QueryLocator selectArchivedAccountsByClosureDateLessThanEqualNDaysAgo(Integer nDaysAgo, Set<Object> selectorOptions) {
 		QueryBuilder qb = newQueryBuilder(selectorOptions).addConditions()
-				.add(new QueryBuilder.SimpleCondition(Account.ArchivedDateTime__pc + ' <= N_DAYS_AGO:' + nDaysAgo))
-				.add(new QueryBuilder.SimpleCondition('Winning_Master_Record__pc = null'))
-				.add(new QueryBuilder.SimpleCondition('IsInactiveCustomer__pc = true'))
-				.add(new QueryBuilder.SimpleCondition('PersonContactId != null'))
-				.add(new QueryBuilder.SimpleCondition('Special_Treatment_Notes__pc = null'))
+				.add(new QueryBuilder.CompareCondition(Account.ArchivedDateTime__pc).lte(System.now().addDays(-nDaysAgo)))
+				.add(new QueryBuilder.NullCondition(Account.Winning_Master_Record__pc).isNull())
+				.add(new QueryBuilder.CompareCondition(Account.IsInactiveCustomer__pc).eq(true))
+				.add(new QueryBuilder.NullCondition(Account.PersonContactId).notNull())
+				.add(new QueryBuilder.NullCondition(Account.Special_Treatment_Notes__pc).isNull())
 				.endConditions();
 		return Database.getQueryLocator(qb.toSoqlString());
 	}

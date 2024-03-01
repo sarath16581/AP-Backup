@@ -479,7 +479,7 @@
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>filter</name>
-                    <value>{&quot;datasets&quot;:{&quot;DIFOT_GCP&quot;:[{&quot;fields&quot;:[&quot;Account.Id&quot;],&quot;filter&quot;:{&quot;operator&quot;:&quot;in&quot;,&quot;values&quot;:[&quot;$Id&quot;]},&quot;locked&quot;:true,&quot;hidden&quot;:true}],&quot;NPS_GCP&quot;:[{&quot;fields&quot;:[&quot;Account.Id&quot;],&quot;filter&quot;:{&quot;operator&quot;:&quot;in&quot;,&quot;values&quot;:[&quot;$Id&quot;]},&quot;locked&quot;:true,&quot;hidden&quot;:true}],&quot;Healthscore_Melt_GCP&quot;:[{&quot;fields&quot;:[&quot;Account.Id&quot;],&quot;filter&quot;:{&quot;operator&quot;:&quot;in&quot;,&quot;values&quot;:[&quot;$Id&quot;]},&quot;locked&quot;:true,&quot;hidden&quot;:true}],&quot;Case1_NoPredicate&quot;:[{&quot;fields&quot;:[&quot;Account.Id&quot;],&quot;filter&quot;:{&quot;operator&quot;:&quot;in&quot;,&quot;values&quot;:[&quot;$Id&quot;]},&quot;locked&quot;:true,&quot;hidden&quot;:true}],&quot;opportunity1_NoPredicate&quot;:[{&quot;fields&quot;:[&quot;Account.Id&quot;],&quot;filter&quot;:{&quot;operator&quot;:&quot;in&quot;,&quot;values&quot;:[&quot;$Id&quot;]},&quot;locked&quot;:true,&quot;hidden&quot;:true}],&quot;REVENUE_VOLUME_PRES_GCP_ACTUALS&quot;:[{&quot;fields&quot;:[&quot;Account.Id&quot;],&quot;filter&quot;:{&quot;operator&quot;:&quot;in&quot;,&quot;values&quot;:[&quot;$Id&quot;]},&quot;locked&quot;:true,&quot;hidden&quot;:true}],&quot;REVENUE_VOLUME_PRES_GCP_ACTUALS_CUSTOMER&quot;:[{&quot;fields&quot;:[&quot;Account.Id&quot;],&quot;filter&quot;:{&quot;operator&quot;:&quot;in&quot;,&quot;values&quot;:[&quot;$Id&quot;]},&quot;locked&quot;:true,&quot;hidden&quot;:true}]}}</value>
+                    <value>{&quot;datasets&quot;:{&quot;DIFOT_GCP&quot;:[{&quot;fields&quot;:[&quot;Account.Id&quot;],&quot;filter&quot;:{&quot;operator&quot;:&quot;in&quot;,&quot;values&quot;:[&quot;$Id&quot;]},&quot;locked&quot;:true,&quot;hidden&quot;:true}],&quot;NPS_GCP&quot;:[{&quot;fields&quot;:[&quot;Account.Id&quot;],&quot;filter&quot;:{&quot;operator&quot;:&quot;in&quot;,&quot;values&quot;:[&quot;$Id&quot;]},&quot;locked&quot;:true,&quot;hidden&quot;:true}],&quot;Healthscore_Melt_GCP&quot;:[{&quot;fields&quot;:[&quot;Account.Id&quot;],&quot;filter&quot;:{&quot;operator&quot;:&quot;in&quot;,&quot;values&quot;:[&quot;$Id&quot;]},&quot;locked&quot;:true,&quot;hidden&quot;:true}],&quot;Case1_NoPredicate&quot;:[{&quot;fields&quot;:[&quot;Account.Id&quot;],&quot;filter&quot;:{&quot;operator&quot;:&quot;in&quot;,&quot;values&quot;:[&quot;$Id&quot;]},&quot;locked&quot;:true,&quot;hidden&quot;:true}],&quot;opportunity1_NoPredicate&quot;:[{&quot;fields&quot;:[&quot;Account.Id&quot;],&quot;filter&quot;:{&quot;operator&quot;:&quot;in&quot;,&quot;values&quot;:[&quot;$Id&quot;]},&quot;locked&quot;:true,&quot;hidden&quot;:true}],&quot;ODS_Revenue&quot;:[{&quot;fields&quot;:[&quot;Account.Id&quot;],&quot;filter&quot;:{&quot;operator&quot;:&quot;in&quot;,&quot;values&quot;:[&quot;$Id&quot;]},&quot;locked&quot;:true,&quot;hidden&quot;:true}]}}</value>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>height</name>
@@ -584,15 +584,77 @@
         </itemInstances>
         <itemInstances>
             <componentInstance>
+                <componentInstanceProperties>
+                    <name>actionNames</name>
+                    <valueList>
+                        <valueListItems>
+                            <value>MassChangeOwner</value>
+                        </valueListItems>
+                        <valueListItems>
+                            <value>New</value>
+                        </valueListItems>
+                    </valueList>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>maxRecordsToDisplay</name>
+                    <value>10</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>parentFieldApiName</name>
+                    <value>Account.Id</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>relatedListApiName</name>
+                    <value>echosign_dev1__Agreements__r</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>relatedListDisplayType</name>
+                    <value>ADVGRID</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>relatedListFieldAliases</name>
+                    <valueList>
+                        <valueListItems>
+                            <value>NAME</value>
+                        </valueListItems>
+                        <valueListItems>
+                            <value>echosign_dev1__DateSentDate__c</value>
+                        </valueListItems>
+                        <valueListItems>
+                            <value>echosign_dev1__Recipient__c</value>
+                        </valueListItems>
+                        <valueListItems>
+                            <value>echosign_dev1__Status__c</value>
+                        </valueListItems>
+                        <valueListItems>
+                            <value>echosign_dev1__Document__c</value>
+                        </valueListItems>
+                    </valueList>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>relatedListLabel</name>
+                    <value>Adobe Sign Envelopes</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>showActionBar</name>
+                    <value>false</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>sortFieldAlias</name>
+                    <value>CREATED_DATE</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>sortFieldOrder</name>
+                    <value>Descending</value>
+                </componentInstanceProperties>
+                <componentName>lst:dynamicRelatedList</componentName>
+                <identifier>lst_dynamicRelatedList</identifier>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
                 <componentName>dfsle:Status</componentName>
                 <identifier>dfsle_Status</identifier>
-                <visibilityRule>
-                    <criteria>
-                        <leftValue>{!$User.dfsle__Status__c}</leftValue>
-                        <operator>EQUAL</operator>
-                        <rightValue>Active</rightValue>
-                    </criteria>
-                </visibilityRule>
             </componentInstance>
         </itemInstances>
         <mode>Replace</mode>

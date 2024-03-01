@@ -31,15 +31,16 @@
 				<div>
 					<ul class="slds-list_dotted">
 						<li>Required columns are highlighted with the icon <lightning-icon icon-name="utility:stop" size="x-small"></lightning-icon></li>
-						<li>For Growth? and Contract Product, ✓ represents ‘Yes’ and blanks represent ‘No’</li>
 					</ul>
 				</div>
 			</div>
+			<!--Confirm OPC alert-->
 			<template if:true={isProposalDocumentGenerationRunning}>
 				<div class="slds-notify slds-notify_alert slds-theme_alert-texture slds-theme_error customMessageStyle" role="alert">
 					<h2>Please wait while the system processes your request. Once processing has completed you will be redirected</h2>
 				</div>
-			</template>		
+			</template>
+			<!--Confirm OPC alert END-->
 			<div class="slds-size_full">
 				<lightning-datatable
 						key-field="Id"

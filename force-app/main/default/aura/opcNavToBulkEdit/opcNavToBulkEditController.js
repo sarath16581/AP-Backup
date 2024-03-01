@@ -7,7 +7,8 @@
  * @changelog
  * 2023-05-09 - Harry Wang - Created
  * 2023-10-17 - Bharat Patel - Updated onPageReferenceChange(), related to STP-9640 implementation
- */
+   2024-02-15 - Ken McGuire, Added link to revenue report 
+*/
 ({
 	onPageReferenceChange: function(cmp) {
 		let myPageRef = cmp.get("v.pageReference");
@@ -28,5 +29,12 @@
 
 		let isRenew = myPageRef.state.c__isRenew == undefined ? 'No': myPageRef.state.c__isRenew;
 		cmp.set("v.isManualContract", isRenew);
+	},
+	openRevenueReport : function(component, event, helper) {
+		var oppId = component.get("v.recordId"); // Get the Opportunity Id
+		var url = "/lightning/cmp/c__opcNavToRevenueReport?c__oppId=" + oppId;
+		
+		// Open the Aura component in a new tab
+		window.open(url, '_blank');
 	}
 });

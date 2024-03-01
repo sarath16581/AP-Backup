@@ -10,10 +10,13 @@
     onInit: function(component, event, helper) {
         // check if it is coming from a transfer to PO flow
         var mailProductsEnquiryType = component.get("v.wizardData.mailProductsEnquiryType");
-        if(!$A.util.isEmpty(mailProductsEnquiryType))
-        {
-           component.set("v.header","We've got your transfer request");
-        }
+        if(!$A.util.isEmpty(mailProductsEnquiryType)){
+			//Snigdha:Change for INC2297209	
+			if(mailProductsEnquiryType == 'Transfer to another post office')
+			{
+				component.set("v.header","We've got your transfer request");
+			}
+		}
                 
         // fetch the EDD dates
         var eddFromDate = component.get("v.wizardData.deliveredByDateFrom");

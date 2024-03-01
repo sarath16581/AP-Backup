@@ -1099,6 +1099,7 @@ public with sharing class APT_AmendRenewController {
 					// Adde by Conrad Borbon
 					// Statement will assign selected revenue type to proposal field revenue type
 					clonedProposal.APT_Revenue_Type__c = selectedRevenue;
+					APT_AmendRenewUtility.resetOpportunityProposalPrimary(Id.valueOf(opportunityId));
 					insert clonedProposal;
 
 					/*

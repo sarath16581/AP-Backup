@@ -502,7 +502,7 @@
         <fullName>Set_Assignment_Effective_To_Date</fullName>
         <description>Set Assignment Effective To Date to 4 years from Assignment Effective From Date on CMA CPA Licence when not Active or Rejected or Cease Approved</description>
         <field>Assignment_Effective_To_Date__c</field>
-        <formula>ADDMONTHS( Assignment_Effective_From_Date__c ,48)</formula>
+        <formula>ADDMONTHS( Assignment_Effective_From_Date__c ,60)</formula>
         <name>Set Assignment Effective To Date</name>
         <notifyAssignee>false</notifyAssignee>
         <operation>Formula</operation>

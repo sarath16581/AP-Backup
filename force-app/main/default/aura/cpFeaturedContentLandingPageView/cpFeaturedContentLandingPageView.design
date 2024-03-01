@@ -1,5 +1,0 @@
-<design:component label="cpFeaturedContentLandingPageView">
-	<design:attribute label="Number of Content Records" name="cppageSize" description="No. of Records per page"/>
-	<design:attribute label="Number of Records per Iteration" name="cpNxtIterationSize" description="No. of Records per iteration"/>
-    
-</design:component>
