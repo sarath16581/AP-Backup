@@ -586,7 +586,7 @@
         <ruleEntry>
             <assignedTo>BSC_Dell_Schenker</assignedTo>
             <assignedToType>Queue</assignedToType>
-            <formula>AND(StarTrack_Calc_Email_Address__c = $Setup.StarTrack_Settings__c.BSC_Dell_Schenker__c, Business_Solutions_Customer__c, Case_RecordType_Name__c = &apos;Delivery Enquiry&apos;)</formula>
+            <formula>AND(OR(StarTrack_Calc_Email_Address__c = $Setup.StarTrack_Settings__c.BSC_Dell_Schenker__c,StarTrack_Calc_Email_Address__c = $Setup.StarTrack_Settings__c.BSC_Samsung__c,StarTrack_Calc_Email_Address__c = $Setup.StarTrack_Settings__c.BSC_Phillips_Schenker__c,StarTrack_Calc_Email_Address__c = $Setup.StarTrack_Settings__c.BSC_HP_Schenker__c), Business_Solutions_Customer__c, Case_RecordType_Name__c = &apos;Delivery Enquiry&apos;)</formula>
         </ruleEntry>
         <ruleEntry>
             <assignedTo>BSC_DHL_Air</assignedTo>
@@ -604,24 +604,9 @@
             <formula>AND( StarTrack_Calc_Email_Address__c = $Setup.StarTrack_Settings__c.DHL2__c, Business_Solutions_Customer__c, Case_RecordType_Name__c = &apos;Delivery Enquiry&apos;)</formula>
         </ruleEntry>
         <ruleEntry>
-            <assignedTo>BSC_HP_Schenker</assignedTo>
-            <assignedToType>Queue</assignedToType>
-            <formula>AND(StarTrack_Calc_Email_Address__c = $Setup.StarTrack_Settings__c.BSC_HP_Schenker__c,   Business_Solutions_Customer__c, Case_RecordType_Name__c = &apos;Delivery Enquiry&apos;)</formula>
-        </ruleEntry>
-        <ruleEntry>
-            <assignedTo>BSC_Phillips_Schenker</assignedTo>
-            <assignedToType>Queue</assignedToType>
-            <formula>AND(StarTrack_Calc_Email_Address__c = $Setup.StarTrack_Settings__c.BSC_Phillips_Schenker__c, Business_Solutions_Customer__c, Case_RecordType_Name__c = &apos;Delivery Enquiry&apos;)</formula>
-        </ruleEntry>
-        <ruleEntry>
             <assignedTo>BSC_Optus</assignedTo>
             <assignedToType>Queue</assignedToType>
             <formula>AND(StarTrack_Calc_Email_Address__c = $Setup.StarTrack_Settings__c.BSC_Optus__c,  Business_Solutions_Customer__c, Case_RecordType_Name__c = &apos;Delivery Enquiry&apos;)</formula>
-        </ruleEntry>
-        <ruleEntry>
-            <assignedTo>BSC_Samsung</assignedTo>
-            <assignedToType>Queue</assignedToType>
-            <formula>AND(StarTrack_Calc_Email_Address__c = $Setup.StarTrack_Settings__c.BSC_Samsung__c, Business_Solutions_Customer__c, Case_RecordType_Name__c = &apos;Delivery Enquiry&apos;)</formula>
         </ruleEntry>
         <ruleEntry>
             <assignedTo>BSC_Stop_Delivery</assignedTo>
