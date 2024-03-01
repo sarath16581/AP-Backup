@@ -45,9 +45,10 @@ public with sharing class APT_LandingCartController {
 		string amendmentQuoteRecordId = Schema.SObjectType.Apttus_Proposal__Proposal__c.getRecordTypeInfosByName().get('Amendment Quote').getRecordTypeId();
 
 		try {
+			Boolean isSalesSpecialist = false;
 			if(recordId != null){
 				List<UserRole> userRolesList = UserRolesSelector.newInstance().selectById(new Set<Id>{UserInfo.getUserRoleId()}).values();
-				Boolean isSalesSpecialist = false;
+
 				if(!userRolesList.isEmpty())
 				{
 					List<APT_Sales_Specialist_Role__mdt> salesSpecialistRole = [SELECT Id, MasterLabel FROM APT_Sales_Specialist_Role__mdt WHERE MasterLabel =: userRolesList[0].Name];
@@ -117,7 +118,7 @@ public with sharing class APT_LandingCartController {
 					proposalExist= APT_Constants.BOOL_TRUE;
 					proposalID = existingProposalRedirect[0].id;
 
-					if(opportunityOwnerId == loggedInUserId) {
+					if(opportunityOwnerId == loggedInUserId || isSalesSpecialist) {
 						List<Apttus_Config2__ProductConfiguration__c>  prodConfig = ProductConfigurationSelector.newInstance().selectByProposalId(new Set<Id>{proposal.id});
 						if(prodConfig.size() > 0){
 							if(configurationCheck(loggedInUserId, prodConfig[0])) {
