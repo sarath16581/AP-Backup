@@ -1,0 +1,10 @@
+<aura:component implements="lightning:isUrlAddressable" description="c:selectAttachmentsAura component">
+	<aura:attribute name="id" type="String" />
+	<aura:attribute name="redirect" type="String" />
+	<!-- Add an "init" handler to handle the first "v.pageReference" value -->
+	<aura:handler name="init" value="{!this}" action="{!c.onPageReferenceChange}"/>
+	<!-- Add a "change" handler to handle all changes to the "v.pageReference" value -->
+	<aura:handler name="change" value="{!v.pageReference}" action="{!c.onPageReferenceChange}"/>
+	<!-- Add the lwc "c:selectAttachments" component to the body of the "c:selectAttachmentsAura" component -->
+	<c:selectAttachments recordid="{!v.id}" redirect="{!v.redirect}" />
+</aura:component>

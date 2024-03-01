@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TransactionSecurityPolicy xmlns="http://soap.sforce.com/2006/04/metadata">
+    <action>
+        <block>true</block>
+        <endSession>false</endSession>
+        <freezeUser>false</freezeUser>
+        <notifications>
+            <inApp>false</inApp>
+            <sendEmail>true</sendEmail>
+            <user>naveen.rajanna@auspost.com.au</user>
+        </notifications>
+        <twoFactorAuthentication>false</twoFactorAuthentication>
+    </action>
+    <active>true</active>
+    <apexClass>TransactionSecurityPolicyManager</apexClass>
+    <customEmailContent>&lt;p&gt;Transaction Security Policy was triggered from the Organization Id: {{policy.OrganizationId}}.&lt;br&gt;&lt;br&gt;
+		&lt;b&gt;Policy Details:&lt;br&gt;&lt;/b&gt;
+		Name: {{policy.MasterLabel}}&lt;br&gt;
+		Description: This occurs when a user tries to generate reports in Salesforce that include sensitive fields, if access is not allowed.&lt;br&gt;&lt;br&gt;
+		&lt;b&gt;TriggeredDate:&lt;/b&gt; {{event.EventDate}}&lt;br&gt;&lt;br&gt;
+		&lt;b&gt;User Details:&lt;br&gt;&lt;/b&gt;
+		UserId: {{event.UserId}}&lt;br&gt;
+		Username: {{event.Username}}&lt;br&gt;
+		SessionLevel: {{event.SessionLevel}}&lt;br&gt;
+		SourceIp: {{event.SourceIp}}&lt;br&gt;&lt;br&gt;
+		&lt;b&gt;{{policy.EventName}} Details:&lt;br&gt;&lt;/b&gt;
+		EventSource: {{event.EventSource}}&lt;br&gt;
+		Object: {{event.QueriedEntities}}&lt;br&gt;
+		ReportName: {{event.Name}}&lt;br&gt;
+		Operation: {{event.Operation}}&lt;br&gt;
+		RowsProcessed: {{event.RowsProcessed}}&lt;br&gt;
+		NumberOfColumns: {{event.NumberOfColumns}}&lt;br&gt;
+		ColumnHeaders: &lt;br&gt;{{event.ColumnHeaders}}&lt;br&gt;&lt;br&gt;
+		Regards,&lt;br&gt;
+		Salesforce BAU Support&lt;br&gt;
+		Email: &lt;a href=&quot;mailto:DLITRCPCMSalesforceSupport@auspost.com.au&quot;&gt;DL IT RC&amp;P C&amp;M Salesforce Support&lt;/a&gt;&lt;br&gt;
+		&lt;/p&gt;</customEmailContent>
+    <description>This occurs when a user tries to generate reports in Salesforce that include sensitive fields, if access is not allowed.</description>
+    <developerName>ReportEventPolicy</developerName>
+    <eventName>ReportEvent</eventName>
+    <masterLabel>ReportEventPolicy</masterLabel>
+    <type>CustomApexPolicy</type>
+</TransactionSecurityPolicy>
