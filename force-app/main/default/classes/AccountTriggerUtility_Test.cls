@@ -491,23 +491,32 @@ private class AccountTriggerUtility_Test {
         System.assertEquals('test',[select Id,Preferred_Name__pc from Account where Id =:bacct.Id].Preferred_Name__pc);
     }
 
-	public static testMethod void testLockVerifiedDataTest3(){
-        RecordType orgrectype = [SELECT Id FROM RecordType WHERE IsActive = true AND SobjectType = 'Account' AND DeveloperName = 'PersonAccount' limit 1];
-        Account bacct = new Account(FirstName='test',LastName='org',LegalFirstName__pc = '',LegalLastName__pc = '', recordtypeid=orgrectype.Id, phone='0454545434',LevelOfAssurance__pc = 0.0, PersonEmail='test@test.com', abn__c='12345678901', Website='www.google.com');
-        insert bacct;
+	@IsTest
+    public static void testLockVerifiedDataTest3_verifyPersonNames(){
+        Account personAccount = ApplicationTestDataFactory.getPersonAccounts(1, false)[0];
+        personAccount.FirstName = 'test';
+        personAccount.LastName = 'org';
+        personAccount.LegalFirstName__pc = '';
+        personAccount.LegalLastName__pc = '';
+        personAccount.Phone = '0454545434';
+        personAccount.LevelOfAssurance__pc = 0.0;
+        personAccount.PersonEmail = 'test@test.com';
+        personAccount.ABN__c = '12345678901';
+        personAccount.Website = 'www.google.com';
+        insert personAccount;
         
         LOA_Settings__c Loa = new LOA_Settings__c(Name = 'Email',LOA_Value__c = 2.3 , Locked_Field_API__c='LegalLastName__pc');
         insert Loa;
         
         runTriggerMethods();
-        Test.startTest();    
-        bacct.FirstName = 'testFirstName';
-		bacct.LastName = 'testLastName';
-		bacct.PersonEmail = 'testnewone@test.com';
-        update bacct;
+        Test.startTest();
+        personAccount.FirstName = 'testFirstName';
+        personAccount.LastName = 'testLastName';
+        personAccount.PersonEmail = 'testnewone@test.com';
+        update personAccount;
 		Test.stopTest();
 
-		Account resultAccount = [select Id,FirstName, LastName, Preferred_Name__pc from Account where Id =:bacct.Id];
+		Account resultAccount = [select Id,FirstName, LastName, Preferred_Name__pc from Account where Id =:personAccount.Id];
         System.assertEquals('testFirstName', resultAccount.FirstName, 'First name did not update correctly.');
         System.assertEquals('test', resultAccount.Preferred_Name__pc, 'Preferred name did not update correctly.');
         System.assertEquals('testLastName', resultAccount.LastName, 'Last name did not update correctly.');
