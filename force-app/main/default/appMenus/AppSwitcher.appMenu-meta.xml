@@ -764,4 +764,12 @@
         <name>bbtest</name>
         <type>ConnectedApp</type>
     </appMenuItems>
+    <appMenuItems>
+        <name>echosign_dev1__EchoSign</name>
+        <type>CustomApplication</type>
+    </appMenuItems>
+    <appMenuItems>
+        <name>echosign_dev1__Adobe_Sign_Salesforce</name>
+        <type>CustomApplication</type>
+    </appMenuItems>
 </AppMenu>

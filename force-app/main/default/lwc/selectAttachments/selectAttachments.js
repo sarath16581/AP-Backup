@@ -169,6 +169,3 @@ export default class SelectAttachments extends NavigationMixin(LightningElement)
 		await refreshGraphQL(this.graphqlData);
 	}
 }
-
-
-

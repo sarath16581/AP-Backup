@@ -4,4 +4,4 @@
 	<aura:attribute name="attachmentIds" type="String" />
 	<lightning:formattedText value="Generating Adobe Sign Envelope..." />
 	<lightning:spinner class="spins" size="large" variant="brand" alternativeText="Loading" />
-</aura:component>	
+</aura:component>

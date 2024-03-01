@@ -1,6 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <SharingRules xmlns="http://soap.sforce.com/2006/04/metadata">
     <sharingCriteriaRules>
+        <fullName>ShareAdobeEnvelopesWithRetailOperations</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>Share Adobe Sign Envelopes with Retail Operations</description>
+        <label>Share Adobe Envelopes With Retail Operations</label>
+        <sharedTo>
+            <roleAndSubordinatesInternal>Retail_Operations</roleAndSubordinatesInternal>
+        </sharedTo>
+        <criteriaItems>
+            <field>OwnerId</field>
+            <operation>notEqual</operation>
+            <value></value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
         <fullName>ShareAdobeEnvelopesWithSales</fullName>
         <accessLevel>Edit</accessLevel>
         <description>Share Adobe Sign Envelopes with Sales</description>
@@ -22,21 +37,6 @@
         <label>Share Adobe Envelopes With Sales Operations</label>
         <sharedTo>
             <roleAndSubordinatesInternal>SalesOperations</roleAndSubordinatesInternal>
-        </sharedTo>
-        <criteriaItems>
-            <field>OwnerId</field>
-            <operation>notEqual</operation>
-            <value></value>
-        </criteriaItems>
-        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
-    </sharingCriteriaRules>
-	<sharingCriteriaRules>
-        <fullName>ShareAdobeEnvelopesWithRetailOperations</fullName>
-        <accessLevel>Edit</accessLevel>
-        <description>Share Adobe Sign Envelopes with Retail Operations</description>
-        <label>Share Adobe Envelopes With Retail Operations</label>
-        <sharedTo>
-            <roleAndSubordinatesInternal>Retail_Operations</roleAndSubordinatesInternal>
         </sharedTo>
         <criteriaItems>
             <field>OwnerId</field>

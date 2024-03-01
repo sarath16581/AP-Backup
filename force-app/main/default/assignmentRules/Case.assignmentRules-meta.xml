@@ -586,7 +586,7 @@
         <ruleEntry>
             <assignedTo>BSC_Dell_Schenker</assignedTo>
             <assignedToType>Queue</assignedToType>
-            <formula>AND(OR(StarTrack_Calc_Email_Address__c = $Setup.StarTrack_Settings__c.BSC_Dell_Schenker__c,StarTrack_Calc_Email_Address__c = $Setup.StarTrack_Settings__c.BSC_Samsung__c,StarTrack_Calc_Email_Address__c = $Setup.StarTrack_Settings__c.BSC_Phillips_Schenker__c,StarTrack_Calc_Email_Address__c = $Setup.StarTrack_Settings__c.BSC_HP_Schenker__c), Business_Solutions_Customer__c, Case_RecordType_Name__c = &apos;Delivery Enquiry&apos;)</formula>
+            <formula>AND(StarTrack_Calc_Email_Address__c = $Setup.StarTrack_Settings__c.BSC_Dell_Schenker__c, Business_Solutions_Customer__c, Case_RecordType_Name__c = &apos;Delivery Enquiry&apos;)</formula>
         </ruleEntry>
         <ruleEntry>
             <assignedTo>BSC_DHL_Air</assignedTo>
@@ -604,9 +604,24 @@
             <formula>AND( StarTrack_Calc_Email_Address__c = $Setup.StarTrack_Settings__c.DHL2__c, Business_Solutions_Customer__c, Case_RecordType_Name__c = &apos;Delivery Enquiry&apos;)</formula>
         </ruleEntry>
         <ruleEntry>
+            <assignedTo>BSC_HP_Schenker</assignedTo>
+            <assignedToType>Queue</assignedToType>
+            <formula>AND(StarTrack_Calc_Email_Address__c = $Setup.StarTrack_Settings__c.BSC_HP_Schenker__c,   Business_Solutions_Customer__c, Case_RecordType_Name__c = &apos;Delivery Enquiry&apos;)</formula>
+        </ruleEntry>
+        <ruleEntry>
+            <assignedTo>BSC_Phillips_Schenker</assignedTo>
+            <assignedToType>Queue</assignedToType>
+            <formula>AND(StarTrack_Calc_Email_Address__c = $Setup.StarTrack_Settings__c.BSC_Phillips_Schenker__c, Business_Solutions_Customer__c, Case_RecordType_Name__c = &apos;Delivery Enquiry&apos;)</formula>
+        </ruleEntry>
+        <ruleEntry>
             <assignedTo>BSC_Optus</assignedTo>
             <assignedToType>Queue</assignedToType>
             <formula>AND(StarTrack_Calc_Email_Address__c = $Setup.StarTrack_Settings__c.BSC_Optus__c,  Business_Solutions_Customer__c, Case_RecordType_Name__c = &apos;Delivery Enquiry&apos;)</formula>
+        </ruleEntry>
+        <ruleEntry>
+            <assignedTo>BSC_Samsung</assignedTo>
+            <assignedToType>Queue</assignedToType>
+            <formula>AND(StarTrack_Calc_Email_Address__c = $Setup.StarTrack_Settings__c.BSC_Samsung__c, Business_Solutions_Customer__c, Case_RecordType_Name__c = &apos;Delivery Enquiry&apos;)</formula>
         </ruleEntry>
         <ruleEntry>
             <assignedTo>BSC_Stop_Delivery</assignedTo>
@@ -845,11 +860,16 @@
         <ruleEntry>
             <assignedTo>BSC_Ingram_Micro</assignedTo>
             <assignedToType>Queue</assignedToType>
-            <booleanFilter>1 AND (2)</booleanFilter>
+            <booleanFilter>1 AND (2 OR 3)</booleanFilter>
             <criteriaItems>
                 <field>Case.RecordTypeId</field>
                 <operation>equals</operation>
                 <value>Delivery Enquiry</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Case.SuppliedEmail</field>
+                <operation>contains</operation>
+                <value>ingrammicro.com.au</value>
             </criteriaItems>
             <criteriaItems>
                 <field>Case.SuppliedEmail</field>
@@ -869,48 +889,23 @@
             <criteriaItems>
                 <field>Case.SuppliedEmail</field>
                 <operation>contains</operation>
-                <value>mainfreight.com</value>
-            </criteriaItems>
-            <criteriaItems>
-                <field>Case.SuppliedEmail</field>
-                <operation>contains</operation>
-                <value>likewize.com</value>
-            </criteriaItems>
-            <criteriaItems>
-                <field>Case.SuppliedEmail</field>
-                <operation>contains</operation>
-                <value>likewizeau.zendesk.com</value>
-            </criteriaItems>
-        </ruleEntry>
-        <ruleEntry>
-            <assignedTo>BSC_Team_1</assignedTo>
-            <assignedToType>Queue</assignedToType>
-            <booleanFilter>1 AND (2 OR 3 OR 4)</booleanFilter>
-            <criteriaItems>
-                <field>Case.RecordTypeId</field>
-                <operation>equals</operation>
-                <value>Delivery Enquiry</value>
-            </criteriaItems>
-            <criteriaItems>
-                <field>Case.SuppliedEmail</field>
-                <operation>contains</operation>
                 <value>ivegroup.com.au</value>
             </criteriaItems>
             <criteriaItems>
                 <field>Case.SuppliedEmail</field>
                 <operation>contains</operation>
-                <value>ebgames.com</value>
+                <value>mainfreight.com</value>
             </criteriaItems>
             <criteriaItems>
                 <field>Case.SuppliedEmail</field>
                 <operation>contains</operation>
-                <value>hanes.com</value>
+                <value>mainfreight.com.au</value>
             </criteriaItems>
         </ruleEntry>
         <ruleEntry>
             <assignedTo>BSC_TIG</assignedTo>
             <assignedToType>Queue</assignedToType>
-            <booleanFilter>1 AND (2)</booleanFilter>
+            <booleanFilter>1 AND (2 OR 3)</booleanFilter>
             <criteriaItems>
                 <field>Case.RecordTypeId</field>
                 <operation>equals</operation>
@@ -921,11 +916,16 @@
                 <operation>contains</operation>
                 <value>tigfreight.com</value>
             </criteriaItems>
+            <criteriaItems>
+                <field>Case.SuppliedEmail</field>
+                <operation>contains</operation>
+                <value>tigfreight.com.au</value>
+            </criteriaItems>
         </ruleEntry>
         <ruleEntry>
             <assignedTo>Priority_Investigations_Senders</assignedTo>
             <assignedToType>Queue</assignedToType>
-            <booleanFilter>1 AND ( 2 OR 3 OR 4 OR 5 OR 6 OR 7 OR 8 OR 9 OR 10 OR 11 OR 12 OR 13 OR 14 OR 15 OR 16 OR 17 OR 18 OR 19 OR 20) OR 21</booleanFilter>
+            <booleanFilter>1 AND ( 2 OR 3 OR 4 OR 5 OR 6 OR 7 OR 8 OR 9 OR 10 OR 11 OR 12 OR 13 OR 14 OR 15 OR 16 OR 17 OR 18 OR 19 OR 20 OR 21 OR 22 OR 23 OR 24 )</booleanFilter>
             <criteriaItems>
                 <field>Case.RecordTypeId</field>
                 <operation>equals</operation>
@@ -979,7 +979,12 @@
             <criteriaItems>
                 <field>Case.SuppliedEmail</field>
                 <operation>contains</operation>
-                <value>multimedia-connect.com.au</value>
+                <value>clinicallabs.com.au</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Case.SuppliedEmail</field>
+                <operation>contains</operation>
+                <value>crkennedy.com.au</value>
             </criteriaItems>
             <criteriaItems>
                 <field>Case.SuppliedEmail</field>
@@ -990,6 +995,11 @@
                 <field>Case.SuppliedEmail</field>
                 <operation>contains</operation>
                 <value>husqvarna.com</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Case.SuppliedEmail</field>
+                <operation>contains</operation>
+                <value>husqvarna.com.au</value>
             </criteriaItems>
             <criteriaItems>
                 <field>Case.SuppliedEmail</field>
@@ -1014,6 +1024,11 @@
             <criteriaItems>
                 <field>Case.SuppliedEmail</field>
                 <operation>contains</operation>
+                <value>medline.com.au</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Case.SuppliedEmail</field>
+                <operation>contains</operation>
                 <value>medtronic.com</value>
             </criteriaItems>
             <criteriaItems>
@@ -1029,13 +1044,13 @@
             <criteriaItems>
                 <field>Case.SuppliedEmail</field>
                 <operation>contains</operation>
-                <value>officemax.com</value>
+                <value>multimedia-connect.com.au</value>
             </criteriaItems>
         </ruleEntry>
         <ruleEntry>
             <assignedTo>Priority_Investigations_Senders</assignedTo>
             <assignedToType>Queue</assignedToType>
-            <booleanFilter>1 AND (2 OR 3 OR 4 OR 5 OR 6 OR 7 OR 8 OR 9 OR 10 OR 11 OR 12 OR 13 OR 14 OR 15 OR 16 OR 17 OR 18 OR 19 OR 20 OR 21 OR 22 OR 23)</booleanFilter>
+            <booleanFilter>1 AND (2 OR 3 OR 4 OR 5 OR 6 OR 7 OR 8 OR 9 OR 10 OR 11 OR 12 OR 13 OR 14 OR 15 OR 16 OR 17 OR 18 OR 19 OR 20 OR 21 OR 22 OR 23 OR 24 OR 25)</booleanFilter>
             <criteriaItems>
                 <field>Case.RecordTypeId</field>
                 <operation>equals</operation>
@@ -1129,7 +1144,7 @@
             <criteriaItems>
                 <field>Case.SuppliedEmail</field>
                 <operation>contains</operation>
-                <value>nod.com.au</value>
+                <value>dashinggroup.com.au</value>
             </criteriaItems>
             <criteriaItems>
                 <field>Case.SuppliedEmail</field>
@@ -1144,18 +1159,28 @@
             <criteriaItems>
                 <field>Case.SuppliedEmail</field>
                 <operation>contains</operation>
-                <value>independanceaustralia.com</value>
+                <value>flightcentre.com.au</value>
             </criteriaItems>
             <criteriaItems>
                 <field>Case.SuppliedEmail</field>
                 <operation>contains</operation>
                 <value>hondadealer.com.au</value>
             </criteriaItems>
+            <criteriaItems>
+                <field>Case.SuppliedEmail</field>
+                <operation>contains</operation>
+                <value>independanceaustralia.com</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Case.SuppliedEmail</field>
+                <operation>contains</operation>
+                <value>nod.com.au</value>
+            </criteriaItems>
         </ruleEntry>
         <ruleEntry>
             <assignedTo>Priority_Investigations_Senders</assignedTo>
             <assignedToType>Queue</assignedToType>
-            <booleanFilter>1 AND( 2 OR 3 OR 4 OR 5  OR 6 OR 7 OR 8 OR 9 OR 10 OR 11 OR 12 OR 13 OR 14 OR 15 )</booleanFilter>
+            <booleanFilter>1 AND( 2 OR 3 OR 4 OR 5  OR 6 OR 7 OR 8 OR 9 OR 10 OR 11 OR 12 OR 13 OR 14 )</booleanFilter>
             <criteriaItems>
                 <field>Case.RecordTypeId</field>
                 <operation>equals</operation>
@@ -1226,11 +1251,6 @@
                 <operation>contains</operation>
                 <value>sbdinc.com</value>
             </criteriaItems>
-            <criteriaItems>
-                <field>Case.SuppliedEmail</field>
-                <operation>contains</operation>
-                <value>keune.com.au</value>
-            </criteriaItems>
         </ruleEntry>
         <ruleEntry>
             <assignedTo>BSC_Dicker_Data</assignedTo>
@@ -1274,7 +1294,7 @@
             <criteriaItems>
                 <field>Case.SuppliedEmail</field>
                 <operation>contains</operation>
-                <value>austube-schreder.com</value>
+                <value>alsblobal.com</value>
             </criteriaItems>
             <criteriaItems>
                 <field>Case.SuppliedEmail</field>
@@ -1365,7 +1385,7 @@
         <ruleEntry>
             <assignedTo>Priority_Investigations_Senders</assignedTo>
             <assignedToType>Queue</assignedToType>
-            <booleanFilter>1 AND( 2 OR 3 OR 4 OR 5 OR 6 OR 7 OR 8 OR 9 OR 10 OR 11 OR 12 OR 13 OR 14 OR 15 OR 16 OR 17 OR 18 OR 19 OR 20)</booleanFilter>
+            <booleanFilter>1 AND( 2 OR 3 OR 4 OR 5 OR 6 OR 7 OR 8 OR 9 OR 10 OR 11 OR 12 OR 13 OR 14 OR 15 OR 16 OR 17 OR 18 OR 19 OR 20 OR 21 OR 22 OR 23 OR 24 )</booleanFilter>
             <criteriaItems>
                 <field>Case.RecordTypeId</field>
                 <operation>equals</operation>
@@ -1379,7 +1399,7 @@
             <criteriaItems>
                 <field>Case.SuppliedEmail</field>
                 <operation>contains</operation>
-                <value>suzannegrae.com.au</value>
+                <value>surfstitch.com.au</value>
             </criteriaItems>
             <criteriaItems>
                 <field>Case.SuppliedEmail</field>
@@ -1394,7 +1414,7 @@
             <criteriaItems>
                 <field>Case.SuppliedEmail</field>
                 <operation>contains</operation>
-                <value>t2tea.com</value>
+                <value>adairs.com.au</value>
             </criteriaItems>
             <criteriaItems>
                 <field>Case.SuppliedEmail</field>
@@ -1439,12 +1459,12 @@
             <criteriaItems>
                 <field>Case.SuppliedEmail</field>
                 <operation>contains</operation>
-                <value>adairs.com.au</value>
+                <value>electrolux.com.au</value>
             </criteriaItems>
             <criteriaItems>
                 <field>Case.SuppliedEmail</field>
                 <operation>contains</operation>
-                <value>styleprint.com.au</value>
+                <value>hagar.com</value>
             </criteriaItems>
             <criteriaItems>
                 <field>Case.SuppliedEmail</field>
@@ -1454,7 +1474,7 @@
             <criteriaItems>
                 <field>Case.SuppliedEmail</field>
                 <operation>contains</operation>
-                <value>nikon.com</value>
+                <value>hager.com.au</value>
             </criteriaItems>
             <criteriaItems>
                 <field>Case.SuppliedEmail</field>
@@ -1465,6 +1485,26 @@
                 <field>Case.SuppliedEmail</field>
                 <operation>contains</operation>
                 <value>keycorp.net</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Case.SuppliedEmail</field>
+                <operation>contains</operation>
+                <value>nikon.com</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Case.SuppliedEmail</field>
+                <operation>contains</operation>
+                <value>nikon.com.au</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Case.SuppliedEmail</field>
+                <operation>contains</operation>
+                <value>styleprint.com.au</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Case.SuppliedEmail</field>
+                <operation>contains</operation>
+                <value>suzannegrae.com.au</value>
             </criteriaItems>
         </ruleEntry>
         <ruleEntry>
@@ -1508,12 +1548,12 @@
             <criteriaItems>
                 <field>Case.SuppliedEmail</field>
                 <operation>contains</operation>
-                <value>ancdelivers.com.au</value>
+                <value>likewizeau.zendesk.com</value>
             </criteriaItems>
             <criteriaItems>
                 <field>Case.SuppliedEmail</field>
                 <operation>contains</operation>
-                <value>idesigngroup.com.au</value>
+                <value>hanes.com</value>
             </criteriaItems>
             <criteriaItems>
                 <field>Case.SuppliedEmail</field>
@@ -1523,37 +1563,32 @@
             <criteriaItems>
                 <field>Case.SuppliedEmail</field>
                 <operation>contains</operation>
-                <value>bambora.com</value>
+                <value>likewize.com</value>
             </criteriaItems>
             <criteriaItems>
                 <field>Case.SuppliedEmail</field>
                 <operation>contains</operation>
-                <value>allegion.com</value>
+                <value>ebgames.com</value>
             </criteriaItems>
             <criteriaItems>
                 <field>Case.SuppliedEmail</field>
                 <operation>contains</operation>
-                <value>adamdental.com.au</value>
+                <value>hettich.com.au</value>
             </criteriaItems>
             <criteriaItems>
                 <field>Case.SuppliedEmail</field>
                 <operation>contains</operation>
-                <value>myer.com.au</value>
+                <value>keune.com.au</value>
             </criteriaItems>
         </ruleEntry>
         <ruleEntry>
             <assignedTo>BSC_Team_2</assignedTo>
             <assignedToType>Queue</assignedToType>
-            <booleanFilter>1 AND (2 OR 3 OR 4 OR 5 OR 6 OR 7 OR 8 OR 9 OR 10 OR 11)</booleanFilter>
+            <booleanFilter>1 AND (2 OR 3 OR 4 OR 5 OR 6 OR 7 OR 8 OR 9)</booleanFilter>
             <criteriaItems>
                 <field>Case.RecordTypeId</field>
                 <operation>equals</operation>
                 <value>Delivery Enquiry</value>
-            </criteriaItems>
-            <criteriaItems>
-                <field>Case.SuppliedEmail</field>
-                <operation>contains</operation>
-                <value>soanar.com.au</value>
             </criteriaItems>
             <criteriaItems>
                 <field>Case.SuppliedEmail</field>
@@ -1563,22 +1598,12 @@
             <criteriaItems>
                 <field>Case.SuppliedEmail</field>
                 <operation>contains</operation>
-                <value>schneider-electric.com</value>
-            </criteriaItems>
-            <criteriaItems>
-                <field>Case.SuppliedEmail</field>
-                <operation>contains</operation>
                 <value>dsc.au.fxa@dhl.com</value>
             </criteriaItems>
             <criteriaItems>
                 <field>Case.SuppliedEmail</field>
                 <operation>contains</operation>
-                <value>allergan.com</value>
-            </criteriaItems>
-            <criteriaItems>
-                <field>Case.SuppliedEmail</field>
-                <operation>contains</operation>
-                <value>service.sf-express.com</value>
+                <value>breville.com.au</value>
             </criteriaItems>
             <criteriaItems>
                 <field>Case.SuppliedEmail</field>
@@ -1593,37 +1618,27 @@
             <criteriaItems>
                 <field>Case.SuppliedEmail</field>
                 <operation>contains</operation>
-                <value>sia-abrasives.com</value>
+                <value>service.sf-express.com</value>
             </criteriaItems>
             <criteriaItems>
                 <field>Case.SuppliedEmail</field>
                 <operation>contains</operation>
-                <value>apple.com</value>
+                <value>soanar.com.au</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Case.SuppliedEmail</field>
+                <operation>contains</operation>
+                <value>schneider-electric.com</value>
             </criteriaItems>
         </ruleEntry>
         <ruleEntry>
             <assignedTo>BSC_Team_2</assignedTo>
             <assignedToType>Queue</assignedToType>
-            <booleanFilter>1 AND (2 OR 3 OR 4 OR 5 OR 6 OR 7 OR 8 OR 9 OR 10 OR 11 OR 12 OR 13)</booleanFilter>
+            <booleanFilter>1 AND (2 OR 3 OR 4 OR 5 OR 6 OR 7 OR 8 OR 9 OR 10 OR 11 OR 12 OR 13 OR 14 OR 15 OR 16 OR 17)</booleanFilter>
             <criteriaItems>
                 <field>Case.RecordTypeId</field>
                 <operation>equals</operation>
                 <value>Delivery Enquiry</value>
-            </criteriaItems>
-            <criteriaItems>
-                <field>Case.SuppliedEmail</field>
-                <operation>contains</operation>
-                <value>bshg.com</value>
-            </criteriaItems>
-            <criteriaItems>
-                <field>Case.SuppliedEmail</field>
-                <operation>contains</operation>
-                <value>au.bosch.com</value>
-            </criteriaItems>
-            <criteriaItems>
-                <field>Case.SuppliedEmail</field>
-                <operation>contains</operation>
-                <value>biomedica.com.au</value>
             </criteriaItems>
             <criteriaItems>
                 <field>Case.SuppliedEmail</field>
@@ -1633,7 +1648,7 @@
             <criteriaItems>
                 <field>Case.SuppliedEmail</field>
                 <operation>contains</operation>
-                <value>ph.bosch.com</value>
+                <value>dhl.com</value>
             </criteriaItems>
             <criteriaItems>
                 <field>Case.SuppliedEmail</field>
@@ -1643,17 +1658,32 @@
             <criteriaItems>
                 <field>Case.SuppliedEmail</field>
                 <operation>contains</operation>
-                <value>dhl.com</value>
+                <value>au.bosch.com</value>
             </criteriaItems>
             <criteriaItems>
                 <field>Case.SuppliedEmail</field>
                 <operation>contains</operation>
-                <value>premierpet.com</value>
+                <value>bshg.com</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Case.SuppliedEmail</field>
+                <operation>contains</operation>
+                <value>ph.bosch.com</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Case.SuppliedEmail</field>
+                <operation>contains</operation>
+                <value>yeti.com</value>
             </criteriaItems>
             <criteriaItems>
                 <field>Case.SuppliedEmail</field>
                 <operation>contains</operation>
                 <value>fit.net.au</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Case.SuppliedEmail</field>
+                <operation>contains</operation>
+                <value>fusionhealth.com.au</value>
             </criteriaItems>
             <criteriaItems>
                 <field>Case.SuppliedEmail</field>
@@ -1670,11 +1700,31 @@
                 <operation>contains</operation>
                 <value>bioceuticals.com</value>
             </criteriaItems>
+            <criteriaItems>
+                <field>Case.SuppliedEmail</field>
+                <operation>contains</operation>
+                <value>piscesaquatics.com.au</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Case.SuppliedEmail</field>
+                <operation>contains</operation>
+                <value>premierpet.com</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Case.SuppliedEmail</field>
+                <operation>contains</operation>
+                <value>premierpet.com.au</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Case.SuppliedEmail</field>
+                <operation>contains</operation>
+                <value>biomedica.com.au</value>
+            </criteriaItems>
         </ruleEntry>
         <ruleEntry>
             <assignedTo>BSC_Team_2</assignedTo>
             <assignedToType>Queue</assignedToType>
-            <booleanFilter>1 AND (2 OR 3 OR 4 OR 5 OR 6 OR 7 OR 8)</booleanFilter>
+            <booleanFilter>1 AND (2 OR 3 OR 4 OR 5 OR 6 OR 7 OR 8 OR 9 OR 10 OR 11)</booleanFilter>
             <criteriaItems>
                 <field>Case.RecordTypeId</field>
                 <operation>equals</operation>
@@ -1683,22 +1733,7 @@
             <criteriaItems>
                 <field>Case.SuppliedEmail</field>
                 <operation>contains</operation>
-                <value>lfs.com.au</value>
-            </criteriaItems>
-            <criteriaItems>
-                <field>Case.SuppliedEmail</field>
-                <operation>contains</operation>
-                <value>api.net.au</value>
-            </criteriaItems>
-            <criteriaItems>
-                <field>Case.SuppliedEmail</field>
-                <operation>contains</operation>
                 <value>dgs.com</value>
-            </criteriaItems>
-            <criteriaItems>
-                <field>Case.SuppliedEmail</field>
-                <operation>contains</operation>
-                <value>sigmahealthcare.com.au</value>
             </criteriaItems>
             <criteriaItems>
                 <field>Case.SuppliedEmail</field>
@@ -1713,13 +1748,43 @@
             <criteriaItems>
                 <field>Case.SuppliedEmail</field>
                 <operation>contains</operation>
-                <value>yeti.com</value>
+                <value>lfs.com.au</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Case.SuppliedEmail</field>
+                <operation>contains</operation>
+                <value>api.net.au</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Case.SuppliedEmail</field>
+                <operation>contains</operation>
+                <value>sigmahealthcare.com.au</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Case.SuppliedEmail</field>
+                <operation>contains</operation>
+                <value>gwagroup.com.au</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Case.SuppliedEmail</field>
+                <operation>contains</operation>
+                <value>pisces.com.au</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Case.SuppliedEmail</field>
+                <operation>contains</operation>
+                <value>sia-abrasives.com</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Case.SuppliedEmail</field>
+                <operation>contains</operation>
+                <value>allergan.com</value>
             </criteriaItems>
         </ruleEntry>
         <ruleEntry>
             <assignedTo>Priority_Investigations_Senders</assignedTo>
             <assignedToType>Queue</assignedToType>
-            <booleanFilter>1 AND (2 OR 3 OR 4 OR 5)</booleanFilter>
+            <booleanFilter>1 AND (2 OR 3 OR 4 OR 5 OR 6 OR 7 OR 8 OR 9 OR 10 OR 11)</booleanFilter>
             <criteriaItems>
                 <field>Case.RecordTypeId</field>
                 <operation>equals</operation>
@@ -1728,7 +1793,27 @@
             <criteriaItems>
                 <field>Case.SuppliedEmail</field>
                 <operation>contains</operation>
-                <value>winc.com.au</value>
+                <value>Sds.com.au</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Case.SuppliedEmail</field>
+                <operation>contains</operation>
+                <value>customerenquiries.com.au</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Case.SuppliedEmail</field>
+                <operation>contains</operation>
+                <value>idesigngroup.com.au</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Case.SuppliedEmail</field>
+                <operation>contains</operation>
+                <value>gainsboroughhardware.com.au</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Case.SuppliedEmail</field>
+                <operation>contains</operation>
+                <value>allergan.com</value>
             </criteriaItems>
             <criteriaItems>
                 <field>Case.SuppliedEmail</field>
@@ -1738,7 +1823,17 @@
             <criteriaItems>
                 <field>Case.SuppliedEmail</field>
                 <operation>contains</operation>
-                <value>Sds.com.au</value>
+                <value>ghdhair.com.au</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Case.SuppliedEmail</field>
+                <operation>contains</operation>
+                <value>winc.com.au</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Case.SuppliedEmail</field>
+                <operation>contains</operation>
+                <value>dorevitch.com.au</value>
             </criteriaItems>
             <criteriaItems>
                 <field>Case.SuppliedEmail</field>
@@ -1749,16 +1844,11 @@
         <ruleEntry>
             <assignedTo>BSC_Team_2</assignedTo>
             <assignedToType>Queue</assignedToType>
-            <booleanFilter>1 AND (2 OR 3 OR 4 OR 5 OR 6 OR 7 OR 8 OR 9 OR 10 OR 11 OR 12 OR 13)</booleanFilter>
+            <booleanFilter>1 AND (2 OR 3 OR 4 OR 5 OR 6 OR 7 OR 8 OR 9 OR 10)</booleanFilter>
             <criteriaItems>
                 <field>Case.RecordTypeId</field>
                 <operation>equals</operation>
                 <value>Delivery Enquiry</value>
-            </criteriaItems>
-            <criteriaItems>
-                <field>Case.SuppliedEmail</field>
-                <operation>contains</operation>
-                <value>fusionhealth.com.au</value>
             </criteriaItems>
             <criteriaItems>
                 <field>Case.SuppliedEmail</field>
@@ -1773,26 +1863,6 @@
             <criteriaItems>
                 <field>Case.SuppliedEmail</field>
                 <operation>contains</operation>
-                <value>piscesaquatics.com.au</value>
-            </criteriaItems>
-            <criteriaItems>
-                <field>Case.SuppliedEmail</field>
-                <operation>contains</operation>
-                <value>piscesenterprises.com</value>
-            </criteriaItems>
-            <criteriaItems>
-                <field>Case.SuppliedEmail</field>
-                <operation>contains</operation>
-                <value>wurth.com.au</value>
-            </criteriaItems>
-            <criteriaItems>
-                <field>Case.SuppliedEmail</field>
-                <operation>contains</operation>
-                <value>piscesenterprises.com.au</value>
-            </criteriaItems>
-            <criteriaItems>
-                <field>Case.SuppliedEmail</field>
-                <operation>contains</operation>
                 <value>linfox.com</value>
             </criteriaItems>
             <criteriaItems>
@@ -1803,7 +1873,7 @@
             <criteriaItems>
                 <field>Case.SuppliedEmail</field>
                 <operation>contains</operation>
-                <value>pisces.com.au</value>
+                <value>bioceuticals.com.au</value>
             </criteriaItems>
             <criteriaItems>
                 <field>Case.SuppliedEmail</field>
@@ -1813,7 +1883,17 @@
             <criteriaItems>
                 <field>Case.SuppliedEmail</field>
                 <operation>contains</operation>
-                <value>gwagroup.com.au</value>
+                <value>piscesenterprises.com</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Case.SuppliedEmail</field>
+                <operation>contains</operation>
+                <value>piscesenterprises.com.au</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Case.SuppliedEmail</field>
+                <operation>contains</operation>
+                <value>wurth.com.au</value>
             </criteriaItems>
         </ruleEntry>
         <ruleEntry>
@@ -1828,7 +1908,17 @@
             <criteriaItems>
                 <field>Case.SuppliedEmail</field>
                 <operation>contains</operation>
-                <value>freightconcepts.com.au</value>
+                <value>asics.com.au</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Case.SuppliedEmail</field>
+                <operation>contains</operation>
+                <value>travelex.com</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Case.SuppliedEmail</field>
+                <operation>contains</operation>
+                <value>travelex.com.au</value>
             </criteriaItems>
             <criteriaItems>
                 <field>Case.SuppliedEmail</field>
@@ -1843,23 +1933,13 @@
             <criteriaItems>
                 <field>Case.SuppliedEmail</field>
                 <operation>contains</operation>
-                <value>@se.com</value>
-            </criteriaItems>
-            <criteriaItems>
-                <field>Case.SuppliedEmail</field>
-                <operation>contains</operation>
-                <value>travelex.com</value>
-            </criteriaItems>
-            <criteriaItems>
-                <field>Case.SuppliedEmail</field>
-                <operation>contains</operation>
-                <value>decipha.com.au</value>
+                <value>coragroup.com</value>
             </criteriaItems>
         </ruleEntry>
         <ruleEntry>
             <assignedTo>Priority_Investigations_Senders</assignedTo>
             <assignedToType>Queue</assignedToType>
-            <booleanFilter>1 AND (2 OR 3)</booleanFilter>
+            <booleanFilter>1 AND (2 OR 3 OR 4)</booleanFilter>
             <criteriaItems>
                 <field>Case.RecordTypeId</field>
                 <operation>equals</operation>
@@ -1873,13 +1953,48 @@
             <criteriaItems>
                 <field>Case.SuppliedEmail</field>
                 <operation>contains</operation>
+                <value>Callawaygolf.com.au</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Case.SuppliedEmail</field>
+                <operation>contains</operation>
                 <value>fp.com.au</value>
+            </criteriaItems>
+        </ruleEntry>
+        <ruleEntry>
+            <assignedTo>BSC_Team_3</assignedTo>
+            <assignedToType>Queue</assignedToType>
+            <booleanFilter>1 AND (2 OR 3 OR 4 OR 5)</booleanFilter>
+            <criteriaItems>
+                <field>Case.RecordTypeId</field>
+                <operation>equals</operation>
+                <value>Delivery Enquiry</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Case.SuppliedEmail</field>
+                <operation>contains</operation>
+                <value>decipha.com.au</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Case.SuppliedEmail</field>
+                <operation>contains</operation>
+                <value>freightconcepts.com.au</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Case.SuppliedEmail</field>
+                <operation>contains</operation>
+                <value>se.com</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Case.SuppliedEmail</field>
+                <operation>contains</operation>
+                <value>non-schneider-electric.com</value>
             </criteriaItems>
         </ruleEntry>
         <ruleEntry>
             <assignedTo>BSC_Team_4</assignedTo>
             <assignedToType>Queue</assignedToType>
-            <booleanFilter>1 AND (2 OR 3 OR 4 OR 5 OR 6 OR 7)</booleanFilter>
+            <booleanFilter>1 AND (2 OR 3 OR 4 OR 5 OR 6 OR 7 OR 8)</booleanFilter>
             <criteriaItems>
                 <field>Case.RecordTypeId</field>
                 <operation>equals</operation>
@@ -1898,6 +2013,11 @@
             <criteriaItems>
                 <field>Case.SuppliedEmail</field>
                 <operation>contains</operation>
+                <value>cba.com.au</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Case.SuppliedEmail</field>
+                <operation>contains</operation>
                 <value>delonghigroup.com</value>
             </criteriaItems>
             <criteriaItems>
@@ -1908,7 +2028,7 @@
             <criteriaItems>
                 <field>Case.SuppliedEmail</field>
                 <operation>contains</operation>
-                <value>cba.com.au</value>
+                <value>tmsonline.com.au</value>
             </criteriaItems>
             <criteriaItems>
                 <field>Case.SuppliedEmail</field>
@@ -1939,7 +2059,7 @@
         <ruleEntry>
             <assignedTo>Priority_Investigations_Senders</assignedTo>
             <assignedToType>Queue</assignedToType>
-            <booleanFilter>1 AND (2 OR 3 OR 4 OR 5 OR 6 OR 7)</booleanFilter>
+            <booleanFilter>1 AND (2 OR 3 OR 4 OR 5 OR 6)</booleanFilter>
             <criteriaItems>
                 <field>Case.RecordTypeId</field>
                 <operation>equals</operation>
@@ -1953,27 +2073,22 @@
             <criteriaItems>
                 <field>Case.SuppliedEmail</field>
                 <operation>contains</operation>
-                <value>ontexglobal.com</value>
-            </criteriaItems>
-            <criteriaItems>
-                <field>Case.SuppliedEmail</field>
-                <operation>contains</operation>
-                <value>mmm.com</value>
-            </criteriaItems>
-            <criteriaItems>
-                <field>Case.SuppliedEmail</field>
-                <operation>contains</operation>
                 <value>acer.com</value>
             </criteriaItems>
             <criteriaItems>
                 <field>Case.SuppliedEmail</field>
                 <operation>contains</operation>
-                <value>modernstar.com</value>
+                <value>ontexglobal.com</value>
             </criteriaItems>
             <criteriaItems>
                 <field>Case.SuppliedEmail</field>
                 <operation>contains</operation>
                 <value>nilfisk.com</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Case.SuppliedEmail</field>
+                <operation>contains</operation>
+                <value>modernstar.com</value>
             </criteriaItems>
         </ruleEntry>
         <ruleEntry>
@@ -1993,11 +2108,6 @@
             <criteriaItems>
                 <field>Case.SuppliedEmail</field>
                 <operation>contains</operation>
-                <value>pierlite.com.au</value>
-            </criteriaItems>
-            <criteriaItems>
-                <field>Case.SuppliedEmail</field>
-                <operation>contains</operation>
                 <value>whirlpool.com</value>
             </criteriaItems>
             <criteriaItems>
@@ -2008,13 +2118,18 @@
             <criteriaItems>
                 <field>Case.SuppliedEmail</field>
                 <operation>contains</operation>
-                <value>bws.com.au</value>
+                <value>t2tea.com</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Case.SuppliedEmail</field>
+                <operation>contains</operation>
+                <value>pierlite.com.au</value>
             </criteriaItems>
         </ruleEntry>
         <ruleEntry>
             <assignedTo>Priority_Investigations_Senders</assignedTo>
             <assignedToType>Queue</assignedToType>
-            <booleanFilter>1 AND (2 OR 3 OR 4 OR 5)</booleanFilter>
+            <booleanFilter>1 AND (2 OR 3 OR 4 OR 5 OR 6 OR 7)</booleanFilter>
             <criteriaItems>
                 <field>Case.RecordTypeId</field>
                 <operation>equals</operation>
@@ -2028,7 +2143,7 @@
             <criteriaItems>
                 <field>Case.SuppliedEmail</field>
                 <operation>contains</operation>
-                <value>uropa.com.au</value>
+                <value>bws.com.au</value>
             </criteriaItems>
             <criteriaItems>
                 <field>Case.SuppliedEmail</field>
@@ -2040,11 +2155,21 @@
                 <operation>contains</operation>
                 <value>literandpenny.com</value>
             </criteriaItems>
+            <criteriaItems>
+                <field>Case.SuppliedEmail</field>
+                <operation>contains</operation>
+                <value>uropa.com.au</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Case.SuppliedEmail</field>
+                <operation>contains</operation>
+                <value>literandpenny.com.au</value>
+            </criteriaItems>
         </ruleEntry>
         <ruleEntry>
             <assignedTo>Priority_Investigations_Senders</assignedTo>
             <assignedToType>Queue</assignedToType>
-            <booleanFilter>1 AND (2 OR 3 OR 4 OR 5)</booleanFilter>
+            <booleanFilter>1 AND (2 OR 3 OR 4 OR 5 OR 6 OR 7 OR 8 OR 9 OR 10 OR 11 OR 12 OR 13 OR 14 OR 15 OR 16)</booleanFilter>
             <criteriaItems>
                 <field>Case.RecordTypeId</field>
                 <operation>equals</operation>
@@ -2068,7 +2193,62 @@
             <criteriaItems>
                 <field>Case.SuppliedEmail</field>
                 <operation>contains</operation>
+                <value>austube-schreder.com</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Case.SuppliedEmail</field>
+                <operation>contains</operation>
                 <value>glg.lighting</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Case.SuppliedEmail</field>
+                <operation>contains</operation>
+                <value>mmm.com</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Case.SuppliedEmail</field>
+                <operation>contains</operation>
+                <value>adamdental.com.au</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Case.SuppliedEmail</field>
+                <operation>contains</operation>
+                <value>allegion.com</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Case.SuppliedEmail</field>
+                <operation>contains</operation>
+                <value>ancdelivers.com.au</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Case.SuppliedEmail</field>
+                <operation>contains</operation>
+                <value>bambora.com</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Case.SuppliedEmail</field>
+                <operation>contains</operation>
+                <value>electusdistribution.com.au</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Case.SuppliedEmail</field>
+                <operation>contains</operation>
+                <value>iagroupcs.zendesk.com</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Case.SuppliedEmail</field>
+                <operation>contains</operation>
+                <value>officemax.com</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Case.SuppliedEmail</field>
+                <operation>contains</operation>
+                <value>officemax.com.au</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Case.SuppliedEmail</field>
+                <operation>contains</operation>
+                <value>myer.com.au</value>
             </criteriaItems>
         </ruleEntry>
         <ruleEntry>
@@ -2132,7 +2312,6 @@
         <ruleEntry>
             <assignedTo>Priority_Investigations_Senders</assignedTo>
             <assignedToType>Queue</assignedToType>
-            <booleanFilter>1 AND (2 OR 3 OR 4 OR 5 OR 6 OR 7 OR 8 OR 9)</booleanFilter>
             <criteriaItems>
                 <field>Case.RecordTypeId</field>
                 <operation>equals</operation>
@@ -2142,41 +2321,6 @@
                 <field>Case.SuppliedEmail</field>
                 <operation>contains</operation>
                 <value>target.com.au</value>
-            </criteriaItems>
-            <criteriaItems>
-                <field>Case.SuppliedEmail</field>
-                <operation>contains</operation>
-                <value>customerenquiries.com.au</value>
-            </criteriaItems>
-            <criteriaItems>
-                <field>Case.SuppliedEmail</field>
-                <operation>contains</operation>
-                <value>dorevitch.com.au</value>
-            </criteriaItems>
-            <criteriaItems>
-                <field>Case.SuppliedEmail</field>
-                <operation>contains</operation>
-                <value>electusdistribution.com.au</value>
-            </criteriaItems>
-            <criteriaItems>
-                <field>Case.SuppliedEmail</field>
-                <operation>contains</operation>
-                <value>gainsboroughhardware.com.au</value>
-            </criteriaItems>
-            <criteriaItems>
-                <field>Case.SuppliedEmail</field>
-                <operation>contains</operation>
-                <value>ghdhair.com.au</value>
-            </criteriaItems>
-            <criteriaItems>
-                <field>Case.SuppliedEmail</field>
-                <operation>contains</operation>
-                <value>hettich.com.au</value>
-            </criteriaItems>
-            <criteriaItems>
-                <field>Case.SuppliedEmail</field>
-                <operation>contains</operation>
-                <value>iagroupcs.zendesk.com</value>
             </criteriaItems>
         </ruleEntry>
         <ruleEntry>
@@ -2371,8 +2515,9 @@
             <template>Australia_Post_Email_Templates/ACIC_Case_Created_2</template>
         </ruleEntry>
         <ruleEntry>
-            <assignedTo>BSC_Cora_Group</assignedTo>
+            <assignedTo>BSC_Apple</assignedTo>
             <assignedToType>Queue</assignedToType>
+            <booleanFilter>1 AND (2 OR 3)</booleanFilter>
             <criteriaItems>
                 <field>Case.RecordTypeId</field>
                 <operation>equals</operation>
@@ -2381,37 +2526,12 @@
             <criteriaItems>
                 <field>Case.SuppliedEmail</field>
                 <operation>contains</operation>
-                <value>coragroup.com</value>
-            </criteriaItems>
-        </ruleEntry>
-        <ruleEntry>
-            <assignedTo>BSC_Cora_Group</assignedTo>
-            <assignedToType>Queue</assignedToType>
-            <booleanFilter>1 AND 2</booleanFilter>
-            <criteriaItems>
-                <field>Case.RecordTypeId</field>
-                <operation>equals</operation>
-                <value>Delivery Enquiry</value>
+                <value>apple.com</value>
             </criteriaItems>
             <criteriaItems>
                 <field>Case.SuppliedEmail</field>
                 <operation>contains</operation>
-                <value>ivegroup.com.au</value>
-            </criteriaItems>
-        </ruleEntry>
-        <ruleEntry>
-            <assignedTo>BSC_TMS</assignedTo>
-            <assignedToType>Queue</assignedToType>
-            <booleanFilter>1 AND 2</booleanFilter>
-            <criteriaItems>
-                <field>Case.RecordTypeId</field>
-                <operation>equals</operation>
-                <value>Delivery Enquiry</value>
-            </criteriaItems>
-            <criteriaItems>
-                <field>Case.SuppliedEmail</field>
-                <operation>contains</operation>
-                <value>tmsonline.com.au</value>
+                <value>group.apple.com</value>
             </criteriaItems>
         </ruleEntry>
     </assignmentRule>

@@ -13,8 +13,7 @@
     </action>
     <active>true</active>
     <apexClass>TransactionSecurityPolicyManager</apexClass>
-    <customEmailContent>
-		&lt;p&gt;Transaction Security Policy was triggered from the Organization Id: {{policy.OrganizationId}}.&lt;br&gt;&lt;br&gt;
+    <customEmailContent>&lt;p&gt;Transaction Security Policy was triggered from the Organization Id: {{policy.OrganizationId}}.&lt;br&gt;&lt;br&gt;
 		&lt;b&gt;Policy Details:&lt;br&gt;&lt;/b&gt;
 		Name: {{policy.MasterLabel}}&lt;br&gt;
 		Description: This occurs when a user attempts to access Salesforce from a non-Windows device, if access is not allowed.&lt;br&gt;&lt;br&gt;
@@ -32,9 +31,8 @@
 		Application: {{event.Application}}&lt;br&gt;&lt;br&gt;
 		Regards,&lt;br&gt;
 		Salesforce BAU Support&lt;br&gt;
-		Email: &lt;a href="mailto:DLITRCPCMSalesforceSupport@auspost.com.au"&gt;DL IT RC&amp;P C&amp;M Salesforce Support&lt;/a&gt;&lt;br&gt;
-		&lt;/p&gt;
-	</customEmailContent>
+		Email: &lt;a href=&quot;mailto:DLITRCPCMSalesforceSupport@auspost.com.au&quot;&gt;DL IT RC&amp;P C&amp;M Salesforce Support&lt;/a&gt;&lt;br&gt;
+		&lt;/p&gt;</customEmailContent>
     <description>This occurs when a user attempts to access Salesforce from a non-Windows device, if access is not allowed.</description>
     <developerName>LoginEventPolicy</developerName>
     <eventName>LoginEvent</eventName>
