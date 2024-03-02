@@ -1170,6 +1170,7 @@ public with sharing class APT_AmendRenewController {
 				} else {
 					Apttus_Proposal__Proposal__c newProposal = APT_AmendRenewUtility.newProposal(APT_Constants.RECORD_TYPE_AMENDMENT_QUOTE,
 							opportunityId, priceListId, agreement);
+					APT_AmendRenewUtility.resetOpportunityProposalPrimary(Id.valueOf(opportunityId));
 					insert newProposal;
 					//proposalId = newProposal.Id;
 
