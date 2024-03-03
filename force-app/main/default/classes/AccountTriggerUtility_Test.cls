@@ -494,15 +494,6 @@ private class AccountTriggerUtility_Test {
 	@IsTest
     public static void testLockVerifiedDataTest3_verifyPersonNames(){
         Account personAccount = ApplicationTestDataFactory.getPersonAccounts(1, false)[0];
-        personAccount.FirstName = 'test';
-        personAccount.LastName = 'org';
-        personAccount.LegalFirstName__pc = '';
-        personAccount.LegalLastName__pc = '';
-        personAccount.Phone = '0454545434';
-        personAccount.LevelOfAssurance__pc = 0.0;
-        personAccount.PersonEmail = 'test@test.com';
-        personAccount.ABN__c = '12345678901';
-        personAccount.Website = 'www.google.com';
         insert personAccount;
         
         LOA_Settings__c Loa = new LOA_Settings__c(Name = 'Email',LOA_Value__c = 2.3 , Locked_Field_API__c='LegalLastName__pc');
@@ -510,6 +501,7 @@ private class AccountTriggerUtility_Test {
         
         runTriggerMethods();
         Test.startTest();
+        personAccount.Preferred_Name__pc = 'test';
         personAccount.FirstName = 'testFirstName';
         personAccount.LastName = 'testLastName';
         personAccount.PersonEmail = 'testnewone@test.com';
