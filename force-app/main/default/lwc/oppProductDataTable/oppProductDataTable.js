@@ -43,25 +43,28 @@ export default class OppProductDataTable extends NavigationMixin(LightningElemen
 	get columns() {
 		return [
 			{ label: 'Product Name', fieldName: 'ProductName', editable: false, wrapText: true, initialWidth: 160},
-			{ label: 'Expected Revenue Start Date', fieldName: 'Contract_Start_Date__c', type: 'date-local', editable: true, initialWidth: 160, iconName:'utility:stop'},
-			{ label: 'Expected Revenue End Date', fieldName: 'Contract_End_Date__c', type: 'date-local', editable: true, initialWidth: 160, iconName:'utility:stop'},
+			{ label: 'Revenue Start Date', fieldName: 'Contract_Start_Date__c', type: 'date-local', editable: true, initialWidth: 160, iconName:'utility:stop'},
+			{ label: 'Revenue End Date', fieldName: 'Contract_End_Date__c', type: 'date-local', editable: true, initialWidth: 160, iconName:'utility:stop'},
 			{ label: 'Quantity', fieldName: 'Quantity', type: 'Integer', editable: true, initialWidth: 160, iconName:'utility:stop'},
 			{ label: 'Unit Sales Price (Ex GST)', fieldName: 'UnitPrice', type: 'currency', editable: true ,initialWidth: 160, iconName:'utility:stop',
 				cellAttributes: { alignment: 'left' }
 			},
-			{ label: 'Total Product Value', fieldName: 'TotalPrice', type: 'currency', editable: false, initialWidth: 160,
+			{ label: 'Total Price', fieldName: 'TotalPrice', type: 'currency', editable: false, initialWidth: 160,
 				cellAttributes: { alignment: 'left' }
 			},
-			{ label: 'Annualised Product Value', fieldName: 'Annualised_Value__c', type: 'currency', editable: false, initialWidth: 160,
+			{ label: 'Annualised Value', fieldName: 'Annualised_Value__c', type: 'currency', editable: false, initialWidth: 160,
 				cellAttributes: { alignment: 'left' }
 			},
-			{ label: 'Revenue Last 12 Months', fieldName: 'TweleveMonthRevenue__c', type: 'currency', editable: false, initialWidth: 160,
+			{ label: 'Last 12 months Revenue', fieldName: 'TweleveMonthRevenue__c', type: 'currency', editable: false, initialWidth: 160,
 				cellAttributes: { alignment: 'left' }
 			},
-			{ label: 'Retained Revenue', fieldName: 'RetainedRevenue__c', type: 'currency', editable: false, initialWidth: 160,
+			{ label: 'Contract Product?', fieldName: 'ContractProduct', type: 'boolean', editable: true, initialWidth: 160, iconName:'utility:stop',
+                cellAttributes: { alignment: 'center'}
+            },
+			{ label: 'Annual Retained Value', fieldName: 'RetainedRevenue__c', type: 'currency', editable: false, initialWidth: 160,
 				cellAttributes: { alignment: 'left' }
 			},
-			{ label: 'Incremental Revenue', fieldName: 'IncrementalRevenue__c', type: 'currency', editable: false, initialWidth: 160,
+			{ label: 'Annual Incremental Value', fieldName: 'IncrementalRevenue__c', type: 'currency', editable: false, initialWidth: 160,
 				cellAttributes: { alignment: 'left' }
 			},
 			{ label: 'Quote Number', fieldName: 'Contract_Number__c', type: 'text', editable: true, initialWidth: 160}

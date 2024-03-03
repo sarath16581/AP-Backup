@@ -452,6 +452,7 @@
         <customButtons>Edit_Product_LWC</customButtons>
         <excludeButtons>AddProduct</excludeButtons>
         <excludeButtons>ChoosePricebook</excludeButtons>
+        <excludeButtons>MultiAdd</excludeButtons>
         <excludeButtons>MultiEdit</excludeButtons>
         <fields>Product2</fields>
         <fields>Contract_Start_Date__c</fields>

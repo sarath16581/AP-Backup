@@ -32,10 +32,11 @@ private class OpportunityRevenueReportController_Test {
 		MockUtility.Mocks.when(oppProdSelector.selectByOpportunity((Set<Id>)fflib_Match.anyObject(), (Set<Object>)fflib_Match.anyObject())).thenReturn(new List<OpportunityLineItem>{oppProd});
 		MockUtility.Mocks.when(accountsSelector.search((Map<String, Object>)fflib_Match.anyObject(),(Set<Object>)fflib_Match.anyObject(), (String)fflib_Match.anyObject(), (Schema.SObjectField)fflib_Match.anyObject(), (String)fflib_Match.anyObject())).thenReturn(new List<Account>{acc});
 		MockUtility.Mocks.when(arSelector.selectByParent((Set<Id>)fflib_Match.anyObject(),(Set<Object>)fflib_Match.anyObject())).thenReturn(new List<AccountRelationship__c>{accRelation});
+		MockUtility.Mocks.when(arSelector.selectByOPCParentEndDateInFuture((Set<Id>)fflib_Match.anyObject(),(Set<Object>)fflib_Match.anyObject())).thenReturn(new List<AccountRelationship__c>{accRelation});
 		MockUtility.Mocks.stopStubbing();
 
 		List<OpportunityRevenueReportController.RevenueData> revData = OpportunityRevenueReportController.getRevenueData(String.valueOf(oppRec.Id));
 		System.assert(!revData.isEmpty(), 'Controller failed to construct Revenue Data');
-		System.assertEquals(acc.Name, revData.get(0).companyName);
+		System.assertEquals(acc.Name, revData.get(0).companyName, 'Returned revenue data did not match the intended.');
 	}
 }
