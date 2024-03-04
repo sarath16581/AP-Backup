@@ -12,6 +12,7 @@
  * 2021-11-17 - Mathew Jose - Fixing the test method failures created by the introduction of key contact lookup filter on Opportuntiy (CI-194)
  * 2022-02-11  REQ2723568: API version 52 upgrade
  * 2024-01-30 - Ranjeewa Silva - Updates to existing tests to ensure test data conforms to new validation rule in APT_Sub_Account__c.
+ *								 Fixed 'testMethod1' failing due to the dependency on a specific user being available in the org and active!!!
 */
 @isTest
 private class APT_SyncContractAndRatesBatch_Test {
@@ -489,7 +490,10 @@ private class APT_SyncContractAndRatesBatch_Test {
             APT_SyncContractAndRatesBatch.populateExpressCourierRates(r2tSystemProperties,'UK');
             APT_SyncContractAndRatesBatch.populateExpressCourierRates(r2tSystemProperties,'NZ');
             APT_SyncContractAndRatesBatch.populateAirmailRates(r2tSystemProperties);
-            User user=[select id,name,Phone,Title,FirstName,LastName,MiddleName,MobilePhone,Fax,Email from user where name='Natasha Adelson' AND isactive =true LIMIT 1];
+
+			// this test is failing as the test is expecting an Active user named 'Natasha Adelson' !!!
+			//User user=[select id,name,Phone,Title,FirstName,LastName,MiddleName,MobilePhone,Fax,Email from user where name='Natasha Adelson' AND isactive =true LIMIT 1];
+			User user = ApplicationTestDataFactory.getUsers(1, true)[0];
             APT_SyncContractAndRatesBatch.populateContactDetails(user,null);
             APT_SyncContractAndRatesBatch.populateName(user,null);
             APT_SyncContractAndRatesBatch.populateSubAccount(null,alp,mapsubacc1);
