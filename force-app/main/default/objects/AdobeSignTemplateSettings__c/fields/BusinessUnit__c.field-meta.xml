@@ -4,10 +4,10 @@
     <description>Business unit which the template is belongs to.</description>
     <externalId>false</externalId>
     <inlineHelpText>Business unit which the template is belongs to.</inlineHelpText>
-	<securityClassification>INTERNAL</securityClassification>
     <label>Business Unit</label>
     <length>40</length>
     <required>true</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Text</type>
     <unique>false</unique>

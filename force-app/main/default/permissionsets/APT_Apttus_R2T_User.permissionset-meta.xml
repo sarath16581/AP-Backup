@@ -1,10 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <PermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
     <classAccesses>
-        <apexClass>AdobeSignCustomController</apexClass>
-        <enabled>true</enabled>
-    </classAccesses>
-	<classAccesses>
         <apexClass>APTSAPContractsTriggerHandler</apexClass>
         <enabled>true</enabled>
     </classAccesses>
@@ -849,6 +845,10 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>AdobeSignCustomController</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>AgreementProductAttributeValuesSelector</apexClass>
         <enabled>true</enabled>
     </classAccesses>
@@ -880,36 +880,6 @@
         <apexClass>ProductsSelector</apexClass>
         <enabled>true</enabled>
     </classAccesses>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>Account.BillingAddressText__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>Apttus__APTS_Agreement__c.AdobeSignRedirectUrl__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>Apttus__APTS_Agreement__c.CompileAndSendForAdobeESignatures__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>Apttus__APTS_Agreement__c.DaysUntilContractExpires__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>Apttus__APTS_Agreement__c.RecallAdobeESignatures__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
-        <field>echosign_dev1__SIGN_Agreement__c.ApttusContract__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
         <field>APT_ABRreport__c.APT_ABN_Status_From_Date__c</field>
@@ -6288,6 +6258,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>APT_Sub_Account__c.APT_eParcel_Enabled__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Account.BillingAddressText__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -14526,6 +14501,11 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
+        <editable>false</editable>
+        <field>Apttus__APTS_Agreement__c.AdobeSignRedirectUrl__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
         <editable>true</editable>
         <field>Apttus__APTS_Agreement__c.Apttus_Approval__Approval_Status__c</field>
         <readable>true</readable>
@@ -15061,6 +15041,11 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
+        <editable>false</editable>
+        <field>Apttus__APTS_Agreement__c.CompileAndSendForAdobeESignatures__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
         <editable>true</editable>
         <field>Apttus__APTS_Agreement__c.Contract_Expiration_Date__c</field>
         <readable>true</readable>
@@ -15088,6 +15073,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Apttus__APTS_Agreement__c.DOV_Details__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Apttus__APTS_Agreement__c.DaysUntilContractExpires__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -15163,6 +15153,11 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Apttus__APTS_Agreement__c.Progress_Bar__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Apttus__APTS_Agreement__c.RecallAdobeESignatures__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -16953,6 +16948,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Task.APT_Customer_Response__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>echosign_dev1__SIGN_Agreement__c.ApttusContract__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <hasActivationRequired>false</hasActivationRequired>

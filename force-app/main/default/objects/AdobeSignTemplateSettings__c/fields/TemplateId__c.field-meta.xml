@@ -5,10 +5,10 @@
     <description>Salesforce ID of the Adobe Sign Agreement Template record.</description>
     <externalId>false</externalId>
     <inlineHelpText>Salesforce ID of the Adobe Sign Agreement Template record.</inlineHelpText>
-	<securityClassification>INTERNAL</securityClassification>
     <label>Template Id</label>
     <length>18</length>
     <required>true</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Text</type>
     <unique>true</unique>

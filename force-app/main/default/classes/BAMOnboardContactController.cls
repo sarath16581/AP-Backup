@@ -31,6 +31,9 @@ public without sharing class BAMOnboardContactController {
     };
     public static String FIELD_APPLICATION_ROLE = 'ApplicationRole__c';
     public static String FIELD_APPLICATION = 'Application__c';
+	public static String FIELD_CONTACTROLE = 'ContactRole__c';
+	public static String FIELD_CONTACTAPPLICATION = 'ContactApplication__c';
+	public static String FIELD_BSPVIEWALLCONSIGNMENT = 'BSPCanViewAllConsignments__c';
 
 
     public static String FIELD_ID = 'Id';
@@ -254,8 +257,8 @@ public without sharing class BAMOnboardContactController {
     public static Map<String, Object> saveProvisionRequests(Id contactId, List<Map<String, Object>> pageState, Id primaryBillingAccount) {
 
         UserRecordAccess contactAccess = getRecordAccess(contactId);
-		system.debug('pageState');
-		system.debug(JSON.serialize(pageState));
+		//system.debug('pageState');
+		//system.debug(JSON.serialize(pageState));
 
 //        if(contactAccess.HasEditAccess == false)
 //        {
@@ -271,7 +274,7 @@ public without sharing class BAMOnboardContactController {
         ];
         Id orgId = contactRecord.AccountId;
         Boolean userExists = doesUserExist(contactId);
-		Boolean BSPCanViewAllConsignments = false;
+		Boolean bSPCanViewAllConsignments = false;
 		Boolean isBSP = false;
 		Id appIdForBSP;
 		Map<Object,Object> contactRoleObject = new Map<Object,Object>();
@@ -287,14 +290,14 @@ public without sharing class BAMOnboardContactController {
         for (Map<String, Object> mapAppState : pageState) {
 			if(mapAppState.containsKey('isBSP')){
 			 	//appIdForBSP=(Id) mapAppState.get(FIELD_ID);
-				 contactRoleObject = (Map<Object,Object>)mapAppState.get('ContactRole__c');
+				 contactRoleObject = (Map<Object,Object>)mapAppState.get(FIELD_CONTACTROLE);
 				 //system.debug(JSON.serialize(contactRoleObject));
 				 if(contactRoleObject!= null){
-					if(contactRoleObject.containsKey('ContactApplication__c')){
-						appIdForBSP = (Id)contactRoleObject.get('ContactApplication__c');
+					if(contactRoleObject.containsKey(FIELD_CONTACTAPPLICATION)){
+						appIdForBSP = (Id)contactRoleObject.get(FIELD_CONTACTAPPLICATION);
 					}
-					if(mapAppState.containsKey('BSPCanViewAllConsignments__c')){
-						BSPCanViewAllConsignments = (Boolean) mapAppState.get('BSPCanViewAllConsignments__c');
+					if(mapAppState.containsKey(FIELD_BSPVIEWALLCONSIGNMENT)){
+						bSPCanViewAllConsignments = (Boolean) mapAppState.get(FIELD_BSPVIEWALLCONSIGNMENT);
 					}
 				}
 			}
