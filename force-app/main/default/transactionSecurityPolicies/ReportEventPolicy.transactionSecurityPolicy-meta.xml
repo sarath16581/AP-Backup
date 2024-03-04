@@ -7,7 +7,7 @@
         <notifications>
             <inApp>false</inApp>
             <sendEmail>true</sendEmail>
-            <user>naveen.rajanna@auspost.com.au</user>
+            <user>salessystemssupport@auspost.com.au</user>
         </notifications>
         <twoFactorAuthentication>false</twoFactorAuthentication>
     </action>
