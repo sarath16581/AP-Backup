@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Opportunity__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <description>The parent Opportunity of the Group Revenue Schedule record.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>The parent Opportunity of the Group Revenue Schedule record.</inlineHelpText>
+    <label>Opportunity</label>
+    <referenceTo>Opportunity</referenceTo>
+    <relationshipLabel>Grouped Revenue Schedules</relationshipLabel>
+    <relationshipName>Grouped_Revenue_Schedules</relationshipName>
+    <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

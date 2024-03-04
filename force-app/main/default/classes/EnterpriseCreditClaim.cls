@@ -7,6 +7,7 @@
  * 02-Dec-20					1.5				SaiSwetha Pingali		INC1699783 - Fix to address the issue raised after the activation of critical update 'Assign Records Created by Guest Users to a Default Owner'.  
  * 02-Jun-23					1.6				Pratyush Chalasani		Added getter for dispute reasons list
  * 24-Oct-23					1.7				Thang Nguyen			SB-213: Update the reason help text
+ * 20-Feb-24					1.8				Thang Nguyen			SB-272: Enable the redirect the new BSP credit claim form
 */
 public without sharing class EnterpriseCreditClaim {
 		public Id recordTypeId = Schema.SObjectType.Case.getRecordTypeInfosByName().get('Enterprise Credit Dispute Claim').getRecordTypeId();
@@ -29,7 +30,10 @@ public without sharing class EnterpriseCreditClaim {
 		public string response {get;set;} {response = null;}
 		public Boolean correctResponse {get;private set;} {correctResponse = false;}
 		public Boolean caseComplete {get;set;}
-				
+		public Credit_Claim_Setting__c redirectNewCreditFormSettings;
+		public Boolean enableRedirectNewCreditForm {get;set;}
+		public string redirectURLNewCreditForm {get;set;}
+		
 		public Case entCreditClaim{
 				get{
 						if(entCreditClaim==null){
@@ -77,6 +81,15 @@ public without sharing class EnterpriseCreditClaim {
 						objCCSetting = Credit_Claim_Setting__c.getValues('ReCaptcha');
 						dataSiteKey = objCCSetting.Data_Site_Key__c;
 						secretKey = objCCSetting.Secret_Key__c;
+						
+						//get the redirect new credit form url
+						redirectNewCreditFormSettings = Credit_Claim_Setting__c.getValues('RedirectNewCreditForm');
+						redirectURLNewCreditForm = redirectNewCreditFormSettings !=null ? redirectNewCreditFormSettings.Redirect_URL__c: '';
+						if (String.isEmpty(redirectURLNewCreditForm)){
+							enableRedirectNewCreditForm = false;
+						}else{
+							enableRedirectNewCreditForm = true;
+						}					
 				}  
 				this.lstDisputedItems = new list<DisputedItemWrapper>();
 				addRow();

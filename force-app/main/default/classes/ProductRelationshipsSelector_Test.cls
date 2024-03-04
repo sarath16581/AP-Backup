@@ -50,7 +50,7 @@ private class ProductRelationshipsSelector_Test {
 		// Data Preparation
 		// =====================================
 		MockUtility.disableTriggerExecution();
-List<Product2> productList = new List<Product2>();
+		List<Product2> productList = new List<Product2>();
 		Product2 parentProduct = OpptyLineItemTriggerHandler_TestUtil.getTestProduct('International Bundle', TRUE);
 		productList.add(parentProduct);
 
@@ -76,9 +76,11 @@ List<Product2> productList = new List<Product2>();
 		// =====================================
 		Test.startTest();
 
-		List<ProductRelationship__c>  results = ProductRelationshipsSelector.newInstance(1).selectByRelatedAndParent(productIdSet,productIdSet);
-			
+		List<ProductRelationship__c> results = ProductRelationshipsSelector.newInstance(1).selectByRelatedAndParent(productIdSet,productIdSet);
 		System.assertEquals(1, results.size(), 'Expected result size of 1');
+
+		List<ProductRelationship__c> results2 = ProductRelationshipsSelector.newInstance(1).selectByParent(productIdSet);
+		System.assertEquals(1, results2.size(), 'Expected result size of 1');
 		Test.stopTest();
 	}
 }

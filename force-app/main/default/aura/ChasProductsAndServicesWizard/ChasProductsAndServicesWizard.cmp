@@ -47,7 +47,7 @@
                              ,'stage': 'submit'
                              ,'attributes':
                              {'tiles': ['digital-id', 'safe-drop', 'extra-cover']
-                             ,'header': 'Thanks, we’ve received the details about product &amp; service enquiry'
+                             ,'header': 'Thanks, we’ve received the details about your product &amp; service enquiry'
                              ,'isUrgent': 'false'
                              }
                              }

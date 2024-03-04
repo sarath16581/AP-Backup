@@ -1,6 +1,7 @@
 <!--
 2020-05-27 - Nathan Franklin - Included the search billing account selector table and fixed some minor UI bugs
 2023-07-08 - Mahesh Parvathaneni - Updated the appState to include the billing accounts
+2024-02-16 - Jacob.Isaac@auspost.com.au - Added Consignment Searching option in Merchant Portal - REQ2982613
 -->
 <aura:component implements="flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId"
 				controller="BAMOnboardContactController"
@@ -297,6 +298,19 @@
 										/>
 									</div>
 								</div>
+								<div class="slds-m-top_medium"><b>Consignment Searching</b>
+											<lightning:input
+												aura:id="chkBoxSelAll"
+												disabled="false"
+												type="checkbox"
+												onchange="{!c.onChangeViewAllConsignment}"
+												value="All"
+												label="Allow access to search all consignments for this organisation"
+												checked="{!appState.BSPCanViewAllConsignments__c}"
+												>
+											</lightning:input>
+										</div>
+
 							</aura:if>
 						</lightning:accordionSection>
 					</aura:iteration>

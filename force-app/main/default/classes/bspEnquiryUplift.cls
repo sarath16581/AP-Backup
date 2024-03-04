@@ -16,6 +16,7 @@ TODO		^^ Refactor code to remove without sharing....Nathan Franklin - 2019-07
 29/09/2023	hasantha.liyanage@auspost.com.au SB-94 added Account Number type ahead dropdown and the other account number functionality
 05/10/2023	hasantha.liyanage@auspost.com.au SB-121 added extra fields for downlaod all
 23/10/2023	hasantha.liyanage@auspost.com.au added method buildReasonForClaimHelpText
+29/02/2024	thang.nguyen231@auspost.com.au fixed incident INC2312594
 **************************************************/
 public without sharing class bspEnquiryUplift {
 
@@ -926,7 +927,6 @@ public without sharing class bspEnquiryUplift {
 		queryWhere += (((String.isNotEmpty(queryWhere) || String.isNotEmpty(query)) && String.isNotEmpty(billingAccountSelected)) ? ' AND ' : '') + billingAccountSelected;
 		queryWhere += (String.isNotEmpty(queryWhere) || String.isNotEmpty(query) ? ' AND ' : '') + 'AccountId = \'' + bspBaseUplift.loginAccountId + '\'';
 		queryWhere += (String.isNotEmpty(queryWhere) || String.isNotEmpty(query) ? ' AND ' : '') + 'IsChildCase__c = false';
-		queryWhere += (String.isNotEmpty(queryWhere) || String.isNotEmpty(query) ? ' AND ' : '') + 'Origin = \'BSP\'';
 		return queryWhere;
 	}
 
@@ -939,22 +939,17 @@ public without sharing class bspEnquiryUplift {
 		String queryWhere = '';
 		switch on selectedEnquiryType {
 			when 'ST' {
-				queryWhere += ' ( ((RecordTypeId IN : stRecordTypes ) OR (Business_Unit__c = \'StarTrack\' AND RecordTypeId IN : creditClaimRecordTypes )) AND Enquiry_Type__c NOT IN :excludeCaseTypes AND call_purpose__c NOT IN :excludeCasePurpose )';
+				queryWhere += ' ( ((RecordTypeId IN : stRecordTypes ) OR (Business_Unit__c = \'StarTrack\' AND RecordTypeId IN : creditClaimRecordTypes AND Origin = \'BSP\')) AND Enquiry_Type__c NOT IN :excludeCaseTypes AND call_purpose__c NOT IN :excludeCasePurpose )';
 			}
 			when 'AP' {
-				queryWhere += ' ( Subject <> \'' + bspBaseUplift.excludeSubject + '\' AND ((RecordTypeId IN : apRecordTypes ) OR ( Business_Unit__c = \'Australia Post\' AND RecordTypeId IN : creditClaimRecordTypes)))';
+				queryWhere += ' ( Subject <> \'' + bspBaseUplift.excludeSubject + '\' AND ((RecordTypeId IN : apRecordTypes ) OR ( Business_Unit__c = \'Australia Post\' AND RecordTypeId IN : creditClaimRecordTypes AND Origin = \'BSP\')))';
 			}
 			when else {
-				queryWhere += ' ( ( ((RecordTypeId IN : stRecordTypes ) OR (Business_Unit__c = \'StarTrack\' AND RecordTypeId IN : creditClaimRecordTypes )) AND Enquiry_Type__c NOT IN :excludeCaseTypes AND call_purpose__c NOT IN :excludeCasePurpose )';
+				queryWhere += ' ( ( ((RecordTypeId IN : stRecordTypes ) OR (Business_Unit__c = \'StarTrack\' AND RecordTypeId IN : creditClaimRecordTypes AND Origin = \'BSP\')) AND Enquiry_Type__c NOT IN :excludeCaseTypes AND call_purpose__c NOT IN :excludeCasePurpose )';
 				queryWhere += ' OR ';
-				queryWhere += ' (Subject <> \'' + bspBaseUplift.excludeSubject + '\' AND ((RecordTypeId IN : apRecordTypes ) OR ( Business_Unit__c = \'Australia Post\' AND RecordTypeId IN : creditClaimRecordTypes)) ))';
+				queryWhere += ' (Subject <> \'' + bspBaseUplift.excludeSubject + '\' AND ((RecordTypeId IN : apRecordTypes ) OR ( Business_Unit__c = \'Australia Post\' AND RecordTypeId IN : creditClaimRecordTypes AND Origin = \'BSP\')) ))';
 			}
 		}
-	/*		queryWhere += selectedEnquiryType == 'ALL' ? ' ( ' : '';
-		queryWhere += (selectedEnquiryType == 'ST' || selectedEnquiryType == 'ALL') ? ' ( ((RecordTypeId IN : stRecordTypes ) OR (Business_Unit__c = \'StarTrack\' AND RecordTypeId IN : creditClaimRecordTypes )) AND Enquiry_Type__c NOT IN :excludeCaseTypes AND call_purpose__c NOT IN :excludeCasePurpose )' : '';
-		queryWhere += selectedEnquiryType == 'ALL' ? ' OR ' : '';
-		queryWhere += (selectedEnquiryType == 'AP' || selectedEnquiryType == 'ALL') ? ' ( Subject <> \'' + bspBaseUplift.excludeSubject + '\' AND ((RecordTypeId IN : apRecordTypes ) OR ( Business_Unit__c = \'Australia Post\' AND RecordTypeId IN : creditClaimRecordTypes)))' : '';
-		queryWhere += selectedEnquiryType == 'ALL' ? ' )' : '';*/
 
 		return queryWhere;
 	}

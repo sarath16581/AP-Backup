@@ -2722,7 +2722,7 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>true</editable>
+        <editable>false</editable>
         <field>Opportunity.Pre_Entry__c</field>
         <readable>true</readable>
     </fieldPermissions>

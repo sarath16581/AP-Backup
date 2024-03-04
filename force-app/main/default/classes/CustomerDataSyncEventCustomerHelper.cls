@@ -282,6 +282,14 @@ public inherited sharing class CustomerDataSyncEventCustomerHelper {
 	//map the fields from Person Account
 	private Account mapPersonAccountFields(CustomerDataSync__e e) {
 		Account acc = new Account();
+		// when a record gets archived in SAP crm, we only receive the date. In order to avoid overwriting fields with null values, we're only going to update the archived date time as this record is going to be deleted anyway, as part of the account offboarding process
+		if (e.archivedDateTime__c != null) {
+			acc.APCN__pc = e.apcn__c;
+			acc.APCN__c = e.apcn__c;
+			acc.ArchivedDateTime__pc = e.archivedDateTime__c;
+			return acc;
+		}
+
 		acc.APCN__pc = e.apcn__c;
 		acc.APCN__c = e.apcn__c;
 		acc.OID_ID__pc = e.OIDID__c;

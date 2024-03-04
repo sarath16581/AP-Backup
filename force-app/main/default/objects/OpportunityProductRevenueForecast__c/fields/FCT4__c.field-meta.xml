@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>FCT4__c</fullName>
+    <description>This field captures the revenue forecast for the month of April as a percentage of the product line item total.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Enter the revenue forecast for April as a percentage of the product line item total.</inlineHelpText>
+    <label>April Forecast</label>
+    <precision>3</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <securityClassification>INTERNAL</securityClassification>
+    <trackTrending>false</trackTrending>
+    <type>Percent</type>
+</CustomField>

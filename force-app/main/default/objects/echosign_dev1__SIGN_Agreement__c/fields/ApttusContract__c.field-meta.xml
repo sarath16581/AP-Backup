@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>ApttusContract__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <description>Lookup to an Apttus Contract</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Lookup to an Apttus Contract</inlineHelpText>
+    <label>Apttus Contract</label>
+    <referenceTo>Apttus__APTS_Agreement__c</referenceTo>
+    <relationshipLabel>Adobe Sign Envelopes</relationshipLabel>
+    <relationshipName>AdobeSignEnvelopes</relationshipName>
+    <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>
