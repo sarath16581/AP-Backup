@@ -1647,11 +1647,12 @@ toBeCreateCase.ReferenceID__c=trackingNumber;
             //-- change made for roll out of delivery issues network assignment automation
             String wcid = (String) wizardData.get('latestDeliveredScanWcid');
             String isEligibleForMyNetworkAssignment = (String) wizardData.get('isEligibleForNetworkAssignmentDeliveryIssue');
+            toBeCreateCase.Description = 'Issue details : '+ issueDetailsType + '\n';
             if(isEligibleForMyNetworkAssignment == 'true')
             {
                 //-- set the value for isEligibleForMyNetworkAssignment to the case field
                 setDirectRoutingValues(toBeCreateCase, RoutingBypass.NETWORK, wcid);
-                toBeCreateCase.Description = 'Issue details : '+ issueDetailsType + '\n';
+                //toBeCreateCase.Description = 'Issue details : '+ issueDetailsType + '\n';
                 toBeCreateCase.Description = toBeCreateCase.Description + 'Which items are you having issues with : '+ parcelOrLetter + '\n';
                 if(issueDetails != null)
                 {
@@ -1661,13 +1662,13 @@ toBeCreateCase.ReferenceID__c=trackingNumber;
                 {
                     toBeCreateCase.Description = toBeCreateCase.Description + Label.HS_Issue_Details_Warning +'\n\n'+ issueDescription + '\n\n';
                 }
-				 // REQ3414153 Updated Description for Incorrect delivery issue
-				 if(issueDetailsType == 'Incorrect delivery address needs fixing')
-                {
-					toBeCreateCase.Description = toBeCreateCase.Description + '\n' +'Incorrect delivery address : '+inCorrectAddress + '\n' +'Correct delivery address : '+correctAddress;
-                }
+                // REQ3414153 Updated Description for Incorrect delivery issue
 
             }
+             if(issueDetailsType == 'Incorrect delivery address needs fixing')
+                {
+					toBeCreateCase.Description = toBeCreateCase.Description + '\n' +'Incorrect delivery address : '+inCorrectAddress + '\n' +'Correct delivery address : '+correctAddress +'\n\n' ;
+                }
              //REQ2361513 -- Modified by Paul Swarnapandian
                 if((issueDetailsType == 'Item was left in an unsafe place' || issueDetailsType == 'Postie didn\'t knock') && isEligibleForMyNetworkAssignment == 'true'){
                     commentBody = commentBody + '\n' + 'Is eligible for network assignment : ' + 'Yes';

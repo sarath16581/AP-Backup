@@ -1,0 +1,6 @@
+<aura:component controller="AdobeSignCustomController" implements="lightning:isUrlAddressable" description="c:adobeSignCancelAgreement component">
+	<aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+	<aura:attribute name="masterId" type="String" />
+	<lightning:formattedText value="Cancelling Adobe Sign Envelope..." />
+	<lightning:spinner class="spins" size="large" variant="brand" alternativeText="Loading" />
+</aura:component>

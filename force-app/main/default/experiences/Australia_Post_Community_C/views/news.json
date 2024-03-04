@@ -1,0 +1,60 @@
+{
+  "appPageId" : "f75d9d97-cb1b-4c52-a72d-ef857a71439a",
+  "componentName" : "c:CommunityInnerNewsPageLayout",
+  "dataProviders" : [ ],
+  "id" : "049d37bb-6615-4bf9-89f4-0022477725ba",
+  "label" : "News",
+  "regions" : [ {
+    "components" : [ {
+      "componentAttributes" : {
+        "richTextValue" : "<div class=\"header-featured-block1\">\n\t<div class=\"header-featured-block1-padding\" style=\"padding-left: 10px\">    \n<h1>News</h1> \n<br><p>Get the latest information, stories and insights designed to help and inspire the Community.\n        </p>\n    </div>\n</div>"
+      },
+      "componentName" : "forceCommunity:htmlBlock",
+      "id" : "1815c661-3124-4847-8957-ad438242bae9",
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "61455e33-00bd-49fb-a2fc-309b713398cc",
+    "regionName" : "ContentHeaderBlock1",
+    "type" : "region"
+  }, {
+    "id" : "bba419dd-6c6a-4f43-99da-9884a9a8c233",
+    "regionName" : "ContentHeaderBlock2",
+    "type" : "region"
+  }, {
+    "id" : "2fce27b5-8843-456e-825d-a36b16fa20c9",
+    "regionName" : "ContentBlock1",
+    "type" : "region"
+  }, {
+    "id" : "beb0d5b3-540c-4143-b605-cc9ad50cdf5e",
+    "regionName" : "ContentBlock2",
+    "type" : "region"
+  }, {
+    "id" : "f9bacc9d-45f1-43fc-83b2-03d2ce8004ef",
+    "regionName" : "ContentBlock3",
+    "type" : "region"
+  }, {
+    "id" : "c3202d95-e7d5-4d6c-b99b-7e7ad7a2a87a",
+    "regionName" : "ContentFooter",
+    "type" : "region"
+  }, {
+    "components" : [ {
+      "componentAttributes" : {
+        "customHeadTags" : "",
+        "description" : "Get the latest information, stories and insights we’ve shared to help and inspire the Community.",
+        "title" : "News"
+      },
+      "componentName" : "forceCommunity:seoAssistant",
+      "id" : "90e6abeb-f271-4c93-8a31-ecf47b5a7b25",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "c52d67f6-c109-4df8-9985-6d971df6d8b6",
+    "regionName" : "sfdcHiddenRegion",
+    "type" : "region"
+  } ],
+  "themeLayoutType" : "Inner",
+  "type" : "view",
+  "viewType" : "custom-stories"
+}

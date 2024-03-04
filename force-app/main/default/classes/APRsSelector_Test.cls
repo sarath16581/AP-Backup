@@ -81,9 +81,9 @@ public with sharing class APRsSelector_Test {
 	}
 
 	/**
-  	* Test:
-  	*  Ensures that the selectors QueryBuilder is generating the correct output with related fields
-  	*/
+     * Test:
+     *  Ensures that the selectors QueryBuilder is generating the correct output with related fields
+     */
 	@IsTest
 	public static void testEnsureQueryBuilderProducesCorrectStringWithRelatedFields() {
 
@@ -155,8 +155,14 @@ public with sharing class APRsSelector_Test {
 		List<APR__c> queryResults = APRsSelector.newInstance().selectByAccount(accountIds, new Set<Object>{
 				APRsSelector.Options.WITH_ORGANISATION
 		});
-
 		System.assertEquals(1, queryResults.size(), 'Expected to return only the APRs related to the supplied account');
 		System.assertEquals(aprs[0].Id, queryResults[0].Id, 'Expected to return only the APRs related to the supplied account');
+
+
+		queryResults = APRsSelector.newInstance().selectByAccount(new Set<Id>(), new Set<Object>{
+			APRsSelector.Options.WITH_ORGANISATION
+		});
+		System.assertEquals(2, queryResults.size(), 'Expected to return APRs related to any account when account id is not specified');
+		Test.stopTest();
 	}
 }

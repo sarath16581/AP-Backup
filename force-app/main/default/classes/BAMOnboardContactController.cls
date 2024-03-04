@@ -3,7 +3,7 @@
  * Methods to support the sending of the provisioning request from Salesforce to Camunda
  * Inputs: ContactId
  * Output: Map with up to two payload strings - one for Provision, another for Deprovision
- *
+ * @Test : BAMOnboardContactController_Test
  * @author Victor Cheng
  * @date 2019-06-27
  * @group Merchant Portal
@@ -31,6 +31,9 @@ public without sharing class BAMOnboardContactController {
     };
     public static String FIELD_APPLICATION_ROLE = 'ApplicationRole__c';
     public static String FIELD_APPLICATION = 'Application__c';
+	public static String FIELD_CONTACTROLE = 'ContactRole__c';
+	public static String FIELD_CONTACTAPPLICATION = 'ContactApplication__c';
+	public static String FIELD_BSPVIEWALLCONSIGNMENT = 'BSPCanViewAllConsignments__c';
 
 
     public static String FIELD_ID = 'Id';
@@ -254,6 +257,8 @@ public without sharing class BAMOnboardContactController {
     public static Map<String, Object> saveProvisionRequests(Id contactId, List<Map<String, Object>> pageState, Id primaryBillingAccount) {
 
         UserRecordAccess contactAccess = getRecordAccess(contactId);
+		//system.debug('pageState');
+		//system.debug(JSON.serialize(pageState));
 
 //        if(contactAccess.HasEditAccess == false)
 //        {
@@ -269,7 +274,10 @@ public without sharing class BAMOnboardContactController {
         ];
         Id orgId = contactRecord.AccountId;
         Boolean userExists = doesUserExist(contactId);
-		Boolean BSPCanViewAllConsignments = false;
+		Boolean bSPCanViewAllConsignments = false;
+		Boolean isBSP = false;
+		Id appIdForBSP;
+		Map<Object,Object> contactRoleObject = new Map<Object,Object>();
 
         // loop through the updates for each application
         List<Id> upsertApplicationIds = new List<Id>();
@@ -280,11 +288,21 @@ public without sharing class BAMOnboardContactController {
         List<Map<Object, Object>> deleteApplicationRoles = new List<Map<Object, Object>>();
 
         for (Map<String, Object> mapAppState : pageState) {
-            //System.debug('app :: ' + mapAppState);
-            Id appId = (Id) mapAppState.get(FIELD_ID);
-			if(mapAppState.containsKey('BSPCanViewAllConsignments__c')){
-				BSPCanViewAllConsignments = (Boolean) mapAppState.get('BSPCanViewAllConsignments__c');
+			if(mapAppState.containsKey('isBSP')){
+			 	//appIdForBSP=(Id) mapAppState.get(FIELD_ID);
+				 contactRoleObject = (Map<Object,Object>)mapAppState.get(FIELD_CONTACTROLE);
+				 //system.debug(JSON.serialize(contactRoleObject));
+				 if(contactRoleObject!= null){
+					if(contactRoleObject.containsKey(FIELD_CONTACTAPPLICATION)){
+						appIdForBSP = (Id)contactRoleObject.get(FIELD_CONTACTAPPLICATION);
+					}
+					if(mapAppState.containsKey(FIELD_BSPVIEWALLCONSIGNMENT)){
+						bSPCanViewAllConsignments = (Boolean) mapAppState.get(FIELD_BSPVIEWALLCONSIGNMENT);
+					}
+				}
 			}
+            Id appId = (Id) mapAppState.get(FIELD_ID);
+			
             // Contact Roles to upsert for this application
             List<Object> upserts = (List<Object>) mapAppState.get(FIELD_UPSERT);
             //System.debug('upsert ---- ' + upserts);
@@ -353,7 +371,7 @@ public without sharing class BAMOnboardContactController {
             }
 
             // upsert by hierarchy
-            upsertContactApplications(contactId, upsertApplicationIds,BSPCanViewAllConsignments);
+            upsertContactApplications(contactId, upsertApplicationIds,BSPCanViewAllConsignments,appIdForBSP);
             upsertContactRoles(contactId, upsertApplicationRoles);
             upsertLinkedEntities(contactId, upsertApplicationRoles);
 
@@ -905,10 +923,16 @@ public without sharing class BAMOnboardContactController {
         return null;
     }
 
-    private static void upsertContactApplications(Id contactId, List<Id> applicationIds,Boolean BSPCanViewAllConsignments)
+    private static void upsertContactApplications(Id contactId, List<Id> applicationIds,Boolean BSPCanViewAllConsignments,Id appIdForBSP)
     {
         System.debug('Application Ids = ' + applicationIds);
 
+		if(appIdForBSP != null){
+			BAMContactApplication__c contactApplication = new BAMContactApplication__c();
+			contactApplication.Id = appIdForBSP;
+			contactApplication.BSPCanViewAllConsignments__c = BSPCanViewAllConsignments;
+			update contactApplication;
+		}
         // get all the existing Contact Applications
         List<BAMContactApplication__c> existingContactApplications = [
                 SELECT Id, Application__c

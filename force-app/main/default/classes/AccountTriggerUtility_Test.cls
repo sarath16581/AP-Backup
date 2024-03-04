@@ -490,6 +490,29 @@ private class AccountTriggerUtility_Test {
         update bacct;
         System.assertEquals('test',[select Id,Preferred_Name__pc from Account where Id =:bacct.Id].Preferred_Name__pc);
     }
+
+	@IsTest
+    public static void testLockVerifiedDataTest3_verifyPersonNames(){
+        Account personAccount = ApplicationTestDataFactory.getPersonAccounts(1, false)[0];
+        insert personAccount;
+        
+        LOA_Settings__c Loa = new LOA_Settings__c(Name = 'Email',LOA_Value__c = 2.3 , Locked_Field_API__c='LegalLastName__pc');
+        insert Loa;
+        
+        runTriggerMethods();
+        Test.startTest();
+        personAccount.Preferred_Name__pc = 'test';
+        personAccount.FirstName = 'testFirstName';
+        personAccount.LastName = 'testLastName';
+        personAccount.PersonEmail = 'testnewone@test.com';
+        update personAccount;
+		Test.stopTest();
+
+		Account resultAccount = [select Id,FirstName, LastName, Preferred_Name__pc from Account where Id =:personAccount.Id];
+        System.assertEquals('testFirstName', resultAccount.FirstName, 'First name did not update correctly.');
+        System.assertEquals('test', resultAccount.Preferred_Name__pc, 'Preferred name did not update correctly.');
+        System.assertEquals('testLastName', resultAccount.LastName, 'Last name did not update correctly.');
+    }
     
     /**
       * @description       test Method for testing generation of conveyancer number

@@ -1,0 +1,143 @@
+{
+  "activeBrandingSetId" : "8b2469e0-ab13-40a9-99c4-96944b0794c9",
+  "customCSS" : "/* RSolomon 16th Mar 2020 - New fonts included as defined in the 2019 brand refresh */\n@font-face {\n\tfont-family: 'APTypeText';\n\tfont-style: normal;\n  \tfont-weight: normal;\n  \tsrc: url(\"/resource/cpApType/AP-Type/APType-Text/Web/APTypeText-Regular-102401.woff2\") format(\"woff2\"), \n    url(\"/resource/cpApType/AP-Type/APType-Text/Web/APTypeText-Regular-102401.woff\") format(\"woff\");\n   }\n\n@font-face {\n  \tfont-family: 'APTypeText';\n    font-style: italic;\n\tfont-weight: normal;\n  \tsrc: url(\"/resource/cpApType/AP-Type/APType-Text/Web/APTypeText-RegularItalic102401.woff2\") format(\"woff2\"), \n    url(\"/resource/cpApType/AP-Type/APType-Text/Web/APTypeText-RegularItalic102401.woff\") format(\"woff\");\n   }\n\n@font-face {\n  \tfont-family: 'APTypeText';\n    font-style: normal;\n    font-weight: bold;\n  \tsrc: url(\"/resource/cpApType/AP-Type/APType-Text/Web/APTypeText-Bold-102401.woff2\") format(\"woff2\"), \n    url(\"/resource/cpApType/AP-Type/APType-Text/Web/APTypeText-Bold-102401.woff\") format(\"woff\");\n   }\n\n@font-face {\n  \tfont-family: 'APTypeText';\n    font-style: italic;\n    font-weight: bold;\n  \tsrc: url(\"/resource/cpApType/AP-Type/APType-Text/Web/APTypeText-BoldItalic-102401.woff2\") format(\"woff2\"), \n    url(\"/resource/cpApType/AP-Type/APType-Text/Web/APTypeText-BoldItalic-102401.woff\") format(\"woff\");\n   }\n\n@font-face {\n  \tfont-family: 'APTypeText';\n    font-style: normal;\n    font-weight: 300;\n  \tsrc: url(\"/resource/cpApType/AP-Type/APType-Text/Web/APTypeText-Light-102401.woff2\") format(\"woff2\"), \n    url(\"/resource/cpApType/AP-Type/APType-Text/Web/APTypeText-Light-102401.woff\") format(\"woff\");\n   }\n\n@font-face {\n  \tfont-family: 'APTypeText';\n    font-style: italic;\n    font-weight: 300;\n  \tsrc: url(\"/resource/cpApType/AP-Type/APType-Text/Web/APTypeText-LightItalic-102401.woff2\") format(\"woff2\"), \n    url(\"/resource/cpApType/AP-Type/APType-Text/Web/APTypeText-LightItalic-102401.woff\") format(\"woff\");\n  \t }\n\n@font-face {\n  \tfont-family: 'APTypeText';\n    font-style: normal;\n    font-weight: 500;\n  \tsrc: url(\"/resource/cpApType/AP-Type/APType-Text/Web/APTypeText-Medium-102401.woff2\") format(\"woff2\"), \n    url(\"/resource/cpApType/AP-Type/APType-Text/Web/APTypeText-Medium-102401.woff\") format(\"woff\");\n  \t }\n\n@font-face {\n  \tfont-family: 'APTypeText';\n    font-style: italic;\n    font-weight: 500;\n  \tsrc: url(\"/resource/cpApType/AP-Type/APType-Text/Web/APTypeText-MediumItalic-102401.woff2\") format(\"woff2\"), \n    url(\"/resource/cpApType/AP-Type/APType-Text/Web/APTypeText-MediumtItalic-102401.woff\") format(\"woff\");\n\t}\n\n@font-face {\n  \tfont-family: 'APTypeDisplay';\n    font-style: normal;\n    font-weight: normal;\n  \tsrc: url(\"/resource/cpApType/AP-Type/APType-Display/Web/APTypeDisplay-Regular-102401.woff2\") format(\"woff2\"), \n    url(\"/resource/cpApType/AP-Type/APType-Display/Web/APTypeDisplay-Regular-102401.woff\") format(\"woff\"); \t\n  \t }\n\n@font-face {\n  \tfont-family: 'APTypeDisplay';\n    font-style: italic;\n    font-weight: normal;\n  \tsrc: url(\"/resource/cpApType/AP-Type/APType-Display/Web/APTypeDisplay-RegularItalic-102401.woff2\") format(\"woff2\"), \n    url(\"/resource/cpApType/AP-Type/APType-Display/Web/APTypeDisplay-RegularItalic-102401.woff\") format(\"woff\");\n   }\n\n@font-face {\n  \tfont-family: 'APTypeDisplay';\n    font-style: normal; \n    font-weight: bold;\n  \tsrc: url(\"/resource/cpApType/AP-Type/APType-Display/Web/APTypeDisplay-Bold-102401.woff2\") format(\"woff2\"), \n    url(\"/resource/cpApType/AP-Type/APType-Display/Web/APTypeDisplay-Bold-102401.woff\") format(\"woff\");\n  \t}\n\n@font-face {\n  \tfont-family: 'APTypeDisplay';\n    font-style: italic;\n    font-weight: bold;\n  \tsrc: url(\"/resource/cpApType/AP-Type/APType-Display/Web/APTypeDisplay-BoldItalic-102401.woff2\") format(\"woff2\"), \n    url(\"/resource/cpApType/AP-Type/APType-Display/Web/APTypeDisplay-BoldItalic-102401.woff\") format(\"woff\"); \t\n  \t }\n\n@font-face {\n  \tfont-family: 'APTypeDisplay';\n    font-style: normal;\n    font-weight: 300;\n  \tsrc: url(\"/resource/cpApType/AP-Type/APType-Display/Web/APTypeDisplay-Light-102401.woff2\") format(\"woff2\"), \n    url(\"/resource/cpApType/AP-Type/APType-Display/Web/APTypeDisplay-Light-102401.woff\") format(\"woff\");\n  \t }\n\n@font-face {\n  \tfont-family: 'APTypeDisplay';\n    font-style: italic;\n    font-weight: 300;\n  \tsrc: url(\"/resource/cpApType/AP-Type/APType-Display/Web/APTypeDisplay-LightItalic-102401.woff2\") format(\"woff2\"), \n    url(\"/resource/cpApType/AP-Type/APType-Display/Web/APTypeDisplay-LightItalic-102401.woff\") format(\"woff\");\n  \t }\n\n@font-face {\n  \tfont-family: 'APTypeDisplay';\n    font-style: normal;\n    font-weight: 500;\n  \tsrc: url(\"/resource/cpApType/AP-Type/APType-Display/Web/APTypeDisplay-Medium-102401.woff2\") format(\"woff2\"), \n    url(\"/resource/cpApType/AP-Type/APType-Display/Web/APTypeDisplay-Medium-102401.woff\") format(\"woff\");\n  \t}\n\n@font-face {\n  \tfont-family: 'APTypeDisplay';\n    font-style: italic;\n    font-weight: 500;\n  \tsrc: url(\"/resource/cpApType/AP-Type/APType-Display/Web/APTypeDisplay-MediumItalic-102401.woff2\") format(\"woff2\"), \n    url(\"/resource/cpApType/AP-Type/APType-Display/Web/APTypeDisplay-MediumtItalic-102401.woff\") format(\"woff\");\n   }\n\nh1, h2, h3, h4, h5, h6, b, strong {\n  font-family: 'APTypeDisplay', 'APTypeText', helvetica, arial, sans-serif;\n  font-weight: bold; }\nh1, h2, h3, h4, h5, h6 {\n  font-weight: 500; }\nh1 { font-size: 1.5rem; line-height: 2rem; }\nh2 { font-size: 1.25rem; line-height: 1.5rem; }\nh3 { font-size: 1.125rem; line-height: 1.5rem; }\n\nbody {\n  overflow-x: hidden;\n}\n.forceOutputLookupWithPreview a.textUnderline:hover{\n    color: #008575;\n}\n\n/* Workaround since Log in option had to be hidden. To be fixed by making the necessary change on the Home and Inner theme components where the User Profile Menu is rendered */\n.selfServiceUserProfileMenu {\n   display: none;\n}",
+  "developerName" : "service",
+  "id" : "29aa498a-211e-4c2f-adc2-6189eb4ffbd5",
+  "label" : "Napili",
+  "layouts" : {
+    "Inner" : "d87993a7-7fcb-474e-8d9c-2b5033846f11",
+    "Login" : "fac46daf-0aa8-4d97-9b8a-db4bc688869b",
+    "ServiceNotAvailable" : "640c62cc-0f78-458c-ba52-2163fe82e7ca"
+  },
+  "type" : "theme",
+  "views" : [ {
+    "componentAttributes" : { },
+    "componentName" : "salesforceIdentity:loginBody2",
+    "id" : "fac46daf-0aa8-4d97-9b8a-db4bc688869b",
+    "label" : "Login",
+    "regions" : [ {
+      "id" : "05701c2c-60ed-44f2-9023-d1274e2c9fca",
+      "regionName" : "header",
+      "type" : "region"
+    }, {
+      "id" : "68136c8c-45d6-4c0b-926c-9952e4227a01",
+      "regionName" : "content",
+      "type" : "region"
+    }, {
+      "id" : "abe0f9fd-40c2-4bca-8b5f-b18b6f1dce72",
+      "regionName" : "footer",
+      "type" : "region"
+    } ],
+    "type" : "view"
+  }, {
+    "componentAttributes" : {
+      "IsDefaultHeaderHidden" : false
+    },
+    "componentName" : "siteforce:serviceBody",
+    "id" : "d87993a7-7fcb-474e-8d9c-2b5033846f11",
+    "label" : "Default",
+    "regions" : [ {
+      "id" : "635bd929-f548-440a-856b-9dbdd67d760c",
+      "regionName" : "customHeader",
+      "type" : "region"
+    }, {
+      "components" : [ {
+        "componentAttributes" : {
+          "contineActionLabel" : "Ask the community",
+          "continueLabel" : "Don’t see it?",
+          "crossObjectTypeaheadApiNames" : [ {
+            "isPublic" : true,
+            "name" : "FeedItem"
+          }, {
+            "isPublic" : true,
+            "name" : "KnowledgeArticleVersion"
+          } ],
+          "enableAutocomplete" : true,
+          "maxNumberOfResults" : 6,
+          "placeholder" : "\\Search",
+          "questionResultsFirst" : false,
+          "showContinueAction" : true,
+          "signInActionLabel" : "Sign in to ask the community"
+        },
+        "componentName" : "forceCommunity:searchBox",
+        "id" : "be4d3482-276b-4168-849b-126d6ee8f334",
+        "renditionMap" : { },
+        "type" : "component"
+      } ],
+      "id" : "8baf0278-fbaf-4694-804f-28e5a61c66da",
+      "regionName" : "search",
+      "type" : "region"
+    }, {
+      "components" : [ {
+        "componentAttributes" : {
+          "communityBuilderLabel" : "Community Builder",
+          "communitySetupLabel" : "Community Setup",
+          "contactSupportLabel" : "Contact Support",
+          "filterName" : "MyCases",
+          "homeLabel" : "Home",
+          "includeContactSupport" : true,
+          "includeMessages" : false,
+          "loginLabel" : "Login",
+          "logoutLabel" : "Logout",
+          "myAccountLabel" : "My Account",
+          "showUserSettings" : true,
+          "userSettingsLabel" : "My Settings",
+          "viewProfileLabel" : "My Profile"
+        },
+        "componentName" : "selfService:userProfileMenu",
+        "id" : "32136905-ad77-4e77-9eec-6dd2964b3f6d",
+        "renditionMap" : { },
+        "type" : "component"
+      } ],
+      "id" : "0f6984d5-0781-49af-80ef-9a9f7d225304",
+      "regionName" : "profileMenu",
+      "type" : "region"
+    }, {
+      "components" : [ {
+        "componentAttributes" : {
+          "NavigationMenuEditorRefresh" : "",
+          "hideHomeText" : true
+        },
+        "componentName" : "forceCommunity:globalNavigation",
+        "id" : "2da2b260-fe86-4b6e-92a4-981a07294786",
+        "renditionMap" : { },
+        "type" : "component"
+      } ],
+      "id" : "89704ec8-e8d3-4f21-90bc-204327916c81",
+      "regionName" : "navBar",
+      "type" : "region"
+    }, {
+      "id" : "3c9bf0e7-ad28-461f-b46b-3832f9303622",
+      "regionName" : "customRegion",
+      "type" : "region"
+    }, {
+      "id" : "54eb5fec-c3a1-4510-92b7-19c214de6f3a",
+      "regionName" : "footer",
+      "type" : "region"
+    } ],
+    "type" : "view"
+  }, {
+    "componentAttributes" : {
+      "fixedPageWidth" : 1170,
+      "headerBgColor" : "rgba(0, 0, 0, 0)",
+      "isHeaderPinned" : false,
+      "isHeroUnderHeader" : false,
+      "isPageWidthFixed" : true,
+      "showHeader" : true,
+      "showHero" : true
+    },
+    "componentName" : "siteforce:themeLayoutStarter",
+    "id" : "640c62cc-0f78-458c-ba52-2163fe82e7ca",
+    "label" : "ServiceNotAvailable",
+    "regions" : [ {
+      "id" : "3b3e378e-1475-4490-be0a-db60d331c473",
+      "regionName" : "themeHeader",
+      "type" : "region"
+    }, {
+      "id" : "58dbebf0-dab5-4c2f-a9a1-2def387a7dfc",
+      "regionName" : "themeFooter",
+      "type" : "region"
+    } ],
+    "type" : "view"
+  } ]
+}

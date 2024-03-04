@@ -1,0 +1,68 @@
+{
+  "appPageId" : "f75d9d97-cb1b-4c52-a72d-ef857a71439a",
+  "componentName" : "c:CommunityInnerPageLayout",
+  "dataProviders" : [ ],
+  "id" : "52ef64ce-8bfd-4ac4-a48e-21a896e14e5d",
+  "label" : "Ideas Unsubscribe",
+  "regions" : [ {
+    "id" : "c09280ea-10a8-4e58-bbe1-7edf0797d105",
+    "regionName" : "header",
+    "type" : "region"
+  }, {
+    "components" : [ {
+      "componentAttributes" : { },
+      "componentName" : "c:brideas_Unsubscribe",
+      "id" : "05600036-df3b-4564-9761-edbf0d90a759",
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "cf1e803d-d1b1-4a8d-a90c-99fe85bda8a5",
+    "regionName" : "Content",
+    "type" : "region"
+  }, {
+    "id" : "6dec9358-7182-4e6f-a6e1-9a04cbdabf7f",
+    "regionName" : "footer",
+    "type" : "region"
+  }, {
+    "components" : [ {
+      "componentAttributes" : {
+        "customHeadTags" : "",
+        "description" : "",
+        "title" : "Ideas Unsubscribe"
+      },
+      "componentName" : "forceCommunity:seoAssistant",
+      "id" : "32444995-b0f8-4295-aa83-f4bcd9ac98b5",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "2ad40571-0e08-4056-9be6-1041fb62caf6",
+    "regionName" : "sfdcHiddenRegion",
+    "type" : "region"
+  }, {
+    "id" : "f455e7bd-55bf-4d84-a5b3-b34e0da97bbe",
+    "regionName" : "ContentHeaderBlock1",
+    "type" : "region"
+  }, {
+    "id" : "ec401fbb-79aa-4910-8ebf-f7222c659fa4",
+    "regionName" : "ContentHeaderBlock2",
+    "type" : "region"
+  }, {
+    "components" : [ {
+      "componentAttributes" : {
+        "pageName" : "IdeasUnsubscribe"
+      },
+      "componentName" : "c:cpAdobeAnalyticsPageView",
+      "id" : "ccd8aa47-92d9-41f3-9316-45440e64edb2",
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "32245da2-de87-4a85-9cd8-96d5b46a0299",
+    "regionName" : "ContentFooter",
+    "type" : "region"
+  } ],
+  "themeLayoutType" : "Inner",
+  "type" : "view",
+  "viewType" : "custom-ideas-unsubscribe"
+}

@@ -1,0 +1,38 @@
+{
+  "appPageId" : "f75d9d97-cb1b-4c52-a72d-ef857a71439a",
+  "componentName" : "siteforce:sldsOneColLayout",
+  "dataProviders" : [ ],
+  "id" : "09c61241-b3b1-483e-ba46-d20c55de353e",
+  "label" : "storiesNew",
+  "regions" : [ {
+    "id" : "e41ec1ac-8965-42e6-9c02-636b3719fe9d",
+    "regionName" : "header",
+    "type" : "region"
+  }, {
+    "id" : "c8806063-d33d-476a-8f2a-b5d1733ca7d0",
+    "regionName" : "content",
+    "type" : "region"
+  }, {
+    "id" : "5bd47b53-62ae-47b7-9868-8c8d09b3e297",
+    "regionName" : "footer",
+    "type" : "region"
+  }, {
+    "components" : [ {
+      "componentAttributes" : {
+        "customHeadTags" : "",
+        "description" : "",
+        "title" : "Stories"
+      },
+      "componentName" : "forceCommunity:seoAssistant",
+      "id" : "0cfbbf8f-9365-4fcc-9d7f-8499e8e4ed38",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "3b4405ac-00ac-4cd2-81dd-60caabe81dd6",
+    "regionName" : "sfdcHiddenRegion",
+    "type" : "region"
+  } ],
+  "themeLayoutType" : "Inner",
+  "type" : "view",
+  "viewType" : "custom-stories-1"
+}
