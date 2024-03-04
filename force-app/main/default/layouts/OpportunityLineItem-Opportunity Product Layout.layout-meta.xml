@@ -54,6 +54,18 @@
                 <behavior>Edit</behavior>
                 <field>OPCOverride__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>IncrementalRevenue__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>RetainedRevenue__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>TweleveMonthRevenue__c</field>
+            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>
@@ -177,6 +189,18 @@
     <multilineLayoutFields>TotalPrice</multilineLayoutFields>
     <multilineLayoutFields>Contract_Product__c</multilineLayoutFields>
     <multilineLayoutFields>Contract_Number__c</multilineLayoutFields>
+    <relatedLists>
+        <fields>NAME</fields>
+        <relatedList>OpportunityProductRevenueForecast__c.OpportunityProduct__c</relatedList>
+    </relatedLists>
+    <relatedLists>
+        <fields>NAME</fields>
+        <fields>Year__c</fields>
+        <fields>TotalForecast__c</fields>
+        <fields>TotalRetained__c</fields>
+        <fields>TotalIncremental__c</fields>
+        <relatedList>GroupedRevenueSchedule__c.OpportunityProduct__c</relatedList>
+    </relatedLists>
     <showEmailCheckbox>false</showEmailCheckbox>
     <showRunAssignmentRulesCheckbox>false</showRunAssignmentRulesCheckbox>
     <showSubmitAndAttachButton>false</showSubmitAndAttachButton>
