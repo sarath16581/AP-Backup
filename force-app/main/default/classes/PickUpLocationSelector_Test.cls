@@ -121,11 +121,11 @@ public with sharing class PickUpLocationSelector_Test{
         System.assertEquals(1, results.size(), 'Result count was wrong');
 
         results = selector.selectById(new Set<Id>{pickUpLoc.id}, new Set<Object>{PickUpLocationSelector.Options.FILTER_PRIMARY_PICKUP_LOCATION});
-         System.assertEquals(1, results.size(), 'Result count was wrong');
-        
+        System.assertEquals(1, results.size(), 'Result count was wrong');
 
+        List<Pick_Up_Location__c> resultList = selector.selectByParentId(new Set<Id>{CSQ.Id}, new Set<Object>{PickUpLocationSelector.Options.FILTER_PRIMARY_PICKUP_LOCATION});
+        System.assertEquals(1, resultList.size(), 'Result count was wrong');
         Test.stopTest();
-
     }
     
       /**

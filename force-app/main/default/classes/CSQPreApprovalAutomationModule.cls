@@ -13,6 +13,10 @@ public inherited sharing class CSQPreApprovalAutomationModule extends Applicatio
 		getTriggerEvents().enableBeforeUpdate().enableAfterUpdate();
 	}
 
+	public static CSQPreApprovalAutomationModule newInstance() {
+		return (CSQPreApprovalAutomationModule) Application.Utilities.newInstance(CSQPreApprovalAutomationModule.class);
+	}
+
 	/**
 	 * Called when a CSQ is being updated.
 	 * @param records list of CSQ records
@@ -53,6 +57,7 @@ public inherited sharing class CSQPreApprovalAutomationModule extends Applicatio
 		}
 	}
 
+	@TestVisible
 	private static void enterCSQApprovalUponPreApprovalNotApplicable(List<ApplicationRecursion.RecordState> changedRecords) {
 		List<Approval.ProcessSubmitRequest> apRequests = new List<Approval.ProcessSubmitRequest>();
 		for (ApplicationRecursion.RecordState recordState : changedRecords) {

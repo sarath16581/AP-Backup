@@ -12,6 +12,10 @@ public inherited sharing class CSQPreApprovalPendingModule extends ApplicationMo
 		getTriggerEvents().enableBeforeUpdate().enableAfterUpdate();
 	}
 
+	public static CSQPreApprovalPendingModule newInstance() {
+		return (CSQPreApprovalPendingModule) Application.Utilities.newInstance(CSQPreApprovalPendingModule.class);
+	}
+
 	/**
 	 * Called when a CSQ is being updated.
 	 * @param records list of CSQ records
@@ -24,7 +28,7 @@ public inherited sharing class CSQPreApprovalPendingModule extends ApplicationMo
 			unlockRecordForApprovalEditing(records);
 		} catch (Exception ex) {
 			// Error Logged to Exception object for analysis
-			ApplicationLogger.getInstance().logException(ApplicationLogger.wrapException(ex), 'CSQ', CSQPreApprovalAutomationModule.class.getName(), 'onBeforeUpdate', 'Customer_Scoping_Questionnaire__c', ApplicationLogger.LoggingLevel.ERROR);
+			ApplicationLogger.getInstance().logException(ApplicationLogger.wrapException(ex), 'CSQ', CSQPreApprovalPendingModule.class.getName(), 'onBeforeUpdate', 'Customer_Scoping_Questionnaire__c', ApplicationLogger.LoggingLevel.ERROR);
 		}
 
 	}

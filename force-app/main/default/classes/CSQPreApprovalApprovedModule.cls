@@ -14,6 +14,10 @@ public inherited sharing class CSQPreApprovalApprovedModule extends ApplicationM
 		getTriggerEvents().enableAfterUpdate();
 	}
 
+	public static CSQPreApprovalApprovedModule newInstance() {
+		return (CSQPreApprovalApprovedModule) Application.Utilities.newInstance(CSQPreApprovalApprovedModule.class);
+	}
+
 	/**
 	 * Called when a CSQ is being updated.
 	 * @param records list of CSQ records
