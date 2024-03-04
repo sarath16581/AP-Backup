@@ -5,7 +5,9 @@
     <description>Identifies account type for StartTrack sub accounts (mastered in TEAMS). Not used for Aus Post sub accounts (mastered in SAP).
 Follower - This account will pay it&apos;s own invoice; Offspring of Leader - Leader will pay invoice for this sub account; Offspring of Follower - The chosen follower account will pay the invoice.</description>
     <externalId>false</externalId>
-    <inlineHelpText>Follower Only - This account will pay it&apos;s own invoice; Offspring - The chosen parent (Leader or another Follower) will pay the invoice.</inlineHelpText>
+    <inlineHelpText>“FOLLOWER” – Account responsible for its own invoice and linked to Leader&apos;s rates;;
+“OFFSPRING” – Leader account responsible for Offspring&apos;s invoice and Offspring linked to Leader&apos;s rates;;
+“OFFSPRING OF NON-LEADER ACCOUNT” – Parent (not Leader account) responsible for Offspring&apos;s invoice. Used for complex Enterprise customers;;</inlineHelpText>
     <label>Account Type</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>
@@ -18,17 +20,17 @@ Follower - This account will pay it&apos;s own invoice; Offspring of Leader - Le
             <value>
                 <fullName>Follower</fullName>
                 <default>false</default>
-                <label>Follower Only</label>
+                <label>Follower - Rates Relationship</label>
             </value>
             <value>
                 <fullName>Offspring</fullName>
                 <default>false</default>
-                <label>Offspring (Parent same as Leader)</label>
+                <label>Offspring - Invoice Relationship</label>
             </value>
             <value>
                 <fullName>Offspring Follower</fullName>
                 <default>false</default>
-                <label>Offspring of Follower (Parent under same Leader)</label>
+                <label>Offspring - Hierarchy Relationship (Parent under same Leader)</label>
             </value>
         </valueSetDefinition>
     </valueSet>
