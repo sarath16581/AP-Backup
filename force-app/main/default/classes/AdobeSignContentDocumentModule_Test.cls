@@ -205,4 +205,176 @@ private class AdobeSignContentDocumentModule_Test {
 
 		System.assertEquals(0, cd.getErrors().size());
 	}
+
+
+
+
+
+
+
+
+	/**
+	 * User is not allowed to delete any documents related to agreement object with Title containing - Signed
+	 */
+	@IsTest
+	static void deleteContentDocumentsValidationOnDocuSignTestSuccess() {
+		// =====================================
+		// Data Preparation
+		// =====================================
+		User justANormalAdobeUser = [SELECT Id FROM User WHERE FirstName = 'justANormalAdobeUser'];
+		Account account = ApplicationTestDataFactory.getAccounts(1, true)[0];
+
+		// Creating document 1
+
+		// Content Version + Content Document + Content Document Link
+		ContentDocument cd = new ContentDocument();
+		ApplicationTestDataFactory.generateRecordIds(new List <SObject> { cd });
+		cd = (ContentDocument)ApplicationTestDataFactory.setUnwritableFields(cd, new Map<String, Object>{ 'ParentId' => account.Id, 'Title' => '- completed' });
+		ContentVersion contentVersionRecord = ApplicationTestDataFactory.getContentVersions(1, cd.Id, true)[0];
+		ContentDocumentLink documentLinkRecord = ApplicationTestDataFactory.getContentDocumentLinks(1, account.Id, cd.Id, true)[0];
+		documentLinkRecord.Visibility = 'AllUsers';
+		documentLinkRecord.ShareType = 'V';
+		documentLinkRecord = (ContentDocumentLink)ApplicationTestDataFactory.setUnwritableFields(documentLinkRecord, new Map <String, Object>{ 'ContentDocument' => cd });
+		documentLinkRecord = (ContentDocumentLink)ApplicationTestDataFactory.setUnwritableFields(documentLinkRecord, new Map <String, Object>{ 'ContentDocumentId' => cd.Id });
+
+		List<ContentDocument> contentDocuments = new List<ContentDocument>();
+		contentDocuments.add(cd);
+		// =====================================
+		// Stubbing
+		// =====================================
+		ContentDocumentLinksSelector mockContentDocumentLinksSelector = (ContentDocumentLinksSelector) MockUtility.mockSelector(ContentDocumentLinksSelector.class);
+		AdobeSignContentDocumentModule module = AdobeSignContentDocumentModule.newInstance();
+		ApplicationUnitOfWork mockUow = MockUtility.mockUnitOfWork();
+		ApplicationDatabase mockDatabase = MockUtility.mockDatabase();
+
+		MockUtility.Mocks.startStubbing();
+		MockUtility.Mocks.when(mockContentDocumentLinksSelector
+				.search(new Map<String, Object>{
+						'documentIds' => new Set<Id>{cd.Id}
+				},true))
+				.thenReturn(new Map<Id,ContentDocumentLink>{documentLinkRecord.Id => documentLinkRecord});
+		MockUtility.Mocks.when(mockDatabase.dmlDelete((List<SObject>)fflib_Match.anyObject(), fflib_Match.anyBoolean())).thenAnswer(new MockUtility.AnswerGenericDMLDeleted());
+		MockUtility.Mocks.stopStubbing();
+
+		// =====================================
+		// Testing
+		// =====================================
+		Test.startTest();
+		System.runAs(justANormalAdobeUser) {
+			module.onBeforeDelete(contentDocuments, mockUow);
+		}
+		Test.stopTest();
+
+		System.assertEquals(true, contentDocuments.size() > 0);
+		for (ContentDocument document : contentDocuments) {
+			System.assertEquals('Cannot delete ContentDocument with a link to a signed Agreement', document.getErrors()[0].getMessage());
+		}
+
+	}
+
+	/**
+	 * User is allowed to delete any documents related to an agreement as the user has the AdobeSignSuperAdmin permissions
+	 */
+	@IsTest
+	static void deleteContentDocumentsValidationOnDocuSignAllowedTest() {
+		// =====================================
+		// Data Preparation
+		// =====================================
+		User superPowerAdobeUser = [SELECT Id FROM User WHERE FirstName = 'superPowerAdobeUser'];
+		Account account = ApplicationTestDataFactory.getAccounts(1, true)[0];
+
+		// Creating document 1
+
+		// Content Version + Content Document + Content Document Link
+		ContentDocument cd = new ContentDocument();
+		ApplicationTestDataFactory.generateRecordIds(new List <SObject> { cd });
+		cd = (ContentDocument)ApplicationTestDataFactory.setUnwritableFields(cd, new Map<String, Object>{ 'ParentId' => account.Id, 'Title' => '- completed' });
+		ContentVersion contentVersionRecord = ApplicationTestDataFactory.getContentVersions(1, cd.Id, true)[0];
+		ContentDocumentLink documentLinkRecord = ApplicationTestDataFactory.getContentDocumentLinks(1, account.Id, cd.Id, true)[0];
+		documentLinkRecord.Visibility = 'AllUsers';
+		documentLinkRecord = (ContentDocumentLink)ApplicationTestDataFactory.setUnwritableFields(documentLinkRecord, new Map <String, Object>{ 'ContentDocument' => cd });
+		documentLinkRecord = (ContentDocumentLink)ApplicationTestDataFactory.setUnwritableFields(documentLinkRecord, new Map <String, Object>{ 'ContentDocumentId' => cd.Id });
+
+
+		// =====================================
+		// Stubbing
+		// =====================================
+		ContentDocumentLinksSelector mockContentDocumentLinksSelector = (ContentDocumentLinksSelector) MockUtility.mockSelector(ContentDocumentLinksSelector.class);
+		AdobeSignContentDocumentModule module = AdobeSignContentDocumentModule.newInstance();
+		ApplicationUnitOfWork mockUow = MockUtility.mockUnitOfWork();
+		ApplicationDatabase mockDatabase = MockUtility.mockDatabase();
+
+		MockUtility.Mocks.startStubbing();
+		MockUtility.Mocks.when(mockContentDocumentLinksSelector
+				.search(new Map<String, Object>{
+						'documentIds' => new Set<Id>{cd.Id}
+				},true))
+				.thenReturn(new Map<Id,ContentDocumentLink>{documentLinkRecord.Id => documentLinkRecord});
+		MockUtility.Mocks.when(mockDatabase.dmlDelete((List<SObject>)fflib_Match.anyObject(), fflib_Match.anyBoolean())).thenAnswer(new MockUtility.AnswerGenericDMLDeleted());
+		MockUtility.Mocks.stopStubbing();
+
+		// =====================================
+		// Testing
+		// =====================================
+		Test.startTest();
+		System.runAs(superPowerAdobeUser) {
+			module.onBeforeDelete(new List<SObject> {cd}, mockUow);
+		}
+		Test.stopTest();
+
+		System.assertEquals(0, cd.getErrors().size());
+	}
+
+	/**
+	 * User is allowed to delete any documents related to an agreement except '- Signed' titled docs
+	 */
+	@IsTest
+	static void deleteContentDocumentsValidationAllowedToDeleteDocuSignOtherTest() {
+		// =====================================
+		// Data Preparation
+		// =====================================
+		User justANormalAdobeUser = [SELECT Id FROM User WHERE FirstName = 'justANormalAdobeUser'];
+		Account account = ApplicationTestDataFactory.getAccounts(1, true)[0];
+
+		// Creating document 1
+
+		// Content Version + Content Document + Content Document Link
+		ContentDocument cd = new ContentDocument();
+		ApplicationTestDataFactory.generateRecordIds(new List <SObject> { cd });
+		cd = (ContentDocument)ApplicationTestDataFactory.setUnwritableFields(cd, new Map<String, Object>{ 'ParentId' => account.Id, 'Title' => '-can delete.pdf' });
+		ContentVersion contentVersionRecord = ApplicationTestDataFactory.getContentVersions(1, cd.Id, true)[0];
+		ContentDocumentLink documentLinkRecord = ApplicationTestDataFactory.getContentDocumentLinks(1, account.Id, cd.Id, true)[0];
+		documentLinkRecord.Visibility = 'AllUsers';
+		documentLinkRecord = (ContentDocumentLink)ApplicationTestDataFactory.setUnwritableFields(documentLinkRecord, new Map <String, Object>{ 'ContentDocument' => cd });
+		documentLinkRecord = (ContentDocumentLink)ApplicationTestDataFactory.setUnwritableFields(documentLinkRecord, new Map <String, Object>{ 'ContentDocumentId' => cd.Id });
+
+
+		// =====================================
+		// Stubbing
+		// =====================================
+		ContentDocumentLinksSelector mockContentDocumentLinksSelector = (ContentDocumentLinksSelector) MockUtility.mockSelector(ContentDocumentLinksSelector.class);
+		AdobeSignContentDocumentModule module = AdobeSignContentDocumentModule.newInstance();
+		ApplicationUnitOfWork mockUow = MockUtility.mockUnitOfWork();
+		ApplicationDatabase mockDatabase = MockUtility.mockDatabase();
+
+		MockUtility.Mocks.startStubbing();
+		MockUtility.Mocks.when(mockContentDocumentLinksSelector
+				.search(new Map<String, Object>{
+						'documentIds' => new Set<Id>{cd.Id}
+				},true))
+				.thenReturn(new Map<Id,ContentDocumentLink>{documentLinkRecord.Id => documentLinkRecord});
+		MockUtility.Mocks.when(mockDatabase.dmlDelete((List<SObject>)fflib_Match.anyObject(), fflib_Match.anyBoolean())).thenAnswer(new MockUtility.AnswerGenericDMLDeleted());
+		MockUtility.Mocks.stopStubbing();
+
+		// =====================================
+		// Testing
+		// =====================================
+		Test.startTest();
+		System.runAs(justANormalAdobeUser) {
+			module.onBeforeDelete(new List<SObject> {cd}, mockUow);
+		}
+		Test.stopTest();
+
+		System.assertEquals(0, cd.getErrors().size());
+	}
 }

@@ -87,7 +87,7 @@ public inherited sharing class AdobeSignContentDocumentModule extends Applicatio
 	public void preventDeletionOfSignedDocusignDocuments(List<SObject> records, ApplicationUnitOfWork uow) {
 
 		// Prevent deletion of adobesign signed documnts
-		Boolean hasCustomPermission = FeatureManagement.checkPermission('AllowDeleteOnAdobeSignContracts');
+		Boolean hasCustomPermission = FeatureManagement.checkPermission('AllowDeleteOnDocuSignContracts');
 
 		// Collect the Ids of ContentDocuments being deleted
 		Set<Id> contentDocumentIds = new Set<Id>();
