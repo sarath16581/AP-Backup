@@ -49,45 +49,6 @@
 				left:15px;
 				right:0;
 				}
-				#banner-row {
-					background-color:#F2F2F2;
-					width: 100%;
-					left: 0; 
-					position: absolute; 
-					margin: 20px 0 20px 0; 
-					height: 195px; 
-					padding-top: 15px; 
-					padding-bottom: 15px;
-					-webkit-box-shadow: inset 0px 0px 7px -3px rgba(186,186,186,0.71);
-					-moz-box-shadow: inset 0px 0px 7px -3px rgba(186,186,186,0.71);
-					box-shadow: inset 0px 0px 7px -3px rgba(186,186,186,0.71);
-				}
-				#banner-message {
-					background-color: #fff; 
-					border: 1px solid #E0E0E0; 
-					border-radius:3px; 
-					padding: 15px 15px 12px 15px; 
-					display: inline-block;
-				}
-				#banner-message h2 {
-					font-size: 20px;
-					margin-top: 0;
-					line-height: 1.5;
-				}
-				#banner-message a,
-				#banner-message a:visited {
-					color: #dc1928;
-				}    
-				#banner-spacing {
-					height: 215px;
-				} 
-
-				/* Screen width 420px and above */
-				@media(min-width: 420px) {
-					#banner-message p {font-size: 17px;}
-					#banner-row {height: 168px!important;}
-					#banner-spacing {height: 205px;}
-				}				
 			</style>
 
 			<!-- Analytics tracking -->
@@ -128,18 +89,6 @@
 							<apex:actionRegion >
 								<apex:actionFunction id="submitOK" action="{!submitRedirect}" name="submitOK" oncomplete="closePopup();"/>
 							</apex:actionRegion>
-							<apex:pageBlock rendered="{!enableRedirectNewCreditForm}">
-								<div id="banner-row">
-									<div class="container">								
-										<div id="banner-message">								
-											<h2>Improved Credit Claim form available</h2>
-											<p>For an easier and quicker credit claim process,</p>
-											<p><a href="{!redirectURLNewCreditForm}">Log in to the Business Support Portal</a>.</p>
-										</div>
-									</div>
-								</div>
-								<div id="banner-spacing"></div>								
-							</apex:pageBlock>
 							<script>
 								var fileBody;
 								var title;
