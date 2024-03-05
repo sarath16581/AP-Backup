@@ -11,7 +11,7 @@
  * 2023-09-19 - Mahesh Parvathaneni - removed variable ATTRIBUTE_CNUMBER_MAPPING, ATTRIBUTE_APCN_MAPPING
  * 2023-10-25 - Mahesh Parvathaneni - Refactor to use IsInactiveCustomer__pc instead of is_Inactive_Customer__pc
  */
-public with sharing class ChasRegHandlerService {
+public without sharing class ChasRegHandlerService {
 
 	public static final String DEFAULT_LOCALESIDKEY = 'en_AU';
 	public static final String DEFAULT_LANGUAGELOCALEKEY = 'en_US';
@@ -22,6 +22,7 @@ public with sharing class ChasRegHandlerService {
 		Account.FirstName => 'given_name',
 		Account.LastName => 'family_name',
 		Account.PersonEmail => 'email',
+        Account.APCN__c => Label.AttributeAPCNMapping,
 		Account.APCN__pc => Label.AttributeAPCNMapping,
 		Account.OID_ID__pc => Label.AttributeCNumberMapping,
 		Account.CRMCSSOID__pc => 'augmented_email_uppercase' // defined in reg handler
@@ -134,11 +135,11 @@ public with sharing class ChasRegHandlerService {
 			}
 
 		} else {
-            Savepoint sp = Database.setSavepoint();
 			// couldn't find the person account record so one must be created
 			// NOTE: createPersonAccount performs a DML 
 			//personAccountRecord = createPersonAccount(attributes);
 			//personContactId = personAccountRecord.PersonContactId;
+			Savepoint sp = Database.setSavepoint();
             try{
                 personAccountRecord = createPersonAccount(attributes);
 				personContactId = personAccountRecord.PersonContactId;    
@@ -149,22 +150,45 @@ public with sharing class ChasRegHandlerService {
 					//person account is created due to parallel operation from CustomerDataSyncEvent platform event
 					//query the existing records again
 					existingRecords = getExistingRecords(attributes);
+                    /*if(existingRecords.get(Account.SObjectType) != null) {
+                        personAccountRecord = (Account)existingRecords.get(Account.SObjectType);
+						personContactId = personAccountRecord.PersonContactId;
+                    }*/
                     if(existingRecords.get(User.SObjectType) != null) {
 						// we found a matching user from the person account record
 						personUserRecord = (User)existingRecords.get(User.SObjectType);
+                        //personUserRecord.IsActive = true;
+                        /*UserUpdateEvent__e  uevt = new UserUpdateEvent__e();
+                        uevt.UserId__c = personUserRecord.Id;
+                        EventBus.publish(uevt);*/
                         Database.rollback(sp);
                 		Database.releaseSavepoint(sp);
                         Http vHTTP = new Http();
             			HttpRequest vReq = new HttpRequest();
             			vReq.setEndpoint('callout:Salesforce_API'+'/v60.0/sobjects/User/'+personUserRecord.Id);
             			vReq.setMethod('PATCH');
-            			vReq.setHeader('Content-Type', 'application/json');           
+            			vReq.setHeader('Content-Type', 'application/json'); 
+                        vReq.setHeader('Accept', 'application/json');
             			vReq.setBody('{"IsActive" : "true"}');
+                        vReq.setTimeout(60000);
             			HttpResponse vRes = vHTTP.send(vReq);
-                        return personUserRecord;
+                        ThirdPartyAccountLink tpa = new ThirdPartyAccountLink();
+                        tpa.SsoProviderId = '0SOBm0000000CijOAE';
+                        tpa.RemoteIdentifier = attributes.get('identifier');
+                        tpa.UserId = personUserRecord.Id;
+                        tpa.Provider = 'open id connect';
+                        tpa.Handle = personUserRecord.Email;
+                        Database.SaveResult saveResults = Database.insertImmediate(tpa);
+                        
+                        Map<SObjectType, Set<SObjectField>> fieldOverrides = new Map<SObjectType, Set<SObjectField>>{
+                            User.SObjectType => new Set<SObjectField>{User.Id, User.IsActive, User.FirstName, User.LastName, User.Email, User.Username, User.FederationIdentifier}
+						};
+                        User existingUser = UsersSelector.newInstance(0, fieldOverrides).selectById(new Set<Id>{personUserRecord.Id}).values()[0];
+                        System.debug('existingUser==>'+existingUser);
+                        return existingUser;
                     }
-				}
-			}
+                }
+            }
 		}
 
 		if(existingRecords.get(User.SObjectType) != null) {
@@ -195,7 +219,9 @@ public with sharing class ChasRegHandlerService {
 		}
 
 		// look for an existing record first, if we find one, we use that and attempt to link a new new user record on it.
-		Map<Id, Account> accounts = SSSWAccountsSelector.newInstance().selectByAPCN(new Set<String>{existingAPCN}, new Set<Object>{SSSWAccountsSelector.Options.FILTER_PERSON_ACCOUNT_ONLY});
+		//Map<Id, Account> accounts = SSSWAccountsSelector.newInstance().selectByAPCN(new Set<String>{existingAPCN}, new Set<Object>{SSSWAccountsSelector.Options.FILTER_PERSON_ACCOUNT_ONLY});
+        Map<Id, Account> accounts = new Map<Id,Account>([SELECT Id,PersonContactId, APCN__pc, OID_ID__pc, CRMCSSOID__pc, IsPersonAccount, VerifiedMobile__pc, PersonMobilePhone, PersonEmail, IsInactiveCustomer__pc
+                                    		FROM Account WHERE APCN__pc=:existingAPCN AND IsPersonAccount=true FOR UPDATE]);
 
 		if(accounts.size() == 1) {
 			// we found a match grab the associated contact id and try and match the associated User record

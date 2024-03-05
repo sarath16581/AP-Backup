@@ -262,7 +262,7 @@ public inherited sharing class CaseRoutingService {
 					closedStatuses.contains(csRec.Status) &&
 					!closedStatuses.contains(String.valueOf(previousState.get('Status'))) &&
 					(omniGroups.containsKey(csRec.OwnerId) ||
-						csRec.OwnerId == omniService.preferredAgentQueueId)) {
+						csRec.OwnerId == omniService.preferredAgentQueueId || csRec.OwnerId == queueSettings.NetworkQueueId__c)) {
 
 				csRec.AllocateToQueue__c = false;
 				csRec.OwnerId = omniService.omniClosedCaseQueueId;

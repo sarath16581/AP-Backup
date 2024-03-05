@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>LoginEventWindowsPlatformValidation__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>GDPR</complianceGroup>
     <defaultValue>false</defaultValue>
     <description>enable/disable Login event windows platform validation. Take action as per Transaction Security Policy if not windows platform.</description>
     <externalId>false</externalId>
     <inlineHelpText>enable/disable Login event windows platform validation. Take action as per Transaction Security Policy if not windows platform.</inlineHelpText>
     <label>Login Event Windows Platform Validation</label>
     <securityClassification>INTERNAL</securityClassification>
-    <businessStatus>Active</businessStatus>
-    <complianceGroup>GDPR</complianceGroup>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>
 </CustomField>

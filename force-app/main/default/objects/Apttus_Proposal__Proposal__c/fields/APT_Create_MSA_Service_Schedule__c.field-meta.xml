@@ -4,7 +4,7 @@
     <description>Click this button to create a new Agreement (Contract).</description>
     <externalId>false</externalId>
     <formula>IF(
-ISPICKVAL(Apttus_Proposal__Approval_Stage__c, &quot;Accepted&quot;) &amp;&amp;
+(ISPICKVAL(Apttus_Proposal__Approval_Stage__c, &quot;Accepted&quot;) &amp;&amp;
 RecordType.Name != &apos;Renewal Quote&apos; &amp;&amp;
 RecordType.Name != &apos;Amendment Quote&apos; &amp;&amp;
 APT_Contracted_Product_Count__c &gt; 0 &amp;&amp;
@@ -13,6 +13,13 @@ NOT(ISPICKVAL(APT_Dangerous_Goods_Status__c,&quot;Rejected&quot;)) &amp;&amp;
 NOT(ISPICKVAL(APT_Overweight_Approval_Status__c,&quot;Rejected&quot;)) &amp;&amp;
 NOT(ISPICKVAL(APT_Overweight_Approval_Status__c,&quot;Pending Approval&quot;))) &amp;&amp;
 OR(NOT(APT_ACIC_Request_required_for_Contract__c), AND(APT_ACIC_Request_required_for_Contract__c, ACIC_Request_Approved__c))
+||
+(
+(ISPICKVAL(Apttus_Proposal__Approval_Stage__c, &quot;Draft&quot;) || ISPICKVAL(Apttus_Proposal__Approval_Stage__c, &quot;Generated&quot;))
+&amp;&amp; RecordType.Name = &apos;Proposal&apos;
+&amp;&amp; NOT(ISBLANK(Apttus_QPConfig__ConfigurationFinalizedDate__c))
+&amp;&amp; APT_Document_Generation_in_Progress__c = false
+))
 ,
 HYPERLINK(&quot;/lightning/cmp/c__APT_ContractServiceDetailsWrapper?c__proposalId=&quot;&amp;Id&amp;&apos;&amp;c__isST=&apos;&amp;TEXT(Is_Startrack_Proposal__c)&amp;&apos;&amp;c__isManualContract=false&apos;, IMAGE(&quot;/resource/APT_Create1&quot;, &quot;Create&quot;),&quot;_self&quot;),
 NULL

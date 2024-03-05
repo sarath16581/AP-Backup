@@ -4,7 +4,7 @@
     <description>Represents the amount of revenue that the customer continues to provide in the current period, reflecting the consistency and stability of earnings from a particular customer.</description>
     <externalId>false</externalId>
     <inlineHelpText>Revenue consistently provided by the customer in the current period.</inlineHelpText>
-    <label>Retained Revenue</label>
+    <label>Annual Retained Value</label>
     <precision>18</precision>
     <required>false</required>
     <scale>2</scale>

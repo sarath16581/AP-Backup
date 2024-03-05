@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>PreApprovalReferralReasons__c</fullName>
+    <description>The multi-picklist for Referral Reasons.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>The multi-picklist for Referral Reasons.</inlineHelpText>
+    <label>Pre-Approval Referral Reasons</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>MultiselectPicklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>DGs</fullName>
+                <default>false</default>
+                <label>DGs</label>
+            </value>
+            <value>
+                <fullName>Bulk Pallets</fullName>
+                <default>false</default>
+                <label>Bulk Pallets</label>
+            </value>
+            <value>
+                <fullName>Liquids / Glass</fullName>
+                <default>false</default>
+                <label>Liquids / Glass</label>
+            </value>
+            <value>
+                <fullName>Incompatible</fullName>
+                <default>false</default>
+                <label>Incompatible</label>
+            </value>
+            <value>
+                <fullName>Oversize</fullName>
+                <default>false</default>
+                <label>Oversize</label>
+            </value>
+            <value>
+                <fullName>Heavy (over 20kg)</fullName>
+                <default>false</default>
+                <label>Heavy (over 20kg)</label>
+            </value>
+            <value>
+                <fullName>Multiple pickup locations</fullName>
+                <default>false</default>
+                <label>Multiple pickup locations</label>
+            </value>
+            <value>
+                <fullName>Special Services</fullName>
+                <default>false</default>
+                <label>Special Services</label>
+            </value>
+            <value>
+                <fullName>Book-In</fullName>
+                <default>false</default>
+                <label>Book-In</label>
+            </value>
+            <value>
+                <fullName>Requires site inspection</fullName>
+                <default>false</default>
+                <label>Requires site inspection</label>
+            </value>
+            <value>
+                <fullName>Pickup location deemed unsuitable</fullName>
+                <default>false</default>
+                <label>Pickup location deemed unsuitable</label>
+            </value>
+            <value>
+                <fullName>Regional dispersion to high</fullName>
+                <default>false</default>
+                <label>Regional dispersion to high</label>
+            </value>
+            <value>
+                <fullName>B2C dispersion to high</fullName>
+                <default>false</default>
+                <label>B2C dispersion to high</label>
+            </value>
+            <value>
+                <fullName>Volume outside of approval limit</fullName>
+                <default>false</default>
+                <label>Volume outside of approval limit</label>
+            </value>
+            <value>
+                <fullName>Medical</fullName>
+                <default>false</default>
+                <label>Medical</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+    <visibleLines>4</visibleLines>
+</CustomField>

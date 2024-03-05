@@ -36,6 +36,16 @@
     "regionName" : "header",
     "type" : "region"
   }, {
+    "components" : [ {
+      "componentAttributes" : {
+        "richTextValue" : "<p style=\"text-align: center;\">&nbsp;</p>"
+      },
+      "componentName" : "forceCommunity:htmlBlock",
+      "id" : "c8123dbb-b516-4e55-95e7-ad2a12a9d94a",
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
     "id" : "9a97b262-ec4f-449e-98e2-bb4236a5d70d",
     "regionName" : "footer",
     "type" : "region"

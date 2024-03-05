@@ -4,7 +4,7 @@
     <description>Quantifies the growth in revenue from a particular customer over previous periods. It showcases the additional earnings derived beyond what was generated in the prior time frames. This metric is crucial for gauging the expansion of business opportunities with an existing customer.</description>
     <externalId>false</externalId>
     <inlineHelpText>Growth in revenue from the customer compared to previous periods.</inlineHelpText>
-    <label>Incremental Revenue</label>
+    <label>Annual Incremental Value</label>
     <precision>18</precision>
     <required>false</required>
     <scale>2</scale>
