@@ -18,6 +18,11 @@
                 <label>Draft</label>
             </value>
             <value>
+                <fullName>Submitted for Pre-Approval</fullName>
+                <default>false</default>
+                <label>Submitted for Pre-Approval</label>
+            </value>
+            <value>
                 <fullName>Submitted for approval</fullName>
                 <default>false</default>
                 <label>Submitted for approval</label>

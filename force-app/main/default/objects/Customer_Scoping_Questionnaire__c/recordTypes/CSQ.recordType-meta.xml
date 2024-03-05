@@ -72,7 +72,93 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Submitted for Pre-Approval</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Submitted for approval</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>PreApprovalReferralReasons__c</picklist>
+        <values>
+            <fullName>B2C dispersion to high</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Book-In</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Bulk Pallets</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>DGs</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Heavy %28over 20kg%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Incompatible</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Liquids %2F Glass</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Medical</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Multiple pickup locations</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Oversize</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Pickup location deemed unsuitable</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Regional dispersion to high</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Requires site inspection</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Special Services</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Volume outside of approval limit</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>PreApprovalStatus__c</picklist>
+        <values>
+            <fullName>Approved</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Pending Onboarding Approval</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Referred</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Under Onboarding Review</fullName>
             <default>false</default>
         </values>
     </picklistValues>
