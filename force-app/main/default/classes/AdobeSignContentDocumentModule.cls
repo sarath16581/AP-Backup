@@ -112,7 +112,11 @@ public inherited sharing class AdobeSignContentDocumentModule extends Applicatio
 		for (ContentDocument cd : (List<ContentDocument>)records) {
 			if (contentDocumentLinksMap.containsKey(cd.Id)) {
 				for (Id linkedEntityId : contentDocumentLinksMap.get(cd.Id)) {
-					if (!hasCustomPermission && (linkedEntityId.getSObjectType() == Account.SObjectType || linkedEntityId.getSObjectType() == Apttus__APTS_Agreement__c.SObjectType) && cd.Title.containsIgnoreCase('- completed')) {
+					// when organisation signed contracts are saved with suffix '- completed' or
+					// when apttus contract '__Signed'
+					if (!hasCustomPermission &&
+							((linkedEntityId.getSObjectType() == Account.SObjectType && cd.Title.containsIgnoreCase('_completed')) ||
+									(linkedEntityId.getSObjectType() == Apttus__APTS_Agreement__c.SObjectType && cd.Title.containsIgnoreCase('__signed')))) {
 						cd.addError('Cannot delete ContentDocument with a link to a signed Agreement');
 					}
 				}
