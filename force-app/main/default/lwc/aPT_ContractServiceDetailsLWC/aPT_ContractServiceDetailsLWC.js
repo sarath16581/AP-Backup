@@ -133,8 +133,7 @@ export default class APT_ContractServiceDetailsLWC extends NavigationMixin(Light
 			if(!this.existingContractId){
 				//function to create Contract Record onLoad
 				createContractRecord({proposalId : this.proposalId})
-				.then((result) => {
-					debugger;
+				.then((result) => {					
 					if (result.includes('Incomplete')) {
 						//prompt to complete cred assess
 						LightningAlert.open({
@@ -176,7 +175,6 @@ export default class APT_ContractServiceDetailsLWC extends NavigationMixin(Light
 			else{
 				this.contractId = this.existingContractId;
 				this.disableClose = false;
-				debugger;
 				this.getServiceDetails();
 			}
 		}
