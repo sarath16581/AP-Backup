@@ -735,7 +735,7 @@ export default class APT_ContractServiceDetailsLWC extends NavigationMixin(Light
 
 				if(!this.existingContractId && this.isRenew === 'true' && this.template.querySelector('.condField').value === this.fixedTerm){
 					this.template.querySelectorAll('.serviceEnd').forEach((cmp) => {
-						if(cmp.value === undefined || cmp.value === null || cmp.value === "") {
+						if(cmp.value) {
 							cmp.value = this.template.querySelector('.endDate').value;
 						}
 					});
