@@ -4,7 +4,7 @@
     <protected>false</protected>
     <values>
         <field>Description__c</field>
-        <value xsi:type="xsd:string">Remediation requested</value>
+        <value xsi:type="xsd:string">Proof of Delivery requested by Sender</value>
     </values>
     <values>
         <field>IsException__c</field>
