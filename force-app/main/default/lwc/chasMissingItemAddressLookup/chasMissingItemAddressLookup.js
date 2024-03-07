@@ -425,7 +425,7 @@ export default class chasMissingItemAddressLookup extends LightningElement {
 		const { nodeName } = event.target;
 		if (nodeName === NODE_SERARCH_RESULT) {
 			this.selectSearchOption(event);
-		} else if (nodeName === 'LI' && event.target.dataset?.name === 'liSelectManual') {
+		} else if (nodeName === 'SPAN' && event.target.dataset?.name === 'spanSelectManual') {
 			this.selectManually(event);
 		}
 	}
