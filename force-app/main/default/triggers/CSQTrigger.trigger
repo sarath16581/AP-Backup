@@ -7,6 +7,6 @@
 
 trigger CSQTrigger on Customer_Scoping_Questionnaire__c (before insert, before update, before delete, after insert, after update, after delete, after undelete) {
 	if(!TriggerHelper.isTriggerDisabled(String.valueOf(Customer_Scoping_Questionnaire__c.SObjectType))) {
-		(new BAMApplicationAutomationTriggerHandler()).dispatch();
+		(new CSQAutomationTriggerHandler()).dispatch();
 	}
 }

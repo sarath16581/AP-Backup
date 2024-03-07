@@ -264,6 +264,16 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
+        <editable>true</editable>
+        <field>Customer_Scoping_Questionnaire__c.PreApprovalReferralReasons__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Customer_Scoping_Questionnaire__c.PreApprovalStatus__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
         <editable>false</editable>
         <field>DealSupportRequestMilestone__c.BusinessDays__c</field>
         <readable>true</readable>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Queue xmlns="http://soap.sforce.com/2006/04/metadata">
+    <doesSendEmailToMembers>false</doesSendEmailToMembers>
+    <name>CSQ Onboarding Queue</name>
+    <queueMembers>
+        <users>
+            <user>amy.lewis@auspost.com.au</user>
+            <user>andrew.marcato@auspost.com.au</user>
+            <user>emma.callow@auspost.com.au</user>
+        </users>
+    </queueMembers>
+    <queueSobject>
+        <sobjectType>Case</sobjectType>
+    </queueSobject>
+</Queue>

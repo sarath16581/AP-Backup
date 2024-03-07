@@ -225,7 +225,7 @@ public without sharing class APT_ContractServiceDetailsController {
             renewedAgreement.APT_Operational_contact__c = proposal.APT_Opportunity_Key_contact__c;
             renewedAgreement.APT_System_User__c = proposal.APT_Opportunity_Key_contact__c;
             renewedAgreement.Term__c = sourceAgreement.Term__c;
-            renewedAgreement.Apttus__Contract_Start_Date__c = sourceAgreement.Apttus__Contract_Start_Date__c;
+            renewedAgreement.Apttus__Contract_Start_Date__c = Date.today();
             
             ApplicationDatabase.getInstance().dmlInsert(new List<Apttus__APTS_Agreement__c>{renewedAgreement});
             

@@ -28,7 +28,7 @@
 		cmp.set("v.isAmend", isAmend);
 
 		let isRenew = myPageRef.state.c__isRenew == undefined ? 'No': myPageRef.state.c__isRenew;
-		cmp.set("v.isManualContract", isRenew);
+		cmp.set("v.isRenew", isRenew);
 	},
 	openRevenueReport : function(component, event, helper) {
 		var oppId = component.get("v.recordId"); // Get the Opportunity Id
