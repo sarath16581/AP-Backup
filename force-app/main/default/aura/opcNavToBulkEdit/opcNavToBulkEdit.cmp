@@ -18,7 +18,7 @@
 
 	<!--<aura:attribute name="requestReference" type="String"/> -->
     
-    <lightning:button label="Open Revenue Report" onclick="{!c.openRevenueReport}" />
+    <lightning:button label="Last 12 months Revenue Report" onclick="{!c.openRevenueReport}" />
 
 	<aura:handler name="init" value="{!this}" action="{!c.onPageReferenceChange}"/>
 	<aura:handler name="change" value="{!v.pageReference}" action="{!c.onPageReferenceChange}"/>

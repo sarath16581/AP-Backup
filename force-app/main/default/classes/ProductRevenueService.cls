@@ -358,7 +358,7 @@ public with sharing class ProductRevenueService {
     private List<GroupedAccountProductRevenue__c> reCalculateGroupRevenues(List<OpportunityLineItem> items) {
         Set<String> uids = getUIDs(items);
         // get relevant grouped product revenues for the opportunity line items
-        Map<String,GroupedAccountProductRevenue__c> unprocessedRevenueRecords =  loadGroupedProductRevenues(uids);
+        Map<String,GroupedAccountProductRevenue__c> unprocessedRevenueRecords = loadGroupedProductRevenues(uids);
         Map<String,GroupedAccountProductRevenue__c> updatedRevenueRecords = new Map<String,GroupedAccountProductRevenue__c>();         // get related accounts
         uids.addAll(configureProductAccountMaps(items));
         // get all relevant budget and revenue records
@@ -416,7 +416,7 @@ public with sharing class ProductRevenueService {
     private GroupedAccountProductRevenue__c getCreateGroupedRevenue(Map<String, GroupedAccountProductRevenue__c> unprocessedRevenueRecords, OpportunityLineItem item, Integer year) {
         String revenueKey = getUID(item.Opportunity.AccountId, item.Product2.Id, String.valueOf(year));
         GroupedAccountProductRevenue__c revenueRecord = unprocessedRevenueRecords.get(revenueKey);
-        if (revenueRecord == null && !groupedRevenues.containsKey(revenueKey)) {
+        if (revenueRecord == null || (revenueKey != null && groupedRevenues.get(revenueKey) == null)) {
             revenueRecord = new GroupedAccountProductRevenue__c(AnchorOrganisation__c = item.Opportunity.AccountId, PrimaryProduct__c = item.Product2.Id, FinancialYear__c = year, uid__c = revenueKey);
             unprocessedRevenueRecords.put(revenueKey, revenueRecord);
         }
@@ -544,12 +544,10 @@ public with sharing class ProductRevenueService {
     private Boolean addRevenueValues(GroupedAccountProductRevenue__c summaryRecord, String revenueKey) {
 
         if (!budgetAndRevenues.containsKey(revenueKey)) {
-            System.debug('***** revenueKey not in budgetandrevenues '+revenueKey);
             return false;
         }
         Budget_and_Revenue__c recordToAdd = budgetAndRevenues.get(revenueKey);
         if (recordToAdd == null) {
-            System.debug('***** revenueKey has no record in budgetandrevenues '+revenueKey);
             return false;
         }
         for (Integer i = 1; i<13; i++) {
@@ -590,12 +588,6 @@ public with sharing class ProductRevenueService {
         return updateCount;
     }
 
-    private void loadBudgetAndRevenueRecords(Set<Id> accountIds, Set<Id> productIds, Set<Integer> financialYears, set<Id> excludeRecords) {
-        for (Budget_and_Revenue__c currentBudget : BudgetAndRevenueSelector.newInstance().selectByOrganisationAndProduct(accountIds,productIds,financialYears,excludeRecords)) {
-            budgetAndRevenues.put(currentBudget.uid__c, currentBudget);
-        }
-    }
-
     private void loadBudgetAndRevenueRecords(Set<String> uniqueIds) {
         Set<String> unloadedIds = new Set<String>();
         for (String uniqueId : uniqueIds) {
@@ -608,7 +600,7 @@ public with sharing class ProductRevenueService {
             return;
         }
         for (Budget_and_Revenue__c currentBudget : BudgetAndRevenueSelector.newInstance().selectByUniqueIds(unloadedIds).values()) {
-            budgetAndRevenues.put(currentBudget.uid__c, currentBudget);
+            budgetAndRevenues.put(currentBudget.UniqueId__c, currentBudget);
         }
     }
 

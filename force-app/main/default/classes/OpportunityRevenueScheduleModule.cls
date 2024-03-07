@@ -74,20 +74,20 @@ public inherited sharing class OpportunityRevenueScheduleModule extends Applicat
                 }else {
                     schedulesToUpdate.add(schedule);
                 }
-                if (schedule.GroupedAccountProductRevenue__r != null && schedule.GroupedAccountProductRevenue__r.id == null) {
+                if (schedule.GroupedAccountProductRevenue__r != null && schedule.GroupedAccountProductRevenue__r.Id == null) {
                     revenuesToInsert.add(schedule.GroupedAccountProductRevenue__r);
                 }
             }
             // register new revenue records
-            if (revenuesToInsert.size()>0) {
+            if (!revenuesToInsert.isEmpty()) {
                 uow.registerNew(revenuesToInsert);
             }
             // register new schedule records
-            if (schedulesToInsert.size()>0) {
+            if (!schedulesToInsert.isEmpty()) {
                 uow.registerNew(schedulesToInsert);
             }
             // register pre-existing schedules.
-            if (schedulesToUpdate.size()>0) {
+            if (!schedulesToUpdate.isEmpty()) {
                 uow.registerDirty(schedulesToUpdate);
             }
         }
