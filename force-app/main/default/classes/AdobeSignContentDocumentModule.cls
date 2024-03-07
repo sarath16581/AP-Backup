@@ -7,6 +7,11 @@ History:
 **************************************************/
 
 public inherited sharing class AdobeSignContentDocumentModule extends ApplicationModule {
+	@TestVisible private static String ADOBE_COMPLETED_CONTRACT_SUFFIX = '- Signed.pdf';
+	@TestVisible private static String DOCUSIGN_COMPLETED_CONTRACT_SUFFIX_APT = '__signed.pdf';
+	@TestVisible private static String DOCUSIGN_COMPLETED_CONTRACT_SUFFIX_VOI = '_completed.pdf';
+	@TestVisible private static String MSG_DELETE_CONTRACT_VALIDATION = 'Cannot delete ContentDocument with a link to a signed Agreement';
+
 	/**
 	 * @deprecated
 	 */
@@ -68,8 +73,8 @@ public inherited sharing class AdobeSignContentDocumentModule extends Applicatio
 		for (ContentDocument cd : (List<ContentDocument>)records) {
 			if (contentDocumentLinksMap.containsKey(cd.Id)) {
 				for (Id linkedEntityId : contentDocumentLinksMap.get(cd.Id)) {
-					if (!hasCustomPermission && linkedEntityId.getSObjectType() == echosign_dev1__SIGN_Agreement__c.SObjectType && cd.Title.containsIgnoreCase('- Signed')) {
-						cd.addError('Cannot delete ContentDocument with a link to a signed Agreement');
+					if (!hasCustomPermission && linkedEntityId.getSObjectType() == echosign_dev1__SIGN_Agreement__c.SObjectType && cd.Title.endsWithIgnoreCase(ADOBE_COMPLETED_CONTRACT_SUFFIX)) {
+						cd.addError(MSG_DELETE_CONTRACT_VALIDATION);
 					}
 				}
 			}
@@ -115,9 +120,9 @@ public inherited sharing class AdobeSignContentDocumentModule extends Applicatio
 					// when organisation signed contracts are saved with suffix '- completed' or
 					// when apttus contract '__Signed'
 					if (!hasCustomPermission &&
-							((linkedEntityId.getSObjectType() == Account.SObjectType && cd.Title.containsIgnoreCase('_completed')) ||
-									(linkedEntityId.getSObjectType() == Apttus__APTS_Agreement__c.SObjectType && cd.Title.containsIgnoreCase('__signed')))) {
-						cd.addError('Cannot delete ContentDocument with a link to a signed Agreement');
+							((linkedEntityId.getSObjectType() == Account.SObjectType && cd.Title.endsWithIgnoreCase(DOCUSIGN_COMPLETED_CONTRACT_SUFFIX_VOI)) ||
+									(linkedEntityId.getSObjectType() == Apttus__APTS_Agreement__c.SObjectType && cd.Title.endsWithIgnoreCase(DOCUSIGN_COMPLETED_CONTRACT_SUFFIX_APT)))) {
+						cd.addError(MSG_DELETE_CONTRACT_VALIDATION);
 					}
 				}
 			}

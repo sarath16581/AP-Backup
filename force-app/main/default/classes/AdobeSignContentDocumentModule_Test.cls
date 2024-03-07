@@ -88,7 +88,7 @@ private class AdobeSignContentDocumentModule_Test {
 		Test.stopTest();
 
 		for (ContentDocument document : contentDocuments) {
-			System.assertEquals('Cannot delete ContentDocument with a link to a signed Agreement', document.getErrors()[0].getMessage());
+			System.assertEquals(AdobeSignContentDocumentModule.MSG_DELETE_CONTRACT_VALIDATION, document.getErrors()[0].getMessage());
 		}
 
 	}
@@ -226,7 +226,7 @@ private class AdobeSignContentDocumentModule_Test {
 		// Content Version + Content Document + Content Document Link
 		ContentDocument cd = new ContentDocument();
 		ApplicationTestDataFactory.generateRecordIds(new List <SObject> { cd });
-		cd = (ContentDocument)ApplicationTestDataFactory.setUnwritableFields(cd, new Map<String, Object>{ 'ParentId' => account.Id, 'Title' => '_completed' });
+		cd = (ContentDocument)ApplicationTestDataFactory.setUnwritableFields(cd, new Map<String, Object>{ 'ParentId' => account.Id, 'Title' => AdobeSignContentDocumentModule.DOCUSIGN_COMPLETED_CONTRACT_SUFFIX_VOI });
 		ContentDocumentLink documentLinkRecord = ApplicationTestDataFactory.getContentDocumentLinks(1, account.Id, cd.Id, true)[0];
 		documentLinkRecord.Visibility = 'AllUsers';
 		documentLinkRecord.ShareType = 'V';
@@ -263,7 +263,7 @@ private class AdobeSignContentDocumentModule_Test {
 
 		System.assertEquals(true, contentDocuments.size() > 0);
 		for (ContentDocument document : contentDocuments) {
-			System.assertEquals('Cannot delete ContentDocument with a link to a signed Agreement', document.getErrors()[0].getMessage());
+			System.assertEquals(AdobeSignContentDocumentModule.MSG_DELETE_CONTRACT_VALIDATION, document.getErrors()[0].getMessage());
 		}
 
 	}
@@ -397,7 +397,7 @@ private class AdobeSignContentDocumentModule_Test {
 		// Content Version + Content Document + Content Document Link
 		ContentDocument cd = new ContentDocument();
 		ApplicationTestDataFactory.generateRecordIds(new List <SObject> { cd });
-		cd = (ContentDocument)ApplicationTestDataFactory.setUnwritableFields(cd, new Map<String, Object>{ 'ParentId' => apttusContract.Id, 'Title' => '__Signed' });
+		cd = (ContentDocument)ApplicationTestDataFactory.setUnwritableFields(cd, new Map<String, Object>{ 'ParentId' => apttusContract.Id, 'Title' => AdobeSignContentDocumentModule.DOCUSIGN_COMPLETED_CONTRACT_SUFFIX_APT});
 		ContentDocumentLink documentLinkRecord = ApplicationTestDataFactory.getContentDocumentLinks(1, apttusContract.Id, cd.Id, true)[0];
 		documentLinkRecord.Visibility = 'AllUsers';
 		documentLinkRecord.ShareType = 'V';
@@ -434,7 +434,7 @@ private class AdobeSignContentDocumentModule_Test {
 
 		System.assertEquals(true, contentDocuments.size() > 0);
 		for (ContentDocument document : contentDocuments) {
-			System.assertEquals('Cannot delete ContentDocument with a link to a signed Agreement', document.getErrors()[0].getMessage());
+			System.assertEquals(AdobeSignContentDocumentModule.MSG_DELETE_CONTRACT_VALIDATION, document.getErrors()[0].getMessage());
 		}
 	}
 
@@ -455,7 +455,7 @@ private class AdobeSignContentDocumentModule_Test {
 		// Content Version + Content Document + Content Document Link
 		ContentDocument cd = new ContentDocument();
 		ApplicationTestDataFactory.generateRecordIds(new List <SObject> { cd });
-		cd = (ContentDocument)ApplicationTestDataFactory.setUnwritableFields(cd, new Map<String, Object>{ 'ParentId' => account.Id, 'Title' => '_completed' });
+		cd = (ContentDocument)ApplicationTestDataFactory.setUnwritableFields(cd, new Map<String, Object>{ 'ParentId' => account.Id, 'Title' => AdobeSignContentDocumentModule.DOCUSIGN_COMPLETED_CONTRACT_SUFFIX_VOI });
 		ContentDocumentLink documentLinkRecord = ApplicationTestDataFactory.getContentDocumentLinks(1, account.Id, cd.Id, true)[0];
 		documentLinkRecord.Visibility = 'AllUsers';
 		documentLinkRecord.ShareType = 'V';
@@ -492,7 +492,7 @@ private class AdobeSignContentDocumentModule_Test {
 
 		System.assertEquals(true, contentDocuments.size() > 0);
 		for (ContentDocument document : contentDocuments) {
-			System.assertEquals('Cannot delete ContentDocument with a link to a signed Agreement', document.getErrors()[0].getMessage());
+			System.assertEquals(AdobeSignContentDocumentModule.MSG_DELETE_CONTRACT_VALIDATION, document.getErrors()[0].getMessage());
 		}
 	}
 }
