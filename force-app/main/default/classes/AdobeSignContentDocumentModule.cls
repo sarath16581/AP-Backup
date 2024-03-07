@@ -73,7 +73,7 @@ public inherited sharing class AdobeSignContentDocumentModule extends Applicatio
 		for (ContentDocument cd : (List<ContentDocument>)records) {
 			if (contentDocumentLinksMap.containsKey(cd.Id)) {
 				for (Id linkedEntityId : contentDocumentLinksMap.get(cd.Id)) {
-					if (!hasCustomPermission && linkedEntityId.getSObjectType() == echosign_dev1__SIGN_Agreement__c.SObjectType && cd.Title.endsWith(ADOBE_COMPLETED_CONTRACT_SUFFIX)) {
+					if (!hasCustomPermission && linkedEntityId.getSObjectType() == echosign_dev1__SIGN_Agreement__c.SObjectType && cd.Title.endsWithIgnoreCase(ADOBE_COMPLETED_CONTRACT_SUFFIX)) {
 						cd.addError(MSG_DELETE_CONTRACT_VALIDATION);
 					}
 				}
@@ -120,8 +120,8 @@ public inherited sharing class AdobeSignContentDocumentModule extends Applicatio
 					// when organisation signed contracts are saved with suffix '- completed' or
 					// when apttus contract '__Signed'
 					if (!hasCustomPermission &&
-							((linkedEntityId.getSObjectType() == Account.SObjectType && cd.Title.endsWith(DOCUSIGN_COMPLETED_CONTRACT_SUFFIX_VOI)) ||
-									(linkedEntityId.getSObjectType() == Apttus__APTS_Agreement__c.SObjectType && cd.Title.endsWith(DOCUSIGN_COMPLETED_CONTRACT_SUFFIX_APT)))) {
+							((linkedEntityId.getSObjectType() == Account.SObjectType && cd.Title.endsWithIgnoreCase(DOCUSIGN_COMPLETED_CONTRACT_SUFFIX_VOI)) ||
+									(linkedEntityId.getSObjectType() == Apttus__APTS_Agreement__c.SObjectType && cd.Title.endsWithIgnoreCase(DOCUSIGN_COMPLETED_CONTRACT_SUFFIX_APT)))) {
 						cd.addError(MSG_DELETE_CONTRACT_VALIDATION);
 					}
 				}
