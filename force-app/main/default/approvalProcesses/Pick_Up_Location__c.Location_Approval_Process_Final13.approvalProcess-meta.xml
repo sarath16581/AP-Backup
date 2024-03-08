@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ApprovalProcess xmlns="http://soap.sforce.com/2006/04/metadata">
+<ApprovalProcess xmlns=http://soap.sforce.com/2006/04/metadata>
     <active>true</active>
     <allowRecall>true</allowRecall>
     <allowedSubmitters>
@@ -693,10 +693,6 @@
                 <type>user</type>
             </approver>
             <approver>
-                <name>lisa.assaf@startrack.com.au</name>
-                <type>user</type>
-            </approver>
-            <approver>
                 <name>minz.sankari@startrack.com.au</name>
                 <type>user</type>
             </approver>
@@ -881,10 +877,6 @@
             </approver>
             <approver>
                 <name>paul.trembath@auspost.com.au</name>
-                <type>user</type>
-            </approver>
-            <approver>
-                <name>philip.faulks@startrack.com.au</name>
                 <type>user</type>
             </approver>
             <whenMultipleApprovers>FirstResponse</whenMultipleApprovers>

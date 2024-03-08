@@ -69,14 +69,16 @@
               </template>
               <li
                 role="option"
-                data-name="liSelectManual"
                 class="slds-listbox__item"
-                onclick={handleSelect}
-                aria-label="Enter Manually"
+				aria-label="Enter Manually"
                 aria-labelledby="conbobox-search"
               >
-                <span class="slds-lookup__item-action slds-media slds-media_center">
-                  <span style="color: #DC1928;font-weight:bold">Enter address manually instead</span>
+                <span
+				  data-name="spanSelectManual"
+				  class="slds-lookup__item-action slds-media slds-media_center"
+				  onclick={handleSelect}
+				>
+                  <span style="color: #DC1928;font-weight: bold; pointer-events: none;">Enter address manually instead</span>
                 </span>
               </li>
             </ul>            

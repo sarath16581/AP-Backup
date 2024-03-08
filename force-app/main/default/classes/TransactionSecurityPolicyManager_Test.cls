@@ -108,7 +108,7 @@ public class TransactionSecurityPolicyManager_Test {
 		User apIntUsr = [SELECT Id FROM User WHERE Alias = 'ainttsp3' LIMIT 1];
 		User ssswAgent2 = [SELECT Id FROM User WHERE Alias = 'sA2tsp2' LIMIT 1];
 
-		Integer rowsProcessed = 15;
+		Integer rowsProcessed = 50000;
 		String operation = 'ReportExported';
 		String queriedEntities = 'Compensation__c,Account';
 		String sensitiveReportColumn = '[Account.Name,Compensation__c.Name, Compensation__c.Account_Number__c],[LegalEntityName, Name, AccountNumber]';
