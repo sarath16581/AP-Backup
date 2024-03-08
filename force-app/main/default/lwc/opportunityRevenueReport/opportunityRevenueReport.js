@@ -24,10 +24,10 @@ export default class  OpportunityRevenueReport extends LightningElement {
             // Handle the error
             this.dispatchEvent( new ShowToastEvent({
 				title: 'Error',
-				message: 'Error retrieving revenue data:' + error,
+				message: 'Error retrieving revenue data: ' + error,
 				variant: 'error'
 			}));
-            console.error('Error retrieving revenue data:', error);
+            console.error('Error retrieving revenue data: ', error);
         }
     }
 
