@@ -8,6 +8,7 @@
  * @description Test Class covering SSSWAccountsSelector
  * @changelog
  * 2020-04-10 - Nathan Franklin - Created
+ * 2024-03-07 - Mahesh Parvathaneni - Added tests for newInstance methd
  */
 @IsTest
 public with sharing class SSSWAccountsSelector_Test {
@@ -47,6 +48,10 @@ public with sharing class SSSWAccountsSelector_Test {
 
 		results = selector.selectById(new Set<Id>{accounts[0].Id}, new Set<Object>{SSSWAccountsSelector.Options.FILTER_PERSON_ACCOUNT_ONLY});
 		System.assertEquals(0, results.size(), 'Expected only Person Accounts');
+
+		selector = SSSWAccountsSelector.newInstance(true);
+		results = selector.selectByAPCN(new Set<String>{personAccounts[0].APCN__pc});
+		System.assertEquals(1, results.size(), 'Result count was wrong');
 
 		Test.stopTest();
 	}

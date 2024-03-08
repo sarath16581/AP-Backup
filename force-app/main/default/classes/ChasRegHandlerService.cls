@@ -10,8 +10,9 @@
  * 2023-08-31 Mahesh Parvathaneni - Added fieldOverrides for the UsersSelector
  * 2023-09-19 - Mahesh Parvathaneni - removed variable ATTRIBUTE_CNUMBER_MAPPING, ATTRIBUTE_APCN_MAPPING
  * 2023-10-25 - Mahesh Parvathaneni - Refactor to use IsInactiveCustomer__pc instead of is_Inactive_Customer__pc
+ * 2024-03-06 - Mahesh Parvathaneni - Fixed bug on sign-up for DUPLICATE_VALUE exception
  */
-public without sharing class ChasRegHandlerService {
+public with sharing class ChasRegHandlerService {
 
 	public static final String DEFAULT_LOCALESIDKEY = 'en_AU';
 	public static final String DEFAULT_LANGUAGELOCALEKEY = 'en_US';
@@ -22,7 +23,6 @@ public without sharing class ChasRegHandlerService {
 		Account.FirstName => 'given_name',
 		Account.LastName => 'family_name',
 		Account.PersonEmail => 'email',
-        Account.APCN__c => Label.AttributeAPCNMapping,
 		Account.APCN__pc => Label.AttributeAPCNMapping,
 		Account.OID_ID__pc => Label.AttributeCNumberMapping,
 		Account.CRMCSSOID__pc => 'augmented_email_uppercase' // defined in reg handler
@@ -137,58 +137,28 @@ public without sharing class ChasRegHandlerService {
 		} else {
 			// couldn't find the person account record so one must be created
 			// NOTE: createPersonAccount performs a DML 
-			//personAccountRecord = createPersonAccount(attributes);
-			//personContactId = personAccountRecord.PersonContactId;
-			Savepoint sp = Database.setSavepoint();
-            try{
-                personAccountRecord = createPersonAccount(attributes);
+			try{
+				personAccountRecord = createPersonAccount(attributes);
 				personContactId = personAccountRecord.PersonContactId;    
-            } catch (Exception ex) {
+			} catch (Exception ex) {
 				//this is for parallel operation from CustomerDataSyncEvent platform event that we subscribe from SAP
 				//and create the person account records based on APCN__c
+				//we get the DUPLICATE_VALUE exception on a race condition between PE and reg.handler process
 				if(ex.getMessage().contains('DUPLICATE_VALUE')) {
 					//person account is created due to parallel operation from CustomerDataSyncEvent platform event
-					//query the existing records again
-					existingRecords = getExistingRecords(attributes);
-                    /*if(existingRecords.get(Account.SObjectType) != null) {
-                        personAccountRecord = (Account)existingRecords.get(Account.SObjectType);
+					//query the existing records again and return the user object in memory
+					//we have to use FOR UPDATE in the query here otherwise DML exception might happen when Salesforce inserts the new user record
+					//this is due to person contact we referenced to the new user might be locked by PE for any updates.
+					String existingAPCN = attributes.get(Label.AttributeAPCNMapping);
+					Map<Id, Account> accounts = SSSWAccountsSelector.newInstance(true).selectByAPCN(new Set<String>{existingAPCN}, new Set<Object>{SSSWAccountsSelector.Options.FILTER_PERSON_ACCOUNT_ONLY});
+					if(accounts.size() == 1) {
+						personAccountRecord = accounts.values()[0];
 						personContactId = personAccountRecord.PersonContactId;
-                    }*/
-                    if(existingRecords.get(User.SObjectType) != null) {
-						// we found a matching user from the person account record
-						personUserRecord = (User)existingRecords.get(User.SObjectType);
-                        //personUserRecord.IsActive = true;
-                        /*UserUpdateEvent__e  uevt = new UserUpdateEvent__e();
-                        uevt.UserId__c = personUserRecord.Id;
-                        EventBus.publish(uevt);*/
-                        Database.rollback(sp);
-                		Database.releaseSavepoint(sp);
-                        Http vHTTP = new Http();
-            			HttpRequest vReq = new HttpRequest();
-            			vReq.setEndpoint('callout:Salesforce_API'+'/v60.0/sobjects/User/'+personUserRecord.Id);
-            			vReq.setMethod('PATCH');
-            			vReq.setHeader('Content-Type', 'application/json'); 
-                        vReq.setHeader('Accept', 'application/json');
-            			vReq.setBody('{"IsActive" : "true"}');
-                        vReq.setTimeout(60000);
-            			HttpResponse vRes = vHTTP.send(vReq);
-                        ThirdPartyAccountLink tpa = new ThirdPartyAccountLink();
-                        tpa.SsoProviderId = '0SOBm0000000CijOAE';
-                        tpa.RemoteIdentifier = attributes.get('identifier');
-                        tpa.UserId = personUserRecord.Id;
-                        tpa.Provider = 'open id connect';
-                        tpa.Handle = personUserRecord.Email;
-                        Database.SaveResult saveResults = Database.insertImmediate(tpa);
-                        
-                        Map<SObjectType, Set<SObjectField>> fieldOverrides = new Map<SObjectType, Set<SObjectField>>{
-                            User.SObjectType => new Set<SObjectField>{User.Id, User.IsActive, User.FirstName, User.LastName, User.Email, User.Username, User.FederationIdentifier}
-						};
-                        User existingUser = UsersSelector.newInstance(0, fieldOverrides).selectById(new Set<Id>{personUserRecord.Id}).values()[0];
-                        System.debug('existingUser==>'+existingUser);
-                        return existingUser;
-                    }
-                }
-            }
+						personUserRecord = getNewUserSObject(personContactId, attributes);
+						return personUserRecord;
+					}
+				}
+			}
 		}
 
 		if(existingRecords.get(User.SObjectType) != null) {
@@ -219,9 +189,7 @@ public without sharing class ChasRegHandlerService {
 		}
 
 		// look for an existing record first, if we find one, we use that and attempt to link a new new user record on it.
-		//Map<Id, Account> accounts = SSSWAccountsSelector.newInstance().selectByAPCN(new Set<String>{existingAPCN}, new Set<Object>{SSSWAccountsSelector.Options.FILTER_PERSON_ACCOUNT_ONLY});
-        Map<Id, Account> accounts = new Map<Id,Account>([SELECT Id,PersonContactId, APCN__pc, OID_ID__pc, CRMCSSOID__pc, IsPersonAccount, VerifiedMobile__pc, PersonMobilePhone, PersonEmail, IsInactiveCustomer__pc
-                                    		FROM Account WHERE APCN__pc=:existingAPCN AND IsPersonAccount=true FOR UPDATE]);
+		Map<Id, Account> accounts = SSSWAccountsSelector.newInstance().selectByAPCN(new Set<String>{existingAPCN}, new Set<Object>{SSSWAccountsSelector.Options.FILTER_PERSON_ACCOUNT_ONLY});
 
 		if(accounts.size() == 1) {
 			// we found a match grab the associated contact id and try and match the associated User record
@@ -267,8 +235,7 @@ public without sharing class ChasRegHandlerService {
 
 		// insert the record
 		// NOTE: This should trigger the outbound message to sync these details to SAP-CRM (thats if the outbound message is still active) - 2023-03
-		//ApplicationDatabase.getInstance().dmlInsert(new List<SObject>{matchedAccount});
-		insert matchedAccount;
+		ApplicationDatabase.getInstance().dmlInsert(new List<SObject>{matchedAccount});
 
 		// after the record has been inserted we need to select the PersonContactId so it can be assigned to the user record
 		matchedAccount = SSSWAccountsSelector.newInstance().selectById(new Set<Id>{matchedAccount.Id}).values()[0];
@@ -339,8 +306,7 @@ public without sharing class ChasRegHandlerService {
 		// NOTE: it's possible if the record details contain completely different data then we may overwrite it by doing this
 		//		 It's assumed that the data in the db is right and no-one has manually tampered with it
 		if(isUserDirty) {
-			//ApplicationDatabase.getInstance().dmlUpdate(new List<User>{claimsGeneratedUserRecord});
-			update claimsGeneratedUserRecord;
+			ApplicationDatabase.getInstance().dmlUpdate(new List<User>{claimsGeneratedUserRecord});
 		}
 
 		return claimsGeneratedUserRecord;

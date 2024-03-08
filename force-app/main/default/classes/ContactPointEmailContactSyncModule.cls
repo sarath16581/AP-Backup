@@ -4,6 +4,8 @@
  * @domain            : connected customer
  * @last modified on  : 08-19-2022
  * @last modified by  : Sreenish Krishnan
+ * @changelog
+ * 2023-08-04 - Mahesh Parvathaneni - Disabled portal user creation from SAP PE messages. These users will be created on-demand from JIT Handlers
  **/
 public inherited sharing class ContactPointEmailContactSyncModule extends ApplicationDomain.Module {
 	public static ContactPointEmailContactSyncModule newInstance() {
@@ -162,7 +164,12 @@ public inherited sharing class ContactPointEmailContactSyncModule extends Applic
 				}
 			}
 
-			uow.registerUpsert(newUsers);
+			//Disbaling the portal user creation here and this record will be created only on-demand when the user log into
+			//Consumer Help & Support for the first time. This will be done as part of the JIT handlers.
+			//This is because of Race condition that is happening between the JIT handlers trying to create the person account/contact and the SAP messages
+			//are processed in PE. We can't update the user records from JIT handlers due to Mixed DML limitations and the best way we can think is to
+			//disbale the user creation from here and creates only on-demand.
+			//uow.registerUpsert(newUsers);
 			uow.registerUpsert(contactsToUpdate);
 
 			// enqueue the worker to process the user records that will need to be updated
