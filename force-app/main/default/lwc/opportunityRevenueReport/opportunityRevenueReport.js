@@ -6,6 +6,7 @@
  * 2024-01-31 - Ken McGuire - Created
  */
 import { LightningElement, api, wire, track } from 'lwc';
+import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 import getRevenueData from '@salesforce/apex/OpportunityRevenueReportController.getRevenueData';
 
 export default class  OpportunityRevenueReport extends LightningElement {
@@ -21,7 +22,11 @@ export default class  OpportunityRevenueReport extends LightningElement {
             this.processRevenueData(data);
         } else if (error) {
             // Handle the error
-            alert('error ' + error);
+            this.dispatchEvent( new ShowToastEvent({
+				title: 'Error',
+				message: 'Error retrieving revenue data:', error,
+				variant: 'error'
+			}));
             console.error('Error retrieving revenue data:', error);
         }
     }
