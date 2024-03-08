@@ -63,7 +63,7 @@ public class OpportunityRevenueReportController {
 			}
 			// retrieve relevant budget and revenues for all relevant accounts for this year and last (we need 12 months of sales data)
 			Set<String> financialYears = new Set<String> {String.valueOf(FY-1), String.valueOf(FY)};
-			Map<String,Budget_and_Revenue__c> customerRevenues =  loadBudgetAndRevenueRecords(relevantAccounts, oppLineItem.keySet(), financialYears);
+			Map<String,Budget_and_Revenue__c> customerRevenues = loadBudgetAndRevenueRecords(relevantAccounts, oppLineItem.keySet(), financialYears);
 			// get data row for main account
 			RevenueData data = new RevenueData(childAccounts.get(mainAccountId)?.Name);
 			buildRevenueData(mainAccountId,oppLineItem.values(),FY,startMonth,customerRevenues,data);
@@ -94,11 +94,39 @@ public class OpportunityRevenueReportController {
         return revenues;
     }
 
+	private static Double getSumOfPastTwelveMonths(String accountId, String productId,Integer targetYear, Integer targetMonth,Map<String,Budget_and_Revenue__c> customerRevenues) {
+		Double totalSum = 0.0;
+		// Iterate through the past 12 months
+		for (Integer i = 1; i <= 12; i++) {
+			String uniqueId = ProductRevenueService.getUID(accountId,productId,String.valueOf(targetYear));
+			Budget_and_Revenue__c targetRevenue = customerRevenues.get(uniqueId);
+			if (targetRevenue != null) {
+				Double monthValue = getValueForMonth(targetRevenue,targetMonth);
+				if (monthValue != null) {
+					totalSum += monthValue;
+				}
+			}
+			// adjust target month and financial year.
+			targetMonth -= 1;
+			if (targetMonth == 6) {
+				targetYear -=1;
+			}
+			else if (targetMonth==0) {
+				targetMonth = 12;
+			}
+		}
+		return totalSum;
+	}
+
+	private static Double getValueForMonth(SObject record, Integer month) {
+		return (Double)record.get(months[month-1] + SUFFIX) ?? 0;
+	}
+
     private static Boolean buildRevenueData(Id accountId,List<OpportunityLineItem> oppLineItem,Integer targetYear, Integer targetMonth,Map<String,Budget_and_Revenue__c> customerRevenues,RevenueData data) {
         Boolean hasData = false;
         for(OpportunityLineItem item : oppLineItem) {
-            Double amt = new ProductRevenueService().getSumOfPastTwelveMonths(accountId,item.Product2.Id);
-            data.productRevenues.put(item.Product2.Name,amt);
+			Double amt = getSumOfPastTwelveMonths(accountId,item.Product2.Id,targetYear,targetMonth,customerRevenues);
+			data.productRevenues.put(item.Product2.Name,amt);
             if (!hasData && amt>0 ) {
                 hasData = true;
             }
@@ -154,7 +182,7 @@ public class OpportunityRevenueReportController {
     private static Map<String,Budget_and_Revenue__c> loadBudgetAndRevenueRecords(Set<id> accountIds, Set<Id> productIds, Set<String> financialYears) {
         Map<String,Budget_and_Revenue__c> loadedRevenueMap = new   Map<String,Budget_and_Revenue__c>();
         for (Budget_and_Revenue__c currentBudget : BudgetAndRevenueSelector.newInstance().selectByOrganisationAndProduct(accountIds,productIds,financialYears,new Set<Id>())) {
-            loadedRevenueMap.put(currentBudget.uid__c, currentBudget);
+            loadedRevenueMap.put(currentBudget.UniqueId__c, currentBudget);
         }
         return loadedRevenueMap;
     }
