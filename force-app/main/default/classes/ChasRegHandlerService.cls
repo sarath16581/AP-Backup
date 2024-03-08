@@ -139,7 +139,7 @@ public with sharing class ChasRegHandlerService {
 			// NOTE: createPersonAccount performs a DML 
 			try{
 				personAccountRecord = createPersonAccount(attributes);
-				personContactId = personAccountRecord.PersonContactId;    
+				personContactId = personAccountRecord.PersonContactId;
 			} catch (Exception ex) {
 				//this is for parallel operation from CustomerDataSyncEvent platform event that we subscribe from SAP
 				//and create the person account records based on APCN__c

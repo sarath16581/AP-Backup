@@ -142,7 +142,7 @@ public class ApplicationSelector_Test {
 
 	/**
 	 * Test: Ensures that selectors Query Builder is not applying default order when ApplicationSelector.Options.WITHOUT_DEFAULT_ORDER
-	 *       selector option is used.
+	 *		selector option is used.
 	 */
 	@IsTest
 	public static void testWithoutDefaultOrderOption() {

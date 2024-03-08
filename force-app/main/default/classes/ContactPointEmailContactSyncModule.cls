@@ -1,7 +1,7 @@
 /**
- * @description       : This is a CP Email domain module that is called by the CP Email Trigger
- * @author            : Sreenish Krishnan
- * @domain            : connected customer
+ * @description			: This is a CP Email domain module that is called by the CP Email Trigger
+ * @author				: Sreenish Krishnan
+ * @domain				: connected customer
  * @last modified on  : 08-19-2022
  * @last modified by  : Sreenish Krishnan
  * @changelog
