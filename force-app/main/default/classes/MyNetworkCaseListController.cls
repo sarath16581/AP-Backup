@@ -231,7 +231,8 @@ public with sharing class MyNetworkCaseListController {
 				//spingali - REQ2297137 updated the last_status_Change__c criteria from 1 to 15 days
 				//checking if case is NOT ST case.
 				if( !MyNetworkConstants.STAR_TRACK_RECORD_TYPES.contains(cse.recordtype.developerName) &&
-						 cse.OwnerId != networkQueue && cse.Root_cause__c == 'Awaiting Network Response' && (cse.Last_Status_Change__c >= System.today() - 5)){
+						 ((cse.OwnerId != networkQueue && cse.Root_cause__c == 'Awaiting Network Response' && (cse.Last_Status_Change__c >= System.today() - 5)) || 
+						  (cse.Status == CASE_INVESTIGATION_CLOSED_STATUS && cse.Root_cause__c == 'Awaiting Network Response' && cse.Last_Status_Change__c >= System.today() - 5))){
 					
 					myNetworkCasesWrapperVar = validationCasesUpdatedByContactCenter(cse);
 				}

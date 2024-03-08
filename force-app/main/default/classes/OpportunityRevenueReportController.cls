@@ -88,6 +88,7 @@ public class OpportunityRevenueReportController {
 				}
 			}
 		} catch (Exception ex) {
+			System.debug(ex);
 			// Rethrow as an AuraHandledException for the LWC to catch
 			throw new AuraHandledException(errorMessage);
 		}

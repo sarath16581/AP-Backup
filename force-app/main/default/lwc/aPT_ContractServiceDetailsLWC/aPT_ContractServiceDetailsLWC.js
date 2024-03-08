@@ -6,7 +6,7 @@
  * 	-A custom checkout action in Apttus Shopping cart (aPT_CheckOutLWC),
  *  -A formula field 'Create Contract' on Proposal to trigger Contract Generation Process
  * Objective: It is used to create contract and service details creation.
- * Change log: 
+ * Change log:
  * 9-04-2023 : Yatika Bansal : Added logic for amend/renew
  * 8-02-2023 : Yatika Bansal : Modified logic for close button and dates
  * 8-08-2023 : Yatika Bansal : Added logic to show spinner until page fully loads
@@ -36,7 +36,7 @@ import INCL_PRODLINE_FIELD from '@salesforce/schema/Apttus__APTS_Agreement__c.In
 import TYPE_FIELD from '@salesforce/schema/Apttus__APTS_Agreement__c.APT_Contract_Type__c';
 import END_DATE_FIELD from '@salesforce/schema/Apttus__APTS_Agreement__c.Apttus__Contract_End_Date__c';
 import TERM_FIELD from '@salesforce/schema/Apttus__APTS_Agreement__c.Apttus__Term_Months__c';
- 
+
 import SERVICE_START_FIELD from '@salesforce/schema/Apttus__AgreementLineItem__c.Apttus_CMConfig__EffectiveDate__c';
 import SERVICE_END_FIELD from '@salesforce/schema/Apttus__AgreementLineItem__c.Apttus_CMConfig__EndDate__c';
 
@@ -133,7 +133,7 @@ export default class APT_ContractServiceDetailsLWC extends NavigationMixin(Light
 			if(!this.existingContractId){
 				//function to create Contract Record onLoad
 				createContractRecord({proposalId : this.proposalId})
-				.then((result) => {					
+				.then((result) => {
 					if (result.includes('Incomplete')) {
 						//prompt to complete cred assess
 						LightningAlert.open({
@@ -257,7 +257,7 @@ export default class APT_ContractServiceDetailsLWC extends NavigationMixin(Light
 		if(prodLine !== null){
 			this.isAppc = prodLine.includes(this.parcelContractLine);
 		}
-		
+
 		//Initialize values onLoad
 		if(this.isAmend === 'true'){
 			this.aggstartDateDisabled = true;
@@ -274,7 +274,7 @@ export default class APT_ContractServiceDetailsLWC extends NavigationMixin(Light
 			this.calculateAED();
 		}
 		//AED should be empty in case of FT on amend contract if switched from OE
-		if(this.template.querySelector('.condField').value === this.fixedTerm && this.isAmend === 'true' 
+		if(this.template.querySelector('.condField').value === this.fixedTerm && this.isAmend === 'true'
 		&& this.template.querySelector('.endDateField').value === '2999-12-31'){
 			this.template.querySelector('.endDateField').value = null;
 		}
@@ -492,7 +492,7 @@ export default class APT_ContractServiceDetailsLWC extends NavigationMixin(Light
 		}else{
 			//ST product
 			if(this.isST === 'Yes'){
-				url = '/' + this.contractId;				
+				url = '/' + this.contractId;
 			}
 			// AP product
 			else{
@@ -666,7 +666,7 @@ export default class APT_ContractServiceDetailsLWC extends NavigationMixin(Light
 
 		//Assign the values back to form fields
 		const mapServiceStartDateById = new Map();
-		this.template.querySelectorAll('.serviceStart').forEach((cmp) => {			
+		this.template.querySelectorAll('.serviceStart').forEach((cmp) => {
 			mapServiceStartDateById.set(cmp.dataset.id, cmp.value);
 
 			//Set list of ids
@@ -758,7 +758,7 @@ export default class APT_ContractServiceDetailsLWC extends NavigationMixin(Light
 	}
 
 	/**
-	* function to redirect back to contract 
+	* function to redirect back to contract
 	*/
 	handleClose(){
 		//Retain AED in case of FT renewal

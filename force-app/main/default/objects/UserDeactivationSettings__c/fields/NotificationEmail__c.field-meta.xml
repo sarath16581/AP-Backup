@@ -8,8 +8,8 @@
     <inlineHelpText>email who receives summary email upon failures</inlineHelpText>
     <label>Notification Email</label>
     <required>false</required>
-    <trackTrending>false</trackTrending>
     <securityClassification>INTERNAL</securityClassification>
+    <trackTrending>false</trackTrending>
     <type>Email</type>
     <unique>false</unique>
 </CustomField>
