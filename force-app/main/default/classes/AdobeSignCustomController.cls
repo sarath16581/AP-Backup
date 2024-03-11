@@ -76,9 +76,6 @@ public with sharing class AdobeSignCustomController {
 			return new RedirectResponse(ADOBE_SIGN_AGREEMENT_VIEW_PAGE + agreementId + '/view');
 		} else {
 			// No primary contact found
-			// exceptions has to be thrown as an instance by setting the error message in order to perform the unit tests
-			// couldn't find any official documentation for this and this is the only solution so far.
-			// If we use only new AuraHandledException(MSG_ERROR_ORG_MISSING_CONTACT); will still work on he UI but unit tests.
 			AuraHandledException ae = new AuraHandledException(MSG_ERROR_ORG_MISSING_CONTACT);
 			ae.setMessage(MSG_ERROR_ORG_MISSING_CONTACT);
 			throw ae;

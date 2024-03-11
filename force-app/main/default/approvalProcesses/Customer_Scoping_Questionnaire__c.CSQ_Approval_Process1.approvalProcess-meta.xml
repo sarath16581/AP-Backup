@@ -76,7 +76,7 @@
         <useApproverFieldOfRecordOwner>false</useApproverFieldOfRecordOwner>
         <userHierarchyField>Manager</userHierarchyField>
     </nextAutomatedApprover>
-    <processOrder>2</processOrder>
+    <processOrder>1</processOrder>
     <recallActions>
         <action>
             <name>Status_Recall_draft</name>
