@@ -8,6 +8,7 @@
  * @changelog
  * 2020-04-10 - Nathan Franklin - Created
  * 2022-04-12 - Ranjeewa Silva - Added tests to verify the use of WITHOUT_DEFAULT_ORDER option to build queries with no default ordering applied
+ * 2024-03-07 - Mahesh Parvathaneni - Added test method testEnsureQueryBuilderProducesCorrectStringWithForUpdate to verify the use of FOR UPDATE 
  */
 @IsTest
 public class ApplicationSelector_Test {
@@ -55,6 +56,28 @@ public class ApplicationSelector_Test {
 		System.assertEquals(true, Pattern.compile('(?ism)\\bfrom account\\b').matcher(soql).find(), 'Resulting query does not select from Account: ' + soql);
 		System.assertEquals(true, Pattern.compile('(?ism)\\bfrom account\\b.*?LIMIT 5').matcher(soql).find(), 'Resulting query does not include a LIMIT: ' + soql);
 		System.assertEquals(true, Pattern.compile('(?ism)\\bfrom account\\b.*?OFFSET 10').matcher(soql).find(), 'Resulting query does not include an OFFSET: ' + soql);
+
+	}
+
+	/**
+	 * Test:
+	 *  Ensures that the selectors QueryBuilder is generating the correct output
+	 */
+	@IsTest
+	public static void testEnsureQueryBuilderProducesCorrectStringWithForUpdate() {
+
+		AccountsSelector selector = new AccountsSelector();
+		selector.setLimit(5);
+		selector.setOffset(10);
+		selector.setForUpdate(true);
+
+		QueryBuilder qb = selector.newQueryBuilder();
+		String soql = qb.toSoqlString();
+
+		System.assertEquals(true, Pattern.compile('(?ism)\\bfrom account\\b').matcher(soql).find(), 'Resulting query does not select from Account: ' + soql);
+		System.assertEquals(true, Pattern.compile('(?ism)\\bfrom account\\b.*?LIMIT\\s+5\\s+FOR\\s+UPDATE\\s*$').matcher(soql).find(), 'Resulting query does not include a FOR UPDATE: ' + soql);
+		System.assertEquals(true, Pattern.compile('(?ism)\\bfrom account\\b.*?LIMIT 5').matcher(soql).find(), 'Resulting query does not include a LIMIT: ' + soql);
+		System.assertEquals(false, Pattern.compile('(?ism)\\bfrom account\\b.*?OFFSET 10').matcher(soql).find(), 'Resulting query should not set Order By when FOR UPDATE is used:' + soql);
 
 	}
 
@@ -119,7 +142,7 @@ public class ApplicationSelector_Test {
 
 	/**
 	 * Test: Ensures that selectors Query Builder is not applying default order when ApplicationSelector.Options.WITHOUT_DEFAULT_ORDER
-	 *       selector option is used.
+	 *		selector option is used.
 	 */
 	@IsTest
 	public static void testWithoutDefaultOrderOption() {

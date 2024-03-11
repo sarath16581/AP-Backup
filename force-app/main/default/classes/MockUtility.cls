@@ -10,6 +10,7 @@
  * 2022-07-28 - Sreenish Krishnan - Added DMLUpsert logic
  * 2023-03-21 - Nathan Franklin - Added some DML insert/update captor helper methods
  * 2023-05-16 - Sarath Burra - Added a method Method to typecast the List<Object> into List<List<SObject>> returned from the fflib_ArgumentCaptor.getAllValues()
+ * 2024-03-07 - Mahesh Parvathaneni - Updated mockSelector to include setForUpdate
  */
 @IsTest
 public class MockUtility {
@@ -46,6 +47,7 @@ public class MockUtility {
 		MockUtility.Mocks.when(selector.setOffset(fflib_Match.anyInteger())).thenReturn(selector);
 		MockUtility.Mocks.when(selector.setFieldOverrides((Set<SObjectField>)fflib_Match.anyObject())).thenReturn(selector);
 		MockUtility.Mocks.when(selector.setFieldOverrides((Map<SObjectType, Set<SObjectField>>)fflib_Match.anyObject())).thenReturn(selector);
+		MockUtility.Mocks.when(selector.setForUpdate(fflib_Match.anyBoolean())).thenReturn(selector);
 		MockUtility.Mocks.stopStubbing();
 
 		Application.Selectors.setMock(selectorType, selector);

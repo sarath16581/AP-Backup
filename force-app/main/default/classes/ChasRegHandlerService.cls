@@ -10,6 +10,7 @@
  * 2023-08-31 Mahesh Parvathaneni - Added fieldOverrides for the UsersSelector
  * 2023-09-19 - Mahesh Parvathaneni - removed variable ATTRIBUTE_CNUMBER_MAPPING, ATTRIBUTE_APCN_MAPPING
  * 2023-10-25 - Mahesh Parvathaneni - Refactor to use IsInactiveCustomer__pc instead of is_Inactive_Customer__pc
+ * 2024-03-06 - Mahesh Parvathaneni - Fixed bug on sign-up for DUPLICATE_VALUE exception
  */
 public with sharing class ChasRegHandlerService {
 
@@ -136,8 +137,28 @@ public with sharing class ChasRegHandlerService {
 		} else {
 			// couldn't find the person account record so one must be created
 			// NOTE: createPersonAccount performs a DML 
-			personAccountRecord = createPersonAccount(attributes);
-			personContactId = personAccountRecord.PersonContactId;
+			try{
+				personAccountRecord = createPersonAccount(attributes);
+				personContactId = personAccountRecord.PersonContactId;
+			} catch (Exception ex) {
+				//this is for parallel operation from CustomerDataSyncEvent platform event that we subscribe from SAP
+				//and create the person account records based on APCN__c
+				//we get the DUPLICATE_VALUE exception on a race condition between PE and reg.handler process
+				if(ex.getMessage().contains('DUPLICATE_VALUE')) {
+					//person account is created due to parallel operation from CustomerDataSyncEvent platform event
+					//query the existing records again and return the user object in memory
+					//we have to use FOR UPDATE in the query here otherwise DML exception might happen when Salesforce inserts the new user record
+					//this is due to person contact we referenced to the new user might be locked by PE for any updates.
+					String existingAPCN = attributes.get(Label.AttributeAPCNMapping);
+					Map<Id, Account> accounts = SSSWAccountsSelector.newInstance(true).selectByAPCN(new Set<String>{existingAPCN}, new Set<Object>{SSSWAccountsSelector.Options.FILTER_PERSON_ACCOUNT_ONLY});
+					if(accounts.size() == 1) {
+						personAccountRecord = accounts.values()[0];
+						personContactId = personAccountRecord.PersonContactId;
+						personUserRecord = getNewUserSObject(personContactId, attributes);
+						return personUserRecord;
+					}
+				}
+			}
 		}
 
 		if(existingRecords.get(User.SObjectType) != null) {
