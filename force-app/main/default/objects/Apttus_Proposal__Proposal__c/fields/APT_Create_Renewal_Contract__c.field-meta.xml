@@ -16,7 +16,7 @@
     )
     ||
     (
-    (ISPICKVAL(Apttus_Proposal__Approval_Stage__c, &quot;Draft&quot;) || ISPICKVAL(Apttus_Proposal__Approval_Stage__c, &quot;Generated&quot;))
+    ISPICKVAL(Apttus_Proposal__Approval_Stage__c, &quot;Accepted without proposal document&quot;)
     &amp;&amp; RecordType.Name = &apos;Renewal Quote&apos;
     &amp;&amp; NOT(ISBLANK(Apttus_QPConfig__ConfigurationFinalizedDate__c))
     &amp;&amp; APT_Document_Generation_in_Progress__c = false
