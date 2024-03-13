@@ -12,7 +12,7 @@ public with sharing class ProductScheduleService {
 
     public static final String MONTHLY_SCHEDULE_PREFIX = 'For';
     public static final String CUSTOM_SUFFIX = '__c';
-    // A map of UID / grouped revenue records containing the incremental and reatained revenues for account products.
+    // A map of UID / grouped revenue records containing the incremental and retained revenues for account products.
     @testVisible
     private Map<String,GroupedAccountProductRevenue__c> groupedRevenues {
         get {
@@ -78,7 +78,7 @@ public with sharing class ProductScheduleService {
 
     /**
 	  * Creates or updates revenue schedules for a given list of opportunity line items.
-	  * @param opportunityIds A Set of Opportunity Ids for which the revenue schedules need to be created or updated.
+	  * @param items List<OpportunityLineItem>
 	  * @return List<GroupedRevenueSchedule__c> A list of 'GroupedRevenueSchedule__c' objects that have been created or updated
 	  *         for the product line items of the provided Opportunity IDs.
 	  */
@@ -89,26 +89,26 @@ public with sharing class ProductScheduleService {
         // first grab the opportunity line item ids in question
         Set<String> oppLineItemIds = new Set<String>();
         for (OpportunityLineItem item : items) {
-            oppLineItemIds.add(item.id);
+            oppLineItemIds.add(item.Id);
         }
         loadGroupedRevenueSchedules(oppLineItemIds);
         // create or modify revenue schedules
         for (OpportunityLineItem nextItem : opportunityLineItems.values()) {
             RevenueScheduleCalculator calculator = new RevenueScheduleCalculator(nextItem.Contract_Start_Date__c,nextItem.Contract_End_Date__c,defaultRevenueAllocation);
-            for (Integer financialYear = calculator.FinancialYearStart; financialYear <= calculator.FinancialYearEnd; financialYear++) {
-                // obtan revenue schedue record for the year
-                String scheduleUid = getUID(nextItem.id, String.valueOf(financialYear));
-                GroupedRevenueSchedule__c scheduleToCalculate = groupedSchedules.containsKey(scheduleUid) ? groupedSchedules.get(scheduleUid) : new GroupedRevenueSchedule__c(OpportunityProduct__c = nextItem.id, Opportunity__c = nextItem.OpportunityId);
+            for (Integer financialYear = calculator.financialYearStart; financialYear <= calculator.financialYearEnd; financialYear++) {
+                // obtain revenue schedule record for the year
+                String scheduleUid = getUID(nextItem.Id, String.valueOf(financialYear));
+                GroupedRevenueSchedule__c scheduleToCalculate = groupedSchedules.containsKey(scheduleUid) ? groupedSchedules.get(scheduleUid) : new GroupedRevenueSchedule__c(OpportunityProduct__c = nextItem.Id, Opportunity__c = nextItem.OpportunityId);
                 if (scheduleToCalculate.GroupedAccountProductRevenue__c == null)
                 {
                     // link a revenue record to the schedule
-                    String revenueUid = ProductRevenueService.getUID(nextItem.Opportunity.accountId, nextItem.Product2.id, String.valueOf(financialYear));
+                    String revenueUid = ProductRevenueService.getUID(nextItem.Opportunity.AccountId, nextItem.Product2.Id, String.valueOf(financialYear));
                     GroupedAccountProductRevenue__c revenue = groupedRevenues.get(revenueUid);
                     if (revenue == null) {
-                        scheduleToCalculate.GroupedAccountProductRevenue__r = new GroupedAccountProductRevenue__c(AnchorOrganisation__c = nextItem.Opportunity.accountId, PrimaryProduct__c = nextItem.Product2.id, FinancialYear__c = financialYear, uid__c = revenueUid);
+                        scheduleToCalculate.GroupedAccountProductRevenue__r = new GroupedAccountProductRevenue__c(AnchorOrganisation__c = nextItem.Opportunity.AccountId, PrimaryProduct__c = nextItem.Product2.Id, FinancialYear__c = financialYear, UID__c = revenueUid);
                     }
                     else {
-                        scheduleToCalculate.GroupedAccountProductRevenue__c = revenue.id;
+                        scheduleToCalculate.GroupedAccountProductRevenue__c = revenue.Id;
                         scheduleToCalculate.GroupedAccountProductRevenue__r = revenue;
                     }
                 }
@@ -128,21 +128,21 @@ public with sharing class ProductScheduleService {
      */
     private void getCreateGroupedRevenues(List<OpportunityLineItem> items) {
         // retrieve any existing grouped account product revenue records so the schedules can link to them.
-        Set<String> Uids = new Set<String>();
+        Set<String> uids = new Set<String>();
         for (OpportunityLineItem nextItem : opportunityLineItems.values()) {
-            integer startYear = nextItem.Contract_Start_Date__c.Month() >= 7 ? nextItem.Contract_Start_Date__c.Year() + 1 : nextItem.Contract_Start_Date__c.Year();
-            integer endYear = nextItem.Contract_End_Date__c.Month()  >= 7 ? nextItem.Contract_End_Date__c.Year() + 1 : nextItem.Contract_End_Date__c.Year();
+            Integer startYear = nextItem.Contract_Start_Date__c.month() >= 7 ? nextItem.Contract_Start_Date__c.year() + 1 : nextItem.Contract_Start_Date__c.year();
+            Integer endYear = nextItem.Contract_End_Date__c.month()  >= 7 ? nextItem.Contract_End_Date__c.year() + 1 : nextItem.Contract_End_Date__c.year();
             for (Integer year = startYear; year <= endYear; year++) {
-                String uid = ProductRevenueService.getUID(nextItem.Opportunity.accountId, nextItem.Product2.id, String.valueOf(year));
-                if (!groupedRevenues.containskey(uid)) {
-                    // create a new placehoder revenue record. This will be replaced with any existing records once loaded.
-                    GroupedAccountProductRevenue__c revenueRecord = new GroupedAccountProductRevenue__c(AnchorOrganisation__c = nextItem.Opportunity.accountId, PrimaryProduct__c = nextItem.Product2.id, FinancialYear__c = year, uid__c = uid);
+                String uid = ProductRevenueService.getUID(nextItem.Opportunity.AccountId, nextItem.Product2.Id, String.valueOf(year));
+                if (!groupedRevenues.containsKey(uid)) {
+                    // create a new placeholder revenue record. This will be replaced with any existing records once loaded.
+                    GroupedAccountProductRevenue__c revenueRecord = new GroupedAccountProductRevenue__c(AnchorOrganisation__c = nextItem.Opportunity.AccountId, PrimaryProduct__c = nextItem.Product2.Id, FinancialYear__c = year, UID__c = uid);
                     groupedRevenues.put(uid, revenueRecord);
                 }
-                Uids.add(uid);
+                uids.add(uid);
             }
         }
-        loadGroupedProductRevenues(Uids);
+        loadGroupedProductRevenues(uids);
     }
 
     /**
@@ -182,7 +182,7 @@ public with sharing class ProductScheduleService {
     * @param opportunityIds A Set of Opportunity IDs for which the Opportunity Line Items are to be loaded.
     * @return List<OpportunityLineItem> A list of loaded Opportunity Line Items associated with the provided Opportunity IDs. 
     **/
-    private List<OpportunityLineItem> loadProductLineItems(Set<id> opportunityIds) {
+    private List<OpportunityLineItem> loadProductLineItems(Set<Id> opportunityIds) {
 
         Map<SObjectType, Set<SObjectField>> fieldOverrides = new Map<SObjectType, Set<SObjectField>>{
                 OpportunityLineItem.SObjectType => new Set<SObjectField>{OpportunityLineItem.Id, OpportunityLineItem.Name,OpportunityLineItem.Quantity, OpportunityLineItem.Contract_Start_Date__c, OpportunityLineItem.Contract_End_Date__c,OpportunityLineItem.UnitPrice, OpportunityLineItem.TotalPrice, OpportunityLineItem.Annualised_Value__c, OpportunityLineItem.RetainedRevenue__c,OpportunityLineItem.IncrementalRevenue__c, OpportunityLineItem.TweleveMonthRevenue__c},
@@ -192,7 +192,7 @@ public with sharing class ProductScheduleService {
 
         List<OpportunityLineItem> loadedItems = OpportunityLineItemSelector.newInstance(0, fieldOverrides).selectByOpportunity(opportunityIds, new Set<Object>{OpportunityLineItemSelector.Options.WITH_OPPORTUNITY, OpportunityLineItemSelector.Options.WITH_PRODUCT});
         for (OpportunityLineItem item : loadedItems) {
-            opportunityLineItems.put(item.id, item);
+            opportunityLineItems.put(item.Id, item);
         }
         return loadedItems;
     }
@@ -210,7 +210,7 @@ public with sharing class ProductScheduleService {
             return;
         }
         for (GroupedAccountProductRevenue__c groupedRevenue : additionalGroupedRevenues.values()) {
-            groupedRevenues.put(groupedRevenue.uid__c, groupedRevenue);
+            groupedRevenues.put(groupedRevenue.UID__c, groupedRevenue);
         }
     }
 
@@ -229,71 +229,62 @@ public with sharing class ProductScheduleService {
 	*/
     @testVisible
     private class RevenueScheduleCalculator {
-        public integer financialYearStart {get; private set;}
-        integer calendarYearStart;
-        integer startMonth;
-        public integer financialYearEnd  {get; private set;}
-        integer calendarYearEnd;
-        integer endMonth;
-        double startMonthAllocation;
-        double endMonthAllocation;
-        double totalAllocation;
-        double[] revenueAllocation;
+        public Integer financialYearStart {get; private set;}
+        Integer calendarYearStart;
+        Integer startMonth;
+        public Integer financialYearEnd  {get; private set;}
+        Integer calendarYearEnd;
+        Integer endMonth;
+        Double startMonthAllocation;
+        Double endMonthAllocation;
+        Double totalAllocation;
+        Double[] revenueAllocation;
 
-        public  RevenueScheduleCalculator(Date startDate, date endDate, double[] revenueAllocation) {
+        public  RevenueScheduleCalculator(Date startDate, Date endDate, Double[] revenueAllocation) {
             this.revenueAllocation = revenueAllocation;
             calculateValues(startDate,endDate);
         }
 
         public void recalculateScheduleByReference(GroupedRevenueSchedule__c schedule) {
-            integer calendarYear = (integer)schedule.GroupedAccountProductRevenue__r.FinancialYear__c;
-            system.debug('start calculating for calendar year '+calendarYear);
-            for (integer month = 1; month <=12; month++) {
-                double monthRevenueAllocation = 0;
-                system.debug('calculating for month '+month);
+            Integer calendarYear = (Integer)schedule.GroupedAccountProductRevenue__r.FinancialYear__c;
+            for (Integer month = 1; month <=12; month++) {
+                Double monthRevenueAllocation = 0;
                 if (month == 7) {
                     calendarYear = calendarYear -1;
-                    system.debug('adjusting calendar year to '+calendarYear);
                 }
-                if (Month == startMonth && calendarYear == calendarYearStart) {
-                    system.debug('using first month of contract');
+                if (month == startMonth && calendarYear == calendarYearStart) {
                     monthRevenueAllocation = startMonthAllocation/totalAllocation;
                 }
-                else if(Month == endMonth && calendarYear == calendarYearEnd) {
+                else if(month == endMonth && calendarYear == calendarYearEnd) {
                     monthRevenueAllocation = endMonthAllocation/totalAllocation;
-                    system.debug('using last month of contract');
                 }
                 else if (isYearMonthInRange(calendarYear,month)) {
-                    system.debug('inside contract');
                     monthRevenueAllocation = revenueAllocation[month-1]/totalAllocation;
                 } else {
-                    system.debug('outside contract');
                     monthRevenueAllocation =0;
                 }
-                system.debug('montly allocation '+monthRevenueAllocation);
-                schedule.put(MONTHLY_SCHEDULE_PREFIX+String.ValueOf(month)+CUSTOM_SUFFIX,monthRevenueAllocation*100);
+                schedule.put(MONTHLY_SCHEDULE_PREFIX+String.valueOf(month)+CUSTOM_SUFFIX,monthRevenueAllocation*100);
             }
         }
 
-        private void calculateValues(Date startDate, date endDate) {
-            calendarYearStart = startDate.Year();
+        private void calculateValues(Date startDate, Date endDate) {
+            calendarYearStart = startDate.year();
             startMonth = startDate.month();
             financialYearStart = startMonth >= 7 ? calendarYearStart + 1 : calendarYearStart;
-            integer startDay = startDate.day();
-            calendarYearEnd = endDate.Year();
+            Integer startDay = startDate.day();
+            calendarYearEnd = endDate.year();
             endMonth = endDate.month();
             financialYearEnd = endMonth >= 7 ? calendarYearEnd + 1 : calendarYearEnd;
-            integer endDay = endDate.day();
-            integer totalWholeMonths =  startDate.monthsBetween(endDate);
+            Integer endDay = endDate.day();
+            Integer totalWholeMonths =  startDate.monthsBetween(endDate);
 
 
             totalAllocation = 0;
             // calculate startMonth proportion based on number of days remaining in that month 
             startMonthAllocation = (1-startDay/(Decimal)Date.daysInMonth(calendarYearStart,startMonth)) * revenueAllocation[startMonth-1];
-            // calculate allocatons for whole months
-            system.debug('start allocation for '+startDay+'-'+startMonth+'-'+calendarYearStart+'='+startMonthAllocation);
+            // calculate allocations for whole months
             totalAllocation += startMonthAllocation;
-            integer targetMonth = startMonth;
+            Integer targetMonth = startMonth;
 
             for (Integer i = 1; i < totalWholeMonths; i++) {
                 targetMonth = targetMonth+1;
@@ -301,14 +292,11 @@ public with sharing class ProductScheduleService {
                 if (targetMonth == 13) {
                     targetMonth = 1;
                 }
-                system.debug('Adding full month for '+targetMonth);
                 totalAllocation += revenueAllocation[targetMonth-1];
             }
             // calculate end month allocation based on number of days transpired in that month
             endMonthAllocation = endDay/(Decimal)Date.daysInMonth(calendarYearEnd,endMonth) * revenueAllocation[endMonth-1];
-            system.debug('end allocation for '+endDay+'-'+endMonth+'-'+calendarYearEnd+'='+endMonthAllocation);
             totalAllocation += endMonthAllocation;
-            system.debug('total allocation'+totalAllocation);
         }
         @testVisible
         private Boolean isYearMonthInRange(Integer givenYear, Integer givenMonth) {

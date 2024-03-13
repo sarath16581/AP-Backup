@@ -74,7 +74,8 @@ public inherited sharing class OpportunityRevenueScheduleModule extends Applicat
                 }else {
                     schedulesToUpdate.add(schedule);
                 }
-                if (schedule.GroupedAccountProductRevenue__r != null && schedule.GroupedAccountProductRevenue__r.Id == null) {
+                if (schedule.GroupedAccountProductRevenue__r != null && schedule.GroupedAccountProductRevenue__r.Id == null) { // Group Account Product Revenue record does not exist yet, put it into a to insert list, and register the relationship
+                    uow.registerRelationship(schedule, GroupedRevenueSchedule__c.GroupedAccountProductRevenue__c, schedule.GroupedAccountProductRevenue__r);
                     revenuesToInsert.add(schedule.GroupedAccountProductRevenue__r);
                 }
             }
