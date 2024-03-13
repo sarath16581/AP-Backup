@@ -174,10 +174,10 @@ public with sharing class ProductRevenueService {
 
     /**
     * @description 	constructs a UID used to retrieve revenue records.
-    * @param 			acountId - the account for the revenue record
-    * @param 			productId - the product for the revenue record
-    * @param 			Year - the financial year of the revenue record
-    * @return        	A unique identifier that can be used to retrieve the revenue record
+    * @param accountId - the account for the revenue record
+    * @param productId - the product for the revenue record
+    * @param Year - the financial year of the revenue record
+    * @return A unique identifier that can be used to retrieve the revenue record
     */
     public static String getUID(Id accountId, Id productId, String year) {
         String orgId = accountId == null ? '' : String.valueOf(accountId).substring(0, 15);
@@ -441,9 +441,9 @@ public with sharing class ProductRevenueService {
     }
 
     /**
-   * @description 	Load related accounts and their hierarchial relationships
-   * @param 			items  a list of opportunity line items to load account relationships from
-   * @return         A set of unique record identifiers for use in retrieiving associated budget and revenue records
+   * @description Load related accounts and their hierarchical relationships
+   * @param accountIds Set<Id>
+   * @return A set of unique record identifiers for use in retrieving associated budget and revenue records
    */
     private Set<Id> loadRelatedAccounts(Set<Id> accountIds) {
         Set<Id> allAccounts = new Set<Id>();
@@ -493,17 +493,18 @@ public with sharing class ProductRevenueService {
     }
 
     /**
-   * @description 	calculate actual revenue for account products achieved over the past 12 months.
-   * @param 			acountId - the account for the revenue record
-   * @param 			productId - the product for the revenue record
-   * @return        	the total sales value for the last twelve months for the specified account and product.      */
-    public Double getSumOfPastTwelveMonths(String AccountId, String productId) {
+   * @description calculate actual revenue for account products achieved over the past 12 months.
+   * @param accountId - the account for the revenue record
+   * @param productId - the product for the revenue record
+   * @return the total sales value for the last twelve months for the specified account and product.
+   * */
+    public Double getSumOfPastTwelveMonths(String accountId, String productId) {
         Double totalSum = 0.0;
         // Iterate through the past 12 months
         Integer targetYear = getAustralianFinancialYear(calculationDate);
         Integer targetMonth = calculationDate.month() - 1; // should not include the current month
         for (Integer i = 1; i <= 12; i++) {
-            String uniqueId = getUID(AccountId,productId,String.valueOf(targetYear));
+            String uniqueId = getUID(accountId,productId,String.valueOf(targetYear));
             GroupedAccountProductRevenue__c targetData = groupedRevenues.get(uniqueId);
             if (targetData != null) {
                 Double monthValue = getValueForMonth(targetData,targetMonth);
