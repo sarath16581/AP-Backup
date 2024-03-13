@@ -2265,7 +2265,7 @@
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>CHAS_CommunityUrl</shortDescription>
-        <value>https://helpandsupport.auspost.com.au</value>
+        <value>ptest.npe.helpandsupport.auspost.com.au</value>
     </labels>
     <labels>
         <fullName>CHAS_CompensationSitePath</fullName>
