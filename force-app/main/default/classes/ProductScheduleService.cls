@@ -95,7 +95,7 @@ public with sharing class ProductScheduleService {
         // create or modify revenue schedules
         for (OpportunityLineItem nextItem : opportunityLineItems.values()) {
             RevenueScheduleCalculator calculator = new RevenueScheduleCalculator(nextItem.Contract_Start_Date__c,nextItem.Contract_End_Date__c,defaultRevenueAllocation);
-            for (Integer financialYear = calculator.financialYearStart; financialYear <= calculator.financialYearStart; financialYear++) {
+            for (Integer financialYear = calculator.financialYearStart; financialYear <= calculator.financialYearEnd; financialYear++) {
                 // obtain revenue schedule record for the year
                 String scheduleUid = getUID(nextItem.Id, String.valueOf(financialYear));
                 GroupedRevenueSchedule__c scheduleToCalculate = groupedSchedules.containsKey(scheduleUid) ? groupedSchedules.get(scheduleUid) : new GroupedRevenueSchedule__c(OpportunityProduct__c = nextItem.Id, Opportunity__c = nextItem.OpportunityId);
