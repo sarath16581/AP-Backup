@@ -8,6 +8,14 @@
         <enabled>true</enabled>
         <name>AllowDeleteOnAdobeSignContracts</name>
     </customPermissions>
+    <customPermissions>
+        <enabled>true</enabled>
+        <name>AllowDeleteOnDocuSignContracts</name>
+    </customPermissions>
+    <customPermissions>
+        <enabled>true</enabled>
+        <name>ShowAdobeSignAgreementsList</name>
+    </customPermissions>
     <hasActivationRequired>false</hasActivationRequired>
     <label>Adobe Sign Super Admin</label>
 </PermissionSet>
