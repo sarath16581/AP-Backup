@@ -7432,13 +7432,6 @@ something new for us, so we&apos;d love to know what you think.</value>
         <value>Searching ...</value>
     </labels>
     <labels>
-        <fullName>Send_for_eSignature_Custom_Message</fullName>
-        <language>en_US</language>
-        <protected>false</protected>
-        <shortDescription>Send for eSignature Custom Message</shortDescription>
-        <value>Once the agreement is signed by Australia Post and the Customer, you will receive an email confirmation and the Customer Onboarding team will be notified to provision the rates, and activate the contract.</value>
-    </labels>
-    <labels>
         <fullName>ShareInformationError1</fullName>
         <language>en_US</language>
         <protected>false</protected>
