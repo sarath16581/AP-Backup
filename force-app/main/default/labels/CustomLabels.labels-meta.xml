@@ -7844,7 +7844,7 @@ something new for us, so we&apos;d love to know what you think.</value>
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>StarTrackSubAccountABNConfirmationErrorMessage</shortDescription>
-        <value>This request does not meet the minimum criteria to create a follower/offspring account. Please raise a Data Quality Management Case to link ABN to required Salesforce Organisation. Once this has been completed, please Self-Serve or raise a Customer Onboarding Deal Support Request for a New Agreement, account will be created post agreement fully signed.</value>
+        <value>The Follower/Offspring account must have the same ABN as the Leader account. Different ABN on existing Org: Confirm the Orgs are linked within Salesforce Hierarchy. If required, submit a Sales Operations Support case to link. Raise a DSR via Customer Onboarding for a New Agreement. Follower account will be created once agreement is signed. If no Org exists, create a new org and follow this same process.</value>
     </labels>
     <labels>
         <fullName>StarTrackSubAccountActivationDSRDescription</fullName>
