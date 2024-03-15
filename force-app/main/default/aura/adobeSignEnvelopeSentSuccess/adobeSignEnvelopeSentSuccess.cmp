@@ -11,7 +11,11 @@
 			<h1 id="modal-heading-01" class="slds-modal__title slds-hyphenate">Success</h1>
 		  </div>
 		  <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
-			<p>{!$Label.c.Send_for_eSignature_Custom_Message}</p>
+			<p><b>If you have just clicked “Send” button</b></p>
+			<p>Once the agreement is signed by Australia Post and the Customer, you will receive an email confirmation and Customer Onboarding team will be notified to provision the rates, and activate the contract.</p>
+			<br/>
+			<p><b>If you have just clicked “Cancel” button</b></p>
+			<p>Your Adobe envelope has been successfully recalled, you can send a new Adobe envelope now if it's required.</p>
 		  </div>
 		  <div class="slds-modal__footer">
 			<button class="slds-button slds-button_brand" onclick="{!c.ok}">OK</button>
