@@ -58,7 +58,7 @@ export default class APT_CheckoutLWC extends LightningElement {
 	contractServiceDetailsUrl = '/lightning/cmp/c__APT_ContractServiceDetailsWrapper?c__proposalId=';
 	credAssessPromptMsg = 'Prospect customer requires credit assessment to be completed and approved prior generating contract document. Click "OK" to submit credit assessment.';
 	approvalReqErrorMsg = 'You can checkout after the approval request is approved';
-	waitTime = 15000;
+	waitTime = 10000;
 	amendRecordType = 'Amendment Quote';
 	amendRecordTypeId;
 	isAmend = false;
@@ -397,9 +397,7 @@ export default class APT_CheckoutLWC extends LightningElement {
 	*function handle ratecard generate request
 	*/
 	rateCardGenerationRequest() {
-		//some delay before proposal generation to avoid lock error
-		this._interval = setTimeout(() => {
-			initiateRateCardGeneration({ proposalId: this.proposalId })
+		initiateRateCardGeneration({ proposalId: this.proposalId })
 			.then((requestresult) => {
 				if(requestresult === true){
 					let opportunityLineItemsURL = '/lightning/cmp/c__opcNavToBulkEdit?c__oppId='+this.oppId + '&c__proposalId='+this.proposalId;
@@ -413,6 +411,5 @@ export default class APT_CheckoutLWC extends LightningElement {
 				this.error = error;
 				this.isLoading = false;
 			});
-		}, this.waitTime);
 	}
 }
