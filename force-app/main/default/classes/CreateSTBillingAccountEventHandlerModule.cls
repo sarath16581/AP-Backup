@@ -343,8 +343,8 @@ public inherited sharing class CreateSTBillingAccountEventHandlerModule extends 
 				for (APT_Sub_Account__c offspringSubAccountRequest: subAccountRequest.OffspringAccountRequests__r) {
 					if (offspringSubAccountRequest.APT_Sub_Account_Request_Status__c == 'Draft' || offspringSubAccountRequest.APT_Sub_Account_Request_Status__c == 'Error') {
 						APT_Sub_Account__c updatableOffspringAccountRequest = new APT_Sub_Account__c(Id=offspringSubAccountRequest.Id);
-						uow.registerDirty(updatableOffspringAccountRequest, false, uowSourceTraceId);
-						uow.registerRelationship(updatableOffspringAccountRequest, APT_Sub_Account__c.ParentBillingAccount__c, newBillingAccount);
+						SObject registered = uow.registerDirty(updatableOffspringAccountRequest, false, uowSourceTraceId);
+						uow.registerRelationship(registered, APT_Sub_Account__c.ParentBillingAccount__c, newBillingAccount);
 					}
 				}
 			}
@@ -554,10 +554,10 @@ public inherited sharing class CreateSTBillingAccountEventHandlerModule extends 
 				Id dsrId = chargeAccountRequestIdMapping.get(subAccountRequest.APT_Charge_Account__c);
 				String leaderAccountNumber = dsrLeaderBillingAccountNumberMapping.get(dsrId);
 				APT_Sub_Account__c updatable = new APT_Sub_Account__c(Id=subAccountRequest.Id);
-				uow.registerDirty(updatable, false, CreateSTBillingAccountEventHandlerModule.class.getName() + ':updateSubAccountRequestsNotSubmittedForProvisioning');
+				SObject registered = uow.registerDirty(updatable, false, CreateSTBillingAccountEventHandlerModule.class.getName() + ':updateSubAccountRequestsNotSubmittedForProvisioning');
 				// populate APT_Billing_Account__c lookup so the sub account request is linked to the leader billing account.
 				// this is to allow retrying the sub account request in billing account flow.
-				uow.registerRelationship(updatable, APT_Sub_Account__c.APT_Billing_Account__c, newBillingAccounts.get(leaderAccountNumber));
+				uow.registerRelationship(registered, APT_Sub_Account__c.APT_Billing_Account__c, newBillingAccounts.get(leaderAccountNumber));
 			}
 		}
 	}
