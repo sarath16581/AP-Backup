@@ -180,22 +180,7 @@ export default class APT_CheckoutLWC extends LightningElement {
 		checkoutOnly({ configId: this.configId })
 			.then((result) => {
 				if (result === 'success') {
-					//some delay before proposal generation to avoid lock error
-						this._interval = setTimeout(() => {
-							//this.navigateToUrl( this.rateCardBatchUrl + this.proposalId + '&isRCCall=false');
-							initiateRateCardGeneration({ proposalId: this.proposalId })
-						.then((requestresult) => {
-							if(requestresult === true){
-									//STP-9640: redirect to OPC screen
-									let opportunityLineItemsURL = '/lightning/cmp/c__opcNavToBulkEdit?c__oppId='+this.oppId + '&c__proposalId='+this.proposalId;
-									this.navigateToUrl(opportunityLineItemsURL);
-								}
-							})
-							.catch((error) => {
-								this.error = error;
-								this.isLoading = false;
-							});	
-					}, this.waitTime);
+					this.rateCardGenerationRequest();
 				} else {
 					this.error = result;
 					this.isLoading = false;
@@ -255,6 +240,9 @@ export default class APT_CheckoutLWC extends LightningElement {
 					let opportunityLineItemsURL = '/lightning/cmp/c__opcNavToBulkEdit?c__oppId='+this.oppId + '&c__proposalId='+this.proposalId + '&c__isST=' + this.isST + '&c__isManualContract=' + isManualContract + '&c__isAmend=' + this.isAmend + '&c__isRenew=' + this.isRenew;
 					this.navigateToUrl(opportunityLineItemsURL);
 				}
+				}
+				else {
+					this.docGenerationRequired();
 				}
 			})
 			.catch((error) => {
@@ -403,5 +391,25 @@ export default class APT_CheckoutLWC extends LightningElement {
 				composed: true,
 			}
 		));
+	}
+
+	/**
+	*function handle ratecard generate request
+	*/
+	rateCardGenerationRequest() {
+		initiateRateCardGeneration({ proposalId: this.proposalId })
+			.then((requestresult) => {
+				if(requestresult === true){
+					let opportunityLineItemsURL = '/lightning/cmp/c__opcNavToBulkEdit?c__oppId='+this.oppId + '&c__proposalId='+this.proposalId;
+					this.navigateToUrl(opportunityLineItemsURL);
+				}
+				else {
+					this.rateCardGenerationRequest();
+				}
+			})
+			.catch((error) => {
+				this.error = error;
+				this.isLoading = false;
+			});
 	}
 }

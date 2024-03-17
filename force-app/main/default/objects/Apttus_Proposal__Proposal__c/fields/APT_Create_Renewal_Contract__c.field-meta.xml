@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>APT_Create_Renewal_Contract__c</fullName>
+    <description>Displays a button on proposal to Contract Renewal</description>
     <externalId>false</externalId>
     <formula>IF((
     (
@@ -16,7 +17,7 @@
     )
     ||
     (
-    (ISPICKVAL(Apttus_Proposal__Approval_Stage__c, &quot;Draft&quot;) || ISPICKVAL(Apttus_Proposal__Approval_Stage__c, &quot;Generated&quot;))
+    ISPICKVAL(Apttus_Proposal__Approval_Stage__c, &quot;Accepted without proposal document&quot;)
     &amp;&amp; RecordType.Name = &apos;Renewal Quote&apos;
     &amp;&amp; NOT(ISBLANK(Apttus_QPConfig__ConfigurationFinalizedDate__c))
     &amp;&amp; APT_Document_Generation_in_Progress__c = false
@@ -25,6 +26,7 @@
 HYPERLINK(&quot;/lightning/cmp/c__APT_ContractServiceDetailsWrapper?c__proposalId=&quot;&amp;Id&amp;&apos;&amp;c__isST=&apos;&amp;TEXT(Is_Startrack_Proposal__c)&amp;&apos;&amp;c__isManualContract=false&amp;c__isRenew=true&apos;,
 IMAGE(&quot;/resource/APT_Create_Renewal_Contract&quot;, &quot;Create Renewal Contract&quot;),&quot;_self&quot;), NULL)</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <inlineHelpText>Creates Contract Renewal</inlineHelpText>
     <label>Create Contract Renewal</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>
