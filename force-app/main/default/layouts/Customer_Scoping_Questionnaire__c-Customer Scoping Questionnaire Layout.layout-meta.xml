@@ -127,6 +127,10 @@
                 <behavior>Edit</behavior>
                 <field>PreApprovalStatus__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>PreApprover__c</field>
+            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>
