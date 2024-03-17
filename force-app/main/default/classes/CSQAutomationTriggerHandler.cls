@@ -36,16 +36,15 @@ public inherited sharing class CSQAutomationTriggerHandler extends ApplicationTr
 		};
 
 		for(SObject record : records) {
-			if ((String)record.get('PreApprovalStatus__c') == PRE_APPROVAL_STATUS_PENDING_ONBOARDING) {
+			String preApprovalStatus = (String)record.get('PreApprovalStatus__c');
+
+			if (preApprovalStatus == PRE_APPROVAL_STATUS_PENDING_ONBOARDING) {
 				filteredRecords.get('filterCSQPreApprovalPending').add(record);
-			}
-			if ((String)record.get('PreApprovalStatus__c') == PRE_APPROVAL_STATUS_UNDER_ONBOARDING_REVIEW) {
+			} else if (preApprovalStatus == PRE_APPROVAL_STATUS_UNDER_ONBOARDING_REVIEW) {
 				filteredRecords.get('filterCSQPreApprovalUnderReview').add(record);
-			}
-			if ((String)record.get('PreApprovalStatus__c') == PRE_APPROVAL_STATUS_REFERRED) {
+			} else if (preApprovalStatus == PRE_APPROVAL_STATUS_REFERRED) {
 				filteredRecords.get('filterCSQPreApprovalReferred').add(record);
-			}
-			if ((String)record.get('PreApprovalStatus__c') == PRE_APPROVAL_STATUS_APPROVED) {
+			} else if (preApprovalStatus == PRE_APPROVAL_STATUS_APPROVED) {
 				filteredRecords.get('filterCSQPreApprovalApproved').add(record);
 			}
 		}
