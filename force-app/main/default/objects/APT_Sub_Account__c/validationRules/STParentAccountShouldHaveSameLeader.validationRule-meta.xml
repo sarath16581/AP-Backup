@@ -10,6 +10,7 @@
         ISCHANGED(APT_Sub_Account_Request_Status__c) &amp;&amp;
         PRIORVALUE(APT_Sub_Account_Request_Status__c)=&apos;Submitted&apos;
     ),
+    NOT(ISCHANGED(APT_Billing_Account__c)),
     APT_Billing_Account__c &lt;&gt; ParentBillingAccount__r.LeaderAccount__c
 )</errorConditionFormula>
     <errorDisplayField>ParentBillingAccount__c</errorDisplayField>
