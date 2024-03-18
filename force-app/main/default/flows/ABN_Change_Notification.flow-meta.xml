@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionCalls>
+        <description>Fetch either sandbox or production email address for vendors from the custom metadata Auspost Vendors Email Address to facilitate testing.</description>
+        <name>Fetch_Sandbox_Prod_Vendor_Email_Address</name>
+        <label>Fetch Sandbox/Prod Vendor Email Address</label>
+        <locationX>176</locationX>
+        <locationY>323</locationY>
+        <actionName>VendorEmailUtils</actionName>
+        <actionType>apex</actionType>
+        <connector>
+            <targetReference>Get_Environment_URL</targetReference>
+        </connector>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </actionCalls>
+    <actionCalls>
+        <name>Get_Environment_URL</name>
+        <label>Get Environment URL</label>
+        <locationX>176</locationX>
+        <locationY>431</locationY>
+        <actionName>Util</actionName>
+        <actionType>apex</actionType>
+        <connector>
+            <targetReference>Send_Account_ABN_Change_Notification</targetReference>
+        </connector>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>recordIds</name>
+            <value>
+                <elementReference>$Record.Id</elementReference>
+            </value>
+        </inputParameters>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </actionCalls>
+    <actionCalls>
+        <name>Send_Account_ABN_Change_Notification</name>
+        <label>Send Account ABN Change Notification</label>
+        <locationX>176</locationX>
+        <locationY>539</locationY>
+        <actionName>emailSimple</actionName>
+        <actionType>emailSimple</actionType>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>emailAddresses</name>
+            <value>
+                <elementReference>Fetch_Sandbox_Prod_Vendor_Email_Address</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>emailSubject</name>
+            <value>
+                <elementReference>ABNChangeNotificationSubject</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>emailBody</name>
+            <value>
+                <elementReference>ABNChangeNotificationBody</elementReference>
+            </value>
+        </inputParameters>
+    </actionCalls>
+    <apiVersion>60.0</apiVersion>
+    <environments>Default</environments>
+    <interviewLabel>ABN Change Notification {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>ABN Change Notification</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <start>
+        <locationX>50</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Fetch_Sandbox_Prod_Vendor_Email_Address</targetReference>
+        </connector>
+        <filterLogic>1 AND ( 2 OR 3 )</filterLogic>
+        <filters>
+            <field>ABN__c</field>
+            <operator>IsChanged</operator>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </filters>
+        <filters>
+            <field>Licence_Status__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Approved</stringValue>
+            </value>
+        </filters>
+        <filters>
+            <field>Licence_Status__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Draft</stringValue>
+            </value>
+        </filters>
+        <object>Account</object>
+        <recordTriggerType>Update</recordTriggerType>
+        <triggerType>RecordAfterSave</triggerType>
+    </start>
+    <status>Draft</status>
+    <textTemplates>
+        <name>ABNChangeNotificationBody</name>
+        <isViewedAsPlainText>true</isViewedAsPlainText>
+        <text>Hi,
+
+ABN number has changed for this Organisation with SAP Vendor ID :  {!$Record.SAP_Vendor_ID__c} 
+
+Legal Entity Name : {!$Record.Name}
+Old ABN :	         {!$Record__Prior.ABN__c}
+New ABN :	         {!$Record.ABN__c}
+
+You can view the details at:
+{!Get_Environment_URL}
+Regards,
+Sender</text>
+    </textTemplates>
+    <textTemplates>
+        <name>ABNChangeNotificationSubject</name>
+        <isViewedAsPlainText>true</isViewedAsPlainText>
+        <text>[TEST] ABN Change Notification :: {!$Record.SAP_Vendor_ID__c}</text>
+    </textTemplates>
+</Flow>
