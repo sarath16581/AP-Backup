@@ -51,8 +51,7 @@ public inherited sharing  class GroupedLineItemSalesModule extends ApplicationMo
         }
     }
 
-
-    private void performRevenueUpdates(Set<Id> opportunityIds, ApplicationUnitOfWork uow) {
+    public void performRevenueUpdates(Set<Id> opportunityIds, ApplicationUnitOfWork uow) {
         if (opportunityIds.isEmpty()) return;
         ProductRevenueService service = ProductRevenueService.getInstance();
         List<GroupedAccountProductRevenue__c> reCalculatedRevenues = service.reCalculateGroupRevenuesForOpportunities(opportunityIds);
