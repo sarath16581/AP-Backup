@@ -270,7 +270,7 @@ public inherited sharing class CustomerDataSyncEventCustomerHelper {
 	private void logUpsertResultsException(List<Database.UpsertResult> upsertResults) {
 		UTIL_LoggingService.createExceptionForUpsertResults(
 			upsertResults,
-			null,
+			new List<SObject>(),
 			'CustomerDataSyncEventCustomerHelper',
 			CustomerDataSyncEventCustomerHelper.class.getName(),
 			'upsertCustomerData',
