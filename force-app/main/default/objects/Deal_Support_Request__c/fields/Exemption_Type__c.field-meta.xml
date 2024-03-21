@@ -43,6 +43,16 @@
                 <default>false</default>
                 <label>Other</label>
             </value>
+            <value>
+                <fullName>1 Tier Delegation</fullName>
+                <default>false</default>
+                <label>1 Tier Delegation</label>
+            </value>
+            <value>
+                <fullName>2 Tier Delegation</fullName>
+                <default>false</default>
+                <label>2 Tier Delegation</label>
+            </value>
         </valueSetDefinition>
     </valueSet>
 </CustomField>

@@ -33,7 +33,7 @@
         <filterItems>
             <field>APT_Sub_Account__c.AccountType__c</field>
             <operation>equals</operation>
-            <value>Follower Only</value>
+            <value>Follower - Rates Relationship</value>
         </filterItems>
         <isOptional>false</isOptional>
     </lookupFilter>

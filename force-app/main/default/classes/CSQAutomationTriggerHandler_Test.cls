@@ -24,9 +24,10 @@ private class CSQAutomationTriggerHandler_Test {
 		csqs.add(new Customer_Scoping_Questionnaire__c(PreApprovalStatus__c = CSQAutomationTriggerHandler.PRE_APPROVAL_STATUS_APPROVED));
 		csqs.add(new Customer_Scoping_Questionnaire__c(PreApprovalStatus__c = CSQAutomationTriggerHandler.PRE_APPROVAL_STATUS_PENDING_ONBOARDING));
 		csqs.add(new Customer_Scoping_Questionnaire__c(PreApprovalStatus__c = CSQAutomationTriggerHandler.PRE_APPROVAL_STATUS_REFERRED));
+		csqs.add(new Customer_Scoping_Questionnaire__c(PreApprovalStatus__c = CSQAutomationTriggerHandler.PRE_APPROVAL_STATUS_UNDER_ONBOARDING_REVIEW));
 
 		Map<String, List<SObject>> filteredGroupRecords = handler.primeRecordFilters(csqs);
-		Assert.areEqual(3, filteredGroupRecords.size(), 'Expected the event records to be filtered into 3 groups');
+		Assert.areEqual(4, filteredGroupRecords.size(), 'Expected the event records to be filtered into 4 groups');
 
 		Assert.areEqual(1, filteredGroupRecords.get('filterCSQPreApprovalPending').size());
 		Assert.areEqual(csqs[0].Id, filteredGroupRecords.get('filterCSQPreApprovalPending')[0].Id);

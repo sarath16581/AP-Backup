@@ -60,10 +60,10 @@ public inherited sharing class CustomerDataSyncEventCustomerHelper {
 				accupsertSFIDList = (List<SObject>) custMap.get(SFID);
 
 				if (accupsertAPCNList.size() > 0) {
-					resultUpsertAPCN = ApplicationDatabase.getInstance().dmlUpsert(accupsertAPCNList, Account.apcn__c);
+					resultUpsertAPCN = ApplicationDatabase.getInstance().dmlUpsert(accupsertAPCNList, Account.apcn__c, false);
 				}
 				if (accupsertSFIDList.size() > 0) {
-					resultUpsertSFID = ApplicationDatabase.getInstance().dmlUpsert(accupsertSFIDList, Account.Id);
+					resultUpsertSFID = ApplicationDatabase.getInstance().dmlUpsert(accupsertSFIDList, Account.Id, false);
 				}
 
 				custSuccessMap = genSuccessCustomerMap(genSuccessCustIds(resultUpsertAPCN, resultUpsertSFID));
@@ -270,7 +270,7 @@ public inherited sharing class CustomerDataSyncEventCustomerHelper {
 	private void logUpsertResultsException(List<Database.UpsertResult> upsertResults) {
 		UTIL_LoggingService.createExceptionForUpsertResults(
 			upsertResults,
-			null,
+			new List<SObject>(),
 			'CustomerDataSyncEventCustomerHelper',
 			CustomerDataSyncEventCustomerHelper.class.getName(),
 			'upsertCustomerData',
