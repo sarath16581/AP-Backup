@@ -254,9 +254,9 @@ export default class APT_CheckoutLWC extends LightningElement {
 	/**
 	*function will check if document generation is required
 	*/
-	docGenerationRequired(isNotficationDisabled) {
+	docGenerationRequired() {
 		this.isLoading = true;
-		docGenerationRequired({ configId : this.configId, proposalId : this.proposalId, notificationDisabled: isNotficationDisabled})
+		docGenerationRequired({ configId : this.configId })
 			.then((result) => {
 				//some delay to ensure creation of proposal line items
 				this._interval = setTimeout(() => {
@@ -297,7 +297,7 @@ export default class APT_CheckoutLWC extends LightningElement {
 					}
 					else {
 						//checks if doc generation is required
-						this.docGenerationRequired(true);
+						this.docGenerationRequired();
 					}
 
 				} else {
@@ -331,7 +331,7 @@ export default class APT_CheckoutLWC extends LightningElement {
 				}
 				else if (result === 'Complete') {
 					//checks if doc generation is required
-					this.docGenerationRequired(true);
+					this.docGenerationRequired();
 				}
 				else {
 					this.isLoading = false;
@@ -362,7 +362,7 @@ export default class APT_CheckoutLWC extends LightningElement {
 		checkoutOnly({ configId: this.configId })
 			.then((result) => {
 				if (result === 'success') {
-						this.navigateToUrl('/' + this.oppId);
+					this.navigateToUrl('/' + this.oppId);
 				} else {
 					this.error = result;
 				}
