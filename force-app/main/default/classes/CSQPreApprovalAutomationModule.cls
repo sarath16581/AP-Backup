@@ -26,6 +26,7 @@ public inherited sharing class CSQPreApprovalAutomationModule extends Applicatio
 	public override void onBeforeUpdate(List<SObject> records, Map<Id, SObject> existingRecords, ApplicationUnitOfWork uow) {
 		try {
 			enforceReferralReasons(records);
+			updateDateSubmitted(records);
 		} catch (Exception ex) {
 			// Error Logged to Exception object for analysis
 			ApplicationLogger.getInstance().logException(ApplicationLogger.wrapException(ex), 'CSQ', CSQPreApprovalAutomationModule.class.getName(), 'onBeforeUpdate', 'Customer_Scoping_Questionnaire__c', ApplicationLogger.LoggingLevel.ERROR);
@@ -54,6 +55,12 @@ public inherited sharing class CSQPreApprovalAutomationModule extends Applicatio
 			if (String.isEmpty(csq.PreApprovalReferralReasons__c)) {
 				csq.addError(REFERRAL_ERROR);
 			}
+		}
+	}
+
+	private static void updateDateSubmitted(List<SObject> records) {
+		for (Customer_Scoping_Questionnaire__c csq : (List<Customer_Scoping_Questionnaire__c>) records) {
+			csq.DateSubmitted__c = System.today();
 		}
 	}
 
