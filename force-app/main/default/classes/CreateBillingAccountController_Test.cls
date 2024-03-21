@@ -99,10 +99,6 @@ public with sharing class CreateBillingAccountController_Test {
 	 */
 	@IsTest
 	private static void generateExternalOnboardingRecordTest() {
-		setMetadata(
-		'Select Id ,Connected__c From SAP_Integration__mdt Where DeveloperName = \'SAP_Integration\'',
-		(List<SAP_Integration__mdt>) JSON.deserialize('[{"Connected__c":"Yes"}]', List<SAP_Integration__mdt>.class)
-		);
 		List<Account> accountList = ApplicationTestDataFactory.getAccounts(2, true);
 		Account account = accountList[0];
 		Account chargeAccount = accountList[1];
@@ -126,63 +122,32 @@ public with sharing class CreateBillingAccountController_Test {
 		subAccountRequest.APT_Postal_Address_Street_Postcode__c = '3000';
 		subAccountRequest.Name = 'Seth 1';
 		subAccountRequest.APT_Account_Name_2__c = 'Seth Trading Name';
-		apttusProposals.id = null;
-		apttusContracts.id = null;
-		primaryContact.id = null;
-		account.id = null;
-		opportunityRecord.id = null;
-		apttusCreditAssessment.id = null;
-		chargeAccountRequest.id = null;
-		subAccountRequest.id = null;
-		dealSupportRequest.id = null;
-		insert account;
-
-		opportunityRecord.AccountId = account.id;
-		insert opportunityRecord;
-
-		primaryContact.AccountId = account.id;
-		insert primaryContact;
-
-		apttusProposals.Apttus_Proposal__Primary_Contact__c = primaryContact.id;
-		insert apttusProposals;
-
-		apttusContracts.Apttus__Primary_Contact__c = primaryContact.id;
-		apttusContracts.Apttus__Related_Opportunity__c = opportunityRecord.id;
-		insert apttusContracts;
-
-		insert chargeAccountRequest;
-
-		apttusCreditAssessment.APT_Charge_Account__c = chargeAccountRequest.id;
-		insert apttusCreditAssessment;
 
 		apttusCreditAssessment.APT_Proposal__c = apttusProposals.Id;
 		apttusCreditAssessment.APT_Charge_Account__c = chargeAccountRequest.Id;
 		apttusProposals.APT_Method_of_Payment__c = 'Charge Account + Sub Account';
 		apttusProposals.APT_Credit_Assessment__c = apttusCreditAssessment.Id;
 		apttusProposals.Apttus_QPConfig__ConfigurationFinalizedDate__c = System.today();
-		update apttusProposals;
 
 		apttusContracts.Apttus_QPComply__RelatedProposalId__c = apttusProposals.Id;
 		apttusContracts.Apttus__Account__c = account.Id;
-		update apttusContracts;
-		// The mock framework does not work with below query, as such for this method we had to insert actual data in order to pass the code coverage
-		apttusContracts = ApttusContractsSelector.newInstance().selectById(new set<Id>{apttusContracts.id},
-			new Set<object>{
-				ApttusContractsSelector.Options.WITH_ORGANISATION,
-				ApttusContractsSelector.Options.WITH_CONTACT,
-				ApttusContractsSelector.Options.WITH_CREDIT_ASSESSMENT,
-				ApttusContractsSelector.Options.WITH_PROPOSAL,
-				ApttusContractsSelector.Options.WITH_OPPORTUNITY
-			}).values()[0];
+
+		apttusProposals = (Apttus_Proposal__Proposal__c) ApplicationTestDataFactory.setUnwritableFields(apttusProposals, new Map<String, Object>{
+				'APT_Credit_Assessment__r' => apttusCreditAssessment
+		});
+
+		apttusContracts = (Apttus__APTS_Agreement__c) ApplicationTestDataFactory.setUnwritableFields(apttusContracts, new Map<String, Object>{
+				'Apttus__Primary_Contact__r' => primaryContact,
+				'Apttus_QPComply__RelatedProposalId__r' => apttusProposals
+		});
 
 		dealSupportRequest.APT_Contract__c = apttusContracts.Id;
 		dealSupportRequest.Opportunity__c = opportunityRecord.Id;
 		dealSupportRequest.Organisation__c = account.id;
-		insert dealSupportRequest;
+
 		subAccountRequest.APT_Charge_Account__c = chargeAccountRequest.Id;
 		subAccountRequest.APT_Sub_Account_Request_Status__c = 'Draft';
 		subAccountRequest.SubAccountContact__c = primaryContact.id;
-		insert subAccountRequest;
 
 		// =====================================
 		// Stubbing
@@ -214,19 +179,16 @@ public with sharing class CreateBillingAccountController_Test {
 				ApttusContractsSelector.Options.WITH_PROPOSAL,
 				ApttusContractsSelector.Options.WITH_OPPORTUNITY
 			})).thenReturn(mockApttusContractMap);
-		List<BAMExternalOnboardingRequest__c> onboardingRequest = new List<BAMExternalOnboardingRequest__c>{externalOnboardingRecord};
-		String stJson = '{"success":true,"id":' +'"'+ onboardingRequest[0].Id + '"'+ '}';
-		Database.SaveResult sr = (Database.SaveResult)JSON.deserialize(stJson, Database.SaveResult.class);
 
-		list<Database.SaveResult> svResultList = new  list<Database.SaveResult>{sr};
-		// MockUtility.Mocks.when(mockDatabase.dmlInsert((onboardingRequest),(Boolean)fflib_Match.anyBoolean())).thenReturn(externalOnboardingRecord.Id);
-		MockUtility.Mocks.when(mockDatabase.dmlInsert((List<SObject>)fflib_Match.anyObject())).thenReturn(svResultList);
+		MockUtility.Mocks.when(mockDatabase.dmlInsert((List<SObject>)fflib_Match.anyObject())).thenAnswer(new MockUtility.AnswerGenericDMLInserted());
 		MockUtility.Mocks.stopStubbing();
 
 		Test.startTest();
 		CreateBillingAccountHelper.externalOnboardingRequestWithConnectionDetails onboardingRecord = CreateBillingAccountController.generateExternalOnboardingRecord(dealSupportRequest.Id, 'TestBillingAccountName');
-		((ApplicationDatabase)MockUtility.Mocks.verify(mockDatabase, MockUtility.Mocks.times(1))).dmlInsert((List<SObject>)fflib_Match.anyObject());
 		Test.stopTest();
+		Assert.isNotNull(onboardingRecord, 'Expected a valid response with external onboarding request id, but got null.');
+		Assert.isNotNull(onboardingRecord.onboardingRequestId, 'Expected a valid external onboarding request id, but got null.');
+		((ApplicationDatabase)MockUtility.Mocks.verify(mockDatabase, MockUtility.Mocks.times(1))).dmlInsert((List<SObject>)fflib_Match.anyObject());
 	}
 	@IsTest
 	private static void generateExternalOnboardingRecordTestWithDummyConnection() {
