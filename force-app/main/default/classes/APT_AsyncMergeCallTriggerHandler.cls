@@ -37,7 +37,7 @@ public with sharing class APT_AsyncMergeCallTriggerHandler {
 								 && !mapOldAsyncMergeCall.get(asyncMergeCall.Id).Apttus__Status__c.equalsIgnoreCase(APT_Constants.STATUS_CATEGORY)){
 						proposalIdsToBeProcessed.add(asyncMergeCall.Apttus_Proposal__QuoteProposalId__c);
 
-					}
+                    } else {}
 				}
 
 				if(proposalIdsToBeProcessed.Size() > 0 ){
@@ -73,6 +73,9 @@ public with sharing class APT_AsyncMergeCallTriggerHandler {
 						if(!proposal.APT_Document_Notification_Off__c) {
 										   // Send an email to the Apex job's submitter notifying of job completion.
 						mail = new Messaging.SingleEmailMessage();
+                        
+                        
+                        
 						toAddresses = new list<String>();
 						if(!(String.isEmpty(emailAddresses)) && !String.isEmpty(APT_Constants.EMPTY_STRING) &&  !emailAddresses.equalsIgnoreCase(APT_Constants.EMPTY_STRING)) {
 							toAddresses = emailAddresses.split(APT_Constants.SEPERATOR_COMMA);
@@ -103,6 +106,7 @@ public with sharing class APT_AsyncMergeCallTriggerHandler {
 																												FROM Apttus__APTS_Agreement__c
 																												WHERE Id IN :mapAsyncMergeCall.keySet()
 																												AND APT_Merge_Documents__c = true]);
+                    System.Debug('APT_AsyncMergeCallTriggerHandler - mapAgreement.size(): ' + mapAgreement.size());
 					//collect attachments per agreement
 					list<String> listAttachmentIds = new list<String>();
 					map<Id, list<String>> mapAttachmentIds = new map<Id, list<String>>();

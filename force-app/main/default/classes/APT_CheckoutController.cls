@@ -182,9 +182,7 @@ public without sharing class APT_CheckoutController{
 				Apttus_Proposal__Proposal__c proposalRecord = new Apttus_Proposal__Proposal__c();
 				proposalRecord.Id= proposalId;
 				proposalRecord.APT_Document_Notification_Off__c = true;
-				List<Apttus_Proposal__Proposal__c> proposalsToBeUpdatedList = new List<Apttus_Proposal__Proposal__c>();
-				proposalsToBeUpdatedList.add(proposalRecord);
-				ApplicationDatabase.getInstance().dmlUpdate(proposalsToBeUpdatedList);
+				ApplicationDatabase.getInstance().dmlUpdate(new List<Apttus_Proposal__Proposal__c> {proposalRecord});
 			}
 			return true;
 		}
