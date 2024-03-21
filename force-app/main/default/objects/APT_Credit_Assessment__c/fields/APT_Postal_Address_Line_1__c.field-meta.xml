@@ -6,7 +6,7 @@
     <label>Postal Address Line 1</label>
     <length>255</length>
     <required>false</required>
-    <securityClassification>OFFICIAL_SENSITIVE_PERSONAL</securityClassification>
+    <securityClassification>OFFICIAL_SENSITIVE</securityClassification>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Text</type>

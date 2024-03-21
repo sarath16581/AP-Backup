@@ -6,7 +6,7 @@
     <formula>Account.Account_Manager_Email__c</formula>
     <label>Account Managers Email</label>
     <required>false</required>
-    <securityClassification>OFFICIAL_SENSITIVE_PERSONAL</securityClassification>
+    <securityClassification>OFFICIAL_SENSITIVE</securityClassification>
     <trackHistory>false</trackHistory>
     <type>Text</type>
     <unique>false</unique>
