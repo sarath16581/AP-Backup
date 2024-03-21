@@ -7,7 +7,7 @@
                     <name>actionNames</name>
                     <valueList>
                         <valueListItems>
-                            <value>Billing_Account__c.Sub_Account_Request</value>
+                            <value>Billing_Account__c.SubAccountRequest</value>
                         </valueListItems>
                         <valueListItems>
                             <value>Billing_Account__c.New_Credit_Management_Request</value>

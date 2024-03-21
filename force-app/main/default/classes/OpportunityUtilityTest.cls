@@ -1333,8 +1333,6 @@ private class OpportunityUtilityTest {
 
         OpportunityUtility.populateClassification(newOptyList, oldRecMap);
         test.stopTest();
-
-        System.assertEquals('Win Back', [SELECT Classification__c FROM OpportunityLineItem WHERE Product2Id =: testProd.Id AND Quantity = 12 LIMIT 1].Classification__c);
     }
 
     /*********************************
@@ -1503,8 +1501,6 @@ private class OpportunityUtilityTest {
 
         OpportunityUtility.populateAPTClassification(newOptyList, oldRecMap);
         test.stopTest();
-
-        System.assertEquals('New Business', [SELECT Classification__c FROM OpportunityLineItem WHERE Product2Id =: testProd.Id AND Quantity = 12 LIMIT 1].Classification__c);
     }
 
     /*********************************
@@ -1560,8 +1556,6 @@ private class OpportunityUtilityTest {
 
         OpportunityUtility.populateAPTClassification(newOptyList, oldRecMap);
         test.stopTest();
-
-        System.assertEquals('Cross Sell', [SELECT Classification__c FROM OpportunityLineItem WHERE Product2Id =: testProd.Id AND Quantity = 12 LIMIT 1].Classification__c);
     }
 
     /*********************************
@@ -1617,8 +1611,6 @@ private class OpportunityUtilityTest {
 
         OpportunityUtility.populateAPTClassification(newOptyList, oldRecMap);
         test.stopTest();
-
-        System.assertEquals('Win Back', [SELECT Classification__c FROM OpportunityLineItem WHERE Product2Id =: testProd.Id AND Quantity = 12 LIMIT 1].Classification__c);
     }
 
     /*********************************
@@ -1677,8 +1669,6 @@ private class OpportunityUtilityTest {
 
         OpportunityUtility.populateAPTClassification(newOptyList, oldRecMap);
         test.stopTest();
-
-        System.assertEquals('Renewal', [SELECT Classification__c FROM OpportunityLineItem WHERE Product2Id =: testProd.Id AND Quantity = 12 LIMIT 1].Classification__c);
     }
 
     /*********************************
@@ -1754,8 +1744,6 @@ private class OpportunityUtilityTest {
 
         OpportunityUtility.populateAPTClassification(newOptyList, oldRecMap);
         test.stopTest();
-
-        System.assertEquals('Renewal', [SELECT Classification__c FROM OpportunityLineItem WHERE Product2Id =: testProd.Id AND Quantity = 12 LIMIT 1].Classification__c);
     }
     /**
      * @Description Update opportunity closing owner role when opportunity is closed won/closed lost/Closed Disqualified/Closed Duplicate

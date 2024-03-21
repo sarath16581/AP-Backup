@@ -6,6 +6,7 @@
  * 2023-08-04 - Mahesh Parvathaneni - Added tests for updateForExistingUser
  * 2023-08-31 - Mahesh Parvathaneni - updated test methods
  * 2023-09-19 - Mahesh Parvathaneni - updated test methods
+ * 2024-04-08 - Mahesh Parvathaneni - added test method testMatchOrCreateDoesUserCreationOnDuplicateValueError
 */
 @IsTest
 private with sharing class ChasRegHandlerService_Test {
@@ -459,6 +460,67 @@ private with sharing class ChasRegHandlerService_Test {
 		System.assertEquals(augmentedAttributes.get('augmented_username'), existingUser.Username);
 	}
 
+	/**
+	 * Scenario:
+	 * Makes sure that when a person account DML failed with DUPLICATE_VALUE exception, matchOrCreate should query exisitng account and getNewUserSObject
+	 */
+	@IsTest
+	private static void testMatchOrCreateDoesUserCreationOnDuplicateValueError() {
+
+		// =====================================
+		// Data Preparation
+		// =====================================
+		Account personAccount = ApplicationTestDataFactory.getPersonAccounts(1, false)[0];
+		personAccount.APCN__pc = '123';
+		personAccount.OID_ID__pc = 'C0000000001';
+		insert personAccount;
+		/*Contact personContact = ApplicationTestDataFactory.getContacts(1, personAccount.Id, true)[0];
+		personAccount = (Account)ApplicationTestDataFactory.setUnwritableFields(personAccount, new Map<String, Object>{
+			'PersonContactId' => personContact.Id
+		});*/
+		User user = ApplicationTestDataFactory.getUsers(1, true)[0];
+		Auth.UserData userData = getUserData(personAccount, user);
+		String federationId = ChasRegHandlerService.generateFederationIdentifier(userData.email);
+		String apcn = userData.attributeMap.get('https://auspost/apcn');
+
+		// grab the attirbutes needed to pass into our method calls
+		Map<String, String> augmentedAttributes = ChasRegHandlerService.getAugmentedAttributes(federationId, userData.attributeMap);
+
+		// =====================================
+		// Stubbing
+		// =====================================
+		SSSWAccountsSelector mockAccountsSelector = (SSSWAccountsSelector)MockUtility.mockSelector(SSSWAccountsSelector.class);
+		UsersSelector mockUsersSelector = (UsersSelector)MockUtility.mockSelector(UsersSelector.class);
+		ApplicationDatabase mockDatabase = MockUtility.mockDatabase();
+		
+		// set up our responses
+		MockUtility.Mocks.startStubbing();
+		MockUtility.Mocks.when(mockDatabase.dmlInsert((List<SObject>)fflib_Match.anyObject())).thenThrow(new MockException('Insert failed. First exception on row 0; first error: DUPLICATE_VALUE, duplicate value found'));
+		MockUtility.Mocks.when(mockAccountsSelector.selectByAPCN((Set<String>)fflib_Match.eq(new Set<String>{'123'}), (Set<Object>)fflib_Match.anyObject())).thenReturn(new Map<Id, Account>());
+		MockUtility.Mocks.stopStubbing();
+
+		// =====================================
+		// Testing
+		// =====================================
+		Test.startTest();
+
+		ChasRegHandlerService service = new ChasRegHandlerService();
+		User userForCreation = service.matchOrCreate(federationId, augmentedAttributes);
+
+		Test.stopTest();
+
+		// =====================================
+		// VERIFY
+		// =====================================
+		((UsersSelector)MockUtility.Mocks.verify(mockUsersSelector, MockUtility.Mocks.never())).selectByContactId((Set<Id>)fflib_Match.anyObject());
+
+		fflib_ArgumentCaptor apcnCaptor = fflib_ArgumentCaptor.forClass(Set<String>.class);
+		//verify SSSWAccountsSelector call has been made twice on duplicate value exception scenario
+		((SSSWAccountsSelector)MockUtility.Mocks.verify(mockAccountsSelector, MockUtility.Mocks.times(2))).selectByAPCN((Set<String>)apcnCaptor.capture(), (Set<Object>)fflib_Match.anyObject());
+		System.assertEquals(new Set<String>{apcn}, (Set<String>)apcnCaptor.getValue());
+
+	}
+
 
 	private static Auth.UserData getUserData(Account personAccount, User personUser) {
 		// set our user data mock from the Auth Provider
@@ -500,4 +562,6 @@ private with sharing class ChasRegHandlerService_Test {
 			return new Map<Id, Account>{previousRecord.Id => previousRecord};
 		}
 	}
+
+	private class MockException extends Exception {}
 }

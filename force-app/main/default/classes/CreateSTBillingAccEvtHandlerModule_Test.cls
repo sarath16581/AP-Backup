@@ -1002,7 +1002,7 @@ private class CreateSTBillingAccEvtHandlerModule_Test {
 				offSpringSubAccountRequests[1].Id => offSpringSubAccountRequests[1]
 		});
 		MockUtility.Mocks.when(mockSubAccountRequestsSelector.selectByChargeAcountRequestIdAndStatus((Set<Id>)fflib_Match.anyObject(), (Set<String>)fflib_Match.anyObject())).thenReturn(new Map<Id, APT_Sub_Account__c>());
-		MockUtility.Mocks.when(mockUow.registerDirty((List<SObject>)fflib_Match.anyObject(), fflib_Match.eqBoolean(false), fflib_Match.anyString())).thenAnswer(new MockUtility.AnswerGenericRegisterUnitOfWorkDML());
+		MockUtility.Mocks.when(mockUow.registerDirty((SObject)fflib_Match.anyObject(), fflib_Match.eqBoolean(false), fflib_Match.anyString())).thenAnswer(new MockUtility.AnswerGenericRegisterUnitOfWorkDML());
 		MockUtility.Mocks.when(mockUow.registerNew((SObject)fflib_Match.anyObject(), fflib_Match.eqBoolean(false), fflib_Match.anyString())).thenAnswer(new MockUtility.AnswerGenericRegisterUnitOfWorkDML());
 		MockUtility.Mocks.stopStubbing();
 

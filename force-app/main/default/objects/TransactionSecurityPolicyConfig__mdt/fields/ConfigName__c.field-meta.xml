@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>ConfigName__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>GDPR</complianceGroup>
+    <description>contains the configuration name which may contain a number or string value referenced by Enhanced Transaction security</description>
+    <externalId>false</externalId>
+    <fieldManageability>DeveloperControlled</fieldManageability>
+    <inlineHelpText>contains the configuration name which may contain a number or string value referenced by Enhanced Transaction security</inlineHelpText>
+    <label>Config Name</label>
+    <length>255</length>
+    <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

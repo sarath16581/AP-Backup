@@ -63,6 +63,9 @@
 							<div class="slds-col slds-size_1-of-2">
 								<lightning-input-field class="input-field" data-name="sub-account-name" field-name={subAccountNameField} required value={subAccountName}> </lightning-input-field>
 								<lightning-input-field class="input-field" data-name="sub-account-contact" field-name={subAccountContactField} required value={subAccountContact} disabled={isDSRFlow} onchange={handleSubAccountContactChange}></lightning-input-field>
+								<template if:true={errorMessage}>
+									<div class="slds-text-color_error slds-text-body_small slds-p-left_xx-small">{errorMessage}</div>
+								</template>
 								<lightning-input-field class="input-field" data-name="sub-account-type" field-name={subAccountAccountTypeField} required onchange={handleAccountTypeChange} value={accountType}> </lightning-input-field>
 							</div>
 							<div class="slds-col slds-size_1-of-2">

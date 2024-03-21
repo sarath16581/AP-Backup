@@ -1435,6 +1435,21 @@ Used by Integration User (Einstein Analytics)</description>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Lead.CID_Campaign_Name__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Lead.Campaign__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Lead.Traffic_Source__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Network__c.LBP_Retail_relationship_network__c</field>
         <readable>true</readable>
     </fieldPermissions>

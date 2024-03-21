@@ -99,6 +99,7 @@
     <groups>StarTrack Recycle Bin</groups>
     <label>StarTrack Admin</label>
     <loginAccess>false</loginAccess>
+    <permissionSetGroups>ST Team Leader Basic Permissions</permissionSetGroups>
     <permissionSets>StarTrack Autoclose Case from Task</permissionSets>
     <permissionSets>Knowledge Management Manager Article Permisssions</permissionSets>
     <permissionSets>MFA Authorization for User Logins</permissionSets>

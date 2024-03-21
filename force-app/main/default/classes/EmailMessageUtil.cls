@@ -168,6 +168,7 @@ public inherited sharing class EmailMessageUtil {
 		for (EmailMessage em : newEmails) {
 			if ((em.FromAddress == custfromAddress || em.FromAddress == networkfromAddress) && em.Incoming) {
 				em.Incoming = false;
+                em.EmailRoutingAddressId = null; // Spring-24 release new field introduced
 			}
 		}
 	}

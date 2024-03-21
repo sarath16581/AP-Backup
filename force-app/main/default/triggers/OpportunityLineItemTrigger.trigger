@@ -11,6 +11,10 @@ History:
 **************************************************/
 trigger OpportunityLineItemTrigger on OpportunityLineItem (before insert, before update, before delete, after delete, after insert, after update) {
     if (!SystemSettings__c.getInstance().Disable_Triggers__c) {
+        // application framework
+        (new OpportunityLineItemTriggerHandler()).dispatch();
+        
+        // legacy
         if (trigger.isAfter && trigger.isDelete){
             
             // Created by conrad.c.v.borbon - August 1, 2019 - START

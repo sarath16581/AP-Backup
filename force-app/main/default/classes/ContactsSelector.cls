@@ -16,6 +16,7 @@
  * 2022-09-05 - Nathan Franklin - Passed options and overrides to AccountsSelector
  * 2023-07-05 - Mahesh Parvathaneni - Added options WITH_BILLING_ACCOUNT
  * 2023-10-01 - Hasantha Liyanage - Added Contact.BillingAccount__c in getSObjectFieldList
+ * 2024-01-22 - Hasantha Liyanage - Added selectPrimaryContactByAccount method
  */
 public virtual inherited sharing class ContactsSelector extends ApplicationSelector {
 	public enum Options {
@@ -87,6 +88,30 @@ public virtual inherited sharing class ContactsSelector extends ApplicationSelec
 			.add(new QueryBuilder.SimpleCondition(Contact.AccountId + ' in :accountIds'))
 			.endConditions();
 		return new Map<Id, Contact>((List<Contact>) Database.query(qb.toSoqlString()));
+	}
+
+	/**
+	 * @description select primary contacts per given account ids
+	 * @param accountIds list of account IDs
+	 * @return List of primary contacts
+	 */
+	public List<Contact> selectPrimaryContactByAccount(Set<Id> accountIds) {
+		return selectPrimaryContactByAccount(accountIds, new Set<Object>());
+	}
+
+	/**
+	 * @description select primary contacts per given account ids
+	 * @param accountIds list of account IDs
+	 * @param selectorOptions selector options to be considered when query
+	 * @return List of primary contacts
+	 */
+	public List<Contact> selectPrimaryContactByAccount(Set<Id> accountIds, Set<Object> selectorOptions) {
+		QueryBuilder qb = newQueryBuilder(selectorOptions)
+				.addConditions()
+				.add(new QueryBuilder.SimpleCondition(Contact.AccountId + ' in :accountIds'))
+				.add(new QueryBuilder.SimpleCondition(Contact.ConveyancerContact__c + ' = true'))
+				.endConditions();
+		return (List<Contact>) Database.query(qb.toSoqlString());
 	}
 
 	/**

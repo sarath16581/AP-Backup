@@ -17,7 +17,7 @@
         <operation>equals</operation>
         <value>0</value>
     </filters>
-    <label>BSC - Dell (Schenker)</label>
+    <label>BSC - Schenker</label>
     <language>en_US</language>
     <queue>BSC_Dell_Schenker</queue>
     <sharedTo>

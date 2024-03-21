@@ -14,6 +14,7 @@
  * 2021-05-19 - Disha Kariya - Added fields for personal accounts.
  * 2023-08-04 - Added field Account.is_Inactive_Customer__pc in getSObjectFieldList
  * 2023-10-02 - Boris Bachovski - Refactor to use IsInactiveCustomer__c instead of is_Inactive_Customer__c
+ * 2024-03-07 - Mahesh Parvathaneni - Added new instance method that allows FOR UPDATE
  */
 public virtual inherited sharing class SSSWAccountsSelector extends AccountsSelector {
 
@@ -26,6 +27,10 @@ public virtual inherited sharing class SSSWAccountsSelector extends AccountsSele
 	}
 	public static SSSWAccountsSelector newInstance(Integer recordLimit) {
 		return (SSSWAccountsSelector)Application.Selectors.newInstance(SSSWAccountsSelector.class).setLimit(recordLimit);
+	}
+
+	public static SSSWAccountsSelector newInstance(Boolean forUpdate) {
+		return (SSSWAccountsSelector)Application.Selectors.newInstance(SSSWAccountsSelector.class).setForUpdate(forUpdate);
 	}
 
 	/**

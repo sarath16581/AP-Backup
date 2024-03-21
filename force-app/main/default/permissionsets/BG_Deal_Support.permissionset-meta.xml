@@ -265,6 +265,26 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Customer_Scoping_Questionnaire__c.DateSubmitted__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Customer_Scoping_Questionnaire__c.PreApprovalReferralReasons__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Customer_Scoping_Questionnaire__c.PreApprovalStatus__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Customer_Scoping_Questionnaire__c.PreApprover__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>DealSupportRequestMilestone__c.BusinessDays__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -1701,6 +1721,11 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Deal_Support_Request__c.Returns__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Deal_Support_Request__c.RevenueType__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

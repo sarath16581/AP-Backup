@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TransactionSecurityPolicy xmlns="http://soap.sforce.com/2006/04/metadata">
+    <action>
+        <block>true</block>
+        <endSession>false</endSession>
+        <freezeUser>false</freezeUser>
+        <notifications>
+            <inApp>false</inApp>
+            <sendEmail>true</sendEmail>
+            <user>salessystemssupport@auspost.com.au</user>
+        </notifications>
+        <twoFactorAuthentication>false</twoFactorAuthentication>
+    </action>
+    <active>true</active>
+    <apexClass>TransactionSecurityPolicyManager</apexClass>
+    <customEmailContent>&lt;p&gt;Transaction Security Policy was triggered from the Organization Id: {{policy.OrganizationId}}.&lt;br&gt;&lt;br&gt;
+		&lt;b&gt;Policy Details:&lt;br&gt;&lt;/b&gt;
+		Name: {{policy.MasterLabel}}&lt;br&gt;
+		Description: This occurs when a user attempts to access Salesforce from a non-Windows device, if access is not allowed.&lt;br&gt;&lt;br&gt;
+		&lt;b&gt;TriggeredDate:&lt;/b&gt; {{event.EventDate}}&lt;br&gt;&lt;br&gt;
+		&lt;b&gt;User Details:&lt;br&gt;&lt;/b&gt;
+		UserId: {{event.UserId}}&lt;br&gt;
+		Username: {{event.Username}}&lt;br&gt;
+		UserType: {{event.UserType}}&lt;br&gt;
+		SessionLevel: {{event.SessionLevel}}&lt;br&gt;
+		SourceIp: {{event.SourceIp}}&lt;br&gt;
+		Country: {{event.Country}}&lt;br&gt;&lt;br&gt;
+		&lt;b&gt;{{policy.EventName}} Details:&lt;br&gt;&lt;/b&gt;
+		Platform: {{event.Platform}}&lt;br&gt;
+		Browser: {{event.Browser}}&lt;br&gt;
+		Application: {{event.Application}}&lt;br&gt;&lt;br&gt;
+		Regards,&lt;br&gt;
+		Salesforce BAU Support&lt;br&gt;
+		Email: &lt;a href=&quot;mailto:DLITRCPCMSalesforceSupport@auspost.com.au&quot;&gt;DL IT RC&amp;P C&amp;M Salesforce Support&lt;/a&gt;&lt;br&gt;
+		&lt;/p&gt;</customEmailContent>
+    <description>This occurs when a user attempts to access Salesforce from a non-Windows device, if access is not allowed.</description>
+    <developerName>LoginEventPolicy</developerName>
+    <eventName>LoginEvent</eventName>
+    <masterLabel>LoginEventPolicy</masterLabel>
+    <type>CustomApexPolicy</type>
+</TransactionSecurityPolicy>

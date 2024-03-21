@@ -3,6 +3,7 @@
     <fullName>Legal_Entities_with_Licence</fullName>
     <columns>ACCOUNT.NAME</columns>
     <columns>ABN__c</columns>
+    <columns>ACCOUNT.RECORDTYPE</columns>
     <filterScope>Everything</filterScope>
     <filters>
         <field>Has_Licence__c</field>

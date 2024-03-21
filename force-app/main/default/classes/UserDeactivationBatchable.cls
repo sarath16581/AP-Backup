@@ -7,31 +7,17 @@
  * and lastly remove all the assigned user package licenses
  * @changelog
  * 2023-01-27 - Initial creation
+ * 2024-03-01 - REQ3451627 - Minor Change to expose Excluded Profile in Custom Settings
  */
 
 public class UserDeactivationBatchable implements Database.Batchable<SObject>, Database.Stateful, Schedulable {
-	// default batch size
-	private static final Integer DEFAULT_BATCH_SIZE = 200;
-	// default number of days of inactivity after which a user should be deactivated
-	private static final Integer DEFAULT_INACTIVITY_THRESHOLD_DAYS = 180;
-	// default number of days to wait for deactivation after a user has been invited but has not yet logged in
-	private static final Integer DEFAULT_LAST_CREATED_DAYS = 30;
 	// contains today's datetime
 	private static final String NOW_STRING = Datetime.now().format('yyyy-MM-dd_hhmmss');
 	// number of characters to retrieve from error message
 	private static final Integer MAX_FIELD_LENGTH = 255;
 	// define all the User Types in scope for fetching users to deactivate
-	private static final Set<String> USER_TYPE = new Set<String>{ 'Standard' };
-	// define all the profiles to be excluded for fetching users to deactivate
-	private static final Set<String> EXCLUDE_PROFILE = new Set<String>{ 'Sales Insights Integration User' };
-	// batch size
-	private Integer batchSize;
-	// number of days of inactivity after which a user should be deactivated
-	private Integer lastLoginDays;
-	// number of days to wait for deactivation after a user has been invited but has not yet logged in
-	private Integer lastInviteDays;
-	// email where the summary needs to be sent
-	private String notificationEmail;
+	private static final Set<String> DEFAULT_USERTYPE = new Set<String>{'Standard'};
+
 	// contains map of user id and user sobject information for failed users
 	private Map<Id, User> failedUserMap;
 	// contains map of user id and error message for each user deactivation failure
@@ -41,17 +27,38 @@ public class UserDeactivationBatchable implements Database.Batchable<SObject>, D
 	// contains userIds which were successfully deactivated/updated
 	private Set<Id> successIdSet;
 
+	// default batch size
+	private static final Integer DEFAULT_BATCH_SIZE = 20;
+	// default number of days to wait for deactivation after a user has been invited but has not yet logged in
+	private static final Integer DEFAULT_LASTINVITE_DAYS = 30;
+	// default number of days of inactivity after which a user should be deactivated
+	private static final Integer DEFAULT_LASTLOGIN_DAYS = 90;
+	// default notification email
+	private static final String DEFAULT_NOTIFICATIONEMAIL = 'DLITRCPCMSalesforceSupport@auspost.com.au';
+	// define all the profiles to be excluded for fetching users to deactivate
+	private static final List<String> DEFAULT_EXCLUDEDPROFILES = new List<String>{'Sales Insights Integration User','SalesforceIQ Integration User','B2BMA Integration User'};
+
+	private static UserDeactivationSettings__c CONFIG {
+		get {
+			if(CONFIG == null) {
+				CONFIG = UserDeactivationSettings__c.getOrgDefaults();
+			}
+			return CONFIG;
+		}
+		private set;
+	}
+
+	private static final Integer CONFIG_BATCHSIZE = Integer.valueOf(CONFIG.BatchSize__c) > 0 ? Integer.valueOf(CONFIG.BatchSize__c) : DEFAULT_BATCH_SIZE;
+	private static final Integer CONFIG_LASTINVITE_DAYS = Integer.valueOf(CONFIG.LastInviteDays__c) > 0 ? Integer.valueOf(CONFIG.LastInviteDays__c) : DEFAULT_LASTINVITE_DAYS;
+	private static final Integer CONFIG_LASTLOGIN_DAYS = Integer.valueOf(CONFIG.LastLoginDays__c) > 0 ? Integer.valueOf(CONFIG.LastLoginDays__c) : DEFAULT_LASTLOGIN_DAYS;
+	private static final String CONFIG_NOTIFICATIONEMAIL = String.valueOf(CONFIG?.NotificationEmail__c) ?? DEFAULT_NOTIFICATIONEMAIL;
+	private static final List<String> CONFIG_EXCLUDEDPROFILES = CONFIG?.ExcludedProfileNames__c?.split(',') ?? DEFAULT_EXCLUDEDPROFILES;
+
 	public UserDeactivationBatchable() {
 		failedUserMap = new Map<Id, User>();
 		userErrorMessageMap = new Map<Id, String>();
 		errorTypeSet = new Set<String>();
 		successIdSet = new Set<Id>();
-
-		// fetch org defaults from Custom Settings and assign to class properties
-		UserDeactivationSettings__c settings = UserDeactivationSettings__c.getOrgDefaults();
-		lastLoginDays = settings.LastLoginDays__c != null ? Integer.valueOf(settings.LastLoginDays__c) : DEFAULT_INACTIVITY_THRESHOLD_DAYS;
-		lastInviteDays = settings.LastInviteDays__c != null ? Integer.valueOf(settings.LastInviteDays__c) : DEFAULT_LAST_CREATED_DAYS;
-		notificationEmail = settings.NotificationEmail__c != null ? String.valueOf(settings.NotificationEmail__c) : null;
 	}
 
 	public Database.QueryLocator start(Database.BatchableContext bc) {
@@ -60,7 +67,7 @@ public class UserDeactivationBatchable implements Database.Batchable<SObject>, D
 				0,
 				new Set<SObjectField>{ User.Id, User.Name, User.Username, User.CreatedDate, User.LastAutoDeactivatedDate__c, User.LastLoginDate }
 			)
-			.selectUsersEligibleForDeactivationQueryLocator(USER_TYPE, lastLoginDays, lastInviteDays, EXCLUDE_PROFILE, new Set<Object>());
+			.selectUsersEligibleForDeactivationQueryLocator(DEFAULT_USERTYPE, CONFIG_LASTLOGIN_DAYS, CONFIG_LASTINVITE_DAYS, new Set<String>(CONFIG_EXCLUDEDPROFILES), new Set<Object>());
 	}
 
 	public void execute(Database.BatchableContext bc, List<User> scope) {
@@ -115,7 +122,7 @@ public class UserDeactivationBatchable implements Database.Batchable<SObject>, D
 			AsyncApexJob jobDetail = [
 				SELECT Id, Status, NumberOfErrors, JobItemsProcessed, TotalJobItems, CreatedDate, CompletedDate
 				FROM AsyncApexJob
-				WHERE Id = :BC.getJobId()
+				WHERE Id = :bc.getJobId()
 			];
 			//System.debug('User Deactivation - ' + successIdSet.size() + ' success, ' + failedUserMap.size() + ' failures');
 			sendEmail(jobDetail); // Send a summary email if any failures
@@ -136,11 +143,7 @@ public class UserDeactivationBatchable implements Database.Batchable<SObject>, D
 
 	public void execute(SchedulableContext sc) {
 		try {
-			UserDeactivationSettings__c settings = UserDeactivationSettings__c.getOrgDefaults();
-			batchSize = settings.BatchSize__c != null ? Integer.valueOf(settings.BatchSize__c) : DEFAULT_BATCH_SIZE;
-
-			// invoke the batch
-			Database.executeBatch(this, batchSize);
+			Database.executeBatch(this, CONFIG_BATCHSIZE);
 		} catch (Exception ex) {
 			// Error Logged to Exception object for analysis
 			ApplicationLogger.getInstance()
@@ -156,7 +159,7 @@ public class UserDeactivationBatchable implements Database.Batchable<SObject>, D
 	}
 
 	/**
-	 * Prepare EmailMessage, send to notificationEmail, running user if any failures to deactivate users
+	 * Prepare EmailMessage, send to CONFIG_NOTIFICATIONEMAIL, running user if any failures to deactivate users
 	 * @param jobDetail AsyncJob Record
 	 */
 	private void sendEmail(AsyncApexJob jobDetail) {
@@ -181,9 +184,9 @@ public class UserDeactivationBatchable implements Database.Batchable<SObject>, D
 			'\noutcome: ' + successIdSet.size() + ' success, ' + failedUserMap.size() + ' failures' +
 			'\ntimetaken: ' + timeTakenMins + ' mins' +
 			'\n\nConfig: (ref: UserDeactivationSettings__c custom settings)\n' +
-			'\nbatch size: ' + batchSize +
-			'\nlast login (days): ' + lastLoginDays +
-			'\nlast invite (days): ' + lastInviteDays +
+			'\nbatch size: ' + CONFIG_BATCHSIZE +
+			'\nlast login (days): ' + CONFIG_LASTLOGIN_DAYS +
+			'\nlast invite (days): ' + CONFIG_LASTINVITE_DAYS +
 			'\nIf any user needs to be excluded, then the relevant User.IsExcludedForAutoDeactivation must be checked.' +
 			'\n\nerrors observed: (Refer attached for more details)\n\n' + errorTypes + '\n' + 'Thank you.';
 
@@ -201,8 +204,8 @@ public class UserDeactivationBatchable implements Database.Batchable<SObject>, D
 
 		// Set parameters
 		List<String> toAddress = new List<String>{ UserInfo.getUserEmail() };
-		if (notificationEmail != null) {
-			toAddress.add(notificationEmail);
+		if (CONFIG_NOTIFICATIONEMAIL != null) {
+			toAddress.add(CONFIG_NOTIFICATIONEMAIL);
 		}
 		mail.setToAddresses(toAddress);
 		mail.setSubject('Action required: UserDeactivationBatchable job - ' + NOW_STRING);

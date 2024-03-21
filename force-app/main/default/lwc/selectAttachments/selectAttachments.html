@@ -1,0 +1,39 @@
+<template>
+	<!-- Error Banner -->
+	<template if:true={errors}>
+		<div class="slds-notify slds-notify_alert slds-theme_alert-texture slds-theme_error" role="alert">
+			<!--error graphic-->
+			<span class="slds-icon_container slds-icon-utility-error slds-m-right_x-small">
+			  <lightning-icon icon-name="utility:error" alternative-text="Error" title="Error" variant="inverse"></lightning-icon>
+			</span>
+			<!--error message-->
+			<h2>{errors}</h2>
+		</div>
+	</template>
+	
+	<template lwc:if={data}>
+		<lightning-card title="Select Attachments">
+			<lightning-button slot="actions" label="Refresh" title="Refresh"
+				icon-name="utility:refresh" onclick={handleRefresh}
+				class="slds-m-left_x-small">
+			</lightning-button>
+			<lightning-datatable
+				key-field="Id"
+				data={data}
+				columns={columns}
+				selected-rows={preSelectedRows}
+				onrowselection={handleSelect}>
+			</lightning-datatable>
+
+			<template if:true={approvalMatrixImage}>
+				<br />
+				<img style="max-height: 400px" alt="DocuSign" src={approvalMatrixImage}/>
+			</template>
+			
+			<div class="slds-align_absolute-center">
+				<lightning-button variant="brand" label="Back" onclick={handleBack} title="Back" class="slds-m-around_small"></lightning-button>
+				<lightning-button variant="brand" label="Next" onclick={handleRedirect} title="Next" class="slds-m-around_small"></lightning-button>
+			</div>
+		</lightning-card>
+	</template>
+</template>

@@ -142,12 +142,12 @@ export default class chasMissingItemAddressLookup extends LightningElement {
 			this.showAddressDetails = false;
 			this.inputError = false;
 
-			const showError = new CustomEvent("showError", {
+			const showerror = new CustomEvent("showerror", {
 				detail: this.inputError
 			});
 
 			// Fire the custom event to inform the parent component, that the field has an error
-			this.dispatchEvent(showError);
+			this.dispatchEvent(showerror);
 
 			const searchAddressTerm = event.target.value;
 
@@ -159,12 +159,12 @@ export default class chasMissingItemAddressLookup extends LightningElement {
 						this.debouncedSearchHandler(searchAddressTerm);
 					}
 
-					const addressTyped = new CustomEvent("addressTyped", {
+					const addresstyped = new CustomEvent("addresstyped", {
 						detail: { searchAddressTerm }
 					});
 
 					// Fire the custom event to inform the parent component with the address typed
-					this.dispatchEvent(addressTyped);
+					this.dispatchEvent(addresstyped);
 				});
 			}
 		}
@@ -181,12 +181,12 @@ export default class chasMissingItemAddressLookup extends LightningElement {
 		this.required = true;
 		this.CheckBox = true;
 
-		const addressOverride = new CustomEvent("addressOverride", {
+		const addressoverride = new CustomEvent("addressoverride", {
 			detail: { selected: this.CheckBox, }
 		});
 
 		// Fire the custom event to inform the parent component with the manually entered address
-		this.dispatchEvent(addressOverride);
+		this.dispatchEvent(addressoverride);
 		if (this.CheckBox === true) {
 			this.enterAddressDetails = false
 		}
@@ -305,7 +305,12 @@ export default class chasMissingItemAddressLookup extends LightningElement {
 		const searchTerm = { ...this.address };
 
 		// Fire the custom event to inform the parent with the change event
-		this.dispatchEvent(new CustomEvent("valuechange", { detail: { searchTerm } }));
+		//this.dispatchEvent(new CustomEvent("valuechange", { detail: { searchTerm } }));
+		// Fix the issue of manual address after populating still showing error in the UI after manual entry
+		// the the detail object is not having "searchterm" key, so added the key "searchterm" to the detail object.
+		// all components fetchng event.get("searchterm"), so added the key "searchterm" to the detail object.
+
+		this.dispatchEvent(new CustomEvent("valuechange", { detail: { "searchterm":searchTerm } }));
 
 		// Reflect update in UI
 		this.setAddressSearchTerm(
@@ -420,7 +425,7 @@ export default class chasMissingItemAddressLookup extends LightningElement {
 		const { nodeName } = event.target;
 		if (nodeName === NODE_SERARCH_RESULT) {
 			this.selectSearchOption(event);
-		} else if (nodeName === 'LI' && event.target.dataset?.name === 'liSelectManual') {
+		} else if (nodeName === 'SPAN' && event.target.dataset?.name === 'spanSelectManual') {
 			this.selectManually(event);
 		}
 	}

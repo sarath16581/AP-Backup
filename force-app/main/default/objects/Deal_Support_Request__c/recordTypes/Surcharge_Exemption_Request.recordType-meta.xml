@@ -1004,6 +1004,14 @@
     <picklistValues>
         <picklist>Exemption_Type__c</picklist>
         <values>
+            <fullName>1 Tier Delegation</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>2 Tier Delegation</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Fuel Surcharge %28FSC%29</fullName>
             <default>false</default>
         </values>
@@ -1811,6 +1819,17 @@
         </values>
         <values>
             <fullName>Organisation</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>RevenueType__c</picklist>
+        <values>
+            <fullName>Increase Revenue</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>No Revenue Change or Decrease Revenue</fullName>
             <default>false</default>
         </values>
     </picklistValues>

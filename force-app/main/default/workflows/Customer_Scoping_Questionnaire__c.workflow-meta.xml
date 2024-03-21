@@ -43,6 +43,26 @@
         <reevaluateOnChange>false</reevaluateOnChange>
     </fieldUpdates>
     <fieldUpdates>
+        <fullName>EXP_Onboarding_Team_Approved</fullName>
+        <field>PreApprovalStatus__c</field>
+        <literalValue>Approved</literalValue>
+        <name>EXP Onboarding Team Approved</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>true</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>EXP_Onboarding_Team_Rejected</fullName>
+        <field>PreApprovalStatus__c</field>
+        <literalValue>Referred</literalValue>
+        <name>EXP_Onboarding_Team_Rejected</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
         <fullName>Pick_Up_Locations_Approved</fullName>
         <field>CSQ_Status__c</field>
         <literalValue>Fully_Approved</literalValue>
@@ -107,6 +127,16 @@
         <field>CSQ_Status__c</field>
         <literalValue>Draft</literalValue>
         <name>Status Rejected</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_CSQ_Pending_Onboarding_Approval</fullName>
+        <field>PreApprovalStatus__c</field>
+        <literalValue>Pending Onboarding Approval</literalValue>
+        <name>Update CSQ Pending Onboarding Approval</name>
         <notifyAssignee>false</notifyAssignee>
         <operation>Literal</operation>
         <protected>false</protected>

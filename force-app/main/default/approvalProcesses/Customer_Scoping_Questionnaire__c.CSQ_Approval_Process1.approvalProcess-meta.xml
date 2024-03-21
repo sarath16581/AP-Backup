@@ -48,9 +48,9 @@
             <value>0</value>
         </criteriaItems>
         <criteriaItems>
-            <field>Customer_Scoping_Questionnaire__c.CSQ_Compliance_Check__c</field>
+            <field>Customer_Scoping_Questionnaire__c.PreApprovalStatus__c</field>
             <operation>equals</operation>
-            <value>True</value>
+            <value>Referred</value>
         </criteriaItems>
     </entryCriteria>
     <finalApprovalRecordLock>true</finalApprovalRecordLock>

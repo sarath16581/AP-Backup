@@ -25,7 +25,7 @@
         <operation>equals</operation>
         <value>Service Advisor</value>
     </filters>
-    <label>BGS Government Q</label>
+    <label>Service Advisor Queue</label>
     <language>en_US</language>
     <sharedTo>
         <group>SalesOpsSupport</group>

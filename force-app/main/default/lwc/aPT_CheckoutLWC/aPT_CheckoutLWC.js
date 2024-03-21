@@ -11,6 +11,7 @@
 *			20-08-2023: Bharat Patel: update creditAssessAndRateCardLogic()'s assesment 'Completed' execute docGenerationRequired() process (CI-1026 resolve)
 *			13-10-2023: Bharat Patel: Implementation of STP-9640, on 'Generation Proposal Document' & 'Generation Agreement' actions navigate to Product Bulk Edit interface
 *			19-12-2023: Bharat Patel: Implementation of STP-9317, on 'Checkout Only' action request proposal document geration process initiated (if applicable for products)
+*			08-02-2024: Bharat Patel: Updated for 'Checkout Only' actions's respected conditional navigation
 */
 import { LightningElement, api, wire } from 'lwc';
 import { getRecord, getFieldValue } from 'lightning/uiRecordApi';
@@ -179,22 +180,7 @@ export default class APT_CheckoutLWC extends LightningElement {
 		checkoutOnly({ configId: this.configId })
 			.then((result) => {
 				if (result === 'success') {
-					//some delay before proposal generation to avoid lock error
-						this._interval = setTimeout(() => {
-							//this.navigateToUrl( this.rateCardBatchUrl + this.proposalId + '&isRCCall=false');
-							initiateRateCardGeneration({ proposalId: this.proposalId })
-						.then((requestresult) => {
-							if(requestresult === true){
-									//STP-9640: redirect to OPC screen
-									let opportunityLineItemsURL = '/lightning/cmp/c__opcNavToBulkEdit?c__oppId='+this.oppId + '&c__proposalId='+this.proposalId;
-									this.navigateToUrl(opportunityLineItemsURL);
-								}
-							})
-							.catch((error) => {
-								this.error = error;
-								this.isLoading = false;
-							});	
-					}, this.waitTime);
+					this.rateCardGenerationRequest();
 				} else {
 					this.error = result;
 					this.isLoading = false;
@@ -254,6 +240,9 @@ export default class APT_CheckoutLWC extends LightningElement {
 					let opportunityLineItemsURL = '/lightning/cmp/c__opcNavToBulkEdit?c__oppId='+this.oppId + '&c__proposalId='+this.proposalId + '&c__isST=' + this.isST + '&c__isManualContract=' + isManualContract + '&c__isAmend=' + this.isAmend + '&c__isRenew=' + this.isRenew;
 					this.navigateToUrl(opportunityLineItemsURL);
 				}
+				}
+				else {
+					this.docGenerationRequired();
 				}
 			})
 			.catch((error) => {
@@ -373,9 +362,7 @@ export default class APT_CheckoutLWC extends LightningElement {
 		checkoutOnly({ configId: this.configId })
 			.then((result) => {
 				if (result === 'success') {
-					//STP-9317 logic
-					//checks if doc generation is required
-					this.docGenerationRequired();
+					this.navigateToUrl('/' + this.oppId);
 				} else {
 					this.error = result;
 				}
@@ -404,5 +391,25 @@ export default class APT_CheckoutLWC extends LightningElement {
 				composed: true,
 			}
 		));
+	}
+
+	/**
+	*function handle ratecard generate request
+	*/
+	rateCardGenerationRequest() {
+		initiateRateCardGeneration({ proposalId: this.proposalId })
+			.then((requestresult) => {
+				if(requestresult === true){
+					let opportunityLineItemsURL = '/lightning/cmp/c__opcNavToBulkEdit?c__oppId='+this.oppId + '&c__proposalId='+this.proposalId;
+					this.navigateToUrl(opportunityLineItemsURL);
+				}
+				else {
+					this.rateCardGenerationRequest();
+				}
+			})
+			.catch((error) => {
+				this.error = error;
+				this.isLoading = false;
+			});
 	}
 }

@@ -13,6 +13,7 @@
  * 2020-10-12 - Jansi - Added offsetLimit
  * 2022-04-12 - Ranjeewa Silva - Added new selector option to build queries with no default ordering applied
  * 2023-03-22 - Nathan Franklin - Add method for validating search params and minor changes to order by method
+ * 2024-03-07 - Mahesh Parvathaneni - Added ability to include FOR UPDATE in the query
  */
 public inherited sharing abstract class ApplicationSelector {
 
@@ -25,6 +26,7 @@ public inherited sharing abstract class ApplicationSelector {
 	 */
 	protected Integer recordLimit = 0;
 	protected Integer offsetLimit = 0;
+	protected Boolean forUpdate = false;
 
 	/**
 	 * Specific selectors may implement an option to override default fields. This is used in scenarios were only a small number of fields are required and this dataset is not passed around to other methods
@@ -101,6 +103,15 @@ public inherited sharing abstract class ApplicationSelector {
 	 */
 	public ApplicationSelector setOffset(Integer offsetLimit) {
 		this.offsetLimit = offsetLimit;
+		return this;
+	}
+
+	/**
+	 * Forces a FOR UPDATE to be defined when building a query using QueryBuilder
+	 * @return Returns an instance of self for chaining purposes.
+	 */
+	public ApplicationSelector setForUpdate(Boolean forUpdate) {
+		this.forUpdate = forUpdate;
 		return this;
 	}
 
@@ -181,6 +192,10 @@ public inherited sharing abstract class ApplicationSelector {
 
 		if(offsetLimit != null && offsetLimit != 0) {
 			qb.setOffset(offsetLimit);
+		}
+
+		if(forUpdate != null && forUpdate) {
+			qb.setForUpdate(forUpdate);
 		}
 
 		return qb;

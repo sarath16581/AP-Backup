@@ -105,6 +105,10 @@
                 <field>Support_Work_Type__c</field>
             </layoutItems>
             <layoutItems>
+                <behavior>Required</behavior>
+                <field>RevenueType__c</field>
+            </layoutItems>
+            <layoutItems>
                 <behavior>Edit</behavior>
                 <field>Integration_Transaction_Id__c</field>
             </layoutItems>

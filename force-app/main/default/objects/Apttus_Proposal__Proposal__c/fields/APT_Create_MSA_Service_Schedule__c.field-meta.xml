@@ -4,7 +4,7 @@
     <description>Click this button to create a new Agreement (Contract).</description>
     <externalId>false</externalId>
     <formula>IF(
-ISPICKVAL(Apttus_Proposal__Approval_Stage__c, &quot;Accepted&quot;) &amp;&amp;
+OR(ISPICKVAL(Apttus_Proposal__Approval_Stage__c, &quot;Accepted&quot;)|| ISPICKVAL(Apttus_Proposal__Approval_Stage__c, &quot;Accepted without proposal document&quot;)) &amp;&amp;
 RecordType.Name != &apos;Renewal Quote&apos; &amp;&amp;
 RecordType.Name != &apos;Amendment Quote&apos; &amp;&amp;
 APT_Contracted_Product_Count__c &gt; 0 &amp;&amp;

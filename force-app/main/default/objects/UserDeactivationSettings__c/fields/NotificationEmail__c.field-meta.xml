@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>NotificationEmail__c</fullName>
+    <businessStatus>Active</businessStatus>
     <defaultValue>&quot;DLITCandSSalesForceSupport@auspost.com.au&quot;</defaultValue>
     <description>email who receives summary email upon failures</description>
     <externalId>false</externalId>
     <inlineHelpText>email who receives summary email upon failures</inlineHelpText>
     <label>Notification Email</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Email</type>
     <unique>false</unique>
