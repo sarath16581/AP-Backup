@@ -26,6 +26,7 @@ public inherited sharing class CSQPreApprovalPendingModule extends ApplicationMo
 		try {
 			checkPreApprovalEligibility(records, existingRecords);
 			unlockRecordForApprovalEditing(records);
+			updateDateSubmitted(records);
 		} catch (Exception ex) {
 			// Error Logged to Exception object for analysis
 			ApplicationLogger.getInstance().logException(ApplicationLogger.wrapException(ex), 'CSQ', CSQPreApprovalPendingModule.class.getName(), 'onBeforeUpdate', 'Customer_Scoping_Questionnaire__c', ApplicationLogger.LoggingLevel.ERROR);
@@ -92,5 +93,11 @@ public inherited sharing class CSQPreApprovalPendingModule extends ApplicationMo
 	private static String concatenateLocationString(Pick_Up_Location__c location) {
 		String locationString = location.Address__c + location.State__c + location.Postcode__c;
 		return locationString.deleteWhitespace().toUpperCase();
+	}
+
+	private static void updateDateSubmitted(List<SObject> records) {
+		for (Customer_Scoping_Questionnaire__c csq : (List<Customer_Scoping_Questionnaire__c>) records) {
+			csq.DateSubmitted__c = System.today();
+		}
 	}
 }

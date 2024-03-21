@@ -65,31 +65,4 @@ private class CSQPreApprovalAutomationModule_Test {
 		module.onAfterUpdate(new List<Customer_Scoping_Questionnaire__c>{csq}, new Map<Id,Customer_Scoping_Questionnaire__c>{csqOld.Id=>csqOld}, uow);
 		Test.stopTest();
 	}
-
-	/**
-	 * @description to test enforceReferralReasons will throw error as expected
-	 */
-	@IsTest
-	private static void testOnBeforeUpdateUpdateDateSubmitted() {
-		Customer_Scoping_Questionnaire__c csq = new Customer_Scoping_Questionnaire__c(
-				Id = fflib_IDGenerator.generate(Customer_Scoping_Questionnaire__c.SObjectType)
-		);
-
-		// =====================================
-		// Stubbing
-		// =====================================
-		ApplicationUnitOfWork uow = ApplicationUnitOfWork.newInstance(CSQAutomationTriggerHandler.getUnitOfWorkSObjectTypes());
-
-		// =====================================
-		// Testing
-		// =====================================
-		Test.startTest();
-
-		CSQPreApprovalAutomationModule module = CSQPreApprovalAutomationModule.newInstance();
-		module.onBeforeUpdate(new List<Customer_Scoping_Questionnaire__c>{csq}, new Map<Id,Customer_Scoping_Questionnaire__c>(), uow);
-
-		System.assertEquals(System.today(), csq.DateSubmitted__c, 'Date Submitted failed to update.');
-
-		Test.stopTest();
-	}
 }
