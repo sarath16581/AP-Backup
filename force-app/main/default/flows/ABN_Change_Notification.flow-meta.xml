@@ -48,6 +48,18 @@
             </value>
         </inputParameters>
         <inputParameters>
+            <name>senderType</name>
+            <value>
+                <stringValue>OrgWideEmailAddress</stringValue>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>senderAddress</name>
+            <value>
+                <stringValue>no-reply@auspost.com.au</stringValue>
+            </value>
+        </inputParameters>
+        <inputParameters>
             <name>emailSubject</name>
             <value>
                 <elementReference>ABNChangeNotificationSubject</elementReference>
@@ -62,6 +74,41 @@
     </actionCalls>
     <apiVersion>60.0</apiVersion>
     <environments>Default</environments>
+    <formulas>
+        <name>StandardisedStateValue</name>
+        <dataType>String</dataType>
+        <expression>CASE(LOWER($Record.BillingState),
+&apos;act&apos;, &apos;act&apos;,
+&apos;new south wales&apos;, &apos;nsw&apos;,
+&apos;nsw&apos;, &apos;nsw&apos;,
+&apos;nt&apos;, &apos;nt&apos;,
+&apos;northern territory&apos;, &apos;nt&apos;,
+&apos;qld&apos;, &apos;qld&apos;,
+&apos;queensland&apos;, &apos;qld&apos;,
+&apos;sa&apos;, &apos;sa&apos;,
+&apos;south australia&apos;, &apos;sa&apos;,
+&apos;tas&apos;, &apos;tas&apos;,
+&apos;tasmania&apos;, &apos;tas&apos;,
+&apos;vic&apos;, &apos;vic&apos;,
+&apos;victoria&apos;, &apos;vic&apos;,
+&apos;wa&apos;, &apos;wa&apos;,
+&apos;western australia&apos;, &apos;wa&apos;,
+&apos;&apos;)</expression>
+    </formulas>
+    <formulas>
+        <name>StateCatsTeamEmail</name>
+        <dataType>String</dataType>
+        <expression>CASE({!StandardisedStateValue}, 
+&apos;vic&apos;, &apos;DLVICPOMSAdminandSupport@auspost.com.au&apos;, 
+&apos;nsw&apos;, &apos;DLNSWPOMSAdminandSupport@auspost.com.au&apos;,
+&apos;act&apos;, &apos;DLNSWPOMSAdminandSupport@auspost.com.au&apos;,
+&apos;tas&apos;, &apos;DLTASPOMSAdminandSupport@auspost.com.au&apos;,
+&apos;sa&apos;, &apos;DLSAPOMSAdminandSupport@auspost.com.au&apos;,
+&apos;wa&apos;, &apos;DLWAPOMSAdminandSupport@auspost.com.au&apos;,
+&apos;qld&apos;, &apos;DLQLDPOMSAdminandSupport@auspost.com.au&apos;,
+&apos;nt&apos;, &apos;DLQLDPOMSAdminandSupport@auspost.com.au&apos;,
+&apos;&apos;)</expression>
+    </formulas>
     <interviewLabel>ABN Change Notification {!$Flow.CurrentDateTime}</interviewLabel>
     <label>ABN Change Notification</label>
     <processMetadataValues>
@@ -115,22 +162,27 @@
         <recordTriggerType>Update</recordTriggerType>
         <triggerType>RecordAfterSave</triggerType>
     </start>
-    <status>Draft</status>
+    <status>Active</status>
     <textTemplates>
         <name>ABNChangeNotificationBody</name>
         <isViewedAsPlainText>true</isViewedAsPlainText>
-        <text>Hi,
+        <text>Dear Vendors,
 
-ABN number has changed for this Organisation with SAP Vendor ID :  {!$Record.SAP_Vendor_ID__c} 
+FYI the ABN for the Vendor {!$Record.SAP_Vendor_ID__c} {!$Record.Name} has changed, as below:
 
-Legal Entity Name : {!$Record.Name}
-Old ABN :	         {!$Record__Prior.ABN__c}
-New ABN :	         {!$Record.ABN__c}
+- SAP Vendor ID 
+{!$Record.SAP_Vendor_ID__c}
+- Vendor Name 
+{!$Record.Name}
+- New ABN 
+{!$Record.ABN__c}
+- Old ABN 
+{!$Record__Prior.ABN__c}
 
-You can view the details at:
-{!Get_Environment_URL}
-Regards,
-Sender</text>
+Please reach out to the {!$Record.BillingState} CATS team at {!StateCatsTeamEmail} for more clarifications.
+
+Thanks and Regards,
+POMS Support Team</text>
     </textTemplates>
     <textTemplates>
         <name>ABNChangeNotificationSubject</name>
