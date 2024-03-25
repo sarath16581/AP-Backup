@@ -693,10 +693,6 @@
                 <type>user</type>
             </approver>
             <approver>
-                <name>lisa.assaf@startrack.com.au</name>
-                <type>user</type>
-            </approver>
-            <approver>
                 <name>minz.sankari@startrack.com.au</name>
                 <type>user</type>
             </approver>
@@ -934,10 +930,6 @@
         <assignedApprover>
             <approver>
                 <name>mark.kalinic@startrack.com.au</name>
-                <type>user</type>
-            </approver>
-            <approver>
-                <name>norm.goldsbrough@startrack.com.au</name>
                 <type>user</type>
             </approver>
             <approver>
