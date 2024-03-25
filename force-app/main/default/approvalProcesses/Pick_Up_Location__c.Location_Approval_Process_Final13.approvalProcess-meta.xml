@@ -693,10 +693,6 @@
                 <type>user</type>
             </approver>
             <approver>
-                <name>lisa.assaf@startrack.com.au</name>
-                <type>user</type>
-            </approver>
-            <approver>
                 <name>minz.sankari@startrack.com.au</name>
                 <type>user</type>
             </approver>
@@ -883,10 +879,6 @@
                 <name>paul.trembath@auspost.com.au</name>
                 <type>user</type>
             </approver>
-            <approver>
-                <name>philip.faulks@startrack.com.au</name>
-                <type>user</type>
-            </approver>
             <whenMultipleApprovers>FirstResponse</whenMultipleApprovers>
         </assignedApprover>
         <entryCriteria>
@@ -938,10 +930,6 @@
         <assignedApprover>
             <approver>
                 <name>mark.kalinic@startrack.com.au</name>
-                <type>user</type>
-            </approver>
-            <approver>
-                <name>norm.goldsbrough@startrack.com.au</name>
                 <type>user</type>
             </approver>
             <approver>
@@ -1025,7 +1013,7 @@
             <criteriaItems>
                 <field>Pick_Up_Location__c.Service_final__c</field>
                 <operation>equals</operation>
-                <value>Express,Special Services</value>
+                <value>Express,Special Services,Premium</value>
             </criteriaItems>
         </entryCriteria>
         <ifCriteriaNotMet>GotoNextStep</ifCriteriaNotMet>
