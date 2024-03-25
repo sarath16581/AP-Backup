@@ -49,7 +49,7 @@
 			if (state === "SUCCESS") {
 			    var result = response.getReturnValue();
 			    if (result) {
-			        helper.showMyToast(component,helper,'success', 'Last 12 months revenue re-calculated.');
+			        window.location.reload();
 				} else {
 				    helper.showMyToast(component,helper,'error', "Unknown Error");
     			}

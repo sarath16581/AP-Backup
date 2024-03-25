@@ -10,7 +10,9 @@ public with sharing class opcNavToBulkEditController {
 	@AuraEnabled
 	public static Boolean recalculateRevenue(String oppId) {
 		try {
-			GroupedLineItemSalesModule.newInstance().performRevenueUpdates(new Set<Id>{oppId}, ApplicationUnitOfWork.newInstance(getUnitOfWorkSObjectTypes()));
+			ApplicationUnitOfWork uow = ApplicationUnitOfWork.newInstance(getUnitOfWorkSObjectTypes());
+			GroupedLineItemSalesModule.newInstance().performRevenueUpdates(new Set<Id>{oppId}, uow);
+			uow.commitWork();
 			return true;
 		} catch (Exception ex) {
 			UTIL_LoggingService.logHandledException(ex, UserInfo.getOrganizationId(), 'opcNavToBulkEditController', opcNavToBulkEditController.class.getName(), 'recalculateRevenue', 'opcNavToBulkEditController', LoggingLevel.ERROR);
