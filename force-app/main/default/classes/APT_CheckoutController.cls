@@ -1,13 +1,14 @@
 /**
-*@description       : A class which performs various Validations and Actions when Checkout button
+*@description:A class which performs various Validations and Actions when Checkout button
 						 is clicked in shopping cart
-*@author            : Yatika Bansal
+*@author:Yatika Bansal
 *Modifications Log
 *1.0 : 09-03-2023 : Bharat Patel : Added method for OOTB finalize API to finalize the Proposal on 'Checkout Only' action from LWC
 *1.0 : 19-04-2023 : Nasir Jawed: Added method checkWorkVerification to check work Verification product added on the cart
 *1.0 : 24-05-2023 : Yatika Bansal: Modified method checkCreditAssessmentAndExecuteRateCardLogic to check only approved credit assessments
 *1.0 : 14-08-2023 : Yatika Bansal: Added method docGenerationRequired to check if document generation is required before agreement generation
 *1.0 : 22-08-2023 : Bharat Patel: Added method getProposalDocGenerationProgress() to
+*15-02-2024 : Bharat Patel: Modified method docGenerationRequired(), add logic related to APT_Document_Notification_Off__c
 **/
 public without sharing class APT_CheckoutController{
 
@@ -18,7 +19,6 @@ public without sharing class APT_CheckoutController{
 		// get parameters from VF Page
 		configId = apexpages.currentPage().getParameters().get('id');
 		proposalId = apexpages.currentPage().getParameters().get('businessObjectId');
-        system.debug(apexpages.currentPage().getParameters() + configId + proposalId);
 	}
 
 	public String checkoutAttributes{
@@ -89,10 +89,10 @@ public without sharing class APT_CheckoutController{
 	@AuraEnabled
 	public static boolean getProposalDocGenerationProgress(String proposalId){
 		List<Apttus_Proposal__Proposal__c> proposalDetails = APT_ProposalObjectsSelector.newInstance().selectByConfigIds(new set<ID>{(ID)proposalId});
-		Boolean isDocGenerationRunning = false;
-		if(proposalDetails != null)
-			isDocGenerationRunning = proposalDetails[0].APT_Document_Generation_in_Progress__c;
-		return isDocGenerationRunning;
+		if(proposalDetails != null){
+			return proposalDetails[0].APT_Document_Generation_in_Progress__c;
+		}
+		return false;
 	}
 
 	/**
@@ -170,16 +170,22 @@ public without sharing class APT_CheckoutController{
 	*@return boolean
 	**/
 	@AuraEnabled
-	public static Boolean docGenerationRequired(string configId){
-        Set<String> productNames = new Set<String>();
-        for(APT_Proposal_Doc_Generation_Products__mdt proposalProduct : [SELECT APT_Product_Name__c FROM APT_Proposal_Doc_Generation_Products__mdt]){
-            productNames.add(proposalProduct.APT_Product_Name__c);
-        }
+	public static Boolean docGenerationRequired(string configId, Id proposalId, Boolean notificationDisabled){
+		Set<String> productNames = new Set<String>();
+		for(APT_Proposal_Doc_Generation_Products__mdt proposalProduct : [SELECT APT_Product_Name__c FROM APT_Proposal_Doc_Generation_Products__mdt]){
+			productNames.add(proposalProduct.APT_Product_Name__c);
+		}
 
 		List<Apttus_Config2__LineItem__c> lineItem = LineItemsSelector.newInstance().selectByProdConfIdAndProductName(new set<ID>{(ID)configId}, productNames);
-        if(lineItem != null && lineItem.size() > 0){
-            return true;
-        }
+		if(lineItem != null && lineItem.size() > 0){
+			if(notificationDisabled == true) {
+				Apttus_Proposal__Proposal__c proposalRecord = new Apttus_Proposal__Proposal__c();
+				proposalRecord.Id= proposalId;
+				proposalRecord.APT_Document_Notification_Off__c = true;
+				ApplicationDatabase.getInstance().dmlUpdate(new List<Apttus_Proposal__Proposal__c> {proposalRecord});
+			}
+			return true;
+		}
 
 		return false;
 	}

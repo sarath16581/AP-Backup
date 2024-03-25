@@ -12605,6 +12605,11 @@
         <field>Apttus_Proposal__Proposal__c.Quote_Name_Format__c</field>
         <readable>true</readable>
     </fieldPermissions>
+	<fieldPermissions>
+        <editable>true</editable>
+        <field>Apttus_Proposal__Proposal__c.APT_Document_Notification_Off__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
         <field>Apttus_QPConfig__ProposalProductAttributeValue__c.APTS_Destination_Zone__c</field>
