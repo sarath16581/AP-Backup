@@ -22,6 +22,13 @@
 
 	<aura:handler name="init" value="{!this}" action="{!c.onPageReferenceChange}"/>
 	<aura:handler name="change" value="{!v.pageReference}" action="{!c.onPageReferenceChange}"/>
+	<aura:handler event="aura:waiting" action="{!c.showSpinner}"/>
+	<aura:handler event="aura:doneWaiting" action="{!c.hideSpinner}"/>
 
-	<c:oppProductDataTable oppId="{!v.recordId}" proposalId="{!v.proposalId}" isST="{!v.isST}" isManualContract="{!v.isManualContract}" isAmend="{!v.isAmend}" isRenew="{!v.isRenew}"/>
+	<div class="slds-is-relative">
+		<lightning:spinner aura:id="spinner" class="slds-hide"/>
+		<c:oppProductDataTable oppId="{!v.recordId}" proposalId="{!v.proposalId}" isST="{!v.isST}" isManualContract="{!v.isManualContract}" isAmend="{!v.isAmend}" isRenew="{!v.isRenew}"/>
+	</div>
+
+
 </aura:component>

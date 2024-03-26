@@ -24,9 +24,15 @@ private class ProductRevenueService_Test {
 
         Budget_and_Revenue__c budgrev = ApplicationTestDataFactory.getBudgetAndRevenue(1,account.Id,prod.Id,dateOfTest.year(),true)[0];
         budgrev.uid__c = ProductRevenueService.getUID(budgrev);
+		budgrev = (Budget_and_Revenue__c)ApplicationTestDataFactory.setUnwritableFields(budgrev, new Map<String, Object>{
+				'UniqueId__c' => ProductRevenueService.getUID(budgrev)
+		});
 		Budget_and_Revenue__c budgrevp = ApplicationTestDataFactory.getBudgetAndRevenue(1,account.Id,prod.Id,dateOfTest.year()-1,true)[0];
         budgrevp.uid__c = ProductRevenueService.getUID(budgrevp);
-        
+		budgrevp = (Budget_and_Revenue__c)ApplicationTestDataFactory.setUnwritableFields(budgrevp, new Map<String, Object>{
+				'UniqueId__c' => ProductRevenueService.getUID(budgrevp)
+		});
+
         PricebookEntry pbEntry = ApplicationTestDataFactory.getPriceBookEntries(1,prod.Id,true)[0];
         OpportunityLineItem oli1 = new OpportunityLineItem(OpportunityId = oppRec.Id,Quantity = 5,PricebookEntryId = pbEntry.Id,
                 TotalPrice = 5 * pbEntry.UnitPrice,Contract_Start_Date__c = dateOfTest,Contract_End_Date__c = dateOfTest.addDays(3));
@@ -103,7 +109,7 @@ private class ProductRevenueService_Test {
 		expectedResult += groupedRev2023.Rev2__c + groupedRev2023.Rev3__c + groupedRev2023.Rev4__c + groupedRev2023.Rev5__c + groupedRev2023.Rev6__c
 				+ groupedRev2023.Rev7__c + groupedRev2023.Rev8__c + groupedRev2023.Rev9__c + groupedRev2023.Rev10__c + groupedRev2023.Rev11__c + groupedRev2023.Rev12__c;
 
-		Double testResult = serviceUnderTest.getSumOfPastTwelveMonths(account.Id, prod.Id);
+		Double testResult = serviceUnderTest.getSumOfPastTwelveMonths(account.Id, prod.Id, System.today());
 		System.assertEquals(expectedResult,testResult);
 	}
 }
