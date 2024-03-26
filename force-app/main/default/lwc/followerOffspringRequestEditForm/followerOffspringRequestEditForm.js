@@ -6,17 +6,21 @@
  * @changelog
  * 2023-10-27 - Harry Wang - Created
  * 2024-02-09 - Ranjeewa Silva - Implemented changes to populating invoicing contact email / phone from sub account contact.
+ * 2024-03-21 - Harry Wang - Added populating APT_Organisation__c and APT_Quote_Proposal__c on sub account creation
  */
 import {api, LightningElement, wire} from 'lwc';
 import {getFieldValue, getRecord, updateRecord, createRecord} from "lightning/uiRecordApi";
 import BILLING_ACCOUNT_NAME from "@salesforce/schema/Billing_Account__c.Name";
+import BILLING_ACCOUNT_ORG from "@salesforce/schema/Billing_Account__c.Organisation__c";
 import BILLING_ACCOUNT_ORG_NAME from "@salesforce/schema/Billing_Account__c.Organisation__r.Name";
 import BILLING_ACCOUNT_NUMBER from "@salesforce/schema/Billing_Account__c.LEGACY_ID__c";
 import BILLING_ACCOUNT_CUSTOMER_NUMBER from "@salesforce/schema/Billing_Account__c.Customer_Number__c";
 import CHARGE_ACCOUNT_OPPORTUNITY_NAME from "@salesforce/schema/APT_Charge_Account__c.APT_Quote_Proposal__r.Apttus_Proposal__Opportunity__r.Name";
+import CHARGE_ACCOUNT_ORG from "@salesforce/schema/APT_Charge_Account__c.APT_Organisation__c";
 import CHARGE_ACCOUNT_ORG_NAME from "@salesforce/schema/APT_Charge_Account__c.APT_Organisation__r.Name";
 import CHARGE_ACCOUNT_REQUEST_NUMBER from "@salesforce/schema/APT_Charge_Account__c.Name";
 import CHARGE_ACCOUNT_CUSTOMER_NUMBER from "@salesforce/schema/APT_Charge_Account__c.APT_Organisation__r.Customer_Number__c";
+import CHARGE_ACCOUNT_PROPOSAL from "@salesforce/schema/APT_Charge_Account__c.APT_Quote_Proposal__c";
 import CHARGE_ACCOUNT_OPPORTUNITY from "@salesforce/schema/APT_Charge_Account__c.APT_Quote_Proposal__r.Apttus_Proposal__Opportunity__c";
 import CHARGE_ACCOUNT_OPPORTUNITY_KEY_CONTACT from "@salesforce/schema/APT_Charge_Account__c.APT_Quote_Proposal__r.Apttus_Proposal__Opportunity__r.KeyContact__c";
 import SUB_ACCOUNT_OBJECT from "@salesforce/schema/APT_Sub_Account__c";
@@ -40,6 +44,8 @@ import SUB_ACCOUNT_MAILING_STREET from "@salesforce/schema/APT_Sub_Account__c.AP
 import SUB_ACCOUNT_MAILING_SUBURB from "@salesforce/schema/APT_Sub_Account__c.APT_Postal_Address_Suburb__c";
 import SUB_ACCOUNT_MAILING_STATE from "@salesforce/schema/APT_Sub_Account__c.APT_Postal_Address_State__c";
 import SUB_ACCOUNT_MAILING_POSTCODE from "@salesforce/schema/APT_Sub_Account__c.APT_Postal_Address_Street_Postcode__c";
+import SUB_ACCOUNT_ORG from "@salesforce/schema/APT_Sub_Account__c.APT_Organisation__c";
+import SUB_ACCOUNT_PROPOSAL from "@salesforce/schema/APT_Sub_Account__c.APT_Quote_Proposal__c";
 import SUB_ACCOUNT_STAGE from "@salesforce/schema/APT_Sub_Account__c.APT_Sub_Account_Request_Status__c";
 import CONTACT_PHONE from "@salesforce/schema/Contact.Phone";
 import CONTACT_MOBILE from "@salesforce/schema/Contact.MobilePhone";
@@ -49,8 +55,8 @@ import LABEL_INACTIVE_KEY_CONTACT_ERROR from '@salesforce/label/c.StarTrackSubAc
 import LABEL_BLANK_EMAIL_ERROR from '@salesforce/label/c.StarTrackSubAccountBlankEmailErrorMessage';
 import {ShowToastEvent} from "lightning/platformShowToastEvent";
 
-const BILLING_ACCOUNT_FIELDS = [BILLING_ACCOUNT_NAME, BILLING_ACCOUNT_ORG_NAME, BILLING_ACCOUNT_NUMBER, BILLING_ACCOUNT_CUSTOMER_NUMBER];
-const CHARGE_ACCOUNT_FIELDS = [CHARGE_ACCOUNT_OPPORTUNITY_NAME, CHARGE_ACCOUNT_ORG_NAME, CHARGE_ACCOUNT_REQUEST_NUMBER, CHARGE_ACCOUNT_CUSTOMER_NUMBER, CHARGE_ACCOUNT_OPPORTUNITY, CHARGE_ACCOUNT_OPPORTUNITY_KEY_CONTACT];
+const BILLING_ACCOUNT_FIELDS = [BILLING_ACCOUNT_NAME, BILLING_ACCOUNT_ORG, BILLING_ACCOUNT_ORG_NAME, BILLING_ACCOUNT_NUMBER, BILLING_ACCOUNT_CUSTOMER_NUMBER];
+const CHARGE_ACCOUNT_FIELDS = [CHARGE_ACCOUNT_OPPORTUNITY_NAME, CHARGE_ACCOUNT_ORG, CHARGE_ACCOUNT_ORG_NAME, CHARGE_ACCOUNT_PROPOSAL, CHARGE_ACCOUNT_REQUEST_NUMBER, CHARGE_ACCOUNT_CUSTOMER_NUMBER, CHARGE_ACCOUNT_OPPORTUNITY, CHARGE_ACCOUNT_OPPORTUNITY_KEY_CONTACT];
 const CONTACT_FIELDS = [CONTACT_PHONE, CONTACT_MOBILE, CONTACT_EMAIL, CONTACT_STATUS];
 export default class FollowerOffspringRequestEditForm extends LightningElement {
 	// Can be either charge account ID or billing account ID
@@ -394,8 +400,11 @@ export default class FollowerOffspringRequestEditForm extends LightningElement {
 			if (!this.subAccount) {
 				if (this.isBillingAccount === 'true') {
 					fields[SUB_ACCOUNT_LEADER_BILLING_ACCOUNT.fieldApiName] = this.leaderId;
+					fields[SUB_ACCOUNT_ORG.fieldApiName] = getFieldValue(this.recordData, BILLING_ACCOUNT_ORG);
 				} else {
 					fields[SUB_ACCOUNT_LEADER_CHARGE_ACCOUNT.fieldApiName] = this.leaderId;
+					fields[SUB_ACCOUNT_ORG.fieldApiName] = getFieldValue(this.recordData, CHARGE_ACCOUNT_ORG);
+					fields[SUB_ACCOUNT_PROPOSAL.fieldApiName] = getFieldValue(this.recordData, CHARGE_ACCOUNT_PROPOSAL);
 				}
 			}
 			if (this.accountType === 'Offspring Follower') {
