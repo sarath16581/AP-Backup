@@ -55,7 +55,7 @@
                 <default>false</default>
                 <label>2 Tier Delegation</label>
             </value>
-		</value>
+		
 		<value>
 			<fullName>Peak Fee</fullName>
 			<default>false</default>
@@ -75,6 +75,7 @@
 			<fullName>Force Majeure Fee</fullName>
 			<default>false</default>
 			<label>Force Majeure Fee</label>
+		</value>
         </valueSetDefinition>
     </valueSet>
 </CustomField>
