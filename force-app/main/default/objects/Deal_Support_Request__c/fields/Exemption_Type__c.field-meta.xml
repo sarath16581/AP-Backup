@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Exemption_Type__c</fullName>
+	<description>Indicates Exemption Type that is used for Exemption Record Type</description>
     <externalId>false</externalId>
+	<inlineHelpText>indicates why there is an exemption</inlineHelpText>
     <label>Exemption Type</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>
@@ -53,6 +55,26 @@
                 <default>false</default>
                 <label>2 Tier Delegation</label>
             </value>
+		</value>
+		<value>
+			<fullName>Peak Fee</fullName>
+			<default>false</default>
+			<label>Peak Fee</label>
+		</value>
+		<value>
+			<fullName>Over Maximum Limits Fee</fullName>
+			<default>false</default>
+			<label>Over Maximum Limits Fee</label>
+		</value>
+		<value>
+			<fullName>Manifest Correction Fee</fullName>
+			<default>false</default>
+			<label>Manifest Correction Fee</label>
+		</value>
+		<value>
+			<fullName>Force Majeure Fee</fullName>
+			<default>false</default>
+			<label>Force Majeure Fee</label>
         </valueSetDefinition>
     </valueSet>
 </CustomField>
