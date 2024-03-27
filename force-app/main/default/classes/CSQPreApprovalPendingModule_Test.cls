@@ -10,10 +10,10 @@
 @IsTest
 private class CSQPreApprovalPendingModule_Test {
 	/**
-	 * @description to test the check eligibility logic should set the pre approval status to referred with a reason
+	 * @description to test the logic performed on the before update trigger event
 	 */
 	@IsTest
-	private static void testBeforeUpdateCheckPreApprovalEligibility_diffAddress() {
+	private static void testBeforeUpdate() {
 		Customer_Scoping_Questionnaire__c csq = new Customer_Scoping_Questionnaire__c(
 				Id = fflib_IDGenerator.generate(Customer_Scoping_Questionnaire__c.SObjectType)
 		);
@@ -38,11 +38,15 @@ private class CSQPreApprovalPendingModule_Test {
 		// Stubbing
 		// =====================================
 		ApplicationUnitOfWork uow = ApplicationUnitOfWork.newInstance(CSQAutomationTriggerHandler.getUnitOfWorkSObjectTypes());
-		PickUpLocationSelector selector = (PickUpLocationSelector)MockUtility.mockSelector(PickUpLocationSelector.class);
+		PickUpLocationSelector selector = (PickUpLocationSelector) MockUtility.mockSelector(PickUpLocationSelector.class);
 
 		// set up our responses
 		MockUtility.Mocks.startStubbing();
-		MockUtility.Mocks.when(selector.selectByParentId(new Set<Id>{csq.Id}, new Set<Object>())).thenReturn(new List<Pick_Up_Location__c>{puLoc1,puLoc2});
+		MockUtility.Mocks.when(selector.selectByParentId(new Set<Id>{
+				csq.Id
+		}, new Set<Object>())).thenReturn(new List<Pick_Up_Location__c>{
+				puLoc1, puLoc2
+		});
 		MockUtility.Mocks.stopStubbing();
 
 		// =====================================
@@ -50,10 +54,15 @@ private class CSQPreApprovalPendingModule_Test {
 		// =====================================
 		Test.startTest();
 		CSQPreApprovalPendingModule module = CSQPreApprovalPendingModule.newInstance();
-		module.onBeforeUpdate(new List<Customer_Scoping_Questionnaire__c>{csq}, new Map<Id,Customer_Scoping_Questionnaire__c>{csqOld.Id=>csqOld}, uow);
+		module.onBeforeUpdate(new List<Customer_Scoping_Questionnaire__c>{
+				csq
+		}, new Map<Id, Customer_Scoping_Questionnaire__c>{
+				csqOld.Id => csqOld
+		}, uow);
 
 		System.assertEquals(CSQAutomationTriggerHandler.PRE_APPROVAL_STATUS_REFERRED, csq.PreApprovalStatus__c, 'Pre approval status should have been updated to referred');
 		System.assertEquals(CSQPreApprovalPendingModule.AUTO_REFERRAL_REASONS, csq.PreApprovalReferralReasons__c, 'Auto referred reason should have been updated according to the constant variable');
+		System.assertEquals(System.today(), csq.DateSubmitted__c, 'Date Submitted failed to update.');
 		Test.stopTest();
 	}
 }

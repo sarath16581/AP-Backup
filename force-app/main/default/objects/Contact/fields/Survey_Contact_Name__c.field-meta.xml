@@ -5,7 +5,7 @@
     <label>Survey Contact Name</label>
     <length>30</length>
     <required>false</required>
-    <securityClassification>OFFICIAL_SENSITIVE_PERSONAL</securityClassification>
+    <securityClassification>OFFICIAL_SENSITIVE</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <type>Text</type>
