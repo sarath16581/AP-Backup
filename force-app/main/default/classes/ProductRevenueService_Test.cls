@@ -67,7 +67,7 @@ private class ProductRevenueService_Test {
         MockUtility.Mocks.when(relatedProductSelector.selectByParent((Set<Id>)fflib_Match.anyObject())).thenReturn(new List<ProductRelationship__c>());
         MockUtility.Mocks.when(groupedRevenueSelector.selectByUniqueIds((Set<String>)fflib_Match.anyObject())).thenReturn(new Map<Id,GroupedAccountProductRevenue__c>(new List<GroupedAccountProductRevenue__c>{groupedRev2023,groupedRev2024}));
         MockUtility.Mocks.when(revenueSelector.selectByUniqueIds((Set<String>)fflib_Match.anyObject())).thenReturn(new Map<Id,Budget_and_Revenue__c>{budgrev.Id => budgrev, budgrevp.Id => budgrevp});
-        MockUtility.Mocks.when(lineItemSelector.selectByOpportunity((Set<Id>)fflib_Match.anyObject(), (Set<Object>)fflib_Match.anyObject())).thenReturn(new List<OpportunityLineItem>{oli1});
+        MockUtility.Mocks.when(lineItemSelector.selectByOPCCalculationOpportunityIds((Set<Id>)fflib_Match.anyObject(), (Set<Object>)fflib_Match.anyObject())).thenReturn(new List<OpportunityLineItem>{oli1});
         MockUtility.Mocks.when(aprSelector.selectByAccount((Set<Id>)fflib_Match.anyObject(),(Set<Object>)fflib_Match.anyObject())).thenReturn(new List<APR__c>{apr});
 		MockUtility.Mocks.when(arSelector.selectByOPCParentEndDateInFuture((Set<Id>)fflib_Match.anyObject())).thenReturn(new List<AccountRelationship__c>{accRelation});
         MockUtility.Mocks.stopStubbing();

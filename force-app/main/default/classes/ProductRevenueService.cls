@@ -639,7 +639,7 @@ public with sharing class ProductRevenueService {
                 Product2.SObjectType => new Set<SObjectField>{Product2.Name},
                 Opportunity.SObjectType => new Set<SObjectField>{Opportunity.Name,Opportunity.AccountId,Opportunity.Id}
         };
-        List<OpportunityLineItem> loadedItems = OpportunityLineItemSelector.newInstance(0, fieldOverrides).selectByOpportunity(opportunityIds, new Set<Object>{OpportunityLineItemSelector.Options.WITH_OPPORTUNITY, OpportunityLineItemSelector.Options.WITH_PRODUCT});
+        List<OpportunityLineItem> loadedItems = OpportunityLineItemSelector.newInstance(0, fieldOverrides).selectByOPCCalculationOpportunityIds(opportunityIds, new Set<Object>{OpportunityLineItemSelector.Options.WITH_OPPORTUNITY, OpportunityLineItemSelector.Options.WITH_PRODUCT});
         for (OpportunityLineItem item : loadedItems) {
             opportunityLineItems.put(item.Id, item);
         }
