@@ -121,7 +121,6 @@ public inherited sharing class AdobeSignContentDocumentModule extends Applicatio
 	 * @param uow unit of work context
 	 */
 	public void preventDeletionOfSignedDocusignDocuments(List<ContentDocument> records, ApplicationUnitOfWork uow) {
-		system.debug(' HASATHA -- '+records);
 		// Prevent deletion of adobesign signed documnts
 		Boolean hasCustomPermission = FeatureManagement.checkPermission('AllowDeleteOnDocuSignContracts');
 
