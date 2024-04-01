@@ -1005,6 +1005,20 @@
             <componentInstance>
                 <componentInstanceProperties>
                     <name>body</name>
+                    <value>Facet-b54bba38-69eb-49e7-b1a3-b3a840e336fd</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>title</name>
+                    <value>Revenue</value>
+                </componentInstanceProperties>
+                <componentName>flexipage:tab</componentName>
+                <identifier>flexipage_tab2</identifier>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>body</name>
                     <value>Facet-30b1c3b5-f165-48b0-aeb7-9a4f11d7d7dd</value>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
