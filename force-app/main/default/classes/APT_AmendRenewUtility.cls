@@ -1284,7 +1284,7 @@ public without sharing class APT_AmendRenewUtility {
 			}
 			// capture all line items including 'Product/Service' and 'Options' types with same name
 			for(Apttus_Config2__LineItem__c li :mapProductOptionLI.values()){
-				if(productNameForDeletionSet.contains(li.Apttus_Config2__ChargeType__c)){
+				if(productNameForDeletionSet.contains(li.Apttus_Config2__OptionId__r?.Name)){
 					liToBeDeleteList.add(li);
 				}
 			}

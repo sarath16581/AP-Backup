@@ -107,7 +107,7 @@ public with sharing class APT_ViewRatecardBatchExecute {
 																	Apttus_QPConfig__DerivedFromId__r.Apttus_Config2__AttributeValueId__r.APT_Signature_On_Delivery__c,
 																	Apttus_QPConfig__ChargeType__c, APT_Identical_Line__c
 																	FROM Apttus_Proposal__Proposal_Line_Item__c
-																	WHERE Apttus_Proposal__Proposal__c = :proposalId
+																	WHERE Apttus_Proposal__Proposal__c = :proposalId FOR UPDATE
 																	/*AND Apttus_QPConfig__OptionId__r.APT_Domestic_Pricing__c = true*/];
 
 
@@ -308,8 +308,7 @@ public with sharing class APT_ViewRatecardBatchExecute {
 			ApexXSSFromURLParam: Apex classes should escape/sanitize Strings obtained from URL parameters(can not be addressed because it is in existing code.)
 			*/
 			//set flag
-			Apttus_Proposal__Proposal__c proposal = new Apttus_Proposal__Proposal__c();
-			proposal.id = proposalId;
+			Apttus_Proposal__Proposal__c proposal = [SELECT Id FROM Apttus_Proposal__Proposal__c WHERE Id = : proposalId FOR UPDATE];
 			proposal.APT_Document_Generation_in_Progress__c = true;
 
 			//APOST-2023

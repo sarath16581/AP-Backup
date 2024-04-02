@@ -60,10 +60,10 @@ public inherited sharing class CustomerDataSyncEventCustomerHelper {
 				accupsertSFIDList = (List<SObject>) custMap.get(SFID);
 
 				if (accupsertAPCNList.size() > 0) {
-					resultUpsertAPCN = ApplicationDatabase.getInstance().dmlUpsert(accupsertAPCNList, Account.apcn__c);
+					resultUpsertAPCN = ApplicationDatabase.getInstance().dmlUpsert(accupsertAPCNList, Account.apcn__c, false);
 				}
 				if (accupsertSFIDList.size() > 0) {
-					resultUpsertSFID = ApplicationDatabase.getInstance().dmlUpsert(accupsertSFIDList, Account.Id);
+					resultUpsertSFID = ApplicationDatabase.getInstance().dmlUpsert(accupsertSFIDList, Account.Id, false);
 				}
 
 				custSuccessMap = genSuccessCustomerMap(genSuccessCustIds(resultUpsertAPCN, resultUpsertSFID));
@@ -75,10 +75,10 @@ public inherited sharing class CustomerDataSyncEventCustomerHelper {
 				);
 
 				if(!resultUpsertAPCN.isEmpty()){
-					logUpsertResultsException(resultUpsertAPCN);
+					logUpsertResultsException(resultUpsertAPCN, accupsertAPCNList);
 				}
 				if(!resultUpsertSFID.isEmpty()){
-					logUpsertResultsException(resultUpsertSFID);
+					logUpsertResultsException(resultUpsertSFID, accupsertSFIDList);
 				}
 
 			}
@@ -266,16 +266,16 @@ public inherited sharing class CustomerDataSyncEventCustomerHelper {
 		return Schema.SObjectType.Account.getRecordTypeInfosByDeveloperName().get(developerName).getRecordTypeID();
 	}
 
-	//log exception for upsert result failures as the upsert result 
-	private void logUpsertResultsException(List<Database.UpsertResult> upsertResults) {
+	//log exception for upsert result failures as the upsert result
+	private void logUpsertResultsException(List<Database.UpsertResult> upsertResults, List<SObject> relatedRecords) {
 		UTIL_LoggingService.createExceptionForUpsertResults(
-			upsertResults,
-			null,
-			'CustomerDataSyncEventCustomerHelper',
-			CustomerDataSyncEventCustomerHelper.class.getName(),
-			'upsertCustomerData',
-			null,
-			LoggingLevel.ERROR
+				upsertResults,
+				relatedRecords,
+				'CustomerDataSyncEventCustomerHelper',
+				CustomerDataSyncEventCustomerHelper.class.getName(),
+				'upsertCustomerData',
+				null,
+				LoggingLevel.ERROR
 		);
 	}
 

@@ -49,7 +49,7 @@ public with sharing class CustomerDataSyncEventCustomerHelper_Test {
 		//Mock Responses
 		MockUtility.Mocks.startStubbing();
 
-		MockUtility.Mocks.when(mockDatabase.dmlUpsert((List<SObject>) fflib_Match.anyObject(), (SObjectField) fflib_Match.anyObject()))
+		MockUtility.Mocks.when(mockDatabase.dmlUpsert((List<SObject>) fflib_Match.anyObject(), (SObjectField) fflib_Match.anyObject(), (Boolean) fflib_Match.anyObject()))
 			.thenAnswer(new MockUtility.AnswerGenericDMLUpserted());
 
 		MockUtility.Mocks.stopStubbing();
@@ -68,6 +68,6 @@ public with sharing class CustomerDataSyncEventCustomerHelper_Test {
 		// =====================================
 		System.assert(!upsertResult.isEmpty(), 'customer data upserted');
 		((ApplicationDatabase) MockUtility.Mocks.verify(mockDatabase, MockUtility.Mocks.times(1)))
-			.dmlUpsert((List<SObject>) fflib_Match.anyObject(), (SObjectField) fflib_Match.anyObject());
+			.dmlUpsert((List<SObject>) fflib_Match.anyObject(), (SObjectField) fflib_Match.anyObject(), (Boolean) fflib_Match.anyObject());
 	}
 }

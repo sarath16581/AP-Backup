@@ -8,16 +8,10 @@
     <label>Nominated Partner Contact &amp; Incent User</label>
     <lookupFilter>
         <active>true</active>
-        <errorMessage>Please ensure the Incent Credential for this Contact is populated.</errorMessage>
         <filterItems>
             <field>Contact.AccountId</field>
             <operation>equals</operation>
             <valueField>$Source.Id</valueField>
-        </filterItems>
-        <filterItems>
-            <field>Contact.IncentCredential__c</field>
-            <operation>notEqual</operation>
-            <value>&apos;&apos;</value>
         </filterItems>
         <isOptional>false</isOptional>
     </lookupFilter>

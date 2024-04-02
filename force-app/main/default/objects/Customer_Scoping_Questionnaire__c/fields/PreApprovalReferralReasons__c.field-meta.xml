@@ -6,6 +6,7 @@
     <inlineHelpText>The multi-picklist for Referral Reasons.</inlineHelpText>
     <label>Pre-Approval Referral Reasons</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
     <type>MultiselectPicklist</type>

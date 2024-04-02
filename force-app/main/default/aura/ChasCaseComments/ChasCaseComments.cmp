@@ -1,143 +1,143 @@
 <aura:component implements="forceCommunity:availableForAllPageTypes,force:hasRecordId" Controller='ChasCustomCaseListAndDetailController' description="Component responsible to fetch and display the Case Comments for a Case and calling the Flow to create Case Comment">
-    <aura:attribute name="caseComments" type="CaseComment[]"/> 
-    <aura:attribute name="case" type="Case"/>
-    <!--<aura:attribute name="caseStatus" type="String"/>-->
-    <aura:attribute name="textAreaLabel" type="String" default="Add a comment"/>
-    <aura:attribute name="textAreaValue" type="String" default=''/>
-    <aura:attribute name="showInput" type="Boolean" default='false'/>
-    <aura:attribute name="loggedInUserName" type="String" default=''/>
-    <aura:attribute name="isSendingComment" type="Boolean" default='false'/>
-    <aura:attribute name="isLoadingStatus" type="Boolean" default='false'/>
+	<aura:attribute name="caseComments" type="CaseComment[]"/> 
+	<aura:attribute name="case" type="Case"/>
+	<!--<aura:attribute name="caseStatus" type="String"/>-->
+	<aura:attribute name="textAreaLabel" type="String" default="Add a comment"/>
+	<aura:attribute name="textAreaValue" type="String" default=''/>
+	<aura:attribute name="showInput" type="Boolean" default='false'/>
+	<aura:attribute name="loggedInUserName" type="String" default=''/>
+	<aura:attribute name="isSendingComment" type="Boolean" default='false'/>
+	<aura:attribute name="isLoadingStatus" type="Boolean" default='false'/>
 
-    <aura:method name="closeCase" action="{!c.closeCase}">
-        <aura:attribute name="callback" type="Function" />
-    </aura:method>
+	<aura:method name="closeCase" action="{!c.closeCase}">
+		<aura:attribute name="callback" type="Function" />
+	</aura:method>
 
-    <!-- for analytics -->
-    <ltng:require scripts="{!$Resource.GlobalAssets + '/js/lightning/adobeAnalyticsHelper.js'}" />
+	<!-- for analytics -->
+	<ltng:require scripts="{!$Resource.GlobalAssets + '/js/lightning/adobeAnalyticsHelper.js'}" />
 
-    <aura:registerEvent name="updateCaseStatus" type="c:ChasCaseStatusEvent"/>
-    <aura:registerEvent name="adobeAnalyticsInterfaceEvent" type="c:adobeAnalyticsInterfaceEvent"/>
+	<aura:registerEvent name="updateCaseStatus" type="c:ChasCaseStatusEvent"/>
+	<aura:registerEvent name="adobeAnalyticsInterfaceEvent" type="c:adobeAnalyticsInterfaceEvent"/>
 
-    <aura:handler name="init" value="{! this }" action="{! c.doInit }" />
-    <aura:handler name="change" value="{! v.case }" action="{! c.handleCase }" />
-    <aura:handler name="chasGenComponentEvent" event="c:chasGenComponentEvent" action="{! c.onchange }"/>
+	<aura:handler name="init" value="{! this }" action="{! c.doInit }" />
+	<aura:handler name="change" value="{! v.case }" action="{! c.handleCase }" />
+	<aura:handler name="chasGenComponentEvent" event="c:chasGenComponentEvent" action="{! c.onchange }"/>
 
 	<force:recordData aura:id="caseRecordData"
-        recordId="{! v.recordId }"
-        fields="[ 'CaseNumber', 'Status', 'Enquiry_Status__c','Permanent_Close__c','ResolutionCode__c', 'EnquirySubType__c' ]"
-        mode="EDIT"
-        targetFields="{! v.case }" />
+		recordId="{! v.recordId }"
+		fields="[ 'CaseNumber', 'Status', 'Enquiry_Status__c','Permanent_Close__c','ResolutionCode__c', 'EnquirySubType__c' ]"
+		mode="EDIT"
+		targetFields="{! v.case }" />
 
-    <!-- Close Case Confirmation Modal -->
-    <lightning:overlayLibrary aura:id="overlayLib"/>
-    
-    <div>
-        <h2 class="chas-heading_large slds-m-bottom_medium">Activity</h2>
-        
-        <!-- Add Comment Buttons -->
-        <aura:if isTrue="{! and(not(v.showInput), not(v.isLoadingStatus)) }">
-        	<aura:if isTrue="{! or(v.case.Enquiry_Status__c == 'Action required', v.case.Enquiry_Status__c == 'In progress') }">
-	        	<div class="button-box">
-		            <lightning:button label="{! (v.case.Enquiry_Status__c == 'Action required') ? 'Respond to request' : 'Add a comment' }" variant="brand" onclick="{! c.showCommentInput }"/>
-		            <div class="close-enquiry-top">
-		                <lightning:button label="Close enquiry" variant="neutral" onclick="{! c.showModal }"/>
-		            </div>
-		        </div>
-		    </aura:if>
+	<!-- Close Case Confirmation Modal -->
+	<lightning:overlayLibrary aura:id="overlayLib"/>
+	
+	<div>
+		<h2 class="chas-heading_large slds-m-bottom_medium">Activity</h2>
+		
+		<!-- Add Comment Buttons -->
+		<aura:if isTrue="{! and(not(v.showInput), not(v.isLoadingStatus)) }">
+			<aura:if isTrue="{! or(v.case.Enquiry_Status__c == 'Action required', v.case.Enquiry_Status__c == 'In progress') }">
+				<div class="button-box">
+					<lightning:button label="{! (v.case.Enquiry_Status__c == 'Action required') ? 'Respond to request' : 'Add a comment' }" variant="brand" onclick="{! c.showCommentInput }"/>
+					<div class="close-enquiry-top">
+						<lightning:button label="Close enquiry" variant="neutral" onclick="{! c.showModal }"/>
+					</div>
+				</div>
+			</aura:if>
 
-	        <aura:if isTrue="{! v.case.Enquiry_Status__c == 'Resolved' }">
-        		<div class="enquiry-resolved button-box slds-grid slds-wrap slds-grid_vertical-align-center">
-	            	<p>Has your enquiry been resolved?</p>
-	            	<div class="enquiry-resolved-buttons slds-grid slds-gutters_xx-small">
-	            		<div class="slds-col">
-				            <lightning:button label="Yes" variant="brand" onclick="{! c.showModal }"/>
-				        </div>
-	            		<div class="slds-col">
-				            <lightning:button label="No" variant="neutral" onclick="{! c.showCommentInput }"/>
-				        </div>
-			        </div>
-		        </div>
-	        </aura:if>
-        </aura:if>
-        
-        <!-- New Comment TextArea Input -->
-        <aura:if isTrue='{! v.showInput }'>
-            <div class="slds-grid">
+			<aura:if isTrue="{! v.case.Enquiry_Status__c == 'Resolved' }">
+				<div class="enquiry-resolved button-box slds-grid slds-wrap slds-grid_vertical-align-center">
+					<p>Has your enquiry been resolved?</p>
+					<div class="enquiry-resolved-buttons slds-grid slds-gutters_xx-small">
+						<div class="slds-col">
+							<lightning:button label="Yes" variant="brand" onclick="{! c.showModal }"/>
+						</div>
+						<div class="slds-col">
+							<lightning:button label="No" variant="neutral" onclick="{! c.showCommentInput }"/>
+						</div>
+					</div>
+				</div>
+			</aura:if>
+		</aura:if>
+		
+		<!-- New Comment TextArea Input -->
+		<aura:if isTrue='{! v.showInput }'>
+			<div class="slds-grid">
 
-            	<!-- Line and Circle pattern -->
-                <div class="pattern">                    
-                    <div class="circle open grey">
-                    	<div class="inside">&nbsp;</div>
-                    </div>
-                    <div class="line grey">&nbsp;</div>
-                </div>
-                
-                <!-- Add Comment Box -->
-	    		<form class="form-input-container">
-	    			<h3 class="chas-heading_small slds-m-bottom_small">{! v.loggedInUserName }</h3>
-	                <c:chasTextArea aura:id="newComment" name="newComment" label="{! v.textAreaLabel }" value='{!v.textAreaValue}' showError="true"/>
-	                <lightning:button aura:id="submitButton" label="Submit" variant="brand" type="submit" onclick="{! c.createNewComment }" class="{! 'loading-' + v.isSendingComment }"/>
-	                <lightning:button label="Cancel" variant="base" onclick="{! c.cancelNewComment }"/>
-	            </form>
-	        </div>
-        </aura:if>
-        
-        <!-- Comment List -->
-        <div class="comments-container">
-            <aura:iteration items="{! v.caseComments }" var="item" >
-                <div class="slds-grid">
+				<!-- Line and Circle pattern -->
+				<div class="pattern">                    
+					<div class="circle open grey">
+						<div class="inside">&nbsp;</div>
+					</div>
+					<div class="line grey">&nbsp;</div>
+				</div>
+				
+				<!-- Add Comment Box -->
+				<form class="form-input-container">
+					<h3 class="chas-heading_small slds-m-bottom_small">{! v.loggedInUserName }</h3>
+					<c:chasTextArea aura:id="newComment" name="newComment" label="{! v.textAreaLabel }" value='{!v.textAreaValue}' showError="true"/>
+					<lightning:button aura:id="submitButton" label="Submit" variant="brand" type="submit" onclick="{! c.createNewComment }" class="{! 'loading-' + v.isSendingComment }"/>
+					<lightning:button label="Cancel" variant="base" onclick="{! c.cancelNewComment }"/>
+				</form>
+			</div>
+		</aura:if>
+		
+		<!-- Comment List -->
+		<div class="comments-container">
+			<aura:iteration items="{! v.caseComments }" var="item" >
+				<div class="slds-grid">
 
-                	<!-- Line and Circle pattern -->
-                    <div class="pattern">
-                        <aura:if isTrue="{! and(_index != 0, _index == v.caseComments.length - 1) }">
-                            <div class="line last">&nbsp;</div>
-                        </aura:if>
-                        
-                        <aura:if isTrue="{! _index == 0 }">
-                            <div class="{! 'circle' + (_index == v.caseComments.length - 1 ? ' first' : '') + (v.case.Enquiry_Status__c  != 'Closed' ? ' open' : '') }"><div class="inside">&nbsp;</div></div>
-                            <aura:set attribute="else">
-                                <div class="{! 'circle little' + (_index == v.caseComments.length - 1 ? ' first' : '') }"><div class="inside">&nbsp;</div></div>
-                            </aura:set>
-                        </aura:if>
-                        
-                        <aura:if isTrue="{! _index != v.caseComments.length - 1 }">
-                            <div class="line">&nbsp;</div>
-                        </aura:if>
-                    </div>
-                    
-                    <!-- Comment Box -->
-                    <!-- I am assuming that the last comment is the original enquiry -->
-                    <div class="{! 'comment-box' + (_index == v.caseComments.length - 1 ? ' original-enquiry' : '') }">
-                        <h3 class="chas-heading_small">{! item.CreatedBy.FirstName }</h3>
-                        <span class="comment-details chas-body_small">
-                            <lightning:formattedDateTime value="{! item.LastModifiedDate }" year="numeric" month="long" day="numeric" hour="numeric" minute="numeric" hour12="true"/>
-                            
-                            <aura:if isTrue="{! _index == v.caseComments.length - 1 }">
-                                <span class="dot">&nbsp;</span>
-                                Original enquiry
-                                <aura:set attribute="else">
-		                            <aura:if isTrue="{! _index == 0 }">
-		                                <span class="dot">&nbsp;</span>
-		                                <span class="green">Latest</span>
-		                            </aura:if>
-                                </aura:set>
-                            </aura:if>
-                        </span>
-                        <p class="slds-p-top_xx-small"><lightning:formattedText value='{! item.CommentBody }' /></p>
-                    </div>
-                </div>
-            </aura:iteration>
-        </div>
-        
-        <aura:if isTrue="{! and(not(v.case.Enquiry_Status__c == 'Closed'), not(v.isLoadingStatus)) }">
-            <div class="close-enquiry-bottom">
-                <lightning:button label="Close enquiry" variant="neutral" onclick="{! c.showModal }"/>
-            </div>
-        </aura:if>
+					<!-- Line and Circle pattern -->
+					<div class="pattern">
+						<aura:if isTrue="{! and(_index != 0, _index == v.caseComments.length - 1) }">
+							<div class="line last">&nbsp;</div>
+						</aura:if>
+						
+						<aura:if isTrue="{! _index == 0 }">
+							<div class="{! 'circle' + (_index == v.caseComments.length - 1 ? ' first' : '') + (v.case.Enquiry_Status__c  != 'Closed' ? ' open' : '') }"><div class="inside">&nbsp;</div></div>
+							<aura:set attribute="else">
+								<div class="{! 'circle little' + (_index == v.caseComments.length - 1 ? ' first' : '') }"><div class="inside">&nbsp;</div></div>
+							</aura:set>
+						</aura:if>
+						
+						<aura:if isTrue="{! _index != v.caseComments.length - 1 }">
+							<div class="line">&nbsp;</div>
+						</aura:if>
+					</div>
+					
+					<!-- Comment Box -->
+					<!-- I am assuming that the last comment is the original enquiry -->
+					<div class="{! 'comment-box' + (_index == v.caseComments.length - 1 ? ' original-enquiry' : '') }">
+						<h3 class="chas-heading_small">{! item.CreatedBy.FirstName }</h3>
+						<span class="comment-details chas-body_small">
+							<lightning:formattedDateTime value="{! item.LastModifiedDate }" year="numeric" month="long" day="numeric" hour="numeric" minute="numeric" hour12="true"/>
+							
+							<aura:if isTrue="{! _index == v.caseComments.length - 1 }">
+								<span class="dot">&nbsp;</span>
+								Original enquiry
+								<aura:set attribute="else">
+									<aura:if isTrue="{! _index == 0 }">
+										<span class="dot">&nbsp;</span>
+										<span class="green">Latest</span>
+									</aura:if>
+								</aura:set>
+							</aura:if>
+						</span>
+						<p class="slds-p-top_xx-small"><lightning:formattedText value='{! item.CommentBody }' /></p>
+					</div>
+				</div>
+			</aura:iteration>
+		</div>
+		
+		<aura:if isTrue="{! and(not(v.case.Enquiry_Status__c == 'Closed'), not(v.isLoadingStatus)) }">
+			<div class="close-enquiry-bottom">
+				<lightning:button label="Close enquiry" variant="neutral" onclick="{! c.showModal }"/>
+			</div>
+		</aura:if>
 
-        <aura:if isTrue="{! v.case }">
-            <c:adobeAnalyticsInterfaceComponent sitePrefix="auspost:help and support" pageViewTracking="true" pageViewTrackingType="helpsupport-form-navigate" pageViewFormName="form:enquiries" pageViewFormStep="{!'case:' + v.case.EnquirySubType__c}" pageViewFormReferenceId="{!v.case.CaseNumber}" />
-        </aura:if>
-    </div>
+		<aura:if isTrue="{! v.case }">
+			<c:adobeAnalyticsInterfaceComponent sitePrefix="auspost:help and support" pageViewTracking="true" pageViewTrackingType="helpsupport-form-navigate" pageViewFormName="form:enquiries" pageViewFormStep="{!'case:' + v.case.EnquirySubType__c}" pageViewFormReferenceId="{!v.case.CaseNumber}" />
+		</aura:if>
+	</div>
 </aura:component>
