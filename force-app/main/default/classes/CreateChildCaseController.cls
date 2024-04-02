@@ -79,9 +79,10 @@ public with sharing class CreateChildCaseController {
             // default values are determined and populated at apex level as this could be configured in a custom setting in the future, if you like
             // default value for Case Origin field on case object
             fieldSetMapper.defaultValue = ParentCase.get(fieldSetSchema.fieldPath);
-            if(targetRecordTypeDevName.equalsIgnoreCase('Report_Request') && 'Origin'.equalsIgnoreCase(fieldSetSchema.fieldPath)){
-                fieldSetMapper.defaultValue = 'Salesforce User';
-            }
+			//REQ3448199 - Removing refrence of record type report request
+            //if(targetRecordTypeDevName.equalsIgnoreCase('Report_Request') && 'Origin'.equalsIgnoreCase(fieldSetSchema.fieldPath)){
+             //   fieldSetMapper.defaultValue = 'Salesforce User';
+            //}
             if(targetRecordTypeDevName.equalsIgnoreCase('StarTrack_Credit_Dispute_Claim') && 'Origin'.equalsIgnoreCase(fieldSetSchema.fieldPath)){
                 fieldSetMapper.defaultValue = 'Other';
             }
