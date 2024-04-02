@@ -59,6 +59,11 @@
                 <label>Booking</label>
             </value>
             <value>
+                <fullName>Bulk Mail</fullName>
+                <default>false</default>
+                <label>Bulk Mail</label>
+            </value>
+            <value>
                 <fullName>Business Feedback</fullName>
                 <default>false</default>
                 <label>Business Feedback</label>
@@ -1229,6 +1234,10 @@
             <controllingFieldValue>Delivery in Progress</controllingFieldValue>
             <controllingFieldValue>Depot Created</controllingFieldValue>
             <valueName>Book in</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Other</controllingFieldValue>
+            <valueName>Bulk Mail</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Other</controllingFieldValue>

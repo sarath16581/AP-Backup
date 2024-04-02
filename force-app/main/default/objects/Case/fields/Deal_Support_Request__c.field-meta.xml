@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Deal_Support_Request__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <description>Link to a deal support request</description>
+    <externalId>false</externalId>
+    <label>Deal Support Request</label>
+    <referenceTo>Deal_Support_Request__c</referenceTo>
+    <relationshipLabel>Cases</relationshipLabel>
+    <relationshipName>Cases</relationshipName>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Lookup</type>
+</CustomField>
