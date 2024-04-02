@@ -269,15 +269,4 @@
         }
         set;
     }
-	
-	@InvocableMethod(label='Get Record URL')
-    public static List<String> getRecordUrl(List<String> recordIds) {
-        List<String> recordUrls = new List<String>();
-        for (String recordId : recordIds) {
-            // Construct the URL for the record detail page
-            String recordUrl = URL.getSalesforceBaseUrl().toExternalForm() + '/' + recordId;
-            recordUrls.add(recordUrl);
-        }
-        return recordUrls;
-    }
 }
