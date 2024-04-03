@@ -1130,12 +1130,6 @@
     </relatedLists>
     <relatedLists>
         <fields>NAME</fields>
-        <fields>DMAPP__Number_Contacts__c</fields>
-        <fields>DMAPP__Primary_Map__c</fields>
-        <relatedList>DMAPP__Account_Political_Map__c.DMAPP__Account__c</relatedList>
-    </relatedLists>
-    <relatedLists>
-        <fields>NAME</fields>
         <fields>Role_Type__c</fields>
         <fields>Duplicate_Role__c</fields>
         <relatedList>Organisation_Role__c.Organisation__c</relatedList>
