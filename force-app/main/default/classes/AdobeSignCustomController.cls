@@ -47,7 +47,7 @@ public with sharing class AdobeSignCustomController {
 			}
 		} catch (Exception ex){
 			UTIL_LoggingService.logHandledException(ex, UserInfo.getOrganizationId(), 'Adobe Sign', AdobeSignCustomController.class.getName(), 'autoRedirect', 'N/A', LoggingLevel.ERROR);
-			AuraHandledException ae = new AuraHandledException(MSG_ERROR_PAGE_GENERIC);
+			AuraHandledException ae = new AuraHandledException(ex.getMessage());
 			ae.setMessage(ex.getMessage());
 			throw ae;
 		}

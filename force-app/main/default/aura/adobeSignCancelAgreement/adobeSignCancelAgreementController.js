@@ -23,13 +23,7 @@
 				var errors = response.getError();
 				if (errors) {
 					if (errors[0] && errors[0].message) {
-						var toastEvent = $A.get("e.force:showToast");
-						toastEvent.setParams({
-							"type":"error",
-							"title": "ERROR",
-							"message": errors[0].message
-						});
-						toastEvent.fire();
+						cmp.set("v.errMessage", errors[0].message);
 					}
 				} else {
 					console.log("Unknown error");
@@ -37,5 +31,20 @@
 			}
 		});
 		$A.enqueueAction(action);
+	},
+
+	doOk: function(cmp, event, helper) {
+		var myPageRef = cmp.get("v.pageReference");
+		var masterId = myPageRef.state.c__masterId;
+		var navService = cmp.find('navService');
+		var pageReference = {
+			type: 'standard__recordPage',
+			attributes: {
+				recordId: masterId,
+				objectApiName: 'Apttus__APTS_Agreement__c',
+				actionName: 'view'
+			}
+		};
+		navService.navigate(pageReference);
 	}
 })
