@@ -6,6 +6,7 @@
     <externalId>false</externalId>
     <inlineHelpText>Check this box to update the OPC calculated fields manually. This will disable the automatically OPC calculation logic.</inlineHelpText>
     <label>Override OPC Calculation</label>
+    <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <type>Checkbox</type>
