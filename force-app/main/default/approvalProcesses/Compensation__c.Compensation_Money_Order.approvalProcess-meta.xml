@@ -20,7 +20,7 @@
             </approver>
         </assignedApprover>
         <entryCriteria>
-            <booleanFilter>(1 OR 2) AND (3 OR 4)</booleanFilter>
+            <booleanFilter>(1 OR (2 AND 5)) AND (3 OR 4)</booleanFilter>
             <criteriaItems>
                 <field>Compensation__c.Total_Compensation_Amount__c</field>
                 <operation>greaterOrEqual</operation>
@@ -39,6 +39,11 @@
                 <field>User.UserRole</field>
                 <operation>equals</operation>
                 <value>SSSW North Service Agent</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Compensation__c.Other__c</field>
+                <operation>notEqual</operation>
+                <value>0</value>
             </criteriaItems>
         </entryCriteria>
         <ifCriteriaNotMet>ApproveRecord</ifCriteriaNotMet>
