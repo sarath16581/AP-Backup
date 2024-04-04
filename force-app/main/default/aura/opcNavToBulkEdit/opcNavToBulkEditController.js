@@ -30,11 +30,42 @@
 		let isRenew = myPageRef.state.c__isRenew == undefined ? 'No': myPageRef.state.c__isRenew;
 		cmp.set("v.isRenew", isRenew);
 	},
+
 	openRevenueReport : function(component, event, helper) {
 		var oppId = component.get("v.recordId"); // Get the Opportunity Id
 		var url = "/lightning/cmp/c__opcNavToRevenueReport?c__oppId=" + oppId;
 		
 		// Open the Aura component in a new tab
 		window.open(url, '_blank');
-	}
+	},
+
+	recalculatePast12Revenue: function(component, event, helper) {
+	    var toastEvent = $A.get("e.force:showToast");
+		var action = component.get("c.recalculateRevenue");
+		action.setParams({oppId: component.get("v.recordId")});
+		component.set("v.loading", true);
+		action.setCallback(this, function(response) {
+		    component.set("v.loading", false);
+			var state = response.getState();
+			if (state === "SUCCESS") {
+			    var result = response.getReturnValue();
+			    if (result) {
+			        window.location.reload();
+				} else {
+				    helper.showMyToast(component,helper,'error', "Unknown Error");
+    			}
+			} else if (state === "ERROR") {
+				var errors = response.getError();
+				if (errors) {
+					if (errors[0] && errors[0].message) {
+						helper.showMyToast(component,helper,'error', errors[0].message);
+					}
+				} else {
+					helper.showMyToast(component,helper,'error', "Unknown Error");
+				}
+			}
+		});
+		$A.enqueueAction(action);
+ 	},
+
 });

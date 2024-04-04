@@ -111,8 +111,7 @@ public with sharing class AccountTriggerUtility {
                 a.ReversePhoneFields__pc += Util.reversePhoneString(a.PersonOtherPhone) + BLANK_SPACE;
             }
 
-        }
-        catch(Exception exp){
+        } catch(Exception exp){
             // Error Logged to Exception object for analysis
             UTIL_LoggingService.logHandledException(exp, UserInfo.getOrganizationId(), SSSWConstants.SSSW_APP,
                     AccountTriggerUtility.class.getName(), SSSWConstants.METH_UPDATEHLC,
@@ -488,8 +487,7 @@ public with sharing class AccountTriggerUtility {
                 //if(account.RecordTypeId == licenseRT &&
                 if(licenceRTIds.contains(account.RecordTypeId) &&
                         (trigger.isInsert ||
-                                (Label.APPROVAL_STATUS_PENDING.equalsIgnoreCase(account.Approval_Status__c)  &&
-                                        !account.Approval_Status__c.equalsIgnoreCase(oldAccounts.get(account.id).Approval_Status__c)) )){
+                                (Label.APPROVAL_STATUS_PENDING.equalsIgnoreCase(account.Approval_Status__c)  && !account.Approval_Status__c.equalsIgnoreCase(oldAccounts.get(account.id).Approval_Status__c)) )){
                     facilityIds.add(account.Facility__c);
                 }
             }
@@ -508,15 +506,12 @@ public with sharing class AccountTriggerUtility {
                     //if(account.RecordTypeId == licenseRT && 
                     if(licenceRTIds.contains(account.RecordTypeId) &&
                             account.Facility__c != null &&
-                            (trigger.isInsert ||
-                                    (Label.APPROVAL_STATUS_PENDING.equalsIgnoreCase(account.Approval_Status__c)  &&
-                                            !account.Approval_Status__c.equalsIgnoreCase(oldAccounts.get(account.id).Approval_Status__c) ))){
+                            (trigger.isInsert || (Label.APPROVAL_STATUS_PENDING.equalsIgnoreCase(account.Approval_Status__c)  && !account.Approval_Status__c.equalsIgnoreCase(oldAccounts.get(account.id).Approval_Status__c) ))){
                         Account facility = facilities.get(account.Facility__c);
                         // Throw error if parent Network Manager or State is blank
                         if(facility.Network_Facility__r.Parent_Network__r.Network_Manager__c == null || facility.Network_Facility__r.Parent_Network__r.State__c == null){
                             account.addError(Label.ERROR_NETWORK_MANAGER);
-                        }
-                        else{
+                        } else {
                             //Assign Network Manager from Parent Network to Licence
                             account.Network_Manager__c = facility.Network_Facility__r.Parent_Network__r.Network_Manager__c;
                             //Assign StateAdmin on Licence based on  to Licence
@@ -621,8 +616,7 @@ public with sharing class AccountTriggerUtility {
                     if(!String.isblank(returnValue)){
                         system.debug('The following error occured updating the PAs against outgoing Licence ' + sOutgoingLicenceId + ' Error: ' + returnValue );
                     }
-                }
-                catch(DMLException ex){
+                } catch(DMLException ex){
                     System.debug('EX==>'+ex.getMessage());
                     for(Id accId : activatedLicenceIds){
                         accounts.get(accId).addError(Label.AccountActivateLicenceError);
@@ -707,9 +701,7 @@ public with sharing class AccountTriggerUtility {
                                     errorFound = true;
                                     break;
                                 }
-                                else if(acc.Assignment_Effective_To_Date__c != null &&
-                                        LICENCE_ACTIVE_STATUSES.contains(acc.Licence_Status__c) &&
-                                        acc.Assignment_Effective_To_Date__c >= account.Assignment_Effective_From_Date__c){
+                                else if(acc.Assignment_Effective_To_Date__c != null && LICENCE_ACTIVE_STATUSES.contains(acc.Licence_Status__c) && acc.Assignment_Effective_To_Date__c >= account.Assignment_Effective_From_Date__c){
                                     account.addError(Label.ERROR_ACTIVE_LICENCE_EXISTS);
                                     errorFound = true;
                                     break;
