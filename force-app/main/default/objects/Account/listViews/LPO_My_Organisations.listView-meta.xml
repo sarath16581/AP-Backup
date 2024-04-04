@@ -5,7 +5,7 @@
     <columns>ACCOUNT.NAME</columns>
     <columns>Total_Actual_Revenue__c</columns>
     <columns>Call_Cycle_Indicator__c</columns>
-    <columns>DaysSinceLastActivity__c</columns>
+    <columns>NextActivityDueinDays__c</columns>
     <columns>ACCOUNT.ADDRESS2_CITY</columns>
     <columns>ACCOUNT.ADDRESS2_STATE</columns>
     <filterScope>Team</filterScope>
