@@ -151,6 +151,26 @@ public with sharing class ProductRevenueService {
     }
 
     /**
+     * @param opportunityIds opportunityIds
+     *
+     * @return the calculated past 3 months average revenue for closed won opportunities
+     */
+    public List<OpportunityLineItem> calculateNRTBaseline(Set<Id> opportunityIds) {
+        List<OpportunityLineItem> items = loadProductLineItems(opportunityIds);
+        Set<String> uids = getUIDs(items);
+        loadGroupedProductRevenues(uids);
+        List<OpportunityLineItem> updatedItems = new List<OpportunityLineItem>();
+        for (OpportunityLineItem record : opportunityLineItems.values()) {
+            if (record.Contract_Start_Date__c != null && record.Contract_End_Date__c!= null) {
+                record.NRTBaseline__c = getPastMonthsAverage(record.Opportunity.AccountId, record.Product2.Id, 3);
+                updatedItems.add(record);
+            }
+
+        }
+        return updatedItems;
+    }
+
+    /**
       * @description 	Recalculate Retained and Incremental values for previously loaded opportunity line items 
       * @return         A list of Opportunity Line Items that have been recalculated.
       */
@@ -165,9 +185,19 @@ public with sharing class ProductRevenueService {
                 Double pastSales = getSumOfPastTwelveMonths(record.Opportunity.AccountId, record.Product2.Id, record.Contract_End_Date__c);
                 // update the record based on current values
                 updateRetainedIncrementalAnnualised(record,pastSales);
+
+                if (!record.Opportunity.StageName.contains('Closed')) {
+                    record.X3MonthAverageActual__c = getPastMonthsAverage(record.Opportunity.AccountId, record.Product2.Id, 3);
+                }
+
+                if (record.NRTBaseline__c > 0) {
+                    record.IncrementalNRT__c = calculateIncrementalNRT(record.Opportunity.AccountId, record.Product2.Id, record.NRTBaseline__c);
+                }
+
                 // add this record to the ones having been updated
                 updatedItems.add(record);
             }
+
         }
         return updatedItems;
     }
@@ -320,7 +350,7 @@ public with sharing class ProductRevenueService {
         Double totalValue = record.Annualised_Value__c;
         // the annual value of the opportunity line item
         Double annualValue = totalValue/contractMonths*MONTHS_IN_YEAR;
-        // sales for the past twelve months    
+        // sales for the past twelve months
         record.TweleveMonthRevenue__c = pastSales;
         // calculate retained and incremental based on the sales history    
         if (annualValue>pastSales)
@@ -528,6 +558,57 @@ public with sharing class ProductRevenueService {
     }
 
     /**
+     * @param accountId accountId
+     * @param productId productId
+     * @param numberOfMonths the number of months the average should be calculated for
+     *
+     * @return Double
+     * @description calculates the average value based on the previous month, and going back as the parameter numberOfMonths indicated
+     */
+    public Double getPastMonthsAverage(String accountId, String productId, Integer numberOfMonths) {
+        Double totalSum = 0.0;
+        // Iterate through the past 12 months
+        Integer targetYear = getAustralianFinancialYear(calculationDate);
+        Integer targetMonth = calculationDate.month() - 1; // should not include the current month
+        for (Integer i = 1; i <= 3; i++) {
+            String uniqueId = getUID(accountId,productId,String.valueOf(targetYear));
+            GroupedAccountProductRevenue__c targetData = groupedRevenues.get(uniqueId);
+            if (targetData != null) {
+                Double monthValue = getValueForMonth(targetData,targetMonth);
+                if (monthValue != null) {
+                    totalSum += monthValue;
+                }
+            }
+            // adjust target month and financial year.
+            targetMonth -= 1;
+            if (targetMonth == 6) {
+                targetYear -=1;
+            }
+            else if (targetMonth==0) {
+                targetMonth = 12;
+            }
+        }
+        return totalSum / numberOfMonths;
+    }
+
+    /**
+     * @param accountId accountId
+     * @param productId productId
+     * @param nrtBaseline nrt Baseline figure as a Double
+     *
+     * @return the incremental nrt vale
+     * @description the calculated nrt incremental, it cannot go below 0, and if it is a negative value,return 0
+     */
+    public Double calculateIncrementalNRT(String accountId, String productId, Decimal nrtBaseline) {
+        Integer targetYear = getAustralianFinancialYear(calculationDate);
+        Integer targetMonth = calculationDate.month() - 1; // calculation should exclude current month, and use the previous month
+        String uniqueId = getUID(accountId,productId,String.valueOf(targetYear));
+        GroupedAccountProductRevenue__c targetData = groupedRevenues.get(uniqueId);
+        Double incrementalNRT = getValueForMonth(targetData,targetMonth) - nrtBaseline;
+        return incrementalNRT > 0 ? incrementalNRT : 0;
+    }
+
+    /**
 	 * @param monthValue i.e. the revenue value for the month
 	 *
 	 * @return the partial or full revenue for the month base on the calculationDate
@@ -635,9 +716,9 @@ public with sharing class ProductRevenueService {
     private List<OpportunityLineItem> loadProductLineItems(Set<Id> opportunityIds) {
 
         Map<SObjectType, Set<SObjectField>> fieldOverrides = new Map<SObjectType, Set<SObjectField>>{
-                OpportunityLineItem.SObjectType => new Set<SObjectField>{OpportunityLineItem.Id, OpportunityLineItem.Name,OpportunityLineItem.Quantity, OpportunityLineItem.Contract_Start_Date__c, OpportunityLineItem.Contract_End_Date__c,OpportunityLineItem.UnitPrice, OpportunityLineItem.TotalPrice, OpportunityLineItem.Annualised_Value__c, OpportunityLineItem.RetainedRevenue__c,OpportunityLineItem.IncrementalRevenue__c, OpportunityLineItem.TweleveMonthRevenue__c},
+                OpportunityLineItem.SObjectType => new Set<SObjectField>{OpportunityLineItem.Id, OpportunityLineItem.Name,OpportunityLineItem.Quantity, OpportunityLineItem.Contract_Start_Date__c, OpportunityLineItem.Contract_End_Date__c,OpportunityLineItem.UnitPrice, OpportunityLineItem.TotalPrice, OpportunityLineItem.Annualised_Value__c, OpportunityLineItem.RetainedRevenue__c,OpportunityLineItem.IncrementalRevenue__c, OpportunityLineItem.TweleveMonthRevenue__c, OpportunityLineItem.X3MonthAverageActual__c, OpportunityLineItem.NRTBaseline__c, OpportunityLineItem.IncrementalNRT__c},
                 Product2.SObjectType => new Set<SObjectField>{Product2.Name},
-                Opportunity.SObjectType => new Set<SObjectField>{Opportunity.Name,Opportunity.AccountId,Opportunity.Id}
+                Opportunity.SObjectType => new Set<SObjectField>{Opportunity.Name,Opportunity.AccountId,Opportunity.Id,Opportunity.StageName}
         };
         List<OpportunityLineItem> loadedItems = OpportunityLineItemSelector.newInstance(0, fieldOverrides).selectByOPCCalculationOpportunityIds(opportunityIds, new Set<Object>{OpportunityLineItemSelector.Options.WITH_OPPORTUNITY, OpportunityLineItemSelector.Options.WITH_PRODUCT});
         for (OpportunityLineItem item : loadedItems) {

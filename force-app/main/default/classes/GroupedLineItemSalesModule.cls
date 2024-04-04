@@ -42,7 +42,7 @@ public inherited sharing  class GroupedLineItemSalesModule extends ApplicationMo
         }
     }
 
-    public override void  onAfterUpdate(List<SObject> records, Map<Id, SObject> existingRecords, ApplicationUnitOfWork uow)  {
+    public override void onAfterUpdate(List<SObject> records, Map<Id, SObject> existingRecords, ApplicationUnitOfWork uow)  {
         try {
             performRevenueUpdates(getOpportunitiesToUpdate(records), uow);
         } catch(Exception ex) {
@@ -62,7 +62,6 @@ public inherited sharing  class GroupedLineItemSalesModule extends ApplicationMo
             if (revenue.Id == null) {
                 revenuesInsertable.add(revenue);
             } else {
-                revenuesUpdatable.add(revenue);
             }
         }
         if (!revenuesInsertable.isEmpty()) {

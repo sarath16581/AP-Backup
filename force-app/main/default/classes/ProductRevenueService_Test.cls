@@ -36,6 +36,9 @@ private class ProductRevenueService_Test {
         PricebookEntry pbEntry = ApplicationTestDataFactory.getPriceBookEntries(1,prod.Id,true)[0];
         OpportunityLineItem oli1 = new OpportunityLineItem(OpportunityId = oppRec.Id,Quantity = 5,PricebookEntryId = pbEntry.Id,
                 TotalPrice = 5 * pbEntry.UnitPrice,Contract_Start_Date__c = dateOfTest,Contract_End_Date__c = dateOfTest.addDays(3));
+		oli1 = (OpportunityLineItem)ApplicationTestDataFactory.setUnwritableFields(oli1, new Map<String, Object>{
+				'Annualised_Value__c' => 5000
+		});
 		oli1.Product2 = prod;
 		oli1.Opportunity = oppRec;
         APR__c apr = new APR__c(Legal_Entity_Name_LookUp__c = account.Id,MHS_Confirmed_Rate__c=0.10);
@@ -59,8 +62,8 @@ private class ProductRevenueService_Test {
 		// =====================================
 		ProductRelationshipsSelector relatedProductSelector = (ProductRelationshipsSelector)MockUtility.mockSelector(ProductRelationshipsSelector.class);
         GroupedAccountProductRevenueSelector groupedRevenueSelector = (GroupedAccountProductRevenueSelector)MockUtility.mockSelector(GroupedAccountProductRevenueSelector.class);
-        OpportunityLineItemSelector lineItemSelector =  (OpportunityLineItemSelector)MockUtility.mockSelector(OpportunityLineItemSelector.class);
-        APRsSelector  aprSelector =  (APRsSelector)MockUtility.mockSelector(APRsSelector.class);
+        OpportunityLineItemSelector lineItemSelector = (OpportunityLineItemSelector)MockUtility.mockSelector(OpportunityLineItemSelector.class);
+        APRsSelector  aprSelector = (APRsSelector)MockUtility.mockSelector(APRsSelector.class);
         BudgetAndRevenueSelector revenueSelector = (BudgetAndRevenueSelector)MockUtility.mockSelector(BudgetAndRevenueSelector.class);
 		AccountRelationshipSelector arSelector = (AccountRelationshipSelector)MockUtility.mockSelector(AccountRelationshipSelector.class);
     	MockUtility.Mocks.startStubbing();
@@ -72,12 +75,14 @@ private class ProductRevenueService_Test {
 		MockUtility.Mocks.when(arSelector.selectByOPCParentEndDateInFuture((Set<Id>)fflib_Match.anyObject())).thenReturn(new List<AccountRelationship__c>{accRelation});
         MockUtility.Mocks.stopStubbing();
         Test.startTest();
-        	List<GroupedAccountProductRevenue__c> reCalculatedRevenues =  serviceUnderTest.reCalculateGroupRevenuesForOpportunities(new Set<Id>{oppRec.Id});
-            System.assertEquals(2,reCalculatedRevenues.size(),'Grouped revenue for past two years should be created');
-        	System.assertEquals(budgrev.Apr_Revenue_Amount__c,reCalculatedRevenues[0].Rev4__c,'Grouped revenue for April should be populated with correct value');
-        	
-        Test.stopTest();
+		List<GroupedAccountProductRevenue__c> reCalculatedRevenues = serviceUnderTest.reCalculateGroupRevenuesForOpportunities(new Set<Id>{oppRec.Id});
+		System.assertEquals(2,reCalculatedRevenues.size(),'Grouped revenue for past two years should be created');
+		System.assertEquals(budgrev.Apr_Revenue_Amount__c,reCalculatedRevenues[0].Rev4__c,'Grouped revenue for April should be populated with correct value');
 
+		List<OpportunityLineItem> reCalculatedOppLines = serviceUnderTest.reCalculateRetainedIncremental();
+		System.assertEquals(1, reCalculatedOppLines.size(), 'Returned wrong number of Opp Line Items');
+		System.assertEquals(reCalculatedOppLines[0].X3MonthAverageActual__c, 1000.0, 'Incorrect 3 month average value');
+        Test.stopTest();
     }
     
     @isTest

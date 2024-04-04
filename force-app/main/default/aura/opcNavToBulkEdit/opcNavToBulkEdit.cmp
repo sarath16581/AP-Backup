@@ -16,17 +16,18 @@
 	<aura:attribute name="isManualContract" type="String" default="false"/>
 	<aura:attribute name="isAmend" type="String" default="false"/>
 	<aura:attribute name="isRenew" type="String" default="false"/>
+	<aura:attribute name="loading" type="Boolean" default="false"/>
 
 	<lightning:button label="Last 12 months Revenue Report" onclick="{!c.openRevenueReport}" />
 	<lightning:button label="Re-Calculate Last 12 Months Revenue" onclick="{!c.recalculatePast12Revenue}" />
 
 	<aura:handler name="init" value="{!this}" action="{!c.onPageReferenceChange}"/>
 	<aura:handler name="change" value="{!v.pageReference}" action="{!c.onPageReferenceChange}"/>
-	<aura:handler event="aura:waiting" action="{!c.showSpinner}"/>
-	<aura:handler event="aura:doneWaiting" action="{!c.hideSpinner}"/>
 
 	<div class="slds-is-relative">
-		<lightning:spinner aura:id="spinner" class="slds-hide"/>
+		<aura:if isTrue="{!v.loading}">
+			<lightning:spinner alternativeText="Loading" size="small" />
+		</aura:if>
 		<c:oppProductDataTable oppId="{!v.recordId}" proposalId="{!v.proposalId}" isST="{!v.isST}" isManualContract="{!v.isManualContract}" isAmend="{!v.isAmend}" isRenew="{!v.isRenew}"/>
 	</div>
 

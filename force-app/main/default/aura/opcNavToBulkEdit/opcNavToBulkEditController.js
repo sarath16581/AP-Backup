@@ -43,8 +43,9 @@
 	    var toastEvent = $A.get("e.force:showToast");
 		var action = component.get("c.recalculateRevenue");
 		action.setParams({oppId: component.get("v.recordId")});
-
+		component.set("v.loading", true);
 		action.setCallback(this, function(response) {
+		    component.set("v.loading", false);
 			var state = response.getState();
 			if (state === "SUCCESS") {
 			    var result = response.getReturnValue();
@@ -66,15 +67,5 @@
 		});
 		$A.enqueueAction(action);
  	},
-
-	showSpinner: function(component, event, helper) {
-		var spinner = component.find("spinner");
-		$A.util.removeClass(spinner, "slds-hide");
-	},
-
-	hideSpinner : function(component,event,helper){
-		var spinner = component.find("spinner");
-		$A.util.addClass(spinner, "slds-hide");
-	}
 
 });
