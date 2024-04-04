@@ -4,6 +4,8 @@
  * @domain            : Connected Customer
  * @last modified on  : 07-29-2022
  * @last modified by  : Sreenish Krishnan
+ * @changelog
+ * 2024-04-04 - Mahesh Parvathaneni - Fixed an exception for duplicate vlaues in the list
  **/
 public inherited sharing class CustomerDataSyncEventCPPhoneHelper {
 	//CPE variables
@@ -62,11 +64,23 @@ public inherited sharing class CustomerDataSyncEventCPPhoneHelper {
 
 	//get the phones list to upsert
 	public List<SObject> getCPPhonesUpsertList() {
+		//convert to map to remove duplicates
+		Map<Id, SObject> cppUpsertMap = new Map<Id, SObject>();
+		if (!cppUpsertList.isEmpty()) {
+			cppUpsertMap.putAll(cppUpsertList);
+			cppUpsertList = cppUpsertMap.values();
+		}
 		return cppUpsertList;
 	}
 
 	//get the phones list to delete
 	public List<SObject> getCPPhonesDeleteList() {
+		//convert to map to remove duplicates
+		Map<Id, SObject> cppDeleteMap = new Map<Id, SObject>();
+		if (!cppDeleteList.isEmpty()) {
+			cppDeleteMap.putAll(cppDeleteList);
+			cppDeleteList = cppDeleteMap.values();
+		}
 		return cppDeleteList;
 	}
 
