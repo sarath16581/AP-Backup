@@ -105,6 +105,10 @@
                 <behavior>Readonly</behavior>
                 <field>Total_In_Year_Revenue_Estimate__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>OverrideOPCCalculation__c</field>
+            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>
