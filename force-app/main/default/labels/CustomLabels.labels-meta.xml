@@ -5444,7 +5444,7 @@ Please choose to override the hotlist restriction or Cancel to quit the process.
         <protected>false</protected>
         <shortDescription>Opportunity Product Requires Contract</shortDescription>
         <value>The opportunity cannot be closed-won when the revenue start date field
-You can only close-won after the executed contract has been received through Adobe sign or you have sent the offline contract to the Customer On Boarding Team</value>
+You can only close-won after the executed contract has been received through Adobe Sign or you have sent the offline contract to the Customer On Boarding Team</value>
     </labels>
     <labels>
         <fullName>Opportunity_SAED_Error</fullName>
@@ -5465,7 +5465,7 @@ You can only close-won after the executed contract has been received through Ado
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>Opportunity Send Contract to Deal Enablement</shortDescription>
-        <value>Complete the contract. The fully signed digital contract must be received through Adobe sign. For offline contracts, request Customer Onboarding acknowledge receipt of the offline contract via a DSR.</value>
+        <value>Complete the contract. The fully signed digital contract must be received through Adobe Sign. For offline contracts, request Customer Onboarding acknowledge receipt of the offline contract via a DSR.</value>
     </labels>
     <labels>
         <fullName>OrganisationLegacyId</fullName>
