@@ -1,22 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Flow xmlns="http://soap.sforce.com/2006/04/metadata">
     <apiVersion>49.0</apiVersion>
-    <assignments>
-        <name>myVariable_waitStartTimeAssignment</name>
-        <label>myVariable_waitStartTimeAssignment</label>
-        <locationX>0</locationX>
-        <locationY>0</locationY>
-        <assignmentItems>
-            <assignToReference>myVariable_waitStartTimeVariable</assignToReference>
-            <operator>Assign</operator>
-            <value>
-                <elementReference>$Flow.CurrentDateTime</elementReference>
-            </value>
-        </assignmentItems>
-        <connector>
-            <targetReference>myDecision</targetReference>
-        </connector>
-    </assignments>
     <decisions>
         <processMetadataValues>
             <name>index</name>
@@ -82,7 +66,7 @@
             <label>Previously Met - Prev</label>
         </rules>
     </decisions>
-    <description>Process Builder Process to create Reminder Task and assign to Case Owner to follow-up with Retail Outlet Manager.  Part of the Retail Audit Case Management Solution, AML/CTF Austrac Phase 2.</description>
+    <description>REQ3448199 RT are not longer in use -Process Builder Process to create Reminder Task and assign to Case Owner to follow-up with Retail Outlet Manager.  Part of the Retail Audit Case Management Solution, AML/CTF Austrac Phase 2.</description>
     <formulas>
         <processMetadataValues>
             <name>originalFormula</name>
@@ -90,7 +74,7 @@
                 <stringValue>DATETIMEVALUE ( TEXT ( [Case].Action_Date__c ) &amp; &apos;00:00:00Z&apos; )</stringValue>
             </value>
         </processMetadataValues>
-        <name>formula_2_myRule_1_A2_ReminderDateTime</name>
+        <name>formula_2_myRule_1_A2_9757380935</name>
         <dataType>DateTime</dataType>
         <expression>DATETIMEVALUE ( TEXT ( {!myVariable_current.Action_Date__c} ) &amp; &apos;00:00:00Z&apos; )</expression>
     </formulas>
@@ -101,9 +85,9 @@
                 <stringValue>&apos;Follow-Up with Retail Outlet: &apos; &amp; [Case].Network__c.Name &amp;  &apos; on actions for Audit Case: &apos; &amp; [Case].CaseNumber </stringValue>
             </value>
         </processMetadataValues>
-        <name>formula_3_myRule_1_A2_Subject</name>
+        <name>formula_3_myRule_1_A2_1266095218</name>
         <dataType>String</dataType>
-        <expression>&apos;Follow-Up with Retail Outlet: &apos; &amp; {!myVariable_current.Network__c.Name} &amp;  &apos; on actions for Audit Case: &apos; &amp; {!myVariable_current.CaseNumber}</expression>
+        <expression>&apos;Follow-Up with Retail Outlet: &apos; &amp; {!myVariable_current.Network__r.Name} &amp;  &apos; on actions for Audit Case: &apos; &amp; {!myVariable_current.CaseNumber}</expression>
     </formulas>
     <formulas>
         <processMetadataValues>
@@ -115,11 +99,11 @@ TODAY() + $Setup.AMLCTF_Retail_Audit_Settings__c.Follow_Up_Interval_Please_Expla
 null)) </stringValue>
             </value>
         </processMetadataValues>
-        <name>formula_4_myRule_1_A1_Action_Date_c</name>
+        <name>formula_4_myRule_1_A1_4714030855</name>
         <dataType>Date</dataType>
         <expression>IF({!myVariable_current.RecordType.DeveloperName} = &apos;AMLCTF_Scheduled_Audit&apos; || {!myVariable_current.RecordType.DeveloperName} = &apos;AMLCTF_Assurance_Audit&apos;, 
-TODAY() + $Setup.AMLCTF_Retail_Audit_Settings__c.Follow_Up_Interval_Site_Audit__c, IF({!myVariable_current.RecordType.DeveloperName} = &apos;AMLCTF_Please_Explain_Audit&apos;,
-TODAY() + $Setup.AMLCTF_Retail_Audit_Settings__c.Follow_Up_Interval_Please_Explain__c,
+TODAY() + {!$Setup.AMLCTF_Retail_Audit_Settings__c.Follow_Up_Interval_Site_Audit__c}, IF({!myVariable_current.RecordType.DeveloperName} = &apos;AMLCTF_Please_Explain_Audit&apos;,
+TODAY() + {!$Setup.AMLCTF_Retail_Audit_Settings__c.Follow_Up_Interval_Please_Explain__c},
 null))</expression>
     </formulas>
     <formulas>
@@ -168,8 +152,8 @@ OR({!myVariable_old.RecordType.DeveloperName} = &apos;AMLCTF_Please_Explain_Audi
 {!myVariable_old.RecordType.DeveloperName} = &apos;AMLCTF_Unannounced_Audit&apos;) 
  )</expression>
     </formulas>
-    <interviewLabel>AMLCTF_Reminder_Creation-14_Case</interviewLabel>
-    <label>AMLCTF Reminder Creation</label>
+    <interviewLabel>AMLCTF_Reminder_Creation-15_InterviewLabel</interviewLabel>
+    <label>AMLCTF Reminder Creation Deprecated</label>
     <processMetadataValues>
         <name>ObjectType</name>
         <value>
@@ -377,7 +361,7 @@ OR({!myVariable_old.RecordType.DeveloperName} = &apos;AMLCTF_Please_Explain_Audi
             </processMetadataValues>
             <field>ReminderDateTime</field>
             <value>
-                <elementReference>formula_2_myRule_1_A2_ReminderDateTime</elementReference>
+                <elementReference>formula_2_myRule_1_A2_9757380935</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
@@ -437,7 +421,7 @@ OR({!myVariable_old.RecordType.DeveloperName} = &apos;AMLCTF_Please_Explain_Audi
             </processMetadataValues>
             <field>Subject</field>
             <value>
-                <elementReference>formula_3_myRule_1_A2_Subject</elementReference>
+                <elementReference>formula_3_myRule_1_A2_1266095218</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
@@ -510,6 +494,9 @@ OR({!myVariable_old.RecordType.DeveloperName} = &apos;AMLCTF_Please_Explain_Audi
             </value>
         </processMetadataValues>
         <processMetadataValues>
+            <name>extraTypeInfo</name>
+        </processMetadataValues>
+        <processMetadataValues>
             <name>isChildRelationship</name>
             <value>
                 <booleanValue>false</booleanValue>
@@ -520,6 +507,9 @@ OR({!myVariable_old.RecordType.DeveloperName} = &apos;AMLCTF_Please_Explain_Audi
             <value>
                 <stringValue>[Case]</stringValue>
             </value>
+        </processMetadataValues>
+        <processMetadataValues>
+            <name>referenceTargetField</name>
         </processMetadataValues>
         <name>myRule_1_A1</name>
         <label>Calculate Follow-up Due Date</label>
@@ -569,13 +559,13 @@ OR({!myVariable_old.RecordType.DeveloperName} = &apos;AMLCTF_Please_Explain_Audi
             </processMetadataValues>
             <field>Action_Date__c</field>
             <value>
-                <elementReference>formula_4_myRule_1_A1_Action_Date_c</elementReference>
+                <elementReference>formula_4_myRule_1_A1_4714030855</elementReference>
             </value>
         </inputAssignments>
         <object>Case</object>
     </recordUpdates>
-    <startElementReference>myVariable_waitStartTimeAssignment</startElementReference>
-    <status>Active</status>
+    <startElementReference>myDecision</startElementReference>
+    <status>Draft</status>
     <variables>
         <name>myVariable_current</name>
         <dataType>SObject</dataType>
@@ -591,15 +581,5 @@ OR({!myVariable_old.RecordType.DeveloperName} = &apos;AMLCTF_Please_Explain_Audi
         <isInput>true</isInput>
         <isOutput>false</isOutput>
         <objectType>Case</objectType>
-    </variables>
-    <variables>
-        <name>myVariable_waitStartTimeVariable</name>
-        <dataType>DateTime</dataType>
-        <isCollection>false</isCollection>
-        <isInput>false</isInput>
-        <isOutput>false</isOutput>
-        <value>
-            <elementReference>$Flow.CurrentDateTime</elementReference>
-        </value>
     </variables>
 </Flow>
