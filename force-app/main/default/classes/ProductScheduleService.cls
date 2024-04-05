@@ -67,7 +67,7 @@ public with sharing class ProductScheduleService {
      * @return List<GroupedRevenueSchedule__c> A list of 'GroupedRevenueSchedule__c' objects that have been created or updated 
      *         for the product line items of the provided Opportunity IDs. 
      */
-    public List<GroupedRevenueSchedule__c>  createUpdateRevenueSchedules(Set<Id> opportunityIds) {
+    public List<GroupedRevenueSchedule__c> createUpdateRevenueSchedules(Set<Id> opportunityIds) {
         // get the associated line items and create the grouped schedules for each of them
         List<OpportunityLineItem> items = loadProductLineItems(opportunityIds);
         // retrieve the revenue records for the schedule to look up to
@@ -165,7 +165,7 @@ public with sharing class ProductScheduleService {
             return newlyLoadedRecords;
         }
 
-        List<GroupedRevenueSchedule__c> additionalRevenueSchedules =  GroupedRevenueScheduleSelector.newInstance().selectByOpportunityProductIds(unloadedIds,null);
+        List<GroupedRevenueSchedule__c> additionalRevenueSchedules = GroupedRevenueScheduleSelector.newInstance().selectByOpportunityProductIds(unloadedIds,null);
 
         if (additionalRevenueSchedules == null) {
             return newlyLoadedRecords;
@@ -203,9 +203,8 @@ public with sharing class ProductScheduleService {
      * @param uids A Set of String UIDs used to identify and load the relevant `GroupedAccountProductRevenue__c` records.
      * @return void 
      */
-    private void loadGroupedProductRevenues(Set<String> uids)
-    {
-        Map<Id, GroupedAccountProductRevenue__c> additionalGroupedRevenues =  GroupedAccountProductRevenueSelector.newInstance().selectByUniqueIds(uids);
+    private void loadGroupedProductRevenues(Set<String> uids) {
+        Map<Id, GroupedAccountProductRevenue__c> additionalGroupedRevenues = GroupedAccountProductRevenueSelector.newInstance().selectByUniqueIds(uids);
         if (additionalGroupedRevenues == null) {
             return;
         }
