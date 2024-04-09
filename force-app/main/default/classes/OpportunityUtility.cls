@@ -307,10 +307,10 @@ public with sharing class OpportunityUtility
 						 				// at least one Apttus Contract exists
 							for (Apttus__APTS_Agreement__c aptContract: apttusContractList)
 							{
-								if (aptContract.Apttus_CMDSign__DocuSignEnvelopeId__c == NULL || !STRING_COMPLETED.equalsIgnoreCase(aptContract.Docusign_Envelope_Status__c) || aptContract.Contract_Fully_Signed_Date__c == null)
+								if (aptContract.Apttus_CMDSign__DocuSignEnvelopeId__c == NULL || !STRING_COMPLETED.equalsIgnoreCase(aptContract.Docusign_Envelope_Status__c)) 
 								{
 								 						// Check #5: Check if Document is Manually Signed
-									if (!aptContract.Is_Document_Signed__c && !offlineContract)
+									if (!aptContract.Is_Document_Signed__c && !offlineContract && aptContract.Contract_Fully_Signed_Date__c == null)
 									{
 										oppErrorMap = addOpportunityErrorsMap(oppErrorMap, oppId, Label.Opportunity_Send_Contract_to_Deal_Enablement);
 									}
