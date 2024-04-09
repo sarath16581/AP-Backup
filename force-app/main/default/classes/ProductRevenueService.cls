@@ -151,26 +151,6 @@ public with sharing class ProductRevenueService {
     }
 
     /**
-     * @param opportunityIds opportunityIds
-     *
-     * @return the calculated past 3 months average revenue for closed won opportunities
-     */
-    public List<OpportunityLineItem> calculateNRTBaseline(Set<Id> opportunityIds) {
-        List<OpportunityLineItem> items = loadProductLineItems(opportunityIds);
-        Set<String> uids = getUIDs(items);
-        loadGroupedProductRevenues(uids);
-        List<OpportunityLineItem> updatedItems = new List<OpportunityLineItem>();
-        for (OpportunityLineItem record : opportunityLineItems.values()) {
-            if (record.Contract_Start_Date__c != null && record.Contract_End_Date__c!= null) {
-                record.NRTBaseline__c = getPastMonthsAverage(record.Opportunity.AccountId, record.Product2.Id, 3);
-                updatedItems.add(record);
-            }
-
-        }
-        return updatedItems;
-    }
-
-    /**
       * @description 	Recalculate Retained and Incremental values for previously loaded opportunity line items 
       * @return         A list of Opportunity Line Items that have been recalculated.
       */
@@ -188,10 +168,6 @@ public with sharing class ProductRevenueService {
 
                 if (!record.Opportunity.StageName.contains('Closed')) {
                     record.X3MonthAverageActual__c = getPastMonthsAverage(record.Opportunity.AccountId, record.Product2.Id, 3);
-                }
-
-                if (record.NRTBaseline__c > 0) {
-                    record.IncrementalNRT__c = calculateIncrementalNRT(record.Opportunity.AccountId, record.Product2.Id, record.NRTBaseline__c);
                 }
 
                 // add this record to the ones having been updated
@@ -687,7 +663,7 @@ public with sharing class ProductRevenueService {
         }
     }
 
-    private Map<String,GroupedAccountProductRevenue__c> loadGroupedProductRevenues(Set<String> uniqueIds) {
+    public Map<String,GroupedAccountProductRevenue__c> loadGroupedProductRevenues(Set<String> uniqueIds) {
         Set<String> unloadedIds = new Set<String>();
         for (String uniqueId : uniqueIds) {
             if (!groupedRevenues.containsKey(uniqueId)) {
@@ -716,7 +692,7 @@ public with sharing class ProductRevenueService {
     private List<OpportunityLineItem> loadProductLineItems(Set<Id> opportunityIds) {
 
         Map<SObjectType, Set<SObjectField>> fieldOverrides = new Map<SObjectType, Set<SObjectField>>{
-                OpportunityLineItem.SObjectType => new Set<SObjectField>{OpportunityLineItem.Id, OpportunityLineItem.Name,OpportunityLineItem.Quantity, OpportunityLineItem.Contract_Start_Date__c, OpportunityLineItem.Contract_End_Date__c,OpportunityLineItem.UnitPrice, OpportunityLineItem.TotalPrice, OpportunityLineItem.Annualised_Value__c, OpportunityLineItem.RetainedRevenue__c,OpportunityLineItem.IncrementalRevenue__c, OpportunityLineItem.TweleveMonthRevenue__c, OpportunityLineItem.X3MonthAverageActual__c, OpportunityLineItem.NRTBaseline__c, OpportunityLineItem.IncrementalNRT__c},
+                OpportunityLineItem.SObjectType => new Set<SObjectField>{OpportunityLineItem.Id, OpportunityLineItem.Name,OpportunityLineItem.Quantity, OpportunityLineItem.Contract_Start_Date__c, OpportunityLineItem.Contract_End_Date__c,OpportunityLineItem.UnitPrice, OpportunityLineItem.TotalPrice, OpportunityLineItem.Annualised_Value__c, OpportunityLineItem.RetainedRevenue__c,OpportunityLineItem.IncrementalRevenue__c, OpportunityLineItem.TweleveMonthRevenue__c, OpportunityLineItem.X3MonthAverageActual__c},
                 Product2.SObjectType => new Set<SObjectField>{Product2.Name},
                 Opportunity.SObjectType => new Set<SObjectField>{Opportunity.Name,Opportunity.AccountId,Opportunity.Id,Opportunity.StageName}
         };
