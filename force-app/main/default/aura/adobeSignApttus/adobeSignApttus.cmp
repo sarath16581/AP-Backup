@@ -3,4 +3,22 @@
 	<aura:attribute name="masterId" type="String" />
 	<aura:attribute name="attachmentIds" type="String" />
 	<lightning:spinner class="spins" size="large" variant="brand" alternativeText="Loading" />
+	<aura:attribute name="errMessage" type="String" />
+	<lightning:navigation aura:id="navService"/>
+	<aura:renderIf isTrue="{!v.errMessage !=null}">
+		<section role="dialog" tabindex="-1" aria-modal="true" aria-labelledby="modal-heading-01" class="slds-modal slds-fade-in-open">
+			<div class="slds-modal__container">
+				<div class="slds-modal__header">
+					<h1 id="modal-heading-01" class="slds-modal__title slds-hyphenate">Success</h1>
+				</div>
+				<div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+					<p><b>{!v.errMessage}</b></p>
+				</div>
+				<div class="slds-modal__footer">
+					<button class="slds-button slds-button_brand" onclick="{!c.doOk}">OK</button>
+				</div>
+			</div>
+		</section>
+		<div class="slds-backdrop slds-backdrop_open" role="presentation"></div>
+	</aura:renderIf>
 </aura:component>

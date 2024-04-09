@@ -67,6 +67,17 @@ public with sharing class OpportunityLineItemSelector extends ApplicationSelecto
 		return Database.query(qb.toSoqlString());
 	}
 
+	/**
+	 * @description Select opportunity line item by given opportunity IDs and Override condition
+	 */
+	public virtual List<OpportunityLineItem> selectByOPCCalculationOpportunityIds(Set<Id> opportunityIds, Set<Object> selectorOptions) {
+		QueryBuilder qb = newQueryBuilder(selectorOptions).addConditions()
+				.add(new QueryBuilder.SimpleCondition(OpportunityLineItem.OpportunityId + ' in :OpportunityIds'))
+				.add(new QueryBuilder.SimpleCondition('Opportunity.OverrideOPCCalculation__c = false'))
+				.endConditions();
+		return Database.query(qb.toSoqlString());
+	}
+
 	public virtual override QueryBuilder newQueryBuilder() {
 		return newQueryBuilder(new Set<Object>());
 	}

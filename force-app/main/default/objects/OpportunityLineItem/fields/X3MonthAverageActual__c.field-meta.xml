@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>X3MonthAverageActual__c</fullName>
+    <description>Rolling figure which is the average of the last 3 months of actual trade from the Grouped Account Revenue figure. It should be updated on a rolling monthly basis while the Opportunity is still in flight</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Rolling figure which is the average of the last 3 months of actual trade from the Grouped Account Revenue figure. It should be updated on a rolling monthly basis while the Opportunity is still in flight</inlineHelpText>
+    <label>3 Month Average Actual</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>2</scale>
+    <securityClassification>INTERNAL</securityClassification>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

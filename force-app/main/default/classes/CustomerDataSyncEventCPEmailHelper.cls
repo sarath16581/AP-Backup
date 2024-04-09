@@ -5,7 +5,7 @@
  * @last modified on  : 07-13-2022
  * @last modified by  : Sreenish Krishnan
  * @changelog
- * 2024-04-04 - Mahesh Parvathaneni - Fixed an exception for duplicate vlaues in the list
+ * 2024-04-09 - Mahesh Parvathaneni - Fixed an exception for duplicate values in the list
  **/
 public inherited sharing class CustomerDataSyncEventCPEmailHelper {
 	//CPE variables
