@@ -66,7 +66,6 @@ public inherited sharing class OpportunityRevenueScheduleModule extends Applicat
             List<GroupedRevenueSchedule__c> schedulesToInsert = new  List<GroupedRevenueSchedule__c>();
             List<GroupedRevenueSchedule__c> schedulesToUpdate = new  List<GroupedRevenueSchedule__c>();
             List<GroupedAccountProductRevenue__c> revenuesToInsert = new  List<GroupedAccountProductRevenue__c>();
-            List<OpportunityLineItem> oppLines = ProductRevenueService.newInstance().calculateNRTBaseline(closedWonOpportunityIds);
             // gather schedule records to insert or update
             // together with any new revenue records that the schedules have a lookup to.
             for (GroupedRevenueSchedule__c schedule : schedules) {
@@ -80,6 +79,7 @@ public inherited sharing class OpportunityRevenueScheduleModule extends Applicat
                     revenuesToInsert.add(schedule.GroupedAccountProductRevenue__r);
                 }
             }
+
             // register new revenue records
             if (!revenuesToInsert.isEmpty()) {
                 uow.registerNew(revenuesToInsert);
@@ -93,9 +93,6 @@ public inherited sharing class OpportunityRevenueScheduleModule extends Applicat
                 uow.registerDirty(schedulesToUpdate);
             }
 
-            if (!oppLines.isEmpty()) {
-                uow.registerDirty(oppLines);
-            }
         }
         // reset the recursion state to ensure changes we have made won't re-trigger on next pass (if there is one
         ApplicationRecursion.getInstance().updateRecordState(context, changedRecords, monitoredFields);

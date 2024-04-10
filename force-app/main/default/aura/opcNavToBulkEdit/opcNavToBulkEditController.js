@@ -29,6 +29,32 @@
 
 		let isRenew = myPageRef.state.c__isRenew == undefined ? 'No': myPageRef.state.c__isRenew;
 		cmp.set("v.isRenew", isRenew);
+
+		var action = cmp.get("c.getOpportunity");
+		action.setParams({oppId: cmp.get("v.recordId")});
+		cmp.set("v.loading", true);
+		action.setCallback(this, function(response) {
+			cmp.set("v.loading", false);
+			var state = response.getState();
+			if (state === "SUCCESS") {
+				var result = response.getReturnValue();
+				if (result) {
+					cmp.set("v.oppRecord", result);
+				} else {
+					helper.showMyToast(cmp,helper,'error', "Unknown Error");
+				}
+			} else if (state === "ERROR") {
+				var errors = response.getError();
+				if (errors) {
+					if (errors[0] && errors[0].message) {
+						helper.showMyToast(cmp,helper,'error', errors[0].message);
+					}
+				} else {
+					helper.showMyToast(cmp,helper,'error', "Unknown Error");
+				}
+			}
+		});
+		$A.enqueueAction(action);
 	},
 
 	openRevenueReport : function(component, event, helper) {
