@@ -43,7 +43,8 @@ public virtual inherited sharing class GroupedRevenueScheduleSelector extends Ap
                 GroupedRevenueSchedule__c.For9__c,
                 GroupedRevenueSchedule__c.For10__c,
                 GroupedRevenueSchedule__c.For11__c,
-                GroupedRevenueSchedule__c.For12__c
+                GroupedRevenueSchedule__c.For12__c,
+                GroupedRevenueSchedule__c.Year__c
         };
     }
 

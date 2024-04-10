@@ -110,8 +110,7 @@ public with sharing class ProductScheduleService {
                     GroupedAccountProductRevenue__c revenue = groupedRevenues.get(revenueUid);
                     if (revenue == null) {
                         scheduleToCalculate.GroupedAccountProductRevenue__r = new GroupedAccountProductRevenue__c(AnchorOrganisation__c = nextItem.Opportunity.AccountId, PrimaryProduct__c = nextItem.Product2.Id, FinancialYear__c = financialYear, UID__c = revenueUid);
-                    }
-                    else {
+                    } else {
                         scheduleToCalculate.GroupedAccountProductRevenue__c = revenue.Id;
                         scheduleToCalculate.GroupedAccountProductRevenue__r = revenue;
                     }
@@ -176,8 +175,8 @@ public with sharing class ProductScheduleService {
             return newlyLoadedRecords;
         }
         for (GroupedRevenueSchedule__c groupedSchedule : additionalRevenueSchedules) {
-            groupedSchedules.put(groupedSchedule.OpportunityProduct__c, groupedSchedule);
-            newlyLoadedRecords.put(groupedSchedule.OpportunityProduct__c, groupedSchedule);
+            groupedSchedules.put(getUID(groupedSchedule.OpportunityProduct__c, String.valueOf(groupedSchedule.Year__c)), groupedSchedule);
+            newlyLoadedRecords.put(getUID(groupedSchedule.OpportunityProduct__c, String.valueOf(groupedSchedule.Year__c)), groupedSchedule);
         }
         return newlyLoadedRecords;
     }

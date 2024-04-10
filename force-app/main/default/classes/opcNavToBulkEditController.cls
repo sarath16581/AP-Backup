@@ -8,6 +8,12 @@
 
 public with sharing class opcNavToBulkEditController {
 	@AuraEnabled
+	public static Opportunity getOpportunity(String oppId) {
+		Map<Id,Opportunity> oppMap = OpportunitiesSelector.newInstance(1).selectById(new Set<Id>{oppId});
+		return oppMap.get(oppId);
+	}
+
+	@AuraEnabled
 	public static Boolean recalculateRevenue(String oppId) {
 		try {
 			ApplicationUnitOfWork uow = ApplicationUnitOfWork.newInstance(getUnitOfWorkSObjectTypes());
