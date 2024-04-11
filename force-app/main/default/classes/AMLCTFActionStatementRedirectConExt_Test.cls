@@ -11,7 +11,8 @@ History
 
     public static testMethod void testMyController() {
         
-        RecordType scheduledAuditRecordTypeId = [SELECT Id FROM RecordType WHERE SobjectType = 'Case' AND DeveloperName = 'AMLCTF_Scheduled_Audit' LIMIT 1];
+        RecordType scheduledAuditRecordTypeId = [SELECT Id FROM RecordType WHERE SobjectType = 'Case' AND DeveloperName = 'ACIC_Request' LIMIT 1];
+		//REQ3448199 replace AMLCTF_Scheduled_Audit RT with ACIC_Request
         Network__c selectedLPO = [SELECT Id FROM Network__c WHERE Name LIKE '%LPO' LIMIT 1];
         Case testCaseRecord = new Case();
         testCaseRecord.RecordTypeId = scheduledAuditRecordTypeId.Id;

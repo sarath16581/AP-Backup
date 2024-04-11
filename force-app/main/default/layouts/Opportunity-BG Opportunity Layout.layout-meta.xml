@@ -122,6 +122,10 @@
                 <behavior>Edit</behavior>
                 <field>Opportunity_SubType__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>OverrideOPCCalculation__c</field>
+            </layoutItems>
         </layoutColumns>
         <style>TwoColumnsTopToBottom</style>
     </layoutSections>

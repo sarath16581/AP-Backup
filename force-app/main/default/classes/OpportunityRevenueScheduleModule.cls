@@ -79,6 +79,7 @@ public inherited sharing class OpportunityRevenueScheduleModule extends Applicat
                     revenuesToInsert.add(schedule.GroupedAccountProductRevenue__r);
                 }
             }
+
             // register new revenue records
             if (!revenuesToInsert.isEmpty()) {
                 uow.registerNew(revenuesToInsert);
@@ -91,6 +92,7 @@ public inherited sharing class OpportunityRevenueScheduleModule extends Applicat
             if (!schedulesToUpdate.isEmpty()) {
                 uow.registerDirty(schedulesToUpdate);
             }
+
         }
         // reset the recursion state to ensure changes we have made won't re-trigger on next pass (if there is one
         ApplicationRecursion.getInstance().updateRecordState(context, changedRecords, monitoredFields);

@@ -16,21 +16,6 @@
         <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
-        <fullName>AMLCTF_Retail_Audit_Case_Sharing_Rule</fullName>
-        <accessLevel>Read</accessLevel>
-        <description>Sharing rule created to allow Retail Audit Cases to be shared across the team.  Part of the Retail Audit Case Management Solution, AML/CTF Austrac Phase 2.</description>
-        <label>Retail Audit Case Sharing Rule</label>
-        <sharedTo>
-            <group>AMLCTF_All_Retail_Audit_Users</group>
-        </sharedTo>
-        <criteriaItems>
-            <field>RecordTypeId</field>
-            <operation>equals</operation>
-            <value>Scheduled Audit,Unannounced Audit,Retail Dispute Enquiry,Assurance Audit,Please Explain</value>
-        </criteriaItems>
-        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
-    </sharingCriteriaRules>
-    <sharingCriteriaRules>
         <fullName>Business_Enablement_Cases</fullName>
         <accessLevel>Edit</accessLevel>
         <description>Allow all Startrack Business Enablement Team Members to view and edit each others cases</description>
@@ -289,7 +274,7 @@
         <criteriaItems>
             <field>Enquiry_Type__c</field>
             <operation>equals</operation>
-            <value>Billing dispute</value>
+            <value>Billing Dispute</value>
         </criteriaItems>
         <criteriaItems>
             <field>RecordTypeId</field>

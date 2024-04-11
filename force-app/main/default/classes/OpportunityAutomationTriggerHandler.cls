@@ -37,8 +37,8 @@ public inherited sharing class OpportunityAutomationTriggerHandler extends Appli
 				Opportunity.SObjectType,
 				OpportunitySplit.SObjectType,
                 GroupedAccountProductRevenue__c.SObjectType, 
-                GroupedRevenueSchedule__c.SObjectType
-                   
+                GroupedRevenueSchedule__c.SObjectType,
+				OpportunityLineItem.SObjectType
 		};
 	}	
 }
