@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>AMLCTF_Unannounced_Audit</fullName>
-    <active>true</active>
+    <active>false</active>
     <businessProcess>Retail Audit</businessProcess>
     <description>An audit that is planned for where the Retail Audit team have not communicated to the Post Office, their intention to visit (usually with the single aim to count Australia Post cash)</description>
-    <label>Unannounced Audit</label>
+    <label>(Deprecated) Unannounced Audit</label>
     <picklistValues>
         <picklist>AMLCTF_Please_Explain_Type__c</picklist>
         <values>
