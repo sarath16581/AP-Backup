@@ -13,14 +13,14 @@
         <valueSetDefinition>
             <sorted>false</sorted>
             <value>
-                <fullName>Account Manager</fullName>
-                <default>false</default>
-                <label>Account Manager</label>
-            </value>
-            <value>
                 <fullName>Contact Centre</fullName>
                 <default>false</default>
                 <label>Contact Centre</label>
+            </value>
+            <value>
+                <fullName>Account Manager</fullName>
+                <default>false</default>
+                <label>Account Manager</label>
             </value>
             <value>
                 <fullName>Marketing</fullName>
