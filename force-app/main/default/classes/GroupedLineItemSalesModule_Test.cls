@@ -117,5 +117,7 @@ public class GroupedLineItemSalesModule_Test {
 		GroupedLineItemSalesModule module = GroupedLineItemSalesModule.newInstance();
 		module.onAfterUpdate(records, new Map<Id,OpportunityLineItem>{oldOli.Id => oldOli},mockUow);
 		Test.stopTest();
+
+		((ApplicationUnitOfWork)MockUtility.Mocks.verify(mockUow, 2)).registerNew((List<SObject>)fflib_Match.anyObject());
 	}
 }
