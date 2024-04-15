@@ -11523,91 +11523,11 @@
     <picklistValues>
         <picklist>Source__c</picklist>
         <values>
-            <fullName>Board and Shareholder Liaison</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Critical Incident</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>Customer</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Duplicates</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Exec Letter</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Executive complaints</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>FOI</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Insights and Analytics</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>Internal Customer</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Internal Senior Management</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>MRS</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Ministerial</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>NPS</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Ombudsman</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Ombudsman General</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Ombudsman Level A</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Ombudsman Level B</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>PIO %E2%80%93 Supplementary</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Root cause</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>SPB</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Security and Investigation</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Tribunal</fullName>
             <default>false</default>
         </values>
     </picklistValues>
