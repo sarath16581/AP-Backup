@@ -7,21 +7,32 @@
 	2023-05-09 - Harry Wang created
 	2023-10-16 - Bharat Patel, added attribute for STP-9640 implementation
 	2024-02-15 - Ken McGuire, Added link to revenue report
+	2024-03-20 - SteveL, added the Re-Calculate Last 12 Months Revenue button
 -->
-<aura:component implements="lightning:isUrlAddressable" description="Aura wrapper navigate user to oppProductDataTable component">
+<aura:component implements="lightning:isUrlAddressable" controller="opcNavToBulkEditController" description="Aura wrapper navigate user to oppProductDataTable component">
 	<aura:attribute name="recordId" type="String" />
 	<aura:attribute name="proposalId" type="String" default="noProposal" />
 	<aura:attribute name="isST" type="Boolean"/>
 	<aura:attribute name="isManualContract" type="String" default="false"/>
 	<aura:attribute name="isAmend" type="String" default="false"/>
 	<aura:attribute name="isRenew" type="String" default="false"/>
+	<aura:attribute name="loading" type="Boolean" default="false"/>
+	<aura:attribute name="oppRecord" type="Opportunity"/>
 
-	<!--<aura:attribute name="requestReference" type="String"/> -->
-    
-    <lightning:button label="Last 12 months Revenue Report" onclick="{!c.openRevenueReport}" />
+	<lightning:button label="Last 12 months Revenue Report" onclick="{!c.openRevenueReport}" />
+	<aura:if isTrue="{!v.oppRecord.StageName != 'Closed Won'}">
+		<lightning:button label="Re-Calculate Last 12 Months Revenue" onclick="{!c.recalculatePast12Revenue}" />
+	</aura:if>
 
 	<aura:handler name="init" value="{!this}" action="{!c.onPageReferenceChange}"/>
 	<aura:handler name="change" value="{!v.pageReference}" action="{!c.onPageReferenceChange}"/>
 
-	<c:oppProductDataTable oppId="{!v.recordId}" proposalId="{!v.proposalId}" isST="{!v.isST}" isManualContract="{!v.isManualContract}" isAmend="{!v.isAmend}" isRenew="{!v.isRenew}"/>
+	<div class="slds-is-relative">
+		<aura:if isTrue="{!v.loading}">
+			<lightning:spinner alternativeText="Loading" size="small" />
+		</aura:if>
+		<c:oppProductDataTable oppId="{!v.recordId}" proposalId="{!v.proposalId}" isST="{!v.isST}" isManualContract="{!v.isManualContract}" isAmend="{!v.isAmend}" isRenew="{!v.isRenew}"/>
+	</div>
+
+
 </aura:component>

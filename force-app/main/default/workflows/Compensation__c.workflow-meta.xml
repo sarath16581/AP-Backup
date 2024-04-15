@@ -146,7 +146,7 @@
             <type>FieldUpdate</type>
         </actions>
         <active>true</active>
-        <booleanFilter>1 AND 2 AND 3 AND 4 AND 5 AND 6</booleanFilter>
+        <booleanFilter>1 AND 2 AND 3 AND (4 OR 7) AND 5 AND 6</booleanFilter>
         <criteriaItems>
             <field>Compensation__c.RecordTypeId</field>
             <operation>notEqual</operation>
@@ -175,6 +175,11 @@
             <operation>equals</operation>
             <value>False</value>
         </criteriaItems>
+        <criteriaItems>
+            <field>Compensation__c.Other__c</field>
+            <operation>equals</operation>
+            <value>0</value>
+        </criteriaItems>
         <triggerType>onCreateOrTriggeringUpdate</triggerType>
     </rules>
     <rules>
@@ -184,7 +189,7 @@
             <type>FieldUpdate</type>
         </actions>
         <active>true</active>
-        <formula>RecordType.Name != &apos;Money Order&apos; &amp;&amp; RecordType.Name != &apos;Money Order Number Required&apos; &amp;&amp; Replacement_Value__c &lt; 100 &amp;&amp; Total_Compensation_Amount__c &lt; 100 &amp;&amp; ISBLANK(Other__c) &amp;&amp; TEXT(Case__r.ProductCategory__c) != &apos;&apos; &amp;&amp; TEXT(Case__r.ProductSubCategory__c) != &apos;&apos; &amp;&amp; TEXT(Case__r.EnquirySubType__c) != &apos;&apos; &amp;&amp; TEXT(Case__r.Type) != &apos;&apos;</formula>
+        <formula>RecordType.Name != &apos;Money Order&apos; &amp;&amp; RecordType.Name != &apos;Money Order Number Required&apos; &amp;&amp; Replacement_Value__c &lt; 100 &amp;&amp; Total_Compensation_Amount__c &lt; 100 &amp;&amp; OR(ISBLANK(Other__c),Other__c = 0) &amp;&amp;  TEXT(Case__r.ProductCategory__c) != &apos;&apos; &amp;&amp; TEXT(Case__r.ProductSubCategory__c) != &apos;&apos; &amp;&amp; TEXT(Case__r.EnquirySubType__c) != &apos;&apos; &amp;&amp; TEXT(Case__r.Type) != &apos;&apos;</formula>
         <triggerType>onCreateOrTriggeringUpdate</triggerType>
     </rules>
     <rules>
@@ -194,7 +199,7 @@
             <type>FieldUpdate</type>
         </actions>
         <active>true</active>
-        <booleanFilter>1 AND 2 AND 3 AND 4 AND 5 AND 6</booleanFilter>
+        <booleanFilter>1 AND 2 AND 3 AND (4 OR 7) AND 5 AND 6</booleanFilter>
         <criteriaItems>
             <field>Compensation__c.RecordTypeId</field>
             <operation>notEqual</operation>
@@ -222,6 +227,11 @@
             <field>Compensation__c.Bank_Detail_Provided_By_Customer__c</field>
             <operation>equals</operation>
             <value>True</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Compensation__c.Other__c</field>
+            <operation>equals</operation>
+            <value>0</value>
         </criteriaItems>
         <description>Updates the compensation status when the customer has agreed to ptovide the bank details via webform</description>
         <triggerType>onCreateOrTriggeringUpdate</triggerType>

@@ -1,9 +1,11 @@
 /**
- * @description       : This is a helper class for Connected Customer Email Payload
- * @author            : Sreenish Krishnan
- * @domain            : Connected Customer
- * @last modified on  : 07-13-2022
- * @last modified by  : Sreenish Krishnan
+ * @description			: This is a helper class for Connected Customer Email Payload
+ * @author				: Sreenish Krishnan
+ * @domain				: Connected Customer
+ * @last modified on	: 07-13-2022
+ * @last modified by 	: Sreenish Krishnan
+ * @changelog
+ * 2024-04-09 - Mahesh Parvathaneni - Fixed an exception for duplicate values in the list
  **/
 public inherited sharing class CustomerDataSyncEventCPEmailHelper {
 	//CPE variables
@@ -95,11 +97,23 @@ public inherited sharing class CustomerDataSyncEventCPEmailHelper {
 
 	//get the emails list to upsert
 	public List<SObject> getCPEmailsUpsertList() {
+		//convert to map to remove duplicates
+		Map<Id, SObject> cpeUpsertMap = new Map<Id, SObject>();
+		if (!cpeUpsertList.isEmpty()) {
+			cpeUpsertMap.putAll(cpeUpsertList);
+			cpeUpsertList = cpeUpsertMap.values();
+		}
 		return cpeUpsertList;
 	}
 
 	//get the emails list to delete
 	public List<SObject> getCPEmailsDeleteList() {
+		//convert to map to remove duplicates
+		Map<Id, SObject> cpeDeleteMap = new Map<Id, SObject>();
+		if (!cpeDeleteList.isEmpty()) {
+			cpeDeleteMap.putAll(cpeDeleteList);
+			cpeDeleteList = cpeDeleteMap.values();
+		}
 		return cpeDeleteList;
 	}
 
