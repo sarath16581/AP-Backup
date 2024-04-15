@@ -568,23 +568,6 @@ public with sharing class ProductRevenueService {
     }
 
     /**
-     * @param accountId accountId
-     * @param productId productId
-     * @param nrtBaseline nrt Baseline figure as a Double
-     *
-     * @return the incremental nrt vale
-     * @description the calculated nrt incremental, it cannot go below 0, and if it is a negative value,return 0
-     */
-    public Double calculateIncrementalNRT(String accountId, String productId, Decimal nrtBaseline) {
-        Integer targetYear = getAustralianFinancialYear(calculationDate);
-        Integer targetMonth = calculationDate.month() - 1; // calculation should exclude current month, and use the previous month
-        String uniqueId = getUID(accountId,productId,String.valueOf(targetYear));
-        GroupedAccountProductRevenue__c targetData = groupedRevenues.get(uniqueId);
-        Double incrementalNRT = getValueForMonth(targetData,targetMonth) - nrtBaseline;
-        return incrementalNRT > 0 ? incrementalNRT : 0;
-    }
-
-    /**
 	 * @param monthValue i.e. the revenue value for the month
 	 *
 	 * @return the partial or full revenue for the month base on the calculationDate

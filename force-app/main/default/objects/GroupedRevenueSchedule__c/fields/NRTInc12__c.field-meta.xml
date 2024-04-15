@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>NRTInc12__c</fullName>
+    <description>NRT Incremental value for December</description>
+    <externalId>false</externalId>
+    <formula>IF (Act12__c - NRTBaseline__c &gt; 0 ,Act12__c - NRTBaseline__c ,0)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <inlineHelpText>NRT Incremental value for December</inlineHelpText>
+    <label>December NRT Incremental</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>2</scale>
+    <trackTrending>false</trackTrending>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>
