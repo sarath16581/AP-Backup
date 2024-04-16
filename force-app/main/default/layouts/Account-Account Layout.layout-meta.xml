@@ -816,12 +816,6 @@
     </relatedLists>
     <relatedLists>
         <fields>NAME</fields>
-        <fields>DMAPP__Number_Contacts__c</fields>
-        <fields>DMAPP__Primary_Map__c</fields>
-        <relatedList>DMAPP__Account_Political_Map__c.DMAPP__Account__c</relatedList>
-    </relatedLists>
-    <relatedLists>
-        <fields>NAME</fields>
         <fields>Financial_Year__c</fields>
         <fields>Total_Original_Budget__c</fields>
         <fields>Total_Revised_Budget__c</fields>

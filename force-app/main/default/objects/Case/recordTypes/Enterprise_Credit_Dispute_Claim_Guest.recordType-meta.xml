@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Enterprise_Credit_Dispute_Claim_Guest</fullName>
-    <active>true</active>
+    <active>false</active>
     <businessProcess>Enterprise Credit Dispute Claim</businessProcess>
-    <description>Guest login for Enterprise Credit Dispute Claim</description>
-    <label>Enterprise Credit Dispute Claim Guest</label>
+    <description>REQ3448199- RT no longer in use Guest login for Enterprise Credit Dispute Claim</description>
+    <label>(Deprecated)Enterprise Credit Dispute Claim Guest</label>
     <picklistValues>
         <picklist>AMLCTF_Please_Explain_Type__c</picklist>
         <values>
@@ -384,10 +384,6 @@
     </picklistValues>
     <picklistValues>
         <picklist>CCUEnquiryType__c</picklist>
-        <values>
-            <fullName>Credit Claim</fullName>
-            <default>false</default>
-        </values>
         <values>
             <fullName>Delivery Issue</fullName>
             <default>false</default>
@@ -4734,11 +4730,7 @@
     <picklistValues>
         <picklist>ReasonforCreditClaim__c</picklist>
         <values>
-            <fullName>Annual PO box charge</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Annual reply paid</fullName>
+            <fullName>CHQ Handling Fee Reversal</fullName>
             <default>false</default>
         </values>
         <values>
@@ -4746,11 +4738,11 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Consumable returns - Merch %2F online shop</fullName>
+            <fullName>Duplicate Charge</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Duplicate Charge</fullName>
+            <fullName>Explanation of charge</fullName>
             <default>false</default>
         </values>
         <values>
@@ -4782,11 +4774,19 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Manifest Correction Fee Credit</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Manifested not sent</fullName>
             <default>false</default>
         </values>
         <values>
             <fullName>Manual Handling Surcharge</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Next Flight failure</fullName>
             <default>false</default>
         </values>
         <values>
@@ -4798,19 +4798,11 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Over maximum limits fee</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>Pricing statement</fullName>
             <default>false</default>
         </values>
         <values>
             <fullName>Proof of Delivery</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>StarTrack Courier</fullName>
             <default>false</default>
         </values>
         <values>

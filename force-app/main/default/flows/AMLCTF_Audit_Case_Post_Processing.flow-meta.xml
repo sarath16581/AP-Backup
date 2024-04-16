@@ -1,22 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Flow xmlns="http://soap.sforce.com/2006/04/metadata">
     <apiVersion>49.0</apiVersion>
-    <assignments>
-        <name>myVariable_waitStartTimeAssignment</name>
-        <label>myVariable_waitStartTimeAssignment</label>
-        <locationX>0</locationX>
-        <locationY>0</locationY>
-        <assignmentItems>
-            <assignToReference>myVariable_waitStartTimeVariable</assignToReference>
-            <operator>Assign</operator>
-            <value>
-                <elementReference>$Flow.CurrentDateTime</elementReference>
-            </value>
-        </assignmentItems>
-        <connector>
-            <targetReference>myDecision</targetReference>
-        </connector>
-    </assignments>
     <decisions>
         <processMetadataValues>
             <name>index</name>
@@ -405,7 +389,7 @@
             <label>Previously Met - Prev</label>
         </rules>
     </decisions>
-    <description>Updates Case record with auto-generated Subject and creates Audit Program record for relevant Retail Audit record types.  Part of the Retail Audit Case Management Solution, AML/CTF Austrac Phase 2.</description>
+    <description>REQ3448199- RT in this process are no longer active -Updates Case record with auto-generated Subject and creates Audit Program record for relevant Retail Audit record types.  Part of the Retail Audit Case Management Solution, AML/CTF Austrac Phase 2.</description>
     <formulas>
         <processMetadataValues>
             <name>originalFormula</name>
@@ -413,9 +397,9 @@
                 <stringValue>IF( [Case].hidden_Record_Type_Name__c = &quot;AMLCTF_Please_Explain_Audit&quot; ,TODAY() + $Setup.AMLCTF_Retail_Audit_Settings__c.Follow_Up_Interval_Please_Explain__c, TODAY() + $Setup.AMLCTF_Retail_Audit_Settings__c.Follow_Up_Interval_Site_Audit__c )</stringValue>
             </value>
         </processMetadataValues>
-        <name>formula_2_myRule_1_A2_Due_Date_c</name>
+        <name>formula_2_myRule_1_A2_7961565834</name>
         <dataType>Date</dataType>
-        <expression>IF( {!myVariable_current.hidden_Record_Type_Name__c} = &quot;AMLCTF_Please_Explain_Audit&quot; ,TODAY() + $Setup.AMLCTF_Retail_Audit_Settings__c.Follow_Up_Interval_Please_Explain__c, TODAY() + $Setup.AMLCTF_Retail_Audit_Settings__c.Follow_Up_Interval_Site_Audit__c )</expression>
+        <expression>IF( {!myVariable_current.hidden_Record_Type_Name__c} = &quot;AMLCTF_Please_Explain_Audit&quot; ,TODAY() + {!$Setup.AMLCTF_Retail_Audit_Settings__c.Follow_Up_Interval_Please_Explain__c}, TODAY() + {!$Setup.AMLCTF_Retail_Audit_Settings__c.Follow_Up_Interval_Site_Audit__c} )</expression>
     </formulas>
     <formulas>
         <processMetadataValues>
@@ -424,12 +408,12 @@
                 <stringValue>[Case].RecordType.Name &amp; &apos; for &apos; &amp; [Case].Network__c.Name &amp; &apos; on &apos; &amp; TEXT([Case].AMLCTF_Planned_Audit_Date__c ) </stringValue>
             </value>
         </processMetadataValues>
-        <name>formula_3_myRule_1_A1_Subject</name>
+        <name>formula_3_myRule_1_A1_9119261515</name>
         <dataType>String</dataType>
-        <expression>{!myVariable_current.RecordType.Name} &amp; &apos; for &apos; &amp; {!myVariable_current.Network__c.Name} &amp; &apos; on &apos; &amp; TEXT({!myVariable_current.AMLCTF_Planned_Audit_Date__c} )</expression>
+        <expression>{!myVariable_current.RecordType.Name} &amp; &apos; for &apos; &amp; {!myVariable_current.Network__r.Name} &amp; &apos; on &apos; &amp; TEXT({!myVariable_current.AMLCTF_Planned_Audit_Date__c} )</expression>
     </formulas>
-    <interviewLabel>AMLCTF_Audit_Case_Post_Processing-6_Case</interviewLabel>
-    <label>AMLCTF Audit Case Post Processing</label>
+    <interviewLabel>AMLCTF_Audit_Case_Post_Processing-7_InterviewLabel</interviewLabel>
+    <label>AMLCTF Audit Case Post Processing_Deprecated</label>
     <processMetadataValues>
         <name>ObjectType</name>
         <value>
@@ -500,6 +484,9 @@
             </value>
         </processMetadataValues>
         <processMetadataValues>
+            <name>extraTypeInfo</name>
+        </processMetadataValues>
+        <processMetadataValues>
             <name>isChildRelationship</name>
             <value>
                 <booleanValue>false</booleanValue>
@@ -510,6 +497,9 @@
             <value>
                 <stringValue>[Case]</stringValue>
             </value>
+        </processMetadataValues>
+        <processMetadataValues>
+            <name>referenceTargetField</name>
         </processMetadataValues>
         <name>myRule_1_A1</name>
         <label>Post-Default Values</label>
@@ -599,7 +589,7 @@
             </processMetadataValues>
             <field>Subject</field>
             <value>
-                <elementReference>formula_3_myRule_1_A1_Subject</elementReference>
+                <elementReference>formula_3_myRule_1_A1_9119261515</elementReference>
             </value>
         </inputAssignments>
         <object>Case</object>
@@ -612,6 +602,9 @@
             </value>
         </processMetadataValues>
         <processMetadataValues>
+            <name>extraTypeInfo</name>
+        </processMetadataValues>
+        <processMetadataValues>
             <name>isChildRelationship</name>
             <value>
                 <booleanValue>false</booleanValue>
@@ -622,6 +615,9 @@
             <value>
                 <stringValue>[Case]</stringValue>
             </value>
+        </processMetadataValues>
+        <processMetadataValues>
+            <name>referenceTargetField</name>
         </processMetadataValues>
         <name>myRule_1_A2</name>
         <label>Update Due Date</label>
@@ -671,13 +667,13 @@
             </processMetadataValues>
             <field>Due_Date__c</field>
             <value>
-                <elementReference>formula_2_myRule_1_A2_Due_Date_c</elementReference>
+                <elementReference>formula_2_myRule_1_A2_7961565834</elementReference>
             </value>
         </inputAssignments>
         <object>Case</object>
     </recordUpdates>
-    <startElementReference>myVariable_waitStartTimeAssignment</startElementReference>
-    <status>Active</status>
+    <startElementReference>myDecision</startElementReference>
+    <status>Draft</status>
     <variables>
         <name>myVariable_current</name>
         <dataType>SObject</dataType>
@@ -693,15 +689,5 @@
         <isInput>true</isInput>
         <isOutput>false</isOutput>
         <objectType>Case</objectType>
-    </variables>
-    <variables>
-        <name>myVariable_waitStartTimeVariable</name>
-        <dataType>DateTime</dataType>
-        <isCollection>false</isCollection>
-        <isInput>false</isInput>
-        <isOutput>false</isOutput>
-        <value>
-            <elementReference>$Flow.CurrentDateTime</elementReference>
-        </value>
     </variables>
 </Flow>

@@ -59,7 +59,12 @@
                 <field>TotalIncremental__c</field>
             </layoutItems>
         </layoutColumns>
-        <layoutColumns/>
+        <layoutColumns>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>NRTBaseline__c</field>
+            </layoutItems>
+        </layoutColumns>
         <style>TwoColumnsLeftToRight</style>
     </layoutSections>
     <layoutSections>
@@ -90,6 +95,10 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Readonly</behavior>
+                <field>NRTInc7__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Readonly</behavior>
                 <field>Act8__c</field>
             </layoutItems>
             <layoutItems>
@@ -99,6 +108,10 @@
             <layoutItems>
                 <behavior>Readonly</behavior>
                 <field>Inc8__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>NRTInc8__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
@@ -115,6 +128,10 @@
             <layoutItems>
                 <behavior>Readonly</behavior>
                 <field>Inc9__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>NRTInc9__c</field>
             </layoutItems>
         </layoutColumns>
         <layoutColumns>
@@ -135,6 +152,10 @@
                 <field>Inc10__c</field>
             </layoutItems>
             <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>NRTInc10__c</field>
+            </layoutItems>
+            <layoutItems>
                 <behavior>Edit</behavior>
                 <field>For11__c</field>
             </layoutItems>
@@ -151,6 +172,10 @@
                 <field>Inc11__c</field>
             </layoutItems>
             <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>NRTInc11__c</field>
+            </layoutItems>
+            <layoutItems>
                 <behavior>Edit</behavior>
                 <field>For12__c</field>
             </layoutItems>
@@ -165,6 +190,10 @@
             <layoutItems>
                 <behavior>Readonly</behavior>
                 <field>Inc12__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>NRTInc12__c</field>
             </layoutItems>
         </layoutColumns>
         <style>TwoColumnsLeftToRight</style>
@@ -192,6 +221,10 @@
                 <field>Inc1__c</field>
             </layoutItems>
             <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>NRTInc1__c</field>
+            </layoutItems>
+            <layoutItems>
                 <behavior>Edit</behavior>
                 <field>For2__c</field>
             </layoutItems>
@@ -208,6 +241,10 @@
                 <field>Inc2__c</field>
             </layoutItems>
             <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>NRTInc2__c</field>
+            </layoutItems>
+            <layoutItems>
                 <behavior>Edit</behavior>
                 <field>For3__c</field>
             </layoutItems>
@@ -222,6 +259,10 @@
             <layoutItems>
                 <behavior>Readonly</behavior>
                 <field>Inc3__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>NRTInc3__c</field>
             </layoutItems>
         </layoutColumns>
         <layoutColumns>
@@ -242,6 +283,10 @@
                 <field>Inc4__c</field>
             </layoutItems>
             <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>NRTInc4__c</field>
+            </layoutItems>
+            <layoutItems>
                 <behavior>Edit</behavior>
                 <field>For5__c</field>
             </layoutItems>
@@ -258,6 +303,10 @@
                 <field>Inc5__c</field>
             </layoutItems>
             <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>NRTInc5__c</field>
+            </layoutItems>
+            <layoutItems>
                 <behavior>Edit</behavior>
                 <field>For6__c</field>
             </layoutItems>
@@ -272,6 +321,10 @@
             <layoutItems>
                 <behavior>Readonly</behavior>
                 <field>Inc6__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>NRTInc6__c</field>
             </layoutItems>
         </layoutColumns>
         <style>TwoColumnsLeftToRight</style>

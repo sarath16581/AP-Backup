@@ -42,17 +42,23 @@ public inherited sharing  class GroupedLineItemSalesModule extends ApplicationMo
         }
     }
 
-    public override void  onAfterUpdate(List<SObject> records, Map<Id, SObject> existingRecords, ApplicationUnitOfWork uow)  {
+    public override void onAfterUpdate(List<SObject> records, Map<Id, SObject> existingRecords, ApplicationUnitOfWork uow)  {
         try {
-            performRevenueUpdates(getOpportunitiesToUpdate(records), uow);
+            Set<Id> openOppIds = getOpportunitiesToUpdate(records);
+            Set<Id> closedWonOppIds = getCloseWonOpportunitiesToUpdate(records, existingRecords);
+            if (!openOppIds.isEmpty()) {
+                performRevenueUpdates(openOppIds, uow);
+            }
+            if (!closedWonOppIds.isEmpty()) {
+                performScheduleUpdates(closedWonOppIds, uow);
+            }
         } catch(Exception ex) {
             // Error Logged to Exception object for analysis
             UTIL_LoggingService.logHandledException(ex, UserInfo.getOrganizationId(), SSSWConstants.SSSW_APP, GroupedLineItemSalesModule.class.getName(), 'onAfterUpdate', SSSWConstants.CASE_TRIGGER, LoggingLevel.ERROR);
         }
     }
 
-
-    private void performRevenueUpdates(Set<Id> opportunityIds, ApplicationUnitOfWork uow) {
+    public void performRevenueUpdates(Set<Id> opportunityIds, ApplicationUnitOfWork uow) {
         if (opportunityIds.isEmpty()) return;
         ProductRevenueService service = ProductRevenueService.getInstance();
         List<GroupedAccountProductRevenue__c> reCalculatedRevenues = service.reCalculateGroupRevenuesForOpportunities(opportunityIds);
@@ -78,10 +84,60 @@ public inherited sharing  class GroupedLineItemSalesModule extends ApplicationMo
         updatedOpportunities.addAll(opportunityIds);
     }
 
+    /**
+     * @param closedWonOppIds Set<Id>
+     * @param uow ApplicationUnitOfWork
+     *
+     * @description perform the Schedule updates when the opp is closed won and contract end date/ start date is changed
+     */
+    public void performScheduleUpdates(Set<Id> closedWonOppIds, ApplicationUnitOfWork uow) {
+        List<GroupedRevenueSchedule__c> schedules = ProductScheduleService.newInstance().createUpdateRevenueSchedules(closedWonOppIds);
+        List<GroupedRevenueSchedule__c> schedulesToInsert = new  List<GroupedRevenueSchedule__c>();
+        List<GroupedRevenueSchedule__c> schedulesToUpdate = new  List<GroupedRevenueSchedule__c>();
+        List<GroupedAccountProductRevenue__c> revenuesToInsert = new  List<GroupedAccountProductRevenue__c>();
+        for (GroupedRevenueSchedule__c schedule : schedules) {
+            if (schedule.Id == null) {
+                schedulesToInsert.add(schedule);
+            }else {
+                schedulesToUpdate.add(schedule);
+            }
+            if (schedule.GroupedAccountProductRevenue__r != null && schedule.GroupedAccountProductRevenue__r.Id == null) { // Group Account Product Revenue record does not exist yet, put it into a to insert list, and register the relationship
+                uow.registerRelationship(schedule, GroupedRevenueSchedule__c.GroupedAccountProductRevenue__c, schedule.GroupedAccountProductRevenue__r);
+                revenuesToInsert.add(schedule.GroupedAccountProductRevenue__r);
+            }
+        }
+
+        // register new revenue records
+        if (!revenuesToInsert.isEmpty()) {
+            uow.registerNew(revenuesToInsert);
+        }
+
+        if (!schedulesToInsert.isEmpty()) {
+            uow.registerNew(schedulesToInsert);
+        }
+
+        if (!schedulesToUpdate.isEmpty()) {
+            uow.registerDirty(schedulesToUpdate);
+        }
+    }
+
     private static Set<Id> getOpportunitiesToUpdate(List<OpportunityLineItem> lineItems) {
         Set<Id> ids = new Set<Id>();
         for (OpportunityLineItem lineItem : lineItems) {
-            if (!updatedOpportunities.contains(lineItem.OpportunityId)) {
+            if (!updatedOpportunities.contains(lineItem.OpportunityId) && !lineItem.Opportunity_Stage__c.containsIgnoreCase('closed')) {
+                ids.add(lineItem.OpportunityId);
+            }
+        }
+        return ids;
+    }
+
+    private static Set<Id> getCloseWonOpportunitiesToUpdate(List<OpportunityLineItem> lineItems, Map<Id, SObject> existingRecords) {
+        Set<Id> ids = new Set<Id>();
+        OpportunityLineItem oldLine;
+        for (OpportunityLineItem lineItem : lineItems) {
+            oldLine = (OpportunityLineItem) existingRecords.get(lineItem.Id);
+            if (!updatedOpportunities.contains(lineItem.OpportunityId) && lineItem.Opportunity_Stage__c == OpportunityRevenueScheduleModule.STAGE_CLOSED_WON
+                    && (oldLine.Contract_End_Date__c != lineItem.Contract_End_Date__c || oldLine.Contract_Start_Date__c != lineItem.Contract_Start_Date__c)) {
                 ids.add(lineItem.OpportunityId);
             }
         }

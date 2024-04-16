@@ -99,6 +99,7 @@ public with sharing class OpportunityLineItemSelector_Test {
 		insert accountList;
 
 		List<Opportunity> oppList = ApplicationTestDataFactory.getOpportunities(2, accountList[0].Id, false);
+		oppList[1].OverrideOPCCalculation__c = true;
 		insert oppList;
 
 		Product2 product = APT_TestUtils.createInternationalProduct('Test Product','26940998','Postal Services');
@@ -138,6 +139,10 @@ public with sharing class OpportunityLineItemSelector_Test {
 		System.assertNotEquals(null, results[0].Name, 'Expected name');
 		System.assertNotEquals(null, results[0].Opportunity.Name, 'Expected opportunity name');
 		System.assertNotEquals(null, results[0].Product2.Name, 'Expected product name');
+
+		results = selector.selectByOPCCalculationOpportunityIds(new Set<Id>{oppList[0].Id,oppList[1].Id}, new Set<Object>{OpportunityLineItemSelector.Options.WITH_PRODUCT, OpportunityLineItemSelector.Options.WITH_OPPORTUNITY});
+		System.assertEquals(2, results.size(), 'Result count was wrong, should only return the one with OverrideOPCCalculation__c set to false');
+		System.assertEquals(oppList[0].Id, results[0].Opportunity.Id, 'Expected the returned result to be the first one in the OppList');
 
 		Test.stopTest();
 	}

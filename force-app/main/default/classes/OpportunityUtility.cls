@@ -211,7 +211,7 @@ public with sharing class OpportunityUtility
 			 	// re-query: tried merging the codes into one loop......
 				for (Opportunity oppRec:[SELECT Id,
 						(SELECT Id, Name, Classification__c, Contract_Product__c, Contract_Start_Date__c FROM OpportunityLineItems),
-						(SELECT Id, Apttus_CMDSign__DocuSignEnvelopeId__c, Docusign_Envelope_Status__c,
+						(SELECT Id, Apttus_CMDSign__DocuSignEnvelopeId__c, Docusign_Envelope_Status__c, Contract_Fully_Signed_Date__c,
 							Is_Document_Signed__c FROM R00N50000001Xl0FEAS)
 						FROM Opportunity
 						WHERE Id IN: oppIdSet]) {
@@ -307,10 +307,10 @@ public with sharing class OpportunityUtility
 						 				// at least one Apttus Contract exists
 							for (Apttus__APTS_Agreement__c aptContract: apttusContractList)
 							{
-								if (aptContract.Apttus_CMDSign__DocuSignEnvelopeId__c == NULL || !STRING_COMPLETED.equalsIgnoreCase(aptContract.Docusign_Envelope_Status__c))
+								if (aptContract.Apttus_CMDSign__DocuSignEnvelopeId__c == NULL || !STRING_COMPLETED.equalsIgnoreCase(aptContract.Docusign_Envelope_Status__c)) 
 								{
 								 						// Check #5: Check if Document is Manually Signed
-									if (!aptContract.Is_Document_Signed__c && !offlineContract)
+									if (!aptContract.Is_Document_Signed__c && !offlineContract && aptContract.Contract_Fully_Signed_Date__c == null)
 									{
 										oppErrorMap = addOpportunityErrorsMap(oppErrorMap, oppId, Label.Opportunity_Send_Contract_to_Deal_Enablement);
 									}

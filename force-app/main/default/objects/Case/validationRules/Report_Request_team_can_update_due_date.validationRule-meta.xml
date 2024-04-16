@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
-    <fullName>Report_Request_team_can_update_due_date</fullName>
-    <active>true</active>
-    <description>Record Type: Report Request. Only Report team and sys admin can update due date field</description>
-    <errorConditionFormula>AND( RecordType.DeveloperName = &apos;Report_Request&apos;, NOT(ISBLANK(Due_Date__c)),  $Profile.Name &lt;&gt; &apos;System Administrator&apos;,  $UserRole.Name &lt;&gt; &apos;SO Reporting&apos;)</errorConditionFormula>
-    <errorDisplayField>Due_Date__c</errorDisplayField>
-    <errorMessage>Only Reporting Team can update this field</errorMessage>
-</ValidationRule>

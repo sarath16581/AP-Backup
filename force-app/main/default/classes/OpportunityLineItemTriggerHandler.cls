@@ -41,7 +41,8 @@ public without sharing class OpportunityLineItemTriggerHandler extends Applicati
 	public static List<SObjectType> getUnitOfWorkSObjectTypes() {
 		return new List<SObjectType>{
 			OpportunityLineItem.SObjectType,
-			GroupedAccountProductRevenue__c.SObjectType
+			GroupedAccountProductRevenue__c.SObjectType,
+			GroupedRevenueSchedule__c.SObjectType
 		};
 	}
     

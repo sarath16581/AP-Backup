@@ -78,7 +78,8 @@ public class CreateChildCaseControllerTest {
                         +'"Description":"Test Trading Statement invoice"}';
         Id targetRecordTypeId = schema.sobjecttype.case.getRecordTypeInfosByName().get(Constants.RECORDTYPE_NAME_DELIVERY_ENQUIRY).getRecordTypeId();
         Id targetRecordTypeCustomerData = schema.sobjecttype.case.getRecordTypeInfosByName().get(Constants.RECORDTYPE_NAME_CUSTOMER_DATA_REQUEST).getRecordTypeId();
-        Id targetRecordTypeReportRequest = schema.sobjecttype.case.getRecordTypeInfosByName().get(Constants.RECORDTYPE_NAME_REPORT_REQUEST).getRecordTypeId();
+        //REQ3448199 remove refrence of report request record type
+		//Id targetRecordTypeReportRequest = schema.sobjecttype.case.getRecordTypeInfosByName().get(Constants.RECORDTYPE_NAME_REPORT_REQUEST).getRecordTypeId();
         Id targetRecordTypeCreditDisputeClaim = schema.sobjecttype.case.getRecordTypeInfosByName().get(Constants.RECORDTYPE_NAME_CREDIT_DISPUTE_CLAIM).getRecordTypeId();
         List<Id> fileAndAttachmentIds = new List<Id>();
         fileAndAttachmentIds.addAll(new Map<Id,Attachment>([SELECT Id FROM Attachment]).keyset());
@@ -94,9 +95,10 @@ public class CreateChildCaseControllerTest {
                 CreateChildCaseController.getFieldSet(inCase.RecordTypeId, targetRecordTypeCustomerData, 
                 inCase.Id);
         //call with Report Request record type
-        List<CreateChildCaseController.FieldSetMember> fieldSetMember2 = 
-                CreateChildCaseController.getFieldSet(inCase.RecordTypeId, targetRecordTypeReportRequest, 
-                inCase.Id);
+		//REQ3448199 remove refrence of report request record type
+        //List<CreateChildCaseController.FieldSetMember> fieldSetMember2 = 
+         //       CreateChildCaseController.getFieldSet(inCase.RecordTypeId, targetRecordTypeReportRequest, 
+        //      inCase.Id);
         //call with Credit dispute claim record type
         List<CreateChildCaseController.FieldSetMember> fieldSetMember3 = 
                 CreateChildCaseController.getFieldSet(inCase.RecordTypeId, targetRecordTypeCreditDisputeClaim, 

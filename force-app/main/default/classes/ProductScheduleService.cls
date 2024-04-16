@@ -67,22 +67,23 @@ public with sharing class ProductScheduleService {
      * @return List<GroupedRevenueSchedule__c> A list of 'GroupedRevenueSchedule__c' objects that have been created or updated 
      *         for the product line items of the provided Opportunity IDs. 
      */
-    public List<GroupedRevenueSchedule__c>  createUpdateRevenueSchedules(Set<Id> opportunityIds) {
+    public List<GroupedRevenueSchedule__c> createUpdateRevenueSchedules(Set<Id> opportunityIds) {
         // get the associated line items and create the grouped schedules for each of them
         List<OpportunityLineItem> items = loadProductLineItems(opportunityIds);
         // retrieve the revenue records for the schedule to look up to
-        getCreateGroupedRevenues(items);
+        Set<String> uids = getCreateGroupedRevenues(items);
         // ensure all opportunity items have revenue schedule records
-        return createUpdateRevenueSchedules(items);
+        return createUpdateRevenueSchedules(items, uids);
     }
 
     /**
 	  * Creates or updates revenue schedules for a given list of opportunity line items.
 	  * @param items List<OpportunityLineItem>
+	  * @param uids Set<String>
 	  * @return List<GroupedRevenueSchedule__c> A list of 'GroupedRevenueSchedule__c' objects that have been created or updated
 	  *         for the product line items of the provided Opportunity IDs.
 	  */
-    private List<GroupedRevenueSchedule__c>  createUpdateRevenueSchedules(List<OpportunityLineItem> items) {
+    private List<GroupedRevenueSchedule__c>  createUpdateRevenueSchedules(List<OpportunityLineItem> items, Set<String> uids) {
         // contains the new grouped revenue schedules to insert
         List<GroupedRevenueSchedule__c> schedulesToCreateOrUpdate = new List<GroupedRevenueSchedule__c>();
         // load any existing schedules for the line items
@@ -93,21 +94,22 @@ public with sharing class ProductScheduleService {
         }
         loadGroupedRevenueSchedules(oppLineItemIds);
         // create or modify revenue schedules
+        ProductRevenueService prodRevService = ProductRevenueService.newInstance();
+        prodRevService.loadGroupedProductRevenues(uids);
         for (OpportunityLineItem nextItem : opportunityLineItems.values()) {
             RevenueScheduleCalculator calculator = new RevenueScheduleCalculator(nextItem.Contract_Start_Date__c,nextItem.Contract_End_Date__c,defaultRevenueAllocation);
             for (Integer financialYear = calculator.financialYearStart; financialYear <= calculator.financialYearEnd; financialYear++) {
                 // obtain revenue schedule record for the year
                 String scheduleUid = getUID(nextItem.Id, String.valueOf(financialYear));
-                GroupedRevenueSchedule__c scheduleToCalculate = groupedSchedules.containsKey(scheduleUid) ? groupedSchedules.get(scheduleUid) : new GroupedRevenueSchedule__c(OpportunityProduct__c = nextItem.Id, Opportunity__c = nextItem.OpportunityId);
-                if (scheduleToCalculate.GroupedAccountProductRevenue__c == null)
-                {
+                Double nrtBaseline = prodRevService.getPastMonthsAverage(nextItem.Opportunity.AccountId, nextItem.Product2.Id, 3);
+                GroupedRevenueSchedule__c scheduleToCalculate = groupedSchedules.containsKey(scheduleUid) ? groupedSchedules.get(scheduleUid) : new GroupedRevenueSchedule__c(OpportunityProduct__c = nextItem.Id, Opportunity__c = nextItem.OpportunityId, NRTBaseline__c = nrtBaseline);
+                if (scheduleToCalculate.GroupedAccountProductRevenue__c == null) {
                     // link a revenue record to the schedule
                     String revenueUid = ProductRevenueService.getUID(nextItem.Opportunity.AccountId, nextItem.Product2.Id, String.valueOf(financialYear));
                     GroupedAccountProductRevenue__c revenue = groupedRevenues.get(revenueUid);
                     if (revenue == null) {
                         scheduleToCalculate.GroupedAccountProductRevenue__r = new GroupedAccountProductRevenue__c(AnchorOrganisation__c = nextItem.Opportunity.AccountId, PrimaryProduct__c = nextItem.Product2.Id, FinancialYear__c = financialYear, UID__c = revenueUid);
-                    }
-                    else {
+                    } else {
                         scheduleToCalculate.GroupedAccountProductRevenue__c = revenue.Id;
                         scheduleToCalculate.GroupedAccountProductRevenue__r = revenue;
                     }
@@ -124,9 +126,9 @@ public with sharing class ProductScheduleService {
      * Retrieves and creates Revenue Records for a list of Opportunity Line Items
      * ensuring that every schedule has a corresponding Revenue Record. 
      * @param items A List of `OpportunityLineItem` objects for which the Grouped Revenue Records need to be created or retrieved.
-     * @return void 
+     * @return Set<String> uids
      */
-    private void getCreateGroupedRevenues(List<OpportunityLineItem> items) {
+    private Set<String> getCreateGroupedRevenues(List<OpportunityLineItem> items) {
         // retrieve any existing grouped account product revenue records so the schedules can link to them.
         Set<String> uids = new Set<String>();
         for (OpportunityLineItem nextItem : opportunityLineItems.values()) {
@@ -143,6 +145,7 @@ public with sharing class ProductScheduleService {
             }
         }
         loadGroupedProductRevenues(uids);
+        return uids;
     }
 
     /**
@@ -165,14 +168,14 @@ public with sharing class ProductScheduleService {
             return newlyLoadedRecords;
         }
 
-        List<GroupedRevenueSchedule__c> additionalRevenueSchedules =  GroupedRevenueScheduleSelector.newInstance().selectByOpportunityProductIds(unloadedIds,null);
+        List<GroupedRevenueSchedule__c> additionalRevenueSchedules = GroupedRevenueScheduleSelector.newInstance().selectByOpportunityProductIds(unloadedIds,null);
 
         if (additionalRevenueSchedules == null) {
             return newlyLoadedRecords;
         }
         for (GroupedRevenueSchedule__c groupedSchedule : additionalRevenueSchedules) {
-            groupedSchedules.put(groupedSchedule.OpportunityProduct__c, groupedSchedule);
-            newlyLoadedRecords.put(groupedSchedule.OpportunityProduct__c, groupedSchedule);
+            groupedSchedules.put(getUID(groupedSchedule.OpportunityProduct__c, String.valueOf(groupedSchedule.Year__c)), groupedSchedule);
+            newlyLoadedRecords.put(getUID(groupedSchedule.OpportunityProduct__c, String.valueOf(groupedSchedule.Year__c)), groupedSchedule);
         }
         return newlyLoadedRecords;
     }
@@ -203,9 +206,8 @@ public with sharing class ProductScheduleService {
      * @param uids A Set of String UIDs used to identify and load the relevant `GroupedAccountProductRevenue__c` records.
      * @return void 
      */
-    private void loadGroupedProductRevenues(Set<String> uids)
-    {
-        Map<Id, GroupedAccountProductRevenue__c> additionalGroupedRevenues =  GroupedAccountProductRevenueSelector.newInstance().selectByUniqueIds(uids);
+    private void loadGroupedProductRevenues(Set<String> uids) {
+        Map<Id, GroupedAccountProductRevenue__c> additionalGroupedRevenues = GroupedAccountProductRevenueSelector.newInstance().selectByUniqueIds(uids);
         if (additionalGroupedRevenues == null) {
             return;
         }
