@@ -149,6 +149,6 @@ POMS Support Team</text>
     <textTemplates>
         <name>ABNChangeNotificationSubject</name>
         <isViewedAsPlainText>true</isViewedAsPlainText>
-        <text>[TEST] ABN Change Notification :: {!$Record.SAP_Vendor_ID__c}</text>
+        <text>ABN Change Notification :: {!$Record.SAP_Vendor_ID__c}</text>
     </textTemplates>
 </Flow>
