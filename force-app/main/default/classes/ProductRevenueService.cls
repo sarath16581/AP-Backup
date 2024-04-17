@@ -204,7 +204,7 @@ public with sharing class ProductRevenueService {
             String uniqueId = getUID(lineItem.Opportunity.AccountId,lineItem.Product2Id,String.valueOf(currentFY));
             if (budgetAndRevenues.isEmpty()) { // cannot find any prior customer revenue record => new business
                 lineItem.Classification__c = CLASSIFICATION_NEW_BUSINESS; //cannot find any CustomerRev records
-            } else if (budgetAndRevenues.get(uniqueId) == null && !budgetAndRevenues.isEmpty()) {
+            } else if (!budgetAndRevenues.isEmpty() && budgetAndRevenues.get(uniqueId) == null) {
                 lineItem.Classification__c = CLASSIFICATION_CROSS_SELL; //Customer Rev record for this product does not exist, but there are other Customer Rev records for this grouped account
             } else if (budgetAndRevenues.get(uniqueId) != null && lineItem.TweleveMonthRevenue__c > 0) {
                 lineItem.Classification__c = CLASSIFICATION_RENEWAL;  //can find at least 1 record, meaning use the current 12 months logic and if it is greater than 0
