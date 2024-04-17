@@ -345,7 +345,6 @@ History
 			<div class="pbHeader"><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="pbButton">
 				<input value="New Comment" class="btn btn-sm btn-default" name="newComment" onclick="openSubTab('/apex/CaseCommentCustom?id={!Case.id}&isdtp=vw','New Comment');" title="New Case Comments" type="button"/>
 			</td></tr></tbody></table></div>
-			
 			<apex:dataTable value="{!caseComments}" var="comment" styleClass="list table table-bordered table-hover" rowClasses="dataRow" rendered="{!NOT(caseComments == null)}">
 				<apex:column value="{!comment.IsPublished}" headerValue="Public"/>
 				<apex:column styleClass="dataCell" headerValue="Comment">

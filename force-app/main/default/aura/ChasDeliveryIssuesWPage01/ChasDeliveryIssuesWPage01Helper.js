@@ -107,11 +107,8 @@
         var isReturnToSender = $A.util.isUndefined(cmp.get("v.wizardData.isReturnToSender")) ? false : cmp.get("v.wizardData.isReturnToSender");
         var isParcelAwaitingCollection = $A.util.isUndefined(cmp.get("v.wizardData.isParcelAwaitingCollection")) ? false : cmp.get("v.wizardData.isParcelAwaitingCollection");
         var attemptedDeliveryScanWcid = cmp.get("v.wizardData.latestDeliveredScanWcid");
-		console.log('isEligibleForMyNetworkAssignment'+isEligibleForMyNetworkAssignment);
-		console.log('attemptedDeliveryScanWcid'+attemptedDeliveryScanWcid);
 		
         var previousDeliveredScanWcid = cmp.get("v.wizardData.previousDeliveredScanWcid");
-		console.log('previousDeliveredScanWcid '+previousDeliveredScanWcid );
         // set network eligibility flag based on issue type
         if(issueName == 'Item was left in an unsafe place' || issueName == 'Postie didn\'t knock')
         {
@@ -236,7 +233,6 @@
                 errors.push({name: 'AMEIncorrectDeliveryAddress', label: 'Incorrect delivery address', error: ''});
             }
         }
-console.log('wizardData'+wizardData);
 		if(!$A.util.isEmpty(cmp.get("v.wizardData.trackingId")) && (IssueName == 'Item was left in an unsafe place' || IssueName == 'Postie didn\'t knock')) {
 			// when a call to the tracking api is needed a captcha is enforced
 			// this ensures that the captcha was always clicked when an article requiring api call is entered
@@ -247,7 +243,6 @@ console.log('wizardData'+wizardData);
 		}
 
         cmp.set('v.errors', errors);
-
     },
     validationMap: function() {
         return {
