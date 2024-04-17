@@ -26,7 +26,7 @@ public with sharing class VendorEmailUtils {
 		
 		List<String> result = new List<String>();
 		
-		if(emailAddressesString != null) {
+		if(!emailAddressesString.isBlank()) {
 		result.add(emailAddressesString);
 		}
 		
