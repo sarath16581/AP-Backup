@@ -63,6 +63,7 @@ public inherited sharing  class GroupedLineItemSalesModule extends ApplicationMo
         ProductRevenueService service = ProductRevenueService.getInstance();
         List<GroupedAccountProductRevenue__c> reCalculatedRevenues = service.reCalculateGroupRevenuesForOpportunities(opportunityIds);
         List<OpportunityLineItem> updatedLineItems = service.reCalculateRetainedIncremental();
+        updatedLineItems = service.calculateClassification(updatedLineItems);
         List<GroupedAccountProductRevenue__c> revenuesUpdatable = new List<GroupedAccountProductRevenue__c>();
         List<GroupedAccountProductRevenue__c> revenuesInsertable = new List<GroupedAccountProductRevenue__c>();
         for (GroupedAccountProductRevenue__c revenue: reCalculatedRevenues) {
