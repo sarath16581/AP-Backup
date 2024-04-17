@@ -16,6 +16,10 @@ public with sharing class ProductRevenueService {
     public static final String BUDGET_REVENUE_SUFFIX = '_Revenue_Amount';
     public static final String CUSTOM_SUFFIX = '__c';
     private static final Double MONTHS_IN_YEAR = 12;
+    @TestVisible private static final String CLASSIFICATION_NEW_BUSINESS = 'New Business';
+    @TestVisible private static final String CLASSIFICATION_RENEWAL = 'Renewal';
+    @TestVisible private static final String CLASSIFICATION_WIN_BACK = 'Win Back';
+    @TestVisible private static final String CLASSIFICATION_CROSS_SELL = 'Cross Sell';
     // ***** PRIVATE PROPERTIES ******* //
     // A map of UID / budget and revenue records required to calculate grouped revenues
     private Map<String,Budget_and_Revenue__c> budgetAndRevenues {
@@ -147,7 +151,7 @@ public with sharing class ProductRevenueService {
         Set<Id> opportunityIds = loadOpenOpportunitiesForAccounts(allAccountIds).keySet();
         // load opportunity line items
         List<OpportunityLineItem> items = loadProductLineItems(opportunityIds);
-        return reCalculateGroupRevenues(items);
+        return reCalculateGroupRevenues(items); // customer revenue records are loaded within this method
     }
 
     /**
@@ -157,7 +161,7 @@ public with sharing class ProductRevenueService {
     public List<OpportunityLineItem> reCalculateRetainedIncremental() {
         // Maintain a list of opportunity line items that have been updated.
         List<OpportunityLineItem> updatedItems = new List<OpportunityLineItem>();
-        // update opportunity line item incremental and retained values 
+        // update opportunity line item incremental and retained values
         for (OpportunityLineItem record : opportunityLineItems.values()) {
             // pre-conditions
             if (record.Contract_Start_Date__c != null && record.Contract_End_Date__c!= null) {
@@ -176,6 +180,40 @@ public with sharing class ProductRevenueService {
 
         }
         return updatedItems;
+    }
+
+    /**
+     * @param lineItems List<OpportunityLineItem>
+     * @description use the AccountId on Opp to fire the current GroupedAccount logic to find all the target Accounts, then find the Customer Rev records under the 'GroupedAccount', to determine one of the potential classifications
+     *
+     * @return List<OpportunityLineItem>
+     */
+    public List<OpportunityLineItem> calculateClassification(List<OpportunityLineItem> lineItems) {
+        Set<Id> accountIds = new Set<Id>();
+        for (OpportunityLineItem lineItem : lineItems) {
+            accountIds.add(lineItem.Opportunity.AccountId);
+        }
+
+        loadRelatedAccounts(accountIds);
+        Set<String> uids = getUIDs(lineItems);
+        uids.addAll(configureProductAccountMaps(lineItems));
+        loadBudgetAndRevenueRecords(uids);
+
+        Integer currentFY = getAustralianFinancialYear(calculationDate);
+        for (OpportunityLineItem lineItem : lineItems) {
+            String uniqueId = getUID(lineItem.Opportunity.AccountId,lineItem.Product2Id,String.valueOf(currentFY));
+            if (budgetAndRevenues.isEmpty()) { // cannot find any prior customer revenue record => new business
+                lineItem.Classification__c = CLASSIFICATION_NEW_BUSINESS; //cannot find any CustomerRev records
+            } else if (budgetAndRevenues.get(uniqueId) == null && !budgetAndRevenues.isEmpty()) {
+                lineItem.Classification__c = CLASSIFICATION_CROSS_SELL; //Customer Rev record for this product does not exist, but there are other Customer Rev records for this grouped account
+            } else if (budgetAndRevenues.get(uniqueId) != null && lineItem.TweleveMonthRevenue__c > 0) {
+                lineItem.Classification__c = CLASSIFICATION_RENEWAL;  //can find at least 1 record, meaning use the current 12 months logic and if it is greater than 0
+            } else if (budgetAndRevenues.get(uniqueId) != null && lineItem.TweleveMonthRevenue__c <= 0) {
+                lineItem.Classification__c = CLASSIFICATION_WIN_BACK; //opposite of renewal, is the last 12 months logic is 0, but not 0 going before that
+            }
+        }
+
+        return lineItems;
     }
 
     /**

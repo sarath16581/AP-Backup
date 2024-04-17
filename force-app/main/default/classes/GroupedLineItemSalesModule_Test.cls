@@ -77,7 +77,7 @@ public class GroupedLineItemSalesModule_Test {
 				Rev9__c = 3300,Rev10__c = 4400,Rev11__c = 5500,Rev12__c = 6600);
 
 		OpportunityLineItem newOli = new OpportunityLineItem(Id = fflib_IDGenerator.generate(OpportunityLineItem.SObjectType), OpportunityId = oppRec.Id,Quantity = 5,PricebookEntryId = pbEntry.Id,
-				Product2Id = prod.Id,TotalPrice = 5 * pbEntry.UnitPrice,Contract_Start_Date__c = dateOfTest,Contract_End_Date__c = dateOfTest.addDays(3));
+				Product2Id = prod.Id,TotalPrice = 5 * pbEntry.UnitPrice,Contract_Start_Date__c = dateOfTest,Contract_End_Date__c = dateOfTest.addYears(2));
 		newOli = (OpportunityLineItem)ApplicationTestDataFactory.setUnwritableFields(newOli,
 				new Map<String, Object>{
 						'Opportunity_Stage__c' => 'Closed Won',
