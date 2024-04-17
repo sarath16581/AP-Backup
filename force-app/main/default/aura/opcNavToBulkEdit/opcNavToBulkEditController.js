@@ -10,7 +10,7 @@
    2024-02-15 - Ken McGuire, Added link to revenue report 
 */
 ({
-	onPageReferenceChange: function(cmp) {
+	onPageReferenceChange: function(cmp, event, helper) {
 		let myPageRef = cmp.get("v.pageReference");
 		let id = myPageRef.state.c__oppId;
 		cmp.set("v.recordId", id);
