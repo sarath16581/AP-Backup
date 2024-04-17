@@ -117,63 +117,9 @@
         <connector>
             <targetReference>Fetch_Recipients_Vendor_Email_Address</targetReference>
         </connector>
-        <filterLogic>1 AND ( 2 OR 3 OR 4 OR 5 ) AND ( 6 OR 7 OR 8 )</filterLogic>
-        <filters>
-            <field>ABN__c</field>
-            <operator>IsChanged</operator>
-            <value>
-                <booleanValue>true</booleanValue>
-            </value>
-        </filters>
-        <filters>
-            <field>Record_Type_Name__c</field>
-            <operator>EqualTo</operator>
-            <value>
-                <stringValue>Licence</stringValue>
-            </value>
-        </filters>
-        <filters>
-            <field>Record_Type_Name__c</field>
-            <operator>EqualTo</operator>
-            <value>
-                <stringValue>Licence_CMA</stringValue>
-            </value>
-        </filters>
-        <filters>
-            <field>Record_Type_Name__c</field>
-            <operator>EqualTo</operator>
-            <value>
-                <stringValue>Licence_CPA</stringValue>
-            </value>
-        </filters>
-        <filters>
-            <field>Record_Type_Name__c</field>
-            <operator>EqualTo</operator>
-            <value>
-                <stringValue>Licence_PP</stringValue>
-            </value>
-        </filters>
-        <filters>
-            <field>Licence_Status__c</field>
-            <operator>EqualTo</operator>
-            <value>
-                <stringValue>Draft</stringValue>
-            </value>
-        </filters>
-        <filters>
-            <field>Licence_Status__c</field>
-            <operator>EqualTo</operator>
-            <value>
-                <stringValue>Pending</stringValue>
-            </value>
-        </filters>
-        <filters>
-            <field>Licence_Status__c</field>
-            <operator>EqualTo</operator>
-            <value>
-                <stringValue>Approved</stringValue>
-            </value>
-        </filters>
+        <filterFormula>AND(ISCHANGED({!$Record.ABN__c}),
+OR({!$Record.RecordType.DeveloperName}=&apos;Licence&apos;,{!$Record.RecordType.DeveloperName}=&apos;Licence_CMA&apos;,{!$Record.RecordType.DeveloperName}=&apos;Licence_CPA&apos;,{!$Record.RecordType.DeveloperName}=&apos;Licence_PP&apos;),
+OR(ISPICKVAL({!$Record.Licence_Status__c},&apos;Draft&apos;),ISPICKVAL({!$Record.Licence_Status__c},&apos;Pending&apos;),ISPICKVAL({!$Record.Licence_Status__c},&apos;Approved&apos;)))</filterFormula>
         <object>Account</object>
         <recordTriggerType>Update</recordTriggerType>
         <triggerType>RecordAfterSave</triggerType>
