@@ -78,15 +78,6 @@
             <formula>AND(ISNEW(), RecordType.Name = &quot;Enterprise Credit Dispute Claim&quot;, ISPICKVAL(Business_Unit__c,&apos;StarTrack&apos;), ISPICKVAL(Call_Purpose__c, &apos;Credit Claim&apos;))</formula>
         </ruleEntry>
         <ruleEntry>
-            <assignedTo>Deal_Enablement_Centre</assignedTo>
-            <assignedToType>Queue</assignedToType>
-            <criteriaItems>
-                <field>Case.RecordTypeId</field>
-                <operation>equals</operation>
-                <value>Deal Enablement Centre</value>
-            </criteriaItems>
-        </ruleEntry>
-        <ruleEntry>
             <assignedTo>Service_Delivery_Queue</assignedTo>
             <assignedToType>Queue</assignedToType>
             <criteriaItems>
