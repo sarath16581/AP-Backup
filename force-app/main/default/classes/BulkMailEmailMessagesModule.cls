@@ -80,6 +80,7 @@
 
 		//get record type for transport enquiry case
 		Id recordTypeId = BulkMailCaseService.getInstance().getBulkMailRecordTypeId();
+		Id queueId = BulkMailCaseService.getInstance().getBulkMailQueueId();
 
 		//Get the selected emailMessage with related case fields, whose parent case recordtype is Bulk Mail
 		for (EmailMessage em : EmailMessagesSelector.newInstance().selectByIdsAndParentRecordTypeId(emailIdSet, new Set<Id>{recordTypeId}, 
@@ -105,6 +106,7 @@
 					// Re-open the case if there is incoming email message to closed case
 					if (cs.Status == BulkMailCaseService.CLOSED_STATUS) {
 						caseRecord.Status = BulkMailCaseService.REOPENNED_STATUS;
+						caseRecord.OwnerId = queueId;
 					}
 					casesToUpdate.add(caseRecord);
 				} else if (!cs.EmailMessages.isEmpty() && filteredMessages.containsKey(cs.EmailMessages[0].Id) && cs.Origin == 'Email') {
