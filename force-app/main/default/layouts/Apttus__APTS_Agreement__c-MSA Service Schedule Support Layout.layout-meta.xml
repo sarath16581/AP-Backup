@@ -773,20 +773,6 @@
     </relatedLists>
     <relatedLists>
         <excludeButtons>MassChangeOwner</excludeButtons>
-        <fields>NAME</fields>
-        <fields>Apttus_DocuApi__ReadOnlyFirstName__c</fields>
-        <fields>Apttus_DocuApi__ReadOnlyLastName__c</fields>
-        <fields>Apttus_DocuApi__ReadOnlyEmail__c</fields>
-        <fields>Apttus_DocuApi__ContactId__c</fields>
-        <fields>Apttus_DocuApi__UserId__c</fields>
-        <fields>Apttus_DocuApi__SigningOrder__c</fields>
-        <fields>Apttus_DocuApi__RecipientType__c</fields>
-        <relatedList>Apttus_DocuApi__DocuSignDefaultRecipient2__c.Apttus_CMDSign__AgreementId__c</relatedList>
-        <sortField>Apttus_DocuApi__SigningOrder__c</sortField>
-        <sortOrder>Asc</sortOrder>
-    </relatedLists>
-    <relatedLists>
-        <excludeButtons>MassChangeOwner</excludeButtons>
         <excludeButtons>New</excludeButtons>
         <fields>APT_Contract_End_Date__c</fields>
         <fields>NAME</fields>
@@ -801,13 +787,6 @@
         <relatedList>APT_SAP_Contracts__c.APT_Apttus_Contract__c</relatedList>
         <sortField>SAP_Contract_Status__c</sortField>
         <sortOrder>Asc</sortOrder>
-    </relatedLists>
-    <relatedLists>
-        <excludeButtons>MassChangeOwner</excludeButtons>
-        <fields>NAME</fields>
-        <fields>Apttus_DocuApi__Status__c</fields>
-        <fields>CREATED_DATE</fields>
-        <relatedList>Apttus_DocuApi__DocuSignEnvelope__c.Apttus_CMDSign__Agreement__c</relatedList>
     </relatedLists>
     <relatedLists>
         <excludeButtons>MassChangeOwner</excludeButtons>
