@@ -118,7 +118,7 @@
             <targetReference>Fetch_Recipients_Vendor_Email_Address</targetReference>
         </connector>
         <filterFormula>AND(ISCHANGED({!$Record.ABN__c}),
-OR({!$Record.RecordType.DeveloperName}=&apos;Licence&apos;,{!$Record.RecordType.DeveloperName}=&apos;Licence_CMA&apos;,{!$Record.RecordType.DeveloperName}=&apos;Licence_CPA&apos;,{!$Record.RecordType.DeveloperName}=&apos;Licence_PP&apos;),
+OR({!$Record.RecordType.DeveloperName}=&apos;Licence&apos;,{!$Record.RecordType.DeveloperName}=&apos;Licence_CMA&apos;,{!$Record.RecordType.DeveloperName}=&apos;Licence_CPA&apos;),
 OR(ISPICKVAL({!$Record.Licence_Status__c},&apos;Draft&apos;),ISPICKVAL({!$Record.Licence_Status__c},&apos;Pending&apos;),ISPICKVAL({!$Record.Licence_Status__c},&apos;Approved&apos;)))</filterFormula>
         <object>Account</object>
         <recordTriggerType>Update</recordTriggerType>

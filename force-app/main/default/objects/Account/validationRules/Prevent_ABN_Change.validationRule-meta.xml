@@ -6,10 +6,9 @@
     <errorConditionFormula>AND(
     ISCHANGED( ABN__c ),
     OR(
-        RecordType.DeveloperName = &quot;Business_Account&quot;,
-        RecordType.DeveloperName = &quot;Facility&quot;,
-        RecordType.DeveloperName = &quot;Facility_CMA&quot;,
-        RecordType.DeveloperName = &quot;Facility_CPA&quot;
+        RecordType.DeveloperName = &quot;Licence&quot;,
+        RecordType.DeveloperName = &quot;Licence_CMA&quot;,
+        RecordType.DeveloperName = &quot;Licence_CPA&quot;
     ),
     OR(
         ISPICKVAL(Licence_Status__c, &quot;Active&quot;),
