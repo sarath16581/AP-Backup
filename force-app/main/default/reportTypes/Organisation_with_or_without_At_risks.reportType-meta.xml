@@ -2880,7 +2880,7 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>Product_IDs__c</field>
+            <field>Products_IDs__c</field>
             <table>Account.Business_At_Risks__r</table>
         </columns>
         <columns>

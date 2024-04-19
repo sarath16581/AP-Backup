@@ -26,7 +26,7 @@ public virtual inherited sharing class AtRiskBusinessSelector extends Applicatio
 	}
 	public virtual override Set<SObjectField> getSObjectFieldList() {
 		return new Set<SObjectField> {
-			At_Risk_Business__c.Id, At_Risk_Business__c.Name, At_Risk_Business__c.Legal_Entity_Name__c, At_Risk_Business__c.Scale__c, At_Risk_Business__c.Product_IDs__c, At_Risk_Business__c.Date_of_Revenue_Calculation__c, At_Risk_Business__c.Recalculate_Revenue__c
+			At_Risk_Business__c.Id, At_Risk_Business__c.Name, At_Risk_Business__c.Legal_Entity_Name__c, At_Risk_Business__c.Scale__c, At_Risk_Business__c.Products_IDs__c, At_Risk_Business__c.Date_of_Revenue_Calculation__c, At_Risk_Business__c.Recalculate_Revenue__c
 		};
 	}
 
