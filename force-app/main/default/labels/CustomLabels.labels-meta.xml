@@ -136,6 +136,13 @@
         <value>Letter of Intent</value>
     </labels>
     <labels>
+        <fullName>APT_ApprovalRequestFor</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>ApprovalRequestFor</shortDescription>
+        <value>Pricing Approval Request for</value>
+    </labels>
+    <labels>
         <fullName>APT_Apttuscustomerid</fullName>
         <language>en_US</language>
         <protected>false</protected>
@@ -1481,6 +1488,13 @@
         <value>01290000001UPgw</value>
     </labels>
     <labels>
+        <fullName>APT_STApprovalSubmissionComment</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>STApprovalSubmissionComment</shortDescription>
+        <value>Additional Comments</value>
+    </labels>
+    <labels>
         <fullName>APT_Salutations</fullName>
         <categories>Custom Label</categories>
         <language>en_US</language>
@@ -1510,13 +1524,6 @@
         <protected>false</protected>
         <shortDescription>APT_SearchLodgementZone</shortDescription>
         <value>Search Lodgement Zone</value>
-    </labels>
-	<labels>
-        <fullName>APT_STApprovalSubmissionComment</fullName>
-        <language>en_US</language>
-        <protected>false</protected>
-        <shortDescription>STApprovalSubmissionComment</shortDescription>
-        <value>Additional Comments</value>
     </labels>
     <labels>
         <fullName>APT_SearchResult</fullName>
@@ -1939,7 +1946,7 @@
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>AddressSearch NoAccess Error Message</shortDescription>
-        <value>You do not have access to update this record. Please raise a case record to the Sales Operations Support team with your change request.</value>
+        <value>You do not have access to update this record. Please raise a case record to the Data Quality Management team with your change request.</value>
     </labels>
     <labels>
         <fullName>AdvancedSearchOutletName</fullName>
@@ -2042,22 +2049,6 @@
         <protected>true</protected>
         <shortDescription>AssigningBtn</shortDescription>
         <value>In progress ...</value>
-    </labels>
-    <labels>
-        <fullName>AttributeAPCNMapping</fullName>
-        <categories>Auth0</categories>
-        <language>en_US</language>
-        <protected>false</protected>
-        <shortDescription>Attribute APCN Mapping</shortDescription>
-        <value>https://auspost/apcn</value>
-    </labels>
-    <labels>
-        <fullName>AttributeCNumberMapping</fullName>
-        <categories>Auth0</categories>
-        <language>en_US</language>
-        <protected>false</protected>
-        <shortDescription>Attribute CNumber Mapping</shortDescription>
-        <value>https://auspost/cnumber</value>
     </labels>
     <labels>
         <fullName>AutoLITExceptionNo</fullName>
@@ -2274,7 +2265,7 @@
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>CHAS_CommunityUrl</shortDescription>
-        <value>https://helpandsupport.auspost.com.au</value>
+        <value>ptest.npe.helpandsupport.auspost.com.au</value>
     </labels>
     <labels>
         <fullName>CHAS_CompensationSitePath</fullName>
@@ -2317,14 +2308,6 @@
         <protected>false</protected>
         <shortDescription>CHATTER_POST_ACCESS_MSG</shortDescription>
         <value>You are not authorized to post to this group.</value>
-    </labels>
-    <labels>
-        <fullName>CHQ_Handling_Fee_Reversal</fullName>
-        <categories>CreditClaimReason</categories>
-        <language>en_US</language>
-        <protected>false</protected>
-        <shortDescription>Cheque handling fee charged incorrectly</shortDescription>
-        <value>Cheque handling fee charged incorrectly</value>
     </labels>
     <labels>
         <fullName>CLOSED_OPPORTUNITY_MSG</fullName>
@@ -3856,46 +3839,6 @@ To add a comment or check for updates, visit your MyPost dashboard now</value>
         <value>0122v000002BAuR</value>
     </labels>
     <labels>
-        <fullName>CompensationMsgCaseMustHaveReference</fullName>
-        <categories>Compensation</categories>
-        <language>en_US</language>
-        <protected>false</protected>
-        <shortDescription>Compensation : Case must have a reference to create a compensation</shortDescription>
-        <value>Case must have a reference prior creating a compensation record.</value>
-    </labels>
-    <labels>
-        <fullName>CompensationMsgMoreThanOnePerCaseReference</fullName>
-        <categories>Compensation</categories>
-        <language>en_US</language>
-        <protected>false</protected>
-        <shortDescription>Compensation : More than one compensation per case reference</shortDescription>
-        <value>The Reference ID already has a compensation record and only a supervisor can create another record.</value>
-    </labels>
-    <labels>
-        <fullName>CompensationMsgNoPrivilege</fullName>
-        <categories>Compensation</categories>
-        <language>en_US</language>
-        <protected>false</protected>
-        <shortDescription>Compensation: User do not have privilege to create/update</shortDescription>
-        <value>You do not have privilege to create/update compensation records.</value>
-    </labels>
-    <labels>
-        <fullName>CompensationMsgUserCannotUpdateBankDetails</fullName>
-        <categories>Compensation</categories>
-        <language>en_US</language>
-        <protected>false</protected>
-        <shortDescription>Compensation : User do not have privilege to manually enter bank details</shortDescription>
-        <value>You do not have privilege to manually enter the bank account details</value>
-    </labels>
-    <labels>
-        <fullName>CompensationMsgUserIsNotAllowedToSendEmail</fullName>
-        <categories>Compensation</categories>
-        <language>en_US</language>
-        <protected>false</protected>
-        <shortDescription>Compensation : User cannot send emails to customer</shortDescription>
-        <value>You do not have privilege to send email to customer</value>
-    </labels>
-    <labels>
         <fullName>CompensationSystemErrorLabel</fullName>
         <categories>CHAS</categories>
         <language>en_US</language>
@@ -4143,14 +4086,6 @@ To add a comment or check for updates, visit your MyPost dashboard now</value>
         <value>Your Credit Claim Case has been successfully submitted. A confirmation email has been sent to the contact email provided for your reference. The Case Number is</value>
     </labels>
     <labels>
-        <fullName>Duplicate_Charge</fullName>
-        <categories>CreditClaimReason</categories>
-        <language>en_US</language>
-        <protected>false</protected>
-        <shortDescription>This is a duplicate charge for the same article</shortDescription>
-        <value>This is a duplicate charge for the same article</value>
-    </labels>
-    <labels>
         <fullName>EFTRecordTypeID</fullName>
         <categories>Compensation</categories>
         <language>en_US</language>
@@ -4208,14 +4143,6 @@ Compass quote end date has passed, please request re-activation</value>
         <protected>false</protected>
         <shortDescription>Error_Page_Message</shortDescription>
         <value>Please try logging in to &lt;a href=&quot;{0}&quot;&gt; portal&lt;/a&gt; again.</value>
-    </labels>
-    <labels>
-        <fullName>Explanation_of_charge</fullName>
-        <categories>CreditClaimReason</categories>
-        <language>en_US</language>
-        <protected>false</protected>
-        <shortDescription>Unknown charge</shortDescription>
-        <value>Unknown charge</value>
     </labels>
     <labels>
         <fullName>FACILITYID_ACC_PARAM</fullName>
@@ -4995,30 +4922,6 @@ Compass quote end date has passed, please request re-activation</value>
         <value>Please advise in Network Response correct facility if known, and re-assign</value>
     </labels>
     <labels>
-        <fullName>Incorrect_pricing_rates</fullName>
-        <categories>CreditClaimReason</categories>
-        <language>en_US</language>
-        <protected>false</protected>
-        <shortDescription>Article Pricing was charged incorrectly</shortDescription>
-        <value>Article Pricing was charged incorrectly</value>
-    </labels>
-    <labels>
-        <fullName>Incorrect_weight_cubic_charge</fullName>
-        <categories>CreditClaimReason</categories>
-        <language>en_US</language>
-        <protected>false</protected>
-        <shortDescription>The article was charged for incorrect weight and/or dimensions</shortDescription>
-        <value>The article was charged for incorrect weight and/or dimensions</value>
-    </labels>
-    <labels>
-        <fullName>International_Fees_Taxes</fullName>
-        <categories>CreditClaimReason</categories>
-        <language>en_US</language>
-        <protected>false</protected>
-        <shortDescription>International fees or taxes charged incorrectly</shortDescription>
-        <value>International fees or taxes charged incorrectly</value>
-    </labels>
-    <labels>
         <fullName>Invalid_Incorrect_Missing_data</fullName>
         <categories>FlagCaseForReview</categories>
         <language>en_US</language>
@@ -5170,14 +5073,6 @@ Please choose to override the hotlist restriction or Cancel to quit the process.
         <value>Not Activated</value>
     </labels>
     <labels>
-        <fullName>Late_payment</fullName>
-        <categories>CreditClaimReason</categories>
-        <language>en_US</language>
-        <protected>false</protected>
-        <shortDescription>Late payment of the Tax Invoice fee charged incorrectly</shortDescription>
-        <value>Late payment of the Tax Invoice fee charged incorrectly</value>
-    </labels>
-    <labels>
         <fullName>Legal_Marketing_Opt_In</fullName>
         <language>en_US</language>
         <protected>false</protected>
@@ -5200,36 +5095,12 @@ Please choose to override the hotlist restriction or Cancel to quit the process.
         <value>myNetwork</value>
     </labels>
     <labels>
-        <fullName>Manifest_Correction_Fee_Credit</fullName>
-        <categories>CreditClaimReason</categories>
-        <language>en_US</language>
-        <protected>false</protected>
-        <shortDescription>Manifest was charged incorrectly</shortDescription>
-        <value>Manifest was charged incorrectly</value>
-    </labels>
-    <labels>
         <fullName>Manifest_only</fullName>
         <categories>FlagCaseForReview</categories>
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>Manifest only</shortDescription>
         <value>Please flag when there are no physical scans for the parcel</value>
-    </labels>
-    <labels>
-        <fullName>Manifested_not_sent</fullName>
-        <categories>CreditClaimReason</categories>
-        <language>en_US</language>
-        <protected>false</protected>
-        <shortDescription>Incorrect charges for articles that were not sent</shortDescription>
-        <value>Incorrect charges for articles that were not sent</value>
-    </labels>
-    <labels>
-        <fullName>Manual_handling_surcharge</fullName>
-        <categories>CreditClaimReason</categories>
-        <language>en_US</language>
-        <protected>false</protected>
-        <shortDescription>Manual handling surcharge charged incorrectly</shortDescription>
-        <value>Manual handling surcharge charged incorrectly</value>
     </labels>
     <labels>
         <fullName>Map_direction_helptext</fullName>
@@ -5428,14 +5299,6 @@ Please choose to override the hotlist restriction or Cancel to quit the process.
         <value>A Sales User cannot change Classification that is neither &quot;Renewal&quot; nor &quot;Growth&quot;</value>
     </labels>
     <labels>
-        <fullName>Not_our_charge</fullName>
-        <categories>CreditClaimReason</categories>
-        <language>en_US</language>
-        <protected>false</protected>
-        <shortDescription>Unknown charge</shortDescription>
-        <value>Unknown charge</value>
-    </labels>
-    <labels>
         <fullName>ORG_NAME_ACC</fullName>
         <categories>AccountTriggerUtility</categories>
         <language>en_US</language>
@@ -5555,6 +5418,13 @@ Please choose to override the hotlist restriction or Cancel to quit the process.
         <value>You can only have one business development driver in your opportunity. Others should be assigned to business development team.</value>
     </labels>
     <labels>
+        <fullName>Opportunity_Cannot_Be_Closed_Won</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Opportunity Cannot Be Closed Won</shortDescription>
+        <value>This opportunity has no products. Please add product(s) in the Opportunity Product Table.</value>
+    </labels>
+    <labels>
         <fullName>Opportunity_Confirm_Pre_Entry_Scenario</fullName>
         <language>en_US</language>
         <protected>false</protected>
@@ -5573,8 +5443,8 @@ Please choose to override the hotlist restriction or Cancel to quit the process.
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>Opportunity Product Requires Contract</shortDescription>
-        <value>The opportunity cannot be closed-won when the revenue start date field 
-You can only close-won after the executed contract has been received through DocuSign or you have sent the offline contract to the Customer On Boarding Team</value>
+        <value>The opportunity cannot be closed-won when the revenue start date field
+You can only close-won after the executed contract has been received through Adobe Sign or you have sent the offline contract to the Customer On Boarding Team</value>
     </labels>
     <labels>
         <fullName>Opportunity_SAED_Error</fullName>
@@ -5595,7 +5465,7 @@ You can only close-won after the executed contract has been received through Doc
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>Opportunity Send Contract to Deal Enablement</shortDescription>
-        <value>Complete the contract. The fully signed digital contract must be received through DocuSign. For offline contracts, request Customer Onboarding acknowledge receipt of the offline contract via a DSR.</value>
+        <value>Complete the contract. The fully signed digital contract must be received through Adobe Sign. For offline contracts, request Customer Onboarding acknowledge receipt of the offline contract via a DSR.</value>
     </labels>
     <labels>
         <fullName>OrganisationLegacyId</fullName>
@@ -7546,17 +7416,6 @@ something new for us, so we&apos;d love to know what you think.</value>
         <value>Searching ...</value>
     </labels>
     <labels>
-        <fullName>Send_for_eSignature_Custom_Message</fullName>
-        <language>en_US</language>
-        <protected>false</protected>
-        <shortDescription>Send for eSignature Custom Message</shortDescription>
-        <value>Please confirm that you want to send this agreement for eSignature.
-                   
-                  Once the agreement is signed by Australia Post and Customer you will receive an
-                         email confirmation and Customer Onboarding team will be notified to provision the rates
-                          and activate the contract.</value>
-    </labels>
-    <labels>
         <fullName>ShareInformationError1</fullName>
         <language>en_US</language>
         <protected>false</protected>
@@ -7609,11 +7468,583 @@ something new for us, so we&apos;d love to know what you think.</value>
         <value>Social Account</value>
     </labels>
     <labels>
+        <fullName>StarTrackABNRequiredForNewAccountsErrorMessage</fullName>
+        <categories>Billing Account Provisioning</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>StarTrackABNRequiredForNewAccountsErrorMessage</shortDescription>
+        <value>ABN is required from the Organisation.</value>
+    </labels>
+    <labels>
+        <fullName>StarTrackBillingAccountRequestAlreadyFailedErrorMessage</fullName>
+        <categories>Billing Account Provisioning</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>StarTrackBillingAccountRequestAlreadyFailedErrorMessage</shortDescription>
+        <value>Billing account request has been submitted previously and failed.</value>
+    </labels>
+    <labels>
+        <fullName>StarTrackBillingAccountRequestAlreadySubmittedErrorMessage</fullName>
+        <categories>Billing Account Provisioning</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>StarTrackBillingAccountRequestAlreadySubmittedErrorMessage</shortDescription>
+        <value>Billing account creation request is in progress for this Deal Support Request.</value>
+    </labels>
+    <labels>
+        <fullName>StarTrackBillingAccountRequestSubmittedSuccessfullyAdditionalInstructions</fullName>
+        <categories>Billing Account Provisioning</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>StarTrackBillingAccountRequestSubmittedSuccessfullyAdditionalInstructions</shortDescription>
+        <value>Once the accounts have been created in the TEAM billing system, they will be made available in Salesforce and you will be notified via the bell icon notification.</value>
+    </labels>
+    <labels>
+        <fullName>StarTrackBillingAccountRequestSubmittedSuccessfullyMessage</fullName>
+        <categories>Billing Account Provisioning</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>StarTrackBillingAccountRequestSubmittedSuccessfullyMessage</shortDescription>
+        <value>Billing account creation request submitted successfully. You may close this window now.</value>
+    </labels>
+    <labels>
+        <fullName>StarTrackBillingAccountsAlreadyProvisionedErrorMessage</fullName>
+        <categories>Billing Account Provisioning</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>StarTrackBillingAccountsAlreadyProvisionedErrorMessage</shortDescription>
+        <value>Billing account has already been created for this Deal Support Request.</value>
+    </labels>
+    <labels>
+        <fullName>StarTrackBillingAddressRequiredForNewAccountsErrorMessage</fullName>
+        <categories>Billing Account Provisioning</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>StarTrackBillingAddressRequiredForNewAccountsErrorMessage</shortDescription>
+        <value>Billing Address is required from the Organisation.</value>
+    </labels>
+    <labels>
+        <fullName>StarTrackChargeAccountRequestIdRequiredForNewAccountsErrorMessage</fullName>
+        <categories>Billing Account Provisioning</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>StarTrackChargeAccountRequestIdRequiredForNewAccountsErrorMessage</shortDescription>
+        <value>Charge Account Request Id is required.</value>
+    </labels>
+    <labels>
+        <fullName>StarTrackContactEmailRequiredForNewAccountsErrorMessage</fullName>
+        <categories>Billing Account Provisioning</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>StarTrackContactEmailRequiredForNewAccountsErrorMessage</shortDescription>
+        <value>Primary Contact Email is required in the Organisation.</value>
+    </labels>
+    <labels>
+        <fullName>StarTrackContactFirstNameRequiredForNewAccountsErrorMessage</fullName>
+        <categories>Billing Account Provisioning</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>StarTrackContactFirstNameRequiredForNewAccountsErrorMessage</shortDescription>
+        <value>Primary Contact First Name is required in the Organisation.</value>
+    </labels>
+    <labels>
+        <fullName>StarTrackContactLastNameRequiredForNewAccountsErrorMessage</fullName>
+        <categories>Billing Account Provisioning</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>StarTrackContactLastNameRequiredForNewAccountsErrorMessage</shortDescription>
+        <value>Primary Contact Last Name is required in the Organisation.</value>
+    </labels>
+    <labels>
+        <fullName>StarTrackCreditAssessmentStatusInvalidForNewAccountsErrorMessage</fullName>
+        <categories>Billing Account Provisioning</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>StarTrackCreditAssessmentStatusInvalidForNewAccountsErrorMessage</shortDescription>
+        <value>Credit Assessment must be Approved.</value>
+    </labels>
+    <labels>
+        <fullName>StarTrackCreditLimitMustBeHigherForNewAccountsErrorMessage</fullName>
+        <categories>Billing Account Provisioning</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>StarTrackCreditLimitMustBeHigherForNewAccountsErrorMessage</shortDescription>
+        <value>Credit Amount must be greater than 10$.</value>
+    </labels>
+    <labels>
+        <fullName>StarTrackCreditLimitRequiredForNewAccountsErrorMessage</fullName>
+        <categories>Billing Account Provisioning</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>StarTrackCreditLimitRequiredForNewAccountsErrorMessage</shortDescription>
+        <value>Credit Limit is required.</value>
+    </labels>
+    <labels>
+        <fullName>StarTrackEstimatedMonthlyRevenueRequiredForNewAccountsErrorMessage</fullName>
+        <categories>Billing Account Provisioning</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>StarTrackEstimatedMonthlyRevenueRequiredForNewAccountsErrorMessage</shortDescription>
+        <value>Estimated Monthly Revenue is required.</value>
+    </labels>
+    <labels>
+        <fullName>StarTrackFinaliseSubAccountRequestsTitle</fullName>
+        <categories>Billing Account Provisioning</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>StarTrackFinaliseSubAccountRequestsTitle</shortDescription>
+        <value>Finalise Sub Account Request(s)</value>
+    </labels>
+    <labels>
+        <fullName>StarTrackLeaderAndSubAccountsErrorNotification</fullName>
+        <categories>Billing Account Provisioning</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>StarTrackLeaderAndSubAccountsErrorNotification</shortDescription>
+        <value>Leader Account request for {0} has encountered an Error. Please raise a Service Now Ticket via Report a Fault, and follow the required error handling sub account business process to ensure request is successfully completed. Click here to go to Deal Support Request record {1}.</value>
+    </labels>
+    <labels>
+        <fullName>StarTrackLeaderAndSubAccountsErrorNotificationTitle</fullName>
+        <categories>Billing Account Provisioning</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>StarTrackLeaderAndSubAccountsErrorNotificationTitle</shortDescription>
+        <value>Leader with Follower/Offspring accounts encountered error.</value>
+    </labels>
+    <labels>
+        <fullName>StarTrackLeaderAndSubAccountsSuccessNotification</fullName>
+        <categories>Billing Account Provisioning</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>StarTrackLeaderAndSubAccountsSuccessNotification</shortDescription>
+        <value>Leader Billing Account {0} and Follower(s)/Offspring(s) {1} for {2} has been successfully created. Click here to go to Deal Support Request record {3}.</value>
+    </labels>
+    <labels>
+        <fullName>StarTrackLeaderAndSubAccountsSuccessNotificationTitle</fullName>
+        <categories>Billing Account Provisioning</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>StarTrackLeaderAndSubAccountsSuccessNotificationTitle</shortDescription>
+        <value>Leader with Follower/Offspring accounts created successfully.</value>
+    </labels>
+    <labels>
+        <fullName>StarTrackLeaderBillingAccountErrorNotification</fullName>
+        <categories>Billing Account Provisioning</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>StarTrackLeaderBillingAccountErrorNotification</shortDescription>
+        <value>Leader Account request for {0} has encountered an error. Please raise a Service Now Ticket via Report a Fault, and follow the required error handling sub account business process to ensure request is successfully completed. Click here to go to Deal Support Request record {1}.</value>
+    </labels>
+    <labels>
+        <fullName>StarTrackLeaderBillingAccountErrorNotificationTitle</fullName>
+        <categories>Billing Account Provisioning</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>StarTrackLeaderBillingAccountErrorNotificationTitle</shortDescription>
+        <value>Leader account request encountered an error.</value>
+    </labels>
+    <labels>
+        <fullName>StarTrackLeaderBillingAccountSuccessNotification</fullName>
+        <categories>Billing Account Provisioning</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>StarTrackLeaderBillingAccountSuccessNotification</shortDescription>
+        <value>Leader Billing Account {0} for {1} has been successfully created. Click here to go to Deal Support Request record {2}.</value>
+    </labels>
+    <labels>
+        <fullName>StarTrackLeaderBillingAccountSuccessNotificationTitle</fullName>
+        <categories>Billing Account Provisioning</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>StarTrackLeaderBillingAccountSuccessNotificationTitle</shortDescription>
+        <value>Leader account created successfully.</value>
+    </labels>
+    <labels>
+        <fullName>StarTrackLeaderSuccessAndSubAccountsErrorNotification</fullName>
+        <categories>Billing Account Provisioning</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>StarTrackLeaderSuccessAndSubAccountsErrorNotification</shortDescription>
+        <value>Leader Billing Account {0} created successfully. Follower/Offspring accounts encountered error - {1}. Click here to go to Deal Support Request record {2}.</value>
+    </labels>
+    <labels>
+        <fullName>StarTrackLeaderSuccessAndSubAccountsErrorNotificationTitle</fullName>
+        <categories>Billing Account Provisioning</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>StarTrackLeaderSuccessAndSubAccountsErrorNotificationTitle</shortDescription>
+        <value>Leader account created successfully. One or more Follower/Offspring accounts encountered error.</value>
+    </labels>
+    <labels>
+        <fullName>StarTrackLeaderSuccessAndSubAccountsPartialSuccessNotification</fullName>
+        <categories>Billing Account Provisioning</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>StarTrackLeaderSuccessAndSubAccountsPartialSuccessNotification</shortDescription>
+        <value>Leader Billing Account {0} created successfully. Follower/Offspring accounts created successfully - {1}. Follower/Offspring accounts encountered error - {2}. Click here to go to Deal Support Request record {3}.</value>
+    </labels>
+    <labels>
+        <fullName>StarTrackLeaderSuccessAndSubAccountsPartialSuccessNotificationTitle</fullName>
+        <categories>Billing Account Provisioning</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>StarTrackLeaderSuccessAndSubAccountsPartialSuccessNotificationTitle</shortDescription>
+        <value>Leader account created successfully. One or more Follower/Offspring accounts encountered error.</value>
+    </labels>
+    <labels>
+        <fullName>StarTrackLeaderUnknownSubAccountsErrorNotification</fullName>
+        <categories>Billing Account Provisioning</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>StarTrackLeaderUnknownSubAccountsErrorNotification</shortDescription>
+        <value>Follower/Offspring account requests for {0} has encountered error - {1}. Click here to go to Deal Support Request record {2}.</value>
+    </labels>
+    <labels>
+        <fullName>StarTrackLeaderUnknownSubAccountsPartialSuccessNotification</fullName>
+        <categories>Billing Account Provisioning</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>StarTrackLeaderUnknownSubAccountsPartialSuccessNotification</shortDescription>
+        <value>Follower/Offspring accounts created successfully - {0}. Follower/Offspring accounts encountered error - {1}. Click here to go to Deal Support Request record {2}.</value>
+    </labels>
+    <labels>
+        <fullName>StarTrackLeaderUnknownSubAccountsSuccessNotification</fullName>
+        <categories>Billing Account Provisioning</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>StarTrackLeaderUnknownSubAccountsSuccessNotification</shortDescription>
+        <value>Follower(s)/Offspring(s) {0} for {1} has been successfully created. Click here to go to Deal Support Request record {2}.</value>
+    </labels>
+    <labels>
+        <fullName>StarTrackMailingAddressRequiredForNewAccountsErrorMessage</fullName>
+        <categories>Billing Account Provisioning</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>StarTrackMailingAddressRequiredForNewAccountsErrorMessage</shortDescription>
+        <value>Please select Primary Pick-Up Location on CSQ.</value>
+    </labels>
+    <labels>
+        <fullName>StarTrackNewBillingAccountSubmitNonTransientErrorAdditionalInstructions</fullName>
+        <categories>Billing Account Provisioning</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>StarTrackNewBillingAccountSubmitNonTransientErrorAdditionalInstructions</shortDescription>
+        <value>&lt;b&gt;Please report an IT issue via the &apos;Report a Fault&apos; icon on the MyIT Service Portal and select the following details:&lt;/b&gt;&lt;br/&gt;&lt;br/&gt;
+&lt;ul&gt;
+&lt;li&gt;Please select the area this relates to: 2.Applications &amp; Software&lt;br/&gt;&lt;/li&gt;
+&lt;li&gt;What does this relate to? Salesforce&lt;br/&gt;&lt;/li&gt;
+&lt;li&gt;What best describes your issue? Issues with Sales Cloud&lt;br/&gt;&lt;/li&gt;
+&lt;li&gt;Can you provide a short description: TEAM Charge Account Integration not working &lt;/li&gt;
+&lt;ul&gt;</value>
+    </labels>
+    <labels>
+        <fullName>StarTrackNewBillingAccountSubmitTransientErrorAdditionalInstructions</fullName>
+        <categories>Billing Account Provisioning</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>StarTrackNewBillingAccountSubmitTransientErrorAdditionalInstructions</shortDescription>
+        <value>&lt;b&gt;If the problem persists, Please report an IT issue via the &apos;Report a Fault&apos; icon on the MyIT Service Portal and select the following details:&lt;/b&gt;&lt;br/&gt;&lt;br/&gt;
+&lt;ul&gt;
+&lt;li&gt;Please select the area this relates to: 2.Applications &amp; Software&lt;br/&gt;&lt;/li&gt;
+&lt;li&gt;What does this relate to? Salesforce&lt;br/&gt;&lt;/li&gt;
+&lt;li&gt;What best describes your issue? Issues with Sales Cloud&lt;br/&gt;&lt;/li&gt;
+&lt;li&gt;Can you provide a short description: TEAM Charge Account Integration not working &lt;/li&gt;
+&lt;ul&gt;</value>
+    </labels>
+    <labels>
+        <fullName>StarTrackNextRevenueDateRequiredForNewAccountsErrorMessage</fullName>
+        <categories>Billing Account Provisioning</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>StarTrackNextRevenueDateRequiredForNewAccountsErrorMessage</shortDescription>
+        <value>Next Revenue Date is required.</value>
+    </labels>
+    <labels>
+        <fullName>StarTrackOnlyOneOrganisationRoleAllowedForNewAccountsErrorMessage</fullName>
+        <categories>Billing Account Provisioning</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>StarTrackOnlyOneOrganisationRoleAllowedForNewAccountsErrorMessage</shortDescription>
+        <value>Organisation has multiple roles. Please resolve.</value>
+    </labels>
+    <labels>
+        <fullName>StarTrackOpportunityRequiredOnDSRForNewAccountsErrorMessage</fullName>
+        <categories>Billing Account Provisioning</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>StarTrackOpportunityRequiredOnDSRForNewAccountsErrorMessage</shortDescription>
+        <value>Opportunity is required on the Deal Support Request.</value>
+    </labels>
+    <labels>
+        <fullName>StarTrackOrganisationRoleInvalidForNewAccountsErrorMessage</fullName>
+        <categories>Billing Account Provisioning</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>StarTrackOrganisationRoleInvalidForNewAccountsErrorMessage</shortDescription>
+        <value>Organisation role must be Prospect, Known or Customer.</value>
+    </labels>
+    <labels>
+        <fullName>StarTrackProvisionNewAccountValidationFailedErrorMessage</fullName>
+        <categories>Billing Account Provisioning</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>StarTrackProvisionNewAccountValidationFailedErrorMessage</shortDescription>
+        <value>Please resolve the below issues for billing account creation and try again.</value>
+    </labels>
+    <labels>
+        <fullName>StarTrackProvisionNewBillingAccountsModalTitle</fullName>
+        <categories>Billing Account Provisioning</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>StarTrack Provision New Billing Accounts Modal Title</shortDescription>
+        <value>TEAM Billing Account Request</value>
+    </labels>
+    <labels>
+        <fullName>StarTrackRequestFailedNonTransientErrorMessage</fullName>
+        <categories>Billing Account Provisioning</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>StarTrackRequestFailedNonTransientErrorMessage</shortDescription>
+        <value>Error submitting billing account request. Please raise an IT request.</value>
+    </labels>
+    <labels>
+        <fullName>StarTrackRequestFailedTransientErrorMessage</fullName>
+        <categories>Billing Account Provisioning</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>StarTrackRequestFailedTransientErrorMessage</shortDescription>
+        <value>Error submitting billing account request. Please try again.</value>
+    </labels>
+    <labels>
+        <fullName>StarTrackSubAccountABNConfirmationErrorMessage</fullName>
+        <categories>Billing Account Provisioning</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>StarTrackSubAccountABNConfirmationErrorMessage</shortDescription>
+        <value>The Follower/Offspring account must have the same ABN as the Leader account. Different ABN on existing Org: Confirm the Orgs are linked within Salesforce Hierarchy. If required, submit a Sales Operations Support case to link. Raise a DSR via Customer Onboarding for a New Agreement. Follower account will be created once agreement is signed. If no Org exists, create a new org and follow this same process.</value>
+    </labels>
+    <labels>
+        <fullName>StarTrackSubAccountActivationDSRDescription</fullName>
+        <categories>Billing Account Provisioning</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>StarTrackSubAccountActivationDSRDescription</shortDescription>
+        <value>Align additional charges, create dispatch ID, activate account &amp; Parcel Send access required: {0}.</value>
+    </labels>
+    <labels>
+        <fullName>StarTrackSubAccountFinaliseConfirmation</fullName>
+        <categories>Billing Account Provisioning</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>StarTrackSubAccountFinaliseConfirmation</shortDescription>
+        <value>You cannot modify or delete the requests once finalised. The sub accounts will be created when the charge account request is submitted.</value>
+    </labels>
+    <labels>
+        <fullName>StarTrackSubAccountMaxFinalizeErrorMessage</fullName>
+        <categories>Billing Account Provisioning</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>StarTrackSubAccountMaxFinalizeErrorMessage</shortDescription>
+        <value>Please be advised that you can only finalize up to 10 follower/offspring requests at a time. If you have more than 10, you can finalize them in a subsequent request.</value>
+    </labels>
+    <labels>
+        <fullName>StarTrackSubAccountMaxSubmitLimitReachedErrorMessage</fullName>
+        <categories>Billing Account Provisioning</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>StarTrackSubAccountMaxSubmitLimitReachedErrorMessage</shortDescription>
+        <value>Please select only upto 10 records for submission.</value>
+    </labels>
+    <labels>
+        <fullName>StarTrackSubAccountParentNotSelectedForFinaliseError</fullName>
+        <categories>Billing Account Provisioning</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>StarTrackSubAccountParentNotSelectedForFinaliseError</shortDescription>
+        <value>Please add Parent Account for the Offspring to finalise.</value>
+    </labels>
+    <labels>
+        <fullName>StarTrackSubAccountParentNotSelectedForSubmitErrorMessage</fullName>
+        <categories>Billing Account Provisioning</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>StarTrackSubAccountParentNotSelectedForSubmitErrorMessage</shortDescription>
+        <value>Please add Parent Account for the Offspring to Submit.</value>
+    </labels>
+    <labels>
+        <fullName>StarTrackSubAccountRequestFailedNonTransientErrorAlert</fullName>
+        <categories>Billing Account Provisioning</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>StarTrackSubAccountRequestFailedNonTransientErrorAlert</shortDescription>
+        <value>Please report an IT issue via the &apos;Report a Fault&apos; icon on the MyIT Service Portal and select the details - Please select the area this relates to: 2. Applications &amp; Software, What does this relate to?: Salesforce, What best describes your issue?: Issues with Sales Cloud, Can you provide a short description?: TEAM Integration not working for Follower/Offspring creation.</value>
+    </labels>
+    <labels>
+        <fullName>StarTrackSubAccountRequestFailedTransientErrorAlert</fullName>
+        <categories>Billing Account Provisioning</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>StarTrackSubAccountRequestFailedTransientErrorAlert</shortDescription>
+        <value>Please report an IT issue via the &apos;Report a Fault&apos; icon on the MyIT Service Portal and select the details - Please select the area this relates to: 2. Applications &amp; Software, What does this relate to?: Salesforce, What best describes your issue?: Issues with Sales Cloud, Can you provide a short description?: TEAM Integration not working for Follower/Offspring creation.</value>
+    </labels>
+    <labels>
+        <fullName>StarTrackSubAccountRequestSubmittedSuccessfullyAlert</fullName>
+        <categories>Billing Account Provisioning</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>StarTrackSubAccountRequestSubmittedSuccessfullyAlert</shortDescription>
+        <value>Sub account creation request(s) submitted Successfully. Once the Follower/Offspring accounts have been created in the TEAM billing system, they will be made available in Salesforce and you will be notified via the bell icon notification.</value>
+    </labels>
+    <labels>
+        <fullName>StarTrackSubAccountsCreationNoAccessError</fullName>
+        <categories>Billing Account Provisioning</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>StarTrackSubAccountsCreationNoAccessError</shortDescription>
+        <value>You do not have access to create Follower/Offspring accounts, please raise a myIT ticket to Salesforce Support for assistance.</value>
+    </labels>
+    <labels>
+        <fullName>StarTrackSubAccountsCreationTabError</fullName>
+        <categories>Billing Account Provisioning</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>StarTrackSubAccountsCreationTabError</shortDescription>
+        <value>Create Sub Accounts tab can only be opened via Sub Account Request button on billing account or triggered from credit assessment flow.</value>
+    </labels>
+    <labels>
+        <fullName>StarTrackSubAccountsCreationTitle</fullName>
+        <categories>Billing Account Provisioning</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>StarTrackSubAccountsCreationTitle</shortDescription>
+        <value>Create Sub Account Request(s)</value>
+    </labels>
+    <labels>
+        <fullName>StarTrackSubAccountsErrorNotification</fullName>
+        <categories>Billing Account Provisioning</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>StarTrackSubAccountsErrorNotification</shortDescription>
+        <value>For Leader Billing Account {0}, Follower/Offspring accounts encountered error- {1}. Click here to go to the Leader Billing Account record.</value>
+    </labels>
+    <labels>
+        <fullName>StarTrackSubAccountsErrorNotificationTitle</fullName>
+        <categories>Billing Account Provisioning</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>StarTrackSubAccountsErrorNotificationTitle</shortDescription>
+        <value>Follower/Offspring account creation encountered error.</value>
+    </labels>
+    <labels>
+        <fullName>StarTrackSubAccountsPartialSuccessNotification</fullName>
+        <categories>Billing Account Provisioning</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>StarTrackSubAccountsPartialSuccessNotification</shortDescription>
+        <value>For Leader Billing Account {0}, Follower/Offspring accounts created successfully - {1} and Follower/Offspring accounts encountered error - {2}. Click here to go to the Leader Billing Account record.</value>
+    </labels>
+    <labels>
+        <fullName>StarTrackSubAccountsPartialSuccessNotificationTitle</fullName>
+        <categories>Billing Account Provisioning</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>StarTrackSubAccountsPartialSuccessNotificationTitle</shortDescription>
+        <value>Follower/Offspring account creation encountered error.</value>
+    </labels>
+    <labels>
+        <fullName>StarTrackSubAccountsSubmitConfirmationMessage</fullName>
+        <categories>Billing Account Provisioning</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>StarTrackSubAccountsSubmitConfirmationMessage</shortDescription>
+        <value>Follower/Offspring creation request(s) for Leader billing account will be submitted. Do you want to proceed?</value>
+    </labels>
+    <labels>
+        <fullName>StarTrackSubAccountsSuccessNotification</fullName>
+        <categories>Billing Account Provisioning</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>StarTrackSubAccountsSuccessNotification</shortDescription>
+        <value>For Leader Billing Account {0}, Follower/Offspring accounts created successfully - {1}. Click here to go to the Leader Billing Account record.</value>
+    </labels>
+    <labels>
+        <fullName>StarTrackSubAccountsSuccessNotificationTitle</fullName>
+        <categories>Billing Account Provisioning</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>StarTrackSubAccountsSuccessNotificationTitle</shortDescription>
+        <value>Follower/Offspring accounts created successfully.</value>
+    </labels>
+    <labels>
+        <fullName>StarTrackSubmitSubAccountRequestsTitle</fullName>
+        <categories>Billing Account Provisioning</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>StarTrackSubmitSubAccountRequestsTitle</shortDescription>
+        <value>Submit Sub Account Request(s)</value>
+    </labels>
+    <labels>
         <fullName>StatusTitle</fullName>
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>Status filter title</shortDescription>
         <value>Status</value>
+    </labels>
+    <labels>
+        <fullName>SubAccountAgencyOrCashErrorMessage</fullName>
+        <categories>Billing Account Provisioning</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SubAccountAgencyOrCashErrorMessage</shortDescription>
+        <value>This request does not meet the minimum criteria to create a sub-account. A sub-account cannot be created for Billing Account Type Agency or Cash.</value>
+    </labels>
+    <labels>
+        <fullName>SubAccountDeletionErrorMessage</fullName>
+        <categories>Billing Account Provisioning</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SubAccountDeletionErrorMessage</shortDescription>
+        <value>This request does not meet the minimum criteria to create a sub-account or follower/offspring account. A sub-account or follower/offspring account cannot be created for a Billing Account marked for deletion.</value>
+    </labels>
+    <labels>
+        <fullName>SubAccountFromSubAccountErrorMessage</fullName>
+        <categories>Billing Account Provisioning</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SubAccountFromSubAccountErrorMessage</shortDescription>
+        <value>This request does not meet the minimum criteria to create a sub-account. A sub-account cannot be created from a sub-account.</value>
+    </labels>
+    <labels>
+        <fullName>SubAccountNoABNErrorMessage</fullName>
+        <categories>Billing Account Provisioning</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SubAccountNoABNErrorMessage</shortDescription>
+        <value>Leader account does not have an ABN in TEAM, please contact Credit Management for assistance.</value>
+    </labels>
+    <labels>
+        <fullName>SubAccountNotLeaderErrorMessage</fullName>
+        <categories>Billing Account Provisioning</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SubAccountNotLeaderErrorMessage</shortDescription>
+        <value>This request does not meet the minimum criteria to create a Follower/Offspring account. A Follower/Offspring account cannot be created for a Billing Account that is not a Leader.</value>
+    </labels>
+    <labels>
+        <fullName>SubAccountPeopleSoftErrorMessage</fullName>
+        <categories>Billing Account Provisioning</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SubAccountPeopleSoftErrorMessage</shortDescription>
+        <value>This request does not meet the minimum criteria to create a sub-account or follower/offspring account. A sub-account or follower/offspring account cannot be created for a Billing Account with Source System PeopleSoft.</value>
+    </labels>
+    <labels>
+        <fullName>SubmitBillingAccountProvisioningRequestPermissionsError</fullName>
+        <categories>Billing Account Provisioning</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SubmitBillingAccountProvisioningRequestPermissionsError</shortDescription>
+        <value>You do not have permissions to submit new billing account provisioning requests.</value>
     </labels>
     <labels>
         <fullName>TDF_CustomLabel_PTO</fullName>
@@ -7669,13 +8100,6 @@ something new for us, so we&apos;d love to know what you think.</value>
         <protected>false</protected>
         <shortDescription>TOTAL PERCENT MSG</shortDescription>
         <value>The Total Percent for each Overlay Type must not exceed 100%</value>
-    </labels>
-    <labels>
-        <fullName>The_agent_was_equipped_to_provide_a_response</fullName>
-        <language>en_US</language>
-        <protected>false</protected>
-        <shortDescription>The_agent_was_equipped_to_provide_a_response</shortDescription>
-        <value>Please provide further details in Network Response</value>
     </labels>
     <labels>
         <fullName>TitleLabel</fullName>
@@ -7736,14 +8160,6 @@ something new for us, so we&apos;d love to know what you think.</value>
         <protected>false</protected>
         <shortDescription>UNIQUE_EMAIL_ADDRESS</shortDescription>
         <value>&quot;Nominated Partner Contact &amp; Incent User&quot; email address must be unique across all Legal entities with Licences in any status excluding &quot;Ceased&quot; or &quot;Not Activated&quot;. The &quot;Nominated Partner Contact &amp; Incent User&quot; for Organisation [ORG NAME] has the same email address as this contact.</value>
-    </labels>
-    <labels>
-        <fullName>Un_manifested_charge</fullName>
-        <categories>CreditClaimReason</categories>
-        <language>en_US</language>
-        <protected>false</protected>
-        <shortDescription>Un-manifested charge is incorrect</shortDescription>
-        <value>Un-manifested charge is incorrect</value>
     </labels>
     <labels>
         <fullName>Unable_to_fulfil_request</fullName>
