@@ -505,20 +505,6 @@
         <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
-        <fullName>Shipster_Read_write_access</fullName>
-        <accessLevel>Edit</accessLevel>
-        <label>Shipster Read &amp; write access</label>
-        <sharedTo>
-            <group>Shipster</group>
-        </sharedTo>
-        <criteriaItems>
-            <field>RecordTypeId</field>
-            <operation>equals</operation>
-            <value>Shipster</value>
-        </criteriaItems>
-        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
-    </sharingCriteriaRules>
-    <sharingCriteriaRules>
         <fullName>StarTrack_Account_Manager</fullName>
         <accessLevel>Read</accessLevel>
         <description>This sharing rule will allow StarTrack Account Manager group to have read only access to the specified case record type.</description>
