@@ -1511,6 +1511,13 @@
         <shortDescription>APT_SearchLodgementZone</shortDescription>
         <value>Search Lodgement Zone</value>
     </labels>
+	<labels>
+        <fullName>APT_STApprovalSubmissionComment</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>STApprovalSubmissionComment</shortDescription>
+        <value>Additional Comments</value>
+    </labels>
     <labels>
         <fullName>APT_SearchResult</fullName>
         <categories>Custom Label</categories>
@@ -7101,14 +7108,6 @@ We manage your personal information in accordance with our Privacy policy. The p
         <value>Sales_Ops_Delivery</value>
     </labels>
     <labels>
-        <fullName>REC_TYPE_DEV_Shipster</fullName>
-        <categories>Record Type Name</categories>
-        <language>en_US</language>
-        <protected>false</protected>
-        <shortDescription>Record Type Developer Name of Shipster</shortDescription>
-        <value>Shipster</value>
-    </labels>
-    <labels>
         <fullName>REC_TYPE_DEV_SpecialServices</fullName>
         <categories>Record Type Name</categories>
         <language>en_US</language>
@@ -8334,5 +8333,314 @@ something new for us, so we&apos;d love to know what you think.</value>
         <protected>false</protected>
         <shortDescription>withinEDDPlusBusinessDaysText</shortDescription>
         <value>Your delivery is expected on</value>
+    </labels>
+    <labels>
+        <fullName>StarTrackSubAccountBlankEmailErrorMessage</fullName>
+        <categories>Billing Account Provisioning</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>StarTrackSubAccountBlankEmailErrorMessage</shortDescription>
+        <value>Email field on the Sub Account Contact record is blank. Please update the contact with valid email address.</value>
+    </labels>
+    <labels>
+        <fullName>StarTrackSubAccountInactiveKeyContactErrorMessage</fullName>
+        <categories>Billing Account Provisioning</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>StarTrackSubAccountInactiveKeyContactErrorMessage</shortDescription>
+        <value>Status of the Sub Account Contact record is not active. Please select an active contact record to proceed.</value>
+    </labels>
+    <labels>
+        <fullName>AttributeAPCNMapping</fullName>
+        <categories>Auth0</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Attribute APCN Mapping</shortDescription>
+        <value>https://auspost/apcn</value>
+    </labels>
+    <labels>
+        <fullName>AttributeCNumberMapping</fullName>
+        <categories>Auth0</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Attribute CNumber Mapping</shortDescription>
+        <value>https://auspost/cnumber</value>
+    </labels>
+    <labels>
+        <fullName>The_agent_was_equipped_to_provide_a_response</fullName>
+        <categories>FlagCaseForReview</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>The agent was equipped to provide a response</shortDescription>
+        <value>Please provide further details in Network Response</value>
+    </labels>
+    <labels>
+        <fullName>CHQ_Handling_Fee_Reversal</fullName>
+        <categories>CreditClaimReason</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Cheque handling fee charged incorrectly</shortDescription>
+        <value>Cheque handling fee charged incorrectly</value>
+    </labels>
+    <labels>
+        <fullName>Duplicate_Charge</fullName>
+        <categories>CreditClaimReason</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>This is a duplicate charge for the same article</shortDescription>
+        <value>This is a duplicate charge for the same article</value>
+    </labels>
+    <labels>
+        <fullName>Explanation_of_charge</fullName>
+        <categories>CreditClaimReason</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Unknown charge</shortDescription>
+        <value>Unknown charge</value>
+    </labels>
+    <labels>
+        <fullName>Incorrect_pricing_rates</fullName>
+        <categories>CreditClaimReason</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Article Pricing was charged incorrectly</shortDescription>
+        <value>Article Pricing was charged incorrectly</value>
+    </labels>
+    <labels>
+        <fullName>Incorrect_weight_cubic_charge</fullName>
+        <categories>CreditClaimReason</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>The article was charged for incorrect weight and/or dimensions</shortDescription>
+        <value>The article was charged for incorrect weight and/or dimensions</value>
+    </labels>
+    <labels>
+        <fullName>International_Fees_Taxes</fullName>
+        <categories>CreditClaimReason</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>International fees or taxes charged incorrectly</shortDescription>
+        <value>International fees or taxes charged incorrectly</value>
+    </labels>
+    <labels>
+        <fullName>Late_payment</fullName>
+        <categories>CreditClaimReason</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Late payment of the Tax Invoice fee charged incorrectly</shortDescription>
+        <value>Late payment of the Tax Invoice fee charged incorrectly</value>
+    </labels>
+    <labels>
+        <fullName>Manifest_Correction_Fee_Credit</fullName>
+        <categories>CreditClaimReason</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Manifest was charged incorrectly</shortDescription>
+        <value>Manifest was charged incorrectly</value>
+    </labels>
+    <labels>
+        <fullName>Manifested_not_sent</fullName>
+        <categories>CreditClaimReason</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Incorrect charges for articles that were not sent</shortDescription>
+        <value>Incorrect charges for articles that were not sent</value>
+    </labels>
+    <labels>
+        <fullName>Manual_handling_surcharge</fullName>
+        <categories>CreditClaimReason</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Manual handling surcharge charged incorrectly</shortDescription>
+        <value>Manual handling surcharge charged incorrectly</value>
+    </labels>
+    <labels>
+        <fullName>Not_our_charge</fullName>
+        <categories>CreditClaimReason</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Unknown charge</shortDescription>
+        <value>Unknown charge</value>
+    </labels>
+    <labels>
+        <fullName>Un_manifested_charge</fullName>
+        <categories>CreditClaimReason</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Un-manifested charge is incorrect</shortDescription>
+        <value>Un-manifested charge is incorrect</value>
+    </labels>
+    <labels>
+        <fullName>Australia_Post_Email_Security_Disclaimer</fullName>
+        <categories>Message</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Australia Post Email Security Disclaimer</shortDescription>
+        <value>This email was sent by Australia Post. If you have any concerns, or don&apos;t think you should have received this email, please call us on 13 13 18. Visit auspost.com.au for further information on our online security. Australia Post does not represent, warrant or guarantee that the integrity of this email communication has been maintained nor that the communication is free from errors, viruses, or interference.</value>
+    </labels>
+    <labels>
+        <fullName>Australia_Post_No_Email_Phishing_Statement</fullName>
+        <categories>Message</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Australia Post No Email Phishing Statement</shortDescription>
+        <value>Australia Post will never send you an email asking for your password, credit card details or account information.</value>
+    </labels>
+    <labels>
+        <fullName>BSP_Accepted_file_formats_credit_claim</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>BSP_Accepted_file_formats_credit_claim</shortDescription>
+        <value>.doc, .docx, .eml, .jpeg, .jpg, .msg, .pdf, .png, .ppt, .pptx, .txt, .xls, .xlsx, .zip</value>
+    </labels>
+    <labels>
+        <fullName>CompensationMsgCaseMustHaveReference</fullName>
+        <categories>Compensation</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Compensation : Case must have a reference to create a compensation</shortDescription>
+        <value>Case must have a reference prior creating a compensation record.</value>
+    </labels>
+    <labels>
+        <fullName>CompensationMsgMoreThanOnePerCaseReference</fullName>
+        <categories>Compensation</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Compensation : More than one compensation per case reference</shortDescription>
+        <value>The Reference ID already has a compensation record and only a supervisor can create another record.</value>
+    </labels>
+    <labels>
+        <fullName>CompensationMsgNoPrivilege</fullName>
+        <categories>Compensation</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Compensation: User do not have privilege to create/update</shortDescription>
+        <value>You do not have privilege to create/update compensation records.</value>
+    </labels>
+    <labels>
+        <fullName>CompensationMsgUserCannotUpdateBankDetails</fullName>
+        <categories>Compensation</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Compensation : User do not have privilege to manually enter bank details</shortDescription>
+        <value>You do not have privilege to manually enter the bank account details</value>
+    </labels>
+    <labels>
+        <fullName>CompensationMsgUserIsNotAllowedToSendEmail</fullName>
+        <categories>Compensation</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Compensation : User cannot send emails to customer</shortDescription>
+        <value>You do not have privilege to send email to customer</value>
+    </labels>
+    <labels>
+        <fullName>DEF_SNAPP_TASK_OWNER</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>DEF_SNAPP_TASK_OWNER</shortDescription>
+        <value>00590000006NkkQ</value>
+    </labels>
+    <labels>
+        <fullName>REC_TYPE_DEV_LEAD_BGSTANDARD</fullName>
+        <categories>Record Type</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>REC_TYPE_DEV_LEAD_BGSTANDARD</shortDescription>
+        <value>BG_Standard</value>
+    </labels>
+    <labels>
+        <fullName>SNAPP_CASE_CLOSE</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SNAPP_CASE_CLOSE</shortDescription>
+        <value>We have completed your Snap It customer enquiry. Your reference number is</value>
+    </labels>
+    <labels>
+        <fullName>SNAPP_CLOSE_THANKS_SMS</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SNAPP_CLOSE_THANKS_SMS</shortDescription>
+        <value>. Thank you for using our service. Auto SMS; please do not reply.</value>
+    </labels>
+    <labels>
+        <fullName>SNAPP_Case_Header_AP</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SNAPP Case Header AP</shortDescription>
+        <value>Auspost:</value>
+    </labels>
+    <labels>
+        <fullName>SNAPP_Case_Header_ST</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SNAPP Case Header ST</shortDescription>
+        <value>StarTrack:</value>
+    </labels>
+    <labels>
+        <fullName>SNAPP_NEW_CASE</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SNAPP_NEW_CASE</shortDescription>
+        <value>Your Snap It customer enquiry has been submitted and is being investigated. Your reference number is</value>
+    </labels>
+    <labels>
+        <fullName>SNAPP_NEW_LEAD</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SNAPP_NEW_LEAD</shortDescription>
+        <value>Auspost: The sales lead you raised via Snap It is being verified. Your reference number is</value>
+    </labels>
+    <labels>
+        <fullName>SNAPP_TASK_RECTYPE_ID</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SNAPP_TASK_RECTYPE_ID</shortDescription>
+        <value>012900000015fuG</value>
+    </labels>
+    <labels>
+        <fullName>SNAPP_TASK_SUBJECT</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SNAPP_TASK_SUBJECT</shortDescription>
+        <value>Snap It SMS Task</value>
+    </labels>
+    <labels>
+        <fullName>SNAPP_THANK_SMS</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SNAPP_THANK_SMS</shortDescription>
+        <value>. Auto SMS; please do not reply.</value>
+    </labels>
+    <labels>
+        <fullName>SNAP_IT</fullName>
+        <categories>Used in Case Workflow</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SNAP_IT</shortDescription>
+        <value>Snap It</value>
+    </labels>
+    <labels>
+        <fullName>Snap_It_SMS_Message_Case</fullName>
+        <categories>Snap It</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Snap It SMS Message-Case</shortDescription>
+        <value>Your customer enquiry has been submitted and is under investigation by the Customer Contact Centre. Thank you. Please do not reply.</value>
+    </labels>
+    <labels>
+        <fullName>Snap_It_SMS_Message_Lead</fullName>
+        <categories>Snap It</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Snap It SMS Message-Lead</shortDescription>
+        <value>The following lead has been assigned to you and is currently being verified.  
+We&apos;ll let you if it&apos;s successful. Thank you. Please do not reply.</value>
+    </labels>
+    <labels>
+        <fullName>Send_for_eSignature_Custom_Message</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Send for eSignature Custom Message</shortDescription>
+        <value>Once the agreement is signed by Australia Post and the Customer, you will receive an email confirmation and the Customer Onboarding team will be notified to provision the rates, and activate the contract.</value>
     </labels>
 </CustomLabels>

@@ -479,6 +479,8 @@ system.debug('configid1-------->'+configid1);
               }
         //APOST-1132 > validate rate card key
             if(lineItem.APT_Rate_Card_Key__c != null) {
+                system.debug('@@@1'+lineItem);
+				system.debug('@@@2'+lineItem.APT_Rate_Card_Key__c);
                 if(lineItem.APT_Rate_Card_Key__c.length() != 8) {
                     haserrorMessages = true;
                     ApexPages.addMessage(new ApexPages.Message(ApexPages.Severity.ERROR, APT_Constants.ERROR_INVALID_RATE_CARD_KEY));

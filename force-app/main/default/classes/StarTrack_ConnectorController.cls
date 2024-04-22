@@ -7,6 +7,7 @@ History:
 2018-05-22  nathan.franklin@auspost.com.au  Bug fixes for findConsignment
 2018-05-25  nathan.franklin@auspost.com.au  Adding async searchRemoteConsignment operation where the consignment doesn't already exist in SF
 2018-07-03  nathan.franklin@auspost.com.au  Adding IVR transactional exclusions from findConsignment
+2024-03-12 - Nathan Franklin - Add code to save attachments
 **************************************************/
 global class StarTrack_ConnectorController {
 
@@ -193,6 +194,15 @@ global class StarTrack_ConnectorController {
 
 		insert task;
 		System.Debug('Task id = ' + task.Id);
+
+		try {
+			String jsonPayload = JSON.serialize(userData);
+			insert new Attachment(Name = 'InboundLog.txt', parentId = task.id, body = Blob.valueOf(jsonPayload));
+		} catch (Exception ex) {
+			// fail silently..
+			// we did this because it was on on-the-fly type of change to reduce the risk of anything going wrong in production.
+		}
+
 		return task;
 	}
 

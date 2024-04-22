@@ -66,7 +66,7 @@
             <label>Previously Met - Prev</label>
         </rules>
     </decisions>
-    <description>REQ3448199 RT are not longer in use -Process Builder Process to create Reminder Task and assign to Case Owner to follow-up with Retail Outlet Manager.  Part of the Retail Audit Case Management Solution, AML/CTF Austrac Phase 2.</description>
+    <description>REQ3448199- RT in this process are no longer active -Updates Case record with auto-generated Subject and creates Audit Program record for relevant Retail Audit record types.  Part of the Retail Audit Case Management Solution, AML/CTF Austrac Phase 2.</description>
     <formulas>
         <processMetadataValues>
             <name>originalFormula</name>
@@ -74,7 +74,7 @@
                 <stringValue>DATETIMEVALUE ( TEXT ( [Case].Action_Date__c ) &amp; &apos;00:00:00Z&apos; )</stringValue>
             </value>
         </processMetadataValues>
-        <name>formula_2_myRule_1_A2_9757380935</name>
+        <name>formula_2_myRule_1_A2_3206972229</name>
         <dataType>DateTime</dataType>
         <expression>DATETIMEVALUE ( TEXT ( {!myVariable_current.Action_Date__c} ) &amp; &apos;00:00:00Z&apos; )</expression>
     </formulas>
@@ -85,7 +85,7 @@
                 <stringValue>&apos;Follow-Up with Retail Outlet: &apos; &amp; [Case].Network__c.Name &amp;  &apos; on actions for Audit Case: &apos; &amp; [Case].CaseNumber </stringValue>
             </value>
         </processMetadataValues>
-        <name>formula_3_myRule_1_A2_1266095218</name>
+        <name>formula_3_myRule_1_A2_0568035045</name>
         <dataType>String</dataType>
         <expression>&apos;Follow-Up with Retail Outlet: &apos; &amp; {!myVariable_current.Network__r.Name} &amp;  &apos; on actions for Audit Case: &apos; &amp; {!myVariable_current.CaseNumber}</expression>
     </formulas>
@@ -99,7 +99,7 @@ TODAY() + $Setup.AMLCTF_Retail_Audit_Settings__c.Follow_Up_Interval_Please_Expla
 null)) </stringValue>
             </value>
         </processMetadataValues>
-        <name>formula_4_myRule_1_A1_4714030855</name>
+        <name>formula_4_myRule_1_A1_3312989435</name>
         <dataType>Date</dataType>
         <expression>IF({!myVariable_current.RecordType.DeveloperName} = &apos;AMLCTF_Scheduled_Audit&apos; || {!myVariable_current.RecordType.DeveloperName} = &apos;AMLCTF_Assurance_Audit&apos;, 
 TODAY() + {!$Setup.AMLCTF_Retail_Audit_Settings__c.Follow_Up_Interval_Site_Audit__c}, IF({!myVariable_current.RecordType.DeveloperName} = &apos;AMLCTF_Please_Explain_Audit&apos;,
@@ -361,7 +361,7 @@ OR({!myVariable_old.RecordType.DeveloperName} = &apos;AMLCTF_Please_Explain_Audi
             </processMetadataValues>
             <field>ReminderDateTime</field>
             <value>
-                <elementReference>formula_2_myRule_1_A2_9757380935</elementReference>
+                <elementReference>formula_2_myRule_1_A2_3206972229</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
@@ -421,7 +421,7 @@ OR({!myVariable_old.RecordType.DeveloperName} = &apos;AMLCTF_Please_Explain_Audi
             </processMetadataValues>
             <field>Subject</field>
             <value>
-                <elementReference>formula_3_myRule_1_A2_1266095218</elementReference>
+                <elementReference>formula_3_myRule_1_A2_0568035045</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
@@ -559,7 +559,7 @@ OR({!myVariable_old.RecordType.DeveloperName} = &apos;AMLCTF_Please_Explain_Audi
             </processMetadataValues>
             <field>Action_Date__c</field>
             <value>
-                <elementReference>formula_4_myRule_1_A1_4714030855</elementReference>
+                <elementReference>formula_4_myRule_1_A1_3312989435</elementReference>
             </value>
         </inputAssignments>
         <object>Case</object>

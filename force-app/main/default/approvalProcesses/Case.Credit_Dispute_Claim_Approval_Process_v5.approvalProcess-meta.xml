@@ -315,7 +315,7 @@
         </action>
     </initialSubmissionActions>
     <label>Credit Dispute Claim Approval Process</label>
-    <processOrder>5</processOrder>
+    <processOrder>4</processOrder>
     <recallActions>
         <action>
             <name>StarTrack_Change_Case_Status_to_UI</name>

@@ -232,7 +232,7 @@ public with sharing class MyNetworkCaseListController {
 				//checking if case is NOT ST case.
 				if( !MyNetworkConstants.STAR_TRACK_RECORD_TYPES.contains(cse.recordtype.developerName) &&
 						 ((cse.OwnerId != networkQueue && cse.Root_cause__c == 'Awaiting Network Response' && (cse.Last_Status_Change__c >= System.today() - 5)) || 
-						  (cse.Status == CASE_INVESTIGATION_CLOSED_STATUS && cse.Root_cause__c == 'Awaiting Network Response' && cse.Last_Status_Change__c >= System.today() - 5))){
+						  (cse.Type == SSSWConstants.Investigation && cse.OwnerId == networkQueue && cse.Status == CASE_INVESTIGATION_CLOSED_STATUS && cse.Root_cause__c == 'Awaiting Network Response' && cse.Last_Status_Change__c >= System.today() - 5))){
 					
 					myNetworkCasesWrapperVar = validationCasesUpdatedByContactCenter(cse);
 				}
@@ -664,6 +664,7 @@ public with sharing class MyNetworkCaseListController {
 			}
 		}
 		SelectedViewWithFiltersWrapper selectedViewWithFiltersWrap = new SelectedViewWithFiltersWrapper(selectedlistview, dynamicFilter, filtersMap);
+		
 		return selectedViewWithFiltersWrap ;
 	}
 	/**

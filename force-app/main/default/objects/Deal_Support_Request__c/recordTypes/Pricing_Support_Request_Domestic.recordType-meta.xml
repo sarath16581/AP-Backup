@@ -1501,10 +1501,6 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Digital Mailbox</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>Express AP</fullName>
             <default>false</default>
         </values>
@@ -1574,6 +1570,10 @@
         </values>
         <values>
             <fullName>MessengerPost Couriers</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Metro</fullName>
             <default>false</default>
         </values>
         <values>

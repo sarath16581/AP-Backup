@@ -14,10 +14,6 @@
         <viewAllRecords>false</viewAllRecords>
     </objectPermissions>
     <recordTypeVisibilities>
-        <recordType>Case.AMLCTF_Assurance_Audit</recordType>
-        <visible>true</visible>
-    </recordTypeVisibilities>
-    <recordTypeVisibilities>
         <recordType>Case.Sales_Coordinator</recordType>
         <visible>true</visible>
     </recordTypeVisibilities>
