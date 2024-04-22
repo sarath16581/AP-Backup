@@ -3,7 +3,7 @@
     <fullName>Ret12__c</fullName>
     <description>Retained Revenue forecast for December</description>
     <externalId>false</externalId>
-    <formula>For12__c *  OpportunityProduct__r.RetainedRevenue__c</formula>
+    <formula>For12__c *  TotalRetained__c</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <inlineHelpText>Retained Revenue forecast for December</inlineHelpText>
     <label>December Retained</label>

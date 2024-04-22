@@ -83,8 +83,9 @@ private class ProductRevenueService_Test {
 		List<OpportunityLineItem> reCalculatedOppLines = serviceUnderTest.reCalculateRetainedIncremental();
 		System.assertEquals(1, reCalculatedOppLines.size(), 'Returned wrong number of Opp Line Items');
 		System.assertEquals(reCalculatedOppLines[0].X3MonthAverageActual__c, 1000.0, 'Incorrect 3 month average value');
+		System.assert(reCalculatedOppLines[0].IncrementalRevenue__c > 0, 'IncrementalRevenue__c should be greater than 0');
 		List<OpportunityLineItem> classificationOppLines = serviceUnderTest.calculateClassification(reCalculatedOppLines);
-		System.assertEquals(ProductRevenueService.CLASSIFICATION_RENEWAL, classificationOppLines.get(0).Classification__c, 'Opp line is set to match the unique id of customer revenue record, and the last 12 month value is greater than 0, so should be renewal');
+		System.assertEquals(ProductRevenueService.CLASSIFICATION_GROWTH, classificationOppLines.get(0).Classification__c, 'Opp line is set to match the unique id of customer revenue record. The last 12 month value is greater than 0 and the Incremental Revenue is greater than 0, so should be Growth');
         Test.stopTest();
     }
     
