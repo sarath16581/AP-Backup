@@ -3,7 +3,7 @@
     <fullName>AMLCTF_Scheduled_Audit</fullName>
     <active>false</active>
     <businessProcess>Retail Audit</businessProcess>
-    <description>REQ3448199- Record type no longer in use -A prearranged audit that has been agreed to between the Retail Audit team and the Post Office, with a set date and time</description>
+    <description>REQ3448199 - RT not in use - A prearranged audit that has been agreed to between the Retail Audit team and the Post Office, with a set date and time</description>
     <label>(Deprecated) Scheduled Audit</label>
     <picklistValues>
         <picklist>AMLCTF_Please_Explain_Type__c</picklist>

@@ -3,7 +3,7 @@
     <fullName>Details__c</fullName>
     <externalId>false</externalId>
     <label>Details</label>
-    <length>65536</length>
+    <length>131072</length>
     <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <type>Html</type>

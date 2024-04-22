@@ -46,7 +46,7 @@
             <div class="slds-grid slds-grid_vertical">
                 <div style="overflow-x:auto;">
                     <div style="width:3000px;">
-                        <lightning:datatable  aura:id="searchResultTable" showRowNumberColumn="false"
+                        <lightning:datatable  aura:id="searchResultTable" showRowNumberColumn="false" onsort="{!c.sortData}"
                                               columns="{!v.columns }" data="{!v.data}"
                                               keyField="id" onrowselection="{!c.onRowSelection}"
                                               onrowaction="{!c.onRowActionClicked}"/>

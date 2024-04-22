@@ -3,7 +3,7 @@
     <fullName>AMLCTF_Unannounced_Audit</fullName>
     <active>false</active>
     <businessProcess>Retail Audit</businessProcess>
-    <description>An audit that is planned for where the Retail Audit team have not communicated to the Post Office, their intention to visit (usually with the single aim to count Australia Post cash)</description>
+    <description>REQ3448199 - RT not in use An audit that is planned for where the Retail Audit team have not communicated to the Post Office, their intention to visit (usually with the single aim to count Australia Post cash)</description>
     <label>(Deprecated) Unannounced Audit</label>
     <picklistValues>
         <picklist>AMLCTF_Please_Explain_Type__c</picklist>

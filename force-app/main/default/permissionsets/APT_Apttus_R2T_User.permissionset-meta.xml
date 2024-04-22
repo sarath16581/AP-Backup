@@ -11902,6 +11902,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Apttus_Proposal__Proposal__c.APT_Document_Notification_Off__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Apttus_Proposal__Proposal__c.APT_Domestic_Max_Weight__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -12603,11 +12608,6 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Apttus_Proposal__Proposal__c.Quote_Name_Format__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-	<fieldPermissions>
-        <editable>true</editable>
-        <field>Apttus_Proposal__Proposal__c.APT_Document_Notification_Off__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

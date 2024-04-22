@@ -3,7 +3,7 @@
     <fullName>Retail_Dispute_Enquiry</fullName>
     <active>false</active>
     <businessProcess>Retail</businessProcess>
-    <description>REQ3448199 - RT no longer in use Retail Dispute Enquiry</description>
+    <description>REQ3448199- RT no longer in use Retail Dispute Enquiry</description>
     <label>(Deprecated)Retail Dispute Enquiry</label>
     <picklistValues>
         <picklist>APT_Payment_Terms__c</picklist>

@@ -180,19 +180,7 @@
         <enabled>true</enabled>
     </pageAccesses>
     <recordTypeVisibilities>
-        <recordType>Case.AMLCTF_Assurance_Audit</recordType>
-        <visible>true</visible>
-    </recordTypeVisibilities>
-    <recordTypeVisibilities>
         <recordType>Case.AMLCTF_Please_Explain_Audit</recordType>
-        <visible>true</visible>
-    </recordTypeVisibilities>
-    <recordTypeVisibilities>
-        <recordType>Case.AMLCTF_Scheduled_Audit</recordType>
-        <visible>true</visible>
-    </recordTypeVisibilities>
-    <recordTypeVisibilities>
-        <recordType>Case.AMLCTF_Unannounced_Audit</recordType>
         <visible>true</visible>
     </recordTypeVisibilities>
     <tabSettings>

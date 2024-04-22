@@ -397,7 +397,7 @@
                 <stringValue>IF( [Case].hidden_Record_Type_Name__c = &quot;AMLCTF_Please_Explain_Audit&quot; ,TODAY() + $Setup.AMLCTF_Retail_Audit_Settings__c.Follow_Up_Interval_Please_Explain__c, TODAY() + $Setup.AMLCTF_Retail_Audit_Settings__c.Follow_Up_Interval_Site_Audit__c )</stringValue>
             </value>
         </processMetadataValues>
-        <name>formula_2_myRule_1_A2_7961565834</name>
+        <name>formula_2_myRule_1_A2_5395286024</name>
         <dataType>Date</dataType>
         <expression>IF( {!myVariable_current.hidden_Record_Type_Name__c} = &quot;AMLCTF_Please_Explain_Audit&quot; ,TODAY() + {!$Setup.AMLCTF_Retail_Audit_Settings__c.Follow_Up_Interval_Please_Explain__c}, TODAY() + {!$Setup.AMLCTF_Retail_Audit_Settings__c.Follow_Up_Interval_Site_Audit__c} )</expression>
     </formulas>
@@ -408,12 +408,12 @@
                 <stringValue>[Case].RecordType.Name &amp; &apos; for &apos; &amp; [Case].Network__c.Name &amp; &apos; on &apos; &amp; TEXT([Case].AMLCTF_Planned_Audit_Date__c ) </stringValue>
             </value>
         </processMetadataValues>
-        <name>formula_3_myRule_1_A1_9119261515</name>
+        <name>formula_3_myRule_1_A1_0068065126</name>
         <dataType>String</dataType>
         <expression>{!myVariable_current.RecordType.Name} &amp; &apos; for &apos; &amp; {!myVariable_current.Network__r.Name} &amp; &apos; on &apos; &amp; TEXT({!myVariable_current.AMLCTF_Planned_Audit_Date__c} )</expression>
     </formulas>
     <interviewLabel>AMLCTF_Audit_Case_Post_Processing-7_InterviewLabel</interviewLabel>
-    <label>AMLCTF Audit Case Post Processing_Deprecated</label>
+    <label>AMLCTF Audit Case Post Processing__Deprecated</label>
     <processMetadataValues>
         <name>ObjectType</name>
         <value>
@@ -589,7 +589,7 @@
             </processMetadataValues>
             <field>Subject</field>
             <value>
-                <elementReference>formula_3_myRule_1_A1_9119261515</elementReference>
+                <elementReference>formula_3_myRule_1_A1_0068065126</elementReference>
             </value>
         </inputAssignments>
         <object>Case</object>
@@ -667,7 +667,7 @@
             </processMetadataValues>
             <field>Due_Date__c</field>
             <value>
-                <elementReference>formula_2_myRule_1_A2_7961565834</elementReference>
+                <elementReference>formula_2_myRule_1_A2_5395286024</elementReference>
             </value>
         </inputAssignments>
         <object>Case</object>
