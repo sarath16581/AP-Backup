@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Sales_Implementation_Request_Non_Opporty</fullName>
-    <active>true</active>
-    <description>Requester field must be entered for non opportunity work</description>
+    <active>false</active>
+    <description>REQ3448199 - RT no longer in use Requester field must be entered for non opportunity work</description>
     <errorConditionFormula>RecordType.DeveloperName =&apos;Sales_Implementation_Case&apos; &amp;&amp;  Implementation_Work_Type__c =&apos;Non-Opportunity Work&apos; &amp;&amp;  Requestor__c =&quot;&quot;</errorConditionFormula>
     <errorDisplayField>Requestor__c</errorDisplayField>
     <errorMessage>You must enter Requestor field if it&apos;s a non-opportunity work</errorMessage>

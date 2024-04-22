@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Sales_Implementation_Deployment_Date</fullName>
-    <active>true</active>
-    <description>Must enter Deployment Date when stage field is not equal to Plan or Implement</description>
+    <active>false</active>
+    <description>REQ3448199 - RT no longer in use Must enter Deployment Date when stage field is not equal to Plan or Implement</description>
     <errorConditionFormula>RecordType.DeveloperName =&apos;Sales_Implementation_Case&apos; &amp;&amp; 
 
 (ISPICKVAL(Stage__c , &quot;Stabilise&quot;) || ISPICKVAL( Stage__c , &quot;Closed - Disengaged&quot;) || ISPICKVAL( Stage__c , &quot;Closed - Maintained&quot;) || ISPICKVAL( Stage__c , &quot;Closed - Rejected&quot;)) &amp;&amp;
