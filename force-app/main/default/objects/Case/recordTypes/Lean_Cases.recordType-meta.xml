@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Lean_Cases</fullName>
-    <active>true</active>
+    <active>false</active>
     <businessProcess>Lean Cases</businessProcess>
-    <description>Manage lean cases</description>
-    <label>Lean Cases</label>
+    <description>REQ3448199 - RT no longer is use Manage lean cases</description>
+    <label>(Deprecated) Lean Cases</label>
     <picklistValues>
         <picklist>APT_Payment_Terms__c</picklist>
         <values>
