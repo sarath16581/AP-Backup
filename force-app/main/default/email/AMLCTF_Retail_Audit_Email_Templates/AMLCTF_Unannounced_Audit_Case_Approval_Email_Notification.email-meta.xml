@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
     <available>false</available>
-    <description>REQ3448199 - no longer is use -This email template is used in the Case Approval Process for Unannounced Retail Audit Cases. Part of the Retail Audit Case Management Solution, AML/CTF Austrac Phase 2.</description>
+    <description>REQ3448199 - no longer is use - This email template is used in the Case Approval Process for Unannounced Retail Audit Cases. Part of the Retail Audit Case Management Solution, AML/CTF Austrac Phase 2.</description>
     <encodingKey>ISO-8859-1</encodingKey>
     <letterhead>AMLCTF_Retail_Audit_Letterhead</letterhead>
-    <name>(Deprecated) Unannounced Audit Case Approval Email Notification</name>
+    <name>(Deprecated)Unannounced Audit Case Approval Email Notification</name>
     <style>freeForm</style>
     <subject>Unannounced Retail Audit for {!Case.NetworkName__c} for your approval</subject>
     <textOnly>Hi,

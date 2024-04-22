@@ -232,7 +232,7 @@
                 errors.push({name: 'AMEIncorrectDeliveryAddress', label: 'Incorrect delivery address', error: ''});
             }
         }
-		
+
 		if(!$A.util.isEmpty(cmp.get("v.wizardData.trackingId")) && (IssueName == 'Item was left in an unsafe place' || IssueName == 'Postie didn\'t knock')) {
 			// when a call to the tracking api is needed a captcha is enforced
 			// this ensures that the captcha was always clicked when an article requiring api call is entered

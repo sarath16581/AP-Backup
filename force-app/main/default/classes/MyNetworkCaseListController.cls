@@ -665,6 +665,7 @@ public with sharing class MyNetworkCaseListController {
 			}
 		}
 		SelectedViewWithFiltersWrapper selectedViewWithFiltersWrap = new SelectedViewWithFiltersWrapper(selectedlistview, dynamicFilter, filtersMap);
+		
 		return selectedViewWithFiltersWrap ;
 	}
 	/**

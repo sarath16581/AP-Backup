@@ -2,7 +2,7 @@
 <RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>CoE_Case_Record_Type</fullName>
     <active>false</active>
-    <businessProcess>%28Deprecated%29 CoE Case Process</businessProcess>
+    <businessProcess>CoE Case Process</businessProcess>
     <description>REQ3448199 - RT no longer in use To manage work requests for the SE&amp;P Centres of Excellence</description>
     <label>(Deprecated) SE&amp;P Team Cases</label>
     <picklistValues>

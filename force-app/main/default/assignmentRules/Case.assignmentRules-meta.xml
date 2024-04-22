@@ -87,15 +87,6 @@
             </criteriaItems>
         </ruleEntry>
         <ruleEntry>
-            <assignedTo>ULD_Allocation</assignedTo>
-            <assignedToType>Queue</assignedToType>
-            <criteriaItems>
-                <field>Case.RecordTypeId</field>
-                <operation>equals</operation>
-                <value>ULD Allocation</value>
-            </criteriaItems>
-        </ruleEntry>
-        <ruleEntry>
             <assignedTo>Retail_Fulfilment_Call_Centre</assignedTo>
             <assignedToType>Queue</assignedToType>
             <criteriaItems>

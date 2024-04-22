@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
     <available>true</available>
+    <description>Business_Recalls_delivered_3rd_party_locker</description>
     <encodingKey>ISO-8859-1</encodingKey>
-    <name>Business – Cannot recall – Does not service that area</name>
+    <name>Business_Recalls_delivered_3rd_party_locker</name>
     <style>none</style>
-    <subject>Australia Post – Case: {!Case.CaseNumber}</subject>
+    <subject>Business Recalls - delivered - 3rd party locker</subject>
     <textOnly>Australia Post
 
 Help &amp; Support

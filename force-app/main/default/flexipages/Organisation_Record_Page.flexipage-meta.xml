@@ -237,7 +237,7 @@
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>filter</name>
-                    <value>{&quot;datasets&quot;:{&quot;account1_NoPredicate&quot;:[{&quot;fields&quot;:[&quot;Account.Id&quot;],&quot;filter&quot;:{&quot;operator&quot;:&quot;in&quot;,&quot;values&quot;:[&quot;$Id&quot;]},&quot;locked&quot;:true,&quot;hidden&quot;:true}],&quot;DIFOT_GCP&quot;:[{&quot;fields&quot;:[&quot;Account.Id&quot;],&quot;filter&quot;:{&quot;operator&quot;:&quot;in&quot;,&quot;values&quot;:[&quot;$Id&quot;]},&quot;locked&quot;:true,&quot;hidden&quot;:true}],&quot;Apttus_Contract&quot;:[{&quot;fields&quot;:[&quot;Account.Id&quot;],&quot;filter&quot;:{&quot;operator&quot;:&quot;in&quot;,&quot;values&quot;:[&quot;$Id&quot;]},&quot;locked&quot;:true,&quot;hidden&quot;:true}],&quot;Case_per1kArticle&quot;:[{&quot;fields&quot;:[&quot;Account.Id&quot;],&quot;filter&quot;:{&quot;operator&quot;:&quot;in&quot;,&quot;values&quot;:[&quot;$Id&quot;]},&quot;locked&quot;:true,&quot;hidden&quot;:true}],&quot;NPS_GCP&quot;:[{&quot;fields&quot;:[&quot;Account.Id&quot;],&quot;filter&quot;:{&quot;operator&quot;:&quot;in&quot;,&quot;values&quot;:[&quot;$Id&quot;]},&quot;locked&quot;:true,&quot;hidden&quot;:true}],&quot;opportunity1_NoPredicate&quot;:[{&quot;fields&quot;:[&quot;AccountId&quot;],&quot;filter&quot;:{&quot;operator&quot;:&quot;in&quot;,&quot;values&quot;:[&quot;$Id&quot;]},&quot;locked&quot;:true,&quot;hidden&quot;:true}],&quot;Case1_NoPredicate&quot;:[{&quot;fields&quot;:[&quot;AccountId&quot;],&quot;filter&quot;:{&quot;operator&quot;:&quot;in&quot;,&quot;values&quot;:[&quot;$Id&quot;]},&quot;locked&quot;:true,&quot;hidden&quot;:true}],&quot;ODS_Revenue&quot;:[{&quot;fields&quot;:[&quot;BillingAccouont.Organisation__c&quot;],&quot;filter&quot;:{&quot;operator&quot;:&quot;in&quot;,&quot;values&quot;:[&quot;$Id&quot;]},&quot;locked&quot;:true,&quot;hidden&quot;:true}],&quot;Healthscore_Melt_GCP&quot;:[{&quot;fields&quot;:[&quot;Account.Id&quot;],&quot;filter&quot;:{&quot;operator&quot;:&quot;in&quot;,&quot;values&quot;:[&quot;$Id&quot;]},&quot;locked&quot;:null,&quot;hidden&quot;:null}],&quot;Case_IndustryComparison_C360&quot;:[{&quot;fields&quot;:[&quot;Account.Industry&quot;],&quot;filter&quot;:{&quot;operator&quot;:&quot;in&quot;,&quot;values&quot;:[&quot;$Industry&quot;]},&quot;locked&quot;:true,&quot;hidden&quot;:true}]}}</value>
+                    <value>{&quot;datasets&quot;:{&quot;Parent_Child_Unflattened&quot;:[{&quot;fields&quot;:[&quot;Parent_ID&quot;],&quot;filter&quot;:{&quot;operator&quot;:&quot;in&quot;,&quot;values&quot;:[&quot;$Id&quot;]},&quot;locked&quot;:null,&quot;hidden&quot;:null}]}}</value>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>height</name>
@@ -648,6 +648,7 @@
                     <value>Descending</value>
                 </componentInstanceProperties>
                 <componentName>lst:dynamicRelatedList</componentName>
+                <identifier>lst_dynamicRelatedList</identifier>
                 <visibilityRule>
                     <criteria>
                         <leftValue>{!$Permission.CustomPermission.ShowAdobeSignAgreementsList}</leftValue>
