@@ -167,7 +167,7 @@ public with sharing class ProductRevenueService {
             // pre-conditions
             if (record.Contract_Start_Date__c != null && record.Contract_End_Date__c!= null) {
                 // get last twelve months sales history
-                Double pastSales = getSumOfPastTwelveMonths(record.Opportunity.AccountId, record.Product2.Id, record.Contract_End_Date__c);
+                Double pastSales = getSumOfPastTwelveMonths(record.Opportunity.AccountId, record.Product2.Id, record.Contract_Start_Date__c);
                 // update the record based on current values
                 updateRetainedIncrementalAnnualised(record,pastSales);
 
@@ -543,9 +543,9 @@ public with sharing class ProductRevenueService {
    * @param productId - the product for the revenue record
    * @return the total sales value for the last twelve months for the specified account and product.
    * */
-    public Double getSumOfPastTwelveMonths(String accountId, String productId, Date revenueEndDate) {
+    public Double getSumOfPastTwelveMonths(String accountId, String productId, Date revenueStartDate) {
         Double totalSum = 0.0;
-        Date targetDate = revenueEndDate < calculationDate ? revenueEndDate : calculationDate;
+        Date targetDate = revenueStartDate < calculationDate ? revenueStartDate : calculationDate;
         // Iterate through the past 12 months
         Integer targetYear = getAustralianFinancialYear(targetDate);
         Integer targetMonth = targetDate.month() - 1; // should not include the current month
