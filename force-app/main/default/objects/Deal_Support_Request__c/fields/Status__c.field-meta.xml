@@ -146,6 +146,11 @@
                 <label>Roadblock</label>
             </value>
             <value>
+                <fullName>Account pending closure</fullName>
+                <default>false</default>
+                <label>Account pending closure</label>
+            </value>
+            <value>
                 <fullName>Approval Required</fullName>
                 <default>false</default>
                 <isActive>false</isActive>

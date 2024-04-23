@@ -58,6 +58,10 @@
                 <behavior>Edit</behavior>
                 <field>Rating_Integration_Transaction_Id__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Business_At_Risk__c</field>
+            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>
