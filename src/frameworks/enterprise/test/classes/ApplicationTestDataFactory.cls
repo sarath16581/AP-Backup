@@ -35,6 +35,7 @@
  * 2023-07-16 - SteveL- Added getEvents
  * 2023-07-20 - Mahesh Parvathaneni - Added method getBamApplications
  * 2023-09-22 - Ken McGuire - added methods for product revenue objects
+ * 2024-04-17 - Deepak Kemidi - added method for creating vendor emails
 */
 @IsTest
 public with sharing class ApplicationTestDataFactory {
@@ -1125,6 +1126,20 @@ public with sharing class ApplicationTestDataFactory {
                 GroupedAccountProductRevenue__c.Rev12__c => revenue,
 				GroupedAccountProductRevenue__c.UID__c => ProductRevenueService.getUID(accountId,productId,String.valueOf(year))
 		}, count), generateIds);
+	}
+	
+	/**
+	* Generates test data for Auspost_Vendors_Email_Address__mdt custom metadata records
+	**/
+	public static List<Auspost_Vendors_Email_Address__mdt> getVendorEmail(Integer count, String emailAddress, Boolean generateIds) {
+		List<Auspost_Vendors_Email_Address__mdt> emailAddresses = new List<Auspost_Vendors_Email_Address__mdt>();
+		for (Integer i = 0; i < count; i++) {
+			Auspost_Vendors_Email_Address__mdt email = new Auspost_Vendors_Email_Address__mdt();
+			email.DeveloperName = 'RECORD' + i;
+			email.Vendor_Email__c = emailAddress.replace('%count%', String.valueOf(i));
+			emailAddresses.add(email);
+		}
+		return (List<Auspost_Vendors_Email_Address__mdt>)maybeGenerateIds(emailAddresses, generateIds);
 	}
     
 	/**
