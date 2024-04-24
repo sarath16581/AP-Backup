@@ -8,5 +8,5 @@
     <masterLabel>Close Account</masterLabel>
     <openType>onClickJavaScript</openType>
     <protected>false</protected>
-    <url>window.open(&quot;http://hxaix23.hq.auspost.com.au:50000/irj/go/km/docs/SAP_AusPost_Web_Content/Enterprise/Display/PortalUniqueRedirectSecure.html?URL=sapfes.hq.auspost.com.au/sap/bc/ui5_ui5/sap/zcs_cac/index.html#/apcn/{!Account.APCN__c}&quot;,&quot;_blank&quot;);</url>
+    <url>window.open(&quot;http://hxaix23.hq.auspost.com.au:50000/irj/go/km/docs/SAP_AusPost_Web_Content/Enterprise/Display/PortalUniqueRedirectSecure.html?URL=sapfes-ptest.hq.auspost.com.au/sap/bc/ui5_ui5/sap/zcs_cac/index.html#/apcn/{!Account.APCN__c}&quot;,&quot;_blank&quot;);</url>
 </WebLink>

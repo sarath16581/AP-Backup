@@ -40,7 +40,7 @@
             </action>
         </rejectionActions>
     </approvalStep>
-    <description>(Deprecated) - Approval process to handle the need for approvals prior to Unannounced Retail Audits.  Added as part of the Retail Audit Case Management Solution, AML/CTF Austrac Phase 2.</description>
+    <description>(Deprecated) Approval process to handle the need for approvals prior to Unannounced Retail Audits.  Added as part of the Retail Audit Case Management Solution, AML/CTF Austrac Phase 2.</description>
     <enableMobileDeviceAccess>false</enableMobileDeviceAccess>
     <entryCriteria>
         <formula>hidden_Record_Type_Name__c=&apos;AMLCTF_Unannounced_Audit&apos; &amp;&amp;ISPICKVAL(Status, &apos;New&apos;) &amp;&amp;Owner:User.Id=$User.Id</formula>

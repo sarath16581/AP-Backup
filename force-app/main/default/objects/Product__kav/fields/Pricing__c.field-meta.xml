@@ -3,7 +3,7 @@
     <fullName>Pricing__c</fullName>
     <externalId>false</externalId>
     <label>Pricing</label>
-    <length>65536</length>
+    <length>131072</length>
     <securityClassification>OFFICIAL_SENSITIVE</securityClassification>
     <trackHistory>true</trackHistory>
     <type>Html</type>

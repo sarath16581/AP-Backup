@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <PermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
-    <description>REQ3448199 - COE Case RT no longer in useThis permission set enables users to access CoE case functionality</description>
+    <description>This permission set enables users to access CoE case functionality</description>
     <fieldPermissions>
         <editable>true</editable>
         <field>Case.Closed_Date__c</field>
@@ -62,7 +62,7 @@
         <readable>true</readable>
     </fieldPermissions>
     <hasActivationRequired>false</hasActivationRequired>
-    <label>(Deprecated)CoE Case Access</label>
+    <label>(Deprecated) CoE Case Access</label>
     <license>Salesforce</license>
     <objectPermissions>
         <allowCreate>true</allowCreate>

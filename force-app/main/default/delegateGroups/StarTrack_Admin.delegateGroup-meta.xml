@@ -97,6 +97,7 @@
     <groups>StarTrack Service Team</groups>
     <groups>StarTrack LDC Approval Step 2</groups>
     <groups>StarTrack Recycle Bin</groups>
+    <groups>BSC - Schenker</groups>
     <label>StarTrack Admin</label>
     <loginAccess>false</loginAccess>
     <permissionSetGroups>ST Team Leader Basic Permissions</permissionSetGroups>

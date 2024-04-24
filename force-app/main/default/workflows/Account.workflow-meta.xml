@@ -964,6 +964,11 @@ IF(AND(Total_Budget__c &gt;= 10000, Total_Budget__c &lt; 29999), 12, 26)))), 0))
             <operation>notEqual</operation>
             <value>Active</value>
         </criteriaItems>
+        <criteriaItems>
+            <field>Account.Licence_Status__c</field>
+            <operation>notEqual</operation>
+            <value>Ceased</value>
+        </criteriaItems>
         <description>If the Licence is approved, then schedule its activation to be triggered after 18 hours on its start date.</description>
         <triggerType>onCreateOrTriggeringUpdate</triggerType>
         <workflowTimeTriggers>
