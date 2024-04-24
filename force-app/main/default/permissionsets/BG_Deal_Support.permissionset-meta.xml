@@ -4,6 +4,10 @@
         <apexClass>AtRiskBusinessController</apexClass>
         <enabled>true</enabled>
     </classAccesses>
+    <classAccesses>
+        <apexClass>opcNavToBulkEditController</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
     <customPermissions>
         <enabled>true</enabled>
         <name>BG_Deal_Support</name>
