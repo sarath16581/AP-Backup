@@ -1,7 +1,7 @@
 /**
-* @author       : deepak.kemidi@auspost.com.au
-* @date         : 31/03/2024
-* @description  : Test Class for VendorEmailUtils class
+*@author: deepak.kemidi@auspost.com.au
+*@date: 31/03/2024
+*@description: Test Class for VendorEmailUtils class
 */
 @IsTest
 private class VendorEmailUtilsTest {
