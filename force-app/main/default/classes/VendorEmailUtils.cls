@@ -8,11 +8,16 @@
  * 2024-03-19 - Deepak Kemidi - Created
  **/
 public with sharing class VendorEmailUtils {
-	
+
 	@InvocableMethod(label='Get Vendors Email Address')
 	public static List<String> getEmailAddress() {
 		List<String> emailAddresses = new List<String>();
-		List<Auspost_Vendors_Email_Address__mdt> customMetadataRecords = [SELECT Vendor_Email__c FROM Auspost_Vendors_Email_Address__mdt];
+		
+		//Create an instance of AuspostVendorEmailSelector
+		AuspostVendorEmailSelector selector = AuspostVendorEmailSelector.newInstance();
+		
+		//Call selectAllRecords() method to fetch all records
+		List<Auspost_Vendors_Email_Address__mdt> customMetadataRecords = selector.selectAllRecords();
 		
 		if (!customMetadataRecords.isEmpty()) {
 			for(Auspost_Vendors_Email_Address__mdt record : customMetadataRecords) {
@@ -27,9 +32,9 @@ public with sharing class VendorEmailUtils {
 		List<String> result = new List<String>();
 		
 		if(!String.isBlank(emailAddressesString)) {
-		result.add(emailAddressesString);
+			result.add(emailAddressesString);
 		}
 		
 		return result;
-	}		
+	}
 }
