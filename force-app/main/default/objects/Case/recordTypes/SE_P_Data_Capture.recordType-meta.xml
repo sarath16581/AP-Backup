@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>SE_P_Data_Capture</fullName>
-    <active>true</active>
+    <active>false</active>
     <businessProcess>SE%26P Data Capture</businessProcess>
-    <description>To capture information for Alex on the Sales Enablement and Planning Dashboard</description>
-    <label>SE&amp;P Data Capture</label>
+    <description>REQ3448199 - Record type no longer in use To capture information for Alex on the Sales Enablement and Planning Dashboard</description>
+    <label>(Deprectaed) SE&amp;P Data Capture</label>
     <picklistValues>
         <picklist>APT_Payment_Terms__c</picklist>
         <values>

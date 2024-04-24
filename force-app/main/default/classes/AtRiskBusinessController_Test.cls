@@ -34,7 +34,7 @@ public class AtRiskBusinessController_Test {
 		At_Risk_Business__c arb = ApplicationTestDataFactory.getAtRiskBusiness(1, testAccountId, true)[0];
 		
 		arb.Scale__c = 'Product Specific (Please Specify after save)';
-		arb.Product_IDs__c = products[0].Id;
+		arb.Products_IDs__c = products[0].Id;
 
 		// =====================================
 		// Stubbing
@@ -110,7 +110,7 @@ public class AtRiskBusinessController_Test {
 		((ApplicationDatabase)MockUtility.Mocks.verify(mockDatabase, MockUtility.Mocks.times(1))).dmlUpdate((List<SObject>)fflib_Match.anyObject());
 
 		// Check that fields were updated as expected
-		Assert.areEqual(productIdString, AtRiskBusinessController.arb.Product_IDs__c);
+		Assert.areEqual(productIdString, AtRiskBusinessController.arb.Products_IDs__c);
 		Assert.areEqual(productNameString, AtRiskBusinessController.arb.Products__c);
 	}
 

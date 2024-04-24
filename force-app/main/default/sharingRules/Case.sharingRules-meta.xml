@@ -274,7 +274,7 @@
         <criteriaItems>
             <field>Enquiry_Type__c</field>
             <operation>equals</operation>
-            <value>Billing Dispute</value>
+            <value>Billing dispute</value>
         </criteriaItems>
         <criteriaItems>
             <field>RecordTypeId</field>
@@ -644,21 +644,6 @@
             <field>RecordTypeId</field>
             <operation>equals</operation>
             <value>Service Optimisation</value>
-        </criteriaItems>
-        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
-    </sharingCriteriaRules>
-    <sharingCriteriaRules>
-        <fullName>ULD_Allocation_Case</fullName>
-        <accessLevel>Edit</accessLevel>
-        <description>ULD Allocation Case shared between the group</description>
-        <label>ULD Allocation Case</label>
-        <sharedTo>
-            <group>ULD_Allocation</group>
-        </sharedTo>
-        <criteriaItems>
-            <field>RecordTypeId</field>
-            <operation>equals</operation>
-            <value>ULD Allocation</value>
         </criteriaItems>
         <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
     </sharingCriteriaRules>

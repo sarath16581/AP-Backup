@@ -84,7 +84,7 @@ export default class BarSelectProducts extends LightningElement {
 							id: record.level4Name,
 							name: record.level4Name,
 							expanded: true,
-							children: {}
+							children: []
 						};
 
 						productTree[record.level4Name] = level4;
@@ -92,13 +92,13 @@ export default class BarSelectProducts extends LightningElement {
 						expanded.push(record.level4Name);
 					}
 
-					level4.children[record.Name] = {
+					level4.children.push({
 						id: record.id,
 						name: record.name,
 						code: record.code,
 						type: record.type,
 						revenue: record.revenue
-					}
+					});
 
 					if (this.selectedRows.indexOf(record.Id) >= 0) {
 						this.currentProducts.push({
@@ -130,32 +130,21 @@ export default class BarSelectProducts extends LightningElement {
 			});
 	}
 
-	toGridData(treeData, level) {
-		const keys = Object.keys(treeData);
-
-		const data = [];
-
-		keys.forEach(key => {
-			const props = Object.keys(treeData[key]);
-
-			let record = {};
-
-			props.forEach(prop => {
-				if (prop !== 'children') {
-					record[prop] = treeData[key][prop];
-				}
-			});
-
-			if (treeData[key]['children']) {
-				record['_children'] = this.toGridData(treeData[key]['children'], level + 1);
+	toGridData(treeData) {
+		return Object.keys(treeData).map(
+			level4Name => {
+				const group = treeData[level4Name];
+				return ({
+					_children : group.children,
+					...Object.keys(group).filter(
+						prop => prop !== 'children'
+					).reduce(
+						(result, prop) => Object.assign(result, { [prop] : group[prop] }),
+						{ }
+					)
+				});
 			}
-
-			record['level'] = level;
-
-			data.push(record);
-		});
-
-		return data;
+		);
 	}
 
 	updateSelectedRows() {

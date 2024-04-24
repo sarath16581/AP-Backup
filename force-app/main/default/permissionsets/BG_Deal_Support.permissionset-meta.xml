@@ -254,7 +254,7 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>At_Risk_Business__c.Product_IDs__c</field>
+        <field>At_Risk_Business__c.Products_IDs__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

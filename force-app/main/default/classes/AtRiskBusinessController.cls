@@ -53,8 +53,8 @@ public with sharing class AtRiskBusinessController {
 	
 			Set<Id> productIDs = new Set<Id>();
 	
-			if (String.isNotBlank(arb.Product_IDs__c)) {
-				data.selectedIDs = arb.Product_IDs__c.split(';');
+			if (String.isNotBlank(arb.Products_IDs__c)) {
+				data.selectedIDs = arb.Products_IDs__c.split(';');
 				
 				productIds.addAll((List<Id>)data.selectedIDs);
 			}
@@ -115,7 +115,7 @@ public with sharing class AtRiskBusinessController {
 		try {
 			arb = new At_Risk_Business__c(Id = arbId);
 
-			arb.Product_IDs__c = null;
+			arb.Products_IDs__c = null;
 			arb.Products__c = null;
 			
 			if (!productIDs.isEmpty()) {
@@ -127,7 +127,7 @@ public with sharing class AtRiskBusinessController {
 					productNames.add(prod.Name);
 				}
 
-				arb.Product_IDs__c = String.join(productIds, ';');
+				arb.Products_IDs__c = String.join(productIds, ';');
 				arb.Products__c = String.join(productNames, ';');
 			}
 			

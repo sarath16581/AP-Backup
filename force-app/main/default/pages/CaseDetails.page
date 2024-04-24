@@ -7,7 +7,7 @@ kalpita.talwadekar@aupost.com.au updated code for pop-up handing
 kalpita.talwadekar@aupost.com.au updated code for edd details display
 dion.gunn@auspost.com.au        Modifications to display MLS Remediation Address fields
 nanda.kothamasu@auspost.com.au (NK)     Modified code to capture ProductSubCategory__c data in hidden field to lookup EnquirySubType_c drop down list.
-										This fix is done based on Incidents (INC0929902, INC0874076, & INC0843700)
+                                        This fix is done based on Incidents (INC0929902, INC0874076, & INC0843700)
 nanda.kothamasu@auspost.com.au (NK)     Stop unnecessart reload of the page after selecting dependent drop down list values (INC0952078)
 06/22/17 angelo.rivera@auspost.com.au - added Javascript for riverbed - Resource.Web_Analyser
 2017-09-25 nathan.franklin@auspost.com.au - Added script loader and general formatting changes
@@ -24,7 +24,7 @@ nanda.kothamasu@auspost.com.au (NK)     Stop unnecessart reload of the page afte
 2023-06-07 - Nathan Franklin - minor updates to messaging on reassignment
     -->
     <apex:page standardController="Case" extensions="CaseDetailsCaseContExt,TIBCOArticleComponentCont"
-               id="pageId" standardStylesheets="true" action="{!initializePage}" >
+               id="pageId" standardStylesheets="true" action="{!initializePage}">
         <apex:form >
             <apex:actionFunction name="checkDuplicates" action="{!checkDuplicates}" rerender="popup"/>
         </apex:form>
@@ -235,7 +235,7 @@ nanda.kothamasu@auspost.com.au (NK)     Stop unnecessart reload of the page afte
                         </div>
                     </div>
                 </apex:outputPanel>
-				<apex:outputPanel rendered="{!noAssignmentSameSkillsError}">
+                <apex:outputPanel rendered="{!noAssignmentSameSkillsError}">
                     <img src="/img/msg_icons/error16.png" class="saved-img"/>
                     <div class="error-msg-content">
                         <div class="error-msg-title">Error!</div>
@@ -245,7 +245,7 @@ nanda.kothamasu@auspost.com.au (NK)     Stop unnecessart reload of the page afte
                         </div>
                     </div>
                 </apex:outputPanel>
-				<apex:outputPanel rendered="{!noAssignmentCaseClosedError}">
+                <apex:outputPanel rendered="{!noAssignmentCaseClosedError}">
                     <img src="/img/msg_icons/error16.png" class="saved-img"/>
                     <div class="error-msg-content">
                         <div class="error-msg-title">Error!</div>
@@ -253,7 +253,7 @@ nanda.kothamasu@auspost.com.au (NK)     Stop unnecessart reload of the page afte
                         </div>
                     </div>
                 </apex:outputPanel>
-				
+                
             </div>
 
             <input id="dummyToAvoidLoadingDatepicker" style="margin-left:-500px;width:1px" autofocus="true"/>
