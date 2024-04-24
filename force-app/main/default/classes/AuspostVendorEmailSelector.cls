@@ -1,8 +1,8 @@
 /***
-* @description Selector class for Auspost_Vendors_Email_Address__mdt custom emtadata type
-* @author Deepak Kemidi
-* @date 2022-04-18
-* @changelog
+*@description Selector class for Auspost_Vendors_Email_Address__mdt custom emtadata type
+*@author Deepak Kemidi
+*@date 2022-04-18
+*@changelog
 */
 public virtual inherited sharing class AuspostVendorEmailSelector extends ApplicationSelector {
 	public enum Options { }
