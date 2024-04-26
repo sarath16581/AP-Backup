@@ -108,6 +108,10 @@
                 <behavior>Edit</behavior>
                 <field>LeaseExpiryDate__c</field>
             </layoutItems>
+			<layoutItems>
+				<behavior>Edit</behavior>
+				<field>ABN__c</field>
+			</layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>

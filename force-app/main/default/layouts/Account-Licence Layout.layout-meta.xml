@@ -122,6 +122,10 @@
                 <behavior>Edit</behavior>
                 <field>Do_Not_Disclosure_Consent__c</field>
             </layoutItems>
+			<layoutItems>
+				<behavior>Edit</behavior>
+				<field>ABN__c</field>
+			</layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>
