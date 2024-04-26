@@ -2251,14 +2251,14 @@
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>CHAS_ApLogo</shortDescription>
-        <value>https://auspost--c.documentforce.com/servlet/servlet.ImageServer?id=0152v00000GVHDk&amp;oid=00D1e0000000jbT</value>
+        <value>https://auspost--c.documentforce.com/servlet/servlet.ImageServer?id=0152v00000GVHDk&amp;oid=00D30000001GGce</value>
     </labels>
     <labels>
         <fullName>CHAS_ApLogoWithText</fullName>
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>CHAS_ApLogoWithText</shortDescription>
-        <value>https://auspost--c.documentforce.com/servlet/servlet.ImageServer?id=0152v00000H2jkb&amp;oid=00D1e0000000jbT</value>
+        <value>https://auspost--c.documentforce.com/servlet/servlet.ImageServer?id=0152v00000H2jkb&amp;oid=00D30000001GGce</value>
     </labels>
     <labels>
         <fullName>CHAS_CommunityUrl</fullName>
@@ -2279,28 +2279,28 @@
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>CHAS_FB_Icon</shortDescription>
-        <value>https://auspost--c.documentforce.com/servlet/servlet.ImageServer?id=01590000007Zasx&amp;oid=00D1e0000000jbT</value>
+        <value>https://auspost--c.documentforce.com/servlet/servlet.ImageServer?id=01590000007Zasx&amp;oid=00D30000001GGce</value>
     </labels>
     <labels>
         <fullName>CHAS_Insta_Icon</fullName>
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>CHAS_Insta_Icon</shortDescription>
-        <value>https://auspost--c.documentforce.com/servlet/servlet.ImageServer?id=0152v00000H2w4t&amp;oid=00D1e0000000jbT</value>
+        <value>https://auspost--c.documentforce.com/servlet/servlet.ImageServer?id=0152v00000H2w4t&amp;oid=00D30000001GGce</value>
     </labels>
     <labels>
         <fullName>CHAS_LockIcon</fullName>
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>CHAS_LockIcon</shortDescription>
-        <value>https://auspost--c.documentforce.com/servlet/servlet.ImageServer?id=0152v00000H2jkc&amp;oid=00D1e0000000jbT</value>
+        <value>https://auspost--c.documentforce.com/servlet/servlet.ImageServer?id=0152v00000H2jkc&amp;oid=00D30000001GGce</value>
     </labels>
     <labels>
         <fullName>CHAS_TraditionalCustodians</fullName>
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>CHAS_TraditionalCustodians</shortDescription>
-        <value>src=&quot;https://auspost--c.documentforce.com/servlet/servlet.ImageServer?id=0152v00000H2w4u&amp;oid=00D1e0000000jbT</value>
+        <value>src=&quot;https://auspost--c.documentforce.com/servlet/servlet.ImageServer?id=0152v00000H2w4u&amp;oid=00D30000001GGce</value>
     </labels>
     <labels>
         <fullName>CHATTER_POST_ACCESS_MSG</fullName>
