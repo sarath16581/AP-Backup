@@ -46,7 +46,11 @@
             <layoutItems>
                 <behavior>Edit</behavior>
                 <field>Description</field>
-            </layoutItems>
+			</layoutItems>
+			<layoutItems>
+				<behavior>Edit</behavior>
+				<field>Case_Update__c</field>
+			</layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>
