@@ -2300,7 +2300,7 @@
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>CHAS_TraditionalCustodians</shortDescription>
-        <value>src=&quot;https://auspost--c.documentforce.com/servlet/servlet.ImageServer?id=0152v00000H2w4u&amp;oid=00D30000001GGce</value>
+        <value>https://auspost--c.documentforce.com/servlet/servlet.ImageServer?id=0152v00000H2w4u&amp;oid=00D30000001GGce</value>
     </labels>
     <labels>
         <fullName>CHATTER_POST_ACCESS_MSG</fullName>
