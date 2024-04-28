@@ -3,7 +3,7 @@
     <fullName>Priority__c</fullName>
     <description>If the ST case priority value = normal, then case investigation priority value = low. If the ST case priority value = high, then case investigation priority value = mdium. If the ST case priority value = critical, then case investigation priority value = high. If the ST case priority value = urgent, then case assignment priority value = high.</description>
     <externalId>false</externalId>
-    <formula>CASE(Case__r.Priority, &quot;Normal&quot;, &quot;Low&quot;, &quot;High&quot;, &quot;Medium&quot;, &quot;Critical&quot;, &quot;High&quot;, &quot;Urgent&quot;, &quot;High&quot;, &quot;&quot;)</formula>
+    <formula>CASE(Case__r.Priority, &quot;Normal&quot;, &quot;Low&quot;, &quot;High&quot;, &quot;Medium&quot;, &quot;Critical&quot;, &quot;High&quot;, &quot;Urgent&quot;, &quot;High&quot;, &quot;Low&quot;)</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <label>Priority</label>
     <required>false</required>
