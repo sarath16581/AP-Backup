@@ -18,6 +18,7 @@ public with sharing class ProductRevenueService {
     private static final Double MONTHS_IN_YEAR = 12;
     @TestVisible private static final String CLASSIFICATION_NEW_BUSINESS = 'New Business';
     @TestVisible private static final String CLASSIFICATION_RENEWAL = 'Renewal';
+    @TestVisible private static final String CLASSIFICATION_GROWTH = 'Growth';
     @TestVisible private static final String CLASSIFICATION_WIN_BACK = 'Win Back';
     @TestVisible private static final String CLASSIFICATION_CROSS_SELL = 'Cross Sell';
     // ***** PRIVATE PROPERTIES ******* //
@@ -166,7 +167,7 @@ public with sharing class ProductRevenueService {
             // pre-conditions
             if (record.Contract_Start_Date__c != null && record.Contract_End_Date__c!= null) {
                 // get last twelve months sales history
-                Double pastSales = getSumOfPastTwelveMonths(record.Opportunity.AccountId, record.Product2.Id, record.Contract_End_Date__c);
+                Double pastSales = getSumOfPastTwelveMonths(record.Opportunity.AccountId, record.Product2.Id, record.Contract_Start_Date__c);
                 // update the record based on current values
                 updateRetainedIncrementalAnnualised(record,pastSales);
 
@@ -206,8 +207,8 @@ public with sharing class ProductRevenueService {
                 lineItem.Classification__c = CLASSIFICATION_NEW_BUSINESS; //cannot find any CustomerRev records
             } else if (!budgetAndRevenues.isEmpty() && budgetAndRevenues.get(uniqueId) == null) {
                 lineItem.Classification__c = CLASSIFICATION_CROSS_SELL; //Customer Rev record for this product does not exist, but there are other Customer Rev records for this grouped account
-            } else if (budgetAndRevenues.get(uniqueId) != null && lineItem.TweleveMonthRevenue__c > 0) {
-                lineItem.Classification__c = CLASSIFICATION_RENEWAL;  //can find at least 1 record, meaning use the current 12 months logic and if it is greater than 0
+            } else if (budgetAndRevenues.get(uniqueId) != null && lineItem.TweleveMonthRevenue__c > 0) { //can find at least 1 record, meaning use the current 12 months logic and if it is greater than 0
+                lineItem.Classification__c = lineItem.IncrementalRevenue__c != null && lineItem.IncrementalRevenue__c > 0 ? CLASSIFICATION_GROWTH : CLASSIFICATION_RENEWAL;
             } else if (budgetAndRevenues.get(uniqueId) != null && lineItem.TweleveMonthRevenue__c <= 0) {
                 lineItem.Classification__c = CLASSIFICATION_WIN_BACK; //opposite of renewal, is the last 12 months logic is 0, but not 0 going before that
             }
@@ -542,9 +543,9 @@ public with sharing class ProductRevenueService {
    * @param productId - the product for the revenue record
    * @return the total sales value for the last twelve months for the specified account and product.
    * */
-    public Double getSumOfPastTwelveMonths(String accountId, String productId, Date revenueEndDate) {
+    public Double getSumOfPastTwelveMonths(String accountId, String productId, Date revenueStartDate) {
         Double totalSum = 0.0;
-        Date targetDate = revenueEndDate < calculationDate ? revenueEndDate : calculationDate;
+        Date targetDate = revenueStartDate < calculationDate ? revenueStartDate : calculationDate;
         // Iterate through the past 12 months
         Integer targetYear = getAustralianFinancialYear(targetDate);
         Integer targetMonth = targetDate.month() - 1; // should not include the current month
