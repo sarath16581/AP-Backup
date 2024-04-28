@@ -4,7 +4,7 @@
     <active>false</active>
     <businessProcess>SE%26P Data Capture</businessProcess>
     <description>REQ3448199 - Record type no longer in use To capture information for Alex on the Sales Enablement and Planning Dashboard</description>
-    <label>(Deprecated) SE&amp;P Data Capture</label>
+    <label>(Deprectaed) SE&amp;P Data Capture</label>
     <picklistValues>
         <picklist>APT_Payment_Terms__c</picklist>
         <values>

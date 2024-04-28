@@ -207,8 +207,8 @@ public with sharing class ProductRevenueService {
                 lineItem.Classification__c = CLASSIFICATION_NEW_BUSINESS; //cannot find any CustomerRev records
             } else if (!budgetAndRevenues.isEmpty() && budgetAndRevenues.get(uniqueId) == null) {
                 lineItem.Classification__c = CLASSIFICATION_CROSS_SELL; //Customer Rev record for this product does not exist, but there are other Customer Rev records for this grouped account
-            } else if (budgetAndRevenues.get(uniqueId) != null && lineItem.TweleveMonthRevenue__c > 0) { //can find at least 1 record, meaning use the current 12 months logic and if it is greater than 0
-                lineItem.Classification__c = lineItem.IncrementalRevenue__c != null && lineItem.IncrementalRevenue__c > 0 ? CLASSIFICATION_GROWTH : CLASSIFICATION_RENEWAL;
+            } else if (budgetAndRevenues.get(uniqueId) != null && lineItem.TweleveMonthRevenue__c > 0) {
+                lineItem.Classification__c = CLASSIFICATION_RENEWAL;  //can find at least 1 record, meaning use the current 12 months logic and if it is greater than 0
             } else if (budgetAndRevenues.get(uniqueId) != null && lineItem.TweleveMonthRevenue__c <= 0) {
                 lineItem.Classification__c = CLASSIFICATION_WIN_BACK; //opposite of renewal, is the last 12 months logic is 0, but not 0 going before that
             }

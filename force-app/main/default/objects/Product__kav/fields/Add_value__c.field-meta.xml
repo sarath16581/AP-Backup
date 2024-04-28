@@ -3,7 +3,7 @@
     <fullName>Add_value__c</fullName>
     <externalId>false</externalId>
     <label>Add value</label>
-    <length>65536</length>
+    <length>131072</length>
     <securityClassification>INTERNAL</securityClassification>
     <trackHistory>true</trackHistory>
     <type>Html</type>

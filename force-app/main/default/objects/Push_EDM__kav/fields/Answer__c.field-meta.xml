@@ -3,7 +3,7 @@
     <fullName>Answer__c</fullName>
     <externalId>false</externalId>
     <label>Answer</label>
-    <length>32768</length>
+    <length>131072</length>
     <securityClassification>INTERNAL</securityClassification>
     <trackHistory>true</trackHistory>
     <type>Html</type>

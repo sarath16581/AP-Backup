@@ -89,6 +89,21 @@
                 <default>false</default>
                 <label>Medical</label>
             </value>
+            <value>
+                <fullName>Not enough information</fullName>
+                <default>false</default>
+                <label>Not enough information</label>
+            </value>
+            <value>
+                <fullName>No photos</fullName>
+                <default>false</default>
+                <label>No photos</label>
+            </value>
+            <value>
+                <fullName>Other</fullName>
+                <default>false</default>
+                <label>Other</label>
+            </value>
         </valueSetDefinition>
     </valueSet>
     <visibleLines>4</visibleLines>

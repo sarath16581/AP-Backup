@@ -15,6 +15,7 @@
         <value>Account.Business_Account</value>
     </filters>
     <label>My Organisations</label>
+    <language>en_US</language>
     <sharedTo>
         <allPartnerUsers></allPartnerUsers>
     </sharedTo>

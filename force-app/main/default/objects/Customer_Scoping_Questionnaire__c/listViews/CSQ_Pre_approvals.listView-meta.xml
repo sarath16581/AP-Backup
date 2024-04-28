@@ -4,13 +4,24 @@
     <columns>NAME</columns>
     <columns>Legal_Entity_Name__c</columns>
     <columns>Opportunity__c</columns>
-    <columns>CREATED_DATE</columns>
     <columns>PreApprovalStatus__c</columns>
-    <filterScope>Mine</filterScope>
+    <columns>PreApprover__c</columns>
+    <columns>DateSubmitted__c</columns>
+    <filterScope>Everything</filterScope>
     <filters>
         <field>PreApprovalStatus__c</field>
         <operation>equals</operation>
-        <value>Pending Onboarding Approval</value>
+        <value>Pending Onboarding Approval,Under Onboarding Review</value>
+    </filters>
+    <filters>
+        <field>CSQ_Status__c</field>
+        <operation>equals</operation>
+        <value>Submitted for Pre-Approval</value>
+    </filters>
+    <filters>
+        <field>CSQ_Status__c</field>
+        <operation>equals</operation>
+        <value>Submitted for Pre-Approval</value>
     </filters>
     <label>CSQ: Pre-approvals</label>
 </ListView>

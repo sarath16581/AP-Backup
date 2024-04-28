@@ -4,7 +4,7 @@
     <description>message body Example: Welcome text (or) Direct Debit T&amp;C content (or) Summary T&amp;C content</description>
     <externalId>false</externalId>
     <label>Message</label>
-    <length>32768</length>
+    <length>131072</length>
     <securityClassification>INTERNAL</securityClassification>
     <type>Html</type>
     <visibleLines>25</visibleLines>

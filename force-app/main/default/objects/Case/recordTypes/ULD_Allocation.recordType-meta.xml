@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>ULD_Allocation</fullName>
-    <active>true</active>
+    <active>false</active>
     <businessProcess>ULD Allocation</businessProcess>
-    <description>To raise case in regards to ULD Allocation Issue</description>
-    <label>ULD Allocation</label>
+    <description>REQ3448199 RT no longer in use To raise case in regards to ULD Allocation Issue</description>
+    <label>(Deprecated) ULD Allocation</label>
     <picklistValues>
         <picklist>APT_Payment_Terms__c</picklist>
         <values>
