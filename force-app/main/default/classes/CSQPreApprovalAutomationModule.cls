@@ -65,7 +65,7 @@ public inherited sharing class CSQPreApprovalAutomationModule extends Applicatio
 			Approval.ProcessSubmitRequest req = new Approval.ProcessSubmitRequest();
 			req.setComments('Submitting request for approval.');
 			req.setObjectId(csq.Id);
-			req.setSubmitterId(UserInfo.getUserId());
+			req.setSubmitterId(csq.CreatedById);
 			req.setProcessDefinitionNameOrId('CSQ_Approval_Process1');
 			req.setSkipEntryCriteria(true);
 

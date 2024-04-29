@@ -754,21 +754,6 @@
         <relatedList>RelatedEntityHistoryList</relatedList>
     </relatedLists>
     <relatedLists>
-        <customButtons>Apttus_CMDSign__NewDefaultRecipientForAgreement</customButtons>
-        <excludeButtons>New</excludeButtons>
-        <fields>NAME</fields>
-        <fields>Apttus_DocuApi__ReadOnlyFirstName__c</fields>
-        <fields>Apttus_DocuApi__ReadOnlyLastName__c</fields>
-        <fields>Apttus_DocuApi__ReadOnlyEmail__c</fields>
-        <fields>Apttus_DocuApi__ContactId__c</fields>
-        <fields>Apttus_DocuApi__UserId__c</fields>
-        <fields>Apttus_DocuApi__SigningOrder__c</fields>
-        <fields>Apttus_DocuApi__RecipientType__c</fields>
-        <relatedList>Apttus_DocuApi__DocuSignDefaultRecipient2__c.Apttus_CMDSign__AgreementId__c</relatedList>
-        <sortField>Apttus_DocuApi__SigningOrder__c</sortField>
-        <sortOrder>Asc</sortOrder>
-    </relatedLists>
-    <relatedLists>
         <fields>NAME</fields>
         <fields>Apttus__ProductId__c</fields>
         <fields>Apttus_CMConfig__OptionId__c</fields>

@@ -99,6 +99,18 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>No photos</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Not enough information</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Other</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Oversize</fullName>
             <default>false</default>
         </values>

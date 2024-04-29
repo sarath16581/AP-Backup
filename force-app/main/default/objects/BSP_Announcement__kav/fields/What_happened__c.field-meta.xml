@@ -3,7 +3,7 @@
     <fullName>What_happened__c</fullName>
     <externalId>false</externalId>
     <label>What happened?</label>
-    <length>32768</length>
+    <length>131072</length>
     <securityClassification>INTERNAL</securityClassification>
     <type>Html</type>
     <visibleLines>25</visibleLines>

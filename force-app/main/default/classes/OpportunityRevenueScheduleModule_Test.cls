@@ -13,7 +13,7 @@ private class OpportunityRevenueScheduleModule_Test {
 		// =====================================
 		// Data Preparation
 		// =====================================
-		Date dateOfTest = Date.newInstance(2023, 4, 1);
+		Date dateOfTest = Date.newInstance(2024, 4, 1);
 		Account account = ApplicationTestDataFactory.getAccounts(1, true)[0];
 		Opportunity oppRec = ApplicationTestDataFactory.getOpportunities(1, account.Id, true)[0];
 		oppRec.AccountId = account.Id;
@@ -28,7 +28,7 @@ private class OpportunityRevenueScheduleModule_Test {
 		OpportunityLineItem oppProd = ApplicationTestDataFactory.getOpportunityLineItems(1, oppRec.Id, pbe.Id, true).get(0);
 		oppProd.Quantity = 1;
 		oppProd.Contract_Start_Date__c = dateOfTest;
-		oppProd.Contract_End_Date__c = dateOfTest.addDays(365);
+		oppProd.Contract_End_Date__c = dateOfTest.addDays(730);
 		oppProd.Product2 = prod;
 		oppProd = (OpportunityLineItem)ApplicationTestDataFactory.setUnwritableFields(oppProd, new Map<String, Object>{'Product2Id' => prod.Id, 'Opportunity' => oppRec});
 

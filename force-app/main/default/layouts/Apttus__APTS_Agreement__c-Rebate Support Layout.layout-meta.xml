@@ -56,10 +56,6 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Readonly</behavior>
-                <field>Apttus_CMDSign__RecallESignatureRequest__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Readonly</behavior>
                 <field>RecallAdobeESignatures__c</field>
             </layoutItems>
         </layoutColumns>
@@ -531,20 +527,6 @@
         <fields>APT_DoV_Action__c</fields>
         <fields>APT_DoV_Product__c</fields>
         <relatedList>APT_DoV_Language__c.APT_Contract__c</relatedList>
-    </relatedLists>
-    <relatedLists>
-        <excludeButtons>MassChangeOwner</excludeButtons>
-        <fields>NAME</fields>
-        <fields>Apttus_DocuApi__ReadOnlyFirstName__c</fields>
-        <fields>Apttus_DocuApi__ReadOnlyLastName__c</fields>
-        <fields>Apttus_DocuApi__ReadOnlyEmail__c</fields>
-        <fields>Apttus_DocuApi__ContactId__c</fields>
-        <fields>Apttus_DocuApi__UserId__c</fields>
-        <fields>Apttus_DocuApi__SigningOrder__c</fields>
-        <fields>Apttus_DocuApi__RecipientType__c</fields>
-        <relatedList>Apttus_DocuApi__DocuSignDefaultRecipient2__c.Apttus_CMDSign__AgreementId__c</relatedList>
-        <sortField>Apttus_DocuApi__SigningOrder__c</sortField>
-        <sortOrder>Asc</sortOrder>
     </relatedLists>
     <relatedLists>
         <excludeButtons>MassChangeOwner</excludeButtons>

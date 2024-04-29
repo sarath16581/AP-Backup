@@ -31,11 +31,11 @@ public class AtRiskBusinessRevenueModule_Test {
 		List<At_Risk_Business__c> arbs = ApplicationTestDataFactory.getAtRiskBusiness(1, testAccountId, false);
 		
 		arbs[0].Scale__c = 'Product Specific (Please Specify)';
-		arbs[0].Product_IDs__c = testProductId;
+		arbs[0].Products_IDs__c = testProductId;
 
 		Map<Id, At_Risk_Business__c> oldARBs = new Map<Id, At_Risk_Business__c>{arbs[0].Id => arbs[0].clone(true, true, true, true)};
 
-		oldARBs.values()[0].Product_IDs__c = null;
+		oldARBs.values()[0].Products_IDs__c = null;
 
 		// =====================================
 		// Stubbing
@@ -82,7 +82,7 @@ public class AtRiskBusinessRevenueModule_Test {
 		List<At_Risk_Business__c> arbs = ApplicationTestDataFactory.getAtRiskBusiness(1, testAccountId, false);
 		
 		arbs[0].Scale__c = 'Whole of Business';
-		arbs[0].Product_IDs__c = testProductId;
+		arbs[0].Products_IDs__c = testProductId;
 		arbs[0].Products__c = 'test';
 
 		Map<Id, At_Risk_Business__c> oldARBs = new Map<Id, At_Risk_Business__c>{arbs[0].Id => arbs[0].clone(true, true, true, true)};
@@ -112,7 +112,7 @@ public class AtRiskBusinessRevenueModule_Test {
 		
 		// Make sure product selections are cleared
 		Assert.areEqual(null, arbs[0].Products__c);
-		Assert.areEqual(null, arbs[0].Product_IDs__c);
+		Assert.areEqual(null, arbs[0].Products_IDs__c);
 
 		Assert.areEqual(AtRiskBusinessRevenueModule.calculationDate, arbs[0].Date_of_Revenue_Calculation__c);
 		Assert.areEqual(12000, arbs[0].Value_of_Business_at_Risk__c);

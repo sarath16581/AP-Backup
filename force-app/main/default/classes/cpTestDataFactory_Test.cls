@@ -53,7 +53,7 @@ private class cpTestDataFactory_Test {
               
               //query for case record type
               String caseRecordTYpeId = testData.getRecordType('Case','ACIC_Request');
-			  //REQ3448199 replacing AMLCTF_Assurance_audit RT with ACIC Request
+              //REQ3448199 replacing AMLCTF_Assurance_audit RT with ACIC Request
               
               //retrieve case
               Case caseRec = testData.getCase(caseRecordTYpeId, acc.Id);

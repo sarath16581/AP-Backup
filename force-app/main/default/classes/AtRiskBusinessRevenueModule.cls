@@ -39,17 +39,17 @@ public inherited sharing class AtRiskBusinessRevenueModule extends ApplicationMo
 		for (At_Risk_Business__c arb: records) {
 			At_Risk_Business__c oldARB = existingRecords.get(arb.Id);
 
-			if ((arb.Scale__c != oldARB.Scale__c) || (arb.Product_IDs__c != oldARB.Product_IDs__c) || (arb.Recalculate_Revenue__c == true)) {
+			if ((arb.Scale__c != oldARB.Scale__c) || (arb.Products_IDs__c != oldARB.Products_IDs__c) || (arb.Recalculate_Revenue__c == true)) {
 				// Reset recalculation flag
 				arb.Recalculate_Revenue__c = false;
 
 				if (arb.Scale__c == 'Whole of Business') {
-					arb.Product_IDs__c = null;
+					arb.Products_IDs__c = null;
 					arb.Products__c = null;
 				}
 
-				if (String.isNotBlank(arb.Product_IDs__c)) {
-					revenueProductMap.put(arb.Id, arb.Product_IDs__c.split(';'));
+				if (String.isNotBlank(arb.Products_IDs__c)) {
+					revenueProductMap.put(arb.Id, arb.Products_IDs__c.split(';'));
 				}
 				
 				organisationIDs.add(arb.Legal_Entity_Name__c);

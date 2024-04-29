@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>CoE_Case_Record_Type</fullName>
-    <active>true</active>
+    <active>false</active>
     <businessProcess>CoE Case Process</businessProcess>
-    <description>To manage work requests for the SE&amp;P Centres of Excellence</description>
-    <label>SE&amp;P Team Cases</label>
+    <description>REQ3448199 - RT no longer in use To manage work requests for the SE&amp;P Centres of Excellence</description>
+    <label>(Deprecated) SE&amp;P Team Cases</label>
     <picklistValues>
         <picklist>APT_Payment_Terms__c</picklist>
         <values>

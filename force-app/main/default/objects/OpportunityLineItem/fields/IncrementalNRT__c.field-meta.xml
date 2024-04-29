@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>IncrementalNRT__c</fullName>
+    <description>This figure is calculated by comparing the Actual Revenue for a given month and minus the NRT Base line figure. If this is a positive figure, the Incremental NRT will be populated with the difference. If this figure is negative then Incremental NRT will be zero</description>
+    <externalId>false</externalId>
+    <inlineHelpText>This figure is calculated by comparing the Actual Revenue for a given month and minus the NRT Base line figure. If this is a positive figure, the Incremental NRT will be populated with the difference. If this figure is negative then Incremental NRT will be zero</inlineHelpText>
+    <label>Incremental NRT</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>2</scale>
+    <securityClassification>INTERNAL</securityClassification>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>
