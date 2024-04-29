@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Bulk Mail - Email on reopen closed case</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>Bulk Mail - Reopen Case Email</name>
+    <style>none</style>
+    <subject>Australia Post - Auto Reply - Case number: {!Case.CaseNumber}</subject>
+    <textOnly>Australia Post
+
+Transport Enquiry
+
+Sorry, we couldn’t accept your request
+
+You have responded to a case which has already been closed for some time.
+
+If you require assistance, please send a new email to create a new case with our support team.
+
+
+Thank you,
+
+Australia Post
+[{!Case.Thread_Id}]
+
+This email was sent by Australia Post. Australia Post does not represent, warrant or guarantee that the integrity of this email communication has been maintained nor that the communication is free of errors, viruses or interference.
+Terms &amp; conditions  |  Privacy policy</textOnly>
+    <type>custom</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>
