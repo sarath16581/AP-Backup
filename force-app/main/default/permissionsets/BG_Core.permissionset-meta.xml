@@ -3006,6 +3006,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Opportunity.ConvertedLead__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Opportunity.Created_By_Logged_In_User__c</field>
         <readable>true</readable>
     </fieldPermissions>
