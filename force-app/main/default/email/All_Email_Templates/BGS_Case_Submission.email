@@ -258,6 +258,8 @@ Thanks for contacting Australia Post. We've received your enquiry
  <br/><br/>
 Subject: {!Case.Subject}
 <br/><br/>
+We are currently experiencing high case volumes which has impacted our response times.  We will reply to your enquiry as soon as possible.<br/><br/>
+
 We'll be in touch between 8am and 6pm on a weekday. <br/><br/>
 
 So that we can quickly check the progress of your enquiry, please include your case number ({!Case.CaseNumber}) in any future emails about your case.<br/><br/>
@@ -265,7 +267,7 @@ So that we can quickly check the progress of your enquiry, please include your c
 We look forward to helping you.<br/><br/>
 
 Regards,<br/><br/>
-Australia Post’s Customer Support Team
+Australia Post’s Customer Support Team 
             </p>
           </div>
 

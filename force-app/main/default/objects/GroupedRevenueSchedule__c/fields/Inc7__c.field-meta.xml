@@ -3,7 +3,7 @@
     <fullName>Inc7__c</fullName>
     <description>Incremental Sales forecast for July</description>
     <externalId>false</externalId>
-    <formula>For7__c *  OpportunityProduct__r.IncrementalRevenue__c</formula>
+    <formula>For7__c *  TotalIncremental__c</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <inlineHelpText>Incremental Sales forecast for July</inlineHelpText>
     <label>July Incremental</label>

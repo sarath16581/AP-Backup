@@ -3,7 +3,7 @@
     <fullName>Website_information__c</fullName>
     <externalId>false</externalId>
     <label>Website information</label>
-    <length>65536</length>
+    <length>131072</length>
     <securityClassification>INTERNAL</securityClassification>
     <trackHistory>true</trackHistory>
     <type>Html</type>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Business_Recalls_delivered_3rd_party_locker</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>Business_Recalls_delivered_3rd_party_locker</name>
+    <style>none</style>
+    <subject>Business Recalls - delivered - 3rd party locker</subject>
+    <textOnly>Australia Post
+
+Help &amp; Support
+
+Reference {!Case.CaseNumber}
+
+Update for {!Case.Type} - {!Case.CaseNumber}
+
+Hi {!Contact.FirstName}
+
+Re: Article {!Case.ReferenceID__c}
+
+We have an update on the delivery of your {!Case.ProductSubCategory__c} item.
+
+I have met with the driver responsible for the delivery of this item, and after reviewing route and tracking information, they recall that your item was delivered into a third-party locker at the delivery location.
+
+Third-party lockers are parcel lockers that are not managed by Australia Post, and may be installed by arrangement at building complexes or business locations.
+
+If you’re unaware of deliveries to third-party lockers within your building complex, we suggest speaking to someone familiar with your internal mail arrangements or request assistance from your concierge service / reception.
+
+Should they be unable to locate your item, we recommend you contact your sender to confirm the delivery details.
+
+For future deliveries, you may like to find out about alternative delivery options by visiting https://auspost.com.au/receiving/mypost
+
+Thank you for taking the time to contact Australia Post.
+
+Kind Regards,
+{!User.FirstName}
+Australia Post
+{!Case.Thread_Id}
+
+This email was sent by Australia Post. Australia Post does not represent, warrant or guarantee that the integrity of this email communication has been maintained nor that the communication is free of errors, viruses or interference.
+Help &amp; support  |  Terms &amp; conditions  |  Privacy policy</textOnly>
+    <type>custom</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

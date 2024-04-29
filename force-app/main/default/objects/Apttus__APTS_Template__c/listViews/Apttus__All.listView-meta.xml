@@ -10,7 +10,7 @@
     <columns>Apttus__ReferenceId__c</columns>
     <columns>Apttus__ClonedFromReferenceId__c</columns>
     <columns>Apttus__Agreement_Types__c</columns>
-    <columns>Apttus__Guidance__c</columns>
+    <columns>LAST_UPDATE</columns>
     <filterScope>Everything</filterScope>
     <label>All</label>
 </ListView>

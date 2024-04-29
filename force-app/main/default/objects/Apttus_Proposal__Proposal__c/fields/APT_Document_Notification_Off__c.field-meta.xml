@@ -8,6 +8,5 @@
     <label>Document Notification Disabled</label>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
-    <securityClassification>INTERNAL</securityClassification>
     <type>Checkbox</type>
 </CustomField>

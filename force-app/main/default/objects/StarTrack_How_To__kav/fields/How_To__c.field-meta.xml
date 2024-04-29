@@ -3,7 +3,7 @@
     <fullName>How_To__c</fullName>
     <externalId>false</externalId>
     <label>How To</label>
-    <length>65536</length>
+    <length>131072</length>
     <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
     <type>Html</type>

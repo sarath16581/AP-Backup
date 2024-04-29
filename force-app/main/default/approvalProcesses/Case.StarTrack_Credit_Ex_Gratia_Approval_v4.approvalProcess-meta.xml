@@ -293,7 +293,7 @@
         <useApproverFieldOfRecordOwner>false</useApproverFieldOfRecordOwner>
         <userHierarchyField>Manager</userHierarchyField>
     </nextAutomatedApprover>
-    <processOrder>6</processOrder>
+    <processOrder>5</processOrder>
     <recallActions>
         <action>
             <name>StarTrack_Change_Case_Status_to_UI</name>
