@@ -9075,4 +9075,12 @@ We&apos;ll let you if it&apos;s successful. Thank you. Please do not reply.</val
         <shortDescription>Send for eSignature Custom Message</shortDescription>
         <value>Once the agreement is signed by Australia Post and the Customer, you will receive an email confirmation and the Customer Onboarding team will be notified to provision the rates, and activate the contract.</value>
     </labels>
+	<labels>
+		<fullName>REC_TYPE_DEV_BULK_MAIL</fullName>
+		<categories>Record Type Name</categories>
+		<language>en_US</language>
+		<protected>false</protected>
+		<shortDescription>Record Type Developer Name of Bulk Mail</shortDescription>
+		<value>Bulk_Mail_Onboarding</value>	
+	</labels>
 </CustomLabels>
