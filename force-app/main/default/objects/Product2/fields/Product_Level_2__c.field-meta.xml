@@ -9,246 +9,66 @@
     <type>Picklist</type>
     <valueSet>
         <valueSetDefinition>
-            <sorted>false</sorted>
+            <sorted>true</sorted>
             <value>
-                <fullName>AaE L2</fullName>
+                <fullName>Australia Post Global eCommerce Solutions</fullName>
                 <default>false</default>
-                <label>AaE L2</label>
+                <label>Australia Post Global eCommerce Solutions</label>
             </value>
             <value>
-                <fullName>Addressed Mail</fullName>
+                <fullName>Data + Insight Services</fullName>
                 <default>false</default>
-                <label>Addressed Mail</label>
+                <label>Data + Insight Services</label>
             </value>
             <value>
-                <fullName>AP Global Solutions</fullName>
+                <fullName>Decipha + Mailrooms Div</fullName>
                 <default>false</default>
-                <label>AP Global Solutions</label>
+                <label>Decipha + Mailrooms Div</label>
             </value>
             <value>
-                <fullName>Communication &amp; Insight Services</fullName>
+                <fullName>Finance Div</fullName>
                 <default>false</default>
-                <label>Communication &amp; Insight Services</label>
+                <label>Finance Div</label>
             </value>
             <value>
-                <fullName>Consumer Non Product</fullName>
+                <fullName>Identity + Financial Services</fullName>
                 <default>false</default>
-                <label>Consumer Non Product</label>
+                <label>Identity + Financial Services</label>
             </value>
             <value>
-                <fullName>Consumer Products</fullName>
+                <fullName>International Services (exc APG)</fullName>
                 <default>false</default>
-                <label>Consumer Products</label>
+                <label>International Services (exc APG)</label>
             </value>
             <value>
-                <fullName>Courier</fullName>
+                <fullName>Letter Services</fullName>
                 <default>false</default>
-                <label>Courier</label>
+                <label>Letter Services</label>
             </value>
             <value>
-                <fullName>Decipha &amp; Digital Mailbox</fullName>
+                <fullName>Parcel + Express Services</fullName>
                 <default>false</default>
-                <label>Decipha &amp; Digital Mailbox</label>
+                <label>Parcel + Express Services</label>
             </value>
             <value>
-                <fullName>Digital ID Services</fullName>
+                <fullName>Retail Div Other</fullName>
                 <default>false</default>
-                <label>Digital ID Services</label>
+                <label>Retail Div Other</label>
             </value>
             <value>
-                <fullName>Digital Mailbox L2</fullName>
+                <fullName>Retail Products</fullName>
                 <default>false</default>
-                <label>Digital Mailbox L2</label>
+                <label>Retail Products</label>
             </value>
             <value>
-                <fullName>Domestic Express Post Envelopes</fullName>
+                <fullName>SecurePay Div</fullName>
                 <default>false</default>
-                <label>Domestic Express Post Envelopes</label>
+                <label>SecurePay Div</label>
             </value>
             <value>
-                <fullName>Express Post</fullName>
+                <fullName>StarTrack Courier + Fulfilment</fullName>
                 <default>false</default>
-                <label>Express Post</label>
-            </value>
-            <value>
-                <fullName>Financial, Identity and Commercial Services</fullName>
-                <default>false</default>
-                <label>Financial, Identity and Commercial Services</label>
-            </value>
-            <value>
-                <fullName>Financial Services</fullName>
-                <default>false</default>
-                <label>Financial Services</label>
-            </value>
-            <value>
-                <fullName>Fulfilment &amp; Unaddressed</fullName>
-                <default>false</default>
-                <label>Fulfilment &amp; Unaddressed</label>
-            </value>
-            <value>
-                <fullName>Fulfilment L2</fullName>
-                <default>false</default>
-                <label>Fulfilment L2</label>
-            </value>
-            <value>
-                <fullName>Government Solutions Centre</fullName>
-                <default>false</default>
-                <label>Government Solutions Centre</label>
-            </value>
-            <value>
-                <fullName>ID&amp;G and F&amp;CS</fullName>
-                <default>false</default>
-                <label>ID&amp;G and F&amp;CS</label>
-            </value>
-            <value>
-                <fullName>Identity Services</fullName>
-                <default>false</default>
-                <label>Identity Services</label>
-            </value>
-            <value>
-                <fullName>Industry Solutions</fullName>
-                <default>false</default>
-                <label>Industry Solutions</label>
-            </value>
-            <value>
-                <fullName>International</fullName>
-                <default>false</default>
-                <label>International</label>
-            </value>
-            <value>
-                <fullName>International Letters</fullName>
-                <default>false</default>
-                <label>International Letters</label>
-            </value>
-            <value>
-                <fullName>International Parcels</fullName>
-                <default>false</default>
-                <label>International Parcels</label>
-            </value>
-            <value>
-                <fullName>Letters &amp; Mail Network - Domestic</fullName>
-                <default>false</default>
-                <label>Letters &amp; Mail Network - Domestic</label>
-            </value>
-            <value>
-                <fullName>Letters &amp; Mail Network - International</fullName>
-                <default>false</default>
-                <label>Letters &amp; Mail Network - International</label>
-            </value>
-            <value>
-                <fullName>Mail Products</fullName>
-                <default>false</default>
-                <label>Mail Products</label>
-            </value>
-            <value>
-                <fullName>Mailroom L2</fullName>
-                <default>false</default>
-                <label>Mailroom L2</label>
-            </value>
-            <value>
-                <fullName>Mail Services</fullName>
-                <default>false</default>
-                <label>Mail Services</label>
-            </value>
-            <value>
-                <fullName>Merchandise Services</fullName>
-                <default>false</default>
-                <label>Merchandise Services</label>
-            </value>
-            <value>
-                <fullName>MRS &amp; Data Insights</fullName>
-                <default>false</default>
-                <label>MRS &amp; Data Insights</label>
-            </value>
-            <value>
-                <fullName>Other Postal Services L2</fullName>
-                <default>false</default>
-                <label>Other Postal Services L2</label>
-            </value>
-            <value>
-                <fullName>Other Retail Services L2</fullName>
-                <default>false</default>
-                <label>Other Retail Services L2</label>
-            </value>
-            <value>
-                <fullName>Parcel &amp; Express Services</fullName>
-                <default>false</default>
-                <label>Parcel &amp; Express Services</label>
-            </value>
-            <value>
-                <fullName>Parcel Post</fullName>
-                <default>false</default>
-                <label>Parcel Post</label>
-            </value>
-            <value>
-                <fullName>Parcel Services - International</fullName>
-                <default>false</default>
-                <label>Parcel Services - International</label>
-            </value>
-            <value>
-                <fullName>Parcel Services - Star Track International</fullName>
-                <default>false</default>
-                <label>Parcel Services - Star Track International</label>
-            </value>
-            <value>
-                <fullName>PostConnect</fullName>
-                <default>false</default>
-                <label>PostConnect</label>
-            </value>
-            <value>
-                <fullName>Post Logistics International</fullName>
-                <default>false</default>
-                <label>Post Logistics International</label>
-            </value>
-            <value>
-                <fullName>Post Logistics L2</fullName>
-                <default>false</default>
-                <label>Post Logistics L2</label>
-            </value>
-            <value>
-                <fullName>Retail Services L2</fullName>
-                <default>false</default>
-                <label>Retail Services L2</label>
-            </value>
-            <value>
-                <fullName>Securepay L2</fullName>
-                <default>false</default>
-                <label>Securepay L2</label>
-            </value>
-            <value>
-                <fullName>StarTrack &amp; Express</fullName>
-                <default>false</default>
-                <label>StarTrack &amp; Express</label>
-            </value>
-            <value>
-                <fullName>Star Track Express L2</fullName>
-                <default>false</default>
-                <label>Star Track Express L2</label>
-            </value>
-            <value>
-                <fullName>Star Track International</fullName>
-                <default>false</default>
-                <label>Star Track International</label>
-            </value>
-            <value>
-                <fullName>Star Track L2</fullName>
-                <default>false</default>
-                <label>Star Track L2</label>
-            </value>
-            <value>
-                <fullName>Trusted Services Products</fullName>
-                <default>false</default>
-                <label>Trusted Services Products</label>
-            </value>
-            <value>
-                <fullName>Trusted Solutions Centre</fullName>
-                <default>false</default>
-                <label>Trusted Solutions Centre</label>
-            </value>
-            <value>
-                <fullName>Unaddressed</fullName>
-                <default>false</default>
-                <label>Unaddressed</label>
+                <label>StarTrack Courier + Fulfilment</label>
             </value>
         </valueSetDefinition>
     </valueSet>
