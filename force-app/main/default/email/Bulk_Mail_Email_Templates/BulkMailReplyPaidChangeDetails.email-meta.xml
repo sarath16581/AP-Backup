@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Reply Paid predefined template for outbound comms for the the bulk mail onboarding case management team</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>Bulk Mail - Reply Paid Change of Details</name>
+    <style>none</style>
+    <subject>Australia Post - Customer Onboarding Case: {!Case.CaseNumber}</subject>
+    <textOnly>Customer Onboarding
+
+Reference number {!Case.CaseNumber}
+
+Thank you for your enquiry about changes to your Reply Paid service. Please complete the Reply Paid application form which is available on our website - Reply Paid Application Form.
+
+When updating your address, please note that the barcode is non-transferable. You may receive a new Reply Paid address and artwork. If you receive new artwork, please discard your old artwork and any printed envelopes. Also, make sure there are no active campaigns going to the old Reply Paid address.
+
+Kind regards,
+
+Customer Onboarding
+Australia Post
+
+
+{!Case.Thread_Id}
+
+
+Nothing in this email is intended to exclude or limit any rights or remedies that you may have under the Australian Consumer Law.
+
+This email was sent by Australia Post. Australia Post does not represent, warrant or guarantee that the integrity of this email communication has been maintained nor that the communication is free of errors, viruses or interference.
+Terms &amp; conditions  |  Privacy policy</textOnly>
+    <type>custom</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>
