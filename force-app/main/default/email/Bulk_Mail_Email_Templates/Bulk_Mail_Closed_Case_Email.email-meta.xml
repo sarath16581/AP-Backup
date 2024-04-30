@@ -5,17 +5,17 @@
     <encodingKey>ISO-8859-1</encodingKey>
     <name>Bulk Mail - Closed Case Email</name>
     <style>none</style>
-    <subject>You have sent an email to a closed case</subject>
+    <subject>We’ve closed your case - case {!Case.CaseNumber}</subject>
     <textOnly>Australia Post
 
 Hi,
-		
-Thanks for your email. You have sent an email to a closed case.
-		
-If the email you sent is related to your closed case, we will respond to you. In the future, if it is a new enquiry please send us a new email, and you will be provided with a new case number.
 
-Thank you,
-		
+We&apos;ve closed your enquiry - case reference number {!Case.CaseNumber}.
+
+If you have any additional questions or concerns, please send us a new email.
+
+Regards,
+
 Customer Onboarding
 
 Australia Post

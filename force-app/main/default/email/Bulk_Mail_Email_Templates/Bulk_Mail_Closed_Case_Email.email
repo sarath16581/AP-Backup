@@ -119,8 +119,11 @@
 									<td
 										style="font:13px Arial, Helvetica, sans-serif; color:#807370; line-height:16px; padding:11px 0 6px;border-bottom:1px solid #cdc6c5;">
 										<p>Hi,</p>
-										<p>Thanks for your email. You have sent an email to a closed case.</p>
-										<p>If the email you sent is related to your closed case, we will respond to you. In the future, if it is a new enquiry please send us a new email, and you will be provided with a new case number.</p>
+										<p>We've closed your enquiry - case reference number {!Case.CaseNumber}</p>
+										<p>If you have any additional questions or concerns, please send us a new email.</p>
+										<p>Regards,</p>
+										<p>Customer Onboarding</p>
+										<p style="margin-left:36.0pt;">&nbsp;</p>
 									</td>
 								</tr>
 								<tr>
@@ -136,7 +139,6 @@
 																		<td
 																			style="font:13px Arial, Helvetica, sans-serif; color:#807370; line-height:16px; padding:11px 0 6px;">
 																			Thank you, <br /><br />
-																			<b style="color:#dc1928;">Customer Onboarding</b>
 																			<b style="color:#dc1928;">Australia Post</b>
 																			<br /><span
 																				style="color:#ffffff">[{!Case.Thread_Id}]</span>
