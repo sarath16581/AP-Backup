@@ -82,7 +82,7 @@
             <field>Case_RecordType_Name__c</field>
             <operator>EqualTo</operator>
             <value>
-                <stringValue>Bulk_Mail Onboarding</stringValue>
+                <stringValue>Bulk Mail Onboarding</stringValue>
             </value>
         </filters>
         <object>Case</object>
@@ -94,7 +94,7 @@
             </connector>
             <label>15 Days after case closed</label>
             <offsetNumber>15</offsetNumber>
-            <offsetUnit>Days</offsetUnit>
+            <offsetUnit>Minutes</offsetUnit>
             <recordField>ClosedDate</recordField>
             <timeSource>RecordField</timeSource>
         </scheduledPaths>
