@@ -18,7 +18,7 @@
     <actionCalls>
         <name>ASH_Email_Alert_on_new_case_creation</name>
         <label>ASH - Email Alert on new case creation</label>
-        <locationX>1865</locationX>
+        <locationX>1909</locationX>
         <locationY>350</locationY>
         <actionName>Case.ASH_Email_Alert_on_new_case_creation</actionName>
         <actionType>emailAlert</actionType>
@@ -84,7 +84,7 @@
     <actionCalls>
         <name>CAR_Auto_Email_response_for_Queue_Owner</name>
         <label>CAR Auto Email response for Queue Owner</label>
-        <locationX>1601</locationX>
+        <locationX>1645</locationX>
         <locationY>350</locationY>
         <actionName>Case.Customer_Analytics_Reporting_Cases_Auto_Email_Response</actionName>
         <actionType>emailAlert</actionType>
@@ -202,7 +202,7 @@
     <actionCalls>
         <name>New_Dispute_Claim_Case_Created</name>
         <label>New Dispute Claim Case Created</label>
-        <locationX>105</locationX>
+        <locationX>149</locationX>
         <locationY>458</locationY>
         <actionName>Case.New_Dispute_Claim_Case_Created</actionName>
         <actionType>emailAlert</actionType>
@@ -220,7 +220,7 @@
     <actionCalls>
         <name>New_Dispute_Claim_Case_Created_Origin_Email</name>
         <label>New Dispute Claim Case Created Origin Email</label>
-        <locationX>897</locationX>
+        <locationX>941</locationX>
         <locationY>458</locationY>
         <actionName>Case.New_Dispute_Claim_Case_Created_Origin_Email</actionName>
         <actionType>emailAlert</actionType>
@@ -238,7 +238,7 @@
     <actionCalls>
         <name>New_Dispute_Claim_Case_Created_StarTrack</name>
         <label>New Dispute Claim Case Created StarTrack</label>
-        <locationX>633</locationX>
+        <locationX>677</locationX>
         <locationY>458</locationY>
         <actionName>Case.New_Dispute_Claim_Case_Created_StarTrack</actionName>
         <actionType>emailAlert</actionType>
@@ -256,7 +256,7 @@
     <actionCalls>
         <name>New_Dispute_Claim_Case_Created_StarTrack_Origin_Email</name>
         <label>New Dispute Claim Case Created StarTrack Origin Email</label>
-        <locationX>1161</locationX>
+        <locationX>1205</locationX>
         <locationY>458</locationY>
         <actionName>Case.New_Dispute_Claim_Case_Created_StarTrack_Origin_Email</actionName>
         <actionType>emailAlert</actionType>
@@ -274,7 +274,7 @@
     <actionCalls>
         <name>New_Late_Payment_Dispute_Claim_Case_Created</name>
         <label>New Late Payment Dispute Claim Case Created</label>
-        <locationX>369</locationX>
+        <locationX>413</locationX>
         <locationY>458</locationY>
         <actionName>Case.New_Late_Payment_Dispute_Claim_Case_Created</actionName>
         <actionType>emailAlert</actionType>
@@ -307,7 +307,7 @@
     <actionCalls>
         <name>Sales_Coordinator_Case_Created_Notification</name>
         <label>Sales Coordinator Case Created Notification</label>
-        <locationX>2129</locationX>
+        <locationX>2173</locationX>
         <locationY>350</locationY>
         <actionName>Case.Sales_Coordinator_Case_Created_Notification</actionName>
         <actionType>emailAlert</actionType>
@@ -325,7 +325,7 @@
     <actionCalls>
         <name>Security_Express_Case_Creation_Email_Alert</name>
         <label>Security Express Case Creation Email Alert</label>
-        <locationX>2393</locationX>
+        <locationX>2437</locationX>
         <locationY>350</locationY>
         <actionName>Case.Security_Express_Case_Creation_Email_Alert</actionName>
         <actionType>emailAlert</actionType>
@@ -469,6 +469,13 @@
                     <booleanValue>true</booleanValue>
                 </rightValue>
             </conditions>
+            <conditions>
+                <leftValueReference>FeatureEnableBulkMailCaseReopenEmail</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
             <connector>
                 <targetReference>Bulk_Mail_Send_an_Email_when_a_Case_reopened</targetReference>
             </connector>
@@ -586,7 +593,7 @@
     <decisions>
         <name>CaseDomain_create_only_scenarios</name>
         <label>CaseDomain create only scenarios</label>
-        <locationX>1711</locationX>
+        <locationX>1755</locationX>
         <locationY>242</locationY>
         <defaultConnector>
             <targetReference>CaseDomain_scenarios</targetReference>
@@ -720,7 +727,7 @@
     <decisions>
         <name>CaseDomain_scenarios</name>
         <label>CaseDomain scenarios</label>
-        <locationX>2272</locationX>
+        <locationX>2316</locationX>
         <locationY>818</locationY>
         <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
         <rules>
@@ -973,7 +980,7 @@
     <decisions>
         <name>Is_new_or_existing</name>
         <label>Is new or existing</label>
-        <locationX>2272</locationX>
+        <locationX>2316</locationX>
         <locationY>134</locationY>
         <defaultConnector>
             <targetReference>CaseDomain_scenarios</targetReference>
@@ -998,7 +1005,7 @@
     <decisions>
         <name>New_Dispute_Claim_Scenarios</name>
         <label>New Dispute Claim Scenarios</label>
-        <locationX>765</locationX>
+        <locationX>809</locationX>
         <locationY>350</locationY>
         <defaultConnector>
             <targetReference>CaseDomain_scenarios</targetReference>
@@ -1269,13 +1276,23 @@ NOT({!vCase.Owner_is_Queue__c}) )</expression>
     </processMetadataValues>
     <processType>AutoLaunchedFlow</processType>
     <start>
-        <locationX>2146</locationX>
+        <locationX>2190</locationX>
         <locationY>0</locationY>
         <connector>
             <targetReference>Is_new_or_existing</targetReference>
         </connector>
     </start>
     <status>Active</status>
+    <variables>
+        <name>FeatureEnableBulkMailCaseReopenEmail</name>
+        <dataType>Boolean</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <value>
+            <booleanValue>false</booleanValue>
+        </value>
+    </variables>
     <variables>
         <description>Contains Case Record value</description>
         <name>vCase</name>
