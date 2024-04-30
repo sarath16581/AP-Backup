@@ -162,7 +162,7 @@
 																		<td
 																			style="font:13px Arial, Helvetica, sans-serif; color:#807370; line-height:16px; padding:11px 0 6px;">
 																			Kind regards, <br /></br>
-																			<b style="color:#dc1928;">Customer Onboarding</b>
+																			<b style="color:#dc1928;">Customer Onboarding</b><br/>
 																			<b style="color:#dc1928;">Australia Post</b>
 																			<br /><span
 																				style="color:#ffffff">{!Case.Thread_Id}</span>
