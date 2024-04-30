@@ -2,7 +2,6 @@
 <ListView xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Bulk_Mail_Onboarding_Queue_Case</fullName>
     <columns>CASES.CASE_NUMBER</columns>
-    <columns>NAME</columns>
     <columns>CASES.SUBJECT</columns>
     <columns>Product_Type__c</columns>
     <columns>CASES.STATUS</columns>
@@ -10,6 +9,11 @@
     <columns>CORE.USERS.ALIAS</columns>
     <columns>Case_Update__c</columns>
     <filterScope>Queue</filterScope>
+    <filters>
+        <field>CASES.CLOSED</field>
+        <operation>equals</operation>
+        <value>0</value>
+    </filters>
     <label>Bulk Mail Onboarding Queue</label>
     <queue>Bulk_Mail_Onboarding_Queue</queue>
     <sharedTo>
