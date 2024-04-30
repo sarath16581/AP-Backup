@@ -2367,20 +2367,6 @@
             </criteriaItems>
         </ruleEntry>
         <ruleEntry>
-            <assignedTo>Shipster_Unassigned</assignedTo>
-            <assignedToType>Queue</assignedToType>
-            <criteriaItems>
-                <field>Case.RecordTypeId</field>
-                <operation>equals</operation>
-                <value>Shipster</value>
-            </criteriaItems>
-            <criteriaItems>
-                <field>Case.Origin</field>
-                <operation>equals</operation>
-                <value>Web</value>
-            </criteriaItems>
-        </ruleEntry>
-        <ruleEntry>
             <assignedTo>ACIC_Request_Cases</assignedTo>
             <assignedToType>Queue</assignedToType>
             <formula>AND(ISNEW() , RecordType.DeveloperName=&apos;ACIC_Request&apos;)</formula>
