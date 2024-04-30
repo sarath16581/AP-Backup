@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>APT_Net_Price_Template__c</fullName>
+    <description>Field used to display ALI option pricing on template.</description>
     <externalId>false</externalId>
     <formula>IF(
-APT_Option_Product_Name__c != &apos;Minimum Collection Value&apos;,
+Apttus__NetPrice__c != 0,
 &apos;$&apos;+ TEXT(FLOOR(Apttus__NetPrice__c)) + &apos;.&apos; + RIGHT(TEXT(FLOOR(Apttus__NetPrice__c*100)),2),
-&apos;$0.00&apos;)</formula>
+&apos;$0.00&apos;
+)</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <label>Net Price Template</label>
     <required>false</required>
