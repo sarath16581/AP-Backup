@@ -1135,27 +1135,7 @@
     <picklistValues>
         <picklist>Case_Update__c</picklist>
         <values>
-            <fullName>Customer Responded</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>New Comment</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>New Email Received</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Operations Responded</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Other Update</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Waiting on Investigator</fullName>
             <default>false</default>
         </values>
     </picklistValues>
