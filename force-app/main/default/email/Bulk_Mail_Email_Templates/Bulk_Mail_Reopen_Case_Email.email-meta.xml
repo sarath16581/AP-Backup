@@ -5,20 +5,18 @@
     <encodingKey>ISO-8859-1</encodingKey>
     <name>Bulk Mail - Reopen Case Email</name>
     <style>none</style>
-    <subject>Australia Post - Auto Reply - Case number: {!Case.CaseNumber}</subject>
+    <subject>You have sent an email to a closed case</subject>
     <textOnly>Australia Post
 
-Transport Enquiry
+Hi,
 
-Sorry, we couldn’t accept your request
+Thanks for your email. You have sent an email to a closed case.
 
-You have responded to a case which has already been closed for some time.
-
-If you require assistance, please send a new email to create a new case with our support team.
-
-
+If the email you sent is related to your closed case, we will respond to you. In the future, if it is a new enquiry please send us a new email, and you will be provided with a new case number.
+		
 Thank you,
 
+Customer Onboarding		
 Australia Post
 [{!Case.Thread_Id}]
 

@@ -103,7 +103,7 @@
 									<td width="33" valign="top"><a href="#"><img
 												src="http://auspost.com.au/images/emails/track/bg-arrow.png" border="0"
 												style="vertical-align:top;" width="33" height="33" alt="" /></a></td>
-									<td bgcolor="#ffffff" width="10"></td>
+									<td bgcolor="#ffffff" width="10">Bulk Mail Closed Case</td>
 									<td bgcolor="#ffffff" align="right" valign="top" style="border-radius:0 2px 0 0;">
 										<table cellpadding="0" cellspacing="0">
 										</table>
@@ -116,19 +116,15 @@
 						<td bgcolor="#ffffff" style="padding:17px 10px 0 10px; border-radius:0 0 2px 2px;">
 							<table width="100%" cellpadding="0" cellspacing="0">
 								<tr>
-									<td
-										style="padding:14px 0 5px; font:bold 16px/18px Arial, Helvetica, sans-serif; color:#5c514d;">
-										Sorry, we couldn’t accept your request
+									<td style="padding:14px 0 5px; font:bold 16px/18px Arial, Helvetica, sans-serif; color:#5c514d;">
 									</td>
 								</tr>
 								<tr>
 									<td
 										style="font:13px Arial, Helvetica, sans-serif; color:#807370; line-height:16px; padding:11px 0 6px;border-bottom:1px solid #cdc6c5;">
-										<p>You have responded to a case which has already been closed for some time.</p>
-
-										<p>If you require assistance, please send a new email to create a new case with
-											our support team.</p>
-
+										<p>Hi,</p>
+										<p>Thanks for your email. You have sent an email to a closed case.</p>
+										<p>If the email you sent is related to your closed case, we will respond to you. In the future, if it is a new enquiry please send us a new email, and you will be provided with a new case number.</p>
 										<p style="margin-left:36.0pt;">&nbsp;</p>
 									</td>
 								</tr>
@@ -145,6 +141,7 @@
 																		<td
 																			style="font:13px Arial, Helvetica, sans-serif; color:#807370; line-height:16px; padding:11px 0 6px;">
 																			Thank you, <br /><br />
+																			<b style="color:#dc1928;">Customer Onboarding</b>
 																			<b style="color:#dc1928;">Australia Post</b>
 																			<br /><span
 																				style="color:#ffffff">[{!Case.Thread_Id}]</span>
