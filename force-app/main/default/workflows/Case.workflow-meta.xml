@@ -130,6 +130,54 @@
         <template>All_Email_Templates/BGS_Closed_Case_Bounce</template>
     </alerts>
     <alerts>
+        <fullName>Bulk_Mail_Send_an_Email_when_a_Case_closed</fullName>
+        <description>Bulk Mail - Send an Email when a Case closed</description>
+        <protected>false</protected>
+        <recipients>
+            <field>SuppliedEmail</field>
+            <type>email</type>
+        </recipients>
+        <senderAddress>noreply@auspost.com.au</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>Bulk_Mail_Email_Templates/Bulk_Mail_Closed_Case_Email</template>
+    </alerts>
+    <alerts>
+        <fullName>Bulk_Mail_Send_an_Email_when_a_Case_permanent_closed</fullName>
+        <description>Bulk Mail - Send an Email when a Case permanent closed</description>
+        <protected>false</protected>
+        <recipients>
+            <field>SuppliedEmail</field>
+            <type>email</type>
+        </recipients>
+        <senderAddress>noreply@auspost.com.au</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>Bulk_Mail_Email_Templates/Bulk_Mail_Permanent_Closed_Case_Email</template>
+    </alerts>
+    <alerts>
+        <fullName>Bulk_Mail_Send_an_Email_when_a_Case_reopened</fullName>
+        <description>Bulk Mail - Send an Email when a Case reopened</description>
+        <protected>false</protected>
+        <recipients>
+            <field>SuppliedEmail</field>
+            <type>email</type>
+        </recipients>
+        <senderAddress>noreply@auspost.com.au</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>Bulk_Mail_Email_Templates/Bulk_Mail_Reopen_Case_Email</template>
+    </alerts>
+    <alerts>
+        <fullName>Bulk_Mail_Send_an_Email_when_a_new_Case_created</fullName>
+        <description>Bulk Mail - Send an Email when a new Case created</description>
+        <protected>false</protected>
+        <recipients>
+            <field>SuppliedEmail</field>
+            <type>email</type>
+        </recipients>
+        <senderAddress>noreply@auspost.com.au</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>Bulk_Mail_Email_Templates/Bulk_Mail_New_Case_Notification</template>
+    </alerts>
+    <alerts>
         <fullName>Business_Enablement_Feedback_Survey</fullName>
         <description>Business Enablement Feedback Survey</description>
         <protected>false</protected>
