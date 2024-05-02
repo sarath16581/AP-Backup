@@ -6879,14 +6879,6 @@ We manage your personal information in accordance with our Privacy policy. The p
         <value>Enterprise_Credit_Dispute_Claim</value>
     </labels>
     <labels>
-        <fullName>REC_TYPE_DEV_EG_Sales</fullName>
-        <categories>Record Type Name</categories>
-        <language>en_US</language>
-        <protected>false</protected>
-        <shortDescription>Record Type Developer Name of E&amp;G Sales Implementation</shortDescription>
-        <value>Sales_Implementation_Case</value>
-    </labels>
-    <labels>
         <fullName>REC_TYPE_DEV_KEYWORD_SSSW</fullName>
         <categories>Record Type Name</categories>
         <language>en_US</language>
@@ -6984,14 +6976,6 @@ We manage your personal information in accordance with our Privacy policy. The p
         <protected>false</protected>
         <shortDescription>Record Type Developer Name of Service Delivery</shortDescription>
         <value>Sales_Ops_Delivery</value>
-    </labels>
-    <labels>
-        <fullName>REC_TYPE_DEV_Shipster</fullName>
-        <categories>Record Type Name</categories>
-        <language>en_US</language>
-        <protected>false</protected>
-        <shortDescription>Record Type Developer Name of Shipster</shortDescription>
-        <value>Shipster</value>
     </labels>
     <labels>
         <fullName>REC_TYPE_DEV_SpecialServices</fullName>
