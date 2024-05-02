@@ -104,8 +104,6 @@
                 <elementReference>myVariable_current.Id</elementReference>
             </value>
         </inputParameters>
-        <nameSegment>Add_Case_Creator_to_Case_Team_Member</nameSegment>
-        <versionSegment>1</versionSegment>
     </actionCalls>
     <actionCalls>
         <processMetadataValues>
@@ -211,8 +209,6 @@
                 <elementReference>myVariable_current.Id</elementReference>
             </value>
         </inputParameters>
-        <nameSegment>Add_Case_Creator_to_Case_Team_Member_Modify</nameSegment>
-        <versionSegment>1</versionSegment>
     </actionCalls>
     <actionCalls>
         <processMetadataValues>
@@ -318,10 +314,8 @@
                 <elementReference>myVariable_current.Id</elementReference>
             </value>
         </inputParameters>
-        <nameSegment>Add_Case_Creator_to_Case_Team_Member_Modify</nameSegment>
-        <versionSegment>1</versionSegment>
     </actionCalls>
-    <apiVersion>49.0</apiVersion>
+    <apiVersion>59.0</apiVersion>
     <decisions>
         <processMetadataValues>
             <name>index</name>
@@ -578,7 +572,7 @@
         </rules>
     </decisions>
     <description>Edited to remove Report Request criteria from the process builder</description>
-    <interviewLabel>Case_Team_Assignment_from_Case_Creator-18_InterviewLabel</interviewLabel>
+    <interviewLabel>Case_Team_Assignment_from_Case_Creator-19_InterviewLabel</interviewLabel>
     <label>Case Team Assignment from Case Creator</label>
     <processMetadataValues>
         <name>ObjectType</name>
