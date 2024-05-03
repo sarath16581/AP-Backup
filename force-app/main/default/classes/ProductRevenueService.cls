@@ -552,6 +552,9 @@ public with sharing class ProductRevenueService {
         for (Integer i = 1; i <= 12; i++) {
             String uniqueId = getUID(accountId,productId,String.valueOf(targetYear));
             GroupedAccountProductRevenue__c targetData = groupedRevenues.get(uniqueId);
+            System.debug(targetData.Id);
+            System.debug(targetYear);
+            System.debug(targetMonth);
             if (targetData != null) {
                 Double monthValue = getValueForMonth(targetData,targetMonth);
                 if (monthValue != null) {

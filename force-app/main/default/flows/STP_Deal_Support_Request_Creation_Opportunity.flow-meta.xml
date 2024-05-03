@@ -574,15 +574,15 @@ Check if Opp stage is &apos;Qualify&apos; or &apos;Identify&apos; and DSQ record
         </connector>
         <fields>
             <name>Select_the_Deal_Support_Request_Type</name>
-            <choiceReferences>Choice_Bid_support</choiceReferences>
-            <choiceReferences>Choice_Legal_Support</choiceReferences>
-            <choiceReferences>Choice_PSR_Domestic</choiceReferences>
-            <choiceReferences>Choice_PSR_Intl</choiceReferences>
-            <choiceReferences>Choice_PSR_StarTrack</choiceReferences>
-            <choiceReferences>Choice_APPC_Parcel_Contract</choiceReferences>
-            <choiceReferences>Choice_Sales_Solution</choiceReferences>
             <choiceReferences>Choice_Deal_Enablement_Centre</choiceReferences>
+            <choiceReferences>Choice_PSR_Domestic</choiceReferences>
+            <choiceReferences>Choice_PSR_StarTrack</choiceReferences>
+            <choiceReferences>Choice_PSR_Intl</choiceReferences>
+            <choiceReferences>Choice_Legal_Support</choiceReferences>
             <choiceReferences>Choice_Surcharge_Exemption</choiceReferences>
+            <choiceReferences>Choice_APPC_Parcel_Contract</choiceReferences>
+            <choiceReferences>Choice_Bid_support</choiceReferences>
+            <choiceReferences>Choice_Sales_Solution</choiceReferences>
             <choiceReferences>Choice_BG_Deal_Desk</choiceReferences>
             <dataType>String</dataType>
             <fieldText>Select the Deal Support Request Type</fieldText>
