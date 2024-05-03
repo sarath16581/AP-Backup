@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Vendor_Email__c</fullName>
-	<description>Vendors email address</description>
+    <description>Vendors email address</description>
     <externalId>false</externalId>
     <fieldManageability>DeveloperControlled</fieldManageability>
     <inlineHelpText>Enter recipient email address</inlineHelpText>
     <label>Vendor Email</label>
     <required>false</required>
-	<securityClassification>INTERNAL</securityClassification>
+    <securityClassification>INTERNAL</securityClassification>
     <type>Email</type>
     <unique>false</unique>
 </CustomField>

@@ -15,6 +15,7 @@ RecordType.DeveloperName = &apos;BG_Standard&apos;,
 RecordType.DeveloperName = &apos;StarTrack_Lead&apos;
 ),
 NOT( ISPICKVAL( Product__c , &apos;MyPost Business&apos;)),
+NOT( ISPICKVAL( LeadSource, &apos;SBSub_Retail&apos;)),
  OR( ISNULL( ABN__c ), ISBLANK(ABN__c )  )
 
  )</errorConditionFormula>

@@ -372,21 +372,6 @@
         <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
-        <fullName>Sales_Implementation_Case</fullName>
-        <accessLevel>Read</accessLevel>
-        <description>Sharing case between Sales Implementation member</description>
-        <label>Sales Implementation Case</label>
-        <sharedTo>
-            <group>Sales_Implementation</group>
-        </sharedTo>
-        <criteriaItems>
-            <field>RecordTypeId</field>
-            <operation>equals</operation>
-            <value>E&amp;G Sales Implementation</value>
-        </criteriaItems>
-        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
-    </sharingCriteriaRules>
-    <sharingCriteriaRules>
         <fullName>Sales_Ops_Service_Read_Sharing</fullName>
         <accessLevel>Read</accessLevel>
         <label>Sales Ops &amp; Service Read Sharing</label>
@@ -501,20 +486,6 @@
             <field>RecordTypeId</field>
             <operation>equals</operation>
             <value>Business Systems Integration</value>
-        </criteriaItems>
-        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
-    </sharingCriteriaRules>
-    <sharingCriteriaRules>
-        <fullName>Shipster_Read_write_access</fullName>
-        <accessLevel>Edit</accessLevel>
-        <label>Shipster Read &amp; write access</label>
-        <sharedTo>
-            <group>Shipster</group>
-        </sharedTo>
-        <criteriaItems>
-            <field>RecordTypeId</field>
-            <operation>equals</operation>
-            <value>Shipster</value>
         </criteriaItems>
         <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
