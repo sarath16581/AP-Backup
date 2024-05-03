@@ -5,8 +5,8 @@
     <encodingKey>ISO-8859-1</encodingKey>
     <name>Bulk Mail - Closed Case Email</name>
     <style>none</style>
-    <subject>We’ve closed your case - case {!Case.CaseNumber}</subject>
-    <textOnly>Australia Post
+    <subject>We’ve closed your case - {!Case.CaseNumber}</subject>
+    <textOnly>Customer Onboarding
 
 Hi,
 
@@ -17,7 +17,6 @@ If you have any additional questions or concerns, please send us a new email.
 Regards,
 
 Customer Onboarding
-
 Australia Post
 [{!Case.Thread_Id}]
 

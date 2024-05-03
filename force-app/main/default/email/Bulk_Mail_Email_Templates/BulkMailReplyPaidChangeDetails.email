@@ -80,7 +80,7 @@
 						<table width="100%" cellpadding="0" cellspacing="0">
 							<tr>
 								<td width="33" valign="top"><a href="#"><img src="http://auspost.com.au/images/emails/track/bg-arrow.png" border="0" style="vertical-align:top;" width="33" height="33" alt="" /></a></td>
-								<td bgcolor="#ffffff" width="10"></td>
+								<td bgcolor="#ffffff" width="10">Customer Onboarding</td>
 								<td bgcolor="#ffffff" align="right" valign="top" style="border-radius:0 2px 0 0;">
 									<table cellpadding="0" cellspacing="0">
 										<tr>
@@ -97,7 +97,7 @@
 						<table width="100%" cellpadding="0" cellspacing="0">
 							<tr>
 								<td style="padding:0 0 0px; font:13px/16px Arial, Helvetica, sans-serif; color:#807370;"><br/>
-									<p>Thank you for your enquiry about changes to your Reply Paid service. Please complete the Reply Paid application form which is available on our website - <a href="https://auspost.com.au/content/dam/auspost_corp/media/documents/reply-paid-application-form.pdf" target="_blank">Reply Paid Application Form.</a></p><br/>
+									<p>Thank you for your enquiry about changes to your Reply Paid service. Please complete the Reply Paid application form which is available on our website - <a href="https://auspost.com.au/content/dam/auspost_corp/media/documents/reply-paid-application-form.pdf" target="_blank">Reply Paid Application Forme</a></p><br/>
 									<p>When updating your address, please note that the barcode is non-transferable. You may receive a new Reply Paid address and artwork. If you receive new artwork, please discard your old artwork and any printed envelopes. Also, make sure there are no active campaigns going to the old Reply Paid address.</p>
 								</td>
 							</tr>
@@ -117,13 +117,12 @@
 															<table width="100%" cellspacing="0" cellpadding="0">
 																<tr>
 																	<td style="font:13px Arial, Helvetica, sans-serif; color:#807370; line-height:16px; padding:11px 0 6px;">
-																		Kind regards, <br /><br />
+																		Regards,<br /> 
 																		<p><b style="color:#dc1928;">Customer Onboarding</b></p>
 																		<p><b style="color:#dc1928;">Australia Post</b></p>
 																		<br/><span style="color:#ffffff">{!Case.Thread_Id}</span>
 																	</td>
 																</tr>
-																
 															</table>
 														</td>
 														<td valign="top" width="146">

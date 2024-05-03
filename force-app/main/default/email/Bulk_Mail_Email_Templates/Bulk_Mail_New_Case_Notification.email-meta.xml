@@ -5,8 +5,8 @@
     <encodingKey>ISO-8859-1</encodingKey>
     <name>Bulk Mail - New Case Notification</name>
     <style>none</style>
-    <subject>We’re looking into your enquiry - case {!Case.CaseNumber}</subject>
-    <textOnly>Australia Post
+    <subject>We’re looking into your enquiry - {!Case.CaseNumber}</subject>
+    <textOnly>Customer Onboarding
 
 Thank you for contacting Australia Post. We have received your request and will respond to your enquiry within 3 business days. 
 
@@ -21,9 +21,7 @@ Do not reply to this email, as it is not being monitored.
   
 Regards, 
 Customer Onboarding 
-
-Level 2, 219 241 Cleveland Street 
-Redfern, NSW 2016 
+Australia Post
 {!Case.Thread_Id}
 
 This email was sent by Australia Post. Australia Post does not represent, warrant or guarantee that the integrity of this email communication has been maintained nor that the 							communication is free of errors, viruses or interference.
