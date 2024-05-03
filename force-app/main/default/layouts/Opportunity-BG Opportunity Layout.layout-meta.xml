@@ -126,6 +126,10 @@
                 <behavior>Edit</behavior>
                 <field>OverrideOPCCalculation__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>DoNotUseAccountHierarchy__c</field>
+            </layoutItems>
         </layoutColumns>
         <style>TwoColumnsTopToBottom</style>
     </layoutSections>

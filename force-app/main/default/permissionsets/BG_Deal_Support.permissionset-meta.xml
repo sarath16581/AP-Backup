@@ -2644,6 +2644,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Opportunity.DoNotUseAccountHierarchy__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Opportunity.Offline_Contract_Received__c</field>
         <readable>true</readable>
     </fieldPermissions>
