@@ -297,7 +297,7 @@
             <field>RecordTypeId</field>
             <operator>EqualTo</operator>
             <value>
-                <elementReference>LicenseCMARecordTypeId</elementReference>
+                <elementReference>LicenseCPARecordTypeId</elementReference>
             </value>
         </filters>
         <object>Account</object>
