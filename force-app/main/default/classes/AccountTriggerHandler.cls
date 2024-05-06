@@ -27,6 +27,7 @@
 02.12.2020   SaiSwetha Pingali                 Fix for guest user access issues to avoid duplicate Holding Role references being created after the activation of CRUD "Secure Guest users Sharing settings and record access"
 22.02.2021    L. Serafico (Mav3rik)           Added updateAccountTeamForLPO to add/update Team to allow Accounts to be visible to LPO
 1/12.2023		K. McGuire				OPC Replacement - update incremental and retained reveue for line items of reparented accounts
+3.05.2024    Swati Mogadala           			 REQ3225476 -Added deleteRReconDelete() in BeforeHandler( on delete)
 **/
 
 public with sharing class AccountTriggerHandler{
@@ -118,6 +119,8 @@ public with sharing class AccountTriggerHandler{
             if(AccountTriggerUtility.RUN_TRIGGER_BEFORE_DELETE){
                 accUtil.beforeResetRoodId(trigger.old);
                 accUtil.updateBAondelete(trigger.old);
+				accUtil.deleteRReconDelete(trigger.old);
+
             }
         }
     }
