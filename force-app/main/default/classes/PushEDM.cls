@@ -32,21 +32,21 @@ global with sharing class PushEDM {
     public PushEDM(){   
     	// added by shengpeng.xiao@bluewolf.com at 2014.7.15      
         this.searchKeyword = '';
-        
-        if(ApexPages.currentPage().getParameters().get('id').startsWith('001')){
-            Account anAccount = [select PersonContactId from Account where id=:ApexPages.currentPage().getParameters().get('id') limit 1];
+        String urlParam = ApexPages.currentPage().getParameters().get('id').escapeHtml4();
+        if(urlParam.startsWith('001')){
+            Account anAccount = [select PersonContactId from Account where id=:urlParam limit 1];
             aContact = [select firstname, lastname,id,email,name from Contact where id=:anAccount.PersonContactId limit 1];
         }
         
-        if(ApexPages.currentPage().getParameters().get('id').startsWith('003')){
-            aContact = [select firstname, lastname,id,email,name from Contact where id=:ApexPages.currentPage().getParameters().get('id') limit 1];
+        if(urlParam.startsWith('003')){
+            aContact = [select firstname, lastname,id,email,name from Contact where id=:urlParam limit 1];
         }
         
         TopCategories = getTopCategories();
         
-         if(ApexPages.currentPage().getParameters().get('k')<>null){
+         if(ApexPages.currentPage().getParameters().get('k').escapeHtml4()<>null){
          	// added by shengpeng.xiao@bluewolf.com at 2014.7.15      
-        	this.searchKeyword = ApexPages.currentPage().getParameters().get('k');
+        	this.searchKeyword = ApexPages.currentPage().getParameters().get('k').escapeHtml4();
         	
             ArticleSet = getArticleSetByKeywords();
         }
@@ -106,7 +106,6 @@ global with sharing class PushEDM {
             DataCategory [] children = topLevelCategories[0].getChildCategories();
         
             for(Integer i=0; i < children.size(); i++){
-                System.debug(children[i].getName());
                 topCategories.add(new Category(children[i].getName(), children[i].getLabel()));
             }
         }
@@ -177,224 +176,148 @@ global with sharing class PushEDM {
     private list<articleSet> getArticleSetByKeywords(){
         list<articleSet> articles = new list<articleSet>();                 
 
-            string articleTypeName ='FAQ__DataCategorySelection';
-        
-            map<string,string> appliedCategories=new map<string,string>();
-    
-            string q='Select ParentId, DataCategoryName From '+articleTypeName;
-            list<Sobject> slist = Database.query(q);
-            map<string,string> articleIDCategoryName=new map<string,string>();
-            
-            for(Sobject faq:slist){
-                articleIDCategoryName.put(string.valueof(faq.get('ParentId')),string.valueof(faq.get('DataCategoryName')));
-            }
-            
-            //get PushEDM articles
-            //modified by shengpeng.xiao@bluewolf.com at 2014.6.17 begin
-            //as article attached to different category, previous value will be replaced by following steps
-            /*articleTypeName ='Push_EDM__DataCategorySelection';
-        
-           
-    
-            q='Select ParentId, DataCategoryName From '+articleTypeName;
-            slist = Database.query(q);
+		//string articleTypeName ='FAQ__DataCategorySelection';
+	
+		map<string,string> appliedCategories=new map<string,string>();
 
-            
-            for(Sobject pushEDM:slist){
-                articleIDCategoryName.put(string.valueof(pushEDM.get('ParentId')),string.valueof(pushEDM.get('DataCategoryName')));
-            }*/
-            //modified by shengpeng.xiao@bluewolf.com at 2014.6.17 end
-            
-            //
-            String articleQuery = 'FAQ__kav (ID, Title, UrlName,Summary,Answer__c WHERE  language =\'en_US\'  and PublishStatus = \'Online\') ,Push_EDM__kav (ID, Title, UrlName,Summary,Answer__c WHERE  language =\'en_US\'  and PublishStatus = \'Online\')';
-            
-            //string keyword=ApexPages.currentPage().getParameters().get('k');
-            
-            //modified by shengpeng.xiao@bluewolf.com at 2014.6.17 end
-            string keyword = this.searchKeyword;
-            
-            List<List<SObject>> doclist = search.query('FIND \''+keyword+'\' IN ALL FIELDs '+'Returning '+ articleQuery); 
-              
-               List<SObject>  resultArticles = ((List<SObject>)doclist[0]);
-               system.debug('>>>>>>>>:'+resultArticles.size());
-               for(SObject article: resultArticles){
-                 for(Sobject faq:slist){
-                    if(string.valueof(faq.get('ParentId')) == string.valueof(article.get('id'))){
-                        // modified by shengpeng.xiao@bluewolf.com at 2014.06.16 begin
-                        // fixed the bug that Push EDM article not show in different categories
-                        if(articleIDCategoryName.containskey(string.valueof(article.get('id')))
-                                && articleIDCategoryName.get(string.valueof(article.get('id'))) <> faq.get('DataCategoryName')){
-                            string newCategoryNames= articleIDCategoryName.get(string.valueof(article.get('id')))+','+faq.get('DataCategoryName');
-                            articleIDCategoryName.put(string.valueof(faq.get('ParentId')),newCategoryNames);
-                            appliedCategories.put(string.valueof(faq.get('DataCategoryName')),string.valueof(faq.get('DataCategoryName')));
-                        }
-                        else if (!articleIDCategoryName.containskey(string.valueof(article.get('id')))) {
-                            articleIDCategoryName.put(string.valueof(faq.get('ParentId')),string.valueof(faq.get('DataCategoryName')));
-                            appliedCategories.put(string.valueof(faq.get('DataCategoryName')),string.valueof(faq.get('DataCategoryName')));
-                        }
-                        // modified by shengpeng.xiao@bluewolf.com at 2014.06.16 end
+		//string q='Select ParentId, DataCategoryName From '+articleTypeName;
+		//list<Sobject> slist = Database.query(q);
 
-                        /*if(articleIDCategoryName.containskey(string.valueof(article.get('id')))){
-                            string newCategoryNames= articleIDCategoryName.get(string.valueof(article.get('id')))+','+faq.get('DataCategoryName');
-                            articleIDCategoryName.put(string.valueof(faq.get('ParentId')),newCategoryNames);
-                            appliedCategories.put(string.valueof(faq.get('DataCategoryName')),string.valueof(faq.get('DataCategoryName')));
-                        }
-                        else{
-                            articleIDCategoryName.put(string.valueof(faq.get('ParentId')),string.valueof(faq.get('DataCategoryName')));
-                            appliedCategories.put(string.valueof(faq.get('DataCategoryName')),string.valueof(faq.get('DataCategoryName')));
-                        }*/
-                    }
-                        
-                }
-                // use new constructor added by shengpeng.xiao@bluewolf.com at 2014.6.25
-                //articleSet AnArticleSet = new articleSet(string.valueof(article.get('title')),string.valueof(article.get('answer__c')),string.valueof(article.get('UrlName')),'FAQ',string.valueof(article.get('id')), articleIDCategoryName.get(string.valueof(article.get('id'))));
-                articleSet AnArticleSet = new articleSet(string.valueof(article.get('title')),string.valueof(article.get('answer__c')),string.valueof(article.get('UrlName')),'FAQ',string.valueof(article.get('id')), articleIDCategoryName.get(string.valueof(article.get('id'))), TopCategories);
-                articles.add(AnArticleSet);
-                }
-               
-                //get push edms
-               
-                //added by shengpeng.xiao@bluewolf.com at 2014.6.17 begin
-                slist.clear();
-                articleIDCategoryName.clear();
+		//Fields to Query
+		Set<SObjectField> fieldOverrides = new Set<SObjectField>{
+			Knowledge__DataCategorySelection.DataCategoryGroupName,
+			Knowledge__DataCategorySelection.DataCategoryName,
+			Knowledge__DataCategorySelection.ParentId
+		};
 
-                articleTypeName ='Push_EDM__DataCategorySelection';
-        
-                q='Select ParentId, DataCategoryName From '+articleTypeName;
-                slist = Database.query(q);
+		map<string,string> articleIDCategoryName=new map<string,string>();
 
-                
-                for(Sobject pushEDM:slist){
-                    articleIDCategoryName.put(string.valueof(pushEDM.get('ParentId')),string.valueof(pushEDM.get('DataCategoryName')));
-                }
-               //added by shengpeng.xiao@bluewolf.com at 2014.6.17 end
-               resultArticles.clear();
-               resultArticles = ((List<SObject>)doclist[1]);
-               system.debug('>>>>>>>>:'+resultArticles.size());
-               for(SObject article: resultArticles){
-                 for(Sobject faq:slist){
-                    if(string.valueof(faq.get('ParentId')) == string.valueof(article.get('id'))){
-                        // modified by shengpeng.xiao@bluewolf.com at 2014.06.16 begin
-                        // fixed the bug that Push EDM article not show in different categories
-                        if(articleIDCategoryName.containskey(string.valueof(article.get('id'))) 
-                                && articleIDCategoryName.get(string.valueof(article.get('id')))<>faq.get('DataCategoryName')){
-                            string newCategoryNames= articleIDCategoryName.get(string.valueof(article.get('id')))+','+faq.get('DataCategoryName');
-                            articleIDCategoryName.put(string.valueof(faq.get('ParentId')),newCategoryNames);
-                            appliedCategories.put(string.valueof(faq.get('DataCategoryName')),string.valueof(faq.get('DataCategoryName')));
-                        }
-                        else if(!articleIDCategoryName.containskey(string.valueof(article.get('id')))) {
-                            articleIDCategoryName.put(string.valueof(faq.get('ParentId')),string.valueof(faq.get('DataCategoryName')));
-                            appliedCategories.put(string.valueof(faq.get('DataCategoryName')),string.valueof(faq.get('DataCategoryName')));
-                        }
-                        // modified by shengpeng.xiao@bluewolf.com at 2014.06.16 end
-                        
-                        /*if(articleIDCategoryName.containskey(string.valueof(article.get('id')))){
-                            string newCategoryNames= articleIDCategoryName.get(string.valueof(article.get('id')))+','+faq.get('DataCategoryName');
-                            articleIDCategoryName.put(string.valueof(faq.get('ParentId')),newCategoryNames);
-                            appliedCategories.put(string.valueof(faq.get('DataCategoryName')),string.valueof(faq.get('DataCategoryName')));
-                        }
-                        else{
-                            articleIDCategoryName.put(string.valueof(faq.get('ParentId')),string.valueof(faq.get('DataCategoryName')));
-                            appliedCategories.put(string.valueof(faq.get('DataCategoryName')),string.valueof(faq.get('DataCategoryName')));
-                        }*/
-                    }
-                        
-                }
-                // use new constructor added by shengpeng.xiao@bluewolf.com at 2014.6.25
-                //articleSet AnArticleSet = new articleSet(string.valueof(article.get('title')),string.valueof(article.get('answer__c')),string.valueof(article.get('UrlName')),'PusheDM',string.valueof(article.get('id')), articleIDCategoryName.get(string.valueof(article.get('id'))));
-                articleSet AnArticleSet = new articleSet(string.valueof(article.get('title')),string.valueof(article.get('answer__c')),string.valueof(article.get('UrlName')),'PusheDM',string.valueof(article.get('id')), articleIDCategoryName.get(string.valueof(article.get('id'))), TopCategories);
-                articles.add(AnArticleSet);
-               }
-            system.debug('>>>>>>>>:'+articles.size());
+		Map<String, Object> params = new Map<String, Object>{'recordTypeNames' => new Set<String>{'PUSH_EDM','FAQ'}};
+		KnowledgeDataCategorySelectionSelector datCatSelector = KnowledgeDataCategorySelectionSelector.newInstance(fieldOverrides);
+
+		for(Sobject faq:datCatSelector.search(params, true)){
+			articleIDCategoryName.put(string.valueof(faq.get('ParentId')),string.valueof(faq.get('DataCategoryName')));
+		}
+		
+		//modified by shengpeng.xiao@bluewolf.com at 2014.6.17 end
+		string keyword = this.searchKeyword;
+		List<String> allowedArticles = new List<String>{'PUSH_EDM','FAQ'};
+		PushEDMWrapper EDMWrapper = new PushEDMWrapper();
+
+		Map<Id, articleSet> articleSetMap = new Map<Id, articleSet>();
+		Map<Id, Knowledge__kav> kavMap = new Map<Id, Knowledge__kav>();
+		for(Knowledge__kav article: (List<Knowledge__kav>)EDMWrapper.searchArticles(keyword, allowedArticles)){
+			kavMap.put(article.id, article);
+			String articleType = 'PusheDM';
+			if(article.RecordType.DeveloperName == 'FAQ'){
+				articleType = 'FAQ';
+			}
+			articleSet AnArticleSet = new articleSet(article.title,article.answer__c, article.UrlName,articleType,article.Id, '', TopCategories);
+			articleSetMap.put(article.id, AnArticleSet);
+		}
+
+		Map<String, Object> searchParams = new Map<String, Object>{'parentIds' => kavMap.keySet()};
+		KnowledgeDataCategorySelectionSelector kavDatCatSelector = KnowledgeDataCategorySelectionSelector.newInstance(fieldOverrides);
+
+		for(Knowledge__DataCategorySelection kavDataCat : kavDatCatSelector.search(searchParams, true)){
+			// modified by shengpeng.xiao@bluewolf.com at 2014.06.16 begin
+			// fixed the bug that Push EDM article not show in different categories
+			if(articleIDCategoryName.containskey(kavDataCat.ParentId)	&& articleIDCategoryName.get(kavDataCat.ParentId) <> kavDataCat.DataCategoryName){
+				string newCategoryNames= articleIDCategoryName.get(kavDataCat.ParentId)+','+kavDataCat.DataCategoryName;
+				articleIDCategoryName.put(string.valueof(kavDataCat.get('ParentId')),newCategoryNames);
+				appliedCategories.put(kavDataCat.DataCategoryName,kavDataCat.DataCategoryName);
+			}
+			else if (!articleIDCategoryName.containskey(kavDataCat.ParentId)) {
+				articleIDCategoryName.put(string.valueof(kavDataCat.get('ParentId')),kavDataCat.DataCategoryName);
+				appliedCategories.put(kavDataCat.DataCategoryName,kavDataCat.DataCategoryName);
+			}
+			articleSet AnArticleSet =  articleSetMap.get(kavDataCat.ParentId);
+			AnArticleSet.categoryList = articleIDCategoryName.get(kavDataCat.ParentId);
+		}
+		// use new constructor added by shengpeng.xiao@bluewolf.com at 2014.6.25
+		//articleSet AnArticleSet = new articleSet(string.valueof(article.get('title')),string.valueof(article.get('answer__c')),string.valueof(article.get('UrlName')),'FAQ',string.valueof(article.get('id')), articleIDCategoryName.get(string.valueof(article.get('id'))));
+		//articleSet AnArticleSet = new articleSet(string.valueof(article.get('title')),string.valueof(article.get('answer__c')),string.valueof(article.get('UrlName')),'FAQ',string.valueof(article.get('id')), articleIDCategoryName.get(string.valueof(article.get('id'))), TopCategories);
+		articles.addAll(articleSetMap.values());
+
         return articles;
     }   
                                  
     private list<articleSet> getArticleSet(){
-        list<articleSet> articles = new list<articleSet>();                 
+		                 
+		String language ='en_US';
+		String PublishStatus='Online';
+        list<articleSet> articles = new list<articleSet>();
 
-            string articleTypeName ='FAQ__DataCategorySelection';
+		//string articleTypeName ='';        
+		map<string,string> appliedCategories=new map<string,string>();
 
-        
-            map<string,string> appliedCategories=new map<string,string>();
-    
-            string q='Select ParentId, DataCategoryName From '+articleTypeName;
-            list<Sobject> slist = Database.query(q);
-            map<string,string> articleIDCategoryName=new map<string,string>();
-            
-            for(Sobject faq:slist){
-                articleIDCategoryName.put(string.valueof(faq.get('ParentId')),string.valueof(faq.get('DataCategoryName')));
-            }
-            
-            for(FAQ__kav a:[Select UrlName, Title, PublishStatus, KnowledgeArticleId, IsLatestVersion, Id, ArticleType, ArticleNumber, Answer__c From FAQ__kav WHERE  language ='en_US' and PublishStatus='Online' and IsLatestVersion=true]){
-                for(Sobject faq:slist){
-                    if(string.valueof(faq.get('ParentId')) == a.id){
-                        if(articleIDCategoryName.containskey(a.id)==true && articleIDCategoryName.get(a.id)<>faq.get('DataCategoryName')){
-                            string newCategoryNames= articleIDCategoryName.get(a.id)+','+faq.get('DataCategoryName');
-                            articleIDCategoryName.put(string.valueof(faq.get('ParentId')),newCategoryNames);
-                            appliedCategories.put(string.valueof(faq.get('DataCategoryName')),string.valueof(faq.get('DataCategoryName')));
-                        }
-                        if(articleIDCategoryName.containskey(a.id)==false){
-                            articleIDCategoryName.put(string.valueof(faq.get('ParentId')),string.valueof(faq.get('DataCategoryName')));
-                            appliedCategories.put(string.valueof(faq.get('DataCategoryName')),string.valueof(faq.get('DataCategoryName')));
-                        }
-                    }
-                        
-                }
+		//string q='Select ParentId, DataCategoryName From '+articleTypeName;
+		//list<Sobject> slist = Database.query(q);
+
+		//Fields to Query
+		Map<SobjectType, Set<SObjectField>> fieldOverrides = new Map<SobjectType, Set<SObjectField>>();
+		fieldOverrides.put(Knowledge__DataCategorySelection.SObjectType, new Set<SObjectField>{
+			Knowledge__DataCategorySelection.DataCategoryGroupName,
+			Knowledge__DataCategorySelection.DataCategoryName,
+			Knowledge__DataCategorySelection.ParentId
+		} );
+		fieldOverrides.put(Knowledge__kav.SobjectType, new Set<SObjectField>{
+			Knowledge__kav.Answer__c,
+			Knowledge__kav.Summary,
+			Knowledge__kav.UrlName,
+			Knowledge__kav.id,
+			Knowledge__kav.Title
+		});
+
+		map<string,string> articleIDCategoryName=new map<string,string>();
+		Set<String> allowedArticles = new Set<String>{'PUSH_EDM','FAQ'};
+		Map<String, Object> params = new Map<String, Object>{'recordTypeNames' => allowedArticles};
+
+		KnowledgeDataCategorySelectionSelector datCatSelector = KnowledgeDataCategorySelectionSelector.newInstance(fieldOverrides);
+
+		List<Knowledge__DataCategorySelection> eligibleDataCats = new List<Knowledge__DataCategorySelection>();
+
+		for(Knowledge__DataCategorySelection dataCat :datCatSelector.search(params, true)){
+            articleIDCategoryName.put(dataCat.ParentId,dataCat.DataCategoryName);
+
+			if(PublishStatus.equalsIgnoreCase(dataCat.Parent.PublishStatus) && dataCat.Parent.IsLatestVersion == true && language.equalsIgnoreCase(dataCat.Parent.language) &&  allowedArticles.contains(dataCat.Parent.recordType.DeveloperName)){
+				eligibleDataCats.add(dataCat);
+			}
+			
+		}
+
+		Map<Id, articleSet> articleSetMap = new Map<Id, articleSet>();
+
+		for(Knowledge__DataCategorySelection faqPushEDM:eligibleDataCats){
+
+			if(articleIDCategoryName.containskey(faqPushEDM.ParentId)==true && articleIDCategoryName.get(faqPushEDM.ParentId)<>faqPushEDM.get('DataCategoryName')){
+				string newCategoryNames= articleIDCategoryName.get(faqPushEDM.ParentId)+','+faqPushEDM.get('DataCategoryName');
+				articleIDCategoryName.put(string.valueof(faqPushEDM.get('ParentId')),newCategoryNames);
+				appliedCategories.put(string.valueof(faqPushEDM.get('DataCategoryName')),string.valueof(faqPushEDM.get('DataCategoryName')));
+			}
+			if(articleIDCategoryName.containskey(faqPushEDM.ParentId)==false){
+				articleIDCategoryName.put(string.valueof(faqPushEDM.get('ParentId')),string.valueof(faqPushEDM.get('DataCategoryName')));
+				appliedCategories.put(string.valueof(faqPushEDM.get('DataCategoryName')),string.valueof(faqPushEDM.get('DataCategoryName')));
+			}
+			
+			if( articleSetMap.containsKey(faqPushEDM.ParentId)){
+				
+				articleSet AnArticleSet =  articleSetMap.get(faqPushEDM.ParentId);
+				AnArticleSet.categoryList = articleIDCategoryName.get(faqPushEDM.ParentId);	
+			}
+			else{
+				String articleType = 'PusheDM';
+				if(faqPushEDM.parent.RecordType.DeveloperName == 'FAQ'){
+					articleType = 'FAQ';
+				}
+				articleSet article = new articleSet(faqPushEDM.Parent.title,faqPushEDM.Parent.Answer__c,faqPushEDM.Parent.UrlName,articleType,faqPushEDM.ParentId, articleIDCategoryName.get(faqPushEDM.ParentId), TopCategories);
+			}		
+		}
                 // use new constructor added by shengpeng.xiao@bluewolf.com at 2014.6.25
                 //articleSet article = new articleSet(a.title,a.Answer__c,a.UrlName,'FAQ',a.id, articleIDCategoryName.get(a.id));
-                articleSet article = new articleSet(a.title,a.Answer__c,a.UrlName,'FAQ',a.id, articleIDCategoryName.get(a.id), TopCategories);
-                articles.add(article);
-            } 
-            
-                        
-             //get PushEDM articles
-             articleIDCategoryName.clear();
-            articleTypeName ='Push_EDM__DataCategorySelection';
-    
-            q='Select ParentId, DataCategoryName From '+articleTypeName;
-            slist.clear();
-            slist = Database.query(q);
-            
-            for(Sobject pushEDM:slist){
-                articleIDCategoryName.put(string.valueof(pushEDM.get('ParentId')),string.valueof(pushEDM.get('DataCategoryName')));
-            }
-            //
-            
-            for(Push_EDM__kav a:[Select UrlName, Title, PublishStatus, KnowledgeArticleId, IsLatestVersion, Id, ArticleType, ArticleNumber, Answer__c From Push_EDM__kav WHERE  language ='en_US' and PublishStatus='Online' and IsLatestVersion=true]){
-                for(Sobject faq:slist){
-                    if(string.valueof(faq.get('ParentId')) == a.id){
-                        
-                        // modified by shengpeng.xiao@bluewolf.com at 2014.06.16 begin
-                        // fixed the bug that Push EDM article not show in different categories
-                        if(articleIDCategoryName.containskey(a.id) == true && articleIDCategoryName.get(a.id)<>faq.get('DataCategoryName')){
-                            string newCategoryNames= articleIDCategoryName.get(a.id)+','+faq.get('DataCategoryName');
-                            articleIDCategoryName.put(string.valueof(faq.get('ParentId')),newCategoryNames);
-                            appliedCategories.put(string.valueof(faq.get('DataCategoryName')),string.valueof(faq.get('DataCategoryName')));
-                        }
-                        if(articleIDCategoryName.containskey(a.id) == false){
-                            articleIDCategoryName.put(string.valueof(faq.get('ParentId')),string.valueof(faq.get('DataCategoryName')));
-                            appliedCategories.put(string.valueof(faq.get('DataCategoryName')),string.valueof(faq.get('DataCategoryName')));
-                        }
-                        // modified by shengpeng.xiao@bluewolf.com at 2014.06.16 end
-                        
-                        /*if(articleIDCategoryName.containskey(a.id)){
-                            string newCategoryNames= articleIDCategoryName.get(a.id)+','+faq.get('DataCategoryName');
-                            articleIDCategoryName.put(string.valueof(faq.get('ParentId')),newCategoryNames);
-                            appliedCategories.put(string.valueof(faq.get('DataCategoryName')),string.valueof(faq.get('DataCategoryName')));
-                        }
-                        else{
-                            articleIDCategoryName.put(string.valueof(faq.get('ParentId')),string.valueof(faq.get('DataCategoryName')));
-                            appliedCategories.put(string.valueof(faq.get('DataCategoryName')),string.valueof(faq.get('DataCategoryName')));
-                        }*/
-                    }
-                        
-                }
-				
-				// use new constructor added by shengpeng.xiao@bluewolf.com at 2014.6.25
-                //articleSet article = new articleSet(a.title,a.Answer__c,a.UrlName,'PusheDM',a.id, articleIDCategoryName.get(a.id));
-                articleSet article = new articleSet(a.title,a.Answer__c,a.UrlName,'PusheDM',a.id, articleIDCategoryName.get(a.id), TopCategories);
-                articles.add(article);
-            }   
+                //articleSet article = new articleSet(faqPushEDM.Parent.title,faqPushEDM.Parent.Answer__c,faqPushEDM.Parent.UrlName,'FAQ',faqPushEDM.ParentId, articleIDCategoryName.get(faqPushEDM.ParentId), TopCategories);
+        articles.addAll(articleSetMap.values());
+
         return articles;
     }     
     
@@ -402,23 +325,17 @@ global with sharing class PushEDM {
     public String articleBody {get; set;} 
     public Integer articlePosition {get; set;}
     //add article body into the list
-    public void addToArticleBody() {
-        System.debug('articleBody : ' + articleBody);   
-        articleBodys.add(articleBody);      
-        System.debug('articleBodys : ' + articleBodys);
+    public void addToArticleBody() {   
+        articleBodys.add(articleBody);
     }
     
     //remove article body from the list
-    public void removeFromArticleBody() {
-        System.debug('articleBody : ' + articleBody);                   
+    public void removeFromArticleBody() {                 
         articleBodys.remove(articlePosition);
-        System.debug('articleBodys : ' + articleBodys);
     }
     
     // set the article body from a given position
     public void moveToArticleBody() {
-        System.debug('articleBody : ' + articleBody);
-        System.debug('articleBody Position: ' + articlePosition);
         String origArticleBody = articleBodys[articlePosition]; 
         // get original position of the article body
         Integer origPosition = 0;
@@ -430,11 +347,9 @@ global with sharing class PushEDM {
         }
         articleBodys[articlePosition] = articleBody;
         articleBodys[origPosition] = origArticleBody;
-        System.debug('articleBodys : ' + articleBodys);
     }
     
     public void sendEmail(){
-        system.debug('#################### Sending Push eDM...');
         string replacement='';
 
         for(string s:articleBodys){
@@ -463,7 +378,6 @@ global with sharing class PushEDM {
 		
         emailContent = emailContent.replace(PushEDM_Domain__c.getInstance().Force_Com_URL__c, PushEDM_Domain__c.getInstance().Site_URL__c);
 		textContent = textContent.replace(PushEDM_Domain__c.getInstance().Force_Com_URL__c, PushEDM_Domain__c.getInstance().Site_URL__c);
-        system.debug('fixed email content>>>>>>>>>>>>>>>>>>>>: ' + emailContent );
         emailContent=emailContent.normalizeSpace();
 		
 		QM__c qm=[Select CusEmail__c From QM__c limit 1];
@@ -500,4 +414,13 @@ global with sharing class PushEDM {
         	insert c;
 		}
     }
+
+	without sharing class PushEDMWrapper{
+		
+		private List<SObject> searchArticles(String searchKeyWord, List<String> allowedArticles){
+
+			KnowledgeArticleVersionsSelector kavSelector = KnowledgeArticleVersionsSelector.newInstance();
+			return kavSelector.searchArticles(searchKeyWord, allowedArticles);
+		}
+	}
 }
