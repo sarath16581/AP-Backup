@@ -1,6 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomLabels xmlns="http://soap.sforce.com/2006/04/metadata">
     <labels>
+        <fullName>ABNChangeNotificationError</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Error Message on ABN Change on Organisation Record with Active License</shortDescription>
+        <value>You cannot change the ABN on an organisation with an active licence. Please create a new licence instead.</value>
+    </labels>
+    <labels>
         <fullName>APPROVAL_STATUS_PENDING</fullName>
         <language>en_US</language>
         <protected>false</protected>
