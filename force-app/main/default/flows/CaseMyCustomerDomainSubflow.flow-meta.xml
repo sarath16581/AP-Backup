@@ -17,6 +17,8 @@
                 <elementReference>vCase.Id</elementReference>
             </value>
         </inputParameters>
+        <nameSegment>Case.SSSW_eParcel_Article_Damage_Action_Taken</nameSegment>
+        <versionSegment>1</versionSegment>
     </actionCalls>
     <actionCalls>
         <name>SSSW_Closed_Case_Email_for_BSP_Bulk_Upload</name>
@@ -32,6 +34,8 @@
                 <elementReference>vCase.Id</elementReference>
             </value>
         </inputParameters>
+        <nameSegment>Case.SSSW_Send_Customer_Closure_Email_for_BSP_Bulk_Upload</nameSegment>
+        <versionSegment>1</versionSegment>
     </actionCalls>
     <actionCalls>
         <name>SSSW_Closed_Case_Email_for_Exception_Checker</name>
@@ -47,6 +51,8 @@
                 <elementReference>vCase.Id</elementReference>
             </value>
         </inputParameters>
+        <nameSegment>Case.SSSW_Send_Customer_Closure_Email_for_Exception_Checker</nameSegment>
+        <versionSegment>1</versionSegment>
     </actionCalls>
     <actionCalls>
         <name>SSSW_Email_on_Creation</name>
@@ -65,6 +71,8 @@
                 <elementReference>vCase.Id</elementReference>
             </value>
         </inputParameters>
+        <nameSegment>Case.SSSW_Send_a_Email_when_a_new_Case_has_been_created</nameSegment>
+        <versionSegment>1</versionSegment>
     </actionCalls>
     <actionCalls>
         <name>SSSW_Email_on_Creation_Email</name>
@@ -83,6 +91,8 @@
                 <elementReference>vCase.Id</elementReference>
             </value>
         </inputParameters>
+        <nameSegment>Case.SSSW_Send_a_Email_when_a_new_Email_to_Case_has_been_created</nameSegment>
+        <versionSegment>1</versionSegment>
     </actionCalls>
     <actionCalls>
         <description>After EDD+ business days;
@@ -104,6 +114,8 @@ email template : SSSW - Email on Creation For BSP After EDD Business Days</descr
                 <elementReference>vCase.Id</elementReference>
             </value>
         </inputParameters>
+        <nameSegment>Case.SSSW_Email_on_Creation_For_BSP_After_EDD_Business_Days</nameSegment>
+        <versionSegment>1</versionSegment>
     </actionCalls>
     <actionCalls>
         <description>Before EDD+ business days;
@@ -125,6 +137,8 @@ email template : SSSW - Email on Creation For BSP Before EDD Business Days</desc
                 <elementReference>vCase.Id</elementReference>
             </value>
         </inputParameters>
+        <nameSegment>Case.SSSW_Email_on_Creation_For_BSP_Before_EDD_Business_Days</nameSegment>
+        <versionSegment>1</versionSegment>
     </actionCalls>
     <actionCalls>
         <description>Before EDD scenario ;
@@ -146,6 +160,8 @@ email alert : SSSW - Email on Creation New Case For BSP Before EDD</description>
                 <elementReference>vCase.Id</elementReference>
             </value>
         </inputParameters>
+        <nameSegment>Case.SSSW_Email_on_Creation_New_Case_For_BSP_Before_EDD</nameSegment>
+        <versionSegment>1</versionSegment>
     </actionCalls>
     <actionCalls>
         <name>SSSW_Email_on_Creation_Web_Portal</name>
@@ -164,6 +180,8 @@ email alert : SSSW - Email on Creation New Case For BSP Before EDD</description>
                 <elementReference>vCase.Id</elementReference>
             </value>
         </inputParameters>
+        <nameSegment>Case.SSSW_Send_a_Email_when_a_new_Case_has_been_created_Web_Portal</nameSegment>
+        <versionSegment>1</versionSegment>
     </actionCalls>
     <actionCalls>
         <name>SSSW_Email_when_Case_Permanently_Closed</name>
@@ -179,6 +197,8 @@ email alert : SSSW - Email on Creation New Case For BSP Before EDD</description>
                 <elementReference>vCase.Id</elementReference>
             </value>
         </inputParameters>
+        <nameSegment>Case.Send_an_Email_to_the_Customer_if_they_are_sending_an_Email_to_a_Case_that_has_be</nameSegment>
+        <versionSegment>1</versionSegment>
     </actionCalls>
     <actionCalls>
         <name>SSSW_New_Case_Notification_for_automatic_network_assignment</name>
@@ -197,6 +217,8 @@ email alert : SSSW - Email on Creation New Case For BSP Before EDD</description>
                 <elementReference>vCase.Id</elementReference>
             </value>
         </inputParameters>
+        <nameSegment>Case.SSSW_New_Case_Notification_for_Delivery_Issue_automatic_network_assignment</nameSegment>
+        <versionSegment>1</versionSegment>
     </actionCalls>
     <actionCalls>
         <name>SSSW_New_Case_Notification_for_Delete_Account_Web_Portal</name>
@@ -215,6 +237,8 @@ email alert : SSSW - Email on Creation New Case For BSP Before EDD</description>
                 <elementReference>vCase.Id</elementReference>
             </value>
         </inputParameters>
+        <nameSegment>Case.SSSW_New_Case_Notification_for_Delete_Account_Web_Portal</nameSegment>
+        <versionSegment>1</versionSegment>
     </actionCalls>
     <actionCalls>
         <name>SSSW_New_Case_Notification_for_Transfer_to_PO</name>
@@ -233,6 +257,8 @@ email alert : SSSW - Email on Creation New Case For BSP Before EDD</description>
                 <elementReference>vCase.Id</elementReference>
             </value>
         </inputParameters>
+        <nameSegment>Case.SSSW_New_Case_Notification_for_Transfer_to_PO</nameSegment>
+        <versionSegment>1</versionSegment>
     </actionCalls>
     <actionCalls>
         <name>SSSW_Send_Within_EDD_Email</name>
@@ -251,6 +277,8 @@ email alert : SSSW - Email on Creation New Case For BSP Before EDD</description>
                 <elementReference>vCase.Id</elementReference>
             </value>
         </inputParameters>
+        <nameSegment>Case.SSSW_Email_on_within_EDD_case_created_Web_Portal</nameSegment>
+        <versionSegment>1</versionSegment>
     </actionCalls>
     <actionCalls>
         <name>SSSW_Send_Within_EDD_Plus_Business_Days_Email</name>
@@ -269,6 +297,8 @@ email alert : SSSW - Email on Creation New Case For BSP Before EDD</description>
                 <elementReference>vCase.Id</elementReference>
             </value>
         </inputParameters>
+        <nameSegment>Case.SSSW_Email_on_within_EDD_plus_business_days_case_created_Web_Portal</nameSegment>
+        <versionSegment>1</versionSegment>
     </actionCalls>
     <apiVersion>59.0</apiVersion>
     <decisions>

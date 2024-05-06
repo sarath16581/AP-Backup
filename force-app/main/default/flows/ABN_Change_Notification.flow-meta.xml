@@ -4,8 +4,8 @@
         <description>Fetch all recipient addresses for vendors from the custom metadata Auspost Vendors Email Address to facilitate testing.</description>
         <name>Fetch_Recipients_Vendor_Email_Address</name>
         <label>Fetch Recipients Email Address</label>
-        <locationX>176</locationX>
-        <locationY>323</locationY>
+        <locationX>361</locationX>
+        <locationY>932</locationY>
         <actionName>VendorEmailUtils</actionName>
         <actionType>apex</actionType>
         <connector>
@@ -19,8 +19,8 @@
     <actionCalls>
         <name>Send_Account_ABN_Change_Notification</name>
         <label>Send Account ABN Change Notification</label>
-        <locationX>176</locationX>
-        <locationY>431</locationY>
+        <locationX>361</locationX>
+        <locationY>1101</locationY>
         <actionName>emailSimple</actionName>
         <actionType>emailSimple</actionType>
         <flowTransactionModel>CurrentTransaction</flowTransactionModel>
@@ -58,6 +58,84 @@
         <versionSegment>1</versionSegment>
     </actionCalls>
     <apiVersion>60.0</apiVersion>
+    <customErrors>
+        <description>Prevent ABN Change on Organisation with Active License and when the Licence Status is “Active”, “Suspended with fees”, “Suspended without fees”.</description>
+        <name>Prevent_ABN_Change</name>
+        <label>Prevent ABN Change</label>
+        <locationX>878</locationX>
+        <locationY>945</locationY>
+        <customErrorMessages>
+            <errorMessage>{!$Label.ABNChangeNotificationError}</errorMessage>
+            <fieldSelection>ABN__c</fieldSelection>
+            <isFieldError>true</isFieldError>
+        </customErrorMessages>
+    </customErrors>
+    <decisions>
+        <description>This decision node evaluates the current status of the license and directs to appropriate path based on the status. It checks whether license is in either &lt;draft, pending, approved&gt; or &lt;active, suspended with fees, or suspended without fees&gt; and routes the flow accordingly.</description>
+        <name>License_Status_Checker</name>
+        <label>License Status Checker</label>
+        <locationX>608</locationX>
+        <locationY>844</locationY>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>License_Status_Active_or_Suspended</name>
+            <conditionLogic>or</conditionLogic>
+            <conditions>
+                <leftValueReference>LicenseStatusVariable</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Active</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>LicenseStatusVariable</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Suspended With Fees</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>LicenseStatusVariable</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Suspended Without Fees</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Prevent_ABN_Change</targetReference>
+            </connector>
+            <label>License Status Active or Suspended</label>
+        </rules>
+        <rules>
+            <name>License_Status_Draft_Pending_or_Approved</name>
+            <conditionLogic>or</conditionLogic>
+            <conditions>
+                <leftValueReference>LicenseStatusVariable</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Draft</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>LicenseStatusVariable</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Pending</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>LicenseStatusVariable</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Approved</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Fetch_Recipients_Vendor_Email_Address</targetReference>
+            </connector>
+            <label>License Status Draft, Pending or Approved</label>
+        </rules>
+    </decisions>
     <environments>Default</environments>
     <formulas>
         <name>StandardisedStateValue</name>
@@ -105,7 +183,7 @@
     <processMetadataValues>
         <name>CanvasMode</name>
         <value>
-            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+            <stringValue>FREE_FORM_CANVAS</stringValue>
         </value>
     </processMetadataValues>
     <processMetadataValues>
@@ -115,15 +193,126 @@
         </value>
     </processMetadataValues>
     <processType>AutoLaunchedFlow</processType>
-    <start>
-        <locationX>50</locationX>
-        <locationY>0</locationY>
+    <recordLookups>
+        <name>Get_Record_Type</name>
+        <label>Get License Record Type Id</label>
+        <locationX>374</locationX>
+        <locationY>451</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
-            <targetReference>Fetch_Recipients_Vendor_Email_Address</targetReference>
+            <targetReference>Get_Record_Type_0</targetReference>
         </connector>
-        <filterFormula>AND(ISCHANGED({!$Record.ABN__c}),
-OR({!$Record.RecordType.DeveloperName}=&apos;Licence&apos;,{!$Record.RecordType.DeveloperName}=&apos;Licence_CMA&apos;,{!$Record.RecordType.DeveloperName}=&apos;Licence_CPA&apos;),
-OR(ISPICKVAL({!$Record.Licence_Status__c},&apos;Draft&apos;),ISPICKVAL({!$Record.Licence_Status__c},&apos;Pending&apos;),ISPICKVAL({!$Record.Licence_Status__c},&apos;Approved&apos;)))</filterFormula>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>DeveloperName</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Licence</stringValue>
+            </value>
+        </filters>
+        <object>RecordType</object>
+        <outputAssignments>
+            <assignToReference>LicenseRecordTypeId</assignToReference>
+            <field>Id</field>
+        </outputAssignments>
+    </recordLookups>
+    <recordLookups>
+        <name>Get_Record_Type_0</name>
+        <label>Get License CMA Record Type Id</label>
+        <locationX>581</locationX>
+        <locationY>451</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Get_Record_Type_0_0</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>DeveloperName</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Licence_CMA</stringValue>
+            </value>
+        </filters>
+        <object>RecordType</object>
+        <outputAssignments>
+            <assignToReference>LicenseCMARecordTypeId</assignToReference>
+            <field>Id</field>
+        </outputAssignments>
+    </recordLookups>
+    <recordLookups>
+        <name>Get_Record_Type_0_0</name>
+        <label>Get License CPA Record Type Id</label>
+        <locationX>775</locationX>
+        <locationY>451</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Has_Valid_License</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>DeveloperName</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Licence_CPA</stringValue>
+            </value>
+        </filters>
+        <object>RecordType</object>
+        <outputAssignments>
+            <assignToReference>LicenseCPARecordTypeId</assignToReference>
+            <field>Id</field>
+        </outputAssignments>
+    </recordLookups>
+    <recordLookups>
+        <name>Has_Valid_License</name>
+        <label>Has Valid License</label>
+        <locationX>617</locationX>
+        <locationY>637</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>License_Status_Checker</targetReference>
+        </connector>
+        <filterLogic>1 AND (2 OR 3 OR 4)</filterLogic>
+        <filters>
+            <field>ParentId</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>$Record.Id</elementReference>
+            </value>
+        </filters>
+        <filters>
+            <field>RecordTypeId</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>LicenseRecordTypeId</elementReference>
+            </value>
+        </filters>
+        <filters>
+            <field>RecordTypeId</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>LicenseCMARecordTypeId</elementReference>
+            </value>
+        </filters>
+        <filters>
+            <field>RecordTypeId</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>LicenseCMARecordTypeId</elementReference>
+            </value>
+        </filters>
+        <object>Account</object>
+        <outputAssignments>
+            <assignToReference>LicenseStatusVariable</assignToReference>
+            <field>Licence_Status__c</field>
+        </outputAssignments>
+    </recordLookups>
+    <start>
+        <locationX>491</locationX>
+        <locationY>88</locationY>
+        <connector>
+            <targetReference>Get_Record_Type</targetReference>
+        </connector>
+        <filterFormula>AND(ISCHANGED({!$Record.ABN__c}),{!$Record.RecordType.DeveloperName}=&apos;Business_Account&apos;)</filterFormula>
         <object>Account</object>
         <recordTriggerType>Update</recordTriggerType>
         <triggerType>RecordAfterSave</triggerType>
@@ -155,4 +344,32 @@ POMS Support Team</text>
         <isViewedAsPlainText>true</isViewedAsPlainText>
         <text>ABN Change Notification :: {!$Record.SAP_Vendor_ID__c}</text>
     </textTemplates>
+    <variables>
+        <name>LicenseCMARecordTypeId</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <name>LicenseCPARecordTypeId</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <name>LicenseRecordTypeId</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <name>LicenseStatusVariable</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+    </variables>
 </Flow>
