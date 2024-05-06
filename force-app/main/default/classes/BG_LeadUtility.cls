@@ -186,8 +186,9 @@ public with sharing class BG_LeadUtility {
         Map<Id, RecordType> leadRecordTypeMap = RecordTypesSelector.newInstance().selectBySObject('Lead');
         for (Lead leadrec : leadList){
             List<String> fieldsWithoutValues = new List<String>();
-            if(('Verified'.equalsIgnoreCase(leadrec.Status) || 'Qualified'.equalsIgnoreCase(leadrec.Status) || 'mypost business'.equalsIgnoreCase(leadrec.Status) || 'SBSub_Retail'.equalsIgnoreCase(leadrec.LeadSource))
-            && (leadRecordTypeMap.get(leadrec.RecordTypeId)?.DeveloperName == 'BG_Standard' || leadRecordTypeMap.get(leadrec.RecordTypeId)?.DeveloperName == 'StarTrack_Lead'))
+            if(('Verified'.equalsIgnoreCase(leadrec.Status) || 'Qualified'.equalsIgnoreCase(leadrec.Status) || 'mypost business'.equalsIgnoreCase(leadrec.Status))
+            && (leadRecordTypeMap.get(leadrec.RecordTypeId)?.DeveloperName == 'BG_Standard' || leadRecordTypeMap.get(leadrec.RecordTypeId)?.DeveloperName == 'StarTrack_Lead') 
+			&& !('SBSub_Retail'.equalsIgnoreCase(leadrec.LeadSource)))
             {
                 if (String.isBlank(leadrec.FirstName)) {
                     fieldsWithoutValues.add('First Name');
