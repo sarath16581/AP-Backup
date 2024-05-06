@@ -10,8 +10,9 @@ History:
 2023-08-23  hasantha liyanage added new method linkFiles
 2023-08-25  mahesh.parvathaneni@auspost.com.au Added method getMerchantPortalAccessUrl
 2023-10-23  hasantha.liyanage@auspost.com.au Added method creditClaimReasonHelpTexts
+2024-04-28  Raghav Ravipati venkataraghavendra.ravipati@auspost.com.au replaced BSP_Announcement__kav with Knowledge__kav 
 **************************************************/
-public with sharing virtual class bspBaseUplift {
+public with sharing virtual class BspBaseUplift {
 
 	public static final String CSSO_SAML_CONFIG = 'BSP_CSSO';
 	public static final string SHARE_TYPE_V = 'V';
@@ -1126,9 +1127,23 @@ public with sharing virtual class bspBaseUplift {
 	@AuraEnabled(cacheable=true)
 	public static String getAnnouncementMessage() {
 		String announcementMessage;
-		BSP_Announcement__kav[] announcementList = [Select Id, What_do_I_tell_customers__c from BSP_Announcement__kav WHERE PublishStatus = 'Online' AND language = 'en_US' ORDER BY LastModifiedDate DESC LIMIT 1];
-		if(announcementList != null && announcementList.size() > 0)
-			announcementMessage = announcementList[0].What_do_I_tell_customers__c;
+		// Fields to Query
+		Set<SObjectField> fields = new Set<SObjectField>{
+			Knowledge__kav.Id, Knowledge__kav.Message__c,
+			Knowledge__kav.WhatdoItellcustomers__c
+		};
+		//Where Condition
+		Map<String, Object> searchParams = new Map<String, Object>();
+		searchParams.put('statuses', new Set<String>{'Online'});
+		searchParams.put('languages', new Set<String>{'en_US'});
+		searchParams.put('recordTypeNames', new Set<String>{'BSP_Announcement'});
+
+		KnowledgeArticleVersionsSelector kavSelector = KnowledgeArticleVersionsSelector.newInstance(fields);
+		List<Knowledge__kav> announcementList = (List<Knowledge__kav>) kavSelector.search(searchParams, true, Knowledge__kav.LastModifiedDate, 'DESC');
+
+		if(announcementList != null && announcementList.size() > 0){
+			announcementMessage = announcementList[0].WhatdoItellcustomers__c;
+		}
 		return announcementMessage;
 	}
 

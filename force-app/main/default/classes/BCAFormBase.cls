@@ -4,6 +4,7 @@
 * @group             : 
 * @last modified on  : 06-07-2021
 * @last modified by  : ankur.gandhi@auspost.com.au
+* @2024-04-28  Raghav Ravipati venkataraghavendra.ravipati@auspost.com.au replaced BSP_Announcement__kav with Knowledge__kav 
 * Modifications Log 
 * Ver   Date         Author                               Modification
 * -------------------------------------------------------------------------
@@ -151,8 +152,8 @@ public without sharing class BCAFormBase {
     * Method to retrieve the Welcome text
     */
     @AuraEnabled(cacheable=true)
-    public static Business_Credit_Account__kav getWelcomeMessage() {
-        Business_Credit_Account__kav bcaWelcome = getKnowledgeArticle('Online', 'en_US', 'Welcome');
+    public static Knowledge__kav getWelcomeMessage() {
+        Knowledge__kav bcaWelcome = getKnowledgeArticle('Online', 'en_US', 'Welcome');
         return bcaWelcome;
     }
 
@@ -160,8 +161,8 @@ public without sharing class BCAFormBase {
     * Method to retrieve the Direct debit T&C Text
     */
     @AuraEnabled(cacheable=true)
-    public static Business_Credit_Account__kav getDirectTC() {
-        Business_Credit_Account__kav ka = getKnowledgeArticle('Online', 'en_US', 'Direct Debit T&C');
+    public static Knowledge__kav getDirectTC() {
+        Knowledge__kav ka = getKnowledgeArticle('Online', 'en_US', 'Direct Debit T&C');
         return ka;
     }
 
@@ -169,20 +170,26 @@ public without sharing class BCAFormBase {
     * Method to retrieve the the summary T&C Text
     */
     @AuraEnabled(cacheable=true)
-    public static Business_Credit_Account__kav getSummaryTC() {
-        Business_Credit_Account__kav ka = getKnowledgeArticle('Online', 'en_US', 'Summary T&C');
+    public static Knowledge__kav getSummaryTC() {
+        Knowledge__kav ka = getKnowledgeArticle('Online', 'en_US', 'Summary T&C');
         return ka;
     }
     
 
-    private static Business_Credit_Account__kav getKnowledgeArticle(String publishStatus, String language, String type)
+    private static Knowledge__kav getKnowledgeArticle(String publishStatus, String language, String type)
     {
         Set<SObjectField> fields = new Set<SObjectField>{
-                Business_Credit_Account__kav.Id
-                , Business_Credit_Account__kav.Message__c
+                Knowledge__kav.Id
+                , Knowledge__kav.Message__c
         };
-        KnowledgeArticleVersionsSelector kavSelector = KnowledgeArticleVersionsSelector.newInstance(Business_Credit_Account__kav.SObjectType, fields);
-        List<Business_Credit_Account__kav> kavs = (List<Business_Credit_Account__kav>) kavSelector.selectByStatusLanguageType(publishStatus, language, type);
+		Map<String, Object> searchParams = new Map<String, Object>();
+		searchParams.put('statuses', new Set<String>{publishStatus});
+		searchParams.put('languages', new Set<String>{language});
+		searchParams.put('types', new Set<String>{type});
+		searchParams.put('recordTypeNames', new Set<String>{'Business_Credit_Account'});
+
+        KnowledgeArticleVersionsSelector kavSelector = KnowledgeArticleVersionsSelector.newInstance(fields);
+        List<Knowledge__kav> kavs = (List<Knowledge__kav>) kavSelector.search(searchParams, true);
         if(kavs.size() == 1)
         {
             return kavs[0];
@@ -322,17 +329,22 @@ public without sharing class BCAFormBase {
     * @return:         Boolean - true if duplicate is found, otherwise false
     */
     public static Boolean containDuplicateABNACN(List<Account> accList, Id acctId) {
+		// Replacing DataCloud with DataProxy class.
+		List<DatacloudProxy.FindDuplicatesResult> results = ApplicationDatabase.getInstance().findDuplicates(accList);
+		Account newAcc = new Account();
+		/*
         Datacloud.FindDuplicatesResult[] results = Datacloud.FindDuplicates.findDuplicates(accList);
         System.debug('Duplicate account search results='+results);
         Account newAcc = new Account();
+		*/
         /**
         * Sample code from Salesforce, to return the duplicate records found by the matching rule on Organisation ABN/ACN
         * Link: https://developer.salesforce.com/docs/atlas.en-us.apexcode.meta/apexcode/apex_class_Datacloud_FindDuplicatesResult.htm#apex_class_Datacloud_FindDuplicatesResult
         *  */ 
-        for (Datacloud.FindDuplicatesResult findDupeResult : results) {
-            for (Datacloud.DuplicateResult dupeResult : findDupeResult.getDuplicateResults()) {
-                for (Datacloud.MatchResult matchResult : dupeResult.getMatchResults()) {
-                    for (Datacloud.MatchRecord matchRecord : matchResult.getMatchRecords()) {
+        for (DatacloudProxy.FindDuplicatesResult findDupeResult : results) {
+            for (DatacloudProxy.DuplicateResult dupeResult : findDupeResult.getDuplicateResults()) {
+                for (DatacloudProxy.MatchResult matchResult : dupeResult.getMatchResults()) {
+                    for (DatacloudProxy.MatchRecord matchRecord : matchResult.getMatchRecords()) {
                         // save the duplicate record found by the matching rule and cast to Account type
                         newAcc = (Account) matchRecord.getRecord();
                         //System.debug('newAcc='+newAcc);

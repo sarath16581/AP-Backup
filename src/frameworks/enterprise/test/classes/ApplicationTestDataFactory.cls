@@ -35,7 +35,6 @@
  * 2023-07-16 - SteveL- Added getEvents
  * 2023-07-20 - Mahesh Parvathaneni - Added method getBamApplications
  * 2023-09-22 - Ken McGuire - added methods for product revenue objects
- * 2024-04-17 - Deepak Kemidi - added method for creating vendor emails
 */
 @IsTest
 public with sharing class ApplicationTestDataFactory {
@@ -120,12 +119,48 @@ public with sharing class ApplicationTestDataFactory {
 		return output;
 	}
 
-	public static List<Critical_Incident__kav> getCriticalIncidents(Integer count, Boolean generateIds) {
-		List<Critical_Incident__kav> output = (List<Critical_Incident__kav>)maybeGenerateIds(populateSObjects(Schema.SObjectType.Critical_Incident__kav.SObjectType, new Map<SObjectField, Object> {
-			Critical_Incident__kav.Title => 'Test Title %count%',
-			Critical_Incident__kav.UrlName => 'Test-UrlName-%count%',
-			Critical_Incident__kav.Time_To_Remind__c => System.today(),
-			Critical_Incident__kav.language => 'en_US'
+	public static List<Knowledge__kav> getCriticalIncidents(Integer count, Boolean generateIds) {
+		List<Knowledge__kav> output = (List<Knowledge__kav>)maybeGenerateIds(populateSObjects(Schema.SObjectType.Knowledge__kav.SObjectType, new Map<SObjectField, Object> {
+			Knowledge__kav.Title => 'Test Title %count%',
+			Knowledge__kav.UrlName => 'Test-UrlName-%count%',
+			Knowledge__kav.TimeToRemind__c => System.today(),
+			Knowledge__kav.language => 'en_US',
+			Knowledge__kav.recordTypeId => kavRecordType('Critical_Incident')
+		}, count), generateIds);
+
+		return output;
+	}
+
+	public static List<Knowledge__kav> getPushEDMs(Integer count, Boolean generateIds) {
+		List<Knowledge__kav> output = (List<Knowledge__kav>)maybeGenerateIds(populateSObjects(Schema.SObjectType.Knowledge__kav.SObjectType, new Map<SObjectField, Object> {
+			Knowledge__kav.Title => 'Test Title %count%',
+			Knowledge__kav.UrlName => 'Test-UrlName-%count%',
+			Knowledge__kav.TimeToRemind__c => System.today(),
+			Knowledge__kav.language => 'en_US',
+			Knowledge__kav.recordTypeId => kavRecordType('Push_EDM')
+		}, count), generateIds);
+
+		return output;
+	}
+
+	public static List<Knowledge__kav> getBCAs(Integer count, Boolean generateIds) {
+		List<Knowledge__kav> output = (List<Knowledge__kav>)maybeGenerateIds(populateSObjects(Schema.SObjectType.Knowledge__kav.SObjectType, new Map<SObjectField, Object> {
+			Knowledge__kav.Title => 'Test Title %count%',
+			Knowledge__kav.UrlName => 'Test-UrlName-%count%',
+			Knowledge__kav.TimeToRemind__c => System.today(),
+			Knowledge__kav.language => 'en_US',
+			Knowledge__kav.recordTypeId => kavRecordType('Business_Credit_Account')
+		}, count), generateIds);
+
+		return output;
+	}
+
+	public static List<Knowledge__DataCategorySelection> getDataCatogories(Integer count, Boolean generateIds, Id knowledgeArticleId) {
+		List<Knowledge__DataCategorySelection> output = (List<Knowledge__DataCategorySelection>)maybeGenerateIds(populateSObjects(Schema.SObjectType.Knowledge__DataCategorySelection.SObjectType, new Map<SObjectField, Object> {
+			Knowledge__DataCategorySelection.DataCategoryName  => 'Pickup',
+			Knowledge__DataCategorySelection.DataCategoryGroupName  => 'StarTrack',
+			Knowledge__DataCategorySelection.parentId => knowledgeArticleId
+
 		}, count), generateIds);
 
 		return output;
@@ -1127,20 +1162,6 @@ public with sharing class ApplicationTestDataFactory {
 				GroupedAccountProductRevenue__c.UID__c => ProductRevenueService.getUID(accountId,productId,String.valueOf(year))
 		}, count), generateIds);
 	}
-	
-	/**
-	* Generates test data for Auspost_Vendors_Email_Address__mdt custom metadata records
-	**/
-	public static List<Auspost_Vendors_Email_Address__mdt> getVendorEmail(Integer count, String emailAddress, Boolean generateIds) {
-		List<Auspost_Vendors_Email_Address__mdt> emailAddresses = new List<Auspost_Vendors_Email_Address__mdt>();
-		for (Integer i = 0; i < count; i++) {
-			Auspost_Vendors_Email_Address__mdt email = new Auspost_Vendors_Email_Address__mdt();
-			email.DeveloperName = 'RECORD' + i;
-			email.Vendor_Email__c = emailAddress.replace('%count%', String.valueOf(i));
-			emailAddresses.add(email);
-		}
-		return (List<Auspost_Vendors_Email_Address__mdt>)maybeGenerateIds(emailAddresses, generateIds);
-	}
     
 	/**
 	 * @deprecated ApplicationTestDataFactoryCases
@@ -1380,5 +1401,13 @@ public with sharing class ApplicationTestDataFactory {
 			  return leadBGStandardRecordType;
 		 }
 		 private set;
+	}
+
+	public static Id kavRecordType(String recordTypeName) {
+		Id kavRecordTypeId;
+        if(recordTypeName != null) {
+			kavRecordTypeId = [Select Id From RecordType Where SObjectType = 'Knowledge__kav' And DeveloperName =:recordTypeName].Id;
+		}
+		return kavRecordTypeId;
 	}
 }

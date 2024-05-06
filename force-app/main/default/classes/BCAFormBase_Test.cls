@@ -66,7 +66,7 @@ public class BCAFormBase_Test {
         // Data Preparation
         // =====================================
         String testMessage = 'test message';
-        Business_Credit_Account__kav ka = new Business_Credit_Account__kav();
+        Knowledge__kav ka = new Knowledge__kav();
         ka.Message__c = testMessage;
         
         // =====================================
@@ -78,7 +78,7 @@ public class BCAFormBase_Test {
         MockUtility.Mocks.startStubbing();
         
         // Database
-        MockUtility.Mocks.when(kavSelector.selectByStatusLanguageType(fflib_Match.anyString(), fflib_Match.anyString(), fflib_Match.anyString()))
+        MockUtility.Mocks.when(kavSelector.search((Map<String, Object>)fflib_Match.anyObject(), fflib_Match.anyBoolean()))
             .thenReturn(new List<SObject>{ka});
         MockUtility.Mocks.stopStubbing();
         
@@ -101,63 +101,82 @@ public class BCAFormBase_Test {
         // =====================================
         // Data Preparation
         // =====================================
-        Business_Credit_Account__kav kv = new Business_Credit_Account__kav();
-        kv.Message__c='Welcome Text';
-        kv.Title='Welcome';
-        kv.Type__c='Welcome';
-        kv.Urlname='Welcomexxx';
-        kv.language='en_US';
-        insert kv;
-        Business_Credit_Account__kav k = [Select KnowledgeArticleId from Business_Credit_Account__kav where ID = :kv.Id];
-        KbManagement.PublishingService.publishArticle(k.KnowledgeArticleId, true);
+		List<Knowledge__kav> kav = ApplicationTestDataFactory.getBCAs(1, true);
+
+		// =====================================
+        // Stubbing
+        // =====================================
+        // N/A
+        KnowledgeArticleVersionsSelector kavSelector = (KnowledgeArticleVersionsSelector)MockUtility.mockSelector(KnowledgeArticleVersionsSelector.class);
+        // set up our responses
+        MockUtility.Mocks.startStubbing();
         
+        // Database
+        MockUtility.Mocks.when(kavSelector.search((Map<String, Object>)fflib_Match.anyObject(), fflib_Match.anyBoolean()))
+            .thenReturn(kav);
+        MockUtility.Mocks.stopStubbing();
+		
         Test.startTest();
         BCAFormBase.getWelcomeMessage();
-        System.assertEquals(kv.Message__c,  BCAFormBase.getWelcomeMessage().Message__c, 'success');
+        System.assertEquals(kav[0].Message__c,  BCAFormBase.getWelcomeMessage().Message__c, 'success');
         Test.stopTest();
         
     }
     
     @IsTest
     private static void testDirectTC() {
-        // =====================================
+
+		// =====================================
         // Data Preparation
         // =====================================
-        Business_Credit_Account__kav kv = new Business_Credit_Account__kav();
-        kv.Message__c='Terms and conditions...';
-        kv.Title='TC Direct Debit';
-        kv.Type__c='Direct Debit T&C';
-        kv.Urlname='TC-Direct-Debit-xxx';
-        kv.language='en_US';
-        insert kv;
-        Business_Credit_Account__kav k = [Select KnowledgeArticleId from Business_Credit_Account__kav where ID = :kv.Id];
-        KbManagement.PublishingService.publishArticle(k.KnowledgeArticleId, true);
+		List<Knowledge__kav> kav = ApplicationTestDataFactory.getBCAs(1, true);
+
+		// =====================================
+        // Stubbing
+        // =====================================
+        // N/A
+        KnowledgeArticleVersionsSelector kavSelector = (KnowledgeArticleVersionsSelector)MockUtility.mockSelector(KnowledgeArticleVersionsSelector.class);
+        // set up our responses
+        MockUtility.Mocks.startStubbing();
+        
+        // Database
+        MockUtility.Mocks.when(kavSelector.search((Map<String, Object>)fflib_Match.anyObject(), fflib_Match.anyBoolean()))
+            .thenReturn(kav);
+        MockUtility.Mocks.stopStubbing();
+		// Testing
         Test.startTest();
         BCAFormBase.getDirectTC();
-        System.assertEquals(kv.Message__c,  BCAFormBase.getDirectTC().Message__c, 'success');
-        Test.stopTest();
-        
+        System.assertEquals(kav[0].Message__c,  BCAFormBase.getDirectTC().Message__c, 'success');
+        Test.stopTest();        
     }
     
     
     @IsTest
     private static void testSummaryTC() {
-        // =====================================
+
+		
+		// =====================================
         // Data Preparation
         // =====================================
-        Business_Credit_Account__kav kv = new Business_Credit_Account__kav();
-        kv.Message__c='Summary TC';
-        kv.Title='summary TC';
-        kv.Type__c='Summary T&C';
-        kv.Urlname='Summary-T-C-xxx';
-        kv.language='en_US';
-        insert kv;
-        Business_Credit_Account__kav k = [Select KnowledgeArticleId from Business_Credit_Account__kav where ID = :kv.Id];
-        KbManagement.PublishingService.publishArticle(k.KnowledgeArticleId, true);
+		List<Knowledge__kav> kav = ApplicationTestDataFactory.getBCAs(1, true);
+
+		// =====================================
+        // Stubbing
+        // =====================================
+        // N/A
+        KnowledgeArticleVersionsSelector kavSelector = (KnowledgeArticleVersionsSelector)MockUtility.mockSelector(KnowledgeArticleVersionsSelector.class);
+        // set up our responses
+        MockUtility.Mocks.startStubbing();
+        
+        // Database
+        MockUtility.Mocks.when(kavSelector.search((Map<String, Object>)fflib_Match.anyObject(), fflib_Match.anyBoolean()))
+            .thenReturn(kav);
+        MockUtility.Mocks.stopStubbing();
+		// Testing
         Test.startTest();
         BCAFormBase.getSummaryTC();
-        System.assertEquals(kv.Message__c,  BCAFormBase.getSummaryTC().Message__c, 'success');
-        Test.stopTest();
+        System.assertEquals(kav[0].Message__c,  BCAFormBase.getSummaryTC().Message__c, 'success');
+        Test.stopTest();        
         
     }
     
@@ -166,19 +185,28 @@ public class BCAFormBase_Test {
         // =====================================
         // Data Preparation
         // =====================================
+		
         List<Account> accList = [SELECT Id,ABN__c FROM Account Limit 2 ];
         for(Account acc : accList){
             acc.ABN__c = '31061621832';
             
         }
         update accList;
+
+		ApplicationDatabase mockDatabase = MockUtility.mockDatabase();
+		MockUtility.mocks.startStubbing();
+		MockUtility.Mocks.when(mockDatabase.findDuplicates((List<SObject>)fflib_Match.anyObject())).thenReturn(	new List<DatacloudProxy.FindDuplicatesResult>{
+			DatacloudProxy_Test.mockFindDuplicatesResult(ApplicationTestDataFactory.getAccounts(1, true)[0], 80)
+		});
+		MockUtility.Mocks.stopStubbing();
+		
+		
         Test.startTest();
         Boolean isDuplicate = BCAFormBase.containDuplicateABNACN(accList, accList[0].Id);
         Test.stopTest();
         System.assertEquals(true, isDuplicate);
         
     }
-    
     @IsTest
     private static void testGetIndustryDivisionValues() {
         // =====================================
