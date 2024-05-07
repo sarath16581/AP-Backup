@@ -248,7 +248,7 @@ public class BCAFormBase_Test {
         Test.startTest();
         System.runAs(bcaUser){
             BCAFormBase.UserDetails uDetails = BCAFormBase.checkUserAccessToBCACreation(bcaUser.Id);
-            System.debug('uDetails='+uDetails);
+
             System.assertEquals(uDetails.allowBCACreation, true, 'Success');
         }
         

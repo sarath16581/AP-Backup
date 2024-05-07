@@ -182,8 +182,9 @@ public with sharing virtual class BspBaseUplift {
 										// IMPORTANT!!
 										// Add a failsafe to ensure we only return billing accounts that are related to the current logged in users Organisation
 										// This protects us in the event when dodgy configurations occur or when a contact is reparented to a new org... either of these scenarios shouldn't happen but we add this code just in case
-										if(linkedEntity.BillingAccount__r.Organisation__c != loginAccountId)
+										if(linkedEntity.BillingAccount__r.Organisation__c != loginAccountId){
 											continue;
+										}
 
 										if (accessRuleMap.get(linkedEntity.BillingAccount__r.Id) != null) {
 											// this entity already exists so we need to ensure that it is linked to the most open role
@@ -210,8 +211,9 @@ public with sharing virtual class BspBaseUplift {
 									// IMPORTANT!!
 									// Add a failsafe to ensure we only return billing accounts that are related to the current logged in users Organisation
 									// This protects us in the event when dodgy configurations occur or when a contact is reparented to a new org... either of these scenarios shouldn't happen but we add this code just in case
-									if (groupBillingAccount.BillingAccount__r.Organisation__c != loginAccountId)
+									if (groupBillingAccount.BillingAccount__r.Organisation__c != loginAccountId){
 										continue;
+									}
 
 									if (accessRuleMap.get(groupBillingAccount.BillingAccount__r.Id) != null) {
 										// this entity already exists so we need to ensure that it is linked to the most open role
@@ -557,8 +559,9 @@ public with sharing virtual class BspBaseUplift {
 			if(roleBasedAccessRules == null) {
 				Map<String, Set<Id>> output = new Map<String, Set<Id>>();
 				for(AccessRule rule : accessRules) {
-					if(output.get(rule.roleName) == null)
+					if(output.get(rule.roleName) == null){
 						output.put(rule.roleName, new Set<Id>());
+					}
 
 					output.get(rule.roleName).add(rule.entity.Id);
 				}
@@ -1030,8 +1033,9 @@ public with sharing virtual class BspBaseUplift {
 			for(Map<String, String> mapFile:uploadedFiles) {
 				contentDocIdSet.add((Id) mapFile.get('documentId'));
 			}
-			if(contentDocIdSet.size() > 0)
+			if(contentDocIdSet.size() > 0){
 				insertedAttMap = convertFilesToAttachmentsAndDeleteFiles(parentId, true, contentDocIdSet );
+			}
 		}
 		
 		return insertedAttMap;
