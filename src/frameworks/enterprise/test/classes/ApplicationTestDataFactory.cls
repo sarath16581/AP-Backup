@@ -120,12 +120,48 @@ public with sharing class ApplicationTestDataFactory {
 		return output;
 	}
 
-	public static List<Critical_Incident__kav> getCriticalIncidents(Integer count, Boolean generateIds) {
-		List<Critical_Incident__kav> output = (List<Critical_Incident__kav>)maybeGenerateIds(populateSObjects(Schema.SObjectType.Critical_Incident__kav.SObjectType, new Map<SObjectField, Object> {
-			Critical_Incident__kav.Title => 'Test Title %count%',
-			Critical_Incident__kav.UrlName => 'Test-UrlName-%count%',
-			Critical_Incident__kav.Time_To_Remind__c => System.today(),
-			Critical_Incident__kav.language => 'en_US'
+	public static List<Knowledge__kav> getCriticalIncidents(Integer count, Boolean generateIds) {
+		List<Knowledge__kav> output = (List<Knowledge__kav>)maybeGenerateIds(populateSObjects(Schema.SObjectType.Knowledge__kav.SObjectType, new Map<SObjectField, Object> {
+			Knowledge__kav.Title => 'Test Title %count%',
+			Knowledge__kav.UrlName => 'Test-UrlName-%count%',
+			Knowledge__kav.TimeToRemind__c => System.today(),
+			Knowledge__kav.language => 'en_US',
+			Knowledge__kav.recordTypeId => kavRecordType('Critical_Incident')
+		}, count), generateIds);
+
+		return output;
+	}
+
+	public static List<Knowledge__kav> getPushEDMs(Integer count, Boolean generateIds) {
+		List<Knowledge__kav> output = (List<Knowledge__kav>)maybeGenerateIds(populateSObjects(Schema.SObjectType.Knowledge__kav.SObjectType, new Map<SObjectField, Object> {
+			Knowledge__kav.Title => 'Test Title %count%',
+			Knowledge__kav.UrlName => 'Test-UrlName-%count%',
+			Knowledge__kav.TimeToRemind__c => System.today(),
+			Knowledge__kav.language => 'en_US',
+			Knowledge__kav.recordTypeId => kavRecordType('Push_EDM')
+		}, count), generateIds);
+
+		return output;
+	}
+
+	public static List<Knowledge__kav> getBCAs(Integer count, Boolean generateIds) {
+		List<Knowledge__kav> output = (List<Knowledge__kav>)maybeGenerateIds(populateSObjects(Schema.SObjectType.Knowledge__kav.SObjectType, new Map<SObjectField, Object> {
+			Knowledge__kav.Title => 'Test Title %count%',
+			Knowledge__kav.UrlName => 'Test-UrlName-%count%',
+			Knowledge__kav.TimeToRemind__c => System.today(),
+			Knowledge__kav.language => 'en_US',
+			Knowledge__kav.recordTypeId => kavRecordType('Business_Credit_Account')
+		}, count), generateIds);
+
+		return output;
+	}
+
+	public static List<Knowledge__DataCategorySelection> getDataCatogories(Integer count, Boolean generateIds, Id knowledgeArticleId) {
+		List<Knowledge__DataCategorySelection> output = (List<Knowledge__DataCategorySelection>)maybeGenerateIds(populateSObjects(Schema.SObjectType.Knowledge__DataCategorySelection.SObjectType, new Map<SObjectField, Object> {
+			Knowledge__DataCategorySelection.DataCategoryName  => 'Pickup',
+			Knowledge__DataCategorySelection.DataCategoryGroupName  => 'StarTrack',
+			Knowledge__DataCategorySelection.parentId => knowledgeArticleId
+
 		}, count), generateIds);
 
 		return output;
@@ -887,15 +923,8 @@ public with sharing class ApplicationTestDataFactory {
 	}
 
 	public static List<Budget_And_Revenue__c> getBudgetAndRevenue(Integer count, Id accountId, Boolean generateIds) {
-		return getBudgetAndRevenue(count, accountId, null, null, generateIds);
-	}
-
-	public static List<Budget_And_Revenue__c> getBudgetAndRevenue(Integer count, Id accountId, Id productId, Integer financialYear, Boolean generateIds) {
 		return (List<Budget_And_Revenue__c>) maybeGenerateIds(populateSObjects(Budget_And_Revenue__c.SObjectType, new Map<SObjectField, Object> {
 			Budget_and_Revenue__c.Organisation__c => accountId,
-			Budget_and_Revenue__c.Product__c => productId,
-			Budget_and_Revenue__c.Financial_Year__c => String.ValueOf(financialYear),
-			Budget_and_Revenue__c.Transaction_Type__c => 'REVENUE',
 			Budget_and_Revenue__c.Jan_Revenue_Amount__c => 1000,
 			Budget_and_Revenue__c.Feb_Revenue_Amount__c => 1000,
 			Budget_and_Revenue__c.Mar_Revenue_Amount__c => 1000,
@@ -910,36 +939,12 @@ public with sharing class ApplicationTestDataFactory {
 			Budget_and_Revenue__c.Dec_Revenue_Amount__c => 1000
 		}, count), generateIds);
 	}
-    
-
-    
+	
 	public static List<Product2> getProducts(Integer count, Boolean generateIds) {
 		return (List<Product2>) maybeGenerateIds(populateSObjects(Product2.SObjectType, new Map<SObjectField, Object> {
 			Product2.Name => 'Product %count%'
 		}, count), generateIds);
 	}
-
-    
-    public static List<PricebookEntry> getPriceBookEntries(Integer count, Id productId, Boolean generateIds) {
-        Id pricebookId = Test.getStandardPricebookId();
-        return (List<PricebookEntry>) maybeGenerateIds(populateSObjects(PricebookEntry.SObjectType, new Map<SObjectField, Object> {
-            PricebookEntry.Pricebook2Id => pricebookId,
-            PricebookEntry.Product2Id => productId,
-            PricebookEntry.UnitPrice => 100.00,
-            PricebookEntry.IsActive => true
-        }, count), generateIds);
-    }
-
-    public static List<OpportunityLineItem> getOpportunityLineItems(Integer count, Id opportunityId, Id pricebookEntryId, Boolean generateIds) {
-        Date todaysDate = Date.today();
-        return (List<OpportunityLineItem>) maybeGenerateIds(populateSObjects(OpportunityLineItem.SObjectType, new Map<SObjectField, Object> {
-            OpportunityLineItem.OpportunityId => opportunityId,
-            OpportunityLineItem.PricebookEntryId => pricebookEntryId,
-            OpportunityLineItem.TotalPrice => 1000,
-            OpportunityLineItem.Contract_Start_Date__c => todaysDate,
-            OpportunityLineItem.Contract_End_Date__c => todaysDate.addDays(3)
-        }, count), generateIds);
-    }
 
 	public static List<BAMApplication__c> getBamApplications(Integer count, String appName, Id productId, Boolean generateIds) {
 		return (List<BAMApplication__c>)maybeGenerateIds(populateSObjects(BAMApplication__c.SObjectType, new Map<SObjectField, Object> {
@@ -1084,64 +1089,7 @@ public with sharing class ApplicationTestDataFactory {
 		}
 		private set;
 	}
-    
-    public static List<OpportunityProductRevenueForecast__c> getOpportunityProductRevenueForecasts(Integer count, Id opportunityProductId, Boolean generateIds) {
-		integer currentMonth = Date.today().Month();
-        decimal percentRevenue = 100/12;
-        return (List<OpportunityProductRevenueForecast__c>)maybeGenerateIds(populateSObjects(OpportunityProductRevenueForecast__c.SObjectType, new Map<SObjectField, Object> {
-				OpportunityProductRevenueForecast__c.OpportunityProduct__c => opportunityProductId,
-                OpportunityProductRevenueForecast__c.FinancialYear__c => currentMonth,
-                OpportunityProductRevenueForecast__c.FCT1__c => percentRevenue,
-                OpportunityProductRevenueForecast__c.FCT2__c => percentRevenue,
-                OpportunityProductRevenueForecast__c.FCT3__c => percentRevenue,
-                OpportunityProductRevenueForecast__c.FCT4__c => percentRevenue,
-                OpportunityProductRevenueForecast__c.FCT5__c => percentRevenue,
-                OpportunityProductRevenueForecast__c.FCT6__c => percentRevenue,
-                OpportunityProductRevenueForecast__c.FCT7__c => percentRevenue,
-                OpportunityProductRevenueForecast__c.FCT8__c => percentRevenue,
-                OpportunityProductRevenueForecast__c.FCT9__c => percentRevenue,
-                OpportunityProductRevenueForecast__c.FCT10__c => percentRevenue,
-                OpportunityProductRevenueForecast__c.FCT11__c => percentRevenue,
-                OpportunityProductRevenueForecast__c.FCT12__c => percentRevenue
-		}, count), generateIds);
-	}
-    
-    public static List<GroupedAccountProductRevenue__c> getGroupedAccountProductRevenue(Integer count, Id accountId, Id productId, Integer year, Boolean generateIds) {
-        decimal revenue = 10000;
-        return (List<GroupedAccountProductRevenue__c>)maybeGenerateIds(populateSObjects(GroupedAccountProductRevenue__c.SObjectType, new Map<SObjectField, Object> {
-				GroupedAccountProductRevenue__c.AnchorOrganisation__c => accountId,
-                GroupedAccountProductRevenue__c.PrimaryProduct__c => productId,
-                GroupedAccountProductRevenue__c.FinancialYear__c => year,
-                GroupedAccountProductRevenue__c.Rev1__c => revenue,
-                GroupedAccountProductRevenue__c.Rev2__c => revenue,
-                GroupedAccountProductRevenue__c.Rev3__c => revenue,
-                GroupedAccountProductRevenue__c.Rev4__c => revenue,
-                GroupedAccountProductRevenue__c.Rev5__c => revenue,
-                GroupedAccountProductRevenue__c.Rev6__c => revenue,
-                GroupedAccountProductRevenue__c.Rev7__c => revenue,
-                GroupedAccountProductRevenue__c.Rev8__c => revenue,
-                GroupedAccountProductRevenue__c.Rev9__c => revenue,
-                GroupedAccountProductRevenue__c.Rev10__c => revenue,
-                GroupedAccountProductRevenue__c.Rev11__c => revenue,
-                GroupedAccountProductRevenue__c.Rev12__c => revenue,
-				GroupedAccountProductRevenue__c.UID__c => ProductRevenueService.getUID(accountId,productId,String.valueOf(year))
-		}, count), generateIds);
-	}
-	
-	/**
-	* Generates test data for Auspost_Vendors_Email_Address__mdt custom metadata records
-	**/
-	public static List<Auspost_Vendors_Email_Address__mdt> getVendorEmail(Integer count, String emailAddress, Boolean generateIds) {
-		List<Auspost_Vendors_Email_Address__mdt> emailAddresses = new List<Auspost_Vendors_Email_Address__mdt>();
-		for (Integer i = 0; i < count; i++) {
-			Auspost_Vendors_Email_Address__mdt email = new Auspost_Vendors_Email_Address__mdt();
-			email.DeveloperName = 'RECORD' + i;
-			email.Vendor_Email__c = emailAddress.replace('%count%', String.valueOf(i));
-			emailAddresses.add(email);
-		}
-		return (List<Auspost_Vendors_Email_Address__mdt>)maybeGenerateIds(emailAddresses, generateIds);
-	}
-    
+
 	/**
 	 * @deprecated ApplicationTestDataFactoryCases
 	 */
@@ -1380,5 +1328,13 @@ public with sharing class ApplicationTestDataFactory {
 			  return leadBGStandardRecordType;
 		 }
 		 private set;
+	}
+
+	public static Id kavRecordType(String recordTypeName) {
+		Id kavRecordTypeId;
+		if(recordTypeName != null) {
+			kavRecordTypeId = [Select Id From RecordType Where SObjectType = 'Knowledge__kav' And DeveloperName =:recordTypeName].Id;
+		}
+		return kavRecordTypeId;
 	}
 }
