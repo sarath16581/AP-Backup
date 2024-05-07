@@ -59,7 +59,14 @@ export default class myNetworkeParcelDamagesForm extends LwcForm {
         parentName: 'sustainedDamage',
         showFor: 'no',       
     }
-
+	sufficientlyPackaged = {
+        parentName: 'sufficientPackage',
+        showFor: 'yes',       
+    }
+	notSufficientlyPackaged = {
+        parentName: 'sufficientPackage',
+        showFor: 'no',       
+    }
     notAdequateCartonRenderConfig = {
         parentName: 'isCartonAdequate',
         showFor: 'no'
@@ -142,7 +149,10 @@ export default class myNetworkeParcelDamagesForm extends LwcForm {
     @track
     cartonadqlength=500
 
-    @track
+	@track
+    sufficientlyPackagedDetailsLength=1500
+    
+	@track
     divideradqlength=500
 
     @track
@@ -377,10 +387,12 @@ export default class myNetworkeParcelDamagesForm extends LwcForm {
             sustainedDamage:null,
             damageDetails:null,
             damageLocation:null,
-            sustainedDamageDetails:null,           
+            sustainedDamageDetails:null,
             howDamageOccured:null,
             isPartOfConsignment:null,
             totalArticlesInConsignment:null,
+			sufficientPackage:null,
+			sufficientPackageDetails:null,
             totalItemInParcel:null,
             cartonInadequecyDetails:null,
             dividerInadequecyDetails:null 
@@ -413,7 +425,9 @@ export default class myNetworkeParcelDamagesForm extends LwcForm {
         if (event.target.name === 'damageLocation')
         {this.locationDetailsLength = (500 - event.detail.value.length) ;} 
         if (event.target.name === 'sustainedDamageDetails')
-        {this.sustainedDamageDetailsLength  = (1500 - event.detail.value.length) ;} 
+        {this.sustainedDamageDetailsLength  = (1500 - event.detail.value.length) ;}
+		if (event.target.name === 'sufficientPackageDetails')
+        {this.sufficientlyPackagedDetailsLength  = (1500 - event.detail.value.length) ;}  
         this.handleValueChange(event)
     }
     

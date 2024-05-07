@@ -10,6 +10,7 @@ Test Class:BG_LeadUtilityTest
 05-03-2020      Suman Gunaganti     Lead SLA fields logic update
 01-10-2021	Seth Heang	    Uplift SF API version to 52
 08-04-2022      Naveen Rajanna REQ2804764 - Remove debug and Add null check to prevent nullpointerexception
+05-02-2024		Talib Raza 			INC2217553 - In validateLeadFields Bypass error thowing when lead source is SBSub_Retail
 **************************************************/
 
 public with sharing class BG_LeadUtility {
@@ -185,7 +186,7 @@ public with sharing class BG_LeadUtility {
         Map<Id, RecordType> leadRecordTypeMap = RecordTypesSelector.newInstance().selectBySObject('Lead');
         for (Lead leadrec : leadList){
             List<String> fieldsWithoutValues = new List<String>();
-            if(('Verified'.equalsIgnoreCase(leadrec.Status) || 'Qualified'.equalsIgnoreCase(leadrec.Status) || 'mypost business'.equalsIgnoreCase(leadrec.Status))
+            if(('Verified'.equalsIgnoreCase(leadrec.Status) || 'Qualified'.equalsIgnoreCase(leadrec.Status) || 'mypost business'.equalsIgnoreCase(leadrec.Status) || 'SBSub_Retail'.equalsIgnoreCase(leadrec.LeadSource))
             && (leadRecordTypeMap.get(leadrec.RecordTypeId)?.DeveloperName == 'BG_Standard' || leadRecordTypeMap.get(leadrec.RecordTypeId)?.DeveloperName == 'StarTrack_Lead'))
             {
                 if (String.isBlank(leadrec.FirstName)) {

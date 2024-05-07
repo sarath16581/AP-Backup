@@ -9,6 +9,7 @@
 26.08.2016  Kalpita T                       Added references to new trigger class and removed static references to old test classes
 14.08.2019  Disha Kariya                    Added 2 new methods for LPO changes in AccountTriggerUtility class
 02.03.2021  Alvin Zhou                      Added test methods for the change for Account Team create, update and delete
+03.05.2024  Swati Mogadala                 Added a test method for delete/merge of account records-testdeleteRReconDelete()
 **/
 @isTest
 private class AccountTriggerUtility_Test {
@@ -160,6 +161,32 @@ private class AccountTriggerUtility_Test {
         AccountTriggerUtility.RUN_TRIGGER_BEFORE_DELETE = true;
         AccountTriggerUtility.RUN_TRIGGER_AFTER_DELETE = true;
         AccountTriggerUtility.RUN_TRIGGER_ISUNDELETE = true;
+    }
+	/**
+      * @description       test Method deleteRReconDelete 
+      * @return            NA
+      * @throws            NA
+      */ 
+    private static testMethod void testdeleteRReconDelete(){
+        Account testAccount = new Account(
+                name = 'testAccount1',
+                phone = '123',
+                ABN__c = '85412369589',
+                RecordTypeId = organizationRecType.id);
+        insert testAccount;
+        
+        Budget_and_Revenue__c CustomerRev = new Budget_and_Revenue__c(Organisation__c=testAccount.id, Financial_Year__c='2024');
+        insert CustomerRev;
+        Revenue_by_Billing_Account__c RevBA = new Revenue_by_Billing_Account__c(Customer__c=testAccount.id, Financial_Year__c='20204');
+        insert RevBA;
+         test.startTest();
+            
+            delete testAccount;
+            
+        test.stopTest();
+       System.assertEquals(0,[Select count() from Budget_and_Revenue__c WHERE Id =: CustomerRev.Id ]);
+        System.assertEquals(0,[Select count() from Revenue_by_Billing_Account__c WHERE Id =: RevBA.Id ]);
+        
     }
     
     /**

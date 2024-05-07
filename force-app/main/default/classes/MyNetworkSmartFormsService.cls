@@ -17,6 +17,7 @@
 09.06.2021    Naveen Rajanna             REQ2525818 -Updated case comments method to include Cust Ref only in case of eparcel damages
 16.06.2021    SaiSwetha Pingali			 REQ2866516 -Introduced a new metadata to store product sub category to disable compensation and updated the logic here to utilise the metadata.
 18.10.2022    Talib Raza                 REQ2866516 - getAll() only return 255 char, replace it with SOQL 
+01.06.2024    Jacob Isaac                REQ3357026 - new question on wine/edamages form
 **/
 
 public with sharing class MyNetworkSmartFormsService {
@@ -211,6 +212,10 @@ public with sharing class MyNetworkSmartFormsService {
 			ParcelDamageDetails += SSSWConstants.NEW_LINE + 'Have all the items in the parcel sustained damage?' + SSSWConstants.HYPHEN_SPACED + oSmartFormWrapper.sustainedDamage;
 			if(oSmartFormWrapper.sustainedDamage == 'no'){
 				ParcelDamageDetails += SSSWConstants.NEW_LINE + 'Please list the items that have not sustained damage -' + oSmartFormWrapper.sustainedDamageDetails;
+			}
+			ParcelDamageDetails += SSSWConstants.NEW_LINE + 'Was the article sufficiently packaged?' + SSSWConstants.HYPHEN_SPACED + oSmartFormWrapper.sufficientPackage;
+			if(oSmartFormWrapper.sufficientPackage == 'no'){
+				ParcelDamageDetails += SSSWConstants.NEW_LINE + 'Details why the items were not sufficiently packaged -' + oSmartFormWrapper.sufficientPackageDetails;
 			}
 		}
 		ParcelDamageDetails += SSSWConstants.NEW_LINE;

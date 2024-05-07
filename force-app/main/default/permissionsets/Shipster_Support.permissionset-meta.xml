@@ -88,10 +88,6 @@ part of the Delivery Club project team looking after help &amp; support for the 
         <object>Case</object>
         <viewAllRecords>false</viewAllRecords>
     </objectPermissions>
-    <recordTypeVisibilities>
-        <recordType>Case.Shipster</recordType>
-        <visible>true</visible>
-    </recordTypeVisibilities>
     <tabSettings>
         <tab>standard-Case</tab>
         <visibility>Available</visibility>
