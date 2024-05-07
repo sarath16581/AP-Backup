@@ -19,6 +19,7 @@
   * 17/01/2022		  ashapriya.gadi@auspost.com.au			   SMWD-312 - MW0004779 - defaulting all the manual service delivery cases' entitlement to VIC
   * 2022-02-16 - Nathan Franklin - Uplifted BGS entitlement to limit scope of entitlement selection
   * 2023-06-02 - Mahesh Parvathaneni - Added logic to assign entitlement to transport enquiry record type cases
+  * 2024-05-07 - Boris Bachovski - Add logic to assign entitlement to bulk mail record type cases
   */
 public with sharing class CaseMilestoneUtility{
 	   
@@ -32,6 +33,8 @@ public with sharing class CaseMilestoneUtility{
 	private static Id STD_ENTITLEMENT;  // sssw entitlement to be linked with case
 	private static Id transportEnquiryEntitlementId; //transport enquiry entitlement to be linked with case
 	private static Id transportEnquiryRecTypeId;
+	private static Id bulkMailEntitlementId; // bulk mail entitlement to be linked with case
+	private static Id bulkMailRecTypeId;
 
 	// Added for BGS Case Milestones
 	private static Set<Id> bgsRecTypes;  // the BGS Case Record Type "Service Delivery/Sales_Ops_Delivery"
@@ -55,6 +58,10 @@ public with sharing class CaseMilestoneUtility{
 			transportEnquiryEntitlementId = TransportEnquiryCaseService.getInstance().getTransportEnquiryEntitlementId();
 			// Get the Record Type Id for Transport Enquiry Cases
 			transportEnquiryRecTypeId = TransportEnquiryCaseService.getInstance().getTransportEnquiryRecordTypeId();
+			// Get the bulk mail entitlement record id
+			bulkMailEntitlementId = BulkMailCaseService.getInstance().getBulkMailEntitlementId();
+			// Get the Record Type Id for Bulk Mail Cases
+			bulkMailRecTypeId = BulkMailCaseService.getInstance().getBulkMailRecordTypeId();
 		}
 		catch(Exception exp){
 			// Error Logged to Exception object for analysis
@@ -102,6 +109,10 @@ public with sharing class CaseMilestoneUtility{
 				else if(Utility.isValidRecordType(new Set<Id>{transportEnquiryRecTypeId}, csRec.RecordTypeId) && transportEnquiryEntitlementId != null) {
 					//assign transport enquiry entitlement record for transport enquiry record type cases
 					csRec.EntitlementId = transportEnquiryEntitlementId;
+				}
+				else if (Utility.isValidRecordType(new Set<Id>{bulkMailRecTypeId}, csRec.RecordTypeId) && bulkMailEntitlementId != null) {
+					//assign bulk mail entitlement record for bulk mail record type cases
+					csRec.EntitlementId = bulkMailEntitlementId;
 				}
 
 				// check if case is assigned to agent to set escalation mail
