@@ -784,4 +784,36 @@ public class bspBaseUplift_Test{
 		System.assertNotEquals(null, outputUrl, 'Expected url to be returned');
 		System.assertEquals(url, outputUrl, 'Incorrect url returned');
 	}
+
+	/**
+	 * Test:
+	 * Making sure that we have a announcement message from BSP_Announcement knowledge article 
+	 */
+	@IsTest
+	private static void testGetAnnouncementMessage() {
+		// =====================================
+		//Data
+		// =====================================
+		List<Knowledge__kav> kav = ApplicationTestDataFactory.getBSPs(1, true);
+		
+		// N/A
+		KnowledgeArticleVersionsSelector kavSelector = (KnowledgeArticleVersionsSelector)MockUtility.mockSelector(KnowledgeArticleVersionsSelector.class);
+		// set up our responses
+		MockUtility.Mocks.startStubbing();
+		
+		// Database
+		MockUtility.Mocks.when(kavSelector.search((Map<String, Object>)fflib_Match.anyObject(), fflib_Match.anyBoolean(),(Schema.SobjectField)fflib_Match.anyObject() , (String)fflib_Match.anyObject()))
+			.thenReturn(kav);
+		MockUtility.Mocks.stopStubbing();
+		// =====================================
+		// Testing
+		// =====================================
+		//insert bcaSetting;
+		Test.startTest();
+		String str =  bspBaseUplift.getAnnouncementMessage();
+		System.assertEquals(String.isNotBlank(str), true, 'Announcement returned');
+
+		Test.stopTest();
+	}
+
  }

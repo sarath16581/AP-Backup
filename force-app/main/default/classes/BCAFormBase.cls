@@ -178,18 +178,8 @@ public without sharing class BCAFormBase {
 
 	private static Knowledge__kav getKnowledgeArticle(String publishStatus, String language, String type)
 	{
-		Set<SObjectField> fields = new Set<SObjectField>{
-				Knowledge__kav.Id
-				, Knowledge__kav.Message__c
-		};
-		Map<String, Object> searchParams = new Map<String, Object>();
-		searchParams.put('statuses', new Set<String>{publishStatus});
-		searchParams.put('languages', new Set<String>{language});
-		searchParams.put('types', new Set<String>{type});
-		searchParams.put('recordTypeNames', new Set<String>{'Business_Credit_Account'});
-
-		KnowledgeArticleVersionsSelector kavSelector = KnowledgeArticleVersionsSelector.newInstance(fields);
-		List<Knowledge__kav> kavs = (List<Knowledge__kav>) kavSelector.search(searchParams, true);
+		BCAFormBaseWrapper wrapper = new BCAFormBaseWrapper();
+		List<Knowledge__kav> kavs = wrapper.getKnowledgeArticles(publishStatus, language, type);
 		if(kavs.size() == 1)
 		{
 			return kavs[0];
@@ -206,9 +196,6 @@ public without sharing class BCAFormBase {
 		String sObjectApiName, String fieldApiName,String criteria, Boolean isDistinct){
 			List<bspEnquiryUplift.SelectOptionCustom> options = new list<bspEnquiryUplift.SelectOptionCustom>();
 			//System.debug('getObjectRecordFieldValues -- START');
-			fieldApiName = String.escapeSingleQuotes(fieldApiName);
-			sObjectApiName = String.escapeSingleQuotes(sObjectApiName);
-			criteria = String.escapeSingleQuotes(criteria);
 
 			if(sObjectApiName !=null && fieldApiName != null){
 				//System.debug('criteria='+criteria);
@@ -222,14 +209,12 @@ public without sharing class BCAFormBase {
 					queryString = queryString + ' Group By '+fieldApiName; //+ ' Group By Id ,'+fieldApiName;
 				}
 				queryString = queryString + ' ORDER BY '+ fieldApiName +' ASC';
-				//System.debug('queryString='+queryString);
-				List<sObject> recordList = Database.query(String.escapeSingleQuotes(queryString));
+				List<sObject> recordList = Database.query(queryString);
 				if(recordList != null && recordList.size() > 0){
 
 					for(sObject record : recordList){
 						options.add(new bspEnquiryUplift.SelectOptionCustom((String)record.get(fieldApiName), (String)record.get(fieldApiName)));
 					}
-
 				}
 			}
 			return options;
@@ -390,4 +375,29 @@ public without sharing class BCAFormBase {
 		}
 		return null;
 	}
+
+		/**created a wrapper class and defined without sharing to provide access to the articles */
+		@testVisible
+		without sharing class BCAFormBaseWrapper{
+			/**
+			 * @description Gets all the Kavs based on published status, type and language
+			 * @return list of Knowledge__kav
+			 */
+			@testVisible
+			private List<Knowledge__kav> getKnowledgeArticles(String publishStatus, String language,String type){
+
+				Set<SObjectField> fields = new Set<SObjectField>{
+					Knowledge__kav.Id
+					, Knowledge__kav.Message__c
+				};
+				Map<String, Object> searchParams = new Map<String, Object>();
+				searchParams.put('statuses', new Set<String>{publishStatus});
+				searchParams.put('languages', new Set<String>{language});
+				searchParams.put('types', new Set<String>{type});
+				searchParams.put('recordTypeNames', new Set<String>{'Business_Credit_Account'});
+		
+				KnowledgeArticleVersionsSelector kavSelector = KnowledgeArticleVersionsSelector.newInstance(fields);
+				return  kavSelector.search(searchParams, true);
+			}
+		}
 }

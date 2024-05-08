@@ -156,6 +156,19 @@ public with sharing class ApplicationTestDataFactory {
 		return output;
 	}
 
+	public static List<Knowledge__kav> getBSPs(Integer count, Boolean generateIds) {
+		List<Knowledge__kav> output = (List<Knowledge__kav>)maybeGenerateIds(populateSObjects(Schema.SObjectType.Knowledge__kav.SObjectType, new Map<SObjectField, Object> {
+			Knowledge__kav.Title => 'Test Title %count%',
+			Knowledge__kav.UrlName => 'Test-UrlName-%count%',
+			Knowledge__kav.TimeToRemind__c => System.today(),
+			Knowledge__kav.language => 'en_US',
+			Knowledge__kav.WhatdoItellcustomers__c => 'test',
+			Knowledge__kav.recordTypeId => kavRecordType('BSP_Announcement')
+		}, count), generateIds);
+
+		return output;
+	}
+
 	public static List<Knowledge__DataCategorySelection> getDataCatogories(Integer count, Boolean generateIds, Id knowledgeArticleId) {
 		List<Knowledge__DataCategorySelection> output = (List<Knowledge__DataCategorySelection>)maybeGenerateIds(populateSObjects(Schema.SObjectType.Knowledge__DataCategorySelection.SObjectType, new Map<SObjectField, Object> {
 			Knowledge__DataCategorySelection.DataCategoryName  => 'Pickup',
