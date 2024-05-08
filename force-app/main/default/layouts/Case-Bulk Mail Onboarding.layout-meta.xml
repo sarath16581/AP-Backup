@@ -239,10 +239,9 @@
         <fields>MILESTONETYPE.MILESTONE</fields>
         <fields>CASEMILESTONE.TARGET_DATE</fields>
         <fields>CASEMILESTONE.COMPLETION_DATE</fields>
+        <fields>CASEMILESTONE.TIME_REMAIN_MINS</fields>
+        <fields>CASEMILESTONE.IS_VIOLATED_IN</fields>
         <fields>CASEMILESTONE.IS_COMPLETED_IN</fields>
-        <fields>CASEMILESTONE.ELPSD_TIME_MINS</fields>
-        <fields>CASEMILESTONE.ELPSD_TIME_HRS</fields>
-        <fields>CASEMILESTONE.ELPSD_TIME_DAYS</fields>
         <relatedList>RelatedCaseMilestoneList</relatedList>
     </relatedLists>
     <relatedLists>
