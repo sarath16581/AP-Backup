@@ -15,7 +15,9 @@ public with sharing class ProductRevenueService {
     public static final String MONTHLY_REVENUE_PREFIX = 'Rev';
     public static final String BUDGET_REVENUE_SUFFIX = '_Revenue_Amount';
     public static final String CUSTOM_SUFFIX = '__c';
+    public OPCCalculationSetting__c opcSettings = OPCCalculationSetting__c.getInstance();
     private static final Double MONTHS_IN_YEAR = 12;
+    @TestVisible private static final Integer DEFAULT_NOMINAL_TRADE_AMOUNT = 1000;
     @TestVisible private static final String CLASSIFICATION_NEW_BUSINESS = 'New Business';
     @TestVisible private static final String CLASSIFICATION_RENEWAL = 'Renewal';
     @TestVisible private static final String CLASSIFICATION_GROWTH = 'Growth';
@@ -201,13 +203,14 @@ public with sharing class ProductRevenueService {
         loadBudgetAndRevenueRecords(uids);
 
         Integer currentFY = getAustralianFinancialYear(calculationDate);
+        Integer nominalTradeAmount = Integer.valueOf(opcSettings.NominalTradeAmount__c) ?? DEFAULT_NOMINAL_TRADE_AMOUNT;
         for (OpportunityLineItem lineItem : lineItems) {
             String uniqueId = getUID(lineItem.Opportunity.AccountId,lineItem.Product2Id,String.valueOf(currentFY));
-            if (budgetAndRevenues.isEmpty()) { // cannot find any prior customer revenue record => new business
-                lineItem.Classification__c = CLASSIFICATION_NEW_BUSINESS; //cannot find any CustomerRev records
+            if (budgetAndRevenues.isEmpty() || (budgetAndRevenues.get(uniqueId) != null && lineItem.TweleveMonthRevenue__c < nominalTradeAmount && lineItem.TweleveMonthRevenue__c > 0)) { // cannot find any prior customer revenue record, or the previous revenue record is less than nominal trade amount => new business
+                lineItem.Classification__c = CLASSIFICATION_NEW_BUSINESS;
             } else if (!budgetAndRevenues.isEmpty() && budgetAndRevenues.get(uniqueId) == null) {
                 lineItem.Classification__c = CLASSIFICATION_CROSS_SELL; //Customer Rev record for this product does not exist, but there are other Customer Rev records for this grouped account
-            } else if (budgetAndRevenues.get(uniqueId) != null && lineItem.TweleveMonthRevenue__c > 0) { //can find at least 1 record, meaning use the current 12 months logic and if it is greater than 0
+            } else if (budgetAndRevenues.get(uniqueId) != null && lineItem.TweleveMonthRevenue__c >= nominalTradeAmount) { //can find at least 1 record with traded amount greater than or equal to nominal trade amount, meaning use the current 12 months logic and if it is greater than 0
                 lineItem.Classification__c = lineItem.IncrementalRevenue__c != null && lineItem.IncrementalRevenue__c > 0 ? CLASSIFICATION_GROWTH : CLASSIFICATION_RENEWAL;
             } else if (budgetAndRevenues.get(uniqueId) != null && lineItem.TweleveMonthRevenue__c <= 0) {
                 lineItem.Classification__c = CLASSIFICATION_WIN_BACK; //opposite of renewal, is the last 12 months logic is 0, but not 0 going before that
