@@ -6,6 +6,7 @@
  * @group Domain
  * @domain EmailMessageCasesDomain
  * @changelog
+* 08/04/2024 Boris Bachovski - Update First_Email_Response__c field on case when outgoing email is sent + Complete Bulk Mail First Response milestone
  */
 
  public inherited sharing class BulkMailEmailMessagesModule extends ApplicationDomain.Module {
@@ -71,6 +72,7 @@
 	 */
 	public void updateRelatedCases(List<SObject> newEmails, ApplicationUnitOfWork uow) {
 		Set<Id> emailIdSet = (new Map<Id,SObject>(newEmails)).keySet(); //Set containing emailmessage Id whose parent id is of case
+		Set<Id> milestoneCaseIds = new Set<Id>();
 		Set<Id> caseIds = new Set<Id>();
 		Map<Id, EmailMessage> filteredMessages = new Map<Id, EmailMessage>();
 		Map<Id, EmailMessage> emailsToProcess = new Map<Id, EmailMessage>();
@@ -84,9 +86,18 @@
 
 		//Get the selected emailMessage with related case fields, whose parent case recordtype is Bulk Mail
 		for (EmailMessage em : EmailMessagesSelector.newInstance().selectByIdsAndParentRecordTypeId(emailIdSet, new Set<Id>{recordTypeId}, 
-										new Set<Object>{EmailMessagesSelector.Options.FILTER_INCOMING, EmailMessagesSelector.Options.WITH_CASE})) {
-			filteredMessages.put(em.Id, em);
-			caseIds.add(em.ParentId);
+										new Set<Object>{EmailMessagesSelector.Options.WITH_CASE, CasesSelector.Options.WITH_RECORDTYPE})) {
+			if (em.Incoming)
+			{
+				filteredMessages.put(em.Id, em);
+				caseIds.add(em.ParentId);
+			}
+
+			// Outgoing message (First Response) - add the case Id to the milestoneCaseIds set, we'll complete the Bulk Mail First Response milestone.
+			if (!em.Incoming && !em.Parent.First_Email_Response__c && (EmailMessageUtil.STATUS_REPLIED.equals(em.Status) || EmailMessageUtil.STATUS_SENT.equals(em.Status))) {
+				milestoneCaseIds.add(em.ParentId);
+				casestoUpdate.add(new Case(Id = em.ParentId, First_Email_Response__c = true));
+			}
 		}
 
 		if (!caseIds.isEmpty()) {
@@ -140,6 +151,14 @@
 		if (!casesToUpdate.isEmpty()) {
 			//update cases
 			uow.registerDirty(casesToUpdate, true, BulkMailEmailMessagesModule.class.getName());
+		} 
+
+		// Update the Bulk Mail First Response milestone
+		if (!milestoneCaseIds.isEmpty()) {
+			// Update the Bulk Mail First Response milestone
+			for (CaseMilestone cm : CaseMilestonesSelector.newInstance().selectByCaseAndMilestoneNames(milestoneCaseIds, new Set<String>{BulkMailCaseService.BULK_MAIL_FIRST_RESPONSE_MILESTONE}, new Set<Object>())) {
+				uow.registerDirty(new CaseMilestone(Id = cm.Id, CompletionDate = System.now()), true, BulkMailEmailMessagesModule.class.getName());
+			}
 		}
 	}
 

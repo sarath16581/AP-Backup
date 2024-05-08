@@ -3,12 +3,14 @@
  * @author Thang Nguyen
  * @date 05/04/2024
  * @changelog
+ * 08/05/2024  Boris Bachovski - Add Entitlement and Milestone constnats
  */
 
  public inherited sharing class BulkMailCaseService {
 
 	//constants
 	public static final String BULK_MAIL_ENTITLEMENT = 'Bulk Mail Standard Entitlement';
+	public static final String BULK_MAIL_FIRST_RESPONSE_MILESTONE = 'Bulk Mail - First Response';
 	public static final String CASE_BULK_MAIL_RT = 'Bulk_Mail_Onboarding';
 	public static final String BULK_MAIL_ENTITLEMENT_ACCOUNT = 'Bulk Mail Entitlements';
 	public static final String NEW_EMAIL_RECEIVED = 'New Email Received';
