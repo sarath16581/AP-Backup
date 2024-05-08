@@ -240,7 +240,7 @@ export default class APT_CheckoutLWC extends LightningElement {
 				}
 				}
 				else {
-					this.docGenerationRequired();
+					this.docGenerationRequired(true);
 				}
 			})
 			.catch((error) => {
