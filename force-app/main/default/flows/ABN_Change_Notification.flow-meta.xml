@@ -4,23 +4,21 @@
         <description>Fetch all recipient addresses for vendors from the custom metadata Auspost Vendors Email Address to facilitate testing.</description>
         <name>Fetch_Recipients_Vendor_Email_Address</name>
         <label>Fetch Recipients Email Address</label>
-        <locationX>361</locationX>
-        <locationY>932</locationY>
+        <locationX>208</locationX>
+        <locationY>924</locationY>
         <actionName>VendorEmailUtils</actionName>
         <actionType>apex</actionType>
         <connector>
             <targetReference>Send_Account_ABN_Change_Notification</targetReference>
         </connector>
         <flowTransactionModel>CurrentTransaction</flowTransactionModel>
-        <nameSegment>VendorEmailUtils</nameSegment>
         <storeOutputAutomatically>true</storeOutputAutomatically>
-        <versionSegment>1</versionSegment>
     </actionCalls>
     <actionCalls>
         <name>Send_Account_ABN_Change_Notification</name>
         <label>Send Account ABN Change Notification</label>
-        <locationX>361</locationX>
-        <locationY>1101</locationY>
+        <locationX>208</locationX>
+        <locationY>1139</locationY>
         <actionName>emailSimple</actionName>
         <actionType>emailSimple</actionType>
         <flowTransactionModel>CurrentTransaction</flowTransactionModel>
@@ -54,28 +52,31 @@
                 <elementReference>ABNChangeNotificationBody</elementReference>
             </value>
         </inputParameters>
-        <nameSegment>emailSimple</nameSegment>
-        <versionSegment>1</versionSegment>
     </actionCalls>
     <apiVersion>60.0</apiVersion>
-    <customErrors>
-        <description>Prevent ABN Change on Organisation with Active License and when the Licence Status is “Active”, “Suspended with fees”, “Suspended without fees”.</description>
-        <name>Prevent_ABN_Change</name>
-        <label>Prevent ABN Change</label>
-        <locationX>878</locationX>
-        <locationY>945</locationY>
-        <customErrorMessages>
-            <errorMessage>{!$Label.ABNChangeNotificationError}</errorMessage>
-            <fieldSelection>ABN__c</fieldSelection>
-            <isFieldError>true</isFieldError>
-        </customErrorMessages>
-    </customErrors>
+    <assignments>
+        <description>Ids of License Record Types Returned via querying the Record Type object</description>
+        <name>Assign_RecordTypeIds_to_Variable</name>
+        <label>Assign RecordTypeIds to Variable</label>
+        <locationX>741</locationX>
+        <locationY>450</locationY>
+        <assignmentItems>
+            <assignToReference>LicenseRecordTypeIds</assignToReference>
+            <operator>Add</operator>
+            <value>
+                <elementReference>Loop_Get_License_RecordType_Id.Id</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Loop_Get_License_RecordType_Id</targetReference>
+        </connector>
+    </assignments>
     <decisions>
         <description>This decision node evaluates the current status of the license and directs to appropriate path based on the status. It checks whether license is in either &lt;draft, pending, approved&gt; or &lt;active, suspended with fees, or suspended without fees&gt; and routes the flow accordingly.</description>
         <name>License_Status_Checker</name>
         <label>License Status Checker</label>
-        <locationX>608</locationX>
-        <locationY>844</locationY>
+        <locationX>510</locationX>
+        <locationY>849</locationY>
         <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
         <rules>
             <name>License_Status_Active_or_Suspended</name>
@@ -174,6 +175,20 @@
     </formulas>
     <interviewLabel>ABN Change Notification {!$Flow.CurrentDateTime}</interviewLabel>
     <label>ABN Change Notification</label>
+    <loops>
+        <name>Loop_Get_License_RecordType_Id</name>
+        <label>Loop Get License RecordType Id</label>
+        <locationX>515</locationX>
+        <locationY>450</locationY>
+        <collectionReference>GetRecordTypeIdCollection</collectionReference>
+        <iterationOrder>Asc</iterationOrder>
+        <nextValueConnector>
+            <targetReference>Assign_RecordTypeIds_to_Variable</targetReference>
+        </nextValueConnector>
+        <noMoreValuesConnector>
+            <targetReference>Get_Valid_License_Accounts</targetReference>
+        </noMoreValuesConnector>
+    </loops>
     <processMetadataValues>
         <name>BuilderType</name>
         <value>
@@ -197,12 +212,12 @@
         <name>Get_Record_Type</name>
         <label>Get License Record Type Id</label>
         <locationX>374</locationX>
-        <locationY>451</locationY>
+        <locationY>450</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
-            <targetReference>Get_Record_Type_0</targetReference>
+            <targetReference>Loop_Get_License_RecordType_Id</targetReference>
         </connector>
-        <filterLogic>and</filterLogic>
+        <filterLogic>or</filterLogic>
         <filters>
             <field>DeveloperName</field>
             <operator>EqualTo</operator>
@@ -210,22 +225,6 @@
                 <stringValue>Licence</stringValue>
             </value>
         </filters>
-        <object>RecordType</object>
-        <outputAssignments>
-            <assignToReference>LicenseRecordTypeId</assignToReference>
-            <field>Id</field>
-        </outputAssignments>
-    </recordLookups>
-    <recordLookups>
-        <name>Get_Record_Type_0</name>
-        <label>Get License CMA Record Type Id</label>
-        <locationX>581</locationX>
-        <locationY>451</locationY>
-        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
-        <connector>
-            <targetReference>Get_Record_Type_0_0</targetReference>
-        </connector>
-        <filterLogic>and</filterLogic>
         <filters>
             <field>DeveloperName</field>
             <operator>EqualTo</operator>
@@ -233,22 +232,6 @@
                 <stringValue>Licence_CMA</stringValue>
             </value>
         </filters>
-        <object>RecordType</object>
-        <outputAssignments>
-            <assignToReference>LicenseCMARecordTypeId</assignToReference>
-            <field>Id</field>
-        </outputAssignments>
-    </recordLookups>
-    <recordLookups>
-        <name>Get_Record_Type_0_0</name>
-        <label>Get License CPA Record Type Id</label>
-        <locationX>775</locationX>
-        <locationY>451</locationY>
-        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
-        <connector>
-            <targetReference>Has_Valid_License</targetReference>
-        </connector>
-        <filterLogic>and</filterLogic>
         <filters>
             <field>DeveloperName</field>
             <operator>EqualTo</operator>
@@ -257,21 +240,19 @@
             </value>
         </filters>
         <object>RecordType</object>
-        <outputAssignments>
-            <assignToReference>LicenseCPARecordTypeId</assignToReference>
-            <field>Id</field>
-        </outputAssignments>
+        <outputReference>GetRecordTypeIdCollection</outputReference>
+        <queriedFields>Id</queriedFields>
     </recordLookups>
     <recordLookups>
-        <name>Has_Valid_License</name>
-        <label>Has Valid License</label>
-        <locationX>617</locationX>
-        <locationY>637</locationY>
+        <name>Get_Valid_License_Accounts</name>
+        <label>Get Valid License Accounts</label>
+        <locationX>518</locationX>
+        <locationY>686</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>License_Status_Checker</targetReference>
         </connector>
-        <filterLogic>1 AND (2 OR 3 OR 4)</filterLogic>
+        <filterLogic>and</filterLogic>
         <filters>
             <field>ParentId</field>
             <operator>EqualTo</operator>
@@ -281,23 +262,9 @@
         </filters>
         <filters>
             <field>RecordTypeId</field>
-            <operator>EqualTo</operator>
+            <operator>In</operator>
             <value>
-                <elementReference>LicenseRecordTypeId</elementReference>
-            </value>
-        </filters>
-        <filters>
-            <field>RecordTypeId</field>
-            <operator>EqualTo</operator>
-            <value>
-                <elementReference>LicenseCMARecordTypeId</elementReference>
-            </value>
-        </filters>
-        <filters>
-            <field>RecordTypeId</field>
-            <operator>EqualTo</operator>
-            <value>
-                <elementReference>LicenseCPARecordTypeId</elementReference>
+                <elementReference>LicenseRecordTypeIds</elementReference>
             </value>
         </filters>
         <object>Account</object>
@@ -345,23 +312,17 @@ POMS Support Team</text>
         <text>ABN Change Notification :: {!$Record.SAP_Vendor_ID__c}</text>
     </textTemplates>
     <variables>
-        <name>LicenseCMARecordTypeId</name>
-        <dataType>String</dataType>
-        <isCollection>false</isCollection>
+        <name>GetRecordTypeIdCollection</name>
+        <dataType>SObject</dataType>
+        <isCollection>true</isCollection>
         <isInput>false</isInput>
         <isOutput>false</isOutput>
+        <objectType>RecordType</objectType>
     </variables>
     <variables>
-        <name>LicenseCPARecordTypeId</name>
+        <name>LicenseRecordTypeIds</name>
         <dataType>String</dataType>
-        <isCollection>false</isCollection>
-        <isInput>false</isInput>
-        <isOutput>false</isOutput>
-    </variables>
-    <variables>
-        <name>LicenseRecordTypeId</name>
-        <dataType>String</dataType>
-        <isCollection>false</isCollection>
+        <isCollection>true</isCollection>
         <isInput>false</isInput>
         <isOutput>false</isOutput>
     </variables>
