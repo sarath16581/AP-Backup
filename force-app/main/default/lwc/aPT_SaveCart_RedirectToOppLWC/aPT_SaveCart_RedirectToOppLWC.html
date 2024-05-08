@@ -4,17 +4,17 @@
 		<template if:true={isLoading}>
 			<lightning-spinner alternative-text="Loading" size="small"></lightning-spinner>
 		</template>
-		<div class="slds-notify slds-notify_alert slds-theme_alert-texture slds-theme_info" role="alert">
+		<div class="slds-notify slds-notify_alert backgroundHolderStyle" role="alert">
 			<!--graphic-->
 			<span class="slds-icon_container slds-icon-utility-info slds-m-right_x-small">
 				<lightning-icon icon-name="utility:info" alternative-text="info" title="Information" variant="inverse">
 				</lightning-icon>
 			</span>
 			<!--information message-->
-			<h2>Please wait while the system processes your request. Once processing has completed, you will be redirected to Bulk Edit Products Screen.</h2>
+			<h2>Please wait while the system processes your request. Once processing has completed, you will be redirected to Bulk Edit Products Screen. Please click 'OK' to continue.</h2>
 		</div>
-		<div class="slds-notify slds-notify_alert slds-theme_alert-texture slds-theme_info" role="alert">
-			<lightning-button variant="slds-button_neutral" label="Brand" title="OK" class="slds-m-left_x-small"></lightning-button>
+		<div class="slds-notify slds-notify_alert backgroundHolderStyle" role="alert">
+			<lightning-button variant="brand" label="OK" onclick={syncAlertActionHandler} class="slds-m-left_x-small"></lightning-button>
 		</div>
 	</lightning-card>
 </template>

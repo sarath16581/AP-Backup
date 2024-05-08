@@ -66,7 +66,7 @@ export default class APT_CheckoutLWC extends LightningElement {
 	renewRecordType = 'Renewal Quote';
 	renewRecordTypeId;
 	isCheckOutOnlyRequest = false;
-	syncProductsProcessMsg = 'Please wait while the system processes your request. Once processing has completed, you will be redirected to Bulk Edit Products Screen';
+	syncProductsProcessMsg = "Please wait while the system processes your request. Once processing has completed, you will be redirected to Bulk Edit Products Screen. Please click 'OK' to continue.";
 
 	@api
 	get errorMsg() {

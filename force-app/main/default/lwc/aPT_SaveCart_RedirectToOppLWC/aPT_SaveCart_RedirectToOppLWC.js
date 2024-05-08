@@ -25,10 +25,11 @@ export default class APT_SaveCart_RedirectToOppLWC extends NavigationMixin(Light
 	from Apttus Shopping Cart UI
 	*/
 	@api recordId;
-	connectedCallback() {
-		let opportunityLineItemsURL = '/lightning/cmp/c__opcNavToBulkEdit?c__oppId='+this.recordId;
-		setTimeout(() => {
-			window.location.href = opportunityLineItemsURL;
-		}, 5000);
+
+	/**
+	*function will navigate to bulk edit screen
+	*/
+	syncAlertActionHandler(event) {
+		window.location.href = '/lightning/cmp/c__opcNavToBulkEdit?c__oppId='+this.recordId;
 	}
 }
