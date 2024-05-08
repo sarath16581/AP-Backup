@@ -1,8 +1,8 @@
 /**
-  * @author       :
-  * @date         :
+  * @author   :
+  * @date :
   * @description  : Class created to cover the controller ShareInformationController, as it had no
-  *                 test class when it was originally created or subsequently updated.
+  * test class 		when it was originally created or subsequently updated.
 --------------------------------------- History --------------------------------------------------
 Dion Gunn   04.01.2017  Created for INC0867295
 Dilshan Egodawela	08.09.2017 added testSendInvite method

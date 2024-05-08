@@ -8,15 +8,15 @@
 * @changelog
 * 2024-04-24 - Raghav Ravipati - Created
 */
-public virtual inherited sharing class KnowledgeDataCategorySelectionSelector extends ApplicationSelector{
+public virtual inherited sharing class KnowledgeDataCategorySelectionsSelector extends ApplicationSelector{
 	
 	public enum Options {WITH_PARENT}
 	/**
 	 * NOTE: Field overrides should only ever be used when the results are not passed from method to method.
 	 * This approach removes data consistency and prevents possible caching of results
 	 */
-	public static KnowledgeDataCategorySelectionSelector newInstance(Set<SObjectField> fieldOverrides) {
-		KnowledgeDataCategorySelectionSelector selector = (KnowledgeDataCategorySelectionSelector)Application.Selectors.newInstance(KnowledgeDataCategorySelectionSelector.class);
+	public static KnowledgeDataCategorySelectionsSelector newInstance(Set<SObjectField> fieldOverrides) {
+		KnowledgeDataCategorySelectionsSelector selector = (KnowledgeDataCategorySelectionsSelector)Application.Selectors.newInstance(KnowledgeDataCategorySelectionsSelector.class);
 		selector.setFieldOverrides(fieldOverrides);
 		return selector;
 	}
@@ -25,8 +25,8 @@ public virtual inherited sharing class KnowledgeDataCategorySelectionSelector ex
 	 * NOTE: Field overrides should only ever be used when the results are not passed from method to method.
 	 * This approach removes data consistency and prevents possible caching of results
 	 */
-	public static KnowledgeDataCategorySelectionSelector newInstance(Map<SobjectType, Set<SObjectField>> fieldOverrides) {
-		KnowledgeDataCategorySelectionSelector selector = (KnowledgeDataCategorySelectionSelector)Application.Selectors.newInstance(KnowledgeDataCategorySelectionSelector.class);
+	public static KnowledgeDataCategorySelectionsSelector newInstance(Map<SobjectType, Set<SObjectField>> fieldOverrides) {
+		KnowledgeDataCategorySelectionsSelector selector = (KnowledgeDataCategorySelectionsSelector)Application.Selectors.newInstance(KnowledgeDataCategorySelectionsSelector.class);
 		selector.setFieldOverrides(fieldOverrides);
 		return selector;
 	}

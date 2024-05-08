@@ -28,9 +28,9 @@ public with sharing class KnowledgeDataCategorySelectSelector_Test {
 		};
 
 		Map<String, Object> params = new Map<String, Object>{'parentIds' => new Set<Id>{pushEdmId}};
-		KnowledgeDataCategorySelectionSelector datCatSelector = KnowledgeDataCategorySelectionSelector.newInstance(fieldOverrides);
+		KnowledgeDataCategorySelectionsSelector datCatSelector = KnowledgeDataCategorySelectionsSelector.newInstance(fieldOverrides);
 		Set<Object> selectorOptions = new Set<Object>();
-		selectorOptions.add(KnowledgeDataCategorySelectionSelector.Options.WITH_PARENT);
+		selectorOptions.add(KnowledgeDataCategorySelectionsSelector.Options.WITH_PARENT);
 		List<Knowledge__DataCategorySelection> dataCatesLst = datCatSelector.search(params, selectorOptions, true);
 		System.assertEquals(dataCatesLst.size(), dataCates.size() , 'Data categories retrieved based on parent Id');
 	}
@@ -69,9 +69,9 @@ public with sharing class KnowledgeDataCategorySelectSelector_Test {
 
 		Set<String> allowedArticles = new Set<String>{'PUSH_EDM','FAQ'};
 		Map<String, Object> params = new Map<String, Object>{'recordTypeNames' => allowedArticles};
-		KnowledgeDataCategorySelectionSelector datCatSelector = KnowledgeDataCategorySelectionSelector.newInstance(fieldOverrides);
+		KnowledgeDataCategorySelectionsSelector datCatSelector = KnowledgeDataCategorySelectionsSelector.newInstance(fieldOverrides);
 		//Set<Object> selectorOptions = new Set<Object>();
-		//selectorOptions.add(KnowledgeDataCategorySelectionSelector.Options.WITH_PARENT);
+		//selectorOptions.add(KnowledgeDataCategorySelectionsSelector.Options.WITH_PARENT);
 		List<Knowledge__DataCategorySelection> dataCatesLst = datCatSelector.search(params, true);
 		System.assertEquals(dataCatesLst.size(), dataCates.size() , 'Data categories retrieved based on the recordtype names');
 	}

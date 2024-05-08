@@ -1,20 +1,20 @@
 /**************************************************
-Type:      
-Purpose:    
+Type:  
+Purpose:
 History:
 
 --------------------------------------------------
 
-9 Sept 2015    christopher.henschke@auspost.com.au  added subscriberID into ExactTargetEmail class to allow for the use of ExactTarget Preference Centre for unsubscribe
-2015-10-15     paul.stamer@auspost.com.au           Created label ShareInformationrootlabel (General to Share)
-2016-01-03     nandan.narasappa@auspost.com.au      added createShareInfoActivity method for share info reporting requirement : REQ0626809
-2016-05-30     nandan.narasappa@auspost.com.au      limited to display only Share info articles on page load for INC0649377 fix
-28-Feb-2017    Angelo.Rivera@auspost.com.au         Updated sendAnEmail and sendMultipleEmail method and added contactID parameter 
-                                                        that will be passed to sendSingleMail method as the subscriberID
-01 Sep 2017    rufus.solomon@auspost.com.au         INC0996855: Change made to reflect an update of the Default Knowledge Base Language  
-08 SEp 2017    dilshan.egodawela@auspost.com		added send notification method to send invitations via the registration API
-11 Feb 2021    madhuri.awasthi@auspost.com.au       INC1729620 Changing Record query from Name to developerName for Default Task
-23 Apr 2024		Raghav Ravipati						Replaced Classic  articaltype with salesforce lighting article Knowledge__kav as part of knowledge lightning uplift
+9 Sept 2015		christopher.henschke@auspost.com.au  	added subscriberID into ExactTargetEmail class to allow for the use of ExactTarget Preference Centre for unsubscribe
+2015-10-15 		paul.stamer@auspost.com.au   			Created label ShareInformationrootlabel (General to Share)
+2016-01-03		nandan.narasappa@auspost.com.au  		added createShareInfoActivity method for share info reporting requirement : REQ0626809
+2016-05-30		nandan.narasappa@auspost.com.au  		limited to display only Share info articles on page load for INC0649377 fix
+28-Feb-2017		Angelo.Rivera@auspost.com.au 			Updated sendAnEmail and sendMultipleEmail method and added contactID parameter 
+														that will be passed to sendSingleMail method as the subscriberID
+01 Sep 2017		rufus.solomon@auspost.com.au 			INC0996855: Change made to reflect an update of the Default Knowledge Base Language  
+08 SEp 2017		dilshan.egodawela@auspost.com			added send notification method to send invitations via the registration API
+11 Feb 2021		madhuri.awasthi@auspost.com.au   		INC1729620 Changing Record query from Name to developerName for Default Task
+23 Apr 2024		Raghav Ravipati							Replaced Classic  articaltype with salesforce lighting article Knowledge__kav as part of knowledge lightning uplift
 */
 
 global with sharing class ShareInformationController {
@@ -26,7 +26,7 @@ global with sharing class ShareInformationController {
 	public boolean displayResult {get;set;}
 	public String searchKeyword {get;set;}
 	public String articleID{get; set;}  
-	public List<String> articleBodys = new List<String>();      
+	public List<String> articleBodys = new List<String>();  
 	public String articleBody {get; set;} 
 	public Integer articlePosition {get; set;}
 	//Start Change by Snigdha: 07/08/2015: REQ0614391 : Ensure Legal Marketing Opt-In flag is checked before sending email 
@@ -92,7 +92,7 @@ global with sharing class ShareInformationController {
 			+'"invitationNotification": {"templateId": "'+setting.TemplateId__c+'","templateMap": {'+
 			+'"firstName": "'+aContact.firstname+'","lastName": "'+aContact.lastname+'" } }}';
 		
-		req.setBody(content);    
+		req.setBody(content);
 		Http http = new Http();
 		
 		HTTPResponse res = http.send(req);
@@ -110,7 +110,7 @@ global with sharing class ShareInformationController {
 				activityHistory.whoid = aContact.Id;
 				activityHistory.Description = 'product Value : '+productType;
 				activityHistory.Status = 'Completed';
-				insert activityHistory;     
+				insert activityHistory; 
 				return Label.InviteSent;}
 			else if(results.get('registered')== true){
 				return Label.CustomerAlreadyRegisterd;}
@@ -163,7 +163,7 @@ global with sharing class ShareInformationController {
 	
 	//Start Change by Snigdha: 07/08/2015: REQ0614391 : Ensure Legal Marketing Opt-In flag is checked before sending email 
 	public void saveMarketingOptions()
-	{          
+	{  
 		
 		try
 		{
@@ -281,9 +281,9 @@ global with sharing class ShareInformationController {
 		activityHistory.whoid = aContact.Id;
 		activityHistory.Description = textContent;
 		activityHistory.Status = 'Completed';
-		insert activityHistory;     
+		insert activityHistory; 
 		
-		createShareInfoActivity(aContact.Id,articleIds);    // create share info records for reporting
+		createShareInfoActivity(aContact.Id,articleIds);// create share info records for reporting
 		
 		displayResult=true;
 		
@@ -402,46 +402,11 @@ global with sharing class ShareInformationController {
 		get {
 			if(categorisedArticles == null) {
 				categorisedArticles = new Map<String, Map<id, SObject>>();
-				//Map<id, KnowledgeArticleVersion> publishedArticles = new Map<id, KnowledgeArticleVersion>([SELECT ArticleNumber,ArticleType,Id,KnowledgeArticleId,Title FROM KnowledgeArticleVersion WHERE Language = 'en_US' AND PublishStatus = 'Online']);
 				
 				PushEDM_Domain__c pDom =  PushEDM_Domain__c.getOrgDefaults();
 				
 				List<String> allowedArticles = pDom.Supported_Article_Types__c.split(';');
-				/*for(integer i=0; i<allowedArticles.size(); i++)
-				{
-					allowedArticles[i] = allowedArticles[i] + '__kav';
-				}*/
-				/*
-				for(Knowledge__kav kav : [SELECT ArticleType 
-								FROM Knowledge__kav 
-							  	WHERE Language = 'en_US' AND 
-								PublishStatus = 'Online'AND
-								RecordType.DeveloperName IN: allowedArticles
-								group by ArticleType]){
-					Map<id, SObject> articles = new Map<id, SObject>();
-					
-					if(!String.isBlank(searchKeyword) && searchKeyword.length() > 2) {
-							for(SObject o: Search.query('FIND :searchKeyword IN ALL FIELDS RETURNING ' + (String)a.get('ArticleType') + '(Answer__c,ArticleNumber,ArticleType,KnowledgeArticleId,id, Title WHERE PublishStatus = \'Online\' AND Language = \'en_US\')')[0]) {
-						  articles.put(o.id, o); 
-						}
-					} else {
-						// Nandan : limiting the query for Share info article for view state error (INC0649377)
-						for(SObject o: Database.query('SELECT Answer__c,ArticleNumber,ArticleType,KnowledgeArticleId,id, Title FROM ' + PUSH_EDM + ' WHERE PublishStatus = \'Online\' AND Language = \'en_US\'')) {
-						//for(SObject o: Database.query('SELECT Answer__c,ArticleNumber,ArticleType,KnowledgeArticleId,id, Title FROM ' + //(String)a.get('ArticleType') + ' WHERE PublishStatus = \'Online\' AND Language = \'en_US\'')) {
-							articles.put(o.id, o); 
-						}
-					}
-					
-					for(SObject o: Database.query('SELECT DataCategoryName,ParentId FROM ' + ((String)a.get('ArticleType')).replace('__kav', '') + '__DataCategorySelection')) {
-						if(categorisedArticles.get((String)o.get('DataCategoryName')) == null) {
-							categorisedArticles.put((String)o.get('DataCategoryName'), new Map<id, SObject>());
-						} 
-						SObject article = articles.get((id)o.get('parentid')); 
-						if(article != null) {
-							categorisedArticles.get((String)o.get('DataCategoryName')).put(article.id, article);
-						}
-					}
-				}*/
+
 				//Performs SOSL to search the given keyword across the KAVs and 
 				//if the search key is blank does query on the eligible Kavs
 				Map<id, SObject> articles = new Map<id, SObject>();
@@ -457,7 +422,7 @@ global with sharing class ShareInformationController {
 					// Nandan : limiting the query for Share info article for view state error (INC0649377)
 
 					for(SObject o: siWrapper.getKnowledgeArticles()) {
-					//for(SObject o: Database.query('SELECT Answer__c,ArticleNumber,ArticleType,KnowledgeArticleId,id, Title FROM ' + //(String)a.get('ArticleType') + ' WHERE PublishStatus = \'Online\' AND Language = \'en_US\'')) {
+					
 						articles.put(o.id, o); 
 					}
 				}
@@ -472,7 +437,7 @@ global with sharing class ShareInformationController {
 				Set<String> rtTypes = new Set<String>();
 				rtTypes.addAll(allowedArticles);
 				Map<String, Object> params = new Map<String, Object>{'recordTypeNames' => rtTypes};
-				KnowledgeDataCategorySelectionSelector datCatSelector = KnowledgeDataCategorySelectionSelector.newInstance(fieldOverrides);
+				KnowledgeDataCategorySelectionsSelector datCatSelector = KnowledgeDataCategorySelectionsSelector.newInstance(fieldOverrides);
 				
 				for(SObject o: datCatSelector.search(params, true)) {
 					if(categorisedArticles.get((String)o.get('DataCategoryName')) == null) {
@@ -490,10 +455,10 @@ global with sharing class ShareInformationController {
 	}   
 	
 	/**
-	  * @description       This method creates ShareInformation activity for reporting
-	  * @param             contactId - Id, articleIds - Set<Id> 
-	  * @return            void
-	  * @throws            Method might throw exception which is handled by Try-Catch block
+	  * @description	This method creates ShareInformation activity for reporting
+	  * @param 		contactId - Id, articleIds - Set<Id> 
+	  * @return		void
+	  * @throws		Method might throw exception which is handled by Try-Catch block
 	  */
 	private static void createShareInfoActivity(Id contactId,Set<Id> articleIds){
 		Savepoint beforeShareInfo = Database.setSavepoint();
@@ -519,9 +484,9 @@ global with sharing class ShareInformationController {
 				shareInfoArticleList.add(shareInfoArticle);
 			}
 			
-			if(!shareInfoArticleList.isEmpty()){    // check if shareInfoArticleList got values
+			if(!shareInfoArticleList.isEmpty()){// check if shareInfoArticleList got values
 				Database.insert(shareInfoArticleList);
-			}         
+			} 
 		}
 		catch(Exception exp){
 			Database.rollback(beforeShareInfo); // roll back on exception
