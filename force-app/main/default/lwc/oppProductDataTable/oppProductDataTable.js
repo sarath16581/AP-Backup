@@ -80,15 +80,15 @@ export default class OppProductDataTable extends NavigationMixin(LightningElemen
 			try {
 				this.data = JSON.parse(JSON.stringify(data));
 				if (this.data.length===0) {
-					this.error = 'To see products on this page, you will need to add them via the Product Catalogue page within Apttus. Once you have added products, they will then be displayed on this page. For further help, please contact your local CRM Specialist.';
-					this.showNotification('Error', this.error, 'error');
+					this.error = "Syncing of selected products to the opportunity is still in progress. Please refresh the page after a few minutes. If products don't sync after some time, please contact CRM Specialist Team for assistance.";
+					this.showNotification('Syncing Product Progress...', this.error, 'info');
 				} else {
 					this.oppName = this.data[0].Opportunity.Name;
 					this.convertToForm(this.data)
 					//save last saved copy
 					this.lastSavedData = JSON.parse(JSON.stringify(this.data));
 				}
-				if(this.proposalId !== 'noProposal' && this.proposalId !== undefined && this.recalculateopc === false) {
+				if(this.data.length!=0 && this.proposalId !== undefined && this.recalculateopc === false) {
 					this.isProposalDocumentFlow = true;
 				}
 			} catch (err) {
