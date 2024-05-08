@@ -88,7 +88,7 @@ export default class OppProductDataTable extends NavigationMixin(LightningElemen
 					//save last saved copy
 					this.lastSavedData = JSON.parse(JSON.stringify(this.data));
 				}
-				if(this.data.length!=0 && this.proposalId !== undefined && this.recalculateopc === false) {
+				if(this.data.length!==0 && this.proposalId !== undefined && this.recalculateopc === false) {
 					this.isProposalDocumentFlow = true;
 				}
 			} catch (err) {
@@ -98,7 +98,7 @@ export default class OppProductDataTable extends NavigationMixin(LightningElemen
 		}
 		else if (error) {
 			this.error = error;
-            this.revenueData = undefined;
+			this.revenueData = undefined;
 			this.showNotification('Error', this.error, 'error');
 		}
 	}
