@@ -50,11 +50,11 @@
 
 .alertBackgroundStyle {
 	position: absolute !important;
-    top: 50px !important;
-    background-color: lightgrey !important;
-    width: 100% !important;
-    margin: 0px !important;
-    background: rgb(86 81 81 / 80%) !important;
+	top: 50px !important;
+	background-color: lightgrey !important;
+	width: 100% !important;
+	margin: 0px !important;
+	background: rgb(86 81 81 / 80%) !important;
 	max-width: 80 rem !important;
 }
 
