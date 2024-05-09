@@ -12,7 +12,9 @@
             <targetReference>Send_Account_ABN_Change_Notification</targetReference>
         </connector>
         <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <nameSegment>VendorEmailUtils</nameSegment>
         <storeOutputAutomatically>true</storeOutputAutomatically>
+        <versionSegment>1</versionSegment>
     </actionCalls>
     <actionCalls>
         <name>Send_Account_ABN_Change_Notification</name>
@@ -58,6 +60,8 @@
                 <booleanValue>true</booleanValue>
             </value>
         </inputParameters>
+        <nameSegment>emailSimple</nameSegment>
+        <versionSegment>1</versionSegment>
     </actionCalls>
     <apiVersion>60.0</apiVersion>
     <assignments>
@@ -77,6 +81,18 @@
             <targetReference>Loop_Get_License_RecordType_Id</targetReference>
         </connector>
     </assignments>
+    <customErrors>
+        <description>Prevent ABN Change on Organisation with Active License and when the Licence Status is “Active”, “Suspended with fees”, “Suspended without fees”.</description>
+        <name>Prevent_ABN_Change</name>
+        <label>Prevent ABN Change</label>
+        <locationX>878</locationX>
+        <locationY>945</locationY>
+        <customErrorMessages>
+            <errorMessage>{!$Label.ABNChangeNotificationError}</errorMessage>
+            <fieldSelection>ABN__c</fieldSelection>
+            <isFieldError>true</isFieldError>
+        </customErrorMessages>
+    </customErrors>
     <decisions>
         <description>This decision node evaluates the current status of the license and directs to appropriate path based on the status. It checks whether license is in either &lt;draft, pending, approved&gt; or &lt;active, suspended with fees, or suspended without fees&gt; and routes the flow accordingly.</description>
         <name>License_Status_Checker</name>
