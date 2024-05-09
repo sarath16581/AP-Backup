@@ -18,11 +18,6 @@
             <operation>equals</operation>
             <value>Bulk Mail</value>
         </milestoneCriteriaFilterItems>
-        <milestoneCriteriaFilterItems>
-            <field>Case.Status</field>
-            <operation>equals</operation>
-            <value>New</value>
-        </milestoneCriteriaFilterItems>
         <milestoneName>Bulk Mail - First Response</milestoneName>
         <minutesToComplete>1440</minutesToComplete>
         <useCriteriaStartTime>true</useCriteriaStartTime>
