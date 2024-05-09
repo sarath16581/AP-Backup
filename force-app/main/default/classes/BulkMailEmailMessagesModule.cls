@@ -120,7 +120,8 @@
 						caseRecord.OwnerId = queueId;
 					}
 					casesToUpdate.add(caseRecord);
-				} else if (!cs.EmailMessages.isEmpty() && filteredMessages.containsKey(cs.EmailMessages[0].Id) && cs.Origin == 'Email') {
+				} 
+				else if (!cs.EmailMessages.isEmpty() && filteredMessages.containsKey(cs.EmailMessages[0].Id) && cs.Origin == 'Email') {
 					//update the case fields if it is new case created from email-to-case
 					emailsToProcess.put(cs.EmailMessages[0].Id, filteredMessages.get(cs.EmailMessages[0].Id));
 				} 
@@ -177,8 +178,8 @@
 		return new Case(
 			Id = parentCase.Id,
 			Enquiry_Type__c = BulkMailCaseService.CASE_TYPE,
-//			Source__c = String.valueOf(em.FromAddress).contains(BulkMailCaseService.INTERNAL_EMAIL_DOMAIN) ? BulkMailCaseService.INTERNAL_CUSTOMER_SOURCE : BulkMailCaseService.CUSTOMER_SOURCE,
-			Source__c = BulkMailCaseService.CUSTOMER_SOURCE,
+			Source__c = String.valueOf(em.FromAddress).contains(BulkMailCaseService.INTERNAL_EMAIL_DOMAIN) ? BulkMailCaseService.INTERNAL_CUSTOMER_SOURCE : BulkMailCaseService.CUSTOMER_SOURCE,
+			// Source__c = BulkMailCaseService.CUSTOMER_SOURCE,
 			Product_Type__c = String.isNotBlank(emailToCaseMapping.ProductType__c) ? emailToCaseMapping.ProductType__c : parentCase.Product_Type__c,
 			EmailToCaseAddress__c = emailToCaseMapping.EmailToCaseAddress__c,
 			Call_Purpose__c = String.isNotBlank(emailToCaseMapping.CasePurpose__c) ? emailToCaseMapping.CasePurpose__c : parentCase.Call_Purpose__c
