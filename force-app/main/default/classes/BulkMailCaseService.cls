@@ -16,6 +16,7 @@
 	public static final String NEW_EMAIL_RECEIVED = 'New Email Received';
 	public static final String CLOSED_STATUS = 'Closed';
 	public static final String REOPENNED_STATUS = 'Reopened';
+	public static final String IN_PROGRESS_STATUS = 'In Progress';
 	public static final String CASE_TYPE = 'Bulk Mail';
 	public static final String INTERNAL_EMAIL_DOMAIN = 'auspost.com.au';
 	public static final String INTERNAL_CUSTOMER_SOURCE = 'Internal Customer';

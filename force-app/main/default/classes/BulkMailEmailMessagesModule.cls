@@ -95,8 +95,8 @@
 
 			// Outgoing message (First Response) - add the case Id to the milestoneCaseIds set, we'll complete the Bulk Mail First Response milestone.
 			if (!em.Incoming && !em.Parent.First_Email_Response__c && (EmailMessageUtil.STATUS_REPLIED.equals(em.Status) || EmailMessageUtil.STATUS_SENT.equals(em.Status))) {
+				casestoUpdate.add(new Case(Id = em.ParentId, First_Email_Response__c = true, Status = BulkMailCaseService.IN_PROGRESS_STATUS));
 				milestoneCaseIds.add(em.ParentId);
-				casestoUpdate.add(new Case(Id = em.ParentId, First_Email_Response__c = true));
 			}
 		}
 
@@ -156,9 +156,13 @@
 		// Update the Bulk Mail First Response milestone
 		if (!milestoneCaseIds.isEmpty()) {
 			// Update the Bulk Mail First Response milestone
+			List <CaseMilestone> caseMilestones = new List <CaseMilestone>();
 			for (CaseMilestone cm : CaseMilestonesSelector.newInstance().selectByCaseAndMilestoneNames(milestoneCaseIds, new Set<String>{BulkMailCaseService.BULK_MAIL_FIRST_RESPONSE_MILESTONE}, new Set<Object>())) {
-				uow.registerDirty(new CaseMilestone(Id = cm.Id, CompletionDate = System.now()), true, BulkMailEmailMessagesModule.class.getName());
+				caseMilestones.add(new CaseMilestone(Id = cm.Id, CompletionDate = System.now()));
 			}
+
+			// We have to use Database.update method here because the Case Milestone is getting recreated (this original milestone gets deleted and doesn't exist at the time the uow commits), once the case status is changed and the UOW throws an error.
+			Database.update(caseMilestones, false);
 		}
 	}
 
