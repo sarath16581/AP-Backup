@@ -47,23 +47,3 @@
 .boldTextStyle {
 	font-weight: 600 !important;
 }
-
-.alertBackgroundStyle {
-	position: absolute;
-	top: 50px;
-	background-color: lightgrey;
-	width: 100%;
-	margin: 0px;
-	background: rgb(86 81 81 / 80%);
-	max-width: 80 rem;
-}
-
-.alertContentStyle {
-	margin: 25px;
-	border: 1px inset;
-}
-
-.alertActionStyle{
-	margin-top: 15px;
-	text-align: center;
-}
