@@ -196,8 +196,8 @@ private class ArticlesSelector_Test {
 
 		results = selector.selectByCaseIds(new Set<Id>{cases[0].Id}, new Set<Object>{ArticlesSelector.Options.WITH_EVENTMESSAGES_DESC_ORDER});
 		System.assertEquals(1, results.size(), 'Expected result size of 1');
-        
-        results = selector.selectByArticleNames(new Set<String>{articles[0].Name}, null, new Set<Object>{ArticlesSelector.Options.WITH_RECORDTYPE});
+		
+		results = selector.selectByArticleNames(new Set<String>{articles[0].Name}, null, new Set<Object>{ArticlesSelector.Options.WITH_RECORDTYPE});
 		System.assertEquals(1, results.size(), 'Expected result size of 1');
 
 		Test.stopTest();

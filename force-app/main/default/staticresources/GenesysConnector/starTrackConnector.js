@@ -25,6 +25,7 @@ class GenSTBusinessLogic {
 	};
 
     handleCtiEvent(eventName, eventDetail) {
+
         if (eventName === 'INTERACTION_EVENT') {
 			this.callLog = new GenCallInteractionProxy(eventDetail.detail, this.stFieldMappings);
             this.activeInteractionLog = eventDetail.detail;
@@ -91,8 +92,7 @@ class GenSTBusinessLogic {
 	}
 
 	handleSTLogic(ctiEvent) {
-		console.log(log_prefix + 'ctiEvent lastDetail==>' + JSON.stringify(ctiEvent.lastDetail));
-		console.log(log_prefix + 'ctiEvent detail==>' + JSON.stringify(ctiEvent.detail));
+		console.log(log_prefix + 'call log==>' + JSON.stringify(this.callLog));
 		const {
 			enquiryType,
             consignmentNumber,

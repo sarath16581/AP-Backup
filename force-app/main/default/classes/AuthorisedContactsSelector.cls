@@ -27,6 +27,21 @@ public virtual inherited sharing class AuthorisedContactsSelector extends Applic
 		};
 	}
 
+	public virtual List<AuthorisedContacts__c> selectByCaseId(Set<Id> ids) {
+		return selectByCaseId(ids,new Set<Object>());
+	}
+
+	/**
+	 * @param ids the case ids
+	 * @param selectorOptions
+	 *
+	 * @return
+	 */
+	public virtual List<AuthorisedContacts__c> selectByCaseId(Set<Id> ids, Set<Object> selectorOptions) {
+		QueryBuilder qb = newQueryBuilder(selectorOptions).addConditions().add(new QueryBuilder.SimpleCondition(AuthorisedContacts__c.Case__c + ' in :ids')).endConditions();
+		return (List<AuthorisedContacts__c>)Database.query(qb.toSoqlString());
+	}
+
 	public virtual override QueryBuilder newQueryBuilder() {
 		return newQueryBuilder(new Set<Object>());
 	}
@@ -35,8 +50,8 @@ public virtual inherited sharing class AuthorisedContactsSelector extends Applic
 		QueryBuilder builder = super.newQueryBuilder(selectorOptions);
 		return builder;
 	}
-	
- 	public static AuthorisedContactsSelector newInstance(Set<SObjectField> fieldOverrides) {
+
+	public static AuthorisedContactsSelector newInstance(Set<SObjectField> fieldOverrides) {
 		return (AuthorisedContactsSelector) Application.Selectors.newInstance(AuthorisedContactsSelector.class)
 			.setFieldOverrides(fieldOverrides);
 	}
@@ -46,7 +61,7 @@ public virtual inherited sharing class AuthorisedContactsSelector extends Applic
 	* @param caseId - set of case ids
 	* @param selecterOptions - selector options to augment result set
 	*/
-	public Map<Id,AuthorisedContacts__c> selectByCaseId(Set<Id> caseIds, Set<Object> selectorOptions) {
+	public Map<Id,AuthorisedContacts__c> selectByCaseIdOrderByName(Set<Id> caseIds, Set<Object> selectorOptions) {
 		QueryBuilder qb = newQueryBuilder(selectorOptions);  
 		QueryBuilder.ConditionsManager conditions = qb.addConditions();
 		conditions.add(new QueryBuilder.SimpleCondition(AuthorisedContacts__c.Case__c + ' IN :caseIds'));

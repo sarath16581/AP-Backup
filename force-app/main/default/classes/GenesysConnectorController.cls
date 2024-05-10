@@ -97,8 +97,8 @@ global with sharing class GenesysConnectorController {
 						 AuthorisedContacts__c.Notification_Required__c, AuthorisedContacts__c.Pref_Method_of_Contact__c, 
 						 AuthorisedContacts__c.Related_Contact__c, AuthorisedContacts__c.Initial_Contact__c, 
 						 AuthorisedContacts__c.Notified_on_Status__c};
-		relatedContacts = AuthorisedContactsSelector.newInstance(authorisedContactFields).
-						selectByCaseId(New Set<Id>{caseId},new Set<Object>());
+
+		relatedContacts = AuthorisedContactsSelector.newInstance(authorisedContactFields).selectByCaseIdOrderByName(New Set<Id>{caseId},new Set<Object>());
 
 		if (!relatedContacts.isEmpty()) {
 			for (AuthorisedContacts__c ac : relatedContacts.values()) {

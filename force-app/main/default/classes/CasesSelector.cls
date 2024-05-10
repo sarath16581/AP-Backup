@@ -24,6 +24,8 @@
  * 2023-02-28 - Dattaraj Deshmukh - Added 'WITH_NETWORK_RESPONSE' options for SSSW MyNetwork Cases.
  * 2023-05-10 - Mahesh Parvathaneni - Added fields in getSObjectFieldList.
  * 2023-05-29 - Mahesh Parvathaneni - Added WITH_INCOMING_EMAIL_MESSAGES_ASC_ORDER enum in the options
+ * 2023-08-16 - Hasantha Liyanage - Added fields in getSObjectFieldList.
+ * 2023-12-04 - Steve L - added new methods: getClosedCasesByAccountIds, and getOpenCasesByAccountIds
  * 2024-04-25 - Vasu Gorakati - Added new method selectCasesByReferenceId
  */
 public virtual inherited sharing class CasesSelector extends ApplicationSelector {
@@ -89,7 +91,7 @@ public virtual inherited sharing class CasesSelector extends ApplicationSelector
 			Case.Last_Status_Change__c, Case.Article_Receiver_Address__c, Case.Article_Receiver_Postcode__c,
 			Case.Article_Sender_Name__c, Case.Article_Sender_Address__c, Case.Description_of_contents__c, 
 			Case.Description_of_packaging__c, Case.Related_Billing_Account__c, Case.Value_of_Goods__c, Case.Calc_Link_Account__c,
-			Case.Checkbox__c, Case.Customer_Type__c, Case.Service_SLA__c, Case.Article_Receiver_Suburb__c
+			Case.Checkbox__c, Case.Customer_Type__c, Case.Service_SLA__c, Case.Article_Receiver_Suburb__c, Case.Billing_Number__c
 
 		};
 	}
@@ -210,6 +212,37 @@ public virtual inherited sharing class CasesSelector extends ApplicationSelector
 	}
 
 	/**
+	 * @param accountIds account ids
+	 * @param selectorOptions selectorOptions
+	 * @description returns the closed case record by account id before a given number of months
+	 *
+	 * @return QueryBuilder
+	 */
+	public Map<Id,Case> getClosedCasesByAccountIds(Set<Id> accountIds, Set<Object> selectorOptions) {
+		QueryBuilder qb = newQueryBuilder(selectorOptions)
+				.addConditions()
+				.add(new QueryBuilder.SimpleCondition(Case.AccountId + ' in : accountIds'))
+				.add(new QueryBuilder.CompareCondition(Case.IsClosed).eq(true))
+				.endConditions();
+		return new Map<Id, Case>((List<Case>)Database.query(qb.toSoqlString()));
+	}
+
+	/**
+	 * @param accountIds account ids
+	 * @param selectorOptions selectorOptions
+	 * @description return the open case by the given account ids
+	 * @return Map<Id,Case>
+	 */
+	public Map<Id,Case> getOpenCasesByAccountIds(Set<Id> accountIds, Set<Object> selectorOptions){
+		QueryBuilder qb = newQueryBuilder(selectorOptions)
+				.addConditions()
+				.add(new QueryBuilder.SimpleCondition(Case.AccountId + ' in : accountIds'))
+				.add(new QueryBuilder.CompareCondition(Case.IsClosed).eq(false))
+				.endConditions();
+		return new Map<Id, Case>((List<Case>)Database.query(qb.toSoqlString()));
+	}
+
+	/**
 	 * @description Select Case based on case reference Id and order by created date in desc order
 	 * @param referenceIds list of case references Id
 	 * @return matching case records
@@ -277,21 +310,7 @@ public virtual inherited sharing class CasesSelector extends ApplicationSelector
 		}				
 		return builder;
 	}
-	
-	/*
-	* this method returns records with matching article Ids
-	*/
-	public Map<Id,Case> selectByArticleId(Set<Id> articleids, String recordTypeName, Set<Object> selectorOptions) {
-		QueryBuilder qb = newQueryBuilder(selectorOptions);  
-		QueryBuilder.ConditionsManager conditions = qb.addConditions();
-		conditions.add(new QueryBuilder.SimpleCondition(Case.ArticleTest__c + ' IN :articleids'));
-		 if (recordTypeName != null){
-			conditions.add(new QueryBuilder.CompareCondition(case.RecordTypeId).eq(SObjectType.Case.getRecordTypeInfosByDeveloperName().get(recordTypeName).getRecordTypeId()));
-		}
-		conditions.endConditions();
 
-		return new Map<Id, Case>((List<Case>)Database.query(qb.toSoqlString()));
-	}
 	/*
  	 * Select cases based on Reference Id
 	 * @param caseReferences list of case references. a case reference could be a case number or case reference id.
