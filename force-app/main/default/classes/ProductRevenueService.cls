@@ -166,6 +166,7 @@ public with sharing class ProductRevenueService {
         List<OpportunityLineItem> updatedItems = new List<OpportunityLineItem>();
         // update opportunity line item incremental and retained values
         for (OpportunityLineItem record : opportunityLineItems.values()) {
+            record.Hidden_In_Year_Revenue__c = record.In_Year_Revenue__c;
             // pre-conditions
             if (record.Contract_Start_Date__c != null && record.Contract_End_Date__c!= null) {
                 // get last twelve months sales history
@@ -723,7 +724,13 @@ public with sharing class ProductRevenueService {
     private List<OpportunityLineItem> loadProductLineItems(Set<Id> opportunityIds) {
 
         Map<SObjectType, Set<SObjectField>> fieldOverrides = new Map<SObjectType, Set<SObjectField>>{
-                OpportunityLineItem.SObjectType => new Set<SObjectField>{OpportunityLineItem.Id, OpportunityLineItem.Name,OpportunityLineItem.Quantity, OpportunityLineItem.Contract_Start_Date__c, OpportunityLineItem.Contract_End_Date__c,OpportunityLineItem.UnitPrice, OpportunityLineItem.TotalPrice, OpportunityLineItem.Annualised_Value__c, OpportunityLineItem.RetainedRevenue__c,OpportunityLineItem.IncrementalRevenue__c, OpportunityLineItem.TweleveMonthRevenue__c, OpportunityLineItem.X3MonthAverageActual__c},
+                OpportunityLineItem.SObjectType => new Set<SObjectField>{
+                        OpportunityLineItem.Id, OpportunityLineItem.Name,OpportunityLineItem.Quantity,
+                        OpportunityLineItem.Contract_Start_Date__c, OpportunityLineItem.Contract_End_Date__c,OpportunityLineItem.UnitPrice,
+                        OpportunityLineItem.TotalPrice, OpportunityLineItem.Annualised_Value__c, OpportunityLineItem.RetainedRevenue__c,
+                        OpportunityLineItem.IncrementalRevenue__c, OpportunityLineItem.TweleveMonthRevenue__c, OpportunityLineItem.X3MonthAverageActual__c,
+                        OpportunityLineItem.In_Year_Revenue__c, OpportunityLineItem.Hidden_In_Year_Revenue__c
+                },
                 Product2.SObjectType => new Set<SObjectField>{Product2.Name},
                 Opportunity.SObjectType => new Set<SObjectField>{Opportunity.Name,Opportunity.AccountId,Opportunity.Id,Opportunity.StageName,Opportunity.DoNotUseAccountHierarchy__c}
         };
