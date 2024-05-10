@@ -236,7 +236,7 @@ export default class APT_CheckoutLWC extends LightningElement {
 						this.navigateToUrl('/' + this.oppId);
 					}
 					else {
-						this.showSyncProductAlert(true);
+						this.navigateToBulkEditScreen(true);
 				}
 				}
 				else {
@@ -266,7 +266,7 @@ export default class APT_CheckoutLWC extends LightningElement {
 							this.navigateToUrl('/' + this.oppId);
 						}
 						else {
-							this.showSyncProductAlert(true);
+							this.navigateToBulkEditScreen(true);
 					}
 					}
 				}, this.waitTime);
@@ -395,7 +395,7 @@ export default class APT_CheckoutLWC extends LightningElement {
 		initiateRateCardGeneration({ proposalId: this.proposalId })
 			.then((requestresult) => {
 				if(requestresult === true){
-					this.showSyncProductAlert(false);
+					this.navigateToBulkEditScreen(false);
 				}
 				else {
 					this.rateCardGenerationRequest();
@@ -408,15 +408,9 @@ export default class APT_CheckoutLWC extends LightningElement {
 	}
 
 	/**
-	*function show products sync information message alert and then navigate to bulk edit screen
-	*@param configId
+	*function navigate to bulk edit screen
 	*/
-	showSyncProductAlert(isContractFlow) {
-		LightningAlert.open({
-			message: this.syncProductsProcessMsg,
-			theme: 'info',
-			variant: 'headerless'
-		}).then(() => {
+	navigateToBulkEditScreen(isContractFlow) {
 			let opportunityLineItemsURL = '/lightning/cmp/c__opcNavToBulkEdit?c__oppId='+this.oppId + '&c__proposalId='+this.proposalId;
 			if(isContractFlow) {
 				//STP-9640: redirect to OPC screen
@@ -424,6 +418,5 @@ export default class APT_CheckoutLWC extends LightningElement {
 				opportunityLineItemsURL += '&c__isST=' + this.isST + '&c__isManualContract=' + isManualContract + '&c__isAmend=' + this.isAmend + '&c__isRenew=' + this.isRenew;
 			}
 			this.navigateToUrl(opportunityLineItemsURL);
-		});
 	}
 }
