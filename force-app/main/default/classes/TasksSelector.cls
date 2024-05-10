@@ -12,6 +12,7 @@
  * 2021-12-22 - Ashapriya Gadi - Added method selectList to retrieve tasks based on WhatIds and ownerIds
  * 2022-02-02 - Nathan Franklin - Update search method and fixed injection attack vector
  * 2023-08-11 - SteveL - added selectByWhatIdAllRows
+ * 2024-05-09 - Paul Perry - add support for search on ctiInteractionIds
  */
 public virtual inherited sharing class TasksSelector extends ApplicationSelector {
 
@@ -72,6 +73,7 @@ public virtual inherited sharing class TasksSelector extends ApplicationSelector
 		Set<Id> whatIds = (Set<Id>)(searchParams.get('whatIds') == null ? new Set<Id>() : (searchParams.get('whatIds') instanceof Set<Id> ? searchParams.get('whatIds') : new Set<Id>{(Id)searchParams.get('whatIds')}));
 		Date fromActivityDate = searchParams.get('fromActivityDate') == null ? null : Date.valueOf(String.valueOf(searchParams.get('fromActivityDate')));
 		Boolean isClosed = (Boolean) searchParams.get('isClosed');
+		Set<String> ctiInteractionIds = new Set<String>();
 
 		// these are for backwards compatibility ONLY. This parameters should not be used anymore and are @deprecated
 		if(searchParams.get('WhatId') != null) {
@@ -104,6 +106,12 @@ public virtual inherited sharing class TasksSelector extends ApplicationSelector
 
 		if(searchParams.containsKey('ownerIds')) {
 			conditions.add(new QueryBuilder.SimpleCondition('OwnerId in :ownerIds'));
+			conditionCount++;
+		}
+
+		if(searchParams.containsKey('ctiInteractionIds')) {
+			conditions.add(new QueryBuilder.SimpleCondition('CTIInteractionID__c in :ctiInteractionIds'));
+			ctiInteractionIds.addAll((Set<String>)searchParams.get('ctiInteractionIds'));
 			conditionCount++;
 		}
 		

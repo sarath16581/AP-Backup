@@ -76,6 +76,15 @@ var frontendMiniCaseComponentController = (function() {
                 sforce.console.getEnclosingPrimaryTabId(function(currentTabResult) {
                     if(currentTabResult.success) {
                         model.set('currentTabId', currentTabResult.id);
+                        //<-- PPE: 15-04-2024
+                        localStorage.setItem(
+                            `CTI_${currentTabResult.id}`,
+                            JSON.stringify({
+                                ...model.vars,
+                                _timeStamp : new Date().getTime()
+                            })
+                        );
+                        //PPE -->
                     }
                 });
             });
