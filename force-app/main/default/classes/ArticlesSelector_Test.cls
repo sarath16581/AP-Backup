@@ -7,6 +7,7 @@
  * @changelog
  * 2020-08-02 - Nathan Franklin - Updated for new return values in ApplicationDatabase
  * 2022-11-29 - Mahesh Parvathaneni - Updated for selectByCaseIds method
+ * 2024-05-02 - Vasu Gorakati - updated for selectByArticleNames
  */
 @IsTest
 private class ArticlesSelector_Test {
@@ -194,6 +195,9 @@ private class ArticlesSelector_Test {
 		System.assertEquals(2, results.size(), 'Expected Articles__r to be populated');
 
 		results = selector.selectByCaseIds(new Set<Id>{cases[0].Id}, new Set<Object>{ArticlesSelector.Options.WITH_EVENTMESSAGES_DESC_ORDER});
+		System.assertEquals(1, results.size(), 'Expected result size of 1');
+        
+        results = selector.selectByArticleNames(new Set<String>{articles[0].Name}, null, new Set<Object>{ArticlesSelector.Options.WITH_RECORDTYPE});
 		System.assertEquals(1, results.size(), 'Expected result size of 1');
 
 		Test.stopTest();

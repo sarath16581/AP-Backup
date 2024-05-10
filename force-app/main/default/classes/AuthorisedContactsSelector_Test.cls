@@ -5,7 +5,7 @@
  * @domain Core
  * @description: Test Class covering AuthorisedContactsSelector
  * @changelog
- * 2023-11-20 - Steve L - added test for selectByCaseId
+ * 2024-04-25 - Vasu Gorakati - Added test method for selectByCaseId
  */
 
 @IsTest
@@ -77,14 +77,12 @@ private class AuthorisedContactsSelector_Test {
     Map<Id, Case> casesContacts = CasesSelector.newInstance()
       .selectById(new Set<Id>{ cases[0].Id }, new Set<Object>{ CasesSelector.Options.WITH_CHILDINITIALCONTACT });
     List<AuthorisedContacts__c> authContactList = casesContacts.get(cases[0].Id).Authorised_Contacts__r;
-
-    AuthorisedContactsSelector authConsSelector = AuthorisedContactsSelector.newInstance();
-    List<AuthorisedContacts__c> authorisedContacts = authConsSelector.selectByCaseId(new Set<Id>{cases[0].Id});
-
-    test.stopTest();
-
     // ensure the query is producing correct result
     System.assertEquals(1, authContactList.size(), 'Expected result size of 1');
-    System.assertEquals(1, authorisedContacts.size(), 'Expected result size of 1');
+      
+    authContactList = AuthorisedContactsSelector.newInstance()
+      .selectByCaseId(new Set<Id>{ cases[0].Id }, new Set<Object>()).values();
+     System.assertEquals(1, authContactList.size(), 'Expected result size of 1');
+    test.stopTest();
   }
 }
