@@ -14,6 +14,7 @@
  * @date 2023-11-02
  * @changelog
  * 2023-11-02 - Ranjeewa Silva - Created
+ * 2024-05-10 - Ranjeewa Silva - Fixed an issue to remove leading and trailing white spaces in sub account mailing and billing address.
  */
 public with sharing class ProvisionSTBillingAccountsController {
 
@@ -574,9 +575,9 @@ public with sharing class ProvisionSTBillingAccountsController {
 	 *
 	 * @return concatenated street address
 	 */
-	private static String joinStreetAddressComponents(String streetNumber, String streetName, String streetType) {
+	@TestVisible private static String joinStreetAddressComponents(String streetNumber, String streetName, String streetType) {
 		// join street address components with whitespace as the separator
-		String streetAddress = String.join(new List<String>{streetNumber, streetName, streetType}, ' ');
+		String streetAddress = String.join(new List<String>{streetNumber, streetName, streetType}, ' ').trim();
 		// ensure contiguous whitespaces are collapsed into one
 		return streetAddress.replaceAll('\\s+', ' ');
 	}
