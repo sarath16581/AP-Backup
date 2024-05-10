@@ -752,6 +752,10 @@
         <apexClass>ProductsSelector</apexClass>
         <enabled>true</enabled>
     </classAccesses>
+    <classAccesses>
+        <apexClass>opcNavToBulkEditController</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
     <description>Main permission set for users to go through Quotes/Contracts flow. This excludes Rebates Contracts and SOP Contracts</description>
     <fieldPermissions>
         <editable>true</editable>
