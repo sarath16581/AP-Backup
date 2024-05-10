@@ -5,6 +5,7 @@
  * @group Tests
  * @changelog
  * 2023-10-30 - Ranjeewa Silva - Created
+ * 2024-05-10 - Ranjeewa Silva - Added test to verify mailing and billing street address on sub account request payload.
  */
 @IsTest
 private class ProvisionSTBillingAccountController_Test {
@@ -869,6 +870,36 @@ private class ProvisionSTBillingAccountController_Test {
 				Assert.areEqual('Submitted', updated.get(APT_Sub_Account__c.APT_Sub_Account_Request_Status__c), 'Sub Account Request status should be set to \'Submitted\' on receiving successful acknowledgement');
 			}
 		}
+	}
+
+	/**
+	 * Sub account mailing and billing streets are split into 3 separate fields(number, name and type) on APT_Sub_Account__c.
+	 * This test verifies the joining of 3 individual components to derive street address.
+	 */
+	@IsTest
+	private static void testJoinSubAccountStreetAddressComponents() {
+		// =====================================
+		// Data Preparation
+		// =====================================
+		// None
+
+		// =====================================
+		// Stubbing
+		// =====================================
+		// None
+
+		// =====================================
+		// Testing
+		// =====================================
+		Test.startTest();
+		Assert.areEqual('', ProvisionSTBillingAccountsController.joinStreetAddressComponents(null, null, null));
+		Assert.areEqual('', ProvisionSTBillingAccountsController.joinStreetAddressComponents(' ', ' ', null));
+		Assert.areEqual('test', ProvisionSTBillingAccountsController.joinStreetAddressComponents(null, ' ', 'test'));
+		Assert.areEqual('stName', ProvisionSTBillingAccountsController.joinStreetAddressComponents('', ' stName ', ''));
+		Assert.areEqual('stName', ProvisionSTBillingAccountsController.joinStreetAddressComponents(' ', ' stName ', ' '));
+		Assert.areEqual('stNumber stName stType', ProvisionSTBillingAccountsController.joinStreetAddressComponents('stNumber', 'stName', 'stType'));
+		Assert.areEqual('stNumber stName stType', ProvisionSTBillingAccountsController.joinStreetAddressComponents(' stNumber  ', ' stName ', '  stType  '));
+		Test.stopTest();
 	}
 
 	private static Apttus__APTS_Agreement__c getApttusContractWithRelatedContactAndProposal(Contact primaryContact, Id opportunityId, Id chargeAccountRequestId) {

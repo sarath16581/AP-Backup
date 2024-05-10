@@ -4,7 +4,7 @@
         <name>Navigate_to_Edit_DSR_Record</name>
         <label>Navigate to Edit DSR Record</label>
         <locationX>182</locationX>
-        <locationY>1094</locationY>
+        <locationY>974</locationY>
         <actionName>c:navigateToRecord</actionName>
         <actionType>component</actionType>
         <flowTransactionModel>CurrentTransaction</flowTransactionModel>
@@ -34,7 +34,7 @@
         <name>Assign_APPC_Specific_Field_Values</name>
         <label>Assign APPC Specific Field Values</label>
         <locationX>50</locationX>
-        <locationY>638</locationY>
+        <locationY>566</locationY>
         <assignmentItems>
             <assignToReference>DSRRecord.Product__c</assignToReference>
             <operator>Assign</operator>
@@ -50,7 +50,7 @@
         <name>Assign_DSR_Field_Values</name>
         <label>Assign DSR Field Values</label>
         <locationX>182</locationX>
-        <locationY>854</locationY>
+        <locationY>758</locationY>
         <assignmentItems>
             <assignToReference>DSRRecord.Delivery_Address_State__c</assignToReference>
             <operator>Assign</operator>
@@ -188,7 +188,7 @@
         <name>If_APPC_Record_Type</name>
         <label>If APPC Record Type</label>
         <locationX>182</locationX>
-        <locationY>518</locationY>
+        <locationY>458</locationY>
         <defaultConnector>
             <targetReference>Assign_DSR_Field_Values</targetReference>
         </defaultConnector>
@@ -241,7 +241,7 @@
         <name>Create_Deal_Support_Request</name>
         <label>Create Deal Support Request</label>
         <locationX>182</locationX>
-        <locationY>974</locationY>
+        <locationY>866</locationY>
         <connector>
             <targetReference>Navigate_to_Edit_DSR_Record</targetReference>
         </connector>
@@ -251,7 +251,7 @@
         <name>Get_details_from_Account</name>
         <label>Get details from Account</label>
         <locationX>182</locationX>
-        <locationY>398</locationY>
+        <locationY>350</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>If_APPC_Record_Type</targetReference>
@@ -274,7 +274,7 @@
         <name>Get_The_Deal_Support_Record_Type</name>
         <label>Get The Deal Support Record Type</label>
         <locationX>182</locationX>
-        <locationY>278</locationY>
+        <locationY>242</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Get_details_from_Account</targetReference>
@@ -308,7 +308,7 @@
         <name>New_Deal_Support_Request</name>
         <label>New Deal Support Request</label>
         <locationX>182</locationX>
-        <locationY>158</locationY>
+        <locationY>134</locationY>
         <allowBack>false</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
@@ -317,16 +317,17 @@
         </connector>
         <fields>
             <name>Select_the_Deal_Support_Request_Type</name>
-            <choiceReferences>Choice_Legal_Support</choiceReferences>
-            <choiceReferences>Choice_PSR_Domestic</choiceReferences>
-            <choiceReferences>Choice_PSR_Intl</choiceReferences>
-            <choiceReferences>Choice_PSR_StarTrack</choiceReferences>
-            <choiceReferences>Choice_APPC_Parcel_Contract</choiceReferences>
-            <choiceReferences>Choice_Surcharge_Exemption</choiceReferences>
             <choiceReferences>Choice_Deal_Enablement_Centre</choiceReferences>
+            <choiceReferences>Choice_PSR_Domestic</choiceReferences>
+            <choiceReferences>Choice_PSR_StarTrack</choiceReferences>
+            <choiceReferences>Choice_PSR_Intl</choiceReferences>
+            <choiceReferences>Choice_Legal_Support</choiceReferences>
+            <choiceReferences>Choice_Surcharge_Exemption</choiceReferences>
+            <choiceReferences>Choice_APPC_Parcel_Contract</choiceReferences>
             <dataType>String</dataType>
             <fieldText>Select the Deal Support Request Type</fieldText>
             <fieldType>RadioButtons</fieldType>
+            <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
             <isRequired>true</isRequired>
         </fields>
         <showFooter>true</showFooter>
