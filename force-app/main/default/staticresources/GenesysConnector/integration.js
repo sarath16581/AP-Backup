@@ -117,7 +117,7 @@
 		this.ccDivision = ctiEvent.detail?.attributes?.['Participant.Division'];
 
 		if (this.ccDivision === 'ST') {
-			return new GenSTBusinessLogic(invokeConsoleEvent);
+			return new GenSTBusinessLogic();
 		} else if (this.ccDivision === 'AP') {
 			return new GenAPBusinessLogic(invokeConsoleEvent);
 		} else {

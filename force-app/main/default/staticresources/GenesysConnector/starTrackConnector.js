@@ -1,7 +1,6 @@
 /**********************************************************
 @ Vasu Gorakati - 16-04-2024 Initial version  CTI Uplift project
 ***********************************************************/
-let tabInteractionEvents;
 var consignmentSearchTabName = 'ConsignmentSearch';
 var consignmentSearchUrl = '/apex/StarTrackConsignmentSearch';
 var log_prefix = 'CTI_Widget ';
@@ -12,13 +11,22 @@ class GenSTBusinessLogic {
 	activeInteractionLog;
 	log_prefix = "SFDC/connected: ";
 	loggingEnabled = true;
-
-	constructor(callback) {
-		tabInteractionEvents = callback;
-	}
+	callLog;
+	stFieldMappings = {
+		enquiryType :'userData.ENG_DimAttribute_2',
+		consignmentNumber : 'userData.r_RecordID',
+		phoneNumber : 'userData.PhoneNumber',
+    	customerSegment : 'userData.CustomerSegment',	
+        serviceType : 'userData.r_IWS_ServiceType',
+		serviceSubType : 'userData.ServiceSubType',
+        atlFlag : 'userData.r_ATL',
+        exitCode : 'userData.r_ExitCode',
+        partyType :	'userData.r_PartyType'					
+	};
 
     handleCtiEvent(eventName, eventDetail) {
         if (eventName === 'INTERACTION_EVENT') {
+			this.callLog = new GenCallInteractionProxy(eventDetail.detail, this.stFieldMappings);
             this.activeInteractionLog = eventDetail.detail;
         }
 
@@ -95,7 +103,7 @@ class GenSTBusinessLogic {
             atlFlag,
             exitCode,
             partyType
-        } = ctiEvent.detail || ctiEvent.lastDetail;
+        } = this.callLog;
 
 		let caseType = '';
 		let casePurpose = '';
