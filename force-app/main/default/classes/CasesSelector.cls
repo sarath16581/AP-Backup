@@ -26,7 +26,7 @@
  * 2023-05-29 - Mahesh Parvathaneni - Added WITH_INCOMING_EMAIL_MESSAGES_ASC_ORDER enum in the options
  * 2023-08-16 - Hasantha Liyanage - Added fields in getSObjectFieldList.
  * 2023-12-04 - Steve L - added new methods: getClosedCasesByAccountIds, and getOpenCasesByAccountIds
- * 2024-04-25 - Vasu Gorakati - Added new method selectCasesByReferenceId
+ * 2024-04-25 - Vasu Gorakati - Added new method selectCasesByReferenceId and selectByArticleId
  */
 public virtual inherited sharing class CasesSelector extends ApplicationSelector {
 
@@ -323,6 +323,26 @@ public virtual inherited sharing class CasesSelector extends ApplicationSelector
 				.addConditions()
 				.add(new QueryBuilder.SimpleCondition(Case.ReferenceID__c + ' in :caseReferences'))
 				.endConditions();
+		return new Map<Id, Case>((List<Case>)Database.query(qb.toSoqlString()));
+	}
+
+	/*
+	* this method returns records with matching article Ids
+	 * @param articleIds list of article ids
+	 * @param recordTypeName case record type
+	 * @param selectorOptions selector options to augment result set
+	 *
+	 * @return Case Map
+	*/
+	public Map<Id,Case> selectByArticleId(Set<Id> articleids, String recordTypeName, Set<Object> selectorOptions) {
+		QueryBuilder qb = newQueryBuilder(selectorOptions);  
+		QueryBuilder.ConditionsManager conditions = qb.addConditions();
+		conditions.add(new QueryBuilder.SimpleCondition(Case.ArticleTest__c + ' IN :articleids'));
+		 if (recordTypeName != null){
+			conditions.add(new QueryBuilder.CompareCondition(case.RecordTypeId).eq(SObjectType.Case.getRecordTypeInfosByDeveloperName().get(recordTypeName).getRecordTypeId()));
+		}
+		conditions.endConditions();
+
 		return new Map<Id, Case>((List<Case>)Database.query(qb.toSoqlString()));
 	}
 

@@ -1,5 +1,5 @@
 /**************************************************
-Description:	Test Class used for the CTI Integration for Australia Post StarTrack 
+Description:	Test Class used for the CTI Integration for Australia Post and StarTrack 
 History:
 --------------------------------------------------
 2025-05-03 Vasu Gorakati			Created
@@ -201,7 +201,7 @@ public class GenesysConnectorController_Test {
 	 *
 	 *****************************************************************/ 
 	@isTest
-	static void searchAP_CaseId() {
+	static void searchAPCaseId() {
 
 		// =====================================
 		// Data Preparation
@@ -233,7 +233,7 @@ public class GenesysConnectorController_Test {
 	 *
 	 *****************************************************************/ 
 	@isTest
-	static void searchAP_CaseNumber() {
+	static void searchAPCaseNumber() {
 
 		// =====================================
 		// Data Preparation
@@ -266,7 +266,7 @@ public class GenesysConnectorController_Test {
 	 *
 	 *****************************************************************/ 
 	@isTest
-	static void searchAP_TrackingNumber() {
+	static void searchAPTrackingNumber() {
 
 		// =====================================
 		// Data Preparation
@@ -299,7 +299,7 @@ public class GenesysConnectorController_Test {
 	 *
 	 *****************************************************************/ 
 	@isTest
-	static void searchAP_ContactId() {
+	static void searchAPContactId() {
 
 		// =====================================
 		// Data Preparation
@@ -331,7 +331,7 @@ public class GenesysConnectorController_Test {
 	 *
 	 *****************************************************************/ 
 	@isTest
-	static void searchAP_ContactPhoneNumber() {
+	static void searchAPContactPhoneNumber() {
 
 		// =====================================
 		// Data Preparation
