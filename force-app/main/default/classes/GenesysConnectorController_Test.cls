@@ -138,7 +138,7 @@ public class GenesysConnectorController_Test {
 		
 		// set up our responses
 		MockUtility.Mocks.startStubbing();
-		MockUtility.Mocks.when(mockAuthorisedContactsSelector.selectByCaseId(New Set<Id>{cases[0].Id}, new Set<Object>()))
+		MockUtility.Mocks.when(mockAuthorisedContactsSelector.selectByCaseIdOrderByName(New Set<Id>{cases[0].Id}, new Set<Object>()))
 			.thenReturn(new Map<Id, AuthorisedContacts__c>(relatedCons));
 		MockUtility.Mocks.stopStubbing();
 		Test.startTest();
@@ -359,4 +359,31 @@ public class GenesysConnectorController_Test {
 		System.assertEquals('phoneNumber', result.get('match'));
 	}
 
+ 	/*****************************************************************
+	 * Scenario: Australia Post - check task creation for AP
+	 *
+	 *****************************************************************/ 
+	@isTest
+	static void maintainTaskAP() {
+
+		Map<String, Object> mapCallLog = new Map<String, Object>{
+			'callType' => 'Inbound',
+			'enquiryType' => 'BusinessSolutions',
+			'enquirySubType' => 'Priority 1',
+			'phoneNumber' => 'Invalid or No Selection'
+		};
+		
+		String callLog = JSON.serialize(mapCallLog);
+
+		Map<String, Object> mapTaskDetails = new Map<String, Object>{
+			'interactionId' => 'test12'
+		};
+		
+		String taskDetails = JSON.serialize(mapTaskDetails);
+		
+		Test.startTest();
+		object result = GenesysConnectorController.maintainTaskAP(callLog, taskDetails, callLog);
+		Test.stopTest();
+		System.Assert(result != null, 'task should be inserted');
+	}
 }
