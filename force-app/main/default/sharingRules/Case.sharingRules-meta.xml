@@ -246,20 +246,6 @@
         <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
-        <fullName>LCM_Read_write_access</fullName>
-        <accessLevel>Edit</accessLevel>
-        <label>LCM Read &amp; write access</label>
-        <sharedTo>
-            <role>Lodgement_Customer_Migration</role>
-        </sharedTo>
-        <criteriaItems>
-            <field>RecordTypeId</field>
-            <operation>equals</operation>
-            <value>Lodgement Customer Migrations</value>
-        </criteriaItems>
-        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
-    </sharingCriteriaRules>
-    <sharingCriteriaRules>
         <fullName>Late_Payment_Charges</fullName>
         <accessLevel>Edit</accessLevel>
         <label>Late Payment Charges</label>
@@ -274,7 +260,7 @@
         <criteriaItems>
             <field>Enquiry_Type__c</field>
             <operation>equals</operation>
-            <value>Billing dispute</value>
+            <value>Billing Dispute</value>
         </criteriaItems>
         <criteriaItems>
             <field>RecordTypeId</field>
