@@ -6,12 +6,11 @@
  * @group Domain
  * @domain EmailMessageCasesDomain
  * @changelog
-* 08/04/2024 Boris Bachovski - Update First_Email_Response__c field on case when outgoing email is sent + Complete Bulk Mail First Response milestone
+ * 08/05/2024 Boris Bachovski - Update First_Email_Response__c field on case when outgoing email is sent + Complete Bulk Mail First Response milestone
  */
 
  public inherited sharing class BulkMailEmailMessagesModule extends ApplicationDomain.Module {
 
-	//constants
 	private static Map<String, EmailToCaseMapping__mdt> emailToCaseMappingMap;
 
 	/**
@@ -114,11 +113,13 @@
 				if(!cs.Permanent_Close__c && !cs.EmailMessages.isEmpty() && (String.isNotBlank(cs.EmailToCaseAddress__c) || cs.Origin != 'Email')) {
 					// New email received - update Case_Update__c field 
 					Case caseRecord =  new Case(Id = cs.Id, Case_Update__c = BulkMailCaseService.NEW_EMAIL_RECEIVED, Case_Update_Time__c = currentTimeStamp);
+	
 					// Re-open the case if there is incoming email message to closed case
 					if (cs.Status == BulkMailCaseService.CLOSED_STATUS) {
 						caseRecord.Status = BulkMailCaseService.REOPENNED_STATUS;
 						caseRecord.OwnerId = queueId;
 					}
+
 					casesToUpdate.add(caseRecord);
 				} 
 				else if (!cs.EmailMessages.isEmpty() && filteredMessages.containsKey(cs.EmailMessages[0].Id) && cs.Origin == 'Email') {
