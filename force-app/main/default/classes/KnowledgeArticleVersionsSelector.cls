@@ -123,7 +123,7 @@ public virtual inherited sharing class KnowledgeArticleVersionsSelector extends 
 		//Where clause
 		if(searchParams.containsKey('knowledgeIds')){
 			Set<Id> knowledgeIds = (Set<Id>)(searchParams.get('knowledgeIds') == null ? new Set<Id>() : (searchParams.get('knowledgeIds') instanceof Set<Id> ? searchParams.get('knowledgeIds') : new Set<Id>{(Id)searchParams.get('knowledgeIds')}));
-			cm.add(new QueryBuilder.InCondition('id').inCollection(knowledgeIds));
+			cm.add(new QueryBuilder.SimpleCondition(Knowledge__kav.Id + ' in :knowledgeIds'));
 		}
 		cm.endConditions();
 		return (List<Knowledge__kav>) Database.query(qb.toSoqlString());
@@ -147,20 +147,21 @@ public virtual inherited sharing class KnowledgeArticleVersionsSelector extends 
 		QueryBuilder.ConditionsManager cm = qb.conditionsManager;
 		Integer conditionCount = 0;
 		//Where clause
-		if(searchParams.containsKey('statuses')){
-			cm.add(new QueryBuilder.InCondition('PublishStatus').inCollection(statuses));
+		if (searchParams.containsKey('statuses')) {
+			cm.add(new QueryBuilder.SimpleCondition(Knowledge__kav.PublishStatus + ' in :statuses'));
 			conditionCount++;
 		}
-		if(searchParams.containsKey('languages')){
-			cm.add(new QueryBuilder.InCondition('Language').inCollection(languages));
+		if (searchParams.containsKey('languages')) {
+			cm.add(new QueryBuilder.SimpleCondition(Knowledge__kav.Language + ' in :languages'));
 			conditionCount++;
 		}
-		if(searchParams.containsKey('recordTypeNames')){
-			cm.add(new QueryBuilder.InCondition('RecordType.DeveloperName').inCollection(recordTypeNames));
+		if (searchParams.containsKey('recordTypeNames')) {
+			Set<Id> recorTypeIds = (RecordTypesSelector.newInstance().selectByDeveloperName('Knowledge__kav', recordTypeNames)).Keyset();
+			cm.add(new QueryBuilder.SimpleCondition(Knowledge__kav.RecordTypeId + ' in :recorTypeIds'));
 			conditionCount++;
 		}
-		if(searchParams.containsKey('types')){
-			cm.add(new QueryBuilder.InCondition('Type__c').inCollection(types));
+		if (searchParams.containsKey('types')) {
+			cm.add(new QueryBuilder.SimpleCondition(Knowledge__kav.Type__c + ' in :types'));
 			conditionCount++;
 		}
 		if(searchParams.containsKey('isLatestVersion') && isLatestVersion != null){
@@ -201,20 +202,21 @@ public virtual inherited sharing class KnowledgeArticleVersionsSelector extends 
 		QueryBuilder.ConditionsManager cm = qb.conditionsManager;
 		Integer conditionCount = 0;
 		//Where clause
-		if(searchParams.containsKey('statuses')){
-			cm.add(new QueryBuilder.InCondition('PublishStatus').inCollection(statuses));
+		if (searchParams.containsKey('statuses')) {
+			cm.add(new QueryBuilder.SimpleCondition(Knowledge__kav.PublishStatus + ' in :statuses'));
 			conditionCount++;
 		}
-		if(searchParams.containsKey('languages')){
-			cm.add(new QueryBuilder.InCondition('Language').inCollection(languages));
+		if (searchParams.containsKey('languages')) {
+			cm.add(new QueryBuilder.SimpleCondition(Knowledge__kav.Language + ' in :languages'));
 			conditionCount++;
 		}
-		if(searchParams.containsKey('recordTypeNames')){
-			cm.add(new QueryBuilder.InCondition('RecordType.DeveloperName').inCollection(recordTypeNames));
+		if (searchParams.containsKey('recordTypeNames')) {
+			Set<Id> recorTypeIds = (RecordTypesSelector.newInstance().selectByDeveloperName('Knowledge__kav', recordTypeNames)).Keyset();
+			cm.add(new QueryBuilder.SimpleCondition(Knowledge__kav.RecordTypeId + ' in :recorTypeIds'));
 			conditionCount++;
 		}
-		if(searchParams.containsKey('types')){
-			cm.add(new QueryBuilder.InCondition('Type__c').inCollection(types));
+		if (searchParams.containsKey('types')) {
+			cm.add(new QueryBuilder.SimpleCondition(Knowledge__kav.Type__c + ' in :types'));
 			conditionCount++;
 		}
 		if(searchParams.containsKey('isLatestVersion') && isLatestVersion != null){
