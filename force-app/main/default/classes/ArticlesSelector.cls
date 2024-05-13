@@ -202,12 +202,12 @@ public virtual inherited sharing class ArticlesSelector extends ApplicationSelec
 		return res;
 	}
     /**
-    * Returns Article map based on Article Name and record type
+    * Returns Article list based on Article Name and record type
     * @param names set of Article name
     * @param recordTypeName Article record type
     * @param selectorOptions selector options to augment result set
     */
- 	public virtual Map<Id, Article__c> selectByArticleNames(Set<String> names, String recordTypeName,  Set<Object> selectorOptions) {
+ 	public virtual List<Article__c> selectByArticleNames(Set<String> names, String recordTypeName,  Set<Object> selectorOptions) {
 		QueryBuilder qb = newQueryBuilder(selectorOptions);
         QueryBuilder.ConditionsManager conditions = qb.addConditions();
         conditions.add(new QueryBuilder.SimpleCondition(Article__c.Name + ' in :names'));
@@ -215,7 +215,6 @@ public virtual inherited sharing class ArticlesSelector extends ApplicationSelec
             conditions.add(new QueryBuilder.CompareCondition(Article__c.RecordTypeId).eq(SObjectType.Article__c.getRecordTypeInfosByDeveloperName().get(recordTypeName).getRecordTypeId()));
         }
         String soql = conditions.endConditions().toSoqlString();
-		Map<Id, Article__c> res = new Map<Id, Article__c>((List<Article__c>)Database.query(soql));
-		return res;
+		return (List<Article__c>)Database.query(soql);
 	}
 }

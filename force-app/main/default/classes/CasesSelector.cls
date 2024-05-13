@@ -316,7 +316,7 @@ public virtual inherited sharing class CasesSelector extends ApplicationSelector
 	 * @param caseReferences list of case references. a case reference could be a case number or case reference id.
 	 * @param selectorOptions selector options to augment result set
 	 *
-	 * @return Case Map
+	 * @return Case List
 	 */
 	public virtual List<Case> selectCasesByReferenceId(Set<String> caseReferences, Set<Object> selectorOptions) {
 		QueryBuilder qb = newQueryBuilder(selectorOptions)
@@ -332,7 +332,7 @@ public virtual inherited sharing class CasesSelector extends ApplicationSelector
 	 * @param recordTypeName case record type
 	 * @param selectorOptions selector options to augment result set
 	 *
-	 * @return Case Map
+	 * @return Case List
 	*/
 	public List<Case> selectByArticleId(Set<Id> articleids, String recordTypeName, Set<Object> selectorOptions) {
 		QueryBuilder qb = newQueryBuilder(selectorOptions);
