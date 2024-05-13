@@ -6,7 +6,7 @@
  * @changelog
  *
  */
-class GenAPBusinessLogic {
+class GenesysAPBusinessLogic {
 
 	// required local variables:
 	search = { };
@@ -57,14 +57,14 @@ class GenAPBusinessLogic {
 
 	handleCtiEvent(eventName, event) {
 		if (eventName === 'INTERACTION_EVENT') {
-			this.callLog = new GenCallInteractionProxy(event.detail, this.apFieldMappings);
+			this.callLog = new CallInteractionProxy(event.detail, this.apFieldMappings);
 
 			if (event.category === 'add') {
 				// This is the very first event of every Interaction
 				event.callLog = this.callLog;
 
 				if (event.detail.isConnected) {
-					this.tracking = GenCTIUtils.recallCallDetails(event.callLog.id);
+					this.tracking = GenesysCTIUtils.recallCallDetails(event.callLog.id);
 
 					if (this.tracking) {
 						console.log(...UIInteraction.logPrefix, 'Session recovered', this.tracking);
@@ -119,7 +119,7 @@ class GenAPBusinessLogic {
 				return getFocussedTabId;
 			}
 
-			const closeAllTabs = new GenAsyncTask();
+			const closeAllTabs = new AsyncTask();
 
 			// fetch all primary tabs
 			UIInteraction.getPrimaryTabIds().then(
@@ -146,7 +146,7 @@ class GenAPBusinessLogic {
 			}
 
 			// Give dependant action screenpop a promise to hookup to
-			this.searchTask = new GenAsyncTask();
+			this.searchTask = new AsyncTask();
 
 			// obtain search parameters
 			const { caseId, caseNumber, trackingNumber, contactId, phoneNumber } = this.callLog;
@@ -177,7 +177,7 @@ class GenAPBusinessLogic {
 		 * @returns promise
 		 */
 		screenPop : (ctiEvent) => {
-			const screenPop = new GenAsyncTask();
+			const screenPop = new AsyncTask();
 
 			let searchTask = this.searchTask?.promise;
 			if (!searchTask) {
@@ -222,7 +222,7 @@ class GenAPBusinessLogic {
 		 * @returns promise
 		 */
 		track : (event) => {
-			this.trackingTask = new GenAsyncTask();
+			this.trackingTask = new AsyncTask();
 
 			console.log(...UIInteraction.logPrefix, 'Track', event);
 			const ctiEventDetail = event.lastDetail || event.detail || { };
@@ -247,7 +247,7 @@ class GenAPBusinessLogic {
 
 					return trackedObjects;
 				}, { });
-				GenCTIUtils.storeCallDetails(ctiEventDetail.id, tracking);
+				GenesysCTIUtils.storeCallDetails(ctiEventDetail.id, tracking);
 			};
 
 			/**
@@ -396,7 +396,7 @@ class GenAPBusinessLogic {
 			this.tracking = null;
 			this.searchTask = null;
 			// Remove call details from local storage -> session recovery not required after this point in time
-			GenCTIUtils.deleteCallDetails(this.callLog.id);
+			GenesysCTIUtils.deleteCallDetails(this.callLog.id);
 
 			return Promise.resolve();
 		},
@@ -419,10 +419,10 @@ class GenAPBusinessLogic {
 				interactionId : [ this.callLog.id, this.callLog.participantId ].join('.'),
 				status : eventDetail.isConnected ? 'Open' : 'Closed',
 				// Subject: "Voice-Inbound YYYY-MM-DD 24:mm:ss"
-				subject : [ mediaTypeMap[this.callLog.mediaType], GenCTIUtils.formatDate(new Date()) ].join(' ')
+				subject : [ mediaTypeMap[this.callLog.mediaType], GenesysCTIUtils.formatDate(new Date()) ].join(' ')
 			});
 
-			const captureTask = new GenAsyncTask();
+			const captureTask = new AsyncTask();
 			const processTaskUpsert = () => {
 				new Promise(callback => {
 					GenesysConnectorController.maintainTaskAP(
@@ -433,7 +433,6 @@ class GenAPBusinessLogic {
 						callback
 					)
 				}).then((result, event) => {
-					debugger;
 					if (result?.success) {
 						// resolve results (and therefor status -> 'completed')
 						captureTask.complete(result);
@@ -572,7 +571,7 @@ class GenAPBusinessLogic {
 				let url = `/apex/SSSWSearch?cti=1&aId=null`;
 
 				if (phoneNumber) {
-					if(!GenCTIUtils.isAnonymousPhoneNumber(phoneNumber)) {
+					if(!GenesysCTIUtils.isAnonymousPhoneNumber(phoneNumber)) {
 						url += `&ANI=${phoneNumber}`;
 						tabName += phoneNumber;
 						title += ' - ' + phoneNumber;
@@ -600,7 +599,7 @@ class GenAPBusinessLogic {
 		}
 
 		// Log start.end time
-		const startTime = GenCTIUtils.timeStamp();
+		const startTime = GenesysCTIUtils.timeStamp();
 		// Unique id to update completed tasks in the UI
 		const id = crypto.randomUUID();
 		// Display Name
@@ -610,7 +609,7 @@ class GenAPBusinessLogic {
 
 		// Notify parent (widget) page with the event details
 		const fireEvent = (state) => {
-			const duration = GenCTIUtils.timeStamp() - startTime;
+			const duration = GenesysCTIUtils.timeStamp() - startTime;
 			const detail = Object.assign(
 				{ id, taskName, state, startTime },
 				state !== 'start' ? { duration } : null
@@ -674,7 +673,7 @@ class UIInteraction {
 		// find tab with matching url to focus
 		const focusUrl = new URL(url, document.location.origin).pathname;
 		const existingTab = tabs.find(tab => tab.url?.startsWith(focusUrl));
-		const focusExistingUrl = new GenAsyncTask();
+		const focusExistingUrl = new AsyncTask();
 
 		if (existingTab) {
 			UIInteraction.focusPrimaryTabById(matchingTab.tabId).then(res => {
@@ -697,7 +696,7 @@ class UIInteraction {
 	 * @returns (Promise)	tabId of opened/focussed tab. Promise will get rejected if operation can't be completed
 	 */
 	static openTabByUrl = (tabUrl, tabTitle, tabName) => {
-		const openTab = new GenAsyncTask();
+		const openTab = new AsyncTask();
 
 		UIInteraction.openPrimaryTab(tabUrl, tabTitle, tabName).then(
 			(tabId) => openTab.complete(({ tabId }))
@@ -748,7 +747,7 @@ class UIInteraction {
 	)
 
 	static getPrimaryTabIds = () => {
-		const getPrimaryTabIds = new GenAsyncTask();
+		const getPrimaryTabIds = new AsyncTask();
 
 		UIInteraction.tabInteractionEvents('getPrimaryTabIds',
 			(result, event) => {

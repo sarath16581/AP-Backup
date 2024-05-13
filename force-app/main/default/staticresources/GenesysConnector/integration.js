@@ -18,11 +18,6 @@
 	let mockCtiParams = { };
 	let eventList = [ ];
 
-	// Always turn off mocking onload:
-	window.onload = () => {
-		// GenCTIUtils.mockActive = false;
-	}
-
 	addCustomAttributesMethod = (id, attributes, callback) => {
 		sforce.console.fireEvent(
 			'inin.salesforce.constants.consoleevent.addCustomAttributes',
@@ -64,6 +59,9 @@
 	}
 
 	connectAllCtiEvents = () => {
+		// Always turn off mocking onload:
+		// GenesysCTIUtils.mockActive = false;
+
 		const ALL_EVENTS = {
 			// ALL CTI Events:
 			'INTERACTION_CONNECTED' : 'inin.salesforce.constants.consoleevent.pc.INTERACTION_CONNECTED',
@@ -89,10 +87,10 @@
 			if (event.key.startsWith('CTI_')) {
 				// Provide event detail newValue and oldValue
 				const detail = ['newValue', 'oldValue'].reduce(
-					(res, item) => Object.assign(res, { [item] : GenCTIUtils.jsonToObj(event[item]) }), { }
+					(res, item) => Object.assign(res, { [item] : GenesysCTIUtils.jsonToObj(event[item]) }), { }
 				);
 				// Provide array of changed attributes
-				detail.changes = GenCTIUtils.getDiff(detail.newValue, detail.oldValue);
+				detail.changes = GenesysCTIUtils.getDiff(detail.newValue, detail.oldValue);
 				handleCtiEvent('STORAGE', { detail, key : event.key });
 			}
 		});
@@ -119,9 +117,9 @@
 		if (this.ccDivision === 'ST') {
 			return new GenSTBusinessLogic();
 		} else if (this.ccDivision === 'AP') {
-			return new GenAPBusinessLogic(invokeConsoleEvent);
+			return new GenesysAPBusinessLogic(invokeConsoleEvent);
 		} else {
-			throw Error(`Missing/unknown value for Paritipant.Division attribute: "${this.ccDivision}"`);
+			throw Error(`Missing/unknown value for Participant.Division attribute: "${this.ccDivision}"`);
 		}
 	}
 
@@ -143,12 +141,12 @@
 
 	handleCtiEvent = (eventName, event) => {
 		console.log(eventName, event);
-		const result = GenCTIUtils.extractEventDetail(eventName, event);
+		const result = GenesysCTIUtils.extractEventDetail(eventName, event);
 
 		if (eventName === 'INTERACTION_EVENT') {
 			// merge mocked interaction properties, if provided
-			if (GenCTIUtils.mockActive) {
-				result.detail = GenCTIUtils.deepCloneObj(result.detail, GenCTIUtils.mockParams);
+			if (GenesysCTIUtils.mockActive) {
+				result.detail = GenesysCTIUtils.deepCloneObj(result.detail, GenesysCTIUtils.mockParams);
 			}
 
 			lastCtiInteractionLog = result.detail;
@@ -171,8 +169,8 @@
 		}
 
 		// For tracking purposes only
-		const trackedEvent = ['INTERACTION_CONNECTED', 'INTERACTION_DISCONNECTED', 'LOGGED_OUT', 'ACW_REQUIRED', 'ACW_COMPLETED', 'INTERACTION_EVENT'];
-		if (trackedEvent.includes(eventName)) {
+		const trackedEvents = ['INTERACTION_CONNECTED', 'INTERACTION_DISCONNECTED', 'LOGGED_OUT', 'ACW_REQUIRED', 'ACW_COMPLETED', 'INTERACTION_EVENT'];
+		if (trackedEvents.includes(eventName)) {
 			eventList.push({
 				...result,
 				timeSinceLast : timerLapse()
@@ -185,52 +183,5 @@
 		if (businessLogic && (eventName !== 'INTERACTION_EVENT' || (result.category === 'add' || result.changes?.length))) {
 			// Only invoke the handler if any cti attributes have actually changed or if not an interaction event
 			businessLogic.handleCtiEvent(eventName, result);
-		}
-	}
-
-	/**
-	 * Simulate incoming call by playing back previously captured events
-	 *  - use mock CTI Interaction JSON to extend the INTERACTION_EVENT payload detail
-	 **/
-	runSimulation = () => {
-		const outputElem = document.getElementById('eventTxt');
-		const next = () => {
-			if (!trackEvent.mockEvents?.length) {
-				// ending the sequence as the last event has already been processed
-				return;
-			}
-
-			// Add the original delay in between events
-			setTimeout(() => {
-				// Process the next event
-				const event = trackEvent.mockEvents.shift();
-				// Set inactive after last event
-				trackEvent.mockActive = !!trackEvent.mockEvents.length;
-				// Output current event
-				outputElem.value = `LastEvent: ${event.eventName}`;
-
-				// Pass the event to the CTI Event Handler
-				handleCtiEvent(event.eventName, event.message);
-
-				// Kick off the next event
-				if (trackEvent.mockEvents.length) {
-					next();
-				}
-			}, trackEvent.mockEvents[0].timeSinceLast || 500);
-		};
-
-		// Reset the sequence, even if it was already running
-		trackEvent.mockEvents = [...GenCTIUtils.mockEvents];
-
-		// Kick off the sequence, only if not already running
-		if (!trackEvent.mockActive) {
-			trackEvent.mockActive = true;
-			try {
-				next();
-			} catch(ex) {
-				// Sequence has broken
-				trackEvent.mockActive = false;
-				console.error(ex);
-			}
 		}
 	}

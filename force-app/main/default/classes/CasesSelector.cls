@@ -318,12 +318,12 @@ public virtual inherited sharing class CasesSelector extends ApplicationSelector
 	 *
 	 * @return Case Map
 	 */
-	public virtual Map<Id, Case> selectCasesByReferenceId(Set<String> caseReferences, Set<Object> selectorOptions) {
+	public virtual List<Case> selectCasesByReferenceId(Set<String> caseReferences, Set<Object> selectorOptions) {
 		QueryBuilder qb = newQueryBuilder(selectorOptions)
 				.addConditions()
 				.add(new QueryBuilder.SimpleCondition(Case.ReferenceID__c + ' in :caseReferences'))
 				.endConditions();
-		return new Map<Id, Case>((List<Case>)Database.query(qb.toSoqlString()));
+		return (List<Case>)Database.query(qb.toSoqlString());
 	}
 
 	/*
@@ -334,16 +334,15 @@ public virtual inherited sharing class CasesSelector extends ApplicationSelector
 	 *
 	 * @return Case Map
 	*/
-	public Map<Id,Case> selectByArticleId(Set<Id> articleids, String recordTypeName, Set<Object> selectorOptions) {
-		QueryBuilder qb = newQueryBuilder(selectorOptions);  
+	public List<Case> selectByArticleId(Set<Id> articleids, String recordTypeName, Set<Object> selectorOptions) {
+		QueryBuilder qb = newQueryBuilder(selectorOptions);
 		QueryBuilder.ConditionsManager conditions = qb.addConditions();
 		conditions.add(new QueryBuilder.SimpleCondition(Case.ArticleTest__c + ' IN :articleids'));
-		 if (recordTypeName != null){
-			conditions.add(new QueryBuilder.CompareCondition(case.RecordTypeId).eq(SObjectType.Case.getRecordTypeInfosByDeveloperName().get(recordTypeName).getRecordTypeId()));
+	 	if (recordTypeName != null) {
+			conditions.add(new QueryBuilder.SimpleCondition('RecordType.DeveloperName = :recordTypeName'));
 		}
 		conditions.endConditions();
 
-		return new Map<Id, Case>((List<Case>)Database.query(qb.toSoqlString()));
+		return (List<Case>)Database.query(qb.toSoqlString());
 	}
-
 }

@@ -5,7 +5,7 @@
  * @changelog
  *
  */
-class GenCTIUtils {
+class GenesysCTIUtils {
     /**
      * Deserialise a JSON string. A parsing error will result into an empty object
      * @param {string} serializedJSON   String containing
@@ -232,12 +232,12 @@ class GenCTIUtils {
     static formatDate = (d) => [
 		[
 			d.getFullYear(),
-			GenCTIUtils.leadingZeros(d.getMonth() + 1, 2),
-			GenCTIUtils.leadingZeros(d.getDate(), 2)
+			GenesysCTIUtils.leadingZeros(d.getMonth() + 1, 2),
+			GenesysCTIUtils.leadingZeros(d.getDate(), 2)
 		].join('-'), [		
-			GenCTIUtils.leadingZeros(d.getHours(), 2),
-			GenCTIUtils.leadingZeros(d.getMinutes(), 2),
-			GenCTIUtils.leadingZeros(d.getSeconds(), 2)
+			GenesysCTIUtils.leadingZeros(d.getHours(), 2),
+			GenesysCTIUtils.leadingZeros(d.getMinutes(), 2),
+			GenesysCTIUtils.leadingZeros(d.getSeconds(), 2)
 		].join(':')
 	].join(' ');
 
@@ -248,31 +248,31 @@ class GenCTIUtils {
     static timeStamp = () => new Date().getTime();
 
     static get monitorActive() {
-        return !!GenCTIUtils.getStorageProp('GenesysMonitor.monitorActive');
+        return !!GenesysCTIUtils.getStorageProp('GenesysMonitor.monitorActive');
     }
 
     static set monitorActive(value) {
-        return GenCTIUtils.setStorageProp('GenesysMonitor.monitorActive', value);
+        return GenesysCTIUtils.setStorageProp('GenesysMonitor.monitorActive', value);
     }
 
     static get mockActive() {
-        return !!GenCTIUtils.getStorageProp('GenesysMonitor.MockActive');
+        return !!GenesysCTIUtils.getStorageProp('GenesysMonitor.MockActive');
     }
 
     static set mockActive(value) {
-        return GenCTIUtils.setStorageProp('GenesysMonitor.MockActive', value);
+        return GenesysCTIUtils.setStorageProp('GenesysMonitor.MockActive', value);
     }
 
     static get mockParams() {
-        const newVal = GenCTIUtils.getStorageProp('GenesysMonitor.MockParams', false);
+        const newVal = GenesysCTIUtils.getStorageProp('GenesysMonitor.MockParams', false);
 
         // only serialise when changed
         if (newVal != this.currentMockParams) {
             this.currentMockParams = newVal;
-            this.currentMockObj = GenCTIUtils.jsonToObj(newVal);
+            this.currentMockObj = GenesysCTIUtils.jsonToObj(newVal);
 
             if (!this.currentMockObj) {
-                GenCTIUtils.mockActive = false;
+                GenesysCTIUtils.mockActive = false;
             }
         }
 
@@ -280,20 +280,20 @@ class GenCTIUtils {
     }
 
     static set mockParams(value) {
-        return GenCTIUtils.setStorageProp('GenesysMonitor.MockParams', value);
+        return GenesysCTIUtils.setStorageProp('GenesysMonitor.MockParams', value);
     }
 
     static storeCallDetails(interactionId, details) {
-        return GenCTIUtils.setStorageProp(`GenCTI-${interactionId}`, details, true, 'local');
+        return GenesysCTIUtils.setStorageProp(`GenCTI-${interactionId}`, details, true, 'local');
     }
 
     static recallCallDetails(interactionId) {
-        return GenCTIUtils.getStorageProp(`GenCTI-${interactionId}`, true, 'local');
+        return GenesysCTIUtils.getStorageProp(`GenCTI-${interactionId}`, true, 'local');
     }
 
     static deleteCallDetails(interactionId) {
         // Unsetting the property in storage will delete it
-        return GenCTIUtils.setStorageProp(`GenCTI-${interactionId}`, undefined, false, 'local');
+        return GenesysCTIUtils.setStorageProp(`GenCTI-${interactionId}`, undefined, false, 'local');
     }
 
     static getStorageProp(propName, deserialise = true, storage = 'session') {
@@ -308,7 +308,7 @@ class GenCTIUtils {
         }
 
         const value = storageTarget.getItem(propName);
-        return deserialise ? GenCTIUtils.jsonToObj(value) : value;
+        return deserialise ? GenesysCTIUtils.jsonToObj(value) : value;
     }
 
     static setStorageProp(propName, value, serialise = true, storage = 'session') {
@@ -330,195 +330,9 @@ class GenCTIUtils {
 
         return storageTarget.setItem(propName, value);
     }
-
-
-    /**
-     * Sequence of mock events captured during an actual test call.
-     * These can be extended with mock parameters and used for call simulations
-     * @attrib eventName (string)       The name of the event
-     * @attrib message (string)         The eventdetail as received during the original call
-     * @attrib timeSinceLast (integer)  The number of millisecs since the last event
-     */
-    static mockEvents = [
-        {
-            "eventName": "UPDATE_STATUS",
-            "message": {
-                "message": "{\"reason\":\"status_updated\",\"status\":\"ON_QUEUE\",\"id\":\"e08eaf1b-ee47-4fa9-a231-1200e284798f\"}"
-            },
-            "timeSinceLast": 1
-        },
-        {
-            "eventName": "INTERACTION_EVENT",
-            "message": {
-                "message": "{\"reason\":\"interaction\",\"data\":{\"category\":\"add\",\"data\":{\"id\":\"e4e03b73-784b-435e-a30a-a527e20801c8\",\"phone\":\"tel:+61431598408\",\"name\":\"Mobile Number, Australia\",\"isConnected\":false,\"isDisconnected\":false,\"isDone\":false,\"state\":\"ALERTING\",\"isCallback\":false,\"isDialer\":false,\"isChat\":false,\"isEmail\":false,\"isMessage\":false,\"isVoicemail\":false,\"remoteName\":\"Mobile Number, Australia\",\"recordingState\":\"active\",\"securePause\":false,\"displayAddress\":\"+61431598408\",\"queueName\":\"Salesforce Voice\",\"ani\":\"+61431598408\",\"calledNumber\":\"+61364098722\",\"totalIvrDurationSeconds\":7,\"direction\":\"Inbound\",\"isInternal\":false}}}"
-            },
-            "timeSinceLast": 254
-        },
-        {
-            "eventName": "INTERACTION_EVENT",
-            "message": {
-                "message": "{\"reason\":\"interaction\",\"data\":{\"category\":\"change\",\"data\":{\"old\":{\"id\":\"e4e03b73-784b-435e-a30a-a527e20801c8\",\"phone\":\"tel:+61431598408\",\"name\":\"Mobile Number, Australia\",\"isConnected\":false,\"isDisconnected\":false,\"isDone\":false,\"state\":\"ALERTING\",\"isCallback\":false,\"isDialer\":false,\"isChat\":false,\"isEmail\":false,\"isMessage\":false,\"isVoicemail\":false,\"remoteName\":\"Mobile Number, Australia\",\"recordingState\":\"active\",\"securePause\":false,\"displayAddress\":\"+61431598408\",\"queueName\":\"Salesforce Voice\",\"ani\":\"+61431598408\",\"calledNumber\":\"+61364098722\",\"totalIvrDurationSeconds\":7,\"direction\":\"Inbound\",\"isInternal\":false,\"startTime\":\"2024-04-09T04:19:30.967Z\"},\"new\":{\"id\":\"e4e03b73-784b-435e-a30a-a527e20801c8\",\"phone\":\"tel:+61431598408\",\"name\":\"Mobile Number, Australia\",\"isConnected\":false,\"isDisconnected\":false,\"isDone\":false,\"state\":\"ALERTING\",\"isCallback\":false,\"isDialer\":false,\"isChat\":false,\"isEmail\":false,\"isMessage\":false,\"isVoicemail\":false,\"remoteName\":\"Mobile Number, Australia\",\"recordingState\":\"active\",\"securePause\":false,\"displayAddress\":\"+61431598408\",\"queueName\":\"Salesforce Voice\",\"ani\":\"+61431598408\",\"calledNumber\":\"+61364098722\",\"totalIvrDurationSeconds\":7,\"direction\":\"Inbound\",\"isInternal\":false,\"startTime\":\"2024-04-09T04:19:30.967Z\"}}}}"
-            },
-            "timeSinceLast": 396
-        },
-        {
-            "eventName": "INTERACTION_EVENT",
-            "message": {
-                "message": "{\"reason\":\"interaction\",\"data\":{\"category\":\"change\",\"data\":{\"old\":{\"id\":\"e4e03b73-784b-435e-a30a-a527e20801c8\",\"phone\":\"tel:+61431598408\",\"name\":\"Mobile Number, Australia\",\"isConnected\":false,\"isDisconnected\":false,\"isDone\":false,\"state\":\"ALERTING\",\"isCallback\":false,\"isDialer\":false,\"isChat\":false,\"isEmail\":false,\"isMessage\":false,\"isVoicemail\":false,\"remoteName\":\"Mobile Number, Australia\",\"recordingState\":\"active\",\"securePause\":false,\"displayAddress\":\"+61431598408\",\"queueName\":\"Salesforce Voice\",\"ani\":\"+61431598408\",\"calledNumber\":\"+61364098722\",\"totalIvrDurationSeconds\":7,\"direction\":\"Inbound\",\"isInternal\":false,\"startTime\":\"2024-04-09T04:19:30.967Z\"},\"new\":{\"id\":\"e4e03b73-784b-435e-a30a-a527e20801c8\",\"phone\":\"tel:+61431598408\",\"name\":\"Mobile Number, Australia\",\"isConnected\":false,\"isDisconnected\":false,\"isDone\":false,\"state\":\"ALERTING\",\"isCallback\":false,\"isDialer\":false,\"isChat\":false,\"isEmail\":false,\"isMessage\":false,\"isVoicemail\":false,\"remoteName\":\"Mobile Number, Australia\",\"recordingState\":\"active\",\"securePause\":false,\"displayAddress\":\"+61431598408\",\"queueName\":\"Salesforce Voice\",\"ani\":\"+61431598408\",\"calledNumber\":\"+61364098722\",\"totalIvrDurationSeconds\":7,\"direction\":\"Inbound\",\"isInternal\":false,\"startTime\":\"2024-04-09T04:19:30.967Z\"}}}}"
-            },
-            "timeSinceLast": 1162
-        },
-        {
-            "eventName": "INTERACTION_EVENT",
-            "message": {
-                "message": "{\"reason\":\"interaction\",\"data\":{\"category\":\"change\",\"data\":{\"old\":{\"id\":\"e4e03b73-784b-435e-a30a-a527e20801c8\",\"phone\":\"tel:+61431598408\",\"name\":\"Mobile Number, Australia\",\"isConnected\":false,\"isDisconnected\":false,\"isDone\":false,\"state\":\"ALERTING\",\"isCallback\":false,\"isDialer\":false,\"isChat\":false,\"isEmail\":false,\"isMessage\":false,\"isVoicemail\":false,\"remoteName\":\"Mobile Number, Australia\",\"recordingState\":\"active\",\"securePause\":false,\"displayAddress\":\"+61431598408\",\"queueName\":\"Salesforce Voice\",\"ani\":\"+61431598408\",\"calledNumber\":\"+61364098722\",\"totalIvrDurationSeconds\":7,\"direction\":\"Inbound\",\"isInternal\":false,\"startTime\":\"2024-04-09T04:19:30.967Z\"},\"new\":{\"id\":\"e4e03b73-784b-435e-a30a-a527e20801c8\",\"connectedTime\":\"2024-04-09T04:19:42.719Z\",\"phone\":\"tel:+61431598408\",\"name\":\"Mobile Number, Australia\",\"isConnected\":true,\"isDisconnected\":false,\"isDone\":false,\"state\":\"CONNECTED\",\"isCallback\":false,\"isDialer\":false,\"isChat\":false,\"isEmail\":false,\"isMessage\":false,\"isVoicemail\":false,\"remoteName\":\"Mobile Number, Australia\",\"recordingState\":\"active\",\"securePause\":false,\"displayAddress\":\"+61431598408\",\"queueName\":\"Salesforce Voice\",\"ani\":\"+61431598408\",\"calledNumber\":\"+61364098722\",\"totalIvrDurationSeconds\":7,\"direction\":\"Inbound\",\"isInternal\":false,\"startTime\":\"2024-04-09T04:19:30.967Z\"}}}}"
-            },
-            "timeSinceLast": 774
-        },
-        {
-            "eventName": "INTERACTION_CONNECTED",
-            "message": {
-                "message": "{\"reason\":\"connected\",\"interactionId\":\"e4e03b73-784b-435e-a30a-a527e20801c8\"}"
-            },
-            "timeSinceLast": 6
-        },
-        {
-            "eventName": "INTERACTION_EVENT",
-            "message": {
-                "message": "{\"reason\":\"interaction\",\"data\":{\"category\":\"change\",\"data\":{\"old\":{\"id\":\"e4e03b73-784b-435e-a30a-a527e20801c8\",\"connectedTime\":\"2024-04-09T04:19:42.719Z\",\"phone\":\"tel:+61431598408\",\"name\":\"Mobile Number, Australia\",\"isConnected\":true,\"isDisconnected\":false,\"isDone\":false,\"state\":\"CONNECTED\",\"isCallback\":false,\"isDialer\":false,\"isChat\":false,\"isEmail\":false,\"isMessage\":false,\"isVoicemail\":false,\"remoteName\":\"Mobile Number, Australia\",\"recordingState\":\"active\",\"securePause\":false,\"displayAddress\":\"+61431598408\",\"queueName\":\"Salesforce Voice\",\"ani\":\"+61431598408\",\"calledNumber\":\"+61364098722\",\"totalIvrDurationSeconds\":7,\"direction\":\"Inbound\",\"isInternal\":false,\"startTime\":\"2024-04-09T04:19:30.967Z\"},\"new\":{\"id\":\"e4e03b73-784b-435e-a30a-a527e20801c8\",\"connectedTime\":\"2024-04-09T04:19:42.719Z\",\"phone\":\"tel:+61431598408\",\"name\":\"Mobile Number, Australia\",\"isConnected\":true,\"isDisconnected\":false,\"isDone\":false,\"state\":\"CONNECTED\",\"isCallback\":false,\"isDialer\":false,\"isChat\":false,\"isEmail\":false,\"isMessage\":false,\"isVoicemail\":false,\"remoteName\":\"Mobile Number, Australia\",\"recordingState\":\"active\",\"securePause\":false,\"displayAddress\":\"+61431598408\",\"queueName\":\"Salesforce Voice\",\"ani\":\"+61431598408\",\"calledNumber\":\"+61364098722\",\"totalIvrDurationSeconds\":7,\"direction\":\"Inbound\",\"isInternal\":false,\"startTime\":\"2024-04-09T04:19:30.967Z\"}}}}"
-            },
-            "timeSinceLast": 140
-        },
-        {
-            "eventName": "INTERACTION_EVENT",
-            "message": {
-                "message": "{\"reason\":\"interaction\",\"data\":{\"category\":\"change\",\"data\":{\"old\":{\"id\":\"e4e03b73-784b-435e-a30a-a527e20801c8\",\"connectedTime\":\"2024-04-09T04:19:42.719Z\",\"phone\":\"tel:+61431598408\",\"name\":\"Mobile Number, Australia\",\"isConnected\":true,\"isDisconnected\":false,\"isDone\":false,\"state\":\"CONNECTED\",\"isCallback\":false,\"isDialer\":false,\"isChat\":false,\"isEmail\":false,\"isMessage\":false,\"isVoicemail\":false,\"remoteName\":\"Mobile Number, Australia\",\"recordingState\":\"active\",\"securePause\":false,\"displayAddress\":\"+61431598408\",\"queueName\":\"Salesforce Voice\",\"ani\":\"+61431598408\",\"calledNumber\":\"+61364098722\",\"totalIvrDurationSeconds\":7,\"direction\":\"Inbound\",\"isInternal\":false,\"startTime\":\"2024-04-09T04:19:30.967Z\"},\"new\":{\"id\":\"e4e03b73-784b-435e-a30a-a527e20801c8\",\"connectedTime\":\"2024-04-09T04:19:42.719Z\",\"phone\":\"tel:+61431598408\",\"name\":\"Mobile Number, Australia\",\"isConnected\":true,\"isDisconnected\":false,\"isDone\":false,\"state\":\"CONNECTED\",\"isCallback\":false,\"isDialer\":false,\"isChat\":false,\"isEmail\":false,\"isMessage\":false,\"isVoicemail\":false,\"remoteName\":\"Mobile Number, Australia\",\"recordingState\":\"active\",\"securePause\":false,\"displayAddress\":\"+61431598408\",\"queueName\":\"Salesforce Voice\",\"ani\":\"+61431598408\",\"calledNumber\":\"+61364098722\",\"totalIvrDurationSeconds\":7,\"direction\":\"Inbound\",\"isInternal\":false,\"startTime\":\"2024-04-09T04:19:30.967Z\"}}}}"
-            },
-            "timeSinceLast": 10
-        },
-        {
-            "eventName": "INTERACTION_EVENT",
-            "message": {
-                "message": "{\"reason\":\"interaction\",\"data\":{\"category\":\"change\",\"data\":{\"old\":{\"id\":\"e4e03b73-784b-435e-a30a-a527e20801c8\",\"connectedTime\":\"2024-04-09T04:19:42.719Z\",\"phone\":\"tel:+61431598408\",\"name\":\"Mobile Number, Australia\",\"isConnected\":true,\"isDisconnected\":false,\"isDone\":false,\"state\":\"CONNECTED\",\"isCallback\":false,\"isDialer\":false,\"isChat\":false,\"isEmail\":false,\"isMessage\":false,\"isVoicemail\":false,\"remoteName\":\"Mobile Number, Australia\",\"recordingState\":\"active\",\"securePause\":false,\"displayAddress\":\"+61431598408\",\"queueName\":\"Salesforce Voice\",\"ani\":\"+61431598408\",\"calledNumber\":\"+61364098722\",\"totalIvrDurationSeconds\":7,\"direction\":\"Inbound\",\"isInternal\":false,\"startTime\":\"2024-04-09T04:19:30.967Z\"},\"new\":{\"id\":\"e4e03b73-784b-435e-a30a-a527e20801c8\",\"connectedTime\":\"2024-04-09T04:19:42.719Z\",\"phone\":\"tel:+61431598408\",\"name\":\"Mobile Number, Australia\",\"isConnected\":true,\"isDisconnected\":false,\"isDone\":false,\"state\":\"CONNECTED\",\"isCallback\":false,\"isDialer\":false,\"isChat\":false,\"isEmail\":false,\"isMessage\":false,\"isVoicemail\":false,\"remoteName\":\"Mobile Number, Australia\",\"recordingState\":\"active\",\"securePause\":false,\"displayAddress\":\"+61431598408\",\"queueName\":\"Salesforce Voice\",\"ani\":\"+61431598408\",\"calledNumber\":\"+61364098722\",\"totalIvrDurationSeconds\":7,\"direction\":\"Inbound\",\"isInternal\":false,\"startTime\":\"2024-04-09T04:19:30.967Z\"}}}}"
-            },
-            "timeSinceLast": 36
-        },
-        {
-            "eventName": "INTERACTION_EVENT",
-            "message": {
-                "message": "{\"reason\":\"interaction\",\"data\":{\"category\":\"change\",\"data\":{\"old\":{\"id\":\"e4e03b73-784b-435e-a30a-a527e20801c8\",\"connectedTime\":\"2024-04-09T04:19:42.719Z\",\"phone\":\"tel:+61431598408\",\"name\":\"Mobile Number, Australia\",\"isConnected\":true,\"isDisconnected\":false,\"isDone\":false,\"state\":\"CONNECTED\",\"isCallback\":false,\"isDialer\":false,\"isChat\":false,\"isEmail\":false,\"isMessage\":false,\"isVoicemail\":false,\"remoteName\":\"Mobile Number, Australia\",\"recordingState\":\"active\",\"securePause\":false,\"displayAddress\":\"+61431598408\",\"queueName\":\"Salesforce Voice\",\"ani\":\"+61431598408\",\"calledNumber\":\"+61364098722\",\"totalIvrDurationSeconds\":7,\"direction\":\"Inbound\",\"isInternal\":false,\"startTime\":\"2024-04-09T04:19:30.967Z\"},\"new\":{\"id\":\"e4e03b73-784b-435e-a30a-a527e20801c8\",\"connectedTime\":\"2024-04-09T04:19:42.719Z\",\"phone\":\"tel:+61431598408\",\"name\":\"Mobile Number, Australia\",\"isConnected\":true,\"isDisconnected\":false,\"isDone\":false,\"state\":\"CONNECTED\",\"isCallback\":false,\"isDialer\":false,\"isChat\":false,\"isEmail\":false,\"isMessage\":false,\"isVoicemail\":false,\"remoteName\":\"Mobile Number, Australia\",\"recordingState\":\"active\",\"securePause\":false,\"displayAddress\":\"+61431598408\",\"queueName\":\"Salesforce Voice\",\"ani\":\"+61431598408\",\"calledNumber\":\"+61364098722\",\"totalIvrDurationSeconds\":7,\"direction\":\"Inbound\",\"isInternal\":false,\"startTime\":\"2024-04-09T04:19:30.967Z\"}}}}"
-            },
-            "timeSinceLast": 47
-        },
-        {
-            "eventName": "INTERACTION_EVENT",
-            "message": {
-                "message": "{\"reason\":\"interaction\",\"data\":{\"category\":\"change\",\"data\":{\"old\":{\"id\":\"e4e03b73-784b-435e-a30a-a527e20801c8\",\"connectedTime\":\"2024-04-09T04:19:42.719Z\",\"phone\":\"tel:+61431598408\",\"name\":\"Mobile Number, Australia\",\"isConnected\":true,\"isDisconnected\":false,\"isDone\":false,\"state\":\"CONNECTED\",\"isCallback\":false,\"isDialer\":false,\"isChat\":false,\"isEmail\":false,\"isMessage\":false,\"isVoicemail\":false,\"remoteName\":\"Mobile Number, Australia\",\"recordingState\":\"active\",\"securePause\":false,\"displayAddress\":\"+61431598408\",\"queueName\":\"Salesforce Voice\",\"ani\":\"+61431598408\",\"calledNumber\":\"+61364098722\",\"totalIvrDurationSeconds\":7,\"totalAcdDurationSeconds\":4,\"direction\":\"Inbound\",\"isInternal\":false,\"startTime\":\"2024-04-09T04:19:30.967Z\"},\"new\":{\"id\":\"e4e03b73-784b-435e-a30a-a527e20801c8\",\"connectedTime\":\"2024-04-09T04:19:42.719Z\",\"phone\":\"tel:+61431598408\",\"name\":\"Mobile Number, Australia\",\"isConnected\":true,\"isDisconnected\":false,\"isDone\":false,\"state\":\"CONNECTED\",\"isCallback\":false,\"isDialer\":false,\"isChat\":false,\"isEmail\":false,\"isMessage\":false,\"isVoicemail\":false,\"remoteName\":\"Mobile Number, Australia\",\"recordingState\":\"active\",\"securePause\":false,\"displayAddress\":\"+61431598408\",\"queueName\":\"Salesforce Voice\",\"ani\":\"+61431598408\",\"calledNumber\":\"+61364098722\",\"totalIvrDurationSeconds\":7,\"totalAcdDurationSeconds\":4,\"direction\":\"Inbound\",\"isInternal\":false,\"startTime\":\"2024-04-09T04:19:30.967Z\"}}}}"
-            },
-            "timeSinceLast": 26
-        },
-        {
-            "eventName": "INTERACTION_EVENT",
-            "message": {
-                "message": "{\"reason\":\"interaction\",\"data\":{\"category\":\"change\",\"data\":{\"old\":{\"id\":\"e4e03b73-784b-435e-a30a-a527e20801c8\",\"connectedTime\":\"2024-04-09T04:19:42.719Z\",\"phone\":\"tel:+61431598408\",\"name\":\"Mobile Number, Australia\",\"isConnected\":true,\"isDisconnected\":false,\"isDone\":false,\"state\":\"CONNECTED\",\"isCallback\":false,\"isDialer\":false,\"isChat\":false,\"isEmail\":false,\"isMessage\":false,\"isVoicemail\":false,\"remoteName\":\"Mobile Number, Australia\",\"recordingState\":\"active\",\"securePause\":false,\"displayAddress\":\"+61431598408\",\"queueName\":\"Salesforce Voice\",\"ani\":\"+61431598408\",\"calledNumber\":\"+61364098722\",\"totalIvrDurationSeconds\":7,\"totalAcdDurationSeconds\":4,\"direction\":\"Inbound\",\"isInternal\":false,\"startTime\":\"2024-04-09T04:19:30.967Z\"},\"new\":{\"id\":\"e4e03b73-784b-435e-a30a-a527e20801c8\",\"connectedTime\":\"2024-04-09T04:19:42.719Z\",\"phone\":\"tel:+61431598408\",\"name\":\"Mobile Number, Australia\",\"isConnected\":true,\"isDisconnected\":false,\"isDone\":false,\"state\":\"CONNECTED\",\"isCallback\":false,\"isDialer\":false,\"isChat\":false,\"isEmail\":false,\"isMessage\":false,\"isVoicemail\":false,\"remoteName\":\"Mobile Number, Australia\",\"recordingState\":\"active\",\"securePause\":false,\"displayAddress\":\"+61431598408\",\"queueName\":\"Salesforce Voice\",\"ani\":\"+61431598408\",\"calledNumber\":\"+61364098722\",\"totalIvrDurationSeconds\":7,\"totalAcdDurationSeconds\":4,\"direction\":\"Inbound\",\"isInternal\":false,\"startTime\":\"2024-04-09T04:19:30.967Z\"}}}}"
-            },
-            "timeSinceLast": 30
-        },
-        {
-            "eventName": "INTERACTION_EVENT",
-            "message": {
-                "message": "{\"reason\":\"interaction\",\"data\":{\"category\":\"change\",\"data\":{\"old\":{\"id\":\"e4e03b73-784b-435e-a30a-a527e20801c8\",\"connectedTime\":\"2024-04-09T04:19:42.719Z\",\"phone\":\"tel:+61431598408\",\"name\":\"Mobile Number, Australia\",\"isConnected\":true,\"isDisconnected\":false,\"isDone\":false,\"state\":\"CONNECTED\",\"isCallback\":false,\"isDialer\":false,\"isChat\":false,\"isEmail\":false,\"isMessage\":false,\"isVoicemail\":false,\"remoteName\":\"Mobile Number, Australia\",\"recordingState\":\"active\",\"securePause\":false,\"displayAddress\":\"+61431598408\",\"queueName\":\"Salesforce Voice\",\"ani\":\"+61431598408\",\"calledNumber\":\"+61364098722\",\"totalIvrDurationSeconds\":7,\"totalAcdDurationSeconds\":4,\"direction\":\"Inbound\",\"isInternal\":false,\"startTime\":\"2024-04-09T04:19:30.967Z\"},\"new\":{\"id\":\"e4e03b73-784b-435e-a30a-a527e20801c8\",\"connectedTime\":\"2024-04-09T04:19:42.719Z\",\"phone\":\"tel:+61431598408\",\"name\":\"Mobile Number, Australia\",\"isConnected\":true,\"isDisconnected\":false,\"isDone\":false,\"state\":\"CONNECTED\",\"isCallback\":false,\"isDialer\":false,\"isChat\":false,\"isEmail\":false,\"isMessage\":false,\"isVoicemail\":false,\"remoteName\":\"Mobile Number, Australia\",\"recordingState\":\"active\",\"securePause\":false,\"displayAddress\":\"+61431598408\",\"queueName\":\"Salesforce Voice\",\"ani\":\"+61431598408\",\"calledNumber\":\"+61364098722\",\"totalIvrDurationSeconds\":7,\"totalAcdDurationSeconds\":4,\"direction\":\"Inbound\",\"isInternal\":false,\"startTime\":\"2024-04-09T04:19:30.967Z\"}}}}"
-            },
-            "timeSinceLast": 29
-        },
-        {
-            "eventName": "INTERACTION_EVENT",
-            "message": {
-                "message": "{\"reason\":\"interaction\",\"data\":{\"category\":\"change\",\"data\":{\"old\":{\"id\":\"e4e03b73-784b-435e-a30a-a527e20801c8\",\"connectedTime\":\"2024-04-09T04:19:42.719Z\",\"phone\":\"tel:+61431598408\",\"name\":\"Mobile Number, Australia\",\"isConnected\":true,\"isDisconnected\":false,\"isDone\":false,\"state\":\"CONNECTED\",\"isCallback\":false,\"isDialer\":false,\"isChat\":false,\"isEmail\":false,\"isMessage\":false,\"isVoicemail\":false,\"remoteName\":\"Mobile Number, Australia\",\"recordingState\":\"active\",\"securePause\":false,\"displayAddress\":\"+61431598408\",\"queueName\":\"Salesforce Voice\",\"ani\":\"+61431598408\",\"calledNumber\":\"+61364098722\",\"totalIvrDurationSeconds\":7,\"totalAcdDurationSeconds\":4,\"direction\":\"Inbound\",\"isInternal\":false,\"startTime\":\"2024-04-09T04:19:30.967Z\"},\"new\":{\"id\":\"e4e03b73-784b-435e-a30a-a527e20801c8\",\"connectedTime\":\"2024-04-09T04:19:42.719Z\",\"phone\":\"tel:+61431598408\",\"name\":\"Mobile Number, Australia\",\"isConnected\":true,\"isDisconnected\":false,\"isDone\":false,\"state\":\"CONNECTED\",\"isCallback\":false,\"isDialer\":false,\"isChat\":false,\"isEmail\":false,\"isMessage\":false,\"isVoicemail\":false,\"remoteName\":\"Mobile Number, Australia\",\"recordingState\":\"active\",\"securePause\":false,\"displayAddress\":\"+61431598408\",\"queueName\":\"Salesforce Voice\",\"ani\":\"+61431598408\",\"calledNumber\":\"+61364098722\",\"totalIvrDurationSeconds\":7,\"totalAcdDurationSeconds\":4,\"direction\":\"Inbound\",\"isInternal\":false,\"startTime\":\"2024-04-09T04:19:30.967Z\"}}}}"
-            },
-            "timeSinceLast": 1185
-        },
-        {
-            "eventName": "INTERACTION_EVENT",
-            "message": {
-                "message": "{\"reason\":\"interaction\",\"data\":{\"category\":\"change\",\"data\":{\"old\":{\"id\":\"e4e03b73-784b-435e-a30a-a527e20801c8\",\"connectedTime\":\"2024-04-09T04:19:42.719Z\",\"phone\":\"tel:+61431598408\",\"name\":\"Mobile Number, Australia\",\"isConnected\":true,\"isDisconnected\":false,\"isDone\":false,\"state\":\"CONNECTED\",\"isCallback\":false,\"isDialer\":false,\"isChat\":false,\"isEmail\":false,\"isMessage\":false,\"isVoicemail\":false,\"remoteName\":\"Mobile Number, Australia\",\"recordingState\":\"active\",\"securePause\":false,\"displayAddress\":\"+61431598408\",\"queueName\":\"Salesforce Voice\",\"ani\":\"+61431598408\",\"calledNumber\":\"+61364098722\",\"totalIvrDurationSeconds\":7,\"totalAcdDurationSeconds\":4,\"direction\":\"Inbound\",\"isInternal\":false,\"startTime\":\"2024-04-09T04:19:30.967Z\"},\"new\":{\"id\":\"e4e03b73-784b-435e-a30a-a527e20801c8\",\"connectedTime\":\"2024-04-09T04:19:42.719Z\",\"phone\":\"tel:+61431598408\",\"name\":\"Mobile Number, Australia\",\"isConnected\":true,\"isDisconnected\":false,\"isDone\":false,\"state\":\"CONNECTED\",\"isCallback\":false,\"isDialer\":false,\"isChat\":false,\"isEmail\":false,\"isMessage\":false,\"isVoicemail\":false,\"remoteName\":\"Mobile Number, Australia\",\"recordingState\":\"active\",\"securePause\":false,\"displayAddress\":\"+61431598408\",\"queueName\":\"Salesforce Voice\",\"ani\":\"+61431598408\",\"calledNumber\":\"+61364098722\",\"totalIvrDurationSeconds\":7,\"totalAcdDurationSeconds\":4,\"direction\":\"Inbound\",\"isInternal\":false,\"startTime\":\"2024-04-09T04:19:30.967Z\"}}}}"
-            },
-            "timeSinceLast": 831
-        },
-        {
-            "eventName": "INTERACTION_EVENT",
-            "message": {
-                "message": "{\"reason\":\"interaction\",\"data\":{\"category\":\"change\",\"data\":{\"old\":{\"id\":\"e4e03b73-784b-435e-a30a-a527e20801c8\",\"connectedTime\":\"2024-04-09T04:19:42.719Z\",\"phone\":\"tel:+61431598408\",\"name\":\"Mobile Number, Australia\",\"isConnected\":true,\"isDisconnected\":false,\"isDone\":false,\"state\":\"CONNECTED\",\"isCallback\":false,\"isDialer\":false,\"isChat\":false,\"isEmail\":false,\"isMessage\":false,\"isVoicemail\":false,\"remoteName\":\"Mobile Number, Australia\",\"recordingState\":\"active\",\"securePause\":false,\"displayAddress\":\"+61431598408\",\"queueName\":\"Salesforce Voice\",\"ani\":\"+61431598408\",\"calledNumber\":\"+61364098722\",\"totalIvrDurationSeconds\":7,\"totalAcdDurationSeconds\":4,\"direction\":\"Inbound\",\"isInternal\":false,\"startTime\":\"2024-04-09T04:19:30.967Z\"},\"new\":{\"id\":\"e4e03b73-784b-435e-a30a-a527e20801c8\",\"connectedTime\":\"2024-04-09T04:19:42.719Z\",\"phone\":\"tel:+61431598408\",\"name\":\"Mobile Number, Australia\",\"isConnected\":true,\"isDisconnected\":false,\"isDone\":false,\"state\":\"CONNECTED\",\"isCallback\":false,\"isDialer\":false,\"isChat\":false,\"isEmail\":false,\"isMessage\":false,\"isVoicemail\":false,\"remoteName\":\"Mobile Number, Australia\",\"recordingState\":\"active\",\"securePause\":false,\"displayAddress\":\"+61431598408\",\"queueName\":\"Salesforce Voice\",\"ani\":\"+61431598408\",\"calledNumber\":\"+61364098722\",\"totalIvrDurationSeconds\":7,\"totalAcdDurationSeconds\":4,\"direction\":\"Inbound\",\"isInternal\":false,\"startTime\":\"2024-04-09T04:19:30.967Z\"}}}}"
-            },
-            "timeSinceLast": 743
-        },
-        {
-            "eventName": "INTERACTION_EVENT",
-            "message": {
-                "message": "{\"reason\":\"interaction\",\"data\":{\"category\":\"change\",\"data\":{\"old\":{\"id\":\"e4e03b73-784b-435e-a30a-a527e20801c8\",\"connectedTime\":\"2024-04-09T04:19:42.719Z\",\"phone\":\"tel:+61431598408\",\"name\":\"Mobile Number, Australia\",\"isConnected\":true,\"isDisconnected\":false,\"isDone\":false,\"state\":\"CONNECTED\",\"isCallback\":false,\"isDialer\":false,\"isChat\":false,\"isEmail\":false,\"isMessage\":false,\"isVoicemail\":false,\"remoteName\":\"Mobile Number, Australia\",\"recordingState\":\"active\",\"securePause\":false,\"displayAddress\":\"+61431598408\",\"queueName\":\"Salesforce Voice\",\"ani\":\"+61431598408\",\"calledNumber\":\"+61364098722\",\"totalIvrDurationSeconds\":7,\"totalAcdDurationSeconds\":4,\"direction\":\"Inbound\",\"isInternal\":false,\"startTime\":\"2024-04-09T04:19:30.967Z\"},\"new\":{\"id\":\"e4e03b73-784b-435e-a30a-a527e20801c8\",\"connectedTime\":\"2024-04-09T04:19:42.719Z\",\"phone\":\"tel:+61431598408\",\"name\":\"Mobile Number, Australia\",\"isConnected\":true,\"isDisconnected\":false,\"isDone\":false,\"state\":\"CONNECTED\",\"isCallback\":false,\"isDialer\":false,\"isChat\":false,\"isEmail\":false,\"isMessage\":false,\"isVoicemail\":false,\"remoteName\":\"Mobile Number, Australia\",\"recordingState\":\"active\",\"securePause\":false,\"displayAddress\":\"+61431598408\",\"queueName\":\"Salesforce Voice\",\"ani\":\"+61431598408\",\"calledNumber\":\"+61364098722\",\"totalIvrDurationSeconds\":7,\"totalAcdDurationSeconds\":4,\"direction\":\"Inbound\",\"isInternal\":false,\"startTime\":\"2024-04-09T04:19:30.967Z\"}}}}"
-            },
-            "timeSinceLast": 839
-        },
-        {
-            "eventName": "INTERACTION_EVENT",
-            "message": {
-                "message": "{\"reason\":\"interaction\",\"data\":{\"category\":\"change\",\"data\":{\"old\":{\"id\":\"e4e03b73-784b-435e-a30a-a527e20801c8\",\"connectedTime\":\"2024-04-09T04:19:42.719Z\",\"phone\":\"tel:+61431598408\",\"name\":\"Mobile Number, Australia\",\"isConnected\":true,\"isDisconnected\":false,\"isDone\":false,\"state\":\"CONNECTED\",\"isCallback\":false,\"isDialer\":false,\"isChat\":false,\"isEmail\":false,\"isMessage\":false,\"isVoicemail\":false,\"remoteName\":\"Mobile Number, Australia\",\"recordingState\":\"active\",\"securePause\":false,\"displayAddress\":\"+61431598408\",\"queueName\":\"Salesforce Voice\",\"ani\":\"+61431598408\",\"calledNumber\":\"+61364098722\",\"totalIvrDurationSeconds\":7,\"totalAcdDurationSeconds\":4,\"direction\":\"Inbound\",\"isInternal\":false,\"startTime\":\"2024-04-09T04:19:30.967Z\"},\"new\":{\"id\":\"e4e03b73-784b-435e-a30a-a527e20801c8\",\"connectedTime\":\"2024-04-09T04:19:42.719Z\",\"phone\":\"tel:+61431598408\",\"name\":\"Mobile Number, Australia\",\"isConnected\":true,\"isDisconnected\":false,\"isDone\":false,\"state\":\"HELD\",\"isCallback\":false,\"isDialer\":false,\"isChat\":false,\"isEmail\":false,\"isMessage\":false,\"isVoicemail\":false,\"remoteName\":\"Mobile Number, Australia\",\"recordingState\":\"active\",\"securePause\":false,\"displayAddress\":\"+61431598408\",\"queueName\":\"Salesforce Voice\",\"ani\":\"+61431598408\",\"calledNumber\":\"+61364098722\",\"totalIvrDurationSeconds\":7,\"totalAcdDurationSeconds\":4,\"direction\":\"Inbound\",\"isInternal\":false,\"startTime\":\"2024-04-09T04:19:30.967Z\"}}}}"
-            },
-            "timeSinceLast": 9
-        },
-        {
-            "eventName": "INTERACTION_EVENT",
-            "message": {
-                "message": "{\"reason\":\"interaction\",\"data\":{\"category\":\"change\",\"data\":{\"old\":{\"id\":\"e4e03b73-784b-435e-a30a-a527e20801c8\",\"connectedTime\":\"2024-04-09T04:19:42.719Z\",\"phone\":\"tel:+61431598408\",\"name\":\"Mobile Number, Australia\",\"isConnected\":true,\"isDisconnected\":false,\"isDone\":false,\"state\":\"HELD\",\"isCallback\":false,\"isDialer\":false,\"isChat\":false,\"isEmail\":false,\"isMessage\":false,\"isVoicemail\":false,\"remoteName\":\"Mobile Number, Australia\",\"recordingState\":\"active\",\"securePause\":false,\"displayAddress\":\"+61431598408\",\"queueName\":\"Salesforce Voice\",\"ani\":\"+61431598408\",\"calledNumber\":\"+61364098722\",\"totalIvrDurationSeconds\":7,\"totalAcdDurationSeconds\":4,\"direction\":\"Inbound\",\"isInternal\":false,\"startTime\":\"2024-04-09T04:19:30.967Z\"},\"new\":{\"id\":\"e4e03b73-784b-435e-a30a-a527e20801c8\",\"connectedTime\":\"2024-04-09T04:19:42.719Z\",\"phone\":\"tel:+61431598408\",\"name\":\"Mobile Number, Australia\",\"isConnected\":true,\"isDisconnected\":false,\"isDone\":false,\"state\":\"HELD\",\"isCallback\":false,\"isDialer\":false,\"isChat\":false,\"isEmail\":false,\"isMessage\":false,\"isVoicemail\":false,\"remoteName\":\"Mobile Number, Australia\",\"recordingState\":\"active\",\"securePause\":false,\"displayAddress\":\"+61431598408\",\"queueName\":\"Salesforce Voice\",\"ani\":\"+61431598408\",\"calledNumber\":\"+61364098722\",\"totalIvrDurationSeconds\":7,\"totalAcdDurationSeconds\":4,\"direction\":\"Inbound\",\"isInternal\":false,\"startTime\":\"2024-04-09T04:19:30.967Z\"}}}}"
-            },
-            "timeSinceLast": 1737
-        },
-        {
-            "eventName": "INTERACTION_EVENT",
-            "message": {
-                "message": "{\"reason\":\"interaction\",\"data\":{\"category\":\"change\",\"data\":{\"old\":{\"id\":\"e4e03b73-784b-435e-a30a-a527e20801c8\",\"connectedTime\":\"2024-04-09T04:19:42.719Z\",\"phone\":\"tel:+61431598408\",\"name\":\"Mobile Number, Australia\",\"isConnected\":true,\"isDisconnected\":false,\"isDone\":false,\"state\":\"HELD\",\"isCallback\":false,\"isDialer\":false,\"isChat\":false,\"isEmail\":false,\"isMessage\":false,\"isVoicemail\":false,\"remoteName\":\"Mobile Number, Australia\",\"recordingState\":\"active\",\"securePause\":false,\"displayAddress\":\"+61431598408\",\"queueName\":\"Salesforce Voice\",\"ani\":\"+61431598408\",\"calledNumber\":\"+61364098722\",\"totalIvrDurationSeconds\":7,\"totalAcdDurationSeconds\":4,\"direction\":\"Inbound\",\"isInternal\":false,\"startTime\":\"2024-04-09T04:19:30.967Z\"},\"new\":{\"id\":\"e4e03b73-784b-435e-a30a-a527e20801c8\",\"connectedTime\":\"2024-04-09T04:19:42.719Z\",\"phone\":\"tel:+61431598408\",\"name\":\"Mobile Number, Australia\",\"isConnected\":true,\"isDisconnected\":false,\"isDone\":false,\"state\":\"CONNECTED\",\"isCallback\":false,\"isDialer\":false,\"isChat\":false,\"isEmail\":false,\"isMessage\":false,\"isVoicemail\":false,\"remoteName\":\"Mobile Number, Australia\",\"recordingState\":\"active\",\"securePause\":false,\"displayAddress\":\"+61431598408\",\"queueName\":\"Salesforce Voice\",\"ani\":\"+61431598408\",\"calledNumber\":\"+61364098722\",\"totalIvrDurationSeconds\":7,\"totalAcdDurationSeconds\":4,\"direction\":\"Inbound\",\"isInternal\":false,\"startTime\":\"2024-04-09T04:19:30.967Z\"}}}}"
-            },
-            "timeSinceLast": 13
-        },
-        {
-            "eventName": "INTERACTION_EVENT",
-            "message": {
-                "message": "{\"reason\":\"interaction\",\"data\":{\"category\":\"change\",\"data\":{\"old\":{\"id\":\"e4e03b73-784b-435e-a30a-a527e20801c8\",\"connectedTime\":\"2024-04-09T04:19:42.719Z\",\"phone\":\"tel:+61431598408\",\"name\":\"Mobile Number, Australia\",\"isConnected\":true,\"isDisconnected\":false,\"isDone\":false,\"state\":\"CONNECTED\",\"isCallback\":false,\"isDialer\":false,\"isChat\":false,\"isEmail\":false,\"isMessage\":false,\"isVoicemail\":false,\"remoteName\":\"Mobile Number, Australia\",\"recordingState\":\"active\",\"securePause\":false,\"displayAddress\":\"+61431598408\",\"queueName\":\"Salesforce Voice\",\"ani\":\"+61431598408\",\"calledNumber\":\"+61364098722\",\"totalIvrDurationSeconds\":7,\"totalAcdDurationSeconds\":4,\"direction\":\"Inbound\",\"isInternal\":false,\"startTime\":\"2024-04-09T04:19:30.967Z\"},\"new\":{\"id\":\"e4e03b73-784b-435e-a30a-a527e20801c8\",\"connectedTime\":\"2024-04-09T04:19:42.719Z\",\"phone\":\"tel:+61431598408\",\"name\":\"Mobile Number, Australia\",\"isConnected\":true,\"isDisconnected\":false,\"isDone\":false,\"state\":\"CONNECTED\",\"isCallback\":false,\"isDialer\":false,\"isChat\":false,\"isEmail\":false,\"isMessage\":false,\"isVoicemail\":false,\"remoteName\":\"Mobile Number, Australia\",\"recordingState\":\"none\",\"securePause\":false,\"displayAddress\":\"+61431598408\",\"queueName\":\"Salesforce Voice\",\"ani\":\"+61431598408\",\"calledNumber\":\"+61364098722\",\"totalIvrDurationSeconds\":7,\"totalAcdDurationSeconds\":4,\"direction\":\"Inbound\",\"isInternal\":false,\"startTime\":\"2024-04-09T04:19:30.967Z\"}}}}"
-            },
-            "timeSinceLast": 1636
-        },
-        {
-            "eventName": "INTERACTION_EVENT",
-            "message": {
-                "message": "{\"reason\":\"interaction\",\"data\":{\"category\":\"change\",\"data\":{\"old\":{\"id\":\"e4e03b73-784b-435e-a30a-a527e20801c8\",\"connectedTime\":\"2024-04-09T04:19:42.719Z\",\"phone\":\"tel:+61431598408\",\"name\":\"Mobile Number, Australia\",\"isConnected\":true,\"isDisconnected\":false,\"isDone\":false,\"state\":\"CONNECTED\",\"isCallback\":false,\"isDialer\":false,\"isChat\":false,\"isEmail\":false,\"isMessage\":false,\"isVoicemail\":false,\"remoteName\":\"Mobile Number, Australia\",\"recordingState\":\"none\",\"securePause\":false,\"displayAddress\":\"+61431598408\",\"queueName\":\"Salesforce Voice\",\"ani\":\"+61431598408\",\"calledNumber\":\"+61364098722\",\"totalIvrDurationSeconds\":7,\"totalAcdDurationSeconds\":4,\"direction\":\"Inbound\",\"isInternal\":false,\"startTime\":\"2024-04-09T04:19:30.967Z\"},\"new\":{\"id\":\"e4e03b73-784b-435e-a30a-a527e20801c8\",\"connectedTime\":\"2024-04-09T04:19:42.719Z\",\"phone\":\"tel:+61431598408\",\"name\":\"Mobile Number, Australia\",\"isConnected\":true,\"isDisconnected\":false,\"isDone\":false,\"state\":\"CONNECTED\",\"isCallback\":false,\"isDialer\":false,\"isChat\":false,\"isEmail\":false,\"isMessage\":false,\"isVoicemail\":false,\"remoteName\":\"Mobile Number, Australia\",\"recordingState\":\"active\",\"securePause\":false,\"displayAddress\":\"+61431598408\",\"queueName\":\"Salesforce Voice\",\"ani\":\"+61431598408\",\"calledNumber\":\"+61364098722\",\"totalIvrDurationSeconds\":7,\"totalAcdDurationSeconds\":4,\"direction\":\"Inbound\",\"isInternal\":false,\"startTime\":\"2024-04-09T04:19:30.967Z\"}}}}"
-            },
-            "timeSinceLast": 11
-        },
-        {
-            "eventName": "INTERACTION_DISCONNECTED",
-            "message": {
-                "message": "{\"reason\":\"disconnected\",\"interactionId\":\"e4e03b73-784b-435e-a30a-a527e20801c8\"}"
-            },
-            "timeSinceLast": 5048
-        },
-        {
-            "eventName": "ACW_REQUIRED",
-            "message": {
-                "message": "{\"reason\":\"acw_required\",\"interactionId\":\"e4e03b73-784b-435e-a30a-a527e20801c8\"}"
-            },
-            "timeSinceLast": 1
-        },
-        {
-            "eventName": "ACW_COMPLETED",
-            "message": {
-                "message": "{\"reason\":\"acw_completed\",\"interactionId\":\"e4e03b73-784b-435e-a30a-a527e20801c8\"}"
-            },
-            "timeSinceLast": 2759
-        }
-    ];
 }
 
-class GenCallInteractionProxy {
+class CallInteractionProxy {
     constructor(ctiEvent, fieldMappings) {
         const thisRef = this;
         this.fieldMappings = fieldMappings;
@@ -532,7 +346,7 @@ class GenCallInteractionProxy {
                 const keyName = thisRef.fieldMappings[key];
 
                 if (keyName) {
-                    return GenCTIUtils.getObjProp(target, keyName);
+                    return GenesysCTIUtils.getObjProp(target, keyName);
                 }
 
                 // If property not in field mappings, return undefined
@@ -542,7 +356,7 @@ class GenCallInteractionProxy {
                 const keyName = fieldMappings[key];
 
                 if (keyName) {
-                    GenCTIUtils.setObjProp(target, keyName, value);
+                    GenesysCTIUtils.setObjProp(target, keyName, value);
                     return true;
                 }
 
@@ -562,7 +376,7 @@ class GenCallInteractionProxy {
                 }
 
                 return Object.keys(fieldMap).reduce((res, key) => {
-                    let value = this.proxy[key];// GenCTIUtils.getObjProp(this.source, fieldMap[key]);
+                    let value = this.proxy[key];// GenesysCTIUtils.getObjProp(this.source, fieldMap[key]);
                     return value !== undefined
                         ? Object.assign(res, { [key] : value })
                         : res;
@@ -570,7 +384,7 @@ class GenCallInteractionProxy {
             },
             update : (ctiEvent) => {
                 if (ctiEvent?.detail) {
-                    GenCTIUtils.deepCloneObj(this.source, ctiEvent.detail);
+                    GenesysCTIUtils.deepCloneObj(this.source, ctiEvent.detail);
                 }
             }
         }
@@ -581,7 +395,7 @@ class GenCallInteractionProxy {
     }
 }
 
-class GenAsyncTask {
+class AsyncTask {
     constructor(promise) {
         this.status = 'pending';
         this.actions = { };

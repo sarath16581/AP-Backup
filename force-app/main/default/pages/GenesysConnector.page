@@ -21,9 +21,7 @@
 		maintainWindowState : {!$Permission.SSSWCTIMaintainWindowState}
 	}
 
-	window.onload = () => {
-		// Connect all event handlers for the CTI Connector
-		connectAllCtiEvents();
-	};
+	// Connect all event handlers for the CTI Connector
+	window.onload = () => connectAllCtiEvents();
   </script>
 </apex:page>

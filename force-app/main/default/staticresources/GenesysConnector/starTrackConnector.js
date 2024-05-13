@@ -25,7 +25,7 @@ class GenSTBusinessLogic {
         console.log(logPrefix + 'eventDetail ' + eventDetail);
 
         if (eventName === 'INTERACTION_EVENT') {
-            this.callLog = new GenCallInteractionProxy(eventDetail.detail, this.stFieldMappings);
+            this.callLog = new CallInteractionProxy(eventDetail.detail, this.stFieldMappings);
         }
 
         if (eventName === 'INTERACTION_CONNECTED' && eventDetail.lastDetail.direction === 'Inbound') {
