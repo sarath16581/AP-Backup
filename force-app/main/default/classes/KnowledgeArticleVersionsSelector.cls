@@ -190,7 +190,7 @@ public virtual inherited sharing class KnowledgeArticleVersionsSelector extends 
 	* @return List of Knowledge__kav in the form List<Sobject> we have to typecast to List<Knowledge__kav>
 	*/
 	@testVisible
-	private List<SObject> selectByStatusLanguageType(Map<String, Object> searchParams, Set<Object> selectorOptions, Boolean matchAll, Schema.SobjectField orderByField, String sortOrder ){	
+	private List<SObject> selectByStatusLanguageType(Map<String, Object> searchParams, Set<Object> selectorOptions, Boolean matchAll, Schema.SobjectField orderByField, String sortOrder ) {	
 		Set<String> statuses = (Set<String>)(searchParams.get('statuses') == null ? new Set<String>() : (searchParams.get('statuses') instanceof Set<String> ? searchParams.get('statuses') : new Set<String>{String.valueOf(searchParams.get('statuses'))}));
 		Set<String> languages = (Set<String>)(searchParams.get('languages') == null ? new Set<String>() : (searchParams.get('languages') instanceof Set<String> ? searchParams.get('languages') : new Set<String>{String.valueOf(searchParams.get('languages'))}));
 		Set<String> recordTypeNames = (Set<String>)(searchParams.get('recordTypeNames') == null ? new Set<String>() : (searchParams.get('recordTypeNames') instanceof Set<String> ? searchParams.get('recordTypeNames') : new Set<String>{(String)searchParams.get('recordTypeNames')}));
@@ -260,8 +260,7 @@ public virtual inherited sharing class KnowledgeArticleVersionsSelector extends 
 	* @return List of Knowledge__kav in the form List<Sobject> we have to typecast to List<Knowledge__kav>
 	*/
 
-	public List<SObject> searchArticles(String searchKeyWord, List<String> allowedArticles)
-	{	
+	public List<SObject> searchArticles(String searchKeyWord, List<String> allowedArticles)	{	
 		List<SObject> sobjLst = new List<SObject>();
 		List<List<SObject>> listOfSobjLst = [FIND: searchKeyword IN ALL FIELDS RETURNING  Knowledge__kav (UrlName,Answer__c,Summary,ArticleNumber,KnowledgeArticleId,id, Title, recordType.DeveloperName WHERE PublishStatus = 'Online' AND Language = 'en_US' AND RecordType.DeveloperName IN: allowedArticles)];
 		
