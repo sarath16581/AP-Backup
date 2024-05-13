@@ -62,7 +62,7 @@ public without sharing class BCAFormBase {
 		Map<String, SObject> bcaSettings = (Map<String, SObject>) settingsSelector.selectByNames(settingNames);
 
 		BCA_Settings__c underMaintenance = (BCA_Settings__c) bcaSettings.get(BCAFormConstants.UNDER_MAINTENANCE);
-		if(null != underMaintenance)
+		if(underMaintenance != null)
 		{
 			return underMaintenance.Boolean_Value__c;
 		}
@@ -249,10 +249,10 @@ public without sharing class BCAFormBase {
 		BCA_Settings__c bcaSettingCreditLimit = getBcaSettingByName(BCAFormConstants.CREDIT_LIMIT_TIMES);
 		BCA_Settings__c bcaSettingCreditRoundNearest = getBcaSettingByName(BCAFormConstants.CREDIT_AMOUNT_ROUND_NEAREST);
 		
-		if(null != bcaSettingCreditLimit){
+		if(bcaSettingCreditLimit != null){
 			creditLimitsMap.put('noOfTimes', bcaSettingCreditLimit.Number_Value__c);
 		}
-		if(null != bcaSettingCreditRoundNearest){
+		if(bcaSettingCreditRoundNearest != null){
 			creditLimitsMap.put('roundNearest', bcaSettingCreditRoundNearest.Number_Value__c);
 		}
 	   
@@ -262,7 +262,7 @@ public without sharing class BCAFormBase {
 	@AuraEnabled(Cacheable=true)
 	public static Decimal getMinimumCreditLimit() {
 		BCA_Settings__c bcaSetting = getBcaSettingByName(BCAFormConstants.MINIMUM_CREDIT_AMOUNT);
-		if(null != bcaSetting){
+		if(bcaSetting != null){
 			return bcaSetting.Number_Value__c;
 		}
 		return 0;
@@ -271,7 +271,7 @@ public without sharing class BCAFormBase {
 	@AuraEnabled(Cacheable=true)
 	public static String getSummryTCDownloadURL() {
 		BCA_Settings__c bcaSetting = getBcaSettingByName(BCAFormConstants.SUMMARY_TC_DOWNLOAD_URL);
-		if(null != bcaSetting){
+		if(bcaSetting != null){
 			return bcaSetting.Text_Value__c;
 		}
 		return '';
@@ -280,7 +280,7 @@ public without sharing class BCAFormBase {
 	@AuraEnabled(Cacheable=true)
 	public static String getSummryPrivacyNoticeURL() {
 		BCA_Settings__c bcaSetting = getBcaSettingByName(BCAFormConstants.SUMMARY_PRIVACY_NOTICE_URL);
-		if(null != bcaSetting){
+		if(bcaSetting != null){
 			return bcaSetting.Text_Value__c;
 		}
 		return '';
@@ -289,7 +289,7 @@ public without sharing class BCAFormBase {
 	@AuraEnabled(Cacheable=true)
 	public static String getDirectDebitTCDownloadURL() {
 		BCA_Settings__c bcaSetting = getBcaSettingByName(BCAFormConstants.DIRECT_DEBIT_TC_DOWNLOAD_URL);
-		if(null != bcaSetting){
+		if(bcaSetting != null){
 			return bcaSetting.Text_Value__c;
 		}
 		return '';

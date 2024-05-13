@@ -28,7 +28,6 @@ public class BCAFormBase_Test {
 		// =====================================
 		// Stubbing
 		// =====================================
-		// N/A
 		CustomsSettingsSelector settingsSelector = (CustomsSettingsSelector)MockUtility.mockSelector(CustomsSettingsSelector.class);
 		// set up our responses
 		MockUtility.Mocks.startStubbing();
@@ -72,7 +71,6 @@ public class BCAFormBase_Test {
 		// =====================================
 		// Stubbing
 		// =====================================
-		// N/A
 		KnowledgeArticleVersionsSelector kavSelector = (KnowledgeArticleVersionsSelector)MockUtility.mockSelector(KnowledgeArticleVersionsSelector.class);
 		// set up our responses
 		MockUtility.Mocks.startStubbing();
@@ -101,12 +99,11 @@ public class BCAFormBase_Test {
 		// =====================================
 		// Data Preparation
 		// =====================================
-		List<Knowledge__kav> kav = ApplicationTestDataFactory.getBCAs(1, true);
+		List<Knowledge__kav> kav = ApplicationTestDataFactoryKnowledge.getBCAs(1, true);
 
 		// =====================================
 		// Stubbing
 		// =====================================
-		// N/A
 		KnowledgeArticleVersionsSelector kavSelector = (KnowledgeArticleVersionsSelector)MockUtility.mockSelector(KnowledgeArticleVersionsSelector.class);
 		// set up our responses
 		MockUtility.Mocks.startStubbing();
@@ -117,7 +114,8 @@ public class BCAFormBase_Test {
 		MockUtility.Mocks.stopStubbing();
 		
 		Test.startTest();
-		BCAFormBase.getWelcomeMessage();
+		BCAFormBase.getWelcomeMessage();		
+		((KnowledgeArticleVersionsSelector)MockUtility.Mocks.verify(kavSelector, MockUtility.Mocks.times(1))).search((Map<String, Object>)fflib_Match.anyObject(), fflib_Match.anyBoolean());
 		System.assertEquals(kav[0].Message__c,  BCAFormBase.getWelcomeMessage().Message__c, 'success');
 		Test.stopTest();
 		
@@ -129,12 +127,11 @@ public class BCAFormBase_Test {
 		// =====================================
 		// Data Preparation
 		// =====================================
-		List<Knowledge__kav> kav = ApplicationTestDataFactory.getBCAs(1, true);
+		List<Knowledge__kav> kav = ApplicationTestDataFactoryKnowledge.getBCAs(1, true);
 
 		// =====================================
 		// Stubbing
 		// =====================================
-		// N/A
 		KnowledgeArticleVersionsSelector kavSelector = (KnowledgeArticleVersionsSelector)MockUtility.mockSelector(KnowledgeArticleVersionsSelector.class);
 		// set up our responses
 		MockUtility.Mocks.startStubbing();
@@ -146,6 +143,7 @@ public class BCAFormBase_Test {
 		// Testing
 		Test.startTest();
 		BCAFormBase.getDirectTC();
+		((KnowledgeArticleVersionsSelector)MockUtility.Mocks.verify(kavSelector, MockUtility.Mocks.times(1))).search((Map<String, Object>)fflib_Match.anyObject(), fflib_Match.anyBoolean());
 		System.assertEquals(kav[0].Message__c,  BCAFormBase.getDirectTC().Message__c, 'success');
 		Test.stopTest();
 	}
@@ -158,12 +156,11 @@ public class BCAFormBase_Test {
 		// =====================================
 		// Data Preparation
 		// =====================================
-		List<Knowledge__kav> kav = ApplicationTestDataFactory.getBCAs(1, true);
+		List<Knowledge__kav> kav = ApplicationTestDataFactoryKnowledge.getBCAs(1, true);
 
 		// =====================================
 		// Stubbing
 		// =====================================
-		// N/A
 		KnowledgeArticleVersionsSelector kavSelector = (KnowledgeArticleVersionsSelector)MockUtility.mockSelector(KnowledgeArticleVersionsSelector.class);
 		// set up our responses
 		MockUtility.Mocks.startStubbing();
@@ -175,6 +172,7 @@ public class BCAFormBase_Test {
 		// Testing
 		Test.startTest();
 		BCAFormBase.getSummaryTC();
+		((KnowledgeArticleVersionsSelector)MockUtility.Mocks.verify(kavSelector, MockUtility.Mocks.times(1))).search((Map<String, Object>)fflib_Match.anyObject(), fflib_Match.anyBoolean());
 		System.assertEquals(kav[0].Message__c,  BCAFormBase.getSummaryTC().Message__c, 'success');
 		Test.stopTest();
 		
@@ -185,28 +183,25 @@ public class BCAFormBase_Test {
 		// =====================================
 		// Data Preparation
 		// =====================================
-		
-		List<Account> accList = [SELECT Id,ABN__c FROM Account Limit 2 ];
-		for(Account acc : accList){
+
+		List<Account> accList = [SELECT Id, ABN__c FROM Account LIMIT 2];
+		for (Account acc : accList) {
 			acc.ABN__c = '31061621832';
-			
 		}
 		update accList;
 
 		ApplicationDatabase mockDatabase = MockUtility.mockDatabase();
 		MockUtility.mocks.startStubbing();
-		MockUtility.Mocks.when(mockDatabase.findDuplicates((List<SObject>)fflib_Match.anyObject())).thenReturn(	new List<DatacloudProxy.FindDuplicatesResult>{
-			DatacloudProxy_Test.mockFindDuplicatesResult(ApplicationTestDataFactory.getAccounts(1, true)[0], 80)
-		});
+		MockUtility.Mocks.when(mockDatabase.findDuplicates((List<SObject>) fflib_Match.anyObject()))
+			.thenReturn(new List<DatacloudProxy.FindDuplicatesResult>{ DatacloudProxy_Test.mockFindDuplicatesResult(ApplicationTestDataFactory.getAccounts(1, true)[0], 80) });
 		MockUtility.Mocks.stopStubbing();
-		
-		
+
 		Test.startTest();
 		Boolean isDuplicate = BCAFormBase.containDuplicateABNACN(accList, accList[0].Id);
 		Test.stopTest();
-		System.assertEquals(true, isDuplicate);
-		
+		System.assertEquals(true, isDuplicate);		
 	}
+
 	@IsTest
 	private static void testGetIndustryDivisionValues() {
 		// =====================================
@@ -295,7 +290,6 @@ public class BCAFormBase_Test {
 		// =====================================
 		// Stubbing
 		// =====================================
-		// N/A
 		CustomsSettingsSelector settingsSelector = (CustomsSettingsSelector)MockUtility.mockSelector(CustomsSettingsSelector.class);
 		// set up our responses
 		MockUtility.Mocks.startStubbing();
