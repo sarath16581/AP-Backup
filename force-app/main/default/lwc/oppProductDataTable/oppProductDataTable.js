@@ -81,7 +81,7 @@ export default class OppProductDataTable extends NavigationMixin(LightningElemen
 				this.data = JSON.parse(JSON.stringify(data));
 				if (this.data.length===0) {
 					this.error = "Syncing of selected products to the opportunity is still in progress. Please refresh the page after a few minutes. If products don't sync after some time, please contact CRM Specialist Team for assistance.";
-					this.showNotification('Syncing Product Progress...', this.error, 'info');
+					this.showNotification('Product sync in progress..', this.error, 'info');
 				} else {
 					this.oppName = this.data[0].Opportunity.Name;
 					this.convertToForm(this.data)
