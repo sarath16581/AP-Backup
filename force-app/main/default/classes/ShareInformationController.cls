@@ -443,9 +443,9 @@ global with sharing class ShareInformationController {
 					parentIds.add(knowledgeArticle.Id);
 				}
 				Map<String, Object> params = new Map<String, Object>{'parentIds' => parentIds};
-				KnowledgeDataCategorySelectionsSelector datCatSelector = KnowledgeDataCategorySelectionsSelector.newInstance(fieldOverrides);
+				KnowledgeDataCategorySelectionsSelector dataCategorySelector = KnowledgeDataCategorySelectionsSelector.newInstance(fieldOverrides);
 				
-				for(SObject o: datCatSelector.search(params, true)) {
+				for(SObject o: dataCategorySelector.search(params, true)) {
 					if(categorisedArticles.get((String)o.get('DataCategoryName')) == null) {
 						categorisedArticles.put((String)o.get('DataCategoryName'), new Map<id, SObject>());
 					} 

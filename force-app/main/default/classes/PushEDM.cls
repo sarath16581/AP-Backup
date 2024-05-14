@@ -183,9 +183,9 @@ global with sharing class PushEDM {
 			Knowledge__DataCategorySelection.ParentId
 		};		
 		Map<String, Object> params = new Map<String, Object>{'parentIds' => parentIds};
-		KnowledgeDataCategorySelectionsSelector datCatSelector = KnowledgeDataCategorySelectionsSelector.newInstance(fieldOverrides);
+		KnowledgeDataCategorySelectionsSelector dataCategorySelector = KnowledgeDataCategorySelectionsSelector.newInstance(fieldOverrides);
 
-		for(Sobject faq:datCatSelector.search(params, true)){
+		for(Sobject faq:dataCategorySelector.search(params, true)){
 			articleIDCategoryName.put(string.valueof(faq.get('ParentId')),string.valueof(faq.get('DataCategoryName')));
 		}
 		
@@ -253,9 +253,9 @@ global with sharing class PushEDM {
 		}
 		
 		Map<String, Object> params = new Map<String, Object>{'parentIds' => parentIds};
-		KnowledgeDataCategorySelectionsSelector datCatSelector = KnowledgeDataCategorySelectionsSelector.newInstance(fieldOverrides);
+		KnowledgeDataCategorySelectionsSelector dataCategorySelector = KnowledgeDataCategorySelectionsSelector.newInstance(fieldOverrides);
 
-		for(Knowledge__DataCategorySelection dataCat :datCatSelector.search(params, true)){
+		for(Knowledge__DataCategorySelection dataCat :dataCategorySelector.search(params, true)){
 			articleIDCategoryName.put(dataCat.ParentId,dataCat.DataCategoryName);
 
 			if(knowledgeArticlesMap.get(dataCat.ParentId).language == 'en_US' && knowledgeArticlesMap.get(dataCat.ParentId).PublishStatus == 'Online' && knowledgeArticlesMap.get(dataCat.ParentId).IsLatestVersion){

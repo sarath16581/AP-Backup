@@ -134,8 +134,8 @@ public with sharing class KnowledgeDataCategorySelectSelector_Test {
 		List<Knowledge__kav> pushEDMs = ApplicationTestDataFactoryKnowledge.getPushEDMs(1, false);
 		insert pushEDMs;
 		Id pushEdmId = [SELECT Id from Knowledge__kav LIMIT 1].Id;
-		List<Knowledge__DataCategorySelection> dataCates = ApplicationTestDataFactoryKnowledge.getDataCatogories(1, false,pushEdmId);
-		insert dataCates;		
+		List<Knowledge__DataCategorySelection> dataCategories = ApplicationTestDataFactoryKnowledge.getDataCatogories(1, false,pushEdmId);
+		insert dataCategories;		
 		// =====================================
 		// Testing
 		// =====================================
@@ -163,27 +163,27 @@ public with sharing class KnowledgeDataCategorySelectSelector_Test {
 
         //Passing Knowledge Article Ids
         Map<String, Object> params = new Map<String, Object>{'parentIds' => new Set<Id>{ pushEdmId }};
-        KnowledgeDataCategorySelectionsSelector datCatSelector = KnowledgeDataCategorySelectionsSelector.newInstance(fieldOverrides);
+        KnowledgeDataCategorySelectionsSelector dataCategorySelector = KnowledgeDataCategorySelectionsSelector.newInstance(fieldOverrides);
         Set<Object> selectorOptions = new Set<Object>();
         selectorOptions.add(KnowledgeDataCategorySelectionsSelector.Options.WITH_PARENT);
         //Selector should return the data categories related to the given Articles
-        List<Knowledge__DataCategorySelection> dataCatesLst = datCatSelector.search(params, selectorOptions, false);
-        System.assertEquals(dataCatesLst.size(), dataCates.size(), 'Data categories retrieved based on the given parent Id');
+        List<Knowledge__DataCategorySelection> dataCategoryLst = dataCategorySelector.search(params, selectorOptions, false);
+        System.assertEquals(dataCategoryLst.size(), dataCategories.size(), 'Data categories retrieved based on the given parent Id');
 
 		
 		Set<String> allowedArticles = new Set<String>{'PUSH_EDM', 'FAQ'};
 		//Passing recordType Names
 		params = new Map<String, Object>{'recordTypeNames' => allowedArticles};
-		datCatSelector = KnowledgeDataCategorySelectionsSelector.newInstance(fieldOverrides);
+		dataCategorySelector = KnowledgeDataCategorySelectionsSelector.newInstance(fieldOverrides);
 		//Selector should return the data categories related to the given recordType
-		dataCatesLst = datCatSelector.search(params, false);
-		System.assertEquals(dataCatesLst.size(), dataCates.size(), 'Data categories retrieved based on the given recordTypes');
+		dataCategoryLst = dataCategorySelector.search(params, false);
+		System.assertEquals(dataCategoryLst.size(), dataCategories.size(), 'Data categories retrieved based on the given recordTypes');
 		
 		//Passing recordType and parent Ids to test AND condition
 		params = new Map<String, Object>{'recordTypeNames' => allowedArticles, 'parentIds' => new Set<Id>{ pushEdmId }};
-		datCatSelector = KnowledgeDataCategorySelectionsSelector.newInstance(fieldOverrides);
+		dataCategorySelector = KnowledgeDataCategorySelectionsSelector.newInstance(fieldOverrides);
 		//Selector should return the data categories related to the given recordType and parent Ids
-		dataCatesLst = datCatSelector.search(params, true);
-		System.assertEquals(dataCatesLst.size(), dataCates.size(), 'Data categories retrieved based on the given recordTypes');		
+		dataCategoryLst = dataCategorySelector.search(params, true);
+		System.assertEquals(dataCategoryLst.size(), dataCategories.size(), 'Data categories retrieved based on the given recordTypes');		
 	}
 }
