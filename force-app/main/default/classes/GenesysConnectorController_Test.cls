@@ -576,10 +576,10 @@ public class GenesysConnectorController_Test {
 			JSON.serialize(taskDetailMap),
 			callLog
 		);
-		/*
+		
 		fflib_ArgumentCaptor upsertCaptor = fflib_ArgumentCaptor.forClass(List<SObject>.class);
 
-		((ApplicationDatabase)MockUtility.Mocks.verify(mockDatabase, 1)).dmlUpsert(
+		((ApplicationDatabase)MockUtility.Mocks.verify(mockDatabase, MockUtility.Mocks.times(1))).dmlUpsert(
 			(List<SObject>)upsertCaptor.capture(),
 			(SObjectField)fflib_Match.eq(Task.CTIInteractionID__c)
 		);
@@ -592,7 +592,7 @@ public class GenesysConnectorController_Test {
 
 		System.assertEquals(Task.SObjectType, captorResults[0][0].getSObjectType(), 'Unexpected SObject');
 		System.assertEquals(contactId, ((Task)captorResults[0][0]).WhoId, 'Excepted Contact Id');
-		*/
+		
 		Test.stopTest();
 		
 		System.Assert(result != null, 'task should be inserted');
