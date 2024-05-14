@@ -70,6 +70,11 @@ public with sharing class CasesSelector_Test {
 
 		System.assertEquals(true, Pattern.compile('(?is)\\bfrom case\\b').matcher(soql).find(), 'Resulting query does not select from Case');
 
+		qb = selector.newQueryBuilder(new Set<Object>{ CasesSelector.Options.WITH_RECORDTYPE });
+		soql = qb.toSoqlString();
+
+		System.assertEquals(true, Pattern.compile('(?ism)\\bRecordType\\b').matcher(soql).find(), 'Resulting query does not select from RecordType');
+
 		Test.stopTest();
 
 	}
@@ -194,11 +199,13 @@ public with sharing class CasesSelector_Test {
 		insert account;
 
 		Contact contact = ApplicationTestDataFactory.getContacts(1, account.Id, false)[0];
-		insert contact;
+		Article__c article = new Article__c();
+		insert new List<SObject>{ contact, article };
 
 		List<Case> cases = ApplicationTestDataFactory.getCases(3, new List<Id>{contact.Id, contact.Id, contact.Id}, false);
 		cases[0].RecordTypeId = rt.Id;
 		cases[0].Type = 'General Enquiry';
+		cases[0].ArticleTest__c = article.Id;
 		cases[1].RecordTypeId = rt.Id;
 		cases[1].Type = 'General Enquiry';
 		cases[1].ReferenceID__c = '5555000';
@@ -264,9 +271,11 @@ public with sharing class CasesSelector_Test {
 		System.assertNotEquals(null, selector.getClosedCasesByAccountIds(new Set<Id>{account.Id}, new Set<Object>()), 'Invalid query locator');
 		System.assertNotEquals(null, selector.getOpenCasesByAccountIds(new Set<Id>{account.Id}, new Set<Object>()), 'Invalid query locator');
 		
-		results = selector.selectCasesByReferenceId(new Set<String>{cases[1].ReferenceID__c}, new Set<Object>{CasesSelector.Options.WITH_RECORDTYPE});
-		System.assertEquals(1, results.size(), 'Expected result size of 1');
+		List<Case> listResults = selector.selectCasesByReferenceId(new Set<String>{cases[1].ReferenceID__c}, new Set<Object>{CasesSelector.Options.WITH_RECORDTYPE});
+		System.assertEquals(1, listResults.size(), 'Expected result size of 1');
 
+		listResults = selector.selectByArticleId(new Set<Id>{ article.Id }, 'SSSWGeneralEnquiry', new Set<Object>());
+		System.assertEquals(1, listResults.size(), 'Expected result size of 1');
 		Test.stopTest();
 
 	}

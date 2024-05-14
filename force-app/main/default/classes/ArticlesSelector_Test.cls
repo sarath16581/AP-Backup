@@ -40,6 +40,11 @@ private class ArticlesSelector_Test {
 
 		System.assertEquals(true, Pattern.compile('(?ism)\\bfrom Article__c\\b').matcher(soql).find(), 'Resulting query does not select from Article__c: ' + soql);
 
+		qb = selector.newQueryBuilder(new Set<Object>{ ArticlesSelector.Options.WITH_RECORDTYPE });
+		soql = qb.toSoqlString();
+
+		System.assertEquals(true, Pattern.compile('(?ism)\\bRecordType\\b').matcher(soql).find(), 'Resulting query does not select from RecordType: ' + soql);
+
 		Test.stopTest();
 
 	}
@@ -197,8 +202,8 @@ private class ArticlesSelector_Test {
 		results = selector.selectByCaseIds(new Set<Id>{cases[0].Id}, new Set<Object>{ArticlesSelector.Options.WITH_EVENTMESSAGES_DESC_ORDER});
 		System.assertEquals(1, results.size(), 'Expected result size of 1');
 		
-		results = selector.selectByArticleNames(new Set<String>{articles[0].Name}, null, new Set<Object>{ArticlesSelector.Options.WITH_RECORDTYPE});
-		System.assertEquals(1, results.size(), 'Expected result size of 1');
+		List<Article__c> resultList = selector.selectByArticleNames(new Set<String>{articles[0].Name}, null, new Set<Object>{ArticlesSelector.Options.WITH_RECORDTYPE});
+		System.assertEquals(1, resultList.size(), 'Expected result size of 1');
 
 		Test.stopTest();
 
