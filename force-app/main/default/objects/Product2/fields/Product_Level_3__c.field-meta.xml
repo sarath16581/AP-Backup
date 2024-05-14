@@ -11,96 +11,36 @@
     <type>Picklist</type>
     <valueSet>
         <valueSetDefinition>
-            <sorted>false</sorted>
+            <sorted>true</sorted>
             <value>
-                <fullName>AaE L3</fullName>
+                <fullName>Addressed</fullName>
                 <default>false</default>
-                <label>AaE L3</label>
+                <label>Addressed</label>
             </value>
             <value>
-                <fullName>Addressed Mail</fullName>
+                <fullName>APG Sub</fullName>
                 <default>false</default>
-                <label>Addressed Mail</label>
+                <label>APG Sub</label>
             </value>
             <value>
-                <fullName>AP Global Solutions L3</fullName>
+                <fullName>Banking + Financial Services</fullName>
                 <default>false</default>
-                <label>AP Global Solutions L3</label>
+                <label>Banking + Financial Services</label>
             </value>
             <value>
-                <fullName>Boxes &amp; Bags</fullName>
+                <fullName>Courier</fullName>
                 <default>false</default>
-                <label>Boxes &amp; Bags</label>
+                <label>Courier</label>
             </value>
             <value>
-                <fullName>Business &amp; Payments Services</fullName>
+                <fullName>Data + Insights Sub</fullName>
                 <default>false</default>
-                <label>Business &amp; Payments Services</label>
+                <label>Data + Insights Sub</label>
             </value>
             <value>
-                <fullName>Cash Services</fullName>
+                <fullName>Decipha Sub</fullName>
                 <default>false</default>
-                <label>Cash Services</label>
-            </value>
-            <value>
-                <fullName>Consumer and Financial Products</fullName>
-                <default>false</default>
-                <label>Consumer and Financial Products</label>
-            </value>
-            <value>
-                <fullName>Consumer Products L3</fullName>
-                <default>false</default>
-                <label>Consumer Products L3</label>
-            </value>
-            <value>
-                <fullName>Courier L3</fullName>
-                <default>false</default>
-                <label>Courier L3</label>
-            </value>
-            <value>
-                <fullName>Decipha</fullName>
-                <default>false</default>
-                <label>Decipha</label>
-            </value>
-            <value>
-                <fullName>Decipha L3</fullName>
-                <default>false</default>
-                <label>Decipha L3</label>
-            </value>
-            <value>
-                <fullName>Digital ID L3</fullName>
-                <default>false</default>
-                <label>Digital ID L3</label>
-            </value>
-            <value>
-                <fullName>Digital ID Services L3</fullName>
-                <default>false</default>
-                <label>Digital ID Services L3</label>
-            </value>
-            <value>
-                <fullName>Digital Mailbox L3</fullName>
-                <default>false</default>
-                <label>Digital Mailbox L3</label>
-            </value>
-            <value>
-                <fullName>Digital Services</fullName>
-                <default>false</default>
-                <label>Digital Services</label>
-            </value>
-            <value>
-                <fullName>Domestic Parcels</fullName>
-                <default>false</default>
-                <label>Domestic Parcels</label>
-            </value>
-            <value>
-                <fullName>eMarketplaces</fullName>
-                <default>false</default>
-                <label>eMarketplaces</label>
-            </value>
-            <value>
-                <fullName>Express Letters</fullName>
-                <default>false</default>
-                <label>Express Letters</label>
+                <label>Decipha Sub</label>
             </value>
             <value>
                 <fullName>Express Parcels</fullName>
@@ -108,144 +48,44 @@
                 <label>Express Parcels</label>
             </value>
             <value>
-                <fullName>Express Post</fullName>
+                <fullName>Express Post Letters</fullName>
                 <default>false</default>
-                <label>Express Post</label>
+                <label>Express Post Letters</label>
             </value>
             <value>
-                <fullName>Federal Services</fullName>
+                <fullName>Finance Sub</fullName>
                 <default>false</default>
-                <label>Federal Services</label>
+                <label>Finance Sub</label>
             </value>
             <value>
-                <fullName>Financial &amp; Commercial Services</fullName>
+                <fullName>Fulfilment</fullName>
                 <default>false</default>
-                <label>Financial &amp; Commercial Services</label>
+                <label>Fulfilment</label>
             </value>
             <value>
-                <fullName>Financial Products</fullName>
+                <fullName>Identity Services</fullName>
                 <default>false</default>
-                <label>Financial Products</label>
+                <label>Identity Services</label>
             </value>
             <value>
-                <fullName>Fulfilment L3</fullName>
+                <fullName>International Services - Commercial</fullName>
                 <default>false</default>
-                <label>Fulfilment L3</label>
+                <label>International Services - Commercial</label>
             </value>
             <value>
-                <fullName>Government &amp; Agency Services</fullName>
+                <fullName>International Services - Inbound</fullName>
                 <default>false</default>
-                <label>Government &amp; Agency Services</label>
+                <label>International Services - Inbound</label>
             </value>
             <value>
-                <fullName>Identity &amp; Government Services</fullName>
+                <fullName>International Services - Outbound</fullName>
                 <default>false</default>
-                <label>Identity &amp; Government Services</label>
+                <label>International Services - Outbound</label>
             </value>
             <value>
-                <fullName>Identity Services L3</fullName>
+                <fullName>Mail Redirection Services</fullName>
                 <default>false</default>
-                <label>Identity Services L3</label>
-            </value>
-            <value>
-                <fullName>Insight Services L3</fullName>
-                <default>false</default>
-                <label>Insight Services L3</label>
-            </value>
-            <value>
-                <fullName>International Inward Letters L3</fullName>
-                <default>false</default>
-                <label>International Inward Letters L3</label>
-            </value>
-            <value>
-                <fullName>International Outward Letters L3</fullName>
-                <default>false</default>
-                <label>International Outward Letters L3</label>
-            </value>
-            <value>
-                <fullName>Inward Letters</fullName>
-                <default>false</default>
-                <label>Inward Letters</label>
-            </value>
-            <value>
-                <fullName>Inward Parcels</fullName>
-                <default>false</default>
-                <label>Inward Parcels</label>
-            </value>
-            <value>
-                <fullName>Mailroom L3</fullName>
-                <default>false</default>
-                <label>Mailroom L3</label>
-            </value>
-            <value>
-                <fullName>Manage My Details</fullName>
-                <default>false</default>
-                <label>Manage My Details</label>
-            </value>
-            <value>
-                <fullName>Manage My Finances</fullName>
-                <default>false</default>
-                <label>Manage My Finances</label>
-            </value>
-            <value>
-                <fullName>Merchandise</fullName>
-                <default>false</default>
-                <label>Merchandise</label>
-            </value>
-            <value>
-                <fullName>Messenger Post Couriers</fullName>
-                <default>false</default>
-                <label>Messenger Post Couriers</label>
-            </value>
-            <value>
-                <fullName>MRS</fullName>
-                <default>false</default>
-                <label>MRS</label>
-            </value>
-            <value>
-                <fullName>Ordinary</fullName>
-                <default>false</default>
-                <label>Ordinary</label>
-            </value>
-            <value>
-                <fullName>Other Consumer Items</fullName>
-                <default>false</default>
-                <label>Other Consumer Items</label>
-            </value>
-            <value>
-                <fullName>Other Items</fullName>
-                <default>false</default>
-                <label>Other Items</label>
-            </value>
-            <value>
-                <fullName>Other Mail Revenue</fullName>
-                <default>false</default>
-                <label>Other Mail Revenue</label>
-            </value>
-            <value>
-                <fullName>Other Postal Services L3</fullName>
-                <default>false</default>
-                <label>Other Postal Services L3</label>
-            </value>
-            <value>
-                <fullName>Other Retail Services L3</fullName>
-                <default>false</default>
-                <label>Other Retail Services L3</label>
-            </value>
-            <value>
-                <fullName>Outward Letters</fullName>
-                <default>false</default>
-                <label>Outward Letters</label>
-            </value>
-            <value>
-                <fullName>Outward Parcels</fullName>
-                <default>false</default>
-                <label>Outward Parcels</label>
-            </value>
-            <value>
-                <fullName>Packaging Material L3</fullName>
-                <default>false</default>
-                <label>Packaging Material L3</label>
+                <label>Mail Redirection Services</label>
             </value>
             <value>
                 <fullName>Parcel Post</fullName>
@@ -253,89 +93,24 @@
                 <label>Parcel Post</label>
             </value>
             <value>
-                <fullName>Parcel Services - International Inward</fullName>
+                <fullName>Payments</fullName>
                 <default>false</default>
-                <label>Parcel Services - International Inward</label>
+                <label>Payments</label>
             </value>
             <value>
-                <fullName>Parcel Services - International Outward</fullName>
+                <fullName>Retail Other Sub</fullName>
                 <default>false</default>
-                <label>Parcel Services - International Outward</label>
+                <label>Retail Other Sub</label>
             </value>
             <value>
-                <fullName>Payment Processing</fullName>
+                <fullName>Retail Sub</fullName>
                 <default>false</default>
-                <label>Payment Processing</label>
+                <label>Retail Sub</label>
             </value>
             <value>
-                <fullName>Philatelic L3</fullName>
+                <fullName>SecurePay Sub</fullName>
                 <default>false</default>
-                <label>Philatelic L3</label>
-            </value>
-            <value>
-                <fullName>Post Connect Physical</fullName>
-                <default>false</default>
-                <label>Post Connect Physical</label>
-            </value>
-            <value>
-                <fullName>Post Logistics International L3</fullName>
-                <default>false</default>
-                <label>Post Logistics International L3</label>
-            </value>
-            <value>
-                <fullName>Post Logistics L3</fullName>
-                <default>false</default>
-                <label>Post Logistics L3</label>
-            </value>
-            <value>
-                <fullName>Presort</fullName>
-                <default>false</default>
-                <label>Presort</label>
-            </value>
-            <value>
-                <fullName>Print Post L3</fullName>
-                <default>false</default>
-                <label>Print Post L3</label>
-            </value>
-            <value>
-                <fullName>Private Boxes &amp; Bags</fullName>
-                <default>false</default>
-                <label>Private Boxes &amp; Bags</label>
-            </value>
-            <value>
-                <fullName>Receiver Services</fullName>
-                <default>false</default>
-                <label>Receiver Services</label>
-            </value>
-            <value>
-                <fullName>Receiver Solutions</fullName>
-                <default>false</default>
-                <label>Receiver Solutions</label>
-            </value>
-            <value>
-                <fullName>Registered</fullName>
-                <default>false</default>
-                <label>Registered</label>
-            </value>
-            <value>
-                <fullName>Retail Merchandise</fullName>
-                <default>false</default>
-                <label>Retail Merchandise</label>
-            </value>
-            <value>
-                <fullName>Retail Products</fullName>
-                <default>false</default>
-                <label>Retail Products</label>
-            </value>
-            <value>
-                <fullName>SecurePay Group</fullName>
-                <default>false</default>
-                <label>SecurePay Group</label>
-            </value>
-            <value>
-                <fullName>Securepay L3</fullName>
-                <default>false</default>
-                <label>Securepay L3</label>
+                <label>SecurePay Sub</label>
             </value>
             <value>
                 <fullName>StarTrack</fullName>
@@ -343,69 +118,9 @@
                 <label>StarTrack</label>
             </value>
             <value>
-                <fullName>StarTrack Courier</fullName>
+                <fullName>Unaddressed Mail Services L3</fullName>
                 <default>false</default>
-                <label>StarTrack Courier</label>
-            </value>
-            <value>
-                <fullName>Star Track Express L3</fullName>
-                <default>false</default>
-                <label>Star Track Express L3</label>
-            </value>
-            <value>
-                <fullName>Star Track International</fullName>
-                <default>false</default>
-                <label>Star Track International</label>
-            </value>
-            <value>
-                <fullName>Star Track L3</fullName>
-                <default>false</default>
-                <label>Star Track L3</label>
-            </value>
-            <value>
-                <fullName>Telecommunication</fullName>
-                <default>false</default>
-                <label>Telecommunication</label>
-            </value>
-            <value>
-                <fullName>Transactional/Addressed</fullName>
-                <default>false</default>
-                <label>Transactional/Addressed</label>
-            </value>
-            <value>
-                <fullName>Unaddressed</fullName>
-                <default>false</default>
-                <label>Unaddressed</label>
-            </value>
-            <value>
-                <fullName>Unaddressed Mail</fullName>
-                <default>false</default>
-                <label>Unaddressed Mail</label>
-            </value>
-            <value>
-                <fullName>AP Standard</fullName>
-                <default>false</default>
-                <label>AP Standard</label>
-            </value>
-            <value>
-                <fullName>AP Premium Express</fullName>
-                <default>false</default>
-                <label>AP Premium Express</label>
-            </value>
-            <value>
-                <fullName>AP Other Parcel Fees</fullName>
-                <default>false</default>
-                <label>AP Other Parcel Fees</label>
-            </value>
-            <value>
-                <fullName>International Parcel Post</fullName>
-                <default>false</default>
-                <label>International Parcel Post</label>
-            </value>
-            <value>
-                <fullName>Metro</fullName>
-                <default>false</default>
-                <label>Metro</label>
+                <label>Unaddressed Mail Services L3</label>
             </value>
         </valueSetDefinition>
     </valueSet>
