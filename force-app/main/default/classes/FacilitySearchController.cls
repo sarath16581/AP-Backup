@@ -22,6 +22,7 @@
  * 2019-04-18 - ronnie.yang@sodastrategic.com.au : Hide Business Hubs in search if closed REQ1775138
  * 2021-09-02 - Nathan Franklin - Ordered the Networks in Always Shown by Name, Increased version to 52.0
  * 2021-09-02 - Nathan Franklin - Fixed some SOQL injection attack issues
+ * 2024-04-13 - Raghav Ravipati - Replaced Critical incident articaltype with salesforce lighting article Knowledge__kav as part of knowledge lightning uplift
  */
 global with sharing class FacilitySearchController {
 
@@ -227,8 +228,9 @@ global with sharing class FacilitySearchController {
 				output += ',["' + recordType.Id + '","' + recordType.DeveloperName + '"]';
 			}
 
-			if (output.length() > 0)
+			if (output.length() > 0){
 				output = output.substring(1);
+			}
 
 			return output;
 		}
@@ -633,7 +635,7 @@ global with sharing class FacilitySearchController {
 	 */
 	public void setNetworkTabs(List<NetworkWrapper> searchedNetworks) {
 
-		Map<String, List<Critical_Incident__kav>> criticalIncidents = getCriticalIncidents();
+		Map<String, List<Knowledge__kav>> criticalIncidents = getCriticalIncidents();
 
 		networkTabs = new NetworkTabs();
 
@@ -1095,23 +1097,32 @@ global with sharing class FacilitySearchController {
 	/**
 	  * retrieve the critical incidents for networks and make available on the network search
 	  */
-	private Map<String, List<Critical_Incident__kav>> getCriticalIncidents() {
-		Map<String, List<Critical_Incident__kav>> criticalIncidentMap;
-		criticalIncidentMap = (Map<String, List<Critical_Incident__kav>>)CacheManager.get('NETWORK_SEARCH_INCIDENTS', UserInfo.getProfileId());
+	private Map<String, List<Knowledge__kav>> getCriticalIncidents() {
+		Map<String, List<Knowledge__kav>> criticalIncidentMap;
+		criticalIncidentMap = (Map<String, List<Knowledge__kav>>)CacheManager.get('NETWORK_SEARCH_INCIDENTS', UserInfo.getProfileId());
 		if(criticalIncidentMap != null) {
 			return criticalIncidentMap;
 		}
 
 		try {
-			criticalIncidentMap = new Map<String, List<Critical_Incident__kav>>();
-			for (Critical_Incident__kav criticalIncident : [Select Id, Network_Org_Id__c,ArticleNumber,URLName,knowledgearticleId
-			from Critical_Incident__kav
-			where PublishStatus = 'Online' AND language = 'en_US']) {
-				if (!String.isBlank(criticalIncident.Network_Org_Id__c)) {
-					for (String networkOrgId : criticalIncident.Network_Org_Id__c.split(';')) {
+			criticalIncidentMap = new Map<String, List<Knowledge__kav>>();
+			Set<SObjectField> fields = new Set<SObjectField>{
+                Knowledge__kav.Id,
+				Knowledge__kav.Message__c,
+				Knowledge__kav.NetworkOrgId__c,
+				Knowledge__kav.KnowledgeArticleId,
+				Knowledge__kav.UrlName,
+				Knowledge__kav.Title
+        	};
+			Map<String, Object> params = new Map<String, Object>{'statuses' => new Set<String>{'Online'}, 'languages' => new Set<String>{'en_US'}, 'recordTypeNames' => new Set<String>{'Critical_Incident'}};
+			KnowledgeArticleVersionsSelector kavSelector = KnowledgeArticleVersionsSelector.newInstance(fields);
+						
+			for (Knowledge__kav criticalIncident : (List<Knowledge__kav>) kavSelector.search(params, true)) {
+				if (!String.isBlank(criticalIncident.NetworkOrgId__c)) {
+					for (String networkOrgId : criticalIncident.NetworkOrgId__c.split(';')) {
 						if(!String.isEmpty(networkOrgId)) {
 							if(criticalIncidentMap.get(networkOrgId) == null) {
-								criticalIncidentMap.put(networkOrgId, new List<Critical_Incident__kav>());
+								criticalIncidentMap.put(networkOrgId, new List<Knowledge__kav>());
 							}
 							criticalIncidentMap.get(networkOrgId).add(criticalIncident);
 						}
@@ -1140,9 +1151,12 @@ global with sharing class FacilitySearchController {
 	//get addresses based on object type: either contact or case; get address fields lables from URL
 	private void loadSourceObjectInformation() {
 		str_case_Category = 'This_is_NOT_CASE';
-		if (ApexPages.currentPage().getParameters().get('id') <> null && ApexPages.currentPage().getParameters().get('id').length() > 0) {
+		String recordId = ApexPages.currentPage().getParameters().get('id');
+		String contactId = ApexPages.currentPage().getParameters().get('contactId');
 
-			if (CommonUtils.getObjectAPINameByRecordId(ApexPages.currentPage().getParameters().get('id')) == 'Case') {
+		if (String.isNotBlank(recordId)) {
+
+			if (CommonUtils.getObjectAPINameByRecordId(recordId) == 'Case') {
 				List<Case> cases = [select EnquirySubType__c, CaseOriginator__c, Address1Postcode__c, Address2Postcode__c, Address2State__c, Address2Suburb__c, Address1__c,
 					Address2__c, recordtype.name, Network__c, Network__r.Geolocation__Longitude__s, Network__r.Geolocation__Latitude__s,
 					Network__r.State__c, Type, ArticleTest__c, ProductCategory__c, Contactid, Contact.MailingStreet,
@@ -1153,7 +1167,7 @@ global with sharing class FacilitySearchController {
 					ProductSubCategory__c, ReferenceID__c, Customer_Type__c, IsNewForRouting__c, Origin,
 				(Select Id, ArticleTest__c, Network__c From Cases)
 				from Case
-				where id = :ApexPages.currentPage().getParameters().get('id')];
+				where id = :recordId];
 
 				System.Debug('>> Found Cases: ' + cases);
 
@@ -1194,19 +1208,19 @@ global with sharing class FacilitySearchController {
 						recipientAddress = nullToString(cases[0].Contact.OtherStreet) + ' ' + nullToString(cases[0].Contact.OtherStreet2__c) + ', ' + nullToString(cases[0].Contact.OtherCity) + ' ' + nullToString(cases[0].Contact.OtherState) + ' ' + nullToString(cases[0].Contact.OtherPostalCode) + ' ' + nullToString(cases[0].Contact.OtherCountry);
 					}
 				}
-			} else if (CommonUtils.getObjectAPINameByRecordId(ApexPages.currentPage().getParameters().get('id')) == 'Account') {
-				Account anAccount = [Select PersonOtherStreet, PersonOtherCity, PersonOtherState, PersonMailingStreet, PersonMailingCity, PersonMailingState From Account at where id = :ApexPages.currentPage().getParameters().get('id')][0];
+			} else if (CommonUtils.getObjectAPINameByRecordId(recordId) == 'Account') {
+				Account anAccount = [Select PersonOtherStreet, PersonOtherCity, PersonOtherState, PersonMailingStreet, PersonMailingCity, PersonMailingState From Account at where id = :recordId][0];
 				senderAddress = nullToString(anAccount.PersonMailingStreet) + ' ' + nullToString(anAccount.PersonMailingCity) + ' ' + nullToString(anAccount.PersonMailingState);
 				recipientAddress = nullToString(anAccount.PersonOtherStreet) + ' ' + nullToString(anAccount.PersonOtherCity) + ' ' + nullToString(anAccount.PersonOtherState);
-			} else if (CommonUtils.getObjectAPINameByRecordId(ApexPages.currentPage().getParameters().get('id')) == 'Contact') {
-				Contact aContact = [Select OtherStreet, OtherCity,otherState, MailingStreet, MailingCity,mailingState From Contact c where id = :ApexPages.currentPage().getParameters().get('id')][0];
+			} else if (CommonUtils.getObjectAPINameByRecordId(recordId) == 'Contact') {
+				Contact aContact = [Select OtherStreet, OtherCity,otherState, MailingStreet, MailingCity,mailingState From Contact c where id = :recordId][0];
 				senderAddress = nullToString(aContact.MailingStreet) + ' ' + nullToString(aContact.MailingCity) + ' ' + nullToString(aContact.MailingState);
 				recipientAddress = nullToString(aContact.OtherStreet) + ' ' + nullToString(aContact.OtherCity) + ' ' + nullToString(aContact.OtherState);
 			}
 
-		} else if (ApexPages.currentPage().getParameters().get('contactId') <> null) {
-			if (CommonUtils.getObjectAPINameByRecordId(ApexPages.currentPage().getParameters().get('contactId')) == 'Account') {
-				Account anAccount = [Select PersonOtherStreet, PersonOtherCity, PersonOtherState, PersonOtherPostalCode, PersonMailingStreet, PersonMailingCity, PersonMailingState, PersonMailingPostalCode From Account at where id = :ApexPages.currentPage().getParameters().get('contactId')][0];
+		} else if (String.isNotBlank(contactId)) {
+			if (CommonUtils.getObjectAPINameByRecordId(contactId) == 'Account') {
+				Account anAccount = [Select PersonOtherStreet, PersonOtherCity, PersonOtherState, PersonOtherPostalCode, PersonMailingStreet, PersonMailingCity, PersonMailingState, PersonMailingPostalCode From Account at where id = :contactId][0];
 				if (anAccount.PersonMailingPostalCode != null) {
 					keyword = nullToString(anAccount.PersonMailingPostalCode) + ' - ' + nullToString(anAccount.PersonMailingCity) + '(' + nullToString(anAccount.PersonMailingState) + ')';
 				}
@@ -1214,8 +1228,8 @@ global with sharing class FacilitySearchController {
 				recipientAddress = nullToString(anAccount.PersonOtherStreet) + ' ' + nullToString(anAccount.PersonOtherCity) + ' ' + nullToString(anAccount.PersonOtherState) + ' ' + nullToString(anAccount.PersonOtherPostalCode);
 			}
 
-			if (CommonUtils.getObjectAPINameByRecordId(ApexPages.currentPage().getParameters().get('contactId')) == 'Contact') {
-				Contact aContact = [Select OtherStreet, OtherCity,otherState, otherPostalcode, MailingStreet, MailingCity,mailingState, mailingPostalcode From Contact c where id = :ApexPages.currentPage().getParameters().get('contactId')][0];
+			if (CommonUtils.getObjectAPINameByRecordId(contactId) == 'Contact') {
+				Contact aContact = [Select OtherStreet, OtherCity,otherState, otherPostalcode, MailingStreet, MailingCity,mailingState, mailingPostalcode From Contact c where id = :contactId][0];
 				if (aContact.mailingPostalcode != null) {
 					keyword = nullToString(aContact.mailingPostalcode) + ' - ' + nullToString(aContact.MailingCity) + '(' + nullToString(aContact.mailingState) + ')';
 				}
@@ -1925,7 +1939,6 @@ global with sharing class FacilitySearchController {
 		return result;
 	}
 
-
 	//added by shengpeng.xiao@bluewolf.com at 2014.6.25
 	//used for send email to mutiple recievers
 	@future(callout=true)
@@ -2097,7 +2110,7 @@ global with sharing class FacilitySearchController {
 		public String escalationEmail { get; private set; }
 		public String orgId { get; private set; }
 		public Boolean displayBusinessHours { get; private set; }
-		public List<Critical_Incident__kav> criticalIncidents { get; set; }
+		public List<Knowledge__kav> criticalIncidents { get; set; }
 		public List<String> htmlFields { get; set; }
 		public String relatedListUniqueId {get; private set;}
 
@@ -2141,7 +2154,7 @@ global with sharing class FacilitySearchController {
 				this.contactFacility = 'via ' + nw.Contact_facility__c;
 			}
 
-			this.criticalIncidents = new List<Critical_Incident__kav>();
+			this.criticalIncidents = new List<Knowledge__kav>();
 
 			// Generate the HTML for displaying the fields in APEX because it's a lot slower in VF (complex logic)
 			List <FieldSetMember> fields = fieldsByRecordType;
