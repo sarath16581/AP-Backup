@@ -410,18 +410,18 @@ global with sharing class ShareInformationController {
 				//Performs SOSL to search the given keyword across the KAVs and 
 				//if the search key is blank does query on the eligible Kavs
 				Map<id, SObject> articles = new Map<id, SObject>();
-				ShareInformationControllerWrapper siWrapper = new ShareInformationControllerWrapper();
+				ShareInformationControllerWrapper shareInformationWrapper = new ShareInformationControllerWrapper();
 
 				if(String.isNotBlank(searchKeyword) && searchKeyword.length() > 2) {
 
-					for(SObject o: siWrapper.searchArticles(searchKeyword, allowedArticles)){
+					for(SObject o: shareInformationWrapper.searchArticles(searchKeyword, allowedArticles)){
 				  		articles.put(o.id, o); 
 					}
 				}
 				else {
 					// Nandan : limiting the query for Share info article for view state error (INC0649377)
-
-					for(SObject o: siWrapper.getKnowledgeArticles()) {
+					Map<String, Object> params = new Map<String, Object>{'statuses' => new Set<String>{'Online'}, 'languages' => new Set<String>{'en_US'}, 'recordTypeNames' => new Set<String>{'PUSH_EDM'}};
+					for(SObject o: shareInformationWrapper.getKnowledgeArticles(params)) {
 					
 						articles.put(o.id, o); 
 					}
@@ -436,7 +436,13 @@ global with sharing class ShareInformationController {
 				map<string,string> articleIDCategoryName=new map<string,string>();
 				Set<String> rtTypes = new Set<String>();
 				rtTypes.addAll(allowedArticles);
-				Map<String, Object> params = new Map<String, Object>{'recordTypeNames' => rtTypes};
+
+				Set<Id> parentIds = new Set<Id>();
+				Map<String, Object> kavQueryParams = new Map<String, Object>{'recordTypeNames' => rtTypes};
+				for(Knowledge__kav knowledgeArticle : shareInformationWrapper.getKnowledgeArticles(kavQueryParams)){
+					parentIds.add(knowledgeArticle.Id);
+				}
+				Map<String, Object> params = new Map<String, Object>{'parentIds' => parentIds};
 				KnowledgeDataCategorySelectionsSelector datCatSelector = KnowledgeDataCategorySelectionsSelector.newInstance(fieldOverrides);
 				
 				for(SObject o: datCatSelector.search(params, true)) {
@@ -460,7 +466,7 @@ global with sharing class ShareInformationController {
 	  * @return		void
 	  * @throws		Method might throw exception which is handled by Try-Catch block
 	  */
-	private static void createShareInfoActivity(Id contactId,Set<Id> articleIds){
+	private static void createShareInfoActivity(Id contactId,Set<Id> articleIds) {
 		Savepoint beforeShareInfo = Database.setSavepoint();
 		try{
 			// form share info activity record
@@ -469,12 +475,11 @@ global with sharing class ShareInformationController {
 			shareInfoActivity.Contact__c = contactId;
 			shareInfoActivity.ActivityTime__c = DateTime.now();  
 			Database.insert(shareInfoActivity);
-			List<ShareInfoArticle__c> shareInfoArticleList = new List<ShareInfoArticle__c>();
-			
-			ShareInformationControllerWrapper siWrapper = new ShareInformationControllerWrapper();
-			
+			//Shanre information Article record
+			List<ShareInfoArticle__c> shareInfoArticleList = new List<ShareInfoArticle__c>();			
+			ShareInformationControllerWrapper shareInformationWrapper = new ShareInformationControllerWrapper();
 			// fetch details for the articles selected
-			for(Knowledge__kav article : (List<Knowledge__kav>) siWrapper.getKnowledgeArticles(articleIds)){
+			for(Knowledge__kav article : (List<Knowledge__kav>) shareInformationWrapper.getKnowledgeArticles(articleIds)){
 				ShareInfoArticle__c shareInfoArticle = new ShareInfoArticle__c();
 				shareInfoArticle.ShareInfoActivity__c = shareInfoActivity.Id;
 				shareInfoArticle.ArticleID__c = article.KnowledgeArticleId;
@@ -498,13 +503,13 @@ global with sharing class ShareInformationController {
 	}
 	/**created a wrapper class and defined without sharing to provide access to the articles */
 	@testVisible
-	without sharing class ShareInformationControllerWrapper{
+	without sharing class ShareInformationControllerWrapper {
 		/**
 		 * @description Gets all the Kavs based on published status, recordtype and language
 		 * @return list of Knowledge__kav
 		 */
 		@testVisible
-		private List<Knowledge__kav> getKnowledgeArticles(){
+		private List<Knowledge__kav> getKnowledgeArticles(Map<String, Object> params ) {
 			Set<SObjectField> fields = new Set<SObjectField>{
 				Knowledge__kav.Id,
 				Knowledge__kav.Answer__c,
@@ -513,7 +518,6 @@ global with sharing class ShareInformationController {
 				Knowledge__kav.Title
 			};
 
-			Map<String, Object> params = new Map<String, Object>{'statuses' => new Set<String>{'Online'}, 'languages' => new Set<String>{'en_US'}, 'recordTypeNames' => new Set<String>{'PUSH_EDM'}};
 			KnowledgeArticleVersionsSelector kavSelector = KnowledgeArticleVersionsSelector.newInstance(fields);
 			Set<Object> selectorOptions = new Set<Object>();
 			selectorOptions.add(KnowledgeArticleVersionsSelector.Options.WITH_RECORDTYPE);
@@ -525,7 +529,7 @@ global with sharing class ShareInformationController {
 		 * @return list of Knowledge__kav
 		 */
 		@testVisible
-		private List<Knowledge__kav> getKnowledgeArticles(Set<Id> articleIDs){
+		private List<Knowledge__kav> getKnowledgeArticles(Set<Id> articleIDs) {
 			Set<SObjectField> fields = new Set<SObjectField>{
 				Knowledge__kav.Id,
 				Knowledge__kav.KnowledgeArticleId,
@@ -533,7 +537,6 @@ global with sharing class ShareInformationController {
 			};
 			Map<String, Object> params = new Map<String, Object>{'knowledgeIds' => articleIds};
 			Set<Object> selectorOptions = new Set<Object>{KnowledgeArticleVersionsSelector.Options.WITH_RECORDTYPE};
-
 			KnowledgeArticleVersionsSelector kavSelector = KnowledgeArticleVersionsSelector.newInstance(fields);
 			return kavSelector.search(params, selectorOptions);
 		}
@@ -544,7 +547,7 @@ global with sharing class ShareInformationController {
 		 * @retun list of Sobject 
 		 */
 		@testVisible
-		private List<SObject> searchArticles(String searchKeyWord, List<String> allowedArticles){
+		private List<SObject> searchArticles(String searchKeyWord, List<String> allowedArticles) {
 
 			KnowledgeArticleVersionsSelector kavSelector = KnowledgeArticleVersionsSelector.newInstance();
 			return kavSelector.searchArticles(searchKeyWord, allowedArticles);

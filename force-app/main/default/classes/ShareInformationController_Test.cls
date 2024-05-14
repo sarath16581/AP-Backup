@@ -74,10 +74,13 @@ public class ShareInformationController_Test {
 	@isTest
 	public static void testSaveMarketingOptions() {
 		//Calling the save marketing options method, which just updates.
-		Account pAccount1 = [Select Id from Account where LastName = 'Person1'];
+		Account pAccount1 = [Select Id, Legal_Marketing_Opt_In__pc from Account where LastName = 'Person1'];
 		setPageReference(pAccount1.Id);
 		ShareInformationController sic = new ShareInformationController();
-		sic.SaveMarketingOptions();
+		sic.currentContact.Legal_Marketing_Opt_In__c = true;
+		sic.SaveMarketingOptions();		
+		Boolean marketingOptIn = [Select Legal_Marketing_Opt_In__pc from Account where Id =: pAccount1.Id].Legal_Marketing_Opt_In__pc;
+		System.assertEquals(true, marketingOptIn, 'Legal_Marketing_Opt_In__c field updated');
 	}
 	@isTest
 	public static void testClearSearchAndSearchArticles() {
@@ -124,10 +127,38 @@ public class ShareInformationController_Test {
 	}
 	@isTest
 	public static void testSendEmail() {
-		Account pAccount1 = [Select Id from Account where LastName = 'Person1'];
+		// =====================================
+		//Data
+		// =====================================
+		List<Knowledge__kav> pushEDMs = ApplicationTestDataFactoryKnowledge.getPushEDMs(1, false);
+		insert pushEDMs;
+		// =====================================
+		// Stubbing
+		// =====================================
+		KnowledgeArticleVersionsSelector kavSelector = (KnowledgeArticleVersionsSelector)MockUtility.mockSelector(KnowledgeArticleVersionsSelector.class);
+		// set up our responses
+		MockUtility.Mocks.startStubbing();
+		// Database
+		MockUtility.Mocks.when(kavSelector.search((Map<String, Object>)fflib_Match.anyObject(), (Set<Object>)fflib_Match.anyObject()))
+			.thenReturn(pushEDMs);
+		MockUtility.Mocks.stopStubbing();
+		// =====================================
+		// Testing
+		// =====================================
+		Test.startTest();
+
+		Account pAccount1 = [Select Id, PersonContactId from Account where LastName = 'Person1'];
 		setPageReference(pAccount1.Id);
 		ShareInformationController sic = new ShareInformationController();
+		sic.articleID = pushEDMs[0].Id;
+		// this method should create ShareInfoActivity__c and ShareInfoArticle__c records
 		sic.sendEmail();
+		List<ShareInfoActivity__c> shareInfoActivities =  [SELECT Id FROM ShareInfoActivity__c];
+		List<ShareInfoArticle__c> shareInfoArticles =  [SELECT Id FROM ShareInfoArticle__c WHERE ShareInfoActivity__c =:shareInfoActivities[0].Id];
+		System.assertEquals(1,shareInfoActivities.size(), 'Share information activity record created');
+		System.assertEquals(1,shareInfoArticles.size(), 'Share information article record created');
+		((KnowledgeArticleVersionsSelector)MockUtility.Mocks.verify(kavSelector, MockUtility.Mocks.times(1))).search((Map<String, Object>)fflib_Match.anyObject(), (Set<Object>)fflib_Match.anyObject());
+		Test.stopTest();
 	}
 	@isTest
 	public static void testSendInvite() {
@@ -150,7 +181,7 @@ public class ShareInformationController_Test {
 		Account pAccount1 = [Select Id from Account where LastName = 'Person1'];
 		setPageReference(pAccount1.Id);
 		ShareInformationController sic = new ShareInformationController();
-		List<Knowledge__kav> pushEDMs = ApplicationTestDataFactory.getPushEDMs(1, false);
+		List<Knowledge__kav> pushEDMs = ApplicationTestDataFactoryKnowledge.getPushEDMs(1, false);
 		insert pushEDMs;
 		//using object because all objects have the same properties
 		KnowledgeArticleVersion kav = [SELECT KnowledgeArticleId FROM KnowledgeArticleVersion WHERE Id = :(Id) pushEDMs[0].get('id')];

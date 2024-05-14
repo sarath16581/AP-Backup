@@ -8,9 +8,9 @@
 * @changelog
 * 2024-04-24 - Raghav Ravipati - Created
 */
-public virtual inherited sharing class KnowledgeDataCategorySelectionsSelector extends ApplicationSelector{
+public virtual inherited sharing class KnowledgeDataCategorySelectionsSelector extends ApplicationSelector {
 	
-	public enum Options {WITH_PARENT}
+	public enum Options { WITH_PARENT }
 	/**
 	 * NOTE: Field overrides should only ever be used when the results are not passed from method to method.
 	 * This approach removes data consistency and prevents possible caching of results
@@ -59,18 +59,18 @@ public virtual inherited sharing class KnowledgeDataCategorySelectionsSelector e
 	 * @param selectorOptions Selector Options
 	 * @param matchAll If true will search based on AND, else search based on OR
 	 */
-	public List<Knowledge__DataCategorySelection> search(Map<String, Object> searchParams, Set<Object> selectorOptions, Boolean matchAll) {
-		// make sure the parameters received are valid
-		// will throw if the parameters passed are invalid
-		List<Knowledge__DataCategorySelection> dataCats = new List<Knowledge__DataCategorySelection>();
-		if(searchParams != null){
-			super.validateSearchParams(searchParams.keySet(), new Set<String>{'recordTypeNames', 'parentIds'});
-			
-			dataCats = selectDataCategorySelections(searchParams,selectorOptions,matchAll);    
-		}
-		
-		return dataCats;
-	}
+    public List<Knowledge__DataCategorySelection> search(Map<String, Object> searchParams, Set<Object> selectorOptions, Boolean matchAll) {
+        // make sure the parameters received are valid
+        // will throw if the parameters passed are invalid
+        List<Knowledge__DataCategorySelection> dataCategories = new List<Knowledge__DataCategorySelection>();
+
+        if (searchParams != null) {
+            super.validateSearchParams(searchParams.keySet(), new Set<String>{ 'recordTypeNames', 'parentIds' });
+            dataCategories = selectDataCategorySelections(searchParams, selectorOptions, matchAll);
+        }
+
+        return dataCategories;
+    }
 
 	/**
 	* @description This methods uses querybuilder framework to build and runs a simple query based on the given params.
@@ -78,39 +78,45 @@ public virtual inherited sharing class KnowledgeDataCategorySelectionsSelector e
 	* @param matchAll If true will search based on AND, else search based on OR
 	* @return List of Knowledge__kav in the form List<Sobject> we have to typecast to List<Knowledge__kav>
 	*/
-	@testVisible
-	private List<Knowledge__DataCategorySelection> selectDataCategorySelections(Map<String, Object> searchParams, Set<Object> selectorOptions, Boolean matchAll)
-	{	
-		QueryBuilder qb = newQueryBuilder(selectorOptions);
+    @testVisible
+    private List<Knowledge__DataCategorySelection> selectDataCategorySelections(Map<String, Object> searchParams, Set<Object> selectorOptions, Boolean matchAll) {
+        QueryBuilder builder = newQueryBuilder(selectorOptions);
+        QueryBuilder.ConditionsManager conditions = builder.conditionsManager;
+        Integer conditionCount = 0;
 
-		if(selectorOptions.contains(Options.WITH_PARENT)){
-
-			qb.addRelatedFields(KnowledgeArticleVersionsSelector.newInstance(fieldOverrides).newQueryBuilder(), 'Parent');
-			qb.addField('parent.RecordType.DeveloperName');
-		}
-		QueryBuilder.ConditionsManager cm = qb.conditionsManager;
-		Integer conditionCount = 0;
 		//Where clause
-
 		if(searchParams.containsKey('recordTypeNames')){
 			Set<String> recordTypeNames = (Set<String>)(searchParams.get('recordTypeNames') == null ? new Set<String>() : (searchParams.get('recordTypeNames') instanceof Set<String> ? searchParams.get('recordTypeNames') : new Set<String>{(String)searchParams.get('recordTypeNames')}));
-			cm.add(new QueryBuilder.InCondition('Parent.RecordType.DeveloperName').inCollection(recordTypeNames));
+			Set<Id> recorTypeIds = (RecordTypesSelector.newInstance().selectByDeveloperName('Knowledge__kav', recordTypeNames)).Keyset();
+			conditions.add(new QueryBuilder.SimpleCondition('Parent.RecordTypeId IN :recorTypeIds'));
 			conditionCount++;
 		}
 		if(searchParams.containsKey('parentIds')){
 			Set<Id> parentIds = (Set<Id>)(searchParams.get('parentIds') == null ? new Set<Id>() : (searchParams.get('parentIds') instanceof Set<Id> ? searchParams.get('parentIds') : new Set<Id>{(Id)searchParams.get('parentIds')}));
-			cm.add(new QueryBuilder.InCondition('parentId').inCollection(parentIds));
+			conditions.add(new QueryBuilder.SimpleCondition(Knowledge__DataCategorySelection.parentId + ' IN :parentIds'));
 			conditionCount++;
 		}
 
-		String conditionOrder = '';
-		for(Integer i=0;i<conditionCount;i++) {
-			conditionOrder += (!String.isEmpty(conditionOrder) ? (matchAll ? ' AND ' : ' OR ') : '') + ' ' + (i+1);
-		}
-		cm.setConditionOrder(conditionOrder);
+        String conditionOrder = '';
 
-		cm.endConditions();
-		List<Knowledge__DataCategorySelection> queryResults = Database.query((qb.toSoqlString()));
-		return queryResults;
-	}
+        for (Integer i = 0; i < conditionCount; i++) {
+			conditionOrder += (!String.isEmpty(conditionOrder) ? (matchAll ? ' AND ' : ' OR ') : '') + ' ' + (i+1);
+        }
+        conditions.setConditionOrder(conditionOrder);
+
+        conditions.endConditions();
+        List<Knowledge__DataCategorySelection> queryResults = Database.query(builder.toSoqlString());
+        return queryResults;
+    }
+
+    public virtual override QueryBuilder newQueryBuilder(Set<Object> selectorOptions) {
+        QueryBuilder builder = super.newQueryBuilder(selectorOptions);
+
+        if (selectorOptions.contains(Options.WITH_PARENT)) {
+			builder.addRelatedFields(KnowledgeArticleVersionsSelector.newInstance().setFieldOverrides(fieldOverrides).newQueryBuilder(selectorOptions), 'Parent');
+			builder.addField('Parent.RecordType.DeveloperName');
+        }
+
+        return builder;
+    }
 }

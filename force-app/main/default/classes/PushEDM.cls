@@ -30,72 +30,64 @@ global with sharing class PushEDM {
 		}
 	}
 	
-	public PushEDM(){   
-		// added by shengpeng.xiao@bluewolf.com at 2014.7.15  
+	public PushEDM() {
+		// added by shengpeng.xiao@bluewolf.com at 2014.7.15
 		this.searchKeyword = '';
-		String urlParam = ApexPages.currentPage().getParameters().get('id').escapeHtml4();
-		if(urlParam.startsWith('001')){
-			Account anAccount = [select PersonContactId from Account where id=:urlParam limit 1];
-			aContact = [select firstname, lastname,id,email,name from Contact where id=:anAccount.PersonContactId limit 1];
+		String urlParam = ApexPages.currentPage().getParameters().get('id');
+		if (urlParam.startsWith('001')) {
+			Account anAccount = [SELECT PersonContactId FROM Account WHERE id = :urlParam LIMIT 1];
+			aContact = [SELECT firstname, lastname, id, email, name FROM Contact WHERE id = :anAccount.PersonContactId LIMIT 1];
 		}
-		
-		if(urlParam.startsWith('003')){
-			aContact = [select firstname, lastname,id,email,name from Contact where id=:urlParam limit 1];
+
+		if (urlParam.startsWith('003')) {
+			aContact = [SELECT firstname, lastname, id, email, name FROM Contact WHERE id = :urlParam LIMIT 1];
 		}
-		
+
 		TopCategories = getTopCategories();
-		
-		 if(ApexPages.currentPage().getParameters().get('k').escapeHtml4()<>null){
-		 	// added by shengpeng.xiao@bluewolf.com at 2014.7.15  
-			this.searchKeyword = ApexPages.currentPage().getParameters().get('k').escapeHtml4();
-			
+
+		if (ApexPages.currentPage().getParameters().get('k') <> null) {
+			// added by shengpeng.xiao@bluewolf.com at 2014.7.15
+			this.searchKeyword = ApexPages.currentPage().getParameters().get('k');
+
 			ArticleSet = getArticleSetByKeywords();
-		}
-		else{
+		} else {
 			ArticleSet = getArticleSet();
 		}
 
-		displayResult=false;
+		displayResult = false;
 	}
 	
 	// added by shengpeng.xiao@bluewolf.com at 2014.7.15
 	// used for searching
 	public Pagereference searchArticles() {
 		TopCategories = getTopCategories();
-		if(!String.isEmpty(this.searchKeyword)) {
+		
+		if (!String.isEmpty(this.searchKeyword)) {
 			ArticleSet = getArticleSetByKeywords();
-		}else {
+		} else {
 			ArticleSet = getArticleSet();
 		}
 		return null;
 	}
    
-   
-	public void populateEmailTempalte(){
-	
-		if(aContact.email<>null){
-				
+	public void populateEmailTempalte() {	
+		if (aContact.email <> null) {
+			String[] toAddresses = new List<String>{ aContact.email };
+			EmailTemplate et = [SELECT HtmlValue FROM EmailTemplate e WHERE DeveloperName = 'PushEDM'];			
 			Savepoint sp = Database.setSavepoint();
 			Messaging.SingleEmailMessage sem = new Messaging.SingleEmailMessage();
-			
-
-			String[] toAddresses = new String[] {aContact.email};
-			
 			sem.setToAddresses(toAddresses);
 			sem.setTargetObjectId(aContact.id);
-			EmailTemplate et=[Select HtmlValue From EmailTemplate e where DeveloperName='PushEDM'];
 			sem.setTemplateId(et.Id);
-			Messaging.sendEmail(new Messaging.Email[] { sem });
-			
+			Messaging.sendEmail(new List<Messaging.Email>{ sem });
 			template = sem.getHtmlBody();
 			Database.rollback(sp);
 		}
-
 	}   
 		
 	public String articleID{get; set;}
 	  
-	private list<Category> getTopCategories(){
+	private list<Category> getTopCategories() {
 		list<Category> topCategories = new list<Category>();
 		list<Schema.DescribeDataCategoryGroupStructureResult> describeResult = DescribeDataCategoryGroupStructures.getDescribeDataCategoryGroupStructureResults();
 		
@@ -174,9 +166,71 @@ global with sharing class PushEDM {
 		}
 	}
 	
-	private list<articleSet> getArticleSetByKeywords(){
+	private list<articleSet> getArticleSetByKeywords() {
 		list<articleSet> articles = new list<articleSet>(); 
+		map<string,string> appliedCategories=new map<string,string>();
+		map<string,string> articleIDCategoryName=new map<string,string>();
+		PushEDMWrapper edmWrapper = new PushEDMWrapper();
+		Set<Id> parentIds = new Set<Id>();
 
+		for(Knowledge__kav knowledgeArticle : edmWrapper.getKnowledgeArticles()){
+			parentIds.add(knowledgeArticle.Id);
+		}
+		//Fields to Query
+		Set<SObjectField> fieldOverrides = new Set<SObjectField>{
+			Knowledge__DataCategorySelection.DataCategoryGroupName,
+			Knowledge__DataCategorySelection.DataCategoryName,
+			Knowledge__DataCategorySelection.ParentId
+		};		
+		Map<String, Object> params = new Map<String, Object>{'parentIds' => parentIds};
+		KnowledgeDataCategorySelectionsSelector datCatSelector = KnowledgeDataCategorySelectionsSelector.newInstance(fieldOverrides);
+
+		for(Sobject faq:datCatSelector.search(params, true)){
+			articleIDCategoryName.put(string.valueof(faq.get('ParentId')),string.valueof(faq.get('DataCategoryName')));
+		}
+		
+		//modified by shengpeng.xiao@bluewolf.com at 2014.6.17 end
+		string keyword = this.searchKeyword;
+		List<String> allowedArticles = new List<String>{'PUSH_EDM','FAQ'};
+
+		Map<Id, articleSet> articleSetMap = new Map<Id, articleSet>();
+		Map<Id, Knowledge__kav> kavMap = new Map<Id, Knowledge__kav>();
+		for(Knowledge__kav article: (List<Knowledge__kav>)edmWrapper.searchArticles(keyword, allowedArticles)){
+			kavMap.put(article.id, article);
+			String articleType = 'PusheDM';
+			if('FAQ'.equalsIgnoreCase(article.RecordType.DeveloperName)){
+				articleType = 'FAQ';
+			}
+			articleSet anArticleSet = new articleSet(article.Title, article.Answer__c, article.UrlName, articleType, article.Id, '', TopCategories);
+			articleSetMap.put(article.id, anArticleSet);
+		}
+
+		Map<String, Object> searchParams = new Map<String, Object>{'parentIds' => kavMap.keySet()};
+		KnowledgeDataCategorySelectionsSelector kavDatCatSelector = KnowledgeDataCategorySelectionsSelector.newInstance(fieldOverrides);
+
+		for (Knowledge__DataCategorySelection kavDataCat : kavDatCatSelector.search(searchParams, true)) {
+
+			if (articleIDCategoryName.containskey(kavDataCat.ParentId) && articleIDCategoryName.get(kavDataCat.ParentId) <> kavDataCat.DataCategoryName) {
+				string newCategoryNames = articleIDCategoryName.get(kavDataCat.ParentId) + ',' + kavDataCat.DataCategoryName;
+				articleIDCategoryName.put(string.valueof(kavDataCat.get('ParentId')), newCategoryNames);
+				appliedCategories.put(kavDataCat.DataCategoryName, kavDataCat.DataCategoryName);
+			} else if (!articleIDCategoryName.containskey(kavDataCat.ParentId)) {
+				articleIDCategoryName.put(string.valueof(kavDataCat.get('ParentId')), kavDataCat.DataCategoryName);
+				appliedCategories.put(kavDataCat.DataCategoryName, kavDataCat.DataCategoryName);
+			}
+
+			articleSet anArticleSet = articleSetMap.get(kavDataCat.ParentId);
+			anArticleSet.categoryList = articleIDCategoryName.get(kavDataCat.ParentId);
+		}
+		articles.addAll(articleSetMap.values());
+
+		return articles;
+	}   
+								 
+	private list<articleSet> getArticleSet(){						 
+		String language ='en_US';
+		String PublishStatus='Online';
+		list<articleSet> articles = new list<articleSet>();
 		map<string,string> appliedCategories=new map<string,string>();
 
 		//Fields to Query
@@ -187,119 +241,55 @@ global with sharing class PushEDM {
 		};
 
 		map<string,string> articleIDCategoryName=new map<string,string>();
-
-		Map<String, Object> params = new Map<String, Object>{'recordTypeNames' => new Set<String>{'PUSH_EDM','FAQ'}};
-		KnowledgeDataCategorySelectionsSelector datCatSelector = KnowledgeDataCategorySelectionsSelector.newInstance(fieldOverrides);
-
-		for(Sobject faq:datCatSelector.search(params, true)){
-			articleIDCategoryName.put(string.valueof(faq.get('ParentId')),string.valueof(faq.get('DataCategoryName')));
-		}
-		
-		//modified by shengpeng.xiao@bluewolf.com at 2014.6.17 end
-		string keyword = this.searchKeyword;
-		List<String> allowedArticles = new List<String>{'PUSH_EDM','FAQ'};
+		Set<String> allowedArticles = new Set<String>{'PUSH_EDM','FAQ'};
+		List<Knowledge__DataCategorySelection> eligibleDataCats = new List<Knowledge__DataCategorySelection>();
+		Set<Id> parentIds = new Set<Id>();
+		Map<Id, Knowledge__kav> knowledgeArticlesMap = new Map<Id, Knowledge__kav>();
 		PushEDMWrapper edmWrapper = new PushEDMWrapper();
 
-		Map<Id, articleSet> articleSetMap = new Map<Id, articleSet>();
-		Map<Id, Knowledge__kav> kavMap = new Map<Id, Knowledge__kav>();
-		for(Knowledge__kav article: (List<Knowledge__kav>)edmWrapper.searchArticles(keyword, allowedArticles)){
-			kavMap.put(article.id, article);
-			String articleType = 'PusheDM';
-			if(article.RecordType.DeveloperName == 'FAQ'){
-				articleType = 'FAQ';
-			}
-			articleSet anArticleSet = new articleSet(article.title,article.answer__c, article.UrlName,articleType,article.Id, '', TopCategories);
-			articleSetMap.put(article.id, anArticleSet);
+		for(Knowledge__kav knowledgeArticle : edmWrapper.getKnowledgeArticles()){
+			parentIds.add(knowledgeArticle.Id);
+			knowledgeArticlesMap.put(knowledgeArticle.Id, knowledgeArticle);
 		}
-
-		Map<String, Object> searchParams = new Map<String, Object>{'parentIds' => kavMap.keySet()};
-		KnowledgeDataCategorySelectionsSelector kavDatCatSelector = KnowledgeDataCategorySelectionsSelector.newInstance(fieldOverrides);
-
-		for(Knowledge__DataCategorySelection kavDataCat : kavDatCatSelector.search(searchParams, true)){
-
-			if(articleIDCategoryName.containskey(kavDataCat.ParentId)	&& articleIDCategoryName.get(kavDataCat.ParentId) <> kavDataCat.DataCategoryName){
-				string newCategoryNames= articleIDCategoryName.get(kavDataCat.ParentId)+','+kavDataCat.DataCategoryName;
-				articleIDCategoryName.put(string.valueof(kavDataCat.get('ParentId')),newCategoryNames);
-				appliedCategories.put(kavDataCat.DataCategoryName,kavDataCat.DataCategoryName);
-			}
-			else if (!articleIDCategoryName.containskey(kavDataCat.ParentId)) {
-				articleIDCategoryName.put(string.valueof(kavDataCat.get('ParentId')),kavDataCat.DataCategoryName);
-				appliedCategories.put(kavDataCat.DataCategoryName,kavDataCat.DataCategoryName);
-			}
-			articleSet anArticleSet =  articleSetMap.get(kavDataCat.ParentId);
-			anArticleSet.categoryList = articleIDCategoryName.get(kavDataCat.ParentId);
-		}
-		articles.addAll(articleSetMap.values());
-
-		return articles;
-	}   
-								 
-	private list<articleSet> getArticleSet(){
-						 
-		String language ='en_US';
-		String PublishStatus='Online';
-		list<articleSet> articles = new list<articleSet>();
-
-		map<string,string> appliedCategories=new map<string,string>();
-
-		//Fields to Query
-		Map<SobjectType, Set<SObjectField>> fieldOverrides = new Map<SobjectType, Set<SObjectField>>();
-		fieldOverrides.put(Knowledge__DataCategorySelection.SObjectType, new Set<SObjectField>{
-			Knowledge__DataCategorySelection.DataCategoryGroupName,
-			Knowledge__DataCategorySelection.DataCategoryName,
-			Knowledge__DataCategorySelection.ParentId
-		} );
-		fieldOverrides.put(Knowledge__kav.SobjectType, new Set<SObjectField>{
-			Knowledge__kav.Answer__c,
-			Knowledge__kav.Summary,
-			Knowledge__kav.UrlName,
-			Knowledge__kav.id,
-			Knowledge__kav.Title
-		});
-
-		map<string,string> articleIDCategoryName=new map<string,string>();
-		Set<String> allowedArticles = new Set<String>{'PUSH_EDM','FAQ'};
-		Map<String, Object> params = new Map<String, Object>{'recordTypeNames' => allowedArticles};
-
+		
+		Map<String, Object> params = new Map<String, Object>{'parentIds' => parentIds};
 		KnowledgeDataCategorySelectionsSelector datCatSelector = KnowledgeDataCategorySelectionsSelector.newInstance(fieldOverrides);
-
-		List<Knowledge__DataCategorySelection> eligibleDataCats = new List<Knowledge__DataCategorySelection>();
 
 		for(Knowledge__DataCategorySelection dataCat :datCatSelector.search(params, true)){
 			articleIDCategoryName.put(dataCat.ParentId,dataCat.DataCategoryName);
 
-			if(PublishStatus.equalsIgnoreCase(dataCat.Parent.PublishStatus) && dataCat.Parent.IsLatestVersion == true && language.equalsIgnoreCase(dataCat.Parent.language) &&  allowedArticles.contains(dataCat.Parent.recordType.DeveloperName)){
+			if(knowledgeArticlesMap.get(dataCat.ParentId).language == 'en_US' && knowledgeArticlesMap.get(dataCat.ParentId).PublishStatus == 'Online' && knowledgeArticlesMap.get(dataCat.ParentId).IsLatestVersion){
 				eligibleDataCats.add(dataCat);
-			}
-			
+			}		
 		}
 
 		Map<Id, articleSet> articleSetMap = new Map<Id, articleSet>();
 
-		for(Knowledge__DataCategorySelection faqPushEDM:eligibleDataCats){
+		for (Knowledge__DataCategorySelection faqPushEDM : eligibleDataCats) {
+			if (articleIDCategoryName.containskey(faqPushEDM.ParentId) == true && articleIDCategoryName.get(faqPushEDM.ParentId) <> faqPushEDM.get('DataCategoryName')) {
+				string newCategoryNames = articleIDCategoryName.get(faqPushEDM.ParentId) + ',' + faqPushEDM.get('DataCategoryName');
+				articleIDCategoryName.put(string.valueof(faqPushEDM.get('ParentId')), newCategoryNames);
+				appliedCategories.put(string.valueof(faqPushEDM.get('DataCategoryName')), string.valueof(faqPushEDM.get('DataCategoryName')));
+			}
 
-			if(articleIDCategoryName.containskey(faqPushEDM.ParentId)==true && articleIDCategoryName.get(faqPushEDM.ParentId)<>faqPushEDM.get('DataCategoryName')){
-				string newCategoryNames= articleIDCategoryName.get(faqPushEDM.ParentId)+','+faqPushEDM.get('DataCategoryName');
-				articleIDCategoryName.put(string.valueof(faqPushEDM.get('ParentId')),newCategoryNames);
-				appliedCategories.put(string.valueof(faqPushEDM.get('DataCategoryName')),string.valueof(faqPushEDM.get('DataCategoryName')));
+			if (articleIDCategoryName.containskey(faqPushEDM.ParentId) == false) {
+				articleIDCategoryName.put(string.valueof(faqPushEDM.get('ParentId')), string.valueof(faqPushEDM.get('DataCategoryName')));
+				appliedCategories.put(string.valueof(faqPushEDM.get('DataCategoryName')), string.valueof(faqPushEDM.get('DataCategoryName')));
 			}
-			if(articleIDCategoryName.containskey(faqPushEDM.ParentId)==false){
-				articleIDCategoryName.put(string.valueof(faqPushEDM.get('ParentId')),string.valueof(faqPushEDM.get('DataCategoryName')));
-				appliedCategories.put(string.valueof(faqPushEDM.get('DataCategoryName')),string.valueof(faqPushEDM.get('DataCategoryName')));
-			}
-			
-			if( articleSetMap.containsKey(faqPushEDM.ParentId)){
-				
-				articleSet anArticleSet =  articleSetMap.get(faqPushEDM.ParentId);
-				anArticleSet.categoryList = articleIDCategoryName.get(faqPushEDM.ParentId);	
-			}
-			else{
+
+			if (articleSetMap.containsKey(faqPushEDM.ParentId)) {
+				articleSet anArticleSet = articleSetMap.get(faqPushEDM.ParentId);
+				anArticleSet.categoryList = articleIDCategoryName.get(faqPushEDM.ParentId);
+			} else {
 				String articleType = 'PusheDM';
-				if(faqPushEDM.parent.RecordType.DeveloperName == 'FAQ'){
+				Knowledge__kav parentKnowledge = knowledgeArticlesMap.get(faqPushEDM.parentId);
+
+				if ('FAQ'.equalsIgnoreCase(parentKnowledge.RecordType.DeveloperName)) {
 					articleType = 'FAQ';
 				}
-				articleSet article = new articleSet(faqPushEDM.Parent.title,faqPushEDM.Parent.Answer__c,faqPushEDM.Parent.UrlName,articleType,faqPushEDM.ParentId, articleIDCategoryName.get(faqPushEDM.ParentId), TopCategories);
-			}		
+				articleSet article = new articleSet(parentKnowledge.title, parentKnowledge.Answer__c, parentKnowledge.UrlName, articleType, faqPushEDM.ParentId, articleIDCategoryName.get(faqPushEDM.ParentId), TopCategories);
+				articleSetMap.put(faqPushEDM.ParentId, article);
+			}
 		}
 
 		articles.addAll(articleSetMap.values());
@@ -404,9 +394,29 @@ global with sharing class PushEDM {
 	without sharing class PushEDMWrapper{
 		@testVisible
 		private List<SObject> searchArticles(String searchKeyWord, List<String> allowedArticles){
-
+			
 			KnowledgeArticleVersionsSelector kavSelector = KnowledgeArticleVersionsSelector.newInstance();
 			return kavSelector.searchArticles(searchKeyWord, allowedArticles);
+		}
+		/**
+		 * @description Gets all the Kavs based on published status, recordtype and language
+		 * @return list of Knowledge__kav
+		 */
+		@testVisible
+		private List<Knowledge__kav> getKnowledgeArticles() {
+			Set<SObjectField> fields = new Set<SObjectField>{
+				Knowledge__kav.Id,
+				Knowledge__kav.Answer__c,
+				Knowledge__kav.ArticleNumber,
+				Knowledge__kav.KnowledgeArticleId,
+				Knowledge__kav.Title
+			};
+
+			Map<String, Object> params = new Map<String, Object>{'recordTypeNames' => new Set<String>{ 'PUSH_EDM', 'FAQ' }};
+			KnowledgeArticleVersionsSelector kavSelector = KnowledgeArticleVersionsSelector.newInstance(fields);
+			Set<Object> selectorOptions = new Set<Object>();
+			selectorOptions.add(KnowledgeArticleVersionsSelector.Options.WITH_RECORDTYPE);
+			return  kavSelector.search(params, selectorOptions, true);
 		}
 	}
 }
