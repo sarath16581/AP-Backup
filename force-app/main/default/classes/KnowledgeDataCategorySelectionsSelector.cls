@@ -59,18 +59,18 @@ public virtual inherited sharing class KnowledgeDataCategorySelectionsSelector e
 	 * @param selectorOptions Selector Options
 	 * @param matchAll If true will search based on AND, else search based on OR
 	 */
-    public List<Knowledge__DataCategorySelection> search(Map<String, Object> searchParams, Set<Object> selectorOptions, Boolean matchAll) {
-        // make sure the parameters received are valid
-        // will throw if the parameters passed are invalid
-        List<Knowledge__DataCategorySelection> dataCategories = new List<Knowledge__DataCategorySelection>();
+	public List<Knowledge__DataCategorySelection> search(Map<String, Object> searchParams, Set<Object> selectorOptions, Boolean matchAll) {
+		// make sure the parameters received are valid
+		// will throw if the parameters passed are invalid
+		List<Knowledge__DataCategorySelection> dataCategories = new List<Knowledge__DataCategorySelection>();
 
-        if (searchParams != null) {
-            super.validateSearchParams(searchParams.keySet(), new Set<String>{ 'recordTypeNames', 'parentIds' });
-            dataCategories = selectDataCategorySelections(searchParams, selectorOptions, matchAll);
-        }
+		if (searchParams != null) {
+			super.validateSearchParams(searchParams.keySet(), new Set<String>{ 'recordTypeNames', 'parentIds' });
+			dataCategories = selectDataCategorySelections(searchParams, selectorOptions, matchAll);
+		}
 
-        return dataCategories;
-    }
+		return dataCategories;
+	}
 
 	/**
 	* @description This methods uses querybuilder framework to build and runs a simple query based on the given params.
@@ -78,11 +78,11 @@ public virtual inherited sharing class KnowledgeDataCategorySelectionsSelector e
 	* @param matchAll If true will search based on AND, else search based on OR
 	* @return List of Knowledge__kav in the form List<Sobject> we have to typecast to List<Knowledge__kav>
 	*/
-    @testVisible
-    private List<Knowledge__DataCategorySelection> selectDataCategorySelections(Map<String, Object> searchParams, Set<Object> selectorOptions, Boolean matchAll) {
-        QueryBuilder builder = newQueryBuilder(selectorOptions);
-        QueryBuilder.ConditionsManager conditions = builder.conditionsManager;
-        Integer conditionCount = 0;
+	@testVisible
+	private List<Knowledge__DataCategorySelection> selectDataCategorySelections(Map<String, Object> searchParams, Set<Object> selectorOptions, Boolean matchAll) {
+		QueryBuilder builder = newQueryBuilder(selectorOptions);
+		QueryBuilder.ConditionsManager conditions = builder.conditionsManager;
+		Integer conditionCount = 0;
 
 		//Where clause
 		if(searchParams.containsKey('recordTypeNames')){
@@ -97,26 +97,26 @@ public virtual inherited sharing class KnowledgeDataCategorySelectionsSelector e
 			conditionCount++;
 		}
 
-        String conditionOrder = '';
+		String conditionOrder = '';
 
-        for (Integer i = 0; i < conditionCount; i++) {
+		for (Integer i = 0; i < conditionCount; i++) {
 			conditionOrder += (!String.isEmpty(conditionOrder) ? (matchAll ? ' AND ' : ' OR ') : '') + ' ' + (i+1);
-        }
-        conditions.setConditionOrder(conditionOrder);
+		}
+		conditions.setConditionOrder(conditionOrder);
 
-        conditions.endConditions();
-        List<Knowledge__DataCategorySelection> queryResults = Database.query(builder.toSoqlString());
-        return queryResults;
-    }
+		conditions.endConditions();
+		List<Knowledge__DataCategorySelection> queryResults = Database.query(builder.toSoqlString());
+		return queryResults;
+	}
 
-    public virtual override QueryBuilder newQueryBuilder(Set<Object> selectorOptions) {
-        QueryBuilder builder = super.newQueryBuilder(selectorOptions);
+	public virtual override QueryBuilder newQueryBuilder(Set<Object> selectorOptions) {
+		QueryBuilder builder = super.newQueryBuilder(selectorOptions);
 
-        if (selectorOptions.contains(Options.WITH_PARENT)) {
+		if (selectorOptions.contains(Options.WITH_PARENT)) {
 			builder.addRelatedFields(KnowledgeArticleVersionsSelector.newInstance().setFieldOverrides(fieldOverrides).newQueryBuilder(selectorOptions), 'Parent');
 			builder.addField('Parent.RecordType.DeveloperName');
-        }
+		}
 
-        return builder;
-    }
+		return builder;
+	}
 }
