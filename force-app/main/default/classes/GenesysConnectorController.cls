@@ -432,10 +432,8 @@ global with sharing class GenesysConnectorController {
 		Task result = existingTasks.isEmpty() ? null : existingTasks[0];
 		
 		if (existingTasks.isEmpty()) {
-			Id recordTypeId = RecordTypesSelector.newInstance().selectByDeveloperName(
-				String.valueOf(Task.SObjectType),
-				new Set<String>{ Constants.RECORDTYPE_NAME_TASK_SSSWCALL }
-			).values()[0].Id;
+
+			Id recordTypeid = Schema.SObjectType.Task.getRecordTypeInfosByDeveloperName().get(Constants.RECORDTYPE_NAME_TASK_SSSWCALL).getRecordTypeId();
 			
 			// Init new Task instance with default values
 			result = (Task)Task.SObjectType.newSObject(recordTypeId, true);

@@ -224,7 +224,10 @@ public class GenesysConnectorController_Test {
 		
 		List<AuthorisedContacts__c> relatedCons =  ApplicationTestDataFactory.getAuthorisedContacts(1,cases[0].Id, true);
 		relatedCons[0] = (AuthorisedContacts__c)ApplicationTestDataFactory.setUnwritableFields(relatedCons[0], new Map<String, Object> { 'Calc_Contact_Phone_Number__c' => '0478738121'});
-		
+
+		// =====================================
+		// Testing
+		// =====================================
 		Test.startTest();
 		
 		Case c = GenesysConnectorController.updateCaseWithRecentCallerStarTrack(relatedCons[0], cases[0].Id);
@@ -296,6 +299,9 @@ public class GenesysConnectorController_Test {
 			.thenReturn(new Map<Id, Case>(cases));
 		MockUtility.Mocks.stopStubbing();
 
+		// =====================================
+		// Testing
+		// =====================================
 		Test.startTest();
 		
 		Map<String, String> jsonMap = new Map<String, String>();
@@ -342,6 +348,13 @@ public class GenesysConnectorController_Test {
 		Test.stopTest();
 
 		System.assertEquals('caseNumber', result.get('match'));
+		((CasesSelector)MockUtility.Mocks.verify(mockCasesSelector, MockUtility.Mocks.times(1))).selectByCaseNumber((Set<String>)fflib_Match.eq(new Set<String>{ cases[0].CaseNumber}),(Set<Object>)fflib_Match.anyObject());
+
+		fflib_ArgumentCaptor caseNumbersCaptor = fflib_ArgumentCaptor.forClass(Map<String, Object>.class);
+		((CasesSelector)MockUtility.Mocks.verify(mockCasesSelector, MockUtility.Mocks.times(1))).selectByCaseNumber((Set<String>)caseNumbersCaptor.capture(), (Set<Object>)fflib_Match.anyObject());
+		Set<String> caseNumbersCaptured = (Set<String>) caseNumbersCaptor.getValue();
+
+		System.assertEquals(1,caseNumbersCaptured.size());
 	}
 	
  	/*****************************************************************
@@ -366,9 +379,12 @@ public class GenesysConnectorController_Test {
 		// set up our responses
 		MockUtility.Mocks.startStubbing();
 		MockUtility.Mocks.when(mockCasesSelector.selectCasesByReferenceId(new Set<String>{cases[0].ReferenceID__c},new Set<Object>{CasesSelector.Options.WITH_CONTACT}))
-			.thenReturn(new Map<Id, Case>(cases));
+			.thenReturn(cases);
 		MockUtility.Mocks.stopStubbing();
 
+		// =====================================
+		// Testing
+		// =====================================
 		Test.startTest();
 		
 		Map<String, String> jsonMap = new Map<String, String>();
@@ -379,6 +395,14 @@ public class GenesysConnectorController_Test {
 		Test.stopTest();
 
 		System.assertEquals('trackingNumber', result.get('match'));
+
+		((CasesSelector)MockUtility.Mocks.verify(mockCasesSelector, MockUtility.Mocks.times(1))).selectCasesByReferenceId((Set<String>)fflib_Match.eq(new Set<String>{cases[0].ReferenceID__c}),(Set<Object>)fflib_Match.anyObject());
+
+		fflib_ArgumentCaptor caseReferenceIdsCaptor = fflib_ArgumentCaptor.forClass(Map<String, Object>.class);
+		((CasesSelector)MockUtility.Mocks.verify(mockCasesSelector, MockUtility.Mocks.times(1))).selectCasesByReferenceId((Set<String>)caseReferenceIdsCaptor.capture(), (Set<Object>)fflib_Match.anyObject());
+		Set<String> caseReferenceIdsCaptured = (Set<String>) caseReferenceIdsCaptor.getValue();
+
+		System.assertEquals(1,caseReferenceIdsCaptured.size());
 	}	
 	
  	/*****************************************************************
@@ -405,6 +429,9 @@ public class GenesysConnectorController_Test {
 			.thenReturn(new Map<Id, Contact>(contacts));
 		MockUtility.Mocks.stopStubbing();
 
+		// =====================================
+		// Testing
+		// =====================================
 		Test.startTest();
 		
 		Map<String, String> jsonMap = new Map<String, String>();
@@ -415,6 +442,14 @@ public class GenesysConnectorController_Test {
 		Test.stopTest();
 
 		System.assertEquals('contactId', result.get('match'));
+	
+		((ContactsSelector)MockUtility.Mocks.verify(mockContactsSelector, MockUtility.Mocks.times(1))).selectById((Set<Id>)fflib_Match.eq(new Set<Id>{contacts[0].Id}),(Set<Object>)fflib_Match.anyObject());
+
+		fflib_ArgumentCaptor contactIdsCaptor = fflib_ArgumentCaptor.forClass(Map<String, Object>.class);
+		((ContactsSelector)MockUtility.Mocks.verify(mockContactsSelector, MockUtility.Mocks.times(1))).selectById((Set<Id>)contactIdsCaptor.capture(), (Set<Object>)fflib_Match.anyObject());
+		Set<Id> contactIdsCaptured = (Set<Id>) contactIdsCaptor.getValue();
+
+		System.assertEquals(1,contactIdsCaptured.size());
 	}
 	
  	/*****************************************************************
@@ -442,6 +477,9 @@ public class GenesysConnectorController_Test {
 			.thenReturn(new Map<Id, Contact>(contacts));
 		MockUtility.Mocks.stopStubbing();
 
+		// =====================================
+		// Testing
+		// =====================================
 		Test.startTest();
 		
 		Map<String, String> jsonMap = new Map<String, String>();
@@ -452,6 +490,13 @@ public class GenesysConnectorController_Test {
 		Test.stopTest();
 
 		System.assertEquals('phoneNumber', result.get('match'));
+
+		((ContactsSelector)MockUtility.Mocks.verify(mockContactsSelector, MockUtility.Mocks.times(1))).selectByLikedAnyPhoneOrderByName((String)fflib_Match.eq(contacts[0].Phone),(Set<Object>)fflib_Match.anyObject());
+
+		fflib_ArgumentCaptor contactphoneCaptor = fflib_ArgumentCaptor.forClass(Map<String, Object>.class);
+		((ContactsSelector)MockUtility.Mocks.verify(mockContactsSelector, MockUtility.Mocks.times(1))).selectByLikedAnyPhoneOrderByName((String)contactPhoneCaptor.capture(), (Set<Object>)fflib_Match.anyObject());
+	
+		System.assertEquals(true,contactPhoneCaptor != null);
 	}
 
  	/*****************************************************************
@@ -475,7 +520,10 @@ public class GenesysConnectorController_Test {
 		};
 		
 		String taskDetails = JSON.serialize(mapTaskDetails);
-		
+
+		// =====================================
+		// Testing
+		// =====================================		
 		Test.startTest();
 		
 		object result = GenesysConnectorController.maintainTaskAP(callLog, taskDetails, callLog);
