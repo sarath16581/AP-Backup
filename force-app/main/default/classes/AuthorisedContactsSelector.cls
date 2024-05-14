@@ -60,15 +60,16 @@ public virtual inherited sharing class AuthorisedContactsSelector extends Applic
 	* this method returns records with matching case Ids
 	* @param caseId - set of case ids
 	* @param selecterOptions - selector options to augment result set
+	* @return List of authorised contacts
 	*/
-	public Map<Id,AuthorisedContacts__c> selectByCaseIdOrderByName(Set<Id> caseIds, Set<Object> selectorOptions) {
+	public List<AuthorisedContacts__c> selectByCaseIdOrderByName(Set<Id> caseIds, Set<Object> selectorOptions) {
 		QueryBuilder qb = newQueryBuilder(selectorOptions);  
 		QueryBuilder.ConditionsManager conditions = qb.addConditions();
 		conditions.add(new QueryBuilder.SimpleCondition(AuthorisedContacts__c.Case__c + ' IN :caseIds'));
 		conditions.endConditions();
 		qb.addOrderDesc(AuthorisedContacts__c.Initial_Contact__c);
 		qb.addOrderAsc(AuthorisedContacts__c.Calc_First_Name__c);
-		return new Map<Id, AuthorisedContacts__c>((List<AuthorisedContacts__c>)Database.query(qb.toSoqlString()));
+		return (List<AuthorisedContacts__c>)Database.query(qb.toSoqlString());
 	}
 
 }

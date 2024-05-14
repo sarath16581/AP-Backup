@@ -82,7 +82,7 @@
 	 AuthorisedContactsSelector authConsSelector = AuthorisedContactsSelector.newInstance();
 	 List<AuthorisedContacts__c> authorisedContacts = authConsSelector.selectByCaseId(new Set<Id>{cases[0].Id});
 	 List<AuthorisedContacts__c> authContacts = AuthorisedContactsSelector.newInstance()
-	  .selectByCaseIdOrderByName(new Set<Id>{ cases[0].Id }, new Set<Object>()).values();
+	  .selectByCaseIdOrderByName(new Set<Id>{ cases[0].Id }, new Set<Object>());
 	 test.stopTest();
  
 	 // ensure the query is producing correct result
