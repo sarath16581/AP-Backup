@@ -338,52 +338,61 @@ global with sharing class GenesysConnectorController {
 		// Get the existing task or new instance with all required default values
 		Task activity = getSSSWCallTask((String)taskDetailMap.get('interactionId'));
 		
+		if (taskDetailMap.containsKey('contactId')) {
+			Id accountId = (Id)taskDetailMap.get('contactId');
+			// replace PersonAccountId with actual ContactId required for WhoId field assignment onto task
+			if (accountId != null && accountId.getSObjectType() == Account.SObjectType) {
+				  AccountsSelector selector = AccountsSelector.newInstance(1, new Set<SObjectField>{ Account.Id, Account.PersonContactId });
+				  taskDetailMap.put('contactId', selector.selectById(new Set<Id>{ accountId }).get(accountId).PersonContactId);				
+			}
+	  	}
+
 		// Which values to copy from the genesys interaction object
 		Map<SObjectField,String> callLogMappings = new Map<SObjectField,String>{
 			Task.CallType => 'callType',
-				Task.Enquiry_Type__c => 'enquiryType',
-				Task.Enquiry_Sub_Type__c => 'enquirySubType',
-				Task.IWS_CallUUID__c => 'callUuid',
-				Task.IWS_CaseUid__c => 'caseUuid',
-				Task.Outcome__c => 'outcome',
-				Task.Phone__c => 'phoneNumber',
-				Task.Product_Category__c => 'productCategory',
-				Task.Product_Sub_Category__c => 'productSubCategory',
-				Task.Queue__c => 'queue',
-				Task.Segment__c => 'segment',
-				Task.ServiceType__c => 'serviceType',
-				Task.Target_Skill__c => 'targetSkill'
-				};
-					
-					// Map all values from CTI callLog
-					for (SObjectField targetField :callLogMappings.keySet()) {
-						String attribName = callLogMappings.get(targetField);
-						
-						// Only update if value has been provided (can be null as well to unset the fieldvalue)
-						if (callLogMap.containsKey(attribName)) {
-							activity.put(targetField, callLogMap.get(attribName));
-						}
-					}
+			Task.Enquiry_Type__c => 'enquiryType',
+			Task.Enquiry_Sub_Type__c => 'enquirySubType',
+			Task.IWS_CallUUID__c => 'callUuid',
+			Task.IWS_CaseUid__c => 'caseUuid',
+			Task.Outcome__c => 'outcome',
+			Task.Phone__c => 'phoneNumber',
+			Task.Product_Category__c => 'productCategory',
+			Task.Product_Sub_Category__c => 'productSubCategory',
+			Task.Queue__c => 'queue',
+			Task.Segment__c => 'segment',
+			Task.ServiceType__c => 'serviceType',
+			Task.Target_Skill__c => 'targetSkill'
+		};
+			
+		// Map all values from CTI callLog
+		for (SObjectField targetField :callLogMappings.keySet()) {
+			String attribName = callLogMappings.get(targetField);
+			
+			// Only update if value has been provided (can be null as well to unset the fieldvalue)
+			if (callLogMap.containsKey(attribName)) {
+				activity.put(targetField, callLogMap.get(attribName));
+			}
+		}
 		
 		// Map all additional task detail attributes
 		Map<SObjectField,String> taskDetailMappings = new Map<SObjectField,String>{
 			Task.CallDisposition => 'disposition',
-				Task.CallDurationInSeconds => 'durationInSeconds',
-				Task.CTIInteractionID__c => 'interactionId',
-				Task.Status => 'status',
-				Task.Subject => 'subject',
-				Task.WhatId => 'caseId',
-				Task.WhoId => 'contactId'
-				};
-					
-					// Map all values from taskDetail
-					for (SObjectField targetField :taskDetailMappings.keySet()) {
-						String attribName = taskDetailMappings.get(targetField);
-						
-						if (taskDetailMap.containsKey(attribName)) {
-							activity.put(targetField, taskDetailMap.get(attribName));
-						}
-					}
+			Task.CallDurationInSeconds => 'durationInSeconds',
+			Task.CTIInteractionID__c => 'interactionId',
+			Task.Status => 'status',
+			Task.Subject => 'subject',
+			Task.WhatId => 'caseId',
+			Task.WhoId => 'contactId'
+		};
+			
+		// Map all values from taskDetail
+		for (SObjectField targetField :taskDetailMappings.keySet()) {
+			String attribName = taskDetailMappings.get(targetField);
+			
+			if (taskDetailMap.containsKey(attribName)) {
+				activity.put(targetField, taskDetailMap.get(attribName));
+			}
+		}
 		
 		ApplicationDatabase appDBInstance = ApplicationDatabase.getInstance();
 		
@@ -397,24 +406,25 @@ global with sharing class GenesysConnectorController {
 			// Include the ctiLog		
 			String comments = String.valueOf(callLogMap.get('comments'));
 			String attachmentBody = (!String.isEmpty(comments) ? '\n\n' : '') + ctiLog;
+			
 			appDBInstance.dmlInsert(new List<SObject>{
 				new Attachment(
 					Name = 'InboundLog.txt',
 					parentId = result.id,
 					body = Blob.valueOf(attachmentBody)
 				)
-					});
+			});
 		}
 		
 		return result;
 	}
 	
 	/**
-* Attempts to get the existing Task for this interactionId
-* In case it doesn't exist yet, return the default values for a SSSWCall Task record
-* @param (String) Unique interactionId for this call
-* @return (Task) Existing Task or default values
-*/
+	* Attempts to get the existing Task for this interactionId
+	* In case it doesn't exist yet, return the default values for a SSSWCall Task record
+	* @param (String) Unique interactionId for this call
+	* @return (Task) Existing Task or default values
+	*/
 	private static Task getSSSWCallTask(String interactionId) {
 		if (String.isBlank(interactionId)) {
 			// interactionId should allways be present
@@ -432,8 +442,7 @@ global with sharing class GenesysConnectorController {
 		Task result = existingTasks.isEmpty() ? null : existingTasks[0];
 		
 		if (existingTasks.isEmpty()) {
-
-			Id recordTypeid = Schema.SObjectType.Task.getRecordTypeInfosByDeveloperName().get(Constants.RECORDTYPE_NAME_TASK_SSSWCALL).getRecordTypeId();
+			Id recordTypeId = Schema.SObjectType.Task.getRecordTypeInfosByDeveloperName().get(Constants.RECORDTYPE_NAME_TASK_SSSWCALL).getRecordTypeId();
 			
 			// Init new Task instance with default values
 			result = (Task)Task.SObjectType.newSObject(recordTypeId, true);
