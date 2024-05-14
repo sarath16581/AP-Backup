@@ -7,6 +7,7 @@
             <components>QuickLinksStarTrack</components>
             <components>Console.BuiltInComponent.knowledgeOne</components>
             <components>Console.BuiltInComponent.macroBrowser</components>
+            <components>UnifiedTrackingPanel</components>
             <components>NewCase</components>
             <components>StarTrackConsignmentSearch</components>
             <components>Console.BuiltInComponent.servicePresence</components>
@@ -180,7 +181,6 @@
     <isNavTabPersistenceDisabled>false</isNavTabPersistenceDisabled>
     <isServiceCloudConsole>true</isServiceCloudConsole>
     <label>StarTrack Service &amp; Support</label>
-    <logo>StarTrack_Documents/StarTrack_Primary_Logo.png</logo>
     <preferences>
         <enableCustomizeMyTabs>true</enableCustomizeMyTabs>
         <enableKeyboardShortcuts>true</enableKeyboardShortcuts>
