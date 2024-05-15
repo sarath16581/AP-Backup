@@ -92,7 +92,7 @@ public virtual inherited sharing class KnowledgeArticleVersionsSelector extends 
 		// will throw if the parameters passed are invalid
 		super.validateSearchParams(searchParams.keySet(), new Set<String>{'statuses', 'languages', 'recordTypeNames', 'types', 'IsLatestVersion'});
 
-		return (List<Knowledge__kav>)selectByStatusLanguageType(searchParams, selectorOptions, matchAll);
+		return (List<Knowledge__kav>)selectByStatusLanguageType(searchParams, selectorOptions, matchAll, null, '');
 	}
 
 	private List<Knowledge__kav> search(Map<String, Object> searchParams, Set<Object> selectorOptions, Boolean matchAll, Schema.SobjectField orderByField, String sortOrder) {
@@ -105,81 +105,19 @@ public virtual inherited sharing class KnowledgeArticleVersionsSelector extends 
 
 	/**
 	 * @description Run a simple query to get records based on Id's
-	 */
-	public List<Knowledge__kav> search(Map<String, Object> searchParams, Set<Object> selectorOptions) {
-
-		super.validateSearchParams(searchParams.keySet(), new Set<String>{'knowledgeIds'});
-		return selectById(searchParams, selectorOptions);
-	}
-
-	/**
-	 * @description Run a simple query to get records based on Id's
-	 */
-	public List<Knowledge__kav> selectById(Map<String, Object> searchParams, Set<Object> selectorOptions) {
-
-		QueryBuilder qb = newQueryBuilder(selectorOptions);
-		QueryBuilder.ConditionsManager cm = qb.conditionsManager;
-
-		//Where clause
-		if(searchParams.containsKey('knowledgeIds')){
-			Set<Id> knowledgeIds = (Set<Id>)(searchParams.get('knowledgeIds') == null ? new Set<Id>() : (searchParams.get('knowledgeIds') instanceof Set<Id> ? searchParams.get('knowledgeIds') : new Set<Id>{(Id)searchParams.get('knowledgeIds')}));
-			cm.add(new QueryBuilder.SimpleCondition(Knowledge__kav.Id + ' in :knowledgeIds'));
-		}
-		cm.endConditions();
-		return (List<Knowledge__kav>) Database.query(qb.toSoqlString());
-	}
-
-		/**
-	* @description This methods uses querybuilder framework to build and runs a simple query based on the given params.
-	* @param searchParams Map of params that are used in the query where clause.
-	* @param matchAll If true will search based on AND, else search based on OR
+	* @param knowledgeIds Knowledge Article Ids
+	* @param selectorOptions options that help to build the query
 	* @return List of Knowledge__kav in the form List<Sobject> we have to typecast to List<Knowledge__kav>
-	*/
-	@testVisible
-	private List<SObject> selectByStatusLanguageType(Map<String, Object> searchParams, Set<Object> selectorOptions, Boolean matchAll) {
-		Set<String> statuses = (Set<String>)(searchParams.get('statuses') == null ? new Set<String>() : (searchParams.get('statuses') instanceof Set<String> ? searchParams.get('statuses') : new Set<String>{String.valueOf(searchParams.get('statuses'))}));
-		Set<String> languages = (Set<String>)(searchParams.get('languages') == null ? new Set<String>() : (searchParams.get('languages') instanceof Set<String> ? searchParams.get('languages') : new Set<String>{String.valueOf(searchParams.get('languages'))}));
-		Set<String> recordTypeNames = (Set<String>)(searchParams.get('recordTypeNames') == null ? new Set<String>() : (searchParams.get('recordTypeNames') instanceof Set<String> ? searchParams.get('recordTypeNames') : new Set<String>{(String)searchParams.get('recordTypeNames')}));
-		Set<String> types = (Set<String>)(searchParams.get('types') == null ? new Set<String>() : (searchParams.get('types') instanceof Set<String> ? searchParams.get('types') : new Set<String>{(String)searchParams.get('types')}));
-		Boolean isLatestVersion = (Boolean)(searchParams.get('isLatestVersion') == null ? null : (searchParams.get('isLatestVersion') instanceof Boolean ? searchParams.get('isLatestVersion') : true));
-		
+	 */
+	public List<Knowledge__kav> selectById(Set<Id> knowledgeIds, Set<Object> selectorOptions) {
+
 		QueryBuilder qb = newQueryBuilder(selectorOptions);
 		QueryBuilder.ConditionsManager cm = qb.conditionsManager;
-		Integer conditionCount = 0;
 		//Where clause
-		if (searchParams.containsKey('statuses')) {
-			cm.add(new QueryBuilder.SimpleCondition(Knowledge__kav.PublishStatus + ' in :statuses'));
-			conditionCount++;
-		}
-		if (searchParams.containsKey('languages')) {
-			cm.add(new QueryBuilder.SimpleCondition(Knowledge__kav.Language + ' in :languages'));
-			conditionCount++;
-		}
-		if (searchParams.containsKey('recordTypeNames')) {
-			Set<Id> recorTypeIds = (RecordTypesSelector.newInstance().selectByDeveloperName('Knowledge__kav', recordTypeNames)).Keyset();
-			cm.add(new QueryBuilder.SimpleCondition(Knowledge__kav.RecordTypeId + ' in :recorTypeIds'));
-			conditionCount++;
-		}
-		if (searchParams.containsKey('types')) {
-			cm.add(new QueryBuilder.SimpleCondition(Knowledge__kav.Type__c + ' in :types'));
-			conditionCount++;
-		}
-		if(searchParams.containsKey('isLatestVersion') && isLatestVersion != null){
-			cm.add(new QueryBuilder.CompareCondition('IsLatestVersion').eq(isLatestVersion));
-			
-			conditionCount++;
-		}
-
-		String conditionOrder = '';
-		for(Integer i=0;i<conditionCount;i++) {
-			conditionOrder += (!String.isEmpty(conditionOrder) ? (matchAll ? ' AND ' : ' OR ') : '') + ' ' + (i+1);
-		}
-		cm.setConditionOrder(conditionOrder);
-
+		cm.add(new QueryBuilder.SimpleCondition(Knowledge__kav.Id + ' in :knowledgeIds'));
 		cm.endConditions();
-		List<SObject> queryResults = Database.query((qb.toSoqlString()));
-		
-		return queryResults;
+
+		return (List<Knowledge__kav>) Database.query(qb.toSoqlString());
 	}
 
 	/**
@@ -191,37 +129,43 @@ public virtual inherited sharing class KnowledgeArticleVersionsSelector extends 
 	* @return List of Knowledge__kav in the form List<Sobject> we have to typecast to List<Knowledge__kav>
 	*/
 	@testVisible
-	private List<SObject> selectByStatusLanguageType(Map<String, Object> searchParams, Set<Object> selectorOptions, Boolean matchAll, Schema.SobjectField orderByField, String sortOrder ) {	
-		Set<String> statuses = (Set<String>)(searchParams.get('statuses') == null ? new Set<String>() : (searchParams.get('statuses') instanceof Set<String> ? searchParams.get('statuses') : new Set<String>{String.valueOf(searchParams.get('statuses'))}));
-		Set<String> languages = (Set<String>)(searchParams.get('languages') == null ? new Set<String>() : (searchParams.get('languages') instanceof Set<String> ? searchParams.get('languages') : new Set<String>{String.valueOf(searchParams.get('languages'))}));
-		Set<String> recordTypeNames = (Set<String>)(searchParams.get('recordTypeNames') == null ? new Set<String>() : (searchParams.get('recordTypeNames') instanceof Set<String> ? searchParams.get('recordTypeNames') : new Set<String>{(String)searchParams.get('recordTypeNames')}));
-		Set<String> types = (Set<String>)(searchParams.get('types') == null ? new Set<String>() : (searchParams.get('types') instanceof Set<String> ? searchParams.get('types') : new Set<String>{(String)searchParams.get('types')}));
-		Boolean isLatestVersion = (Boolean)(searchParams.get('isLatestVersion') == null ? null : (searchParams.get('isLatestVersion') instanceof Boolean ? searchParams.get('isLatestVersion') : true));
-		
+	private List<SObject> selectByStatusLanguageType(Map<String, Object> searchParams, Set<Object> selectorOptions, Boolean matchAll, Schema.SobjectField orderByField, String sortOrder ) {		
 		QueryBuilder qb = newQueryBuilder(selectorOptions);		
 		QueryBuilder.ConditionsManager cm = qb.conditionsManager;
 		Integer conditionCount = 0;
+
 		//Where clause
 		if (searchParams.containsKey('statuses')) {
+			Set<String> statuses = (Set<String>)(searchParams.get('statuses') == null ? new Set<String>() : (searchParams.get('statuses') instanceof Set<String> ? searchParams.get('statuses') : new Set<String>{String.valueOf(searchParams.get('statuses'))}));
 			cm.add(new QueryBuilder.SimpleCondition(Knowledge__kav.PublishStatus + ' in :statuses'));
 			conditionCount++;
 		}
+		
 		if (searchParams.containsKey('languages')) {
+			Set<String> languages = (Set<String>)(searchParams.get('languages') == null ? new Set<String>() : (searchParams.get('languages') instanceof Set<String> ? searchParams.get('languages') : new Set<String>{String.valueOf(searchParams.get('languages'))}));
 			cm.add(new QueryBuilder.SimpleCondition(Knowledge__kav.Language + ' in :languages'));
 			conditionCount++;
 		}
+		
 		if (searchParams.containsKey('recordTypeNames')) {
+			Set<String> recordTypeNames = (Set<String>)(searchParams.get('recordTypeNames') == null ? new Set<String>() : (searchParams.get('recordTypeNames') instanceof Set<String> ? searchParams.get('recordTypeNames') : new Set<String>{(String)searchParams.get('recordTypeNames')}));
 			Set<Id> recorTypeIds = (RecordTypesSelector.newInstance().selectByDeveloperName('Knowledge__kav', recordTypeNames)).Keyset();
 			cm.add(new QueryBuilder.SimpleCondition(Knowledge__kav.RecordTypeId + ' in :recorTypeIds'));
 			conditionCount++;
 		}
+		
 		if (searchParams.containsKey('types')) {
+			Set<String> types = (Set<String>)(searchParams.get('types') == null ? new Set<String>() : (searchParams.get('types') instanceof Set<String> ? searchParams.get('types') : new Set<String>{(String)searchParams.get('types')}));
 			cm.add(new QueryBuilder.SimpleCondition(Knowledge__kav.Type__c + ' in :types'));
 			conditionCount++;
 		}
-		if(searchParams.containsKey('isLatestVersion') && isLatestVersion != null){
-			cm.add(new QueryBuilder.CompareCondition('IsLatestVersion').eq(isLatestVersion));
+		
+		if(searchParams.containsKey('isLatestVersion')){
+			Boolean isLatestVersion = (Boolean)(searchParams.get('isLatestVersion') == null ? null : (searchParams.get('isLatestVersion') instanceof Boolean ? searchParams.get('isLatestVersion') : true));
 			
+			if(isLatestVersion != null){
+				cm.add(new QueryBuilder.CompareCondition('IsLatestVersion').eq(isLatestVersion));
+			}
 			conditionCount++;
 		}
 
@@ -270,6 +214,6 @@ public virtual inherited sharing class KnowledgeArticleVersionsSelector extends 
 			sobjLst = listOfSobjLst[0];	
 		}
 		return sobjLst;
-	} 
+	}
 
 }
