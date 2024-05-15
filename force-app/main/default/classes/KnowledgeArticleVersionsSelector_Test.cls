@@ -214,9 +214,7 @@ public with sharing class KnowledgeArticleVersionsSelector_Test {
 		Test.startTest();
 
 		KnowledgeArticleVersionsSelector kavSelector = KnowledgeArticleVersionsSelector.newInstance(1, fields);
-
-		Map<String, Object> params = new Map<String, Object>{ 'knowledgeIds' => new Set<Id>{ criticalIncidents[0].Id } };
-		List<Knowledge__kav> kavLst = (List<Knowledge__kav>) kavSelector.search(params, new Set<Object>());
+		List<Knowledge__kav> kavLst = (List<Knowledge__kav>) kavSelector.selectById(new Set<Id>{ criticalIncidents[0].Id }, new Set<Object>());
 
 		System.assertEquals(1, kavLst.size(), 'Expected critical incidents knowledge articles to return');
 
