@@ -194,10 +194,11 @@ class GenSTBusinessLogic {
 
     // Method to check related contacts on a case
     checkRelatedContactOfCase(caseId, caseNumber, phoneNumber, callerType) {
+		
         console.log(logPrefix + "checkRelatedContactOfCase");
 
-        GenesysConnectorController.checkRelatedContactOfCaseStarTrack(caseId, phoneNumber,
-            (result) => {
+        new Promise(callback => GenesysConnectorController.checkRelatedContactOfCaseStarTrack(caseId, phoneNumber, callback))
+         .then((result) => {
                 if (result !== null) {
                     this.updateCaseWithRelatedContact(result, caseId);
                 } else {
@@ -206,7 +207,9 @@ class GenSTBusinessLogic {
                     this.prepopulateContactSidePanel(phoneNumber, callerType, caseId);
                 }
             }
-        );
+        ).catch(
+			function (err) { console.error(err); }
+		);
     }
 
     // Method to update case with new related contact and pops out the case
