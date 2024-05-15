@@ -54,71 +54,24 @@ public with sharing class KnowledgeDataCategorySelectSelector_Test {
 		// =====================================
 		Test.startTest();
 		//Fields to Query
-		Map<SobjectType, Set<SObjectField>> fieldOverrides = new Map<SobjectType, Set<SObjectField>>();
-		fieldOverrides.put(Knowledge__DataCategorySelection.SObjectType, new Set<SObjectField>{
+		Set<SObjectField> fieldOverrides = new Set<SObjectField>{
 			Knowledge__DataCategorySelection.DataCategoryGroupName,
 			Knowledge__DataCategorySelection.DataCategoryName,
 			Knowledge__DataCategorySelection.ParentId
-		} );
-		fieldOverrides.put(Knowledge__kav.SobjectType, new Set<SObjectField>{
-			Knowledge__kav.Answer__c,
-			Knowledge__kav.Summary,
-			Knowledge__kav.UrlName,
-			Knowledge__kav.id,
-			Knowledge__kav.Title
-		});
+		};
+
+		Set<Id> parentIds = new Set<Id>();
 
 		KnowledgeDataCategorySelectionsSelector selector = KnowledgeDataCategorySelectionsSelector.newInstance(fieldOverrides);
-		QueryBuilder qb = selector.newQueryBuilder(new Set<Object>{KnowledgeDataCategorySelectionsSelector.Options.WITH_PARENT});
+		QueryBuilder qb = selector.newQueryBuilder(new Set<Object>{});
+		QueryBuilder.ConditionsManager conditions = qb.conditionsManager;
+		//Where clause
+		conditions.add(new QueryBuilder.SimpleCondition(Knowledge__DataCategorySelection.parentId + ' IN :parentIds'));
+		conditions.endConditions();
 		String soql = qb.toSoqlString();
-		System.assertEquals(true, Pattern.compile('(?ism)Parent\\.Answer__c.*?\\bfrom Knowledge__DataCategorySelection\\b').matcher(soql).find(), 'Query returning parent fields' + soql);
-		System.assertEquals(true, Pattern.compile('(?ism)Parent\\.RecordType..*?\\bfrom Knowledge__DataCategorySelection\\b').matcher(soql).find(), 'Query returning parent recordtype' + soql);
-		System.assertEquals(true, Pattern.compile('(?ism)Parent\\.RecordType\\.DeveloperName.*?\\bfrom Knowledge__DataCategorySelection\\b').matcher(soql).find(), 'Query returning parent recordtype developer name' + soql);
-		Test.stopTest();
-	}
 
-	/**
-	 * Test:
-	 *  Ensures that the qurey returned the expected data categories
-	 */
-	@IsTest
-	private static void testEnsureQueryReturnDataCategoriesRecords() {
-
-		// =====================================
-		// Data Preparation
-		// =====================================
-		// None!
-
-		// =====================================
-		// Stubbing
-		// =====================================
-		// None!
-
-		// =====================================
-		// Testing
-		// =====================================
-		Test.startTest();
-		//Fields to Query
-		Map<SobjectType, Set<SObjectField>> fieldOverrides = new Map<SobjectType, Set<SObjectField>>();
-		fieldOverrides.put(Knowledge__DataCategorySelection.SObjectType, new Set<SObjectField>{
-			Knowledge__DataCategorySelection.DataCategoryGroupName,
-			Knowledge__DataCategorySelection.DataCategoryName,
-			Knowledge__DataCategorySelection.ParentId
-		} );
-		fieldOverrides.put(Knowledge__kav.SobjectType, new Set<SObjectField>{
-			Knowledge__kav.Answer__c,
-			Knowledge__kav.Summary,
-			Knowledge__kav.UrlName,
-			Knowledge__kav.id,
-			Knowledge__kav.Title
-		});
-
-		KnowledgeDataCategorySelectionsSelector selector = KnowledgeDataCategorySelectionsSelector.newInstance(fieldOverrides);
-		QueryBuilder qb = selector.newQueryBuilder(new Set<Object>{KnowledgeDataCategorySelectionsSelector.Options.WITH_PARENT});
-		String soql = qb.toSoqlString();
-		System.assertEquals(true, Pattern.compile('(?ism)Parent\\.Answer__c.*?\\bfrom Knowledge__DataCategorySelection\\b').matcher(soql).find(), 'Query returning parent fields' + soql);
-		System.assertEquals(true, Pattern.compile('(?ism)Parent\\.RecordType..*?\\bfrom Knowledge__DataCategorySelection\\b').matcher(soql).find(), 'Query returning parent recordtype' + soql);
-		System.assertEquals(true, Pattern.compile('(?ism)Parent\\.RecordType\\.DeveloperName.*?\\bfrom Knowledge__DataCategorySelection\\b').matcher(soql).find(), 'Query returning parent recordtype developer name' + soql);
+		System.assertEquals(true, Pattern.compile('(?ism)ParentId.*?\\bfrom Knowledge__DataCategorySelection\\b').matcher(soql).find(), 'Query returning provided fields' + soql);
+		System.assertEquals(true, Pattern.compile('(?ism)Knowledge__DataCategorySelection.*?\\bwhere parentId in\\b').matcher(soql).find(), 'Query returning with In condition ' + soql);
 		Test.stopTest();
 	}
 
@@ -128,7 +81,7 @@ public with sharing class KnowledgeDataCategorySelectSelector_Test {
 	 */
 	@IsTest
 	private static void testEnsureRecordsRetrieveWithInsertedData() {
-	// =====================================
+		// =====================================
 		// Data Preparation
 		// =====================================
 		List<Knowledge__kav> pushEDMs = ApplicationTestDataFactoryKnowledge.getPushEDMs(1, false);
@@ -140,50 +93,19 @@ public with sharing class KnowledgeDataCategorySelectSelector_Test {
 		// Testing
 		// =====================================
 		
-        //Fields to Query
-        Map<SobjectType, Set<SObjectField>> fieldOverrides = new Map<SobjectType, Set<SObjectField>>();
-        fieldOverrides.put(
-            Knowledge__DataCategorySelection.SObjectType,
-            new Set<SObjectField>{
-                Knowledge__DataCategorySelection.DataCategoryGroupName,
-                Knowledge__DataCategorySelection.DataCategoryName,
-                Knowledge__DataCategorySelection.ParentId
-            }
-        );
-        fieldOverrides.put(
-            Knowledge__kav.SobjectType,
-            new Set<SObjectField>{
-                Knowledge__kav.Answer__c,
-                Knowledge__kav.Summary,
-                Knowledge__kav.UrlName,
-                Knowledge__kav.id,
-                Knowledge__kav.Title
-            }
-        );
+		//Fields to Query
+		Set<SObjectField> fieldOverrides = new Set<SObjectField>{
+			Knowledge__DataCategorySelection.DataCategoryGroupName,
+			Knowledge__DataCategorySelection.DataCategoryName,
+			Knowledge__DataCategorySelection.ParentId
+		};
 
-        //Passing Knowledge Article Ids
-        Map<String, Object> params = new Map<String, Object>{'parentIds' => new Set<Id>{ pushEdmId }};
-        KnowledgeDataCategorySelectionsSelector dataCategorySelector = KnowledgeDataCategorySelectionsSelector.newInstance(fieldOverrides);
-        Set<Object> selectorOptions = new Set<Object>();
-        selectorOptions.add(KnowledgeDataCategorySelectionsSelector.Options.WITH_PARENT);
-        //Selector should return the data categories related to the given Articles
-        List<Knowledge__DataCategorySelection> dataCategoryLst = dataCategorySelector.search(params, selectorOptions, false);
-        System.assertEquals(dataCategoryLst.size(), dataCategories.size(), 'Data categories retrieved based on the given parent Id');
-
-		
-		Set<String> allowedArticles = new Set<String>{'PUSH_EDM', 'FAQ'};
-		//Passing recordType Names
-		params = new Map<String, Object>{'recordTypeNames' => allowedArticles};
-		dataCategorySelector = KnowledgeDataCategorySelectionsSelector.newInstance(fieldOverrides);
-		//Selector should return the data categories related to the given recordType
-		dataCategoryLst = dataCategorySelector.search(params, false);
-		System.assertEquals(dataCategoryLst.size(), dataCategories.size(), 'Data categories retrieved based on the given recordTypes');
-		
-		//Passing recordType and parent Ids to test AND condition
-		params = new Map<String, Object>{'recordTypeNames' => allowedArticles, 'parentIds' => new Set<Id>{ pushEdmId }};
-		dataCategorySelector = KnowledgeDataCategorySelectionsSelector.newInstance(fieldOverrides);
-		//Selector should return the data categories related to the given recordType and parent Ids
-		dataCategoryLst = dataCategorySelector.search(params, true);
-		System.assertEquals(dataCategoryLst.size(), dataCategories.size(), 'Data categories retrieved based on the given recordTypes');		
+		//Passing Knowledge Article Ids
+		Map<String, Object> params = new Map<String, Object>{'parentIds' => new Set<Id>{ pushEdmId }};
+		KnowledgeDataCategorySelectionsSelector dataCategorySelector = KnowledgeDataCategorySelectionsSelector.newInstance(fieldOverrides);
+		Set<Object> selectorOptions = new Set<Object>();
+		//Selector should return the data categories related to the given Articles
+		List<Knowledge__DataCategorySelection> dataCategoryLst = dataCategorySelector.search(params);
+		System.assertEquals(dataCategoryLst.size(), dataCategories.size(), 'Data categories retrieved based on the given parent Id');	
 	}
 }

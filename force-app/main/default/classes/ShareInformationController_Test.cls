@@ -94,6 +94,7 @@ public class ShareInformationController_Test {
 		System.assertEquals(false,sic.displayResult);
 
 		sic.displayResult = false;
+		sic.searchKeyword = 'Here is my keyword';
 		sic.searchArticles();
 		System.assertEquals(true, sic.displayResult);
 	}
@@ -139,7 +140,7 @@ public class ShareInformationController_Test {
 		// set up our responses
 		MockUtility.Mocks.startStubbing();
 		// Database
-		MockUtility.Mocks.when(kavSelector.search((Map<String, Object>)fflib_Match.anyObject(), (Set<Object>)fflib_Match.anyObject()))
+		MockUtility.Mocks.when(kavSelector.selectById((Set<Id>)fflib_Match.anyObject(), (Set<Object>)fflib_Match.anyObject()))
 			.thenReturn(pushEDMs);
 		MockUtility.Mocks.stopStubbing();
 		// =====================================
@@ -157,7 +158,7 @@ public class ShareInformationController_Test {
 		List<ShareInfoArticle__c> shareInfoArticles =  [SELECT Id FROM ShareInfoArticle__c WHERE ShareInfoActivity__c =:shareInfoActivities[0].Id];
 		System.assertEquals(1,shareInfoActivities.size(), 'Share information activity record created');
 		System.assertEquals(1,shareInfoArticles.size(), 'Share information article record created');
-		((KnowledgeArticleVersionsSelector)MockUtility.Mocks.verify(kavSelector, MockUtility.Mocks.times(1))).search((Map<String, Object>)fflib_Match.anyObject(), (Set<Object>)fflib_Match.anyObject());
+		((KnowledgeArticleVersionsSelector)MockUtility.Mocks.verify(kavSelector, MockUtility.Mocks.times(1))).selectById((Set<Id>)fflib_Match.anyObject(), (Set<Object>)fflib_Match.anyObject());
 		Test.stopTest();
 	}
 	@isTest
@@ -184,8 +185,11 @@ public class ShareInformationController_Test {
 		List<Knowledge__kav> pushEDMs = ApplicationTestDataFactoryKnowledge.getPushEDMs(1, false);
 		insert pushEDMs;
 		//using object because all objects have the same properties
-		KnowledgeArticleVersion kav = [SELECT KnowledgeArticleId FROM KnowledgeArticleVersion WHERE Id = :(Id) pushEDMs[0].get('id')];
+		Knowledge__kav kav = [SELECT KnowledgeArticleId, Title, recordType.DeveloperName FROM Knowledge__kav WHERE Id = :(Id) pushEDMs[0].get('id')];
 		KbManagement.PublishingService.publishArticle(kav.KnowledgeArticleId, true);
 		ShareInformationController.DataCategoryArticleNode sData = new ShareInformationController.DataCategoryArticleNode((sObject)pushEDMs[0]);
+		system.assertEquals(sData.label, kav.title, 'Knowledge Information Passed to wrapper class');
+		system.assertEquals(sData.Id, kav.Id, 'recordType Passed to wrapper class');
+		system.assert(sic.rootData != null, 'root Data executed and will return data');
 	}
 }

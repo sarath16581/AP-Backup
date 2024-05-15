@@ -335,8 +335,8 @@ global with sharing class ShareInformationController {
 		public DataCategoryArticleNode(SObject article){
 			Knowledge__kav kav = (Knowledge__kav)article;
 			this.id = kav.id;
-			this.label = kav.Title;// (String)article.get('Title');
-			this.body = kav.Answer__c; //(String)article.get('Answer__c');
+			this.label = kav.Title;	// (String)article.get('Title');
+			this.body = kav.Answer__c; // (String)article.get('Answer__c');
 			this.type = kav.recordType.DeveloperName;
 		}
 	}
@@ -433,7 +433,6 @@ global with sharing class ShareInformationController {
 					Knowledge__DataCategorySelection.ParentId
 				};
 
-				map<string,string> articleIDCategoryName=new map<string,string>();
 				Set<String> rtTypes = new Set<String>();
 				rtTypes.addAll(allowedArticles);
 
@@ -445,7 +444,7 @@ global with sharing class ShareInformationController {
 				Map<String, Object> params = new Map<String, Object>{'parentIds' => parentIds};
 				KnowledgeDataCategorySelectionsSelector dataCategorySelector = KnowledgeDataCategorySelectionsSelector.newInstance(fieldOverrides);
 				
-				for(SObject o: dataCategorySelector.search(params, true)) {
+				for(SObject o: dataCategorySelector.search(params)) {
 					if(categorisedArticles.get((String)o.get('DataCategoryName')) == null) {
 						categorisedArticles.put((String)o.get('DataCategoryName'), new Map<id, SObject>());
 					} 
@@ -535,10 +534,9 @@ global with sharing class ShareInformationController {
 				Knowledge__kav.KnowledgeArticleId,
 				Knowledge__kav.Title
 			};
-			Map<String, Object> params = new Map<String, Object>{'knowledgeIds' => articleIds};
 			Set<Object> selectorOptions = new Set<Object>{KnowledgeArticleVersionsSelector.Options.WITH_RECORDTYPE};
 			KnowledgeArticleVersionsSelector kavSelector = KnowledgeArticleVersionsSelector.newInstance(fields);
-			return kavSelector.search(params, selectorOptions);
+			return kavSelector.selectById(articleIds, selectorOptions);
 		}
 		/**
 		 * @description Gets the KAVs based on the given search keyword
