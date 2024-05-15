@@ -8,11 +8,11 @@
 
  public inherited sharing class BulkMailCaseService {
 
-	//constants
+	// Constants
 	public static final String BULK_MAIL_ENTITLEMENT = 'Bulk Mail Standard Entitlement';
+	public static final String BULK_MAIL_ENTITLEMENT_ACCOUNT = 'Bulk Mail Entitlements';
 	public static final String BULK_MAIL_FIRST_RESPONSE_MILESTONE = 'Bulk Mail - First Response';
 	public static final String CASE_BULK_MAIL_RT = 'Bulk_Mail_Onboarding';
-	public static final String BULK_MAIL_ENTITLEMENT_ACCOUNT = 'Bulk Mail Entitlements';
 	public static final String NEW_EMAIL_RECEIVED = 'New Email Received';
 	public static final String CLOSED_STATUS = 'Closed';
 	public static final String REOPENNED_STATUS = 'Reopened';
@@ -38,7 +38,7 @@
 	// Funtion to get the bulk mail entitlement record id
 	public Id getBulkMailEntitlementId() {
 		if (bulkMailEntitlementId == null) {
-			List<Entitlement> entitlements = EntitlementsSelector.newInstance().selectByNameAndAccountName(new Set<String>{BULK_MAIL_ENTITLEMENT}, new Set<String>{BULK_MAIL_ENTITLEMENT_ACCOUNT});
+			List <Entitlement> entitlements = EntitlementsSelector.newInstance().selectByNameAndAccountName(new Set<String>{BULK_MAIL_ENTITLEMENT}, new Set<String>{BULK_MAIL_ENTITLEMENT_ACCOUNT});
 			if (!entitlements.isEmpty()) {
 				bulkMailEntitlementId = entitlements[0].Id;
 			}
@@ -46,10 +46,10 @@
 		return bulkMailEntitlementId;
 	}
 
-	//Function to get the bulk mail record type ids
+	// Function to get the bulk mail record type ids
 	public Id getBulkMailRecordTypeId() {
 		if (bulkMailRecordTypeId == null) {
-			List<RecordType> recordTypes = RecordTypesSelector.newInstance().selectByDeveloperName('Case', new Set<String>{CASE_BULK_MAIL_RT}).values();
+			List <RecordType> recordTypes = RecordTypesSelector.newInstance().selectByDeveloperName('Case', new Set<String>{CASE_BULK_MAIL_RT}).values();
 			if (!recordTypes.isEmpty()) {
 				bulkMailRecordTypeId = recordTypes[0].Id;
 			}
@@ -57,14 +57,14 @@
 		return bulkMailRecordTypeId;
 	}
 
-	//Function to get the bulk mail queue id
+	// Function to get the bulk mail queue id
 	public Id getBulkMailQueueId() {
 		if (bulkMailQueueId == null) {
-			List<Group> groupRecords = GroupsSelector.newInstance().selectByDeveloperName(new Set<String>{BULK_MAIL_QUEUE}).values();
+			List <Group> groupRecords = GroupsSelector.newInstance().selectByDeveloperName(new Set<String>{BULK_MAIL_QUEUE}).values();
 			if (!groupRecords.isEmpty()) {
 				bulkMailQueueId = groupRecords[0].Id;
 			}
 		}
 		return bulkMailQueueId;
-	}	
+	}
 }
