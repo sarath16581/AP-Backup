@@ -505,6 +505,50 @@ public class GenesysConnectorController_Test {
 	 *****************************************************************/ 
 	@isTest
 	static void maintainTaskAP() {
+		Id personAccountId = fflib_IDGenerator.generate(Account.SObjectType);
+		Id contactId = fflib_IDGenerator.generate(Contact.SObjectType);
+
+		Account personAccount = (Account)ApplicationTestDataFactory.setUnwritableFields(
+			new Account(Id = personAccountId),
+			new Map<string,Object>{ 'PersonContactId' => contactId }
+		);
+
+
+		Database.UpsertResult taskUpsertResult = (Database.UpsertResult)JSON.deserialize(
+			'{ "success": true, "id":"' + fflib_IDGenerator.generate(Task.SObjectType) + '" }',
+			Database.UpsertResult.class
+		);
+
+		MockUtility.mockUnitOfWork();
+		ApplicationDatabase mockDatabase = MockUtility.mockDatabase();
+		AccountsSelector mockAccountsSelector = (AccountsSelector)MockUtility.mockSelector(AccountsSelector.class);
+		TasksSelector mockTasksSelector = (TasksSelector)MockUtility.mockSelector(TasksSelector.class);
+
+		// set up our responses
+		MockUtility.Mocks.startStubbing();
+
+		MockUtility.Mocks.when(
+			mockAccountsSelector.selectById((Set<Id>)fflib_Match.anyObject())
+		).thenReturn(
+			new Map<Id,Account>{ personAccountId => personAccount }
+		);
+
+		// Mock an empty task result, as if no task was found
+		MockUtility.Mocks.when(mockTasksSelector.search(
+			(Map<String,Object>)fflib_Match.anyObject(),
+			(Set<Object>)fflib_Match.anyObject(),
+			(Boolean)fflib_Match.anyObject()
+		)).thenReturn(
+			new Map<Id,Task>()
+		);
+
+		// Database
+		MockUtility.Mocks.when(mockDatabase.dmlUpsert(
+			(List<SObject>)fflib_Match.anyObject(),
+			(SObjectField)fflib_Match.eq(Task.CTIInteractionID__c)
+		)).thenReturn(new List<Database.UpsertResult>{ taskUpsertResult });
+
+		MockUtility.Mocks.stopStubbing();
 
 		Map<String, Object> mapCallLog = new Map<String, Object>{
 			'callType' => 'Inbound',
@@ -515,18 +559,39 @@ public class GenesysConnectorController_Test {
 		
 		String callLog = JSON.serialize(mapCallLog);
 
-		Map<String, Object> mapTaskDetails = new Map<String, Object>{
-			'interactionId' => 'test12'
+		Map<String, Object> taskDetailMap = new Map<String, Object>{
+			'interactionId' => 'test12',
+			'status' => 'Closed',
+			'contactId' => personAccountId
 		};
 		
-		String taskDetails = JSON.serialize(mapTaskDetails);
-
 		// =====================================
 		// Testing
 		// =====================================		
 		Test.startTest();
 		
-		object result = GenesysConnectorController.maintainTaskAP(callLog, taskDetails, callLog);
+		// Invoke the actual backend controller method
+		Object result = GenesysConnectorController.maintainTaskAP(
+			callLog,
+			JSON.serialize(taskDetailMap),
+			callLog
+		);
+		
+		fflib_ArgumentCaptor upsertCaptor = fflib_ArgumentCaptor.forClass(List<SObject>.class);
+
+		((ApplicationDatabase)MockUtility.Mocks.verify(mockDatabase, MockUtility.Mocks.times(1))).dmlUpsert(
+			(List<SObject>)upsertCaptor.capture(),
+			(SObjectField)fflib_Match.eq(Task.CTIInteractionID__c)
+		);
+
+		// Use JSON Serialisation roundtrip to prevent invalid runtime conversion issue
+		List<List<SObject>> captorResults = (List<List<SObject>>)JSON.deserialize(
+			JSON.serialize(upsertCaptor.getAllValues()),
+			List<List<SObject>>.class
+		);
+
+		System.assertEquals(Task.SObjectType, captorResults[0][0].getSObjectType(), 'Unexpected SObject');
+		System.assertEquals(contactId, ((Task)captorResults[0][0]).WhoId, 'Excepted Contact Id');
 		
 		Test.stopTest();
 		
