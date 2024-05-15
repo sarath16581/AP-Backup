@@ -392,7 +392,7 @@ global with sharing class FacilitySearchController {
 			System.Debug('>> postCodeStr: ' + postCodeStr);
 			System.Debug('>> localityId: ' + localityId);
 			System.Debug('>> Running Query: ' + query);
-			
+			//False-Positve ApexSOQLInjection: only has bound varible, static text and other varibales coming form static queries.
 			for (PostcodeMapping__c postcodeMapping : Database.query(query)) {
 				networkIds.add(postcodeMapping.Network__c);
 			}
@@ -847,6 +847,7 @@ global with sharing class FacilitySearchController {
 			fields += ',(SELECT UniqueKey__c FROM Postcode_Mappings__r WHERE Postcode__r.name = :postCode)';
 		}
 		//NOTE, I get that String.escapeSingleQuotes is probably not really necessary here, but I'd rather the query fail if quotes are introduced then allowing injection attacks
+		//False-Positve ApexSOQLInjection: escapeSingleQuotes is been used and other variables are coming form static queries.
 		String soql = 'Select ' + String.escapeSingleQuotes(fields) + ' From Network__c Where Id in :ids And RecordTypeId In :includedRecordTypeIds Order By State__c, Name Asc';
 		List<Network__c> networks = Database.query(soql);
 		return networks;
@@ -870,12 +871,12 @@ global with sharing class FacilitySearchController {
 		return wrappedNetworks;
 	}
 
-	public List<Network__c> getNetworksByGeoCode(String geoCode, Boolean withDeliveryNetworks) {
+	public List<Network__c> getNetworksByGeoCode(String geoCode, Boolean withDeliveryNetworks) { 
 		Set<Id> includedRecordTypeIds = networkRecordTypeMappings.keySet();
 		String fields = getSelectableFields();
 		String soql = 'Select ' + String.escapeSingleQuotes(fields) + ' From Network__c ' +
 			'Where RecordType.DeveloperName<>\'General\' ' +
-			'And DISTANCE(Geolocation__c, GEOLOCATION(' + String.escapeSingleQuotes(geoCode.split('_')[0]) + ',' + String.escapeSingleQuotes(geoCode.split('_')[1]) + '), \'km\') < ' + searchRangeInKM;
+			'And DISTANCE(Geolocation__c, GEOLOCATION(' + String.escapeSingleQuotes(geoCode.split('_')[0]) + ',' + String.escapeSingleQuotes(geoCode.split('_')[1]) + '), \'km\') < '+searchRangeInKM;
 
 		if (!withDeliveryNetworks) {
 			soql += ' And RecordType.DeveloperName != \'Delivery_1\'';
@@ -903,6 +904,7 @@ global with sharing class FacilitySearchController {
 		Set<Id> includedRecordTypeIds = networkRecordTypeMappings.keySet();
 		String fields = getSelectableFields();
 		//NOTE, I get that String.escapeSingleQuotes is probably not really necessary here, but I'd rather the query fail if quotes are introduced then allowing injection attacks
+		//False-Positve ApexSOQLInjection: escapeSingleQuotes is been used and the query has either bound varibles, static text or varibales coming form static queries.
 		String soql = 'Select ' + String.escapeSingleQuotes(fields) + ' From Network__c Where AlwaysShown__c = true And RecordType.DeveloperName != \'International_4\' And RecordTypeId In :includedRecordTypeIds Order By Name';
 
 		wrappedNetworks = wrapNetworks(Database.query(soql));
@@ -922,6 +924,8 @@ global with sharing class FacilitySearchController {
 			'	  Where Postcode__r.Name = :postCode) ' +
 			'And RecordTypeId In :includedRecordTypeIds ' +
 			'Order By State__c, Name Asc';
+			
+		//False-Positve ApexSOQLInjection: escapeSingleQuotes is been used and the query has either bound varibles, static text or varibales coming form static queries.
 		List<Network__c> networks = Database.query(soql);
 		return networks;
 	}
@@ -1153,8 +1157,8 @@ global with sharing class FacilitySearchController {
 	//get addresses based on object type: either contact or case; get address fields lables from URL
 	private void loadSourceObjectInformation() {
 		str_case_Category = 'This_is_NOT_CASE';
-		String recordId = ApexPages.currentPage().getParameters().get('id');
-		String contactId = ApexPages.currentPage().getParameters().get('contactId');
+		Id recordId = ApexPages.currentPage().getParameters().get('id');
+		Id contactId = ApexPages.currentPage().getParameters().get('contactId');
 
 		if (String.isNotBlank(recordId)) {
 
