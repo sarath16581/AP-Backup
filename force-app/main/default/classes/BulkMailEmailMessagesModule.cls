@@ -164,7 +164,7 @@
 			}
 
 			// We have to use Database.update method here because the Case Milestone is getting recreated (this original milestone gets deleted and doesn't exist at the time the uow commits), once the case status is changed and the UOW throws an error.
-			Database.update(caseMilestones, false);
+			ApplicationDatabase.getInstance().dmlUpdate(caseMilestones);
 		}
 	}
 
