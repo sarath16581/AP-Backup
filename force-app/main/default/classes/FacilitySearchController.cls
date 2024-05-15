@@ -266,11 +266,12 @@ global with sharing class FacilitySearchController {
 	}
 
 	public void postback_searchFacilitiesByGeoCode() {
-		if (Apexpages.currentPage().getParameters().get('geocode') == null || Apexpages.currentPage().getParameters().get('geocode').length() < 5 || !Apexpages.currentPage().getParameters().get('geocode').contains('_')) {
+		String geocode = Apexpages.currentPage().getParameters().get('geocode');
+		if (String.isBlank(geocode) || geocode.length() < 5 || !geocode.contains('_')) {
 			ApexPages.Message myMsg = new ApexPages.Message(ApexPages.Severity.WARNING, 'Geocode is incorrect. Google map may not work at the moment. Please wait and try again later.');
 			ApexPages.addMessage(myMsg);
 		} else {
-			searchFacilitiesByGeoCode(Apexpages.currentPage().getParameters().get('geocode'));
+			searchFacilitiesByGeoCode(geocode);
 		}
 
 	}
@@ -379,8 +380,9 @@ global with sharing class FacilitySearchController {
 			if(localityId != null) {
 				query += 'Or Postcode__r.Locality_Postcode_ID__c = :localityId) ';
 			}
-			else
+			else{
 				query += ') ';
+			}
 
 			//REQ1775138 Do not display Business Hubs are that closed ronnie.yang@sodastrategic.com.au		 
 			query += 'And ((Network__r.RecordType.DeveloperName = \'Business_Hub_3\' AND Network__r.Status__c != \'Closed\') ';
@@ -399,7 +401,7 @@ global with sharing class FacilitySearchController {
 									  AND RecordType.DeveloperName != 'Delivery_1'
 									  //REQ1775138 Do not display Business Hubs are that closed ronnie.yang@sodastrategic.com.au
 									  AND ((RecordType.DeveloperName = 'Business_Hub_3' AND Status__c != 'Closed')
-										    OR RecordType.DeveloperName != 'Business_Hub_3')]) {
+											OR RecordType.DeveloperName != 'Business_Hub_3')]) {
 			   networkIds.add(network.Id);
 		   }
 		} else {
@@ -1107,13 +1109,13 @@ global with sharing class FacilitySearchController {
 		try {
 			criticalIncidentMap = new Map<String, List<Knowledge__kav>>();
 			Set<SObjectField> fields = new Set<SObjectField>{
-                Knowledge__kav.Id,
+				Knowledge__kav.Id,
 				Knowledge__kav.Message__c,
 				Knowledge__kav.NetworkOrgId__c,
 				Knowledge__kav.KnowledgeArticleId,
 				Knowledge__kav.UrlName,
 				Knowledge__kav.Title
-        	};
+			};
 			Map<String, Object> params = new Map<String, Object>{'statuses' => new Set<String>{'Online'}, 'languages' => new Set<String>{'en_US'}, 'recordTypeNames' => new Set<String>{'Critical_Incident'}};
 			KnowledgeArticleVersionsSelector kavSelector = KnowledgeArticleVersionsSelector.newInstance(fields);
 						
