@@ -204,9 +204,9 @@ global with sharing class GenesysConnectorController {
 	
 	
 	/**
-* AP Callcenter related backend controller methods
-* @param event details from AP connector
-*/
+	* AP Callcenter related backend controller methods
+	* @param event details from AP connector
+	*/
 	@RemoteAction
 	public static Map<String,Object> searchAP(String event) {
 		Map<String,Object> params = (Map<String,Object>)JSON.deserializeUntyped(event);
@@ -256,80 +256,80 @@ global with sharing class GenesysConnectorController {
 	}
 	
 	/**
-* Search by Case Id
-* @param caseId
-*/
+	* Search by Case Id
+	* @param caseId
+	*/
 	private static List<Case> searchCaseId(Id caseId) {
 		Set<SObjectField> fields = new Set<SObjectField>{
 			Case.Id, Case.ContactId, Case.CaseNumber, Case.Contact.AccountId 
-				};
-					
-					return CasesSelector.newInstance(fields).selectById(
-						new Set<Id>{caseId},
-						new Set<Object>{CasesSelector.Options.WITH_CONTACT}
-					).values();
+		};
+
+		return CasesSelector.newInstance(fields).selectById(
+			new Set<Id>{caseId},
+			new Set<Object>{CasesSelector.Options.WITH_CONTACT}
+		).values();
 	}
 	
 	/**
-* Search by case number
-* @param caseNumber
-*/	
+	* Search by case number
+	* @param caseNumber
+	*/	
 	private static List<Case> searchCaseNumber(String caseNumber) {
 		Set<SObjectField> fields = new Set<SObjectField>{
 			Case.Id, Case.ContactId, Case.CaseNumber, Case.Contact.AccountId 
-				};
-					
-					return CasesSelector.newInstance(fields).selectByCaseNumber(
-						new Set<String>{caseNumber},
-						new Set<Object>{CasesSelector.Options.WITH_CONTACT}
-					).values();
+		};
+			
+		return CasesSelector.newInstance(fields).selectByCaseNumber(
+			new Set<String>{caseNumber},
+			new Set<Object>{CasesSelector.Options.WITH_CONTACT}
+		).values();
 	}
 	
 	/**
-* Search by case number
-* @param trackingNumber
-*/	
+	* Search by case number
+	* @param trackingNumber
+	*/	
 	private static List<Case> searchTrackingNumber(String trackingNumber) {
 		Set<SObjectField> fields = new Set<SObjectField>{
 			Case.Id, Case.ContactId, Case.CaseNumber, Case.Contact.AccountId 
-				};
-					
-					return CasesSelector.newInstance(fields).selectCasesByReferenceId(
-						new Set<String>{trackingNumber},
-						new Set<Object>{CasesSelector.Options.WITH_CONTACT}
-					);
+		};
+
+		return CasesSelector.newInstance(fields).selectCasesByReferenceId(
+			new Set<String>{trackingNumber},
+			new Set<Object>{CasesSelector.Options.WITH_CONTACT}
+		);
 	}
 	
 	/**
-* Search by contact Id
-* @param contactId
-*/	
+	* Search by contact Id
+	* @param contactId
+	*/	
 	public static List<Contact> searchContactId(String contactId) {
 		Set<SObjectField> fields = new Set<SObjectField>{Contact.Id, Contact.Name, Contact.AccountId, Contact.Account.IsPersonAccount};
-			return ContactsSelector.newInstance(0, fields).selectById(
-				new Set<Id>{contactId},
-				new Set<Object>{ContactsSelector.Options.WITH_RECORDTYPE}
-			).values();
+		return ContactsSelector.newInstance(0, fields).selectById(
+			new Set<Id>{contactId},
+			new Set<Object>{ContactsSelector.Options.WITH_RECORDTYPE}
+		).values();
 	}
 	
 	/**
-* Search by phone Number
-* @param phoneNumber
-*/	
+	* Search by phone Number
+	* @param phoneNumber
+	*/	
 	private static List<Contact> searchPhoneNumber(String phoneNumber) {
 		Set<SObjectField> fields = new Set<SObjectField>{Contact.Id, Contact.Name, Contact.AccountId, Contact.Account.IsPersonAccount};
-			return ContactsSelector.newInstance(0, fields).selectByLikedAnyPhoneOrderByName(
-				phoneNumber,
-				new Set<Object>{ContactsSelector.Options.WITH_RECORDTYPE}
-			).values();
+		return ContactsSelector.newInstance(0, fields).selectByLikedAnyPhoneOrderByName(
+			phoneNumber,
+			new Set<Object>{ContactsSelector.Options.WITH_RECORDTYPE}
+		).values();
 	}
 	
 	/**
-* Update or insert the call log activity
-* @param callLog Serialised object with all Genesys interaction log properties
-* @param taskDetails Serialised object with all additional task details
-* @return UpsertResult
-*/
+	* Update or insert the call log activity
+	* @param callLog Serialised object with all Genesys interaction log properties
+	* @param taskDetails Serialised object with all additional task details
+	* @return UpsertResult
+	*/
 	@RemoteAction
 	public static Object maintainTaskAP(String callLog, String taskDetails, String ctiLog) {
 		Map<String,Object> callLogMap = (Map<String,Object>)JSON.deserializeUntyped(callLog);
@@ -382,6 +382,7 @@ global with sharing class GenesysConnectorController {
 			Task.Status => 'status',
 			Task.Subject => 'subject',
 			Task.WhatId => 'caseId',
+			Task.Case__c => 'caseId',			
 			Task.WhoId => 'contactId'
 		};
 			
@@ -420,6 +421,35 @@ global with sharing class GenesysConnectorController {
 	}
 	
 	/**
+	* Obtain case details from case Id
+	* @param Id caseId
+	* @return Case if found
+	*/
+	@RemoteAction
+	public static Case getCaseByIdAP(Id caseId) {
+		CasesSelector selector = CasesSelector.newInstance(new Set<SObjectField>{
+			Case.Id,
+			Case.Type,
+			Case.ProductCategory__c,
+			Case.ProductSubCategory__c,
+			Case.EnquirySubType__c,
+			Case.AccountId,
+			Case.ContactId,
+			Case.Contact.AccountId
+		});
+
+		List<Case> cases = selector.selectById(new Set<Id> { caseId }).values();
+
+		// // Strip fields that are not accessible to the user
+		// SObjectAccessDecision decision = Security.stripInaccessible(
+		// 	AccessType.READABLE,
+		// 	cases
+		// );
+
+		return cases.isEmpty() ? null : cases[0];
+	}
+
+	/**
 	* Attempts to get the existing Task for this interactionId
 	* In case it doesn't exist yet, return the default values for a SSSWCall Task record
 	* @param (String) Unique interactionId for this call
@@ -442,10 +472,12 @@ global with sharing class GenesysConnectorController {
 		Task result = existingTasks.isEmpty() ? null : existingTasks[0];
 		
 		if (existingTasks.isEmpty()) {
-			Id recordTypeId = Schema.SObjectType.Task.getRecordTypeInfosByDeveloperName().get(Constants.RECORDTYPE_NAME_TASK_SSSWCALL).getRecordTypeId();
-			
 			// Init new Task instance with default values
-			result = (Task)Task.SObjectType.newSObject(recordTypeId, true);
+			result = new Task();
+			result.RecordTypeId = RecordTypesSelector.newInstance().selectByDeveloperName(
+				String.valueOf(Task.SObjectType),
+				new Set<String>{ Constants.RECORDTYPE_NAME_TASK_SSSWCALL }
+			).values()[0].Id;
 			// Set default SSSWCall Task default values
 			result.ActivityDate = Date.today();
 			result.Description = 'For logs, please see attachment';
