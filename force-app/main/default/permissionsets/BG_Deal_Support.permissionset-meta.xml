@@ -2709,6 +2709,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>OpportunityLineItem.ProjectedAnnualRevenueDecline__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>OpportunityLineItem.RetainedRevenue__c</field>
         <readable>true</readable>
     </fieldPermissions>
