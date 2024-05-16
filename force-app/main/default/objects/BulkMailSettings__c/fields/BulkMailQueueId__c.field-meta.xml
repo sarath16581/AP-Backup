@@ -5,6 +5,8 @@
     <externalId>false</externalId>
     <label>Bulk Mail Queue Id</label>
     <length>255</length>
+	<inlineHelpText>Queue ID used for Bulk Mail Cases</inlineHelpText>
+	<securityClassification>Public</securityClassification>
     <required>false</required>
     <trackTrending>false</trackTrending>
     <type>Text</type>
