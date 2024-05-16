@@ -213,9 +213,9 @@ public with sharing class MyNetworkSmartFormsService {
 			if(oSmartFormWrapper.sustainedDamage == 'no'){
 				ParcelDamageDetails += SSSWConstants.NEW_LINE + 'Please list the items that have not sustained damage -' + oSmartFormWrapper.sustainedDamageDetails;
 			}
-			ParcelDamageDetails += SSSWConstants.NEW_LINE + 'Was the article sufficiently packaged?' + SSSWConstants.HYPHEN_SPACED + oSmartFormWrapper.sufficientPackage;
+			ParcelDamageDetails += SSSWConstants.NEW_LINE + 'Was the article sufficiently packaged? ' + SSSWConstants.HYPHEN_SPACED + oSmartFormWrapper.sufficientPackage;
 			if(oSmartFormWrapper.sufficientPackage == 'no'){
-				ParcelDamageDetails += SSSWConstants.NEW_LINE + 'Provide details -' + oSmartFormWrapper.sufficientPackageDetails;
+				ParcelDamageDetails += SSSWConstants.NEW_LINE + 'Provide details - ' + oSmartFormWrapper.sufficientPackageDetails;
 			}
 		}
 		ParcelDamageDetails += SSSWConstants.NEW_LINE;
