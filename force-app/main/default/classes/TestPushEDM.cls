@@ -87,7 +87,7 @@ private class TestPushEDM
 	public static void testDataCategoryArticleNode() {
 		Account pAccount1 = [Select Id from Account where LastName = 'Person1'];
 		setPageReference(pAccount1.Id);
-		List<Knowledge__kav> pushEDMs = ApplicationTestDataFactory.getPushEDMs(1, false);
+		List<Knowledge__kav> pushEDMs = ApplicationTestDataFactoryKnowledge.getPushEDMs(1, false);
 		insert pushEDMs;
 		
 	}
