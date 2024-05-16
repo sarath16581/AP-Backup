@@ -202,7 +202,7 @@ private class ArticlesSelector_Test {
 		results = selector.selectByCaseIds(new Set<Id>{cases[0].Id}, new Set<Object>{ArticlesSelector.Options.WITH_EVENTMESSAGES_DESC_ORDER});
 		System.assertEquals(1, results.size(), 'Expected result size of 1');
 		
-		List<Article__c> resultList = selector.selectByArticleNames(new Set<String>{articles[0].Name}, null, new Set<Object>{ArticlesSelector.Options.WITH_RECORDTYPE});
+		List<Article__c> resultList = selector.selectByArticleNames(new Set<String>{articles[0].Name}, Constants.RECORDTYPE_NAME_ARTICLE_ARTICLE, new Set<Object>{ArticlesSelector.Options.WITH_RECORDTYPE});
 		System.assertEquals(1, resultList.size(), 'Expected result size of 1');
 
 		Test.stopTest();

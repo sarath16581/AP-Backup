@@ -212,8 +212,8 @@ public virtual inherited sharing class ArticlesSelector extends ApplicationSelec
         QueryBuilder.ConditionsManager conditions = qb.addConditions();
         conditions.add(new QueryBuilder.SimpleCondition(Article__c.Name + ' in :names'));
         if (recordTypeName != null){
-            conditions.add(new QueryBuilder.CompareCondition(Article__c.RecordTypeId).eq(SObjectType.Article__c.getRecordTypeInfosByDeveloperName().get(recordTypeName).getRecordTypeId()));
-        }
+			conditions.add(new QueryBuilder.SimpleCondition('RecordType.DeveloperName = :recordTypeName'));
+		}
         String soql = conditions.endConditions().toSoqlString();
 		return (List<Article__c>)Database.query(soql);
 	}
