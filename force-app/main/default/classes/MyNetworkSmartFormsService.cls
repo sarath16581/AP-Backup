@@ -195,11 +195,11 @@ public with sharing class MyNetworkSmartFormsService {
 			ParcelDamageDetails += SSSWConstants.NEW_LINE + 'Number of labels damaged - ' + oSmartFormWrapper.noOfLabelsDamaged;
 			ParcelDamageDetails += SSSWConstants.NEW_LINE + 'Carton adequate? - ' + oSmartFormWrapper.isCartonAdequate;
 			if(oSmartFormWrapper.isCartonAdequate=='no'){
-				ParcelDamageDetails += SSSWConstants.NEW_LINE + 'Provide Details - ' + oSmartFormWrapper.cartonInadequecyDetails;
+				ParcelDamageDetails += SSSWConstants.NEW_LINE + 'Provide details - ' + oSmartFormWrapper.cartonInadequecyDetails;
 			}
 			ParcelDamageDetails += SSSWConstants.NEW_LINE + 'Inserts or dividers adequate? - ' + oSmartFormWrapper.isDividerAdequate;
 			if(oSmartFormWrapper.isDividerAdequate=='no'){
-				ParcelDamageDetails += SSSWConstants.NEW_LINE + 'Provide Details - ' + oSmartFormWrapper.dividerInadequecyDetails;
+				ParcelDamageDetails += SSSWConstants.NEW_LINE + 'Provide details - ' + oSmartFormWrapper.dividerInadequecyDetails;
 			}
 			if(oSmartFormWrapper.actionTaken != null){
 				ParcelDamageDetails += SSSWConstants.NEW_LINE + 'Damage instructions - ' + oSmartFormWrapper.damageInstructions;
@@ -215,7 +215,7 @@ public with sharing class MyNetworkSmartFormsService {
 			}
 			ParcelDamageDetails += SSSWConstants.NEW_LINE + 'Was the article sufficiently packaged?' + SSSWConstants.HYPHEN_SPACED + oSmartFormWrapper.sufficientPackage;
 			if(oSmartFormWrapper.sufficientPackage == 'no'){
-				ParcelDamageDetails += SSSWConstants.NEW_LINE + 'Details why the items were not sufficiently packaged -' + oSmartFormWrapper.sufficientPackageDetails;
+				ParcelDamageDetails += SSSWConstants.NEW_LINE + 'Provide details -' + oSmartFormWrapper.sufficientPackageDetails;
 			}
 		}
 		ParcelDamageDetails += SSSWConstants.NEW_LINE;
