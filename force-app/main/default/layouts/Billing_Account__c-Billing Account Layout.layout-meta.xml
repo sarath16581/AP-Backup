@@ -490,13 +490,13 @@
         <fields>NAME</fields>
         <fields>LEGACY_ID__c</fields>
         <fields>BillingAccountType__c</fields>
+        <fields>SAP_marked_for_deletion__c</fields>
         <fields>Organisation__c</fields>
         <fields>Credit_Limit_Formula__c</fields>
         <fields>Credit_Status__c</fields>
         <fields>Suburb__c</fields>
         <fields>State__c</fields>
         <fields>Postal_Code__c</fields>
-        <fields>LeaderAccount__c</fields>
         <relatedList>Billing_Account__c.PAYER_ACCOUNT_ID__c</relatedList>
     </relatedLists>
     <relatedLists>
@@ -504,6 +504,7 @@
         <fields>NAME</fields>
         <fields>LEGACY_ID__c</fields>
         <fields>BillingAccountType__c</fields>
+        <fields>SAP_marked_for_deletion__c</fields>
         <fields>Organisation__c</fields>
         <fields>PAYER_ACCOUNT_ID__c</fields>
         <relatedList>Billing_Account__c.LeaderAccount__c</relatedList>

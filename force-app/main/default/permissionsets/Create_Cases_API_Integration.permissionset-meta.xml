@@ -3734,10 +3734,6 @@
         <viewAllRecords>false</viewAllRecords>
     </objectPermissions>
     <recordTypeVisibilities>
-        <recordType>Case.AMLCTF_Please_Explain_Audit</recordType>
-        <visible>true</visible>
-    </recordTypeVisibilities>
-    <recordTypeVisibilities>
         <recordType>Case.Business_System_Integration</recordType>
         <visible>true</visible>
     </recordTypeVisibilities>
@@ -3775,10 +3771,6 @@
     </recordTypeVisibilities>
     <recordTypeVisibilities>
         <recordType>Case.SSSWService</recordType>
-        <visible>true</visible>
-    </recordTypeVisibilities>
-    <recordTypeVisibilities>
-        <recordType>Case.Sales_Implementation_Case</recordType>
         <visible>true</visible>
     </recordTypeVisibilities>
     <recordTypeVisibilities>

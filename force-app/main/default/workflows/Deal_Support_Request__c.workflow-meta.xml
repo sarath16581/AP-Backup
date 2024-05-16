@@ -289,7 +289,7 @@
         <description>Sales Solution Support DSR Request submit Notification</description>
         <protected>false</protected>
         <recipients>
-            <recipient>peter.unkles@auspost.com.au</recipient>
+            <recipient>laurence.hunt@auspost.com.au</recipient>
             <type>user</type>
         </recipients>
         <senderAddress>noreply@auspost.com.au</senderAddress>

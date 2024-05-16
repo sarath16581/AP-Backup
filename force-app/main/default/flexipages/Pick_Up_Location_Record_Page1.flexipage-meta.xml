@@ -286,11 +286,25 @@
                     <value>false</value>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
+                    <name>recordId</name>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
                     <name>refreshAfterSave</name>
                     <value>true</value>
                 </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>refreshNotNavigate</name>
+                    <value>false</value>
+                </componentInstanceProperties>
                 <componentName>addressLookupRecordWrapper</componentName>
                 <identifier>addressLookupRecordWrapper</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!$User.Profile.Name}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>StarTrack Operations</rightValue>
+                    </criteria>
+                </visibilityRule>
             </componentInstance>
         </itemInstances>
         <itemInstances>

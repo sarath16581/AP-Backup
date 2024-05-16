@@ -3,7 +3,7 @@
     <fullName>AMLCTF_Please_Explain_Audit</fullName>
     <active>false</active>
     <businessProcess>Retail Audit</businessProcess>
-    <description>REQ3448199- Record type not in use - A letter that is sent to an outlet requesting further information on various transactional categories to assist in monitoring an outlet’s behaviour</description>
+    <description>REQ3448199- Record type not in use -A letter that is sent to an outlet requesting further information on various transactional categories to assist in monitoring an outlet’s behaviour</description>
     <label>(Deprecated) Please Explain</label>
     <picklistValues>
         <picklist>AMLCTF_Please_Explain_Type__c</picklist>
