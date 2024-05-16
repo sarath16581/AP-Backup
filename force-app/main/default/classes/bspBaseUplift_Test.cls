@@ -794,7 +794,7 @@ public class bspBaseUplift_Test{
 		// =====================================
 		//Data
 		// =====================================
-		List<Knowledge__kav> kav = ApplicationTestDataFactory.getBSPs(1, true);
+		List<Knowledge__kav> kav = ApplicationTestDataFactoryKnowledge.getBSPs(1, true);
 		
 		// N/A
 		KnowledgeArticleVersionsSelector kavSelector = (KnowledgeArticleVersionsSelector)MockUtility.mockSelector(KnowledgeArticleVersionsSelector.class);
