@@ -349,7 +349,9 @@ public with sharing class ProductRevenueService {
         // Calculations will be rounded contract whole months.
         Integer contractMonths = contractMonths(record);
         // annualise values
-        if (contractMonths >12) contractMonths = 12;
+        if (contractMonths >12) {
+            contractMonths = 12;
+        }
         // the value of the opportunity line item over its contract period
         updateRetainedIncremental(record, pastSales, contractMonths);
     }
