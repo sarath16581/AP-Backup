@@ -193,11 +193,11 @@ public with sharing class MyNetworkSmartFormsService {
 			ParcelDamageDetails += SSSWConstants.NEW_LINE + 'Total bottles damaged/broken - ' + oSmartFormWrapper.totalBottlesDamaged;
 			ParcelDamageDetails += SSSWConstants.NEW_LINE + 'Number of caps damaged - ' + oSmartFormWrapper.noOfCapsDamaged;
 			ParcelDamageDetails += SSSWConstants.NEW_LINE + 'Number of labels damaged - ' + oSmartFormWrapper.noOfLabelsDamaged;
-			ParcelDamageDetails += SSSWConstants.NEW_LINE + 'Carton adequate? - ' + oSmartFormWrapper.isCartonAdequate;
+			ParcelDamageDetails += SSSWConstants.NEW_LINE + 'Carton adequate? (Must be 3mm minimum) - ' + oSmartFormWrapper.isCartonAdequate;
 			if(oSmartFormWrapper.isCartonAdequate=='no'){
 				ParcelDamageDetails += SSSWConstants.NEW_LINE + 'Provide details - ' + oSmartFormWrapper.cartonInadequecyDetails;
 			}
-			ParcelDamageDetails += SSSWConstants.NEW_LINE + 'Inserts or dividers adequate? - ' + oSmartFormWrapper.isDividerAdequate;
+			ParcelDamageDetails += SSSWConstants.NEW_LINE + 'Inserts or dividers adequate? (Must be 3mm minimum) - ' + oSmartFormWrapper.isDividerAdequate;
 			if(oSmartFormWrapper.isDividerAdequate=='no'){
 				ParcelDamageDetails += SSSWConstants.NEW_LINE + 'Provide details - ' + oSmartFormWrapper.dividerInadequecyDetails;
 			}
