@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <DelegateGroup xmlns="http://soap.sforce.com/2006/04/metadata">
+    <groups>Knowledge: Article Managers</groups>
+    <groups>Knowledge: Australia Post</groups>
+    <groups>Knowledge: StarTrack</groups>
+    <groups>Knowledge: Manager</groups>
+    <groups>Knowledge: Recovery Team</groups>
+    <groups>Knowledge: Specialist Skill</groups>
+    <groups>Knowledge: FAQ</groups>
     <label>Sales Admin</label>
     <loginAccess>true</loginAccess>
     <permissionSets>Service Partner Changes</permissionSets>
@@ -11,6 +18,10 @@
     <permissionSets>View Sales Manager Coaching Records</permissionSets>
     <permissionSets>Create Sales Manager Coaching Records</permissionSets>
     <permissionSets>SSSW Knowledge for inside sales</permissionSets>
+    <permissionSets>Knowledge - API</permissionSets>
+    <permissionSets>Knowledge - View Articles</permissionSets>
+    <permissionSets>Knowledge - Manage Articles</permissionSets>
+    <permissionSets>Knowledge - Manage FAQs</permissionSets>
     <profiles>BG Base</profiles>
     <profiles>Coverage Sales</profiles>
     <profiles>Marketing User</profiles>
