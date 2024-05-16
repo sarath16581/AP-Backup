@@ -68,32 +68,4 @@ private class BulkMailCaseService_Test {
 
 		Test.stopTest();
 	}
-
-	/**
-	 * Scenario: Test to ensure the bulk mail queue Idis returned
-	 */
-	@IsTest
-	static void testGetBulkMailQueueId() {
-		// =====================================
-		// Data Preparation
-		// =====================================
-		// None!
-
-		// =====================================
-		// Stubbing
-		// =====================================
-		// None!
-
-		// =====================================
-		// Testing
-		// =====================================
-		Test.startTest();
-
-		Id queueId = BulkMailCaseService.getInstance().getBulkMailQueueId();
-
-		// Make sure the recordtype id has been returned
-		Assert.areNotEqual(null, queueId, 'Expected bulk mail queue id to be returned');
-
-		Test.stopTest();
-	}
 }

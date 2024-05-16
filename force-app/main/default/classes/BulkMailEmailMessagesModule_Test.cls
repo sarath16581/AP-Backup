@@ -85,7 +85,7 @@ private class BulkMailEmailMessagesModule_Test {
 	@IsTest
 	static void testAfterInsertReopenRelatedCases() {
 
-		final Id queueId = BulkMailCaseService.getInstance().getBulkMailQueueId();
+		final Id queueId = BulkMailEmailMessagesModule.bulkMailQueueId; 
 
 		// =====================================
 		// Data Preparation
@@ -198,7 +198,6 @@ private class BulkMailEmailMessagesModule_Test {
 
 		BulkMailEmailMessagesModule module = BulkMailEmailMessagesModule.newInstance();
 		module.onAfterInsert(new List <EmailMessage> { emailMessageRecord }, mockUow);
-		Datetime dt = module.currentTime;
 
 		Test.stopTest();
 

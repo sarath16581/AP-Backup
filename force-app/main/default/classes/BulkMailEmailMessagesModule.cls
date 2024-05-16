@@ -39,6 +39,18 @@
 		private set;
 	}
 
+	@TestVisible
+	private static final Id bulkMailQueueId {
+		get {
+			if (bulkMailQueueId == null) {
+				bulkMailQueueId = BulkMailSettings__c.getInstance().BulkMailQueueId__c;
+			}
+			return bulkMailQueueId;
+		}
+		private set;
+	}
+
+
 	public static BulkMailEmailMessagesModule newInstance() {
 		return (BulkMailEmailMessagesModule) Application.Utilities.newInstance(BulkMailEmailMessagesModule.class);
 	}
@@ -79,13 +91,18 @@
 		Map<Id, Case> casesMap = new Map<Id, Case>();
 		List<Case> casesToUpdate = new List<Case>();
 
-		//get record type for transport enquiry case
+		// Get record type for transport enquiry case
 		Id recordTypeId = BulkMailCaseService.getInstance().getBulkMailRecordTypeId();
-		Id queueId = BulkMailCaseService.getInstance().getBulkMailQueueId();
+
+		// Field overrides for cases
+		Set <SObjectField> fieldOverrides = new Set <SObjectField>{Case.Id, Case.Permanent_Close__c, Case.Status, Case.EmailToCaseAddress__c, Case.Priority, Case.Call_Purpose__c, Case.Origin, Case.Enquiry_Type__c, Case.Product_Type__c, Case.Source__c};
 
 		//Get the selected emailMessage with related case fields, whose parent case recordtype is Bulk Mail
-		for (EmailMessage em : EmailMessagesSelector.newInstance().selectByIdsAndParentRecordTypeId(emailIdSet, new Set<Id>{recordTypeId}, 
-										new Set<Object>{EmailMessagesSelector.Options.WITH_CASE, CasesSelector.Options.WITH_RECORDTYPE})) {
+		EmailmessagesSelector emSelector = EmailMessagesSelector.newInstance();
+		emSelector.setFieldOverrides(new Map <SObjectType, Set <SObjectField>> { Case.SObjectType => fieldOverrides });
+
+		for (EmailMessage em : emSelector.selectByIdsAndParentRecordTypeId(emailIdSet, new Set<Id>{recordTypeId}, 
+										new Set <Object>{ EmailMessagesSelector.Options.WITH_CASE, CasesSelector.Options.WITH_RECORDTYPE })) {
 			if (em.Incoming)
 			{
 				filteredMessages.put(em.Id, em);
@@ -101,28 +118,27 @@
 
 		if (!caseIds.isEmpty()) {
 			// Grab the cases and their associated incoming email messages to check whether the incoming email messages are the first one attached to the case
-			//  If it is, then we treat this as a new case and therefore the EmailToCaseAddress__c and other related fields needs to be updated on the case
-			//  If the case is closed, then re-open the case 
+			// If it is, then we treat this as a new case and therefore the EmailToCaseAddress__c and other related fields needs to be updated on the case
+			// If the case is closed, then re-open the case 
 
 			Datetime currentTimeStamp = currentTime;
-			//field overrides for cases
-			Set<SObjectField> fieldOverrides = new Set<SObjectField>{Case.Id, Case.Permanent_Close__c, Case.Status, Case.EmailToCaseAddress__c, Case.Priority, Case.Call_Purpose__c, Case.Origin, Case.Enquiry_Type__c, Case.Product_Type__c, Case.Source__c};
 
-			for (Case cs : CasesSelector.newInstance(fieldOverrides).selectById(caseIds, new Set<Object>{CasesSelector.Options.WITH_INCOMING_EMAIL_MESSAGES_ASC_ORDER}).values()) {
+			for (Case cs : CasesSelector.newInstance(fieldOverrides).selectById(caseIds, new Set <Object> { CasesSelector.Options.WITH_INCOMING_EMAIL_MESSAGES_ASC_ORDER }).values()) {
 				casesMap.put(cs.Id, cs);
-				if(!cs.Permanent_Close__c && !cs.EmailMessages.isEmpty() && (String.isNotBlank(cs.EmailToCaseAddress__c) || cs.Origin != 'Email')) {
+
+				if (!cs.Permanent_Close__c && !cs.EmailMessages.isEmpty() && (String.isNotBlank(cs.EmailToCaseAddress__c) || 'Email'.equalsIgnoreCase(cs.Origin) == false)) {
 					// New email received - update Case_Update__c field 
 					Case caseRecord =  new Case(Id = cs.Id, Case_Update__c = BulkMailCaseService.NEW_EMAIL_RECEIVED, Case_Update_Time__c = currentTimeStamp);
 	
 					// Re-open the case if there is incoming email message to closed case
-					if (cs.Status == BulkMailCaseService.CLOSED_STATUS) {
+					if (BulkMailCaseService.CLOSED_STATUS.equalsIgnoreCase(cs.Status)) {
 						caseRecord.Status = BulkMailCaseService.REOPENNED_STATUS;
-						caseRecord.OwnerId = queueId;
+						caseRecord.OwnerId = bulkMailQueueId;
 					}
 
 					casesToUpdate.add(caseRecord);
 				} 
-				else if (!cs.EmailMessages.isEmpty() && filteredMessages.containsKey(cs.EmailMessages[0].Id) && cs.Origin == 'Email') {
+				else if (!cs.EmailMessages.isEmpty() && filteredMessages.containsKey(cs.EmailMessages[0].Id) && 'Email'.equalsIgnoreCase(cs.Origin)) {
 					//update the case fields if it is new case created from email-to-case
 					emailsToProcess.put(cs.EmailMessages[0].Id, filteredMessages.get(cs.EmailMessages[0].Id));
 				} 

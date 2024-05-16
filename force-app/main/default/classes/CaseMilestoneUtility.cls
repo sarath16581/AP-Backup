@@ -31,10 +31,6 @@ public with sharing class CaseMilestoneUtility{
 	private static Set<Id> ssswRecTypes;	// SSSW record types
 	private static Set<String> closedStatus;				// set of closed case statuses
 	private static Id STD_ENTITLEMENT;  // sssw entitlement to be linked with case
-	private static Id transportEnquiryEntitlementId; //transport enquiry entitlement to be linked with case
-	private static Id transportEnquiryRecTypeId;
-	private static Id bulkMailEntitlementId; // bulk mail entitlement to be linked with case
-	private static Id bulkMailRecTypeId;
 
 	// Added for BGS Case Milestones
 	private static Set<Id> bgsRecTypes;  // the BGS Case Record Type "Service Delivery/Sales_Ops_Delivery"
@@ -54,14 +50,6 @@ public with sharing class CaseMilestoneUtility{
 
 			// Get the Record Type Id for BGS Service Delivery Cases
 			bgsRecTypes =  Utility.getRecordTypeIds(String.valueOf(Case.getsObjectType()), BGSConstants.SERVICE_DELIVERY_NAME);
-			// Get the transport enquiry entitlement record id
-			transportEnquiryEntitlementId = TransportEnquiryCaseService.getInstance().getTransportEnquiryEntitlementId();
-			// Get the Record Type Id for Transport Enquiry Cases
-			transportEnquiryRecTypeId = TransportEnquiryCaseService.getInstance().getTransportEnquiryRecordTypeId();
-			// Get the bulk mail entitlement record id
-			bulkMailEntitlementId = BulkMailCaseService.getInstance().getBulkMailEntitlementId();
-			// Get the Record Type Id for Bulk Mail Cases
-			bulkMailRecTypeId = BulkMailCaseService.getInstance().getBulkMailRecordTypeId();
 		}
 		catch(Exception exp){
 			// Error Logged to Exception object for analysis
@@ -70,7 +58,46 @@ public with sharing class CaseMilestoneUtility{
 													SSSWConstants.CASE_TRIGGER, LoggingLevel.ERROR);
 		}
 	}
+
+	private static Id transportEnquiryEntitlementId {
+		get {
+			if (transportEnquiryEntitlementId == null) {
+				transportEnquiryEntitlementId = TransportEnquiryCaseService.getInstance().getTransportEnquiryEntitlementId();
+			}
+			return transportEnquiryEntitlementId;
+		}
+		private set;
+	}
+
+	private static Id transportEnquiryRecTypeId {
+		get {
+			if (transportEnquiryRecTypeId == null) {
+				transportEnquiryRecTypeId = TransportEnquiryCaseService.getInstance().getTransportEnquiryRecordTypeId();
+			}
+			return transportEnquiryRecTypeId;
+		}
+		private set;
+	}
 	
+	private static Id bulkMailEntitlementId {
+		get {
+			if (bulkMailEntitlementId == null) {
+				bulkMailEntitlementId = BulkMailCaseService.getInstance().getBulkMailEntitlementId();
+			}
+			return bulkMailEntitlementId;
+		}
+		private set;
+	}
+	
+	private static Id bulkMailRecTypeId {
+		get {
+			if (bulkMailRecTypeId == null) {
+				bulkMailRecTypeId = BulkMailCaseService.getInstance().getBulkMailRecordTypeId();
+			}
+			return bulkMailRecTypeId;
+		}
+		private set;
+	}
 	/**
 	  * @description	   This method is invoked in Before insert event, fetches the default Entitlement 
 						   and links to SSSW Cases

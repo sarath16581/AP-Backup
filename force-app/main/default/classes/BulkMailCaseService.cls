@@ -21,7 +21,6 @@
 	public static final String INTERNAL_EMAIL_DOMAIN = 'auspost.com.au';
 	public static final String INTERNAL_CUSTOMER_SOURCE = 'Internal Customer';
 	public static final String CUSTOMER_SOURCE = 'Customer';
-	public static final String BULK_MAIL_QUEUE = 'Bulk_Mail_Onboarding_Queue';
 
 	private static Id bulkMailEntitlementId;
 	private static Id bulkMailRecordTypeId;
@@ -55,16 +54,5 @@
 			}
 		}
 		return bulkMailRecordTypeId;
-	}
-
-	// Function to get the bulk mail queue id
-	public Id getBulkMailQueueId() {
-		if (bulkMailQueueId == null) {
-			List <Group> groupRecords = GroupsSelector.newInstance().selectByDeveloperName(new Set<String>{BULK_MAIL_QUEUE}).values();
-			if (!groupRecords.isEmpty()) {
-				bulkMailQueueId = groupRecords[0].Id;
-			}
-		}
-		return bulkMailQueueId;
 	}
 }
