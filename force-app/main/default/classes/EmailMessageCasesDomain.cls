@@ -6,6 +6,7 @@
  * @changelog
  * 2022-10-12	Naveen Rajanna - created - REQ2859152
  * 2023-05-29	Mahesh Parvathaneni - Added module TransportEnquiryEmailMessagesModule
+ * 2024-04-05	Thang Nguyen - Added module BulkMailEmailMessagesModule
  */
 public inherited sharing class EmailMessageCasesDomain extends ApplicationDomain {
 	public static EmailMessageCasesDomain newInstance(List<SObject> sObjectList) {
@@ -38,6 +39,9 @@ public inherited sharing class EmailMessageCasesDomain extends ApplicationDomain
 		// Service Advisor modules
 		registerModule(ServiceAdvisorEmailMesAutomationModule.class);
 		registerModule(ServiceAdvisorEmailMesEntitlementsModule.class);
+
+		// Bulk Mail module
+		registerModule(BulkMailEmailMessagesModule.class);
 	}
 
 	/**

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Case__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <description>This is field will store the Case details to which the DSR request is linked to</description>
+    <inlineHelpText>This is field will store the Case details to which the DSR request is linked to</inlineHelpText>
+    <externalId>false</externalId>
+    <label>Case</label>
+    <referenceTo>Case</referenceTo>
+    <relationshipLabel>Deal Support Request</relationshipLabel>
+    <relationshipName>Deal_Support_Request</relationshipName>
+    <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
+    <trackFeedHistory>true</trackFeedHistory>
+    <trackHistory>true</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

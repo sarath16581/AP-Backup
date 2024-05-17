@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Charity Mail Application Approval predefined template for outbound comms for the the bulk mail onboarding case management team</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+	<name>Bulk Mail - Charity Mail Application Approval</name>
+    <style>none</style>
+    <subject>Australia Post - Customer Onboarding Case: {!Case.CaseNumber}</subject>
+    <textOnly>Customer Onboarding
+
+Reference number {!Case.CaseNumber}
+
+Your application for the Charity Mail Service for XXXXXXXXX has been approved by Australia Post.
+
+Your Charity Mail approval number is: CM XXXXXXXX
+
+To qualify for charity mail you need to meet Australia Post’s Presort Letters requirements.
+	- The minimum quantity is 300 barcoded articles per lodgement
+	- Each lodgement must consist of articles within the same size category and contain information	
+	- Associated with fundraising and promotional activities.
+
+To access Charity Mail prices, each article must have your Charity Mail approval number, e.g. “CM 12345678”. For more information, please see section 5.5.2 of the PreSort Letters service guide, which can be downloaded at www.auspost.com.au/charitymail.
+
+If you have any questions or need further assistance with this service, please contact your Australia Post representative or reply to this email.
+
+Kind regards,
+
+Customer Onboarding
+Australia Post
+
+
+{!Case.Thread_Id}
+
+
+Nothing in this email is intended to exclude or limit any rights or remedies that you may have under the Australian Consumer Law.
+
+This email was sent by Australia Post. Australia Post does not represent, warrant or guarantee that the integrity of this email communication has been maintained nor that the communication is free of errors, viruses or interference.
+Terms &amp; conditions  |  Privacy policy</textOnly>
+    <type>custom</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

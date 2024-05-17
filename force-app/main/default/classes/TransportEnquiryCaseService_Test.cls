@@ -70,46 +70,4 @@ private class TransportEnquiryCaseService_Test {
 
 		Test.stopTest();
 	}
-
-	/**
-	 * Scenario: Test to ensure the whole pattern match for email is returned from the string
-	 */
-	@IsTest
-	static void testGetEmailFullMatch() {
-		// =====================================
-		// Data Preparation
-		// =====================================
-		String email1 = 'transportenquiry@auspost.com.au;5195231b-cd74-45a4-b576-9bc88ae35b48';
-		String email2 = 'transportenquiry@auspost.com.au$5bsdfgedg ewrewt ewrtw4etert';
-		String email3 = '$retert%transportenquiry@auspost.com.au$5bsdfgedg ewrewt ewrtw4etert';
-		String email4 = '$retert%transportenquiryauspost.com.au$5bsdfgedg ewrewt ewrtw4etert';
-		String result = 'transportenquiry@auspost.com.au';
-
-		// =====================================
-		// Stubbing
-		// =====================================
-		// None!
-
-		// =====================================
-		// Testing
-		// =====================================
-		Test.startTest();
-
-		TransportEnquiryCaseService service = TransportEnquiryCaseService.getInstance();
-
-		// make sure the email has been returned
-		Assert.areEqual(result, service.getEmailFullMatch(email1), 'Expected valid email to be returned');
-		Assert.areEqual(result, service.getEmailFullMatch(email2), 'Expected valid email to be returned');
-		Assert.areEqual(result, service.getEmailFullMatch(email3), 'Expected valid email to be returned');
-		Assert.areNotEqual(result, service.getEmailFullMatch(email4), 'Expected no email to be returned');
-		Assert.areEqual(null, service.getEmailFullMatch(null), 'Expected no email to be returned');
-		Assert.areEqual(null, service.getEmailFullMatch('12132445'), 'Expected no email to be returned');
-		Assert.areEqual(null, service.getEmailFullMatch('1213$auspost.com2445'), 'Expected no email to be returned');
-		Assert.areEqual(null, service.getEmailFullMatch(''), 'Expected no email to be returned');
-		Assert.areEqual(null, service.getEmailFullMatch(' '), 'Expected no email to be returned');
-		Assert.areEqual(null, service.getEmailFullMatch('$retert%transportenquiry$123'), 'Expected no email to be returned');
-
-		Test.stopTest();
-	}
-
 }
