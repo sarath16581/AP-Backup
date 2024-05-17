@@ -237,6 +237,14 @@
         <relatedList>RelatedCaseMilestoneList</relatedList>
     </relatedLists>
     <relatedLists>
+        <fields>NAME</fields>
+        <fields>Organisation__c</fields>
+        <fields>Description__c</fields>
+        <fields>Product__c</fields>
+        <fields>Status__c</fields>
+        <relatedList>Deal_Support_Request__c.Case__c</relatedList>
+    </relatedLists>
+    <relatedLists>
         <relatedList>RelatedEmailMessageList</relatedList>
     </relatedLists>
     <relatedLists>
