@@ -20,6 +20,7 @@ private class ProductRevenueService_Test {
 
         Opportunity oppRec = ApplicationTestDataFactory.getOpportunities(1, account.Id, true)[0];
         oppRec.AccountId = account.Id;
+		oppRec.DoNotUseAccountHierarchy__c = false;
         Product2 prod =  ApplicationTestDataFactory.getProducts(1,true)[0];
 
         Budget_and_Revenue__c budgrev = ApplicationTestDataFactory.getBudgetAndRevenue(1,account.Id,prod.Id,dateOfTest.year(),true)[0];

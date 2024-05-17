@@ -35,6 +35,8 @@ public class OpportunityRevenueReportController {
     // Method to get revenue data
     @AuraEnabled(cacheable=true)
     public static List<RevenueData> getRevenueData(String opportunityId) {
+		Map<Id, Opportunity> opportunityMap = OpportunitiesSelector.newInstance(1, new Set<SObjectField>{Opportunity.DoNotUseAccountHierarchy__c}).selectById(new Set<Id>{opportunityId});
+
         // all the accounts relevant to this opportunity. Used to retrieve budget and revenue records.
         Set<Id> relevantAccounts = new Set<Id>();
 		List<RevenueData> revenues = new List<RevenueData>();
@@ -46,7 +48,8 @@ public class OpportunityRevenueReportController {
 			// add the main account to the relevant accounts
 			relevantAccounts.add(mainAccountId);
 			// get all the child accounts for the main accounts
-			Map<Id,Account> childAccounts = loadChildAccountMap(mainAccountId);
+			Map<Id,Account> childAccounts = opportunityMap.get(opportunityId).DoNotUseAccountHierarchy__c ? loadMainAccountMap(mainAccountId) : loadChildAccountMap(mainAccountId);
+
 			// add child accounts to relevant accounts
 			relevantAccounts.addAll(childAccounts.keySet());
 			// get any accounts manually related to the main account
@@ -152,6 +155,10 @@ public class OpportunityRevenueReportController {
         }
         return oppLineItemMap;
     }
+
+	private static Map<Id,Account> loadMainAccountMap(Id accountId) {
+		return AccountsSelector.newInstance(1, new Set<SObjectField>{Account.Id, Account.Name}).selectById(new Set<Id> {accountId});
+	}
 
     private static Map<Id,Account> loadChildAccountMap(Id accountId) {
         Set<Id> unloadedAccountIds = new Set<Id>{accountId};
