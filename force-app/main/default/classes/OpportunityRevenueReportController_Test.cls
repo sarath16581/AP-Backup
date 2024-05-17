@@ -7,14 +7,17 @@ History:
 @IsTest
 private class OpportunityRevenueReportController_Test {
 	@IsTest
-	private static void testGetRevenueData() {
-		Account acc = ApplicationTestDataFactory.getAccounts(1, true)[0];
+	private static void testGetRevenueDataWithAccountHierarchy() {
 		Account parentAcc = ApplicationTestDataFactory.getAccounts(1, true)[0];
+		Account relatedAccount = ApplicationTestDataFactory.getAccounts(1, true)[0];
+		Account childAccount = ApplicationTestDataFactory.getAccounts(1, true)[0];
+		childAccount.ParentId = parentAcc.Id;
 
-		AccountRelationship__c accRelation = new AccountRelationship__c(ParentAccount__c = parentAcc.Id, RelatedAccount__c = acc.Id, Relationship__c='OPC');
+		AccountRelationship__c accRelation = new AccountRelationship__c(ParentAccount__c = parentAcc.Id, RelatedAccount__c = relatedAccount.Id, Relationship__c='OPC');
 
-		Opportunity oppRec = ApplicationTestDataFactory.getOpportunities(1, acc.Id, true)[0];
-		oppRec.AccountId = acc.Id;
+		Opportunity oppRec = ApplicationTestDataFactory.getOpportunities(1, parentAcc.Id, true)[0];
+		oppRec.AccountId = parentAcc.Id;
+		oppRec.DoNotUseAccountHierarchy__c = false;
 
 		Product2 prod =  ApplicationTestDataFactory.getProducts(1,true)[0];
 
@@ -27,16 +30,18 @@ private class OpportunityRevenueReportController_Test {
 		OpportunityLineItemSelector oppProdSelector = (OpportunityLineItemSelector)MockUtility.mockSelector(OpportunityLineItemSelector.class);
 		AccountsSelector accountsSelector = (AccountsSelector)MockUtility.mockSelector(AccountsSelector.class);
 		AccountRelationshipSelector arSelector = (AccountRelationshipSelector)MockUtility.mockSelector(AccountRelationshipSelector.class);
+		OpportunitiesSelector oppSelector = (OpportunitiesSelector)MockUtility.mockSelector(OpportunitiesSelector.class);
 
 		MockUtility.Mocks.startStubbing();
 		MockUtility.Mocks.when(oppProdSelector.selectByOpportunity((Set<Id>)fflib_Match.anyObject(), (Set<Object>)fflib_Match.anyObject())).thenReturn(new List<OpportunityLineItem>{oppProd});
-		MockUtility.Mocks.when(accountsSelector.search((Map<String, Object>)fflib_Match.anyObject(),(Set<Object>)fflib_Match.anyObject(), (String)fflib_Match.anyObject(), (Schema.SObjectField)fflib_Match.anyObject(), (String)fflib_Match.anyObject())).thenReturn(new List<Account>{acc});
+		MockUtility.Mocks.when(accountsSelector.search((Map<String, Object>)fflib_Match.anyObject(),(Set<Object>)fflib_Match.anyObject(), (String)fflib_Match.anyObject(), (Schema.SObjectField)fflib_Match.anyObject(), (String)fflib_Match.anyObject())).thenReturn(new List<Account>{parentAcc});
 		MockUtility.Mocks.when(arSelector.selectByParent((Set<Id>)fflib_Match.anyObject(),(Set<Object>)fflib_Match.anyObject())).thenReturn(new List<AccountRelationship__c>{accRelation});
 		MockUtility.Mocks.when(arSelector.selectByOPCParentEndDateInFuture((Set<Id>)fflib_Match.anyObject(),(Set<Object>)fflib_Match.anyObject())).thenReturn(new List<AccountRelationship__c>{accRelation});
+		MockUtility.Mocks.when(oppSelector.selectById((Set<Id>)fflib_Match.anyObject())).thenReturn(new Map<Id,Opportunity>{oppRec.Id => oppRec});
 		MockUtility.Mocks.stopStubbing();
 
 		List<OpportunityRevenueReportController.RevenueData> revData = OpportunityRevenueReportController.getRevenueData(String.valueOf(oppRec.Id));
 		System.assert(!revData.isEmpty(), 'Controller failed to construct Revenue Data');
-		System.assertEquals(acc.Name, revData.get(0).companyName, 'Returned revenue data did not match the intended.');
+		System.assertEquals(parentAcc.Name, revData.get(0).companyName, 'Returned revenue data did not match the intended.');
 	}
 }

@@ -23,7 +23,7 @@
     <actionCalls>
         <name>SSSW_Closed_Case_Email_for_BSP_Bulk_Upload</name>
         <label>SSSW - Closed Case - Email for BSP Bulk Upload</label>
-        <locationX>2514</locationX>
+        <locationX>2382</locationX>
         <locationY>734</locationY>
         <actionName>Case.SSSW_Send_Customer_Closure_Email_for_BSP_Bulk_Upload</actionName>
         <actionType>emailAlert</actionType>
@@ -40,7 +40,7 @@
     <actionCalls>
         <name>SSSW_Closed_Case_Email_for_Exception_Checker</name>
         <label>SSSW - Closed Case - Email for Exception Checker</label>
-        <locationX>2778</locationX>
+        <locationX>2646</locationX>
         <locationY>734</locationY>
         <actionName>Case.SSSW_Send_Customer_Closure_Email_for_Exception_Checker</actionName>
         <actionType>emailAlert</actionType>
@@ -186,7 +186,7 @@ email alert : SSSW - Email on Creation New Case For BSP Before EDD</description>
     <actionCalls>
         <name>SSSW_Email_when_Case_Permanently_Closed</name>
         <label>SSSW - Email when Case Permanently Closed</label>
-        <locationX>2250</locationX>
+        <locationX>2118</locationX>
         <locationY>734</locationY>
         <actionName>Case.Send_an_Email_to_the_Customer_if_they_are_sending_an_Email_to_a_Case_that_has_be</actionName>
         <actionType>emailAlert</actionType>
@@ -300,7 +300,7 @@ email alert : SSSW - Email on Creation New Case For BSP Before EDD</description>
         <nameSegment>Case.SSSW_Email_on_within_EDD_plus_business_days_case_created_Web_Portal</nameSegment>
         <versionSegment>1</versionSegment>
     </actionCalls>
-    <apiVersion>57.0</apiVersion>
+    <apiVersion>59.0</apiVersion>
     <decisions>
         <name>Is_new_or_existing</name>
         <label>Is new or existing</label>
@@ -523,70 +523,6 @@ email alert : SSSW - Email on Creation New Case For BSP Before EDD</description>
         <locationY>626</locationY>
         <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
         <rules>
-            <name>Carded_Case</name>
-            <conditionLogic>1 AND 2 AND 3 AND (4 OR 5 OR 6 OR 7 OR 8)</conditionLogic>
-            <conditions>
-                <leftValueReference>vCase.Network__c</leftValueReference>
-                <operator>IsNull</operator>
-                <rightValue>
-                    <booleanValue>false</booleanValue>
-                </rightValue>
-            </conditions>
-            <conditions>
-                <leftValueReference>vCase.EnquirySubType__c</leftValueReference>
-                <operator>EqualTo</operator>
-                <rightValue>
-                    <stringValue>Article carded - no delivery attempt</stringValue>
-                </rightValue>
-            </conditions>
-            <conditions>
-                <leftValueReference>vOldCase.EnquirySubType__c</leftValueReference>
-                <operator>NotEqualTo</operator>
-                <rightValue>
-                    <elementReference>vCase.EnquirySubType__c</elementReference>
-                </rightValue>
-            </conditions>
-            <conditions>
-                <leftValueReference>vCase.RecordType.DeveloperName</leftValueReference>
-                <operator>EqualTo</operator>
-                <rightValue>
-                    <elementReference>$Label.REC_TYPE_DEV_SSSW_SERVICE</elementReference>
-                </rightValue>
-            </conditions>
-            <conditions>
-                <leftValueReference>vCase.RecordType.DeveloperName</leftValueReference>
-                <operator>EqualTo</operator>
-                <rightValue>
-                    <elementReference>$Label.REC_TYPE_DEV_SSSW_GENERAL_ENQUIRY</elementReference>
-                </rightValue>
-            </conditions>
-            <conditions>
-                <leftValueReference>vCase.RecordType.DeveloperName</leftValueReference>
-                <operator>EqualTo</operator>
-                <rightValue>
-                    <elementReference>$Label.REC_TYPE_DEV_SSSW_DELIVERY</elementReference>
-                </rightValue>
-            </conditions>
-            <conditions>
-                <leftValueReference>vCase.RecordType.DeveloperName</leftValueReference>
-                <operator>EqualTo</operator>
-                <rightValue>
-                    <elementReference>$Label.REC_TYPE_DEV_SSSW_FAX</elementReference>
-                </rightValue>
-            </conditions>
-            <conditions>
-                <leftValueReference>vCase.RecordType.DeveloperName</leftValueReference>
-                <operator>EqualTo</operator>
-                <rightValue>
-                    <elementReference>$Label.REC_TYPE_DEV_SOCIAL</elementReference>
-                </rightValue>
-            </conditions>
-            <connector>
-                <targetReference>CaseMyCustomer_CardedCaseModule</targetReference>
-            </connector>
-            <label>Carded Case</label>
-        </rules>
-        <rules>
             <name>Case_Closed</name>
             <conditionLogic>and</conditionLogic>
             <conditions>
@@ -771,19 +707,6 @@ email alert : SSSW - Email on Creation New Case For BSP Before EDD</description>
         </connector>
     </start>
     <status>Active</status>
-    <subflows>
-        <name>CaseMyCustomer_CardedCaseModule</name>
-        <label>Carded Case module</label>
-        <locationX>1986</locationX>
-        <locationY>734</locationY>
-        <flowName>CaseMyCustomer_CardedCaseModule</flowName>
-        <inputAssignments>
-            <name>vCase</name>
-            <value>
-                <elementReference>vCase</elementReference>
-            </value>
-        </inputAssignments>
-    </subflows>
     <variables>
         <description>Contains Case Record value</description>
         <name>vCase</name>

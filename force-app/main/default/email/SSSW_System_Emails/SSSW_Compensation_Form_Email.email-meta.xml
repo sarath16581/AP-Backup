@@ -6,9 +6,9 @@
     <name>SSSW Compensation Form Email</name>
     <style>none</style>
     <subject>You&apos;re eligible for compensation</subject>
-    <textOnly>Australia Post - Do Not Replay
+    <textOnly>Australia Post
 
-You&apos;re eligible for compensation
+You&apos;re eligible for compensation - Do Not Reply
 
 Hi {!Compensation__c.ContactFirstName__c},
 

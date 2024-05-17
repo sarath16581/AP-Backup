@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>AMLCTF_Please_Explain_Audit</fullName>
-    <active>true</active>
+    <active>false</active>
     <businessProcess>Retail Audit</businessProcess>
-    <description>A letter that is sent to an outlet requesting further information on various transactional categories to assist in monitoring an outlet’s behaviour</description>
-    <label>Please Explain</label>
+    <description>REQ3448199- Record type not in use -A letter that is sent to an outlet requesting further information on various transactional categories to assist in monitoring an outlet’s behaviour</description>
+    <label>(Deprecated) Please Explain</label>
     <picklistValues>
         <picklist>AMLCTF_Please_Explain_Type__c</picklist>
         <values>

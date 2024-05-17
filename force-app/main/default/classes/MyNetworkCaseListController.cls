@@ -23,7 +23,6 @@
 08/03/2023		   Mahesh Parvathaneni		   Updated - SF-873 Updated method getSafeDropInformation to work for case investigations
 09/03/2023		   Dattaraj Deshmukh		   Updated - SF-867 Added logic to return case investigation records when 'My_Cases' list view is selected.	
 											   		   - Added 'filterBasedOnSearchCriteria' method to filter based on search criteria.											 
-22/04/2024			Jacob Isaac					Updated - REQ3494619 - to include agent closed cases to show as Updated
 *******************************  History ************************************************/
 public with sharing class MyNetworkCaseListController {
 	
@@ -233,7 +232,7 @@ public with sharing class MyNetworkCaseListController {
 				//checking if case is NOT ST case.
 				if( !MyNetworkConstants.STAR_TRACK_RECORD_TYPES.contains(cse.recordtype.developerName) &&
 						 ((cse.OwnerId != networkQueue && cse.Root_cause__c == 'Awaiting Network Response' && (cse.Last_Status_Change__c >= System.today() - 5)) || 
-						 (cse.Type == SSSWConstants.Investigation && cse.OwnerId == networkQueue && cse.Status == CASE_INVESTIGATION_CLOSED_STATUS && cse.Root_cause__c == 'Awaiting Network Response' && cse.Last_Status_Change__c >= System.today() - 5))){
+						  (cse.Type == SSSWConstants.Investigation && cse.OwnerId == networkQueue && cse.Status == CASE_INVESTIGATION_CLOSED_STATUS && cse.Root_cause__c == 'Awaiting Network Response' && cse.Last_Status_Change__c >= System.today() - 5))){
 					
 					myNetworkCasesWrapperVar = validationCasesUpdatedByContactCenter(cse);
 				}
