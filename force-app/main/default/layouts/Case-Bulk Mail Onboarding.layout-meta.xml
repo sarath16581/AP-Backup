@@ -237,6 +237,8 @@
         <relatedList>RelatedCaseMilestoneList</relatedList>
     </relatedLists>
     <relatedLists>
+        <excludeButtons>MassChangeOwner</excludeButtons>
+        <excludeButtons>New</excludeButtons>
         <fields>NAME</fields>
         <fields>Organisation__c</fields>
         <fields>Description__c</fields>
