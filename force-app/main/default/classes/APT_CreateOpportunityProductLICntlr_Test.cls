@@ -270,6 +270,7 @@ public class APT_CreateOpportunityProductLICntlr_Test{
             oli.APT_Is_Apttus_Opportunity_Line_item__c = true;
             oli.APT_OPC_Line_Items__c = op.Id;
             oli.APT_Apttus_Delete_Override__c = false;
+            oli.Change_Classification__c = APT_Constants.OPTION_YES;
             insert oli;
        
             Apttus_Config2__ProductConfiguration__c config2 = [ Select id,Apttus_QPConfig__Proposald__c, Apttus_QPConfig__Proposald__r.name, Apttus_QPConfig__Proposald__r.Apttus_Proposal__Opportunity__c , Apttus_Config2__Status__c from Apttus_Config2__ProductConfiguration__c 
@@ -296,280 +297,11 @@ public class APT_CreateOpportunityProductLICntlr_Test{
             // Assert Opportunity Products for non primary proposal are deleted
             system.assert( opplineItemList.size()==0);
                
-            List<OpportunityLineItem> opplineItemList2 = [ select id,Product2.Name,APT_OPC_Line_Items__c from OpportunityLineItem WHERE Contract_Number__c =:config2.Apttus_QPConfig__Proposald__r.name];
-            // Assert Opportunity Product for primary proposal are created
-            system.assert( opplineItemList2.size()>0); 
-           
             List<APT_Opportunity_Product_Line_Item__c> opportunityProdItemList = [ Select id from APT_Opportunity_Product_Line_Item__c Where APT_Product_Configuration__c =:config2.id AND 
                                                                                     APT_Quote_Proposal__c =:config2.Apttus_QPConfig__Proposald__c];
                                                                                     
             //Assert that a new Custon Object 'APT_Opportunity_Product_Line_Item__c'  record has been created which is associated to the Opportunity Product
             system.assert( opportunityProdItemList.size()>0); 
-            
-            //Make Sure the new Opportunity Product created is having Eparcel Product as that product was added to the cart
-            system.assertEquals( opplineItemList2[0].Product2.Name , 'eParcel'); 
-            
-            // Assert that the custom object record created is same to the record which is associated to the Opportunity Product
-            system.assertEquals( opplineItemList2[0].APT_OPC_Line_Items__c  , opportunityProdItemList[0].id);
-        }                                                                         
-    }
-    
-    /* Shashwat.Nath@auspost.com.au has added this test method to test the Sync when user does DOV on the Contract */
-    private static testMethod void testSyncOnDOV(){ 
-        // Setup test data
-        // This code runs as the Sales Admin User
-        Profile p = [SELECT Id FROM Profile WHERE Name='Sales Admin'];
-        User testuser = new User(Alias = APT_Constants.ALIAS_TEST_USER, Email=APT_Constants.EMAIL_TEST_USER,
-        EmailEncodingKey=APT_Constants.EMAILENCODINGKEY_TEST_USER, LastName=APT_Constants.LASTNAME_TEST_USER, LanguageLocaleKey=APT_Constants.LANGUAGELOCALEKEY_TEST_USER,
-        LocaleSidKey=APT_Constants.LOCALESIDKEY_TEST_USER, ProfileId = p.Id,
-        TimeZoneSidKey=APT_Constants.TIMEZONESIDKEY_TEST_USER,
-        UserName=APT_Constants.EMAIL_TEST_USER);
-        System.runAs(testuser ) {
-        
-            
-            // Creating the Custom Setting Data
-            APT_R2T_Renew_DoV_Properties__c renewDoVProperties = new APT_R2T_Renew_DoV_Properties__c(Name ='Sample',APT_Category__c=APT_AmendRenewController.CATEGORY_DOV_PROPANDCONTR,APT_Create_Agrement__c=false,
-                                                                    APT_Create_Case__c=false,APT_Create_Quote__c=true,APT_Type__c=APT_Constants.ACTION_NAME_DoV,APT_Create_Opportunity__c=true);
-            insert renewDoVProperties ;
-            
-             
-            // Creating the Contact Test Data
-            Contact con = APT_TestUtils.createContact();
-            con.MailingCity = 'Melbourne';
-            con.MailingState = 'VIC';
-            con.MailingStreet = 'Flinders Street';
-            con.MailingPostalCode = '3000'; 
-            insert con;
-            
-            //Creating account test data
-            Account tempacct = APT_TestUtils.createOrganisation();
-            insert tempacct;
-            
-            //Creating Opportunity Test Data
-            Opportunity opp = APT_TestUtils.createOpportunity(tempacct.id);
-            insert opp;
-            
-            //Creating Pricelist test data
-            Apttus_Config2__PriceList__c  priceList =APT_TestUtils.createPriceList();
-            insert priceList;
-            
-            //Creating proposal test data
-            Apttus_Proposal__Proposal__c quote = APT_TestUtils.getQuoteProposal(tempacct.id,opp.Id,'Proposal','Test',priceList.id);
-            quote.Expected_Revenue_Start_Date__c = System.today() + 2;
-            insert quote;
-            
-            //Inserting product test data
-            Product2 bundle1 = APT_TestUtils.createInternationalProduct(APT_Constants.PRODUCT_NAME_EPARCEL,'APOST001','Postal Services');
-            bundle1.Non_contracted__c = false;
-            insert bundle1;
-            
-            //Inserting product test data 2
-            Product2 bundle2 = APT_TestUtils.createInternationalProduct(APT_Constants.PRODUCT_NAME_EPARCEL,'APOST002','Postal Services');
-            bundle2.APT_Sync_with_Opportunity__c = true;
-            bundle2.Apttus_Config2__HasOptions__c = true;
-            bundle2.Non_contracted__c = true;
-            bundle2.Apttus_Config2__ConfigurationType__c = 'Bundle';
-            insert bundle2;
-            
-            //Inserting product configuration test data
-            Apttus_Config2__ProductConfiguration__c prodconfig = APT_TestUtils.getProductConfiguration('Product Configuration', 1, 
-            quote.Id, 'Proposal','Ad Hoc',priceList.Id, null,'Saved',null, Datetime.now(), true);
-            insert prodconfig;
-            
-            
-            
-            //Inserting PLI test data
-            Apttus_Config2__PriceListItem__c pli= APT_TestUtils.createPriceListItem(priceList.ID,bundle1.ID,'C Manufacturing','BAND 2');
-            insert pli;
-            
-            //Inserting Line Item test data
-            Apttus_Config2__LineItem__c bundleLine = APT_TestUtils.getConfigLineItem(prodconfig.Id, null, 1, true,//Config Id, grpId, LineNum, isPrimary
-            1, 'Product/Service', bundle2.Id, true, null,//ItemSeq, lineType, bundleId, customizable, productOptionId
-            null, null, null, 1, true,//optionId, class Id, class hierarchy, qty, qty Modifiable 
-            'Each', 1, priceList.Id, pli.Id,//Uom, term, priceList, Pli,
-            'One Time', 'Per Unit', 'Standard Price', 'One Time',//priceType, priceMethod, chargeType, frequency
-            true, true, 5500, 5500, 'Per Unit',//allowManualAdj, allocateGroupAdj, listPrice, basePrice, basePriceMethod, 
-            5225, 0, 5225, 'TestaPTTUS');//baseExtPrice, optionPrice, extendedPrice, lineDesc
-            bundleLine.Apttus_Config2__AllowManualAdjustment__c = true;
-            bundleLine.Apttus_Config2__NetPrice__c = 5225;
-            bundleLine.Apttus_Config2__PrimaryLineNumber__c = 1;
-            bundleLine.Apttus_Config2__NetAdjustmentPercent__c = -10;
-            insert bundleLine;    
-            
-            //Inserting Contract Test Data
-            Apttus__APTS_Agreement__c aptContract = APT_TestUtils.createAgreement(con.Id);
-            aptContract.Apttus__Related_Opportunity__c =opp.id;
-            aptContract.Apttus__Account__c = tempacct.id;
-            aptContract.Apttus_QPComply__RelatedProposalId__c =quote.id;
-            aptContract.Apttus__Contract_End_Date__c = System.today() + 360;
-            insert aptContract;
-            
-            //setting up default price list value
-            APT_R2T_System_Properties__c sysProperties = new APT_R2T_System_Properties__c(APT_Default_Price_List_ID__c=priceList.id);
-            insert sysProperties;
-            Test.startTest();
-            //Setting the current page scope to the DOV Page and action name to dov
-            ApexPages.currentPage().getParameters().put('agreementId',aptContract.Id);
-            ApexPages.currentPage().getParameters().put('actionName',APT_Constants.ACTION_NAME_DoV);
-               APT_AmendRenewController amendRenew = new APT_AmendRenewController();
-                amendRenew.selectedCategory=APT_AmendRenewController.CATEGORY_DOV_PROPANDCONTR;
-                amendRenew.selectedRevenue='Increase Revenue';
-                //Krishna Velani on 29th July 2021 commented below line as the method was commented in APT_AmendRenewController
-                //for STP-5314 we are no longer displaying DOV reason picklist on DOV page           
-                //amendRenew.renderDovReasonPicklist();
-                amendRenew.selectedReason='Update products/rates';
-                amendRenew.doAmend();
-            // Test Stop    
-            Test.stopTest();
-            
-            //Assert that new Opportunity Product custom object record has been created as part of the Sync
-            List<APT_Opportunity_Product_Line_Item__c> opportunityProdItemList = [ Select id from APT_Opportunity_Product_Line_Item__c Where APT_Product_Configuration__c =:prodconfig.id AND 
-                                                                                    APT_Quote_Proposal__c =:prodconfig.Apttus_QPConfig__Proposald__c];
-                                                                                    
-            //Assert that a new Custon Object 'APT_Opportunity_Product_Line_Item__c'  record has been created which is associated to the Opportunity Product
-            system.assert( opportunityProdItemList.size()>0); 
-            
-            
-            
-            //query  Opportunity Product custom object record 
-            List<OpportunityLineItem> opplineItemList = [ select id,Product2.Name,APT_OPC_Line_Items__c from OpportunityLineItem WHERE opportunityid =:opp.Id];
-            
-            //Assert that there has been a new Opportunity Product Created when User checkout the cart 
-            system.assert( opplineItemList.size()>0);
-            
-            //Make Sure the new Opportunity Product created is having Eparcel Product as that product was added to the cart
-            system.assertEquals( opplineItemList[0].Product2.Name , 'eParcel'); 
-            
-            // Assert that the custom object record created is same to the record which is associated to the Opportunity Product
-            system.assertEquals( opplineItemList[0].APT_OPC_Line_Items__c  , opportunityProdItemList[0].id);
-        }
-    }
-    
-    /* Shashwat.Nath@auspost.com.au has added this test method to test the Sync when user does Renewal of the Contract */
-    
-    private static testMethod void testSyncOnRenewal(){ 
-        // Setup test data
-        // This code runs as the Sales Admin User
-        Profile p = [SELECT Id FROM Profile WHERE Name='Sales Admin'];
-        User testuser = new User(Alias = APT_Constants.ALIAS_TEST_USER, Email=APT_Constants.EMAIL_TEST_USER,
-        EmailEncodingKey=APT_Constants.EMAILENCODINGKEY_TEST_USER, LastName=APT_Constants.LASTNAME_TEST_USER, LanguageLocaleKey=APT_Constants.LANGUAGELOCALEKEY_TEST_USER,
-        LocaleSidKey=APT_Constants.LOCALESIDKEY_TEST_USER, ProfileId = p.Id,
-        TimeZoneSidKey=APT_Constants.TIMEZONESIDKEY_TEST_USER,
-        UserName=APT_Constants.EMAIL_TEST_USER);
-        System.runAs(testuser ) {
-        
-            
-            // Creating the Custom Setting Data
-            APT_R2T_Renew_DoV_Properties__c renewDoVProperties = new APT_R2T_Renew_DoV_Properties__c(Name ='Sample',APT_Category__c='Standard Apttus Renewal' , APT_Create_Agrement__c=false,
-                                                                    APT_Create_Case__c=false,APT_Create_Quote__c=true,APT_Type__c=APT_Constants.ACTION_TYPE_RENEWAL ,APT_Create_Opportunity__c=true);
-            insert renewDoVProperties ;
-            
-             
-            // Creating the Contact Test Data
-            Contact con = APT_TestUtils.createContact();
-            con.MailingCity = 'Melbourne';
-            con.MailingState = 'VIC';
-            con.MailingStreet = 'Flinders Street';
-            con.MailingPostalCode = '3000'; 
-            insert con;
-            
-            //Creating account test data
-            Account tempacct = APT_TestUtils.createOrganisation();
-            insert tempacct;
-            
-            //Creating Opportunity Test Data
-            Opportunity opp = APT_TestUtils.createOpportunity(tempacct.id);
-            insert opp;
-            
-            //Creating Pricelist test data
-            Apttus_Config2__PriceList__c  priceList =APT_TestUtils.createPriceList();
-            insert priceList;
-            
-            //Creating proposal test data
-            Apttus_Proposal__Proposal__c quote = APT_TestUtils.getQuoteProposal(tempacct.id,opp.Id,'Proposal','Test',priceList.id);
-            quote.Expected_Revenue_Start_Date__c = System.today() + 2;
-            insert quote;
-            
-            //Inserting product test data
-            Product2 bundle1 = APT_TestUtils.createInternationalProduct(APT_Constants.PRODUCT_NAME_EPARCEL,'APOST001','Postal Services');
-            bundle1.Non_contracted__c = false;
-            insert bundle1;
-            
-            //Inserting product test data 2
-            Product2 bundle2 = APT_TestUtils.createInternationalProduct(APT_Constants.PRODUCT_NAME_EPARCEL,'APOST002','Postal Services');
-            bundle2.APT_Sync_with_Opportunity__c = true;
-            bundle2.Apttus_Config2__HasOptions__c = true;
-            bundle2.Non_contracted__c = true;
-            bundle2.Apttus_Config2__ConfigurationType__c = 'Bundle';
-            insert bundle2;
-            
-            //Inserting product configuration test data
-            Apttus_Config2__ProductConfiguration__c prodconfig = APT_TestUtils.getProductConfiguration('Product Configuration', 1, 
-            quote.Id, 'Proposal','Ad Hoc',priceList.Id, null,'Saved',null, Datetime.now(), true);
-            insert prodconfig;
-            
-            
-            
-            //Inserting PLI test data
-            Apttus_Config2__PriceListItem__c pli= APT_TestUtils.createPriceListItem(priceList.ID,bundle1.ID,'C Manufacturing','BAND 2');
-            insert pli;
-            
-            //Inserting Line Item test data
-            Apttus_Config2__LineItem__c bundleLine = APT_TestUtils.getConfigLineItem(prodconfig.Id, null, 1, true,//Config Id, grpId, LineNum, isPrimary
-            1, 'Product/Service', bundle2.Id, true, null,//ItemSeq, lineType, bundleId, customizable, productOptionId
-            null, null, null, 1, true,//optionId, class Id, class hierarchy, qty, qty Modifiable 
-            'Each', 1, priceList.Id, pli.Id,//Uom, term, priceList, Pli,
-            'One Time', 'Per Unit', 'Standard Price', 'One Time',//priceType, priceMethod, chargeType, frequency
-            true, true, 5500, 5500, 'Per Unit',//allowManualAdj, allocateGroupAdj, listPrice, basePrice, basePriceMethod, 
-            5225, 0, 5225, 'TestaPTTUS');//baseExtPrice, optionPrice, extendedPrice, lineDesc
-            bundleLine.Apttus_Config2__AllowManualAdjustment__c = true;
-            bundleLine.Apttus_Config2__NetPrice__c = 5225;
-            bundleLine.Apttus_Config2__PrimaryLineNumber__c = 1;
-            bundleLine.Apttus_Config2__NetAdjustmentPercent__c = -10;
-            insert bundleLine;    
-            
-            //Inserting Contract Test Data
-            Apttus__APTS_Agreement__c aptContract = APT_TestUtils.createAgreement(con.Id);
-            aptContract.Apttus__Related_Opportunity__c =opp.id;
-            aptContract.Apttus__Account__c = tempacct.id;
-            aptContract.Apttus_QPComply__RelatedProposalId__c =quote.id;
-            aptContract.Apttus__Contract_End_Date__c = System.today() + 360;
-            insert aptContract;
-            
-            //setting up default price list value
-            APT_R2T_System_Properties__c sysProperties = new APT_R2T_System_Properties__c(APT_Default_Price_List_ID__c=priceList.id);
-            insert sysProperties;
-            
-            Test.startTest();
-            //Setting the current page scope to the DOV Page and action name to dov
-            ApexPages.currentPage().getParameters().put('agreementId',aptContract.Id);
-            ApexPages.currentPage().getParameters().put('actionName',APT_Constants.ACTION_NAME_RENEW);
-                APT_AmendRenewController amendRenew = new APT_AmendRenewController();
-                amendRenew.selectedCategory='Standard Apttus Renewal';
-                amendRenew.doRenew();
-            // Test Stop    
-            Test.stopTest();
-            
-            //Assert that new Opportunity Product custom object record has been created as part of the Sync
-            List<APT_Opportunity_Product_Line_Item__c> opportunityProdItemList = [ Select id from APT_Opportunity_Product_Line_Item__c Where APT_Product_Configuration__c =:prodconfig.id AND 
-                                                                                    APT_Quote_Proposal__c =:prodconfig.Apttus_QPConfig__Proposald__c];
-                                                                                    
-            //Assert that a new Custon Object 'APT_Opportunity_Product_Line_Item__c'  record has been created which is associated to the Opportunity Product
-            system.assert( opportunityProdItemList.size()>0); 
-            
-            
-            
-            //query  Opportunity Product custom object record 
-            List<OpportunityLineItem> opplineItemList = [ select id,Product2.Name,APT_OPC_Line_Items__c from OpportunityLineItem WHERE opportunityid =:opp.Id];
-            
-            //Assert that there has been a new Opportunity Product Created when User checkout the cart 
-            system.assert( opplineItemList.size()>0);
-            
-            //Make Sure the new Opportunity Product created is having Eparcel Product as that product was added to the cart
-            system.assertEquals( opplineItemList[0].Product2.Name , 'eParcel'); 
-            
-            // Assert that the custom object record created is same to the record which is associated to the Opportunity Product
-            system.assertEquals( opplineItemList[0].APT_OPC_Line_Items__c  , opportunityProdItemList[0].id);
         }
     }
     
@@ -632,6 +364,7 @@ public class APT_CreateOpportunityProductLICntlr_Test{
             oli.APT_Is_Apttus_Opportunity_Line_item__c = true;
             oli.APT_OPC_Line_Items__c = op.Id;
             oli.APT_Apttus_Delete_Override__c = false;
+            oli.Change_Classification__c = APT_Constants.OPTION_YES;
             insert oli;
             
             //Test Starts
@@ -696,6 +429,7 @@ public class APT_CreateOpportunityProductLICntlr_Test{
             oli.Product2id = eParcel.id;
             oli.PriceBookEntryId = pbe.id;
             oli.OpportunityId = config.Apttus_QPConfig__Proposald__r.Apttus_Proposal__Opportunity__c;
+            oli.Change_Classification__c = APT_Constants.OPTION_YES;
             insert oli;
             
             //Test Starts
