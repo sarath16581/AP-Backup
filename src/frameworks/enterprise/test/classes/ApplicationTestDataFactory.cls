@@ -120,17 +120,6 @@ public with sharing class ApplicationTestDataFactory {
 		return output;
 	}
 
-	public static List<Critical_Incident__kav> getCriticalIncidents(Integer count, Boolean generateIds) {
-		List<Critical_Incident__kav> output = (List<Critical_Incident__kav>)maybeGenerateIds(populateSObjects(Schema.SObjectType.Critical_Incident__kav.SObjectType, new Map<SObjectField, Object> {
-			Critical_Incident__kav.Title => 'Test Title %count%',
-			Critical_Incident__kav.UrlName => 'Test-UrlName-%count%',
-			Critical_Incident__kav.Time_To_Remind__c => System.today(),
-			Critical_Incident__kav.language => 'en_US'
-		}, count), generateIds);
-
-		return output;
-	}
-
 	public static List<Account> getPersonAccounts(Integer count, Boolean generateIds) {
 		return (List<Account>)maybeGenerateIds(populateSObjects(Account.SObjectType, new Map<SObjectField, Object> {
 				Account.RecordTypeId => personAccountRecordType,
@@ -910,36 +899,36 @@ public with sharing class ApplicationTestDataFactory {
 			Budget_and_Revenue__c.Dec_Revenue_Amount__c => 1000
 		}, count), generateIds);
 	}
-    
+	
 
-    
+	
 	public static List<Product2> getProducts(Integer count, Boolean generateIds) {
 		return (List<Product2>) maybeGenerateIds(populateSObjects(Product2.SObjectType, new Map<SObjectField, Object> {
 			Product2.Name => 'Product %count%'
 		}, count), generateIds);
 	}
 
-    
-    public static List<PricebookEntry> getPriceBookEntries(Integer count, Id productId, Boolean generateIds) {
-        Id pricebookId = Test.getStandardPricebookId();
-        return (List<PricebookEntry>) maybeGenerateIds(populateSObjects(PricebookEntry.SObjectType, new Map<SObjectField, Object> {
-            PricebookEntry.Pricebook2Id => pricebookId,
-            PricebookEntry.Product2Id => productId,
-            PricebookEntry.UnitPrice => 100.00,
-            PricebookEntry.IsActive => true
-        }, count), generateIds);
-    }
+	
+	public static List<PricebookEntry> getPriceBookEntries(Integer count, Id productId, Boolean generateIds) {
+		Id pricebookId = Test.getStandardPricebookId();
+		return (List<PricebookEntry>) maybeGenerateIds(populateSObjects(PricebookEntry.SObjectType, new Map<SObjectField, Object> {
+			PricebookEntry.Pricebook2Id => pricebookId,
+			PricebookEntry.Product2Id => productId,
+			PricebookEntry.UnitPrice => 100.00,
+			PricebookEntry.IsActive => true
+		}, count), generateIds);
+	}
 
-    public static List<OpportunityLineItem> getOpportunityLineItems(Integer count, Id opportunityId, Id pricebookEntryId, Boolean generateIds) {
-        Date todaysDate = Date.today();
-        return (List<OpportunityLineItem>) maybeGenerateIds(populateSObjects(OpportunityLineItem.SObjectType, new Map<SObjectField, Object> {
-            OpportunityLineItem.OpportunityId => opportunityId,
-            OpportunityLineItem.PricebookEntryId => pricebookEntryId,
-            OpportunityLineItem.TotalPrice => 1000,
-            OpportunityLineItem.Contract_Start_Date__c => todaysDate,
-            OpportunityLineItem.Contract_End_Date__c => todaysDate.addDays(3)
-        }, count), generateIds);
-    }
+	public static List<OpportunityLineItem> getOpportunityLineItems(Integer count, Id opportunityId, Id pricebookEntryId, Boolean generateIds) {
+		Date todaysDate = Date.today();
+		return (List<OpportunityLineItem>) maybeGenerateIds(populateSObjects(OpportunityLineItem.SObjectType, new Map<SObjectField, Object> {
+			OpportunityLineItem.OpportunityId => opportunityId,
+			OpportunityLineItem.PricebookEntryId => pricebookEntryId,
+			OpportunityLineItem.TotalPrice => 1000,
+			OpportunityLineItem.Contract_Start_Date__c => todaysDate,
+			OpportunityLineItem.Contract_End_Date__c => todaysDate.addDays(3)
+		}, count), generateIds);
+	}
 
 	public static List<BAMApplication__c> getBamApplications(Integer count, String appName, Id productId, Boolean generateIds) {
 		return (List<BAMApplication__c>)maybeGenerateIds(populateSObjects(BAMApplication__c.SObjectType, new Map<SObjectField, Object> {
@@ -1084,50 +1073,49 @@ public with sharing class ApplicationTestDataFactory {
 		}
 		private set;
 	}
-    
-    public static List<OpportunityProductRevenueForecast__c> getOpportunityProductRevenueForecasts(Integer count, Id opportunityProductId, Boolean generateIds) {
+	
+	public static List<OpportunityProductRevenueForecast__c> getOpportunityProductRevenueForecasts(Integer count, Id opportunityProductId, Boolean generateIds) {
 		integer currentMonth = Date.today().Month();
-        decimal percentRevenue = 100/12;
-        return (List<OpportunityProductRevenueForecast__c>)maybeGenerateIds(populateSObjects(OpportunityProductRevenueForecast__c.SObjectType, new Map<SObjectField, Object> {
+		decimal percentRevenue = 100/12;
+		return (List<OpportunityProductRevenueForecast__c>)maybeGenerateIds(populateSObjects(OpportunityProductRevenueForecast__c.SObjectType, new Map<SObjectField, Object> {
 				OpportunityProductRevenueForecast__c.OpportunityProduct__c => opportunityProductId,
-                OpportunityProductRevenueForecast__c.FinancialYear__c => currentMonth,
-                OpportunityProductRevenueForecast__c.FCT1__c => percentRevenue,
-                OpportunityProductRevenueForecast__c.FCT2__c => percentRevenue,
-                OpportunityProductRevenueForecast__c.FCT3__c => percentRevenue,
-                OpportunityProductRevenueForecast__c.FCT4__c => percentRevenue,
-                OpportunityProductRevenueForecast__c.FCT5__c => percentRevenue,
-                OpportunityProductRevenueForecast__c.FCT6__c => percentRevenue,
-                OpportunityProductRevenueForecast__c.FCT7__c => percentRevenue,
-                OpportunityProductRevenueForecast__c.FCT8__c => percentRevenue,
-                OpportunityProductRevenueForecast__c.FCT9__c => percentRevenue,
-                OpportunityProductRevenueForecast__c.FCT10__c => percentRevenue,
-                OpportunityProductRevenueForecast__c.FCT11__c => percentRevenue,
-                OpportunityProductRevenueForecast__c.FCT12__c => percentRevenue
-		}, count), generateIds);
-	}
-    
-    public static List<GroupedAccountProductRevenue__c> getGroupedAccountProductRevenue(Integer count, Id accountId, Id productId, Integer year, Boolean generateIds) {
-        decimal revenue = 10000;
-        return (List<GroupedAccountProductRevenue__c>)maybeGenerateIds(populateSObjects(GroupedAccountProductRevenue__c.SObjectType, new Map<SObjectField, Object> {
-				GroupedAccountProductRevenue__c.AnchorOrganisation__c => accountId,
-                GroupedAccountProductRevenue__c.PrimaryProduct__c => productId,
-                GroupedAccountProductRevenue__c.FinancialYear__c => year,
-                GroupedAccountProductRevenue__c.Rev1__c => revenue,
-                GroupedAccountProductRevenue__c.Rev2__c => revenue,
-                GroupedAccountProductRevenue__c.Rev3__c => revenue,
-                GroupedAccountProductRevenue__c.Rev4__c => revenue,
-                GroupedAccountProductRevenue__c.Rev5__c => revenue,
-                GroupedAccountProductRevenue__c.Rev6__c => revenue,
-                GroupedAccountProductRevenue__c.Rev7__c => revenue,
-                GroupedAccountProductRevenue__c.Rev8__c => revenue,
-                GroupedAccountProductRevenue__c.Rev9__c => revenue,
-                GroupedAccountProductRevenue__c.Rev10__c => revenue,
-                GroupedAccountProductRevenue__c.Rev11__c => revenue,
-                GroupedAccountProductRevenue__c.Rev12__c => revenue,
-				GroupedAccountProductRevenue__c.UID__c => ProductRevenueService.getUID(accountId,productId,String.valueOf(year))
+				OpportunityProductRevenueForecast__c.FinancialYear__c => currentMonth,
+				OpportunityProductRevenueForecast__c.FCT1__c => percentRevenue,
+				OpportunityProductRevenueForecast__c.FCT2__c => percentRevenue,
+				OpportunityProductRevenueForecast__c.FCT3__c => percentRevenue,
+				OpportunityProductRevenueForecast__c.FCT4__c => percentRevenue,
+				OpportunityProductRevenueForecast__c.FCT5__c => percentRevenue,
+				OpportunityProductRevenueForecast__c.FCT6__c => percentRevenue,
+				OpportunityProductRevenueForecast__c.FCT7__c => percentRevenue,
+				OpportunityProductRevenueForecast__c.FCT8__c => percentRevenue,
+				OpportunityProductRevenueForecast__c.FCT9__c => percentRevenue,
+				OpportunityProductRevenueForecast__c.FCT10__c => percentRevenue,
+				OpportunityProductRevenueForecast__c.FCT11__c => percentRevenue,
+				OpportunityProductRevenueForecast__c.FCT12__c => percentRevenue
 		}, count), generateIds);
 	}
 	
+	public static List<GroupedAccountProductRevenue__c> getGroupedAccountProductRevenue(Integer count, Id accountId, Id productId, Integer year, Boolean generateIds) {
+		decimal revenue = 10000;
+		return (List<GroupedAccountProductRevenue__c>)maybeGenerateIds(populateSObjects(GroupedAccountProductRevenue__c.SObjectType, new Map<SObjectField, Object> {
+				GroupedAccountProductRevenue__c.AnchorOrganisation__c => accountId,
+				GroupedAccountProductRevenue__c.PrimaryProduct__c => productId,
+				GroupedAccountProductRevenue__c.FinancialYear__c => year,
+				GroupedAccountProductRevenue__c.Rev1__c => revenue,
+				GroupedAccountProductRevenue__c.Rev2__c => revenue,
+				GroupedAccountProductRevenue__c.Rev3__c => revenue,
+				GroupedAccountProductRevenue__c.Rev4__c => revenue,
+				GroupedAccountProductRevenue__c.Rev5__c => revenue,
+				GroupedAccountProductRevenue__c.Rev6__c => revenue,
+				GroupedAccountProductRevenue__c.Rev7__c => revenue,
+				GroupedAccountProductRevenue__c.Rev8__c => revenue,
+				GroupedAccountProductRevenue__c.Rev9__c => revenue,
+				GroupedAccountProductRevenue__c.Rev10__c => revenue,
+				GroupedAccountProductRevenue__c.Rev11__c => revenue,
+				GroupedAccountProductRevenue__c.Rev12__c => revenue,
+				GroupedAccountProductRevenue__c.UID__c => ProductRevenueService.getUID(accountId,productId,String.valueOf(year))
+		}, count), generateIds);
+	}
 	/**
 	* Generates test data for Auspost_Vendors_Email_Address__mdt custom metadata records
 	**/
@@ -1141,7 +1129,7 @@ public with sharing class ApplicationTestDataFactory {
 		}
 		return (List<Auspost_Vendors_Email_Address__mdt>)maybeGenerateIds(emailAddresses, generateIds);
 	}
-    
+	
 	/**
 	 * @deprecated ApplicationTestDataFactoryCases
 	 */
