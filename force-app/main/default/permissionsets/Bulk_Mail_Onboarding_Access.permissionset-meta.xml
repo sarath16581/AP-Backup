@@ -69,6 +69,11 @@
         <field>Case.Subject</field>
         <readable>true</readable>
     </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Deal_Support_Request__c.Case__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
     <hasActivationRequired>false</hasActivationRequired>
     <label>Bulk Mail Onboarding Access</label>
     <objectPermissions>
