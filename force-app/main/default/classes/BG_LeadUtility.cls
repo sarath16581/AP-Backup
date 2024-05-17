@@ -10,6 +10,7 @@ Test Class:BG_LeadUtilityTest
 05-03-2020      Suman Gunaganti     Lead SLA fields logic update
 01-10-2021	Seth Heang	    Uplift SF API version to 52
 08-04-2022      Naveen Rajanna REQ2804764 - Remove debug and Add null check to prevent nullpointerexception
+07-05-2024 - Ranjeewa Silva - Remove address validation as it is covered in validation rule.
 **************************************************/
 
 public with sharing class BG_LeadUtility {
@@ -197,12 +198,7 @@ public with sharing class BG_LeadUtility {
                 if (String.isBlank(leadrec.Email)) {
                     fieldsWithoutValues.add('Email');
                 }
-                if(String.isBlank(leadrec.Street) 
-                    || String.isBlank(leadrec.City) 
-                    || String.isBlank(leadrec.State)
-                    || String.isBlank(leadrec.PostalCode)){
-                    fieldsWithoutValues.add('Address with Postal Code');
-                }
+
                 if (String.isBlank(leadrec.Customer_Type__c)) {
                     fieldsWithoutValues.add('Customer Type');
                 }

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionCalls>
+        <description>Call Apex Invocable Method to reopen lead records and requeue as per the active lead assignment rule. Apex action is in use to enable setting DML Option to trigger active assignment rule (Database.DMLOptions.AssignmentRuleHeader).</description>
+        <name>Reopen_Leads</name>
+        <label>Reopen Leads</label>
+        <locationX>308</locationX>
+        <locationY>276</locationY>
+        <actionName>ReopenDisqualifiedLeadsInvocable</actionName>
+        <actionType>apex</actionType>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>leadIds</name>
+            <value>
+                <elementReference>$Record.Id</elementReference>
+            </value>
+        </inputParameters>
+    </actionCalls>
+    <apiVersion>60.0</apiVersion>
+    <description>Scheduled Path to requeue &quot;BG Standard&quot; Leads disqualified with a disqualification reason &quot;Could Not Contact&quot;, so that Lead Verification team can attempt to contact them again after a wait time (Currently 7 days). Leads are requeued upto 3 times and not requeued after the 3rd unsuccessful attempt.</description>
+    <environments>Default</environments>
+    <formulas>
+        <name>UpdatedRequeueAttempts</name>
+        <dataType>Number</dataType>
+        <expression>IF(ISNULL({!$Record.RequeueAttempts__c}), 1, ({!$Record.RequeueAttempts__c} +1))</expression>
+        <scale>0</scale>
+    </formulas>
+    <interviewLabel>LeadScheduled Requeue Unreachable BGStandard Lead {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>LeadScheduled Requeue Unreachable BGStandard Lead</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <start>
+        <locationX>50</locationX>
+        <locationY>0</locationY>
+        <doesRequireRecordChangedToMeetCriteria>true</doesRequireRecordChangedToMeetCriteria>
+        <filterFormula>{!$Record.RecordType.DeveloperName}=&quot;BG_Standard&quot; &amp;&amp; ISPICKVAL({!$Record.Status}, &quot;Disqualified&quot;) &amp;&amp; ISPICKVAL({!$Record.Disqualified_Lead_Reason__c}, &quot;Could not contact&quot;) &amp;&amp; (ISNULL({!$Record.RequeueAttempts__c}) || ({!$Record.RequeueAttempts__c} &lt;= 2))</filterFormula>
+        <object>Lead</object>
+        <recordTriggerType>CreateAndUpdate</recordTriggerType>
+        <scheduledPaths>
+            <name>X7_days_after_disqualified</name>
+            <connector>
+                <targetReference>Reopen_Leads</targetReference>
+            </connector>
+            <label>7 days after disqualified</label>
+            <offsetNumber>7</offsetNumber>
+            <offsetUnit>Days</offsetUnit>
+            <recordField>Lead_Converted_or_Disqualified_Time__c</recordField>
+            <timeSource>RecordField</timeSource>
+        </scheduledPaths>
+        <triggerType>RecordAfterSave</triggerType>
+    </start>
+    <status>Draft</status>
+</Flow>
