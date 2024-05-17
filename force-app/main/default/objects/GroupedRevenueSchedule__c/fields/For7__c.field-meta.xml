@@ -7,7 +7,7 @@
     <label>July Forecast</label>
     <precision>5</precision>
     <required>false</required>
-    <scale>1</scale>
+    <scale>2</scale>
     <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Percent</type>

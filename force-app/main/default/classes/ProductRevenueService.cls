@@ -164,6 +164,7 @@ public with sharing class ProductRevenueService {
         List<OpportunityLineItem> updatedItems = new List<OpportunityLineItem>();
         // update opportunity line item incremental and retained values
         for (OpportunityLineItem record : opportunityLineItems.values()) {
+            record.Hidden_In_Year_Revenue__c = record.In_Year_Revenue__c;
             // pre-conditions
             if (record.Contract_Start_Date__c != null && record.Contract_End_Date__c!= null) {
                 // get last twelve months sales history
@@ -348,7 +349,9 @@ public with sharing class ProductRevenueService {
         // Calculations will be rounded contract whole months.
         Integer contractMonths = contractMonths(record);
         // annualise values
-        if (contractMonths >12) contractMonths = 12;
+        if (contractMonths >12) {
+            contractMonths = 12;
+        }
         // the value of the opportunity line item over its contract period
         updateRetainedIncremental(record, pastSales, contractMonths);
     }
@@ -426,11 +429,14 @@ public with sharing class ProductRevenueService {
                         isUpdated = true;
                     }
 
-                    // add records for child accounts 
-                    if (addChildAccountRevenueRecursive(item.Opportunity.AccountId,item.Product2.Id,String.valueOf(year),currentGroupedRevenue,parentToChildAccountMap,0) >0) {
-                        isUpdated = true;
+                    // add records for child accounts from the Hierarchy
+                    if (!item.Opportunity.DoNotUseAccountHierarchy__c) {
+                        if (addChildAccountRevenueRecursive(item.Opportunity.AccountId,item.Product2.Id,String.valueOf(year),currentGroupedRevenue,parentToChildAccountMap,0) >0) {
+                            isUpdated = true;
+                        }
                     }
-                    // records for related accounts
+
+                    // records for related accounts from the AccountRelationship Object
                     Set<Id> relatedAccounts = relatedChildAccountsMap.containsKey(item.Opportunity.AccountId) &&  relatedChildAccountsMap.get(item.Opportunity.AccountId) !=null ? relatedChildAccountsMap.get(item.Opportunity.AccountId) : new Set<Id>();
                     for (Id relatedAccountId : relatedAccounts) {
                         String relatedAccountRevenueKey = getUID(relatedAccountId,item.Product2.Id,String.valueOf(year));
@@ -552,9 +558,6 @@ public with sharing class ProductRevenueService {
         for (Integer i = 1; i <= 12; i++) {
             String uniqueId = getUID(accountId,productId,String.valueOf(targetYear));
             GroupedAccountProductRevenue__c targetData = groupedRevenues.get(uniqueId);
-            System.debug(targetData.Id);
-            System.debug(targetYear);
-            System.debug(targetMonth);
             if (targetData != null) {
                 Double monthValue = getValueForMonth(targetData,targetMonth);
                 if (monthValue != null) {
@@ -717,9 +720,15 @@ public with sharing class ProductRevenueService {
     private List<OpportunityLineItem> loadProductLineItems(Set<Id> opportunityIds) {
 
         Map<SObjectType, Set<SObjectField>> fieldOverrides = new Map<SObjectType, Set<SObjectField>>{
-                OpportunityLineItem.SObjectType => new Set<SObjectField>{OpportunityLineItem.Id, OpportunityLineItem.Name,OpportunityLineItem.Quantity, OpportunityLineItem.Contract_Start_Date__c, OpportunityLineItem.Contract_End_Date__c,OpportunityLineItem.UnitPrice, OpportunityLineItem.TotalPrice, OpportunityLineItem.Annualised_Value__c, OpportunityLineItem.RetainedRevenue__c,OpportunityLineItem.IncrementalRevenue__c, OpportunityLineItem.TweleveMonthRevenue__c, OpportunityLineItem.X3MonthAverageActual__c},
+                OpportunityLineItem.SObjectType => new Set<SObjectField>{
+                        OpportunityLineItem.Id, OpportunityLineItem.Name,OpportunityLineItem.Quantity,
+                        OpportunityLineItem.Contract_Start_Date__c, OpportunityLineItem.Contract_End_Date__c,OpportunityLineItem.UnitPrice,
+                        OpportunityLineItem.TotalPrice, OpportunityLineItem.Annualised_Value__c, OpportunityLineItem.RetainedRevenue__c,
+                        OpportunityLineItem.IncrementalRevenue__c, OpportunityLineItem.TweleveMonthRevenue__c, OpportunityLineItem.X3MonthAverageActual__c,
+                        OpportunityLineItem.In_Year_Revenue__c, OpportunityLineItem.Hidden_In_Year_Revenue__c
+                },
                 Product2.SObjectType => new Set<SObjectField>{Product2.Name},
-                Opportunity.SObjectType => new Set<SObjectField>{Opportunity.Name,Opportunity.AccountId,Opportunity.Id,Opportunity.StageName}
+                Opportunity.SObjectType => new Set<SObjectField>{Opportunity.Name,Opportunity.AccountId,Opportunity.Id,Opportunity.StageName,Opportunity.DoNotUseAccountHierarchy__c}
         };
         List<OpportunityLineItem> loadedItems = OpportunityLineItemSelector.newInstance(0, fieldOverrides).selectByOPCCalculationOpportunityIds(opportunityIds, new Set<Object>{OpportunityLineItemSelector.Options.WITH_OPPORTUNITY, OpportunityLineItemSelector.Options.WITH_PRODUCT});
         for (OpportunityLineItem item : loadedItems) {
