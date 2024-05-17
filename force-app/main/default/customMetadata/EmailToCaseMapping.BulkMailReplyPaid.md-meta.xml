@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomMetadata xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <label>Bulk Mail Reply Paid</label>
+    <protected>false</protected>
+    <values>
+        <field>AssignNetworkWCIS__c</field>
+        <value xsi:nil="true"/>
+    </values>
+    <values>
+        <field>CasePriority__c</field>
+        <value xsi:nil="true"/>
+    </values>
+    <values>
+        <field>CasePurpose__c</field>
+        <value xsi:type="xsd:string">Other</value>
+    </values>
+    <values>
+        <field>EmailToCaseAddress__c</field>
+        <value xsi:type="xsd:string">replypaid@auspost.com.au</value>
+    </values>
+    <values>
+        <field>IsActive__c</field>
+        <value xsi:type="xsd:boolean">true</value>
+    </values>
+    <values>
+        <field>ProductType__c</field>
+        <value xsi:type="xsd:string">Reply Paid</value>
+    </values>
+</CustomMetadata>

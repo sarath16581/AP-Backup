@@ -3,6 +3,7 @@
  * @author Mahesh Parvathaneni
  * @date 2023-05-26
  * @changelog
+ * 05/04/2024 - Thang Nguyen - add the new ProductType__c field
 */
 
 public virtual inherited sharing class EmailToCaseMappingsSelector extends ApplicationSelector {
@@ -42,7 +43,7 @@ public virtual inherited sharing class EmailToCaseMappingsSelector extends Appli
 	public virtual override Set<SObjectField> getSObjectFieldList() {
 		return new Set<SObjectField> {
 			EmailToCaseMapping__mdt.Id, EmailToCaseMapping__mdt.AssignNetworkWCIS__c, EmailToCaseMapping__mdt.EmailToCaseAddress__c, 
-			EmailToCaseMapping__mdt.IsActive__c, EmailToCaseMapping__mdt.CasePurpose__c
+			EmailToCaseMapping__mdt.IsActive__c, EmailToCaseMapping__mdt.CasePurpose__c, EmailToCaseMapping__mdt.ProductType__c
 		};
 	}
 

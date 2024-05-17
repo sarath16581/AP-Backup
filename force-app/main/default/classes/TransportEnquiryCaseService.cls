@@ -15,12 +15,10 @@ public inherited sharing class TransportEnquiryCaseService {
 	public static final String NEW_EMAIL_RECEIVED = 'New Email Received';
 	public static final String CLOSED_STATUS = 'Closed';
 	public static final String NEW_STATUS = 'New';
-	private static final String REGX_EXTRACT_EMAIL = '([a-zA-Z0-9._\\-|\\+]+@[a-zA-Z0-9._\\-]+\\.[a-zA-Z0-9_-]+)';
 
 	private static Id transportEnquiryEntitlementId;
 	private static Id transportEnquiryRecordTypeId;
 	private static Map<String,Pattern> compiledPatternsMap;
-
 
 	/**
 	* Grabs a new instance of this class
@@ -50,36 +48,5 @@ public inherited sharing class TransportEnquiryCaseService {
 			}
 		}
 		return transportEnquiryRecordTypeId;
-	}
-
-	/**
-	 * @description This method extracts the email from the provided string by matching the regex
-	 * @param  input ex:transportenquiry@auspost.com.au;5195231b-cd74-45a4-b576-9bc88ae35b48
-	 * @return			transportenquiry@auspost.com.au
-	 */
-	public String getEmailFullMatch(String input) {
-		String result;
-		if (String.isNotBlank(input)) {
-			Matcher matcher = getPattern(REGX_EXTRACT_EMAIL).matcher(input);
-			if (matcher.find()) {
-				result = matcher.group(0); // full match
-			}
-		}
-		return result;
-	}
-
-	/**
-	 * @description This method provides the compiled regex pattern
-	 * @param  regex regex pattern
-	 * @return		return compiled regex pattern to find the matcher
-	 */
-	private Pattern getPattern(String regex) {
-		if (compiledPatternsMap == null) {
-			compiledPatternsMap = new Map<String,Pattern>();
-		}
-		if (!compiledPatternsMap.containsKey(regex)) {
-			compiledPatternsMap.put(regex, Pattern.compile(regex));
-		}
-		return compiledPatternsMap.get(regex);
 	}
 }
