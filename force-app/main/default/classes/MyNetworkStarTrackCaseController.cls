@@ -8,6 +8,7 @@
  * 2023-03-10 - Mahesh Parvathaneni - SF-889 - Updated wrapper to get the network for event messages based on Post office code
  * 2023-04-03 - Mahesh Parvathaneni - SF-948 - Added validation for case type
  * 2023-05-10 - Mahesh Parvathaneni - SF-946 - Added logic to submit case investigations when no AP network scans
+ * 2024-04-15 - Raghav Ravipati		- Replaced Critical incident articaltype with salesforce lighting article Knowledge__kav as part of knowledge lightning uplift
  **/
 
 public with sharing class MyNetworkStarTrackCaseController {
@@ -233,10 +234,19 @@ public with sharing class MyNetworkStarTrackCaseController {
 	public static List<CriticalIncidentWrapper> getCriticalIncidents() {
 		List<CriticalIncidentWrapper> wrapperList = new List<CriticalIncidentWrapper>();
 		Map<String, List<CriticalIncident>> criticalIncidentMap = new Map<String, List<CriticalIncident>>();
+
+		Set<SObjectField> fields = new Set<SObjectField>{
+			Knowledge__kav.Id, Knowledge__kav.NetworkOrgId__c, Knowledge__kav.KnowledgeArticleId, 
+			Knowledge__kav.Title, Knowledge__kav.Summary, Knowledge__kav.PublishStatus, Knowledge__kav.language,
+			Knowledge__kav.URLName
+		};
+
+		KnowledgeArticleVersionsSelector kavSelector = KnowledgeArticleVersionsSelector.newInstance(fields);
+		Map<String, Object> params = new Map<String, Object>{'statuses' => new Set<String>{'Online'}, 'languages' => new Set<String>{'en_US'}, 'recordTypeNames' => new Set<String>{'Critical_Incident'}};
 		// query critical incidents knowledge articles
-		for (Critical_Incident__kav ci : CriticalIncidentsSelector.newInstance().selectCriticalIncidentsByPublishStatus('Online').values()) {
-			if (!String.isBlank(ci.Network_Org_Id__c)) {
-				for (String networkOrgId : ci.Network_Org_Id__c.split(';')) {
+		for (Knowledge__kav ci : kavSelector.search(params, true)){
+			if (!String.isBlank(ci.NetworkOrgId__c)) {
+				for (String networkOrgId : ci.NetworkOrgId__c.split(';')) {
 					if(!String.isEmpty(networkOrgId)) {
 						if(criticalIncidentMap.get(networkOrgId) == null) {
 							criticalIncidentMap.put(networkOrgId, new List<CriticalIncident>());
