@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>UniqueReferenceNumber__c</fullName>
+    <description>Individual reference number for a bulk claim contained in the Claimsview system</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Series of MER numbers to make an individual claim beginning with REFC.</inlineHelpText>
+    <label>Unique Reference Number</label>
+    <length>255</length>
+    <required>false</required>
+    <securityClassification>OFFICIAL_SENSITIVE</securityClassification>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>
