@@ -8,14 +8,18 @@
     <columns>CASES.CREATED_DATE_DATE_ONLY</columns>
     <columns>CORE.USERS.ALIAS</columns>
     <columns>Case_Update__c</columns>
-    <filterScope>Queue</filterScope>
+    <filterScope>Everything</filterScope>
     <filters>
         <field>CASES.CLOSED</field>
         <operation>equals</operation>
         <value>0</value>
     </filters>
+    <filters>
+        <field>CASES.RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>Case.Bulk_Mail_Onboarding</value>
+    </filters>
     <label>Bulk Mail Onboarding Queue</label>
-    <queue>Bulk_Mail_Onboarding_Queue</queue>
     <sharedTo>
         <allInternalUsers></allInternalUsers>
     </sharedTo>
