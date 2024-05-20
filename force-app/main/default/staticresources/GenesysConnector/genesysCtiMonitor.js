@@ -148,7 +148,15 @@ let genSimulationTimeout = null;
 				outputElem.value = `LastEvent: ${event.eventName}`;
 
 				// Pass the event to the CTI Event Handler
-				sforce.console.fireEvent('genesys.connector.mockevent', JSON.stringify(event));
+				const ctiEvent = JSON.stringify(event);
+				if (ctiEvent.message?.message) {
+					// Replace the callId throughout this call with a random UUID
+					ctiEvent.message.message = ctiEvent.message.message.replace(
+						/"id":"[0-9a-f]{8}-[0-9a-f]{4}-[0-5][0-9a-f]{3}-[089ab][0-9a-f]{3}-[0-9a-f]{12}"/,
+						`"id":"${trackEvent.interactionId}"`
+					);
+				}
+				sforce.console.fireEvent('genesys.connector.mockevent', ctiEvent);
 
 				// Kick off the next event
 				if (trackEvent.mockEvents.length) {

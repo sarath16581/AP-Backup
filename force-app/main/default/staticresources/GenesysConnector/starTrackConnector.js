@@ -4,7 +4,7 @@
 
 const consignmentSearchTabName = 'ConsignmentSearch';
 const consignmentSearchUrl = '/apex/StarTrackConsignmentSearch';
-const logPrefix = 'StarTrack ';
+const logPrefix = 'StarTrackLog ';
 
 class GenSTBusinessLogic {
     callLog;
@@ -194,10 +194,11 @@ class GenSTBusinessLogic {
 
     // Method to check related contacts on a case
     checkRelatedContactOfCase(caseId, caseNumber, phoneNumber, callerType) {
+		
         console.log(logPrefix + "checkRelatedContactOfCase");
 
-        GenesysConnectorController.checkRelatedContactOfCaseStarTrack(caseId, phoneNumber,
-            (result) => {
+        new Promise(callback => GenesysConnectorController.checkRelatedContactOfCaseStarTrack(caseId, phoneNumber, callback))
+         .then((result) => {
                 if (result !== null) {
                     this.updateCaseWithRelatedContact(result, caseId);
                 } else {
@@ -206,22 +207,26 @@ class GenSTBusinessLogic {
                     this.prepopulateContactSidePanel(phoneNumber, callerType, caseId);
                 }
             }
-        );
+        ).catch(
+			function (err) { console.error(err); }
+		);
     }
 
     // Method to update case with new related contact and pops out the case
     updateCaseWithRelatedContact(relatedContact, caseId) {
         console.log(logPrefix + "updateCaseWithRelatedContact");
 
-        GenesysConnectorController.updateCaseWithRecentCallerStarTrack(relatedContact, caseId,
-            (result) => {
+        new Promise(callback =>GenesysConnectorController.updateCaseWithRecentCallerStarTrack(relatedContact, caseId, callback))
+        .then((result) => {
                 if (result !== null) {
                     // Pop up the case and loads related contact on contact side panel in edit mode
                     this.openCaseRecord(result.Id, result.CaseNumber, true);
                     this.loadRelatedContact(relatedContact.Id, result.Id);
                 }
             }
-        );
+        ).catch(
+			function (err) { console.error(err); }
+		);
     }
 
     // Create case for consignment
@@ -229,15 +234,17 @@ class GenSTBusinessLogic {
         console.log(logPrefix + "createCaseForConsignment");
 
         // Logic here to create a case against a consignment
-        GenesysConnectorController.createCasewithConsignmentNumberStarTrack(consignmentNumber, phoneNumber, atlFlag, casePurpose, caseType, contactType,
-            (result) => {
+        new Promise(callback =>GenesysConnectorController.createCasewithConsignmentNumberStarTrack(consignmentNumber, phoneNumber, atlFlag, casePurpose, caseType, contactType, callback))
+		.then((result) => {
                 if (result !== null) {
                     // Pop up the case and add logic for prepopulating contact side panel in edit mode
                     this.openCaseRecord(result.Id, result.CaseNumber, false);
                     this.prepopulateContactSidePanel(phoneNumber, contactType, result.Id);
                 }
             }
-        );
+        ).catch(
+			function (err) { console.error(err); }
+		);
     }
 
     // Pops out the case related to a consignment
@@ -257,13 +264,17 @@ class GenSTBusinessLogic {
 
     // Creates call log of case
     createCallLog(caseId) {
+
         console.log(logPrefix + "createCallLog");
+		
         if (caseId != null) {
-            GenesysConnectorController.createCallLogStarTrack(caseId,
-                function (result) {
+            new Promise(callback =>GenesysConnectorController.createCallLogStarTrack(caseId, callback))
+			.then((result) => {
                     console.log("openCaseRecord_createCallLog" + result);
                 }
-            );
+			).catch(
+				function (err) { console.error(err); }
+			);
         }
     }
 
