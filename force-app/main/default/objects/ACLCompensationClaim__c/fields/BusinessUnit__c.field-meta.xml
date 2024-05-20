@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>BusinessUnit__c</fullName>
+    <description>Was it Startrack or Australia Post who carried the item for the customer.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Tells if ST or AP was used to deliver the item.</inlineHelpText>
+    <label>Business Unit</label>
+    <length>20</length>
+    <required>false</required>
+    <securityClassification>OFFICIAL_SENSITIVE</securityClassification>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

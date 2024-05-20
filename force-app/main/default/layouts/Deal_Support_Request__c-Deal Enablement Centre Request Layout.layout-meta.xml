@@ -215,6 +215,10 @@
                 <behavior>Edit</behavior>
                 <field>In_Pending_Information_Status__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Case__c</field>
+            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>

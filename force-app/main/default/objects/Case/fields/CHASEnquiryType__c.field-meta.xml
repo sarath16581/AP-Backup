@@ -52,6 +52,56 @@
                 <default>false</default>
                 <label>Tracking Enquiry|Other</label>
             </value>
+            <value>
+                <fullName>Application</fullName>
+                <default>false</default>
+                <label>Application</label>
+            </value>
+            <value>
+                <fullName>Cancellation</fullName>
+                <default>false</default>
+                <label>Cancellation</label>
+            </value>
+            <value>
+                <fullName>Artwork Approval</fullName>
+                <default>false</default>
+                <label>Artwork Approval</label>
+            </value>
+            <value>
+                <fullName>Change of details</fullName>
+                <default>false</default>
+                <label>Change of details</label>
+            </value>
+            <value>
+                <fullName>Network Enquiry</fullName>
+                <default>false</default>
+                <label>Network Enquiry</label>
+            </value>
+            <value>
+                <fullName>General Enquiry</fullName>
+                <default>false</default>
+                <label>General Enquiry</label>
+            </value>
+            <value>
+                <fullName>Billing enquiry</fullName>
+                <default>false</default>
+                <label>Billing enquiry</label>
+            </value>
+            <value>
+                <fullName>Complaints</fullName>
+                <default>false</default>
+                <label>Complaints</label>
+            </value>
+            <value>
+                <fullName>Election</fullName>
+                <default>false</default>
+                <label>Election</label>
+            </value>
+            <value>
+                <fullName>Assessment sheet</fullName>
+                <default>false</default>
+                <label>Assessment sheet</label>
+            </value>
         </valueSetDefinition>
     </valueSet>
 </CustomField>

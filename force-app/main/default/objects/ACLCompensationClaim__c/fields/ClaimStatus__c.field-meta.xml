@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>ClaimStatus__c</fullName>
+    <description>Current stage of a claim.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Current stage of a claim, e.g Declined, In Progress, Approved…</inlineHelpText>
+    <label>Claim Status</label>
+    <length>255</length>
+    <required>false</required>
+    <securityClassification>OFFICIAL_SENSITIVE</securityClassification>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

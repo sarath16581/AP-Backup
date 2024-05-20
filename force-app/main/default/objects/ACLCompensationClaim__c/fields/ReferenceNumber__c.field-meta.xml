@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>ReferenceNumber__c</fullName>
+    <description>Postal reference number to track item.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Postal reference number to track item.</inlineHelpText>
+    <label>Reference Number</label>
+    <length>255</length>
+    <required>false</required>
+    <securityClassification>OFFICIAL_SENSITIVE</securityClassification>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>
