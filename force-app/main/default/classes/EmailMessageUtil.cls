@@ -13,6 +13,7 @@ History:
 2022-11-04  Naveen Rajanna - REQ3018517 Add null check to prevent nullpointerexception for startrackDuplicateInboundEmail
 2023-02-09  Swati.mogadala@auspost.com.au - Added 'From Email address' check when filtering ST duplicate cases created from incoming emails
 2023-05-29  mahesh.parvathaneni@auspost.com.au - Added record type check for Transport Enquiry record type to not to update the EmailToCaseAddress__c
+2024-04-08  Thang Nguyen - Added record type check for Bulk Mail record type to not to update the EmailToCaseAddress__c + email message mapping functions
 **************************************************/
 public inherited sharing class EmailMessageUtil {
 
@@ -25,6 +26,10 @@ public inherited sharing class EmailMessageUtil {
 	public static final String STATUS_FORWARDED = '4';
 	public static final String STATUS_DRAFT = '5';
 	private static final String CASE_TRANSPORT_ENQUIRY_RT = 'Transport_Enquiry';
+	private static final String CASE_BULK_MAIL_RT = 'Bulk_Mail_Onboarding';
+	private static final String REGX_EXTRACT_EMAIL = '([a-zA-Z0-9._\\-|\\+]+@[a-zA-Z0-9._\\-]+\\.[a-zA-Z0-9_-]+)';
+	private static Map<String,Pattern> compiledPatternsMap;
+	private static Set<String> emailHeaders = new Set<String>{'X-MS-Exchange-ForwardingLoop','X-MS-Exchange-Inbox-Rules-Loop'};
 
 	/**
 	 * This is used to set the source email to case address on a case when it's first received
@@ -47,7 +52,8 @@ public inherited sharing class EmailMessageUtil {
 			if (em.Incoming && !String.isBlank(em.headers) && (em.headers).startsWith('Return-Path:')) {
 					string[] headerSplits = em.headers.split('\\r?\\n');
 					//ignore for Transport Enquiry record type as it is being set in the TransportEnquiryEmailMessagesModule
-					if(!CASE_TRANSPORT_ENQUIRY_RT.equals(em.Parent.RecordType.DeveloperName)) {
+					//ignore for Bulk Mail record type as it is being set in the BulkMailEmailMessagesModule
+					if(!CASE_TRANSPORT_ENQUIRY_RT.equals(em.Parent.RecordType.DeveloperName) && !CASE_BULK_MAIL_RT.equals(em.Parent.RecordType.DeveloperName)) {
 						em.parent.EmailToCaseAddress__c = headerSplits[0].substring(12);
 					}
 					em.parent.Email_Bypass_Data_enforcement__c = true;
@@ -319,4 +325,79 @@ public inherited sharing class EmailMessageUtil {
 			}
 		}
 	}
+
+	/**
+	 * @description This method extracts the email from the provided string by matching the regex
+	 * @param  input ex:transportenquiry@auspost.com.au;5195231b-cd74-45a4-b576-9bc88ae35b48
+	 * @return			transportenquiry@auspost.com.au
+	 */
+	public static String getEmailFullMatch(String input) {
+		String result;
+		if (String.isNotBlank(input)) {
+			Matcher matcher = getPattern(REGX_EXTRACT_EMAIL).matcher(input);
+			if (matcher.find()) {
+				result = matcher.group(0); // full match
+			}
+		}
+		return result;
+	}
+
+	/**
+	 * @description This method provides the compiled regex pattern
+	 * @param  regex regex pattern
+	 * @return		return compiled regex pattern to find the matcher
+	 */
+	private static Pattern getPattern(String regex) {
+		if (compiledPatternsMap == null) {
+			compiledPatternsMap = new Map<String,Pattern>();
+		}
+		if (!compiledPatternsMap.containsKey(regex)) {
+			compiledPatternsMap.put(regex, Pattern.compile(regex));
+		}
+		return compiledPatternsMap.get(regex);
+	}
+	
+	/**
+	 * This method returns the email to case address from the EmailMessage which is configured in custom metadata. Loops through the header list and search for X-MS-Exchange-ForwardingLoop or X-MS-Exchange-Inbox-Rules-Loop header.
+	 * @param mail emailMessage record
+	 * @param mail emailToCaseMappingMap custom metadata map
+	 * @return EmailAddress that matches to the EmailToCaseMapping custom metadata
+	 */
+	public static String getEmailToCaseAddressFromHeader(EmailMessage mail, Map<String, EmailToCaseMapping__mdt> emailToCaseMappingMap) {
+		String emailAddress;
+		Map<String, List<String>> headerToEmailsMap = new Map<String, List<String>>();		
+		// Loop through the email headers and get the emails mapped to X-MS-Exchange-ForwardingLoop and X-MS-Exchange-Inbox-Rules-Loop header.
+		// If an email is sent (either To, Cc or Bcc) to any of the configured email to case address in our metadata, it will be captured in X-MS-Exchange-ForwardingLoop (or) X-MS-Exchange-Inbox-Rules-Loop header.
+
+		// All header lines are separated with \n
+		for (String headerLine : mail.Headers.split('\n')) {
+			// Split headerLine on first colon in two pieces
+			List<String> segments = headerLine.split(':', 2);
+			//check if there is header key and value and header key exists in our emailHeaders to track
+			if (segments.size() > 1 && emailHeaders.contains(segments[0]) && String.isNotBlank(segments[1])) {
+				//get the correct email address by matching regex
+				String fullMatchEmail = getEmailFullMatch(segments[1].trim());
+				if(String.isNotBlank(fullMatchEmail)) {
+					if(headerToEmailsMap.get(segments[0]) == null) {
+						headerToEmailsMap.put(segments[0], new List<String>());
+					} 
+					headerToEmailsMap.get(segments[0]).add(fullMatchEmail);
+				}
+			}
+		}
+
+		//Loop through the emailHeaders and get the first matching email from the configured metadata
+		for (String header : emailHeaders) {
+			if (String.isBlank(emailAddress) && headerToEmailsMap.size() > 0 && headerToEmailsMap.containsKey(header)) {
+				for (String email : headerToEmailsMap.get(header)) {
+					if (emailToCaseMappingMap.containsKey(email.toLowerCase())) {
+						emailAddress = email.toLowerCase();
+						break;
+					}
+				}
+			}
+		}
+		return emailAddress;
+	}
+	
 }

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>PostageAmountGST__c</fullName>
+    <description>GST Component included in Postage Amount & Total Claim Amount.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Inclusive GST of Postage Amount paid to Customer.</inlineHelpText>
+    <label>Postage Amount GST</label>
+    <precision>8</precision>
+    <required>false</required>
+    <scale>2</scale>
+    <securityClassification>OFFICIAL_SENSITIVE</securityClassification>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Currency</type>
+</CustomField>

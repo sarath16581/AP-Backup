@@ -3,8 +3,8 @@
     <actionCalls>
         <name>BGS_Send_a_Bounce_Email_to_Sender</name>
         <label>BGS - Send a Bounce Email to Sender</label>
-        <locationX>182</locationX>
-        <locationY>647</locationY>
+        <locationX>50</locationX>
+        <locationY>947</locationY>
         <actionName>Case.BGS_Send_a_Bounce_Email_to_Sender_if_the_associated_Case_has_already_been_Closed</actionName>
         <actionType>emailAlert</actionType>
         <flowTransactionModel>CurrentTransaction</flowTransactionModel>
@@ -14,14 +14,28 @@
                 <elementReference>$Record.ParentId</elementReference>
             </value>
         </inputParameters>
-        <nameSegment>Case.BGS_Send_a_Bounce_Email_to_Sender_if_the_associated_Case_has_already_been_Closed</nameSegment>
-        <versionSegment>1</versionSegment>
+    </actionCalls>
+    <actionCalls>
+        <description>Bulk Mail - Send an Email when a Case permanent closed</description>
+        <name>Bulk_Mail_Send_an_Email_when_a_Case_permanent_closed</name>
+        <label>Bulk Mail - Send an Email when a Case permanent closed</label>
+        <locationX>1106</locationX>
+        <locationY>647</locationY>
+        <actionName>Case.Bulk_Mail_Send_an_Email_when_a_Case_permanent_closed</actionName>
+        <actionType>emailAlert</actionType>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>SObjectRowId</name>
+            <value>
+                <elementReference>$Record.ParentId</elementReference>
+            </value>
+        </inputParameters>
     </actionCalls>
     <actionCalls>
         <name>Notify_Case_Owner_on_New_Email_BGS</name>
         <label>Notify Case Owner on New Email BGS</label>
         <locationX>50</locationX>
-        <locationY>863</locationY>
+        <locationY>647</locationY>
         <actionName>Case.Notify_Case_Owner_on_New_Email_BGS</actionName>
         <actionType>emailAlert</actionType>
         <connector>
@@ -34,14 +48,12 @@
                 <elementReference>$Record.ParentId</elementReference>
             </value>
         </inputParameters>
-        <nameSegment>Case.Notify_Case_Owner_on_New_Email_BGS</nameSegment>
-        <versionSegment>1</versionSegment>
     </actionCalls>
     <actionCalls>
         <description>Sends an email to customer if case is permanently closed</description>
         <name>Send_an_email_to_customer_if_case_is_permanent_closed</name>
         <label>Send an email to customer if case is permanent closed</label>
-        <locationX>842</locationX>
+        <locationX>578</locationX>
         <locationY>647</locationY>
         <actionName>Case.Transport_Enquiry_Case_Closed_Case_Email</actionName>
         <actionType>emailAlert</actionType>
@@ -52,15 +64,36 @@
                 <elementReference>$Record.ParentId</elementReference>
             </value>
         </inputParameters>
-        <nameSegment>Case.Transport_Enquiry_Case_Closed_Case_Email</nameSegment>
-        <versionSegment>1</versionSegment>
     </actionCalls>
     <apiVersion>57.0</apiVersion>
+    <decisions>
+        <description>Bulk Mail scenarios: permanent closed case</description>
+        <name>Bulk_Mail_Scenarios</name>
+        <label>Bulk Mail Scenarios</label>
+        <locationX>1238</locationX>
+        <locationY>539</locationY>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>Bulk_Mail_Permanently_Closed</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Parent.Permanent_Close__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Bulk_Mail_Send_an_Email_when_a_Case_permanent_closed</targetReference>
+            </connector>
+            <label>Bulk Mail Permanently Closed</label>
+        </rules>
+    </decisions>
     <decisions>
         <name>Generic_Notify_Owner</name>
         <label>Generic Notify Owner</label>
         <locationX>182</locationX>
-        <locationY>755</locationY>
+        <locationY>539</locationY>
         <defaultConnector>
             <targetReference>ServiceAdvisor_Scenarios</targetReference>
         </defaultConnector>
@@ -92,7 +125,7 @@
     <decisions>
         <name>Identify_Case_Domain</name>
         <label>Identify Case Domain</label>
-        <locationX>831</locationX>
+        <locationX>908</locationX>
         <locationY>431</locationY>
         <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
         <rules>
@@ -125,11 +158,26 @@
             </connector>
             <label>Transport Enquiry</label>
         </rules>
+        <rules>
+            <name>Bulk_Mail</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Parent.RecordType.DeveloperName</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <elementReference>$Label.REC_TYPE_DEV_BULK_MAIL</elementReference>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Bulk_Mail_Scenarios</targetReference>
+            </connector>
+            <label>Bulk Mail</label>
+        </rules>
     </decisions>
     <decisions>
         <name>is_Incoming_Case_Email</name>
         <label>is Incoming Case Email?</label>
-        <locationX>1188</locationX>
+        <locationX>1403</locationX>
         <locationY>323</locationY>
         <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
         <rules>
@@ -158,8 +206,8 @@
     <decisions>
         <name>ServiceAdvisor_Scenarios</name>
         <label>ServiceAdvisor Scenarios</label>
-        <locationX>380</locationX>
-        <locationY>539</locationY>
+        <locationX>182</locationX>
+        <locationY>839</locationY>
         <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
         <rules>
             <name>Case_already_Closed_Bounce</name>
@@ -195,7 +243,7 @@
     <decisions>
         <name>Transport_Enquiry_Scenarios</name>
         <label>Transport Enquiry Scenarios</label>
-        <locationX>974</locationX>
+        <locationX>710</locationX>
         <locationY>539</locationY>
         <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
         <rules>
@@ -238,7 +286,7 @@
     </processMetadataValues>
     <processType>AutoLaunchedFlow</processType>
     <start>
-        <locationX>1062</locationX>
+        <locationX>1277</locationX>
         <locationY>0</locationY>
         <connector>
             <targetReference>is_Incoming_Case_Email</targetReference>

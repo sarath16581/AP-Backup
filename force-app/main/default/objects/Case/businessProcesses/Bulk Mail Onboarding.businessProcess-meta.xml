@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BusinessProcess xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Bulk Mail Onboarding</fullName>
+    <description>Support process for Bulk Mail Onboarding case record type</description>
+    <isActive>true</isActive>
+    <values>
+        <fullName>Awaiting Customer Response</fullName>
+        <default>false</default>
+    </values>
+    <values>
+        <fullName>Awaiting Internal Response</fullName>
+        <default>false</default>
+    </values>
+    <values>
+        <fullName>Awaiting Product Response</fullName>
+        <default>false</default>
+    </values>
+    <values>
+        <fullName>Closed</fullName>
+        <default>false</default>
+    </values>
+    <values>
+        <fullName>In Progress</fullName>
+        <default>false</default>
+    </values>
+    <values>
+        <fullName>New</fullName>
+        <default>true</default>
+    </values>
+    <values>
+        <fullName>Reopened</fullName>
+        <default>false</default>
+    </values>
+    <values>
+        <fullName>Waiting on operations</fullName>
+        <default>false</default>
+    </values>
+</BusinessProcess>

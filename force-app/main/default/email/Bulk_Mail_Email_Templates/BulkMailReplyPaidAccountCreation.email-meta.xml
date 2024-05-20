@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Reply Paid Account Creation predefined template for outbound comms for the the bulk mail onboarding case management team</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+	<name>Bulk Mail - Reply Paid Account Creation</name>
+    <style>none</style>
+    <subject>Australia Post - Customer Onboarding Case: {!Case.CaseNumber}</subject>
+    <textOnly>Customer Onboarding
+
+Reference number {!Case.CaseNumber}
+
+Thank you for submitting your Reply Paid application. I can confirm your application has been processed and your Reply Paid service has been created. The details of the service and artwork (if applicable) have been emailed to you separately to the contact email address provided on the application form.
+
+For more information about the Reply Paid product and pricing, please visit our website at www.auspost.com.au/replypaid
+
+If you require further assistance, please email replypaid@auspost.com.au	
+
+Kind regards,
+
+Customer Onboarding
+Australia Post
+
+
+{!Case.Thread_Id}
+
+
+Nothing in this email is intended to exclude or limit any rights or remedies that you may have under the Australian Consumer Law.
+
+This email was sent by Australia Post. Australia Post does not represent, warrant or guarantee that the integrity of this email communication has been maintained nor that the communication is free of errors, viruses or interference.
+Terms &amp; conditions  |  Privacy policy</textOnly>
+    <type>custom</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>
