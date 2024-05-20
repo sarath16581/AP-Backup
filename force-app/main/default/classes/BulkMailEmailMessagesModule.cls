@@ -43,7 +43,7 @@
 	private static final Id bulkMailQueueId {
 		get {
 			if (bulkMailQueueId == null) {
-				bulkMailQueueId = BulkMailSettings__c.getInstance().BulkMailQueueId__c;
+				bulkMailQueueId = BulkMailSettings__c.getOrgDefaults().BulkMailQueueId__c;
 			}
 			return bulkMailQueueId;
 		}
