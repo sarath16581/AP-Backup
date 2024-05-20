@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>PreviousBillingNumber__c</fullName>
+    <description>Previous Account held by a customer</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Previous Business Credit Account (or charge account) Number.</inlineHelpText>
+    <label>Previous Billing Account Number</label>
+    <length>255</length>
+    <required>false</required>
+    <securityClassification>OFFICIAL_SENSITIVE</securityClassification>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>
