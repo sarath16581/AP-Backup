@@ -86,7 +86,11 @@ class GenesysCTIUtils {
 
     static setObjProp = (object, fieldName, value) => {
         const result = object || { };
-        const path = fieldName.split(/(?<!\\)(\.)+/).filter(x => x !== '.');
+        const path = fieldName.split(/(?<!\\)(\.)+/).filter(
+			x => x !== '.'
+		).map(
+			x => x.replace('\\.', '.')
+		);
         let r = result;
 
         path.forEach((path, idx, arr) => {

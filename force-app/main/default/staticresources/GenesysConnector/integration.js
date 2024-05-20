@@ -39,6 +39,7 @@
 		// These don't work as this logic doesn't sit on the tab itself...
 		getEnclosingPrimaryTabId : sforce.console.getEnclosingPrimaryTabId,
 		getFocusedPrimaryTabId : sforce.console.getFocusedPrimaryTabId,
+		getFocusedPrimaryTabObjectId : sforce.console.getFocusedPrimaryTabObjectId,
 		getFocusedSubtabId : sforce.console.getFocusedSubtabId,
 		getFocusedSubtabObjectId : sforce.console.getFocusedSubtabObjectId,
 		getPageInfo : sforce.console.getPageInfo,
@@ -79,7 +80,7 @@
 
 		// Wireup tab focus change
 		sforce.console.onFocusedPrimaryTab((event) => handleCtiEvent('PRIMTABFOCUS_CHANGE', event));
-		sforce.console.onFocusedSubtab((event) => handleCtiEvent('SUBTABFOCUS_CHANGE', event));
+		sforce.console.onFocusedSubtab((event) => handleCtiEvent('SUBTABFOCUS_CHANGE', event));		
 
 		// Wire up storage event to CTI Eventlistener
 		// - Storage events are used for cross window / iframe communication
@@ -101,6 +102,10 @@
 				`MiniCaseFieldSet_${field}`, (event) => handleCtiEvent('CLEARVIEWCODES', { field, event })
 			)
 		);
+
+		sforce.console.addEventListener('CaseDetails_Refreshed', (caseId) => {
+			handleCtiEvent('CASEUPDATE', caseId)
+		});
 
 		sforce.console.addEventListener('genesys.connector.mockevent', (event) => {
 			const ctiEvent = JSON.parse(event.message);

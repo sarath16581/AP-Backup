@@ -26,7 +26,7 @@ class GenesysAPBusinessLogic {
 		enquirySubType : 'userData.ENG_DimAttribute_1',				// minicase prefill
 		enquiryType : 'userData.ENG_DimAttribute_2',				// minicase prefill
 		id : 'id',													// used to uniquely identify the call interaction
-		mediaType : 'mediaType',									// task capture (subject),
+		mediaType : 'userData.mediaType',							// task capture (subject),
 		outcome : 'userData.BusinessResultDisplay',					// task
 		participantId : 'attributes.Salesforce\\.ParticipantId',	// task unique Id
 		phoneNumber : 'userData.PhoneNumber',						// phone number exposure
@@ -42,14 +42,20 @@ class GenesysAPBusinessLogic {
 
 	// Field mappings for updating the Genesys interaction log outbound: Salesforce -> Genesys
 	genesysFieldMappings = {
-		caseId : 'CaseId',
-		contactId : 'ContactId',
-		userId : 'SF_UserId',
-		caseType : 'ENG_Outcome_4',
-		caseEnquirySubType : 'ENG_Outcome_1',
-		productCategory : 'ENG_Outcome_2',
-		productSubCategory : 'ENG_Outcome_3'
+		caseId : 'attributes.Salesforce\\.CaseId',
+		contactId : 'attributes.Salesforce\\.ContactId',
+		userId : 'attributes.Salesforce\\.SF_UserId',
+		enquiryType : 'attributes.Salesforce\\.ENG_Outcome_4',
+		enquirySubType : 'attributes.Salesforce\\.ENG_Outcome_1',
+		productCategory : 'attributes.Salesforce\\.ENG_Outcome_2',
+		productSubCategory : 'attributes.Salesforce\\.ENG_Outcome_3'
 	}
+
+	TRACKTYPES = {
+		'500' : 'case',
+		'001' : 'contact',
+		'003' : 'contact'
+	};
 
 	constructor(callback) {
 		UIInteraction.tabInteractionEvents = callback;
@@ -57,7 +63,11 @@ class GenesysAPBusinessLogic {
 
 	handleCtiEvent(eventName, event) {
 		if (eventName === 'INTERACTION_EVENT') {
+			
 			this.callLog = new CallInteractionProxy(event.detail, this.apFieldMappings);
+			// Manually overwrite this until we're getting the correct parameter input from Genesys
+			// - Inbound => voiceInbound, Outbound => vouceOutbound
+			this.callLog.mediaType = `voice${event.detail.direction}`;
 
 			if (event.category === 'add') {
 				// This is the very first event of every Interaction
@@ -87,7 +97,7 @@ class GenesysAPBusinessLogic {
 					const proc = task.call(this, event);
 
 					// Track the task in the UI, for testing/troubleshooting only
-					this.trackTask(task, proc);
+					this.monitorTask(task, proc);
 
 					return proc;
 				})
@@ -184,7 +194,7 @@ class GenesysAPBusinessLogic {
 				// Kick off search, if search hasn't started/completed yet
 				const task = this.actions.search;
 				searchTask = task.call(this);
-				this.trackTask(task, searchTask);
+				this.monitorTask(task, searchTask);
 			}
 
 			// wait for search to complete first, if not already completed
@@ -201,7 +211,7 @@ class GenesysAPBusinessLogic {
 							// Kick off syncMiniCaseFields for existing tab
 							const task = this.actions.syncMiniCaseFields;
 							// Track the task in the UI, for testing/troubleshooting only
-							this.trackTask(task, task.call(this));
+							this.monitorTask(task, task.call(this));
 						}
 
 						return screenPop.complete(result.tabId);
@@ -223,9 +233,25 @@ class GenesysAPBusinessLogic {
 		 */
 		track : (event) => {
 			this.trackingTask = new AsyncTask();
-
+			
 			console.log(...UIInteraction.logPrefix, 'Track', event);
 			const ctiEventDetail = event.lastDetail || event.detail || { };
+
+			// Sync local attribute values to Genesys Call Log
+			const pushGenesysAttributes = (syncAttribs) => {				
+				// Map local names to Genesys Attribute Names:
+				const syncToGenesysPromise = this.actions.updateGenesysInteraction.call(this, syncAttribs);
+				this.monitorTask(this.actions.updateGenesysInteraction, syncToGenesysPromise);
+
+				// Capture these values on the salesforce task as well
+				[ 'enquiryType', 'enquirySubType', 'productCategory', 'productSubCategory' ].filter(
+					key => syncAttribs.hasOwnProperty(key) && ![undefined, null].includes(syncAttribs[key])
+				).forEach(
+					key => this.tracking[key] = syncAttribs[key]
+				)
+				
+				return syncToGenesysPromise;
+			}
 
 			/**
 			 * Captures the current tracking references into browser cache to enable session recovery
@@ -247,6 +273,7 @@ class GenesysAPBusinessLogic {
 
 					return trackedObjects;
 				}, { });
+				// Capture in local storage for session recovery
 				GenesysCTIUtils.storeCallDetails(ctiEventDetail.id, tracking);
 			};
 
@@ -255,23 +282,18 @@ class GenesysAPBusinessLogic {
 			 * @param {*} searchResults as returned by search operation
 			 */
 			const linkTabEventDetails = () => {
-				const trackType = {
-					'500' : 'case',
-					'001' : 'contact',
-					'003' : 'contact'
-				};
-
 				const prefix = event.objectId?.slice(0,3);
 				const tabEvents = ['PRIMTABFOCUS_CHANGE','SUBTABFOCUS_CHANGE'];
-				if (tabEvents.includes(event.eventName) && trackType[prefix]) {
+				if (tabEvents.includes(event.eventName) && this.TRACKTYPES[prefix]) {
 					if (!this.tracking) {
 						this.tracking = { };
 					}
 
-					if (!this.tracking[trackType[prefix]]?.isLocked) {
-						this.tracking[trackType[prefix]] = {
+					if (!this.tracking[this.TRACKTYPES[prefix]]?.isLocked) {
+						this.tracking[this.TRACKTYPES[prefix]] = {
 							Id : event.objectId
 						};
+
 						updateTrackingRecovery();
 					}
 				}
@@ -325,33 +347,123 @@ class GenesysAPBusinessLogic {
 				}
 
 				updateTrackingRecovery();
+
+				return {
+					contactId : this.tracking.contact?.Id,
+					caseId : this.tracking.case?.Id
+				};
 			};
 
-			if (event.eventName === 'CLEARVIEWCODES') {
-				// TODO: Wire up create case/contact events for hard-linking
-				/*
-				consoleMethods.setCustomAttributes(
-					event.detail.id,
-					{ Tracking_ID : 'Paul-Test2' }, (res) => { debugger; console.log(res); }
-				);
-				*/
+			const fetchCaseAndTrackDetails = () => {
+				// fetch the case details from Salesforce
+				const asyncTask = this.actions.fetchCaseDetails.call(this);
 
-				// debugger;
-				return this.trackingTask.complete();
-			} else if (['PRIMTABFOCUS_CHANGE','SUBTABFOCUS_CHANGE'].includes(event.eventName)) {
-				// This can be inbound as well as outbound
-				return this.trackingTask.complete(linkTabEventDetails());
-			}
+				// Track the task in the UI, for testing/troubleshooting only
+				this.monitorTask(this.actions.fetchCaseDetails, asyncTask);
 
-			const searchTask = this.searchTask?.promise;
-			// Ignore tracking whan not in a call
-			if (!this.tracking && ctiEventDetail.isConnected && ctiEventDetail.direction === 'Inbound' && searchTask) {
-				this.tracking = { };
-				return Promise.resolve(searchTask).then(searchResults => {
-					this.trackingTask.complete(linkSearchResults(searchResults));
+				// once completed, process details and sync to 
+				asyncTask.then(caseDetails => {
+					let {  caseId, contactId, enquirySubType, enquiryType, productCategory, productSubCategory } = caseDetails;
+					
+					if (this.tracking?.case.isLocked) {
+						// lock contact as well
+						this.tracking.contact = {
+							Id : contactId,
+							isLocked : true
+						}
+					} else if (!this.tracking.contact?.isLocked) {
+						this.tracking.contact = {
+							Id : contactId
+						}
+					} else {
+						// If contact was already locked, maintain contactId
+						contactId = this.tracking.contact.Id;
+					}
+
+					const syncAttribs = {
+						caseId, contactId, enquirySubType, enquiryType, productCategory, productSubCategory
+					};
+
+					pushGenesysAttributes(syncAttribs).then(
+						result => this.trackingTask.complete(result)
+					);
 				}).catch(err => this.trackingTask.fail(err));
 			}
 
+			if ('CASEUPDATE' === event.eventName) {
+				const updatedCaseId = event.message;
+				// only fetch details if the updated case is the one we're currently tracking
+				if (this.tracking?.case?.Id?.startsWith(updatedCaseId)) {
+					// fetch the case details from Salesforce
+					fetchCaseAndTrackDetails();
+				}
+			} else if (['PRIMTABFOCUS_CHANGE','SUBTABFOCUS_CHANGE'].includes(event.eventName)) {
+				// This can be inbound as well as outbound
+				linkTabEventDetails();
+				// Obtain case details and sync caseId or contactId to Genesys
+				if (this.tracking.case?.Id) {
+					fetchCaseAndTrackDetails();
+				} else {
+					this.trackingTask.complete();
+				}
+			} else if (ctiEventDetail.direction === 'Inbound') {
+				const searchTask = this.searchTask?.promise;
+				// Ignore tracking when not in a call
+				if (!this.tracking && ctiEventDetail.isConnected && searchTask) {
+					
+					const { enquiryType, enquirySubType, productCategory, productSubCategory } = this.callLog;
+					// Init tracking object, used for task and genesys interaction log
+					this.tracking = { enquiryType, enquirySubType, productCategory, productSubCategory };
+					
+					Promise.resolve(searchTask).then(searchResults => {
+						// Capture search results and perform soft/hard linking
+						const trackingAttribs = linkSearchResults(searchResults);
+						trackingAttribs.userId = searchTask.userId;
+						
+						// Sync caseId and contactId to Genesys
+						const promise = pushGenesysAttributes(trackingAttribs);
+
+						// Fetch additional case details
+						if (this.tracking.case?.Id) {
+							return fetchCaseAndTrackDetails();
+						}
+						
+						promise
+							.then(result => this.trackingTask.complete(result))
+							.catch(err => this.trackingTask.fail(err));
+					}).catch(err => this.trackingTask.fail(err));
+				} else {
+					this.trackingTask.complete();
+				}
+			} else if (ctiEventDetail.direction === 'Outbound') {
+				// get object Ids from both primary tab and sub tab for linking
+				Promise.all([
+					UIInteraction.getFocusedPrimaryTabObjectId(),
+					UIInteraction.getFocusedSubtabObjectId()
+				]).then(objectIds => {
+					[...new Set(objectIds || [])].forEach(objectId => {
+						const objType = this.TRACKTYPES[objectId?.substr(0, 3)];
+						
+						if (!this.tracking) {
+							this.tracking = { }
+						};
+
+						if (objType) {
+							this.tracking[objType] = {
+								Id : GenesysCTIUtils.caseSafeId(objectId),
+								isLocked : true
+							};
+
+							if (objType === 'case') {
+								return fetchCaseAndTrackDetails();
+							}
+						}
+					})
+
+					this.trackingTask.complete();
+				});
+			}
+			
 			return this.trackingTask.promise;
 		},
 
@@ -409,6 +521,7 @@ class GenesysAPBusinessLogic {
 			};
 
 			const eventDetail = ctiEvent.detail || ctiEvent.lastDetail;
+			const { enquiryType, enquirySubType, productCategory, productSubCategory } = this.tracking || { };
 
 			const getTaskDetail = () => ({
 				contactId : this.tracking.contact?.Id,
@@ -417,12 +530,17 @@ class GenesysAPBusinessLogic {
 				durationInSeconds : (new Date().getTime() - new Date(eventDetail.connectedTime).getTime()) % 1000,
 				// Unique ID for task is a combination of the callId + participantId
 				interactionId : [ this.callLog.id, this.callLog.participantId ].join('.'),
-				status : eventDetail.isConnected ? 'Open' : 'Closed',
+				status : eventDetail.isConnected ? 'Open' : 'Completed',
 				// Subject: "Voice-Inbound YYYY-MM-DD 24:mm:ss"
-				subject : [ mediaTypeMap[this.callLog.mediaType], GenesysCTIUtils.formatDate(new Date()) ].join(' ')
+				subject : [ mediaTypeMap[this.callLog.mediaType], GenesysCTIUtils.formatDate(new Date()) ].join(' '),
+				// provide tracked attributes
+				enquiryType, enquirySubType, productCategory, productSubCategory
 			});
 
-			const captureTask = new AsyncTask();
+			// Prevent updating the task when it hasn't completed initial creation
+			const pendingTask = this.captureTask;
+			this.captureTask = new AsyncTask();
+
 			const processTaskUpsert = () => {
 				new Promise(callback => {
 					GenesysConnectorController.maintainTaskAP(
@@ -435,31 +553,79 @@ class GenesysAPBusinessLogic {
 				}).then((result, event) => {
 					if (result?.success) {
 						// resolve results (and therefor status -> 'completed')
-						captureTask.complete(result);
+						this.captureTask.complete(result);
 					} else {
 						// error in apex backend controller
-						captureTask.fail(event);
+						this.captureTask.fail(event);
 					}
 				}).catch(
 					// any other unexpected error
-					(error) => captureTask.fail(error)
+					(error) => this.captureTask.fail(error)
 				);
 			};
 
-			if (this.trackingTask?.status === 'completed') {
+			if (this.trackingTask?.status === 'completed' && pendingTask?.status !== 'pending') {
 				// start backend search immediately
 				processTaskUpsert();
 			} else {
 				// Await the first track action to complete to include ContactId and CaseId
 				// Kick off regardles of outcome resolved/failed
-				Promise.allSettled([this.trackingTask.promise]).then(
+				Promise.allSettled([
+					this.trackingTask?.promise || Promise.resolve(),
+					pendingTask?.promise || Promise.resolve()
+				]).then(
 					// start backend search once tracking completed
 					() => processTaskUpsert()
 				);
 			}
 
-			return captureTask.promise;
-		}
+			return this.captureTask.promise;
+		},
+
+		fetchCaseDetails : () => {
+			const fetchCaseTask = new AsyncTask();
+			
+			new Promise(callback => {
+				GenesysConnectorController.getCaseByIdAP(
+					this.tracking.case.Id,
+					callback
+				)
+			}).then((result) => {
+				if (!result) {
+					throw new Error('Case coudn\'t be obtained');
+				}
+
+				fetchCaseTask.complete(result);
+			}).catch(
+				// any other unexpected error
+				(error) => fetchCaseTask.fail(error)
+			);
+
+			return fetchCaseTask.promise;
+		},
+
+		updateGenesysInteraction : (syncAttribs) => new Promise(res => {
+			const genesysCustomAttribs = Object.keys(this.genesysFieldMappings).reduce(
+				(res,key) => {
+					// Only add attributes, don't remove or overwrite with empty values
+					if (syncAttribs.hasOwnProperty(key) && ![null, undefined].includes(syncAttribs[key])) {
+						GenesysCTIUtils.setObjProp(res, this.genesysFieldMappings[key], syncAttribs[key]);
+					}
+
+					return res;
+				}, { }
+			);
+
+			if (Object.keys(genesysCustomAttribs).length) {					
+				consoleMethods.setCustomAttributes(
+					this.callLog.id, genesysCustomAttribs,
+					(result) => res(result)
+				);
+			} else {
+				// no action required
+				res();
+			}
+		})
 	}
 
 	/**
@@ -490,6 +656,16 @@ class GenesysAPBusinessLogic {
 				&& event.detail?.direction === 'Inbound',
 			tasks : [ this.actions.closeAllTabs, this.actions.screenPop, this.actions.track, this.actions.logTask ]
 		}, {
+			name : 'onOutboundCallAnswered',
+			criteria : (eventName, event) => {
+				return eventName === 'INTERACTION_EVENT'
+					&& event.changes?.includes('isConnected')
+					&& event.detail?.isConnected
+					&& event.detail?.direction === 'Outbound'
+			},
+			tasks : [ this.actions.track, this.actions.logTask ]
+		},
+		{
 			// Whenever a localStorage event gets captured with a key starting with CTI_[tabId]
 			name : 'onStorage',
 			criteria : (eventName, event) =>
@@ -499,12 +675,16 @@ class GenesysAPBusinessLogic {
 			tasks : [ this.actions.syncMiniCaseFields ]
 		}, {
 			// When user is navigating to different tabs/subtabs and case and object are not both hard-linked
-			name : 'onTabChange',
-			criteria : (eventName, event) => (event.lastDetail || event.detail)?.isConnected
-				&& (eventName === 'CLEARVIEWCODES' || (
+			name : 'onTrackUpdate',
+			criteria : (eventName, event) => (
+				// original criteria
+				(event.lastDetail || event.detail)?.isConnected
+				&& ('CASEUPDATE' === eventName) || (
 					['PRIMTABFOCUS_CHANGE','SUBTABFOCUS_CHANGE'].includes(eventName)
 					&& ['case','contact'].find(obj => !this.tracking?.[obj]?.isLocked)
-				)),
+				)
+			
+			),
 			tasks : [ this.actions.track ]
 		}, {
 			name : 'onDisconnect',
@@ -593,7 +773,7 @@ class GenesysAPBusinessLogic {
 	}
 
 	// For tracking purposes only. Will fire a 'genesys.connector.trackevent' to notify the Genesys Monitor widget
-	trackTask(task, proc) {
+	monitorTask(task, proc) {
 		if (!this.loggingEnabled) {
 			return;
 		}
@@ -782,6 +962,30 @@ class UIInteraction {
 	static getFocusedPrimaryTabId = () => new Promise(
 		(res, rej) => UIInteraction.tabInteractionEvents(
 			'getFocusedPrimaryTabId', (event) => {
+				if (event.id) {
+					res(event.id);
+				} else {
+					rej(event);
+				}
+			}
+		)
+	)
+
+	static getFocusedPrimaryTabObjectId = () => new Promise(
+		(res, rej) => UIInteraction.tabInteractionEvents(
+			'getFocusedPrimaryTabObjectId', (event) => {
+				if (event.id) {
+					res(event.id);
+				} else {
+					rej(event);
+				}
+			}
+		)
+	)
+
+	static getFocusedSubtabObjectId = () => new Promise(
+		(res, rej) => UIInteraction.tabInteractionEvents(
+			'getFocusedSubtabObjectId', (event) => {
 				if (event.id) {
 					res(event.id);
 				} else {

@@ -245,7 +245,9 @@ global with sharing class GenesysConnectorController {
 			}
 		}
 		
-		Map<String,Object> result = new Map<String,Object>();
+		Map<String,Object> result = new Map<String,Object>{
+			'userId' => UserInfo.getUserId()
+		};
 		
 		if (matches != null) {
 			result.put(String.valueOf(matches.getSObjectType()), matches);
@@ -382,7 +384,6 @@ global with sharing class GenesysConnectorController {
 			Task.Status => 'status',
 			Task.Subject => 'subject',
 			Task.WhatId => 'caseId',
-			Task.Case__c => 'caseId',			
 			Task.WhoId => 'contactId'
 		};
 			
@@ -426,27 +427,40 @@ global with sharing class GenesysConnectorController {
 	* @return Case if found
 	*/
 	@RemoteAction
-	public static Case getCaseByIdAP(Id caseId) {
-		CasesSelector selector = CasesSelector.newInstance(new Set<SObjectField>{
-			Case.Id,
-			Case.Type,
-			Case.ProductCategory__c,
-			Case.ProductSubCategory__c,
-			Case.EnquirySubType__c,
-			Case.AccountId,
-			Case.ContactId,
-			Case.Contact.AccountId
-		});
+	public static Map<String,Object> getCaseByIdAP(Id caseId) {
+		Map<SObjectField,String> fieldMappings = new Map<SObjectField,String>{
+			Case.Id => 'caseId',
+			Case.Type => 'enquiryType',
+			Case.ProductCategory__c => 'productCategory',
+			Case.ProductSubCategory__c => 'productSubCategory',
+			Case.EnquirySubType__c => 'enquirySubType',
+			Case.AccountId => 'accountId',
+			Case.ContactId => 'contactId',
+			Case.Contact.AccountId => 'personAccountId'
+		};
 
+		CasesSelector selector = CasesSelector.newInstance(fieldMappings.keySet());
 		List<Case> cases = selector.selectById(new Set<Id> { caseId }).values();
 
-		// // Strip fields that are not accessible to the user
+		// // Best practice: Strip fields that are not accessible to the user
 		// SObjectAccessDecision decision = Security.stripInaccessible(
 		// 	AccessType.READABLE,
 		// 	cases
 		// );
 
-		return cases.isEmpty() ? null : cases[0];
+		Map<String,Object> result = new Map<String,Object>();
+
+		if (!cases.isEmpty()) {
+			for (SObjectField field :fieldMappings.keySet()) {
+				Object value = cases[0].get(field);
+
+				if (field != null) {
+					result.put(fieldMappings.get(field), value);
+				}
+			}
+		}
+
+		return result;
 	}
 
 	/**
