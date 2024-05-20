@@ -240,8 +240,18 @@ public class APT_CreateOpportunityProductLICntlr implements Queueable {
                 }
                 }
 
+                /*
+                On Shopping Cart Save / Finalize request, Opportunity Products Sync process initiate.
 
-                //Below SOQL statement is added, to handle Shopping cart's LI Products sync to Opportunity Products's Proposal lock exception
+                Shopping Cart having an Lookup relation with Quote/Proposal. In Opportunity Sync process an Custom object
+                APT_Opportunity_Product_Line_Item__c is used. The custom object also having Lookup relation with Quote/Proposal.
+                On Shopping Cart Save / Finalize request, the Proposal record used & lock.
+
+                On Cart's status update, Configuration Trigger initiate Opportunity Product Sync Queueable process, where the Custom object
+                APT_Opportunity_Product_Line_Item__c, due to Lookup relation with Proposal Object, on record insert statement execute,
+                getting the Proposal record LOCK exception. To handle the record lock exception, added below SOQL statement with 'FOR UPDATE',
+                which can add delay time (Max 10 Seconds) if the Proposal record in use.
+                */
                 List<Apttus_Proposal__Proposal__c> activeProposal = [Select Id from Apttus_Proposal__Proposal__c where Apttus_Proposal__Primary__c = true and Id =: quoteIdSet FOR UPDATE ];
             
                 // Inserting the APT_Opportunity_Product_Line_Item__c Records 
