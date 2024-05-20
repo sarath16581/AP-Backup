@@ -1,6 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomLabels xmlns="http://soap.sforce.com/2006/04/metadata">
     <labels>
+        <fullName>ABNChangeContactCloningErrorMessage</fullName>
+        <categories>ABN Update</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>ABNChangeContactCloningErrorMessage</shortDescription>
+        <value>Please report an IT issue via the &apos;Report a Fault&apos; icon on the MyIT Service Portal and select the details - Please select the area this relates to: 2. Applications &amp; Software, What does this relate to?: Salesforce, What best describes your issue?: Issues with Sales Cloud, Can you provide a short description?: Contact cloning failed. Please check exception log for more details.</value>
+    </labels>
+    <labels>
+        <fullName>ABNChangeContactCloningLabel</fullName>
+        <categories>ABN Update</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>ABNChangeContactCloningLabel</shortDescription>
+        <value>Contact Cloning</value>
+    </labels>
+    <labels>
         <fullName>ABNChangeNotificationError</fullName>
         <language>en_US</language>
         <protected>false</protected>

@@ -35,6 +35,13 @@ public inherited sharing class ApplicationDatabase {
 	}
 
 	/**
+	 * Note: return value to enable stubbed mocks, always true, or else an exception is thrown
+	 */
+	public List<Database.SaveResult> dmlInsert(List<SObject> objList, Database.DMLOptions dmlOptions) {
+		return Database.insert(objList, dmlOptions);
+	}
+
+	/**
 	 * Creates new sObject records or updates existing sObject records. Does not allow partial success 
 	 * (i.e. allOrNothing = true). Allows to combine insert and update on different SObjectTypes using 1 single
 	 * DML statement
