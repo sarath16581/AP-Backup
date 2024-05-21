@@ -241,16 +241,10 @@ public class APT_CreateOpportunityProductLICntlr implements Queueable {
                 }
 
                 /*
-                On Shopping Cart Save / Finalize request, Opportunity Products Sync process initiate.
-
-                Shopping Cart having an Lookup relation with Quote/Proposal. In Opportunity Sync process an Custom object
-                APT_Opportunity_Product_Line_Item__c is used. The custom object also having Lookup relation with Quote/Proposal.
-                On Shopping Cart Save / Finalize request, the Proposal record used & lock.
-
-                On Cart's status update, Configuration Trigger initiate Opportunity Product Sync Queueable process, where the Custom object
-                APT_Opportunity_Product_Line_Item__c, due to Lookup relation with Proposal Object, on record insert statement execute,
-                getting the Proposal record LOCK exception. To handle the record lock exception, added below SOQL statement with 'FOR UPDATE',
-                which can add delay time (Max 10 Seconds) if the Proposal record in use.
+                Once the shopping cart is finalised, the Opportunity Products Sync process is initiated.
+                Given the shopping cart has a lookup to the Quote/Proposal, during this process the Proposal record is locked.
+                At the same time, as part of the sync process, we're updating APT_Opportunity_Product_Line_Item__c records which also have a lookup to the Proposal.
+                This can sometimes cause a record lock exception. To handle this, we've added a 'FOR UPDATE' clause to the SOQL query which can cause a delay of up to 10 seconds if the Proposal record is in use.
                 */
                 List<Apttus_Proposal__Proposal__c> activeProposal = [Select Id from Apttus_Proposal__Proposal__c where Apttus_Proposal__Primary__c = true and Id =: quoteIdSet FOR UPDATE ];
             
