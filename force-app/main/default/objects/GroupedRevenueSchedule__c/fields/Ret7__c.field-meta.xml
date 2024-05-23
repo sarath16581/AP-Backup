@@ -3,7 +3,7 @@
     <fullName>Ret7__c</fullName>
     <description>Retained Revenue forecast for July</description>
     <externalId>false</externalId>
-    <formula>For7__c *  TotalRetained__c</formula>
+    <formula>For7__c *  OpportunityProduct__r.TotalRetained__c</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <inlineHelpText>Retained Revenue forecast for July</inlineHelpText>
     <label>July Retained</label>
