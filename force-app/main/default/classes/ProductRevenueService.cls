@@ -437,8 +437,13 @@ public with sharing class ProductRevenueService {
                     }
 
                     // records for related accounts from the AccountRelationship Object
-                    Set<Id> relatedAccounts = relatedChildAccountsMap.containsKey(item.Opportunity.AccountId) &&  relatedChildAccountsMap.get(item.Opportunity.AccountId) !=null ? relatedChildAccountsMap.get(item.Opportunity.AccountId) : new Set<Id>();
+                    Set<Id> relatedAccounts = relatedChildAccountsMap.containsKey(item.Opportunity.AccountId) // AR contains the parent as keys
+                                                    && relatedChildAccountsMap.get(item.Opportunity.AccountId) != null // the children records exist
+                                                    ? relatedChildAccountsMap.get(item.Opportunity.AccountId) : new Set<Id>();
                     for (Id relatedAccountId : relatedAccounts) {
+                        if (parentToChildAccountMap.get(item.Opportunity.AccountId).contains(relatedAccountId)) { // exclude the child Account from AR if it is already included in the Hierarchy
+                            continue;
+                        }
                         String relatedAccountRevenueKey = getUID(relatedAccountId,item.Product2.Id,String.valueOf(year));
                         if (addRevenueValues(currentGroupedRevenue,relatedAccountRevenueKey)) {
                             isUpdated = true;

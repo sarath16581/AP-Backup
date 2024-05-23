@@ -3,7 +3,7 @@
     <fullName>TotalIncremental__c</fullName>
     <description>Total increment derived from Total Price</description>
     <externalId>false</externalId>
-    <formula>IF(  IncrementalRevenue__c = 0, 0, (Annualised_Value__c / IncrementalRevenue__c ) * TotalPrice )</formula>
+    <formula>IF(  IncrementalRevenue__c = 0, 0, (IncrementalRevenue__c / Annualised_Value__c) * TotalPrice )</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <inlineHelpText>Total increment derived from Total Price</inlineHelpText>
     <label>Total Incremental</label>
