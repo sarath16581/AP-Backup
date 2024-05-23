@@ -4,7 +4,7 @@
     <externalId>false</externalId>
     <formula>if (Contract_End_Date__c -  Contract_Start_Date__c &lt;= 366,  TotalPrice  , 365/ ( Contract_End_Date__c -  Contract_Start_Date__c ) * TotalPrice)</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
-    <label>Annualised Value</label>
+    <label>ACV</label>
     <precision>18</precision>
     <required>false</required>
     <scale>2</scale>

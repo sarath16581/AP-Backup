@@ -6,7 +6,7 @@
     <formula>For4__c *  OpportunityProduct__r.TotalRetained__c</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <inlineHelpText>Retained Revenue forecast for April</inlineHelpText>
-    <label>April Retained</label>
+    <label>April Expected Retained Value</label>
     <precision>18</precision>
     <required>false</required>
     <scale>2</scale>

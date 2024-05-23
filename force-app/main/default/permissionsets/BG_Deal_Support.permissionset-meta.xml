@@ -2054,18 +2054,23 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>GroupedRevenueSchedule__c.For10__c</field>
+        <field>GroupedRevenueSchedule__c.Classification__c</field>
         <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>GroupedRevenueSchedule__c.For10__c</field>
+        <readable>false</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
         <field>GroupedRevenueSchedule__c.For11__c</field>
-        <readable>true</readable>
+        <readable>false</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
         <field>GroupedRevenueSchedule__c.For12__c</field>
-        <readable>true</readable>
+        <readable>false</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
@@ -2075,37 +2080,42 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>GroupedRevenueSchedule__c.For2__c</field>
-        <readable>true</readable>
+        <readable>false</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
         <field>GroupedRevenueSchedule__c.For3__c</field>
-        <readable>true</readable>
+        <readable>false</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
         <field>GroupedRevenueSchedule__c.For4__c</field>
-        <readable>true</readable>
+        <readable>false</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
         <field>GroupedRevenueSchedule__c.For5__c</field>
-        <readable>true</readable>
+        <readable>false</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
         <field>GroupedRevenueSchedule__c.For6__c</field>
-        <readable>true</readable>
+        <readable>false</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
         <field>GroupedRevenueSchedule__c.For7__c</field>
-        <readable>true</readable>
+        <readable>false</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>GroupedRevenueSchedule__c.For8__c</field>
+        <readable>false</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
         <field>GroupedRevenueSchedule__c.For9__c</field>
-        <readable>true</readable>
+        <readable>false</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
@@ -2319,6 +2329,16 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>GroupedRevenueSchedule__c.RevenueEndDate__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>GroupedRevenueSchedule__c.RevenueStartDate__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>GroupedRevenueSchedule__c.TotalForecast__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -2335,11 +2355,6 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>GroupedRevenueSchedule__c.Year__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>GroupedRevenueSchedule__c.for8__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

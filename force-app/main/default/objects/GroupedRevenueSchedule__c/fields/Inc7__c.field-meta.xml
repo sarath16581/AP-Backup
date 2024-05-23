@@ -6,7 +6,7 @@
     <formula>For7__c *  OpportunityProduct__r.TotalIncremental__c</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <inlineHelpText>Incremental Sales forecast for July</inlineHelpText>
-    <label>July Incremental</label>
+    <label>July Expected Incremental Value</label>
     <precision>18</precision>
     <required>false</required>
     <scale>2</scale>
