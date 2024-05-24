@@ -8,6 +8,7 @@
 * @description A very simple selector class that sits in the base domain
 * @changelog
 * 2023-04-21 - Pratyush Chalasani - Created
+* 2024-05-21 - Harry Wang - Added new option WITH_RELATED_ORGANISATION and fieldOverrides
 */
 public virtual inherited sharing class AtRiskBusinessSelector extends ApplicationSelector {
 	public enum Options {
@@ -24,7 +25,7 @@ public virtual inherited sharing class AtRiskBusinessSelector extends Applicatio
 		return selector;
 	}
 
-	public static AtRiskBusinessSelector newInstance(Map<SObjectType,Set<SObjectField>> fieldOverrides) {
+	public static AtRiskBusinessSelector newInstance(Map<SObjectType, Set<SObjectField>> fieldOverrides) {
 		return (AtRiskBusinessSelector) Application.Selectors.newInstance(AtRiskBusinessSelector.class)
 				.setFieldOverrides(fieldOverrides);
 	}
@@ -36,6 +37,13 @@ public virtual inherited sharing class AtRiskBusinessSelector extends Applicatio
 		return new Set<SObjectField> {
 			At_Risk_Business__c.Id, At_Risk_Business__c.Name, At_Risk_Business__c.Legal_Entity_Name__c, At_Risk_Business__c.Scale__c, At_Risk_Business__c.Products_IDs__c, At_Risk_Business__c.Date_of_Revenue_Calculation__c, At_Risk_Business__c.Recalculate_Revenue__c
 		};
+	}
+
+	/**
+	 * @description Run a simple query to get records based on Id's
+	 */
+	public List<At_Risk_Business__c> selectById(Set<Id> ids) {
+		return selectById(ids, new Set<Object>());
 	}
 
 	/**

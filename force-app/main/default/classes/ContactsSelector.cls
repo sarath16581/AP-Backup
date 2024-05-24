@@ -17,6 +17,7 @@
  * 2023-07-05 - Mahesh Parvathaneni - Added options WITH_BILLING_ACCOUNT
  * 2023-10-01 - Hasantha Liyanage - Added Contact.BillingAccount__c in getSObjectFieldList
  * 2024-01-22 - Hasantha Liyanage - Added selectPrimaryContactByAccount method
+ * 2024-05-24 - Harry Wang - Added selectCloneableContactsByAccount
  */
 public virtual inherited sharing class ContactsSelector extends ApplicationSelector {
 	public enum Options {
@@ -159,6 +160,16 @@ public virtual inherited sharing class ContactsSelector extends ApplicationSelec
 			.endConditions();
 		qb.addOrderAsc(Contact.Name);
 		return new Map<Id, Contact>((List<Contact>) Database.query(qb.toSoqlString()));
+	}
+
+	public List<Contact> selectCloneableContactsByAccount(Set<Id> accountIds) {
+		QueryBuilder qb = newQueryBuilder()
+				.addConditions()
+				.add(new QueryBuilder.InCondition(Contact.AccountId).inCollection(accountIds))
+				.add(new QueryBuilder.CompareCondition(Contact.Status__c).eq('Active'))
+				.add(new QueryBuilder.CompareCondition(Contact.Record_Maintainer__c).eq('Account Manager'))
+				.endConditions();
+		return Database.query(qb.toSoqlString());
 	}
 
 	/**

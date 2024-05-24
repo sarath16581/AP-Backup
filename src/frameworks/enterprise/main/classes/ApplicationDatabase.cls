@@ -12,7 +12,7 @@
  * 2020-10-18 - Nathan Franklin - Increased API Version to 49
  * 2022-05-09 - Ranjeewa Silva - Added support for upsert operation.
  * 2022-03-14 - Nathan Franklin - uplifted to version 52
- * 2023-03-21 - Nathan Franklin - added revokeTokenAccess method
+ * 2024-05-17 - Harry Wang - Added support for dml option on dmlInsert
  */
 public inherited sharing class ApplicationDatabase {
 

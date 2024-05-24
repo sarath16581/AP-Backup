@@ -10,6 +10,9 @@
  */
 public with sharing class ABNChangeController {
 
+	/**
+	 * Field Overrides when selecting At Risk Business; Only old and new organisations required
+	 */
 	private static final Map<SObjectType,Set<SObjectField>> AT_RISK_BUSINESS_FIELD_OVERRIDES = new Map<SObjectType,Set<SObjectField>> {
 			At_Risk_Business__c.SObjectType => new Set<SObjectField> {
 					At_Risk_Business__c.Related_Organisation__c, At_Risk_Business__c.Legal_Entity_Name__c
@@ -19,8 +22,17 @@ public with sharing class ABNChangeController {
 			}
 	};
 
+	/**
+	 * Field Overrides when selecting old and new contacts
+	 */
 	private static final Set<SObjectField> CONTACT_FIELD_OVERRIDES = new Set<SObjectField>{Contact.FirstName, Contact.LastName, Contact.Name, Contact.Title, Contact.Email, Contact.Phone, Contact.Has_Online_Credential__c};
 
+	/**
+	 * This method is used to get deduplicated contacts and related At Risk Business between contacts from old organisation (legal entity) and new organisation (related organisation)
+	 * @param businessAtRiskId  At Risk Business Id
+	 *
+	 * @return Map of 'businessAtRisk' => At Risk Business, 'contacts' => list of deduplicated contacts
+	 */
 	@AuraEnabled(Cacheable=true)
 	public static Map<String, Object> getDeduplicatedContactsAndBaR(String businessAtRiskId) {
 		At_Risk_Business__c atRiskBusiness = AtRiskBusinessSelector.newInstance(AT_RISK_BUSINESS_FIELD_OVERRIDES).selectById(new Set<Id>{businessAtRiskId}, new Set<Object>{AtRiskBusinessSelector.options.WITH_RELATED_ORGANISATION})[0];
@@ -34,6 +46,16 @@ public with sharing class ABNChangeController {
 		};
 	}
 
+	/**
+	 * Clone contacts to the new organisation with fields retrieved from ABNChangeContactCloning field set
+	 * Support partial success and log dml failures on Exception Log
+	 * DML option used to bypass alert type duplicate rule
+	 * Unexpected exception will be logged as well
+	 * @param newOrganisationId Id of new organisation where the contacts will be cloned to
+	 * @param oldContactIds list of old contact Ids
+	 *
+	 * @return list of succeeded contact Ids
+	 */
 	@AuraEnabled
 	public static List<String> cloneContacts(String newOrganisationId, List<Id> oldContactIds) {
 		List<String> savedContactsIds = new List<String>();

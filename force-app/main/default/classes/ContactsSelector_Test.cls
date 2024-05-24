@@ -15,6 +15,7 @@
 * 2022-07-19 - Sreenish Krishnan - Added new fields
 * 2023-07-05 - Mahesh Parvathaneni - Added tests for options WITH_BILLING_ACCOUNT
 * 2024-01-31 - Hasantha L - added ConveyancerContact__c field update to testSelectorIntegration()
+* 2024-05-24 - Harry Wang - Added tests for selectCloneableContactsByAccount
 */
 @IsTest
 private with sharing class ContactsSelector_Test {
@@ -136,6 +137,8 @@ private with sharing class ContactsSelector_Test {
 		contacts[0].BillingAccount__c = billingAcc.Id;
 		contacts[0].ConveyancerContact__c = true;
 		contacts[1].MobilePhone = '+61440123456';
+		contacts[1].Status__c = 'Active';
+		contacts[1].Record_Maintainer__c = 'Account Manager';
 		insert contacts;
 
 
@@ -174,6 +177,9 @@ private with sharing class ContactsSelector_Test {
 		System.assertNotEquals(null, results.get(contacts[0].Id).BillingAccount__r, 'Expected billing account object');
 
 		List<Contact> listResults = selector.selectPrimaryContactByAccount(new Set<Id> {acc.Id});
+		System.assertEquals(1, listResults.size(), 'Expected result size of 1');
+
+		listResults = selector.selectCloneableContactsByAccount(new Set<Id> {acc.Id});
 		System.assertEquals(1, listResults.size(), 'Expected result size of 1');
 
 		Test.stopTest();
