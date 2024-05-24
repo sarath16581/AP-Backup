@@ -37,6 +37,7 @@ public inherited sharing class ApplicationDatabase {
 	/**
 	 * Note: return value to enable stubbed mocks, always true, or else an exception is thrown
 	 */
+	// Need Approval from Boris/Nathan
 	public List<Database.SaveResult> dmlInsert(List<SObject> objList, Database.DMLOptions dmlOptions) {
 		return Database.insert(objList, dmlOptions);
 	}

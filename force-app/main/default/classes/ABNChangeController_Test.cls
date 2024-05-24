@@ -77,7 +77,8 @@ public with sharing class ABNChangeController_Test {
 		// Testing
 		// =====================================
 		Test.startTest();
-		ABNChangeController.cloneContacts(accs[0].Id, oldContactIds);
+		List<String> ids = ABNChangeController.cloneContacts(accs[0].Id, oldContactIds);
+		System.assertEquals(1, ids.size(), 'Expected 1 contact cloned');
 		Test.stopTest();
 	}
 }
