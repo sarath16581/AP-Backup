@@ -11,12 +11,12 @@ public class OpportunityRevenueReportController {
     public static final String[] months = new String[] { 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec' };
 	public static final String errorMessage = 'Failed to retrieve revenue data. Please contact your administrator.';
     @testVisible
-    private static Date calculationDate {
+    private static Date revenueCalculationContextDate {
         get {
-            if (calculationDate == null) {
-                calculationDate = System.today();
+            if (revenueCalculationContextDate == null) {
+                revenueCalculationContextDate = System.today();
             }
-            return calculationDate;
+            return revenueCalculationContextDate;
         }
         set;
     }
@@ -58,7 +58,7 @@ public class OpportunityRevenueReportController {
 			relevantAccounts.addAll(relatedAccounts.keySet());
 
 			// retrieve relevant budget and revenues for all relevant accounts for this year and last (we need 12 months of sales data)
-			Set<String> financialYears = new Set<String> {String.valueOf(getAustralianFinancialYear(calculationDate) - 1), String.valueOf(getAustralianFinancialYear(calculationDate))};
+			Set<String> financialYears = new Set<String> {String.valueOf(getAustralianFinancialYear(revenueCalculationContextDate) - 1), String.valueOf(getAustralianFinancialYear(revenueCalculationContextDate))};
 			Map<String,Budget_and_Revenue__c> customerRevenues = loadBudgetAndRevenueRecords(relevantAccounts, oppLineItem.keySet(), financialYears);
 			// get data row for main account
 			RevenueData data = new RevenueData(childAccounts.get(mainAccountId)?.Name);
@@ -122,7 +122,7 @@ public class OpportunityRevenueReportController {
     private static Boolean buildRevenueData(Id accountId,List<OpportunityLineItem> oppLineItem,Map<String,Budget_and_Revenue__c> customerRevenues,RevenueData data) {
         Boolean hasData = false;
         for(OpportunityLineItem item : oppLineItem) {
-			Date targetDate = item.Contract_Start_Date__c < calculationDate ? item.Contract_Start_Date__c : calculationDate;
+			Date targetDate = item.Contract_Start_Date__c < revenueCalculationContextDate ? item.Contract_Start_Date__c : revenueCalculationContextDate;
 			Integer FY = getAustralianFinancialYear(targetDate);
 			Integer startMonth = targetDate.month() - 1;
 			// the calculation for past months revenue counts back wards, so if it reaches zero it means it should reset the month to 12, and go the previous year
