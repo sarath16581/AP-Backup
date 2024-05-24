@@ -3742,10 +3742,6 @@
         <visible>true</visible>
     </recordTypeVisibilities>
     <recordTypeVisibilities>
-        <recordType>Case.Lean_Cases</recordType>
-        <visible>true</visible>
-    </recordTypeVisibilities>
-    <recordTypeVisibilities>
         <recordType>Case.NCCCDirectEmail</recordType>
         <visible>true</visible>
     </recordTypeVisibilities>

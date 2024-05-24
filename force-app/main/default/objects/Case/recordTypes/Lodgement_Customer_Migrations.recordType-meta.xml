@@ -4,7 +4,7 @@
     <active>false</active>
     <businessProcess>Lodgement Customer Migrations</businessProcess>
     <description>REQ3448199 RT no longer is use This is the RT used for the migration of customer from multiple billing system into one</description>
-    <label>(Deprectaed) Lodgement Customer Migrations</label>
+    <label>(Deprecated)Lodgement Customer Migrations</label>
     <picklistValues>
         <picklist>AMLCTF_Please_Explain_Type__c</picklist>
         <values>
@@ -5098,10 +5098,6 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Explanation of charge</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>FSC %2F SSC Rate</fullName>
             <default>false</default>
         </values>
@@ -5207,10 +5203,6 @@
         </values>
         <values>
             <fullName>Next Flight Service Dispute</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Next Flight failure</fullName>
             <default>false</default>
         </values>
         <values>
