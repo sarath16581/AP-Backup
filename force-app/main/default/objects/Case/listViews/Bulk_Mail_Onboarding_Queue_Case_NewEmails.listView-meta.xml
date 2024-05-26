@@ -7,7 +7,7 @@
     <columns>CASES.STATUS</columns>
     <columns>CASES.CREATED_DATE_DATE_ONLY</columns>
     <columns>CORE.USERS.ALIAS</columns>
-    <filterScope>Queue</filterScope>
+    <filterScope>Everything</filterScope>
     <filters>
         <field>CASES.CLOSED</field>
         <operation>equals</operation>
@@ -18,8 +18,12 @@
         <operation>equals</operation>
         <value>New Email Received</value>
     </filters>
+    <filters>
+        <field>CASES.RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>Case.Bulk_Mail_Onboarding</value>
+    </filters>
     <label>Bulk Mail Onboarding Queue New Emails</label>
-    <queue>Bulk_Mail_Onboarding_Queue</queue>
     <sharedTo>
         <allInternalUsers></allInternalUsers>
     </sharedTo>

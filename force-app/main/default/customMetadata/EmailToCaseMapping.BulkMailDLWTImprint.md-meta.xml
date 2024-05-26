@@ -16,7 +16,7 @@
     </values>
     <values>
         <field>EmailToCaseAddress__c</field>
-        <value xsi:type="xsd:string">dlwtimprint@auspost.com.au</value>
+        <value xsi:type="xsd:string">dlwtimprinttest@auspost.com.au</value>
     </values>
     <values>
         <field>IsActive__c</field>

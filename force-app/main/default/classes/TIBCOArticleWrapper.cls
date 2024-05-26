@@ -94,7 +94,7 @@ public class TIBCOArticleWrapper {
 	}
 
 	public TIBCOArticleWrapper(AuspostQueryTrackEventsSchema.ArticleEnvelope articleEnvelope, TIBCOConsignmentWrapper cw) {
-		System.debug('articleEnvelope >>>>>>>>:' + articleEnvelope);
+		System.debug('articleEnvelope >>>>>>>>:' + articleEnvelope.MailEvent);
 		eddImageIconName = 'error16.png';
 		eventMessages = new List<TIBCOEventMessageWrapper>();
 		selected = false;

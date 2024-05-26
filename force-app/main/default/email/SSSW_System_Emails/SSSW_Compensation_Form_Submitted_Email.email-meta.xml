@@ -5,10 +5,10 @@
     <encodingKey>ISO-8859-1</encodingKey>
     <name>SSSW Compensation Form Submitted Email</name>
     <style>none</style>
-    <subject>We&apos;ve received your payment details</subject>
-    <textOnly>Australia Post
+    <subject>We&apos;ve received your payment details - Do Not Reply</subject>
+    <textOnly>Australia Post 
 
-We&apos;ve received your payment details - Do Not Reply
+We&apos;ve received your payment details
 
 Hi {!Compensation__c.ContactFirstName__c},
 

@@ -109,6 +109,11 @@
                 <label>Check Address</label>
             </value>
             <value>
+                <fullName>Checking Address - Incorrect Service</fullName>
+                <default>false</default>
+                <label>Checking Address - Incorrect Service</label>
+            </value>
+            <value>
                 <fullName>COD</fullName>
                 <default>false</default>
                 <label>COD</label>
@@ -632,6 +637,11 @@
                 <fullName>Reports</fullName>
                 <default>false</default>
                 <label>Reports</label>
+            </value>
+            <value>
+                <fullName>Requesting RA Number</fullName>
+                <default>false</default>
+                <label>Requesting RA Number</label>
             </value>
             <value>
                 <fullName>Resign</fullName>
@@ -1493,7 +1503,15 @@
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Depot Created</controllingFieldValue>
+            <valueName>Checking Address - Incorrect Service</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Depot Created</controllingFieldValue>
             <valueName>Refused</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Depot Created</controllingFieldValue>
+            <valueName>Requesting RA Number</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Depot Created</controllingFieldValue>

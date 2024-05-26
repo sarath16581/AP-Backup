@@ -14,6 +14,8 @@
                 <elementReference>$Record.ParentId</elementReference>
             </value>
         </inputParameters>
+        <nameSegment>Case.BGS_Send_a_Bounce_Email_to_Sender_if_the_associated_Case_has_already_been_Closed</nameSegment>
+        <versionSegment>1</versionSegment>
     </actionCalls>
     <actionCalls>
         <description>Bulk Mail - Send an Email when a Case permanent closed</description>
@@ -30,6 +32,8 @@
                 <elementReference>$Record.ParentId</elementReference>
             </value>
         </inputParameters>
+        <nameSegment>Case.Bulk_Mail_Send_an_Email_when_a_Case_permanent_closed</nameSegment>
+        <versionSegment>1</versionSegment>
     </actionCalls>
     <actionCalls>
         <name>Notify_Case_Owner_on_New_Email_BGS</name>
@@ -48,6 +52,8 @@
                 <elementReference>$Record.ParentId</elementReference>
             </value>
         </inputParameters>
+        <nameSegment>Case.Notify_Case_Owner_on_New_Email_BGS</nameSegment>
+        <versionSegment>1</versionSegment>
     </actionCalls>
     <actionCalls>
         <description>Sends an email to customer if case is permanently closed</description>
@@ -64,6 +70,8 @@
                 <elementReference>$Record.ParentId</elementReference>
             </value>
         </inputParameters>
+        <nameSegment>Case.Transport_Enquiry_Case_Closed_Case_Email</nameSegment>
+        <versionSegment>1</versionSegment>
     </actionCalls>
     <apiVersion>57.0</apiVersion>
     <decisions>

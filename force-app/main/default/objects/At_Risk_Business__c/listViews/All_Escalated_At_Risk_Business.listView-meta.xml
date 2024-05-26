@@ -5,6 +5,7 @@
     <columns>Scale__c</columns>
     <columns>Product_1__c</columns>
     <columns>Risk_Type__c</columns>
+    <columns>CREATED_DATE</columns>
     <columns>Reason__c</columns>
     <columns>Status__c</columns>
     <columns>Threat_Risk__c</columns>
