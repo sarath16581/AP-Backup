@@ -141,6 +141,12 @@
     <flexiPageRegions>
         <itemInstances>
             <componentInstance>
+                <componentName>customerSearchForm</componentName>
+                <identifier>c_customerSearchForm</identifier>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
                 <componentInstanceProperties>
                     <name>createQuickActionName</name>
                     <value>NewContact</value>
