@@ -1,0 +1,103 @@
+<template>
+  <!-- Search form -->
+  <lightning-card title={searchFormTitle}>
+    <div class="slds-var-m-around_medium">
+      <div class="slds-grid slds-wrap slds-gutters">
+        <!-- First Name -->
+        <div class="slds-col slds-size_1-of-1 slds-large-size_1-of-5">
+          <lightning-input
+            data-field-name="firstName"
+            label={firstNameLabel}
+            max-length="40"
+            message-when-pattern-mismatch={invalidNameMsg}
+            name="firstName"
+            onblur={handleInputBlur}
+            onchange={handleInputChange}
+            onkeyup={handleInputKeyUp}
+            pattern={nameInputRegex}
+            placeholder={firstNameLabel}
+            type="text"
+            value={firstName}
+          ></lightning-input>
+        </div>
+
+        <!-- Last Name -->
+        <div class="slds-col slds-size_1-of-1 slds-large-size_1-of-5">
+          <lightning-input
+            data-field-name="lastName"
+            label={lastNameLabel}
+            max-length="80"
+            message-when-pattern-mismatch={invalidNameMsg}
+            name="lastName"
+            onblur={handleInputBlur}
+            onchange={handleInputChange}
+            onkeyup={handleInputKeyUp}
+            pattern={nameInputRegex}
+            placeholder={lastNameLabel}
+            type="text"
+            value={lastName}
+          ></lightning-input>
+        </div>
+
+        <!-- Phone Number -->
+        <div class="slds-col slds-size_1-of-1 slds-large-size_1-of-5">
+          <lightning-input
+            data-field-name="phoneNumber"
+            disabled={ignorePhoneNumber}
+            label={phoneNumberLabel}
+            max-length="40"
+            message-when-pattern-mismatch={invalidPhoneNumberMsg}
+            name="phoneNumber"
+            onblur={handleInputBlur}
+            onchange={handleInputChange}
+            onkeyup={handleInputKeyUp}
+            pattern={phoneInputRegex}
+            placeholder={phoneNumberLabel}
+            type="tel"
+            value={phoneNumber}
+          ></lightning-input>
+        </div>
+
+        <!-- Email Address -->
+        <div class="slds-col slds-size_1-of-1 slds-large-size_2-of-5">
+          <lightning-input
+            data-field-name="emailAddress"
+            disabled={ignoreEmailAddress}
+            label={emailAddressLabel}
+            max-length="80"
+            message-when-pattern-mismatch={invalidEmailAddressMsg}
+            name="emailAddress"
+            onblur={handleInputBlur}
+            onchange={handleInputChange}
+            onkeyup={handleInputKeyUp}
+            pattern={emailInputRegex}
+            placeholder={emailAddressLabel}
+            type="email"
+            value={emailAddress}
+          ></lightning-input>
+        </div>
+      </div>
+
+      <!-- Buttons -->
+      <div class="slds-var-m-top_small">
+        <!-- The class 'slds-grid_reverse' is used to change the visual order of the buttons, but retain tab-index order. -->
+        <div class="slds-grid slds-gutters slds-grid_reverse">
+          <div class="slds-col slds-grow-none">
+            <lightning-button
+              label={searchButtonLabel}
+              onclick={handleSearchBtnClick}
+              variant="brand"
+            ></lightning-button>
+          </div>
+          <div class="slds-col slds-grow-none">
+            <lightning-button
+              label={clearButtonLabel}
+              onclick={handleClearBtnClick}
+              variant="brand-outline"
+            ></lightning-button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </lightning-card>
+</template>
