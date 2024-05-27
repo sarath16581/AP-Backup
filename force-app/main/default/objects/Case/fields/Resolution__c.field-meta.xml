@@ -843,6 +843,56 @@
                 <default>false</default>
                 <label>Customer requires agreed period to find another carrier</label>
             </value>
+            <value>
+                <fullName>Information provided</fullName>
+                <default>false</default>
+                <label>Information provided</label>
+            </value>
+            <value>
+                <fullName>Application processed</fullName>
+                <default>false</default>
+                <label>Application processed</label>
+            </value>
+            <value>
+                <fullName>Request completed</fullName>
+                <default>false</default>
+                <label>Request completed</label>
+            </value>
+            <value>
+                <fullName>Referred to credit</fullName>
+                <default>false</default>
+                <label>Referred to credit</label>
+            </value>
+            <value>
+                <fullName>Referred to product</fullName>
+                <default>false</default>
+                <label>Referred to product</label>
+            </value>
+            <value>
+                <fullName>No action</fullName>
+                <default>false</default>
+                <label>No action</label>
+            </value>
+            <value>
+                <fullName>Invalid</fullName>
+                <default>false</default>
+                <label>Invalid</label>
+            </value>
+            <value>
+                <fullName>Duplicate</fullName>
+                <default>false</default>
+                <label>Duplicate</label>
+            </value>
+            <value>
+                <fullName>No response</fullName>
+                <default>false</default>
+                <label>No response</label>
+            </value>
+            <value>
+                <fullName>Delayed closure system issue</fullName>
+                <default>false</default>
+                <label>Delayed closure system issue</label>
+            </value>
         </valueSetDefinition>
     </valueSet>
 </CustomField>

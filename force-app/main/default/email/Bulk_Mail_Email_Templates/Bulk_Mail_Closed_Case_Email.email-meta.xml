@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Bulk Mail - Email on closed case</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>Bulk Mail - Closed Case Email</name>
+    <style>none</style>
+    <subject>We’ve closed your case - {!Case.CaseNumber}</subject>
+    <textOnly>Customer Onboarding
+
+Hi,
+
+We&apos;ve closed your enquiry - case reference number {!Case.CaseNumber}.
+
+If you have any additional questions or concerns, please send us a new email.
+
+Regards,
+
+Customer Onboarding
+Australia Post
+[{!Case.Thread_Id}]
+
+This email was sent by Australia Post. Australia Post does not represent, warrant or guarantee that the integrity of this email communication has been maintained nor that the communication is free of errors, viruses or interference.
+Terms &amp; conditions  |  Privacy policy</textOnly>
+    <type>custom</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

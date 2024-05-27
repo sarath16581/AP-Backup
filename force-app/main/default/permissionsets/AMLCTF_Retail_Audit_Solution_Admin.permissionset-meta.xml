@@ -179,10 +179,6 @@
         <apexPage>AMLCTFViewActionStatement</apexPage>
         <enabled>true</enabled>
     </pageAccesses>
-    <recordTypeVisibilities>
-        <recordType>Case.AMLCTF_Please_Explain_Audit</recordType>
-        <visible>true</visible>
-    </recordTypeVisibilities>
     <tabSettings>
         <tab>AMLCTF_Audit_Template__c</tab>
         <visibility>Visible</visibility>

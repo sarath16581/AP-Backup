@@ -3,10 +3,10 @@
     <fullName>Ret11__c</fullName>
     <description>Retained Revenue forecast for November</description>
     <externalId>false</externalId>
-    <formula>For11__c *  TotalRetained__c</formula>
+    <formula>For11__c *  OpportunityProduct__r.TotalRetained__c</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <inlineHelpText>Retained Revenue forecast for November</inlineHelpText>
-    <label>November Retained</label>
+    <label>November Expected Retained Value</label>
     <precision>18</precision>
     <required>false</required>
     <scale>2</scale>

@@ -153,13 +153,13 @@
     <enableSharing>true</enableSharing>
     <enableStreamingApi>true</enableStreamingApi>
     <externalSharingModel>Private</externalSharingModel>
-    <label>Grouped Revenue Schedule</label>
+    <label>Expected Revenue</label>
     <nameField>
-        <displayFormat>GRS-{0000000000}</displayFormat>
-        <label>Grouped Revenue Schedule Name</label>
+        <displayFormat>ER-{0000000000}</displayFormat>
+        <label>Expected Revenue Name</label>
         <type>AutoNumber</type>
     </nameField>
-    <pluralLabel>Grouped Revenue Schedules</pluralLabel>
+    <pluralLabel>Expected Revenues</pluralLabel>
     <searchLayouts></searchLayouts>
     <sharingModel>ReadWrite</sharingModel>
     <visibility>Public</visibility>

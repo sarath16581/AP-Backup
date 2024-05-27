@@ -4,7 +4,7 @@
     <protected>false</protected>
     <values>
         <field>Dispersion__c</field>
-        <value xsi:type="xsd:double">5.8</value>
+        <value xsi:type="xsd:double">5.66</value>
     </values>
     <values>
         <field>Product_Code__c</field>

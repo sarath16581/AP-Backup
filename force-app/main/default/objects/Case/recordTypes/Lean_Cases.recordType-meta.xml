@@ -3,7 +3,7 @@
     <fullName>Lean_Cases</fullName>
     <active>false</active>
     <businessProcess>Lean Cases</businessProcess>
-    <description>REQ3448199 - RT no longer is use Manage lean cases</description>
+    <description>REQ3448199  RT no longer in use - Manage lean cases</description>
     <label>(Deprecated) Lean Cases</label>
     <picklistValues>
         <picklist>APT_Payment_Terms__c</picklist>

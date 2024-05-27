@@ -3,10 +3,10 @@
     <fullName>Inc4__c</fullName>
     <description>Incremental Sales forecast for April</description>
     <externalId>false</externalId>
-    <formula>For4__c *  TotalIncremental__c</formula>
+    <formula>For4__c *  OpportunityProduct__r.TotalIncremental__c</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <inlineHelpText>Incremental Sales forecast for April</inlineHelpText>
-    <label>April Incremental</label>
+    <label>April Expected Incremental Value</label>
     <precision>18</precision>
     <required>false</required>
     <scale>2</scale>

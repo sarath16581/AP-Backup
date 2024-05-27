@@ -1,6 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomLabels xmlns="http://soap.sforce.com/2006/04/metadata">
     <labels>
+        <fullName>ABNChangeNotificationError</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Error Message on ABN Change on Organisation Record with Active License</shortDescription>
+        <value>You cannot change the ABN on an organisation with an active licence. Please create a new licence instead.</value>
+    </labels>
+    <labels>
         <fullName>APPROVAL_STATUS_PENDING</fullName>
         <language>en_US</language>
         <protected>false</protected>
@@ -6879,14 +6886,6 @@ We manage your personal information in accordance with our Privacy policy. The p
         <value>Enterprise_Credit_Dispute_Claim</value>
     </labels>
     <labels>
-        <fullName>REC_TYPE_DEV_EG_Sales</fullName>
-        <categories>Record Type Name</categories>
-        <language>en_US</language>
-        <protected>false</protected>
-        <shortDescription>Record Type Developer Name of E&amp;G Sales Implementation</shortDescription>
-        <value>Sales_Implementation_Case</value>
-    </labels>
-    <labels>
         <fullName>REC_TYPE_DEV_KEYWORD_SSSW</fullName>
         <categories>Record Type Name</categories>
         <language>en_US</language>
@@ -6984,14 +6983,6 @@ We manage your personal information in accordance with our Privacy policy. The p
         <protected>false</protected>
         <shortDescription>Record Type Developer Name of Service Delivery</shortDescription>
         <value>Sales_Ops_Delivery</value>
-    </labels>
-    <labels>
-        <fullName>REC_TYPE_DEV_Shipster</fullName>
-        <categories>Record Type Name</categories>
-        <language>en_US</language>
-        <protected>false</protected>
-        <shortDescription>Record Type Developer Name of Shipster</shortDescription>
-        <value>Shipster</value>
     </labels>
     <labels>
         <fullName>REC_TYPE_DEV_SpecialServices</fullName>
@@ -9074,5 +9065,13 @@ We&apos;ll let you if it&apos;s successful. Thank you. Please do not reply.</val
         <protected>false</protected>
         <shortDescription>Send for eSignature Custom Message</shortDescription>
         <value>Once the agreement is signed by Australia Post and the Customer, you will receive an email confirmation and the Customer Onboarding team will be notified to provision the rates, and activate the contract.</value>
+    </labels>
+    <labels>
+        <fullName>REC_TYPE_DEV_BULK_MAIL</fullName>
+        <categories>Record Type Name</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Record Type Developer Name of Bulk Mail</shortDescription>
+        <value>Bulk_Mail_Onboarding</value>
     </labels>
 </CustomLabels>

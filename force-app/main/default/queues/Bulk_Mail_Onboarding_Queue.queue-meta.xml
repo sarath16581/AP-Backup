@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Queue xmlns="http://soap.sforce.com/2006/04/metadata">
+    <doesSendEmailToMembers>false</doesSendEmailToMembers>
+    <name>Bulk Mail Onboarding Queue</name>
+    <queueMembers>
+        <users>
+            <user>amy.lewis@auspost.com.au</user>
+            <user>ben.richards@auspost.com.au</user>
+            <user>cornelia.nowak@auspost.com.au</user>
+            <user>emma.callow@auspost.com.au</user>
+            <user>fotios.tomaropoulos@auspost.com.au</user>
+            <user>john.hanania@auspost.com.au.ap</user>
+            <user>katrina.cosgrove@auspost.com.au</user>
+            <user>lisa.freer@auspost.com.au</user>
+            <user>lynn.zhang@auspost.com.au</user>
+            <user>sarita.shah@auspost.com.au</user>
+            <user>sharon.lefevre@auspost.com.au</user>
+        </users>
+    </queueMembers>
+    <queueSobject>
+        <sobjectType>Case</sobjectType>
+    </queueSobject>
+</Queue>

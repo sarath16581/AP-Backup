@@ -6,7 +6,7 @@
     <inlineHelpText>The annual value of the opportunity calculated as a sum of the annual value of each product attached to the opportunity</inlineHelpText>
     <label>Opportunity Annualised Value</label>
     <securityClassification>INTERNAL</securityClassification>
-    <summarizedField>OpportunityLineItem.Hidden_Annualised_Value__c</summarizedField>
+    <summarizedField>OpportunityLineItem.Annualised_Value__c</summarizedField>
     <summaryForeignKey>OpportunityLineItem.OpportunityId</summaryForeignKey>
     <summaryOperation>sum</summaryOperation>
     <trackHistory>false</trackHistory>

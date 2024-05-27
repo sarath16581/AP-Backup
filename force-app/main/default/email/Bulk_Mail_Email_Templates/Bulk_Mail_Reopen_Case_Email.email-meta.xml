@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Bulk Mail - Email on reopen closed case</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>Bulk Mail - Reopen Case Email</name>
+    <style>none</style>
+    <subject>You have sent an email to a closed case - {!Case.CaseNumber}</subject>
+    <textOnly>Customer Onboarding 
+
+Hi,
+
+Thanks for your email. You have sent an email to a closed case.
+
+If the email you sent is related to your closed case, we will respond to you. In the future, if it is a new enquiry please send us a new email, and you will be provided with a new case number.
+		
+Thank you,
+
+Customer Onboarding		
+Australia Post
+[{!Case.Thread_Id}]
+
+This email was sent by Australia Post. Australia Post does not represent, warrant or guarantee that the integrity of this email communication has been maintained nor that the communication is free of errors, viruses or interference.
+Terms &amp; conditions  |  Privacy policy</textOnly>
+    <type>custom</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

@@ -1,6 +1,7 @@
 <!--
  ------------------------------------- History --------------------------------------------------
 09.09.2021    Swati Mogadala REQ2596608- Added the header "Remaining Bottles" under 'ContainsWine'
+01.06.2024    Jacob Isaac	 REQ3357026 - new question on wine/edamages form
 -->
 <template>
     <div class="slds-m-horizontal_large slds-p-horizontal_large">
@@ -99,7 +100,7 @@
                 <lightning-layout-item size="6" padding="horizontal-small">
                     <lightning-textarea required class="form-input"
                         field-level-help="If contents are wine, include brand, type and year. If damaged wine unknown, please provide a description of all remaining wines."
-                        placeholder="Important: Details entered here will be sent to the customer"
+                        placeholder="Important: Details entered here will be sent to the customer.&#10;Reminder: If contents are wine, include brand, type and year"
                         label="Details of product damage" name="damageDetails" value={values.damageDetails}
                         onchange={handleDetailsChange} max-length="1500">
                     </lightning-textarea>
@@ -196,7 +197,31 @@
                             </div>
                     </c-lwc-form-element>
                 </lightning-layout-item>
-
+				<!-- REQ3357026 - NEW QUESTION ADDED-->
+				<lightning-layout-item size="12" padding="around-small">
+					<c-lwc-form-element visibility-state={visibilities} name="sufficientPackage"
+					render-config={doesNotcontainWineRenderConfig}>
+					<lightning-radio-group 
+						required class="form-input" 
+						label="Was the article sufficiently packaged?"
+						value={values.sufficientPackage}
+						options={yesNoOptions}>
+					</lightning-radio-group>
+				</c-lwc-form-element>  
+				</lightning-layout-item>
+				<lightning-layout-item size="12" padding="horizontal-small">   
+				<c-lwc-form-element visibility-state={visibilities} name="sufficientPackageDetails"
+						render-config={notSufficientlyPackaged}>             
+				<lightning-textarea required class="form-input"
+					placeholder=""             
+					label="Provide details" 
+					name="sufficientPackageDetails" value={values.sufficientPackageDetails}
+					onchange={handleDetailsChange} max-length="1500">
+				</lightning-textarea>
+				<span>{sufficientlyPackagedDetailsLength} characters remaining</span>
+				</c-lwc-form-element>              
+				</lightning-layout-item>
+				<!-- REQ3357026 - END NEW QUESTION -->
                 <lightning-layout-item size="6" padding="horizontal-small">
                     <c-lwc-form-element visibility-state={visibilities} name="totalBottlesInCarton"
                         render-config={containsWineRenderConfig}>
@@ -220,7 +245,7 @@
                             <lightning-helptext content="Condition report of remaining bottles. DO NOT include the broken bottle(s)"></lightning-helptext>
                         </div>
                         <lightning-input required class="form-input" type="number" label="Number of tops damaged"
-                            value={values.noOfCapsDamaged} step="1" max="999" field-level-help="If no tops damaged on remaining bottles, please enter 0">
+						value={values.noOfCapsDamaged} step="1" max="999" field-level-help="If no tops damaged on remaining bottles, please enter 0" placeholder="Applies only to bottles not broken">
                         </lightning-input>
                     </c-lwc-form-element>
                 </lightning-layout-item>
@@ -228,7 +253,7 @@
                     <c-lwc-form-element visibility-state={visibilities} name="noOfLabelsDamaged"
                         render-config={containsWineRenderConfig}>
                         <lightning-input required class="form-input" type="number" label="Number of labels damaged"
-                            value={values.noOfLabelsDamaged} step="1" max="999" field-level-help="If no labels damaged on remaining bottles, please enter 0">   
+						value={values.noOfLabelsDamaged} step="1" max="999" field-level-help="If no labels damaged on remaining bottles, please enter 0" placeholder="Applies only to bottles not broken">   
                         </lightning-input>
                     </c-lwc-form-element>
                 </lightning-layout-item>
@@ -236,7 +261,7 @@
                     <c-lwc-form-element visibility-state={visibilities} name="isCartonAdequate" render-config={containsWineRenderConfig}>
                         <lightning-radio-group 
                             required class="form-input" 
-                            label="Carton adequate?" 
+                            label="Carton adequate? (Must be 3mm minimum)" 
                             value={values.isCartonAdequate}
                             options={yesNoOptions}>
                         </lightning-radio-group>
@@ -255,7 +280,7 @@
                     <c-lwc-form-element visibility-state={visibilities} name="isDividerAdequate" render-config={containsWineRenderConfig}>
                         <lightning-radio-group 
                             required class="form-input" 
-                            label="Inserts or dividers adequate?" 
+                            label="Inserts or dividers adequate? (Must be 3mm minimum)" 
                             value={values.isDividerAdequate}
                             options={yesNoOptions}>
                         </lightning-radio-group>

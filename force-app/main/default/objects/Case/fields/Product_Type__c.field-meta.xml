@@ -462,6 +462,26 @@
                 <default>false</default>
                 <label>Pallets - Startrack</label>
             </value>
+            <value>
+                <fullName>Print Post</fullName>
+                <default>false</default>
+                <label>Print Post</label>
+            </value>
+            <value>
+                <fullName>Reply Paid</fullName>
+                <default>false</default>
+                <label>Reply Paid</label>
+            </value>
+            <value>
+                <fullName>Charity Mail</fullName>
+                <default>false</default>
+                <label>Charity Mail</label>
+            </value>
+            <value>
+                <fullName>Registered Post / DLWT</fullName>
+                <default>false</default>
+                <label>Registered Post / DLWT</label>
+            </value>
         </valueSetDefinition>
     </valueSet>
 </CustomField>

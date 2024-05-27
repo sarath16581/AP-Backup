@@ -35,6 +35,7 @@ History
 22.02.2021  L. Serafico (Mav3rik)               Added updateAccountTeamForLPO to add/update Team to allow Accounts to be visible to LPO
 17.03.2023  Naveen Rajanna						Correct formatting error
 1/12/2023 Ken McGuire			OPC Replacement - update incremental and retained reveue for line items of reparented accounts - updateLIneItemRevenues
+03.05.2024  Swati Mogadala             			REQ3225476-Added deleteRReconDelete() to delete 'Customer Rev' and 'Rev by Billing account'records related to an Account on merge/delete 
 ------------------------------------------------------------**/
 public with sharing class AccountTriggerUtility {
     public  static final set<string> LICENCE_APPROVAL_STATUSES = LICENCE_APPROVAL_STATUSES__c.getAll().keySet();
