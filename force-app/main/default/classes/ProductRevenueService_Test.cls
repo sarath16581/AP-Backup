@@ -20,6 +20,7 @@ private class ProductRevenueService_Test {
 
         Opportunity oppRec = ApplicationTestDataFactory.getOpportunities(1, account.Id, true)[0];
         oppRec.AccountId = account.Id;
+		oppRec.DoNotUseAccountHierarchy__c = false;
         Product2 prod =  ApplicationTestDataFactory.getProducts(1,true)[0];
 
         Budget_and_Revenue__c budgrev = ApplicationTestDataFactory.getBudgetAndRevenue(1,account.Id,prod.Id,dateOfTest.year(),true)[0];
@@ -44,7 +45,7 @@ private class ProductRevenueService_Test {
 		oli1.Opportunity = oppRec;
         APR__c apr = new APR__c(Legal_Entity_Name_LookUp__c = account.Id,MHS_Confirmed_Rate__c=0.10);
 		ProductRevenueService serviceUnderTest = ProductRevenueService.newInstance();
-        serviceUnderTest.calculationDate = dateOfTest;
+        serviceUnderTest.revenueCalculationContextDate = dateOfTest;
 
 		GroupedAccountProductRevenue__c groupedRev2023 = new GroupedAccountProductRevenue__c( AnchorOrganisation__c = account.Id, PrimaryProduct__c = prod.Id,
 				FinancialYear__c = 2023, UID__c = ProductRevenueService.getUID(account.Id,prod.Id,'2023'), Id = fflib_IDGenerator.generate(GroupedAccountProductRevenue__c.getSObjectType()),
@@ -107,7 +108,7 @@ private class ProductRevenueService_Test {
         
 		ProductRevenueService serviceUnderTest = new ProductRevenueService();
 		Date dateOfTest = Date.newInstance(2024, 2, 28);
-		serviceUnderTest.calculationDate = dateOfTest;
+		serviceUnderTest.revenueCalculationContextDate = dateOfTest;
 
 		serviceUnderTest.groupedRevenues.put(groupedRev2023.UID__c,groupedRev2023);
 		serviceUnderTest.groupedRevenues.put(groupedRev2024.UID__c,groupedRev2024);

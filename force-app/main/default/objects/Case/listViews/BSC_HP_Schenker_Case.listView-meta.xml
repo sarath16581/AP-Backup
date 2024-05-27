@@ -17,7 +17,7 @@
         <operation>equals</operation>
         <value>0</value>
     </filters>
-    <label>BSC - HP (Schenker)</label>
+    <label>BSC - Spare 2</label>
     <language>en_US</language>
     <queue>BSC_HP_Schenker</queue>
     <sharedTo>

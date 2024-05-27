@@ -66,6 +66,7 @@ export default class APT_CheckoutLWC extends LightningElement {
 	renewRecordType = 'Renewal Quote';
 	renewRecordTypeId;
 	isCheckOutOnlyRequest = false;
+	syncProductsProcessMsg = "Please wait while the system processes your request. Once processing has completed, you will be redirected to Bulk Edit Products Screen. Please click 'OK' to continue.";
 
 	@api
 	get errorMsg() {
@@ -235,14 +236,11 @@ export default class APT_CheckoutLWC extends LightningElement {
 						this.navigateToUrl('/' + this.oppId);
 					}
 					else {
-					//STP-9640: redirect to OPC screen
-					let isManualContract = this.manualContract === true ? 'true': 'false';
-					let opportunityLineItemsURL = '/lightning/cmp/c__opcNavToBulkEdit?c__oppId='+this.oppId + '&c__proposalId='+this.proposalId + '&c__isST=' + this.isST + '&c__isManualContract=' + isManualContract + '&c__isAmend=' + this.isAmend + '&c__isRenew=' + this.isRenew;
-					this.navigateToUrl(opportunityLineItemsURL);
+						this.navigateToBulkEditScreen(true);
 				}
 				}
 				else {
-					this.docGenerationRequired();
+					this.docGenerationRequired(true);
 				}
 			})
 			.catch((error) => {
@@ -268,10 +266,7 @@ export default class APT_CheckoutLWC extends LightningElement {
 							this.navigateToUrl('/' + this.oppId);
 						}
 						else {
-						//STP-9640: redirect to OPC screen
-						let isManualContract = this.manualContract === true ? 'true': 'false';
-						let opportunityLineItemsURL = '/lightning/cmp/c__opcNavToBulkEdit?c__oppId='+this.oppId + '&c__proposalId='+this.proposalId + '&c__isST=' + this.isST + '&c__isManualContract=' + isManualContract + '&c__isAmend=' + this.isAmend + '&c__isRenew=' + this.isRenew;
-						this.navigateToUrl(opportunityLineItemsURL);
+							this.navigateToBulkEditScreen(true);
 					}
 					}
 				}, this.waitTime);
@@ -400,8 +395,7 @@ export default class APT_CheckoutLWC extends LightningElement {
 		initiateRateCardGeneration({ proposalId: this.proposalId })
 			.then((requestresult) => {
 				if(requestresult === true){
-					let opportunityLineItemsURL = '/lightning/cmp/c__opcNavToBulkEdit?c__oppId='+this.oppId + '&c__proposalId='+this.proposalId;
-					this.navigateToUrl(opportunityLineItemsURL);
+					this.navigateToBulkEditScreen(false);
 				}
 				else {
 					this.rateCardGenerationRequest();
@@ -411,5 +405,18 @@ export default class APT_CheckoutLWC extends LightningElement {
 				this.error = error;
 				this.isLoading = false;
 			});
+	}
+
+	/**
+	*function navigate to bulk edit screen
+	*/
+	navigateToBulkEditScreen(isContractFlow) {
+			let opportunityLineItemsURL = '/lightning/cmp/c__opcNavToBulkEdit?c__oppId='+this.oppId + '&c__proposalId='+this.proposalId;
+			if(isContractFlow) {
+				//STP-9640: redirect to OPC screen
+				let isManualContract = this.manualContract === true ? 'true': 'false';
+				opportunityLineItemsURL += '&c__isST=' + this.isST + '&c__isManualContract=' + isManualContract + '&c__isAmend=' + this.isAmend + '&c__isRenew=' + this.isRenew;
+			}
+			this.navigateToUrl(opportunityLineItemsURL);
 	}
 }

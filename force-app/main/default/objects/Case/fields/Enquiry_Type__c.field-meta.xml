@@ -59,6 +59,11 @@
                 <label>Booking</label>
             </value>
             <value>
+                <fullName>Bulk Mail</fullName>
+                <default>false</default>
+                <label>Bulk Mail</label>
+            </value>
+            <value>
                 <fullName>Business Feedback</fullName>
                 <default>false</default>
                 <label>Business Feedback</label>
@@ -102,6 +107,11 @@
                 <fullName>Check Address</fullName>
                 <default>false</default>
                 <label>Check Address</label>
+            </value>
+            <value>
+                <fullName>Checking Address - Incorrect Service</fullName>
+                <default>false</default>
+                <label>Checking Address - Incorrect Service</label>
             </value>
             <value>
                 <fullName>COD</fullName>
@@ -627,6 +637,11 @@
                 <fullName>Reports</fullName>
                 <default>false</default>
                 <label>Reports</label>
+            </value>
+            <value>
+                <fullName>Requesting RA Number</fullName>
+                <default>false</default>
+                <label>Requesting RA Number</label>
             </value>
             <value>
                 <fullName>Resign</fullName>
@@ -1232,6 +1247,10 @@
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Other</controllingFieldValue>
+            <valueName>Bulk Mail</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Other</controllingFieldValue>
             <valueName>General</valueName>
         </valueSettings>
         <valueSettings>
@@ -1484,7 +1503,15 @@
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Depot Created</controllingFieldValue>
+            <valueName>Checking Address - Incorrect Service</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Depot Created</controllingFieldValue>
             <valueName>Refused</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Depot Created</controllingFieldValue>
+            <valueName>Requesting RA Number</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Depot Created</controllingFieldValue>

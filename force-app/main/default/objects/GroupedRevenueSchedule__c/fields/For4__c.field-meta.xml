@@ -4,10 +4,10 @@
     <description>Sales Forecast for April</description>
     <externalId>false</externalId>
     <inlineHelpText>Sales Forecast for April</inlineHelpText>
-    <label>April Forecast</label>
+    <label>April Forecast Percentage</label>
     <precision>5</precision>
     <required>false</required>
-    <scale>1</scale>
+    <scale>2</scale>
     <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Percent</type>

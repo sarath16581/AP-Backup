@@ -148,7 +148,7 @@ public inherited sharing class TransportEnquiryEmailMessagesModule extends Appli
 				wcisToNetworkIdMap = getWCISCodeToNetworkIdMap(networkOrgs);
 				//get the email to case address from the email message
 				for (EmailMessage em : emailsToProcess.values()) {
-					emailIdToCaseEmailValueMap.put(em.Id, getEmailToCaseAddressFromHeader(em));
+					emailIdToCaseEmailValueMap.put(em.Id, EmailMessageUtil.getEmailToCaseAddressFromHeader(em, emailToCaseMappingMap));
 				}
 	
 				// Remove all messages that don't have a matching Email to case address
@@ -169,51 +169,6 @@ public inherited sharing class TransportEnquiryEmailMessagesModule extends Appli
 			//update cases
 			uow.registerDirty(casesToUpdate, true, TransportEnquiryEmailMessagesModule.class.getName());
 		}
-	}
-
-	/**
-	 * This method returns the email to case address from the EmailMessage which is configured in custom metadata. Loops through the header list and search for X-MS-Exchange-ForwardingLoop or X-MS-Exchange-Inbox-Rules-Loop header.
-	 * @param mail emailMessage record
-	 *
-	 * @return EmailAddress that matches to the EmailToCaseMapping custom metadata
-	 */
-	private String getEmailToCaseAddressFromHeader(EmailMessage mail) {
-		String emailAddress;
-		Map<String, List<String>> headerToEmailsMap = new Map<String, List<String>>();
-		
-		// Loop through the email headers and get the emails mapped to X-MS-Exchange-ForwardingLoop and X-MS-Exchange-Inbox-Rules-Loop header.
-		// If an email is sent (either To, Cc or Bcc) to any of the configured email to case address in our metadata, it will be captured in X-MS-Exchange-ForwardingLoop (or) X-MS-Exchange-Inbox-Rules-Loop header.
-
-		// All header lines are separated with \n
-		for (String headerLine : mail.Headers.split('\n')) {
-			// Split headerLine on first colon in two pieces
-			List<String> segments = headerLine.split(':', 2);
-			//check if there is header key and value and header key exists in our emailHeaders to track
-			if (segments.size() > 1 && emailHeaders.contains(segments[0]) && String.isNotBlank(segments[1])) {
-				//get the correct email address by matching regex
-				String fullMatchEmail = TransportEnquiryCaseService.getInstance().getEmailFullMatch(segments[1].trim());
-				if(String.isNotBlank(fullMatchEmail)) {
-					if(headerToEmailsMap.get(segments[0]) == null) {
-						headerToEmailsMap.put(segments[0], new List<String>());
-					} 
-					headerToEmailsMap.get(segments[0]).add(fullMatchEmail);
-				}
-			}
-		}
-
-		//Loop through the emailHeaders and get the first matching email from the configured metadata
-		for (String header : emailHeaders) {
-			if (String.isBlank(emailAddress) && headerToEmailsMap.size() > 0 && headerToEmailsMap.containsKey(header)) {
-				for (String email : headerToEmailsMap.get(header)) {
-					if (emailToCaseMappingMap.containsKey(email.toLowerCase())) {
-						emailAddress = email.toLowerCase();
-						break;
-					}
-				}
-			}
-		}
-
-		return emailAddress;
 	}
 
 	/**

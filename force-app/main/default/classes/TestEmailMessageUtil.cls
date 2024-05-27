@@ -3,6 +3,7 @@ Description:    Test Class for EmailMessageUtil
 History:
 --------------------------------------------------
 // 2023-02-09  Swati.mogadala@auspost.com.au -REQ3045758 - Updated testStarTrackDuplicateInboundEmail()
+// 2024-05-16  Boris Bachovski - Added test methods for Email to Case pattern matcher. 
 **************************************************/
 
 @isTest
@@ -156,4 +157,44 @@ private class TestEmailMessageUtil {
 //            System.assertEquals(StarTrack_Constants.CASE_PURPOSE_DEF, newCase.Call_Purpose__c);
         }
     }
+
+
+	/**
+	 * Scenario: Test to ensure the whole pattern match for email is returned from the string
+	 */
+	@IsTest
+	static void testGetEmailFullMatch() {
+		// =====================================
+		// Data Preparation
+		// =====================================
+		String email1 = 'transportenquiry@auspost.com.au;5195231b-cd74-45a4-b576-9bc88ae35b48';
+		String email2 = 'transportenquiry@auspost.com.au$5bsdfgedg ewrewt ewrtw4etert';
+		String email3 = '$retert%transportenquiry@auspost.com.au$5bsdfgedg ewrewt ewrtw4etert';
+		String email4 = '$retert%transportenquiryauspost.com.au$5bsdfgedg ewrewt ewrtw4etert';
+		String result = 'transportenquiry@auspost.com.au';
+
+		// =====================================
+		// Stubbing
+		// =====================================
+		// None!
+
+		// =====================================
+		// Testing
+		// =====================================
+		Test.startTest();
+
+		// make sure the email has been returned
+		Assert.areEqual(result, EmailMessageUtil.getEmailFullMatch(email1), 'Expected valid email to be returned');
+		Assert.areEqual(result, EmailMessageUtil.getEmailFullMatch(email2), 'Expected valid email to be returned');
+		Assert.areEqual(result, EmailMessageUtil.getEmailFullMatch(email3), 'Expected valid email to be returned');
+		Assert.areNotEqual(result, EmailMessageUtil.getEmailFullMatch(email4), 'Expected no email to be returned');
+		Assert.areEqual(null, EmailMessageUtil.getEmailFullMatch(null), 'Expected no email to be returned');
+		Assert.areEqual(null, EmailMessageUtil.getEmailFullMatch('12132445'), 'Expected no email to be returned');
+		Assert.areEqual(null, EmailMessageUtil.getEmailFullMatch('1213$auspost.com2445'), 'Expected no email to be returned');
+		Assert.areEqual(null, EmailMessageUtil.getEmailFullMatch(''), 'Expected no email to be returned');
+		Assert.areEqual(null, EmailMessageUtil.getEmailFullMatch(' '), 'Expected no email to be returned');
+		Assert.areEqual(null, EmailMessageUtil.getEmailFullMatch('$retert%transportenquiry$123'), 'Expected no email to be returned');
+
+		Test.stopTest();
+	}
 }
