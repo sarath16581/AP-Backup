@@ -161,4 +161,35 @@ describe("c-customer-search-form-inputs", () => {
     expect(handler.mock.calls[0][0].detail.fieldName).toEqual("firstName");
     expect(handler.mock.calls[0][0].detail.value).toEqual("Joan");
   });
+
+  it("allows pre-populating input field values", () => {
+    // Arrange
+    const element = createElement("c-customer-search-form-inputs", {
+      is: CustomerSearchFormInputs,
+    });
+    element.firstName = "Joan";
+    element.lastName = "Watson";
+    element.emailAddress = "jwatson@holmes-investigations.com";
+    element.phoneNumber = "0401234567";
+
+    // Act
+    document.body.appendChild(element);
+
+    // Assert
+    const firstNameInput = getInputField(element, "firstName");
+    expect(firstNameInput).not.toBeNull();
+    expect(firstNameInput.value).toBe("Joan");
+
+    const lastNameInput = getInputField(element, "lastName");
+    expect(lastNameInput).not.toBeNull();
+    expect(lastNameInput.value).toBe("Watson");
+
+    const emailAddressInput = getInputField(element, "emailAddress");
+    expect(emailAddressInput).not.toBeNull();
+    expect(emailAddressInput.value).toBe("jwatson@holmes-investigations.com");
+
+    const phoneNumberInput = getInputField(element, "phoneNumber");
+    expect(phoneNumberInput).not.toBeNull();
+    expect(phoneNumberInput.value).toBe("0401234567");
+  });
 });

@@ -1,4 +1,4 @@
-import { LightningElement } from "lwc";
+import { LightningElement, api } from "lwc";
 
 // Lightning card title
 export const SEARCH_FORM_TITLE = "Customer Search";
@@ -29,11 +29,55 @@ export const INVALID_EMAIL_ADDRESS_MSG = "Invalid email address format";
  * @hideconstructor
  */
 export default class CustomerSearchFormInputs extends LightningElement {
-  // Input field values
-  firstName = "";
-  lastName = "";
-  phoneNumber = "";
-  emailAddress = "";
+  /**
+   * The value of the 'First Name' field on the form
+   * @type {string}
+   */
+  @api get firstName() {
+    return this._firstName;
+  }
+  set firstName(value) {
+    this._firstName = value;
+  }
+
+  /**
+   * The value of the 'Last Name' field on the form
+   * @type {string}
+   */
+  @api get lastName() {
+    return this._lastName;
+  }
+  set lastName(value) {
+    this._lastName = value;
+  }
+
+  /**
+   * The value of the 'Phone Number' field on the form
+   * @type {string}
+   */
+  @api get phoneNumber() {
+    return this._phoneNumber;
+  }
+  set phoneNumber(value) {
+    this._phoneNumber = value;
+  }
+
+  /**
+   * The value of the 'Email Address' field on the form
+   * @type {string}
+   */
+  @api get emailAddress() {
+    return this._emailAddress;
+  }
+  set emailAddress(value) {
+    this._emailAddress = value;
+  }
+
+  // Private variables for input fields, used with public getters/setters
+  _firstName = "";
+  _lastName = "";
+  _phoneNumber = "";
+  _emailAddress = "";
 
   // Lightning card title
   searchFormTitle = SEARCH_FORM_TITLE;
@@ -92,8 +136,8 @@ export default class CustomerSearchFormInputs extends LightningElement {
    */
   handleInputChange(event) {
     const { fieldName } = event.target.dataset;
-	const fieldValue = event.target.value;
-	
+    const fieldValue = event.target.value;
+
     // store the field value based on the `name` attribute
     this[fieldName] = fieldValue;
 
