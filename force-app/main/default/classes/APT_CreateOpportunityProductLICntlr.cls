@@ -229,6 +229,8 @@ public class APT_CreateOpportunityProductLICntlr implements Queueable {
                             if (APT_Constants.CLASSIFICATION_GROWTH.equalsIgnoreCase(op.APT_Classification__c)) {
                                 op.APT_Change_Classification__c = APT_Constants.OPTION_YES;       // rewritten as Yes if Classification is Growth?
                             }      
+                            //Added the APT_Product__c (lookup) check to handle null specific exception for complex Bundles Product's defination based on Charge Type
+                            if(!String.isBlank(oP.APT_Product__c)) {
                             idSet.add(op.APT_Quote_Proposal__c);
                             // Adding to the list of APT_Opportunity_Product_Line_Item__c to be Inserted.
                             lstEntries.add(op);
@@ -236,6 +238,15 @@ public class APT_CreateOpportunityProductLICntlr implements Queueable {
                         }
                     }
                 }
+                }
+
+                /*
+                Once the shopping cart is finalised, the Opportunity Products Sync process is initiated.
+                Given the shopping cart has a lookup to the Quote/Proposal, during this process the Proposal record is locked.
+                At the same time, as part of the sync process, we're updating APT_Opportunity_Product_Line_Item__c records which also have a lookup to the Proposal.
+                This can sometimes cause a record lock exception. To handle this, we've added a 'FOR UPDATE' clause to the SOQL query which can cause a delay of up to 10 seconds if the Proposal record is in use.
+                */
+                List<Apttus_Proposal__Proposal__c> activeProposal = [Select Id from Apttus_Proposal__Proposal__c where Apttus_Proposal__Primary__c = true and Id =: quoteIdSet FOR UPDATE ];
             
                 // Inserting the APT_Opportunity_Product_Line_Item__c Records 
                 system.debug('**** Size of the List ****'+lstEntries.size());

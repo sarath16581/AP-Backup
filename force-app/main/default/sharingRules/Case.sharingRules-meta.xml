@@ -246,20 +246,6 @@
         <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
-        <fullName>LCM_Read_write_access</fullName>
-        <accessLevel>Edit</accessLevel>
-        <label>LCM Read &amp; write access</label>
-        <sharedTo>
-            <role>Lodgement_Customer_Migration</role>
-        </sharedTo>
-        <criteriaItems>
-            <field>RecordTypeId</field>
-            <operation>equals</operation>
-            <value>Lodgement Customer Migrations</value>
-        </criteriaItems>
-        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
-    </sharingCriteriaRules>
-    <sharingCriteriaRules>
         <fullName>Late_Payment_Charges</fullName>
         <accessLevel>Edit</accessLevel>
         <label>Late Payment Charges</label>
@@ -368,21 +354,6 @@
             <field>RecordTypeId</field>
             <operation>equals</operation>
             <value>SSSW Service,SSSW Fax,NCCC Direct Email,SSSW Delivery,SSSW General Enquiry,Social Record Type</value>
-        </criteriaItems>
-        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
-    </sharingCriteriaRules>
-    <sharingCriteriaRules>
-        <fullName>Sales_Implementation_Case</fullName>
-        <accessLevel>Read</accessLevel>
-        <description>Sharing case between Sales Implementation member</description>
-        <label>Sales Implementation Case</label>
-        <sharedTo>
-            <group>Sales_Implementation</group>
-        </sharedTo>
-        <criteriaItems>
-            <field>RecordTypeId</field>
-            <operation>equals</operation>
-            <value>E&amp;G Sales Implementation</value>
         </criteriaItems>
         <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
@@ -501,20 +472,6 @@
             <field>RecordTypeId</field>
             <operation>equals</operation>
             <value>Business Systems Integration</value>
-        </criteriaItems>
-        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
-    </sharingCriteriaRules>
-    <sharingCriteriaRules>
-        <fullName>Shipster_Read_write_access</fullName>
-        <accessLevel>Edit</accessLevel>
-        <label>Shipster Read &amp; write access</label>
-        <sharedTo>
-            <group>Shipster</group>
-        </sharedTo>
-        <criteriaItems>
-            <field>RecordTypeId</field>
-            <operation>equals</operation>
-            <value>Shipster</value>
         </criteriaItems>
         <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
     </sharingCriteriaRules>

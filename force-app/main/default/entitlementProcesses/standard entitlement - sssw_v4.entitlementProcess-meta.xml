@@ -262,6 +262,18 @@
         <minutesCustomClass>CalculateMilestoneTime</minutesCustomClass>
         <timeTriggers>
             <actions>
+                <name>Clear_Last_Incoming_Email_Value</name>
+                <type>FieldUpdate</type>
+            </actions>
+            <actions>
+                <name>SSSW_SetPermanentClose</name>
+                <type>FieldUpdate</type>
+            </actions>
+            <timeLength>3</timeLength>
+            <workflowTimeTriggerUnit>Days</workflowTimeTriggerUnit>
+        </timeTriggers>
+        <timeTriggers>
+            <actions>
                 <name>SSSW_Case_Milestone_Violation_to_TRUE</name>
                 <type>FieldUpdate</type>
             </actions>
@@ -291,18 +303,6 @@
             </actions>
             <timeLength>2</timeLength>
             <workflowTimeTriggerUnit>Minutes</workflowTimeTriggerUnit>
-        </timeTriggers>
-        <timeTriggers>
-            <actions>
-                <name>Clear_Last_Incoming_Email_Value</name>
-                <type>FieldUpdate</type>
-            </actions>
-            <actions>
-                <name>SSSW_SetPermanentClose</name>
-                <type>FieldUpdate</type>
-            </actions>
-            <timeLength>3</timeLength>
-            <workflowTimeTriggerUnit>Days</workflowTimeTriggerUnit>
         </timeTriggers>
         <useCriteriaStartTime>true</useCriteriaStartTime>
     </milestones>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>BankAccountName__c</fullName>
+    <description>Customer bank account name for EFT payments.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Customer bank account name for EFT payments.</inlineHelpText>
+    <label>Bank Account Name</label>
+    <length>255</length>
+    <required>false</required>
+    <securityClassification>OFFICIAL_SENSITIVE_PERSONAL</securityClassification>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

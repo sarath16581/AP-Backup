@@ -3,10 +3,10 @@
     <fullName>Ret6__c</fullName>
     <description>Retained Revenue forecast for June</description>
     <externalId>false</externalId>
-    <formula>For6__c *  OpportunityProduct__r.RetainedRevenue__c</formula>
+    <formula>For6__c * OpportunityProduct__r.TotalRetained__c</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <inlineHelpText>Retained Revenue forecast for June</inlineHelpText>
-    <label>June Retained</label>
+    <label>June Expected Retained Value</label>
     <precision>18</precision>
     <required>false</required>
     <scale>2</scale>

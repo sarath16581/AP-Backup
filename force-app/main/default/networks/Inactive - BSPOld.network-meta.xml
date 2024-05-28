@@ -32,6 +32,7 @@
     <forgotPasswordTemplate>CCU_Email_Templates/CommunitiesChangedPasswordEmailUpdated</forgotPasswordTemplate>
     <gatherCustomerSentimentData>false</gatherCustomerSentimentData>
     <headlessForgotPasswordTemplate>unfiled$public/CommunityHeadlessForgotPasswordTemplate</headlessForgotPasswordTemplate>
+    <headlessRegistrationTemplate>unfiled$public/CommunityHeadlessRegistrationTemplate</headlessRegistrationTemplate>
     <networkMemberGroups>
         <permissionSet>BSP_Community_Access</permissionSet>
         <profile>bsp community user</profile>

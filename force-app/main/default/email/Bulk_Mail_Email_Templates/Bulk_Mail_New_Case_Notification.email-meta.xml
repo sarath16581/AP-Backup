@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Bulk Mail - Used to notify the Customer when the Case has been created.</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>Bulk Mail - New Case Notification</name>
+    <style>none</style>
+    <subject>We’re looking into your enquiry - {!Case.CaseNumber}</subject>
+    <textOnly>Customer Onboarding
+
+Thank you for contacting Australia Post. We have received your request and will respond to your enquiry within 3 business days. 
+
+Subject: {!Case.Subject}
+
+You case number is: {!Case.CaseNumber}.
+
+For further information, application forms, service guides and pricing about our bulk mail services please visit our website https://auspost.com.au/business/shipping/letters-domestic/large-volume/bulk-mail. 
+
+Do not reply to this email, as it is not being monitored.
+
+  
+Regards, 
+Customer Onboarding 
+Australia Post
+{!Case.Thread_Id}
+
+This email was sent by Australia Post. Australia Post does not represent, warrant or guarantee that the integrity of this email communication has been maintained nor that the 							communication is free of errors, viruses or interference.
+Terms &amp; conditions  |  Privacy policy</textOnly>
+    <type>custom</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

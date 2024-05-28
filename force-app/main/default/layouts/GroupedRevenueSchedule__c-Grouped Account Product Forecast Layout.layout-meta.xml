@@ -23,6 +23,10 @@
                 <behavior>Readonly</behavior>
                 <field>ProductName__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>Classification__c</field>
+            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>
@@ -32,6 +36,14 @@
             <layoutItems>
                 <behavior>Edit</behavior>
                 <field>GroupedAccountProductRevenue__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>RevenueStartDate__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>RevenueEndDate__c</field>
             </layoutItems>
         </layoutColumns>
         <style>TwoColumnsTopToBottom</style>

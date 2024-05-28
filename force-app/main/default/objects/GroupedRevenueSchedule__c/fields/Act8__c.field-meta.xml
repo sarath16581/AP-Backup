@@ -6,7 +6,7 @@
     <formula>GroupedAccountProductRevenue__r.Rev8__c</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <inlineHelpText>Actual sales figure for August.</inlineHelpText>
-    <label>August Actual</label>
+    <label>August Revenue</label>
     <precision>18</precision>
     <required>false</required>
     <scale>2</scale>

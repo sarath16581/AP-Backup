@@ -8,7 +8,7 @@
     <inlineHelpText>Billing Account where the contract rates are held in TEAM</inlineHelpText>
     <label>Leader Account</label>
     <referenceTo>Billing_Account__c</referenceTo>
-    <relationshipLabel>Sub Accounts (Followers)</relationshipLabel>
+    <relationshipLabel>Sub Accounts (Followers and Offsprings)</relationshipLabel>
     <relationshipName>FollowerOffspringAccounts</relationshipName>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>

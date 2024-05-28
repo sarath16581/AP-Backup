@@ -13,8 +13,4 @@
         <object>Case</object>
         <viewAllRecords>true</viewAllRecords>
     </objectPermissions>
-    <recordTypeVisibilities>
-        <recordType>Case.Lean_Cases</recordType>
-        <visible>true</visible>
-    </recordTypeVisibilities>
 </PermissionSet>

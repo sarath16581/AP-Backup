@@ -18,6 +18,7 @@ public with sharing class ProductRevenueService {
     private static final Double MONTHS_IN_YEAR = 12;
     @TestVisible private static final String CLASSIFICATION_NEW_BUSINESS = 'New Business';
     @TestVisible private static final String CLASSIFICATION_RENEWAL = 'Renewal';
+    @TestVisible private static final String CLASSIFICATION_GROWTH = 'Growth';
     @TestVisible private static final String CLASSIFICATION_WIN_BACK = 'Win Back';
     @TestVisible private static final String CLASSIFICATION_CROSS_SELL = 'Cross Sell';
     // ***** PRIVATE PROPERTIES ******* //
@@ -77,21 +78,19 @@ public with sharing class ProductRevenueService {
         set;
     }
 
-    // The date from which to base all revenue calculations. This will be todays date except for testing.
-    @testVisible
-    private date calculationDate {
+    /**
+     * @description The date from which to base all revenue calculations. This will be today's date except for testing.
+     */
+    @TestVisible
+    private Date revenueCalculationContextDate {
         get {
-            if (calculationDate == null) {
-                calculationDate = system.today();
+            if (revenueCalculationContextDate == null) {
+                revenueCalculationContextDate = System.today();
             }
-            return calculationDate;
+            return revenueCalculationContextDate;
         }
         set;
     }
-
-    // ***** PUBLIC STATIC METHODS ******* //
-
-
 
     // Constructs a UID for Grouped Revenue Records based on account, product and financial year of the record.
     public static String getUID(GroupedAccountProductRevenue__c groupedRevenue) {
@@ -163,10 +162,11 @@ public with sharing class ProductRevenueService {
         List<OpportunityLineItem> updatedItems = new List<OpportunityLineItem>();
         // update opportunity line item incremental and retained values
         for (OpportunityLineItem record : opportunityLineItems.values()) {
+            record.Hidden_In_Year_Revenue__c = record.In_Year_Revenue__c;
             // pre-conditions
             if (record.Contract_Start_Date__c != null && record.Contract_End_Date__c!= null) {
                 // get last twelve months sales history
-                Double pastSales = getSumOfPastTwelveMonths(record.Opportunity.AccountId, record.Product2.Id, record.Contract_End_Date__c);
+                Double pastSales = getSumOfPastTwelveMonths(record.Opportunity.AccountId, record.Product2.Id, record.Contract_Start_Date__c);
                 // update the record based on current values
                 updateRetainedIncrementalAnnualised(record,pastSales);
 
@@ -199,15 +199,15 @@ public with sharing class ProductRevenueService {
         uids.addAll(configureProductAccountMaps(lineItems));
         loadBudgetAndRevenueRecords(uids);
 
-        Integer currentFY = getAustralianFinancialYear(calculationDate);
+        Integer currentFY = getAustralianFinancialYear(revenueCalculationContextDate);
         for (OpportunityLineItem lineItem : lineItems) {
             String uniqueId = getUID(lineItem.Opportunity.AccountId,lineItem.Product2Id,String.valueOf(currentFY));
             if (budgetAndRevenues.isEmpty()) { // cannot find any prior customer revenue record => new business
                 lineItem.Classification__c = CLASSIFICATION_NEW_BUSINESS; //cannot find any CustomerRev records
             } else if (!budgetAndRevenues.isEmpty() && budgetAndRevenues.get(uniqueId) == null) {
                 lineItem.Classification__c = CLASSIFICATION_CROSS_SELL; //Customer Rev record for this product does not exist, but there are other Customer Rev records for this grouped account
-            } else if (budgetAndRevenues.get(uniqueId) != null && lineItem.TweleveMonthRevenue__c > 0) {
-                lineItem.Classification__c = CLASSIFICATION_RENEWAL;  //can find at least 1 record, meaning use the current 12 months logic and if it is greater than 0
+            } else if (budgetAndRevenues.get(uniqueId) != null && lineItem.TweleveMonthRevenue__c > 0) { //can find at least 1 record, meaning use the current 12 months logic and if it is greater than 0
+                lineItem.Classification__c = lineItem.IncrementalRevenue__c != null && lineItem.IncrementalRevenue__c > 0 ? CLASSIFICATION_GROWTH : CLASSIFICATION_RENEWAL;
             } else if (budgetAndRevenues.get(uniqueId) != null && lineItem.TweleveMonthRevenue__c <= 0) {
                 lineItem.Classification__c = CLASSIFICATION_WIN_BACK; //opposite of renewal, is the last 12 months logic is 0, but not 0 going before that
             }
@@ -234,9 +234,9 @@ public with sharing class ProductRevenueService {
     private Map<String,Budget_and_Revenue__c> getRevenuesToProcess(List<Budget_and_Revenue__c> records,Map<Id,Budget_and_Revenue__c> existingRecords) {
         Map<String,Budget_and_Revenue__c> requiresProcessing = new Map<String,Budget_and_Revenue__c>();
         for (Budget_and_Revenue__c currentRecord :records) {
-            if (currentRecord.Transaction_Type__c == 'REVENUE' && currentRecord.Financial_Year__c == String.valueOf(calculationDate.year())) {
-                Double priorValue = existingRecords == null ? 0 : getValueForMonth(existingRecords.get(currentRecord.Id),calculationDate.month());
-                if (getValueForMonth(currentRecord,calculationDate.month()) != priorValue) {
+            if (currentRecord.Transaction_Type__c == 'REVENUE' && currentRecord.Financial_Year__c == String.valueOf(revenueCalculationContextDate.year())) {
+                Double priorValue = existingRecords == null ? 0 : getValueForMonth(existingRecords.get(currentRecord.Id),revenueCalculationContextDate.month());
+                if (getValueForMonth(currentRecord,revenueCalculationContextDate.month()) != priorValue) {
                     requiresProcessing.put(currentRecord.uid__c,currentRecord);
                 }
             }
@@ -280,7 +280,7 @@ public with sharing class ProductRevenueService {
 
         // calculate required updates
         for (Budget_and_Revenue__c record : revenuesToProcess.values()) {
-            Integer currentMonth =   calculationDate.month();
+            Integer currentMonth =   revenueCalculationContextDate.month();
 
             Double priorValue = existingRecords == null ? 0 : getValueForMonth(existingRecords.get(record.Id),currentMonth);
             Double valueChange = getValueForMonth(record,currentMonth) - priorValue;
@@ -300,7 +300,7 @@ public with sharing class ProductRevenueService {
 
         // Retrieve matching grouped revenues that require updating
         loadGroupedProductRevenues(unprocessedGroupRevenueAdjustments.keySet());
-        Integer currentMonth = calculationDate.month();
+        Integer currentMonth = revenueCalculationContextDate.month();
         // apply adjustments to grouped revenues
         for (String groupRevenueKey : unprocessedGroupRevenueAdjustments.keySet()) {
             if (groupedRevenues.containsKey(groupRevenueKey) && groupedRevenues.get(groupRevenueKey) != null) {
@@ -316,7 +316,7 @@ public with sharing class ProductRevenueService {
     }
 
     private void appendGroupRevenueAdjustment(Id AccountId, Id productId, Double valueChange,Map<String,Double> unprocessedGroupRevenueAdjustments) {
-        Integer currentFY = getAustralianFinancialYear(calculationDate);
+        Integer currentFY = getAustralianFinancialYear(revenueCalculationContextDate);
         String uniqueId = getUID(AccountId,productId,String.valueOf(currentFY));
         if (!unprocessedGroupRevenueAdjustments.containsKey(uniqueId)) {
             unprocessedGroupRevenueAdjustments.put(uniqueId,0);
@@ -347,7 +347,9 @@ public with sharing class ProductRevenueService {
         // Calculations will be rounded contract whole months.
         Integer contractMonths = contractMonths(record);
         // annualise values
-        if (contractMonths >12) contractMonths = 12;
+        if (contractMonths >12) {
+            contractMonths = 12;
+        }
         // the value of the opportunity line item over its contract period
         updateRetainedIncremental(record, pastSales, contractMonths);
     }
@@ -414,7 +416,7 @@ public with sharing class ProductRevenueService {
         Map<Id,Set<Id>> parentToChildAccountMap = getParentToChildAccountMap();
 
         for(OpportunityLineItem item : opportunityLineItems.values()) {
-            Integer currentFY = getAustralianFinancialYear(calculationDate);
+            Integer currentFY = getAustralianFinancialYear(revenueCalculationContextDate);
             for (Integer year = currentFY-1; year <currentFY+1; year++) {
                 // retrieve the grouped revenue records for this item
                 GroupedAccountProductRevenue__c currentGroupedRevenue = getCreateGroupedRevenue(unprocessedRevenueRecords,item,year);
@@ -425,13 +427,21 @@ public with sharing class ProductRevenueService {
                         isUpdated = true;
                     }
 
-                    // add records for child accounts 
-                    if (addChildAccountRevenueRecursive(item.Opportunity.AccountId,item.Product2.Id,String.valueOf(year),currentGroupedRevenue,parentToChildAccountMap,0) >0) {
-                        isUpdated = true;
+                    // add records for child accounts from the Hierarchy
+                    if (!item.Opportunity.DoNotUseAccountHierarchy__c) {
+                        if (addChildAccountRevenueRecursive(item.Opportunity.AccountId,item.Product2.Id,String.valueOf(year),currentGroupedRevenue,parentToChildAccountMap,0) >0) {
+                            isUpdated = true;
+                        }
                     }
-                    // records for related accounts
-                    Set<Id> relatedAccounts = relatedChildAccountsMap.containsKey(item.Opportunity.AccountId) &&  relatedChildAccountsMap.get(item.Opportunity.AccountId) !=null ? relatedChildAccountsMap.get(item.Opportunity.AccountId) : new Set<Id>();
+
+                    // records for related accounts from the AccountRelationship Object
+                    Set<Id> relatedAccounts = relatedChildAccountsMap.containsKey(item.Opportunity.AccountId) // AR contains the parent as keys
+                                                    && relatedChildAccountsMap.get(item.Opportunity.AccountId) != null // the children records exist
+                                                    ? relatedChildAccountsMap.get(item.Opportunity.AccountId) : new Set<Id>();
                     for (Id relatedAccountId : relatedAccounts) {
+                        if (parentToChildAccountMap.get(item.Opportunity.AccountId).contains(relatedAccountId)) { // exclude the child Account from AR if it is already included in the Hierarchy
+                            continue;
+                        }
                         String relatedAccountRevenueKey = getUID(relatedAccountId,item.Product2.Id,String.valueOf(year));
                         if (addRevenueValues(currentGroupedRevenue,relatedAccountRevenueKey)) {
                             isUpdated = true;
@@ -475,7 +485,7 @@ public with sharing class ProductRevenueService {
     private Set<String> getUIDs(List<OpportunityLineItem> items) {
         // retrieve all possible contributing budget and revenue ids
         Set<String> uids = new Set<String>();
-        Integer currentFY = getAustralianFinancialYear(calculationDate);
+        Integer currentFY = getAustralianFinancialYear(revenueCalculationContextDate);
         for(OpportunityLineItem item : items) {
             uids.add(getUID(item?.Opportunity?.AccountId, item?.Product2?.Id,String.valueOf(currentFY)));
             uids.add(getUID(item?.Opportunity?.AccountId, item?.Product2?.Id,String.valueOf(currentFY-1)));
@@ -520,7 +530,7 @@ public with sharing class ProductRevenueService {
 
         for(OpportunityLineItem item : items) {
             Set<Id> relatedAccounts = relatedChildAccountsMap.containsKey(item.Opportunity.AccountId) &&  relatedChildAccountsMap.get(item.Opportunity.AccountId) !=null ? relatedChildAccountsMap.get(item.Opportunity.AccountId) : new Set<Id>();
-            Integer currentFY = getAustralianFinancialYear(calculationDate);
+            Integer currentFY = getAustralianFinancialYear(revenueCalculationContextDate);
             for (Integer year = currentFY-1; year <currentFY+1; year++) {
 
                 // records for child accounts
@@ -542,9 +552,9 @@ public with sharing class ProductRevenueService {
    * @param productId - the product for the revenue record
    * @return the total sales value for the last twelve months for the specified account and product.
    * */
-    public Double getSumOfPastTwelveMonths(String accountId, String productId, Date revenueEndDate) {
+    public Double getSumOfPastTwelveMonths(String accountId, String productId, Date revenueStartDate) {
         Double totalSum = 0.0;
-        Date targetDate = revenueEndDate < calculationDate ? revenueEndDate : calculationDate;
+        Date targetDate = revenueStartDate < revenueCalculationContextDate ? revenueStartDate : revenueCalculationContextDate;
         // Iterate through the past 12 months
         Integer targetYear = getAustralianFinancialYear(targetDate);
         Integer targetMonth = targetDate.month() - 1; // should not include the current month
@@ -582,8 +592,8 @@ public with sharing class ProductRevenueService {
     public Double getPastMonthsAverage(String accountId, String productId, Integer numberOfMonths) {
         Double totalSum = 0.0;
         // Iterate through the past 12 months
-        Integer targetYear = getAustralianFinancialYear(calculationDate);
-        Integer targetMonth = calculationDate.month() - 1; // should not include the current month
+        Integer targetYear = getAustralianFinancialYear(revenueCalculationContextDate);
+        Integer targetMonth = revenueCalculationContextDate.month() - 1; // should not include the current month
         for (Integer i = 1; i <= 3; i++) {
             String uniqueId = getUID(accountId,productId,String.valueOf(targetYear));
             GroupedAccountProductRevenue__c targetData = groupedRevenues.get(uniqueId);
@@ -608,10 +618,10 @@ public with sharing class ProductRevenueService {
     /**
 	 * @param monthValue i.e. the revenue value for the month
 	 *
-	 * @return the partial or full revenue for the month base on the calculationDate
+	 * @return the partial or full revenue for the month base on the revenueCalculationContextDate
 	 */
     private Double calculatePartialMonthValue(Double monthValue) {
-        return (1 - calculationDate.day() / Date.daysInMonth(calculationDate.year(), calculationDate.month())) * monthValue;
+        return (1 - revenueCalculationContextDate.day() / Date.daysInMonth(revenueCalculationContextDate.year(), revenueCalculationContextDate.month())) * monthValue;
     }
 
 
@@ -713,9 +723,15 @@ public with sharing class ProductRevenueService {
     private List<OpportunityLineItem> loadProductLineItems(Set<Id> opportunityIds) {
 
         Map<SObjectType, Set<SObjectField>> fieldOverrides = new Map<SObjectType, Set<SObjectField>>{
-                OpportunityLineItem.SObjectType => new Set<SObjectField>{OpportunityLineItem.Id, OpportunityLineItem.Name,OpportunityLineItem.Quantity, OpportunityLineItem.Contract_Start_Date__c, OpportunityLineItem.Contract_End_Date__c,OpportunityLineItem.UnitPrice, OpportunityLineItem.TotalPrice, OpportunityLineItem.Annualised_Value__c, OpportunityLineItem.RetainedRevenue__c,OpportunityLineItem.IncrementalRevenue__c, OpportunityLineItem.TweleveMonthRevenue__c, OpportunityLineItem.X3MonthAverageActual__c},
+                OpportunityLineItem.SObjectType => new Set<SObjectField>{
+                        OpportunityLineItem.Id, OpportunityLineItem.Name,OpportunityLineItem.Quantity,
+                        OpportunityLineItem.Contract_Start_Date__c, OpportunityLineItem.Contract_End_Date__c,OpportunityLineItem.UnitPrice,
+                        OpportunityLineItem.TotalPrice, OpportunityLineItem.Annualised_Value__c, OpportunityLineItem.RetainedRevenue__c,
+                        OpportunityLineItem.IncrementalRevenue__c, OpportunityLineItem.TweleveMonthRevenue__c, OpportunityLineItem.X3MonthAverageActual__c,
+                        OpportunityLineItem.In_Year_Revenue__c, OpportunityLineItem.Hidden_In_Year_Revenue__c
+                },
                 Product2.SObjectType => new Set<SObjectField>{Product2.Name},
-                Opportunity.SObjectType => new Set<SObjectField>{Opportunity.Name,Opportunity.AccountId,Opportunity.Id,Opportunity.StageName}
+                Opportunity.SObjectType => new Set<SObjectField>{Opportunity.Name,Opportunity.AccountId,Opportunity.Id,Opportunity.StageName,Opportunity.DoNotUseAccountHierarchy__c}
         };
         List<OpportunityLineItem> loadedItems = OpportunityLineItemSelector.newInstance(0, fieldOverrides).selectByOPCCalculationOpportunityIds(opportunityIds, new Set<Object>{OpportunityLineItemSelector.Options.WITH_OPPORTUNITY, OpportunityLineItemSelector.Options.WITH_PRODUCT});
         for (OpportunityLineItem item : loadedItems) {

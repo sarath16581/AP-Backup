@@ -3,10 +3,10 @@
     <fullName>Inc12__c</fullName>
     <description>Incremental Sales forecast for December</description>
     <externalId>false</externalId>
-    <formula>For12__c *  OpportunityProduct__r.IncrementalRevenue__c</formula>
+    <formula>For12__c *  OpportunityProduct__r.TotalIncremental__c</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <inlineHelpText>Incremental Sales forecast for December</inlineHelpText>
-    <label>December Incremental</label>
+    <label>December Expected Incremental Value</label>
     <precision>18</precision>
     <required>false</required>
     <scale>2</scale>

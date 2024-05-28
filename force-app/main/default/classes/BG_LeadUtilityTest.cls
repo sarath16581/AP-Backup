@@ -10,6 +10,7 @@ History:
 30-08-2020      Arjun.Singh@auspost.com.au         Modified methods to overcome incorporate newly added validation rule
 05-11-2020      Suman Gunaganti                    Added test method for HVS Sales Cadence logic 
 05-10-2021      Seth Heang			 Uplift SF API version to 52 and fix test class failure due to new validation rule
+05-02-2024		Talib Raza 							INC2217553 - Uplift to version 59
 08-05-2024 - Ranjeewa Silva - Updated test after removing duplicate address validation in code.
 *****************************************************************************************/
 @isTest
