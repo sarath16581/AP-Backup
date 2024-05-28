@@ -3,7 +3,7 @@
     <fullName>Stage__c</fullName>
     <description>4 Stages each claim goes through.</description>
     <externalId>false</externalId>
-    <inlineHelpText>Pre-triage, Triage, Business Unit & Resolution.</inlineHelpText>
+    <inlineHelpText>Pre-triage, Triage, Business Unit &amp; Resolution.</inlineHelpText>
     <label>Stage</label>
     <length>255</length>
     <required>false</required>

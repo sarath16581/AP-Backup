@@ -3,11 +3,11 @@
     <fullName>BulkMailQueueId__c</fullName>
     <description>ID of the Queue used for Bulk Mail Cases</description>
     <externalId>false</externalId>
+    <inlineHelpText>Queue ID used for Bulk Mail Cases</inlineHelpText>
     <label>Bulk Mail Queue Id</label>
     <length>255</length>
-	<inlineHelpText>Queue ID used for Bulk Mail Cases</inlineHelpText>
-	<securityClassification>Public</securityClassification>
     <required>false</required>
+    <securityClassification>PUBLIC</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Text</type>
     <unique>false</unique>

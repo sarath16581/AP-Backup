@@ -4,7 +4,7 @@
     <description>Sales Forecast for October</description>
     <externalId>false</externalId>
     <inlineHelpText>Sales Forecast for October</inlineHelpText>
-    <label>October Forecast</label>
+    <label>October Forecast Percentage</label>
     <precision>5</precision>
     <required>false</required>
     <scale>2</scale>

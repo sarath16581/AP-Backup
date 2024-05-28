@@ -6,7 +6,7 @@
     <formula>IF (Act1__c -  NRTBaseline__c &gt; 0 ,Act1__c -  NRTBaseline__c ,0)</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <inlineHelpText>NRT Incremental value for January</inlineHelpText>
-    <label>January NRT Incremental</label>
+    <label>January Incremental Revenue</label>
     <precision>18</precision>
     <required>false</required>
     <scale>2</scale>

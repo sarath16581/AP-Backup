@@ -3,7 +3,7 @@
     <fullName>ContactType__c</fullName>
     <description>Receiver or Sender of the item</description>
     <externalId>false</externalId>
-    <inlineHelpText>Receivers & Senders are able to claim different forms of compensation.</inlineHelpText>
+    <inlineHelpText>Receivers &amp; Senders are able to claim different forms of compensation.</inlineHelpText>
     <label>Contact Type</label>
     <length>255</length>
     <required>false</required>

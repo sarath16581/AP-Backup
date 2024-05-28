@@ -772,4 +772,8 @@
         <name>echosign_dev1__Adobe_Sign_Salesforce</name>
         <type>CustomApplication</type>
     </appMenuItems>
+    <appMenuItems>
+        <name>standard__FlowsApp</name>
+        <type>CustomApplication</type>
+    </appMenuItems>
 </AppMenu>

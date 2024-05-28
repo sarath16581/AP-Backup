@@ -3,7 +3,7 @@
     <available>true</available>
     <description>Artwork Approval predefined template for outbound comms for the the bulk mail onboarding case management team</description>
     <encodingKey>ISO-8859-1</encodingKey>
-	<name>Bulk Mail - Artwork Approval Template</name>
+    <name>Bulk Mail - Artwork Approval Template</name>
     <style>none</style>
     <subject>Australia Post - Customer Onboarding Case: {!Case.CaseNumber}</subject>
     <textOnly>Customer Onboarding
