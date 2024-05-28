@@ -209,11 +209,11 @@
 					</lightning-radio-group>
 				</c-lwc-form-element>  
 				</lightning-layout-item>
-				<lightning-layout-item size="6" padding="horizontal-small">   
+				<lightning-layout-item size="12" padding="horizontal-small">   
 				<c-lwc-form-element visibility-state={visibilities} name="sufficientPackageDetails"
 						render-config={notSufficientlyPackaged}>             
 				<lightning-textarea required class="form-input"
-					placeholder="If there are too many items to list…. &#10; Please add a brief description of remaining intact items (E.g. 11 x Clothing items, 2 x Sneakers)"             
+					placeholder=""             
 					label="Provide details" 
 					name="sufficientPackageDetails" value={values.sufficientPackageDetails}
 					onchange={handleDetailsChange} max-length="1500">

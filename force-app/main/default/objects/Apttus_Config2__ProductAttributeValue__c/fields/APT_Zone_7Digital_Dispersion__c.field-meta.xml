@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>APT_Zone_7Digital_Dispersion__c</fullName>
-    <defaultValue>0.0633</defaultValue>
+    <defaultValue>0.0287</defaultValue>
     <externalId>false</externalId>
     <label>Zone 7 Dispersion(%)</label>
     <precision>18</precision>

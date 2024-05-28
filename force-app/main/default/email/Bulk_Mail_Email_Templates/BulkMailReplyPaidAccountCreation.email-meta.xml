@@ -3,7 +3,7 @@
     <available>true</available>
     <description>Reply Paid Account Creation predefined template for outbound comms for the the bulk mail onboarding case management team</description>
     <encodingKey>ISO-8859-1</encodingKey>
-	<name>Bulk Mail - Reply Paid Account Creation</name>
+    <name>Bulk Mail - Reply Paid Account Creation</name>
     <style>none</style>
     <subject>Australia Post - Customer Onboarding Case: {!Case.CaseNumber}</subject>
     <textOnly>Customer Onboarding

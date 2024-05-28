@@ -6,7 +6,7 @@
     <formula>GroupedAccountProductRevenue__r.Rev5__c</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <inlineHelpText>Actual sales figure for May.</inlineHelpText>
-    <label>May Actual</label>
+    <label>May Revenue</label>
     <precision>18</precision>
     <required>false</required>
     <scale>2</scale>

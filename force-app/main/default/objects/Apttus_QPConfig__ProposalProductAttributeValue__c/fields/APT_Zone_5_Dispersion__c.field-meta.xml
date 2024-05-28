@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>APT_Zone_5_Dispersion__c</fullName>
-    <defaultValue>0.045</defaultValue>
+    <defaultValue>0.0836</defaultValue>
     <description>Zone 5 Dispersion(%) for Estimated Revenue Calculation</description>
     <externalId>false</externalId>
     <label>Zone 5 Dispersion(%)</label>

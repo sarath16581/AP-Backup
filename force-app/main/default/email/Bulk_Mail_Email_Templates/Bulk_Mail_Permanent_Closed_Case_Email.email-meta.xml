@@ -5,7 +5,7 @@
     <encodingKey>ISO-8859-1</encodingKey>
     <name>Bulk Mail - Permanent Closed Case Email</name>
     <style>none</style>
-	<subject>You have sent an email to a closed case - {!Case.CaseNumber}</subject>
+    <subject>You have sent an email to a closed case - {!Case.CaseNumber}</subject>
     <textOnly>Customer Onboarding
 
 Hi,
