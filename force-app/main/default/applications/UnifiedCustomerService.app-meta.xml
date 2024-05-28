@@ -25,7 +25,7 @@
     <tabs>OmniSkillsReport</tabs>
     <tabs>standard-OmniSupervisorLightning</tabs>
     <uiType>Lightning</uiType>
-    <utilityBar>Unified_Customer_Service_UtilityBar</utilityBar>
+    <utilityBar>UnifiedCustomerServiceUtilityBar</utilityBar>
     <workspaceConfig>
         <mappings>
             <tab>Knowledge__kav</tab>

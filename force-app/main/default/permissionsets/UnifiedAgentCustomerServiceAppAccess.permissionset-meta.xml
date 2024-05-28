@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <PermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
     <applicationVisibilities>
-        <application>Unified_Customer_Service</application>
+        <application>UnifiedCustomerService</application>
         <visible>true</visible>
     </applicationVisibilities>
     <description>This permission set allows user to have Unified Customer Service app visible and accessible. No  other permissions are granted.</description>
