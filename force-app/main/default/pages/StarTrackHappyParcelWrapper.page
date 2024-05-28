@@ -3,13 +3,13 @@
 		<head>
 		</head>
 		<body class="slds-scope">
-		<apex:outputPanel layout="block" style="position: absolute;top: 0px;bottom: 0px;overflow: auto;width: 100%" >
-			<c:LightningWrapper lightningApp="c:HappyParcelWrapperApp"
-		                    lightningComponent="c:happyParcel"
-	                        crossOriginLwcEvents="idclick,externaledd,articledetails,customerselect,customerdeselect,customerdetails,trackingsearchcomplete,selectedarticles,attachdeliveryproof"
-	                        crossOriginSupport="true"
-	                        componentAttributes="{&quotsupportsExternalLinkHandling&quot:true,&quot;supportsSelectableChildArticles&quot;:true,&quot;supportsCustomerSelection&quot;:true,&quot;readonly&quot;:false,&quot;supportsExternalEdd&quot;:true,&quot;supportsSafeDropAttachment&quot;:true,&quot;supportsCaseCreation&quot;:true}"/>
-		</apex:outputPanel>					
+			<apex:outputPanel layout="block" style="position: absolute;top: 0px;bottom: 0px;overflow: auto;width: 100%">
+				<c:LightningWrapper lightningApp="c:HappyParcelWrapperApp"
+								lightningComponent="c:happyParcel"
+								crossOriginLwcEvents="idclick,externaledd,articledetails,customerselect,customerdeselect,customerdetails,trackingsearchcomplete,selectedarticles,attachdeliveryproof"
+								crossOriginSupport="true"
+								componentAttributes="{&quotsupportsExternalLinkHandling&quot:true,&quot;supportsSelectableChildArticles&quot;:true,&quot;supportsCustomerSelection&quot;:true,&quot;readonly&quot;:false,&quot;supportsExternalEdd&quot;:true,&quot;supportsSafeDropAttachment&quot;:true,&quot;supportsCaseCreation&quot;:true}"/>
+			</apex:outputPanel>
 		</body>
 	</html>
 </apex:page>
