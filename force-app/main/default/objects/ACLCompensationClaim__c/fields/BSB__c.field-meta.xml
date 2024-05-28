@@ -6,10 +6,10 @@
     <inlineHelpText>BSB number for EFT payments.</inlineHelpText>
     <label>BSB</label>
     <length>10</length>
+    <maskChar>asterisk</maskChar>
+    <maskType>all</maskType>
     <required>false</required>
-    <securityClassification>OFFICIAL_SENSITIVE_PERSONAL</securityClassification>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
-    <type>Text</type>
-    <unique>false</unique>
+    <type>EncryptedText</type>
 </CustomField>
