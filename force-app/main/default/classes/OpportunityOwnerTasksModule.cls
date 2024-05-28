@@ -16,6 +16,9 @@ public inherited sharing class OpportunityOwnerTasksModule extends ApplicationMo
 	@TestVisible private static final String SALES_MANAGERS_PUBLIC_GROUP = 'Sales_Managers';
 	@TestVisible private static final String ACCOUNT_MANAGERS_PUBLIC_GROUP = 'Account_Managers';
 
+	// opportunity ids enqueued for async work in current transaction.
+	private static Set<Id> enqueuedOpportunityIds = new Set<Id>();
+
 	// active users who are members of the public groups. group members are expanded for all 3 groups in one go.
 	// when we check for group memberships, we'll always have to check for previous and new owner in either of the 3 groups.
 	// public groups are expanded only in async worker to ensure opportunity save transaction is not impacted by this.
@@ -43,10 +46,6 @@ public inherited sharing class OpportunityOwnerTasksModule extends ApplicationMo
 		}
 		set;
 	}
-
-	// opportunity ids enqueued for async work in current transaction.
-	private static Set<Id> enqueuedOpportunityIds = new Set<Id>();
-
 
 	public OpportunityOwnerTasksModule() {
 		getTriggerEvents().enableAfterUpdate();
