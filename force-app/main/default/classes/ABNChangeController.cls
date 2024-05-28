@@ -47,6 +47,25 @@ public with sharing class ABNChangeController {
 	}
 
 	/**
+	 * @description Get datatable columns for contacts from field set ABNChangeContactColumn
+	 * @return list of datatable column wrapper
+	 */
+	@AuraEnabled(cacheable=true)
+	public static List<DataTableColumn> retrieveColumns() {
+		try {
+			List<DataTableColumn> dataTableColumnList = new List<DataTableColumn>();
+
+			for (Schema.FieldSetMember fs: SObjectType.Contact.fieldSets.ABNChangeContactColumn.getFields()) {
+				DataTableColumn datatableColumn = new DataTableColumn(fs.getLabel(), fs.getFieldPath(), String.valueOf(fs.getType()));
+				dataTableColumnList.add(datatableColumn);
+			}
+			return dataTableColumnList;
+		} catch (Exception e) {
+			throw new AuraHandledException(e.getMessage());
+		}
+	}
+
+	/**
 	 * Clone contacts to the new organisation with fields retrieved from ABNChangeContactCloning field set
 	 * Support partial success and log dml failures on Exception Log
 	 * DML option used to bypass alert type duplicate rule
@@ -108,5 +127,25 @@ public with sharing class ABNChangeController {
 			ApplicationLogger.getInstance().logException(ApplicationLogger.wrapException(e), 'ABNChange', ABNChangeController.class.getName(), 'cloneContacts', null, ApplicationLogger.LoggingLevel.ERROR);
 		}
 		return savedContactsIds;
+	}
+
+	public class DataTableColumn {
+		@AuraEnabled
+		public String label {get;set;}
+		@AuraEnabled
+		public String fieldName {get;set;}
+		@AuraEnabled
+		public String type {get;set;}
+
+		public DataTableColumn(String label, String fieldName, String type)
+		{
+			this.label = label;
+			this.fieldName = fieldName;
+			if (fieldName == 'Phone') {
+				this.type = 'phone';
+			} else {
+				this.type = type.toLowerCase();
+			}
+		}
 	}
 }

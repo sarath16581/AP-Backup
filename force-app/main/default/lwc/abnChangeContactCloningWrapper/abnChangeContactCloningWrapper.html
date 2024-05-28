@@ -4,13 +4,20 @@
 			<div class="slds-text-title_bold">{errorMessage}</div>
 		</template>
 		<template lwc:else>
+			<div class="slds-scoped-notification slds-media slds-media_center slds-scoped-notification_light" role="status">
+				<lightning-icon class="slds-p-right_xx-small" size="x-small" icon-name="utility:info" alternative-text="information" title="information"></lightning-icon>
+				<p>{headerInfo}</p>
+			</div>
+			<template lwc:if={hasReachSelectLimit}>
+				<div class="slds-scoped-notification slds-media slds-media_center slds-scoped-notification_light" role="status">
+					<lightning-icon class="slds-p-right_xx-small" size="x-small" icon-name="utility:info" alternative-text="information" title="information"></lightning-icon>
+					<p>{limitInfo}</p>
+				</div>
+			</template>
 			<div class="slds-border_top slds-clearfix slds-p-vertical_xx-small" style="background-color:#f3f3f3;">
 				<div class="slds-float_left slds-m-top_x-small">
 					<span class="slds-align_absolute-center slds-p-horizontal_small slds-text-body_small" style="color: grey">
 						{selectedCountText}
-						<template lwc:if={hasReachSelectLimit}>
-							<lightning-helptext class="slds-m-left_xx-small" content="Please note only 200 contacts can be selected for cloning at a time. Repeat this process until all contacts have been cloned."></lightning-helptext>
-						</template>
 					</span>
 				</div>
 				<div class="slds-float_right slds-button-group-row">

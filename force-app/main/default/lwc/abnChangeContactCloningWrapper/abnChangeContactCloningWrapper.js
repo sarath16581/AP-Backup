@@ -9,6 +9,7 @@
  */
 import {api, LightningElement, track, wire} from 'lwc';
 import getDeduplicatedContactsAndBaR from '@salesforce/apex/ABNChangeController.getDeduplicatedContactsAndBaR';
+import getColumns from '@salesforce/apex/ABNChangeController.retrieveColumns';
 import cloneContacts from '@salesforce/apex/ABNChangeController.cloneContacts';
 import LightningConfirm from 'lightning/confirm';
 import LightningAlert from 'lightning/alert';
@@ -16,18 +17,13 @@ import { refreshApex } from "@salesforce/apex";
 import { CloseActionScreenEvent } from 'lightning/actions';
 import LABEL_CONTACT_CLONING from "@salesforce/label/c.ABNChangeContactCloningLabel";
 import LABEL_CONTACT_CLONING_ERROR from "@salesforce/label/c.ABNChangeContactCloningErrorMessage";
-
-const columns = [
-	{ label: 'Name', fieldName: 'Name'},
-	{ label: 'Job Title', fieldName: 'Title'},
-	{ label: 'Email', fieldName: 'Email'},
-	{ label: 'Phone', fieldName: 'Phone', type: 'phone'},
-	{ label: 'Has Online Credential', fieldName: 'Has_Online_Credential__c', type: 'boolean'}
-];
+import LABEL_CONTACT_LIMIT_INFO from "@salesforce/label/c.ABNChangeContactCloningLimitInfo";
+import LABEL_CONTACT_NO_CONTACTS_ERROR from "@salesforce/label/c.ABNChangeContactCloningNoContactsError";
+import LABEL_CONTACT_INFO from "@salesforce/label/c.ABNChangeContactCloningInfo";
 
 const SEARCHABLE_FIELDS = ['Name', 'Title', 'Email', 'Phone', 'Has_Online_Credential'];
 const ROW_LIMIT = 50;
-const CLONE_LIMIT = 200;
+const CLONE_LIMIT = 100;
 export default class AbnChangeContactCloningWrapper extends LightningElement {
 	@api recordId;
 	atRiskBusiness;
@@ -37,7 +33,7 @@ export default class AbnChangeContactCloningWrapper extends LightningElement {
 	contacts = [];
 	searchTerm;
 	_filteredContacts;
-	columns = columns;
+	columns;
 	rowOffset = ROW_LIMIT;
 	selectedIds = []; // use to render selection
 	@track selectedRows = []; // selected contacts data
@@ -52,6 +48,10 @@ export default class AbnChangeContactCloningWrapper extends LightningElement {
 		return CLONE_LIMIT - this.selectedRows.length + filteredSelectedRows.length;
 	}
 
+	/**
+	 *  Retrieve deduplicated contacts and related At Risk Business from server controller
+	 *  Retrieve table columns from server controller
+	 */
 	@wire(getDeduplicatedContactsAndBaR, {businessAtRiskId: "$recordId"})
 	wiredData(result) {
 		const {data, error} = result;
@@ -62,13 +62,30 @@ export default class AbnChangeContactCloningWrapper extends LightningElement {
 			return;
 		}
 		if (data?.contacts.length > 0) {
-			this.contacts = data.contacts;
+			// map contact name url
+			let nameUrl;
+			this.contacts = data.contacts.map(row => {
+				nameUrl = `/${row.Id}`;
+				return {...row , nameUrl}
+			});
+			// Retrieve columns
+			getColumns().then(c => {
+				this.columns = c.map(item => {
+					return {...item};
+				});
+				// insert name at index 0
+				this.columns.splice(0, 0, { label: 'Name', fieldName: 'nameUrl', type: 'url', typeAttributes: {label: { fieldName: 'Name' }, target: '_blank'}});
+				console.log(JSON.stringify(this.columns));
+			}).catch(error => {
+				console.error(error);
+			});
+
+			// this.contacts = data.contacts;
 			this.atRiskBusiness = data.businessAtRisk;
 			this.isLoading = false;
 			this.errorMessage = null;
 		} else if (data?.length === 0) {
-			//TODO: Custom Labeling
-			this.errorMessage = 'No active contacts available for cloning. Please verify the contacts under the old organisation if at least 1 contact that is Active and maintained by Account Manager.';
+			this.errorMessage = LABEL_CONTACT_NO_CONTACTS_ERROR;
 		}
 	}
 
@@ -118,8 +135,10 @@ export default class AbnChangeContactCloningWrapper extends LightningElement {
 		datatable.scrollToTop();
 	}
 
+	/**
+	 * Increment row offset when user scroll to the bottom of the table for infinite loading
+	 */
 	handleLoadData(event) {
-		// event.target.enableInfiniteLoading = true;
 		// Disable infinite loading if filtered contacts have been loaded fully
 		if (this.filteredContacts.length < this.rowOffset) {
 			event.target.enableInfiniteLoading = false;
@@ -129,6 +148,10 @@ export default class AbnChangeContactCloningWrapper extends LightningElement {
 		}
 	}
 
+	/**
+	 * Update selected rows when user select table rows
+	 * Support select all and deselect all
+	 */
 	handleSelectedRows(event) {
 		switch (event.detail.config.action) {
 			case 'selectAllRows':
@@ -167,10 +190,16 @@ export default class AbnChangeContactCloningWrapper extends LightningElement {
 		}
 	}
 
+	/**
+	 * Count of selected contacts
+	 */
 	get selectedCountText() {
 		return this.selectedRows.length + ' selected';
 	}
 
+	/**
+	 * Count of filtered contacts
+	 */
 	get searchCountText() {
 		let filteredCount;
 		if (this.searchTerm) {
@@ -197,6 +226,18 @@ export default class AbnChangeContactCloningWrapper extends LightningElement {
 		return this.selectedRows.length === 0;
 	}
 
+	get limitInfo() {
+		return LABEL_CONTACT_LIMIT_INFO;
+	}
+
+	get headerInfo() {
+		return LABEL_CONTACT_INFO;
+	}
+
+	/**
+	 * Call apex controller to clone selected contacts to new organisation (related organisation)
+	 * Show error if any of contacts are failed.
+	 */
 	async handleClone() {
 		const confirmed = await LightningConfirm.open({
 			message: 'By clicking "OK" ' + this.selectedRows.length + ' selected contacts will be cloned.',

@@ -9,6 +9,10 @@ import {api} from 'lwc';
 import LightningDatatable from "lightning/datatable";
 
 export default class AbnChangeContactList extends  LightningDatatable {
+
+	/**
+	 *  Override parent's scrollToTop to have full control
+	 */
 	@api
 	scrollToTop() {
 		this.template.querySelector(".slds-scrollable_y").scrollTop = 0;

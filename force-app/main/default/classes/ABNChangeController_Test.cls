@@ -81,4 +81,26 @@ public with sharing class ABNChangeController_Test {
 		System.assertEquals(1, ids.size(), 'Expected 1 contact cloned');
 		Test.stopTest();
 	}
+
+	/**
+	 * Test:
+	 *  Ensures that datatable columns are retrieved
+	 */
+	@IsTest
+	static void testRetrieveColumns() {
+		// =====================================
+		// Data Preparation
+		// =====================================
+		// None!
+		// =====================================
+		// Stubbing
+		// =====================================
+		// None!
+		// =====================================
+		// Testing
+		// =====================================
+		List<ABNChangeController.DataTableColumn> columns = ABNChangeController.retrieveColumns();
+		List<Schema.FieldSetMember> fields = SObjectType.Contact.fieldSets.ABNChangeContactColumn.getFields();
+		System.assertEquals(fields.size(), columns.size(), 'size not matched');
+	}
 }

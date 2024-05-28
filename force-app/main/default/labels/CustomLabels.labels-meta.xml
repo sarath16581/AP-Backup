@@ -9,12 +9,36 @@
         <value>Please report an IT issue via the &apos;Report a Fault&apos; icon on the MyIT Service Portal and select the details - Please select the area this relates to: 2. Applications &amp; Software, What does this relate to?: Salesforce, What best describes your issue?: Issues with Sales Cloud, Can you provide a short description?: Contact cloning failed. Please check exception log for more details.</value>
     </labels>
     <labels>
+        <fullName>ABNChangeContactCloningInfo</fullName>
+        <categories>ABN Update</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>ABNChangeContactCloningInfo</shortDescription>
+        <value>Contact Cloning Body - TBC</value>
+    </labels>
+    <labels>
         <fullName>ABNChangeContactCloningLabel</fullName>
         <categories>ABN Update</categories>
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>ABNChangeContactCloningLabel</shortDescription>
         <value>Contact Cloning</value>
+    </labels>
+    <labels>
+        <fullName>ABNChangeContactCloningLimitInfo</fullName>
+        <categories>ABN Update</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>ABNChangeContactCloningLimitInfo</shortDescription>
+        <value>Please note only 100 contacts can be selected for cloning at a time. Repeat this process until all contacts have been cloned.</value>
+    </labels>
+    <labels>
+        <fullName>ABNChangeContactCloningNoContactsError</fullName>
+        <categories>ABN Update</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>ABNChangeContactCloningNoContactsError</shortDescription>
+        <value>No active contacts available for cloning. Please verify the contacts under the old organisation if at least 1 contact that is Active and maintained by Account Manager.</value>
     </labels>
     <labels>
         <fullName>ABNChangeNotificationError</fullName>
