@@ -31,7 +31,7 @@ public with sharing class DataCategoryCreationModuleTest {
 		module.onAfterInsert(sobjects, mockUow);
 		fflib_ArgumentCaptor stagedWorkerCapture = fflib_ArgumentCaptor.forClass(ApplicationUnitOfWork.AsyncStagingWorker.class);
 		((ApplicationUnitOfWork) MockUtility.Mocks.verify(mockUOW, MockUtility.Mocks.times(1))).registerAsyncWork((ApplicationUnitOfWork.AsyncStagingWorker) stagedWorkerCapture.capture());
-		module.onAfterInsert(null, mockUow);
+		module.onAfterInsert(sobjects, null);
 		Test.stopTest();
 		List<ExceptionLog__c> elList = new List<ExceptionLog__c>([SELECT Id, ClassName__C, MethodName__c, ExceptionCode__c, ExceptionDetails__c FROM ExceptionLog__c LIMIT 1]);
 		System.assertEquals(1, elList.Size(), 'Error created');
@@ -68,7 +68,7 @@ public with sharing class DataCategoryCreationModuleTest {
 		fflib_ArgumentCaptor stagedWorkerCapture = fflib_ArgumentCaptor.forClass(ApplicationUnitOfWork.AsyncStagingWorker.class);
 		((ApplicationUnitOfWork) MockUtility.Mocks.verify(mockUOW, MockUtility.Mocks.times(1))).registerAsyncWork((ApplicationUnitOfWork.AsyncStagingWorker) stagedWorkerCapture.capture());
 
-		module.onAfterUpdate(null, sobjects, mockUow);
+		module.onAfterUpdate(updateSobjects, sobjects, null);
 		Test.stopTest();
 
 		List<ExceptionLog__c> elList = new List<ExceptionLog__c>([SELECT Id, ClassName__C, MethodName__c, ExceptionCode__c, ExceptionDetails__c FROM ExceptionLog__c LIMIT 1]);

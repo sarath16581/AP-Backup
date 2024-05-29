@@ -41,12 +41,7 @@ public with sharing class KnowledgeArticleVersionServiceTest {
 
 		ApplicationUnitOfWork.AsyncStagingWorker stagedWorker = (ApplicationUnitOfWork.AsyncStagingWorker) stagedWorkerCapture.getValue();
 		KnowledgeArticleVersionService.AsyncCreateDataCategoryWorker dataCategoryWorker = ((KnowledgeArticleVersionService.AsyncCreateDataCategoryWorker) stagedWorker.params);
-		dataCategoryWorker.processDataCategories(dataCategoryWorker.parentIds);
-
-		System.assertEquals(dataCategoryWorker.parentIds.contains(criticalIncidents[0].Id), true, 'Knowledge Id is passed in parameters');
-		System.assertEquals(dataCategoryWorker.parentIdAndCategoryMap.get(criticalIncidents[0].Id), 'Critical_Incident', 'Id is mapped to its specific article type');
-		System.assertEquals(dataCategoryWorker.deleteDataCategorySelections.size(), 2, 'Both how_to and Manager records should be added to delete');
-		System.assertEquals(dataCategoryWorker.insertDataCategorySelections.size(), 0, 'No need to insert record as there is already an existing one');
+		System.assertEquals(dataCategoryWorker.articles, criticalIncidents, 'Knowledge records passed in parameters');
 		Test.stopTest();
 	}
 
@@ -76,13 +71,55 @@ public with sharing class KnowledgeArticleVersionServiceTest {
 		((ApplicationUnitOfWork) MockUtility.Mocks.verify(mockUOW, MockUtility.Mocks.times(1))).registerAsyncWork((ApplicationUnitOfWork.AsyncStagingWorker) stagedWorkerCapture.capture());
 		ApplicationUnitOfWork.AsyncStagingWorker stagedWorker = (ApplicationUnitOfWork.AsyncStagingWorker) stagedWorkerCapture.getValue();
 		KnowledgeArticleVersionService.AsyncCreateDataCategoryWorker dataCategoryWorker = ((KnowledgeArticleVersionService.AsyncCreateDataCategoryWorker) stagedWorker.params);
-		dataCategoryWorker.processDataCategories(dataCategoryWorker.parentIds);
-
-		System.assertEquals(dataCategoryWorker.parentIds.contains(criticalIncidents[0].Id), true, 'Knowledge Id is passed in parameters');
-		System.assertEquals(dataCategoryWorker.parentIdAndCategoryMap.get(criticalIncidents[0].Id), 'Critical_Incident', 'Id is mapped to its specific article type');
-		System.assertEquals(dataCategoryWorker.deleteDataCategorySelections.size(), 0, 'There are no existing records to delete');
-		System.assertEquals(dataCategoryWorker.insertDataCategorySelections.size(), 1, 'Creating a new record that matches to its record type');
-		System.assertEquals(dataCategoryWorker.insertDataCategorySelections[0].DataCategoryName, 'Critical_Incident', 'new records DataCategoryName matches to knowledge record type');
+		System.assertEquals(dataCategoryWorker.articles, criticalIncidents, 'Knowledge records passed in parameters');
 		Test.stopTest();
+	}
+
+	@istest
+	public static void testKnowledgeWithDataCategoriesToDelete() {
+		// =====================================
+		// Data Preparation
+		// =====================================
+		KnowledgeArticleVersionService knowledgeService = KnowledgeArticleVersionService.getInstance();
+		Map<String, String> dataCategoriesMap = knowledgeService.getDataCategoryNamesByGroup('Article_Type');
+
+		List<Knowledge__kav> criticalIncidents = ApplicationTestDataFactoryKnowledge.getCriticalIncidents(1, false);
+		insert criticalIncidents;
+
+		List<Knowledge__DataCategorySelection> dataCategories = ApplicationTestDataFactoryKnowledge.getDataCatogories(3, false, criticalIncidents[0].Id);
+		List<String> dataCategoryTypes = new List<String>{ 'How_To', 'Manager', 'Product' };
+		for (Integer indx = 0; indx < 3; indx++) {
+			dataCategories[indx].DataCategoryName = dataCategoryTypes[indx];
+			dataCategories[indx].DataCategoryGroupName = 'Article_Type';
+		}
+
+		insert dataCategories;
+		// =====================================
+		// Stubbing
+		// =====================================
+		KnowledgeDataCategorySelectionsSelector kavSelector = (KnowledgeDataCategorySelectionsSelector) MockUtility.mockSelector(KnowledgeDataCategorySelectionsSelector.class);
+		// set up our responses
+		MockUtility.Mocks.startStubbing();
+		// Database
+		MockUtility.Mocks.when(kavSelector.search((Map<String, Object>) fflib_Match.anyObject())).thenReturn(dataCategories);
+		MockUtility.Mocks.stopStubbing();
+
+		// =====================================
+		// Testing
+		// =====================================
+		Test.startTest();
+
+		ApplicationUnitOfWork mockUow = MockUtility.mockUnitOfWork();
+		knowledgeService.processDataCategories(criticalIncidents, mockUow);
+		Test.stopTest();
+		Knowledge__DataCategorySelection newDataCategory = new Knowledge__DataCategorySelection(
+			ParentId = criticalIncidents[0].Id,
+			DataCategoryGroupName = 'Article_Type',
+			DataCategoryName = dataCategoriesMap.get('Critical Incident')
+		);
+
+		((ApplicationUnitOfWork) MockUtility.Mocks.verify(mockUow, MockUtility.Mocks.times(1))).registerDeleted((List<Knowledge__DataCategorySelection>) fflib_Match.eq(dataCategories));
+		((ApplicationUnitOfWork) MockUtility.Mocks.verify(mockUow, MockUtility.Mocks.times(1)))
+			.registerNew((List<Knowledge__DataCategorySelection>) fflib_Match.eq(new List<Knowledge__DataCategorySelection>{ newDataCategory }));
 	}
 }

@@ -10,8 +10,9 @@
  * @changelog
  * *****************************************************************************************************
  */
-trigger KnowledgeArticleVersionTrigger on Knowledge__kav (after insert, after update) {
-	if(!TriggerHelper.isTriggerDisabled(String.valueOf(Knowledge__kav.sObjectType))){ // verify if triggers are disabled
-	(new KnowledgeArticleVersionTriggerHandler()).dispatch(); // invoke domain based trigger dispatch
+trigger KnowledgeArticleVersionTrigger on Knowledge__kav(after insert, after update) {
+	// verify if triggers are disabled
+	if (!TriggerHelper.isTriggerDisabled(String.valueOf(Knowledge__kav.sObjectType))) {
+		(new KnowledgeArticleVersionTriggerHandler()).dispatch(); // invoke domain based trigger dispatch
 	}
 }
