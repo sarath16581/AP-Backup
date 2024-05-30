@@ -19,7 +19,8 @@
 	<aura:attribute name="loading" type="Boolean" default="false"/>
 	<aura:attribute name="oppRecord" type="Opportunity"/>
 
-	<lightning:button label="Revenue Detail by Legal Entity" onclick="{!c.openRevenueReport}" />
+	<button class="slds-button slds-button_neutral" title="Prior 12 month from last refresh" onclick="{!c.openRevenueReport}">Revenue Detail by Legal Entity</button>
+
 	<aura:if isTrue="{!v.oppRecord.StageName != 'Closed Won'}">
 		<lightning:button label="Re-Calculate Last 12 Months Revenue" onclick="{!c.recalculatePast12Revenue}" />
 	</aura:if>
