@@ -198,7 +198,7 @@
                     </c-lwc-form-element>
                 </lightning-layout-item>
 				<!-- REQ3357026 - NEW QUESTION ADDED-->
-				<lightning-layout-item size="12" padding="horizontal-small">
+				<lightning-layout-item size="12" padding="around-small">
 					<c-lwc-form-element visibility-state={visibilities} name="sufficientPackage"
 					render-config={doesNotcontainWineRenderConfig}>
 					<lightning-radio-group 
@@ -207,19 +207,19 @@
 						value={values.sufficientPackage}
 						options={yesNoOptions}>
 					</lightning-radio-group>
-				</c-lwc-form-element>
+				</c-lwc-form-element>  
 				</lightning-layout-item>
-					<lightning-layout-item size="12" padding="horizontal-small">
-					<c-lwc-form-element visibility-state={visibilities} name="sufficientPackageDetails"
-							render-config={notSufficientlyPackaged}>             
-					<lightning-textarea required class="form-input"
-						placeholder=""
-						label="Provide details" 
-						name="sufficientPackageDetails" value={values.sufficientPackageDetails}
-						onchange={handleDetailsChange} max-length="1500">
-					</lightning-textarea>
-					<span>{sufficientlyPackagedDetailsLength} characters remaining</span>
-					</c-lwc-form-element>
+				<lightning-layout-item size="12" padding="horizontal-small">   
+				<c-lwc-form-element visibility-state={visibilities} name="sufficientPackageDetails"
+						render-config={notSufficientlyPackaged}>             
+				<lightning-textarea required class="form-input"
+					placeholder=""             
+					label="Provide details" 
+					name="sufficientPackageDetails" value={values.sufficientPackageDetails}
+					onchange={handleDetailsChange} max-length="1500">
+				</lightning-textarea>
+				<span>{sufficientlyPackagedDetailsLength} characters remaining</span>
+				</c-lwc-form-element>              
 				</lightning-layout-item>
 				<!-- REQ3357026 - END NEW QUESTION -->
                 <lightning-layout-item size="6" padding="horizontal-small">

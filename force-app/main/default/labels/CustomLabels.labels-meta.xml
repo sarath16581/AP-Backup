@@ -5239,6 +5239,22 @@ Please choose to override the hotlist restriction or Cancel to quit the process.
 -</value>
     </labels>
     <labels>
+        <fullName>NewOpportunityForActionAccountManagerTaskDescription</fullName>
+        <categories>Opportunity Tasks</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>NewOpportunityForActionAccountManagerTaskDescription</shortDescription>
+        <value>An opportunity has been transferred to you. Please action/update within the next 48 hours and close this task.</value>
+    </labels>
+    <labels>
+        <fullName>NewOpportunityForActionAccountManagerTaskSubject</fullName>
+        <categories>Opportunity Tasks</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>NewOpportunityForActionAccountManagerTaskSubject</shortDescription>
+        <value>Transfer of Opportunity from your Sales Manager.</value>
+    </labels>
+    <labels>
         <fullName>NewViewLinkLabel</fullName>
         <categories>Opty Reassign Page</categories>
         <language>en_US</language>
@@ -8148,6 +8164,22 @@ something new for us, so we&apos;d love to know what you think.</value>
         <value>Number</value>
     </labels>
     <labels>
+        <fullName>TransferNewlyAssignedOpportunitySalesManagerTaskDescription</fullName>
+        <categories>Opportunity Tasks</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>TransferNewlyAssignedOpportunitySalesManagerTaskDescription</shortDescription>
+        <value>The Lead Record has been converted to an Opportunity Record please assign to the account manager for actioning. Please do not close this task as it will be auto closed once the Opportunity has been transferred.</value>
+    </labels>
+    <labels>
+        <fullName>TransferNewlyAssignedOpportunitySalesManagerTaskSubject</fullName>
+        <categories>Opportunity Tasks</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>TransferNewlyAssignedOpportunitySalesManagerTaskSubject</shortDescription>
+        <value>The Lead Record has been converted to an Opportunity Record please assign to the account manager for actioning.</value>
+    </labels>
+    <labels>
         <fullName>TransferToPoThankYouMessage</fullName>
         <language>en_US</language>
         <protected>false</protected>
@@ -9066,12 +9098,12 @@ We&apos;ll let you if it&apos;s successful. Thank you. Please do not reply.</val
         <shortDescription>Send for eSignature Custom Message</shortDescription>
         <value>Once the agreement is signed by Australia Post and the Customer, you will receive an email confirmation and the Customer Onboarding team will be notified to provision the rates, and activate the contract.</value>
     </labels>
-	<labels>
-		<fullName>REC_TYPE_DEV_BULK_MAIL</fullName>
-		<categories>Record Type Name</categories>
-		<language>en_US</language>
-		<protected>false</protected>
-		<shortDescription>Record Type Developer Name of Bulk Mail</shortDescription>
-		<value>Bulk_Mail_Onboarding</value>
-	</labels>
+    <labels>
+        <fullName>REC_TYPE_DEV_BULK_MAIL</fullName>
+        <categories>Record Type Name</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Record Type Developer Name of Bulk Mail</shortDescription>
+        <value>Bulk_Mail_Onboarding</value>
+    </labels>
 </CustomLabels>

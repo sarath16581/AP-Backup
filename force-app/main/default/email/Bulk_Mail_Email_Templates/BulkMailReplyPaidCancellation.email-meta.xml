@@ -3,7 +3,7 @@
     <available>true</available>
     <description>Reply Paid Cancellation predefined template for outbound comms for the the bulk mail onboarding case management team</description>
     <encodingKey>ISO-8859-1</encodingKey>
-	<name>Bulk Mail - Reply Paid Cancellation</name>
+    <name>Bulk Mail - Reply Paid Cancellation</name>
     <style>none</style>
     <subject>Australia Post - Customer Onboarding Case: {!Case.CaseNumber}</subject>
     <textOnly>Customer Onboarding

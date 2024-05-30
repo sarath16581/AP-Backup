@@ -3,7 +3,7 @@
     <available>true</available>
     <description>Charity Mail Application Approval predefined template for outbound comms for the the bulk mail onboarding case management team</description>
     <encodingKey>ISO-8859-1</encodingKey>
-	<name>Bulk Mail - Charity Mail Application Approval</name>
+    <name>Bulk Mail - Charity Mail Application Approval</name>
     <style>none</style>
     <subject>Australia Post - Customer Onboarding Case: {!Case.CaseNumber}</subject>
     <textOnly>Customer Onboarding

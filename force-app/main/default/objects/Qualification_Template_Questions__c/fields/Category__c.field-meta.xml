@@ -34,11 +34,6 @@
                 <label>Domestic Freight (B2B)</label>
             </value>
             <value>
-                <fullName>APPC Domestic Parcels (B2C)</fullName>
-                <default>false</default>
-                <label>APPC - Pilot only</label>
-            </value>
-            <value>
                 <fullName>Information and Mailroom Management</fullName>
                 <default>false</default>
                 <label>Information and Mailroom Management</label>

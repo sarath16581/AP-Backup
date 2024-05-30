@@ -5,11 +5,11 @@
     <externalId>false</externalId>
     <inlineHelpText>Bank Account Number for EFT Payments.</inlineHelpText>
     <label>Bank Account Number</label>
-    <length>255</length>
+    <length>40</length>
+    <maskChar>asterisk</maskChar>
+    <maskType>all</maskType>
     <required>false</required>
-    <securityClassification>OFFICIAL_SENSITIVE_PERSONAL</securityClassification>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
-    <type>Text</type>
-    <unique>false</unique>
+    <type>EncryptedText</type>
 </CustomField>
