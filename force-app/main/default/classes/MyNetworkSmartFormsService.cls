@@ -18,6 +18,7 @@
 16.06.2021    SaiSwetha Pingali			 REQ2866516 -Introduced a new metadata to store product sub category to disable compensation and updated the logic here to utilise the metadata.
 18.10.2022    Talib Raza                 REQ2866516 - getAll() only return 255 char, replace it with SOQL 
 01.06.2024    Jacob Isaac                REQ3357026 - new question on wine/edamages form
+28.05.2024    Snigdha Sahu	             REQ2911157 - Update to Lost Article Form
 **/
 
 public with sharing class MyNetworkSmartFormsService {
@@ -258,6 +259,8 @@ public with sharing class MyNetworkSmartFormsService {
 		System.debug('  Lost Article - Case Comments - Start');
 		sLostArticle += SSSWConstants.NEW_LINE;
 		sLostArticle += SSSWConstants.NEW_LINE + 'Additional comments - ' + oSmartFormWrapper.comments;
+		//REQ2911157
+		sLostArticle += SSSWConstants.NEW_LINE + 'Has the article been scanned as Delivered? - ' + oSmartFormWrapper.scannedDelivered;
 		
 		sLostArticle += SSSWConstants.NEW_LINE + 'Description of contents - ' + oSmartFormWrapper.contents;
 		sLostArticle += SSSWConstants.NEW_LINE + 'Value of contents - ' + oSmartFormWrapper.valueOfContents;
