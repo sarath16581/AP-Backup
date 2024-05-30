@@ -42,7 +42,21 @@
 								options={facilityOptions} onchange={handleFacilityValueChange} field-level-help={selectYourOutlet}>
 							</lightning-combobox>
 						</lightning-layout-item>
-						<lightning-layout-item size="6"></lightning-layout-item>
+						<!--Snigdha: REQ2911157: Change to add radio button-->
+						<lightning-layout-item size="12" padding="around-small">
+							<c-lwc-form-element visibility-state={visibilities} name="scannedDelivered">
+								<div class="slds-col slds-grid">								
+								<lightning-radio-group 
+									class="form-input"									 
+									label="Has the article been scanned as Delivered?"
+									value={values.scannedDelivered}																	
+									options={yesNoOptions}>																	
+								</lightning-radio-group>
+								<lightning-helptext content="Use Happy Parcels to check tracking scans"></lightning-helptext>															
+								</div>
+							</c-lwc-form-element>
+						</lightning-layout-item>
+						<lightning-layout-item size="12"></lightning-layout-item>
 						<lightning-layout-item size="6" padding="horizontal-small">
 							<c-article-search label="Article ID" name="articleId" get-only-articles
 								form-update-callback={handleFormUpdateWithAtricleData}  form-update-articleid={handleFormArticleID} onchange={handleArticleIDValueChange}>
