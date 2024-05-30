@@ -9,5 +9,5 @@
     OR( ISPICKVAL(Status, &quot;Qualified&quot;), ISPICKVAL(Status, &quot;Verified&quot;)),
     NOT(Address_Validated__c)
 )</errorConditionFormula>
-    <errorMessage>The Address must be confirmed via the Address Tab.</errorMessage>
+    <errorMessage>The Address must be confirmed via &quot;Enter Address&quot; tile.</errorMessage>
 </ValidationRule>

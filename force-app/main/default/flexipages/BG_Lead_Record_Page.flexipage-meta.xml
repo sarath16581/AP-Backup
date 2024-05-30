@@ -93,44 +93,6 @@
         <itemInstances>
             <componentInstance>
                 <componentInstanceProperties>
-                    <name>addressType</name>
-                    <value>Lead_Physical</value>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>cardTitle</name>
-                    <value>Enter Address</value>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>cardTitle2</name>
-                    <value>Enter Address</value>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>cardTitle3</name>
-                    <value>Enter Address</value>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>noRefreshAfterSave</name>
-                    <value>false</value>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>refreshAfterSave</name>
-                    <value>true</value>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>refreshNotNavigate</name>
-                    <value>false</value>
-                </componentInstanceProperties>
-                <componentName>addressLookupRecordWrapper</componentName>
-                <identifier>addressLookupRecordWrapper</identifier>
-            </componentInstance>
-        </itemInstances>
-        <name>Facet-e133c0e4-5000-4e49-aaf4-f41e52b5e4a4</name>
-        <type>Facet</type>
-    </flexiPageRegions>
-    <flexiPageRegions>
-        <itemInstances>
-            <componentInstance>
-                <componentInstanceProperties>
                     <name>active</name>
                     <value>true</value>
                 </componentInstanceProperties>
@@ -172,20 +134,6 @@
                 </componentInstanceProperties>
                 <componentName>flexipage:tab</componentName>
                 <identifier>customTab</identifier>
-            </componentInstance>
-        </itemInstances>
-        <itemInstances>
-            <componentInstance>
-                <componentInstanceProperties>
-                    <name>body</name>
-                    <value>Facet-e133c0e4-5000-4e49-aaf4-f41e52b5e4a4</value>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>title</name>
-                    <value>Address</value>
-                </componentInstanceProperties>
-                <componentName>flexipage:tab</componentName>
-                <identifier>customTab2</identifier>
             </componentInstance>
         </itemInstances>
         <mode>Replace</mode>
@@ -406,6 +354,46 @@
         <type>Facet</type>
     </flexiPageRegions>
     <flexiPageRegions>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>addressType</name>
+                    <value>Lead_Physical</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>altRecordId</name>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>cardTitle</name>
+                    <value>Enter Address</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>cardTitle2</name>
+                    <value>Enter Address</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>cardTitle3</name>
+                    <value>Enter Address</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>noRefreshAfterSave</name>
+                    <value>false</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>recordId</name>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>refreshAfterSave</name>
+                    <value>true</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>refreshNotNavigate</name>
+                    <value>false</value>
+                </componentInstanceProperties>
+                <componentName>addressLookupRecordWrapper</componentName>
+                <identifier>c_addressLookupRecordWrapper</identifier>
+            </componentInstance>
+        </itemInstances>
         <itemInstances>
             <componentInstance>
                 <componentInstanceProperties>
