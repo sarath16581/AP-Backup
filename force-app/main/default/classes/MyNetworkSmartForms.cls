@@ -10,6 +10,7 @@
 22.03.2021    Suman Gunaganti            MW0004436: Wine Damages instructions changes
 03.05.2021    Naveen Rajanna             REQ2483999 : Change eParcelDamages__c to text area and also append product damage details
 09.06.2021    Naveen Rajanna             REQ2525818 : Include Store the Customer Ref from Article (if it exists) in eParcelDamages__c for eparcel form
+28.05.2024    Snigdha Sahu	             REQ2911157 : Update for additional question to Lost Article Form			 
 **/
 
 public with sharing class MyNetworkSmartForms {
@@ -56,7 +57,17 @@ public with sharing class MyNetworkSmartForms {
                 oCase.Email_Bypass_Data_enforcement__c = true;
                 
                 //.. Validate if enquiryType is part of form data and if type = Staff Complaint, set priority to High.
-                oCase.EnquirySubType__c = SmartFormPreDefValues.enquirySubType__c;
+
+				//Snigdha : REQ2911157 : Add for lost article form
+				if (caseWrapper.scannedDelivered == 'Yes')
+				{
+					oCase.EnquirySubType__c = 'Disputed Delivery';
+				}
+				else
+                {	
+					oCase.EnquirySubType__c = SmartFormPreDefValues.enquirySubType__c;
+				}
+				
                 if(!String.isBlank(caseWrapper.enquirySubType)){
                     oCase.EnquirySubType__c = caseWrapper.enquirySubType;
                     if(caseWrapper.enquirySubType == SmartFormPreDefValues.enquirySubType__c){
