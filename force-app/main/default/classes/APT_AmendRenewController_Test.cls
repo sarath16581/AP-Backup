@@ -1741,7 +1741,7 @@ private class APT_AmendRenewController_Test{
 	 */
 	@IsTest
 	static void testSetOpportunityFieldsFromDSRBGBase(){
-		//Creating a user with Sales Admin profile
+		//Creating a user with BG Base profile
 		Profile p = [SELECT Id FROM Profile WHERE Name='BG Base'];
 		User testuser = new User(Alias = APT_Constants.ALIAS_TEST_USER, Email=APT_Constants.EMAIL_TEST_USER,
 		EmailEncodingKey=APT_Constants.EMAILENCODINGKEY_TEST_USER, LastName=APT_Constants.LASTNAME_TEST_USER, LanguageLocaleKey=APT_Constants.LANGUAGELOCALEKEY_TEST_USER,
