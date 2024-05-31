@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>ProductSubType__c</fullName>
+    <description>This field is utilised for Investigation type cases only. When the case is being created, Product Sub Type will be auto-populated based on the consignment/article number tracking search result back from SAP and agent needs to manually select the values if it’s not available in SAP response.</description>
+    <externalId>false</externalId>
+    <label>Product Sub Type</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>StarTrack Road Express</fullName>
+                <default>false</default>
+                <label>StarTrack Road Express</label>
+            </value>
+            <value>
+                <fullName>StarTrack Premium</fullName>
+                <default>false</default>
+                <label>StarTrack Premium</label>
+            </value>
+            <value>
+                <fullName>Parcel Post</fullName>
+                <default>false</default>
+                <label>Parcel Post</label>
+            </value>
+            <value>
+                <fullName>Express Post</fullName>
+                <default>false</default>
+                <label>Express Post</label>
+            </value>
+            <value>
+                <fullName>Metro</fullName>
+                <default>false</default>
+                <label>Metro</label>
+            </value>
+            <value>
+                <fullName>eParcel Parcel Post</fullName>
+                <default>false</default>
+                <label>eParcel Parcel Post</label>
+            </value>
+            <value>
+                <fullName>eParcel Express Post</fullName>
+                <default>false</default>
+                <label>eParcel Express Post</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>
