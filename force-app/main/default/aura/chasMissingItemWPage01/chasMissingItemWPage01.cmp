@@ -9,6 +9,7 @@
   * Modified by Mahesh Parvathaneni - 19/05/2022 - DDS-7472: When consignment API returns 404, show the warning message
   * Modified by Hasantha Liyanage - 04/08/2022 - DDS-11626: before edd
   * 2023-11-20 - Nathan Franklin - Adding a tactical reCAPTCHA implementation to assist with reducing botnet attack vectors (INC2251557)
+  * 2024-05-29 - Snigdha Sahu - Updated error message displayed to customers
 -->
 <aura:component extends="c:SS_uiWizardPage" implements="forceCommunity:searchInterface" controller='ChasApexController' description="Missing Items wizard page 1: Item details (API call)">
     <aura:attribute name="error500" type="Boolean" default="false"/>
@@ -244,7 +245,7 @@
                     </c:ChasExpandableSection>
                 </div>
                 <aura:set attribute="else">
-                    <c:ChasInfoTile heading="Whoops, something's gone wrong." image="/chas-icons/pngs/UI/icons/it_error.png">
+                    <c:ChasInfoTile heading="There has been an issue processing your request." image="/chas-icons/pngs/UI/icons/it_error.png">
                         <p>Please try again in a few minutes.</p>
                     </c:ChasInfoTile>
                 </aura:set>

@@ -295,10 +295,6 @@
     <picklistValues>
         <picklist>Disqualified_Lead_Reason__c</picklist>
         <values>
-            <fullName>API Request</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>Could not contact</fullName>
             <default>false</default>
         </values>
@@ -328,10 +324,6 @@
         </values>
         <values>
             <fullName>Nurturing</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Unsuccessful Contact Attempts</fullName>
             <default>false</default>
         </values>
     </picklistValues>
