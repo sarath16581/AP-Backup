@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>BulkMailCloseCase</fullName>
+    <active>true</active>
+    <description>Bulk Mail Customer Onboarding validation rule to ensure minimum data quality before closing case</description>
+    <errorConditionFormula>AND(
+	RecordType.DeveloperName = &apos;Bulk_Mail_Onboarding&apos;,
+	ISPICKVAL(Status, &apos;Closed&apos;),
+	OR(
+		ISPICKVAL(Resolution__c, &apos;&apos;),
+		ISPICKVAL(CHASEnquiryType__c, &apos;&apos;)
+	)
+)</errorConditionFormula>
+    <errorMessage>Enquiry type and Resolution must be selected prior to case closure.</errorMessage>
+</ValidationRule>
