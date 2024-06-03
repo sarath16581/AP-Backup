@@ -198,7 +198,7 @@
         <name>main</name>
         <type>Region</type>
     </flexiPageRegions>
-    <masterLabel>Chat Transcript Record Page</masterLabel>
+    <masterLabel>Chat Transcript Unified Console Record Page</masterLabel>
     <sobjectType>LiveChatTranscript</sobjectType>
     <template>
         <name>flexipage:recordHomeLeftSidebarTemplateDesktop</name>
