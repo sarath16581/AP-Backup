@@ -1743,11 +1743,8 @@ private class APT_AmendRenewController_Test{
 	static void testSetOpportunityFieldsFromDSRBGBase(){
 		//Creating a user with BG Base profile
 		Profile p = [SELECT Id FROM Profile WHERE Name='BG Base'];
-		User testuser = new User(Alias = APT_Constants.ALIAS_TEST_USER, Email=APT_Constants.EMAIL_TEST_USER,
-		EmailEncodingKey=APT_Constants.EMAILENCODINGKEY_TEST_USER, LastName=APT_Constants.LASTNAME_TEST_USER, LanguageLocaleKey=APT_Constants.LANGUAGELOCALEKEY_TEST_USER,
-		LocaleSidKey=APT_Constants.LOCALESIDKEY_TEST_USER, ProfileId = p.Id,
-		TimeZoneSidKey=APT_Constants.TIMEZONESIDKEY_TEST_USER,
-		UserName=APT_Constants.EMAIL_TEST_USER);
+		User testuser = ApplicationTestDataFactory.getUsers(1, p.Id, false)[0];
+		insert testuser;
 		try{
 			System.runAs(testuser) {
 			// =====================================
@@ -1758,7 +1755,7 @@ private class APT_AmendRenewController_Test{
 			Opportunity opp = ApplicationTestDataFactory.getOpportunities(1, account.Id, true)[0];
 			Deal_Support_Request__c dsr = ApplicationTestDataFactory.getDealSupportRequests(1, opp.Id, account.Id, true)[0];
 			dsr = (Deal_Support_Request__c)ApplicationTestDataFactory.setUnwritableFields(dsr, new Map<String, Object>{'Name' => 'DS-0001213'});
-			dsr.Requestor__c = UserInfo.getUserId();
+			dsr.Requestor__c = testuser.Id;
 			dsr.CustomerContact1__c = contact.Id;
 
 			Map<String, Object> searchParams = new Map<String, Object>();
