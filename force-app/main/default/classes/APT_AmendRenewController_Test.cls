@@ -1749,7 +1749,7 @@ private class APT_AmendRenewController_Test{
 		TimeZoneSidKey=APT_Constants.TIMEZONESIDKEY_TEST_USER,
 		UserName=APT_Constants.EMAIL_TEST_USER);
 		try{
-			System.runAs(testuser ) {
+			System.runAs(testuser) {
 			// =====================================
 			// Data Preparation
 			// =====================================
@@ -1787,6 +1787,7 @@ private class APT_AmendRenewController_Test{
 			dov.setOpportunityFieldsFromDSR(opp);
 			Test.stopTest();
 			System.assert(opp.OwnerId != null);
+			System.assert(opp.OwnerId == testuser.Id);
 			}
 		}
 		catch(Exception e){
