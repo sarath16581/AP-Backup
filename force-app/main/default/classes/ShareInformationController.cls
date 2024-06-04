@@ -420,7 +420,7 @@ global with sharing class ShareInformationController {
 				}
 				else {
 					// Nandan : limiting the query for Share info article for view state error (INC0649377)
-					Map<String, Object> params = new Map<String, Object>{'statuses' => new Set<String>{'Online'}, 'languages' => new Set<String>{'en_US'}, 'recordTypeNames' => new Set<String>{'PUSH_EDM'}};
+					Map<String, Object> params = new Map<String, Object>{'statuses' => new Set<String>{'Online'}, 'languages' => new Set<String>{'en_US'}, 'recordTypeNames' => new Set<String>{PUSH_EDM}};
 					for(SObject o: shareInformationWrapper.getKnowledgeArticles(params)) {
 					
 						articles.put(o.id, o); 
