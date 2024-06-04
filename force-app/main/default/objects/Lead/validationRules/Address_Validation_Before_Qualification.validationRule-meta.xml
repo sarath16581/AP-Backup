@@ -4,11 +4,10 @@
     <active>true</active>
     <description>Checking whether address is validated before Qualification</description>
     <errorConditionFormula>AND(
+    RecordType.DeveloperName = &quot;BG_Standard&quot;,
     ISCHANGED(Status),
-    ISPICKVAL(Status, &quot;Qualified&quot;),
-    $Permission.BG_Core,
-    NOT($Permission.BG_Sales),
+    OR( ISPICKVAL(Status, &quot;Qualified&quot;), ISPICKVAL(Status, &quot;Verified&quot;)),
     NOT(Address_Validated__c)
-    )</errorConditionFormula>
-    <errorMessage>The Address must be confirmed via the Address Tab.</errorMessage>
+)</errorConditionFormula>
+    <errorMessage>The Address must be confirmed via &quot;Enter Address&quot; tile.</errorMessage>
 </ValidationRule>

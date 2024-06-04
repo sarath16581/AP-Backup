@@ -5279,6 +5279,22 @@ Please choose to override the hotlist restriction or Cancel to quit the process.
 -</value>
     </labels>
     <labels>
+        <fullName>NewOpportunityForActionAccountManagerTaskDescription</fullName>
+        <categories>Opportunity Tasks</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>NewOpportunityForActionAccountManagerTaskDescription</shortDescription>
+        <value>An opportunity has been transferred to you. Please action/update within the next 48 hours and close this task.</value>
+    </labels>
+    <labels>
+        <fullName>NewOpportunityForActionAccountManagerTaskSubject</fullName>
+        <categories>Opportunity Tasks</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>NewOpportunityForActionAccountManagerTaskSubject</shortDescription>
+        <value>Transfer of Opportunity from your Sales Manager.</value>
+    </labels>
+    <labels>
         <fullName>NewViewLinkLabel</fullName>
         <categories>Opty Reassign Page</categories>
         <language>en_US</language>
@@ -8186,6 +8202,22 @@ something new for us, so we&apos;d love to know what you think.</value>
         <protected>true</protected>
         <shortDescription>TotalFooterLabel</shortDescription>
         <value>Number</value>
+    </labels>
+    <labels>
+        <fullName>TransferNewlyAssignedOpportunitySalesManagerTaskDescription</fullName>
+        <categories>Opportunity Tasks</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>TransferNewlyAssignedOpportunitySalesManagerTaskDescription</shortDescription>
+        <value>The Lead Record has been converted to an Opportunity Record please assign to the account manager for actioning. Please do not close this task as it will be auto closed once the Opportunity has been transferred.</value>
+    </labels>
+    <labels>
+        <fullName>TransferNewlyAssignedOpportunitySalesManagerTaskSubject</fullName>
+        <categories>Opportunity Tasks</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>TransferNewlyAssignedOpportunitySalesManagerTaskSubject</shortDescription>
+        <value>The Lead Record has been converted to an Opportunity Record please assign to the account manager for actioning.</value>
     </labels>
     <labels>
         <fullName>TransferToPoThankYouMessage</fullName>

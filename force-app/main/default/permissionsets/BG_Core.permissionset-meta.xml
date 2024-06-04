@@ -2890,6 +2890,11 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
+        <editable>true</editable>
+        <field>Lead.Expected_Volumes_Per_Week__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
         <editable>false</editable>
         <field>Lead.First_Activity_of_Sales__c</field>
         <readable>true</readable>
@@ -2932,6 +2937,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Lead.RegisteredBusinessName__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Lead.RequeueAttempts__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

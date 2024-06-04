@@ -101,7 +101,7 @@ public with sharing class ProductScheduleService {
             for (Integer financialYear = calculator.financialYearStart; financialYear <= calculator.financialYearEnd; financialYear++) {
                 // obtain revenue schedule record for the year
                 String scheduleUid = getUID(nextItem.Id, String.valueOf(financialYear));
-                Double nrtBaseline = prodRevService.getPastMonthsAverage(nextItem.Opportunity.AccountId, nextItem.Product2.Id, 3);
+                Double nrtBaseline = prodRevService.getPastMonthsAverage(nextItem.Opportunity.AccountId, nextItem.Product2.Id, 3, nextItem.Contract_Start_Date__c);
                 GroupedRevenueSchedule__c scheduleToCalculate = groupedSchedules.containsKey(scheduleUid) ? groupedSchedules.get(scheduleUid) : new GroupedRevenueSchedule__c(OpportunityProduct__c = nextItem.Id, Opportunity__c = nextItem.OpportunityId, NRTBaseline__c = nrtBaseline);
                 if (scheduleToCalculate.GroupedAccountProductRevenue__c == null) {
                     // link a revenue record to the schedule
