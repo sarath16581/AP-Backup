@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>BulkMailCasePermanentClose</fullName>
+    <active>true</active>
+    <description>Bulk Mail Onboarding - Prevent the reopening of a Case that has been marked as &quot;Permanently Closed&quot;.</description>
+    <errorConditionFormula>Permanent_Close__c &amp;&amp; ISCHANGED(Status) &amp;&amp; NOT(ISPICKVAL(Status, &apos;Closed&apos;)) &amp;&amp; RecordType.DeveloperName = &apos;Bulk_Mail_Onboarding&apos;</errorConditionFormula>
+    <errorDisplayField>Status</errorDisplayField>
+    <errorMessage>This case has been permanently closed and no status change may take place.</errorMessage>
+</ValidationRule>
