@@ -6,6 +6,7 @@
     <inlineHelpText>Enter targeted date for billing account to be closed</inlineHelpText>
     <label>Estimated Account Closure Date</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>

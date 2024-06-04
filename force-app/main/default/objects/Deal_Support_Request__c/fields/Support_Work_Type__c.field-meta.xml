@@ -3,6 +3,7 @@
     <fullName>Support_Work_Type__c</fullName>
     <description>.</description>
     <externalId>false</externalId>
+    <inlineHelpText>Please select most accurate option available from the list.</inlineHelpText>
     <label>Support Work Type</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>

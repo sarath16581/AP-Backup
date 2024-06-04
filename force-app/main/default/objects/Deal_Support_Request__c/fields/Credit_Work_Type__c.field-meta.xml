@@ -4,6 +4,7 @@
     <description>Work Type selection for Credit Management Deal Support Request. 
 The field is a dependent picklist field of &apos;Pay Account Type&apos; picklist controlling field.</description>
     <externalId>false</externalId>
+    <inlineHelpText>Please select most accurate option available from the list.</inlineHelpText>
     <label>Credit Work Type</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>
