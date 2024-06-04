@@ -1,5 +1,0 @@
-<apex:page standardController="FAQ__kav"  extensions="internalArticlePreview" sidebar="false" showHeader="false">
-<apex:iframe src="{!URLFOR(myPage)}" scrolling="true" id="theIframe" />
-
-
-</apex:page>
