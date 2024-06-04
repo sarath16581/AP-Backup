@@ -11,11 +11,11 @@
 public with sharing class ABNChangeController {
 
 	/**
-	 * Field Overrides when selecting At Risk Business; Only old and new organisations required
+	 * Field Overrides when selecting At Risk Business
 	 */
 	private static final Map<SObjectType,Set<SObjectField>> AT_RISK_BUSINESS_FIELD_OVERRIDES = new Map<SObjectType,Set<SObjectField>> {
 			At_Risk_Business__c.SObjectType => new Set<SObjectField> {
-					At_Risk_Business__c.Related_Organisation__c, At_Risk_Business__c.Legal_Entity_Name__c
+					At_Risk_Business__c.Id, At_Risk_Business__c.Related_Organisation__c, At_Risk_Business__c.Legal_Entity_Name__c
 			},
 			Account.SObjectType => new Set<SObjectField> {
 					Account.Name
@@ -29,6 +29,7 @@ public with sharing class ABNChangeController {
 
 	/**
 	 * This method is used to get deduplicated contacts and related At Risk Business between contacts from old organisation (legal entity) and new organisation (related organisation)
+	 * Datacloud.FindDuplicates.findDuplicates is used to deduplicate contacts
 	 * @param businessAtRiskId  At Risk Business Id
 	 *
 	 * @return Map of 'businessAtRisk' => At Risk Business, 'contacts' => list of deduplicated contacts
@@ -37,12 +38,43 @@ public with sharing class ABNChangeController {
 	public static Map<String, Object> getDeduplicatedContactsAndBaR(String businessAtRiskId) {
 		At_Risk_Business__c atRiskBusiness = AtRiskBusinessSelector.newInstance(AT_RISK_BUSINESS_FIELD_OVERRIDES).selectById(new Set<Id>{businessAtRiskId}, new Set<Object>{AtRiskBusinessSelector.options.WITH_RELATED_ORGANISATION})[0];
 		List<Contact> oldContacts = ContactsSelector.newInstance(0, CONTACT_FIELD_OVERRIDES).selectCloneableContactsByAccount(new Set<Id>{atRiskBusiness.Legal_Entity_Name__c});
-		List<Contact> newContacts = ContactsSelector.newInstance(0, CONTACT_FIELD_OVERRIDES).selectByAccount(new Set<Id>{atRiskBusiness.Related_Organisation__c}).values();
 
-		List<Contact> deduplicatedContacts = ContactDuplicateChecker.findUniqueContacts(oldContacts, newContacts);
+		Set<Id> duplicatedIds = new Set<Id>();
+		List<Contact> uniqueContacts = new List<Contact>();
+
+		// Assign new org on old contacts
+		for (Contact c: oldContacts) {
+			c.AccountId = atRiskBusiness.Related_Organisation__c;
+		}
+
+		List<Datacloud.FindDuplicatesResult> fdResults = new List<Datacloud.FindDuplicatesResult>();
+
+		// The input array of Datacloud.FindDuplicates.findDuplicates method is limited to 50 elements. Split the list to sub lists accordingly
+		List<List<Contact>> contactsList = (List<List<Contact>>)splitContacts(oldContacts, 50);
+		for (List<Contact> contacts: contactsList) {
+			System.debug(contacts);
+			fdResults = Datacloud.FindDuplicates.findDuplicates(contacts);
+			for (Integer i = 0; i < fdResults.size(); i++) {
+				for (Datacloud.DuplicateResult duplicateResult :fdResults[i].getDuplicateResults()) {
+					for (Datacloud.MatchResult matchResult :duplicateResult.getMatchResults()) {
+						// Collect matched Ids
+						if (!duplicateResult.allowSave && matchResult.size > 0) {
+							duplicatedIds.add(contacts[i].Id);
+						}
+					}
+				}
+			}
+		}
+
+		for (Integer i = 0; i < oldContacts.size(); i++) {
+			if (!duplicatedIds.contains(oldContacts[i].Id)) {
+				uniqueContacts.add(oldContacts[i]);
+			}
+		}
+
 		return new Map<String, Object>{
 				'businessAtRisk' => atRiskBusiness,
-				'contacts' => deduplicatedContacts
+				'contacts' => uniqueContacts
 		};
 	}
 
@@ -73,11 +105,9 @@ public with sharing class ABNChangeController {
 	 * @param newOrganisationId Id of new organisation where the contacts will be cloned to
 	 * @param oldContactIds list of old contact Ids
 	 *
-	 * @return list of succeeded contact Ids
 	 */
 	@AuraEnabled
-	public static List<String> cloneContacts(String newOrganisationId, List<Id> oldContactIds) {
-		List<String> savedContactsIds = new List<String>();
+	public static void cloneContacts(String newOrganisationId, List<Id> oldContactIds) {
 		try {
 			// Select old contacts by Ids with fields from ABNChangeContactCloning field set
 			Set<SObjectField> contactCloningFields = new Set<SObjectField>();
@@ -106,27 +136,12 @@ public with sharing class ABNChangeController {
 			}
 
 			if (newContacts.size() > 0) {
-				String logBody = '';
-				Integer failureCount = 0;
-				// dmlOption will only bypass alert type duplicate rule and will not bypass enforced duplicate rule (contacts under same org)
-				//TODO: Approval from tech lead before using this method in ApplicationDatabase
-				List<Database.SaveResult> results = ApplicationDatabase.getInstance().dmlInsert(newContacts, opt);
-				for (Integer i = 0; i < results.size(); i++) {
-					if (results[i].isSuccess()) {
-						savedContactsIds.add(results[i].getId());
-					} else {
-						failureCount ++;
-						logBody += oldContacts[i].Id + ' cloned failed with status code: ' +results[i].getErrors()[0].getStatusCode() + ', message: ' + results[i].getErrors()[0].getMessage() + '\n';
-					}
-				}
-				if (failureCount > 0) {
-					ApplicationLogger.getInstance().logMessage(new List<String>{failureCount + ' contacts cloned failed. Please check Additional Info.'}, new List<String>{logBody}, 'ABNChange', ABNChangeController.class.getName(), 'cloneContacts', '', ApplicationLogger.LoggingLevel.ERROR);
-				}
+				// Create new contacts asynchronously and log failed old contacts
+				System.enqueueJob(new AsyncJob(oldContacts, newContacts));
 			}
 		} catch (Exception e) {
 			ApplicationLogger.getInstance().logException(ApplicationLogger.wrapException(e), 'ABNChange', ABNChangeController.class.getName(), 'cloneContacts', null, ApplicationLogger.LoggingLevel.ERROR);
 		}
-		return savedContactsIds;
 	}
 
 	public class DataTableColumn {
@@ -147,5 +162,67 @@ public with sharing class ABNChangeController {
 				this.type = type.toLowerCase();
 			}
 		}
+	}
+
+	private with sharing class AsyncJob implements Queueable {
+		private List<Contact> oldContacts;
+		private List<Contact> newContacts;
+
+		private AsyncJob(List<Contact> oldContacts, List<Contact> newContacts) {
+			this.oldContacts = oldContacts;
+			this.newContacts = newContacts;
+		}
+
+		public void execute(QueueableContext context) {
+			try {
+				// Bypass duplicate alert
+				Database.DMLOptions opt = new Database.DMLOptions();
+				opt.duplicateRuleHeader.allowSave = true;
+				opt.optAllOrNone = false;
+
+				String logBody = '';
+				Integer failureCount = 0;
+				// dmlOption will only bypass alert type duplicate rule and will not bypass enforced duplicate rule (contacts under same org)
+				List<Database.SaveResult> results = ApplicationDatabase.getInstance().dmlInsert(newContacts, opt);
+				for (Integer i = 0; i < results.size(); i++) {
+					if (!results[i].isSuccess()) {
+						failureCount ++;
+						logBody += oldContacts[i].Id + ' cloned failed with status code: ' +results[i].getErrors()[0].getStatusCode() + ', message: ' + results[i].getErrors()[0].getMessage() + '\n';
+					}
+				}
+				if (failureCount > 0) {
+					ApplicationLogger.getInstance().logMessage(new List<String>{failureCount + ' contacts cloned failed. Please check Additional Info.'}, new List<String>{logBody}, 'ABNChange', ABNChangeController.class.getName(), 'cloneContactsQueueable', '', ApplicationLogger.LoggingLevel.ERROR);
+				}
+			} catch (Exception e) {
+				ApplicationLogger.getInstance().logException(ApplicationLogger.wrapException(e), 'ABNChange', ABNChangeController.class.getName(), 'cloneContactsQueueable', null, ApplicationLogger.LoggingLevel.ERROR);
+			}
+		}
+	}
+
+	public static List<List<Contact>> splitContacts(List<Contact> source, Integer size) {
+		List<List<Contact>> ret = new List<List<Contact>>();
+		if (source == null) return ret;
+
+		// If the source size is equal to or smaller than our partition size, just return it
+		if (source.size() <= size) {
+			ret.add(source);
+			return ret;
+		}
+
+		// Initialize the partitions
+		Integer partition = 0;
+		ret.add(new List<Contact>());
+
+		for (Contact obj : source) {
+			// Create a new partition when we fill one up
+			if (ret[partition].size() == size) {
+				partition++;
+				ret.add(new List<Contact>());
+			}
+			// Add object to current partition
+			ret[partition].add(obj);
+		}
+
+		return ret;
 	}
 }

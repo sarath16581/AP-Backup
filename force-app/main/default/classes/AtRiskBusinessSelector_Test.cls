@@ -10,7 +10,7 @@
 * 2023-04-21 - Pratyush Chalasani - Created
 * 2024-05-21 - Harry Wang - Added tests for new option WITH_RELATED_ORGANISATION and fieldOverrides
 */
-@isTest
+@IsTest
 public with sharing class AtRiskBusinessSelector_Test {
 	/**
 	* Test:

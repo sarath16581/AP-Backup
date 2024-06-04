@@ -4,13 +4,13 @@
 			<div class="slds-text-title_bold">{errorMessage}</div>
 		</template>
 		<template lwc:else>
-			<div class="slds-scoped-notification slds-media slds-media_center slds-scoped-notification_light" role="status">
-				<lightning-icon class="slds-p-right_xx-small" size="x-small" icon-name="utility:info" alternative-text="information" title="information"></lightning-icon>
+			<div class="slds-media slds-media_center slds-scoped-notification_dark slds-p-around_x-small" role="status">
+				<lightning-icon class="slds-m-right_xx-small slds-align-top" variant="inverse" size="small" icon-name="utility:info" alternative-text="information" title="information"></lightning-icon>
 				<p>{headerInfo}</p>
 			</div>
 			<template lwc:if={hasReachSelectLimit}>
-				<div class="slds-scoped-notification slds-media slds-media_center slds-scoped-notification_light" role="status">
-					<lightning-icon class="slds-p-right_xx-small" size="x-small" icon-name="utility:info" alternative-text="information" title="information"></lightning-icon>
+				<div class="slds-media slds-media_center slds-scoped-notification_dark slds-p-around_x-small" role="status">
+					<lightning-icon class="slds-p-right_xx-small slds-align-top" variant="inverse" size="small" icon-name="utility:info" alternative-text="information" title="information"></lightning-icon>
 					<p>{limitInfo}</p>
 				</div>
 			</template>

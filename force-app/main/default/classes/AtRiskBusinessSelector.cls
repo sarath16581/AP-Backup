@@ -62,6 +62,7 @@ public virtual inherited sharing class AtRiskBusinessSelector extends Applicatio
 
 		if (selectorOptions.contains(Options.WITH_RELATED_ORGANISATION)) {
 			builder.addRelatedFields(AccountsSelector.newInstance().newQueryBuilder(), 'Related_Organisation__r');
+			builder.addRelatedFields(AccountsSelector.newInstance().newQueryBuilder(), 'Legal_Entity_Name__r');
 		}
 		return builder;
 	}

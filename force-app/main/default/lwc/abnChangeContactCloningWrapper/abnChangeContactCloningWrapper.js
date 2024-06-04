@@ -16,7 +16,7 @@ import LightningAlert from 'lightning/alert';
 import { refreshApex } from "@salesforce/apex";
 import { CloseActionScreenEvent } from 'lightning/actions';
 import LABEL_CONTACT_CLONING from "@salesforce/label/c.ABNChangeContactCloningLabel";
-import LABEL_CONTACT_CLONING_ERROR from "@salesforce/label/c.ABNChangeContactCloningErrorMessage";
+import LABEL_CONTACT_CLONING_CONFIRMATION from "@salesforce/label/c.ABNChangeContactCloningConfirmation";
 import LABEL_CONTACT_LIMIT_INFO from "@salesforce/label/c.ABNChangeContactCloningLimitInfo";
 import LABEL_CONTACT_NO_CONTACTS_ERROR from "@salesforce/label/c.ABNChangeContactCloningNoContactsError";
 import LABEL_CONTACT_INFO from "@salesforce/label/c.ABNChangeContactCloningInfo";
@@ -78,12 +78,17 @@ export default class AbnChangeContactCloningWrapper extends LightningElement {
 				console.log(JSON.stringify(this.columns));
 			}).catch(error => {
 				console.error(error);
+				LightningAlert.open({
+					message: 'Something went wrong while retrieving the columns. Please try again',
+					theme: 'error',
+					label: LABEL_CONTACT_CLONING
+				});
 			});
 
 			// this.contacts = data.contacts;
 			this.atRiskBusiness = data.businessAtRisk;
-			this.isLoading = false;
 			this.errorMessage = null;
+			this.isLoading = false;
 		} else if (data?.length === 0) {
 			this.errorMessage = LABEL_CONTACT_NO_CONTACTS_ERROR;
 		}
@@ -240,28 +245,19 @@ export default class AbnChangeContactCloningWrapper extends LightningElement {
 	 */
 	async handleClone() {
 		const confirmed = await LightningConfirm.open({
-			message: 'By clicking "OK" ' + this.selectedRows.length + ' selected contacts will be cloned.',
+			message: this.selectedRows.length + ' are selected under ' + this.atRiskBusiness.Legal_Entity_Name__r.Name + ' to be cloned under ' + this.atRiskBusiness.Related_Organisation__r.Name + '. Do you want to proceed?',
 			variant: 'headerless',
 			label: 'Contact Cloning'
 		});
 		if (confirmed) {
 			this.isLoading = true;
 			this.selectedIds = this.selectedRows.map(e => e.Id);
-			cloneContacts({newOrganisationId: this.atRiskBusiness.Related_Organisation__c, oldContactIds: this.selectedIds}).then((result) => {
-				if (result.length === this.selectedIds.length) {
-					LightningAlert.open({
-						message: result.length + ' Contacts cloned successfully under ' + this.atRiskBusiness.Related_Organisation__r.Name + '.',
-						theme: 'success',
-						label: LABEL_CONTACT_CLONING
-					});
-				} else if (result.length < this.selectedIds.length) {
-					LightningAlert.open({
-						message: 'Error occurred while cloning contacts, only ' + result.length + ' out of ' + this.contacts.length + ' contacts cloned successfully. '
-							+ LABEL_CONTACT_CLONING_ERROR,
-						theme: 'error',
-						label: LABEL_CONTACT_CLONING
-					});
-				}
+			cloneContacts({newOrganisationId: this.atRiskBusiness.Related_Organisation__c, oldContactIds: this.selectedIds}).then(() => {
+				LightningAlert.open({
+					message: LABEL_CONTACT_CLONING_CONFIRMATION,
+					theme: 'success',
+					label: LABEL_CONTACT_CLONING
+				});
 			}).catch((error) => {
 				const errorMessages = JSON.stringify(error).match(/(?<="message":")(.*?)(?=")/g).join(' ');
 				if (errorMessages) {

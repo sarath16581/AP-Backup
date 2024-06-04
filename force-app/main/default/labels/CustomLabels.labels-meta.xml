@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomLabels xmlns="http://soap.sforce.com/2006/04/metadata">
     <labels>
-        <fullName>ABNChangeContactCloningErrorMessage</fullName>
+        <fullName>ABNChangeContactCloningConfirmation</fullName>
         <categories>ABN Update</categories>
         <language>en_US</language>
         <protected>false</protected>
-        <shortDescription>ABNChangeContactCloningErrorMessage</shortDescription>
-        <value>Please report an IT issue via the &apos;Report a Fault&apos; icon on the MyIT Service Portal and select the details - Please select the area this relates to: 2. Applications &amp; Software, What does this relate to?: Salesforce, What best describes your issue?: Issues with Sales Cloud, Can you provide a short description?: Contact cloning failed. Please check exception log for more details.</value>
+        <shortDescription>ABNChangeContactCloningConfirmation</shortDescription>
+        <value>Contacts are being cloned. Please check the contacts under the new organisation to see the newly created contacts. If all selected contacts do not appear under the new organisation, please refresh the page and retry cloning after some time. If subsequent attempts fail, then please contact your local CRM specialist.</value>
     </labels>
     <labels>
         <fullName>ABNChangeContactCloningInfo</fullName>
@@ -14,7 +14,7 @@
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>ABNChangeContactCloningInfo</shortDescription>
-        <value>Contact Cloning Body - TBC</value>
+        <value>Contacts displayed for cloning are Active, Contact Maintained by Account Manager on the original organisation and do not already exist against the new Organisation (based on combination of Name+Phone+Email).</value>
     </labels>
     <labels>
         <fullName>ABNChangeContactCloningLabel</fullName>
