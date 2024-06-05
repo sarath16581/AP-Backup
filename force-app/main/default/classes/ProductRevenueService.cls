@@ -171,7 +171,7 @@ public with sharing class ProductRevenueService {
                 updateRetainedIncrementalAnnualised(record,pastSales);
 
                 if (!record.Opportunity.StageName.contains('Closed')) {
-                    record.X3MonthAverageActual__c = getPastMonthsAverage(record.Opportunity.AccountId, record.Product2.Id, 3);
+                    record.X3MonthAverageActual__c = getPastMonthsAverage(record.Opportunity.AccountId, record.Product2.Id, 3, record.Contract_Start_Date__c);
                 }
 
                 // add this record to the ones having been updated
@@ -439,9 +439,6 @@ public with sharing class ProductRevenueService {
                                                     && relatedChildAccountsMap.get(item.Opportunity.AccountId) != null // the children records exist
                                                     ? relatedChildAccountsMap.get(item.Opportunity.AccountId) : new Set<Id>();
                     for (Id relatedAccountId : relatedAccounts) {
-                        if (parentToChildAccountMap.get(item.Opportunity.AccountId).contains(relatedAccountId)) { // exclude the child Account from AR if it is already included in the Hierarchy
-                            continue;
-                        }
                         String relatedAccountRevenueKey = getUID(relatedAccountId,item.Product2.Id,String.valueOf(year));
                         if (addRevenueValues(currentGroupedRevenue,relatedAccountRevenueKey)) {
                             isUpdated = true;
@@ -550,6 +547,7 @@ public with sharing class ProductRevenueService {
    * @description calculate actual revenue for account products achieved over the past 12 months.
    * @param accountId - the account for the revenue record
    * @param productId - the product for the revenue record
+   * @param revenueStartDate the start date to use for revenue calculation
    * @return the total sales value for the last twelve months for the specified account and product.
    * */
     public Double getSumOfPastTwelveMonths(String accountId, String productId, Date revenueStartDate) {
@@ -558,6 +556,12 @@ public with sharing class ProductRevenueService {
         // Iterate through the past 12 months
         Integer targetYear = getAustralianFinancialYear(targetDate);
         Integer targetMonth = targetDate.month() - 1; // should not include the current month
+        if (targetMonth == 6) {
+            targetYear -=1;
+        } else if (targetMonth == 0) { // targetMonth could hit 0 here i.e when Revenue Start Date is Jan
+            targetMonth = 12;
+        }
+
         for (Integer i = 1; i <= 12; i++) {
             String uniqueId = getUID(accountId,productId,String.valueOf(targetYear));
             GroupedAccountProductRevenue__c targetData = groupedRevenues.get(uniqueId);
@@ -565,16 +569,13 @@ public with sharing class ProductRevenueService {
                 Double monthValue = getValueForMonth(targetData,targetMonth);
                 if (monthValue != null) {
                     totalSum += monthValue;
-                    //commenting out below rather than deleting it, in case business change their mind about full/partial month revenue decisions
-                    //totalSum += (i == 13) ? calculatePartialMonthValue(monthValue): monthValue;
                 }
             }
             // adjust target month and financial year.
             targetMonth -= 1;
             if (targetMonth == 6) {
                 targetYear -=1;
-            }
-            else if (targetMonth==0) {
+            } else if (targetMonth == 0) {
                 targetMonth = 12;
             }
         }
@@ -585,15 +586,23 @@ public with sharing class ProductRevenueService {
      * @param accountId accountId
      * @param productId productId
      * @param numberOfMonths the number of months the average should be calculated for
+     * @param revenueStartDate the start date to use for revenue calculation
      *
      * @return Double
      * @description calculates the average value based on the previous month, and going back as the parameter numberOfMonths indicated
      */
-    public Double getPastMonthsAverage(String accountId, String productId, Integer numberOfMonths) {
+    public Double getPastMonthsAverage(String accountId, String productId, Integer numberOfMonths, Date revenueStartDate) {
         Double totalSum = 0.0;
-        // Iterate through the past 12 months
-        Integer targetYear = getAustralianFinancialYear(revenueCalculationContextDate);
-        Integer targetMonth = revenueCalculationContextDate.month() - 1; // should not include the current month
+        Date targetDate = revenueStartDate < revenueCalculationContextDate ? revenueStartDate : revenueCalculationContextDate;
+
+        Integer targetYear = getAustralianFinancialYear(targetDate);
+        Integer targetMonth = targetDate.month() - 1; // should not include the current month
+        if (targetMonth == 6) { // targetMonth could hit 0 here i.e when Revenue Start Date is Jan
+            targetYear -=1;
+        } else if (targetMonth == 0) {
+            targetMonth = 12;
+        }
+
         for (Integer i = 1; i <= 3; i++) {
             String uniqueId = getUID(accountId,productId,String.valueOf(targetYear));
             GroupedAccountProductRevenue__c targetData = groupedRevenues.get(uniqueId);
@@ -607,8 +616,7 @@ public with sharing class ProductRevenueService {
             targetMonth -= 1;
             if (targetMonth == 6) {
                 targetYear -=1;
-            }
-            else if (targetMonth==0) {
+            } else if (targetMonth == 0) {
                 targetMonth = 12;
             }
         }

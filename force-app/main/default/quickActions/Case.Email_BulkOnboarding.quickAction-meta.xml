@@ -9,6 +9,10 @@
         <field>ToAddress</field>
         <formula>Case.SuppliedEmail</formula>
     </fieldOverrides>
+    <fieldOverrides>
+        <field>BccAddress</field>
+        <formula>&quot;&quot;</formula>
+    </fieldOverrides>
     <label>Email</label>
     <optionsCreateFeedItem>true</optionsCreateFeedItem>
     <quickActionLayout>
