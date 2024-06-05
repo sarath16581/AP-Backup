@@ -110,7 +110,7 @@ class GenSTBusinessLogic {
         }
 
         if (screenPopNoData) {
-            this.popConsignmentSearchpage(null, null);
+            this.popConsignmentSearchpage(null, partyType);
         } else if (trackingSearchConsignment) {
             this.popConsignmentSearchpage(consignmentNumber, partyType);
         } else if (trackingSearchCase) {

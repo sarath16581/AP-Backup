@@ -401,7 +401,7 @@ class GenesysAPBusinessLogic {
 				// This can be inbound as well as outbound
 				linkTabEventDetails();
 				// Obtain case details and sync caseId or contactId to Genesys
-				if (this.tracking.case?.Id) {
+				if (this.tracking?.case?.Id) {
 					fetchCaseAndTrackDetails();
 				} else {
 					this.trackingTask.complete();
@@ -424,7 +424,7 @@ class GenesysAPBusinessLogic {
 						const promise = pushGenesysAttributes(trackingAttribs);
 
 						// Fetch additional case details
-						if (this.tracking.case?.Id) {
+						if (this.tracking?.case?.Id) {
 							return fetchCaseAndTrackDetails();
 						}
 						
