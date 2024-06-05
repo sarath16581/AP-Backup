@@ -4,6 +4,6 @@
     <protected>false</protected>
     <values>
         <field>Vendor_Email__c</field>
-        <value xsi:type="xsd:string">vidyavathi.chandramohan2@auspost.com.au</value>
+        <value xsi:type="xsd:string">vendors@auspost.com.au</value>
     </values>
 </CustomMetadata>
