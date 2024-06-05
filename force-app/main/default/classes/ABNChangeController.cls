@@ -52,7 +52,6 @@ public with sharing class ABNChangeController {
 		// The input array of Datacloud.FindDuplicates.findDuplicates method is limited to 50 elements. Split the list to sub lists accordingly
 		List<List<Contact>> contactsList = (List<List<Contact>>)splitContacts(oldContacts, 50);
 		for (List<Contact> contacts: contactsList) {
-			System.debug(contacts);
 			fdResults = Datacloud.FindDuplicates.findDuplicates(contacts);
 			for (Integer i = 0; i < fdResults.size(); i++) {
 				for (Datacloud.DuplicateResult duplicateResult :fdResults[i].getDuplicateResults()) {
@@ -137,7 +136,7 @@ public with sharing class ABNChangeController {
 
 			if (newContacts.size() > 0) {
 				// Create new contacts asynchronously and log failed old contacts
-				System.enqueueJob(new AsyncJob(oldContacts, newContacts));
+				System.enqueueJob(new ABNChangeContactCloningQueueable(oldContacts, newContacts));
 			}
 		} catch (Exception e) {
 			ApplicationLogger.getInstance().logException(ApplicationLogger.wrapException(e), 'ABNChange', ABNChangeController.class.getName(), 'cloneContacts', null, ApplicationLogger.LoggingLevel.ERROR);
@@ -160,41 +159,6 @@ public with sharing class ABNChangeController {
 				this.type = 'phone';
 			} else {
 				this.type = type.toLowerCase();
-			}
-		}
-	}
-
-	private with sharing class AsyncJob implements Queueable {
-		private List<Contact> oldContacts;
-		private List<Contact> newContacts;
-
-		private AsyncJob(List<Contact> oldContacts, List<Contact> newContacts) {
-			this.oldContacts = oldContacts;
-			this.newContacts = newContacts;
-		}
-
-		public void execute(QueueableContext context) {
-			try {
-				// Bypass duplicate alert
-				Database.DMLOptions opt = new Database.DMLOptions();
-				opt.duplicateRuleHeader.allowSave = true;
-				opt.optAllOrNone = false;
-
-				String logBody = '';
-				Integer failureCount = 0;
-				// dmlOption will only bypass alert type duplicate rule and will not bypass enforced duplicate rule (contacts under same org)
-				List<Database.SaveResult> results = ApplicationDatabase.getInstance().dmlInsert(newContacts, opt);
-				for (Integer i = 0; i < results.size(); i++) {
-					if (!results[i].isSuccess()) {
-						failureCount ++;
-						logBody += oldContacts[i].Id + ' cloned failed with status code: ' +results[i].getErrors()[0].getStatusCode() + ', message: ' + results[i].getErrors()[0].getMessage() + '\n';
-					}
-				}
-				if (failureCount > 0) {
-					ApplicationLogger.getInstance().logMessage(new List<String>{failureCount + ' contacts cloned failed. Please check Additional Info.'}, new List<String>{logBody}, 'ABNChange', ABNChangeController.class.getName(), 'cloneContactsQueueable', '', ApplicationLogger.LoggingLevel.ERROR);
-				}
-			} catch (Exception e) {
-				ApplicationLogger.getInstance().logException(ApplicationLogger.wrapException(e), 'ABNChange', ABNChangeController.class.getName(), 'cloneContactsQueueable', null, ApplicationLogger.LoggingLevel.ERROR);
 			}
 		}
 	}
