@@ -51,6 +51,7 @@ private class AuspostVendorEmailSelector_Test {
 		// =====================================
 		Auspost_Vendors_Email_Address__mdt vendorEmailRecord = [SELECT DeveloperName, Vendor_Email__c FROM Auspost_Vendors_Email_Address__mdt WHERE Vendor_Email__c != null LIMIT 1];
 		String vendorEmail = vendorEmailRecord.Vendor_Email__c;
+		String developerName = vendorEmailRecord.DeveloperName;
 
 		// =====================================
 		// Stubbing
@@ -67,6 +68,12 @@ private class AuspostVendorEmailSelector_Test {
 		System.assertEquals(1, results.size(), 'Result count was wrong');
 
 		results = selector.selectByVendorEmails(new Set<String>{vendorEmail});
+		System.assertEquals(1, results.size(), 'Result count was wrong');
+		
+		results = selector.selectByName(new Set<String>{developerName});
+		System.assertEquals(1, results.size(), 'Result count was wrong');
+		
+		results = selector.selectByName(new Set<String>{developerName}, new Set<Object>());
 		System.assertEquals(1, results.size(), 'Result count was wrong');
 
 		Test.stopTest();
