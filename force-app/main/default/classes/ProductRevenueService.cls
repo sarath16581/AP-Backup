@@ -78,21 +78,19 @@ public with sharing class ProductRevenueService {
         set;
     }
 
-    // The date from which to base all revenue calculations. This will be todays date except for testing.
-    @testVisible
-    private date calculationDate {
+    /**
+     * @description The date from which to base all revenue calculations. This will be today's date except for testing.
+     */
+    @TestVisible
+    private Date revenueCalculationContextDate {
         get {
-            if (calculationDate == null) {
-                calculationDate = system.today();
+            if (revenueCalculationContextDate == null) {
+                revenueCalculationContextDate = System.today();
             }
-            return calculationDate;
+            return revenueCalculationContextDate;
         }
         set;
     }
-
-    // ***** PUBLIC STATIC METHODS ******* //
-
-
 
     // Constructs a UID for Grouped Revenue Records based on account, product and financial year of the record.
     public static String getUID(GroupedAccountProductRevenue__c groupedRevenue) {
@@ -173,7 +171,7 @@ public with sharing class ProductRevenueService {
                 updateRetainedIncrementalAnnualised(record,pastSales);
 
                 if (!record.Opportunity.StageName.contains('Closed')) {
-                    record.X3MonthAverageActual__c = getPastMonthsAverage(record.Opportunity.AccountId, record.Product2.Id, 3);
+                    record.X3MonthAverageActual__c = getPastMonthsAverage(record.Opportunity.AccountId, record.Product2.Id, 3, record.Contract_Start_Date__c);
                 }
 
                 // add this record to the ones having been updated
@@ -201,7 +199,7 @@ public with sharing class ProductRevenueService {
         uids.addAll(configureProductAccountMaps(lineItems));
         loadBudgetAndRevenueRecords(uids);
 
-        Integer currentFY = getAustralianFinancialYear(calculationDate);
+        Integer currentFY = getAustralianFinancialYear(revenueCalculationContextDate);
         for (OpportunityLineItem lineItem : lineItems) {
             String uniqueId = getUID(lineItem.Opportunity.AccountId,lineItem.Product2Id,String.valueOf(currentFY));
             if (budgetAndRevenues.isEmpty()) { // cannot find any prior customer revenue record => new business
@@ -236,9 +234,9 @@ public with sharing class ProductRevenueService {
     private Map<String,Budget_and_Revenue__c> getRevenuesToProcess(List<Budget_and_Revenue__c> records,Map<Id,Budget_and_Revenue__c> existingRecords) {
         Map<String,Budget_and_Revenue__c> requiresProcessing = new Map<String,Budget_and_Revenue__c>();
         for (Budget_and_Revenue__c currentRecord :records) {
-            if (currentRecord.Transaction_Type__c == 'REVENUE' && currentRecord.Financial_Year__c == String.valueOf(calculationDate.year())) {
-                Double priorValue = existingRecords == null ? 0 : getValueForMonth(existingRecords.get(currentRecord.Id),calculationDate.month());
-                if (getValueForMonth(currentRecord,calculationDate.month()) != priorValue) {
+            if (currentRecord.Transaction_Type__c == 'REVENUE' && currentRecord.Financial_Year__c == String.valueOf(revenueCalculationContextDate.year())) {
+                Double priorValue = existingRecords == null ? 0 : getValueForMonth(existingRecords.get(currentRecord.Id),revenueCalculationContextDate.month());
+                if (getValueForMonth(currentRecord,revenueCalculationContextDate.month()) != priorValue) {
                     requiresProcessing.put(currentRecord.uid__c,currentRecord);
                 }
             }
@@ -282,7 +280,7 @@ public with sharing class ProductRevenueService {
 
         // calculate required updates
         for (Budget_and_Revenue__c record : revenuesToProcess.values()) {
-            Integer currentMonth =   calculationDate.month();
+            Integer currentMonth =   revenueCalculationContextDate.month();
 
             Double priorValue = existingRecords == null ? 0 : getValueForMonth(existingRecords.get(record.Id),currentMonth);
             Double valueChange = getValueForMonth(record,currentMonth) - priorValue;
@@ -302,7 +300,7 @@ public with sharing class ProductRevenueService {
 
         // Retrieve matching grouped revenues that require updating
         loadGroupedProductRevenues(unprocessedGroupRevenueAdjustments.keySet());
-        Integer currentMonth = calculationDate.month();
+        Integer currentMonth = revenueCalculationContextDate.month();
         // apply adjustments to grouped revenues
         for (String groupRevenueKey : unprocessedGroupRevenueAdjustments.keySet()) {
             if (groupedRevenues.containsKey(groupRevenueKey) && groupedRevenues.get(groupRevenueKey) != null) {
@@ -318,7 +316,7 @@ public with sharing class ProductRevenueService {
     }
 
     private void appendGroupRevenueAdjustment(Id AccountId, Id productId, Double valueChange,Map<String,Double> unprocessedGroupRevenueAdjustments) {
-        Integer currentFY = getAustralianFinancialYear(calculationDate);
+        Integer currentFY = getAustralianFinancialYear(revenueCalculationContextDate);
         String uniqueId = getUID(AccountId,productId,String.valueOf(currentFY));
         if (!unprocessedGroupRevenueAdjustments.containsKey(uniqueId)) {
             unprocessedGroupRevenueAdjustments.put(uniqueId,0);
@@ -418,7 +416,7 @@ public with sharing class ProductRevenueService {
         Map<Id,Set<Id>> parentToChildAccountMap = getParentToChildAccountMap();
 
         for(OpportunityLineItem item : opportunityLineItems.values()) {
-            Integer currentFY = getAustralianFinancialYear(calculationDate);
+            Integer currentFY = getAustralianFinancialYear(revenueCalculationContextDate);
             for (Integer year = currentFY-1; year <currentFY+1; year++) {
                 // retrieve the grouped revenue records for this item
                 GroupedAccountProductRevenue__c currentGroupedRevenue = getCreateGroupedRevenue(unprocessedRevenueRecords,item,year);
@@ -437,7 +435,9 @@ public with sharing class ProductRevenueService {
                     }
 
                     // records for related accounts from the AccountRelationship Object
-                    Set<Id> relatedAccounts = relatedChildAccountsMap.containsKey(item.Opportunity.AccountId) &&  relatedChildAccountsMap.get(item.Opportunity.AccountId) !=null ? relatedChildAccountsMap.get(item.Opportunity.AccountId) : new Set<Id>();
+                    Set<Id> relatedAccounts = relatedChildAccountsMap.containsKey(item.Opportunity.AccountId) // AR contains the parent as keys
+                                                    && relatedChildAccountsMap.get(item.Opportunity.AccountId) != null // the children records exist
+                                                    ? relatedChildAccountsMap.get(item.Opportunity.AccountId) : new Set<Id>();
                     for (Id relatedAccountId : relatedAccounts) {
                         String relatedAccountRevenueKey = getUID(relatedAccountId,item.Product2.Id,String.valueOf(year));
                         if (addRevenueValues(currentGroupedRevenue,relatedAccountRevenueKey)) {
@@ -482,7 +482,7 @@ public with sharing class ProductRevenueService {
     private Set<String> getUIDs(List<OpportunityLineItem> items) {
         // retrieve all possible contributing budget and revenue ids
         Set<String> uids = new Set<String>();
-        Integer currentFY = getAustralianFinancialYear(calculationDate);
+        Integer currentFY = getAustralianFinancialYear(revenueCalculationContextDate);
         for(OpportunityLineItem item : items) {
             uids.add(getUID(item?.Opportunity?.AccountId, item?.Product2?.Id,String.valueOf(currentFY)));
             uids.add(getUID(item?.Opportunity?.AccountId, item?.Product2?.Id,String.valueOf(currentFY-1)));
@@ -527,7 +527,7 @@ public with sharing class ProductRevenueService {
 
         for(OpportunityLineItem item : items) {
             Set<Id> relatedAccounts = relatedChildAccountsMap.containsKey(item.Opportunity.AccountId) &&  relatedChildAccountsMap.get(item.Opportunity.AccountId) !=null ? relatedChildAccountsMap.get(item.Opportunity.AccountId) : new Set<Id>();
-            Integer currentFY = getAustralianFinancialYear(calculationDate);
+            Integer currentFY = getAustralianFinancialYear(revenueCalculationContextDate);
             for (Integer year = currentFY-1; year <currentFY+1; year++) {
 
                 // records for child accounts
@@ -547,14 +547,21 @@ public with sharing class ProductRevenueService {
    * @description calculate actual revenue for account products achieved over the past 12 months.
    * @param accountId - the account for the revenue record
    * @param productId - the product for the revenue record
+   * @param revenueStartDate the start date to use for revenue calculation
    * @return the total sales value for the last twelve months for the specified account and product.
    * */
     public Double getSumOfPastTwelveMonths(String accountId, String productId, Date revenueStartDate) {
         Double totalSum = 0.0;
-        Date targetDate = revenueStartDate < calculationDate ? revenueStartDate : calculationDate;
+        Date targetDate = revenueStartDate < revenueCalculationContextDate ? revenueStartDate : revenueCalculationContextDate;
         // Iterate through the past 12 months
         Integer targetYear = getAustralianFinancialYear(targetDate);
         Integer targetMonth = targetDate.month() - 1; // should not include the current month
+        if (targetMonth == 6) {
+            targetYear -=1;
+        } else if (targetMonth == 0) { // targetMonth could hit 0 here i.e when Revenue Start Date is Jan
+            targetMonth = 12;
+        }
+
         for (Integer i = 1; i <= 12; i++) {
             String uniqueId = getUID(accountId,productId,String.valueOf(targetYear));
             GroupedAccountProductRevenue__c targetData = groupedRevenues.get(uniqueId);
@@ -562,16 +569,13 @@ public with sharing class ProductRevenueService {
                 Double monthValue = getValueForMonth(targetData,targetMonth);
                 if (monthValue != null) {
                     totalSum += monthValue;
-                    //commenting out below rather than deleting it, in case business change their mind about full/partial month revenue decisions
-                    //totalSum += (i == 13) ? calculatePartialMonthValue(monthValue): monthValue;
                 }
             }
             // adjust target month and financial year.
             targetMonth -= 1;
             if (targetMonth == 6) {
                 targetYear -=1;
-            }
-            else if (targetMonth==0) {
+            } else if (targetMonth == 0) {
                 targetMonth = 12;
             }
         }
@@ -582,15 +586,23 @@ public with sharing class ProductRevenueService {
      * @param accountId accountId
      * @param productId productId
      * @param numberOfMonths the number of months the average should be calculated for
+     * @param revenueStartDate the start date to use for revenue calculation
      *
      * @return Double
      * @description calculates the average value based on the previous month, and going back as the parameter numberOfMonths indicated
      */
-    public Double getPastMonthsAverage(String accountId, String productId, Integer numberOfMonths) {
+    public Double getPastMonthsAverage(String accountId, String productId, Integer numberOfMonths, Date revenueStartDate) {
         Double totalSum = 0.0;
-        // Iterate through the past 12 months
-        Integer targetYear = getAustralianFinancialYear(calculationDate);
-        Integer targetMonth = calculationDate.month() - 1; // should not include the current month
+        Date targetDate = revenueStartDate < revenueCalculationContextDate ? revenueStartDate : revenueCalculationContextDate;
+
+        Integer targetYear = getAustralianFinancialYear(targetDate);
+        Integer targetMonth = targetDate.month() - 1; // should not include the current month
+        if (targetMonth == 6) { // targetMonth could hit 0 here i.e when Revenue Start Date is Jan
+            targetYear -=1;
+        } else if (targetMonth == 0) {
+            targetMonth = 12;
+        }
+
         for (Integer i = 1; i <= 3; i++) {
             String uniqueId = getUID(accountId,productId,String.valueOf(targetYear));
             GroupedAccountProductRevenue__c targetData = groupedRevenues.get(uniqueId);
@@ -604,8 +616,7 @@ public with sharing class ProductRevenueService {
             targetMonth -= 1;
             if (targetMonth == 6) {
                 targetYear -=1;
-            }
-            else if (targetMonth==0) {
+            } else if (targetMonth == 0) {
                 targetMonth = 12;
             }
         }
@@ -615,10 +626,10 @@ public with sharing class ProductRevenueService {
     /**
 	 * @param monthValue i.e. the revenue value for the month
 	 *
-	 * @return the partial or full revenue for the month base on the calculationDate
+	 * @return the partial or full revenue for the month base on the revenueCalculationContextDate
 	 */
     private Double calculatePartialMonthValue(Double monthValue) {
-        return (1 - calculationDate.day() / Date.daysInMonth(calculationDate.year(), calculationDate.month())) * monthValue;
+        return (1 - revenueCalculationContextDate.day() / Date.daysInMonth(revenueCalculationContextDate.year(), revenueCalculationContextDate.month())) * monthValue;
     }
 
 

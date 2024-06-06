@@ -43,7 +43,7 @@
 	private static final Id bulkMailQueueId {
 		get {
 			if (bulkMailQueueId == null) {
-				bulkMailQueueId = BulkMailSettings__c.getInstance().BulkMailQueueId__c;
+				bulkMailQueueId = BulkMailSettings__c.getOrgDefaults().BulkMailQueueId__c;
 			}
 			return bulkMailQueueId;
 		}
@@ -95,7 +95,7 @@
 		Id recordTypeId = BulkMailCaseService.getInstance().getBulkMailRecordTypeId();
 
 		// Field overrides for cases
-		Set <SObjectField> fieldOverrides = new Set <SObjectField>{Case.Id, Case.Permanent_Close__c, Case.Status, Case.EmailToCaseAddress__c, Case.Priority, Case.Call_Purpose__c, Case.Origin, Case.Enquiry_Type__c, Case.Product_Type__c, Case.Source__c};
+		Set <SObjectField> fieldOverrides = new Set <SObjectField>{Case.Id, Case.Permanent_Close__c, Case.Status, Case.EmailToCaseAddress__c, Case.Priority, Case.Call_Purpose__c, Case.Origin, Case.Enquiry_Type__c, Case.Product_Type__c, Case.Source__c, Case.First_Email_Response__c};
 
 		//Get the selected emailMessage with related case fields, whose parent case recordtype is Bulk Mail
 		EmailmessagesSelector emSelector = EmailMessagesSelector.newInstance();

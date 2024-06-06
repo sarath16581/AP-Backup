@@ -42,18 +42,13 @@ private class OppCloneTest{
         pbe.UseStandardPrice = FALSE;
         insert pbe;
         
-//ListPrice,OpportunityId,PricebookEntryId,Classification__c,Sub_Classification__c,Quantity,UnitPrice,Contract_Product__c        
-        OpportunityLineItem li = new OpportunityLineItem();
-        li.OpportunityId=o.Id;
-        //li.PricebookEntryId='01u90000001Hfh1AAC'; // Remove harded-coded ID reference 
-        li.PricebookEntryId= pbe.id;
-        li.Classification__c='Renewal';        
-        li.Quantity=1;
-        li.UnitPrice=100;
-        li.Contract_Product__c='No';
-        li.Contract_End_Date__c = system.today()+10;
-        li.Contract_Start_Date__c = system.today();
-        insert li;
+        OpportunityLineItem li = new OpportunityLineItem(OpportunityId = o.Id,Quantity = 5,PricebookEntryId = pbe.Id,
+                TotalPrice = 5,Contract_Start_Date__c = system.today(),Contract_End_Date__c = system.today().addDays(3));
+		li = (OpportunityLineItem)ApplicationTestDataFactory.setUnwritableFields(li, new Map<String, Object>{
+				'Annualised_Value__c' => 5000,
+				'Product2Id' => testProduct.Id
+		});
+		li.Opportunity = o;
         
         OpportunityCloneWithItemsController oc=new OpportunityCloneWithItemsController();
         oc.cloneWithoutItems();

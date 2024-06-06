@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>CustomerType__c</fullName>
-    <description>To identify whether it's a Business or Consumer Customer.</description>
+    <description>To identify whether it&apos;s a Business or Consumer Customer.</description>
     <externalId>false</externalId>
-    <inlineHelpText>Only ST Receivers can claim & Senders can be ST or AP.</inlineHelpText>
+    <inlineHelpText>Only ST Receivers can claim &amp; Senders can be ST or AP.</inlineHelpText>
     <label>Customer Type</label>
     <length>255</length>
     <required>false</required>

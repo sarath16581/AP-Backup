@@ -5,7 +5,7 @@
     <externalId>false</externalId>
     <formula>IF (Act5__c - NRTBaseline__c &gt; 0 ,Act5__c - NRTBaseline__c ,0)</formula>
     <inlineHelpText>NRT Incremental value for May</inlineHelpText>
-    <label>May NRT Incremental</label>
+    <label>May Incremental Revenue</label>
     <precision>18</precision>
     <required>false</required>
     <scale>2</scale>

@@ -1,10 +1,11 @@
 <!--
-- Created by alexvolkov on 29/1/20.
+  Address Lookup Wrapper to expose on record pages
+  Changelog:
+  2020-01-29 - Alex Volkov - Created
+  2024-05-28 - Ranjeewa Silva - Minor styling updates so the component renders nicely on narrow column of a record page.
 -->
-
-<!-- Address Lookup Wrapper to expose on record pages -->
 <template>
-    <lightning-card>
+    <div class="slds-card slds-p-bottom_small">
        <template if:true={objectAPIName}>
         <lightning-record-edit-form record-id={recordId} object-api-name={objectAPIName}>
             <lightning-messages>
@@ -12,10 +13,9 @@
             <template if:true={showSpinner}>
                 <lightning-spinner size="small" alternative-text="Loading..."></lightning-spinner>
             </template>
-            <lightning-layout-item size="6" padding="horizontal-small">
                 <template if:true={showAddressInput}>
                 <template for:each={addressData} for:item="addr">
-                 <lightning-card title={addr.cTitle} icon-name="standard:record" key={addr.addressType}>
+                 <lightning-card title={addr.cTitle} icon-name="standard:record" key={addr.addressType} class="slds-card__body_inner">
                     <template if:true={addr.currentAddress}>
                         <div class="slds-align_absolute-center">
                             <h3><strong>Current Address: <lightning-formatted-text value={addr.currentAddress} linkify></lightning-formatted-text></strong></h3>
@@ -32,8 +32,6 @@
                  </lightning-card>
                 </template>
                 </template>
-            </lightning-layout-item>
-            <br/>
             <div class="slds-align_absolute-center">
             <lightning-button class="slds-m-top_small" variant="brand" type="submit" name="update" label="Save"
                               onclick={saveRecord}>
@@ -41,5 +39,5 @@
             </div>
         </lightning-record-edit-form>
        </template>
-    </lightning-card>
+    </div>
 </template>

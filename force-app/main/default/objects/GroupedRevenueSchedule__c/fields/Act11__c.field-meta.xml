@@ -6,7 +6,7 @@
     <formula>GroupedAccountProductRevenue__r.Rev11__c</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <inlineHelpText>Actual sales figure for November.</inlineHelpText>
-    <label>November Actual</label>
+    <label>November Revenue</label>
     <precision>18</precision>
     <required>false</required>
     <scale>2</scale>

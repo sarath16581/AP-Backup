@@ -7,6 +7,7 @@
     <columns>Risk_Type__c</columns>
     <columns>Reason__c</columns>
     <columns>Status__c</columns>
+    <columns>CREATED_DATE</columns>
     <columns>Threat_Risk__c</columns>
     <columns>Value_of_Business_at_Risk__c</columns>
     <columns>Closed_Date__c</columns>

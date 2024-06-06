@@ -3,8 +3,8 @@
     <fullName>Case__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <description>This is field will store the Case details to which the DSR request is linked to</description>
-    <inlineHelpText>This is field will store the Case details to which the DSR request is linked to</inlineHelpText>
     <externalId>false</externalId>
+    <inlineHelpText>This is field will store the Case details to which the DSR request is linked to</inlineHelpText>
     <label>Case</label>
     <referenceTo>Case</referenceTo>
     <relationshipLabel>Deal Support Request</relationshipLabel>
