@@ -1231,10 +1231,13 @@ public with sharing class APT_AmendRenewController {
 		if(getProfile.get(userProfileID).Name == APT_Constants.STRING_BG_BASE) {
 			clonedOpportunity.OwnerId = UserInfo.getUserId();
 		}
-		else if (dsr != null) {
-			clonedOpportunity.OwnerId = dsr.Requestor__c != null ? dsr.Requestor__c : clonedOpportunity.OwnerId;
-		}
 
+		if (dsr != null) {
+			clonedOpportunity.OwnerId = dsr.Requestor__c != null ? dsr.Requestor__c : clonedOpportunity.OwnerId;
+			clonedOpportunity.KeyContact__c = dsr.CustomerContact1__c != null ? dsr.CustomerContact1__c : clonedOpportunity.KeyContact__c;
+		}
+		else {
 		clonedOpportunity.KeyContact__c = null;
+		}
 	}
 }
