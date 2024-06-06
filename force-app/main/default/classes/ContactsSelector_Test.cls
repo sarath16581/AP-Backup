@@ -181,7 +181,7 @@ private with sharing class ContactsSelector_Test {
 	}
 
 	@IsTest
-	static void testSelectByCustomerSearchParamsQB_NoParams() {
+	static void testSelectByCustomerSearchParamsQBNoParams() {
 		Set<SObjectField> fieldOverrides = new Set<SObjectField>{ Contact.Id, Contact.FirstName };
 		Set<Object> selectorOptions = new Set<Object>();
 		ContactsSelector cs = ContactsSelector.newInstance(10, fieldOverrides);
