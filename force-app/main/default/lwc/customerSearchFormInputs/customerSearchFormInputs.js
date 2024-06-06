@@ -1,4 +1,7 @@
 import { LightningElement, api } from "lwc";
+import customerSearch from "@salesforce/apex/CustomerSearchFormController.search";
+import { isBlank, isNotBlank } from "c/utils";
+import { reduceErrors } from "c/ldsUtils";
 
 // Lightning card title
 export const SEARCH_FORM_TITLE = "Customer Search";
@@ -16,10 +19,18 @@ export const NAME_INPUT_REGEX = '^[^\\.\\!\\(\\)\\[\\]"1-9]*$'; // TODO: create 
 export const EMAIL_INPUT_REGEX = undefined; // TODO: leverage existing utility class (currently uses OOTB lighting-input email pattern)
 export const PHONE_INPUT_REGEX = "^[\\d ]+$"; // TODO: leverage existing utility class
 
-// Field validation error messages
+// Error messages
 export const INVALID_NAME_MSG = "Invalid name format";
 export const INVALID_PHONE_NUMBER_MSG = "Invalid phone number";
 export const INVALID_EMAIL_ADDRESS_MSG = "Invalid email address format";
+export const MORE_INFO_REQUIRED_ERROR_MESSAGE =
+  "Please enter at least First and Last Name, or Phone, or Email.";
+export const FIRST_AND_LAST_NAME_REQUIRED_ERROR_MESSAGE =
+  "Please enter both First and Last name (or leave both blank).";
+export const INVALID_FORM_ERROR = "Please fix and errors and try again";
+
+// Element selectors
+export const INPUT_ELEMENT_SELECTORS = ["lightning-input"];
 
 /**
  * This component displays a form with several inputs which are used to search
@@ -104,6 +115,110 @@ export default class CustomerSearchFormInputs extends LightningElement {
   invalidPhoneNumberMsg = INVALID_PHONE_NUMBER_MSG;
 
   /**
+   * Identifies and iterates over each input element, and checks that
+   * all inputs are valid. Use this before submitting the form.
+   *
+   * @returns {boolean}
+   */
+  validateInputs() {
+    try {
+      // Reset any previous error message
+      this.errorMessage = undefined;
+
+      // Collect all form input elements
+      const inputElements = [
+        ...this.template.querySelectorAll(INPUT_ELEMENT_SELECTORS.join(",")),
+      ];
+
+      // Check each individual field is valid
+      let isValid = inputElements.reduce((validSoFar, el) => {
+        el.reportValidity();
+        return validSoFar && el.checkValidity();
+      }, true);
+
+      // If one or more fields is invalid, stop validating (field will display error message)
+      if (!isValid) {
+        return false;
+      }
+
+      // Cannot include first name, but not last name
+      if (isNotBlank(this.firstName) && isBlank(this.lastName)) {
+        isValid = false;
+        this.errorMessage = FIRST_AND_LAST_NAME_REQUIRED_ERROR_MESSAGE;
+      }
+
+      // Cannot include last name, but not first name
+      if (isBlank(this.firstName) && isNotBlank(this.lastName)) {
+        isValid = false;
+        this.errorMessage = FIRST_AND_LAST_NAME_REQUIRED_ERROR_MESSAGE;
+      }
+
+      // At least one of the following fields is required to be included in the
+      // search query. If they're all bank, display an error.
+      if (
+        isBlank(this.firstName) &&
+        isBlank(this.lastName) &&
+        isBlank(this.phoneNumber) &&
+        isBlank(this.emailAddress)
+      ) {
+        isValid = false;
+        this.errorMessage = MORE_INFO_REQUIRED_ERROR_MESSAGE;
+      }
+
+      return isValid;
+    } catch (err) {
+      this.errorMessage = reduceErrors(err).join(",");
+      return false;
+    }
+  }
+
+  /**
+   * Submits the form and performs the search.
+   *
+   * @fires InputChangeEvent#searchstart
+   * @fires InputChangeEvent#searchresult
+   * @fires InputChangeEvent#searcherror
+   */
+  performSearch() {
+    // Validate inputs before invoking the search method
+    if (!this.validateInputs()) {
+      if (this.errorMessage === undefined) {
+        this.errorMessage = INVALID_FORM_ERROR;
+      }
+      return;
+    }
+
+    // Invoke the search method
+    this.isLoading = true;
+    this.dispatchEvent(new CustomEvent("searchstart"));
+    customerSearch({
+      req: {
+        firstName: this.firstName,
+        lastName: this.lastName,
+        emailAddress: this.emailAddress,
+        phoneNumber: this.phoneNumber,
+      },
+    })
+      .then((res) => {
+        // Handle search results
+        this.dispatchEvent(
+          new CustomEvent("searchresult", {
+            detail: JSON.parse(JSON.stringify(res)),
+          })
+        );
+        this.isLoading = false;
+      })
+      .catch((error) => {
+        // Handle search errors
+        this.errorMessage = reduceErrors(error).join(",");
+        this.dispatchEvent(
+          new CustomEvent("searcherror", { detail: this.errorMessage })
+        );
+        this.isLoading = false;
+      });
+  }
+
+  /**
    * Handle `blur` events from input components and trim any leading
    * or training whitespaces from string values.
    *
@@ -182,6 +297,6 @@ export default class CustomerSearchFormInputs extends LightningElement {
    * Handles when the "Search" button is clicked.
    */
   handleSearchBtnClick() {
-    // TODO: implement
+    this.performSearch();
   }
 }
