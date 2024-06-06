@@ -398,13 +398,17 @@ global with sharing class GenesysConnectorController {
 		
 		ApplicationDatabase appDBInstance = ApplicationDatabase.getInstance();
 		
-		// Insert/Update the call Log activity to the Database
-		Database.UpsertResult result = appDBInstance.dmlUpsert(
-			new List<SObject>{ activity },
-			Task.CTIInteractionID__c
-		)[0];
+		List<Task> taskList = new List<SObject>{ activity };
+		Database.SaveResult result;
+
+		if (activity.Id == null) {
+			// Insert/Update the call Log activity to the Database
+			result = appDBInstance.dmlInsert(taskList)[0];
+		} else {
+			result = appDBInstance.dmlUpdate(taskList)[0];
+		}
 		
-		if (result.success && activity.Status == 'Closed' && String.isNotEmpty(ctiLog)) {
+		if (result.success && activity.Status == 'Completed' && String.isNotEmpty(ctiLog)) {
 			// Include the ctiLog		
 			String comments = String.valueOf(callLogMap.get('comments'));
 			String attachmentBody = (!String.isEmpty(comments) ? '\n\n' : '') + ctiLog;
@@ -412,8 +416,9 @@ global with sharing class GenesysConnectorController {
 			appDBInstance.dmlInsert(new List<SObject>{
 				new Attachment(
 					Name = 'InboundLog.txt',
-					parentId = result.id,
-					body = Blob.valueOf(attachmentBody)
+					ParentId = result.id,
+					Body = Blob.valueOf(attachmentBody),
+					OwnerId = UserInfo.getUserId()
 				)
 			});
 		}

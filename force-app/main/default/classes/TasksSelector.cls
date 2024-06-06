@@ -111,6 +111,7 @@ public virtual inherited sharing class TasksSelector extends ApplicationSelector
 
 		if(searchParams.containsKey('ctiInteractionIds')) {
 			conditions.add(new QueryBuilder.SimpleCondition('CTIInteractionID__c in :ctiInteractionIds'));
+			conditions.add(new QueryBuilder.SimpleCondition('CTIInteractionID__c != NULL'));
 			ctiInteractionIds.addAll((Set<String>)searchParams.get('ctiInteractionIds'));
 			conditionCount++;
 		}
