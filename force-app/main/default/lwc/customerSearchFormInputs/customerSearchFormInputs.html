@@ -1,6 +1,12 @@
 <template>
   <!-- Search form -->
   <lightning-card title={searchFormTitle}>
+    <!-- Lightning Spinner -->
+    <lightning-spinner
+      if:true={isLoading}
+      alternative-text="Searching..."
+      title="Searching..."
+    ></lightning-spinner>
     <div class="slds-var-m-around_medium">
       <div class="slds-grid slds-wrap slds-gutters">
         <!-- First Name -->
@@ -76,6 +82,15 @@
             value={emailAddress}
           ></lightning-input>
         </div>
+      </div>
+
+      <!-- Error message -->
+      <div
+        data-id="error"
+        if:true={errorMessage}
+        class="slds-text-align_center slds-text-color_error slds-var-m-around_medium"
+      >
+        {errorMessage}
       </div>
 
       <!-- Buttons -->

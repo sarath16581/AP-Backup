@@ -79,6 +79,9 @@ export default class CustomerSearchFormInputs extends LightningElement {
   _phoneNumber = "";
   _emailAddress = "";
 
+  errorMessage = undefined;
+  isLoading = false;
+
   // Lightning card title
   searchFormTitle = SEARCH_FORM_TITLE;
 
