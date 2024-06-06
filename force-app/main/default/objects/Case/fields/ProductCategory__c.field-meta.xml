@@ -10,7 +10,6 @@
     <trackHistory>true</trackHistory>
     <type>Picklist</type>
     <valueSet>
-        <controllingField>EnquirySubType__c</controllingField>
         <valueSetDefinition>
             <sorted>false</sorted>
             <value>
@@ -109,9 +108,5 @@
                 <label>Domestic</label>
             </value>
         </valueSetDefinition>
-        <valueSettings>
-            <controllingFieldValue>Address not in NAF</controllingFieldValue>
-            <valueName>Web &amp; Apps</valueName>
-        </valueSettings>
     </valueSet>
 </CustomField>
