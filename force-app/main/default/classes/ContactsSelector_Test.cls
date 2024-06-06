@@ -179,4 +179,66 @@ private with sharing class ContactsSelector_Test {
 		Test.stopTest();
 
 	}
+
+	@IsTest
+	static void testSelectByCustomerSearchParamsQB_NoParams() {
+		Set<SObjectField> fieldOverrides = new Set<SObjectField>{ Contact.Id, Contact.FirstName };
+		Set<Object> selectorOptions = new Set<Object>();
+		ContactsSelector cs = ContactsSelector.newInstance(10, fieldOverrides);
+
+		ContactsSelector.CustomerSearchParameters params = new ContactsSelector.CustomerSearchParameters();
+
+		Test.StartTest();
+		String actual = cs.selectByCustomerSearchParamsQB(params, selectorOptions).replace('\n','').trim();
+		Test.StopTest();
+
+		String expected = '';
+		Assert.areEqual(actual, expected, 'Incorrect query string returned');
+	}
+
+	@IsTest
+	static void testSelectByCustomerSearchParamsQBWithFirstAndLastName() {
+		Set<SObjectField> fieldOverrides = new Set<SObjectField>{ Contact.Id, Contact.FirstName };
+		Set<Object> selectorOptions = new Set<Object>();
+		ContactsSelector cs = ContactsSelector.newInstance(10, fieldOverrides);
+
+		ContactsSelector.CustomerSearchParameters params = new ContactsSelector.CustomerSearchParameters();
+		params.firstName = 'Sherlock';
+		params.lastName = 'Holmes';
+
+		Test.startTest();
+		String actual = cs.selectByCustomerSearchParamsQB(params, selectorOptions).replace('\n','');
+		Test.stopTest();
+
+		String expected = 'SELECT Id, FirstName'
+			+ ' FROM Contact'
+			+ ' WHERE (FirstName LIKE \'Sherlock%\' OR Preferred_Name__c LIKE \'Sherlock%\')'
+			+ ' AND (LastName LIKE \'Holmes%\')'
+			+ ' ORDER BY VerifiedMobile__c ASC NULLS LAST, Name ASC NULLS LAST'
+			+ ' LIMIT 10';
+		Assert.areEqual(expected, actual, 'Incorrect query string returned');
+	}
+
+	@IsTest
+	static void testSelectByCustomerSearchParamsQBWithPhoneAndEmail() {
+		Set<SObjectField> fieldOverrides = new Set<SObjectField>{ Contact.Id, Contact.FirstName };
+		Set<Object> selectorOptions = new Set<Object>();
+		ContactsSelector cs = ContactsSelector.newInstance(10, fieldOverrides);
+
+		ContactsSelector.CustomerSearchParameters params = new ContactsSelector.CustomerSearchParameters();
+		params.phoneNumber = '0400111222';
+		params.emailAddress = 'jwatson@example.com';
+
+		Test.startTest();
+		String actual = cs.selectByCustomerSearchParamsQB(params, selectorOptions).replace('\n','');
+		Test.stopTest();
+
+		String expected = 'SELECT Id, FirstName'
+			+ ' FROM Contact'
+			+ ' WHERE (Email = \'jwatson@example.com\' OR VerifiedEmail__c = \'jwatson@example.com\')'
+			+ ' AND (MobilePhone = \'0400111222\' OR VerifiedMobile__c = \'0400111222\' OR Phone = \'0400111222\' OR ReversePhoneFields__c = \'222111004\')'
+			+ ' ORDER BY VerifiedMobile__c ASC NULLS LAST, Name ASC NULLS LAST'
+			+ ' LIMIT 10';
+		Assert.areEqual(expected, actual, 'Incorrect query string returned');
+	}
 }
