@@ -10,6 +10,7 @@
     <trackHistory>true</trackHistory>
     <type>Picklist</type>
     <valueSet>
+        <controllingField>EnquirySubType__c</controllingField>
         <valueSetDefinition>
             <sorted>false</sorted>
             <value>
@@ -102,6 +103,15 @@
                 <default>false</default>
                 <label>Parcel Send Assistance/Training</label>
             </value>
+            <value>
+                <fullName>Domestic</fullName>
+                <default>false</default>
+                <label>Domestic</label>
+            </value>
         </valueSetDefinition>
+        <valueSettings>
+            <controllingFieldValue>Address not in NAF</controllingFieldValue>
+            <valueName>Web &amp; Apps</valueName>
+        </valueSettings>
     </valueSet>
 </CustomField>
