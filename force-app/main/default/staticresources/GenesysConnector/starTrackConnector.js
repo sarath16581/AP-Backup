@@ -85,7 +85,7 @@ class GenSTBusinessLogic {
                 console.log(logPrefix + "Scenario: Error| Duplicate");
             } else if ((exitCode === "NoScan" || exitCode === "TransferRequired" || exitCode === "Transit")) { // Removed as hopefully not needed! && (serviceSubType === "No Scanning Events" || serviceSubType === "In Transit or Delivered")){
                 trackingSearchCase = true; // Flag to search for the related case on a consignment
-                console.log(logPrefix + "Scenario: NoScan| Transit");
+                console.log(logPrefix + "Scenario: NoScan|Transit|TransferRequired");
             } else if ((exitCode === "Redeliver" || exitCode === "Redirect" || exitCode === "Depot") && (serviceSubType === "Organise Redelivery" || serviceSubType === "Organise Redirection" || serviceSubType === "Depot Collection")) {
                 cardIVRSearchCase = true; // Flag to search for the related case on a consignment
                 console.log(logPrefix + "Scenario: Redeliver|Redirect|Depot");
@@ -110,7 +110,7 @@ class GenSTBusinessLogic {
         }
 
         if (screenPopNoData) {
-            this.popConsignmentSearchpage(null, partyType);
+            this.popConsignmentSearchpage(null, null);
         } else if (trackingSearchConsignment) {
             this.popConsignmentSearchpage(consignmentNumber, partyType);
         } else if (trackingSearchCase) {
