@@ -102,6 +102,11 @@
                 <default>false</default>
                 <label>Parcel Send Assistance/Training</label>
             </value>
+            <value>
+                <fullName>Domestic</fullName>
+                <default>false</default>
+                <label>Domestic</label>
+            </value>
         </valueSetDefinition>
     </valueSet>
 </CustomField>
