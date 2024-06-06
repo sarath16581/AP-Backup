@@ -13,20 +13,43 @@ import {
 } from "c/customerSearchFormInputs";
 
 /**
- * Finds and returns input field based on the `data-field-name` attribute.
+ * Sets the value of the a form input element and fires the 'change' event.
+ * Does not currently support all components or input types. These should be added as needed.
  *
  * @param {Element} element
- * @param {string} fieldName
- * @returns
+ * @param {any} value - Set the input element's value to this.
  */
-function getInputField(element, fieldName) {
+function changeInputFieldValue(element, value) {
+  if (element?.nodeName.toLowerCase() === "lightning-input") {
+    element.value = value;
+    element.dispatchEvent(
+      new CustomEvent("change", { detail: { value: element.value } })
+    );
+    return;
+  }
+
+  throw new Error(`Unhandled element: '${element?.nodeName}'`);
+}
+
+/**
+ * Finds and returns input field based on the `data-field-name` attribute.
+ *
+ * @param {Element} element - The element to run `querySelector` on
+ * @param {string} fieldName - The dataFieldName attribute to query
+ * @returns {HTMLElement} - The HTMLElement that was found
+ */
+function getInputFieldElement(element, fieldName) {
   return element.shadowRoot.querySelector(`[data-field-name='${fieldName}']`);
 }
 
 /**
- * Helper function to await DOM updates and event handlers
+/**
+ * Helper function to flush all pending promises in the event loop.
+ * Useful for ensuring all asynchronous operations are complete before
+ * proceeding with test assertions.
+ * @returns {Promise<void>} A promise that resolves after all pending promises are flushed.
  */
-function flushPromises() {
+function flushAllPromises() {
   return new Promise((resolve) => setTimeout(resolve, 0));
 }
 
@@ -37,11 +60,11 @@ describe("c-customer-search-form-inputs", () => {
       document.body.removeChild(document.body.firstChild);
     }
 
-    // Reset mocks
+    // Reset all jest mocks after each test
     jest.clearAllMocks();
   });
 
-  it("shows component title", () => {
+  it("displays component title", () => {
     // Arrange
     const element = createElement("c-customer-search-form-inputs", {
       is: CustomerSearchFormInputs,
@@ -56,7 +79,7 @@ describe("c-customer-search-form-inputs", () => {
     expect(cardCmp.title).toBe(SEARCH_FORM_TITLE);
   });
 
-  it("shows search form input and button elements", () => {
+  it("displays search form input and button elements", () => {
     // Arrange
     const element = createElement("c-customer-search-form-inputs", {
       is: CustomerSearchFormInputs,
@@ -66,7 +89,7 @@ describe("c-customer-search-form-inputs", () => {
     document.body.appendChild(element);
 
     // Assert
-    const firstNameInput = getInputField(element, "firstName");
+    const firstNameInput = getInputFieldElement(element, "firstName");
     expect(firstNameInput).not.toBeNull();
     expect(firstNameInput.type).toBe("text");
     expect(firstNameInput.label).toBe(FIRST_NAME_LABEL);
@@ -74,7 +97,7 @@ describe("c-customer-search-form-inputs", () => {
     expect(firstNameInput.maxLength).toBe("40");
     expect(firstNameInput.value).toBe("");
 
-    const lastNameInput = getInputField(element, "lastName");
+    const lastNameInput = getInputFieldElement(element, "lastName");
     expect(lastNameInput).not.toBeNull();
     expect(lastNameInput.type).toBe("text");
     expect(lastNameInput.label).toBe(LAST_NAME_LABEL);
@@ -82,7 +105,7 @@ describe("c-customer-search-form-inputs", () => {
     expect(lastNameInput.maxLength).toBe("80");
     expect(lastNameInput.value).toBe("");
 
-    const emailAddressInput = getInputField(element, "emailAddress");
+    const emailAddressInput = getInputFieldElement(element, "emailAddress");
     expect(emailAddressInput).not.toBeNull();
     expect(emailAddressInput.type).toBe("email");
     expect(emailAddressInput.label).toBe(EMAIL_ADDRESS_LABEL);
@@ -90,7 +113,7 @@ describe("c-customer-search-form-inputs", () => {
     expect(emailAddressInput.maxLength).toBe("80");
     expect(emailAddressInput.value).toBe("");
 
-    const phoneNumberInput = getInputField(element, "phoneNumber");
+    const phoneNumberInput = getInputFieldElement(element, "phoneNumber");
     expect(phoneNumberInput).not.toBeNull();
     expect(phoneNumberInput.type).toBe("tel");
     expect(phoneNumberInput.label).toBe(PHONE_NUMBER_LABEL);
@@ -121,13 +144,15 @@ describe("c-customer-search-form-inputs", () => {
     // Act
     document.body.appendChild(element);
 
-    const firstNameInput = getInputField(element, "firstName");
-    expect(firstNameInput).not.toBeNull();
-    firstNameInput.value = "Joan ";
-    firstNameInput.dispatchEvent(new CustomEvent("change"));
+	// Update the 'firstName' field and fire the `change` event
+    const firstNameInput = getInputFieldElement(element, "firstName");
+    changeInputFieldValue(firstNameInput, "Joan ");
+
+	// Fire the `blur` event on the 'firstName' field
     firstNameInput.dispatchEvent(new CustomEvent("blur"));
 
-    await flushPromises();
+    // Wait for any asynchronous code to complete
+    await flushAllPromises();
 
     // Assert
     expect(firstNameInput.value).toBe("Joan");
@@ -142,24 +167,23 @@ describe("c-customer-search-form-inputs", () => {
     // Act
     document.body.appendChild(element);
 
-    const handler = jest.fn();
-    element.addEventListener("inputchange", handler);
+	// Add event handler for the `inputchange` event
+    const inputChangeEvent = jest.fn();
+    element.addEventListener("inputchange", inputChangeEvent);
 
-    // Trigger the click event on the search button
-    const firstNameInput = getInputField(element, "firstName");
-    expect(firstNameInput).not.toBeNull();
-    firstNameInput.value = "Joan";
-    firstNameInput.dispatchEvent(new CustomEvent("change"), {
-      detail: { value: "Joan" },
-    });
+    // Update the first name field and fire the 'change' event
+    const firstNameInput = getInputFieldElement(element, "firstName");
+    changeInputFieldValue(firstNameInput, "Joan");
 
     // Wait for any asynchronous code to complete
-    await flushPromises();
+    await flushAllPromises();
 
     // Assert
-    expect(handler).toHaveBeenCalled();
-    expect(handler.mock.calls[0][0].detail.fieldName).toEqual("firstName");
-    expect(handler.mock.calls[0][0].detail.value).toEqual("Joan");
+    expect(inputChangeEvent).toHaveBeenCalled();
+    expect(inputChangeEvent.mock.calls[0][0].detail.fieldName).toEqual(
+      "firstName"
+    );
+    expect(inputChangeEvent.mock.calls[0][0].detail.value).toEqual("Joan");
   });
 
   it("allows pre-populating input field values", () => {
@@ -169,26 +193,26 @@ describe("c-customer-search-form-inputs", () => {
     });
     element.firstName = "Joan";
     element.lastName = "Watson";
-    element.emailAddress = "jwatson@holmes-investigations.com";
+    element.emailAddress = "jwatson@example.com";
     element.phoneNumber = "0401234567";
 
     // Act
     document.body.appendChild(element);
 
     // Assert
-    const firstNameInput = getInputField(element, "firstName");
+    const firstNameInput = getInputFieldElement(element, "firstName");
     expect(firstNameInput).not.toBeNull();
     expect(firstNameInput.value).toBe("Joan");
 
-    const lastNameInput = getInputField(element, "lastName");
+    const lastNameInput = getInputFieldElement(element, "lastName");
     expect(lastNameInput).not.toBeNull();
     expect(lastNameInput.value).toBe("Watson");
 
-    const emailAddressInput = getInputField(element, "emailAddress");
+    const emailAddressInput = getInputFieldElement(element, "emailAddress");
     expect(emailAddressInput).not.toBeNull();
-    expect(emailAddressInput.value).toBe("jwatson@holmes-investigations.com");
+    expect(emailAddressInput.value).toBe("jwatson@example.com");
 
-    const phoneNumberInput = getInputField(element, "phoneNumber");
+    const phoneNumberInput = getInputFieldElement(element, "phoneNumber");
     expect(phoneNumberInput).not.toBeNull();
     expect(phoneNumberInput.value).toBe("0401234567");
   });
