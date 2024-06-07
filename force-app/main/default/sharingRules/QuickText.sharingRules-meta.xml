@@ -1,6 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <SharingRules xmlns="http://soap.sforce.com/2006/04/metadata">
     <sharingOwnerRules>
+        <fullName>Classic_agent_Admin</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>Crud access to members of &apos;Classic agent admin&apos; public group</description>
+        <label>Classic agent - Admin</label>
+        <sharedTo>
+            <group>ClassicAgentAdmin</group>
+        </sharedTo>
+        <sharedFrom>
+            <group>ClassicAgentAdmin</group>
+        </sharedFrom>
+    </sharingOwnerRules>
+    <sharingOwnerRules>
+        <fullName>Classic_agent_non_admin</fullName>
+        <accessLevel>Read</accessLevel>
+        <description>Read only access to members of &apos;Classic agent non-admin&apos; public group</description>
+        <label>Classic agent non-admin</label>
+        <sharedTo>
+            <group>ClassicAgentNonAdmin</group>
+        </sharedTo>
+        <sharedFrom>
+            <group>ClassicAgentAdmin</group>
+        </sharedFrom>
+    </sharingOwnerRules>
+    <sharingOwnerRules>
         <fullName>Open_to_all_ST_Users</fullName>
         <accessLevel>Read</accessLevel>
         <description>Open access of quick text created by startrack CSC managers to all ST users</description>
