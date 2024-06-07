@@ -18,6 +18,7 @@
  * 2021-10-01 - Nathan Franklin - Refactor transient attributes from TIBCOArticleService
  * 2021-11-07 - Prerna Rahangdale - Addev VODV_Redirect to the Article this comes in further references when the Event Messages are MRS hold.
  * 2022-08-11 - Harry Wang - Adding Content Items as transient attribute (for ICPS)
+ * 2024-05-24 - Seth Heang - Added attribute mapping for Article Status 'Delivered'
  */
 public class TIBCOArticleWrapper {
 	/**
@@ -60,8 +61,10 @@ public class TIBCOArticleWrapper {
 			proxyArticle = a.clone(true, true);
 
 			// store the matched contacts
-			if (mappedContacts != null && mappedContacts.get('receiver') != null) receiver = mappedContacts.get('receiver');
-			if (mappedContacts != null && mappedContacts.get('sender') != null) sender = mappedContacts.get('sender');
+			if (mappedContacts != null && mappedContacts.get('receiver') != null)
+				receiver = mappedContacts.get('receiver');
+			if (mappedContacts != null && mappedContacts.get('sender') != null)
+				sender = mappedContacts.get('sender');
 
 			eddImageIconName = 'error16.png';
 			if (a.ExpectedDeliveryDate__c != null) {
@@ -148,7 +151,8 @@ public class TIBCOArticleWrapper {
 				proxyArticle.MLID__c = article.MerchantLocationId; //Added by David Catindoy (March 13, 2017) - StarTrack SSC5.1
 				String proxyArticleMLID = '';
 				proxyArticleMLID = article.MerchantLocationId;
-				if (cw != null && String.isNotBlank(cw.proxyConsignment.Billing_Account__c)) { //Added by David Catindoy (March 22, 2017) - StarTrack SSC5.1
+				if (cw != null && String.isNotBlank(cw.proxyConsignment.Billing_Account__c)) {
+					//Added by David Catindoy (March 22, 2017) - StarTrack SSC5.1
 					proxyArticle.Billing_Account__c = cw.proxyConsignment.Billing_Account__c;
 				} else if (String.isNotBlank(proxyArticleMLID)) {
 					try {
@@ -189,16 +193,18 @@ public class TIBCOArticleWrapper {
 					//VODV Details
 					//When the Article is redirected or held, The VODV_REDIRECT further references gets the value
 					// The redirection address would be masked on customer facing portals, and agents would be warned to avoid sharing information to customers.
-					if('X'.equalsIgnoreCase(references.get('VODV_REDIRECT'))){
+					if ('X'.equalsIgnoreCase(references.get('VODV_REDIRECT'))) {
 						proxyArticle.VODV_Redirect__c = true;
 					}
-
 				}
 
-				if (article.Attachments != null && article.Attachments.Attachment != null && article.Attachments.Attachment.size() > 0) {								// check the article for attachments
-					for (AuspostCommonSchema.AttachmentType att : article.Attachments.Attachment) {  // iterate trough found attachments
-						if ('ExternalTrackingURL'.equalsIgnoreCase(att.AttachmentType)) {			// read for the attachment type = URL
-							proxyArticle.ExternalTrackingURL__c = att.URL;						  // store the URL found in article
+				if (article.Attachments != null && article.Attachments.Attachment != null && article.Attachments.Attachment.size() > 0) {
+					// check the article for attachments
+					for (AuspostCommonSchema.AttachmentType att : article.Attachments.Attachment) {
+						// iterate trough found attachments
+						if ('ExternalTrackingURL'.equalsIgnoreCase(att.AttachmentType)) {
+							// read for the attachment type = URL
+							proxyArticle.ExternalTrackingURL__c = att.URL; // store the URL found in article
 						}
 					}
 				}
@@ -221,7 +227,9 @@ public class TIBCOArticleWrapper {
 					for (AuspostMailProductSchema.ArticleStatus status : article.Status) {
 						if (status.StatusAttributeName == 'Redirect Allowed Status' && status.StatusAttributeValue == 'Available') {
 							proxyArticle.EligibleForRedirect__c = true;
-							break;
+						}
+						if (status.StatusAttributeName == 'Delivery Status of Article' && status.StatusAttributeValue == 'Delivered') {
+							proxyArticle.IsDelivered__c = true;
 						}
 					}
 				}
@@ -232,8 +240,7 @@ public class TIBCOArticleWrapper {
 							proxyArticle.DeliveryInstructions__c = dc.Comments;
 							if (dc.Customer != null) {
 								//added by Kalpita for capturing apcn on track events for reciever
-								proxyArticle.Receiver_APCN__c = !String.isBlank(proxyArticle.Receiver_APCN__c) ? proxyArticle.Receiver_APCN__c :
-										!String.isBlank(dc.Customer.CustomerID) ? dc.Customer.CustomerID : '';
+								proxyArticle.Receiver_APCN__c = !String.isBlank(proxyArticle.Receiver_APCN__c) ? proxyArticle.Receiver_APCN__c : !String.isBlank(dc.Customer.CustomerID) ? dc.Customer.CustomerID : '';
 
 								if (dc.Customer.Address != null) {
 									for (AuspostLocationSchema.AddressType addType : dc.Customer.Address) {
@@ -241,8 +248,7 @@ public class TIBCOArticleWrapper {
 										if (addType.AddressDetails != null && addType.AddressDetails.AustralianAddress != null) {
 											proxyArticle.DestinationPostCode__c = addType.AddressDetails.AustralianAddress.PostCode;
 
-											if (addType.AddressDetails.AustralianAddress.UnstructuredAddress != null
-													&& addType.AddressDetails.AustralianAddress.UnstructuredAddress.AddressLine != null) {
+											if (addType.AddressDetails.AustralianAddress.UnstructuredAddress != null && addType.AddressDetails.AustralianAddress.UnstructuredAddress.AddressLine != null) {
 												for (String s : addType.AddressDetails.AustralianAddress.UnstructuredAddress.AddressLine) {
 													proxyArticle.ReceiverAddress__c += s + ',';
 												}
@@ -271,12 +277,10 @@ public class TIBCOArticleWrapper {
 											proxyArticle.ReceiverCity__c = addType.AddressDetails.AustralianAddress.SuburbOrPlaceOrLocality;
 											proxyArticle.ReceiverState__c = addType.AddressDetails.AustralianAddress.StateOrTerritory;
 											proxyArticle.ReceiverPostcode__c = addType.AddressDetails.AustralianAddress.PostCode;
-
 										} else if (addType.AddressDetails != null && addType.AddressDetails.InternationalAddress != null) {
 											proxyArticle.DestinationPostCode__c = addType.AddressDetails.InternationalAddress.PostCode;
 
-											if (addType.AddressDetails.InternationalAddress.UnstructuredAddress != null
-													&& addType.AddressDetails.InternationalAddress.UnstructuredAddress.AddressLine != null) {
+											if (addType.AddressDetails.InternationalAddress.UnstructuredAddress != null && addType.AddressDetails.InternationalAddress.UnstructuredAddress.AddressLine != null) {
 												for (String s : addType.AddressDetails.InternationalAddress.UnstructuredAddress.AddressLine) {
 													proxyArticle.ReceiverAddress__c += s + ',';
 												}
@@ -322,14 +326,14 @@ public class TIBCOArticleWrapper {
 									for (AuspostInvolvedPartSchema.IndividualName ind : dc.Customer.Individual.Name) {
 										if (ind.NameUsage == 'IND') {
 											proxyArticle.ReceiverName__c = ind.FullName;
-											break;//Reading only the first value
+											break; //Reading only the first value
 										}
 									}
 
 									for (AuspostInvolvedPartSchema.IndividualName ind : dc.Customer.Individual.Name) {
 										if (ind.NameUsage == 'ORG') {
 											proxyArticle.ReceiverCompany__c = ind.FullName;
-											break;//Reading only the first value
+											break; //Reading only the first value
 										}
 									}
 								}
@@ -357,19 +361,16 @@ public class TIBCOArticleWrapper {
 							}
 						}
 
-
 						if ('PICKUP'.equalsIgnoreCase(dc.DeliveryContactType) || 'SENDER'.equalsIgnoreCase(dc.DeliveryContactType)) {
 							if (dc.Customer != null) {
 								//added by Kalpita for capturing apcn on track events for reciever
-								proxyArticle.Sender_APCN__c = !String.isBlank(proxyArticle.Sender_APCN__c) ? proxyArticle.Sender_APCN__c :
-										!String.isBlank(dc.Customer.CustomerID) ? dc.Customer.CustomerID : '';
+								proxyArticle.Sender_APCN__c = !String.isBlank(proxyArticle.Sender_APCN__c) ? proxyArticle.Sender_APCN__c : !String.isBlank(dc.Customer.CustomerID) ? dc.Customer.CustomerID : '';
 
 								if (dc.Customer.Address != null) {
 									for (AuspostLocationSchema.AddressType addType : dc.Customer.Address) {
 										proxyArticle.SenderAddress__c = '';
 										if (addType.AddressDetails != null && addType.AddressDetails.AustralianAddress != null) {
-											if (addType.AddressDetails.AustralianAddress.UnstructuredAddress != null
-													&& addType.AddressDetails.AustralianAddress.UnstructuredAddress.AddressLine != null) {
+											if (addType.AddressDetails.AustralianAddress.UnstructuredAddress != null && addType.AddressDetails.AustralianAddress.UnstructuredAddress.AddressLine != null) {
 												for (String s : addType.AddressDetails.AustralianAddress.UnstructuredAddress.AddressLine) {
 													proxyArticle.SenderAddress__c += s + ',';
 												}
@@ -399,8 +400,7 @@ public class TIBCOArticleWrapper {
 											proxyArticle.SenderState__c = addType.AddressDetails.AustralianAddress.StateOrTerritory;
 											proxyArticle.SenderPostcode__c = addType.AddressDetails.AustralianAddress.PostCode;
 										} else if (addType.AddressDetails != null && addType.AddressDetails.InternationalAddress != null) {
-											if (addType.AddressDetails.InternationalAddress.UnstructuredAddress != null
-													&& addType.AddressDetails.InternationalAddress.UnstructuredAddress.AddressLine != null) {
+											if (addType.AddressDetails.InternationalAddress.UnstructuredAddress != null && addType.AddressDetails.InternationalAddress.UnstructuredAddress.AddressLine != null) {
 												for (String s : addType.AddressDetails.InternationalAddress.UnstructuredAddress.AddressLine) {
 													proxyArticle.SenderAddress__c += s + ',';
 												}
@@ -446,14 +446,14 @@ public class TIBCOArticleWrapper {
 									for (AuspostInvolvedPartSchema.IndividualName ind : dc.Customer.Individual.Name) {
 										if (ind.NameUsage == 'IND') {
 											proxyArticle.SenderName__c = ind.FullName;
-											break;//Reading only the first value
+											break; //Reading only the first value
 										}
 									}
 
 									for (AuspostInvolvedPartSchema.IndividualName ind : dc.Customer.Individual.Name) {
 										if (ind.NameUsage == 'ORG') {
 											proxyArticle.SenderCompany__c = ind.FullName;
-											break;//Reading only the first value
+											break; //Reading only the first value
 										}
 									}
 								}
@@ -499,14 +499,13 @@ public class TIBCOArticleWrapper {
 				//Passing content items attributes as transient attributes
 				if (article.ContentsItem != null) {
 					transientAttributes.contentItems = new List<ArticleContentItem>();
-					for (AuspostMailProductSchema.ArticleContentsItemType item: article.ContentsItem) {
+					for (AuspostMailProductSchema.ArticleContentsItemType item : article.ContentsItem) {
 						transientAttributes.contentItems.add(new ArticleContentItem(item));
 					}
 				}
 
 				if (article.Insurance != null) {
-					proxyArticle.InsuranceRequired__c = article.Insurance.InsuranceRequired != null
-							? article.Insurance.InsuranceRequired : false;
+					proxyArticle.InsuranceRequired__c = article.Insurance.InsuranceRequired != null ? article.Insurance.InsuranceRequired : false;
 					proxyArticle.InsuranceAmount__c = article.Insurance.InsuranceAmount;
 					proxyArticle.InsuranceChargeAmount__c = article.Insurance.InsuranceChargeAmount;
 					proxyArticle.InsuranceSDR__c = article.Insurance.InsuranceSDR;
@@ -597,19 +596,23 @@ public class TIBCOArticleWrapper {
 	}
 
 	/*
-	* Class to store transient variables which are not saved in Salesforce
-	*/
+	 * Class to store transient variables which are not saved in Salesforce
+	 */
 	public class ArticleTransientAttributes {
-		@AuraEnabled public String predictedWindowStart;
-		@AuraEnabled public String predictedWindowEnd;
-		@AuraEnabled public String initialPredictedWindowStart;
-		@AuraEnabled public String initialPredictedWindowEnd;
+		@AuraEnabled
+		public String predictedWindowStart;
+		@AuraEnabled
+		public String predictedWindowEnd;
+		@AuraEnabled
+		public String initialPredictedWindowStart;
+		@AuraEnabled
+		public String initialPredictedWindowEnd;
 		public ArticleContentItem[] contentItems;
 	}
 
 	/*
-	* Class to store content item attributes
-	*/
+	 * Class to store content item attributes
+	 */
 	public class ArticleContentItem {
 		public String description;
 		public String weight;
