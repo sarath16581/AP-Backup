@@ -559,7 +559,7 @@ private class HappyParcelController_Test {
 		Object result = Test.invokeContinuationMethod(new HappyParcelController(), conti);
 		Test.stopTest();
 
-		Assert.areNotEqual(null, result, 'testSearchAsyncST');
+		Assert.areNotEqual(null, result, 'StarTrack callout result should not be null');
 		// Verify the return wrapper class has the new attributes mapped correctly
 		HappyParcelController.TrackingArticle resultWrapper = (HappyParcelController.TrackingArticle) result;
 		Assert.areEqual('D05 1, E05 1', resultWrapper.article.FurtherReferences__c, 'Further References do not match');

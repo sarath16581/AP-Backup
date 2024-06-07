@@ -11,7 +11,7 @@
  * 2024-05-21 - Seth Heang - Updated existing SAP-EM mock response to handle article and consignment search
  */
 @isTest
-public class TIBCOArticleService_Test {
+private class TIBCOArticleService_Test {
 	static testMethod void myUnitTest() {
 		AusPostSettings__c testSetting = new AusPostSettings__c();
 		testSetting.Name = 'TIBCO_EM';
@@ -237,7 +237,6 @@ public class TIBCOArticleService_Test {
 
 	public class SearchInSapMockResponse implements WebServiceMock {
 		public String trackingNumber;
-		public String consignmentNumber;
 
 		public SearchInSapMockResponse(String trackingNumber) {
 			this.trackingNumber = trackingNumber;
