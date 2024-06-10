@@ -4,6 +4,7 @@
  * @date 2020-05-10
  * @group Tracking
  * @changelog
+ * 2024-05-17 - Seth Heang - added a new loading attribute to pass on to happyParcelCard child component and add additional attributes to be displayed
  */
 import { LightningElement, api, track } from "lwc";
 import { getConfig, CONSTANTS, get } from 'c/happyParcelService'
@@ -13,10 +14,15 @@ export default class HappyParcelArticleDetails extends HappyParcelBase {
 
 	@api loading = false;
 
+	@api titleLoading = false;
+
 	@api trackingApiResult;
 
 	// denotes that we should be loading the fieldset from the consignment fieldset rather than the article fieldset
 	@api useConsignmentFieldSet;
+
+	// display additional attributes outside of the field set and merge into existing list for display
+	@api displayAdditionalAttributes;
 
 	@track fields = [];
 
@@ -54,12 +60,32 @@ export default class HappyParcelArticleDetails extends HappyParcelBase {
 			animationCss: this.getAnimationStyleCss(animationDelay+animationDelayIncrementor)
 		});
 
+		// check and merge additional attributes for display
+		fields = this.mergeAdditionalAttributesForDisplay(fields);
+
 		// only return the fields that contain a value
 		return fields.filter(item => item.fieldValue);
 	}
 
+	/**
+	 * @description	merge the additional attributes that are passed into this component
+	 * 				via the @api from parent component into the fields array used for UI display
+	 */
+	mergeAdditionalAttributesForDisplay(fields) {
+		// validate for valid properties prior to merging the attributes
+		const validAttributes = Array.isArray(this.displayAdditionalAttributes) ?
+			this.displayAdditionalAttributes.filter(attr =>
+				attr.hasOwnProperty('fieldLabel') && attr.hasOwnProperty('fieldValue')
+			) : [];
+		return fields.concat(validAttributes);
+	}
+
 	get waiting() {
 		return this.loading;
+	}
+
+	get moreWaiting() {
+		return this.titleLoading;
 	}
 
 	get heading() {

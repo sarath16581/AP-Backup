@@ -37,12 +37,34 @@
 				</template>
 			</div>
 		</template>
-	
-	
-		<template for:each={errors} for:item="error">
-			<div class="slds-notify slds-notify_alert slds-theme_alert-texture slds-theme_error" role="alert" key={error}>
-				<span class="slds-assistive-text">error</span>
-				<h2>{error}</h2>
+
+		<template for:each={hasAnalyticsErrors} for:item="error">
+			<div key={error.message}>
+				<div class="slds-notify slds-notify_alert slds-theme_alert-texture slds-theme_error" role="alert" key={error}>
+					<span class="slds-assistive-text">error</span>
+					<h2>{error.message}</h2>
+				</div>
+			</div>
+		</template>
+
+		<template for:each={hasTrackingErrors} for:item="error">
+			<div key={error.message}>
+				<div class="slds-notify slds-notify_alert slds-theme_alert-texture slds-theme_error" role="alert" key={error}>
+					<span class="slds-assistive-text">error</span>
+					<h2>{error.message}</h2>
+				</div>
+			</div>
+		</template>
+
+		<template for:each={hasStarTrackErrors} for:item="error">
+			<div key={error.message}>
+				<div class="slds-notify slds-notify_alert slds-theme_alert-texture slds-theme_error" role="alert" key={error}>
+					<span class="slds-assistive-text">error</span>
+					<h2>{error.message}</h2>
+					<template if:true={doRetryStarTrackCallout}>
+						<a class="slds-m-left_xx-small" onclick={handleRetryStarTrackCallout}>Retry Connection</a>
+					</template>
+				</div>
 			</div>
 		</template>
 		<template if:true={vodvWarning}>
@@ -90,10 +112,12 @@
 				<!-- Consignment Details -->
 				<div class="slds-col slds-size_1-of-1 slds-m-bottom_medium">
 					<c-happy-parcel-article-details loading={loadingTrackingApi}
+					                                title-loading= {loadingStarTrackApi}
 					                                tracking-api-result={consignment.trackingResult}
 					                                animation-delay="150"
 					                                animation-speed="500"
-					                                use-consignment-field-set>
+					                                use-consignment-field-set
+					                                display-additional-attributes={consignment.trackingResult.additionalAttributes}>
 					</c-happy-parcel-article-details>
 				</div>
 			</div>

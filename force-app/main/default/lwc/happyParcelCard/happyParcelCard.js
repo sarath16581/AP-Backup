@@ -6,6 +6,7 @@
  * @changelog
  * 2020-09-21 - Disha Kariya - Added a button icon
  * 2021-10-18 - Nathan Franklin - added no-flex style
+ * 2024-05-17 - Seth Heang - Added a new loading attribute next to the title of the card
  */
 import { LightningElement, api } from "lwc";
 import HappyParcelBase from "c/happyParcelBase";
@@ -13,6 +14,7 @@ import HappyParcelBase from "c/happyParcelBase";
 export default class HappyParcelCard extends HappyParcelBase {
 
 	@api loading = false;
+	@api titleLoading = false;
 	@api title;
 	@api iconName = 'standard:account';
 	@api variant = 'normal'; // or vanilla or vanilla-stretch or stretch or no-flex
@@ -25,6 +27,10 @@ export default class HappyParcelCard extends HappyParcelBase {
 
 	get wrapperCss() {
 		return 'slds-card slds-card_boundary ' + (this.variant) + (!this.loading && this.selectable ? ' selectable' + (this.selected ? ' selected' : '') : '');
+	}
+
+	get titleLoadingSpinner(){
+		return this.titleLoading;
 	}
 
 	handleSelectableClick() {
