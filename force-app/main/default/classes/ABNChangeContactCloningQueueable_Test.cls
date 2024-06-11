@@ -27,8 +27,6 @@ public with sharing class ABNChangeContactCloningQueueable_Test {
 		ApplicationDatabase mockDatabase = MockUtility.mockDatabase();
 
 		MockUtility.Mocks.startStubbing();
-//		MockUtility.Mocks.when(mockDatabase.dmlInsert((List<SObject>)fflib_Match.anyObject(), (Database.DMLOptions)fflib_Match.anyObject()))
-//				.thenAnswer(new MockUtility.AnswerGenericDMLInserted());
 
 		MockUtility.Mocks.when(mockDatabase.dmlInsert((List<SObject>)fflib_Match.anyObject(), (Database.DMLOptions)fflib_Match.anyObject()))
 				.thenAnswer(new MockUtility.AnswerGenericDMLFailed());
@@ -38,8 +36,9 @@ public with sharing class ABNChangeContactCloningQueueable_Test {
 		// Testing
 		// =====================================
 		Test.startTest();
-		System.enqueueJob(new ABNChangeContactCloningQueueable(oldContacts, newContacts));
-		System.assert(true, 'queueable not executed');
+		Id jobId = System.enqueueJob(new ABNChangeContactCloningQueueable(oldContacts, newContacts));
+		AsyncApexJob job = [SELECT Id , Status FROM AsyncApexJob WHERE Id=:jobId LIMIT 1];
+		System.assertEquals('Queued', job.Status, 'Job is expected to be queued; Actual: ' + job.Status);
 		Test.stopTest();
 	}
 }

@@ -179,7 +179,7 @@ private with sharing class ContactsSelector_Test {
 		List<Contact> listResults = selector.selectPrimaryContactByAccount(new Set<Id> {acc.Id});
 		System.assertEquals(1, listResults.size(), 'Expected result size of 1');
 
-		listResults = selector.selectCloneableContactsByAccount(new Set<Id> {acc.Id});
+		listResults = selector.selectCloneableContactsByAccount(acc.Id);
 		System.assertEquals(1, listResults.size(), 'Expected result size of 1');
 
 		Test.stopTest();

@@ -37,7 +37,7 @@ public with sharing class ABNChangeController {
 	@AuraEnabled(Cacheable=true)
 	public static Map<String, Object> getDeduplicatedContactsAndBaR(String businessAtRiskId) {
 		At_Risk_Business__c atRiskBusiness = AtRiskBusinessSelector.newInstance(AT_RISK_BUSINESS_FIELD_OVERRIDES).selectById(new Set<Id>{businessAtRiskId}, new Set<Object>{AtRiskBusinessSelector.options.WITH_RELATED_ORGANISATION})[0];
-		List<Contact> oldContacts = ContactsSelector.newInstance(0, CONTACT_FIELD_OVERRIDES).selectCloneableContactsByAccount(new Set<Id>{atRiskBusiness.Legal_Entity_Name__c});
+		List<Contact> oldContacts = ContactsSelector.newInstance(0, CONTACT_FIELD_OVERRIDES).selectCloneableContactsByAccount(atRiskBusiness.Legal_Entity_Name__c);
 
 		Set<Id> duplicatedIds = new Set<Id>();
 		List<Contact> uniqueContacts = new List<Contact>();

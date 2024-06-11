@@ -162,10 +162,16 @@ public virtual inherited sharing class ContactsSelector extends ApplicationSelec
 		return new Map<Id, Contact>((List<Contact>) Database.query(qb.toSoqlString()));
 	}
 
-	public List<Contact> selectCloneableContactsByAccount(Set<Id> accountIds) {
+	/**
+	 * @description Select cloneable contact by parent account ID.
+	 * Cloneable contacts are active and maintained by Account Manager
+	 * @param accountId parent account ID
+	 * @return matching Contact records
+	 */
+	public List<Contact> selectCloneableContactsByAccount(Id accountId) {
 		QueryBuilder qb = newQueryBuilder()
 				.addConditions()
-				.add(new QueryBuilder.InCondition(Contact.AccountId).inCollection(accountIds))
+				.add(new QueryBuilder.CompareCondition(Contact.AccountId).eq(accountId))
 				.add(new QueryBuilder.CompareCondition(Contact.Status__c).eq('Active'))
 				.add(new QueryBuilder.CompareCondition(Contact.Record_Maintainer__c).eq('Account Manager'))
 				.endConditions();

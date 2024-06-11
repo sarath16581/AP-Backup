@@ -31,7 +31,7 @@ public with sharing class ABNChangeController_Test {
 		MockUtility.Mocks.startStubbing();
 
 		MockUtility.Mocks.when(atRiskBusinessSelector.selectById((Set<Id>) fflib_Match.anyObject(), (Set<Object>) fflib_Match.anyObject())).thenReturn(atRiskBusinesses);
-		MockUtility.Mocks.when(contactsSelector.selectCloneableContactsByAccount((Set<Id>) fflib_Match.anyObject())).thenReturn(oldContacts);
+		MockUtility.Mocks.when(contactsSelector.selectCloneableContactsByAccount((Id) fflib_Match.anyObject())).thenReturn(oldContacts);
 
 		MockUtility.Mocks.stopStubbing();
 
@@ -77,7 +77,7 @@ public with sharing class ABNChangeController_Test {
 		// =====================================
 		Test.startTest();
 		ABNChangeController.cloneContacts(accs[0].Id, oldContactIds);
-		System.assert(true, 'cloneContacts Not completed');
+		System.assert(true, 'Asserting true when completed. False if cloneContacts not completed with exceptions or errors');
 		Test.stopTest();
 	}
 
