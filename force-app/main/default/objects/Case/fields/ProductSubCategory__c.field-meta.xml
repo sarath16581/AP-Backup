@@ -923,26 +923,6 @@
                 <default>false</default>
                 <label>Product &amp; service information</label>
             </value>
-            <value>
-                <fullName>StarTrack Road Express</fullName>
-                <default>false</default>
-                <label>StarTrack Road Express</label>
-            </value>
-            <value>
-                <fullName>StarTrack Premium</fullName>
-                <default>false</default>
-                <label>StarTrack Premium</label>
-            </value>
-            <value>
-                <fullName>eParcel Parcel Post</fullName>
-                <default>false</default>
-                <label>eParcel Parcel Post</label>
-            </value>
-            <value>
-                <fullName>eParcel Express Post</fullName>
-                <default>false</default>
-                <label>eParcel Express Post</label>
-            </value>
         </valueSetDefinition>
         <valueSettings>
             <controllingFieldValue>Card Transaction Monitoring</controllingFieldValue>
@@ -1181,37 +1161,6 @@
             <valueName>Parcel Send Assistance/Training</valueName>
         </valueSettings>
         <valueSettings>
-            <controllingFieldValue>Domestic</controllingFieldValue>
-            <controllingFieldValue>Domestic Letters</controllingFieldValue>
-            <valueName>Express Post</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Domestic</controllingFieldValue>
-            <controllingFieldValue>Domestic Parcels</controllingFieldValue>
-            <valueName>Metro</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Domestic</controllingFieldValue>
-            <controllingFieldValue>Domestic Parcels</controllingFieldValue>
-            <valueName>Parcel Post</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Domestic</controllingFieldValue>
-            <valueName>StarTrack Road Express</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Domestic</controllingFieldValue>
-            <valueName>StarTrack Premium</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Domestic</controllingFieldValue>
-            <valueName>eParcel Parcel Post</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Domestic</controllingFieldValue>
-            <valueName>eParcel Express Post</valueName>
-        </valueSettings>
-        <valueSettings>
             <controllingFieldValue>Domestic Parcels</controllingFieldValue>
             <controllingFieldValue>Domestic Letters</controllingFieldValue>
             <valueName>Cash on Delivery</valueName>
@@ -1247,6 +1196,14 @@
             <controllingFieldValue>Post Office &amp; Business Hub Services</controllingFieldValue>
             <controllingFieldValue>Domestic Letters</controllingFieldValue>
             <valueName>Mail redirection</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Domestic Parcels</controllingFieldValue>
+            <valueName>Metro</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Domestic Parcels</controllingFieldValue>
+            <valueName>Parcel Post</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Domestic Parcels</controllingFieldValue>
@@ -1444,6 +1401,10 @@
         <valueSettings>
             <controllingFieldValue>Domestic Letters</controllingFieldValue>
             <valueName>Business Letters</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Domestic Letters</controllingFieldValue>
+            <valueName>Express Post</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Domestic Letters</controllingFieldValue>

@@ -753,11 +753,6 @@
                 <default>false</default>
                 <label>Customised Packaging</label>
             </value>
-            <value>
-                <fullName>Late item</fullName>
-                <default>false</default>
-                <label>Late item</label>
-            </value>
         </valueSetDefinition>
         <valueSettings>
             <controllingFieldValue>General Enquiry|Money &amp; Insurance|Home Insurance</controllingFieldValue>
@@ -3139,10 +3134,6 @@
             <controllingFieldValue>General Enquiry|Post Office &amp; Business Hub Services|Philatelic (stamps)</controllingFieldValue>
             <controllingFieldValue>General Enquiry|Post Office &amp; Business Hub Services|Stationery and packaging</controllingFieldValue>
             <valueName>Product Order</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Unified Model</controllingFieldValue>
-            <valueName>Late item</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Feedback|International Parcels|Airmail over 2kg</controllingFieldValue>
