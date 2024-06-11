@@ -2,8 +2,7 @@
 <Layout xmlns="http://soap.sforce.com/2006/04/metadata">
     <customButtons>MassUpload</customButtons>
     <customButtons>New_Lead</customButtons>
-    <excludeButtons>DataDotComAccountInsights</excludeButtons>
-    <excludeButtons>DataDotComClean</excludeButtons>
+    <excludeButtons>DataDotComCompanyHierarchy</excludeButtons>
     <excludeButtons>Delete</excludeButtons>
     <excludeButtons>DisableCustomerPortalAccount</excludeButtons>
     <excludeButtons>DisablePartnerPortalAccount</excludeButtons>
@@ -209,7 +208,7 @@
         <fields>Status__c</fields>
         <fields>CONTACT.EMAIL</fields>
         <relatedList>RelatedContactList</relatedList>
-        <sortField>Status__c</sortField>
+        <sortField>FULL_NAME</sortField>
         <sortOrder>Asc</sortOrder>
     </relatedLists>
     <relatedLists>
@@ -219,6 +218,8 @@
         <fields>Type__c</fields>
         <fields>Customer_Name__c</fields>
         <relatedList>Billing_Account__c.Organisation__c</relatedList>
+        <sortField>NAME</sortField>
+        <sortOrder>Asc</sortOrder>
     </relatedLists>
     <relatedLists>
         <relatedList>RelatedFileList</relatedList>
@@ -230,6 +231,8 @@
         <fields>MEMBER_NAME</fields>
         <fields>TEAM_MEMBER_ROLE</fields>
         <relatedList>RelatedAccountSalesTeam</relatedList>
+        <sortField>MEMBER_NAME</sortField>
+        <sortOrder>Asc</sortOrder>
     </relatedLists>
     <relatedLists>
         <excludeButtons>New</excludeButtons>
@@ -259,6 +262,8 @@
         <fields>MEMBER_TYPE</fields>
         <fields>LAST_UPDATE</fields>
         <relatedList>CampaignMember.Account__c</relatedList>
+        <sortField>LAST_UPDATE</sortField>
+        <sortOrder>Desc</sortOrder>
     </relatedLists>
     <relatedLists>
         <excludeButtons>New</excludeButtons>
@@ -266,6 +271,8 @@
         <fields>OPPORTUNITY.STAGE_NAME</fields>
         <fields>OPPORTUNITY.AMOUNT</fields>
         <relatedList>RelatedOpportunityList</relatedList>
+        <sortField>OPPORTUNITY.NAME</sortField>
+        <sortOrder>Asc</sortOrder>
     </relatedLists>
     <relatedLists>
         <fields>ASSET.NAME</fields>
@@ -274,6 +281,8 @@
         <fields>CONTACT.NAME</fields>
         <fields>ASSET.STATUS</fields>
         <relatedList>RelatedAssetList</relatedList>
+        <sortField>ASSET.INSTALL_DATE</sortField>
+        <sortOrder>Desc</sortOrder>
     </relatedLists>
     <relatedObjects>ParentId</relatedObjects>
     <showEmailCheckbox>false</showEmailCheckbox>
