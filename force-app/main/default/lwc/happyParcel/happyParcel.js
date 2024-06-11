@@ -11,9 +11,11 @@
  * 2021-11-08 - Prerna Rahangdale - Added support to show the warning with a link to knowledge article for articles which have VODV checked.
  * 2022-11-28 - Dattaraj Deshmukh - Added 'logic to show caseInvestigation's article numbers'.
  * 									Added logic to check if case investigation Id is passed then it's article ID is passed as tracking Id to controller.
+ * 2024-05-17 - Seth Heang - Added logic for additional query to remote .NET API for retrieving StarTrack consignment/article details and retry functionality
+ * 2024-05-21 - Seth Heang - Added logic to allow force consignment search in existing SAP-EM integration when doing an article level
 */
 import { LightningElement, track, api } from "lwc";
-import {getAnalyticsApiResponse, getTrackingApiResponse, getConfig, safeTrim, safeToUpper, CONSTANTS} from 'c/happyParcelService'
+import {getAnalyticsApiResponse, getTrackingApiResponse, getTrackingApiResponseForStarTrack, getConfig, safeTrim, safeToUpper, CONSTANTS} from 'c/happyParcelService'
 import { NavigationMixin } from 'lightning/navigation';
  
 export default class HappyParcelWrapper extends NavigationMixin(LightningElement) {
@@ -49,6 +51,10 @@ export default class HappyParcelWrapper extends NavigationMixin(LightningElement
     // component is rendered only when this is true and the user has required permissions.
     @api supportsCaseCreation;
 
+	// if this is true then this allows any search on a single child article ID to also retrieve its parent consignment details and all related child articles (via SAP & StarTrack) if condition is met
+	// and the parent consignment details and all related child article details will be displayed on the UI
+	@api forceConsignmentLevelResults;
+
 	// sender/receiver selected store the state of the selected customer boxes when supportsCustomerSelection is true
 	// these are only for consignment search results
 	// article level tracked vars are in the happyParcelArticle component
@@ -58,6 +64,7 @@ export default class HappyParcelWrapper extends NavigationMixin(LightningElement
 
 	@track loadingTrackingApi = false;
 	@track loadingAnalyticsApi = false;
+	@track loadingStarTrackApi = false;
 
 	// Stores information about the articles that were returned in the search results
 	@track articles = [];
@@ -73,6 +80,9 @@ export default class HappyParcelWrapper extends NavigationMixin(LightningElement
 	// during this process (which normally take a couple of seconds), the service is unavailable
 	// this is a dodgy solution but have been asked to build a 'Try again' option into the solution
 	@track retryAnalytics;
+
+	// the .NET callout is intermittantly unreliable and timeout, thus needing a 'Try again' option
+	@track retryStarTrackCallout;
 
 	// this allows us to control which panels are open on the accordion that is rendered when we are viewing search results for a consignment
 	// this is a workaround due to the base accordion component forcing a single panel to *always* be open
@@ -228,7 +238,10 @@ export default class HappyParcelWrapper extends NavigationMixin(LightningElement
 		// add any errors from the request
 		if(errors) {
 			this.errors = this.errors.concat(errors.map(item => {
-				return 'Analytics API: ' + item;
+				return {
+					source: CONSTANTS.ANALYTICS_API,
+					message: CONSTANTS.ANALYTICS_API + ': ' + item
+				};
 			}));
 		}
 
@@ -244,7 +257,7 @@ export default class HappyParcelWrapper extends NavigationMixin(LightningElement
 		this.loadingTrackingApi = true;
 
 		// perform the actual callout to the api
-		const result = await getTrackingApiResponse(currentTrackingId);
+		const result = await getTrackingApiResponse(currentTrackingId, this.forceConsignmentLevelResults);
 
 		// perform a check to ensure the current article id is the same article id that was passed into the async function
 		// it's possible that while the current search was in progress that another tracking id was passed into the mix
@@ -254,11 +267,23 @@ export default class HappyParcelWrapper extends NavigationMixin(LightningElement
 			return;
 		}
 
-		const {errors, consignment, articles} = result;
+		const {errors, consignment, articles, requireAdditionalQueryForStarTrack, totalArticlesDelivered} = result;
 
 		// add the consignment trackingResults to the consignment object
 		if(consignment) {
 			this.consignment = {...this.consignment, trackingId: consignment.trackingId, trackingResult: consignment};
+			// expand the relevant article accordion based on initial article Id search, when a force consignment search scenario occurs
+			if(this.forceConsignmentLevelResults && consignment.trackingId !== currentTrackingId){
+				this.activeSections.push(currentTrackingId);
+			}
+			const totalArticlesDeliveredField = [
+				{
+					fieldLabel: "Total Delivered",
+					fieldType: "STRING",
+					fieldValue: totalArticlesDelivered
+				}
+			];
+			this.consignment.trackingResult.additionalAttributes = totalArticlesDeliveredField;
 		}
 
 		// assign the tracking response for each article into the articles array
@@ -307,7 +332,10 @@ export default class HappyParcelWrapper extends NavigationMixin(LightningElement
 		// add any errors from the request
 		if(errors) {
 			this.errors = this.errors.concat(errors.map(item => {
-				return 'Tracking API: ' + item;
+				return {
+					source: CONSTANTS.TRACKING_API,
+					message: CONSTANTS.TRACKING_API + ': ' + item
+				};
 			}));
 		}
 
@@ -317,6 +345,50 @@ export default class HappyParcelWrapper extends NavigationMixin(LightningElement
 		// 1. api produced no results for the item in the local 'this.articles' store AND no other API calls have populated data for that article Id
 		// 2. if the search was for a consignment, then we would remove the initial 'skeleton' structure used to show the loading ui effect
 		this.tidyupLocalArticleStore();
+
+		// trigger an async callout for StarTrack consignemnt
+		this.requireAdditionalQueryForStarTrack = requireAdditionalQueryForStarTrack;
+	}
+
+	/**
+	 * @description Setter to trigger the StarTrack Async Callout when the flag is set TRUE
+	 */
+	set requireAdditionalQueryForStarTrack(value){
+		if(value){
+			this.doTrackingQueryForStarTrack(this.trackingId);
+		}
+	}
+
+	/**
+	 * @description make an async callout to dotNet API via ApexController and map returned attributes for display
+	 * @param consignmentNumber 
+	 */
+	async doTrackingQueryForStarTrack(consignmentNumber){
+		this.requireAdditionalQueryForStarTrack = false;
+		this.loadingStarTrackApi = true;
+		// make Async callout
+		const result = await getTrackingApiResponseForStarTrack(consignmentNumber, this.consignment);
+
+		// add any errors from the request
+		if(result.errors) {
+			this.errors = this.errors.concat(result.errors.map(item => {
+				return {
+					source: CONSTANTS.STARTRACK_API,
+					message: CONSTANTS.STARTRACK_API + ': ' + item
+				};
+			}));
+			this.loadingStarTrackApi = false;
+			this.retryStarTrackCallout = true;
+		}
+
+		// additional attributes mapping
+		result.article.ProductCategory__c = this.articles?.[0]?.trackingResult?.article?.ProductCategory__c ?? result.article.ProductCategory__c;
+		result.article.SubProduct__c = this.articles?.[0]?.trackingResult?.article?.SubProduct__c ?? result.article.SubProduct__c;
+		result.additionalAttributes = this.consignment?.trackingResult?.additionalAttributes ?? result.additionalAttributes;
+		// update display attributes from StarTrack response
+		this.consignment.trackingResult = result;
+		this.retryStarTrackCallout = false;
+		this.loadingStarTrackApi = false;
 	}
 
 	/**
@@ -529,6 +601,15 @@ export default class HappyParcelWrapper extends NavigationMixin(LightningElement
 		this.broadcastSelectedArticles();
 	}
 
+	/**
+	 * @description handle retry StarTrack Async callout by using Setter to set to TRUE and trigger the callout
+	 */
+	handleRetryStarTrackCallout(){
+		this.errors = this.errors.filter(error => error.source !== CONSTANTS.STARTRACK_API);
+		this.retryStarTrackCallout = false;
+		this.requireAdditionalQueryForStarTrack = true;
+	}
+
 	get loading() {
 		return this.loadingAnalyticsApi || this.loadingTrackingApi;
 	}
@@ -585,6 +666,34 @@ export default class HappyParcelWrapper extends NavigationMixin(LightningElement
 	 */
 	get consignmentHasEventMessages() {
 		return this.isConsignment && this.consignment.trackingResult.events && this.consignment.trackingResult.events.length > 0;
+	}
+
+	/**
+	 * Display Analytic API related error
+	 */
+	get hasAnalyticsErrors() {
+		return this.errors.filter(error => error.source === CONSTANTS.ANALYTICS_API);
+	}
+
+	/**
+	 * Display Tracking API related error
+	 */
+	get hasTrackingErrors() {
+		return this.errors.filter(error => error.source === CONSTANTS.TRACKING_API);
+	}
+
+	/**
+	 * Display StarTrack API related error
+	 */
+	get hasStarTrackErrors() {
+		return this.errors.filter(error => error.source === CONSTANTS.STARTRACK_API);
+	}
+
+	/**
+	 * Display the Retry hyperlink on the error banner for retrying StarTrack Callout
+	 */
+	get doRetryStarTrackCallout(){
+		return this.retryStarTrackCallout;
 	}
 	
 }

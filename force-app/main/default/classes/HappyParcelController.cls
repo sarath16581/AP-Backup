@@ -17,23 +17,24 @@
  * 2021-08-02 - Mathew Jose - Added new methods to retrievethe overflow field sets associated with the event messages table.
  * 2021-08-02 - Prerna Rahangdale - Added a method to query the Knowledge article to show in warning when articles has VODV set to true.
  * 2022-04-14 - Mahesh Parvathaneni - Added a method to calculate the distance between geo-coordinates
-*/
+ * 2024-05-17 - Seth Heang - Added methods for additional query to remote .NET API for retrieving StarTrack consignment/article details
+ * 2024-05-21 - Seth Heang - Added methods to allow forceConsignment Search if applicable while quering SAP-EM article details
+ */
 public with sharing class HappyParcelController {
-
 	/**
 	 * Apex property to access current network/ community
 	 * Using lazy loading as it prevents multiple SOQL.
-	 */	
+	 */
 	public static Network networkDetail {
-		get { 
-			if (networkDetail == null)
-			{
+		get {
+			if (networkDetail == null) {
 				networkDetail = [
-					Select Id, Name, Description From Network Where Id = :Network.getNetworkId()
+					SELECT Id, Name, Description
+					FROM Network
+					WHERE Id = :Network.getNetworkId()
 				];
 			}
-			return networkDetail;		
-		
+			return networkDetail;
 		}
 		set;
 	}
@@ -43,33 +44,43 @@ public with sharing class HappyParcelController {
 	@AuraEnabled(Cacheable=true)
 	public static Map<String, Object> loadConfig() {
 		return new Map<String, Object>{
-				'articleFields' => getArticleDetailFieldSetConfig(),
-				'consignmentFields' => getConsignmentDetailFieldSetConfig(),
-				'signatureEventTypes' => getSignatureEventTypes(),
-				'featuredScanEventTypes' => getFeaturedEventTypes(),
-				'articleTypes' => ArticleUtil.getArticleTypes(),
-				'eventMessageFields' => getEventMessageListFieldSetConfig(),
-				'eventMessageOverflowFields' => getEventMessageOverflowListFieldSetConfig(),
-				'eventMessageFeaturedOverflowFields' => getEventMessageFeaturedOverflowListFieldSetConfig(),
-				'eventMessageTypeDefinitions' => EventMessageUtil.getEventMessageTypesByCategory(),
-				'happyParcelStatusValues' => getHappyParcelStatusValues(),
-				'manifestAssessmentMappings' => getManifestAssessmentValues(),
-				'manifestAssessmentHappyThreshold' => 1000, // TODO, build into custom setting
-				'eventMessageAttachmentTypeDefinitions' => EventMessageUtil.getEventMessageAttachmentTypes(),
-				'VODVKnowledgeId' => queryVODVKnowledge()
+			'articleFields' => getArticleDetailFieldSetConfig(),
+			'consignmentFields' => getConsignmentDetailFieldSetConfig(),
+			'signatureEventTypes' => getSignatureEventTypes(),
+			'featuredScanEventTypes' => getFeaturedEventTypes(),
+			'articleTypes' => ArticleUtil.getArticleTypes(),
+			'eventMessageFields' => getEventMessageListFieldSetConfig(),
+			'eventMessageOverflowFields' => getEventMessageOverflowListFieldSetConfig(),
+			'eventMessageFeaturedOverflowFields' => getEventMessageFeaturedOverflowListFieldSetConfig(),
+			'eventMessageTypeDefinitions' => EventMessageUtil.getEventMessageTypesByCategory(),
+			'happyParcelStatusValues' => getHappyParcelStatusValues(),
+			'manifestAssessmentMappings' => getManifestAssessmentValues(),
+			'manifestAssessmentHappyThreshold' => 1000, // TODO, build into custom setting
+			'eventMessageAttachmentTypeDefinitions' => EventMessageUtil.getEventMessageAttachmentTypes(),
+			'VODVKnowledgeId' => queryVODVKnowledge()
 		};
 	}
 
 	/**
-	 * This will commence a callout to query tracking information from the standard interface
-	 * NOTE: This is a synchronous query (not using continuation) which allows to run 2 simultaneous requests at the same time
+	 * @description 	This will commence a callout to query tracking information from the standard interface
+	 * 			NOTE: This is a synchronous query (not using continuation) which allows to run 2 simultaneous requests at the same time
+	 * @param	String trackingId
+	 * @param	Boolean forceConsignmentSearch
+	 * @return	TrackingResult
 	 */
 	@AuraEnabled(Cacheable=false)
-	public static TrackingResult queryTrackingApi(String trackingId) {
+	public static TrackingResult queryTrackingApi(String trackingId, Boolean forceConsignmentSearch) {
 		try {
 			TIBCOArticleService articleService = TIBCOArticleService.getInstance();
+			TIBCOSearchResult searchResult;
+			String finalTrackingId = trackingId;
 
-			TIBCOSearchResult searchResult = articleService.search(new String[] {trackingId}, true, false, false, false, true);
+			if (forceConsignmentSearch == true) {
+				searchResult = TIBCOArticleService.searchArticlesInSAP(new List<String>{ trackingId });
+				String consignmentId = getConsignmentIdForForceConsignmentSearch(searchResult);
+				finalTrackingId = consignmentId != null ? consignmentId : finalTrackingId;
+			}
+			searchResult = articleService.search(new List<String>{ finalTrackingId }, true, false, false, false, true);
 			System.debug('searchResult');
 			System.debug(searchResult);
 
@@ -85,10 +96,45 @@ public with sharing class HappyParcelController {
 			System.debug(output);
 
 			return output;
-		} catch(Exception e) {
+		} catch (Exception e) {
 			throw new AuraHandledException(e.getMessage());
 		}
 	}
+
+	/**
+	 * @description		Perform additional query via SOAP API callout to dotNet API for retrieving StarTrack consignment/article details.
+	 * @param		String consignmentNumber
+	 * @param		String trackingResultString
+	 * @return		Object
+	 */
+	@AuraEnabled(Cacheable=false Continuation=true)
+	public static Object queryTrackingApiForStarTrack(String consignmentNumber, String trackingResultString) {
+		TrackingArticle trackingResult = (TrackingArticle) System.JSON.deserialize(trackingResultString, TrackingArticle.class);
+		Object result = HappyParcelService.getInstance().searchStarTrackAsync(StarTrack_Constants.TYPE_CONSIGNMENT, consignmentNumber, trackingResult);
+		return result;
+	}
+
+	/**
+	 * @description		Continuation Callback method for queryTrackingApiForStarTrack to handle ther response from dotNet API for StarTrack
+	 * @param		Object state
+	 * @return		Object
+	 */
+	@AuraEnabled(continuation=true)
+	public static Object processStarTrackSearchResult(Object state) {
+		return HappyParcelService.getInstance().processStarTrackSearchResult(state);
+	}
+
+	/**
+	 * Used for Testing Purpose only.
+	 * Static Continuation Methods require a state object, but Test.invokeContinuation cannot pass in arguments.
+	 * Therefore, store the state as static class variable to allow CallBack method to work when testing.
+	 * Source: https://salesforce.stackexchange.com/a/329949
+	 *  */ 
+	public static HappyParcelService.StateInfoStarTrack starTrackContState;
+	public static Object processStarTrackSearchResult() {
+		return HappyParcelService.getInstance().processStarTrackSearchResult(starTrackContState);
+	}
+
 
 	/**
 	 * This queries the happy parcel end point to retrieve certain advanced information relating to the state of the parcel
@@ -119,7 +165,7 @@ public with sharing class HappyParcelController {
 	public static String getDeliveryProofPdfBlob(String trackingId) {
 		try {
 			return EncodingUtil.base64Encode(DeliveryProofService.getInstance().getDeliveryProofPdfContent(trackingId));
-		} catch(Exception e) {
+		} catch (Exception e) {
 			throw new AuraHandledException(e.getMessage());
 		}
 	}
@@ -183,10 +229,9 @@ public with sharing class HappyParcelController {
 	 */
 	@AuraEnabled(Continuation=true)
 	public static Object getArticleImage(String guidId) {
-
 		SafeDropUtility utility = SafeDropUtility.getInstance();
 		HttpRequest req = utility.getHttpRequest(guidId);
-		if(req == null) {
+		if (req == null) {
 			return new SafeDropUtility.SafeDropApiResponse(true, 'No Login Information Found.', '');
 		}
 
@@ -222,23 +267,49 @@ public with sharing class HappyParcelController {
 	 * Returns Network details
 	 */
 	@AuraEnabled
-	public static NetworkDetailsWrapper getNetwork(String wccString){
+	public static NetworkDetailsWrapper getNetwork(String wccString) {
 		try {
-			List<Network__c> networks = NetworksSelector.newInstance(new Set<SObjectField>{Network__c.Id, Network__c.Name,
-					Network__c.Phone_Number__c, Network__c.Network_Address__c, Network__c.Mon__c, Network__c.Tue__c,
-					Network__c.Wed__c, Network__c.Thu__c, Network__c.Fri__c, Network__c.Sat__c, Network__c.Sun__c,
-					Network__c.CL_Mon__c, Network__c.CL_Tue__c, Network__c.CL_Wed__c, Network__c.CL_Thu__c,
-					Network__c.CL_Fri__c, Network__c.CL_Sat__c, Network__c.CL_Sun__c, Network__c.Hatch_Mon__c,
-					Network__c.Hatch_Tue__c, Network__c.Hatch_Wed__c, Network__c.Hatch_Thu__c,
-					Network__c.Hatch_Fri__c, Network__c.Hatch_Sat__c, Network__c.Sun__c, Network__c.Hatch_Desc__c,
-					Network__c.Org_ID__c, Network__c.Contact_Facility__c}).selectByOrgId(new Set<String>{wccString}, new Set<Object>{NetworksSelector.Options.WITH_RECORDTYPE}).values();
-			if(networks.size()>0) {
+			List<Network__c> networks = NetworksSelector.newInstance(
+					new Set<SObjectField>{
+						Network__c.Id,
+						Network__c.Name,
+						Network__c.Phone_Number__c,
+						Network__c.Network_Address__c,
+						Network__c.Mon__c,
+						Network__c.Tue__c,
+						Network__c.Wed__c,
+						Network__c.Thu__c,
+						Network__c.Fri__c,
+						Network__c.Sat__c,
+						Network__c.Sun__c,
+						Network__c.CL_Mon__c,
+						Network__c.CL_Tue__c,
+						Network__c.CL_Wed__c,
+						Network__c.CL_Thu__c,
+						Network__c.CL_Fri__c,
+						Network__c.CL_Sat__c,
+						Network__c.CL_Sun__c,
+						Network__c.Hatch_Mon__c,
+						Network__c.Hatch_Tue__c,
+						Network__c.Hatch_Wed__c,
+						Network__c.Hatch_Thu__c,
+						Network__c.Hatch_Fri__c,
+						Network__c.Hatch_Sat__c,
+						Network__c.Sun__c,
+						Network__c.Hatch_Desc__c,
+						Network__c.Org_ID__c,
+						Network__c.Contact_Facility__c
+					}
+				)
+				.selectByOrgId(new Set<String>{ wccString }, new Set<Object>{ NetworksSelector.Options.WITH_RECORDTYPE })
+				.values();
+			if (networks.size() > 0) {
 				NetworkDetailsWrapper networkWrapper = new NetworkDetailsWrapper(networks[0], null);
 				return networkWrapper;
 			} else {
 				return new NetworkDetailsWrapper(null, 'No network found');
 			}
-		}catch(Exception e) {
+		} catch (Exception e) {
 			throw new AuraHandledException(e.getMessage());
 		}
 	}
@@ -256,13 +327,12 @@ public with sharing class HappyParcelController {
 	/**
 	 * Returns VODV Knowledge article to show in the warning when the VODV flag is set for Articles.
 	 */
-	private static Id queryVODVKnowledge(){
-
+	private static Id queryVODVKnowledge() {
 		try {
 			AusPostSettings__c setting = AusPostSettings__c.getValues('VODVKnowledge');
-			Id knowledgeId = setting != null ? Id.valueOf(setting.Record_Id__c) :null;
+			Id knowledgeId = setting != null ? Id.valueOf(setting.Record_Id__c) : null;
 			return knowledgeId;
-		} catch(Exception e) {
+		} catch (Exception e) {
 			throw new AuraHandledException(e.getMessage());
 		}
 	}
@@ -273,8 +343,8 @@ public with sharing class HappyParcelController {
 	private static List<FieldConfigItem> getArticleDetailFieldSetConfig() {
 		List<FieldConfigItem> output = new List<FieldConfigItem>();
 		/*for (Schema.FieldSetMember fm : SObjectType.Article__c.fieldSets.SAP_EM_Panel_Article_View.getFields()) {
-			output.add(new FieldConfigItem(fm.getFieldPath(), fm.getLabel(), String.valueOf(fm.getType()) ));
-		}*/
+            output.add(new FieldConfigItem(fm.getFieldPath(), fm.getLabel(), String.valueOf(fm.getType()) ));
+        }*/
 		//Leveraging the getFieldConfigs method to retrieve field specific metadata
 		output = getFieldConfigs(SObjectType.Article__c.fieldSets.SAP_EM_Panel_Article_View);
 		return output;
@@ -287,8 +357,8 @@ public with sharing class HappyParcelController {
 		List<FieldConfigItem> output = new List<FieldConfigItem>();
 
 		/*for (Schema.FieldSetMember fm : SObjectType.Article__c.fieldSets.SAP_EM_Panel_Consignment_View.getFields()) {
-			output.add(new FieldConfigItem(fm.getFieldPath(), fm.getLabel(), String.valueOf(fm.getType()) ));
-		}*/
+            output.add(new FieldConfigItem(fm.getFieldPath(), fm.getLabel(), String.valueOf(fm.getType()) ));
+        }*/
 		//Leveraging the getFieldConfigs method to retrieve field specific metadata
 		output = getFieldConfigs(SObjectType.Article__c.fieldSets.SAP_EM_Panel_Consignment_View);
 		return output;
@@ -305,14 +375,14 @@ public with sharing class HappyParcelController {
 		//Leveraging the getFieldConfigs method to retrieve field specific metadata
 		if (eventMessageFieldSet != null) {
 			/*for (Schema.FieldSetMember fm : eventMessageFieldSet.getFields()) {
-				output.add(new FieldConfigItem(fm.getFieldPath(), fm.getLabel(), String.valueOf(fm.getType()) ));
-			}*/
+                output.add(new FieldConfigItem(fm.getFieldPath(), fm.getLabel(), String.valueOf(fm.getType()) ));
+            }*/
 			output = getFieldConfigs(eventMessageFieldSet);
 		}
 
 		return output;
 	}
-	
+
 	/**
 	 * Returns a list of overflow fields to be rendered in event message table on the UI.
 	 */
@@ -323,13 +393,13 @@ public with sharing class HappyParcelController {
 		//Leveraging the getFieldConfigs method to retrieve field specific metadata
 		if (eventMessageFieldSet != null) {
 			/*for (Schema.FieldSetMember fm : eventMessageFieldSet.getFields()) {
-				output.add(new FieldConfigItem(fm.getFieldPath(), fm.getLabel(), String.valueOf(fm.getType()) ));
-			}*/
+                output.add(new FieldConfigItem(fm.getFieldPath(), fm.getLabel(), String.valueOf(fm.getType()) ));
+            }*/
 			output = getFieldConfigs(eventMessageFieldSet);
 		}
 
 		return output;
-	}	
+	}
 
 	/**
 	 * Returns a list of overflow fields to be rendered in the latest scans component on the UI.
@@ -345,8 +415,8 @@ public with sharing class HappyParcelController {
 		return output;
 	}
 	/**
-	 * Returns the field config attributes associated with each fields in the field set.	
-	 */	
+	 * Returns the field config attributes associated with each fields in the field set.
+	 */
 	public static List<FieldConfigItem> getFieldConfigs(FieldSet fs) {
 		//Describe the Sobject associated with the field set to retrieve the fields.
 		List<FieldConfigItem> fieldConfigList = new List<FieldConfigItem>();
@@ -354,7 +424,7 @@ public with sharing class HappyParcelController {
 		//getting fields from the Sobject. This will help us fetch the help texts.
 		Map<String, Schema.SObjectField> fieldMap = DescribeSObjectResultObj.fields.getMap();
 		for (Schema.FieldSetMember fm : fs.getFields()) {
-			fieldConfigList.add(new FieldConfigItem(fm.getFieldPath(), fm.getLabel(), String.valueOf(fm.getType()),fieldMap.get(fm.getFieldPath()).getDescribe().getInlineHelpText()));
+			fieldConfigList.add(new FieldConfigItem(fm.getFieldPath(), fm.getLabel(), String.valueOf(fm.getType()), fieldMap.get(fm.getFieldPath()).getDescribe().getInlineHelpText()));
 		}
 		return fieldConfigList;
 	}
@@ -363,8 +433,8 @@ public with sharing class HappyParcelController {
 	 */
 	private static Set<String> getSignatureEventTypes() {
 		Set<String> output = new Set<String>();
-		for(EventMessageTypeMapping__mdt mapping : EventMessageUtil.getEventMessageTypes().values()) {
-			if(mapping.IsSignatureOnDelivery__c) {
+		for (EventMessageTypeMapping__mdt mapping : EventMessageUtil.getEventMessageTypes().values()) {
+			if (mapping.IsSignatureOnDelivery__c) {
 				output.add(mapping.Label);
 			}
 		}
@@ -376,8 +446,8 @@ public with sharing class HappyParcelController {
 	 */
 	private static Set<String> getFeaturedEventTypes() {
 		Set<String> output = new Set<String>();
-		for(EventMessageTypeMapping__mdt mapping : EventMessageUtil.getEventMessageTypes().values()) {
-			if(mapping.IsFeatured__c) {
+		for (EventMessageTypeMapping__mdt mapping : EventMessageUtil.getEventMessageTypes().values()) {
+			if (mapping.IsFeatured__c) {
 				output.add(mapping.Label);
 			}
 		}
@@ -389,14 +459,13 @@ public with sharing class HappyParcelController {
 	 * this allows the clearview codes to be defaulted with the correct values based on the article that was queried
 	 */
 	private static void mapCaseTypesToArticleProducts(TrackingResult result) {
-
 		Map<String, List<TrackingArticle>> articleMappingsMap = new Map<String, List<TrackingArticle>>();
 
-		if(result.consignment != null) {
+		if (result.consignment != null) {
 			String key = String.isEmpty(result.consignment.article.ProductCategory__c) ? '' : result.consignment.article.ProductCategory__c.trim();
 			key += String.isEmpty(result.consignment.article.SubProduct__c) ? '' : result.consignment.article.SubProduct__c.trim();
 
-			if(!String.isEmpty(key)) {
+			if (!String.isEmpty(key)) {
 				if (articleMappingsMap.get(key) == null) {
 					articleMappingsMap.put(key, new List<TrackingArticle>());
 				}
@@ -405,11 +474,11 @@ public with sharing class HappyParcelController {
 			}
 		}
 
-		for(TrackingArticle article : result.articles) {
+		for (TrackingArticle article : result.articles) {
 			String key = String.isEmpty(article.article.ProductCategory__c) ? '' : article.article.ProductCategory__c.trim();
 			key += String.isEmpty(article.article.SubProduct__c) ? '' : article.article.SubProduct__c.trim();
 
-			if(!String.isEmpty(key)) {
+			if (!String.isEmpty(key)) {
 				if (articleMappingsMap.get(key) == null) {
 					articleMappingsMap.put(key, new List<TrackingArticle>());
 				}
@@ -420,12 +489,14 @@ public with sharing class HappyParcelController {
 
 		// grab the clearview code mappings so we can default the clearview code fields in the mini case component
 		// this happens after the search result have been loaded into the Happy Parcel LWC components
-		List<MiniCaseFieldMapping__c> mappings = [Select SAPKey__c, ProductCategory__c, ProductSubcategory__c, Type__c
-													From MiniCaseFieldMapping__c
-													Where SAPKey__c In :articleMappingsMap.keySet()];
-		for(MiniCaseFieldMapping__c mapping : mappings) {
-			if(articleMappingsMap.containsKey(mapping.SAPKey__c)) {
-				for(TrackingArticle article : articleMappingsMap.get(mapping.SAPKey__c)) {
+		List<MiniCaseFieldMapping__c> mappings = [
+			SELECT SAPKey__c, ProductCategory__c, ProductSubcategory__c, Type__c
+			FROM MiniCaseFieldMapping__c
+			WHERE SAPKey__c IN :articleMappingsMap.keySet()
+		];
+		for (MiniCaseFieldMapping__c mapping : mappings) {
+			if (articleMappingsMap.containsKey(mapping.SAPKey__c)) {
+				for (TrackingArticle article : articleMappingsMap.get(mapping.SAPKey__c)) {
 					article.caseTypeMapping = mapping.Type__c;
 					article.caseProductCategory = mapping.ProductCategory__c;
 					article.caseProductSubCategory = mapping.ProductSubcategory__c;
@@ -439,7 +510,7 @@ public with sharing class HappyParcelController {
 	 */
 	private static Map<String, HappyParcelStatusMapping__mdt> getHappyParcelStatusValues() {
 		Map<String, HappyParcelStatusMapping__mdt> mappedStatuses = new Map<String, HappyParcelStatusMapping__mdt>();
-		for(HappyParcelStatusMapping__mdt statusMapping : [Select APIMappingName__c, CustomIconName__c, HelpText__c, IsDefault__c, StatusText__c From HappyParcelStatusMapping__mdt]) {
+		for (HappyParcelStatusMapping__mdt statusMapping : [SELECT APIMappingName__c, CustomIconName__c, HelpText__c, IsDefault__c, StatusText__c FROM HappyParcelStatusMapping__mdt]) {
 			mappedStatuses.put(statusMapping.APIMappingName__c, statusMapping);
 		}
 		return mappedStatuses;
@@ -449,7 +520,7 @@ public with sharing class HappyParcelController {
 	 */
 	private static Map<String, HappyParcelManifestAssessmentMapping__mdt> getManifestAssessmentValues() {
 		Map<String, HappyParcelManifestAssessmentMapping__mdt> mappedAssessmentTypeMappings = new Map<String, HappyParcelManifestAssessmentMapping__mdt>();
-		for(HappyParcelManifestAssessmentMapping__mdt assessmentTypeMapping : [Select APIMappingName__c, HelpText__c, StatusText__c, IconName__c From HappyParcelManifestAssessmentMapping__mdt]) {
+		for (HappyParcelManifestAssessmentMapping__mdt assessmentTypeMapping : [SELECT APIMappingName__c, HelpText__c, StatusText__c, IconName__c FROM HappyParcelManifestAssessmentMapping__mdt]) {
 			mappedAssessmentTypeMappings.put(assessmentTypeMapping.APIMappingName__c, assessmentTypeMapping);
 		}
 		return mappedAssessmentTypeMappings;
@@ -462,7 +533,6 @@ public with sharing class HappyParcelController {
 	 * @return EventMessage__c field set to use
 	 */
 	private static FieldSet getEventMessageFieldSet() {
-
 		// TODO - introduce a new custom metadata type to configure filed set name mapping based on context.
 		// pass context (where happy parcels is embedded) as a parameter into loadConfig() method.
 		// currently field set names are hard coded here.
@@ -486,7 +556,6 @@ public with sharing class HappyParcelController {
 	 * @return EventMessage__c field set to use
 	 */
 	private static FieldSet getEventMessageOverflowFieldSet() {
-
 		// TODO - introduce a new custom metadata type to configure filed set name mapping based on context.
 		// pass context (where happy parcels is embedded) as a parameter into loadConfig() method.
 		// currently field set names are hard coded here.
@@ -512,7 +581,6 @@ public with sharing class HappyParcelController {
 	 * @return EventMessage__c field set to use
 	 */
 	private static FieldSet getEventMessageFeaturedOverflowFieldSet() {
-
 		// TODO - introduce a new custom metadata type to configure filed set name mapping based on context.
 		// pass context (where happy parcels is embedded) as a parameter into loadConfig() method.
 		// currently field set names are hard coded here.
@@ -529,51 +597,87 @@ public with sharing class HappyParcelController {
 		// return default overflow field set in all other cases
 		// NOTE: Any additional fields add to this fieldset currently requires an update to TIBCOArticleService.searchArticlesInSFDC
 		return SObjectType.EventMessage__c.fieldSets.HappyParcelFeaturedOverflowView;
-	}	
+	}
 	/**
 	 * An arua wrapper. NOTE, this only supports a single consignment. There isn't any known use case where multiple consignments need to be supported
 	 */
 	public class TrackingResult {
-		@AuraEnabled public List<String> errors = new List<String>();
-		@AuraEnabled public TrackingArticle consignment;
-		@AuraEnabled public List<TrackingArticle> articles = new List<TrackingArticle>();
+		@AuraEnabled
+		public List<String> errors = new List<String>();
+		@AuraEnabled
+		public TrackingArticle consignment;
+		@AuraEnabled
+		public List<TrackingArticle> articles = new List<TrackingArticle>();
+		@AuraEnabled
+		public Boolean requireAdditionalQueryForStarTrack; // indicate if additional call is required for StarTrack product
+		@AuraEnabled
+		public String totalArticlesDelivered;
 
 		public TrackingResult(TIBCOSearchResult result) {
 			errors.addAll(result.errors);
 
+			Integer deliveredArticleCount = 0;
+			Integer totalArticleCount = 0;
 			// check if this result set has a consignment
-			for(TIBCOTrackingResultWrapper resultWrapper : result.trackResults) {
-				if(!resultWrapper.Success) {
+			for (TIBCOTrackingResultWrapper resultWrapper : result.trackResults) {
+				if (!resultWrapper.Success) {
 					errors.add(resultWrapper.returnCode + ': ' + resultWrapper.resultDescription);
 				} else {
 					if (resultWrapper.consignmentDetails != null) {
 						consignment = new TrackingArticle(resultWrapper.consignmentDetails);
-
+						totalArticleCount = resultWrapper.consignmentDetails.articles.size();
 						// also add all of the articles linked to the consignment
-						for(TIBCOArticleWrapper article : resultWrapper.consignmentDetails.articles) {
+						for (TIBCOArticleWrapper article : resultWrapper.consignmentDetails.articles) {
+							if (article.proxyArticle.IsDelivered__c == true) {
+								deliveredArticleCount++;
+							}
+							// check if required to do ST search
+							if (validateIfAdditionalQueryForStarTrackIsRequired(article)) {
+								requireAdditionalQueryForStarTrack = true;
+							}
 							articles.add(new TrackingArticle(article));
 						}
-
 					} else {
 						articles.add(new TrackingArticle(resultWrapper.articleDetails));
 					}
 				}
 			}
+			totalArticlesDelivered = deliveredArticleCount + ' / ' + totalArticleCount;
 		}
 	}
 
-	public class TrackingArticle {
-		@AuraEnabled public String trackingId = '';
-		@AuraEnabled public List<TrackingEventMessage> events = new List<TrackingEventMessage>();
-		@AuraEnabled public Article__c article;
-		@AuraEnabled public Contact senderContact;
-		@AuraEnabled public Contact receiverContact;
-		@AuraEnabled public String eddImageIconName;
-		@AuraEnabled public String caseTypeMapping;
-		@AuraEnabled public String caseProductCategory;
-		@AuraEnabled public String caseProductSubCategory;
+	/**
+	 * @description	Validate if the product Id returned from SAP search belong to StarTrack Product Id Range,
+	 * 				If so, then make additional callout to .NET API to retrieve additional attributes
+	 * @param 		TIBCOArticleWrapper article
+	 * @return 		Boolean
+	 */
+	private static Boolean validateIfAdditionalQueryForStarTrackIsRequired(TIBCOArticleWrapper article) {
+		return StarTrack_Constants.startrackProdIDs.containsKey(article.proxyArticle.ProductID__c);
+	}
 
-		@AuraEnabled public TIBCOArticleWrapper.ArticleTransientAttributes transientAttributes;
+	public class TrackingArticle {
+		@AuraEnabled
+		public String trackingId = '';
+		@AuraEnabled
+		public List<TrackingEventMessage> events = new List<TrackingEventMessage>();
+		@AuraEnabled
+		public Article__c article;
+		@AuraEnabled
+		public Contact senderContact;
+		@AuraEnabled
+		public Contact receiverContact;
+		@AuraEnabled
+		public String eddImageIconName;
+		@AuraEnabled
+		public String caseTypeMapping;
+		@AuraEnabled
+		public String caseProductCategory;
+		@AuraEnabled
+		public String caseProductSubCategory;
+
+		@AuraEnabled
+		public TIBCOArticleWrapper.ArticleTransientAttributes transientAttributes;
 
 		public TrackingArticle(TIBCOConsignmentWrapper consignment) {
 			trackingId = consignment.proxyConsignment.ArticleID__c;
@@ -581,7 +685,7 @@ public with sharing class HappyParcelController {
 			senderContact = consignment.sender;
 			receiverContact = consignment.receiver;
 
-			for(TIBCOEventMessageWrapper eventMessageWrapper : consignment.eventMessages) {
+			for (TIBCOEventMessageWrapper eventMessageWrapper : consignment.eventMessages) {
 				events.add(new TrackingEventMessage(eventMessageWrapper));
 			}
 		}
@@ -595,8 +699,8 @@ public with sharing class HappyParcelController {
 			eddImageIconName = article.eddImageIconName;
 
 			transientAttributes = article.transientAttributes;
-			
-			for(TIBCOEventMessageWrapper eventMessageWrapper : article.eventMessages) {
+
+			for (TIBCOEventMessageWrapper eventMessageWrapper : article.eventMessages) {
 				events.add(new TrackingEventMessage(eventMessageWrapper));
 			}
 
@@ -605,8 +709,10 @@ public with sharing class HappyParcelController {
 	}
 
 	public class TrackingEventMessage {
-		@AuraEnabled public EventMessage__c event;
-		@AuraEnabled public TIBCOEventMessageWrapper.EventTransientAttributes transientAttributes;
+		@AuraEnabled
+		public EventMessage__c event;
+		@AuraEnabled
+		public TIBCOEventMessageWrapper.EventTransientAttributes transientAttributes;
 
 		public TrackingEventMessage(TIBCOEventMessageWrapper eventMessageWrapper) {
 			event = eventMessageWrapper.proxyEM;
@@ -615,10 +721,14 @@ public with sharing class HappyParcelController {
 	}
 
 	public class FieldConfigItem {
-		@AuraEnabled public String fieldName;
-		@AuraEnabled public String fieldLabel;
-		@AuraEnabled public String fieldType;
-		@AuraEnabled public String fieldHelpText;
+		@AuraEnabled
+		public String fieldName;
+		@AuraEnabled
+		public String fieldLabel;
+		@AuraEnabled
+		public String fieldType;
+		@AuraEnabled
+		public String fieldHelpText;
 
 		public FieldConfigItem(String fieldName, String fieldLabel, String fieldType, String fieldHelpText) {
 			this.fieldName = fieldName;
@@ -629,17 +739,34 @@ public with sharing class HappyParcelController {
 	}
 
 	public class NetworkDetailsWrapper {
-		@AuraEnabled public Network__c network;
-		@AuraEnabled public String error;
+		@AuraEnabled
+		public Network__c network;
+		@AuraEnabled
+		public String error;
 
-		public NetworkDetailsWrapper(Network__c network, String error){
-			if(error != ''){
+		public NetworkDetailsWrapper(Network__c network, String error) {
+			if (error != '') {
 				this.error = error;
 			}
-			if(network != null) {
+			if (network != null) {
 				this.network = network;
 			}
 		}
 	}
 
+	/**
+	 * @description	Retrieve the parent consignment Id from the article level SAP-EM Response
+	 * @param 	TIBCOSearchResult result
+	 * @return 	String
+	 */
+	private static String getConsignmentIdForForceConsignmentSearch(TIBCOSearchResult result) {
+		for (TIBCOTrackingResultWrapper tr : result.trackResults) {
+			if (tr.articleDetails != null && tr.consignmentDetails == null) {
+				return tr.articleDetails?.proxyArticle?.ConsignmentTrackingNumber__c;
+			} else {
+				return tr.consignmentDetails?.proxyConsignment?.ArticleID__c;
+			}
+		}
+		return null;
+	}
 }

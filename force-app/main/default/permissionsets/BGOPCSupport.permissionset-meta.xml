@@ -2059,61 +2059,6 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>GroupedRevenueSchedule__c.For10__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>GroupedRevenueSchedule__c.For11__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>GroupedRevenueSchedule__c.For12__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>GroupedRevenueSchedule__c.For1__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>GroupedRevenueSchedule__c.For2__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>GroupedRevenueSchedule__c.For3__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>GroupedRevenueSchedule__c.For4__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>GroupedRevenueSchedule__c.For5__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>GroupedRevenueSchedule__c.For6__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>GroupedRevenueSchedule__c.For7__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>GroupedRevenueSchedule__c.For9__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
         <field>GroupedRevenueSchedule__c.GroupedAccountProductRevenue__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -2334,11 +2279,6 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>GroupedRevenueSchedule__c.TotalForecast__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
         <field>GroupedRevenueSchedule__c.TotalIncremental__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -2350,11 +2290,6 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>GroupedRevenueSchedule__c.Year__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>GroupedRevenueSchedule__c.for8__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -2943,7 +2878,7 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>true</editable>
+        <editable>false</editable>
         <field>Opportunity.DoNotUseAccountHierarchy__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -2958,7 +2893,7 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>true</editable>
+        <editable>false</editable>
         <field>Opportunity.OverrideOPCCalculation__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -2995,6 +2930,21 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>OpportunityLineItem.Contract_Start_Date__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>OpportunityLineItem.InYearRevenueIncrementalOnly__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>OpportunityLineItem.InYearRevenueRetainedOnly__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>OpportunityLineItem.In_Year_Revenue__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

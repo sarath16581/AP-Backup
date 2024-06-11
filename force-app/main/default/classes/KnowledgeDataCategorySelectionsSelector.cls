@@ -18,6 +18,11 @@ public virtual inherited sharing class KnowledgeDataCategorySelectionsSelector e
 		selector.setFieldOverrides(fieldOverrides);
 		return selector;
 	}
+
+	public static KnowledgeDataCategorySelectionsSelector newInstance() {
+		KnowledgeDataCategorySelectionsSelector selector = (KnowledgeDataCategorySelectionsSelector)Application.Selectors.newInstance(KnowledgeDataCategorySelectionsSelector.class);
+		return selector;
+	}
 	
 	protected override SObjectType getSObjectType() {
 		return Knowledge__DataCategorySelection.SObjectType;
@@ -25,7 +30,7 @@ public virtual inherited sharing class KnowledgeDataCategorySelectionsSelector e
 
 	protected override Set<SObjectField> getSObjectFieldList() {
 		return new Set<SObjectField> {
-			Knowledge__DataCategorySelection.DataCategoryGroupName, Knowledge__DataCategorySelection.DataCategoryName,  Knowledge__DataCategorySelection.ParentId		 
+			Knowledge__DataCategorySelection.DataCategoryGroupName, Knowledge__DataCategorySelection.DataCategoryName, Knowledge__DataCategorySelection.ParentId, Knowledge__DataCategorySelection.Id
 		};
 	}
 

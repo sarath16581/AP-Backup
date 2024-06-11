@@ -1,3 +1,8 @@
+/**
+ * @description Mock Class for .NET StarTrack Consignment Search Integration Response
+ * @changelog:
+ * 2024-05-22 - Seth Heang - updated getResponse_singleConsign to add FurtherReference2
+ */
 @isTest
 public class StarTrackContinuationCalloutMock {
 
@@ -68,6 +73,7 @@ public class StarTrackContinuationCalloutMock {
                        '<Invoice>""</Invoice>' +
                        '<CustomerType>AAE</CustomerType>' +
                        '<FurtherReference1>D05 1</FurtherReference1>' +
+                        '<FurtherReference2>E05 1</FurtherReference2>' +
                        '<DescriptionofGoods>Boxes</DescriptionofGoods>' +
                        '<Articles>' +
                           '<Article>' +

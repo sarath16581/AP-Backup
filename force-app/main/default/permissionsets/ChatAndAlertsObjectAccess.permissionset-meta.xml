@@ -39818,6 +39818,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Article__c.FurtherReferences__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Article__c.Has_Sub_Docket_del__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -39884,6 +39889,11 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Article__c.Invoice__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Article__c.IsDelivered__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

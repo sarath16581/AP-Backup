@@ -4,9 +4,10 @@
  * @group Tests
  * @description Test Scenarios for Happy Parcel Service
  * @changelog
+ * 2024-05-17 - Seth Heang - added methods to provide mock wrapper class response from SAP-EM callout
  */
 @IsTest
-private class HappyParcelService_Test {
+public class HappyParcelService_Test {
 
 	@TestSetup
 	private static void setup() {
@@ -307,4 +308,142 @@ private class HappyParcelService_Test {
 			return response;
 		}
 	}
+
+	/**
+	 * @description		Mock TrackingArticle wrapper response with a single article from .NET StarTrack callout
+	 * @return		JSON String
+	 */
+	public static String getTrackingArticleOnlyMock() {
+		return '{' +
+				'"article":{' +
+					'"Id":"a1hBm000000YfLhIAK",' +
+					'"Name":"2AT71923",' +
+					'"ArticleID__c":"2AT71923",' +
+					'"SignatureRequiredFlag__c":true,' +
+					'"InsuranceRequired__c":false,' +
+					'"Notification__c":false,' +
+					'"RecordTypeId":"012900000015ftlAAA",' +
+					'"Delivered__c":0,' +
+					'"TrackingID__c":"2AT71923",' +
+					'"CaptureID_receiveronly__c":false,' +
+					'"CaptureID_anyoneataddress__c":false,' +
+					'"VODV_Redirect__c":false,' +
+					'"RecordType":{' +
+						'"Name":"Consignment",' +
+						'"Id":"012900000015ftlAAA"' +
+					'}' +
+				'},' +
+				'"events":[' +
+				'],' +
+				'"trackingId":"2AT71923"' +
+				'}';
+	}
+
+	/**
+	 * @description		Mock TrackingResult wrapper response with a single article from .NET StarTrack callout
+	 * @return		JSON String
+	 */
+	public static String getTrackingResultMock(){
+		return '{' +
+				'"trackResults": [' +
+					'{' +
+						'"trackingID": "I1FZ50049085",' +
+						'"Success": true,' +
+						'"returnCode": "ESB-BUS-DATA-100",' +
+						'"resultDescription": null,' +
+						'"consignmentDetails": {' +
+							'"sender": null,' +
+							'"receiver": null,' +
+							'"proxyConsignment": {' +
+							'"attributes": {' +
+							'"type": "Article__c",' +
+							'"url": "/services/data/v61.0/sobjects/Article__c/a1hBm000000YfLhIAK"' +
+						'},' +
+						'"Id": "a1hBm000000YfLhIAK",' +
+						'"Name": "I1FZ50049085",' +
+						'"ArticleID__c": "I1FZ50049085",' +
+						'"SignatureRequiredFlag__c": true,' +
+						'"InsuranceRequired__c": false,' +
+						'"Notification__c": false,' +
+						'"RecordTypeId": "012900000015ftlAAA",' +
+						'"Delivered__c": 0,' +
+						'"TrackingID__c": "I1FZ50049085",' +
+						'"CaptureID_receiveronly__c": false,' +
+						'"CaptureID_anyoneataddress__c": false,' +
+						'"VODV_Redirect__c": false,' +
+						'"RecordType": {' +
+							'"attributes": {' +
+							'"type": "RecordType",' +
+							'"url": "/services/data/v61.0/sobjects/RecordType/012900000015ftlAAA"' +
+						'},' +
+						'"Name": "Consignment",' +
+						'"Id": "012900000015ftlAAA"' +
+						'}' +
+						'},' +
+						'"eventMessages": [],' +
+						'"articles": [' +
+						'{' +
+							'"transientAttributes": {' +
+							'"predictedWindowStart": null,' +
+							'"predictedWindowEnd": null,' +
+							'"initialPredictedWindowStart": null,' +
+							'"initialPredictedWindowEnd": null,' +
+							'"contentItems": null' +
+							'},' +
+							'"sender": null,' +
+							'"selected": false,' +
+							'"receiver": null,' +
+							'"proxyArticle": {' +
+								'"attributes": {' +
+								'"type": "Article__c",' +
+								'"url": "/services/data/v61.0/sobjects/Article__c/a1hBm000000YfLjIAK"' +
+							'},' +
+							'"Id": "a1hBm000000YfLjIAK",' +
+							'"Name": "I1FZ50049085EXP00001",' +
+							'"ArticleID__c": "I1FZ50049085EXP00001",' +
+							'"ProductCategory__c": "StarTrack",' +
+							'"ServiceCode__c": "72",' +
+							'"SignatureRequiredFlag__c": true,' +
+							'"SubProduct__c": "Express",' +
+							'"InsuranceRequired__c": false,' +
+							'"Notification__c": false,' +
+							'"Consignment__c": "a1hBm000000YfLhIAK",' +
+							'"RecordTypeId": "012900000015ftkAAA",' +
+							'"Delivered__c": 0,' +
+							'"ProductID__c": "002",' +
+							'"SubProductID__c": "725",' +
+							'"ConsignmentTrackingNumber__c": "I1FZ50049085",' +
+							'"CaptureID_receiveronly__c": false,' +
+							'"CaptureID_anyoneataddress__c": false,' +
+							'"VODV_Redirect__c": false,' +
+							'"Consignment__r": {' +
+								'"attributes": {' +
+								'"type": "Article__c",' +
+								'"url": "/services/data/v61.0/sobjects/Article__c/a1hBm000000YfLhIAK"' +
+							'},' +
+							'"ArticleID__c": "I1FZ50049085",' +
+							'"Id": "a1hBm000000YfLhIAK"' +
+							'},' +
+							'"RecordType": {' +
+								'"attributes": {' +
+								'"type": "RecordType",' +
+								'"url": "/services/data/v61.0/sobjects/RecordType/012900000015ftkAAA"' +
+							'},' +
+							'"Name": "Article",' +
+							'"Id": "012900000015ftkAAA"' +
+						'}' +
+					'},' +
+					'"eventMessages": [],' +
+					'"eddImageIconName": "error16.png"' +
+					'}' +
+					']' +
+					'},' +
+					'"articleDetails": null' +
+					'}' +
+				'],' +
+				'"success": true,' +
+				'"errors": []' +
+				'}';
+	}
+
 }

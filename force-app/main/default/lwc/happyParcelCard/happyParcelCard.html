@@ -14,6 +14,13 @@
 				<div class="slds-media__body">
 					<h2 class="slds-card__header-title">
 						<span class="slds-show_inline-block" style={headingStyleOverride}>{title}</span>
+						<template if:true={titleLoadingSpinner}>
+							<div role="status" class="slds-m-left_x-small slds-m-top_small slds-spinner slds-spinner_x-small slds-spinner_inline">
+								<span class="slds-assistive-text">Loading</span>
+								<div class="slds-spinner__dot-a"></div>
+								<div class="slds-spinner__dot-b"></div>
+							</div>
+						</template>
 					</h2>
 				</div>
 				<template if:true={helpText}>
