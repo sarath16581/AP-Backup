@@ -12,6 +12,7 @@
  * 2021-12-22 - Ashapriya Gadi - Added method selectList to retrieve tasks based on WhatIds and ownerIds
  * 2022-02-02 - Nathan Franklin - Update search method and fixed injection attack vector
  * 2023-08-11 - SteveL - added selectByWhatIdAllRows
+ * 2024-05-28 - Ranjeewa Silva - Fixed a bug in search method by defining bind variables for 'subjects' and 'ownerIds' search parameters
  */
 public virtual inherited sharing class TasksSelector extends ApplicationSelector {
 
@@ -72,6 +73,8 @@ public virtual inherited sharing class TasksSelector extends ApplicationSelector
 		Set<Id> whatIds = (Set<Id>)(searchParams.get('whatIds') == null ? new Set<Id>() : (searchParams.get('whatIds') instanceof Set<Id> ? searchParams.get('whatIds') : new Set<Id>{(Id)searchParams.get('whatIds')}));
 		Date fromActivityDate = searchParams.get('fromActivityDate') == null ? null : Date.valueOf(String.valueOf(searchParams.get('fromActivityDate')));
 		Boolean isClosed = (Boolean) searchParams.get('isClosed');
+		Set<String> subjects = (Set<String>)(searchParams.get('subjects') == null ? new Set<String>() : (searchParams.get('subjects') instanceof Set<String> ? searchParams.get('subjects') : new Set<String>{String.valueOf(searchParams.get('subjects'))}));
+		Set<Id> ownerIds = (Set<Id>)(searchParams.get('ownerIds') == null ? new Set<Id>() : (searchParams.get('ownerIds') instanceof Set<Id> ? searchParams.get('ownerIds') : new Set<Id>{(Id)searchParams.get('ownerIds')}));
 
 		// these are for backwards compatibility ONLY. This parameters should not be used anymore and are @deprecated
 		if(searchParams.get('WhatId') != null) {

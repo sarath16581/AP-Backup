@@ -52,16 +52,16 @@ export default class OppProductDataTable extends NavigationMixin(LightningElemen
 			{ label: 'Total Price', fieldName: 'TotalPrice', type: 'currency', editable: false, initialWidth: 160,
 				cellAttributes: { alignment: 'left' }
 			},
-			{ label: 'Annualised Value', fieldName: 'Annualised_Value__c', type: 'currency', editable: false, initialWidth: 160,
+			{ label: 'ACV', fieldName: 'Annualised_Value__c', type: 'currency', editable: false, initialWidth: 160,
 				cellAttributes: { alignment: 'left' }
 			},
 			{ label: 'Last 12 months Revenue', fieldName: 'TweleveMonthRevenue__c', type: 'currency', editable: false, initialWidth: 160,
 				cellAttributes: { alignment: 'left' }
 			},
-			{ label: 'Annual Retained Value', fieldName: 'RetainedRevenue__c', type: 'currency', editable: false, initialWidth: 160,
+			{ label: 'Retained ACV', fieldName: 'RetainedRevenue__c', type: 'currency', editable: false, initialWidth: 160,
 				cellAttributes: { alignment: 'left' }
 			},
-			{ label: 'Annual Incremental Value', fieldName: 'IncrementalRevenue__c', type: 'currency', editable: false, initialWidth: 160,
+			{ label: 'Incremental ACV', fieldName: 'IncrementalRevenue__c', type: 'currency', editable: false, initialWidth: 160,
 				cellAttributes: { alignment: 'left' }
 			},
 			{ label: 'Quote Number', fieldName: 'Contract_Number__c', type: 'text', editable: true, initialWidth: 160},

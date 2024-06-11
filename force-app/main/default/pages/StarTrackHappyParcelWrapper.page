@@ -1,3 +1,10 @@
+<!--
+* @author Carlo Inting
+* @date 2024-05-14
+* @changelog
+* 2024-05-14 - Carlo Inting - Created
+* 2024-05-21 - Seth Heang - Passed forceConsignmentSearch parameter to happyParcel Component
+-->
 <apex:page showHeader="false" applyBodyTag="false" applyHtmlTag="false">
 	<html>
 		<head>
@@ -8,7 +15,7 @@
 								lightningComponent="c:happyParcel"
 								crossOriginLwcEvents="idclick,externaledd,articledetails,customerselect,customerdeselect,customerdetails,trackingsearchcomplete,selectedarticles,attachdeliveryproof"
 								crossOriginSupport="true"
-								componentAttributes="{&quotsupportsExternalLinkHandling&quot:true,&quot;supportsSelectableChildArticles&quot;:true,&quot;supportsCustomerSelection&quot;:true,&quot;readonly&quot;:false,&quot;supportsExternalEdd&quot;:true,&quot;supportsSafeDropAttachment&quot;:true,&quot;supportsCaseCreation&quot;:true}"/>
+								componentAttributes="{&quotsupportsExternalLinkHandling&quot:true,&quot;supportsSelectableChildArticles&quot;:true,&quot;supportsCustomerSelection&quot;:true,&quot;readonly&quot;:false,&quot;supportsExternalEdd&quot;:true,&quot;supportsSafeDropAttachment&quot;:true,&quot;supportsCaseCreation&quot;:true,&quot;forceConsignmentLevelResults&quot;:true}"/>
 			</apex:outputPanel>
 		</body>
 	</html>

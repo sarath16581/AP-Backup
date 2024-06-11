@@ -147,6 +147,10 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
+                <field>Expected_Volumes_Per_Week__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
                 <field>Opportunity_Initial_Estimate__c</field>
             </layoutItems>
             <layoutItems>

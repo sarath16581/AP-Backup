@@ -100,7 +100,7 @@ public with sharing class OpportunityCloneWithItemsController {
              // set the id of the new po created for testing
              newRecordId = newOp.id;
              
-             Opportunity update_opp = [SELECT Id FROM Opportunity WHERE Id = :newOp.id];
+             Opportunity update_opp = [SELECT Id, OwnerId, CloseDate FROM Opportunity WHERE Id = :newOp.id];
 
              update_opp.ECLM_Opportunity_Id_for_Contract__c=newOp.id;  
              // REQ2938280: set Opp fields to false
@@ -109,6 +109,11 @@ public with sharing class OpportunityCloneWithItemsController {
              update_opp.CTA_Pursue_Approved__c = false;
              update_opp.CTA_Pursue_Request_Exists__c = false;
              
+             update_opp.OwnerId = UserInfo.getUserId();
+             if(update_opp.CloseDate < Date.Today() || update_opp.CloseDate == null) {
+                update_opp.CloseDate = Date.Today().addDays(30);
+             }
+
              Update update_opp;
  
              // copy over the line items - ONLY INCLUDE THE FIELDS YOU WANT TO CLONE
@@ -214,7 +219,7 @@ public with sharing class OpportunityCloneWithItemsController {
              newOp = op.clone(false); 
              insert newOp;
              
-             Opportunity update_opp = [SELECT Id FROM Opportunity WHERE Id = :newOp.id];
+             Opportunity update_opp = [SELECT Id, OwnerId, CloseDate FROM Opportunity WHERE Id = :newOp.id];
              //Eric Shen  11/11/2015 nullify the two fields below
              update_opp.ECLM_Opportunity_Id_for_Contract__c=newOp.id; 
              
@@ -227,6 +232,11 @@ public with sharing class OpportunityCloneWithItemsController {
               update_opp.CTA_Pursue_Approved__c = false;
               update_opp.CTA_Pursue_Request_Exists__c = false;
              
+              update_opp.OwnerId = UserInfo.getUserId();
+              if(update_opp.CloseDate < Date.Today() || update_opp.CloseDate == null) {
+                update_opp.CloseDate = Date.Today().addDays(30);
+              }
+
              Update update_opp;
  
           

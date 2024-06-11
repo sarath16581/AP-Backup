@@ -137,6 +137,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Article__c.FurtherReferences__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Article__c.InsuranceAmount__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -153,6 +158,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Article__c.InsuranceSDR__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Article__c.IsDelivered__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

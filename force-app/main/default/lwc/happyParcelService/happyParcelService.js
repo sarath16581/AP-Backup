@@ -14,11 +14,13 @@
  * 2021-06-15 - Prerna Rahangdale - Added the warning to show for the VODV Articles.
  * 2022-04-12 - Mahesh Parvathaneni - Added custom lables and location icon SVG path to use in the lightning map marker
  * 2022-07-05 - Snigdha Sahu - REQ2851358 - Added MLID for SenderDetails
+ * 2024-05-21 - Seth Heang - Updated getTrackingApiResponse with forceConsignmentSearch parameter
  */
 
 //continuations
 import queryAnalyticsApi from '@salesforce/apexContinuation/HappyParcelController.queryAnalyticsApi';
 import getArticleImage from '@salesforce/apexContinuation/HappyParcelController.getArticleImage';
+import queryTrackingApiForStarTrack from '@salesforce/apexContinuation/HappyParcelController.queryTrackingApiForStarTrack';
 
 // normal callouts
 import queryTrackingApi from '@salesforce/apex/HappyParcelController.queryTrackingApi';
@@ -176,7 +178,10 @@ export const CONSTANTS = {
 	SAFEDROP_INELIGIBLE: 'Ineligible',
 	SAFEDROP_ELIGIBLE: 'Eligible',
 	DTN_CASE_RECORDTYPE: 'SSSW Delivery',
-	LOCATION_ICON_SVG_PATH: 'M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z'
+	LOCATION_ICON_SVG_PATH: 'M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z',
+	ANALYTICS_API: 'Analytics API',
+	TRACKING_API: 'Tracking API',
+	STARTRACK_API: 'StarTrack API',
 };
 
 export const safeTrim = (str) => {
@@ -304,13 +309,29 @@ export const getAnalyticsApiResponse = async (trackingId) => {
 /**
  * Get the tracking information from the remote api
  */
-export const getTrackingApiResponse = async (trackingId) => {
+export const getTrackingApiResponse = async (trackingId, forceConsignmentSearch) => {
 	try {
 		const result = await queryTrackingApi({
-			trackingId: trackingId
+			trackingId: trackingId,
+			forceConsignmentSearch: forceConsignmentSearch
 		});
 
 		console.log('getTrackingResponse', result);
+		return result;
+	} catch (error) {
+		return {articles: [], errors: [error.body.message]};
+	}
+}
+
+/**
+ * @description Get the tracking information from the remote .NET API for StarTrack
+ */
+export const getTrackingApiResponseForStarTrack = async (consignmentNumber, consignment) => {
+	try {
+		const result = await queryTrackingApiForStarTrack({
+			consignmentNumber: consignmentNumber,
+			trackingResultString: JSON.stringify(consignment.trackingResult)
+		});
 		return result;
 	} catch (error) {
 		return {articles: [], errors: [error.body.message]};

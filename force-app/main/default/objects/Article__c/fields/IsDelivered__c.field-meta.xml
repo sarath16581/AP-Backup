@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+	<fullName>IsDelivered__c</fullName>
+	<defaultValue>false</defaultValue>
+	<description>Indicate if the article has been successfully delivered. The data is not live and is refreshed when an article search occurs.</description>
+	<externalId>false</externalId>
+	<inlineHelpText>Indicate if this article has been successfully delivered</inlineHelpText>
+	<label>Is Delivered</label>
+	<securityClassification>INTERNAL</securityClassification>
+	<trackHistory>false</trackHistory>
+	<trackTrending>false</trackTrending>
+	<type>Checkbox</type>
+</CustomField>

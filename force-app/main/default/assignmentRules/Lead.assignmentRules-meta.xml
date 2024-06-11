@@ -4,11 +4,7 @@
         <fullName>Assign Web to Lead form</fullName>
         <active>true</active>
         <ruleEntry>
-            <criteriaItems>
-                <field>Lead.Created_by_Sales__c</field>
-                <operation>equals</operation>
-                <value>True</value>
-            </criteriaItems>
+            <formula>Created_by_Sales__c &amp;&amp; ( ISNEW() ||  NOT( ISPICKVAL( Status , &quot;New&quot;) &amp;&amp; ISPICKVAL( PRIORVALUE(Status) , &quot;Disqualified&quot;)))</formula>
         </ruleEntry>
         <ruleEntry>
             <assignedTo>BrandWrapped</assignedTo>
