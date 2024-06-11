@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+	<fullName>Article__c</fullName>
+	<businessStatus>Active</businessStatus>
+	<deleteConstraint>Restrict</deleteConstraint>
+	<description>Identifies and links to the problem article in a Consignment. This related list should not be on Consignment layout. Use this on Article layout instead.</description>
+	<externalId>false</externalId>
+	<inlineHelpText>Identifies and links to the problem article in a Consignment</inlineHelpText>
+	<label>Article</label>
+	<referenceTo>Article__c</referenceTo>
+	<relationshipLabel>Related Articles</relationshipLabel>
+	<relationshipName>RelatedArticles</relationshipName>
+	<required>true</required>
+	<securityClassification>INTERNAL</securityClassification>
+	<trackTrending>false</trackTrending>
+	<type>Lookup</type>
+</CustomField>
