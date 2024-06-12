@@ -8,8 +8,8 @@
     <inlineHelpText>Identifies and links to the problem article in a Consignment</inlineHelpText>
     <label>Article</label>
     <referenceTo>Article__c</referenceTo>
-    <relationshipLabel>Related Articles</relationshipLabel>
-    <relationshipName>RelatedArticles</relationshipName>
+    <relationshipLabel>Impacted Articles</relationshipLabel>
+    <relationshipName>ImpactedArticles</relationshipName>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
