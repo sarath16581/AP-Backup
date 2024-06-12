@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
-    <fullName>ArticleAndConsignmentValueRequired</fullName>
-    <active>true</active>
-    <description>Both the Article and Consignment field values should be provided when saving an Impacted Article record.</description>
-    <errorConditionFormula>OR(ISBLANK(Article__c), ISBLANK(Consignment__c))</errorConditionFormula>
-    <errorMessage>Please provide a value for required fields: Article, Consignment</errorMessage>
-</ValidationRule>
