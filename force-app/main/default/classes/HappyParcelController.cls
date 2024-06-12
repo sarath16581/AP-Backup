@@ -81,8 +81,6 @@ public with sharing class HappyParcelController {
 				finalTrackingId = consignmentId != null ? consignmentId : finalTrackingId;
 			}
 			searchResult = articleService.search(new List<String>{ finalTrackingId }, true, false, false, false, true);
-			System.debug('searchResult');
-			System.debug(searchResult);
 
 			//NOTE: TrackingResult class simply provides some structure around the returned object (including case consistency)
 			//Also retrieves EAT details from transient attributes
@@ -91,9 +89,6 @@ public with sharing class HappyParcelController {
 			// go through all the process results that will be outputted and provide the correct case clearview code mappings (for when a new case needs to be created)
 			// this allows the clearview codes to be defaulted with the correct values in the mini case component (or any external caller to Happy Parcel) based on the article that was queried
 			mapCaseTypesToArticleProducts(output);
-
-			System.debug('queryTrackingAPI:');
-			System.debug(output);
 
 			return output;
 		} catch (Exception e) {
@@ -153,7 +148,7 @@ public with sharing class HappyParcelController {
 		HttpResponse response = Continuation.getResponse(labels[0]);
 		HappyParcelService service = HappyParcelService.getInstance();
 		HappyParcelService.Result result = service.parseResponse(response);
-		System.debug(result);
+
 		return result;
 	}
 
@@ -178,7 +173,7 @@ public with sharing class HappyParcelController {
 	public static SafeDropEligibilityService.EligibilityResponse getSafeDropStatus(String articleId) {
 		SafeDropEligibilityService service = SafeDropEligibilityService.getInstance();
 		SafeDropEligibilityService.EligibilityResponse result = service.getSafeDropStatus(articleId);
-		System.debug(result);
+
 		return result;
 	}
 
@@ -207,7 +202,7 @@ public with sharing class HappyParcelController {
 	public static NotificationPreferencesService.NotificationPreferencesResponse getNotificationPreferences(Map<String, List<String>> searchStrings) {
 		NotificationPreferencesService service = NotificationPreferencesService.getInstance();
 		NotificationPreferencesService.NotificationPreferencesResponse result = service.getNotificationPreferences(searchStrings);
-		System.debug(result);
+
 		return result;
 	}
 
@@ -219,7 +214,7 @@ public with sharing class HappyParcelController {
 	public static String setNotificationPreferences(String searchStrings, Boolean setValue) {
 		NotificationPreferencesService service = NotificationPreferencesService.getInstance();
 		String result = service.setNotificationPreferences(searchStrings, setValue);
-		System.debug(result);
+
 		return result;
 	}
 
@@ -253,12 +248,8 @@ public with sharing class HappyParcelController {
 		HttpResponse resp = Continuation.getResponse(labels[0]);
 
 		String responseBody = resp.getBody();
-		System.debug('SAFE-DROP API RAW REPONSE: ' + responseBody);
-
 		// parse the json
 		SafeDropUtility.SafeDropApiResponse response = SafeDropUtility.parseResponse(responseBody, resp);
-
-		System.debug('SAFE-DROP API PARSED REPONSE: ' + response);
 
 		return response;
 	}
@@ -315,9 +306,9 @@ public with sharing class HappyParcelController {
 	}
 
 	@AuraEnabled
-	public static List<criticalIncidentWrapper> getCriticalIncidents(String networkOrgId) {
+	public static List<CriticalIncidentWrapper> getCriticalIncidents(String networkOrgId) {
 		try {
-			List<criticalIncidentWrapper> crtiticalIncidentsWrapper = new List<criticalIncidentWrapper>();
+			List<CriticalIncidentWrapper> crtiticalIncidentsWrapper = new List<CriticalIncidentWrapper>();
 			//query critical incidents
 			Set<SObjectField> fieldOverrides = new Set<SObjectField>{ Knowledge__kav.Id, Knowledge__kav.NetworkOrgId__c, Knowledge__kav.Title, Knowledge__kav.UrlName };
 			KnowledgeArticleVersionsSelector selector = KnowledgeArticleVersionsSelector.newInstance(fieldOverrides);
@@ -335,7 +326,7 @@ public with sharing class HappyParcelController {
 					//construct record url
 					String articleURL = URL.getOrgDomainURL().toExternalForm() + '/' + criticalIncident.Id;
 					if (networkOrgIdsLst.contains(networkOrgId)) {
-						criticalIncidentWrapper wrapper = new criticalIncidentWrapper();
+						CriticalIncidentWrapper wrapper = new CriticalIncidentWrapper();
 						wrapper.KnowledgeArticle = criticalIncident;
 						wrapper.url = articleURL;
 						crtiticalIncidentsWrapper.add(wrapper);
@@ -378,8 +369,8 @@ public with sharing class HappyParcelController {
 	private static List<FieldConfigItem> getArticleDetailFieldSetConfig() {
 		List<FieldConfigItem> output = new List<FieldConfigItem>();
 		/*for (Schema.FieldSetMember fm : SObjectType.Article__c.fieldSets.SAP_EM_Panel_Article_View.getFields()) {
-            output.add(new FieldConfigItem(fm.getFieldPath(), fm.getLabel(), String.valueOf(fm.getType()) ));
-        }*/
+			output.add(new FieldConfigItem(fm.getFieldPath(), fm.getLabel(), String.valueOf(fm.getType()) ));
+		}*/
 		//Leveraging the getFieldConfigs method to retrieve field specific metadata
 		output = getFieldConfigs(SObjectType.Article__c.fieldSets.SAP_EM_Panel_Article_View);
 		return output;
@@ -392,8 +383,8 @@ public with sharing class HappyParcelController {
 		List<FieldConfigItem> output = new List<FieldConfigItem>();
 
 		/*for (Schema.FieldSetMember fm : SObjectType.Article__c.fieldSets.SAP_EM_Panel_Consignment_View.getFields()) {
-            output.add(new FieldConfigItem(fm.getFieldPath(), fm.getLabel(), String.valueOf(fm.getType()) ));
-        }*/
+			output.add(new FieldConfigItem(fm.getFieldPath(), fm.getLabel(), String.valueOf(fm.getType()) ));
+		}*/
 		//Leveraging the getFieldConfigs method to retrieve field specific metadata
 		output = getFieldConfigs(SObjectType.Article__c.fieldSets.SAP_EM_Panel_Consignment_View);
 		return output;
@@ -410,8 +401,8 @@ public with sharing class HappyParcelController {
 		//Leveraging the getFieldConfigs method to retrieve field specific metadata
 		if (eventMessageFieldSet != null) {
 			/*for (Schema.FieldSetMember fm : eventMessageFieldSet.getFields()) {
-                output.add(new FieldConfigItem(fm.getFieldPath(), fm.getLabel(), String.valueOf(fm.getType()) ));
-            }*/
+				output.add(new FieldConfigItem(fm.getFieldPath(), fm.getLabel(), String.valueOf(fm.getType()) ));
+			}*/
 			output = getFieldConfigs(eventMessageFieldSet);
 		}
 
@@ -428,8 +419,8 @@ public with sharing class HappyParcelController {
 		//Leveraging the getFieldConfigs method to retrieve field specific metadata
 		if (eventMessageFieldSet != null) {
 			/*for (Schema.FieldSetMember fm : eventMessageFieldSet.getFields()) {
-                output.add(new FieldConfigItem(fm.getFieldPath(), fm.getLabel(), String.valueOf(fm.getType()) ));
-            }*/
+				output.add(new FieldConfigItem(fm.getFieldPath(), fm.getLabel(), String.valueOf(fm.getType()) ));
+			}*/
 			output = getFieldConfigs(eventMessageFieldSet);
 		}
 
@@ -739,7 +730,6 @@ public with sharing class HappyParcelController {
 				events.add(new TrackingEventMessage(eventMessageWrapper));
 			}
 
-			System.debug('events: ' + events);
 		}
 	}
 
@@ -789,7 +779,7 @@ public with sharing class HappyParcelController {
 		}
 	}
 
-	public class criticalIncidentWrapper{
+	public class CriticalIncidentWrapper{
 		@AuraEnabled
 		public Knowledge__kav KnowledgeArticle;
 		@AuraEnabled

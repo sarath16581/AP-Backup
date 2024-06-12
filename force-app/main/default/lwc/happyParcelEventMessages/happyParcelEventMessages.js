@@ -271,7 +271,7 @@
 			 if (eventIndex > -1) {
 				 //Show overflow
 				 this._events[eventIndex].showOverflow = true;
-			 }         
+			 }
 		 }
 	 }
 	 onHandleSort(event) {
