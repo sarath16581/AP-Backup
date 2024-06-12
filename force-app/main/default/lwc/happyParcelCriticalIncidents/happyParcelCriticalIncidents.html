@@ -1,0 +1,32 @@
+<template>
+	<template if:true={showSpinner}>
+		<lightning-spinner size="small" variant="brand" alternative-text="loading data..."></lightning-spinner>
+	</template>
+	<template if:true={criticalIncidents}>
+		<div class="width-card">
+			<c-happy-parcel-card title="Critical Incidents" icon-name="utility:incident" button-icon="utility:close"
+				button-variant="bare" oncardbuttonclick={closePopup}>
+				<div class="slds-col slds-size_1-of-1 slds-border_top">
+					<template for:each={criticalIncidents} for:item="wrapper">
+						<div class="slds-truncate slds-var-p-around_x-small" key={wrapper.KnowledgeArticle.UrlName}>
+							<a data-id={wrapper.KnowledgeArticle.Id} class="slds-text-link"
+								onclick={handleKnowledgeClick}>{wrapper.KnowledgeArticle.Title}</a>
+						</div>
+					</template>
+				</div>
+			</c-happy-parcel-card>
+		</div>
+	</template>
+	<template if:true={displayMessage}>
+		<div class="slds-size_2-of-2">
+			<div class="slds-notify slds-notify_alert slds-theme_info" role="alert">
+				<div class="slds-col slds-size_1-of-2 slds-text-align_left">
+					<span>{displayMessage}</span>
+				</div>
+				<div class="slds-col slds-size_1-of-2">
+					<lightning-button-icon icon-name="utility:close" variant="bare-inverse" size="small" onclick={closePopup} class="slds-float_right"></lightning-button-icon>
+				</div>
+			</div>
+		</div>
+    </template>
+</template>

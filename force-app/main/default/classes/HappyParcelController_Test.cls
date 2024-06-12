@@ -11,6 +11,7 @@
  * 2020-10-28 - Disha Kariya - Added mocking for getting transient attributes for ETA details
  * 2024-05-17 - Seth Heang - Added test methods to cover async callout to .NET API for retrieving StarTrack consignment/article details and mapping
  * 2024-05-21 - Seth Heang - Added new test method to handle force consignment search
+ * 2024-05-21 - Seth Heang - Added new test method to cover getCriticalIncidents
  */
 @IsTest
 private class HappyParcelController_Test {
@@ -281,6 +282,40 @@ private class HappyParcelController_Test {
 		Test.stopTest();
 
 		System.assertNotEquals(null, result.network, 'Expected a network but instead got error.');
+	}
+
+	/**
+	 *	Scenario: get critical incidents based on the network org Id
+	 */
+	@IsTest
+	private static void testGetCriticalIncidents() {
+		// =====================================
+		// Data Preparation
+		// =====================================
+		List<Knowledge__kav> criticalIncidents = ApplicationTestDataFactoryKnowledge.getCriticalIncidents(2, false);
+		criticalIncidents[0].networkOrgId__c =  '12345';
+		
+		insert criticalIncidents;
+
+		// =====================================
+		// Stubbing
+		// =====================================
+		KnowledgeArticleVersionsSelector kavSelector = (KnowledgeArticleVersionsSelector)MockUtility.mockSelector(KnowledgeArticleVersionsSelector.class);
+		// set up our responses
+		MockUtility.Mocks.startStubbing();
+		// Database
+		MockUtility.Mocks.when(kavSelector.search((Map<String, Object>)fflib_Match.anyObject(), (Boolean)fflib_Match.anyObject()))
+			.thenReturn(criticalIncidents);
+		MockUtility.Mocks.stopStubbing();
+
+		// =====================================
+		// Testing
+		// =====================================
+		Test.startTest();
+		List<HappyParcelController.criticalIncidentWrapper> result = HappyParcelController.getCriticalIncidents('12345');
+		Test.stopTest();
+		((KnowledgeArticleVersionsSelector)MockUtility.Mocks.verify(kavSelector, MockUtility.Mocks.times(1))).search((Map<String, Object>)fflib_Match.anyObject(), (Boolean)fflib_Match.anyObject());
+		System.assertEquals(1, result.size(), 'one record matches with the given network org Id');
 	}
 
 	/**

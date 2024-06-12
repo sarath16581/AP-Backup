@@ -90,6 +90,7 @@ export default class HappyParcelLatestScans extends HappyParcelBase {
 					eventDetailsRequired: eventDetailsRequired,
 					eventDescriptionCombined: eventDescriptionCombined,
 					showEventDetails: false,
+					showCriticalIncidents: false,
 					_eventColumns: columns,
 					isLock: (get(item, 'event.Status__c', '').indexOf('Lock') > -1) ,
 					animationCssStyle: this.getAnimationStyleCss(animationDelay),
@@ -225,6 +226,31 @@ export default class HappyParcelLatestScans extends HappyParcelBase {
 		}
 	}
 
+	
+	/**
+	 * Determines the event to show related critical incidents
+	 */
+	handleShowCriticalIncidents(event) {
+		const target = event.currentTarget;
+		const eventId = target.dataset.id;
+		let eventIndex = this.featuredScanEvents.findIndex(item => item.event.EventID__c === eventId);
+		if (eventIndex > -1) {
+			this.featuredScanEvents[eventIndex].showCriticalIncidents = true;
+			this.expandEventSection(eventIndex);
+		}
+	}
+
+	/**
+	 * Determines the event to show related critical incidents
+	 */
+	handleCloseCriticalIncidents(event) {
+		const eventId = event.detail;
+		let eventIndex = this.featuredScanEvents.findIndex(item => item.event.EventID__c === eventId);
+		if (eventIndex > -1) {
+			this.featuredScanEvents[eventIndex].showCriticalIncidents = false;
+		}
+	}
+	
 	handleShowAttachment(event) {
 		const target = event.currentTarget;
 		const eventId = target.dataset.id;

@@ -187,6 +187,7 @@
 					 showOverflow: false,
 					 _overflowColumns: overflowColumns,
 					 showNetworkDetails: false,
+					 showCriticalIncidents: false,
 					 showAttachment: false,
 					 hasGeoCoordinates,
 					 showMap: false,
@@ -296,6 +297,29 @@
 			 this._events[eventIndex].showNetworkDetails = false;
 		 }
 	 }
+
+	/**
+	 * Determines the event to show related critical incidents
+	 */
+	handleShowCriticalIncidents(event) {
+		const target = event.currentTarget;
+		const eventId = target.dataset.id;
+		let eventIndex = this._events.findIndex(event => event.EventID__c === eventId);
+		if (eventIndex > -1) {
+			this._events[eventIndex].showCriticalIncidents = true;
+		}
+	}
+
+	/**
+	 * Determines the event to show related critical incidents
+	 */
+	handleCloseCriticalIncidents(event) {
+		const eventId = event.detail;
+		let eventIndex = this._events.findIndex(event => event.EventID__c === eventId);
+		if (eventIndex > -1) {
+			this._events[eventIndex].showCriticalIncidents = false;
+		}
+	}
  
 	 handleShowAttachment(event) {
 		 const target = event.currentTarget;

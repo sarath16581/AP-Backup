@@ -62,17 +62,28 @@
 												</template>
 												<template if:true={column.fieldNameIs_ActualLocation__c}>
 													<td class="slds-cell-wrap slds-truncate maxWidth" key={column.key}>
-														{event.ActualLocation__c}
-														<template if:true={event.Facility__c}>
-															<lightning-button-icon data-id = {event.EventID__c}
-																				   icon-name="utility:preview"
-																				   size="small"
-																				   variant="bare"
-																				   class="icon-style slds-m-left_xx-small"
-																				   onclick={handleNetworkInfo}
-																				   alternative-text="Network Info">
-															</lightning-button-icon>
-														</template>
+														<div>
+															{event.ActualLocation__c}
+														</div>
+														<template if:true={event.FacilityOrganisationID__c}>
+															<div>
+																<lightning-button-icon data-id = {event.EventID__c}
+																					icon-name="utility:preview"
+																					size="small"
+																					variant="bare"
+																					class="icon-style slds-m-left_xx-small"
+																					onclick={handleNetworkInfo}
+																					alternative-text="Network Info">
+																</lightning-button-icon>
+																<lightning-button-icon data-id={event.EventID__c}
+																					class="btn-x-large slds-m-horizontal_x-small"
+																					icon-name="utility:warning"
+																					alternative-text="Critical Incidents" size="medium"
+																					variant="bare" onclick={handleShowCriticalIncidents}
+																					style="position:relative;top:-3px;">
+																</lightning-button-icon>
+															</div>
+															</template>
 													</td>
 												</template>
 												<template if:true={column.fieldNameIs_EventDescription__c}>
@@ -135,6 +146,12 @@
 											<template if:true={event.showNetworkDetails}>
 												<div class="slds-p-horizontal_x-small slds-p-bottom_x-small event-message-popup-container">
 													<c-happy-parcel-network-popup onclosepopup= {closePopupHandler} event-id={event.EventID__c} wcc={event.FacilityOrganisationID__c} variant="width-card"></c-happy-parcel-network-popup>
+												</div>
+											</template>
+
+											<template if:true={event.showCriticalIncidents}>
+												<div class="slds-p-horizontal_x-small slds-p-bottom_x-small event-message-popup-container">
+													<c-happy-parcel-critical-incidents onclosepopup={handleCloseCriticalIncidents} event-id={event.EventID__c} network-id={event.FacilityOrganisationID__c} variant="width-card"></c-happy-parcel-critical-incidents>
 												</div>
 											</template>
 

@@ -315,6 +315,41 @@ public with sharing class HappyParcelController {
 	}
 
 	@AuraEnabled
+	public static List<criticalIncidentWrapper> getCriticalIncidents(String networkOrgId) {
+		try {
+			List<criticalIncidentWrapper> crtiticalIncidentsWrapper = new List<criticalIncidentWrapper>();
+			//query critical incidents
+			Set<SObjectField> fieldOverrides = new Set<SObjectField>{ Knowledge__kav.Id, Knowledge__kav.NetworkOrgId__c, Knowledge__kav.Title, Knowledge__kav.UrlName };
+			KnowledgeArticleVersionsSelector selector = KnowledgeArticleVersionsSelector.newInstance(fieldOverrides);
+			Map<String, Object> searchParams = new Map<String, Object>();
+			searchParams.put('recordTypeNames', new Set<String>{ 'Critical_Incident' });
+			searchParams.put('IsLatestVersion', true);
+			searchParams.put('statuses', new Set<String>{ 'Online' });
+			
+			//NetworkOrgId__c is longtext area field so we are Iterating over all the publised critical incidents and will fitler using if condition
+			for (Knowledge__kav criticalIncident : selector.search(searchParams, true)) {
+				String networkOrgIdAsString = criticalIncident.NetworkOrgId__c;
+
+				if (String.isNotBlank(networkOrgIdAsString)) {
+					List<String> networkOrgIdsLst = networkOrgIdAsString.split(';');
+					//construct record url
+					String articleURL = URL.getOrgDomainURL().toExternalForm() + '/' + criticalIncident.Id;
+					if (networkOrgIdsLst.contains(networkOrgId)) {
+						criticalIncidentWrapper wrapper = new criticalIncidentWrapper();
+						wrapper.KnowledgeArticle = criticalIncident;
+						wrapper.url = articleURL;
+						crtiticalIncidentsWrapper.add(wrapper);
+					}
+				}
+			}
+
+			return crtiticalIncidentsWrapper;
+		} catch (Exception e) {
+			throw new AuraHandledException(e.getMessage());
+		}
+	}
+
+	@AuraEnabled
 	public static Double getDistanceBetweenLocations(Decimal lat1, Decimal lon1, Decimal lat2, Decimal lon2) {
 		try {
 			LocationsService locService = LocationsService.getInstance();
@@ -752,6 +787,13 @@ public with sharing class HappyParcelController {
 				this.network = network;
 			}
 		}
+	}
+
+	public class criticalIncidentWrapper{
+		@AuraEnabled
+		public Knowledge__kav KnowledgeArticle;
+		@AuraEnabled
+		public String url;
 	}
 
 	/**

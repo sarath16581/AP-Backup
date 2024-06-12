@@ -86,7 +86,8 @@
 											<template if:true={eventMessage.event.ActualLocation__c}>
 												{eventMessage.event.ActualLocation__c}
 											</template>
-											<template if:true={eventMessage.event.Facility__c}>
+											<template if:true={eventMessage.event.FacilityOrganisationID__c}>
+
 												<lightning-button-icon data-id={eventMessage.event.EventID__c}
 																	   class="btn-x-large slds-m-horizontal_x-small"
 																	   icon-name="utility:preview"
@@ -95,6 +96,16 @@
 																	   variant="bare"
 																	   onclick={handleNetworkInfo}
 																	   style="position:relative;top:-3px;"
+												>
+												</lightning-button-icon>
+												<lightning-button-icon data-id={eventMessage.event.EventID__c}
+																		class="btn-x-large slds-m-horizontal_x-small"
+																		icon-name="utility:warning"
+																		alternative-text="Critical Incidents"
+																		size="medium"
+																		variant="bare"
+																		onclick={handleShowCriticalIncidents}
+																		style="position:relative;top:-3px;"
 												>
 												</lightning-button-icon>
 											</template><br/>
@@ -109,6 +120,14 @@
 												</div>
 											</template>
 											<!-- end Network details popover -->
+
+											<!-- Critical Incidents popover -->
+											<template if:true={eventMessage.showCriticalIncidents}>
+												<div class="slds-m-top_medium slds-medium-size_4-of-5 slds-small-size_1-of-1">
+													<c-happy-parcel-critical-incidents onclosepopup= {handleCloseCriticalIncidents} event-id= {eventMessage.event.EventID__c} network-id={eventMessage.event.FacilityOrganisationID__c}></c-happy-parcel-critical-incidents>
+												</div>
+											</template>
+											<!-- Critical Incidents popover -->
 	
 											<!-- Attachment popover -->
 											<template if:true={eventMessage.showAttachment}>

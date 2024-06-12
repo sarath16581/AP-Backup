@@ -15,6 +15,7 @@
  * 2022-04-12 - Mahesh Parvathaneni - Added custom lables and location icon SVG path to use in the lightning map marker
  * 2022-07-05 - Snigdha Sahu - REQ2851358 - Added MLID for SenderDetails
  * 2024-05-21 - Seth Heang - Updated getTrackingApiResponse with forceConsignmentSearch parameter
+ * 2024-06-03 - Raghav Ravipati - Added method to get critical incident knowledge articles
  */
 
 //continuations
@@ -33,6 +34,7 @@ import unsetSafeDropEligibility from '@salesforce/apex/HappyParcelController.uns
 import getNotificationPreferences from '@salesforce/apex/HappyParcelController.getNotificationPreferences';
 import setNotificationPreferences from '@salesforce/apex/HappyParcelController.setNotificationPreferences';
 import getDistanceBetweenLocations from '@salesforce/apex/HappyParcelController.getDistanceBetweenLocations';
+import getCriticalIncidents from '@salesforce/apex/HappyParcelController.getCriticalIncidents';
 
 
 // field mappings
@@ -359,6 +361,24 @@ export const getNetworkDetails = async (wcc) => {
 	} catch (error) {
 	    return {network: [], error: [error.body.message]};
 	}
+}
+
+/**
+ * Allows the user to get Network details
+ */
+export const getCriticalIncidentDetails = async (networkId) => {
+	
+
+	console.log('getCriticalIncidentDetails');
+	
+
+	console.log(networkId);
+	let result = await getCriticalIncidents({
+		networkOrgId: networkId
+	});
+
+	console.log('getCriticalIncidentDetails');
+	return result;
 }
 
 /**
