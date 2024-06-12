@@ -11,7 +11,7 @@
  * 2020-10-28 - Disha Kariya - Added mocking for getting transient attributes for ETA details
  * 2024-05-17 - Seth Heang - Added test methods to cover async callout to .NET API for retrieving StarTrack consignment/article details and mapping
  * 2024-05-21 - Seth Heang - Added new test method to handle force consignment search
- * 2024-05-21 - Seth Heang - Added new test method to cover getCriticalIncidents
+ * 2024-06-12 - Raghav Ravipati - Added new test method to cover getCriticalIncidents
  */
 @IsTest
 private class HappyParcelController_Test {

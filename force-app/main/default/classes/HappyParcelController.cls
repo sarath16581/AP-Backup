@@ -19,6 +19,7 @@
  * 2022-04-14 - Mahesh Parvathaneni - Added a method to calculate the distance between geo-coordinates
  * 2024-05-17 - Seth Heang - Added methods for additional query to remote .NET API for retrieving StarTrack consignment/article details
  * 2024-05-21 - Seth Heang - Added methods to allow forceConsignment Search if applicable while quering SAP-EM article details
+ * 2024-06-06 - Raghav Ravipati - Added methods to get critical incident knowledge articles based on network org Id
  */
 public with sharing class HappyParcelController {
 	/**
