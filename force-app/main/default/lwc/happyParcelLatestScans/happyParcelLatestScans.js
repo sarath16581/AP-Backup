@@ -241,7 +241,7 @@ export default class HappyParcelLatestScans extends HappyParcelBase {
 	}
 
 	/**
-	 * Determines the event to show related critical incidents
+	 * Determines the event to close related critical incidents
 	 */
 	handleCloseCriticalIncidents(event) {
 		const eventId = event.detail;

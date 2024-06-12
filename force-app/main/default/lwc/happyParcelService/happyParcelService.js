@@ -364,20 +364,13 @@ export const getNetworkDetails = async (wcc) => {
 }
 
 /**
- * Allows the user to get Network details
+ * Allows the user to get critical incidents based on the network org Id
  */
 export const getCriticalIncidentDetails = async (networkId) => {
-	
-
-	console.log('getCriticalIncidentDetails');
-	
-
-	console.log(networkId);
 	let result = await getCriticalIncidents({
 		networkOrgId: networkId
 	});
 
-	console.log('getCriticalIncidentDetails');
 	return result;
 }
 
