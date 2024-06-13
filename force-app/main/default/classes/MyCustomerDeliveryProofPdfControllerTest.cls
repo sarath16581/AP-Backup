@@ -189,7 +189,6 @@ public with sharing class MyCustomerDeliveryProofPdfControllerTest {
 		// =====================================
 		Map<Id, EventMessage__c> eventMessages = new Map<Id, EventMessage__c>{ event1.Id => event1, event2.Id => event2, event3.Id => event3, event4.Id => event4 };
 		Set<String> articleIdNames = new Set<String>{ article.Name };
-		Set<Id> signatureEventIds = new Set<Id>{ event2.Id };
 
 		EventMessagesSelector mockEventmessageSelector = (EventMessagesSelector) MockUtility.mockSelector(EventMessagesSelector.class);
 		SafeDropUtility mockSafeDropUtility = (SafeDropUtility) MockUtility.mockUtility(SafeDropUtility.class);
