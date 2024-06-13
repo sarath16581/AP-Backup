@@ -230,7 +230,7 @@ public with sharing class MyCustomerDeliveryProofPdfController {
 		isConsignment = !requireConsignmentQuery;
 		if (requireConsignmentQuery) {
 			consignments = ArticlesSelector.newInstance()
-				.selectByIdOrTracking(new Set<String>{ consignments.get(0).ConsignmentTrackingNumber__c }, new Set<Id>(), new Set<Object>{ ArticlesSelector.Options.WITH_CONSIGNMENT }, true)
+				.selectByIdOrTracking(new Set<String>{ consignments.get(0).ConsignmentTrackingNumber__c }, new Set<Id>(), new Set<Object>{ ArticlesSelector.Options.WITH_CONSIGNMENT, ArticlesSelector.Options.WITH_RECORDTYPE }, true)
 				.values();
 		}
 		return consignments;
