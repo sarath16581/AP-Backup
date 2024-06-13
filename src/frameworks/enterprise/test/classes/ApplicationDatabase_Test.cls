@@ -49,6 +49,26 @@ private with sharing class ApplicationDatabase_Test {
 	}
 
 	/**
+	 * Ensure insert operation with dml option is completed without errors.
+	 * This is a bit of a nothing test as it doesn't contribute any value
+	 */
+	@IsTest
+	private static void testInsert() {
+		MockUtility.disableTriggerExecution();
+
+		List<Account> accounts = ApplicationTestDataFactory.getAccounts(2, false);
+
+		Database.DMLOptions opt = new Database.DMLOptions();
+		opt.duplicateRuleHeader.allowSave = true;
+		opt.optAllOrNone = false;
+
+		Test.startTest();
+		ApplicationDatabase.getInstance().dmlInsert(accounts, opt);
+		System.assert(true, 'Not Completed');
+		Test.stopTest();
+	}
+
+	/**
 	 * Sole purpose of the below method is coverage for Approval Process related methods
 	 */
 	@IsTest

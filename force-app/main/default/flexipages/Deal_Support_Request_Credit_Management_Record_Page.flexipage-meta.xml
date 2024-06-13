@@ -363,6 +363,16 @@
             <fieldInstance>
                 <fieldInstanceProperties>
                     <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Business_At_Risk__c</fieldItem>
+                <identifier>RecordBusiness_At_Risk_cField</identifier>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
                     <value>readonly</value>
                 </fieldInstanceProperties>
                 <fieldItem>Record.Lodgement_Point_to_Work_Centre_Code__c</fieldItem>
@@ -616,6 +626,16 @@
                         <rightValue>Close billing account</rightValue>
                     </criteria>
                 </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.EstimatedAccountClosureDate__c</fieldItem>
+                <identifier>RecordEstimatedAccountClosureDate_cField</identifier>
             </fieldInstance>
         </itemInstances>
         <itemInstances>
