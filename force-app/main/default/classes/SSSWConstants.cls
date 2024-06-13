@@ -19,6 +19,7 @@
   * 16.05.2022   SaiSwetha Pingali  Removed snapIt logic as it is no longer required.
   * 20.03.2023	- Noel Lim - added constants SSSW_AGENT_PROFILE, SSSW_SOCIAL_INTEGRATION_PROFILE, SSSW_BSP_COMMUNITY_USER_PROFILE
   * 27.03.2023 StephenL added constant: RECTYPE_ARTICLE_CONSIGNMENT
+  * 13.06.2024 Parveen Kaushik Added new constants for Enquiry Mapping object to identify model type.
   */  
 public with sharing class SSSWConstants {
 

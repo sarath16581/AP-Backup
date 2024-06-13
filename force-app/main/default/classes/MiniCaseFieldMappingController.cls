@@ -1,3 +1,8 @@
+/**
+  * @changelog
+  * 01.01.1970 Created date unknown.
+  * 13.06.2024 Parveen Kaushik Added a filter in SOQL for mapping model. See CSLU-470 (JIRA) for details.
+  */  
 global without sharing class MiniCaseFieldMappingController {
     public ApexPages.StandardController controller {get;set;}
     public Case proxyCase {get;set;}
