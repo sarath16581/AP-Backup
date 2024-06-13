@@ -3,29 +3,27 @@
     <fullName>Add_Products_Access_Validation</fullName>
     <active>true</active>
     <description>&apos;Add Products&apos; action&apos;s accessibility based on Profile, Opportunity Sub Type and Special Roles</description>
-    <errorConditionFormula>AND(
-	NOT(ISPICKVAL(Opportunity.Opportunity_SubType__c,&quot;Re-Contract&quot;)),
-	NOT(ISPICKVAL(Opportunity.Opportunity_SubType__c,&quot;DoV Increase&quot;)),
-	OR(
-		$Profile.Name &lt;&gt; &apos;System Administrator&apos;,
-		$Profile.Name &lt;&gt; &apos;Sales Admin&apos;, 
+    <errorConditionFormula>NOT(
+	OR(		
+		$Profile.Name &lt;&gt; &apos;Sales Admin&apos;,
 		$Profile.Name &lt;&gt; &apos;Enterprise Onboarding&apos;,
-		AND(
-			$Profile.Name &lt;&gt; &apos;BG Base&apos;,
-			$CustomMetadata.Add_Products_Sales_Specialist__mdt.Enterprise_North_Sales_Specialists_SR.MasterLabel &lt;&gt; $UserRole.Name,
-			$CustomMetadata.Add_Products_Sales_Specialist__mdt.Enterprise_NSW_1_SR.MasterLabel &lt;&gt; $UserRole.Name,
-			$CustomMetadata.Add_Products_Sales_Specialist__mdt.Enterprise_NSW_2_SR.MasterLabel &lt;&gt; $UserRole.Name,
-			$CustomMetadata.Add_Products_Sales_Specialist__mdt.Enterprise_QLD_NT_SR.MasterLabel &lt;&gt; $UserRole.Name,
-			$CustomMetadata.Add_Products_Sales_Specialist__mdt.Enterprise_South_Sales_Specialists_SR.MasterLabel &lt;&gt; $UserRole.Name,
-			$CustomMetadata.Add_Products_Sales_Specialist__mdt.Enterprise_VIC_1_SR.MasterLabel &lt;&gt; $UserRole.Name,
-			$CustomMetadata.Add_Products_Sales_Specialist__mdt.Enterprise_VIC_2_SR.MasterLabel &lt;&gt; $UserRole.Name,
-			$CustomMetadata.Add_Products_Sales_Specialist__mdt.Enterprise_VIC_3_SR.MasterLabel &lt;&gt; $UserRole.Name,
-			$CustomMetadata.Add_Products_Sales_Specialist__mdt.Enterprise_VIC_4_SR.MasterLabel &lt;&gt; $UserRole.Name,
-			$CustomMetadata.Add_Products_Sales_Specialist__mdt.Financial_Institutions_SR.MasterLabel &lt;&gt; $UserRole.Name,
-			$CustomMetadata.Add_Products_Sales_Specialist__mdt.Government_North_National_Defence_SR.MasterLabel &lt;&gt; $UserRole.Name,
-			$CustomMetadata.Add_Products_Sales_Specialist__mdt.Government_North_SR.MasterLabel &lt;&gt; $UserRole.Name,
-			$CustomMetadata.Add_Products_Sales_Specialist__mdt.Government_South_SR.MasterLabel &lt;&gt; $UserRole.Name,
-			$CustomMetadata.Add_Products_Sales_Specialist__mdt.Intermediaries_SR.MasterLabel &lt;&gt; $UserRole.Name
+	AND(
+		OR(ISPICKVAL(Opportunity.Opportunity_SubType__c,&quot;Re-Contract&quot;), ISPICKVAL(Opportunity.Opportunity_SubType__c,&quot;DoV Increase&quot;)),
+		$Profile.Name &lt;&gt; &apos;BG Base&apos;,
+		$CustomMetadata.Add_Products_Sales_Specialist__mdt.Enterprise_North_Sales_Specialists_SR.MasterLabel &lt;&gt; $UserRole.Name,
+		$CustomMetadata.Add_Products_Sales_Specialist__mdt.Enterprise_NSW_1_SR.MasterLabel &lt;&gt; $UserRole.Name,
+		$CustomMetadata.Add_Products_Sales_Specialist__mdt.Enterprise_NSW_2_SR.MasterLabel &lt;&gt; $UserRole.Name,
+		$CustomMetadata.Add_Products_Sales_Specialist__mdt.Enterprise_QLD_NT_SR.MasterLabel &lt;&gt; $UserRole.Name,
+		$CustomMetadata.Add_Products_Sales_Specialist__mdt.Enterprise_South_Sales_Specialists_SR.MasterLabel &lt;&gt; $UserRole.Name,
+		$CustomMetadata.Add_Products_Sales_Specialist__mdt.Enterprise_VIC_1_SR.MasterLabel &lt;&gt; $UserRole.Name,
+		$CustomMetadata.Add_Products_Sales_Specialist__mdt.Enterprise_VIC_2_SR.MasterLabel &lt;&gt; $UserRole.Name,
+		$CustomMetadata.Add_Products_Sales_Specialist__mdt.Enterprise_VIC_3_SR.MasterLabel &lt;&gt; $UserRole.Name,
+		$CustomMetadata.Add_Products_Sales_Specialist__mdt.Enterprise_VIC_4_SR.MasterLabel &lt;&gt; $UserRole.Name,
+		$CustomMetadata.Add_Products_Sales_Specialist__mdt.Financial_Institutions_SR.MasterLabel &lt;&gt; $UserRole.Name,
+		$CustomMetadata.Add_Products_Sales_Specialist__mdt.Government_North_National_Defence_SR.MasterLabel &lt;&gt; $UserRole.Name,
+		$CustomMetadata.Add_Products_Sales_Specialist__mdt.Government_North_SR.MasterLabel &lt;&gt; $UserRole.Name,
+		$CustomMetadata.Add_Products_Sales_Specialist__mdt.Government_South_SR.MasterLabel &lt;&gt; $UserRole.Name,
+		$CustomMetadata.Add_Products_Sales_Specialist__mdt.Intermediaries_SR.MasterLabel &lt;&gt; $UserRole.Name
 		)
 	)
 )</errorConditionFormula>
