@@ -326,4 +326,8 @@ public with sharing class SSSWConstants {
 
     /* ExceptionCheckerService Constants*/
     public static final String RECTYPE_ARTICLE_CONSIGNMENT = 'Consignment';
+
+    /* Enquiry Mapping Constants*/
+    public static final String ENQUIRYMAPPING_UNIFIED_MODEL = 'Unified';
+    public static final String ENQUIRYMAPPING_CLASSIC_MODEL = 'Classic';
 }
