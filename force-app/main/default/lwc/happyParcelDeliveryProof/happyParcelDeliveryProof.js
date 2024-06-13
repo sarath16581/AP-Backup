@@ -325,19 +325,19 @@ export default class HappyParcelDeliveryProof extends HappyParcelBase {
 
 	/**
 	 * @description Download SafeDropImage in bulk by looping through the SafeDropState array object and split callout in multiple transactions
-	 * @param {Array} safeDropImageState - The array of objects containing guidId and requireDownload
+	 * @param {Array} safeDropImageState - The array of objects containing guidID and requireDownload
 	 * @returns {Promise<void>}
 	 */
 	async processSafeDropImagesDownloading(safeDropImageState) {
 		for (let i = 0; i < safeDropImageState.length; i++) {
 			if (safeDropImageState[i].requireDownload) {
 				try {
-					const result = await getSafeDropImageAndSaveForPOD(safeDropImageState[i].guidId, safeDropImageState[i].eventMessageId);
+					const result = await getSafeDropImageAndSaveForPOD(safeDropImageState[i].guidID, safeDropImageState[i].eventMessageId);
 					if (!result.isError) {
 						safeDropImageState[i].requireDownload = false;
 					}
 				} catch (error) {
-					console.error('Failed to download image for guidId:', safeDropImageState[i].guidId, error);
+					console.error('Failed to download image for guidID:', safeDropImageState[i].guidID, error);
 				}
 			}
 		}
