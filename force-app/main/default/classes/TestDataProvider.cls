@@ -13,6 +13,7 @@ History:
 04.01.2019 disha.kariya@auspost.com.au   Added Create Assets Methods
 11-12-2019 arjun.singh@auspost.com.au    Added a new method for new version of EDD Integration   
 02-09-2020 seth.heang@auspost.com.au    STP-1227 Added Phone attribute on createLead() to pass 'Phone_Or_Mobile_Required' Validation Rule   
+13-06-2024 Parveen Kaushik Added default value for mapping model on test data. See CSLU-470 (JIRA) for details.
 *************************************************/
 
 @isTest
@@ -327,6 +328,7 @@ public class TestDataProvider
         mcfm.Type__c = 'Feedback';
         mcfm.ProductSubcategory__c = 'New';
         mcfm.ProductCategory__c = 'New2';
+		mcfm.MappingModel__c = SSSWConstants.ENQUIRYMAPPING_CLASSIC_MODEL;
         return mcfm;
     }
 
