@@ -307,9 +307,9 @@ public with sharing class HappyParcelController {
 	}
 
 	@AuraEnabled
-	public static List<CriticalIncidentWrapper> getCriticalIncidents(String networkOrgId) {
+	public static Map<String, List<Knowledge__kav>> getCriticalIncidents() {
 		try {
-			List<CriticalIncidentWrapper> crtiticalIncidentsWrapper = new List<CriticalIncidentWrapper>();
+			Map<String, List<Knowledge__kav>> newtorkOrgIdsWithIncidents = new Map<String, List<Knowledge__kav>>();
 			//query critical incidents
 			Set<SObjectField> fieldOverrides = new Set<SObjectField>{ Knowledge__kav.Id, Knowledge__kav.NetworkOrgId__c, Knowledge__kav.Title, Knowledge__kav.UrlName };
 			KnowledgeArticleVersionsSelector selector = KnowledgeArticleVersionsSelector.newInstance(fieldOverrides);
@@ -317,25 +317,23 @@ public with sharing class HappyParcelController {
 			searchParams.put('recordTypeNames', new Set<String>{ 'Critical_Incident' });
 			searchParams.put('IsLatestVersion', true);
 			searchParams.put('statuses', new Set<String>{ 'Online' });
-			
+
 			//NetworkOrgId__c is longtext area field so we are Iterating over all the publised critical incidents and will fitler using if condition
 			for (Knowledge__kav criticalIncident : selector.search(searchParams, true)) {
 				String networkOrgIdAsString = criticalIncident.NetworkOrgId__c;
 
 				if (String.isNotBlank(networkOrgIdAsString)) {
-					List<String> networkOrgIdsLst = networkOrgIdAsString.split(';');
-					//construct record url
-					String articleURL = URL.getOrgDomainURL().toExternalForm() + '/' + criticalIncident.Id;
-					if (networkOrgIdsLst.contains(networkOrgId)) {
-						CriticalIncidentWrapper wrapper = new CriticalIncidentWrapper();
-						wrapper.KnowledgeArticle = criticalIncident;
-						wrapper.url = articleURL;
-						crtiticalIncidentsWrapper.add(wrapper);
+					for (String networkOrgId : networkOrgIdAsString.split(';')) {
+						if (newtorkOrgIdsWithIncidents.containsKey(networkOrgId)) {
+							newtorkOrgIdsWithIncidents.get(networkOrgId).add(criticalIncident);
+						} else {
+							newtorkOrgIdsWithIncidents.put(networkOrgId, new List<Knowledge__kav>{ criticalIncident });
+						}
 					}
 				}
 			}
 
-			return crtiticalIncidentsWrapper;
+			return newtorkOrgIdsWithIncidents;
 		} catch (Exception e) {
 			throw new AuraHandledException(e.getMessage());
 		}
@@ -778,13 +776,6 @@ public with sharing class HappyParcelController {
 				this.network = network;
 			}
 		}
-	}
-
-	public class CriticalIncidentWrapper{
-		@AuraEnabled
-		public Knowledge__kav KnowledgeArticle;
-		@AuraEnabled
-		public String url;
 	}
 
 	/**

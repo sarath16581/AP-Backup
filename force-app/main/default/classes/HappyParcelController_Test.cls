@@ -296,7 +296,10 @@ private class HappyParcelController_Test {
 		criticalIncidents[0].networkOrgId__c =  '12345';
 		
 		insert criticalIncidents;
-
+		Map<String, Object> searchParams = new Map<String, Object>();
+		searchParams.put('recordTypeNames', new Set<String>{ 'Critical_Incident' });
+		searchParams.put('IsLatestVersion', true);
+		searchParams.put('statuses', new Set<String>{ 'Online' });
 		// =====================================
 		// Stubbing
 		// =====================================
@@ -304,7 +307,7 @@ private class HappyParcelController_Test {
 		// set up our responses
 		MockUtility.Mocks.startStubbing();
 		// Database
-		MockUtility.Mocks.when(kavSelector.search((Map<String, Object>)fflib_Match.anyObject(), (Boolean)fflib_Match.anyObject()))
+		MockUtility.Mocks.when(kavSelector.search((Map<String, Object>)fflib_Match.eq(searchParams), (Boolean)fflib_Match.eq(true)))
 			.thenReturn(criticalIncidents);
 		MockUtility.Mocks.stopStubbing();
 
@@ -312,10 +315,11 @@ private class HappyParcelController_Test {
 		// Testing
 		// =====================================
 		Test.startTest();
-		List<HappyParcelController.criticalIncidentWrapper> result = HappyParcelController.getCriticalIncidents('12345');
+		Map<String, List<Knowledge__kav>> result = HappyParcelController.getCriticalIncidents();
 		Test.stopTest();
-		((KnowledgeArticleVersionsSelector)MockUtility.Mocks.verify(kavSelector, MockUtility.Mocks.times(1))).search((Map<String, Object>)fflib_Match.anyObject(), (Boolean)fflib_Match.anyObject());
-		System.assertEquals(1, result.size(), 'one record matches with the given network org Id');
+		((KnowledgeArticleVersionsSelector)MockUtility.Mocks.verify(kavSelector, MockUtility.Mocks.times(1))).search((Map<String, Object>)fflib_Match.eq(searchParams), (Boolean)fflib_Match.eq(true));
+		System.assertEquals(1, result.Values().size(), 'Map updated with network ids and knowledge articles');
+		System.assertEquals(new List<Knowledge__kav>{criticalIncidents[0]}, result.get('12345'), 'one record matches with the given network org Id');
 	}
 
 	/**

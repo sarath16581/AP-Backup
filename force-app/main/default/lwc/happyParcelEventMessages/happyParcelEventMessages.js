@@ -14,6 +14,7 @@
  * 2021-10-01 - Nathan Franklin - Add event reason (with transient attributes) + uplift to version 52
  * 2021-10-04 - Mathew Jose - Added the changes associated with row overflow feature in the data table.
  *	2022-04-11 - Mahesh Parvathaneni - Changed from google map new tab to lightning map
+ *	2024-06-12 - Passing related critical incidents to the events
  */
  import { LightningElement, api, track } from "lwc";
  import { getConfig, getDataTableMappingFromDisplayType, CONSTANTS, get } from "c/happyParcelService";
@@ -182,6 +183,7 @@
 				 //_overFlowColumns has the overflow colum values.
 				 return {
 					 ...item.event,
+					 criticalIncidents : item.criticalIncidents,
 					 _columns: columns,
 					 overflowRequired: overflowRequired,
 					 showOverflow: false,

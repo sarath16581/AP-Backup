@@ -366,10 +366,8 @@ export const getNetworkDetails = async (wcc) => {
 /**
  * Allows the user to get critical incidents based on the network org Id
  */
-export const getCriticalIncidentDetails = async (networkId) => {
-	let result = await getCriticalIncidents({
-		networkOrgId: networkId
-	});
+export const getCriticalIncidentDetails = async () => {
+	let result = await getCriticalIncidents();
 
 	return result;
 }

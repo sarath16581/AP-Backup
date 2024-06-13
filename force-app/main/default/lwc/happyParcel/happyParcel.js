@@ -13,9 +13,10 @@
  * 									Added logic to check if case investigation Id is passed then it's article ID is passed as tracking Id to controller.
  * 2024-05-17 - Seth Heang - Added logic for additional query to remote .NET API for retrieving StarTrack consignment/article details and retry functionality
  * 2024-05-21 - Seth Heang - Added logic to allow force consignment search in existing SAP-EM integration when doing an article level
+ * 2024-06-11 - Raghav Ravipati - Added logic to add critical incidents to articles in the tracking response
 */
 import { LightningElement, track, api } from "lwc";
-import {getAnalyticsApiResponse, getTrackingApiResponse, getTrackingApiResponseForStarTrack, getConfig, safeTrim, safeToUpper, CONSTANTS} from 'c/happyParcelService'
+import {getAnalyticsApiResponse, getTrackingApiResponse, getTrackingApiResponseForStarTrack, getCriticalIncidentDetails, getConfig, safeTrim, safeToUpper, CONSTANTS} from 'c/happyParcelService'
 import { NavigationMixin } from 'lightning/navigation';
  
 export default class HappyParcelWrapper extends NavigationMixin(LightningElement) {
@@ -289,6 +290,8 @@ export default class HappyParcelWrapper extends NavigationMixin(LightningElement
 		// assign the tracking response for each article into the articles array
 		// we need to loop
 		if(articles) {
+			//Get published critical incident knowledge articles that are available in the system
+			const criticalIncidents = await getCriticalIncidentDetails();
 			articles.forEach((item) => {
 				let articleIndex = this.articles.findIndex(article => article.trackingId === item.trackingId);
 				if (articleIndex > -1) {
@@ -310,6 +313,14 @@ export default class HappyParcelWrapper extends NavigationMixin(LightningElement
 					if (!Object.keys(this.articles[articleIndex]).includes('articleDetailsExpanded')) {
 						this.articles[articleIndex].articleDetailsExpanded = !this.isConsignment;
 					}
+					//Add related critical incidents to the article based on network Id
+					let events = item.events;
+					events.forEach((event) => {
+						if(event.event.FacilityOrganisationID__c){
+							event.criticalIncidents = criticalIncidents[event.event.FacilityOrganisationID__c];
+						}
+					});
+					
 				} else {
 					// note because we are adding this article we can set the default value of articleDetailsExpanded
 					// this means if the search result returned a consignment then the article should be collapsed by default
