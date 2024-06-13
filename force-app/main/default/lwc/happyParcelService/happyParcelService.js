@@ -15,12 +15,14 @@
  * 2022-04-12 - Mahesh Parvathaneni - Added custom lables and location icon SVG path to use in the lightning map marker
  * 2022-07-05 - Snigdha Sahu - REQ2851358 - Added MLID for SenderDetails
  * 2024-05-21 - Seth Heang - Updated getTrackingApiResponse with forceConsignmentSearch parameter
+ * 2024-06-13 - Seth Heang - Added getCurrentStateOfSafeDropImageRequiredForDownload and getSafeDropImageForPOD
  */
 
 //continuations
 import queryAnalyticsApi from '@salesforce/apexContinuation/HappyParcelController.queryAnalyticsApi';
 import getArticleImage from '@salesforce/apexContinuation/HappyParcelController.getArticleImage';
 import queryTrackingApiForStarTrack from '@salesforce/apexContinuation/HappyParcelController.queryTrackingApiForStarTrack';
+import getSafeDropImageForPOD from '@salesforce/apexContinuation/MyCustomerDeliveryProofPdfController.getSafeDropImage';
 
 // normal callouts
 import queryTrackingApi from '@salesforce/apex/HappyParcelController.queryTrackingApi';
@@ -33,6 +35,8 @@ import unsetSafeDropEligibility from '@salesforce/apex/HappyParcelController.uns
 import getNotificationPreferences from '@salesforce/apex/HappyParcelController.getNotificationPreferences';
 import setNotificationPreferences from '@salesforce/apex/HappyParcelController.setNotificationPreferences';
 import getDistanceBetweenLocations from '@salesforce/apex/HappyParcelController.getDistanceBetweenLocations';
+import getCurrentStateOfSafeDropImageRequiredForDownload from '@salesforce/apex/MyCustomerDeliveryProofPdfController.getCurrentStateOfSafeDropImageRequiredForDownload';
+
 
 
 // field mappings
@@ -181,7 +185,7 @@ export const CONSTANTS = {
 	LOCATION_ICON_SVG_PATH: 'M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z',
 	ANALYTICS_API: 'Analytics API',
 	TRACKING_API: 'Tracking API',
-	STARTRACK_API: 'StarTrack API',
+	STARTRACK_API: 'StarTrack API'
 };
 
 export const safeTrim = (str) => {
@@ -443,6 +447,22 @@ export const getSafeDropImage = async (safeDropGuid) => {
 	return result;
 }
 
+/**
+ * Retrieve safeDropImage in bulk by split off to multiple transaction using the provided list of safeDrop state including guidID and flag that indicate if a download is required
+ * @param {String} safeDropGuid
+ * @param {String} eventMessageId
+ * @returns {Promise<*>}
+ */
+export const getSafeDropImageAndSaveForPOD = async (safeDropGuid, eventMessageId) => {
+
+	// perform a callout to get the safe drop image
+	const result = await getSafeDropImageForPOD({
+		guidId: safeDropGuid,
+		eventMessageId: eventMessageId
+	});
+	return result;
+}
+
 export const hasPermissionToCreateCaseDirectToNetwork = () => {
     return PERMISSION_CREATECASEDIRECTTONETWORK;
 }
@@ -485,4 +505,17 @@ export const getDistanceBetweenGeoCoordinates = async (lat1, lon1, lat2, lon2) =
 	catch (error) {
         return null;
     }
+}
+
+/**
+ * @description Retrieve a snapshot of the current state of SafeDrop image file per article under the parent consignment if they exist in Salesforce
+ * 				If it doesn't exist, it's required to be downloaded
+ * @param {String} trackingId
+ * @return {Promise<*>}
+ */
+export const getSafeDropImageStateForDownload = async (trackingId) => {
+	const result = await getCurrentStateOfSafeDropImageRequiredForDownload({
+		trackingId: trackingId
+	});
+	return result;
 }

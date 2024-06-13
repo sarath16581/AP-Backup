@@ -8,9 +8,25 @@
  * 2020-09-27 - Nathan Franklin - Changed Safe Drop eligibility functions and added pubsub methods
  * 2020-10-05 - Disha Kariya - Allow safe drop attachment for case creation
  * 2021-10-06 - Nathan Franklin - Changed the logic behind attaching delivery proof to case + uplift to v52
+ * 2024-06-13 - Seth Heang - Update the Proof Of Delivery PDF Download logic to perform consignment search and bulk retrieve safe drop images if applicable prior to downloading the PDF
  */
 import { api, track, LightningElement } from "lwc";
-import { getConfig, getSafeDropEligibilityStatus, addSafeDrop, deleteSafeDrop, getSafeDropImage, CONSTANTS, get, subscribe, unsubscribe, publish, downloadDeliveryProofPdf } from 'c/happyParcelService';
+import {
+	getConfig,
+	getSafeDropEligibilityStatus,
+	addSafeDrop,
+	deleteSafeDrop,
+	getSafeDropImage,
+	CONSTANTS,
+	get,
+	subscribe,
+	unsubscribe,
+	publish,
+	downloadDeliveryProofPdf,
+	getSafeDropImageStateForDownload,
+	getSafeDropImageAndSaveForPOD,
+	getTrackingApiResponse, getTrackingApiResponseForStarTrack
+} from 'c/happyParcelService';
 import HappyParcelBase from "c/happyParcelBase";
 
 export default class HappyParcelDeliveryProof extends HappyParcelBase {
@@ -269,6 +285,22 @@ export default class HappyParcelDeliveryProof extends HappyParcelBase {
 
 		// wrap in try/catch to ensure waiting attribute is removed
 		try {
+			const sapResult = this.consignmentId  ? await getTrackingApiResponse(this.consignmentId, false)
+				: await getTrackingApiResponse(this.trackingId, true)
+			// execute a consignment search for StarTrack if required
+			const requireAdditionalQueryForStarTrack = sapResult.requireAdditionalQueryForStarTrack;
+			const consignment = { trackingId: sapResult.consignment.trackingId, trackingResult: sapResult.consignment};
+			if(requireAdditionalQueryForStarTrack){
+				// if this api timeout, then the download button needed to be clicked again to retry
+				await getTrackingApiResponseForStarTrack(sapResult.consignment.trackingId, consignment);
+			}
+
+			// retrieve the current state of safe drop images caches in Salesforce
+			const safeDropImageState = await getSafeDropImageStateForDownload(this.trackingId);
+			// download safe drop images as required if they do not exist in Salesforce
+			await this.processSafeDropImagesDownloading(safeDropImageState);
+
+			// execute the VF pdf page generator logic in controller
 			const pdfBase64 = await downloadDeliveryProofPdf(this.trackingId);
 
 			const fileName = 'DeliveryProof-' + encodeURIComponent(this.trackingId) + '.pdf';
@@ -288,8 +320,27 @@ export default class HappyParcelDeliveryProof extends HappyParcelBase {
 		} catch(exception) {
 			console.error(exception);
 		}
-
 		this.waitingDownload = false;
+	}
+
+	/**
+	 * @description Download SafeDropImage in bulk by looping through the SafeDropState array object and split callout in multiple transactions
+	 * @param {Array} safeDropImageState - The array of objects containing guidId and requireDownload
+	 * @returns {Promise<void>}
+	 */
+	async processSafeDropImagesDownloading(safeDropImageState) {
+		for (let i = 0; i < safeDropImageState.length; i++) {
+			if (safeDropImageState[i].requireDownload) {
+				try {
+					const result = await getSafeDropImageAndSaveForPOD(safeDropImageState[i].guidId, safeDropImageState[i].eventMessageId);
+					if (!result.isError) {
+						safeDropImageState[i].requireDownload = false;
+					}
+				} catch (error) {
+					console.error('Failed to download image for guidId:', safeDropImageState[i].guidId, error);
+				}
+			}
+		}
 	}
 
 	get safeDropLoading() {
