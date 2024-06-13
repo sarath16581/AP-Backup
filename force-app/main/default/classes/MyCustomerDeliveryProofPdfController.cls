@@ -17,7 +17,6 @@ public with sharing class MyCustomerDeliveryProofPdfController {
 	public static transient Map<String, EventMessageTypeMapping__mdt> eventTypeDefinitions;
 	public static Boolean isConsignment;
 
-
 	/**
 	 * @description	On VF page launch, it will build up a delivery proof result object and populate all necessary attributes for VF PDF display
 	 */
@@ -30,9 +29,7 @@ public with sharing class MyCustomerDeliveryProofPdfController {
 		// get consignment and child articles data
 		List<Article__c> consignments = queryConsignmentByTrackingId(articleId);
 		// build event message data into delivery proof result list
-		deliveryProofAttributes = buildAttributesForPDFDisplay(
-			getArticleIdsFromArticles(consignments)
-		);
+		deliveryProofAttributes = buildAttributesForPDFDisplay(getArticleIdsFromArticles(consignments));
 		// enrich delivery proof result list with all relevent attributes
 		deliveryProofAttributes = updateConsignedAndDeliveredArticleCount(deliveryProofAttributes, consignments);
 		deliveryProofAttributes = updateTotalArticlesPerDeliveryEvent(deliveryProofAttributes);
@@ -46,11 +43,11 @@ public with sharing class MyCustomerDeliveryProofPdfController {
 	 * @param deliveryProofAttributes List<DeliveryProofAttributes>
 	 * @return List<DeliveryProofAttributes>
 	 */
-	public List<DeliveryProofAttributes> updateLastPageAttributeForPDFDisplay(List<DeliveryProofAttributes> deliveryProofAttributes){
+	public List<DeliveryProofAttributes> updateLastPageAttributeForPDFDisplay(List<DeliveryProofAttributes> deliveryProofAttributes) {
 		// Pass by reference set isLastPage to TRUE for many elements in the list, thus switch to Pass by Value instead so that only the last element has isLastPage set to TRUE
-		DeliveryProofAttributes lastPOD = deliveryProofAttributes[deliveryProofAttributes.size()-1].clone();
+		DeliveryProofAttributes lastPOD = deliveryProofAttributes[deliveryProofAttributes.size() - 1].clone();
 		lastPOD.isLastPage = true;
-		deliveryProofAttributes[deliveryProofAttributes.size()-1] = lastPOD;
+		deliveryProofAttributes[deliveryProofAttributes.size() - 1] = lastPOD;
 		return deliveryProofAttributes;
 	}
 
@@ -60,22 +57,22 @@ public with sharing class MyCustomerDeliveryProofPdfController {
 	 * @param deliveryProofAttributes List<DeliveryProofAttributes>
 	 * @return List<DeliveryProofAttributes>
 	 */
-	public List<DeliveryProofAttributes> filterDeliveryEventsByArticleIdORConsignmentIdSearch(List<DeliveryProofAttributes> deliveryProofAttributes){
-		if(isConsignment) {
+	public List<DeliveryProofAttributes> filterDeliveryEventsByArticleIdORConsignmentIdSearch(List<DeliveryProofAttributes> deliveryProofAttributes) {
+		if (isConsignment) {
 			return deliveryProofAttributes;
 		}
 		// Get a unique delivery key from the article if the Proof of Delivery PDF generation is at article level
 		String deliveryKeyEvent;
-		for(DeliveryProofAttributes pod : deliveryProofAttributes){
-			if(pod.eventMessage.Article__r.ArticleID__c.equals(articleId)){
+		for (DeliveryProofAttributes pod : deliveryProofAttributes) {
+			if (pod.eventMessage.Article__r.ArticleID__c.equals(articleId)) {
 				deliveryKeyEvent = pod.deliveryKey;
 			}
 			break;
 		}
 		// Keep only delivery result where the unique delivery key is matched and filter out the rest
 		List<DeliveryProofAttributes> filterDeliveryResult = new List<DeliveryProofAttributes>();
-		for(DeliveryProofAttributes pod : deliveryProofAttributes){
-			if(pod.deliveryKey.equals(deliveryKeyEvent)){
+		for (DeliveryProofAttributes pod : deliveryProofAttributes) {
+			if (pod.deliveryKey.equals(deliveryKeyEvent)) {
 				filterDeliveryResult.add(pod);
 			}
 		}
@@ -97,10 +94,10 @@ public with sharing class MyCustomerDeliveryProofPdfController {
 	 * @param consignments List<Article__c>
 	 * @return List<DeliveryProofAttributes>
 	 */
-	public List<DeliveryProofAttributes> updateConsignedAndDeliveredArticleCount(List<DeliveryProofAttributes> podAttributes, List<Article__c> consignments){
+	public List<DeliveryProofAttributes> updateConsignedAndDeliveredArticleCount(List<DeliveryProofAttributes> podAttributes, List<Article__c> consignments) {
 		Integer latestConsignedArticleCount = calculateConsignedArticleCount(consignments);
 		Integer latestDeliveredArticleCount = calculateDeliveredArticleCount(consignments);
-		for(DeliveryProofAttributes pod : podAttributes){
+		for (DeliveryProofAttributes pod : podAttributes) {
 			pod.consigned = latestConsignedArticleCount;
 			pod.delivered = latestDeliveredArticleCount;
 		}
@@ -112,22 +109,20 @@ public with sharing class MyCustomerDeliveryProofPdfController {
 	 * @param podAttributes List<DeliveryProofAttributes>
 	 * @return List<DeliveryProofAttributes>
 	 */
-	public List<DeliveryProofAttributes> updateTotalArticlesPerDeliveryEvent(List<DeliveryProofAttributes> podAttributes){
+	public List<DeliveryProofAttributes> updateTotalArticlesPerDeliveryEvent(List<DeliveryProofAttributes> podAttributes) {
 		Map<String, List<String>> deliveryKeyToArticles = new Map<String, List<String>>();
 		// Compile a list of article and map under common a unique delivery event key
-		for(DeliveryProofAttributes pod : podAttributes){
-			if(deliveryKeyToArticles.get(pod.deliveryKey) == null){
-				deliveryKeyToArticles.put(pod.deliveryKey, new List<String>{
-					pod.eventMessage.Article__r.ArticleID__c
-				});
-			}else{
+		for (DeliveryProofAttributes pod : podAttributes) {
+			if (deliveryKeyToArticles.get(pod.deliveryKey) == null) {
+				deliveryKeyToArticles.put(pod.deliveryKey, new List<String>{ pod.eventMessage.Article__r.ArticleID__c });
+			} else {
 				List<String> articleList = deliveryKeyToArticles.get(pod.deliveryKey);
 				articleList.add(pod.eventMessage.Article__r.ArticleID__c);
 				deliveryKeyToArticles.put(pod.deliveryKey, articleList);
 			}
 		}
 		// prepare article lists and article count attribute for the VF PDF Page display
-		for(DeliveryProofAttributes pod : podAttributes){
+		for (DeliveryProofAttributes pod : podAttributes) {
 			pod.articlesInDeliveryEvent = String.join(deliveryKeyToArticles.get(pod.deliveryKey), ', ');
 			pod.articlesCountInDeliveryEvent = deliveryKeyToArticles.get(pod.deliveryKey).size();
 		}
@@ -141,8 +136,9 @@ public with sharing class MyCustomerDeliveryProofPdfController {
 	 */
 	public Integer calculateConsignedArticleCount(List<Article__c> articles) {
 		Integer consignedCount = 0;
-		for(Article__c article: articles){
-			if(article.RecordType.Name == 'Article'){ // make sure the consignment isn't counted
+		for (Article__c article : articles) {
+			if (article.RecordType.Name == 'Article') {
+				// make sure the consignment isn't counted
 				consignedCount++;
 			}
 		}
@@ -169,9 +165,9 @@ public with sharing class MyCustomerDeliveryProofPdfController {
 	 * @param articles List<Article__c>
 	 * @return Set<String>
 	 */
-	public static Set<String> getArticleIdsFromArticles(List<Article__c> articles){
+	public static Set<String> getArticleIdsFromArticles(List<Article__c> articles) {
 		Set<String> articleIdsStr = new Set<String>();
-		for(Article__c article : articles){
+		for (Article__c article : articles) {
 			articleIdsStr.add(article.ArticleID__c.toString());
 		}
 		return articleIdsStr;
@@ -184,8 +180,8 @@ public with sharing class MyCustomerDeliveryProofPdfController {
 	 * @param podAttributes List<DeliveryProofAttributes>
 	 * @return List<DeliveryProofAttributes>
 	 */
-	public List<DeliveryProofAttributes> formatFurtherReferencesFieldValueForDisplay(List<DeliveryProofAttributes> podAttributes){
-		for(DeliveryProofAttributes pod: podAttributes){
+	public List<DeliveryProofAttributes> formatFurtherReferencesFieldValueForDisplay(List<DeliveryProofAttributes> podAttributes) {
+		for (DeliveryProofAttributes pod : podAttributes) {
 			// bring it up one level, as the fieldSet only allow one-level traverse on its related object
 			pod.eventMessage.Article__r.FurtherReferences__c = '\n' + pod.eventMessage.Article__r?.Consignment__r?.FurtherReferences__c?.replace(', ', '\n');
 		}
@@ -199,17 +195,15 @@ public with sharing class MyCustomerDeliveryProofPdfController {
 	 * @return	List<SafeDropImageState> e.g. SafeDropImageState in JSON: ([{guidID: "guidId123456", requireDownload: true}])
 	 */
 	@AuraEnabled(Cacheable=false)
-	public static List<SafeDropImageState> getCurrentStateOfSafeDropImageRequiredForDownload(String trackingId){
+	public static List<SafeDropImageState> getCurrentStateOfSafeDropImageRequiredForDownload(String trackingId) {
 		List<Article__c> consignments = queryConsignmentByTrackingId(trackingId);
-		List<DeliveryProofAttributes> deliveryEventKeyList = buildAttributesForPDFDisplay(
-			getArticleIdsFromArticles(consignments)
-		);
+		List<DeliveryProofAttributes> deliveryEventKeyList = buildAttributesForPDFDisplay(getArticleIdsFromArticles(consignments));
 		// Build a list of State object with the latest State of SafeDrop image cache in Salesforce for the entire consignment set
 		List<SafeDropImageState> safeDropImageStates = new List<SafeDropImageState>();
-		for(DeliveryProofAttributes dpAttr : deliveryEventKeyList){
+		for (DeliveryProofAttributes dpAttr : deliveryEventKeyList) {
 			SafeDropImageState state = new SafeDropImageState();
 			String guidID = dpAttr.eventMessage?.Safe_Drop_GUID__c;
-			if(!String.isBlank(guidID)){
+			if (!String.isBlank(guidID)) {
 				state.eventMessageId = dpAttr.eventMessage.Id;
 				state.guidID = guidID;
 				state.requireDownload = dpAttr.requiredSafeDropCallout != null ? dpAttr.requiredSafeDropCallout : false;
@@ -225,12 +219,19 @@ public with sharing class MyCustomerDeliveryProofPdfController {
 	 * @return	List<Article__c>
 	 */
 	public static List<Article__c> queryConsignmentByTrackingId(String trackingId) {
-		List<Article__c> consignments = ArticlesSelector.newInstance().selectByIdOrTracking(new Set<String>{ trackingId }, new Set<Id>(), new Set<Object>{ ArticlesSelector.Options.WITH_CONSIGNMENT, ArticlesSelector.Options.WITH_RECORDTYPE }, true).values();
+		List<Article__c> consignments = ArticlesSelector.newInstance()
+			.selectByIdOrTracking(new Set<String>{ trackingId }, new Set<Id>(), new Set<Object>{ ArticlesSelector.Options.WITH_CONSIGNMENT, ArticlesSelector.Options.WITH_RECORDTYPE }, true)
+			.values();
 		Boolean requireConsignmentQuery = isNotConsignmentTrackingID(consignments);
 		isConsignment = !requireConsignmentQuery;
 		if (requireConsignmentQuery) {
 			consignments = ArticlesSelector.newInstance()
-				.selectByIdOrTracking(new Set<String>{ consignments.get(0).ConsignmentTrackingNumber__c }, new Set<Id>(), new Set<Object>{ ArticlesSelector.Options.WITH_CONSIGNMENT, ArticlesSelector.Options.WITH_RECORDTYPE }, true)
+				.selectByIdOrTracking(
+					new Set<String>{ consignments.get(0).ConsignmentTrackingNumber__c },
+					new Set<Id>(),
+					new Set<Object>{ ArticlesSelector.Options.WITH_CONSIGNMENT, ArticlesSelector.Options.WITH_RECORDTYPE },
+					true
+				)
 				.values();
 		}
 		return consignments;
@@ -256,13 +257,13 @@ public with sharing class MyCustomerDeliveryProofPdfController {
 		Map<String, List<DeliveryProofAttributes>> deliveryEventKeyMap = buildDeliveryEventKeyMapFromValidEventMessages(eventMessages);
 
 		// validate if there is no valid event message with safedrop/signature scan event
-		if(deliveryEventKeyMap.size() == 0){
+		if (deliveryEventKeyMap.size() == 0) {
 			pageError = 'Tracking number is not associated to any safe drop or signature scan event';
 			return null;
 		}
 
 		for (String deliveryKey : deliveryEventKeyMap.keySet()) {
-			for(DeliveryProofAttributes pod : deliveryEventKeyMap.get(deliveryKey)){
+			for (DeliveryProofAttributes pod : deliveryEventKeyMap.get(deliveryKey)) {
 				EventMessage__c eventMessage = pod.eventMessage;
 				DeliveryProofAttributes attributes = new DeliveryProofAttributes();
 				attributes.isStarTrackProduct = validateIfProductIsStarTrack(eventMessage);
@@ -289,7 +290,8 @@ public with sharing class MyCustomerDeliveryProofPdfController {
 					// NOTE: eventMessage.Safe_Drop_GUID__c should never be null because of the check above
 					attributes.requiredSafeDropCallout = true; // LWC will subsequently retrieve safe drop image based on this flag
 				}
-				if (!isSafeDrop && (!isSignature || (isSignature && attributes.signatureAttachmentId == null))) { // there is an assumption that the signature is already there, no need for callout. Except SafeDrop.
+				if (!isSafeDrop && (!isSignature || (isSignature && attributes.signatureAttachmentId == null))) {
+					// there is an assumption that the signature is already there, no need for callout. Except SafeDrop.
 					pageError = 'Tracking number is not associated to any safe drop or signature scan event';
 					break;
 				}
@@ -328,8 +330,6 @@ public with sharing class MyCustomerDeliveryProofPdfController {
 		return con;
 	}
 
-
-
 	/**
 	 * @description	This is the callback for the async callout for retrieving the safe drop image.
 	 * @param	labels List<String>
@@ -339,17 +339,15 @@ public with sharing class MyCustomerDeliveryProofPdfController {
 	@AuraEnabled
 	public static Object safeDropImageCallback(List<String> labels, Object state) {
 		// Retrieve the state
-		Map<String, String> stateMap = (Map<String, String>)state;
+		Map<String, String> stateMap = (Map<String, String>) state;
 		String eventMessageId = stateMap.get('eventMessageId');
 
 		HttpResponse resp = Continuation.getResponse(labels[0]);
 
 		String responseBody = resp.getBody();
-		System.debug('SAFE-DROP API RAW REPONSE: ' + JSON.serialize(responseBody));
 
 		// parse the json
 		SafeDropUtility.SafeDropApiResponse response = SafeDropUtility.parseResponse(responseBody, resp);
-		System.debug('SAFE-DROP API PARSED REPONSE: ' + JSON.serialize(response));
 
 		if (response.isError) {
 			pageError = response.errorMessage;
@@ -378,14 +376,13 @@ public with sharing class MyCustomerDeliveryProofPdfController {
 		public Boolean isLastPage { get; set; }
 	}
 
-
 	/**
 	 * @description Build a map where key is a unique delivery event key and map to a valid list of delivery result
 	 * 				Only valid EventMessage which contains a Signature or SafeDrop image is added to the delivery result.
 	 * @param eventMessages List<EventMessage__c> All event messages that are associated to any article in the entire consignment set
 	 * @return Map<String, List<DeliveryProofAttributes>>
 	 */
-	public static Map<String, List<DeliveryProofAttributes>> buildDeliveryEventKeyMapFromValidEventMessages(List<EventMessage__c> eventMessages){
+	public static Map<String, List<DeliveryProofAttributes>> buildDeliveryEventKeyMapFromValidEventMessages(List<EventMessage__c> eventMessages) {
 		Map<String, List<DeliveryProofAttributes>> deliveryEventKeyMap = new Map<String, List<DeliveryProofAttributes>>();
 		eventTypeDefinitions = EventMessageUtil.getInstance().getEventMessageTypeDefinitions();
 		// Make sure we only deal with eventmessages that are designated
@@ -395,20 +392,16 @@ public with sharing class MyCustomerDeliveryProofPdfController {
 			Boolean hasSafeDrop = getSafeDropFlagFromEventMessageTypeMapping(eventTypeDefinitions, message);
 			if (hasSignature || hasSafeDrop) {
 				// build a key to identify a unique delivery event key when a driver made a successful delivery
-				String uniqueDeliveryEventKey = message.Article__r.ConsignmentTrackingNumber__c + ':' + message.ActualDateTime__c.toString() ;
+				String uniqueDeliveryEventKey = message.Article__r.ConsignmentTrackingNumber__c + ':' + message.ActualDateTime__c.toString();
 				DeliveryProofAttributes pdfAttr = new DeliveryProofAttributes();
 				pdfAttr.eventMessage = message;
-				if(deliveryEventKeyMap.get(uniqueDeliveryEventKey) == null){
-					deliveryEventKeyMap.put(uniqueDeliveryEventKey, new List<DeliveryProofAttributes>{
-						pdfAttr
-					});
-				}else{
+				if (deliveryEventKeyMap.get(uniqueDeliveryEventKey) == null) {
+					deliveryEventKeyMap.put(uniqueDeliveryEventKey, new List<DeliveryProofAttributes>{ pdfAttr });
+				} else {
 					deliveryEventKeyMap.get(uniqueDeliveryEventKey).add(pdfAttr);
 				}
 			}
 		}
-
-		System.debug('SETH SD deliveryEventKeyMap FINAL: ' +  JSON.serialize(deliveryEventKeyMap));
 		return deliveryEventKeyMap;
 	}
 
@@ -428,11 +421,7 @@ public with sharing class MyCustomerDeliveryProofPdfController {
 	 * @param eventMsg EventMessage__c
 	 * @return Boolean
 	 */
-	public static Boolean getSignatureFlagFromEventMessageTypeMapping(Map<String, EventMessageTypeMapping__mdt> eventTypeDefinitions, EventMessage__c eventMsg){
-		System.debug('SETH SD getSignatureFlagFromEventMessageTypeMapping HERE! ');
-		System.debug('SETH SD eventMsg.EventType__c:'+ eventMsg?.EventType__c);
-		System.debug('SETH SD eventTypeDefinitions: ' + eventTypeDefinitions);
-		System.debug('SETH SD eventMsg?.SignatureXString__c: ' + eventMsg?.SignatureXString__c);
+	public static Boolean getSignatureFlagFromEventMessageTypeMapping(Map<String, EventMessageTypeMapping__mdt> eventTypeDefinitions, EventMessage__c eventMsg) {
 		return (eventTypeDefinitions.get(eventMsg.EventType__c)?.IsSignatureOnDelivery__c == true && !String.isEmpty(eventMsg?.SignatureXString__c));
 	}
 
@@ -442,7 +431,7 @@ public with sharing class MyCustomerDeliveryProofPdfController {
 	 * @param eventMsg EventMessage__c
 	 * @return Boolean
 	 */
-	public static Boolean getSafeDropFlagFromEventMessageTypeMapping(Map<String, EventMessageTypeMapping__mdt> eventTypeDefinitions, EventMessage__c eventMsg){
+	public static Boolean getSafeDropFlagFromEventMessageTypeMapping(Map<String, EventMessageTypeMapping__mdt> eventTypeDefinitions, EventMessage__c eventMsg) {
 		return (eventTypeDefinitions.get(eventMsg.EventType__c)?.IsSafeDrop__c == true && !String.isEmpty(eventMsg?.Safe_Drop_GUID__c));
 	}
 
@@ -450,7 +439,7 @@ public with sharing class MyCustomerDeliveryProofPdfController {
 	 * @description State object used to keep track of the SafeDrop image state if it already exists in Salesforce
 	 * 				Or, it may require an async callout to retrieve a new SafeDrop Image and store in Salesforce
 	 */
-	public class SafeDropImageState{
+	public class SafeDropImageState {
 		@AuraEnabled
 		public String guidID;
 		@AuraEnabled
@@ -458,5 +447,4 @@ public with sharing class MyCustomerDeliveryProofPdfController {
 		@AuraEnabled
 		public Id eventMessageId;
 	}
-
 }

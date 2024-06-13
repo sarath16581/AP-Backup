@@ -73,11 +73,7 @@ public with sharing class MyCustomerDeliveryProofPdfControllerTest {
 
 		Assert.areNotEqual(null, podAttributesResult, 'podAttributesResult should not be null');
 		Assert.areEqual(signatureAttachment.Id, podAttributesResult.get(0).signatureAttachmentId, 'Signature attachment id was not set correctly');
-		Assert.areEqual(
-			null,
-			podAttributesResult.get(0).safeDropAttachmentId,
-			'Safedrop attachment id has been assigned but shouldnt: ' + podAttributesResult.get(0).safeDropAttachmentId
-		);
+		Assert.areEqual(null, podAttributesResult.get(0).safeDropAttachmentId, 'Safedrop attachment id has been assigned but shouldnt: ' + podAttributesResult.get(0).safeDropAttachmentId);
 		Assert.isTrue(String.isEmpty(MyCustomerDeliveryProofPdfController.pageError), 'Page error should be null: ' + MyCustomerDeliveryProofPdfController.pageError);
 		((EventMessagesSelector) MockUtility.Mocks.verify(mockEventmessageSelector, MockUtility.Mocks.times(1))).selectByArticleNumber((Set<String>) fflib_Match.eq(articleIdNames), (Set<Object>) fflib_Match.anyObject());
 	}
@@ -145,11 +141,7 @@ public with sharing class MyCustomerDeliveryProofPdfControllerTest {
 
 		Assert.areNotEqual(null, podAttributesResult, 'podAttributesResult should not be null');
 		Assert.areEqual(safedropAttachment.Id, podAttributesResult.get(0).safeDropAttachmentId, 'Safedrop attachment id was not set correctly');
-		Assert.areEqual(
-			null,
-			podAttributesResult.get(0).signatureAttachmentId,
-			'Signature attachment id has been assigned but shouldnt: ' + podAttributesResult.get(0).signatureAttachmentId
-		);
+		Assert.areEqual(null, podAttributesResult.get(0).signatureAttachmentId, 'Signature attachment id has been assigned but shouldnt: ' + podAttributesResult.get(0).signatureAttachmentId);
 		Assert.areEqual(null, podAttributesResult.get(0).requiredSafeDropCallout, 'Should not require a Safe Drop Callout as the image already exists in Salesforce');
 		Assert.isTrue(String.isEmpty(MyCustomerDeliveryProofPdfController.pageError), 'Page error should be null: ' + MyCustomerDeliveryProofPdfController.pageError);
 		((EventMessagesSelector) MockUtility.Mocks.verify(mockEventmessageSelector, MockUtility.Mocks.times(1))).selectByArticleNumber((Set<String>) fflib_Match.eq(articleIdNames), (Set<Object>) fflib_Match.anyObject());
@@ -317,16 +309,8 @@ public with sharing class MyCustomerDeliveryProofPdfControllerTest {
 		Test.stopTest();
 
 		Assert.areEqual(false, String.isEmpty(MyCustomerDeliveryProofPdfController.pageError), 'The pageError property should have been set but wasnt');
-		Assert.areEqual(
-			null,
-			podAttributesResult.get(0).safeDropAttachmentId,
-			'safe drop attachment ID should be null but instead got: ' + podAttributesResult.get(0).safeDropAttachmentId
-		);
-		Assert.areEqual(
-			null,
-			podAttributesResult.get(0).signatureAttachmentId,
-			'Signature attachment ID should be null but instead got: ' + podAttributesResult.get(0).signatureAttachmentId
-		);
+		Assert.areEqual(null, podAttributesResult.get(0).safeDropAttachmentId, 'safe drop attachment ID should be null but instead got: ' + podAttributesResult.get(0).safeDropAttachmentId);
+		Assert.areEqual(null, podAttributesResult.get(0).signatureAttachmentId, 'Signature attachment ID should be null but instead got: ' + podAttributesResult.get(0).signatureAttachmentId);
 		Assert.areEqual(null, response, 'Response should be null but instead got: ' + response);
 
 		((EventMessagesSelector) MockUtility.Mocks.verify(mockEventmessageSelector, MockUtility.Mocks.times(1))).selectByArticleNumber((Set<String>) fflib_Match.eq(articleIdNames), (Set<Object>) fflib_Match.anyObject());
@@ -443,8 +427,14 @@ public with sharing class MyCustomerDeliveryProofPdfControllerTest {
 		ArticlesSelector mockArticlesSelector = (ArticlesSelector) MockUtility.mockSelector(ArticlesSelector.class);
 		// set up our responses
 		MockUtility.Mocks.startStubbing();
-		MockUtility.Mocks.when(mockArticlesSelector.selectByIdOrTracking((Set<String>) fflib_Match.eq(article1set),  (Set<Id>) fflib_Match.anyObject(), (Set<Object>) fflib_Match.anyObject(), (Boolean)fflib_Match.eq(true))).thenReturn(articles1Result);
-		MockUtility.Mocks.when(mockArticlesSelector.selectByIdOrTracking((Set<String>) fflib_Match.eq(consignmentSet),  (Set<Id>) fflib_Match.anyObject(), (Set<Object>) fflib_Match.anyObject(), (Boolean)fflib_Match.eq(true))).thenReturn(articlesResult);
+		MockUtility.Mocks.when(
+				mockArticlesSelector.selectByIdOrTracking((Set<String>) fflib_Match.eq(article1set), (Set<Id>) fflib_Match.anyObject(), (Set<Object>) fflib_Match.anyObject(), (Boolean) fflib_Match.eq(true))
+			)
+			.thenReturn(articles1Result);
+		MockUtility.Mocks.when(
+				mockArticlesSelector.selectByIdOrTracking((Set<String>) fflib_Match.eq(consignmentSet), (Set<Id>) fflib_Match.anyObject(), (Set<Object>) fflib_Match.anyObject(), (Boolean) fflib_Match.eq(true))
+			)
+			.thenReturn(articlesResult);
 		MockUtility.Mocks.when(mockEventmessageSelector.selectByArticleNumber((Set<String>) fflib_Match.eq(articleNumberset), (Set<Object>) fflib_Match.anyObject())).thenReturn(eventMessages.values());
 		MockUtility.Mocks.stopStubbing();
 
@@ -542,8 +532,14 @@ public with sharing class MyCustomerDeliveryProofPdfControllerTest {
 		ArticlesSelector mockArticlesSelector = (ArticlesSelector) MockUtility.mockSelector(ArticlesSelector.class);
 		// set up our responses
 		MockUtility.Mocks.startStubbing();
-		MockUtility.Mocks.when(mockArticlesSelector.selectByIdOrTracking((Set<String>) fflib_Match.eq(article1Set),  (Set<Id>) fflib_Match.anyObject(), (Set<Object>) fflib_Match.anyObject(), (Boolean)fflib_Match.eq(true))).thenReturn(article1Result);
-		MockUtility.Mocks.when(mockArticlesSelector.selectByIdOrTracking((Set<String>) fflib_Match.eq(consignmentSet),  (Set<Id>) fflib_Match.anyObject(), (Set<Object>) fflib_Match.anyObject(), (Boolean)fflib_Match.eq(true))).thenReturn(articlesResult);
+		MockUtility.Mocks.when(
+				mockArticlesSelector.selectByIdOrTracking((Set<String>) fflib_Match.eq(article1Set), (Set<Id>) fflib_Match.anyObject(), (Set<Object>) fflib_Match.anyObject(), (Boolean) fflib_Match.eq(true))
+			)
+			.thenReturn(article1Result);
+		MockUtility.Mocks.when(
+				mockArticlesSelector.selectByIdOrTracking((Set<String>) fflib_Match.eq(consignmentSet), (Set<Id>) fflib_Match.anyObject(), (Set<Object>) fflib_Match.anyObject(), (Boolean) fflib_Match.eq(true))
+			)
+			.thenReturn(articlesResult);
 		MockUtility.Mocks.when(mockEventmessageSelector.selectByArticleNumber((Set<String>) fflib_Match.eq(articleNumberSet), (Set<Object>) fflib_Match.anyObject())).thenReturn(eventMessages.values());
 		MockUtility.Mocks.stopStubbing();
 
@@ -562,7 +558,7 @@ public with sharing class MyCustomerDeliveryProofPdfControllerTest {
 		Test.stopTest();
 
 		Set<String> deliveryEvents = new Set<String>();
-		for(MyCustomerDeliveryProofPdfController.DeliveryProofAttributes pod: podAttributesResult){
+		for (MyCustomerDeliveryProofPdfController.DeliveryProofAttributes pod : podAttributesResult) {
 			deliveryEvents.add(pod.deliveryKey);
 		}
 		// Verify Delivery Event attributes that should be displayed on the PDF layout
@@ -570,8 +566,14 @@ public with sharing class MyCustomerDeliveryProofPdfControllerTest {
 		Assert.areEqual(1, deliveryEvents.size(), 'There should be one delivery event but instead got: ' + deliveryEvents.size());
 		Assert.areEqual(2, podAttributesResult.size(), 'There should be two delivery results but instead got: ' + podAttributesResult.size());
 		Assert.areEqual(2, podAttributesResult.get(0).articlesCountInDeliveryEvent, 'Expected 2 articles in the delivery event but instead got: ' + podAttributesResult.get(0).articlesCountInDeliveryEvent);
-		Assert.isTrue(podAttributesResult.get(0).articlesInDeliveryEvent.contains(articles[0].Name), 'Delivery Event Result should contain article ' + articles[0].Name + 'but instead got ' + podAttributesResult.get(0).articlesInDeliveryEvent);
-		Assert.isTrue(podAttributesResult.get(0).articlesInDeliveryEvent.contains(articles[1].Name), 'Delivery Event Result should contain article ' + articles[1].Name + 'but instead got ' + podAttributesResult.get(0).articlesInDeliveryEvent);
+		Assert.isTrue(
+			podAttributesResult.get(0).articlesInDeliveryEvent.contains(articles[0].Name),
+			'Delivery Event Result should contain article ' + articles[0].Name + 'but instead got ' + podAttributesResult.get(0).articlesInDeliveryEvent
+		);
+		Assert.isTrue(
+			podAttributesResult.get(0).articlesInDeliveryEvent.contains(articles[1].Name),
+			'Delivery Event Result should contain article ' + articles[1].Name + 'but instead got ' + podAttributesResult.get(0).articlesInDeliveryEvent
+		);
 		Assert.isFalse(podAttributesResult.get(0).isStarTrackProduct, 'Expected a non-StarTrack product but instead got a StarTrack Product');
 		Assert.isFalse(podAttributesResult.get(1).isStarTrackProduct, 'Expected a StarTrack product but it wasn\'t');
 		Assert.areEqual(2, podAttributesResult.get(0).consigned, 'Expected 2 consigned articles but instead got ' + podAttributesResult.get(0).consigned);
@@ -704,13 +706,7 @@ public with sharing class MyCustomerDeliveryProofPdfControllerTest {
 		// =====================================
 		// Stubbing
 		// =====================================
-		Map<Id, EventMessage__c> eventMessages = new Map<Id, EventMessage__c>{
-			event1.Id => event1,
-			event2.Id => event2,
-			event3.Id => event3,
-			event4.Id => event4,
-			event5.Id => event5
-		};
+		Map<Id, EventMessage__c> eventMessages = new Map<Id, EventMessage__c>{ event1.Id => event1, event2.Id => event2, event3.Id => event3, event4.Id => event4, event5.Id => event5 };
 		Map<Id, Article__c> articlesResult = new Map<Id, Article__c>{
 			consignment.Id => consignment,
 			articles[0].Id => articles[0],
@@ -728,8 +724,14 @@ public with sharing class MyCustomerDeliveryProofPdfControllerTest {
 		ArticlesSelector mockArticlesSelector = (ArticlesSelector) MockUtility.mockSelector(ArticlesSelector.class);
 		// set up our responses
 		MockUtility.Mocks.startStubbing();
-		MockUtility.Mocks.when(mockArticlesSelector.selectByIdOrTracking((Set<String>) fflib_Match.eq(article1Set),  (Set<Id>) fflib_Match.anyObject(), (Set<Object>) fflib_Match.anyObject(), (Boolean)fflib_Match.eq(true))).thenReturn(article1Result);
-		MockUtility.Mocks.when(mockArticlesSelector.selectByIdOrTracking((Set<String>) fflib_Match.eq(consignmentSet),  (Set<Id>) fflib_Match.anyObject(), (Set<Object>) fflib_Match.anyObject(), (Boolean)fflib_Match.eq(true))).thenReturn(articlesResult);
+		MockUtility.Mocks.when(
+				mockArticlesSelector.selectByIdOrTracking((Set<String>) fflib_Match.eq(article1Set), (Set<Id>) fflib_Match.anyObject(), (Set<Object>) fflib_Match.anyObject(), (Boolean) fflib_Match.eq(true))
+			)
+			.thenReturn(article1Result);
+		MockUtility.Mocks.when(
+				mockArticlesSelector.selectByIdOrTracking((Set<String>) fflib_Match.eq(consignmentSet), (Set<Id>) fflib_Match.anyObject(), (Set<Object>) fflib_Match.anyObject(), (Boolean) fflib_Match.eq(true))
+			)
+			.thenReturn(articlesResult);
 		MockUtility.Mocks.when(mockEventmessageSelector.selectByArticleNumber((Set<String>) fflib_Match.eq(articleNumberSet), (Set<Object>) fflib_Match.anyObject())).thenReturn(eventMessages.values());
 		MockUtility.Mocks.stopStubbing();
 
@@ -739,7 +741,7 @@ public with sharing class MyCustomerDeliveryProofPdfControllerTest {
 		Test.startTest();
 
 		PageReference deliveryProofPdfPage = Page.MyCustomerDeliveryProofPdfWrapper;
-		deliveryProofPdfPage.getParameters().put('articleId', consignmentNumber);  // pass consignment number here
+		deliveryProofPdfPage.getParameters().put('articleId', consignmentNumber); // pass consignment number here
 		Test.setCurrentPage(deliveryProofPdfPage);
 
 		new MyCustomerDeliveryProofPdfController();
@@ -748,7 +750,7 @@ public with sharing class MyCustomerDeliveryProofPdfControllerTest {
 		Test.stopTest();
 
 		Set<String> deliveryEvents = new Set<String>();
-		for(MyCustomerDeliveryProofPdfController.DeliveryProofAttributes pod: podAttributesResult){
+		for (MyCustomerDeliveryProofPdfController.DeliveryProofAttributes pod : podAttributesResult) {
 			deliveryEvents.add(pod.deliveryKey);
 		}
 		// Verify Delivery Event attributes that should be displayed on the PDF layout
@@ -757,10 +759,22 @@ public with sharing class MyCustomerDeliveryProofPdfControllerTest {
 		Assert.areEqual(4, podAttributesResult.size(), 'There should be four delivery result but instead got: ' + podAttributesResult.size());
 		Assert.areEqual(2, podAttributesResult.get(0).articlesCountInDeliveryEvent, 'Expected 2 articles in the delivery event but instead got: ' + podAttributesResult.get(0).articlesCountInDeliveryEvent);
 		Assert.areEqual(2, podAttributesResult.get(1).articlesCountInDeliveryEvent, 'Expected 2 articles in the delivery event but instead got: ' + podAttributesResult.get(1).articlesCountInDeliveryEvent);
-		Assert.isTrue(podAttributesResult.get(0).articlesInDeliveryEvent.contains(articles[0].Name), 'Delivery Event Result should contain article ' + articles[0].Name + 'but instead got ' + podAttributesResult.get(0).articlesInDeliveryEvent);
-		Assert.isTrue(podAttributesResult.get(1).articlesInDeliveryEvent.contains(articles[1].Name), 'Delivery Event Result should contain article ' + articles[1].Name + 'but instead got ' + podAttributesResult.get(1).articlesInDeliveryEvent);
-		Assert.isTrue(podAttributesResult.get(2).articlesInDeliveryEvent.contains(articles[2].Name), 'Delivery Event Result should contain article ' + articles[2].Name + 'but instead got ' + podAttributesResult.get(2).articlesInDeliveryEvent);
-		Assert.isTrue(podAttributesResult.get(3).articlesInDeliveryEvent.contains(articles[3].Name), 'Delivery Event Result should contain article ' + articles[3].Name + 'but instead got ' + podAttributesResult.get(3).articlesInDeliveryEvent);
+		Assert.isTrue(
+			podAttributesResult.get(0).articlesInDeliveryEvent.contains(articles[0].Name),
+			'Delivery Event Result should contain article ' + articles[0].Name + 'but instead got ' + podAttributesResult.get(0).articlesInDeliveryEvent
+		);
+		Assert.isTrue(
+			podAttributesResult.get(1).articlesInDeliveryEvent.contains(articles[1].Name),
+			'Delivery Event Result should contain article ' + articles[1].Name + 'but instead got ' + podAttributesResult.get(1).articlesInDeliveryEvent
+		);
+		Assert.isTrue(
+			podAttributesResult.get(2).articlesInDeliveryEvent.contains(articles[2].Name),
+			'Delivery Event Result should contain article ' + articles[2].Name + 'but instead got ' + podAttributesResult.get(2).articlesInDeliveryEvent
+		);
+		Assert.isTrue(
+			podAttributesResult.get(3).articlesInDeliveryEvent.contains(articles[3].Name),
+			'Delivery Event Result should contain article ' + articles[3].Name + 'but instead got ' + podAttributesResult.get(3).articlesInDeliveryEvent
+		);
 		Assert.isFalse(podAttributesResult.get(0).isStarTrackProduct, 'Expected a non-StarTrack product but instead got a StarTrack Product');
 		Assert.isFalse(podAttributesResult.get(1).isStarTrackProduct, 'Expected a StarTrack product but it wasn\'t');
 		Assert.areEqual(5, podAttributesResult.get(0).consigned, 'Expected 5 consigned articles but instead got ' + podAttributesResult.get(0).consigned);
@@ -895,13 +909,7 @@ public with sharing class MyCustomerDeliveryProofPdfControllerTest {
 		// =====================================
 		// Stubbing
 		// =====================================
-		Map<Id, EventMessage__c> eventMessages = new Map<Id, EventMessage__c>{
-			event1.Id => event1,
-			event2.Id => event2,
-			event3.Id => event3,
-			event4.Id => event4,
-			event5.Id => event5
-		};
+		Map<Id, EventMessage__c> eventMessages = new Map<Id, EventMessage__c>{ event1.Id => event1, event2.Id => event2, event3.Id => event3, event4.Id => event4, event5.Id => event5 };
 		Map<Id, Article__c> articlesResult = new Map<Id, Article__c>{
 			consignment.Id => consignment,
 			articles[0].Id => articles[0],
@@ -919,8 +927,14 @@ public with sharing class MyCustomerDeliveryProofPdfControllerTest {
 		ArticlesSelector mockArticlesSelector = (ArticlesSelector) MockUtility.mockSelector(ArticlesSelector.class);
 		// set up our responses
 		MockUtility.Mocks.startStubbing();
-		MockUtility.Mocks.when(mockArticlesSelector.selectByIdOrTracking((Set<String>) fflib_Match.eq(article1Set),  (Set<Id>) fflib_Match.anyObject(), (Set<Object>) fflib_Match.anyObject(), (Boolean)fflib_Match.eq(true))).thenReturn(article1Result);
-		MockUtility.Mocks.when(mockArticlesSelector.selectByIdOrTracking((Set<String>) fflib_Match.eq(consignmentSet),  (Set<Id>) fflib_Match.anyObject(), (Set<Object>) fflib_Match.anyObject(), (Boolean)fflib_Match.eq(true))).thenReturn(articlesResult);
+		MockUtility.Mocks.when(
+				mockArticlesSelector.selectByIdOrTracking((Set<String>) fflib_Match.eq(article1Set), (Set<Id>) fflib_Match.anyObject(), (Set<Object>) fflib_Match.anyObject(), (Boolean) fflib_Match.eq(true))
+			)
+			.thenReturn(article1Result);
+		MockUtility.Mocks.when(
+				mockArticlesSelector.selectByIdOrTracking((Set<String>) fflib_Match.eq(consignmentSet), (Set<Id>) fflib_Match.anyObject(), (Set<Object>) fflib_Match.anyObject(), (Boolean) fflib_Match.eq(true))
+			)
+			.thenReturn(articlesResult);
 		MockUtility.Mocks.when(mockEventmessageSelector.selectByArticleNumber((Set<String>) fflib_Match.eq(articleNumberSet), (Set<Object>) fflib_Match.anyObject())).thenReturn(eventMessages.values());
 		MockUtility.Mocks.stopStubbing();
 
@@ -939,7 +953,7 @@ public with sharing class MyCustomerDeliveryProofPdfControllerTest {
 		Test.stopTest();
 
 		Set<String> deliveryEvents = new Set<String>();
-		for(MyCustomerDeliveryProofPdfController.DeliveryProofAttributes pod: podAttributesResult){
+		for (MyCustomerDeliveryProofPdfController.DeliveryProofAttributes pod : podAttributesResult) {
 			deliveryEvents.add(pod.deliveryKey);
 		}
 		// Verify Delivery Event attributes that should be displayed on the PDF layout
@@ -947,8 +961,14 @@ public with sharing class MyCustomerDeliveryProofPdfControllerTest {
 		Assert.areEqual(1, deliveryEvents.size(), 'There should be 1 delivery events but instead got: ' + deliveryEvents.size());
 		Assert.areEqual(2, podAttributesResult.size(), 'There should be two delivery result but instead got: ' + podAttributesResult.size());
 		Assert.areEqual(2, podAttributesResult.get(0).articlesCountInDeliveryEvent, 'Expected 2 articles in the delivery event but instead got: ' + podAttributesResult.get(0).articlesCountInDeliveryEvent);
-		Assert.isTrue(podAttributesResult.get(0).articlesInDeliveryEvent.contains(articles[0].Name), 'Delivery Event Result should contain article ' + articles[0].Name + 'but instead got ' + podAttributesResult.get(0).articlesInDeliveryEvent);
-		Assert.isTrue(podAttributesResult.get(1).articlesInDeliveryEvent.contains(articles[1].Name), 'Delivery Event Result should contain article ' + articles[1].Name + 'but instead got ' + podAttributesResult.get(1).articlesInDeliveryEvent);
+		Assert.isTrue(
+			podAttributesResult.get(0).articlesInDeliveryEvent.contains(articles[0].Name),
+			'Delivery Event Result should contain article ' + articles[0].Name + 'but instead got ' + podAttributesResult.get(0).articlesInDeliveryEvent
+		);
+		Assert.isTrue(
+			podAttributesResult.get(1).articlesInDeliveryEvent.contains(articles[1].Name),
+			'Delivery Event Result should contain article ' + articles[1].Name + 'but instead got ' + podAttributesResult.get(1).articlesInDeliveryEvent
+		);
 		Assert.isFalse(podAttributesResult.get(0).isStarTrackProduct, 'Expected a non-StarTrack product but instead got a StarTrack Product');
 		Assert.isFalse(podAttributesResult.get(1).isStarTrackProduct, 'Expected a StarTrack product but it wasn\'t');
 		Assert.areEqual(5, podAttributesResult.get(0).consigned, 'Expected 5 consigned articles but instead got ' + podAttributesResult.get(0).consigned);
@@ -956,5 +976,4 @@ public with sharing class MyCustomerDeliveryProofPdfControllerTest {
 		Assert.areEqual(podAttributesResult.get(0).deliveryKey, podAttributesResult.get(1).deliveryKey, 'Expected that the delivery key should match between the two delivery events but they were NOT matched');
 		Assert.areEqual('\nABC123\nDEF456', podAttributesResult.get(0).eventMessage.Article__r.FurtherReferences__c, 'Expected that the delivery key should match between the two delivery events but they were\'t matched');
 	}
-
 }
