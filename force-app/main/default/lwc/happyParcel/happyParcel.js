@@ -471,8 +471,8 @@ export default class HappyParcelWrapper extends NavigationMixin(LightningElement
 		];
 
 		// NOTE: We pass the current trackingId into the search functions to make sure after the callout is finished, that it is still the current trackingId
-		//          There is a scenario where a new tracking id may be passed into the component while a search is already in progress
-		//          If this happens, passing the tracking id in allows to ignore the search results if they are out of sync with the current component state
+		//There is a scenario where a new tracking id may be passed into the component while a search is already in progress
+		//If this happens, passing the tracking id in allows to ignore the search results if they are out of sync with the current component state
 		this.doAnalyticsQuery(this._trackingId);
 		this.doTrackingQuery(this._trackingId);
 	}
