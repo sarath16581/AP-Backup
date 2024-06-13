@@ -48,9 +48,9 @@ export default class HappyParcelWrapper extends NavigationMixin(LightningElement
 	// NOTE: The context of this option now includes Signatures as well. This will also allow a checkbox to be shown int eh delivery proof component to attach a signature to a created case too
 	@api supportsSafeDropAttachment;
 
-    // if this is true then this allows direct to network case creation in happy parcels. 'happyParcelLastMileFacility'
-    // component is rendered only when this is true and the user has required permissions.
-    @api supportsCaseCreation;
+	// if this is true then this allows direct to network case creation in happy parcels. 'happyParcelLastMileFacility'
+	// component is rendered only when this is true and the user has required permissions.
+	@api supportsCaseCreation;
 
 	// if this is true then this allows any search on a single child article ID to also retrieve its parent consignment details and all related child articles (via SAP & StarTrack) if condition is met
 	// and the parent consignment details and all related child article details will be displayed on the UI
@@ -102,7 +102,7 @@ export default class HappyParcelWrapper extends NavigationMixin(LightningElement
 		}
 	}
 
-    //Contextual information passed in by the host component.
+	//Contextual information passed in by the host component.
 	@api hostContext = {};
 	
 	@api hasCaseInvestigations = false;
@@ -118,8 +118,8 @@ export default class HappyParcelWrapper extends NavigationMixin(LightningElement
 	connectedCallback() {
 		// preload the config so all the components do not have to make individual apex calls because the config hasn't loaded
 		getConfig().then(result => {
-            this.vodvKnowledgeId = result.VODVKnowledgeId;
-        });
+			this.vodvKnowledgeId = result.VODVKnowledgeId;
+		});
 
 		this.template.addEventListener('idclick', this.handleIdLinkClick);
 	}
@@ -299,9 +299,9 @@ export default class HappyParcelWrapper extends NavigationMixin(LightningElement
 					// 1. the search result returned was the same that was searched for (not a consignment)
 					// 2. another api query was completed (analytics api for example) and populated this structure
 					this.articles[articleIndex].trackingResult = item;
-                    if(item.article.VODV_Redirect__c) {
-                           this.vodvWarning = CONSTANTS.LABEL_HAPPYPARCELVODVWARNINGTEXT;
-                    }
+					if(item.article.VODV_Redirect__c) {
+						   this.vodvWarning = CONSTANTS.LABEL_HAPPYPARCELVODVWARNINGTEXT;
+					}
 					// a consignment is rendered with a list selectable articles. this value stores whether the article checkbox has been clicked or not
 					if (this.isConsignment && !Object.keys(this.articles[articleIndex]).includes('articleSelected')) {
 						this.articles[articleIndex].articleSelected = false;
@@ -456,8 +456,8 @@ export default class HappyParcelWrapper extends NavigationMixin(LightningElement
 	}
 
 	handleKnowledgeClick(){
-        this.dispatchEvent(new CustomEvent('idclick', { detail: { id: this.vodvKnowledgeId }, bubbles: true, composed: true} ));
-    }
+		this.dispatchEvent(new CustomEvent('idclick', { detail: { id: this.vodvKnowledgeId }, bubbles: true, composed: true} ));
+	}
 
 	triggerSearch() {
 		this.resetSearch();
