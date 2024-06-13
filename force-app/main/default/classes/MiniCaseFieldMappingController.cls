@@ -56,7 +56,7 @@ global without sharing class MiniCaseFieldMappingController {
             if(key != ''){  
                 existingCTIMappings = [select CTICustomerSegment__c,CTIServiceType__c,ProductCategory__c,ProductSubcategory__c,Type__c 
                                        from MiniCaseFieldMapping__c 
-                                       where CTIKey__c=:key and id!=:r.id];
+                                       where CTIKey__c=:key and id!=:r.id AND MappingModel__c =: r.MappingModel__c];
             }
             
             if(existingCTIMappings.size() > 0){
@@ -70,7 +70,7 @@ global without sharing class MiniCaseFieldMappingController {
             if(key != ''){  
                 existingSAPMappings = [select SAPProductCategory__c,SAPProductSubcategory__c,ProductCategory__c,ProductSubcategory__c,Type__c 
                                        from MiniCaseFieldMapping__c 
-                                       where SAPKey__c=:key and id!=:r.id];
+                                       where SAPKey__c=:key and id!=:r.id AND MappingModel__c =: r.MappingModel__c];
             }
                                                
             if(existingSAPMappings.size() > 0){
