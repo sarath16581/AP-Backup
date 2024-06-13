@@ -8,6 +8,8 @@ History:
             bulk records, test for close task.
 2022-02-11  REQ2723568: Text Class changes 
 2022-02-11  REQ2723568: API version 52 upgrade
+2024-06-13	Parveen Kaushik Added default value for mapping model on test data.
+			See CSLU-470 (JIRA) for details.
 ***********************************************************************************/
 @isTest
 private class AP_ConnectorController_Test {
@@ -34,7 +36,7 @@ private class AP_ConnectorController_Test {
         insert testAccountList;
 
         //Create a new MiniCaseFieldMapping__c record
-        MiniCaseFieldMapping__c mp = new MiniCaseFieldMapping__c(ProductCategory__c='seg',ProductSubcategory__c='serTyp', Type__c = 'type' );
+        MiniCaseFieldMapping__c mp = new MiniCaseFieldMapping__c(ProductCategory__c = 'seg', ProductSubcategory__c = 'serTyp', Type__c = 'type', MappingModel__c = SSSWConstants.ENQUIRYMAPPING_CLASSIC_MODEL);
         insert mp;
 
     }

@@ -3,6 +3,7 @@
  * @author Nathan Franklin
  * @date 2023-05-29
  * @changelog
+ * 2024-06-13 - Parveen Kaushik - Added default value for mapping model on test data. See CSLU-470 (JIRA) for details.
 */
 @IsTest
 public with sharing class ApplicationTestDataFactoryCase {
@@ -74,7 +75,8 @@ public with sharing class ApplicationTestDataFactoryCase {
 						ProductCategory__c = 'Domestic Parcels',
 						ProductSubcategory__c = 'eParcel- Regular',
 						SAPProductCategory__c = 'eParcel',
-						SAPProductSubcategory__c = 'eParcel Standard'
+						SAPProductSubcategory__c = 'eParcel Standard',
+						MappingModel__c = SSSWConstants.ENQUIRYMAPPING_CLASSIC_MODEL
 				),
 				new MiniCaseFieldMapping__c(
 						Id = (generateIds ? fflib_IDGenerator.generate(MiniCaseFieldMapping__c.SObjectType) : null),
@@ -82,13 +84,15 @@ public with sharing class ApplicationTestDataFactoryCase {
 						ProductSubcategory__c = 'StarTrack (Next Flight Premium & Express)',
 						SAPProductCategory__c = 'StarTrack',
 						SAPProductSubcategory__c = 'ST Next Flight'
+						MappingModel__c = SSSWConstants.ENQUIRYMAPPING_CLASSIC_MODEL
 				),
 				new MiniCaseFieldMapping__c(
 						Id = (generateIds ? fflib_IDGenerator.generate(MiniCaseFieldMapping__c.SObjectType) : null),
 						ProductCategory__c = 'Domestic Parcels',
 						ProductSubcategory__c = 'Express',
 						SAPProductCategory__c = 'Express Post',
-						SAPProductSubcategory__c = 'Express Post Medium'
+						SAPProductSubcategory__c = 'Express Post Medium',
+						MappingModel__c = SSSWConstants.ENQUIRYMAPPING_CLASSIC_MODEL
 				)
 		};
 

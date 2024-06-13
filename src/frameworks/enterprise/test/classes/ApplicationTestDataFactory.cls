@@ -36,6 +36,7 @@
  * 2023-07-20 - Mahesh Parvathaneni - Added method getBamApplications
  * 2023-09-22 - Ken McGuire - added methods for product revenue objects
  * 2024-04-17 - Deepak Kemidi - added method for creating vendor emails
+ * 2024-06-13 - Parveen Kaushik - Added default value for mapping model on test data. See CSLU-470 (JIRA) for details.
 */
 @IsTest
 public with sharing class ApplicationTestDataFactory {
@@ -412,21 +413,24 @@ public with sharing class ApplicationTestDataFactory {
 						ProductCategory__c = 'Domestic Parcels',
 						ProductSubcategory__c = 'eParcel- Regular',
 						SAPProductCategory__c = 'eParcel',
-						SAPProductSubcategory__c = 'eParcel Standard'
+						SAPProductSubcategory__c = 'eParcel Standard',
+						MappingModel__c = SSSWConstants.ENQUIRYMAPPING_CLASSIC_MODEL
 				),
 				new MiniCaseFieldMapping__c(
 						Id = (generateIds ? fflib_IDGenerator.generate(MiniCaseFieldMapping__c.SObjectType) : null),
 						ProductCategory__c = 'Domestic Parcels',
 						ProductSubcategory__c = 'StarTrack (Next Flight Premium & Express)',
 						SAPProductCategory__c = 'StarTrack',
-						SAPProductSubcategory__c = 'ST Next Flight'
+						SAPProductSubcategory__c = 'ST Next Flight',
+						MappingModel__c = SSSWConstants.ENQUIRYMAPPING_CLASSIC_MODEL
 				),
 				new MiniCaseFieldMapping__c(
 						Id = (generateIds ? fflib_IDGenerator.generate(MiniCaseFieldMapping__c.SObjectType) : null),
 						ProductCategory__c = 'Domestic Parcels',
 						ProductSubcategory__c = 'Express',
 						SAPProductCategory__c = 'Express Post',
-						SAPProductSubcategory__c = 'Express Post Medium'
+						SAPProductSubcategory__c = 'Express Post Medium',
+						MappingModel__c = SSSWConstants.ENQUIRYMAPPING_CLASSIC_MODEL
 				)
 		};
 
