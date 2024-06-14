@@ -175,15 +175,17 @@ public with sharing class MyCustomerDeliveryProofPdfController {
 
 	/**
 	 * @description	This method format the further references with line break for better UI display in the VF PDF page
-	 * 				It also map the further reference from parent consignment down one level to article level for the purpose of VF PDG page.
+	 * 				It also map the further reference from parent consignment down one level to article level for the purpose of VF PDF display.
 	 * 				This is due to FieldSet's limitation where it cannot traverse up two levels from EventMessage->Article->Consignment
 	 * @param podAttributes List<DeliveryProofAttributes>
 	 * @return List<DeliveryProofAttributes>
 	 */
 	public List<DeliveryProofAttributes> formatFurtherReferencesFieldValueForDisplay(List<DeliveryProofAttributes> podAttributes) {
 		for (DeliveryProofAttributes pod : podAttributes) {
-			// bring it up one level, as the fieldSet only allow one-level traverse on its related object
-			pod.eventMessage.Article__r.FurtherReferences__c = '\n' + pod.eventMessage.Article__r?.Consignment__r?.FurtherReferences__c?.replace(', ', '\n');
+			// bring it down one level, as the fieldSet only allow one-level traverse on its related object
+			pod.eventMessage.Article__r.FurtherReferences__c = pod.eventMessage.Article__r?.Consignment__r?.FurtherReferences__c != null
+				? '\n' + pod.eventMessage.Article__r.Consignment__r.FurtherReferences__c.replace(', ', '\n')
+				: null;
 		}
 		return podAttributes;
 	}
