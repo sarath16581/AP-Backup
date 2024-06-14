@@ -83,10 +83,6 @@
                 <behavior>Readonly</behavior>
                 <field>Priority_icon__c</field>
             </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>HandoffReason__c</field>
-            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>

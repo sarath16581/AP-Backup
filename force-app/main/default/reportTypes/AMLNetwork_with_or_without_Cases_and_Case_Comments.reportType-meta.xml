@@ -4482,11 +4482,6 @@
             <field>AMLCTF_WCC__c</field>
             <table>Network__c.Cases__r</table>
         </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>HandoffReason__c</field>
-            <table>Network__c.Cases__r</table>
-        </columns>
         <masterLabel>Cases</masterLabel>
     </sections>
     <sections>
