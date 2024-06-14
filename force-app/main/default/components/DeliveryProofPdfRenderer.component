@@ -71,7 +71,6 @@
 						</apex:repeat>
 					</div>
 				</div>
-				<br/>
 
 
 				<!-- Display Delivery Section Header -->
