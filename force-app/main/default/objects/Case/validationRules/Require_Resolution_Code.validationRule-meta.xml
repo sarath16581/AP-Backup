@@ -2,10 +2,12 @@
 <ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Require_Resolution_Code</fullName>
     <active>true</active>
-    <description>Require Resolution Code when  Case Status is Closed for all StarTrack recordtypes</description>
+    <description>Require Resolution Code when Case Status is Closed for investigation and all StarTrack record types.</description>
     <errorConditionFormula>AND(
-    !$Permission.BSP_Community_Access,
-    StarTrack_RecordType__c,
+    OR(
+        AND(!$Permission.BSP_Community_Access,
+        StarTrack_RecordType__c),
+    RecordType.DeveloperName = &apos;UnifiedInvestigation&apos;),
     ISPICKVAL(Status, &apos;Closed&apos;),
     ISBLANK(TEXT(ResolutionCode__c))
 )</errorConditionFormula>
