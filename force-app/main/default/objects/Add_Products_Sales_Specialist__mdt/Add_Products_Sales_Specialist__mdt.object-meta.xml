@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
-    <description>Sales Specialist Team member&apos;s role</description>
-    <label>Add Products Sales Specialist</label>
-    <pluralLabel>Add Products Sales Specialist Team</pluralLabel>
-    <visibility>Public</visibility>
-</CustomObject>

@@ -406,12 +406,10 @@ private with sharing class APT_AmendRenewUtility_Test{
 				new Set<Id>{product.id}
 			);
 
-			List<OpportunityLineItem> copyedListOppLineItem = APT_AmendRenewUtility.copyOpporunityProducts(opp.Id, agreement, listOppLineItem, APT_Constants.ACTION_TYPE_RENEWAL);
 			test.stopTest();
 			//system.assert(tempAgrmnt != null);
 			System.assertNotEquals(0, diffLiList.size(), 'List of Line items from product component option check should not be blank');
 			System.assertEquals(bundleLine1.Id, diffLiList[0].Id, 'Expect bundleLine1 Id in the returned list');
-			System.assert(copyedListOppLineItem.size() > 0);
 		}
 	}
 

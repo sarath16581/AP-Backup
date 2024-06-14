@@ -88,13 +88,13 @@
         <object>Case</object>
         <recordTriggerType>CreateAndUpdate</recordTriggerType>
         <scheduledPaths>
-            <name>X15_Days_after_case_closed</name>
+            <name>X_Days_after_case_closed</name>
             <connector>
                 <targetReference>Update_case_record_for_permanent_close</targetReference>
             </connector>
-            <label>15 Days after case closed</label>
-            <offsetNumber>15</offsetNumber>
-            <offsetUnit>Days</offsetUnit>
+            <label>Time after case closed</label>
+            <offsetNumber>0</offsetNumber>
+            <offsetUnit>Minutes</offsetUnit>
             <recordField>ClosedDate</recordField>
             <timeSource>RecordField</timeSource>
         </scheduledPaths>

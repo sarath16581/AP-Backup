@@ -1358,26 +1358,4 @@ public without sharing class APT_AmendRenewUtility {
 		clonedOpportunity.LBP_Tier_2__c = null;
 		clonedOpportunity.Amount = null;
 	}
-
-	/**
-	On DoV/Renewal, this method will copy Opportunity Products, which are added using Add Products action.
-	*/
-	public static List<OpportunityLineItem> copyOpporunityProducts(Id opportunityId, Apttus__APTS_Agreement__c agreement, List<OpportunityLineItem> listOpportunityLineItem, String actionType) {
-		List<OpportunityLineItem> listClonedOpportunityLineItem = new List<OpportunityLineItem>();
-		try {
-			for(OpportunityLineItem originalOTM : listOpportunityLineItem) {
-				OpportunityLineItem oppLineItem = originalOTM.clone(false, true);
-				oppLineItem.Contract_Start_Date__c = Date.today().addMonths(1);
-				oppLineItem.Contract_End_Date__c = date.today().addMonths(12).addDays(-1);
-				oppLineItem.Change_Classification__c = APT_Constants.OPTION_YES;
-				oppLineItem.ProdClassFieldUpdate__c = null;
-				oppLineItem.OPCValidated__c = false;
-				oppLineItem.OpportunityId = opportunityId;
-				listClonedOpportunityLineItem.add(oppLineItem);
-			}
-		} catch (System.Exception ex) {
-			return null;
-		}
-		return listClonedOpportunityLineItem;
-	}
 }
