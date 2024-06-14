@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Contact_Address__c</fullName>
+    <businessStatus>DeprecateCandidate</businessStatus>
+    <description>Dep - no longer in use - REQ3448199</description>
     <externalId>false</externalId>
-    <label>Contact Address</label>
+    <label>Dep - Contact Address</label>
     <length>30</length>
     <required>false</required>
     <securityClassification>OFFICIAL_SENSITIVE_PERSONAL</securityClassification>

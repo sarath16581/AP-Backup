@@ -22,13 +22,11 @@ To send a further email regarding this case, please reply to this email. Respond
 
 We look forward to helping you with your enquiry.
 
-
 Kind regards,
 
 Customer Resolution Team
 StarTrack
 {!Case.EmailThreadID__c}
-
 
 {!$Label.Australia_Post_No_Email_Phishing_Statement}
 

@@ -1665,4 +1665,17 @@
         </columns>
         <masterLabel>Products</masterLabel>
     </sections>
+    <sections>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>InYearRevenueRetainedOnly__c</field>
+            <table>Opportunity.OpportunityLineItems</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>InYearRevenueIncrementalOnly__c</field>
+            <table>Opportunity.OpportunityLineItems</table>
+        </columns>
+        <masterLabel>Opportunity Product</masterLabel>
+    </sections>
 </ReportType>

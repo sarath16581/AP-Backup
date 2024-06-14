@@ -122,6 +122,10 @@
                 <behavior>Edit</behavior>
                 <field>Exclude_Notification_Automation__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>HandoffReason__c</field>
+            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>

@@ -12,7 +12,7 @@ to overwrite Apttus&apos; NetPrice field with this field&apos;s value as part of
     <label>Total Service Fee</label>
     <precision>18</precision>
     <required>false</required>
-    <scale>0</scale>
+    <scale>2</scale>
     <securityClassification>OFFICIAL_SENSITIVE</securityClassification>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>

@@ -162,6 +162,11 @@
                 <label>Enterprise NSW 2</label>
             </value>
             <value>
+                <fullName>Enterprise NSW 3</fullName>
+                <default>false</default>
+                <label>Enterprise NSW 3</label>
+            </value>
+            <value>
                 <fullName>Enterprise QLD &amp; NT</fullName>
                 <default>false</default>
                 <label>Enterprise QLD &amp; NT</label>

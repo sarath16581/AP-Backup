@@ -30,6 +30,10 @@
                 <behavior>Edit</behavior>
                 <field>Sub_Accounts__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>HandoffReason__c</field>
+            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>

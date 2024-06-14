@@ -26,6 +26,10 @@
                 <behavior>Required</behavior>
                 <field>Time_to_Resolve_hours__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>HandoffReason__c</field>
+            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>

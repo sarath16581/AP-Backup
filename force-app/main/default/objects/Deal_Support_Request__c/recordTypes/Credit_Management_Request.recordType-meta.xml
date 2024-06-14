@@ -725,10 +725,6 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Close All Billing Accounts - ABN Change</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>Close billing account</fullName>
             <default>false</default>
         </values>

@@ -3,7 +3,6 @@
     <fullName>Support_Work_Type__c</fullName>
     <description>.</description>
     <externalId>false</externalId>
-    <inlineHelpText>Please select most accurate option available from the list.</inlineHelpText>
     <label>Support Work Type</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>
@@ -1663,9 +1662,6 @@
             <controllingFieldValue>Change OE APR rate</controllingFieldValue>
             <controllingFieldValue>Extensions</controllingFieldValue>
             <controllingFieldValue>Change of address / change of customer details</controllingFieldValue>
-            <controllingFieldValue>Termination of all AP Contract(s) - ABN Change</controllingFieldValue>
-            <controllingFieldValue>Termination of all ST Contract(s) - ABN Change</controllingFieldValue>
-            <controllingFieldValue>Close all ST Billing Account(s) - ABN Change</controllingFieldValue>
             <controllingFieldValue>Lodgement Points</controllingFieldValue>
             <valueName>Deal Processing</valueName>
         </valueSettings>

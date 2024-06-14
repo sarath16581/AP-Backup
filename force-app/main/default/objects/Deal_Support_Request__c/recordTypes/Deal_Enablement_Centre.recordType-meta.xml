@@ -1827,10 +1827,6 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Account pending closure</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>Cancelled</fullName>
             <default>false</default>
         </values>
@@ -2022,10 +2018,6 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Close all ST Billing Account%28s%29 - ABN Change</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>Copy of Contract</fullName>
             <default>false</default>
         </values>
@@ -2063,14 +2055,6 @@
         </values>
         <values>
             <fullName>Termination of Contract</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Termination of all AP Contract%28s%29 - ABN Change</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Termination of all ST Contract%28s%29 - ABN Change</fullName>
             <default>false</default>
         </values>
     </picklistValues>
