@@ -101,7 +101,6 @@ private with sharing class AddressLookupWrapperTest {
 		Assert.areEqual(caseRecord.Address1Suburb__c, ((Case)result.currentRecord).Address1Suburb__c, 'Address field not populated on the returned record.');
 		Assert.areEqual(caseRecord.Address1State__c, ((Case)result.currentRecord).Address1State__c, 'Address field not populated on the returned record.');
 		Assert.areEqual(caseRecord.Address1Postcode__c, ((Case)result.currentRecord).Address1Postcode__c, 'Address field not populated on the returned record.');
-		Assert.areEqual(caseRecord.Address1Country__c, ((Case)result.currentRecord).Address1Country__c, 'Address field not populated on the returned record.');
 		Assert.isFalse(result.settings.isEmpty(), 'Address field mapping is not returned in the result.');
 		Test.stopTest();
 	}

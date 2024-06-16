@@ -74,7 +74,7 @@ public with sharing class AddressLookupWrapperController {
 			result.objectApiName = String.valueOf(sObjectType);
 
 			// get field definitions map for SObjectType. we use this to derive constituent fields of the compound address
-			Map<String, SObjectField> sObjectFieldsMap = sObjectType.getDescribe().fields.getMap();
+			Map<String, SObjectField> sObjectFieldsMap = sObjectType.getDescribe(SObjectDescribeOptions.DEFERRED).fields.getMap();
 
 			// iterate through address configuration for the sobject type
 			for (Address_Fields_Mapping__mdt setting: addressFieldMappingsMetadata.get(result.objectApiName)) {
