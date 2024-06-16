@@ -48,10 +48,6 @@
                 <behavior>Edit</behavior>
                 <field>APT_ABN__c</field>
             </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>HandoffReason__c</field>
-            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>

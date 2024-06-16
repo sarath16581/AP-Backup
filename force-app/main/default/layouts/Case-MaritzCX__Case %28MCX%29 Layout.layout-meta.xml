@@ -39,10 +39,6 @@
                 <behavior>Edit</behavior>
                 <field>MaritzCX__Survey_Id__c</field>
             </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>HandoffReason__c</field>
-            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>

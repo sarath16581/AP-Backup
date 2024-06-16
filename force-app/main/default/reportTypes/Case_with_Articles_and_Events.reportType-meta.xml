@@ -2044,11 +2044,6 @@
             <field>ArticleLodgementDate__c</field>
             <table>Case.Articles__r</table>
         </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>HandoffReason__c</field>
-            <table>Case</table>
-        </columns>
         <masterLabel>Cases</masterLabel>
     </sections>
     <sections>

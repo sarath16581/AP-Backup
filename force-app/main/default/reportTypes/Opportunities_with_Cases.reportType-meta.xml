@@ -1433,11 +1433,6 @@
             <field>Non_Compliance_Issue__c</field>
             <table>Opportunity.Cases__r</table>
         </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>HandoffReason__c</field>
-            <table>Opportunity.Cases__r</table>
-        </columns>
         <masterLabel>Cases</masterLabel>
     </sections>
 </ReportType>

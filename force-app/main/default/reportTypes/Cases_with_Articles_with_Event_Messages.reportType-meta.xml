@@ -3920,11 +3920,6 @@
             <field>EventMessageTransmissionDateTime__c</field>
             <table>Case.Event_Messages__r</table>
         </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>HandoffReason__c</field>
-            <table>Case</table>
-        </columns>
         <masterLabel>Cases</masterLabel>
     </sections>
 </ReportType>

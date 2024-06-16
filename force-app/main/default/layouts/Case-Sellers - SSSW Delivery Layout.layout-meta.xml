@@ -105,10 +105,6 @@
                 <behavior>Edit</behavior>
                 <field>Bypass_Data_enforcement__c</field>
             </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>HandoffReason__c</field>
-            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>

@@ -2863,11 +2863,6 @@
             <field>CCUYourReference__c</field>
             <table>Contact.Cases</table>
         </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>HandoffReason__c</field>
-            <table>Contact.Cases</table>
-        </columns>
         <masterLabel>Cases</masterLabel>
     </sections>
 </ReportType>
