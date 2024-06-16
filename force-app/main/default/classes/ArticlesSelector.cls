@@ -10,7 +10,7 @@
  * 2021-10-01 - Nathan Franklin - Added new fields list
  * 2022-11-23 - Mahesh Parvathaneni - Added selectByCaseIds method
  * 2023-03-10 - Mahesh Parvathaneni - Updated WITH_EVENTMESSAGES_DESC_ORDER options
- * 2024-05-29 - Seth Heang - Added FurtherReferences__c, ProductID__c, IsDelivered__c into SOQL field list
+ * 2024-05-29 - Seth Heang - Added ConsignmentTrackingNumber__c, FurtherReferences__c, ProductID__c, IsDelivered__c into SOQL field list
  */
 public virtual inherited sharing class ArticlesSelector extends ApplicationSelector {
 

@@ -14,7 +14,6 @@ public with sharing class MyCustomerDeliveryProofPdfController {
 
 	public String articleId { get; set; }
 	public static List<DeliveryProofAttributes> deliveryProofAttributes { get; set; }
-	public static transient Map<String, EventMessageTypeMapping__mdt> eventTypeDefinitions;
 	public static Boolean isConsignment;
 
 	/**
@@ -22,10 +21,10 @@ public with sharing class MyCustomerDeliveryProofPdfController {
 	 */
 	public MyCustomerDeliveryProofPdfController() {
 		articleId = ApexPages.currentPage().getParameters().get('articleId');
+		articleId = articleId.escapeHtml4(); // address ApexXSSFromURLParam warning
 		if (String.isEmpty(articleId)) {
 			pageError = 'Tracking number is invalid';
 		}
-		eventTypeDefinitions = EventMessageUtil.getInstance().getEventMessageTypeDefinitions();
 		// get consignment and child articles data
 		List<Article__c> consignments = queryConsignmentByTrackingId(articleId);
 		// build event message data into delivery proof result list
@@ -245,7 +244,6 @@ public with sharing class MyCustomerDeliveryProofPdfController {
 	 * @return	List<DeliveryProofAttributes> - each wrapper will generate exactly one VF Page
 	 */
 	public static List<DeliveryProofAttributes> buildAttributesForPDFDisplay(Set<String> articleIds) {
-		eventTypeDefinitions = EventMessageUtil.getInstance().getEventMessageTypeDefinitions();
 		List<DeliveryProofAttributes> podAttributes = new List<DeliveryProofAttributes>();
 		// note the order is determined by the selector configuration
 		Set<Object> selectorOptions = new Set<Object>{
@@ -270,8 +268,8 @@ public with sharing class MyCustomerDeliveryProofPdfController {
 				DeliveryProofAttributes attributes = new DeliveryProofAttributes();
 				attributes.isStarTrackProduct = validateIfProductIsStarTrack(eventMessage);
 
-				Boolean isSignature = getSignatureFlagFromEventMessageTypeMapping(eventTypeDefinitions, eventMessage);
-				Boolean isSafeDrop = getSafeDropFlagFromEventMessageTypeMapping(eventTypeDefinitions, eventMessage);
+				Boolean isSignature = getSignatureFlagFromEventMessageTypeMapping(eventMessage);
+				Boolean isSafeDrop = getSafeDropFlagFromEventMessageTypeMapping(eventMessage);
 
 				if (eventMessage.Attachments != null) {
 					for (Attachment att : eventMessage.Attachments) {
@@ -386,12 +384,11 @@ public with sharing class MyCustomerDeliveryProofPdfController {
 	 */
 	public static Map<String, List<DeliveryProofAttributes>> buildDeliveryEventKeyMapFromValidEventMessages(List<EventMessage__c> eventMessages) {
 		Map<String, List<DeliveryProofAttributes>> deliveryEventKeyMap = new Map<String, List<DeliveryProofAttributes>>();
-		eventTypeDefinitions = EventMessageUtil.getInstance().getEventMessageTypeDefinitions();
 		// Make sure we only deal with eventmessages that are designated
 		// this loops from oldest to newest
 		for (EventMessage__c message : eventMessages) {
-			Boolean hasSignature = getSignatureFlagFromEventMessageTypeMapping(eventTypeDefinitions, message);
-			Boolean hasSafeDrop = getSafeDropFlagFromEventMessageTypeMapping(eventTypeDefinitions, message);
+			Boolean hasSignature = getSignatureFlagFromEventMessageTypeMapping(message);
+			Boolean hasSafeDrop = getSafeDropFlagFromEventMessageTypeMapping(message);
 			if (hasSignature || hasSafeDrop) {
 				// build a key to identify a unique delivery event key when a driver made a successful delivery
 				String uniqueDeliveryEventKey = message.Article__r.ConsignmentTrackingNumber__c + ':' + message.ActualDateTime__c.toString();
@@ -419,22 +416,20 @@ public with sharing class MyCustomerDeliveryProofPdfController {
 
 	/**
 	 * @description Validate if the signature flag is true based on the EventType mapping from the custom metadata
-	 * @param eventTypeDefinitions Map<String, EventMessageTypeMapping__mdt>
 	 * @param eventMsg EventMessage__c
 	 * @return Boolean
 	 */
-	public static Boolean getSignatureFlagFromEventMessageTypeMapping(Map<String, EventMessageTypeMapping__mdt> eventTypeDefinitions, EventMessage__c eventMsg) {
-		return (eventTypeDefinitions.get(eventMsg.EventType__c)?.IsSignatureOnDelivery__c == true && !String.isEmpty(eventMsg?.SignatureXString__c));
+	public static Boolean getSignatureFlagFromEventMessageTypeMapping(EventMessage__c eventMsg) {
+		return (EventMessageUtil.getInstance().getEventMessageTypeDefinitions().get(eventMsg.EventType__c)?.IsSignatureOnDelivery__c == true && !String.isEmpty(eventMsg?.SignatureXString__c));
 	}
 
 	/**
 	 * @description Validate if the safe drop flag is true based on the EventType mapping from the custom metadata
-	 * @param eventTypeDefinitions Map<String, EventMessageTypeMapping__mdt>
 	 * @param eventMsg EventMessage__c
 	 * @return Boolean
 	 */
-	public static Boolean getSafeDropFlagFromEventMessageTypeMapping(Map<String, EventMessageTypeMapping__mdt> eventTypeDefinitions, EventMessage__c eventMsg) {
-		return (eventTypeDefinitions.get(eventMsg.EventType__c)?.IsSafeDrop__c == true && !String.isEmpty(eventMsg?.Safe_Drop_GUID__c));
+	public static Boolean getSafeDropFlagFromEventMessageTypeMapping(EventMessage__c eventMsg) {
+		return (EventMessageUtil.getInstance().getEventMessageTypeDefinitions().get(eventMsg.EventType__c)?.IsSafeDrop__c == true && !String.isEmpty(eventMsg?.Safe_Drop_GUID__c));
 	}
 
 	/**
