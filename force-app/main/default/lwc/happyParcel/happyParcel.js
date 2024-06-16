@@ -13,10 +13,10 @@
  * 									Added logic to check if case investigation Id is passed then it's article ID is passed as tracking Id to controller.
  * 2024-05-17 - Seth Heang - Added logic for additional query to remote .NET API for retrieving StarTrack consignment/article details and retry functionality
  * 2024-05-21 - Seth Heang - Added logic to allow force consignment search in existing SAP-EM integration when doing an article level
+ * 2024-06-11 - Raghav Ravipati - Added logic to add critical incidents to articles in the tracking response
  * 2024-06-14 - Seth Heang - Added logic to allow the Proof of delivery PDF download on the Consignment Detail child component
 */
-import { LightningElement, track, api } from "lwc";
-import {getAnalyticsApiResponse, getTrackingApiResponse, getTrackingApiResponseForStarTrack, getConfig, safeTrim, safeToUpper, subscribe, unsubscribe, downloadPODPDF, CONSTANTS} from 'c/happyParcelService'
+import {getAnalyticsApiResponse, getTrackingApiResponse, getTrackingApiResponseForStarTrack, getCriticalIncidentDetails, getConfig, safeTrim, safeToUpper, subscribe, unsubscribe, downloadPODPDF, CONSTANTS} from 'c/happyParcelService'
 import { NavigationMixin } from 'lightning/navigation';
  
 export default class HappyParcelWrapper extends NavigationMixin(LightningElement) {
@@ -48,9 +48,9 @@ export default class HappyParcelWrapper extends NavigationMixin(LightningElement
 	// NOTE: The context of this option now includes Signatures as well. This will also allow a checkbox to be shown int eh delivery proof component to attach a signature to a created case too
 	@api supportsSafeDropAttachment;
 
-    // if this is true then this allows direct to network case creation in happy parcels. 'happyParcelLastMileFacility'
-    // component is rendered only when this is true and the user has required permissions.
-    @api supportsCaseCreation;
+	// if this is true then this allows direct to network case creation in happy parcels. 'happyParcelLastMileFacility'
+	// component is rendered only when this is true and the user has required permissions.
+	@api supportsCaseCreation;
 
 	// if this is true then this allows any search on a single child article ID to also retrieve its parent consignment details and all related child articles (via SAP & StarTrack) if condition is met
 	// and the parent consignment details and all related child article details will be displayed on the UI
@@ -106,7 +106,7 @@ export default class HappyParcelWrapper extends NavigationMixin(LightningElement
 		}
 	}
 
-    //Contextual information passed in by the host component.
+	//Contextual information passed in by the host component.
 	@api hostContext = {};
 	
 	@api hasCaseInvestigations = false;
@@ -297,6 +297,8 @@ export default class HappyParcelWrapper extends NavigationMixin(LightningElement
 		// assign the tracking response for each article into the articles array
 		// we need to loop
 		if(articles) {
+			//Get published critical incident knowledge articles that are available in the system
+			const criticalIncidents = await getCriticalIncidentDetails();
 			articles.forEach((item) => {
 				let articleIndex = this.articles.findIndex(article => article.trackingId === item.trackingId);
 				if (articleIndex > -1) {
@@ -304,9 +306,9 @@ export default class HappyParcelWrapper extends NavigationMixin(LightningElement
 					// 1. the search result returned was the same that was searched for (not a consignment)
 					// 2. another api query was completed (analytics api for example) and populated this structure
 					this.articles[articleIndex].trackingResult = item;
-                    if(item.article.VODV_Redirect__c) {
-                           this.vodvWarning = CONSTANTS.LABEL_HAPPYPARCELVODVWARNINGTEXT;
-                    }
+					if(item.article.VODV_Redirect__c) {
+						   this.vodvWarning = CONSTANTS.LABEL_HAPPYPARCELVODVWARNINGTEXT;
+					}
 					// a consignment is rendered with a list selectable articles. this value stores whether the article checkbox has been clicked or not
 					if (this.isConsignment && !Object.keys(this.articles[articleIndex]).includes('articleSelected')) {
 						this.articles[articleIndex].articleSelected = false;
@@ -318,6 +320,14 @@ export default class HappyParcelWrapper extends NavigationMixin(LightningElement
 					if (!Object.keys(this.articles[articleIndex]).includes('articleDetailsExpanded')) {
 						this.articles[articleIndex].articleDetailsExpanded = !this.isConsignment;
 					}
+					//Add related critical incidents to the article based on network Id
+					let events = item.events;
+					events.forEach((event) => {
+						if(event.event.FacilityOrganisationID__c){
+							event.criticalIncidents = criticalIncidents[event.event.FacilityOrganisationID__c];
+						}
+					});
+					
 				} else {
 					// note because we are adding this article we can set the default value of articleDetailsExpanded
 					// this means if the search result returned a consignment then the article should be collapsed by default
@@ -456,8 +466,8 @@ export default class HappyParcelWrapper extends NavigationMixin(LightningElement
 	}
 
 	handleKnowledgeClick(){
-        this.dispatchEvent(new CustomEvent('idclick', { detail: { id: this.vodvKnowledgeId }, bubbles: true, composed: true} ));
-    }
+		this.dispatchEvent(new CustomEvent('idclick', { detail: { id: this.vodvKnowledgeId }, bubbles: true, composed: true} ));
+	}
 
 	triggerSearch() {
 		this.resetSearch();
@@ -471,8 +481,8 @@ export default class HappyParcelWrapper extends NavigationMixin(LightningElement
 		];
 
 		// NOTE: We pass the current trackingId into the search functions to make sure after the callout is finished, that it is still the current trackingId
-		//          There is a scenario where a new tracking id may be passed into the component while a search is already in progress
-		//          If this happens, passing the tracking id in allows to ignore the search results if they are out of sync with the current component state
+		//There is a scenario where a new tracking id may be passed into the component while a search is already in progress
+		//If this happens, passing the tracking id in allows to ignore the search results if they are out of sync with the current component state
 		this.doAnalyticsQuery(this._trackingId);
 		this.doTrackingQuery(this._trackingId);
 	}

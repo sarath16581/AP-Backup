@@ -1,0 +1,21 @@
+<!--
+	Displays the critical incidents in Happy parcels page.
+	2024-06-03 Raghav Ravipati - Created
+-->
+<template>
+	<template if:true={criticalIncidents}>
+		<div class="width-card">
+			<c-happy-parcel-card title="Critical Incidents" icon-name="utility:incident" button-icon="utility:close"
+				button-variant="bare" oncardbuttonclick={closePopup}>
+				<div class="slds-col slds-size_1-of-1 slds-border_top">
+					<template for:each={criticalIncidents} for:item="wrapper">
+						<div class="slds-truncate slds-var-p-around_x-small" key={wrapper.Id}>
+							<a data-id={wrapper.Id} class="slds-text-link"
+								onclick={handleKnowledgeClick}>{wrapper.Title}</a>
+						</div>
+					</template>
+				</div>
+			</c-happy-parcel-card>
+		</div>
+	</template>
+</template>
