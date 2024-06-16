@@ -16,6 +16,7 @@
  * 2022-07-05 - Snigdha Sahu - REQ2851358 - Added MLID for SenderDetails
  * 2024-05-21 - Seth Heang - Updated getTrackingApiResponse with forceConsignmentSearch parameter
  * 2024-06-13 - Seth Heang - Added getCurrentStateOfSafeDropImageRequiredForDownload and getSafeDropImageForPOD
+ * 2024-06-14 - Seth Heang - Moved in download Proof of delivery method from HappyParcelDeliveryProof
  */
 
 //continuations
@@ -518,4 +519,76 @@ export const getSafeDropImageStateForDownload = async (trackingId) => {
 		trackingId: trackingId
 	});
 	return result;
+}
+
+/**
+ * @description Refresh the Consignment/Article data in Salesforce from SAP/StarTrack by searching up the tracking number and upsert the responses in Salesforce
+ */
+export const refreshSFConsignmentArticleDataFromSAPAndStarTrack = async (trackingIds) =>{
+	const consignmentId = trackingIds.consignmentId;
+	const articleId = trackingIds.articleId;
+	const sapResult = consignmentId ? await getTrackingApiResponse(consignmentId, false) : await getTrackingApiResponse(articleId, true);
+	// execute a consignment search for StarTrack if required
+	const requireAdditionalQueryForStarTrack = sapResult.requireAdditionalQueryForStarTrack;
+	const consignment = { trackingId: sapResult.consignment.trackingId, trackingResult: sapResult.consignment };
+	if (requireAdditionalQueryForStarTrack) {
+		// if this api timeout, then the download button needed to be clicked again to retry
+		await getTrackingApiResponseForStarTrack(sapResult.consignment.trackingId, consignment);
+	}
+}
+
+/**
+ * @description Download Proof of Delivery PDF by first refreshing the Salesforce data related to consignment/articles by perform SAP/StarTrack search
+ * 				Then, download required safe drop image if applicable and thereafter generate PDF pages and download them
+ * @param {Object} trackingIds - Contains article tracking Id or consignment tracking Id
+ * @returns {Promise<void>}
+ */
+export const downloadPODPDF = async (trackingIds) => {
+	await refreshSFConsignmentArticleDataFromSAPAndStarTrack(trackingIds);
+	const finalId = trackingIds.consignmentId || trackingIds.articleId;
+
+	// retrieve the current state of safe drop images caches in Salesforce
+	const safeDropImageState = await getSafeDropImageStateForDownload(finalId);
+	// download safe drop images as required if they do not exist in Salesforce
+	await processSafeDropImagesDownloading(safeDropImageState);
+
+	// execute the VF pdf page generator logic in controller
+	const pdfBase64 = await downloadDeliveryProofPdf(finalId);
+
+	const fileName = "DeliveryProof-" + encodeURIComponent(finalId) + ".pdf";
+
+	// deal with IE
+	if (navigator && navigator.msSaveBlob) {
+		// IE10+
+		return navigator.msSaveBlob(new Blob([pdfBase64], { type: ".pdf" }), fileName);
+	}
+
+	// now download the generated content
+	const downloadElement = document.createElement("a");
+	downloadElement.href = "data:application/octet-stream;base64," + encodeURIComponent(pdfBase64);
+	downloadElement.target = "_self";
+	downloadElement.download = fileName;
+	document.body.appendChild(downloadElement);
+	downloadElement.click();
+	document.body.removeChild(downloadElement);
+}
+
+/**
+ * @description Download SafeDropImage in bulk by looping through the SafeDropState array object and split callout in multiple transactions
+ * @param {Array} safeDropImageState - The array of objects containing guidId and requireDownload
+ * @returns {Promise<void>}
+ */
+export const processSafeDropImagesDownloading = async (safeDropImageState) => {
+	for (let i = 0; i < safeDropImageState.length; i++) {
+		if (safeDropImageState[i].requireDownload) {
+			try {
+				const result = await getSafeDropImageAndSaveForPOD(safeDropImageState[i].guidID, safeDropImageState[i].eventMessageId);
+				if (!result.isError) {
+					safeDropImageState[i].requireDownload = false;
+				}
+			} catch (error) {
+				console.error("Failed to download image for guidId:", safeDropImageState[i].guidID, error);
+			}
+		}
+	}
 }

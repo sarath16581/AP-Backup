@@ -5,6 +5,7 @@
  * @group Tracking
  * @changelog
  * 2024-05-17 - Seth Heang - added a new loading attribute to pass on to happyParcelCard child component and add additional attributes to be displayed
+ * 2024-06-14 - Seth Heang - add displayPodDownloadButton flag and pass on to child HappyParcelCard
  */
 import { LightningElement, api, track } from "lwc";
 import { getConfig, CONSTANTS, get } from 'c/happyParcelService'
@@ -15,6 +16,8 @@ export default class HappyParcelArticleDetails extends HappyParcelBase {
 	@api loading = false;
 
 	@api titleLoading = false;
+
+	@api displayPodDownloadButton = false;
 
 	@api trackingApiResult;
 
@@ -86,6 +89,10 @@ export default class HappyParcelArticleDetails extends HappyParcelBase {
 
 	get moreWaiting() {
 		return this.titleLoading;
+	}
+
+	get showPodDownloadButton() {
+		return this.displayPodDownloadButton;
 	}
 
 	get heading() {

@@ -111,12 +111,13 @@
 
 				<!-- Consignment Details -->
 				<div class="slds-col slds-size_1-of-1 slds-m-bottom_medium">
-					<c-happy-parcel-article-details loading={loadingTrackingApi}
+					<c-happy-parcel-article-details loading={loadingConsignmentDetailsCard}
 					                                title-loading= {loadingStarTrackApi}
 					                                tracking-api-result={consignment.trackingResult}
 					                                animation-delay="150"
 					                                animation-speed="500"
 					                                use-consignment-field-set
+					                                display-pod-download-button={displayPodDownloadButton}
 					                                display-additional-attributes={consignment.trackingResult.additionalAttributes}>
 					</c-happy-parcel-article-details>
 				</div>

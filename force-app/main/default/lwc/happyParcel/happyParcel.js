@@ -13,9 +13,10 @@
  * 									Added logic to check if case investigation Id is passed then it's article ID is passed as tracking Id to controller.
  * 2024-05-17 - Seth Heang - Added logic for additional query to remote .NET API for retrieving StarTrack consignment/article details and retry functionality
  * 2024-05-21 - Seth Heang - Added logic to allow force consignment search in existing SAP-EM integration when doing an article level
+ * 2024-06-14 - Seth Heang - Added logic to allow the Proof of delivery PDF download on the Consignment Detail child component
 */
 import { LightningElement, track, api } from "lwc";
-import {getAnalyticsApiResponse, getTrackingApiResponse, getTrackingApiResponseForStarTrack, getConfig, safeTrim, safeToUpper, CONSTANTS} from 'c/happyParcelService'
+import {getAnalyticsApiResponse, getTrackingApiResponse, getTrackingApiResponseForStarTrack, getConfig, safeTrim, safeToUpper, subscribe, unsubscribe, downloadPODPDF, CONSTANTS} from 'c/happyParcelService'
 import { NavigationMixin } from 'lightning/navigation';
  
 export default class HappyParcelWrapper extends NavigationMixin(LightningElement) {
@@ -65,6 +66,7 @@ export default class HappyParcelWrapper extends NavigationMixin(LightningElement
 	@track loadingTrackingApi = false;
 	@track loadingAnalyticsApi = false;
 	@track loadingStarTrackApi = false;
+	@track loadingPODPDFDownload = false;
 
 	// Stores information about the articles that were returned in the search results
 	@track articles = [];
@@ -87,6 +89,9 @@ export default class HappyParcelWrapper extends NavigationMixin(LightningElement
 	// this allows us to control which panels are open on the accordion that is rendered when we are viewing search results for a consignment
 	// this is a workaround due to the base accordion component forcing a single panel to *always* be open
 	@track activeSections = [];
+
+	_displayPodDownloadButton = false; // flag to show proof of delivery download button in Consignment Detail section
+	_signatureEventTypes; // store event type to validate signature event
 
 	/**
 	 * Using getter/setter to enable us to trigger a search from either above (receiving tracking id from external source), or below (receiving tracking id from article selector component)
@@ -117,14 +122,17 @@ export default class HappyParcelWrapper extends NavigationMixin(LightningElement
 	connectedCallback() {
 		// preload the config so all the components do not have to make individual apex calls because the config hasn't loaded
 		getConfig().then(result => {
-            this.vodvKnowledgeId = result.VODVKnowledgeId;
-        });
+			this.vodvKnowledgeId = result.VODVKnowledgeId;
+			this._signatureEventTypes = result.signatureEventTypes;
+		});
 
 		this.template.addEventListener('idclick', this.handleIdLinkClick);
+		subscribe('generatePodPDF', this.handlePODPDFDownload);
 	}
 
 	disconnectedCallback() {
 		this.template.removeEventListener('idclick', this.handleIdLinkClick);
+		unsubscribe('generatePodPDF', this.handlePODPDFDownload);
 	}
 
 	/**
@@ -348,6 +356,8 @@ export default class HappyParcelWrapper extends NavigationMixin(LightningElement
 
 		// trigger an async callout for StarTrack consignemnt
 		this.requireAdditionalQueryForStarTrack = requireAdditionalQueryForStarTrack;
+
+		this._displayPodDownloadButton = this.handlePODDownloadButtonDisplay();
 	}
 
 	/**
@@ -389,6 +399,7 @@ export default class HappyParcelWrapper extends NavigationMixin(LightningElement
 		this.consignment.trackingResult = result;
 		this.retryStarTrackCallout = false;
 		this.loadingStarTrackApi = false;
+		this.handlePODDownloadButtonDisplay();
 	}
 
 	/**
@@ -608,6 +619,55 @@ export default class HappyParcelWrapper extends NavigationMixin(LightningElement
 		this.errors = this.errors.filter(error => error.source !== CONSTANTS.STARTRACK_API);
 		this.retryStarTrackCallout = false;
 		this.requireAdditionalQueryForStarTrack = true;
+	}
+
+	/**
+	 * @description    Display a download button for Proof of delivery PDF in the consignment detail of happyParcelCard component
+	 *                Validate that the article has been delivered by checking the eventMessage for existing safe drop GUID(Safe_Drop_GUID__c) or signature(SignatureXString__c)
+	 */
+	handlePODDownloadButtonDisplay(){
+		let signatureExists = false;
+		let safeDropExists = false;
+		// check if signature or safe drop exists on this article, which means that the article has been delivered
+		this.articles?.some(article =>
+			article.trackingResult?.events?.some(item => {
+				if (this._signatureEventTypes.includes(item.event.EventType__c) && item.event.SignatureXString__c) {
+					signatureExists = true;
+				}
+				// check for SafeDropGUID (we don't check for specific event types since an 'attachment type' check is done when the article is queried from the tracking API
+				if (item.event.Safe_Drop_GUID__c) {
+					safeDropExists = true;
+				}
+				return signatureExists || safeDropExists; // Exit early if either condition is met
+			})
+		);
+		const finishLoading= !this.loadingStarTrackApi && !this.loadingTrackingApi;
+		return this.consignment && finishLoading && (safeDropExists || signatureExists);
+	}
+
+	/**
+	 * @description	Execute action to generate and download the proof of delivery PDF
+	 */
+	handlePODPDFDownload = async () => {
+		this.loadingPODPDFDownload = true;
+		try{
+			const trackingIds = {
+				consignmentId: this.consignment.trackingId,
+				articleId: null
+			};
+			await downloadPODPDF(trackingIds);
+		} catch (exception) {
+			console.error(exception);
+		}
+		this.loadingPODPDFDownload = false;
+	}
+	
+	get displayPodDownloadButton(){
+		return this._displayPodDownloadButton;
+	}
+
+	get loadingConsignmentDetailsCard(){
+		return this.loadingPODPDFDownload || this.loadingTrackingApi;
 	}
 
 	get loading() {

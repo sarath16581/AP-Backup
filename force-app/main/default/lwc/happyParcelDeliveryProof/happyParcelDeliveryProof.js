@@ -9,6 +9,7 @@
  * 2020-10-05 - Disha Kariya - Allow safe drop attachment for case creation
  * 2021-10-06 - Nathan Franklin - Changed the logic behind attaching delivery proof to case + uplift to v52
  * 2024-06-13 - Seth Heang - Update the Proof Of Delivery PDF Download logic to perform consignment search and bulk retrieve safe drop images if applicable prior to downloading the PDF
+ * 2024-06-14 - Seth Heang - Refactor and move out method to download Proof of delivery PDF into HappyParcelService.js
  */
 import { api, track, LightningElement } from "lwc";
 import {
@@ -285,62 +286,15 @@ export default class HappyParcelDeliveryProof extends HappyParcelBase {
 
 		// wrap in try/catch to ensure waiting attribute is removed
 		try {
-			const sapResult = this.consignmentId  ? await getTrackingApiResponse(this.consignmentId, false)
-				: await getTrackingApiResponse(this.trackingId, true)
-			// execute a consignment search for StarTrack if required
-			const requireAdditionalQueryForStarTrack = sapResult.requireAdditionalQueryForStarTrack;
-			const consignment = { trackingId: sapResult.consignment.trackingId, trackingResult: sapResult.consignment};
-			if(requireAdditionalQueryForStarTrack){
-				// if this api timeout, then the download button needed to be clicked again to retry
-				await getTrackingApiResponseForStarTrack(sapResult.consignment.trackingId, consignment);
-			}
-
-			// retrieve the current state of safe drop images caches in Salesforce
-			const safeDropImageState = await getSafeDropImageStateForDownload(this.trackingId);
-			// download safe drop images as required if they do not exist in Salesforce
-			await this.processSafeDropImagesDownloading(safeDropImageState);
-
-			// execute the VF pdf page generator logic in controller
-			const pdfBase64 = await downloadDeliveryProofPdf(this.trackingId);
-
-			const fileName = 'DeliveryProof-' + encodeURIComponent(this.trackingId) + '.pdf';
-
-			// deal with IE
-			if (navigator && navigator.msSaveBlob) { // IE10+
-				return navigator.msSaveBlob(new Blob([pdfBase64], { type: '.pdf' }), fileName);
-			}
-
-			// now download the generated content
-			const downloadElement = document.createElement('a');
-			downloadElement.href = 'data:application/octet-stream;base64,' + encodeURIComponent(pdfBase64);
-			downloadElement.target = '_self';
-			downloadElement.download = fileName;
-			document.body.appendChild(downloadElement);
-			downloadElement.click();
-		} catch(exception) {
+			const trackingIds = {
+				consignmentId: null,
+				articleId: this.trackingId
+			};
+			await downloadPODPDF(trackingIds);
+		} catch (exception) {
 			console.error(exception);
 		}
 		this.waitingDownload = false;
-	}
-
-	/**
-	 * @description Download SafeDropImage in bulk by looping through the SafeDropState array object and split callout in multiple transactions
-	 * @param {Array} safeDropImageState - The array of objects containing guidID and requireDownload
-	 * @returns {Promise<void>}
-	 */
-	async processSafeDropImagesDownloading(safeDropImageState) {
-		for (let i = 0; i < safeDropImageState.length; i++) {
-			if (safeDropImageState[i].requireDownload) {
-				try {
-					const result = await getSafeDropImageAndSaveForPOD(safeDropImageState[i].guidID, safeDropImageState[i].eventMessageId);
-					if (!result.isError) {
-						safeDropImageState[i].requireDownload = false;
-					}
-				} catch (error) {
-					console.error('Failed to download image for guidID:', safeDropImageState[i].guidID, error);
-				}
-			}
-		}
 	}
 
 	get safeDropLoading() {
