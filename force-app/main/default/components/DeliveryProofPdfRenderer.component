@@ -87,15 +87,14 @@
 					<apex:pageBlockSection columns="2">
 						<!-- Blank first column -->
 						<apex:pageBlockSectionItem>
-							<div style="display:inline-block;padding-right:10px;font-weight: bold;">
-								<p style="font-weight: bold;align-content: center;"><b>Consigned</b></p>
+							<div style="display:inline-block;padding-right:10px;">
+								<p style="font-weight: bold;text-align: center;">Consigned</p>
 								<div style="display:inline-block;padding:25px 30px;border:2px solid #000;">
 									{!consignedCount}
 								</div>
 							</div>
-
 							<div style="display:inline-block;padding-right:170px;">
-								<p style="font-weight: bold;align-content: center;">Delivered</p>
+								<p style="font-weight: bold;text-align: center;">Delivered</p>
 								<div style="display:inline-block;padding:25px 30px;border:2px solid #000;">
 									{!deliveredCount}
 								</div>
