@@ -15,6 +15,7 @@
  * 2022-04-12 - Mahesh Parvathaneni - Added custom lables and location icon SVG path to use in the lightning map marker
  * 2022-07-05 - Snigdha Sahu - REQ2851358 - Added MLID for SenderDetails
  * 2024-05-21 - Seth Heang - Updated getTrackingApiResponse with forceConsignmentSearch parameter
+ * 2024-06-03 - Raghav Ravipati - Added method to get critical incident knowledge articles
  */
 
 //continuations
@@ -33,6 +34,7 @@ import unsetSafeDropEligibility from '@salesforce/apex/HappyParcelController.uns
 import getNotificationPreferences from '@salesforce/apex/HappyParcelController.getNotificationPreferences';
 import setNotificationPreferences from '@salesforce/apex/HappyParcelController.setNotificationPreferences';
 import getDistanceBetweenLocations from '@salesforce/apex/HappyParcelController.getDistanceBetweenLocations';
+import getCriticalIncidents from '@salesforce/apex/HappyParcelController.getCriticalIncidents';
 
 
 // field mappings
@@ -141,16 +143,16 @@ export const CONSTANTS = {
 	FIELD_SENDER_MLID: SENDER_MLID.fieldApiName, //Snigdha
 	FIELD_EXTERNAL_TRACKING_ID: EXTERNAL_TRACKING_ID.fieldApiName,
 	FIELD_EXTERNAL_TRACKING_URL: EXTERNAL_TRACKING_URL.fieldApiName,
-    //Case Fields
-    FIELD_CASE_ORIGINATOR: FIELD_CASE_ORIGINATOR.fieldApiName,
-    FIELD_CONTACT_ID: FIELD_CONTACT_ID.fieldApiName,
-    FIELD_COMPLAINT: FIELD_COMPLAINT.fieldApiName,
-    FIELD_ENQUIRY_SUB_TYPE: FIELD_ENQUIRY_SUB_TYPE.fieldApiName,
-    FIELD_ORIGIN: FIELD_ORIGIN.fieldApiName,
-    FIELD_PRIORITY: FIELD_PRIORITY.fieldApiName,
-    FIELD_PRODUCT_CATEGORY: FIELD_PRODUCT_CATEGORY.fieldApiName,
-    FIELD_PRODUCT_SUB_CATEGORY: FIELD_PRODUCT_SUB_CATEGORY.fieldApiName,
-    FIELD_TYPE: FIELD_TYPE.fieldApiName,
+	//Case Fields
+	FIELD_CASE_ORIGINATOR: FIELD_CASE_ORIGINATOR.fieldApiName,
+	FIELD_CONTACT_ID: FIELD_CONTACT_ID.fieldApiName,
+	FIELD_COMPLAINT: FIELD_COMPLAINT.fieldApiName,
+	FIELD_ENQUIRY_SUB_TYPE: FIELD_ENQUIRY_SUB_TYPE.fieldApiName,
+	FIELD_ORIGIN: FIELD_ORIGIN.fieldApiName,
+	FIELD_PRIORITY: FIELD_PRIORITY.fieldApiName,
+	FIELD_PRODUCT_CATEGORY: FIELD_PRODUCT_CATEGORY.fieldApiName,
+	FIELD_PRODUCT_SUB_CATEGORY: FIELD_PRODUCT_SUB_CATEGORY.fieldApiName,
+	FIELD_TYPE: FIELD_TYPE.fieldApiName,
 
 	LABEL_HAPPYPARCELEDDHELPTEXT: LABEL_HAPPYPARCELEDDHELPTEXT,
 	LABEL_HAPPYPARCELLATESTSCANSHELPTEXT: LABEL_HAPPYPARCELLATESTSCANSHELPTEXT,
@@ -349,7 +351,7 @@ export const downloadDeliveryProofPdf = async (trackingId) => {
  * Allows the user to get Network details
  */
 export const getNetworkDetails = async (wcc) => {
-    try{
+	try{
 		let result = await getNetwork({
 			wccString: wcc
 		});
@@ -357,8 +359,17 @@ export const getNetworkDetails = async (wcc) => {
 		console.log('getNetworkDetails');
 		return result;
 	} catch (error) {
-	    return {network: [], error: [error.body.message]};
+		return {network: [], error: [error.body.message]};
 	}
+}
+
+/**
+ * Allows the user to get critical incidents based on the network org Id
+ */
+export const getCriticalIncidentDetails = async () => {
+	let result = await getCriticalIncidents();
+
+	return result;
 }
 
 /**
@@ -404,22 +415,22 @@ export const deleteSafeDrop = async (trackingId) => {
  * This gets notification preference for search string
  */
 export const getPreferences = async (searchString) => {
-    try{
+	try{
 		const result = await getNotificationPreferences({
 			searchStrings: searchString
 		});
 		console.log('getPreferences', result);
 		return result;
 	} catch (error) {
-        return {preferences: [], error: [error.body.message]};
-    }
+		return {preferences: [], error: [error.body.message]};
+	}
 }
 
 /**
  * This sets/unsets notification preferences. Only one value can be set at a time.
  */
 export const setPreferences = async (searchString, setValue) => {
-    try{
+	try{
 		const result = await setNotificationPreferences({
 			searchStrings: searchString,
 			setValue: setValue
@@ -428,8 +439,8 @@ export const setPreferences = async (searchString, setValue) => {
 		return result;
 	}
 	catch (error) {
-        return 'Error: Something went wrong.';
-    }
+		return 'Error: Something went wrong.';
+	}
 }
 
 
@@ -444,7 +455,7 @@ export const getSafeDropImage = async (safeDropGuid) => {
 }
 
 export const hasPermissionToCreateCaseDirectToNetwork = () => {
-    return PERMISSION_CREATECASEDIRECTTONETWORK;
+	return PERMISSION_CREATECASEDIRECTTONETWORK;
 }
 
 // get safeDropImageResult() {
@@ -452,8 +463,8 @@ export const hasPermissionToCreateCaseDirectToNetwork = () => {
 // }
 
 /*  implementation of lodash get
-    Gets the value at path of object. If the resolved value is undefined,
-    the defaultValue is returned in its place.
+	Gets the value at path of object. If the resolved value is undefined,
+	the defaultValue is returned in its place.
 */
 export const get = (object, path, defaultVal) => {
 	path = Array.isArray(path) ? path : path.split('.');
@@ -483,6 +494,6 @@ export const getDistanceBetweenGeoCoordinates = async (lat1, lon1, lat2, lon2) =
 		return result;
 	}
 	catch (error) {
-        return null;
-    }
+		return null;
+	}
 }
