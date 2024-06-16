@@ -179,6 +179,54 @@ private with sharing class AddressLookupWrapperTest {
 	 * configuration in org.
 	 */
 	private static void injectMockAddressMetadataConfiguration() {
+
+		// construct JSON interpretation of an Address_Fields_Mapping__mdt record for address custom fields
+		// this approach is used so we can instantiate FieldDefinition instances.
+		Map<String, Object> caseSenderAddressFieldMapping = new Map<String, Object>{
+				'attributes' => new Map<String, Object>{'type' => 'Address_Fields_Mapping__mdt'},
+				'Postcode_Field__r' => new Map<String, Object>{
+						'attributes' => new Map<String, Object>{'type' => 'FieldDefinition'},
+						'QualifiedApiName' => 'Address1Postcode__c'
+				},
+				'Street_Field__r' => new Map<String, Object>{
+						'attributes' => new Map<String, Object>{'type' => 'FieldDefinition'},
+						'QualifiedApiName' => 'Address1Line1__c'
+				},
+				'City_Field__r' => new Map<String, Object>{
+						'attributes' => new Map<String, Object>{'type' => 'FieldDefinition'},
+						'QualifiedApiName' => 'Address1Suburb__c'
+				},
+				'State_Field__r' => new Map<String, Object>{
+						'attributes' => new Map<String, Object>{'type' => 'FieldDefinition'},
+						'QualifiedApiName' => 'Address1State__c'
+				},
+				'DPID_Field__r' => new Map<String, Object>{
+						'attributes' => new Map<String, Object>{'type' => 'FieldDefinition'},
+						'QualifiedApiName' => 'Address1DPID__c'
+				},
+				'DPID_Field__c' => 'Address1DPID__c',
+				'DeveloperName' => 'CaseSenderAddress'
+		};
+
+		// construct JSON interpretation of an Address_Fields_Mapping__mdt record for standard address fields on Account.
+		// this approach is used so we can instantiate FieldDefinition instances.
+		Map<String, Object> accountBillingAddressFieldMapping = new Map<String, Object>{
+				'attributes' => new Map<String, Object>{'type' => 'Address_Fields_Mapping__mdt'},
+				'Standard_Address_Field__r' => new Map<String, Object>{
+						'attributes' => new Map<String, Object>{'type' => 'FieldDefinition'},
+						'QualifiedApiName' => 'BillingAddress'
+				},
+				'Standard_Address_Field__c' => 'BillingAddress',
+				'DeveloperName' => 'AccountBillingAddress'
+		};
+
+		// construct JSON interpretation of an Address_Fields_Mapping__mdt record for standard address fields on Account.
+		Map<String, Object> accountPersonMailingAddressFieldMapping = new Map<String, Object>{
+				'attributes' => new Map<String, Object>{'type' => 'Address_Fields_Mapping__mdt'},
+				'PersonAccountStandardAddressField__c' => 'PersonMailingAddress',
+				'DeveloperName' => 'AccountPersonMailingAddress'
+		};
+
 		AddressLookupWrapperController.addressFieldMappingsMetadata = new Map<String, List<Address_Fields_Mapping__mdt>>{
 				'Account' => new List<Address_Fields_Mapping__mdt>{
 						(Address_Fields_Mapping__mdt) JSON.deserialize(JSON.serialize(accountBillingAddressFieldMapping), Address_Fields_Mapping__mdt.class),
@@ -189,51 +237,4 @@ private with sharing class AddressLookupWrapperTest {
 				}
 		};
 	}
-
-	// construct JSON interpretation of an Address_Fields_Mapping__mdt record for address custom fields
-	// this approach is used so we can instantiate FieldDefinition instances.
-	private static Map<String, Object> caseSenderAddressFieldMapping = new Map<String, Object>{
-			'attributes' => new Map<String, Object>{'type' => 'Address_Fields_Mapping__mdt'},
-			'Postcode_Field__r' => new Map<String, Object>{
-					'attributes' => new Map<String, Object>{'type' => 'FieldDefinition'},
-					'QualifiedApiName' => 'Address1Postcode__c'
-			},
-			'Street_Field__r' => new Map<String, Object>{
-					'attributes' => new Map<String, Object>{'type' => 'FieldDefinition'},
-					'QualifiedApiName' => 'Address1Line1__c'
-			},
-			'City_Field__r' => new Map<String, Object>{
-					'attributes' => new Map<String, Object>{'type' => 'FieldDefinition'},
-					'QualifiedApiName' => 'Address1Suburb__c'
-			},
-			'State_Field__r' => new Map<String, Object>{
-					'attributes' => new Map<String, Object>{'type' => 'FieldDefinition'},
-					'QualifiedApiName' => 'Address1State__c'
-			},
-			'DPID_Field__r' => new Map<String, Object>{
-					'attributes' => new Map<String, Object>{'type' => 'FieldDefinition'},
-					'QualifiedApiName' => 'Address1DPID__c'
-			},
-			'DPID_Field__c' => 'Address1DPID__c',
-			'DeveloperName' => 'CaseSenderAddress'
-	};
-
-	// construct JSON interpretation of an Address_Fields_Mapping__mdt record for standard address fields on Account.
-	// this approach is used so we can instantiate FieldDefinition instances.
-	private static Map<String, Object> accountBillingAddressFieldMapping = new Map<String, Object>{
-			'attributes' => new Map<String, Object>{'type' => 'Address_Fields_Mapping__mdt'},
-			'Standard_Address_Field__r' => new Map<String, Object>{
-					'attributes' => new Map<String, Object>{'type' => 'FieldDefinition'},
-					'QualifiedApiName' => 'BillingAddress'
-			},
-			'Standard_Address_Field__c' => 'BillingAddress',
-			'DeveloperName' => 'AccountBillingAddress'
-	};
-
-	// construct JSON interpretation of an Address_Fields_Mapping__mdt record for standard address fields on Account.
-	private static Map<String, Object> accountPersonMailingAddressFieldMapping = new Map<String, Object>{
-			'attributes' => new Map<String, Object>{'type' => 'Address_Fields_Mapping__mdt'},
-			'PersonAccountStandardAddressField__c' => 'PersonMailingAddress',
-			'DeveloperName' => 'AccountPersonMailingAddress'
-	};
 }
