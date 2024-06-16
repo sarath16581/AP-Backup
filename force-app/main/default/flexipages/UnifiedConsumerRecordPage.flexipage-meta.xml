@@ -386,22 +386,18 @@
             <componentInstance>
                 <componentInstanceProperties>
                     <name>addressType</name>
-                    <value>Lead_Physical</value>
+                    <value>PersonAccountMailingAddress</value>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>addressType2</name>
-                    <value>Account_Billing</value>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>addressType3</name>
-                    <value>Account_Physical</value>
+                    <value>PersonAccountPhysicalAddress</value>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>altRecordId</name>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>cardTitle</name>
-                    <value>Billing Address</value>
+                    <value>Mailing Address</value>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>cardTitle2</name>
