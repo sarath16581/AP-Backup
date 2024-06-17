@@ -23,10 +23,7 @@ import {
 	subscribe,
 	unsubscribe,
 	publish,
-	downloadDeliveryProofPdf,
-	getSafeDropImageStateForDownload,
-	getSafeDropImageAndSaveForPOD,
-	getTrackingApiResponse, getTrackingApiResponseForStarTrack
+	downloadPODPDF
 } from 'c/happyParcelService';
 import HappyParcelBase from "c/happyParcelBase";
 
