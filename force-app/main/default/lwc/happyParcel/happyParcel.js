@@ -633,8 +633,8 @@ export default class HappyParcelWrapper extends NavigationMixin(LightningElement
 	}
 
 	/**
-	 * @description    Display a download button for Proof of delivery PDF in the consignment detail of happyParcelCard component
-	 *                Validate that the article has been delivered by checking the eventMessage for existing safe drop GUID(Safe_Drop_GUID__c) or signature(SignatureXString__c)
+	 * @description	Display a download button for Proof of delivery PDF in the consignment detail of happyParcelCard component
+	 *				Validate that the article has been delivered by checking the eventMessage for existing safe drop GUID(Safe_Drop_GUID__c) or signature(SignatureXString__c)
 	 */
 	handlePODDownloadButtonDisplay() {
 		let signatureExists = false;
