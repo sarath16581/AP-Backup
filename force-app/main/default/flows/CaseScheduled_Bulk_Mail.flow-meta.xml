@@ -94,7 +94,7 @@
             </connector>
             <label>15 Days after case closed</label>
             <offsetNumber>15</offsetNumber>
-            <offsetUnit>Minutes</offsetUnit>
+            <offsetUnit>Days</offsetUnit>
             <recordField>ClosedDate</recordField>
             <timeSource>RecordField</timeSource>
         </scheduledPaths>
