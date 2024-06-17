@@ -1,15 +1,18 @@
 <!--
-    2020-04-01 nathan.franklin@auspost.com.au Created
-    2020-09-18 - Ranjeewa Silva - Improved responsiveness on smaller screen sizes.
+	2020-04-01 nathan.franklin@auspost.com.au Created
+	2020-09-18 - Ranjeewa Silva - Improved responsiveness on smaller screen sizes.
 -->
 <template>
+
 	<c-happy-parcel-card title={heading} icon-name="utility:layers" loading={waiting} title-loading={moreWaiting} display-pod-download-button={showPodDownloadButton}>
 		<div class="slds-grid slds-wrap">
 			<template for:each={fieldsIterator} for:item="field">
 				<div class="slds-col slds-m-bottom_xx-small slds-size_1-of-1 slds-small-size_1-of-2 slds-large-size_4-of-12 animated fadeIn" key={field.fieldName} style={field.animationCss}>
-					<c-formatted-text-label label={field.fieldLabel} type={field.fieldType} value={field.fieldValue} url={field.url} url-target={field.urlTarget}> </c-formatted-text-label>
+					<c-formatted-text-label label={field.fieldLabel} type={field.fieldType} value={field.fieldValue} url={field.url} url-target={field.urlTarget}>
+					</c-formatted-text-label>
 				</div>
 			</template>
 		</div>
 	</c-happy-parcel-card>
+
 </template>
