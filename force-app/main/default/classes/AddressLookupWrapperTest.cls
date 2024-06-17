@@ -43,16 +43,16 @@ private with sharing class AddressLookupWrapperTest {
 		// Testing
 		// =====================================
 		Test.startTest();
-		AddressLookupWrapperController.FieldMapping result = AddressLookupWrapperController.getSettings(organisation.Id);
-		Assert.isNotNull(result, 'Expected a valid field mapping but got null.');
-		Assert.areEqual('Account', result.objectApiName, 'Expected the object API name of the supplied record id (Account) to be returned, bur received ' + result.objectApiName);
-		Assert.areEqual(organisation.Id, result.currentRecord.Id, 'Record with the specified id must be returned in the result.');
-		Assert.areEqual(organisation.BillingStreet, ((Account)result.currentRecord).BillingStreet, 'Address field not populated on the returned record.');
-		Assert.areEqual(organisation.BillingCity, ((Account)result.currentRecord).BillingCity, 'Record with the specified id must be returned in the result.');
-		Assert.areEqual(organisation.BillingState, ((Account)result.currentRecord).BillingState, 'Record with the specified id must be returned in the result.');
-		Assert.areEqual(organisation.BillingPostalCode, ((Account)result.currentRecord).BillingPostalCode, 'Record with the specified id must be returned in the result.');
-		Assert.areEqual(organisation.BillingCountry, ((Account)result.currentRecord).BillingCountry, 'Record with the specified id must be returned in the result.');
-		Assert.isFalse(result.settings.isEmpty(), 'Address field mapping is not returned in the result.');
+			AddressLookupWrapperController.FieldMapping result = AddressLookupWrapperController.getSettings(organisation.Id);
+			Assert.isNotNull(result, 'Expected a valid field mapping but got null.');
+			Assert.areEqual('Account', result.objectApiName, 'Expected the object API name of the supplied record id (Account) to be returned, bur received ' + result.objectApiName);
+			Assert.areEqual(organisation.Id, result.currentRecord.Id, 'Record with the specified id must be returned in the result.');
+			Assert.areEqual(organisation.BillingStreet, ((Account)result.currentRecord).BillingStreet, 'Address field not populated on the returned record.');
+			Assert.areEqual(organisation.BillingCity, ((Account)result.currentRecord).BillingCity, 'Record with the specified id must be returned in the result.');
+			Assert.areEqual(organisation.BillingState, ((Account)result.currentRecord).BillingState, 'Record with the specified id must be returned in the result.');
+			Assert.areEqual(organisation.BillingPostalCode, ((Account)result.currentRecord).BillingPostalCode, 'Record with the specified id must be returned in the result.');
+			Assert.areEqual(organisation.BillingCountry, ((Account)result.currentRecord).BillingCountry, 'Record with the specified id must be returned in the result.');
+			Assert.isFalse(result.settings.isEmpty(), 'Address field mapping is not returned in the result.');
 		Test.stopTest();
 	}
 
@@ -93,15 +93,15 @@ private with sharing class AddressLookupWrapperTest {
 		// Testing
 		// =====================================
 		Test.startTest();
-		AddressLookupWrapperController.FieldMapping result = AddressLookupWrapperController.getSettings(caseRecord.Id);
-		Assert.isNotNull(result, 'Expected a valid field mapping but got null.');
-		Assert.areEqual('Case', result.objectApiName, 'Expected the object API name of the supplied record id (Account) to be returned, bur received ' + result.objectApiName);
-		Assert.areEqual(caseRecord.Id, result.currentRecord.Id, 'Record with the specified id must be returned in the result.');
-		Assert.areEqual(caseRecord.Address1Line1__c, ((Case)result.currentRecord).Address1Line1__c, 'Address field not populated on the returned record.');
-		Assert.areEqual(caseRecord.Address1Suburb__c, ((Case)result.currentRecord).Address1Suburb__c, 'Address field not populated on the returned record.');
-		Assert.areEqual(caseRecord.Address1State__c, ((Case)result.currentRecord).Address1State__c, 'Address field not populated on the returned record.');
-		Assert.areEqual(caseRecord.Address1Postcode__c, ((Case)result.currentRecord).Address1Postcode__c, 'Address field not populated on the returned record.');
-		Assert.isFalse(result.settings.isEmpty(), 'Address field mapping is not returned in the result.');
+			AddressLookupWrapperController.FieldMapping result = AddressLookupWrapperController.getSettings(caseRecord.Id);
+			Assert.isNotNull(result, 'Expected a valid field mapping but got null.');
+			Assert.areEqual('Case', result.objectApiName, 'Expected the object API name of the supplied record id (Account) to be returned, bur received ' + result.objectApiName);
+			Assert.areEqual(caseRecord.Id, result.currentRecord.Id, 'Record with the specified id must be returned in the result.');
+			Assert.areEqual(caseRecord.Address1Line1__c, ((Case)result.currentRecord).Address1Line1__c, 'Address field not populated on the returned record.');
+			Assert.areEqual(caseRecord.Address1Suburb__c, ((Case)result.currentRecord).Address1Suburb__c, 'Address field not populated on the returned record.');
+			Assert.areEqual(caseRecord.Address1State__c, ((Case)result.currentRecord).Address1State__c, 'Address field not populated on the returned record.');
+			Assert.areEqual(caseRecord.Address1Postcode__c, ((Case)result.currentRecord).Address1Postcode__c, 'Address field not populated on the returned record.');
+			Assert.isFalse(result.settings.isEmpty(), 'Address field mapping is not returned in the result.');
 		Test.stopTest();
 	}
 
@@ -135,16 +135,16 @@ private with sharing class AddressLookupWrapperTest {
 		// Testing
 		// =====================================
 		Test.startTest();
-		AddressLookupWrapperController.FieldMapping result = AddressLookupWrapperController.getSettings(personAccount.Id);
-		Assert.isNotNull(result, 'Expected a valid field mapping but got null.');
-		Assert.areEqual('Account', result.objectApiName, 'Expected the object API name of the supplied record id (Account) to be returned, bur received ' + result.objectApiName);
-		Assert.areEqual(personAccount.Id, result.currentRecord.Id, 'Record with the specified id must be returned in the result.');
-		Assert.areEqual(personAccount.PersonMailingStreet, ((Account)result.currentRecord).PersonMailingStreet, 'Address field not populated on the returned record.');
-		Assert.areEqual(personAccount.PersonMailingCity, ((Account)result.currentRecord).PersonMailingCity, 'Address field not populated on the returned record.');
-		Assert.areEqual(personAccount.PersonMailingState, ((Account)result.currentRecord).PersonMailingState, 'Address field not populated on the returned record.');
-		Assert.areEqual(personAccount.PersonMailingPostalCode, ((Account)result.currentRecord).PersonMailingPostalCode, 'Address field not populated on the returned record.');
-		Assert.areEqual(personAccount.PersonMailingCountry, ((Account)result.currentRecord).PersonMailingCountry, 'Address field not populated on the returned record.');
-		Assert.isFalse(result.settings.isEmpty(), 'Address field mapping is not returned in the result.');
+			AddressLookupWrapperController.FieldMapping result = AddressLookupWrapperController.getSettings(personAccount.Id);
+			Assert.isNotNull(result, 'Expected a valid field mapping but got null.');
+			Assert.areEqual('Account', result.objectApiName, 'Expected the object API name of the supplied record id (Account) to be returned, bur received ' + result.objectApiName);
+			Assert.areEqual(personAccount.Id, result.currentRecord.Id, 'Record with the specified id must be returned in the result.');
+			Assert.areEqual(personAccount.PersonMailingStreet, ((Account)result.currentRecord).PersonMailingStreet, 'Address field not populated on the returned record.');
+			Assert.areEqual(personAccount.PersonMailingCity, ((Account)result.currentRecord).PersonMailingCity, 'Address field not populated on the returned record.');
+			Assert.areEqual(personAccount.PersonMailingState, ((Account)result.currentRecord).PersonMailingState, 'Address field not populated on the returned record.');
+			Assert.areEqual(personAccount.PersonMailingPostalCode, ((Account)result.currentRecord).PersonMailingPostalCode, 'Address field not populated on the returned record.');
+			Assert.areEqual(personAccount.PersonMailingCountry, ((Account)result.currentRecord).PersonMailingCountry, 'Address field not populated on the returned record.');
+			Assert.isFalse(result.settings.isEmpty(), 'Address field mapping is not returned in the result.');
 		Test.stopTest();
 	}
 
