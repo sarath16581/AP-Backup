@@ -95,7 +95,7 @@ export default class HappyParcelDeliveryProof extends HappyParcelBase {
 	 * This ensures optmial memory consumption
 	 */
 	@api
-	get article() { return null };
+	get article() { return null; }
 	set article(value) {
 		if (value) {
 			this.signatureRequired = value.SignatureRequiredFlag__c;
@@ -116,7 +116,7 @@ export default class HappyParcelDeliveryProof extends HappyParcelBase {
 	 * Store the events and extract delivery proof details from the events received.
 	 */
 	@api
-	get events() { return _events; }
+	get events() { return this._events; }
 	set events(value) {
 		if (value) {
 			this._events = value;

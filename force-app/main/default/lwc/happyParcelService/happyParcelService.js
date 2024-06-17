@@ -581,6 +581,8 @@ export const downloadPODPDF = async (trackingIds) => {
 	document.body.appendChild(downloadElement);
 	downloadElement.click();
 	document.body.removeChild(downloadElement);
+
+	return Promise.resolve();
 }
 
 /**
