@@ -2,7 +2,7 @@
 <RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>UnifiedInvestigation</fullName>
     <active>true</active>
-    <businessProcess>SSSW</businessProcess>
+    <businessProcess>Unified Process</businessProcess>
     <description>Investigation type enquiry for Unified cases</description>
     <label>Investigation</label>
     <picklistValues>
@@ -989,8 +989,12 @@
     <picklistValues>
         <picklist>CaseOriginator__c</picklist>
         <values>
-            <fullName>Addressee</fullName>
+            <fullName>3rd Party</fullName>
             <default>false</default>
+        </values>
+        <values>
+            <fullName>Addressee</fullName>
+            <default>true</default>
         </values>
         <values>
             <fullName>Sender</fullName>
@@ -5120,35 +5124,63 @@
     <picklistValues>
         <picklist>ResolutionCode__c</picklist>
         <values>
-            <fullName>Assistance provided</fullName>
+            <fullName>Closed - Customer Requested</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Customer %E2%80%93 Self service</fullName>
+            <fullName>Closed - Duplicate</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Customer %E2%80%93 no response</fullName>
+            <fullName>Closed - resolved by sender</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Customer %E2%80%93 response%2C no further action</fullName>
+            <fullName>Located - last mile scan - Awaiting collection</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>FCR</fullName>
+            <fullName>Located - last mile scan - Delivered%2FCollected</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Feedback %28Issue captured and logged%29</fullName>
+            <fullName>Located - last mile scan - On board for delivery</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Network resolution</fullName>
+            <fullName>Located - last mile scan - Other</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Other</fullName>
+            <fullName>Located - new EDD provided - Missorted</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Located - new EDD provided - Other Tracking Update</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Located - new EDD provided - Redirected</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Located - undeliverable - Damaged</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Located - undeliverable - Other</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Located - undeliverable - RTS</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Lost - incident</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Lost - unscanned</fullName>
             <default>false</default>
         </values>
     </picklistValues>
@@ -5277,31 +5309,91 @@
     <picklistValues>
         <picklist>Root_cause__c</picklist>
         <values>
-            <fullName>Carry-over volume</fullName>
+            <fullName>AP topical issue</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Driver scanner error</fullName>
+            <fullName>Agent Behaviour</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Driver training%2Fcompliance issue</fullName>
+            <fullName>Can%27t find information</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Labelling issue</fullName>
+            <fullName>Can%27t self-service</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Lodgement related issue</fullName>
+            <fullName>Changes to pricing%2Fproducts</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Network delay</fullName>
+            <fullName>Changes to systems%2Ftechnology</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>PDO delivery%2C not parcel driver</fullName>
+            <fullName>Compensation</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Driver Behaviour</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Force Majeure</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Local topical issue</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Looping Parcel</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Poor Communication</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Product%2Fservice topical issue</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Retail Behaviour</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Scam%2FWatchdog</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Sentimental%2FUrgent product</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Service Failures</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Technology useability issues</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Unclear EDD</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Unclear Scans</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Unreasonable Expectations</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Unresolved Issue</fullName>
             <default>false</default>
         </values>
     </picklistValues>
