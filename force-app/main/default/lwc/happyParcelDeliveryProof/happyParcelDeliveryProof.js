@@ -39,7 +39,7 @@ export default class HappyParcelDeliveryProof extends HappyParcelBase {
 	_events = [];
 
 	// if this is true then this allows happyParcelDeliveryProof component to attach safe drop image on Case creation.
-    // when the component is clicked, attachdeliveryproof event is generated and propagated up the DOM
+	// when the component is clicked, attachdeliveryproof event is generated and propagated up the DOM
 	@api supportsDeliveryProofAttachment;
 
 	@api loading = false;
@@ -73,7 +73,7 @@ export default class HappyParcelDeliveryProof extends HappyParcelBase {
 
 	// this stores the result of checking for Safe drop eligibility
 	@track safeDropEligibilityStatus;
-	
+
 	// when a safe drop preference is set or unset, this is the status message that displays the result
 	// this is only displayed for x seconds before disappearing
 	@track safeDropPreferenceStatusMessage;
@@ -95,9 +95,9 @@ export default class HappyParcelDeliveryProof extends HappyParcelBase {
 	 * This ensures optmial memory consumption
 	 */
 	@api
-	get article() { return null; };
+	get article() { return null };
 	set article(value) {
-		if(value) {
+		if (value) {
 			this.signatureRequired = value.SignatureRequiredFlag__c;
 			this.trackingId = value.ArticleID__c;
 			this.consignmentId = value.ConsignmentTrackingNumber__c;
@@ -118,36 +118,36 @@ export default class HappyParcelDeliveryProof extends HappyParcelBase {
 	@api
 	get events() { return _events; }
 	set events(value) {
-		if(value) {
-		    this._events = value;
+		if (value) {
+			this._events = value;
 		} else {
-		    this._events = [];
+			this._events = [];
 		}
 		this.setDeliveryProof(this._events);
 	}
 
-    /**
-     * Extract signature on delivery and safe drop image details from the events passed in.
-     */
+	/**
+	 * Extract signature on delivery and safe drop image details from the events passed in.
+	 */
 	setDeliveryProof(events) {
-	    if (events && events.length > 0) {
-	        events.forEach(item => {
-                if (this._signatureEventTypes.includes(item.event.EventType__c) && item.event.SignatureXString__c) {
-                    this.base64SignatureImage = 'data:image/jpeg;base64,' + item.event.SignatureXString__c;
-                    this.signatoryName = item.event.SignatoryName__c;
-                }
+		if (events && events.length > 0) {
+			events.forEach(item => {
+				if (this._signatureEventTypes.includes(item.event.EventType__c) && item.event.SignatureXString__c) {
+					this.base64SignatureImage = 'data:image/jpeg;base64,' + item.event.SignatureXString__c;
+					this.signatoryName = item.event.SignatoryName__c;
+				}
 
-                // check for SafeDropGUID (we don't check for specific event types since an 'attachment type' check is done when the article is queried from the tracking API
-                if (item.event.Safe_Drop_GUID__c) {
-                    this.safeDropGuid = item.event.Safe_Drop_GUID__c;
-                }
-            });
-        } else {
-            this.base64SignatureImage = '';
-            this.signatoryName = '';
-            this.safeDropGuid = '';
-        }
-    }
+				// check for SafeDropGUID (we don't check for specific event types since an 'attachment type' check is done when the article is queried from the tracking API
+				if (item.event.Safe_Drop_GUID__c) {
+					this.safeDropGuid = item.event.Safe_Drop_GUID__c;
+				}
+			});
+		} else {
+			this.base64SignatureImage = '';
+			this.signatoryName = '';
+			this.safeDropGuid = '';
+		}
+	}
 
 	connectedCallback() {
 		// grab a list of event types to monitor for with signature for delivery
@@ -157,8 +157,8 @@ export default class HappyParcelDeliveryProof extends HappyParcelBase {
 			// now that signature event types are known, check if event data is available.
 			// if available, extract delivery proof details.
 			if (this._events && this._events.length > 0) {
-    			this.setDeliveryProof(this._events);
-    		}
+				this.setDeliveryProof(this._events);
+			}
 		});
 
 		subscribe('SafedropEligibilityRefresh', this.doGetSafeDropEligibility);
@@ -177,14 +177,14 @@ export default class HappyParcelDeliveryProof extends HappyParcelBase {
 		this.showSafeDropModel = false;
 	}
 
-	handleDeliveryProofCheckboxClicked(event){
-		if(this.trackingId) {
+	handleDeliveryProofCheckboxClicked(event) {
+		if (this.trackingId) {
 			this.attachDeliveryProof = event.target.checked;
 
-		    const detail = {trackingId : this.trackingId, selected : this.attachDeliveryProof};
+			const detail = { trackingId: this.trackingId, selected: this.attachDeliveryProof };
 			this.dispatchEvent(new CustomEvent('attachdeliveryproof', { detail: detail, bubbles: true, composed: true }));
-  		}
- 	}
+		}
+	}
 
 	/**
 	 * When the user clicks the camera icon to load the safe drop image
@@ -196,7 +196,7 @@ export default class HappyParcelDeliveryProof extends HappyParcelBase {
 		// perform the callout to the api and grab the split details from the result
 		const result = await getSafeDropImage(this.safeDropGuid);
 
-		if(result.isError) {
+		if (result.isError) {
 			this.safeDropImageErrorMessage = result.errorMessage;
 			this.base64SafeDropImage = null;
 		} else {
@@ -354,8 +354,8 @@ export default class HappyParcelDeliveryProof extends HappyParcelBase {
 	}
 
 	get safeDropDisabled() {
-	    return !!this.parentArticleSelected;
-    }
+		return !!this.parentArticleSelected;
+	}
 
 	get safeDropCardBodyCssClass() {
 		return 'full-height-container animated pulse' + (this.safeDropGuid ? ' slds-p-bottom_medium' : '');

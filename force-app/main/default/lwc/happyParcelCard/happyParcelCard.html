@@ -9,7 +9,7 @@
 		<div class="slds-card__header">
 			<header class="slds-media slds-media_center slds-has-flexi-truncate">
 				<div class="slds-media__figure">
-			        <lightning-icon icon-name={iconName} title={title} size="small"></lightning-icon>
+					<lightning-icon icon-name={iconName} title={title} size="small"></lightning-icon>
 				</div>
 				<div class="slds-media__body">
 					<h2 class="slds-card__header-title">
@@ -37,10 +37,7 @@
 				</template>
 				<template if:true={buttonIcon}>
 					<div class="slds-no-flex">
-						<lightning-button-icon icon-name={buttonIcon} class="slds-m-right_x-small" variant={buttonVariant}
-											   onclick={handleButtonClick}>
-
-						</lightning-button-icon>
+						<lightning-button-icon icon-name={buttonIcon} class="slds-m-right_x-small" variant={buttonVariant} onclick={handleButtonClick}> </lightning-button-icon>
 					</div>
 				</template>
 
@@ -48,14 +45,7 @@
 				<template if:true={showPodDownloadButton}>
 					<div class="slds-no-flex">
 						<span>Download POD</span>&nbsp;
-						<lightning-button-icon
-								icon-name="utility:download"
-								variant="border"
-								alternative-text="Download"
-								size="x-small"
-								onclick={handlePODButtonClick}
-						>
-						</lightning-button-icon>
+						<lightning-button-icon icon-name="utility:download" variant="border" alternative-text="Download" size="x-small" onclick={handlePODButtonClick}> </lightning-button-icon>
 					</div>
 				</template>
 			</header>
