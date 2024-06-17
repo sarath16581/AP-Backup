@@ -15,7 +15,7 @@
  * 2024-05-21 - Seth Heang - Added logic to allow force consignment search in existing SAP-EM integration when doing an article level
  * 2024-06-11 - Raghav Ravipati - Added logic to add critical incidents to articles in the tracking response
  * 2024-06-14 - Seth Heang - Added logic to allow the Proof of delivery PDF download on the Consignment Detail child component
-*/
+ */
 import { LightningElement, track, api } from "lwc";
 import { getAnalyticsApiResponse, getTrackingApiResponse, getTrackingApiResponseForStarTrack, getCriticalIncidentDetails, getConfig, safeTrim, safeToUpper, subscribe, unsubscribe, downloadPODPDF, CONSTANTS } from 'c/happyParcelService'
 import { NavigationMixin } from 'lightning/navigation';
