@@ -200,7 +200,7 @@ export const safeToUpper = (str) => {
 
 export const subscribe = (event, callback) => {
 	_callbacks[event] = (!_callbacks[event] ? [] : _callbacks[event]);
-	if(_callbacks[event].indexOf(callback) === -1) {
+	if (_callbacks[event].indexOf(callback) === -1) {
 		_callbacks[event].push(callback);
 	}
 };
@@ -209,7 +209,7 @@ export const unsubscribe = (event, callback) => {
 	_callbacks[event] = (!_callbacks[event] ? [] : _callbacks[event]);
 
 	const index = _callbacks[event].indexOf(callback);
-	if(index > -1) {
+	if (index > -1) {
 		_callbacks[event].splice(index, 1);
 	}
 };
@@ -225,7 +225,7 @@ export const publish = (event, params) => {
 };
 
 export const getConfig = async () => {
-	if(!_config) {
+	if (!_config) {
 		_config = await loadConfig();
 		return Promise.resolve(_config);
 	} else {
@@ -268,29 +268,29 @@ export const getCustomerArticleFields = () => {
  */
 export const getDataTableMappingFromDisplayType = (displayType) => {
 	const dataTypeMappings = {
-		ADDRESS: {type: 'text', typeAttributes: {}},
-		ANYTYPE: {type: 'text', typeAttributes: {}},
-		BOOLEAN: {type: 'boolean', typeAttributes: {}},
-		COMBOBOX: {type: 'text', typeAttributes: {}},
-		CURRENCY: {type: 'currency', typeAttributes: {maximumFractionDigits: 2}},
-		DATACATEGORYGROUPREFERENCE: {type: 'text', typeAttributes: {}},
-		DATE: {type: 'date', typeAttributes: {year: 'numeric', month: '2-digit', day: '2-digit', weekday: 'long'}},
-		DATETIME: {type: 'date', typeAttributes: {year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit'}},
-		DOUBLE: {type: 'number', typeAttributes: {maximumFractionDigits: 2}},
-		EMAIL: {type: 'email', typeAttributes: {}},
-		ENCRYPTEDSTRING: {type: 'text', typeAttributes: {}},
-		ID: {type: 'text', typeAttributes: {}},
-		INTEGER: {type: 'number', typeAttributes: {}},
-		LONG: {type: 'number', typeAttributes: {}},
-		MULTIPICKLIST: {type: 'text', typeAttributes: {}},
-		PERCENT: {type: 'percent', typeAttributes: {maximumFractionDigits: 2}},
-		PHONE: {type: 'phone', typeAttributes: {}},
-		PICKLIST: {type: 'text', typeAttributes: {}},
-		REFERENCE: {type: 'text', typeAttributes: {}},
-		STRING: {type: 'text', typeAttributes: {}},
-		TEXTAREA: {type: 'text', typeAttributes: {}},
-		TIME: {type: 'date', typeAttributes: {hour: '2-digit', minute: '2-digit'}},
-		URL: {type: 'url', typeAttributes: {}}
+		ADDRESS: { type: 'text', typeAttributes: {} },
+		ANYTYPE: { type: 'text', typeAttributes: {} },
+		BOOLEAN: { type: 'boolean', typeAttributes: {} },
+		COMBOBOX: { type: 'text', typeAttributes: {} },
+		CURRENCY: { type: 'currency', typeAttributes: { maximumFractionDigits: 2 } },
+		DATACATEGORYGROUPREFERENCE: { type: 'text', typeAttributes: {} },
+		DATE: { type: 'date', typeAttributes: { year: 'numeric', month: '2-digit', day: '2-digit', weekday: 'long' } },
+		DATETIME: { type: 'date', typeAttributes: { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' } },
+		DOUBLE: { type: 'number', typeAttributes: { maximumFractionDigits: 2 } },
+		EMAIL: { type: 'email', typeAttributes: {} },
+		ENCRYPTEDSTRING: { type: 'text', typeAttributes: {} },
+		ID: { type: 'text', typeAttributes: {} },
+		INTEGER: { type: 'number', typeAttributes: {} },
+		LONG: { type: 'number', typeAttributes: {} },
+		MULTIPICKLIST: { type: 'text', typeAttributes: {} },
+		PERCENT: { type: 'percent', typeAttributes: { maximumFractionDigits: 2 } },
+		PHONE: { type: 'phone', typeAttributes: {} },
+		PICKLIST: { type: 'text', typeAttributes: {} },
+		REFERENCE: { type: 'text', typeAttributes: {} },
+		STRING: { type: 'text', typeAttributes: {} },
+		TEXTAREA: { type: 'text', typeAttributes: {} },
+		TIME: { type: 'date', typeAttributes: { hour: '2-digit', minute: '2-digit' } },
+		URL: { type: 'url', typeAttributes: {} }
 	};
 
 	return dataTypeMappings[displayType];
@@ -308,7 +308,7 @@ export const getAnalyticsApiResponse = async (trackingId) => {
 
 		return result;
 	} catch (error) {
-		return {articles: [], errors: [error.body.message]};
+		return { articles: [], errors: [error.body.message] };
 	}
 }
 
@@ -325,7 +325,7 @@ export const getTrackingApiResponse = async (trackingId, forceConsignmentSearch)
 		console.log('getTrackingResponse', result);
 		return result;
 	} catch (error) {
-		return {articles: [], errors: [error.body.message]};
+		return { articles: [], errors: [error.body.message] };
 	}
 }
 
@@ -340,7 +340,7 @@ export const getTrackingApiResponseForStarTrack = async (consignmentNumber, cons
 		});
 		return result;
 	} catch (error) {
-		return {articles: [], errors: [error.body.message]};
+		return { articles: [], errors: [error.body.message] };
 	}
 }
 
@@ -355,7 +355,7 @@ export const downloadDeliveryProofPdf = async (trackingId) => {
  * Allows the user to get Network details
  */
 export const getNetworkDetails = async (wcc) => {
-	try{
+	try {
 		let result = await getNetwork({
 			wccString: wcc
 		});
@@ -363,7 +363,7 @@ export const getNetworkDetails = async (wcc) => {
 		console.log('getNetworkDetails');
 		return result;
 	} catch (error) {
-		return {network: [], error: [error.body.message]};
+		return { network: [], error: [error.body.message] };
 	}
 }
 
@@ -419,14 +419,14 @@ export const deleteSafeDrop = async (trackingId) => {
  * This gets notification preference for search string
  */
 export const getPreferences = async (searchString) => {
-	try{
+	try {
 		const result = await getNotificationPreferences({
 			searchStrings: searchString
 		});
 		console.log('getPreferences', result);
 		return result;
 	} catch (error) {
-		return {preferences: [], error: [error.body.message]};
+		return { preferences: [], error: [error.body.message] };
 	}
 }
 
@@ -434,7 +434,7 @@ export const getPreferences = async (searchString) => {
  * This sets/unsets notification preferences. Only one value can be set at a time.
  */
 export const setPreferences = async (searchString, setValue) => {
-	try{
+	try {
 		const result = await setNotificationPreferences({
 			searchStrings: searchString,
 			setValue: setValue
@@ -504,7 +504,7 @@ export const get = (object, path, defaultVal) => {
  * @returns Distance in Kms
  */
 export const getDistanceBetweenGeoCoordinates = async (lat1, lon1, lat2, lon2) => {
-	try{
+	try {
 		const result = await getDistanceBetweenLocations({
 			lat1: lat1,
 			lon1: lon1,
@@ -514,8 +514,8 @@ export const getDistanceBetweenGeoCoordinates = async (lat1, lon1, lat2, lon2) =
 		return result;
 	}
 	catch (error) {
-        return null;
-    }
+		return null;
+	}
 }
 
 /**
@@ -534,7 +534,7 @@ export const getSafeDropImageStateForDownload = async (trackingId) => {
 /**
  * @description Refresh the Consignment/Article data in Salesforce from SAP/StarTrack by searching up the tracking number and upsert the responses in Salesforce
  */
-export const refreshSFConsignmentArticleDataFromSAPAndStarTrack = async (trackingIds) =>{
+export const refreshSFConsignmentArticleDataFromSAPAndStarTrack = async (trackingIds) => {
 	const consignmentId = trackingIds.consignmentId;
 	const articleId = trackingIds.articleId;
 	const sapResult = consignmentId ? await getTrackingApiResponse(consignmentId, false) : await getTrackingApiResponse(articleId, true);

@@ -125,12 +125,11 @@ public with sharing class HappyParcelController {
 	 * Static Continuation Methods require a state object, but Test.invokeContinuation cannot pass in arguments.
 	 * Therefore, store the state as static class variable to allow CallBack method to work when testing.
 	 * Source: https://salesforce.stackexchange.com/a/329949
-	 *  */ 
+	 *  */
 	public static HappyParcelService.StateInfoStarTrack starTrackContState;
 	public static Object processStarTrackSearchResult() {
 		return HappyParcelService.getInstance().processStarTrackSearchResult(starTrackContState);
 	}
-
 
 	/**
 	 * This queries the happy parcel end point to retrieve certain advanced information relating to the state of the parcel
@@ -728,7 +727,6 @@ public with sharing class HappyParcelController {
 			for (TIBCOEventMessageWrapper eventMessageWrapper : article.eventMessages) {
 				events.add(new TrackingEventMessage(eventMessageWrapper));
 			}
-
 		}
 	}
 

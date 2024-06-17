@@ -33,32 +33,32 @@ export default class HappyParcelCard extends HappyParcelBase {
 		return 'slds-card slds-card_boundary ' + (this.variant) + (!this.loading && this.selectable ? ' selectable' + (this.selected ? ' selected' : '') : '');
 	}
 
-	get titleLoadingSpinner(){
+	get titleLoadingSpinner() {
 		return this.titleLoading;
 	}
 
-	get showPodDownloadButton(){
+	get showPodDownloadButton() {
 		return this.displayPodDownloadButton;
 	}
 
 	handleSelectableClick() {
 		this.selected = !this.selected;
 
-		if(this.selected) {
+		if (this.selected) {
 			this.dispatchEvent(new CustomEvent('select'));
 		} else {
 			this.dispatchEvent(new CustomEvent('deselect'));
 		}
 	}
 
-	handleButtonClick(){
-	    this.dispatchEvent(new CustomEvent('cardbuttonclick'));
+	handleButtonClick() {
+		this.dispatchEvent(new CustomEvent('cardbuttonclick'));
 	}
 
 	/**
 	 * @description	Publish an event to the parent HappyParcel Component listener which then execute the download POD PDF action
 	 */
-	handlePODButtonClick(){
+	handlePODButtonClick() {
 		publish('generatePodPDF', {});
 	}
 
