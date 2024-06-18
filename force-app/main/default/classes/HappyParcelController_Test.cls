@@ -602,6 +602,7 @@ private class HappyParcelController_Test {
 		// Verify the return wrapper class has the new attributes mapped correctly
 		HappyParcelController.TrackingArticle resultWrapper = (HappyParcelController.TrackingArticle) result;
 		Assert.areEqual('D05 1, E05 1', resultWrapper.article.FurtherReferences__c, 'Further References do not match');
+		Assert.areEqual(Date.newInstance(2024,1,21), resultWrapper.article.ExpectedDeliveryDate__c, 'Expected Delivery Date should match but was not');
 
 		// Verify that the consignment record of type Article__c has been updated 1 time
 		fflib_ArgumentCaptor updatableConsignmentCaptor = fflib_ArgumentCaptor.forClass(List<Article__c>.class);
@@ -611,6 +612,7 @@ private class HappyParcelController_Test {
 		List<Article__c> resArticle = (List<Article__c>) updatableConsignmentCaptor.getValue();
 		Assert.areEqual(1, resArticle.size(), 'Only one article should be updated and returned back');
 		Assert.areEqual('D05 1, E05 1', resArticle.get(0).FurtherReferences__c, 'Further References do not match');
+		Assert.areEqual(Date.newInstance(2024,1,21), resArticle.get(0).ExpectedDeliveryDate__c, 'Expected Delivery Date should match but was not');
 	}
 
 	/**

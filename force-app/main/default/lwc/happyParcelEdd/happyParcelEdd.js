@@ -80,6 +80,13 @@ export default class HappyParcelEdd extends HappyParcelBase {
 	}
 
 	/**
+	 * This is used to identify if the Expected Delivery Data is sourced from .NET API StarTrack Consignment
+	 */
+	get isDotNetEdd() {
+		return get(this.trackingApiResult, "isDotNetEdd", null);
+	}
+
+	/**
 	 * Does the Analytics date exist
 	 */
 	get hasAnalyticsEdd() {

@@ -9,7 +9,12 @@
 			<div class="slds-col slds-size_1-of-2 slds-p-left_medium">
 				<div class="slds-form-element slds-clearfix">
 					<div class="slds-form-element__label">
-						<strong>SAP EM</strong>
+						<template if:true={isDotNetEdd}>
+							<strong>.NET</strong>
+						</template>
+						<template if:false={isDotNetEdd}>
+							<strong>SAP EM</strong>
+						</template>
 					</div>
 					<div class="slds-form-element__control">
 						<template if:true={loading}>

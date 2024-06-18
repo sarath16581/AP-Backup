@@ -396,6 +396,11 @@ export default class HappyParcelWrapper extends NavigationMixin(LightningElement
 		result.article.ProductCategory__c = this.articles?.[0]?.trackingResult?.article?.ProductCategory__c ?? result.article.ProductCategory__c;
 		result.article.SubProduct__c = this.articles?.[0]?.trackingResult?.article?.SubProduct__c ?? result.article.SubProduct__c;
 		result.additionalAttributes = this.consignment?.trackingResult?.additionalAttributes ?? result.additionalAttributes;
+		// populate EDD for StarTrack including a flag to pass down to child component(happyParcelEdd)
+		this.articles?.forEach(item => {
+			item.trackingResult.article.ExpectedDeliveryDate__c = result.article?.ExpectedDeliveryDate__c ?? item.trackingResult.article.ExpectedDeliveryDate__c;
+			item.trackingResult.isDotNetEdd = true;
+		});
 		// update display attributes from StarTrack response
 		this.consignment.trackingResult = result;
 		this.retryStarTrackCallout = false;
