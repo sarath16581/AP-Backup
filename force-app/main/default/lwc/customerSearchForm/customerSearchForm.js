@@ -9,9 +9,9 @@ import { LightningElement, api } from "lwc";
  * @hideconstructor
  */
 export default class CustomerSearchForm extends LightningElement {
-  /**
-   * The Id of the record to provide context to this component.
-   * @type {string}
-   */
-  @api recordId;
+	/**
+	 * The Id of the record to provide context to this component.
+	 * @type {string}
+	 */
+	@api recordId;
 }
