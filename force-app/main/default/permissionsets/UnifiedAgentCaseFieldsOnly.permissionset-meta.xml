@@ -28,7 +28,7 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Case.EnquirySubTypeUnified__c</field>
+        <field>Case.EnquirySubType__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
