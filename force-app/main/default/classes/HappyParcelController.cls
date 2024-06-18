@@ -20,6 +20,7 @@
  * 2024-05-17 - Seth Heang - Added methods for additional query to remote .NET API for retrieving StarTrack consignment/article details
  * 2024-05-21 - Seth Heang - Added methods to allow forceConsignment Search if applicable while quering SAP-EM article details
  * 2024-06-06 - Raghav Ravipati - Added methods to get critical incident knowledge articles based on network org Id
+ * 2024-06-17 - Raghav Ravipati - Added changes related to Enquiry Mapping to filter using MappingModule field
  */
 public with sharing class HappyParcelController {
 	/**
@@ -511,16 +512,21 @@ public with sharing class HappyParcelController {
 				articleMappingsMap.get(key).add(article);
 			}
 		}
-
+		// Retrives the UI theme that user currently in.
+		String userTheme = UserInfo.getUiThemeDisplayed();
+		String mappingModel = 'Unified';
+		
+		//setting mapping model based on User UI to use this to filter the mapping records.
+		if(userTheme.equalsIgnoreCase('Theme3')){
+			mappingModel = 'Classic';
+		}
 		// grab the clearview code mappings so we can default the clearview code fields in the mini case component
 		// this happens after the search result have been loaded into the Happy Parcel LWC components
-		List<MiniCaseFieldMapping__c> mappings = [
-			SELECT SAPKey__c, ProductCategory__c, ProductSubcategory__c, Type__c
-			FROM MiniCaseFieldMapping__c
-			WHERE SAPKey__c IN :articleMappingsMap.keySet()
-		];
-		for (MiniCaseFieldMapping__c mapping : mappings) {
-			if (articleMappingsMap.containsKey(mapping.SAPKey__c)) {
+		// Note: We are filtering the mapping records using the mappingModel__c field this is just temporary filter and will be removed once all users moved to lightning.
+		EnquiryMappingsSelector selector = EnquiryMappingsSelector.newInstance();
+
+		for (MiniCaseFieldMapping__c mapping : selector.selectBySAPKeyAndMappingModel(articleMappingsMap.keySet(), new Set<String>{ mappingModel })) {
+			if(articleMappingsMap.containsKey(mapping.SAPKey__c)){
 				for (TrackingArticle article : articleMappingsMap.get(mapping.SAPKey__c)) {
 					article.caseTypeMapping = mapping.Type__c;
 					article.caseProductCategory = mapping.ProductCategory__c;
