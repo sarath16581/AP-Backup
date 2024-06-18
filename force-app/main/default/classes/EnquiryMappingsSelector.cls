@@ -5,6 +5,7 @@
 * @domain SSSW
 * @description A very simple selector class that sits in the SSSW domain
 * @changelog
+* 13.06.2024 Parveen Kaushik Added MappingModel__c in the field list. See CSLU-470 (JIRA) for details.
 */
 public inherited sharing class EnquiryMappingsSelector extends ApplicationSelector {
 
@@ -20,7 +21,7 @@ public inherited sharing class EnquiryMappingsSelector extends ApplicationSelect
 		return new Set<SObjectField> {
 				MiniCaseFieldMapping__c.CaseRecordTypeId__c, MiniCaseFieldMapping__c.CTICustomerSegment__c, MiniCaseFieldMapping__c.CTIKey__c, MiniCaseFieldMapping__c.CTIServiceType__c, MiniCaseFieldMapping__c.Id,
 				MiniCaseFieldMapping__c.Name, MiniCaseFieldMapping__c.ProductCategory__c, MiniCaseFieldMapping__c.ProductSubcategory__c, MiniCaseFieldMapping__c.SAPKey__c, MiniCaseFieldMapping__c.SAPProductCategory__c,
-				MiniCaseFieldMapping__c.SAPProductSubcategory__c, MiniCaseFieldMapping__c.Type__c
+				MiniCaseFieldMapping__c.SAPProductSubcategory__c, MiniCaseFieldMapping__c.Type__c, MiniCaseFieldMapping__c.MappingModel__c
 		};
 	}
 
