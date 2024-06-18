@@ -6,6 +6,7 @@
  * @changelog
  * 2020-10-26 disha.kariya@auspost.com.au Added delivery ETA
  * 2021-10-01 - Nathan Franklin - Refactored usage of transient attributes + uplift to version 52
+ * 2024-06-08 - Seth Heang - Add getter for isStarTrackEDD
  */
 import { LightningElement, api, track } from "lwc";
 import { get, CONSTANTS } from "c/happyParcelService";

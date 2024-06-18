@@ -14,6 +14,7 @@
  * 2024-05-17 - Seth Heang - Added logic for additional query to remote .NET API for retrieving StarTrack consignment/article details and retry functionality
  * 2024-05-21 - Seth Heang - Added logic to allow force consignment search in existing SAP-EM integration when doing an article level
  * 2024-06-11 - Raghav Ravipati - Added logic to add critical incidents to articles in the tracking response
+ * 2024-06-08 - Seth Heang - Added EDD data mapping from StarTrack .NET query
 */
 import { LightningElement, track, api } from "lwc";
 import {getAnalyticsApiResponse, getTrackingApiResponse, getTrackingApiResponseForStarTrack, getCriticalIncidentDetails, getConfig, safeTrim, safeToUpper, CONSTANTS} from 'c/happyParcelService'
