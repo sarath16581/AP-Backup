@@ -26,7 +26,6 @@
  * 2023-06-21 - Naveen Rajanna - REQ2916371 - Modified selectByAPCNAndIdAndPersonAccount to have it's own logic instead of using search
  * 2023-04-08 - Yatika bansal - added new SObject Field
  * 2023-06-17 - Harry Wang - added new method selectByIdWithContactsAndOpportunities
- * 2024-06-15 - Snigdha Sahu - added WITH_CONTACT 
  * 2024-06-18 - Sarath Burra - Added IndirectCustomer Field
  */
 public virtual inherited sharing class AccountsSelector extends ApplicationSelector {
@@ -34,7 +33,7 @@ public virtual inherited sharing class AccountsSelector extends ApplicationSelec
 		WITH_RECORDTYPE, WITH_OWNER, WITH_ACTIVE_MEMBERSHIPS, WITH_ORGANISATION_ROLES, WITH_ORGANISATION_ROLES_PROSPECT_KNOWN, WITH_HOLDINGROLE,
 		WITH_TYPE_CUST_ACTIVE_BILLING_ACCOUNTS, WITH_RECENT_CREATED_CREDIT_ASSESMENT, WITH_POSTOFFICEASSIGNED, WITH_NETWORK, WITH_PARENT,
 		WITH_GRANDPARENT, WITH_CREATEDBY_USER, WITH_LASTMODIFIEDBY_USER, WITH_FACILITY, WITH_PARENT_2LEVELS, WITH_PARENT_3LEVELS,
-		WITH_PARENT_4LEVELS, WITH_PARENT_5LEVELS,WITH_CONTACT
+		WITH_PARENT_4LEVELS, WITH_PARENT_5LEVELS
 	}
 
 	public static AccountsSelector newInstance() {
@@ -74,7 +73,7 @@ public virtual inherited sharing class AccountsSelector extends ApplicationSelec
 				Account.ACN__c, Account.Primary_Business_Solutions_Contact__c, Account.BillingCountry, Account.Role_Type_Roll_Up__c,
 				Account.ShippingStreet, Account.ShippingCity, Account.ShippingState, Account.ShippingPostalCode, Account.ShippingCountry,
 				Account.Holding_Role_Reference__c, Account.Is_Strategic_Account_StarTrack__c, Account.AccountNumber, Account.IsPersonAccount, Account.Business_Solutions_Customer__c, Account.Exclude_Notification_Automation__c, Account.Exclude_Subscription_Automation__c, Account.Sales_Director__c,
-				Account.APCN__c, Account.APCN__pc, Account.Integration_Service_Mod_Date__c, Account.PersonContactId, Account.ServiceSLA__c, Account.Sales_Segment__c,Account.IndirectCustomer__c, Account.Nominated_Partner_Contact_Incent_User__c
+				Account.APCN__c, Account.APCN__pc, Account.Integration_Service_Mod_Date__c, Account.PersonContactId, Account.ServiceSLA__c, Account.Sales_Segment__c,Account.IndirectCustomer__c
 		};
 	}
 
@@ -378,9 +377,6 @@ public virtual inherited sharing class AccountsSelector extends ApplicationSelec
 		}
 		if (selectorOptions.contains(Options.WITH_PARENT)) {
 			builder.addRelatedFields(AccountsSelector.newInstance(0, fieldOverrides).newQueryBuilder(), 'Parent');
-		}
-        if (selectorOptions.contains(Options.WITH_CONTACT)) {
-			builder.addRelatedFields(ContactsSelector.newInstance(0, fieldOverrides).newQueryBuilder(), 'Nominated_Partner_Contact_Incent_User__r');
 		}
 		if (selectorOptions.contains(Options.WITH_PARENT_2LEVELS)) {
 			Set<Object> clonedOptions = selectorOptions.clone();
