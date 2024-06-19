@@ -21,6 +21,10 @@
                 <behavior>Edit</behavior>
                 <field>Outlet_Plant_Number__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>IndirectCustomer__c</field>
+            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>

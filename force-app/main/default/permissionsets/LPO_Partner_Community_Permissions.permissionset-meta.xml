@@ -50,6 +50,11 @@
         <field>Account.ABN__c</field>
         <readable>true</readable>
     </fieldPermissions>
+	<fieldPermissions>
+		<editable>false</editable>
+		<field>Account.IndirectCustomer__c</field>
+		<readable>true</readable>
+	</fieldPermissions>	
     <fieldPermissions>
         <editable>false</editable>
         <field>Account.ABR_Lookup__c</field>
@@ -5980,6 +5985,21 @@
         <field>Opportunity.APT_Create_Rebate_Contract__c</field>
         <readable>true</readable>
     </fieldPermissions>
+	<fieldPermissions>
+		<editable>true</editable>
+		<field>Opportunity.ControlsLodgement__c</field>
+		<readable>true</readable>
+	</fieldPermissions>
+	<fieldPermissions>
+		<editable>true</editable>
+		<field>Opportunity.FreightOwnership__c</field>
+		<readable>true</readable>
+	</fieldPermissions>
+	<fieldPermissions>
+		<editable>false</editable>
+		<field>Opportunity.IndirectCustomer__c</field>
+		<readable>true</readable>
+	</fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
         <field>Opportunity.APT_Create_SOP_Contract__c</field>

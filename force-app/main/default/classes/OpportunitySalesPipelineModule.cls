@@ -10,6 +10,7 @@
  * 2024-01-22 - Mahesh Parvathaneni - STP-9169 - Added validation to make sure the related opp products have valid revenue start date (must be later or equal to close date)
  * 2024-01-25 - Mahesh Parvathaneni - STP-9712 - Added logic to bypass validations for CRM specialists based on custom permission
  * 2024-02-02 - Mahesh Parvathaneni - STP-10398 - Added logic to bypass opp products quantity validation based on custom permission
+	 * 2024-06-16 - Sarath Burra - ST-10723 - Added Logic to Update Account.IndirectCustomer__c field based on same field in Opportutniy in AfterInsert and AfterUpdate
  */
 public inherited sharing class OpportunitySalesPipelineModule extends ApplicationModule {
 
@@ -62,6 +63,8 @@ public inherited sharing class OpportunitySalesPipelineModule extends Applicatio
 
 	public OpportunitySalesPipelineModule() {
 		getTriggerEvents().enableBeforeUpdate();
+		getTriggerEvents().enableAfterInsert();
+		getTriggerEvents().enableAfterUpdate();
 	}
 
 	public override void onBeforeUpdate(List<SObject> records, Map<Id, SObject> existingRecords, ApplicationUnitOfWork uow) {
@@ -92,6 +95,55 @@ public inherited sharing class OpportunitySalesPipelineModule extends Applicatio
 		} catch (Exception e) {
 			ApplicationLogger.getInstance().logException(ApplicationLogger.wrapException(e), 'Sales', OpportunitySalesPipelineModule.class.getName(),
 					'onBeforeUpdate', String.valueOf(Opportunity.SObjectType), ApplicationLogger.LoggingLevel.ERROR);
+		}
+	}
+	public override void onAfterInsert(List<SObject> records, ApplicationUnitOfWork uow) {
+		try {
+			updateAccountDetails(records,new Map<Id,SObject>(),uow);
+
+		} catch (Exception e) {
+			ApplicationLogger.getInstance().logException(ApplicationLogger.wrapException(e), 'Sales', OpportunitySalesPipelineModule.class.getName(),
+			'onAfterInsert', String.valueOf(Opportunity.SObjectType), ApplicationLogger.LoggingLevel.ERROR);
+		}
+	}
+	public override void onAfterUpdate(List<SObject> records, Map<Id, SObject> existingRecords, ApplicationUnitOfWork uow) {
+		try {
+			updateAccountDetails(records, existingRecords,  uow);
+
+		} catch (Exception e) {
+			ApplicationLogger.getInstance().logException(ApplicationLogger.wrapException(e), 'Sales', OpportunitySalesPipelineModule.class.getName(),
+			'onAfterUpdate', String.valueOf(Opportunity.SObjectType), ApplicationLogger.LoggingLevel.ERROR);
+		}
+	}
+	private void updateAccountDetails(List<SObject> records,Map<Id, SObject> existingRecords, ApplicationUnitOfWork uow) {
+		Map<Id,String> accountIdToIndirectCustMap = new Map<Id,String>();
+		List<Account> updatedAccounts = new List<Account> ();
+		//Update Indirect Customer field on Account based on Indirect Customer Field on Opportunity for Insert and Update scenarios
+		for(Opportunity opp : (list<Opportunity>)records){
+			if(null!=opp.AccountId && !string.isEmpty(opp.IndirectCustomer__c)){
+				if(!existingRecords.isEmpty()){
+					Opportunity existingOpportunity =(Opportunity)existingRecords.get(opp.Id);
+					if(existingOpportunity.IndirectCustomer__c !=opp.IndirectCustomer__c){
+						accountIdToIndirectCustMap.put(opp.AccountId,opp.IndirectCustomer__c);
+					}
+				}else{
+					accountIdToIndirectCustMap.put(opp.AccountId,opp.IndirectCustomer__c);
+				}	
+			}
+		}
+		if(!accountIdToIndirectCustMap.isEmpty()){	
+			Map<Id, Account> accMap =AccountsSelector.newInstance().selectById(accountIdToIndirectCustMap.keySet());
+			for(Id accId :accMap.keySet()){
+				Account acc= accMap.get(accId);
+				acc.IndirectCustomer__c=accountIdToIndirectCustMap.get(accId);
+				updatedAccounts.add(acc);
+				break;	
+			}	
+		}	
+		if (!updatedAccounts.isEmpty()) {
+			uow = ApplicationUnitOfWork.newInstance(new List<SObjectType>{Account.SObjectType});
+			uow.registerDirty(updatedAccounts);
+			uow.commitWork();
 		}
 	}
 

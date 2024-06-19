@@ -58,6 +58,11 @@ Used by Integration User (Einstein Analytics)</description>
         <field>Account.ABN_ACN_Status__c</field>
         <readable>true</readable>
     </fieldPermissions>
+	<fieldPermissions>
+		<editable>false</editable>
+		<field>Account.IndirectCustomer__c</field>
+		<readable>true</readable>
+	</fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
         <field>Account.ABN_Check__c</field>
@@ -2098,6 +2103,21 @@ Used by Integration User (Einstein Analytics)</description>
         <field>Opportunity.Customer_requires_proposal_document__c</field>
         <readable>true</readable>
     </fieldPermissions>
+	<fieldPermissions>
+		<editable>false</editable>
+		<field>Opportunity.ControlsLodgement__c</field>
+		<readable>true</readable>
+	</fieldPermissions>
+	<fieldPermissions>
+		<editable>false</editable>
+		<field>Opportunity.FreightOwnership__c</field>
+		<readable>true</readable>
+	</fieldPermissions>
+	<fieldPermissions>
+		<editable>false</editable>
+		<field>Opportunity.IndirectCustomer__c</field>
+		<readable>true</readable>
+	</fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
         <field>Opportunity.DB_Competitor__c</field>
