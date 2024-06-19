@@ -601,7 +601,7 @@
         <name>sidebar</name>
         <type>Region</type>
     </flexiPageRegions>
-    <masterLabel>Unified Contact Record Page</masterLabel>
+    <masterLabel>Contact Unified Record Page</masterLabel>
     <sobjectType>Contact</sobjectType>
     <template>
         <name>flexipage:recordHomeTemplateDesktop</name>
