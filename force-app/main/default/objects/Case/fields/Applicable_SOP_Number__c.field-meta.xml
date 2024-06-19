@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Applicable_SOP_Number__c</fullName>
+    <businessStatus>DeprecateCandidate</businessStatus>
+    <description>Dep - field no longer in use - REQ3448199</description>
     <externalId>false</externalId>
-    <label>Applicable SOP Number</label>
+    <label>Dep - Applicable SOP Number</label>
     <length>255</length>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>

@@ -33,6 +33,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>ACLCompensationClaim__c.ClaimNumber__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>ACLCompensationClaim__c.ClaimStatus__c</field>
         <readable>true</readable>
     </fieldPermissions>

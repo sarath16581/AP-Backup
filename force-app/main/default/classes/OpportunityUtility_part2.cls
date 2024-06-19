@@ -263,7 +263,8 @@ public class OpportunityUtility_part2 {
                 Opportunity oldOpportunity = oldOpportunities.get(opp.Id);
                 if(opp.IsStartrackProposal__c != oldOpportunity.IsStartrackProposal__c
                     || opp.APTPostcodeSuburb__c != oldOpportunity.APTPostcodeSuburb__c
-                    || opp.APTMinimumMonthlySpend__c != oldOpportunity.APTMinimumMonthlySpend__c){
+                    || opp.APTMinimumMonthlySpend__c != oldOpportunity.APTMinimumMonthlySpend__c
+                    || opp.KeyContact__c != oldOpportunity.KeyContact__c){
                     fieldUpdatedOpportunityIds.add(opp.id);
                     updatedOpportunity = opp;
                 }
@@ -281,7 +282,7 @@ public class OpportunityUtility_part2 {
                         proposal.Is_Startrack_Proposal__c = updatedOpportunity.IsStartrackProposal__c;
                         proposal.APT_Postcode_Suburb__c = updatedOpportunity.APTPostcodeSuburb__c;
                         proposal.APT_Minimum_Monthly_Spend__c = updatedOpportunity.APTMinimumMonthlySpend__c;
-
+                        proposal.Apttus_Proposal__Primary_Contact__c = updatedOpportunity.KeyContact__c;
                         proposalToUpdate.add(proposal);
                     }
                 }

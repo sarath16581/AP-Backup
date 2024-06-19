@@ -1842,15 +1842,15 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Enterprise - Not Active</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>Enterprise NSW 1</fullName>
             <default>false</default>
         </values>
         <values>
             <fullName>Enterprise NSW 2</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Enterprise NSW 3</fullName>
             <default>false</default>
         </values>
         <values>
@@ -1878,11 +1878,7 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Financial Institutions - Not Active</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Government - Not Active</fullName>
+            <fullName>Government - Supported Customers</fullName>
             <default>false</default>
         </values>
         <values>
@@ -1907,6 +1903,10 @@
         </values>
         <values>
             <fullName>Intermediaries - Not Active</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Intermediaries - Supported Customers</fullName>
             <default>false</default>
         </values>
         <values>
@@ -1986,10 +1986,6 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Medium Business - Not Active</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>Medium Business NSW 1</fullName>
             <default>false</default>
         </values>
@@ -2038,10 +2034,6 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Micro - Not Active</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>MyPost Business</fullName>
             <default>false</default>
         </values>
@@ -2062,7 +2054,7 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Small Business - Not Active</fullName>
+            <fullName>SMB - Supported Customers</fullName>
             <default>false</default>
         </values>
         <values>

@@ -105,7 +105,7 @@
                         
                         <aura:if isTrue="{!(v.error500)}">
                             <div style="padding-top:32px;">
-                                <c:ChasInfoTile heading="Whoops, something's gone wrong." image="/chas-icons/pngs/UI/icons/it_error.png">
+                                <c:ChasInfoTile heading="We have been unable to process this request" image="/chas-icons/pngs/UI/icons/it_error.png">
                                     <p>Please try again in a few minutes.</p>
                                 </c:ChasInfoTile>
                             </div>

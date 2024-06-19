@@ -163,6 +163,7 @@ private class BulkMailEmailMessagesModule_Test {
 		caseRecord.Origin = 'Other';
 		caseRecord.Permanent_Close__c = false;
 		caseRecord.First_Email_Response__c = null;
+		caseRecord.Status = 'New';
 		
 		EmailMessage emailMessageRecord = ApplicationTestDataFactory.getEmailMessages(1, true, false, 'test@test.com', 'replypaid@auspost.com.au', 'Test Subject', caseRecord.Id)[0];
 		emailMessageRecord = (EmailMessage)ApplicationTestDataFactory.setUnwritableFields(emailMessageRecord, new Map <String, Object>{'ParentId' => caseRecord.Id});

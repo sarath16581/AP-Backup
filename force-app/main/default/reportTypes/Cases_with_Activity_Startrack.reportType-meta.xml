@@ -318,4 +318,7 @@
         </columns>
         <masterLabel>Activities</masterLabel>
     </sections>
+    <sections>
+        <masterLabel>Cases</masterLabel>
+    </sections>
 </ReportType>

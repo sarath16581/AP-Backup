@@ -11,7 +11,7 @@
     <type>Picklist</type>
     <valueSet>
         <valueSetDefinition>
-            <sorted>false</sorted>
+            <sorted>true</sorted>
             <value>
                 <fullName>Centrally Managed</fullName>
                 <default>false</default>
@@ -23,11 +23,6 @@
                 <label>eCommerce Partnerships</label>
             </value>
             <value>
-                <fullName>Enterprise - Not Active</fullName>
-                <default>false</default>
-                <label>Enterprise - Not Active</label>
-            </value>
-            <value>
                 <fullName>Enterprise NSW 1</fullName>
                 <default>false</default>
                 <label>Enterprise NSW 1</label>
@@ -36,6 +31,11 @@
                 <fullName>Enterprise NSW 2</fullName>
                 <default>false</default>
                 <label>Enterprise NSW 2</label>
+            </value>
+            <value>
+                <fullName>Enterprise NSW 3</fullName>
+                <default>false</default>
+                <label>Enterprise NSW 3</label>
             </value>
             <value>
                 <fullName>Enterprise QLD &amp; NT</fullName>
@@ -68,24 +68,24 @@
                 <label>Financial Institutions</label>
             </value>
             <value>
-                <fullName>Financial Institutions - Not Active</fullName>
-                <default>false</default>
-                <label>Financial Institutions - Not Active</label>
-            </value>
-            <value>
                 <fullName>Government North</fullName>
                 <default>false</default>
                 <label>Government North</label>
             </value>
             <value>
-                <fullName>Government - Not Active</fullName>
+                <fullName>Government North - National Defence</fullName>
                 <default>false</default>
-                <label>Government - Not Active</label>
+                <label>Government North - National Defence</label>
             </value>
             <value>
                 <fullName>Government South</fullName>
                 <default>false</default>
                 <label>Government South</label>
+            </value>
+            <value>
+                <fullName>Government - Supported Customers</fullName>
+                <default>false</default>
+                <label>Government - Supported Customers</label>
             </value>
             <value>
                 <fullName>Holding Sales Team</fullName>
@@ -101,6 +101,11 @@
                 <fullName>Intermediaries - Not Active</fullName>
                 <default>false</default>
                 <label>Intermediaries - Not Active</label>
+            </value>
+            <value>
+                <fullName>Intermediaries - Supported Customers</fullName>
+                <default>false</default>
+                <label>Intermediaries - Supported Customers</label>
             </value>
             <value>
                 <fullName>LBP Post Offices NSW/ACT &amp; QLD/NT</fullName>
@@ -198,11 +203,6 @@
                 <label>LBP Tier 2 LPO South</label>
             </value>
             <value>
-                <fullName>Medium Business - Not Active</fullName>
-                <default>false</default>
-                <label>Medium Business - Not Active</label>
-            </value>
-            <value>
                 <fullName>Medium Business NSW 1</fullName>
                 <default>false</default>
                 <label>Medium Business NSW 1</label>
@@ -263,11 +263,6 @@
                 <label>Medium Business WA</label>
             </value>
             <value>
-                <fullName>Micro - Not Active</fullName>
-                <default>false</default>
-                <label>Micro - Not Active</label>
-            </value>
-            <value>
                 <fullName>MyPost Business</fullName>
                 <default>false</default>
                 <label>MyPost Business</label>
@@ -291,11 +286,6 @@
                 <fullName>Other PP&amp;eCS</fullName>
                 <default>false</default>
                 <label>Other PP&amp;eCS</label>
-            </value>
-            <value>
-                <fullName>Small Business - Not Active</fullName>
-                <default>false</default>
-                <label>Small Business - Not Active</label>
             </value>
             <value>
                 <fullName>Small Business NSW 1</fullName>
@@ -343,9 +333,9 @@
                 <label>Small Business WA</label>
             </value>
             <value>
-                <fullName>Government North - National Defence</fullName>
+                <fullName>SMB - Supported Customers</fullName>
                 <default>false</default>
-                <label>Government North - National Defence</label>
+                <label>SMB - Supported Customers</label>
             </value>
         </valueSetDefinition>
     </valueSet>
