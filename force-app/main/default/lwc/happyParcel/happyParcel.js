@@ -410,7 +410,6 @@ export default class HappyParcelWrapper extends NavigationMixin(LightningElement
 		this.consignment.trackingResult = result;
 		this.retryStarTrackCallout = false;
 		this.loadingStarTrackApi = false;
-		this.handlePODDownloadButtonDisplay();
 	}
 
 	/**
