@@ -3,7 +3,7 @@
     <fullName>NRTInc6__c</fullName>
     <description>NRT Incremental value for June</description>
     <externalId>false</externalId>
-    <formula>IF (Act6__c - NRTBaseline__c &gt; 0 ,Act6__c - NRTBaseline__c ,0)</formula>
+    <formula>IF (TotalIncremental__c = 0, 0 , IF (Act6__c -  NRTBaseline__c &gt; 0 ,Act6__c -  NRTBaseline__c ,0))</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <inlineHelpText>NRT Incremental value for June</inlineHelpText>
     <label>June Incremental Revenue</label>

@@ -83,6 +83,10 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
+                <field>DoNotUseAccountHierarchy__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
                 <field>Data_Integrity_Compliance__c</field>
             </layoutItems>
             <layoutItems>
@@ -174,6 +178,10 @@
             <layoutItems>
                 <behavior>Edit</behavior>
                 <field>DOV_Reason__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>OverrideOPCCalculation__c</field>
             </layoutItems>
         </layoutColumns>
         <style>TwoColumnsTopToBottom</style>

@@ -131,9 +131,11 @@ public with sharing class ProductScheduleService {
     private Set<String> getCreateGroupedRevenues(List<OpportunityLineItem> items) {
         // retrieve any existing grouped account product revenue records so the schedules can link to them.
         Set<String> uids = new Set<String>();
+        Date revenueCalculationContextDate = System.today();
         for (OpportunityLineItem nextItem : opportunityLineItems.values()) {
-            Integer startYear = nextItem.Contract_Start_Date__c.month() >= 7 ? nextItem.Contract_Start_Date__c.year() + 1 : nextItem.Contract_Start_Date__c.year();
-            Integer endYear = nextItem.Contract_End_Date__c.month()  >= 7 ? nextItem.Contract_End_Date__c.year() + 1 : nextItem.Contract_End_Date__c.year();
+            Date targetDate = nextItem.Contract_Start_Date__c < revenueCalculationContextDate ? nextItem.Contract_Start_Date__c : revenueCalculationContextDate;
+            Integer startYear = targetDate.month() - 1 >= 7 ? targetDate.year() + 1 : targetDate.year();
+            Integer endYear = nextItem.Contract_End_Date__c.month() >= 7 ? nextItem.Contract_End_Date__c.year() + 1 : nextItem.Contract_End_Date__c.year();
             for (Integer year = startYear; year <= endYear; year++) {
                 String uid = ProductRevenueService.getUID(nextItem.Opportunity.AccountId, nextItem.Product2.Id, String.valueOf(year));
                 if (!groupedRevenues.containsKey(uid)) {

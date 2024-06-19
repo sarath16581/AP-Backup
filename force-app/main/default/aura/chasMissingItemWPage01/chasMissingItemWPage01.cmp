@@ -245,7 +245,7 @@
                     </c:ChasExpandableSection>
                 </div>
                 <aura:set attribute="else">
-                    <c:ChasInfoTile heading="There has been an issue processing your request." image="/chas-icons/pngs/UI/icons/it_error.png">
+                    <c:ChasInfoTile heading="We have been unable to process this request." image="/chas-icons/pngs/UI/icons/it_error.png">
                         <p>Please try again in a few minutes.</p>
                     </c:ChasInfoTile>
                 </aura:set>

@@ -782,21 +782,6 @@
                 <default>false</default>
                 <label>Change of address / change of customer details</label>
             </value>
-            <value>
-                <fullName>Termination of all AP Contract(s) - ABN Change</fullName>
-                <default>false</default>
-                <label>Termination of all AP Contract(s) - ABN Change</label>
-            </value>
-            <value>
-                <fullName>Termination of all ST Contract(s) - ABN Change</fullName>
-                <default>false</default>
-                <label>Termination of all ST Contract(s) - ABN Change</label>
-            </value>
-            <value>
-                <fullName>Close all ST Billing Account(s) - ABN Change</fullName>
-                <default>false</default>
-                <label>Close all ST Billing Account(s) - ABN Change</label>
-            </value>
         </valueSetDefinition>
     </valueSet>
 </CustomField>

@@ -348,11 +348,14 @@
                         <valueListItems>
                             <value>TotalRetained__c</value>
                         </valueListItems>
+                        <valueListItems>
+                            <value>TotalIncremental__c</value>
+                        </valueListItems>
                     </valueList>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>relatedListLabel</name>
-                    <value>Expected Revenues</value>
+                    <value>Expected Revenue</value>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>showActionBar</name>
@@ -1044,7 +1047,7 @@
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>title</name>
-                    <value>Customer 360</value>
+                    <value>Opportunity 360</value>
                 </componentInstanceProperties>
                 <componentName>flexipage:tab</componentName>
                 <identifier>flexipage_tab2</identifier>

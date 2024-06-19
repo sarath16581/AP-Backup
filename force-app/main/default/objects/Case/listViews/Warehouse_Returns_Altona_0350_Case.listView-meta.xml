@@ -2,7 +2,7 @@
 <ListView xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Warehouse_Returns_Altona_0350_Case</fullName>
     <filterScope>Queue</filterScope>
-    <label>Warehouse Returns – Altona (0350)</label>
+    <label>Warehouse Returns – 0350 DHL(VIC)</label>
     <queue>Warehouse_Returns_Altona_0350</queue>
     <sharedTo>
         <group>Retail_Product_Support</group>
