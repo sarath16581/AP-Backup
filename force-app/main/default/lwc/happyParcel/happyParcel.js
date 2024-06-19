@@ -301,7 +301,7 @@ export default class HappyParcelWrapper extends NavigationMixin(LightningElement
 					// 2. another api query was completed (analytics api for example) and populated this structure
 					this.articles[articleIndex].trackingResult = item;
 					if(item.article.VODV_Redirect__c) {
-						   this.vodvWarning = CONSTANTS.LABEL_HAPPYPARCELVODVWARNINGTEXT;
+						this.vodvWarning = CONSTANTS.LABEL_HAPPYPARCELVODVWARNINGTEXT;
 					}
 					// a consignment is rendered with a list selectable articles. this value stores whether the article checkbox has been clicked or not
 					if (this.isConsignment && !Object.keys(this.articles[articleIndex]).includes('articleSelected')) {
