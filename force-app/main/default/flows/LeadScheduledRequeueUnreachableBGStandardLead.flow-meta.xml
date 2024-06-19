@@ -15,6 +15,8 @@
                 <elementReference>$Record.Id</elementReference>
             </value>
         </inputParameters>
+        <nameSegment>ReopenDisqualifiedLeadsInvocable</nameSegment>
+        <versionSegment>1</versionSegment>
     </actionCalls>
     <apiVersion>60.0</apiVersion>
     <description>Scheduled Path to requeue &quot;BG Standard&quot; Leads disqualified with a disqualification reason &quot;Could Not Contact&quot;, so that Lead Verification team can attempt to contact them again after a wait time (Currently 7 days). Leads are requeued upto 3 times and not requeued after the 3rd unsuccessful attempt.</description>
@@ -59,12 +61,12 @@
                 <targetReference>Reopen_Leads</targetReference>
             </connector>
             <label>7 days after disqualified</label>
-            <offsetNumber>7</offsetNumber>
-            <offsetUnit>Days</offsetUnit>
+            <offsetNumber>5</offsetNumber>
+            <offsetUnit>Minutes</offsetUnit>
             <recordField>Lead_Converted_or_Disqualified_Time__c</recordField>
             <timeSource>RecordField</timeSource>
         </scheduledPaths>
         <triggerType>RecordAfterSave</triggerType>
     </start>
-    <status>Active</status>
+    <status>Obsolete</status>
 </Flow>

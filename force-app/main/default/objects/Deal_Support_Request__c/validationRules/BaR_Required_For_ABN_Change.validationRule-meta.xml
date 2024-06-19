@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
-    <fullName>BaR_Required_For_ABN_Change</fullName>
-    <active>true</active>
-    <description>Business At Risk is required for ABN update to select a termination work type</description>
-    <errorConditionFormula>AND(OR(ISPICKVAL(Work_Type__c, &quot;Termination of all AP Contract(s) - ABN Change&quot;), ISPICKVAL(Work_Type__c, &quot;Termination of all ST Contract(s) - ABN Change&quot;), ISPICKVAL(Work_Type__c, &quot;Close all ST Billing Account(s) - ABN Change&quot;)), OR(ISNULL(Business_At_Risk__c), AND(NOT(ISPICKVAL(Business_At_Risk__r.Reason__c, &quot;ABN Change - Same Owners&quot;)), NOT(ISPICKVAL(Business_At_Risk__r.Reason__c, &quot;Business Sold - New Owners&quot;)))))</errorConditionFormula>
-    <errorMessage>Please associate Business At Risk for ABN update to this Deal Support Request record to select this work type</errorMessage>
-</ValidationRule>

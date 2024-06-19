@@ -128,7 +128,6 @@ public class OpportunityRevenueReportController {
 			// the calculation for past months revenue counts back wards, so if it reaches zero it means it should reset the month to 12, and go the previous year
 			if (startMonth == 0) {
 				startMonth = 12;
-				FY -=1;
 			}
 
 			Double amt = getSumOfPastTwelveMonths(accountId,item.Product2.Id,FY,startMonth,customerRevenues);

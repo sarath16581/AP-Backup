@@ -194,6 +194,10 @@
                 <behavior>Edit</behavior>
                 <field>Account_Manager_changes__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>APR_Contact__c</field>
+            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>

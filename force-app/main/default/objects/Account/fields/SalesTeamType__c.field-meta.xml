@@ -50,13 +50,8 @@
             <controllingFieldValue>LBP Sales Manager WA 1</controllingFieldValue>
             <controllingFieldValue>LBP Sales Manager WA 2</controllingFieldValue>
             <controllingFieldValue>eCommerce Partnerships</controllingFieldValue>
-            <controllingFieldValue>Enterprise - Not Active</controllingFieldValue>
             <controllingFieldValue>Enterprise NSW 1</controllingFieldValue>
             <controllingFieldValue>Enterprise NSW 2</controllingFieldValue>
-            <controllingFieldValue>Government - Not Active</controllingFieldValue>
-            <controllingFieldValue>Medium Business - Not Active</controllingFieldValue>
-            <controllingFieldValue>Micro - Not Active</controllingFieldValue>
-            <controllingFieldValue>Small Business - Not Active</controllingFieldValue>
             <controllingFieldValue>LBP Sales Manager NSW 1</controllingFieldValue>
             <controllingFieldValue>Enterprise QLD &amp; NT</controllingFieldValue>
             <controllingFieldValue>LBP Sales Manager QLD 1</controllingFieldValue>
@@ -66,7 +61,6 @@
             <controllingFieldValue>LBP Sales Manager VIC 1</controllingFieldValue>
             <controllingFieldValue>Enterprise VIC 4</controllingFieldValue>
             <controllingFieldValue>Financial Institutions</controllingFieldValue>
-            <controllingFieldValue>Financial Institutions - Not Active</controllingFieldValue>
             <controllingFieldValue>Medium Business NSW 1</controllingFieldValue>
             <controllingFieldValue>Government North</controllingFieldValue>
             <controllingFieldValue>Medium Business NSW 2</controllingFieldValue>
@@ -90,9 +84,12 @@
             <controllingFieldValue>LBP Tier 2 LPO South</controllingFieldValue>
             <controllingFieldValue>Government North - National Defence</controllingFieldValue>
             <controllingFieldValue>LBP Sales Manager NSW 2</controllingFieldValue>
+            <controllingFieldValue>SMB - Supported Customers</controllingFieldValue>
             <controllingFieldValue>LBP Sales Manager NSW 3</controllingFieldValue>
             <controllingFieldValue>LBP Sales Manager NSW 4</controllingFieldValue>
+            <controllingFieldValue>Government - Supported Customers</controllingFieldValue>
             <controllingFieldValue>LBP Sales Manager QLD 2</controllingFieldValue>
+            <controllingFieldValue>Enterprise NSW 3</controllingFieldValue>
             <controllingFieldValue>LBP Post Offices NSW/ACT &amp; QLD/NT</controllingFieldValue>
             <valueName>Direct</valueName>
         </valueSettings>
@@ -108,6 +105,7 @@
         <valueSettings>
             <controllingFieldValue>Intermediaries - Not Active</controllingFieldValue>
             <controllingFieldValue>Intermediaries</controllingFieldValue>
+            <controllingFieldValue>Intermediaries - Supported Customers</controllingFieldValue>
             <valueName>Intermediary</valueName>
         </valueSettings>
     </valueSet>

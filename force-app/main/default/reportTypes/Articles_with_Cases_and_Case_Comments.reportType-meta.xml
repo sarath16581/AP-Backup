@@ -4942,6 +4942,11 @@
             <field>UserSurveyDateSent__c</field>
             <table>Article__c.Cases__r</table>
         </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>HandoffReason__c</field>
+            <table>Article__c.Cases__r</table>
+        </columns>
         <masterLabel>Cases</masterLabel>
     </sections>
     <sections>

@@ -64,6 +64,10 @@
                 <behavior>Readonly</behavior>
                 <field>Case_RecordType_Name__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>HandoffReason__c</field>
+            </layoutItems>
         </layoutColumns>
         <style>OneColumn</style>
     </layoutSections>

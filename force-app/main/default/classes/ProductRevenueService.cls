@@ -169,7 +169,6 @@ public with sharing class ProductRevenueService {
                 Double pastSales = getSumOfPastTwelveMonths(record.Opportunity.AccountId, record.Product2.Id, record.Contract_Start_Date__c);
                 // update the record based on current values
                 updateRetainedIncrementalAnnualised(record,pastSales);
-
                 if (!record.Opportunity.StageName.contains('Closed')) {
                     record.X3MonthAverageActual__c = getPastMonthsAverage(record.Opportunity.AccountId, record.Product2.Id, 3, record.Contract_Start_Date__c);
                 }
@@ -432,23 +431,20 @@ public with sharing class ProductRevenueService {
                         if (addChildAccountRevenueRecursive(item.Opportunity.AccountId,item.Product2.Id,String.valueOf(year),currentGroupedRevenue,parentToChildAccountMap,0) >0) {
                             isUpdated = true;
                         }
-                    }
-
-                    // records for related accounts from the AccountRelationship Object
-                    Set<Id> relatedAccounts = relatedChildAccountsMap.containsKey(item.Opportunity.AccountId) // AR contains the parent as keys
-                                                    && relatedChildAccountsMap.get(item.Opportunity.AccountId) != null // the children records exist
-                                                    ? relatedChildAccountsMap.get(item.Opportunity.AccountId) : new Set<Id>();
-                    for (Id relatedAccountId : relatedAccounts) {
-                        String relatedAccountRevenueKey = getUID(relatedAccountId,item.Product2.Id,String.valueOf(year));
-                        if (addRevenueValues(currentGroupedRevenue,relatedAccountRevenueKey)) {
-                            isUpdated = true;
+                    } else {
+                        // records for related accounts from the AccountRelationship Object
+                        Set<Id> relatedAccounts = relatedChildAccountsMap.containsKey(item.Opportunity.AccountId) // AR contains the parent as keys
+                                && relatedChildAccountsMap.get(item.Opportunity.AccountId) != null // the children records exist
+                                ? relatedChildAccountsMap.get(item.Opportunity.AccountId) : new Set<Id>();
+                        for (Id relatedAccountId : relatedAccounts) {
+                            String relatedAccountRevenueKey = getUID(relatedAccountId,item.Product2.Id,String.valueOf(year));
+                            if (addRevenueValues(currentGroupedRevenue,relatedAccountRevenueKey)) {
+                                isUpdated = true;
+                            }
                         }
-                        if (addChildAccountRevenueRecursive(relatedAccountId,item.Product2.Id,String.valueOf(year),currentGroupedRevenue,parentToChildAccountMap,0) >0) {
-                            isUpdated = true;
+                        if (isUpdated) {
+                            updatedRevenueRecords.put(currentGroupedRevenue.UID__c,currentGroupedRevenue);
                         }
-                    }
-                    if (isUpdated) {
-                        updatedRevenueRecords.put(currentGroupedRevenue.UID__c,currentGroupedRevenue);
                     }
                 }
             }
@@ -602,7 +598,6 @@ public with sharing class ProductRevenueService {
         } else if (targetMonth == 0) {
             targetMonth = 12;
         }
-
         for (Integer i = 1; i <= 3; i++) {
             String uniqueId = getUID(accountId,productId,String.valueOf(targetYear));
             GroupedAccountProductRevenue__c targetData = groupedRevenues.get(uniqueId);
