@@ -61,7 +61,7 @@ public with sharing class MyNetworkSmartForms {
 				//Snigdha : REQ2911157 : Add for lost article form
 				if (caseWrapper.scannedDelivered == 'Yes')
 				{
-					oCase.EnquirySubType__c = 'Disputed Delivery';
+					oCase.EnquirySubType__c = 'Disputed Delivery scan';
 				}
 				else
                 {	

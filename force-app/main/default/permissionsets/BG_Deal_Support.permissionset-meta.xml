@@ -1064,11 +1064,6 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Deal_Support_Request__c.EstimatedAccountClosureDate__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
         <field>Deal_Support_Request__c.Estimated_Freight_Spend_Per_Annum__c</field>
         <readable>true</readable>
     </fieldPermissions>

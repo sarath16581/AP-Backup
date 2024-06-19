@@ -4,8 +4,7 @@
     <customButtons>MassUpload</customButtons>
     <customButtons>APT_Export_Accounts</customButtons>
     <customButtons>BAM_Configure_Apps</customButtons>
-    <excludeButtons>DataDotComAccountInsights</excludeButtons>
-    <excludeButtons>DataDotComClean</excludeButtons>
+    <excludeButtons>DataDotComCompanyHierarchy</excludeButtons>
     <excludeButtons>DisableCustomerPortalAccount</excludeButtons>
     <excludeButtons>DisablePartnerPortalAccount</excludeButtons>
     <excludeButtons>IncludeOffline</excludeButtons>
@@ -1355,6 +1354,12 @@
         <fields>Connection__c</fields>
         <fields>EndDate__c</fields>
         <relatedList>AccountRelationship__c.ParentAccount__c</relatedList>
+    </relatedLists>
+    <relatedLists>
+        <fields>NAME</fields>
+        <fields>FinancialYear__c</fields>
+        <fields>PrimaryProduct__c</fields>
+        <relatedList>GroupedAccountProductRevenue__c.AnchorOrganisation__c</relatedList>
     </relatedLists>
     <relatedObjects>ParentId</relatedObjects>
     <showEmailCheckbox>false</showEmailCheckbox>

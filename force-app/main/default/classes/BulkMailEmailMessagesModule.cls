@@ -110,7 +110,7 @@
 			}
 
 			// Outgoing message (First Response) - add the case Id to the milestoneCaseIds set, we'll complete the Bulk Mail First Response milestone.
-			if (!em.Incoming && !em.Parent.First_Email_Response__c && (EmailMessageUtil.STATUS_REPLIED.equals(em.Status) || EmailMessageUtil.STATUS_SENT.equals(em.Status))) {
+			if (!em.Incoming && !em.Parent.First_Email_Response__c && em.Parent.Status == 'New' && (EmailMessageUtil.STATUS_REPLIED.equals(em.Status) || EmailMessageUtil.STATUS_SENT.equals(em.Status))) {
 				casestoUpdate.add(new Case(Id = em.ParentId, First_Email_Response__c = true, Status = BulkMailCaseService.IN_PROGRESS_STATUS));
 				milestoneCaseIds.add(em.ParentId);
 			}

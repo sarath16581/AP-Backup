@@ -291,8 +291,6 @@
         <fields>NAME</fields>
         <fields>Stage__c</fields>
         <fields>Status__c</fields>
-        <fields>Work_Type__c</fields>
-        <fields>Credit_Work_Type__c</fields>
         <fields>RECORDTYPE</fields>
         <fields>OWNER.ALIAS</fields>
         <fields>CREATED_DATE</fields>
