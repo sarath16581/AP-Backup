@@ -44,10 +44,6 @@
                 <behavior>Edit</behavior>
                 <field>Product_Solution_Specialist__c</field>
             </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>HandoffReason__c</field>
-            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>

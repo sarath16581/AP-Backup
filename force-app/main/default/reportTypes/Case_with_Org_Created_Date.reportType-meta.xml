@@ -2022,11 +2022,6 @@ Test report type</description>
             <field>Account.PersonContact.Account.Prospect_Party_Role_Count__c</field>
             <table>Case</table>
         </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>HandoffReason__c</field>
-            <table>Case</table>
-        </columns>
         <masterLabel>Cases</masterLabel>
     </sections>
 </ReportType>

@@ -893,11 +893,6 @@
             <field>Originating_OPC__c</field>
             <table>Opportunity.Cases__r</table>
         </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>HandoffReason__c</field>
-            <table>Opportunity.Cases__r</table>
-        </columns>
         <masterLabel>Cases</masterLabel>
     </sections>
 </ReportType>

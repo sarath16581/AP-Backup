@@ -113,10 +113,6 @@
                 <behavior>Readonly</behavior>
                 <field>LastSurveySentDate__c</field>
             </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>HandoffReason__c</field>
-            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>
