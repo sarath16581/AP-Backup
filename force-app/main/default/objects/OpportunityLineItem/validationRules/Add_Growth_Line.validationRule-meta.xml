@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Add_Growth_Line</fullName>
-    <active>true</active>
+    <active>false</active>
     <description>Users cannot add a non-growth product directly in Salesforce</description>
     <errorConditionFormula>AND( ISBLANK(Contract_Number__c), ISPICKVAL(Change_Classification__c, &apos;No&apos;), ISNEW(), OR( $Profile.Name = &apos;BG Base&apos;, $Profile.Name = &apos;Enterprise Onboarding&apos;, $Profile.Name = &apos;Coverage Sales&apos;, $Profile.Name = &apos;Customer Onboarding&apos;, $Profile.Name = &apos;PartnerInfo Agreement Admin&apos;, $Profile.Name = &apos;PartnerInfo Read Only&apos;, $Profile.Name = &apos;Sales Operations&apos;, $Profile.Name = &apos;Sales Operation Super User&apos;, $Profile.Name = &apos;Sales Read Only&apos;, $Profile.Name = &apos;Sales Admin&apos;, $Profile.Name = &apos;SecurePay SuperUser&apos; ) )</errorConditionFormula>
     <errorMessage>Non growth products can only be added via the Opportunity. Please select YES to Is Growth? or return to your opportunity.</errorMessage>

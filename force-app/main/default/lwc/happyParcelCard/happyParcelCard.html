@@ -1,15 +1,15 @@
 <!--
-    2020-04-01 nathan.franklin@auspost.com.au Created
-    2020-04-01 Disha Kariya Added a button icon
-    2020-09-28 Disha Kariya Added a tick icon for selected card
-    2021-10-03 - Nathan Franklin - Added attribute to allow additional padding to the right of the title + uplift to v52
+	2020-04-01 nathan.franklin@auspost.com.au Created
+	2020-04-01 Disha Kariya Added a button icon
+	2020-09-28 Disha Kariya Added a tick icon for selected card
+	2021-10-03 - Nathan Franklin - Added attribute to allow additional padding to the right of the title + uplift to v52
 -->
 <template>
 	<article class={wrapperCss} onclick={handleSelectableClick}>
 		<div class="slds-card__header">
 			<header class="slds-media slds-media_center slds-has-flexi-truncate">
 				<div class="slds-media__figure">
-			        <lightning-icon icon-name={iconName} title={title} size="small"></lightning-icon>
+					<lightning-icon icon-name={iconName} title={title} size="small"></lightning-icon>
 				</div>
 				<div class="slds-media__body">
 					<h2 class="slds-card__header-title">
@@ -37,16 +37,17 @@
 				</template>
 				<template if:true={buttonIcon}>
 					<div class="slds-no-flex">
-						<lightning-button-icon icon-name={buttonIcon} class="slds-m-right_x-small" variant={buttonVariant}
-											   onclick={handleButtonClick}>
-
-						</lightning-button-icon>
+						<lightning-button-icon icon-name={buttonIcon} class="slds-m-right_x-small" variant={buttonVariant} onclick={handleButtonClick}> </lightning-button-icon>
 					</div>
 				</template>
 
-				<!--<div class="slds-no-flex">
-					<lightning-helptext content="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam non purus luctus, viverra diam eget, facilisis massa. Vestibulum sodales ut felis quis dictum. Donec quis purus porttitor, volutpat metus ac, vehicula lacus. Sed nec faucibus risus. Curabitur sodales arcu at maximus consectetur. Etiam ullamcorper velit ut auctor pulvinar. Vivamus nibh metus, dictum in convallis id, suscipit sed enim. Vivamus id tortor justo. Vivamus ipsum velit, fermentum semper ante eu, pulvinar ultricies diam. Interdum et malesuada fames ac ante ipsum primis in faucibus. Cras vitae ligula varius, iaculis dui lacinia, vulputate sapien. Integer vel odio purus."></lightning-helptext>
-				</div>-->
+				<!-- Only display for consignment WHERE safe drop image or signature exists -->
+				<template if:true={showPodDownloadButton}>
+					<div class="slds-no-flex">
+						<span>Download POD</span>&nbsp;
+						<lightning-button-icon icon-name="utility:download" variant="border" alternative-text="Download" size="x-small" onclick={handlePODButtonClick}> </lightning-button-icon>
+					</div>
+				</template>
 			</header>
 		</div>
 		<div class="slds-card__body slds-card__body_inner">

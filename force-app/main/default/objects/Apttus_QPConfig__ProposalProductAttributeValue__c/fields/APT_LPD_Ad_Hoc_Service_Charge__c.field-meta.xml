@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>APT_LPD_Ad_Hoc_Service_Charge__c</fullName>
-    <description>The Ad Hoc Service Charge add $1 cost when selected as the available frequency for &apos;Delivery Service&apos; and &apos;Pickup Service&apos; Service Type.
+    <description>The Ad Hoc Service Charge add $1 cost when selected as the available frequency for &apos;Delivery Service&apos;, &apos;Pickup Service&apos; and &apos;Pickup &amp; Delivery At the same time&apos; Service Type.
 This is used for &apos;Local Pickup and Delivery Services&apos; Product only.</description>
     <externalId>false</externalId>
     <formula>IF(
     AND(
         OR(
-            ISPICKVAL(APT_LPD_Service_Type__c , &apos;Delivery Service&apos;), ISPICKVAL(APT_LPD_Service_Type__c , &apos;Pickup Service&apos;)
+            ISPICKVAL(APT_LPD_Service_Type__c , &apos;Delivery Service&apos;), ISPICKVAL(APT_LPD_Service_Type__c , &apos;Pickup Service&apos;), ISPICKVAL(APT_LPD_Service_Type__c , &apos;Pickup &amp; Delivery At the same time&apos;)
         ),
         INCLUDES ( APT_LPD_Multiple_Frequency__c, &quot;Ad hoc&quot; ) 
     ), 
@@ -18,7 +18,7 @@ This is used for &apos;Local Pickup and Delivery Services&apos; Product only.</d
     <label>Ad Hoc Service Charge</label>
     <precision>18</precision>
     <required>false</required>
-    <scale>0</scale>
+    <scale>2</scale>
     <securityClassification>OFFICIAL_SENSITIVE</securityClassification>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>

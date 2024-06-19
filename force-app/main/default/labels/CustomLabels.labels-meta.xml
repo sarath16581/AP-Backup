@@ -1,6 +1,46 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomLabels xmlns="http://soap.sforce.com/2006/04/metadata">
     <labels>
+        <fullName>ABNChangeContactCloningConfirmation</fullName>
+        <categories>ABN Update</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>ABNChangeContactCloningConfirmation</shortDescription>
+        <value>Contacts are being cloned. Please check the contacts under the new organisation to see the newly created contacts. If all selected contacts do not appear under the new organisation, please refresh the page and retry cloning after some time. If subsequent attempts fail, then please contact your local CRM specialist.</value>
+    </labels>
+    <labels>
+        <fullName>ABNChangeContactCloningInfo</fullName>
+        <categories>ABN Update</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>ABNChangeContactCloningInfo</shortDescription>
+        <value>Contacts displayed for cloning are Active, Contact Maintained by Account Manager on the original organisation and do not already exist against the new Organisation (based on combination of Name+Phone+Email).</value>
+    </labels>
+    <labels>
+        <fullName>ABNChangeContactCloningLabel</fullName>
+        <categories>ABN Update</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>ABNChangeContactCloningLabel</shortDescription>
+        <value>Contact Cloning</value>
+    </labels>
+    <labels>
+        <fullName>ABNChangeContactCloningLimitInfo</fullName>
+        <categories>ABN Update</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>ABNChangeContactCloningLimitInfo</shortDescription>
+        <value>Please note only 100 contacts can be selected for cloning at a time. Repeat this process until all contacts have been cloned.</value>
+    </labels>
+    <labels>
+        <fullName>ABNChangeContactCloningNoContactsError</fullName>
+        <categories>ABN Update</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>ABNChangeContactCloningNoContactsError</shortDescription>
+        <value>No active contacts available for cloning. Please verify the contacts under the old organisation if at least 1 contact that is Active and maintained by Account Manager.</value>
+    </labels>
+    <labels>
         <fullName>ABNChangeNotificationError</fullName>
         <language>en_US</language>
         <protected>false</protected>
@@ -4127,6 +4167,14 @@ To add a comment or check for updates, visit your MyPost dashboard now</value>
         <protected>false</protected>
         <shortDescription>ERROR_NOMINATED_CONTACT_REQUIRED</shortDescription>
         <value>The Parent Organisation must have a &quot;Nominated Partner Contact &amp; Incent User&quot; before creating a Licence.</value>
+    </labels>
+	<labels>
+        <fullName>PartnerInfoIncentCrentialsInvalidErrorMessage</fullName>
+        <categories>Partner Info Licence Activation</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>PartnerInfoIncentCrentialsInvalidErrorMessage</shortDescription>
+        <value>Please ensure the Incent Credential for nominated Partner is populated.</value>
     </labels>
     <labels>
         <fullName>EXPIRED_QUOTE</fullName>
