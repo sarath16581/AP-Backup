@@ -239,20 +239,18 @@ public virtual inherited sharing class ContactsSelector extends ApplicationSelec
 		 */
 		String phoneNumber = params.phoneNumber?.trim();
 		if(String.isNotBlank(phoneNumber)) {
-			// Remove all non-numeric characters and remove 61 prefix
-			String phoneNumberClean = phoneNumber.replaceAll('[^0-9]', '').replaceFirst('^61', '');
-
-			// Clean and reverse the phone number for querying the `ReversePhoneFields__c` field
-			String phoneNumberReversed = Util.reversePhoneString(phoneNumber);
+			// Clean and reverse the phone number for querying the reverse phone fields
+			String reversePhone = Util.reversePhoneString(phoneNumber);
 
 			Integer n = cm.conditions.size();
-			cm.add(new QueryBuilder.CompareCondition(Contact.MobilePhone).eq(phoneNumberClean));
-			cm.add(new QueryBuilder.CompareCondition(Contact.VerifiedMobile__c).eq(phoneNumberClean));
-			cm.add(new QueryBuilder.CompareCondition(Contact.Phone).eq(phoneNumberClean));
-			cm.add(new QueryBuilder.CompareCondition(Contact.ReversePhoneFields__c).eq(phoneNumberReversed));
+			cm.add(new QueryBuilder.CompareCondition(Contact.ReverseMobilePhone__c).eq(reversePhone));
+			cm.add(new QueryBuilder.CompareCondition(Contact.ReverseVerifiedMobile__c).eq(reversePhone));
+			cm.add(new QueryBuilder.CompareCondition(Contact.ReversePhone__c).eq(reversePhone));
+			cm.add(new QueryBuilder.CompareCondition(Contact.ReverseHomePhone__c).eq(reversePhone));
+			cm.add(new QueryBuilder.CompareCondition(Contact.ReverseOtherPhone__c).eq(reversePhone));
 
-			// (MobilePhone OR VerifiedMobile__c OR Phone OR ReversePhoneFields__c)
-			conditionsOrder.add('(' + (n + 1) + ' OR ' + (n + 2) + ' OR ' + (n + 3) + ' OR ' + (n + 4) + ')');
+			// (ReverseMobilePhone__c OR ReverseVerifiedMobile__c OR ReversePhone__c OR ReverseHomePhone__c OR ReverseOtherPhone__c)
+			conditionsOrder.add('(' + (n + 1) + ' OR ' + (n + 2) + ' OR ' + (n + 3) + ' OR ' + (n + 4) + ' OR ' + (n + 5) + ')');
 		}
 
 		// Join dynamic conditions with 'AND' operator

@@ -236,7 +236,8 @@ private with sharing class ContactsSelector_Test {
 		String expected = 'SELECT Id, FirstName'
 			+ ' FROM Contact'
 			+ ' WHERE (Email = \'jwatson@example.com\' OR VerifiedEmail__c = \'jwatson@example.com\')'
-			+ ' AND (MobilePhone = \'0400111222\' OR VerifiedMobile__c = \'0400111222\' OR Phone = \'0400111222\' OR ReversePhoneFields__c = \'222111004\')'
+			+ ' AND (ReverseMobilePhone__c = \'222111004\' OR ReverseVerifiedMobile__c = \'222111004\''
+			+ ' OR ReversePhone__c = \'222111004\' OR ReverseHomePhone__c = \'222111004\' OR ReverseOtherPhone__c = \'222111004\')'
 			+ ' ORDER BY VerifiedMobile__c ASC NULLS LAST, Name ASC NULLS LAST'
 			+ ' LIMIT 10';
 		Assert.areEqual(expected, actual, 'Incorrect query string returned');
