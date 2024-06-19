@@ -1223,9 +1223,18 @@ public with sharing class APT_AmendRenewController {
 	 */
 	@TestVisible
 	private void setOpportunityFieldsFromDSR(Opportunity clonedOpportunity) {
-		if (dsr != null) {
-			clonedOpportunity.OwnerId = dsr.Requestor__c != null ? dsr.Requestor__c : clonedOpportunity.OwnerId;
-			clonedOpportunity.KeyContact__c = dsr.CustomerContact1__c != null ? dsr.CustomerContact1__c : clonedOpportunity.KeyContact__c;
+		//if Sales User (i.e. BG Base Profile user) auto clone opportunity, set user as Opportunity Driver
+		ID userProfileID = UserInfo.getProfileId();
+		//getting the profile id of current user
+		Map<Id,Profile>  getProfile = ProfilesSelector.newInstance(1).selectById(new Set<Id>{userProfileID});
+		Profile p = getProfile.get(userProfileID);
+		if(getProfile.get(userProfileID).Name == APT_Constants.STRING_BG_BASE) {
+			clonedOpportunity.OwnerId = UserInfo.getUserId();
 		}
+		else if (dsr != null) {
+			clonedOpportunity.OwnerId = dsr.Requestor__c != null ? dsr.Requestor__c : clonedOpportunity.OwnerId;
+		}
+
+		clonedOpportunity.KeyContact__c = null;
 	}
 }
