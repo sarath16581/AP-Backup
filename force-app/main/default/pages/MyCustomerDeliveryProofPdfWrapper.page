@@ -5,9 +5,9 @@
  @author Nathan Franklin
  @date 30.01.2014
  @changelog
+ 2024-06-13 - Seth Heang - Update the PDF page layout including page break and additional attribute passing to the DeliveryProofPdfRenderer VF component
  -->
-<apex:page id="MyCustomerDeliveryProofPdfWrapper" controller="MyCustomerDeliveryProofPdfController" action="{!getSafeDropOrSignature}" showHeader="false" sideBar="false" renderAs="advanced_pdf">
-
+<apex:page id="MyCustomerDeliveryProofPdfWrapper" controller="MyCustomerDeliveryProofPdfController" showHeader="false" sideBar="false" renderAs="advanced_pdf">
 	<apex:outputPanel rendered="{!NOT(ISNULL(pageError))}" layout="none">
 		<div id="errorWrapper" style="margin:20px;">
 			<div class="alert alert-warning" role="alert">
@@ -16,8 +16,23 @@
 		</div>
 	</apex:outputPanel>
 
-	<apex:outputPanel rendered="{!ISNULL(pageError)}" layout="none">
-		<c:DeliveryProofPdfRenderer eventMessage="{!eventMessage}" signatureAttachmentId="{!signatureAttachmentId}" safeDropAttachmentId="{!safeDropAttachmentId}" />
-	</apex:outputPanel>
+	<apex:repeat value="{!deliveryProofAttributes}" var="dp">
+		<apex:outputPanel rendered="{!ISNULL(pageError)}" layout="none">
+			<c:DeliveryProofPdfRenderer
+					isStarTrackProduct="{!dp.isStarTrackProduct}"
+					eventMessage="{!dp.eventMessage}"
+					signatureAttachmentId="{!dp.signatureAttachmentId}"
+					safeDropAttachmentId="{!dp.safeDropAttachmentId}"
+					articleList="{!dp.articlesInDeliveryEvent}"
+					consignedCount="{!dp.consigned}"
+					deliveredCount="{!dp.delivered}"
+			/>
+		</apex:outputPanel>
+		<!-- NOTE: set up page break on second page if the content overflow to second page, excluding the last PDF page -->
+		<!-- NOTE: currently, 12 articles are found to be the limit for all content to fit in one page, any more article will overflow the content to next page -->
+		<apex:outputText rendered="{!dp.articlesCountInDeliveryEvent > 12 && dp.isLastPage != true}">
+			<div style="page-break-after: always;"></div>
+		</apex:outputText>
+	</apex:repeat>
 
 </apex:page>

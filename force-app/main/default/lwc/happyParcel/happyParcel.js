@@ -14,11 +14,12 @@
  * 2024-05-17 - Seth Heang - Added logic for additional query to remote .NET API for retrieving StarTrack consignment/article details and retry functionality
  * 2024-05-21 - Seth Heang - Added logic to allow force consignment search in existing SAP-EM integration when doing an article level
  * 2024-06-11 - Raghav Ravipati - Added logic to add critical incidents to articles in the tracking response
-*/
+ * 2024-06-14 - Seth Heang - Added logic to allow the Proof of delivery PDF download on the Consignment Detail child component
+ */
 import { LightningElement, track, api } from "lwc";
-import {getAnalyticsApiResponse, getTrackingApiResponse, getTrackingApiResponseForStarTrack, getCriticalIncidentDetails, getConfig, safeTrim, safeToUpper, CONSTANTS} from 'c/happyParcelService'
+import { getAnalyticsApiResponse, getTrackingApiResponse, getTrackingApiResponseForStarTrack, getCriticalIncidentDetails, getConfig, safeTrim, safeToUpper, subscribe, unsubscribe, downloadPODPDF, CONSTANTS } from 'c/happyParcelService'
 import { NavigationMixin } from 'lightning/navigation';
- 
+
 export default class HappyParcelWrapper extends NavigationMixin(LightningElement) {
 
 	_trackingId = '';
@@ -66,6 +67,7 @@ export default class HappyParcelWrapper extends NavigationMixin(LightningElement
 	@track loadingTrackingApi = false;
 	@track loadingAnalyticsApi = false;
 	@track loadingStarTrackApi = false;
+	@track loadingPODPDFDownload = false;
 
 	// Stores information about the articles that were returned in the search results
 	@track articles = [];
@@ -89,6 +91,9 @@ export default class HappyParcelWrapper extends NavigationMixin(LightningElement
 	// this is a workaround due to the base accordion component forcing a single panel to *always* be open
 	@track activeSections = [];
 
+	_displayPodDownloadButton = false; // flag to show proof of delivery download button in Consignment Detail section
+	_signatureEventTypes; // store event type to validate signature event
+
 	/**
 	 * Using getter/setter to enable us to trigger a search from either above (receiving tracking id from external source), or below (receiving tracking id from article selector component)
 	 */
@@ -96,7 +101,7 @@ export default class HappyParcelWrapper extends NavigationMixin(LightningElement
 	get trackingId() { return this._trackingId; }
 	set trackingId(value) {
 		this._trackingId = safeToUpper(safeTrim(value));
-		if(value) {
+		if (value) {
 			console.log('triggered another search');
 			this.triggerSearch();
 		}
@@ -104,7 +109,7 @@ export default class HappyParcelWrapper extends NavigationMixin(LightningElement
 
 	//Contextual information passed in by the host component.
 	@api hostContext = {};
-	
+
 	@api hasCaseInvestigations = false;
 	@api caseInvestigations;
 	@api caseConsignmentId;
@@ -112,50 +117,53 @@ export default class HappyParcelWrapper extends NavigationMixin(LightningElement
 	/**
 	 * Handles when case investigation's article ids are clicked.
 	 */
-	updateHappyParcels(event){
+	updateHappyParcels(event) {
 		this.trackingId = event.target.dataset.id;
 	}
 	connectedCallback() {
 		// preload the config so all the components do not have to make individual apex calls because the config hasn't loaded
 		getConfig().then(result => {
 			this.vodvKnowledgeId = result.VODVKnowledgeId;
+			this._signatureEventTypes = result.signatureEventTypes;
 		});
 
 		this.template.addEventListener('idclick', this.handleIdLinkClick);
+		subscribe('generatePodPDF', this.handlePODPDFDownload);
 	}
 
 	disconnectedCallback() {
 		this.template.removeEventListener('idclick', this.handleIdLinkClick);
+		unsubscribe('generatePodPDF', this.handlePODPDFDownload);
 	}
 
 	/**
 	 * When case investigation detail is accessed from list view, show its parent case consignment number. 
 	 * If ST case is searched globally and accessed then do not show case consignement number.
 	 */
-	get isRenderConsigmentNumber(){
+	get isRenderConsigmentNumber() {
 		return (this.hasCaseInvestigations ? false : true);
 	}
 
 	/**
 	 * When case investigation is accessed from list view, list of case investigations under a star track are passed.
 	 */
-	get isStarTrackCase(){
+	get isStarTrackCase() {
 		return (this.caseInvestigations && this.caseInvestigations.length > 0 ? true : false);
 	}
 
 	/**
 	 * Populate case investigations array based on article numbers. 
-	 */ 
-	get articleItems(){
+	 */
+	get articleItems() {
 		var items = [];
-		this.caseInvestigations.forEach( (item, index) => {
+		this.caseInvestigations.forEach((item, index) => {
 			items.push({
 				label: item.Article__r,
-				isLink : true
+				isLink: true
 			});
 		});
 		return items;
-	
+
 	}
 
 	/**
@@ -163,7 +171,7 @@ export default class HappyParcelWrapper extends NavigationMixin(LightningElement
 	 * This may be handle by an external provider (such as where Happy Parcel is embedded in MyCustomer (mini case will catch this and use the classic console api to open a new primary tab))
 	 */
 	handleIdLinkClick = (e) => {
-		if(!this.supportsExternalLinkHandling) {
+		if (!this.supportsExternalLinkHandling) {
 			const id = e.detail.id;
 
 			this[NavigationMixin.Navigate]({
@@ -191,16 +199,16 @@ export default class HappyParcelWrapper extends NavigationMixin(LightningElement
 
 		// perform a check to ensure the current article id is the same article id that was passed into the async function
 		// it's possible that while the current search was in progress that another tracking id was passed into the mix (if the component is embedded into other workflows and receives a new tracking id by api)
-		if(currentTrackingId !== this._trackingId) {
+		if (currentTrackingId !== this._trackingId) {
 			this.removeStaleSearchTrackingObjects(currentTrackingId);
 			return;
 		}
 
-		const {errors, doRetry, articles} = result;
+		const { errors, doRetry, articles } = result;
 
 		// assign the tracking response for each article into the articles array
 		// we need to loop
-		if(articles) {
+		if (articles) {
 			articles.forEach((item) => {
 				let articleIndex = this.articles.findIndex(article => article.trackingId === item.article_id);
 				if (articleIndex > -1) {
@@ -231,13 +239,13 @@ export default class HappyParcelWrapper extends NavigationMixin(LightningElement
 			});
 		}
 
-		if(doRetry) {
+		if (doRetry) {
 			// since there was a problem with the remote server and it requires a retry then show a button that allows the user to click to try again
 			this.retryAnalytics = true;
 		}
 
 		// add any errors from the request
-		if(errors) {
+		if (errors) {
 			this.errors = this.errors.concat(errors.map(item => {
 				return {
 					source: CONSTANTS.ANALYTICS_API,
@@ -263,18 +271,18 @@ export default class HappyParcelWrapper extends NavigationMixin(LightningElement
 		// perform a check to ensure the current article id is the same article id that was passed into the async function
 		// it's possible that while the current search was in progress that another tracking id was passed into the mix
 		// NOTE: There shouldn't be a need to reset the loadingTrackingApi var since another query should be in progress
-		if(currentTrackingId !== this._trackingId) {
+		if (currentTrackingId !== this._trackingId) {
 			this.removeStaleSearchTrackingObjects(currentTrackingId);
 			return;
 		}
 
-		const {errors, consignment, articles, requireAdditionalQueryForStarTrack, totalArticlesDelivered} = result;
+		const { errors, consignment, articles, requireAdditionalQueryForStarTrack, totalArticlesDelivered } = result;
 
 		// add the consignment trackingResults to the consignment object
-		if(consignment) {
-			this.consignment = {...this.consignment, trackingId: consignment.trackingId, trackingResult: consignment};
+		if (consignment) {
+			this.consignment = { ...this.consignment, trackingId: consignment.trackingId, trackingResult: consignment };
 			// expand the relevant article accordion based on initial article Id search, when a force consignment search scenario occurs
-			if(this.forceConsignmentLevelResults && consignment.trackingId !== currentTrackingId){
+			if (this.forceConsignmentLevelResults && consignment.trackingId !== currentTrackingId) {
 				this.activeSections.push(currentTrackingId);
 			}
 			const totalArticlesDeliveredField = [
@@ -289,7 +297,7 @@ export default class HappyParcelWrapper extends NavigationMixin(LightningElement
 
 		// assign the tracking response for each article into the articles array
 		// we need to loop
-		if(articles) {
+		if (articles) {
 			//Get published critical incident knowledge articles that are available in the system
 			const criticalIncidents = await getCriticalIncidentDetails();
 			articles.forEach((item) => {
@@ -299,8 +307,8 @@ export default class HappyParcelWrapper extends NavigationMixin(LightningElement
 					// 1. the search result returned was the same that was searched for (not a consignment)
 					// 2. another api query was completed (analytics api for example) and populated this structure
 					this.articles[articleIndex].trackingResult = item;
-					if(item.article.VODV_Redirect__c) {
-						   this.vodvWarning = CONSTANTS.LABEL_HAPPYPARCELVODVWARNINGTEXT;
+					if (item.article.VODV_Redirect__c) {
+						this.vodvWarning = CONSTANTS.LABEL_HAPPYPARCELVODVWARNINGTEXT;
 					}
 					// a consignment is rendered with a list selectable articles. this value stores whether the article checkbox has been clicked or not
 					if (this.isConsignment && !Object.keys(this.articles[articleIndex]).includes('articleSelected')) {
@@ -316,11 +324,11 @@ export default class HappyParcelWrapper extends NavigationMixin(LightningElement
 					//Add related critical incidents to the article based on network Id
 					let events = item.events;
 					events.forEach((event) => {
-						if(event.event.FacilityOrganisationID__c){
+						if (event.event.FacilityOrganisationID__c) {
 							event.criticalIncidents = criticalIncidents[event.event.FacilityOrganisationID__c];
 						}
 					});
-					
+
 				} else {
 					// note because we are adding this article we can set the default value of articleDetailsExpanded
 					// this means if the search result returned a consignment then the article should be collapsed by default
@@ -341,7 +349,7 @@ export default class HappyParcelWrapper extends NavigationMixin(LightningElement
 		this.triggerClearviewMappingEvent();
 
 		// add any errors from the request
-		if(errors) {
+		if (errors) {
 			this.errors = this.errors.concat(errors.map(item => {
 				return {
 					source: CONSTANTS.TRACKING_API,
@@ -359,13 +367,15 @@ export default class HappyParcelWrapper extends NavigationMixin(LightningElement
 
 		// trigger an async callout for StarTrack consignemnt
 		this.requireAdditionalQueryForStarTrack = requireAdditionalQueryForStarTrack;
+
+		this._displayPodDownloadButton = this.handlePODDownloadButtonDisplay();
 	}
 
 	/**
 	 * @description Setter to trigger the StarTrack Async Callout when the flag is set TRUE
 	 */
-	set requireAdditionalQueryForStarTrack(value){
-		if(value){
+	set requireAdditionalQueryForStarTrack(value) {
+		if (value) {
 			this.doTrackingQueryForStarTrack(this.trackingId);
 		}
 	}
@@ -374,14 +384,14 @@ export default class HappyParcelWrapper extends NavigationMixin(LightningElement
 	 * @description make an async callout to dotNet API via ApexController and map returned attributes for display
 	 * @param consignmentNumber 
 	 */
-	async doTrackingQueryForStarTrack(consignmentNumber){
+	async doTrackingQueryForStarTrack(consignmentNumber) {
 		this.requireAdditionalQueryForStarTrack = false;
 		this.loadingStarTrackApi = true;
 		// make Async callout
 		const result = await getTrackingApiResponseForStarTrack(consignmentNumber, this.consignment);
 
 		// add any errors from the request
-		if(result.errors) {
+		if (result.errors) {
 			this.errors = this.errors.concat(result.errors.map(item => {
 				return {
 					source: CONSTANTS.STARTRACK_API,
@@ -420,14 +430,14 @@ export default class HappyParcelWrapper extends NavigationMixin(LightningElement
 		const openSections = event.detail.openSections;
 
 		//only update if there is a difference (as handleToggleSection is reexecuted)
-		let sectionDiff = openSections.filter( x => !this.activeSections.includes(x) );
+		let sectionDiff = openSections.filter(x => !this.activeSections.includes(x));
 		if (sectionDiff.length > 0) {
 			this.activeSections = sectionDiff;
 		}
 
 		// hide/show the summary path since it's displayed in bigger form when the accordion is open
-		for(let i=0;i<this.articles.length;i++) {
-			if(openSections.includes(this.articles[i].trackingId)) {
+		for (let i = 0; i < this.articles.length; i++) {
+			if (openSections.includes(this.articles[i].trackingId)) {
 				this.articles[i].hideAccordionSummary = true;
 			} else {
 				this.articles[i].hideAccordionSummary = false;
@@ -443,10 +453,10 @@ export default class HappyParcelWrapper extends NavigationMixin(LightningElement
 	 * An exception to this rule is that if only a single article is selected, no child case is created and it instead becomes the tracking id of the primary case
 	 */
 	handleArticleSelectorClick(event) {
-		for(let i=0;i<this.articles.length;i++) {
-			if(this.articles[i].trackingId === event.target.dataset.article) {
+		for (let i = 0; i < this.articles.length; i++) {
+			if (this.articles[i].trackingId === event.target.dataset.article) {
 				//this.articles[i].articleSelected = !!this.articles[i].articleSelected;
-				this.articles[i] = {...this.articles[i], articleSelected: !!!this.articles[i].articleSelected };
+				this.articles[i] = { ...this.articles[i], articleSelected: !!!this.articles[i].articleSelected };
 				console.log(this.articles[i].articleSelected);
 				break;
 			}
@@ -455,8 +465,8 @@ export default class HappyParcelWrapper extends NavigationMixin(LightningElement
 		this.broadcastSelectedArticles();
 	}
 
-	handleKnowledgeClick(){
-		this.dispatchEvent(new CustomEvent('idclick', { detail: { id: this.vodvKnowledgeId }, bubbles: true, composed: true} ));
+	handleKnowledgeClick() {
+		this.dispatchEvent(new CustomEvent('idclick', { detail: { id: this.vodvKnowledgeId }, bubbles: true, composed: true }));
 	}
 
 	triggerSearch() {
@@ -497,7 +507,7 @@ export default class HappyParcelWrapper extends NavigationMixin(LightningElement
 	}
 
 	resetSearch() {
-		this.consignment = { trackingResults: {}, analyticsResult: {}};
+		this.consignment = { trackingResults: {}, analyticsResult: {} };
 		this.articles = [];
 		this.errors = [];
 		this.retryAnalytics = false;
@@ -519,13 +529,13 @@ export default class HappyParcelWrapper extends NavigationMixin(LightningElement
 	 * 2. if the search was for a consignment, then we would remove the initial 'skeleton' structure used to show the loading ui effect
 	 */
 	tidyupLocalArticleStore() {
-		if(this.loadingTrackingApi)
+		if (this.loadingTrackingApi)
 			return;
 
-		for(let i=this.articles.length-1;i>=0;i--) {
+		for (let i = this.articles.length - 1; i >= 0; i--) {
 			// remove the elements we need to ignore which includes the .trackingId and the attribute we have just passed in
 			let isEmpty = (Object.entries(this.articles[i].trackingResult).length === 0) && (Object.entries(this.articles[i].analyticsResult).length === 0);
-			if(isEmpty) {
+			if (isEmpty) {
 				console.log('Removing article: ' + this.articles[i].trackingId);
 				this.articles.splice(i, 1);
 			}
@@ -539,8 +549,8 @@ export default class HappyParcelWrapper extends NavigationMixin(LightningElement
 	 * This will only be called if the original trackingId is different from the current
 	 */
 	removeStaleSearchTrackingObjects(oldTrackingId) {
-		for(let i=this.articles.length-1;i>=0;i--) {
-			if(this.articles[i].trackingId === oldTrackingId) {
+		for (let i = this.articles.length - 1; i >= 0; i--) {
+			if (this.articles[i].trackingId === oldTrackingId) {
 				console.log('Removing stale tracking object');
 				this.articles.splice(i, 1);
 			}
@@ -553,8 +563,8 @@ export default class HappyParcelWrapper extends NavigationMixin(LightningElement
 	 * This handler keeps the parent in sync with the children and manages the deselection of the other component
 	 */
 	handleConsignmentCustomerSelected(e) {
-		if(e && e.detail) {
-			const {type} = e.detail;
+		if (e && e.detail) {
+			const { type } = e.detail;
 			if (type === 'sender') {
 				this.consignmentSenderSelected = true;
 				this.consignmentReceiverSelected = false;
@@ -569,8 +579,8 @@ export default class HappyParcelWrapper extends NavigationMixin(LightningElement
 	 * Catches the event to deselect the currently selected customerDetails component (either sender/receiver)
 	 */
 	handleConsignmentCustomerDeselected(e) {
-		if(e && e.detail) {
-			const {type} = e.detail;
+		if (e && e.detail) {
+			const { type } = e.detail;
 			if (type === 'sender') {
 				this.consignmentSenderSelected = false;
 			} else if (type === 'receiver') {
@@ -584,7 +594,7 @@ export default class HappyParcelWrapper extends NavigationMixin(LightningElement
 	 * We propagate these up to any external callers listening. They can do whatever they need with them
 	 */
 	triggerClearviewMappingEvent() {
-		if(this.consignment && this.consignment.trackingId) {
+		if (this.consignment && this.consignment.trackingId) {
 			const detail = {
 				isConsignment: this.isConsignment,
 				articleCount: this.articles.length,
@@ -595,7 +605,7 @@ export default class HappyParcelWrapper extends NavigationMixin(LightningElement
 				lodgementDate: (this.consignment.trackingResult.article ? this.consignment.trackingResult.article.ArticleLodgementDate__c : null)
 			};
 			this.dispatchEvent(new CustomEvent('trackingsearchcomplete', { detail: detail, bubbles: true, composed: true }));
-		} else if(this.articles && this.articles.length > 0) {
+		} else if (this.articles && this.articles.length > 0) {
 			// there should only ever be one article here since if it was a consignment, this code would not be called)
 			const detail = {
 				trackingId: this.articles[0].trackingId,
@@ -615,10 +625,59 @@ export default class HappyParcelWrapper extends NavigationMixin(LightningElement
 	/**
 	 * @description handle retry StarTrack Async callout by using Setter to set to TRUE and trigger the callout
 	 */
-	handleRetryStarTrackCallout(){
+	handleRetryStarTrackCallout() {
 		this.errors = this.errors.filter(error => error.source !== CONSTANTS.STARTRACK_API);
 		this.retryStarTrackCallout = false;
 		this.requireAdditionalQueryForStarTrack = true;
+	}
+
+	/**
+	 * @description	Display a download button for Proof of delivery PDF in the consignment detail of happyParcelCard component
+	 *				Validate that the article has been delivered by checking the eventMessage for existing safe drop GUID(Safe_Drop_GUID__c) or signature(SignatureXString__c)
+	 */
+	handlePODDownloadButtonDisplay() {
+		let signatureExists = false;
+		let safeDropExists = false;
+		// check if signature or safe drop exists on this article, which means that the article has been delivered
+		this.articles?.some(article =>
+			article.trackingResult?.events?.some(item => {
+				if (this._signatureEventTypes.includes(item.event.EventType__c) && item.event.SignatureXString__c) {
+					signatureExists = true;
+				}
+				// check for SafeDropGUID (we don't check for specific event types since an 'attachment type' check is done when the article is queried from the tracking API
+				if (item.event.Safe_Drop_GUID__c) {
+					safeDropExists = true;
+				}
+				return signatureExists || safeDropExists; // Exit early if either condition is met
+			})
+		);
+		const finishLoading = !this.loadingStarTrackApi && !this.loadingTrackingApi;
+		return this.consignment && finishLoading && (safeDropExists || signatureExists);
+	}
+
+	/**
+	 * @description	Execute action to generate and download the proof of delivery PDF
+	 */
+	handlePODPDFDownload = async () => {
+		this.loadingPODPDFDownload = true;
+		try {
+			const trackingIds = {
+				consignmentId: this.consignment.trackingId,
+				articleId: null
+			};
+			await downloadPODPDF(trackingIds);
+		} catch (exception) {
+			console.error(exception);
+		}
+		this.loadingPODPDFDownload = false;
+	}
+
+	get displayPodDownloadButton() {
+		return this._displayPodDownloadButton;
+	}
+
+	get loadingConsignmentDetailsCard() {
+		return this.loadingPODPDFDownload || this.loadingTrackingApi;
 	}
 
 	get loading() {
@@ -646,7 +705,7 @@ export default class HappyParcelWrapper extends NavigationMixin(LightningElement
 	}
 
 	get searchResultsText() {
-		if(this.isConsignment) {
+		if (this.isConsignment) {
 			return 'Consignment';
 		} else {
 			return 'Article';
@@ -703,8 +762,8 @@ export default class HappyParcelWrapper extends NavigationMixin(LightningElement
 	/**
 	 * Display the Retry hyperlink on the error banner for retrying StarTrack Callout
 	 */
-	get doRetryStarTrackCallout(){
+	get doRetryStarTrackCallout() {
 		return this.retryStarTrackCallout;
 	}
-	
+
 }

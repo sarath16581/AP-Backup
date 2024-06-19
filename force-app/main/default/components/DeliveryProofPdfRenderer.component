@@ -5,17 +5,26 @@
  @author Nathan Franklin
  @date 2021-10-03
  @changelog
+ 2024-06-13 - Seth Heang - Significant update to the layout including new mappings and new data passed from the backend controller
  -->
 <apex:component id="DeliveryProofPdfRenderer">
 	<apex:attribute name="eventMessage" type="EventMessage__c" description="The event message record Id that is need to render the specific delivery information. Article__r, Article__r.Consignment__r, Attachments must be included in the event message record passed in" required="true" />
 	<apex:attribute name="safeDropAttachmentId" type="Id" description="The attachment Id of the safe drop image. NOTE: An Id is required here since data uri's are not supported when rendering as a PDF" />
 	<apex:attribute name="signatureAttachmentId" type="Id" description="The attachment Id of the signature image. NOTE: An Id is required here since data uri's are not supported when rendering as a PDF" />
-
+	<apex:attribute name="articleList" type="String" description="List of articles that have been delivered in this delivery event" />
+	<apex:attribute name="consignedCount" type="Integer" description="Amount of articles that had been consigned for delivery" />
+	<apex:attribute name="deliveredCount" type="Integer" description="Amount of articles that has been delivered according to latest article/consignment search" />
+	<apex:attribute name="isStarTrackProduct" type="Boolean" description="Flag to indicate if the product belong to StarTrack when it's true, else it's AusPost product" />
 
 	<apex:form style="font-family: Arial Unicode MS;">
 		<apex:pageBlock >
 			<!-- START logo -->
-			<img src="{!$Resource.auspost_logo}"/>
+			<apex:outputText rendered="{!isStarTrackProduct == true}">
+				<img style="width: 168px; height: 63px;" src="{!$Resource.StarTrack_Logo_Proof_of_Delivery}"/>
+			</apex:outputText>
+			<apex:outputText rendered="{!isStarTrackProduct == false}">
+				<img style="width: 168px; height: 63px;"  src="{!$Resource.AusPost_Logo_Proof_Of_Delivery}"/>
+			</apex:outputText>
 			<!-- END logo -->
 			<br/> <br/>
 
@@ -24,46 +33,44 @@
 
 				<!-- Display Article Section Header -->
 				<div style="padding-left: 1px; border-bottom-style: solid ;width:100%;border-radius:8px;font-size: 1.1em;background-color:#eee;" >
-					Proof of delivery
+					<span style="padding-left: 5px">Proof of Delivery</span>
 				</div>
 
-				<!-- Display Article/Scan Data Section Fields -->
-				<apex:pageBlockSection columns="2" showHeader="true"   >
-					<!-- super dodgy way of rendering fields by section... hmmm -->
-					<apex:repeat value="{!$ObjectType.EventMessage__c.FieldSets.PODSafeDropSummary}" var="em"   >
-						<apex:panelGrid columns="1" style="width:100%;float:left;text-align:left;;margin-right:200px" >
-							<apex:outputText rendered="{!em.Type != 'datetime' && em.label != 'Consignment'}" >
-								{!em.label}: &nbsp;&nbsp;{!eventMessage[em]}
-							</apex:outputText>
-							<apex:outputText rendered="{!em.label == 'Consignment'}" >
-								{!em.label}: &nbsp;&nbsp;{!eventMessage.Article__r.Consignment__r.Name}
-							</apex:outputText>
-							<!-- Adding Actual/Date time value in outputField tag -->
-							<apex:outputText rendered="{!em.Type == 'datetime'}" >
-								{!em.label}: &nbsp;&nbsp;  <apex:param value="{!eventMessage[em]}" />
-								<apex:outputField value="{!eventMessage.ActualDateTime__c}"/>
-							</apex:outputText>
-						</apex:panelGrid>
-					</apex:repeat>
-				</apex:pageBlockSection>
-				<br/><br/>
+				<div style="padding: 10px 10px 1px;">
+					<!-- Display Article/Scan Data Section Fields -->
 
-				<!-- Display Receiver Info Section Header -->
-				<div style="padding-left: 1px; border-top-style: solid ;border-bottom-style: solid ;width:100%;border-radius:8px;font-size: 1.1em;background-color:#eee;" >
-					Receiver information
+					<div style="display: inline-block; width: 45%; padding: 5px 5px 1px; vertical-align: top; box-sizing: border-box;text-align: left;">
+						<apex:repeat value="{!$ObjectType.EventMessage__c.FieldSets.PODSafeDropSummary}" var="em" >
+							<apex:outputText rendered="{!NOT(ISBLANK(eventMessage[em]))}">
+								<div style="margin-bottom: 8px;">
+									<apex:outputText rendered="{!em.fieldPath == 'Article__r.ConsignmentTrackingNumber__c'}" >
+										Consignment Number: &nbsp;&nbsp;{!eventMessage[em]}
+									</apex:outputText>
+									<apex:outputText rendered="{!em.fieldPath == 'Article__r.FurtherReferences__c'}" >
+										Sender Reference No: &nbsp;&nbsp;<apex:outputText value="{!eventMessage[em]}" style="white-space: pre-wrap;"/>
+									</apex:outputText>
+
+									<apex:outputText rendered="{!em.fieldPath != 'Article__r.ConsignmentTrackingNumber__c'
+													&& em.fieldPath != 'Article__r.FurtherReferences__c'}" >
+										{!em.label}: &nbsp;{!eventMessage[em]}
+									</apex:outputText>
+								</div>
+							</apex:outputText>
+						</apex:repeat>
+					</div>
+					<div style="display: inline-block; width: 45%; padding: 5px; vertical-align: top; box-sizing: border-box;text-align: left;">
+						<apex:repeat value="{!$ObjectType.EventMessage__c.FieldSets.PODSafeDropReceiver}" var="em">
+							<apex:outputText rendered="{!NOT(ISBLANK(eventMessage[em]))}">
+								<div style="margin-bottom: 8px;">
+									<apex:outputText rendered="{!em.type != 'date'}">
+										{!em.label}: &nbsp;{!eventMessage[em]}
+									</apex:outputText>
+								</div>
+							</apex:outputText>
+
+						</apex:repeat>
+					</div>
 				</div>
-
-				<!-- Display receiver information fields -->
-				<apex:pageBlockSection columns="1"  >
-					<!-- super dodgy way of rendering fields by section... hmmm -->
-					<apex:repeat value="{!$ObjectType.EventMessage__c.FieldSets.PODSafeDropReceiver}" var="em"  >
-						<apex:panelGrid columns="1" style="width:100%;float:left;text-align:left;margin-right:200px">
-							{!em.label}: &nbsp;&nbsp;{!eventMessage[em]}
-						</apex:panelGrid>
-					</apex:repeat>
-				</apex:pageBlockSection>
-				<br/><br/>
-
 
 
 				<!-- Display Delivery Section Header -->
@@ -71,32 +78,89 @@
 					<!--<apex:outputText value="Delivered with signature" rendered="{!AND(NOT(ISNULL(signatureAttachmentId)), ISNULL(safeDropAttachmentId))}"/>
 					<apex:outputText value="Delivered - left in safe place" rendered="{!AND(NOT(ISNULL(safeDropAttachmentId)), ISNULL(signatureAttachmentId))}" />
 					<apex:outputText value="Delivered" rendered="{!AND(NOT(ISNULL(signatureAttachmentId)), NOT(ISNULL(safeDropAttachmentId)))}"/>-->
-					Delivery proof
+					<span style="padding-left: 5px">Delivery Information</span>
 				</div>
 
 
 				<!-- Display delivery fields -->
-				<apex:pageBlockSection columns="2">
-					<!-- super dodgy way of rendering fields by section... hmmm -->
-					<apex:repeat value="{!$ObjectType.EventMessage__c.FieldSets.PODSafeDropDelivered}" var="em" >
-						<apex:panelGrid columns="1" style="width:100%;float:left;text-align:left;margin-right:200px">
-							{!em.label}: &nbsp;&nbsp;{!eventMessage[em]}
-						</apex:panelGrid>
-					</apex:repeat>
-				</apex:pageBlockSection>
+				<div style="padding: 1px 10px">
+					<apex:pageBlockSection columns="2">
+						<!-- Blank first column -->
+						<apex:pageBlockSectionItem>
+							<div style="display:inline-block;padding-right:10px;">
+								<p style="font-weight: bold;text-align: center;">Consigned</p>
+								<div style="display:inline-block;padding:25px 30px;border:2px solid #000;">
+									{!consignedCount}
+								</div>
+							</div>
+							<div style="display:inline-block;padding-right:170px;">
+								<p style="font-weight: bold;text-align: center;">Delivered</p>
+								<div style="display:inline-block;padding:25px 30px;border:2px solid #000;">
+									{!deliveredCount}
+								</div>
+							</div>
+						</apex:pageBlockSectionItem>
+
+						<apex:pageBlockSectionItem>
+							<!-- super dodgy way of rendering fields by section... hmmm -->
+								<apex:repeat value="{!$ObjectType.EventMessage__c.FieldSets.PODSafeDropDelivered}" var="em" >
+									<apex:panelGrid columns="1">
+										<apex:outputText rendered="{!em.type == 'date' || em.type == 'datetime'}">
+											<apex:outputText value="{0,date,dd-MM-yyyy}">
+												<apex:outputText rendered="{!em.fieldPath == 'ActualDateTime__c'}" >
+													Delivery Date: &nbsp;
+												</apex:outputText>
+												<apex:outputText rendered="{!em.fieldPath != 'ActualDateTime__c'}" >
+													{!em.label}: &nbsp;
+												</apex:outputText>
+												<apex:param value="{!eventMessage[em]}" />
+											</apex:outputText>
+										</apex:outputText>
+										<apex:outputText rendered="{!em.fieldPath == 'Article__r.SubProduct__c'}" >
+											Delivery Service: {!eventMessage[em]}
+										</apex:outputText>
+										<apex:outputText rendered="{!em.fieldPath == 'Article__r.DeliveryInstructions__c'}" >
+											Special Instructions: {!eventMessage[em]}
+										</apex:outputText>
+									</apex:panelGrid>
+								</apex:repeat>
+						</apex:pageBlockSectionItem>
+					</apex:pageBlockSection>
+					<br/>
+				</div>
+
+				<!-- Display Delivery Section Header -->
+				<div style="padding-left: 1px; border-bottom-style: solid ;border-bottom-style: solid ;border-top-style: solid ;width:100%;border-radius:8px;font-size: 1.1em;background-color:#eee; ">
+					<span style="padding-left: 5px">Article Information</span>
+				</div>
+
+				<div style="padding: 10px 10px 5px">
+					<table id="articleTable" border="1" style="width: 100%; border-collapse: collapse;">
+						<thead>
+						<tr>
+							<th style="text-align: center">Article ID</th>
+							<th style="text-align: center;min-width: 120px;">Signatory Name</th>
+							<th style="text-align: center;">Signature / Safe drop image</th>
+						</tr>
+						</thead>
+						<tbody>
+						<tr>
+							<td style="text-align: center">{!articleList}</td>
+							<td style="text-align: center">{!eventMessage.SignatoryName__c}</td>
+							<td>
+								<apex:image url="/servlet/servlet.FileDownload?file={!signatureAttachmentId}" rendered="{!NOT(ISNULL(signatureAttachmentId))}" style="display:inline-block;margin-left:50px;height:200px;" />
+								<apex:image url="/servlet/servlet.FileDownload?file={!safeDropAttachmentId}" rendered="{!NOT(ISNULL(safeDropAttachmentId))}" style="display:inline-block;margin-left:50px;height:200px;" />
+							</td>
+						</tr>
+						</tbody>
+					</table>
+				</div>
 				<br/>
-
-				<apex:outputPanel styleClass="clearfix">
-					<apex:image url="/servlet/servlet.FileDownload?file={!signatureAttachmentId}" rendered="{!NOT(ISNULL(signatureAttachmentId))}" style="display:inline-block;margin-left:50px;height:200px;" />
-					<apex:image url="/servlet/servlet.FileDownload?file={!safeDropAttachmentId}" rendered="{!NOT(ISNULL(safeDropAttachmentId))}" style="display:inline-block;margin-left:50px;height:200px;" />
-				</apex:outputPanel>
-
-				<br/><br/>
 			</div>
 			<br/>
 			<!-- START Disclaimer -->
 			<apex:pageBlockSection columns="1">
-				{!$Label.Disclaimer_POD}
+				<span style="font-size:0.8em;">{!$Label.Disclaimer_POD}</span>
 			</apex:pageBlockSection>
 			<!--END Disclaimer -->
 			<!-- END SECTION AND TABLES -->
