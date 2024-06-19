@@ -110,10 +110,10 @@ public with sharing class CustomerSearchFormController {
 			CONTACT_FIELDS
 		);
 
-		ContactsSelector.CustomerSearchParameters params = new ContactsSelector.CustomerSearchParameters();
-		params.firstName = req.firstName;
-		params.lastName = req.lastName;
-		params.emailAddress = req.emailAddress;
+		ContactsSelector.CustomerSearchParameters params = (ContactsSelector.CustomerSearchParameters) JSON.deserialize(
+			JSON.serialize(req),
+			ContactsSelector.CustomerSearchParameters.class
+		);
 
 		return cs.selectByCustomerSearchParams(params, CONTACT_SELECTOR_OPTIONS);
 	}
