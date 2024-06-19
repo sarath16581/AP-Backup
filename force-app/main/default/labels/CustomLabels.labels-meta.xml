@@ -4168,6 +4168,14 @@ To add a comment or check for updates, visit your MyPost dashboard now</value>
         <shortDescription>ERROR_NOMINATED_CONTACT_REQUIRED</shortDescription>
         <value>The Parent Organisation must have a &quot;Nominated Partner Contact &amp; Incent User&quot; before creating a Licence.</value>
     </labels>
+	<labels>
+        <fullName>PartnerInfoIncentCrentialsInvalidErrorMessage</fullName>
+        <categories>Partner Info Licence Activation</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>PartnerInfoIncentCrentialsInvalidErrorMessage</shortDescription>
+        <value>Please ensure the Incent Credential for nominated Partner is populated.</value>
+    </labels>
     <labels>
         <fullName>EXPIRED_QUOTE</fullName>
         <language>en_US</language>
