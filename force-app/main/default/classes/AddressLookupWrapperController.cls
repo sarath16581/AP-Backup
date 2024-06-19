@@ -6,50 +6,60 @@
 
 /**
 --------------------------------------- History --------------------------------------------------
-30.01.2020    alex.volkov@auspost.com.au    Initial creation
-25.02.2020    alex.volkov@auspost.com.au    Removed address type filtering
-19.08.2020    suman.gunaganti@auspost.com.au  Added Country and Address validation fields
-26.03.2021    dheeraj.mandavilli@auspost.com.au Updated the Config query to support custom object by changing Object__c
-                                                to Object__r.QualifiedApiName
+30.01.2020	alex.volkov@auspost.com.au	Initial creation
+25.02.2020	alex.volkov@auspost.com.au	Removed address type filtering
+19.08.2020	suman.gunaganti@auspost.com.au  Added Country and Address validation fields
+26.03.2021	dheeraj.mandavilli@auspost.com.au Updated the Config query to support custom object by changing Object__c
+												to Object__r.QualifiedApiName
+2024-06-14 - Ranjeewa Silva - Updated to support person account standard address fields. Refactored code and leveraged
+							  platform cache for metadata mappings.
 **/
 
-public with sharing class AddressLookupWrapperController
-{
+public with sharing class AddressLookupWrapperController {
 
-	/**
- 	* @description Singleton returning configuration metadata for the object
- 	* Placed in a separate variable and populated by an explicit call for test coverage purposes (need to set the config from tests)
- 	*/
+	// cache key setting names for accessing platform cache
+	private static final String CACHE_KEY_ADDRESS_MAPPING_CONFIGURATION = 'ADDRESS_FIELD_MAPPING_CONFIGURATION';
+
+	// address field mapping custom metadata. arranged into a map where SObject API name is the key for ease of access.
+	// field mapping metadata is stored in platform cache for reuse later.
 	@TestVisible
-	private static List<Address_Fields_Mapping__mdt> CONFIG{get; private set;}
-
-	private static void getConfig(String pObjectApiName)
-	{
-		if (CONFIG == null)
-		{
-			CONFIG = [SELECT DeveloperName, 
-							Standard_Address_Field__c, 
-							Standard_Address_Field__r.QualifiedApiName, 
-							Street_Field__c, 
-							Street_Field__r.QualifiedApiName, 
-							State_Field__c, 
-							State_Field__r.QualifiedApiName, 
-							Postcode_Field__c, 
-							Postcode_Field__r.QualifiedApiName, 
-							City_Field__c, 
-							City_Field__r.QualifiedApiName, 
-							DPID_Field__c, 
-							DPID_Field__r.QualifiedApiName, 
-							Geolocation_Field__c, 
-							Geolocation_Field__r.QualifiedApiName,
-							Address_Validated_Field__c,
-							Address_Validated_Field__r.QualifiedApiName
-					 FROM Address_Fields_Mapping__mdt WHERE Object__r.QualifiedApiName = :pObjectApiName];
+	private static Map<String, List<Address_Fields_Mapping__mdt>> addressFieldMappingsMetadata {
+		get {
+			if (addressFieldMappingsMetadata == null) {
+				// check platform cache first.
+				if (CacheManager.get(CACHE_KEY_ADDRESS_MAPPING_CONFIGURATION) != null) {
+					// use metadata available in platform cache.
+					addressFieldMappingsMetadata = (Map<String, List<Address_Fields_Mapping__mdt>>) CacheManager.get(CACHE_KEY_ADDRESS_MAPPING_CONFIGURATION);
+				} else {
+					// field mapping metadata not available in platform cache.
+					// query metadata including fields from EntityDefinition and FieldDefinition types. once queried store
+					// in platform cache for reuse.
+					Map<String, List<Address_Fields_Mapping__mdt>> metadata = new Map<String, List<Address_Fields_Mapping__mdt>>();
+					for (Address_Fields_Mapping__mdt record : [
+							SELECT DeveloperName, Standard_Address_Field__c, Standard_Address_Field__r.QualifiedApiName,
+									Street_Field__c, Street_Field__r.QualifiedApiName, State_Field__c, State_Field__r.QualifiedApiName,
+									Postcode_Field__c, Postcode_Field__r.QualifiedApiName, City_Field__c, City_Field__r.QualifiedApiName,
+									DPID_Field__c, DPID_Field__r.QualifiedApiName, Geolocation_Field__c, Geolocation_Field__r.QualifiedApiName,
+									Address_Validated_Field__c, Address_Validated_Field__r.QualifiedApiName, Object__r.QualifiedApiName,
+									PersonAccountStandardAddressField__c
+							FROM Address_Fields_Mapping__mdt
+					]) {
+						List<Address_Fields_Mapping__mdt> addressMetadataForSobject = metadata.get(record.Object__r.QualifiedApiName);
+						if (addressMetadataForSobject == null) {
+							addressMetadataForSobject = new List<Address_Fields_Mapping__mdt>();
+							metadata.put(record.Object__r.QualifiedApiName, addressMetadataForSobject);
+						}
+						addressMetadataForSobject.add(record);
+					}
+					addressFieldMappingsMetadata = metadata;
+					// also populate platform cache so it is available later
+					CacheManager.put(CACHE_KEY_ADDRESS_MAPPING_CONFIGURATION, metadata);
+				}
+			}
+			return addressFieldMappingsMetadata;
 		}
-		system.debug('Object at Top:::'+pObjectApiName);
-		system.debug('CONFIG at Top:::'+CONFIG);
+		set;
 	}
-
 
 	/**
 	 * @description Get initial settings and record field values on load
@@ -57,145 +67,128 @@ public with sharing class AddressLookupWrapperController
 	 * @return FieldMapping
 	 */
 	@AuraEnabled
-	public static FieldMapping getSettings(Id pRecordId)
-	{
-		FieldMapping vRes = new FieldMapping();
-		if (pRecordId != null)
-		{
-			/** Get Object Type and API Name from Record ID */
-			Schema.SObjectType vType = pRecordId.getSobjectType();
-			vRes.objectApiName = String.valueOf(vType);
-			vRes.settings = new Map<String, AddressComponents>();
-			/** Set of fields to include in SOQL query when retrieving the record */
-			Set<String> vFieldSet = new Set<String>();
-			system.debug('VfieldSet at Top:::'+vFieldSet);
-			/** Get the object fields definitions */
-			Map<String, SObjectField> vFieldMap = vType.getDescribe().fields.getMap();
-			system.debug('vFieldMap at Top:::'+ vType.getDescribe().fields.getMap());
-			/** Retrieve object config. If several addresses are required on one page, Address Type can be dropped and return all address configs - the component will need to loop through*/
-			getConfig(vRes.objectApiName);
-			system.debug('Object Name:::'+vRes.objectApiName);
-			/** Loop through address configurations*/
-			for (Address_Fields_Mapping__mdt setting: CONFIG)
-			{
-				/** Fields making up the address */
-				AddressComponents lComp = new AddressComponents();
-				/** If mapping to a standard compound field, find all the components and get their names */
-				system.debug('Standard Address field'+setting.Standard_Address_Field__c);
-				if (setting.Standard_Address_Field__c != null)
-				{
-					/** Find all fields belonging to the select compound field */
-					for (String s : vFieldMap.keySet())
-					{
-						DescribeFieldResult lFieldDesc = vFieldMap.get(s).getDescribe();
-						/** Check that the field belongs to the compound field mapped */
-						if (lFieldDesc.compoundFieldName == setting.Standard_Address_Field__r.QualifiedApiName)
-						{
-							vFieldSet.add(lFieldDesc.getName());
-							if (lFieldDesc.getName().endsWith('City'))
-							{
-								lComp.City = lFieldDesc.getName();
-							}
-							else if (lFieldDesc.getName().endsWith('PostalCode'))
-							{
-								lComp.PostCode = lFieldDesc.getName();
-							}
-							else if (lFieldDesc.getName().endsWith('State'))
-							{
-								lComp.State = lFieldDesc.getName();
-							}
-							else if (lFieldDesc.getName().endsWith('Street'))
-							{
-								lComp.Street = lFieldDesc.getName();
-							}
-							else if (lFieldDesc.getName().endsWith('Latitude'))
-							{
-								lComp.Latitude = lFieldDesc.getName();
-							}
-							else if (lFieldDesc.getName().endsWith('Longitude'))
-							{
-								lComp.Longitude = lFieldDesc.getName();
-							}
-							else if (lFieldDesc.getName().endsWith('Country'))
-							{
-								lComp.Country = lFieldDesc.getName();
-							}
-						}
+	public static FieldMapping getSettings(Id pRecordId) {
+		FieldMapping result = new FieldMapping();
+		if (pRecordId != null) {
+			SObjectType sObjectType = pRecordId.getSobjectType();
+			result.objectApiName = String.valueOf(sObjectType);
+
+			// get field definitions map for SObjectType. we use this to derive constituent fields of the compound address
+			Map<String, SObjectField> sObjectFieldsMap = sObjectType.getDescribe(SObjectDescribeOptions.DEFERRED).fields.getMap();
+
+			// iterate through address configuration for the sobject type
+			for (Address_Fields_Mapping__mdt setting: addressFieldMappingsMetadata.get(result.objectApiName)) {
+				AddressComponents addressComponents = new AddressComponents();
+				// if mapped to a compound address field, find relevant constituent address fields.
+				// compound address fields on person account (PersonMailingAddress && PersonOtherAddress) are not selectable
+				// in custom metadata setup ui (Metadata Relationship(FieldDefinition)). hence using a dedicated field 'PersonAccountStandardAddressField__c'.
+				if (setting.Standard_Address_Field__c != null || setting.PersonAccountStandardAddressField__c != null) {
+					String compoundAddressFieldName = (setting.Standard_Address_Field__c != null ? setting.Standard_Address_Field__r.QualifiedApiName : setting.PersonAccountStandardAddressField__c);
+					// currently only support standard compound address fields only. custom compound address fields are
+					// not enabled in the org yet (https://developer.salesforce.com/docs/atlas.en-us.250.0.caf_dev_guide.meta/caf_dev_guide/caf_dev_guide.htm).
+					// to be extended in future to support custom address fields when the feature is enabled.
+					if (compoundAddressFieldName.endsWithIgnoreCase('Address')) {
+						// this is a standard address field. standard address fields follow the naming as documented here:
+						// https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/compound_fields_address.htm
+						// we rely on this to identify constituent fields.
+						String compoundAddressFieldPrefix = compoundAddressFieldName.removeEndIgnoreCase('Address');
+						addressComponents.Street = getConstituentCompoundAddressField(sObjectFieldsMap, compoundAddressFieldName, compoundAddressFieldPrefix + 'Street')?.toString();
+						addressComponents.City = getConstituentCompoundAddressField(sObjectFieldsMap, compoundAddressFieldName, compoundAddressFieldPrefix + 'City')?.toString();
+						addressComponents.PostCode = getConstituentCompoundAddressField(sObjectFieldsMap, compoundAddressFieldName, compoundAddressFieldPrefix + 'PostalCode')?.toString();
+						addressComponents.State = getConstituentCompoundAddressField(sObjectFieldsMap, compoundAddressFieldName, compoundAddressFieldPrefix + 'State')?.toString();
+						addressComponents.Latitude = getConstituentCompoundAddressField(sObjectFieldsMap, compoundAddressFieldName, compoundAddressFieldPrefix + 'Latitude')?.toString();
+						addressComponents.Longitude = getConstituentCompoundAddressField(sObjectFieldsMap, compoundAddressFieldName, compoundAddressFieldPrefix + 'Longitude')?.toString();
+						addressComponents.Country =  getConstituentCompoundAddressField(sObjectFieldsMap, compoundAddressFieldName, compoundAddressFieldPrefix + 'Country')?.toString();
 					}
-				}
-				/** If mapping to several custom fields, we know the names of all fields already */
-				else
-				{
-					system.debug('vFieldSet'+vFieldSet);
-					lComp.PostCode = setting.Postcode_Field__r.QualifiedApiName;
-					system.debug('Post Code in Setting'+setting.Postcode_Field__r.QualifiedApiName);
-					vFieldSet.add(lComp.PostCode);
-					lComp.Street = setting.Street_Field__r.QualifiedApiName;
-					system.debug('Street in Setting'+setting.Street_Field__r.QualifiedApiName);
-					vFieldSet.add(lComp.Street);
-					lComp.City = setting.City_Field__r.QualifiedApiName;
-					system.debug('City in Setting'+setting.Street_Field__r.QualifiedApiName);
-					vFieldSet.add(lComp.City);
-					lComp.State = setting.State_Field__r.QualifiedApiName;
-					system.debug('state in Setting'+setting.State_Field__r.QualifiedApiName);
-					vFieldSet.add(lComp.State);
-					/** If a Geolocation field mapped, get the components */
-					if (setting.Geolocation_Field__c != null)
-					{
+				} else {
+					// each component is mapped to individual custom fields (street, state etc).
+					addressComponents.PostCode = setting.Postcode_Field__r.QualifiedApiName;
+					addressComponents.Street = setting.Street_Field__r.QualifiedApiName;
+					addressComponents.City = setting.City_Field__r.QualifiedApiName;
+					addressComponents.State = setting.State_Field__r.QualifiedApiName;
+					// if a Geolocation field mapped, get the components
+					if (setting.Geolocation_Field__c != null) {
 						String lGeoFieldName = setting.Geolocation_Field__r.QualifiedApiName.substring(0, setting.Geolocation_Field__r.QualifiedApiName.length() - 3);
-						lComp.Latitude =  lGeoFieldName + '__Latitude__s';
-						vFieldSet.add(lComp.Latitude);
-						lComp.Longitude = lGeoFieldName + '__Longitude__s';
-						vFieldSet.add(lComp.Longitude);
+						addressComponents.Latitude =  lGeoFieldName + '__Latitude__s';
+						addressComponents.Longitude = lGeoFieldName + '__Longitude__s';
 					}
 				}
-				/** If a custom DPID field mapped, add it */
-				if (setting.DPID_Field__c != null)
-				{
-					lComp.DPID = setting.DPID_Field__r.QualifiedApiName;
-					vFieldSet.add(lComp.DPID);
+
+				// include any mapped DPID fields
+				if (setting.DPID_Field__c != null) {
+					addressComponents.DPID = setting.DPID_Field__r.QualifiedApiName;
 				}
-				/* added if address validated field is mapped*/
-				if (setting.Address_Validated_Field__c != null){
-					lComp.AddressValidated = setting.Address_Validated_Field__r.QualifiedApiName;
-					vFieldSet.add(lComp.AddressValidated);
+
+				// added if address validated field is mapped
+				if (setting.Address_Validated_Field__c != null) {
+					addressComponents.AddressValidated = setting.Address_Validated_Field__r.QualifiedApiName;
 				}
-				vRes.settings.put(setting.DeveloperName, lComp);
+				result.settings.put(setting.DeveloperName, addressComponents);
 			}
 
-			/** Now we know all the fields, get their values to show the current address on the record */
-			system.debug('vFieldSet:::'+vFieldSet);
-			if (!vFieldSet.isEmpty())
-			{
-				vRes.currentRecord = Database.query('SELECT ' + String.join(new List<String>(vFieldSet), ',') + ' FROM ' + vRes.objectApiName + ' WHERE Id = :pRecordId');
-				//system.debug('Current Record in apex'+vRes.currentRecord);
+			if (!result.settings.isEmpty()) {
+				// query record including all relevant address fields
+				result.currentRecord = selectAddressFieldsOnRecord(pRecordId, result.objectApiName, result.settings.values());
 			}
-			/*else{
-				vRes.currentRecord = Database.query('SELECT Address__c,Suburb__c,State__c,Postcode__c,DPID__c FROM '+ vRes.objectApiName + ' WHERE Id = :pRecordId' );
-				system.debug('Current Record in apex'+vRes.currentRecord);
-			}*/
 		}
-		return vRes;
+		return result;
+	}
+
+	/**
+	 * Get the specified constituent field of the compound address field. SObjectField is returned to ensure the validity
+	 * of the specified constituent field.
+	 *
+	 * @param sobjectFieldsMap SObjectFields for this SObject
+	 * @param compoundAddressFieldName Name of compound address field
+	 * @param constituentFieldName Name of constituent field
+	 *
+	 * @return SObjectField
+	 */
+	private static SObjectField getConstituentCompoundAddressField(Map<String, SObjectField> sobjectFieldsMap, String compoundAddressFieldName, String constituentFieldName) {
+		if (sobjectFieldsMap.containsKey(compoundAddressFieldName)) {
+			return sobjectFieldsMap.get(constituentFieldName);
+		}
+		return null;
+	}
+
+	/**
+	 * Query specified record selecting all relevant address fields
+	 *
+	 * @param recordId Id of the record to query
+	 * @param sObjectApiName SObject to query
+	 * @param addressComponents list of address components
+	 *
+	 * @return Queried record.
+	 */
+	private static SObject selectAddressFieldsOnRecord(Id recordId, String sObjectApiName, List<AddressComponents> addressComponents) {
+		Set<String> addressFields = new Set<String>();
+		for (AddressComponents addressComponent: addressComponents) {
+			addressFields.addAll(addressComponent.getFieldNames());
+		}
+
+		return Database.query('SELECT Id,' + String.join(new List<String>(addressFields), ',') + ' FROM ' + sObjectApiName + ' WHERE Id = :recordId');
 	}
 
 	/**
 	* The return object - all field mappings and current record values
 	*/
-	public class FieldMapping
-	{
+	public class FieldMapping {
 		@AuraEnabled
 		public String objectApiName{get; set;}
 		@AuraEnabled
 		public SObject currentRecord{get; set;}
 		@AuraEnabled
 		public Map<String, AddressComponents> settings{get; set;}
+
+		public FieldMapping() {
+			this.settings = new Map<String, AddressComponents>();
+		}
 	}
 
 	/**
 	* Components making up the address
 	* */
-	public class AddressComponents
-	{
+	public class AddressComponents {
 		@AuraEnabled
 		public String Street;
 		@AuraEnabled
@@ -214,5 +207,11 @@ public with sharing class AddressLookupWrapperController
 		public String Country;
 		@AuraEnabled
 		public String AddressValidated;
+
+		private Set<String> getFieldNames() {
+			Set<String> result = new Set<String>{this.Street, this.City, this.PostCode, this.State, this.Latitude, this.Longitude, this.DPID, this.Country, this.AddressValidated};
+			result.remove(null);
+			return result;
+		}
 	}
 }
