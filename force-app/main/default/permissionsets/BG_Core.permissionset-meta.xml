@@ -369,6 +369,11 @@
         <field>Account.Industry</field>
         <readable>true</readable>
     </fieldPermissions>
+	<fieldPermissions>
+		<editable>false</editable>
+		<field>Account.IndirectCustomer__c</field>
+		<readable>true</readable>
+	</fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
         <field>Account.Is_Strategic_Account_StarTrack__c</field>
@@ -2934,6 +2939,21 @@
         <field>Opportunity.CTA_Propose_Request_Exists__c</field>
         <readable>true</readable>
     </fieldPermissions>
+	<fieldPermissions>
+		<editable>false</editable>
+		<field>Opportunity.ControlsLodgement__c</field>
+		<readable>true</readable>
+	</fieldPermissions>
+	<fieldPermissions>
+		<editable>false</editable>
+		<field>Opportunity.FreightOwnership__c</field>
+		<readable>true</readable>
+	</fieldPermissions>
+	<fieldPermissions>
+		<editable>false</editable>
+		<field>Opportunity.IndirectCustomer__c</field>
+		<readable>true</readable>
+	</fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
         <field>Opportunity.CTA_Pursue_Approved__c</field>
