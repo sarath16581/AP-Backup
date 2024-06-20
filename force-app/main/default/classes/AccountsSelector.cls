@@ -27,6 +27,7 @@
  * 2023-04-08 - Yatika bansal - added new SObject Field
  * 2023-06-17 - Harry Wang - added new method selectByIdWithContactsAndOpportunities
  * 2024-06-15 - Snigdha Sahu - added WITH_CONTACT 
+ * 2024-06-15 - Sarath Burra - Added IndirectCustomer__c Field
  */
 public virtual inherited sharing class AccountsSelector extends ApplicationSelector {
 	public enum Options {
@@ -73,7 +74,7 @@ public virtual inherited sharing class AccountsSelector extends ApplicationSelec
 				Account.ACN__c, Account.Primary_Business_Solutions_Contact__c, Account.BillingCountry, Account.Role_Type_Roll_Up__c,
 				Account.ShippingStreet, Account.ShippingCity, Account.ShippingState, Account.ShippingPostalCode, Account.ShippingCountry,
 				Account.Holding_Role_Reference__c, Account.Is_Strategic_Account_StarTrack__c, Account.AccountNumber, Account.IsPersonAccount, Account.Business_Solutions_Customer__c, Account.Exclude_Notification_Automation__c, Account.Exclude_Subscription_Automation__c, Account.Sales_Director__c,
-				Account.APCN__c, Account.APCN__pc, Account.Integration_Service_Mod_Date__c, Account.PersonContactId, Account.ServiceSLA__c, Account.Sales_Segment__c, Account.Nominated_Partner_Contact_Incent_User__c
+				Account.APCN__c, Account.APCN__pc, Account.Integration_Service_Mod_Date__c, Account.PersonContactId, Account.ServiceSLA__c, Account.Sales_Segment__c, Account.Nominated_Partner_Contact_Incent_User__c,Account.IndirectCustomer__c
 		};
 	}
 

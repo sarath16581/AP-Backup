@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>IndirectCustomer__c</fullName>
+    <description>calculated based on user input for “Has Ownership Over the Freight?” and “Has Control Over Lodgement Facility?”. Last modified Opp will update the field on the Account record.</description>
+    <externalId>false</externalId>
+    <formula>IF(AND(NOT(ISBLANK(TEXT(FreightOwnership__c))),NOT(ISBLANK( TEXT(ControlsLodgement__c))), ISPICKVAL(FreightOwnership__c, &apos;Yes&apos;),ISPICKVAL(ControlsLodgement__c, &apos;Yes&apos;)) , &apos;Yes&apos;, 
+IF(AND(NOT(ISBLANK(TEXT(FreightOwnership__c))),NOT(ISBLANK(TEXT(ControlsLodgement__c))),OR(ISPICKVAL(FreightOwnership__c, &apos;No (or unknown)&apos;),ISPICKVAL(ControlsLodgement__c, &apos;No (or unknown)&apos;))) , &apos;No&apos;, &apos;&apos;))</formula>
+    <inlineHelpText>This field is set to ‘No’ by system if customer has ownership over the freight and control over lodgement facility. Otherwise it is set to ‘Yes’.</inlineHelpText>
+    <label>Indirect Customer?</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>
