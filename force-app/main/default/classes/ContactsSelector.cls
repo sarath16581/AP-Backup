@@ -190,7 +190,7 @@ public virtual inherited sharing class ContactsSelector extends ApplicationSelec
 	 * @return SOQL query string
 	 */
 	@TestVisible
-	String selectByCustomerSearchParamsQB(CustomerSearchParameters params, Set<Object> selectorOptions) {
+	private String selectByCustomerSearchParamsQB(CustomerSearchParameters params, Set<Object> selectorOptions) {
 		QueryBuilder qb = newQueryBuilder(selectorOptions);
 		QueryBuilder.ConditionsManager cm = qb.addConditions();
 

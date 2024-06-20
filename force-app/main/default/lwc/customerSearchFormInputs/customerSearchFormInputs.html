@@ -1,9 +1,9 @@
 <template>
 	<!-- Search form -->
-	<lightning-card title="{searchFormTitle}">
+	<lightning-card title={searchFormTitle}>
 		<!-- Lightning Spinner -->
 		<lightning-spinner
-			if:true="{isLoading}"
+			if:true={isLoading}
 			alternative-text="Searching..."
 			title="Searching..."
 		></lightning-spinner>
@@ -13,17 +13,16 @@
 				<div class="slds-col slds-size_1-of-1 slds-large-size_1-of-5">
 					<lightning-input
 						data-field-name="firstName"
-						label="{firstNameLabel}"
+						label={firstNameLabel}
 						max-length="40"
-						message-when-pattern-mismatch="{invalidNameMsg}"
+						message-when-pattern-mismatch={invalidNameMsg}
 						name="firstName"
-						onblur="{handleInputBlur}"
-						onchange="{handleInputChange}"
-						onkeyup="{handleInputKeyUp}"
-						pattern="{nameInputRegex}"
-						placeholder="{firstNameLabel}"
+						onchange={handleInputChange}
+						onkeyup={handleInputKeyUp}
+						pattern={nameInputRegex}
+						placeholder={firstNameLabel}
 						type="text"
-						value="{firstName}"
+						value={firstName}
 					></lightning-input>
 				</div>
 
@@ -31,17 +30,16 @@
 				<div class="slds-col slds-size_1-of-1 slds-large-size_1-of-5">
 					<lightning-input
 						data-field-name="lastName"
-						label="{lastNameLabel}"
+						label={lastNameLabel}
 						max-length="80"
-						message-when-pattern-mismatch="{invalidNameMsg}"
+						message-when-pattern-mismatch={invalidNameMsg}
 						name="lastName"
-						onblur="{handleInputBlur}"
-						onchange="{handleInputChange}"
-						onkeyup="{handleInputKeyUp}"
-						pattern="{nameInputRegex}"
-						placeholder="{lastNameLabel}"
+						onchange={handleInputChange}
+						onkeyup={handleInputKeyUp}
+						pattern={nameInputRegex}
+						placeholder={lastNameLabel}
 						type="text"
-						value="{lastName}"
+						value={lastName}
 					></lightning-input>
 				</div>
 
@@ -49,18 +47,17 @@
 				<div class="slds-col slds-size_1-of-1 slds-large-size_1-of-5">
 					<lightning-input
 						data-field-name="phoneNumber"
-						disabled="{ignorePhoneNumber}"
-						label="{phoneNumberLabel}"
+						disabled={ignorePhoneNumber}
+						label={phoneNumberLabel}
 						max-length="40"
-						message-when-pattern-mismatch="{invalidPhoneNumberMsg}"
+						message-when-pattern-mismatch={invalidPhoneNumberMsg}
 						name="phoneNumber"
-						onblur="{handleInputBlur}"
-						onchange="{handleInputChange}"
-						onkeyup="{handleInputKeyUp}"
-						pattern="{phoneInputRegex}"
-						placeholder="{phoneNumberLabel}"
+						onchange={handleInputChange}
+						onkeyup={handleInputKeyUp}
+						pattern={phoneInputRegex}
+						placeholder={phoneNumberLabel}
 						type="tel"
-						value="{phoneNumber}"
+						value={phoneNumber}
 					></lightning-input>
 				</div>
 
@@ -68,18 +65,17 @@
 				<div class="slds-col slds-size_1-of-1 slds-large-size_2-of-5">
 					<lightning-input
 						data-field-name="emailAddress"
-						disabled="{ignoreEmailAddress}"
-						label="{emailAddressLabel}"
+						disabled={ignoreEmailAddress}
+						label={emailAddressLabel}
 						max-length="80"
-						message-when-pattern-mismatch="{invalidEmailAddressMsg}"
+						message-when-pattern-mismatch={invalidEmailAddressMsg}
 						name="emailAddress"
-						onblur="{handleInputBlur}"
-						onchange="{handleInputChange}"
-						onkeyup="{handleInputKeyUp}"
-						pattern="{emailInputRegex}"
-						placeholder="{emailAddressLabel}"
+						onchange={handleInputChange}
+						onkeyup={handleInputKeyUp}
+						pattern={emailInputRegex}
+						placeholder={emailAddressLabel}
 						type="email"
-						value="{emailAddress}"
+						value={emailAddress}
 					></lightning-input>
 				</div>
 			</div>
@@ -87,7 +83,7 @@
 			<!-- Error message -->
 			<div
 				data-id="error"
-				if:true="{errorMessage}"
+				if:true={errorMessage}
 				class="slds-text-align_center slds-text-color_error slds-var-m-around_medium"
 			>
 				{errorMessage}
@@ -100,16 +96,16 @@
 					<div class="slds-col slds-grow-none">
 						<lightning-button
 							data-id="search"
-							label="{searchButtonLabel}"
-							onclick="{handleSearchBtnClick}"
+							label={searchButtonLabel}
+							onclick={handleSearchBtnClick}
 							variant="brand"
 						></lightning-button>
 					</div>
 					<div class="slds-col slds-grow-none">
 						<lightning-button
 							data-id="clear"
-							label="{clearButtonLabel}"
-							onclick="{handleClearBtnClick}"
+							label={clearButtonLabel}
+							onclick={handleClearBtnClick}
 							variant="brand-outline"
 						></lightning-button>
 					</div>

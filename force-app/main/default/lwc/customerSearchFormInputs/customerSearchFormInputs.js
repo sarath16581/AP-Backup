@@ -1,36 +1,36 @@
-import { LightningElement, api } from "lwc";
-import customerSearch from "@salesforce/apex/CustomerSearchFormController.search";
-import { isBlank, isNotBlank } from "c/utils";
-import { reduceErrors } from "c/ldsUtils";
+import { LightningElement, api } from 'lwc';
+import customerSearch from '@salesforce/apex/CustomerSearchFormController.search';
+import { isBlank, isNotBlank } from 'c/utils';
+import { reduceErrors } from 'c/ldsUtils';
 
 // Lightning card title
-export const SEARCH_FORM_TITLE = "Customer Search";
+export const SEARCH_FORM_TITLE = 'Customer Search';
 
 // Field and button labels
-export const FIRST_NAME_LABEL = "First Name";
-export const LAST_NAME_LABEL = "Last Name";
-export const PHONE_NUMBER_LABEL = "Phone";
-export const EMAIL_ADDRESS_LABEL = "Email";
-export const SEARCH_BUTTON_LABEL = "Search";
-export const CLEAR_BUTTON_LABEL = "Clear";
+export const FIRST_NAME_LABEL = 'First Name';
+export const LAST_NAME_LABEL = 'Last Name';
+export const PHONE_NUMBER_LABEL = 'Phone';
+export const EMAIL_ADDRESS_LABEL = 'Email';
+export const SEARCH_BUTTON_LABEL = 'Search';
+export const CLEAR_BUTTON_LABEL = 'Clear';
 
 // Field validation regular expression patterns
 export const NAME_INPUT_REGEX = '^[^\\.\\!\\(\\)\\[\\]"1-9]*$'; // TODO: create pattern in utility class
 export const EMAIL_INPUT_REGEX = undefined; // TODO: leverage existing utility class (currently uses OOTB lighting-input email pattern)
-export const PHONE_INPUT_REGEX = "^[\\d ]+$"; // TODO: leverage existing utility class
+export const PHONE_INPUT_REGEX = '^[\\d ]+$'; // TODO: leverage existing utility class
 
 // Error messages
-export const INVALID_NAME_MSG = "Invalid name format";
-export const INVALID_PHONE_NUMBER_MSG = "Invalid phone number";
-export const INVALID_EMAIL_ADDRESS_MSG = "Invalid email address format";
+export const INVALID_NAME_MSG = 'Invalid name format';
+export const INVALID_PHONE_NUMBER_MSG = 'Invalid phone number';
+export const INVALID_EMAIL_ADDRESS_MSG = 'Invalid email address format';
 export const MORE_INFO_REQUIRED_ERROR_MESSAGE =
-	"Please enter at least First and Last Name, or Phone, or Email.";
+	'Please enter at least First and Last Name, or Phone, or Email.';
 export const FIRST_AND_LAST_NAME_REQUIRED_ERROR_MESSAGE =
-	"Please enter both First and Last name (or leave both blank).";
-export const INVALID_FORM_ERROR = "Please fix and errors and try again";
+	'Please enter both First and Last name (or leave both blank).';
+export const INVALID_FORM_ERROR = 'Please fix and errors and try again';
 
 // Element selectors
-export const INPUT_ELEMENT_SELECTORS = ["lightning-input"];
+export const INPUT_ELEMENT_SELECTORS = ['lightning-input'];
 
 /**
  * This component displays a form with several inputs which are used to search
@@ -85,10 +85,10 @@ export default class CustomerSearchFormInputs extends LightningElement {
 	}
 
 	// Private variables for input fields, used with public getters/setters
-	_firstName = "";
-	_lastName = "";
-	_phoneNumber = "";
-	_emailAddress = "";
+	_firstName = '';
+	_lastName = '';
+	_phoneNumber = '';
+	_emailAddress = '';
 
 	errorMessage = undefined;
 	isLoading = false;
@@ -127,7 +127,7 @@ export default class CustomerSearchFormInputs extends LightningElement {
 
 			// Collect all form input elements
 			const inputElements = [
-				...this.template.querySelectorAll(INPUT_ELEMENT_SELECTORS.join(",")),
+				...this.template.querySelectorAll(INPUT_ELEMENT_SELECTORS.join(',')),
 			];
 
 			// Check each individual field is valid
@@ -167,7 +167,7 @@ export default class CustomerSearchFormInputs extends LightningElement {
 
 			return isValid;
 		} catch (err) {
-			this.errorMessage = reduceErrors(err).join(",");
+			this.errorMessage = reduceErrors(err).join(',');
 			return false;
 		}
 	}
@@ -179,7 +179,7 @@ export default class CustomerSearchFormInputs extends LightningElement {
 	 * @fires InputChangeEvent#searchresult
 	 * @fires InputChangeEvent#searcherror
 	 */
-	performSearch() {
+	async performSearch() {
 		// Validate inputs before invoking the search method
 		if (!this.validateInputs()) {
 			if (this.errorMessage === undefined) {
@@ -190,56 +190,30 @@ export default class CustomerSearchFormInputs extends LightningElement {
 
 		// Invoke the search method
 		this.isLoading = true;
-		this.dispatchEvent(new CustomEvent("searchstart"));
-		customerSearch({
-			req: {
-				firstName: this.firstName,
-				lastName: this.lastName,
-				emailAddress: this.emailAddress,
-				phoneNumber: this.phoneNumber,
-			},
-		})
-			.then((res) => {
-				// Handle search results
-				this.dispatchEvent(
-					new CustomEvent("searchresult", {
-						detail: JSON.parse(JSON.stringify(res)),
-					})
-				);
-				this.isLoading = false;
-			})
-			.catch((error) => {
-				// Handle search errors
-				this.errorMessage = reduceErrors(error).join(",");
-				this.dispatchEvent(
-					new CustomEvent("searcherror", { detail: this.errorMessage })
-				);
-				this.isLoading = false;
+		this.dispatchEvent(new CustomEvent('searchstart'));
+		try {
+			const res = await customerSearch({
+				req: {
+					firstName: this.firstName,
+					lastName: this.lastName,
+					emailAddress: this.emailAddress,
+					phoneNumber: this.phoneNumber,
+				},
 			});
-	}
-
-	/**
-	 * Handle `blur` events from input components and trim any leading
-	 * or training whitespaces from string values.
-	 *
-	 * @param {Event} event - The `blur` event fired by the input element.
-	 * @fires InputChangeEvent#inputchange
-	 */
-	handleInputBlur(event) {
-		if (typeof event.target.value === "string") {
-			// Trim any leading or trailing spaces for text inputs from `string` inputs
-			const oldValue = event.target.value;
-			const newValue = oldValue.trim();
-			if (oldValue !== newValue) {
-				event.target.value = newValue;
-				event.target.dispatchEvent(
-					new CustomEvent("change", {
-						detail: {
-							value: event.target.value,
-						},
-					})
-				);
-			}
+			// Handle search results
+			this.dispatchEvent(
+				new CustomEvent('searchresult', {
+					detail: JSON.parse(JSON.stringify(res)),
+				})
+			);
+		} catch (error) {
+			// Handle search errors
+			this.errorMessage = reduceErrors(error).join(',');
+			this.dispatchEvent(
+				new CustomEvent('searcherror', { detail: this.errorMessage })
+			);
+		} finally {
+			this.isLoading = false;
 		}
 	}
 
@@ -260,7 +234,7 @@ export default class CustomerSearchFormInputs extends LightningElement {
 		this[fieldName] = fieldValue;
 
 		this.dispatchEvent(
-			new CustomEvent("inputchange", {
+			new CustomEvent('inputchange', {
 				detail: {
 					fieldName: fieldName,
 					value: fieldValue,

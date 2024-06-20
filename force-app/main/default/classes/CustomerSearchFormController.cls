@@ -1,9 +1,6 @@
 /**
  * @author Marcel HK
  * @date 2024-06-03
- * @group CustomerSearch
- * @tag CustomerSearch
- * @domain Core
  * @description - Controller for the Lightning Web Component `CustomerSearchForm`
  * @changelog
  * 2024-06-03 - Marcel HK - Created
@@ -11,9 +8,11 @@
 public with sharing class CustomerSearchFormController {
 	// Query configuration constants
 	@TestVisible
-	static final Integer MAX_RESULTS = 20;
-	static final Set<Object> CONTACT_SELECTOR_OPTIONS = new Set<Object>{};
-	static final Set<SObjectField> CONTACT_FIELDS = new Set<SObjectField>{
+	private static final Integer MAX_RESULTS = 20;
+	@TestVisible
+	private static final Set<Object> CONTACT_SELECTOR_OPTIONS = new Set<Object>{};
+	@TestVisible
+	private static final Set<SObjectField> CONTACT_FIELDS = new Set<SObjectField>{
 		Contact.Id,
 		Contact.Name,
 		Contact.FirstName,
@@ -28,11 +27,11 @@ public with sharing class CustomerSearchFormController {
 
 	// Error and warning messages
 	@TestVisible
-	static final String NOT_ENOUGH_PARAMS_ERROR_MSG = 'Please enter at least First and Last Name, or Phone, or Email.';
+	private static final String NOT_ENOUGH_PARAMS_ERROR_MSG = 'Please enter at least First and Last Name, or Phone, or Email.';
 	@TestVisible
-	static final String FIRST_LAST_NAME_REQ_ERROR_MSG = 'Please enter both First and Last name (or leave both blank).';
+	private static final String FIRST_LAST_NAME_REQ_ERROR_MSG = 'Please enter both First and Last name (or leave both blank).';
 	@TestVisible
-	static final String TOO_MANY_RESULTS_WARNING_MSG =
+	private static final String TOO_MANY_RESULTS_WARNING_MSG =
 		'Too many results. The first ' +
 		MAX_RESULTS +
 		' have been returned. Please refine your search.';
@@ -50,7 +49,21 @@ public with sharing class CustomerSearchFormController {
 			// Validate the search request, which will throw `SearchException` on any errors
 			validateSearchRequest(req);
 
-			Map<Id, Contact> contactsMap = executeSearch(req);
+			ContactsSelector.CustomerSearchParameters params = new ContactsSelector.CustomerSearchParameters();
+			params.firstName = req.firstName;
+			params.lastName = req.lastName;
+			params.phoneNumber = req.phoneNumber;
+			params.emailAddress = req.emailAddress;
+
+			ContactsSelector cs = ContactsSelector.newInstance(
+				MAX_RESULTS + 1,
+				CONTACT_FIELDS
+			);
+
+			Map<Id, Contact> contactsMap = cs.selectByCustomerSearchParams(
+				params,
+				CONTACT_SELECTOR_OPTIONS
+			);
 			SearchResponse res = createResponse(contactsMap.values());
 
 			return res;
@@ -76,7 +89,7 @@ public with sharing class CustomerSearchFormController {
 	 * @param req - The search request parameters to validate.
 	 */
 	@TestVisible
-	static void validateSearchRequest(SearchRequest req) {
+	private static void validateSearchRequest(SearchRequest req) {
 		// At least one of these fields must be provided
 		if (
 			req == null ||
@@ -98,27 +111,6 @@ public with sharing class CustomerSearchFormController {
 	}
 
 	/**
-	 * @description Performs the search query based on the given parameters. This method does not perform any input validation.
-	 *
-	 * @param req - The request which contains search parameters
-	 * @return Results object which contains a list of Contacts which matched the criteria.
-	 */
-	@TestVisible
-	static Map<Id, Contact> executeSearch(SearchRequest req) {
-		ContactsSelector cs = ContactsSelector.newInstance(
-			MAX_RESULTS + 1,
-			CONTACT_FIELDS
-		);
-
-		ContactsSelector.CustomerSearchParameters params = (ContactsSelector.CustomerSearchParameters) JSON.deserialize(
-			JSON.serialize(req),
-			ContactsSelector.CustomerSearchParameters.class
-		);
-
-		return cs.selectByCustomerSearchParams(params, CONTACT_SELECTOR_OPTIONS);
-	}
-
-	/**
 	 * @description Processes a Map of Contact objects into the `SearchResponse` object.
 	 * If the number of Contacts exceeds the MAX_RESULTS value, then a warning wil be appended to the response.
 	 *
@@ -126,7 +118,7 @@ public with sharing class CustomerSearchFormController {
 	 * @return SearchResponse object
 	 */
 	@TestVisible
-	static SearchResponse createResponse(List<Contact> contactsList) {
+	private static SearchResponse createResponse(List<Contact> contactsList) {
 		// Create search response object from the list of Contacts
 		SearchResponse res = new SearchResponse();
 

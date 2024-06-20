@@ -1,6 +1,6 @@
-import { createElement } from "lwc";
-import CustomerSearchFormInputs from "c/customerSearchFormInputs";
-import customerSearch from "@salesforce/apex/CustomerSearchFormController.search";
+import { createElement } from 'lwc';
+import CustomerSearchFormInputs from 'c/customerSearchFormInputs';
+import customerSearch from '@salesforce/apex/CustomerSearchFormController.search';
 import {
 	SEARCH_FORM_TITLE,
 	FIRST_NAME_LABEL,
@@ -12,17 +12,17 @@ import {
 	MORE_INFO_REQUIRED_ERROR_MESSAGE,
 	FIRST_AND_LAST_NAME_REQUIRED_ERROR_MESSAGE,
 	INVALID_FORM_ERROR,
-} from "c/customerSearchFormInputs";
+} from 'c/customerSearchFormInputs';
 
 const CUSTOMER_SEARCH_RES_SUCCESS = {
 	searchResults: [],
 	warningMessage: undefined,
 };
 const CUSTOMER_SEARCH_RES_ERROR = {
-	body: { message: "An internal server error has occurred" },
+	body: { message: 'An internal server error has occurred' },
 	ok: false,
 	status: 500,
-	statusText: "Internal server error",
+	statusText: 'Internal server error',
 };
 
 /**
@@ -33,10 +33,10 @@ const CUSTOMER_SEARCH_RES_ERROR = {
  * @param {any} value - Set the input element's value to this.
  */
 function changeInputFieldValue(element, value) {
-	if (element?.nodeName.toLowerCase() === "lightning-input") {
+	if (element?.nodeName.toLowerCase() === 'lightning-input') {
 		element.value = value;
 		element.dispatchEvent(
-			new CustomEvent("change", { detail: { value: element.value } })
+			new CustomEvent('change', { detail: { value: element.value } })
 		);
 		return;
 	}
@@ -84,7 +84,7 @@ function mockCheckValidity(element, selector, result) {
 
 // Mock imperative Apex method call
 jest.mock(
-	"@salesforce/apex/CustomerSearchFormController.search",
+	'@salesforce/apex/CustomerSearchFormController.search',
 	() => {
 		return {
 			default: jest.fn(),
@@ -103,7 +103,7 @@ function flushAllPromises() {
 	return new Promise((resolve) => setTimeout(resolve, 0));
 }
 
-describe("c-customer-search-form-inputs", () => {
+describe('c-customer-search-form-inputs', () => {
 	afterEach(() => {
 		// The jsdom instance is shared across test cases in a single file so reset the DOM
 		while (document.body.firstChild) {
@@ -114,9 +114,9 @@ describe("c-customer-search-form-inputs", () => {
 		jest.clearAllMocks();
 	});
 
-	it("displays component title", () => {
+	it('displays component title', () => {
 		// Arrange
-		const element = createElement("c-customer-search-form-inputs", {
+		const element = createElement('c-customer-search-form-inputs', {
 			is: CustomerSearchFormInputs,
 		});
 
@@ -124,14 +124,14 @@ describe("c-customer-search-form-inputs", () => {
 		document.body.appendChild(element);
 
 		// Assert
-		const cardCmp = element.shadowRoot.querySelector("lightning-card");
+		const cardCmp = element.shadowRoot.querySelector('lightning-card');
 		expect(cardCmp).not.toBeNull();
 		expect(cardCmp.title).toBe(SEARCH_FORM_TITLE);
 	});
 
-	it("displays search form input and button elements", () => {
+	it('displays search form input and button elements', () => {
 		// Arrange
-		const element = createElement("c-customer-search-form-inputs", {
+		const element = createElement('c-customer-search-form-inputs', {
 			is: CustomerSearchFormInputs,
 		});
 
@@ -139,40 +139,40 @@ describe("c-customer-search-form-inputs", () => {
 		document.body.appendChild(element);
 
 		// Assert
-		const firstNameInput = getInputFieldElement(element, "firstName");
+		const firstNameInput = getInputFieldElement(element, 'firstName');
 		expect(firstNameInput).not.toBeNull();
-		expect(firstNameInput.type).toBe("text");
+		expect(firstNameInput.type).toBe('text');
 		expect(firstNameInput.label).toBe(FIRST_NAME_LABEL);
 		expect(firstNameInput.placeholder).toBe(FIRST_NAME_LABEL);
-		expect(firstNameInput.maxLength).toBe("40");
-		expect(firstNameInput.value).toBe("");
+		expect(firstNameInput.maxLength).toBe('40');
+		expect(firstNameInput.value).toBe('');
 
-		const lastNameInput = getInputFieldElement(element, "lastName");
+		const lastNameInput = getInputFieldElement(element, 'lastName');
 		expect(lastNameInput).not.toBeNull();
-		expect(lastNameInput.type).toBe("text");
+		expect(lastNameInput.type).toBe('text');
 		expect(lastNameInput.label).toBe(LAST_NAME_LABEL);
 		expect(lastNameInput.placeholder).toBe(LAST_NAME_LABEL);
-		expect(lastNameInput.maxLength).toBe("80");
-		expect(lastNameInput.value).toBe("");
+		expect(lastNameInput.maxLength).toBe('80');
+		expect(lastNameInput.value).toBe('');
 
-		const emailAddressInput = getInputFieldElement(element, "emailAddress");
+		const emailAddressInput = getInputFieldElement(element, 'emailAddress');
 		expect(emailAddressInput).not.toBeNull();
-		expect(emailAddressInput.type).toBe("email");
+		expect(emailAddressInput.type).toBe('email');
 		expect(emailAddressInput.label).toBe(EMAIL_ADDRESS_LABEL);
 		expect(emailAddressInput.placeholder).toBe(EMAIL_ADDRESS_LABEL);
-		expect(emailAddressInput.maxLength).toBe("80");
-		expect(emailAddressInput.value).toBe("");
+		expect(emailAddressInput.maxLength).toBe('80');
+		expect(emailAddressInput.value).toBe('');
 
-		const phoneNumberInput = getInputFieldElement(element, "phoneNumber");
+		const phoneNumberInput = getInputFieldElement(element, 'phoneNumber');
 		expect(phoneNumberInput).not.toBeNull();
-		expect(phoneNumberInput.type).toBe("tel");
+		expect(phoneNumberInput.type).toBe('tel');
 		expect(phoneNumberInput.label).toBe(PHONE_NUMBER_LABEL);
 		expect(phoneNumberInput.placeholder).toBe(PHONE_NUMBER_LABEL);
-		expect(phoneNumberInput.maxLength).toBe("40");
-		expect(phoneNumberInput.value).toBe("");
+		expect(phoneNumberInput.maxLength).toBe('40');
+		expect(phoneNumberInput.value).toBe('');
 
 		const buttons = [
-			...element.shadowRoot.querySelectorAll("lightning-button"),
+			...element.shadowRoot.querySelectorAll('lightning-button'),
 		];
 		expect(buttons.length).toBe(2);
 
@@ -185,32 +185,9 @@ describe("c-customer-search-form-inputs", () => {
 		expect(clearButton.label).toBe(CLEAR_BUTTON_LABEL);
 	});
 
-	it("trims whitespace on input 'blur' event", async () => {
-		// Arrange
-		const element = createElement("c-customer-search-form-inputs", {
-			is: CustomerSearchFormInputs,
-		});
-
-		// Act
-		document.body.appendChild(element);
-
-		// Update the 'firstName' field and fire the `change` event
-		const firstNameInput = getInputFieldElement(element, "firstName");
-		changeInputFieldValue(firstNameInput, "Joan ");
-
-		// Fire the `blur` event on the 'firstName' field
-		firstNameInput.dispatchEvent(new CustomEvent("blur"));
-
-		// Wait for any asynchronous code to complete
-		await flushAllPromises();
-
-		// Assert
-		expect(firstNameInput.value).toBe("Joan");
-	});
-
 	it("fires the 'inputchange' event when input field changed", async () => {
 		// Arrange
-		const element = createElement("c-customer-search-form-inputs", {
+		const element = createElement('c-customer-search-form-inputs', {
 			is: CustomerSearchFormInputs,
 		});
 
@@ -219,11 +196,11 @@ describe("c-customer-search-form-inputs", () => {
 
 		// Add event handler for the `inputchange` event
 		const inputChangeEvent = jest.fn();
-		element.addEventListener("inputchange", inputChangeEvent);
+		element.addEventListener('inputchange', inputChangeEvent);
 
 		// Update the first name field and fire the 'change' event
-		const firstNameInput = getInputFieldElement(element, "firstName");
-		changeInputFieldValue(firstNameInput, "Joan");
+		const firstNameInput = getInputFieldElement(element, 'firstName');
+		changeInputFieldValue(firstNameInput, 'Joan');
 
 		// Wait for any asynchronous code to complete
 		await flushAllPromises();
@@ -231,45 +208,45 @@ describe("c-customer-search-form-inputs", () => {
 		// Assert
 		expect(inputChangeEvent).toHaveBeenCalled();
 		expect(inputChangeEvent.mock.calls[0][0].detail.fieldName).toEqual(
-			"firstName"
+			'firstName'
 		);
-		expect(inputChangeEvent.mock.calls[0][0].detail.value).toEqual("Joan");
+		expect(inputChangeEvent.mock.calls[0][0].detail.value).toEqual('Joan');
 	});
 
-	it("allows pre-populating input field values", () => {
+	it('allows pre-populating input field values', () => {
 		// Arrange
-		const element = createElement("c-customer-search-form-inputs", {
+		const element = createElement('c-customer-search-form-inputs', {
 			is: CustomerSearchFormInputs,
 		});
-		element.firstName = "Joan";
-		element.lastName = "Watson";
-		element.emailAddress = "jwatson@example.com";
-		element.phoneNumber = "0401234567";
+		element.firstName = 'Joan';
+		element.lastName = 'Watson';
+		element.emailAddress = 'jwatson@example.com';
+		element.phoneNumber = '0401234567';
 
 		// Act
 		document.body.appendChild(element);
 
 		// Assert
-		const firstNameInput = getInputFieldElement(element, "firstName");
+		const firstNameInput = getInputFieldElement(element, 'firstName');
 		expect(firstNameInput).not.toBeNull();
-		expect(firstNameInput.value).toBe("Joan");
+		expect(firstNameInput.value).toBe('Joan');
 
-		const lastNameInput = getInputFieldElement(element, "lastName");
+		const lastNameInput = getInputFieldElement(element, 'lastName');
 		expect(lastNameInput).not.toBeNull();
-		expect(lastNameInput.value).toBe("Watson");
+		expect(lastNameInput.value).toBe('Watson');
 
-		const emailAddressInput = getInputFieldElement(element, "emailAddress");
+		const emailAddressInput = getInputFieldElement(element, 'emailAddress');
 		expect(emailAddressInput).not.toBeNull();
-		expect(emailAddressInput.value).toBe("jwatson@example.com");
+		expect(emailAddressInput.value).toBe('jwatson@example.com');
 
-		const phoneNumberInput = getInputFieldElement(element, "phoneNumber");
+		const phoneNumberInput = getInputFieldElement(element, 'phoneNumber');
 		expect(phoneNumberInput).not.toBeNull();
-		expect(phoneNumberInput.value).toBe("0401234567");
+		expect(phoneNumberInput.value).toBe('0401234567');
 	});
 
-	it("displays error when one or more fields are invalid", async () => {
+	it('displays error when one or more fields are invalid', async () => {
 		// Arrange
-		const element = createElement("c-customer-search-form-inputs", {
+		const element = createElement('c-customer-search-form-inputs', {
 			is: CustomerSearchFormInputs,
 		});
 
@@ -277,10 +254,10 @@ describe("c-customer-search-form-inputs", () => {
 		document.body.appendChild(element);
 
 		// Mock all lightning-input checkValidity() methods to return 'false'
-		mockCheckValidity(element, "lightning-input", false);
+		mockCheckValidity(element, 'lightning-input', false);
 
 		// Click the search button
-		const searchButton = getButtonByDataId(element, "search");
+		const searchButton = getButtonByDataId(element, 'search');
 		searchButton.click();
 
 		// Wait for any asynchronous code to complete
@@ -292,9 +269,9 @@ describe("c-customer-search-form-inputs", () => {
 		expect(errorDiv.textContent).toBe(INVALID_FORM_ERROR);
 	});
 
-	it("displays error when submitted without any values", async () => {
+	it('displays error when submitted without any values', async () => {
 		// Arrange
-		const element = createElement("c-customer-search-form-inputs", {
+		const element = createElement('c-customer-search-form-inputs', {
 			is: CustomerSearchFormInputs,
 		});
 
@@ -302,13 +279,13 @@ describe("c-customer-search-form-inputs", () => {
 		document.body.appendChild(element);
 
 		const searchStartEvent = jest.fn();
-		element.addEventListener("searchstart", searchStartEvent);
+		element.addEventListener('searchstart', searchStartEvent);
 
 		// Mock all lightning-input checkValidity() methods to return 'true'
-		mockCheckValidity(element, "lightning-input", true);
+		mockCheckValidity(element, 'lightning-input', true);
 
 		// Click the search button
-		const searchButton = getButtonByDataId(element, "search");
+		const searchButton = getButtonByDataId(element, 'search');
 		searchButton.click();
 
 		// Wait for any asynchronous code to complete
@@ -321,9 +298,9 @@ describe("c-customer-search-form-inputs", () => {
 		expect(searchStartEvent).not.toHaveBeenCalled();
 	});
 
-	it("displays error when submitted with first name, but no last name", async () => {
+	it('displays error when submitted with first name, but no last name', async () => {
 		// Arrange
-		const element = createElement("c-customer-search-form-inputs", {
+		const element = createElement('c-customer-search-form-inputs', {
 			is: CustomerSearchFormInputs,
 		});
 
@@ -331,16 +308,16 @@ describe("c-customer-search-form-inputs", () => {
 		document.body.appendChild(element);
 
 		const searchStartEvent = jest.fn();
-		element.addEventListener("searchstart", searchStartEvent);
+		element.addEventListener('searchstart', searchStartEvent);
 
-		const firstNameInput = getInputFieldElement(element, "firstName");
-		changeInputFieldValue(firstNameInput, "Sherlock");
+		const firstNameInput = getInputFieldElement(element, 'firstName');
+		changeInputFieldValue(firstNameInput, 'Sherlock');
 
 		// Mock all lightning-input checkValidity() methods to return 'true'
-		mockCheckValidity(element, "lightning-input", true);
+		mockCheckValidity(element, 'lightning-input', true);
 
 		// Click the search button
-		const searchButton = getButtonByDataId(element, "search");
+		const searchButton = getButtonByDataId(element, 'search');
 		searchButton.click();
 
 		// Wait for any asynchronous code to complete
@@ -355,9 +332,9 @@ describe("c-customer-search-form-inputs", () => {
 		expect(searchStartEvent).not.toHaveBeenCalled();
 	});
 
-	it("displays error when submitted with last name, but no first name", async () => {
+	it('displays error when submitted with last name, but no first name', async () => {
 		// Arrange
-		const element = createElement("c-customer-search-form-inputs", {
+		const element = createElement('c-customer-search-form-inputs', {
 			is: CustomerSearchFormInputs,
 		});
 
@@ -365,16 +342,16 @@ describe("c-customer-search-form-inputs", () => {
 		document.body.appendChild(element);
 
 		const searchStartEvent = jest.fn();
-		element.addEventListener("searchstart", searchStartEvent);
+		element.addEventListener('searchstart', searchStartEvent);
 
-		const lastNameInput = getInputFieldElement(element, "lastName");
-		changeInputFieldValue(lastNameInput, "Holmes");
+		const lastNameInput = getInputFieldElement(element, 'lastName');
+		changeInputFieldValue(lastNameInput, 'Holmes');
 
 		// Mock all lightning-input checkValidity() methods to return 'true'
-		mockCheckValidity(element, "lightning-input", true);
+		mockCheckValidity(element, 'lightning-input', true);
 
 		// Click the search button
-		const searchButton = getButtonByDataId(element, "search");
+		const searchButton = getButtonByDataId(element, 'search');
 		searchButton.click();
 
 		// Wait for any asynchronous code to complete
@@ -389,12 +366,12 @@ describe("c-customer-search-form-inputs", () => {
 		expect(searchStartEvent).not.toHaveBeenCalled();
 	});
 
-	it("displays spinner while searching", async () => {
+	it('displays spinner while searching', async () => {
 		// Assign mock value for resolved Apex promise
 		customerSearch.mockResolvedValue(CUSTOMER_SEARCH_RES_SUCCESS);
 
 		// Arrange
-		const element = createElement("c-customer-search-form-inputs", {
+		const element = createElement('c-customer-search-form-inputs', {
 			is: CustomerSearchFormInputs,
 		});
 
@@ -402,17 +379,17 @@ describe("c-customer-search-form-inputs", () => {
 		document.body.appendChild(element);
 
 		// Expect lightning-spinner to be hidden by default
-		expect(element.shadowRoot.querySelector("lightning-spinner")).toBeFalsy();
+		expect(element.shadowRoot.querySelector('lightning-spinner')).toBeFalsy();
 
 		// Prepare valid test data
-		const emailAddressInput = getInputFieldElement(element, "emailAddress");
-		changeInputFieldValue(emailAddressInput, "sherlock@example.com");
+		const emailAddressInput = getInputFieldElement(element, 'emailAddress');
+		changeInputFieldValue(emailAddressInput, 'sherlock@example.com');
 
 		// Mock all lightning-input checkValidity() methods to return 'true'
-		mockCheckValidity(element, "lightning-input", true);
+		mockCheckValidity(element, 'lightning-input', true);
 
 		// Click the search button
-		const searchButton = getButtonByDataId(element, "search");
+		const searchButton = getButtonByDataId(element, 'search');
 		searchButton.click();
 
 		// Wait for DOM to update (but not for Apex method to resolve)
@@ -420,21 +397,21 @@ describe("c-customer-search-form-inputs", () => {
 
 		// Assert
 		// Expect lightning-spinner to be displayed
-		expect(element.shadowRoot.querySelector("lightning-spinner")).toBeTruthy();
+		expect(element.shadowRoot.querySelector('lightning-spinner')).toBeTruthy();
 
 		// Wait for any asynchronous code to complete
 		await flushAllPromises();
 
 		// Expect lightning-spinner to be hidden after search completed
-		expect(element.shadowRoot.querySelector("lightning-spinner")).toBeFalsy();
+		expect(element.shadowRoot.querySelector('lightning-spinner')).toBeFalsy();
 	});
 
-	it("fires searchresult event on search callout success", async () => {
+	it('fires searchresult event on search callout success', async () => {
 		// Assign mock value for resolved Apex promise
 		customerSearch.mockResolvedValue(CUSTOMER_SEARCH_RES_SUCCESS);
 
 		// Arrange
-		const element = createElement("c-customer-search-form-inputs", {
+		const element = createElement('c-customer-search-form-inputs', {
 			is: CustomerSearchFormInputs,
 		});
 
@@ -442,20 +419,20 @@ describe("c-customer-search-form-inputs", () => {
 		document.body.appendChild(element);
 
 		const searchStartEvent = jest.fn();
-		element.addEventListener("searchstart", searchStartEvent);
+		element.addEventListener('searchstart', searchStartEvent);
 
 		const searchResultEvent = jest.fn();
-		element.addEventListener("searchresult", searchResultEvent);
+		element.addEventListener('searchresult', searchResultEvent);
 
 		// Prepare valid test data
-		const emailAddressInput = getInputFieldElement(element, "emailAddress");
-		changeInputFieldValue(emailAddressInput, "sherlock@example.com");
+		const emailAddressInput = getInputFieldElement(element, 'emailAddress');
+		changeInputFieldValue(emailAddressInput, 'sherlock@example.com');
 
 		// Mock all lightning-input checkValidity() methods to return 'true'
-		mockCheckValidity(element, "lightning-input", true);
+		mockCheckValidity(element, 'lightning-input', true);
 
 		// Click the search button
-		const searchButton = getButtonByDataId(element, "search");
+		const searchButton = getButtonByDataId(element, 'search');
 		searchButton.click();
 
 		// Wait for any asynchronous code to complete
@@ -468,12 +445,12 @@ describe("c-customer-search-form-inputs", () => {
 		);
 	});
 
-	it("fires searcherror on search callout error", async () => {
+	it('fires searcherror on search callout error', async () => {
 		// Assign mock value for resolved Apex promise
 		customerSearch.mockRejectedValue(CUSTOMER_SEARCH_RES_ERROR);
 
 		// Arrange
-		const element = createElement("c-customer-search-form-inputs", {
+		const element = createElement('c-customer-search-form-inputs', {
 			is: CustomerSearchFormInputs,
 		});
 
@@ -481,20 +458,20 @@ describe("c-customer-search-form-inputs", () => {
 		document.body.appendChild(element);
 
 		const searchStartEvent = jest.fn();
-		element.addEventListener("searchstart", searchStartEvent);
+		element.addEventListener('searchstart', searchStartEvent);
 
 		const searchErrorEvent = jest.fn();
-		element.addEventListener("searcherror", searchErrorEvent);
+		element.addEventListener('searcherror', searchErrorEvent);
 
 		// Prepare valid test data
-		const emailAddressInput = getInputFieldElement(element, "emailAddress");
-		changeInputFieldValue(emailAddressInput, "sherlock@example.com");
+		const emailAddressInput = getInputFieldElement(element, 'emailAddress');
+		changeInputFieldValue(emailAddressInput, 'sherlock@example.com');
 
 		// Mock all lightning-input checkValidity() methods to return 'true'
-		mockCheckValidity(element, "lightning-input", true);
+		mockCheckValidity(element, 'lightning-input', true);
 
 		// Click the search button
-		const searchButton = getButtonByDataId(element, "search");
+		const searchButton = getButtonByDataId(element, 'search');
 		searchButton.click();
 
 		// Wait for any asynchronous code to complete
@@ -504,17 +481,17 @@ describe("c-customer-search-form-inputs", () => {
 		expect(searchStartEvent).toHaveBeenCalled();
 		expect(searchErrorEvent).toHaveBeenCalledWith(
 			expect.objectContaining({
-				detail: "An internal server error has occurred",
+				detail: 'An internal server error has occurred',
 			})
 		);
 	});
 
-	it("displays error message on search callout error", async () => {
+	it('displays error message on search callout error', async () => {
 		// Assign mock value for resolved Apex promise
 		customerSearch.mockRejectedValue(CUSTOMER_SEARCH_RES_ERROR);
 
 		// Arrange
-		const element = createElement("c-customer-search-form-inputs", {
+		const element = createElement('c-customer-search-form-inputs', {
 			is: CustomerSearchFormInputs,
 		});
 
@@ -522,14 +499,14 @@ describe("c-customer-search-form-inputs", () => {
 		document.body.appendChild(element);
 
 		// Prepare valid test data
-		const emailAddressInput = getInputFieldElement(element, "emailAddress");
-		changeInputFieldValue(emailAddressInput, "sherlock@example.com");
+		const emailAddressInput = getInputFieldElement(element, 'emailAddress');
+		changeInputFieldValue(emailAddressInput, 'sherlock@example.com');
 
 		// Mock all lightning-input checkValidity() methods to return 'true'
-		mockCheckValidity(element, "lightning-input", true);
+		mockCheckValidity(element, 'lightning-input', true);
 
 		// Click the search button
-		const searchButton = getButtonByDataId(element, "search");
+		const searchButton = getButtonByDataId(element, 'search');
 		searchButton.click();
 
 		// Wait for any asynchronous code to complete
@@ -538,6 +515,6 @@ describe("c-customer-search-form-inputs", () => {
 		// Assert
 		const errorDiv = element.shadowRoot.querySelector("div[data-id='error']");
 		expect(errorDiv).not.toBeNull();
-		expect(errorDiv.textContent).toBe("An internal server error has occurred");
+		expect(errorDiv.textContent).toBe('An internal server error has occurred');
 	});
 });
