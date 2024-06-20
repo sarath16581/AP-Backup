@@ -6,13 +6,13 @@
  * @changelog
  * 2020-10-26 disha.kariya@auspost.com.au Added delivery ETA
  * 2021-10-01 - Nathan Franklin - Refactored usage of transient attributes + uplift to version 52
+ * 2024-06-08 - Seth Heang - Add getter for isStarTrackEDD
  */
 import { LightningElement, api, track } from "lwc";
 import { get, CONSTANTS } from "c/happyParcelService";
 import HappyParcelBase from "c/happyParcelBase";
 
 export default class HappyParcelEdd extends HappyParcelBase {
-
 	// passed down from the top level component which show whether the tracking api call is in progress or not
 	@api loadingTrackingApi = false;
 
@@ -35,13 +35,17 @@ export default class HappyParcelEdd extends HappyParcelBase {
 	 * NOTE: The button only displays in the UI
 	 */
 	handleEddCalculateClick(e) {
-		const lodgementDate = (this.trackingLodgementDate ? (new Date(this.trackingLodgementDate)).toLocaleDateString('en-AU') : '');
-		const data = { 'lodgementDate': lodgementDate, 'senderPostCode': this.trackingSenderPostCode, 'receiverPostCode': this.trackingReceiverPostCode };
+		const lodgementDate = this.trackingLodgementDate ? new Date(this.trackingLodgementDate).toLocaleDateString("en-AU") : "";
+		const data = {
+			lodgementDate: lodgementDate,
+			senderPostCode: this.trackingSenderPostCode,
+			receiverPostCode: this.trackingReceiverPostCode
+		};
 
 		// use bubbles to propagate the event through the DOM
 		// use composed to push the event through the 'shadow boundry'
 		// https://developer.salesforce.com/docs/component-library/documentation/en/lwc/lwc.events_propagation for more
-		this.dispatchEvent(new CustomEvent('externaledd', { detail: data, bubbles: true, composed: true }));
+		this.dispatchEvent(new CustomEvent("externaledd", { detail: data, bubbles: true, composed: true }));
 	}
 
 	// /**
@@ -60,7 +64,7 @@ export default class HappyParcelEdd extends HappyParcelBase {
 	 * Trigger only when supportsExternalEdd = true
 	 */
 	get trackingLodgementDate() {
-		return get(this.trackingApiResult, 'article.ArticleLodgementDate__c', null);
+		return get(this.trackingApiResult, "article.ArticleLodgementDate__c", null);
 	}
 
 	/**
@@ -68,7 +72,7 @@ export default class HappyParcelEdd extends HappyParcelBase {
 	 * Trigger only when supportsExternalEdd = true
 	 */
 	get trackingSenderPostCode() {
-		return get(this.trackingApiResult, 'article.SenderPostcode__c', null);
+		return get(this.trackingApiResult, "article.SenderPostcode__c", null);
 	}
 
 	/**
@@ -76,28 +80,37 @@ export default class HappyParcelEdd extends HappyParcelBase {
 	 * Trigger only when supportsExternalEdd = true
 	 */
 	get trackingReceiverPostCode() {
-		return get(this.trackingApiResult, 'article.ReceiverPostcode__c', null);
+		return get(this.trackingApiResult, "article.ReceiverPostcode__c", null);
+	}
+
+	/**
+	 * This is used to identify if the Expected Delivery Data is sourced from .NET API StarTrack Consignment
+	 */
+	get isDotNetEdd() {
+		return get(this.trackingApiResult, "isDotNetEdd", null);
 	}
 
 	/**
 	 * Does the Analytics date exist
 	 */
 	get hasAnalyticsEdd() {
-		return (this.analyticsExpectedDeliveryDateLow || this.analyticsExpectedDeliveryDateHigh);
+		return this.analyticsExpectedDeliveryDateLow || this.analyticsExpectedDeliveryDateHigh;
 	}
 
 	/**
 	 * Does the Analytics date have a high and low date?
 	 */
 	get hasAnalyticsDualEdd() {
-		return (this.analyticsExpectedDeliveryDateLow && this.analyticsExpectedDeliveryDateHigh);
+		return this.analyticsExpectedDeliveryDateLow && this.analyticsExpectedDeliveryDateHigh;
 	}
+
 	get analyticsExpectedDeliveryDateLow() {
-		return get(this.analyticsApiResult, 'hp_dedd_low', null);
+		return get(this.analyticsApiResult, "hp_dedd_low", null);
 	}
+
 	get analyticsExpectedDeliveryDateHigh() {
-		const date = get(this.analyticsApiResult, 'hp_dedd_high', null);
-		return (this.analyticsExpectedDeliveryDateLow !== date ? date : null);
+		const date = get(this.analyticsApiResult, "hp_dedd_high", null);
+		return this.analyticsExpectedDeliveryDateLow !== date ? date : null;
 	}
 
 	/**
@@ -105,24 +118,25 @@ export default class HappyParcelEdd extends HappyParcelBase {
 	 * NOTE: The analytics API SAP date is prioritised and will default back to the tracking api SAP value if the analytics api value does not exist
 	 */
 	get hasSAPEdd() {
-		return (this.sapExpectedDeliveryDateLow || this.sapExpectedDeliveryDateHigh);
+		return this.sapExpectedDeliveryDateLow || this.sapExpectedDeliveryDateHigh;
 	}
 
 	/**
 	 * Does the SAP date have a high and low date?
 	 */
 	get hasSAPDualEdd() {
-		return (this.sapExpectedDeliveryDateLow && this.sapExpectedDeliveryDateHigh);
+		return this.sapExpectedDeliveryDateLow && this.sapExpectedDeliveryDateHigh;
 	}
+
 	/**
 	 * Grab the SAP EDD
 	 * This accomodates SAP EDD being retrieved either from the analytics api or the tracking api
 	 * NOTE: The analytics API SAP date is prioritised and will default back to the tracking api SAP value if the analytics api value does not exist
 	 */
 	get sapExpectedDeliveryDateLow() {
-		let sapEdd = get(this.analyticsApiResult, 'dedd_low', null);
-		if(!sapEdd) {
-			sapEdd = get(this.trackingApiResult, 'article.ExpectedDeliveryDate__c', null);
+		let sapEdd = get(this.analyticsApiResult, "dedd_low", null);
+		if (!sapEdd) {
+			sapEdd = get(this.trackingApiResult, "article.ExpectedDeliveryDate__c", null);
 		}
 		return sapEdd;
 	}
@@ -131,8 +145,8 @@ export default class HappyParcelEdd extends HappyParcelBase {
 	 * The analytics API may additionally have a low/high range date.
 	 */
 	get sapExpectedDeliveryDateHigh() {
-		const date = get(this.analyticsApiResult, 'dedd_high', null);
-		return (this.sapExpectedDeliveryDateLow !== date ? date : null);
+		const date = get(this.analyticsApiResult, "dedd_high", null);
+		return this.sapExpectedDeliveryDateLow !== date ? date : null;
 	}
 
 	/**
@@ -145,22 +159,22 @@ export default class HappyParcelEdd extends HappyParcelBase {
 	get plots() {
 		const plots = [];
 
-		if(this.getValue('transientAttributes.initialPredictedWindowStart') && this.getValue('transientAttributes.initialPredictedWindowEnd')){
+		if (this.getValue("transientAttributes.initialPredictedWindowStart") && this.getValue("transientAttributes.initialPredictedWindowEnd")) {
 			const initialPlot = {};
-			initialPlot.low = this.formatTime('transientAttributes.initialPredictedWindowStart');
-			initialPlot.high = this.formatTime('transientAttributes.initialPredictedWindowEnd');
-			initialPlot.cssClass = 'slds-badge';
-			initialPlot.cssStyle = 'background-color: #fccf3e;';
-			initialPlot.label = 'Initial Window(' + this.getValue('transientAttributes.initialPredictedWindowStart') + '-' + this.getValue('transientAttributes.initialPredictedWindowEnd') + ')';
+			initialPlot.low = this.formatTime("transientAttributes.initialPredictedWindowStart");
+			initialPlot.high = this.formatTime("transientAttributes.initialPredictedWindowEnd");
+			initialPlot.cssClass = "slds-badge";
+			initialPlot.cssStyle = "background-color: #fccf3e;";
+			initialPlot.label = "Initial Window(" + this.getValue("transientAttributes.initialPredictedWindowStart") + "-" + this.getValue("transientAttributes.initialPredictedWindowEnd") + ")";
 			plots.push(initialPlot);
 		}
-		if(this.getValue('transientAttributes.predictedWindowStart') && this.getValue('transientAttributes.predictedWindowEnd')){
+		if (this.getValue("transientAttributes.predictedWindowStart") && this.getValue("transientAttributes.predictedWindowEnd")) {
 			const updatedPlot = {};
-			updatedPlot.low = this.formatTime('transientAttributes.predictedWindowStart');
-			updatedPlot.high = this.formatTime('transientAttributes.predictedWindowEnd');
-			updatedPlot.cssClass = 'slds-badge';
-			updatedPlot.cssStyle = 'background-color: #4bc076;';
-			updatedPlot.label = 'Updated Window(' + this.getValue('transientAttributes.predictedWindowStart') + '-' + this.getValue('transientAttributes.predictedWindowEnd') + ')';
+			updatedPlot.low = this.formatTime("transientAttributes.predictedWindowStart");
+			updatedPlot.high = this.formatTime("transientAttributes.predictedWindowEnd");
+			updatedPlot.cssClass = "slds-badge";
+			updatedPlot.cssStyle = "background-color: #4bc076;";
+			updatedPlot.label = "Updated Window(" + this.getValue("transientAttributes.predictedWindowStart") + "-" + this.getValue("transientAttributes.predictedWindowEnd") + ")";
 			plots.push(updatedPlot);
 		}
 		return plots;
@@ -171,40 +185,40 @@ export default class HappyParcelEdd extends HappyParcelBase {
 	 * This accommodates ETA being retrieved from the tracking api
 	 */
 	get hasETAInformation() {
-		return (this.getValue('transientAttributes.initialPredictedWindowStart') && this.getValue('transientAttributes.initialPredictedWindowEnd'));
+		return this.getValue("transientAttributes.initialPredictedWindowStart") && this.getValue("transientAttributes.initialPredictedWindowEnd");
 	}
 
 	/**
 	 *@description : Returns the time in decimal format like 2:33 pm => 14.55.
 	 */
-	formatTime(timeField){
+	formatTime(timeField) {
 		var timeVar = this.getValue(timeField);
 		let timeValue = [];
 		var decimalValue;
-		if(timeVar){
-			if(timeVar.indexOf(':') > 0){
-				timeValue = timeVar.split(':');
-			} else if(timeVar.indexOf('.') > 0) {
-				timeValue = timeVar.split('.');
+		if (timeVar) {
+			if (timeVar.indexOf(":") > 0) {
+				timeValue = timeVar.split(":");
+			} else if (timeVar.indexOf(".") > 0) {
+				timeValue = timeVar.split(".");
 			} else {
-				timeValue.push(timeVar.substr(0, 2), timeVar.substr(2,2));
+				timeValue.push(timeVar.substr(0, 2), timeVar.substr(2, 2));
 			}
 
-			if(timeValue){
+			if (timeValue) {
 				//Get hour value
 				let hourVar = parseInt(timeValue[0]);
 				//Get minute
 				let minuteVar = timeValue[1].toLowerCase();
-				if(minuteVar.indexOf('am') > 0){
-					minuteVar = minuteVar.replace('am','').trim();
-				}else if(minuteVar.indexOf('pm') > 0){
-					minuteVar = minuteVar.replace('pm','').trim();
-					hourVar = hourVar<12 ? hourVar + 12 : hourVar;
+				if (minuteVar.indexOf("am") > 0) {
+					minuteVar = minuteVar.replace("am", "").trim();
+				} else if (minuteVar.indexOf("pm") > 0) {
+					minuteVar = minuteVar.replace("pm", "").trim();
+					hourVar = hourVar < 12 ? hourVar + 12 : hourVar;
 				}
 				//Convert into decimal value of minutes
 				minuteVar = minuteVar / 60;
-				decimalValue = parseFloat(hourVar+minuteVar);
-				console.log('decimalValue>>'+decimalValue);
+				decimalValue = parseFloat(hourVar + minuteVar);
+				console.log("decimalValue>>" + decimalValue);
 			}
 		}
 		return decimalValue;
@@ -213,8 +227,7 @@ export default class HappyParcelEdd extends HappyParcelBase {
 	/**
 	 *@description : Returns the value for the valriable.
 	 */
-	 getValue(stringVar){
-		 return get(this.trackingApiResult, stringVar, null);
-	 }
-
+	getValue(stringVar) {
+		return get(this.trackingApiResult, stringVar, null);
+	}
 }
