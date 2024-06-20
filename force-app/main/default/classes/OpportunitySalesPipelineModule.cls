@@ -118,17 +118,19 @@ public inherited sharing class OpportunitySalesPipelineModule extends Applicatio
 	private void updateAccountDetails(List<SObject> records,Map<Id, SObject> existingRecords, ApplicationUnitOfWork uow) {
 		Map<Id,String> accountIdToIndirectCustMap = new Map<Id,String>();
 		List<Account> updatedAccounts = new List<Account> ();
+		
+		// monitor opportunities changing stage. leverage ApplicationRecursion class to retrieve processable records
+			// where the IndirectCustomer__c has been changed since the last execution of this module in a recursive update scenario.
+			List<ApplicationRecursion.RecordState> changedRecords = ApplicationRecursion.getInstance().getProcessableRecords('OpportunitySalesPipelineModule', records, existingRecords, new Set<SObjectField>{
+				Opportunity.IndirectCustomer__c
+		});
+
+				
 		//Update Indirect Customer field on Account based on Indirect Customer Field on Opportunity for Insert and Update scenarios
-		for(Opportunity opp : (list<Opportunity>)records){
+		for(ApplicationRecursion.RecordState  crec : changedRecords){
+			Opportunity opp =(Opportunity)crec.record;
 			if(null!=opp.AccountId && !string.isEmpty(opp.IndirectCustomer__c)){
-				if(!existingRecords.isEmpty()){
-					Opportunity existingOpportunity =(Opportunity)existingRecords.get(opp.Id);
-					if(existingOpportunity.IndirectCustomer__c !=opp.IndirectCustomer__c){
-						accountIdToIndirectCustMap.put(opp.AccountId,opp.IndirectCustomer__c);
-					}
-				}else{
-					accountIdToIndirectCustMap.put(opp.AccountId,opp.IndirectCustomer__c);
-				}	
+				accountIdToIndirectCustMap.put(opp.AccountId,opp.IndirectCustomer__c);
 			}
 		}
 		if(!accountIdToIndirectCustMap.isEmpty()){	
@@ -141,7 +143,7 @@ public inherited sharing class OpportunitySalesPipelineModule extends Applicatio
 			}	
 		}	
 		if (!updatedAccounts.isEmpty()) {
-			uow = ApplicationUnitOfWork.newInstance(new List<SObjectType>{Account.SObjectType});
+			uow.registerSObjectTypes(new List<SObjectType>{Account.SObjectType});
 			uow.registerDirty(updatedAccounts);
 			uow.commitWork();
 		}
