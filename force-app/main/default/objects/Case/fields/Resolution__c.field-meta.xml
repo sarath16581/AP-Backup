@@ -893,6 +893,26 @@
                 <default>false</default>
                 <label>Delayed closure system issue</label>
             </value>
+            <value>
+                <fullName>Closed - duplicate</fullName>
+                <default>false</default>
+                <label>Closed - duplicate</label>
+            </value>
+            <value>
+                <fullName>Closed - invalid</fullName>
+                <default>false</default>
+                <label>Closed - invalid</label>
+            </value>
+            <value>
+                <fullName>Closed - no response</fullName>
+                <default>false</default>
+                <label>Closed - no response</label>
+            </value>
+            <value>
+                <fullName>Feedback</fullName>
+                <default>false</default>
+                <label>Feedback</label>
+            </value>
         </valueSetDefinition>
     </valueSet>
 </CustomField>
