@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>RelatedArticleIDs__c</fullName>
-    <description>Other articles from a claim for multiple articles.</description>
+    <description>Other articles from a claim for multiple articles. This field could contain larger number of article IDs, the field length is  provided unusually large to cater this requirnment.</description>
     <externalId>false</externalId>
     <inlineHelpText>These will fall under the REFC claim type.</inlineHelpText>
     <label>Related Article IDs</label>
-    <length>1000</length>
+    <length>50000</length>
     <securityClassification>OFFICIAL_SENSITIVE</securityClassification>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
     <type>LongTextArea</type>
-    <visibleLines>3</visibleLines>
+    <visibleLines>6</visibleLines>
 </CustomField>
