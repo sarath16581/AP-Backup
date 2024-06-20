@@ -173,7 +173,7 @@
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>APT_AmendRenewal_StarTrackField</shortDescription>
-        <value>You cannot link this opportunity record to amendment/renewal process as itâ€™s missing the following information: &quot;Is this Opportunity for a Startrack product?&quot;, If this opportunity is for Startrack product, then you are required to provide: &quot;Minimum monthly Spend&quot; and &quot;Primary Postcode&quot;</value>
+        <value>You cannot link this opportunity record to amendment/renewal process as it’s missing the following information: &quot;Is this Opportunity for a Startrack product?&quot;, If this opportunity is for Startrack product, then you are required to provide: &quot;Minimum monthly Spend&quot; and &quot;Primary Postcode&quot;</value>
     </labels>
     <labels>
         <fullName>APT_Applications_and_Questionnaire_Subtype</fullName>
@@ -1078,7 +1078,7 @@
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>APT MergeDocument No Attachment Warning Message</shortDescription>
-        <value>There are no documents in â€˜Notes and Attachmentsâ€™ section of this Contract. Please Create/Import Documents first before trying to merge them together. You have to have at least two documents in â€˜Notes &amp; Attachmentsâ€™ in one of the supported formats: â€œDOCâ€, â€œDOCXâ€, â€œRTFâ€, or â€œPDFâ€.</value>
+        <value>There are no documents in ‘Notes and Attachments’ section of this Contract. Please Create/Import Documents first before trying to merge them together. You have to have at least two documents in ‘Notes &amp; Attachments’ in one of the supported formats: “DOC”, “DOCX”, “RTF”, or “PDF”.</value>
     </labels>
     <labels>
         <fullName>APT_Merge_Docs_Cancel_Button</fullName>
@@ -1120,7 +1120,7 @@
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>APT Merge Docs Description Content5</shortDescription>
-        <value>Click â€˜Merge Documentsâ€™ button, and wait for system to redirect you back to Contract record. Your merged document will be under â€˜Notes &amp; Attachmentsâ€™ section</value>
+        <value>Click ‘Merge Documents’ button, and wait for system to redirect you back to Contract record. Your merged document will be under ‘Notes &amp; Attachments’ section</value>
     </labels>
     <labels>
         <fullName>APT_Merge_Docs_Description_Title</fullName>
@@ -1387,7 +1387,7 @@
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>Pricing Fields Changed Error</shortDescription>
-        <value>Minimum monthly spend and/or Primary pickup location has been changed. To generate the correct pricing reflecting the change(s), you need to go back to shopping cart and re-checkout by clicking â€œAddâ€ button on proposal record page.</value>
+        <value>Minimum monthly spend and/or Primary pickup location has been changed. To generate the correct pricing reflecting the change(s), you need to go back to shopping cart and re-checkout by clicking “Add” button on proposal record page.</value>
     </labels>
     <labels>
         <fullName>APT_Processing</fullName>
@@ -2444,7 +2444,7 @@
         <shortDescription>CL_CN18_AckDetails</shortDescription>
         <value>&lt;br/&gt;
      Have you received this item?  &amp;nbsp; &amp;nbsp; &amp;nbsp;&amp;nbsp; &amp;nbsp; &amp;nbsp;&amp;nbsp; &amp;nbsp; &amp;nbsp;&amp;nbsp; &amp;nbsp; &amp;nbsp; yes [ &amp;nbsp;  ]  &amp;nbsp; &amp;nbsp; &amp;nbsp;  no [ &amp;nbsp; ] &lt;br/&gt;
-     Does the senderâ€™s description match?  &amp;nbsp;&amp;nbsp; &amp;nbsp; &amp;nbsp; yes [ &amp;nbsp;  ]  &amp;nbsp; &amp;nbsp; &amp;nbsp;  no [ &amp;nbsp; ] &lt;br/&gt;
+     Does the sender’s description match?  &amp;nbsp;&amp;nbsp; &amp;nbsp; &amp;nbsp; yes [ &amp;nbsp;  ]  &amp;nbsp; &amp;nbsp; &amp;nbsp;  no [ &amp;nbsp; ] &lt;br/&gt;
      
      &lt;br/&gt;
     If the above information does not match the description of the parcel you were expecting, please advise of the discrepancies below: &lt;br/&gt;
@@ -2511,9 +2511,9 @@ Australia Post
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>CL_CaseReceiptGeneralInfo</shortDescription>
-        <value>â€¢	For compensation payments, please use the Case Number as the reference to complete the refund in EPOS&lt;br/&gt;&lt;br/&gt; 
-â€¢	For claims over $50, or where the Customer Contact Centre (CCC) must investigate, advise the customer that the CCC will be in touch with them soon to finalise their case. For the customerâ€™s reference, please record the Case Number on a MySupport referral card. &lt;br/&gt;&lt;br/&gt; 
-â€¢	Additional MySupport referral cards can be ordered using SAP code 8840490. &lt;br/&gt;&lt;br/&gt;</value>
+        <value>•	For compensation payments, please use the Case Number as the reference to complete the refund in EPOS&lt;br/&gt;&lt;br/&gt; 
+•	For claims over $50, or where the Customer Contact Centre (CCC) must investigate, advise the customer that the CCC will be in touch with them soon to finalise their case. For the customer’s reference, please record the Case Number on a MySupport referral card. &lt;br/&gt;&lt;br/&gt; 
+•	Additional MySupport referral cards can be ordered using SAP code 8840490. &lt;br/&gt;&lt;br/&gt;</value>
     </labels>
     <labels>
         <fullName>CL_CaseReceiptPM26Info</fullName>
@@ -2971,7 +2971,7 @@ Australia Post
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>CL_RespStat1</shortDescription>
-        <value>[   ] Article was RTS on â€¦â€¦â€¦..</value>
+        <value>[   ] Article was RTS on ………..</value>
     </labels>
     <labels>
         <fullName>CL_RespStat10</fullName>
@@ -3212,11 +3212,11 @@ To download selected records please select the desired rows you want to download
         <value>New activities have been created in Salesforce for you to complete. To get started:
 
 1. Click on activity link below in this email.
-2. Click on the Campaign name in the â€˜Related toâ€™ field.
+2. Click on the Campaign name in the ‘Related to’ field.
 3. Click on &apos;Campaign Contacts&apos; button (top right of the window).
-4. Select the contact for each organisation you have activity for. Then click â€˜Saveâ€™.
-5. Click on the â€˜View Campaign Memberâ€™ link to see the contactâ€™s details and complete the activity.
-6. Once each activity is completed and any customer feedback is captured, change its status to reflect the outcome of the activity. Then click â€˜Saveâ€™.
+4. Select the contact for each organisation you have activity for. Then click ‘Save’.
+5. Click on the ‘View Campaign Member’ link to see the contact’s details and complete the activity.
+6. Once each activity is completed and any customer feedback is captured, change its status to reflect the outcome of the activity. Then click ‘Save’.
 
 See the description for details for each activity and refer to any other campaign information.
 
@@ -3291,7 +3291,7 @@ You can go back to the activity through the link in this email or find it within
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>CaseThankYouMessage</shortDescription>
-        <value>Weâ€™ll call or email you as soon as we can - usually between 24 and 48 hours.
+        <value>We’ll call or email you as soon as we can - usually between 24 and 48 hours.
 
 To add a comment or check for updates, visit your MyPost dashboard now</value>
     </labels>
@@ -3907,7 +3907,7 @@ To add a comment or check for updates, visit your MyPost dashboard now</value>
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>Competitors Required Before Moving Opportunity Stage Error Message</shortDescription>
-        <value>Add Competitors and Incumbents details. Populate the customerâ€™s incumbent or known competitors on the Related tab.</value>
+        <value>Add Competitors and Incumbents details. Populate the customer’s incumbent or known competitors on the Related tab.</value>
     </labels>
     <labels>
         <fullName>ConfirmSharingRecalculationInfoMessage</fullName>
@@ -4326,7 +4326,7 @@ Compass quote end date has passed, please request re-activation</value>
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>Happy Parcel Distance Help Text</shortDescription>
-        <value>Determines if article was delivered within a certain distance of a manifested address. Note â€“ this is a guide only. DO NOT DISCLOSE.</value>
+        <value>Determines if article was delivered within a certain distance of a manifested address. Note – this is a guide only. DO NOT DISCLOSE.</value>
     </labels>
     <labels>
         <fullName>HappyParcelEDDHelpText</fullName>
@@ -5011,7 +5011,7 @@ Compass quote end date has passed, please request re-activation</value>
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>KeyContactError</shortDescription>
-        <value>You cannot access Product Catalogue without having completed the following fields: &quot;StarTrack Opportunity?&quot; and &quot;Key Contact&quot;. If this opportunity is for StarTrack Product(s), then you are required to provide &quot;StarTrack Minimum Monthly Spend&quot; and &quot;StarTrack Primary Pickup (Postcode)â€</value>
+        <value>You cannot access Product Catalogue without having completed the following fields: &quot;StarTrack Opportunity?&quot; and &quot;Key Contact&quot;. If this opportunity is for StarTrack Product(s), then you are required to provide &quot;StarTrack Minimum Monthly Spend&quot; and &quot;StarTrack Primary Pickup (Postcode)”</value>
     </labels>
     <labels>
         <fullName>L2C_Above_Threshold_Value_Message</fullName>
@@ -5046,7 +5046,7 @@ Compass quote end date has passed, please request re-activation</value>
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>Help Text For Street Number</shortDescription>
-        <value>Address information is populated from the Organisation Record â€“ re-enter values in correct fields</value>
+        <value>Address information is populated from the Organisation Record – re-enter values in correct fields</value>
     </labels>
     <labels>
         <fullName>L2C_Help_Text_for_Total_Proposed_Credit</fullName>
@@ -5471,7 +5471,7 @@ Please choose to override the hotlist restriction or Cancel to quit the process.
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>Opportunity With Incorrect Overlay Type Splits Assignments</shortDescription>
-        <value>Correct the {0} Opportunity Split. A non-{0} team member canâ€™t be assigned to the {0} overlay split.</value>
+        <value>Correct the {0} Opportunity Split. A non-{0} team member can’t be assigned to the {0} overlay split.</value>
     </labels>
     <labels>
         <fullName>OpportunityWithInvalidQuantityOnProducts</fullName>
@@ -5500,7 +5500,7 @@ Please choose to override the hotlist restriction or Cancel to quit the process.
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>Opportunity Confirm Pre-Entry Scenario</shortDescription>
-        <value>Assign valid product Revenue Date(s). The Revenue Start Date must be later than or equal to the Close Date. If this is a â€˜pre-entryâ€™ scenario where trade commences prior to closing, request Customer Onboarding update this via a DSR.</value>
+        <value>Assign valid product Revenue Date(s). The Revenue Start Date must be later than or equal to the Close Date. If this is a ‘pre-entry’ scenario where trade commences prior to closing, request Customer Onboarding update this via a DSR.</value>
     </labels>
     <labels>
         <fullName>Opportunity_Has_Duplicate_Product_Lines</fullName>
@@ -6873,7 +6873,7 @@ Also, the package has changed the setting to prevent the creation of Contacts an
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>Privacy Statement for Credit Assessment</shortDescription>
-        <value>In order to properly deliver our services, weâ€™ll need to collect your personal information and carry out real-time credit checks.&lt;br/&gt;&lt;br/&gt; 
+        <value>In order to properly deliver our services, we’ll need to collect your personal information and carry out real-time credit checks.&lt;br/&gt;&lt;br/&gt; 
 
 Your personal information will be shared with certain third parties contracted to assist in the administration of these services, including credit reporting agencies. &lt;br/&gt;&lt;br/&gt; 
 
@@ -7154,7 +7154,7 @@ We manage your personal information in accordance with our Privacy policy. The p
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>Route Printing Static Text Top</shortDescription>
-        <value>PTOâ€™s are to familiarize themselves with duty statement at the commencement of their shift. Departures or alterations from these duties must be advised in writing and authorized by the O.I.C.</value>
+        <value>PTO’s are to familiarize themselves with duty statement at the commencement of their shift. Departures or alterations from these duties must be advised in writing and authorized by the O.I.C.</value>
     </labels>
     <labels>
         <fullName>SCCR_One_Submission</fullName>
@@ -7278,7 +7278,7 @@ We manage your personal information in accordance with our Privacy policy. The p
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>STHS Enquiry Error State Message</shortDescription>
-        <value>Your enquiry couldnâ€™t be submitted due to an error. Please wait a few moments and try again.</value>
+        <value>Your enquiry couldn’t be submitted due to an error. Please wait a few moments and try again.</value>
     </labels>
     <labels>
         <fullName>STHSEnquirySelectionValidationMessage</fullName>
@@ -7302,7 +7302,7 @@ We manage your personal information in accordance with our Privacy policy. The p
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>STHS Feedback Error State Message</shortDescription>
-        <value>Your feedback couldnâ€™t be submitted due to an error.
+        <value>Your feedback couldn’t be submitted due to an error.
             Please wait a few moments and try again.</value>
     </labels>
     <labels>
@@ -7351,7 +7351,7 @@ We manage your personal information in accordance with our Privacy policy. The p
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>Any timeout/technical error</shortDescription>
-        <value>The consignment couldnâ€™t be assigned due to a technical issue. Try assigning the consignment again.</value>
+        <value>The consignment couldn’t be assigned due to a technical issue. Try assigning the consignment again.</value>
     </labels>
     <labels>
         <fullName>STHSLastnameValidationMessage</fullName>
@@ -7399,7 +7399,7 @@ We manage your personal information in accordance with our Privacy policy. The p
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>STHS sender or receiver Validation Message</shortDescription>
-        <value>Please tell us if youâ€™re the sender or receiver</value>
+        <value>Please tell us if you’re the sender or receiver</value>
     </labels>
     <labels>
         <fullName>STHSSupportURL</fullName>
@@ -7421,7 +7421,7 @@ We manage your personal information in accordance with our Privacy policy. The p
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>SafeDropCaseThankYouMessage</shortDescription>
-        <value>Weâ€™ll call or email you as soon as we can. Showing the delivery photo is 
+        <value>We’ll call or email you as soon as we can. Showing the delivery photo is 
 
 something new for us, so we&apos;d love to know what you think.</value>
     </labels>
@@ -7940,7 +7940,7 @@ something new for us, so we&apos;d love to know what you think.</value>
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>StarTrackSubAccountParentNotSelectedForSubmitErrorMessage</shortDescription>
-        <value>Please add Parent Account for the OffspringÂ to Submit.</value>
+        <value>Please add Parent Account for the Offspring to Submit.</value>
     </labels>
     <labels>
         <fullName>StarTrackSubAccountRequestFailedNonTransientErrorAlert</fullName>
@@ -8397,7 +8397,7 @@ something new for us, so we&apos;d love to know what you think.</value>
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>isStarTrackProduct</shortDescription>
-        <value>You cannot access Product Catalogue without having completed the following fields: &quot;StarTrack Opportunity?&quot; and &quot;Key Contact&quot;. If this opportunity is for StarTrack Product(s), then you are required to provide &quot;StarTrack Minimum Monthly Spend&quot; and &quot;StarTrack Primary Pickup (Postcode)â€</value>
+        <value>You cannot access Product Catalogue without having completed the following fields: &quot;StarTrack Opportunity?&quot; and &quot;Key Contact&quot;. If this opportunity is for StarTrack Product(s), then you are required to provide &quot;StarTrack Minimum Monthly Spend&quot; and &quot;StarTrack Primary Pickup (Postcode)”</value>
     </labels>
     <labels>
         <fullName>keyContactErrorMsg</fullName>
@@ -8412,7 +8412,7 @@ something new for us, so we&apos;d love to know what you think.</value>
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>Flag to allow linking of old Opportunity when converting Lead Seeker lead</shortDescription>
-        <value>Youâ€™ve attempted to convert a Lead Seeker lead into an existing opportunity. To proceed with this conversion, please email the Lead Seeker inbox for help (seekerrewards@seeker.auspost.com.au).</value>
+        <value>You’ve attempted to convert a Lead Seeker lead into an existing opportunity. To proceed with this conversion, please email the Lead Seeker inbox for help (seekerrewards@seeker.auspost.com.au).</value>
     </labels>
     <labels>
         <fullName>loaError</fullName>
@@ -8455,7 +8455,7 @@ something new for us, so we&apos;d love to know what you think.</value>
         <language>en_US</language>
         <protected>true</protected>
         <shortDescription>Bosnian</shortDescription>
-        <value>Ð±Ð¾ÑÐ°Ð½ÑÐºÐ¸</value>
+        <value>босански</value>
     </labels>
     <labels>
         <fullName>pkb2_lang_cy</fullName>
@@ -8489,8 +8489,8 @@ something new for us, so we&apos;d love to know what you think.</value>
         <fullName>pkb2_lang_es</fullName>
         <language>en_US</language>
         <protected>true</protected>
-        <shortDescription>EspaÃ±ol</shortDescription>
-        <value>EspaÃ±ol</value>
+        <shortDescription>Español</shortDescription>
+        <value>Español</value>
     </labels>
     <labels>
         <fullName>pkb2_lang_et</fullName>
@@ -8532,7 +8532,7 @@ something new for us, so we&apos;d love to know what you think.</value>
         <language>en_US</language>
         <protected>true</protected>
         <shortDescription>Hindi</shortDescription>
-        <value>à¤¹à¤¿à¤¨à¥à¤¦à¥€</value>
+        <value>हिन्दी</value>
     </labels>
     <labels>
         <fullName>pkb2_lang_hr</fullName>
@@ -8546,14 +8546,14 @@ something new for us, so we&apos;d love to know what you think.</value>
         <language>en_US</language>
         <protected>true</protected>
         <shortDescription>Armenian</shortDescription>
-        <value>Õ€Õ¡ÕµÕ¥Ö€Õ§Õ¶</value>
+        <value>Հայերէն</value>
     </labels>
     <labels>
         <fullName>pkb2_lang_is</fullName>
         <language>en_US</language>
         <protected>true</protected>
         <shortDescription>Icelandic</shortDescription>
-        <value>Ãslenska</value>
+        <value>Íslenska</value>
     </labels>
     <labels>
         <fullName>pkb2_lang_it</fullName>
@@ -8567,49 +8567,49 @@ something new for us, so we&apos;d love to know what you think.</value>
         <language>en_US</language>
         <protected>true</protected>
         <shortDescription>Japanese</shortDescription>
-        <value>æ—¥æœ¬ã®</value>
+        <value>日本の</value>
     </labels>
     <labels>
         <fullName>pkb2_lang_ka</fullName>
         <language>en_US</language>
         <protected>true</protected>
         <shortDescription>Georgian</shortDescription>
-        <value>áƒ¥áƒáƒ áƒ—áƒ£áƒšáƒ˜</value>
+        <value>ქართული</value>
     </labels>
     <labels>
         <fullName>pkb2_lang_ko</fullName>
         <language>en_US</language>
         <protected>true</protected>
         <shortDescription>Korean</shortDescription>
-        <value>í•œêµ­ì˜</value>
+        <value>한국의</value>
     </labels>
     <labels>
         <fullName>pkb2_lang_lb</fullName>
         <language>en_US</language>
         <protected>true</protected>
         <shortDescription>Luxembourgish</shortDescription>
-        <value>LÃ«tzebuergesch</value>
+        <value>Lëtzebuergesch</value>
     </labels>
     <labels>
         <fullName>pkb2_lang_lt</fullName>
         <language>en_US</language>
         <protected>true</protected>
         <shortDescription>Lithuanian</shortDescription>
-        <value>LietuviÅ³ Kalba</value>
+        <value>Lietuvių Kalba</value>
     </labels>
     <labels>
         <fullName>pkb2_lang_lv</fullName>
         <language>en_US</language>
         <protected>true</protected>
         <shortDescription>Latvian</shortDescription>
-        <value>LatvieÅ¡u Valoda</value>
+        <value>Latviešu Valoda</value>
     </labels>
     <labels>
         <fullName>pkb2_lang_mk</fullName>
         <language>en_US</language>
         <protected>true</protected>
         <shortDescription>Macedonian</shortDescription>
-        <value>Ð¼Ð°ÐºÐµÐ´Ð¾Ð½ÑÐºÐ¸</value>
+        <value>македонски</value>
     </labels>
     <labels>
         <fullName>pkb2_lang_mt</fullName>
@@ -8630,28 +8630,28 @@ something new for us, so we&apos;d love to know what you think.</value>
         <language>en_US</language>
         <protected>true</protected>
         <shortDescription>Portuguese (Brazilian)</shortDescription>
-        <value>PortuguÃªs</value>
+        <value>Português</value>
     </labels>
     <labels>
         <fullName>pkb2_lang_pt_PT</fullName>
         <language>en_US</language>
         <protected>true</protected>
         <shortDescription>Portuguese</shortDescription>
-        <value>PortuguÃªs</value>
+        <value>Português</value>
     </labels>
     <labels>
         <fullName>pkb2_lang_ro_MD</fullName>
         <language>en_US</language>
         <protected>true</protected>
         <shortDescription>Moldovan</shortDescription>
-        <value>Ð»Ð¸Ð¼Ð±Ð° Ð¼Ð¾Ð»Ð´Ð¾Ð²ÐµÐ½ÑÑÐºÑ</value>
+        <value>лимба молдовеняскэ</value>
     </labels>
     <labels>
         <fullName>pkb2_lang_ru</fullName>
         <language>en_US</language>
         <protected>true</protected>
         <shortDescription>Russian</shortDescription>
-        <value>Ñ€ÑƒÑÑÐºÐ¸Ð¹</value>
+        <value>русский</value>
     </labels>
     <labels>
         <fullName>pkb2_lang_sh</fullName>
@@ -8665,14 +8665,14 @@ something new for us, so we&apos;d love to know what you think.</value>
         <language>en_US</language>
         <protected>true</protected>
         <shortDescription>Slovak</shortDescription>
-        <value>SlovenÄina</value>
+        <value>Slovenčina</value>
     </labels>
     <labels>
         <fullName>pkb2_lang_sl</fullName>
         <language>en_US</language>
         <protected>true</protected>
         <shortDescription>Slovenian</shortDescription>
-        <value>SlovenÅ¡Äina</value>
+        <value>Slovenščina</value>
     </labels>
     <labels>
         <fullName>pkb2_lang_sq</fullName>
@@ -8686,7 +8686,7 @@ something new for us, so we&apos;d love to know what you think.</value>
         <language>en_US</language>
         <protected>true</protected>
         <shortDescription>Serbian Cyrillic</shortDescription>
-        <value>ÑÑ€Ð¿ÑÐºÐ¸</value>
+        <value>српски</value>
     </labels>
     <labels>
         <fullName>pkb2_lang_sv</fullName>
@@ -8700,7 +8700,7 @@ something new for us, so we&apos;d love to know what you think.</value>
         <language>en_US</language>
         <protected>true</protected>
         <shortDescription>Thai</shortDescription>
-        <value>à¸ à¸²à¸©à¸²à¹„à¸—à¸¢</value>
+        <value>ภาษาไทย</value>
     </labels>
     <labels>
         <fullName>pkb2_lang_tl</fullName>
@@ -8714,21 +8714,21 @@ something new for us, so we&apos;d love to know what you think.</value>
         <language>en_US</language>
         <protected>true</protected>
         <shortDescription>Urdu</shortDescription>
-        <value>Ø§Ø±Ø¯Ùˆ</value>
+        <value>اردو</value>
     </labels>
     <labels>
         <fullName>pkb2_lang_zh_CN</fullName>
         <language>en_US</language>
         <protected>true</protected>
         <shortDescription>Chinese (Simplified)</shortDescription>
-        <value>ä¸­å›½çš„</value>
+        <value>中国的</value>
     </labels>
     <labels>
         <fullName>pkb2_lang_zh_TW</fullName>
         <language>en_US</language>
         <protected>true</protected>
         <shortDescription>Chinese (Traditional)</shortDescription>
-        <value>ä¸­åœ‹çš„</value>
+        <value>中國的</value>
     </labels>
     <labels>
         <fullName>submittedAnIdeaLabel</fullName>
