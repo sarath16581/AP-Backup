@@ -38,12 +38,12 @@ public inherited sharing class OpportunityAutomationTriggerHandler extends Appli
 	public static List<SObjectType> getUnitOfWorkSObjectTypes() {
 		return new List<SObjectType>{
 				Opportunity.SObjectType,
+				Account.SObjectType,
 				OpportunitySplit.SObjectType,
 				GroupedAccountProductRevenue__c.SObjectType,
 				GroupedRevenueSchedule__c.SObjectType,
 				OpportunityLineItem.SObjectType,
-				Task.SObjectType,
-				Account.SObjectType
+				Task.SObjectType
 		};
 	}	
 }
