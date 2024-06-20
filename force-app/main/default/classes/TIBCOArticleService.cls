@@ -28,6 +28,7 @@
  * 2023-03-01 - Dattaraj Deshmukh - added 'searchArticleRecordsInSFDC' method to wrap static method and to be able to use in mock.
  * 2023-10-05 - Jacob Isaac - added fields causing error on UI on event messages - REQ3312803
  * 2024-05-17 - Seth Heang - added field 'IsDelivered' field on Article__c into SOQL query
+ * 2024-06-19 - Seth Heang - Refactor searchArticles method and split off a new method(processTIBCOSAPResult) for processing SAP response which can be called publicly
  **/
 public class TIBCOArticleService {
 	/**
@@ -105,27 +106,7 @@ public class TIBCOArticleService {
 	) {
 		TIBCOSearchResult result;
 		if (searchSAPFirst) {
-			result = searchArticlesInSAP(articleIds);
-			if (foundArticle(result)) {
-				// NOTE: An update was made to this to not clone the proxy objects that are passed in
-				// This is to ensure the proxy objects generated from searchArticlesInSAP will be updated with their Salesforce Id's
-				// We need these to map the transient attributes
-				// NOTE: This whole search implementation should be reviewed and refactored
-				TIBCODataTranslator translator = new TIBCODataTranslator(result.trackResults);
-				translator.save(showMessages, throwException);
-
-				// Grab the transient attributes that were retrieved from the SAP search and merge them into the new result object below
-				// Not the best approach, but without revising this entire SAP search capability then this is probably the best way
-				// Profiling shows 0-2ms to run this which is acceptable
-				Map<String, Map<Id, Object>> transients = getTransientAttributesFromResult(result);
-
-				result = searchArticlesInSFDC(articleIds); //this is done to make any formula fields like EventMessage.Status__c is available to use
-
-				// after the result has been rebuilt, we need to inject the transients back into the final result fed back to the UI
-				// NOTE: This is not a great design but unless searchArticlesMethod is fully refactored, there is probably not many other ways of doing this
-				// Profiling shows 0-2ms to run this which is acceptable
-				mergeTransientsIntoResult(result, transients);
-			}
+			result = processTIBCOSAPResult(searchArticlesInSAP(articleIds), articleIds, showMessages, throwException);
 		} else {
 			// NOTE: There is no use case to use transient attributes when we search in Salesforce before SAP-EM
 			// Therefore, no transient capability has been built into this pathway
@@ -138,6 +119,43 @@ public class TIBCOArticleService {
 					result = searchArticlesInSFDC(articleIds); //this is done to make any formula fields like EventMessage.Status__c is available to use
 				}
 			}
+		}
+		return result;
+	}
+
+	/**
+	 * @description Refactor below steps into a new method so it can be called publicly, particularly in some use cases where repeated SAP Callout is undesirable
+	 *              SAP callout must be made as a prerequisite and pass the result into the first param(SAPResult)
+	 * @param SAPResult - SAP Callout Result
+	 * @param articleIds
+	 * @param showMessages
+	 * @param throwException
+	 *
+	 * @return TIBCOSearchResult
+	 */
+	public TIBCOSearchResult processTIBCOSearchResults(TIBCOSearchResult SAPResult, String[] articleIds, Boolean showMessages, Boolean throwException){
+		return TIBCOArticleService.processTIBCOSAPResult(SAPResult, articleIds, showMessages, throwException);
+	}
+
+	public static TIBCOSearchResult processTIBCOSAPResult(TIBCOSearchResult SAPResult, String[] articleIds, Boolean showMessages, Boolean throwException){
+		TIBCOSearchResult result = SAPResult;
+		if (foundArticle(result)) {
+			// NOTE: An update was made to this to not clone the proxy objects that are passed in
+			// This is to ensure the proxy objects generated from searchArticlesInSAP will be updated with their Salesforce Id's
+			// We need these to map the transient attributes
+			// NOTE: This whole search implementation should be reviewed and refactored
+			TIBCODataTranslator translator = new TIBCODataTranslator(result.trackResults);
+			translator.save(showMessages, throwException);
+
+			// Grab the transient attributes that were retrieved from the SAP search and merge them into the new result object below
+			// Not the best approach, but without revising this entire SAP search capability then this is probably the best way
+			// Profiling shows 0-2ms to run this which is acceptable
+			Map<String, Map<Id, Object>> transients = getTransientAttributesFromResult(result);
+
+			// after the result has been rebuilt, we need to inject the transients back into the final result fed back to the UI
+			// NOTE: This is not a great design but unless searchArticlesMethod is fully refactored, there is probably not many other ways of doing this
+			// Profiling shows 0-2ms to run this which is acceptable
+			mergeTransientsIntoResult(result, transients);
 		}
 		return result;
 	}
