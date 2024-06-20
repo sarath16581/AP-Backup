@@ -134,7 +134,7 @@ public inherited sharing class OpportunitySalesPipelineModule extends Applicatio
 			}
 		}
 		if(!accountIdToIndirectCustMap.isEmpty()){	
-			Map<Id, Account> accMap =AccountsSelector.newInstance().selectById(accountIdToIndirectCustMap.keySet());
+			Map<Id, Account> accMap =AccountsSelector.newInstance(1, new Set<SObjectField>{Account.Id, Account.IndirectCustomer__c}).selectById(accountIdToIndirectCustMap.keySet());
 			for(Id accId :accMap.keySet()){
 				Account acc= accMap.get(accId);
 				acc.IndirectCustomer__c=accountIdToIndirectCustMap.get(accId);
