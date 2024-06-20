@@ -1552,6 +1552,11 @@
         <field>Account.ABN_Incorrect_del__c</field>
         <readable>true</readable>
     </fieldPermissions>
+	<fieldPermissions>
+		<editable>false</editable>
+		<field>Account.IndirectCustomer__c</field>
+		<readable>true</readable>
+	</fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
         <field>Account.ABN__c</field>
@@ -5732,6 +5737,21 @@
         <field>Opportunity.AccountId</field>
         <readable>true</readable>
     </fieldPermissions>
+	<fieldPermissions>
+		<editable>true</editable>
+		<field>Opportunity.ControlsLodgement__c</field>
+		<readable>true</readable>
+	</fieldPermissions>
+	<fieldPermissions>
+		<editable>true</editable>
+		<field>Opportunity.FreightOwnership__c</field>
+		<readable>true</readable>
+	</fieldPermissions>
+	<fieldPermissions>
+		<editable>false</editable>
+		<field>Opportunity.IndirectCustomer__c</field>
+		<readable>true</readable>
+	</fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
         <field>Opportunity.Account_Manager__c</field>

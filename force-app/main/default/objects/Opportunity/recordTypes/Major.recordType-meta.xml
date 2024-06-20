@@ -231,7 +231,7 @@
             <fullName>Non-conforming Bid%2Ftender</fullName>
             <default>false</default>
         </values>
-        <values>
+		<values>
             <fullName>Potential Fraud</fullName>
             <default>false</default>
         </values>
@@ -257,6 +257,17 @@
         </values>
         <values>
             <fullName>Unable to Contact</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>ControlsLodgement__c</picklist>
+        <values>
+            <fullName>No %28or unknown%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
             <default>false</default>
         </values>
     </picklistValues>
@@ -488,6 +499,17 @@
         </values>
         <values>
             <fullName>Pipeline</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>FreightOwnership__c</picklist>
+        <values>
+            <fullName>No %28or unknown%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
             <default>false</default>
         </values>
     </picklistValues>
@@ -1226,7 +1248,7 @@
             <default>false</default>
         </values>
     </picklistValues>
-    <picklistValues>
+	<picklistValues>
         <picklist>kfsell__Scorecard_Stage__c</picklist>
         <values>
             <fullName>Complete</fullName>
