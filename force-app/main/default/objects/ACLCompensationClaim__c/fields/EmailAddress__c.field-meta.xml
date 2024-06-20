@@ -5,10 +5,11 @@
     <externalId>false</externalId>
     <inlineHelpText>Business Account identifier to confirm customer and a method of contact.</inlineHelpText>
     <label>Email Address</label>
+    <length>255</length>
     <required>false</required>
     <securityClassification>OFFICIAL_SENSITIVE_PERSONAL</securityClassification>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
-    <type>Email</type>
+    <type>Text</type>
     <unique>false</unique>
 </CustomField>

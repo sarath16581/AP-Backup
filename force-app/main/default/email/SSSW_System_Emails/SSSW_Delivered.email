@@ -86,7 +86,7 @@
 					<td bgcolor="#ffffff" style="padding:17px 10px 0 10px; border-radius:0 0 2px 2px;">
 						<table width="100%" cellpadding="0" cellspacing="0">
 							<tr>
-								<td style="padding:0 0 0px; font:16px/18px Arial, Helvetica, sans-serif; color:#807370;"><br/><p>Hi {!Contact.FirstName},</p></td>
+								<td style="padding:0 0 0px; font:16px/18px Arial, Helvetica, sans-serif; color:#5c514d;"><br/><p>Hi {!Contact.FirstName},</p></td>
 							</tr>		
 							<tr>
 								<td style="padding:14px 0 5px; font: 16px/18px Arial, Helvetica, sans-serif; color:#5c514d;">Your parcel {!Case.ReferenceID__c} has been delivered.{!IF(ISPICKVAL(Case.EnquirySubType__c,'Delivery request'),'Thanks for contacting us with your delivery request.','')}</td>
@@ -100,7 +100,7 @@
 								
 							</tr>
 							<tr>
-							   <td style="padding:14px 0 5px; font: 16px/18px Arial, Helvetica, sans-serif; color:#5c514d;">As your parcel has been delivered, we'll close this enquiry. If you have any questions about your parcel delivery, please reply to this email and we'll be happy to help.</td>							
+							   <td style="padding:14px 0 5px; font: 16px/18px Arial, Helvetica, sans-serif; color:#5c514d;">As your parcel has been delivered, the enquiry has now been closed and there is no need to respond. However, if you have any questions about your parcel delivery, please reply to this email and we'll be happy to help.</td>							
 							</tr>
 							<tr>
 							   <td style="padding:14px 0 5px; font: 16px/18px Arial, Helvetica, sans-serif; color:#5c514d;">To find out more about your options for future deliveries, see <a href="https://auspost.com.au/delivery-options" target="_blank" style="text-decoration:none; color:#dc1928">Delivery options</a>.</td>							
@@ -116,7 +116,7 @@
 														<td valign="top" width="100%">
 															<table width="100%" cellspacing="0" cellpadding="0">
 																<tr>
-																	<td style="font:13px Arial, Helvetica, sans-serif; color:#807370; line-height:16px; padding:11px 0 6px;">
+																	<td style="font:16px/18px Arial, Helvetica, sans-serif; color:#5c514d; line-height:16px; padding:11px 0 6px;">
 																		Thank you,<br/><br/>
 																		<b style="color:#dc1928;">Australia Post</b>
 																	<br/><span style="color:#ffffff">{!Case.Thread_Id}</span></td>

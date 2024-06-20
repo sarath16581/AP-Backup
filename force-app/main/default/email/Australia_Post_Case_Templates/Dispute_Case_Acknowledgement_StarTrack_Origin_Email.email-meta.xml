@@ -6,21 +6,17 @@
     <name>Dispute Case Acknowledgement StarTrack Origin Email</name>
     <style>none</style>
     <subject>Case Created: Enquiry - Case No. {!Case.CaseNumber} {!Case.EmailThreadID__c}</subject>
-    <textOnly>Dear Customer,
+    <textOnly>Dear Customer, 
+
 
 Thank you for contacting our Customer Resolution Team.
 
-Your case number is {!Case.CaseNumber}.
+We&apos;re here to help you with an invoice discrepancy or incorrect charge.
 
-Our Customer Resolution Team are investigating your query.
+Please follow these instructions to submit your credit claim auspost.com.au/credit-claim
 
-Just so you&apos;re aware, it may take up to 10 business days before you hear back from us so thanks in advance for your patience.
+This case will now be automatically closed.
 
-Please note: If you are attempting to request a credit for an invoice discrepancy or incorrect charge, you will need to use the Credit Claim form within the Business Support Portal, which is accessible within the Merchant Portal (https://merchant-portal.auspost.com.au/). If you require help to access, please contact your account manager or call 131 118.
-
-To send a further email regarding this case, please reply to this email. Responding directly to this email will ensure your follow up is automatically linked to your case for ease of tracking. If you send an email that is not a reply to this email, our system will create a new case.
-
-We look forward to helping you with your enquiry.
 
 Kind regards,
 

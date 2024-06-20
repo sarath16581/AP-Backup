@@ -20,7 +20,7 @@ Your parcel {!Case.ReferenceID__c} has been delivered.
 {!IF(ISPICKVAL(Case.EnquirySubType__c,&apos;Delivery request&apos;),&apos;Thanks for contacting us with your delivery request.&apos;,&apos;&apos;)}
 {!IF(ISPICKVAL(Case.ProductSubCategory__c, &apos;Registered Post International&apos;),&apos; Our scans indicate your item has been delivered &apos;,&apos;, Our scans indicate your item has been delivered as you can see on Track.&apos; )}
 
-As your parcel delivered, we&apos;ll close this enquiry. If you have any questions about your parcel delivery, please reply to this email and we&apos;ll be happy to help.
+As your parcel has been delivered, the enquiry has now been closed and there is no need to respond. However, if you have any questions about your parcel delivery, please reply to this email and we&apos;ll be happy to help.
 
 To find out more about your options for future deliveries, see Delivery options.
 

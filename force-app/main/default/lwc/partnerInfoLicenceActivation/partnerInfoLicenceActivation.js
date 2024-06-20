@@ -5,6 +5,7 @@
  * 				carry out validations prior to activating incomingLicence
  * 				Invoked from PartnerInfoLicenceActivationWrapper visualforce page using lgtng:out
  * @changelog
+ * 2024-06-15	Snigdha Sahu : REQ3429628 : Add validation for Incent Cred to be populated for nominated contact on parent org.
  */
 import { LightningElement, api, track } from 'lwc';
 import LightningConfirm from 'lightning/confirm';
@@ -27,7 +28,8 @@ import LABEL_LICENCESTATUS_INVALID_ERROR_MESSAGE from '@salesforce/label/c.Partn
 import LABEL_ASSIGNMENTDATE_INVALID_ERROR_MESSAGE from '@salesforce/label/c.PartnerInfoAssignmentDateInvalidErrorMessage';
 import LABEL_SAPVENDORIDPARENTABN_MISSING_ERROR_MESSAGE from '@salesforce/label/c.PartnerInfoSAPVendorIdParentABNMissingErrorMessage';
 import LABEL_FACILITYWCC_MISSING_ERROR_MESSAGE from '@salesforce/label/c.PartnerInfoFacilityWCCMissingErrorMessage';
-
+//REQ3429628
+import LABEL_INCENTCRED_INVALID_ERROR_MESSAGE from '@salesforce/label/c.PartnerInfoIncentCrentialsInvalidErrorMessage';
 // custom permission access for the logged in user
 // as the lwc usage is in classic runtime via lgtng:out, OOTB Salesforce Insufficient Privileges error will be thrown if no access
 // In future upon migration to lightning, below Custom Permission to be made used to perform access check.
@@ -192,6 +194,11 @@ export default class PartnerInfoLicenceActivation extends LightningElement {
 		if (isUndefinedOrNull(this.data.facility.WCIS_Code__c)) {
 			isValid = false;
 			this.errorMessages.push(LABEL_FACILITYWCC_MISSING_ERROR_MESSAGE);
+		}
+		//REQ3429628 : if incent credentials for Nominated Partner is not populated
+		if (isUndefinedOrNull(this.data.incentCred)) {
+			isValid = false;
+			this.errorMessages.push(LABEL_INCENTCRED_INVALID_ERROR_MESSAGE);
 		}
 		return isValid;
 	}
