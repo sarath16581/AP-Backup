@@ -10,7 +10,7 @@
  * 2024-01-22 - Mahesh Parvathaneni - STP-9169 - Added validation to make sure the related opp products have valid revenue start date (must be later or equal to close date)
  * 2024-01-25 - Mahesh Parvathaneni - STP-9712 - Added logic to bypass validations for CRM specialists based on custom permission
  * 2024-02-02 - Mahesh Parvathaneni - STP-10398 - Added logic to bypass opp products quantity validation based on custom permission
-	 * 2024-06-16 - Sarath Burra - ST-10723 - Added Logic to Update Account.IndirectCustomer__c field based on same field in Opportutniy in AfterInsert and AfterUpdate
+ * 2024-06-16 - Sarath Burra - ST-10723 - Added Logic to Update Account.IndirectCustomer__c field based on same field in Opportutniy in AfterInsert and AfterUpdate
  */
 public inherited sharing class OpportunitySalesPipelineModule extends ApplicationModule {
 
