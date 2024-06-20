@@ -36,6 +36,7 @@ History
 17.03.2023  Naveen Rajanna						Correct formatting error
 1/12/2023 Ken McGuire			OPC Replacement - update incremental and retained reveue for line items of reparented accounts - updateLIneItemRevenues
 03.05.2024  Swati Mogadala             			REQ3225476-Added deleteRReconDelete() to delete 'Customer Rev' and 'Rev by Billing account'records related to an Account on merge/delete 
+20.06.2024 Swati Mogadala						MW0005704-Updated assignHoldingRoleAndAccMan() to exclude 'Network Partner Support' profile from setting Account owner as 'holding user' on creation
 ------------------------------------------------------------**/
 public with sharing class AccountTriggerUtility {
     public  static final set<string> LICENCE_APPROVAL_STATUSES = LICENCE_APPROVAL_STATUSES__c.getAll().keySet();
@@ -1238,11 +1239,12 @@ public with sharing class AccountTriggerUtility {
                 //get recordtype id of Organisation
                 Id orgRecordTypeId = Schema.SObjectType.Account.getRecordTypeInfosByName().get('Organisation').getRecordTypeId();
                 Id partnerInfoProfileId = [Select Id, Name FROM Profile WHERE Name ='PartnerInfo Read Only'].Id;
-
+                Id networkPartnerProfileId =[Select Id,Name FROM Profile WHERE Name ='Network Partner Support'].Id;
                 List<User> holdingUser = [Select Id,Name FROM User where Name ='Holding User' LIMIT 1];
 
                 for(Account a :acctList){
-                    if(a.RecordTypeId == orgRecordTypeId  &&  UserInfo.getProfileId() != partnerInfoProfileId){
+                    if(a.RecordTypeId == orgRecordTypeId  &&  
+					(UserInfo.getProfileId() != partnerInfoProfileId && UserInfo.getProfileId() != networkPartnerProfileId)){
                         orgList.add(new Account(Id=a.Id, Holding_Role_Reference__c = prospectHoldingRole.Id,
                                 OwnerId = holdingUser[0].Id,Sales_Segment__c = 'Holding Sales Team'));
                     }
