@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>PersonAddressSupportedForAccountOnly</fullName>
+    <active>true</active>
+    <description>Ensure that &apos;PersonAccountStandardAddressField__c&apos; is used only for standard address fields on Person Accounts (i.e. when Account is the Object selected).</description>
+    <errorConditionFormula>NOT(ISBLANK(TEXT(PersonAccountStandardAddressField__c))) &amp;&amp;  Object__r.QualifiedApiName  &lt;&gt; &apos;Account&apos;</errorConditionFormula>
+    <errorDisplayField>PersonAccountStandardAddressField__c</errorDisplayField>
+    <errorMessage>Field only supported when Organisation is selected as the &apos;Object&apos;.</errorMessage>
+</ValidationRule>
