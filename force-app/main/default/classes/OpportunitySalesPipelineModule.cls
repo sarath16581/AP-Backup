@@ -143,9 +143,7 @@ public inherited sharing class OpportunitySalesPipelineModule extends Applicatio
 			}	
 		}	
 		if (!updatedAccounts.isEmpty()) {
-			uow.registerSObjectTypes(new List<SObjectType>{Account.SObjectType});
 			uow.registerDirty(updatedAccounts);
-			uow.commitWork();
 		}
 	}
 
