@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>PUD delegated admins to update the WCC in the user record</description>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>User.Manager__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>User.Work_Center_Code__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <hasActivationRequired>false</hasActivationRequired>
+    <label>PUD delegated admin</label>
+    <license>Salesforce Platform</license>
+</PermissionSet>
