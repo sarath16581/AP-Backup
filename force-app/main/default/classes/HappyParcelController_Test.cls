@@ -11,6 +11,8 @@
  * 2020-10-28 - Disha Kariya - Added mocking for getting transient attributes for ETA details
  * 2024-05-17 - Seth Heang - Added test methods to cover async callout to .NET API for retrieving StarTrack consignment/article details and mapping
  * 2024-05-21 - Seth Heang - Added new test method to handle force consignment search
+ * 2024-06-12 - Raghav Ravipati - Added new test method to cover getCriticalIncidents
+ * 2024-06-17 - Raghav Ravipati - added mocks to EnquiryMappingsSelector
  */
 @IsTest
 private class HappyParcelController_Test {
@@ -41,15 +43,14 @@ private class HappyParcelController_Test {
 		// Data Preparation
 		// =====================================
 		// insert an entry into the clearview codes mapping table so we test the mappings
-		MiniCaseFieldMapping__c mapping = new MiniCaseFieldMapping__c(
-			SAPProductCategory__c = 'eParcel',
-			ProductCategory__c = 'eParcel',
-			SAPProductSubcategory__c = 'eParcel Standard',
-			ProductSubcategory__c = 'eParcel - Standard',
-			Type__c = 'General Enquiry'
-		);
-		insert mapping;
-
+		List<MiniCaseFieldMapping__c> mappings = ApplicationTestDataFactoryCase.getEnquiryTypeMappings(false);
+		mappings[0].mappingModel__c = 'Classic';
+		mappings[0].SAPProductCategory__c = 'eParcel';
+		mappings[0].ProductCategory__c = 'eParcel';
+		mappings[0].SAPProductSubcategory__c = 'eParcel Standard';
+		mappings[0].ProductSubcategory__c = 'eParcel - Standard';
+		mappings[0].Type__c = 'General Enquiry';
+		insert mappings;
 		// =====================================
 		// Stubbing
 		// =====================================
@@ -61,6 +62,13 @@ private class HappyParcelController_Test {
 				mockArticleService.search((List<String>) fflib_Match.anyList(), fflib_Match.anyBoolean(), fflib_Match.anyBoolean(), fflib_Match.anyBoolean(), fflib_Match.anyBoolean(), fflib_Match.anyBoolean())
 			)
 			.thenAnswer(new AnswerSearchArticle());
+
+		EnquiryMappingsSelector enquirySelector = (EnquiryMappingsSelector)MockUtility.mockSelector(EnquiryMappingsSelector.class);
+		// set up our responses
+		MockUtility.Mocks.startStubbing();
+		// Database
+		MockUtility.Mocks.when(enquirySelector.selectBySAPKeyAndMappingModel((Set<String>)fflib_Match.eq(new Set<String>{ 'eParceleParcel Standard' }), (Set<String>)fflib_Match.eq(new Set<String>{ 'Classic' })))
+			.thenReturn(new List<MiniCaseFieldMapping__c>{mappings[0]});
 		MockUtility.Mocks.stopStubbing();
 
 		// =====================================
@@ -79,6 +87,8 @@ private class HappyParcelController_Test {
 		System.assertEquals('eParcel - Standard', result.articles[0].caseProductSubCategory, 'Expected "eParcel - Standard" but instead got: ' + result.articles[0].caseProductSubCategory);
 		System.assertEquals('General Enquiry', result.articles[0].caseTypeMapping, 'Expected "General Enquiry" but instead got: ' + result.articles[0].caseTypeMapping);
 		System.assertEquals(3, result.articles[0].events.size(), 'Expected result size of 3');
+		((EnquiryMappingsSelector) MockUtility.Mocks.verify(enquirySelector, MockUtility.Mocks.times(1)))
+			.selectBySAPKeyAndMappingModel((Set<String>) fflib_Match.eq(new Set<String>{ 'eParceleParcel Standard' }), (Set<String>) fflib_Match.eq(new Set<String>{ 'Classic' }));
 	}
 
 	/**
@@ -281,6 +291,44 @@ private class HappyParcelController_Test {
 		Test.stopTest();
 
 		System.assertNotEquals(null, result.network, 'Expected a network but instead got error.');
+	}
+
+	/**
+	 *	Scenario: get critical incidents based on the network org Id
+	 */
+	@IsTest
+	private static void testGetCriticalIncidents() {
+		// =====================================
+		// Data Preparation
+		// =====================================
+		List<Knowledge__kav> criticalIncidents = ApplicationTestDataFactoryKnowledge.getCriticalIncidents(2, false);
+		criticalIncidents[0].networkOrgId__c =  '12345';
+		
+		insert criticalIncidents;
+		Map<String, Object> searchParams = new Map<String, Object>();
+		searchParams.put('recordTypeNames', new Set<String>{ 'Critical_Incident' });
+		searchParams.put('IsLatestVersion', true);
+		searchParams.put('statuses', new Set<String>{ 'Online' });
+		// =====================================
+		// Stubbing
+		// =====================================
+		KnowledgeArticleVersionsSelector kavSelector = (KnowledgeArticleVersionsSelector)MockUtility.mockSelector(KnowledgeArticleVersionsSelector.class);
+		// set up our responses
+		MockUtility.Mocks.startStubbing();
+		// Database
+		MockUtility.Mocks.when(kavSelector.search((Map<String, Object>)fflib_Match.eq(searchParams), (Boolean)fflib_Match.eq(true)))
+			.thenReturn(criticalIncidents);
+		MockUtility.Mocks.stopStubbing();
+
+		// =====================================
+		// Testing
+		// =====================================
+		Test.startTest();
+		Map<String, List<Knowledge__kav>> result = HappyParcelController.getCriticalIncidents();
+		Test.stopTest();
+		((KnowledgeArticleVersionsSelector)MockUtility.Mocks.verify(kavSelector, MockUtility.Mocks.times(1))).search((Map<String, Object>)fflib_Match.eq(searchParams), (Boolean)fflib_Match.eq(true));
+		System.assertEquals(1, result.Values().size(), 'Map updated with network ids and knowledge articles');
+		System.assertEquals(new List<Knowledge__kav>{criticalIncidents[0]}, result.get('12345'), 'one record matches with the given network org Id');
 	}
 
 	/**
@@ -563,6 +611,7 @@ private class HappyParcelController_Test {
 		// Verify the return wrapper class has the new attributes mapped correctly
 		HappyParcelController.TrackingArticle resultWrapper = (HappyParcelController.TrackingArticle) result;
 		Assert.areEqual('D05 1, E05 1', resultWrapper.article.FurtherReferences__c, 'Further References do not match');
+		Assert.areEqual(Date.newInstance(2024,1,21), resultWrapper.article.ExpectedDeliveryDate__c, 'Expected Delivery Date should match but was not');
 
 		// Verify that the consignment record of type Article__c has been updated 1 time
 		fflib_ArgumentCaptor updatableConsignmentCaptor = fflib_ArgumentCaptor.forClass(List<Article__c>.class);
@@ -572,6 +621,7 @@ private class HappyParcelController_Test {
 		List<Article__c> resArticle = (List<Article__c>) updatableConsignmentCaptor.getValue();
 		Assert.areEqual(1, resArticle.size(), 'Only one article should be updated and returned back');
 		Assert.areEqual('D05 1, E05 1', resArticle.get(0).FurtherReferences__c, 'Further References do not match');
+		Assert.areEqual(Date.newInstance(2024,1,21), resArticle.get(0).ExpectedDeliveryDate__c, 'Expected Delivery Date should match but was not');
 	}
 
 	/**

@@ -15,12 +15,16 @@
  * 2022-04-12 - Mahesh Parvathaneni - Added custom lables and location icon SVG path to use in the lightning map marker
  * 2022-07-05 - Snigdha Sahu - REQ2851358 - Added MLID for SenderDetails
  * 2024-05-21 - Seth Heang - Updated getTrackingApiResponse with forceConsignmentSearch parameter
+ * 2024-06-03 - Raghav Ravipati - Added method to get critical incident knowledge articles
+ * 2024-06-13 - Seth Heang - Added getCurrentStateOfSafeDropImageRequiredForDownload and getSafeDropImageForPOD
+ * 2024-06-14 - Seth Heang - Moved in download Proof of delivery method from HappyParcelDeliveryProof
  */
 
 //continuations
 import queryAnalyticsApi from '@salesforce/apexContinuation/HappyParcelController.queryAnalyticsApi';
 import getArticleImage from '@salesforce/apexContinuation/HappyParcelController.getArticleImage';
 import queryTrackingApiForStarTrack from '@salesforce/apexContinuation/HappyParcelController.queryTrackingApiForStarTrack';
+import getSafeDropImageForPOD from '@salesforce/apexContinuation/MyCustomerDeliveryProofPdfController.getSafeDropImage';
 
 // normal callouts
 import queryTrackingApi from '@salesforce/apex/HappyParcelController.queryTrackingApi';
@@ -33,6 +37,8 @@ import unsetSafeDropEligibility from '@salesforce/apex/HappyParcelController.uns
 import getNotificationPreferences from '@salesforce/apex/HappyParcelController.getNotificationPreferences';
 import setNotificationPreferences from '@salesforce/apex/HappyParcelController.setNotificationPreferences';
 import getDistanceBetweenLocations from '@salesforce/apex/HappyParcelController.getDistanceBetweenLocations';
+import getCurrentStateOfSafeDropImageRequiredForDownload from '@salesforce/apex/MyCustomerDeliveryProofPdfController.getCurrentStateOfSafeDropImageRequiredForDownload';
+import getCriticalIncidents from '@salesforce/apex/HappyParcelController.getCriticalIncidents';
 
 
 // field mappings
@@ -141,16 +147,16 @@ export const CONSTANTS = {
 	FIELD_SENDER_MLID: SENDER_MLID.fieldApiName, //Snigdha
 	FIELD_EXTERNAL_TRACKING_ID: EXTERNAL_TRACKING_ID.fieldApiName,
 	FIELD_EXTERNAL_TRACKING_URL: EXTERNAL_TRACKING_URL.fieldApiName,
-    //Case Fields
-    FIELD_CASE_ORIGINATOR: FIELD_CASE_ORIGINATOR.fieldApiName,
-    FIELD_CONTACT_ID: FIELD_CONTACT_ID.fieldApiName,
-    FIELD_COMPLAINT: FIELD_COMPLAINT.fieldApiName,
-    FIELD_ENQUIRY_SUB_TYPE: FIELD_ENQUIRY_SUB_TYPE.fieldApiName,
-    FIELD_ORIGIN: FIELD_ORIGIN.fieldApiName,
-    FIELD_PRIORITY: FIELD_PRIORITY.fieldApiName,
-    FIELD_PRODUCT_CATEGORY: FIELD_PRODUCT_CATEGORY.fieldApiName,
-    FIELD_PRODUCT_SUB_CATEGORY: FIELD_PRODUCT_SUB_CATEGORY.fieldApiName,
-    FIELD_TYPE: FIELD_TYPE.fieldApiName,
+	//Case Fields
+	FIELD_CASE_ORIGINATOR: FIELD_CASE_ORIGINATOR.fieldApiName,
+	FIELD_CONTACT_ID: FIELD_CONTACT_ID.fieldApiName,
+	FIELD_COMPLAINT: FIELD_COMPLAINT.fieldApiName,
+	FIELD_ENQUIRY_SUB_TYPE: FIELD_ENQUIRY_SUB_TYPE.fieldApiName,
+	FIELD_ORIGIN: FIELD_ORIGIN.fieldApiName,
+	FIELD_PRIORITY: FIELD_PRIORITY.fieldApiName,
+	FIELD_PRODUCT_CATEGORY: FIELD_PRODUCT_CATEGORY.fieldApiName,
+	FIELD_PRODUCT_SUB_CATEGORY: FIELD_PRODUCT_SUB_CATEGORY.fieldApiName,
+	FIELD_TYPE: FIELD_TYPE.fieldApiName,
 
 	LABEL_HAPPYPARCELEDDHELPTEXT: LABEL_HAPPYPARCELEDDHELPTEXT,
 	LABEL_HAPPYPARCELLATESTSCANSHELPTEXT: LABEL_HAPPYPARCELLATESTSCANSHELPTEXT,
@@ -181,7 +187,7 @@ export const CONSTANTS = {
 	LOCATION_ICON_SVG_PATH: 'M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z',
 	ANALYTICS_API: 'Analytics API',
 	TRACKING_API: 'Tracking API',
-	STARTRACK_API: 'StarTrack API',
+	STARTRACK_API: 'StarTrack API'
 };
 
 export const safeTrim = (str) => {
@@ -194,7 +200,7 @@ export const safeToUpper = (str) => {
 
 export const subscribe = (event, callback) => {
 	_callbacks[event] = (!_callbacks[event] ? [] : _callbacks[event]);
-	if(_callbacks[event].indexOf(callback) === -1) {
+	if (_callbacks[event].indexOf(callback) === -1) {
 		_callbacks[event].push(callback);
 	}
 };
@@ -203,7 +209,7 @@ export const unsubscribe = (event, callback) => {
 	_callbacks[event] = (!_callbacks[event] ? [] : _callbacks[event]);
 
 	const index = _callbacks[event].indexOf(callback);
-	if(index > -1) {
+	if (index > -1) {
 		_callbacks[event].splice(index, 1);
 	}
 };
@@ -219,7 +225,7 @@ export const publish = (event, params) => {
 };
 
 export const getConfig = async () => {
-	if(!_config) {
+	if (!_config) {
 		_config = await loadConfig();
 		return Promise.resolve(_config);
 	} else {
@@ -262,29 +268,29 @@ export const getCustomerArticleFields = () => {
  */
 export const getDataTableMappingFromDisplayType = (displayType) => {
 	const dataTypeMappings = {
-		ADDRESS: {type: 'text', typeAttributes: {}},
-		ANYTYPE: {type: 'text', typeAttributes: {}},
-		BOOLEAN: {type: 'boolean', typeAttributes: {}},
-		COMBOBOX: {type: 'text', typeAttributes: {}},
-		CURRENCY: {type: 'currency', typeAttributes: {maximumFractionDigits: 2}},
-		DATACATEGORYGROUPREFERENCE: {type: 'text', typeAttributes: {}},
-		DATE: {type: 'date', typeAttributes: {year: 'numeric', month: '2-digit', day: '2-digit', weekday: 'long'}},
-		DATETIME: {type: 'date', typeAttributes: {year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit'}},
-		DOUBLE: {type: 'number', typeAttributes: {maximumFractionDigits: 2}},
-		EMAIL: {type: 'email', typeAttributes: {}},
-		ENCRYPTEDSTRING: {type: 'text', typeAttributes: {}},
-		ID: {type: 'text', typeAttributes: {}},
-		INTEGER: {type: 'number', typeAttributes: {}},
-		LONG: {type: 'number', typeAttributes: {}},
-		MULTIPICKLIST: {type: 'text', typeAttributes: {}},
-		PERCENT: {type: 'percent', typeAttributes: {maximumFractionDigits: 2}},
-		PHONE: {type: 'phone', typeAttributes: {}},
-		PICKLIST: {type: 'text', typeAttributes: {}},
-		REFERENCE: {type: 'text', typeAttributes: {}},
-		STRING: {type: 'text', typeAttributes: {}},
-		TEXTAREA: {type: 'text', typeAttributes: {}},
-		TIME: {type: 'date', typeAttributes: {hour: '2-digit', minute: '2-digit'}},
-		URL: {type: 'url', typeAttributes: {}}
+		ADDRESS: { type: 'text', typeAttributes: {} },
+		ANYTYPE: { type: 'text', typeAttributes: {} },
+		BOOLEAN: { type: 'boolean', typeAttributes: {} },
+		COMBOBOX: { type: 'text', typeAttributes: {} },
+		CURRENCY: { type: 'currency', typeAttributes: { maximumFractionDigits: 2 } },
+		DATACATEGORYGROUPREFERENCE: { type: 'text', typeAttributes: {} },
+		DATE: { type: 'date', typeAttributes: { year: 'numeric', month: '2-digit', day: '2-digit', weekday: 'long' } },
+		DATETIME: { type: 'date', typeAttributes: { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' } },
+		DOUBLE: { type: 'number', typeAttributes: { maximumFractionDigits: 2 } },
+		EMAIL: { type: 'email', typeAttributes: {} },
+		ENCRYPTEDSTRING: { type: 'text', typeAttributes: {} },
+		ID: { type: 'text', typeAttributes: {} },
+		INTEGER: { type: 'number', typeAttributes: {} },
+		LONG: { type: 'number', typeAttributes: {} },
+		MULTIPICKLIST: { type: 'text', typeAttributes: {} },
+		PERCENT: { type: 'percent', typeAttributes: { maximumFractionDigits: 2 } },
+		PHONE: { type: 'phone', typeAttributes: {} },
+		PICKLIST: { type: 'text', typeAttributes: {} },
+		REFERENCE: { type: 'text', typeAttributes: {} },
+		STRING: { type: 'text', typeAttributes: {} },
+		TEXTAREA: { type: 'text', typeAttributes: {} },
+		TIME: { type: 'date', typeAttributes: { hour: '2-digit', minute: '2-digit' } },
+		URL: { type: 'url', typeAttributes: {} }
 	};
 
 	return dataTypeMappings[displayType];
@@ -302,7 +308,7 @@ export const getAnalyticsApiResponse = async (trackingId) => {
 
 		return result;
 	} catch (error) {
-		return {articles: [], errors: [error.body.message]};
+		return { articles: [], errors: [error.body.message] };
 	}
 }
 
@@ -319,7 +325,7 @@ export const getTrackingApiResponse = async (trackingId, forceConsignmentSearch)
 		console.log('getTrackingResponse', result);
 		return result;
 	} catch (error) {
-		return {articles: [], errors: [error.body.message]};
+		return { articles: [], errors: [error.body.message] };
 	}
 }
 
@@ -334,7 +340,7 @@ export const getTrackingApiResponseForStarTrack = async (consignmentNumber, cons
 		});
 		return result;
 	} catch (error) {
-		return {articles: [], errors: [error.body.message]};
+		return { articles: [], errors: [error.body.message] };
 	}
 }
 
@@ -349,7 +355,7 @@ export const downloadDeliveryProofPdf = async (trackingId) => {
  * Allows the user to get Network details
  */
 export const getNetworkDetails = async (wcc) => {
-    try{
+	try {
 		let result = await getNetwork({
 			wccString: wcc
 		});
@@ -357,8 +363,17 @@ export const getNetworkDetails = async (wcc) => {
 		console.log('getNetworkDetails');
 		return result;
 	} catch (error) {
-	    return {network: [], error: [error.body.message]};
+		return { network: [], error: [error.body.message] };
 	}
+}
+
+/**
+ * Allows the user to get critical incidents based on the network org Id
+ */
+export const getCriticalIncidentDetails = async () => {
+	let result = await getCriticalIncidents();
+
+	return result;
 }
 
 /**
@@ -404,22 +419,22 @@ export const deleteSafeDrop = async (trackingId) => {
  * This gets notification preference for search string
  */
 export const getPreferences = async (searchString) => {
-    try{
+	try {
 		const result = await getNotificationPreferences({
 			searchStrings: searchString
 		});
 		console.log('getPreferences', result);
 		return result;
 	} catch (error) {
-        return {preferences: [], error: [error.body.message]};
-    }
+		return { preferences: [], error: [error.body.message] };
+	}
 }
 
 /**
  * This sets/unsets notification preferences. Only one value can be set at a time.
  */
 export const setPreferences = async (searchString, setValue) => {
-    try{
+	try {
 		const result = await setNotificationPreferences({
 			searchStrings: searchString,
 			setValue: setValue
@@ -428,8 +443,8 @@ export const setPreferences = async (searchString, setValue) => {
 		return result;
 	}
 	catch (error) {
-        return 'Error: Something went wrong.';
-    }
+		return 'Error: Something went wrong.';
+	}
 }
 
 
@@ -443,8 +458,24 @@ export const getSafeDropImage = async (safeDropGuid) => {
 	return result;
 }
 
+/**
+ * Retrieve safeDropImage in bulk by split off to multiple transaction using the provided list of safeDrop state including guidID and flag that indicate if a download is required
+ * @param {String} safeDropGuid
+ * @param {String} eventMessageId
+ * @returns {Promise<*>}
+ */
+export const getSafeDropImageAndSaveForPOD = async (safeDropGuid, eventMessageId) => {
+
+	// perform a callout to get the safe drop image
+	const result = await getSafeDropImageForPOD({
+		guidId: safeDropGuid,
+		eventMessageId: eventMessageId
+	});
+	return result;
+}
+
 export const hasPermissionToCreateCaseDirectToNetwork = () => {
-    return PERMISSION_CREATECASEDIRECTTONETWORK;
+	return PERMISSION_CREATECASEDIRECTTONETWORK;
 }
 
 // get safeDropImageResult() {
@@ -452,8 +483,8 @@ export const hasPermissionToCreateCaseDirectToNetwork = () => {
 // }
 
 /*  implementation of lodash get
-    Gets the value at path of object. If the resolved value is undefined,
-    the defaultValue is returned in its place.
+	Gets the value at path of object. If the resolved value is undefined,
+	the defaultValue is returned in its place.
 */
 export const get = (object, path, defaultVal) => {
 	path = Array.isArray(path) ? path : path.split('.');
@@ -473,7 +504,7 @@ export const get = (object, path, defaultVal) => {
  * @returns Distance in Kms
  */
 export const getDistanceBetweenGeoCoordinates = async (lat1, lon1, lat2, lon2) => {
-	try{
+	try {
 		const result = await getDistanceBetweenLocations({
 			lat1: lat1,
 			lon1: lon1,
@@ -483,6 +514,93 @@ export const getDistanceBetweenGeoCoordinates = async (lat1, lon1, lat2, lon2) =
 		return result;
 	}
 	catch (error) {
-        return null;
-    }
+		return null;
+	}
+}
+
+/**
+ * @description Retrieve a snapshot of the current state of SafeDrop image file per article under the parent consignment if they exist in Salesforce
+ * 				If it doesn't exist, it's required to be downloaded
+ * @param {String} trackingId
+ * @return {Promise<*>}
+ */
+export const getSafeDropImageStateForDownload = async (trackingId) => {
+	const result = await getCurrentStateOfSafeDropImageRequiredForDownload({
+		trackingId: trackingId
+	});
+	return result;
+}
+
+/**
+ * @description Refresh the Consignment/Article data in Salesforce from SAP/StarTrack by searching up the tracking number and upsert the responses in Salesforce
+ */
+export const refreshSFConsignmentArticleDataFromSAPAndStarTrack = async (trackingIds) => {
+	const consignmentId = trackingIds.consignmentId;
+	const articleId = trackingIds.articleId;
+	const sapResult = consignmentId ? await getTrackingApiResponse(consignmentId, false) : await getTrackingApiResponse(articleId, true);
+	// execute a consignment search for StarTrack if required
+	const requireAdditionalQueryForStarTrack = sapResult.requireAdditionalQueryForStarTrack;
+	const consignment = { trackingId: sapResult.consignment.trackingId, trackingResult: sapResult.consignment };
+	if (requireAdditionalQueryForStarTrack) {
+		// if this api timeout, then the download button needed to be clicked again to retry
+		await getTrackingApiResponseForStarTrack(sapResult.consignment.trackingId, consignment);
+	}
+}
+
+/**
+ * @description Download Proof of Delivery PDF by first refreshing the Salesforce data related to consignment/articles by perform SAP/StarTrack search
+ * 				Then, download required safe drop image if applicable and thereafter generate PDF pages and download them
+ * @param {Object} trackingIds - Contains article tracking Id or consignment tracking Id
+ * @returns {Promise<void>}
+ */
+export const downloadPODPDF = async (trackingIds) => {
+	await refreshSFConsignmentArticleDataFromSAPAndStarTrack(trackingIds);
+	const finalId = trackingIds.consignmentId || trackingIds.articleId;
+
+	// retrieve the current state of safe drop images caches in Salesforce
+	const safeDropImageState = await getSafeDropImageStateForDownload(finalId);
+	// download safe drop images as required if they do not exist in Salesforce
+	await processSafeDropImagesDownloading(safeDropImageState);
+
+	// execute the VF pdf page generator logic in controller
+	const pdfBase64 = await downloadDeliveryProofPdf(finalId);
+
+	const fileName = "DeliveryProof-" + encodeURIComponent(finalId) + ".pdf";
+
+	// deal with IE
+	if (navigator && navigator.msSaveBlob) {
+		// IE10+
+		return navigator.msSaveBlob(new Blob([pdfBase64], { type: ".pdf" }), fileName);
+	}
+
+	// now download the generated content
+	const downloadElement = document.createElement("a");
+	downloadElement.href = "data:application/octet-stream;base64," + encodeURIComponent(pdfBase64);
+	downloadElement.target = "_self";
+	downloadElement.download = fileName;
+	document.body.appendChild(downloadElement);
+	downloadElement.click();
+	document.body.removeChild(downloadElement);
+
+	return Promise.resolve();
+}
+
+/**
+ * @description Download SafeDropImage in bulk by looping through the SafeDropState array object and split callout in multiple transactions
+ * @param {Array} safeDropImageState - The array of objects containing guidId and requireDownload
+ * @returns {Promise<void>}
+ */
+export const processSafeDropImagesDownloading = async (safeDropImageState) => {
+	for (let i = 0; i < safeDropImageState.length; i++) {
+		if (safeDropImageState[i].requireDownload) {
+			try {
+				const result = await getSafeDropImageAndSaveForPOD(safeDropImageState[i].guidID, safeDropImageState[i].eventMessageId);
+				if (!result.isError) {
+					safeDropImageState[i].requireDownload = false;
+				}
+			} catch (error) {
+				console.error("Failed to download image for guidId:", safeDropImageState[i].guidID, error);
+			}
+		}
+	}
 }

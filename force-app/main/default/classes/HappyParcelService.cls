@@ -418,6 +418,7 @@ public with sharing class HappyParcelService {
 		trackingResult.article.FurtherReferences__c = consignmentST?.FurtherReferences__c;
 		trackingResult.article.DeliveryInstructions__c = consignmentST?.DeliveryInstructions__c;
 		trackingResult.article.ConsignmentParcelCount__c = consignmentST?.ConsignmentParcelCount__c;
+		trackingResult.article.ExpectedDeliveryDate__c = consignmentST?.ExpectedDeliveryDate__c;
 		return trackingResult;
 	}
 
@@ -437,6 +438,7 @@ public with sharing class HappyParcelService {
 				thisConsignment.FurtherReferences__c = String.join(references, ', ');
 				thisConsignment.DeliveryInstructions__c = thisConsignment.DeliveryInstructions__c == null ? emsResponse.Consignment.DeliveryInstructions : thisConsignment.DeliveryInstructions__c;
 				thisConsignment.ConsignmentParcelCount__c = thisConsignment.ConsignmentParcelCount__c == null ? emsResponse.Consignment.ConsignmentParcelCount : thisConsignment.ConsignmentParcelCount__c;
+				thisConsignment.ExpectedDeliveryDate__c = emsResponse?.Consignment?.ExpectedDeliveryDate != null ? emsResponse.Consignment.ExpectedDeliveryDate : thisConsignment.ExpectedDeliveryDate__c;
 				thisConsignment.Id = consignmentSFId;
 				ApplicationDatabase.getInstance().dmlUpdate(new List<SObject>{ thisConsignment });
 				return new StarTrackConsignmentSearchUtil.ConsignmentWrapper(true, null, new List<Article__c>{ thisConsignment });
