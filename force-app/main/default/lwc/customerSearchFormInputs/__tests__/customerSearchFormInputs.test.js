@@ -9,8 +9,7 @@ import {
 	EMAIL_ADDRESS_LABEL,
 	SEARCH_BUTTON_LABEL,
 	CLEAR_BUTTON_LABEL,
-	MORE_INFO_REQUIRED_ERROR_MESSAGE,
-	FIRST_AND_LAST_NAME_REQUIRED_ERROR_MESSAGE,
+	MORE_INFO_REQUIRED_ERROR_MESSAGE
 	INVALID_FORM_ERROR,
 } from 'c/customerSearchFormInputs';
 
@@ -327,7 +326,7 @@ describe('c-customer-search-form-inputs', () => {
 		const errorDiv = element.shadowRoot.querySelector("div[data-id='error']");
 		expect(errorDiv).not.toBeNull();
 		expect(errorDiv.textContent).toBe(
-			FIRST_AND_LAST_NAME_REQUIRED_ERROR_MESSAGE
+			MORE_INFO_REQUIRED_ERROR_MESSAGE
 		);
 		expect(searchStartEvent).not.toHaveBeenCalled();
 	});
@@ -361,9 +360,80 @@ describe('c-customer-search-form-inputs', () => {
 		const errorDiv = element.shadowRoot.querySelector("div[data-id='error']");
 		expect(errorDiv).not.toBeNull();
 		expect(errorDiv.textContent).toBe(
-			FIRST_AND_LAST_NAME_REQUIRED_ERROR_MESSAGE
+			MORE_INFO_REQUIRED_ERROR_MESSAGE
 		);
 		expect(searchStartEvent).not.toHaveBeenCalled();
+	});
+
+	it('allows last name withtout first name if mobile is provided', async () => {
+		// Assign mock value for resolved Apex promise
+		customerSearch.mockResolvedValue(CUSTOMER_SEARCH_RES_SUCCESS);
+
+		// Arrange
+		const element = createElement('c-customer-search-form-inputs', {
+			is: CustomerSearchFormInputs,
+		});
+
+		// Act
+		document.body.appendChild(element);
+
+		const searchStartEvent = jest.fn();
+		element.addEventListener('searchstart', searchStartEvent);
+
+		const lastNameInput = getInputFieldElement(element, 'lastName');
+		changeInputFieldValue(lastNameInput, 'Holmes');
+
+		const phoneNumberInput = getInputFieldElement(element, 'phoneNumber');
+		changeInputFieldValue(phoneNumberInput, 'Holmes');
+
+		// Mock all lightning-input checkValidity() methods to return 'true'
+		mockCheckValidity(element, 'lightning-input', true);
+
+		// Click the search button
+		const searchButton = getButtonByDataId(element, 'search');
+		searchButton.click();
+
+		// Wait for any asynchronous code to complete
+		await flushAllPromises();
+
+		// Assert
+		const errorDiv = element.shadowRoot.querySelector("div[data-id='error']");
+		expect(errorDiv).toBeNull();
+		expect(searchStartEvent).toHaveBeenCalled();
+	});
+
+	it('allows phone number as the only input', async () => {
+		// Assign mock value for resolved Apex promise
+		customerSearch.mockResolvedValue(CUSTOMER_SEARCH_RES_SUCCESS);
+
+		// Arrange
+		const element = createElement('c-customer-search-form-inputs', {
+			is: CustomerSearchFormInputs,
+		});
+
+		// Act
+		document.body.appendChild(element);
+
+		const searchStartEvent = jest.fn();
+		element.addEventListener('searchstart', searchStartEvent);
+
+		const phoneNumberInput = getInputFieldElement(element, 'phoneNumber');
+		changeInputFieldValue(phoneNumberInput, '0400000000');
+
+		// Mock all lightning-input checkValidity() methods to return 'true'
+		mockCheckValidity(element, 'lightning-input', true);
+
+		// Click the search button
+		const searchButton = getButtonByDataId(element, 'search');
+		searchButton.click();
+
+		// Wait for any asynchronous code to complete
+		await flushAllPromises();
+
+		// Assert
+		const errorDiv = element.shadowRoot.querySelector("div[data-id='error']");
+		expect(errorDiv).toBeNull();
+		expect(searchStartEvent).toHaveBeenCalled();
 	});
 
 	it('displays spinner while searching', async () => {

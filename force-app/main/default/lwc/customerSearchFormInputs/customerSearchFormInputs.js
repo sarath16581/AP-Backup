@@ -25,8 +25,6 @@ export const INVALID_PHONE_NUMBER_MSG = 'Invalid phone number';
 export const INVALID_EMAIL_ADDRESS_MSG = 'Invalid email address format';
 export const MORE_INFO_REQUIRED_ERROR_MESSAGE =
 	'Please enter at least First and Last Name, or Phone, or Email.';
-export const FIRST_AND_LAST_NAME_REQUIRED_ERROR_MESSAGE =
-	'Please enter both First and Last name (or leave both blank).';
 export const INVALID_FORM_ERROR = 'Please fix and errors and try again';
 
 // Element selectors
@@ -141,26 +139,13 @@ export default class CustomerSearchFormInputs extends LightningElement {
 				return false;
 			}
 
-			// Cannot include first name, but not last name
-			if (isNotBlank(this.firstName) && isBlank(this.lastName)) {
-				isValid = false;
-				this.errorMessage = FIRST_AND_LAST_NAME_REQUIRED_ERROR_MESSAGE;
-			}
+			// Check at least First AND Last Name, or Phone, or Email is entered
+			const hasFirstAndLast =
+				isNotBlank(this.firstName) && isNotBlank(this.lastName);
+			const hasPhoneOrEmail =
+				isNotBlank(this.phoneNumber) || isNotBlank(this.emailAddress);
 
-			// Cannot include last name, but not first name
-			if (isBlank(this.firstName) && isNotBlank(this.lastName)) {
-				isValid = false;
-				this.errorMessage = FIRST_AND_LAST_NAME_REQUIRED_ERROR_MESSAGE;
-			}
-
-			// At least one of the following fields is required to be included in the
-			// search query. If they're all bank, display an error.
-			if (
-				isBlank(this.firstName) &&
-				isBlank(this.lastName) &&
-				isBlank(this.phoneNumber) &&
-				isBlank(this.emailAddress)
-			) {
+			if (!(hasFirstAndLast || hasPhoneOrEmail)) {
 				isValid = false;
 				this.errorMessage = MORE_INFO_REQUIRED_ERROR_MESSAGE;
 			}
