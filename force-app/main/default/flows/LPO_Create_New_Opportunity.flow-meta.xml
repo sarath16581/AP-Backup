@@ -28,7 +28,7 @@
         </inputParameters>
         <storeOutputAutomatically>true</storeOutputAutomatically>
     </actionCalls>
-    <apiVersion>52.0</apiVersion>
+    <apiVersion>61.0</apiVersion>
     <assignments>
         <name>LBP_Set_Owner_to_Creator</name>
         <label>Set Owner to Creator</label>
