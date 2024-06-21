@@ -96,6 +96,10 @@
                 <behavior>Readonly</behavior>
                 <field>Business_at_Risk__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>IndirectCustomer__c</field>
+            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>
