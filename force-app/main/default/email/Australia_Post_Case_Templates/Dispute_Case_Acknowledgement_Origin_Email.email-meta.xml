@@ -6,7 +6,7 @@
     <name>Dispute Case Acknowledgement Origin Email</name>
     <style>none</style>
     <subject>Enquiry - Case No. {!Case.CaseNumber} {!Case.EmailThreadID__c}</subject>
-    <textOnly>Dear Customer, 
+    <textOnly>Dear Customer,
 
 
 Thank you for contacting our Customer Resolution Team.

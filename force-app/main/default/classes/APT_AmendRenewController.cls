@@ -622,6 +622,7 @@ public with sharing class APT_AmendRenewController {
 						setOpportunityFieldsFromDSR(clonedOpportunity);
 						insert clonedOpportunity;
 						opportunityId = clonedOpportunity.Id;
+						cloneOpportunityProducts(clonedOpportunity.Id, agreement);
 					}
 					else{
 						/* Setting the opportunity Id to the Existing opportunity which User has selected to associate the renewal after clicking
@@ -1008,6 +1009,7 @@ public with sharing class APT_AmendRenewController {
 								setOpportunityFieldsFromDSR(clonedOpportunity);
 								insert clonedOpportunity;
 								opportunityId = clonedOpportunity.Id;
+								cloneOpportunityProducts(clonedOpportunity.Id, agreement);
 							}
 							// When User Selects Decrease in Revenue
 							else If(DECREASE_REVENUE.equalsIgnoreCase(selectedRevenue)){
@@ -1238,6 +1240,24 @@ public with sharing class APT_AmendRenewController {
 		}
 		else {
 		clonedOpportunity.KeyContact__c = null;
+		}
+	}
+
+	/*
+	The method will filter Opportunity Line Items to process for Copy Opportunity Products which are
+	added using Add Products action (i.e. without using Shopping Cart)
+	*/
+	private void cloneOpportunityProducts(Id opportunityId, Apttus__APTS_Agreement__c agreement) {
+		List<OpportunityLineItem> listOpportunityLineItem = [SELECT Id,Name, Description, OpportunityId, PriceBookEntryId,
+		Quantity, UnitPrice, Subtotal, Classification__c,
+		Sub_Classification__c, Contract_End_Date__c, Contract_Start_Date__c,
+		ProdClassFieldUpdate__c, Product2.Name
+		FROM OpportunityLineItem
+		WHERE opportunityId = :agreement.Apttus__Related_Opportunity__c and Contract_Number__c =: null];
+
+		if(listOpportunityLineItem != null && listOpportunityLineItem.size() > 0) {
+			List<OpportunityLineItem> listClonedOpportunityLineItem = APT_AmendRenewUtility.copyOpporunityProducts(opportunityId, agreement, listOpportunityLineItem, APT_Constants.ACTION_TYPE_RENEWAL);
+			ApplicationDatabase.getInstance().dmlInsert(listClonedOpportunityLineItem);
 		}
 	}
 }

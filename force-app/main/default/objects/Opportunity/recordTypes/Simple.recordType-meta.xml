@@ -231,7 +231,7 @@
             <fullName>Non-conforming Bid%2Ftender</fullName>
             <default>false</default>
         </values>
-		<values>
+        <values>
             <fullName>Potential Fraud</fullName>
             <default>false</default>
         </values>
@@ -1248,7 +1248,7 @@
             <default>false</default>
         </values>
     </picklistValues>
-	<picklistValues>
+    <picklistValues>
         <picklist>kfsell__Scorecard_Stage__c</picklist>
         <values>
             <fullName>Complete</fullName>

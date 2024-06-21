@@ -4168,7 +4168,7 @@ To add a comment or check for updates, visit your MyPost dashboard now</value>
         <shortDescription>ERROR_NOMINATED_CONTACT_REQUIRED</shortDescription>
         <value>The Parent Organisation must have a &quot;Nominated Partner Contact &amp; Incent User&quot; before creating a Licence.</value>
     </labels>
-	<labels>
+    <labels>
         <fullName>PartnerInfoIncentCrentialsInvalidErrorMessage</fullName>
         <categories>Partner Info Licence Activation</categories>
         <language>en_US</language>

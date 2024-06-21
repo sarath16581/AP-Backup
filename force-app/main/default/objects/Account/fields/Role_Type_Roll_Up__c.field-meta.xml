@@ -5,18 +5,15 @@
 
 Fixed by CV 22/11 - incorrect defaulting to Prospect if is an Individual - extended criteria
 
-Updated by DLai 26/02/2016 - include Partner where record created by profile contains partner. 
-Updated by Swati 20/06/2024 -Partner role where profile is Network Partner Support.</description>
+Updated by DLai 26/02/2016 - include Partner where record created by profile contains partner.</description>
     <externalId>false</externalId>
     <formula>IF( AND(Customer_Party_Role_Count__c = 1, NOT(IsPersonAccount)) , &apos;Customer&apos;,
     IF( CreatorProfile__c=&apos;PartnerInfo Read Only&apos;,&apos;Partner&apos;,
-	IF( CreatorProfile__c='Network Partner Support','Partner',
     IF( AND(NAC_Party_Role_Count__c=1, NOT(IsPersonAccount )), &apos;Non Account Customer&apos;, 
     IF( AND(Prospect_Party_Role_Count__c=1, NOT(IsPersonAccount )), &apos;Prospect&apos;, 
     IF( AND(Known_Party_Role_Count__c=1, NOT(IsPersonAccount )), &apos;Known&apos;, 
     IF( AND(Customer_Party_Role_Count__c = 0, NAC_Party_Role_Count__c =0, Prospect_Party_Role_Count__c =0, Known_Party_Role_Count__c =0,NOT(IsPersonAccount )), &apos;&apos;,
     IF( AND(IsPersonAccount, Prospect_Party_Role_Count__c = 0, Customer_Party_Role_Count__c = 0, NAC_Party_Role_Count__c = 0, Known_Party_Role_Count__c = 0),&apos;Individual&apos;,&apos;&apos;)
-)
 )
 )
 )

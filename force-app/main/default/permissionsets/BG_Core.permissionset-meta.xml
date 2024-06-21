@@ -365,15 +365,15 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
+        <editable>false</editable>
+        <field>Account.IndirectCustomer__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
         <editable>true</editable>
         <field>Account.Industry</field>
         <readable>true</readable>
     </fieldPermissions>
-	<fieldPermissions>
-		<editable>false</editable>
-		<field>Account.IndirectCustomer__c</field>
-		<readable>true</readable>
-	</fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
         <field>Account.Is_Strategic_Account_StarTrack__c</field>
@@ -2939,21 +2939,6 @@
         <field>Opportunity.CTA_Propose_Request_Exists__c</field>
         <readable>true</readable>
     </fieldPermissions>
-	<fieldPermissions>
-		<editable>false</editable>
-		<field>Opportunity.ControlsLodgement__c</field>
-		<readable>true</readable>
-	</fieldPermissions>
-	<fieldPermissions>
-		<editable>false</editable>
-		<field>Opportunity.FreightOwnership__c</field>
-		<readable>true</readable>
-	</fieldPermissions>
-	<fieldPermissions>
-		<editable>false</editable>
-		<field>Opportunity.IndirectCustomer__c</field>
-		<readable>true</readable>
-	</fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
         <field>Opportunity.CTA_Pursue_Approved__c</field>
@@ -2967,6 +2952,11 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Opportunity.Close_Date_Quarter__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Opportunity.ControlsLodgement__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -3000,6 +2990,11 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
+        <editable>false</editable>
+        <field>Opportunity.FreightOwnership__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
         <editable>true</editable>
         <field>Opportunity.Has_DSR__c</field>
         <readable>true</readable>
@@ -3022,6 +3017,11 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Opportunity.Hidden_Opportunity_Annualised_Value__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Opportunity.IndirectCustomer__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
