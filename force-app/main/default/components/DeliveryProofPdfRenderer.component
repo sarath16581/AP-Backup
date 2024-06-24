@@ -72,6 +72,7 @@
 					</div>
 				</div>
 
+				<br/>
 
 				<!-- Display Delivery Section Header -->
 				<div style="padding-left: 1px; border-bottom-style: solid ;border-bottom-style: solid ;border-top-style: solid ;width:100%;border-radius:8px;font-size: 1.1em;background-color:#eee; ">
@@ -105,22 +106,24 @@
 							<!-- super dodgy way of rendering fields by section... hmmm -->
 								<apex:repeat value="{!$ObjectType.EventMessage__c.FieldSets.PODSafeDropDelivered}" var="em" >
 									<apex:panelGrid columns="1">
-										<apex:outputText rendered="{!em.type == 'date' || em.type == 'datetime'}">
-											<apex:outputText value="{0,date,dd-MM-yyyy}">
-												<apex:outputText rendered="{!em.fieldPath == 'ActualDateTime__c'}" >
-													Delivery Date: &nbsp;
+										<apex:outputText rendered="{!NOT(ISBLANK(eventMessage[em]))}">
+											<apex:outputText rendered="{!em.type == 'date' || em.type == 'datetime'}">
+												<apex:outputText value="{0,date,dd-MM-yyyy}">
+													<apex:outputText rendered="{!em.fieldPath == 'ActualDateTime__c'}" >
+														Delivery Date: &nbsp;
+													</apex:outputText>
+													<apex:outputText rendered="{!em.fieldPath != 'ActualDateTime__c'}" >
+														{!em.label}: &nbsp;
+													</apex:outputText>
+													<apex:param value="{!eventMessage[em]}" />
 												</apex:outputText>
-												<apex:outputText rendered="{!em.fieldPath != 'ActualDateTime__c'}" >
-													{!em.label}: &nbsp;
-												</apex:outputText>
-												<apex:param value="{!eventMessage[em]}" />
 											</apex:outputText>
-										</apex:outputText>
-										<apex:outputText rendered="{!em.fieldPath == 'Article__r.SubProduct__c'}" >
-											Delivery Service: {!eventMessage[em]}
-										</apex:outputText>
-										<apex:outputText rendered="{!em.fieldPath == 'Article__r.DeliveryInstructions__c'}" >
-											Special Instructions: {!eventMessage[em]}
+											<apex:outputText rendered="{!em.fieldPath == 'Article__r.SubProduct__c'}" >
+												Delivery Service: {!eventMessage[em]}
+											</apex:outputText>
+											<apex:outputText rendered="{!em.fieldPath == 'Article__r.DeliveryInstructions__c'}" >
+												Special Instructions: {!eventMessage[em]}
+											</apex:outputText>
 										</apex:outputText>
 									</apex:panelGrid>
 								</apex:repeat>
@@ -157,14 +160,13 @@
 				</div>
 				<br/>
 			</div>
-			<br/>
+
 			<!-- START Disclaimer -->
-			<apex:pageBlockSection columns="1">
-				<span style="font-size:0.8em;">{!$Label.Disclaimer_POD}</span>
-			</apex:pageBlockSection>
+			<div style="margin-top:10px">
+				<p style="font-size:0.8em; margin:0">{!$Label.Disclaimer_POD}</p>
+			</div>
 			<!--END Disclaimer -->
 			<!-- END SECTION AND TABLES -->
-
 		</apex:pageBlock>
 	</apex:form>
 
