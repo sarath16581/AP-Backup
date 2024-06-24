@@ -105,6 +105,7 @@ public with sharing class SSSWCasesSelector_Test {
 		cases[2].Case_Reopen_Date__c = System.now();
 		cases[2].OwnerId = vHoldQueueId;
 		cases[2].RecordTypeId = rt.Id;
+		cases[2].Origin = 'Direct Email';
 		insert cases;
 		cases[1].ParentId = cases[0].Id;
 		update cases[1];
@@ -147,7 +148,9 @@ public with sharing class SSSWCasesSelector_Test {
 		System.assertNotEquals(null, (Database.QueryLocator)selector.selectCasesEligibleForReopenByOwnerAndDate(new Set<String>{vHoldQueueId}, Datetime.newInstance(vReopenUpToDate.year(), vReopenUpToDate.month(), vReopenUpToDate.day()), new Set<Object>{SSSWCasesSelector.Options.RETURN_QUERY_LOCATOR}), 'Invalid query locator');
 
 		selector = SSSWCasesSelector.newInstance();
-		System.assertNotEquals(null, selector.selectCasesByCreatedByUserOrAPCN(UserInfo.getUserId(),null, new Set<Object>{SSSWCasesSelector.Options.WITH_CONTACT}), 'Invalid query locator');
+		results = (Map<Id, Case>)selector.selectCasesByCreatedByUserAndCaseOrigin(UserInfo.getUserId(),null, new Set<Object>{SSSWCasesSelector.Options.WITH_CONTACT});
+		System.assertEquals(2, results.size(), 'Expected result size of 2');
 
+		Test.stopTest();
 	}
 }

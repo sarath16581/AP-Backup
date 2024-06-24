@@ -44,6 +44,7 @@ public with sharing class SSSWConstants {
     public static final String CASE_SLA_STATUS = 'Awaiting Network Response';
     public static final String CASE_TYPE = 'General Enquiry';
     public static final String CASE_ORIGIN = 'Phone';
+	public static final String CASE_ORIGIN_DIRECT_EMAIL = 'Direct Email';
     public static final String CASE_PRIORITY = 'Low';
     public static final String CASE_PROD_CAT = 'Domestic Parcels';
     public static final String CASE_PROD_SUB_CAT = 'Cash on Delivery';
