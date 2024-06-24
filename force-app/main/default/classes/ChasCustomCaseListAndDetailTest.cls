@@ -215,7 +215,7 @@ public class ChasCustomCaseListAndDetailTest {
 	* Success get logged in user Cases by having the case's origin not as Direct Email
 	* */
 	@IsTest
-	public static void getCurrentUserCases_CaseOriginExceptDirectEmail() {
+	public static void getCurrentUserCasesByCaseOriginExceptDirectEmail() {
 		List<Account> accounts = ApplicationTestDataFactory.getAccounts(1, false);
 		insert accounts;
 		List<Contact> contacts = ApplicationTestDataFactory.getContacts(1, accounts[0].Id, false);
