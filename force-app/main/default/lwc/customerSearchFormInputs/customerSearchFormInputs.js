@@ -1,6 +1,6 @@
 import { LightningElement, api } from 'lwc';
 import customerSearch from '@salesforce/apex/CustomerSearchFormController.search';
-import { isBlank, isNotBlank } from 'c/utils';
+import { isNotBlank } from 'c/utils';
 import { reduceErrors } from 'c/ldsUtils';
 
 // Lightning card title
