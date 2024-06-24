@@ -409,14 +409,14 @@
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>noRefreshAfterSave</name>
-                    <value>false</value>
+                    <value>true</value>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>recordId</name>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>refreshAfterSave</name>
-                    <value>true</value>
+                    <value>false</value>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>refreshNotNavigate</name>
