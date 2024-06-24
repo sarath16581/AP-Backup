@@ -26,7 +26,6 @@
 					articleList="{!dp.articlesInDeliveryEvent}"
 					consignedCount="{!dp.consigned}"
 					deliveredCount="{!dp.delivered}"
-					articlesCount="{!dp.articlesCountInDeliveryEvent}"
 			/>
 		</apex:outputPanel>
 		<!-- NOTE: set up page break after each page, excluding the last page -->
