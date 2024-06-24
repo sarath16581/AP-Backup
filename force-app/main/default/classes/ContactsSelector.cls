@@ -17,6 +17,7 @@
  * 2023-07-05 - Mahesh Parvathaneni - Added options WITH_BILLING_ACCOUNT
  * 2023-10-01 - Hasantha Liyanage - Added Contact.BillingAccount__c in getSObjectFieldList
  * 2024-01-22 - Hasantha Liyanage - Added selectPrimaryContactByAccount method
+ * 2024-05-21 - Marcel HK - Added selector method `selectByCustomerSearchParams` for Customer Search (CSLU-107)
  */
 public virtual inherited sharing class ContactsSelector extends ApplicationSelector {
 	public enum Options {
@@ -162,6 +163,108 @@ public virtual inherited sharing class ContactsSelector extends ApplicationSelec
 	}
 
 	/**
+	 * @description Execute SOQL query and return a Map with Contact objects matching the search parameters.
+	 * 
+	 * This method was intially developed for CSLU-107 and is used by class `CustomerSearchFormController`.
+	 * 
+	 * @param params - The search parameters to build the query from.
+	 * @param selectorOptions - The Selector framework options used when building the query.
+	 * @return Map of Contact objects which matched the query criteria.
+	 */
+	public Map<Id, Contact> selectByCustomerSearchParams(CustomerSearchParameters params, Set<Object> selectorOptions) {
+		String queryString = selectByCustomerSearchParamsQB(params, selectorOptions);
+		return new Map<Id, Contact> ((List<Contact>) Database.query(queryString));
+	}
+
+	/**
+	 * @description Build the query string used to find Contact records which match the search paramters. If parameter
+	 * is provided, it will be added to the SOQL query using 'AND' operators. Some parameters match on more than one
+	 * field, so use the 'OR' operator.
+	 * 
+	 * For example: `WHERE (FirstName LIKE 'Joan%' OR PreferredName LIKE 'Joan%') AND LastName LIKE 'Watson%'`
+	 * 
+	 * This method was intially developed for CSLU-107 and is used by class `CustomerSearchFormController`.
+	 * 
+	 * @param params - The search parameters to build the query from.
+	 * @param selectorOptions - The Selector framework options used when building the query.
+	 * @return SOQL query string
+	 */
+	@TestVisible
+	private String selectByCustomerSearchParamsQB(CustomerSearchParameters params, Set<Object> selectorOptions) {
+		QueryBuilder qb = newQueryBuilder(selectorOptions);
+		QueryBuilder.ConditionsManager cm = qb.addConditions();
+
+		// An array used to dynamically add conditions depending if fields are present in the criteria
+		List<String> conditionsOrder = new List<String>();
+
+		/**
+		 * Add the First Name to the search query criteria
+		 */
+		String firstName = params.firstName?.trim();
+		if(String.isNotBlank(firstName)) {
+			Integer n = cm.conditions.size();
+			cm.add(new QueryBuilder.LikeCondition(Contact.FirstName).likeAnyRight(firstName));
+			cm.add(new QueryBuilder.LikeCondition(Contact.Preferred_Name__c).likeAnyRight(firstName));
+			// (FirstName OR Preferred_Name__c)
+			conditionsOrder.add('(' + (n + 1) + ' OR ' + (n + 2) + ')');
+		}
+
+		/**
+		 * Add the Last Name to the search query criteria
+		 */
+		String lastName = params.lastName?.trim();
+		if(String.isNotBlank(lastName)) {
+			Integer n = cm.conditions.size();
+			cm.add(new QueryBuilder.LikeCondition(Contact.LastName).likeAnyRight(lastName));
+			// (LastName)
+			conditionsOrder.add('(' + (n + 1) + ')');
+		}
+
+		/**
+		 * Add the Email Address to the search query criteria
+		 */
+		String emailAddress = params.emailAddress?.trim();
+		if(String.isNotBlank(emailAddress)) {
+			Integer n = cm.conditions.size();
+			cm.add(new QueryBuilder.CompareCondition(Contact.Email).eq(emailAddress));
+			cm.add(new QueryBuilder.CompareCondition(Contact.VerifiedEmail__c).eq(emailAddress));
+
+			// (Email OR VerifiedEmail__c)
+			conditionsOrder.add('(' + (n + 1) + ' OR ' + (n + 2) + ')');
+		}
+
+		/**
+		 * Add the Phone Number to the search query criteria
+		 * TODO: Investigate better ways to query phone number across multiple fields (e.g. ContactPointPhone object)
+		 */
+		String phoneNumber = params.phoneNumber?.trim();
+		if(String.isNotBlank(phoneNumber)) {
+			// Clean and reverse the phone number for querying the reverse phone fields
+			String reversePhone = Util.reversePhoneString(phoneNumber);
+
+			Integer n = cm.conditions.size();
+			cm.add(new QueryBuilder.CompareCondition(Contact.ReverseMobilePhone__c).eq(reversePhone));
+			cm.add(new QueryBuilder.CompareCondition(Contact.ReverseVerifiedMobile__c).eq(reversePhone));
+			cm.add(new QueryBuilder.CompareCondition(Contact.ReversePhone__c).eq(reversePhone));
+			cm.add(new QueryBuilder.CompareCondition(Contact.ReverseHomePhone__c).eq(reversePhone));
+			cm.add(new QueryBuilder.CompareCondition(Contact.ReverseOtherPhone__c).eq(reversePhone));
+
+			// (ReverseMobilePhone__c OR ReverseVerifiedMobile__c OR ReversePhone__c OR ReverseHomePhone__c OR ReverseOtherPhone__c)
+			conditionsOrder.add('(' + (n + 1) + ' OR ' + (n + 2) + ' OR ' + (n + 3) + ' OR ' + (n + 4) + ' OR ' + (n + 5) + ')');
+		}
+
+		// Join dynamic conditions with 'AND' operator
+		cm.setConditionOrder(String.join(conditionsOrder, ' AND '));
+		cm.endConditions();
+					
+		// Configure results order
+		qb.setOrder(new QueryBuilder.Order(Contact.VerifiedMobile__c).setSortingOrderAsc().setNullsOrderLast());
+		qb.addOrder(new QueryBuilder.Order(Contact.Name).setSortingOrderAsc().setNullsOrderLast());
+
+		return qb.toSoqlString();
+	}
+
+	/**
 	 * Grabs a new QueryBuilder
 	 */
 	public virtual override QueryBuilder newQueryBuilder() {
@@ -189,9 +292,21 @@ public virtual inherited sharing class ContactsSelector extends ApplicationSelec
 		if (selectorOptions.contains(Options.WITH_BILLING_ACCOUNT)) {
 			builder.addRelatedFields(BillingAccountsSelector.newInstance(0, fieldOverrides).newQueryBuilder(selectorOptions), 'BillingAccount__r');
 		}
-		
+
 
 		return builder;
+	}
+
+  /**
+   * @description A wrapper class used to pass parameters for the search query.
+   * This object is modeled based on the `CustomerSearchForm.SearchRequest` object but is re-defined here to avoid
+   * creating a dependency with the `CustomerSearchForm` class.
+   */
+	public class CustomerSearchParameters {
+		public String firstName;
+		public String lastName;
+		public String emailAddress;
+		public String phoneNumber;
 	}
 
 		// TODO: Activate Cache
