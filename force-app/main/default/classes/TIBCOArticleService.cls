@@ -27,7 +27,7 @@
  * 2022-07-05 - Snigdha Sahu - REQ2851358 - added MLID to Article Query
  * 2023-03-01 - Dattaraj Deshmukh - added 'searchArticleRecordsInSFDC' method to wrap static method and to be able to use in mock.
  * 2023-10-05 - Jacob Isaac - added fields causing error on UI on event messages - REQ3312803
- * 2024-05-17 - Seth Heang - added field 'IsDelivered' field on Article__c into SOQL query
+ * 2024-05-17 - Seth Heang - added field mapping for 'IsDelivered' field on Article__c and update SOQL query
  * 2024-06-19 - Seth Heang - Refactor searchArticles method and split off a new method(processTIBCOSAPResult) for processing SAP response which can be called publicly
  **/
 public class TIBCOArticleService {
@@ -86,13 +86,7 @@ public class TIBCOArticleService {
 		return searchArticles(articleIds, searchSAPFirst, deprecated1, true, false, false);
 	}
 
-	public static TIBCOSearchResult searchArticles(
-		String[] articleIds,
-		Boolean searchSAPFirst,
-		Boolean deprecated1 /*refreshCaseDetails*/,
-		Boolean showMessages,
-		Boolean deprecated2 /*linkToChildArticleIfSingleArticleConsignment*/
-	) {
+	public static TIBCOSearchResult searchArticles(String[] articleIds, Boolean searchSAPFirst, Boolean deprecated1 /*refreshCaseDetails*/, Boolean showMessages, Boolean deprecated2 /*linkToChildArticleIfSingleArticleConsignment*/) {
 		return searchArticles(articleIds, searchSAPFirst, deprecated1, showMessages, false, false);
 	}
 
@@ -106,7 +100,7 @@ public class TIBCOArticleService {
 	) {
 		TIBCOSearchResult result;
 		if (searchSAPFirst) {
-			result = processTIBCOSAPResult(searchArticlesInSAP(articleIds), articleIds, showMessages, throwException);
+			result = processTIBCOSAPResult(articleIds, searchArticlesInSAP(articleIds), showMessages, throwException);
 		} else {
 			// NOTE: There is no use case to use transient attributes when we search in Salesforce before SAP-EM
 			// Therefore, no transient capability has been built into this pathway
@@ -125,7 +119,7 @@ public class TIBCOArticleService {
 
 	/**
 	 * @description Refactor below steps into a new method so it can be called publicly, particularly in some use cases where repeated SAP Callout is undesirable
-	 *              SAP callout must be made as a prerequisite and pass the result into the first param(SAPResult)
+	 *				SAP callout must be made as a prerequisite and pass the result into the first param(SAPResult)
 	 * @param SAPResult - SAP Callout Result
 	 * @param articleIds
 	 * @param showMessages
@@ -133,12 +127,13 @@ public class TIBCOArticleService {
 	 *
 	 * @return TIBCOSearchResult
 	 */
-	public TIBCOSearchResult processTIBCOSearchResults(TIBCOSearchResult SAPResult, String[] articleIds, Boolean showMessages, Boolean throwException){
-		return TIBCOArticleService.processTIBCOSAPResult(SAPResult, articleIds, showMessages, throwException);
+	public TIBCOSearchResult processTIBCOSearchResults(String[] articleIds, TIBCOSearchResult SAPResult, Boolean showMessages, Boolean throwException) {
+		return TIBCOArticleService.processTIBCOSAPResult(articleIds, SAPResult, showMessages, throwException);
 	}
 
-	public static TIBCOSearchResult processTIBCOSAPResult(TIBCOSearchResult SAPResult, String[] articleIds, Boolean showMessages, Boolean throwException){
+	public static TIBCOSearchResult processTIBCOSAPResult(String[] articleIds, TIBCOSearchResult SAPResult, Boolean showMessages, Boolean throwException) {
 		TIBCOSearchResult result = SAPResult;
+
 		if (foundArticle(result)) {
 			// NOTE: An update was made to this to not clone the proxy objects that are passed in
 			// This is to ensure the proxy objects generated from searchArticlesInSAP will be updated with their Salesforce Id's
@@ -152,6 +147,7 @@ public class TIBCOArticleService {
 			// Profiling shows 0-2ms to run this which is acceptable
 			Map<String, Map<Id, Object>> transients = getTransientAttributesFromResult(result);
 
+			result = searchArticlesInSFDC(articleIds); //this is done to make any formula fields like EventMessage.Status__c is available to use
 			// after the result has been rebuilt, we need to inject the transients back into the final result fed back to the UI
 			// NOTE: This is not a great design but unless searchArticlesMethod is fully refactored, there is probably not many other ways of doing this
 			// Profiling shows 0-2ms to run this which is acceptable
@@ -521,8 +517,9 @@ public class TIBCOArticleService {
 			if (!String.isEmpty(contact.Name) && !String.isEmpty(contact.Email)) {
 				if (usedKeys.contains(contact.Name.toLowerCase() + contact.Email.toLowerCase())) {
 					// if a contact has already been found for the name/email combination then we do not overwrite it
-					if (nameEmailContactMappings.get(contact.Name.toLowerCase() + contact.Email.toLowerCase()) != null)
+					if (nameEmailContactMappings.get(contact.Name.toLowerCase() + contact.Email.toLowerCase()) != null) {
 						continue;
+					}
 
 					nameEmailContactMappings.put(contact.Name.toLowerCase() + contact.Email.toLowerCase(), contact);
 				}
@@ -532,26 +529,30 @@ public class TIBCOArticleService {
 		for (Article__c a : consignmentsAndArticles) {
 			// we search for both apcn and name/email (just incase the APCN is not in SF)
 			if (!String.isEmpty(a.Receiver_APCN__c) && apcnContactMappings.containsKey(a.Receiver_APCN__c)) {
-				if (output.get(a.Id) == null)
+				if (output.get(a.Id) == null) {
 					output.put(a.Id, new Map<String, Contact>());
+				}
 				output.get(a.Id).put('receiver', apcnContactMappings.get(a.Receiver_APCN__c));
 			} else if (!String.isEmpty(a.ReceiverName__c) && !String.isEmpty(a.ReceiverEmail__c)) {
 				if (nameEmailContactMappings.containsKey(a.ReceiverName__c.toLowerCase() + a.ReceiverEmail__c.toLowerCase())) {
-					if (output.get(a.Id) == null)
+					if (output.get(a.Id) == null) {
 						output.put(a.Id, new Map<String, Contact>());
+					}
 					output.get(a.Id).put('receiver', nameEmailContactMappings.get(a.ReceiverName__c.toLowerCase() + a.ReceiverEmail__c.toLowerCase()));
 				}
 			}
 
 			// we search for both apcn and name/email (just incase the APCN is not in SF)
 			if (!String.isEmpty(a.Sender_APCN__c) && apcnContactMappings.containsKey(a.Sender_APCN__c)) {
-				if (output.get(a.Id) == null)
+				if (output.get(a.Id) == null) {
 					output.put(a.Id, new Map<String, Contact>());
+				}
 				output.get(a.Id).put('sender', apcnContactMappings.get(a.Sender_APCN__c));
 			} else if (!String.isEmpty(a.SenderName__c) && !String.isEmpty(a.SenderEmail__c)) {
 				if (nameEmailContactMappings.containsKey(a.SenderName__c.toLowerCase() + a.SenderEmail__c.toLowerCase())) {
-					if (output.get(a.Id) == null)
+					if (output.get(a.Id) == null) {
 						output.put(a.Id, new Map<String, Contact>());
+					}
 					output.get(a.Id).put('sender', nameEmailContactMappings.get(a.SenderName__c.toLowerCase() + a.SenderEmail__c.toLowerCase()));
 				}
 			}
@@ -563,7 +564,7 @@ public class TIBCOArticleService {
 	/**
 	 * Grab a list of all the transients which we mapped but did not persist in Salesforce.
 	 * TODO: This is a workaround since the current sarch method resets the TIBCOSearchResult result variable when it requeries the data in Salesforce after it's been populated from SAP
-	 *          The search process should be refactored to negate the need for this workaround which could marginally cause a small performance impact
+	 *		  The search process should be refactored to negate the need for this workaround which could marginally cause a small performance impact
 	 */
 	private static Map<String, Map<Id, Object>> getTransientAttributesFromResult(TIBCOSearchResult result) {
 		Map<String, Map<Id, Object>> output = new Map<String, Map<Id, Object>>{ 'articleTransients' => new Map<Id, Object>(), 'eventMessageTransients' => new Map<Id, Object>() };
@@ -577,8 +578,8 @@ public class TIBCOArticleService {
 				}
 			} else if (resultWrapper.consignmentDetails != null) {
 				//NOTE: Consignment transient attributes are currently not implement
-				//          When there is a use case, this can can be uncommented and the implementation can be finished
-				//          An update to TIBCOConsignmentWrapper will also be required
+				//		  When there is a use case, this can can be uncommented and the implementation can be finished
+				//		  An update to TIBCOConsignmentWrapper will also be required
 				//output.get('articleTransients').put(resultWrapper.consignmentDetails.proxyConsignment.Id, resultWrapper.consignmentDetails.transientAttributes);
 
 				for (TIBCOEventMessageWrapper eventMessage : resultWrapper.consignmentDetails.eventMessages) {
@@ -609,8 +610,8 @@ public class TIBCOArticleService {
 				}
 			} else if (resultWrapper.consignmentDetails != null) {
 				//NOTE: Consignment transient attributes are currently not implement
-				//          When there is a use case, this can can be uncommented and the implementation can be finished
-				//          An update to TIBCOConsignmentWrapper will also be required
+				//		  When there is a use case, this can can be uncommented and the implementation can be finished
+				//		  An update to TIBCOConsignmentWrapper will also be required
 				//	if(transients.get('articleTransients')?.get(resultWrapper.consignmentDetails.proxyConsignment.Id) != null) {
 				//		resultWrapper.consignmentDetails.transientAttributes = (TIBCOConsignmentWrapper.ConsignmentTransientAttributes)transients.get('articleTransients').get(resultWrapper.consignmentDetails.proxyConsignment.Id);
 				//	}
@@ -625,9 +626,9 @@ public class TIBCOArticleService {
 	}
 
 	/*
-    @Obsolete
-    NOTE: please use TIBCOArticleService.getInstance().searchByArticleIdsInSAP(articleIdsInbound) instead.
-    */
+	@Obsolete
+	NOTE: please use TIBCOArticleService.getInstance().searchByArticleIdsInSAP(articleIdsInbound) instead.
+	*/
 	public static TIBCOSearchResult searchArticlesInSAP(String[] articleIdsInbound) {
 		return TIBCOArticleService.getInstance().searchByArticleIdsInSAP(articleIdsInbound);
 	}

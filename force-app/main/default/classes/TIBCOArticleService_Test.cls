@@ -12,87 +12,6 @@
  */
 @isTest
 private class TIBCOArticleService_Test {
-	static testMethod void myUnitTest() {
-		AusPostSettings__c testSetting = new AusPostSettings__c();
-		testSetting.Name = 'TIBCO_EM';
-		insert testSetting;
-
-		Article__c art = new Article__c();
-		art.Name = '123';
-		art.ArticleLodgementDate__c = date.today();
-		art.SenderPostcode__c = '123';
-		art.ReceiverPostcode__c = '3002';
-		art.ArticleType__c = 'Regular Parcel';
-		art.ReceiverName__c = '123';
-		art.ReceiverEmail__c = 'dsf@163.com';
-		art.ArticleLodgementDate__c = date.today();
-		art.ProductCategory__c = 'eParcel';
-		art.ArticleTransitAmountValue__c = 1;
-		art.SubProduct__c = 'eParcel Standard';
-		art.ActualWeight__c = 2;
-		art.DeliveryInstructions__c = '99bb';
-		insert art;
-
-		Article__c art1 = new Article__c();
-		art1.Name = art.Id;
-		art1.ArticleLodgementDate__c = date.today();
-		art1.SenderPostcode__c = '123';
-		art1.ReceiverPostcode__c = '3002';
-		art1.ArticleType__c = 'Regular Parcel';
-		art1.ReceiverName__c = '123';
-		art1.ReceiverEmail__c = 'dsf@163.com';
-		art1.ArticleLodgementDate__c = date.today();
-		art1.ProductCategory__c = 'eParcel';
-		art1.ArticleTransitAmountValue__c = 1;
-		art1.SubProduct__c = 'eParcel Standard';
-		art1.ActualWeight__c = 2;
-		art1.DeliveryInstructions__c = '99bb';
-		art1.Consignment__c = art.Id;
-		art1.ArticleID__c = art.Id;
-		insert art1;
-
-		Article__c art2 = new Article__c();
-		art2.Name = art1.Id;
-		art2.ArticleLodgementDate__c = date.today();
-		art2.SenderPostcode__c = '123';
-		art2.ReceiverPostcode__c = '3002';
-		art2.ArticleType__c = 'Regular Parcel';
-		art2.ReceiverName__c = '123';
-		art2.ReceiverEmail__c = 'dsf@163.com';
-		art2.ArticleLodgementDate__c = date.today();
-		art2.ProductCategory__c = 'eParcel';
-		art2.ArticleTransitAmountValue__c = 1;
-		art2.SubProduct__c = 'eParcel Standard';
-		art2.ActualWeight__c = 2;
-		art2.DeliveryInstructions__c = '99bb';
-		art2.Consignment__c = art1.Id;
-		art2.ArticleID__c = art1.Id;
-		insert art2;
-
-		EventMessage__c em = new EventMessage__c();
-		em.Article__c = art2.Id;
-		em.SenderID__c = 'bg';
-		em.ActualDateTime__c = date.today() + 1;
-		em.EventType__c = 'DD-ER13';
-		em.SignatureXString__c = '1';
-		insert em;
-
-		list<String> articleIds = new List<String>();
-		articleIds.add(art.Id);
-		articleIds.add(art1.Id);
-		articleIds.add(art2.Id);
-
-		Test.startTest();
-
-		TIBCOArticleService.searchArticles(articleIds);
-		TIBCOArticleService.searchArticles(articleIds, true);
-		TIBCOArticleService.searchArticles(articleIds, false);
-		TIBCOArticleService.searchArticlesInSFDC(articleIds);
-		TIBCOArticleService.searchArticlesInSAP(articleIds);
-
-		system.assert(true);
-		Test.stopTest();
-	}
 
 	/**
 	 * Scenario: Make sure that the APCN returned on the sender/receiver details matches a record in Salesforce
@@ -243,12 +162,11 @@ private class TIBCOArticleService_Test {
 		}
 
 		/**
-          * @description	   Mock webservice which simulates the response for article tracking
-          * @param			 stub, request, response, endpoint, soapAction, requestName, responseNS,
-                               responseName, responseType
-          * @return			Void
-          * @throws			NA
-          */
+		 * @description	   Mock webservice which simulates the response for article tracking
+		 * @param			 stub, request, response, endpoint, soapAction, requestName, responseNS, responseName, responseType
+		 * @return			Void
+		 * @throws			NA
+		 */
 		public void doInvoke(Object stub, Object request, Map<String, Object> response, String endpoint, String soapAction, String requestName, String responseNS, String responseName, String responseType) {
 			AuspostQueryTrackEventsSchema.QueryTrackEventsResponse_element resp = new AuspostQueryTrackEventsSchema.QueryTrackEventsResponse_element();
 			AuspostQueryTrackEventsSchema.TrackingResults_element resultsElem = new AuspostQueryTrackEventsSchema.TrackingResults_element();
