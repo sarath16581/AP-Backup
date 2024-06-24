@@ -15,7 +15,6 @@
 	<apex:attribute name="consignedCount" type="Integer" description="Amount of articles that had been consigned for delivery" />
 	<apex:attribute name="deliveredCount" type="Integer" description="Amount of articles that has been delivered according to latest article/consignment search" />
 	<apex:attribute name="isStarTrackProduct" type="Boolean" description="Flag to indicate if the product belong to StarTrack when it's true, else it's AusPost product" />
-	<apex:attribute name="articlesCount" type="Integer" description="Indicate the articles count in the delivery event" />
 
 	<apex:form style="font-family: Arial Unicode MS;">
 		<apex:pageBlock >
@@ -162,19 +161,12 @@
 				<br/>
 			</div>
 
-			<!-- NOTE: Add 2 new line-breaks to assist with the page-break in parent VF Page(MyCustomerDeliveryProofPdfWrapper) -->
-			<!-- NOTE: currently, 13 articles are found to be the limit for all content to fit in one page, any more article will overflow the content to next page -->
-			<apex:outputText rendered="{!articlesCount > 13 }">
-				<br/><br/>
-			</apex:outputText>
-
 			<!-- START Disclaimer -->
-			<div>
-				<p style="font-size:0.8em;">{!$Label.Disclaimer_POD}</p>
+			<div style="margin-top:10px">
+				<p style="font-size:0.8em; margin:0">{!$Label.Disclaimer_POD}</p>
 			</div>
 			<!--END Disclaimer -->
 			<!-- END SECTION AND TABLES -->
-
 		</apex:pageBlock>
 	</apex:form>
 

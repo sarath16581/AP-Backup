@@ -104,7 +104,7 @@ public with sharing class MyCustomerDeliveryProofPdfController {
 	}
 
 	/**
-	 * @description	Determine the total articles count and compile the article tracking number into a list, and udpatethe delivery results to be used by VF PDF Page
+	 * @description	Determine the total articles and compile the article tracking number into a list, and update the delivery results to be used by VF PDF Page
 	 * @param podAttributes List<DeliveryProofAttributes>
 	 * @return List<DeliveryProofAttributes>
 	 */
@@ -123,7 +123,6 @@ public with sharing class MyCustomerDeliveryProofPdfController {
 		// prepare article lists and article count attribute for the VF PDF Page display
 		for (DeliveryProofAttributes pod : podAttributes) {
 			pod.articlesInDeliveryEvent = String.join(deliveryKeyToArticles.get(pod.deliveryKey), ', ');
-			pod.articlesCountInDeliveryEvent = deliveryKeyToArticles.get(pod.deliveryKey).size();
 		}
 		return podAttributes;
 	}
@@ -367,7 +366,6 @@ public with sharing class MyCustomerDeliveryProofPdfController {
 		public Integer delivered { get; set; }
 		public Boolean isStarTrackProduct { get; set; }
 		public String articlesInDeliveryEvent { get; set; }
-		public Integer articlesCountInDeliveryEvent { get; set; }
 		public Id safeDropAttachmentId { get; set; }
 		public Id signatureAttachmentId { get; set; }
 		public String deliveryKey;
