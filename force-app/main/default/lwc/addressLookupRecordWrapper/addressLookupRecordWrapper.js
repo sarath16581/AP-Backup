@@ -3,9 +3,9 @@
   * @date 29/01/2020
   * @description Address Lookup wrapper for exposure on Lightning Pages
 --------------------------------------- History --------------------------------------------------
-2020-01-20    alex.volkov@auspost.com.au    Initial creation
-2021-07-26    naveen.rajanna@auspost.com.au   REQ2573263  Update the country code as AU only for leads
-2022-02-21    naveen.rajanna@auspost.com.au   REQ2755163  Minor label change and API version change
+2020-01-20	alex.volkov@auspost.com.au	Initial creation
+2021-07-26	naveen.rajanna@auspost.com.au   REQ2573263  Update the country code as AU only for leads
+2022-02-21	naveen.rajanna@auspost.com.au   REQ2755163  Minor label change and API version change
 2024-06-24 - Ranjeewa Silva - Reload component after successful record update if not navigating away (or page refresh).
 **/
 
@@ -223,46 +223,46 @@ export default class AddressLookupRecordWrapper extends NavigationMixin(Lightnin
 	 */
 	async loadConfig() {
 
-	    try {
-	        this.showSpinner = true;
-	        // get settings for record id
-            const result = await getSettings({pRecordId: this.recordId});
-            this.objectAPIName = result.objectApiName;
+		try {
+			this.showSpinner = true;
+			// get settings for record id
+			const result = await getSettings({pRecordId: this.recordId});
+			this.objectAPIName = result.objectApiName;
 
-            if (!result.settings) {
-                this.dispatchEvent(new ShowToastEvent({
-                    title: 'Error on Address component load',
-                    message: 'Address metadata configuration not found. Please contact your system administrator.',
-                    variant: 'error'
-                }));
-            } else {
-                //populate configuration
-                this.settings = result.settings;
-                this.currentRecord = result.currentRecord;
-                this.params = { [this.addressType]: this.cardTitle, [this.addressType2]: this.cardTitle2, [this.addressType3]: this.cardTitle3 };
+			if (!result.settings) {
+				this.dispatchEvent(new ShowToastEvent({
+					title: 'Error on Address component load',
+					message: 'Address metadata configuration not found. Please contact your system administrator.',
+					variant: 'error'
+				}));
+			} else {
+				//populate configuration
+				this.settings = result.settings;
+				this.currentRecord = result.currentRecord;
+				this.params = { [this.addressType]: this.cardTitle, [this.addressType2]: this.cardTitle2, [this.addressType3]: this.cardTitle3 };
 
-                for (let aType in this.settings) {
-                    if (this.params.hasOwnProperty(aType)) {
-                        let add = {
-                            streetValue: '', streetValue1: '', unitValue: '', unitValue1: '', city: '',
-                            city1: '', postcode: '', postcode1: '', state: '', state1: '', addressType: aType, cTitle: this.params[aType]
-                        }
-                        if (this.currentRecord[[this.settings[aType].Street]]) {
-                            add.currentAddress = this.currentRecord[[this.settings[aType].Street]] + ' ' + result.currentRecord[[this.settings[aType].City]] + ' ' + result.currentRecord[[this.settings[aType].State]] + ' ' + result.currentRecord[[this.settings[aType].PostCode]];
-                        }
-                        this.addressData = [...this.addressData, add];
-                    }
-                }
-            }
+				for (let aType in this.settings) {
+					if (this.params.hasOwnProperty(aType)) {
+						let add = {
+							streetValue: '', streetValue1: '', unitValue: '', unitValue1: '', city: '',
+							city1: '', postcode: '', postcode1: '', state: '', state1: '', addressType: aType, cTitle: this.params[aType]
+						}
+						if (this.currentRecord[[this.settings[aType].Street]]) {
+							add.currentAddress = this.currentRecord[[this.settings[aType].Street]] + ' ' + result.currentRecord[[this.settings[aType].City]] + ' ' + result.currentRecord[[this.settings[aType].State]] + ' ' + result.currentRecord[[this.settings[aType].PostCode]];
+						}
+						this.addressData = [...this.addressData, add];
+					}
+				}
+			}
 
-        } catch (error) {
-            this.dispatchEvent(new ShowToastEvent({
-                title: 'Error on Address component load',
-                message: 'Address metadata configuration appears incorrect. Please contact your system administrator.' + error,
-                variant: 'error',
-            }));
-        } finally {
-            this.showSpinner = false;
-        }
-    }
+		} catch (error) {
+			this.dispatchEvent(new ShowToastEvent({
+				title: 'Error on Address component load',
+				message: 'Address metadata configuration appears incorrect. Please contact your system administrator.' + error,
+				variant: 'error',
+			}));
+		} finally {
+			this.showSpinner = false;
+		}
+	}
 }
