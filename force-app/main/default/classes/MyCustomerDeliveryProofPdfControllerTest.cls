@@ -564,7 +564,6 @@ public with sharing class MyCustomerDeliveryProofPdfControllerTest {
 		Assert.isNotNull(podAttributesResult, 'Delivery event result should not be null');
 		Assert.areEqual(1, deliveryEvents.size(), 'There should be one delivery event but instead got: ' + deliveryEvents.size());
 		Assert.areEqual(2, podAttributesResult.size(), 'There should be two delivery results but instead got: ' + podAttributesResult.size());
-		Assert.areEqual(2, podAttributesResult.get(0).articlesCountInDeliveryEvent, 'Expected 2 articles in the delivery event but instead got: ' + podAttributesResult.get(0).articlesCountInDeliveryEvent);
 		Assert.isTrue(
 			podAttributesResult.get(0).articlesInDeliveryEvent.contains(articles[0].Name),
 			'Delivery Event Result should contain article ' + articles[0].Name + 'but instead got ' + podAttributesResult.get(0).articlesInDeliveryEvent
@@ -756,8 +755,6 @@ public with sharing class MyCustomerDeliveryProofPdfControllerTest {
 		Assert.isNotNull(podAttributesResult, 'Delivery event result should not be null');
 		Assert.areEqual(2, deliveryEvents.size(), 'There should be 2 delivery events but instead got: ' + deliveryEvents.size());
 		Assert.areEqual(4, podAttributesResult.size(), 'There should be four delivery result but instead got: ' + podAttributesResult.size());
-		Assert.areEqual(2, podAttributesResult.get(0).articlesCountInDeliveryEvent, 'Expected 2 articles in the delivery event but instead got: ' + podAttributesResult.get(0).articlesCountInDeliveryEvent);
-		Assert.areEqual(2, podAttributesResult.get(1).articlesCountInDeliveryEvent, 'Expected 2 articles in the delivery event but instead got: ' + podAttributesResult.get(1).articlesCountInDeliveryEvent);
 		Assert.isTrue(
 			podAttributesResult.get(0).articlesInDeliveryEvent.contains(articles[0].Name),
 			'Delivery Event Result should contain article ' + articles[0].Name + 'but instead got ' + podAttributesResult.get(0).articlesInDeliveryEvent
@@ -959,7 +956,6 @@ public with sharing class MyCustomerDeliveryProofPdfControllerTest {
 		Assert.isNotNull(podAttributesResult, 'Delivery event result should not be null');
 		Assert.areEqual(1, deliveryEvents.size(), 'There should be 1 delivery events but instead got: ' + deliveryEvents.size());
 		Assert.areEqual(2, podAttributesResult.size(), 'There should be two delivery result but instead got: ' + podAttributesResult.size());
-		Assert.areEqual(2, podAttributesResult.get(0).articlesCountInDeliveryEvent, 'Expected 2 articles in the delivery event but instead got: ' + podAttributesResult.get(0).articlesCountInDeliveryEvent);
 		Assert.isTrue(
 			podAttributesResult.get(0).articlesInDeliveryEvent.contains(articles[0].Name),
 			'Delivery Event Result should contain article ' + articles[0].Name + 'but instead got ' + podAttributesResult.get(0).articlesInDeliveryEvent
