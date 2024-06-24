@@ -60,6 +60,11 @@ private class HappyParcelController_Test {
 
 		// set up our responses
 		MockUtility.Mocks.startStubbing();
+		EnquiryMappingsSelector enquirySelector = (EnquiryMappingsSelector)MockUtility.mockSelector(EnquiryMappingsSelector.class);
+		// Database
+		MockUtility.Mocks.when(enquirySelector.selectBySAPKeyAndMappingModel((Set<String>)fflib_Match.eq(new Set<String>{ 'eParceleParcel Standard' }), (Set<String>)fflib_Match.eq(new Set<String>{ 'Classic' })))
+		.thenReturn(new List<MiniCaseFieldMapping__c>{mappings[0]});
+
 		MockUtility.Mocks.when(mockArticleService.searchByArticleIdsInSAP((List<String>) fflib_Match.eqList(trackingIds))).thenAnswer(mockSearchResult);
 		MockUtility.Mocks.when(mockArticleService.processTIBCOSearchResults(
 				(List<String>) fflib_Match.eqList(trackingIds),
