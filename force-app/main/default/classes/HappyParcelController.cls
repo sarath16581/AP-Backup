@@ -21,6 +21,7 @@
  * 2024-05-21 - Seth Heang - Added methods to allow forceConsignment Search if applicable while quering SAP-EM article details
  * 2024-06-06 - Raghav Ravipati - Added methods to get critical incident knowledge articles based on network org Id
  * 2024-06-17 - Raghav Ravipati - Added changes related to Enquiry Mapping to filter using MappingModule field
+ * 2024-06-24 - Seth Heang - updated queryTrackingApi method to reduce redundent SAP callout for a scenario where the article searched has no parent consignment
  */
 public with sharing class HappyParcelController {
 	/**
