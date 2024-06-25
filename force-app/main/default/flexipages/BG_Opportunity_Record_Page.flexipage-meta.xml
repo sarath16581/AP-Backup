@@ -1379,7 +1379,7 @@
                 <componentName>flexipage:richText</componentName>
                 <identifier>flexipage_richText</identifier>
                 <visibilityRule>
-                    <booleanFilter>1 OR 2 OR 3 OR 4</booleanFilter>
+                    <booleanFilter>(1 OR 2) AND 3</booleanFilter>
                     <criteria>
                         <leftValue>{!Record.StageName}</leftValue>
                         <operator>EQUAL</operator>
@@ -1389,11 +1389,6 @@
                         <leftValue>{!Record.StageName}</leftValue>
                         <operator>EQUAL</operator>
                         <rightValue>Negotiate</rightValue>
-                    </criteria>
-                    <criteria>
-                        <leftValue>{!Record.StageName}</leftValue>
-                        <operator>EQUAL</operator>
-                        <rightValue>Identify</rightValue>
                     </criteria>
                     <criteria>
                         <leftValue>{!Record.IndirectCustomer__c}</leftValue>
