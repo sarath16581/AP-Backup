@@ -16,6 +16,8 @@
 * 2023-03-23 - StephenL - Modified this selector to include the WITH_ARTICLE option
 * 2023-05-30 - StephenL - Modified this selector to include the WITH_CONTACT option
 * 2023-05-30 - StephenL - Introduced a new selector method to select Cases based on UserId or User's Contact's APCN
+* 2024-06-25 - Mona Raghav - REQ3564142 - Method names updated from selectCasesByCreatedByUserOrAPCN to selectCasesByCreatedByUserAndCaseOrigin
+* and from getCasesByCreatedByUserOrAPCN to getCasesByCreatedByUserAndCaseOrigin. Conditions and condition order updated in getCasesByCreatedByUserAndCaseOrigin
 */
 public virtual inherited sharing class SSSWCasesSelector extends CasesSelector {
 	public enum Options {
@@ -167,8 +169,8 @@ public virtual inherited sharing class SSSWCasesSelector extends CasesSelector {
 	 *
 	 * @return ap<Id, Case>
 	 */
-	public virtual Map<Id, Case> selectCasesByCreatedByUserOrAPCN(Id runningUserId, String runningUserAPCN, Set<Object> selectorOptions) {
-		return new Map<Id, Case>((List<Case>)Database.query(getCasesByCreatedByUserOrAPCN(runningUserId, runningUserAPCN, selectorOptions).toSoqlString()));
+	public virtual Map<Id, Case> selectCasesByCreatedByUserAndCaseOrigin(Id runningUserId, String runningUserAPCN, Set<Object> selectorOptions) {
+		return new Map<Id, Case>((List<Case>)Database.query(getCasesByCreatedByUserAndCaseOrigin(runningUserId, runningUserAPCN, selectorOptions).toSoqlString()));
 	}
 
 	/**
@@ -214,15 +216,14 @@ public virtual inherited sharing class SSSWCasesSelector extends CasesSelector {
 	 *
 	 * @return QueryBuilder
 	 */
-	public virtual QueryBuilder getCasesByCreatedByUserOrAPCN (Id runningUserId, String runningUserAPCN, Set<Object> selectorOptions) {
+	public virtual QueryBuilder getCasesByCreatedByUserAndCaseOrigin (Id runningUserId, String runningUserAPCN, Set<Object> selectorOptions) {
 		QueryBuilder qb = newQueryBuilder(selectorOptions);
-		String conditionOrder = '1';
 		QueryBuilder.ConditionsManager conditions = qb.addConditions();
 		conditions.add(new QueryBuilder.CompareCondition(Case.CreatedById).eq(runningUserId));
-		if (!String.isBlank(runningUserAPCN)) {
-			conditions.add(new QueryBuilder.CompareCondition('Contact.APCN__c').eq(runningUserAPCN));
-			conditionOrder = '1 OR 2';
-		}
+		conditions.add(new QueryBuilder.CompareCondition(Case.Origin).ne(SSSWConstants.CASE_ORIGIN_DIRECT_EMAIL));
+		//Condition order 1 is for the recordType.developername condition which is in the newQueryBuilder method
+		//condition 2 - case.createdById, condition 3 - case.Origin
+		String conditionOrder = '1 AND 2 AND 3';
 		conditions.setConditionOrder(conditionOrder).endConditions();
 		qb.addOrderDesc('LastModifiedDate');
 
