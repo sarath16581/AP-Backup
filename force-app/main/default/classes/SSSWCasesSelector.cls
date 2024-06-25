@@ -16,6 +16,8 @@
 * 2023-03-23 - StephenL - Modified this selector to include the WITH_ARTICLE option
 * 2023-05-30 - StephenL - Modified this selector to include the WITH_CONTACT option
 * 2023-05-30 - StephenL - Introduced a new selector method to select Cases based on UserId or User's Contact's APCN
+* 2024-06-25 - Mona Raghav - REQ3564142 - Method names updated from selectCasesByCreatedByUserOrAPCN to selectCasesByCreatedByUserAndCaseOrigin
+* and from getCasesByCreatedByUserOrAPCN to getCasesByCreatedByUserAndCaseOrigin. Conditions and condition order updated in getCasesByCreatedByUserAndCaseOrigin
 */
 public virtual inherited sharing class SSSWCasesSelector extends CasesSelector {
 	public enum Options {

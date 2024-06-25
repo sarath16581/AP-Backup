@@ -6,6 +6,7 @@
  * 2022-06-15 - Hasantha Liyanage - DDS-10974 change of how the parseInsertedCaseResultsAndCreateComment is accessed as per the refactoring
  * 2023-06-02 - StephenL DDS-16136 added test methods for getLoggedInUserCaseList, including both the matching by user id and match apcn logic
  * 2024-03-25 - Naveen Rajanna - INC2216801 - Test coverage for updateCase method
+ * 2024-06-25 - Mona Raghav - REQ3564142 - Test coverage for getLoggedInUserCaseList method, for case origin logic
  */
 @IsTest
 public class ChasCustomCaseListAndDetailTest {

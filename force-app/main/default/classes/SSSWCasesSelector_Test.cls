@@ -12,6 +12,7 @@
  * 2020-08-24 - Disha Kariya - Updated with test for field override
  * 2022-02-10 - Alex Volkov - Added test for selectCasesEligibleForReopenByOwnerAndDate method
  * 2023-05-30 - StephenL - Added test for getCasesByCreatedByUserOrAPCN
+ * 2024-06-25 - Mona Raghav - REQ3564142 - Test coverage for selectCasesByCreatedByUserAndCaseOrigin method, for case origin logic
  */
 @IsTest
 public with sharing class SSSWCasesSelector_Test {

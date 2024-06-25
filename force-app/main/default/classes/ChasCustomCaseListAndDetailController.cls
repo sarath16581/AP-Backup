@@ -3,7 +3,8 @@
  * @changelog
  * 2024-03-25 - Naveen Rajanna - INC2216801 - Workaround to fix H&S users getting insufficient access when they close or reopen closed case. 
  * 				From debug logs, it is not evident why insufficient access is being thrown. Awaiting RCA from SF support via SF Case# 46552063.
-*/
+ * 2024-06-25 - Mona Raghav - REQ3564142 - Updated the name of the method from selectCasesByCreatedByUserOrAPCN to selectCasesByCreatedByUserAndCaseOrigin
+ */
 public with sharing class ChasCustomCaseListAndDetailController {
 
 	/**
