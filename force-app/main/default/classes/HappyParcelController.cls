@@ -84,9 +84,9 @@ public with sharing class HappyParcelController {
 				consignmentId = getConsignmentIdForForceConsignmentSearch(searchResult);
 			}
 			// Make another callout using consignment trackingId if forceConsignment is enabled and article has parent consignment
-			if(consignmentId != null){
+			if (consignmentId != null) {
 				searchResult = articleService.search(new List<String>{ consignmentId }, true, false, false, false, true);
-			}else{
+			} else {
 				// process SAP response and passed in the response from initial callout
 				searchResult = articleService.processTIBCOSearchResults(searchResult, new List<String>{ trackingId }, false, true);
 			}

@@ -564,7 +564,7 @@ public class TIBCOArticleService {
 	/**
 	 * Grab a list of all the transients which we mapped but did not persist in Salesforce.
 	 * TODO: This is a workaround since the current sarch method resets the TIBCOSearchResult result variable when it requeries the data in Salesforce after it's been populated from SAP
-	 *		  The search process should be refactored to negate the need for this workaround which could marginally cause a small performance impact
+	 *		The search process should be refactored to negate the need for this workaround which could marginally cause a small performance impact
 	 */
 	private static Map<String, Map<Id, Object>> getTransientAttributesFromResult(TIBCOSearchResult result) {
 		Map<String, Map<Id, Object>> output = new Map<String, Map<Id, Object>>{ 'articleTransients' => new Map<Id, Object>(), 'eventMessageTransients' => new Map<Id, Object>() };
@@ -610,8 +610,8 @@ public class TIBCOArticleService {
 				}
 			} else if (resultWrapper.consignmentDetails != null) {
 				//NOTE: Consignment transient attributes are currently not implement
-				//		  When there is a use case, this can can be uncommented and the implementation can be finished
-				//		  An update to TIBCOConsignmentWrapper will also be required
+				//		When there is a use case, this can can be uncommented and the implementation can be finished
+				//		An update to TIBCOConsignmentWrapper will also be required
 				//	if(transients.get('articleTransients')?.get(resultWrapper.consignmentDetails.proxyConsignment.Id) != null) {
 				//		resultWrapper.consignmentDetails.transientAttributes = (TIBCOConsignmentWrapper.ConsignmentTransientAttributes)transients.get('articleTransients').get(resultWrapper.consignmentDetails.proxyConsignment.Id);
 				//	}
