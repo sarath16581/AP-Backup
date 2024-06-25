@@ -1,0 +1,10 @@
+<apex:page contentType="text/plain">
+#
+# robots.txt for Merchant Portal
+#
+User-agent: * # applies to all robots
+Disallow: */secur/forgotpassword.jsp?*
+Disallow: */s/registration-successful # hides registraion successful page
+Allow: /      # allow all
+Sitemap: http://merchant-portal.auspost.com.au/s/sitemap.xml
+</apex:page>
