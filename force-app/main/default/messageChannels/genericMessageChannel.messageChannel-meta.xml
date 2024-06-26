@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningMessageChannel xmlns="http://soap.sforce.com/2006/04/metadata">
+	<description>General purpose message channel that can be used to send different types of messages with variable payloads</description>
+	<isExposed>true</isExposed>
+	<lightningMessageFields>
+		<description>The source of the message (normally the name of the component that the message originated from)</description>
+		<fieldName>source</fieldName>
+	</lightningMessageFields>
+	<lightningMessageFields>
+		<description>The type of message sent. Used by subscribers to selectively process messages relevant to them.</description>
+		<fieldName>type</fieldName>
+	</lightningMessageFields>
+	<lightningMessageFields>
+		<description>The content of the message. Could be a primitive or JSON object.</description>
+		<fieldName>body</fieldName>
+	</lightningMessageFields>
+	<masterLabel>Generic Message Channel</masterLabel>
+</LightningMessageChannel>
