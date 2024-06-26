@@ -3,11 +3,15 @@
 	<description>General purpose message channel that can be used to send different types of messages with variable payloads</description>
 	<isExposed>true</isExposed>
 	<lightningMessageFields>
-		<description>The type of message sent. Can be used by subscribers to filter out irrelevant messages.</description>
+		<description>The source of the message (normally the name of the component that the message originated from)</description>
+		<fieldName>source</fieldName>
+	</lightningMessageFields>
+	<lightningMessageFields>
+		<description>The type of message sent. Used by subscribers to selectively process messages relevant to them.</description>
 		<fieldName>type</fieldName>
 	</lightningMessageFields>
 	<lightningMessageFields>
-		<description>The content of the message.</description>
+		<description>The content of the message. Could be a primitive or JSON object.</description>
 		<fieldName>body</fieldName>
 	</lightningMessageFields>
 	<masterLabel>Generic Message Channel</masterLabel>
