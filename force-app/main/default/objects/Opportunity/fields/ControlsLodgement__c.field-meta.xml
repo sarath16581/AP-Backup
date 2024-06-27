@@ -19,7 +19,7 @@
                 <label>Yes</label>
             </value>
             <value>
-                <fullName>No (unknown) - (then a DSR must be lodged for Pricing)</fullName>
+                <fullName>No</fullName>
                 <default>false</default>
                 <label>No (unknown) - (then a DSR must be lodged for Pricing)</label>
             </value>
