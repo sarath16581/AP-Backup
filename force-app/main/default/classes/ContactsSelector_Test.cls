@@ -200,7 +200,14 @@ private with sharing class ContactsSelector_Test {
 		String soql = cs.selectByCustomerSearchParamsQB(params, new Set<Object>());
 		Test.StopTest();
 
-		Assert.isTrue(Pattern.compile('(?is)ORDER BY VerifiedMobile__c ASC NULLS LAST, Name ASC NULLS LAST').matcher(soql).find(), 'Query did not include correct ORDER BY statement');
+		List<String> orderBy = new List<String>{
+			'VerifiedEmail__c ASC NULLS LAST',
+			'VerifiedMobile__c ASC NULLS LAST',
+			'Name ASC NULLS LAST',
+			'Email ASC NULLS LAST',
+			'MobilePhone ASC NULLS LAST'
+		};
+		Assert.isTrue(Pattern.compile('(?is)ORDER BY ' + String.join(orderBy, ',\\s?')).matcher(soql).find(), 'Query did not include correct ORDER BY statement');
 		Assert.isFalse(Pattern.compile('(?is)FROM Contact\\bWHERE\\b').matcher(soql).find(), 'Query should not include any WHERE clause');
 	}
 
