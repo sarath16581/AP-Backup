@@ -425,6 +425,21 @@ Used by Integration User (Einstein Analytics)</description>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Deal_Support_Request__c.KPI_SLA__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Deal_Support_Request__c.Status_Closed_Date_Time__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Deal_Support_Request__c.Submitted_Date__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Event.APT_Customer_Response__c</field>
         <readable>true</readable>
     </fieldPermissions>

@@ -12,15 +12,20 @@
 </style>
 <script type="text/JavaScript">
     function getReturnURL() {
+        var vall = '{!IF(ISBLANK(event.id), '', URLFOR($Action.Event.View, event.id))}';
+        console.log(vall);
         return '{!IF(ISBLANK(event.id), '', URLFOR($Action.Event.View, event.id))}';
     }
-    function MM_openGreen(theURL) { 
+    function MM_openGreen(theURL) {
+        console.log(1);
        window.open('https://www.saleswebserver.net/sfdc/MillerHeiman6/showgreensheet.asp?ID={!Event.Id}&SessionID={!$Api.Session_ID}&EndPoint=https://auspost.my.salesforce.com/services/Soap/u/24.0/&ReturnURL=' + getReturnURL(),'newgreen','toolbar=0,scrollbars=1,location=0,statusbar=0,menubar=0,resizable=1,width=1000,height=600'); 
     }
-    function MM_openSupport(theURL) { 
+    function MM_openSupport(theURL) {
+        console.log(2);
         window.open('http://www.whitesugar.co.uk/MillerHeiman/website/mhsupportrequest','newsupport','toolbar=0,scrollbars=1,location=0,statusbar=0,menubar=0,resizable=1,width=300,height=300');
     }
     function MM_refreshParent(evt) {
+        console.log(3);
         if(evt.data == 'MM_refreshPage')
         {
             refreshParentPage();

@@ -78,53 +78,6 @@
         </values>
     </picklistValues>
     <picklistValues>
-        <picklist>Area_to_Benefit__c</picklist>
-        <values>
-            <fullName>Contracts</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Finance</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Implementation</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Optimisation</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Other</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Product</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Reporting</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Sales</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Service</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Systems</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Transport</fullName>
-            <default>false</default>
-        </values>
-    </picklistValues>
-    <picklistValues>
         <picklist>ArticleType__c</picklist>
         <values>
             <fullName>Letter</fullName>
