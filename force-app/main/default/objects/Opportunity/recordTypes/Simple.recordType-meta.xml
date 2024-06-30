@@ -263,7 +263,7 @@
     <picklistValues>
         <picklist>ControlsLodgement__c</picklist>
         <values>
-            <fullName>No %28unknown%29 - %28then a DSR must be lodged for Pricing%29</fullName>
+            <fullName>No</fullName>
             <default>false</default>
         </values>
         <values>
@@ -505,7 +505,7 @@
     <picklistValues>
         <picklist>FreightOwnership__c</picklist>
         <values>
-            <fullName>No %28unknown%29 - %28then a DSR must be lodged for Pricing%29</fullName>
+            <fullName>No</fullName>
             <default>false</default>
         </values>
         <values>

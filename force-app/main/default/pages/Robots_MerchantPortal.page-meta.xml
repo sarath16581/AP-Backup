@@ -3,5 +3,6 @@
     <apiVersion>61.0</apiVersion>
     <availableInTouch>false</availableInTouch>
     <confirmationTokenRequired>false</confirmationTokenRequired>
+    <description>robots.txt for Merchant Portal</description>
     <label>Robots_MerchantPortal</label>
 </ApexPage>
