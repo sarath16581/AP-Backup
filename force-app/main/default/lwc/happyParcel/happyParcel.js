@@ -15,7 +15,7 @@
  * 2024-05-21 - Seth Heang - Added logic to allow force consignment search in existing SAP-EM integration when doing an article level
  * 2024-06-11 - Raghav Ravipati - Added logic to add critical incidents to articles in the tracking response
  * 2024-06-14 - Seth Heang - Added logic to allow the Proof of delivery PDF download on the Consignment Detail child component
- * 2024-06-18 - Seth Heang - Added EDD data mapping from StarTrack .NET query
+ * 2024-06-18 - Seth Heang - Added EDD data mapping from StarTrack .NET query including SourceSystem and isDotNet Attribute
  */
 import { LightningElement, track, api } from "lwc";
 import { getAnalyticsApiResponse, getTrackingApiResponse, getTrackingApiResponseForStarTrack, getCriticalIncidentDetails, getConfig, safeTrim, safeToUpper, subscribe, unsubscribe, downloadPODPDF, CONSTANTS } from 'c/happyParcelService'
@@ -409,8 +409,11 @@ export default class HappyParcelWrapper extends NavigationMixin(LightningElement
 		result.additionalAttributes = this.consignment?.trackingResult?.additionalAttributes ?? result.additionalAttributes;
 		// populate EDD for StarTrack including a flag to pass down to child component(happyParcelEdd)
 		this.articles?.forEach(item => {
-			item.trackingResult.article.ExpectedDeliveryDate__c = result.article?.ExpectedDeliveryDate__c ?? item.trackingResult.article.ExpectedDeliveryDate__c;
-			item.trackingResult.isDotNetEdd = true;
+			// only set isDotNetEdd to TRUE if both EDD and SourceSystem data from .NET are not null
+			const dotNetEddExists = !!(result.article?.ExpectedDeliveryDate__c && result.article?.Source_System__c);
+			item.trackingResult.isDotNetEdd = dotNetEddExists;
+			item.trackingResult.article.ExpectedDeliveryDate__c = dotNetEddExists ? result.article?.ExpectedDeliveryDate__c : item.trackingResult.article.ExpectedDeliveryDate__c;
+			item.trackingResult.article.Source_System__c = dotNetEddExists ? result.article?.Source_System__c : item.trackingResult.article.Source_System__c;
 		});
 		// update display attributes from StarTrack response
 		this.consignment.trackingResult = result;

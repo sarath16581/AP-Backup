@@ -10,6 +10,7 @@
  * @domain Core
  * @changelog
  * 2024-05-17 - Seth Heang - Added continuation methods for async callout to .NET API for retrieving StarTrack consignment/article details
+ * 2024-06-26 - Seth Heang - Added additional mapping for .NET Callout including EDD and SourceSystem to response payload
  **/
 public with sharing class HappyParcelService {
 	/**
@@ -419,6 +420,7 @@ public with sharing class HappyParcelService {
 		trackingResult.article.DeliveryInstructions__c = consignmentST?.DeliveryInstructions__c;
 		trackingResult.article.ConsignmentParcelCount__c = consignmentST?.ConsignmentParcelCount__c;
 		trackingResult.article.ExpectedDeliveryDate__c = consignmentST?.ExpectedDeliveryDate__c;
+		trackingResult.article.Source_System__c = consignmentST?.Source_System__c;
 		return trackingResult;
 	}
 
@@ -434,11 +436,13 @@ public with sharing class HappyParcelService {
 		try {
 			if (emsResponse.Header.NbrOfRows == 1 || emsResponse.Consignment != null) {
 				thisConsignment = new Article__c();
-				List<String> references = new List<String>{ emsResponse.Consignment.FurtherReference1, emsResponse.Consignment.FurtherReference2 };
-				thisConsignment.FurtherReferences__c = String.join(references, ', ');
+				Set<String> references = new Set<String>{ emsResponse.Consignment.FurtherReference1, emsResponse.Consignment.FurtherReference2 };
+				references.remove(null);
+				thisConsignment.FurtherReferences__c = !references.isEmpty() ? String.join(references, ', ') : null;
 				thisConsignment.DeliveryInstructions__c = thisConsignment.DeliveryInstructions__c == null ? emsResponse.Consignment.DeliveryInstructions : thisConsignment.DeliveryInstructions__c;
 				thisConsignment.ConsignmentParcelCount__c = thisConsignment.ConsignmentParcelCount__c == null ? emsResponse.Consignment.ConsignmentParcelCount : thisConsignment.ConsignmentParcelCount__c;
 				thisConsignment.ExpectedDeliveryDate__c = emsResponse?.Consignment?.ExpectedDeliveryDate != null ? emsResponse.Consignment.ExpectedDeliveryDate : thisConsignment.ExpectedDeliveryDate__c;
+				thisConsignment.Source_System__c = emsResponse?.Consignment?.SourceSystem != null ? emsResponse.Consignment.SourceSystem : thisConsignment.Source_System__c;
 				thisConsignment.Id = consignmentSFId;
 				ApplicationDatabase.getInstance().dmlUpdate(new List<SObject>{ thisConsignment });
 				return new StarTrackConsignmentSearchUtil.ConsignmentWrapper(true, null, new List<Article__c>{ thisConsignment });
