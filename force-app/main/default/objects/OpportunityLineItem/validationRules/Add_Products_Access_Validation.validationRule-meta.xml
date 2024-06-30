@@ -9,6 +9,13 @@
 		$Profile.Name = &apos;Sales Admin&apos;,
 		$Profile.Name = &apos;Enterprise Onboarding&apos;,
 		$Profile.Name = &apos;System Administrator&apos;,
+		$Profile.Name = &apos;PartnerInfo Agreement Admin&apos;,
+		$Profile.Name = &apos;PartnerInfo Read Only&apos;,
+		$Profile.Name = &apos;Sales Operations&apos;,
+		$Profile.Name = &apos;Sales Operations Super User&apos;,
+		$Profile.Name = &apos;Sales Read Only&apos;,
+                $Profile.Name = &apos;SecurePay SuperUser&apos;,
+                $Profile.Name = &apos;SecurePay Online Payments Service Profile&apos;,
 		AND(
 			OR(ISPICKVAL(Opportunity.Opportunity_SubType__c,&quot;Re-Contract&quot;), ISPICKVAL(Opportunity.Opportunity_SubType__c,&quot;DoV Increase&quot;)),
 			$Profile.Name = &apos;BG Base&apos;,

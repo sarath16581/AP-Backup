@@ -926,32 +926,32 @@
             <value>
                 <fullName>new links</fullName>
                 <default>false</default>
-                <label>new links</label>
+                <label>New Links</label>
             </value>
             <value>
                 <fullName>queries</fullName>
                 <default>false</default>
-                <label>queries</label>
+                <label>Queries</label>
             </value>
             <value>
                 <fullName>queries - IT Ticket</fullName>
                 <default>false</default>
-                <label>queries - IT Ticket</label>
+                <label>Queries - IT Ticket</label>
             </value>
             <value>
                 <fullName>training</fullName>
                 <default>false</default>
-                <label>training</label>
+                <label>Training</label>
             </value>
             <value>
                 <fullName>access requests</fullName>
                 <default>false</default>
-                <label>access requests</label>
+                <label>Access Requests</label>
             </value>
             <value>
                 <fullName>duplicate records/multiple CPs</fullName>
                 <default>false</default>
-                <label>duplicate records/multiple CPs</label>
+                <label>Duplicate Records/Multiple CPs</label>
             </value>
             <value>
                 <fullName>Appeals</fullName>
@@ -961,7 +961,7 @@
             <value>
                 <fullName>cessation notice</fullName>
                 <default>false</default>
-                <label>cessation notice</label>
+                <label>Cessation Notice</label>
             </value>
             <value>
                 <fullName>ARC</fullName>
