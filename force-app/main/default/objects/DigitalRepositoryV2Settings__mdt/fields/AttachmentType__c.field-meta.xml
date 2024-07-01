@@ -4,9 +4,11 @@
     <description>Attachment type of event message attachment.</description>
     <externalId>false</externalId>
     <fieldManageability>DeveloperControlled</fieldManageability>
+    <inlineHelpText>Enter attachment type, for example: ARTICLE_IMAGE_BL</inlineHelpText>
     <label>Attachment Type</label>
     <length>255</length>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <type>Text</type>
     <unique>false</unique>
 </CustomField>

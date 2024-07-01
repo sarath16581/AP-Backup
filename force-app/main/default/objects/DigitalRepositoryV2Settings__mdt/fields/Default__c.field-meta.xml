@@ -7,5 +7,6 @@
     <fieldManageability>DeveloperControlled</fieldManageability>
     <inlineHelpText>Only one default record is expected. Please check if there are any existing default records before checking.</inlineHelpText>
     <label>Default</label>
+    <securityClassification>INTERNAL</securityClassification>
     <type>Checkbox</type>
 </CustomField>

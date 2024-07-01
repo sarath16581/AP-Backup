@@ -5,6 +5,8 @@
     <description>Flag to indicate whether to obscure faces and any text detected for privacy reasons.</description>
     <externalId>false</externalId>
     <fieldManageability>DeveloperControlled</fieldManageability>
+    <inlineHelpText>Mark to true if we have to blur the images.</inlineHelpText>
     <label>Blur Image</label>
+    <securityClassification>INTERNAL</securityClassification>
     <type>Checkbox</type>
 </CustomField>

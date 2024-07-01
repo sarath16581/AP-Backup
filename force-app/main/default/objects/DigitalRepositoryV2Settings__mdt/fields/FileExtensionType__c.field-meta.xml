@@ -8,6 +8,7 @@
     <label>File Extension Type</label>
     <length>10</length>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <type>Text</type>
     <unique>false</unique>
 </CustomField>
