@@ -4,6 +4,7 @@
  * @date 2021-05-07
  * @changelog
  * 2021-05-07 - Ranjeewa Silva - Created
+ * 2024-06-25 - Raghav Ravipati - changes to retrieveAttachmentImage method which uses Deliveryrepository V2 API
  */
 
 import { api, LightningElement } from 'lwc';
@@ -62,14 +63,17 @@ export default class HappyParcelEventMessageAttachment extends LightningElement 
         this.loadingAttachmentImage = true;
 
         // perform the callout to the api and grab the split details from the result
-        const result = await getSafeDropImage(this.guid);
+        const result = await getSafeDropImage(this.guid, this.attachmentType);
 
         if(result.isError) {
-            this.attachmentErrorMessage = result.errorMessage;
+            this.attachmentErrorMessage = result.errors[0];
             this.base64AttachmentImage = null;
         } else {
             this.attachmentErrorMessage = '';
-            this.base64AttachmentImage = 'data:image/jpeg;base64,' + result.imageBody;
+			this.base64AttachmentImage;
+			if( result.document && result.document.object_details){
+				this.base64AttachmentImage = 'data:image/jpeg;base64,'+ result.document.object_details.object_content;
+			}
         }
 
         this.loadingAttachmentImage = false;
