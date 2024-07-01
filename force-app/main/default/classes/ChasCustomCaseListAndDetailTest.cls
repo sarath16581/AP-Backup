@@ -7,6 +7,7 @@
  * 2023-06-02 - StephenL DDS-16136 added test methods for getLoggedInUserCaseList, including both the matching by user id and match apcn logic
  * 2024-03-25 - Naveen Rajanna - INC2216801 - Test coverage for updateCase method
  * 2024-06-25 - Mona Raghav - REQ3564142 - Test coverage for getLoggedInUserCaseList method, for case origin logic
+ * 2024-06-28 - Mona Raghav - Test coverage for getLoggedInUserCaseList method, for APCN logic
  */
 @IsTest
 public class ChasCustomCaseListAndDetailTest {
@@ -217,23 +218,33 @@ public class ChasCustomCaseListAndDetailTest {
 	* */
 	@IsTest
 	public static void getCurrentUserCasesByCaseOriginExceptDirectEmail() {
+		final String testAPCN = '1234';
 		List<Account> accounts = ApplicationTestDataFactory.getAccounts(1, false);
 		insert accounts;
 		List<Contact> contacts = ApplicationTestDataFactory.getContacts(1, accounts[0].Id, false);
+		contacts.get(0).APCN__c = testAPCN;
 		insert contacts;
 
 		Case selectedCase = [SELECT Id, ContactId FROM Case WHERE Subject = 'subject1' LIMIT 1];
 		selectedCase.ContactId = contacts.get(0).Id;
 		update selectedCase;
-
-		Boolean hasException = false;
-		try {
-			List<Case> cases = ChasCustomCaseListAndDetailController.getLoggedInUserCaseList();
-			System.assertEquals(1, cases.size(), 'There should be one case selected as case origin is not Direct Email');
-		} catch (Exception ex) {
-			hasException = true;
+		Test.startTest();
+		User portalUserRecord = TestUtility.createPortalUser('Testing0', APCommunityUserUtility_Test.ddcConsumerCommunityProfileId, contacts.get(0).Id) ;
+		insert portalUserRecord;
+		portalUserRecord = [SELECT Id,Contact.APCN__c FROM User WHERE Id = :portalUserRecord.Id];
+		System.runAs(portalUserRecord) {
+			Boolean hasException = false;
+			try {
+				List<Case> cases = ChasCustomCaseListAndDetailController.getLoggedInUserCaseList();
+				System.assertEquals(1, cases.size(), 'There should be one case selected as case origin is not Direct Email and matching APCN');
+				System.assertEquals(testAPCN, cases.get(0).Contact.APCN__c, 'The case should have the test APCN attached');
+				System.assertEquals(testAPCN, portalUserRecord.Contact.APCN__c, 'The portalUserRecord should have the test APCN attached');
+				System.assertNotEquals(portalUserRecord.Id, cases.get(0).CreatedById, 'The case was not created by the portalUserRecord, should not have matching user id');
+			} catch (Exception ex) {
+				hasException = true;
+			}
+			System.assert(!hasException);
 		}
-		System.assert(!hasException);
 	}
 
 	/**
