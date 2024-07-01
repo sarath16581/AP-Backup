@@ -21,6 +21,7 @@
  * 2024-05-21 - Seth Heang - Added methods to allow forceConsignment Search if applicable while quering SAP-EM article details
  * 2024-06-06 - Raghav Ravipati - Added methods to get critical incident knowledge articles based on network org Id
  * 2024-06-17 - Raghav Ravipati - Added changes related to Enquiry Mapping to filter using MappingModule field
+ * 2024-06-24 - Seth Heang - updated queryTrackingApi method to reduce redundent SAP callout for a scenario where the article searched has no parent consignment
  */
 public with sharing class HappyParcelController {
 	/**
@@ -75,14 +76,20 @@ public with sharing class HappyParcelController {
 		try {
 			TIBCOArticleService articleService = TIBCOArticleService.getInstance();
 			TIBCOSearchResult searchResult;
-			String finalTrackingId = trackingId;
+			String consignmentId;
 
+			// initial SAP callout
+			searchResult = articleService.searchByArticleIdsInSAP(new List<String>{ trackingId });
 			if (forceConsignmentSearch == true) {
-				searchResult = TIBCOArticleService.searchArticlesInSAP(new List<String>{ trackingId });
-				String consignmentId = getConsignmentIdForForceConsignmentSearch(searchResult);
-				finalTrackingId = consignmentId != null ? consignmentId : finalTrackingId;
+				consignmentId = getConsignmentIdForForceConsignmentSearch(searchResult);
 			}
-			searchResult = articleService.search(new List<String>{ finalTrackingId }, true, false, false, false, true);
+			// Make another callout using consignment trackingId if forceConsignment is enabled and article has parent consignment
+			if (consignmentId != null) {
+				searchResult = articleService.search(new List<String>{ consignmentId }, true, false, false, false, true);
+			} else {
+				// process SAP response and passed in the response from initial callout
+				searchResult = articleService.processTIBCOSearchResults(searchResult, new List<String>{ trackingId }, false, true);
+			}
 
 			//NOTE: TrackingResult class simply provides some structure around the returned object (including case consistency)
 			//Also retrieves EAT details from transient attributes
