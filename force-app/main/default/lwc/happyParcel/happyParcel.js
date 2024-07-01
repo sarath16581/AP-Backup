@@ -369,6 +369,7 @@ export default class HappyParcelWrapper extends NavigationMixin(LightningElement
 		// trigger an async callout for StarTrack consignemnt
 		this.requireAdditionalQueryForStarTrack = requireAdditionalQueryForStarTrack;
 
+		// validate 'Download POD' button display
 		this._displayPodDownloadButton = this.handlePODDownloadButtonDisplay();
 	}
 
@@ -416,6 +417,8 @@ export default class HappyParcelWrapper extends NavigationMixin(LightningElement
 		this.consignment.trackingResult = result;
 		this.retryStarTrackCallout = false;
 		this.loadingStarTrackApi = false;
+		// validate 'Download POD' button display
+		this._displayPodDownloadButton = this.handlePODDownloadButtonDisplay();
 	}
 
 	/**
