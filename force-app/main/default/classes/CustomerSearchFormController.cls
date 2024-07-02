@@ -29,8 +29,6 @@ public with sharing class CustomerSearchFormController {
 	@TestVisible
 	private static final String NOT_ENOUGH_PARAMS_ERROR_MSG = 'Please enter at least First and Last Name, or Phone, or Email.';
 	@TestVisible
-	private static final String FIRST_LAST_NAME_REQ_ERROR_MSG = 'Please enter both First and Last name (or leave both blank).';
-	@TestVisible
 	private static final String TOO_MANY_RESULTS_WARNING_MSG =
 		'Too many results. The first ' +
 		MAX_RESULTS +
@@ -101,12 +99,13 @@ public with sharing class CustomerSearchFormController {
 			throw new SearchException(NOT_ENOUGH_PARAMS_ERROR_MSG);
 		}
 
-		// If First or Last Name is provided, both must be provided
-		if (
-			(String.isNotBlank(req.firstName) && String.isBlank(req.lastName)) ||
-			(String.isBlank(req.firstName) && String.isNotBlank(req.lastName))
-		) {
-			throw new SearchException(FIRST_LAST_NAME_REQ_ERROR_MSG);
+		// Check at least First AND Last Name, or Phone, or Email is entered
+		Boolean hasFirstAndLast =
+			String.isNotBlank(req.firstName) && String.isNotBlank(req.lastName);
+		Boolean hasPhoneOrEmail =
+			String.isNotBlank(req.phoneNumber) || String.isNotBlank(req.emailAddress);
+		if (!(hasFirstAndLast || hasPhoneOrEmail)) {
+			throw new SearchException(NOT_ENOUGH_PARAMS_ERROR_MSG);
 		}
 	}
 

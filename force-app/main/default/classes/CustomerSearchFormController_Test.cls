@@ -10,7 +10,6 @@ public class CustomerSearchFormController_Test {
 	static final Integer MAX_RESULTS = CustomerSearchFormController.MAX_RESULTS;
 	static final Set<Object> CONTACT_SELECTOR_OPTIONS = CustomerSearchFormController.CONTACT_SELECTOR_OPTIONS;
 	static final Set<SObjectField> CONTACT_FIELDS = CustomerSearchFormController.CONTACT_FIELDS;
-	static final String FIRST_LAST_NAME_REQ_ERROR_MSG = CustomerSearchFormController.FIRST_LAST_NAME_REQ_ERROR_MSG;
 	static final String NOT_ENOUGH_PARAMS_ERROR_MSG = CustomerSearchFormController.NOT_ENOUGH_PARAMS_ERROR_MSG;
 	static final String TOO_MANY_RESULTS_WARNING_MSG = CustomerSearchFormController.TOO_MANY_RESULTS_WARNING_MSG;
 
@@ -89,7 +88,7 @@ public class CustomerSearchFormController_Test {
 			Assert.fail('SearchException should have been thrown');
 		} catch (CustomerSearchFormController.SearchException e) {
 			Assert.areEqual(
-				FIRST_LAST_NAME_REQ_ERROR_MSG,
+				NOT_ENOUGH_PARAMS_ERROR_MSG,
 				e.getMessage(),
 				'Incorrect exception message'
 			);
@@ -110,7 +109,7 @@ public class CustomerSearchFormController_Test {
 			Assert.fail('SearchException should have been thrown');
 		} catch (CustomerSearchFormController.SearchException e) {
 			Assert.areEqual(
-				FIRST_LAST_NAME_REQ_ERROR_MSG,
+				NOT_ENOUGH_PARAMS_ERROR_MSG,
 				e.getMessage(),
 				'Incorrect exception message'
 			);
