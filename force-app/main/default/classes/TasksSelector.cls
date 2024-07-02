@@ -13,6 +13,7 @@
  * 2022-02-02 - Nathan Franklin - Update search method and fixed injection attack vector
  * 2023-08-11 - SteveL - added selectByWhatIdAllRows
  * 2024-05-28 - Ranjeewa Silva - Fixed a bug in search method by defining bind variables for 'subjects' and 'ownerIds' search parameters
+ * 2024-05-09 - Paul Perry - add support for search on ctiInteractionIds
  */
 public virtual inherited sharing class TasksSelector extends ApplicationSelector {
 
@@ -75,6 +76,7 @@ public virtual inherited sharing class TasksSelector extends ApplicationSelector
 		Boolean isClosed = (Boolean) searchParams.get('isClosed');
 		Set<String> subjects = (Set<String>)(searchParams.get('subjects') == null ? new Set<String>() : (searchParams.get('subjects') instanceof Set<String> ? searchParams.get('subjects') : new Set<String>{String.valueOf(searchParams.get('subjects'))}));
 		Set<Id> ownerIds = (Set<Id>)(searchParams.get('ownerIds') == null ? new Set<Id>() : (searchParams.get('ownerIds') instanceof Set<Id> ? searchParams.get('ownerIds') : new Set<Id>{(Id)searchParams.get('ownerIds')}));
+		Set<String> ctiInteractionIds = new Set<String>();
 
 		// these are for backwards compatibility ONLY. This parameters should not be used anymore and are @deprecated
 		if(searchParams.get('WhatId') != null) {
@@ -107,6 +109,13 @@ public virtual inherited sharing class TasksSelector extends ApplicationSelector
 
 		if(searchParams.containsKey('ownerIds')) {
 			conditions.add(new QueryBuilder.SimpleCondition('OwnerId in :ownerIds'));
+			conditionCount++;
+		}
+
+		if(searchParams.containsKey('ctiInteractionIds')) {
+			conditions.add(new QueryBuilder.SimpleCondition('CTIInteractionID__c in :ctiInteractionIds'));
+			conditions.add(new QueryBuilder.SimpleCondition('CTIInteractionID__c != NULL'));
+			ctiInteractionIds.addAll((Set<String>)searchParams.get('ctiInteractionIds'));
 			conditionCount++;
 		}
 		
