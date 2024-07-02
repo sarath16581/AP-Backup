@@ -9,6 +9,48 @@
 	<description>For unified agents. It is a No Access profile as access shall be managed via granular permission sets and grouped in a Permission Set Group based on Personas.</description>
 	<fullName>CustomerService</fullName>
     <layoutAssignments>
+        <layout>Account-Unified Agent Organisation Layout</layout>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Account-Unified Agent Organisation Layout</layout>
+        <recordType>Account.Business_Account</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Account-Unified Agent Organisation Layout</layout>
+        <recordType>Account.Facility</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Account-Unified Agent Organisation Layout</layout>
+        <recordType>Account.Facility_CMA</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Account-Unified Agent Organisation Layout</layout>
+        <recordType>Account.Facility_CPA</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Account-Unified Agent Organisation Layout</layout>
+        <recordType>Account.Licence</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Account-Unified Agent Organisation Layout</layout>
+        <recordType>Account.Licence_CMA</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Account-Unified Agent Organisation Layout</layout>
+        <recordType>Account.Licence_CPA</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Account-Unified Agent Organisation Layout</layout>
+        <recordType>Account.Licence_PP</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Contact-Unified Agent Contact Layout</layout>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>PersonAccount-Unified Agent Consumer Layout</layout>
+        <recordType>PersonAccount.PersonAccount</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
         <layout>QuickText-Unified Service Quick Text Layout</layout>
         <recordType>QuickText.UnifiedService</recordType>
     </layoutAssignments>
