@@ -9,7 +9,7 @@ import {
 	EMAIL_ADDRESS_LABEL,
 	SEARCH_BUTTON_LABEL,
 	CLEAR_BUTTON_LABEL,
-	MORE_INFO_REQUIRED_ERROR_MESSAGE
+	MORE_INFO_REQUIRED_ERROR_MESSAGE,
 	INVALID_FORM_ERROR,
 } from 'c/customerSearchFormInputs';
 
@@ -184,34 +184,6 @@ describe('c-customer-search-form-inputs', () => {
 		expect(clearButton.label).toBe(CLEAR_BUTTON_LABEL);
 	});
 
-	it("fires the 'inputchange' event when input field changed", async () => {
-		// Arrange
-		const element = createElement('c-customer-search-form-inputs', {
-			is: CustomerSearchFormInputs,
-		});
-
-		// Act
-		document.body.appendChild(element);
-
-		// Add event handler for the `inputchange` event
-		const inputChangeEvent = jest.fn();
-		element.addEventListener('inputchange', inputChangeEvent);
-
-		// Update the first name field and fire the 'change' event
-		const firstNameInput = getInputFieldElement(element, 'firstName');
-		changeInputFieldValue(firstNameInput, 'Joan');
-
-		// Wait for any asynchronous code to complete
-		await flushAllPromises();
-
-		// Assert
-		expect(inputChangeEvent).toHaveBeenCalled();
-		expect(inputChangeEvent.mock.calls[0][0].detail.fieldName).toEqual(
-			'firstName'
-		);
-		expect(inputChangeEvent.mock.calls[0][0].detail.value).toEqual('Joan');
-	});
-
 	it('allows pre-populating input field values', () => {
 		// Arrange
 		const element = createElement('c-customer-search-form-inputs', {
@@ -277,8 +249,8 @@ describe('c-customer-search-form-inputs', () => {
 		// Act
 		document.body.appendChild(element);
 
-		const searchStartEvent = jest.fn();
-		element.addEventListener('searchstart', searchStartEvent);
+		const searchEvent = jest.fn();
+		element.addEventListener('search', searchEvent);
 
 		// Mock all lightning-input checkValidity() methods to return 'true'
 		mockCheckValidity(element, 'lightning-input', true);
@@ -294,7 +266,7 @@ describe('c-customer-search-form-inputs', () => {
 		const errorDiv = element.shadowRoot.querySelector("div[data-id='error']");
 		expect(errorDiv).not.toBeNull();
 		expect(errorDiv.textContent).toBe(MORE_INFO_REQUIRED_ERROR_MESSAGE);
-		expect(searchStartEvent).not.toHaveBeenCalled();
+		expect(searchEvent).not.toHaveBeenCalled();
 	});
 
 	it('displays error when submitted with first name, but no last name', async () => {
@@ -306,8 +278,8 @@ describe('c-customer-search-form-inputs', () => {
 		// Act
 		document.body.appendChild(element);
 
-		const searchStartEvent = jest.fn();
-		element.addEventListener('searchstart', searchStartEvent);
+		const searchEvent = jest.fn();
+		element.addEventListener('search', searchEvent);
 
 		const firstNameInput = getInputFieldElement(element, 'firstName');
 		changeInputFieldValue(firstNameInput, 'Sherlock');
@@ -328,7 +300,7 @@ describe('c-customer-search-form-inputs', () => {
 		expect(errorDiv.textContent).toBe(
 			MORE_INFO_REQUIRED_ERROR_MESSAGE
 		);
-		expect(searchStartEvent).not.toHaveBeenCalled();
+		expect(searchEvent).not.toHaveBeenCalled();
 	});
 
 	it('displays error when submitted with last name, but no first name', async () => {
@@ -340,8 +312,8 @@ describe('c-customer-search-form-inputs', () => {
 		// Act
 		document.body.appendChild(element);
 
-		const searchStartEvent = jest.fn();
-		element.addEventListener('searchstart', searchStartEvent);
+		const searchEvent = jest.fn();
+		element.addEventListener('search', searchEvent);
 
 		const lastNameInput = getInputFieldElement(element, 'lastName');
 		changeInputFieldValue(lastNameInput, 'Holmes');
@@ -362,7 +334,7 @@ describe('c-customer-search-form-inputs', () => {
 		expect(errorDiv.textContent).toBe(
 			MORE_INFO_REQUIRED_ERROR_MESSAGE
 		);
-		expect(searchStartEvent).not.toHaveBeenCalled();
+		expect(searchEvent).not.toHaveBeenCalled();
 	});
 
 	it('allows last name withtout first name if mobile is provided', async () => {
@@ -377,8 +349,8 @@ describe('c-customer-search-form-inputs', () => {
 		// Act
 		document.body.appendChild(element);
 
-		const searchStartEvent = jest.fn();
-		element.addEventListener('searchstart', searchStartEvent);
+		const searchEvent = jest.fn();
+		element.addEventListener('search', searchEvent);
 
 		const lastNameInput = getInputFieldElement(element, 'lastName');
 		changeInputFieldValue(lastNameInput, 'Holmes');
@@ -399,7 +371,7 @@ describe('c-customer-search-form-inputs', () => {
 		// Assert
 		const errorDiv = element.shadowRoot.querySelector("div[data-id='error']");
 		expect(errorDiv).toBeNull();
-		expect(searchStartEvent).toHaveBeenCalled();
+		expect(searchEvent).toHaveBeenCalled();
 	});
 
 	it('allows phone number as the only input', async () => {
@@ -414,8 +386,8 @@ describe('c-customer-search-form-inputs', () => {
 		// Act
 		document.body.appendChild(element);
 
-		const searchStartEvent = jest.fn();
-		element.addEventListener('searchstart', searchStartEvent);
+		const searchEvent = jest.fn();
+		element.addEventListener('search', searchEvent);
 
 		const phoneNumberInput = getInputFieldElement(element, 'phoneNumber');
 		changeInputFieldValue(phoneNumberInput, '0400000000');
@@ -433,7 +405,7 @@ describe('c-customer-search-form-inputs', () => {
 		// Assert
 		const errorDiv = element.shadowRoot.querySelector("div[data-id='error']");
 		expect(errorDiv).toBeNull();
-		expect(searchStartEvent).toHaveBeenCalled();
+		expect(searchEvent).toHaveBeenCalled();
 	});
 
 	it('displays spinner while searching', async () => {
@@ -476,7 +448,7 @@ describe('c-customer-search-form-inputs', () => {
 		expect(element.shadowRoot.querySelector('lightning-spinner')).toBeFalsy();
 	});
 
-	it('fires searchresult event on search callout success', async () => {
+	it('fires "result" event on search callout success', async () => {
 		// Assign mock value for resolved Apex promise
 		customerSearch.mockResolvedValue(CUSTOMER_SEARCH_RES_SUCCESS);
 
@@ -488,11 +460,11 @@ describe('c-customer-search-form-inputs', () => {
 		// Act
 		document.body.appendChild(element);
 
-		const searchStartEvent = jest.fn();
-		element.addEventListener('searchstart', searchStartEvent);
+		const searchEvent = jest.fn();
+		element.addEventListener('search', searchEvent);
 
-		const searchResultEvent = jest.fn();
-		element.addEventListener('searchresult', searchResultEvent);
+		const resultEvent = jest.fn();
+		element.addEventListener('result', resultEvent);
 
 		// Prepare valid test data
 		const emailAddressInput = getInputFieldElement(element, 'emailAddress');
@@ -509,13 +481,13 @@ describe('c-customer-search-form-inputs', () => {
 		await flushAllPromises();
 
 		// Assert
-		expect(searchStartEvent).toHaveBeenCalled();
-		expect(searchResultEvent).toHaveBeenCalledWith(
+		expect(searchEvent).toHaveBeenCalled();
+		expect(resultEvent).toHaveBeenCalledWith(
 			expect.objectContaining({ detail: CUSTOMER_SEARCH_RES_SUCCESS })
 		);
 	});
 
-	it('fires searcherror on search callout error', async () => {
+	it('fires "error" on search callout error', async () => {
 		// Assign mock value for resolved Apex promise
 		customerSearch.mockRejectedValue(CUSTOMER_SEARCH_RES_ERROR);
 
@@ -527,11 +499,11 @@ describe('c-customer-search-form-inputs', () => {
 		// Act
 		document.body.appendChild(element);
 
-		const searchStartEvent = jest.fn();
-		element.addEventListener('searchstart', searchStartEvent);
+		const searchEvent = jest.fn();
+		element.addEventListener('search', searchEvent);
 
-		const searchErrorEvent = jest.fn();
-		element.addEventListener('searcherror', searchErrorEvent);
+		const errorEvent = jest.fn();
+		element.addEventListener('error', errorEvent);
 
 		// Prepare valid test data
 		const emailAddressInput = getInputFieldElement(element, 'emailAddress');
@@ -548,8 +520,8 @@ describe('c-customer-search-form-inputs', () => {
 		await flushAllPromises();
 
 		// Assert
-		expect(searchStartEvent).toHaveBeenCalled();
-		expect(searchErrorEvent).toHaveBeenCalledWith(
+		expect(searchEvent).toHaveBeenCalled();
+		expect(errorEvent).toHaveBeenCalledWith(
 			expect.objectContaining({
 				detail: 'An internal server error has occurred',
 			})

@@ -160,9 +160,9 @@ export default class CustomerSearchFormInputs extends LightningElement {
 	/**
 	 * Submits the form and performs the search.
 	 *
-	 * @fires InputChangeEvent#searchstart
-	 * @fires InputChangeEvent#searchresult
-	 * @fires InputChangeEvent#searcherror
+	 * @fires CustomerSearchFormInputs#search
+	 * @fires CustomerSearchFormInputs#result
+	 * @fires CustomerSearchFormInputs#error
 	 */
 	async performSearch() {
 		// Validate inputs before invoking the search method
@@ -175,7 +175,7 @@ export default class CustomerSearchFormInputs extends LightningElement {
 
 		// Invoke the search method
 		this.isLoading = true;
-		this.dispatchEvent(new CustomEvent('searchstart'));
+		this.dispatchEvent(new CustomEvent('search'));
 		try {
 			const res = await customerSearch({
 				req: {
@@ -187,7 +187,7 @@ export default class CustomerSearchFormInputs extends LightningElement {
 			});
 			// Handle search results
 			this.dispatchEvent(
-				new CustomEvent('searchresult', {
+				new CustomEvent('result', {
 					detail: JSON.parse(JSON.stringify(res)),
 				})
 			);
@@ -195,7 +195,7 @@ export default class CustomerSearchFormInputs extends LightningElement {
 			// Handle search errors
 			this.errorMessage = reduceErrors(error).join(',');
 			this.dispatchEvent(
-				new CustomEvent('searcherror', { detail: this.errorMessage })
+				new CustomEvent('error', { detail: this.errorMessage })
 			);
 		} finally {
 			this.isLoading = false;
@@ -206,10 +206,7 @@ export default class CustomerSearchFormInputs extends LightningElement {
 	 * Handles input field change events and stores the value in the
 	 * corresponding variable based on the `data-field-name` attribute.
 	 *
-	 * Fires a new event (`inputchange`) with the `fieldName` and `value` details.
-	 *
 	 * @param {Event} event - The `change` event fired by the input element.
-	 * @fires CustomEvent#inputchange
 	 */
 	handleInputChange(event) {
 		const { fieldName } = event.target.dataset;
@@ -217,15 +214,6 @@ export default class CustomerSearchFormInputs extends LightningElement {
 
 		// store the field value based on the `name` attribute
 		this[fieldName] = fieldValue;
-
-		this.dispatchEvent(
-			new CustomEvent('inputchange', {
-				detail: {
-					fieldName: fieldName,
-					value: fieldValue,
-				},
-			})
-		);
 	}
 
 	/**

@@ -200,7 +200,14 @@ private with sharing class ContactsSelector_Test {
 		String soql = cs.selectByCustomerSearchParamsQB(params, new Set<Object>());
 		Test.StopTest();
 
-		Assert.isTrue(Pattern.compile('(?is)ORDER BY VerifiedMobile__c ASC NULLS LAST, Name ASC NULLS LAST').matcher(soql).find(), 'Query did not include correct ORDER BY statement');
+		List<String> orderBy = new List<String>{
+			'VerifiedEmail__c ASC NULLS LAST',
+			'VerifiedMobile__c ASC NULLS LAST',
+			'Name ASC NULLS LAST',
+			'Email ASC NULLS LAST',
+			'MobilePhone ASC NULLS LAST'
+		};
+		Assert.isTrue(Pattern.compile('(?is)ORDER BY ' + String.join(orderBy, ',\\s?')).matcher(soql).find(), 'Query did not include correct ORDER BY statement');
 		Assert.isFalse(Pattern.compile('(?is)FROM Contact\\bWHERE\\b').matcher(soql).find(), 'Query should not include any WHERE clause');
 	}
 
@@ -258,11 +265,11 @@ private with sharing class ContactsSelector_Test {
 		Assert.isTrue(Pattern.compile('(?is)\\(' + emailPattern + '\\)').matcher(soql).find(), 'Query did not include correct WHERE clause for email addresses. ' + soql);
 
 		// Verify phone fields in the WHERE clause
-		List<String> phoneFields = new List<String> {'ReverseMobilePhone__c', 'ReverseVerifiedMobile__c', 'ReversePhone__c', 'ReverseHomePhone__c', 'ReverseOtherPhone__c' };
-		String phonePattern = String.format('{0} = \'222111004\' OR {1} = \'222111004\' OR {2} = \'222111004\' OR {3} = \'222111004\' OR {4} = \'222111004\'', phoneFields);
+		List<String> phoneFields = new List<String> {'ReverseMobilePhone__c', 'ReverseVerifiedMobile__c', 'ReversePhone__c' };
+		String phonePattern = String.format('{0} = \'222111004\' OR {1} = \'222111004\' OR {2} = \'222111004\'', phoneFields);
 		Assert.isTrue(Pattern.compile('(?is)\\(' + phonePattern + '\\)').matcher(soql).find(), 'Query did not include correct WHERE clause for phone numbers. ' + soql);
 
 		// Verify the WHERE clause uses AND between phone and email condition groups
-		Assert.isTrue(Pattern.compile('(?is)\\(' + emailPattern + '\\)\\sAND\\s\\(' + phonePattern + '\\)').matcher(soql).find(), 'Query did not include correct WHERE clause for ReverseOtherPhone__c');
+		Assert.isTrue(Pattern.compile('(?is)\\(' + emailPattern + '\\)\\sAND\\s\\(' + phonePattern + '\\)').matcher(soql).find(), 'Query did not include correct WHERE clause for (Email AND Phone)');
 	}
 }

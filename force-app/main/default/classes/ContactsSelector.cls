@@ -246,11 +246,9 @@ public virtual inherited sharing class ContactsSelector extends ApplicationSelec
 			cm.add(new QueryBuilder.CompareCondition(Contact.ReverseMobilePhone__c).eq(reversePhone));
 			cm.add(new QueryBuilder.CompareCondition(Contact.ReverseVerifiedMobile__c).eq(reversePhone));
 			cm.add(new QueryBuilder.CompareCondition(Contact.ReversePhone__c).eq(reversePhone));
-			cm.add(new QueryBuilder.CompareCondition(Contact.ReverseHomePhone__c).eq(reversePhone));
-			cm.add(new QueryBuilder.CompareCondition(Contact.ReverseOtherPhone__c).eq(reversePhone));
 
-			// (ReverseMobilePhone__c OR ReverseVerifiedMobile__c OR ReversePhone__c OR ReverseHomePhone__c OR ReverseOtherPhone__c)
-			conditionsOrder.add('(' + (n + 1) + ' OR ' + (n + 2) + ' OR ' + (n + 3) + ' OR ' + (n + 4) + ' OR ' + (n + 5) + ')');
+			// (ReverseMobilePhone__c OR ReverseVerifiedMobile__c OR ReversePhone__c)
+			conditionsOrder.add('(' + (n + 1) + ' OR ' + (n + 2) + ' OR ' + (n + 3) + ')');
 		}
 
 		// Join dynamic conditions with 'AND' operator
@@ -258,8 +256,11 @@ public virtual inherited sharing class ContactsSelector extends ApplicationSelec
 		cm.endConditions();
 					
 		// Configure results order
-		qb.setOrder(new QueryBuilder.Order(Contact.VerifiedMobile__c).setSortingOrderAsc().setNullsOrderLast());
+		qb.setOrder(new QueryBuilder.Order(Contact.VerifiedEmail__c).setSortingOrderAsc().setNullsOrderLast());
+		qb.addOrder(new QueryBuilder.Order(Contact.VerifiedMobile__c).setSortingOrderAsc().setNullsOrderLast());
 		qb.addOrder(new QueryBuilder.Order(Contact.Name).setSortingOrderAsc().setNullsOrderLast());
+		qb.addOrder(new QueryBuilder.Order(Contact.Email).setSortingOrderAsc().setNullsOrderLast());
+		qb.addOrder(new QueryBuilder.Order(Contact.MobilePhone).setSortingOrderAsc().setNullsOrderLast());
 
 		return qb.toSoqlString();
 	}
