@@ -16,10 +16,13 @@
  * 2024-06-11 - Raghav Ravipati - Added logic to add critical incidents to articles in the tracking response
  * 2024-06-14 - Seth Heang - Added logic to allow the Proof of delivery PDF download on the Consignment Detail child component
  * 2024-06-18 - Seth Heang - Added EDD data mapping from StarTrack .NET query
+ * 2024-06-26 - Seth Heang - Added logic to publish LMS events for SAP callout completion and article selected
  */
-import { LightningElement, track, api } from "lwc";
+import { LightningElement, track, wire, api } from "lwc";
 import { getAnalyticsApiResponse, getTrackingApiResponse, getTrackingApiResponseForStarTrack, getCriticalIncidentDetails, getConfig, safeTrim, safeToUpper, subscribe, unsubscribe, downloadPODPDF, CONSTANTS } from 'c/happyParcelService'
 import { NavigationMixin } from 'lightning/navigation';
+import { publish, MessageContext } from 'lightning/messageService';
+import GENERIC_LMS_CHANNEL from '@salesforce/messageChannel/genericMessageChannel__c';
 
 export default class HappyParcelWrapper extends NavigationMixin(LightningElement) {
 
@@ -94,6 +97,9 @@ export default class HappyParcelWrapper extends NavigationMixin(LightningElement
 
 	_displayPodDownloadButton = false; // flag to show proof of delivery download button in Consignment Detail section
 	_signatureEventTypes; // store event type to validate signature event
+	
+	@wire(MessageContext)
+	messageContext; // wire the message context and pass to publisher to send LMS events
 
 	/**
 	 * Using getter/setter to enable us to trigger a search from either above (receiving tracking id from external source), or below (receiving tracking id from article selector component)
@@ -138,7 +144,7 @@ export default class HappyParcelWrapper extends NavigationMixin(LightningElement
 	}
 
 	/**
-	 * When case investigation detail is accessed from list view, show its parent case consignment number. 
+	 * When case investigation detail is accessed from list view, show its parent case consignment number.
 	 * If ST case is searched globally and accessed then do not show case consignement number.
 	 */
 	get isRenderConsigmentNumber() {
@@ -350,13 +356,20 @@ export default class HappyParcelWrapper extends NavigationMixin(LightningElement
 		this.triggerClearviewMappingEvent();
 
 		// add any errors from the request
-		if (errors) {
-			this.errors = this.errors.concat(errors.map(item => {
-				return {
-					source: CONSTANTS.TRACKING_API,
-					message: CONSTANTS.TRACKING_API + ': ' + item
-				};
-			}));
+		if (errors && errors.length > 0) {
+			this.errors = this.errors.concat(
+				errors.map((item) => {
+					return {
+						source: CONSTANTS.TRACKING_API,
+						message: CONSTANTS.TRACKING_API + ": " + item
+					};
+				})
+			);
+		} else {
+			// build and publish 'searchCompleted' LMS Event
+			const type = consignment ? 'Consignment' : 'Article';
+			const trackingId = consignment ? consignment.trackingId : currentTrackingId;
+			this.publishSapSearchCompletedLMS(type, trackingId);
 		}
 
 		this.loadingTrackingApi = false;
@@ -461,12 +474,14 @@ export default class HappyParcelWrapper extends NavigationMixin(LightningElement
 	handleArticleSelectorClick(event) {
 		for (let i = 0; i < this.articles.length; i++) {
 			if (this.articles[i].trackingId === event.target.dataset.article) {
-				//this.articles[i].articleSelected = !!this.articles[i].articleSelected;
-				this.articles[i] = { ...this.articles[i], articleSelected: !!!this.articles[i].articleSelected };
-				console.log(this.articles[i].articleSelected);
+				this.articles[i] = { ...this.articles[i], articleSelected: !this.articles[i].articleSelected };
 				break;
 			}
 		}
+
+		// build and publish LMS Event for selected articles
+		const selectedArticles = this.articles.filter((item) => item.articleSelected).map((item) => item.trackingId);
+		this.publishSelectedArticlesLMS(this.consignment.trackingId, selectedArticles);
 
 		this.broadcastSelectedArticles();
 	}
@@ -676,6 +691,40 @@ export default class HappyParcelWrapper extends NavigationMixin(LightningElement
 			console.error(exception);
 		}
 		this.loadingPODPDFDownload = false;
+	}
+
+	/**
+	 * @description Publish the selected articles LMS event
+	 * @param trackingId
+	 * @param selectedArticles
+	 */
+	publishSelectedArticlesLMS(trackingId, selectedArticles) {
+		const lmsEventPayload = {
+			source: 'HappyParcel',
+			type: 'articleSelected',
+			body: {
+				consignmentId: trackingId,
+				selectedArticleIds: selectedArticles
+			}
+		};
+		publish(this.messageContext, GENERIC_LMS_CHANNEL, lmsEventPayload);
+	}
+
+	/**
+	 * @description Publish the SAP search complete LMS event
+	 * @param type
+	 * @param trackingId
+	 */
+	publishSapSearchCompletedLMS(type, trackingId) {
+		const lmsEventPayload = {
+			source: 'HappyParcel',
+			type: 'searchCompleted',
+			body: {
+				type: type,
+				trackingId: trackingId
+			}
+		}
+		publish(this.messageContext, GENERIC_LMS_CHANNEL, lmsEventPayload);
 	}
 
 	get displayPodDownloadButton() {
