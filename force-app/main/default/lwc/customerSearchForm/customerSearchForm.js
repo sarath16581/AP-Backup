@@ -1,5 +1,8 @@
 import { LightningElement, api } from 'lwc';
 
+// Lightning card title
+export const SEARCH_FORM_TITLE = 'Customer Search';
+
 /**
  * The Customer Search form allows users to specify criteria and search for
  * customer records. This component wraps the search form inputs and search
@@ -14,4 +17,7 @@ export default class CustomerSearchForm extends LightningElement {
 	 * @type {string}
 	 */
 	@api recordId;
+
+	// Lightning card title
+	searchFormTitle = SEARCH_FORM_TITLE;
 }
