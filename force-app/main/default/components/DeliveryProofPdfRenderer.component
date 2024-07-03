@@ -89,13 +89,13 @@
 						<!-- Blank first column -->
 						<apex:pageBlockSectionItem>
 							<div style="display:inline-block;padding-right:10px;">
-								<p style="font-weight: bold;text-align: center;">Consigned</p>
+								<p style="text-align: center;">Consigned</p>
 								<div style="display:inline-block;padding:25px 30px;border:2px solid #000;">
 									{!consignedCount}
 								</div>
 							</div>
 							<div style="display:inline-block;padding-right:170px;">
-								<p style="font-weight: bold;text-align: center;">Delivered</p>
+								<p style="text-align: center;">Delivered</p>
 								<div style="display:inline-block;padding:25px 30px;border:2px solid #000;">
 									{!deliveredCount}
 								</div>
@@ -142,18 +142,29 @@
 						<thead>
 						<tr>
 							<th style="text-align: center">Article ID</th>
-							<th style="text-align: center;min-width: 120px;">Signatory Name</th>
-							<th style="text-align: center;">Signature / Safe drop image</th>
+							<apex:outputText rendered="{!NOT(ISBLANK(signatureAttachmentId))}">
+								<th style="text-align: center;min-width: 120px;">Signatory Name</th>
+								<th style="text-align: center;">Signature</th>
+							</apex:outputText>
+							<apex:outputText rendered="{!NOT(ISBLANK(safeDropAttachmentId))}">
+								<th style="text-align: center;">Safe drop image</th>
+							</apex:outputText>
 						</tr>
 						</thead>
 						<tbody>
 						<tr>
 							<td style="text-align: center">{!articleList}</td>
-							<td style="text-align: center">{!eventMessage.SignatoryName__c}</td>
-							<td>
-								<apex:image url="/servlet/servlet.FileDownload?file={!signatureAttachmentId}" rendered="{!NOT(ISNULL(signatureAttachmentId))}" style="display:inline-block;margin-left:50px;height:200px;" />
-								<apex:image url="/servlet/servlet.FileDownload?file={!safeDropAttachmentId}" rendered="{!NOT(ISNULL(safeDropAttachmentId))}" style="display:inline-block;margin-left:50px;height:200px;" />
-							</td>
+							<apex:outputText rendered="{!NOT(ISBLANK(signatureAttachmentId))}">
+								<td style="text-align: center">{!eventMessage.SignatoryName__c}</td>
+								<td style="text-align: center">
+									<apex:image url="/servlet/servlet.FileDownload?file={!signatureAttachmentId}" rendered="{!NOT(ISNULL(signatureAttachmentId))}" style="display:inline-block;height:200px;" />
+								</td>
+							</apex:outputText>
+							<apex:outputText rendered="{!NOT(ISBLANK(safeDropAttachmentId))}">
+								<td style="text-align: center;">
+									<apex:image url="/servlet/servlet.FileDownload?file={!safeDropAttachmentId}" rendered="{!NOT(ISNULL(safeDropAttachmentId))}" style="display:inline-block;height:200px;" />
+								</td>
+							</apex:outputText>
 						</tr>
 						</tbody>
 					</table>
