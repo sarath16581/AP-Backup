@@ -56,20 +56,23 @@ private class HappyParcelController_Test {
 		// Stubbing
 		// =====================================
 		TIBCOArticleService mockArticleService = (TIBCOArticleService) MockUtility.mockUtility(TIBCOArticleService.class);
+		List<String> trackingIds = new List<String>{ 'auysgdagsd' };
+		AnswerSearchArticle mockSearchResult = new AnswerSearchArticle();
 
 		// set up our responses
 		MockUtility.Mocks.startStubbing();
-		MockUtility.Mocks.when(
-				mockArticleService.search((List<String>) fflib_Match.anyList(), fflib_Match.anyBoolean(), fflib_Match.anyBoolean(), fflib_Match.anyBoolean(), fflib_Match.anyBoolean(), fflib_Match.anyBoolean())
-			)
-			.thenAnswer(new AnswerSearchArticle());
-
 		EnquiryMappingsSelector enquirySelector = (EnquiryMappingsSelector)MockUtility.mockSelector(EnquiryMappingsSelector.class);
-		// set up our responses
-		MockUtility.Mocks.startStubbing();
 		// Database
 		MockUtility.Mocks.when(enquirySelector.selectBySAPKeyAndMappingModel((Set<String>)fflib_Match.eq(new Set<String>{ 'eParceleParcel Standard' }), (Set<String>)fflib_Match.eq(new Set<String>{ 'Classic' })))
-			.thenReturn(new List<MiniCaseFieldMapping__c>{mappings[0]});
+		.thenReturn(new List<MiniCaseFieldMapping__c>{mappings[0]});
+
+		MockUtility.Mocks.when(mockArticleService.searchByArticleIdsInSAP((List<String>) fflib_Match.eqList(trackingIds))).thenAnswer(mockSearchResult);
+		MockUtility.Mocks.when(mockArticleService.processTIBCOSearchResults(
+				(List<String>) fflib_Match.eqList(trackingIds),
+				(TIBCOSearchResult) fflib_Match.anyObject(),
+				(Boolean)fflib_Match.eqBoolean(false),
+				(Boolean)fflib_Match.eqBoolean(true)
+		)).thenAnswer(mockSearchResult);
 		MockUtility.Mocks.stopStubbing();
 
 		// =====================================
@@ -107,12 +110,18 @@ private class HappyParcelController_Test {
 		// =====================================
 		TIBCOArticleService mockArticleService = (TIBCOArticleService) MockUtility.mockUtility(TIBCOArticleService.class);
 
+		List<String> trackingIds = new List<String>{ 'asjkd12jkjasjkd' };
+		AnswerSearchArticle mockSearchResult = new AnswerSearchArticle();
+
 		// set up our responses
 		MockUtility.Mocks.startStubbing();
-		MockUtility.Mocks.when(
-				mockArticleService.search((List<String>) fflib_Match.anyList(), fflib_Match.anyBoolean(), fflib_Match.anyBoolean(), fflib_Match.anyBoolean(), fflib_Match.anyBoolean(), fflib_Match.anyBoolean())
-			)
-			.thenAnswer(new AnswerSearchArticle());
+		MockUtility.Mocks.when(mockArticleService.searchByArticleIdsInSAP((List<String>) fflib_Match.eqList(trackingIds))).thenAnswer(mockSearchResult);
+		MockUtility.Mocks.when(mockArticleService.processTIBCOSearchResults(
+				(List<String>) fflib_Match.eqList(trackingIds),
+				(TIBCOSearchResult) fflib_Match.anyObject(),
+				(Boolean)fflib_Match.eqBoolean(false),
+				(Boolean)fflib_Match.eqBoolean(true)
+		)).thenAnswer(mockSearchResult);
 		MockUtility.Mocks.stopStubbing();
 
 		// =====================================

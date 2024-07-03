@@ -4114,7 +4114,7 @@ To add a comment or check for updates, visit your MyPost dashboard now</value>
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>Disclaimer_POD</shortDescription>
-        <value>Disclaimer: Although every effort has been made to ensure the accuracy of the information provided and the integrity of the software used to generate the information, Australia Post makes no representation or warranty as to the accuracy or completeness of any statement. To the extent permissible by law, Australia Post shall not be liable for any loss or damage whatsoever arising from errors and omissions in this report or from reliance placed on all or part of its contents.</value>
+        <value>Disclaimer: Although every effort has been made to ensure the accuracy of the information provided and the integrity of the software used to generate the information, Australia Post makes no representation or warranty as to the accuracy or completeness of any statement. To the extent permitted by Law, Australia Post shall not be liable for any loss or damage whatsoever arising from errors and omissions in this report or from reliance placed on all or part of its contents.</value>
     </labels>
     <labels>
         <fullName>DisplayViewLabel</fullName>
