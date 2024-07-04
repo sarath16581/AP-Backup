@@ -88,7 +88,7 @@ public with sharing class HappyParcelController {
 				searchResult = articleService.search(new List<String>{ consignmentId }, true, false, false, false, true);
 			} else {
 				// process SAP response and passed in the response from initial callout
-				searchResult = articleService.processTIBCOSearchResults(searchResult, new List<String>{ trackingId }, false, true);
+				searchResult = articleService.processTIBCOSearchResults(new List<String>{ trackingId }, searchResult, false, true);
 			}
 
 			//NOTE: TrackingResult class simply provides some structure around the returned object (including case consistency)
