@@ -9,7 +9,7 @@
  */
 
 @IsTest
-public class DigitalRepositoryService_Test {
+private class DigitalRepositoryService_Test {
 
 	@TestSetup
 	private static void setup() {
