@@ -163,6 +163,24 @@
         <picklistField>Type</picklistField>
         <picklistObject>Opportunity</picklistObject>
     </dynamicChoiceSets>
+    <dynamicChoiceSets>
+        <name>LPOControlLodgementFacility</name>
+        <dataType>Picklist</dataType>
+        <displayField xsi:nil="true"/>
+        <object xsi:nil="true"/>
+        <picklistField>ControlsLodgement__c</picklistField>
+        <picklistObject>Opportunity</picklistObject>
+    </dynamicChoiceSets>
+    <dynamicChoiceSets>
+        <description>Determines the Freight Ownership field on Opportunity</description>
+        <name>LPOFreightOwenrship</name>
+        <dataType>Picklist</dataType>
+        <displayField xsi:nil="true"/>
+        <object xsi:nil="true"/>
+        <picklistField>FreightOwnership__c</picklistField>
+        <picklistObject>Opportunity</picklistObject>
+    </dynamicChoiceSets>
+    <environments>Default</environments>
     <interviewLabel>LPO Create New Opportunity {!$Flow.CurrentDateTime}</interviewLabel>
     <label>LPO Create New Opportunity</label>
     <processMetadataValues>
@@ -203,6 +221,18 @@
             <field>CloseDate</field>
             <value>
                 <elementReference>LPO_Close_Date</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>ControlsLodgement__c</field>
+            <value>
+                <elementReference>LPOControlsLodgement</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>FreightOwnership__c</field>
+            <value>
+                <elementReference>LPOFreightOwnership</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
@@ -250,6 +280,18 @@
             <field>CloseDate</field>
             <value>
                 <elementReference>LPO_Close_Date</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>ControlsLodgement__c</field>
+            <value>
+                <elementReference>LPOControlsLodgement</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>FreightOwnership__c</field>
+            <value>
+                <elementReference>LPOFreightOwnership</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
@@ -452,6 +494,22 @@
             <fieldType>MultiSelectPicklist</fieldType>
             <helpText>&lt;p&gt;&lt;b&gt;To select multiple products, hold down the Ctrl key and click on the desired values.&lt;/b&gt;&lt;/p&gt;</helpText>
             <isRequired>false</isRequired>
+        </fields>
+        <fields>
+            <name>LPOFreightOwnership</name>
+            <choiceReferences>LPOFreightOwenrship</choiceReferences>
+            <dataType>String</dataType>
+            <fieldText>Has Ownership Over the Freight?</fieldText>
+            <fieldType>DropdownBox</fieldType>
+            <isRequired>true</isRequired>
+        </fields>
+        <fields>
+            <name>LPOControlsLodgement</name>
+            <choiceReferences>LPOControlLodgementFacility</choiceReferences>
+            <dataType>String</dataType>
+            <fieldText>Has Control Over Lodgement Facility?</fieldText>
+            <fieldType>DropdownBox</fieldType>
+            <isRequired>true</isRequired>
         </fields>
         <showFooter>true</showFooter>
         <showHeader>false</showHeader>

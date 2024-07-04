@@ -6270,6 +6270,11 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
+        <editable>false</editable>
+        <field>Account.IndirectCustomer__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
         <editable>true</editable>
         <field>Apttus_Approval__ApprovalRuleAssignee__c.APTS_Ext_ID__c</field>
         <readable>true</readable>

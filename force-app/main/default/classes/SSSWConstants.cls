@@ -19,6 +19,7 @@
   * 16.05.2022   SaiSwetha Pingali  Removed snapIt logic as it is no longer required.
   * 20.03.2023	- Noel Lim - added constants SSSW_AGENT_PROFILE, SSSW_SOCIAL_INTEGRATION_PROFILE, SSSW_BSP_COMMUNITY_USER_PROFILE
   * 27.03.2023 StephenL added constant: RECTYPE_ARTICLE_CONSIGNMENT
+  * 2024-06-25 - Mona Raghav - REQ3564142 - CASE_ORIGIN_DIRECT_EMAIL Constant added 
   */  
 public with sharing class SSSWConstants {
 
@@ -44,6 +45,7 @@ public with sharing class SSSWConstants {
     public static final String CASE_SLA_STATUS = 'Awaiting Network Response';
     public static final String CASE_TYPE = 'General Enquiry';
     public static final String CASE_ORIGIN = 'Phone';
+	public static final String CASE_ORIGIN_DIRECT_EMAIL = 'Direct Email';
     public static final String CASE_PRIORITY = 'Low';
     public static final String CASE_PROD_CAT = 'Domestic Parcels';
     public static final String CASE_PROD_SUB_CAT = 'Cash on Delivery';

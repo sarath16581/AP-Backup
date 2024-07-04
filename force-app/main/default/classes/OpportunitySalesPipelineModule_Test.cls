@@ -10,6 +10,7 @@
  * 2024-01-22 - Mahesh Parvathaneni - Added test method testOpportunityProductsRevenueStartDateIsValidOnOpportunityStageChangeBeforeUpdate
  * 2024-01-25 - Mahesh Parvathaneni - Added test method testByPassErrorsForOpportunityValidationsPermissionOnBeforeUpdate
  * 2024-02-02 - Mahesh Parvathaneni - Added test method testByPassErrorForOpportunityLineItemQuantityValidationPermissionOnBeforeUpdate
+ * 2024-06-16 - Sarath Burra - Added test method testAccountFieldUpdateOnAfterInsertUpdate
  */
 @IsTest
 private class OpportunitySalesPipelineModule_Test {
@@ -579,4 +580,60 @@ private class OpportunitySalesPipelineModule_Test {
 		System.assert(!updatedOpportunities[0].hasErrors(), 'No errors expected on opportunity as permission set is assigned to user.');
 		System.assert(!updatedOpportunities[1].hasErrors(), 'No errors expected on opportunity as permission set is assigned to user.');
 	}
+	@IsTest
+	static void testAccountFieldUpdateOnAfterInsertUpdate() {
+		// Disable trigger execution
+		MockUtility.disableTriggerExecution();
+		// =====================================
+		// Data Preparation
+		// =====================================
+		Account organisation = ApplicationTestDataFactory.getAccounts(1, true)[0];
+		List<Opportunity> opportunities = ApplicationTestDataFactory.getOpportunities(2, organisation.Id, true);
+		List<Opportunity> updatedOpportunities = new List<Opportunity>();
+		for(Opportunity opp :opportunities){
+			opp.FreightOwnership__c='Yes';
+			opp.ControlsLodgement__c='Yes';
+			opp = (Opportunity)ApplicationTestDataFactory.setUnwritableFields(opp,new Map<String, Object>{'IndirectCustomer__c' => 'Yes'});
+			updatedOpportunities.add(opp);
+		}
+		Map<Id,Opportunity> existingRecords = new Map<Id,Opportunity>();
+		for(Opportunity opp : updatedOpportunities.deepClone(true,true,true)){
+			opp = (Opportunity)ApplicationTestDataFactory.setUnwritableFields(opp,new Map<String, Object>{'IndirectCustomer__c' => 'No (or unknown)'});
+			existingRecords.put(opp.id,opp);
+		}
+
+		// setup child records for Account
+		organisation = (Account) ApplicationTestDataFactory.setChildRelationships(organisation, new Map<String, List<SObject>>{
+			'Opportunities' => updatedOpportunities
+		});
+		// =====================================
+		// Stubbing
+		// =====================================
+		AccountsSelector mockAccountsSelector = ((AccountsSelector) MockUtility.mockSelector(AccountsSelector.class));
+		ApplicationUnitOfWork mockUow = MockUtility.mockUnitOfWork();
+		// Set up our responses
+		MockUtility.Mocks.startStubbing();
+		MockUtility.Mocks.when(mockAccountsSelector.selectById(new Set <Id> {organisation.Id})).thenReturn(new Map <Id, Account> { organisation.Id => organisation});
+		MockUtility.Mocks.when(mockUow.registerDirty((List<SObject>) fflib_Match.anyObject())).thenAnswer(new MockUtility.AnswerGenericRegisterUnitOfWorkDML());
+		MockUtility.Mocks.stopStubbing();
+		// =====================================
+		// Testing
+		// =====================================
+		Test.startTest();
+		new OpportunitySalesPipelineModule().onAfterInsert(updatedOpportunities,mockUow);
+		new OpportunitySalesPipelineModule().onAfterUpdate(updatedOpportunities,existingRecords,mockUow);
+		Test.stopTest();		
+
+		//Assert or Verify
+		// Verify that only one DML is to be inserted
+		((AccountsSelector) MockUtility.Mocks.verify(mockAccountsSelector, MockUtility.Mocks.times(1))).selectById((Set<Id>) fflib_Match.anyObject());
+		system.assertEquals(1, MockUtility.mockUnitOfWorkDMLs.size());
+		// Verify in DML that IndirectCustomer__c for Account is set from Opportunity 
+		System.assertEquals(
+			updatedOpportunities[0].IndirectCustomer__c,
+			((Account) MockUtility.mockUnitOfWorkDMLs[0]).IndirectCustomer__c,
+			'Expected IndirectCustomer to be updated from Opportunity'
+		);
+
+	}	
 }

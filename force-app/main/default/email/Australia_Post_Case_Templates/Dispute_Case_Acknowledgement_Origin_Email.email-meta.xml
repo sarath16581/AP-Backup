@@ -5,7 +5,7 @@
     <encodingKey>ISO-8859-1</encodingKey>
     <name>Dispute Case Acknowledgement Origin Email</name>
     <style>none</style>
-    <subject>Case Created: Enquiry - Case No. {!Case.CaseNumber} {!Case.EmailThreadID__c}</subject>
+    <subject>Enquiry - Case No. {!Case.CaseNumber} {!Case.EmailThreadID__c}</subject>
     <textOnly>Dear Customer,
 
 
