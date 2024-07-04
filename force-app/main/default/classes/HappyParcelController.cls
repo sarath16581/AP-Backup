@@ -22,7 +22,6 @@
  * 2024-06-06 - Raghav Ravipati - Added methods to get critical incident knowledge articles based on network org Id
  * 2024-06-17 - Raghav Ravipati - Added changes related to Enquiry Mapping to filter using MappingModule field
  * 2024-06-24 - Seth Heang - updated queryTrackingApi method to reduce redundent SAP callout for a scenario where the article searched has no parent consignment
- * 2024-06-25 - Raghav Ravipati - Updated the Amazon s3 deliveryRepository API from V1 to V2 
  */
 public with sharing class HappyParcelController {
 	/**
@@ -232,40 +231,21 @@ public with sharing class HappyParcelController {
 	 * The API blacks out faces and text.
 	 */
 	@AuraEnabled(Continuation=true)
-	public static Object getArticleImage(String guidId, String attachmentType) {
-		String bucketName;
-		String fileType;
-		Decimal resizePercentage;
-		Decimal resizeThreshold;
-		Boolean blurImage;
-
-		//Get configurations from metadatatype. Looks for data that matches with attachmentType else gets the default values.
-		DigitalRepositoryV2SettingsSelector selector = DigitalRepositoryV2SettingsSelector.newInstance();
-		List<DigitalRepositoryV2Settings__mdt> apiConfigurations = selector.getAPIConfigurationsByAttachmentType(new Set<String>{ attachmentType });
-
-		if(apiConfigurations == null || apiConfigurations.isEmpty()){
-			apiConfigurations = selector.getDefaultAPIConfiguration();
-		}
-		for (DigitalRepositoryV2Settings__mdt apiConfig : apiConfigurations) {
-			bucketName = apiConfig.BucketName__c;
-			blurImage = apiConfig.BlurImage__c;
-			resizePercentage = apiConfig.ResizePercentage__c;
-			resizeThreshold = apiConfig.ResizeThreshold__c;
-			fileType = apiConfig.FileExtensionType__c;
-
-			break;
+	public static Object getArticleImage(String guidId) {
+		SafeDropUtility utility = SafeDropUtility.getInstance();
+		HttpRequest req = utility.getHttpRequest(guidId);
+		if (req == null) {
+			return new SafeDropUtility.SafeDropApiResponse(true, 'No Login Information Found.', '');
 		}
 
-		if (String.isNotBlank(fileType)) {
-			guidId += fileType;
-		}
-		//constructing Digital Repository V2 request
-		DigitalRepositoryService digitalRepository = DigitalRepositoryService.getInstance();
-		Continuation continuationRequest = digitalRepository.getContinuation(guidId, bucketName, blurImage, Integer.valueOf(resizePercentage), Integer.valueOf(resizeThreshold));
-		continuationRequest.continuationMethod = 'safeDropImageCallback';
+		// Create a Continuation for the HTTPRequest
+		// This is used for async requests
+		Continuation con = new Continuation(60);
+		con.addHttpRequest(req);
+		con.continuationMethod = 'safeDropImageCallback';
 
 		// Return it to the system for processing
-		return continuationRequest;
+		return con;
 	}
 
 	/**
@@ -273,12 +253,13 @@ public with sharing class HappyParcelController {
 	 */
 	@AuraEnabled
 	public static Object safeDropImageCallback(List<String> labels, Object state) {
-		HttpResponse response = Continuation.getResponse(labels[0]);
-		DigitalRepositoryService digitalRepository = DigitalRepositoryService.getInstance();
-		// parse response
-		DigitalRepositoryService.DocumentApiResponse parsedResponse = digitalRepository.parseResponse(response);
+		HttpResponse resp = Continuation.getResponse(labels[0]);
 
-		return parsedResponse;
+		String responseBody = resp.getBody();
+		// parse the json
+		SafeDropUtility.SafeDropApiResponse response = SafeDropUtility.parseResponse(responseBody, resp);
+
+		return response;
 	}
 
 	/**

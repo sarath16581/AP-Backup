@@ -18,7 +18,6 @@
  * 2024-06-03 - Raghav Ravipati - Added method to get critical incident knowledge articles
  * 2024-06-13 - Seth Heang - Added getCurrentStateOfSafeDropImageRequiredForDownload and getSafeDropImageForPOD
  * 2024-06-14 - Seth Heang - Moved in download Proof of delivery method from HappyParcelDeliveryProof
- * 2024-06-25 - Raghav Ravipati - Changed signature of getSafeDropImage method to identify stracktrack bucket attachemnts
  */
 
 //continuations
@@ -449,13 +448,13 @@ export const setPreferences = async (searchString, setValue) => {
 }
 
 
-export const getSafeDropImage = async (safeDropGuid, attachmentTypeVal) => {
+export const getSafeDropImage = async (safeDropGuid) => {
 	// perform a callout to get the safe drop image
 	const result = await getArticleImage({
-		guidId: safeDropGuid,
-		attachmentType: attachmentTypeVal
+		guidId: safeDropGuid
 	});
 
+	console.log('getSafeDropImage', result);
 	return result;
 }
 
