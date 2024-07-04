@@ -13,6 +13,7 @@
  * 2024-05-21 - Seth Heang - Added new test method to handle force consignment search
  * 2024-06-12 - Raghav Ravipati - Added new test method to cover getCriticalIncidents
  * 2024-06-17 - Raghav Ravipati - added mocks to EnquiryMappingsSelector
+ * 2024-06-25 - Seth Heang - Added new assertion in testSearchAsyncStarTrack due to new attributes mapping such as EDD and SourceSystem
  */
 @IsTest
 private class HappyParcelController_Test {
@@ -621,6 +622,7 @@ private class HappyParcelController_Test {
 		HappyParcelController.TrackingArticle resultWrapper = (HappyParcelController.TrackingArticle) result;
 		Assert.areEqual('D05 1, E05 1', resultWrapper.article.FurtherReferences__c, 'Further References do not match');
 		Assert.areEqual(Date.newInstance(2024,1,21), resultWrapper.article.ExpectedDeliveryDate__c, 'Expected Delivery Date should match but was not');
+		Assert.areEqual('TEAM', resultWrapper.article.Source_System__c, 'Source System should be TEAM but instead was ' + resultWrapper.article.Source_System__c);
 
 		// Verify that the consignment record of type Article__c has been updated 1 time
 		fflib_ArgumentCaptor updatableConsignmentCaptor = fflib_ArgumentCaptor.forClass(List<Article__c>.class);
@@ -631,6 +633,7 @@ private class HappyParcelController_Test {
 		Assert.areEqual(1, resArticle.size(), 'Only one article should be updated and returned back');
 		Assert.areEqual('D05 1, E05 1', resArticle.get(0).FurtherReferences__c, 'Further References do not match');
 		Assert.areEqual(Date.newInstance(2024,1,21), resArticle.get(0).ExpectedDeliveryDate__c, 'Expected Delivery Date should match but was not');
+		Assert.areEqual('TEAM', resArticle.get(0).Source_System__c, 'Source System should be TEAM but instead was ' + resArticle.get(0).Source_System__c);
 	}
 
 	/**
