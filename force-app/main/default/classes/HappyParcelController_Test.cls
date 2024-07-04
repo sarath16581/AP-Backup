@@ -27,6 +27,11 @@ private class HappyParcelController_Test {
 		oa.Name = 'SAPEMCustomerArticles';
 		insert oa;
 
+		AusPostSettings__c digitalRepoSettings = new AusPostSettings__c();
+		digitalRepoSettings.URL__c = 'http://callout:test/documents';
+		digitalRepoSettings.Name = 'DigitalRepositoryDocumentsAPIv2';
+		insert digitalRepoSettings;
+
 		StarTrack_Settings__c starTrackSetting = new StarTrack_Settings__c(
 			Web_Service_Callout_Timeout__c = 45
 		);
@@ -201,17 +206,10 @@ private class HappyParcelController_Test {
 		// =====================================
 		// Data Preparation
 		// =====================================
-		// None!
 
 		// =====================================
 		// Stubbing
 		// =====================================
-		SafeDropUtility mockSafeDropUtility = (SafeDropUtility) MockUtility.mockUtility(SafeDropUtility.class);
-
-		// set up our responses
-		MockUtility.Mocks.startStubbing();
-		MockUtility.Mocks.when(mockSafeDropUtility.getHttpRequest(fflib_Match.anyString())).thenReturn(new HttpRequest());
-		MockUtility.Mocks.stopStubbing();
 
 		// =====================================
 		// Testing
@@ -219,17 +217,17 @@ private class HappyParcelController_Test {
 		Test.startTest();
 
 		// Invoke the continuation
-		Continuation cont = (Continuation) HappyParcelController.getArticleImage('TEST');
+		Continuation cont = (Continuation) HappyParcelController.getArticleImage('TEST', 'ARTICLE_IMAGE_TO_X');
 
 		// setup the continuation mock provider
 		String requestLabel = new List<String>(cont.getRequests().keySet())[0];
-		SafeDropUtility_Test.setSuccessContinuationResponse(requestLabel);
-		SafeDropUtility.SafeDropApiResponse response = (SafeDropUtility.SafeDropApiResponse) HappyParcelController.safeDropImageCallback(new List<String>{ requestLabel }, null);
+		DigitalRepositoryService_Test.setSuccessContinuationResponse(requestLabel);
+		DigitalRepositoryService.DocumentApiResponse response = (DigitalRepositoryService.DocumentApiResponse) HappyParcelController.safeDropImageCallback(new List<String>{ requestLabel }, null);
 
 		Test.stopTest();
 
 		System.assertEquals(false, response.isError, 'Expected no errors but instead got: ' + JSON.serialize(response));
-		System.assertNotEquals('', response.imageBody, 'Expected en image body but instead got nothing');
+		System.assertNotEquals('', response.getDocumentContent(), 'Expected en image body but instead got nothing');
 	}
 
 	/**
@@ -240,17 +238,10 @@ private class HappyParcelController_Test {
 		// =====================================
 		// Data Preparation
 		// =====================================
-		// None!
 
 		// =====================================
 		// Stubbing
 		// =====================================
-		SafeDropUtility mockSafeDropUtility = (SafeDropUtility) MockUtility.mockUtility(SafeDropUtility.class);
-
-		// set up our responses
-		MockUtility.Mocks.startStubbing();
-		MockUtility.Mocks.when(mockSafeDropUtility.getHttpRequest(fflib_Match.anyString())).thenReturn(new HttpRequest());
-		MockUtility.Mocks.stopStubbing();
 
 		// =====================================
 		// Testing
@@ -258,18 +249,17 @@ private class HappyParcelController_Test {
 		Test.startTest();
 
 		// Invoke the continuation
-		Continuation cont = (Continuation) HappyParcelController.getArticleImage('TEST');
-
+		Continuation cont = (Continuation) HappyParcelController.getArticleImage('TEST', 'ARTICLE_IMAGE_TO_X');
 		// setup the continuation mock provider
 		String requestLabel = new List<String>(cont.getRequests().keySet())[0];
-		SafeDropUtility_Test.setErrorContinuationResponse(requestLabel);
-		SafeDropUtility.SafeDropApiResponse response = (SafeDropUtility.SafeDropApiResponse) HappyParcelController.safeDropImageCallback(new List<String>{ requestLabel }, null);
+		DigitalRepositoryService_Test.setErrorContinuationResponse(requestLabel);
+		DigitalRepositoryService.DocumentApiResponse response = (DigitalRepositoryService.DocumentApiResponse) HappyParcelController.safeDropImageCallback(new List<String>{ requestLabel }, null);
 
 		Test.stopTest();
 
 		System.assertEquals(true, response.isError, 'Expected an error but instead got: ' + JSON.serialize(response));
-		System.assertNotEquals('', response.errorMessage, 'Expected an error message but instead got: ' + JSON.serialize(response));
-		System.assertEquals('', response.imageBody, 'Expected no image body but instead got: ' + JSON.serialize(response));
+		System.assertNotEquals('', response.getErrorMessage(), 'Expected an error message but instead got: ' + JSON.serialize(response));
+		System.assertEquals(null, response.document, 'Expected no image body but instead got: ' + JSON.serialize(response));
 	}
 
 	/**
