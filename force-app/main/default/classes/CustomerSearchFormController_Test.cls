@@ -4,6 +4,7 @@
  * @description - Test class for the `CustomerSearchFormController`
  * @changelog
  * 2024-06-03 - Marcel HK - Created
+ * 2024-07-02 - Marcel HK - Corrected form validation logic to align with associated LWC (CSLU-438)
  */
 @IsTest
 public class CustomerSearchFormController_Test {
