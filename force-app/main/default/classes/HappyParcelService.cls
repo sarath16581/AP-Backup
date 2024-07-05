@@ -415,12 +415,14 @@ public with sharing class HappyParcelService {
 
 		// Process callout response
 		StarTrackConsignmentSearchUtil.ConsignmentWrapper conWrapper = processResponse(stInfo.stResponse.getValue(), stInfo.trackingResult.article.Id);
-		Article__c consignmentST = conWrapper.articleList.get(0);
-		trackingResult.article.FurtherReferences__c = consignmentST?.FurtherReferences__c;
-		trackingResult.article.DeliveryInstructions__c = consignmentST?.DeliveryInstructions__c;
-		trackingResult.article.ConsignmentParcelCount__c = consignmentST?.ConsignmentParcelCount__c;
-		trackingResult.article.ExpectedDeliveryDate__c = consignmentST?.ExpectedDeliveryDate__c;
-		trackingResult.article.Source_System__c = consignmentST?.Source_System__c;
+		if(conWrapper != null){
+			Article__c consignmentST = conWrapper.articleList.get(0);
+			trackingResult.article.FurtherReferences__c = consignmentST?.FurtherReferences__c;
+			trackingResult.article.DeliveryInstructions__c = consignmentST?.DeliveryInstructions__c;
+			trackingResult.article.ConsignmentParcelCount__c = consignmentST?.ConsignmentParcelCount__c;
+			trackingResult.article.ExpectedDeliveryDate__c = consignmentST?.ExpectedDeliveryDate__c;
+			trackingResult.article.Source_System__c = consignmentST?.Source_System__c;
+		}
 		return trackingResult;
 	}
 
