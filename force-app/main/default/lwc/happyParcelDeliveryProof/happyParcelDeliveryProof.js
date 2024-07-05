@@ -10,6 +10,7 @@
  * 2021-10-06 - Nathan Franklin - Changed the logic behind attaching delivery proof to case + uplift to v52
  * 2024-06-13 - Seth Heang - Update the Proof Of Delivery PDF Download logic to perform consignment search and bulk retrieve safe drop images if applicable prior to downloading the PDF
  * 2024-06-14 - Seth Heang - Refactor and move out method to download Proof of delivery PDF into HappyParcelService.js
+ * 2024-06-25 - Raghav Ravipati - changes to retrieveSafeDropImage method which used Deliveryrepository V2 API
  */
 import { api, track, LightningElement } from "lwc";
 import {
@@ -194,14 +195,17 @@ export default class HappyParcelDeliveryProof extends HappyParcelBase {
 		this.loadingSafeDropImage = true;
 
 		// perform the callout to the api and grab the split details from the result
-		const result = await getSafeDropImage(this.safeDropGuid);
+		const result = await getSafeDropImage(this.safeDropGuid, null);
 
 		if (result.isError) {
-			this.safeDropImageErrorMessage = result.errorMessage;
+			this.safeDropImageErrorMessage = result.errors[0];
 			this.base64SafeDropImage = null;
 		} else {
 			this.safeDropImageErrorMessage = '';
-			this.base64SafeDropImage = 'data:image/jpeg;base64,' + result.imageBody;
+			this.base64SafeDropImage;
+			if (result.document && result.document.object_details) {
+				this.base64SafeDropImage = 'data:image/jpeg;base64,' + result.document.object_details.object_content;
+			}
 		}
 
 		this.loadingSafeDropImage = false;
