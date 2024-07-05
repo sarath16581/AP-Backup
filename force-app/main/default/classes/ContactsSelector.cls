@@ -256,12 +256,10 @@ public virtual inherited sharing class ContactsSelector extends ApplicationSelec
 		cm.endConditions();
 					
 		// Configure results order
-		qb.setOrder(new QueryBuilder.Order(Contact.VerifiedEmail__c).setSortingOrderAsc().setNullsOrderLast());
-		qb.addOrder(new QueryBuilder.Order(Contact.VerifiedMobile__c).setSortingOrderAsc().setNullsOrderLast());
-		qb.addOrder(new QueryBuilder.Order(Contact.Name).setSortingOrderAsc().setNullsOrderLast());
-		qb.addOrder(new QueryBuilder.Order(Contact.Email).setSortingOrderAsc().setNullsOrderLast());
-		qb.addOrder(new QueryBuilder.Order(Contact.MobilePhone).setSortingOrderAsc().setNullsOrderLast());
-
+		qb.setOrder(new QueryBuilder.Order(Contact.UnifiedDataScore__c).setSortingOrderDesc().setNullsOrderLast());
+		qb.addOrder(new QueryBuilder.Order(Contact.FirstName).setSortingOrderAsc().setNullsOrderLast());
+		qb.addOrder(new QueryBuilder.Order(Contact.LastName).setSortingOrderAsc().setNullsOrderLast());
+		
 		return qb.toSoqlString();
 	}
 

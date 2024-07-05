@@ -201,13 +201,11 @@ private with sharing class ContactsSelector_Test {
 		Test.StopTest();
 
 		List<String> orderBy = new List<String>{
-			'VerifiedEmail__c ASC NULLS LAST',
-			'VerifiedMobile__c ASC NULLS LAST',
-			'Name ASC NULLS LAST',
-			'Email ASC NULLS LAST',
-			'MobilePhone ASC NULLS LAST'
+			'UnifiedDataScore__c DESC NULLS LAST',
+			'FirstName ASC NULLS LAST',
+			'LastName ASC NULLS LAST'
 		};
-		Assert.isTrue(Pattern.compile('(?is)ORDER BY ' + String.join(orderBy, ',\\s?')).matcher(soql).find(), 'Query did not include correct ORDER BY statement');
+		Assert.isTrue(Pattern.compile('(?is)ORDER BY ' + String.join(orderBy, ',\\s?')).matcher(soql).find(), 'Query did not include correct ORDER BY statement. ' + soql.replaceAll('\n',''));
 		Assert.isFalse(Pattern.compile('(?is)FROM Contact\\bWHERE\\b').matcher(soql).find(), 'Query should not include any WHERE clause');
 	}
 
