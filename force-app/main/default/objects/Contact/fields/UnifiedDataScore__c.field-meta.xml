@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>UnifiedDataScore__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <description>This field is only to be used CST project&apos;s MVP as part of a trial to improve the ordering of search results. The score is calculated based on the data quality, which is then used to order Contacts when searching for customer records, placing those with more verified data first.</description>
+    <externalId>false</externalId>
+    <formula>IF(NOT(ISBLANK(VerifiedEmail__c)), 100, 0)
++ IF(NOT(ISBLANK(VerifiedMobile__c)), 100, 0)</formula>
+    <inlineHelpText>This field is only to be used CST project&apos;s MVP as part of a trial to improve the ordering of search results. The score is calculated based on the data quality, which is then used to order Contacts when searching for customer records, placing those with more verified data first.</inlineHelpText>
+    <label>Unified Data Score</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <securityClassification>INTERNAL</securityClassification>
+    <trackHistory>false</trackHistory>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>
