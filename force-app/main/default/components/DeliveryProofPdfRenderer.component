@@ -50,7 +50,7 @@
 									</apex:outputText>
 									<apex:outputText rendered="{!em.fieldPath == 'Article__r.FurtherReferences__c'}">
 										Sender Reference No: &nbsp;&nbsp;<apex:outputText value="{!eventMessage[em]}"
-										                                                  style="white-space: pre-wrap;"/>
+																						style="white-space: pre-wrap;"/>
 									</apex:outputText>
 
 									<apex:outputText rendered="{!em.fieldPath != 'Article__r.ConsignmentTrackingNumber__c'
@@ -165,16 +165,16 @@
 									<div>Signatory Name: {!eventMessage.SignatoryName__c}</div>
 									<div>
 										<apex:image url="/servlet/servlet.FileDownload?file={!signatureAttachmentId}"
-										            rendered="{!NOT(ISNULL(signatureAttachmentId))}"
-										            style="display:inline-block;height:200px;"/>
+													rendered="{!NOT(ISNULL(signatureAttachmentId))}"
+													style="display:inline-block;height:200px;"/>
 									</div>
 								</td>
 							</apex:outputText>
 							<apex:outputText rendered="{!NOT(ISBLANK(safeDropAttachmentId))}">
 								<td>
 									<apex:image url="/servlet/servlet.FileDownload?file={!safeDropAttachmentId}"
-									            rendered="{!NOT(ISNULL(safeDropAttachmentId))}"
-									            style="display:inline-block;height:200px;"/>
+												rendered="{!NOT(ISNULL(safeDropAttachmentId))}"
+												style="display:inline-block;height:200px;"/>
 								</td>
 							</apex:outputText>
 						</tr>
