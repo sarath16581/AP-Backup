@@ -15,6 +15,8 @@
 * 2022-07-19 - Sreenish Krishnan - Added new fields
 * 2023-07-05 - Mahesh Parvathaneni - Added tests for options WITH_BILLING_ACCOUNT
 * 2024-01-31 - Hasantha L - added ConveyancerContact__c field update to testSelectorIntegration()
+* 2024-05-21 - Marcel HK - Added tests for new selector method `selectByCustomerSearchParams` for Customer Search (CSLU-107)
+* 2024-07-05 - Marcel HK - Updated tests for selector method `selectByCustomerSearchParamsQB` (CSLU-955)
 */
 @IsTest
 private with sharing class ContactsSelector_Test {
@@ -201,13 +203,11 @@ private with sharing class ContactsSelector_Test {
 		Test.StopTest();
 
 		List<String> orderBy = new List<String>{
-			'VerifiedEmail__c ASC NULLS LAST',
-			'VerifiedMobile__c ASC NULLS LAST',
-			'Name ASC NULLS LAST',
-			'Email ASC NULLS LAST',
-			'MobilePhone ASC NULLS LAST'
+			'UnifiedDataScore__c DESC NULLS LAST',
+			'FirstName ASC NULLS LAST',
+			'LastName ASC NULLS LAST'
 		};
-		Assert.isTrue(Pattern.compile('(?is)ORDER BY ' + String.join(orderBy, ',\\s?')).matcher(soql).find(), 'Query did not include correct ORDER BY statement');
+		Assert.isTrue(Pattern.compile('(?is)ORDER BY ' + String.join(orderBy, ',\\s?')).matcher(soql).find(), 'Query did not include correct ORDER BY statement. ' + soql.replaceAll('\n',''));
 		Assert.isFalse(Pattern.compile('(?is)FROM Contact\\bWHERE\\b').matcher(soql).find(), 'Query should not include any WHERE clause');
 	}
 
