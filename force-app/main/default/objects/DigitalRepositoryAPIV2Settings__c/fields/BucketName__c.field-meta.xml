@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+	<fullName>BucketName__c</fullName>
+	<description>Name of the digital repository bucket holding the object.</description>
+	<externalId>false</externalId>
+	<inlineHelpText>Provide S3 bucket name that is related the attachment type.</inlineHelpText>
+	<label>Bucket Name</label>
+	<length>255</length>
+	<required>false</required>
+	<securityClassification>INTERNAL</securityClassification>
+	<trackTrending>false</trackTrending>
+	<type>Text</type>
+	<unique>false</unique>
+</CustomField>
