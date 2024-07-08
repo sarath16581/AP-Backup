@@ -218,6 +218,14 @@
         <description>Send Email to the case requestor when the associated Case is closed/resolved</description>
         <protected>false</protected>
         <recipients>
+            <field>ContactEmail1__c</field>
+            <type>email</type>
+        </recipients>
+        <recipients>
+            <field>SuppliedEmail</field>
+            <type>email</type>
+        </recipients>
+        <recipients>
             <field>Requestor__c</field>
             <type>userLookup</type>
         </recipients>
@@ -453,6 +461,22 @@
         <senderAddress>noreply-customerres@auspost.com.au</senderAddress>
         <senderType>OrgWideEmailAddress</senderType>
         <template>Australia_Post_Case_Templates/Dispute_Case_Approved_Late_Payment</template>
+    </alerts>
+    <alerts>
+        <fullName>Network_Partner_Case_Creation_Email</fullName>
+        <description>Network Partner Case Creation Email</description>
+        <protected>false</protected>
+        <recipients>
+            <field>ContactEmail1__c</field>
+            <type>email</type>
+        </recipients>
+        <recipients>
+            <field>SuppliedEmail</field>
+            <type>email</type>
+        </recipients>
+        <senderAddress>businesspartner@auspost.com.au</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>unfiled$public/Network_Partner_Email_Template</template>
     </alerts>
     <alerts>
         <fullName>New_Dispute_Claim_Case_Created</fullName>

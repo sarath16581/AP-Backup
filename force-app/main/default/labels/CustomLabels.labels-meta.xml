@@ -9154,4 +9154,12 @@ We&apos;ll let you if it&apos;s successful. Thank you. Please do not reply.</val
         <shortDescription>Record Type Developer Name of Bulk Mail</shortDescription>
         <value>Bulk_Mail_Onboarding</value>
     </labels>
+    <labels>
+        <fullName>REC_TYPE_DEV_Network_Partner</fullName>
+        <categories>Record Type Name</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>REC_TYPE_DEV_Network_Partner</shortDescription>
+        <value>NetworkPartnerSupport</value>
+    </labels>
 </CustomLabels>

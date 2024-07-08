@@ -10,6 +10,7 @@
     <columns>Barcode_A__c</columns>
     <columns>Hire_Vehicle__c</columns>
     <columns>Line_Haul__c</columns>
+    <columns>Service_Territory__c</columns>
     <columns>Make__c</columns>
     <columns>Model__c</columns>
     <columns>ParentLocation</columns>
@@ -19,6 +20,11 @@
         <field>LocationType</field>
         <operation>equals</operation>
         <value>Vehicle</value>
+    </filters>
+    <filters>
+        <field>Service_Territory__c</field>
+        <operation>equals</operation>
+        <value>WA Transport</value>
     </filters>
     <filters>
         <field>Status__c</field>
