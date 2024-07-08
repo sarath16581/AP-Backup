@@ -415,12 +415,14 @@ public with sharing class HappyParcelService {
 
 		// Process callout response
 		StarTrackConsignmentSearchUtil.ConsignmentWrapper conWrapper = processResponse(stInfo.stResponse.getValue(), stInfo.trackingResult.article.Id);
-		Article__c consignmentST = conWrapper.articleList.get(0);
-		trackingResult.article.FurtherReferences__c = consignmentST?.FurtherReferences__c;
-		trackingResult.article.DeliveryInstructions__c = consignmentST?.DeliveryInstructions__c;
-		trackingResult.article.ConsignmentParcelCount__c = consignmentST?.ConsignmentParcelCount__c;
-		trackingResult.article.ExpectedDeliveryDate__c = consignmentST?.ExpectedDeliveryDate__c;
-		trackingResult.article.Source_System__c = consignmentST?.Source_System__c;
+		if(conWrapper != null){
+			Article__c consignmentST = conWrapper.articleList.get(0);
+			trackingResult.article.FurtherReferences__c = consignmentST?.FurtherReferences__c;
+			trackingResult.article.DeliveryInstructions__c = consignmentST?.DeliveryInstructions__c;
+			trackingResult.article.ConsignmentParcelCount__c = consignmentST?.ConsignmentParcelCount__c;
+			trackingResult.article.ExpectedDeliveryDate__c = consignmentST?.ExpectedDeliveryDate__c;
+			trackingResult.article.Source_System__c = consignmentST?.Source_System__c;
+		}
 		return trackingResult;
 	}
 
@@ -433,6 +435,7 @@ public with sharing class HappyParcelService {
 	 */
 	public StarTrackConsignmentSearchUtil.ConsignmentWrapper processResponse(wwwAuspostComAuSchemaCustomercarema.ConsignmentData emsResponse, Id consignmentSFId) {
 		Article__c thisConsignment;
+		List<Database.SaveResult> results;
 		try {
 			if (emsResponse.Header.NbrOfRows == 1 || emsResponse.Consignment != null) {
 				thisConsignment = new Article__c();
@@ -444,12 +447,12 @@ public with sharing class HappyParcelService {
 				thisConsignment.ExpectedDeliveryDate__c = emsResponse?.Consignment?.ExpectedDeliveryDate != null ? emsResponse.Consignment.ExpectedDeliveryDate : thisConsignment.ExpectedDeliveryDate__c;
 				thisConsignment.Source_System__c = emsResponse?.Consignment?.SourceSystem != null ? emsResponse.Consignment.SourceSystem : thisConsignment.Source_System__c;
 				thisConsignment.Id = consignmentSFId;
-				ApplicationDatabase.getInstance().dmlUpdate(new List<SObject>{ thisConsignment });
+				results = ApplicationDatabase.getInstance().dmlUpdate(new List<SObject>{ thisConsignment });
 				return new StarTrackConsignmentSearchUtil.ConsignmentWrapper(true, null, new List<Article__c>{ thisConsignment });
 			}
 		} catch (Exception e) {
-			GlobalUtility.logMessage('ERROR', 'HappyParcelService', 'processResponse', '', 'Exception', e.getMessage(), '', e, 0);
-			throw e;
+			ApplicationLogger.getInstance().logFailedDatabaseResults(results, 'HappyParcel' , String.valueOf(HappyParcelService.class), 'processResponse', null, ApplicationLogger.LoggingLevel.ERROR);
+			throw new AuraHandledException(e.getMessage());
 		}
 		return null;
 	}
