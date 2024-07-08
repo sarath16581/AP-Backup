@@ -99,7 +99,7 @@ public inherited sharing class OpportunitySalesPipelineModule extends Applicatio
 	}
 	public override void onAfterInsert(List<SObject> records, ApplicationUnitOfWork uow) {
 		try {
-			updateAccountDetails(records,null,uow,'OpportunitySalesPipelineModuleafterinsert');
+			updateAccountDetails(records, null, uow, 'OpportunitySalesPipelineModuleafterinsert');
 
 		} catch (Exception e) {
 			ApplicationLogger.getInstance().logException(ApplicationLogger.wrapException(e), 'Sales', OpportunitySalesPipelineModule.class.getName(),
@@ -108,14 +108,14 @@ public inherited sharing class OpportunitySalesPipelineModule extends Applicatio
 	}
 	public override void onAfterUpdate(List<SObject> records, Map<Id, SObject> existingRecords, ApplicationUnitOfWork uow) {
 		try {
-			updateAccountDetails(records, existingRecords,uow,'OpportunitySalesPipelineModuleafterupdate');
+			updateAccountDetails(records, existingRecords, uow, 'OpportunitySalesPipelineModuleafterupdate');
 
 		} catch (Exception e) {
 			ApplicationLogger.getInstance().logException(ApplicationLogger.wrapException(e), 'Sales', OpportunitySalesPipelineModule.class.getName(),
 			'onAfterUpdate', String.valueOf(Opportunity.SObjectType), ApplicationLogger.LoggingLevel.ERROR);
 		}
 	}
-	private void updateAccountDetails(List<SObject> records,Map<Id, SObject> existingRecords, ApplicationUnitOfWork uow,string context) {
+	private void updateAccountDetails(List<SObject> records, Map<Id, SObject> existingRecords, ApplicationUnitOfWork uow, String context) {
 		Map<Id,String> accountIdToIndirectCustMap = new Map<Id,String>();
 		List<Account> updatedAccounts = new List<Account> ();
 		
