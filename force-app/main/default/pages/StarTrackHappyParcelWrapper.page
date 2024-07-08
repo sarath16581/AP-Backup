@@ -23,17 +23,17 @@
 
 		<script>
 			jQuery(function($) {
-                // define our dom events we will receive from the Happy Parcels lightning component
-                document.getElementById('wrapper').addEventListener('idclick', handleHappyParcelLightningEvent);
-            });
+				// define our dom events we will receive from the Happy Parcels lightning component
+				document.getElementById('wrapper').addEventListener('idclick', handleHappyParcelLightningEvent);
+			});
 
 			function handleHappyParcelLightningEvent(e) {
 				if(e && e.detail && e.type === 'idclick' && e.detail.id) {
-                    // this occurs if a link is clicked in Happy Parcel that requires a record page to be opened
+					// this occurs if a link is clicked in Happy Parcel that requires a record page to be opened
 					if (sforce && sforce.console && sforce.console.isInConsole()) {
-                    	sforce.console.openPrimaryTab(null, '/' + e.detail.id, true);
+						sforce.console.openPrimaryTab(null, '/' + e.detail.id, true);
 					}
-                }
+				}
 			}
 		</script>		
 	</html>
