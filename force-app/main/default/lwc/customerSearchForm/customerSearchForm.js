@@ -14,10 +14,44 @@ export const SEARCH_FORM_TITLE = 'Customer Search';
 export default class CustomerSearchForm extends LightningElement {
 	/**
 	 * The Id of the record to provide context to this component.
-	 * @type {string}
+	 * @type {string|undefined}
 	 */
 	@api recordId;
 
-	// Lightning card title
 	searchFormTitle = SEARCH_FORM_TITLE;
+	isSearching = false;
+	searchResponse;
+
+	/**
+	 * Handles the `onstart` event.
+	 */
+	handleSearchStart() {
+		this.isSearching = true;
+	}
+
+	/**
+	 * Handles the `onerror` event.
+	 * Note: The error message is displayed by the form component, so there is no
+	 * need to take any additional action here.
+	 */
+	handleSearchError() {
+		this.isSearching = false;
+	}
+
+	/**
+	 * Handles the `onresult` event.
+	 * @param {CustomEvent} event - The event object which contains the searchResponse data.
+	 */
+	handleSearchResults(event) {
+		this.searchResponse = event.detail;
+		this.isSearching = false;
+	}
+
+	/**
+	 * Handles the `onreset` event.
+	 */
+	handleSearchReset() {
+		// Clear any previous results
+		this.searchResponse = undefined;
+	}
 }
