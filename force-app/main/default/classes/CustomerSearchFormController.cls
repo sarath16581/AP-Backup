@@ -31,9 +31,9 @@ public with sharing class CustomerSearchFormController {
 	private static final String NOT_ENOUGH_PARAMS_ERROR_MSG = 'Please enter at least First and Last Name, or Phone, or Email.';
 	@TestVisible
 	private static final String TOO_MANY_RESULTS_WARNING_MSG =
-		'Too many results. The first ' +
+		'Your query returned more than ' +
 		MAX_RESULTS +
-		' have been returned. Please refine your search.';
+		' results. We recommend refining your search criteria.';
 
 	/**
 	 * @description Search method to be invoked by the Lightning Web Component. This method will perform basic
