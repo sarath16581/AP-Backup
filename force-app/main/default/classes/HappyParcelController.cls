@@ -21,6 +21,8 @@
  * 2024-05-21 - Seth Heang - Added methods to allow forceConsignment Search if applicable while quering SAP-EM article details
  * 2024-06-06 - Raghav Ravipati - Added methods to get critical incident knowledge articles based on network org Id
  * 2024-06-17 - Raghav Ravipati - Added changes related to Enquiry Mapping to filter using MappingModule field
+ * 2024-06-24 - Seth Heang - updated queryTrackingApi method to reduce redundent SAP callout for a scenario where the article searched has no parent consignment
+ * 2024-06-25 - Raghav Ravipati - Updated the Amazon s3 deliveryRepository API from V1 to V2 
  */
 public with sharing class HappyParcelController {
 	/**
@@ -75,14 +77,20 @@ public with sharing class HappyParcelController {
 		try {
 			TIBCOArticleService articleService = TIBCOArticleService.getInstance();
 			TIBCOSearchResult searchResult;
-			String finalTrackingId = trackingId;
+			String consignmentId;
 
+			// initial SAP callout
+			searchResult = articleService.searchByArticleIdsInSAP(new List<String>{ trackingId });
 			if (forceConsignmentSearch == true) {
-				searchResult = TIBCOArticleService.searchArticlesInSAP(new List<String>{ trackingId });
-				String consignmentId = getConsignmentIdForForceConsignmentSearch(searchResult);
-				finalTrackingId = consignmentId != null ? consignmentId : finalTrackingId;
+				consignmentId = getConsignmentIdForForceConsignmentSearch(searchResult);
 			}
-			searchResult = articleService.search(new List<String>{ finalTrackingId }, true, false, false, false, true);
+			// Make another callout using consignment trackingId if forceConsignment is enabled and article has parent consignment
+			if (consignmentId != null) {
+				searchResult = articleService.search(new List<String>{ consignmentId }, true, false, false, false, true);
+			} else {
+				// process SAP response and passed in the response from initial callout
+				searchResult = articleService.processTIBCOSearchResults(new List<String>{ trackingId }, searchResult, false, true);
+			}
 
 			//NOTE: TrackingResult class simply provides some structure around the returned object (including case consistency)
 			//Also retrieves EAT details from transient attributes
@@ -224,21 +232,30 @@ public with sharing class HappyParcelController {
 	 * The API blacks out faces and text.
 	 */
 	@AuraEnabled(Continuation=true)
-	public static Object getArticleImage(String guidId) {
-		SafeDropUtility utility = SafeDropUtility.getInstance();
-		HttpRequest req = utility.getHttpRequest(guidId);
-		if (req == null) {
-			return new SafeDropUtility.SafeDropApiResponse(true, 'No Login Information Found.', '');
+	public static Object getArticleImage(String guidId, String attachmentType) {
+		// Get configurations from customsetting. Looks for data that matches with attachmentType else gets the default values.
+		DigitalRepositoryAPIV2Settings__c apiConfig = DigitalRepositoryAPIV2Settings__c.getValues(attachmentType);
+		// default config.
+		if (apiConfig == null) {
+			apiConfig = DigitalRepositoryAPIV2Settings__c.getValues('DefaultConfigurations');
 		}
 
-		// Create a Continuation for the HTTPRequest
-		// This is used for async requests
-		Continuation con = new Continuation(60);
-		con.addHttpRequest(req);
-		con.continuationMethod = 'safeDropImageCallback';
+		if (String.isNotBlank(apiConfig.FileExtensionType__c)) {
+			guidId += apiConfig.FileExtensionType__c;
+		}
+		// constructing Digital Repository V2 request
+		DigitalRepositoryService digitalRepository = DigitalRepositoryService.getInstance();
+		Continuation continuationRequest = digitalRepository.getContinuation(
+			guidId,
+			apiConfig.BucketName__c,
+			apiConfig.BlurImage__c,
+			Integer.valueOf(apiConfig.ResizePercentage__c),
+			Integer.valueOf(apiConfig.ResizeThreshold__c)
+		);
+		continuationRequest.continuationMethod = 'safeDropImageCallback';
 
 		// Return it to the system for processing
-		return con;
+		return continuationRequest;
 	}
 
 	/**
@@ -246,13 +263,12 @@ public with sharing class HappyParcelController {
 	 */
 	@AuraEnabled
 	public static Object safeDropImageCallback(List<String> labels, Object state) {
-		HttpResponse resp = Continuation.getResponse(labels[0]);
+		HttpResponse response = Continuation.getResponse(labels[0]);
+		DigitalRepositoryService digitalRepository = DigitalRepositoryService.getInstance();
+		// parse response
+		DigitalRepositoryService.DocumentApiResponse parsedResponse = digitalRepository.parseResponse(response);
 
-		String responseBody = resp.getBody();
-		// parse the json
-		SafeDropUtility.SafeDropApiResponse response = SafeDropUtility.parseResponse(responseBody, resp);
-
-		return response;
+		return parsedResponse;
 	}
 
 	/**

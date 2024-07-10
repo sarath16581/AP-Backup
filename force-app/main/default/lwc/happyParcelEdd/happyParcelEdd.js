@@ -6,7 +6,8 @@
  * @changelog
  * 2020-10-26 disha.kariya@auspost.com.au Added delivery ETA
  * 2021-10-01 - Nathan Franklin - Refactored usage of transient attributes + uplift to version 52
- * 2024-06-08 - Seth Heang - Add getter for isStarTrackEDD
+ * 2024-06-08 - Seth Heang - Add getter for isDotNetEDD
+ * 2024-06-25 - Seth Heang - Added getter displaySourceSystem for dynamic EDD header display
  */
 import { LightningElement, api, track } from "lwc";
 import { get, CONSTANTS } from "c/happyParcelService";
@@ -87,7 +88,14 @@ export default class HappyParcelEdd extends HappyParcelBase {
 	 * This is used to identify if the Expected Delivery Data is sourced from .NET API StarTrack Consignment
 	 */
 	get isDotNetEdd() {
-		return get(this.trackingApiResult, "isDotNetEdd", null);
+		return get(this.trackingApiResult, "isDotNetEdd", false);
+	}
+
+	/**
+	 * This is used to display in the EDD header and is mapped from the source system from .NET API response
+	 */
+	get displaySourceSystem() {
+		return this.isDotNetEdd && get(this.trackingApiResult, "article.Source_System__c", false);
 	}
 
 	/**

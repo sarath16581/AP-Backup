@@ -13,6 +13,7 @@
  * 2024-05-21 - Seth Heang - Added new test method to handle force consignment search
  * 2024-06-12 - Raghav Ravipati - Added new test method to cover getCriticalIncidents
  * 2024-06-17 - Raghav Ravipati - added mocks to EnquiryMappingsSelector
+ * 2024-06-25 - Seth Heang - Added new assertion in testSearchAsyncStarTrack due to new attributes mapping such as EDD and SourceSystem
  */
 @IsTest
 private class HappyParcelController_Test {
@@ -26,6 +27,21 @@ private class HappyParcelController_Test {
 		oa.Name = 'SAPEMCustomerArticles';
 		insert oa;
 
+		AusPostSettings__c digitalRepoSettings = new AusPostSettings__c();
+		digitalRepoSettings.URL__c = 'http://callout:test/documents';
+		digitalRepoSettings.Name = 'DigitalRepositoryDocumentsAPIv2';
+		insert digitalRepoSettings;
+
+		DigitalRepositoryAPIV2Settings__c repositorySettings = new DigitalRepositoryAPIV2Settings__c();
+		repositorySettings.Name = 'DefaultConfigurations';
+		repositorySettings.BlurImage__c = false;
+		repositorySettings.BucketName__c = 'DefaultBucket';
+		repositorySettings.Default__c = true;
+		repositorySettings.FileExtensionType__c = '.jpg';
+		repositorySettings.ResizePercentage__c = 40;
+		repositorySettings.ResizeThreshold__c = 1000;
+
+		insert repositorySettings;
 		StarTrack_Settings__c starTrackSetting = new StarTrack_Settings__c(
 			Web_Service_Callout_Timeout__c = 45
 		);
@@ -55,20 +71,23 @@ private class HappyParcelController_Test {
 		// Stubbing
 		// =====================================
 		TIBCOArticleService mockArticleService = (TIBCOArticleService) MockUtility.mockUtility(TIBCOArticleService.class);
+		List<String> trackingIds = new List<String>{ 'auysgdagsd' };
+		AnswerSearchArticle mockSearchResult = new AnswerSearchArticle();
 
 		// set up our responses
 		MockUtility.Mocks.startStubbing();
-		MockUtility.Mocks.when(
-				mockArticleService.search((List<String>) fflib_Match.anyList(), fflib_Match.anyBoolean(), fflib_Match.anyBoolean(), fflib_Match.anyBoolean(), fflib_Match.anyBoolean(), fflib_Match.anyBoolean())
-			)
-			.thenAnswer(new AnswerSearchArticle());
-
 		EnquiryMappingsSelector enquirySelector = (EnquiryMappingsSelector)MockUtility.mockSelector(EnquiryMappingsSelector.class);
-		// set up our responses
-		MockUtility.Mocks.startStubbing();
 		// Database
 		MockUtility.Mocks.when(enquirySelector.selectBySAPKeyAndMappingModel((Set<String>)fflib_Match.eq(new Set<String>{ 'eParceleParcel Standard' }), (Set<String>)fflib_Match.eq(new Set<String>{ 'Classic' })))
-			.thenReturn(new List<MiniCaseFieldMapping__c>{mappings[0]});
+		.thenReturn(new List<MiniCaseFieldMapping__c>{mappings[0]});
+
+		MockUtility.Mocks.when(mockArticleService.searchByArticleIdsInSAP((List<String>) fflib_Match.eqList(trackingIds))).thenAnswer(mockSearchResult);
+		MockUtility.Mocks.when(mockArticleService.processTIBCOSearchResults(
+				(List<String>) fflib_Match.eqList(trackingIds),
+				(TIBCOSearchResult) fflib_Match.anyObject(),
+				(Boolean)fflib_Match.eqBoolean(false),
+				(Boolean)fflib_Match.eqBoolean(true)
+		)).thenAnswer(mockSearchResult);
 		MockUtility.Mocks.stopStubbing();
 
 		// =====================================
@@ -106,12 +125,18 @@ private class HappyParcelController_Test {
 		// =====================================
 		TIBCOArticleService mockArticleService = (TIBCOArticleService) MockUtility.mockUtility(TIBCOArticleService.class);
 
+		List<String> trackingIds = new List<String>{ 'asjkd12jkjasjkd' };
+		AnswerSearchArticle mockSearchResult = new AnswerSearchArticle();
+
 		// set up our responses
 		MockUtility.Mocks.startStubbing();
-		MockUtility.Mocks.when(
-				mockArticleService.search((List<String>) fflib_Match.anyList(), fflib_Match.anyBoolean(), fflib_Match.anyBoolean(), fflib_Match.anyBoolean(), fflib_Match.anyBoolean(), fflib_Match.anyBoolean())
-			)
-			.thenAnswer(new AnswerSearchArticle());
+		MockUtility.Mocks.when(mockArticleService.searchByArticleIdsInSAP((List<String>) fflib_Match.eqList(trackingIds))).thenAnswer(mockSearchResult);
+		MockUtility.Mocks.when(mockArticleService.processTIBCOSearchResults(
+				(List<String>) fflib_Match.eqList(trackingIds),
+				(TIBCOSearchResult) fflib_Match.anyObject(),
+				(Boolean)fflib_Match.eqBoolean(false),
+				(Boolean)fflib_Match.eqBoolean(true)
+		)).thenAnswer(mockSearchResult);
 		MockUtility.Mocks.stopStubbing();
 
 		// =====================================
@@ -196,12 +221,6 @@ private class HappyParcelController_Test {
 		// =====================================
 		// Stubbing
 		// =====================================
-		SafeDropUtility mockSafeDropUtility = (SafeDropUtility) MockUtility.mockUtility(SafeDropUtility.class);
-
-		// set up our responses
-		MockUtility.Mocks.startStubbing();
-		MockUtility.Mocks.when(mockSafeDropUtility.getHttpRequest(fflib_Match.anyString())).thenReturn(new HttpRequest());
-		MockUtility.Mocks.stopStubbing();
 
 		// =====================================
 		// Testing
@@ -209,17 +228,17 @@ private class HappyParcelController_Test {
 		Test.startTest();
 
 		// Invoke the continuation
-		Continuation cont = (Continuation) HappyParcelController.getArticleImage('TEST');
+		Continuation cont = (Continuation) HappyParcelController.getArticleImage('TEST', 'ARTICLE_IMAGE_TO_X');
 
 		// setup the continuation mock provider
 		String requestLabel = new List<String>(cont.getRequests().keySet())[0];
-		SafeDropUtility_Test.setSuccessContinuationResponse(requestLabel);
-		SafeDropUtility.SafeDropApiResponse response = (SafeDropUtility.SafeDropApiResponse) HappyParcelController.safeDropImageCallback(new List<String>{ requestLabel }, null);
+		DigitalRepositoryService_Test.setSuccessContinuationResponse(requestLabel);
+		DigitalRepositoryService.DocumentApiResponse response = (DigitalRepositoryService.DocumentApiResponse) HappyParcelController.safeDropImageCallback(new List<String>{ requestLabel }, null);
 
 		Test.stopTest();
 
 		System.assertEquals(false, response.isError, 'Expected no errors but instead got: ' + JSON.serialize(response));
-		System.assertNotEquals('', response.imageBody, 'Expected en image body but instead got nothing');
+		System.assertNotEquals('', response.getDocumentContent(), 'Expected en image body but instead got nothing');
 	}
 
 	/**
@@ -235,12 +254,6 @@ private class HappyParcelController_Test {
 		// =====================================
 		// Stubbing
 		// =====================================
-		SafeDropUtility mockSafeDropUtility = (SafeDropUtility) MockUtility.mockUtility(SafeDropUtility.class);
-
-		// set up our responses
-		MockUtility.Mocks.startStubbing();
-		MockUtility.Mocks.when(mockSafeDropUtility.getHttpRequest(fflib_Match.anyString())).thenReturn(new HttpRequest());
-		MockUtility.Mocks.stopStubbing();
 
 		// =====================================
 		// Testing
@@ -248,18 +261,18 @@ private class HappyParcelController_Test {
 		Test.startTest();
 
 		// Invoke the continuation
-		Continuation cont = (Continuation) HappyParcelController.getArticleImage('TEST');
+		Continuation cont = (Continuation) HappyParcelController.getArticleImage('TEST', 'ARTICLE_IMAGE_TO_X');
 
 		// setup the continuation mock provider
 		String requestLabel = new List<String>(cont.getRequests().keySet())[0];
-		SafeDropUtility_Test.setErrorContinuationResponse(requestLabel);
-		SafeDropUtility.SafeDropApiResponse response = (SafeDropUtility.SafeDropApiResponse) HappyParcelController.safeDropImageCallback(new List<String>{ requestLabel }, null);
+		DigitalRepositoryService_Test.setErrorContinuationResponse(requestLabel);
+		DigitalRepositoryService.DocumentApiResponse response = (DigitalRepositoryService.DocumentApiResponse) HappyParcelController.safeDropImageCallback(new List<String>{ requestLabel }, null);
 
 		Test.stopTest();
 
 		System.assertEquals(true, response.isError, 'Expected an error but instead got: ' + JSON.serialize(response));
-		System.assertNotEquals('', response.errorMessage, 'Expected an error message but instead got: ' + JSON.serialize(response));
-		System.assertEquals('', response.imageBody, 'Expected no image body but instead got: ' + JSON.serialize(response));
+		System.assertNotEquals('', response.getErrorMessage(), 'Expected an error message but instead got: ' + JSON.serialize(response));
+		System.assertEquals(null, response.document, 'Expected no image body but instead got: ' + JSON.serialize(response));
 	}
 
 	/**
@@ -612,6 +625,7 @@ private class HappyParcelController_Test {
 		HappyParcelController.TrackingArticle resultWrapper = (HappyParcelController.TrackingArticle) result;
 		Assert.areEqual('D05 1, E05 1', resultWrapper.article.FurtherReferences__c, 'Further References do not match');
 		Assert.areEqual(Date.newInstance(2024,1,21), resultWrapper.article.ExpectedDeliveryDate__c, 'Expected Delivery Date should match but was not');
+		Assert.areEqual('TEAM', resultWrapper.article.Source_System__c, 'Source System should be TEAM but instead was ' + resultWrapper.article.Source_System__c);
 
 		// Verify that the consignment record of type Article__c has been updated 1 time
 		fflib_ArgumentCaptor updatableConsignmentCaptor = fflib_ArgumentCaptor.forClass(List<Article__c>.class);
@@ -622,6 +636,7 @@ private class HappyParcelController_Test {
 		Assert.areEqual(1, resArticle.size(), 'Only one article should be updated and returned back');
 		Assert.areEqual('D05 1, E05 1', resArticle.get(0).FurtherReferences__c, 'Further References do not match');
 		Assert.areEqual(Date.newInstance(2024,1,21), resArticle.get(0).ExpectedDeliveryDate__c, 'Expected Delivery Date should match but was not');
+		Assert.areEqual('TEAM', resArticle.get(0).Source_System__c, 'Source System should be TEAM but instead was ' + resArticle.get(0).Source_System__c);
 	}
 
 	/**
