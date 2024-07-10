@@ -441,7 +441,7 @@ public with sharing class HappyParcelService {
 				thisConsignment = new Article__c();
 				Set<String> references = new Set<String>{ emsResponse.Consignment.FurtherReference1, emsResponse.Consignment.FurtherReference2 };
 				references.remove(null);
-				thisConsignment.FurtherReferences__c = !references.isEmpty() ? String.join(references, ', ') : null;
+				thisConsignment.FurtherReferences__c = references.isEmpty() ? null : String.join(references, ', ');
 				thisConsignment.DeliveryInstructions__c = thisConsignment.DeliveryInstructions__c == null ? emsResponse.Consignment.DeliveryInstructions : thisConsignment.DeliveryInstructions__c;
 				thisConsignment.ConsignmentParcelCount__c = thisConsignment.ConsignmentParcelCount__c == null ? emsResponse.Consignment.ConsignmentParcelCount : thisConsignment.ConsignmentParcelCount__c;
 				thisConsignment.ExpectedDeliveryDate__c = emsResponse?.Consignment?.ExpectedDeliveryDate != null ? emsResponse.Consignment.ExpectedDeliveryDate : thisConsignment.ExpectedDeliveryDate__c;

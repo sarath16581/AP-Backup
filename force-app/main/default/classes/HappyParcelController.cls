@@ -233,9 +233,9 @@ public with sharing class HappyParcelController {
 	 */
 	@AuraEnabled(Continuation=true)
 	public static Object getArticleImage(String guidId, String attachmentType) {
-		//Get configurations from customsetting. Looks for data that matches with attachmentType else gets the default values.
+		// Get configurations from customsetting. Looks for data that matches with attachmentType else gets the default values.
 		DigitalRepositoryAPIV2Settings__c apiConfig = DigitalRepositoryAPIV2Settings__c.getValues(attachmentType);
-		//default config.
+		// default config.
 		if (apiConfig == null) {
 			apiConfig = DigitalRepositoryAPIV2Settings__c.getValues('DefaultConfigurations');
 		}
@@ -243,7 +243,7 @@ public with sharing class HappyParcelController {
 		if (String.isNotBlank(apiConfig.FileExtensionType__c)) {
 			guidId += apiConfig.FileExtensionType__c;
 		}
-		//constructing Digital Repository V2 request
+		// constructing Digital Repository V2 request
 		DigitalRepositoryService digitalRepository = DigitalRepositoryService.getInstance();
 		Continuation continuationRequest = digitalRepository.getContinuation(
 			guidId,
