@@ -1,0 +1,7 @@
+<apex:page standardController="Case" extensions="CaseHandOffIndicatorController">
+    <apex:outputPanel rendered="{!showBanner}">
+        <div style="font-weight: 700;background-color: {!backgroundColor};color: white;padding: 3px;">
+            ✅ Case is transferred by Unified Team
+        </div>
+    </apex:outputPanel>
+</apex:page>
