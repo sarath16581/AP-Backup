@@ -37,6 +37,7 @@
  * 2023-09-22 - Ken McGuire - added methods for product revenue objects
  * 2024-04-17 - Deepak Kemidi - added method for creating vendor emails
  * 2024-06-13 - Parveen Kaushik - Added default value for mapping model on test data. See CSLU-470 (JIRA) for details.
+ * 2024-07-10 - Vasu Gorakati - Added method getImpactedArticles 
 */
 @IsTest
 public with sharing class ApplicationTestDataFactory {
@@ -1132,6 +1133,16 @@ public with sharing class ApplicationTestDataFactory {
 			emailAddresses.add(email);
 		}
 		return (List<Auspost_Vendors_Email_Address__mdt>)maybeGenerateIds(emailAddresses, generateIds);
+	}
+
+	/**
+	* Generates test data for Impacted Articles
+	**/
+	public static List<ImpactedArticle__c> getImpactedArticles(integer count, Id caseId, Id articleId, Boolean generateIds){
+		return (List<ImpactedArticle__c>)maybeGenerateIds(populateSObjects(ImpactedArticle__c.SObjectType, new Map<SObjectField, Object> {
+			ImpactedArticle__c.Case__c => caseId,
+			ImpactedArticle__c.Article__c => articleId
+		}, count), generateIds);
 	}
 	
 	/**

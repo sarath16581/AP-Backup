@@ -20,6 +20,7 @@
   * 20.03.2023	- Noel Lim - added constants SSSW_AGENT_PROFILE, SSSW_SOCIAL_INTEGRATION_PROFILE, SSSW_BSP_COMMUNITY_USER_PROFILE
   * 27.03.2023 StephenL added constant: RECTYPE_ARTICLE_CONSIGNMENT
   * 13.06.2024 Parveen Kaushik Added new constants for Enquiry Mapping object to identify model type.
+  * 10.07.2024 Vasu Gorakati Added new constant SSSW_ENTITLEMENT
   */  
 public with sharing class SSSWConstants {
 
@@ -157,7 +158,7 @@ public with sharing class SSSWConstants {
     public static final String METH_GETUSERS = 'getUsers';    
     public static final String METH_GET_STD_ENTITLEMENT = 'getStandardEntitlement';    
     public static final String PERCENT = '%';
-    public static final String ENTITLEMENT_ACC = 'SSSW Entitlements';
+    public static final String ENTITLEMENT_ACC = 'SSSW Entitlements';	
 
     /*** SSSW Routing ***/
     public static final String RECTYPEROUTING = 'SSSWRouting';
@@ -331,4 +332,6 @@ public with sharing class SSSWConstants {
     /*** Enquiry Mapping Constants ***/
     public static final String ENQUIRYMAPPING_UNIFIED_MODEL = 'Unified';
     public static final String ENQUIRYMAPPING_CLASSIC_MODEL = 'Classic';
+
+	public static final String SSSW_ENTITLEMENT = 'Standard Entitlement';
 }

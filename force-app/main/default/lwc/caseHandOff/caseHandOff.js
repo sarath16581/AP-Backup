@@ -78,11 +78,9 @@ export default class CaseHandOff extends LightningElement {
   @wire(getRecord, { recordId: "$recordId", fields: FIELDS })
   wiredCase({ error, data }) {
 	if (data) {
-	  console.log("Case Record : ", data);
 	  this.caseRecord = data;
 	  this.handoffWrapper.caseRecordType =
 		this.caseRecord.fields.RecordType.value.fields.DeveloperName.value;
-	  console.log("recordtype: " + this.handoffWrapper.caseRecordType);
 	} else if (error) {
 	  this.caseRecord = undefined;
 	  this.handoffWrapper.caseRecordType = undefined;
@@ -166,7 +164,6 @@ export default class CaseHandOff extends LightningElement {
 		searchConsignmentStarTrack({ consignmentNumber: this.articleName })
 		  .then((result) => {
 			// Once the consignment search is complete, proceed with the handoff
-			console.log("result", result);
 			if (result.length > 1) {
 			  this.isLoading = false;
 			  this.showNotification(
@@ -200,8 +197,6 @@ export default class CaseHandOff extends LightningElement {
 
   processHandOffCase() {
 	this.handoffWrapper.caseId = this.recordId;
-
-	console.log("wrapper", this.handoffWrapper);
 
 	handOffCase({
 	  handoffWrapper: this.handoffWrapper,

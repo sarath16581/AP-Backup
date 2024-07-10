@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>CaseTransferReason__c</fullName>
-    <description>:Reason selected by the agent when the case was handed off to the classic team.</description>
+    <description>Reason selected by the agent when the case was handed off to the classic team.</description>
     <externalId>false</externalId>
-    <inlineHelpText>:Reason selected by the agent when the case was handed off to the classic team.</inlineHelpText>
+    <inlineHelpText>Reason selected by the agent when the case was handed off to the classic team.</inlineHelpText>
     <label>Case Transfer Reason</label>
     <required>false</required>
     <trackFeedHistory>false</trackFeedHistory>

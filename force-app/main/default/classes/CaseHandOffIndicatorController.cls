@@ -5,30 +5,30 @@
  * @changelog
  * 2024-06-18 - Paul Perry - Case Hand-off
  **/
-public class CaseHandOffIndicatorController {
-    private Case caseRecord;
+public with sharing class CaseHandOffIndicatorController {
+	private Case caseRecord;
 
-    public CaseHandOffIndicatorController(ApexPages.StandardController controller) {
-        Id caseId = controller.getId();
-        
-        this.caseRecord = CasesSelector.newInstance(
-            1,
-            new Set<SObjectField>{ Case.CaseTransferDate__c }
-        ).selectById(
-            new Set<Id>{ caseId },
+	public CaseHandOffIndicatorController(ApexPages.StandardController controller) {
+		Id caseId = controller.getId();
+		
+		this.caseRecord = CasesSelector.newInstance(
+			1,
+			new Set<SObjectField>{ Case.CaseTransferDate__c }
+		).selectById(
+			new Set<Id>{ caseId },
 			new Set<Object>{ CasesSelector.Options.WITH_RECORDTYPE }
-        ).get(caseId);
-    }
+		).get(caseId);
+	}
 
-    public Boolean getShowBanner() {
-        return this.caseRecord?.CaseTransferDate__c != null;
-    }
-    
-    public String getBackgroundColor() {
-        final String colourAP = '#E5535E';
-        final String colourST = '#6FBFDD';
+	public Boolean getShowBanner() {
+		return this.caseRecord?.CaseTransferDate__c != null;
+	}
+	
+	public String getBackgroundColor() {
+		final String colourAP = '#E5535E';
+		final String colourST = '#6FBFDD';
 
-        String recordTypeDevName = this.caseRecord?.RecordType.DeveloperName ?? '';
+		String recordTypeDevName = this.caseRecord?.RecordType.DeveloperName ?? '';
 		String result = colourST;
 
 		if (recordTypeDevName.startsWith('SSSW')) {
@@ -36,5 +36,5 @@ public class CaseHandOffIndicatorController {
 		}
 
 		return result;
-    }
+	}
 }
