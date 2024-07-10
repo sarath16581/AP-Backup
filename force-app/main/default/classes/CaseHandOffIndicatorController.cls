@@ -1,4 +1,3 @@
-
 /**
  * @description Case Hand-off Badge for classic view
  * @author Paul Perry
