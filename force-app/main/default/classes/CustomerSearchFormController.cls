@@ -5,6 +5,7 @@
  * @changelog
  * 2024-06-03 - Marcel HK - Created
  * 2024-07-02 - Marcel HK - Corrected form validation logic to align with associated LWC (CSLU-438)
+ * 2024-07-08 - Marcel HK - Update too many results warning message
  */
 public with sharing class CustomerSearchFormController {
 	// Query configuration constants
