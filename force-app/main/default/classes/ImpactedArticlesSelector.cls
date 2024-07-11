@@ -6,17 +6,17 @@
 * 2024-06-18 - Vasu Gorakati - Case Hand-off
 **/
 public virtual inherited sharing class ImpactedArticlesSelector extends ApplicationSelector {
-    
-    public static ImpactedArticlesSelector newInstance() {
-        return (ImpactedArticlesSelector)Application.Selectors.newInstance(ImpactedArticlesSelector.class);
-    }
-    
-    
-    public static ImpactedArticlesSelector newInstance(Integer recordLimit, Set<SObjectField> fieldOverrides) {
-        ImpactedArticlesSelector selector = (ImpactedArticlesSelector)Application.Selectors.newInstance(ImpactedArticlesSelector.class).setLimit(recordLimit).setFieldOverrides(fieldOverrides);
-        return selector;
-    }
-    
+	
+	public static ImpactedArticlesSelector newInstance() {
+		return (ImpactedArticlesSelector)Application.Selectors.newInstance(ImpactedArticlesSelector.class);
+	}
+	
+	
+	public static ImpactedArticlesSelector newInstance(Integer recordLimit, Set<SObjectField> fieldOverrides) {
+		ImpactedArticlesSelector selector = (ImpactedArticlesSelector)Application.Selectors.newInstance(ImpactedArticlesSelector.class).setLimit(recordLimit).setFieldOverrides(fieldOverrides);
+		return selector;
+	}
+	
 	public virtual override SObjectType getSObjectType() {
 		return ImpactedArticle__c.getSObjectType();
 	}
@@ -26,7 +26,7 @@ public virtual inherited sharing class ImpactedArticlesSelector extends Applicat
 				ImpactedArticle__c.Article__c, ImpactedArticle__c.ArticleId__c, ImpactedArticle__c.Case__c
 		};
 	}
-    
+	
    	/*
 	* this method returns records with matching case ids
 	 * @param caseIds list of case ids
@@ -34,8 +34,8 @@ public virtual inherited sharing class ImpactedArticlesSelector extends Applicat
 	 *
 	 * @return Case List
 	*/
- 	public virtual List<ImpactedArticle__c> selectByCaseId(Set<Id> caseIds, Set<Object> selectorOptions) {        
+ 	public virtual List<ImpactedArticle__c> selectByCaseId(Set<Id> caseIds, Set<Object> selectorOptions) {		
 		QueryBuilder qb = newQueryBuilder(selectorOptions).addConditions().add(new QueryBuilder.SimpleCondition(ImpactedArticle__c.Case__c + ' in :caseIds')).endConditions();
-		return (List<ImpactedArticle__c>)Database.query(qb.toSoqlString());        
+		return (List<ImpactedArticle__c>)Database.query(qb.toSoqlString());		
 	}
 }
