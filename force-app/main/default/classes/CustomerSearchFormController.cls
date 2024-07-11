@@ -5,6 +5,7 @@
  * @changelog
  * 2024-06-03 - Marcel HK - Created
  * 2024-07-02 - Marcel HK - Corrected form validation logic to align with associated LWC (CSLU-438)
+ * 2024-07-08 - Marcel HK - Update too many results warning message
  */
 public with sharing class CustomerSearchFormController {
 	// Query configuration constants
@@ -31,9 +32,9 @@ public with sharing class CustomerSearchFormController {
 	private static final String NOT_ENOUGH_PARAMS_ERROR_MSG = 'Please enter at least First and Last Name, or Phone, or Email.';
 	@TestVisible
 	private static final String TOO_MANY_RESULTS_WARNING_MSG =
-		'Too many results. The first ' +
+		'Your query returned more than ' +
 		MAX_RESULTS +
-		' have been returned. Please refine your search.';
+		' results. We recommend refining your search criteria.';
 
 	/**
 	 * @description Search method to be invoked by the Lightning Web Component. This method will perform basic

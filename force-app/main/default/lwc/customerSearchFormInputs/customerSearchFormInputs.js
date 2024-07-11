@@ -3,9 +3,6 @@ import customerSearch from '@salesforce/apex/CustomerSearchFormController.search
 import { isNotBlank } from 'c/utils';
 import { reduceErrors } from 'c/ldsUtils';
 
-// Lightning card title
-export const SEARCH_FORM_TITLE = 'Customer Search';
-
 // Field and button labels
 export const FIRST_NAME_LABEL = 'First Name';
 export const LAST_NAME_LABEL = 'Last Name';
@@ -90,9 +87,6 @@ export default class CustomerSearchFormInputs extends LightningElement {
 
 	errorMessage = undefined;
 	isLoading = false;
-
-	// Lightning card title
-	searchFormTitle = SEARCH_FORM_TITLE;
 
 	// Field and button labels
 	firstNameLabel = FIRST_NAME_LABEL;
