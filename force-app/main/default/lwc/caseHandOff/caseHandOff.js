@@ -155,7 +155,7 @@ export default class CaseHandOff extends LightningElement {
 	this.handoffWrapper.comment = event.detail.value;
   }
 
-  //This method is called to handle case hand-off process
+  //This method is called to handle case transfer process
   handOffCase() {
 	if (this.checkValidity()) {
 	  this.isLoading = true;

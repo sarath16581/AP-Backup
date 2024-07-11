@@ -7,6 +7,7 @@
     <inlineHelpText>Business Unit such as &quot;AustraliaPost&quot; or &quot;StarTrack&quot;</inlineHelpText>
     <label>Business Unit</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <type>Picklist</type>
     <valueSet>
         <restricted>true</restricted>

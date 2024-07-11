@@ -7,7 +7,7 @@
  **/
 public with sharing class CaseHandOffController {
 	private static final String AUSTRALIAPOST = 'AustraliaPost';
-	private static final String STARTRACK = 'StarTrack';	
+	private static final String STARTRACK = 'StarTrack';
 	private static final String RECORDTYPEID = 'RecordTypeId';
 	private static StarTrack_Settings__c stSettings = StarTrack_Settings__c.getOrgDefaults();
 	private static AsyncWwwAuspostComAuSchemaCustomercarema.SearchResponse_elementFuture continuationState = null;
@@ -37,7 +37,8 @@ public with sharing class CaseHandOffController {
 	 */
 	@AuraEnabled
 	public static void handOffCase(CaseHandOffWrapper handoffWrapper){
-	
+		System.debug('handoffwrapper: ' + JSON.serialize(handoffWrapper));
+
 		Set<SObjectField> fields = new Set<SObjectField>{
 			Case.Id,Case.Address3__c, Case.Address3Country__c, Case.Address3Line2__c, Case.Address3Postcode__c, Case.Address3State__c, Case.Address3Suburb__c,
 			Case.Address4__c, Case.Address4Country__c, Case.Address4Line2__c, Case.Address4Postcode__c, Case.Address4State__c, Case.Address4Suburb__c, Case.ArticleTest__c,
@@ -54,6 +55,7 @@ public with sharing class CaseHandOffController {
 		// Set traige queue as owner
 		GroupsSelector groupsSelector = GroupsSelector.newInstance();
 		Map<Id,Group> queueMap = groupsSelector.selectByGroupTypeAndDeveloperName(new Set<String>{'Queue'},new Set<String>{handoffWrapper.contactCenter});
+		System.debug(JSON.serialize(queueMap));
 		
 		if(!queueMap.isEmpty()){
 			casedetails.OwnerId = queueMap.keySet().iterator().next();
@@ -65,6 +67,7 @@ public with sharing class CaseHandOffController {
 			casedetails.EntitlementId = getSSSWEntitlementId();
 			ImpactedArticlesSelector impactedArticlesSelector = ImpactedArticlesSelector.newInstance();
 			impactedArticles = impactedArticlesSelector.selectByCaseId(new Set<Id> {casedetails.Id}, new Set<Object>());
+			System.debug(JSON.serialize(impactedArticles));
 
 			//Single consigment article so assign impacted article to case
 			if (impactedArticles.size() == 1){
@@ -129,6 +132,7 @@ public with sharing class CaseHandOffController {
 		List<CaseHandOffMapping__mdt> mappingRecords = CaseHandoffMappingSelector.newInstance(caseHandoffMappingFields)
 		.selectByBusinesssUnitRecordType(new Set<String> {businessUnit}, new Set<String> {recordTypeDeveloperName}, new Set<Object>());
 
+		System.debug('mapping ==>' + mappingRecords);
 		// Deserialize JSON string from Mapping__c field into list of CaseHandOffMappingWrapper
 		CaseHandOffMappingWrapper fieldMappingwrapper = (CaseHandOffMappingWrapper) JSON.deserialize(mappingRecords[0].Mapping__c, CaseHandOffMappingWrapper.class);
 
@@ -169,6 +173,7 @@ public with sharing class CaseHandOffController {
 
 	@AuraEnabled(continuation=true cacheable=true)
 	public static Object searchConsignmentStarTrack(String consignmentNumber) {
+		System.debug('consignmentNumber' +consignmentNumber);
 		// Generate request
 		wwwAuspostComAuSchemaCustomercarema.SearchRequest request = StarTrackConsignmentSearchUtil.generateSearchRequest(
 			consignmentNumber,
@@ -201,6 +206,7 @@ public with sharing class CaseHandOffController {
 	@AuraEnabled
 	public static Object processSearchRemoteConsignment(Object state) {
 		// Process callout response
+		System.debug('Entering processSearchRemoteConsignment with state: ' + state);
 
 		// Cast state to response element
 		AsyncWwwAuspostComAuSchemaCustomercarema.SearchResponse_elementFuture emsAsyncResponse = (AsyncWwwAuspostComAuSchemaCustomercarema.SearchResponse_elementFuture) state;

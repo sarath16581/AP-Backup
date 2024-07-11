@@ -7,16 +7,16 @@
 -->
 <template>
 	<!-- Lightning quick action panel -->
-	<lightning-quick-action-panel header="Case Hand-off">
+	<lightning-quick-action-panel header="Case Transfer">
 		<!-- Conditionally render a lightning-spinner component while isLoading is true -->
 		<template if:true={isLoading}>
 			<lightning-spinner variant="brand" alternative-text="Loading" size="medium"></lightning-spinner>
 		</template>
-		<!-- fields for Contact Center and Hand-off Reason -->
+		<!-- fields for Contact Center and Transfer Reason -->
 		<div class="slds-modal__content slds-var-p-around_medium" id="modal-content-page-1">
 			<lightning-combobox label="Contact Center" value={handoffWrapper.contactCenter} options={contactCenterOptions} onchange={handleContactCenterChange} data-id="contactCenter" required>
 			</lightning-combobox>
-			<lightning-combobox label="Hand-off Reason" options={handoffReasonOptions} onchange={handleHandOffReasonChange} data-id="handoffReason" required> </lightning-combobox>
+			<lightning-combobox label="Transfer Reason" options={handoffReasonOptions} onchange={handleHandOffReasonChange} data-id="handoffReason" required> </lightning-combobox>
 			<lightning-textarea label="Comment" value={handoffWrapper.comment} onchange={handleCommentChange} required> </lightning-textarea>
 		</div>
 		<template if:true={errorMessage}>
@@ -27,7 +27,7 @@
 			<!-- calls handleCancel method on click -->
 			<lightning-button variant="neutral" label="Cancel" onclick={handleCancel}></lightning-button>
 			<!-- calls handleOffCase method on click -->
-			<lightning-button variant="brand" label="Hand-off" class="slds-m-left_x-small" onclick={handOffCase}></lightning-button>
+			<lightning-button variant="brand" label="Transfer" class="slds-m-left_x-small" onclick={handOffCase}></lightning-button>
 		</div>
 	</lightning-quick-action-panel>
 </template>

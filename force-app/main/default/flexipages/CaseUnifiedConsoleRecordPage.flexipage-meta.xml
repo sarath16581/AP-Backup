@@ -116,7 +116,7 @@
                             <value>Edit</value>
                         </valueListItems>
                         <valueListItems>
-                            <value>Case.CaseHandoff</value>
+                            <value>Case.CaseTransfer</value>
                             <visibilityRule>
                                 <booleanFilter>1 AND 2</booleanFilter>
                                 <criteria>
