@@ -876,6 +876,21 @@
         <field>Application__c.isPrincipal2AuthorisedSignatory__c</field>
         <readable>true</readable>
     </fieldPermissions>
+	<fieldPermissions>
+		<editable>false</editable>
+		<field>Application__c.isGovernmentEntity__c</field>
+		<readable>true</readable>
+	</fieldPermissions>
+	<fieldPermissions>
+		<editable>false</editable>
+		<field>Application__c.countryOfOrigin__c</field>
+		<readable>true</readable>
+	</fieldPermissions>
+	<fieldPermissions>
+		<editable>false</editable>
+		<field>Application__c.Country_Of_Origin_Val__c</field>
+		<readable>true</readable>
+	</fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
         <field>Application__c.isProcessPaymentsForAnotherBusiness__c</field>
