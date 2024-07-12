@@ -17,6 +17,7 @@
  * 2024-06-14 - Seth Heang - Added logic to allow the Proof of delivery PDF download on the Consignment Detail child component
  * 2024-06-18 - Seth Heang - Added EDD data mapping from StarTrack .NET query including SourceSystem and isDotNet Attribute
  * 2024-06-26 - Seth Heang - Added logic to publish LMS events for SAP callout completion and article selected
+ * 2024-07-12 - Seth Heang - Added logic to handle the .NET StarTrack API warning from Controller and UI display
  */
 import { LightningElement, track, wire, api } from "lwc";
 import { getAnalyticsApiResponse, getTrackingApiResponse, getTrackingApiResponseForStarTrack, getCriticalIncidentDetails, getConfig, safeTrim, safeToUpper, subscribe, unsubscribe, downloadPODPDF, CONSTANTS } from 'c/happyParcelService'
@@ -81,6 +82,9 @@ export default class HappyParcelWrapper extends NavigationMixin(LightningElement
 
 	// stores a list of any errors that have occurred within any of the remote API calls
 	@track errors = [];
+
+	// stores a list of any warning that have occurred within any of the remote API calls
+	@track warnings = [];
 
 	// used in the scenario where GCP throws a 503 error
 	// the structure of HP in GCP requires reclustering and rebuilding of the tables
@@ -417,6 +421,18 @@ export default class HappyParcelWrapper extends NavigationMixin(LightningElement
 			this.retryStarTrackCallout = true;
 		}
 
+		//add any warning for display
+		if (result.warningMessages && result.warningMessages.length > 0) {
+			this.warnings = this.warnings.concat(
+				result.warningMessages.map((item) => {
+					return {
+						source: CONSTANTS.STARTRACK_API,
+						message: CONSTANTS.STARTRACK_API + ": " + item
+					};
+				})
+			);
+		}
+
 		// additional attributes mapping
 		result.article.ProductCategory__c = this.articles?.[0]?.trackingResult?.article?.ProductCategory__c ?? result.article.ProductCategory__c;
 		result.article.SubProduct__c = this.articles?.[0]?.trackingResult?.article?.SubProduct__c ?? result.article.SubProduct__c;
@@ -537,6 +553,7 @@ export default class HappyParcelWrapper extends NavigationMixin(LightningElement
 		this.consignment = { trackingResults: {}, analyticsResult: {} };
 		this.articles = [];
 		this.errors = [];
+		this.warnings = [];
 		this.retryAnalytics = false;
 		this.vodvWarning = null;
 	}
@@ -818,6 +835,13 @@ export default class HappyParcelWrapper extends NavigationMixin(LightningElement
 	 */
 	get hasStarTrackErrors() {
 		return this.errors.filter(error => error.source === CONSTANTS.STARTRACK_API);
+	}
+
+	/**
+	 * Display StarTrack API related warning
+	 */
+	get hasStarTrackWarnings() {
+		return this.warnings.filter((warning) => warning.source === CONSTANTS.STARTRACK_API);
 	}
 
 	/**

@@ -62,6 +62,16 @@
 				</div>
 			</div>
 		</template>
+
+		<template for:each={hasStarTrackWarnings} for:item="warning">
+			<div key={warning.message}>
+				<div class="slds-notify slds-notify_alert slds-theme_alert-texture starTrackWarning" role="alert" key={warning}>
+					<span class="slds-assistive-text">warning</span>
+					<h2>{warning.message}</h2>
+				</div>
+			</div>
+		</template>
+
 		<template if:true={vodvWarning}>
 			<div class="slds-notify slds-notify_alert slds-theme_alert-texture slds-theme_warning" role="alert" key={vodvWarning}>
 				<span class="slds-assistive-text">warning</span>
