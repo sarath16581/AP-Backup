@@ -52,6 +52,21 @@
         <nameSegment>Case.Network_Partner_Case_Creation_Email</nameSegment>
         <versionSegment>1</versionSegment>
     </actionCalls>
+	<actionCalls>
+        <name>NetworkPartnersCaseNoReply</name>
+        <label>Network Partners Case No Reply</label>
+        <locationX>1634</locationX>
+        <locationY>539</locationY>
+        <actionName>Case.NetworkPartnerNoReply</actionName>
+        <actionType>emailAlert</actionType>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>SObjectRowId</name>
+            <value>
+                <elementReference>$Record.ParentId</elementReference>
+            </value>
+        </inputParameters>
+    </actionCalls>
     <actionCalls>
         <name>Notify_Case_Owner_on_New_Email_BGS</name>
         <label>Notify Case Owner on New Email BGS</label>
