@@ -1,150 +1,263 @@
 /**
-* @description Test class for CaseHandOffController
-* @author Vasu Gorakati
-* @date 2024-06-18
-* @changelog
-* 2024-06-18 - Vasu Gorakati - Case Hand-off
-**/
+ * @description Test class for CaseHandOffController
+ * @author Vasu Gorakati
+ * @date 2024-06-18
+ * @changelog
+ * 2024-06-18 - Vasu Gorakati - Case Hand-off
+ **/
 @isTest
 public class CaseHandOffController_Test {
-    @isTest
-    static void testUpdateCase() {
+	@isTest
+	static void testSingleArticleConsignment() {
+		// =====================================
+		// Data Preparation
+		// =====================================
+		MockUtility.disableTriggerExecution();
 
-		List<Case> cases = ApplicationTestDataFactory.getCases(1,false);        
-		cases[0].RecordTypeId = Schema.SObjectType.Case.getRecordTypeInfosByName().get('Investigation').getRecordTypeId();
-        cases[0].CaseOriginator__c = '3rd Party';
-        cases[0].Status = 'New';
-		INSERT cases;        
-        
-        // Call the method
-        Test.startTest();
-        //CaseHandOffController.handOffCase(cases[0], 'Test comment', 'AustraliaPost', 'UnifiedAusPostHandoffTriageQueue', 'UnifiedInvestigation');
-        Test.stopTest();
+		List<Article__c> articles = ApplicationTestDataFactory.getConsignments(1, true);
+		List<Case> cases = ApplicationTestDataFactory.getCases(1, true);
+		List<ImpactedArticle__c> impactedArticles = ApplicationTestDataFactory.getImpactedArticles(1, cases[0].Id, articles[0].Id, true);
 
-        // Verify the updates
-        Id caseSSSWGeneralEnquiryRecordTyped = ApplicationTestDataFactory.caseSSSWGeneralEnquiryRecordType;
-        Id  caseSSSWentitlement = CaseHandOffController.getSSSWEntitlementId();
-        Case testCase = [SELECT Id, CaseTransferDate__c, RecordTypeId, CaseOriginator__c, EntitlementId  FROM Case WHERE Id = :cases[0].Id];
-        
-        System.assertNotEquals(null, testCase.CaseTransferDate__c, 'Case transfer date should be updated');
-        System.assertEquals('Customer', testCase.CaseOriginator__c, 'Case Originatorshould be set to Customer');        
-        System.assertEquals(caseSSSWentitlement, testCase.EntitlementId, 'Case Entitlement should be set to Standard Entitlement - SSSW');        
-        System.assertEquals(caseSSSWGeneralEnquiryRecordTyped, testCase.RecordTypeId, 'Record type should be set to SSSWGeneralEnquiry');
-
-        // Verify case comment insertion
-        CaseComment[] caseComments = [SELECT Id FROM CaseComment WHERE ParentId = :testCase.Id];
-        System.assertEquals(1, caseComments.size(), 'One case comment should be inserted');
-    }
-
-
-	public static testmethod void runTest() {
-		// Mock Data Records
-		RecordType rtUnifiedInvestigation = new RecordType(
-			Id = fflib_IDGenerator.generate(RecordType.getSObjectType()),
-			DeveloperName = 'UnifiedInvestigation'
-		);
-
-		Contact testContact = new Contact(
-			Id = fflib_IDGenerator.generate(Contact.SObjectType)
-		);
-
-		Case apCase = new Case(			
-			Id = fflib_IDGenerator.generate(Case.SObjectType),
-			RecordType = rtUnifiedInvestigation,
-			RecordTypeId = rtUnifiedInvestigation.Id,
-			CaseOriginator__c = '3rd Party', 
-			Status = 'New'
-			// Address3__c, 
-			// Address3Country__c, 
-			// Address3Line2__c, 
-			// Address3Postcode__c, 
-			// Address3State__c, 
-			// Address3Suburb__c,			
-			// Address4__c, 
-			// Address4Country__c, 
-			// Address4Line2__c, 
-			// Address4Postcode__c, 
-			// Address4State__c, 
-			// Address4Suburb__c, 
-			// ArticleTest__c,			
-			// ContactId, 
-			// CaseNumber, 
-			// Contact.AccountId, 
-			// CaseTransferDate__c, 
-			// CHASEnquiryType__c,			
-			// CaseTransferReason__c, 
-			// EnquirySubType__c, 
-			// EntitlementId, 
-			// ProductCategory__c, 
-			// ProductSubCategory__c, 
-			// Subject,			
-			// Type, 
-			// ReferenceID__c
-		);
-
-		ImpactedArticle__c testImpactedArticle = new ImpactedArticle__c(
-			Article__c = '',
-			ArticleId__c = ''
-		);
-
-		Case stCase = new Case(
-
-		);
-
-		// ApplicationUnitOfWork mockUow = MockUtility.mockUnitOfWork();
-		MockUtility.mockUnitOfWork();
-		ApplicationDatabase mockDatabase = MockUtility.mockDatabase();
-		CasesSelector mockCasesSelector = (CasesSelector)MockUtility.mockSelector(CasesSelector.class);
-		EntitlementsSelector mockEntitlements = (EntitlementsSelector)MockUtility.mockSelector(EntitlementsSelector.class);
-		ImpactedArticlesSelector mockImpactedArticles = (ImpactedArticlesSelector)MockUtility.mockSelector(ImpactedArticlesSelector.class);
-		GroupsSelector mockGroupsSelector = (GroupsSelector)MockUtility.mockSelector(GroupsSelector.class);
+		// =====================================
+		// Stubbing
+		// =====================================
+		ArticlesSelector mockArticlesSelector = (ArticlesSelector) MockUtility.mockSelector(ArticlesSelector.class);
+		CasesSelector mockCasesSelector = (CasesSelector) MockUtility.mockSelector(CasesSelector.class);
+		ImpactedArticlesSelector mockImpactedArticlesSelector = (ImpactedArticlesSelector) MockUtility.mockSelector(ImpactedArticlesSelector.class);
 
 		MockUtility.Mocks.startStubbing();
 
+		// set up our responses
 		MockUtility.Mocks.when(
-			mockCasesSelector.selectById((Set<Id>)fflib_Match.anyObject(), (Set<Object>)fflib_Match.anyObject())
-		).thenReturn(
-			new Map<Id,Case>{ apCase.Id => apCase }
-		);
+				mockArticlesSelector.selectByArticleNames(new Set<String>{ articles[0].Name }, StarTrack_Constants.CON_REC_TYPE, new Set<Object>{ ArticlesSelector.Options.WITH_RECORDTYPE })
+			)
+			.thenReturn(new List<Article__c>{ articles[0] });
+		MockUtility.Mocks.when(mockCasesSelector.selectById(new Set<Id>{ cases[0].Id }, new Set<Object>{ CasesSelector.Options.WITH_CONTACT }))
+			.thenReturn(new Map<Id, Case>{ cases[0].Id => cases[0] });
+		MockUtility.Mocks.when(mockImpactedArticlesSelector.selectByCaseId(new Set<Id>{ cases[0].Id }, new Set<Object>())).thenReturn(impactedArticles);
 
-		MockUtility.Mocks.when(
-			mockEntitlements.selectByNameAndAccountName((Set<String>)fflib_Match.anyObject(), (Set<String>)fflib_Match.anyObject())
-		).thenReturn(
-			new Entitlement(Id = fflib_IdGenerator.generate(Entitlement.SObjectType))
-		);
+		ApplicationDatabase mockDatabase = MockUtility.mockDatabase();
 
-		MockUtility.Mocks.when(
-			mockImpactedArticles.selectByCaseId((Set<Id>)fflib_Match.anyObject(), (Set<Object>)fflib_Match.anyObject())
-		).thenReturn(
-			new List<ImpactedArticle__c>{ testImpactedArticle }
-		);
-
-		MockUtility.Mocks.when(
-			mockDatabase.dmlUpdate((List<SObject>)fflib_Match.anyObject())
-		).thenAnswer(
-			new MockUtility.AnswerGenericDMLUpdated()
-		);
-
-		MockUtility.Mocks.when(
-			mockDatabase.dmlInsert((List<SObject>)fflib_Match.anyObject())
-		).thenAnswer(
-			new MockUtility.AnswerGenericDMLInserted()
-		);
+		MockUtility.Mocks.when(mockDatabase.dmlUpdate((List<SObject>) fflib_Match.anyObject())).thenAnswer(new MockUtility.AnswerGenericDMLUpdated());
+		MockUtility.Mocks.when(mockDatabase.dmlInsert((List<SObject>) fflib_Match.anyObject())).thenAnswer(new MockUtility.AnswerGenericDMLInserted());
 
 		MockUtility.Mocks.stopStubbing();
 
-		// Test Actual scenarios
+		// =====================================
+		// Testing
+		// =====================================
+		Test.startTest();
+
+		String businessUnit = CaseHandOffController.getBusinessUnit(articles[0].ProductId__c);
 
 		CaseHandOffController.CaseHandOffWrapper request = new CaseHandOffController.CaseHandOffWrapper();
-
 		request.articleId = '';
-		request.businessUnit = 'AustraliaPost';
-		request.caseId = apCase.Id;
+		request.businessUnit = businessUnit;
+		request.caseId = cases[0].Id;
 		request.caseRecordType = 'UnifiedInvestigation';
 		request.comment = 'Testing';
 		request.contactCenter = 'UnifiedAusPostHandoffTriageQueue';
 		request.handoffReason = 'Network contact required';
 
-		CaseHandOffController.handoffCase(request);
+		CaseHandOffController.handOffCase(request);
+
+		Test.stopTest();
+
+		// =====================================
+		// Verification
+		// =====================================
+		Id caseSSSWDeliveryRecordType = ApplicationTestDataFactory.caseSSSWDeliveryRecordType;
+		Id caseSSSWentitlement = CaseHandOffController.getSSSWEntitlementId();
+		System.assertNotEquals(null, cases[0].CaseTransferDate__c, 'Case transfer date should be updated');
+		System.assertEquals('Network contact required', cases[0].CaseTransferReason__c, 'Case transfer reason should be updated');
+		System.assertEquals(caseSSSWentitlement, cases[0].EntitlementId, 'Case Entitlement should be set to Standard Entitlement - SSSW');
+		System.assertEquals(caseSSSWDeliveryRecordType, cases[0].RecordTypeId, 'Record type should be set to SSSWDelivery');
+	}
+
+	@isTest
+	static void testMultiArticleConsignment() {
+		// =====================================
+		// Data Preparation
+		// =====================================
+		MockUtility.disableTriggerExecution();
+
+		List<Article__c> articles = ApplicationTestDataFactory.getConsignments(2, true); // Example: 2 articles
+		List<Case> cases = ApplicationTestDataFactory.getCases(1, true);
+		List<ImpactedArticle__c> impactedArticles = ApplicationTestDataFactory.getImpactedArticles(2, cases[0].Id, articles[0].Id, true); // Example: 2 impacted articles
+
+		// =====================================
+		// Stubbing
+		// =====================================
+		ArticlesSelector mockArticlesSelector = (ArticlesSelector) MockUtility.mockSelector(ArticlesSelector.class);
+		CasesSelector mockCasesSelector = (CasesSelector) MockUtility.mockSelector(CasesSelector.class);
+		ImpactedArticlesSelector mockImpactedArticlesSelector = (ImpactedArticlesSelector) MockUtility.mockSelector(ImpactedArticlesSelector.class);
+		ApplicationDatabase mockDatabase = MockUtility.mockDatabase();
+
+		MockUtility.Mocks.startStubbing();
+
+		//set up responses
+		MockUtility.Mocks.when(
+				mockArticlesSelector.selectByArticleNames(new Set<String>{ articles[0].Name }, StarTrack_Constants.CON_REC_TYPE, new Set<Object>{ ArticlesSelector.Options.WITH_RECORDTYPE })
+			)
+			.thenReturn(articles);
+		MockUtility.Mocks.when(mockCasesSelector.selectById(new Set<Id>{ cases[0].Id }, new Set<Object>{ CasesSelector.Options.WITH_CONTACT }))
+			.thenReturn(new Map<Id, Case>{ cases[0].Id => cases[0] });
+		MockUtility.Mocks.when(mockImpactedArticlesSelector.selectByCaseId(new Set<Id>{ cases[0].Id }, new Set<Object>())).thenReturn(impactedArticles);
+
+		// Capture database updates and inserts
+		MockUtility.Mocks.when(mockDatabase.dmlUpdate((List<SObject>) fflib_Match.anyObject())).thenAnswer(new MockUtility.AnswerGenericDMLUpdated());
+		MockUtility.Mocks.when(mockDatabase.dmlInsert((List<SObject>) fflib_Match.anyObject())).thenAnswer(new MockUtility.AnswerGenericDMLInserted());
+
+		MockUtility.Mocks.stopStubbing();
+
+		// =====================================
+		// Testing
+		// =====================================
+
+		Test.startTest();
+
+		// Create wrapper for case handoff
+		CaseHandOffController.CaseHandOffWrapper request = new CaseHandOffController.CaseHandOffWrapper();
+		request.articleId = '';
+		request.businessUnit = 'AustraliaPost';
+		request.caseId = cases[0].Id;
+		request.caseRecordType = 'UnifiedInvestigation';
+		request.comment = 'Testing';
+		request.contactCenter = 'UnifiedAusPostHandoffTriageQueue';
+		request.handoffReason = 'Network contact required';
+
+		// Call the method under test
+		CaseHandOffController.handOffCase(request);
+
+		Test.stopTest();
+
+		// =====================================
+		// Verification
+		// =====================================
+		List<List<sObject>> insertRecs = MockUtility.verifyAndCaptureInsertedDmlRecords(mockDatabase, 2);
+
+		List<Case> insertedChildCases = new List<Case>();
+		List<CaseComment> insertedCaseComments = new List<CaseComment>();
+
+		for (List<SObject> insertList : insertRecs) {
+			for (SObject record : insertList) {
+				if (record instanceof Case) {
+					insertedChildCases.add((Case) record);
+				} else if (record instanceof CaseComment) {
+					insertedCaseComments.add((CaseComment) record);
+				}
+			}
+		}
+
+		System.assertEquals(2, insertedChildCases.size());
+		System.assertEquals(1, insertedCaseComments.size(), 'Case comment not inserted');
+	}
+
+	@isTest
+	static void testStarTrackConsignmentSearch() {
+		// =====================================
+		// Data Preparation
+		// =====================================
+
+		insert new StarTrack_Settings__c(
+			SetupOwnerId = UserInfo.getOrganizationId(),
+			Get_All_Consignment_Details__c = true,
+			EMS_Endpoint__c = 'testendpt',
+			Web_Service_Callout_Timeout__c = 10,
+			Use_Continuation_for_Consignment_Search__c = true,
+			XML_Logging__c = true,
+			Logging__c = true,
+			Log_For__c = 'ALL USER',
+			StarTrack_ConSearch_Authentication_Level__c = 2,
+			StarTrack_ConSearch_Client_Cert__c = 'cert',
+			Sync_Web_Service_Callout_Timeout__c = 5
+		);
+
+		// =====================================
+		// Testing
+		// =====================================
+		Test.startTest();
+
+		CaseHandoffController controller = new CaseHandoffController();
+
+		Continuation conti = (Continuation) CaseHandoffController.searchConsignmentStarTrack('2AT71923');
+
+		// Perform mock callout
+		HttpResponse response = new HttpResponse();
+		response.setBody(StarTrackContinuationCalloutMock.getResponse_singleConsign());
+
+		// Set the fake response for the continuation
+		Map<String, HttpRequest> requests = conti.getRequests();
+		String requestLabel = requests.keyset().iterator().next();
+		Test.setContinuationResponse(requestLabel, response);
+
+		// Invoke callback method
+		// note this will call the controller.processSearchRemoteConsignment() instance method
+		// the actual continuation call from the remote action calls the static processSearchRemoteConsignment(state) method
+		Object result = Test.invokeContinuationMethod(controller, conti);
+
+		Test.stopTest();
+	}
+
+	@isTest
+	static void testStarTrackScenario() {
+		// =====================================
+		// Data Preparation
+		// =====================================
+		MockUtility.disableTriggerExecution();
+
+		List<Article__c> articles = ApplicationTestDataFactory.getConsignments(1, true);
+		List<Case> cases = ApplicationTestDataFactory.getCases(1, true);
+		List<ImpactedArticle__c> impactedArticles = ApplicationTestDataFactory.getImpactedArticles(1, cases[0].Id, articles[0].Id, true);
+
+		// =====================================
+		// Stubbing
+		// =====================================
+		ArticlesSelector mockArticlesSelector = (ArticlesSelector) MockUtility.mockSelector(ArticlesSelector.class);
+		CasesSelector mockCasesSelector = (CasesSelector) MockUtility.mockSelector(CasesSelector.class);
+		ImpactedArticlesSelector mockImpactedArticlesSelector = (ImpactedArticlesSelector) MockUtility.mockSelector(ImpactedArticlesSelector.class);
+
+		MockUtility.Mocks.startStubbing();
+
+		//Set up responses
+		MockUtility.Mocks.when(
+				mockArticlesSelector.selectByArticleNames(new Set<String>{ articles[0].Name }, StarTrack_Constants.CON_REC_TYPE, new Set<Object>{ ArticlesSelector.Options.WITH_RECORDTYPE })
+			)
+			.thenReturn(new List<Article__c>{ articles[0] });
+		MockUtility.Mocks.when(mockCasesSelector.selectById(new Set<Id>{ cases[0].Id }, new Set<Object>{ CasesSelector.Options.WITH_CONTACT }))
+			.thenReturn(new Map<Id, Case>{ cases[0].Id => cases[0] });
+		MockUtility.Mocks.when(mockImpactedArticlesSelector.selectByCaseId(new Set<Id>{ cases[0].Id }, new Set<Object>())).thenReturn(impactedArticles);
+
+		ApplicationDatabase mockDatabase = MockUtility.mockDatabase();
+		MockUtility.Mocks.when(mockDatabase.dmlUpdate((List<SObject>) fflib_Match.anyObject())).thenAnswer(new MockUtility.AnswerGenericDMLUpdated());
+		MockUtility.Mocks.when(mockDatabase.dmlInsert((List<SObject>) fflib_Match.anyObject())).thenAnswer(new MockUtility.AnswerGenericDMLInserted());
+
+		MockUtility.Mocks.stopStubbing();
+
+		// =====================================
+		// Testing
+		// =====================================
+		Test.startTest();
+
+		CaseHandOffController.CaseHandOffWrapper request = new CaseHandOffController.CaseHandOffWrapper();
+		request.articleId = articles[0].Id;
+		request.businessUnit = 'StarTrack';
+		request.caseId = cases[0].Id;
+		request.caseRecordType = 'UnifiedInvestigation';
+		request.comment = 'Testing';
+		request.contactCenter = 'UnifiedStarTrackHandoffTriageQueue';
+		request.handoffReason = 'Network contact required';
+
+		CaseHandOffController.handOffCase(request);
+
+		Test.stopTest();
+
+		// =====================================
+		// Verification
+		// =====================================
+		Id caseStarTrackDeliveryEnquiryRecordType = ApplicationTestDataFactory.caseStarTrackDeliveryEnquiryRecordType;
+		System.assertNotEquals(null, cases[0].CaseTransferDate__c, 'Case transfer date should be updated');
+		System.assertEquals('Network contact required', cases[0].CaseTransferReason__c, 'Case transfer reason should be updated');
+		System.assertEquals(caseStarTrackDeliveryEnquiryRecordType, cases[0].RecordTypeId, 'Record type should be set to StarTrack_PUD_Enquiry');
 	}
 }

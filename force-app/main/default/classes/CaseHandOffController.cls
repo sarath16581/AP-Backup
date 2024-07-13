@@ -18,9 +18,9 @@ public with sharing class CaseHandOffController {
 	 */
 	@AuraEnabled(cacheable=true)
 	public static String getBusinessUnit(String productId) {
-		List<String> starTracKProducts = New List<String>();
+		List<String> starTracKProducts = new List<String>();
 
-		for (StarTrackConsignmentProductIDs__c stProduct: StarTrackConsignmentProductIDs__c.getAll().Values()){
+		for (StarTrackConsignmentProductIDs__c stProduct : StarTrackConsignmentProductIDs__c.getAll().Values()) {
 			starTracKProducts.add(stProduct.Name);
 		}
 
@@ -36,56 +36,81 @@ public with sharing class CaseHandOffController {
 	 * @param  caseRecordType - case Record Type
 	 */
 	@AuraEnabled
-	public static void handOffCase(CaseHandOffWrapper handoffWrapper){
+	public static void handOffCase(CaseHandOffWrapper handoffWrapper) {
 		System.debug('handoffwrapper: ' + JSON.serialize(handoffWrapper));
 
 		Set<SObjectField> fields = new Set<SObjectField>{
-			Case.Id,Case.Address3__c, Case.Address3Country__c, Case.Address3Line2__c, Case.Address3Postcode__c, Case.Address3State__c, Case.Address3Suburb__c,
-			Case.Address4__c, Case.Address4Country__c, Case.Address4Line2__c, Case.Address4Postcode__c, Case.Address4State__c, Case.Address4Suburb__c, Case.ArticleTest__c,
-			Case.ContactId, Case.CaseNumber, Case.Contact.AccountId, Case.CaseOriginator__c, Case.CaseTransferDate__c, Case.CHASEnquiryType__c,
-			Case.CaseTransferReason__c, Case.EnquirySubType__c, Case.EntitlementId, Case.ProductCategory__c, Case.ProductSubCategory__c, Case.Subject,
-			Case.Status, Case.Type, Case.ReferenceID__c, Case.Recent_Caller_Type__c, Case.Notification_Required__c
+			Case.Id,
+			Case.Address3__c,
+			Case.Address3Country__c,
+			Case.Address3Line2__c,
+			Case.Address3Postcode__c,
+			Case.Address3State__c,
+			Case.Address3Suburb__c,
+			Case.Address4__c,
+			Case.Address4Country__c,
+			Case.Address4Line2__c,
+			Case.Address4Postcode__c,
+			Case.Address4State__c,
+			Case.Address4Suburb__c,
+			Case.ArticleTest__c,
+			Case.ContactId,
+			Case.CaseNumber,
+			Case.Contact.AccountId,
+			Case.CaseOriginator__c,
+			Case.CaseTransferDate__c,
+			Case.CHASEnquiryType__c,
+			Case.CaseTransferReason__c,
+			Case.EnquirySubType__c,
+			Case.EntitlementId,
+			Case.ProductCategory__c,
+			Case.ProductSubCategory__c,
+			Case.Subject,
+			Case.Status,
+			Case.Type,
+			Case.ReferenceID__c,
+			Case.Recent_Caller_Type__c,
+			Case.Notification_Required__c,
+			Case.Origin
 		};
 
-		Case caseDetails =  CasesSelector.newInstance(fields).selectById(new Set<Id>{handoffWrapper.caseId}, new Set<Object>{CasesSelector.Options.WITH_CONTACT}).values();
+		Case caseDetails = CasesSelector.newInstance(fields).selectById(new Set<Id>{ handoffWrapper.caseId }, new Set<Object>{ CasesSelector.Options.WITH_CONTACT }).values();
 		// Set case transfer details}
 		casedetails.CaseTransferDate__c = DateTime.Now();
 		casedetails.CaseTransferReason__c = handoffWrapper.handoffReason;
 
 		// Set traige queue as owner
 		GroupsSelector groupsSelector = GroupsSelector.newInstance();
-		Map<Id,Group> queueMap = groupsSelector.selectByGroupTypeAndDeveloperName(new Set<String>{'Queue'},new Set<String>{handoffWrapper.contactCenter});
+		Map<Id, Group> queueMap = groupsSelector.selectByGroupTypeAndDeveloperName(new Set<String>{ 'Queue' }, new Set<String>{ handoffWrapper.contactCenter });
 		System.debug(JSON.serialize(queueMap));
-		
-		if(!queueMap.isEmpty()){
+
+		if (!queueMap.isEmpty()) {
 			casedetails.OwnerId = queueMap.keySet().iterator().next();
 		}
 
-		List<ImpactedArticle__c> impactedArticles;
+		ImpactedArticlesSelector impactedArticlesSelector = ImpactedArticlesSelector.newInstance();
+		List<ImpactedArticle__c> impactedArticles = impactedArticlesSelector.selectByCaseId(new Set<Id>{ casedetails.Id }, new Set<Object>());
 
-		if (handoffWrapper.businessUnit == AUSTRALIAPOST){
+		if (handoffWrapper.businessUnit == AUSTRALIAPOST) {
 			casedetails.EntitlementId = getSSSWEntitlementId();
-			ImpactedArticlesSelector impactedArticlesSelector = ImpactedArticlesSelector.newInstance();
-			impactedArticles = impactedArticlesSelector.selectByCaseId(new Set<Id> {casedetails.Id}, new Set<Object>());
-			System.debug(JSON.serialize(impactedArticles));
 
 			//Single consigment article so assign impacted article to case
-			if (impactedArticles.size() == 1){
-				caseDetails.ArticleTest__c =  impactedArticles[0].Article__c;
-				caseDetails.ReferenceID__c =  impactedArticles[0].ArticleId__c;
+			if (impactedArticles.size() == 1) {
+				caseDetails.ArticleTest__c = impactedArticles[0].Article__c;
+				caseDetails.ReferenceID__c = impactedArticles[0].ArticleId__c;
 			}
-		}else{
-			caseDetails.ArticleTest__c =  handoffWrapper.articleId;
+		} else {
+			caseDetails.ArticleTest__c = handoffWrapper.articleId;
 		}
 
 		CaseHandOffMappingWrapper fieldMappingwrapper = getCaseHandOffMappings(handoffWrapper.businessUnit, handoffWrapper.caseRecordType);
 
 		// Loop through the mappings and update case details
-		for (CaseHandOffMappingWrapper.FieldMapping mapping : fieldMappingwrapper.mappings){
+		for (CaseHandOffMappingWrapper.FieldMapping mapping : fieldMappingwrapper.mappings) {
 			String unifiedField = mapping.unifiedField;
 			Map<String, String> unifiedToClassicValues = mapping.valuesMapping;
 
-			String unifiedValue = (unifiedField == RECORDTYPEID) ? handoffWrapper.caseRecordType: String.valueOf(caseDetails.get(unifiedField));
+			String unifiedValue = (unifiedField == RECORDTYPEID) ? handoffWrapper.caseRecordType : String.valueOf(caseDetails.get(unifiedField));
 
 			if (unifiedToClassicValues.containsKey(unifiedValue)) {
 				if (unifiedField == RECORDTYPEID) {
@@ -98,17 +123,21 @@ public with sharing class CaseHandOffController {
 			}
 		}
 
-
-		ApplicationDatabase.getInstance().dmlUpdate(new List<SObject>{casedetails});
+		ApplicationDatabase.getInstance().dmlUpdate(new List<SObject>{ casedetails });
 
 		//Add related contact for star track
-		if (handoffWrapper.businessUnit == AUSTRALIAPOST){
+		if (handoffWrapper.businessUnit == AUSTRALIAPOST) {
 			//This is added after parent case update so that latest info is available for child cases
-			if (impactedArticles.size() > 1){
+			if (impactedArticles.size() > 1) {
 				createChildCases(casedetails, impactedArticles);
 			}
 		} else {
 			createRelatedContact(casedetails);
+		}
+
+		//Delete impacted articles
+		if (impactedArticles.size() > 0) {
+			ApplicationDatabase.getInstance().dmlDelete(impactedArticles);
 		}
 
 		//Create case comment
@@ -122,15 +151,11 @@ public with sharing class CaseHandOffController {
 	 */
 	public static CaseHandOffMappingWrapper getCaseHandOffMappings(String businessUnit, String recordTypeDeveloperName) {
 		// Query to retrieve custom metadata records based on Business Unit and Record Type Developer Name
-		Set<SObjectField> caseHandoffMappingFields = new Set<SObjectField>{
-			CaseHandOffMapping__mdt.Id,
-			CaseHandOffMapping__mdt.DeveloperName,
-			CaseHandOffMapping__mdt.Mapping__c
-		};
+		Set<SObjectField> caseHandoffMappingFields = new Set<SObjectField>{ CaseHandOffMapping__mdt.Id, CaseHandOffMapping__mdt.DeveloperName, CaseHandOffMapping__mdt.Mapping__c };
 
 		// Query the CaseHandOffMapping__mdt records for the specified business unit
 		List<CaseHandOffMapping__mdt> mappingRecords = CaseHandoffMappingSelector.newInstance(caseHandoffMappingFields)
-		.selectByBusinesssUnitRecordType(new Set<String> {businessUnit}, new Set<String> {recordTypeDeveloperName}, new Set<Object>());
+			.selectByBusinesssUnitRecordType(new Set<String>{ businessUnit }, new Set<String>{ recordTypeDeveloperName }, new Set<Object>());
 
 		System.debug('mapping ==>' + mappingRecords);
 		// Deserialize JSON string from Mapping__c field into list of CaseHandOffMappingWrapper
@@ -139,27 +164,26 @@ public with sharing class CaseHandOffController {
 		return fieldMappingwrapper;
 	}
 
-
 	/**
 	 * Method to create case comment
 	 * @param  caseRec - case record
 	 * @param  comment - comment
 	 */
-	public static void createCaseComment(Case caseRec, String transferReason, String comment){
+	public static void createCaseComment(Case caseRec, String transferReason, String comment) {
 		CaseComment caseComment = new CaseComment();
 		caseComment.ParentId = caseRec.Id;
 		caseComment.CommentBody = 'Case Transfer Reason: ' + transferReason + '\n' + comment;
-		ApplicationDatabase.getInstance().dmlInsert(new List<SObject>{caseComment});
+		ApplicationDatabase.getInstance().dmlInsert(new List<SObject>{ caseComment });
 	}
 
 	/**
 	 * Method to create child cases
 	 * @param  impactedArticles - List of Impacted Articles
 	 */
-	public static void createChildCases(case parentCase, List<ImpactedArticle__c> impactedArticles){
-		List<Case> childCaseList = New List<Case>();
+	public static void createChildCases(case parentCase, List<ImpactedArticle__c> impactedArticles) {
+		List<Case> childCaseList = new List<Case>();
 
-		for (ImpactedArticle__c imp: impactedArticles){
+		for (ImpactedArticle__c imp : impactedArticles) {
 			Case childCase = parentCase.clone(false, true);
 			childCase.ReferenceID__c = imp.ArticleId__c;
 			childCase.ArticleTest__c = imp.Article__c;
@@ -173,15 +197,15 @@ public with sharing class CaseHandOffController {
 
 	@AuraEnabled(continuation=true cacheable=true)
 	public static Object searchConsignmentStarTrack(String consignmentNumber) {
-		System.debug('consignmentNumber' +consignmentNumber);
+		System.debug('consignmentNumber' + consignmentNumber);
 		// Generate request
 		wwwAuspostComAuSchemaCustomercarema.SearchRequest request = StarTrackConsignmentSearchUtil.generateSearchRequest(
 			consignmentNumber,
-		StarTrack_Constants.TYPE_CONSIGNMENT,
-		StarTrack_Constants.REQUEST_ACTION_FULL,
-		StarTrack_Constants.SOURCEID_SALESFORCE,
-		UserInfo.getUserName()
-			);
+			StarTrack_Constants.TYPE_CONSIGNMENT,
+			StarTrack_Constants.REQUEST_ACTION_FULL,
+			StarTrack_Constants.SOURCEID_SALESFORCE,
+			UserInfo.getUserName()
+		);
 
 		// Generate async stub
 		AsyncWwwAuspostComAuSchemaCustomercarema.AsyncBasicHttpBinding_IEMS2 emsAsyncStub = StarTrackConsignmentSearchUtil.generateAsyncStub();
@@ -222,12 +246,11 @@ public with sharing class CaseHandOffController {
 		}
 	}
 
-
 	/**
 	 * Method to create new related contact under the StarTrack case
 	 * @param  caseRec - case record
 	 */
-	public static void createRelatedContact(Case caseRec){
+	public static void createRelatedContact(Case caseRec) {
 		AuthorisedContacts__c relCont = new AuthorisedContacts__c();
 		relCont.Case__c = caseRec.Id;
 		relCont.RecordTypeId = Schema.SObjectType.AuthorisedContacts__c.getRecordTypeInfosByName().get(StarTrack_Constants.STRELCONT_RT).getRecordTypeId();
@@ -240,11 +263,12 @@ public with sharing class CaseHandOffController {
 		relCont.Contact_Type__c = caseRec.Recent_Caller_Type__c;
 		relCont.Notification_Required__c = caseRec.Notification_Required__c;
 
-		ApplicationDatabase.getInstance().dmlInsert(new List<SObject>{relCont});
+		ApplicationDatabase.getInstance().dmlInsert(new List<SObject>{ relCont });
 	}
 
 	public static Id getSSSWEntitlementId() {
-		List <Entitlement> entitlements = EntitlementsSelector.newInstance().selectByNameAndAccountName(new Set<String>{SSSWConstants.SSSW_ENTITLEMENT}, new Set<String>{SSSWConstants.ENTITLEMENT_ACC});
+		List<Entitlement> entitlements = EntitlementsSelector.newInstance()
+			.selectByNameAndAccountName(new Set<String>{ SSSWConstants.SSSW_ENTITLEMENT }, new Set<String>{ SSSWConstants.ENTITLEMENT_ACC });
 		if (!entitlements.isEmpty()) {
 			return entitlements[0].Id;
 		}
@@ -252,12 +276,19 @@ public with sharing class CaseHandOffController {
 	}
 
 	public class CaseHandOffWrapper {
-		@AuraEnabled public String caseId {get;set;}
-		@AuraEnabled public String articleId {get;set;}
-		@AuraEnabled public String handoffReason {get;set;}
-		@AuraEnabled public String comment {get;set;}
-		@AuraEnabled public String businessUnit {get;set;}
-		@AuraEnabled public String contactCenter {get;set;}
-		@AuraEnabled public String caseRecordType {get;set;}
+		@AuraEnabled
+		public String caseId { get; set; }
+		@AuraEnabled
+		public String articleId { get; set; }
+		@AuraEnabled
+		public String handoffReason { get; set; }
+		@AuraEnabled
+		public String comment { get; set; }
+		@AuraEnabled
+		public String businessUnit { get; set; }
+		@AuraEnabled
+		public String contactCenter { get; set; }
+		@AuraEnabled
+		public String caseRecordType { get; set; }
 	}
 }
