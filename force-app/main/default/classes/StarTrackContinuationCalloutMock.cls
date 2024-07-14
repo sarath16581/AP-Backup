@@ -2,6 +2,7 @@
  * @description Mock Class for .NET StarTrack Consignment Search Integration Response
  * @changelog:
  * 2024-05-22 - Seth Heang - updated getResponse_singleConsign to add FurtherReference2
+ * 2024-06-25 - Seth Heang - updated getResponse_singleConsign and updated SourceSystem value to TEAM
  */
 @isTest
 public class StarTrackContinuationCalloutMock {
@@ -19,7 +20,7 @@ public class StarTrackContinuationCalloutMock {
 					   '<NbrOfRows>1</NbrOfRows>' +
 					'</Header>' +
 					'<Consignment>' +
-					   '<SourceSystem>TRACK &amp; TRACE</SourceSystem>' +
+					   '<SourceSystem>TEAM</SourceSystem>' +
 					   '<ActualWeight>12</ActualWeight>' +
 					   '<ConsignmentID>TR2_66a94898-0927-450e-abfa-defa36972669</ConsignmentID>' +
 					   '<ConsignmentNumber>2AT71923</ConsignmentNumber>' +

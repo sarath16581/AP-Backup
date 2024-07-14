@@ -2,7 +2,6 @@ import { createElement } from 'lwc';
 import CustomerSearchFormInputs from 'c/customerSearchFormInputs';
 import customerSearch from '@salesforce/apex/CustomerSearchFormController.search';
 import {
-	SEARCH_FORM_TITLE,
 	FIRST_NAME_LABEL,
 	LAST_NAME_LABEL,
 	PHONE_NUMBER_LABEL,
@@ -111,21 +110,6 @@ describe('c-customer-search-form-inputs', () => {
 
 		// Reset all jest mocks after each test
 		jest.clearAllMocks();
-	});
-
-	it('displays component title', () => {
-		// Arrange
-		const element = createElement('c-customer-search-form-inputs', {
-			is: CustomerSearchFormInputs,
-		});
-
-		// Act
-		document.body.appendChild(element);
-
-		// Assert
-		const cardCmp = element.shadowRoot.querySelector('lightning-card');
-		expect(cardCmp).not.toBeNull();
-		expect(cardCmp.title).toBe(SEARCH_FORM_TITLE);
 	});
 
 	it('displays search form input and button elements', () => {

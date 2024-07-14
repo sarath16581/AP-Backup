@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <FieldSet xmlns="http://soap.sforce.com/2006/04/metadata">
-    <fullName>PODSafeDropReceiver</fullName>
-    <description>This is used to render the receiver name fields in the delivery proof PDF used by both MyCustomer and BSP</description>
-    <displayedFields>
-        <field>Article__r.ReceiverCompany__c</field>
-        <isFieldManaged>false</isFieldManaged>
-        <isRequired>false</isRequired>
-    </displayedFields>
-    <displayedFields>
-        <field>Article__r.ReceiverName__c</field>
-        <isFieldManaged>false</isFieldManaged>
-        <isRequired>false</isRequired>
-    </displayedFields>
-    <displayedFields>
-        <field>Article__r.ReceiverAddress__c</field>
-        <isFieldManaged>false</isFieldManaged>
-        <isRequired>false</isRequired>
-    </displayedFields>
-    <label>PODSafeDropReceiver</label>
+	<fullName>PODSafeDropReceiver</fullName>
+	<description>This is used to render the receiver name fields in the delivery proof PDF used by both MyCustomer and BSP</description>
+	<displayedFields>
+		<field>Article__r.ReceiverCompany__c</field>
+		<isFieldManaged>false</isFieldManaged>
+		<isRequired>false</isRequired>
+	</displayedFields>
+	<displayedFields>
+		<field>Article__r.ReceiverName__c</field>
+		<isFieldManaged>false</isFieldManaged>
+		<isRequired>false</isRequired>
+	</displayedFields>
+	<displayedFields>
+		<field>Article__r.ReceiverAddress__c</field>
+		<isFieldManaged>false</isFieldManaged>
+		<isRequired>false</isRequired>
+	</displayedFields>
+	<label>PODSafeDropReceiver</label>
 </FieldSet>

@@ -1,7 +1,20 @@
 <template>
-	<div class="slds-is-relative">
-		<div class="slds-var-m-bottom_small">
-			<c-customer-search-form-inputs></c-customer-search-form-inputs>
+	<lightning-card title={searchFormTitle}>
+		<!-- Search form -->
+		<div class="slds-var-m-around_medium">
+			<c-customer-search-form-inputs
+				onsearch={handleSearchStart}
+				onerror={handleSearchError}
+				onresult={handleSearchResults}
+				onreset={handleSearchReset}
+			></c-customer-search-form-inputs>
 		</div>
-	</div>
+		<!-- Search results -->
+		<div class="slds-var-m-around_medium">
+			<template if:false={isSearching}>
+				<c-customer-search-form-results search-response={searchResponse}>
+				</c-customer-search-form-results>
+			</template>
+		</div>
+	</lightning-card>
 </template>
