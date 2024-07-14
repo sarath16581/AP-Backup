@@ -37,6 +37,11 @@
                 <default>false</default>
                 <label>Addressee</label>
             </value>
+            <value>
+                <fullName>3rd Party</fullName>
+                <default>false</default>
+                <label>3rd Party</label>
+            </value>
         </valueSetDefinition>
     </valueSet>
 </CustomField>
