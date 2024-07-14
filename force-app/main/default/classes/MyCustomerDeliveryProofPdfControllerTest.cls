@@ -6,6 +6,7 @@
  * @changelog
  * @changelog
  * 2024-06-12 - Seth Heang - Fixed existing test classes and added new test methods to cover changes related to multiple proof of delivery creation
+ * 2024-07-12 - Raghav Ravipati - Changed test methods to test getSafeDropImage using delivery repository V2 API.
  **/
 @IsTest
 public with sharing class MyCustomerDeliveryProofPdfControllerTest {
@@ -159,6 +160,22 @@ public with sharing class MyCustomerDeliveryProofPdfControllerTest {
 		article.ConsignmentTrackingNumber__c = 'TN000001';
 		article.ProductID__c = '001';
 
+		AusPostSettings__c digitalRepoSettings = new AusPostSettings__c();
+		digitalRepoSettings.URL__c = 'http://callout:test/documents';
+		digitalRepoSettings.Name = 'DigitalRepositoryDocumentsAPIv2';
+		insert digitalRepoSettings;
+
+		DigitalRepositoryAPIV2Settings__c repositorySettings = new DigitalRepositoryAPIV2Settings__c();
+		repositorySettings.Name = 'DefaultConfigurations';
+		repositorySettings.BlurImage__c = false;
+		repositorySettings.BucketName__c = 'DefaultBucket';
+		repositorySettings.Default__c = true;
+		repositorySettings.FileExtensionType__c = '.jpg';
+		repositorySettings.ResizePercentage__c = 40;
+		repositorySettings.ResizeThreshold__c = 1000;
+
+		insert repositorySettings;
+
 		EventMessage__c event1 = ApplicationTestDataFactory.getEventMessages(1, article.Id, true)[0];
 		event1.EventType__c = 'ADMIN-ER39'; //
 		event1 = (EventMessage__c) ApplicationTestDataFactory.setUnwritableFields(event1, new Map<String, Object>{ 'Article__r' => article });
@@ -197,7 +214,6 @@ public with sharing class MyCustomerDeliveryProofPdfControllerTest {
 		MockUtility.Mocks.startStubbing();
 		MockUtility.Mocks.when(mockEventmessageSelector.selectByArticleNumber((Set<String>) fflib_Match.eq(articleIdNames), (Set<Object>) fflib_Match.anyObject())).thenReturn(eventMessages.values());
 		MockUtility.Mocks.when(mockSafeDropUtility.attachSafeDropToRecord((Id) fflib_Match.eq(event2.Id), (Blob) fflib_Match.anyObject())).thenReturn(safedropAttachment);
-		MockUtility.Mocks.when(mockSafeDropUtility.getHttpRequest(fflib_Match.anyString())).thenReturn(new HttpRequest());
 		MockUtility.Mocks.stopStubbing();
 
 		// =====================================
@@ -213,18 +229,17 @@ public with sharing class MyCustomerDeliveryProofPdfControllerTest {
 
 		// setup the continuation mock provider
 		String requestLabel = new List<String>(cont.getRequests().keySet())[0];
-		SafeDropUtility_Test.setSuccessContinuationResponse(requestLabel);
 		Map<String, String> state = new Map<String, String>();
 		state.put('guidId', event2.Safe_Drop_GUID__c);
 		state.put('eventMessageId', event2.Id);
 
-		SafeDropUtility.SafeDropApiResponse response = (SafeDropUtility.SafeDropApiResponse) MyCustomerDeliveryProofPdfController.safeDropImageCallback(new List<String>{ requestLabel }, state);
-
+		DigitalRepositoryService_Test.setSuccessContinuationResponse(requestLabel);
+		DigitalRepositoryService.DocumentApiResponse response = (DigitalRepositoryService.DocumentApiResponse) MyCustomerDeliveryProofPdfController.safeDropImageCallback(new List<String>{ requestLabel }, state);
 		Test.stopTest();
 
 		Assert.areNotEqual(null, response, 'Response should not be null');
 		Assert.areEqual(false, response.isError, 'Response should not has any error');
-		Assert.areNotEqual(null, response.imageBody, 'Image body should not be empty');
+		Assert.areNotEqual(null, response.getDocumentContent(), 'Image body should not be empty');
 		Assert.isTrue(String.isEmpty(MyCustomerDeliveryProofPdfController.pageError), 'Page error should be null: ' + MyCustomerDeliveryProofPdfController.pageError);
 		((EventMessagesSelector) MockUtility.Mocks.verify(mockEventmessageSelector, MockUtility.Mocks.times(1))).selectByArticleNumber((Set<String>) fflib_Match.eq(articleIdNames), (Set<Object>) fflib_Match.anyObject());
 		((SafeDropUtility) MockUtility.Mocks.verify(mockSafeDropUtility, MockUtility.Mocks.times(1))).attachSafeDropToRecord((Id) fflib_Match.eq(event2.Id), (Blob) fflib_Match.anyObject());
@@ -241,6 +256,22 @@ public with sharing class MyCustomerDeliveryProofPdfControllerTest {
 		Article__c article = ApplicationTestDataFactory.getArticles(1, true)[0];
 		article.ConsignmentTrackingNumber__c = 'TN000001';
 		article.ProductID__c = '001';
+
+		AusPostSettings__c digitalRepoSettings = new AusPostSettings__c();
+		digitalRepoSettings.URL__c = 'http://callout:test/documents';
+		digitalRepoSettings.Name = 'DigitalRepositoryDocumentsAPIv2';
+		insert digitalRepoSettings;
+
+		DigitalRepositoryAPIV2Settings__c repositorySettings = new DigitalRepositoryAPIV2Settings__c();
+		repositorySettings.Name = 'DefaultConfigurations';
+		repositorySettings.BlurImage__c = false;
+		repositorySettings.BucketName__c = 'DefaultBucket';
+		repositorySettings.Default__c = true;
+		repositorySettings.FileExtensionType__c = '.jpg';
+		repositorySettings.ResizePercentage__c = 40;
+		repositorySettings.ResizeThreshold__c = 1000;
+
+		insert repositorySettings;
 
 		EventMessage__c event1 = ApplicationTestDataFactory.getEventMessages(1, article.Id, true)[0];
 		event1.EventType__c = 'ADMIN-ER39'; //
@@ -276,7 +307,6 @@ public with sharing class MyCustomerDeliveryProofPdfControllerTest {
 		MockUtility.Mocks.startStubbing();
 		MockUtility.Mocks.when(mockEventmessageSelector.selectByArticleNumber((Set<String>) fflib_Match.eq(articleIdNames), (Set<Object>) fflib_Match.anyObject())).thenReturn(eventMessages.values());
 		MockUtility.Mocks.when(mockSafeDropUtility.attachSafeDropToRecord((Id) fflib_Match.eq(event2.Id), (Blob) fflib_Match.anyObject())).thenReturn(null);
-		MockUtility.Mocks.when(mockSafeDropUtility.getHttpRequest(fflib_Match.anyString())).thenReturn(new HttpRequest());
 		MockUtility.Mocks.stopStubbing();
 
 		// =====================================
@@ -292,15 +322,13 @@ public with sharing class MyCustomerDeliveryProofPdfControllerTest {
 
 		// setup the continuation mock provider
 		String requestLabel = new List<String>(cont.getRequests().keySet())[0];
-		SafeDropUtility_Test.setErrorContinuationResponse(requestLabel);
-
 		Map<String, String> state = new Map<String, String>();
 		state.put('guidId', event2.Safe_Drop_GUID__c);
 		state.put('eventMessageId', event2.Id);
-
-		SafeDropUtility.SafeDropApiResponse response;
+		DigitalRepositoryService_Test.setErrorContinuationResponse(requestLabel);
+		DigitalRepositoryService.DocumentApiResponse response;
 		try {
-			response = (SafeDropUtility.SafeDropApiResponse) MyCustomerDeliveryProofPdfController.safeDropImageCallback(new List<String>{ requestLabel }, state);
+			response = (DigitalRepositoryService.DocumentApiResponse) MyCustomerDeliveryProofPdfController.safeDropImageCallback(new List<String>{ requestLabel }, state);
 			Assert.fail('Integration failure is expected here!');
 		} catch (AuraHandledException e) {
 			Assert.isNotNull(e, 'Error Message should not be null');
