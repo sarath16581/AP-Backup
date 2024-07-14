@@ -197,6 +197,9 @@ public class CaseHandOffController_Test {
 		Object result = Test.invokeContinuationMethod(controller, conti);
 
 		Test.stopTest();
+
+		System.assertNotEquals(null, result, 'Result should be set');
+	
 	}
 
 	@isTest
