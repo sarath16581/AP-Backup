@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+	<fullName>isGovernmentEntity__c</fullName>
+	<externalId>false</externalId>
+	<description>Is Merchant Category Code is goververnment merchant category code</description>
+	<inlineHelpText>Government MCC?</inlineHelpText>
+	<formula>IF ( ISBLANK(MCC__c), &quot;&quot; , IF ( CONTAINS ($CustomMetadata.Government_MCC_Values__mdt.MCC_Value.MCC_Value__c , MCC__c ), &quot;Y&quot;, &quot;&quot;))</formula>
+	<formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+	<label>Government Entity</label>
+	<securityClassification>INTERNAL</securityClassification>
+	<required>false</required>
+	<trackHistory>false</trackHistory>
+	<trackTrending>false</trackTrending>
+	<type>Text</type>
+	<unique>false</unique>
+</CustomField>
