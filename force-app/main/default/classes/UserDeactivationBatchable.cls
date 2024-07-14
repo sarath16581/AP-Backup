@@ -33,6 +33,8 @@ public class UserDeactivationBatchable implements Database.Batchable<SObject>, D
 	private static final Integer DEFAULT_LASTINVITE_DAYS = 30;
 	// default number of days of inactivity after which a user should be deactivated
 	private static final Integer DEFAULT_LASTLOGIN_DAYS = 90;
+	// default number of days of inactivity after which a notification should be sent to the user
+	private static final Integer DEFAULT_NOTIFICATION_LASTLOGIN_DAYS = 75;
 	// default notification email
 	private static final String DEFAULT_NOTIFICATIONEMAIL = 'DLITRCPCMSalesforceSupport@auspost.com.au';
 	// define all the profiles to be excluded for fetching users to deactivate
@@ -51,6 +53,7 @@ public class UserDeactivationBatchable implements Database.Batchable<SObject>, D
 	private static final Integer CONFIG_BATCHSIZE = Integer.valueOf(CONFIG.BatchSize__c) > 0 ? Integer.valueOf(CONFIG.BatchSize__c) : DEFAULT_BATCH_SIZE;
 	private static final Integer CONFIG_LASTINVITE_DAYS = Integer.valueOf(CONFIG.LastInviteDays__c) > 0 ? Integer.valueOf(CONFIG.LastInviteDays__c) : DEFAULT_LASTINVITE_DAYS;
 	private static final Integer CONFIG_LASTLOGIN_DAYS = Integer.valueOf(CONFIG.LastLoginDays__c) > 0 ? Integer.valueOf(CONFIG.LastLoginDays__c) : DEFAULT_LASTLOGIN_DAYS;
+	private static final Integer CONFIG_NOTIFICATION_LASTLOGIN_DAYS = Integer.valueOf(CONFIG.LastLoginDaysNotification__c) > 0 ? Integer.valueOf(CONFIG.LastLoginDaysNotification__c) : DEFAULT_NOTIFICATION_LASTLOGIN_DAYS;
 	private static final String CONFIG_NOTIFICATIONEMAIL = String.valueOf(CONFIG?.NotificationEmail__c) ?? DEFAULT_NOTIFICATIONEMAIL;
 	private static final List<String> CONFIG_EXCLUDEDPROFILES = CONFIG?.ExcludedProfileNames__c?.split(',') ?? DEFAULT_EXCLUDEDPROFILES;
 
@@ -62,12 +65,20 @@ public class UserDeactivationBatchable implements Database.Batchable<SObject>, D
 	}
 
 	public Database.QueryLocator start(Database.BatchableContext bc) {
+		List<sObject> scope = new List<sObject>();
 		// Query for users who have been inactive and based on few more filters
-		return UsersSelector.newInstance(
+		scope.addAll(UsersSelector.newInstance(
 				0,
 				new Set<SObjectField>{ User.Id, User.Name, User.Username, User.CreatedDate, User.LastAutoDeactivatedDate__c, User.LastLoginDate }
 			)
-			.selectUsersEligibleForDeactivationQueryLocator(DEFAULT_USERTYPE, CONFIG_LASTLOGIN_DAYS, CONFIG_LASTINVITE_DAYS, new Set<String>(CONFIG_EXCLUDEDPROFILES), new Set<Object>());
+			.selectUsersEligibleForDeactivationQueryLocator(DEFAULT_USERTYPE, CONFIG_LASTLOGIN_DAYS, CONFIG_LASTINVITE_DAYS, new Set<String>(CONFIG_EXCLUDEDPROFILES), new Set<Object>()));
+		// Query to send notification to users who have been inactive
+		scope.addAll(UsersSelector.newInstance(
+			0,
+			new Set<SObjectField>{ User.Id, User.Name, User.Username, User.CreatedDate, User.LastAutoDeactivatedDate__c, User.LastLoginDate }
+		)
+		.selectUsersEligibleForDeactivationQueryLocator(DEFAULT_USERTYPE, CONFIG_NOTIFICATION_LASTLOGIN_DAYS, CONFIG_LASTINVITE_DAYS, new Set<String>(CONFIG_EXCLUDEDPROFILES), new Set<Object>()));
+		return scope;
 	}
 
 	public void execute(Database.BatchableContext bc, List<User> scope) {
