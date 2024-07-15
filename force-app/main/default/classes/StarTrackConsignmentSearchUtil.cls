@@ -384,7 +384,9 @@ public without sharing class StarTrackConsignmentSearchUtil {
 					// Save Consignment Events
 					if(emsResponse.Consignment.Events != null){
 						List<EventMessage__c> eventMsgs = saveEvents(emsResponse.Consignment.Events.Event, emsResponse.Consignment.ConsignmentID);
-						if (!eventMsgs.isEmpty()) UPSERT eventMsgs EventID__c;
+						if (!eventMsgs.isEmpty()) {
+							UPSERT eventMsgs EventID__c;
+						}
 					}
 					// Save Article Events
 					if(emsResponse.Consignment.Articles != null){
@@ -547,7 +549,9 @@ public without sharing class StarTrackConsignmentSearchUtil {
 					// Save Consignment Events
 					if(emsResponse.Consignment.Events != null){
 						List<EventMessage__c> eventMsgs = saveEvents(emsResponse.Consignment.Events.Event, parentId);
-						if (!eventMsgs.isEmpty()) UPSERT eventMsgs EventID__c;
+						if (!eventMsgs.isEmpty()) {
+							UPSERT eventMsgs EventID__c;
+						}
 						
 						Article__c thisConsignment = new Article__c();
 						thisConsignment.Last_Update_Received__c = DateTime.now();
@@ -815,7 +819,9 @@ public without sharing class StarTrackConsignmentSearchUtil {
 			List<EventMessage__c> allEventMsgs = new List<EventMessage__c>();
 			for(wwwAuspostComAuSchemaCustomercarema.ArticleType savedArticle : articleList){
 				List<EventMessage__c> eventMsgs = new List<EventMessage__c>(saveEvents(savedArticle.Events.Event, savedArticle.ArticleID));
-				if (!eventMsgs.isEmpty()) allEventMsgs.addAll(eventMsgs);
+				if (!eventMsgs.isEmpty()) {
+					allEventMsgs.addAll(eventMsgs);
+				}
 			}
 			System.debug('~~ UPSERT : articleEventsList : ' + allEventMsgs);
 			if (!allEventMsgs.isEmpty()) {
