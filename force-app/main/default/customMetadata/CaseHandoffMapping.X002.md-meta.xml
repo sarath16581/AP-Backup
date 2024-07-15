@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomMetadata xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <label>002</label>
+    <protected>false</protected>
+    <values>
+        <field>BusinessUnit__c</field>
+        <value xsi:type="xsd:string">StarTrack</value>
+    </values>
+    <values>
+        <field>Mapping__c</field>
+        <value xsi:type="xsd:string">{
+  &quot;mappings&quot;: [
+    {
+      &quot;unifiedField&quot;: &quot;Status&quot;,
+      &quot;classicField&quot;: &quot;Status&quot;,
+      &quot;valuesMapping&quot;: {
+        &quot;Monitoring&quot;: &quot;Monitoring for Closure&quot;,
+        &quot;Updated&quot;: &quot;Awaiting Investigation&quot;
+      }
+    },
+    {
+      &quot;unifiedField&quot;: &quot;CaseOriginator__c&quot;,
+      &quot;classicField&quot;: &quot;CaseOriginator__c&quot;,
+      &quot;valuesMapping&quot;: {
+        &quot;Addressee&quot;: &quot;Receiver&quot;
+      }
+    },
+    {
+      &quot;unifiedField&quot;: &quot;RecordTypeId&quot;,
+      &quot;classicField&quot;: &quot;RecordTypeId&quot;,
+      &quot;valuesMapping&quot;: {
+        &quot;UnifiedInvestigation&quot;: &quot;StarTrack_PUD_Enquiry&quot;
+      }
+    },
+    {
+      &quot;unifiedField&quot;: &quot;chASEnquiryType__c&quot;,
+      &quot;classicField&quot;: &quot;Call_Purpose__c&quot;,
+      &quot;valuesMapping&quot;: {
+        &quot;Investigation&quot;: &quot;In Transit&quot;
+      }
+    },
+    {
+      &quot;unifiedField&quot;: &quot;EnquirySubType__c&quot;,
+      &quot;classicField&quot;: &quot;Enquiry_Type__c&quot;,
+      &quot;valuesMapping&quot;: {
+        &quot;Late Item&quot;: &quot;Short - Scanned&quot;
+      }
+    },
+    {
+      &quot;unifiedField&quot;: &quot;Origin&quot;,
+      &quot;classicField&quot;: &quot;Origin&quot;,
+      &quot;valuesMapping&quot;: {
+        &quot;Chat&quot;: &quot;Phone&quot;
+      }
+    }
+  ]
+}</value>
+    </values>
+    <values>
+        <field>UnifiedRecordTypeDeveloperName__c</field>
+        <value xsi:type="xsd:string">UnifiedInvestigation</value>
+    </values>
+</CustomMetadata>

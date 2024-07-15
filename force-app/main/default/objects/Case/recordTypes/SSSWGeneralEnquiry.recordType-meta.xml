@@ -390,6 +390,29 @@
         </values>
     </picklistValues>
     <picklistValues>
+        <picklist>CaseTransferReason__c</picklist>
+        <values>
+            <fullName>Compensation required</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Customer Care Specialist</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>High Priority investigation</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Manager escalation</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Network contact required</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
         <picklist>Case_Reason__c</picklist>
         <values>
             <fullName>Campaign</fullName>
@@ -500,6 +523,13 @@
         <values>
             <fullName>happy</fullName>
             <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>EnquirySubTypeUnified__c</picklist>
+        <values>
+            <fullName>Late item</fullName>
+            <default>true</default>
         </values>
     </picklistValues>
     <picklistValues>
@@ -2075,6 +2105,44 @@
         <values>
             <fullName>shop%2Eauspost%2Ecom%2Eau</fullName>
             <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>ProductSubType__c</picklist>
+        <values>
+            <fullName>Express Post</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Metro</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Parcel Post</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>StarTrack Premium</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>StarTrack Road Express</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>eParcel Express Post</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>eParcel Parcel Post</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>ProductType__c</picklist>
+        <values>
+            <fullName>Domestic</fullName>
+            <default>true</default>
         </values>
     </picklistValues>
     <picklistValues>
