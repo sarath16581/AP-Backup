@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Stores a list of Government Merchant Category Codes</description>
+    <label>Government MCC Values</label>
+    <pluralLabel>Government MCC Values</pluralLabel>
+    <visibility>Public</visibility>
+</CustomObject>
