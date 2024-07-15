@@ -11,6 +11,7 @@
  * @changelog
  * 2024-05-17 - Seth Heang - Added continuation methods for async callout to .NET API for retrieving StarTrack consignment/article details
  * 2024-06-26 - Seth Heang - Added additional mapping for .NET Callout including EDD and SourceSystem to response payload
+ * 2024-07-15 - Seth Heang - Updated .NET callout response handling to handle duplicate consignment scenario
  **/
 public with sharing class HappyParcelService {
 	/**
@@ -133,7 +134,7 @@ public with sharing class HappyParcelService {
 			if (parser.getCurrentName() == 'parcels' && parser.getCurrentToken() == JSONToken.START_ARRAY) {
 				while (parser.nextToken() != null) {
 					// Advance to the start object marker to
-					//  find next article object.
+					// find next article object.
 					if (parser.getCurrentToken() == JSONToken.START_OBJECT) {
 						// Read entire invoice object, including its array of line items.
 						articles.add((Article) parser.readValueAs(Article.class));
@@ -157,7 +158,7 @@ public with sharing class HappyParcelService {
 			if (parser.getCurrentName() == 'errors' && parser.getCurrentToken() == JSONToken.START_ARRAY) {
 				while (parser.nextToken() != null) {
 					// Advance to the start object marker to
-					//  find next article object.
+					// find next article object.
 					if (parser.getCurrentToken() == JSONToken.START_OBJECT) {
 						// Read entire invoice object, including its array of line items.
 						errors.add((Error) parser.readValueAs(Error.class));
@@ -239,7 +240,7 @@ public with sharing class HappyParcelService {
 		@AuraEnabled
 		public String hp_dedd_high;
 
-		// the indicator of smiling face  (1: smile, 0:mad, null:n.a)
+		// the indicator of smiling face (1: smile, 0:mad, null:n.a)
 		// stopped, overdue, on-track, unknown
 		@AuraEnabled
 		public String flag_smiling {
@@ -412,32 +413,45 @@ public with sharing class HappyParcelService {
 	public Object processStarTrackSearchResult(Object state) {
 		StateInfoStarTrack stInfo = (StateInfoStarTrack) state;
 		HappyParcelController.TrackingArticle trackingResult = stInfo.trackingResult;
-
 		// Process callout response
 		StarTrackConsignmentSearchUtil.ConsignmentWrapper conWrapper = processResponse(stInfo.stResponse.getValue(), stInfo.trackingResult.article.Id);
-		if(conWrapper != null){
-			Article__c consignmentST = conWrapper.articleList.get(0);
+		// Make additional callout for Duplicate Consignment Scenario
+		if (conWrapper?.requiredAdditionalCallout != null) {
+			return HappyParcelService.getInstance().searchStarTrackAsync(
+					conWrapper.requiredAdditionalCallout.searchType,
+					conWrapper.requiredAdditionalCallout.value,
+					trackingResult
+			);
+		}
+		// Map .NET response and display updates on happy parcel component
+		if (conWrapper?.articleList != null && conWrapper.articleList.size() > 0){
+			Article__c consignmentST = conWrapper.articleList?.get(0);
 			trackingResult.article.FurtherReferences__c = consignmentST?.FurtherReferences__c;
 			trackingResult.article.DeliveryInstructions__c = consignmentST?.DeliveryInstructions__c;
 			trackingResult.article.ConsignmentParcelCount__c = consignmentST?.ConsignmentParcelCount__c;
 			trackingResult.article.ExpectedDeliveryDate__c = consignmentST?.ExpectedDeliveryDate__c;
 			trackingResult.article.Source_System__c = consignmentST?.Source_System__c;
 		}
+		// Map warning message and display on happy parcel component
+		if(conWrapper?.warningMessages != null){
+			trackingResult.warningMessages = conWrapper?.warningMessages;
+		}
 		return trackingResult;
 	}
 
 	/**
-	 * @description		Called by the callback method to process attribute mapping for article/consignment details returned from dotNet API for StarTrack
+	 * @description	Called by the callback method to process attribute mapping for article/consignment details returned from dotNet API for StarTrack
 	 * 				Perform DML update after the attribute mappings
 	 * @param		wwwAuspostComAuSchemaCustomercarema.ConsignmentData emsResponse
 	 * @param		Id consignmentSFId
 	 * @return		StarTrackConsignmentSearchUtil.ConsignmentWrapper
 	 */
 	public StarTrackConsignmentSearchUtil.ConsignmentWrapper processResponse(wwwAuspostComAuSchemaCustomercarema.ConsignmentData emsResponse, Id consignmentSFId) {
-		Article__c thisConsignment;
 		List<Database.SaveResult> results;
 		try {
+			// Single Consignment Scenario
 			if (emsResponse.Header.NbrOfRows == 1 || emsResponse.Consignment != null) {
+				Article__c thisConsignment;
 				thisConsignment = new Article__c();
 				Set<String> references = new Set<String>{ emsResponse.Consignment.FurtherReference1, emsResponse.Consignment.FurtherReference2 };
 				references.remove(null);
@@ -450,11 +464,48 @@ public with sharing class HappyParcelService {
 				results = ApplicationDatabase.getInstance().dmlUpdate(new List<SObject>{ thisConsignment });
 				return new StarTrackConsignmentSearchUtil.ConsignmentWrapper(true, null, new List<Article__c>{ thisConsignment });
 			}
+			// Duplicate Consignment Scenario
+			else if (emsResponse.Header.NbrOfRows > 1 && emsResponse.SearchResults != null) {
+				List<wwwAuspostComAuSchemaCustomercarema.DUPCON_DataDetail> validDupConData = filterValidConsignments(emsResponse.SearchResults.Results.DUPCON_DataDetail);
+				// Single valid consignment returns after the filtering
+				if(validDupConData.size() == 1){
+					// make another .NET callout with the UniqueExternalId value and 'UNIQUEEXTERNALID' search type
+					String consignmentExternalId = validDupConData[0].UniqueExternalId;
+					return new StarTrackConsignmentSearchUtil.ConsignmentWrapper(false, null, null,
+							new StarTrackConsignmentSearchUtil.AdditionalStarTrackCallout(
+									StarTrack_Constants.TYPE_UNIQUEEXTERNALID,
+									consignmentExternalId
+							)
+					);
+				}
+				// Multiple valid consignments after the filtering
+				else if (validDupConData.size() > 1) {
+					// Display duplicate consignment warning and do not update any new mappings from .NET API
+					return new StarTrackConsignmentSearchUtil.ConsignmentWrapper(false, null, null, new List<String>{ System.Label.HappyParcelNETDuplicateConsignmentWarningText });
+				}
+			}
 		} catch (Exception e) {
 			ApplicationLogger.getInstance().logFailedDatabaseResults(results, 'HappyParcel' , String.valueOf(HappyParcelService.class), 'processResponse', null, ApplicationLogger.LoggingLevel.ERROR);
 			throw new AuraHandledException(e.getMessage());
 		}
 		return null;
+	}
+
+	/**
+	 * @description logic to filter a list of incoming duplicate consignment and only return valid consignment that meet below criteria:
+	 * 				- DateSent is within the last 6 months
+	 * @param dupconDataDetails duplicate consignments
+	 * @return List<wwwAuspostComAuSchemaCustomercarema.DUPCON_DataDetail>
+	 */
+	public List<wwwAuspostComAuSchemaCustomercarema.DUPCON_DataDetail> filterValidConsignments(List<wwwAuspostComAuSchemaCustomercarema.DUPCON_DataDetail> dupconDataDetails){
+		List<wwwAuspostComAuSchemaCustomercarema.DUPCON_DataDetail> validDupConDataDetails = new List<wwwAuspostComAuSchemaCustomercarema.DUPCON_DataDetail>();
+		for (wwwAuspostComAuSchemaCustomercarema.DUPCON_DataDetail consignmentData : dupconDataDetails) {
+			// DateSent is within the last 6 months
+			if(consignmentData.DateSent.date() >= System.today().addMonths(-6)){
+				validDupConDataDetails.add(consignmentData);
+			}
+		}
+		return validDupConDataDetails;
 	}
 
 	/**
