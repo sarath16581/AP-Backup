@@ -153,9 +153,13 @@ public with sharing class CaseHandOffController {
 		// Query the CaseHandOffMapping__mdt records for the specified business unit
 		List<CaseHandOffMapping__mdt> mappingRecords = CaseHandoffMappingSelector.newInstance(caseHandoffMappingFields)
 			.selectByBusinesssUnitRecordType(new Set<String>{ businessUnit }, new Set<String>{ recordTypeDeveloperName }, new Set<Object>());
+		  
+		CaseHandOffMappingWrapper fieldMappingwrapper;
 
-		// Deserialize JSON string from Mapping__c field into list of CaseHandOffMappingWrapper
-		CaseHandOffMappingWrapper fieldMappingwrapper = (CaseHandOffMappingWrapper) JSON.deserialize(mappingRecords[0].Mapping__c, CaseHandOffMappingWrapper.class);
+	// Deserialize JSON string from Mapping__c field into list of CaseHandOffMappingWrapper
+		if (!mappingRecords.isEmpty() && mappingRecords[0].Mapping__c != null) {
+			fieldMappingwrapper = (CaseHandOffMappingWrapper) JSON.deserialize(mappingRecords[0].Mapping__c, CaseHandOffMappingWrapper.class);
+		}
 
 		return fieldMappingwrapper;
 	}
