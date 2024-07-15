@@ -462,21 +462,49 @@
         <senderType>OrgWideEmailAddress</senderType>
         <template>Australia_Post_Case_Templates/Dispute_Case_Approved_Late_Payment</template>
     </alerts>
-    <alerts>
-        <fullName>Network_Partner_Case_Creation_Email</fullName>
-        <description>Network Partner Case Creation Email</description>
+	<alerts>
+        <fullName>NetworkPartnerCaseClosureEmail</fullName>
+        <description>Network Partner Case Closure Email</description>
         <protected>false</protected>
         <recipients>
-            <field>ContactEmail1__c</field>
+            <field>ContactEmail</field>
             <type>email</type>
         </recipients>
+        <recipients>
+            <field>Contact_Email__c</field>
+            <type>email</type>
+        </recipients>
+        <recipients>
+            <field>Recent_Caller_Email__c</field>
+            <type>email</type>
+        </recipients>
+        <senderAddress>noreply@auspost.com.au</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>unfiled$public/NetworkPartnersCaseClosed</template>
+    </alerts>
+    <alerts>
+        <fullName>NetworkPartnerCaseCreationEmail</fullName>
+        <description>Network Partner Case Creation Email</description>
+        <protected>false</protected>
         <recipients>
             <field>SuppliedEmail</field>
             <type>email</type>
         </recipients>
-        <senderAddress>businesspartner@auspost.com.au</senderAddress>
+        <senderAddress>noreply@auspost.com.au</senderAddress>
         <senderType>OrgWideEmailAddress</senderType>
-        <template>unfiled$public/Network_Partner_Email_Template</template>
+        <template>unfiled$public/NetworkPartnerCaseCreationFromEmailtoCase</template>
+    </alerts>
+    <alerts>
+        <fullName>NetworkPartnerNoReply</fullName>
+        <description>Network Partner No Reply</description>
+        <protected>false</protected>
+        <recipients>
+            <field>LastIncomingEmailAddress__c</field>
+            <type>email</type>
+        </recipients>
+        <senderAddress>noreply@auspost.com.au</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>unfiled$public/NetworkPartnerDoNotReply</template>
     </alerts>
     <alerts>
         <fullName>New_Dispute_Claim_Case_Created</fullName>
