@@ -994,7 +994,7 @@ public without sharing class StarTrackConsignmentSearchUtil {
 	}
 	
 	/**
-	 * @description Used to store an information related to additional StarTrack callout for Duplicate Consignment scenario
+	 * @description Used to store information related to additional StarTrack callout for Duplicate Consignment scenario
 	 */
 	public class AdditionalStarTrackCallout {
 		public String searchType { get; set; }
