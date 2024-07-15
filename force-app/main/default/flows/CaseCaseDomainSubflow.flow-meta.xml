@@ -450,7 +450,7 @@
         <nameSegment>Case.Special_Services_Case_Creation_Email_Alert</nameSegment>
         <versionSegment>1</versionSegment>
     </actionCalls>
-    <apiVersion>57.0</apiVersion>
+    <apiVersion>59.0</apiVersion>
     <constants>
         <description>Email Id of MS power apps which needs to be blocked</description>
         <name>MSPowerAppsEmail</name>
