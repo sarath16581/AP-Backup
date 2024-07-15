@@ -17,6 +17,7 @@
 * 2024-01-31 - Hasantha L - added ConveyancerContact__c field update to testSelectorIntegration()
 * 2024-05-21 - Marcel HK - Added tests for new selector method `selectByCustomerSearchParams` for Customer Search (CSLU-107)
 * 2024-07-05 - Marcel HK - Updated tests for selector method `selectByCustomerSearchParamsQB` (CSLU-955)
+* 2024-07-15 - Marcel HK - Added selector option WITH_RELATED_CASES to include related cases sub-query (CSLU-439)
 */
 @IsTest
 private with sharing class ContactsSelector_Test {
@@ -271,5 +272,36 @@ private with sharing class ContactsSelector_Test {
 
 		// Verify the WHERE clause uses AND between phone and email condition groups
 		Assert.isTrue(Pattern.compile('(?is)\\(' + emailPattern + '\\)\\sAND\\s\\(' + phonePattern + '\\)').matcher(soql).find(), 'Query did not include correct WHERE clause for (Email AND Phone)');
+	}
+
+	@IsTest
+	static void testWithRelatedCasesOption() {
+		// =====================================
+		// Data Preparation
+		// =====================================
+		Set<Object> selectorOptions = new Set<Object>{ ContactsSelector.Options.WITH_RELATED_CASES };
+		Map<SObjectType, Set<SObjectField>> fieldOverrides = new Map<SObjectType, Set<SObjectField>> {
+			Contact.SObjectType => new Set<SObjectField> { Contact.Id, Contact.Name },
+			Case.SObjectType => new Set<SObjectField> { Case.Id, Case.Status }
+		};
+
+		// =====================================
+		// Stubbing
+		// =====================================
+		// None!
+
+		// =====================================
+		// Testing
+		// =====================================
+		Test.startTest();
+		ContactsSelector selector = ContactsSelector.newInstance(0, fieldOverrides);
+		String soql = selector.newQueryBuilder(selectorOptions).toSoqlString();
+		
+		Test.stopTest();
+
+		// Verify the SELECT includes the sub-query
+		String subQueryPattern = '\\(SELECT Id, Status\\s+FROM Cases\\s+ORDER BY CreatedDate Desc\\)';
+		String subQueryExMsg = 'Did not match the Cases sub-query pattern.' + soql.replaceAll('\n','');
+		Assert.isTrue(Pattern.compile('(?is)' + subQueryPattern).matcher(soql).find(), subQueryExMsg);
 	}
 }
