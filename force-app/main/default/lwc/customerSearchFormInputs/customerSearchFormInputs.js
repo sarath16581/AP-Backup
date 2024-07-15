@@ -197,6 +197,39 @@ export default class CustomerSearchFormInputs extends LightningElement {
 	}
 
 	/**
+	 * Resets the form inputs.
+	 *
+	 * @fires CustomerSearchFormInputs#reset
+	 */
+	async resetForm() {
+		// Reset error message
+		this.errorMessage = undefined;
+
+		// Clear each field value
+		this.firstName = '';
+		this.lastName = '';
+		this.emailAddress = '';
+		this.phoneNumber = '';
+
+		// Ensure field values are updated before continuing
+		await Promise.resolve();
+
+		// Collect all form input elements
+		const inputElements = [
+			...this.template.querySelectorAll(INPUT_ELEMENT_SELECTORS.join(',')),
+		];
+
+		// Clear any field-level error messages
+		inputElements.forEach((field) => {
+			field.setCustomValidity(''); // Clear any custom validation message
+			field.reportValidity(); // Refresh the UI to clear any error styles
+		});
+
+		// Notify form has been reset
+		this.dispatchEvent(new CustomEvent('reset'));
+	}
+
+	/**
 	 * Handles input field change events and stores the value in the
 	 * corresponding variable based on the `data-field-name` attribute.
 	 *
@@ -231,7 +264,8 @@ export default class CustomerSearchFormInputs extends LightningElement {
 	 * Handles when the "Clear" button is clicked.
 	 */
 	handleClearBtnClick() {
-		// TODO: implement
+		// Reset the form
+		this.resetForm();
 	}
 
 	/**
