@@ -13,6 +13,7 @@ History:
 2020-03-25 - Swati.mogadala@auspost.cm.au - Updated the method formatdate() to use format('dd-MMM-yyyy') instead of ('dd-MMM-YYYY') as per REQ2094412
 2021-09-16 - prerna.rahangdale@auspost.cm.au - Updated the save Events method to popuate the truckId , FacilitySublocationId and FacilitySubLocationName for WP-40 Agg
 2021-10-21 - naveen.rajanna@auspost.cm.au - Addded null check when making soql call and changed api version to 52
+2024-07-12 - Seth Heang - Added new attributes to ConsignmentWrapper
 **************************************************/
 public without sharing class StarTrackConsignmentSearchUtil {
 
@@ -958,16 +959,44 @@ public without sharing class StarTrackConsignmentSearchUtil {
 	History:
 	January 21, 2016 - Patrick James Franco - Created
 	------------------------------------------------------------*/
-	public class ConsignmentWrapper{
+	public class ConsignmentWrapper {
+		public Boolean isConsignmentSaved { get; set; }
+		public String errorCode { get; set; }
+		public List<Article__c> articleList { get; set; }
+		public List<String> warningMessages { get; set; }
+		public AdditionalStarTrackCallout requiredAdditionalCallout { get; set; }
 
-		public Boolean isConsignmentSaved {get; set;}
-		public String errorCode {get; set;}
-		public List<Article__c> articleList {get; set;}
-
-		public ConsignmentWrapper(Boolean isConsignmentSaved, String errorCode, List<Article__c> articleList){
+		public ConsignmentWrapper(Boolean isConsignmentSaved, String errorCode, List<Article__c> articleList) {
 			this.isConsignmentSaved = isConsignmentSaved;
 			this.errorCode = errorCode;
 			this.articleList = articleList;
+		}
+
+		public ConsignmentWrapper(Boolean isConsignmentSaved, String errorCode, List<Article__c> articleList, List<String> warningMessages) {
+			this.isConsignmentSaved = isConsignmentSaved;
+			this.errorCode = errorCode;
+			this.articleList = articleList;
+			this.warningMessages = warningMessages;
+		}
+
+		public ConsignmentWrapper(Boolean isConsignmentSaved, String errorCode, List<Article__c> articleList, AdditionalStarTrackCallout additionalCallout) {
+			this.isConsignmentSaved = isConsignmentSaved;
+			this.errorCode = errorCode;
+			this.articleList = articleList;
+			this.requiredAdditionalCallout = additionalCallout;
+		}
+	}
+	
+	/**
+	 * @description Used to store an information related to additional StarTrack callout for Duplicate Consignment scenario
+	 */
+	public class AdditionalStarTrackCallout {
+		public String searchType { get; set; }
+		public String value { get; set; }
+
+		public AdditionalStarTrackCallout(String searchType, String value) {
+			this.searchType = searchType;
+			this.value = value;
 		}
 	}
 
