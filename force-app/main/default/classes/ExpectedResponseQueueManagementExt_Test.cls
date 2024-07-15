@@ -11,6 +11,7 @@
 * - Created
 * - Test coverage  97%
 * 2021-09-06	seth.heang@auspost.com.au   Uplift SF API version to 52
+* 2024-07-15	 Paul Perry  Case Hand-off banner changes
 */
 @isTest
 private class ExpectedResponseQueueManagementExt_Test {
@@ -150,6 +151,7 @@ private class ExpectedResponseQueueManagementExt_Test {
         
         system.assertEquals('Network Responded', case1.Status,
                             'when awaiting response clicked status changes to Network Responded.');
+		System.assertEquals(false, ext.isCaseTransfer, 'Test case has not been transferred');
     }
     
 }

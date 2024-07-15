@@ -7,6 +7,7 @@
  * 2021-09-06	seth.heang@auspost.com.au   Uplift SF API version to 52
  * 2022-08-04  swati.mogadala@auspost.com.au REQ2910384 - Parent case not sent to back network when -yesStillWaitingClicked()
  * 2022-08-25  swati.mogadala@auspost.com.au REQ2944040 - Parent case assigned to logged in agent when noStillWaitingClicked()
+ * 2024-07-15  Paul Perry  Case Hand-off banner changes
 * **********************************/
 global with sharing class ExpectedResponseQueueManagementExt {
     //class variable for case details
@@ -61,7 +62,7 @@ global with sharing class ExpectedResponseQueueManagementExt {
         hasStatusResponded = false;
         //Added for  REQ0998943 DYU - Add isClosed field to disable contact another network button when its closed
         currentCase = [select ownerid, caseNumber, Network__c, SystemUpdate__c, status,
-            Network_Response__c, ParentID, RelatedCase__c, Origin, Type, IsClosed
+            Network_Response__c, ParentID, RelatedCase__c, Origin, Type, IsClosed, CaseTransferDate__c
             from
             case
             where
@@ -262,4 +263,10 @@ global with sharing class ExpectedResponseQueueManagementExt {
             return 'child case = null';
         }
     }
+
+	public Boolean isCaseTransfer {
+		get {
+			return currentCase?.CaseTransferDate__c != null;
+		}
+	}
 }

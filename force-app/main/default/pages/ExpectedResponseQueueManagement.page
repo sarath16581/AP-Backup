@@ -1,6 +1,7 @@
 <!--
 2017-10-01 	nathan.franklin@auspost.com.au Added ScriptLoader component to manage frontend scripts
 2021-09-10	seth.heang@auspost.com.au	Uplift SF API version to 52
+2024-07-15	 Paul Perry  Case Hand-off banner changes
 -->
 <apex:page standardController="Case"
     extensions="ExpectedResponseQueueManagementExt" showHeader="false">
@@ -105,23 +106,28 @@
         </div>
         
         <apex:messages />
+
+		<apex:pageMessage severity="info" strength="1" rendered="{!isCaseTransfer}">
+			Case is transferred by Unified Team
+		</apex:pageMessage>
+                        
          <!--Added for  REQ0998943 DYU - Display message whern contact another network button is closed -->
         <apex:pageMessage severity="info" strength="1" rendered="{!CurrentCase.IsClosed}">
                                                               Cannot create a Child case on a closed case. Create a new case
                                                             </apex:pageMessage>                        
-        <apex:pageMessage severity="error" strength="1" rendered="{!isOpenFeedback}">
+		<apex:pageMessage severity="error" strength="1" rendered="{!isOpenFeedback}">
                                                                <b>Feedback</b> has been selected.
                                                                <br /><br />
                                                                <b>Contact the Network</b><br/>or Close this Case.<br/>
                                                             </apex:pageMessage>                     
-        <br/>       
+
         <apex:pageMessage severity="warning" strength="1" rendered="{!isNotTheOwner}">
                                                                You are currently not the owner of this case.
                                                                <br /><br />
                                                                This case is owned by <br/>
                                                                <b>{!ownedByName}</b>
                                                             </apex:pageMessage>                     
-        <br/>
+
         <apex:outputtext rendered="{!IF(NOT(ISBLANK(Case.Parentid)),true,false)}">
         <b>Parent Case:  <a href="#" onclick="openObjectInPrimaryTab('{!Case.ParentId}');">{!Case.Parent.CaseNumber}</a></b>
         </apex:outputtext>
