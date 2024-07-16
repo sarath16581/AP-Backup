@@ -1,16 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
-	<fullName>isGovernmentEntity__c</fullName>
-	<externalId>false</externalId>
-	<description>Is Merchant Category Code is goververnment merchant category code</description>
-	<inlineHelpText>Government MCC?</inlineHelpText>
-	<formula>IF ( ISBLANK(MCC__c), &quot;&quot; , IF ( CONTAINS ($CustomMetadata.Government_MCC_Values__mdt.MCC_Value.MCC_Value__c , MCC__c ), &quot;Y&quot;, &quot;&quot;))</formula>
-	<formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
-	<label>Government Entity</label>
+    <fullName>IsGovernmentEntity__c</fullName>
+    <externalId>false</externalId>
+	<description>MCC is Government MCC if the value is in the provided list</description>
+    <formula>IF(OR(MCC__c = &quot;9211&quot;,MCC__c = &quot;9222&quot;,MCC__c = &quot;9311&quot;,MCC__c = &quot;9399&quot;,MCC__c = &quot;9402&quot;,MCC__c = &quot;9405&quot;,MCC__c = &quot;9406&quot;),&quot;Y&quot;,&quot;&quot;)</formula>
+    <label>Government Entity</label>
 	<securityClassification>INTERNAL</securityClassification>
-	<required>false</required>
-	<trackHistory>false</trackHistory>
-	<trackTrending>false</trackTrending>
-	<type>Text</type>
-	<unique>false</unique>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
 </CustomField>
