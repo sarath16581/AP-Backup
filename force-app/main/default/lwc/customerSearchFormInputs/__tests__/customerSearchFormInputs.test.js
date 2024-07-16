@@ -98,6 +98,7 @@ jest.mock(
  * @returns {Promise<void>} A promise that resolves after all pending promises are flushed.
  */
 function flushAllPromises() {
+	// eslint-disable-next-line @lwc/lwc/no-async-operation
 	return new Promise((resolve) => setTimeout(resolve, 0));
 }
 

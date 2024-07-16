@@ -206,10 +206,10 @@ export default class CustomerSearchFormInputs extends LightningElement {
 		this.errorMessage = undefined;
 
 		// Clear each field value
-		this.firstName = '';
-		this.lastName = '';
-		this.emailAddress = '';
-		this.phoneNumber = '';
+		this._firstName = '';
+		this._lastName = '';
+		this._emailAddress = '';
+		this._phoneNumber = '';
 
 		// Ensure field values are updated before continuing
 		await Promise.resolve();
