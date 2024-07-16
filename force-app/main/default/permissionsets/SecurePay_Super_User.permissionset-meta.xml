@@ -878,17 +878,17 @@
     </fieldPermissions>
 	<fieldPermissions>
 		<editable>false</editable>
-		<field>Application__c.isGovernmentEntity__c</field>
+		<field>Application__c.IsGovernmentEntity__c</field>
 		<readable>true</readable>
 	</fieldPermissions>
 	<fieldPermissions>
 		<editable>false</editable>
-		<field>Application__c.countryOfOrigin__c</field>
+		<field>Application__c.CountryOfOrigin__c</field>
 		<readable>true</readable>
 	</fieldPermissions>
 	<fieldPermissions>
 		<editable>false</editable>
-		<field>Application__c.Country_Of_Origin_Val__c</field>
+		<field>Application__c.CountryOfOriginValue__c</field>
 		<readable>true</readable>
 	</fieldPermissions>
     <fieldPermissions>

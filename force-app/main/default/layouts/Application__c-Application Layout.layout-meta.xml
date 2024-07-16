@@ -64,7 +64,7 @@
             </layoutItems>
 			<layoutItems>
                 <behavior>Readonly</behavior>
-                <field>Country_Of_Origin_Val__c</field>
+                <field>CountryOfOriginValue__c</field>
             </layoutItems>
         </layoutColumns>
         <style>TwoColumnsLeftToRight</style>
