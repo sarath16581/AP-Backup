@@ -4,7 +4,7 @@
     <externalId>false</externalId>
 	<description>If Government MCC then country of origin is AU (036)</description>
     <formula>IF(  CountryOfOrigin__c = &apos;036&apos;, &apos;AU&apos;, &apos;&apos; )</formula>
-	<inlineHelpText>Auto populated when MCC is Government MCC.</inlineHelpText>
+	<inlineHelpText>Auto populated when MCC is Government MCC</inlineHelpText>
     <securityClassification>INTERNAL</securityClassification>
     <label>Country Of Origin</label>
     <required>false</required>
