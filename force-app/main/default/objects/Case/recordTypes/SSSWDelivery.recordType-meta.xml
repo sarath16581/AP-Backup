@@ -526,13 +526,6 @@
         </values>
     </picklistValues>
     <picklistValues>
-        <picklist>EnquirySubTypeUnified__c</picklist>
-        <values>
-            <fullName>Late item</fullName>
-            <default>true</default>
-        </values>
-    </picklistValues>
-    <picklistValues>
         <picklist>EnquirySubType__c</picklist>
         <values>
             <fullName>ANZ enquiry</fullName>
@@ -2089,44 +2082,6 @@
         <values>
             <fullName>shop%2Eauspost%2Ecom%2Eau</fullName>
             <default>false</default>
-        </values>
-    </picklistValues>
-    <picklistValues>
-        <picklist>ProductSubType__c</picklist>
-        <values>
-            <fullName>Express Post</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Metro</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Parcel Post</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>StarTrack Premium</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>StarTrack Road Express</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>eParcel Express Post</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>eParcel Parcel Post</fullName>
-            <default>false</default>
-        </values>
-    </picklistValues>
-    <picklistValues>
-        <picklist>ProductType__c</picklist>
-        <values>
-            <fullName>Domestic</fullName>
-            <default>true</default>
         </values>
     </picklistValues>
     <picklistValues>
