@@ -275,6 +275,83 @@ private with sharing class ContactsSelector_Test {
 	}
 
 	@IsTest
+	static void testSelectByCustomerSearchParamsQBWithoutCustomerType() {
+		// =====================================
+		// Data Preparation
+		// =====================================
+		ContactsSelector cs = ContactsSelector.newInstance();
+		ContactsSelector.CustomerSearchParameters params = new ContactsSelector.CustomerSearchParameters();
+		params.firstName = 'Sherlock';
+		params.lastName = 'Holmes';
+
+		// =====================================
+		// Stubbing
+		// =====================================
+		// None!
+
+		// =====================================
+		// Testing
+		// =====================================
+		Test.startTest();
+		String soql = cs.selectByCustomerSearchParamsQB(params, new Set<Object>());
+		Test.stopTest();
+
+		Assert.isFalse(Pattern.compile('(?is)(IsPersonAccount = TRUE|IsPersonAccount = FALSE)').matcher(soql).find(), 'Query should not filter on IsPersonAccount');
+	}
+
+	@IsTest
+	static void testSelectByCustomerSearchParamsQBWithCustomerTypeConsumer() {
+		// =====================================
+		// Data Preparation
+		// =====================================
+		ContactsSelector cs = ContactsSelector.newInstance();
+		ContactsSelector.CustomerSearchParameters params = new ContactsSelector.CustomerSearchParameters();
+		params.firstName = 'Sherlock';
+		params.lastName = 'Holmes';
+		params.customerType = ContactsSelector.CustomerSearchCustomerType.CONSUMER;
+
+		// =====================================
+		// Stubbing
+		// =====================================
+		// None!
+
+		// =====================================
+		// Testing
+		// =====================================
+		Test.startTest();
+		String soql = cs.selectByCustomerSearchParamsQB(params, new Set<Object>());
+		Test.stopTest();
+
+		Assert.isTrue(Pattern.compile('(?is)IsPersonAccount = TRUE').matcher(soql).find(), 'Query should filter on IsPersonAccount = TRUE');
+	}
+
+	@IsTest
+	static void testSelectByCustomerSearchParamsQBWithCustomerTypeOrganisation() {
+		// =====================================
+		// Data Preparation
+		// =====================================
+		ContactsSelector cs = ContactsSelector.newInstance();
+		ContactsSelector.CustomerSearchParameters params = new ContactsSelector.CustomerSearchParameters();
+		params.firstName = 'Sherlock';
+		params.lastName = 'Holmes';
+		params.customerType = ContactsSelector.CustomerSearchCustomerType.ORGANISATION;
+
+		// =====================================
+		// Stubbing
+		// =====================================
+		// None!
+
+		// =====================================
+		// Testing
+		// =====================================
+		Test.startTest();
+		String soql = cs.selectByCustomerSearchParamsQB(params, new Set<Object>());
+		Test.stopTest();
+
+		Assert.isTrue(Pattern.compile('(?is)IsPersonAccount = FALSE').matcher(soql).find(), 'Query should filter on IsPersonAccount = FALSE');
+	}
+
+	@IsTest
 	static void testWithRelatedCasesOption() {
 		// =====================================
 		// Data Preparation

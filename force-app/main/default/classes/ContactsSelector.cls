@@ -253,6 +253,20 @@ public virtual inherited sharing class ContactsSelector extends ApplicationSelec
 			conditionsOrder.add('(' + (n + 1) + ' OR ' + (n + 2) + ' OR ' + (n + 3) + ')');
 		}
 
+		/**
+		* If `customerType` is specified, apply the filter accordingly.
+		* If not specified, the default will return all customer types (i.e. no filter applied).
+		*/
+		if(params.customerType == CustomerSearchCustomerType.CONSUMER) {
+			Integer n = cm.conditions.size();
+			cm.add(new QueryBuilder.CompareCondition(Contact.IsPersonAccount).eq(true));
+			conditionsOrder.add('' + (n + 1));
+		}else if(params.customerType == CustomerSearchCustomerType.ORGANISATION) {
+			Integer n = cm.conditions.size();
+			cm.add(new QueryBuilder.CompareCondition(Contact.IsPersonAccount).eq(false));
+			conditionsOrder.add('' + (n + 1));
+		}
+
 		// Join dynamic conditions with 'AND' operator
 		cm.setConditionOrder(String.join(conditionsOrder, ' AND '));
 		cm.endConditions();
@@ -261,7 +275,7 @@ public virtual inherited sharing class ContactsSelector extends ApplicationSelec
 		qb.setOrder(new QueryBuilder.Order(Contact.UnifiedDataScore__c).setSortingOrderDesc().setNullsOrderLast());
 		qb.addOrder(new QueryBuilder.Order(Contact.FirstName).setSortingOrderAsc().setNullsOrderLast());
 		qb.addOrder(new QueryBuilder.Order(Contact.LastName).setSortingOrderAsc().setNullsOrderLast());
-		
+
 		return qb.toSoqlString();
 	}
 
@@ -311,6 +325,11 @@ public virtual inherited sharing class ContactsSelector extends ApplicationSelec
 		public String lastName;
 		public String emailAddress;
 		public String phoneNumber;
+		public CustomerSearchCustomerType customerType;
+	}
+
+	public enum CustomerSearchCustomerType {
+		ORGANISATION, CONSUMER
 	}
 
 		// TODO: Activate Cache
