@@ -8,8 +8,13 @@ export const FIRST_NAME_LABEL = 'First Name';
 export const LAST_NAME_LABEL = 'Last Name';
 export const PHONE_NUMBER_LABEL = 'Phone';
 export const EMAIL_ADDRESS_LABEL = 'Email';
+export const ORGANISATION_CHECKBOX_LABEL = 'Organisation';
+export const CONSUMER_CHECKBOX_LABEL = 'Consumer';
 export const SEARCH_BUTTON_LABEL = 'Search';
 export const CLEAR_BUTTON_LABEL = 'Clear';
+
+export const CUSTOMER_TYPE_CONSUMER = 'CONSUMER';
+export const CUSTOMER_TYPE_ORGANISATION = 'ORGANISATION';
 
 // Field validation regular expression patterns
 export const NAME_INPUT_REGEX = '^[^\\.\\!\\(\\)\\[\\]"1-9]*$'; // TODO: create pattern in utility class
@@ -79,11 +84,23 @@ export default class CustomerSearchFormInputs extends LightningElement {
 		this._emailAddress = value;
 	}
 
+	/**
+	 *
+	 */
+	@api get customerType() {
+		return this._customerType;
+	}
+	set customerType(value) {
+		this._customerType = value;
+	}
+
 	// Private variables for input fields, used with public getters/setters
 	_firstName = '';
 	_lastName = '';
 	_phoneNumber = '';
 	_emailAddress = '';
+	organisationCheckbox = false;
+	consumerCheckbox = false;
 
 	errorMessage = undefined;
 	isLoading = false;
@@ -93,6 +110,8 @@ export default class CustomerSearchFormInputs extends LightningElement {
 	lastNameLabel = LAST_NAME_LABEL;
 	phoneNumberLabel = PHONE_NUMBER_LABEL;
 	emailAddressLabel = EMAIL_ADDRESS_LABEL;
+	organisationCheckboxLabel = ORGANISATION_CHECKBOX_LABEL;
+	consumerCheckboxLabel = CONSUMER_CHECKBOX_LABEL;
 	searchButtonLabel = SEARCH_BUTTON_LABEL;
 	clearButtonLabel = CLEAR_BUTTON_LABEL;
 
@@ -177,6 +196,11 @@ export default class CustomerSearchFormInputs extends LightningElement {
 					lastName: this.lastName,
 					emailAddress: this.emailAddress,
 					phoneNumber: this.phoneNumber,
+					customerType: this.consumerCheckbox
+						? CUSTOMER_TYPE_CONSUMER
+						: this.organisationCheckbox
+						? CUSTOMER_TYPE_ORGANISATION
+						: null,
 				},
 			});
 			// Handle search results
@@ -237,7 +261,12 @@ export default class CustomerSearchFormInputs extends LightningElement {
 	 */
 	handleInputChange(event) {
 		const { fieldName } = event.target.dataset;
-		const fieldValue = event.target.value;
+		// const fieldValue = event.target.value;
+		let fieldValue = event.target.value;
+		// Handle different types of input fields
+		if (event.target.type === 'checkbox') {
+			fieldValue = event.target.checked === true;
+		}
 
 		// store the field value based on the `name` attribute
 		this[fieldName] = fieldValue;

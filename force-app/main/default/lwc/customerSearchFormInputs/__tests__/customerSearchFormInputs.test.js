@@ -6,6 +6,8 @@ import {
 	LAST_NAME_LABEL,
 	PHONE_NUMBER_LABEL,
 	EMAIL_ADDRESS_LABEL,
+	ORGANISATION_CHECKBOX_LABEL,
+	CONSUMER_CHECKBOX_LABEL,
 	SEARCH_BUTTON_LABEL,
 	CLEAR_BUTTON_LABEL,
 	MORE_INFO_REQUIRED_ERROR_MESSAGE,
@@ -32,6 +34,15 @@ const CUSTOMER_SEARCH_RES_ERROR = {
  */
 function changeInputFieldValue(element, value) {
 	if (element?.nodeName.toLowerCase() === 'lightning-input') {
+		// Handle checkbox
+		if(element.type === 'checkbox') {
+			element.checked = value === true;
+			element.dispatchEvent(
+				new CustomEvent('change', { detail: { checked: element.checked } })
+			);
+		}
+
+		// Handle other input types
 		element.value = value;
 		element.dispatchEvent(
 			new CustomEvent('change', { detail: { value: element.value } })
@@ -154,6 +165,18 @@ describe('c-customer-search-form-inputs', () => {
 		expect(phoneNumberInput.placeholder).toBe(PHONE_NUMBER_LABEL);
 		expect(phoneNumberInput.maxLength).toBe('40');
 		expect(phoneNumberInput.value).toBe('');
+
+		const organisationCheckboxInput = getInputFieldElement(element, 'organisationCheckbox');
+		expect(organisationCheckboxInput).not.toBeNull();
+		expect(organisationCheckboxInput.type).toBe('checkbox');
+		expect(organisationCheckboxInput.label).toBe(ORGANISATION_CHECKBOX_LABEL);
+		expect(organisationCheckboxInput.checked).toBe(false);
+
+		const consumerCheckboxInput = getInputFieldElement(element, 'consumerCheckbox');
+		expect(consumerCheckboxInput).not.toBeNull();
+		expect(consumerCheckboxInput.type).toBe('checkbox');
+		expect(consumerCheckboxInput.label).toBe(CONSUMER_CHECKBOX_LABEL);
+		expect(consumerCheckboxInput.checked).toBe(false);
 
 		const buttons = [
 			...element.shadowRoot.querySelectorAll('lightning-button'),
@@ -387,6 +410,52 @@ describe('c-customer-search-form-inputs', () => {
 		const errorDiv = element.shadowRoot.querySelector("div[data-id='error']");
 		expect(errorDiv).toBeNull();
 		expect(searchEvent).toHaveBeenCalled();
+	});
+
+	it('disables consumer checkbox when organisation checkbox is selected', async () => {
+		// Arrange
+		const element = createElement('c-customer-search-form-inputs', {
+			is: CustomerSearchFormInputs,
+		});
+
+		// Act
+		document.body.appendChild(element);
+
+		const organisationCheckboxInput = getInputFieldElement(element, 'organisationCheckbox');
+		changeInputFieldValue(organisationCheckboxInput, true);
+
+		// Wait for any asynchronous code to complete
+		await flushAllPromises();
+
+		// Assert
+		expect(organisationCheckboxInput.checked).toBe(true);
+		expect(organisationCheckboxInput.disabled).toBe(false);
+		
+		const consumerCheckboxInput = getInputFieldElement(element, 'consumerCheckbox');
+		expect(consumerCheckboxInput.disabled).toBe(true);
+	});
+
+	it('disables organisation checkbox when consumer checkbox is selected', async () => {
+		// Arrange
+		const element = createElement('c-customer-search-form-inputs', {
+			is: CustomerSearchFormInputs,
+		});
+
+		// Act
+		document.body.appendChild(element);
+
+		const consumerCheckboxInput = getInputFieldElement(element, 'consumerCheckbox');
+		changeInputFieldValue(consumerCheckboxInput, true);
+
+		// Wait for any asynchronous code to complete
+		await flushAllPromises();
+
+		// Assert
+		expect(consumerCheckboxInput.checked).toBe(true);
+		expect(consumerCheckboxInput.disabled).toBe(false);
+
+		const organisationCheckboxInput = getInputFieldElement(element, 'organisationCheckbox');
+		expect(organisationCheckboxInput.disabled).toBe(true);
 	});
 
 	it('displays spinner while searching', async () => {
