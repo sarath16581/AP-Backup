@@ -19,10 +19,11 @@
  * 2024-01-22 - Hasantha Liyanage - Added selectPrimaryContactByAccount method
  * 2024-05-21 - Marcel HK - Added selector method `selectByCustomerSearchParams` for Customer Search (CSLU-107)
  * 2024-07-05 - Marcel HK - Updated ORDER BY for the selector method `selectByCustomerSearchParamsQB` (CSLU-955)
+ * 2024-07-15 - Marcel HK - Added selector option WITH_RELATED_CASES to include related cases sub-query (CSLU-439)
  */
 public virtual inherited sharing class ContactsSelector extends ApplicationSelector {
 	public enum Options {
-		WITH_RECORDTYPE, WITH_OWNER, WITH_ACCOUNT, WITH_BILLING_ACCOUNT
+		WITH_RECORDTYPE, WITH_OWNER, WITH_ACCOUNT, WITH_BILLING_ACCOUNT, WITH_RELATED_CASES
 	}
 
 	public static ContactsSelector newInstance() {
@@ -293,6 +294,9 @@ public virtual inherited sharing class ContactsSelector extends ApplicationSelec
 			builder.addRelatedFields(BillingAccountsSelector.newInstance(0, fieldOverrides).newQueryBuilder(selectorOptions), 'BillingAccount__r');
 		}
 
+		if(selectorOptions.contains(Options.WITH_RELATED_CASES)) {
+			builder.addSubQuery(CasesSelector.newInstance(0, fieldOverrides).newQueryBuilder(selectorOptions), 'Cases');
+		}
 
 		return builder;
 	}

@@ -98,6 +98,7 @@ jest.mock(
  * @returns {Promise<void>} A promise that resolves after all pending promises are flushed.
  */
 function flushAllPromises() {
+	// eslint-disable-next-line @lwc/lwc/no-async-operation
 	return new Promise((resolve) => setTimeout(resolve, 0));
 }
 
@@ -281,9 +282,7 @@ describe('c-customer-search-form-inputs', () => {
 		// Assert
 		const errorDiv = element.shadowRoot.querySelector("div[data-id='error']");
 		expect(errorDiv).not.toBeNull();
-		expect(errorDiv.textContent).toBe(
-			MORE_INFO_REQUIRED_ERROR_MESSAGE
-		);
+		expect(errorDiv.textContent).toBe(MORE_INFO_REQUIRED_ERROR_MESSAGE);
 		expect(searchEvent).not.toHaveBeenCalled();
 	});
 
@@ -315,9 +314,7 @@ describe('c-customer-search-form-inputs', () => {
 		// Assert
 		const errorDiv = element.shadowRoot.querySelector("div[data-id='error']");
 		expect(errorDiv).not.toBeNull();
-		expect(errorDiv.textContent).toBe(
-			MORE_INFO_REQUIRED_ERROR_MESSAGE
-		);
+		expect(errorDiv.textContent).toBe(MORE_INFO_REQUIRED_ERROR_MESSAGE);
 		expect(searchEvent).not.toHaveBeenCalled();
 	});
 
@@ -542,5 +539,45 @@ describe('c-customer-search-form-inputs', () => {
 		const errorDiv = element.shadowRoot.querySelector("div[data-id='error']");
 		expect(errorDiv).not.toBeNull();
 		expect(errorDiv.textContent).toBe('An internal server error has occurred');
+	});
+
+	it('clears form on "Clear" button click', async () => {
+		// Arrange
+		const element = createElement('c-customer-search-form-inputs', {
+			is: CustomerSearchFormInputs,
+		});
+
+		// Act
+		document.body.appendChild(element);
+
+		// Prepare valid test data
+		const firstNameInput = getInputFieldElement(element, 'firstName');
+		changeInputFieldValue(firstNameInput, 'Sherlock');
+
+		const lastNameInput = getInputFieldElement(element, 'lastName');
+		changeInputFieldValue(lastNameInput, 'Holmes');
+
+		const phoneNumberInput = getInputFieldElement(element, 'phoneNumber');
+		changeInputFieldValue(phoneNumberInput, '0400 000 000');
+
+		const emailAddressInput = getInputFieldElement(element, 'emailAddress');
+		changeInputFieldValue(emailAddressInput, 'sherlock@');
+		emailAddressInput.setCustomValidity('bad email');
+
+		// Wait for any asynchronous code to complete
+		await flushAllPromises();
+
+		// Click the search button
+		const clearButton = getButtonByDataId(element, 'clear');
+		clearButton.click();
+
+		// Wait for any asynchronous code to complete
+		await flushAllPromises();
+
+		// Assert
+		expect(firstNameInput.value).toBe('');
+		expect(lastNameInput.value).toBe('');
+		expect(phoneNumberInput.value).toBe('');
+		expect(emailAddressInput.value).toBe('');
 	});
 });
