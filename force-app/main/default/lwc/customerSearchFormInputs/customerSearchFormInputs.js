@@ -84,16 +84,6 @@ export default class CustomerSearchFormInputs extends LightningElement {
 		this._emailAddress = value;
 	}
 
-	/**
-	 *
-	 */
-	@api get customerType() {
-		return this._customerType;
-	}
-	set customerType(value) {
-		this._customerType = value;
-	}
-
 	// Private variables for input fields, used with public getters/setters
 	_firstName = '';
 	_lastName = '';

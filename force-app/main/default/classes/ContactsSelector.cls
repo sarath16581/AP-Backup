@@ -20,6 +20,7 @@
  * 2024-05-21 - Marcel HK - Added selector method `selectByCustomerSearchParams` for Customer Search (CSLU-107)
  * 2024-07-05 - Marcel HK - Updated ORDER BY for the selector method `selectByCustomerSearchParamsQB` (CSLU-955)
  * 2024-07-15 - Marcel HK - Added selector option WITH_RELATED_CASES to include related cases sub-query (CSLU-439)
+ * 2024-07-15 - Marcel HK - Added enum `CustomerSearchCustomerType` and customer type filters (CSLU-446)
  */
 public virtual inherited sharing class ContactsSelector extends ApplicationSelector {
 	public enum Options {
@@ -261,7 +262,7 @@ public virtual inherited sharing class ContactsSelector extends ApplicationSelec
 			Integer n = cm.conditions.size();
 			cm.add(new QueryBuilder.CompareCondition(Contact.IsPersonAccount).eq(true));
 			conditionsOrder.add('' + (n + 1));
-		}else if(params.customerType == CustomerSearchCustomerType.ORGANISATION) {
+		} else if(params.customerType == CustomerSearchCustomerType.ORGANISATION) {
 			Integer n = cm.conditions.size();
 			cm.add(new QueryBuilder.CompareCondition(Contact.IsPersonAccount).eq(false));
 			conditionsOrder.add('' + (n + 1));
