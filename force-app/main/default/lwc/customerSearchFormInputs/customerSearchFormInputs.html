@@ -76,6 +76,34 @@
 					value={emailAddress}
 				></lightning-input>
 			</div>
+
+			<!-- Customer Type Selection -->
+			<div
+				class="slds-col slds-size_1-of-1 slds-large-size_1-of-1 slds-grid slds-grid_pull-padded-x-small slds-var-m-vertical_medium"
+			>
+				<div class="slds-col slds-grow-none slds-var-m-right_medium">
+					<lightning-input
+						checked={organisationCheckbox}
+						data-field-name="organisationCheckbox"
+						disabled={consumerCheckbox}
+						label={organisationCheckboxLabel}
+						onchange={handleInputChange}
+						onkeyup={handleInputKeyUp}
+						type="checkbox"
+					></lightning-input>
+				</div>
+				<div class="slds-col slds-grow-none">
+					<lightning-input
+						checked={consumerCheckbox}
+						data-field-name="consumerCheckbox"
+						disabled={organisationCheckbox}
+						label={consumerCheckboxLabel}
+						onchange={handleInputChange}
+						onkeyup={handleInputKeyUp}
+						type="checkbox"
+					></lightning-input>
+				</div>
+			</div>
 		</div>
 
 		<!-- Error message -->

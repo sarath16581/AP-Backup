@@ -18,6 +18,7 @@
 * 2024-05-21 - Marcel HK - Added tests for new selector method `selectByCustomerSearchParams` for Customer Search (CSLU-107)
 * 2024-07-05 - Marcel HK - Updated tests for selector method `selectByCustomerSearchParamsQB` (CSLU-955)
 * 2024-07-15 - Marcel HK - Added selector option WITH_RELATED_CASES to include related cases sub-query (CSLU-439)
+* 2024-07-15 - Marcel HK - Added enum `CustomerSearchCustomerType` and customer type filters (CSLU-446)
 */
 @IsTest
 private with sharing class ContactsSelector_Test {
@@ -272,6 +273,83 @@ private with sharing class ContactsSelector_Test {
 
 		// Verify the WHERE clause uses AND between phone and email condition groups
 		Assert.isTrue(Pattern.compile('(?is)\\(' + emailPattern + '\\)\\sAND\\s\\(' + phonePattern + '\\)').matcher(soql).find(), 'Query did not include correct WHERE clause for (Email AND Phone)');
+	}
+
+	@IsTest
+	static void testSelectByCustomerSearchParamsQBWithoutCustomerType() {
+		// =====================================
+		// Data Preparation
+		// =====================================
+		ContactsSelector cs = ContactsSelector.newInstance();
+		ContactsSelector.CustomerSearchParameters params = new ContactsSelector.CustomerSearchParameters();
+		params.firstName = 'Sherlock';
+		params.lastName = 'Holmes';
+
+		// =====================================
+		// Stubbing
+		// =====================================
+		// None!
+
+		// =====================================
+		// Testing
+		// =====================================
+		Test.startTest();
+		String soql = cs.selectByCustomerSearchParamsQB(params, new Set<Object>());
+		Test.stopTest();
+
+		Assert.isFalse(Pattern.compile('(?is)(IsPersonAccount = TRUE|IsPersonAccount = FALSE)').matcher(soql).find(), 'Query should not filter on IsPersonAccount');
+	}
+
+	@IsTest
+	static void testSelectByCustomerSearchParamsQBWithCustomerTypeConsumer() {
+		// =====================================
+		// Data Preparation
+		// =====================================
+		ContactsSelector cs = ContactsSelector.newInstance();
+		ContactsSelector.CustomerSearchParameters params = new ContactsSelector.CustomerSearchParameters();
+		params.firstName = 'Sherlock';
+		params.lastName = 'Holmes';
+		params.customerType = ContactsSelector.CustomerSearchCustomerType.CONSUMER;
+
+		// =====================================
+		// Stubbing
+		// =====================================
+		// None!
+
+		// =====================================
+		// Testing
+		// =====================================
+		Test.startTest();
+		String soql = cs.selectByCustomerSearchParamsQB(params, new Set<Object>());
+		Test.stopTest();
+
+		Assert.isTrue(Pattern.compile('(?is)IsPersonAccount = TRUE').matcher(soql).find(), 'Query should filter on IsPersonAccount = TRUE');
+	}
+
+	@IsTest
+	static void testSelectByCustomerSearchParamsQBWithCustomerTypeOrganisation() {
+		// =====================================
+		// Data Preparation
+		// =====================================
+		ContactsSelector cs = ContactsSelector.newInstance();
+		ContactsSelector.CustomerSearchParameters params = new ContactsSelector.CustomerSearchParameters();
+		params.firstName = 'Sherlock';
+		params.lastName = 'Holmes';
+		params.customerType = ContactsSelector.CustomerSearchCustomerType.ORGANISATION;
+
+		// =====================================
+		// Stubbing
+		// =====================================
+		// None!
+
+		// =====================================
+		// Testing
+		// =====================================
+		Test.startTest();
+		String soql = cs.selectByCustomerSearchParamsQB(params, new Set<Object>());
+		Test.stopTest();
+
+		Assert.isTrue(Pattern.compile('(?is)IsPersonAccount = FALSE').matcher(soql).find(), 'Query should filter on IsPersonAccount = FALSE');
 	}
 
 	@IsTest
