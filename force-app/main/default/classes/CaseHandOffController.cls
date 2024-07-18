@@ -120,6 +120,9 @@ public with sharing class CaseHandOffController {
 			}
 		}
 
+		//Creating case comment before updating the case because the case record will not available to the user as its owner will change to respective queue.
+		createCaseComment(casedetails, casedetails.CaseTransferReason__c, handoffWrapper.comment);
+		//Update Case details
 		ApplicationDatabase.getInstance().dmlUpdate(new List<SObject>{ casedetails });
 
 		//Add related contact for star track
@@ -136,9 +139,6 @@ public with sharing class CaseHandOffController {
 		if (impactedArticles.size() > 0) {
 			ApplicationDatabase.getInstance().dmlDelete(impactedArticles);
 		}
-
-		//Create case comment
-		createCaseComment(casedetails, casedetails.CaseTransferReason__c, handoffWrapper.comment);
 	}
 
 	/**

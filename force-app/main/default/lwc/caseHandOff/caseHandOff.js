@@ -22,7 +22,7 @@ const FIELDS = [
   CASERECORDTYPEID,
   CASERECORDTYPENAME,
   PRODUCTID,
-  ARTICLENAME,
+  ARTICLENAME
 ];
 
 export default class CaseHandOff extends LightningElement {
@@ -82,9 +82,11 @@ export default class CaseHandOff extends LightningElement {
 	  this.handoffWrapper.caseRecordType =
 		this.caseRecord.fields.RecordType.value.fields.DeveloperName.value;
 	} else if (error) {
-	  this.caseRecord = undefined;
-	  this.handoffWrapper.caseRecordType = undefined;
-	  console.error("wiredCase error ==>", error);
+		this.isLoading = false;
+	  	this.caseRecord = undefined;
+	  	this.handoffWrapper.caseRecordType = undefined;
+		this.showInternalErrorToast();
+	  	console.error("wiredCase error ==>", error);
 	}
   }
 
@@ -100,9 +102,11 @@ export default class CaseHandOff extends LightningElement {
 		  "UnifiedStarTrackHandoffTriageQueue";
 	  }
 	  this.isLoading = false;
-	} else if (error) {
-	  this.handoffWrapper.businessUnit = undefined;
-	  console.error("wiredBusinessUnit error ==>", error);
+	} else if (error) {		
+		this.isLoading = false;
+		this.showInternalErrorToast();
+		this.handoffWrapper.businessUnit = undefined;
+		console.error("wiredBusinessUnit error ==>", error);
 	}
   }
 
@@ -116,7 +120,9 @@ export default class CaseHandOff extends LightningElement {
 	  this.handoffReasonOptions =
 		data.picklistFieldValues.CaseTransferReason__c.values;
 	} else if (error) {
-	  console.error("wiredCasePicklists error ==>", error);
+		this.isLoading = false;
+		this.showInternalErrorToast();
+	  	console.error("wiredCasePicklists error ==>", error);
 	}
   }
 
@@ -242,6 +248,14 @@ export default class CaseHandOff extends LightningElement {
 	  this.errorMessage = "No consignment is associated with this case";
 	}
 	return isInputsCorrect;
+  }
+
+  showInternalErrorToast(){
+	this.showNotification(
+		"Error",
+		"Something went wrong. Please contact Salesforce support team",
+		"error"
+	  );
   }
 
   showNotification(title, message, variant) {
