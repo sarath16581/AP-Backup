@@ -94,7 +94,7 @@ export default class CaseHandOff extends LightningElement {
 	wiredBusinessUnit({ error, data }) {
 		if (data) {
 			this.handoffWrapper.businessUnit = data;
-			if (this.handoffWrapper.businessUnit == "AustraliaPost") {
+			if (this.handoffWrapper.businessUnit === "AustraliaPost") {
 				this.handoffWrapper.contactCenter = "UnifiedAusPostHandoffTriageQueue";
 			} else {
 				this.handoffWrapper.contactCenter = "UnifiedStarTrackHandoffTriageQueue";
@@ -128,9 +128,9 @@ export default class CaseHandOff extends LightningElement {
 		this.handoffWrapper.contactCenter = event.detail.value;
 		let contactCenterElm = this.template.querySelector("lightning-combobox[data-id=contactCenter]");
 		contactCenterElm.setCustomValidity("");
-		if (this.handoffWrapper.contactCenter == "UnifiedStarTrackHandoffTriageQueue" && this.handoffWrapper.businessUnit == "AustraliaPost") {
+		if (this.handoffWrapper.contactCenter === "UnifiedStarTrackHandoffTriageQueue" && this.handoffWrapper.businessUnit === "AustraliaPost") {
 			contactCenterElm.setCustomValidity("Cannot convert case to ST, consignment product is a AP product");
-		} else if (this.handoffWrapper.contactCenter == "UnifiedAusPostHandoffTriageQueue" && this.handoffWrapper.businessUnit == "StarTrack") {
+		} else if (this.handoffWrapper.contactCenter === "UnifiedAusPostHandoffTriageQueue" && this.handoffWrapper.businessUnit === "StarTrack") {
 			contactCenterElm.setCustomValidity("Cannot convert case to AP, consignment product is a ST product");
 		}
 
