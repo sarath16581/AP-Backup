@@ -4,6 +4,7 @@
  * @date 2024-06-18
  * @changelog
  * 2024-06-18 - Vasu Gorakati - Case Hand-off
+ * 2024-07-18 - Raghav Ravipati - Added changes to test duplicate consigment scenarios.
  **/
 @isTest
 public class CaseHandOffController_Test {
@@ -199,6 +200,108 @@ public class CaseHandOffController_Test {
 		Test.stopTest();
 
 		System.assertNotEquals(null, result, 'Result should be set');
+	
+	}
+	/**
+	* To test Duplicate consigments that has duplicate records that are less than 6 months old
+	*/
+	@isTest
+	static void testStarTrackSearchWithDuplicatesLessThanSixmonths() {
+		// =====================================
+		// Data Preparation
+		// =====================================
+
+		insert new StarTrack_Settings__c(
+			SetupOwnerId = UserInfo.getOrganizationId(),
+			Get_All_Consignment_Details__c = true,
+			EMS_Endpoint__c = 'testendpt',
+			Web_Service_Callout_Timeout__c = 10,
+			Use_Continuation_for_Consignment_Search__c = true,
+			XML_Logging__c = true,
+			Logging__c = true,
+			Log_For__c = 'ALL USER',
+			StarTrack_ConSearch_Authentication_Level__c = 2,
+			StarTrack_ConSearch_Client_Cert__c = 'cert',
+			Sync_Web_Service_Callout_Timeout__c = 5
+		);
+
+		// =====================================
+		// Testing
+		// =====================================
+		Test.startTest();
+
+		CaseHandoffController controller = new CaseHandoffController();
+
+		Continuation conti = (Continuation) CaseHandoffController.searchConsignmentStarTrack('2AT71923');
+
+		// Perform mock callout
+		HttpResponse response = new HttpResponse();
+		response.setBody(StarTrackContinuationCalloutMock.getResponse_multiConsignWhereAllConsignmentsWithinLast6Months());
+
+		// Set the fake response for the continuation
+		Map<String, HttpRequest> requests = conti.getRequests();
+		String requestLabel = requests.keyset().iterator().next();
+		Test.setContinuationResponse(requestLabel, response);
+
+		// Invoke callback method
+		// note this will call the controller.processSearchRemoteConsignment() instance method
+		// the actual continuation call from the remote action calls the static processSearchRemoteConsignment(state) method
+		Object result = Test.invokeContinuationMethod(controller, conti);
+		List<Article__c> articles = (List<Article__c>) result;
+		Test.stopTest();
+		System.assertNotEquals(null, result, 'Result should be set');
+		System.assertEquals(2, articles.size(), 'Multiple articles found whoes date sent is less than 6 months');	
+	}
+	/**
+	* To test Duplicate consigments that has only one record that are less than 6 months old
+	*/
+	@isTest
+	static void testStarTrackSearchWithMultipleRecordsAndOneIsLessThanSixmonths() {
+		// =====================================
+		// Data Preparation
+		// =====================================
+
+		insert new StarTrack_Settings__c(
+			SetupOwnerId = UserInfo.getOrganizationId(),
+			Get_All_Consignment_Details__c = true,
+			EMS_Endpoint__c = 'testendpt',
+			Web_Service_Callout_Timeout__c = 10,
+			Use_Continuation_for_Consignment_Search__c = true,
+			XML_Logging__c = true,
+			Logging__c = true,
+			Log_For__c = 'ALL USER',
+			StarTrack_ConSearch_Authentication_Level__c = 2,
+			StarTrack_ConSearch_Client_Cert__c = 'cert',
+			Sync_Web_Service_Callout_Timeout__c = 5
+		);
+
+		// =====================================
+		// Testing
+		// =====================================
+		Test.startTest();
+
+		CaseHandoffController controller = new CaseHandoffController();
+
+		Continuation conti = (Continuation) CaseHandoffController.searchConsignmentStarTrack('2AT71923');
+
+		// Perform mock callout
+		HttpResponse response = new HttpResponse();
+		response.setBody(StarTrackContinuationCalloutMock.getResponse_multiConsignWithOneConsignmentWithinLast6Months());
+
+		// Set the fake response for the continuation
+		Map<String, HttpRequest> requests = conti.getRequests();
+		String requestLabel = requests.keyset().iterator().next();
+		Test.setContinuationResponse(requestLabel, response);
+
+		// Invoke callback method
+		// note this will call the controller.processSearchRemoteConsignment() instance method
+		// the actual continuation call from the remote action calls the static processSearchRemoteConsignment(state) method
+		Object result = Test.invokeContinuationMethod(controller, conti);
+		List<Article__c> articles = (List<Article__c>) result;
+		Test.stopTest();
+
+		System.assertNotEquals(null, result, 'Result should be set');		
+		System.assertEquals(1, articles.size(), 'got the recent article and it is less than 6 months');
 	
 	}
 

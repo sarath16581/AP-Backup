@@ -4,6 +4,7 @@
  * @date 2024-06-18
  * @changelog
  * 2024-06-18 - Vasu Gorakati - Case Hand-off
+ * 2024-07-18 - Raghav Ravipati - Added logic to perform additional callout if the we have duplicate consignments see CSLU-696 for details.
  **/
 public with sharing class CaseHandOffController {
 	private static final String AUSTRALIAPOST = 'AustraliaPost';
@@ -197,10 +198,18 @@ public with sharing class CaseHandOffController {
 
 	@AuraEnabled(continuation=true cacheable=true)
 	public static Object searchConsignmentStarTrack(String consignmentNumber) {
-		// Generate request
+		return starTrackSearchContinuationRequest(consignmentNumber, StarTrack_Constants.TYPE_CONSIGNMENT);
+	}
+	/**
+	* Creates a continuation request based on the given consignment and the search type
+	* @param consignmentNumber consignment Id
+	* @param searchType  CONSIGNMENT / UNIQUEEXTERNALID / SUBDOCKET / REFERENCE_INVOICE / REFERENCE_BOOKING etc..
+	* @return continuation
+	 */
+	public static Continuation starTrackSearchContinuationRequest( String consignmentNumber, String searchType ){
 		wwwAuspostComAuSchemaCustomercarema.SearchRequest request = StarTrackConsignmentSearchUtil.generateSearchRequest(
 			consignmentNumber,
-			StarTrack_Constants.TYPE_CONSIGNMENT,
+			searchType,
 			StarTrack_Constants.REQUEST_ACTION_FULL,
 			StarTrack_Constants.SOURCEID_SALESFORCE,
 			UserInfo.getUserName()
@@ -236,11 +245,48 @@ public with sharing class CaseHandOffController {
 		StarTrackConsignmentSearchUtil.ConsignmentWrapper conWrapper = StarTrackConsignmentSearchUtil.processResponse(emsAsyncResponse.getValue(), false);
 
 		// Assuming articleList is a list, return first item
-		if (conWrapper.articleList != null && !conWrapper.articleList.isEmpty()) {
-			return conWrapper.articleList;
-		} else {
+		List<Article__c> allConsignments = conWrapper.articleList;
+		if (allConsignments != null && !allConsignments.isEmpty()) {
+			if(allConsignments.size() == 1){
+				return allConsignments;
+			}
+			return getEligibleConsignment(allConsignments);
+		}
+		else {
 			return null;
 		}
+	}
+	/**
+	 * @description Processes the latest record using Dispatch_Date__c.
+	 * 				If there are multiple consignments and they are less than 6 months old then return the records to the UI to throw error.
+	 * 				If there are multiple records and one of them was less than 6 months old, makes an additional call to get details information of the consignment.
+	 * @param allConsignments - All the consignment records that we receied from the response.
+	 * @return List of Article records.
+	 */
+	private static List<Article__c> getEligibleConsignment(List<Article__c> allConsignments) {
+		Article__c eligibleArticle; // holds the article that is most eligible.
+		Date dateSixMonthsAgo = Date.today().addMonths(-6);
+
+		for (Article__c article : allConsignments) {
+			if (eligibleArticle != null) {
+				// Only matches if there are two or more consignments which are less than 6 months old.
+				if (eligibleArticle.Dispatch_Date__c > dateSixMonthsAgo && article.Dispatch_Date__c > dateSixMonthsAgo) {
+					return allConsignments;
+				}
+
+				if (article.Dispatch_Date__c > eligibleArticle.Dispatch_Date__c) {
+					eligibleArticle = article;
+				}
+			} else {
+				eligibleArticle = article;
+			}
+		}
+		// Do additional callout if one of the duplicate consigments is less than 6 months old.
+		if(eligibleArticle.Dispatch_Date__c > dateSixMonthsAgo){
+			starTrackSearchContinuationRequest(eligibleArticle.ArticleID__c, StarTrack_Constants.TYPE_UNIQUEEXTERNALID);
+		}
+
+		return new List<Article__c>{ eligibleArticle };
 	}
 
 	/**
