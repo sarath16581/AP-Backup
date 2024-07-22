@@ -4,7 +4,7 @@
  * @date 2024-06-18
  * @changelog
  * 2024-06-18 - Vasu Gorakati - Case Hand-off
- * 2024-07-18 - Raghav Ravipati - Added logic to perform additional callout if the we have duplicate consignments see CSLU-696 for details.
+ * 2024-07-18 - Raghav Ravipati - Added logic to perform additional callout if we have duplicate consignments see CSLU-696 for details.
  **/
 public with sharing class UnifiedCaseHandOffController {
 	private static final String AUSTRALIAPOST = 'AustraliaPost';
@@ -126,7 +126,7 @@ public with sharing class UnifiedCaseHandOffController {
 		// Update Case details
 		ApplicationDatabase.getInstance().dmlUpdate(new List<SObject>{ casedetails });
 
-		//Add related contact for star track
+		// Add related contact for star track
 		if (handoffWrapper.businessUnit == AUSTRALIAPOST) {
 			// This is added after parent case update so that latest info is available for child cases
 			if (impactedArticles.size() > 1) {
@@ -157,7 +157,7 @@ public with sharing class UnifiedCaseHandOffController {
 		  
 		UnifiedCaseHandOffMappingWrapper fieldMappingwrapper;
 
-	// Deserialize JSON string from Mapping__c field into list of UnifiedCaseHandOffMappingWrapper
+		// Deserialize JSON string from Mapping__c field into list of UnifiedCaseHandOffMappingWrapper
 		if (!mappingRecords.isEmpty() && mappingRecords[0].Mapping__c != null) {
 			fieldMappingwrapper = (UnifiedCaseHandOffMappingWrapper) JSON.deserialize(mappingRecords[0].Mapping__c, UnifiedCaseHandOffMappingWrapper.class);
 		}
@@ -200,13 +200,14 @@ public with sharing class UnifiedCaseHandOffController {
 	public static Object searchConsignmentStarTrack(String consignmentNumber) {
 		return starTrackSearchContinuationRequest(consignmentNumber, StarTrack_Constants.TYPE_CONSIGNMENT);
 	}
+	
 	/**
 	* Creates a continuation request based on the given consignment and the search type
 	* @param consignmentNumber consignment Id
 	* @param searchType  CONSIGNMENT / UNIQUEEXTERNALID / SUBDOCKET / REFERENCE_INVOICE / REFERENCE_BOOKING etc..
 	* @return continuation
 	 */
-	public static Continuation starTrackSearchContinuationRequest( String consignmentNumber, String searchType ){
+	public static Continuation starTrackSearchContinuationRequest(String consignmentNumber, String searchType){
 		wwwAuspostComAuSchemaCustomercarema.SearchRequest request = StarTrackConsignmentSearchUtil.generateSearchRequest(
 			consignmentNumber,
 			searchType,
