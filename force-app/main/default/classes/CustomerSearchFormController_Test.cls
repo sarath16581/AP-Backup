@@ -6,6 +6,7 @@
  * 2024-06-03 - Marcel HK - Created
  * 2024-07-02 - Marcel HK - Corrected form validation logic to align with associated LWC (CSLU-438)
  * 2024-07-17 - Marcel HK - Add customer type parameters (CSLU-446) and refactor data transform into separate function
+ * 2024-07-22 - Marcel HK - Added mailing address filters (CSLU-1072)
  */
 @IsTest
 public class CustomerSearchFormController_Test {
@@ -359,5 +360,29 @@ public class CustomerSearchFormController_Test {
 			params.customerType,
 			'Customer type should match'
 		);
+	}
+
+	@IsTest
+	static void testTransformSearchRequestWithAddress() {
+		CustomerSearchFormController.SearchRequest req = new CustomerSearchFormController.SearchRequest();
+		req.addressStreet1 = '123 Example St';
+		req.addressStreet2 = 'Example Line 2';
+		req.addressCity = 'Example Town';
+		req.addressState = 'VIC';
+		req.addressPostalCode = '3999';
+		req.addressCountry = 'AUSTRALIA';
+
+		Test.startTest();
+		ContactsSelector.CustomerSearchParameters params = CustomerSearchFormController.transformSearchRequest(
+			req
+		);
+		Test.stopTest();
+
+		Assert.areEqual('123 Example St', params.addressStreet1, 'Street1 should match');
+		Assert.areEqual('Example Line 2', params.addressStreet2, 'Street2 should match');
+		Assert.areEqual('Example Town', params.addressCity, 'City should match');
+		Assert.areEqual('VIC', params.addressState, 'State should match');
+		Assert.areEqual('3999', params.addressPostalCode, 'PostalCode should match');
+		Assert.areEqual('AUSTRALIA', params.addressCountry, 'Country should match');
 	}
 }

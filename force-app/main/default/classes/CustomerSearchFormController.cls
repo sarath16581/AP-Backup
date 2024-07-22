@@ -7,6 +7,7 @@
  * 2024-07-02 - Marcel HK - Corrected form validation logic to align with associated LWC (CSLU-438)
  * 2024-07-08 - Marcel HK - Update too many results warning message
  * 2024-07-17 - Marcel HK - Add customer type parameters (CSLU-446) and refactor data transform into separate function
+ * 2024-07-22 - Marcel HK - Added mailing address filters (CSLU-1072)
  */
 public with sharing class CustomerSearchFormController {
 	// Query configuration constants
@@ -131,6 +132,12 @@ public with sharing class CustomerSearchFormController {
 				req.customerType
 			);
 		}
+		params.addressStreet1 = req.addressStreet1;
+		params.addressStreet2 = req.addressStreet2;
+		params.addressCity = req.addressCity;
+		params.addressState = req.addressState;
+		params.addressPostalCode = req.addressPostalCode;
+		params.addressCountry = req.addressCountry;
 
 		return params;
 	}
@@ -183,6 +190,24 @@ public with sharing class CustomerSearchFormController {
 
 		@AuraEnabled
 		public String customerType { get; set; }
+
+		@AuraEnabled
+		public String addressStreet1 { get; set; }
+
+		@AuraEnabled
+		public String addressStreet2 { get; set; }
+
+		@AuraEnabled
+		public String addressCity { get; set; }
+
+		@AuraEnabled
+		public String addressState { get; set; }
+
+		@AuraEnabled
+		public String addressPostalCode { get; set; }
+
+		@AuraEnabled
+		public String addressCountry { get; set; }
 	}
 
 	/**
