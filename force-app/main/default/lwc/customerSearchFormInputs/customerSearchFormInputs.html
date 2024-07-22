@@ -104,6 +104,16 @@
 					></lightning-input>
 				</div>
 			</div>
+
+			<!-- Address Lookup -->
+			<div class="slds-col slds-size_1-of-1 slds-large-size_1-of-1">
+				<c-ame-address-validation2
+					if:true={showAddress}
+					data-field-name="addressObj"
+					oneditaddress={handleAddressInputChange}
+					onselectaddress={handleAddressInputChange}
+				></c-ame-address-validation2>
+			</div>
 		</div>
 
 		<!-- Error message -->
