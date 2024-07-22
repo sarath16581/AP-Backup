@@ -2,11 +2,11 @@
 * @description Test class for Case Hand-off Badge for classic case view
 * @author paul Perry
 * @date 2024-06-18
-* @changelog UnifiedCaseHandOffIndicatorControllerTst
+* @changelog
 * 2024-06-18 - Paul Perry - Case Hand-off
 **/
 @isTest
-public class UnifiedCaseHandOffIndicatorControllerTst {
+public class UnifiedCaseHandOffIndicatorCtrllerTest {
 	@isTest
 	static void testGetShowBannerWithTransferDate() {
 		// Create a test case with a transfer date
@@ -39,7 +39,7 @@ public class UnifiedCaseHandOffIndicatorControllerTst {
 		MockUtility.Mocks.stopStubbing();
 
 		// Create a StandardController and the controller under test
-		CaseHandOffIndicatorController controller = new CaseHandOffIndicatorController(
+		UnifiedCaseHandOffIndicatorController controller = new UnifiedCaseHandOffIndicatorController(
 			new ApexPages.StandardController(testCaseWithDate)
 		);
 		
@@ -48,7 +48,7 @@ public class UnifiedCaseHandOffIndicatorControllerTst {
 		System.assertNotEquals(null, controller.getBackgroundColor(), 'Background colour should\'ve been returned');
 
 		// Create a StandardController and the controller under test
-		controller = new CaseHandOffIndicatorController(
+		controller = new UnifiedCaseHandOffIndicatorController(
 			new ApexPages.StandardController(testCaseWithoutDate)
 		);
 		

@@ -49,9 +49,9 @@ public class UnifiedCaseHandOffControllerTest {
 		// =====================================
 		Test.startTest();
 
-		String businessUnit = CaseHandOffController.getBusinessUnit(articles[0].ProductId__c);
+		String businessUnit = UnifiedCaseHandOffController.getBusinessUnit(articles[0].ProductId__c);
 
-		CaseHandOffController.CaseHandOffWrapper request = new CaseHandOffController.CaseHandOffWrapper();
+		UnifiedCaseHandOffController.CaseHandOffWrapper request = new UnifiedCaseHandOffController.CaseHandOffWrapper();
 		request.articleId = '';
 		request.businessUnit = businessUnit;
 		request.caseId = cases[0].Id;
@@ -60,7 +60,7 @@ public class UnifiedCaseHandOffControllerTest {
 		request.contactCenter = 'UnifiedAusPostHandoffTriageQueue';
 		request.handoffReason = 'Network contact required';
 
-		CaseHandOffController.handOffCase(request);
+		UnifiedCaseHandOffController.handOffCase(request);
 
 		Test.stopTest();
 
@@ -68,7 +68,7 @@ public class UnifiedCaseHandOffControllerTest {
 		// Verification
 		// =====================================
 		Id caseSSSWDeliveryRecordType = ApplicationTestDataFactory.caseSSSWDeliveryRecordType;
-		Id caseSSSWentitlement = CaseHandOffController.getSSSWEntitlementId();
+		Id caseSSSWentitlement = UnifiedCaseHandOffController.getSSSWEntitlementId();
 		System.assertNotEquals(null, cases[0].CaseTransferDate__c, 'Case transfer date should be updated');
 		System.assertEquals('Network contact required', cases[0].CaseTransferReason__c, 'Case transfer reason should be updated');
 		System.assertEquals(caseSSSWentitlement, cases[0].EntitlementId, 'Case Entitlement should be set to Standard Entitlement - SSSW');
@@ -118,7 +118,7 @@ public class UnifiedCaseHandOffControllerTest {
 		Test.startTest();
 
 		// Create wrapper for case handoff
-		CaseHandOffController.CaseHandOffWrapper request = new CaseHandOffController.CaseHandOffWrapper();
+		UnifiedCaseHandOffController.CaseHandOffWrapper request = new UnifiedCaseHandOffController.CaseHandOffWrapper();
 		request.articleId = '';
 		request.businessUnit = 'AustraliaPost';
 		request.caseId = cases[0].Id;
@@ -128,7 +128,7 @@ public class UnifiedCaseHandOffControllerTest {
 		request.handoffReason = 'Network contact required';
 
 		// Call the method under test
-		CaseHandOffController.handOffCase(request);
+		UnifiedCaseHandOffController.handOffCase(request);
 
 		Test.stopTest();
 
@@ -179,9 +179,9 @@ public class UnifiedCaseHandOffControllerTest {
 		// =====================================
 		Test.startTest();
 
-		CaseHandoffController controller = new CaseHandoffController();
+		UnifiedCaseHandOffController controller = new UnifiedCaseHandOffController();
 
-		Continuation conti = (Continuation) CaseHandoffController.searchConsignmentStarTrack('2AT71923');
+		Continuation conti = (Continuation) UnifiedCaseHandOffController.searchConsignmentStarTrack('2AT71923');
 
 		// Perform mock callout
 		HttpResponse response = new HttpResponse();
@@ -230,9 +230,9 @@ public class UnifiedCaseHandOffControllerTest {
 		// =====================================
 		Test.startTest();
 
-		CaseHandoffController controller = new CaseHandoffController();
+		UnifiedCaseHandOffController controller = new UnifiedCaseHandOffController();
 
-		Continuation conti = (Continuation) CaseHandoffController.searchConsignmentStarTrack('2AT71923');
+		Continuation conti = (Continuation) UnifiedCaseHandOffController.searchConsignmentStarTrack('2AT71923');
 
 		// Perform mock callout
 		HttpResponse response = new HttpResponse();
@@ -280,9 +280,9 @@ public class UnifiedCaseHandOffControllerTest {
 		// =====================================
 		Test.startTest();
 
-		CaseHandoffController controller = new CaseHandoffController();
+		UnifiedCaseHandOffController controller = new UnifiedCaseHandOffController();
 
-		Continuation conti = (Continuation) CaseHandoffController.searchConsignmentStarTrack('2AT71923');
+		Continuation conti = (Continuation) UnifiedCaseHandOffController.searchConsignmentStarTrack('2AT71923');
 
 		// Perform mock callout
 		HttpResponse response = new HttpResponse();
@@ -345,7 +345,7 @@ public class UnifiedCaseHandOffControllerTest {
 		// =====================================
 		Test.startTest();
 
-		CaseHandOffController.CaseHandOffWrapper request = new CaseHandOffController.CaseHandOffWrapper();
+		UnifiedCaseHandOffController.CaseHandOffWrapper request = new UnifiedCaseHandOffController.CaseHandOffWrapper();
 		request.articleId = articles[0].Id;
 		request.businessUnit = 'StarTrack';
 		request.caseId = cases[0].Id;
@@ -354,7 +354,7 @@ public class UnifiedCaseHandOffControllerTest {
 		request.contactCenter = 'UnifiedStarTrackHandoffTriageQueue';
 		request.handoffReason = 'Network contact required';
 
-		CaseHandOffController.handOffCase(request);
+		UnifiedCaseHandOffController.handOffCase(request);
 
 		Test.stopTest();
 
