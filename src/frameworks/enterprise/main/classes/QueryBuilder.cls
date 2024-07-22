@@ -33,6 +33,7 @@
  * 2022-11-23 - Mahesh Parvathaneni - Added notInCollection conditions
  * 2023-03-06 - Nathan Franklin - Added ability to reset order by and retrieve current values
  * 2024-03-07 - Mahesh Parvathaneni - Added ability to include FOR UPDATE in the query
+ * 2024-07-22 - Marcel HK - Fixed bug with `ConditionsManager.bracketConditions()` where 10+ conditions produced incorrect WHERE clause
  */
 public virtual inherited sharing class QueryBuilder {
 
@@ -1197,12 +1198,7 @@ public virtual inherited sharing class QueryBuilder {
 		}
 
 		private String bracketConditions(String conditions) {
-			this.conditions.size();
-			for (Integer i = 1; i <= this.conditions.size(); i++) {
-				String conditionNumber = '' + i;
-				conditions = conditions.replace(conditionNumber, this.bracket(conditionNumber));
-			}
-			return conditions;
+			return conditions.replaceAll('(\\d+)', this.BRACKET_L + '$1' + this.BRACKET_R);
 		}
 
 		private String bracket(String condition) {

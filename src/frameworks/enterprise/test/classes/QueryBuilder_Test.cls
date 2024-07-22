@@ -21,7 +21,12 @@
 	OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 	SOFTWARE.
 */
-
+/**
+ * Unit tests class for `QueryBuilder` class.
+ *
+ * @changelog
+ * 2024-07-22 - Marcel HK - Fixed bug with `ConditionsManager.bracketConditions()` where 10+ conditions produced incorrect WHERE clause
+ */
 @IsTest
 private with sharing class QueryBuilder_Test {
 
@@ -514,5 +519,29 @@ private with sharing class QueryBuilder_Test {
 		System.assertEquals(false, Pattern.compile('(?ism)\\bfrom account\\b.*?Order\\s+By\\s+Id\\s+Desc\\s*$').matcher(soql).find(), 'Resulting query should not set Order By when FOR UPDATE is used');
 		System.assertEquals(true, Database.query(soql).isEmpty());
 
+	}
+
+	@IsTest
+	private static void testConditionsManagerBracketingWithLargeNumberOfConditions() {
+		// Prepare Data
+		QueryBuilder qb = new QueryBuilder(Account.SObjectType);
+		QueryBuilder.ConditionsManager cm = qb.addConditions();
+		List<String> conditionStrings = new List<String>{''};
+		for (Integer i = 0; i < 11; i++) {
+			QueryBuilder.Condition condition = new QueryBuilder.CompareCondition(Account.Name).eq('Test ' + (i + 1));
+			conditionStrings.add(condition.toString());
+			cm.add(condition);
+		}
+		cm.setConditionOrder('(1 AND 2) OR (3 AND 4 AND 5) OR (6 AND 7 AND 8 AND 9) OR (10 AND 11)');
+		cm.endConditions();
+		String soql = qb.toSoqlString();
+
+		// Verify conditions order result
+		String expected = String.format('({1} AND {2}) OR ({3} AND {4} AND {5}) OR ({6} AND {7} AND {8} AND {9}) OR ({10} AND {11})', conditionStrings);
+		System.assertEquals(expected, cm.toString(), 'Condition order is incorrect');
+
+		// Verify the conditions order in the final query
+		System.debug(Pattern.compile('(?ism)\\bWHERE ' + expected.replaceAll('(\\(|\\))','\\\\$1')));
+		Assert.isTrue(Pattern.compile('(?ism)\\bWHERE ' + expected.replaceAll('(\\(|\\))','\\\\$1')).matcher(soql).find(), 'WHERE condition order is incorrect. SOQL ' + soql);
 	}
 }
