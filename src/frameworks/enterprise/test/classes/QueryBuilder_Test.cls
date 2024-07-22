@@ -541,7 +541,6 @@ private with sharing class QueryBuilder_Test {
 		System.assertEquals(expected, cm.toString(), 'Condition order is incorrect');
 
 		// Verify the conditions order in the final query
-		System.debug(Pattern.compile('(?ism)\\bWHERE ' + expected.replaceAll('(\\(|\\))','\\\\$1')));
 		Assert.isTrue(Pattern.compile('(?ism)\\bWHERE ' + expected.replaceAll('(\\(|\\))','\\\\$1')).matcher(soql).find(), 'WHERE condition order is incorrect. SOQL ' + soql);
 	}
 }
