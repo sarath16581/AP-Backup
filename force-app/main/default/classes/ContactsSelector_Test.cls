@@ -19,6 +19,7 @@
 * 2024-07-05 - Marcel HK - Updated tests for selector method `selectByCustomerSearchParamsQB` (CSLU-955)
 * 2024-07-15 - Marcel HK - Added selector option WITH_RELATED_CASES to include related cases sub-query (CSLU-439)
 * 2024-07-15 - Marcel HK - Added enum `CustomerSearchCustomerType` and customer type filters (CSLU-446)
+* 2024-07-22 - Marcel HK - Added mailing address filters for the selector method `selectByCustomerSearchParamsQB` (CSLU-1072)
 */
 @IsTest
 private with sharing class ContactsSelector_Test {
@@ -350,6 +351,38 @@ private with sharing class ContactsSelector_Test {
 		Test.stopTest();
 
 		Assert.isTrue(Pattern.compile('(?is)IsPersonAccount = FALSE').matcher(soql).find(), 'Query should filter on IsPersonAccount = FALSE');
+	}
+
+	@IsTest
+	static void testSelectByCustomerSearchParamsQBWithAddress() {
+		// =====================================
+		// Data Preparation
+		// =====================================
+		ContactsSelector cs = ContactsSelector.newInstance();
+		ContactsSelector.CustomerSearchParameters params = new ContactsSelector.CustomerSearchParameters();
+		params.addressStreet1 = '123 Example St';
+		params.addressCity = 'Example Town';
+		params.addressState = 'VIC';
+		params.addressPostalCode = '3999';
+		params.addressCountry = 'AUSTRALIA';
+
+		// =====================================
+		// Stubbing
+		// =====================================
+		// None!
+
+		// =====================================
+		// Testing
+		// =====================================
+		Test.startTest();
+		String soql = cs.selectByCustomerSearchParamsQB(params, new Set<Object>());
+		Test.stopTest();
+
+		Assert.isTrue(Pattern.compile('(?is)MailingStreet = \'123 Example St\'').matcher(soql).find(), 'Query should filter MailingStreet');
+		Assert.isTrue(Pattern.compile('(?is)MailingCity = \'Example Town\'').matcher(soql).find(), 'Query should filter MailingCity');
+		Assert.isTrue(Pattern.compile('(?is)MailingState = \'VIC\'').matcher(soql).find(), 'Query should filter MailingState');
+		Assert.isTrue(Pattern.compile('(?is)MailingPostalCode = \'3999\'').matcher(soql).find(), 'Query should filter MailingPostalCode');
+		Assert.isTrue(Pattern.compile('(?is)MailingCountry = \'AUSTRALIA\'').matcher(soql).find(), 'Query should filter MailingCountry');
 	}
 
 	@IsTest
