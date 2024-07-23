@@ -12,6 +12,7 @@ import {
 	CLEAR_BUTTON_LABEL,
 	MORE_INFO_REQUIRED_ERROR_MESSAGE,
 	INVALID_FORM_ERROR,
+	INPUT_ELEMENT_SELECTORS
 } from 'c/customerSearchFormInputs';
 
 const CUSTOMER_SEARCH_RES_SUCCESS = {
@@ -232,8 +233,8 @@ describe('c-customer-search-form-inputs', () => {
 		// Act
 		document.body.appendChild(element);
 
-		// Mock all lightning-input checkValidity() methods to return 'false'
-		mockCheckValidity(element, 'lightning-input', false);
+		// Mock all input checkValidity() methods to return 'false'
+		mockCheckValidity(element, INPUT_ELEMENT_SELECTORS.join(','), false);
 
 		// Click the search button
 		const searchButton = getButtonByDataId(element, 'search');
@@ -260,8 +261,8 @@ describe('c-customer-search-form-inputs', () => {
 		const searchEvent = jest.fn();
 		element.addEventListener('search', searchEvent);
 
-		// Mock all lightning-input checkValidity() methods to return 'true'
-		mockCheckValidity(element, 'lightning-input', true);
+		// Mock all input checkValidity() methods to return 'true'
+		mockCheckValidity(element, INPUT_ELEMENT_SELECTORS.join(','), true);
 
 		// Click the search button
 		const searchButton = getButtonByDataId(element, 'search');
@@ -293,7 +294,7 @@ describe('c-customer-search-form-inputs', () => {
 		changeInputFieldValue(firstNameInput, 'Sherlock');
 
 		// Mock all lightning-input checkValidity() methods to return 'true'
-		mockCheckValidity(element, 'lightning-input', true);
+		mockCheckValidity(element, INPUT_ELEMENT_SELECTORS.join(','), true);
 
 		// Click the search button
 		const searchButton = getButtonByDataId(element, 'search');
@@ -324,8 +325,8 @@ describe('c-customer-search-form-inputs', () => {
 		const lastNameInput = getInputFieldElement(element, 'lastName');
 		changeInputFieldValue(lastNameInput, 'Holmes');
 
-		// Mock all lightning-input checkValidity() methods to return 'true'
-		mockCheckValidity(element, 'lightning-input', true);
+		// Mock all input checkValidity() methods to return 'true'
+		mockCheckValidity(element, INPUT_ELEMENT_SELECTORS.join(','), true);
 
 		// Click the search button
 		const searchButton = getButtonByDataId(element, 'search');
@@ -362,8 +363,8 @@ describe('c-customer-search-form-inputs', () => {
 		const phoneNumberInput = getInputFieldElement(element, 'phoneNumber');
 		changeInputFieldValue(phoneNumberInput, 'Holmes');
 
-		// Mock all lightning-input checkValidity() methods to return 'true'
-		mockCheckValidity(element, 'lightning-input', true);
+		// Mock all input checkValidity() methods to return 'true'
+		mockCheckValidity(element, INPUT_ELEMENT_SELECTORS.join(','), true);
 
 		// Click the search button
 		const searchButton = getButtonByDataId(element, 'search');
@@ -396,8 +397,8 @@ describe('c-customer-search-form-inputs', () => {
 		const phoneNumberInput = getInputFieldElement(element, 'phoneNumber');
 		changeInputFieldValue(phoneNumberInput, '0400000000');
 
-		// Mock all lightning-input checkValidity() methods to return 'true'
-		mockCheckValidity(element, 'lightning-input', true);
+		// Mock all input checkValidity() methods to return 'true'
+		mockCheckValidity(element, INPUT_ELEMENT_SELECTORS.join(','), true);
 
 		// Click the search button
 		const searchButton = getButtonByDataId(element, 'search');
@@ -477,8 +478,8 @@ describe('c-customer-search-form-inputs', () => {
 		const emailAddressInput = getInputFieldElement(element, 'emailAddress');
 		changeInputFieldValue(emailAddressInput, 'sherlock@example.com');
 
-		// Mock all lightning-input checkValidity() methods to return 'true'
-		mockCheckValidity(element, 'lightning-input', true);
+		// Mock all input checkValidity() methods to return 'true'
+		mockCheckValidity(element, INPUT_ELEMENT_SELECTORS.join(','), true);
 
 		// Click the search button
 		const searchButton = getButtonByDataId(element, 'search');
@@ -520,8 +521,8 @@ describe('c-customer-search-form-inputs', () => {
 		const emailAddressInput = getInputFieldElement(element, 'emailAddress');
 		changeInputFieldValue(emailAddressInput, 'sherlock@example.com');
 
-		// Mock all lightning-input checkValidity() methods to return 'true'
-		mockCheckValidity(element, 'lightning-input', true);
+		// Mock all input checkValidity() methods to return 'true'
+		mockCheckValidity(element, INPUT_ELEMENT_SELECTORS.join(','), true);
 
 		// Click the search button
 		const searchButton = getButtonByDataId(element, 'search');
@@ -559,8 +560,8 @@ describe('c-customer-search-form-inputs', () => {
 		const emailAddressInput = getInputFieldElement(element, 'emailAddress');
 		changeInputFieldValue(emailAddressInput, 'sherlock@example.com');
 
-		// Mock all lightning-input checkValidity() methods to return 'true'
-		mockCheckValidity(element, 'lightning-input', true);
+		// Mock all input checkValidity() methods to return 'true'
+		mockCheckValidity(element, INPUT_ELEMENT_SELECTORS.join(','), true);
 
 		// Click the search button
 		const searchButton = getButtonByDataId(element, 'search');
@@ -594,8 +595,8 @@ describe('c-customer-search-form-inputs', () => {
 		const emailAddressInput = getInputFieldElement(element, 'emailAddress');
 		changeInputFieldValue(emailAddressInput, 'sherlock@example.com');
 
-		// Mock all lightning-input checkValidity() methods to return 'true'
-		mockCheckValidity(element, 'lightning-input', true);
+		// Mock all input checkValidity() methods to return 'true'
+		mockCheckValidity(element, INPUT_ELEMENT_SELECTORS.join(','), true);
 
 		// Click the search button
 		const searchButton = getButtonByDataId(element, 'search');

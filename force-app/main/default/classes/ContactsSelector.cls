@@ -21,6 +21,8 @@
  * 2024-07-05 - Marcel HK - Updated ORDER BY for the selector method `selectByCustomerSearchParamsQB` (CSLU-955)
  * 2024-07-15 - Marcel HK - Added selector option WITH_RELATED_CASES to include related cases sub-query (CSLU-439)
  * 2024-07-15 - Marcel HK - Added enum `CustomerSearchCustomerType` and customer type filters (CSLU-446)
+ * 2024-07-22 - Marcel HK - Added mailing address filters for the selector method `selectByCustomerSearchParamsQB` (CSLU-1072)
+ * 2024-07-23 - Marcel HK - Removed 'Country' mailing address filters (CSLU-1072)
  */
 public virtual inherited sharing class ContactsSelector extends ApplicationSelector {
 	public enum Options {
@@ -261,11 +263,40 @@ public virtual inherited sharing class ContactsSelector extends ApplicationSelec
 		if(params.customerType == CustomerSearchCustomerType.CONSUMER) {
 			Integer n = cm.conditions.size();
 			cm.add(new QueryBuilder.CompareCondition(Contact.IsPersonAccount).eq(true));
-			conditionsOrder.add('' + (n + 1));
+			conditionsOrder.add(String.valueOf(n + 1));
 		} else if(params.customerType == CustomerSearchCustomerType.ORGANISATION) {
 			Integer n = cm.conditions.size();
 			cm.add(new QueryBuilder.CompareCondition(Contact.IsPersonAccount).eq(false));
-			conditionsOrder.add('' + (n + 1));
+			conditionsOrder.add(String.valueOf(n + 1));
+		}
+
+		/**
+		 *  Add the Address to the search query criteria.
+		 */
+		if(String.isNotBlank(params.addressStreet1)) {
+			Integer n = cm.conditions.size();
+			cm.add(new QueryBuilder.CompareCondition(Contact.MailingStreet).eq(params.addressStreet1));
+			conditionsOrder.add(String.valueOf(n + 1));
+		}
+		if(String.isNotBlank(params.addressStreet2)) {
+			Integer n = cm.conditions.size();
+			cm.add(new QueryBuilder.CompareCondition(Contact.MailingStreet2__c).eq(params.addressStreet2));
+			conditionsOrder.add(String.valueOf(n + 1));
+		}
+		if(String.isNotBlank(params.addressCity)) {
+			Integer n = cm.conditions.size();
+			cm.add(new QueryBuilder.CompareCondition(Contact.MailingCity).eq(params.addressCity));
+			conditionsOrder.add(String.valueOf(n + 1));
+		}
+		if(String.isNotBlank(params.addressState)) {
+			Integer n = cm.conditions.size();
+			cm.add(new QueryBuilder.CompareCondition(Contact.MailingState).eq(params.addressState));
+			conditionsOrder.add(String.valueOf(n + 1));
+		}
+		if(String.isNotBlank(params.addressPostalCode)) {
+			Integer n = cm.conditions.size();
+			cm.add(new QueryBuilder.CompareCondition(Contact.MailingPostalCode).eq(params.addressPostalCode));
+			conditionsOrder.add(String.valueOf(n + 1));
 		}
 
 		// Join dynamic conditions with 'AND' operator
@@ -327,6 +358,11 @@ public virtual inherited sharing class ContactsSelector extends ApplicationSelec
 		public String emailAddress;
 		public String phoneNumber;
 		public CustomerSearchCustomerType customerType;
+		public String addressStreet1;
+		public String addressStreet2;
+		public String addressCity;
+		public String addressState;
+		public String addressPostalCode;
 	}
 
 	public enum CustomerSearchCustomerType {

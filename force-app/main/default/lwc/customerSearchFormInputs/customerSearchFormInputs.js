@@ -30,7 +30,10 @@ export const MORE_INFO_REQUIRED_ERROR_MESSAGE =
 export const INVALID_FORM_ERROR = 'Please fix and errors and try again';
 
 // Element selectors
-export const INPUT_ELEMENT_SELECTORS = ['lightning-input'];
+export const INPUT_ELEMENT_SELECTORS = [
+	'lightning-input',
+	'c-ame-address-validation2',
+];
 
 /**
  * This component displays a form with several inputs which are used to search
@@ -89,8 +92,11 @@ export default class CustomerSearchFormInputs extends LightningElement {
 	_lastName = '';
 	_phoneNumber = '';
 	_emailAddress = '';
+	// Private variables for input fields (with no public getters/setters)
 	organisationCheckbox = false;
 	consumerCheckbox = false;
+	addressObj;
+	showAddress = true;
 
 	errorMessage = undefined;
 	isLoading = false;
@@ -191,6 +197,11 @@ export default class CustomerSearchFormInputs extends LightningElement {
 						: this.organisationCheckbox
 						? CUSTOMER_TYPE_ORGANISATION
 						: null,
+					addressStreet1: this.addressObj?.addressLine1,
+					addressStreet2: this.addressObj?.addressLine2,
+					addressCity: this.addressObj?.city,
+					addressState: this.addressObj?.state,
+					addressPostalCode: this.addressObj?.postcode,
 				},
 			});
 			// Handle search results
@@ -224,6 +235,7 @@ export default class CustomerSearchFormInputs extends LightningElement {
 		this._lastName = '';
 		this._emailAddress = '';
 		this._phoneNumber = '';
+		this.addressObj = undefined;
 
 		// Ensure field values are updated before continuing
 		await Promise.resolve();
@@ -235,8 +247,19 @@ export default class CustomerSearchFormInputs extends LightningElement {
 
 		// Clear any field-level error messages
 		inputElements.forEach((field) => {
-			field.setCustomValidity(''); // Clear any custom validation message
-			field.reportValidity(); // Refresh the UI to clear any error styles
+			if (typeof field.setCustomValidity === 'function') {
+				field.setCustomValidity(''); // Clear any custom validation message
+			}
+			if (typeof field.reportValidity === 'function') {
+				field.reportValidity(); // Refresh the UI to clear any error styles
+			}
+		});
+
+		// Workaround to reset address by removing the element, allow DOM update, then add element again.
+		// TODO: Update address component to allow clear/reset function.
+		this.showAddress = false;
+		Promise.resolve().then(() => {
+			this.showAddress = true;
 		});
 
 		// Notify form has been reset
@@ -260,6 +283,24 @@ export default class CustomerSearchFormInputs extends LightningElement {
 
 		// store the field value based on the `name` attribute
 		this[fieldName] = fieldValue;
+	}
+
+	/**
+	 * Handles address-lookup input field change events and stores the value in the
+	 * corresponding variable based on the `data-field-name` attribute.
+	 *
+	 * @param {Event} event
+	 */
+	handleAddressInputChange(event) {
+		const address = event.detail;
+		this.addressObj = {
+			addressLine1: address.addressLine1,
+			addressLine2: address.addressLine2,
+			city: address.city,
+			state: address.state,
+			postcode: address.postcode,
+			dpid: event.detail.dpid,
+		};
 	}
 
 	/**
