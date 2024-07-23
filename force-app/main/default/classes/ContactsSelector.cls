@@ -22,6 +22,7 @@
  * 2024-07-15 - Marcel HK - Added selector option WITH_RELATED_CASES to include related cases sub-query (CSLU-439)
  * 2024-07-15 - Marcel HK - Added enum `CustomerSearchCustomerType` and customer type filters (CSLU-446)
  * 2024-07-22 - Marcel HK - Added mailing address filters for the selector method `selectByCustomerSearchParamsQB` (CSLU-1072)
+ * 2024-07-23 - Marcel HK - Removed 'Country' mailing address filters (CSLU-1072)
  */
 public virtual inherited sharing class ContactsSelector extends ApplicationSelector {
 	public enum Options {
@@ -297,11 +298,6 @@ public virtual inherited sharing class ContactsSelector extends ApplicationSelec
 			cm.add(new QueryBuilder.CompareCondition(Contact.MailingPostalCode).eq(params.addressPostalCode));
 			conditionsOrder.add(String.valueOf(n + 1));
 		}
-		if(String.isNotBlank(params.addressCountry)) {
-			Integer n = cm.conditions.size();
-			cm.add(new QueryBuilder.CompareCondition(Contact.MailingCountry).eq(params.addressCountry));
-			conditionsOrder.add(String.valueOf(n + 1));
-		}
 
 		// Join dynamic conditions with 'AND' operator
 		cm.setConditionOrder(String.join(conditionsOrder, ' AND '));
@@ -367,7 +363,6 @@ public virtual inherited sharing class ContactsSelector extends ApplicationSelec
 		public String addressCity;
 		public String addressState;
 		public String addressPostalCode;
-		public String addressCountry;
 	}
 
 	public enum CustomerSearchCustomerType {

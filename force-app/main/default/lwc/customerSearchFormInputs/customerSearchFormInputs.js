@@ -202,7 +202,6 @@ export default class CustomerSearchFormInputs extends LightningElement {
 					addressCity: this.addressObj?.city,
 					addressState: this.addressObj?.state,
 					addressPostalCode: this.addressObj?.postcode,
-					addressCountry: this.addressObj?.countryName,
 				},
 			});
 			// Handle search results
@@ -299,8 +298,6 @@ export default class CustomerSearchFormInputs extends LightningElement {
 			city: address.postcode,
 			state: address.state,
 			postcode: address.postcode,
-			countryName: address.countryName,
-			countryCode: address.countryCode,
 			dpid: event.detail.dpid,
 		};
 	}

@@ -8,6 +8,7 @@
  * 2024-07-08 - Marcel HK - Update too many results warning message
  * 2024-07-17 - Marcel HK - Add customer type parameters (CSLU-446) and refactor data transform into separate function
  * 2024-07-22 - Marcel HK - Added mailing address filters (CSLU-1072)
+ * 2024-07-23 - Marcel HK - Removed 'Country' mailing address filters (CSLU-1072)
  */
 public with sharing class CustomerSearchFormController {
 	// Query configuration constants
@@ -137,7 +138,6 @@ public with sharing class CustomerSearchFormController {
 		params.addressCity = req.addressCity;
 		params.addressState = req.addressState;
 		params.addressPostalCode = req.addressPostalCode;
-		params.addressCountry = req.addressCountry;
 
 		return params;
 	}
@@ -205,9 +205,6 @@ public with sharing class CustomerSearchFormController {
 
 		@AuraEnabled
 		public String addressPostalCode { get; set; }
-
-		@AuraEnabled
-		public String addressCountry { get; set; }
 	}
 
 	/**

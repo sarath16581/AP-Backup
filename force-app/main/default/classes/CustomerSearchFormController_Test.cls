@@ -7,6 +7,7 @@
  * 2024-07-02 - Marcel HK - Corrected form validation logic to align with associated LWC (CSLU-438)
  * 2024-07-17 - Marcel HK - Add customer type parameters (CSLU-446) and refactor data transform into separate function
  * 2024-07-22 - Marcel HK - Added mailing address filters (CSLU-1072)
+ * 2024-07-23 - Marcel HK - Removed 'Country' mailing address filters (CSLU-1072)
  */
 @IsTest
 public class CustomerSearchFormController_Test {
@@ -370,7 +371,6 @@ public class CustomerSearchFormController_Test {
 		req.addressCity = 'Example Town';
 		req.addressState = 'VIC';
 		req.addressPostalCode = '3999';
-		req.addressCountry = 'AUSTRALIA';
 
 		Test.startTest();
 		ContactsSelector.CustomerSearchParameters params = CustomerSearchFormController.transformSearchRequest(
@@ -383,6 +383,5 @@ public class CustomerSearchFormController_Test {
 		Assert.areEqual('Example Town', params.addressCity, 'City should match');
 		Assert.areEqual('VIC', params.addressState, 'State should match');
 		Assert.areEqual('3999', params.addressPostalCode, 'PostalCode should match');
-		Assert.areEqual('AUSTRALIA', params.addressCountry, 'Country should match');
 	}
 }
