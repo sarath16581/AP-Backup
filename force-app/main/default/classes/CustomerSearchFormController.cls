@@ -6,6 +6,7 @@
  * 2024-06-03 - Marcel HK - Created
  * 2024-07-02 - Marcel HK - Corrected form validation logic to align with associated LWC (CSLU-438)
  * 2024-07-08 - Marcel HK - Update too many results warning message
+ * 2024-07-17 - Marcel HK - Add customer type parameters (CSLU-446) and refactor data transform into separate function
  */
 public with sharing class CustomerSearchFormController {
 	// Query configuration constants
@@ -49,11 +50,9 @@ public with sharing class CustomerSearchFormController {
 			// Validate the search request, which will throw `SearchException` on any errors
 			validateSearchRequest(req);
 
-			ContactsSelector.CustomerSearchParameters params = new ContactsSelector.CustomerSearchParameters();
-			params.firstName = req.firstName;
-			params.lastName = req.lastName;
-			params.phoneNumber = req.phoneNumber;
-			params.emailAddress = req.emailAddress;
+			ContactsSelector.CustomerSearchParameters params = transformSearchRequest(
+				req
+			);
 
 			ContactsSelector cs = ContactsSelector.newInstance(
 				MAX_RESULTS + 1,
@@ -112,6 +111,31 @@ public with sharing class CustomerSearchFormController {
 	}
 
 	/**
+	 * @description Transforms the `SearchRequest` object into the `CustomerSearchParameters` object.
+	 *
+	 * @param req - The search request object
+	 * @return CustomerSearchParameters object
+	 */
+	@TestVisible
+	private static ContactsSelector.CustomerSearchParameters transformSearchRequest(
+		SearchRequest req
+	) {
+		ContactsSelector.CustomerSearchParameters params = new ContactsSelector.CustomerSearchParameters();
+
+		params.firstName = req.firstName;
+		params.lastName = req.lastName;
+		params.phoneNumber = req.phoneNumber;
+		params.emailAddress = req.emailAddress;
+		if (req.customerType != null) {
+			params.customerType = ContactsSelector.CustomerSearchCustomerType.valueOf(
+				req.customerType
+			);
+		}
+
+		return params;
+	}
+
+	/**
 	 * @description Processes a Map of Contact objects into the `SearchResponse` object.
 	 * If the number of Contacts exceeds the MAX_RESULTS value, then a warning wil be appended to the response.
 	 *
@@ -156,6 +180,9 @@ public with sharing class CustomerSearchFormController {
 
 		@AuraEnabled
 		public String phoneNumber { get; set; }
+
+		@AuraEnabled
+		public String customerType { get; set; }
 	}
 
 	/**

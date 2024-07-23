@@ -8,8 +8,13 @@ export const FIRST_NAME_LABEL = 'First Name';
 export const LAST_NAME_LABEL = 'Last Name';
 export const PHONE_NUMBER_LABEL = 'Phone';
 export const EMAIL_ADDRESS_LABEL = 'Email';
+export const ORGANISATION_CHECKBOX_LABEL = 'Organisation';
+export const CONSUMER_CHECKBOX_LABEL = 'Consumer';
 export const SEARCH_BUTTON_LABEL = 'Search';
 export const CLEAR_BUTTON_LABEL = 'Clear';
+
+export const CUSTOMER_TYPE_CONSUMER = 'CONSUMER';
+export const CUSTOMER_TYPE_ORGANISATION = 'ORGANISATION';
 
 // Field validation regular expression patterns
 export const NAME_INPUT_REGEX = '^[^\\.\\!\\(\\)\\[\\]"1-9]*$'; // TODO: create pattern in utility class
@@ -84,6 +89,8 @@ export default class CustomerSearchFormInputs extends LightningElement {
 	_lastName = '';
 	_phoneNumber = '';
 	_emailAddress = '';
+	organisationCheckbox = false;
+	consumerCheckbox = false;
 
 	errorMessage = undefined;
 	isLoading = false;
@@ -93,6 +100,8 @@ export default class CustomerSearchFormInputs extends LightningElement {
 	lastNameLabel = LAST_NAME_LABEL;
 	phoneNumberLabel = PHONE_NUMBER_LABEL;
 	emailAddressLabel = EMAIL_ADDRESS_LABEL;
+	organisationCheckboxLabel = ORGANISATION_CHECKBOX_LABEL;
+	consumerCheckboxLabel = CONSUMER_CHECKBOX_LABEL;
 	searchButtonLabel = SEARCH_BUTTON_LABEL;
 	clearButtonLabel = CLEAR_BUTTON_LABEL;
 
@@ -177,6 +186,11 @@ export default class CustomerSearchFormInputs extends LightningElement {
 					lastName: this.lastName,
 					emailAddress: this.emailAddress,
 					phoneNumber: this.phoneNumber,
+					customerType: this.consumerCheckbox
+						? CUSTOMER_TYPE_CONSUMER
+						: this.organisationCheckbox
+						? CUSTOMER_TYPE_ORGANISATION
+						: null,
 				},
 			});
 			// Handle search results
@@ -197,6 +211,39 @@ export default class CustomerSearchFormInputs extends LightningElement {
 	}
 
 	/**
+	 * Resets the form inputs.
+	 *
+	 * @fires CustomerSearchFormInputs#reset
+	 */
+	async resetForm() {
+		// Reset error message
+		this.errorMessage = undefined;
+
+		// Clear each field value
+		this._firstName = '';
+		this._lastName = '';
+		this._emailAddress = '';
+		this._phoneNumber = '';
+
+		// Ensure field values are updated before continuing
+		await Promise.resolve();
+
+		// Collect all form input elements
+		const inputElements = [
+			...this.template.querySelectorAll(INPUT_ELEMENT_SELECTORS.join(',')),
+		];
+
+		// Clear any field-level error messages
+		inputElements.forEach((field) => {
+			field.setCustomValidity(''); // Clear any custom validation message
+			field.reportValidity(); // Refresh the UI to clear any error styles
+		});
+
+		// Notify form has been reset
+		this.dispatchEvent(new CustomEvent('reset'));
+	}
+
+	/**
 	 * Handles input field change events and stores the value in the
 	 * corresponding variable based on the `data-field-name` attribute.
 	 *
@@ -204,7 +251,12 @@ export default class CustomerSearchFormInputs extends LightningElement {
 	 */
 	handleInputChange(event) {
 		const { fieldName } = event.target.dataset;
-		const fieldValue = event.target.value;
+		// const fieldValue = event.target.value;
+		let fieldValue = event.target.value;
+		// Handle different types of input fields
+		if (event.target.type === 'checkbox') {
+			fieldValue = event.target.checked === true;
+		}
 
 		// store the field value based on the `name` attribute
 		this[fieldName] = fieldValue;
@@ -231,7 +283,8 @@ export default class CustomerSearchFormInputs extends LightningElement {
 	 * Handles when the "Clear" button is clicked.
 	 */
 	handleClearBtnClick() {
-		// TODO: implement
+		// Reset the form
+		this.resetForm();
 	}
 
 	/**

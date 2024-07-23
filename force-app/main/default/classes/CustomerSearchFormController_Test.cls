@@ -5,6 +5,7 @@
  * @changelog
  * 2024-06-03 - Marcel HK - Created
  * 2024-07-02 - Marcel HK - Corrected form validation logic to align with associated LWC (CSLU-438)
+ * 2024-07-17 - Marcel HK - Add customer type parameters (CSLU-446) and refactor data transform into separate function
  */
 @IsTest
 public class CustomerSearchFormController_Test {
@@ -300,5 +301,63 @@ public class CustomerSearchFormController_Test {
 				'Incorrect exception message'
 			);
 		}
+	}
+
+	@IsTest
+	static void testTransformSearchRequestWithBasicDetails() {
+		CustomerSearchFormController.SearchRequest req = new CustomerSearchFormController.SearchRequest();
+		req.firstName = 'John';
+		req.lastName = 'Smith';
+		req.emailAddress = 'john@smith.com';
+		req.phoneNumber = '0412 345 678';
+
+		Test.startTest();
+		ContactsSelector.CustomerSearchParameters params = CustomerSearchFormController.transformSearchRequest(
+			req
+		);
+		Test.stopTest();
+
+		Assert.isNotNull(params, 'Must return params object');
+		Assert.areEqual('John', params.firstName, 'First name should match');
+		Assert.areEqual('Smith', params.lastName, 'Last name should match');
+		Assert.areEqual('john@smith.com', params.emailAddress, 'Email address should match');
+		Assert.areEqual('0412 345 678', params.phoneNumber, 'Phone number should match');
+		Assert.isNull(params.customerType, 'Customer type should not be set');
+	}
+
+	@IsTest
+	static void testTransformSearchRequestWithConsumer() {
+		CustomerSearchFormController.SearchRequest req = new CustomerSearchFormController.SearchRequest();
+		req.customerType = 'CONSUMER';
+
+		Test.startTest();
+		ContactsSelector.CustomerSearchParameters params = CustomerSearchFormController.transformSearchRequest(
+			req
+		);
+		Test.stopTest();
+
+		Assert.areEqual(
+			ContactsSelector.CustomerSearchCustomerType.CONSUMER,
+			params.customerType,
+			'Customer type should match'
+		);
+	}
+
+	@IsTest
+	static void testTransformSearchRequestWithOrganisation() {
+		CustomerSearchFormController.SearchRequest req = new CustomerSearchFormController.SearchRequest();
+		req.customerType = 'ORGANISATION';
+
+		Test.startTest();
+		ContactsSelector.CustomerSearchParameters params = CustomerSearchFormController.transformSearchRequest(
+			req
+		);
+		Test.stopTest();
+
+		Assert.areEqual(
+			ContactsSelector.CustomerSearchCustomerType.ORGANISATION,
+			params.customerType,
+			'Customer type should match'
+		);
 	}
 }
