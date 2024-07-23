@@ -235,6 +235,7 @@ export default class CustomerSearchFormInputs extends LightningElement {
 		this._lastName = '';
 		this._emailAddress = '';
 		this._phoneNumber = '';
+		this.addressObj = undefined;
 
 		// Ensure field values are updated before continuing
 		await Promise.resolve();
@@ -295,7 +296,7 @@ export default class CustomerSearchFormInputs extends LightningElement {
 		this.addressObj = {
 			addressLine1: address.addressLine1,
 			addressLine2: address.addressLine2,
-			city: address.postcode,
+			city: address.city,
 			state: address.state,
 			postcode: address.postcode,
 			dpid: event.detail.dpid,
