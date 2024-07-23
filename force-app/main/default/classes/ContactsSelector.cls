@@ -262,11 +262,11 @@ public virtual inherited sharing class ContactsSelector extends ApplicationSelec
 		if(params.customerType == CustomerSearchCustomerType.CONSUMER) {
 			Integer n = cm.conditions.size();
 			cm.add(new QueryBuilder.CompareCondition(Contact.IsPersonAccount).eq(true));
-			conditionsOrder.add('' + (n + 1));
+			conditionsOrder.add(String.valueOf(n + 1));
 		} else if(params.customerType == CustomerSearchCustomerType.ORGANISATION) {
 			Integer n = cm.conditions.size();
 			cm.add(new QueryBuilder.CompareCondition(Contact.IsPersonAccount).eq(false));
-			conditionsOrder.add('' + (n + 1));
+			conditionsOrder.add(String.valueOf(n + 1));
 		}
 
 		/**
@@ -275,32 +275,32 @@ public virtual inherited sharing class ContactsSelector extends ApplicationSelec
 		if(String.isNotBlank(params.addressStreet1)) {
 			Integer n = cm.conditions.size();
 			cm.add(new QueryBuilder.CompareCondition(Contact.MailingStreet).eq(params.addressStreet1));
-			conditionsOrder.add('' + (n + 1));
+			conditionsOrder.add(String.valueOf(n + 1));
 		}
 		if(String.isNotBlank(params.addressStreet2)) {
 			Integer n = cm.conditions.size();
 			cm.add(new QueryBuilder.CompareCondition(Contact.MailingStreet2__c).eq(params.addressStreet2));
-			conditionsOrder.add('' + (n + 1));
+			conditionsOrder.add(String.valueOf(n + 1));
 		}
 		if(String.isNotBlank(params.addressCity)) {
 			Integer n = cm.conditions.size();
 			cm.add(new QueryBuilder.CompareCondition(Contact.MailingCity).eq(params.addressCity));
-			conditionsOrder.add('' + (n + 1));
+			conditionsOrder.add(String.valueOf(n + 1));
 		}
 		if(String.isNotBlank(params.addressState)) {
 			Integer n = cm.conditions.size();
 			cm.add(new QueryBuilder.CompareCondition(Contact.MailingState).eq(params.addressState));
-			conditionsOrder.add('' + (n + 1));
+			conditionsOrder.add(String.valueOf(n + 1));
 		}
 		if(String.isNotBlank(params.addressPostalCode)) {
 			Integer n = cm.conditions.size();
 			cm.add(new QueryBuilder.CompareCondition(Contact.MailingPostalCode).eq(params.addressPostalCode));
-			conditionsOrder.add('' + (n + 1));
+			conditionsOrder.add(String.valueOf(n + 1));
 		}
 		if(String.isNotBlank(params.addressCountry)) {
 			Integer n = cm.conditions.size();
 			cm.add(new QueryBuilder.CompareCondition(Contact.MailingCountry).eq(params.addressCountry));
-			conditionsOrder.add('' + (n + 1));
+			conditionsOrder.add(String.valueOf(n + 1));
 		}
 
 		// Join dynamic conditions with 'AND' operator
