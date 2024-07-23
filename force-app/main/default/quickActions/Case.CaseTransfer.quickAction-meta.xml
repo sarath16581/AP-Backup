@@ -3,7 +3,7 @@
     <actionSubtype>ScreenAction</actionSubtype>
     <description>Transfer case from Unified to Classic team</description>
     <label>Case Transfer</label>
-    <lightningWebComponent>caseHandOff</lightningWebComponent>
+    <lightningWebComponent>unifiedCaseHandOff</lightningWebComponent>
     <optionsCreateFeedItem>false</optionsCreateFeedItem>
     <type>LightningWebComponent</type>
 </QuickAction>

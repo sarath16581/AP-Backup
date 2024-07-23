@@ -148,7 +148,7 @@
         <layoutColumns>
             <layoutItems>
                 <height>26</height>
-                <page>CaseHandOffIndicator</page>
+                <page>UnifiedCaseHandOffIndicator</page>
                 <showLabel>false</showLabel>
                 <showScrollbars>false</showScrollbars>
                 <width>100%</width>
