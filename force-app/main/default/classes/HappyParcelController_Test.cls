@@ -6,7 +6,7 @@
  * @domain SSSW
  * @description Test Scenarios for Happy Parcel Controller
  * @changelog
- * 2020-09-23 - Disha Kariya  - Updated to cover get Network Method.
+ * 2020-09-23 - Disha Kariya - Updated to cover get Network Method.
  * 2020-10-07 - Disha Kariya - Added methods for SafeDropEligibilityService
  * 2020-10-28 - Disha Kariya - Added mocking for getting transient attributes for ETA details
  * 2024-05-17 - Seth Heang - Added test methods to cover async callout to .NET API for retrieving StarTrack consignment/article details and mapping
@@ -14,6 +14,7 @@
  * 2024-06-12 - Raghav Ravipati - Added new test method to cover getCriticalIncidents
  * 2024-06-17 - Raghav Ravipati - added mocks to EnquiryMappingsSelector
  * 2024-06-25 - Seth Heang - Added new assertion in testSearchAsyncStarTrack due to new attributes mapping such as EDD and SourceSystem
+ * 2024-07-15 - Seth Heang - Added test methods to cover duplicate consignments scenario from .NET API Callout
  */
 @IsTest
 private class HappyParcelController_Test {
@@ -315,7 +316,7 @@ private class HappyParcelController_Test {
 		// Data Preparation
 		// =====================================
 		List<Knowledge__kav> criticalIncidents = ApplicationTestDataFactoryKnowledge.getCriticalIncidents(2, false);
-		criticalIncidents[0].networkOrgId__c =  '12345';
+		criticalIncidents[0].networkOrgId__c = '12345';
 		
 		insert criticalIncidents;
 		Map<String, Object> searchParams = new Map<String, Object>();
@@ -532,7 +533,7 @@ private class HappyParcelController_Test {
 
 	/**
 	 * Test: When the SAP callout is made for an article which has a parent consignment, and a forceConsignmentSearch flag is set to TRUE,
-	 *	  validate that additional callout is made using the consignment ID and the response returns consignment details including all related article details
+	 *		validate that additional callout is made using the consignment ID and the response returns consignment details including all related article details
 	 */
 	@IsTest
 	private static void testForceConsignmentSearchWhenSearchingArticleId() {
@@ -573,7 +574,7 @@ private class HappyParcelController_Test {
 
 	/**
 	 * Test: When the SAP callout is made and a consignment record is dml inserted,
-	 *	  validate that the StarTrack async callout can be made and relevant attributes are mapped and updated on the same article that inserted in SAP callout
+	 *		validate that the StarTrack async callout can be made and relevant attributes are mapped and updated on the same article that inserted in SAP callout
 	 */
 	@IsTest
 	static void testSearchAsyncStarTrack() {
@@ -641,7 +642,7 @@ private class HappyParcelController_Test {
 
 	/**
 	 * Test: When the SAP callout is made and a TIBCOSearchResult is returned,
-	 *	  validate that the requireAdditionalQueryForStarTrack is set to TRUE if the productId belongs to StarTrack ProductID
+	 *		validate that the requireAdditionalQueryForStarTrack is set to TRUE if the productId belongs to StarTrack ProductID
 	 */
 	@IsTest
 	static void testRequireAdditionalStarTrackCalloutFlag() {
@@ -658,5 +659,146 @@ private class HappyParcelController_Test {
 		HappyParcelController.TrackingResult result = new HappyParcelController.TrackingResult(trackingResult);
 		Test.stopTest();
 		Assert.areEqual(result.requireAdditionalQueryForStarTrack, true, 'Additional query flag should be true');
+	}
+
+	/**
+	 * Test: When the .NET callout returns duplicate consignment
+	 *		validate that an additional callout is made when below criteria is met:
+	 *		- a single consignment is returned after filtering older than 6 months consignments
+	 */
+	@IsTest
+	static void testSearchAsyncStarTrackWithDuplicatesButOneConsignmentIsValid() {
+		String trackingId = '2AT71923';
+		// Assume that SAP callout is made, and a consignment record has been inserted
+		Article__c consignment = ApplicationTestDataFactory.getConsignments(1, false)[0];
+		insert consignment;
+
+		// Prepare wrapper class to pass to the StarTrack Callout
+		HappyParcelController.TrackingArticle trackingResult = (HappyParcelController.TrackingArticle) System.JSON.deserialize(
+				HappyParcelService_Test.getTrackingArticleOnlyMock(),
+				HappyParcelController.TrackingArticle.class
+		);
+		trackingResult.article.Id = consignment.Id;
+		trackingResult.article.ArticleID__c = trackingId;
+
+		// =====================================
+		// Stubbing
+		// =====================================
+		ApplicationDatabase mockDatabase = MockUtility.mockDatabase();
+
+		MockUtility.Mocks.startStubbing();
+		MockUtility.Mocks.when(mockDatabase.dmlUpdate((List<SObject>) fflib_Match.anyObject())).thenAnswer(new MockUtility.AnswerGenericDMLUpdated());
+		MockUtility.Mocks.stopStubbing();
+		// =====================================
+		// Testing
+		// =====================================
+		Test.startTest();
+		// make async callout to StarTrack dotNet API
+		Continuation conti = (Continuation) HappyParcelController.queryTrackingApiForStarTrack(trackingId, JSON.serialize(trackingResult));
+		// Verify that the continuation has the proper requests
+		Map<String, HttpRequest> requests = conti.getRequests();
+		System.assertEquals(requests.size(), 1);
+
+		// Prepare mock responses
+		HttpResponse response1 = new HttpResponse();
+		response1.setBody(StarTrackContinuationCalloutMock.getResponse_multiConsignWithOneConsignmentWithinLast6Months());
+		// Prepare mock response
+		HttpResponse response2 = new HttpResponse();
+		response2.setBody(StarTrackContinuationCalloutMock.getResponse_singleConsign());
+
+		// Set the mock first response for the continuation
+		Test.setContinuationResponse(requests.keyset().iterator().next(), response1);
+		// Invoke the first continuation method
+		Continuation conChained = (Continuation) Test.invokeContinuationMethod(new HappyParcelController(), conti);
+
+		// Set the mock second response for the chained continuation
+		requests = conChained.getRequests();
+		Test.setContinuationResponse(requests.keyset().iterator().next(), response2);
+		// Invoke the second continuation method
+		Object result = Test.invokeContinuationMethod(
+				new HappyParcelController(),
+				conChained
+		);
+		Test.stopTest();
+
+		Assert.areNotEqual(null, result, 'StarTrack callout result should not be null');
+		// Verify the return wrapper class has the new attributes mapped correctly
+		HappyParcelController.TrackingArticle resultWrapper = (HappyParcelController.TrackingArticle) result;
+		Assert.areEqual('D05 1, E05 1', resultWrapper.article.FurtherReferences__c, 'Further References do not match');
+		Assert.areEqual(Date.newInstance(2024,1,21), resultWrapper.article.ExpectedDeliveryDate__c, 'Expected Delivery Date should match but was not');
+		Assert.areEqual('TEAM', resultWrapper.article.Source_System__c, 'Source System should be TEAM but instead was ' + resultWrapper.article.Source_System__c);
+
+		// Verify that the consignment record of type Article__c has been updated 1 time
+		fflib_ArgumentCaptor updatableConsignmentCaptor = fflib_ArgumentCaptor.forClass(List<Article__c>.class);
+		((ApplicationDatabase) MockUtility.Mocks.verify(mockDatabase, MockUtility.Mocks.times(1))).dmlUpdate((List<SObject>) updatableConsignmentCaptor.capture());
+
+		// Verify that the consignment records has the new attributes mapped and updated correctly
+		List<Article__c> resArticle = (List<Article__c>) updatableConsignmentCaptor.getValue();
+		Assert.areEqual(1, resArticle.size(), 'Only one article should be updated and returned back');
+		Assert.areEqual('D05 1, E05 1', resArticle.get(0).FurtherReferences__c, 'Further References do not match');
+		Assert.areEqual(Date.newInstance(2024,1,21), resArticle.get(0).ExpectedDeliveryDate__c, 'Expected Delivery Date should match but was not');
+		Assert.areEqual('TEAM', resArticle.get(0).Source_System__c, 'Source System should be TEAM but instead was ' + resArticle.get(0).Source_System__c);
+
+	}
+
+	/**
+	 * Test: When the .NET callout returns duplicate consignment
+	 *		validate that a warning message is displayed if:
+	 *		- all consignment are within 6 month period
+	 */
+	@IsTest
+	static void testSearchAsyncStarTrackWithDuplicatesAndAllAreInvalid() {
+		String trackingId = '2AT71923';
+		// Assume that SAP callout is made, and a consignment record has been inserted
+		Article__c consignment = ApplicationTestDataFactory.getConsignments(1, false)[0];
+		insert consignment;
+
+		// Prepare wrapper class to pass to the StarTrack Callout
+		HappyParcelController.TrackingArticle trackingResult = (HappyParcelController.TrackingArticle) System.JSON.deserialize(
+				HappyParcelService_Test.getTrackingArticleOnlyMock(),
+				HappyParcelController.TrackingArticle.class
+		);
+		trackingResult.article.Id = consignment.Id;
+		trackingResult.article.ArticleID__c = trackingId;
+
+		// =====================================
+		// Stubbing
+		// =====================================
+		ApplicationDatabase mockDatabase = MockUtility.mockDatabase();
+
+		MockUtility.Mocks.startStubbing();
+		MockUtility.Mocks.when(mockDatabase.dmlUpdate((List<SObject>) fflib_Match.anyObject())).thenAnswer(new MockUtility.AnswerGenericDMLUpdated());
+		MockUtility.Mocks.stopStubbing();
+		// =====================================
+		// Testing
+		// =====================================
+		Test.startTest();
+		// make async callout to StarTrack dotNet API
+		Continuation conti = (Continuation) HappyParcelController.queryTrackingApiForStarTrack(trackingId, JSON.serialize(trackingResult));
+		// Verify that the continuation has the proper requests
+		Map<String, HttpRequest> requests = conti.getRequests();
+		System.assertEquals(requests.size(), 1);
+
+		// Prepare mock response
+		HttpResponse response = new HttpResponse();
+		response.setBody(StarTrackContinuationCalloutMock.getResponse_multiConsignWhereAllConsignmentsWithinLast6Months());
+
+		// Set the fake response for the continuation
+		String requestLabel = requests.keyset().iterator().next();
+		Test.setContinuationResponse(requestLabel, response);
+
+		// Invoke callback method
+		Object result = Test.invokeContinuationMethod(new HappyParcelController(), conti);
+		Test.stopTest();
+
+		// Assert that no DML update has been commited
+		fflib_ArgumentCaptor updatableConsignmentCaptor = fflib_ArgumentCaptor.forClass(List<Article__c>.class);
+		((ApplicationDatabase) MockUtility.Mocks.verify(mockDatabase, MockUtility.Mocks.times(0))).dmlUpdate((List<SObject>) updatableConsignmentCaptor.capture());
+
+		// Assert warning messages
+		HappyParcelController.TrackingArticle resultWrapper = (HappyParcelController.TrackingArticle) result;
+		Assert.areNotEqual(null, resultWrapper.warningMessages, 'Expected warning message to be populated but instead got null');
+		Assert.areNotEqual(0, resultWrapper.warningMessages.size(), 'Expected a single warning message but instead got ' + resultWrapper.warningMessages.size());
+		Assert.areEqual(System.Label.HappyParcelNETDuplicateConsignmentWarningText, resultWrapper.warningMessages.get(0), 'Expected warning message to match custom label but instead of ' + resultWrapper.warningMessages.get(0));
 	}
 }

@@ -541,10 +541,10 @@ export const refreshSFConsignmentArticleDataFromSAPAndStarTrack = async (trackin
 	const sapResult = consignmentId ? await getTrackingApiResponse(consignmentId, false) : await getTrackingApiResponse(articleId, true);
 	// execute a consignment search for StarTrack if required
 	const requireAdditionalQueryForStarTrack = sapResult.requireAdditionalQueryForStarTrack;
-	const consignment = { trackingId: sapResult.consignment.trackingId, trackingResult: sapResult.consignment };
+	const consignment = { trackingId: sapResult?.consignment?.trackingId, trackingResult: sapResult?.consignment };
 	if (requireAdditionalQueryForStarTrack) {
 		// if this api timeout, then the download button needed to be clicked again to retry
-		await getTrackingApiResponseForStarTrack(sapResult.consignment.trackingId, consignment);
+		await getTrackingApiResponseForStarTrack(sapResult?.consignment?.trackingId, consignment);
 	}
 }
 
