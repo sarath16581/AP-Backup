@@ -1,0 +1,27 @@
+<!--
+ - @description Genesys CTI Integration. This logic hooks up all the cti (and cti related) events
+ -  and forward these to either the AP or ST connector, based on the interaction's callCenter attribute value
+ - @author Paul Perry
+ - @date 2024-04-26
+ - @changelog
+ -
+--> 
+<apex:page controller="GenesysConnectorController" cache="false"> 
+  <apex:includeScript value="/support/console/59.0/integration.js"/>
+  <apex:includeScript value="{!URLFOR($Resource.GenesysConnector, '/australiaPostConnector.js')}"/>
+  <apex:includeScript value="{!URLFOR($Resource.GenesysConnector, '/starTrackConnector.js')}"/>
+  <apex:includeScript value="{!URLFOR($Resource.GenesysConnector, '/integration.js')}"/>
+  <apex:includeScript value="{!URLFOR($Resource.GenesysConnector, '/genesysCtiUtils.js')}"/>
+
+  <script type="text/javascript">
+	console.log('Genesys Connector Widget: init');
+
+	// Capture user assigned custom permissions here:
+	const genCtiPermissions = {
+		maintainWindowState : {!$Permission.SSSWCTIMaintainWindowState}
+	}
+
+	// Connect all event handlers for the CTI Connector
+	window.onload = () => connectAllCtiEvents();
+  </script>
+</apex:page>
