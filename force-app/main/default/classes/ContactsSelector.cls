@@ -23,6 +23,7 @@
  * 2024-07-15 - Marcel HK - Added enum `CustomerSearchCustomerType` and customer type filters (CSLU-446)
  * 2024-07-22 - Marcel HK - Added mailing address filters for the selector method `selectByCustomerSearchParamsQB` (CSLU-1072)
  * 2024-07-23 - Marcel HK - Removed 'Country' mailing address filters (CSLU-1072)
+ * 2024-07-23 - Marcel HK - Allow match if MailingStreet equals addressLine1 + addressLine2 (CSLU-1106)
  */
 public virtual inherited sharing class ContactsSelector extends ApplicationSelector {
 	public enum Options {
