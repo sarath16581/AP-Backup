@@ -24,6 +24,7 @@
  * 2024-06-24 - Seth Heang - updated queryTrackingApi method to reduce redundent SAP callout for a scenario where the article searched has no parent consignment
  * 2024-06-25 - Raghav Ravipati - Updated the Amazon s3 deliveryRepository API from V1 to V2 
  * 2024-07-17 - Seth Heang - Added POD related method calls from MyCustomerDeliveryProofPdfController so the permission is inherited
+ * 2024-07-24 - Seth Heang - Added warningMessages attribute to TrackingArticle wrapper
  */
 public with sharing class HappyParcelController {
 	/**
