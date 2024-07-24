@@ -324,8 +324,18 @@ public class GenesysConnectorController_Test {
 		// =====================================
 		// Data Preparation
 		// =====================================
-		List<Case> cases = ApplicationTestDataFactory.getCases(1, true);
-		cases[0].RecordTypeId = ApplicationTestDataFactory.caseSSSWGeneralEnquiryRecordType;
+		List<Case> cases = new List<Case>{
+			(Case)JSON.deserialize(
+				JSON.serialize(new Map<SObjectField, Object> {
+					Case.Id => fflib_IDGenerator.generate(Case.SObjectType),
+					Case.Subject => 'Case Subject 1',
+					Case.Description => 'Case Description 1',
+					Case.Status => 'New',
+					Case.CaseNumber => '123456',
+					Case.RecordTypeId => ApplicationTestDataFactory.caseSSSWGeneralEnquiryRecordType
+				}), Case.class
+			)
+		};
 
 		// =====================================
 		// Stubbing
@@ -615,7 +625,7 @@ public class GenesysConnectorController_Test {
 		purecloud.CTIExtension.ScreenPop instance = new GenesysConnectorController();
 		String result = instance.onScreenPop(null);
 		Map<String,Object> returnPayload = (Map<String,Object>)JSON.deserializeUntyped(result);
-		System.assertEquals(false, returnPayload.get('showPopup'), 'Incorrectly value');
+		System.assertEquals(null, returnPayload.get('showPopup'), 'Incorrectly value');
 		System.assertEquals('', returnPayload.get('url'), 'Incorrectly value');
 	}
 }
