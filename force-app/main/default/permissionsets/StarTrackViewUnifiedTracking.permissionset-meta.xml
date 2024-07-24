@@ -4,20 +4,12 @@
         <apexClass>HappyParcelController</apexClass>
         <enabled>true</enabled>
     </classAccesses>
-	<classAccesses>
-        <apexClass>MyCustomerDeliveryProofPdfController</apexClass>
-        <enabled>true</enabled>
-    </classAccesses>
     <description>Allows users access to the Unified Tracking screen through a custom console component on the StarTrack Service and Support console</description>
     <hasActivationRequired>false</hasActivationRequired>
     <label>StarTrack View Unified Tracking</label>
     <license>Salesforce</license>
     <pageAccesses>
         <apexPage>StarTrackHappyParcelWrapper</apexPage>
-        <enabled>true</enabled>
-    </pageAccesses>
-    <pageAccesses>
-        <apexPage>MyCustomerDeliveryProofPdfWrapper</apexPage>
         <enabled>true</enabled>
     </pageAccesses>
 </PermissionSet>
