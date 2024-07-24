@@ -123,9 +123,6 @@ public with sharing class UnifiedCaseHandOffController {
 
 		// Creating case comment before updating the case because the case record will not available to the user as its owner will change to respective queue.
 		createCaseComment(casedetails, casedetails.CaseTransferReason__c, handoffWrapper.comment);
-		// Update Case details
-		ApplicationDatabase.getInstance().dmlUpdate(new List<SObject>{ casedetails });
-
 		// Add related contact for star track
 		if (handoffWrapper.businessUnit == AUSTRALIAPOST) {
 			// This is added after parent case update so that latest info is available for child cases
@@ -135,6 +132,8 @@ public with sharing class UnifiedCaseHandOffController {
 		} else {
 			createRelatedContact(casedetails);
 		}
+		// Update Case details
+		ApplicationDatabase.getInstance().dmlUpdate(new List<SObject>{ casedetails });
 
 		// Delete impacted articles
 		if (impactedArticles.size() > 0) {
