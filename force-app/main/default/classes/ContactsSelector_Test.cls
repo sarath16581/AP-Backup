@@ -385,6 +385,56 @@ private with sharing class ContactsSelector_Test {
 	}
 
 	@IsTest
+	static void testSelectByCustomerSearchParamsQBWithAddressLine1And2() {
+		// =====================================
+		// Data Preparation
+		// =====================================
+		ContactsSelector cs = ContactsSelector.newInstance();
+		ContactsSelector.CustomerSearchParameters params = new ContactsSelector.CustomerSearchParameters();
+		params.addressStreet1 = 'U 3';
+		params.addressStreet2 = '123 Example St';
+
+		// =====================================
+		// Stubbing
+		// =====================================
+		// None!
+
+		// =====================================
+		// Testing
+		// =====================================
+		Test.startTest();
+		String soql = cs.selectByCustomerSearchParamsQB(params, new Set<Object>());
+		Test.stopTest();
+
+		Assert.isTrue(Pattern.compile('(?is)\\(MailingStreet = \'U 3\' AND MailingStreet2__c = \'123 Example St\'\\)').matcher(soql).find(), 'Query should filter MailingStreet AND MailingStreet2__c');
+		Assert.isTrue(Pattern.compile('(?is)\\bOR MailingStreet = \'U 3 123 Example St\'').matcher(soql).find(), 'Query should filter MailingStreet with AddressLine1+AddressLine2');
+	}
+	
+	@IsTest
+	static void testSelectByCustomerSearchParamsQBWithAddressLine2() {
+		// =====================================
+		// Data Preparation
+		// =====================================
+		ContactsSelector cs = ContactsSelector.newInstance();
+		ContactsSelector.CustomerSearchParameters params = new ContactsSelector.CustomerSearchParameters();
+		params.addressStreet2 = '123 Example St';
+
+		// =====================================
+		// Stubbing
+		// =====================================
+		// None!
+
+		// =====================================
+		// Testing
+		// =====================================
+		Test.startTest();
+		String soql = cs.selectByCustomerSearchParamsQB(params, new Set<Object>());
+		Test.stopTest();
+
+		Assert.isTrue(Pattern.compile('(?is)\\bMailingStreet2__c = \'123 Example St\'').matcher(soql).find(), 'Query should filter MailingStreet2__c');
+	}
+
+	@IsTest
 	static void testWithRelatedCasesOption() {
 		// =====================================
 		// Data Preparation
