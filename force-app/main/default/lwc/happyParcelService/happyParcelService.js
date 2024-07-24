@@ -25,7 +25,7 @@
 import queryAnalyticsApi from '@salesforce/apexContinuation/HappyParcelController.queryAnalyticsApi';
 import getArticleImage from '@salesforce/apexContinuation/HappyParcelController.getArticleImage';
 import queryTrackingApiForStarTrack from '@salesforce/apexContinuation/HappyParcelController.queryTrackingApiForStarTrack';
-import getSafeDropImageForPOD from '@salesforce/apexContinuation/MyCustomerDeliveryProofPdfController.getSafeDropImage';
+import getSafeDropImageForPOD from '@salesforce/apexContinuation/HappyParcelController.getSafeDropImageForPOD';
 
 // normal callouts
 import queryTrackingApi from '@salesforce/apex/HappyParcelController.queryTrackingApi';
@@ -38,7 +38,7 @@ import unsetSafeDropEligibility from '@salesforce/apex/HappyParcelController.uns
 import getNotificationPreferences from '@salesforce/apex/HappyParcelController.getNotificationPreferences';
 import setNotificationPreferences from '@salesforce/apex/HappyParcelController.setNotificationPreferences';
 import getDistanceBetweenLocations from '@salesforce/apex/HappyParcelController.getDistanceBetweenLocations';
-import getCurrentStateOfSafeDropImageRequiredForDownload from '@salesforce/apex/MyCustomerDeliveryProofPdfController.getCurrentStateOfSafeDropImageRequiredForDownload';
+import getCurrentStateOfSafeDropImageRequiredForDownload from '@salesforce/apex/HappyParcelController.getCurrentStateOfSafeDropImageRequiredForDownload';
 import getCriticalIncidents from '@salesforce/apex/HappyParcelController.getCriticalIncidents';
 
 

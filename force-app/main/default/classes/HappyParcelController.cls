@@ -23,6 +23,7 @@
  * 2024-06-17 - Raghav Ravipati - Added changes related to Enquiry Mapping to filter using MappingModule field
  * 2024-06-24 - Seth Heang - updated queryTrackingApi method to reduce redundent SAP callout for a scenario where the article searched has no parent consignment
  * 2024-06-25 - Raghav Ravipati - Updated the Amazon s3 deliveryRepository API from V1 to V2 
+ * 2024-07-17 - Seth Heang - Added POD related method calls from MyCustomerDeliveryProofPdfController so the permission is inherited
  */
 public with sharing class HappyParcelController {
 	/**
@@ -812,5 +813,27 @@ public with sharing class HappyParcelController {
 			}
 		}
 		return null;
+	}
+
+	/**
+	 * @description	Use the API to pull back the filtered out image. The API blacks out faces and text on the images.
+	 * @param	guidId String
+	 * @param	eventMessageId String
+	 * @return	Object
+	 */
+	@AuraEnabled(Continuation=true)
+	public static Object getSafeDropImageForPOD(String guidId, String eventMessageId){
+		return MyCustomerDeliveryProofPdfController.getSafeDropImage(guidId, eventMessageId);
+	}
+
+	/**
+	 * @description	Retrieve a snapshot of the current state of SafeDrop image file per article under the parent consignment if they exist in Salesforce
+	 * 				Or, it's required to be downloaded. This is method is called, prior to retrieving SafeDrop image in bulk by happyParcelDeliveryProof LWC via multiple transactions
+	 * 				or one image per transaction. This is down to bypass the hard limit of 3 Max Continuation Callout per Single Transaction in Salesforce.
+	 * @return	List<SafeDropImageState> e.g. SafeDropImageState in JSON: ([{guidID: "guidId123456", requireDownload: true}])
+	 */
+	@AuraEnabled(Cacheable=false)
+	public static List<MyCustomerDeliveryProofPdfController.SafeDropImageState> getCurrentStateOfSafeDropImageRequiredForDownload(String trackingId) {
+		return MyCustomerDeliveryProofPdfController.getCurrentStateOfSafeDropImageRequiredForDownload(trackingId);
 	}
 }

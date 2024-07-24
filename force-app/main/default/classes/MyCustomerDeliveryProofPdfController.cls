@@ -195,7 +195,6 @@ public with sharing class MyCustomerDeliveryProofPdfController {
 	 * 				or one image per transaction. This is down to bypass the hard limit of 3 Max Continuation Callout per Single Transaction in Salesforce.
 	 * @return	List<SafeDropImageState> e.g. SafeDropImageState in JSON: ([{guidID: "guidId123456", requireDownload: true}])
 	 */
-	@AuraEnabled(Cacheable=false)
 	public static List<SafeDropImageState> getCurrentStateOfSafeDropImageRequiredForDownload(String trackingId) {
 		List<Article__c> consignments = queryConsignmentByTrackingId(trackingId);
 		List<DeliveryProofAttributes> deliveryEventKeyList = buildAttributesForPDFDisplay(getArticleIdsFromArticles(consignments));
@@ -309,7 +308,6 @@ public with sharing class MyCustomerDeliveryProofPdfController {
 	 * @param	eventMessageId String
 	 * @return	Object
 	 */
-	@AuraEnabled(Continuation=true)
 	public static Object getSafeDropImage(String guidId, String eventMessageId) {
 
 		// Get default configurations from customsetting.
