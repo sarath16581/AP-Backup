@@ -98,6 +98,16 @@ export default class CustomerSearchFormInputs extends LightningElement {
 	addressObj;
 	showAddress = true;
 
+	get customerType() {
+		if (this.consumerCheckbox === true) {
+			return CUSTOMER_TYPE_CONSUMER;
+		}
+		if (this.organisationCheckbox === true) {
+			return CUSTOMER_TYPE_ORGANISATION;
+		}
+		return null;
+	}
+
 	errorMessage = undefined;
 	isLoading = false;
 
@@ -192,11 +202,7 @@ export default class CustomerSearchFormInputs extends LightningElement {
 					lastName: this.lastName,
 					emailAddress: this.emailAddress,
 					phoneNumber: this.phoneNumber,
-					customerType: this.consumerCheckbox
-						? CUSTOMER_TYPE_CONSUMER
-						: this.organisationCheckbox
-						? CUSTOMER_TYPE_ORGANISATION
-						: null,
+					customerType: this.customerType,
 					addressStreet1: this.addressObj?.addressLine1,
 					addressStreet2: this.addressObj?.addressLine2,
 					addressCity: this.addressObj?.city,
@@ -236,6 +242,8 @@ export default class CustomerSearchFormInputs extends LightningElement {
 		this._emailAddress = '';
 		this._phoneNumber = '';
 		this.addressObj = undefined;
+		this.organisationCheckbox = false;
+		this.consumerCheckbox = false;
 
 		// Ensure field values are updated before continuing
 		await Promise.resolve();
