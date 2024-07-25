@@ -23,6 +23,7 @@
  * 2024-07-15 - Marcel HK - Added enum `CustomerSearchCustomerType` and customer type filters (CSLU-446)
  * 2024-07-22 - Marcel HK - Added mailing address filters for the selector method `selectByCustomerSearchParamsQB` (CSLU-1072)
  * 2024-07-23 - Marcel HK - Removed 'Country' mailing address filters (CSLU-1072)
+ * 2024-07-23 - Marcel HK - Allow match if MailingStreet equals addressLine1 + addressLine2 (CSLU-1106)
  */
 public virtual inherited sharing class ContactsSelector extends ApplicationSelector {
 	public enum Options {
@@ -273,12 +274,19 @@ public virtual inherited sharing class ContactsSelector extends ApplicationSelec
 		/**
 		 *  Add the Address to the search query criteria.
 		 */
-		if(String.isNotBlank(params.addressStreet1)) {
+		if(String.isNotBlank(params.addressStreet1) && String.isNotBlank(params.addressStreet2)) {
+			// Where both addressStreet1 and addressStreet2 are set, try a few different possible data combinations
+			Integer n = cm.conditions.size();
+			String combinedAddressLines = params.addressStreet1 + ' ' + params.addressStreet2;
+			cm.add(new QueryBuilder.CompareCondition(Contact.MailingStreet).eq(params.addressStreet1));
+			cm.add(new QueryBuilder.CompareCondition(Contact.MailingStreet2__c).eq(params.addressStreet2));
+			cm.add(new QueryBuilder.CompareCondition(Contact.MailingStreet).eq(combinedAddressLines));
+			conditionsOrder.add('((' + (n + 1) + ' AND ' + (n + 2) + ') OR ' + (n + 3) + ')');
+		} else if(String.isNotBlank(params.addressStreet1)) {
 			Integer n = cm.conditions.size();
 			cm.add(new QueryBuilder.CompareCondition(Contact.MailingStreet).eq(params.addressStreet1));
 			conditionsOrder.add(String.valueOf(n + 1));
-		}
-		if(String.isNotBlank(params.addressStreet2)) {
+		} else if(String.isNotBlank(params.addressStreet2)) {
 			Integer n = cm.conditions.size();
 			cm.add(new QueryBuilder.CompareCondition(Contact.MailingStreet2__c).eq(params.addressStreet2));
 			conditionsOrder.add(String.valueOf(n + 1));

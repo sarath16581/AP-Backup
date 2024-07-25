@@ -21,6 +21,7 @@
 * 2024-07-15 - Marcel HK - Added enum `CustomerSearchCustomerType` and customer type filters (CSLU-446)
 * 2024-07-22 - Marcel HK - Added mailing address filters for the selector method `selectByCustomerSearchParamsQB` (CSLU-1072)
 * 2024-07-23 - Marcel HK - Removed 'Country' mailing address filters (CSLU-1072)
+* 2024-07-23 - Marcel HK - Allow match if MailingStreet equals addressLine1 + addressLine2 (CSLU-1106)
 */
 @IsTest
 private with sharing class ContactsSelector_Test {
@@ -382,6 +383,56 @@ private with sharing class ContactsSelector_Test {
 		Assert.isTrue(Pattern.compile('(?is)MailingCity = \'Example Town\'').matcher(soql).find(), 'Query should filter MailingCity');
 		Assert.isTrue(Pattern.compile('(?is)MailingState = \'VIC\'').matcher(soql).find(), 'Query should filter MailingState');
 		Assert.isTrue(Pattern.compile('(?is)MailingPostalCode = \'3999\'').matcher(soql).find(), 'Query should filter MailingPostalCode');
+	}
+
+	@IsTest
+	static void testSelectByCustomerSearchParamsQBWithAddressLine1And2() {
+		// =====================================
+		// Data Preparation
+		// =====================================
+		ContactsSelector cs = ContactsSelector.newInstance();
+		ContactsSelector.CustomerSearchParameters params = new ContactsSelector.CustomerSearchParameters();
+		params.addressStreet1 = 'U 3';
+		params.addressStreet2 = '123 Example St';
+
+		// =====================================
+		// Stubbing
+		// =====================================
+		// None!
+
+		// =====================================
+		// Testing
+		// =====================================
+		Test.startTest();
+		String soql = cs.selectByCustomerSearchParamsQB(params, new Set<Object>());
+		Test.stopTest();
+
+		Assert.isTrue(Pattern.compile('(?is)\\(MailingStreet = \'U 3\' AND MailingStreet2__c = \'123 Example St\'\\)').matcher(soql).find(), 'Query should filter MailingStreet AND MailingStreet2__c');
+		Assert.isTrue(Pattern.compile('(?is)\\bOR MailingStreet = \'U 3 123 Example St\'').matcher(soql).find(), 'Query should filter MailingStreet with AddressLine1+AddressLine2');
+	}
+	
+	@IsTest
+	static void testSelectByCustomerSearchParamsQBWithAddressLine2() {
+		// =====================================
+		// Data Preparation
+		// =====================================
+		ContactsSelector cs = ContactsSelector.newInstance();
+		ContactsSelector.CustomerSearchParameters params = new ContactsSelector.CustomerSearchParameters();
+		params.addressStreet2 = '123 Example St';
+
+		// =====================================
+		// Stubbing
+		// =====================================
+		// None!
+
+		// =====================================
+		// Testing
+		// =====================================
+		Test.startTest();
+		String soql = cs.selectByCustomerSearchParamsQB(params, new Set<Object>());
+		Test.stopTest();
+
+		Assert.isTrue(Pattern.compile('(?is)\\bMailingStreet2__c = \'123 Example St\'').matcher(soql).find(), 'Query should filter MailingStreet2__c');
 	}
 
 	@IsTest
