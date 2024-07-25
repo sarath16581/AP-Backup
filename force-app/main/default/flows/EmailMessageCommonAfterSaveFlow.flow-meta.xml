@@ -14,8 +14,6 @@
                 <elementReference>$Record.ParentId</elementReference>
             </value>
         </inputParameters>
-        <nameSegment>Case.BGS_Send_a_Bounce_Email_to_Sender_if_the_associated_Case_has_already_been_Closed</nameSegment>
-        <versionSegment>1</versionSegment>
     </actionCalls>
     <actionCalls>
         <description>Bulk Mail - Send an Email when a Case permanent closed</description>
@@ -32,27 +30,9 @@
                 <elementReference>$Record.ParentId</elementReference>
             </value>
         </inputParameters>
-        <nameSegment>Case.Bulk_Mail_Send_an_Email_when_a_Case_permanent_closed</nameSegment>
-        <versionSegment>1</versionSegment>
     </actionCalls>
     <actionCalls>
-        <name>Case_closed2</name>
-        <label>Case closed2</label>
-        <locationX>1634</locationX>
-        <locationY>647</locationY>
-        <actionName>Case.Network_Partner_Case_Creation_Email</actionName>
-        <actionType>emailAlert</actionType>
-        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
-        <inputParameters>
-            <name>SObjectRowId</name>
-            <value>
-                <elementReference>$Record.ParentId</elementReference>
-            </value>
-        </inputParameters>
-        <nameSegment>Case.Network_Partner_Case_Creation_Email</nameSegment>
-        <versionSegment>1</versionSegment>
-    </actionCalls>
-	<actionCalls>
+        <description>No reply email send when there is an incoming email related to a closed case</description>
         <name>NetworkPartnersCaseNoReply</name>
         <label>Network Partners Case No Reply</label>
         <locationX>1634</locationX>
@@ -84,8 +64,6 @@
                 <elementReference>$Record.ParentId</elementReference>
             </value>
         </inputParameters>
-        <nameSegment>Case.Notify_Case_Owner_on_New_Email_BGS</nameSegment>
-        <versionSegment>1</versionSegment>
     </actionCalls>
     <actionCalls>
         <description>Sends an email to customer if case is permanently closed</description>
@@ -102,8 +80,6 @@
                 <elementReference>$Record.ParentId</elementReference>
             </value>
         </inputParameters>
-        <nameSegment>Case.Transport_Enquiry_Case_Closed_Case_Email</nameSegment>
-        <versionSegment>1</versionSegment>
     </actionCalls>
     <apiVersion>59.0</apiVersion>
     <decisions>
@@ -127,35 +103,6 @@
                 <targetReference>Bulk_Mail_Send_an_Email_when_a_Case_permanent_closed</targetReference>
             </connector>
             <label>Bulk Mail Permanently Closed</label>
-        </rules>
-    </decisions>
-    <decisions>
-        <name>Case_Closed</name>
-        <label>Case Closed</label>
-        <locationX>1766</locationX>
-        <locationY>539</locationY>
-        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
-        <rules>
-            <name>Network_case_is_closed</name>
-            <conditionLogic>or</conditionLogic>
-            <conditions>
-                <leftValueReference>$Record.Parent.Status</leftValueReference>
-                <operator>EqualTo</operator>
-                <rightValue>
-                    <stringValue>Closed</stringValue>
-                </rightValue>
-            </conditions>
-            <conditions>
-                <leftValueReference>$Record.Parent.IsClosed</leftValueReference>
-                <operator>EqualTo</operator>
-                <rightValue>
-                    <booleanValue>true</booleanValue>
-                </rightValue>
-            </conditions>
-            <connector>
-                <targetReference>Case_closed2</targetReference>
-            </connector>
-            <label>Network case is closed</label>
         </rules>
     </decisions>
     <decisions>
@@ -194,7 +141,7 @@
     <decisions>
         <name>Identify_Case_Domain</name>
         <label>Identify Case Domain</label>
-        <locationX>1128</locationX>
+        <locationX>1040</locationX>
         <locationY>431</locationY>
         <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
         <rules>
@@ -243,7 +190,7 @@
             <label>Bulk Mail</label>
         </rules>
         <rules>
-            <name>Network_Partner_Case</name>
+            <name>NetworkPartnerEmail</name>
             <conditionLogic>and</conditionLogic>
             <conditions>
                 <leftValueReference>$Record.Parent.RecordType.DeveloperName</leftValueReference>
@@ -252,16 +199,30 @@
                     <elementReference>$Label.REC_TYPE_DEV_Network_Partner</elementReference>
                 </rightValue>
             </conditions>
+            <conditions>
+                <leftValueReference>$Record.Parent.Status</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Closed</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Status</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>0</stringValue>
+                </rightValue>
+            </conditions>
             <connector>
-                <targetReference>Case_Closed</targetReference>
+                <targetReference>NetworkPartnersCaseNoReply</targetReference>
             </connector>
-            <label>Network Partner Case</label>
+            <label>Network Partner Email</label>
         </rules>
     </decisions>
     <decisions>
         <name>is_Incoming_Case_Email</name>
         <label>is Incoming Case Email?</label>
-        <locationX>1733</locationX>
+        <locationX>1601</locationX>
         <locationY>323</locationY>
         <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
         <rules>
@@ -370,7 +331,7 @@
     </processMetadataValues>
     <processType>AutoLaunchedFlow</processType>
     <start>
-        <locationX>1607</locationX>
+        <locationX>1475</locationX>
         <locationY>0</locationY>
         <connector>
             <targetReference>is_Incoming_Case_Email</targetReference>
