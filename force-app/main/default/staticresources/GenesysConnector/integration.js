@@ -6,8 +6,6 @@
  * @changelog
  *
  */
-	console.log('Genesys Connector Widget Integration: init');
-
 	// Properties used for each interaction
 	let businessLogic;
 	let lastCtiInteractionLog = { };
@@ -22,7 +20,7 @@
 		sforce.console.fireEvent(
 			'inin.salesforce.constants.consoleevent.addCustomAttributes',
 			JSON.stringify({ data: { id, attributes } }),
-			callback ? callback : (data) => console.log(data)
+			callback
 		);
 	}
 
@@ -149,7 +147,6 @@
 	}
 
 	handleCtiEvent = (eventName, event) => {
-		console.log(eventName, event);
 		const result = GenesysCTIUtils.extractEventDetail(eventName, event);
 
 		if (eventName === 'INTERACTION_EVENT') {

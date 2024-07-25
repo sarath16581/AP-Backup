@@ -82,22 +82,8 @@ class GenesysAPBusinessLogic {
 
 				if (event.detail.isConnected) {
 					this.tracking = GenesysCTIUtils.recallCallDetails(event.callLog.id);
-
-					if (this.tracking) {
-						console.log(...UIInteraction.logPrefix, 'Session recovered', this.tracking);
-					}
 				}
-
-				console.log(...UIInteraction.logPrefix, 'All relevant props for this cti connector:', this.callLog?.toObject());
 			}
-
-			console.log(...UIInteraction.logPrefix, 'CTIEvent Info', {
-				openCti: event.detail,
-				openCtiChanges: event?.changes,
-				ausPost: this.callLog?.toObject()
-			});
-		} else {
-			console.log(...UIInteraction.logPrefix, eventName, event);
 		}
 
 		// Get a list of all actions that should be executed for this current event
@@ -117,9 +103,7 @@ class GenesysAPBusinessLogic {
 			), []);
 
 			// Error handling and logging for all processes
-			Promise.all(processes).then(
-				() => console.log(...UIInteraction.logPrefix, `Completed action(s): ${actionList.map(ac => ac.name).join(', ')}`))
-			.catch(
+			Promise.all(processes).catch(
 				err => console.error(err)
 			);
 		}
@@ -246,8 +230,6 @@ class GenesysAPBusinessLogic {
 		 */
 		track : (event) => {
 			this.trackingTask = new AsyncTask();
-
-			console.log(...UIInteraction.logPrefix, 'Track', event);
 			const ctiEventDetail = event.lastDetail || event.detail || { };
 
 			// Sync local attribute values to Genesys Call Log
@@ -521,7 +503,6 @@ class GenesysAPBusinessLogic {
 		 */
 		wrapUp : () => {
 			// clean up for next interaction
-			console.log(...UIInteraction.logPrefix, 'Tracking:', this.tracking);
 			this.tracking = null;
 			this.searchTask = null;
 			// Remove call details from local storage -> session recovery not required after this point in time
@@ -843,10 +824,6 @@ class GenesysAPBusinessLogic {
 				{ id, taskName, state, startTime },
 				state !== 'start' ? { duration } : null
 			);
-
-			if (taskName) {
-				console.log(...UIInteraction.logPrefix, `Task ${taskName}: ${state}`);
-			}
 
 			sforce.console.fireEvent(
 				'genesys.connector.trackevent',

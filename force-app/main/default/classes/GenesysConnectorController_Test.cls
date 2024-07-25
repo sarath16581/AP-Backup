@@ -63,8 +63,7 @@ public class GenesysConnectorController_Test {
 		((CasesSelector)MockUtility.Mocks.verify(mockCasesSelector, MockUtility.Mocks.times(1))).selectByArticleId((Set<Id>)articleIdsCaptor.capture(), (String)fflib_Match.eq(StarTrack_Constants.CASE_DELIVERY_DEVNAME_RT), (Set<Object>)fflib_Match.anyObject());
 		Set<Id> articleIdsCaptured = (Set<Id>) articleIdsCaptor.getValue();
 
-		System.assertEquals(1,articleIdsCaptured.size());
-
+		System.assertEquals(1, articleIdsCaptured.size());
 	}
 	/*****************************************************************
 	 * Scenario:
