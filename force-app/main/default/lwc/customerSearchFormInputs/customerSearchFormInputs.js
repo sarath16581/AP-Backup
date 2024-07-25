@@ -13,6 +13,7 @@ export const CONSUMER_CHECKBOX_LABEL = 'Consumer';
 export const SEARCH_BUTTON_LABEL = 'Search';
 export const CLEAR_BUTTON_LABEL = 'Clear';
 
+// Customer types
 export const CUSTOMER_TYPE_CONSUMER = 'CONSUMER';
 export const CUSTOMER_TYPE_ORGANISATION = 'ORGANISATION';
 
@@ -34,6 +35,41 @@ export const INPUT_ELEMENT_SELECTORS = [
 	'lightning-input',
 	'c-ame-address-validation2',
 ];
+
+/**
+ * Helper method to get the value of the onchange event from an input component
+ * based on the input type.
+ *
+ * @param {CustomEvent} event - The onchange event from the input
+ * @returns {any} The value of the changed input component.
+ */
+export function getInputOnChangeValue(event) {
+	if (!event?.detail) {
+		return undefined;
+	}
+
+	const elementName = event.target.nodeName.toLowerCase();
+
+	if (elementName === 'c-ame-address-validation2') {
+		const address = event.detail;
+		return {
+			addressLine1: address.addressLine1,
+			addressLine2: address.addressLine2,
+			city: address.city,
+			state: address.state,
+			postcode: address.postcode,
+			dpid: event.detail.dpid,
+			latitude: event.detail.latitude,
+			longitude: event.detail.longitude,
+		};
+	}
+
+	if (event.target.type === 'checkbox') {
+		return event.target.checked === true;
+	}
+
+	return event.detail.value;
+}
 
 /**
  * This component displays a form with several inputs which are used to search
@@ -282,33 +318,9 @@ export default class CustomerSearchFormInputs extends LightningElement {
 	 */
 	handleInputChange(event) {
 		const { fieldName } = event.target.dataset;
-		// const fieldValue = event.target.value;
-		let fieldValue = event.target.value;
-		// Handle different types of input fields
-		if (event.target.type === 'checkbox') {
-			fieldValue = event.target.checked === true;
-		}
-
+		const fieldValue = getInputOnChangeValue(event);
 		// store the field value based on the `name` attribute
 		this[fieldName] = fieldValue;
-	}
-
-	/**
-	 * Handles address-lookup input field change events and stores the value in the
-	 * corresponding variable based on the `data-field-name` attribute.
-	 *
-	 * @param {Event} event
-	 */
-	handleAddressInputChange(event) {
-		const address = event.detail;
-		this.addressObj = {
-			addressLine1: address.addressLine1,
-			addressLine2: address.addressLine2,
-			city: address.city,
-			state: address.state,
-			postcode: address.postcode,
-			dpid: event.detail.dpid,
-		};
 	}
 
 	/**
