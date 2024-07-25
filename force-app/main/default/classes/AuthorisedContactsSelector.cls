@@ -70,5 +70,4 @@ public virtual inherited sharing class AuthorisedContactsSelector extends Applic
 		qb.addOrderAsc(AuthorisedContacts__c.Calc_First_Name__c);
 		return (List<AuthorisedContacts__c>)Database.query(qb.toSoqlString());
 	}
-
 }

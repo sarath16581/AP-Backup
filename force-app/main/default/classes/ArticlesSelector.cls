@@ -201,20 +201,21 @@ public virtual inherited sharing class ArticlesSelector extends ApplicationSelec
 		Map<Id, Article__c> res = new Map<Id, Article__c>((List<Article__c>)Database.query(qb.toSoqlString()));
 		return res;
 	}
-    /**
-    * Returns Article list based on Article Name and record type
-    * @param names set of Article name
-    * @param recordTypeName Article record type
-    * @param selectorOptions selector options to augment result set
-    */
+
+	/**
+	* Returns Article list based on Article Name and record type
+	* @param names set of Article name
+	* @param recordTypeName Article record type
+	* @param selectorOptions selector options to augment result set
+	*/
  	public virtual List<Article__c> selectByArticleNames(Set<String> names, String recordTypeName,  Set<Object> selectorOptions) {
 		QueryBuilder qb = newQueryBuilder(selectorOptions);
-        QueryBuilder.ConditionsManager conditions = qb.addConditions();
-        conditions.add(new QueryBuilder.SimpleCondition(Article__c.Name + ' in :names'));
-        if (recordTypeName != null){
+		QueryBuilder.ConditionsManager conditions = qb.addConditions();
+		conditions.add(new QueryBuilder.SimpleCondition(Article__c.Name + ' in :names'));
+		if (recordTypeName != null){
 			conditions.add(new QueryBuilder.SimpleCondition('RecordType.DeveloperName = :recordTypeName'));
 		}
-        String soql = conditions.endConditions().toSoqlString();
+		String soql = conditions.endConditions().toSoqlString();
 		return (List<Article__c>)Database.query(soql);
 	}
 }

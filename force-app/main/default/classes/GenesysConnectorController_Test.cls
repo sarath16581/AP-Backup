@@ -57,7 +57,7 @@ public class GenesysConnectorController_Test {
 		((ArticlesSelector)MockUtility.Mocks.verify(mockArticlesSelector, MockUtility.Mocks.times(1))).selectByArticleNames((Set<String>)articleNamesCaptor.capture(), (String)fflib_Match.eq(StarTrack_Constants.CON_REC_TYPE), (Set<Object>)fflib_Match.anyObject());
 		Set<String> articleNamesCaptured = (Set<String>) articleNamesCaptor.getValue();
 
-		System.assertEquals(1,articleNamesCaptured.size());
+		System.assertEquals(1, articleNamesCaptured.size());
 
 		fflib_ArgumentCaptor articleIdsCaptor = fflib_ArgumentCaptor.forClass(Map<String, Object>.class);
 		((CasesSelector)MockUtility.Mocks.verify(mockCasesSelector, MockUtility.Mocks.times(1))).selectByArticleId((Set<Id>)articleIdsCaptor.capture(), (String)fflib_Match.eq(StarTrack_Constants.CASE_DELIVERY_DEVNAME_RT), (Set<Object>)fflib_Match.anyObject());
@@ -104,7 +104,7 @@ public class GenesysConnectorController_Test {
 
 		Test.stopTest();
 
-		System.assertEquals(String.valueOf(result), cases[0].Id + '_' + cases[0].CaseNumber + '_' + cases[0].Status);
+		System.assertEquals(String.valueOf(result), cases[0].Id + '_' + cases[0].CaseNumber + '_' + cases[0].Status, 'Incorrect assignment');
 
 		((ArticlesSelector)MockUtility.Mocks.verify(mockArticlesSelector, MockUtility.Mocks.times(1))).selectByArticleNames((Set<String>)fflib_Match.eq(new Set<String>{ articles[0].Name}),(String)fflib_Match.eq(StarTrack_Constants.CON_REC_TYPE), (Set<Object>)fflib_Match.anyObject());
 		((CasesSelector)MockUtility.Mocks.verify(mockCasesSelector, MockUtility.Mocks.times(1))).selectByArticleId((Set<Id>)fflib_Match.eq(new Set<Id>{ articles[0].Id}),(String)fflib_Match.eq(StarTrack_Constants.CASE_DELIVERY_DEVNAME_RT), (Set<Object>)fflib_Match.anyObject());
@@ -113,13 +113,13 @@ public class GenesysConnectorController_Test {
 		((ArticlesSelector)MockUtility.Mocks.verify(mockArticlesSelector, MockUtility.Mocks.times(1))).selectByArticleNames((Set<String>)articleNamesCaptor.capture(), (String)fflib_Match.eq(StarTrack_Constants.CON_REC_TYPE), (Set<Object>)fflib_Match.anyObject());
 		Set<String> articleNamesCaptured = (Set<String>) articleNamesCaptor.getValue();
 
-		System.assertEquals(1,articleNamesCaptured.size());
+		System.assertEquals(1, articleNamesCaptured.size(), 'Incorrect number of captures');
 
 		fflib_ArgumentCaptor articleIdsCaptor = fflib_ArgumentCaptor.forClass(Map<String, Object>.class);
 		((CasesSelector)MockUtility.Mocks.verify(mockCasesSelector, MockUtility.Mocks.times(1))).selectByArticleId((Set<Id>)articleIdsCaptor.capture(), (String)fflib_Match.eq(StarTrack_Constants.CASE_DELIVERY_DEVNAME_RT), (Set<Object>)fflib_Match.anyObject());
 		Set<Id> articleIdsCaptured = (Set<Id>) articleIdsCaptor.getValue();
 
-		System.assertEquals(1,articleIdsCaptured.size());
+		System.assertEquals(1, articleIdsCaptured.size());
 	}
 
   /*****************************************************************
@@ -207,7 +207,7 @@ public class GenesysConnectorController_Test {
 		((AuthorisedContactsSelector)MockUtility.Mocks.verify(mockAuthorisedContactsSelector, MockUtility.Mocks.times(1))).selectByCaseIdOrderByName((Set<Id>)caseIdsCaptor.capture(), (Set<Object>)fflib_Match.anyObject());
 		Set<Id> caseIdsCaptured = (Set<Id>) caseIdsCaptor.getValue();
 
-		System.assertEquals(1,caseIdsCaptured.size());
+		System.assertEquals(1, caseIdsCaptured.size());
 	}
 
 	/*****************************************************************
@@ -363,7 +363,7 @@ public class GenesysConnectorController_Test {
 		((CasesSelector)MockUtility.Mocks.verify(mockCasesSelector, MockUtility.Mocks.times(1))).selectByCaseNumber((Set<String>)caseNumbersCaptor.capture(), (Set<Object>)fflib_Match.anyObject());
 		Set<String> caseNumbersCaptured = (Set<String>) caseNumbersCaptor.getValue();
 
-		System.assertEquals(1,caseNumbersCaptured.size());
+		System.assertEquals(1, caseNumbersCaptured.size());
 	}
 
  	/*****************************************************************
@@ -411,7 +411,7 @@ public class GenesysConnectorController_Test {
 		((CasesSelector)MockUtility.Mocks.verify(mockCasesSelector, MockUtility.Mocks.times(1))).selectCasesByReferenceId((Set<String>)caseReferenceIdsCaptor.capture(), (Set<Object>)fflib_Match.anyObject());
 		Set<String> caseReferenceIdsCaptured = (Set<String>) caseReferenceIdsCaptor.getValue();
 
-		System.assertEquals(1,caseReferenceIdsCaptured.size());
+		System.assertEquals(1, caseReferenceIdsCaptured.size());
 	}
 
  	/*****************************************************************
@@ -458,7 +458,7 @@ public class GenesysConnectorController_Test {
 		((ContactsSelector)MockUtility.Mocks.verify(mockContactsSelector, MockUtility.Mocks.times(1))).selectById((Set<Id>)contactIdsCaptor.capture(), (Set<Object>)fflib_Match.anyObject());
 		Set<Id> contactIdsCaptured = (Set<Id>) contactIdsCaptor.getValue();
 
-		System.assertEquals(1,contactIdsCaptured.size());
+		System.assertEquals(1, contactIdsCaptured.size());
 	}
 
  	/*****************************************************************
@@ -505,7 +505,7 @@ public class GenesysConnectorController_Test {
 		fflib_ArgumentCaptor contactphoneCaptor = fflib_ArgumentCaptor.forClass(Map<String, Object>.class);
 		((ContactsSelector)MockUtility.Mocks.verify(mockContactsSelector, MockUtility.Mocks.times(1))).selectByLikedAnyPhoneOrderByName((String)contactPhoneCaptor.capture(), (Set<Object>)fflib_Match.anyObject());
 
-		System.assertEquals(true,contactPhoneCaptor != null);
+		System.assertEquals(true, contactPhoneCaptor != null);
 	}
 
  	/*****************************************************************
