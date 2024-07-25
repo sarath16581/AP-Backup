@@ -22,6 +22,7 @@
 * 2024-07-22 - Marcel HK - Added mailing address filters for the selector method `selectByCustomerSearchParamsQB` (CSLU-1072)
 * 2024-07-23 - Marcel HK - Removed 'Country' mailing address filters (CSLU-1072)
 * 2024-07-23 - Marcel HK - Allow match if MailingStreet equals addressLine1 + addressLine2 (CSLU-1106)
+* 2024-07-23 - Marcel HK - Added filters for accountId and abn/acn lookup (CSLU-447)
 */
 @IsTest
 private with sharing class ContactsSelector_Test {
@@ -433,6 +434,55 @@ private with sharing class ContactsSelector_Test {
 		Test.stopTest();
 
 		Assert.isTrue(Pattern.compile('(?is)\\bMailingStreet2__c = \'123 Example St\'').matcher(soql).find(), 'Query should filter MailingStreet2__c');
+	}
+
+	@IsTest
+	static void testSelectByCustomerSearchParamsQBWithAccountId() {
+		// =====================================
+		// Data Preparation
+		// =====================================
+		ContactsSelector cs = ContactsSelector.newInstance();
+		ContactsSelector.CustomerSearchParameters params = new ContactsSelector.CustomerSearchParameters();
+		params.accountId = fflib_IDGenerator.generate(Account.getSObjectType());
+
+		// =====================================
+		// Stubbing
+		// =====================================
+		// None!
+
+		// =====================================
+		// Testing
+		// =====================================
+		Test.startTest();
+		String soql = cs.selectByCustomerSearchParamsQB(params, new Set<Object>());
+		Test.stopTest();
+
+		Assert.isTrue(Pattern.compile('(?is)\\bAccountId = \'[a-zA-Z0-9]{18}\'').matcher(soql).find(), 'Query should filter AccountId');
+	}
+
+	@IsTest
+	static void testSelectByCustomerSearchParamsQBWithAbnAcn() {
+		// =====================================
+		// Data Preparation
+		// =====================================
+		ContactsSelector cs = ContactsSelector.newInstance();
+		ContactsSelector.CustomerSearchParameters params = new ContactsSelector.CustomerSearchParameters();
+		params.abnAcn = '11222333444';
+
+		// =====================================
+		// Stubbing
+		// =====================================
+		// None!
+
+		// =====================================
+		// Testing
+		// =====================================
+		Test.startTest();
+		String soql = cs.selectByCustomerSearchParamsQB(params, new Set<Object>());
+		Test.stopTest();
+
+		// (Account.ABN__c = '11222333444' OR Account.ACN__c = '11222333444')
+		Assert.isTrue(Pattern.compile('(?is)\\(Account.ABN__c = \'11222333444\' OR Account.ACN__c = \'11222333444\'\\)').matcher(soql).find(), 'Query should filter ABN OR ACN. ' + soql);
 	}
 
 	@IsTest

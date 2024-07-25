@@ -9,6 +9,7 @@
  * 2024-07-17 - Marcel HK - Add customer type parameters (CSLU-446) and refactor data transform into separate function
  * 2024-07-22 - Marcel HK - Added mailing address filters (CSLU-1072)
  * 2024-07-23 - Marcel HK - Removed 'Country' mailing address filters (CSLU-1072)
+ * 2024-07-23 - Marcel HK - Added accountId and abn/acn properties (CSLU-447)
  */
 public with sharing class CustomerSearchFormController {
 	// Query configuration constants
@@ -33,6 +34,8 @@ public with sharing class CustomerSearchFormController {
 	// Error and warning messages
 	@TestVisible
 	private static final String NOT_ENOUGH_PARAMS_ERROR_MSG = 'Please enter at least First and Last Name, or Phone, or Email.';
+	@TestVisible
+	private static final String INVALID_ABN_ACN_ERROR_MSG = 'Invalid ABN/ACN.';
 	@TestVisible
 	private static final String TOO_MANY_RESULTS_WARNING_MSG =
 		'Your query returned more than ' +
@@ -110,6 +113,13 @@ public with sharing class CustomerSearchFormController {
 		if (!(hasFirstAndLast || hasPhoneOrEmail)) {
 			throw new SearchException(NOT_ENOUGH_PARAMS_ERROR_MSG);
 		}
+
+		if (
+			String.isNotBlank(req.abnAcn) &&
+			!Pattern.matches('^(\\d{9}|\\d{11})$', req.abnAcn)
+		) {
+			throw new SearchException(INVALID_ABN_ACN_ERROR_MSG);
+		}
 	}
 
 	/**
@@ -138,6 +148,10 @@ public with sharing class CustomerSearchFormController {
 		params.addressCity = req.addressCity;
 		params.addressState = req.addressState;
 		params.addressPostalCode = req.addressPostalCode;
+		params.accountId = req.accountId;
+		params.abnAcn = req.abnAcn;
+
+		System.debug(params);
 
 		return params;
 	}
@@ -205,6 +219,12 @@ public with sharing class CustomerSearchFormController {
 
 		@AuraEnabled
 		public String addressPostalCode { get; set; }
+
+		@AuraEnabled
+		public Id accountId { get; set; }
+
+		@AuraEnabled
+		public String abnAcn { get; set; }
 	}
 
 	/**

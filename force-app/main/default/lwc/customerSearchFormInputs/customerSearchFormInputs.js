@@ -10,6 +10,8 @@ export const PHONE_NUMBER_LABEL = 'Phone';
 export const EMAIL_ADDRESS_LABEL = 'Email';
 export const ORGANISATION_CHECKBOX_LABEL = 'Organisation';
 export const CONSUMER_CHECKBOX_LABEL = 'Consumer';
+export const ORGANISATION_LOOKUP_LABEL = 'Organisation Name';
+export const ABN_ACN_LABEL = 'ABN/ACN';
 export const SEARCH_BUTTON_LABEL = 'Search';
 export const CLEAR_BUTTON_LABEL = 'Clear';
 
@@ -21,11 +23,13 @@ export const CUSTOMER_TYPE_ORGANISATION = 'ORGANISATION';
 export const NAME_INPUT_REGEX = '^[^\\.\\!\\(\\)\\[\\]"1-9]*$'; // TODO: create pattern in utility class
 export const EMAIL_INPUT_REGEX = undefined; // TODO: leverage existing utility class (currently uses OOTB lighting-input email pattern)
 export const PHONE_INPUT_REGEX = '^[\\d ]+$'; // TODO: leverage existing utility class
+export const ABN_ACN_INPUT_REGEX = '^(\\d{9}|\\d{11})$';
 
 // Error messages
 export const INVALID_NAME_MSG = 'Invalid name format';
 export const INVALID_PHONE_NUMBER_MSG = 'Invalid phone number';
 export const INVALID_EMAIL_ADDRESS_MSG = 'Invalid email address format';
+export const INVALID_ABN_ACN_MSG = 'Invalid ABN/ACN';
 export const MORE_INFO_REQUIRED_ERROR_MESSAGE =
 	'Please enter at least First and Last Name, or Phone, or Email.';
 export const INVALID_FORM_ERROR = 'Please fix and errors and try again';
@@ -34,6 +38,7 @@ export const INVALID_FORM_ERROR = 'Please fix and errors and try again';
 export const INPUT_ELEMENT_SELECTORS = [
 	'lightning-input',
 	'c-ame-address-validation2',
+	'lightning-record-picker',
 ];
 
 /**
@@ -62,6 +67,10 @@ export function getInputOnChangeValue(event) {
 			latitude: event.detail.latitude,
 			longitude: event.detail.longitude,
 		};
+	}
+
+	if (elementName === 'lightning-record-picker') {
+		return event.detail.recordId;
 	}
 
 	if (event.target.type === 'checkbox') {
@@ -132,6 +141,9 @@ export default class CustomerSearchFormInputs extends LightningElement {
 	organisationCheckbox = false;
 	consumerCheckbox = false;
 	addressObj;
+	organisationAccountId;
+	abnAcn = '';
+
 	showAddress = true;
 
 	get customerType() {
@@ -144,6 +156,14 @@ export default class CustomerSearchFormInputs extends LightningElement {
 		return null;
 	}
 
+	get showOrganisationSection() {
+		// Show unless only searching for conumers
+		return this.customerType !== CUSTOMER_TYPE_CONSUMER;
+	}
+	get isAbnAcnDisabled() {
+		return !!this.organisationAccountId;
+	}
+
 	errorMessage = undefined;
 	isLoading = false;
 
@@ -154,6 +174,8 @@ export default class CustomerSearchFormInputs extends LightningElement {
 	emailAddressLabel = EMAIL_ADDRESS_LABEL;
 	organisationCheckboxLabel = ORGANISATION_CHECKBOX_LABEL;
 	consumerCheckboxLabel = CONSUMER_CHECKBOX_LABEL;
+	organisationLookupLabel = ORGANISATION_LOOKUP_LABEL;
+	abnAcnLabel = ABN_ACN_LABEL;
 	searchButtonLabel = SEARCH_BUTTON_LABEL;
 	clearButtonLabel = CLEAR_BUTTON_LABEL;
 
@@ -161,11 +183,29 @@ export default class CustomerSearchFormInputs extends LightningElement {
 	nameInputRegex = NAME_INPUT_REGEX;
 	emailInputRegex = EMAIL_INPUT_REGEX;
 	phoneInputRegex = PHONE_INPUT_REGEX;
+	abnAcnInputRegex = ABN_ACN_INPUT_REGEX;
 
 	// Field validation error messages
 	invalidNameMsg = INVALID_NAME_MSG;
 	invalidEmailAddressMsg = INVALID_EMAIL_ADDRESS_MSG;
 	invalidPhoneNumberMsg = INVALID_PHONE_NUMBER_MSG;
+	invalidAbnAcnMsg = INVALID_ABN_ACN_MSG;
+
+	// Organisation Account Lookup Configuration
+	organisationLookupFilter = {
+		criteria: [
+			{
+				fieldPath: 'IsPersonAccount',
+				operator: 'eq',
+				value: false,
+			},
+		],
+		filterLogic: '1',
+	};
+	organisationLookupDisplayInfo = {
+		primaryField: 'Name',
+		additionalFields: ['ABN__c'],
+	};
 
 	/**
 	 * Identifies and iterates over each input element, and checks that
@@ -244,6 +284,9 @@ export default class CustomerSearchFormInputs extends LightningElement {
 					addressCity: this.addressObj?.city,
 					addressState: this.addressObj?.state,
 					addressPostalCode: this.addressObj?.postcode,
+					accountId: this.organisationAccountId,
+					// Ignore ABN/ACN if the organisationAccountId is set
+					abnAcn: this.organisationAccountId ? null : this.abnAcn,
 				},
 			});
 			// Handle search results
@@ -280,6 +323,8 @@ export default class CustomerSearchFormInputs extends LightningElement {
 		this.addressObj = undefined;
 		this.organisationCheckbox = false;
 		this.consumerCheckbox = false;
+		this.organisationAccountId = undefined;
+		this.abnAcn = undefined;
 
 		// Ensure field values are updated before continuing
 		await Promise.resolve();
@@ -289,13 +334,16 @@ export default class CustomerSearchFormInputs extends LightningElement {
 			...this.template.querySelectorAll(INPUT_ELEMENT_SELECTORS.join(',')),
 		];
 
-		// Clear any field-level error messages
+		// Clear any field-level error messages, and call any applicable clear/reset methods
 		inputElements.forEach((field) => {
 			if (typeof field.setCustomValidity === 'function') {
 				field.setCustomValidity(''); // Clear any custom validation message
 			}
 			if (typeof field.reportValidity === 'function') {
 				field.reportValidity(); // Refresh the UI to clear any error styles
+			}
+			if (typeof field.clearSelection === 'function') {
+				field.clearSelection(); // Call the clearSelection() method on lightning-record-picker
 			}
 		});
 

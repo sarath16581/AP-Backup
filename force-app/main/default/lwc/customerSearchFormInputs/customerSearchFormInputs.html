@@ -105,6 +105,40 @@
 				</div>
 			</div>
 
+			<!-- Organization Lookup -->
+			<template if:true={showOrganisationSection}>
+				<div class="slds-col slds-size_1-of-1 slds-large-size_2-of-3">
+					<lightning-record-picker
+						data-field-name="organisationAccountId"
+						label={organisationLookupLabel}
+						placeholder={organisationLookupLabel}
+						object-api-name="Account"
+						filter={organisationLookupFilter}
+						display-info={organisationLookupDisplayInfo}
+						onchange={handleInputChange}
+						onkeyup={handleInputKeyUp}
+						value={organisationAccountId}
+					>
+						>
+					</lightning-record-picker>
+				</div>
+				<div class="slds-col slds-size_1-of-1 slds-large-size_1-of-3">
+					<lightning-input
+						data-field-name="abnAcn"
+						disabled={isAbnAcnDisabled}
+						label={abnAcnLabel}
+						max-length="11"
+						message-when-pattern-mismatch={invalidAbnAcnMsg}
+						onchange={handleInputChange}
+						onkeyup={handleInputKeyUp}
+						pattern={abnAcnInputRegex}
+						placeholder={abnAcnLabel}
+						type="text"
+						value={abnAcn}
+					></lightning-input>
+				</div>
+			</template>
+
 			<!-- Address Lookup -->
 			<div class="slds-col slds-size_1-of-1 slds-large-size_1-of-1">
 				<c-ame-address-validation2
