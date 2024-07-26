@@ -151,8 +151,6 @@ public with sharing class CustomerSearchFormController {
 		params.accountId = req.accountId;
 		params.abnAcn = req.abnAcn;
 
-		System.debug(params);
-
 		return params;
 	}
 
