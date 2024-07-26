@@ -111,6 +111,9 @@ public with sharing class TasksSelector_Test {
             t.ActivityDate = System.today().addDays(i);
             tasks.add(t);
         }
+
+		tasks[0].CTIInteractionID__c = UUID.randomUUID().toString();
+
         insert tasks;
 
 
@@ -151,6 +154,11 @@ public with sharing class TasksSelector_Test {
 		taskMap = selectorWithOffsetLimitSorts.selectById(new Set<Id>{tasks[0].Id, tasks[1].Id}, new Set<Object>{});
 		System.assertEquals(1, taskMap.size(), 'Expected 1 result');
 
+		searchParams = new Map<String,Object>{
+			'ctiInteractionIds' => new Set<String>{ tasks[0].CTIInteractionID__c }
+		};
+		taskMap = selector.search(searchParams, new Set<Object>(), true);
+		System.assertEquals(1, taskMap.size(), 'Expected 1 result');
 		Test.stopTest();
 	}
 
