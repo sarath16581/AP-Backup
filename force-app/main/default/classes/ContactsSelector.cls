@@ -24,6 +24,7 @@
  * 2024-07-22 - Marcel HK - Added mailing address filters for the selector method `selectByCustomerSearchParamsQB` (CSLU-1072)
  * 2024-07-23 - Marcel HK - Removed 'Country' mailing address filters (CSLU-1072)
  * 2024-07-23 - Marcel HK - Allow match if MailingStreet equals addressLine1 + addressLine2 (CSLU-1106)
+ * 2024-07-23 - Marcel HK - Added filters for accountId and abn/acn lookup (CSLU-447)
  */
 public virtual inherited sharing class ContactsSelector extends ApplicationSelector {
 	public enum Options {
@@ -307,6 +308,23 @@ public virtual inherited sharing class ContactsSelector extends ApplicationSelec
 			conditionsOrder.add(String.valueOf(n + 1));
 		}
 
+		/**
+		 *  Add the Organization (Account) details to the search query criteria.
+		 */
+		if(String.isNotBlank(params.accountId)) {
+			Integer n = cm.conditions.size();
+			cm.add(new QueryBuilder.CompareCondition(Contact.AccountId).eq(params.accountId));
+			conditionsOrder.add(String.valueOf(n + 1));
+		}
+		String abnAcn = params.abnAcn?.trim();
+		if(String.isNotBlank(abnAcn)) {
+			Integer n = cm.conditions.size();
+			cm.add(new QueryBuilder.CompareCondition('Account.' + String.valueOf(Account.ABN__c)).eq(abnAcn));
+			cm.add(new QueryBuilder.CompareCondition('Account.' + String.valueOf(Account.ACN__c)).eq(abnAcn));
+			// ABN__c OR ACN__c
+			conditionsOrder.add('(' + (n + 1) + ' OR ' + (n + 2) + ')');
+		}
+
 		// Join dynamic conditions with 'AND' operator
 		cm.setConditionOrder(String.join(conditionsOrder, ' AND '));
 		cm.endConditions();
@@ -371,6 +389,8 @@ public virtual inherited sharing class ContactsSelector extends ApplicationSelec
 		public String addressCity;
 		public String addressState;
 		public String addressPostalCode;
+		public Id accountId;
+		public String abnAcn;
 	}
 
 	public enum CustomerSearchCustomerType {

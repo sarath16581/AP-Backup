@@ -8,6 +8,7 @@
  * 2024-07-17 - Marcel HK - Add customer type parameters (CSLU-446) and refactor data transform into separate function
  * 2024-07-22 - Marcel HK - Added mailing address filters (CSLU-1072)
  * 2024-07-23 - Marcel HK - Removed 'Country' mailing address filters (CSLU-1072)
+ * 2024-07-23 - Marcel HK - Added accountId and abn/acn properties (CSLU-447)
  */
 @IsTest
 public class CustomerSearchFormController_Test {
@@ -16,6 +17,7 @@ public class CustomerSearchFormController_Test {
 	static final Set<SObjectField> CONTACT_FIELDS = CustomerSearchFormController.CONTACT_FIELDS;
 	static final String NOT_ENOUGH_PARAMS_ERROR_MSG = CustomerSearchFormController.NOT_ENOUGH_PARAMS_ERROR_MSG;
 	static final String TOO_MANY_RESULTS_WARNING_MSG = CustomerSearchFormController.TOO_MANY_RESULTS_WARNING_MSG;
+	static final String INVALID_ABN_ACN_ERROR_MSG = CustomerSearchFormController.INVALID_ABN_ACN_ERROR_MSG;
 
 	@IsTest
 	static void testValidateSearchRequestWithFirstAndLastNameOnly() {
@@ -114,6 +116,28 @@ public class CustomerSearchFormController_Test {
 		} catch (CustomerSearchFormController.SearchException e) {
 			Assert.areEqual(
 				NOT_ENOUGH_PARAMS_ERROR_MSG,
+				e.getMessage(),
+				'Incorrect exception message'
+			);
+		}
+	}
+
+	@IsTest
+	static void testValidateSearchRequestWithInvalidAbnAcn() {
+		try {
+			CustomerSearchFormController.SearchRequest req = new CustomerSearchFormController.SearchRequest();
+			req.firstName = 'Joan';
+			req.lastName = 'Watson';
+			req.abnAcn = '123';
+
+			Test.startTest();
+			CustomerSearchFormController.validateSearchRequest(req);
+			Test.stopTest();
+
+			Assert.fail('SearchException should have been thrown');
+		} catch (CustomerSearchFormController.SearchException e) {
+			Assert.areEqual(
+				INVALID_ABN_ACN_ERROR_MSG,
 				e.getMessage(),
 				'Incorrect exception message'
 			);
@@ -383,5 +407,22 @@ public class CustomerSearchFormController_Test {
 		Assert.areEqual('Example Town', params.addressCity, 'City should match');
 		Assert.areEqual('VIC', params.addressState, 'State should match');
 		Assert.areEqual('3999', params.addressPostalCode, 'PostalCode should match');
+	}
+
+	@IsTest
+	static void testTransformSearchRequestWithOrganisationDetails() {
+		CustomerSearchFormController.SearchRequest req = new CustomerSearchFormController.SearchRequest();
+		req.accountId = fflib_IDGenerator.generate(Account.getSObjectType());
+		req.abnAcn = '11222333444';
+
+		Test.startTest();
+		ContactsSelector.CustomerSearchParameters params = CustomerSearchFormController.transformSearchRequest(
+			req
+		);
+		Test.stopTest();
+
+		Assert.isNotNull(params.abnAcn, 'AccountId should be set');
+		Assert.areEqual(req.accountId, params.accountId, 'AccountId should match');
+		Assert.areEqual('11222333444', params.abnAcn, 'ABN/ACN should match');
 	}
 }

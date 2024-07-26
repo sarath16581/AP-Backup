@@ -8,11 +8,13 @@ import {
 	EMAIL_ADDRESS_LABEL,
 	ORGANISATION_CHECKBOX_LABEL,
 	CONSUMER_CHECKBOX_LABEL,
+	ORGANISATION_LOOKUP_LABEL,
+	ABN_ACN_LABEL,
 	SEARCH_BUTTON_LABEL,
 	CLEAR_BUTTON_LABEL,
 	MORE_INFO_REQUIRED_ERROR_MESSAGE,
 	INVALID_FORM_ERROR,
-	INPUT_ELEMENT_SELECTORS
+	INPUT_ELEMENT_SELECTORS,
 } from 'c/customerSearchFormInputs';
 
 const CUSTOMER_SEARCH_RES_SUCCESS = {
@@ -36,7 +38,7 @@ const CUSTOMER_SEARCH_RES_ERROR = {
 function changeInputFieldValue(element, value) {
 	if (element?.nodeName.toLowerCase() === 'lightning-input') {
 		// Handle checkbox
-		if(element.type === 'checkbox') {
+		if (element.type === 'checkbox') {
 			element.checked = value === true;
 			element.dispatchEvent(
 				new CustomEvent('change', { detail: { checked: element.checked } })
@@ -47,6 +49,12 @@ function changeInputFieldValue(element, value) {
 		element.value = value;
 		element.dispatchEvent(
 			new CustomEvent('change', { detail: { value: element.value } })
+		);
+		return;
+	} else if (element?.nodeName.toLowerCase() === 'lightning-record-picker') {
+		element.value = value;
+		element.dispatchEvent(
+			new CustomEvent('change', { detail: { recordId: element.value } })
 		);
 		return;
 	}
@@ -167,17 +175,37 @@ describe('c-customer-search-form-inputs', () => {
 		expect(phoneNumberInput.maxLength).toBe('40');
 		expect(phoneNumberInput.value).toBe('');
 
-		const organisationCheckboxInput = getInputFieldElement(element, 'organisationCheckbox');
+		const organisationCheckboxInput = getInputFieldElement(
+			element,
+			'organisationCheckbox'
+		);
 		expect(organisationCheckboxInput).not.toBeNull();
 		expect(organisationCheckboxInput.type).toBe('checkbox');
 		expect(organisationCheckboxInput.label).toBe(ORGANISATION_CHECKBOX_LABEL);
 		expect(organisationCheckboxInput.checked).toBe(false);
 
-		const consumerCheckboxInput = getInputFieldElement(element, 'consumerCheckbox');
+		const consumerCheckboxInput = getInputFieldElement(
+			element,
+			'consumerCheckbox'
+		);
 		expect(consumerCheckboxInput).not.toBeNull();
 		expect(consumerCheckboxInput.type).toBe('checkbox');
 		expect(consumerCheckboxInput.label).toBe(CONSUMER_CHECKBOX_LABEL);
 		expect(consumerCheckboxInput.checked).toBe(false);
+
+		const organisationLookupInput = getInputFieldElement(
+			element,
+			'organisationAccountId'
+		);
+		expect(organisationLookupInput).not.toBeNull();
+		expect(organisationLookupInput.label).toBe(ORGANISATION_LOOKUP_LABEL);
+
+		const abnAcnInput = getInputFieldElement(element, 'abnAcn');
+		expect(abnAcnInput).not.toBeNull();
+		expect(abnAcnInput.type).toBe('text');
+		expect(abnAcnInput.label).toBe(ABN_ACN_LABEL);
+		expect(abnAcnInput.maxLength).toBe('11');
+		expect(abnAcnInput.value).toBe('');
 
 		const buttons = [
 			...element.shadowRoot.querySelectorAll('lightning-button'),
@@ -422,7 +450,10 @@ describe('c-customer-search-form-inputs', () => {
 		// Act
 		document.body.appendChild(element);
 
-		const organisationCheckboxInput = getInputFieldElement(element, 'organisationCheckbox');
+		const organisationCheckboxInput = getInputFieldElement(
+			element,
+			'organisationCheckbox'
+		);
 		changeInputFieldValue(organisationCheckboxInput, true);
 
 		// Wait for any asynchronous code to complete
@@ -431,8 +462,11 @@ describe('c-customer-search-form-inputs', () => {
 		// Assert
 		expect(organisationCheckboxInput.checked).toBe(true);
 		expect(organisationCheckboxInput.disabled).toBe(false);
-		
-		const consumerCheckboxInput = getInputFieldElement(element, 'consumerCheckbox');
+
+		const consumerCheckboxInput = getInputFieldElement(
+			element,
+			'consumerCheckbox'
+		);
 		expect(consumerCheckboxInput.disabled).toBe(true);
 	});
 
@@ -445,7 +479,10 @@ describe('c-customer-search-form-inputs', () => {
 		// Act
 		document.body.appendChild(element);
 
-		const consumerCheckboxInput = getInputFieldElement(element, 'consumerCheckbox');
+		const consumerCheckboxInput = getInputFieldElement(
+			element,
+			'consumerCheckbox'
+		);
 		changeInputFieldValue(consumerCheckboxInput, true);
 
 		// Wait for any asynchronous code to complete
@@ -455,8 +492,63 @@ describe('c-customer-search-form-inputs', () => {
 		expect(consumerCheckboxInput.checked).toBe(true);
 		expect(consumerCheckboxInput.disabled).toBe(false);
 
-		const organisationCheckboxInput = getInputFieldElement(element, 'organisationCheckbox');
+		const organisationCheckboxInput = getInputFieldElement(
+			element,
+			'organisationCheckbox'
+		);
 		expect(organisationCheckboxInput.disabled).toBe(true);
+	});
+
+	it('hides organisation input fields when consumer checkbox is selected', async () => {
+		// Arrange
+		const element = createElement('c-customer-search-form-inputs', {
+			is: CustomerSearchFormInputs,
+		});
+
+		// Act
+		document.body.appendChild(element);
+
+		const consumerCheckboxInput = getInputFieldElement(
+			element,
+			'consumerCheckbox'
+		);
+		changeInputFieldValue(consumerCheckboxInput, true);
+
+		// Wait for any asynchronous code to complete
+		await flushAllPromises();
+
+		// Assert
+		const organisationLookupInput = getInputFieldElement(
+			element,
+			'organisationAccountId'
+		);
+		expect(organisationLookupInput).toBeNull();
+
+		const abnAcnInput = getInputFieldElement(element, 'abnAcn');
+		expect(abnAcnInput).toBeFalsy();
+	});
+
+	it('disables ABN/ACN input when Organisation is selected', async () => {
+		// Arrange
+		const element = createElement('c-customer-search-form-inputs', {
+			is: CustomerSearchFormInputs,
+		});
+
+		// Act
+		document.body.appendChild(element);
+
+		// Assert
+		const organisationLookupInput = getInputFieldElement(
+			element,
+			'organisationAccountId'
+		);
+		changeInputFieldValue(organisationLookupInput, '001000000000000000');
+
+		// Wait for any asynchronous code to complete
+		await flushAllPromises();
+
+		const abnAcnInput = getInputFieldElement(element, 'abnAcn');
+		expect(abnAcnInput.disabled).toBe(true);
 	});
 
 	it('displays spinner while searching', async () => {
