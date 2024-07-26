@@ -333,7 +333,7 @@ public virtual inherited sharing class ContactsSelector extends ApplicationSelec
 		qb.setOrder(new QueryBuilder.Order(Contact.UnifiedDataScore__c).setSortingOrderDesc().setNullsOrderLast());
 		qb.addOrder(new QueryBuilder.Order(Contact.FirstName).setSortingOrderAsc().setNullsOrderLast());
 		qb.addOrder(new QueryBuilder.Order(Contact.LastName).setSortingOrderAsc().setNullsOrderLast());
-		System.debug(qb.toSoqlString());
+
 		return qb.toSoqlString();
 	}
 
