@@ -73,7 +73,7 @@ export function getInputOnChangeValue(event) {
 		return event.detail.recordId;
 	}
 
-	if (event.target.type === 'checkbox') {
+	if (event.target.type === 'checkbox' || event.target.type === 'toggle') {
 		return event.target.checked === true;
 	}
 
@@ -143,8 +143,18 @@ export default class CustomerSearchFormInputs extends LightningElement {
 	addressObj;
 	organisationAccountId;
 	abnAcn = '';
+	includePhoneNumber = true;
+	includeEmailAddress = true;
 
 	showAddress = true;
+
+	get ignorePhoneNumber() {
+		return !this.includePhoneNumber;
+	}
+
+	get ignoreEmailAddress() {
+		return !this.includeEmailAddress;
+	}
 
 	get customerType() {
 		if (this.consumerCheckbox === true) {
@@ -276,8 +286,10 @@ export default class CustomerSearchFormInputs extends LightningElement {
 				req: {
 					firstName: this.firstName,
 					lastName: this.lastName,
-					emailAddress: this.emailAddress,
-					phoneNumber: this.phoneNumber,
+					// Ignore if include email toggle disabled
+					emailAddress: this.ignoreEmailAddress ? null : this.emailAddress,
+					// Ignore if include phone toggle disabled
+					phoneNumber: this.ignorePhoneNumber ? null : this.phoneNumber,
 					customerType: this.customerType,
 					addressStreet1: this.addressObj?.addressLine1,
 					addressStreet2: this.addressObj?.addressLine2,
@@ -320,6 +332,8 @@ export default class CustomerSearchFormInputs extends LightningElement {
 		this._lastName = '';
 		this._emailAddress = '';
 		this._phoneNumber = '';
+		this.includePhoneNumber = true;
+		this.includeEmailAddress = true;
 		this.addressObj = undefined;
 		this.organisationCheckbox = false;
 		this.consumerCheckbox = false;

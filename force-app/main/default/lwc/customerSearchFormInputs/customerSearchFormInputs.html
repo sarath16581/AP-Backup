@@ -8,7 +8,7 @@
 		></lightning-spinner>
 		<div class="slds-grid slds-wrap slds-gutters">
 			<!-- First Name -->
-			<div class="slds-col slds-size_1-of-1 slds-large-size_1-of-5">
+			<div class="slds-col slds-size_1-of-1 slds-large-size_2-of-12">
 				<lightning-input
 					data-field-name="firstName"
 					label={firstNameLabel}
@@ -25,7 +25,7 @@
 			</div>
 
 			<!-- Last Name -->
-			<div class="slds-col slds-size_1-of-1 slds-large-size_1-of-5">
+			<div class="slds-col slds-size_1-of-1 slds-large-size_2-of-12">
 				<lightning-input
 					data-field-name="lastName"
 					label={lastNameLabel}
@@ -42,39 +42,78 @@
 			</div>
 
 			<!-- Phone Number -->
-			<div class="slds-col slds-size_1-of-1 slds-large-size_1-of-5">
+			<div
+				class="slds-col slds-size_1-of-1 slds-large-size_3-of-12 slds-gutters_direct-xxx-small slds-grid slds-grid_vertical-align-end"
+			>
+				<div class="slds-col slds-grow">
+					<lightning-input
+						data-field-name="phoneNumber"
+						disabled={ignorePhoneNumber}
+						label={phoneNumberLabel}
+						max-length="40"
+						message-when-pattern-mismatch={invalidPhoneNumberMsg}
+						name="phoneNumber"
+						onchange={handleInputChange}
+						onkeyup={handleInputKeyUp}
+						pattern={phoneInputRegex}
+						placeholder={phoneNumberLabel}
+						type="tel"
+						value={phoneNumber}
+					></lightning-input>
+				</div>
+				<div
+					class="slds-col slds-grow-none slds-var-m-left_xx-small slds-var-m-bottom_xx-small"
+				>
 				<lightning-input
-					data-field-name="phoneNumber"
-					disabled={ignorePhoneNumber}
-					label={phoneNumberLabel}
-					max-length="40"
-					message-when-pattern-mismatch={invalidPhoneNumberMsg}
-					name="phoneNumber"
-					onchange={handleInputChange}
-					onkeyup={handleInputKeyUp}
-					pattern={phoneInputRegex}
-					placeholder={phoneNumberLabel}
-					type="tel"
-					value={phoneNumber}
-				></lightning-input>
+				data-field-name="includePhoneNumber"
+				label="Include/Exclude Phone"
+				message-toggle-active=""
+				message-toggle-inactive=""
+				onchange={handleInputChange}
+				onkeyup={handleInputKeyUp}
+				type="toggle"
+				checked={includePhoneNumber}
+				variant="label-hidden"
+			></lightning-input>
+				</div>
 			</div>
 
 			<!-- Email Address -->
-			<div class="slds-col slds-size_1-of-1 slds-large-size_2-of-5">
-				<lightning-input
-					data-field-name="emailAddress"
-					disabled={ignoreEmailAddress}
-					label={emailAddressLabel}
-					max-length="80"
-					message-when-pattern-mismatch={invalidEmailAddressMsg}
-					name="emailAddress"
-					onchange={handleInputChange}
-					onkeyup={handleInputKeyUp}
-					pattern={emailInputRegex}
-					placeholder={emailAddressLabel}
-					type="email"
-					value={emailAddress}
-				></lightning-input>
+			<div
+				class="slds-col slds-size_1-of-1 slds-large-size_5-of-12 slds-gutters_direct-xxx-small slds-grid slds-grid_vertical-align-end"
+			>
+				<div class="slds-col slds-grow">
+					<lightning-input
+						data-field-name="emailAddress"
+						disabled={ignoreEmailAddress}
+						label={emailAddressLabel}
+						max-length="80"
+						message-when-pattern-mismatch={invalidEmailAddressMsg}
+						name="emailAddress"
+						onchange={handleInputChange}
+						onkeyup={handleInputKeyUp}
+						pattern={emailInputRegex}
+						placeholder={emailAddressLabel}
+						type="email"
+						value={emailAddress}
+					></lightning-input>
+				</div>
+				<div
+					class="slds-col slds-grow-none slds-var-m-left_xx-small slds-var-m-bottom_xx-small"
+				>
+					<lightning-input
+						data-field-name="includeEmailAddress"
+						label="Include/Exclude Email"
+						message-toggle-active=""
+						message-toggle-inactive=""
+						onchange={handleInputChange}
+						onkeyup={handleInputKeyUp}
+						type="toggle"
+						checked={includeEmailAddress}
+						variant="label-hidden"
+					></lightning-input>
+				</div>
+				<!-- </div> -->
 			</div>
 
 			<!-- Customer Type Selection -->
@@ -107,7 +146,7 @@
 
 			<!-- Organization Lookup -->
 			<template if:true={showOrganisationSection}>
-				<div class="slds-col slds-size_1-of-1 slds-large-size_2-of-3">
+				<div class="slds-col slds-size_1-of-1 slds-large-size_8-of-12">
 					<lightning-record-picker
 						data-field-name="organisationAccountId"
 						label={organisationLookupLabel}
@@ -122,7 +161,7 @@
 						>
 					</lightning-record-picker>
 				</div>
-				<div class="slds-col slds-size_1-of-1 slds-large-size_1-of-3">
+				<div class="slds-col slds-size_1-of-1 slds-large-size_4-of-12">
 					<lightning-input
 						data-field-name="abnAcn"
 						disabled={isAbnAcnDisabled}
