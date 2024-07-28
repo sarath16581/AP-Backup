@@ -11,6 +11,7 @@
  * 2024-07-23 - Marcel HK - Removed 'Country' mailing address filters (CSLU-1072)
  * 2024-07-23 - Marcel HK - Added accountId and abn/acn properties (CSLU-447)
  * 2024-07-26 - Marcel HK - Add customer type (CSLU-449)
+ * 2024-07-26 - Marcel HK - Add mailing address and related case count (CSLU-439)
  */
 public with sharing class CustomerSearchFormController {
 	// Query configuration constants
@@ -18,7 +19,8 @@ public with sharing class CustomerSearchFormController {
 	private static final Integer MAX_RESULTS = 20;
 	@TestVisible
 	private static final Set<Object> CONTACT_SELECTOR_OPTIONS = new Set<Object>{
-		ContactsSelector.Options.WITH_ACCOUNT
+		ContactsSelector.Options.WITH_ACCOUNT,
+		ContactsSelector.Options.WITH_RELATED_CASES
 	};
 	@TestVisible
 	private static final Map<SObjectType, Set<SObjectField>> SELECTOR_FIELDS = new Map<SObjectType, Set<SObjectField>>{
@@ -32,13 +34,21 @@ public with sharing class CustomerSearchFormController {
 			Contact.VerifiedEmail__c,
 			Contact.Phone,
 			Contact.MobilePhone,
-			Contact.VerifiedMobile__c
+			Contact.VerifiedMobile__c,
+			Contact.MailingStreet,
+			Contact.MailingStreet2__c,
+			Contact.MailingCity,
+			Contact.MailingState,
+			Contact.MailingPostalCode,
+			Contact.MailingCountry
 		},
 		Account.SObjectType => new Set<SObjectField>{
+			Account.Name,
 			Account.IsPersonAccount,
 			Account.Role_Type_Roll_Up__c,
 			Account.ServiceSLA__c
-		}
+		},
+		Case.SObjectType => new Set<SObjectField>{ Case.Id, Case.IsClosed }
 	};
 
 	// Error and warning messages
@@ -318,6 +328,33 @@ public with sharing class CustomerSearchFormController {
 		@AuraEnabled
 		public String customerType;
 
+		@AuraEnabled
+		public String mailingStreet;
+
+		@AuraEnabled
+		public String mailingStreet2;
+
+		@AuraEnabled
+		public String mailingCity;
+
+		@AuraEnabled
+		public String mailingState;
+
+		@AuraEnabled
+		public String mailingPostalCode;
+
+		@AuraEnabled
+		public String mailingCountry;
+
+		@AuraEnabled
+		public Integer openCasesCount;
+
+		@AuraEnabled
+		public Integer totalCasesCount;
+
+		@AuraEnabled
+		public String organisationName;
+
 		/**
 		 * @description Constructor used to initialize from a Contact object.
 		 *
@@ -337,9 +374,31 @@ public with sharing class CustomerSearchFormController {
 			this.phone = con.Phone;
 			this.mobilePhone = con.MobilePhone;
 			this.verifiedMobilePhone = con.VerifiedMobile__c;
+			// Mailing address
+			this.mailingStreet = con.MailingStreet;
+			this.mailingStreet2 = con.MailingStreet2__c;
+			this.mailingCity = con.MailingCity;
+			this.mailingState = con.MailingState;
+			this.mailingPostalCode = con.MailingPostalCode;
+			this.mailingCountry = con.MailingCountry;
 			// Account info
 			if (con.Account != null) {
 				this.customerType = getCustomerType(con.Account);
+				if (this.customerType != CUSTOMER_TYPE_CONSUMER) {
+					this.organisationName = con.Account.Name;
+				}
+			}
+			// Related cases count
+			this.openCasesCount = 0;
+			this.totalCasesCount = 0;
+			// Note: Manually aggregating as cannot use aggregate functions in SOQL sub-query
+			if (con.Cases != null && !con.Cases.isEmpty()) {
+				for (Case c : con.Cases) {
+					this.totalCasesCount++;
+					if (c.IsClosed == false) {
+						this.openCasesCount++;
+					}
+				}
 			}
 		}
 	}
