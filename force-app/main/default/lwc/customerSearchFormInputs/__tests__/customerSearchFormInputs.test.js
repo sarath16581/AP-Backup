@@ -37,8 +37,8 @@ const CUSTOMER_SEARCH_RES_ERROR = {
  */
 function changeInputFieldValue(element, value) {
 	if (element?.nodeName.toLowerCase() === 'lightning-input') {
-		// Handle checkbox
-		if (element.type === 'checkbox') {
+		// Handle checkbox/toggle elements
+		if (element.type === 'checkbox' || element.type === 'toggle') {
 			element.checked = value === true;
 			element.dispatchEvent(
 				new CustomEvent('change', { detail: { checked: element.checked } })
@@ -549,6 +549,54 @@ describe('c-customer-search-form-inputs', () => {
 
 		const abnAcnInput = getInputFieldElement(element, 'abnAcn');
 		expect(abnAcnInput.disabled).toBe(true);
+	});
+
+	it('disables phone field when include phone toggle disabled', async () => {
+		// Arrange
+		const element = createElement('c-customer-search-form-inputs', {
+			is: CustomerSearchFormInputs,
+		});
+
+		// Act
+		document.body.appendChild(element);
+
+		// Assert
+		const includePhoneToggle =getInputFieldElement(element, 'includePhoneNumber');
+		expect(includePhoneToggle.checked).toBe(true);
+
+		const phoneNumberInput = getInputFieldElement(element,'phoneNumber');
+		expect(phoneNumberInput.disabled).toBeFalsy();
+
+		changeInputFieldValue(includePhoneToggle, false);
+
+		// Wait for any asynchronous code to complete
+		await flushAllPromises();
+
+		expect(phoneNumberInput.disabled).toBe(true);
+	});
+
+	it('disables email field when include email toggle disabled', async () => {
+		// Arrange
+		const element = createElement('c-customer-search-form-inputs', {
+			is: CustomerSearchFormInputs,
+		});
+
+		// Act
+		document.body.appendChild(element);
+
+		// Assert
+		const includeEmailToggle =getInputFieldElement(element, 'includeEmailAddress');
+		expect(includeEmailToggle.checked).toBe(true);
+
+		const emailAddressInput = getInputFieldElement(element,'emailAddress');
+		expect(emailAddressInput.disabled).toBeFalsy();
+
+		changeInputFieldValue(includeEmailToggle, false);
+
+		// Wait for any asynchronous code to complete
+		await flushAllPromises();
+
+		expect(emailAddressInput.disabled).toBe(true);
 	});
 
 	it('displays spinner while searching', async () => {
