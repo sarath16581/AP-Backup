@@ -1,7 +1,7 @@
 <template>
 	<!-- Default/Initial State -->
 	<c-empty-state
-		lwc:if={defaultState}
+		lwc:if={isDefaultState}
 		illustration="paragraph"
 		title-text="Click 'Search' to begin"
 		text-position="above"
@@ -34,13 +34,20 @@
 				</p>
 			</div>
 			<!-- Warning Message (if applicable) -->
-			<p data-id="warning-message"
+			<p
+				data-id="warning-message"
 				if:true={warningMessage}
 				class="slds-text-align_center slds-text-title slds-var-m-bottom_medium"
 			>
 				{warningMessage}
 			</p>
 			<!-- Search Results Table -->
+			<c-customer-search-form-results-table
+				key-field="contactId"
+				data={data}
+				columns={columns}
+				hide-checkbox-column
+			></c-customer-search-form-results-table>
 		</div>
 	</template>
 </template>
