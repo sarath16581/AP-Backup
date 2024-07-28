@@ -9,12 +9,13 @@
  * 2024-07-22 - Marcel HK - Added mailing address filters (CSLU-1072)
  * 2024-07-23 - Marcel HK - Removed 'Country' mailing address filters (CSLU-1072)
  * 2024-07-23 - Marcel HK - Added accountId and abn/acn properties (CSLU-447)
+ * 2024-07-26 - Marcel HK - Add customer type (CSLU-449)
  */
 @IsTest
 public class CustomerSearchFormController_Test {
 	static final Integer MAX_RESULTS = CustomerSearchFormController.MAX_RESULTS;
 	static final Set<Object> CONTACT_SELECTOR_OPTIONS = CustomerSearchFormController.CONTACT_SELECTOR_OPTIONS;
-	static final Set<SObjectField> CONTACT_FIELDS = CustomerSearchFormController.CONTACT_FIELDS;
+	static final Map<SObjectType, Set<SObjectField>> SELECTOR_FIELDS = CustomerSearchFormController.SELECTOR_FIELDS;
 	static final String NOT_ENOUGH_PARAMS_ERROR_MSG = CustomerSearchFormController.NOT_ENOUGH_PARAMS_ERROR_MSG;
 	static final String TOO_MANY_RESULTS_WARNING_MSG = CustomerSearchFormController.TOO_MANY_RESULTS_WARNING_MSG;
 	static final String INVALID_ABN_ACN_ERROR_MSG = CustomerSearchFormController.INVALID_ABN_ACN_ERROR_MSG;
@@ -205,6 +206,66 @@ public class CustomerSearchFormController_Test {
 	}
 
 	@IsTest
+	static void testSearchResultTransformWithConsumer() {
+		Contact c = new Contact();
+		Account acc = new Account();
+		acc = (Account) ApplicationTestDataFactory.setUnwritableFields(acc, new Map<String, Object>{ 'IsPersonAccount' => true});
+		c = (Contact) ApplicationTestDataFactory.setUnwritableFields(c, new Map<String, Object>{ 'Account' => acc});
+
+		Test.startTest();
+		CustomerSearchFormController.SearchResult sr;
+		sr = new CustomerSearchFormController.SearchResult(c);
+		Test.stopTest();
+
+		Assert.areEqual('Consumer', sr.customerType, 'Incorrect Customer Type');
+	}
+	
+	@IsTest
+	static void testSearchResultTransformWithSMB() {
+		Contact c = new Contact();
+		Account acc = new Account();
+		acc = (Account) ApplicationTestDataFactory.setUnwritableFields(acc, new Map<String, Object>{ 'IsPersonAccount' => false, 'Role_Type_Roll_Up__c' => 'Customer' });
+		c = (Contact) ApplicationTestDataFactory.setUnwritableFields(c, new Map<String, Object>{ 'Account' => acc});
+
+		Test.startTest();
+		CustomerSearchFormController.SearchResult sr;
+		sr = new CustomerSearchFormController.SearchResult(c);
+		Test.stopTest();
+
+		Assert.areEqual('SMB', sr.customerType, 'Incorrect Customer Type');
+	}
+
+	@IsTest
+	static void testSearchResultTransformWithEnterprise() {
+		Contact c = new Contact();
+		Account acc = new Account(ServiceSLA__c = 'Enterprise');
+		acc = (Account) ApplicationTestDataFactory.setUnwritableFields(acc, new Map<String, Object>{ 'IsPersonAccount' => false, 'Role_Type_Roll_Up__c' => 'Customer' });
+		c = (Contact) ApplicationTestDataFactory.setUnwritableFields(c, new Map<String, Object>{ 'Account' => acc});
+
+		Test.startTest();
+		CustomerSearchFormController.SearchResult sr;
+		sr = new CustomerSearchFormController.SearchResult(c);
+		Test.stopTest();
+
+		Assert.areEqual('Enterprise', sr.customerType, 'Incorrect Customer Type');
+	}
+
+	@IsTest
+	static void testSearchResultTransformWithConsumerSMB() {
+		Contact c = new Contact();
+		Account acc = new Account();
+		acc = (Account) ApplicationTestDataFactory.setUnwritableFields(acc, new Map<String, Object>{ 'IsPersonAccount' => false });
+		c = (Contact) ApplicationTestDataFactory.setUnwritableFields(c, new Map<String, Object>{ 'Account' => acc});
+
+		Test.startTest();
+		CustomerSearchFormController.SearchResult sr;
+		sr = new CustomerSearchFormController.SearchResult(c);
+		Test.stopTest();
+
+		Assert.areEqual('Consumer SMB', sr.customerType, 'Incorrect Customer Type');
+	}
+
+	@IsTest
 	static void testCreateResponseWithNoContacts() {
 		List<Contact> contacts = new List<Contact>();
 
@@ -307,7 +368,7 @@ public class CustomerSearchFormController_Test {
 		((ContactsSelector) MockUtility.Mocks.verify(mockContactsSelector))
 			.setLimit(MAX_RESULTS + 1);
 		((ContactsSelector) MockUtility.Mocks.verify(mockContactsSelector))
-			.setFieldOverrides(CONTACT_FIELDS);
+			.setFieldOverrides(SELECTOR_FIELDS);
 	}
 
 	@IsTest
