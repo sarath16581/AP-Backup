@@ -820,13 +820,25 @@ public with sharing class HappyParcelController {
 
 	/**
 	 * @description	Use the API to pull back the filtered out image. The API blacks out faces and text on the images.
-	 * @param	guidId String
-	 * @param	eventMessageId String
+	 * @param	guidId String the image GUID
+	 * @param	eventMessageId String Salesforce Id of the Event Message record that the image will be attached to 
 	 * @return	Object
 	 */
-	@AuraEnabled(Continuation=true)
 	public static Object getSafeDropImageForPOD(String guidId, String eventMessageId){
-		return MyCustomerDeliveryProofPdfController.getSafeDropImage(guidId, eventMessageId);
+		Continuation continuationRequest = (Continuation) MyCustomerDeliveryProofPdfController.getSafeDropImage(guidId, eventMessageId);
+		// replace the original continuation method (from MyCustomerDeliveryProofPdfController) with the correct one in HappyParcelController
+		continuationRequest.continuationMethod = 'processSafeDropImageForPOD';
+
+		return continuationRequest;
+	}
+
+	/**
+	 * @description Callback method for the async callout for retrieving the safe drop image for the POD. Re-uses existing method on
+	 * MyCustomerDeliveryProofPdfController to save image as attachment on the event message
+	 */
+	@AuraEnabled
+	public static Object processSafeDropImageForPOD(List<String> labels, Object state) {
+		return MyCustomerDeliveryProofPdfController.safeDropImageCallback(labels, state);
 	}
 
 	/**
