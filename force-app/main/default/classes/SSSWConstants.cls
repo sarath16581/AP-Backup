@@ -21,6 +21,7 @@
   * 27.03.2023 StephenL added constant: RECTYPE_ARTICLE_CONSIGNMENT
   * 13.06.2024 Parveen Kaushik Added new constants for Enquiry Mapping object to identify model type.
   * 10.07.2024 Vasu Gorakati Added new constant SSSW_ENTITLEMENT
+  * 19-07-2024 - Ranjeewa Silva - Added constants for new SSSWRouting record type (UnifiedRouting) and new customer service agent profile name.
   */  
 public with sharing class SSSWConstants {
 
@@ -165,6 +166,7 @@ public with sharing class SSSWConstants {
 	public static final String RECTYPENPS = 'SSSWNPS';
 	public static final String RECTYPEESCALATION = 'SSSWEscalation';
 	public static final String RECTYPEDESCRIPTION = 'SSSWDescription';
+	public static final String SSSWROUTING_RECTYPE_UNIFIEDROUTING = 'UnifiedRouting';
 	
 	/*** CaseTrackingHelper Constants  ***/
 	public static final String WHITE_SPACE = ' ';
@@ -319,6 +321,7 @@ public with sharing class SSSWConstants {
 	public static final String SSSW_AGENT_PROFILE = 'SSSW - Service Agent';
 	public static final String SSSW_SOCIAL_INTEGRATION_PROFILE = 'SSSW Social Integration';
 	public static final String SSSW_BSP_COMMUNITY_USER_PROFILE = 'BSP Community User';
+	public static final String UNIFIED_AGENT_PROFILE = 'CustomerService';
 
 	/*** Omnichannel Constants ***/
 	public static final String OMNI_AGENTWORK_STATUS_OPENED = 'Opened';

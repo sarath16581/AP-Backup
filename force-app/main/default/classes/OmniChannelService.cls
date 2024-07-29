@@ -18,6 +18,7 @@
 * 		10/02/2023				George Nguyen				Added rerouteCasesWithPreferredAgentByPass and Cache
 *		17/03/2023				Noel Lim					Added class variables omniClosedCaseQueueId and omniHoldingQueueId
 *		19/04/2023				George Nguyen				Added getUserIdsWithPreferredAgentSkills which gets the list of user ids that have Preferred agent skills
+*		16/07/2024				Ranjeewa Silva				Updates to support Unified case routing and preferred agent selection.
 **/
 public inherited sharing class OmniChannelService {
 
@@ -81,8 +82,28 @@ public inherited sharing class OmniChannelService {
 		private set;
 	}
 
+	public String omniUnifiedDefaultQueueId {
+		get {
+			if (omniUnifiedDefaultQueueId == null) {
+				omniUnifiedDefaultQueueId = QM__c.getOrgDefaults().UnifiedDefaultOmniQueueId__c;
+			}
+			return omniUnifiedDefaultQueueId;
+		}
+		private set;
+	}
+
+	public static Decimal omniUnifiedPreferredAgentExpiry {
+		get {
+			if (omniUnifiedPreferredAgentExpiry == null) {
+				omniUnifiedPreferredAgentExpiry = QM__c.getOrgDefaults().UnifiedPreferredAgentExpiry__c;
+			}
+			return omniUnifiedPreferredAgentExpiry;
+		}
+		private set;
+	}
+
 	// this stores the qualified skills for Preferred Agents
-	public Set<String> preferredAgentQualifySkillDeveloperNames {
+	@TestVisible public Set<String> preferredAgentQualifySkillDeveloperNames {
 		get {
 			if(preferredAgentQualifySkillDeveloperNames == null) {				
 				preferredAgentQualifySkillDeveloperNames = new Set<String>();
@@ -216,18 +237,108 @@ public inherited sharing class OmniChannelService {
 		}
 		return result;
 	}
-	
-	/*
-	* This method returns a map of CaseIds and its latest AgentWork where the UserId is an active User
-	*/
-	public Map<Id,AgentWork> getCaseIdsWithLatestAcceptedAgentWorks(Set<Id> caseIds) {
-		Map<Id, AgentWork> caseIdsVsAgentWorks = new Map<Id, AgentWork>();
-		for(AgentWork aw: new WithoutSharingRetrieveData().getLatestAcceptedAgentWorkItems(caseIds)) {
-			if(caseIdsVsAgentWorks.containsKey(aw.WorkItemId) == false) { // The selector returns by sorting AcceptedDate DESC so we only need to take the first AW for each Case.
-				caseIdsVsAgentWorks.put(aw.WorkItemId, aw);
+
+	/**
+	 * Return the latest accepted AgentWork, if available, for each of the work item in the collection passed in.
+	 *
+	 * @param workItems Map of work items to get latest accepted AgentWork. key : work item Id, value : work item
+	 * @param includeChildContactRequestWorkItems If true include agents who previously handled child ContactRequests
+	 *											  related to the work items passed in.
+	 *
+	 * @return Map of latest accepted AgentWork to work item Ids passed in. key : work item Id, value : AgentWork record
+	 *		 Only work items with accepted AgentWork record are included in the map.
+	 */
+	public Map<Id, AgentWork> getLatestAcceptedAgentWork(Map<Id, SObject> workItems, Boolean includeChildContactRequestWorkItems) {
+
+		// if 'includeChildContactRequestWorkItems' is set to true, we need to include child ContactRequests on eligible
+		// work items.
+		Map<Id, ContactRequest> workItemChildContactRequests = new Map<Id, ContactRequest>();
+		if (includeChildContactRequestWorkItems) {
+			// do we really need this 'unifiedRecordTypeId' check here ? TBC.
+			Set<Id> workItemRecordTypes = workItems.getSObjectType() == Case.SObjectType ? CaseRoutingService.unifiedRecordTypeIds : new Set<Id>();
+			workItemChildContactRequests = getChildContactRequests(workItems, workItemRecordTypes);
+		}
+
+		// work out the work items in scope for retrieving AgentWork including any child contact requests in scope.
+		Set<Id> workItemScope = new Set<Id>(workItems.keySet());
+		workItemScope.addAll(workItemChildContactRequests.keySet());
+
+		// get the latest accepted AgentWork for each of the work item in scope
+		Map<Id, AgentWork> workItemAcceptedAgentWorks = selectLatestAcceptedAgentWorkForWorkItems(workItemScope);
+
+		if (workItemChildContactRequests.isEmpty()) {
+			// child ContactRequests were NOT included when retrieving AgentWork. we now have latest accepted AgentWork
+			// for work items. return the results.
+			return workItemAcceptedAgentWorks;
+		}
+
+		// child ContactRequests were included into the scope. we need to find the last accepted AgentWork for each work
+		// item considering AgentWork on child ContactRequests.
+		Map<Id, AgentWork> results = new Map<Id, AgentWork>();
+		for (AgentWork aw: workItemAcceptedAgentWorks.values()) {
+			// if AgentWork.WorkItemId is one of the work items passed into this method we have the record id to include
+			// in the return map. if not AgentWork.WorkItemId must be one of the child ContactRequests of a work item passed in.
+			Id recordId = (workItems.containsKey(aw.WorkItemId) ? aw.WorkItemId : workItemChildContactRequests.get(aw.WorkItemId).WhatId);
+			// only need to return the latest AgentWork for a work item passed in.
+			if (results.get(recordId)?.AcceptDateTime == null || results.get(recordId).AcceptDateTime < aw.AcceptDateTime) {
+				results.put(recordId, aw);
 			}
 		}
-		return caseIdsVsAgentWorks;
+
+		return results;
+	}
+
+	/**
+	 * Return child ContactRequests for the records passed in. If 'parentRecordTypesFilter' is specified, ContactRequests
+	 * for parent records matching specified record types are returned.
+	 *
+	 * @param parentRecords Parent records of ContactRequests to return
+	 * @param parentRecordTypesFilter Optional. Additional record types filter to apply on parent records before querying
+	 *								and returning ContactRequests
+	 *
+	 * @return Child ContactRequest records for parent records passed in.
+	 */
+	private Map<Id, ContactRequest> getChildContactRequests(Map<Id, SObject> parentRecords, Set<Id> parentRecordTypesFilter) {
+
+		Set<Id> parentRecordIds = new Set<Id>();
+
+		if (!parentRecordTypesFilter.isEmpty()) {
+			// filter parent records by specified record types
+			for (SObject record: parentRecords.values()) {
+				if (parentRecordTypesFilter.contains((Id)record.get('RecordTypeId'))) {
+					parentRecordIds.add(record.Id);
+				}
+			}
+		} else {
+			// optional record types filter is not specified. include all parent records.
+			parentRecordIds.addAll(parentRecords.keySet());
+		}
+
+
+		if (!parentRecordIds.isEmpty()) {
+			return new WithoutSharingRetrieveData().getContactRequests(parentRecordIds);
+		}
+
+		return new Map<Id, ContactRequest>();
+	}
+
+	/**
+	 * Return latest accepted AgentWork for work items passed in. Work items with no accepted AgentWork is not included in
+	 * the return map.
+	 *
+	 * @param workItemIds set of parent work item Ids to select AgentWork
+	 *
+	 * @return map of latest accepted AgentWork for work items. key : work item id, value: AgentWork record
+	 */
+	private Map<Id,AgentWork> selectLatestAcceptedAgentWorkForWorkItems(Set<Id> workItemIds) {
+		Map<Id, AgentWork> workItemLatestAcceptedAgentWorks = new Map<Id, AgentWork>();
+		for(AgentWork aw: new WithoutSharingRetrieveData().getLatestAcceptedAgentWorkItems(workItemIds)) {
+			// selector returns by sorting AcceptedDate DESC so we only need to take the first AW for each work item.
+			if(workItemLatestAcceptedAgentWorks.containsKey(aw.WorkItemId) == false) {
+				workItemLatestAcceptedAgentWorks.put(aw.WorkItemId, aw);
+			}
+		}
+		return workItemLatestAcceptedAgentWorks;
 	}
 
 	/**
@@ -275,10 +386,166 @@ public inherited sharing class OmniChannelService {
 	}
 
 	/**
-	 * Required to provide elevated privileges for guest users to query the AgentWork object 
+	 * Verify agents eligibility to work on items assigned to omni-channel queues.
+	 *  - If work item is assigned to a queue configured for 'Skills-Based' routing, an eligible preferred agent must
+	 *	possess required skills.
+	 *  - If work item is assigned to a queue configured for 'Queue-Based' routing, an eligible preferred agent must
+	 *	be a queue member.
+	 *
+	 * @param verifiableAgentEligibility agents to check eligibility for specified queue. key : queue Id, value : set of user ids to check.
+	 *
+	 * @return eligible agents for each queue. key : queue id, value : set of eligible agent user ids
+	 */
+	public Map<Id, Set<Id>> verifyEligibilityForOmniChannelQueues(Map<Id, Set<Id>> verifiableAgentEligibility) {
+
+		Map<Id, Set<Id>> queueBasedEligibility = new Map<Id, Set<Id>>();
+		Map<Id, Set<Id>> skillsBasedEligibility = new Map<Id, Set<Id>>();
+
+		for (Id omniQueueId: verifiableAgentEligibility.keySet()) {
+			// get omni routing configuration linked to this omni-enabled queue.
+			QueueRoutingConfig routingConfiguration = OmniChannelService.Cache.queuesWithRoutingConfig.get(omniQueueId)?.routingConfiguration;
+			if (routingConfiguration != null && routingConfiguration.IsAttributeBased) {
+				// skill based routing check
+				skillsBasedEligibility.put(omniQueueId, verifiableAgentEligibility.get(omniQueueId));
+			} else if (routingConfiguration != null){
+				// queue based routing check
+				queueBasedEligibility.put(omniQueueId, verifiableAgentEligibility.get(omniQueueId));
+			}
+		}
+
+		Map<Id, Set<Id>> results = new Map<Id, Set<Id>>();
+		if (!skillsBasedEligibility.isEmpty()) {
+			results.putAll(verifySkillBasedEligibility(skillsBasedEligibility));
+		}
+		if (!queueBasedEligibility.isEmpty()) {
+			results.putAll(verifyQueueBasedEligibility(queueBasedEligibility));
+		}
+
+		return results;
+	}
+
+	/**
+	 * Check eligibility of agents to work on items assigned to 'Queue Based' omni channel queues. Eligibility is checked
+	 * only for the supplied agent users.
+	 *
+	 * @param verifiableQueueBasedEligibility agents to check membership for specified queue. key : queue Id, value : set of user ids to check.
+	 *
+	 * @return eligible agents for each queue. key : queue id, value : set of eligible agent user ids
+	 */
+	private Map<Id, Set<Id>> verifyQueueBasedEligibility(Map<Id, Set<Id>> verifiableQueueBasedEligibility) {
+
+		// find eligible users for the queues. we need to consider other public groups who are members of the queue too.
+		// for current use case we only support below 2 scenarios:
+		//	  - Users configured as direct member of the omni queue
+		//	  - Users who are direct members of a public group that is configured as a member of the omni queue
+		// all other scenarios are no supported.
+		Map<Id, Set<Id>> eligibleQueueMembers = expandGroupMemberUsers(verifiableQueueBasedEligibility.keySet(), true);
+
+		Map<Id, Set<Id>> results = new Map<Id, Set<Id>>();
+		for (Id queueId: eligibleQueueMembers.keySet()) {
+			Set<Id> agentIds = eligibleQueueMembers.get(queueId);
+			// check if we are asked to verify membership of 'agentIds' for the queue.
+			// we should only return group members for the memberships we are requested to check.
+			agentIds.retainAll(verifiableQueueBasedEligibility.get(queueId));
+			results.put(queueId, agentIds);
+		}
+
+		return results;
+	}
+
+	/**
+	 * Expand group membership for specified public groups and return the users who are group members.
+	 *
+	 * Supports expanding nested public groups only one level deep if 'expandDirectMemberGroups' is set to true.
+	 *
+	 * @param groupIds public group ids
+	 * @param expandDirectMemberGroups if true, include users who are direct members of child groups of specified groups.
+	 *
+	 * @return group membership mapping, key - group id (from groupIds parameter), value - member user ids
+	 */
+	private Map<Id, Set<Id>> expandGroupMemberUsers(Set<Id> groupIds, Boolean expandDirectMemberGroups) {
+		Map<Id, Set<Id>> results = new Map<Id, Set<Id>>();
+
+		// query public groups by group ids. also retrieve direct members of these groups. direct members can be a user
+		// or another group based on the configuration.
+		Map<Id, Group> groups = new WithoutSharingRetrieveData().getGroupsWithDirectMembers(groupIds);
+
+		// store group id mappings for child groups that are direct members of parent groups queried. note that one
+		// child group could be a member of multiple parent groups.
+		// key - child group id, value - set of parent group ids.
+		Map<Id, Set<Id>> nestedGroupMappings = new Map<Id, Set<Id>>();
+
+		for (Group groupRecord: groups.values()) {
+			// we need to return the member users for each group
+			results.put(groupRecord.Id, new Set<Id>());
+
+			for (GroupMember member: groupRecord.GroupMembers) {
+				if (member.UserOrGroupId.getSobjectType() == User.SObjectType) {
+					// direct member is a User. add to the results to be returned.
+					results.get(groupRecord.Id).add(member.UserOrGroupId);
+				} else if (expandDirectMemberGroups) {
+					// direct member is a Group and we need to expand this nested group to find it's direct member users.
+					// store the mapping in 'nestedGroupMappings' so we can resolve memberships for the parent group at the end.
+					Set<Id> parentGroups = nestedGroupMappings.get(member.UserOrGroupId);
+					if (parentGroups == null) {
+						parentGroups = new Set<Id>();
+						nestedGroupMappings.put(member.UserOrGroupId, parentGroups);
+					}
+					parentGroups.add(member.GroupId);
+				}
+			}
+		}
+
+		if (expandDirectMemberGroups && !nestedGroupMappings.isEmpty()) {
+			// 'expandDirectMemberGroups = true' and we have found child groups which are direct members of the groups passed in.
+			// recursively call this method, but this time with 'expandDirectMemberGroups = false'.
+			// for this use case, we are only interested in users who are direct members of the identified child groups.
+			Map<Id, Set<Id>> nestedGroupMemberUsers = expandGroupMemberUsers(nestedGroupMappings.keySet(), false);
+			for (Id nestedGroupId: nestedGroupMemberUsers.keySet()) {
+				// we now have member users for child groups we expanded.
+				Set<Id> memberUsers = nestedGroupMemberUsers.get(nestedGroupId);
+				// we need to map them back to the parent group ids passed into this method before returning.
+				for (Id parentGroupId: nestedGroupMappings.get(nestedGroupId)) {
+					results.get(parentGroupId).addAll(memberUsers);
+				}
+			}
+		}
+
+		return results;
+	}
+
+	/**
+	 * Check eligibility of agents to work on items assigned to skills based omni channel queues. Eligibility is checked
+	 * only for the supplied agent users.
+	 *
+	 * @param verifiableSkillsEligibility agents to check skills for omni channel queues - key : queue id, value : Set of user Ids to check.
+	 *
+	 * @return eligible agents for each queue. key : queue id, value : set of eligible agent user ids
+	 */
+	private Map<Id, Set<Id>> verifySkillBasedEligibility(Map<Id, Set<Id>> verifiableSkillsEligibility) {
+		Set<Id> agentIds = new Set<Id>();
+		for (Set<Id> userIds: verifiableSkillsEligibility.values()) {
+			agentIds.addAll(userIds);
+		}
+
+		// call method currently used by SSSW cases to check preferred agent skills. however this is checking the agents
+		// possess a org specific set of skills configured in org wide custom setting - QM__c.getOrgDefaults().PreferredAgentSkillDeveloperNames__c
+		Set<Id> agentsQualifiedBySkills = getUserIdsWithPreferredAgentSkills(agentIds);
+
+		Map<Id, Set<Id>> results = new Map<Id, Set<Id>>();
+		for (Id omniQueueId: verifiableSkillsEligibility.keySet()) {
+			Set<Id> verifiable = new Set<Id>(verifiableSkillsEligibility.get(omniQueueId));
+			verifiable.retainAll(agentsQualifiedBySkills);
+			results.put(omniQueueId, verifiable);
+		}
+		return results;
+	}
+
+	/**
+	 * Required to provide elevated privileges for guest users to query the AgentWork object
 	 */
 	public without sharing class WithoutSharingRetrieveData{
-		
+
 		private List<AgentWork> getLatestAcceptedAgentWorkItems(Set<Id> caseIds){
 			return AgentWorkSelector.newInstance(0, new Set<SObjectField>{AgentWork.Id, AgentWork.WorkItemId, AgentWork.UserId}).selectByAcceptedWorkItemIdsAndActiveUser(caseIds, new Set<Object>());
 		}
@@ -293,27 +560,62 @@ public inherited sharing class OmniChannelService {
 
 		private Map<Id, QueueWrapper> getQueuesWithRoutingConfigs() {
 			Map<Id, QueueWrapper> queuesWithRoutingConfig = new Map<Id, QueueWrapper>();
-	
-			List<Group> queues = [SELECT DeveloperName, QueueRoutingConfigId FROM Group WHERE Type = 'Queue' AND QueueRoutingConfigId != NULL];
-			Set<Id> queueRoutingConfigIds = new Set<Id>();	
 
-			for(Group queue : queues) {
+			// platform currently don't allow querying related QueueRoutingConfig fields from Group. hence we need
+			// to query omni queues from Group first and then separately query QueueRoutingConfig.
+			Map<Id, Group> queueGroups = ((GroupsSelector)GroupsSelector.newInstance().setFieldOverrides(new Set<SObjectField>{
+					Group.Id, Group.DeveloperName, Group.QueueRoutingConfigId
+			})).selectOmniQueues(new Set<Object>());
+
+			Set<Id> queueRoutingConfigIds = new Set<Id>();
+			for(Group queue : queueGroups.values()) {
 				queueRoutingConfigIds.add(queue.QueueRoutingConfigId);
 			}
 
-			if(queueRoutingConfigIds.isEmpty() == false){
-				List<QueueRoutingConfig> routingConfigs = [SELECT CapacityPercentage, CapacityWeight, DropAdditionalSkillsTimeout, IsAttributeBased, OverflowAssigneeId, 
-															PushTimeout, RoutingModel, RoutingPriority, DeveloperName FROM QueueRoutingConfig WHERE Id IN :queueRoutingConfigIds];
-				for(Group queue : queues){
-					for(QueueRoutingConfig routingConfig : routingConfigs){
-						if(queue.QueueRoutingConfigId == routingConfig.Id){
-							queuesWithRoutingConfig.put(queue.Id, new QueueWrapper(queue, routingConfig));
-						}
-					}					
+			if (!queueRoutingConfigIds.isEmpty()) {
+
+				Set<SObjectField> fieldOverrides = new Set<SObjectField>{
+						QueueRoutingConfig.CapacityPercentage, QueueRoutingConfig.CapacityWeight, QueueRoutingConfig.DropAdditionalSkillsTimeout,
+						QueueRoutingConfig.IsAttributeBased, QueueRoutingConfig.OverflowAssigneeId, QueueRoutingConfig.PushTimeout,
+						QueueRoutingConfig.RoutingModel, QueueRoutingConfig.RoutingPriority, QueueRoutingConfig.DeveloperName
+				};
+
+				Map<Id, QueueRoutingConfig> routingConfigs = new Map<Id, QueueRoutingConfig>(
+						((QueueRoutingConfigSelector)QueueRoutingConfigSelector.newInstance().setFieldOverrides(fieldOverrides)).selectById(queueRoutingConfigIds)
+				);
+
+				for(Group queue : queueGroups.values()){
+					QueueRoutingConfig routingConfig = routingConfigs.get(queue.QueueRoutingConfigId);
+					if (routingConfig != null) {
+						queuesWithRoutingConfig.put(queue.Id, new QueueWrapper(queue, routingConfig));
+					}
 				}
 			}
-			
+
 			return queuesWithRoutingConfig;
+		}
+
+		private Map<Id, ContactRequest> getContactRequests(Set<Id> parentIds) {
+			return new Map<Id, ContactRequest>(
+					ContactRequestsSelector.newInstance(0, new Set<SObjectField>{
+							ContactRequest.Id, ContactRequest.WhatId
+					}).search(new Map<String, Object>{
+							'whatIds' => parentIds
+					}, true)
+			);
+		}
+
+		private Map<Id, Group> getGroupsWithDirectMembers(Set<Id> groupIds) {
+			Map<SObjectType, Set<SObjectField>> fieldOverrides = new Map<SObjectType, Set<SObjectField>>{
+					Group.SObjectType => new Set<SObjectField>{Group.Id, Group.Type},
+					GroupMember.SObjectType => new Set<SObjectField>{
+							GroupMember.Id, GroupMember.GroupId, GroupMember.UserOrGroupId
+					}
+			};
+
+			return ((GroupsSelector)GroupsSelector.newInstance().setFieldOverrides(fieldOverrides)).selectById(groupIds, new Set<Object>{
+					GroupsSelector.Options.WITH_DIRECT_MEMBERS
+			});
 		}
 	}
 
