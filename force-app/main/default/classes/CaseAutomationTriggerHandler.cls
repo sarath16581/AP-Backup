@@ -4,6 +4,7 @@
  * @date 2023-06-12
  * @changelog
  * 2023-11-23 - Thang Nguyen - include the credit claim case business logic
+ * 2024-07-08 - Seth Heang - Added 'filterUnified' to recordtype filtering and register a new module for handling proactive monitoring queue routing
  */
 public inherited sharing class CaseAutomationTriggerHandler extends ApplicationTriggerHandler {
 
@@ -17,10 +18,10 @@ public inherited sharing class CaseAutomationTriggerHandler extends ApplicationT
 					'SSSW' => new Set<Id>(),
 					'SSSWWithSocial' => new Set<Id>(),
 					'StarTrack' => new Set<Id>(),
-					'Enterprise_Credit_Dispute_Claim' => new Set<Id>()
+					'Enterprise_Credit_Dispute_Claim' => new Set<Id>(),
+					'UnifiedInvestigation' => new Set<Id>()
 				};
-				List<RecordType> recordTypes = new RecordTypesSelector().selectByDeveloperNamesLike('Case', new Set<String>{'SSSW', 'Social', 'StarTrack', 'Enterprise_Credit_Dispute_Claim'}).values();
-
+				List<RecordType> recordTypes = new RecordTypesSelector().selectByDeveloperNamesLike('Case', new Set<String>{'SSSW', 'Social', 'StarTrack', 'Enterprise_Credit_Dispute_Claim', 'UnifiedInvestigation'}).values();
 				for(RecordType rt : recordTypes) {
 					if(rt.DeveloperName.startsWithIgnoreCase('SSSW')) {
 						recordTypesByKey.get('SSSW').add(rt.Id);
@@ -34,7 +35,10 @@ public inherited sharing class CaseAutomationTriggerHandler extends ApplicationT
 					}
 					if(rt.DeveloperName.startsWithIgnoreCase('Enterprise_Credit_Dispute_Claim')) {
 						recordTypesByKey.get('Enterprise_Credit_Dispute_Claim').add(rt.Id);
-					}					
+					}
+					if(rt.DeveloperName.startsWithIgnoreCase('UnifiedInvestigation')) {
+						recordTypesByKey.get('UnifiedInvestigation').add(rt.Id);
+					}
 				}
 			}
 			return recordTypesByKey;
@@ -60,7 +64,8 @@ public inherited sharing class CaseAutomationTriggerHandler extends ApplicationT
 			'filterSSSW' => new List<SObject>(),
 			'filterSSSWWithSocial' => new List<SObject>(),
 			'filterStarTrack' => new List<SObject>(),
-			'filterCreditDisputeClaim' => new List<SObject>()
+			'filterCreditDisputeClaim' => new List<SObject>(),
+			'filterUnified' => new List<SObject>()
 		};
 		for(SObject record : records) {
 			Id recordTypeId = (Id)record.get('RecordTypeId');
@@ -76,7 +81,9 @@ public inherited sharing class CaseAutomationTriggerHandler extends ApplicationT
 			if(recordTypesByKey.get('Enterprise_Credit_Dispute_Claim').contains(recordTypeId)) {
 				filteredRecords.get('filterCreditDisputeClaim').add(record);
 			}
-
+			if(recordTypesByKey.get('UnifiedInvestigation').contains(recordTypeId)) {
+				filteredRecords.get('filterUnified').add(record);
+			}
 		}
 		return filteredRecords;
 	}
@@ -118,6 +125,8 @@ public inherited sharing class CaseAutomationTriggerHandler extends ApplicationT
 		// Refactor Guidance - the logic in this code needs to be positioned: i) in CaseTriggerUtility.beforeHandler() ii) when caseUtility.assignContactIDToCase() is called
 		registerModule(CaseSkillBasedRoutingModule.class, 'filterSSSW');
 
+		// Logic related to proactive monitor queue routing including time-based SLA validation
+		registerModule(CaseUnifiedProactiveMonitoringModule.class, 'filterUnified');
 	}
 
 	/**
