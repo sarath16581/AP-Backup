@@ -21,9 +21,9 @@ public with sharing class CaseUnifiedProactiveMonitoringModuleTest {
 		ApplicationUnitOfWork uow = ApplicationUnitOfWork.newInstance(CaseAutomationTriggerHandler.getUnitOfWorkSObjectTypes());
 		List<Case> cases = ApplicationTestDataFactory.getCases(3, true);
 		// Set the record type Id on case
-		cases[0].RecordTypeId = ApplicationTestDataFactory.caseUnifiedInvestigationRecordType;
-		cases[1].RecordTypeId = ApplicationTestDataFactory.caseUnifiedInvestigationRecordType;
-		cases[2].RecordTypeId = ApplicationTestDataFactory.caseUnifiedInvestigationRecordType;
+		cases[0].RecordTypeId = ApplicationTestDataFactoryCase.caseUnifiedInvestigationRecordType;
+		cases[1].RecordTypeId = ApplicationTestDataFactoryCase.caseUnifiedInvestigationRecordType;
+		cases[2].RecordTypeId = ApplicationTestDataFactoryCase.caseUnifiedInvestigationRecordType;
 
 		// Set status automation flag to New
 		cases[0].Status = 'New';
@@ -95,8 +95,8 @@ public with sharing class CaseUnifiedProactiveMonitoringModuleTest {
 		ApplicationUnitOfWork uow = ApplicationUnitOfWork.newInstance(CaseAutomationTriggerHandler.getUnitOfWorkSObjectTypes());
 		List<Case> cases = ApplicationTestDataFactory.getCases(2, true);
 		// Set the record type Id on case
-		cases[0].RecordTypeId = ApplicationTestDataFactory.caseUnifiedInvestigationRecordType;
-		cases[1].RecordTypeId = ApplicationTestDataFactory.caseUnifiedInvestigationRecordType;
+		cases[0].RecordTypeId = ApplicationTestDataFactoryCase.caseUnifiedInvestigationRecordType;
+		cases[1].RecordTypeId = ApplicationTestDataFactoryCase.caseUnifiedInvestigationRecordType;
 
 		// Set status automation flag to New
 		cases[0].Status = 'New';

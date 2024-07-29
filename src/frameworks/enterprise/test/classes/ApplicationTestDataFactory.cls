@@ -38,7 +38,6 @@
  * 2024-04-17 - Deepak Kemidi - added method for creating vendor emails
  * 2024-06-13 - Parveen Kaushik - Added default value for mapping model on test data. See CSLU-470 (JIRA) for details.
  * 2024-07-10 - Vasu Gorakati - Added method getImpactedArticles
- * 2024-07-24 - Seth Heang - Added method to get 'UnifiedInvestigation' Case record type
 */
 @IsTest
 public with sharing class ApplicationTestDataFactory {
@@ -1246,19 +1245,6 @@ public with sharing class ApplicationTestDataFactory {
 				caseServiceDeliveryRecordType = [Select Id From RecordType Where SObjectType = 'Case' And DeveloperName = 'Sales_Ops_Delivery'].Id;
 			}
 			return caseServiceDeliveryRecordType;
-		}
-		private set;
-	}
-
-	/**
-	 * @description Method to retrieve 'UnifiedInvestigation' Case recordtype
-	 */
-	public static Id caseUnifiedInvestigationRecordType {
-		get {
-			if(caseUnifiedInvestigationRecordType == null) {
-				caseUnifiedInvestigationRecordType = [Select Id From RecordType Where SObjectType = 'Case' And DeveloperName = 'UnifiedInvestigation'].Id;
-			}
-			return caseUnifiedInvestigationRecordType;
 		}
 		private set;
 	}
