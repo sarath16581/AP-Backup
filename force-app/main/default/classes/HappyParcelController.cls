@@ -824,6 +824,7 @@ public with sharing class HappyParcelController {
 	 * @param	eventMessageId String Salesforce Id of the Event Message record that the image will be attached to 
 	 * @return	Object
 	 */
+	@AuraEnabled(Continuation=true)
 	public static Object getSafeDropImageForPOD(String guidId, String eventMessageId){
 		Continuation continuationRequest = (Continuation) MyCustomerDeliveryProofPdfController.getSafeDropImage(guidId, eventMessageId);
 		// replace the original continuation method (from MyCustomerDeliveryProofPdfController) with the correct one in HappyParcelController
