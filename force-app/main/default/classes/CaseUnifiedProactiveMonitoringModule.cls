@@ -1,7 +1,7 @@
 /**
  * @description Application Module to handle Before Update scenario for pushing the Case to Unified Customer Service Monitoring Queue.
  *				It then validates the SLA period from the Case's createdDate.
- *				- If it's within SLA period, then proceed to update the Status to 'Monitoring' and set exclude automation flag to false.
+ *				- If it's within SLA period, then proceed to update the Status to 'Monitoring'
  *				- If it's outside SLA priod, throw an error and do not commit dml
  * @author Seth Heang
  * @date 2024-07-10
@@ -60,7 +60,7 @@ public inherited sharing class CaseUnifiedProactiveMonitoringModule extends Appl
 	}
 
 	/**
-	 * @description Validate SLA period of the case's createdDate and update case's status and exclude automation flag accordingly
+	 * @description Validate SLA period of the case's createdDate and update case's status
 	 * @param records new changes including updates
 	 * @param existingRecords old changes without updates
 	 * @param uow
@@ -99,13 +99,12 @@ public inherited sharing class CaseUnifiedProactiveMonitoringModule extends Appl
 	}
 
 	/**
-	 * @description update relevant details for eligible cases that met SLA period including status and exclude automation flag
+	 * @description update relevant details for eligible cases that met SLA period including status
 	 * @param eligibleCases filtered case that met eligibility
 	 */
 	private void pushCaseToMonitoring(List<Case> eligibleCases) {
 		for (Case updateCase : eligibleCases) {
 			updateCase.Status = 'Monitoring';
-			updateCase.Exclude_Subscription_Automation__c = false;
 		}
 	}
 }

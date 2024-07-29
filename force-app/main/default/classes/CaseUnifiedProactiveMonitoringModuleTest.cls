@@ -25,11 +25,6 @@ public with sharing class CaseUnifiedProactiveMonitoringModuleTest {
 		cases[1].RecordTypeId = ApplicationTestDataFactory.caseUnifiedInvestigationRecordType;
 		cases[2].RecordTypeId = ApplicationTestDataFactory.caseUnifiedInvestigationRecordType;
 
-		// Set exclude automation flag to true
-		cases[0].Exclude_Subscription_Automation__c = true;
-		cases[1].Exclude_Subscription_Automation__c = true;
-		cases[2].Exclude_Subscription_Automation__c = true;
-
 		// Set status automation flag to New
 		cases[0].Status = 'New';
 		cases[1].Status = 'New';
@@ -82,7 +77,6 @@ public with sharing class CaseUnifiedProactiveMonitoringModuleTest {
 		for (Case c : cases) {
 			Assert.areEqual(unifiedMonitoringQueue.Id, c.OwnerId, 'Expected ownerId to belong to ' + unifiedMonitoringQueue.DeveloperName + 'but instead got ' + c.OwnerId);
 			Assert.areEqual('Monitoring', c.Status, 'Expected status to be Monitoring but instead got ' + c.Status);
-			Assert.areEqual(false, c.Exclude_Subscription_Automation__c, 'Expected exclude subscription automation flag to be false but instead got true');
 		}
 	}
 
@@ -103,10 +97,6 @@ public with sharing class CaseUnifiedProactiveMonitoringModuleTest {
 		// Set the record type Id on case
 		cases[0].RecordTypeId = ApplicationTestDataFactory.caseUnifiedInvestigationRecordType;
 		cases[1].RecordTypeId = ApplicationTestDataFactory.caseUnifiedInvestigationRecordType;
-
-		// Set exclude automation flag to true
-		cases[0].Exclude_Subscription_Automation__c = true;
-		cases[1].Exclude_Subscription_Automation__c = true;
 
 		// Set status automation flag to New
 		cases[0].Status = 'New';
@@ -163,11 +153,6 @@ public with sharing class CaseUnifiedProactiveMonitoringModuleTest {
 				'Expected error message to be "' + CaseUnifiedProactiveMonitoringModule.ERROR_SLA_EXPIRED + ' but instead got ' + c.getErrors().get(0).getMessage()
 			);
 			Assert.areEqual(oldCaseMap.get(c.Id).Status, c.Status, 'Expected status to be remain unchanged but instead got ' + c.Status);
-			Assert.areEqual(
-				oldCaseMap.get(c.Id).Exclude_Subscription_Automation__c,
-				c.Exclude_Subscription_Automation__c,
-				'Expected exclude subscription automation flag to remain unchanged but instead got ' + c.Exclude_Subscription_Automation__c
-			);
 		}
 	}
 }
