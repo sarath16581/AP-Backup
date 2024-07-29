@@ -9,12 +9,14 @@
  * 2024-07-22 - Marcel HK - Added mailing address filters (CSLU-1072)
  * 2024-07-23 - Marcel HK - Removed 'Country' mailing address filters (CSLU-1072)
  * 2024-07-23 - Marcel HK - Added accountId and abn/acn properties (CSLU-447)
+ * 2024-07-26 - Marcel HK - Add customer type (CSLU-449)
+ * 2024-07-26 - Marcel HK - Add mailing address and related case count (CSLU-439)
  */
 @IsTest
 public class CustomerSearchFormController_Test {
 	static final Integer MAX_RESULTS = CustomerSearchFormController.MAX_RESULTS;
 	static final Set<Object> CONTACT_SELECTOR_OPTIONS = CustomerSearchFormController.CONTACT_SELECTOR_OPTIONS;
-	static final Set<SObjectField> CONTACT_FIELDS = CustomerSearchFormController.CONTACT_FIELDS;
+	static final Map<SObjectType, Set<SObjectField>> SELECTOR_FIELDS = CustomerSearchFormController.SELECTOR_FIELDS;
 	static final String NOT_ENOUGH_PARAMS_ERROR_MSG = CustomerSearchFormController.NOT_ENOUGH_PARAMS_ERROR_MSG;
 	static final String TOO_MANY_RESULTS_WARNING_MSG = CustomerSearchFormController.TOO_MANY_RESULTS_WARNING_MSG;
 	static final String INVALID_ABN_ACN_ERROR_MSG = CustomerSearchFormController.INVALID_ABN_ACN_ERROR_MSG;
@@ -205,6 +207,141 @@ public class CustomerSearchFormController_Test {
 	}
 
 	@IsTest
+	static void testSearchResultTransformWithMailingAddress() {
+		Contact c = new Contact(
+			MailingStreet = 'Level 9',
+			MailingStreet2__c = '111 Bourke St',
+			MailingCity = 'Melbourne',
+			MailingState = 'VIC',
+			MailingPostalCode = '3000',
+			MailingCountry = 'AU'
+		);
+
+		Test.startTest();
+		CustomerSearchFormController.SearchResult sr;
+		sr = new CustomerSearchFormController.SearchResult(c);
+		Test.stopTest();
+
+		Assert.areEqual('Level 9', sr.mailingStreet, 'mailingStreet should match');
+		Assert.areEqual(
+			'111 Bourke St',
+			sr.mailingStreet2,
+			'mailingStreet2 should match'
+		);
+		Assert.areEqual('Melbourne', sr.mailingCity, 'mailingCity should match');
+		Assert.areEqual('VIC', sr.mailingState, 'mailingState should match');
+		Assert.areEqual(
+			'3000',
+			sr.mailingPostalCode,
+			'mailingPostalCode should match'
+		);
+		Assert.areEqual('AU', sr.mailingCountry, 'mailingCountry should match');
+	}
+
+	@IsTest
+	static void testSearchResultTransformWithRelatedCases() {
+		// Prepare related cases
+		List<Case> relatedCases = new List<Case>();
+		// Create 2 open cases
+		for (Case caseObj : ApplicationTestDataFactory.getCases(2, false)) {
+			relatedCases.add(
+				(Case) ApplicationTestDataFactory.setUnwritableFields(
+					caseObj,
+					new Map<String, Object>{ 'IsClosed' => false }
+				)
+			);
+		}
+		// Crate 3 closed cases
+		for (Case caseObj : ApplicationTestDataFactory.getCases(3, false)) {
+			relatedCases.add(
+				(Case) ApplicationTestDataFactory.setUnwritableFields(
+					caseObj,
+					new Map<String, Object>{ 'IsClosed' => true }
+				)
+			);
+		}
+
+		// Create contact with related cases
+		Contact contactObj = new Contact();
+		contactObj = (Contact) ApplicationTestDataFactory.setChildRelationships(
+			contactObj,
+			new Map<String, List<SObject>>{ 'Cases' => relatedCases }
+		);
+
+		Test.startTest();
+		CustomerSearchFormController.SearchResult sr;
+		sr = new CustomerSearchFormController.SearchResult(contactObj);
+		Test.stopTest();
+
+		Assert.areEqual(2, sr.openCasesCount, 'Incorrect openCasesCount');
+		Assert.areEqual(5, sr.totalCasesCount, 'Incorrect totalCasesCount');
+	}
+
+	@IsTest
+	static void testSearchResultTransformWithConsumer() {
+		Contact c = new Contact();
+		Account acc = new Account(Name = 'Test Account');
+		acc = (Account) ApplicationTestDataFactory.setUnwritableFields(acc, new Map<String, Object>{ 'IsPersonAccount' => true});
+		c = (Contact) ApplicationTestDataFactory.setUnwritableFields(c, new Map<String, Object>{ 'Account' => acc});
+
+		Test.startTest();
+		CustomerSearchFormController.SearchResult sr;
+		sr = new CustomerSearchFormController.SearchResult(c);
+		Test.stopTest();
+
+		Assert.areEqual('Consumer', sr.customerType, 'Incorrect Customer Type');
+		Assert.isNull(sr.organisationName, 'Consumer should not have Organisation Name');
+	}
+	
+	@IsTest
+	static void testSearchResultTransformWithSMB() {
+		Contact c = new Contact();
+		Account acc = new Account(Name = 'Test Account');
+		acc = (Account) ApplicationTestDataFactory.setUnwritableFields(acc, new Map<String, Object>{ 'IsPersonAccount' => false, 'Role_Type_Roll_Up__c' => 'Customer' });
+		c = (Contact) ApplicationTestDataFactory.setUnwritableFields(c, new Map<String, Object>{ 'Account' => acc});
+
+		Test.startTest();
+		CustomerSearchFormController.SearchResult sr;
+		sr = new CustomerSearchFormController.SearchResult(c);
+		Test.stopTest();
+
+		Assert.areEqual('SMB', sr.customerType, 'Incorrect Customer Type');
+		Assert.areEqual('Test Account', sr.organisationName, 'Incorrect Organisation Name');
+	}
+
+	@IsTest
+	static void testSearchResultTransformWithEnterprise() {
+		Contact c = new Contact();
+		Account acc = new Account(Name = 'Test Account', ServiceSLA__c = 'Enterprise');
+		acc = (Account) ApplicationTestDataFactory.setUnwritableFields(acc, new Map<String, Object>{ 'IsPersonAccount' => false, 'Role_Type_Roll_Up__c' => 'Customer' });
+		c = (Contact) ApplicationTestDataFactory.setUnwritableFields(c, new Map<String, Object>{ 'Account' => acc});
+
+		Test.startTest();
+		CustomerSearchFormController.SearchResult sr;
+		sr = new CustomerSearchFormController.SearchResult(c);
+		Test.stopTest();
+
+		Assert.areEqual('Enterprise', sr.customerType, 'Incorrect Customer Type');
+		Assert.areEqual('Test Account', sr.organisationName, 'Incorrect Organisation Name');
+	}
+
+	@IsTest
+	static void testSearchResultTransformWithConsumerSMB() {
+		Contact c = new Contact();
+		Account acc = new Account(Name = 'Test Account');
+		acc = (Account) ApplicationTestDataFactory.setUnwritableFields(acc, new Map<String, Object>{ 'IsPersonAccount' => false });
+		c = (Contact) ApplicationTestDataFactory.setUnwritableFields(c, new Map<String, Object>{ 'Account' => acc});
+
+		Test.startTest();
+		CustomerSearchFormController.SearchResult sr;
+		sr = new CustomerSearchFormController.SearchResult(c);
+		Test.stopTest();
+
+		Assert.areEqual('Consumer SMB', sr.customerType, 'Incorrect Customer Type');
+		Assert.areEqual('Test Account', sr.organisationName, 'Incorrect Organisation Name');
+	}
+
+	@IsTest
 	static void testCreateResponseWithNoContacts() {
 		List<Contact> contacts = new List<Contact>();
 
@@ -307,7 +444,7 @@ public class CustomerSearchFormController_Test {
 		((ContactsSelector) MockUtility.Mocks.verify(mockContactsSelector))
 			.setLimit(MAX_RESULTS + 1);
 		((ContactsSelector) MockUtility.Mocks.verify(mockContactsSelector))
-			.setFieldOverrides(CONTACT_FIELDS);
+			.setFieldOverrides(SELECTOR_FIELDS);
 	}
 
 	@IsTest

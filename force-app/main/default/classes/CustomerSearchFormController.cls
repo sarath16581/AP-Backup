@@ -10,25 +10,45 @@
  * 2024-07-22 - Marcel HK - Added mailing address filters (CSLU-1072)
  * 2024-07-23 - Marcel HK - Removed 'Country' mailing address filters (CSLU-1072)
  * 2024-07-23 - Marcel HK - Added accountId and abn/acn properties (CSLU-447)
+ * 2024-07-26 - Marcel HK - Add customer type (CSLU-449)
+ * 2024-07-26 - Marcel HK - Add mailing address and related case count (CSLU-439)
  */
 public with sharing class CustomerSearchFormController {
 	// Query configuration constants
 	@TestVisible
 	private static final Integer MAX_RESULTS = 20;
 	@TestVisible
-	private static final Set<Object> CONTACT_SELECTOR_OPTIONS = new Set<Object>{};
+	private static final Set<Object> CONTACT_SELECTOR_OPTIONS = new Set<Object>{
+		ContactsSelector.Options.WITH_ACCOUNT,
+		ContactsSelector.Options.WITH_RELATED_CASES
+	};
 	@TestVisible
-	private static final Set<SObjectField> CONTACT_FIELDS = new Set<SObjectField>{
-		Contact.Id,
-		Contact.Name,
-		Contact.FirstName,
-		Contact.LastName,
-		Contact.Preferred_Name__c,
-		Contact.Email,
-		Contact.VerifiedEmail__c,
-		Contact.Phone,
-		Contact.MobilePhone,
-		Contact.VerifiedMobile__c
+	private static final Map<SObjectType, Set<SObjectField>> SELECTOR_FIELDS = new Map<SObjectType, Set<SObjectField>>{
+		Contact.SObjectType => new Set<SObjectField>{
+			Contact.Id,
+			Contact.Name,
+			Contact.FirstName,
+			Contact.LastName,
+			Contact.Preferred_Name__c,
+			Contact.Email,
+			Contact.VerifiedEmail__c,
+			Contact.Phone,
+			Contact.MobilePhone,
+			Contact.VerifiedMobile__c,
+			Contact.MailingStreet,
+			Contact.MailingStreet2__c,
+			Contact.MailingCity,
+			Contact.MailingState,
+			Contact.MailingPostalCode,
+			Contact.MailingCountry
+		},
+		Account.SObjectType => new Set<SObjectField>{
+			Account.Name,
+			Account.IsPersonAccount,
+			Account.Role_Type_Roll_Up__c,
+			Account.ServiceSLA__c
+		},
+		Case.SObjectType => new Set<SObjectField>{ Case.Id, Case.IsClosed }
 	};
 
 	// Error and warning messages
@@ -41,6 +61,12 @@ public with sharing class CustomerSearchFormController {
 		'Your query returned more than ' +
 		MAX_RESULTS +
 		' results. We recommend refining your search criteria.';
+
+	// Customer type segments
+	private static final String CUSTOMER_TYPE_CONSUMER = 'Consumer';
+	private static final String CUSTOMER_TYPE_SMB = 'SMB';
+	private static final String CUSTOMER_TYPE_CONSUMER_SMB = 'Consumer SMB';
+	private static final String CUSTOMER_TYPE_ENTERPRISE = 'Enterprise';
 
 	/**
 	 * @description Search method to be invoked by the Lightning Web Component. This method will perform basic
@@ -61,7 +87,7 @@ public with sharing class CustomerSearchFormController {
 
 			ContactsSelector cs = ContactsSelector.newInstance(
 				MAX_RESULTS + 1,
-				CONTACT_FIELDS
+				SELECTOR_FIELDS
 			);
 
 			Map<Id, Contact> contactsMap = cs.selectByCustomerSearchParams(
@@ -152,6 +178,31 @@ public with sharing class CustomerSearchFormController {
 		params.abnAcn = req.abnAcn;
 
 		return params;
+	}
+
+	/**
+	 * @description Identify the customer type based on the Account fields.
+	 * This is currently used to display icons in the Customer Search Form Results.
+	 *
+	 * @param acc - Account object
+	 * @return Customer type
+	 */
+	@TestVisible
+	private static String getCustomerType(Account acc) {
+		if (acc.IsPersonAccount == true) {
+			return CUSTOMER_TYPE_CONSUMER;
+		}
+
+		if (acc.Role_Type_Roll_Up__c == 'Customer') {
+			if (acc.ServiceSLA__c == 'Enterprise') {
+				return CUSTOMER_TYPE_ENTERPRISE;
+			} else {
+				return CUSTOMER_TYPE_SMB;
+			}
+		}
+
+		// Default type for everything else
+		return CUSTOMER_TYPE_CONSUMER_SMB;
 	}
 
 	/**
@@ -274,6 +325,36 @@ public with sharing class CustomerSearchFormController {
 		@AuraEnabled
 		public String verifiedMobilePhone;
 
+		@AuraEnabled
+		public String customerType;
+
+		@AuraEnabled
+		public String mailingStreet;
+
+		@AuraEnabled
+		public String mailingStreet2;
+
+		@AuraEnabled
+		public String mailingCity;
+
+		@AuraEnabled
+		public String mailingState;
+
+		@AuraEnabled
+		public String mailingPostalCode;
+
+		@AuraEnabled
+		public String mailingCountry;
+
+		@AuraEnabled
+		public Integer openCasesCount;
+
+		@AuraEnabled
+		public Integer totalCasesCount;
+
+		@AuraEnabled
+		public String organisationName;
+
 		/**
 		 * @description Constructor used to initialize from a Contact object.
 		 *
@@ -281,15 +362,44 @@ public with sharing class CustomerSearchFormController {
 		 */
 		public SearchResult(Contact con) {
 			this.contactId = con.Id;
+			// Names
 			this.name = con.Name;
 			this.firstName = con.FirstName;
 			this.lastName = con.LastName;
 			this.preferredName = con.Preferred_Name__c;
+			// Email addresses
 			this.emailAddress = con.Email;
 			this.verifiedEmailAddress = con.VerifiedEmail__c;
+			// Phone numbers
 			this.phone = con.Phone;
 			this.mobilePhone = con.MobilePhone;
 			this.verifiedMobilePhone = con.VerifiedMobile__c;
+			// Mailing address
+			this.mailingStreet = con.MailingStreet;
+			this.mailingStreet2 = con.MailingStreet2__c;
+			this.mailingCity = con.MailingCity;
+			this.mailingState = con.MailingState;
+			this.mailingPostalCode = con.MailingPostalCode;
+			this.mailingCountry = con.MailingCountry;
+			// Account info
+			if (con.Account != null) {
+				this.customerType = getCustomerType(con.Account);
+				if (this.customerType != CUSTOMER_TYPE_CONSUMER) {
+					this.organisationName = con.Account.Name;
+				}
+			}
+			// Related cases count
+			this.openCasesCount = 0;
+			this.totalCasesCount = 0;
+			// Note: Manually aggregating as cannot use aggregate functions in SOQL sub-query
+			if (con.Cases != null && !con.Cases.isEmpty()) {
+				for (Case c : con.Cases) {
+					this.totalCasesCount++;
+					if (c.IsClosed == false) {
+						this.openCasesCount++;
+					}
+				}
+			}
 		}
 	}
 

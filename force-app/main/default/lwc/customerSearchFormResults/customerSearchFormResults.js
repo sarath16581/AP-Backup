@@ -1,4 +1,56 @@
 import { LightningElement, api } from 'lwc';
+import { NavigationMixin } from 'lightning/navigation';
+import { transformSearchResults } from './helper';
+
+const TABLE_COLUMNS = [
+	{
+		label: 'Name',
+		fieldName: 'nameArr',
+		type: 'customMultilineTextComplex',
+		wrapText: false,
+		hideDefaultActions: true,
+		typeAttributes: {
+			iconSrc: {
+				fieldName: 'customerTypeIcon',
+			},
+			iconTitle: {
+				fieldName: 'customerType',
+			},
+			iconSize: 'medium',
+			iconAlternativeText: {
+				fieldName: 'customerType',
+			},
+		},
+	},
+	{
+		label: 'Phone',
+		fieldName: 'phoneNumbersArr',
+		type: 'customMultilineTextComplex',
+		wrapText: false,
+		hideDefaultActions: true,
+	},
+	{
+		label: 'Email',
+		fieldName: 'emailAddressesArr',
+		type: 'customMultilineTextComplex',
+		wrapText: false,
+		hideDefaultActions: true,
+	},
+	{
+		label: 'Address',
+		fieldName: 'mailingAddressArr',
+		type: 'customMultilineTextComplex',
+		wrapText: false,
+		hideDefaultActions: true,
+	},
+	{
+		label: 'Cases',
+		fieldName: 'numCasesArr',
+		type: 'customMultilineTextComplex',
+		wrapText: false,
+		hideDefaultActions: true,
+	},
+];
 
 /**
  * The Customer Search Form Results component displays the search results.
@@ -7,7 +59,9 @@ import { LightningElement, api } from 'lwc';
  * @alias CustomerSearchFormResults
  * @hideconstructor
  */
-export default class CustomerSearchFormResults extends LightningElement {
+export default class CustomerSearchFormResults extends NavigationMixin(
+	LightningElement
+) {
 	/**
 	 * The search response object returned from the search.
 	 * @type {object}
@@ -42,7 +96,7 @@ export default class CustomerSearchFormResults extends LightningElement {
 	 * Determines if in the default state (e.g. no search performed yet)
 	 * @type {boolean}
 	 */
-	get defaultState() {
+	get isDefaultState() {
 		return !this.searchResponse;
 	}
 
@@ -52,5 +106,23 @@ export default class CustomerSearchFormResults extends LightningElement {
 	 */
 	get noResults() {
 		return this.numSearchResults === 0;
+	}
+
+	columns = TABLE_COLUMNS;
+
+	navigateToRecordPage(recordId) {
+		this[NavigationMixin.Navigate]({
+			type: 'standard__recordPage',
+			attributes: {
+				recordId: recordId,
+				actionName: 'view',
+			},
+		});
+	}
+
+	get data() {
+		// Bind the navigateToRecordPageFn to the component instance so that when it is called by the onClick()
+		const navigateToRecordPageFn = this.navigateToRecordPage.bind(this);
+		return transformSearchResults(this.searchResults, navigateToRecordPageFn);
 	}
 }
