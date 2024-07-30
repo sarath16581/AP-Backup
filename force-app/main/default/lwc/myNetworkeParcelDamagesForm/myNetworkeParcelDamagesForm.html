@@ -11,7 +11,14 @@
         <template if:true={submitted}>
             <div class="slds-m-around_large slds-p-around_large">
                 <template if:true={fileUploaded}>
-                    <div class="text-center slds-m-around_large">File {fileName} succesfully uploaded and attached to case {caseNumber}.</div>
+                    <div class="text-center slds-m-around_large">Below file(s) succesfully uploaded and attached to case {caseNumber}.</div>
+					<div class="text-center slds-m-around_large">
+						<ul class="slds-m-around_medium">
+							<template for:each={listOfFileNames} for:item="listOfFileName">
+							  <li key={listOfFileName}>{listOfFileName}</li>
+							</template>
+						  </ul>
+					</div>
                     <div class="text-center">Article Id : {articleId}</div>
                     <div class="text-center">Sender name : {senderName}</div>
                     <div class="text-center">Addressee name : {addresseeName}</div>
