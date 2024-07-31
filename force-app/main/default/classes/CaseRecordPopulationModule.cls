@@ -19,7 +19,8 @@ public inherited sharing class CaseRecordPopulationModule extends ApplicationMod
 	// stores a list of fields (usually should only ever be 1 per object)
 	public static final Map<SObjectType, SObjectField> MAPPED_CASE_FIELDS = new Map<SObjectType, SObjectField>{
 		ContactRequest.SobjectType => ContactRequest.Case__c,
-		VoiceCall.SobjectType => VoiceCall.Case__c
+		VoiceCall.SobjectType => VoiceCall.Case__c,
+		LiveChatTranscript.SobjectType => LiveChatTranscript.CaseId
 	};
 
 	// Setup which triggers this module should respond to
