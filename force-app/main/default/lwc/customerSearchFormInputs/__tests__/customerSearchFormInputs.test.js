@@ -57,9 +57,25 @@ function changeInputFieldValue(element, value) {
 			new CustomEvent('change', { detail: { recordId: element.value } })
 		);
 		return;
+	} else if (element?.nodeName.toLowerCase() === 'c-ame-address-validation2') {
+		element.dispatchEvent(new CustomEvent('selectaddress', {detail: value}));
+		return;
 	}
 
 	throw new Error(`Unhandled element: '${element?.nodeName}'`);
+}
+
+/**
+ * Bulk set the value of the a form input element and fires the 'change' events.
+ * 
+ * @param {Element} element 
+ * @param {object} data - e.g. { dataFieldId: "newValue" }
+ */
+function changeFormInputValues(element, data) {
+	for(const field of Object.keys(data)) {
+		const inputEl = getInputFieldElement(element, field, true);
+		changeInputFieldValue(inputEl, data[field]);
+	}
 }
 
 /**
@@ -67,10 +83,15 @@ function changeInputFieldValue(element, value) {
  *
  * @param {Element} element - The element to run `querySelector` on
  * @param {string} fieldName - The dataFieldName attribute to query
+ * @param {boolean} throwError - If the element cannot be found, throw an error. Default = false.
  * @returns {HTMLElement} - The HTMLElement that was found
  */
-function getInputFieldElement(element, fieldName) {
-	return element.shadowRoot.querySelector(`[data-field-name='${fieldName}']`);
+function getInputFieldElement(element, fieldName, throwError=false) {
+	const inputEl = element.shadowRoot.querySelector(`[data-field-name='${fieldName}']`);
+	if(!inputEl && throwError) {
+		throw new Error(`Could not find element for '${fieldName}'`);
+	}
+	return inputEl;
 }
 
 /**
@@ -789,5 +810,110 @@ describe('c-customer-search-form-inputs', () => {
 		expect(lastNameInput.value).toBe('');
 		expect(phoneNumberInput.value).toBe('');
 		expect(emailAddressInput.value).toBe('');
+	});
+
+	it('sends request with all fields populated, except customer type', async () => {
+		// Arrange
+		const element = createElement('c-customer-search-form-inputs', {
+			is: CustomerSearchFormInputs,
+		});
+
+		// Assign mock value for resolved Apex promise
+		customerSearch.mockResolvedValue(CUSTOMER_SEARCH_RES_SUCCESS);
+
+		// Act
+		document.body.appendChild(element);
+		
+		// Set field values
+		changeFormInputValues(element, {
+				firstName: 'Codey',
+				lastName: 'The Bear',
+				phoneNumber: '0400 000 000',
+				emailAddress: 'sherlock@example.com',
+				consumerCheckbox: false,
+				organisationCheckbox: false,
+				includePhoneNumber: true,
+				includeEmailAddress: true,
+				organisationAccountId: '001000000000000000',
+				abnAcn: '98765432100',
+				addressObj: {
+					addressLine1: 'U 404',
+					addressLine2: '42 Coder DR',
+					city: 'Developer Park',
+					state: 'WWW',
+					postcode: '1337'
+				}
+		});
+
+		await flushAllPromises();
+		
+		// Mock all input checkValidity() methods to return 'true'
+		mockCheckValidity(element, INPUT_ELEMENT_SELECTORS.join(','), true);
+		
+		// Click the search button
+		const searchButton = getButtonByDataId(element, 'search');
+		searchButton.click();
+
+		await flushAllPromises();
+
+		// Assert
+		expect(customerSearch.mock.calls).toHaveLength(1);
+		const { req } = customerSearch.mock.calls[0][0];
+		expect(Object.keys(req).length).toBe(12);
+		expect(req.firstName).toBe('Codey');
+		expect(req.lastName).toBe('The Bear');
+		expect(req.phoneNumber).toBe('0400 000 000');
+		expect(req.emailAddress).toBe('sherlock@example.com');
+		expect(req.customerType).toBe(null);
+		expect(req.addressStreet1).toBe('U 404');
+		expect(req.addressStreet2).toBe('42 Coder DR');
+		expect(req.addressCity).toBe('Developer Park');
+		expect(req.addressState).toBe('WWW');
+		expect(req.addressPostalCode).toBe('1337');
+		expect(req.accountId).toBe('001000000000000000');
+		expect(req.abnAcn).toBe(null);
+	});
+
+	it('send request for consumer, ensuring that organisation details are null', async () => {
+		// Arrange
+		const element = createElement('c-customer-search-form-inputs', {
+			is: CustomerSearchFormInputs,
+		});
+
+		// Assign mock value for resolved Apex promise
+		customerSearch.mockResolvedValue(CUSTOMER_SEARCH_RES_SUCCESS);
+
+		// Act
+		document.body.appendChild(element);
+		
+		// Set field values
+		changeFormInputValues(element, {
+				firstName: 'Codey',
+				lastName: 'The Bear',
+				consumerCheckbox: true,
+				organisationAccountId: '001000000000000000',
+				abnAcn: '98765432100',
+		});
+
+		await flushAllPromises();
+		
+		// Mock all input checkValidity() methods to return 'true'
+		mockCheckValidity(element, INPUT_ELEMENT_SELECTORS.join(','), true);
+		
+		// Click the search button
+		const searchButton = getButtonByDataId(element, 'search');
+		searchButton.click();
+
+		await flushAllPromises();
+
+		// Assert
+		expect(customerSearch.mock.calls).toHaveLength(1);
+		const { req } = customerSearch.mock.calls[0][0];
+		expect(Object.keys(req).length).toBe(12);
+		expect(req.firstName).toBe('Codey');
+		expect(req.lastName).toBe('The Bear');
+		expect(req.customerType).toBe('CONSUMER');
+		expect(req.accountId).toBe(null);
+		expect(req.abnAcn).toBe(null);
 	});
 });
