@@ -11,11 +11,6 @@
  */
 public inherited sharing class CaseRecordPopulationModule extends ApplicationModule {
     
-	// Setup which triggers this module should respond to
-	public CaseRecordPopulationModule() {
-		getTriggerEvents().enableBeforeInsert().enableBeforeUpdate().enableAfterInsert().enableAfterUpdate();
-	}
-
 	public static final Map<SObjectType, SObjectField> MAPPED_LOOKUP_FIELDS = new Map<SObjectType, SObjectField>{
 		ContactRequest.SobjectType => ContactRequest.WhatId,
 		VoiceCall.SobjectType => VoiceCall.RelatedRecordId
@@ -26,6 +21,11 @@ public inherited sharing class CaseRecordPopulationModule extends ApplicationMod
 		ContactRequest.SobjectType => ContactRequest.Case__c,
 		VoiceCall.SobjectType => VoiceCall.Case__c
 	};
+
+	// Setup which triggers this module should respond to
+	public CaseRecordPopulationModule() {
+		getTriggerEvents().enableBeforeInsert().enableBeforeUpdate().enableAfterInsert().enableAfterUpdate();
+	}
 	
 	public override void onBeforeInsert(List<SObject> records, ApplicationUnitOfWork uow) {
 		try {
