@@ -16,7 +16,7 @@
 					<c:LightningWrapper lightningApp="c:HappyParcelWrapperApp"
 								lightningComponent="c:happyParcel"
 								crossOriginSupport="false"
-								componentAttributes="{&quotsupportsExternalLinkHandling&quot:true,&quot;supportsSelectableChildArticles&quot;:true,&quot;supportsCustomerSelection&quot;:true,&quot;readonly&quot;:false,&quot;supportsExternalEdd&quot;:true,&quot;supportsSafeDropAttachment&quot;:true,&quot;supportsCaseCreation&quot;:true,&quot;forceConsignmentLevelResults&quot;:true}"/>
+								componentAttributes="{&quot;supportsExternalLinkHandling&quot;:true,&quot;supportsSelectableChildArticles&quot;:false,&quot;supportsCustomerSelection&quot;:false,&quot;readonly&quot;:false,&quot;supportsExternalEdd&quot;:true,&quot;supportsSafeDropAttachment&quot;:false,&quot;supportsCaseCreation&quot;:false,&quot;forceConsignmentLevelResults&quot;:true}"/>
 				</div>
 			</apex:outputPanel>
 		</body>
