@@ -86,7 +86,6 @@ public inherited sharing class CaseRecordPopulationModule extends ApplicationMod
 	@TestVisible
 	private void assignCaseValues(List<SObject> recordList, Map<Id, SObject> oldMap, ApplicationUnitOfWork uow) {
 
-		Map<SObjectType, List<SObject>> updateableRecords = new Map<SObjectType, List<SObject>>();
 		List<ApplicationRecursion.RecordState> processableRecords = new List<ApplicationRecursion.RecordState>();
 		Map<SObjectType, List<SObject>> monitoredRecords = new Map<SObjectType, List<SObject>>();
 		String recursionContext = 'CaseRecordPopulationModule.assignCaseValues';
@@ -115,7 +114,6 @@ public inherited sharing class CaseRecordPopulationModule extends ApplicationMod
 			SObjectType processableRecordSObjectType = processableRecord.getSObjectType();
 			
 			Set<SObjectField> changedFields = recordState.changedFields;
-			Map<String, Object> previousState = recordState.previousState;	// get old values of case
 
 			if(MAPPED_LOOKUP_FIELDS.get(processableRecordSObjectType) != null) {
 				SObjectField fieldToCheck = MAPPED_LOOKUP_FIELDS.get(processableRecordSObjectType);
@@ -185,7 +183,6 @@ public inherited sharing class CaseRecordPopulationModule extends ApplicationMod
 			SObjectType processableRecordSObjectType = processableRecord.getSObjectType();
 			
 			Set<SObjectField> changedFields = recordState.changedFields;
-			Map<String, Object> previousState = recordState.previousState;	// get old values of case
 
 			if(MAPPED_CASE_FIELDS.get(processableRecordSObjectType) != null) {
 				SObjectField fieldToCheck = MAPPED_CASE_FIELDS.get(processableRecordSObjectType);
