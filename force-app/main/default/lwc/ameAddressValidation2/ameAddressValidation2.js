@@ -20,12 +20,15 @@
  * 2020-10-27 - Ranjeewa Silva - Created
  * 2020-11-06 - Ranjeewa Silva - Updated to support confirmation of blank address details (when address is unknown).
  * 2021-09-28 - Ranjeewa Silva - Added support for additinal address fields and also introduced a new variant - "show-detail-onsearch"
+ * 2024-07-31 - Marcel HK - Added generic error to UI when an error is caught in a try/catch block.
  */
 
 import { LightningElement, track, api } from 'lwc';
 import searchAddress from '@salesforce/apex/AMEAddressValidationController1.searchAddress';
 import getAddressDetails from '@salesforce/apex/AMEAddressValidationController1.getAddressDetails';
 import { debounce } from 'c/utils';
+
+const GENERIC_ERROR_MESSAGE = 'Something went wrong';
 
 export default class AmeAddressValidation2 extends LightningElement {
 	// address search input placeholder text
@@ -128,6 +131,7 @@ export default class AmeAddressValidation2 extends LightningElement {
 	 */
 	async doInitialAddressSearch() {
 		try {
+			this.errorMessage = undefined;
 			// trigger an auto search
 			const response = await searchAddress({ searchTerm: this.searchTerm });
 			this.isAddressSearchPerformed = true;
@@ -144,6 +148,7 @@ export default class AmeAddressValidation2 extends LightningElement {
 			}
 		} catch (error) {
 			console.log(error);
+			this.errorMessage = GENERIC_ERROR_MESSAGE;
 		}
 	}
 
@@ -163,9 +168,10 @@ export default class AmeAddressValidation2 extends LightningElement {
 	 * search ame for the search term
 	 */
 	async handleSearchAME(searchAddressTerm) {
-		this.openSearchResultsList();
-		this.isLoadingSearchResults = true;
 		try {
+			this.openSearchResultsList();
+			this.isLoadingSearchResults = true;
+			this.errorMessage = undefined;
 			const response = await searchAddress({ searchTerm: searchAddressTerm });
 			this.isAddressSearchPerformed = true;
 			if (response && response.length > 0) {
@@ -179,6 +185,7 @@ export default class AmeAddressValidation2 extends LightningElement {
 			}
 		} catch (error) {
 			console.log(JSON.parse(JSON.stringify(error)));
+			this.errorMessage = GENERIC_ERROR_MESSAGE;
 		} finally {
 			this.isLoadingSearchResults = false;
 		}
@@ -189,15 +196,17 @@ export default class AmeAddressValidation2 extends LightningElement {
 	 * address data.
 	 */
 	async handleSearchResultSelect(event) {
-		const record = event.detail;
-		this.isLoadingAddressDetails = true;
 		try {
+			const record = event.detail;
+			this.isLoadingAddressDetails = true;
+			this.errorMessage = undefined;
 			const addressResponse = await getAddressDetails({ address: record.dpid });
 			if (addressResponse && addressResponse.length > 0) {
 				this.setAddressFromAmeAddressResponse(addressResponse, true);
 			}
 		} catch (error) {
 			console.log(JSON.parse(JSON.stringify(error)));
+			this.errorMessage = GENERIC_ERROR_MESSAGE;
 		} finally {
 			this.isLoadingAddressDetails = false;
 			this.closeSearchResultsList();
