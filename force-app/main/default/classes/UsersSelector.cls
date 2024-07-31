@@ -187,7 +187,7 @@ public virtual inherited sharing class UsersSelector extends ApplicationSelector
 			.add(new QueryBuilder.CompareCondition(User.IsExcludedFromAutoDeactivation__c).eq(false))
 			.add(new QueryBuilder.SimpleCondition(User.UserType + ' IN :userTypeSet'))
 			.add(new QueryBuilder.SimpleCondition('Profile.Name NOT IN :excludeProfileSet'))
-			.add(new QueryBuilder.SimpleCondition(User.LastLoginDate + ' < LAST_N_DAYS:' + lastLoginDays))
+			.add(new QueryBuilder.SimpleCondition(User.Last_Login_Date_Test__c + ' < LAST_N_DAYS:' + lastLoginDays))
 			.add(new QueryBuilder.NullCondition(User.LastLoginDate).isNull())
 			.add(new QueryBuilder.SimpleCondition(User.CreatedDate + ' < LAST_N_DAYS:' + lastCreatedDays));
 		String conditionString = '1 AND 2 AND 3 AND 4 AND (5 OR (6 AND 7))';

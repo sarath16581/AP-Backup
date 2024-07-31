@@ -10,7 +10,7 @@
  * 2024-03-01 - REQ3451627 - Minor Change to expose Excluded Profile in Custom Settings
  */
 
-public class UserDeactivationBatchable implements Database.Batchable<SObject>, Database.Stateful, Schedulable {
+ public class UserDeactivationBatchable implements Database.Batchable<SObject>, Database.Stateful, Schedulable {
 	// contains today's datetime
 	private static final String NOW_STRING = Datetime.now().format('yyyy-MM-dd_hhmmss');
 	// number of characters to retrieve from error message
@@ -26,6 +26,7 @@ public class UserDeactivationBatchable implements Database.Batchable<SObject>, D
 	private Set<String> errorTypeSet;
 	// contains userIds which were successfully deactivated/updated
 	private Set<Id> successIdSet;
+    private List<User> userEmailNotification;
 
 	// default batch size
 	private static final Integer DEFAULT_BATCH_SIZE = 20;
@@ -37,8 +38,12 @@ public class UserDeactivationBatchable implements Database.Batchable<SObject>, D
 	private static final Integer DEFAULT_NOTIFICATION_LASTLOGIN_DAYS = 75;
 	// default notification email
 	private static final String DEFAULT_NOTIFICATIONEMAIL = 'DLITRCPCMSalesforceSupport@auspost.com.au';
+	//To be removed
+	//private static final String DEFAULT_NOTIFICATIONEMAIL = 'mona.raghavsweety@gmail.com';
 	// define all the profiles to be excluded for fetching users to deactivate
 	private static final List<String> DEFAULT_EXCLUDEDPROFILES = new List<String>{'Sales Insights Integration User','SalesforceIQ Integration User','B2BMA Integration User'};
+	// define all the profiles to be included for sending email notification prior to deactivation
+	private static final List<String> DEFAULT_NOTIFICATIONPROFILES = new List<String>{'MyNetwork Portal'};
 
 	private static UserDeactivationSettings__c CONFIG {
 		get {
@@ -56,40 +61,45 @@ public class UserDeactivationBatchable implements Database.Batchable<SObject>, D
 	private static final Integer CONFIG_NOTIFICATION_LASTLOGIN_DAYS = Integer.valueOf(CONFIG.LastLoginDaysNotification__c) > 0 ? Integer.valueOf(CONFIG.LastLoginDaysNotification__c) : DEFAULT_NOTIFICATION_LASTLOGIN_DAYS;
 	private static final String CONFIG_NOTIFICATIONEMAIL = String.valueOf(CONFIG?.NotificationEmail__c) ?? DEFAULT_NOTIFICATIONEMAIL;
 	private static final List<String> CONFIG_EXCLUDEDPROFILES = CONFIG?.ExcludedProfileNames__c?.split(',') ?? DEFAULT_EXCLUDEDPROFILES;
+	private static final List<String> CONFIG_NOTIFICATIONPROFILES = CONFIG?.NotificationProfileNames__c?.split(',') ?? DEFAULT_NOTIFICATIONPROFILES;
+	
+	//Fields to query
+	private static final Set<SObjectField> USER_FIELDS = new Set<SObjectField>{ User.Id, User.Name, User.Username, User.Email, User.CreatedDate, User.MyNetwork_Retail_User__c, User.LastAutoDeactivatedDate__c, User.LastLoginDate };
+    private static final Set<SObjectField> PROFILE_FIELDS = new Set<SObjectField>{ Profile.Name };
 
 	public UserDeactivationBatchable() {
 		failedUserMap = new Map<Id, User>();
 		userErrorMessageMap = new Map<Id, String>();
 		errorTypeSet = new Set<String>();
 		successIdSet = new Set<Id>();
+		userEmailNotification = new List<User>();
 	}
 
 	public Database.QueryLocator start(Database.BatchableContext bc) {
-		List<sObject> scope = new List<sObject>();
 		// Query for users who have been inactive and based on few more filters
-		scope.addAll(UsersSelector.newInstance(
+		Map<SObjectType, Set<SObjectField>> fieldOverrides = new Map<SObjectType, Set<SObjectField>>{
+			User.SObjectType => USER_FIELDS, Profile.SObjectType =>  PROFILE_FIELDS
+		};
+		return UsersSelector.newInstance(
 				0,
-				new Set<SObjectField>{ User.Id, User.Name, User.Username, User.CreatedDate, User.LastAutoDeactivatedDate__c, User.LastLoginDate }
+				fieldOverrides
 			)
-			.selectUsersEligibleForDeactivationQueryLocator(DEFAULT_USERTYPE, CONFIG_LASTLOGIN_DAYS, CONFIG_LASTINVITE_DAYS, new Set<String>(CONFIG_EXCLUDEDPROFILES), new Set<Object>()));
-		// Query to send notification to users who have been inactive
-		scope.addAll(UsersSelector.newInstance(
-			0,
-			new Set<SObjectField>{ User.Id, User.Name, User.Username, User.CreatedDate, User.LastAutoDeactivatedDate__c, User.LastLoginDate }
-		)
-		.selectUsersEligibleForDeactivationQueryLocator(DEFAULT_USERTYPE, CONFIG_NOTIFICATION_LASTLOGIN_DAYS, CONFIG_LASTINVITE_DAYS, new Set<String>(CONFIG_EXCLUDEDPROFILES), new Set<Object>()));
-		return scope;
+			.selectUsersEligibleForDeactivationQueryLocator(DEFAULT_USERTYPE, CONFIG_NOTIFICATION_LASTLOGIN_DAYS, CONFIG_LASTINVITE_DAYS, new Set<String>(CONFIG_EXCLUDEDPROFILES), new Set<Object>{UsersSelector.Options.WITH_PROFILE});
 	}
 
 	public void execute(Database.BatchableContext bc, List<User> scope) {
 		try {
 			List<User> updateable = new List<User>();
-			for (User usr : scope) {
-				// deactivate the user and set date to know when it was deactivated
-				usr.IsActive = false;
-				usr.LastAutoDeactivatedDate__c = Date.today();
-
-				updateable.add(usr);
+			for (User usr : scope) {				
+				if(usr.LastLoginDate < Date.today().addDays(-CONFIG_LASTLOGIN_DAYS) || usr.LastLoginDate == null) {
+					// deactivate the user and set date to know when it was deactivated
+					usr.IsActive = false;
+					usr.LastAutoDeactivatedDate__c = Date.today();
+					updateable.add(usr);
+				} else if(CONFIG_NOTIFICATIONPROFILES.contains(usr.Profile.Name) && !usr.MyNetwork_Retail_User__c && usr.LastLoginDate < Date.today().addDays(-CONFIG_NOTIFICATION_LASTLOGIN_DAYS) && usr.LastLoginDate > Date.today().addDays(-CONFIG_LASTLOGIN_DAYS)) {
+					//Send email notification
+					userEmailNotification.add(usr);
+				}
 			}
 
 			// perform the dml and allow partials
@@ -135,9 +145,10 @@ public class UserDeactivationBatchable implements Database.Batchable<SObject>, D
 				FROM AsyncApexJob
 				WHERE Id = :bc.getJobId()
 			];
-			//System.debug('User Deactivation - ' + successIdSet.size() + ' success, ' + failedUserMap.size() + ' failures');
+			System.debug('User Deactivation - ' + successIdSet.size() + ' success, ' + failedUserMap.size() + ' failures');
 			sendEmail(jobDetail); // Send a summary email if any failures
 			removeUserLicenses(); // Remove licenses for the deactivated users (if any)
+			sendNotificationEmail(); // Send Email to Notify user to prevent the deactivation
 		} catch (Exception ex) {
 			// Error Logged to Exception object for analysis
 			ApplicationLogger.getInstance()
@@ -167,6 +178,41 @@ public class UserDeactivationBatchable implements Database.Batchable<SObject>, D
 					ApplicationLogger.LoggingLevel.ERROR
 				);
 		}
+	}
+
+	/**
+	 * Prepare EmailMessage, send to user's email address to notify them to prevent the deactivation of their account
+	 */
+	private void sendNotificationEmail() {
+		Messaging.SingleEmailMessage mail = new Messaging.SingleEmailMessage();
+
+		// define the body
+		String htmlBody = 
+        '<html>' +
+        '<body>' +
+        '<p>Hi,</p>' +
+        '<p>This is a notification that your MyNetwork account is scheduled for deactivation due to inactivity.</p>' +
+        '<p>To maintain access, please <a href="https://mynetwork.auspost.com.au">log in to MyNetwork</a> asap.</p>' +
+        '<p>For any questions or support, please email <a href="mailto:MyNetworkSupport@auspost.com.au">MyNetworkSupport@auspost.com.au</a>.</p>' +
+        '<p>Best Regards,<br>' +
+        'Salesforce Support Team</p>' +
+        '</body>' +
+        '</html>';
+
+		//Set parameters
+        List<String> bccAddress = new List<String>();
+		for (User usr : userEmailNotification) {	
+			if(usr.Email != null) {
+				bccAddress.add(usr.Email);
+			}			
+		}
+		mail.setBccAddresses(bccAddress);
+		mail.setSubject('Action required: Prevent User Deactivation');
+		mail.setHtmlBody(htmlBody);
+
+		// Sends the email
+		Messaging.sendEmail(new List<Messaging.SingleEmailMessage>{ mail });
+		
 	}
 
 	/**
