@@ -13,7 +13,7 @@ public inherited sharing class CaseRecordPopulationModule extends ApplicationMod
     
 	// Setup which triggers this module should respond to
 	public CaseRecordPopulationModule() {
-		getTriggerEvents().enableBeforeInsert().enableBeforeUpdate();
+		getTriggerEvents().enableBeforeInsert().enableBeforeUpdate().enableAfterInsert().enableAfterUpdate();
 	}
 
 	public static final Map<SObjectType, SObjectField> MAPPED_LOOKUP_FIELDS = new Map<SObjectType, SObjectField>{
@@ -35,7 +35,7 @@ public inherited sharing class CaseRecordPopulationModule extends ApplicationMod
 
 		} catch (Exception ex) {
 			ApplicationLogger.getInstance()
-				.logException(ApplicationLogger.wrapException(ex), 'UnifiedCase', CaseRecordPopulationModule.class.getName(), 'onBeforeUpdate', 'Case', ApplicationLogger.LoggingLevel.ERROR);
+				.logException(ApplicationLogger.wrapException(ex), 'UnifiedCase', CaseRecordPopulationModule.class.getName(), 'onBeforeInsert', '', ApplicationLogger.LoggingLevel.ERROR);
 		}
 	}
 	
@@ -47,7 +47,7 @@ public inherited sharing class CaseRecordPopulationModule extends ApplicationMod
 
 		} catch (Exception ex) {
 			ApplicationLogger.getInstance()
-				.logException(ApplicationLogger.wrapException(ex), 'UnifiedCase', CaseRecordPopulationModule.class.getName(), 'onBeforeUpdate', 'Case', ApplicationLogger.LoggingLevel.ERROR);
+				.logException(ApplicationLogger.wrapException(ex), 'UnifiedCase', CaseRecordPopulationModule.class.getName(), 'onBeforeUpdate', '', ApplicationLogger.LoggingLevel.ERROR);
 		}
 	}
 
@@ -60,7 +60,7 @@ public inherited sharing class CaseRecordPopulationModule extends ApplicationMod
 
 		} catch (Exception ex) {
 			ApplicationLogger.getInstance()
-				.logException(ApplicationLogger.wrapException(ex), 'UnifiedCase', CaseRecordPopulationModule.class.getName(), 'onBeforeUpdate', 'Case', ApplicationLogger.LoggingLevel.ERROR);
+				.logException(ApplicationLogger.wrapException(ex), 'UnifiedCase', CaseRecordPopulationModule.class.getName(), 'onBeforeUpdate', '', ApplicationLogger.LoggingLevel.ERROR);
 		}
 	}
 	
@@ -73,7 +73,7 @@ public inherited sharing class CaseRecordPopulationModule extends ApplicationMod
 
 		} catch (Exception ex) {
 			ApplicationLogger.getInstance()
-				.logException(ApplicationLogger.wrapException(ex), 'UnifiedCase', CaseRecordPopulationModule.class.getName(), 'onBeforeUpdate', 'Case', ApplicationLogger.LoggingLevel.ERROR);
+				.logException(ApplicationLogger.wrapException(ex), 'UnifiedCase', CaseRecordPopulationModule.class.getName(), 'onAfterUpdate', '', ApplicationLogger.LoggingLevel.ERROR);
 		}
 	}
 
