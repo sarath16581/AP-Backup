@@ -4,7 +4,7 @@
   * @description Trigger for handling ContactRequest object
   * @changelog
   */
-trigger ContactRequestTrigger on ContactRequest (before insert, before update) {
+trigger ContactRequestTrigger on ContactRequest (before insert, before update, after insert, after update) {
 
 	if(!TriggerHelper.isTriggerDisabled(String.valueOf(ContactRequest.sObjectType))){	 // verify if triggers are disabled
 		(new ContactRequestTriggerHandler()).dispatch();	
