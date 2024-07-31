@@ -10,7 +10,7 @@
  * @changelog
  */
 public inherited sharing class CaseRecordPopulationModule extends ApplicationModule {
-    
+
 	public static final Map<SObjectType, SObjectField> MAPPED_LOOKUP_FIELDS = new Map<SObjectType, SObjectField>{
 		ContactRequest.SobjectType => ContactRequest.WhatId,
 		VoiceCall.SobjectType => VoiceCall.RelatedRecordId
