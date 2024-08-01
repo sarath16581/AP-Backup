@@ -224,11 +224,11 @@
         <versionSegment>1</versionSegment>
     </actionCalls>
     <actionCalls>
-        <name>Network_Partner_Case_Closed</name>
-        <label>Network Partner Case Closed</label>
+        <name>NetworkPartnerCaseClosureEmail</name>
+        <label>Network Partner Case Closure Email</label>
         <locationX>4186</locationX>
         <locationY>926</locationY>
-        <actionName>Case.CAR_Send_Email_Closed_Alert</actionName>
+        <actionName>Case.NetworkPartnerCaseClosureEmail</actionName>
         <actionType>emailAlert</actionType>
         <flowTransactionModel>CurrentTransaction</flowTransactionModel>
         <inputParameters>
@@ -237,15 +237,13 @@
                 <elementReference>vCase.Id</elementReference>
             </value>
         </inputParameters>
-        <nameSegment>Case.CAR_Send_Email_Closed_Alert</nameSegment>
-        <versionSegment>1</versionSegment>
     </actionCalls>
     <actionCalls>
-        <name>New_Case_Creation_from_Email_to_Case</name>
-        <label>New Case Creation from Email-to-Case</label>
+        <name>New_case_creation_email</name>
+        <label>New case creation email</label>
         <locationX>2635</locationX>
         <locationY>350</locationY>
-        <actionName>Case.Network_Partner_Case_Creation_Email</actionName>
+        <actionName>Case.NetworkPartnerCaseCreationEmail</actionName>
         <actionType>emailAlert</actionType>
         <connector>
             <targetReference>CaseDomain_scenarios</targetReference>
@@ -452,7 +450,7 @@
         <nameSegment>Case.Special_Services_Case_Creation_Email_Alert</nameSegment>
         <versionSegment>1</versionSegment>
     </actionCalls>
-    <apiVersion>57.0</apiVersion>
+    <apiVersion>59.0</apiVersion>
     <constants>
         <description>Email Id of MS power apps which needs to be blocked</description>
         <name>MSPowerAppsEmail</name>
@@ -805,7 +803,7 @@
             <label>New Security Express Case</label>
         </rules>
         <rules>
-            <name>Network_Partner_Case</name>
+            <name>NetworkPartnerCase</name>
             <conditionLogic>and</conditionLogic>
             <conditions>
                 <leftValueReference>vCase.RecordType.DeveloperName</leftValueReference>
@@ -814,10 +812,17 @@
                     <elementReference>$Label.REC_TYPE_DEV_Network_Partner</elementReference>
                 </rightValue>
             </conditions>
+            <conditions>
+                <leftValueReference>vCase.Calc_SuppliedEmail__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
             <connector>
-                <targetReference>New_Case_Creation_from_Email_to_Case</targetReference>
+                <targetReference>New_case_creation_email</targetReference>
             </connector>
-            <label>Network Partner Case</label>
+            <label>Nework Partner Case</label>
         </rules>
     </decisions>
     <decisions>
@@ -981,7 +986,7 @@
             <label>Bulk Mail Case</label>
         </rules>
         <rules>
-            <name>Network_Partner_Case2</name>
+            <name>Network_Partner_Cases</name>
             <conditionLogic>and</conditionLogic>
             <conditions>
                 <leftValueReference>vCase.RecordType.DeveloperName</leftValueReference>
@@ -997,10 +1002,24 @@
                     <stringValue>Closed</stringValue>
                 </rightValue>
             </conditions>
+            <conditions>
+                <leftValueReference>vCase.Status</leftValueReference>
+                <operator>NotEqualTo</operator>
+                <rightValue>
+                    <elementReference>vOldCase.Status</elementReference>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>vCase.ContactEmail__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
             <connector>
-                <targetReference>Network_Partner_Case_Closed</targetReference>
+                <targetReference>NetworkPartnerCaseClosureEmail</targetReference>
             </connector>
-            <label>Network Partner Case</label>
+            <label>Network Partner Cases</label>
         </rules>
     </decisions>
     <decisions>

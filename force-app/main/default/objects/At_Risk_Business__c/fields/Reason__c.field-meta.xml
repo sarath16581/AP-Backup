@@ -70,9 +70,19 @@
                 <label>Product Migration</label>
             </value>
             <value>
-                <fullName>Service Performance</fullName>
+                <fullName>Service - Performance</fullName>
                 <default>false</default>
-                <label>Service Performance</label>
+                <label>Service - Performance</label>
+			<value>
+					<fullName>Service - Lodgement</fullName>
+					<default>false</default>
+					<label>Service - Lodgement</label>
+				</value>
+				<value>
+					<fullName>Service - Experience</fullName>
+					<default>false</default>
+					<label>Service - Experience</label>
+				</value>
             </value>
         </valueSetDefinition>
     </valueSet>
