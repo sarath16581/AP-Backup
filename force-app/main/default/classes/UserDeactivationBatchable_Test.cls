@@ -237,12 +237,11 @@ private class UserDeactivationBatchable_Test {
 		Test.startTest();
 		UserDeactivationBatchable batch = new UserDeactivationBatchable();
 		batch.execute(null, null);
-
+		Test.stopTest();
 		// verify ExceptionLog was created
 		List<ExceptionLog__c> exceptionLogList = [SELECT Id, MethodName__c FROM ExceptionLog__c];
 		System.assertEquals(1, exceptionLogList.size());
 		System.assertEquals('execute bc', exceptionLogList[0].MethodName__c);
-		Test.stopTest();
 	}
 
 	/**
@@ -259,12 +258,12 @@ private class UserDeactivationBatchable_Test {
 		UserDeactivationBatchable batch = new UserDeactivationBatchable();
 		batch.setUpdateable(testUserList);
 		batch.finish(null);
-
+		Test.stopTest();
+		
 		// verify ExceptionLog was created
 		List<ExceptionLog__c> exceptionLogList = [SELECT Id, MethodName__c FROM ExceptionLog__c];
 		System.assertEquals(1, exceptionLogList.size());
 		System.assertEquals('finish', exceptionLogList[0].MethodName__c);
-		Test.stopTest();
 	}
 
 	/**
@@ -292,8 +291,8 @@ private class UserDeactivationBatchable_Test {
 			Test.startTest();
 			UserDeactivationBatchable batch = new UserDeactivationBatchable();
 			batch.execute(null,myNetworkUsersList);
-            System.assertEquals(1, batch.getUserEmailNotification().size(), 'Error while notifying for deactivation');
-			Test.stopTest();
+            Test.stopTest();
+			System.assertEquals(1, batch.getUserEmailNotification().size(), 'Error while notifying for deactivation');
 		}
 	}
     
@@ -320,9 +319,9 @@ private class UserDeactivationBatchable_Test {
 			UserDeactivationBatchable batch = new UserDeactivationBatchable();
             batch.setUserEmailNotification(myNetworkUsersList);
 			batch.finish(null);
+			Test.stopTest();			
             List<EmailMessage> emailList = [SELECT Id, Subject, ToAddress FROM EmailMessage];
             System.assertEquals(1, emailList.size(), 'Summary email was not sent');
-			Test.stopTest();
 		}
 	}
 }
