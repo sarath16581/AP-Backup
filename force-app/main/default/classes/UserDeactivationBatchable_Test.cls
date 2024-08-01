@@ -6,6 +6,7 @@
  * @description Test class for UserDeactivationBatchable
  * @changelog
  * 2023-01-27 - Initial creation
+ * 2024-08-01 - Mona Raghav -  REQ3575796 - Added test coverage for the changes done for email notification prior to deactivation
  */
 @IsTest
 private class UserDeactivationBatchable_Test {
@@ -16,10 +17,11 @@ private class UserDeactivationBatchable_Test {
 	static void makeData() {
 		UserDeactivationSettings__c settings = UserDeactivationSettings__c.getOrgDefaults();
 		settings.BatchSize__c = 10;
-		settings.LastLoginDays__c = 1;
+		settings.LastLoginDays__c = 3;
 		settings.LastInviteDays__c = 0;
+		settings.LastLoginDaysNotification__c = 1;
 		settings.NotificationEmail__c = 'dummy@test.com';
-		insert settings;
+		insert settings;       
 	}
 
 	/**
@@ -235,12 +237,11 @@ private class UserDeactivationBatchable_Test {
 		Test.startTest();
 		UserDeactivationBatchable batch = new UserDeactivationBatchable();
 		batch.execute(null, null);
-
+		Test.stopTest();
 		// verify ExceptionLog was created
 		List<ExceptionLog__c> exceptionLogList = [SELECT Id, MethodName__c FROM ExceptionLog__c];
 		System.assertEquals(1, exceptionLogList.size());
 		System.assertEquals('execute bc', exceptionLogList[0].MethodName__c);
-		Test.stopTest();
 	}
 
 	/**
@@ -248,15 +249,79 @@ private class UserDeactivationBatchable_Test {
 	 */
 	@IsTest
 	static void testExecuteFinishException() {
+		//Test Data
+		User testUser = ApplicationTestDataFactory.getUsers(1, false)[0];
+	    List<User> testUserList = new List<User>();
+		testUserList.add(testUser);
 		//Testing
 		Test.startTest();
 		UserDeactivationBatchable batch = new UserDeactivationBatchable();
+		batch.setUpdateable(testUserList);
 		batch.finish(null);
-
+		Test.stopTest();
+		
 		// verify ExceptionLog was created
 		List<ExceptionLog__c> exceptionLogList = [SELECT Id, MethodName__c FROM ExceptionLog__c];
 		System.assertEquals(1, exceptionLogList.size());
 		System.assertEquals('finish', exceptionLogList[0].MethodName__c);
-		Test.stopTest();
+	}
+
+	/**
+	 * Negative scenario : User failed to deactivate, ensure queueable is NOT fired to remove licenses for deactivated users
+	 * and email is sent to the address specified in custom setting
+	 */
+	@IsTest
+	static void testExecuteUserNotificationList() {
+        // =====================================
+		// Data Preparation
+		// 
+		// =====================================
+		List<User> myNetworkUsersList = new List<User>();
+        User testMyNetworkUser = [Select Id, Profile.Name From User Where Profile.Name = 'MyNetwork Portal' LIMIT 1];
+        testMyNetworkUser.MyNetwork_Retail_User__c = false;
+        testMyNetworkUser.Email  = 'dummy@test.com';
+		testMyNetworkUser = (User)ApplicationTestDataFactory.setUnwritableFields(testMyNetworkUser, new Map<String, Object>{ 'LastLoginDate' => Datetime.now().addDays(-1) });
+		myNetworkUsersList.add(testMyNetworkUser);
+
+		User adminUser = ApplicationTestDataFactory.getUsers(1, false)[0];
+		System.runAs(adminUser) {			
+			// =====================================
+			// Testing
+			// =====================================
+			Test.startTest();
+			UserDeactivationBatchable batch = new UserDeactivationBatchable();
+			batch.execute(null,myNetworkUsersList);
+            Test.stopTest();
+			System.assertEquals(1, batch.getUserEmailNotification().size(), 'Error while notifying for deactivation');
+		}
+	}
+    
+    @IsTest
+	static void testUserNotificationEmailtest() {
+        
+        // =====================================
+		// Data Preparation
+		// 
+		// =====================================
+		List<User> myNetworkUsersList = new List<User>();
+        User testMyNetworkUser = [Select Id, Profile.Name From User Where Profile.Name = 'MyNetwork Portal' LIMIT 1];
+        testMyNetworkUser.MyNetwork_Retail_User__c = false;
+        testMyNetworkUser.Email  = 'dummy@test.com';
+		testMyNetworkUser = (User)ApplicationTestDataFactory.setUnwritableFields(testMyNetworkUser, new Map<String, Object>{ 'LastLoginDate' => Datetime.now().addDays(-1) });
+		myNetworkUsersList.add(testMyNetworkUser);
+
+		User adminUser = ApplicationTestDataFactory.getUsers(1, false)[0];
+		System.runAs(adminUser) {
+			// =====================================
+			// Testing
+			// =====================================
+			Test.startTest();
+			UserDeactivationBatchable batch = new UserDeactivationBatchable();
+            batch.setUserEmailNotification(myNetworkUsersList);
+			batch.finish(null);
+			Test.stopTest();			
+            List<EmailMessage> emailList = [SELECT Id, Subject, ToAddress FROM EmailMessage];
+            System.assertEquals(1, emailList.size(), 'Summary email was not sent');
+		}
 	}
 }
