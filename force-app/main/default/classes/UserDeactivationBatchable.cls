@@ -8,6 +8,8 @@
  * @changelog
  * 2023-01-27 - Initial creation
  * 2024-03-01 - REQ3451627 - Minor Change to expose Excluded Profile in Custom Settings
+ * 2024-08-01 - Mona Raghav -  REQ3575796 - Feature added to notify the users via Email few days prior to the deactivation -
+ * Execute method modification and new method sendNotificationEmail added.
  */
 
  public class UserDeactivationBatchable implements Database.Batchable<SObject>, Database.Stateful, Schedulable {
@@ -26,7 +28,10 @@
 	private Set<String> errorTypeSet;
 	// contains userIds which were successfully deactivated/updated
 	private Set<Id> successIdSet;
+	// contains user details to send the email notification
     private List<User> userEmailNotification;
+	// contains user details to deactivate
+	private List<User> updateable;
 
 	// default batch size
 	private static final Integer DEFAULT_BATCH_SIZE = 20;
@@ -38,8 +43,6 @@
 	private static final Integer DEFAULT_NOTIFICATION_LASTLOGIN_DAYS = 75;
 	// default notification email
 	private static final String DEFAULT_NOTIFICATIONEMAIL = 'DLITRCPCMSalesforceSupport@auspost.com.au';
-	//To be removed
-	//private static final String DEFAULT_NOTIFICATIONEMAIL = 'mona.raghavsweety@gmail.com';
 	// define all the profiles to be excluded for fetching users to deactivate
 	private static final List<String> DEFAULT_EXCLUDEDPROFILES = new List<String>{'Sales Insights Integration User','SalesforceIQ Integration User','B2BMA Integration User'};
 	// define all the profiles to be included for sending email notification prior to deactivation
@@ -73,7 +76,28 @@
 		errorTypeSet = new Set<String>();
 		successIdSet = new Set<Id>();
 		userEmailNotification = new List<User>();
+		updateable = new List<User>();
 	}
+
+	// Getter for userEmailNotification - This function is added to cover email notification feature in test class
+    public List<User> getUserEmailNotification() {
+        return userEmailNotification;
+    }
+
+     // Setter for userEmailNotification - This function is added to cover email notification feature in test class
+     public void setUserEmailNotification(List<User> listOfUsers) {
+         userEmailNotification = listOfUsers;
+     }
+
+	 // Getter for updateable - This function is added to cover email notification feature in test class
+	 public List<User> getUpdateable() {
+        return updateable;
+    }
+
+     // Setter for updateable - This function is added to cover email notification feature in test class
+     public void setUpdateable(List<User> listOfUsers) {
+		updateable = listOfUsers;
+     }
 
 	public Database.QueryLocator start(Database.BatchableContext bc) {
 		// Query for users who have been inactive and based on few more filters
@@ -89,40 +113,41 @@
 
 	public void execute(Database.BatchableContext bc, List<User> scope) {
 		try {
-			List<User> updateable = new List<User>();
 			for (User usr : scope) {				
-				if(usr.LastLoginDate < Date.today().addDays(-CONFIG_LASTLOGIN_DAYS) || usr.LastLoginDate == null) {
+				if(usr.LastLoginDate < Datetime.now().addDays(-CONFIG_LASTLOGIN_DAYS) || usr.LastLoginDate == null) {
 					// deactivate the user and set date to know when it was deactivated
 					usr.IsActive = false;
 					usr.LastAutoDeactivatedDate__c = Date.today();
 					updateable.add(usr);
-				} else if(CONFIG_NOTIFICATIONPROFILES.contains(usr.Profile.Name) && !usr.MyNetwork_Retail_User__c && usr.LastLoginDate < Date.today().addDays(-CONFIG_NOTIFICATION_LASTLOGIN_DAYS) && usr.LastLoginDate > Date.today().addDays(-CONFIG_LASTLOGIN_DAYS)) {
+				} else if(CONFIG_NOTIFICATIONPROFILES.contains(usr.Profile.Name) && !usr.MyNetwork_Retail_User__c && usr.LastLoginDate < Datetime.now().addDays(-CONFIG_NOTIFICATION_LASTLOGIN_DAYS) && usr.LastLoginDate > Datetime.now().addDays(-CONFIG_LASTLOGIN_DAYS)) {
 					//Send email notification
 					userEmailNotification.add(usr);
 				}
 			}
 
-			// perform the dml and allow partials
-			List<Database.SaveResult> saveResults = ApplicationDatabase.getInstance().dmlUpdate(updateable, false);
+			if(updateable.size() > 0) {
+				// perform the dml and allow partials
+				List<Database.SaveResult> saveResults = ApplicationDatabase.getInstance().dmlUpdate(updateable, false);
 
-			// analyze the results and save to collection for stats
-			Integer i = 0;
-			for (Database.SaveResult saveResult : saveResults) {
-				if (saveResult.isSuccess()) {
-					// success scenario
-					successIdSet.add(updateable[i].Id);
-				} else {
-					// failure scenario
-					failedUserMap.put(updateable[i].Id, updateable[i]);
-					if (!saveResult.getErrors().isEmpty()) {
-						Database.Error error = saveResult.getErrors()[0];
-						String errCode = String.valueOf(error.getStatusCode());
-						String errMsg = String.valueOf(error.getMessage()).left(MAX_FIELD_LENGTH);
-						userErrorMessageMap.put(updateable[i].Id, errCode + ' : ' + errMsg);
-						errorTypeSet.add(errCode);
+				// analyze the results and save to collection for stats
+				Integer i = 0;
+				for (Database.SaveResult saveResult : saveResults) {
+					if (saveResult.isSuccess()) {
+						// success scenario
+						successIdSet.add(updateable[i].Id);
+					} else {
+						// failure scenario
+						failedUserMap.put(updateable[i].Id, updateable[i]);
+						if (!saveResult.getErrors().isEmpty()) {
+							Database.Error error = saveResult.getErrors()[0];
+							String errCode = String.valueOf(error.getStatusCode());
+							String errMsg = String.valueOf(error.getMessage()).left(MAX_FIELD_LENGTH);
+							userErrorMessageMap.put(updateable[i].Id, errCode + ' : ' + errMsg);
+							errorTypeSet.add(errCode);
+						}
 					}
+					i++;
 				}
-				i++;
 			}
 		} catch (Exception ex) {
 			// Error Logged to Exception object for analysis
@@ -140,15 +165,19 @@
 
 	public void finish(Database.BatchableContext bc) {
 		try {
-			AsyncApexJob jobDetail = [
-				SELECT Id, Status, NumberOfErrors, JobItemsProcessed, TotalJobItems, CreatedDate, CompletedDate
-				FROM AsyncApexJob
-				WHERE Id = :bc.getJobId()
-			];
-			System.debug('User Deactivation - ' + successIdSet.size() + ' success, ' + failedUserMap.size() + ' failures');
-			sendEmail(jobDetail); // Send a summary email if any failures
-			removeUserLicenses(); // Remove licenses for the deactivated users (if any)
-			sendNotificationEmail(); // Send Email to Notify user to prevent the deactivation
+			if(updateable.size() > 0) {
+				AsyncApexJob jobDetail = [
+					SELECT Id, Status, NumberOfErrors, JobItemsProcessed, TotalJobItems, CreatedDate, CompletedDate
+					FROM AsyncApexJob
+					WHERE Id = :bc.getJobId()
+				];
+				System.debug('User Deactivation - ' + successIdSet.size() + ' success, ' + failedUserMap.size() + ' failures');
+				sendEmail(jobDetail); // Send a summary email if any failures
+				removeUserLicenses(); // Remove licenses for the deactivated users (if any)
+			}
+			if(userEmailNotification.size() > 0) {
+				sendNotificationEmail(); // Send Email to Notify user to prevent the deactivation
+			}
 		} catch (Exception ex) {
 			// Error Logged to Exception object for analysis
 			ApplicationLogger.getInstance()
@@ -211,8 +240,9 @@
 		mail.setHtmlBody(htmlBody);
 
 		// Sends the email
-		Messaging.sendEmail(new List<Messaging.SingleEmailMessage>{ mail });
-		
+		if(bccAddress.size() > 0) {
+			Messaging.sendEmail(new List<Messaging.SingleEmailMessage>{ mail });
+		}		
 	}
 
 	/**
