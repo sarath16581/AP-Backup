@@ -2,6 +2,7 @@
  ------------------------------------- History --------------------------------------------------
 09.09.2021    Swati Mogadala REQ2596608- Added the header "Remaining Bottles" under 'ContainsWine'
 01.06.2024    Jacob Isaac	 REQ3357026 - new question on wine/edamages form
+22.07.2024    Jacob Isaac	 REQ3513981 - made file upload into multiple and updated label for file upload
 -->
 <template>
     <div class="slds-m-horizontal_large slds-p-horizontal_large">
@@ -10,7 +11,14 @@
         <template if:true={submitted}>
             <div class="slds-m-around_large slds-p-around_large">
                 <template if:true={fileUploaded}>
-                    <div class="text-center slds-m-around_large">File {fileName} succesfully uploaded and attached to case {caseNumber}.</div>
+                    <div class="text-center slds-m-around_large">Below file(s) succesfully uploaded and attached to case {caseNumber}.</div>
+					<div class="text-center slds-m-around_large">
+						<ul class="slds-m-around_medium">
+							<template for:each={listOfFileNames} for:item="listOfFileName">
+							  <li key={listOfFileName}>{listOfFileName}</li>
+							</template>
+						  </ul>
+					</div>
                     <div class="text-center">Article Id : {articleId}</div>
                     <div class="text-center">Sender name : {senderName}</div>
                     <div class="text-center">Addressee name : {addresseeName}</div>
@@ -20,14 +28,15 @@
                     <div class="text-center">Article Id : {articleId}</div>
                     <div class="text-center">Sender name : {senderName}</div>
                     <div class="text-center">Addressee name : {addresseeName}</div>
-                    <div class="slds-box text-center slds-no-print">If you would like to include a photo or file, attach here.
+                    <div class="slds-box text-center slds-text-title_bold slds-no-print">Please upload photos of the damaged item as received. Include all packaging/inserts and all contents.
                         <div class="slds-align_absolute-center slds-m-around_large">
                             <lightning-file-upload
                                 label="Attach file (jpg, png, or pdf)"
                                 name="fileUploader"
                                 accept={acceptedFormats}
                                 record-id={caseId}
-                                onuploadfinished={handleUploadFinished}
+                                onuploadfinished={handleUploadFinished} 
+								multiple
                                 >
                             </lightning-file-upload>
                         </div>
