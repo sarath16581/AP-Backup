@@ -139,7 +139,6 @@ export default class AmeAddressValidation2 extends LightningElement {
 
 			// Check if we have received an address result with 'HIGH' confidence rating.
 			if (results && results.length > 0 && results[0].confidence === 'HIGH') {
-				console.log('AME search result', results[0]);
 				// High confidence address match found. Retrieve details from AME and populate address.
 				const addressDetailsResponse = await getAddressDetails({ address: results[0].dpid });
 				if (addressDetailsResponse && addressDetailsResponse.length > 0) {
@@ -147,7 +146,7 @@ export default class AmeAddressValidation2 extends LightningElement {
 				}
 			}
 		} catch (error) {
-			console.log(error);
+			console.error(error);
 			this.errorMessage = GENERIC_ERROR_MESSAGE;
 		}
 	}
@@ -184,7 +183,7 @@ export default class AmeAddressValidation2 extends LightningElement {
 				}));
 			}
 		} catch (error) {
-			console.log(JSON.parse(JSON.stringify(error)));
+			console.error(JSON.parse(JSON.stringify(error)));
 			this.errorMessage = GENERIC_ERROR_MESSAGE;
 		} finally {
 			this.isLoadingSearchResults = false;
@@ -205,7 +204,7 @@ export default class AmeAddressValidation2 extends LightningElement {
 				this.setAddressFromAmeAddressResponse(addressResponse, true);
 			}
 		} catch (error) {
-			console.log(JSON.parse(JSON.stringify(error)));
+			console.error(JSON.parse(JSON.stringify(error)));
 			this.errorMessage = GENERIC_ERROR_MESSAGE;
 		} finally {
 			this.isLoadingAddressDetails = false;
