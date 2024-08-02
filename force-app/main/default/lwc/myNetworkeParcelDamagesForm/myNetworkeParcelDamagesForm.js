@@ -377,6 +377,7 @@ export default class myNetworkeParcelDamagesForm extends LwcForm {
             doesContainWine: null,
             totalBottlesInCarton: null,
             totalBottlesDamaged: null,
+			totalBottlesNotDamaged: null,
             noOfCapsDamaged: null,
             noOfLabelsDamaged: null,
             actionTaken: null,
