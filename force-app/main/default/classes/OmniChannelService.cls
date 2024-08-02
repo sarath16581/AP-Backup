@@ -102,6 +102,16 @@ public inherited sharing class OmniChannelService {
 		private set;
 	}
 
+	public static Decimal defaultPreferredAgentExpiry {
+		get {
+			if (defaultPreferredAgentExpiry == null) {
+				defaultPreferredAgentExpiry = QM__c.getOrgDefaults().DefaultPreferredAgentExpiry__c;
+			}
+			return defaultPreferredAgentExpiry;
+		}
+		private set;
+	}
+
 	// this stores the qualified skills for Preferred Agents
 	@TestVisible public Set<String> preferredAgentQualifySkillDeveloperNames {
 		get {
@@ -249,6 +259,8 @@ public inherited sharing class OmniChannelService {
 	 *		 Only work items with accepted AgentWork record are included in the map.
 	 */
 	public Map<Id, AgentWork> getLatestAcceptedAgentWork(Map<Id, SObject> workItems, Boolean includeChildContactRequestWorkItems) {
+
+		// TODO new custom fields are to be introduced on AgentWork ('Case__c'). Review this and simplify if feasible.
 
 		// if 'includeChildContactRequestWorkItems' is set to true, we need to include child ContactRequests on eligible
 		// work items.

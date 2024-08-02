@@ -104,9 +104,7 @@ public inherited sharing class AgentWorkCaseAutomationModule extends Application
 		Map<Id,Case> casesForTrackingLogic = new Map<Id,Case>();
 		Map<Id,Case> oldCasesForTrackingLogic = new Map<Id,Case>();
 
-		Set<Id> caseIdsToReroute = new Set<Id>();
-
-		Map<Id, Case> casesToQuery = new Map<Id, Case>();
+		Set<Id> declinedCaseIds = new Set<Id>();
 
 		for (AgentWork aw: records) {
 			if (existingRecords == null || (existingRecords != null && aw.Status != existingRecords.get(aw.Id).Status)) {
@@ -121,32 +119,39 @@ public inherited sharing class AgentWorkCaseAutomationModule extends Application
 								|| SSSWConstants.OMNI_AGENTWORK_STATUS_UNAVAILABLE.equalsIgnoreCase(aw.Status))) {
 					// on Decline, OTB behaviour for AgentWork with a PreferredUserId (i.e. no OriginalGroupId) is to keep Case Owner as the Agent.
 					// need to manually route the Case back to an Omni queue so it can be assigned to another Agent.
-					caseIdsToReroute.add(aw.WorkItemId);
+					declinedCaseIds.add(aw.WorkItemId);
 				}
 			}
 		}
 
-		// parsing both Sets together for 1 Case Selector call
-		if (!acceptedCaseIds.isEmpty() || !caseIdsToReroute.isEmpty()) {
+		// from the case records with accepted or declined AgentWork records, we need to filter out records not in
+		// scope for this automation. only 'SSSW' and 'Unified' case records are in scope for this automation (see 'caseRecordTypesInScope')
+		Map<Id, Case> processableCases = new Map<Id, Case>();
+
+		// passing both Sets together for 1 Case Selector call
+		if (!acceptedCaseIds.isEmpty() || !declinedCaseIds.isEmpty()) {
 			Set<Id> casesIdsToQuery = new Set<Id>(acceptedCaseIds);
-			casesIdsToQuery.addAll(caseIdsToReroute);
+			casesIdsToQuery.addAll(declinedCaseIds);
 
 			Set<SObjectField> caseFieldsToQuery = new Set<SObjectField>(SSSW_Routing.caseFieldsForRouting);
 			caseFieldsToQuery.addAll(CaseTrackingHelper.caseFieldsForTracking);
 			caseFieldsToQuery.add(Case.Comment__c); // for routing debugging
 
-			casesToQuery = new Map<Id, Case>(CasesSelector.newInstance(caseFieldsToQuery).search(new Map<String, Object>{
+			processableCases = new Map<Id, Case>(CasesSelector.newInstance(caseFieldsToQuery).search(new Map<String, Object>{
 					'caseIds' => casesIdsToQuery,
 					'recordTypeIds' => caseRecordTypesInScope
 			}, true));
 		}
 
-		// Cases to generate Status Tracking
-		if (!acceptedCaseIds.isEmpty() && !casesToQuery.isEmpty()) {
+		if (!acceptedCaseIds.isEmpty() && !processableCases.isEmpty()) {
+			// we have accepted agent work on case records in scope for this automation. routing related system fields
+			// has to be reset on these cases.
+			// if status tracking is required for case record type we also need to ensure status tracking is invoked.
 			List<Case> updatableCases = new List<Case>();
 			for (Id csId : acceptedCaseIds) {
-				Case caseRecord = casesToQuery.get(csId);
+				Case caseRecord = processableCases.get(csId);
 				if (caseRecord != null) {
+					// reset system fields related to case routing, so that routing engine will run in future.
 					updatableCases.add(new Case(
 							Id = csId,
 							BypassPreferredAgent__c = false,
@@ -155,7 +160,9 @@ public inherited sharing class AgentWorkCaseAutomationModule extends Application
 							PreferredAgentExpiry__c = null //needs to be cleared so that in the future, the routing engine can stamp a new value
 					));
 
+					// check if this case record should generate status tracking
 					if (caseRecordTypesForStatusTracking.contains(caseRecord.RecordTypeId)) {
+						// found a case to generate Status Tracking
 						casesForTrackingLogic.put(csId, caseRecord);
 					}
 				}
@@ -185,12 +192,12 @@ public inherited sharing class AgentWorkCaseAutomationModule extends Application
 		}
 
 
-		// Cases to Reroute
-		if (!caseIdsToReroute.isEmpty() && !casesToQuery.isEmpty()) {
+		// cases where AgentWork is declined need to be re-routed.
+		if (!declinedCaseIds.isEmpty() && !processableCases.isEmpty()) {
 			Map<Id,Case> casesToReroute = new Map<Id,Case>();
-			for(Id csId : caseIdsToReroute){
-				if(casesToQuery.containsKey(csId)){
-					casesToReroute.put(csId, casesToQuery.get(csId));
+			for(Id csId : declinedCaseIds){
+				if(processableCases.containsKey(csId)){
+					casesToReroute.put(csId, processableCases.get(csId));
 				}
 			}
 

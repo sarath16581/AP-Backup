@@ -62,23 +62,6 @@ public class SSSW_Routing {
 		private set;
 	}
 
-	private static final Set<SObjectField> ssswRoutingFieldsForRouting {
-		get {
-			if (ssswRoutingFieldsForRouting == null) {
-				Map<String, SObjectField> fieldsMap = SSSWRouting__c.SObjectType.getDescribe(SObjectDescribeOptions.DEFERRED).fields.getMap();
-				Set<SObjectField> results = new Set<SObjectField>();
-				for (String routingFieldName: routingFields) {
-					if (fieldsMap.containsKey(routingFieldName)) {
-						results.add(fieldsMap.get(routingFieldName));
-					}
-				}
-				ssswRoutingFieldsForRouting = results;
-			}
-			return ssswRoutingFieldsForRouting;
-		}
-		set;
-	}
-
 	/**
 	 * Mapping between SSSW_Routing field and the matcher to use when matching case field values.
 	 * If a matcher is not specified for the SSSW_Routing field, the default "Exact Match" matcher is used.
@@ -198,11 +181,16 @@ public class SSSW_Routing {
 		public List<SSSWRouting__c> getRules(Set<String> recordTypeDeveloperNames) {
 
 			Set<SObjectField> fieldOverrides = new Set<SObjectField>{
+					// include all routing fields mapped ('routingFields')
+					SSSWRouting__c.Origin__c, SSSWRouting__c.High_Level_Complaint_Flag__c, SSSWRouting__c.EnquirySubType__c,
+					SSSWRouting__c.Customer_Recovery_Flag__c, SSSWRouting__c.CaseType__c, SSSWRouting__c.CustomerQueueType__c,
+					SSSWRouting__c.ProductCategory__c, SSSWRouting__c.ProductSubCategory__c, SSSWRouting__c.Status__c,
+					SSSWRouting__c.IsNew__c, SSSWRouting__c.IsStrategic__c, SSSWRouting__c.SocialPostTags__c, SSSWRouting__c.HasExtraCover__c,
+					// additional SSSWRouting__c fields used in routing engine
 					SSSWRouting__c.Sequence__c, SSSWRouting__c.Match_Rules_On__c, SSSWRouting__c.NPS_criteria__c, SSSWRouting__c.AutoEscalate__c,
 					SSSWRouting__c.Queue_ID__c, SSSWRouting__c.DefaultCaseDetails__c, SSSWRouting__c.RuleRequiresArticleAttributes__c,
 					SSSWRouting__c.PreferredAgentExpiry__c
 			};
-			fieldOverrides.addAll(ssswRoutingFieldsForRouting);
 
 			return ((SSSWRoutingSelector)SSSWRoutingSelector.newInstance().setFieldOverrides(fieldOverrides)).search(new Map<String, Object>{
 					'recordtypeDeveloperNames' => recordTypeDeveloperNames,
@@ -496,12 +484,8 @@ public class SSSW_Routing {
 					System.debug('DEFAULT ROUTING RULE TRIGGERED!');
 					setRoutingCaseOwner(cs, (isUnifiedCase ? omniService.omniUnifiedDefaultQueueId : omniService.omniDefaultQueueId), null);
 
-					if (isUnifiedCase) {
-						// for unified cases, a default preferred agent expiry is configured. this is to support
-						// routing to be evaluated for unified cases in H1 where only one default omni queue is used along with a
-						// default agent expiry.
-						processPreferredAgentExpiry(cs, oldCase, null, isFinalPass);
-					}
+					// default preferred agent expiry is to be set when no routing rules match.
+					processPreferredAgentExpiry(cs, oldCase, null, isFinalPass);
 
 					// debug messaging to inform admin of routing path
 					CaseRoutingService.getInstance().populateRoutingDebug(cs, 'default routing rule hit!');
@@ -529,12 +513,14 @@ public class SSSW_Routing {
 	*/
 	@TestVisible
 	private static void processPreferredAgentExpiry(Case cs, Case oldCase, SSSWRouting__c rule, Boolean isFinalPass) {
+		// get the default preferred agent expiry applicable for this case
+		Decimal defaultPreferredAgentExpiry = CaseRoutingService.unifiedRecordTypeIds.contains(cs.RecordTypeId) ? OmniChannelService.omniUnifiedPreferredAgentExpiry : OmniChannelService.defaultPreferredAgentExpiry;
 		if(cs.PreferredAgentExpiry__c == null &&
 				(isFinalPass || (oldCase != null && oldCase.PreferredAgentExpiry__c == null)) && 
 				cs.BusinessHoursId != null &&
-				(rule?.PreferredAgentExpiry__c != null || (CaseRoutingService.unifiedRecordTypeIds.contains(cs.RecordTypeId) && OmniChannelService.omniUnifiedPreferredAgentExpiry != null))) {
+				(rule?.PreferredAgentExpiry__c != null || defaultPreferredAgentExpiry != null)) {
 
-			Decimal preferredAgentExpiryInHours = (rule?.PreferredAgentExpiry__c != null ? rule.PreferredAgentExpiry__c : OmniChannelService.omniUnifiedPreferredAgentExpiry);
+			Decimal preferredAgentExpiryInHours = (rule?.PreferredAgentExpiry__c != null ? rule.PreferredAgentExpiry__c : defaultPreferredAgentExpiry);
 			cs.PreferredAgentExpiry__c = BusinessHours.add(cs.BusinessHoursId, Datetime.now(), preferredAgentExpiryInHours.longValue() * 3600000);
 		}
 	}
