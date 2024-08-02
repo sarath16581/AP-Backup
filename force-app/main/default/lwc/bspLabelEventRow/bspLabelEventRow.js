@@ -56,7 +56,7 @@ export default class BspLabelEventRow extends LightningElement {
    */
   get redirectToPOD(){
 	if(this.diplayPOD) {
-	  window.open('/POD_Redirect?id=' + this.evnt.Id, '_blank');
+	  window.open('/POD_Redirect?id=' + this.le.Id, '_blank');
 	}
   }
 
