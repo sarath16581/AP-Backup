@@ -6,95 +6,95 @@
 01.09.2020    Jansi Rani   Created
 -->
 <template>
-    <template if:true={events}>
-        <table class="slds-table_cell-buffer slds-no-row-hover slds-table_bordered brand-table table-small-dense brand-table-scroll">
-            <thead class="brand-table">
-                <tr class="slds-line-height_reset">
-                    <!--Consignment Events-->
-                    <template if:false={reqFrom}>
-                        <th scope="col">
-                            <div class="slds-truncate">
-                                Actual date<!--/time -->
-                            </div>
-                        </th>
-                        <template if:true={isConsignmentSerchIsSTType}>
-                            <th scope="col">
-                                <div class="slds-truncate">
-                                    Depot name
-                                </div>
-                            </th>
-                        </template>
-                        <th scope="col">
-                            <div class="slds-truncate">
-                                Event description
-                            </div>
-                        </th>
-                        <template if:true={isConsignmentSerchIsAPType}>
-                            <th scope="col">
-                                <div class="slds-truncate">
-                                    Location
-                                </div>
-                            </th>
-                        </template>
-                        <template if:true={isConsignmentSerchIsAPType}>
-                            <template if:true={isConsignmentAuthenticated}>
-                                <th scope="col">
-                                    <div class="slds-truncate">
-                                        Proof of Delivery
-                                    </div>
-                                </th>
-                            </template>
-                        </template>
-                    </template>
-                    <!--Article Events-->
-                    <template if:true={reqFrom}>
-                        <th scope="col">
-                            <div class="slds-truncate">
-                                Article number
-                            </div>
-                        </th>
+	<template if:true={events}>
+		<table class="slds-table_cell-buffer slds-no-row-hover slds-table_bordered brand-table table-small-dense brand-table-scroll">
+			<thead class="brand-table">
+				<tr class="slds-line-height_reset">
+					<!--Consignment Events-->
+					<template if:false={reqFrom}>
+						<th scope="col">
+							<div class="slds-truncate">
+								Actual date<!--/time -->
+							</div>
+						</th>
+						<template if:true={isConsignmentSerchIsSTType}>
+							<th scope="col">
+								<div class="slds-truncate">
+									Depot name
+								</div>
+							</th>
+						</template>
+						<th scope="col">
+							<div class="slds-truncate">
+								Event description
+							</div>
+						</th>
+						<template if:true={isConsignmentSerchIsAPType}>
+							<th scope="col">
+								<div class="slds-truncate">
+									Location
+								</div>
+							</th>
+						</template>
+						<template if:true={isConsignmentSerchIsAPType}>
+							<template if:true={isConsignmentAuthenticated}>
+								<th scope="col">
+									<div class="slds-truncate">
+										Proof of Delivery
+									</div>
+								</th>
+							</template>
+						</template>
+					</template>
+					<!--Article Events-->
+					<template if:true={reqFrom}>
+						<th scope="col">
+							<div class="slds-truncate">
+								Article number
+							</div>
+						</th>
 
-                        <th scope="col">
-                            <div class="slds-truncate">
-                                Date <!--&amp; time-->
-                            </div>
-                        </th>
+						<th scope="col">
+							<div class="slds-truncate">
+								Date <!--&amp; time-->
+							</div>
+						</th>
 
-                        <th scope="col">
-                            <div class="slds-truncate">
-                                Tracking event
-                            </div>
-                        </th>
+						<th scope="col">
+							<div class="slds-truncate">
+								Tracking event
+							</div>
+						</th>
 
-                        <th scope="col">
-                            <div class="slds-truncate">
-                                Location
-                            </div>
-                        </th>
-                        <template if:true={isConsignmentSerchIsAPType}>
-                            <template if:true={isConsignmentAuthenticated}>
-                                <th scope="col">
-                                    <div class="slds-truncate">
-                                        Proof of Delivery
-                                    </div>
-                                </th>
-                            </template>
-                        </template>
-                    </template>
-                </tr>
-            </thead>
-            <tbody class="brand-table">
-                <!-- Iterating events-->
-                <template for:each={events} for:item="evnt">
-                    <c-bsp-article-event-row key={evnt} evnt={evnt}
-                        is-consignment-authenticated={isConsignmentAuthenticated}
-                        is-c-e-a-ttachments-exists={isCEAttachmentsExists} req-from={reqFrom}
-                        em-scan-types={emScanTypes} is-consignment-serch-is-a-p-type={isConsignmentSerchIsAPType}
-                        is-consignment-serch-is-s-t-type={isConsignmentSerchIsSTType}></c-bsp-article-event-row>
+						<th scope="col">
+							<div class="slds-truncate">
+								Location
+							</div>
+						</th>
+						<template if:true={isConsignmentSerchIsAPType}>
+							<template if:true={isConsignmentAuthenticated}>
+								<th scope="col">
+									<div class="slds-truncate">
+										Proof of Delivery
+									</div>
+								</th>
+							</template>
+						</template>
+					</template>
+				</tr>
+			</thead>
+			<tbody class="brand-table">
+				<!-- Iterating events-->
+				<template for:each={events} for:item="evnt">
+					<c-bsp-article-event-row key={evnt} evnt={evnt}
+											 is-consignment-authenticated={isConsignmentAuthenticated}
+											 is-c-e-a-ttachments-exists={isCEAttachmentsExists} req-from={reqFrom}
+											 em-scan-types={emScanTypes} is-consignment-serch-is-a-p-type={isConsignmentSerchIsAPType}
+											 is-consignment-serch-is-s-t-type={isConsignmentSerchIsSTType}
+											 is-safe-drop-download-loading={passSafeDropDownloadState}></c-bsp-article-event-row>
+				</template>
+			</tbody>
+		</table>
 
-                </template>
-            </tbody>
-        </table>
-
-    </template>
+	</template>
 </template>

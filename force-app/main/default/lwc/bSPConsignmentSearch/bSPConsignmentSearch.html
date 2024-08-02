@@ -7,175 +7,178 @@
 -->
 <template>
 
-    <!-- Navigation links-->
-    <c-bsp-breadcrumb bread-crumb-text="Your delivery"></c-bsp-breadcrumb>
+	<!-- Navigation links-->
+	<c-bsp-breadcrumb bread-crumb-text="Your delivery"></c-bsp-breadcrumb>
 
-    <!--Tracking search-->
-    <c-bsp-tracking-number-search slim-tracking-bar="true" ontrackingsearchgo={handleTrackingNumberSerach}>
-    </c-bsp-tracking-number-search>
+	<!--Tracking search-->
+	<c-bsp-tracking-number-search slim-tracking-bar="true" ontrackingsearchgo={handleTrackingNumberSerach}>
+	</c-bsp-tracking-number-search>
 
 
-    <div id="content-panel" class="slds-grid_align-center slds-is-relative">
-        <!-- spinner-->
-        <div if:true={isLoading}>
-            <lightning-spinner alternative-text="Loading" variant="brand" size="medium"></lightning-spinner>
-        </div>
-        <div id="workarea"
-            class="slds-p-around_large slds-m-bottom_x-large outer-box section-container slds-is-relative">
+	<div id="content-panel" class="slds-grid_align-center slds-is-relative">
+		<!-- spinner-->
+		<div if:true={isLoading}>
+			<lightning-spinner alternative-text="Loading" variant="brand" size="medium"></lightning-spinner>
+		</div>
+		<div id="workarea"
+			 class="slds-p-around_large slds-m-bottom_x-large outer-box section-container slds-is-relative">
 
-            <h2 class="slds-p-bottom_large">Your delivery</h2>
+			<h2 class="slds-p-bottom_large">Your delivery</h2>
 
-            <!-- Error messages-->
-            <template for:each={errorMessages} for:item="errorMessage">
-                <template if:true={errorMessage}>
-                    <c-bsp-error key={errorMessage} error-message={errorMessage}></c-bsp-error>
-                </template>
-            </template>
-            <template if:true={consignmentSearchResultsWrapper}>
-                <!-- conListPanel-->
-                <template if:true={isShowConList}>
-                    <c-bsp-consignment-list con-list={consignmentSearchResultsWrapper.conList}
-                        ontogglespinner={handleLoading} onselectedconsignmentresults={handleSelectedConsignmentResults}
-                        onselectedconsignmenterror ={onSelectedConsignmentError}>
-                    </c-bsp-consignment-list>
-                </template>
+			<!-- Error messages-->
+			<template for:each={errorMessages} for:item="errorMessage">
+				<template if:true={errorMessage}>
+					<c-bsp-error key={errorMessage} error-message={errorMessage}></c-bsp-error>
+				</template>
+			</template>
+			<template if:true={consignmentSearchResultsWrapper}>
+				<!-- conListPanel-->
+				<template if:true={isShowConList}>
+					<c-bsp-consignment-list con-list={consignmentSearchResultsWrapper.conList}
+											ontogglespinner={handleLoading} onselectedconsignmentresults={handleSelectedConsignmentResults}
+											onselectedconsignmenterror ={onSelectedConsignmentError}>
+					</c-bsp-consignment-list>
+				</template>
 
-                <!-- Latest Event Header-->
-                <template if:true={isShowHeaderEventSection}>
-                    <c-bsp-consignment-header-section
-                        -a-p-consignment-exp-delivery-date={consignmentSearchResultsWrapper.APConsignmentExpDeliveryDate}
-                        -s-t-consignment-arrival-date={consignmentSearchResultsWrapper.singleCon.ExpectedDeliveryDate_Str__c}
-                        header-event={headerEvent} is-consignment-serch-is-a-p-type={isConsignmentSerchIsAPType}>
-                    </c-bsp-consignment-header-section>
-                </template>
+				<!-- Latest Event Header-->
+				<template if:true={isShowHeaderEventSection}>
+					<c-bsp-consignment-header-section
+							-a-p-consignment-exp-delivery-date={consignmentSearchResultsWrapper.APConsignmentExpDeliveryDate}
+							-s-t-consignment-arrival-date={consignmentSearchResultsWrapper.singleCon.ExpectedDeliveryDate_Str__c}
+							header-event={headerEvent} is-consignment-serch-is-a-p-type={isConsignmentSerchIsAPType}>
+					</c-bsp-consignment-header-section>
+				</template>
 
-                <!-- conDetail START-->
-                <template if:true={isShowConDetail}>
+				<!-- conDetail START-->
+				<template if:true={isShowConDetail}>
 
-                    <!-- Auspost-->
-                    <template if:true={isConsignmentSerchIsAPType}>
-                        <!--Aus Post Consignment Details-->
-                        <c-bsp-a-p-consignment-details single-con={consignmentSearchResultsWrapper.singleCon}
-                            selected-consignment-search-type={consignmentSearchResultsWrapper.selectedConsignmentSearchType}
-                            -a-p-consignment-exp-delivery-date={consignmentSearchResultsWrapper.APConsignmentExpDeliveryDate}
-                            -a-p-consignment-lodgement-date={consignmentSearchResultsWrapper.APConsignmentLodgementDate}
-                            -a-p-consignment-sub-product={consignmentSearchResultsWrapper.APConsignmentSubProduct}
-                            destination={consignmentSearchResultsWrapper.destination}
-                            is-consignment-authenticated={consignmentSearchResultsWrapper.isConsignmentAuthenticated}
-                            consignment-number={consignmentSearchResultsWrapper.consignmentNumber}
-                            recall-authenticated={consignmentSearchResultsWrapper.authToRecallRedirect}
-                            recall-in-progress={consignmentSearchResultsWrapper.recallInProgress}
-                            submit-callback={handleSearch}>
-                        </c-bsp-a-p-consignment-details>
+					<!-- Auspost-->
+					<template if:true={isConsignmentSerchIsAPType}>
+						<!--Aus Post Consignment Details-->
+						<c-bsp-a-p-consignment-details single-con={consignmentSearchResultsWrapper.singleCon}
+													   selected-consignment-search-type={consignmentSearchResultsWrapper.selectedConsignmentSearchType}
+													   -a-p-consignment-exp-delivery-date={consignmentSearchResultsWrapper.APConsignmentExpDeliveryDate}
+													   -a-p-consignment-lodgement-date={consignmentSearchResultsWrapper.APConsignmentLodgementDate}
+													   -a-p-consignment-sub-product={consignmentSearchResultsWrapper.APConsignmentSubProduct}
+													   destination={consignmentSearchResultsWrapper.destination}
+													   is-consignment-authenticated={consignmentSearchResultsWrapper.isConsignmentAuthenticated}
+													   consignment-number={consignmentSearchResultsWrapper.consignmentNumber}
+													   recall-authenticated={consignmentSearchResultsWrapper.authToRecallRedirect}
+													   recall-in-progress={consignmentSearchResultsWrapper.recallInProgress}
+													   submit-callback={handleSearch}>
+						</c-bsp-a-p-consignment-details>
 
-                        <!-- AP Consignment events (shows for "AP recordtype='Article')-->
-                        <template if:true={isShowconsignmentEvents}>
-                            <h3 class="slds-p-bottom_small slds-p-top_medium">
-                                Article tracking
-                            </h3>
-                            <template if:true={isConsigmentEventsExists}>
-                                <c-bsp-article-events events={consignmentSearchResultsWrapper.consignmentEvents}
-                                    is-consignment-authenticated={consignmentSearchResultsWrapper.isConsignmentAuthenticated}
-                                    is-consignment-serch-is-a-p-type={isConsignmentSerchIsAPType}
-                                    is-consignment-serch-is-s-t-type={isConsignmentSerchIsSTType}
-                                    em-scan-types={consignmentSearchResultsWrapper.emScanTypes}>
-                                </c-bsp-article-events>
-                            </template>
-                            <!-- No events found-->
-                            <template if:false={isConsigmentEventsExists}>
-                                <div class="slds-p-bottom_medium"> No article tracking</div>
-                            </template>
-                        </template>
-                    </template>
+						<!-- AP Consignment events (shows for "AP recordtype='Article')-->
+						<template if:true={isShowconsignmentEvents}>
+							<h3 class="slds-p-bottom_small slds-p-top_medium">
+								Article tracking
+							</h3>
+							<template if:true={isConsigmentEventsExists}>
+								<c-bsp-article-events events={consignmentSearchResultsWrapper.consignmentEvents}
+													  is-consignment-authenticated={consignmentSearchResultsWrapper.isConsignmentAuthenticated}
+													  is-consignment-serch-is-a-p-type={isConsignmentSerchIsAPType}
+													  is-consignment-serch-is-s-t-type={isConsignmentSerchIsSTType}
+													  em-scan-types={consignmentSearchResultsWrapper.emScanTypes}>
+								</c-bsp-article-events>
+							</template>
+							<!-- No events found-->
+							<template if:false={isConsigmentEventsExists}>
+								<div class="slds-p-bottom_medium"> No article tracking</div>
+							</template>
+						</template>
+					</template>
 
-                    
-                    <!-- Startrack-->
-                    <template if:true={isConsignmentSerchIsSTType}>
-                        
-                        <!--ST Consignment Details-->
-                        <div class='slds-grid slds-wrap'>
-                            <div class='slds-col slds-size_1-of-1 slds-large-size_1-of-2'>
-                        
-                                <c-bsp-s-t-consignment-details
-                                    single-con={consignmentSearchResultsWrapper.singleCon}
-                                    selected-consignment-search-type={consignmentSearchResultsWrapper.selectedConsignmentSearchType}
-                                    destination={consignmentSearchResultsWrapper.destination}
-                                    is-consignment-authenticated={consignmentSearchResultsWrapper.isConsignmentAuthenticated}
-                                    consignment-number={consignmentSearchResultsWrapper.consignmentNumber}>
-                                </c-bsp-s-t-consignment-details>
-                            </div>
-                                
-                            <!-- ST Proof of Delivery-->
-                            <template if:true={isSTPODExists}>
-                                
-                                    <div class='slds-col slds-size_1-of-1 slds-large-size_1-of-2'>
-                                        <h3 class="slds-m-bottom_medium">Proof of delivery</h3>
-                                        <c-bsp-s-t-proof-of-deliveries related-p-o-ds={consignmentSearchResultsWrapper.relatedPODs}
-                                            single-con-article-id={consignmentSearchResultsWrapper.singleCon.ArticleID__c}>
-                                        </c-bsp-s-t-proof-of-deliveries>
-                                    </div>
-                                
-                            </template>
 
-                        </div>
+					<!-- Startrack-->
+					<template if:true={isConsignmentSerchIsSTType}>
 
-                        <!-- ST Consignment events -->
-                        <template if:true={isShowconsignmentEvents}>
-                            <h3 class="slds-p-bottom_small slds-p-top_medium">
-                                Consignment tracking
-                            </h3>
-                            <template if:true={isConsigmentEventsExists}>
-                                <c-bsp-article-events events={consignmentSearchResultsWrapper.consignmentEvents}
-                                    is-consignment-authenticated={consignmentSearchResultsWrapper.isConsignmentAuthenticated}
-                                    is-consignment-serch-is-a-p-type={isConsignmentSerchIsAPType}
-                                    is-consignment-serch-is-s-t-type={isConsignmentSerchIsSTType}>
-                                </c-bsp-article-events>
-                            </template>
-                            <!-- No events found-->
-                            <template if:false={isConsigmentEventsExists}>
-                                <div class="slds-p-bottom_medium"> No consignment tracking</div>
-                            </template>
-                        </template>
-                    </template>
+						<!--ST Consignment Details-->
+						<div class='slds-grid slds-wrap'>
+							<div class='slds-col slds-size_1-of-1 slds-large-size_1-of-2'>
 
-                    <!-- Label Events-->
-                    <template if:true={isShowLabelEvents}>
-                        <h3 class="slds-p-bottom_small slds-p-top_medium">Article tracking</h3>
-                        <template if:true={isLabelEventsExists}>
-                            <c-bsp-consignment-label-events label-events={consignmentSearchResultsWrapper.labelEvents}
-                                selected-event-article={consignmentSearchResultsWrapper.selectedEventArticle}
-                                selected-consignment-search-type={consignmentSearchResultsWrapper.selectedConsignmentSearchType}
-                                is-consignment-authenticated={consignmentSearchResultsWrapper.isConsignmentAuthenticated}
-                                is-consignment-serch-is-a-p-type={isConsignmentSerchIsAPType}
-                                onselectedarticlechange={onChangeOfSelectedEvent}>
-                            </c-bsp-consignment-label-events>
-                        </template>
-                        <template if:false={isLabelEventsExists}>
-                            No freight items tracking
-                        </template>
-                    </template>
+								<c-bsp-s-t-consignment-details
+										single-con={consignmentSearchResultsWrapper.singleCon}
+										selected-consignment-search-type={consignmentSearchResultsWrapper.selectedConsignmentSearchType}
+										destination={consignmentSearchResultsWrapper.destination}
+										is-consignment-authenticated={consignmentSearchResultsWrapper.isConsignmentAuthenticated}
+										consignment-number={consignmentSearchResultsWrapper.consignmentNumber}>
+								</c-bsp-s-t-consignment-details>
+							</div>
 
-                    <!-- Article Events-->
-                    <template if:true={isShowArticleEvents}>
-                        <h3 class="slds-p-bottom_small slds-p-top_medium">Article events </h3>
-                        <c-bsp-article-events events={consignmentSearchResultsWrapper.articleEvents}
-                            is-consignment-serch-is-a-p-type={isConsignmentSerchIsAPType}
-                            is-consignment-serch-is-s-t-type={isConsignmentSerchIsSTType}
-                            is-consignment-authenticated={consignmentSearchResultsWrapper.isConsignmentAuthenticated} req-from='articleEvents'
-                            em-scan-types={consignmentSearchResultsWrapper.emScanTypes}></c-bsp-article-events>
-                    </template>
-                </template>
-                <!-- conDetail END-->
-            </template>
-        </div>
-        <template if:true={consignmentSearchResultsWrapper}>
-            <!-- Create Case Button-->
-            <template if:true={isShowCreateEnquirySection}>
-                <div class="slds-m-bottom_x-large slds-is-relative">
-                    <c-bsp-create-enquiries-grid tracking-id={consignmentSearchResultsWrapper.consignmentNumber}>
-                    </c-bsp-create-enquiries-grid>
-                </div>
-            </template>
-        </template>
-    </div>
+							<!-- ST Proof of Delivery-->
+							<template if:true={isSTPODExists}>
+
+								<div class='slds-col slds-size_1-of-1 slds-large-size_1-of-2'>
+									<h3 class="slds-m-bottom_medium">Proof of delivery</h3>
+									<c-bsp-s-t-proof-of-deliveries related-p-o-ds={consignmentSearchResultsWrapper.relatedPODs}
+																   single-con-article-id={consignmentSearchResultsWrapper.singleCon.ArticleID__c}>
+									</c-bsp-s-t-proof-of-deliveries>
+								</div>
+
+							</template>
+
+						</div>
+
+						<!-- ST Consignment events -->
+						<template if:true={isShowconsignmentEvents}>
+							<h3 class="slds-p-bottom_small slds-p-top_medium">
+								Consignment tracking
+							</h3>
+							<template if:true={isConsigmentEventsExists}>
+								<c-bsp-article-events events={consignmentSearchResultsWrapper.consignmentEvents}
+													  is-consignment-authenticated={consignmentSearchResultsWrapper.isConsignmentAuthenticated}
+													  is-consignment-serch-is-a-p-type={isConsignmentSerchIsAPType}
+													  is-consignment-serch-is-s-t-type={isConsignmentSerchIsSTType}>
+								</c-bsp-article-events>
+							</template>
+							<!-- No events found-->
+							<template if:false={isConsigmentEventsExists}>
+								<div class="slds-p-bottom_medium"> No consignment tracking</div>
+							</template>
+						</template>
+					</template>
+
+					<!-- Label Events-->
+					<template if:true={isShowLabelEvents}>
+						<h3 class="slds-p-bottom_small slds-p-top_medium">Article tracking</h3>
+						<template if:true={isLabelEventsExists}>
+							<c-bsp-consignment-label-events label-events={consignmentSearchResultsWrapper.labelEvents}
+															selected-event-article={consignmentSearchResultsWrapper.selectedEventArticle}
+															selected-consignment-search-type={consignmentSearchResultsWrapper.selectedConsignmentSearchType}
+															is-consignment-authenticated={consignmentSearchResultsWrapper.isConsignmentAuthenticated}
+															is-consignment-serch-is-a-p-type={isConsignmentSerchIsAPType}
+															onselectedarticlechange={onChangeOfSelectedEvent}
+															is-safe-drop-download-loading={safeDropDownloadLoading}>
+							</c-bsp-consignment-label-events>
+						</template>
+						<template if:false={isLabelEventsExists}>
+							No freight items tracking
+						</template>
+					</template>
+
+					<!-- Article Events-->
+					<template if:true={isShowArticleEvents}>
+						<h3 class="slds-p-bottom_small slds-p-top_medium">Article events </h3>
+						<c-bsp-article-events events={consignmentSearchResultsWrapper.articleEvents}
+											  is-consignment-serch-is-a-p-type={isConsignmentSerchIsAPType}
+											  is-consignment-serch-is-s-t-type={isConsignmentSerchIsSTType}
+											  is-consignment-authenticated={consignmentSearchResultsWrapper.isConsignmentAuthenticated}
+											  req-from='articleEvents'
+											  em-scan-types={consignmentSearchResultsWrapper.emScanTypes}
+											  is-safe-drop-download-loading={safeDropDownloadLoading}></c-bsp-article-events>
+					</template>
+				</template>
+				<!-- conDetail END-->
+			</template>
+		</div>
+		<template if:true={consignmentSearchResultsWrapper}>
+			<!-- Create Case Button-->
+			<template if:true={isShowCreateEnquirySection}>
+				<div class="slds-m-bottom_x-large slds-is-relative">
+					<c-bsp-create-enquiries-grid tracking-id={consignmentSearchResultsWrapper.consignmentNumber}>
+					</c-bsp-create-enquiries-grid>
+				</div>
+			</template>
+		</template>
+	</div>
 </template>
