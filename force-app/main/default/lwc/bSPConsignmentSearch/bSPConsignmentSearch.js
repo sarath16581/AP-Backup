@@ -32,8 +32,6 @@ export default class BSPConsignmentSearch extends NavigationMixin(LightningEleme
 		if (this.consignmentNumber) {
 			this.handleSearch();
 		}
-
-		this.downloadSafeDropImage(this.consignmentNumber);
 	}
 
 	/**
@@ -51,7 +49,7 @@ export default class BSPConsignmentSearch extends NavigationMixin(LightningEleme
 				this.errorMessages = this.consignmentSearchResultsWrapper.errorMessages;
 			}
 			this.isLoading = false;
-
+			this.downloadSafeDropImage(this.consignmentNumber);
 		}).catch(error => {
 			// 2020/10/01 - catching IO exceptions here
 			let sErrorBody = error.body.message;
