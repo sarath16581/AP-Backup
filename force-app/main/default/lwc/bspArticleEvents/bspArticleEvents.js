@@ -1,7 +1,7 @@
 /**
  * @description LWC for displaying article event table in article's tracking Id search result for BSP Community
  * @changelog:
- * 2024-08-02 - Seth Heang - added isSafeDropDownloadLoading attribute pass-through
+ * 2024-08-02 - Seth Heang - added passSafeDropDownloadState attribute pass-through
  */
 import { LightningElement, api } from 'lwc';
 

@@ -1,6 +1,9 @@
-/*
-2022-09-12 naveen.rajanna@auspost.com.au Removed /bsp in url as part of CHG0176934
-*/
+/**
+ * @description LWC for displaying each article row in article's tracking Id search result table for BSP
+ * @changelog
+ * 2022-09-12 - naveen.rajanna@auspost.com.au - Removed /bsp in url as part of CHG0176934
+ * 2024-08-02 - Seth Heang - update hyperlink call to POD_Redirect to account for SafeDropDownload loading state from parent cmp as pre-condition
+ */
 import { LightningElement, api } from "lwc";
 import { convertToFormattedDateStr } from 'c/bspCommonJS';
 
@@ -10,36 +13,63 @@ export default class BspLabelEventRow extends LightningElement {
   @api isCEAttachmentsExists;
   @api selectedEventArticle;
   @api isConsignmentSerchIsAPType;
+  @api isSafeDropDownloadLoading;
+
+  _viewPODClicked;
 
   get isCENotesAttachmentsExists() {
-    return this.le.NotesAndAttachments ? this.le.NotesAndAttachments.length > 0 ? true : false : false;
+	return this.le.NotesAndAttachments ? this.le.NotesAndAttachments.length > 0 ? true : false : false;
   }
 
   get isCurrentAndSelectedArticleIsSame() {
-    return this.le ? this.le.Article__c == this.selectedEventArticle ? true : false : false;
+	return this.le ? this.le.Article__c == this.selectedEventArticle ? true : false : false;
   }
 
   get articleLinkClass() {
-    return this.isCurrentAndSelectedArticleIsSame ? "no-underline-dec brand-link-button" : "underline-dec brand-link-button";
+	return this.isCurrentAndSelectedArticleIsSame ? "no-underline-dec brand-link-button" : "underline-dec brand-link-button";
   }
 
   selectEventArticle() {
-    //event.preventDefault();
-    this.selectedEventArticle = this.le.Article__c;
-    this.dispatchAnEventWithSelectedArticle(this.selectedEventArticle);
-    //return false;
+	//event.preventDefault();
+	this.selectedEventArticle = this.le.Article__c;
+	this.dispatchAnEventWithSelectedArticle(this.selectedEventArticle);
+	//return false;
   }
 
   dispatchAnEventWithSelectedArticle(selectedArticle) {
-    const c = new CustomEvent("selectedarticlechange", { detail: selectedArticle });
-    this.dispatchEvent(c);
+	const c = new CustomEvent("selectedarticlechange", { detail: selectedArticle });
+	this.dispatchEvent(c);
   }
 
-  get podHref(){
-    return '/POD_Redirect?id=' + this.le.Id; //CHG0176934
+  /**
+   * @description set a viewPODClicked flag to true, when the 'Click to view' hyperlink is clicked
+   */
+  handlePodHref(){
+	this._viewPODClicked = true;
+	this.redirectToPOD();
   }
+
+  /**
+   * @description Reactively redirect to POD_Redirect to render the PDF,
+   *              when the `Click to view` hyperlink is clicked on HTML and SafeDrop Downloading is completed
+   * @returns {string}
+   */
+  get redirectToPOD(){
+	if(this.diplayPOD) {
+	  window.open('/POD_Redirect?id=' + this.evnt.Id, '_blank');
+	}
+  }
+
+  get diplayPOD(){
+	return !this.isSafeDropDownloadLoading && this._viewPODClicked;
+  }
+
+  get isLoading(){
+	return this.isSafeDropDownloadLoading && this._viewPODClicked;
+  }
+
 
   get stFormattedActualDateTimeStr(){
-    return this.le.ActualDateTime_TimeStamp__c ? convertToFormattedDateStr(this.le.ActualDateTime_TimeStamp__c) : '';
+	return this.le.ActualDateTime_TimeStamp__c ? convertToFormattedDateStr(this.le.ActualDateTime_TimeStamp__c) : '';
   }
 }

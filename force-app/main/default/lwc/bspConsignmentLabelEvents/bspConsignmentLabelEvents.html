@@ -6,60 +6,61 @@
 25.08.2020    Jansi Rani   Created
 -->
 <template>
-    <template if:true={labelEvents}>
-        <table
-            class="slds-table slds-table_cell-buffer slds-no-row-hover slds-table_bordered brand-table table-small-dense brand-table-scroll">
-            <thead class="brand-table">
-                <tr class="slds-line-height_reset">
-                    <th scope="col">
-                        <div class="slds-truncate">
-                            Article number
-                        </div>
-                    </th>
+	<template if:true={labelEvents}>
+		<table
+			class="slds-table slds-table_cell-buffer slds-no-row-hover slds-table_bordered brand-table table-small-dense brand-table-scroll">
+			<thead class="brand-table">
+				<tr class="slds-line-height_reset">
+					<th scope="col">
+						<div class="slds-truncate">
+							Article number
+						</div>
+					</th>
 
 
-                    <th scope="col">
-                        <div class="slds-truncate">
-                            Date
-                        </div>
-                    </th>
+					<th scope="col">
+						<div class="slds-truncate">
+							Date
+						</div>
+					</th>
 
 
-                    <th scope="col">
-                        <div class="slds-truncate">
-                            Last tracking event
-                        </div>
-                    </th>
+					<th scope="col">
+						<div class="slds-truncate">
+							Last tracking event
+						</div>
+					</th>
 
-                    <th scope="col">
-                        <div class="slds-truncate">
-                            Location
-                        </div>
-                    </th>
-                    <template if:true='{isConsignmentSerchIsAPType}'>
-                        <template if:true={isConsignmentAuthenticated}>
-                            <th scope="col">
-                                <div class="slds-truncate">
-                                    Proof of Delivery
-                                </div>
-                            </th>
-                        </template>
-                    </template>
+					<th scope="col">
+						<div class="slds-truncate">
+							Location
+						</div>
+					</th>
+					<template if:true='{isConsignmentSerchIsAPType}'>
+						<template if:true={isConsignmentAuthenticated}>
+							<th scope="col">
+								<div class="slds-truncate">
+									Proof of Delivery
+								</div>
+							</th>
+						</template>
+					</template>
 
-                </tr>
-            </thead>
-            <tbody class="brand-table">
-                <!-- Iterating events-->
-                <template for:each={labelEvents} for:item="le">
+				</tr>
+			</thead>
+			<tbody class="brand-table">
+				<!-- Iterating events-->
+				<template for:each={labelEvents} for:item="le">
+					<c-bsp-label-event-row key={le} le={le} is-consignment-authenticated={isConsignmentAuthenticated}
+						is-c-e-a-ttachments-exists={isCEAttachmentsExists} selected-event-article={selectedEventArticle}
+						onselectedarticlechange={onChangeOfSelectedEvent}
+						is-consignment-serch-is-a-p-type={isConsignmentSerchIsAPType}
+						is-safe-drop-download-loading={passSafeDropDownloadState}
+					></c-bsp-label-event-row>
 
-                    <c-bsp-label-event-row key={le} le={le} is-consignment-authenticated={isConsignmentAuthenticated}
-                        is-c-e-a-ttachments-exists={isCEAttachmentsExists} selected-event-article={selectedEventArticle}
-                        onselectedarticlechange={onChangeOfSelectedEvent}
-                        is-consignment-serch-is-a-p-type={isConsignmentSerchIsAPType}></c-bsp-label-event-row>
+				</template>
+			</tbody>
+		</table>
 
-                </template>
-            </tbody>
-        </table>
-
-    </template>
+	</template>
 </template>
