@@ -53,13 +53,12 @@ const TABLE_COLUMNS = [
 ];
 
 /**
- * The Customer Search Form Results component displays the search results.
- * The search response is passed to the component via the `searchResponse` property.
+ * The Unified Customer Search Results component displays the search results that is passed to the component via the `searchResponse` property.
  *
- * @alias CustomerSearchFormResults
+ * @alias UnifiedCustomerSearchResults
  * @hideconstructor
  */
-export default class CustomerSearchFormResults extends NavigationMixin(
+export default class UnifiedCustomerSearchResults extends NavigationMixin(
 	LightningElement
 ) {
 	/**

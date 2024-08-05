@@ -1,7 +1,7 @@
 /**
  * @author Marcel HK
  * @date 2024-06-03
- * @description - Controller for the Lightning Web Component `CustomerSearchForm`
+ * @description - Controller for the Lightning Web Component `UnifiedCustomerSearch`
  * @changelog
  * 2024-06-03 - Marcel HK - Created
  * 2024-07-02 - Marcel HK - Corrected form validation logic to align with associated LWC (CSLU-438)
@@ -12,8 +12,9 @@
  * 2024-07-23 - Marcel HK - Added accountId and abn/acn properties (CSLU-447)
  * 2024-07-26 - Marcel HK - Add customer type (CSLU-449)
  * 2024-07-26 - Marcel HK - Add mailing address and related case count (CSLU-439)
+ * 2024-08-05 - Marcel HK - Refactor to `CustomerSearchFormController` to `UnifiedCustomerSearchController`
  */
-public with sharing class CustomerSearchFormController {
+public with sharing class UnifiedCustomerSearchController {
 	// Query configuration constants
 	@TestVisible
 	private static final Integer MAX_RESULTS = 20;

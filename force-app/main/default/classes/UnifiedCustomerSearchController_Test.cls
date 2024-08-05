@@ -1,7 +1,7 @@
 /**
  * @author Marcel HK
  * @date 2024-06-03
- * @description - Test class for the `CustomerSearchFormController`
+ * @description - Test class for the `UnifiedCustomerSearchController`
  * @changelog
  * 2024-06-03 - Marcel HK - Created
  * 2024-07-02 - Marcel HK - Corrected form validation logic to align with associated LWC (CSLU-438)
@@ -11,27 +11,28 @@
  * 2024-07-23 - Marcel HK - Added accountId and abn/acn properties (CSLU-447)
  * 2024-07-26 - Marcel HK - Add customer type (CSLU-449)
  * 2024-07-26 - Marcel HK - Add mailing address and related case count (CSLU-439)
+ * 2024-08-05 - Marcel HK - Refactor to `CustomerSearchFormController` to `UnifiedCustomerSearchController`
  */
 @IsTest
-public class CustomerSearchFormController_Test {
-	static final Integer MAX_RESULTS = CustomerSearchFormController.MAX_RESULTS;
-	static final Set<Object> CONTACT_SELECTOR_OPTIONS = CustomerSearchFormController.CONTACT_SELECTOR_OPTIONS;
-	static final Map<SObjectType, Set<SObjectField>> SELECTOR_FIELDS = CustomerSearchFormController.SELECTOR_FIELDS;
-	static final String NOT_ENOUGH_PARAMS_ERROR_MSG = CustomerSearchFormController.NOT_ENOUGH_PARAMS_ERROR_MSG;
-	static final String TOO_MANY_RESULTS_WARNING_MSG = CustomerSearchFormController.TOO_MANY_RESULTS_WARNING_MSG;
-	static final String INVALID_ABN_ACN_ERROR_MSG = CustomerSearchFormController.INVALID_ABN_ACN_ERROR_MSG;
+public class UnifiedCustomerSearchController_Test {
+	static final Integer MAX_RESULTS = UnifiedCustomerSearchController.MAX_RESULTS;
+	static final Set<Object> CONTACT_SELECTOR_OPTIONS = UnifiedCustomerSearchController.CONTACT_SELECTOR_OPTIONS;
+	static final Map<SObjectType, Set<SObjectField>> SELECTOR_FIELDS = UnifiedCustomerSearchController.SELECTOR_FIELDS;
+	static final String NOT_ENOUGH_PARAMS_ERROR_MSG = UnifiedCustomerSearchController.NOT_ENOUGH_PARAMS_ERROR_MSG;
+	static final String TOO_MANY_RESULTS_WARNING_MSG = UnifiedCustomerSearchController.TOO_MANY_RESULTS_WARNING_MSG;
+	static final String INVALID_ABN_ACN_ERROR_MSG = UnifiedCustomerSearchController.INVALID_ABN_ACN_ERROR_MSG;
 
 	@IsTest
 	static void testValidateSearchRequestWithFirstAndLastNameOnly() {
 		try {
-			CustomerSearchFormController.SearchRequest req = new CustomerSearchFormController.SearchRequest();
+			UnifiedCustomerSearchController.SearchRequest req = new UnifiedCustomerSearchController.SearchRequest();
 			req.firstName = 'Joan';
 			req.lastName = 'Watson';
 
 			Test.startTest();
-			CustomerSearchFormController.validateSearchRequest(req);
+			UnifiedCustomerSearchController.validateSearchRequest(req);
 			Test.stopTest();
-		} catch (CustomerSearchFormController.SearchException e) {
+		} catch (UnifiedCustomerSearchController.SearchException e) {
 			Assert.fail('Should not throw exception (' + e.toString() + ')');
 		}
 	}
@@ -39,13 +40,13 @@ public class CustomerSearchFormController_Test {
 	@IsTest
 	static void testValidateSearchRequestWithEmailOnly() {
 		try {
-			CustomerSearchFormController.SearchRequest req = new CustomerSearchFormController.SearchRequest();
+			UnifiedCustomerSearchController.SearchRequest req = new UnifiedCustomerSearchController.SearchRequest();
 			req.emailAddress = 'sherlock@example.com';
 
 			Test.startTest();
-			CustomerSearchFormController.validateSearchRequest(req);
+			UnifiedCustomerSearchController.validateSearchRequest(req);
 			Test.stopTest();
-		} catch (CustomerSearchFormController.SearchException e) {
+		} catch (UnifiedCustomerSearchController.SearchException e) {
 			Assert.fail('Should not throw exception (' + e.toString() + ')');
 		}
 	}
@@ -53,13 +54,13 @@ public class CustomerSearchFormController_Test {
 	@IsTest
 	static void testValidateSearchRequestWithPhoneOnly() {
 		try {
-			CustomerSearchFormController.SearchRequest req = new CustomerSearchFormController.SearchRequest();
+			UnifiedCustomerSearchController.SearchRequest req = new UnifiedCustomerSearchController.SearchRequest();
 			req.phoneNumber = '0411 222 333';
 
 			Test.startTest();
-			CustomerSearchFormController.validateSearchRequest(req);
+			UnifiedCustomerSearchController.validateSearchRequest(req);
 			Test.stopTest();
-		} catch (CustomerSearchFormController.SearchException e) {
+		} catch (UnifiedCustomerSearchController.SearchException e) {
 			Assert.fail('Should not throw exception (' + e.toString() + ')');
 		}
 	}
@@ -67,13 +68,13 @@ public class CustomerSearchFormController_Test {
 	@IsTest
 	static void testValidateSearchRequestWithMissingAllFeilds() {
 		try {
-			CustomerSearchFormController.SearchRequest req = new CustomerSearchFormController.SearchRequest();
+			UnifiedCustomerSearchController.SearchRequest req = new UnifiedCustomerSearchController.SearchRequest();
 			Test.startTest();
-			CustomerSearchFormController.validateSearchRequest(req);
+			UnifiedCustomerSearchController.validateSearchRequest(req);
 			Test.stopTest();
 
 			Assert.fail('SearchException should have been thrown');
-		} catch (CustomerSearchFormController.SearchException e) {
+		} catch (UnifiedCustomerSearchController.SearchException e) {
 			Assert.areEqual(
 				NOT_ENOUGH_PARAMS_ERROR_MSG,
 				e.getMessage(),
@@ -85,16 +86,16 @@ public class CustomerSearchFormController_Test {
 	@IsTest
 	static void testValidateSearchRequestWithMissingFirstNameError() {
 		try {
-			CustomerSearchFormController.SearchRequest req = new CustomerSearchFormController.SearchRequest();
+			UnifiedCustomerSearchController.SearchRequest req = new UnifiedCustomerSearchController.SearchRequest();
 			req.firstName = ' ';
 			req.lastName = 'Holmes';
 
 			Test.startTest();
-			CustomerSearchFormController.validateSearchRequest(req);
+			UnifiedCustomerSearchController.validateSearchRequest(req);
 			Test.stopTest();
 
 			Assert.fail('SearchException should have been thrown');
-		} catch (CustomerSearchFormController.SearchException e) {
+		} catch (UnifiedCustomerSearchController.SearchException e) {
 			Assert.areEqual(
 				NOT_ENOUGH_PARAMS_ERROR_MSG,
 				e.getMessage(),
@@ -106,16 +107,16 @@ public class CustomerSearchFormController_Test {
 	@IsTest
 	static void testValidateSearchRequestWithMissingLastNameError() {
 		try {
-			CustomerSearchFormController.SearchRequest req = new CustomerSearchFormController.SearchRequest();
+			UnifiedCustomerSearchController.SearchRequest req = new UnifiedCustomerSearchController.SearchRequest();
 			req.firstName = 'Sherlock';
 			req.lastName = null;
 
 			Test.startTest();
-			CustomerSearchFormController.validateSearchRequest(req);
+			UnifiedCustomerSearchController.validateSearchRequest(req);
 			Test.stopTest();
 
 			Assert.fail('SearchException should have been thrown');
-		} catch (CustomerSearchFormController.SearchException e) {
+		} catch (UnifiedCustomerSearchController.SearchException e) {
 			Assert.areEqual(
 				NOT_ENOUGH_PARAMS_ERROR_MSG,
 				e.getMessage(),
@@ -127,17 +128,17 @@ public class CustomerSearchFormController_Test {
 	@IsTest
 	static void testValidateSearchRequestWithInvalidAbnAcn() {
 		try {
-			CustomerSearchFormController.SearchRequest req = new CustomerSearchFormController.SearchRequest();
+			UnifiedCustomerSearchController.SearchRequest req = new UnifiedCustomerSearchController.SearchRequest();
 			req.firstName = 'Joan';
 			req.lastName = 'Watson';
 			req.abnAcn = '123';
 
 			Test.startTest();
-			CustomerSearchFormController.validateSearchRequest(req);
+			UnifiedCustomerSearchController.validateSearchRequest(req);
 			Test.stopTest();
 
 			Assert.fail('SearchException should have been thrown');
-		} catch (CustomerSearchFormController.SearchException e) {
+		} catch (UnifiedCustomerSearchController.SearchException e) {
 			Assert.areEqual(
 				INVALID_ABN_ACN_ERROR_MSG,
 				e.getMessage(),
@@ -170,8 +171,8 @@ public class CustomerSearchFormController_Test {
 		);
 
 		Test.startTest();
-		CustomerSearchFormController.SearchResponse res;
-		res = CustomerSearchFormController.createResponse(contacts);
+		UnifiedCustomerSearchController.SearchResponse res;
+		res = UnifiedCustomerSearchController.createResponse(contacts);
 		Test.stopTest();
 
 		Assert.isNotNull(res, 'Incorrect res object');
@@ -182,7 +183,7 @@ public class CustomerSearchFormController_Test {
 		);
 		Assert.isNull(res.warningMessage, 'Warning message should not be included');
 
-		CustomerSearchFormController.SearchResult sr1 = res.searchResults.get(0);
+		UnifiedCustomerSearchController.SearchResult sr1 = res.searchResults.get(0);
 		Assert.isNotNull(res, 'SearchResult should not be null');
 		Assert.areEqual('Sherlock', sr1.firstName, 'First Name should match');
 		Assert.areEqual('Holmes', sr1.lastName, 'Last Name should match');
@@ -218,8 +219,8 @@ public class CustomerSearchFormController_Test {
 		);
 
 		Test.startTest();
-		CustomerSearchFormController.SearchResult sr;
-		sr = new CustomerSearchFormController.SearchResult(c);
+		UnifiedCustomerSearchController.SearchResult sr;
+		sr = new UnifiedCustomerSearchController.SearchResult(c);
 		Test.stopTest();
 
 		Assert.areEqual('Level 9', sr.mailingStreet, 'mailingStreet should match');
@@ -269,8 +270,8 @@ public class CustomerSearchFormController_Test {
 		);
 
 		Test.startTest();
-		CustomerSearchFormController.SearchResult sr;
-		sr = new CustomerSearchFormController.SearchResult(contactObj);
+		UnifiedCustomerSearchController.SearchResult sr;
+		sr = new UnifiedCustomerSearchController.SearchResult(contactObj);
 		Test.stopTest();
 
 		Assert.areEqual(2, sr.openCasesCount, 'Incorrect openCasesCount');
@@ -285,8 +286,8 @@ public class CustomerSearchFormController_Test {
 		c = (Contact) ApplicationTestDataFactory.setUnwritableFields(c, new Map<String, Object>{ 'Account' => acc});
 
 		Test.startTest();
-		CustomerSearchFormController.SearchResult sr;
-		sr = new CustomerSearchFormController.SearchResult(c);
+		UnifiedCustomerSearchController.SearchResult sr;
+		sr = new UnifiedCustomerSearchController.SearchResult(c);
 		Test.stopTest();
 
 		Assert.areEqual('Consumer', sr.customerType, 'Incorrect Customer Type');
@@ -301,8 +302,8 @@ public class CustomerSearchFormController_Test {
 		c = (Contact) ApplicationTestDataFactory.setUnwritableFields(c, new Map<String, Object>{ 'Account' => acc});
 
 		Test.startTest();
-		CustomerSearchFormController.SearchResult sr;
-		sr = new CustomerSearchFormController.SearchResult(c);
+		UnifiedCustomerSearchController.SearchResult sr;
+		sr = new UnifiedCustomerSearchController.SearchResult(c);
 		Test.stopTest();
 
 		Assert.areEqual('SMB', sr.customerType, 'Incorrect Customer Type');
@@ -317,8 +318,8 @@ public class CustomerSearchFormController_Test {
 		c = (Contact) ApplicationTestDataFactory.setUnwritableFields(c, new Map<String, Object>{ 'Account' => acc});
 
 		Test.startTest();
-		CustomerSearchFormController.SearchResult sr;
-		sr = new CustomerSearchFormController.SearchResult(c);
+		UnifiedCustomerSearchController.SearchResult sr;
+		sr = new UnifiedCustomerSearchController.SearchResult(c);
 		Test.stopTest();
 
 		Assert.areEqual('Enterprise', sr.customerType, 'Incorrect Customer Type');
@@ -333,8 +334,8 @@ public class CustomerSearchFormController_Test {
 		c = (Contact) ApplicationTestDataFactory.setUnwritableFields(c, new Map<String, Object>{ 'Account' => acc});
 
 		Test.startTest();
-		CustomerSearchFormController.SearchResult sr;
-		sr = new CustomerSearchFormController.SearchResult(c);
+		UnifiedCustomerSearchController.SearchResult sr;
+		sr = new UnifiedCustomerSearchController.SearchResult(c);
 		Test.stopTest();
 
 		Assert.areEqual('Consumer SMB', sr.customerType, 'Incorrect Customer Type');
@@ -346,8 +347,8 @@ public class CustomerSearchFormController_Test {
 		List<Contact> contacts = new List<Contact>();
 
 		Test.startTest();
-		CustomerSearchFormController.SearchResponse res;
-		res = CustomerSearchFormController.createResponse(contacts);
+		UnifiedCustomerSearchController.SearchResponse res;
+		res = UnifiedCustomerSearchController.createResponse(contacts);
 		Test.stopTest();
 
 		Assert.isNotNull(res, 'Incorrect res object');
@@ -369,8 +370,8 @@ public class CustomerSearchFormController_Test {
 		}
 
 		Test.startTest();
-		CustomerSearchFormController.SearchResponse res;
-		res = CustomerSearchFormController.createResponse(contacts);
+		UnifiedCustomerSearchController.SearchResponse res;
+		res = UnifiedCustomerSearchController.createResponse(contacts);
 		Test.stopTest();
 
 		Assert.isNotNull(res, 'Incorrect res object');
@@ -424,13 +425,13 @@ public class CustomerSearchFormController_Test {
 		// =====================================
 		// Testing
 		// =====================================
-		CustomerSearchFormController.SearchRequest req = new CustomerSearchFormController.SearchRequest();
+		UnifiedCustomerSearchController.SearchRequest req = new UnifiedCustomerSearchController.SearchRequest();
 		req.firstName = 'Jo';
 		req.lastName = 'Watson';
 
 		Test.startTest();
-		CustomerSearchFormController.SearchResponse res;
-		res = CustomerSearchFormController.search(req);
+		UnifiedCustomerSearchController.SearchResponse res;
+		res = UnifiedCustomerSearchController.search(req);
 		Test.stopTest();
 
 		Assert.isNotNull(res, 'Incorrect res object');
@@ -450,10 +451,10 @@ public class CustomerSearchFormController_Test {
 	@IsTest
 	static void testSearchWithInvalidParameters() {
 		try {
-			CustomerSearchFormController.SearchRequest req = new CustomerSearchFormController.SearchRequest();
+			UnifiedCustomerSearchController.SearchRequest req = new UnifiedCustomerSearchController.SearchRequest();
 
 			Test.startTest();
-			CustomerSearchFormController.search(req);
+			UnifiedCustomerSearchController.search(req);
 			Test.stopTest();
 
 			Assert.fail('AuraHandledException should have been thrown');
@@ -468,14 +469,14 @@ public class CustomerSearchFormController_Test {
 
 	@IsTest
 	static void testTransformSearchRequestWithBasicDetails() {
-		CustomerSearchFormController.SearchRequest req = new CustomerSearchFormController.SearchRequest();
+		UnifiedCustomerSearchController.SearchRequest req = new UnifiedCustomerSearchController.SearchRequest();
 		req.firstName = 'John';
 		req.lastName = 'Smith';
 		req.emailAddress = 'john@smith.com';
 		req.phoneNumber = '0412 345 678';
 
 		Test.startTest();
-		ContactsSelector.CustomerSearchParameters params = CustomerSearchFormController.transformSearchRequest(
+		ContactsSelector.CustomerSearchParameters params = UnifiedCustomerSearchController.transformSearchRequest(
 			req
 		);
 		Test.stopTest();
@@ -490,11 +491,11 @@ public class CustomerSearchFormController_Test {
 
 	@IsTest
 	static void testTransformSearchRequestWithConsumer() {
-		CustomerSearchFormController.SearchRequest req = new CustomerSearchFormController.SearchRequest();
+		UnifiedCustomerSearchController.SearchRequest req = new UnifiedCustomerSearchController.SearchRequest();
 		req.customerType = 'CONSUMER';
 
 		Test.startTest();
-		ContactsSelector.CustomerSearchParameters params = CustomerSearchFormController.transformSearchRequest(
+		ContactsSelector.CustomerSearchParameters params = UnifiedCustomerSearchController.transformSearchRequest(
 			req
 		);
 		Test.stopTest();
@@ -508,11 +509,11 @@ public class CustomerSearchFormController_Test {
 
 	@IsTest
 	static void testTransformSearchRequestWithOrganisation() {
-		CustomerSearchFormController.SearchRequest req = new CustomerSearchFormController.SearchRequest();
+		UnifiedCustomerSearchController.SearchRequest req = new UnifiedCustomerSearchController.SearchRequest();
 		req.customerType = 'ORGANISATION';
 
 		Test.startTest();
-		ContactsSelector.CustomerSearchParameters params = CustomerSearchFormController.transformSearchRequest(
+		ContactsSelector.CustomerSearchParameters params = UnifiedCustomerSearchController.transformSearchRequest(
 			req
 		);
 		Test.stopTest();
@@ -526,7 +527,7 @@ public class CustomerSearchFormController_Test {
 
 	@IsTest
 	static void testTransformSearchRequestWithAddress() {
-		CustomerSearchFormController.SearchRequest req = new CustomerSearchFormController.SearchRequest();
+		UnifiedCustomerSearchController.SearchRequest req = new UnifiedCustomerSearchController.SearchRequest();
 		req.addressStreet1 = '123 Example St';
 		req.addressStreet2 = 'Example Line 2';
 		req.addressCity = 'Example Town';
@@ -534,7 +535,7 @@ public class CustomerSearchFormController_Test {
 		req.addressPostalCode = '3999';
 
 		Test.startTest();
-		ContactsSelector.CustomerSearchParameters params = CustomerSearchFormController.transformSearchRequest(
+		ContactsSelector.CustomerSearchParameters params = UnifiedCustomerSearchController.transformSearchRequest(
 			req
 		);
 		Test.stopTest();
@@ -548,12 +549,12 @@ public class CustomerSearchFormController_Test {
 
 	@IsTest
 	static void testTransformSearchRequestWithOrganisationDetails() {
-		CustomerSearchFormController.SearchRequest req = new CustomerSearchFormController.SearchRequest();
+		UnifiedCustomerSearchController.SearchRequest req = new UnifiedCustomerSearchController.SearchRequest();
 		req.accountId = fflib_IDGenerator.generate(Account.getSObjectType());
 		req.abnAcn = '11222333444';
 
 		Test.startTest();
-		ContactsSelector.CustomerSearchParameters params = CustomerSearchFormController.transformSearchRequest(
+		ContactsSelector.CustomerSearchParameters params = UnifiedCustomerSearchController.transformSearchRequest(
 			req
 		);
 		Test.stopTest();

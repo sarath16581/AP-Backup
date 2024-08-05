@@ -172,7 +172,7 @@ public virtual inherited sharing class ContactsSelector extends ApplicationSelec
 	/**
 	 * @description Execute SOQL query and return a Map with Contact objects matching the search parameters.
 	 * 
-	 * This method was intially developed for CSLU-107 and is used by class `CustomerSearchFormController`.
+	 * This method was intially developed for CSLU-107 and is used by class `UnifiedCustomerSearchController`.
 	 * 
 	 * @param params - The search parameters to build the query from.
 	 * @param selectorOptions - The Selector framework options used when building the query.
@@ -190,7 +190,7 @@ public virtual inherited sharing class ContactsSelector extends ApplicationSelec
 	 * 
 	 * For example: `WHERE (FirstName LIKE 'Joan%' OR PreferredName LIKE 'Joan%') AND LastName LIKE 'Watson%'`
 	 * 
-	 * This method was intially developed for CSLU-107 and is used by class `CustomerSearchFormController`.
+	 * This method was intially developed for CSLU-107 and is used by class `UnifiedCustomerSearchController`.
 	 * 
 	 * @param params - The search parameters to build the query from.
 	 * @param selectorOptions - The Selector framework options used when building the query.
