@@ -12,6 +12,7 @@
 public inherited sharing class CaseUnifiedProactiveMonitoringModule extends ApplicationModule {
 	@TestVisible
 	private final static String ERROR_SLA_EXPIRED = 'Case has passed SLA, refer to Knowledge for next steps.';
+	private final static QM__c QUEUE_SETTINGS = QM__c.getInstance();
 
 	public static CaseUnifiedProactiveMonitoringModule newInstance() {
 		return (CaseUnifiedProactiveMonitoringModule) Application.Utilities.newInstance(CaseUnifiedProactiveMonitoringModule.class);
@@ -36,59 +37,37 @@ public inherited sharing class CaseUnifiedProactiveMonitoringModule extends Appl
 	}
 
 	/**
-	 * @description Retrieve unified customer service monitoring queue once, and save as a constant for repeated usage
-	 */
-	private static final Group UNIFIED_CUSTOMER_SERVICE_MONITORING_QUEUE {
-		get {
-			if (UNIFIED_CUSTOMER_SERVICE_MONITORING_QUEUE == null) {
-				UNIFIED_CUSTOMER_SERVICE_MONITORING_QUEUE = ((GroupsSelector) GroupsSelector.newInstance(1).setFieldOverrides(new Set<SObjectField>{ Group.Id, Group.DeveloperName }))
-					.selectByGroupTypeAndDeveloperName(new Set<String>{ 'queue' }, new Set<String>{ 'UnifiedCustomerServiceMonitoringQueue' })
-					.values()[0];
-			}
-			return UNIFIED_CUSTOMER_SERVICE_MONITORING_QUEUE;
-		}
-		private set;
-	}
-
-	/**
-	 * @description Fetch unified customer service monitoring queue and return back to the LWC
-	 * @return Group
-	 */
-	@AuraEnabled(Cacheable=true)
-	public static Group getUnifiedCustomerServiceMonitoringQueue() {
-		return UNIFIED_CUSTOMER_SERVICE_MONITORING_QUEUE;
-	}
-
-	/**
 	 * @description Validate SLA period of the case's createdDate and update case's status
 	 * @param records new changes including updates
 	 * @param existingRecords old changes without updates
 	 * @param uow
 	 */
 	private void updateCaseForProactiveMonitoring(List<Case> records, Map<Id, Case> existingRecords, ApplicationUnitOfWork uow) {
-		List<Case> eligibleCasesForUpdate = new List<Case>();
-		for (Case updatedCase : records) {
-			Case oldCase = existingRecords.get(updatedCase.Id);
-			if (checkEligibilityForProactiveMonitoring(oldCase, updatedCase)) {
-				eligibleCasesForUpdate.add(updatedCase);
+		String context = CaseUnifiedProactiveMonitoringModule.class.getName();
+		Set<SObjectField> monitoredFields = new Set<SObjectField>{ Case.OwnerId };
+		List<ApplicationRecursion.RecordState> changedRecords = ApplicationRecursion.getInstance().getProcessableRecords(context, records, existingRecords, monitoredFields);
+		// Eligibility Check on changed state
+		for (ApplicationRecursion.RecordState recordState : changedRecords) {
+			Case updatedCase = (Case) recordState.record;
+			Set<SObjectField> changed = recordState.changedFields;
+			if (!changed.isEmpty() && changed.contains(Case.OwnerId)) {
+				if (checkEligibilityForProactiveMonitoring(updatedCase)) {
+					updatedCase.Status = SSSWConstants.CASE_STATUS_MONITORING;
+				}
 			}
-		}
-		if (!eligibleCasesForUpdate.isEmpty()) {
-			pushCaseToMonitoring(eligibleCasesForUpdate);
 		}
 	}
 
 	/**
 	 * @description Check eligibility and validate the SLA period from case's createdDate and throw error if SLA is not met
-	 * @param oldRecord old cases
 	 * @param newRecord new cases with updates
 	 * @return Boolean
 	 */
-	private Boolean checkEligibilityForProactiveMonitoring(Case oldRecord, Case newRecord) {
+	private Boolean checkEligibilityForProactiveMonitoring(Case newRecord) {
 		// Calculate the date 5 business days after the Case's CreatedDate
 		Date fiveBusinessDaysAfterCreation = BusinessHoursService.newInstance().calculateNextBusinessDay(newRecord.CreatedDate.date(), 5);
 		Date currentDate = Date.today();
-		if (oldRecord.OwnerId != newRecord.OwnerId && newRecord.OwnerId.equals(UNIFIED_CUSTOMER_SERVICE_MONITORING_QUEUE.Id)) {
+		if (newRecord.OwnerId.equals((Id) QUEUE_SETTINGS.UnifiedDefaultMonitoringQueueId__c)) {
 			if (currentDate < fiveBusinessDaysAfterCreation) {
 				return true;
 			} else {
@@ -96,15 +75,5 @@ public inherited sharing class CaseUnifiedProactiveMonitoringModule extends Appl
 			}
 		}
 		return false;
-	}
-
-	/**
-	 * @description update relevant details for eligible cases that met SLA period including status
-	 * @param eligibleCases filtered case that met eligibility
-	 */
-	private void pushCaseToMonitoring(List<Case> eligibleCases) {
-		for (Case updateCase : eligibleCases) {
-			updateCase.Status = 'Monitoring';
-		}
 	}
 }

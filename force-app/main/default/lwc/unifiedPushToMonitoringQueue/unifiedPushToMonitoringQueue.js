@@ -7,7 +7,7 @@
  */
 import { LightningElement, api, wire } from 'lwc';
 import { getRecord, updateRecord, getFieldValue } from 'lightning/uiRecordApi';
-import getUnifiedMonitoringQueue from '@salesforce/apex/CaseUnifiedProactiveMonitoringModule.getUnifiedCustomerServiceMonitoringQueue';
+import getUnifiedMonitoringQueueId from '@salesforce/apex/UnifiedPushToMonitoringQueueController.getUnifiedCustomerServiceMonitoringQueueId';
 import CASE_ID_FIELD from '@salesforce/schema/Case.Id';
 import CASE_OWNER_ID_FIELD from '@salesforce/schema/Case.OwnerId';
 import { CloseActionScreenEvent } from 'lightning/actions';
@@ -40,23 +40,13 @@ export default class UnifiedPushToMonitoringQueue extends LightningElement {
 	}
 
 	/**
-	 * @description validate if current case is already in the same queue as the param
-	 * @param queue
-	 * @returns {boolean}
-	 */
-	isCaseInMonitoringQueue(queue){
-		return this._caseOwnerId === queue.Id;
-	}
-
-	/**
 	 * @description fetch the unified monitoring queue from controller and validate against current case's owner
-	 *			if it's the same, then throw an error message and don't proceed with dml update
+	 *				if it's the same, then throw an error message and don't proceed with dml update
 	 * @returns {Promise<void>}
 	 */
 	async fetchAndValidateUnifiedMonitoringQueue(){
-		const monitoringQueue = await getUnifiedMonitoringQueue();
-		this._unifiedMonitoringQueueId = monitoringQueue.Id;
-		if(this.isCaseInMonitoringQueue(monitoringQueue)){
+		this._unifiedMonitoringQueueId = await getUnifiedMonitoringQueueId();
+		if(this._unifiedMonitoringQueueId === this._caseOwnerId){
 			this._errorMessages.push(
 				CASE_ALREADY_IN_MONITORING_QUEUE_ERROR_MSG
 			);

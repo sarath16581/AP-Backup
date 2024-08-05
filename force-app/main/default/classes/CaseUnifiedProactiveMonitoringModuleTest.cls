@@ -6,12 +6,23 @@
  */
 @IsTest
 public with sharing class CaseUnifiedProactiveMonitoringModuleTest {
+
+	@TestSetup
+	static void testSetup(){
+		QM__c queueSettings = QM__c.getOrgDefaults();
+		Group unifiedMonitoringQueue = ApplicationTestDataFactory.getGroups(1, 'queue', true)[0];
+		unifiedMonitoringQueue.Name = 'Unified Customer Service Monitoring Queue';
+
+		queueSettings.UnifiedDefaultMonitoringQueueId__c = unifiedMonitoringQueue.Id;
+		insert queueSettings;
+	}
+
 	/**
-	 *	Test: BeforeUpdate Scenario, when updating the case owner to Unified Customer Service monitoring queue,
-	 *	Given, case is within SLA period, validate that below details is updated:
-	 *	- Case owner is updated to Unified Customer Service monitoring queue
-	 *	- Status is updated to 'Monitoring'
-	 *	- exclude automation flag is updated to False
+	 * Test: BeforeUpdate Scenario, when updating the case owner to Unified Customer Service monitoring queue,
+	 * 		Given, case is within SLA period, validate that below details is updated:
+	 * - Case owner is updated to Unified Customer Service monitoring queue
+	 * - Status is updated to 'Monitoring'
+	 * - exclude automation flag is updated to False
 	 */
 	@IsTest
 	private static void testEnsureBeforeUpdatePopulatesCaseStatusAndAutomationFlag() {
@@ -25,7 +36,7 @@ public with sharing class CaseUnifiedProactiveMonitoringModuleTest {
 		cases[1].RecordTypeId = ApplicationTestDataFactoryCase.caseUnifiedInvestigationRecordType;
 		cases[2].RecordTypeId = ApplicationTestDataFactoryCase.caseUnifiedInvestigationRecordType;
 
-		// Set status automation flag to New
+		// Set status to New
 		cases[0].Status = 'New';
 		cases[1].Status = 'New';
 		cases[2].Status = 'New';
@@ -43,25 +54,16 @@ public with sharing class CaseUnifiedProactiveMonitoringModuleTest {
 
 		List<Case> oldCases = new List<Case>{ cases[0].clone(true), cases[1].clone(true), cases[2].clone(true) };
 
-		Group unifiedMonitoringQueue = ApplicationTestDataFactory.getGroups(1, 'queue', true)[0];
-		unifiedMonitoringQueue.Name = 'Unified CustomerService Monitoring Queue';
-		unifiedMonitoringQueue.DeveloperName = 'UnifiedCustomerServiceMonitoringQueue';
-
-		// Change Owner
-		cases[0].OwnerId = unifiedMonitoringQueue.Id;
-		cases[1].OwnerId = unifiedMonitoringQueue.Id;
-		cases[2].OwnerId = unifiedMonitoringQueue.Id;
+		// Change Owner to Unified Case Monitoring Queue
+		Id unifiedCaseMonitoringQueueId = (Id) QM__c.getInstance().UnifiedDefaultMonitoringQueueId__c;
+		cases[0].OwnerId = unifiedCaseMonitoringQueueId;
+		cases[1].OwnerId = unifiedCaseMonitoringQueueId;
+		cases[2].OwnerId = unifiedCaseMonitoringQueueId;
 
 		// =====================================
 		// Stubbing
 		// =====================================
-		GroupsSelector mockGroupsSelector = (GroupsSelector) MockUtility.mockSelector(GroupsSelector.class);
-
-		// Set up our responses
-		MockUtility.Mocks.startStubbing();
-		MockUtility.Mocks.when(mockGroupsSelector.selectByGroupTypeAndDeveloperName((Set<String>) fflib_Match.anyObject(), (Set<String>) fflib_Match.anyObject()))
-			.thenReturn(new Map<Id, Group>(new List<Group>{ unifiedMonitoringQueue }));
-		MockUtility.Mocks.stopStubbing();
+		// NONE
 
 		// =====================================
 		// Testing
@@ -73,10 +75,9 @@ public with sharing class CaseUnifiedProactiveMonitoringModuleTest {
 
 		Test.stopTest();
 
-		((GroupsSelector) MockUtility.Mocks.verify(mockGroupsSelector, MockUtility.Mocks.times(1))).selectByGroupTypeAndDeveloperName((Set<String>) fflib_Match.anyObject(), (Set<String>) fflib_Match.anyObject());
 		for (Case c : cases) {
-			Assert.areEqual(unifiedMonitoringQueue.Id, c.OwnerId, 'Expected ownerId to belong to ' + unifiedMonitoringQueue.DeveloperName + 'but instead got ' + c.OwnerId);
-			Assert.areEqual('Monitoring', c.Status, 'Expected status to be Monitoring but instead got ' + c.Status);
+			Assert.areEqual(unifiedCaseMonitoringQueueId, c.OwnerId, 'Expected ownerId to belong to ' + unifiedCaseMonitoringQueueId + 'but instead got ' + c.OwnerId);
+			Assert.areEqual(SSSWConstants.CASE_STATUS_MONITORING, c.Status, 'Expected status to be Monitoring but instead got ' + c.Status);
 		}
 	}
 
@@ -102,7 +103,6 @@ public with sharing class CaseUnifiedProactiveMonitoringModuleTest {
 		cases[0].Status = 'New';
 		cases[1].Status = 'New';
 
-		//Integer dayOfWeek = System.today().toStartOfWeek().dayOfWeek(); // 1 = Monday, 7 = Sunday
 		Date last7days = System.today().addDays(-7);
 		Date last5BusinessDays = BusinessHoursService.newInstance().calculateNextBusinessDay(last7days, 0);
 		Datetime last5BusinessDaysDT = Datetime.newInstance(last5BusinessDays, Time.newInstance(0, 0, 0, 0));
@@ -114,24 +114,15 @@ public with sharing class CaseUnifiedProactiveMonitoringModuleTest {
 
 		List<Case> oldCases = new List<Case>{ cases[0].clone(true), cases[1].clone(true) };
 
-		Group unifiedMonitoringQueue = ApplicationTestDataFactory.getGroups(1, 'queue', true)[0];
-		unifiedMonitoringQueue.Name = 'Unified CustomerService Monitoring Queue';
-		unifiedMonitoringQueue.DeveloperName = 'UnifiedCustomerServiceMonitoringQueue';
-
-		// Change Owner
-		cases[0].OwnerId = unifiedMonitoringQueue.Id;
-		cases[1].OwnerId = unifiedMonitoringQueue.Id;
+		// Change Owner to Unified Case Monitoring Queue
+		Id unifiedCaseMonitoringQueueId = (Id) QM__c.getInstance().UnifiedDefaultMonitoringQueueId__c;
+		cases[0].OwnerId = unifiedCaseMonitoringQueueId;
+		cases[1].OwnerId = unifiedCaseMonitoringQueueId;
 
 		// =====================================
 		// Stubbing
 		// =====================================
-		GroupsSelector mockGroupsSelector = (GroupsSelector) MockUtility.mockSelector(GroupsSelector.class);
-
-		// Set up our responses
-		MockUtility.Mocks.startStubbing();
-		MockUtility.Mocks.when(mockGroupsSelector.selectByGroupTypeAndDeveloperName((Set<String>) fflib_Match.anyObject(), (Set<String>) fflib_Match.anyObject()))
-			.thenReturn(new Map<Id, Group>(new List<Group>{ unifiedMonitoringQueue }));
-		MockUtility.Mocks.stopStubbing();
+		// NONE
 
 		// =====================================
 		// Testing
@@ -144,15 +135,17 @@ public with sharing class CaseUnifiedProactiveMonitoringModuleTest {
 		Test.stopTest();
 
 		Map<Id, Case> oldCaseMap = new Map<Id, Case>(oldCases);
-		((GroupsSelector) MockUtility.Mocks.verify(mockGroupsSelector, MockUtility.Mocks.times(1))).selectByGroupTypeAndDeveloperName((Set<String>) fflib_Match.anyObject(), (Set<String>) fflib_Match.anyObject());
-		for (Case c : cases) {
-			Assert.areEqual(c.getErrors().size(), 1, 'Expected 1 error to be thrown but instead got ' + c.getErrors().size());
-			Assert.areEqual(
-				c.getErrors().get(0).getMessage(),
+
+		// assert successful update
+		Assert.areEqual(unifiedCaseMonitoringQueueId, cases[0].OwnerId, 'Expected ownerId to belong to ' + unifiedCaseMonitoringQueueId + 'but instead got ' + cases[0].OwnerId);
+		Assert.areEqual(SSSWConstants.CASE_STATUS_MONITORING, cases[0].Status, 'Expected status to be Monitoring but instead got ' + cases[0].Status);
+		// assert error due to SLA period
+		Assert.areEqual(1, cases[1].getErrors().size(), 'Expected 1 error to be thrown but instead got ' + cases[1].getErrors().size());
+		Assert.areEqual(
 				CaseUnifiedProactiveMonitoringModule.ERROR_SLA_EXPIRED,
-				'Expected error message to be "' + CaseUnifiedProactiveMonitoringModule.ERROR_SLA_EXPIRED + ' but instead got ' + c.getErrors().get(0).getMessage()
-			);
-			Assert.areEqual(oldCaseMap.get(c.Id).Status, c.Status, 'Expected status to be remain unchanged but instead got ' + c.Status);
-		}
+				cases[1].getErrors().get(0).getMessage(),
+				'Expected error message to be "' + CaseUnifiedProactiveMonitoringModule.ERROR_SLA_EXPIRED + ' but instead got ' + cases[1].getErrors().get(0).getMessage()
+		);
+		Assert.areEqual(oldCaseMap.get(cases[1].Id).Status, cases[1].Status, 'Expected status to be remain unchanged but instead got ' + cases[1].Status);
 	}
 }
