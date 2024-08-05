@@ -8,68 +8,68 @@ import { LightningElement, api } from "lwc";
 import { convertToFormattedDateStr } from 'c/bspCommonJS';
 
 export default class BspLabelEventRow extends LightningElement {
-  @api le;
-  @api isConsignmentAuthenticated;
-  @api isCEAttachmentsExists;
-  @api selectedEventArticle;
-  @api isConsignmentSerchIsAPType;
-  @api isSafeDropDownloadLoading;
+	@api le;
+	@api isConsignmentAuthenticated;
+	@api isCEAttachmentsExists;
+	@api selectedEventArticle;
+	@api isConsignmentSerchIsAPType;
+	@api isSafeDropDownloadLoading;
 
-  _viewPODClicked;
+	_viewPODClicked;
 
-  get isCENotesAttachmentsExists() {
+	get isCENotesAttachmentsExists() {
 	return this.le.NotesAndAttachments ? this.le.NotesAndAttachments.length > 0 ? true : false : false;
-  }
+	}
 
-  get isCurrentAndSelectedArticleIsSame() {
+	get isCurrentAndSelectedArticleIsSame() {
 	return this.le ? this.le.Article__c == this.selectedEventArticle ? true : false : false;
-  }
+	}
 
-  get articleLinkClass() {
+	get articleLinkClass() {
 	return this.isCurrentAndSelectedArticleIsSame ? "no-underline-dec brand-link-button" : "underline-dec brand-link-button";
-  }
+	}
 
-  selectEventArticle() {
+	selectEventArticle() {
 	//event.preventDefault();
 	this.selectedEventArticle = this.le.Article__c;
 	this.dispatchAnEventWithSelectedArticle(this.selectedEventArticle);
 	//return false;
-  }
+	}
 
-  dispatchAnEventWithSelectedArticle(selectedArticle) {
+	dispatchAnEventWithSelectedArticle(selectedArticle) {
 	const c = new CustomEvent("selectedarticlechange", { detail: selectedArticle });
 	this.dispatchEvent(c);
-  }
+	}
 
-  /**
-   * @description set a viewPODClicked flag to true, when the 'Click to view' hyperlink is clicked
-   */
-  handlePodHref(){
+	/**
+	 * @description set a viewPODClicked flag to true, when the 'Click to view' hyperlink is clicked
+	 */
+	handlePodHref(){
 	this._viewPODClicked = true;
 	this.redirectToPOD();
-  }
-
-  /**
-   * @description Reactively redirect to POD_Redirect to render the PDF,
-   *              when the `Click to view` hyperlink is clicked on HTML and SafeDrop Downloading is completed
-   * @returns {string}
-   */
-  get redirectToPOD(){
-	if(this.diplayPOD) {
-	  window.open('/POD_Redirect?id=' + this.le.Id, '_blank');
 	}
-  }
 
-  get diplayPOD(){
+	/**
+	 * @description Reactively redirect to POD_Redirect to render the PDF,
+	 *			when the `Click to view` hyperlink is clicked on HTML and SafeDrop Downloading is completed
+	 * @returns {string}
+	 */
+	get redirectToPOD(){
+	if(this.diplayPOD) {
+		window.open('/POD_Redirect?id=' + this.le.Id, '_blank');
+	}
+	}
+
+	get diplayPOD(){
 	return !this.isSafeDropDownloadLoading && this._viewPODClicked;
-  }
+	}
 
-  get isLoading(){
+	get isLoading(){
 	return this.isSafeDropDownloadLoading && this._viewPODClicked;
-  }
+	}
 
 
-  get stFormattedActualDateTimeStr(){
+	get stFormattedActualDateTimeStr(){
 	return this.le.ActualDateTime_TimeStamp__c ? convertToFormattedDateStr(this.le.ActualDateTime_TimeStamp__c) : '';
-  }
+	}
 }

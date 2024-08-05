@@ -1,9 +1,9 @@
 <!--
-  * @author       : Jansi Rani. jansi.rani@auspost.com.au
-  * @date         : 26/08/2020
-  * @description  : Component for consignment search component.
+	* @author	: Jansi Rani. jansi.rani@auspost.com.au
+	* @date	: 26/08/2020
+	* @description : Component for consignment search component.
 --------------------------------------- History --------------------------------------------------
-26.08.2020    Jansi Rani   Created
+26.08.2020	Jansi Rani	Created
 -->
 <template>
 
@@ -56,16 +56,16 @@
 					<template if:true={isConsignmentSerchIsAPType}>
 						<!--Aus Post Consignment Details-->
 						<c-bsp-a-p-consignment-details single-con={consignmentSearchResultsWrapper.singleCon}
-													   selected-consignment-search-type={consignmentSearchResultsWrapper.selectedConsignmentSearchType}
-													   -a-p-consignment-exp-delivery-date={consignmentSearchResultsWrapper.APConsignmentExpDeliveryDate}
-													   -a-p-consignment-lodgement-date={consignmentSearchResultsWrapper.APConsignmentLodgementDate}
-													   -a-p-consignment-sub-product={consignmentSearchResultsWrapper.APConsignmentSubProduct}
-													   destination={consignmentSearchResultsWrapper.destination}
-													   is-consignment-authenticated={consignmentSearchResultsWrapper.isConsignmentAuthenticated}
-													   consignment-number={consignmentSearchResultsWrapper.consignmentNumber}
-													   recall-authenticated={consignmentSearchResultsWrapper.authToRecallRedirect}
-													   recall-in-progress={consignmentSearchResultsWrapper.recallInProgress}
-													   submit-callback={handleSearch}>
+														selected-consignment-search-type={consignmentSearchResultsWrapper.selectedConsignmentSearchType}
+														-a-p-consignment-exp-delivery-date={consignmentSearchResultsWrapper.APConsignmentExpDeliveryDate}
+														-a-p-consignment-lodgement-date={consignmentSearchResultsWrapper.APConsignmentLodgementDate}
+														-a-p-consignment-sub-product={consignmentSearchResultsWrapper.APConsignmentSubProduct}
+														destination={consignmentSearchResultsWrapper.destination}
+														is-consignment-authenticated={consignmentSearchResultsWrapper.isConsignmentAuthenticated}
+														consignment-number={consignmentSearchResultsWrapper.consignmentNumber}
+														recall-authenticated={consignmentSearchResultsWrapper.authToRecallRedirect}
+														recall-in-progress={consignmentSearchResultsWrapper.recallInProgress}
+														submit-callback={handleSearch}>
 						</c-bsp-a-p-consignment-details>
 
 						<!-- AP Consignment events (shows for "AP recordtype='Article')-->
@@ -75,10 +75,10 @@
 							</h3>
 							<template if:true={isConsigmentEventsExists}>
 								<c-bsp-article-events events={consignmentSearchResultsWrapper.consignmentEvents}
-													  is-consignment-authenticated={consignmentSearchResultsWrapper.isConsignmentAuthenticated}
-													  is-consignment-serch-is-a-p-type={isConsignmentSerchIsAPType}
-													  is-consignment-serch-is-s-t-type={isConsignmentSerchIsSTType}
-													  em-scan-types={consignmentSearchResultsWrapper.emScanTypes}>
+														is-consignment-authenticated={consignmentSearchResultsWrapper.isConsignmentAuthenticated}
+														is-consignment-serch-is-a-p-type={isConsignmentSerchIsAPType}
+														is-consignment-serch-is-s-t-type={isConsignmentSerchIsSTType}
+														em-scan-types={consignmentSearchResultsWrapper.emScanTypes}>
 								</c-bsp-article-events>
 							</template>
 							<!-- No events found-->
@@ -111,7 +111,7 @@
 								<div class='slds-col slds-size_1-of-1 slds-large-size_1-of-2'>
 									<h3 class="slds-m-bottom_medium">Proof of delivery</h3>
 									<c-bsp-s-t-proof-of-deliveries related-p-o-ds={consignmentSearchResultsWrapper.relatedPODs}
-																   single-con-article-id={consignmentSearchResultsWrapper.singleCon.ArticleID__c}>
+																	single-con-article-id={consignmentSearchResultsWrapper.singleCon.ArticleID__c}>
 									</c-bsp-s-t-proof-of-deliveries>
 								</div>
 
@@ -126,9 +126,9 @@
 							</h3>
 							<template if:true={isConsigmentEventsExists}>
 								<c-bsp-article-events events={consignmentSearchResultsWrapper.consignmentEvents}
-													  is-consignment-authenticated={consignmentSearchResultsWrapper.isConsignmentAuthenticated}
-													  is-consignment-serch-is-a-p-type={isConsignmentSerchIsAPType}
-													  is-consignment-serch-is-s-t-type={isConsignmentSerchIsSTType}>
+														is-consignment-authenticated={consignmentSearchResultsWrapper.isConsignmentAuthenticated}
+														is-consignment-serch-is-a-p-type={isConsignmentSerchIsAPType}
+														is-consignment-serch-is-s-t-type={isConsignmentSerchIsSTType}>
 								</c-bsp-article-events>
 							</template>
 							<!-- No events found-->
@@ -160,12 +160,12 @@
 					<template if:true={isShowArticleEvents}>
 						<h3 class="slds-p-bottom_small slds-p-top_medium">Article events </h3>
 						<c-bsp-article-events events={consignmentSearchResultsWrapper.articleEvents}
-											  is-consignment-serch-is-a-p-type={isConsignmentSerchIsAPType}
-											  is-consignment-serch-is-s-t-type={isConsignmentSerchIsSTType}
-											  is-consignment-authenticated={consignmentSearchResultsWrapper.isConsignmentAuthenticated}
-											  req-from='articleEvents'
-											  em-scan-types={consignmentSearchResultsWrapper.emScanTypes}
-											  is-safe-drop-download-loading={safeDropDownloadLoading}></c-bsp-article-events>
+												is-consignment-serch-is-a-p-type={isConsignmentSerchIsAPType}
+												is-consignment-serch-is-s-t-type={isConsignmentSerchIsSTType}
+												is-consignment-authenticated={consignmentSearchResultsWrapper.isConsignmentAuthenticated}
+												req-from='articleEvents'
+												em-scan-types={consignmentSearchResultsWrapper.emScanTypes}
+												is-safe-drop-download-loading={safeDropDownloadLoading}></c-bsp-article-events>
 					</template>
 				</template>
 				<!-- conDetail END-->

@@ -1,9 +1,9 @@
 <!--
-  * @author       : Jansi Rani. jansi.rani@auspost.com.au
-  * @date         : 01/09/2020
-  * @description  : Component for Article Tracking Row .
+	* @author	: Jansi Rani. jansi.rani@auspost.com.au
+	* @date	: 01/09/2020
+	* @description : Component for Article Tracking Row .
 --------------------------------------- History --------------------------------------------------
-01.09.2020    Jansi Rani   Created
+01.09.2020	Jansi Rani	Created
 -->
 <template>
 
@@ -38,10 +38,10 @@
 			<td>
 				<template if:true='{isConsignmentSerchIsAPType}'>
 					<lightning-formatted-date-time value={evnt.ActualDateTime__c} year="numeric" month="numeric"
-												   day="numeric">
+													day="numeric">
 					</lightning-formatted-date-time>&nbsp;
 					<lightning-formatted-date-time value={evnt.ActualDateTime__c} hour="2-digit" minute="2-digit"
-												   hour12="true">
+													hour12="true">
 					</lightning-formatted-date-time>
 
 				</template>

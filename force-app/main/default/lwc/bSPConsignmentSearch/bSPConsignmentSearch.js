@@ -116,7 +116,7 @@ export default class BSPConsignmentSearch extends NavigationMixin(LightningEleme
 					isShow = true;
 					this.headerEvent = this.consignmentSearchResultsWrapper.consignmentEvents[0];
 				} else if (this.consignmentSearchResultsWrapper.selectedConsignmentSearchType == 'AusPost' &&
-						this.consignmentSearchResultsWrapper.labelEvents.length == 1 &&  //-- means single Article
+						this.consignmentSearchResultsWrapper.labelEvents.length == 1 && //-- means single Article
 						this.consignmentSearchResultsWrapper.articleEvents.length > 0) { // AP Consignment single Article
 					isShow = true;
 					this.headerEvent = this.consignmentSearchResultsWrapper.articleEvents[0];
@@ -247,7 +247,7 @@ export default class BSPConsignmentSearch extends NavigationMixin(LightningEleme
 
 	/**
 	 * @description Download SafeDropImage in bulk by looping through the SafeDropState array object and split callout in multiple transactions.
-	 *              This is in order to bypass the hard limit of 3 Max Continuation Callout per Single Transaction in Salesforce.
+	 *				This is in order to bypass the hard limit of 3 Max Continuation Callout per Single Transaction in Salesforce.
 	 * @param {Array} safeDropImageState - The array of objects containing guidId and requireDownload
 	 * @returns {Promise<void>}
 	 */

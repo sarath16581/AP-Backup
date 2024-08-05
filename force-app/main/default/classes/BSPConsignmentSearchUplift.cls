@@ -104,18 +104,22 @@ public without sharing class BSPConsignmentSearchUplift {
 
 	public static boolean isArticleElgibileForRedirect(Article__c art) {
 		// If there's a recall in progress, it's automatically not eligible
-		if (art.RecallTempLock__c || (art.Consignment__c != null && art.Consignment__r.RecallTempLock__c)) return false;
+		if (art.RecallTempLock__c || (art.Consignment__c != null && art.Consignment__r.RecallTempLock__c)) {
+			return false;
+		}
 
 		// Eligibility flag is only available on the article level (and not on the consignment)
 		// For MVP we're only going to check if at least one of the articles is eligible - in case it's a consignment
 
 		// It's an article (and not consignment), we can check eligibility
-		if (art.EligibleForRedirect__c == true) return true;
-
+		if (art.EligibleForRedirect__c == true) {
+			return true;
+		}
 		// It's a consignment, we have to check the related articles
 		List <Article__c> relatedArticles = [SELECT Id, EligibleForRedirect__c FROM Article__c WHERE Consignment__c = :art.Id LIMIT 1];
-		if (relatedArticles.size() == 1 && relatedArticles[0].EligibleForRedirect__c == true) return true;
-
+		if (relatedArticles.size() == 1 && relatedArticles[0].EligibleForRedirect__c == true) {
+			return true;
+		}
 		return false;
 	}
 
@@ -230,7 +234,9 @@ public without sharing class BSPConsignmentSearchUplift {
 			}
 		}
 
-		if (csrw.relatedPODs != null) csrw.relatedPODs.clear();
+		if (csrw.relatedPODs != null) {
+			csrw.relatedPODs.clear();
+		}
 	}
 
 	/**
@@ -774,15 +780,17 @@ public without sharing class BSPConsignmentSearchUplift {
 					}*/
 				}
 				if (!setConsignmentFieldsFromArticle) {
-					if (String.isBlank(APConsignmentSubProduct))
+					if (String.isBlank(APConsignmentSubProduct)) {
 						APConsignmentSubProduct = childCon.SubProduct__c;
+					}
 
-					if (APConsignmentLodgementDate == null)
+					if (APConsignmentLodgementDate == null) {
 						APConsignmentLodgementDate = childCon.ArticleLodgementDate__c;
+					}
 
-					if (APConsignmentExpDeliveryDate == null)
+					if (APConsignmentExpDeliveryDate == null) {
 						APConsignmentExpDeliveryDate = childCon.ExpectedDeliveryDate__c;
-
+					}
 					setConsignmentFieldsFromArticle = true;
 				}
 			}
@@ -862,8 +870,9 @@ public without sharing class BSPConsignmentSearchUplift {
 				}
 			}
 			// There is an event of safe drop or signature on delivery.
-			if (eventCount != null)
+			if (eventCount != null) {
 				eventMessages[eventCount].proxyEM.Safe_Drop_GUID__c = DeliveryProofService.getSafeDropGuidHttpRequest(tr.trackingID);
+			}
 		}
 	}
 

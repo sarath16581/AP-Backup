@@ -51,7 +51,7 @@ export default class BspArticleEventRow extends LightningElement {
 
 	/**
 	 * @description Reactively redirect to POD_Redirect to render the PDF,
-	 *              when the `Click to view` hyperlink is clicked on HTML and SafeDrop Downloading is completed
+	 *				when the `Click to view` hyperlink is clicked on HTML and SafeDrop Downloading is completed
 	 * @returns {string}
 	 */
 	get redirectToPOD(){
