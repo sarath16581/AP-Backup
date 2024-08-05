@@ -7,6 +7,7 @@
  * @changelog
  * 2023-01-27 - Initial creation
  * 2024-08-01 - Mona Raghav -  REQ3575796 - Added test coverage for the changes done for email notification prior to deactivation
+ * 2024-08-05 - Mona Raghav -  REQ3575796 - Updated testUserDeactivateFailedAndEnsureQueueableNotFired and testUserDeactivateSuccessAndEnsureQueueableFired
  */
 @IsTest
 private class UserDeactivationBatchable_Test {
@@ -79,7 +80,17 @@ private class UserDeactivationBatchable_Test {
 	 */
 	@IsTest
 	static void testUserDeactivateSuccessAndEnsureQueueableFired() {
-		User adminUser = ApplicationTestDataFactory.getUsers(1, false)[0];
+		List<User> userList = ApplicationTestDataFactory.getUsers(2, false);
+        User adminUser = userList[0];
+        
+        // =====================================
+		// Data Preparation
+		// =====================================
+        User userObj = userList[1];
+        userObj.MyNetwork_Retail_User__c = true;
+        userObj.IsActive  = true;
+        insert userObj;
+        
 		System.runAs(adminUser) {
 			// =====================================
 			// Data Preparation
@@ -105,8 +116,7 @@ private class UserDeactivationBatchable_Test {
 						[
 							SELECT Id, Name, Username, CreatedDate, LastAutoDeactivatedDate__c, LastLoginDate
 							FROM User
-							WHERE IsActive = TRUE AND UserType = 'Standard'
-							LIMIT 1
+							WHERE Id = : userObj.Id
 						]
 					)
 				);
@@ -156,12 +166,18 @@ private class UserDeactivationBatchable_Test {
 	 */
 	@IsTest
 	static void testUserDeactivateFailedAndEnsureQueueableNotFired() {
-		User adminUser = ApplicationTestDataFactory.getUsers(1, false)[0];
+		List<User> userList = ApplicationTestDataFactory.getUsers(2, false);
+        User adminUser = userList[0];
+        
+        // =====================================
+		// Data Preparation
+		// =====================================
+        User userObj = userList[1];
+        userObj.MyNetwork_Retail_User__c = true;
+        userObj.IsActive  = true;
+        insert userObj;
+            
 		System.runAs(adminUser) {
-			// =====================================
-			// Data Preparation
-			// =====================================
-			// MockUtility.disableTriggerExecution();
 
 			// =====================================
 			// Stubbing
@@ -182,8 +198,7 @@ private class UserDeactivationBatchable_Test {
 						[
 							SELECT Id, Name, Username, CreatedDate, LastAutoDeactivatedDate__c, LastLoginDate
 							FROM User
-							WHERE IsActive = TRUE AND UserType = 'Standard'
-							LIMIT 1
+							WHERE Id = : userObj.Id
 						]
 					)
 				);
