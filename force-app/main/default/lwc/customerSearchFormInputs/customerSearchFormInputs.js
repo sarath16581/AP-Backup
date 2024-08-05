@@ -296,9 +296,13 @@ export default class CustomerSearchFormInputs extends LightningElement {
 					addressCity: this.addressObj?.city,
 					addressState: this.addressObj?.state,
 					addressPostalCode: this.addressObj?.postcode,
-					accountId: this.organisationAccountId,
-					// Ignore ABN/ACN if the organisationAccountId is set
-					abnAcn: this.organisationAccountId ? null : this.abnAcn,
+					// Ignore Account Id if the searching for consumers only
+					accountId: this.consumerCheckbox ? null : this.organisationAccountId,
+					// Ignore ABN/ACN if the searching for consumers only, or the organisationAccountId is set
+					abnAcn:
+						this.consumerCheckbox || this.organisationAccountId
+							? null
+							: this.abnAcn,
 				},
 			});
 			// Handle search results

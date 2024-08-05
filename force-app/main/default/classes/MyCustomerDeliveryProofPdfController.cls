@@ -66,8 +66,8 @@ public with sharing class MyCustomerDeliveryProofPdfController {
 		for (DeliveryProofAttributes pod : deliveryProofAttributes) {
 			if (pod.eventMessage.Article__r.ArticleID__c.equals(articleId)) {
 				deliveryKeyEvent = pod.deliveryKey;
+				break;
 			}
-			break;
 		}
 		// Keep only delivery result where the unique delivery key is matched and filter out the rest
 		List<DeliveryProofAttributes> filterDeliveryResult = new List<DeliveryProofAttributes>();
