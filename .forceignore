@@ -13,7 +13,3 @@ package.xml
 
 # BigObject Indexes which SFDX seems to have a problem with
 **/objects/**/indexes/*.index-meta.xml
-
-**/tsconfig.json
-
-**/*.ts
