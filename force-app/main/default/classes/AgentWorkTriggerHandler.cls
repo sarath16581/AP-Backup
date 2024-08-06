@@ -4,24 +4,49 @@
  * @group Domain
  * @tag AgentWorkDomain
  * @domain AgentWork
+ * @Test AgentWorkTriggerHandlerTest, AgentWorkCBRequestAutomationModule_Test
  * @changelog
  * 2023-02-16 - George Nguyen - updated. This class was created a while back but does not follow the framework. I have updated to use our framework
  * 2023-04-14 - Noel Lim - Updated of Domain class from APCaseAgentWorkDomain to AgentWorkAPCaseDomain
+ * 2024-07-19 - Ranjeewa Silva - Uplifted to new domain less trigger dispatch framework.
  */
-public inherited sharing class AgentWorkTriggerHandler extends ApplicationDomainTriggerHandler {
-
-	public static AgentWorkTriggerHandler newInstance() {
-		return (AgentWorkTriggerHandler) Application.Utilities.newInstance(AgentWorkTriggerHandler.class);
-	}
+public inherited sharing class AgentWorkTriggerHandler extends ApplicationTriggerHandler {
 
 	public override SObjectType getSObjectType() {
 		return AgentWork.SObjectType;
 	}
 
-	public override List<Type> registerDomains() {
-		return new List<Type>{ 
-			AgentWorkAPCaseDomain.class 
+	public override void registerModules() {
+		registerModule(AgentWorkCaseAutomationModule.class, 'filterCaseWorkItems');
+		registerModule(AgentWorkCallbackRequestAutomationModule.class, 'filterCallbackRequestWorkItems');
+	}
+
+	/**
+	 * Pre filter records to minimise repetitive looping inside the modules.
+	 * This creates a type of index of records which are passed into the modules based on the 'filterKey' used when the module is registered.
+	 * This replicates Domain specific filtering logic and allows a module to execution with the record scope it needs
+	 *
+	 * @param records
+	 *
+	 * @return
+	 */
+	public override Map<String, List<SObject>> primeRecordFilters(List<SObject> records) {
+		Map<String, List<SObject>> filteredRecords = new Map<String, List<SObject>>{
+				'filterCaseWorkItems' => new List<SObject>(),
+				'filterCallbackRequestWorkItems' => new List<SObject>()
 		};
+
+		Set<Id> caseIds = new Set<Id>();
+		for(SObject record : records) {
+			Id workItemId = (Id)record.get('WorkItemId');
+			if (workItemId.getSobjectType() == Case.SObjectType) {
+				filteredRecords.get('filterCaseWorkItems').add(record);
+			} else if (workItemId.getSobjectType() == Callback_Request__c.SObjectType) {
+				filteredRecords.get('filterCallbackRequestWorkItems').add(record);
+			}
+		}
+
+		return filteredRecords;
 	}
 
 	/**

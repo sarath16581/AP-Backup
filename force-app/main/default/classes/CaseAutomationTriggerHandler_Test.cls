@@ -3,6 +3,7 @@
  * @author Nathan Franklin
  * @date 2023-06-19
  * @changelog
+ * 2024-07-29 - Seth Heang - update testForCoverage() to cover a new case record type 'UnifiedInvestigation'
  */
 @IsTest
 private class CaseAutomationTriggerHandler_Test {
@@ -22,15 +23,17 @@ private class CaseAutomationTriggerHandler_Test {
 		Id ssswRecordType = new List<Id>(new RecordTypesSelector().selectByDeveloperNamesLike('Case', new Set<String>{'SSSW'}).keySet())[0];
 		Id ssswSocialRecordType = new List<Id>(new RecordTypesSelector().selectByDeveloperNamesLike('Case', new Set<String>{'Social'}).keySet())[0];
 		Id starTrackRecordType = new List<Id>(new RecordTypesSelector().selectByDeveloperNamesLike('Case', new Set<String>{'StarTrack'}).keySet())[0];
+		Id unifiedInvestigationRecordType = new List<Id>(new RecordTypesSelector().selectByDeveloperNamesLike('Case', new Set<String>{'UnifiedInvestigation'}).keySet())[0];
 
-		List<Case> cases = ApplicationTestDataFactory.getCases(3, true);
+		List<Case> cases = ApplicationTestDataFactory.getCases(4, true);
 		cases[0].RecordTypeId = ssswRecordType;
 		cases[1].RecordTypeId = ssswSocialRecordType;
 		cases[2].RecordTypeId = starTrackRecordType;
+		cases[3].RecordTypeId = unifiedInvestigationRecordType;
 
 		Map<String, List<SObject>> filteredGroupRecords = handler.primeRecordFilters(cases);
 
-		System.assertEquals(4, filteredGroupRecords.size());
+		System.assertEquals(5, filteredGroupRecords.size());
 
 		System.assertEquals(1, filteredGroupRecords.get('filterSSSW').size());
 		System.assertEquals(cases[0].Id, filteredGroupRecords.get('filterSSSW')[0].Id);
@@ -41,6 +44,9 @@ private class CaseAutomationTriggerHandler_Test {
 
 		System.assertEquals(1, filteredGroupRecords.get('filterStarTrack').size());
 		System.assertEquals(cases[2].Id, filteredGroupRecords.get('filterStarTrack')[0].Id);
+
+		System.assertEquals(1, filteredGroupRecords.get('filterUnified').size());
+		System.assertEquals(cases[3].Id, filteredGroupRecords.get('filterUnified')[0].Id);
 
 		System.assertEquals(Case.SObjectType, handler.getSObjectType());
 
