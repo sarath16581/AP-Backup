@@ -2,18 +2,18 @@
 	<lightning-card title={searchFormTitle}>
 		<!-- Search form -->
 		<div class="slds-var-m-around_medium">
-			<c-customer-search-form-inputs
+			<c-unified-customer-search-form
 				onsearch={handleSearchStart}
 				onerror={handleSearchError}
 				onresult={handleSearchResults}
 				onreset={handleSearchReset}
-			></c-customer-search-form-inputs>
+			></c-unified-customer-search-form>
 		</div>
 		<!-- Search results -->
 		<div class="slds-var-m-around_medium">
 			<template if:false={isSearching}>
-				<c-customer-search-form-results search-response={searchResponse}>
-				</c-customer-search-form-results>
+				<c-unified-customer-search-results search-response={searchResponse}>
+				</c-unified-customer-search-results>
 			</template>
 		</div>
 	</lightning-card>

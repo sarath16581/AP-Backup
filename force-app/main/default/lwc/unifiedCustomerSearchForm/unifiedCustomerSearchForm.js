@@ -1,5 +1,5 @@
 import { LightningElement, api } from 'lwc';
-import customerSearch from '@salesforce/apex/CustomerSearchFormController.search';
+import customerSearch from '@salesforce/apex/UnifiedCustomerSearchController.search';
 import { isNotBlank } from 'c/utils';
 import { reduceErrors } from 'c/ldsUtils';
 
@@ -81,13 +81,13 @@ export function getInputOnChangeValue(event) {
 }
 
 /**
- * This component displays a form with several inputs which are used to search
- * to identify the Contact record(s) which match the criteria.
+ * The Customer Search Form presents a search form with inputs fields for the user define the search criteria to find
+ * matching customer (Contact) records. The search is executed by calling the `UnifiedCustomerSearch` Apex Controller.
  *
- * @alias CustomerSearchFormInputs
+ * @alias UnifiedCustomerSearchForm
  * @hideconstructor
  */
-export default class CustomerSearchFormInputs extends LightningElement {
+export default class UnifiedCustomerSearchForm extends LightningElement {
 	/**
 	 * The value of the 'First Name' field on the form
 	 * @type {string}
@@ -265,9 +265,9 @@ export default class CustomerSearchFormInputs extends LightningElement {
 	/**
 	 * Submits the form and performs the search.
 	 *
-	 * @fires CustomerSearchFormInputs#search
-	 * @fires CustomerSearchFormInputs#result
-	 * @fires CustomerSearchFormInputs#error
+	 * @fires UnifiedCustomerSearchForm#search
+	 * @fires UnifiedCustomerSearchForm#result
+	 * @fires UnifiedCustomerSearchForm#error
 	 */
 	async performSearch() {
 		// Validate inputs before invoking the search method
@@ -325,7 +325,7 @@ export default class CustomerSearchFormInputs extends LightningElement {
 	/**
 	 * Resets the form inputs.
 	 *
-	 * @fires CustomerSearchFormInputs#reset
+	 * @fires UnifiedCustomerSearchForm#reset
 	 */
 	async resetForm() {
 		// Reset error message

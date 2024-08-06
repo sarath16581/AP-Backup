@@ -1,13 +1,7 @@
 import { createElement } from 'lwc';
-import CustomerSearchFormResults from 'c/customerSearchFormResults';
+import UnifiedCustomerSearchResults from 'c/unifiedCustomerSearchResults';
 
-/**
- * displays empty state - no search result
- * displays search results
- * displays search results with warning message
- */
-
-describe('c-customer-search-form-results', () => {
+describe('c-unified-customer-search-results', () => {
 	afterEach(() => {
 		// The jsdom instance is shared across test cases in a single file so reset the DOM
 		while (document.body.firstChild) {
@@ -17,8 +11,8 @@ describe('c-customer-search-form-results', () => {
 
 	it('displays empty state - default state (paragraph image)', () => {
 		// Arrange
-		const element = createElement('c-customer-search-form-results', {
-			is: CustomerSearchFormResults,
+		const element = createElement('c-unified-customer-search-results', {
+			is: UnifiedCustomerSearchResults,
 		});
 
 		// Act
@@ -42,8 +36,8 @@ describe('c-customer-search-form-results', () => {
 
 	it('displays empty state - no results (desert image)', () => {
 		// Arrange
-		const element = createElement('c-customer-search-form-results', {
-			is: CustomerSearchFormResults,
+		const element = createElement('c-unified-customer-search-results', {
+			is: UnifiedCustomerSearchResults,
 		});
 		element.searchResponse = { searchResults: [] };
 
@@ -74,8 +68,8 @@ describe('c-customer-search-form-results', () => {
 
 	it('displays search results', () => {
 		// Arrange
-		const element = createElement('c-customer-search-form-results', {
-			is: CustomerSearchFormResults,
+		const element = createElement('c-unified-customer-search-results', {
+			is: UnifiedCustomerSearchResults,
 		});
 		element.searchResponse = {
 			searchResults: [{ id: '001000000000001' }, { id: '001000000000002' }],
@@ -105,8 +99,8 @@ describe('c-customer-search-form-results', () => {
 
 	it('displays search results with warning message', () => {
 		// Arrange
-		const element = createElement('c-customer-search-form-results', {
-			is: CustomerSearchFormResults,
+		const element = createElement('c-unified-customer-search-results', {
+			is: UnifiedCustomerSearchResults,
 		});
 		element.searchResponse = {
 			searchResults: [{ id: '001000000000001' }, { id: '001000000000002' }],
