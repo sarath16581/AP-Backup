@@ -21,6 +21,8 @@
   * 27.03.2023 StephenL added constant: RECTYPE_ARTICLE_CONSIGNMENT
   * 13.06.2024 Parveen Kaushik Added new constants for Enquiry Mapping object to identify model type.
   * 10.07.2024 Vasu Gorakati Added new constant SSSW_ENTITLEMENT
+  * 19-07-2024 - Ranjeewa Silva - Added constants for new SSSWRouting record type (UnifiedRouting) and new customer service agent profile name.
+  * 31.07.2024 - Seth Heang - added constants for case's new 'Update' and 'Monitoring' status
   */  
 public with sharing class SSSWConstants {
 
@@ -52,6 +54,8 @@ public with sharing class SSSWConstants {
 	public static final String CASE_STATUS_CLOSED = 'Closed';
 	public static final String CASE_STATUS_INPROGRESS = 'In Progress';
 	public static final String CASE_STATUS_NEW = 'New';
+	public static final String CASE_STATUS_UPDATED = 'Updated';
+	public static final String CASE_STATUS_MONITORING = 'Monitoring';
 	public static final String CASE_TYPE_INVESTIGATION  = 'Investigation';
 	public static final String CASE_ENQUIRY_SUBTYPE = 'Disputed delivery scan';
 	public static final String CASE_LOCALITY_DOMESTIC = 'Domestic';
@@ -165,6 +169,7 @@ public with sharing class SSSWConstants {
 	public static final String RECTYPENPS = 'SSSWNPS';
 	public static final String RECTYPEESCALATION = 'SSSWEscalation';
 	public static final String RECTYPEDESCRIPTION = 'SSSWDescription';
+	public static final String SSSWROUTING_RECTYPE_UNIFIEDROUTING = 'UnifiedRouting';
 	
 	/*** CaseTrackingHelper Constants  ***/
 	public static final String WHITE_SPACE = ' ';
@@ -319,6 +324,7 @@ public with sharing class SSSWConstants {
 	public static final String SSSW_AGENT_PROFILE = 'SSSW - Service Agent';
 	public static final String SSSW_SOCIAL_INTEGRATION_PROFILE = 'SSSW Social Integration';
 	public static final String SSSW_BSP_COMMUNITY_USER_PROFILE = 'BSP Community User';
+	public static final String UNIFIED_AGENT_PROFILE = 'CustomerService';
 
 	/*** Omnichannel Constants ***/
 	public static final String OMNI_AGENTWORK_STATUS_OPENED = 'Opened';

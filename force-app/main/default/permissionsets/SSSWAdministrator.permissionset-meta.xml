@@ -1229,6 +1229,10 @@
         <visible>true</visible>
     </recordTypeVisibilities>
     <recordTypeVisibilities>
+        <recordType>SSSWRouting__c.UnifiedRouting</recordType>
+        <visible>true</visible>
+    </recordTypeVisibilities>
+    <recordTypeVisibilities>
         <recordType>StatusTracking__c.SSSWGeneral</recordType>
         <visible>true</visible>
     </recordTypeVisibilities>
