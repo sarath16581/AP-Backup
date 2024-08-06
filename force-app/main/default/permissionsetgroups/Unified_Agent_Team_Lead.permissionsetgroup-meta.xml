@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PermissionSetGroup xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>This permission set group will bundle together permissions and shall be assigned to Team Leads and Team Support Leads</description>
+    <hasActivationRequired>false</hasActivationRequired>
+    <label>Unified Agent Team Lead</label>
+    <status>Updated</status>
+</PermissionSetGroup>
