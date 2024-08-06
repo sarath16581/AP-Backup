@@ -141,8 +141,8 @@
     <flexiPageRegions>
         <itemInstances>
             <componentInstance>
-                <componentName>customerSearchForm</componentName>
-                <identifier>c_customerSearchForm</identifier>
+                <componentName>unifiedCustomerSearch</componentName>
+                <identifier>c_unifiedCustomerSearch</identifier>
             </componentInstance>
         </itemInstances>
         <itemInstances>

@@ -1,10 +1,9 @@
 import { createElement } from 'lwc';
-import CustomerSearchForm from 'c/customerSearchForm';
-import { SEARCH_FORM_TITLE } from '../customerSearchForm';
+import UnifiedCustomerSearch, { SEARCH_FORM_TITLE } from 'c/unifiedCustomerSearch';
 
-const SEARCH_FORM_INPUT_CMP = 'c-customer-search-form-inputs';
+const SEARCH_FORM_CMP = 'c-unified-customer-search-form';
 
-describe('c-customer-search-form', () => {
+describe('c-unified-customer-search', () => {
 	afterEach(() => {
 		// The jsdom instance is shared across test cases in a single file so reset the DOM
 		while (document.body.firstChild) {
@@ -14,8 +13,8 @@ describe('c-customer-search-form', () => {
 
 	it('displays component title', () => {
 		// Arrange
-		const element = createElement('c-customer-search-form', {
-			is: CustomerSearchForm,
+		const element = createElement('c-unified-customer-search', {
+			is: UnifiedCustomerSearch,
 		});
 
 		// Act
@@ -29,8 +28,8 @@ describe('c-customer-search-form', () => {
 
 	it('displays the customer search form inputs component', () => {
 		// Arrange
-		const element = createElement('c-customer-search-form', {
-			is: CustomerSearchForm,
+		const element = createElement('c-unified-customer-search', {
+			is: UnifiedCustomerSearch,
 		});
 
 		// Act
@@ -38,7 +37,7 @@ describe('c-customer-search-form', () => {
 
 		// Assert
 		const inputComponent = element.shadowRoot.querySelector(
-			SEARCH_FORM_INPUT_CMP
+			SEARCH_FORM_CMP
 		);
 		expect(inputComponent).not.toBeNull();
 	});
