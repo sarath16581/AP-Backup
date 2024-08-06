@@ -2,8 +2,8 @@
  * @description Yet another Test data factory... hopefully the last one before a tidyup... eek!
  *
  * IMPORTANT - New methods for generating test data are to be added in a domain specific (e.g. SSSW, StarTrack) application
- *		   test data factory. Please refer PUDTestDataFactory for an example.
- *		   Test data helpers currently in this class will be incrementally moved to domain specific test data factories.
+ *			test data factory. Please refer PUDTestDataFactory for an example.
+ *			Test data helpers currently in this class will be incrementally moved to domain specific test data factories.
  *
  * @author Nathan Franklin
  * @date 2020-04-24
@@ -37,7 +37,8 @@
  * 2023-09-22 - Ken McGuire - added methods for product revenue objects
  * 2024-04-17 - Deepak Kemidi - added method for creating vendor emails
  * 2024-06-13 - Parveen Kaushik - Added default value for mapping model on test data. See CSLU-470 (JIRA) for details.
- * 2024-07-10 - Vasu Gorakati - Added method getImpactedArticles 
+ * 2024-07-10 - Vasu Gorakati - Added method getImpactedArticles
+ * 2024-07-26 - Seth Heang - Added method getScheduledActions
 */
 @IsTest
 public with sharing class ApplicationTestDataFactory {
@@ -904,16 +905,14 @@ public with sharing class ApplicationTestDataFactory {
 			Budget_and_Revenue__c.Dec_Revenue_Amount__c => 1000
 		}, count), generateIds);
 	}
-	
 
-	
 	public static List<Product2> getProducts(Integer count, Boolean generateIds) {
 		return (List<Product2>) maybeGenerateIds(populateSObjects(Product2.SObjectType, new Map<SObjectField, Object> {
 			Product2.Name => 'Product %count%'
 		}, count), generateIds);
 	}
 
-	
+
 	public static List<PricebookEntry> getPriceBookEntries(Integer count, Id productId, Boolean generateIds) {
 		Id pricebookId = Test.getStandardPricebookId();
 		return (List<PricebookEntry>) maybeGenerateIds(populateSObjects(PricebookEntry.SObjectType, new Map<SObjectField, Object> {
@@ -943,6 +942,16 @@ public with sharing class ApplicationTestDataFactory {
 			BAMApplication__c.Product__c =>  productId,
 			BAMApplication__c.appKey__c => appName.substring(0,Math.min(appName.length(), 9)),
 			BAMApplication__c.ServiceType__c =>  'Salesforce'
+		}, count), generateIds);
+	}
+
+	public static List<ScheduledAction__c> getScheduledActions(Integer count, String name, String actionType, DateTime scheduledDateTime, Id caseId, Boolean generateIds) {
+		return (List<ScheduledAction__c>)maybeGenerateIds(populateSObjects(ScheduledAction__c.SObjectType, new Map<SObjectField, Object> {
+				ScheduledAction__c.Name => name,
+				ScheduledAction__c.ActionType__c => actionType,
+				ScheduledAction__c.ScheduledDate__c => scheduledDateTime,
+				ScheduledAction__c.Case__c => caseId,
+				ScheduledAction__c.Active__c => true
 		}, count), generateIds);
 	}
 
@@ -1121,6 +1130,7 @@ public with sharing class ApplicationTestDataFactory {
 				GroupedAccountProductRevenue__c.UID__c => ProductRevenueService.getUID(accountId,productId,String.valueOf(year))
 		}, count), generateIds);
 	}
+	
 	/**
 	* Generates test data for Auspost_Vendors_Email_Address__mdt custom metadata records
 	**/
@@ -1144,7 +1154,7 @@ public with sharing class ApplicationTestDataFactory {
 			ImpactedArticle__c.Article__c => articleId
 		}, count), generateIds);
 	}
-	
+
 	/**
 	 * @deprecated ApplicationTestDataFactoryCases
 	 */
