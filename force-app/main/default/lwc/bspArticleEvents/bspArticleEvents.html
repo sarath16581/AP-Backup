@@ -7,7 +7,8 @@
 -->
 <template>
 	<template if:true={events}>
-		<table class="slds-table_cell-buffer slds-no-row-hover slds-table_bordered brand-table table-small-dense brand-table-scroll">
+		<table
+			class="slds-table_cell-buffer slds-no-row-hover slds-table_bordered brand-table table-small-dense brand-table-scroll">
 			<thead class="brand-table">
 				<tr class="slds-line-height_reset">
 					<!--Consignment Events-->
@@ -87,11 +88,10 @@
 				<!-- Iterating events-->
 				<template for:each={events} for:item="evnt">
 					<c-bsp-article-event-row key={evnt} evnt={evnt}
-											 is-consignment-authenticated={isConsignmentAuthenticated}
-											 is-c-e-a-ttachments-exists={isCEAttachmentsExists} req-from={reqFrom}
-											 em-scan-types={emScanTypes} is-consignment-serch-is-a-p-type={isConsignmentSerchIsAPType}
-											 is-consignment-serch-is-s-t-type={isConsignmentSerchIsSTType}
-											 is-safe-drop-download-loading={passSafeDropDownloadState}></c-bsp-article-event-row>
+						is-consignment-authenticated={isConsignmentAuthenticated}
+						is-c-e-a-ttachments-exists={isCEAttachmentsExists} req-from={reqFrom}
+						em-scan-types={emScanTypes} is-consignment-serch-is-a-p-type={isConsignmentSerchIsAPType}
+						is-consignment-serch-is-s-t-type={isConsignmentSerchIsSTType}></c-bsp-article-event-row>
 				</template>
 			</tbody>
 		</table>

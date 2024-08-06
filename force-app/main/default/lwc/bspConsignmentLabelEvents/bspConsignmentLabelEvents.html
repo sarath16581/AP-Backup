@@ -51,12 +51,11 @@
 			<tbody class="brand-table">
 				<!-- Iterating events-->
 				<template for:each={labelEvents} for:item="le">
+
 					<c-bsp-label-event-row key={le} le={le} is-consignment-authenticated={isConsignmentAuthenticated}
 						is-c-e-a-ttachments-exists={isCEAttachmentsExists} selected-event-article={selectedEventArticle}
 						onselectedarticlechange={onChangeOfSelectedEvent}
-						is-consignment-serch-is-a-p-type={isConsignmentSerchIsAPType}
-						is-safe-drop-download-loading={passSafeDropDownloadState}
-					></c-bsp-label-event-row>
+						is-consignment-serch-is-a-p-type={isConsignmentSerchIsAPType}></c-bsp-label-event-row>
 
 				</template>
 			</tbody>

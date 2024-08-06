@@ -11,10 +11,18 @@ export default class BspConsignmentLabelEvents extends LightningElement {
 	@api selectedConsignmentSearchType;
 	@api isConsignmentAuthenticated;
 	@api isConsignmentSerchIsAPType;
-	@api passSafeDropDownloadState;
+    
 
 	onChangeOfSelectedEvent(event){
 		const c = new CustomEvent('selectedarticlechange', {detail : event.detail});
 		this.dispatchEvent(c);
+    }
+
+	@api 
+	setSafeDropDownloadLoading(isLoading) {
+		this.template.querySelectorAll("c-bsp-label-event-row").forEach((item) => {
+			item.setSafeDropDownloadLoading(isLoading);
+		});
+		  
 	}
 }

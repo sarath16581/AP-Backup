@@ -236,13 +236,20 @@ export default class BSPConsignmentSearch extends NavigationMixin(LightningEleme
 	 */
 	downloadSafeDropImage = async (trackingIds) => {
 		this._safeDropDownloadLoading = true;
+        // notify child components that safe drop images are loading
+		this.notifyChildrenOfSafeDropImageLoadingState(true);
+		
 		// retrieve the current state of safe drop images caches in Salesforce
 		const safeDropImageState = await getCurrentStateOfSafeDropImageRequiredForDownload({
 			trackingId: trackingIds
 		});
+        
 		// download safe drop images as required if they do not exist in Salesforce
 		await this.processSafeDropImagesDownloading(safeDropImageState);
+		
 		this._safeDropDownloadLoading = false;
+		// notify child components that safe drop images have completed loading
+		this.notifyChildrenOfSafeDropImageLoadingState(false);
 	}
 
 	/**
@@ -267,5 +274,28 @@ export default class BSPConsignmentSearch extends NavigationMixin(LightningEleme
 				}
 			}
 		}
+    }
+
+
+	renderedCallback() {
+		// if the component rerenders and safedrop images haven't completed loading, notify child components
+		if (this._safeDropDownloadLoading) {
+			this.notifyChildrenOfSafeDropImageLoadingState(true);
+		}
+	}
+
+	/**
+	 * Notifies child components of the loading state of safe drop images
+	 * 
+	 * @param {boolean} isLoading 
+	 */
+	notifyChildrenOfSafeDropImageLoadingState(isLoading) {
+		this.template.querySelectorAll("c-bsp-consignment-label-events").forEach((item) => {
+			item.setSafeDropDownloadLoading(isLoading);
+		});
+		
+		this.template.querySelectorAll("c-bsp-article-events").forEach((item) => {
+			item.setSafeDropDownloadLoading(isLoading);
+		});
 	}
 }

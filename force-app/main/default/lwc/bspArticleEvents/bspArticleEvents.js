@@ -12,5 +12,12 @@ export default class BspArticleEvents extends LightningElement {
 	@api emScanTypes;
 	@api isConsignmentSerchIsAPType;
 	@api isConsignmentSerchIsSTType;
-	@api passSafeDropDownloadState;
+
+	@api 
+	setSafeDropDownloadLoading(isLoading) {
+		this.template.querySelectorAll("c-bsp-article-event-row").forEach((item) => {
+			item.setSafeDropDownloadLoading(isLoading);
+		});
+		  
+	}
 }
