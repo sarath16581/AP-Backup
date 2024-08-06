@@ -104,13 +104,15 @@ public with sharing class CaseUnifiedProactiveMonitoringModuleTest {
 		cases[1].Status = 'New';
 
 		Date last7days = System.today().addDays(-7);
+		Date last4BusinessDays = BusinessHoursService.newInstance().calculateNextBusinessDay(last7days, 1);
+		Datetime last4BusinessDaysDT = Datetime.newInstance(last4BusinessDays, Time.newInstance(0, 0, 0, 0));
 		Date last5BusinessDays = BusinessHoursService.newInstance().calculateNextBusinessDay(last7days, 0);
 		Datetime last5BusinessDaysDT = Datetime.newInstance(last5BusinessDays, Time.newInstance(0, 0, 0, 0));
-		Datetime last6BusinessDaysDT = Datetime.newInstance(System.today().addDays(-8), Time.newInstance(0, 0, 0, 0));
+
 
 		// Set created data within valid SLA period
-		cases[0] = (Case) ApplicationTestDataFactory.setUnwritableFields(cases[0], new Map<String, Object>{ 'CreatedDate' => last5BusinessDaysDT });
-		cases[1] = (Case) ApplicationTestDataFactory.setUnwritableFields(cases[1], new Map<String, Object>{ 'CreatedDate' => last6BusinessDaysDT });
+		cases[0] = (Case) ApplicationTestDataFactory.setUnwritableFields(cases[0], new Map<String, Object>{ 'CreatedDate' => last4BusinessDaysDT });
+		cases[1] = (Case) ApplicationTestDataFactory.setUnwritableFields(cases[1], new Map<String, Object>{ 'CreatedDate' => last5BusinessDaysDT });
 
 		List<Case> oldCases = new List<Case>{ cases[0].clone(true), cases[1].clone(true) };
 
