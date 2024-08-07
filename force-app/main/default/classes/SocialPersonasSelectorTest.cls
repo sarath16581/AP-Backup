@@ -17,7 +17,6 @@ public class SocialPersonasSelectorTest {
 		QueryBuilder.mockFactory.put(SocialPersonasSelector.class, qa); 
 		selector.search(new Map<String, Object>(), new Set<Object>());
 		String queryString = qa.toSoqlString();
-		system.debug(qa.toSoqlString());
 		System.assertEquals(true, Pattern.compile('(?is)\\bfrom SocialPersona\\b').matcher(queryString).find(), 'Resulting query select from SocialPersona');
 		System.assertEquals(true, Pattern.compile('\\b('+ SocialPersona.Provider + ' IN: providers AND ' + SocialPersona.ExternalId + ' IN: externalIds'+')\\b').matcher(queryString).find(), 'Filters by Providers and ExternalIds in query');
 		System.assertEquals(true, Pattern.compile('\\b'+ SocialPersona.Provider + ' =: providerOther\\b').matcher(queryString).find(), 'Filters by Provider  is other');
