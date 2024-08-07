@@ -141,7 +141,8 @@ public inherited sharing class CaseAutomationTriggerHandler extends ApplicationT
 			CaseMilestone.SObjectType,
 			AuthorisedContacts__c.SObjectType,
 			PendingServiceRouting.SObjectType,
-			CaseInvestigation__c.SObjectType
+			CaseInvestigation__c.SObjectType,
+			ScheduledAction__c.SObjectType
 		};
 	}
 

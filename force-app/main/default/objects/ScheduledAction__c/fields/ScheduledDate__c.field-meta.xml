@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>ScheduledDate__c</fullName>
+    <description>Identifies the future date and time when this record should be actioned. This field is calculated (for business or calendar hours) and set by calling class. Used in Flow for Scheduled Path setup.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Date and time for scheduled automation</inlineHelpText>
+    <label>Scheduled Date</label>
+    <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
+    <trackTrending>false</trackTrending>
+    <type>DateTime</type>
+</CustomField>

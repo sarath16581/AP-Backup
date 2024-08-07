@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
+	<description>This permission set shall be used to define and control all object, app and user permissions for the purpose of managing a customer</description>
+    <hasActivationRequired>false</hasActivationRequired>
+    <label>Unified Customer Management</label>
+    <license>Salesforce</license>
+</PermissionSet>

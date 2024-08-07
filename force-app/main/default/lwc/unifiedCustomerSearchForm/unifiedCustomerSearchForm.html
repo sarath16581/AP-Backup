@@ -1,0 +1,225 @@
+<template>
+	<!-- Lightning Spinner -->
+	<div class="slds-is-relative">
+		<lightning-spinner
+			if:true={isLoading}
+			alternative-text="Searching..."
+			title="Searching..."
+		></lightning-spinner>
+		<div class="slds-grid slds-wrap slds-gutters">
+			<!-- First Name -->
+			<div class="slds-col slds-size_1-of-1 slds-large-size_2-of-12">
+				<lightning-input
+					data-field-name="firstName"
+					label={firstNameLabel}
+					max-length="40"
+					message-when-pattern-mismatch={invalidNameMsg}
+					name="firstName"
+					onchange={handleInputChange}
+					onkeyup={handleInputKeyUp}
+					pattern={nameInputRegex}
+					placeholder={firstNameLabel}
+					type="text"
+					value={firstName}
+				></lightning-input>
+			</div>
+
+			<!-- Last Name -->
+			<div class="slds-col slds-size_1-of-1 slds-large-size_2-of-12">
+				<lightning-input
+					data-field-name="lastName"
+					label={lastNameLabel}
+					max-length="80"
+					message-when-pattern-mismatch={invalidNameMsg}
+					name="lastName"
+					onchange={handleInputChange}
+					onkeyup={handleInputKeyUp}
+					pattern={nameInputRegex}
+					placeholder={lastNameLabel}
+					type="text"
+					value={lastName}
+				></lightning-input>
+			</div>
+
+			<!-- Phone Number -->
+			<div
+				class="slds-col slds-size_1-of-1 slds-large-size_3-of-12 slds-gutters_direct-xxx-small slds-grid slds-grid_vertical-align-end"
+			>
+				<div class="slds-col slds-grow">
+					<lightning-input
+						data-field-name="phoneNumber"
+						disabled={ignorePhoneNumber}
+						label={phoneNumberLabel}
+						max-length="40"
+						message-when-pattern-mismatch={invalidPhoneNumberMsg}
+						name="phoneNumber"
+						onchange={handleInputChange}
+						onkeyup={handleInputKeyUp}
+						pattern={phoneInputRegex}
+						placeholder={phoneNumberLabel}
+						type="tel"
+						value={phoneNumber}
+					></lightning-input>
+				</div>
+				<div
+					class="slds-col slds-grow-none slds-var-m-left_xx-small slds-var-m-bottom_xx-small"
+				>
+				<lightning-input
+				data-field-name="includePhoneNumber"
+				label="Include/Exclude Phone"
+				message-toggle-active=""
+				message-toggle-inactive=""
+				onchange={handleInputChange}
+				onkeyup={handleInputKeyUp}
+				type="toggle"
+				checked={includePhoneNumber}
+				variant="label-hidden"
+			></lightning-input>
+				</div>
+			</div>
+
+			<!-- Email Address -->
+			<div
+				class="slds-col slds-size_1-of-1 slds-large-size_5-of-12 slds-gutters_direct-xxx-small slds-grid slds-grid_vertical-align-end"
+			>
+				<div class="slds-col slds-grow">
+					<lightning-input
+						data-field-name="emailAddress"
+						disabled={ignoreEmailAddress}
+						label={emailAddressLabel}
+						max-length="80"
+						message-when-pattern-mismatch={invalidEmailAddressMsg}
+						name="emailAddress"
+						onchange={handleInputChange}
+						onkeyup={handleInputKeyUp}
+						pattern={emailInputRegex}
+						placeholder={emailAddressLabel}
+						type="email"
+						value={emailAddress}
+					></lightning-input>
+				</div>
+				<div
+					class="slds-col slds-grow-none slds-var-m-left_xx-small slds-var-m-bottom_xx-small"
+				>
+					<lightning-input
+						data-field-name="includeEmailAddress"
+						label="Include/Exclude Email"
+						message-toggle-active=""
+						message-toggle-inactive=""
+						onchange={handleInputChange}
+						onkeyup={handleInputKeyUp}
+						type="toggle"
+						checked={includeEmailAddress}
+						variant="label-hidden"
+					></lightning-input>
+				</div>
+				<!-- </div> -->
+			</div>
+
+			<!-- Customer Type Selection -->
+			<div
+				class="slds-col slds-size_1-of-1 slds-large-size_1-of-1 slds-grid slds-grid_pull-padded-x-small slds-var-m-vertical_medium"
+			>
+				<div class="slds-col slds-grow-none slds-var-m-right_medium">
+					<lightning-input
+						checked={organisationCheckbox}
+						data-field-name="organisationCheckbox"
+						disabled={consumerCheckbox}
+						label={organisationCheckboxLabel}
+						onchange={handleInputChange}
+						onkeyup={handleInputKeyUp}
+						type="checkbox"
+					></lightning-input>
+				</div>
+				<div class="slds-col slds-grow-none">
+					<lightning-input
+						checked={consumerCheckbox}
+						data-field-name="consumerCheckbox"
+						disabled={organisationCheckbox}
+						label={consumerCheckboxLabel}
+						onchange={handleInputChange}
+						onkeyup={handleInputKeyUp}
+						type="checkbox"
+					></lightning-input>
+				</div>
+			</div>
+
+			<!-- Organization Lookup -->
+			<template if:true={showOrganisationSection}>
+				<div class="slds-col slds-size_1-of-1 slds-large-size_8-of-12">
+					<lightning-record-picker
+						data-field-name="organisationAccountId"
+						label={organisationLookupLabel}
+						placeholder={organisationLookupLabel}
+						object-api-name="Account"
+						filter={organisationLookupFilter}
+						display-info={organisationLookupDisplayInfo}
+						onchange={handleInputChange}
+						onkeyup={handleInputKeyUp}
+						value={organisationAccountId}
+					>
+						>
+					</lightning-record-picker>
+				</div>
+				<div class="slds-col slds-size_1-of-1 slds-large-size_4-of-12">
+					<lightning-input
+						data-field-name="abnAcn"
+						disabled={isAbnAcnDisabled}
+						label={abnAcnLabel}
+						max-length="11"
+						message-when-pattern-mismatch={invalidAbnAcnMsg}
+						onchange={handleInputChange}
+						onkeyup={handleInputKeyUp}
+						pattern={abnAcnInputRegex}
+						placeholder={abnAcnLabel}
+						type="text"
+						value={abnAcn}
+					></lightning-input>
+				</div>
+			</template>
+
+			<!-- Address Lookup -->
+			<div class="slds-col slds-size_1-of-1 slds-large-size_1-of-1">
+				<c-ame-address-validation2
+					if:true={showAddress}
+					data-field-name="addressObj"
+					oneditaddress={handleInputChange}
+					onselectaddress={handleInputChange}
+					onkeyup={handleInputKeyUp}
+				></c-ame-address-validation2>
+			</div>
+		</div>
+
+		<!-- Error message -->
+		<div
+			data-id="error"
+			if:true={errorMessage}
+			class="slds-text-align_center slds-text-color_error slds-var-m-around_medium"
+		>
+			{errorMessage}
+		</div>
+
+		<!-- Buttons -->
+		<div class="slds-var-m-top_small">
+			<!-- The class 'slds-grid_reverse' is used to change the visual order of the buttons, but retain tab-index order. -->
+			<div class="slds-grid slds-gutters slds-grid_reverse">
+				<div class="slds-col slds-grow-none">
+					<lightning-button
+						data-id="search"
+						label={searchButtonLabel}
+						onclick={handleSearchBtnClick}
+						variant="brand"
+					></lightning-button>
+				</div>
+				<div class="slds-col slds-grow-none">
+					<lightning-button
+						data-id="clear"
+						label={clearButtonLabel}
+						onclick={handleClearBtnClick}
+						variant="brand-outline"
+					></lightning-button>
+				</div>
+			</div>
+		</div>
+	</div>
+</template>
