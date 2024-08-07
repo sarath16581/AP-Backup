@@ -14,6 +14,7 @@
 19.05.2021    Madhuri Awasthi          REQ2496280 - Resetting the fields on Article change
 26.05.2021    Naveen Rajanna           REQ2513603 Show Print button when submitted and hide few tags upon print
 09.06.2021    Naveen Rajanna           REQ2525818 Retrieve Customer_Ref__c from SAP data and store in formdata in custRefID
+22.07.2024    Jacob Isaac	 			REQ3513981 - made file upload into multiple and updated label for file upload
 **/
 
 import { track } from 'lwc'
@@ -107,6 +108,9 @@ export default class myNetworkeParcelDamagesForm extends LwcForm {
     @track
     fileName = ''
 
+	@track
+	listOfFileNames=[];
+
     @track
     submitted = false
 
@@ -175,13 +179,15 @@ export default class myNetworkeParcelDamagesForm extends LwcForm {
     }
 
     handleUploadFinished(event) {
-        // Get the list of uploaded files
+		// Get the list of uploaded files
         const uploadedFiles = event.detail.files
         if(uploadedFiles.length > 0) {
-            this.fileName = uploadedFiles[0].name
+			for(var i = 0; i < uploadedFiles.length; ++i){
+				this.listOfFileNames.push(uploadedFiles[i].name);
+			}
         }
-        this.fileUploaded = true
-    }
+        this.fileUploaded = true;
+	}
 
     connectedCallback() {
         getNetworkUsers()
@@ -377,6 +383,7 @@ export default class myNetworkeParcelDamagesForm extends LwcForm {
             doesContainWine: null,
             totalBottlesInCarton: null,
             totalBottlesDamaged: null,
+			totalBottlesNotDamaged: null,
             noOfCapsDamaged: null,
             noOfLabelsDamaged: null,
             actionTaken: null,
