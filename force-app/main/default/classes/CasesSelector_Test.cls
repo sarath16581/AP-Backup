@@ -279,4 +279,21 @@ public with sharing class CasesSelector_Test {
 		Test.stopTest();
 
 	}
+
+	@IsTest
+	public static void testSelectByIdsWithClosedDate() {
+
+		// =====================================
+		// Data Preparation
+		// =====================================
+		Map<Id, Case> cases = new Map<Id, Case>(ApplicationTestDataFactoryCase.getCases(1, true));
+		CasesSelector selector = CasesSelector.newInstance();
+
+		QueryBuilder qa = QueryBuilder.newInstance();
+		QueryBuilder.mockFactory.put(CasesSelector.class, qa); 
+		selector.selectByIdsWithClosedDate(cases.keySet(), new Set<Object>());
+		String queryString = qa.toSoqlString();
+		System.assertEquals(true, Pattern.compile('\\b' + Case.Id + ' IN :ids AND ' + Case.ClosedDate + ' >= LAST_N_DAYS:3\\b').matcher(queryString).find(), 'Filters by ids and ClosedDate in query');
+
+	}
 }
