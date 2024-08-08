@@ -1,6 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <PermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
-	<description>This permission set shall be used to define and control all object, app and user permissions for the purpose of case management</description>
+    <classAccesses>
+        <apexClass>CaseUnifiedProactiveMonitoringModule</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>UnifiedPushToMonitoringQueueController</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <description>This permission set shall be used to define and control all object, app and user permissions for the purpose of case management</description>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Case.ReassignmentReason__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
     <hasActivationRequired>false</hasActivationRequired>
     <label>Unified Case Management</label>
     <license>Salesforce</license>
