@@ -465,7 +465,7 @@ public with sharing class CaseUnifiedProactiveMonitoringModuleTest {
 		// =====================================
 		// Stubbing
 		// =====================================
-		ApplicationUnitOfWork mockUow = MockUtility.mockUnitOfWork();
+		// NONE
 		// =====================================
 		// Testing
 		// =====================================
