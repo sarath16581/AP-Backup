@@ -250,7 +250,7 @@ public class TIBCOArticleWrapper {
 
 											if (addType.AddressDetails.AustralianAddress.UnstructuredAddress != null && addType.AddressDetails.AustralianAddress.UnstructuredAddress.AddressLine != null) {
 												for (String s : addType.AddressDetails.AustralianAddress.UnstructuredAddress.AddressLine) {
-													proxyArticle.ReceiverAddress__c += s + ',';
+													proxyArticle.ReceiverAddress__c += s + ', ';
 												}
 
 												if (addType.AddressDetails.AustralianAddress.UnstructuredAddress.AddressLine.size() > 0) {
@@ -267,9 +267,9 @@ public class TIBCOArticleWrapper {
 												}
 											}
 
-											proxyArticle.ReceiverAddress__c += TIBCOUtils.removeNull(addType.AddressDetails.AustralianAddress.SuburbOrPlaceOrLocality) + ',';
+											proxyArticle.ReceiverAddress__c += TIBCOUtils.removeNull(addType.AddressDetails.AustralianAddress.SuburbOrPlaceOrLocality) + ', ';
 											proxyArticle.ReceiverAddress__c += TIBCOUtils.removeNull(addType.AddressDetails.AustralianAddress.StateOrTerritory) + ' ';
-											proxyArticle.ReceiverAddress__c += TIBCOUtils.removeNull(addType.AddressDetails.AustralianAddress.PostCode) + ',';
+											proxyArticle.ReceiverAddress__c += TIBCOUtils.removeNull(addType.AddressDetails.AustralianAddress.PostCode) + ', ';
 											if (addType.AddressDetails.AustralianAddress.Country != null) {
 												proxyArticle.ReceiverAddress__c += TIBCOUtils.removeNull(addType.AddressDetails.AustralianAddress.Country.CountryCode);
 												proxyArticle.ReceiverCountry__c = addType.AddressDetails.AustralianAddress.Country.CountryCode;
@@ -282,7 +282,7 @@ public class TIBCOArticleWrapper {
 
 											if (addType.AddressDetails.InternationalAddress.UnstructuredAddress != null && addType.AddressDetails.InternationalAddress.UnstructuredAddress.AddressLine != null) {
 												for (String s : addType.AddressDetails.InternationalAddress.UnstructuredAddress.AddressLine) {
-													proxyArticle.ReceiverAddress__c += s + ',';
+													proxyArticle.ReceiverAddress__c += s + ', ';
 												}
 
 												if (addType.AddressDetails.InternationalAddress.UnstructuredAddress.AddressLine.size() > 0) {
@@ -299,9 +299,9 @@ public class TIBCOArticleWrapper {
 												}
 											}
 
-											proxyArticle.ReceiverAddress__c += TIBCOUtils.removeNull(addType.AddressDetails.InternationalAddress.SuburbOrPlaceOrLocality) + ',';
+											proxyArticle.ReceiverAddress__c += TIBCOUtils.removeNull(addType.AddressDetails.InternationalAddress.SuburbOrPlaceOrLocality) + ', ';
 											proxyArticle.ReceiverAddress__c += TIBCOUtils.removeNull(addType.AddressDetails.InternationalAddress.StateOrTerritory) + ' ';
-											proxyArticle.ReceiverAddress__c += TIBCOUtils.removeNull(addType.AddressDetails.InternationalAddress.PostCode) + ',';
+											proxyArticle.ReceiverAddress__c += TIBCOUtils.removeNull(addType.AddressDetails.InternationalAddress.PostCode) + ', ';
 											if (addType.AddressDetails.InternationalAddress.Country != null) {
 												proxyArticle.ReceiverAddress__c += TIBCOUtils.removeNull(addType.AddressDetails.InternationalAddress.Country.CountryCode);
 												proxyArticle.ReceiverCountry__c = addType.AddressDetails.InternationalAddress.Country.CountryCode;
@@ -372,7 +372,7 @@ public class TIBCOArticleWrapper {
 										if (addType.AddressDetails != null && addType.AddressDetails.AustralianAddress != null) {
 											if (addType.AddressDetails.AustralianAddress.UnstructuredAddress != null && addType.AddressDetails.AustralianAddress.UnstructuredAddress.AddressLine != null) {
 												for (String s : addType.AddressDetails.AustralianAddress.UnstructuredAddress.AddressLine) {
-													proxyArticle.SenderAddress__c += s + ',';
+													proxyArticle.SenderAddress__c += s + ', ';
 												}
 
 												if (addType.AddressDetails.AustralianAddress.UnstructuredAddress.AddressLine.size() > 0) {
@@ -389,9 +389,9 @@ public class TIBCOArticleWrapper {
 												}
 											}
 
-											proxyArticle.SenderAddress__c += TIBCOUtils.removeNull(addType.AddressDetails.AustralianAddress.SuburbOrPlaceOrLocality) + ',';
+											proxyArticle.SenderAddress__c += TIBCOUtils.removeNull(addType.AddressDetails.AustralianAddress.SuburbOrPlaceOrLocality) + ', ';
 											proxyArticle.SenderAddress__c += TIBCOUtils.removeNull(addType.AddressDetails.AustralianAddress.StateOrTerritory) + ' ';
-											proxyArticle.SenderAddress__c += TIBCOUtils.removeNull(addType.AddressDetails.AustralianAddress.PostCode) + ',';
+											proxyArticle.SenderAddress__c += TIBCOUtils.removeNull(addType.AddressDetails.AustralianAddress.PostCode) + ', ';
 											if (addType.AddressDetails.AustralianAddress.Country != null) {
 												proxyArticle.SenderAddress__c += TIBCOUtils.removeNull(addType.AddressDetails.AustralianAddress.Country.CountryCode);
 												proxyArticle.SenderCountry__c = addType.AddressDetails.AustralianAddress.Country.CountryCode;
@@ -402,7 +402,7 @@ public class TIBCOArticleWrapper {
 										} else if (addType.AddressDetails != null && addType.AddressDetails.InternationalAddress != null) {
 											if (addType.AddressDetails.InternationalAddress.UnstructuredAddress != null && addType.AddressDetails.InternationalAddress.UnstructuredAddress.AddressLine != null) {
 												for (String s : addType.AddressDetails.InternationalAddress.UnstructuredAddress.AddressLine) {
-													proxyArticle.SenderAddress__c += s + ',';
+													proxyArticle.SenderAddress__c += s + ', ';
 												}
 
 												if (addType.AddressDetails.InternationalAddress.UnstructuredAddress.AddressLine.size() > 0) {
@@ -419,9 +419,9 @@ public class TIBCOArticleWrapper {
 												}
 											}
 
-											proxyArticle.SenderAddress__c += TIBCOUtils.removeNull(addType.AddressDetails.InternationalAddress.SuburbOrPlaceOrLocality) + ',';
+											proxyArticle.SenderAddress__c += TIBCOUtils.removeNull(addType.AddressDetails.InternationalAddress.SuburbOrPlaceOrLocality) + ', ';
 											proxyArticle.SenderAddress__c += TIBCOUtils.removeNull(addType.AddressDetails.InternationalAddress.StateOrTerritory) + ' ';
-											proxyArticle.SenderAddress__c += TIBCOUtils.removeNull(addType.AddressDetails.InternationalAddress.PostCode) + ',';
+											proxyArticle.SenderAddress__c += TIBCOUtils.removeNull(addType.AddressDetails.InternationalAddress.PostCode) + ', ';
 											if (addType.AddressDetails.InternationalAddress.Country != null) {
 												proxyArticle.SenderAddress__c += TIBCOUtils.removeNull(addType.AddressDetails.InternationalAddress.Country.CountryCode);
 												proxyArticle.SenderCountry__c = addType.AddressDetails.InternationalAddress.Country.CountryCode;

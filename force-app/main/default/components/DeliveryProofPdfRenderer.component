@@ -44,10 +44,10 @@
 								<div style="margin-bottom: 8px;">
 									<apex:outputText
 											rendered="{!em.fieldPath == 'Article__r.ConsignmentTrackingNumber__c'}">
-										Consignment Number: &nbsp;&nbsp;{!eventMessage[em]}
+										Consignment Number: &nbsp;{!eventMessage[em]}
 									</apex:outputText>
 									<apex:outputText rendered="{!em.fieldPath == 'Article__r.FurtherReferences__c'}">
-										Sender Reference No: &nbsp;&nbsp;<apex:outputText value="{!eventMessage[em]}"
+										Sender Reference No: &nbsp;<apex:outputText value="{!eventMessage[em]}"
 																						  style="white-space: pre-wrap;"/>
 									</apex:outputText>
 
@@ -152,7 +152,7 @@
 						</thead>
 						<tbody>
 						<tr style="vertical-align: top;text-align: center;font-size: 0.9em; width:50%;">
-							<td style="">{!articleList}</td>
+							<td style="text-align: left; padding: 0px 10px 0px 10px;">{!articleList}</td>
 							<apex:outputText rendered="{!NOT(ISBLANK(signatureAttachmentId))}">
 								<td>
 									<div>Signatory Name: {!eventMessage.SignatoryName__c}</div>
