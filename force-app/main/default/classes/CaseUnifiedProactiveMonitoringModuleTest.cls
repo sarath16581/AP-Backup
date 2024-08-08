@@ -4,6 +4,7 @@
  * @changelog
  * 2024-07-10 - Seth Heang - Created
  * 2024-07-30 - Seth Heang - Added test methods for 3Days/5Days Case monitoring Scheduled Actions functionalities
+ * 2024-08-08 - Seth Heang - Added more test methods for missed use cases
  */
 @IsTest
 public with sharing class CaseUnifiedProactiveMonitoringModuleTest {
@@ -444,5 +445,44 @@ public with sharing class CaseUnifiedProactiveMonitoringModuleTest {
 		Set<Id> deletedIds = new Set<Id>{ deletedScheduledActions[0].Id, deletedScheduledActions[1].Id };
 		Assert.areEqual(true, deletedIds.contains(scheduledActionFor3Days.Id), 'Expected the scheduled action to be deleted but did not ' + deletedIds);
 		Assert.areEqual(true, deletedIds.contains(scheduledActionFor5Days.Id), 'Expected the scheduled action to be deleted but did not ' + deletedIds);
+	}
+
+	/**
+	 *  Test: Test AsyncUnifiedCaseScheduledActionWorker's Parameters for missed use cases
+	 */
+	@IsTest
+	private static void testAsyncUnifiedCaseScheduledActionWorkerParameters() {
+		// =====================================
+		// Data Preparation
+		// =====================================
+		Case testCase = ApplicationTestDataFactory.getCases(1, true)[0];
+		testCase.RecordTypeId = ApplicationTestDataFactoryCase.caseUnifiedInvestigationRecordType;
+		testCase.OwnerId = (Id) QM__c.getInstance().UnifiedDefaultMonitoringQueueId__c;
+		testCase.EnquirySubType__c = 'Late Item';
+		testCase.Exclude_Subscription_Automation__c = false;
+		testCase = (Case) ApplicationTestDataFactory.setUnwritableFields(testCase, new Map<String, Object>{ 'ContactEmail' => 'seth@test.com' });
+
+		// =====================================
+		// Stubbing
+		// =====================================
+		// NONE
+		// =====================================
+		// Testing
+		// =====================================
+		Test.startTest();
+
+		CaseUnifiedProactiveMonitoringModule.AsyncUnifiedCaseScheduledActionWorker caseUnifiedCaseScheduledActionWorker = new CaseUnifiedProactiveMonitoringModule.AsyncUnifiedCaseScheduledActionWorker();
+		CaseUnifiedProactiveMonitoringModule.CaseUnifiedScheduledActionsParam params = new CaseUnifiedProactiveMonitoringModule.CaseUnifiedScheduledActionsParam(
+				new List<Case>{ testCase },
+				true
+		);
+		caseUnifiedCaseScheduledActionWorker.params = params;
+		caseUnifiedCaseScheduledActionWorker.deserialiseParams(JSON.serialize(params));
+		Test.stopTest();
+
+		Assert.areEqual(CaseUnifiedProactiveMonitoringModule.AsyncUnifiedCaseScheduledActionWorker.class, caseUnifiedCaseScheduledActionWorker.getClassType(), 'Expected Type Class but instead got ' + caseUnifiedCaseScheduledActionWorker.getClassType());
+		Assert.areEqual(Case.SObjectType, caseUnifiedCaseScheduledActionWorker.getSObjectTypeGroup(), 'Expected Case SObjectType but instead got ' + caseUnifiedCaseScheduledActionWorker.getSObjectTypeGroup());
+		Assert.areEqual(testCase, caseUnifiedCaseScheduledActionWorker.params.cases[0], 'Expected Case to match but instead got ' + caseUnifiedCaseScheduledActionWorker.params.cases[0]);
+		Assert.areEqual(true, caseUnifiedCaseScheduledActionWorker.params.revalidateOperation, 'Expected revalidateOperation to match but instead got ' + caseUnifiedCaseScheduledActionWorker.params.revalidateOperation);
 	}
 }
