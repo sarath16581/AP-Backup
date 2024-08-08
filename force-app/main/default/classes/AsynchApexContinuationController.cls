@@ -52,8 +52,6 @@ global with sharing class AsynchApexContinuationController {
             } else {
                 urlConfig.baseURL =  strFrag0 + '.sandbox.vf.force.com';
             }*/
-            //Commented line 51 and 53 from SFDC Support
-            //New code below
             urlConfig.baseURL = 'https://'+System.DomainCreator.getVisualforceHostname(null);
         }
 
