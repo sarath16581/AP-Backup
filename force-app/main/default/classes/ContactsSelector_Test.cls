@@ -23,6 +23,7 @@
 * 2024-07-23 - Marcel HK - Removed 'Country' mailing address filters (CSLU-1072)
 * 2024-07-23 - Marcel HK - Allow match if MailingStreet equals addressLine1 + addressLine2 (CSLU-1106)
 * 2024-07-23 - Marcel HK - Added filters for accountId and abn/acn lookup (CSLU-447)
+* 2024-08-08 - Marcel HK - Update Address filters for `selectByCustomerSearchParamsQB` (CSLU-1072)
 */
 @IsTest
 private with sharing class ContactsSelector_Test {
@@ -380,9 +381,9 @@ private with sharing class ContactsSelector_Test {
 		String soql = cs.selectByCustomerSearchParamsQB(params, new Set<Object>());
 		Test.stopTest();
 
-		Assert.isTrue(Pattern.compile('(?is)MailingStreet = \'123 Example St\'').matcher(soql).find(), 'Query should filter MailingStreet');
-		Assert.isTrue(Pattern.compile('(?is)MailingCity = \'Example Town\'').matcher(soql).find(), 'Query should filter MailingCity');
-		Assert.isTrue(Pattern.compile('(?is)MailingState = \'VIC\'').matcher(soql).find(), 'Query should filter MailingState');
+		Assert.isTrue(Pattern.compile('(?is)(MailingStreet LIKE \'123 Example St%\' OR MailingStreet2__c LIKE \'123 Example St%\')').matcher(soql).find(), 'Query should filter MailingStreet');
+		Assert.isTrue(Pattern.compile('(?is)MailingCity LIKE \'Example Town%\'').matcher(soql).find(), 'Query should filter MailingCity');
+		Assert.isTrue(Pattern.compile('(?is)MailingState LIKE \'VIC%\'').matcher(soql).find(), 'Query should filter MailingState');
 		Assert.isTrue(Pattern.compile('(?is)MailingPostalCode = \'3999\'').matcher(soql).find(), 'Query should filter MailingPostalCode');
 	}
 
@@ -408,8 +409,8 @@ private with sharing class ContactsSelector_Test {
 		String soql = cs.selectByCustomerSearchParamsQB(params, new Set<Object>());
 		Test.stopTest();
 
-		Assert.isTrue(Pattern.compile('(?is)\\(MailingStreet = \'U 3\' AND MailingStreet2__c = \'123 Example St\'\\)').matcher(soql).find(), 'Query should filter MailingStreet AND MailingStreet2__c');
-		Assert.isTrue(Pattern.compile('(?is)\\bOR MailingStreet = \'U 3 123 Example St\'').matcher(soql).find(), 'Query should filter MailingStreet with AddressLine1+AddressLine2');
+		Assert.isTrue(Pattern.compile('(?is)\\(MailingStreet LIKE \'U 3%\' AND MailingStreet2__c LIKE \'123 Example St%\'\\)').matcher(soql).find(), 'Query should filter MailingStreet AND MailingStreet2__c');
+		Assert.isTrue(Pattern.compile('(?is)\\bOR MailingStreet LIKE \'U 3 123 Example St%\'').matcher(soql).find(), 'Query should filter MailingStreet with AddressLine1+AddressLine2');
 	}
 	
 	@IsTest
@@ -433,7 +434,7 @@ private with sharing class ContactsSelector_Test {
 		String soql = cs.selectByCustomerSearchParamsQB(params, new Set<Object>());
 		Test.stopTest();
 
-		Assert.isTrue(Pattern.compile('(?is)\\bMailingStreet2__c = \'123 Example St\'').matcher(soql).find(), 'Query should filter MailingStreet2__c');
+		Assert.isTrue(Pattern.compile('(?is)(MailingStreet LIKE \'123 Example St%\' OR MailingStreet2__c LIKE \'123 Example St%\')').matcher(soql).find(), 'Query should filter MailingStreet2__c');
 	}
 
 	@IsTest
