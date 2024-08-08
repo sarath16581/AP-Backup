@@ -4,7 +4,7 @@
  * @changelog
  * 2024-07-10 - Seth Heang - Created
  * 2024-07-30 - Seth Heang - Added test methods for 3Days/5Days Case monitoring Scheduled Actions functionalities
- * 2024-08-08 - Seth Heang - Added testAsyncUnifiedCaseScheduledActionWorkerParameters() to cover code coverage
+ * 2024-08-08 - Seth Heang - Added more test methods for missed use cases
  */
 @IsTest
 public with sharing class CaseUnifiedProactiveMonitoringModuleTest {
@@ -448,7 +448,7 @@ public with sharing class CaseUnifiedProactiveMonitoringModuleTest {
 	}
 
 	/**
-	 *  Test: Test AsyncUnifiedCaseScheduledActionWorker's Parameters to ensure code coverage is met
+	 *  Test: Test AsyncUnifiedCaseScheduledActionWorker's Parameters for missed use cases
 	 */
 	@IsTest
 	private static void testAsyncUnifiedCaseScheduledActionWorkerParameters() {
