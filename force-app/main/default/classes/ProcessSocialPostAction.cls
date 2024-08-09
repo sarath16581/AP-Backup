@@ -19,26 +19,19 @@ global with sharing class ProcessSocialPostAction {
 		Set<String> providers = new Set<String>();
 		Set<String> externalIds = new Set<String>();
 		Set<String> responseContextExternalIds = new Set<String>();
-		Map<String, SproutSocialApp__Sprout_Social_Data_Event__c> socialDataMap = new Map<String, SproutSocialApp__Sprout_Social_Data_Event__c>();
-		Map<String, SocialPersona> personaMap = new Map<String, SocialPersona>();
-
+		Map<String, SocialPostParams> socialPostParamsMap = new Map<String, SocialPostParams>();
 		if (params != null && !params.isEmpty()) {
-			for (SproutSocialApp__Sprout_Social_Data_Event__c socialDataEvent : params[0].socialDataEvents) {
-				providers.add(socialDataEvent.SproutSocialApp__Post_Provider__c);
-				externalIds.add(socialDataEvent.SproutSocialApp__Post_External_ID__c);
-				responseContextExternalIds.add(socialDataEvent.SproutSocialApp__Response_Context_External_Id__c);
-				socialDataMap.put(socialDataEvent.SproutSocialApp__Post_External_ID__c, socialDataEvent);
-			}
-
-			for (SocialPersona persona : params[0].socialPersonas) {
-				if (String.isNotBlank(persona.ExternalId)) {
-					personaMap.put(persona.ExternalId, persona);
-				} else {
-					personaMap.put(persona.Name + persona.MediaProvider, persona);
+			for(SocialPostParams param : params){
+				SproutSocialApp__Sprout_Social_Data_Event__c socialDataEvent = param.socialDataEvent;
+				if(socialDataEvent != null){			
+					providers.add(socialDataEvent.SproutSocialApp__Post_Provider__c);
+					externalIds.add(socialDataEvent.SproutSocialApp__Post_External_ID__c);
+					responseContextExternalIds.add(socialDataEvent.SproutSocialApp__Response_Context_External_Id__c);
+					socialPostParamsMap.put(socialDataEvent.SproutSocialApp__Post_External_ID__c, param);
 				}
 			}
 			// Prepares list of social Post records to upsert
-			upsertSocialPosts = processSocialPosts(providers, externalIds, responseContextExternalIds, socialDataMap, personaMap);
+			upsertSocialPosts = processSocialPosts(providers, externalIds, responseContextExternalIds, socialPostParamsMap);
 		}
 		if (upsertSocialPosts != null && !upsertSocialPosts.isEmpty()) {
 			upsert upsertSocialPosts;
@@ -54,16 +47,14 @@ global with sharing class ProcessSocialPostAction {
 	 * @param providers Providers from social data event like Facebook, Twitter.
 	 * @param externalIds post externalIds from  SocialDataEvent.
 	 * @param responseContextExternalIds response Context ExternalIds from social data event.
-	 * @param socialDataMap Map that holds externalPostId as key and socialDataEvents as values
-	 * @param personaMap Map that holds externalPostId as key and Persona record as values
+	 * @param socialPostParamsMap Map that holds externalPostId as key and socialDataEvents as values
 	 * @return List<SocialPost> socialPost records.
 	 */
 	private static List<SocialPost> processSocialPosts(
 		Set<String> providers,
 		Set<String> externalIds,
 		Set<String> responseContextExternalIds,
-		Map<String, SproutSocialApp__Sprout_Social_Data_Event__c> socialDataMap,
-		Map<String, SocialPersona> personaMap
+		Map<String, SocialPostParams> socialPostParamsMap
 	) {
 		List<SocialPost> upsertSocialPosts = new List<SocialPost>();
 		Map<String, SocialPost> existingPostMap = new Map<String, SocialPost>();
@@ -71,31 +62,26 @@ global with sharing class ProcessSocialPostAction {
 		for (SocialPost existingPost : getExistingSocialPost(responseContextExternalIds)) {
 			existingPostMap.put(existingPost.ResponseContextExternalId, existingPost);
 		}
+		System.debug(existingPostMap);
 		// Maps latest information to existing socialPost and removes existing records from the sociel data event map
 		for (SocialPost post : getSocialPostWithProvidersAndExternalIds(providers, externalIds)) {
-			upsertSocialPosts.add(mapSocialPostFields(post, socialDataMap.get(post.ExternalPostId)));
-			socialDataMap.remove(post.externalPostId);
+			if(socialPostParamsMap.containsKey(post.ExternalPostId)){				
+				upsertSocialPosts.add(mapSocialPostFields(post, socialPostParamsMap.get(post.ExternalPostId).socialDataEvent));
+				socialPostParamsMap.remove(post.externalPostId);
+			}
 		}
 		// Creates new socialPost record instance.
-		for (SproutSocialApp__Sprout_Social_Data_Event__c socialDataEvent : socialDataMap.values()) {
-			SocialPersona persona;
-
-			if (personaMap.containsKey(socialDataEvent.SproutSocialApp__Persona_External_Id__c)) {
-				persona = personaMap.get(socialDataEvent.SproutSocialApp__Persona_External_Id__c);
-			} else {
-				persona = personaMap.get(socialDataEvent.SproutSocialApp__Persona_Name__c + socialDataEvent.SproutSocialApp__Media_Provider__c);
-			}
-
+		for (SocialPostParams param : socialPostParamsMap.values()) {
 			SocialPost post = new SocialPost();
 			//Mapping the parent of the first socialPost.
-			if(existingPostMap.containsKey(socialDataEvent.SproutSocialApp__Response_Context_External_Id__c)){				
-				post.ReplyToId = existingPostMap.get(socialDataEvent.SproutSocialApp__Response_Context_External_Id__c).Id;
-				post.ReplyTo = existingPostMap.get(socialDataEvent.SproutSocialApp__Response_Context_External_Id__c);
+			if(existingPostMap.containsKey(param.socialDataEvent.SproutSocialApp__Response_Context_External_Id__c)){				
+				post.ReplyToId = existingPostMap.get(param.socialDataEvent.SproutSocialApp__Response_Context_External_Id__c).Id;
+				post.ReplyTo = existingPostMap.get(param.socialDataEvent.SproutSocialApp__Response_Context_External_Id__c);
 			}
-			if (persona != null) {
-				post.PersonaId = persona.Id;
+			if (param.socialPersona != null) {
+				post.PersonaId = param.socialPersona.Id;
 			}
-			upsertSocialPosts.add(mapSocialPostFields(post, socialDataEvent));
+			upsertSocialPosts.add(mapSocialPostFields(post, param.socialDataEvent));
 		}
 
 		return upsertSocialPosts;
@@ -122,7 +108,7 @@ global with sharing class ProcessSocialPostAction {
 		searchParams.put('providers', providers);
 		searchParams.put('externalPostIds', externalIds);
 		SocialPostsSelector selector = SocialPostsSelector.newInstance();
-		return selector.search(searchParams, new Set<Object>{SocialPostsSelector.Options.WITH_PERSONA});
+		return selector.search(searchParams, new Set<Object>());
 	}
 
 	/**
@@ -134,7 +120,6 @@ global with sharing class ProcessSocialPostAction {
 	private static SocialPost mapSocialPostFields(SocialPost post, SproutSocialApp__Sprout_Social_Data_Event__c socialDataEvent) {
 		post.Name = socialDataEvent.SproutSocialApp__Post_Name__c;
 		post.MessageType = socialDataEvent.SproutSocialApp__Message_Type__c;
-		post.Provider = socialDataEvent.SproutSocialApp__Post_Provider__c;
 		post.ExternalPostId = socialDataEvent.SproutSocialApp__Post_External_ID__c;
 		post.Content = socialDataEvent.SproutSocialApp__Post_Content__c;
 		post.PostTags = socialDataEvent.SproutSocialApp__Post_Tags__c;
@@ -145,18 +130,21 @@ global with sharing class ProcessSocialPostAction {
 		post.R6SourceId = socialDataEvent.SproutSocialApp__Customer_Profile_Id__c;
 		post.PostUrl = socialDataEvent.SproutSocialApp__Post_URL__c;
 		post.MediaProvider = socialDataEvent.SproutSocialApp__Persona_Provider__c;
-		post.IsOutbound = socialDataEvent.SproutSocialApp__Is_Outbound__c;
 		post.Sentiment = socialDataEvent.SproutSocialApp__Post_Sentiment__c;
 		post.Language = socialDataEvent.SproutSocialApp__Post_Language__c;
 		post.ResponseContextExternalId = socialDataEvent.SproutSocialApp__Response_Context_External_Id__c;
-
+		// These fields are not writeable on update operation.
+		if(String.isBlank(post.Id)){
+			post.Provider = socialDataEvent.SproutSocialApp__Post_Provider__c;
+			post.IsOutbound = socialDataEvent.SproutSocialApp__Is_Outbound__c;
+		}
 		return post;
 	}
 
 	global class SocialPostParams {
 		@InvocableVariable
-		global List<SocialPersona> socialPersonas;
+		global SocialPersona socialPersona;
 		@InvocableVariable
-		global List<SproutSocialApp__Sprout_Social_Data_Event__c> socialDataEvents;
+		global SproutSocialApp__Sprout_Social_Data_Event__c socialDataEvent;
 	}
 }

@@ -57,21 +57,21 @@ public class ProcessSocialCaseActionTest {
 		// set up our responses
 		MockUtility.Mocks.startStubbing();
 		// Database
-		MockUtility.Mocks.when(caseSelector.selectByIdsWithClosedDate((Set<Id>) fflib_Match.anyObject(), (Set<Object>) fflib_Match.anyObject()))
-			.thenReturn(cases);
+		MockUtility.Mocks.when(caseSelector.selectById((Set<Id>) fflib_Match.eq(new Set<Id>{ cases[0].Id })))
+			.thenReturn(new Map<Id, case>(cases));
 		MockUtility.Mocks.stopStubbing();
 		// =====================================
 		// Testing
 		// =====================================
 		ProcessSocialCaseAction.SocialBusinessCaseParams params = new ProcessSocialCaseAction.SocialBusinessCaseParams();
-		params.socialPersonas = new List<socialPersona>{existingPersona};
-		params.socialPosts = new List<SocialPost>{post};
-		ProcessSocialCaseAction.processCases(new list<ProcessSocialCaseAction.SocialBusinessCaseParams>{params});
+		params.socialPersona = existingPersona;
+		params.socialPost = post;
+		ProcessSocialCaseAction.processCases(new list<ProcessSocialCaseAction.SocialBusinessCaseParams>{ params });
 		List<Case> casesAfterUpdate = [SELECT Id, Status, Origin FROM Case WHERE Status = 'New'];
 		System.assertEquals(1, casesAfterUpdate.size(), 'Case updated');
 		System.assertEquals('New', casesAfterUpdate[0].Status, 'Case status changed to new');
 		((CasesSelector) MockUtility.Mocks.verify(caseSelector, MockUtility.Mocks.times(1)))
-		.selectByIdsWithClosedDate((Set<Id>) fflib_Match.anyObject(), (Set<Object>) fflib_Match.anyObject());
+			.selectById((Set<Id>) fflib_Match.eq(new Set<Id>{ cases[0].Id }));
 
 	}
 
@@ -110,8 +110,8 @@ public class ProcessSocialCaseActionTest {
 		// Testing
 		// =====================================
 		ProcessSocialCaseAction.SocialBusinessCaseParams params = new ProcessSocialCaseAction.SocialBusinessCaseParams();
-		params.socialPersonas = new List<socialPersona>{existingPersona};
-		params.socialPosts = new List<SocialPost>{post};
+		params.socialPersona = existingPersona;
+		params.socialPost = post;
 		ProcessSocialCaseAction.processCases(new list<ProcessSocialCaseAction.SocialBusinessCaseParams>{params});
 		List<Case> newCases = [SELECT Id, Status, Origin, ContactId FROM Case WHERE Status = 'New'];
 		System.assertEquals(1, newCases.size(), 'Case created');

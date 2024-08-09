@@ -21,27 +21,27 @@ global with sharing class ProcessSocialCaseAction {
 	private static final Id CASE_SOCIAL_RECORDTYPEID = Schema.SObjectType.Case.getRecordTypeInfosByName().get('Social Record Type').getRecordTypeId();
 
 	@InvocableMethod(label='Process Case' description='Each new post from social persona will create a case')
-	public static void processCases(List<SocialBusinessCaseParams> caseParams) {
-		if(caseParams != null && !caseParams.isEmpty()){
-			processCases(caseParams[0].socialPosts, caseParams[0].socialPersonas);
-		}
-	}
-
-	private static void processCases(List<SocialPost> socialPosts, List<socialPersona> socialPersonas) {
+	public static void processCases(List<SocialBusinessCaseParams> socialBusinessCaseParams) {
 		Set<Id> caseIds = new Set<Id>();
-		for (SocialPost post : socialPosts) {
-			if (post.ReplyTo != null && post.ReplyTo.ParentId != null) {
-				caseIds.add(post.ReplyTo.ParentId);
+		for (SocialBusinessCaseParams param : socialBusinessCaseParams) {
+			if (param.socialPost != null && param.socialPost.ReplyTo != null && param.socialPost.ReplyTo.ParentId != null) {
+				caseIds.add(param.socialPost.ReplyTo.ParentId);
 			}
 		}
-		// Case selector returns cases if the closed date is < 3 days
-		CasesSelector caseSelector = CasesSelector.newInstance(new Set<SObjectField>{ Case.ClosedDate, Case.Id });
 		Set<Id> caseIdsToUpdate = new Set<Id>();
-		for (case parent : caseSelector.selectByIdsWithClosedDate(caseIds, new Set<Object>())) {
-			caseIdsToUpdate.add(parent.Id);
+		BusinessHoursService businessHoursService = BusinessHoursService.newInstance();	
+		// Select cases by Id
+		CasesSelector caseSelector = CasesSelector.newInstance(new Set<SObjectField>{ Case.ClosedDate, Case.Id, Case.IsClosed });
+		Map<Id, Case> caseMap = caseSelector.selectById(caseIds);
+		// Collects cases to reopen.
+		for (Case socialCase : caseMap.values()) {
+			// Add case to reopen list if case is open or closed date is less than 3 business days
+			if(!socialCase.IsClosed || (socialCase.ClosedDate != null && socialCase.ClosedDate < businessHoursService.calculateNextBusinessDateTime(socialCase.ClosedDate, 3))){
+				caseIdsToUpdate.add(socialCase.Id);
+			}
 		}
 		// Repoens the case or creates a new case for the social posts that has no case.
-		upsertCasesAndUpdateSocialPost(socialPosts, caseIdsToUpdate, new Map<Id, SocialPersona>(socialPersonas));
+		upsertCasesAndUpdateSocialPost(socialBusinessCaseParams, caseIdsToUpdate);
 	}
 
 	/**
@@ -49,10 +49,11 @@ global with sharing class ProcessSocialCaseAction {
 	 * @param socialPosts List of social post records.
 	 * @param caseIdsToUpdate list of case Ids should be reopened.
 	 */
-	private static void upsertCasesAndUpdateSocialPost(List<SocialPost> socialPosts, Set<Id> caseIdsToUpdate,  Map<Id, SocialPersona> personaMap) {
+	private static void upsertCasesAndUpdateSocialPost(List<SocialBusinessCaseParams> socialBusinessCaseParams, Set<Id> caseIdsToUpdate) {
 		Map<Id, Case> socialPostIdCaseMap = new Map<Id, Case>();
-		for (SocialPost post : socialPosts) {
-			if (post.ReplyTo != null && post.ReplyTo.ParentId != null && caseIdsToUpdate.contains(post.ReplyTo.ParentId)) {
+		for (SocialBusinessCaseParams param : socialBusinessCaseParams) {
+			SocialPost post = param.socialPost;
+			if (post != null && post.ReplyTo != null && post.ReplyTo.ParentId != null && caseIdsToUpdate.contains(post.ReplyTo.ParentId)) {
 				Case existingCase = new Case();
 				existingCase.Id = post.ReplyTo.ParentId;
 				existingCase.Status = STATUS_NEW;
@@ -61,7 +62,7 @@ global with sharing class ProcessSocialCaseAction {
 				existingCase.Type = CASETYPE_GENERAL_ENQUIRY;
 				socialPostIdCaseMap.put(post.Id, existingCase);
 			} else {
-				socialPostIdCaseMap.put(post.Id, createCase(post, personaMap.get(post.PersonaId)));
+				socialPostIdCaseMap.put(post.Id, createCase(param));
 			}
 		}
 		if (!socialPostIdCaseMap.Values().isEmpty()) {
@@ -75,10 +76,11 @@ global with sharing class ProcessSocialCaseAction {
 	 * @description Creates a new case record using the list of social posts.
 	 * @param socialPosts List of social post records.
 	 */
-	private static Case createCase(SocialPost post, SocialPersona persona) {
+	private static Case createCase(SocialBusinessCaseParams params) {
 		Schema.SObjectType sojectType;
-		Id personaParentId = persona.ParentId;
-		if (persona != null &&  personaParentId != null) {
+		Id personaParentId;
+		if (params.socialPersona != null &&  params.socialPersona.ParentId != null) {
+			personaParentId = params.socialPersona.ParentId;
 			sojectType = personaParentId.getSObjectType();
 		}
 
@@ -88,8 +90,8 @@ global with sharing class ProcessSocialCaseAction {
 		socialCase.ContactId = sojectType == Contact.getSObjectType() ? personaParentId : null;
 		socialCase.AccountId = sojectType == Account.getSObjectType() ? personaParentId : null;
 		socialCase.AllocateToQueue__c = true;
-		socialCase.SocialPostTags__c = post.PostTags;
-		socialCase.Subject = getCaseSubject(post, persona);
+		socialCase.SocialPostTags__c = params.socialPost.PostTags;
+		socialCase.Subject = getCaseSubject(params);
 
 		return socialCase;
 	}
@@ -115,21 +117,24 @@ global with sharing class ProcessSocialCaseAction {
 	 * @description Prepares case subject based on the Provider and Message type
 	 * @param socialPost social post record
 	 */
-	private static String getCaseSubject(SocialPost socialPost, SocialPersona persona) {
+	private static String getCaseSubject(SocialBusinessCaseParams params) {
 		String subject;
+		String provider = params.socialPost.Provider;
+		String messageType = params.socialPost.MessageType;
+		String personaName = params.socialPersona.Name;
 
-		if (socialPost.Provider == FACEBOOK && socialPost.MessageType == MESSAGETYPE_DIRECT) {
-			subject = 'Facebook PM from ' + persona.Name;
-		} else if (socialPost.Provider == FACEBOOK && socialPost.MessageType == MESSAGETYPE_COMMENT && socialPost.ReplyToId != null) {
-			subject = 'Facebook reply from ' + persona.Name;
-		} else if (socialPost.Provider == FACEBOOK && socialPost.MessageType == MESSAGETYPE_COMMENT && socialPost.ReplyToId == null) {
-			subject = 'Facebook comment from ' + persona.Name;
-		} else if (socialPost.Provider == TWITTER && socialPost.MessageType == MESSAGETYPE_DIRECT) {
-			subject = 'X [Twitter] DM from ' + persona.Name;
-		} else if (socialPost.Provider == TWITTER && socialPost.MessageType == MESSAGETYPE_POST) {
-			subject = 'X [Twitter] from ' + persona.Name;
+		if (FACEBOOK.equalsIgnoreCase(provider) && MESSAGETYPE_DIRECT.equalsIgnoreCase(messageType)) {
+			subject = 'Facebook PM from ' + personaName;
+		} else if (FACEBOOK.equalsIgnoreCase(provider) && MESSAGETYPE_COMMENT.equalsIgnoreCase(messageType) && params.socialPost.ReplyToId != null) {
+			subject = 'Facebook reply from ' + personaName;
+		} else if (FACEBOOK.equalsIgnoreCase(provider) && MESSAGETYPE_COMMENT.equalsIgnoreCase(messageType) && params.socialPost.ReplyToId == null) {
+			subject = 'Facebook comment from ' + personaName;
+		} else if (TWITTER.equalsIgnoreCase(provider) && MESSAGETYPE_DIRECT.equalsIgnoreCase(messageType)) {
+			subject = 'X [Twitter] DM from ' + personaName;
+		} else if (TWITTER.equalsIgnoreCase(provider) && MESSAGETYPE_POST.equalsIgnoreCase(messageType)) {
+			subject = 'X [Twitter] from ' + personaName;
 		} else {
-			subject = socialPost.Name;
+			subject = params.socialPost.Name;
 		}
 
 		return subject;
@@ -137,8 +142,8 @@ global with sharing class ProcessSocialCaseAction {
 
 	global class SocialBusinessCaseParams {
 		@InvocableVariable
-		global List<SocialPersona> socialPersonas;
+		global SocialPersona socialPersona;
 		@InvocableVariable
-		global List<SocialPost> socialPosts;
+		global SocialPost socialPost;
 	}
 }

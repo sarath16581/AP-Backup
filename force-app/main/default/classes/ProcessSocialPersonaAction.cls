@@ -7,7 +7,7 @@
  * @changelog
  * *****************************************************************************************************
  */
-public with sharing class ProcessSocialPersonaAction {
+global with sharing class ProcessSocialPersonaAction {
 	private static final String PROVIDER_OTHER = 'Other';
 
 	@InvocableMethod(
@@ -117,7 +117,7 @@ public with sharing class ProcessSocialPersonaAction {
 
 		return socialPersona;
 	}
-	
+
 	/**
 	 * @description Prepare a key that used to put and get values from the maps
 	 * @param socialDataEvent Social data event record.
@@ -152,7 +152,10 @@ public with sharing class ProcessSocialPersonaAction {
 	 */
 	private static SocialPost createDummySocialPost(String realName) {
 		SocialPost post = new SocialPost();
-		post.Name = 'Dummy' + realName.replace(' ', '');
+		post.Name = 'Dummy';
+		if(String.isNotBlank(realName)){
+			post.Name += realName.replace(' ', '');
+		} 
 		post.Posted = Datetime.now();
 
 		return post;

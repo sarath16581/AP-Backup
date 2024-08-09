@@ -27,7 +27,6 @@
  * 2023-08-16 - Hasantha Liyanage - Added fields in getSObjectFieldList.
  * 2023-12-04 - Steve L - added new methods: getClosedCasesByAccountIds, and getOpenCasesByAccountIds
  * 2024-04-25 - Vasu Gorakati - Added new method selectCasesByReferenceId and selectByArticleId
- * 2024-08-02 - Raghav Raviapti - Added new method selectByIdsWithClosedDate
  */
 public virtual inherited sharing class CasesSelector extends ApplicationSelector {
 
@@ -122,19 +121,6 @@ public virtual inherited sharing class CasesSelector extends ApplicationSelector
 			.add(new QueryBuilder.SimpleCondition(Case.RecordTypeId + ' IN :recordTypeIds'))
 			.endConditions();
 
-		return (List<Case>)Database.query(qb.toSoqlString());
-	}
-
-	/*
-	* this method returns records with matching ids and ClosedDate is less than 3 days. 
-	* it is being used in Domain filtering
-	*/
-	public List<Case> selectByIdsWithClosedDate(Set<Id> ids, Set<Object> selectorOptions) {
-
-		QueryBuilder qb = newQueryBuilder(selectorOptions).addConditions()
-			.add(new QueryBuilder.SimpleCondition(Case.Id + ' IN :ids'))
-			.add(new QueryBuilder.SimpleCondition(Case.ClosedDate + ' >= LAST_N_DAYS:3'))
-			.endConditions();
 		return (List<Case>)Database.query(qb.toSoqlString());
 	}
 
