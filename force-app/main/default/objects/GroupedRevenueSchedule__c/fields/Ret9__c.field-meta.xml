@@ -3,7 +3,7 @@
     <fullName>Ret9__c</fullName>
     <description>Retained Revenue forecast for September</description>
     <externalId>false</externalId>
-    <formula>For9__c *  OpportunityProduct__r.TotalRetained__c</formula>
+    <formula>For9__c *  TotalRetained__c</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <inlineHelpText>Retained Revenue forecast for September</inlineHelpText>
     <label>September Expected Retained Value</label>
