@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Consumables_and_or_Packaging__c</fullName>
+    <businessStatus>DeprecateCandidate</businessStatus>
     <description>used for Sales Implementation case</description>
     <externalId>false</externalId>
-    <label>Consumables and/or Packaging</label>
+    <label>Dep - Consumables and/or Packaging</label>
     <length>55</length>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>

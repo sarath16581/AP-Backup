@@ -338,7 +338,7 @@ public with sharing class CasesSelector_Test {
 
 		System.assertNotEquals(null, selector.getClosedCasesByAccountIds(new Set<Id>{account.Id}, new Set<Object>()), 'Invalid query locator');
 		System.assertNotEquals(null, selector.getOpenCasesByAccountIds(new Set<Id>{account.Id}, new Set<Object>()), 'Invalid query locator');
-
+		
 		List<Case> listResults = selector.selectCasesByReferenceId(new Set<String>{cases[1].ReferenceID__c}, new Set<Object>{CasesSelector.Options.WITH_RECORDTYPE});
 		System.assertEquals(1, listResults.size(), 'Expected result size of 1');
 

@@ -3,28 +3,4 @@
     <hasActivationRequired>false</hasActivationRequired>
     <label>myTrailhead</label>
     <license>MyTrailheadPSL</license>
-    <userPermissions>
-        <enabled>true</enabled>
-        <name>MyTrailheadBranding</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>true</enabled>
-        <name>MyTrailheadContentAccess</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>true</enabled>
-        <name>MyTrailheadContentCreation</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>true</enabled>
-        <name>MyTrailheadCustomSteps</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>true</enabled>
-        <name>MyTrailheadPreviewMode</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>true</enabled>
-        <name>MyTrailheadReleaseMgmt</name>
-    </userPermissions>
 </PermissionSet>

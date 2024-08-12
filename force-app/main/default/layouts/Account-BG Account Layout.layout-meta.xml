@@ -76,10 +76,6 @@
                 <behavior>Edit</behavior>
                 <field>Nominated_Partner_Contact_Incent_User__c</field>
             </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>IndirectCustomer__c</field>
-            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>
