@@ -1,3 +1,8 @@
+/**
+ * @description an LWC Customer Search Interface for Unified Experience
+ * @changelog:
+ * 2024-08-08 - added handler methods to handle `createcontact` and `backtosearch` events and pass `formInputs` params to child LWCs
+ */
 import { LightningElement, api } from 'lwc';
 
 // Lightning card title
@@ -20,6 +25,9 @@ export default class UnifiedCustomerSearch extends LightningElement {
 	searchFormTitle = SEARCH_FORM_TITLE;
 	isSearching = false;
 	searchResponse;
+	showCustomerSearchForm = true;
+	showCustomerCreationForm = false;
+	formInputs;
 
 	/**
 	 * Handles the `onstart` event.
@@ -52,5 +60,55 @@ export default class UnifiedCustomerSearch extends LightningElement {
 	handleSearchReset() {
 		// Clear any previous results
 		this.searchResponse = undefined;
+	}
+
+	/**
+	 * Handles the `createcontact` event.
+	 */
+	handleCreateContact(){
+		this.showCustomerCreationForm = true;
+		this.showCustomerSearchForm = false;
+		// invoke a method to retrieve form inputs from customer search ui on demand
+		const customerSearchFormInputs = this.template.querySelector('c-unified-customer-search-form');
+		if (customerSearchFormInputs) {
+			const searchFormInputs = customerSearchFormInputs.getFormInputs();
+			this.resetFormInputs();
+			this.formInputs = {
+				firstName: searchFormInputs.firstName,
+				lastName: searchFormInputs.lastName,
+				phoneNumber: searchFormInputs.phoneNumber,
+				emailAddress: searchFormInputs.emailAddress,
+				addressObj: searchFormInputs.addressObj,
+				organisationAccountId: searchFormInputs.organisationAccountId,
+				addressOverride: searchFormInputs.addressOverride
+			}
+		}
+	}
+
+	/**
+	 * Handles the `backtosearch` event.
+	 */
+	handleBackToSearch(){
+		this.showCustomerCreationForm = false;
+		this.showCustomerSearchForm = true;
+		// invoke a method to retrieve form inputs from customer creation ui on demand
+		const customerCreationFormInputs = this.template.querySelector('c-unified-customer-creation');
+		if (customerCreationFormInputs) {
+			const creationFormInputs = customerCreationFormInputs.getFormInputs();
+			this.resetFormInputs();
+			this.formInputs = {
+				firstName: creationFormInputs.firstName,
+				lastName: creationFormInputs.lastName,
+				phoneNumber: creationFormInputs.phoneNumber,
+				emailAddress: creationFormInputs.emailAddress,
+				addressObj: creationFormInputs.addressObj,
+				organisationAccountId: creationFormInputs.organisationAccountId,
+				addressOverride: creationFormInputs.addressOverride
+			}
+		}
+	}
+
+	resetFormInputs(){
+		this.formInputs = undefined;
 	}
 }

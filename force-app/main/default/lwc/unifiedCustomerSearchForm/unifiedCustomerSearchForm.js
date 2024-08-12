@@ -1,3 +1,8 @@
+/**
+ * @description An LWC Interface for displaying Customer Search Form for Unified Experience
+ * @changelog:
+ * 2024-08-08 - added handler methods to handle `createcontact` and `backtosearch` events and pass `formInputs` params to child LWCs
+ */
 import { LightningElement, api } from 'lwc';
 import customerSearch from '@salesforce/apex/UnifiedCustomerSearchController.search';
 import { isNotBlank } from 'c/utils';
@@ -58,6 +63,7 @@ export function getInputOnChangeValue(event) {
 	if (elementName === 'c-ame-address-validation2') {
 		const address = event.detail;
 		return {
+			address: address.address,
 			addressLine1: address.addressLine1,
 			addressLine2: address.addressLine2,
 			city: address.city,
@@ -132,20 +138,60 @@ export default class UnifiedCustomerSearchForm extends LightningElement {
 		this._emailAddress = value;
 	}
 
+	/**
+	 * The value of the 'Address Obj' field on the form
+	 * @type {object}
+	 */
+	@api get addressObj(){
+		return this._addressObj;
+	}
+	set addressObj(value) {
+		this._addressObj = value;
+	}
+
+	/**
+	 * The value of the 'Organisation Account Id' field on the form
+	 * @type {string}
+	 */
+	@api get organisationAccountId() {
+		return this._organisationAccountId;
+	}
+	set organisationAccountId(value) {
+		if (value) {
+			this.organisationCheckbox = true;
+			this.consumerCheckbox = false;
+			this._organisationAccountId = value;
+		}else{
+			this.organisationCheckbox = false;
+			this.consumerCheckbox = true;
+		}
+	}
+
+	/**
+	 * The value of the 'Address Override' field on the form
+	 * @type {boolean}
+	 */
+	@api get addressOverride() {
+		return this._addressOverride;
+	}
+	set addressOverride(value){
+		this._addressOverride = value;
+	}
+
 	// Private variables for input fields, used with public getters/setters
 	_firstName = '';
 	_lastName = '';
 	_phoneNumber = '';
 	_emailAddress = '';
+	_addressObj = {};
+	_organisationAccountId = null;
+	_addressOverride = false;
 	// Private variables for input fields (with no public getters/setters)
 	organisationCheckbox = false;
 	consumerCheckbox = false;
-	addressObj;
-	organisationAccountId;
 	abnAcn = '';
 	includePhoneNumber = true;
 	includeEmailAddress = true;
-
 	showAddress = true;
 
 	get ignorePhoneNumber() {
@@ -281,6 +327,7 @@ export default class UnifiedCustomerSearchForm extends LightningElement {
 		// Invoke the search method
 		this.isLoading = true;
 		this.dispatchEvent(new CustomEvent('search'));
+
 		try {
 			const res = await customerSearch({
 				req: {
@@ -297,13 +344,13 @@ export default class UnifiedCustomerSearchForm extends LightningElement {
 					addressState: this.addressObj?.state,
 					addressPostalCode: this.addressObj?.postcode,
 					// Ignore Account Id if the searching for consumers only
-					accountId: this.consumerCheckbox ? null : this.organisationAccountId,
+					accountId: this.consumerCheckbox ? null : this.organisationAccountId || null,
 					// Ignore ABN/ACN if the searching for consumers only, or the organisationAccountId is set
 					abnAcn:
-						this.consumerCheckbox || this.organisationAccountId
-							? null
-							: this.abnAcn,
-				},
+							this.consumerCheckbox || this.organisationAccountId
+									? null
+									: this.abnAcn,
+				}
 			});
 			// Handle search results
 			this.dispatchEvent(
@@ -338,10 +385,10 @@ export default class UnifiedCustomerSearchForm extends LightningElement {
 		this._phoneNumber = '';
 		this.includePhoneNumber = true;
 		this.includeEmailAddress = true;
-		this.addressObj = undefined;
+		this._addressObj = undefined;
 		this.organisationCheckbox = false;
 		this.consumerCheckbox = false;
-		this.organisationAccountId = undefined;
+		this._organisationAccountId = undefined;
 		this.abnAcn = undefined;
 
 		// Ensure field values are updated before continuing
@@ -385,8 +432,32 @@ export default class UnifiedCustomerSearchForm extends LightningElement {
 	handleInputChange(event) {
 		const { fieldName } = event.target.dataset;
 		const fieldValue = getInputOnChangeValue(event);
+
+		// check the event type for AME address search if it has a manual override
+		if (event.type === 'editaddress') {
+			this._addressOverride = true;
+		} else if (event.type === 'selectaddress') {
+			this._addressOverride = false;
+		}
 		// store the field value based on the `name` attribute
 		this[fieldName] = fieldValue;
+	}
+
+	/**
+	 * Invoked on demand, to get the latest form input data from customer search ui
+	 * @returns {{firstname: string, emailAddress: string, phoneNumber: string, addressObj, lastname: string}}
+	 */
+	@api
+	getFormInputs() {
+		return {
+			firstName: this._firstName,
+			lastName: this._lastName,
+			phoneNumber: this._phoneNumber,
+			emailAddress: this._emailAddress,
+			addressObj: this._addressObj,
+			organisationAccountId: this._organisationAccountId,
+			addressOverride: this._addressOverride
+		};
 	}
 
 	/**

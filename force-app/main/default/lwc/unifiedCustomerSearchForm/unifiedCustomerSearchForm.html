@@ -65,16 +65,16 @@
 					class="slds-col slds-grow-none slds-var-m-left_xx-small slds-var-m-bottom_xx-small"
 				>
 				<lightning-input
-				data-field-name="includePhoneNumber"
-				label="Include/Exclude Phone"
-				message-toggle-active=""
-				message-toggle-inactive=""
-				onchange={handleInputChange}
-				onkeyup={handleInputKeyUp}
-				type="toggle"
-				checked={includePhoneNumber}
-				variant="label-hidden"
-			></lightning-input>
+					data-field-name="includePhoneNumber"
+					label="Include/Exclude Phone"
+					message-toggle-active=""
+					message-toggle-inactive=""
+					onchange={handleInputChange}
+					onkeyup={handleInputKeyUp}
+					type="toggle"
+					checked={includePhoneNumber}
+					variant="label-hidden"
+				></lightning-input>
 				</div>
 			</div>
 
@@ -180,13 +180,27 @@
 
 			<!-- Address Lookup -->
 			<div class="slds-col slds-size_1-of-1 slds-large-size_1-of-1">
-				<c-ame-address-validation2
-					if:true={showAddress}
-					data-field-name="addressObj"
-					oneditaddress={handleInputChange}
-					onselectaddress={handleInputChange}
-					onkeyup={handleInputKeyUp}
-				></c-ame-address-validation2>
+				<template lwc:if={addressOverride}>
+					<c-ame-address-validation2
+							if:true={showAddress}
+							data-field-name="addressObj"
+							oneditaddress={handleInputChange}
+							onselectaddress={handleInputChange}
+							onkeyup={handleInputKeyUp}
+							default-address={addressObj}
+					></c-ame-address-validation2>
+				</template>
+				<template lwc:else>
+					<c-ame-address-validation2
+							if:true={showAddress}
+							data-field-name="addressObj"
+							oneditaddress={handleInputChange}
+							onselectaddress={handleInputChange}
+							onkeyup={handleInputKeyUp}
+							search-term={addressObj.address}
+							supports-auto-search-on-load="true"
+					></c-ame-address-validation2>
+				</template>
 			</div>
 		</div>
 
