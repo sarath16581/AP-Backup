@@ -13,6 +13,7 @@
  * 2024-07-26 - Marcel HK - Add customer type (CSLU-449)
  * 2024-07-26 - Marcel HK - Add mailing address and related case count (CSLU-439)
  * 2024-08-05 - Marcel HK - Refactor to `CustomerSearchFormController` to `UnifiedCustomerSearchController`
+ * 2024-08-05 - Marcel HK - Update error messaging (CSLU-444)
  */
 public with sharing class UnifiedCustomerSearchController {
 	// Query configuration constants
@@ -54,9 +55,9 @@ public with sharing class UnifiedCustomerSearchController {
 
 	// Error and warning messages
 	@TestVisible
-	private static final String NOT_ENOUGH_PARAMS_ERROR_MSG = 'Please enter at least First and Last Name, or Phone, or Email.';
+	private static final String NOT_ENOUGH_PARAMS_ERROR_MSG = 'More information needed to search';
 	@TestVisible
-	private static final String INVALID_ABN_ACN_ERROR_MSG = 'Invalid ABN/ACN.';
+	private static final String INVALID_ABN_ACN_ERROR_MSG = 'Invalid ABN/ACN format';
 	@TestVisible
 	private static final String TOO_MANY_RESULTS_WARNING_MSG =
 		'Your query returned more than ' +

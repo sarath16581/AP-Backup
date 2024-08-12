@@ -13,8 +13,8 @@ import {
 	SEARCH_BUTTON_LABEL,
 	CLEAR_BUTTON_LABEL,
 	MORE_INFO_REQUIRED_ERROR_MESSAGE,
-	INVALID_FORM_ERROR,
 	INPUT_ELEMENT_SELECTORS,
+	GENERIC_SEARCH_ERROR_MSG,
 } from 'c/unifiedCustomerSearchForm';
 
 const CUSTOMER_SEARCH_RES_SUCCESS = {
@@ -295,7 +295,7 @@ describe('c-unified-customer-search-form', () => {
 		// Assert
 		const errorDiv = element.shadowRoot.querySelector("div[data-id='error']");
 		expect(errorDiv).not.toBeNull();
-		expect(errorDiv.textContent).toBe(INVALID_FORM_ERROR);
+		expect(errorDiv.textContent).toBe(GENERIC_SEARCH_ERROR_MSG);
 	});
 
 	it('displays error when submitted without any values', async () => {
@@ -735,7 +735,7 @@ describe('c-unified-customer-search-form', () => {
 		expect(searchEvent).toHaveBeenCalled();
 		expect(errorEvent).toHaveBeenCalledWith(
 			expect.objectContaining({
-				detail: 'An internal server error has occurred',
+				detail: GENERIC_SEARCH_ERROR_MSG,
 			})
 		);
 	});
@@ -769,7 +769,7 @@ describe('c-unified-customer-search-form', () => {
 		// Assert
 		const errorDiv = element.shadowRoot.querySelector("div[data-id='error']");
 		expect(errorDiv).not.toBeNull();
-		expect(errorDiv.textContent).toBe('An internal server error has occurred');
+		expect(errorDiv.textContent).toBe(GENERIC_SEARCH_ERROR_MSG);
 	});
 
 	it('clears form on "Clear" button click', async () => {
