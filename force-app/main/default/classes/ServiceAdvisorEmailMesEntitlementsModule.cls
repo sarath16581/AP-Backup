@@ -1,7 +1,6 @@
 /**
  * @description
- * Domain Module to handle the service delivery case related functionality in email message
- * Domain Modules should NEVER be called directly. Domain modules should be exposed and called via the corresponding domain class
+ * Module to handle automation specific to Service Advisor case entitlements on email messages(email to case).
  * TODO: Eventually we should try and refactor this into a module non specific to Service Advisors so we can make better use of the Case_Entitlements__mdt metadata
  *
  * @author Ashapriya Gadi
@@ -11,12 +10,9 @@
  * @changelog
  * 2022-02-04 Ashapriya Gadi To fix prod issue -If some sends an email to one of the email-to-case email addresses, but puts multiple recipients on the email (From Email Address), the entitlement does not get assigned to the case
  * 2022-02-16 - Nathan Franklin - Small refactor and fixed bugs
+ * 2024-08-07 - Ranjeewa Silva - Uplifted to new ApplicationModule framework
  */
-public inherited sharing class ServiceAdvisorEmailMesEntitlementsModule extends ApplicationDomain.Module {
-	
-	public static ServiceAdvisorEmailMesEntitlementsModule newInstance() {
-		return (ServiceAdvisorEmailMesEntitlementsModule)Application.Utilities.newInstance(ServiceAdvisorEmailMesEntitlementsModule.class);
-	}
+public inherited sharing class ServiceAdvisorEmailMesEntitlementsModule extends ApplicationModule {
 	
 	// Setup which triggers this module should respond to
 	public ServiceAdvisorEmailMesEntitlementsModule() {
@@ -182,14 +178,5 @@ public inherited sharing class ServiceAdvisorEmailMesEntitlementsModule extends 
 			allEmailList.addAll(bccAdd.split(';'));
 		}
 		return allEmailList;
-	}
-	
-	/**
-	 * Module instantiation context. This allows us to dynamically instantiate this module within ApplicationModule
-	 */
-	public class Constructor implements ApplicationDomain.IConstructableModule {
-		public ApplicationDomain.Module construct() {
-			return (ApplicationDomain.Module) ServiceAdvisorEmailMesEntitlementsModule.newInstance();
-		}
 	}
 }

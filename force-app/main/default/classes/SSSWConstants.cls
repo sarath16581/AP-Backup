@@ -331,6 +331,7 @@ public with sharing class SSSWConstants {
 	public static final String OMNI_AGENTWORK_STATUS_DECLINED = 'Declined';
 	public static final String OMNI_AGENTWORK_STATUS_DECLINED_ONPUSHTIMEOUT = 'DeclinedOnPushTimeout';
 	public static final String OMNI_AGENTWORK_STATUS_UNAVAILABLE = 'Unavailable';
+	public static final String OMNI_AGENTWORK_STATUS_ASSIGNED = 'Assigned';
 
 	/* ExceptionCheckerService Constants*/
 	public static final String RECTYPE_ARTICLE_CONSIGNMENT = 'Consignment';

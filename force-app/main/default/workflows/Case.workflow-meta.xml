@@ -5137,7 +5137,7 @@ Temp Fix: To exclude HeldtoOpen cases where in some eventmessagecode belonging t
         </actions>
         <active>true</active>
         <description>Cloned &quot;SSSW - Reopen Queue Allocation&quot; WF in order to remove the time based actions</description>
-        <formula>AND( NOT(ISBLANK(Case_Reopen_Date__c)),ISCHANGED(Case_Reopen_Date__c))</formula>
+        <formula>AND( CONTAINS(RecordType.DeveloperName,&apos;SSSW&apos;), NOT(ISBLANK(Case_Reopen_Date__c)), ISCHANGED(Case_Reopen_Date__c))</formula>
         <triggerType>onAllChanges</triggerType>
     </rules>
     <rules>

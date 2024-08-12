@@ -9,11 +9,11 @@
  * @test CaseUnifiedAutomationService_Test
  * @changelog
  * 2024-07-18 - Seth Heang - Created.
+ * 2024-08-12 - Ranjeewa Silva - Updated case re-assignment to cater for email automation
  */
-public with sharing class CaseUnifiedAutomationService {
+public inherited sharing class CaseUnifiedAutomationService {
 	private final String REASSIGNMENT_REASON_OPT_OUT_AUTOMATION = 'Cannot autoclose due to opt out automations';
 	private final String REASSIGNMENT_REASON_MISSING_CUSTOMER_EMAIL = 'Cannot autoclose due to missing customer email';
-	private final static QM__c QUEUE_SETTINGS = QM__c.getInstance();
 
 	// Define an ENUM to identify the initial entry/invocation/caller.
 	public enum InvocationPoint {
@@ -22,6 +22,16 @@ public with sharing class CaseUnifiedAutomationService {
 		SCANAUTO,
 		PROACTIVEAUTO,
 		EMAILAUTO
+	}
+
+	@TestVisible private static final QM__c QUEUE_SETTINGS {
+		get {
+			if (QUEUE_SETTINGS == null) {
+				QUEUE_SETTINGS = QM__c.getInstance();
+			}
+			return QUEUE_SETTINGS;
+		}
+		private set;
 	}
 
 	/**
@@ -132,20 +142,166 @@ public with sharing class CaseUnifiedAutomationService {
 	 * @param uow
 	 */
 	public void processForCaseReassignment(List<RecordWrapper> records, InvocationPoint entryPoint, ApplicationUnitOfWork uow) {
+		switch on entryPoint {
+			when EMAILAUTO {
+				reassignCasesEmailAutomation(records, uow);
+			}
+			when PROACTIVEAUTO {
+				reassignCasesProactiveMonitoringAutomation(records, uow);
+			}
+		}
+	}
+
+	private void reassignCasesProactiveMonitoringAutomation(List<RecordWrapper> records, ApplicationUnitOfWork uow) {
 		List<Case> caseReassignmentForUpdate = new List<Case>();
 		for (RecordWrapper record : records) {
-			switch on entryPoint {
-				when MANUAL, SCANAUTO, PROACTIVEAUTO, EMAILAUTO {
-					caseReassignmentForUpdate.add(updateCaseForCaseReassignment(record));
+			caseReassignmentForUpdate.add(updateCaseForCaseReassignment(record));
+		}
+		if (!caseReassignmentForUpdate.isEmpty()) {
+			// TODO Change this to use UnitOfWork
+			ApplicationDatabase.getInstance().dmlUpdate(caseReassignmentForUpdate);
+		}
+	}
+
+	/**
+	 * Reassign cases due to email automation entry point.
+	 *
+	 * @param records list of record wrappers passed in
+	 * @param uow unit of work instance
+	 */
+	private void reassignCasesEmailAutomation(List<RecordWrapper> records, ApplicationUnitOfWork uow) {
+
+		// check case records passed in are eligible for reassignment.
+		Set<Id> reassignableCaseIds = getReassignableCases(records);
+
+		List<Case> updatableCases = new List<Case>();
+		for (RecordWrapper wrapper: records) {
+			Case updatable = new Case(Id=wrapper.caseRecord.Id);
+			updatable.Status = SSSWConstants.CASE_STATUS_UPDATED;
+			if (reassignableCaseIds.contains(wrapper.caseRecord.Id)) {
+				// case is eligible for reassignment. update relevant fields.
+				updatable.ReassignmentReason__c = wrapper.newReassignmentReason;
+				updatable.OwnerId = QUEUE_SETTINGS?.UnifiedDefaultOmniQueueId__c;
+				if (wrapper.caseRecord.IsClosed) {
+					// case is currently closed and it's getting re-opened. we need to populate Case_Reopen_Date__c.
+					updatable.Case_Reopen_Date__c = Datetime.now();
 				}
-				when ARTICLESAUTO {
-					// Perform EDD updates specific logic. Define and create a separate method
+				updatableCases.add(updatable);
+			} else if (!SSSWConstants.CASE_STATUS_UPDATED.equalsIgnoreCase(wrapper.caseRecord.Status)) {
+				// case is not reassignable. only need to update the case status to 'Updated'
+				// this is needed only when current case status is something else.
+				updatableCases.add(updatable);
+			}
+		}
+
+		if (!updatableCases.isEmpty()) {
+			// we have cases to update. register them with unit of work.
+			uow.registerDirty(updatableCases, false, CaseUnifiedAutomationService.class.getName() + 'reassignCasesEmailAutomation');
+		}
+	}
+
+	/**
+	 * Check if case records passed in are eligible for reassignment. Case records should not be reassigned if the
+	 * case records or one of it's child ContactRequest records are currently getting assigned by another process.
+	 *
+	 * Closed case records getting reopened due to automation are always eligible for reassignment.
+	 * Open case records are eligible for reassignment if below conditions are true:
+	 * - Case has no PendingServiceRouting records
+	 * - Case has no AgentWork in 'Opened' / 'Assigned' status
+	 * - Case record's child ContactRequest records have no PendingServiceRouting records
+	 * - Case record's child ContactRequest records have no AgentWork in 'Opened' / 'Assigned' status
+	 *
+	 * @param recordWrappers case record wrappers
+	 *
+	 * @return set of case id's eligible for reassignment
+	 */
+	@TestVisible private Set<Id> getReassignableCases(List<RecordWrapper> recordWrappers) {
+
+		Set<Id> results = new Set<Id>();
+
+		// open cases map (key - case id, value - case record)
+		Map<Id, Case> openCases = new Map<Id, Case>();
+		// child contact request mappings (key - contact request id, value - parent case id)
+		Map<Id, Id> childContactRequestsMapping = new Map<Id, Id>();
+		for (RecordWrapper wrapper: recordWrappers) {
+			if (wrapper.caseRecord.IsClosed) {
+				// closed cases are reassignable. case need to be reassigned even when the closed case is currently assigned
+				// to an agent.
+				results.add(wrapper.caseRecord.Id);
+			} else {
+				// open cases are to be reassigned only if it is not currently with an agent or in the process of being
+				// assigned to an agent by some other automation. both of the following conditions must be true for this to happen.
+				// (a) there is no 'Open' or 'Assigned' AgentWork on Case or it's child contact requests.
+				// (b) there is no PendingServiceRequest records for the Case or it's child contact requests.
+				openCases.put(wrapper.caseRecord.Id, wrapper.caseRecord);
+				for (ContactRequest contactRequest: wrapper.caseRecord.ContactRequests) {
+					childContactRequestsMapping.put(contactRequest.Id, wrapper.caseRecord.Id);
 				}
 			}
 		}
-		if (!caseReassignmentForUpdate.isEmpty()) {
-			ApplicationDatabase.getInstance().dmlUpdate(caseReassignmentForUpdate);
+
+		if (!openCases.isEmpty()) {
+			// start with the full set of open case ids
+			Set<Id> reassignableCaseIds = new Set<Id>(openCases.keySet());
+			// workout the cases with PSRs for the case record or one of it's child ContactRequests. remove these from re-assignable case ids set.
+			reassignableCaseIds.removeAll(getCasesHavingPendingServiceRoutingRecords(openCases.keySet(), childContactRequestsMapping));
+			//  workout the cases with AgentWork for the case record or one of it's child ContactRequests. remove these from re-assignable case ids set.
+			reassignableCaseIds.removeAll(getCasesHavingActiveAgentWork(openCases.keySet(), childContactRequestsMapping));
+			results.addAll(reassignableCaseIds);
 		}
+		return results;
+	}
+
+	/**
+	 * Check case Ids and child contact request ids for existing PendingServiceRouting records. Return Case Ids where
+	 * the Case or one of it's child contact requests have a PendingServiceRouting record.
+	 *
+	 * @param caseIds parent case Ids
+	 * @param childContactRequestsMapping child contact request mappings (key - contact request id, value - parent case id)
+	 *
+	 * @return Case Ids where the Case or one of it's child contact requests have a PendingServiceRouting record.
+	 */
+	private Set<Id> getCasesHavingPendingServiceRoutingRecords(Set<Id> caseIds, Map<Id, Id> childContactRequestsMapping) {
+		Set<Id> workItemIds = new Set<Id>(caseIds);
+		workItemIds.addAll(childContactRequestsMapping.keySet());
+
+		Set<Id> results = new Set<Id>();
+
+		List<PendingServiceRouting> pendingServiceRoutings = PendingServiceRoutingSelector.newInstance().selectByWorkItemId(workItemIds, new Set<Object>());
+		for (PendingServiceRouting psr: pendingServiceRoutings) {
+			results.add(getCaseIdFromWorkItemId(psr.WorkItemId, caseIds, childContactRequestsMapping));
+		}
+		return results;
+	}
+
+	/**
+	 * Check case Ids and child contact request ids for existing AgentWork records in 'Opened' or 'Assigned' status.
+	 * Return Case Ids where the Case or one of it's child contact requests have AgentWork.
+	 *
+	 * @param caseIds parent case Ids
+	 * @param childContactRequestsMapping child contact request mappings (key - contact request id, value - parent case id)
+	 *
+	 * @return Case Ids where the Case or one of it's child contact requests have AgentWork.
+	 */
+	private Set<Id> getCasesHavingActiveAgentWork(Set<Id> caseIds, Map<Id, Id> childContactRequestsMapping) {
+		Set<Id> workItemIds = new Set<Id>(caseIds);
+		workItemIds.addAll(childContactRequestsMapping.keySet());
+
+		Set<Id> results = new Set<Id>();
+
+		List<AgentWork> agentWorkList = AgentWorkSelector.newInstance().search(new Map<String, Object>{
+				'workItemIds' => workItemIds,
+				'status' => new Set<String>{SSSWConstants.OMNI_AGENTWORK_STATUS_ASSIGNED, SSSWConstants.OMNI_AGENTWORK_STATUS_OPENED}
+		}, true);
+
+		for (AgentWork aw: agentWorkList) {
+			results.add(getCaseIdFromWorkItemId(aw.WorkItemId, caseIds, childContactRequestsMapping));
+		}
+		return results;
+	}
+
+	private Id getCaseIdFromWorkItemId(Id workItemId, Set<Id> caseIds, Map<Id, Id> childContactRequestsMapping){
+		return (caseIds.contains(workItemId) ? workItemId : childContactRequestsMapping.get(workItemId));
 	}
 
 	/**

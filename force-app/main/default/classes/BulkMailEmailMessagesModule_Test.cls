@@ -3,6 +3,7 @@
  * @author Boris Bachovski
  * @date 14/05/2024
  * @changelog
+ * 2024-08-07 - Ranjeewa Silva - Test class updates after uplifting the module to new ApplicationModule framework.
 */
 
 @IsTest
@@ -62,7 +63,7 @@ private class BulkMailEmailMessagesModule_Test {
 		// =====================================
 		Test.startTest();
 
-		BulkMailEmailMessagesModule.newInstance().onAfterInsert(new List <EmailMessage> { emailMessageRecord }, mockUow);
+		new BulkMailEmailMessagesModule().onAfterInsert(new List <EmailMessage> { emailMessageRecord }, mockUow);
 
 		Test.stopTest();
 
@@ -125,7 +126,7 @@ private class BulkMailEmailMessagesModule_Test {
 		// =====================================
 		Test.startTest();
 
-		BulkMailEmailMessagesModule module = BulkMailEmailMessagesModule.newInstance();
+		BulkMailEmailMessagesModule module = new BulkMailEmailMessagesModule();
 		module.onAfterInsert(new List <EmailMessage> { emailMessageRecord }, mockUow);
 		Datetime dt = module.currentTime;
 
@@ -162,11 +163,11 @@ private class BulkMailEmailMessagesModule_Test {
 		caseRecord.Priority = 'Low';
 		caseRecord.Origin = 'Other';
 		caseRecord.Permanent_Close__c = false;
-		caseRecord.First_Email_Response__c = null;
+		caseRecord.First_Email_Response__c = false;
 		caseRecord.Status = 'New';
 		
 		EmailMessage emailMessageRecord = ApplicationTestDataFactory.getEmailMessages(1, true, false, 'test@test.com', 'replypaid@auspost.com.au', 'Test Subject', caseRecord.Id)[0];
-		emailMessageRecord = (EmailMessage)ApplicationTestDataFactory.setUnwritableFields(emailMessageRecord, new Map <String, Object>{'ParentId' => caseRecord.Id});
+		emailMessageRecord = (EmailMessage)ApplicationTestDataFactory.setUnwritableFields(emailMessageRecord, new Map <String, Object>{'ParentId' => caseRecord.Id, 'Parent' => caserecord});
 		emailMessageRecord.Status = EmailMessageUtil.STATUS_REPLIED;
 		
 		caseRecord = (Case)ApplicationTestDataFactory.setChildRelationships(caseRecord,new Map <String, List <SObject>> {'EmailMessages' => new List <EmailMessage>{ emailMessageRecord }});
@@ -197,8 +198,7 @@ private class BulkMailEmailMessagesModule_Test {
 		// =====================================
 		Test.startTest();
 
-		BulkMailEmailMessagesModule module = BulkMailEmailMessagesModule.newInstance();
-		module.onAfterInsert(new List <EmailMessage> { emailMessageRecord }, mockUow);
+		new BulkMailEmailMessagesModule().onAfterInsert(new List <EmailMessage> { emailMessageRecord }, mockUow);
 
 		Test.stopTest();
 

@@ -24,6 +24,7 @@
  * 2023-06-08 - Mahesh Parvathaneni - Added tests for WITH_INCOMING_EMAIL_MESSAGES_ASC_ORDER
  * 2023-12-04 - SteveL - Added tests for: getClosedCasesByAccountIdsNMonths, and getOpenCasesByAccountIds
  * 2024-04-25 - Vasu Gorakati - Added test method for selectCasesByReferenceId
+ * 2024-08-12 - Ranjeewa Silva - Updated tests to verify selector option WITH_CONTACT_REQUESTS
  */
 @IsTest
 public with sharing class CasesSelector_Test {
@@ -177,6 +178,10 @@ public with sharing class CasesSelector_Test {
 		qb = selectorNew3.newQueryBuilder(new Set<Object>{CasesSelector.Options.WITH_ACCOUNT});
 		soql = qb.toSoqlString();
 		System.assertEquals(true, Pattern.compile('(?is)Account\\..*?\\bfrom case\\b').matcher(soql).find(), 'Resulting query does not select Account fields'+soql);
+
+		qb = selector.newQueryBuilder(new Set<Object>{CasesSelector.Options.WITH_CONTACT_REQUESTS});
+		soql = qb.toSoqlString();
+		Assert.isTrue(Pattern.compile('(?ism)Select.*?\\(Select.*?\\bfrom ContactRequests\\b.*?\\).*?\\bfrom case\\b').matcher(soql).find(), 'Resulting query does not select ContactRequest child records: ' + soql);
 		
 		Test.stopTest();
 

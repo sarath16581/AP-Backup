@@ -8,6 +8,7 @@
 * @description Test class covering StarTrackEmailMessagesModule
 * @changelog
 * 2022-02-22	Naveen Rajanna	created - REQ2723199
+* 2024-08-07 - Ranjeewa Silva - Test class updates after uplifting the module to new ApplicationModule framework.
 */
 @IsTest
 private class StarTrackEmailMessagesModule_Test {
@@ -52,8 +53,7 @@ private class StarTrackEmailMessagesModule_Test {
 		//Testing
 		Test.startTest();
 			try {
-				StarTrackEmailMessagesModule module = StarTrackEmailMessagesModule.newInstance();
-				module.onAfterInsert((List<SObject>) emailList, mockUow);
+				new StarTrackEmailMessagesModule().onAfterInsert((List<SObject>) emailList, mockUow);
 			} catch (Exception e) {
 				System.assert(true, 'Expected Exception to be thrown');
 			}
@@ -155,8 +155,7 @@ private class StarTrackEmailMessagesModule_Test {
 		
 		//Testing
 		Test.startTest();
-			StarTrackEmailMessagesModule module =(StarTrackEmailMessagesModule) new StarTrackEmailMessagesModule.Constructor().construct();
-			module.onAfterInsert((List<SObject>) emailList, mockUow);
+			new StarTrackEmailMessagesModule().onAfterInsert((List<SObject>) emailList, mockUow);
 		Test.stopTest();
 		
 		//Assert or Verify
@@ -211,8 +210,7 @@ private class StarTrackEmailMessagesModule_Test {
 			
 			//Testing
 		Test.startTest();
-			StarTrackEmailMessagesModule module =(StarTrackEmailMessagesModule) new StarTrackEmailMessagesModule.Constructor().construct();
-			module.onAfterInsert((List<SObject>) emailList, mockUow);
+			new StarTrackEmailMessagesModule().onAfterInsert((List<SObject>) emailList, mockUow);
 		Test.stopTest();
 
 		//Assert or Verify

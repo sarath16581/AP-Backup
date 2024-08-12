@@ -6,10 +6,11 @@
  * @group Domain
  * @domain EmailMessageCasesDomain
  * @changelog
- * 08/05/2024 Boris Bachovski - Update First_Email_Response__c field on case when outgoing email is sent + Complete Bulk Mail First Response milestone
+ * 2024=05-08 - Boris Bachovski - Update First_Email_Response__c field on case when outgoing email is sent + Complete Bulk Mail First Response milestone
+ * 2024-08-07 - Ranjeewa Silva - Uplifted to new ApplicationModule framework
  */
 
- public inherited sharing class BulkMailEmailMessagesModule extends ApplicationDomain.Module {
+ public inherited sharing class BulkMailEmailMessagesModule extends ApplicationModule {
 
 	private static Map<String, EmailToCaseMapping__mdt> emailToCaseMappingMap;
 
@@ -48,11 +49,6 @@
 			return bulkMailQueueId;
 		}
 		private set;
-	}
-
-
-	public static BulkMailEmailMessagesModule newInstance() {
-		return (BulkMailEmailMessagesModule) Application.Utilities.newInstance(BulkMailEmailMessagesModule.class);
 	}
 
 	// Setup which triggers this module should respond to
@@ -95,11 +91,11 @@
 		Id recordTypeId = BulkMailCaseService.getInstance().getBulkMailRecordTypeId();
 
 		// Field overrides for cases
-		Set <SObjectField> fieldOverrides = new Set <SObjectField>{Case.Id, Case.Permanent_Close__c, Case.Status, Case.EmailToCaseAddress__c, Case.Priority, Case.Call_Purpose__c, Case.Origin, Case.Enquiry_Type__c, Case.Product_Type__c, Case.Source__c, Case.First_Email_Response__c};
+		Set <SObjectField> caseFieldOverrides = new Set <SObjectField>{ Case.Id, Case.Permanent_Close__c, Case.Status, Case.EmailToCaseAddress__c, Case.Priority, Case.Call_Purpose__c, Case.Origin, Case.Enquiry_Type__c, Case.Product_Type__c, Case.Source__c, Case.First_Email_Response__c };
 
 		//Get the selected emailMessage with related case fields, whose parent case recordtype is Bulk Mail
 		EmailmessagesSelector emSelector = EmailMessagesSelector.newInstance();
-		emSelector.setFieldOverrides(new Map <SObjectType, Set <SObjectField>> { Case.SObjectType => fieldOverrides });
+		emSelector.setFieldOverrides(new Map <SObjectType, Set <SObjectField>> { Case.SObjectType => caseFieldOverrides });
 
 		for (EmailMessage em : emSelector.selectByIdsAndParentRecordTypeId(emailIdSet, new Set<Id>{recordTypeId}, 
 										new Set <Object>{ EmailMessagesSelector.Options.WITH_CASE, CasesSelector.Options.WITH_RECORDTYPE })) {
@@ -110,8 +106,12 @@
 			}
 
 			// Outgoing message (First Response) - add the case Id to the milestoneCaseIds set, we'll complete the Bulk Mail First Response milestone.
-			if (!em.Incoming && !em.Parent.First_Email_Response__c && em.Parent.Status == 'New' && (EmailMessageUtil.STATUS_REPLIED.equals(em.Status) || EmailMessageUtil.STATUS_SENT.equals(em.Status))) {
-				casestoUpdate.add(new Case(Id = em.ParentId, First_Email_Response__c = true, Status = BulkMailCaseService.IN_PROGRESS_STATUS));
+	    	if (!em.Incoming && !em.Parent.First_Email_Response__c && (EmailMessageUtil.STATUS_REPLIED.equals(em.Status) || EmailMessageUtil.STATUS_SENT.equals(em.Status))) {
+				if (em.Parent.Status == 'New')
+				{
+					casestoUpdate.add(new Case(Id = em.ParentId, First_Email_Response__c = true, Status = BulkMailCaseService.IN_PROGRESS_STATUS));
+				}
+
 				milestoneCaseIds.add(em.ParentId);
 			}
 		}
@@ -123,7 +123,7 @@
 
 			Datetime currentTimeStamp = currentTime;
 
-			for (Case cs : CasesSelector.newInstance(fieldOverrides).selectById(caseIds, new Set <Object> { CasesSelector.Options.WITH_INCOMING_EMAIL_MESSAGES_ASC_ORDER }).values()) {
+			for (Case cs : CasesSelector.newInstance(caseFieldOverrides).selectById(caseIds, new Set <Object> { CasesSelector.Options.WITH_INCOMING_EMAIL_MESSAGES_ASC_ORDER }).values()) {
 				casesMap.put(cs.Id, cs);
 
 				if (!cs.Permanent_Close__c && !cs.EmailMessages.isEmpty() && (String.isNotBlank(cs.EmailToCaseAddress__c) || 'Email'.equalsIgnoreCase(cs.Origin) == false)) {
