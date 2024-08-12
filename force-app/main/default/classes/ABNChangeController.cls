@@ -15,10 +15,10 @@ public with sharing class ABNChangeController {
 	 */
 	private static final Map<SObjectType,Set<SObjectField>> AT_RISK_BUSINESS_FIELD_OVERRIDES = new Map<SObjectType,Set<SObjectField>> {
 			At_Risk_Business__c.SObjectType => new Set<SObjectField> {
-					At_Risk_Business__c.Id, At_Risk_Business__c.Related_Organisation__c, At_Risk_Business__c.Legal_Entity_Name__c
+					At_Risk_Business__c.Id, At_Risk_Business__c.Related_Organisation__c, At_Risk_Business__c.Legal_Entity_Name__c, At_Risk_Business__c.Related_Opportunity__c
 			},
 			Account.SObjectType => new Set<SObjectField> {
-					Account.Name
+					Account.Name, Account.ABN__c
 			}
 	};
 
@@ -26,6 +26,21 @@ public with sharing class ABNChangeController {
 	 * Field Overrides when selecting old and new contacts
 	 */
 	private static final Set<SObjectField> CONTACT_FIELD_OVERRIDES = new Set<SObjectField>{Contact.FirstName, Contact.LastName, Contact.Name, Contact.Title, Contact.Email, Contact.Phone, Contact.Has_Online_Credential__c};
+
+	/**
+	* Field Overrides when selecting DSRs
+	*/
+	private static final Set<SObjectField> DSR_FIELD_OVERRIDES = new Set<SObjectField>{Deal_Support_Request__c.Name, Deal_Support_Request__c.Stage__c, Deal_Support_Request__c.Status__c, Deal_Support_Request__c.Work_Type__c, Deal_Support_Request__c.Credit_Work_Type__c, Deal_Support_Request__c.Request_type__c};
+
+	/**
+	 * Field Overrides when selecting Opportunities
+	 */
+	private static final Set<SObjectField> OPPORTUNITY_FIELD_OVERRIDES = new Set<SObjectField>{Opportunity.Id, Opportunity.Name, Opportunity.AccountId, Opportunity.KeyContact__c, Opportunity.Amount, Opportunity.CloseDate, Opportunity.StageName, Opportunity.IsClosed, Opportunity.IsStartrackProposal__c};
+
+	/**
+	 * Field Overrides when selecting Opportunities
+	 */
+	private static final Set<SObjectField> BILLING_ACCOUNT_FIELD_OVERRIDES = new Set<SObjectField>{Billing_Account__c.Id, Billing_Account__c.Name, Billing_Account__c.Credit_Person__c, Billing_Account__c.Credit_Representative_Email__c, Billing_Account__c.Credit_Person_Code__c, Billing_Account__c.LEGACY_ID__c, Billing_Account__c.PAYER_ACCOUNT_ID__c};
 
 	/**
 	 * This method is used to get deduplicated contacts and related At Risk Business between contacts from old organisation (legal entity) and new organisation (related organisation)
@@ -78,15 +93,16 @@ public with sharing class ABNChangeController {
 	}
 
 	/**
-	 * @description Get datatable columns for contacts from field set ABNChangeContactColumn
+	 * @description Get datatable columns from given field set
+	 * @param objectName Object API name for the field set
+	 * @param fieldSetName Name of the field set to be used to map columns
 	 * @return list of datatable column wrapper
 	 */
-	@AuraEnabled(cacheable=true)
-	public static List<DataTableColumn> retrieveColumns() {
+	@AuraEnabled(Cacheable=true)
+	public static List<DataTableColumn> retrieveColumns(String objectName, String fieldSetName) {
 		try {
 			List<DataTableColumn> dataTableColumnList = new List<DataTableColumn>();
-
-			for (Schema.FieldSetMember fs: SObjectType.Contact.fieldSets.ABNChangeContactColumn.getFields()) {
+			for (Schema.FieldSetMember fs: Schema.getGlobalDescribe().get(objectName).getDescribe().fieldSets.getMap().get(fieldSetName).getFields()) {
 				DataTableColumn datatableColumn = new DataTableColumn(fs.getLabel(), fs.getFieldPath(), String.valueOf(fs.getType()));
 				dataTableColumnList.add(datatableColumn);
 			}
@@ -103,7 +119,6 @@ public with sharing class ABNChangeController {
 	 * Unexpected exception will be logged as well
 	 * @param newOrganisationId Id of new organisation where the contacts will be cloned to
 	 * @param oldContactIds list of old contact Ids
-	 *
 	 */
 	@AuraEnabled
 	public static void cloneContacts(String newOrganisationId, List<Id> oldContactIds) {
@@ -143,6 +158,42 @@ public with sharing class ABNChangeController {
 		}
 	}
 
+	/**
+	 * This method is used to get DSRs from related organisation given at risk business record Id
+	 * @param businessAtRiskId  At Risk Business Id
+	 * @return Map of 'businessAtRisk' => At Risk Business, 'dsrList' => list of DSRs
+	 */
+	@AuraEnabled(Cacheable=true)
+	public static Map<String, Object> getDSRsAndBaR(String businessAtRiskId) {
+		At_Risk_Business__c atRiskBusiness = AtRiskBusinessSelector.newInstance(AT_RISK_BUSINESS_FIELD_OVERRIDES).selectById(new Set<Id>{businessAtRiskId}, new Set<Object>{AtRiskBusinessSelector.options.WITH_RELATED_ORGANISATION})[0];
+		List<Deal_Support_Request__c> dsrList = DealSupportRequestsSelector.newInstance(0, DSR_FIELD_OVERRIDES).selectByAtRiskBusinessId(new Set<Id>{businessAtRiskId}, new Set<Object>{DealSupportRequestsSelector.Options.WITH_RECORDTYPE, DealSupportRequestsSelector.Options.WITH_OWNER});
+		return new Map<String, Object>{
+				'businessAtRisk' => atRiskBusiness,
+				'dsrList' => dsrList
+		};
+	}
+
+	/**
+	 * This method is used to get opportunities given parent account Id
+	 * @param accountId  parent account Id
+	 * @return list of opportunities with owner and key contacts
+	 */
+	@AuraEnabled(Cacheable=true)
+	public static List<Opportunity> getOpportunities(String accountId) {
+		return OpportunitiesSelector.newInstance(0, OPPORTUNITY_FIELD_OVERRIDES).selectByAccountId(new Set<Id>{accountId}, new Set<Object>{OpportunitiesSelector.Options.WITH_OWNER, OpportunitiesSelector.Options.WITH_KEY_CONTACT});
+
+	}
+
+	/**
+	 * This method is used to get DSRs given parent account Id
+	 * @param accountId  parent account Id
+	 * @return list of DSRs with record type and owner details
+	 */
+	@AuraEnabled(Cacheable=true)
+	public static List<Deal_Support_Request__c> getDSRsByAccountId(String accountId) {
+		return 	DealSupportRequestsSelector.newInstance(0, DSR_FIELD_OVERRIDES).selectByAccountId(new Set<Id>{accountId}, new Set<Object>{DealSupportRequestsSelector.Options.WITH_RECORDTYPE, DealSupportRequestsSelector.Options.WITH_OWNER});
+	}
+
 	public class DataTableColumn {
 		@AuraEnabled
 		public String label {get;set;}
@@ -165,7 +216,7 @@ public with sharing class ABNChangeController {
 
 	public static List<List<Contact>> splitContacts(List<Contact> source, Integer size) {
 		List<List<Contact>> ret = new List<List<Contact>>();
-		if (source == null) return ret;
+		if (source == null || source.size() == 0) return ret;
 
 		// If the source size is equal to or smaller than our partition size, just return it
 		if (source.size() <= size) {
@@ -188,5 +239,151 @@ public with sharing class ABNChangeController {
 		}
 
 		return ret;
+	}
+
+	/**
+	 * This method is used to create DSRs based on the request wrapper passed from frontend.
+	 * Within the wrapper it has the information about what types of DSR (captured in dsrTypes attribute) need to be created
+	 * and field values required for the creation.
+	 * Individual DSR is computed and generated based on sub class generator within ABNChangeDSRGenerator.
+	 * @param request DSR generation request wrapper passed from frontend.
+	 * @return list of failed DSR types
+	 */
+	@AuraEnabled
+	public static List<String> createDSRs(DSRRequestWrapper request) {
+		try {
+			ABNChangeDSRGenerator.allProductTypes = request.allProductTypes;
+			List<Deal_Support_Request__c> newDSRs = new List<Deal_Support_Request__c>();
+			List<String> dsrTypes = new List<String>();
+			ABNChangeDSRGenerator.CloseAllBAs closeAllBAs;
+			List<Billing_Account__c> billingAccounts;
+			for (String type: request.dsrTypes) {
+				switch on type {
+					when 'proposalGeneration' {
+						for (DSRRequestOpportunityWrapper wrapper: request.opportunityWrappers) {
+							Deal_Support_Request__c dsr = new ABNChangeDSRGenerator.ProposalContractDSR(true, request.organisationId, wrapper.opportunityId, wrapper.productType, wrapper.keyContactId, request.atRiskBusinessId, request.isStandardPricing, request.pricingDSRNames).toDsrRecord();
+							newDSRs.add(dsr);
+							dsrTypes.add('New Proposal for ' + wrapper.productType + ' Opportunity DSR');
+						}
+
+					}
+					when 'contractGeneration' {
+						for (DSRRequestOpportunityWrapper wrapper: request.opportunityWrappers) {
+							Deal_Support_Request__c dsr = new ABNChangeDSRGenerator.ProposalContractDSR(false, request.organisationId, wrapper.opportunityId, wrapper.productType, wrapper.keyContactId, request.atRiskBusinessId, request.isStandardPricing, request.pricingDSRNames).toDsrRecord();
+							newDSRs.add(dsr);
+							dsrTypes.add('New Contract for ' + wrapper.productType + ' Opportunity DSR');
+						}
+
+					}
+					when 'terminateContracts' {
+						Set<String> productTypes = new Set<String>();
+						for (DSRRequestOpportunityWrapper wrapper: request.opportunityWrappers) {
+							productTypes.add(wrapper.productType);
+						}
+						for (String productType: productTypes) {
+							Deal_Support_Request__c dsr = new ABNChangeDSRGenerator.TerminateDSR(request.organisationId, productType, request.atRiskBusinessId, request.organisationABN).toDsrRecord();
+							newDSRs.add(dsr);
+							dsrTypes.add('Terminate ' + productType + ' Contracts DSR');
+						}
+					}
+					when 'terminateSTBAs' {
+						Deal_Support_Request__c dsr = new ABNChangeDSRGenerator.TerminateSTBAs(request.organisationId, request.atRiskBusinessId, request.relatedOpportunity, request.organisationABN).toDsrRecord();
+						newDSRs.add(dsr);
+						dsrTypes.add('Terminate ST Billing Accounts DSR');
+					}
+					when 'closeAllBAs' {
+						billingAccounts = BillingAccountsSelector.newInstance(0, BILLING_ACCOUNT_FIELD_OVERRIDES).selectByOrganisationABN(new Set<String> {request.organisationABN}, new Set<Object>{BillingAccountsSelector.Options.FILTER_ACTIVE, BillingAccountsSelector.Options.FILTER_SOURCE_SYSTEM_SAP_ERP});
+						if (billingAccounts.size() > 0) {
+							closeAllBAs = new ABNChangeDSRGenerator.CloseAllBAs(request.organisationId, request.atRiskBusinessId, billingAccounts, request.estimatedClosureDate);
+							Deal_Support_Request__c dsr = closeAllBAs.toDsrRecord();
+							newDSRs.add(dsr);
+							dsrTypes.add('Close All Billing Accounts DSR');
+						}
+					}
+				}
+			}
+
+			List<String> failedDSRTypes = new List<String>();
+			List<Database.SaveResult> failedResults = new List<Database.SaveResult>();
+
+			// insert computed DSRs
+			List<Database.SaveResult> results = ApplicationDatabase.getInstance().dmlInsert(newDSRs, false);
+			for (Integer i = 0; i < results.size(); i++) {
+				if (results[i].isSuccess()) {
+					if (dsrTypes[i] == 'Close All Billing Accounts DSR') {
+						// generate CSV if close all BA DSR has been created
+						if (billingAccounts.size() > 5) {
+							Database.SaveResult csvSaveResult = ApplicationDatabase.getInstance().dmlInsert(new List<SObject>{closeAllBAs.generateCloseAllBACsv()})[0];
+							if (csvSaveResult.isSuccess()) {
+								Id docId = ContentVersionsSelector.newInstance().selectById(new Set<Id>{csvSaveResult.getId()}).values()[0].ContentDocumentId;
+								ContentDocumentLink cDe = new ContentDocumentLink();
+								cDe.ContentDocumentId = docId;
+								cDe.LinkedEntityId = newDSRs[i].Id;
+								cDe.ShareType = 'I';
+								cDe.Visibility = 'AllUsers';
+								Database.SaveResult docSaveResult = ApplicationDatabase.getInstance().dmlInsert(new List<SObject>{cDe})[0];
+								if (!docSaveResult.isSuccess()) {
+									throw new AuraHandledException('CSV generation failed while generating Close All Billing Account DSR: ' + docSaveResult.getErrors());
+								}
+							} else {
+								throw new AuraHandledException('CSV generation failed while generating Close All Billing Account DSR: ' + csvSaveResult.getErrors());
+							}
+						}
+						// attach customer request documents on the DSR
+						List<ContentDocumentLink> cdeList = new List<ContentDocumentLink>();
+						for (String docId: request.customerRequestDocumentIds) {
+							ContentDocumentLink cDe = new ContentDocumentLink();
+							cDe.ContentDocumentId = docId;
+							cDe.LinkedEntityId = newDSRs[i].Id;
+							cDe.ShareType = 'I';
+							cDe.Visibility = 'AllUsers';
+							cdeList.add(cDe);
+						}
+						ApplicationDatabase.getInstance().dmlInsert(cdeList);
+					}
+				} else {
+					failedDSRTypes.add(dsrTypes[i]);
+					failedResults.add(results[i]);
+				}
+			}
+			ApplicationLogger.getInstance().logFailedDatabaseResults(failedResults, 'ABNChange', ABNChangeController.class.getName(), 'createDSRs', null, ApplicationLogger.LoggingLevel.ERROR);
+			return failedDSRTypes;
+		} catch (Exception e) {
+			throw new AuraHandledException('Error occurred while generating DSRs: ' + e.getMessage());
+		}
+	}
+
+	public class DSRRequestWrapper {
+		@AuraEnabled
+		public List<String> dsrTypes {get; set;} // proposalGeneration, contractGeneration, terminateContracts, closeAllBAs, terminateSTBAs
+		@AuraEnabled
+		public String atRiskBusinessId {get; set;}
+		@AuraEnabled
+		public String organisationId {get; set;} //BaR -> legal entity
+		@AuraEnabled
+		public String organisationABN {get; set;} //BaR -> legal entity -> ABN
+		@AuraEnabled
+		public List<DSRRequestOpportunityWrapper> opportunityWrappers {get; set;} // user-selected opportunities
+		@AuraEnabled
+		public String relatedOpportunity {get; set;} // only for terminated DSR
+		@AuraEnabled
+		public List<String> allProductTypes {get; set;}
+		@AuraEnabled
+		public String isStandardPricing {get; set;} // Yes or No
+		@AuraEnabled
+		public List<String> pricingDSRNames {get; set;} // if no standard pricing
+		@AuraEnabled
+		public Date estimatedClosureDate {get; set;} // Yes or No
+		@AuraEnabled
+		public List<String> customerRequestDocumentIds {get; set;} // if DSR has more than 5 billing accounts associated
+	}
+
+	public class DSRRequestOpportunityWrapper {
+		@AuraEnabled
+		public String opportunityId {get; set;}
+		@AuraEnabled
+		public String productType {get; set;} // either AP or ST
+		@AuraEnabled
+		public String keyContactId {get; set;}
 	}
 }

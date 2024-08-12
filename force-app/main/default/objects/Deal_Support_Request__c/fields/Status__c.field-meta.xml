@@ -370,6 +370,10 @@
             <valueName>Roadblock</valueName>
         </valueSettings>
         <valueSettings>
+            <controllingFieldValue>Work In Progress</controllingFieldValue>
+            <valueName>Account pending closure</valueName>
+        </valueSettings>
+        <valueSettings>
             <controllingFieldValue>Completed</controllingFieldValue>
             <valueName>Request for Review Outcome</valueName>
         </valueSettings>

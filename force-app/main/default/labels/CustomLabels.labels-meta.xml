@@ -41,6 +41,46 @@
         <value>No active contacts available for cloning. Please verify the contacts under the old organisation if at least 1 contact that is Active and maintained by Account Manager.</value>
     </labels>
     <labels>
+        <fullName>ABNChangeDSRFormCustomerSignerInfo</fullName>
+        <categories>ABN Update</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>ABNChangeDSRFormCustomerSignerInfo</shortDescription>
+        <value>Please ensure the Key Contact on the selected Opportunity is the Customer Signer.</value>
+    </labels>
+    <labels>
+        <fullName>ABNChangeDSRFormNoAPOpportunitiesError</fullName>
+        <categories>ABN Update</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>ABNChangeDSRFormNoAPOpportunitiesError</shortDescription>
+        <value>Please create AP opportunity under the new Organisation before proceeding with Proposal/Contract DSR creation.</value>
+    </labels>
+    <labels>
+        <fullName>ABNChangeDSRFormNoDSRError</fullName>
+        <categories>ABN Update</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>ABNChangeDSRFormNoDSRError</shortDescription>
+        <value>If customised pricing is required, please raise a Pricing Support Request DSR and select the DSR number to proceed.</value>
+    </labels>
+    <labels>
+        <fullName>ABNChangeDSRFormNoOpportunitiesError</fullName>
+        <categories>ABN Update</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>ABNChangeDSRFormNoOpportunitiesError</shortDescription>
+        <value>Please create AP and ST opportunities under the new Organisation before proceeding with Proposal/Contract DSR creation.</value>
+    </labels>
+    <labels>
+        <fullName>ABNChangeDSRFormNoSTOpportunitiesError</fullName>
+        <categories>ABN Update</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>ABNChangeDSRFormNoSTOpportunitiesError</shortDescription>
+        <value>Please create ST opportunity under the new Organisation before proceeding with Proposal/Contract DSR creation.</value>
+    </labels>
+    <labels>
         <fullName>ABNChangeNotificationError</fullName>
         <language>en_US</language>
         <protected>false</protected>

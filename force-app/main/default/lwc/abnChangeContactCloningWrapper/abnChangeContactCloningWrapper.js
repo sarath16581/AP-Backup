@@ -69,7 +69,7 @@ export default class AbnChangeContactCloningWrapper extends LightningElement {
 				return {...row , nameUrl}
 			});
 			// Retrieve columns
-			getColumns().then(c => {
+			getColumns({objectName: 'Contact', fieldSetName: 'ABNChangeContactColumn'}).then(c => {
 				this.columns = c.map(item => {
 					return {...item};
 				});
@@ -88,10 +88,10 @@ export default class AbnChangeContactCloningWrapper extends LightningElement {
 			// this.contacts = data.contacts;
 			this.atRiskBusiness = data.businessAtRisk;
 			this.errorMessage = null;
-			this.isLoading = false;
-		} else if (data?.length === 0) {
+		} else {
 			this.errorMessage = LABEL_CONTACT_NO_CONTACTS_ERROR;
 		}
+		this.isLoading = false;
 	}
 
 	get filteredContacts() {

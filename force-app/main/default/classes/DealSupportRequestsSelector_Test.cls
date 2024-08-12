@@ -11,6 +11,7 @@
 * 2022-04-08 - seth.heang@auspost.com.au - updated test method to test search method
 * 2022-12-01 - Harry Wang - added test method for selectByAccountRelationshipQueryLocator
 * 2024-02-02 - Mahesh Parvathaneni - updated test method to include dsrIds to test search method
+* 2024-08-10 - Harry Wang - added tests for selectByAtRiskBusinessId and selectByAccountId
 */
 @IsTest
 public with sharing class DealSupportRequestsSelector_Test {
@@ -159,6 +160,8 @@ public with sharing class DealSupportRequestsSelector_Test {
 		Opportunity opportunityRecord = ApplicationTestDataFactory.getOpportunities(1, account.Id, false)[0];
 		insert opportunityRecord;
 
+		At_Risk_Business__c atRiskBusiness = ApplicationTestDataFactory.getAtRiskBusiness(1, account.Id, false)[0];
+		insert atRiskBusiness;
 
 		/*APT_Charge_Account__c chargeAccountRequest = ApplicationTestDataFactory.getApttusChargeAccountRequest(1,false)[0];
 		insert chargeAccountRequest;
@@ -177,6 +180,7 @@ public with sharing class DealSupportRequestsSelector_Test {
 		dealSupportRequest.recordTypeId = psrAPPCRecTypeId;
 		dealSupportRequest.product__c = APT_Constants.PSR_APPC_PRODUCT_NAME;
 		dealSupportRequest.Returns__c = true;
+		dealSupportRequest.Business_At_Risk__c = atRiskBusiness.Id;
 		insert dealSupportRequest;
 
 		BAMExternalOnboardingRequest__c externalOnboardingRecord = ApplicationTestDataFactory.getBAMExternalOnboardingRequests(1,dealSupportRequest.Id, 'Deal_Support_Request__c', false)[0];
@@ -239,6 +243,13 @@ public with sharing class DealSupportRequestsSelector_Test {
 		System.assertEquals(1, queryResults.size(), 'Expected to return only the DSRs related to the supplied account');
 		System.assertEquals(dealSupportRequest.Id, queryResults[0].Id, 'Expected to return only the DSRs related to the supplied account');
 
+		queryResults = selector.selectByAtRiskBusinessId(new Set<Id>{atRiskBusiness.Id}, new Set<Object>());
+		System.assertEquals(dealSupportRequest.Id, queryResults[0].Id, 'Id not matched');
+
+		Set<SObjectField> fieldOverrides = new Set<SObjectField>{Deal_Support_Request__c.Id, Deal_Support_Request__c.Organisation__c};
+		queryResults = DealSupportRequestsSelector.newInstance(1, fieldOverrides).selectByAccountId(accountIds, new Set<Object>{DealSupportRequestsSelector.Options.WITH_OPPORTUNITY});
+		System.assertEquals(account.Id, queryResults[0].Organisation__c, 'Parent account not matched');
+		System.assertEquals(opportunityRecord.Id, queryResults[0].Opportunity__r.Id, 'Opportunity not matched');
 		Test.stopTest();
 
 	}

@@ -10,13 +10,14 @@
  * 2023-05-17 - Ranjeewa Silva - Added new selector option to select child opportunity splits with split type 'overlay contribution'
  * 2023-08-18 - Ranjeewa Silva - Added selector options to select competitor, dsr and apttus contract child records
  * 2023-10-25 - Mahesh Parvathaneni - Added selector options to select opportunity line items child records
+ * 2024-06-19 - Harry Wang - Added selector options to select key contact relationship and added selectByAccountId
  */
 
 public virtual inherited sharing class OpportunitiesSelector extends ApplicationSelector {
 
 	public enum Options {
 		WITH_RECORDTYPE, WITH_OWNER, WITH_OVERLAY_SPLITS, WITH_COMPETITORS, WITH_DEAL_SUPPORT_REQUESTS, WITH_APTTUS_CONTRACTS, 
-		WITH_OPPORTUNITY_LINE_ITEMS
+		WITH_OPPORTUNITY_LINE_ITEMS, WITH_KEY_CONTACT
 	}
 
 	public static OpportunitiesSelector newInstance() {
@@ -69,6 +70,17 @@ public virtual inherited sharing class OpportunitiesSelector extends Application
 		return new Map<Id, Opportunity>((List<Opportunity>)Database.query(qb.toSoqlString()));
 	}
 
+	/**
+	 * @description Run a simple query to get records based on parent account Id's
+	 */
+	public virtual List<Opportunity> selectByAccountId(Set<Id> accountIds, Set<Object> selectorOptions) {
+		QueryBuilder qb = newQueryBuilder(selectorOptions)
+				.addConditions()
+				.add(new QueryBuilder.InCondition(Opportunity.AccountId).inCollection(accountIds))
+				.endConditions();
+		return Database.query(qb.toSoqlString());
+	}
+
 	public virtual override QueryBuilder newQueryBuilder() {
 		return newQueryBuilder(new Set<Object>());
 	}
@@ -104,6 +116,10 @@ public virtual inherited sharing class OpportunitiesSelector extends Application
 
 		if (selectorOptions.contains(Options.WITH_OPPORTUNITY_LINE_ITEMS)) {
 			builder.addSubQuery(OpportunityLineItemSelector.newInstance().setFieldOverrides(fieldOverrides).newQueryBuilder(selectorOptions), 'OpportunityLineItems');
+		}
+
+		if(selectorOptions.contains(Options.WITH_KEY_CONTACT)) {
+			builder.addRelatedFields(ContactsSelector.newInstance().newQueryBuilder(), 'KeyContact__r');
 		}
 
 		return builder;
