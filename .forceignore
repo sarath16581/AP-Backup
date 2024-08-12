@@ -13,3 +13,5 @@ package.xml
 
 # BigObject Indexes which SFDX seems to have a problem with
 **/objects/**/indexes/*.index-meta.xml
+#temp
+force-app/main/default/email/unfiled$public/NetworkPartnerCaseCreationFromEmailtoCase.email-meta.xml
