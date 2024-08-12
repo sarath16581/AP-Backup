@@ -89,10 +89,10 @@ public inherited sharing class AgentWorkSelector extends ApplicationSelector {
 	 * @param searchParams A map containing searchable values:
 	 *					 workItemIds: maps to WorkItemId (Set<Id>/Id)
 	 *					 status: maps to Status (Set<String>/String)
-     * @param matchAll If true will search based on AND, else search based on OR
-     *
-     * @return list of AgentWork records
-     */
+	 * @param matchAll If true will search based on AND, else search based on OR
+	 *
+	 * @return list of AgentWork records
+	 */
 	public List<AgentWork> search(Map<String, Object> searchParams, Boolean matchAll) {
 		return search(searchParams, new Set<Object>(), matchAll);
 	}

@@ -129,7 +129,7 @@ public inherited sharing class StarTrackEmailMessagesModule extends ApplicationM
 						caseToUpd.ResolutionCode__c = StarTrack_Constants.CASE_RESOLUTION_DUPLICATE;
 						caseToUpd.Status = StarTrack_Constants.CASE_STAT_CLOSED;
 						caseToUpd.Enquiry_Type__c = StarTrack_Constants.CASE_ENQUIRY_DEF;
-						caseToUpd.Call_Purpose__c = StarTrack_Constants.CASE_PURPOSE_DEF;                
+						caseToUpd.Call_Purpose__c = StarTrack_Constants.CASE_PURPOSE_DEF;
 					} else {
 						Map<String, StarTrackDefaultEmailAddresses__c> defaultAddress = StarTrackDefaultEmailAddresses__c.getAll();	
 						if(((caseToUpd.StarTrack_Calc_Email_Address__c.contains(starTrackSettings.Business_Solutions_From_Email__c)

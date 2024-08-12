@@ -7,6 +7,7 @@
  * @date 2021-11-22
  * @group Domain
  * @domain EmailMessage
+ * @test ServiceAdvisorEmailEntitlementModuleTest
  * @changelog
  * 2022-02-04 Ashapriya Gadi To fix prod issue -If some sends an email to one of the email-to-case email addresses, but puts multiple recipients on the email (From Email Address), the entitlement does not get assigned to the case
  * 2022-02-16 - Nathan Franklin - Small refactor and fixed bugs

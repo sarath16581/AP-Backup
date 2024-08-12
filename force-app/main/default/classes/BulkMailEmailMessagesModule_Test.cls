@@ -214,7 +214,7 @@ private class BulkMailEmailMessagesModule_Test {
 		Assert.areEqual(1, MockUtility.mockUnitOfWorkDMLs.size(), 'Expected 1 case record to be updated');
 		Assert.areEqual(BulkMailCaseService.IN_PROGRESS_STATUS, ((Case)MockUtility.mockUnitOfWorkDMLs[0]).Status, 'Expected case status to be ' + BulkMailCaseService.IN_PROGRESS_STATUS);
 	
-        ((ApplicationDatabase)MockUtility.Mocks.verify(mockDatabase, MockUtility.Mocks.times(1))).dmlUpdate((List<SObject>)fflib_Match.anyObject());
+		((ApplicationDatabase)MockUtility.Mocks.verify(mockDatabase, MockUtility.Mocks.times(1))).dmlUpdate((List<SObject>)fflib_Match.anyObject());
 		
 		// Assert Milestone update
 		fflib_ArgumentCaptor updateCaptor = fflib_ArgumentCaptor.forClass(List <SObject>.class);
