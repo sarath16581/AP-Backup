@@ -108,6 +108,9 @@ export default class UnifiedCustomerSearch extends LightningElement {
 		}
 	}
 
+	/**
+	 * Reset formInputs object
+	 */
 	resetFormInputs(){
 		this.formInputs = undefined;
 	}
