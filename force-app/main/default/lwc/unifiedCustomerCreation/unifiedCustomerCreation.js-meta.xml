@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
-    <apiVersion>61.0</apiVersion>
-    <description>An LWC interface for displaying Customer Creation form on Chat Transcript layout for unified experience.</description>
-    <isExposed>true</isExposed>
-    <masterLabel>Unified Customer Creation</masterLabel>
-    <targets>
-        <target>lightning__RecordPage</target>
-    </targets>
+	<apiVersion>61.0</apiVersion>
+	<description>An LWC interface for displaying Customer Creation form on Chat Transcript layout for unified experience.</description>
+	<isExposed>true</isExposed>
+	<masterLabel>Unified Customer Creation</masterLabel>
+	<targets>
+		<target>lightning__RecordPage</target>
+	</targets>
 </LightningComponentBundle>
