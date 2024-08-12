@@ -1,6 +1,6 @@
 import { createElement } from 'lwc';
-import CustomerSearchFormInputs from 'c/customerSearchFormInputs';
-import customerSearch from '@salesforce/apex/CustomerSearchFormController.search';
+import UnifiedCustomerSearchForm from 'c/unifiedCustomerSearchForm';
+import customerSearch from '@salesforce/apex/UnifiedCustomerSearchController.search';
 import {
 	FIRST_NAME_LABEL,
 	LAST_NAME_LABEL,
@@ -15,7 +15,7 @@ import {
 	MORE_INFO_REQUIRED_ERROR_MESSAGE,
 	INVALID_FORM_ERROR,
 	INPUT_ELEMENT_SELECTORS,
-} from 'c/customerSearchFormInputs';
+} from 'c/unifiedCustomerSearchForm';
 
 const CUSTOMER_SEARCH_RES_SUCCESS = {
 	searchResults: [],
@@ -123,7 +123,7 @@ function mockCheckValidity(element, selector, result) {
 
 // Mock imperative Apex method call
 jest.mock(
-	'@salesforce/apex/CustomerSearchFormController.search',
+	'@salesforce/apex/UnifiedCustomerSearchController.search',
 	() => {
 		return {
 			default: jest.fn(),
@@ -143,7 +143,7 @@ function flushAllPromises() {
 	return new Promise((resolve) => setTimeout(resolve, 0));
 }
 
-describe('c-customer-search-form-inputs', () => {
+describe('c-unified-customer-search-form', () => {
 	afterEach(() => {
 		// The jsdom instance is shared across test cases in a single file so reset the DOM
 		while (document.body.firstChild) {
@@ -156,8 +156,8 @@ describe('c-customer-search-form-inputs', () => {
 
 	it('displays search form input and button elements', () => {
 		// Arrange
-		const element = createElement('c-customer-search-form-inputs', {
-			is: CustomerSearchFormInputs,
+		const element = createElement('c-unified-customer-search-form', {
+			is: UnifiedCustomerSearchForm,
 		});
 
 		// Act
@@ -244,8 +244,8 @@ describe('c-customer-search-form-inputs', () => {
 
 	it('allows pre-populating input field values', () => {
 		// Arrange
-		const element = createElement('c-customer-search-form-inputs', {
-			is: CustomerSearchFormInputs,
+		const element = createElement('c-unified-customer-search-form', {
+			is: UnifiedCustomerSearchForm,
 		});
 		element.firstName = 'Joan';
 		element.lastName = 'Watson';
@@ -275,8 +275,8 @@ describe('c-customer-search-form-inputs', () => {
 
 	it('displays error when one or more fields are invalid', async () => {
 		// Arrange
-		const element = createElement('c-customer-search-form-inputs', {
-			is: CustomerSearchFormInputs,
+		const element = createElement('c-unified-customer-search-form', {
+			is: UnifiedCustomerSearchForm,
 		});
 
 		// Act
@@ -300,8 +300,8 @@ describe('c-customer-search-form-inputs', () => {
 
 	it('displays error when submitted without any values', async () => {
 		// Arrange
-		const element = createElement('c-customer-search-form-inputs', {
-			is: CustomerSearchFormInputs,
+		const element = createElement('c-unified-customer-search-form', {
+			is: UnifiedCustomerSearchForm,
 		});
 
 		// Act
@@ -329,8 +329,8 @@ describe('c-customer-search-form-inputs', () => {
 
 	it('displays error when submitted with first name, but no last name', async () => {
 		// Arrange
-		const element = createElement('c-customer-search-form-inputs', {
-			is: CustomerSearchFormInputs,
+		const element = createElement('c-unified-customer-search-form', {
+			is: UnifiedCustomerSearchForm,
 		});
 
 		// Act
@@ -361,8 +361,8 @@ describe('c-customer-search-form-inputs', () => {
 
 	it('displays error when submitted with last name, but no first name', async () => {
 		// Arrange
-		const element = createElement('c-customer-search-form-inputs', {
-			is: CustomerSearchFormInputs,
+		const element = createElement('c-unified-customer-search-form', {
+			is: UnifiedCustomerSearchForm,
 		});
 
 		// Act
@@ -396,8 +396,8 @@ describe('c-customer-search-form-inputs', () => {
 		customerSearch.mockResolvedValue(CUSTOMER_SEARCH_RES_SUCCESS);
 
 		// Arrange
-		const element = createElement('c-customer-search-form-inputs', {
-			is: CustomerSearchFormInputs,
+		const element = createElement('c-unified-customer-search-form', {
+			is: UnifiedCustomerSearchForm,
 		});
 
 		// Act
@@ -433,8 +433,8 @@ describe('c-customer-search-form-inputs', () => {
 		customerSearch.mockResolvedValue(CUSTOMER_SEARCH_RES_SUCCESS);
 
 		// Arrange
-		const element = createElement('c-customer-search-form-inputs', {
-			is: CustomerSearchFormInputs,
+		const element = createElement('c-unified-customer-search-form', {
+			is: UnifiedCustomerSearchForm,
 		});
 
 		// Act
@@ -464,8 +464,8 @@ describe('c-customer-search-form-inputs', () => {
 
 	it('disables consumer checkbox when organisation checkbox is selected', async () => {
 		// Arrange
-		const element = createElement('c-customer-search-form-inputs', {
-			is: CustomerSearchFormInputs,
+		const element = createElement('c-unified-customer-search-form', {
+			is: UnifiedCustomerSearchForm,
 		});
 
 		// Act
@@ -493,8 +493,8 @@ describe('c-customer-search-form-inputs', () => {
 
 	it('disables organisation checkbox when consumer checkbox is selected', async () => {
 		// Arrange
-		const element = createElement('c-customer-search-form-inputs', {
-			is: CustomerSearchFormInputs,
+		const element = createElement('c-unified-customer-search-form', {
+			is: UnifiedCustomerSearchForm,
 		});
 
 		// Act
@@ -522,8 +522,8 @@ describe('c-customer-search-form-inputs', () => {
 
 	it('hides organisation input fields when consumer checkbox is selected', async () => {
 		// Arrange
-		const element = createElement('c-customer-search-form-inputs', {
-			is: CustomerSearchFormInputs,
+		const element = createElement('c-unified-customer-search-form', {
+			is: UnifiedCustomerSearchForm,
 		});
 
 		// Act
@@ -551,8 +551,8 @@ describe('c-customer-search-form-inputs', () => {
 
 	it('disables ABN/ACN input when Organisation is selected', async () => {
 		// Arrange
-		const element = createElement('c-customer-search-form-inputs', {
-			is: CustomerSearchFormInputs,
+		const element = createElement('c-unified-customer-search-form', {
+			is: UnifiedCustomerSearchForm,
 		});
 
 		// Act
@@ -574,8 +574,8 @@ describe('c-customer-search-form-inputs', () => {
 
 	it('disables phone field when include phone toggle disabled', async () => {
 		// Arrange
-		const element = createElement('c-customer-search-form-inputs', {
-			is: CustomerSearchFormInputs,
+		const element = createElement('c-unified-customer-search-form', {
+			is: UnifiedCustomerSearchForm,
 		});
 
 		// Act
@@ -598,8 +598,8 @@ describe('c-customer-search-form-inputs', () => {
 
 	it('disables email field when include email toggle disabled', async () => {
 		// Arrange
-		const element = createElement('c-customer-search-form-inputs', {
-			is: CustomerSearchFormInputs,
+		const element = createElement('c-unified-customer-search-form', {
+			is: UnifiedCustomerSearchForm,
 		});
 
 		// Act
@@ -625,8 +625,8 @@ describe('c-customer-search-form-inputs', () => {
 		customerSearch.mockResolvedValue(CUSTOMER_SEARCH_RES_SUCCESS);
 
 		// Arrange
-		const element = createElement('c-customer-search-form-inputs', {
-			is: CustomerSearchFormInputs,
+		const element = createElement('c-unified-customer-search-form', {
+			is: UnifiedCustomerSearchForm,
 		});
 
 		// Act
@@ -665,8 +665,8 @@ describe('c-customer-search-form-inputs', () => {
 		customerSearch.mockResolvedValue(CUSTOMER_SEARCH_RES_SUCCESS);
 
 		// Arrange
-		const element = createElement('c-customer-search-form-inputs', {
-			is: CustomerSearchFormInputs,
+		const element = createElement('c-unified-customer-search-form', {
+			is: UnifiedCustomerSearchForm,
 		});
 
 		// Act
@@ -704,8 +704,8 @@ describe('c-customer-search-form-inputs', () => {
 		customerSearch.mockRejectedValue(CUSTOMER_SEARCH_RES_ERROR);
 
 		// Arrange
-		const element = createElement('c-customer-search-form-inputs', {
-			is: CustomerSearchFormInputs,
+		const element = createElement('c-unified-customer-search-form', {
+			is: UnifiedCustomerSearchForm,
 		});
 
 		// Act
@@ -745,8 +745,8 @@ describe('c-customer-search-form-inputs', () => {
 		customerSearch.mockRejectedValue(CUSTOMER_SEARCH_RES_ERROR);
 
 		// Arrange
-		const element = createElement('c-customer-search-form-inputs', {
-			is: CustomerSearchFormInputs,
+		const element = createElement('c-unified-customer-search-form', {
+			is: UnifiedCustomerSearchForm,
 		});
 
 		// Act
@@ -774,8 +774,8 @@ describe('c-customer-search-form-inputs', () => {
 
 	it('clears form on "Clear" button click', async () => {
 		// Arrange
-		const element = createElement('c-customer-search-form-inputs', {
-			is: CustomerSearchFormInputs,
+		const element = createElement('c-unified-customer-search-form', {
+			is: UnifiedCustomerSearchForm,
 		});
 
 		// Act
@@ -814,8 +814,8 @@ describe('c-customer-search-form-inputs', () => {
 
 	it('sends request with all fields populated, except customer type', async () => {
 		// Arrange
-		const element = createElement('c-customer-search-form-inputs', {
-			is: CustomerSearchFormInputs,
+		const element = createElement('c-unified-customer-search-form', {
+			is: UnifiedCustomerSearchForm,
 		});
 
 		// Assign mock value for resolved Apex promise
@@ -876,8 +876,8 @@ describe('c-customer-search-form-inputs', () => {
 
 	it('send request for consumer, ensuring that organisation details are null', async () => {
 		// Arrange
-		const element = createElement('c-customer-search-form-inputs', {
-			is: CustomerSearchFormInputs,
+		const element = createElement('c-unified-customer-search-form', {
+			is: UnifiedCustomerSearchForm,
 		});
 
 		// Assign mock value for resolved Apex promise

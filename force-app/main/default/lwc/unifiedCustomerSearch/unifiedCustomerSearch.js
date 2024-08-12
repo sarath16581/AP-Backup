@@ -4,14 +4,13 @@ import { LightningElement, api } from 'lwc';
 export const SEARCH_FORM_TITLE = 'Customer Search';
 
 /**
- * The Customer Search form allows users to specify criteria and search for
- * customer records. This component wraps the search form inputs and search
- * results components and is exposed for use in Lightning App Builder.
+ * The Unified Customer Search component allows users to specify criteria and search for customer records. This component wraps
+ * the search form and search results components and is exposed for use in Lightning App Builder.
  *
- * @alias CustomerSearchForm
+ * @alias UnifiedCustomerSearch
  * @hideconstructor
  */
-export default class CustomerSearchForm extends LightningElement {
+export default class UnifiedCustomerSearch extends LightningElement {
 	/**
 	 * The Id of the record to provide context to this component.
 	 * @type {string|undefined}

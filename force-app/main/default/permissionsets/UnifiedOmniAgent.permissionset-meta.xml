@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
+	<description>This permission set shall be used for all agents (including supervisor) and defines all permissions for the purpose of using Salesforce Omni and its features</description>
+    <hasActivationRequired>false</hasActivationRequired>
+    <label>Unified Omni Agent</label>
+    <license>Salesforce</license>
+</PermissionSet>
