@@ -195,7 +195,7 @@ public with sharing class ABNChangeController_Test {
 		request.relatedOpportunity = opps[0].Id;
 		request.allProductTypes = new List<String>{'StarTrack', 'AP'};
 		request.isStandardPricing = 'Yes';
-		request.estimatedClosureDate = System.today();
+		request.estimatedClosureDate = System.today() + 1;
 		request.customerRequestDocumentIds = new List<String>{documentId};
 
 		List<String> failedDSRTypes = ABNChangeController.createDSRs(request);
