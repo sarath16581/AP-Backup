@@ -3,7 +3,7 @@
     <fullName>Hidden_Incoming_Aprrover__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <externalId>false</externalId>
-    <label>Hidden Incoming Aprrover</label>
+    <label>Hidden Incoming Approver</label>
     <referenceTo>User</referenceTo>
     <relationshipName>Sales_Coverage_Change_Requests2</relationshipName>
     <required>false</required>

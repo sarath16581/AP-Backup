@@ -75,6 +75,11 @@
                 <default>false</default>
                 <label>Force Majeure Fee</label>
             </value>
+            <value>
+                <fullName>FPP Satchel Flip</fullName>
+                <default>false</default>
+                <label>FPP Satchel Flip</label>
+            </value>
         </valueSetDefinition>
     </valueSet>
 </CustomField>
