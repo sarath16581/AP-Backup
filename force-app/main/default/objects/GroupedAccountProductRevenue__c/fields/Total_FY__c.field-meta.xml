@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Total_FY__c</fullName>
+    <description>total revenue for the financial year</description>
+    <externalId>false</externalId>
+    <formula>Rev1__c + Rev2__c + Rev3__c +Rev4__c + Rev5__c + Rev6__c + Rev7__c + Rev8__c + Rev9__c +Rev10__c + Rev11__c + Rev12__c</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <inlineHelpText>Total revenue for the financial year.</inlineHelpText>
+    <label>Total (FY)</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>2</scale>
+    <trackTrending>false</trackTrending>
+    <type>Currency</type>
+</CustomField>

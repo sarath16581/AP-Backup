@@ -3,7 +3,7 @@
     <fullName>TotalRetained__c</fullName>
     <description>Total Retained derived from Total Price</description>
     <externalId>false</externalId>
-    <formula>IF(  RetainedRevenue__c = 0, 0,  (RetainedRevenue__c / Annualised_Value__c ) *  TotalPrice  )</formula>
+    <formula>IF( RetainedRevenue__c = 0, 0, (RetainedRevenue__c / Annualised_Value__c ) * TotalPrice )</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <inlineHelpText>Total Retained derived from Total Price</inlineHelpText>
     <label>Total Retained</label>
