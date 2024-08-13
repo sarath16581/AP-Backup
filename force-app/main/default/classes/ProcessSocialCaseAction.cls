@@ -12,7 +12,7 @@
 global with sharing class ProcessSocialCaseAction {
 	private static final String STATUS_NEW = 'New';
 	private static final String CASETYPE_GENERAL_ENQUIRY = 'General Enquiry';
-	private static final String CASE_ORIGIN = 'Social Business';
+	private static final String CASE_ORIGIN = 'Social';
 	private static final String FACEBOOK = 'Facebook';
 	private static final String TWITTER = 'Twitter';
 	private static final String MESSAGETYPE_DIRECT = 'Direct';
