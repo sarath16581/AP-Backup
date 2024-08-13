@@ -182,6 +182,7 @@ public inherited sharing class CaseUnifiedAutomationService {
 				// case is eligible for reassignment. update relevant fields.
 				updatable.ReassignmentReason__c = wrapper.newReassignmentReason;
 				updatable.OwnerId = QUEUE_SETTINGS?.UnifiedDefaultOmniQueueId__c;
+				updatable.PreferredAgentExpiry__c = calculatePreferredAgentExpiry(wrapper);
 				if (wrapper.caseRecord.IsClosed) {
 					// case is currently closed and it's getting re-opened. we need to populate Case_Reopen_Date__c.
 					updatable.Case_Reopen_Date__c = Datetime.now();
@@ -302,6 +303,15 @@ public inherited sharing class CaseUnifiedAutomationService {
 
 	private Id getCaseIdFromWorkItemId(Id workItemId, Set<Id> caseIds, Map<Id, Id> childContactRequestsMapping){
 		return (caseIds.contains(workItemId) ? workItemId : childContactRequestsMapping.get(workItemId));
+	}
+
+	private Datetime calculatePreferredAgentExpiry(RecordWrapper caseWrapper) {
+		// get the default preferred agent expiry applicable for this case
+		if(caseWrapper.caseRecord.businessHoursId != null && QUEUE_SETTINGS?.UnifiedPreferredAgentExpiry__c != null) {
+			return BusinessHours.add(caseWrapper.caseRecord.businessHoursId, Datetime.now(), QUEUE_SETTINGS.UnifiedPreferredAgentExpiry__c.longValue() * 3600000);
+		}
+		// if business hours are not set on case or custom setting not configured (unlikely), use the current value on case.
+		return caseWrapper.caseRecord.PreferredAgentExpiry__c;
 	}
 
 	/**
