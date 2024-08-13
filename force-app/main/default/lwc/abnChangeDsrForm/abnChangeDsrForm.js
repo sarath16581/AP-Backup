@@ -1,7 +1,12 @@
 /**
- * Created by wangh23 on 6/06/2024.
+ * @description DSR creation user input form component with Create (DSR) button action.
+ * DSRs will be created based on the user inputs.
+ * @author Harry Wang
+ * @date 2024-06-05
+ * @group Controller
+ * @changelog
+ * 2024-06-05 - Harry Wang - Created
  */
-
 import {api, LightningElement, track, wire} from 'lwc';
 import LightningAlert from "lightning/alert";
 import LightningConfirm from "lightning/confirm";

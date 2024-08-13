@@ -1,3 +1,12 @@
+/**
+ * @description DSR creation show existing/created DSRs component.
+ * User-created DSRs will be displayed in the table
+ * @author Harry Wang
+ * @date 2024-06-05
+ * @group Controller
+ * @changelog
+ * 2024-06-05 - Harry Wang - Created
+ */
 import {LightningElement, api} from 'lwc';
 import getColumns from '@salesforce/apex/ABNChangeController.retrieveColumns';
 import LightningAlert from "lightning/alert";
