@@ -1,6 +1,6 @@
 /**
  * @description
- * Domain Modules should NEVER be called directly. Domain modules should be exposed and called via the corresponding domain class
+ * Module to handle automation specific to StarTrack cases on email messages(email to case).
  * @author Naveen Rajanna
  * @date 2022-02-22
  * @group Domain
@@ -8,8 +8,9 @@
  * @changelog
  * 2022-02-22	Naveen Rajanna	created - REQ2723199
  * 2022-10-17	Naveen Rajanna REQ2859152 Removed the filter ParentId as it is included in the parent domain class, changed api version to 55
+ * 2024-08-07 - Ranjeewa Silva - Uplifted to new ApplicationModule framework
  */
-public inherited sharing class StarTrackEmailMessagesModule extends ApplicationDomain.Module {
+public inherited sharing class StarTrackEmailMessagesModule extends ApplicationModule {
 	private static Map<Id, RecordType> validRecTypes; // type of cases for which code executes
 	private static final Set<String> ST_CASE_RECORD_TYPES = new Set<String>{StarTrack_Constants.CASE_VOC_RT_DEV, StarTrack_Constants.CASE_DELIVERY_RT_DEV, StarTrack_Constants.CASE_TWC_RT_DEV, StarTrack_Constants.CASE_CREDIT_RT_DEV, StarTrack_Constants.CASE_PBE_RT_DEV};
 	private static StarTrack_Settings__c starTrackSettings;
@@ -23,10 +24,6 @@ public inherited sharing class StarTrackEmailMessagesModule extends ApplicationD
 		} catch (Exception ex) {
 			UTIL_LoggingService.logHandledException(ex, UserInfo.getOrganizationId(), StarTrack_Constants.STARTRACK, StarTrackEmailMessagesModule.class.getName(), SSSWConstants.STATIC_BLOCK, BGSConstants.EMAILMESSAGE_TRIGGER, LoggingLevel.ERROR);
 		}
-	}
-
-	public static StarTrackEmailMessagesModule newInstance() {
-		return (StarTrackEmailMessagesModule) Application.Utilities.newInstance(StarTrackEmailMessagesModule.class);
 	}
 
 	// Setup which triggers this module should respond to
@@ -132,7 +129,7 @@ public inherited sharing class StarTrackEmailMessagesModule extends ApplicationD
 						caseToUpd.ResolutionCode__c = StarTrack_Constants.CASE_RESOLUTION_DUPLICATE;
 						caseToUpd.Status = StarTrack_Constants.CASE_STAT_CLOSED;
 						caseToUpd.Enquiry_Type__c = StarTrack_Constants.CASE_ENQUIRY_DEF;
-						caseToUpd.Call_Purpose__c = StarTrack_Constants.CASE_PURPOSE_DEF;                
+						caseToUpd.Call_Purpose__c = StarTrack_Constants.CASE_PURPOSE_DEF;
 					} else {
 						Map<String, StarTrackDefaultEmailAddresses__c> defaultAddress = StarTrackDefaultEmailAddresses__c.getAll();	
 						if(((caseToUpd.StarTrack_Calc_Email_Address__c.contains(starTrackSettings.Business_Solutions_From_Email__c)
@@ -173,14 +170,4 @@ public inherited sharing class StarTrackEmailMessagesModule extends ApplicationD
 			uow.registerDirty(sObjectList);
 		}
 	}
-
-	/**
-	 * Module instantiation context. This allows us to dynamically instantiate this module within ApplicationModule
-	*/
-	public class Constructor implements ApplicationDomain.IConstructableModule {
-		public ApplicationDomain.Module construct() {
-			return (ApplicationDomain.Module) StarTrackEmailMessagesModule.newInstance();
-		}
-	}
-
 }

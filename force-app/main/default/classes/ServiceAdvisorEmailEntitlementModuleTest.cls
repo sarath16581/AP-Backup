@@ -9,6 +9,7 @@
  * @changelog
  * 2021-11-23 - Ashapriya Gadi - Created
  * 2022-02-17 - Nathan Franklin - Changed method name
+ * 2024-08-07 - Ranjeewa Silva - Test class updates after uplifting the module to new ApplicationModule framework.
  */
 @IsTest
 private class ServiceAdvisorEmailEntitlementModuleTest {
@@ -64,8 +65,7 @@ private class ServiceAdvisorEmailEntitlementModuleTest {
 		// =====================================
 
 		Test.startTest();
-		ServiceAdvisorEmailMesEntitlementsModule module = ServiceAdvisorEmailMesEntitlementsModule.newInstance();
-		module.onAfterInsert( (List<SObject>)emailMessages, uow);
+		new ServiceAdvisorEmailMesEntitlementsModule().onAfterInsert( (List<SObject>)emailMessages, uow);
 		Test.stopTest();
 
 		((ServiceAdvisorsCasesSelector)MockUtility.Mocks.verify(mockServiceDeliveryCasesSelector, MockUtility.Mocks.times(1))).selectByIdsAndEntitlementIdAndCreatedBy((Set<Id>)fflib_Match.anyObject(),(String)fflib_Match.isNull(),fflib_Match.anyString() ,(Set<Object>)fflib_Match.anyObject());
@@ -127,8 +127,7 @@ private class ServiceAdvisorEmailEntitlementModuleTest {
 		// =====================================
 
 		Test.startTest();
-		ServiceAdvisorEmailMesEntitlementsModule module = ServiceAdvisorEmailMesEntitlementsModule.newInstance();
-		module.onAfterInsert( (List<SObject>)emailMessages, uow);
+		new ServiceAdvisorEmailMesEntitlementsModule().onAfterInsert( (List<SObject>)emailMessages, uow);
 		Test.stopTest();
 
 		((ServiceAdvisorsCasesSelector)MockUtility.Mocks.verify(mockServiceDeliveryCasesSelector, MockUtility.Mocks.times(1))).selectByIdsAndEntitlementIdAndCreatedBy((Set<Id>)fflib_Match.anyObject(),(String)fflib_Match.isNull(),fflib_Match.anyString() ,(Set<Object>)fflib_Match.anyObject());

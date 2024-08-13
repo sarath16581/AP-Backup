@@ -29,12 +29,13 @@
  * 2024-04-25 - Vasu Gorakati - Added new method selectCasesByReferenceId and selectByArticleId
  * 2024-07-19 - Ranjeewa Silva - Added new search method with search parameter validation
  * 2024-07-30 - Seth Heang - added fields in getSObjectFieldList.
+ * 2024-08-12 - Ranjeewa Silva - New selector option to select child contact requests.
  */
 public virtual inherited sharing class CasesSelector extends ApplicationSelector {
 
 	public enum Options {
 		WITH_RECORDTYPE, WITH_OWNER, WITH_CONTACT, WITH_NETWORK, WITH_ARTICLE, WITH_CHILDINITIALCONTACT, WITH_SINGLE_EMAIL_MESSAGES_ASC_ORDER, WITH_BILLINGACCOUNT, WITH_ACCOUNT, 
-		WITH_CHILD_INVESTIGATIONS, WITH_NETWORK_RESPONSE, WITH_INCOMING_EMAIL_MESSAGES_ASC_ORDER
+		WITH_CHILD_INVESTIGATIONS, WITH_NETWORK_RESPONSE, WITH_INCOMING_EMAIL_MESSAGES_ASC_ORDER, WITH_CONTACT_REQUESTS
 	}
 
 	public static CasesSelector newInstance() {
@@ -374,7 +375,10 @@ public virtual inherited sharing class CasesSelector extends ApplicationSelector
 		}
 		if(selectorOptions.contains(Options.WITH_INCOMING_EMAIL_MESSAGES_ASC_ORDER)) {
 			builder.addSubQuery(EmailMessagesSelector.newInstance(EmailMessage.CreatedDate, 'Asc', 0).setFieldOverrides(fieldOverrides).newQueryBuilder(selectorOptions), 'EmailMessages');
-		}				
+		}
+		if (selectorOptions.contains(Options.WITH_CONTACT_REQUESTS)) {
+			builder.addSubQuery(ContactRequestsSelector.newInstance().setFieldOverrides(fieldOverrides).newQueryBuilder(selectorOptions), 'ContactRequests');
+		}
 		return builder;
 	}
 
