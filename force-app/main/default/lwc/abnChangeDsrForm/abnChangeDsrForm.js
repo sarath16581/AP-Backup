@@ -92,8 +92,8 @@ export default class AbnChangeDsrForm extends LightningElement {
 				this.opportunityColumns.splice(1, 0, { label: 'Legal Entity Name', fieldName: 'legalEntityName' });
 				this.opportunityColumns.splice(2, 0, { label: 'Key Contact', fieldName: 'keyContactName' });
 				this.opportunityColumns.push({ label: 'Owner', fieldName: 'owner' })
-			}).catch(error => {
-				console.error(error);
+			}).catch(columnError => {
+				console.error(columnError);
 				LightningAlert.open({
 					message: 'Something went wrong while retrieving the columns. Please try again',
 					theme: 'error',
@@ -168,12 +168,14 @@ export default class AbnChangeDsrForm extends LightningElement {
 		if (this.selectedDSRs.length === 0 && this.products.length === 0) {
 			return 'At least one DSR needs to be selected';
 		}
+		return null;
 	}
 
 	get oppSelectionError() {
 		if (this.selectedOpps.length === 0) {
 			return 'At least one opportunity needs to be selected';
 		}
+		return null;
 	}
 
 	/**

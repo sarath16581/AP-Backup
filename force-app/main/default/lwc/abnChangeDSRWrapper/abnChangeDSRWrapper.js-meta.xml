@@ -4,12 +4,12 @@
 	<description>Wrapper component to wrap abnChangeDsrShowDsrs and abnChangeDsrForm components</description>
 	<isExposed>true</isExposed>
 	<masterLabel>Abn Change Dsr Wrapper</masterLabel>
-    <targets>
-        <target>lightning__RecordAction</target>
-    </targets>
-    <targetConfigs>
-        <targetConfig targets="lightning__RecordAction">
-            <actionType>ScreenAction</actionType>
-        </targetConfig>
-    </targetConfigs>
+	<targets>
+		<target>lightning__RecordAction</target>
+	</targets>
+	<targetConfigs>
+		<targetConfig targets="lightning__RecordAction">
+			<actionType>ScreenAction</actionType>
+		</targetConfig>
+	</targetConfigs>
 </LightningComponentBundle>

@@ -238,7 +238,7 @@ public abstract with sharing class ABNChangeDSRGenerator {
 			Deal_Support_Request__c dsr = super.toDsrRecord();
 			String parentCreditPersonName;
 			String parentCreditPersonEmail;
-			String ParentCreditPersonCode;
+			String parentCreditPersonCode;
 			String parentBillingAccountId;
 			String parentBillingNumber;
 			Boolean parentFound = false;
@@ -253,7 +253,7 @@ public abstract with sharing class ABNChangeDSRGenerator {
 					parentFound = true;
 					parentCreditPersonName = ba.Credit_Person__c;
 					parentCreditPersonEmail = ba.Credit_Representative_Email__c;
-					ParentCreditPersonCode = ba.Credit_Person_Code__c;
+					parentCreditPersonCode = ba.Credit_Person_Code__c;
 					parentBillingAccountId = ba.Id;
 					parentBillingNumber = ba.LEGACY_ID__c;
 				}
@@ -266,7 +266,7 @@ public abstract with sharing class ABNChangeDSRGenerator {
 			dsr.Reason_for_Account_Closure__c = getDescription();
 			dsr.Credit_Representative_Email__c = parentFound ? parentCreditPersonEmail : this.billingAccounts[0].Credit_Representative_Email__c;
 			dsr.Credit_Representative__c = parentFound ? parentCreditPersonName : this.billingAccounts[0].Credit_Person__c;
-			dsr.Credit_Person_Code__c = parentFound ? ParentCreditPersonCode : this.billingAccounts[0].Credit_Person_Code__c;
+			dsr.Credit_Person_Code__c = parentFound ? parentCreditPersonCode : this.billingAccounts[0].Credit_Person_Code__c;
 			dsr.Billing_Account__c = parentFound ? parentBillingAccountId : this.billingAccounts[0].Id;
 			dsr.Billing_Number__c = parentFound ? parentBillingNumber : this.billingAccounts[0].LEGACY_ID__c;
 			dsr.EstimatedAccountClosureDate__c = this.estimatedClosureDate;

@@ -216,7 +216,9 @@ public with sharing class ABNChangeController {
 
 	public static List<List<Contact>> splitContacts(List<Contact> source, Integer size) {
 		List<List<Contact>> ret = new List<List<Contact>>();
-		if (source == null || source.size() == 0) return ret;
+		if (source == null || source.size() == 0) {
+			return ret;
+		}
 
 		// If the source size is equal to or smaller than our partition size, just return it
 		if (source.size() <= size) {

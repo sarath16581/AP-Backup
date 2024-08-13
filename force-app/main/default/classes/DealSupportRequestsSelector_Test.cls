@@ -152,7 +152,6 @@ public with sharing class DealSupportRequestsSelector_Test {
 		List<Account> accountList = ApplicationTestDataFactory.getAccounts(2, false);
 		insert accountList;
 		Account account = accountList[0];
-		Account chargeAccount = accountList[1];
 
 		Contact primaryContact = ApplicationTestDataFactory.getContacts(1, account.Id, false)[0];
 		insert primaryContact;

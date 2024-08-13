@@ -76,8 +76,8 @@ export default class AbnChangeContactCloningWrapper extends LightningElement {
 				// insert name at index 0
 				this.columns.splice(0, 0, { label: 'Name', fieldName: 'nameUrl', type: 'url', typeAttributes: {label: { fieldName: 'Name' }, target: '_blank'}});
 				console.log(JSON.stringify(this.columns));
-			}).catch(error => {
-				console.error(error);
+			}).catch(columnError => {
+				console.error(columnError);
 				LightningAlert.open({
 					message: 'Something went wrong while retrieving the columns. Please try again',
 					theme: 'error',
@@ -159,7 +159,7 @@ export default class AbnChangeContactCloningWrapper extends LightningElement {
 	 */
 	handleSelectedRows(event) {
 		switch (event.detail.config.action) {
-			case 'selectAllRows':
+			case 'selectAllRows': {
 				// filter records based on the search term
 				if (this.searchTerm) {
 					const contactsCopy = this.contacts.filter(item => {
@@ -176,22 +176,27 @@ export default class AbnChangeContactCloningWrapper extends LightningElement {
 					this.selectedRows = this.contacts.slice(0, this.selectLimit);
 				}
 				break;
-			case 'deselectAllRows':
+			}
+			case 'deselectAllRows': {
 				this.selectedRows = [];
 				break;
-			case 'rowSelect':
+			}
+			case 'rowSelect': {
 				if (this.selectedRows.length < CLONE_LIMIT) {
 					this.selectedRows.push(...this.contacts.filter(c => c.Id === event.detail.config.value));
 				}
 				break;
-			case 'rowDeselect':
+			}
+			case 'rowDeselect': {
 				const deselectedIndex = this.selectedRows.findIndex(c => c.Id === event.detail.config.value);
 				if (deselectedIndex !== -1) {
 					this.selectedRows.splice(deselectedIndex, 1);
 				}
 				break;
-			default:
+			}
+			default: {
 				break;
+			}
 		}
 	}
 

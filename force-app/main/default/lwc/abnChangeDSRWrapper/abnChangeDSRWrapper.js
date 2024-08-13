@@ -19,7 +19,7 @@ export default class AbnChangeDsrWrapper extends LightningElement {
 	errorMessage;
 	businessAtRisk = {};
 	@track dsrList = [];
- 	_wiredDSRsAndBaR;
+	_wiredDSRsAndBaR;
 	dsrFailureMessage;
 
 	/**
