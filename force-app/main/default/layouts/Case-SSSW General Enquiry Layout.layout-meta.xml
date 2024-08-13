@@ -779,9 +779,6 @@
             <quickActionName>FeedItem.ContentPost</quickActionName>
         </quickActionListItems>
         <quickActionListItems>
-            <quickActionName>Case.Social</quickActionName>
-        </quickActionListItems>
-        <quickActionListItems>
             <quickActionName>Case.CaseComment</quickActionName>
         </quickActionListItems>
     </quickActionList>
