@@ -112,7 +112,7 @@ class GenesysCTIUtils {
      * @param {*} id                Unique identifier that gets return on promise resolve
      * @returns promise with provided/generated id
      */
-    static timeout = (delayInMillisec, id = crypto.randomUUID()) => 
+    static timeout = (delayInMillisec, id = crypto.randomUUID()) =>
         new Promise(res => setTimeout(() => res(id), delayInMillisec));
 
     /**
@@ -238,7 +238,7 @@ class GenesysCTIUtils {
 			d.getFullYear(),
 			GenesysCTIUtils.leadingZeros(d.getMonth() + 1, 2),
 			GenesysCTIUtils.leadingZeros(d.getDate(), 2)
-		].join('-'), [		
+		].join('-'), [
 			GenesysCTIUtils.leadingZeros(d.getHours(), 2),
 			GenesysCTIUtils.leadingZeros(d.getMinutes(), 2),
 			GenesysCTIUtils.leadingZeros(d.getSeconds(), 2)

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomApplicationComponent xmlns="http://soap.sforce.com/2006/04/metadata">
+    <buttonStyle>.x-btn-text {
+  background-color: #4b616a;
+}</buttonStyle>
+    <buttonText>Genesys Connector</buttonText>
+    <buttonWidth>100</buttonWidth>
+    <height>620</height>
+    <isHeightFixed>false</isHeightFixed>
+    <isHidden>true</isHidden>
+    <isWidthFixed>true</isWidthFixed>
+    <visualforcePage>GenesysConnector</visualforcePage>
+    <width>356</width>
+</CustomApplicationComponent>

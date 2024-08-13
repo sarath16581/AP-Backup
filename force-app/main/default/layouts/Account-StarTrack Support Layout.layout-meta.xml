@@ -53,10 +53,6 @@
                 <behavior>Readonly</behavior>
                 <field>Non_OPC_Revenue__c</field>
             </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>IndirectCustomer__c</field>
-            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>

@@ -107,6 +107,66 @@
                 <default>false</default>
                 <label>Domestic</label>
             </value>
+            <value>
+                <fullName>StarTrack</fullName>
+                <default>false</default>
+                <label>StarTrack</label>
+            </value>
+            <value>
+                <fullName>Fit2Work</fullName>
+                <default>false</default>
+                <label>Fit2Work</label>
+            </value>
+            <value>
+                <fullName>CMS</fullName>
+                <default>false</default>
+                <label>CMS</label>
+            </value>
+            <value>
+                <fullName>MMT/SAP HR</fullName>
+                <default>false</default>
+                <label>MMT/SAP HR</label>
+            </value>
+            <value>
+                <fullName>Scanner Credentials</fullName>
+                <default>false</default>
+                <label>Scanner Credentials</label>
+            </value>
+            <value>
+                <fullName>CCR &amp; Appeals</fullName>
+                <default>false</default>
+                <label>CCR &amp; Appeals</label>
+            </value>
+            <value>
+                <fullName>Cessations</fullName>
+                <default>false</default>
+                <label>Cessations</label>
+            </value>
+            <value>
+                <fullName>Reports</fullName>
+                <default>false</default>
+                <label>Reports</label>
+            </value>
+            <value>
+                <fullName>Contracts</fullName>
+                <default>false</default>
+                <label>Contracts</label>
+            </value>
+            <value>
+                <fullName>IPC/VGN</fullName>
+                <default>false</default>
+                <label>IPC/VGN</label>
+            </value>
+            <value>
+                <fullName>ID cards</fullName>
+                <default>false</default>
+                <label>ID cards</label>
+            </value>
+            <value>
+                <fullName>Miscellaneous</fullName>
+                <default>false</default>
+                <label>Miscellaneous</label>
+            </value>
         </valueSetDefinition>
     </valueSet>
 </CustomField>

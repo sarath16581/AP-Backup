@@ -238,7 +238,7 @@ public with sharing class ChasApexController extends ChasBase{
 			 Boolean isExpressPost = wizardData.get('selectedRadio3Name') == ChasConstants.EXPRESS_POST? true:false;
 
              // DDS-5273: article that contains pharma should not be held
-             if (!containsPharma && !isExpressPost) {
+             if (!containsPharma) {
                  if (!isMultipleArticlesSelected // DDS-8586 4. ignore holding for more than one tracking id and all of them are delivered but delivered by different delivery centres (non medication/medication priority set above in existing logic)
                          && String.isEmpty(wizardData.get('latestDeliveredScanWcid')) && ((!String.isEmpty(wizardData.get('isEnquiryDateWithinEDDPlusBusinessdays')) && 'true'.equalsIgnoreCase(wizardData.get('isEnquiryDateWithinEDDPlusBusinessdays'))) ||
                          !String.isEmpty(wizardData.get('isEnquiryDateWithinEDD')) && 'true'.equalsIgnoreCase(wizardData.get('isEnquiryDateWithinEDD')))) {
@@ -426,7 +426,8 @@ public with sharing class ChasApexController extends ChasBase{
                     'Is the item urgent, sentimental or high value? : ' + containsSentimentalValue + '\n' +
                     'Description of contents : ' + issueDetails+ '\n' +'Value of contents : ' + valuesOfContents + '\n' +
                     'Contact Preference : ' + contactPreferrence // Contact Preference, added by Edmarco on July 2019
-                    + issueDetailsDisplayText + '\n';
+                    + issueDetailsDisplayText + '\n'
+					+ 'EDD + Business Days: ' + EDDPlusBusinessDays + '\n';
                 // Change made for roll out of Safe Drop feature on Missing Items form : add reason for enquiry to the case comments
                 if(String.IsNotEmpty(reasonForEnquiry))
                 {
@@ -459,7 +460,8 @@ public with sharing class ChasApexController extends ChasBase{
                     'Is the item urgent, sentimental or high value? : ' + containsSentimentalValue + '\n' +
                     'Description of contents : ' + issueDetails + '\n' +
                     'Contact Preference : ' + contactPreferrence // Contact Preference, added by Edmarco on July 2019
-                    + issueDetailsDisplayText + '\n';
+                    + issueDetailsDisplayText + '\n'
+					+ 'EDD + Business Days' + EDDPlusBusinessDays + '\n';
                 // Change made for roll out of Safe Drop feature on Missing Items form : add reason for enquiry to the case comments
                 if(String.IsNotEmpty(reasonForEnquiry))
                 {

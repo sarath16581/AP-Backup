@@ -19,36 +19,44 @@ class GenesysAPBusinessLogic {
 	// - These mappings give us some meaningful names to work with
 	apFieldMappings = {
 		callUuid : 'attributes.Call\\.ConversationId',						// task capture
-		caseId : 'attributes.Salesforce\\.CaseId',							// search on case
+		caseId : 'attributes.Participant\\.CaseId',							// search on case
 		caseNumber : 'attributes.Participant\\.Case_Number',				// search on case
-		// caseUuid : 'userData.IW_CaseUid',									// task capture
-		contactId : 'attributes.Salesforce\\.ContactId',					// search on contact
+		callType : 'direction',
+		contactId : 'attributes.Participant\\.ContactId',					// search on contact
 		enquirySubType : 'attributes.Participant\\.Dim_Attribute_1',		// minicase prefill
 		enquiryType : 'attributes.Participant\\.Dim_Attribute_2',			// minicase prefill
 		id : 'id',															// used to uniquely identify the call interaction
+		conversationId : 'attributes.Call\\.ConversationId',
 		mediaType : 'Type',													// task capture (subject),
 		outcome : 'attributes.Participant\\.Outcomes',						// task
 		participantId : 'attributes.Salesforce\\.ParticipantId',			// task unique Id
-		phoneNumber : 'attributes.Call\\.Ani',								// phone number exposure
+		phoneNumber : 'ani',												// phone number exposure
 		productCategory : 'attributes.Participant\\.Service_Type',			// minicase prefill
 		productSubCategory : 'attributes.Participant\\.Service_Subtype',	// minicase prefill
-		queue : 'attributes.Call\\.CalledNumber',							// task
+		queueName : 'queueName',											// task
 		referenceId : 'attributes.Participant\\.Tracking_ID',				// minicase prefill
-		serviceType : 'attributes.Participant\\.Service_Type',				// minicase prefill
+		serviceType : 'attributes.Participant\\.Service_Type',				// task
 		segment : 'attributes.Participant\\.Customer_Segment',				// task
 		targetSkill : 'attributes.Call\\.QueueName',						// task
-		trackingNumber : 'attributes.Participant\\.Tracking_ID'				// search on case
+		trackingNumber : 'attributes.Participant\\.Tracking_ID',			// search on case
+		outcome1 : 'attributes.Participant\\.Outcome_1',					// task
+		outcome2 : 'attributes.Participant\\.Outcome_2',					// task
+		outcome3 : 'attributes.Participant\\.Outcome_3',					// task
+		outcome4 : 'attributes.Participant\\.Outcome_4'						// task
 	};
 
 	// Field mappings for updating the Genesys interaction log outbound: Salesforce -> Genesys
 	genesysFieldMappings = {
-		caseId : 'attributes.Salesforce\\.CaseId',
-		contactId : 'attributes.Salesforce\\.ContactId',
-		userId : 'attributes.Salesforce\\.SF_UserId',
-		enquiryType : 'attributes.Salesforce\\.ENG_Outcome_4',
-		enquirySubType : 'attributes.Salesforce\\.ENG_Outcome_1',
-		productCategory : 'attributes.Salesforce\\.ENG_Outcome_2',
-		productSubCategory : 'attributes.Salesforce\\.ENG_Outcome_3'
+		caseId : 'CaseId',
+		contactId : 'ContactId',
+		complaint : 'Complaint',
+		caseNumber : 'Case_Number',
+		userId : 'SF_UserId',
+		enquiryType : 'Outcome_4',
+		enquirySubType : 'Outcome_1',
+		productCategory : 'Outcome_2',
+		productSubCategory : 'Outcome_3',
+		outcome : 'Outcomes'
 	}
 
 	TRACKTYPES = {
@@ -63,7 +71,6 @@ class GenesysAPBusinessLogic {
 
 	handleCtiEvent(eventName, event) {
 		if (eventName === 'INTERACTION_EVENT') {
-			
 			this.callLog = new CallInteractionProxy(event.detail, this.apFieldMappings);
 			// Manually overwrite this until we're getting the correct parameter input from Genesys
 			// - Inbound => voiceInbound, Outbound => vouceOutbound
@@ -75,17 +82,9 @@ class GenesysAPBusinessLogic {
 
 				if (event.detail.isConnected) {
 					this.tracking = GenesysCTIUtils.recallCallDetails(event.callLog.id);
-
-					if (this.tracking) {
-						console.log(...UIInteraction.logPrefix, 'Session recovered', this.tracking);
-					}
 				}
-
-				console.log(...UIInteraction.logPrefix, 'All relevant props for this cti connector:', this.callLog?.toObject());
 			}
 		}
-
-		console.log(...UIInteraction.logPrefix, eventName, event);
 
 		// Get a list of all actions that should be executed for this current event
 		const actionList = this.nextActions.filter(ac => ac.criteria(eventName, event));
@@ -104,9 +103,7 @@ class GenesysAPBusinessLogic {
 			), []);
 
 			// Error handling and logging for all processes
-			Promise.all(processes).then(
-				() => console.log(...UIInteraction.logPrefix, `Completed action(s): ${actionList.map(ac => ac.name).join(', ')}`))
-			.catch(
+			Promise.all(processes).catch(
 				err => console.error(err)
 			);
 		}
@@ -233,12 +230,10 @@ class GenesysAPBusinessLogic {
 		 */
 		track : (event) => {
 			this.trackingTask = new AsyncTask();
-			
-			console.log(...UIInteraction.logPrefix, 'Track', event);
 			const ctiEventDetail = event.lastDetail || event.detail || { };
 
 			// Sync local attribute values to Genesys Call Log
-			const pushGenesysAttributes = (syncAttribs) => {				
+			const pushGenesysAttributes = (syncAttribs) => {
 				// Map local names to Genesys Attribute Names:
 				const syncToGenesysPromise = this.actions.updateGenesysInteraction.call(this, syncAttribs);
 				this.monitorTask(this.actions.updateGenesysInteraction, syncToGenesysPromise);
@@ -249,7 +244,7 @@ class GenesysAPBusinessLogic {
 				).forEach(
 					key => this.tracking[key] = syncAttribs[key]
 				)
-				
+
 				return syncToGenesysPromise;
 			}
 
@@ -361,10 +356,10 @@ class GenesysAPBusinessLogic {
 				// Track the task in the UI, for testing/troubleshooting only
 				this.monitorTask(this.actions.fetchCaseDetails, asyncTask);
 
-				// once completed, process details and sync to 
+				// once completed, process details and sync to
 				asyncTask.then(caseDetails => {
-					let {  caseId, contactId, enquirySubType, enquiryType, productCategory, productSubCategory } = caseDetails;
-					
+					let {  caseId, contactId, enquirySubType, enquiryType, productCategory, productSubCategory, caseNumber, complaint } = caseDetails;
+
 					if (this.tracking?.case.isLocked) {
 						// lock contact as well
 						this.tracking.contact = {
@@ -381,8 +376,12 @@ class GenesysAPBusinessLogic {
 					}
 
 					const syncAttribs = {
-						caseId, contactId, enquirySubType, enquiryType, productCategory, productSubCategory
+						caseId, contactId, enquirySubType, enquiryType, productCategory, productSubCategory, caseNumber, complaint
 					};
+
+					syncAttribs.outcome = [
+						enquirySubType, productCategory, productSubCategory, enquiryType
+					].filter(x => x ? x : 'NA').join(' > ');
 
 					pushGenesysAttributes(syncAttribs).then(
 						result => this.trackingTask.complete(result)
@@ -410,16 +409,16 @@ class GenesysAPBusinessLogic {
 				const searchTask = this.searchTask?.promise;
 				// Ignore tracking when not in a call
 				if (!this.tracking && ctiEventDetail.isConnected && searchTask) {
-					
+
 					const { enquiryType, enquirySubType, productCategory, productSubCategory } = this.callLog;
 					// Init tracking object, used for task and genesys interaction log
 					this.tracking = { enquiryType, enquirySubType, productCategory, productSubCategory };
-					
+
 					Promise.resolve(searchTask).then(searchResults => {
 						// Capture search results and perform soft/hard linking
 						const trackingAttribs = linkSearchResults(searchResults);
 						trackingAttribs.userId = searchTask.userId;
-						
+
 						// Sync caseId and contactId to Genesys
 						const promise = pushGenesysAttributes(trackingAttribs);
 
@@ -427,7 +426,7 @@ class GenesysAPBusinessLogic {
 						if (this.tracking?.case?.Id) {
 							return fetchCaseAndTrackDetails();
 						}
-						
+
 						promise
 							.then(result => this.trackingTask.complete(result))
 							.catch(err => this.trackingTask.fail(err));
@@ -443,7 +442,7 @@ class GenesysAPBusinessLogic {
 				]).then(objectIds => {
 					[...new Set(objectIds || [])].forEach(objectId => {
 						const objType = this.TRACKTYPES[objectId?.substr(0, 3)];
-						
+
 						if (!this.tracking) {
 							this.tracking = { }
 						};
@@ -463,7 +462,7 @@ class GenesysAPBusinessLogic {
 					this.trackingTask.complete();
 				});
 			}
-			
+
 			return this.trackingTask.promise;
 		},
 
@@ -504,7 +503,6 @@ class GenesysAPBusinessLogic {
 		 */
 		wrapUp : () => {
 			// clean up for next interaction
-			console.log(...UIInteraction.logPrefix, 'Tracking:', this.tracking);
 			this.tracking = null;
 			this.searchTask = null;
 			// Remove call details from local storage -> session recovery not required after this point in time
@@ -521,19 +519,43 @@ class GenesysAPBusinessLogic {
 			};
 
 			const eventDetail = ctiEvent.detail || ctiEvent.lastDetail;
-			const { enquiryType, enquirySubType, productCategory, productSubCategory } = this.tracking || { };
+			// const { enquiryType, enquirySubType, productCategory, productSubCategory } = this.tracking || { };
+
+			const returnInitialTracking = () => {
+				const { enquiryType, enquirySubType, productCategory, productSubCategory } = this.tracking || { };
+				return { enquiryType, enquirySubType, productCategory, productSubCategory };
+			}
+
+			const returnOutcomeTracking = () => {
+				const { outcome1, outcome2, outcome3, outcome4 } = this.tracking || { };
+				const [ enquiryType, enquirySubType, productCategory, productSubCategory ] = [ outcome1, outcome2, outcome3, outcome4 ];
+				return { enquiryType, enquirySubType, productCategory, productSubCategory };
+			}
+
+			const returnTracking = () => {
+				let result = returnOutcomeTracking();
+
+				if (!Object.values(result).filter(x => !!x).length) {
+					result = returnInitialTracking();
+				}
+
+				return result;
+			}
+
+			const { enquiryType, enquirySubType, productCategory, productSubCategory } = returnTracking();
 
 			const getTaskDetail = () => ({
-				contactId : this.tracking.contact?.Id,
-				caseId : this.tracking.case?.Id,
-				disposition : undefined,
-				durationInSeconds : (new Date().getTime() - new Date(eventDetail.connectedTime).getTime()) % 1000,
+				contactId : this.tracking?.contact?.Id,
+				caseId : this.tracking?.case?.Id,
+				durationInSeconds : Math.round((new Date().getTime() - new Date(eventDetail.connectedTime).getTime()) / 1000),
 				// Unique ID for task is a combination of the callId + participantId
 				interactionId : [ this.callLog.id, this.callLog.participantId ].join('.'),
-				status : eventDetail.isConnected ? 'Open' : 'Completed',
+				calUuid : this.callLog.conversationId,
+				status : eventDetail.isConnected ? 'In Progress' : 'Completed',
 				// Subject: "Voice-Inbound YYYY-MM-DD 24:mm:ss"
 				subject : [ mediaTypeMap[this.callLog.mediaType], GenesysCTIUtils.formatDate(new Date()) ].join(' '),
 				// provide tracked attributes
+				outcome : [ enquiryType, enquirySubType, productCategory, productSubCategory ].map(x => !x ? 'NA' : x).join(' > '),
 				enquiryType, enquirySubType, productCategory, productSubCategory
 			});
 
@@ -584,7 +606,7 @@ class GenesysAPBusinessLogic {
 
 		fetchCaseDetails : () => {
 			const fetchCaseTask = new AsyncTask();
-			
+
 			new Promise(callback => {
 				GenesysConnectorController.getCaseByIdAP(
 					this.tracking.case.Id,
@@ -616,7 +638,7 @@ class GenesysAPBusinessLogic {
 				}, { }
 			);
 
-			if (Object.keys(genesysCustomAttribs).length) {					
+			if (Object.keys(genesysCustomAttribs).length) {
 				consoleMethods.setCustomAttributes(
 					this.callLog.id, genesysCustomAttribs,
 					(result) => res(result)
@@ -683,12 +705,16 @@ class GenesysAPBusinessLogic {
 					['PRIMTABFOCUS_CHANGE','SUBTABFOCUS_CHANGE'].includes(eventName)
 					&& ['case','contact'].find(obj => !this.tracking?.[obj]?.isLocked)
 				)
-			
+
 			),
 			tasks : [ this.actions.track ]
 		}, {
+			// When the call gets concluded, not when the agents clicks hangup before connecting a call
 			name : 'onDisconnect',
-			criteria : (eventName) => eventName === 'INTERACTION_DISCONNECTED',
+			criteria : (eventName, event) => (
+				eventName === 'INTERACTION_DISCONNECTED'
+				// && event.lastDetail?.isConnected
+			),
 			tasks : [ this.actions.logTask ]
 		}, {
 			// Call has disconnected, cleanup for the next interaction
@@ -744,13 +770,17 @@ class GenesysAPBusinessLogic {
 			},
 			// 4. Pop search screen with pre-populated values (phoneNumber)
 			() => {
-				const { phoneNumber } = this.callLog;
+				let { phoneNumber } = this.callLog;
 
 				let title = 'MyCustomers Search';
 				let tabName = 'ctissswsearch';
 				let url = `/apex/SSSWSearch?cti=1&aId=null`;
 
 				if (phoneNumber) {
+					if (phoneNumber.startsWith('+61')) {
+						phoneNumber = `0${phoneNumber.slice(3)}`;
+					}
+
 					if(!GenesysCTIUtils.isAnonymousPhoneNumber(phoneNumber)) {
 						url += `&ANI=${phoneNumber}`;
 						tabName += phoneNumber;
@@ -794,10 +824,6 @@ class GenesysAPBusinessLogic {
 				{ id, taskName, state, startTime },
 				state !== 'start' ? { duration } : null
 			);
-
-			if (taskName) {
-				console.log(...UIInteraction.logPrefix, `Task ${taskName}: ${state}`);
-			}
 
 			sforce.console.fireEvent(
 				'genesys.connector.trackevent',

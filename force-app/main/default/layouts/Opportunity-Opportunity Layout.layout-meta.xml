@@ -546,22 +546,6 @@
         <layoutColumns/>
         <style>CustomLinks</style>
     </layoutSections>
-    <layoutSections>
-        <customLabel>true</customLabel>
-        <detailHeading>true</detailHeading>
-        <editHeading>false</editHeading>
-        <label>Relationship Map</label>
-        <layoutColumns>
-            <layoutItems>
-                <height>200</height>
-                <page>DMAPP__SummaryPoliticalMapExpress</page>
-                <showLabel>true</showLabel>
-                <showScrollbars>true</showScrollbars>
-                <width>100%</width>
-            </layoutItems>
-        </layoutColumns>
-        <style>OneColumn</style>
-    </layoutSections>
     <miniLayout>
         <fields>Name</fields>
         <fields>Opportunity_Number__c</fields>
@@ -723,12 +707,6 @@
         <relatedList>Revenue_Schedule__c.Opportunity__c</relatedList>
         <sortField>Product__c</sortField>
         <sortOrder>Asc</sortOrder>
-    </relatedLists>
-    <relatedLists>
-        <fields>NAME</fields>
-        <fields>DMAPP__Number_Contacts__c</fields>
-        <fields>DMAPP__Primary_Map__c</fields>
-        <relatedList>DMAPP__Account_Political_Map__c.Opportunity_Name__c</relatedList>
     </relatedLists>
     <relatedLists>
         <fields>TASK.SUBJECT</fields>

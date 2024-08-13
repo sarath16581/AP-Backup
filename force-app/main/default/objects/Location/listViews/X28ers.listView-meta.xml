@@ -7,12 +7,18 @@
     <columns>Description</columns>
     <columns>FleetNumber__c</columns>
     <columns>Hire_Vehicle__c</columns>
+    <columns>Service_Territory__c</columns>
     <columns>Status__c</columns>
     <filterScope>Everything</filterScope>
     <filters>
         <field>Capacity__c</field>
         <operation>equals</operation>
         <value>28</value>
+    </filters>
+    <filters>
+        <field>Service_Territory__c</field>
+        <operation>equals</operation>
+        <value>Melbourne,Dandenong</value>
     </filters>
     <filters>
         <field>Status__c</field>

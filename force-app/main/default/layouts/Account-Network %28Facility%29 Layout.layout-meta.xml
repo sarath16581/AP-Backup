@@ -39,12 +39,7 @@
         <detailHeading>true</detailHeading>
         <editHeading>true</editHeading>
         <label>Summary Account Information</label>
-        <layoutColumns>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>IndirectCustomer__c</field>
-            </layoutItems>
-        </layoutColumns>
+        <layoutColumns/>
         <layoutColumns/>
         <style>TwoColumnsLeftToRight</style>
     </layoutSections>

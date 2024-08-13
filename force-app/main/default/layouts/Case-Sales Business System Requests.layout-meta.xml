@@ -86,10 +86,6 @@
         <layoutColumns>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>Change_Control_Board_Approval_Required__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
                 <field>Service_Now_Ticket_Number__c</field>
             </layoutItems>
             <layoutItems>

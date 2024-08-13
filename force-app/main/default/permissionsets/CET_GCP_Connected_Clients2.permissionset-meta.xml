@@ -16,11 +16,6 @@
         <field>Account.ABN_ACN_Status__c</field>
         <readable>true</readable>
     </fieldPermissions>
-	<fieldPermissions>
-		<editable>false</editable>
-		<field>Account.IndirectCustomer__c</field>
-		<readable>true</readable>
-	</fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
         <field>Account.ABN_Check__c</field>
@@ -1239,6 +1234,11 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Account.Importer__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Account.IndirectCustomer__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -14836,21 +14836,6 @@
         <field>Opportunity.APS_number__c</field>
         <readable>true</readable>
     </fieldPermissions>
-	<fieldPermissions>
-		<editable>false</editable>
-		<field>Opportunity.ControlsLodgement__c</field>
-		<readable>true</readable>
-	</fieldPermissions>
-	<fieldPermissions>
-		<editable>false</editable>
-		<field>Opportunity.FreightOwnership__c</field>
-		<readable>true</readable>
-	</fieldPermissions>
-	<fieldPermissions>
-		<editable>false</editable>
-		<field>Opportunity.IndirectCustomer__c</field>
-		<readable>true</readable>
-	</fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
         <field>Opportunity.APT_Create_Rebate_Contract__c</field>
@@ -15119,6 +15104,11 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Opportunity.Contract_Start_Date__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Opportunity.ControlsLodgement__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -15448,6 +15438,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Opportunity.FreightOwnership__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Opportunity.Gov_Solutions_Category__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -15614,6 +15609,11 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Opportunity.Incumbents__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Opportunity.IndirectCustomer__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
