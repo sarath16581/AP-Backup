@@ -69,14 +69,20 @@ private with sharing class CaseMilestoneUtility_Test {
 												caseRecTypeMap.get('SSSW Delivery').getRecordTypeId());
 
 			Test.startTest();
-				Database.insert(csRec);
+			Database.insert(csRec);
 			Test.stopTest();
 			Integer cs = [SELECT Count() FROM CaseMileStone WHERE CaseId =: csRec.Id];
 			csRec = [SELECT SLATargetDate__c FROM Case WHERE Id =: csRec.Id LIMIT 1];
 			System.assert(cs > 0);
 			System.assert(csRec.SLATargetDate__c != null);
-		}
+		}		
+	}
 
+	/*
+		This test method focuses on testing the Unified Milestones only
+	*/
+	@IsTest
+	static void testInsertUnifiedMilestones() {
 		List<Account> orgAaccounts = new List<Account>(ApplicationTestDataFactory.getAccounts(1, true));
 		SlaProcess sla = [SELECT Id, Name, IsActive, IsVersionDefault FROM SlaProcess WHERE IsVersionDefault = true AND Name =: SSSWConstants.UNIFIED_ENTITLEMENTS LIMIT 1 ];
 		List<Entitlement> entitlements = new List<Entitlement>(ApplicationTestDataFactory.getEntitlements(1, true,SSSWConstants.UNIFIED_ENTITLEMENTS,sla.Id,orgAaccounts[0].Id));
@@ -84,24 +90,30 @@ private with sharing class CaseMilestoneUtility_Test {
 		Id unifiedInvestigationRecordTypeId = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName().get(SSSWConstants.UNIFIED_INVESTIGATION_DEVELOPER_NAME).getRecordTypeId();
 
 		MockUtility.Mocks.startStubbing();
-		MockUtility.Mocks.when(mockEntitlementSelector.selectByNameAndAccountName((Set<String>)fflib_Match.eq(new Set<String>{SSSWConstants.UNIFIED_ENTITLEMENTS}), (Set<String>)fflib_Match.eq(new Set<String>{SSSWConstants.UNIFIED_ENTITLEMENTS}))).thenReturn(entitlements);
+		MockUtility.Mocks.when(mockEntitlementSelector.selectByNameAndAccountName(
+																		(Set<String>)fflib_Match.eq(new Set<String>{SSSWConstants.UNIFIED_ENTITLEMENTS}), 
+																		(Set<String>)fflib_Match.eq(new Set<String>{SSSWConstants.UNIFIED_ENTITLEMENTS})
+																	)).thenReturn(entitlements);
 		MockUtility.Mocks.stopStubbing();
 
 		List<Case> caseList = ApplicationTestDataFactoryCase.getCases(1, true);
 		caseList[0].RecordTypeId = unifiedInvestigationRecordTypeId;
 		caseList[0].Type = SSSWConstants.INVESTIGATION;
+		caseList[0].EntitlementId = null;
 
+		Test.startTest();
 		new CaseMilestoneUtility().insertMilestones(caseList);
+		Test.stopTest();
 
+		System.assert(CaseMilestoneUtility.UNIFIED_ENTITLEMENT_ID != null, 'Should not be null');
 		System.assertEquals(CaseMilestoneUtility.UNIFIED_ENTITLEMENT_ID, caseList[0].EntitlementId, 'Should be set to the unified entitlement id');
 	}
 
 	/*
-		This test method tests the updates of the milestone for Unified Investigation cases. 
-		Note: The older logic is tested in the other methods using trigger runs
+		This test method focuses on testing the Unified Milestones only
 	*/
 	@IsTest
-	static void testUpdateMilestones() {
+	static void testUpdateUnifiedMilestones() {
 		List<Account> orgAaccounts = new List<Account>(ApplicationTestDataFactory.getAccounts(1, true));
 		SlaProcess sla = [SELECT Id, Name, IsActive, IsVersionDefault FROM SlaProcess WHERE IsVersionDefault = true AND Name =: SSSWConstants.UNIFIED_ENTITLEMENTS LIMIT 1 ];
 		List<Entitlement> entitlements = new List<Entitlement>(ApplicationTestDataFactory.getEntitlements(1, true,SSSWConstants.UNIFIED_ENTITLEMENTS,sla.Id,orgAaccounts[0].Id));
