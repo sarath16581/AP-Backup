@@ -30,9 +30,7 @@ public virtual inherited sharing class CaseMilestonesSelector extends Applicatio
 			CaseMilestone.CompletionDate,
 			CaseMilestone.StartDate,
 			CaseMilestone.TargetDate,
-			CaseMilestone.MilestoneTypeId,
-			CaseMilestone.ElapsedTimeInMins,
-			CaseMilestone.TargetResponseInMins
+			CaseMilestone.MilestoneTypeId
 		};
 	}
 

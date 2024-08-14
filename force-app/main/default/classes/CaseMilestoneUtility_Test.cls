@@ -21,6 +21,34 @@ private with sharing class CaseMilestoneUtility_Test {
 	private static final String ADMIN_PROFILE = 'System Administrator';
 	private static final String SSSW_AGENT_PROFILE = 'SSSW - Service Agent';
 	private static final String ENTITLEMENT_ACC = 'SSSW Entitlements';
+
+	@IsTest
+	static void testInitialisation() {
+		List<Account> orgAaccounts = new List<Account>(ApplicationTestDataFactory.getAccounts(1, true));
+		SlaProcess sla = [SELECT Id, Name, IsActive, IsVersionDefault FROM SlaProcess WHERE IsVersionDefault = true AND Name =: SSSWConstants.UNIFIED_ENTITLEMENTS LIMIT 1 ];
+		List<Entitlement> entitlements = new List<Entitlement>(ApplicationTestDataFactory.getEntitlements(1, true,SSSWConstants.UNIFIED_ENTITLEMENTS,sla.Id,orgAaccounts[0].Id));
+		EntitlementsSelector mockEntitlementSelector = (EntitlementsSelector)MockUtility.mockSelector(EntitlementsSelector.class);
+		RecordTypesSelector mockRecordTypesSelector = (RecordTypesSelector)MockUtility.mockSelector(RecordTypesSelector.class);
+		Id expectedRecordTypeId = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName().get(SSSWConstants.UNIFIED_INVESTIGATION_DEVELOPER_NAME).getRecordTypeId();
+		Map<Id, RecordType> expectedRecordTypeIds = new Map<Id, RecordType>{
+			expectedRecordTypeId => new RecordType(Id = expectedRecordTypeId, DeveloperName = SSSWConstants.UNIFIED_INVESTIGATION_DEVELOPER_NAME)
+		};
+		
+		MockUtility.Mocks.startStubbing();
+		MockUtility.Mocks.when(mockEntitlementSelector.selectByNameAndAccountName((Set<String>)fflib_Match.eq(new Set<String>{SSSWConstants.UNIFIED_ENTITLEMENTS}), (Set<String>)fflib_Match.eq(new Set<String>{SSSWConstants.UNIFIED_ENTITLEMENTS}))).thenReturn(entitlements);
+		MockUtility.Mocks.when(mockRecordTypesSelector.selectByDeveloperName(fflib_Match.eqString(String.valueOf(Case.getsObjectType())), (Set<String>)fflib_Match.eq(new Set<String>{SSSWConstants.UNIFIED_INVESTIGATION_DEVELOPER_NAME}))).thenReturn(expectedRecordTypeIds);
+		MockUtility.Mocks.stopStubbing();
+
+		Test.startTest();		
+		CaseMilestoneUtility.initialiseStaticVariables();
+		Test.stopTest();
+
+		((EntitlementsSelector)MockUtility.Mocks.verify(mockEntitlementSelector, MockUtility.Mocks.times(1))).selectByNameAndAccountName((Set<String>)fflib_Match.eq(new Set<String>{SSSWConstants.UNIFIED_ENTITLEMENTS}), (Set<String>)fflib_Match.eq(new Set<String>{SSSWConstants.UNIFIED_ENTITLEMENTS}));
+		System.assertEquals(entitlements[0].Id, CaseMilestoneUtility.UNIFIED_ENTITLEMENT_ID, 'should return the correct entitlement id');
+
+		((RecordTypesSelector)MockUtility.Mocks.verify(mockRecordTypesSelector, MockUtility.Mocks.times(1))).selectByDeveloperName((String)fflib_Match.eqString(SSSWConstants.UNIFIED_INVESTIGATION_DEVELOPER_NAME), (Set<String>)fflib_Match.eq(new Set<String>{SSSWConstants.UNIFIED_INVESTIGATION_DEVELOPER_NAME}));
+		System.assertEquals(CaseMilestoneUtility.unifiedRecordTypes.contains(expectedRecordTypeId), true, 'Should contain the expected record type id');
+	}	
 	
 	/**
 	  * @description	   This method tests scenario of associating entitlement to case to trigger milestones

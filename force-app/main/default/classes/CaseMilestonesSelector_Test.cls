@@ -44,6 +44,18 @@ private class CaseMilestonesSelector_Test {
 		soql = qb.toSoqlString();
 		System.assertEquals(true, Pattern.compile('(?ism)\\bfrom CaseMilestone\\b.*?IsViolated\\s*?=\\s*?true\\b').matcher(soql).find(), 'Resulting query did not filter IsViolated');
 		
+		qb = selector.newQueryBuilder(new Set<Object>{CaseMilestonesSelector.Options.FILTER_NOT_VIOLATED});
+		soql = qb.toSoqlString();
+		System.assertEquals(true, Pattern.compile('(?ism)\\bfrom CaseMilestone\\b.*?IsViolated\\s*?=\\s*?false\\b').matcher(soql).find(), 'Resulting query did not filter IsViolated');
+		
+		qb = selector.newQueryBuilder(new Set<Object>{CaseMilestonesSelector.Options.FILTER_COMPLETED});
+		soql = qb.toSoqlString();
+		System.assertEquals(true, Pattern.compile('(?ism)\\bfrom CaseMilestone\\b.*?IsCompleted\\s*?=\\s*?true\\b').matcher(soql).find(), 'Resulting query did not filter IsViolated');
+		
+		qb = selector.newQueryBuilder(new Set<Object>{CaseMilestonesSelector.Options.FILTER_NOT_COMPLETED});
+		soql = qb.toSoqlString();
+		System.assertEquals(true, Pattern.compile('(?ism)\\bfrom CaseMilestone\\b.*?IsCompleted\\s*?=\\s*?false\\b').matcher(soql).find(), 'Resulting query did not filter IsViolated');
+
 		Test.stopTest();
 	}
 

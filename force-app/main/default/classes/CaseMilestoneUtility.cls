@@ -32,7 +32,9 @@ public with sharing class CaseMilestoneUtility{
 	private static Set<Id> ssswRecTypes;	// SSSW record types
 	private static Set<String> closedStatus;				// set of closed case statuses
 	private static Id STD_ENTITLEMENT;  // sssw entitlement to be linked with case
+	@TestVisible
 	private static Id UNIFIED_ENTITLEMENT_ID; // Unifield Entitlement to be linked with case
+	@TestVisible
 	private static Set<Id> unifiedRecordTypes;
 	private final String GENERAL_ENQUIRY = 'General Enquiry';
 	private final String INVESTIGATION = 'Investigation';
@@ -56,21 +58,26 @@ public with sharing class CaseMilestoneUtility{
 			// Get the Record Type Id for BGS Service Delivery Cases
 			bgsRecTypes =  Utility.getRecordTypeIds(String.valueOf(Case.getsObjectType()), BGSConstants.SERVICE_DELIVERY_NAME);
 
-			List<Entitlement> entitlements = EntitlementsSelector.newInstance().selectByNameAndAccountName(new Set<String>{SSSWConstants.UNIFIED_ENTITLEMENTS}, new Set<String>{SSSWConstants.UNIFIED_ENTITLEMENTS});
-			if(entitlements.isEmpty() == false) {
-				UNIFIED_ENTITLEMENT_ID = entitlements[0].Id;
-			}
-
-			unifiedRecordTypes = new Set<Id>();
-			for(Id rtId: RecordTypesSelector.newInstance().selectByDeveloperName(String.valueOf(Case.getsObjectType()), new Set<String>{SSSWConstants.UNIFIED_INVESTIGATION_DEVELOPER_NAME}).keySet()) {
-				unifiedRecordTypes.add(rtId);
-			}
+			initialiseStaticVariables();
 		}
 		catch(Exception exp){
 			// Error Logged to Exception object for analysis
 			UTIL_LoggingService.logHandledException(exp, UserInfo.getOrganizationId(), SSSWConstants.SSSW_APP, 
 													CaseMilestoneUtility.class.getName(), SSSWConstants.STATIC_BLOCK, 
 													SSSWConstants.CASE_TRIGGER, LoggingLevel.ERROR);
+		}
+	}
+
+	@TestVisible
+	private static void initialiseStaticVariables() {
+		List<Entitlement> entitlements = EntitlementsSelector.newInstance().selectByNameAndAccountName(new Set<String>{SSSWConstants.UNIFIED_ENTITLEMENTS}, new Set<String>{SSSWConstants.UNIFIED_ENTITLEMENTS});
+		if(entitlements.isEmpty() == false) {
+			UNIFIED_ENTITLEMENT_ID = entitlements[0].Id;
+		}
+
+		unifiedRecordTypes = new Set<Id>();
+		for(Id rtId: RecordTypesSelector.newInstance().selectByDeveloperName(String.valueOf(Case.getsObjectType()), new Set<String>{SSSWConstants.UNIFIED_INVESTIGATION_DEVELOPER_NAME}).keySet()) {
+			unifiedRecordTypes.add(rtId);
 		}
 	}
 
@@ -142,7 +149,7 @@ public with sharing class CaseMilestoneUtility{
 				if(Utility.isValidRecordType(ssswRecTypes,csRec.RecordTypeId) && STD_ENTITLEMENT != null){  // verify if its SSSW recordtype
 					csRec.EntitlementId = STD_ENTITLEMENT;  // assign default entitlement to cases
 				}
-				else if(UNIFIED_ENTITLEMENT_ID != null && unifiedRecordTypes.contains(csRec.RecordTypeId) == true) {
+				else if(UNIFIED_ENTITLEMENT_ID != null && unifiedRecordTypes.contains(csRec.RecordTypeId) == true && csRec.Type == INVESTIGATION) {
 					csRec.EntitlementId = UNIFIED_ENTITLEMENT_ID; 
 				}
 				else if(Utility.isValidRecordType(bgsRecTypes, csRec.RecordTypeId) && (!originList.contains(csRec.Origin) || (originList.contains(csRec.Origin) && UserInfo.getUserId() != systemSupportUserId)))//only this condition modified for SMWD-312 - MW0004779
