@@ -275,7 +275,7 @@ public with sharing class ABNChangeController {
 							Database.SaveResult csvSaveResult = ApplicationDatabase.getInstance().dmlInsert(new List<SObject>{closeAllBAs.generateCloseAllBACsv()})[0];
 							if (csvSaveResult.isSuccess()) {
 								Id docId = ContentVersionsSelector.newInstance().selectById(new Set<Id>{csvSaveResult.getId()}).values()[0].ContentDocumentId;
-								Database.SaveResult docSaveResult = LinkContentDocument.linkContentDocument(new List<Id>{docId}, newDSRs[i].Id)[0];
+								Database.SaveResult docSaveResult = LinkContentDocument.generateContentDocumentLink(new List<Id>{docId}, newDSRs[i].Id)[0];
 								if (!docSaveResult.isSuccess()) {
 									throw new AuraHandledException('CSV generation failed while generating Close All Billing Account DSR: ' + docSaveResult.getErrors());
 								}
@@ -284,7 +284,7 @@ public with sharing class ABNChangeController {
 							}
 						}
 						// attach customer request documents on the DSR
-						LinkContentDocument.linkContentDocument(request.customerRequestDocumentIds, newDSRs[i].Id);
+						LinkContentDocument.generateContentDocumentLink(request.customerRequestDocumentIds, newDSRs[i].Id);
 					}
 				} else {
 					failedDSRTypes.add(dsrTypes[i]);

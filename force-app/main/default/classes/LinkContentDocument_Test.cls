@@ -34,7 +34,7 @@ public with sharing class LinkContentDocument_Test {
 		// Testing
 		// =====================================
 		Test.startTest();
-		List<Database.SaveResult> results = LinkContentDocument.linkContentDocument(new List<Id>{documentId}, accs[0].Id);
+		List<Database.SaveResult> results = LinkContentDocument.generateContentDocumentLink(new List<Id>{documentId}, accs[0].Id);
 		System.assert(results[0].isSuccess(), 'Expected success');
 		Test.stopTest();
 	}
