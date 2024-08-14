@@ -438,8 +438,6 @@ public with sharing class CaseMilestoneUtility{
 			List<Case> milestoneStoppedCases = new List<Case>();
 			List<Case> milestoneResumedCases = new List<Case>();
 
-			system.debug('>>> caseList:' + caseList);
-
 			for(Case csRec : caseList){
 				Case oldCase = oldMap.get(csRec.Id);	// get old values of case
 
