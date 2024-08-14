@@ -1,229 +1,304 @@
 /**************************************************
-Type:         Service class for managing revenue schedules associated with Salesforce Opportunities and their line items.
+Type: Service class for managing revenue schedules associated with Salesforce Opportunities and their line items.
+			 Extensively commented due to the complexity of the data object calculations and relationships.
 History:
 --------------------------------------------------
-2023-09-21    Ken McGuire - Created
+2023-09-21 Ken McGuire - Created
+2024-06-25 	Ken McGuire	- code cleanup, revenue sync fix
+2024-07-12 modify for line items of closed opportunities (major refactoring)
 **************************************************/
 public with sharing class ProductScheduleService {
+	/*
+		* Creates a new instance of the module to facilitate dependency injection for mocking
+		* @return the new instance
+		*/
+	public static ProductScheduleService newInstance() {
+		return (ProductScheduleService)Application.Utilities.newInstance(ProductScheduleService.class);
+	}
+	// Constants
+	public static final String MONTHLY_SCHEDULE_PREFIX = 'For';
+	public static final String CUSTOM_SUFFIX = '__c';
+ 
+	//A map of UID / grouped revenue schedule records that contains the sales schedule for opportunity line items
+	private Map<String,GroupedRevenueSchedule__c> groupedSchedules {
+		get {
+			if (groupedSchedules == null) {
+				groupedSchedules = new Map<String,GroupedRevenueSchedule__c>();
+			}
+			return groupedSchedules;
+		}
+		set;
+	}
+ 
+	/* provides a default allocation to use in revenue forecasts that is
+	* based on the days in each month (as opposed to seasonally adjusted for example)
+	*/
+	@testvisible
+	private Double[] defaultRevenueAllocation {
+		get {
+			if (defaultRevenueAllocation == null) {
+				defaultRevenueAllocation = new Double[12];
+				for (Integer m = 0; m < 12; m++) {
+					defaultRevenueAllocation[m] = (Double)Date.daysInMonth(2023, m+1)/365;
+				}
+			}
+			return defaultRevenueAllocation;
+		}
+		set;
+	}
 
-    public static ProductScheduleService newInstance() {
-        return (ProductScheduleService)Application.Utilities.newInstance(ProductScheduleService.class);
-    }
+	// The Revenue schedule data object srves as a junction object between
+	// a product line item and a grouped product revenue record.
+	// This service reference provides for requisite
+	// grouped product revenue record and associated line item operations.
+	public ProductRevenueService productRevenueServiceInstance {
+		get {
+			if (productRevenueServiceInstance == null) {
+				productRevenueServiceInstance = ProductRevenueService.newInstance();
+			}
+			return productRevenueServiceInstance;
+		}
+		set;
+	} 
+ 
 
-    public static final String MONTHLY_SCHEDULE_PREFIX = 'For';
-    public static final String CUSTOM_SUFFIX = '__c';
-    // A map of UID / grouped revenue records containing the incremental and retained revenues for account products.
-    @testVisible
-    private Map<String,GroupedAccountProductRevenue__c> groupedRevenues {
-        get {
-            if (groupedRevenues == null) {
-                groupedRevenues = new Map<String,GroupedAccountProductRevenue__c> ();
-            }
-            return groupedRevenues;
-        }
-        set;
-    }
+	/**
+	* Creates or updates revenue schedules for a given set of Opportunity IDs. 
+	* This is typically called when an opportunity is moved to closed won.
+	* @param opportunityIds A Set of Opportunity Ids to create or update schedules against. 
+	* @return List<GroupedRevenueSchedule__c> A list of 'GroupedRevenueSchedule__c' objects that have been created or updated 
+	* for the product line items of the provided Opportunity IDs. 
+	*/
+	public List<GroupedRevenueSchedule__c> createUpdateRevenueSchedules(Set<Id> opportunityIds, boolean resetRevenueAccountIds) {
+		// get the associated line items for the opportunities. This process will also load the opportunity information needed for business logic
+		List<OpportunityLineItem> items = productRevenueServiceInstance.getProductLineItemsForOpportunities(opportunityIds);
+		// reset all the relevant accounts used to calculate the grouped revenues and schedules.
+		// this record is an important state for audit purposes, should account heirarchy or related accounts change later
+		if (resetRevenueAccountIds==true) {
+			for (Id nextOpportunityId : opportunityIds) {
+				productRevenueServiceInstance.opportunityInfo.get(nextOpportunityId).RevenueCalculationAccountIDs__c = '';
+			}
+		}
+		// Each line item will have one schedule for each FY of the contract period (forecasted sales).
+		// Each of these schedules will have one grouped revenue record associated with it (actual sales) 
+		// retrieve exisitng or create new revenue records needed for the schedules, ensuring that they are current.
+		// The revenue records are lazy loaded into the groupedRevenues variable.
+		// The method returns a set of unique identifiers for each revenue based on accountId, productId and financial year. 
+		// One uid is needed for each product line item for each financial year.
+		// additional revenue records will be loaded for historical purposes used in calculating OPC classification 
+		// reCalculateGroupRevenuesForLineItems
+		Map<String, GroupedAccountProductRevenue__c> revenues = productRevenueServiceInstance.reCalculateGroupRevenuesForLineItems(items);
+		// The revenue records have been freshly re calculated, so update the product line item fields dependent on these records
+		// (1) update the product line item financials
+		productRevenueServiceInstance.reCalculateRetainedIncremental(items);
+		// (2) update the product line item classification 
+		productRevenueServiceInstance.calculateClassification(items,true);
+		// update or create the revenue schedules (sales forecast) for the opportunity line items.
+		// This process will also refresh the values of the associated revenue records (actual sales)
+		List<GroupedRevenueSchedule__c> results = createUpdateRevenueSchedules(items, revenues.keyset());
+		Map<String,String> opportunityAccountList = ProductRevenueServiceInstance.getOpportunityAccountList(ProductRevenueServiceInstance.opportunityInfo.values());
+		if (resetRevenueAccountIds==true) {
+			for (Opportunity opportunityToUpdate : ProductRevenueServiceInstance.opportunityInfo.values()) {
+				opportunityToUpdate.RevenueCalculationAccountIDs__c = opportunityAccountList.get(opportunityToUpdate.accountId);
+			}
+		}
+		return results;
+	}
+ 
+	// override where the need to reset the accounts used in the calculation is not specified, defaluting to false
+	public List<GroupedRevenueSchedule__c> createUpdateRevenueSchedules(Set<Id> opportunityIds) {
+		return createUpdateRevenueSchedules(opportunityIds,false);
+	}
+ 
+	/**
+	* Creates or updates revenue schedules for a given set of LineItem IDs.
+	* This is typically callled after inserting a new line item into an existing closed opportunity (edge case) 
+	* @param lineItemMap an opportunity line item map containing the line items against which schedules are to be created. 
+	* @return List<GroupedRevenueSchedule__c> A list of 'GroupedRevenueSchedule__c' objects 
+	* that have been created or updated for the product line items of the provided Opportunity IDs.
+	* This method also updates product revenues by way of the revenue service
+	* and updates financials and classification values of the lineitems passed in (by reference) 
+	*/
+	public List<GroupedRevenueSchedule__c> createUpdateRevenueSchedules(Map<id,OpportunityLineItem> lineItemMap) {
+		// retrieve exisitng or create new revenue records associated with the schedules from the product revenue service.
+		List<OpportunityLineItem> lineItems = productRevenueServiceInstance.getProductLineItems(lineItemMap.keyset());
+		Map<String,GroupedAccountProductRevenue__c> reCalculatedRevenues = productRevenueServiceInstance.reCalculateGroupRevenuesForLineItems(lineItems);
+		// The revenue records have been freshly re calculated, so update the product line item fields dependent on these records
+		// (1) update the product line item financials
+		productRevenueServiceInstance.reCalculateRetainedIncremental(lineItems);
+		// (2) update the product line item classification 
+		productRevenueServiceInstance.calculateClassification(lineItems,true);
+		// collect opportunityIds for the line items, they are needed in the calculations
+		Set<id> opportunityIds = new Set<id>();
+		for (OpportunityLineItem item: lineItems) {
+			OpportunityIds.add(item.opportunityid);
+		}
+		// Now that we have the product revenue records we need for the schedule we can
+		// create or update revenue schedules for the line items. The created or updated revenue record associated with
+		// each revenue schedule will be provided inside GroupedRevenueSchedule.GroupedAccountProductRevenue__r 
+		return createUpdateRevenueSchedules(lineItems, reCalculatedRevenues.keyset());
+	}
 
-    //A map of UID / grouped revenue schedule records that contains the sales schedule for opportunity line items
-    private Map<String,GroupedRevenueSchedule__c> groupedSchedules {
-        get {
-            if (groupedSchedules == null) {
-                groupedSchedules = new  Map<String,GroupedRevenueSchedule__c>();
-            }
-            return groupedSchedules;
-        }
-        set;
-    }
+	/**
+	* @description register related revenue and schedule data records with the UOW
+	* @param closedWonOppIds Set<Id> of the opportunities that have been closed won
+	* @param uow ApplicationUnitOfWork
+	*/
+	public static void registerDataForUpdateInsert(List<GroupedRevenueSchedule__c> schedules, ApplicationUnitOfWork uow) {
+		// newly created revenue schedules
+		List<GroupedRevenueSchedule__c> schedulesToInsert = new List<GroupedRevenueSchedule__c>();
+		// updated revenue schedules
+		List<GroupedRevenueSchedule__c> schedulesToUpdate = new List<GroupedRevenueSchedule__c>();
+		// new product revenue records
+		List<GroupedAccountProductRevenue__c> revenuesToInsert = new List<GroupedAccountProductRevenue__c>();
+		// updated product revenue records
+		List<GroupedAccountProductRevenue__c> revenuesToUpdate = new List<GroupedAccountProductRevenue__c>();
+		// updated line items
+		Map<id,OpportunityLineItem> itemsToUpdate = new Map<id,OpportunityLineItem>();
+		for (GroupedRevenueSchedule__c schedule : schedules) {
+			// schedules to be created or updated
+			if (schedule.Id == null) {
+				// record creation
+				schedulesToInsert.add(schedule);
+			}else {
+				// record update
+				schedulesToUpdate.add(schedule);
+			}
+			// revenue records associated with the schedules which are to be created or updated
+			if (schedule.GroupedAccountProductRevenue__r != null) {
+				if(schedule.GroupedAccountProductRevenue__r.Id == null) { 
+					// The Product Revenue record associated with this schedule does not exist yet.
+					// (1) register the relationship...
+					uow.registerRelationship(schedule, GroupedRevenueSchedule__c.GroupedAccountProductRevenue__c, schedule.GroupedAccountProductRevenue__r);
+					// (2) add the revenue record to the insert list, 
+					revenuesToInsert.add(schedule.GroupedAccountProductRevenue__r);
+				} else {
+					// revenue record associated with the schedule already exists, just update it. 
+					revenuesToUpdate.add(schedule.GroupedAccountProductRevenue__r);
+				}
+			}
+			if (schedule.opportunityProduct__r != null && !itemsToUpdate.containsKey(schedule.OpportunityProduct__r.id)) {
+				itemsToUpdate.put(schedule.OpportunityProduct__r.id,schedule.opportunityProduct__r);
+			}
+		}
+		// register new revenue records
+		if (!revenuesToInsert.isEmpty()) {
+			uow.registerNew(revenuesToInsert);
+		}
+		// register new schedules
+		if (!schedulesToInsert.isEmpty()) {
+			uow.registerNew(schedulesToInsert);
+		}
+		if (!revenuesToUpdate.isEmpty()) {
+			uow.registerDirty(revenuesToUpdate);
+		}
+		// register schedules to update
+		if (!schedulesToUpdate.isEmpty()) {
+			uow.registerDirty(schedulesToUpdate);
+		}
+		// register items to update
+		if (!itemsToUpdate.isEmpty()) {
+			uow.registerDirty(itemsToUpdate.values());
+		}
+	}
+ 
 
-    // The opportunity line items to create schedules against
-    private Map<Id,OpportunityLineItem> opportunityLineItems {
-        get {
-            if (opportunityLineItems == null) {
-                opportunityLineItems = new  Map<Id,OpportunityLineItem>();
-            }
-            return opportunityLineItems;
-        }
-        set;
-    }
+	/**
+	* Creates or updates all the revenue schedules (sales forecast) for a given list of opportunity line items.
+	* a pre-requisite for this private method is that the revenue records (actual sales) have previously been loaded (and are current)
+	* @param items List<OpportunityLineItem> the items to create or update schedules against
+	* @param uids Set<String> the uids that tie the revenue schedules to specific account revenue records and products for a given financial year.
+	* @return List<GroupedRevenueSchedule__c> The created or updated revenue schedules 
+	* for the product line items. these records include updated product revenue records via 
+	* the GroupedAccountProductRevenue__r relationship and items via the OpportunityProduct__r relationship
+	*/
+	private List<GroupedRevenueSchedule__c> createUpdateRevenueSchedules(List<OpportunityLineItem> items, Set<String> uids) {
+		// the records to be returned
+		List<GroupedRevenueSchedule__c> schedulesToCreateOrUpdate = new List<GroupedRevenueSchedule__c>();
 
-    @testVisible
-    private Double[] defaultRevenueAllocation {
-        get {
-            if (defaultRevenueAllocation == null) {
-                defaultRevenueAllocation = new Double[12];
-                for (Integer m = 0; m < 12; m++) {
-                    defaultRevenueAllocation[m] = (Double)Date.daysInMonth(2023, m+1)/365;
-                }
-            }
-            return defaultRevenueAllocation;
-        }
-        set;
-    }
-
-
-    /**
-     * Creates or updates revenue schedules for a given set of Opportunity IDs. 
-     * @param opportunityIds A Set of Opportunity Ids for which the revenue schedules need to be created or updated. 
-     * @return List<GroupedRevenueSchedule__c> A list of 'GroupedRevenueSchedule__c' objects that have been created or updated 
-     *         for the product line items of the provided Opportunity IDs. 
-     */
-    public List<GroupedRevenueSchedule__c> createUpdateRevenueSchedules(Set<Id> opportunityIds) {
-        // get the associated line items and create the grouped schedules for each of them
-        List<OpportunityLineItem> items = loadProductLineItems(opportunityIds);
-        // retrieve the revenue records for the schedule to look up to
-        Set<String> uids = getCreateGroupedRevenues(items);
-        // ensure all opportunity items have revenue schedule records
-        return createUpdateRevenueSchedules(items, uids);
-    }
-
-    /**
-	  * Creates or updates revenue schedules for a given list of opportunity line items.
-	  * @param items List<OpportunityLineItem>
-	  * @param uids Set<String>
-	  * @return List<GroupedRevenueSchedule__c> A list of 'GroupedRevenueSchedule__c' objects that have been created or updated
-	  *         for the product line items of the provided Opportunity IDs.
-	  */
-    private List<GroupedRevenueSchedule__c>  createUpdateRevenueSchedules(List<OpportunityLineItem> items, Set<String> uids) {
-        // contains the new grouped revenue schedules to insert
-        List<GroupedRevenueSchedule__c> schedulesToCreateOrUpdate = new List<GroupedRevenueSchedule__c>();
-        // load any existing schedules for the line items
-        // first grab the opportunity line item ids in question
-        Set<String> oppLineItemIds = new Set<String>();
-        for (OpportunityLineItem item : items) {
-            oppLineItemIds.add(item.Id);
-        }
-        loadGroupedRevenueSchedules(oppLineItemIds);
-        // create or modify revenue schedules
-        ProductRevenueService prodRevService = ProductRevenueService.newInstance();
-        prodRevService.loadGroupedProductRevenues(uids);
-        for (OpportunityLineItem nextItem : opportunityLineItems.values()) {
-            RevenueScheduleCalculator calculator = new RevenueScheduleCalculator(nextItem.Contract_Start_Date__c,nextItem.Contract_End_Date__c,defaultRevenueAllocation);
-            for (Integer financialYear = calculator.financialYearStart; financialYear <= calculator.financialYearEnd; financialYear++) {
-                // obtain revenue schedule record for the year
-                String scheduleUid = getUID(nextItem.Id, String.valueOf(financialYear));
-                Double nrtBaseline = prodRevService.getPastMonthsAverage(nextItem.Opportunity.AccountId, nextItem.Product2.Id, 3, nextItem.Contract_Start_Date__c);
-                GroupedRevenueSchedule__c scheduleToCalculate = groupedSchedules.containsKey(scheduleUid) ? groupedSchedules.get(scheduleUid) : new GroupedRevenueSchedule__c(OpportunityProduct__c = nextItem.Id, Opportunity__c = nextItem.OpportunityId, NRTBaseline__c = nrtBaseline);
-                if (scheduleToCalculate.GroupedAccountProductRevenue__c == null) {
-                    // link a revenue record to the schedule
-                    String revenueUid = ProductRevenueService.getUID(nextItem.Opportunity.AccountId, nextItem.Product2.Id, String.valueOf(financialYear));
-                    GroupedAccountProductRevenue__c revenue = groupedRevenues.get(revenueUid);
-                    if (revenue == null) {
-                        scheduleToCalculate.GroupedAccountProductRevenue__r = new GroupedAccountProductRevenue__c(AnchorOrganisation__c = nextItem.Opportunity.AccountId, PrimaryProduct__c = nextItem.Product2.Id, FinancialYear__c = financialYear, UID__c = revenueUid);
-                    } else {
-                        scheduleToCalculate.GroupedAccountProductRevenue__c = revenue.Id;
-                        scheduleToCalculate.GroupedAccountProductRevenue__r = revenue;
-                    }
-                }
-                // recalculate the schedule
-                calculator.recalculateScheduleByReference(scheduleToCalculate);
-                schedulesToCreateOrUpdate.add(scheduleToCalculate);
-            }
-        }
-        return schedulesToCreateOrUpdate;
-    }
-
-    /**
-     * Retrieves and creates Revenue Records for a list of Opportunity Line Items
-     * ensuring that every schedule has a corresponding Revenue Record. 
-     * @param items A List of `OpportunityLineItem` objects for which the Grouped Revenue Records need to be created or retrieved.
-     * @return Set<String> uids
-     */
-    private Set<String> getCreateGroupedRevenues(List<OpportunityLineItem> items) {
-        // retrieve any existing grouped account product revenue records so the schedules can link to them.
-        Set<String> uids = new Set<String>();
-        Date revenueCalculationContextDate = System.today();
-        for (OpportunityLineItem nextItem : opportunityLineItems.values()) {
-            Date targetDate = nextItem.Contract_Start_Date__c < revenueCalculationContextDate ? nextItem.Contract_Start_Date__c : revenueCalculationContextDate;
-            Integer startYear = targetDate.month() - 1 >= 7 ? targetDate.year() + 1 : targetDate.year();
-            Integer endYear = nextItem.Contract_End_Date__c.month() >= 7 ? nextItem.Contract_End_Date__c.year() + 1 : nextItem.Contract_End_Date__c.year();
-            for (Integer year = startYear; year <= endYear; year++) {
-                String uid = ProductRevenueService.getUID(nextItem.Opportunity.AccountId, nextItem.Product2.Id, String.valueOf(year));
-                if (!groupedRevenues.containsKey(uid)) {
-                    // create a new placeholder revenue record. This will be replaced with any existing records once loaded.
-                    GroupedAccountProductRevenue__c revenueRecord = new GroupedAccountProductRevenue__c(AnchorOrganisation__c = nextItem.Opportunity.AccountId, PrimaryProduct__c = nextItem.Product2.Id, FinancialYear__c = year, UID__c = uid);
-                    groupedRevenues.put(uid, revenueRecord);
-                }
-                uids.add(uid);
-            }
-        }
-        loadGroupedProductRevenues(uids);
-        return uids;
-    }
-
-    /**
-     * Loads existing Grouped Revenue Schedule records associated with specified Opportunity Line Item IDs. te.
-     * @param oppLineItemIds A Set of Opportunity Line Item IDs for which Grouped Revenue Schedules need to be loaded.
-     * @return Map<String,GroupedRevenueSchedule__c> A map of loaded Grouped Revenue Schedule records keyed by their 
-     *         associated Opportunity Line Item IDs. This map can be used for further processing in revenue schedule calculations.
-     */
-    private Map<String,GroupedRevenueSchedule__c> loadGroupedRevenueSchedules(Set<String> oppLineItemIds) {
-        Set<String> unloadedIds = new Set<String>();
-        for (String oppLineItemId : oppLineItemIds) {
-            if (!groupedSchedules.containsKey(oppLineItemId)) {
-                unloadedIds.add(oppLineItemId);
-                groupedSchedules.put(oppLineItemId,null);
-            }
-        }
-        Map<String,GroupedRevenueSchedule__c> newlyLoadedRecords = new Map<String,GroupedRevenueSchedule__c>();
-
-        if(unloadedIds.isEmpty()) {
-            return newlyLoadedRecords;
-        }
-
-        List<GroupedRevenueSchedule__c> additionalRevenueSchedules = GroupedRevenueScheduleSelector.newInstance().selectByOpportunityProductIds(unloadedIds,null);
-
-        if (additionalRevenueSchedules == null) {
-            return newlyLoadedRecords;
-        }
-        for (GroupedRevenueSchedule__c groupedSchedule : additionalRevenueSchedules) {
-            groupedSchedules.put(getUID(groupedSchedule.OpportunityProduct__c, String.valueOf(groupedSchedule.Year__c)), groupedSchedule);
-            newlyLoadedRecords.put(getUID(groupedSchedule.OpportunityProduct__c, String.valueOf(groupedSchedule.Year__c)), groupedSchedule);
-        }
-        return newlyLoadedRecords;
-    }
-
-    /**
-    * Retrieves Opportunity Line Items associated with a set of Opportunity IDs. 
-    * @param opportunityIds A Set of Opportunity IDs for which the Opportunity Line Items are to be loaded.
-    * @return List<OpportunityLineItem> A list of loaded Opportunity Line Items associated with the provided Opportunity IDs. 
-    **/
-    private List<OpportunityLineItem> loadProductLineItems(Set<Id> opportunityIds) {
-
-        Map<SObjectType, Set<SObjectField>> fieldOverrides = new Map<SObjectType, Set<SObjectField>>{
-                OpportunityLineItem.SObjectType => new Set<SObjectField>{OpportunityLineItem.Id, OpportunityLineItem.Name,OpportunityLineItem.Quantity, OpportunityLineItem.Contract_Start_Date__c, OpportunityLineItem.Contract_End_Date__c,OpportunityLineItem.UnitPrice, OpportunityLineItem.TotalPrice, OpportunityLineItem.Annualised_Value__c, OpportunityLineItem.RetainedRevenue__c,OpportunityLineItem.IncrementalRevenue__c, OpportunityLineItem.TweleveMonthRevenue__c},
-                Product2.SObjectType => new Set<SObjectField>{Product2.Name},
-                Opportunity.SObjectType => new Set<SObjectField>{Opportunity.Name,Opportunity.AccountId,Opportunity.Id}
-        };
-
-        List<OpportunityLineItem> loadedItems = OpportunityLineItemSelector.newInstance(0, fieldOverrides).selectByOpportunity(opportunityIds, new Set<Object>{OpportunityLineItemSelector.Options.WITH_OPPORTUNITY, OpportunityLineItemSelector.Options.WITH_PRODUCT});
-        for (OpportunityLineItem item : loadedItems) {
-            opportunityLineItems.put(item.Id, item);
-        }
-        return loadedItems;
-    }
+		// collect relevant line item ids for the schedules
+		Set<id> oppLineItemIds = new Set<id>();
+		for (OpportunityLineItem item : items) {
+			oppLineItemIds.add(item.id);
+		}
+		// load the schedules from the database
+		loadGroupedRevenueSchedules(oppLineItemIds);
+		// create or modify revenue schedules
+		//productRevenueServiceInstance.loadGroupedProductRevenues(uids);
+		// create the requisite schedules (forecast) for each line item, including the link to the revenue records (actual sales)
+		for (OpportunityLineItem nextItem : items) {
+			Opportunity oppInfo = productRevenueServiceInstance.opportunityInfo.get(nextItem.opportunityId);
+			// create a calculator (helper) instance for this line item. The helper distributes the line item value across the monthy forecast in the schedules
+			RevenueScheduleCalculator calculator = new RevenueScheduleCalculator(nextItem.Contract_Start_Date__c,nextItem.Contract_End_Date__c,defaultRevenueAllocation);
+			// the revenue records should be up to date or refreshed for this value to be current.
+			Double nrtBaseline = productRevenueServiceInstance.getPastMonthsAverage(oppInfo.AccountId, nextItem.Product2Id, 3, nextItem.Contract_Start_Date__c);
+			for (Integer financialYear = calculator.financialYearStart; financialYear <= calculator.financialYearEnd; financialYear++) {
+				// obtain revenue schedule record for the year
+				String scheduleUid = getUID(nextItem.Id, String.valueOf(financialYear));
+				GroupedRevenueSchedule__c scheduleToCalculate = groupedSchedules.containsKey(scheduleUid) ? groupedSchedules.get(scheduleUid) : new GroupedRevenueSchedule__c(OpportunityProduct__c = nextItem.Id, Opportunity__c = nextItem.OpportunityId, NRTBaseline__c = nrtBaseline);
+				if (scheduleToCalculate.GroupedAccountProductRevenue__c == null) {
+					// link a revenue record to the schedule
+					String revenueUid = ProductRevenueService.getUID(oppInfo.AccountId, nextItem.Product2Id, String.valueOf(financialYear));
+					GroupedAccountProductRevenue__c revenue = productRevenueServiceInstance.groupedRevenues.get(revenueUid);
+					if (revenue == null) {
+						scheduleToCalculate.GroupedAccountProductRevenue__r = new GroupedAccountProductRevenue__c(AnchorOrganisation__c = oppInfo.AccountId, PrimaryProduct__c = nextItem.Product2Id, FinancialYear__c = financialYear, UID__c = revenueUid);
+					} else {
+						// if a new revenue record has been created, the revenue.id will be null;
+						scheduleToCalculate.GroupedAccountProductRevenue__c = revenue.Id;
+						scheduleToCalculate.GroupedAccountProductRevenue__r = revenue;
+					}
+				}
+				// recalculate the schedule. This calculation only depends on the value of the line item, not its sales history.
+				calculator.recalculateScheduleByReference(scheduleToCalculate);
+				// assign the line item
+				scheduleToCalculate.OpportunityProduct__r=nextItem;
+				schedulesToCreateOrUpdate.Add(scheduleToCalculate);
+			}
+		}
+		return schedulesToCreateOrUpdate;
+	}
 
 
-    /**
-     * Loads existing Grouped Product Revenue records 
-     * @param uids A Set of String UIDs used to identify and load the relevant `GroupedAccountProductRevenue__c` records.
-     * @return void 
-     */
-    private void loadGroupedProductRevenues(Set<String> uids) {
-        Map<Id, GroupedAccountProductRevenue__c> additionalGroupedRevenues = GroupedAccountProductRevenueSelector.newInstance().selectByUniqueIds(uids);
-        if (additionalGroupedRevenues == null) {
-            return;
-        }
-        for (GroupedAccountProductRevenue__c groupedRevenue : additionalGroupedRevenues.values()) {
-            groupedRevenues.put(groupedRevenue.UID__c, groupedRevenue);
-        }
-    }
+	/**
+	* Loads existing Grouped Revenue Schedule records associated with specified Opportunity Line Item IDs. te.
+	* @param oppLineItemIds A Set of Opportunity Line Item IDs for which Grouped Revenue Schedules need to be loaded.
+	* @return Map<String,GroupedRevenueSchedule__c> A map of loaded Grouped Revenue Schedule records keyed by their 
+	* associated Opportunity Line Item IDs. This map can be used for further processing in revenue schedule calculations.
+	*/
+	private Map<String,GroupedRevenueSchedule__c> loadGroupedRevenueSchedules(Set<id> oppLineItemIds) {
+		Set<String> unloadedIds = new Set<String>();
+		for (String oppLineItemId : oppLineItemIds) {
+			if (!groupedSchedules.containsKey(oppLineItemId)) {
+				unloadedIds.add(oppLineItemId);
+				groupedSchedules.put(oppLineItemId,null);
+			}
+		}
+		Map<String,GroupedRevenueSchedule__c> newlyLoadedRecords = new Map<String,GroupedRevenueSchedule__c>();
 
-    // Constructs a UID for Grouped Revenue Records based on account, product and financial year of the record.
-    private static String getUID(String oppProductId, String financialYear) {
-        return oppProductId + financialYear;
-    }
+		if(unloadedIds.isEmpty()) {
+			return newlyLoadedRecords;
+		}
 
-    /**
+		List<GroupedRevenueSchedule__c> additionalRevenueSchedules = GroupedRevenueScheduleSelector.newInstance().selectByOpportunityProductIds(unloadedIds,null);
+
+		if (additionalRevenueSchedules == null) {
+			return newlyLoadedRecords;
+		}
+		for (GroupedRevenueSchedule__c groupedSchedule : additionalRevenueSchedules) {
+			groupedSchedules.put(getUID(groupedSchedule.OpportunityProduct__c, String.valueOf(groupedSchedule.Year__c)), groupedSchedule);
+			newlyLoadedRecords.put(getUID(groupedSchedule.OpportunityProduct__c, String.valueOf(groupedSchedule.Year__c)), groupedSchedule);
+		}
+		return newlyLoadedRecords;
+	}
+
+
+
+	// Constructs a UID for Grouped Revenue Records based on account, product and financial year of the record.
+	private static String getUID(String oppProductId, String financialYear) {
+		return oppProductId + financialYear;
+	}
+
+	/**
 	* Inner class designed for calculating revenue schedules based on Opportunity Line Item details.
 	* Key functionalities include:
 	* - Calculating the start and end of the financial years based on contract dates.
@@ -231,83 +306,83 @@ public with sharing class ProductScheduleService {
 	* - Adjusting revenue allocation based on the contract's start and end months.
 	* - Providing a method to recalculate revenue schedules for a given Grouped Revenue Schedule record.
 	*/
-    @testVisible
-    private class RevenueScheduleCalculator {
-        public Integer financialYearStart {get; private set;}
-        Integer calendarYearStart;
-        Integer startMonth;
-        public Integer financialYearEnd  {get; private set;}
-        Integer calendarYearEnd;
-        Integer endMonth;
-        Double startMonthAllocation;
-        Double endMonthAllocation;
-        Double totalAllocation;
-        Double[] revenueAllocation;
+	@testVisible
+	private class RevenueScheduleCalculator {
+		public Integer financialYearStart {get; private set;}
+		Integer calendarYearStart;
+		Integer startMonth;
+		public Integer financialYearEnd {get; private set;}
+		Integer calendarYearEnd;
+		Integer endMonth;
+		Double startMonthAllocation;
+		Double endMonthAllocation;
+		Double totalAllocation;
+		Double[] revenueAllocation;
 
-        public  RevenueScheduleCalculator(Date startDate, Date endDate, Double[] revenueAllocation) {
-            this.revenueAllocation = revenueAllocation;
-            calculateValues(startDate,endDate);
-        }
+		public RevenueScheduleCalculator(Date startDate, Date endDate, Double[] revenueAllocation) {
+			this.revenueAllocation = revenueAllocation;
+			calculateValues(startDate,endDate);
+		}
 
-        public void recalculateScheduleByReference(GroupedRevenueSchedule__c schedule) {
-            Integer calendarYear = (Integer)schedule.GroupedAccountProductRevenue__r.FinancialYear__c;
-            for (Integer month = 1; month <=12; month++) {
-                Double monthRevenueAllocation = 0;
-                if (month == 7) {
-                    calendarYear = calendarYear -1;
-                }
-                if (month == startMonth && calendarYear == calendarYearStart) {
-                    monthRevenueAllocation = startMonthAllocation/totalAllocation;
-                }
-                else if(month == endMonth && calendarYear == calendarYearEnd) {
-                    monthRevenueAllocation = endMonthAllocation/totalAllocation;
-                }
-                else if (isYearMonthInRange(calendarYear,month)) {
-                    monthRevenueAllocation = revenueAllocation[month-1]/totalAllocation;
-                } else {
-                    monthRevenueAllocation =0;
-                }
-                schedule.put(MONTHLY_SCHEDULE_PREFIX+String.valueOf(month)+CUSTOM_SUFFIX,monthRevenueAllocation*100);
-            }
-        }
+		public void recalculateScheduleByReference(GroupedRevenueSchedule__c schedule) {
+			Integer calendarYear = (Integer)schedule.GroupedAccountProductRevenue__r.FinancialYear__c;
+			for (Integer month = 1; month <=12; month++) {
+				Double monthRevenueAllocation = 0;
+				if (month == 7) {
+					calendarYear = calendarYear -1;
+				}
+				if (month == startMonth && calendarYear == calendarYearStart) {
+					monthRevenueAllocation = startMonthAllocation/totalAllocation;
+				}
+				else if(month == endMonth && calendarYear == calendarYearEnd) {
+					monthRevenueAllocation = endMonthAllocation/totalAllocation;
+				}
+				else if (isYearMonthInRange(calendarYear,month)) {
+					monthRevenueAllocation = revenueAllocation[month-1]/totalAllocation;
+				} else {
+					monthRevenueAllocation =0;
+				}
+				schedule.put(MONTHLY_SCHEDULE_PREFIX+String.valueOf(month)+CUSTOM_SUFFIX,monthRevenueAllocation*100);
+			}
+		}
 
-        private void calculateValues(Date startDate, Date endDate) {
-            calendarYearStart = startDate.year();
-            startMonth = startDate.month();
-            financialYearStart = startMonth >= 7 ? calendarYearStart + 1 : calendarYearStart;
-            Integer startDay = startDate.day();
-            calendarYearEnd = endDate.year();
-            endMonth = endDate.month();
-            financialYearEnd = endMonth >= 7 ? calendarYearEnd + 1 : calendarYearEnd;
-            Integer endDay = endDate.day();
-            Integer totalWholeMonths =  startDate.monthsBetween(endDate);
+		private void calculateValues(Date startDate, Date endDate) {
+			calendarYearStart = startDate.year();
+			startMonth = startDate.month();
+			financialYearStart = startMonth >= 7 ? calendarYearStart + 1 : calendarYearStart;
+			Integer startDay = startDate.day();
+			calendarYearEnd = endDate.year();
+			endMonth = endDate.month();
+			financialYearEnd = endMonth >= 7 ? calendarYearEnd + 1 : calendarYearEnd;
+			Integer endDay = endDate.day();
+			Integer totalWholeMonths = startDate.monthsBetween(endDate);
 
 
-            totalAllocation = 0;
-            // calculate startMonth proportion based on number of days remaining in that month 
-            startMonthAllocation = (1-startDay/(Decimal)Date.daysInMonth(calendarYearStart,startMonth)) * revenueAllocation[startMonth-1];
-            // calculate allocations for whole months
-            totalAllocation += startMonthAllocation;
-            Integer targetMonth = startMonth;
+			totalAllocation = 0;
+			// calculate startMonth proportion based on number of days remaining in that month 
+			startMonthAllocation = (1-startDay/(Decimal)Date.daysInMonth(calendarYearStart,startMonth)) * revenueAllocation[startMonth-1];
+			// calculate allocations for whole months
+			totalAllocation += startMonthAllocation;
+			Integer targetMonth = startMonth;
 
-            for (Integer i = 1; i < totalWholeMonths; i++) {
-                targetMonth = targetMonth+1;
-                // adjust target month and financial year.
-                if (targetMonth == 13) {
-                    targetMonth = 1;
-                }
-                totalAllocation += revenueAllocation[targetMonth-1];
-            }
-            // calculate end month allocation based on number of days transpired in that month
-            endMonthAllocation = endDay/(Decimal)Date.daysInMonth(calendarYearEnd,endMonth) * revenueAllocation[endMonth-1];
-            totalAllocation += endMonthAllocation;
-        }
-        @testVisible
-        private Boolean isYearMonthInRange(Integer givenYear, Integer givenMonth) {
-            Integer startYearMonth = calendarYearStart * 12 + startMonth;
-            Integer endYearMonth = calendarYearEnd * 12 + endMonth;
-            Integer givenYearMonth = givenYear * 12 + givenMonth;
-            return givenYearMonth >= startYearMonth && givenYearMonth <= endYearMonth;
-        }
-    }
+			for (Integer i = 1; i < totalWholeMonths; i++) {
+				targetMonth = targetMonth+1;
+				// adjust target month and financial year.
+				if (targetMonth == 13) {
+					targetMonth = 1;
+				}
+				totalAllocation += revenueAllocation[targetMonth-1];
+			}
+			// calculate end month allocation based on number of days transpired in that month
+			endMonthAllocation = endDay/(Decimal)Date.daysInMonth(calendarYearEnd,endMonth) * revenueAllocation[endMonth-1];
+			totalAllocation += endMonthAllocation;
+		}
+		@testVisible
+		private Boolean isYearMonthInRange(Integer givenYear, Integer givenMonth) {
+			Integer startYearMonth = calendarYearStart * 12 + startMonth;
+			Integer endYearMonth = calendarYearEnd * 12 + endMonth;
+			Integer givenYearMonth = givenYear * 12 + givenMonth;
+			return givenYearMonth >= startYearMonth && givenYearMonth <= endYearMonth;
+		}
+	}
 }
