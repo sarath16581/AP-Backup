@@ -157,14 +157,8 @@ export default class UnifiedCustomerSearchForm extends LightningElement {
 		return this._organisationAccountId;
 	}
 	set organisationAccountId(value) {
-		if (value) {
-			this.organisationCheckbox = true;
-			this.consumerCheckbox = false;
-			this._organisationAccountId = value;
-		}else{
-			this.organisationCheckbox = false;
-			this.consumerCheckbox = true;
-		}
+		this._organisationAccountId = value;
+
 	}
 
 	/**
@@ -178,14 +172,41 @@ export default class UnifiedCustomerSearchForm extends LightningElement {
 		this._addressOverride = value;
 	}
 
+	/**
+	 * The value of the 'Customer Type' field on the form
+	 * @type {string|null}
+	 */
+	@api get customerType() {
+		if (this.consumerCheckbox === true) {
+			return CUSTOMER_TYPE_CONSUMER;
+		} else if (this.organisationCheckbox === true) {
+			return CUSTOMER_TYPE_ORGANISATION;
+		}
+		return null;
+	}
+	set customerType(value){
+		this._customerType = value;
+		if (this._customerType === CUSTOMER_TYPE_CONSUMER) {
+			this.consumerCheckbox = true;
+			this.organisationCheckbox = false;
+		} else if (this._customerType === CUSTOMER_TYPE_ORGANISATION) {
+			this.consumerCheckbox = false;
+			this.organisationCheckbox = true;
+		} else if (this._customerType === null) {
+			this.consumerCheckbox = false;
+			this.organisationCheckbox = false;
+		}
+	}
+
 	// Private variables for input fields, used with public getters/setters
 	_firstName = '';
 	_lastName = '';
 	_phoneNumber = '';
 	_emailAddress = '';
 	_addressObj = {};
-	_organisationAccountId = null;
+	_organisationAccountId = undefined;
 	_addressOverride = false;
+	_customerType = null;
 	// Private variables for input fields (with no public getters/setters)
 	organisationCheckbox = false;
 	consumerCheckbox = false;
@@ -194,22 +215,26 @@ export default class UnifiedCustomerSearchForm extends LightningElement {
 	includeEmailAddress = true;
 	showAddress = true;
 
+	get organisationCheckbox(){
+		return this.customerType === CUSTOMER_TYPE_ORGANISATION;
+	}
+	set organisationCheckbox(value){
+		this.organisationCheckbox = value;
+	}
+
+	get consumerCheckbox(){
+		return this.customerType === CUSTOMER_TYPE_CONSUMER;
+	}
+	set consumerCheckbox(value) {
+		this.consumerCheckbox = value;
+	}
+
 	get ignorePhoneNumber() {
 		return !this.includePhoneNumber;
 	}
 
 	get ignoreEmailAddress() {
 		return !this.includeEmailAddress;
-	}
-
-	get customerType() {
-		if (this.consumerCheckbox === true) {
-			return CUSTOMER_TYPE_CONSUMER;
-		}
-		if (this.organisationCheckbox === true) {
-			return CUSTOMER_TYPE_ORGANISATION;
-		}
-		return null;
 	}
 
 	get showOrganisationSection() {
@@ -441,6 +466,11 @@ export default class UnifiedCustomerSearchForm extends LightningElement {
 		}
 		// store the field value based on the `name` attribute
 		this[fieldName] = fieldValue;
+
+		// reset selected organisation when a consumer checkbox is ticked
+		if (this.consumerCheckbox === true){
+			this._organisationAccountId = undefined;
+		}
 	}
 
 	/**
@@ -450,13 +480,14 @@ export default class UnifiedCustomerSearchForm extends LightningElement {
 	@api
 	getFormInputs() {
 		return {
-			firstName: this._firstName,
-			lastName: this._lastName,
-			phoneNumber: this._phoneNumber,
-			emailAddress: this._emailAddress,
-			addressObj: this._addressObj,
-			organisationAccountId: this._organisationAccountId,
-			addressOverride: this._addressOverride
+			firstName: this.firstName,
+			lastName: this.lastName,
+			phoneNumber: this.phoneNumber,
+			emailAddress: this.emailAddress,
+			addressObj: this.addressObj,
+			organisationAccountId: this.organisationAccountId,
+			addressOverride: this.addressOverride,
+			customerType: this.customerType
 		};
 	}
 
@@ -490,5 +521,17 @@ export default class UnifiedCustomerSearchForm extends LightningElement {
 	 */
 	handleSearchBtnClick() {
 		this.performSearch();
+	}
+
+	get ameDefaultAddress(){
+		return this.addressOverride === true ? this.addressObj : undefined;
+	}
+
+	get ameSearchTerm(){
+		return this.addressOverride === false ? this.addressObj.address : undefined;
+	}
+
+	get ameSupportAutoSearchOnLoad() {
+		return this.addressOverride === false;
 	}
 }

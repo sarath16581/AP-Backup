@@ -180,27 +180,16 @@
 
 			<!-- Address Lookup -->
 			<div class="slds-col slds-size_1-of-1 slds-large-size_1-of-1">
-				<template lwc:if={addressOverride}>
-					<c-ame-address-validation2
-							if:true={showAddress}
-							data-field-name="addressObj"
-							oneditaddress={handleInputChange}
-							onselectaddress={handleInputChange}
-							onkeyup={handleInputKeyUp}
-							default-address={addressObj}
-					></c-ame-address-validation2>
-				</template>
-				<template lwc:else>
-					<c-ame-address-validation2
-							if:true={showAddress}
-							data-field-name="addressObj"
-							oneditaddress={handleInputChange}
-							onselectaddress={handleInputChange}
-							onkeyup={handleInputKeyUp}
-							search-term={addressObj.address}
-							supports-auto-search-on-load="true"
-					></c-ame-address-validation2>
-				</template>
+				<c-ame-address-validation2
+						if:true={showAddress}
+						data-field-name="addressObj"
+						oneditaddress={handleInputChange}
+						onselectaddress={handleInputChange}
+						onkeyup={handleInputKeyUp}
+						default-address={ameDefaultAddress}
+						search-term={ameSearchTerm}
+						supports-auto-search-on-load={ameSupportAutoSearchOnLoad}
+				></c-ame-address-validation2>
 			</div>
 		</div>
 

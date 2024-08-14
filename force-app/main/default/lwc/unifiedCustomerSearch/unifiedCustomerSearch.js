@@ -72,7 +72,6 @@ export default class UnifiedCustomerSearch extends LightningElement {
 		const customerSearchFormInputs = this.template.querySelector('c-unified-customer-search-form');
 		if (customerSearchFormInputs) {
 			const searchFormInputs = customerSearchFormInputs.getFormInputs();
-			this.resetFormInputs();
 			this.formInputs = {
 				firstName: searchFormInputs.firstName,
 				lastName: searchFormInputs.lastName,
@@ -80,7 +79,8 @@ export default class UnifiedCustomerSearch extends LightningElement {
 				emailAddress: searchFormInputs.emailAddress,
 				addressObj: searchFormInputs.addressObj,
 				organisationAccountId: searchFormInputs.organisationAccountId,
-				addressOverride: searchFormInputs.addressOverride
+				addressOverride: searchFormInputs.addressOverride,
+				customerType: searchFormInputs.customerType
 			}
 		}
 	}
@@ -95,7 +95,6 @@ export default class UnifiedCustomerSearch extends LightningElement {
 		const customerCreationFormInputs = this.template.querySelector('c-unified-customer-creation');
 		if (customerCreationFormInputs) {
 			const creationFormInputs = customerCreationFormInputs.getFormInputs();
-			this.resetFormInputs();
 			this.formInputs = {
 				firstName: creationFormInputs.firstName,
 				lastName: creationFormInputs.lastName,
@@ -103,15 +102,10 @@ export default class UnifiedCustomerSearch extends LightningElement {
 				emailAddress: creationFormInputs.emailAddress,
 				addressObj: creationFormInputs.addressObj,
 				organisationAccountId: creationFormInputs.organisationAccountId,
-				addressOverride: creationFormInputs.addressOverride
+				addressOverride: creationFormInputs.addressOverride,
+				customerType: creationFormInputs.customerType
 			}
 		}
 	}
 
-	/**
-	 * Reset formInputs object
-	 */
-	resetFormInputs(){
-		this.formInputs = undefined;
-	}
 }

@@ -138,11 +138,7 @@ export default class UnifiedCustomerCreation extends LightningElement {
 		return this._organisationAccountId;
 	}
 	set organisationAccountId(value) {
-		if (value){
-			this.customerTypeOrganisationRadioBtnValue = CUSTOMER_TYPE_ORGANISATION;
-			this.customerTypeConsumerRadioBtnValue = undefined;
-			this._organisationAccountId = value;
-		}
+		this._organisationAccountId = value;
 	}
 
 	/**
@@ -154,6 +150,27 @@ export default class UnifiedCustomerCreation extends LightningElement {
 	}
 	set addressOverride(value){
 		this._addressOverride = value;
+	}
+
+	/**
+	 * The value of the 'Customer Type' field on the form
+	 * @type {string|null}
+	 */
+	@api get customerType() {
+		return this._customerType;
+	}
+	set customerType(value){
+		this._customerType = value;
+		if (this._customerType === CUSTOMER_TYPE_CONSUMER) {
+			this.customerTypeConsumerRadioBtnValue = CUSTOMER_TYPE_CONSUMER;
+			this.customerTypeOrganisationRadioBtnValue = '';
+		} else if (this._customerType === CUSTOMER_TYPE_ORGANISATION) {
+			this.customerTypeConsumerRadioBtnValue = '';
+			this.customerTypeOrganisationRadioBtnValue = CUSTOMER_TYPE_ORGANISATION;
+		} else if (this._customerType === null) {
+			this.customerTypeConsumerRadioBtnValue = '';
+			this.customerTypeOrganisationRadioBtnValue = '';
+		}
 	}
 
 	// Field and button labels
@@ -186,9 +203,10 @@ export default class UnifiedCustomerCreation extends LightningElement {
 	_addressObj = {};
 	_organisationAccountId = '';
 	_addressOverride = false;
+	_customerType = null;
 	// Private variables for input fields (with no public getters/setters)
 	preferredName = '';
-	customerTypeConsumerRadioBtnValue = CUSTOMER_TYPE_CONSUMER; // default to consumer
+	customerTypeConsumerRadioBtnValue = ''; // default to blank
 	customerTypeOrganisationRadioBtnValue = ''; // default to blank
 	newOrganisationName = '';
 	newOrganisationToggle = false;
@@ -235,6 +253,9 @@ export default class UnifiedCustomerCreation extends LightningElement {
 
 		// store the field value based on the `name` attribute
 		this[fieldName] = fieldValue;
+
+		// reset selected organisation when a new organisation toggle is switched on
+		this.handleNewOrganisationToggleBtn();
 	}
 
 	/**
@@ -250,20 +271,30 @@ export default class UnifiedCustomerCreation extends LightningElement {
 	}
 
 	/**
-	 * Manage the customerType and update appropriate flags based on
+	 * Manage the customerType and update appropriate flags
 	 * @param event
 	 */
 	handleCustomerTypeRadioBtn(event) {
 		if (event.target.type === 'radio') {
-			this.customerType = event.detail.value;
-			if (this.customerType === CUSTOMER_TYPE_CONSUMER) {
+			const radioValue = event.detail.value;
+			if (radioValue === CUSTOMER_TYPE_CONSUMER) {
 				this._organisationAccountId = undefined;
 				this.customerTypeOrganisationRadioBtnValue = '';
 				this.customerTypeConsumerRadioBtnValue = CUSTOMER_TYPE_CONSUMER;
-			} else if (this.customerType === CUSTOMER_TYPE_ORGANISATION) {
+			} else if (radioValue === CUSTOMER_TYPE_ORGANISATION) {
 				this.customerTypeConsumerRadioBtnValue = '';
 				this.customerTypeOrganisationRadioBtnValue = CUSTOMER_TYPE_ORGANISATION;
 			}
+			this._customerType = radioValue;
+		}
+	}
+
+	/**
+	 * Manage the New Organisation Toggle and update appropriate flags
+	 */
+	handleNewOrganisationToggleBtn() {
+		if (this.newOrganisationToggle === true) {
+			this._organisationAccountId = undefined;
 		}
 	}
 
@@ -273,14 +304,27 @@ export default class UnifiedCustomerCreation extends LightningElement {
 	 */
 	@api getFormInputs(){
 		return {
-			firstName: this._firstName,
-			lastName: this._lastName,
-			phoneNumber: this._phoneNumber,
-			emailAddress: this._emailAddress,
-			addressObj: this._addressObj,
-			organisationAccountId: this._organisationAccountId,
-			addressOverride: this._addressOverride
+			firstName: this.firstName,
+			lastName: this.lastName,
+			phoneNumber: this.phoneNumber,
+			emailAddress: this.emailAddress,
+			addressObj: this.addressObj,
+			organisationAccountId: this.organisationAccountId,
+			addressOverride: this.addressOverride,
+			customerType: this.customerType
 		}
+	}
+
+	get ameDefaultAddress(){
+		return this.addressOverride === true ? this.addressObj : undefined;
+	}
+
+	get ameSearchTerm(){
+		return this.addressOverride === false ? this.addressObj.address : undefined;
+	}
+
+	get ameSupportAutoSearchOnLoad() {
+		return this.addressOverride === false;
 	}
 
 	/**
