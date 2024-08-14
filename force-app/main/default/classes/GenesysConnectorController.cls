@@ -26,7 +26,7 @@ global with sharing class GenesysConnectorController implements purecloud.CTIExt
 		if (!articles.isEmpty()) {
 			// ensure only delivery enquiry cases are selected
 			List<Case> lstCaseRecordsSelected = CasesSelector.newInstance( new Set<SObjectField>{
-				Case.Id, Case.CaseNumber, Case.Status, Case.Origin}).
+				Case.Id, Case.CaseNumber, Case.Status, Case.Origin, Case.Call_Purpose__c}).
 				selectByArticleId(New Set<Id>{articles[0].Id}, StarTrack_Constants.CASE_DELIVERY_DEVNAME_RT,new Set<Object>());
 			
 			List<Case> lstCaseRecords = New List<Case>();
@@ -138,7 +138,7 @@ global with sharing class GenesysConnectorController implements purecloud.CTIExt
 			ApplicationDatabase.getInstance().dmlinsert(new List<SObject>{c});
 			c = [select id, CaseNumber from Case where id = :c.id];
 		}
-		
+
 		return c;
 	}
 	

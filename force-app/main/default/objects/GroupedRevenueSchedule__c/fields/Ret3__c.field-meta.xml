@@ -3,7 +3,7 @@
     <fullName>Ret3__c</fullName>
     <description>Retained Revenue forecast for March</description>
     <externalId>false</externalId>
-    <formula>For3__c *  OpportunityProduct__r.TotalRetained__c</formula>
+    <formula>For3__c *  TotalRetained__c</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <inlineHelpText>Retained Revenue forecast for March</inlineHelpText>
     <label>March Expected Retained Value</label>
