@@ -45,7 +45,8 @@ export default class AbnChangeDsrWrapper extends LightningElement {
 
 			if (data?.dsrList) {
 				let nameUrl;
-				if (data.dsrList.reduce((a, b) => a || b.Credit_Work_Type__c === 'Close All Billing Accounts - ABN Change', false)) {
+				if (data.dsrList.reduce((a, b) => a || (b.Credit_Work_Type__c != null && b.Credit_Work_Type__c.includes('ABN Change'))
+					|| (b.Work_Type__c != null && b.Work_Type__c.includes('ABN Change')), false)) {
 					this.dsrList = data.dsrList.map(row => {
 						nameUrl = `/${row.Id}`;
 						return {...row , nameUrl}
