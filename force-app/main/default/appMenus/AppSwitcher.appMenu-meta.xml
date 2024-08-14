@@ -217,30 +217,6 @@
         <type>CustomApplication</type>
     </appMenuItems>
     <appMenuItems>
-        <name>DMAPP__Account_Manager_Admin</name>
-        <type>CustomApplication</type>
-    </appMenuItems>
-    <appMenuItems>
-        <name>DMAPP__Dealmaker_Admin</name>
-        <type>CustomApplication</type>
-    </appMenuItems>
-    <appMenuItems>
-        <name>DMAPP__Dealmaker_eLearning_Admin</name>
-        <type>CustomApplication</type>
-    </appMenuItems>
-    <appMenuItems>
-        <name>DMAPP__Milestones</name>
-        <type>CustomApplication</type>
-    </appMenuItems>
-    <appMenuItems>
-        <name>DMAPP__Playbook_Admin</name>
-        <type>CustomApplication</type>
-    </appMenuItems>
-    <appMenuItems>
-        <name>DMAPP__Smart_Catalog_Publisher</name>
-        <type>CustomApplication</type>
-    </appMenuItems>
-    <appMenuItems>
         <name>Apttus__ApttusConfigurableWizard</name>
         <type>CustomApplication</type>
     </appMenuItems>
@@ -693,10 +669,6 @@
         <type>CustomApplication</type>
     </appMenuItems>
     <appMenuItems>
-        <name>Coveo</name>
-        <type>ConnectedApp</type>
-    </appMenuItems>
-    <appMenuItems>
         <name>APXT_BPM__Conga_Conductor</name>
         <type>CustomApplication</type>
     </appMenuItems>
@@ -754,10 +726,6 @@
     </appMenuItems>
     <appMenuItems>
         <name>SumoLogic</name>
-        <type>ConnectedApp</type>
-    </appMenuItems>
-    <appMenuItems>
-        <name>NPE_Connected_Clients</name>
         <type>ConnectedApp</type>
     </appMenuItems>
     <appMenuItems>

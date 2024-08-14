@@ -19,7 +19,6 @@
         <value>Agreement,Proposal</value>
     </filters>
     <label>Legal Team View</label>
-    <language>en_US</language>
     <sharedTo>
         <group>Apttus_Templates_Group</group>
         <group>Legal_Team</group>

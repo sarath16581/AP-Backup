@@ -64,18 +64,6 @@
                 <behavior>Required</behavior>
                 <field>Status</field>
             </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>No_of_ULDs_on_Hand__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>No_of_ULDs_Ordered__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>No_of_ULDs_Delivered__c</field>
-            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>

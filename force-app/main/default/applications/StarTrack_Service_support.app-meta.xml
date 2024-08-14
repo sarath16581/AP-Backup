@@ -12,6 +12,8 @@
             <components>StarTrackConsignmentSearch</components>
             <components>Console.BuiltInComponent.servicePresence</components>
             <components>STConsoleChatterScrollBar</components>
+            <components>GenesysConnector</components>
+            <components>purecloud__PureCloudScript</components>
         </componentList>
         <detailPageRefreshMethod>autoRefresh</detailPageRefreshMethod>
         <footerColor>#009fda</footerColor>
@@ -195,8 +197,8 @@
     </preferences>
     <tabs>standard-Case</tabs>
     <tabs>standard-Account</tabs>
-    <tabs>standard-home</tabs>
     <tabs>standard-Lead</tabs>
+    <tabs>standard-home</tabs>
     <tabs>Article__c</tabs>
     <tabs>Network__c</tabs>
     <tabs>Un_Identified_Freight__c</tabs>

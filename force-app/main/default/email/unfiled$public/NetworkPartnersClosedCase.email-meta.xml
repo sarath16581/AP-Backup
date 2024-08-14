@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Network Partner case closed</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>Network Partners Case Closed</name>
+    <style>none</style>
+    <subject>Case Closed Reference Number:{!Case.CaseNumber}</subject>
+    <textOnly>Dear Customer,
+
+Your  Case No {!Case.CaseNumber} has been updated to Closed.
+
+Please direct any further request or inquiries about this case by emailing Network Partners Query Management and Support team on businesspartner@auspost.com.au
+
+Include your closed case number in the subject line of your request or enquiry if it is regarding the same issue.
+
+We would endeavour to come back to you within 48 hours.
+
+Kind regards,
+Network Partners Query Management and Support team
+{!Case.Thread_Id}</textOnly>
+    <type>custom</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

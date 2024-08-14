@@ -5,7 +5,7 @@
         <name>Navigate_to_DSR_New_Record</name>
         <label>Navigate to DSR New Record</label>
         <locationX>182</locationX>
-        <locationY>1214</locationY>
+        <locationY>1082</locationY>
         <actionName>c:navigateToRecord</actionName>
         <actionType>component</actionType>
         <flowTransactionModel>CurrentTransaction</flowTransactionModel>
@@ -35,7 +35,7 @@
         <name>Assign_APPC_Specific_fields</name>
         <label>Assign APPC Specific fields</label>
         <locationX>50</locationX>
-        <locationY>758</locationY>
+        <locationY>674</locationY>
         <assignmentItems>
             <assignToReference>DSRRecord.Product__c</assignToReference>
             <operator>Assign</operator>
@@ -51,7 +51,7 @@
         <name>Assign_Other_DSR_Fields</name>
         <label>Assign Other DSR Fields</label>
         <locationX>182</locationX>
-        <locationY>974</locationY>
+        <locationY>866</locationY>
         <assignmentItems>
             <assignToReference>DSRRecord.Organisation__c</assignToReference>
             <operator>Assign</operator>
@@ -139,7 +139,7 @@
     </choices>
     <choices>
         <name>Choice_PSR_StarTrack</name>
-        <choiceText>&lt;b&gt;Pricing Support Request - StarTrack&lt;/b&gt;&lt;p&gt;Engage support from StarTrack Pricing Team regarding customised rates, business at risk due to price, where you are unable to Self Service rates, or general pricing enquiries&lt;/p&gt;</choiceText>
+        <choiceText>&lt;strong&gt;Pricing Support Request - StarTrack&lt;/strong&gt;&lt;p&gt;Engage support from ST Pricing Team regarding customised rates, business at risk due to price, unable to Self Service rates, or general pricing enquiries incl ST Courier &amp;amp; On Demand.&lt;/p&gt;</choiceText>
         <dataType>String</dataType>
         <value>
             <stringValue>Pricing_Support_Request_StarTrack</stringValue>
@@ -157,7 +157,7 @@
         <name>If_APPC_Record_Type</name>
         <label>If APPC Record Type</label>
         <locationX>182</locationX>
-        <locationY>638</locationY>
+        <locationY>566</locationY>
         <defaultConnector>
             <targetReference>Assign_Other_DSR_Fields</targetReference>
         </defaultConnector>
@@ -179,6 +179,7 @@
         </rules>
     </decisions>
     <description>This flow will allow users to create Deal Support requests from BAR with limited DSR record Types</description>
+    <environments>Default</environments>
     <formulas>
         <name>RunningUser</name>
         <dataType>String</dataType>
@@ -209,7 +210,7 @@
         <name>Create_Deal_Support_Request</name>
         <label>Create Deal Support Request</label>
         <locationX>182</locationX>
-        <locationY>1094</locationY>
+        <locationY>974</locationY>
         <connector>
             <targetReference>Navigate_to_DSR_New_Record</targetReference>
         </connector>
@@ -220,7 +221,7 @@
         <name>Get_Deal_Support_Request_Record_Type</name>
         <label>Get Deal Support Request Record Type</label>
         <locationX>182</locationX>
-        <locationY>518</locationY>
+        <locationY>458</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>If_APPC_Record_Type</targetReference>
@@ -254,7 +255,7 @@
         <name>GetOrganisationDetails</name>
         <label>GetOrganisationDetails</label>
         <locationX>182</locationX>
-        <locationY>158</locationY>
+        <locationY>134</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>New_Deal_Support_Request</targetReference>
@@ -278,7 +279,7 @@
         <name>Org_Details</name>
         <label>Org Details</label>
         <locationX>182</locationX>
-        <locationY>398</locationY>
+        <locationY>350</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Get_Deal_Support_Request_Record_Type</targetReference>
@@ -299,7 +300,7 @@
         <name>New_Deal_Support_Request</name>
         <label>New Deal Support Request</label>
         <locationX>182</locationX>
-        <locationY>278</locationY>
+        <locationY>242</locationY>
         <allowBack>false</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
@@ -317,6 +318,7 @@
             <dataType>String</dataType>
             <fieldText>Select the Deal Support Request Type</fieldText>
             <fieldType>RadioButtons</fieldType>
+            <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
             <isRequired>true</isRequired>
         </fields>
         <showFooter>true</showFooter>

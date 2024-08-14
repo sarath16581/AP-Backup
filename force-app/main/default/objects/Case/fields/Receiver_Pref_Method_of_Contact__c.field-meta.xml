@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Receiver_Pref_Method_of_Contact__c</fullName>
+    <businessStatus>DeprecateCandidate</businessStatus>
     <description>Capture receiver caller preferred method of contact.</description>
     <externalId>false</externalId>
-    <label>Pref Method of Contact</label>
+    <label>Dep - Pref Method of Contact</label>
     <length>255</length>
     <required>false</required>
     <securityClassification>OFFICIAL_SENSITIVE_PERSONAL</securityClassification>

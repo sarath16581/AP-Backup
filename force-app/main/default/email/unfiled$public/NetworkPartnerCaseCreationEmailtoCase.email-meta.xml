@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Network Partner case creation</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>Network Partner Case Creation From Email to Case</name>
+    <style>none</style>
+    <subject>Case Created Reference Number {!Case.CaseNumber}</subject>
+    <textOnly>Dear Sender,
+
+Thank you for sending us the query.
+
+We would endeavour to come back to you within 48 hours.
+
+Here is the case number assigned to this query : {!Case.CaseNumber}.
+
+For any updates to this particular query, please add your query to this email and forward it to businesspartner@auspost.com.au.
+
+You can also check out our Business Partner Self Help Portal here, which may also support in resolving your query.
+
+Once signed in you can access this page at any time and find relevant policies, information and updates to support you and your team.
+
+Kind regards,
+Network Partners Query Management and Support team
+{!Case.Thread_Id}</textOnly>
+    <type>custom</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

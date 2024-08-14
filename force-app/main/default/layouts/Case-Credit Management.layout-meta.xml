@@ -73,10 +73,6 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>Sub_Account_Checkbox__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
                 <field>APT_Cash_Account__c</field>
             </layoutItems>
         </layoutColumns>

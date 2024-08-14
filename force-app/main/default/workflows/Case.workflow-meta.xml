@@ -462,7 +462,7 @@
         <senderType>OrgWideEmailAddress</senderType>
         <template>Australia_Post_Case_Templates/Dispute_Case_Approved_Late_Payment</template>
     </alerts>
-	<alerts>
+    <alerts>
         <fullName>NetworkPartnerCaseClosureEmail</fullName>
         <description>Network Partner Case Closure Email</description>
         <protected>false</protected>
@@ -480,7 +480,7 @@
         </recipients>
         <senderAddress>noreply@auspost.com.au</senderAddress>
         <senderType>OrgWideEmailAddress</senderType>
-        <template>unfiled$public/NetworkPartnersCaseClosed</template>
+        <template>unfiled$public/NetworkPartnersClosedCase</template>
     </alerts>
     <alerts>
         <fullName>NetworkPartnerCaseCreationEmail</fullName>
@@ -492,7 +492,7 @@
         </recipients>
         <senderAddress>noreply@auspost.com.au</senderAddress>
         <senderType>OrgWideEmailAddress</senderType>
-        <template>unfiled$public/NetworkPartnerCaseCreationFromEmailtoCase</template>
+        <template>unfiled$public/NetworkPartnerCaseCreationEmailtoCase</template>
     </alerts>
     <alerts>
         <fullName>NetworkPartnerNoReply</fullName>

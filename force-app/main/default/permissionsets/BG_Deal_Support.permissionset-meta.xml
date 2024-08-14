@@ -269,6 +269,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Contact.Contact_Report_ID__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Customer_Scoping_Questionnaire__c.DateSubmitted__c</field>
         <readable>true</readable>
     </fieldPermissions>

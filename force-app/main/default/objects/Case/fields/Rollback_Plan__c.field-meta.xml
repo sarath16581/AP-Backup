@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Rollback_Plan__c</fullName>
+    <businessStatus>DeprecateCandidate</businessStatus>
     <description>to be decommissioned - User Support Query RT cleanup</description>
     <externalId>false</externalId>
     <inlineHelpText>Any rollback plan if the changes cause production outage?</inlineHelpText>
-    <label>Rollback Plan</label>
+    <label>Dep - Rollback Plan</label>
     <length>255</length>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>

@@ -224,6 +224,7 @@
         <versionSegment>1</versionSegment>
     </actionCalls>
     <actionCalls>
+        <description>Send an email when a case is closed</description>
         <name>NetworkPartnerCaseClosureEmail</name>
         <label>Network Partner Case Closure Email</label>
         <locationX>4186</locationX>
@@ -237,25 +238,7 @@
                 <elementReference>vCase.Id</elementReference>
             </value>
         </inputParameters>
-    </actionCalls>
-    <actionCalls>
-        <name>New_case_creation_email</name>
-        <label>New case creation email</label>
-        <locationX>2635</locationX>
-        <locationY>350</locationY>
-        <actionName>Case.NetworkPartnerCaseCreationEmail</actionName>
-        <actionType>emailAlert</actionType>
-        <connector>
-            <targetReference>CaseDomain_scenarios</targetReference>
-        </connector>
-        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
-        <inputParameters>
-            <name>SObjectRowId</name>
-            <value>
-                <elementReference>vCase.Id</elementReference>
-            </value>
-        </inputParameters>
-        <nameSegment>Case.Network_Partner_Case_Creation_Email</nameSegment>
+        <nameSegment>Case.NetworkPartnerCaseClosureEmail</nameSegment>
         <versionSegment>1</versionSegment>
     </actionCalls>
     <actionCalls>
@@ -359,6 +342,26 @@
         <versionSegment>1</versionSegment>
     </actionCalls>
     <actionCalls>
+        <name>NewCaseCreationEmail</name>
+        <label>New Case Creation Email</label>
+        <locationX>2635</locationX>
+        <locationY>350</locationY>
+        <actionName>Case.NetworkPartnerCaseCreationEmail</actionName>
+        <actionType>emailAlert</actionType>
+        <connector>
+            <targetReference>CaseDomain_scenarios</targetReference>
+        </connector>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>SObjectRowId</name>
+            <value>
+                <elementReference>vCase.Id</elementReference>
+            </value>
+        </inputParameters>
+        <nameSegment>Case.NetworkPartnerCaseCreationEmail</nameSegment>
+        <versionSegment>1</versionSegment>
+    </actionCalls>
+    <actionCalls>
         <name>Notify_Account_Manager_Dispute_Case_Result</name>
         <label>Notify Account Manager Dispute Case Result</label>
         <locationX>314</locationX>
@@ -450,7 +453,7 @@
         <nameSegment>Case.Special_Services_Case_Creation_Email_Alert</nameSegment>
         <versionSegment>1</versionSegment>
     </actionCalls>
-    <apiVersion>59.0</apiVersion>
+    <apiVersion>57.0</apiVersion>
     <constants>
         <description>Email Id of MS power apps which needs to be blocked</description>
         <name>MSPowerAppsEmail</name>
@@ -803,7 +806,7 @@
             <label>New Security Express Case</label>
         </rules>
         <rules>
-            <name>NetworkPartnerCase</name>
+            <name>NewNetworkPartnerSupport</name>
             <conditionLogic>and</conditionLogic>
             <conditions>
                 <leftValueReference>vCase.RecordType.DeveloperName</leftValueReference>
@@ -820,9 +823,9 @@
                 </rightValue>
             </conditions>
             <connector>
-                <targetReference>New_case_creation_email</targetReference>
+                <targetReference>NewCaseCreationEmail</targetReference>
             </connector>
-            <label>Nework Partner Case</label>
+            <label>New Network Partner Support</label>
         </rules>
     </decisions>
     <decisions>
@@ -986,7 +989,7 @@
             <label>Bulk Mail Case</label>
         </rules>
         <rules>
-            <name>Network_Partner_Cases</name>
+            <name>NetworkPartnerCaseClosed</name>
             <conditionLogic>and</conditionLogic>
             <conditions>
                 <leftValueReference>vCase.RecordType.DeveloperName</leftValueReference>
@@ -1019,7 +1022,7 @@
             <connector>
                 <targetReference>NetworkPartnerCaseClosureEmail</targetReference>
             </connector>
-            <label>Network Partner Cases</label>
+            <label>Network Partner Case Closed</label>
         </rules>
     </decisions>
     <decisions>

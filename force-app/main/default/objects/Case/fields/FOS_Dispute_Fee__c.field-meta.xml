@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>FOS_Dispute_Fee__c</fullName>
+    <businessStatus>DeprecateCandidate</businessStatus>
     <externalId>false</externalId>
-    <label>FOS Dispute Fee</label>
+    <label>Dep - FOS Dispute Fee</label>
     <precision>10</precision>
     <required>false</required>
     <scale>2</scale>

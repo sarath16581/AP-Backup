@@ -50,9 +50,10 @@ global with sharing class AsynchApexContinuationController {
            /* if(!Util.runningInASandbox) {
                 urlConfig.baseURL =  strFrag0 + '--c.vf.force.com';
             } else {
-                urlConfig.baseURL =  strFrag0 + '.sandbox.vf.force.com';
+                urlConfig.baseURL =  strFrag0 + '--c.sandbox.vf.force.com';
             }*/
-            urlConfig.baseURL = 'https://'+System.DomainCreator.getVisualforceHostname(null);
+           urlConfig.baseURL = 'https://'+System.DomainCreator.getVisualforceHostname(null);
+
         }
 
         system.debug('urlConfig 2: '+urlConfig);

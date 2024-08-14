@@ -2,9 +2,6 @@
 <Layout xmlns="http://soap.sforce.com/2006/04/metadata">
     <customButtons>APT_Export_Accounts</customButtons>
     <customButtons>BAM_Configure_Apps</customButtons>
-    <excludeButtons>DataDotComAccountInsights</excludeButtons>
-    <excludeButtons>DataDotComClean</excludeButtons>
-    <excludeButtons>DataDotComCompanyHierarchy</excludeButtons>
     <excludeButtons>DisableCustomerPortalAccount</excludeButtons>
     <excludeButtons>DisablePartnerPortalAccount</excludeButtons>
     <excludeButtons>IncludeOffline</excludeButtons>
@@ -625,8 +622,8 @@
         <fields>NAME</fields>
         <fields>Scale__c</fields>
         <fields>Status__c</fields>
-        <fields>CREATEDBY_USER</fields>
         <fields>Product_1__c</fields>
+        <fields>CREATED_DATE</fields>
         <fields>Reason__c</fields>
         <fields>Threat_Risk__c</fields>
         <fields>Value_of_Business_at_Risk__c</fields>
@@ -677,12 +674,6 @@
         <relatedList>RelatedContactList</relatedList>
         <sortField>Record_Maintainer__c</sortField>
         <sortOrder>Asc</sortOrder>
-    </relatedLists>
-    <relatedLists>
-        <fields>NAME</fields>
-        <fields>DMAPP__Number_Contacts__c</fields>
-        <fields>DMAPP__Primary_Map__c</fields>
-        <relatedList>DMAPP__Account_Political_Map__c.DMAPP__Account__c</relatedList>
     </relatedLists>
     <relatedLists>
         <fields>NAME</fields>

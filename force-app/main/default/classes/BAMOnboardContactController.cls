@@ -288,17 +288,23 @@ public without sharing class BAMOnboardContactController {
         List<Map<Object, Object>> deleteApplicationRoles = new List<Map<Object, Object>>();
 
         for (Map<String, Object> mapAppState : pageState) {
+            system.debug('mapstate::');
+			system.debug(JSON.serialize(mapAppState));
 			if(mapAppState.containsKey('isBSP')){
 			 	//appIdForBSP=(Id) mapAppState.get(FIELD_ID);
+			 	system.debug('inside isBSP>>>>');
+                if(mapAppState.containsKey(FIELD_BSPVIEWALLCONSIGNMENT)){
+						bSPCanViewAllConsignments = (Boolean) mapAppState.get(FIELD_BSPVIEWALLCONSIGNMENT);
+					}
 				 contactRoleObject = (Map<Object,Object>)mapAppState.get(FIELD_CONTACTROLE);
 				 //system.debug(JSON.serialize(contactRoleObject));
 				 if(contactRoleObject!= null){
+                     system.debug('inside isBSP>>>>contactRoleObj not null');
 					if(contactRoleObject.containsKey(FIELD_CONTACTAPPLICATION)){
 						appIdForBSP = (Id)contactRoleObject.get(FIELD_CONTACTAPPLICATION);
 					}
-					if(mapAppState.containsKey(FIELD_BSPVIEWALLCONSIGNMENT)){
-						bSPCanViewAllConsignments = (Boolean) mapAppState.get(FIELD_BSPVIEWALLCONSIGNMENT);
-					}
+                     system.debug('inside isBSP>>>>mapAppState.containsKey(FIELD_BSPVIEWALLCONSIGNMENT)');
+                     system.debug(mapAppState.containsKey(FIELD_BSPVIEWALLCONSIGNMENT));
 				}
 			}
             Id appId = (Id) mapAppState.get(FIELD_ID);
@@ -371,6 +377,7 @@ public without sharing class BAMOnboardContactController {
             }
 
             // upsert by hierarchy
+            system.debug('comes here --->>');
             upsertContactApplications(contactId, upsertApplicationIds,BSPCanViewAllConsignments,appIdForBSP);
             upsertContactRoles(contactId, upsertApplicationRoles);
             upsertLinkedEntities(contactId, upsertApplicationRoles);

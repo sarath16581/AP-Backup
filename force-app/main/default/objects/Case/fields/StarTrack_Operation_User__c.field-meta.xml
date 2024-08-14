@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>StarTrack_Operation_User__c</fullName>
+    <businessStatus>DeprecateCandidate</businessStatus>
     <deleteConstraint>SetNull</deleteConstraint>
     <externalId>false</externalId>
-    <label>StarTrack Operation User</label>
+    <label>Dep - StarTrack Operation User</label>
     <referenceTo>User</referenceTo>
     <relationshipName>StarTrackCases</relationshipName>
     <required>false</required>

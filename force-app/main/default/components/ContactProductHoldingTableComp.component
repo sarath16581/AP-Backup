@@ -2,7 +2,7 @@
     @Author      :  kalpita.talwadekar@auspost.com.au
     @Date        :  19/10/2015
     @Description :  Visualforce Component to display table for contact product holdings
-	2021 Mar 16 madhuri.awasthi@auspost.com.au INC1758530 Date format of Activation and Next Allocation date changed
+    2021 Mar 16 madhuri.awasthi@auspost.com.au INC1758530 Date format of Activation and Next Allocation date changed
 -->
 
 <apex:component controller="ContactProductHoldingTableCompController">

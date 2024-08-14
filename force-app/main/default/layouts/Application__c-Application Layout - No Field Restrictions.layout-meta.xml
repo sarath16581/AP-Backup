@@ -36,7 +36,7 @@
                 <behavior>Edit</behavior>
                 <field>Multicurrency_Risk_Assessment_Complete__c</field>
             </layoutItems>
-			<layoutItems>
+            <layoutItems>
                 <behavior>Readonly</behavior>
                 <field>CountryOfOriginValue__c</field>
             </layoutItems>

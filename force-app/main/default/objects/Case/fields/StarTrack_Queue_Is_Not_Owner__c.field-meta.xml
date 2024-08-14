@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>StarTrack_Queue_Is_Not_Owner__c</fullName>
+    <businessStatus>DeprecateCandidate</businessStatus>
     <description>StarTrack Queue is not Owner used in Entitlement Process</description>
     <externalId>false</externalId>
-    <label>StarTrack Queue Is Not Owner</label>
+    <label>Dep - StarTrack Queue Is Not Owner</label>
     <length>100</length>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>

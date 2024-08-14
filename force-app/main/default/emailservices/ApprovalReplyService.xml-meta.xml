@@ -4,6 +4,13 @@
     <attachmentOption>None</attachmentOption>
     <authenticationFailureAction>Discard</authenticationFailureAction>
     <authorizationFailureAction>Discard</authorizationFailureAction>
+    <emailServicesAddresses>
+        <authorizedSenders>apttus.com,auspost.com.au</authorizedSenders>
+        <developerName>approvalreplyservice</developerName>
+        <isActive>true</isActive>
+        <localPart>approvalreplyservice</localPart>
+        <runAsUser>sheryl.crisostomo@auspost.com.au.ptest</runAsUser>
+    </emailServicesAddresses>
     <errorRoutingAddress>vera.octavia@auspost.com.au</errorRoutingAddress>
     <functionInactiveAction>Discard</functionInactiveAction>
     <functionName>ApprovalReplyService</functionName>

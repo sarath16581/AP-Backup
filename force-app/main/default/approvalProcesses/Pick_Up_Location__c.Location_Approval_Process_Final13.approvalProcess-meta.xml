@@ -567,15 +567,15 @@
         </approvalActions>
         <assignedApprover>
             <approver>
+                <name>carl.bascug@startrack.com.au</name>
+                <type>user</type>
+            </approver>
+            <approver>
                 <name>frazer.greenwood@startrack.com.au</name>
                 <type>user</type>
             </approver>
             <approver>
                 <name>luisa.decampo@auspost.com.au</name>
-                <type>user</type>
-            </approver>
-            <approver>
-                <name>carl.bascug@startrack.com.au</name>
                 <type>user</type>
             </approver>
             <whenMultipleApprovers>FirstResponse</whenMultipleApprovers>

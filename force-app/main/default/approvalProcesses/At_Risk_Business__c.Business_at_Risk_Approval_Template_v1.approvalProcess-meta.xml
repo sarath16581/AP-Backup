@@ -41,7 +41,7 @@
             <criteriaItems>
                 <field>At_Risk_Business__c.Reason__c</field>
                 <operation>equals</operation>
-                <value>Service - Performance,Service - Lodgement,Service - Experience</value>
+                <value>Service - Experience,Service - Lodgement,Service - Performance</value>
             </criteriaItems>
         </entryCriteria>
         <label>Service Performance Manager Approval</label>

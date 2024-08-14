@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Proposed_AM_must_be_Coverage_Sales</fullName>
-    <active>false</active>
+    <active>true</active>
     <errorConditionFormula>Not 
 (Or(Proposed_Account_Manager__r.Profile.Name = &apos;Coverage Sales&apos;,
 Proposed_Account_Manager__r.Profile.Name = &apos;BG Base&apos;, 

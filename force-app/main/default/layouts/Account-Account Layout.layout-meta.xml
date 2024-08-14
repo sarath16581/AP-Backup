@@ -3,6 +3,9 @@
     <customButtons>AdobeSignVOIPropertyTransfers</customButtons>
     <customButtons>APT_Export_Accounts</customButtons>
     <customButtons>BAM_Configure_Apps</customButtons>
+    <excludeButtons>DataDotComAccountInsights</excludeButtons>
+    <excludeButtons>DataDotComClean</excludeButtons>
+    <excludeButtons>DataDotComCompanyHierarchy</excludeButtons>
     <excludeButtons>DisableCustomerPortalAccount</excludeButtons>
     <excludeButtons>DisablePartnerPortalAccount</excludeButtons>
     <excludeButtons>IncludeOffline</excludeButtons>
@@ -723,8 +726,8 @@
         <fields>NAME</fields>
         <fields>Scale__c</fields>
         <fields>Status__c</fields>
-        <fields>CREATEDBY_USER</fields>
         <fields>Product_1__c</fields>
+        <fields>CREATED_DATE</fields>
         <fields>Reason__c</fields>
         <fields>Threat_Risk__c</fields>
         <fields>Value_of_Business_at_Risk__c</fields>

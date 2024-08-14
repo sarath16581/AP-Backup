@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>APT_Product_Group__c</fullName>
+    <businessStatus>DeprecateCandidate</businessStatus>
     <description>.</description>
     <externalId>false</externalId>
-    <label>Product Group</label>
+    <label>Dep - Product Group</label>
     <length>100</length>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>

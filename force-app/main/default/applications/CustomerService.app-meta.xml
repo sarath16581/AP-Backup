@@ -11,6 +11,8 @@
             <components>URLShortenerComponent</components>
             <components>Fill_Inbox</components>
             <components>ConsoleChatterScrollBar</components>
+            <components>GenesysConnector</components>
+            <components>purecloud__PureCloudScript</components>
         </componentList>
         <detailPageRefreshMethod>none</detailPageRefreshMethod>
         <keyboardShortcuts>

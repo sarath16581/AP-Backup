@@ -52,10 +52,6 @@
                 <field>InitiatedBy_NonSF__c</field>
             </layoutItems>
             <layoutItems>
-                <behavior>Edit</behavior>
-                <field>Initiating_Area__c</field>
-            </layoutItems>
-            <layoutItems>
                 <emptySpace>true</emptySpace>
             </layoutItems>
             <layoutItems>
@@ -83,10 +79,6 @@
             </layoutItems>
             <layoutItems>
                 <emptySpace>true</emptySpace>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>Strategic_Goal__c</field>
             </layoutItems>
         </layoutColumns>
         <layoutColumns>

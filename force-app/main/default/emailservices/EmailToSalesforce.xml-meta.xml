@@ -4,6 +4,13 @@
     <attachmentOption>All</attachmentOption>
     <authenticationFailureAction>Discard</authenticationFailureAction>
     <authorizationFailureAction>Bounce</authorizationFailureAction>
+    <emailServicesAddresses>
+        <authorizedSenders>sunthari.k2@auspost.com.au</authorizedSenders>
+        <developerName>emailtosalesforce</developerName>
+        <isActive>true</isActive>
+        <localPart>emailtosalesforce</localPart>
+        <runAsUser>sunthari.k2@auspost.com.au.ptest</runAsUser>
+    </emailServicesAddresses>
     <functionInactiveAction>Bounce</functionInactiveAction>
     <functionName>EmailToSalesforce</functionName>
     <isActive>true</isActive>

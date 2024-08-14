@@ -1053,12 +1053,6 @@
         <sortOrder>Asc</sortOrder>
     </relatedLists>
     <relatedLists>
-        <fields>NAME</fields>
-        <fields>DMAPP__Number_Contacts__c</fields>
-        <fields>DMAPP__Primary_Map__c</fields>
-        <relatedList>DMAPP__Account_Political_Map__c.Opportunity_Name__c</relatedList>
-    </relatedLists>
-    <relatedLists>
         <fields>TASK.SUBJECT</fields>
         <fields>ACTIVITY.TASK</fields>
         <fields>TASK.DUE_DATE</fields>

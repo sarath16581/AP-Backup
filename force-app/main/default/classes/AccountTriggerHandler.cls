@@ -118,8 +118,8 @@ public with sharing class AccountTriggerHandler{
             // Methods to be invoked for before delete event
             if(AccountTriggerUtility.RUN_TRIGGER_BEFORE_DELETE){
                 accUtil.beforeResetRoodId(trigger.old);
-                accUtil.updateBAondelete(trigger.old);
-				accUtil.deleteRReconDelete(trigger.old);
+               // accUtil.updateBAondelete(trigger.old);
+				//accUtil.deleteRReconDelete(trigger.old);
 
             }
         }

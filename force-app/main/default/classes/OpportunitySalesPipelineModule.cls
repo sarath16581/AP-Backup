@@ -99,7 +99,7 @@ public inherited sharing class OpportunitySalesPipelineModule extends Applicatio
 	}
 	public override void onAfterInsert(List<SObject> records, ApplicationUnitOfWork uow) {
 		try {
-			updateAccountDetails(records, null, uow, 'OpportunitySalesPipelineModuleafterinsert');
+			updateAccountDetails(records,new Map<Id,SObject>(),uow);
 
 		} catch (Exception e) {
 			ApplicationLogger.getInstance().logException(ApplicationLogger.wrapException(e), 'Sales', OpportunitySalesPipelineModule.class.getName(),
@@ -108,20 +108,20 @@ public inherited sharing class OpportunitySalesPipelineModule extends Applicatio
 	}
 	public override void onAfterUpdate(List<SObject> records, Map<Id, SObject> existingRecords, ApplicationUnitOfWork uow) {
 		try {
-			updateAccountDetails(records, existingRecords, uow, 'OpportunitySalesPipelineModuleafterupdate');
+			updateAccountDetails(records, existingRecords,  uow);
 
 		} catch (Exception e) {
 			ApplicationLogger.getInstance().logException(ApplicationLogger.wrapException(e), 'Sales', OpportunitySalesPipelineModule.class.getName(),
 			'onAfterUpdate', String.valueOf(Opportunity.SObjectType), ApplicationLogger.LoggingLevel.ERROR);
 		}
 	}
-	private void updateAccountDetails(List<SObject> records, Map<Id, SObject> existingRecords, ApplicationUnitOfWork uow, String context) {
+	private void updateAccountDetails(List<SObject> records,Map<Id, SObject> existingRecords, ApplicationUnitOfWork uow) {
 		Map<Id,String> accountIdToIndirectCustMap = new Map<Id,String>();
 		List<Account> updatedAccounts = new List<Account> ();
 		
 		// monitor opportunities changing stage. leverage ApplicationRecursion class to retrieve processable records
 			// where the IndirectCustomer__c has been changed since the last execution of this module in a recursive update scenario.
-			List<ApplicationRecursion.RecordState> changedRecords = ApplicationRecursion.getInstance().getProcessableRecords(context, records, existingRecords, new Set<SObjectField>{
+			List<ApplicationRecursion.RecordState> changedRecords = ApplicationRecursion.getInstance().getProcessableRecords('OpportunitySalesPipelineModule', records, existingRecords, new Set<SObjectField>{
 				Opportunity.IndirectCustomer__c
 		});
 

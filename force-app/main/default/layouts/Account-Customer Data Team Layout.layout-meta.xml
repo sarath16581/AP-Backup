@@ -758,8 +758,8 @@
         <fields>NAME</fields>
         <fields>Scale__c</fields>
         <fields>Status__c</fields>
-        <fields>CREATEDBY_USER</fields>
         <fields>Product_1__c</fields>
+        <fields>CREATED_DATE</fields>
         <fields>Reason__c</fields>
         <fields>Threat_Risk__c</fields>
         <fields>Value_of_Business_at_Risk__c</fields>

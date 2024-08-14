@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>APT_ACN__c</fullName>
+    <businessStatus>DeprecateCandidate</businessStatus>
     <externalId>false</externalId>
-    <label>ACN</label>
+    <label>Dep - ACN</label>
     <length>100</length>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>
