@@ -79,19 +79,32 @@ public inherited sharing class CaseUnifiedAutomationService {
 	 * @param uow
 	 */
 	public void processForCaseClosure(List<RecordWrapper> records, InvocationPoint entryPoint, ApplicationUnitOfWork uow) {
-		List<Case> caseClosureForUpdate = new List<Case>();
-		for (RecordWrapper record : records) {
-			switch on entryPoint {
-				when MANUAL, SCANAUTO, PROACTIVEAUTO, EMAILAUTO {
-					caseClosureForUpdate.add(updateCaseForCaseClosure(record));
-				}
-				when ARTICLESAUTO {
-					// Perform EDD updates specific logic. Define and create a separate method
-				}
+		switch on entryPoint {
+			when MANUAL, SCANAUTO, PROACTIVEAUTO, EMAILAUTO {
+				closeCasesAndUpdateCommonFields(records, uow);
+			}
+			when ARTICLESAUTO {
+				// Perform EDD updates specific logic. Define and create a separate method
 			}
 		}
+	}
+
+	/**
+	 * @description Close case and run common logic to update appropriate fields including sending email notification
+	 * @param records
+	 * @param uow
+	 */
+	private void closeCasesAndUpdateCommonFields(List<RecordWrapper> records, ApplicationUnitOfWork uow) {
+		List<Case> caseClosureForUpdate = new List<Case>();
+		for (RecordWrapper record : records) {
+			caseClosureForUpdate.add(updateCaseForCaseClosure(record));
+		}
 		if (!caseClosureForUpdate.isEmpty()) {
-			ApplicationDatabase.getInstance().dmlUpdate(caseClosureForUpdate);
+			if (uow != null) {
+				uow.registerDirty(caseClosureForUpdate, false, CaseUnifiedAutomationService.class.getName() + 'closeCasesAndUpdateCommonFields');
+			} else {
+				ApplicationDatabase.getInstance().dmlUpdate(caseClosureForUpdate);
+			}
 
 			// TODO: Dependency on other squad working on ApplicationEmailService framework
 			// Below code will be soon be replaced to make use of ApplicationEmailService once that is ready
@@ -152,14 +165,22 @@ public inherited sharing class CaseUnifiedAutomationService {
 		}
 	}
 
+	/**
+	 * @description Reassign case and update appropriate fields for Proactive Monitoring Entry Point
+	 * @param records
+	 * @param uow
+	 */
 	private void reassignCasesProactiveMonitoringAutomation(List<RecordWrapper> records, ApplicationUnitOfWork uow) {
 		List<Case> caseReassignmentForUpdate = new List<Case>();
 		for (RecordWrapper record : records) {
 			caseReassignmentForUpdate.add(updateCaseForCaseReassignment(record));
 		}
 		if (!caseReassignmentForUpdate.isEmpty()) {
-			// TODO Change this to use UnitOfWork
-			ApplicationDatabase.getInstance().dmlUpdate(caseReassignmentForUpdate);
+			if (uow != null) {
+				uow.registerDirty(caseReassignmentForUpdate, false, CaseUnifiedAutomationService.class.getName() + 'reassignCasesProactiveMonitoringAutomation');
+			} else {
+				ApplicationDatabase.getInstance().dmlUpdate(caseReassignmentForUpdate);
+			}
 		}
 	}
 
