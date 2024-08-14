@@ -8,11 +8,11 @@
  * 2024-08-08 - Harry Wang - Created
  */
 public abstract with sharing class ABNChangeDSRGenerator {
-	public static final List<String> CLOSE_ALL_BA_CSV_HEADERS = new List<String>{'LEGACY_ID__c', 'Credit_Representative_Email__c'};
+	private static final List<String> CLOSE_ALL_BA_CSV_HEADERS = new List<String>{'LEGACY_ID__c', 'Credit_Representative_Email__c'};
 	public static List<String> allProductTypes;
-	public Id organisationId;
-	public Id atRiskBusinessId;
-	public String productType;
+	private final Id organisationId;
+	private final Id atRiskBusinessId;
+	private final String productType;
 
 	public ABNChangeDSRGenerator(Id organisationId, Id atRiskBusinessId) {
 		this(organisationId, atRiskBusinessId, null);
@@ -63,11 +63,11 @@ public abstract with sharing class ABNChangeDSRGenerator {
 	 *  Sub class - ProposalContractDSR inherited from ABNChangeDSRGenerator
 	 */
 	public class ProposalContractDSR extends ABNChangeDSRGenerator {
-		public Boolean isProposal;
-		public Id opportunityId;
-		public Id keyContactId;
-		public String isStandardPricing;
-		public List<String> pricingDSRNames;
+		private final Boolean isProposal;
+		private final Id opportunityId;
+		private final Id keyContactId;
+		private final String isStandardPricing;
+		private final List<String> pricingDSRNames;
 
 		public ProposalContractDSR(Boolean isProposal, Id organisationId, String opportunityId, String productType, Id keyContactId, Id atRiskBusinessId, String isStandardPricing, List<String> pricingDSRNames) {
 			super(organisationId, atRiskBusinessId, productType);
@@ -123,7 +123,7 @@ public abstract with sharing class ABNChangeDSRGenerator {
 	 *  Sub class - TerminateDSR inherited from ABNChangeDSRGenerator
 	 */
 	public class TerminateDSR extends ABNChangeDSRGenerator {
-		public String organisationABN;
+		private final String organisationABN;
 		public TerminateDSR(Id organisationId, String productType, Id atRiskBusinessId, String organisationABN) {
 			super(organisationId, atRiskBusinessId, productType);
 			this.organisationABN = organisationABN;
@@ -168,8 +168,8 @@ public abstract with sharing class ABNChangeDSRGenerator {
 	 *  Sub class - TerminateSTBAs inherited from ABNChangeDSRGenerator
 	 */
 	public class TerminateSTBAs extends ABNChangeDSRGenerator {
-		public Id relatedOpportunityId;
-		public String organisationABN;
+		private final Id relatedOpportunityId;
+		private final String organisationABN;
 
 		public TerminateSTBAs(Id organisationId, Id atRiskBusinessId, Id opportunityId, String organisationABN) {
 			super(organisationId, atRiskBusinessId, 'ST');
@@ -217,11 +217,11 @@ public abstract with sharing class ABNChangeDSRGenerator {
 	 *  Sub class - CloseAllBAs inherited from ABNChangeDSRGenerator
 	 */
 	public class CloseAllBAs extends ABNChangeDSRGenerator {
-		public List<Billing_Account__c> billingAccounts;
-		public Date estimatedClosureDate;
-		public List<String> billingAccountNumbers = new List<String>();
-		public Set<String> creditOfficerEmails = new Set<String>();
-		public Integer countOfParent = 0;
+		private final List<Billing_Account__c> billingAccounts;
+		private final Date estimatedClosureDate;
+		private final List<String> billingAccountNumbers = new List<String>();
+		private final Set<String> creditOfficerEmails = new Set<String>();
+		private Integer countOfParent = 0;
 
 		public CloseAllBAs(Id organisationId, Id atRiskBusinessId, List<Billing_Account__c> billingAccounts, Date estimatedClosureDate) {
 			super(organisationId, atRiskBusinessId);
@@ -262,7 +262,7 @@ public abstract with sharing class ABNChangeDSRGenerator {
 			dsr.Pay_Account_Type__c = 'Billing Account';
 			dsr.Request_type__c = 'Billing Account';
 			dsr.Origin__c = 'Salesforce';
-			dsr.Customer_Request_Attached__c = 'No';
+			dsr.Customer_Request_Attached__c = 'Yes';
 			dsr.Reason_for_Account_Closure__c = getDescription();
 			dsr.Credit_Representative_Email__c = parentFound ? parentCreditPersonEmail : this.billingAccounts[0].Credit_Representative_Email__c;
 			dsr.Credit_Representative__c = parentFound ? parentCreditPersonName : this.billingAccounts[0].Credit_Person__c;
@@ -271,7 +271,6 @@ public abstract with sharing class ABNChangeDSRGenerator {
 			dsr.Billing_Number__c = parentFound ? parentBillingNumber : this.billingAccounts[0].LEGACY_ID__c;
 			dsr.EstimatedAccountClosureDate__c = this.estimatedClosureDate;
 			dsr.RecordTypeId = getRecordTypeId();
-			dsr.Customer_Request_Attached__c = 'Yes';
 
 			return dsr;
 		}

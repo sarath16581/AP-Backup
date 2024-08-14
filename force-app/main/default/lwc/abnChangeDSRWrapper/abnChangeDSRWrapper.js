@@ -31,7 +31,6 @@ export default class AbnChangeDsrWrapper extends LightningElement {
 		const {data, error} = result;
 		this._wiredDSRsAndBaR = result;
 		if (error) {
-			console.error(error);
 			this.errorMessage = error;
 			return;
 		}

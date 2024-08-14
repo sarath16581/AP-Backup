@@ -245,9 +245,7 @@ public with sharing class ABNChangeController {
 
 	/**
 	 * This method is used to create DSRs based on the request wrapper passed from frontend.
-	 * Within the wrapper it has the information about what types of DSR (captured in dsrTypes attribute) need to be created
-	 * and field values required for the creation.
-	 * Individual DSR is computed and generated based on sub class generator within ABNChangeDSRGenerator.
+	 * After creation is successful, generate content document CSV and link to the Close All BA DSR
 	 * @param request DSR generation request wrapper passed from frontend.
 	 * @return list of failed DSR types
 	 */
@@ -255,55 +253,14 @@ public with sharing class ABNChangeController {
 	public static List<String> createDSRs(DSRRequestWrapper request) {
 		try {
 			ABNChangeDSRGenerator.allProductTypes = request.allProductTypes;
-			List<Deal_Support_Request__c> newDSRs = new List<Deal_Support_Request__c>();
-			List<String> dsrTypes = new List<String>();
-			ABNChangeDSRGenerator.CloseAllBAs closeAllBAs;
-			List<Billing_Account__c> billingAccounts;
-			for (String type: request.dsrTypes) {
-				switch on type {
-					when 'proposalGeneration' {
-						for (DSRRequestOpportunityWrapper wrapper: request.opportunityWrappers) {
-							Deal_Support_Request__c dsr = new ABNChangeDSRGenerator.ProposalContractDSR(true, request.organisationId, wrapper.opportunityId, wrapper.productType, wrapper.keyContactId, request.atRiskBusinessId, request.isStandardPricing, request.pricingDSRNames).toDsrRecord();
-							newDSRs.add(dsr);
-							dsrTypes.add('New Proposal for ' + wrapper.productType + ' Opportunity DSR');
-						}
 
-					}
-					when 'contractGeneration' {
-						for (DSRRequestOpportunityWrapper wrapper: request.opportunityWrappers) {
-							Deal_Support_Request__c dsr = new ABNChangeDSRGenerator.ProposalContractDSR(false, request.organisationId, wrapper.opportunityId, wrapper.productType, wrapper.keyContactId, request.atRiskBusinessId, request.isStandardPricing, request.pricingDSRNames).toDsrRecord();
-							newDSRs.add(dsr);
-							dsrTypes.add('New Contract for ' + wrapper.productType + ' Opportunity DSR');
-						}
+			// generate DSR based on DSR types
+			Map<String, Object> result = generateDsrAndGetDsrTypes(request);
 
-					}
-					when 'terminateContracts' {
-						Set<String> productTypes = new Set<String>();
-						for (DSRRequestOpportunityWrapper wrapper: request.opportunityWrappers) {
-							productTypes.add(wrapper.productType);
-						}
-						for (String productType: productTypes) {
-							Deal_Support_Request__c dsr = new ABNChangeDSRGenerator.TerminateDSR(request.organisationId, productType, request.atRiskBusinessId, request.organisationABN).toDsrRecord();
-							newDSRs.add(dsr);
-							dsrTypes.add('Terminate ' + productType + ' Contracts DSR');
-						}
-					}
-					when 'terminateSTBAs' {
-						Deal_Support_Request__c dsr = new ABNChangeDSRGenerator.TerminateSTBAs(request.organisationId, request.atRiskBusinessId, request.relatedOpportunity, request.organisationABN).toDsrRecord();
-						newDSRs.add(dsr);
-						dsrTypes.add('Terminate ST Billing Accounts DSR');
-					}
-					when 'closeAllBAs' {
-						billingAccounts = BillingAccountsSelector.newInstance(0, BILLING_ACCOUNT_FIELD_OVERRIDES).selectByOrganisationABN(new Set<String> {request.organisationABN}, new Set<Object>{BillingAccountsSelector.Options.FILTER_ACTIVE, BillingAccountsSelector.Options.FILTER_SOURCE_SYSTEM_SAP_ERP});
-						if (billingAccounts.size() > 0) {
-							closeAllBAs = new ABNChangeDSRGenerator.CloseAllBAs(request.organisationId, request.atRiskBusinessId, billingAccounts, request.estimatedClosureDate);
-							Deal_Support_Request__c dsr = closeAllBAs.toDsrRecord();
-							newDSRs.add(dsr);
-							dsrTypes.add('Close All Billing Accounts DSR');
-						}
-					}
-				}
-			}
+			List<Deal_Support_Request__c> newDSRs = (List<Deal_Support_Request__c>)result.get('newDSRs');
+			List<String> dsrTypes = (List<String>)result.get('dsrTypes');
+			ABNChangeDSRGenerator.CloseAllBAs closeAllBAs = (ABNChangeDSRGenerator.CloseAllBAs)result.get('closeAllBAs');
+			Boolean csvRequired = (Boolean)result.get('csvRequired');
 
 			List<String> failedDSRTypes = new List<String>();
 			List<Database.SaveResult> failedResults = new List<Database.SaveResult>();
@@ -313,17 +270,12 @@ public with sharing class ABNChangeController {
 			for (Integer i = 0; i < results.size(); i++) {
 				if (results[i].isSuccess()) {
 					if (dsrTypes[i] == 'Close All Billing Accounts DSR') {
-						// generate CSV if close all BA DSR has been created
-						if (billingAccounts.size() > 5) {
+						// generate CSV if required and close all BA DSR has been created
+						if (csvRequired) {
 							Database.SaveResult csvSaveResult = ApplicationDatabase.getInstance().dmlInsert(new List<SObject>{closeAllBAs.generateCloseAllBACsv()})[0];
 							if (csvSaveResult.isSuccess()) {
 								Id docId = ContentVersionsSelector.newInstance().selectById(new Set<Id>{csvSaveResult.getId()}).values()[0].ContentDocumentId;
-								ContentDocumentLink cDe = new ContentDocumentLink();
-								cDe.ContentDocumentId = docId;
-								cDe.LinkedEntityId = newDSRs[i].Id;
-								cDe.ShareType = 'I';
-								cDe.Visibility = 'AllUsers';
-								Database.SaveResult docSaveResult = ApplicationDatabase.getInstance().dmlInsert(new List<SObject>{cDe})[0];
+								Database.SaveResult docSaveResult = ApplicationDatabase.getInstance().dmlInsert(generateContentDocumentLink(new List<Id>{docId}, newDSRs[i].Id))[0];
 								if (!docSaveResult.isSuccess()) {
 									throw new AuraHandledException('CSV generation failed while generating Close All Billing Account DSR: ' + docSaveResult.getErrors());
 								}
@@ -332,16 +284,7 @@ public with sharing class ABNChangeController {
 							}
 						}
 						// attach customer request documents on the DSR
-						List<ContentDocumentLink> cdeList = new List<ContentDocumentLink>();
-						for (String docId: request.customerRequestDocumentIds) {
-							ContentDocumentLink cDe = new ContentDocumentLink();
-							cDe.ContentDocumentId = docId;
-							cDe.LinkedEntityId = newDSRs[i].Id;
-							cDe.ShareType = 'I';
-							cDe.Visibility = 'AllUsers';
-							cdeList.add(cDe);
-						}
-						ApplicationDatabase.getInstance().dmlInsert(cdeList);
+						ApplicationDatabase.getInstance().dmlInsert(generateContentDocumentLink(request.customerRequestDocumentIds, newDSRs[i].Id));
 					}
 				} else {
 					failedDSRTypes.add(dsrTypes[i]);
@@ -353,6 +296,94 @@ public with sharing class ABNChangeController {
 		} catch (Exception e) {
 			throw new AuraHandledException('Error occurred while generating DSRs: ' + e.getMessage());
 		}
+	}
+
+	/**
+	 * This method is used to generate DSRs based on the request wrapper.
+	 * Within the wrapper it has the information about what types of DSR (captured in dsrTypes attribute) need to be created
+	 * and field values required for the creation.
+	 * Individual DSR is computed and generated based on sub class generator within ABNChangeDSRGenerator.
+	 * @param request DSR generation request wrapper passed from frontend.
+	 * @return result that contains generated DSR list, DSR types, and CSV creation flag
+	 */
+	private static Map<String, Object> generateDsrAndGetDsrTypes(DSRRequestWrapper request){
+		Map<String, Object> result = new Map<String, Object>();
+		List<Deal_Support_Request__c> newDSRs = new List<Deal_Support_Request__c>();
+		List<String> dsrTypes = new List<String>();
+		ABNChangeDSRGenerator.CloseAllBAs closeAllBAs;
+
+		for (String type: request.dsrTypes) {
+			switch on type {
+				when 'proposalGeneration' {
+					for (DSRRequestOpportunityWrapper wrapper: request.opportunityWrappers) {
+						Deal_Support_Request__c dsr = new ABNChangeDSRGenerator.ProposalContractDSR(true, request.organisationId, wrapper.opportunityId, wrapper.productType, wrapper.keyContactId, request.atRiskBusinessId, request.isStandardPricing, request.pricingDSRNames).toDsrRecord();
+						newDSRs.add(dsr);
+						dsrTypes.add('New Proposal for ' + wrapper.productType + ' Opportunity DSR');
+					}
+
+				}
+				when 'contractGeneration' {
+					for (DSRRequestOpportunityWrapper wrapper: request.opportunityWrappers) {
+						Deal_Support_Request__c dsr = new ABNChangeDSRGenerator.ProposalContractDSR(false, request.organisationId, wrapper.opportunityId, wrapper.productType, wrapper.keyContactId, request.atRiskBusinessId, request.isStandardPricing, request.pricingDSRNames).toDsrRecord();
+						newDSRs.add(dsr);
+						dsrTypes.add('New Contract for ' + wrapper.productType + ' Opportunity DSR');
+					}
+
+				}
+				when 'terminateContracts' {
+					Set<String> productTypes = new Set<String>();
+					for (DSRRequestOpportunityWrapper wrapper: request.opportunityWrappers) {
+						productTypes.add(wrapper.productType);
+					}
+					for (String productType: productTypes) {
+						Deal_Support_Request__c dsr = new ABNChangeDSRGenerator.TerminateDSR(request.organisationId, productType, request.atRiskBusinessId, request.organisationABN).toDsrRecord();
+						newDSRs.add(dsr);
+						dsrTypes.add('Terminate ' + productType + ' Contracts DSR');
+					}
+				}
+				when 'terminateSTBAs' {
+					Deal_Support_Request__c dsr = new ABNChangeDSRGenerator.TerminateSTBAs(request.organisationId, request.atRiskBusinessId, request.relatedOpportunity, request.organisationABN).toDsrRecord();
+					newDSRs.add(dsr);
+					dsrTypes.add('Terminate ST Billing Accounts DSR');
+				}
+				when 'closeAllBAs' {
+					List<Billing_Account__c> billingAccounts = BillingAccountsSelector.newInstance(0, BILLING_ACCOUNT_FIELD_OVERRIDES).selectByOrganisationABN(new Set<String> {request.organisationABN}, new Set<Object>{BillingAccountsSelector.Options.FILTER_ACTIVE, BillingAccountsSelector.Options.FILTER_SOURCE_SYSTEM_SAP_ERP});
+					result.put('csvRequired', billingAccounts.size() > 5);
+					if (billingAccounts.size() > 0) {
+						closeAllBAs = new ABNChangeDSRGenerator.CloseAllBAs(request.organisationId, request.atRiskBusinessId, billingAccounts, request.estimatedClosureDate);
+						Deal_Support_Request__c dsr = closeAllBAs.toDsrRecord();
+						newDSRs.add(dsr);
+						dsrTypes.add('Close All Billing Accounts DSR');
+					}
+				}
+			}
+		}
+
+		result.put('dsrTypes', dsrTypes);
+		result.put('newDSRs', newDSRs);
+		result.put('closeAllBAs', closeAllBAs);
+
+		return result;
+	}
+
+	/**
+	 * This method is used to generate general content document links based on document Id and entity Id
+	 * Individual DSR is computed and generated based on sub class generator within ABNChangeDSRGenerator.
+	 * @param docIds content document Id list
+	 * @param entityId entity Id where the content document link will be linked
+	 * @return list of content document link generated
+	 */
+	public static List<ContentDocumentLink> generateContentDocumentLink(List<Id> docIds, Id entityId) {
+		List<ContentDocumentLink> contentDocumentLinks = new List<ContentDocumentLink>();
+		for (Id docId: docIds) {
+			ContentDocumentLink contentDocumentLink = new ContentDocumentLink();
+			contentDocumentLink.ContentDocumentId = docId;
+			contentDocumentLink.LinkedEntityId = entityId;
+			contentDocumentLink.ShareType = 'I';
+			contentDocumentLink.Visibility = 'AllUsers';
+			contentDocumentLinks.add(contentDocumentLink);
+		}
+		return contentDocumentLinks;
 	}
 
 	public class DSRRequestWrapper {

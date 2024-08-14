@@ -70,7 +70,6 @@ export default class AbnChangeDsrForm extends LightningElement {
 		const {data, error} = result;
 		this._wiredOpportunities = result;
 		if (error) {
-			console.error(error);
 			this.errorMessage = error;
 			return;
 		}
@@ -97,8 +96,7 @@ export default class AbnChangeDsrForm extends LightningElement {
 				this.opportunityColumns.splice(1, 0, { label: 'Legal Entity Name', fieldName: 'legalEntityName' });
 				this.opportunityColumns.splice(2, 0, { label: 'Key Contact', fieldName: 'keyContactName' });
 				this.opportunityColumns.push({ label: 'Owner', fieldName: 'owner' })
-			}).catch(columnError => {
-				console.error(columnError);
+			}).catch(() => {
 				LightningAlert.open({
 					message: 'Something went wrong while retrieving the columns. Please try again',
 					theme: 'error',
@@ -117,7 +115,6 @@ export default class AbnChangeDsrForm extends LightningElement {
 		if (data) {
 			this.customerOnboardingRecordTypeId = Object.keys(data.recordTypeInfos).find(rti => data.recordTypeInfos[rti].name === 'Customer Onboarding');
 		} else if (error) {
-			console.error(error);
 			LightningAlert.open({
 				message: 'Something went wrong while retrieving customer onboarding record type. Please try again',
 				theme: 'error',
@@ -318,8 +315,7 @@ export default class AbnChangeDsrForm extends LightningElement {
 				this.dsrColumns.splice(1, 0, { label: 'Record Type', fieldName: 'recordType' });
 				this.dsrColumns.push({ label: 'Owner', fieldName: 'owner' })
 			});
-		}).catch(error => {
-			console.error(error);
+		}).catch(() => {
 			LightningAlert.open({
 				message: 'Something went wrong while retrieving DSRs and columns. Please try again',
 				theme: 'error',

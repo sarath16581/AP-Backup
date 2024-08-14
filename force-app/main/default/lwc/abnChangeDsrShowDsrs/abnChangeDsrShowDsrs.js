@@ -30,8 +30,7 @@ export default class AbnChangeDsrShowDsrs extends LightningElement {
 			this.columns.splice(0, 0, { label: 'Deal Support Request ID', fieldName: 'nameUrl', type: 'url', typeAttributes: {label: { fieldName: 'Name' }, target: '_blank'}});
 			this.columns.push({ label: 'Record Type', fieldName: 'recordType' });
 			this.columns.push({ label: 'Owner', fieldName: 'owner' })
-		}).catch(error => {
-			console.error(error);
+		}).catch(() => {
 			LightningAlert.open({
 				message: 'Something went wrong while retrieving the columns. Please try again',
 				theme: 'error',
