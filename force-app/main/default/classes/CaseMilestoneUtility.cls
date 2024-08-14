@@ -36,8 +36,6 @@ public with sharing class CaseMilestoneUtility{
 	private static Id UNIFIED_ENTITLEMENT_ID; // Unifield Entitlement to be linked with case
 	@TestVisible
 	private static Set<Id> unifiedRecordTypes;
-	private final String GENERAL_ENQUIRY = 'General Enquiry';
-	private final String INVESTIGATION = 'Investigation';
 
 	// Added for BGS Case Milestones
 	private static Set<Id> bgsRecTypes;  // the BGS Case Record Type "Service Delivery/Sales_Ops_Delivery"
@@ -58,27 +56,22 @@ public with sharing class CaseMilestoneUtility{
 			// Get the Record Type Id for BGS Service Delivery Cases
 			bgsRecTypes =  Utility.getRecordTypeIds(String.valueOf(Case.getsObjectType()), BGSConstants.SERVICE_DELIVERY_NAME);
 
-			initialiseStaticVariables();
+			List<Entitlement> entitlements = EntitlementsSelector.newInstance().selectByNameAndAccountName(new Set<String>{SSSWConstants.UNIFIED_ENTITLEMENTS}, new Set<String>{SSSWConstants.UNIFIED_ENTITLEMENTS});
+			if(entitlements.isEmpty() == false) {
+				UNIFIED_ENTITLEMENT_ID = entitlements[0].Id;
+			}
+
+			unifiedRecordTypes = Utility.getRecordTypesAsSObjectByDevName(String.valueOf(Case.getsObjectType()),new Set<String>{SSSWConstants.UNIFIED_INVESTIGATION_DEVELOPER_NAME}).keySet();
 		}
 		catch(Exception exp){
+			system.debug('>>>> Exception initialising static block in CaseMilestoneUtility...');
 			// Error Logged to Exception object for analysis
 			UTIL_LoggingService.logHandledException(exp, UserInfo.getOrganizationId(), SSSWConstants.SSSW_APP, 
 													CaseMilestoneUtility.class.getName(), SSSWConstants.STATIC_BLOCK, 
 													SSSWConstants.CASE_TRIGGER, LoggingLevel.ERROR);
 		}
-	}
 
-	@TestVisible
-	private static void initialiseStaticVariables() {
-		List<Entitlement> entitlements = EntitlementsSelector.newInstance().selectByNameAndAccountName(new Set<String>{SSSWConstants.UNIFIED_ENTITLEMENTS}, new Set<String>{SSSWConstants.UNIFIED_ENTITLEMENTS});
-		if(entitlements.isEmpty() == false) {
-			UNIFIED_ENTITLEMENT_ID = entitlements[0].Id;
-		}
-
-		unifiedRecordTypes = new Set<Id>();
-		for(Id rtId: RecordTypesSelector.newInstance().selectByDeveloperName(String.valueOf(Case.getsObjectType()), new Set<String>{SSSWConstants.UNIFIED_INVESTIGATION_DEVELOPER_NAME}).keySet()) {
-			unifiedRecordTypes.add(rtId);
-		}
+		
 	}
 
 	private static Id transportEnquiryEntitlementId {
@@ -149,7 +142,7 @@ public with sharing class CaseMilestoneUtility{
 				if(Utility.isValidRecordType(ssswRecTypes,csRec.RecordTypeId) && STD_ENTITLEMENT != null){  // verify if its SSSW recordtype
 					csRec.EntitlementId = STD_ENTITLEMENT;  // assign default entitlement to cases
 				}
-				else if(UNIFIED_ENTITLEMENT_ID != null && unifiedRecordTypes.contains(csRec.RecordTypeId) == true && csRec.Type == INVESTIGATION) {
+				else if(UNIFIED_ENTITLEMENT_ID != null && unifiedRecordTypes.contains(csRec.RecordTypeId) == true && csRec.Type == SSSWConstants.INVESTIGATION) {
 					csRec.EntitlementId = UNIFIED_ENTITLEMENT_ID; 
 				}
 				else if(Utility.isValidRecordType(bgsRecTypes, csRec.RecordTypeId) && (!originList.contains(csRec.Origin) || (originList.contains(csRec.Origin) && UserInfo.getUserId() != systemSupportUserId)))//only this condition modified for SMWD-312 - MW0004779
@@ -438,19 +431,20 @@ public with sharing class CaseMilestoneUtility{
 	  * @throws			Method might throw exception which is handled by Try-Catch block
 	  */
 	public void updateMilestones(List<Case> caseList,Map<Id,Case> oldMap){
-		try{
+		//try{
 			Set<Id> ownerIds = new Set<Id>();
 			List<Case> ownerChangedCases = new List<Case>();
 			List<Case> completeCharterCases = new List<Case>();
 			List<Case> milestoneStoppedCases = new List<Case>();
 			List<Case> milestoneResumedCases = new List<Case>();
 
+			system.debug('>>> caseList:' + caseList);
+
 			for(Case csRec : caseList){
 				Case oldCase = oldMap.get(csRec.Id);	// get old values of case
 
 				if(UNIFIED_ENTITLEMENT_ID != null && unifiedRecordTypes.contains(csRec.RecordTypeId) == true) {
-
-					if(oldCase.Type == GENERAL_ENQUIRY && csRec.Type == INVESTIGATION) {
+					if(oldCase.Type == SSSWConstants.GENERAL_ENQUIRY && csRec.Type == SSSWConstants.INVESTIGATION) {
 						csRec.EntitlementId = UNIFIED_ENTITLEMENT_ID;
 					}
 
@@ -472,7 +466,7 @@ public with sharing class CaseMilestoneUtility{
 						ownerChangedCases.add(csRec);
 					}
 				} 
-				
+
 				// verify if its SSSW recordtype or transport enquiry case recordtype
 				if(Utility.isValidRecordType(ssswRecTypes,csRec.RecordTypeId) || Utility.isValidRecordType(new Set<Id>{transportEnquiryRecTypeId}, csRec.RecordTypeId)) {
 					// check if case is closed
@@ -496,20 +490,57 @@ public with sharing class CaseMilestoneUtility{
 			updateCaseStatusTracking(caseList,oldMap);  // update open status tracking record
 
 			if(milestoneStoppedCases.isEmpty() == false) {
-				setMilestoneCompletionDates(milestoneStoppedCases, Datetime.now());
+				setMilestoneCompletionDates(milestoneStoppedCases, Datetime.now()); // this will set the Completion Date and IsCompleted will be come True
 			}
 
 			if(milestoneResumedCases.isEmpty() == false) {
 				setMilestoneCompletionDates(milestoneResumedCases, null); // this will resume the milestone
 			}
+			try{
 		}
 		catch(Exception exp){
+			System.debug('>>>> Exception thrown on CaseMilestoneUtility.updateMilestones(...): ' + exp.getMessage());
 			// Error Logged to Exception object for analysis
 			UTIL_LoggingService.logHandledException(exp, UserInfo.getOrganizationId(), SSSWConstants.SSSW_APP, 
 													CaseMilestoneUtility.class.getName(), SSSWConstants.METH_UPDATE_MILESTONES, 
 													SSSWConstants.CASE_TRIGGER, LoggingLevel.ERROR);
 		}
 	}
+
+	/*
+		Ths method will scan for all non-violated milestones and set them to Completed
+	*/
+	private void setMilestoneCompletionDates(List<Case> cases, Datetime completionDate){
+
+		List<CaseMilestone> milestonesToUpdate = new List<CaseMIlestone>();
+		Map<Id, Case> casesMap = new Map<Id, Case>(cases);
+		Datetime now = Datetime.now();
+		Set<Object> filterOptions = new Set<Object>{CaseMilestonesSelector.Options.FILTER_NOT_VIOLATED};
+
+		// if the completion date is specified then only update the ones that have IsCompleted = False, or else update only those with IsComplete = True (ie. setting it to null)
+		if(completionDate != null) {
+			filterOptions.add(CaseMilestonesSelector.Options.FILTER_NOT_COMPLETED);
+		} else {
+			filterOptions.add(CaseMilestonesSelector.Options.FILTER_COMPLETED);
+		}
+
+		for(CaseMilestone cm: CaseMilestonesSelector.newInstance().selectByCase(casesMap.keySet(), filterOptions).values()) {
+			cm.CompletionDate = completionDate;
+			milestonesToUpdate.add(cm);
+		}
+		
+		if(milestonesToUpdate.isEmpty() == false) {
+			try{
+				ApplicationDatabase.getInstance().dmlUpdate(milestonesToUpdate);
+			}
+			catch(Exception exp){
+				// Error Logged to Exception object for analysis
+				UTIL_LoggingService.logHandledException(exp, UserInfo.getOrganizationId(), SSSWConstants.UNIFIED_ENTITLEMENTS, 
+														CaseMilestoneUtility.class.getName(), SSSWConstants.UNIFIED_ENTITLEMENTS, 
+														SSSWConstants.CASE_TRIGGER, LoggingLevel.ERROR);
+			}
+		}
+	} 
 	
 	/**
 	  * @description	   This method is invoked from updateMilestones which creates task for milestone violation
@@ -733,38 +764,5 @@ public with sharing class CaseMilestoneUtility{
 		//System.debug('BGS Entitlements:' + bgsEntitlementIds);
 		return bgsEntitlementIds;
 	}*/
-
-	/*
-		Ths method will scan for all non-violated milestones and set them to Completed
-	*/
-	private void setMilestoneCompletionDates(List<Case> milestoneStoppedCases, Datetime completionDate){
-		List<CaseMilestone> milestonesToUpdate = new List<CaseMIlestone>();
-		Map<Id, Case> cases = new Map<Id, Case>(milestoneStoppedCases);
-		Datetime now = Datetime.now();
-		Set<Object> filterOptions = new Set<Object>{CaseMilestonesSelector.Options.FILTER_NOT_VIOLATED};
-
-		// if the completion date is specified then only update the ones that have IsCompleted = False, or else update only those with IsComplete = True (ie. setting it to null)
-		if(completionDate != null) {
-			filterOptions.add(CaseMilestonesSelector.Options.FILTER_NOT_COMPLETED);
-		} else {
-			filterOptions.add(CaseMilestonesSelector.Options.FILTER_COMPLETED);
-		}
-
-		for(CaseMilestone cm: CaseMilestonesSelector.newInstance().selectByCase(cases.keySet(), filterOptions).values()) {
-			cm.CompletionDate = completionDate;
-			milestonesToUpdate.add(cm);
-		}
-		
-		if(milestonesToUpdate.isEmpty() == false) {
-			try{
-				Database.update(milestonesToUpdate,false);
-			}
-			catch(Exception exp){
-				// Error Logged to Exception object for analysis
-				UTIL_LoggingService.logHandledException(exp, UserInfo.getOrganizationId(), SSSWConstants.UNIFIED_ENTITLEMENTS, 
-														CaseMilestoneUtility.class.getName(), SSSWConstants.UNIFIED_ENTITLEMENTS, 
-														SSSWConstants.CASE_TRIGGER, LoggingLevel.ERROR);
-			}
-		}
-	} 
+	
 }

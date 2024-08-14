@@ -304,7 +304,7 @@ public with sharing class SSSWConstants {
 	public static final String TASK_SUB = 'Email: Australia Post – Case';
 	public static final String TASK_INT_TYPE = 'SSSW Bulk Emails';
 	public static final String GENERAL_ENQUIRY = 'General Enquiry';
-	public static final String Investigation = 'Investigation';
+	public static final String INVESTIGATION = 'Investigation';
 	public static final String Feedback = 'Feedback';
 	public static final String CLOSE = 'Close';
 	public static final String EMAIL_SUBJECT = 'Australia Post-No Reply';

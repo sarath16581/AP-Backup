@@ -28,26 +28,21 @@ private with sharing class CaseMilestoneUtility_Test {
 		SlaProcess sla = [SELECT Id, Name, IsActive, IsVersionDefault FROM SlaProcess WHERE IsVersionDefault = true AND Name =: SSSWConstants.UNIFIED_ENTITLEMENTS LIMIT 1 ];
 		List<Entitlement> entitlements = new List<Entitlement>(ApplicationTestDataFactory.getEntitlements(1, true,SSSWConstants.UNIFIED_ENTITLEMENTS,sla.Id,orgAaccounts[0].Id));
 		EntitlementsSelector mockEntitlementSelector = (EntitlementsSelector)MockUtility.mockSelector(EntitlementsSelector.class);
-		RecordTypesSelector mockRecordTypesSelector = (RecordTypesSelector)MockUtility.mockSelector(RecordTypesSelector.class);
 		Id expectedRecordTypeId = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName().get(SSSWConstants.UNIFIED_INVESTIGATION_DEVELOPER_NAME).getRecordTypeId();
+		Id ssswRecordTypeId = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName().get(SSSWConstants.CASE_RT_SSSW_DELIVERY).getRecordTypeId();
 		Map<Id, RecordType> expectedRecordTypeIds = new Map<Id, RecordType>{
-			expectedRecordTypeId => new RecordType(Id = expectedRecordTypeId, DeveloperName = SSSWConstants.UNIFIED_INVESTIGATION_DEVELOPER_NAME)
+			expectedRecordTypeId => new RecordType(Id = expectedRecordTypeId, DeveloperName = SSSWConstants.UNIFIED_INVESTIGATION_DEVELOPER_NAME),
+			ssswRecordTypeId => new RecordType(Id = ssswRecordTypeId, Name = SSSWConstants.CASE_RT_SSSW_DELIVERY)
 		};
 		
 		MockUtility.Mocks.startStubbing();
 		MockUtility.Mocks.when(mockEntitlementSelector.selectByNameAndAccountName((Set<String>)fflib_Match.eq(new Set<String>{SSSWConstants.UNIFIED_ENTITLEMENTS}), (Set<String>)fflib_Match.eq(new Set<String>{SSSWConstants.UNIFIED_ENTITLEMENTS}))).thenReturn(entitlements);
-		MockUtility.Mocks.when(mockRecordTypesSelector.selectByDeveloperName(fflib_Match.eqString(String.valueOf(Case.getsObjectType())), (Set<String>)fflib_Match.eq(new Set<String>{SSSWConstants.UNIFIED_INVESTIGATION_DEVELOPER_NAME}))).thenReturn(expectedRecordTypeIds);
 		MockUtility.Mocks.stopStubbing();
 
-		Test.startTest();		
-		CaseMilestoneUtility.initialiseStaticVariables();
-		Test.stopTest();
+		System.assertEquals(entitlements[0].Id, CaseMilestoneUtility.UNIFIED_ENTITLEMENT_ID, 'should return the correct entitlement id');
+		System.assertEquals(CaseMilestoneUtility.unifiedRecordTypes.contains(expectedRecordTypeId), true, 'Should contain the expected record type id');
 
 		((EntitlementsSelector)MockUtility.Mocks.verify(mockEntitlementSelector, MockUtility.Mocks.times(1))).selectByNameAndAccountName((Set<String>)fflib_Match.eq(new Set<String>{SSSWConstants.UNIFIED_ENTITLEMENTS}), (Set<String>)fflib_Match.eq(new Set<String>{SSSWConstants.UNIFIED_ENTITLEMENTS}));
-		System.assertEquals(entitlements[0].Id, CaseMilestoneUtility.UNIFIED_ENTITLEMENT_ID, 'should return the correct entitlement id');
-
-		((RecordTypesSelector)MockUtility.Mocks.verify(mockRecordTypesSelector, MockUtility.Mocks.times(1))).selectByDeveloperName((String)fflib_Match.eqString(SSSWConstants.UNIFIED_INVESTIGATION_DEVELOPER_NAME), (Set<String>)fflib_Match.eq(new Set<String>{SSSWConstants.UNIFIED_INVESTIGATION_DEVELOPER_NAME}));
-		System.assertEquals(CaseMilestoneUtility.unifiedRecordTypes.contains(expectedRecordTypeId), true, 'Should contain the expected record type id');
 	}	
 	
 	/**
@@ -80,6 +75,109 @@ private with sharing class CaseMilestoneUtility_Test {
 			System.assert(cs > 0);
 			System.assert(csRec.SLATargetDate__c != null);
 		}
+
+		List<Account> orgAaccounts = new List<Account>(ApplicationTestDataFactory.getAccounts(1, true));
+		SlaProcess sla = [SELECT Id, Name, IsActive, IsVersionDefault FROM SlaProcess WHERE IsVersionDefault = true AND Name =: SSSWConstants.UNIFIED_ENTITLEMENTS LIMIT 1 ];
+		List<Entitlement> entitlements = new List<Entitlement>(ApplicationTestDataFactory.getEntitlements(1, true,SSSWConstants.UNIFIED_ENTITLEMENTS,sla.Id,orgAaccounts[0].Id));
+		EntitlementsSelector mockEntitlementSelector = (EntitlementsSelector)MockUtility.mockSelector(EntitlementsSelector.class);
+		Id unifiedInvestigationRecordTypeId = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName().get(SSSWConstants.UNIFIED_INVESTIGATION_DEVELOPER_NAME).getRecordTypeId();
+
+		MockUtility.Mocks.startStubbing();
+		MockUtility.Mocks.when(mockEntitlementSelector.selectByNameAndAccountName((Set<String>)fflib_Match.eq(new Set<String>{SSSWConstants.UNIFIED_ENTITLEMENTS}), (Set<String>)fflib_Match.eq(new Set<String>{SSSWConstants.UNIFIED_ENTITLEMENTS}))).thenReturn(entitlements);
+		MockUtility.Mocks.stopStubbing();
+
+		List<Case> caseList = ApplicationTestDataFactoryCase.getCases(1, true);
+		caseList[0].RecordTypeId = unifiedInvestigationRecordTypeId;
+		caseList[0].Type = SSSWConstants.INVESTIGATION;
+
+		new CaseMilestoneUtility().insertMilestones(caseList);
+
+		System.assertEquals(CaseMilestoneUtility.UNIFIED_ENTITLEMENT_ID, caseList[0].EntitlementId, 'Should be set to the unified entitlement id');
+	}
+
+	/*
+		This test method tests the updates of the milestone for Unified Investigation cases. 
+		Note: The older logic is tested in the other methods using trigger runs
+	*/
+	@IsTest
+	static void testUpdateMilestones() {
+		List<Account> orgAaccounts = new List<Account>(ApplicationTestDataFactory.getAccounts(1, true));
+		SlaProcess sla = [SELECT Id, Name, IsActive, IsVersionDefault FROM SlaProcess WHERE IsVersionDefault = true AND Name =: SSSWConstants.UNIFIED_ENTITLEMENTS LIMIT 1 ];
+		List<Entitlement> entitlements = new List<Entitlement>(ApplicationTestDataFactory.getEntitlements(1, true,SSSWConstants.UNIFIED_ENTITLEMENTS,sla.Id,orgAaccounts[0].Id));
+		EntitlementsSelector mockEntitlementSelector = (EntitlementsSelector)MockUtility.mockSelector(EntitlementsSelector.class);
+		CaseMilestonesSelector mockCaseMilestonesSelector = (CaseMilestonesSelector)MockUtility.mockSelector(CaseMilestonesSelector.class);
+		ApplicationDatabase mockApplicationDatabase = MockUtility.mockDatabase();
+
+		Id unifiedInvestigationRecordTypeId = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName().get(SSSWConstants.UNIFIED_INVESTIGATION_DEVELOPER_NAME).getRecordTypeId();
+
+		List<String> closedStatus = new List<String>(Utility.getCaseClosedStatus());
+		MilestoneType milestoneType = ApplicationTestDataFactory.getMilestoneTypes(1, true)[0];
+
+		Map<Id, Case> oldMap = new Map<Id, Case>();
+		List<Case> caseList = ApplicationTestDataFactoryCase.getCases(3, true);
+		Case case1 = caseList[0];
+		case1.RecordTypeId = unifiedInvestigationRecordTypeId;
+		case1.Type = SSSWConstants.INVESTIGATION;
+		Case oldCase1 = case1.clone(true, true, true, true);
+		oldCase1.Type = SSSWConstants.GENERAL_ENQUIRY;
+		oldMap.put(oldCase1.Id, oldCase1);
+
+		// Case to close
+		Case case2 = caseList[1];
+		case2.RecordTypeId = unifiedInvestigationRecordTypeId;
+		case2.Type = SSSWConstants.INVESTIGATION;
+		case2.Status = closedStatus[0]; // simulating closed case
+		case2.IsStopped = false;
+		Case oldCase2 = case2.clone(true, true, true, true);
+		oldCase2.Status = SSSWConstants.CASE_STATUS; // old case status set to New
+		oldMap.put(oldCase2.Id, oldCase2);
+		CaseMilestone caseMilestoneCase2 = ApplicationTestDataFactory.getCaseMilestones(1, true, false, false, milestoneType.Id, case2.Id)[0];
+		caseMilestoneCase2.CompletionDate = null; // milestone is not completed
+
+		// Case to re-open
+		Case case3 = caseList[2];
+		case3.RecordTypeId = unifiedInvestigationRecordTypeId;
+		case3.Type = SSSWConstants.INVESTIGATION;
+		case3.Status = SSSWConstants.CASE_STATUS; // simulating re-opened case
+		case3.IsStopped = true;
+		Case oldCase3 = case3.clone(true, true, true, true);
+		oldCase3.Status = closedStatus[0]; // old case status set to Closed
+		oldMap.put(oldCase3.Id, oldCase3);
+		CaseMilestone caseMilestoneCase3 = ApplicationTestDataFactory.getCaseMilestones(1, true, false, true, milestoneType.Id, case3.Id)[0];
+		caseMilestoneCase3.CompletionDate = Datetime.now(); // milestone is completed
+
+		MockUtility.Mocks.startStubbing();
+		MockUtility.Mocks.when(mockEntitlementSelector.selectByNameAndAccountName(
+																(Set<String>)fflib_Match.eq(new Set<String>{SSSWConstants.UNIFIED_ENTITLEMENTS}), 
+																(Set<String>)fflib_Match.eq(new Set<String>{SSSWConstants.UNIFIED_ENTITLEMENTS})
+															)).thenReturn(entitlements);
+															
+		MockUtility.Mocks.when(mockCaseMilestonesSelector.selectByCase(
+																(Set<Id>)fflib_Match.eq(new Set<Id>{case2.Id}), 
+																(Set<Object>)fflib_Match.eq(new Set<Object>{CaseMilestonesSelector.Options.FILTER_NOT_VIOLATED, CaseMilestonesSelector.Options.FILTER_NOT_COMPLETED})
+															)).thenReturn(new Map<Id, CaseMilestone>{caseMilestoneCase2.Id => caseMilestoneCase2});
+
+		MockUtility.Mocks.when(mockCaseMilestonesSelector.selectByCase(
+																(Set<Id>)fflib_Match.eq(new Set<Id>{case3.Id}), 
+																(Set<Object>)fflib_Match.eq(new Set<Object>{CaseMilestonesSelector.Options.FILTER_NOT_VIOLATED, CaseMilestonesSelector.Options.FILTER_COMPLETED})
+															)).thenReturn(new Map<Id, CaseMilestone>{caseMilestoneCase3.Id => caseMilestoneCase3});
+		MockUtility.Mocks.stopStubbing();
+
+		Test.startTest();		
+		new CaseMilestoneUtility().updateMilestones(caseList, oldMap);
+		Test.stopTest();
+
+		System.assertEquals(CaseMilestoneUtility.UNIFIED_ENTITLEMENT_ID, case1.EntitlementId, 'Should be set to the unified entitlement id');
+		
+		System.assertEquals(true, case2.IsStopped, 'Should be stopped');
+		System.assert(caseMilestoneCase2.CompletionDate != null, 'Completion date should filled in');
+
+		System.assertEquals(false, case3.IsStopped, 'Should not be stopped');
+		System.assert(caseMilestoneCase3.CompletionDate == null, 'Completion date should blanked out');
+
+		((ApplicationDatabase)MockUtility.Mocks.verify(mockApplicationDatabase, MockUtility.Mocks.times(1))).dmlUpdate((List<CaseMilestone>)fflib_Match.eq(new List<CaseMilestone>{caseMilestoneCase2}));
+		((ApplicationDatabase)MockUtility.Mocks.verify(mockApplicationDatabase, MockUtility.Mocks.times(1))).dmlUpdate((List<CaseMilestone>)fflib_Match.eq(new List<CaseMilestone>{caseMilestoneCase3}));
+		
 	}
 
 	/**
