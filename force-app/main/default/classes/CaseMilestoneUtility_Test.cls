@@ -9,6 +9,7 @@
  * 2022-02-17 - Nathan Franklin - copied test for BGS entitlement assignment from another class
  * 2022-11-24	Noel Lim - updated testInternalEscalationScenario(), assert for taskCount from 1 to 2 as a temporary fix. Refer to assert for reasoning and technical details.
  * 2023-06-05	Mahesh Parvathaneni - Added tests testTransportEnquiryApplyDefaultEntitlement
+ * 2024-08-14	George Nguyen - Added tests for Unified milestone entitlements: testInitialisation, testInsertMilestones, testUpdateMilestones
  */
 @isTest
 private with sharing class CaseMilestoneUtility_Test {
@@ -151,7 +152,7 @@ private with sharing class CaseMilestoneUtility_Test {
 																(Set<String>)fflib_Match.eq(new Set<String>{SSSWConstants.UNIFIED_ENTITLEMENTS}), 
 																(Set<String>)fflib_Match.eq(new Set<String>{SSSWConstants.UNIFIED_ENTITLEMENTS})
 															)).thenReturn(entitlements);
-															
+
 		MockUtility.Mocks.when(mockCaseMilestonesSelector.selectByCase(
 																(Set<Id>)fflib_Match.eq(new Set<Id>{case2.Id}), 
 																(Set<Object>)fflib_Match.eq(new Set<Object>{CaseMilestonesSelector.Options.FILTER_NOT_VIOLATED, CaseMilestonesSelector.Options.FILTER_NOT_COMPLETED})
