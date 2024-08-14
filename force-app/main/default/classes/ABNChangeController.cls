@@ -275,7 +275,7 @@ public with sharing class ABNChangeController {
 							Database.SaveResult csvSaveResult = ApplicationDatabase.getInstance().dmlInsert(new List<SObject>{closeAllBAs.generateCloseAllBACsv()})[0];
 							if (csvSaveResult.isSuccess()) {
 								Id docId = ContentVersionsSelector.newInstance().selectById(new Set<Id>{csvSaveResult.getId()}).values()[0].ContentDocumentId;
-								Database.SaveResult docSaveResult = ApplicationDatabase.getInstance().dmlInsert(generateContentDocumentLink(new List<Id>{docId}, newDSRs[i].Id))[0];
+								Database.SaveResult docSaveResult = LinkContentDocument.linkContentDocument(new List<Id>{docId}, newDSRs[i].Id)[0];
 								if (!docSaveResult.isSuccess()) {
 									throw new AuraHandledException('CSV generation failed while generating Close All Billing Account DSR: ' + docSaveResult.getErrors());
 								}
@@ -284,7 +284,7 @@ public with sharing class ABNChangeController {
 							}
 						}
 						// attach customer request documents on the DSR
-						ApplicationDatabase.getInstance().dmlInsert(generateContentDocumentLink(request.customerRequestDocumentIds, newDSRs[i].Id));
+						LinkContentDocument.linkContentDocument(request.customerRequestDocumentIds, newDSRs[i].Id);
 					}
 				} else {
 					failedDSRTypes.add(dsrTypes[i]);
@@ -364,26 +364,6 @@ public with sharing class ABNChangeController {
 		result.put('closeAllBAs', closeAllBAs);
 
 		return result;
-	}
-
-	/**
-	 * This method is used to generate general content document links based on document Id and entity Id
-	 * Individual DSR is computed and generated based on sub class generator within ABNChangeDSRGenerator.
-	 * @param docIds content document Id list
-	 * @param entityId entity Id where the content document link will be linked
-	 * @return list of content document link generated
-	 */
-	public static List<ContentDocumentLink> generateContentDocumentLink(List<Id> docIds, Id entityId) {
-		List<ContentDocumentLink> contentDocumentLinks = new List<ContentDocumentLink>();
-		for (Id docId: docIds) {
-			ContentDocumentLink contentDocumentLink = new ContentDocumentLink();
-			contentDocumentLink.ContentDocumentId = docId;
-			contentDocumentLink.LinkedEntityId = entityId;
-			contentDocumentLink.ShareType = 'I';
-			contentDocumentLink.Visibility = 'AllUsers';
-			contentDocumentLinks.add(contentDocumentLink);
-		}
-		return contentDocumentLinks;
 	}
 
 	public class DSRRequestWrapper {

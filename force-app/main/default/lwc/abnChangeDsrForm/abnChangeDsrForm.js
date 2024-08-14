@@ -253,7 +253,7 @@ export default class AbnChangeDsrForm extends LightningElement {
 						} else {
 							dsrTypes.push('contractGeneration');
 						}
-						if (this.selectedOpps.reduce((previousValue, currentValue) => previousValue || currentValue.IsStartrackProposal__c === 'Yes')) {
+						if (this.selectedOpps.reduce((previousValue, currentValue) => previousValue || currentValue.IsStartrackProposal__c === 'Yes', false)) {
 							dsrTypes.push('terminateSTBAs');
 						}
 						dsrTypes.push('terminateContracts');
