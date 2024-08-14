@@ -1,5 +1,5 @@
 /**
- * @description Domain Module generic for Case Email Messages
+ * @description Application Module generic for Case Email Messages
  * @author Naveen Rajanna
  * @date 2022-10-12
  * @group Modules
@@ -7,11 +7,9 @@
  * @test EmailMessageGenericCaseAutomationMd_Test
  * @changelog
  * 2022-10-12 - Naveen Rajanna - Created - REQ2859152
+ * 2024-08-07 - Ranjeewa Silva - Uplifted to new ApplicationModule framework
  */
-public inherited sharing class EmailMessageGenericCaseAutomationModule extends ApplicationDomain.Module {
-	public static EmailMessageGenericCaseAutomationModule newInstance() {
-		return (EmailMessageGenericCaseAutomationModule) Application.Utilities.newInstance(EmailMessageGenericCaseAutomationModule.class);
-	}
+public inherited sharing class EmailMessageGenericCaseAutomationModule extends ApplicationModule {
 
 	// Setup which triggers this module should respond to
 	public EmailMessageGenericCaseAutomationModule() {
