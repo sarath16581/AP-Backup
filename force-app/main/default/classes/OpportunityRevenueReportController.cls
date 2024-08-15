@@ -142,13 +142,13 @@ public class OpportunityRevenueReportController {
 	 */
 	public static void registerDataForUpdateInsert(List<GroupedRevenueSchedule__c> schedules) {
 		// newly created revenue schedules
-		List<GroupedRevenueSchedule__c> schedulesToInsert = newList<GroupedRevenueSchedule__c>();
+		List<GroupedRevenueSchedule__c> schedulesToInsert = new List<GroupedRevenueSchedule__c>();
 		// updated revenue schedules
-		List<GroupedRevenueSchedule__c> schedulesToUpdate = newList<GroupedRevenueSchedule__c>();
+		List<GroupedRevenueSchedule__c> schedulesToUpdate = new List<GroupedRevenueSchedule__c>();
 		// new product revenue records
-		List<GroupedAccountProductRevenue__c> revenuesToInsert = newList<GroupedAccountProductRevenue__c>();
+		List<GroupedAccountProductRevenue__c> revenuesToInsert = new List<GroupedAccountProductRevenue__c>();
 		// updated product revenue records
-		List<GroupedAccountProductRevenue__c> revenuesToUpdate = newList<GroupedAccountProductRevenue__c>();
+		List<GroupedAccountProductRevenue__c> revenuesToUpdate = new List<GroupedAccountProductRevenue__c>();
 		// updated line items
 		Map<id,OpportunityLineItem> itemsToUpdate = new Map<id,OpportunityLineItem>();
 		for (GroupedRevenueSchedule__c schedule : schedules) {

@@ -133,14 +133,6 @@
                 <behavior>Readonly</behavior>
                 <field>RevenueRefreshedBy__c</field>
             </layoutItems>
-			<layoutItems>
-                <behavior>Readonly</behavior>
-                <field>TotalRetainedInYearRevenue__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Readonly</behavior>
-                <field>TotalRetainedInYearRevenue__c</field>
-            </layoutItems>
             <layoutItems>
                 <behavior>Readonly</behavior>
                 <field>OpportunityScheduledRevenue__c</field>
