@@ -20,7 +20,7 @@
     <actionCalls>
         <name>ASH_Email_Alert_on_new_case_creation</name>
         <label>ASH - Email Alert on new case creation</label>
-        <locationX>1909</locationX>
+        <locationX>1843</locationX>
         <locationY>350</locationY>
         <actionName>Case.ASH_Email_Alert_on_new_case_creation</actionName>
         <actionType>emailAlert</actionType>
@@ -94,7 +94,7 @@
     <actionCalls>
         <name>CAR_Auto_Email_response_for_Queue_Owner</name>
         <label>CAR Auto Email response for Queue Owner</label>
-        <locationX>1645</locationX>
+        <locationX>1579</locationX>
         <locationY>350</locationY>
         <actionName>Case.Customer_Analytics_Reporting_Cases_Auto_Email_Response</actionName>
         <actionType>emailAlert</actionType>
@@ -224,9 +224,44 @@
         <versionSegment>1</versionSegment>
     </actionCalls>
     <actionCalls>
+        <name>NetworkPartnerCaseClosureEmail</name>
+        <label>Network Partner Case Closure Email</label>
+        <locationX>4186</locationX>
+        <locationY>926</locationY>
+        <actionName>Case.NetworkPartnerCaseClosureEmail</actionName>
+        <actionType>emailAlert</actionType>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>SObjectRowId</name>
+            <value>
+                <elementReference>vCase.Id</elementReference>
+            </value>
+        </inputParameters>
+    </actionCalls>
+    <actionCalls>
+        <name>New_case_creation_email</name>
+        <label>New case creation email</label>
+        <locationX>2635</locationX>
+        <locationY>350</locationY>
+        <actionName>Case.NetworkPartnerCaseCreationEmail</actionName>
+        <actionType>emailAlert</actionType>
+        <connector>
+            <targetReference>CaseDomain_scenarios</targetReference>
+        </connector>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>SObjectRowId</name>
+            <value>
+                <elementReference>vCase.Id</elementReference>
+            </value>
+        </inputParameters>
+        <nameSegment>Case.Network_Partner_Case_Creation_Email</nameSegment>
+        <versionSegment>1</versionSegment>
+    </actionCalls>
+    <actionCalls>
         <name>New_Dispute_Claim_Case_Created</name>
         <label>New Dispute Claim Case Created</label>
-        <locationX>149</locationX>
+        <locationX>83</locationX>
         <locationY>458</locationY>
         <actionName>Case.New_Dispute_Claim_Case_Created</actionName>
         <actionType>emailAlert</actionType>
@@ -246,7 +281,7 @@
     <actionCalls>
         <name>New_Dispute_Claim_Case_Created_Origin_Email</name>
         <label>New Dispute Claim Case Created Origin Email</label>
-        <locationX>941</locationX>
+        <locationX>875</locationX>
         <locationY>458</locationY>
         <actionName>Case.New_Dispute_Claim_Case_Created_Origin_Email</actionName>
         <actionType>emailAlert</actionType>
@@ -266,7 +301,7 @@
     <actionCalls>
         <name>New_Dispute_Claim_Case_Created_StarTrack</name>
         <label>New Dispute Claim Case Created StarTrack</label>
-        <locationX>677</locationX>
+        <locationX>611</locationX>
         <locationY>458</locationY>
         <actionName>Case.New_Dispute_Claim_Case_Created_StarTrack</actionName>
         <actionType>emailAlert</actionType>
@@ -286,7 +321,7 @@
     <actionCalls>
         <name>New_Dispute_Claim_Case_Created_StarTrack_Origin_Email</name>
         <label>New Dispute Claim Case Created StarTrack Origin Email</label>
-        <locationX>1205</locationX>
+        <locationX>1139</locationX>
         <locationY>458</locationY>
         <actionName>Case.New_Dispute_Claim_Case_Created_StarTrack_Origin_Email</actionName>
         <actionType>emailAlert</actionType>
@@ -306,7 +341,7 @@
     <actionCalls>
         <name>New_Late_Payment_Dispute_Claim_Case_Created</name>
         <label>New Late Payment Dispute Claim Case Created</label>
-        <locationX>413</locationX>
+        <locationX>347</locationX>
         <locationY>458</locationY>
         <actionName>Case.New_Late_Payment_Dispute_Claim_Case_Created</actionName>
         <actionType>emailAlert</actionType>
@@ -343,7 +378,7 @@
     <actionCalls>
         <name>Sales_Coordinator_Case_Created_Notification</name>
         <label>Sales Coordinator Case Created Notification</label>
-        <locationX>2173</locationX>
+        <locationX>2107</locationX>
         <locationY>350</locationY>
         <actionName>Case.Sales_Coordinator_Case_Created_Notification</actionName>
         <actionType>emailAlert</actionType>
@@ -363,7 +398,7 @@
     <actionCalls>
         <name>Security_Express_Case_Creation_Email_Alert</name>
         <label>Security Express Case Creation Email Alert</label>
-        <locationX>2437</locationX>
+        <locationX>2371</locationX>
         <locationY>350</locationY>
         <actionName>Case.Security_Express_Case_Creation_Email_Alert</actionName>
         <actionType>emailAlert</actionType>
@@ -415,7 +450,7 @@
         <nameSegment>Case.Special_Services_Case_Creation_Email_Alert</nameSegment>
         <versionSegment>1</versionSegment>
     </actionCalls>
-    <apiVersion>57.0</apiVersion>
+    <apiVersion>59.0</apiVersion>
     <constants>
         <description>Email Id of MS power apps which needs to be blocked</description>
         <name>MSPowerAppsEmail</name>
@@ -637,7 +672,7 @@
     <decisions>
         <name>CaseDomain_create_only_scenarios</name>
         <label>CaseDomain create only scenarios</label>
-        <locationX>1755</locationX>
+        <locationX>1821</locationX>
         <locationY>242</locationY>
         <defaultConnector>
             <targetReference>CaseDomain_scenarios</targetReference>
@@ -767,11 +802,33 @@
             </connector>
             <label>New Security Express Case</label>
         </rules>
+        <rules>
+            <name>NetworkPartnerCase</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>vCase.RecordType.DeveloperName</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <elementReference>$Label.REC_TYPE_DEV_Network_Partner</elementReference>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>vCase.Calc_SuppliedEmail__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>New_case_creation_email</targetReference>
+            </connector>
+            <label>Nework Partner Case</label>
+        </rules>
     </decisions>
     <decisions>
         <name>CaseDomain_scenarios</name>
         <label>CaseDomain scenarios</label>
-        <locationX>2316</locationX>
+        <locationX>2448</locationX>
         <locationY>818</locationY>
         <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
         <rules>
@@ -928,6 +985,42 @@
             </connector>
             <label>Bulk Mail Case</label>
         </rules>
+        <rules>
+            <name>Network_Partner_Cases</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>vCase.RecordType.DeveloperName</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <elementReference>$Label.REC_TYPE_DEV_Network_Partner</elementReference>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>vCase.Status</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Closed</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>vCase.Status</leftValueReference>
+                <operator>NotEqualTo</operator>
+                <rightValue>
+                    <elementReference>vOldCase.Status</elementReference>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>vCase.ContactEmail__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>NetworkPartnerCaseClosureEmail</targetReference>
+            </connector>
+            <label>Network Partner Cases</label>
+        </rules>
     </decisions>
     <decisions>
         <description>Condition - When a Dispute Claim case is created or updated involving specific scenario (excluding created only scenarios).</description>
@@ -1024,7 +1117,7 @@
     <decisions>
         <name>Is_new_or_existing</name>
         <label>Is new or existing</label>
-        <locationX>2316</locationX>
+        <locationX>2448</locationX>
         <locationY>134</locationY>
         <defaultConnector>
             <targetReference>CaseDomain_scenarios</targetReference>
@@ -1049,7 +1142,7 @@
     <decisions>
         <name>New_Dispute_Claim_Scenarios</name>
         <label>New Dispute Claim Scenarios</label>
-        <locationX>809</locationX>
+        <locationX>743</locationX>
         <locationY>350</locationY>
         <defaultConnector>
             <targetReference>CaseDomain_scenarios</targetReference>
@@ -1320,7 +1413,7 @@ NOT({!vCase.Owner_is_Queue__c}) )</expression>
     </processMetadataValues>
     <processType>AutoLaunchedFlow</processType>
     <start>
-        <locationX>2190</locationX>
+        <locationX>2322</locationX>
         <locationY>0</locationY>
         <connector>
             <targetReference>Is_new_or_existing</targetReference>

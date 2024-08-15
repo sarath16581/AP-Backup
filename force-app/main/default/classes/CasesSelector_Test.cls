@@ -24,6 +24,7 @@
  * 2023-06-08 - Mahesh Parvathaneni - Added tests for WITH_INCOMING_EMAIL_MESSAGES_ASC_ORDER
  * 2023-12-04 - SteveL - Added tests for: getClosedCasesByAccountIdsNMonths, and getOpenCasesByAccountIds
  * 2024-04-25 - Vasu Gorakati - Added test method for selectCasesByReferenceId
+ * 2024-08-12 - Ranjeewa Silva - Updated tests to verify selector option WITH_CONTACT_REQUESTS
  */
 @IsTest
 public with sharing class CasesSelector_Test {
@@ -177,7 +178,79 @@ public with sharing class CasesSelector_Test {
 		qb = selectorNew3.newQueryBuilder(new Set<Object>{CasesSelector.Options.WITH_ACCOUNT});
 		soql = qb.toSoqlString();
 		System.assertEquals(true, Pattern.compile('(?is)Account\\..*?\\bfrom case\\b').matcher(soql).find(), 'Resulting query does not select Account fields'+soql);
+
+		qb = selector.newQueryBuilder(new Set<Object>{CasesSelector.Options.WITH_CONTACT_REQUESTS});
+		soql = qb.toSoqlString();
+		Assert.isTrue(Pattern.compile('(?ism)Select.*?\\(Select.*?\\bfrom ContactRequests\\b.*?\\).*?\\bfrom case\\b').matcher(soql).find(), 'Resulting query does not select ContactRequest child records: ' + soql);
 		
+		Test.stopTest();
+
+	}
+
+	/**
+	 * Test to ensure that the selectors QueryBuilder is generating the correct output
+	 */
+	@IsTest
+	public static void testEnsureSearchMethodProducesCorrectString() {
+
+		// =====================================
+		// Data Preparation
+		// =====================================
+		// None!
+
+		// =====================================
+		// Stubbing
+		// =====================================
+		// None!
+
+		// =====================================
+		// Testing
+		// =====================================
+		Test.startTest();
+
+		Map<String, Object> searchParams;
+
+		CasesSelector selector = CasesSelector.newInstance(1);
+
+		searchParams = new Map<String, Object>{
+				'caseIds' => new Set<Id>{'500000000000000'},
+				'recordTypeIds' => new Set<Id>{'012Bm000005SlxBIAS', '012900000015ftpAAA'}
+		};
+
+		String soql = selector.getSearchSoql(searchParams, new Set<Object>(), true);
+		Assert.isTrue(Pattern.compile('(?ism)\\s+from Case\\s+where\\b.*?\\bRecordTypeId\\s+In\\b').matcher(soql).find(), 'Resulting query does not filter RecordType.');
+		Assert.isTrue(Pattern.compile('(?ism)\\s+from Case\\s+where\\b.*?\\bId\\s+In\\b').matcher(soql).find(), 'Resulting query does not filter Case Id.');
+		Assert.isTrue(Pattern.compile('(?ism)\\s+from Case\\s+where\\b.*?\\bAND\\b').matcher(soql).find(), 'Resulting query does not limit by ALL');
+
+		// make sure the query is valid (even though no records will be returned)
+		// note if the query fails, an exception will be thrown
+		selector.search(searchParams, true);
+
+		searchParams = new Map<String, Object>{
+				'caseIds' => new Set<Id>{'500000000000000'}
+		};
+
+		soql = selector.getSearchSoql(searchParams, new Set<Object>(), true);
+		Assert.isTrue(Pattern.compile('(?ism)\\s+from Case\\s+where\\b.*?\\bId\\s+In\\b').matcher(soql).find(), 'Resulting query does not filter Case Id.');
+		Assert.isFalse(Pattern.compile('(?ism)\\s+from Case\\s+where\\b.*?\\bRecordTypeId\\s+In\\b').matcher(soql).find(), 'Resulting query filter RecordType, but it should not.');
+
+		// make sure the query is valid (even though no records will be returned)
+		// note if the query fails, an exception will be thrown
+		selector.search(searchParams, true);
+
+		// make sure an exception is thrown for invalid search parameters
+		searchParams = new Map<String, Object>{
+				'invalidParam' => new Set<String>{'somevalue'},
+				'caseIds' => new Set<Id>{'500000000000000'}
+		};
+
+		try {
+			soql = selector.getSearchSoql(searchParams, new Set<Object>(), false);
+		} catch (Exception e) {
+			// ensure correct type of exception thrown
+			Assert.isInstanceOfType(e, ApplicationSelector.SelectorException.class);
+		}
+
 		Test.stopTest();
 
 	}

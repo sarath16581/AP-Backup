@@ -1,5 +1,5 @@
 /**
- * @description Test Class used for the CTI Integration for Australia Post and StarTrack 
+ * @description Test Class used for the CTI Integration for Australia Post and StarTrack
  * @author Vasu Gorakati
  * @date 2025-05-03
  * @changelog
@@ -7,7 +7,7 @@
  */
 @isTest
 public class GenesysConnectorController_Test {
-	
+
 	/*****************************************************************
 	 * Scenario:
 	 * Star Track - Triggers a search for cases based on the consignment passed in for
@@ -30,7 +30,7 @@ public class GenesysConnectorController_Test {
 		// =====================================
 		ArticlesSelector mockArticlesSelector = (ArticlesSelector) MockUtility.mockSelector(ArticlesSelector.class);
 		CasesSelector mockCasesSelector = (CasesSelector) MockUtility.mockSelector(CasesSelector.class);
-		
+
 		// set up our responses
 		MockUtility.Mocks.startStubbing();
 		MockUtility.Mocks.when(mockArticlesSelector.selectByArticleNames(new Set<String>{ articles[0].Name}, StarTrack_Constants.CON_REC_TYPE, new Set<Object>{ArticlesSelector.Options.WITH_RECORDTYPE}))
@@ -46,10 +46,10 @@ public class GenesysConnectorController_Test {
 
 		Object result = GenesysConnectorController.findConsignmentStarTrack(articles[0].Name);
 
-		Test.stopTest();   
+		Test.stopTest();
 
 		System.assertEquals(true, String.valueOf(result).contains('MultipleCase'));
-		
+
 		((ArticlesSelector)MockUtility.Mocks.verify(mockArticlesSelector, MockUtility.Mocks.times(1))).selectByArticleNames((Set<String>)fflib_Match.eq(new Set<String>{ articles[0].Name}),(String)fflib_Match.eq(StarTrack_Constants.CON_REC_TYPE), (Set<Object>)fflib_Match.anyObject());
 		((CasesSelector)MockUtility.Mocks.verify(mockCasesSelector, MockUtility.Mocks.times(1))).selectByArticleId((Set<Id>)fflib_Match.eq(new Set<Id>{ articles[0].Id}),(String)fflib_Match.eq(StarTrack_Constants.CASE_DELIVERY_DEVNAME_RT), (Set<Object>)fflib_Match.anyObject());
 
@@ -57,15 +57,14 @@ public class GenesysConnectorController_Test {
 		((ArticlesSelector)MockUtility.Mocks.verify(mockArticlesSelector, MockUtility.Mocks.times(1))).selectByArticleNames((Set<String>)articleNamesCaptor.capture(), (String)fflib_Match.eq(StarTrack_Constants.CON_REC_TYPE), (Set<Object>)fflib_Match.anyObject());
 		Set<String> articleNamesCaptured = (Set<String>) articleNamesCaptor.getValue();
 
-		System.assertEquals(1,articleNamesCaptured.size());
- 		
+		System.assertEquals(1, articleNamesCaptured.size());
+
 		fflib_ArgumentCaptor articleIdsCaptor = fflib_ArgumentCaptor.forClass(Map<String, Object>.class);
 		((CasesSelector)MockUtility.Mocks.verify(mockCasesSelector, MockUtility.Mocks.times(1))).selectByArticleId((Set<Id>)articleIdsCaptor.capture(), (String)fflib_Match.eq(StarTrack_Constants.CASE_DELIVERY_DEVNAME_RT), (Set<Object>)fflib_Match.anyObject());
 		Set<Id> articleIdsCaptured = (Set<Id>) articleIdsCaptor.getValue();
 
-		System.assertEquals(1,articleIdsCaptured.size());
-		
-	}	
+		System.assertEquals(1, articleIdsCaptured.size());
+	}
 	/*****************************************************************
 	 * Scenario:
 	 * Star Track - Triggers a search for cases based on the consignment passed in for
@@ -87,7 +86,7 @@ public class GenesysConnectorController_Test {
 		// =====================================
 		ArticlesSelector mockArticlesSelector = (ArticlesSelector) MockUtility.mockSelector(ArticlesSelector.class);
 		CasesSelector mockCasesSelector = (CasesSelector) MockUtility.mockSelector(CasesSelector.class);
-		
+
 		// set up our responses
 		MockUtility.Mocks.startStubbing();
 		MockUtility.Mocks.when(mockArticlesSelector.selectByArticleNames(new Set<String>{ articles[0].Name}, StarTrack_Constants.CON_REC_TYPE, new Set<Object>{ArticlesSelector.Options.WITH_RECORDTYPE}))
@@ -103,10 +102,10 @@ public class GenesysConnectorController_Test {
 
 		Object result = GenesysConnectorController.findConsignmentStarTrack(articles[0].Name);
 
-		Test.stopTest();   
+		Test.stopTest();
 
-		System.assertEquals(String.valueOf(result), cases[0].Id + '_' + cases[0].CaseNumber + '_' + cases[0].Status);
-		
+		System.assertEquals(String.valueOf(result), cases[0].Id + '_' + cases[0].CaseNumber + '_' + cases[0].Status, 'Incorrect assignment');
+
 		((ArticlesSelector)MockUtility.Mocks.verify(mockArticlesSelector, MockUtility.Mocks.times(1))).selectByArticleNames((Set<String>)fflib_Match.eq(new Set<String>{ articles[0].Name}),(String)fflib_Match.eq(StarTrack_Constants.CON_REC_TYPE), (Set<Object>)fflib_Match.anyObject());
 		((CasesSelector)MockUtility.Mocks.verify(mockCasesSelector, MockUtility.Mocks.times(1))).selectByArticleId((Set<Id>)fflib_Match.eq(new Set<Id>{ articles[0].Id}),(String)fflib_Match.eq(StarTrack_Constants.CASE_DELIVERY_DEVNAME_RT), (Set<Object>)fflib_Match.anyObject());
 
@@ -114,13 +113,13 @@ public class GenesysConnectorController_Test {
 		((ArticlesSelector)MockUtility.Mocks.verify(mockArticlesSelector, MockUtility.Mocks.times(1))).selectByArticleNames((Set<String>)articleNamesCaptor.capture(), (String)fflib_Match.eq(StarTrack_Constants.CON_REC_TYPE), (Set<Object>)fflib_Match.anyObject());
 		Set<String> articleNamesCaptured = (Set<String>) articleNamesCaptor.getValue();
 
-		System.assertEquals(1,articleNamesCaptured.size());
- 		
+		System.assertEquals(1, articleNamesCaptured.size(), 'Incorrect number of captures');
+
 		fflib_ArgumentCaptor articleIdsCaptor = fflib_ArgumentCaptor.forClass(Map<String, Object>.class);
 		((CasesSelector)MockUtility.Mocks.verify(mockCasesSelector, MockUtility.Mocks.times(1))).selectByArticleId((Set<Id>)articleIdsCaptor.capture(), (String)fflib_Match.eq(StarTrack_Constants.CASE_DELIVERY_DEVNAME_RT), (Set<Object>)fflib_Match.anyObject());
 		Set<Id> articleIdsCaptured = (Set<Id>) articleIdsCaptor.getValue();
 
-		System.assertEquals(1,articleIdsCaptured.size());
+		System.assertEquals(1, articleIdsCaptured.size());
 	}
 
   /*****************************************************************
@@ -164,11 +163,11 @@ public class GenesysConnectorController_Test {
 		System.assertEquals(String.valueOf(result), 'NoCase_' + article.Id);
 
 	}
-	
+
 	/*****************************************************************
 	 * Scenario: Star Track - Get related contact of case for star track
 	 *
-	 *****************************************************************/  
+	 *****************************************************************/
 	@IsTest
 	private static void checkRelatedContactOfCaseStarTrack() {
 
@@ -179,12 +178,12 @@ public class GenesysConnectorController_Test {
 		cases[0].RecordTypeId = ApplicationTestDataFactory.caseStarTrackDeliveryEnquiryRecordType;
 		List<AuthorisedContacts__c> relatedCons = getAuthorisedContacts(cases[0].Id);
 		relatedCons[0] = (AuthorisedContacts__c)ApplicationTestDataFactory.setUnwritableFields(relatedCons[0], new Map<String, Object> { 'Calc_Contact_Phone_Number__c' => '0478738121'});
-		
+
 		// =====================================
 		// Stubbing
 		// =====================================
 		AuthorisedContactsSelector mockAuthorisedContactsSelector = (AuthorisedContactsSelector) MockUtility.mockSelector(AuthorisedContactsSelector.class);
-		
+
 		// set up our responses
 		MockUtility.Mocks.startStubbing();
 		MockUtility.Mocks.when(mockAuthorisedContactsSelector.selectByCaseIdOrderByName(new Set<Id>{cases[0].Id}, new Set<Object>()))
@@ -197,31 +196,31 @@ public class GenesysConnectorController_Test {
 		Test.startTest();
 
 		AuthorisedContacts__c relatedCon = GenesysConnectorController.checkRelatedContactOfCaseStarTrack(cases[0].Id, '0478738121');
-		
-		Test.stopTest();	 
-		
+
+		Test.stopTest();
+
 		System.assertEquals(relatedCons[0].Id, relatedCon.Id);
-		
+
 		((AuthorisedContactsSelector)MockUtility.Mocks.verify(mockAuthorisedContactsSelector, MockUtility.Mocks.times(1))).selectByCaseIdOrderByName((Set<Id>)fflib_Match.eq(new Set<Id>{ cases[0].Id}),(Set<Object>)fflib_Match.anyObject());
-  
+
 		fflib_ArgumentCaptor caseIdsCaptor = fflib_ArgumentCaptor.forClass(Map<String, Object>.class);
 		((AuthorisedContactsSelector)MockUtility.Mocks.verify(mockAuthorisedContactsSelector, MockUtility.Mocks.times(1))).selectByCaseIdOrderByName((Set<Id>)caseIdsCaptor.capture(), (Set<Object>)fflib_Match.anyObject());
 		Set<Id> caseIdsCaptured = (Set<Id>) caseIdsCaptor.getValue();
 
-		System.assertEquals(1,caseIdsCaptured.size());
-	}	
+		System.assertEquals(1, caseIdsCaptured.size());
+	}
 
 	/*****************************************************************
 	 * Scenario: Star Track - Get related case with recent caller phone details
 	 *
-	 *****************************************************************/ 	
+	 *****************************************************************/
 	@isTest
 	private static void updateCaseWithRecentCallerStarTrack(){
-		
+
 		List<Case> cases = ApplicationTestDataFactory.getCases(1,false);
 		cases[0].RecordTypeId = ApplicationTestDataFactory.caseStarTrackDeliveryEnquiryRecordType;
 		INSERT cases;
-		
+
 		List<AuthorisedContacts__c> relatedCons = getAuthorisedContacts(cases[0].Id);
 		relatedCons[0] = (AuthorisedContacts__c)ApplicationTestDataFactory.setUnwritableFields(relatedCons[0], new Map<String, Object> { 'Calc_Contact_Phone_Number__c' => '0478738121'});
 
@@ -229,56 +228,56 @@ public class GenesysConnectorController_Test {
 		// Testing
 		// =====================================
 		Test.startTest();
-		
+
 		Case c = GenesysConnectorController.updateCaseWithRecentCallerStarTrack(relatedCons[0], cases[0].Id);
-		
+
 		Test.stopTest();
-		
+
 		System.assertEquals('0478738121', c.Recent_Caller_Phone_Number__c);
 	}
-	
+
 	/*****************************************************************
 	 * Scenario: Star Track - Create case with consignment number
 	 *
-	 *****************************************************************/ 	
+	 *****************************************************************/
 	@isTest
 	private static void createCasewithConsignmentNumberStarTrack(){
-		
+
 		List<Article__c> articles = ApplicationTestDataFactory.getConsignments(1, false);
 		INSERT articles;
-		
+
 		Test.startTest();
-		
+
 		Case c = GenesysConnectorController.createCasewithConsignmentNumberStarTrack(articles[0].Id, '0432077466', false, null, null, null);
-		
-		Test.stopTest();  
-		
+
+		Test.stopTest();
+
 		System.Assert(c != null, 'case should not be null');
-	}   
+	}
 
 	/*****************************************************************
 	 * Scenario: Star Track - Create call log for Star Track
 	 *
-	 *****************************************************************/ 	
+	 *****************************************************************/
 	@isTest
 	private static void createCallLog(){
-		
+
 		List<Case> cases = ApplicationTestDataFactory.getCases(1,false);
 		cases[0].RecordTypeId = ApplicationTestDataFactory.caseStarTrackDeliveryEnquiryRecordType;
 		INSERT cases;
-		
+
 		Test.startTest();
-		
+
 		String result = GenesysConnectorController.createCallLogStarTrack(cases[0].Id);
-		
+
 		Test.stopTest();
-		
+
 		System.assertEquals('Success', result);
 	}
 	/*****************************************************************
 	 * Scenario: Australia Post - search by Case id
 	 *
-	 *****************************************************************/ 
+	 *****************************************************************/
 	@isTest
 	static void searchAPCaseId() {
 
@@ -303,35 +302,45 @@ public class GenesysConnectorController_Test {
 		// Testing
 		// =====================================
 		Test.startTest();
-		
+
 		Map<String, String> jsonMap = new Map<String, String>();
 		jsonMap.put('caseId', cases[0].Id);
 		String eventJson = JSON.serialize(jsonMap);
 		Map<String, Object> result = GenesysConnectorController.searchAP(eventJson);
-		
+
 		Test.stopTest();
 
 		System.assertEquals('caseId', result.get('match'));
 	}
-	
+
 	/*****************************************************************
 	 * Scenario: Australia Post - search by Case Number
 	 *
-	 *****************************************************************/ 
+	 *****************************************************************/
 	@isTest
 	static void searchAPCaseNumber() {
 
 		// =====================================
 		// Data Preparation
 		// =====================================
-		List<Case> cases = ApplicationTestDataFactory.getCases(1, true);
-		cases[0].RecordTypeId = ApplicationTestDataFactory.caseSSSWGeneralEnquiryRecordType;
-		
+		List<Case> cases = new List<Case>{
+			(Case)JSON.deserialize(
+				JSON.serialize(new Map<SObjectField, Object> {
+					Case.Id => fflib_IDGenerator.generate(Case.SObjectType),
+					Case.Subject => 'Case Subject 1',
+					Case.Description => 'Case Description 1',
+					Case.Status => 'New',
+					Case.CaseNumber => '123456',
+					Case.RecordTypeId => ApplicationTestDataFactory.caseSSSWGeneralEnquiryRecordType
+				}), Case.class
+			)
+		};
+
 		// =====================================
 		// Stubbing
 		// =====================================
 		CasesSelector mockCasesSelector = (CasesSelector) MockUtility.mockSelector(CasesSelector.class);
-		
+
 		// set up our responses
 		MockUtility.Mocks.startStubbing();
 		MockUtility.Mocks.when(mockCasesSelector.selectByCaseNumber(new Set<String>{cases[0].CaseNumber},new Set<Object>{CasesSelector.Options.WITH_CONTACT}))
@@ -339,12 +348,12 @@ public class GenesysConnectorController_Test {
 		MockUtility.Mocks.stopStubbing();
 
 		Test.startTest();
-	
+
 		Map<String, String> jsonMap = new Map<String, String>();
 		jsonMap.put('caseNumber', cases[0].CaseNumber);
 		String eventJson = JSON.serialize(jsonMap);
 		Map<String, Object> result = GenesysConnectorController.searchAP(eventJson);
-		
+
 		Test.stopTest();
 
 		System.assertEquals('caseNumber', result.get('match'));
@@ -354,13 +363,13 @@ public class GenesysConnectorController_Test {
 		((CasesSelector)MockUtility.Mocks.verify(mockCasesSelector, MockUtility.Mocks.times(1))).selectByCaseNumber((Set<String>)caseNumbersCaptor.capture(), (Set<Object>)fflib_Match.anyObject());
 		Set<String> caseNumbersCaptured = (Set<String>) caseNumbersCaptor.getValue();
 
-		System.assertEquals(1,caseNumbersCaptured.size());
+		System.assertEquals(1, caseNumbersCaptured.size());
 	}
-	
+
  	/*****************************************************************
 	 * Scenario: Australia Post - search by Tracking Number
 	 *
-	 *****************************************************************/ 
+	 *****************************************************************/
 	@isTest
 	static void searchAPTrackingNumber() {
 
@@ -370,12 +379,12 @@ public class GenesysConnectorController_Test {
 		List<Case> cases = ApplicationTestDataFactory.getCases(1, true);
 		cases[0].RecordTypeId = ApplicationTestDataFactory.caseSSSWGeneralEnquiryRecordType;
 		cases[0].ReferenceID__c = 'I2DZ07794311';
-		
+
 		// =====================================
 		// Stubbing
 		// =====================================
 		CasesSelector mockCasesSelector = (CasesSelector) MockUtility.mockSelector(CasesSelector.class);
-		
+
 		// set up our responses
 		MockUtility.Mocks.startStubbing();
 		MockUtility.Mocks.when(mockCasesSelector.selectCasesByReferenceId(new Set<String>{cases[0].ReferenceID__c},new Set<Object>{CasesSelector.Options.WITH_CONTACT}))
@@ -386,12 +395,12 @@ public class GenesysConnectorController_Test {
 		// Testing
 		// =====================================
 		Test.startTest();
-		
+
 		Map<String, String> jsonMap = new Map<String, String>();
 		jsonMap.put('trackingNumber', cases[0].ReferenceID__c);
 		String eventJson = JSON.serialize(jsonMap);
 		Map<String, Object> result = GenesysConnectorController.searchAP(eventJson);
-		
+
 		Test.stopTest();
 
 		System.assertEquals('trackingNumber', result.get('match'));
@@ -402,13 +411,13 @@ public class GenesysConnectorController_Test {
 		((CasesSelector)MockUtility.Mocks.verify(mockCasesSelector, MockUtility.Mocks.times(1))).selectCasesByReferenceId((Set<String>)caseReferenceIdsCaptor.capture(), (Set<Object>)fflib_Match.anyObject());
 		Set<String> caseReferenceIdsCaptured = (Set<String>) caseReferenceIdsCaptor.getValue();
 
-		System.assertEquals(1,caseReferenceIdsCaptured.size());
-	}	
-	
+		System.assertEquals(1, caseReferenceIdsCaptured.size());
+	}
+
  	/*****************************************************************
 	 * Scenario: Australia Post - search by Contact Id
 	 *
-	 *****************************************************************/ 
+	 *****************************************************************/
 	@isTest
 	static void searchAPContactId() {
 
@@ -417,12 +426,12 @@ public class GenesysConnectorController_Test {
 		// =====================================
 		List<Account> acc = ApplicationTestDataFactory.getPersonAccounts(1, true);
 		List<Contact> contacts = ApplicationTestDataFactory.getContacts(1, acc[0].Id, true);
-		
+
 		// =====================================
 		// Stubbing
 		// =====================================
 		ContactsSelector mockContactsSelector = (ContactsSelector) MockUtility.mockSelector(ContactsSelector.class);
-		
+
 		// set up our responses
 		MockUtility.Mocks.startStubbing();
 		MockUtility.Mocks.when(mockContactsSelector.selectById(new Set<Id>{contacts[0].Id}, new Set<Object>{ContactsSelector.Options.WITH_RECORDTYPE}))
@@ -433,29 +442,29 @@ public class GenesysConnectorController_Test {
 		// Testing
 		// =====================================
 		Test.startTest();
-		
+
 		Map<String, String> jsonMap = new Map<String, String>();
 		jsonMap.put('contactId', contacts[0].Id);
 		String eventJson = JSON.serialize(jsonMap);
 		Map<String, Object> result = GenesysConnectorController.searchAP(eventJson);
-		
+
 		Test.stopTest();
 
 		System.assertEquals('contactId', result.get('match'));
-	
+
 		((ContactsSelector)MockUtility.Mocks.verify(mockContactsSelector, MockUtility.Mocks.times(1))).selectById((Set<Id>)fflib_Match.eq(new Set<Id>{contacts[0].Id}),(Set<Object>)fflib_Match.anyObject());
 
 		fflib_ArgumentCaptor contactIdsCaptor = fflib_ArgumentCaptor.forClass(Map<String, Object>.class);
 		((ContactsSelector)MockUtility.Mocks.verify(mockContactsSelector, MockUtility.Mocks.times(1))).selectById((Set<Id>)contactIdsCaptor.capture(), (Set<Object>)fflib_Match.anyObject());
 		Set<Id> contactIdsCaptured = (Set<Id>) contactIdsCaptor.getValue();
 
-		System.assertEquals(1,contactIdsCaptured.size());
+		System.assertEquals(1, contactIdsCaptured.size());
 	}
-	
+
  	/*****************************************************************
-	 * Scenario: Australia Post - search by Contact Phone 
+	 * Scenario: Australia Post - search by Contact Phone
 	 *
-	 *****************************************************************/ 
+	 *****************************************************************/
 	@isTest
 	static void searchAPContactPhoneNumber() {
 
@@ -465,12 +474,12 @@ public class GenesysConnectorController_Test {
 		List<Account> acc = ApplicationTestDataFactory.getPersonAccounts(1, true);
 		List<Contact> contacts = ApplicationTestDataFactory.getContacts(1, acc[0].Id, true);
 		contacts[0].Phone = '0432077466';
-		
+
 		// =====================================
 		// Stubbing
 		// =====================================
 		ContactsSelector mockContactsSelector = (ContactsSelector) MockUtility.mockSelector(ContactsSelector.class);
-		
+
 		// set up our responses
 		MockUtility.Mocks.startStubbing();
 		MockUtility.Mocks.when(mockContactsSelector.selectByLikedAnyPhoneOrderByName(contacts[0].Phone, new Set<Object>{ContactsSelector.Options.WITH_RECORDTYPE}))
@@ -481,12 +490,12 @@ public class GenesysConnectorController_Test {
 		// Testing
 		// =====================================
 		Test.startTest();
-		
+
 		Map<String, String> jsonMap = new Map<String, String>();
 		jsonMap.put('phoneNumber', contacts[0].Phone);
 		String eventJson = JSON.serialize(jsonMap);
 		Map<String, Object> result = GenesysConnectorController.searchAP(eventJson);
-		
+
 		Test.stopTest();
 
 		System.assertEquals('phoneNumber', result.get('match'));
@@ -495,14 +504,14 @@ public class GenesysConnectorController_Test {
 
 		fflib_ArgumentCaptor contactphoneCaptor = fflib_ArgumentCaptor.forClass(Map<String, Object>.class);
 		((ContactsSelector)MockUtility.Mocks.verify(mockContactsSelector, MockUtility.Mocks.times(1))).selectByLikedAnyPhoneOrderByName((String)contactPhoneCaptor.capture(), (Set<Object>)fflib_Match.anyObject());
-	
-		System.assertEquals(true,contactPhoneCaptor != null);
+
+		System.assertEquals(true, contactPhoneCaptor != null);
 	}
 
  	/*****************************************************************
 	 * Scenario: Australia Post - check task creation for AP
 	 *
-	 *****************************************************************/ 
+	 *****************************************************************/
 	@isTest
 	static void maintainTaskAP() {
 		Id personAccountId = fflib_IDGenerator.generate(Account.SObjectType);
@@ -559,7 +568,7 @@ public class GenesysConnectorController_Test {
 			'enquirySubType' => 'Priority 1',
 			'phoneNumber' => 'Invalid or No Selection'
 		};
-		
+
 		String callLog = JSON.serialize(mapCallLog);
 
 		Map<String, Object> taskDetailMap = new Map<String, Object>{
@@ -567,19 +576,19 @@ public class GenesysConnectorController_Test {
 			'status' => 'Closed',
 			'contactId' => personAccountId
 		};
-		
+
 		// =====================================
 		// Testing
-		// =====================================		
+		// =====================================
 		Test.startTest();
-		
+
 		// Invoke the actual backend controller method
 		Object result = GenesysConnectorController.maintainTaskAP(
 			callLog,
 			JSON.serialize(taskDetailMap),
 			callLog
 		);
-		
+
 		fflib_ArgumentCaptor upsertCaptor = fflib_ArgumentCaptor.forClass(List<SObject>.class);
 
 		((ApplicationDatabase)MockUtility.Mocks.verify(mockDatabase, MockUtility.Mocks.times(1))).dmlInsert(
@@ -594,9 +603,9 @@ public class GenesysConnectorController_Test {
 
 		System.assertEquals(Task.SObjectType, captorResults[0][0].getSObjectType(), 'Unexpected SObject');
 		System.assertEquals(contactId, ((Task)captorResults[0][0]).WhoId, 'Excepted Contact Id');
-		
+
 		Test.stopTest();
-		
+
 		System.Assert(result != null, 'task should be inserted');
 	}
 
@@ -604,10 +613,18 @@ public class GenesysConnectorController_Test {
 		return (List<AuthorisedContacts__c>)ApplicationTestDataFactory.populateSObjects(AuthorisedContacts__c.SObjectType, new Map<SObjectField, Object>{
 			AuthorisedContacts__c.Case__c => fflib_IDGenerator.generate(AuthorisedContacts__c.SObjectType),
 			AuthorisedContacts__c.Case__c => caseId,
-			AuthorisedContacts__c.First_Name__c => 'Test %count%', 
-			AuthorisedContacts__c.Last_Name__c =>  'Last %count%', 
+			AuthorisedContacts__c.First_Name__c => 'Test %count%',
+			AuthorisedContacts__c.Last_Name__c =>  'Last %count%',
 			AuthorisedContacts__c.Contact_Email__c => 'tst%count%@test.com',
 			AuthorisedContacts__c.Contact_Phone_Number__c => '0478738121'
 		}, 1);
+	}
+
+	public static testMethod void testSuppressScreenPop() {
+		purecloud.CTIExtension.ScreenPop instance = new GenesysConnectorController();
+		String result = instance.onScreenPop(null);
+		Map<String,Object> returnPayload = (Map<String,Object>)JSON.deserializeUntyped(result);
+		System.assertEquals(null, returnPayload.get('showPopup'), 'Incorrectly value');
+		System.assertEquals('', returnPayload.get('url'), 'Incorrectly value');
 	}
 }

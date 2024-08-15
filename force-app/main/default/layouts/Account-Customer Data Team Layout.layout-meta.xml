@@ -70,10 +70,6 @@
                 <behavior>Edit</behavior>
                 <field>L2C_Star_Track_Approved_Credit_Limit__c</field>
             </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>IndirectCustomer__c</field>
-            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>

@@ -27,12 +27,15 @@
  * 2023-08-16 - Hasantha Liyanage - Added fields in getSObjectFieldList.
  * 2023-12-04 - Steve L - added new methods: getClosedCasesByAccountIds, and getOpenCasesByAccountIds
  * 2024-04-25 - Vasu Gorakati - Added new method selectCasesByReferenceId and selectByArticleId
+ * 2024-07-19 - Ranjeewa Silva - Added new search method with search parameter validation
+ * 2024-07-30 - Seth Heang - added fields in getSObjectFieldList.
+ * 2024-08-12 - Ranjeewa Silva - New selector option to select child contact requests.
  */
 public virtual inherited sharing class CasesSelector extends ApplicationSelector {
 
 	public enum Options {
 		WITH_RECORDTYPE, WITH_OWNER, WITH_CONTACT, WITH_NETWORK, WITH_ARTICLE, WITH_CHILDINITIALCONTACT, WITH_SINGLE_EMAIL_MESSAGES_ASC_ORDER, WITH_BILLINGACCOUNT, WITH_ACCOUNT, 
-		WITH_CHILD_INVESTIGATIONS, WITH_NETWORK_RESPONSE, WITH_INCOMING_EMAIL_MESSAGES_ASC_ORDER
+		WITH_CHILD_INVESTIGATIONS, WITH_NETWORK_RESPONSE, WITH_INCOMING_EMAIL_MESSAGES_ASC_ORDER, WITH_CONTACT_REQUESTS
 	}
 
 	public static CasesSelector newInstance() {
@@ -91,7 +94,8 @@ public virtual inherited sharing class CasesSelector extends ApplicationSelector
 			Case.Last_Status_Change__c, Case.Article_Receiver_Address__c, Case.Article_Receiver_Postcode__c,
 			Case.Article_Sender_Name__c, Case.Article_Sender_Address__c, Case.Description_of_contents__c, 
 			Case.Description_of_packaging__c, Case.Related_Billing_Account__c, Case.Value_of_Goods__c, Case.Calc_Link_Account__c,
-			Case.Checkbox__c, Case.Customer_Type__c, Case.Service_SLA__c, Case.Article_Receiver_Suburb__c, Case.Billing_Number__c
+			Case.Checkbox__c, Case.Customer_Type__c, Case.Service_SLA__c, Case.Article_Receiver_Suburb__c, Case.Billing_Number__c,
+			Case.ProductSubCategory__c, Case.Exclude_Subscription_Automation__c
 
 		};
 	}
@@ -256,6 +260,70 @@ public virtual inherited sharing class CasesSelector extends ApplicationSelector
 		return new Map<Id, Case>((List<Case>)Database.query(qb.toSoqlString()));
 	}
 
+	/**
+	 * Run a SOQL based on the search parameters passed in
+	 *
+	 * @param searchParams A map containing searchable values:
+	 *						 caseIds: maps to Id (Set<Id>/Id)
+	 *						 recordTypeIds: maps to RecordTypeId (Set<Id>/Id)
+	 * @param matchAll If true will search based on AND, else search based on OR
+	 *
+	 * @return Case records matching search parameters.
+	 */
+	public List<Case> search(Map<String, Object> searchParams, Boolean matchAll) {
+		return search(searchParams, new Set<Object>(), matchAll);
+	}
+
+	/**
+	 * Run a SOQL based on the search parameters passed in
+	 *
+	 * @param searchParams A map containing searchable values:
+	 *						 caseIds: maps to Id (Set<Id>/Id)
+	 *						 recordTypeIds: maps to RecordTypeId (Set<Id>/Id)
+	 * @param selectorOptions selector options
+	 * @param matchAll If true will search based on AND, else search based on OR
+	 *
+	 * @return Case records matching search parameters.
+	 */
+	public List<Case> search(Map<String, Object> searchParams, Set<Object> selectorOptions, Boolean matchAll) {
+		Set<Id> caseIds = (Set<Id>)(searchParams.get('caseIds') == null ? new Set<Id>() : (searchParams.get('caseIds') instanceof Set<Id> ? searchParams.get('caseIds') : new Set<Id>{(Id)searchParams.get('caseIds')}));
+		Set<Id> recordTypeIds = (Set<Id>)(searchParams.get('recordTypeIds') == null ? new Set<Id>() : (searchParams.get('recordTypeIds') instanceof Set<Id> ? searchParams.get('recordTypeIds') : new Set<Id>{(Id)searchParams.get('recordTypeIds')}));
+
+		return (List<Case>)Database.query(getSearchSoql(searchParams, selectorOptions, matchAll));
+	}
+
+	/**
+	 * Separated from search method so SOQL can be inspected in Test class
+	 */
+	@TestVisible
+	private String getSearchSoql(Map<String, Object> searchParams, Set<Object> selectorOptions, Boolean matchAll) {
+		validateSearchParams(searchParams.keySet(), new Set<String>{'caseIds', 'recordTypeIds'});
+
+		QueryBuilder builder = newQueryBuilder(selectorOptions);
+		QueryBuilder.ConditionsManager conditions = builder.addConditions();
+
+		Integer conditionCount = 0;
+		if(searchParams.containsKey('caseIds')) {
+			conditions.add(new QueryBuilder.SimpleCondition(Case.Id + ' in :caseIds'));
+			conditionCount++;
+		}
+		if(searchParams.containsKey('recordTypeIds')) {
+			conditions.add(new QueryBuilder.SimpleCondition(Case.RecordTypeId + ' in :recordTypeIds'));
+			conditionCount++;
+		}
+
+		// build our condition string which would end up being something like the following:
+		// 1 AND 2 AND 3
+		// 1 OR 2 OR 3
+		String conditionOrder = '';
+		for (Integer i=0; i<conditionCount; i++) {
+			conditionOrder += (!String.isEmpty(conditionOrder) ? (matchAll ? ' AND ' : ' OR ') : '') + ' ' + (i+1);
+		}
+		conditions.setConditionOrder(conditionOrder);
+
+		return conditions.endConditions().toSoqlString();
+	}
+
 	public virtual override QueryBuilder newQueryBuilder() {
 		return newQueryBuilder(new Set<Object>());
 	}
@@ -276,7 +344,7 @@ public virtual inherited sharing class CasesSelector extends ApplicationSelector
 		}
 		
 		if(selectorOptions.contains(Options.WITH_CHILDINITIALCONTACT)){
-			builder.addSubQuery(AuthorisedContactsSelector.newInstance().newQueryBuilder().addConditions().add(new QueryBuilder.SimpleCondition(AuthorisedContacts__c.Initial_Contact__c + ' =  true')).endConditions(), 'Authorised_Contacts__r');
+			builder.addSubQuery(AuthorisedContactsSelector.newInstance().newQueryBuilder().addConditions().add(new QueryBuilder.SimpleCondition(AuthorisedContacts__c.Initial_Contact__c + ' = true')).endConditions(), 'Authorised_Contacts__r');
 		}
 	
 		if(selectorOptions.contains(Options.WITH_NETWORK)) {
@@ -307,7 +375,10 @@ public virtual inherited sharing class CasesSelector extends ApplicationSelector
 		}
 		if(selectorOptions.contains(Options.WITH_INCOMING_EMAIL_MESSAGES_ASC_ORDER)) {
 			builder.addSubQuery(EmailMessagesSelector.newInstance(EmailMessage.CreatedDate, 'Asc', 0).setFieldOverrides(fieldOverrides).newQueryBuilder(selectorOptions), 'EmailMessages');
-		}				
+		}
+		if (selectorOptions.contains(Options.WITH_CONTACT_REQUESTS)) {
+			builder.addSubQuery(ContactRequestsSelector.newInstance().setFieldOverrides(fieldOverrides).newQueryBuilder(selectorOptions), 'ContactRequests');
+		}
 		return builder;
 	}
 

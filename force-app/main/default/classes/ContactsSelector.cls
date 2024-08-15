@@ -19,10 +19,17 @@
  * 2024-01-22 - Hasantha Liyanage - Added selectPrimaryContactByAccount method
  * 2024-05-21 - Marcel HK - Added selector method `selectByCustomerSearchParams` for Customer Search (CSLU-107)
  * 2024-07-05 - Marcel HK - Updated ORDER BY for the selector method `selectByCustomerSearchParamsQB` (CSLU-955)
+ * 2024-07-15 - Marcel HK - Added selector option WITH_RELATED_CASES to include related cases sub-query (CSLU-439)
+ * 2024-07-15 - Marcel HK - Added enum `CustomerSearchCustomerType` and customer type filters (CSLU-446)
+ * 2024-07-22 - Marcel HK - Added mailing address filters for the selector method `selectByCustomerSearchParamsQB` (CSLU-1072)
+ * 2024-07-23 - Marcel HK - Removed 'Country' mailing address filters (CSLU-1072)
+ * 2024-07-23 - Marcel HK - Allow match if MailingStreet equals addressLine1 + addressLine2 (CSLU-1106)
+ * 2024-07-23 - Marcel HK - Added filters for accountId and abn/acn lookup (CSLU-447)
+ * 2024-08-08 - Marcel HK - Update Address filters for `selectByCustomerSearchParamsQB` (CSLU-1072)
  */
 public virtual inherited sharing class ContactsSelector extends ApplicationSelector {
 	public enum Options {
-		WITH_RECORDTYPE, WITH_OWNER, WITH_ACCOUNT, WITH_BILLING_ACCOUNT
+		WITH_RECORDTYPE, WITH_OWNER, WITH_ACCOUNT, WITH_BILLING_ACCOUNT, WITH_RELATED_CASES
 	}
 
 	public static ContactsSelector newInstance() {
@@ -166,7 +173,7 @@ public virtual inherited sharing class ContactsSelector extends ApplicationSelec
 	/**
 	 * @description Execute SOQL query and return a Map with Contact objects matching the search parameters.
 	 * 
-	 * This method was intially developed for CSLU-107 and is used by class `CustomerSearchFormController`.
+	 * This method was intially developed for CSLU-107 and is used by class `UnifiedCustomerSearchController`.
 	 * 
 	 * @param params - The search parameters to build the query from.
 	 * @param selectorOptions - The Selector framework options used when building the query.
@@ -184,7 +191,7 @@ public virtual inherited sharing class ContactsSelector extends ApplicationSelec
 	 * 
 	 * For example: `WHERE (FirstName LIKE 'Joan%' OR PreferredName LIKE 'Joan%') AND LastName LIKE 'Watson%'`
 	 * 
-	 * This method was intially developed for CSLU-107 and is used by class `CustomerSearchFormController`.
+	 * This method was intially developed for CSLU-107 and is used by class `UnifiedCustomerSearchController`.
 	 * 
 	 * @param params - The search parameters to build the query from.
 	 * @param selectorOptions - The Selector framework options used when building the query.
@@ -252,6 +259,82 @@ public virtual inherited sharing class ContactsSelector extends ApplicationSelec
 			conditionsOrder.add('(' + (n + 1) + ' OR ' + (n + 2) + ' OR ' + (n + 3) + ')');
 		}
 
+		/**
+		* If `customerType` is specified, apply the filter accordingly.
+		* If not specified, the default will return all customer types (i.e. no filter applied).
+		*/
+		if(params.customerType == CustomerSearchCustomerType.CONSUMER) {
+			Integer n = cm.conditions.size();
+			cm.add(new QueryBuilder.CompareCondition(Contact.IsPersonAccount).eq(true));
+			conditionsOrder.add(String.valueOf(n + 1));
+		} else if(params.customerType == CustomerSearchCustomerType.ORGANISATION) {
+			Integer n = cm.conditions.size();
+			cm.add(new QueryBuilder.CompareCondition(Contact.IsPersonAccount).eq(false));
+			conditionsOrder.add(String.valueOf(n + 1));
+		}
+
+		/**
+		 *  Add the Address to the search query criteria.
+		 */
+		String addressStreet1 = params.addressStreet1?.trim();
+		String addressStreet2 = params.addressStreet2?.trim();
+		String addressCity = params.addressCity?.trim();
+		String addressState = params.addressState?.trim();
+		String addressPostalCode = params.addressPostalCode?.trim();
+		if(String.isNotBlank(addressStreet1) && String.isNotBlank(addressStreet2)) {
+			// Where both addressStreet1 and addressStreet2 are set, try a few different possible data combinations
+			Integer n = cm.conditions.size();
+			String combinedAddressLines = addressStreet1 + ' ' + addressStreet2;
+			cm.add(new QueryBuilder.LikeCondition(Contact.MailingStreet).likeAnyRight(addressStreet1));
+			cm.add(new QueryBuilder.LikeCondition(Contact.MailingStreet2__c).likeAnyRight(addressStreet2));
+			cm.add(new QueryBuilder.LikeCondition(Contact.MailingStreet).likeAnyRight(combinedAddressLines));
+			conditionsOrder.add('((' + (n + 1) + ' AND ' + (n + 2) + ') OR ' + (n + 3) + ')');
+		} else if(String.isNotBlank(addressStreet1)) {
+			Integer n = cm.conditions.size();
+			cm.add(new QueryBuilder.LikeCondition(Contact.MailingStreet).likeAnyRight(addressStreet1));
+			cm.add(new QueryBuilder.LikeCondition(Contact.MailingStreet2__c).likeAnyRight(addressStreet1));
+			// MailingStreet OR MailingStreet2__c
+			conditionsOrder.add('(' + (n + 1) + ' OR ' + (n + 2) + ')');
+		} else if(String.isNotBlank(addressStreet2)) {
+			Integer n = cm.conditions.size();
+			cm.add(new QueryBuilder.LikeCondition(Contact.MailingStreet).likeAnyRight(addressStreet2));
+			cm.add(new QueryBuilder.LikeCondition(Contact.MailingStreet2__c).likeAnyRight(addressStreet2));
+			// MailingStreet OR MailingStreet2__c
+			conditionsOrder.add('(' + (n + 1) + ' OR ' + (n + 2) + ')');
+		}
+		if(String.isNotBlank(addressCity)) {
+			Integer n = cm.conditions.size();
+			cm.add(new QueryBuilder.LikeCondition(Contact.MailingCity).likeAnyRight(addressCity));
+			conditionsOrder.add(String.valueOf(n + 1));
+		}
+		if(String.isNotBlank(addressState)) {
+			Integer n = cm.conditions.size();
+			cm.add(new QueryBuilder.LikeCondition(Contact.MailingState).likeAnyRight(addressState));
+			conditionsOrder.add(String.valueOf(n + 1));
+		}
+		if(String.isNotBlank(addressPostalCode)) {
+			Integer n = cm.conditions.size();
+			cm.add(new QueryBuilder.CompareCondition(Contact.MailingPostalCode).eq(addressPostalCode));
+			conditionsOrder.add(String.valueOf(n + 1));
+		}
+
+		/**
+		 *  Add the Organization (Account) details to the search query criteria.
+		 */
+		if(String.isNotBlank(params.accountId)) {
+			Integer n = cm.conditions.size();
+			cm.add(new QueryBuilder.CompareCondition(Contact.AccountId).eq(params.accountId));
+			conditionsOrder.add(String.valueOf(n + 1));
+		}
+		String abnAcn = params.abnAcn?.trim();
+		if(String.isNotBlank(abnAcn)) {
+			Integer n = cm.conditions.size();
+			cm.add(new QueryBuilder.CompareCondition('Account.' + String.valueOf(Account.ABN__c)).eq(abnAcn));
+			cm.add(new QueryBuilder.CompareCondition('Account.' + String.valueOf(Account.ACN__c)).eq(abnAcn));
+			// ABN__c OR ACN__c
+			conditionsOrder.add('(' + (n + 1) + ' OR ' + (n + 2) + ')');
+		}
+
 		// Join dynamic conditions with 'AND' operator
 		cm.setConditionOrder(String.join(conditionsOrder, ' AND '));
 		cm.endConditions();
@@ -260,7 +343,7 @@ public virtual inherited sharing class ContactsSelector extends ApplicationSelec
 		qb.setOrder(new QueryBuilder.Order(Contact.UnifiedDataScore__c).setSortingOrderDesc().setNullsOrderLast());
 		qb.addOrder(new QueryBuilder.Order(Contact.FirstName).setSortingOrderAsc().setNullsOrderLast());
 		qb.addOrder(new QueryBuilder.Order(Contact.LastName).setSortingOrderAsc().setNullsOrderLast());
-		
+
 		return qb.toSoqlString();
 	}
 
@@ -293,6 +376,9 @@ public virtual inherited sharing class ContactsSelector extends ApplicationSelec
 			builder.addRelatedFields(BillingAccountsSelector.newInstance(0, fieldOverrides).newQueryBuilder(selectorOptions), 'BillingAccount__r');
 		}
 
+		if(selectorOptions.contains(Options.WITH_RELATED_CASES)) {
+			builder.addSubQuery(CasesSelector.newInstance(0, fieldOverrides).newQueryBuilder(selectorOptions), 'Cases');
+		}
 
 		return builder;
 	}
@@ -307,6 +393,18 @@ public virtual inherited sharing class ContactsSelector extends ApplicationSelec
 		public String lastName;
 		public String emailAddress;
 		public String phoneNumber;
+		public CustomerSearchCustomerType customerType;
+		public String addressStreet1;
+		public String addressStreet2;
+		public String addressCity;
+		public String addressState;
+		public String addressPostalCode;
+		public Id accountId;
+		public String abnAcn;
+	}
+
+	public enum CustomerSearchCustomerType {
+		ORGANISATION, CONSUMER
 	}
 
 		// TODO: Activate Cache

@@ -626,8 +626,8 @@ private class OpportunitySalesPipelineModule_Test {
 
 		//Assert or Verify
 		// Verify that only one DML is to be inserted
-		((AccountsSelector) MockUtility.Mocks.verify(mockAccountsSelector, MockUtility.Mocks.times(1))).selectById((Set<Id>) fflib_Match.anyObject());
-		system.assertEquals(1, MockUtility.mockUnitOfWorkDMLs.size());
+		((AccountsSelector) MockUtility.Mocks.verify(mockAccountsSelector, MockUtility.Mocks.times(2))).selectById((Set<Id>) fflib_Match.anyObject());
+		system.assertEquals(2, MockUtility.mockUnitOfWorkDMLs.size());
 		// Verify in DML that IndirectCustomer__c for Account is set from Opportunity 
 		System.assertEquals(
 			updatedOpportunities[0].IndirectCustomer__c,

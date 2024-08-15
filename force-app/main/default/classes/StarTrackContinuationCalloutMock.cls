@@ -3,6 +3,7 @@
  * @changelog:
  * 2024-05-22 - Seth Heang - updated getResponse_singleConsign to add FurtherReference2
  * 2024-06-25 - Seth Heang - updated getResponse_singleConsign and updated SourceSystem value to TEAM
+ * 2024-07-15 - Seth Heang - added new mock responses for duplicate consignment scenarios
  */
 @isTest
 public class StarTrackContinuationCalloutMock {
@@ -360,6 +361,176 @@ public class StarTrackContinuationCalloutMock {
 			  '</SearchResponse>' +
 		   '</s:Body>' +
 		'</s:Envelope>';
+	}
+
+	/**
+	 * @description	mock response for duplicate consignments where one of two duplicates has dateSent attribute set within the last 6 months
+	 */
+	public static String getResponse_multiConsignWithOneConsignmentWithinLast6Months() {
+		return '<s:Envelope xmlns:s="http://schemas.xmlsoap.org/soap/envelope/">' +
+					'<s:Body xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">' +
+						'<SearchResponse xmlns="http://www.auspost.com.au/Schema/CustomerCareManagement/CustomerCommunicationsManagement/StarTrackMediation/publishConsignmentArticleEvent:v1">' +
+							'<SearchResult>' +
+								'<Header>' +
+									'<TimeStamp>2016-02-09T00:37:23.913Z</TimeStamp>' +
+									'<TransactionId>2016-02-09T00:37:23.913Z</TransactionId>' +
+									'<SourceId>test</SourceId>' +
+									'<Action>Reply</Action>' +
+									'<NbrOfRows>2</NbrOfRows>' +
+								'</Header>' +
+								'<SearchResults>' +
+									'<ResponseMetrics>' +
+										'<TotalRows>2</TotalRows>' +
+										'<RowsReturned>2</RowsReturned>' +
+										'<FirstRow>1</FirstRow>' +
+										'<LastRow>2</LastRow>' +
+										'<ErrorCode>0</ErrorCode>' +
+										'<Performance>' +
+											'<TotalMilliseconds>109</TotalMilliseconds>' +
+											'<WrapperMilliseconds>0</WrapperMilliseconds>' +
+											'<DatabaseMilliseconds>109</DatabaseMilliseconds>' +
+											'<TotalTicks>1574580</TotalTicks>' +
+											'<WrapperTicks>2152</WrapperTicks>' +
+											'<DatabaseTicks>1572428</DatabaseTicks>' +
+											'<DatabaseCalls>1</DatabaseCalls>' +
+										'</Performance>' +
+									'</ResponseMetrics>' +
+									'<Results>' +
+										'<DUPCON_DataDetail>' +
+											'<Consignment>2AT71886</Consignment>' +
+											'<DupSeq>1</DupSeq>' +
+											'<TotalNumber>2</TotalNumber>' +
+											'<DateSent>2016-02-23T13:10:02</DateSent>' +
+											'<ReceiverName></ReceiverName>' +
+											'<ReceiverSuburb>SYDNEY</ReceiverSuburb>' +
+											'<Service>O/N</Service>' +
+											'<Items>1</Items>' +
+											'<DeadWeight>1.00000000</DeadWeight>' +
+											'<ConGUID>c17b27d6-3f98-41a1-a3b9-493dfb1e013b</ConGUID>' +
+												'<UniqueExternalId>TR2_c17b27d6-3f98-41a1-a3b9-493dfb1e013b</UniqueExternalId>' +
+											'<System>AIR</System>' +
+										'</DUPCON_DataDetail>' +
+										'<DUPCON_DataDetail>' +
+											'<Consignment>2AT71886</Consignment>' +
+											'<DupSeq>2</DupSeq>' +
+											'<TotalNumber>2</TotalNumber>' +
+											'<DateSent>'+ DateTime.now().addMonths(-3).format('yyyy-MM-dd\'T\'HH:mm:ss')  +'</DateSent>' +
+											'<ReceiverName>LINDA  JURY</ReceiverName>' +
+											'<ReceiverSuburb>WYONG</ReceiverSuburb>' +
+											'<Service>ECO</Service>' +
+											'<Items>4</Items>' +
+											'<DeadWeight>13.00000000</DeadWeight>' +
+											'<ConGUID>ff7b48e9-f074-408d-aaa1-2089ca7a13ba</ConGUID>' +
+											'<UniqueExternalId>TR2_66a94898-0927-450e-abfa-defa36972669</UniqueExternalId>' +
+											'<System>AIR</System>' +
+										'</DUPCON_DataDetail>' +
+									'</Results>' +
+								'</SearchResults>' +
+								'<ResponseMetrics>' +
+									'<TotalRows>2</TotalRows>' +
+									'<RowsReturned>2</RowsReturned>' +
+									'<FirstRow>1</FirstRow>' +
+									'<LastRow>2</LastRow>' +
+									'<ErrorCode>0</ErrorCode>' +
+									'<Performance>' +
+										'<TotalMilliseconds>110</TotalMilliseconds>' +
+										'<WrapperMilliseconds>0</WrapperMilliseconds>' +
+										'<DatabaseMilliseconds>109</DatabaseMilliseconds>' +
+										'<TotalTicks>1585642</TotalTicks>' +
+										'<WrapperTicks>2152</WrapperTicks>' +
+										'<DatabaseTicks>1572428</DatabaseTicks>' +
+										'<DatabaseCalls>1</DatabaseCalls>' +
+									'</Performance>' +
+								'</ResponseMetrics>' +
+							'</SearchResult>' +
+						'</SearchResponse>' +
+					'</s:Body>' +
+				'</s:Envelope>';
+	}
+
+	/**
+	 * @description	mock response for duplicate consignments where all duplicates have dateSent attribute set within the last 6 months
+	 */
+	public static String getResponse_multiConsignWhereAllConsignmentsWithinLast6Months() {
+		return '<s:Envelope xmlns:s="http://schemas.xmlsoap.org/soap/envelope/">' +
+					'<s:Body xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">' +
+					'<SearchResponse xmlns="http://www.auspost.com.au/Schema/CustomerCareManagement/CustomerCommunicationsManagement/StarTrackMediation/publishConsignmentArticleEvent:v1">' +
+						'<SearchResult>' +
+							'<Header>' +
+								'<TimeStamp>2016-02-09T00:37:23.913Z</TimeStamp>' +
+								'<TransactionId>2016-02-09T00:37:23.913Z</TransactionId>' +
+								'<SourceId>test</SourceId>' +
+								'<Action>Reply</Action>' +
+								'<NbrOfRows>2</NbrOfRows>' +
+							'</Header>' +
+							'<SearchResults>' +
+								'<ResponseMetrics>' +
+									'<TotalRows>2</TotalRows>' +
+									'<RowsReturned>2</RowsReturned>' +
+									'<FirstRow>1</FirstRow>' +
+									'<LastRow>2</LastRow>' +
+									'<ErrorCode>0</ErrorCode>' +
+									'<Performance>' +
+										'<TotalMilliseconds>109</TotalMilliseconds>' +
+										'<WrapperMilliseconds>0</WrapperMilliseconds>' +
+										'<DatabaseMilliseconds>109</DatabaseMilliseconds>' +
+										'<TotalTicks>1574580</TotalTicks>' +
+										'<WrapperTicks>2152</WrapperTicks>' +
+										'<DatabaseTicks>1572428</DatabaseTicks>' +
+										'<DatabaseCalls>1</DatabaseCalls>' +
+									'</Performance>' +
+								'</ResponseMetrics>' +
+								'<Results>' +
+									'<DUPCON_DataDetail>' +
+										'<Consignment>2AT71886</Consignment>' +
+										'<DupSeq>1</DupSeq>' +
+										'<TotalNumber>2</TotalNumber>' +
+										'<DateSent>'+ DateTime.now().addMonths(-5).format('yyyy-MM-dd\'T\'HH:mm:ss')  +'</DateSent>' +
+										'<ReceiverName></ReceiverName>' +
+										'<ReceiverSuburb>SYDNEY</ReceiverSuburb>' +
+										'<Service>O/N</Service>' +
+										'<Items>1</Items>' +
+										'<DeadWeight>1.00000000</DeadWeight>' +
+										'<ConGUID>c17b27d6-3f98-41a1-a3b9-493dfb1e013b</ConGUID>' +
+										'<UniqueExternalId>TR2_c17b27d6-3f98-41a1-a3b9-493dfb1e013b</UniqueExternalId>' +
+										'<System>AIR</System>' +
+									'</DUPCON_DataDetail>' +
+									'<DUPCON_DataDetail>' +
+										'<Consignment>2AT71886</Consignment>' +
+										'<DupSeq>2</DupSeq>' +
+										'<TotalNumber>2</TotalNumber>' +
+										'<DateSent>'+ DateTime.now().format('yyyy-MM-dd\'T\'HH:mm:ss')  +'</DateSent>' +
+										'<ReceiverName>LINDA  JURY</ReceiverName>' +
+										'<ReceiverSuburb>WYONG</ReceiverSuburb>' +
+										'<Service>ECO</Service>' +
+										'<Items>4</Items>' +
+										'<DeadWeight>13.00000000</DeadWeight>' +
+										'<ConGUID>ff7b48e9-f074-408d-aaa1-2089ca7a13ba</ConGUID>' +
+										'<UniqueExternalId>TR2_66a94898-0927-450e-abfa-defa36972669</UniqueExternalId>' +
+										'<System>AIR</System>' +
+									'</DUPCON_DataDetail>' +
+								'</Results>' +
+							'</SearchResults>' +
+							'<ResponseMetrics>' +
+								'<TotalRows>2</TotalRows>' +
+								'<RowsReturned>2</RowsReturned>' +
+								'<FirstRow>1</FirstRow>' +
+								'<LastRow>2</LastRow>' +
+								'<ErrorCode>0</ErrorCode>' +
+								'<Performance>' +
+									'<TotalMilliseconds>110</TotalMilliseconds>' +
+									'<WrapperMilliseconds>0</WrapperMilliseconds>' +
+									'<DatabaseMilliseconds>109</DatabaseMilliseconds>' +
+									'<TotalTicks>1585642</TotalTicks>' +
+									'<WrapperTicks>2152</WrapperTicks>' +
+									'<DatabaseTicks>1572428</DatabaseTicks>' +
+									'<DatabaseCalls>1</DatabaseCalls>' +
+								'</Performance>' +
+							'</ResponseMetrics>' +
+						'</SearchResult>' +
+					'</SearchResponse>' +
+					'</s:Body>' +
+				'</s:Envelope>';
 	}
 	
 	public static String getResponse_uniqueIdResp() {

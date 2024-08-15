@@ -112,69 +112,6 @@
         </values>
     </picklistValues>
     <picklistValues>
-        <picklist>Area_to_Benefit__c</picklist>
-        <values>
-            <fullName>Business Hubs</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Business Sales</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Contracts</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Customer Contact Centre</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>EC%26G Sales</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Finance</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Implementation</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Optimisation</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Other</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Product</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Reporting</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Sales</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Service</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Systems</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Transport</fullName>
-            <default>false</default>
-        </values>
-    </picklistValues>
-    <picklistValues>
         <picklist>ArticleType__c</picklist>
         <values>
             <fullName>Letter</fullName>
@@ -583,6 +520,29 @@
         </values>
         <values>
             <fullName>Sender</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>CaseTransferReason__c</picklist>
+        <values>
+            <fullName>Compensation required</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Customer Care Specialist</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>High Priority investigation</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Manager escalation</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Network contact required</fullName>
             <default>false</default>
         </values>
     </picklistValues>

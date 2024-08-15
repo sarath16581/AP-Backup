@@ -4,6 +4,7 @@
  * @date 2023-05-29
  * @changelog
  * 2024-06-13 - Parveen Kaushik - Added default value for mapping model on test data. See CSLU-470 (JIRA) for details.
+ * 2024-07-23 - Ranjeewa Silva - New method to return new ContactRequests.
 */
 @IsTest
 public with sharing class ApplicationTestDataFactoryCase {
@@ -143,7 +144,14 @@ public with sharing class ApplicationTestDataFactoryCase {
 			AgentWork.UserId => userIds,
 			AgentWork.WorkItemId => workitemIds
 		}, count), generateIds);
-	}	
+	}
+
+	public static List<ContactRequest> getContactRequests(Integer count, Object whatIds, Object whoIds, Boolean generateIds) {
+		return (List<ContactRequest>)ApplicationTestDataFactory.maybeGenerateIds(ApplicationTestDataFactory.populateSObjects(ContactRequest.SObjectType, new Map<SObjectField, Object> {
+				ContactRequest.WhatId => whatIds,
+				ContactRequest.WhoId => whoIds
+		}, count), generateIds);
+	}
 
 	public static Id caseSSSWGeneralEnquiryRecordType {
 		get {
@@ -221,6 +229,16 @@ public with sharing class ApplicationTestDataFactoryCase {
 				caseServiceDeliveryRecordType = [Select Id From RecordType Where SObjectType = 'Case' And DeveloperName = 'Sales_Ops_Delivery'].Id;
 			}
 			return caseServiceDeliveryRecordType;
+		}
+		private set;
+	}
+
+	public static Id caseUnifiedInvestigationRecordType {
+		get {
+			if (caseUnifiedInvestigationRecordType == null) {
+				caseUnifiedInvestigationRecordType = SObjectType.Case.getRecordTypeInfosByDeveloperName().get('UnifiedInvestigation').getRecordTypeId();
+			}
+			return caseUnifiedInvestigationRecordType;
 		}
 		private set;
 	}

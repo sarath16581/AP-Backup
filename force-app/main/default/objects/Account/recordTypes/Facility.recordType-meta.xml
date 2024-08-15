@@ -1645,10 +1645,6 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>LBP Sales Manager NSW 4</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>LBP Sales Manager QLD 1</fullName>
             <default>false</default>
         </values>
@@ -1685,11 +1681,7 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>LBP Tier 2 CPO North</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>LBP Tier 2 CPO South</fullName>
+            <fullName>Small Business QLD 1</fullName>
             <default>false</default>
         </values>
     </picklistValues>

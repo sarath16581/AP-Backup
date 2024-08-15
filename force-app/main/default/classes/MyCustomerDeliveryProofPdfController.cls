@@ -7,6 +7,7 @@
  * @changelog
  * 2021-11-09 - Nathan Franklin - Fixed bug with articles with multiple delivered scan events
  * 2024-05-31 - Seth Heang - Bulkify the Proof Of Delivery PDF generation to handle multiple deliveryEvents and generate multiple PDF pages
+ * 2024-07-12 - Raghav Ravipati - Blur POD images also updated getSafeDropImage method with V2 delivery repository API.
  **/
 public with sharing class MyCustomerDeliveryProofPdfController {
 	// Causes an error to be displayed on the page and will prevent the rendering of anything else
@@ -65,8 +66,8 @@ public with sharing class MyCustomerDeliveryProofPdfController {
 		for (DeliveryProofAttributes pod : deliveryProofAttributes) {
 			if (pod.eventMessage.Article__r.ArticleID__c.equals(articleId)) {
 				deliveryKeyEvent = pod.deliveryKey;
+				break;
 			}
-			break;
 		}
 		// Keep only delivery result where the unique delivery key is matched and filter out the rest
 		List<DeliveryProofAttributes> filterDeliveryResult = new List<DeliveryProofAttributes>();
@@ -194,7 +195,6 @@ public with sharing class MyCustomerDeliveryProofPdfController {
 	 * 				or one image per transaction. This is down to bypass the hard limit of 3 Max Continuation Callout per Single Transaction in Salesforce.
 	 * @return	List<SafeDropImageState> e.g. SafeDropImageState in JSON: ([{guidID: "guidId123456", requireDownload: true}])
 	 */
-	@AuraEnabled(Cacheable=false)
 	public static List<SafeDropImageState> getCurrentStateOfSafeDropImageRequiredForDownload(String trackingId) {
 		List<Article__c> consignments = queryConsignmentByTrackingId(trackingId);
 		List<DeliveryProofAttributes> deliveryEventKeyList = buildAttributesForPDFDisplay(getArticleIdsFromArticles(consignments));
@@ -308,25 +308,32 @@ public with sharing class MyCustomerDeliveryProofPdfController {
 	 * @param	eventMessageId String
 	 * @return	Object
 	 */
-	@AuraEnabled(Continuation=true)
 	public static Object getSafeDropImage(String guidId, String eventMessageId) {
-		SafeDropUtility utility = SafeDropUtility.getInstance();
-		HttpRequest req = utility.getHttpRequest(guidId);
-		if (req == null) {
-			pageError = 'Could not generate Safe Drop request';
-			throw new AuraHandledException('Failed to download the image.');
+
+		// Get default configurations from customsetting.
+		DigitalRepositoryAPIV2Settings__c apiConfig = DigitalRepositoryAPIV2Settings__c.getValues('DefaultConfigurations');
+
+		if (String.isNotBlank(apiConfig.FileExtensionType__c)) {
+			guidId += apiConfig.FileExtensionType__c;
 		}
-		Continuation con = new Continuation(60);
-		con.addHttpRequest(req);
-		con.continuationMethod = 'safeDropImageCallback';
+		// constructing Digital Repository V2 request
+		DigitalRepositoryService digitalRepository = DigitalRepositoryService.getInstance();
+		Continuation continuationRequest = digitalRepository.getContinuation(
+			guidId,
+			apiConfig.BucketName__c,
+			true,
+			Integer.valueOf(apiConfig.ResizePercentage__c),
+			Integer.valueOf(apiConfig.ResizeThreshold__c)
+		);
+		continuationRequest.continuationMethod = 'safeDropImageCallback';
 
 		// Set the state and pass to the callback method
 		Map<String, String> state = new Map<String, String>();
 		state.put('guidId', guidId);
 		state.put('eventMessageId', eventMessageId);
-		con.state = state;
+		continuationRequest.state = state;
 
-		return con;
+		return continuationRequest;
 	}
 
 	/**
@@ -343,19 +350,18 @@ public with sharing class MyCustomerDeliveryProofPdfController {
 
 		HttpResponse resp = Continuation.getResponse(labels[0]);
 
-		String responseBody = resp.getBody();
+		DigitalRepositoryService digitalRepository = DigitalRepositoryService.getInstance();
+		// parse response
+		DigitalRepositoryService.DocumentApiResponse parsedResponse = digitalRepository.parseResponse(resp);
 
-		// parse the json
-		SafeDropUtility.SafeDropApiResponse response = SafeDropUtility.parseResponse(responseBody, resp);
-
-		if (response.isError) {
-			pageError = response.errorMessage;
+		if (parsedResponse.isError) {
+			pageError = parsedResponse.getErrorMessage();
 			throw new AuraHandledException('Failed to download the image.');
 		} else {
 			// NOTE: That in order to render a PDF image, it needs to be saved as an attachment since the Salesforce PDF renderer does not current support rendering images using data uri's.... awkward
-			SafeDropUtility.getInstance().attachSafeDropToRecord(eventMessageId, EncodingUtil.base64Decode(response.imageBody));
+			SafeDropUtility.getInstance().attachSafeDropToRecord(eventMessageId, EncodingUtil.base64Decode(parsedResponse.getDocumentContent()));
 		}
-		return response;
+		return parsedResponse;
 	}
 
 	/**

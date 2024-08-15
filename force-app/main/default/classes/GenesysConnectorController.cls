@@ -5,17 +5,16 @@
 * @changelog
 * 2024-04-21 - Vasu Gorakati/Paul Perry - CPIUplift project 
 **/
-
-global with sharing class GenesysConnectorController {
+global with sharing class GenesysConnectorController implements purecloud.CTIExtension.ScreenPop {
 	private static StarTrack_Settings__c stSettings = StarTrack_Settings__c.getOrgDefaults();
 	private static AsyncWwwAuspostComAuSchemaCustomercarema.SearchResponse_elementFuture continuationState = null;
 	
 	/**
-* Returns cases for consignment number for Star Track
-* @param  consignment  consignment number
-*/
+	* Returns cases for consignment number for Star Track
+	* @param  consignment  consignment number
+	*/
 	@RemoteAction
-	global static Object findConsignmentStarTrack(String consignmentNumber) {
+	public static Object findConsignmentStarTrack(String consignmentNumber) {
 		String result = '';
 		
 		ArticlesSelector selector = ArticlesSelector.newInstance();
@@ -58,24 +57,23 @@ global with sharing class GenesysConnectorController {
 	
 	
 	/**
-* Returns related contact of case for Star Track
-* @param  consignment  consignment number
-*/
+	* Returns related contact of case for Star Track
+	* @param  consignment  consignment number
+	*/
 	@RemoteAction
-	global static AuthorisedContacts__c checkRelatedContactOfCaseStarTrack(Id caseId, String phoneNumber) {
-
+	public static AuthorisedContacts__c checkRelatedContactOfCaseStarTrack(Id caseId, String phoneNumber) {
 		List<AuthorisedContacts__c> relatedContacts = new List<AuthorisedContacts__c>();
-
 		AuthorisedContacts__c relContact;
 
 		Set<SObjectField> authorisedContactFields = new Set<SObjectField>{
-			AuthorisedContacts__c.Id, AuthorisedContacts__c.RecordType.Name,  AuthorisedContacts__c.Case__c, 
-				AuthorisedContacts__c.Calc_Contact_Email__c, AuthorisedContacts__c.Calc_Contact_Mobile_Number__c, 
-				AuthorisedContacts__c.Calc_Contact_Phone_Number__c, AuthorisedContacts__c.Contact_Type__c, 
-				AuthorisedContacts__c.Calc_First_Name__c, AuthorisedContacts__c.Calc_Last_Name__c,
-				AuthorisedContacts__c.Notification_Required__c, AuthorisedContacts__c.Pref_Method_of_Contact__c, 
-				AuthorisedContacts__c.Related_Contact__c, AuthorisedContacts__c.Initial_Contact__c, 
-				AuthorisedContacts__c.Notified_on_Status__c};
+			AuthorisedContacts__c.Id, AuthorisedContacts__c.RecordType.Name, AuthorisedContacts__c.Case__c, 
+			AuthorisedContacts__c.Calc_Contact_Email__c, AuthorisedContacts__c.Calc_Contact_Mobile_Number__c, 
+			AuthorisedContacts__c.Calc_Contact_Phone_Number__c, AuthorisedContacts__c.Contact_Type__c, 
+			AuthorisedContacts__c.Calc_First_Name__c, AuthorisedContacts__c.Calc_Last_Name__c,
+			AuthorisedContacts__c.Notification_Required__c, AuthorisedContacts__c.Pref_Method_of_Contact__c, 
+			AuthorisedContacts__c.Related_Contact__c, AuthorisedContacts__c.Initial_Contact__c, 
+			AuthorisedContacts__c.Notified_on_Status__c
+		};
 					
 		relatedContacts = AuthorisedContactsSelector.newInstance(authorisedContactFields).selectByCaseIdOrderByName(New Set<Id>{caseId},new Set<Object>());
 		
@@ -93,12 +91,12 @@ global with sharing class GenesysConnectorController {
 	}
 	
 	/**
-* Updates the case with recent call for Star Track
-* @param  AuthorisedContacts
-* @param  caseId
-*/
+	* Updates the case with recent call for Star Track
+	* @param  AuthorisedContacts
+	* @param  caseId
+	*/
 	@RemoteAction
-	global static Case updateCaseWithRecentCallerStarTrack(AuthorisedContacts__c relContact, Id caseId) {
+	public static Case updateCaseWithRecentCallerStarTrack(AuthorisedContacts__c relContact, Id caseId) {
 		List<Case> lstCaseRecords = new List<Case>();
 		
 		if (relContact.Calc_Contact_Phone_Number__c != null || relContact.Calc_Contact_Mobile_Number__c != null) {
@@ -117,10 +115,10 @@ global with sharing class GenesysConnectorController {
 	}	
 	
 	/**
-* creates case for Star Track
-*/
+	* creates case for Star Track
+	*/
 	@RemoteAction
-	global static Case createCasewithConsignmentNumberStarTrack(Id consignmentId, String phoneNumber, Boolean atlFlag, String casePurpose, String caseType, String contactType) {
+	public static Case createCasewithConsignmentNumberStarTrack(Id consignmentId, String phoneNumber, Boolean atlFlag, String casePurpose, String caseType, String contactType) {
 		Case c;
 		
 		if (consignmentId != null) {
@@ -140,30 +138,30 @@ global with sharing class GenesysConnectorController {
 			ApplicationDatabase.getInstance().dmlinsert(new List<SObject>{c});
 			c = [select id, CaseNumber from Case where id = :c.id];
 		}
+		
 		return c;
 	}
 	
 	/**
-* creates class log for Star Track
-*/
+	* creates class log for Star Track
+	*/
 	@RemoteAction
-	global static String createCallLogStarTrack(Id caseId) {
-		
+	public static String createCallLogStarTrack(Id caseId) {		
 		String result = '';
+
 		if (caseId != null) {
-			List<Id> caseIdList = new List<Id>();
-			caseIdList.add(caseId);
-			StarTrackCreateCallLogActivity.createLogACallRecord(caseIdList);
+			StarTrackCreateCallLogActivity.createLogACallRecord(new List<Id>{ caseId });
 			result = 'Success';
 		}
+
 		return result;
 	}
 	
 	/**
-* when calling findConsignment, if the consignment doesn't exist in SF this will query the .net interface and attempt to retrieve it.
-* @param  consignmentNumber 
-*/
-	global static Object searchRemoteConsignmentStarTrack(String consignmentNumber) {
+	* when calling findConsignment, if the consignment doesn't exist in SF this will query the .net interface and attempt to retrieve it.
+	* @param  consignmentNumber 
+	*/
+	public static Object searchRemoteConsignmentStarTrack(String consignmentNumber) {
 		wwwAuspostComAuSchemaCustomercarema.SearchRequest request = StarTrackConsignmentSearchUtil.generateSearchRequest(consignmentNumber, StarTrack_Constants.TYPE_CONSIGNMENT, StarTrack_Constants.REQUEST_ACTION_FULL);
 		AsyncWwwAuspostComAuSchemaCustomercarema.AsyncBasicHttpBinding_IEMS2 emsAsyncStub = StarTrackConsignmentSearchUtil.generateAsyncStub();
 		
@@ -178,19 +176,18 @@ global with sharing class GenesysConnectorController {
 	}
 	
 	/**
-* This has been created to support the testing of the continuation method.
-* Without this, it's not possible to use Test.invokeContinuationMethod
-*/
-	global Object processSearchRemoteConsignment() {
+	* This has been created to support the testing of the continuation method.
+	* Without this, it's not possible to use Test.invokeContinuationMethod
+	*/
+	public Object processSearchRemoteConsignment() {
 		return processSearchRemoteConsignment(continuationState);
 	}
 	
 	/**
-* Handles the async return status of the search consignment operation.
-* This is used to store the consignment retrieved and return the ID to visualforce.
-**/
-	global static Object processSearchRemoteConsignment(Object state) {
-		
+	* Handles the async return status of the search consignment operation.
+	* This is used to store the consignment retrieved and return the ID to visualforce.
+	**/
+	public static Object processSearchRemoteConsignment(Object state) {
 		//process callout response
 		AsyncWwwAuspostComAuSchemaCustomercarema.SearchResponse_elementFuture emsAsyncResponse = (AsyncWwwAuspostComAuSchemaCustomercarema.SearchResponse_elementFuture)state;
 		StarTrackConsignmentSearchUtil.ConsignmentWrapper conWrapper = StarTrackConsignmentSearchUtil.processResponse(emsAsyncResponse.getValue(), false);
@@ -210,6 +207,13 @@ global with sharing class GenesysConnectorController {
 	@RemoteAction
 	public static Map<String,Object> searchAP(String event) {
 		Map<String,Object> params = (Map<String,Object>)JSON.deserializeUntyped(event);
+
+		for (String attribName :params.keySet()) {
+			Object attributeValue = params.get(attribName);
+			if (attributeValue == null || String.isBlank(String.valueOf(attributeValue))) {
+				params.remove(attribName);
+			}
+		}
 		
 		List<SObject> matches;
 		String matchParam;
@@ -239,7 +243,13 @@ global with sharing class GenesysConnectorController {
 			}
 		}
 		if ((matches == null || matches.isEmpty()) && params.containsKey('phoneNumber')) {
-			matches = searchPhoneNumber((String)params.get('phoneNumber'));
+			String phoneNumber = (String)params.get('phoneNumber');
+
+			if (String.isNotEmpty(phoneNumber) && phoneNumber.startsWith('+61')) {
+				phoneNumber = phoneNumber.replace('+61', '0');
+			}
+
+			matches = searchPhoneNumber(phoneNumber);
 			if (matches.size() == 1) {
 				matchParam = 'phoneNumber';
 			}
@@ -344,23 +354,17 @@ global with sharing class GenesysConnectorController {
 			Id accountId = (Id)taskDetailMap.get('contactId');
 			// replace PersonAccountId with actual ContactId required for WhoId field assignment onto task
 			if (accountId != null && accountId.getSObjectType() == Account.SObjectType) {
-				  AccountsSelector selector = AccountsSelector.newInstance(1, new Set<SObjectField>{ Account.Id, Account.PersonContactId });
-				  taskDetailMap.put('contactId', selector.selectById(new Set<Id>{ accountId }).get(accountId).PersonContactId);				
+				AccountsSelector selector = AccountsSelector.newInstance(1, new Set<SObjectField>{ Account.Id, Account.PersonContactId });
+				taskDetailMap.put('contactId', selector.selectById(new Set<Id>{ accountId }).get(accountId).PersonContactId);				
 			}
-	  	}
+		}
 
 		// Which values to copy from the genesys interaction object
 		Map<SObjectField,String> callLogMappings = new Map<SObjectField,String>{
 			Task.CallType => 'callType',
-			Task.Enquiry_Type__c => 'enquiryType',
-			Task.Enquiry_Sub_Type__c => 'enquirySubType',
 			Task.IWS_CallUUID__c => 'callUuid',
-			Task.IWS_CaseUid__c => 'caseUuid',
-			Task.Outcome__c => 'outcome',
 			Task.Phone__c => 'phoneNumber',
-			Task.Product_Category__c => 'productCategory',
-			Task.Product_Sub_Category__c => 'productSubCategory',
-			Task.Queue__c => 'queue',
+			Task.Queue__c => 'queueName',
 			Task.Segment__c => 'segment',
 			Task.ServiceType__c => 'serviceType',
 			Task.Target_Skill__c => 'targetSkill'
@@ -378,13 +382,17 @@ global with sharing class GenesysConnectorController {
 		
 		// Map all additional task detail attributes
 		Map<SObjectField,String> taskDetailMappings = new Map<SObjectField,String>{
-			Task.CallDisposition => 'disposition',
 			Task.CallDurationInSeconds => 'durationInSeconds',
 			Task.CTIInteractionID__c => 'interactionId',
+			Task.Enquiry_Type__c => 'enquiryType',
+			Task.Enquiry_Sub_Type__c => 'enquirySubType',
+			Task.Product_Category__c => 'productCategory',
+			Task.Product_Sub_Category__c => 'productSubCategory',
 			Task.Status => 'status',
 			Task.Subject => 'subject',
 			Task.WhatId => 'caseId',
-			Task.WhoId => 'contactId'
+			Task.WhoId => 'contactId',
+			Task.Outcome__c => 'outcome'			
 		};
 			
 		// Map all values from taskDetail
@@ -416,9 +424,8 @@ global with sharing class GenesysConnectorController {
 			appDBInstance.dmlInsert(new List<SObject>{
 				new Attachment(
 					Name = 'InboundLog.txt',
-					ParentId = result.id,
-					Body = Blob.valueOf(attachmentBody),
-					OwnerId = UserInfo.getUserId()
+					parentId = result.id,
+					body = Blob.valueOf(attachmentBody)
 				)
 			});
 		}
@@ -441,7 +448,9 @@ global with sharing class GenesysConnectorController {
 			Case.EnquirySubType__c => 'enquirySubType',
 			Case.AccountId => 'accountId',
 			Case.ContactId => 'contactId',
-			Case.Contact.AccountId => 'personAccountId'
+			Case.Contact.AccountId => 'personAccountId',
+			Case.CaseNumber => 'caseNumber',
+			Case.Complaint__c => 'complaint'
 		};
 
 		CasesSelector selector = CasesSelector.newInstance(fieldMappings.keySet());
@@ -500,9 +509,22 @@ global with sharing class GenesysConnectorController {
 			// Set default SSSWCall Task default values
 			result.ActivityDate = Date.today();
 			result.Description = 'For logs, please see attachment';
-			result.Type = 'Call';
+			result.Type = 'Phone Call';
 		}
 		
 		return result;
+	}
+
+	/**
+	 * Surpress Genesys' default screen pop on incoming call alert
+	 * Implemented as described here: https://help.mypurecloud.com/articles/use-the-extension-points-to-customize-screen-pop/
+	 * @param String Data
+	 * @return String Payload to disable default screenpop
+	 */
+	global String onScreenPop(String data) {
+		return JSON.serialize(new Map<String,Object>{
+			'defaultScreenPop' => false,
+			'url' => ''
+		});
 	}
 }

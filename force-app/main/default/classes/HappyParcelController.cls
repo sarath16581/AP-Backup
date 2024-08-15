@@ -23,6 +23,8 @@
  * 2024-06-17 - Raghav Ravipati - Added changes related to Enquiry Mapping to filter using MappingModule field
  * 2024-06-24 - Seth Heang - updated queryTrackingApi method to reduce redundent SAP callout for a scenario where the article searched has no parent consignment
  * 2024-06-25 - Raghav Ravipati - Updated the Amazon s3 deliveryRepository API from V1 to V2 
+ * 2024-07-17 - Seth Heang - Added POD related method calls from MyCustomerDeliveryProofPdfController so the permission is inherited
+ * 2024-07-24 - Seth Heang - Added warningMessages attribute to TrackingArticle wrapper
  */
 public with sharing class HappyParcelController {
 	/**
@@ -721,6 +723,8 @@ public with sharing class HappyParcelController {
 		public String caseProductCategory;
 		@AuraEnabled
 		public String caseProductSubCategory;
+		@AuraEnabled
+		public List<String> warningMessages;
 
 		@AuraEnabled
 		public TIBCOArticleWrapper.ArticleTransientAttributes transientAttributes;
@@ -812,5 +816,40 @@ public with sharing class HappyParcelController {
 			}
 		}
 		return null;
+	}
+
+	/**
+	 * @description	Use the API to pull back the filtered out image. The API blacks out faces and text on the images.
+	 * @param	guidId String the image GUID
+	 * @param	eventMessageId String Salesforce Id of the Event Message record that the image will be attached to 
+	 * @return	Object
+	 */
+	@AuraEnabled(Continuation=true)
+	public static Object getSafeDropImageForPOD(String guidId, String eventMessageId){
+		Continuation continuationRequest = (Continuation) MyCustomerDeliveryProofPdfController.getSafeDropImage(guidId, eventMessageId);
+		// replace the original continuation method (from MyCustomerDeliveryProofPdfController) with the correct one in HappyParcelController
+		continuationRequest.continuationMethod = 'processSafeDropImageForPOD';
+
+		return continuationRequest;
+	}
+
+	/**
+	 * @description Callback method for the async callout for retrieving the safe drop image for the POD. Re-uses existing method on
+	 * MyCustomerDeliveryProofPdfController to save image as attachment on the event message
+	 */
+	@AuraEnabled
+	public static Object processSafeDropImageForPOD(List<String> labels, Object state) {
+		return MyCustomerDeliveryProofPdfController.safeDropImageCallback(labels, state);
+	}
+
+	/**
+	 * @description	Retrieve a snapshot of the current state of SafeDrop image file per article under the parent consignment if they exist in Salesforce
+	 * 				Or, it's required to be downloaded. This is method is called, prior to retrieving SafeDrop image in bulk by happyParcelDeliveryProof LWC via multiple transactions
+	 * 				or one image per transaction. This is down to bypass the hard limit of 3 Max Continuation Callout per Single Transaction in Salesforce.
+	 * @return	List<SafeDropImageState> e.g. SafeDropImageState in JSON: ([{guidID: "guidId123456", requireDownload: true}])
+	 */
+	@AuraEnabled(Cacheable=false)
+	public static List<MyCustomerDeliveryProofPdfController.SafeDropImageState> getCurrentStateOfSafeDropImageRequiredForDownload(String trackingId) {
+		return MyCustomerDeliveryProofPdfController.getCurrentStateOfSafeDropImageRequiredForDownload(trackingId);
 	}
 }
