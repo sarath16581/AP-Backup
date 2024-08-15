@@ -507,7 +507,7 @@ public with sharing class CaseMilestoneUtility{
 	*/
 	private void setMilestoneCompletionDates(List<Case> cases, Datetime completionDate){
 
-		List<CaseMilestone> milestonesToUpdate = new List<CaseMIlestone>();
+		List<CaseMilestone> milestonesToUpdate = new List<CaseMilestone>();
 		Map<Id, Case> casesMap = new Map<Id, Case>(cases);
 		Datetime now = Datetime.now();
 		Set<Object> filterOptions = new Set<Object>{CaseMilestonesSelector.Options.FILTER_NOT_VIOLATED};
