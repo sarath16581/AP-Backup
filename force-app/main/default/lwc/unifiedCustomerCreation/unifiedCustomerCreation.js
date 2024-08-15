@@ -320,7 +320,7 @@ export default class UnifiedCustomerCreation extends LightningElement {
 	}
 
 	get ameSearchTerm(){
-		return this.addressOverride === false ? this.addressObj.address : undefined;
+		return this.addressOverride === false ? this.addressObj?.address : undefined;
 	}
 
 	get ameSupportAutoSearchOnLoad() {
