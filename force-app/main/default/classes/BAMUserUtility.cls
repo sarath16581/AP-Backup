@@ -15,7 +15,7 @@ public with sharing class BAMUserUtility {
 	public static final String ACCESS_MANAGEMENT_SUPER_ADMIN = 'Super Admin';
 	public static final String ACCESS_MANAGEMENT_APP_KEY = 'BAM';
 	public static final String BAM_EXTERNAL_ONBOARDING_REQUEST_RECORD_TYPE_NAME = 'BAM';
-	public static final Integer ACCESS_MANAGEMENT_MAX_PER_ORG = 3;
+	public static final Integer ACCESS_MANAGEMENT_MAX_PER_ORG = 6;
 
 	public static final String CONTACT_STATUS_ACTIVE = 'Active';
 	public static final String MERCHANT_PORTAL_PROFILE_NAME = 'Merchant Portal Community User';
