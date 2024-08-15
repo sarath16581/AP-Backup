@@ -137,8 +137,7 @@ private class ServiceAdvisorEmailMesAutomationMd_Test {
 
 		//Testing
 		Test.startTest();
-		ServiceAdvisorEmailMesAutomationModule module = ServiceAdvisorEmailMesAutomationModule.newInstance();
-		module.onAfterInsert(emailList, mockUow);
+		new ServiceAdvisorEmailMesAutomationModule().onAfterInsert(emailList, mockUow);
 		Test.stopTest();
 
 		//Assert or Verify
@@ -171,8 +170,7 @@ private class ServiceAdvisorEmailMesAutomationMd_Test {
 
 		Test.startTest();
 		try {
-			ServiceAdvisorEmailMesAutomationModule module = ServiceAdvisorEmailMesAutomationModule.newInstance();
-			module.onAfterInsert(null, uow);
+			new ServiceAdvisorEmailMesAutomationModule().onAfterInsert(null, uow);
 		} catch (Exception e) {
 			System.assert(true, 'Expected Exception to be thrown');
 		}

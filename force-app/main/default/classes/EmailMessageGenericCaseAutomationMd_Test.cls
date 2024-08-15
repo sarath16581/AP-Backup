@@ -4,6 +4,7 @@
  * @group Tests
  * @description Test class covering EmailMessageGenericCaseAutomationModule
  * @changelog
+ * 2024-08-07 - Ranjeewa Silva - Test class updates after uplifting the module to new ApplicationModule framework.
  */
 @IsTest
 private class EmailMessageGenericCaseAutomationMd_Test {
@@ -62,7 +63,7 @@ private class EmailMessageGenericCaseAutomationMd_Test {
 
 		//Testing
 		Test.startTest();
-		EmailMessageGenericCaseAutomationModule module = EmailMessageGenericCaseAutomationModule.newInstance();
+		EmailMessageGenericCaseAutomationModule module = new EmailMessageGenericCaseAutomationModule();
 		module.onAfterInsert(emailList, mockUow);
 		Test.stopTest();
 
@@ -91,7 +92,7 @@ private class EmailMessageGenericCaseAutomationMd_Test {
 
 		Test.startTest();
 		try {
-			EmailMessageGenericCaseAutomationModule module = EmailMessageGenericCaseAutomationModule.newInstance();
+			EmailMessageGenericCaseAutomationModule module = new EmailMessageGenericCaseAutomationModule();
 			module.onAfterInsert(null, uow);
 		} catch (Exception e) {
 			System.assert(true, 'Expected Exception to be thrown');

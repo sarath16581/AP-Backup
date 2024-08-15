@@ -1,6 +1,6 @@
 /**
  * @description
- * Domain Modules should NEVER be called directly. Domain modules should be exposed and called via the corresponding domain class
+ * Module to handle automation specific to Transport Enquiry cases on email messages(email to case).
  * @author Mahesh Parvathaneni
  * @date 2023-05-26
  * @group Domain
@@ -9,9 +9,10 @@
  * 29/06/2023 - Mahesh Parvathaneni - Updated email headers logic related to Microsoft Exchange
  * 21/07/2023 - Mahesh Parvathaneni - updated email comparison to lowercase
  * 25/07/2023 - Mahesh Parvathaneni - case field updates fix
+ * 2024-08-07 - Ranjeewa Silva - Uplifted to new ApplicationModule framework
  */
 
-public inherited sharing class TransportEnquiryEmailMessagesModule extends ApplicationDomain.Module {
+public inherited sharing class TransportEnquiryEmailMessagesModule extends ApplicationModule {
 
 	//constants
 	private static Map<String, EmailToCaseMapping__mdt> emailToCaseMappingMap;
@@ -59,10 +60,6 @@ public inherited sharing class TransportEnquiryEmailMessagesModule extends Appli
 			return currentTime;
 		}
 		private set;
-	}
-
-	public static TransportEnquiryEmailMessagesModule newInstance() {
-		return (TransportEnquiryEmailMessagesModule) Application.Utilities.newInstance(TransportEnquiryEmailMessagesModule.class);
 	}
 
 	// Setup which triggers this module should respond to

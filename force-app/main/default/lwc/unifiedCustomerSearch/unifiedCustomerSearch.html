@@ -1,20 +1,34 @@
 <template>
 	<lightning-card title={searchFormTitle}>
-		<!-- Search form -->
-		<div class="slds-var-m-around_medium">
-			<c-unified-customer-search-form
-				onsearch={handleSearchStart}
-				onerror={handleSearchError}
-				onresult={handleSearchResults}
-				onreset={handleSearchReset}
-			></c-unified-customer-search-form>
-		</div>
-		<!-- Search results -->
-		<div class="slds-var-m-around_medium">
-			<template if:false={isSearching}>
-				<c-unified-customer-search-results search-response={searchResponse}>
-				</c-unified-customer-search-results>
-			</template>
-		</div>
+
+		<template if:true={showCustomerSearchForm}>
+			<!-- Search form -->
+			<div class="slds-var-m-around_medium">
+				<c-unified-customer-search-form
+						lwc:spread={formInputs}
+						onsearch={handleSearchStart}
+						onerror={handleSearchError}
+						onresult={handleSearchResults}
+						onreset={handleSearchReset}
+				></c-unified-customer-search-form>
+			</div>
+			<!-- Search results -->
+			<div class="slds-var-m-around_medium">
+				<template if:false={isSearching}>
+					<c-unified-customer-search-results
+							search-response={searchResponse}
+							oncreatecontact={handleCreateContact}>
+					</c-unified-customer-search-results>
+				</template>
+			</div>
+		</template>
+		<template if:true={showCustomerCreationForm}>
+			<!-- Customer Creation form -->
+			<div class="slds-var-m-around_medium">
+				<c-unified-customer-creation
+						lwc:spread={formInputs}
+						onbacktosearch={handleBackToSearch}></c-unified-customer-creation>
+			</div>
+		</template>
 	</lightning-card>
 </template>
