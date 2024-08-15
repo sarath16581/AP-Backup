@@ -1,3 +1,8 @@
+/**
+ * @description an LWC search result table embedded in the unifiedCustomerSearch LWC
+ * @changelog:
+ * 2024-08-08 - added handleCreateContact() to fire `createcontact` event
+ */
 import { LightningElement, api } from 'lwc';
 import { NavigationMixin } from 'lightning/navigation';
 import { transformSearchResults } from './helper';
@@ -123,5 +128,14 @@ export default class UnifiedCustomerSearchResults extends NavigationMixin(
 		// Bind the navigateToRecordPageFn to the component instance so that when it is called by the onClick()
 		const navigateToRecordPageFn = this.navigateToRecordPage.bind(this);
 		return transformSearchResults(this.searchResults, navigateToRecordPageFn);
+	}
+
+	/**
+	 * Navigate to customer creation form
+	 *
+	 * @fires UnifiedCustomerSearchResults#createcontact
+	 */
+	handleCreateContact(){
+		this.dispatchEvent(new CustomEvent('createcontact'));
 	}
 }
