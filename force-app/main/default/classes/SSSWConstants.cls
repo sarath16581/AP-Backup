@@ -24,6 +24,7 @@
   * 10.07.2024 Vasu Gorakati Added new constant SSSW_ENTITLEMENT
   * 19-07-2024 - Ranjeewa Silva - Added constants for new SSSWRouting record type (UnifiedRouting) and new customer service agent profile name.
   * 31.07.2024 - Seth Heang - added constants for case's new 'Update' and 'Monitoring' status
+  * 12.08.2024 - George Nguyen - added constants for Unified Investigation and Unified Entitlements
   */  
 public with sharing class SSSWConstants {
 
@@ -127,6 +128,9 @@ public with sharing class SSSWConstants {
 	public static final String METH_UPDATE_MANAGER_HIERARCHY = 'updateHierarchyManager';
 	
 	/*** CaseMilestoneUtility Constants  ***/
+	public static final String UNIFIED_ENTITLEMENTS = 'Unified Entitlements';
+	public static final String UNIFIED_INVESTIGATION_DEVELOPER_NAME = 'UnifiedInvestigation';
+
 	public static final Decimal DEF_MILESTONE_WARNING_PERCENT = 0.2;
 	public static final String STAT_COMPLETED = 'Completed';
 	public static final String STAT_AWAITING_CUST_RESPONSE = 'Awaiting Customer Response';
@@ -164,7 +168,7 @@ public with sharing class SSSWConstants {
 	public static final String METH_GETUSERS = 'getUsers';	
 	public static final String METH_GET_STD_ENTITLEMENT = 'getStandardEntitlement';	
 	public static final String PERCENT = '%';
-	public static final String ENTITLEMENT_ACC = 'SSSW Entitlements';	
+	public static final String ENTITLEMENT_ACC = 'SSSW Entitlements';		
 
 	/*** SSSW Routing ***/
 	public static final String RECTYPEROUTING = 'SSSWRouting';
@@ -300,7 +304,7 @@ public with sharing class SSSWConstants {
 	public static final String TASK_SUB = 'Email: Australia Post – Case';
 	public static final String TASK_INT_TYPE = 'SSSW Bulk Emails';
 	public static final String GENERAL_ENQUIRY = 'General Enquiry';
-	public static final String Investigation = 'Investigation';
+	public static final String INVESTIGATION = 'Investigation';
 	public static final String Feedback = 'Feedback';
 	public static final String CLOSE = 'Close';
 	public static final String EMAIL_SUBJECT = 'Australia Post-No Reply';
