@@ -64,7 +64,6 @@ public with sharing class CaseMilestoneUtility{
 			unifiedRecordTypes = Utility.getRecordTypesAsSObjectByDevName(String.valueOf(Case.getsObjectType()),new Set<String>{SSSWConstants.UNIFIED_INVESTIGATION_DEVELOPER_NAME}).keySet();
 		}
 		catch(Exception exp){
-			system.debug('>>>> Exception initialising static block in CaseMilestoneUtility...');
 			// Error Logged to Exception object for analysis
 			UTIL_LoggingService.logHandledException(exp, UserInfo.getOrganizationId(), SSSWConstants.SSSW_APP, 
 													CaseMilestoneUtility.class.getName(), SSSWConstants.STATIC_BLOCK, 
@@ -431,7 +430,7 @@ public with sharing class CaseMilestoneUtility{
 	  * @throws			Method might throw exception which is handled by Try-Catch block
 	  */
 	public void updateMilestones(List<Case> caseList,Map<Id,Case> oldMap){
-		//try{
+		try{
 			Set<Id> ownerIds = new Set<Id>();
 			List<Case> ownerChangedCases = new List<Case>();
 			List<Case> completeCharterCases = new List<Case>();
@@ -494,10 +493,8 @@ public with sharing class CaseMilestoneUtility{
 			if(milestoneResumedCases.isEmpty() == false) {
 				setMilestoneCompletionDates(milestoneResumedCases, null); // this will resume the milestone
 			}
-			try{
 		}
 		catch(Exception exp){
-			System.debug('>>>> Exception thrown on CaseMilestoneUtility.updateMilestones(...): ' + exp.getMessage());
 			// Error Logged to Exception object for analysis
 			UTIL_LoggingService.logHandledException(exp, UserInfo.getOrganizationId(), SSSWConstants.SSSW_APP, 
 													CaseMilestoneUtility.class.getName(), SSSWConstants.METH_UPDATE_MILESTONES, 
