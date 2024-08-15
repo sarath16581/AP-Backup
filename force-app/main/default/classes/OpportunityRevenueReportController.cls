@@ -36,9 +36,7 @@ public class OpportunityRevenueReportController {
 	// Method to get revenue data
 	@AuraEnabled(cacheable=true)
 	public static List<RevenueData> getRevenueData(String opportunityId) {
-		system.debug('****** opportunityId '+opportunityId);
 		Map<Id, Opportunity> opportunityMap = ProductRevenueService.newInstance().loadOpportunityInfo(new Set<Id>{opportunityId});
-		system.debug('****** opportunityMap '+opportunityMap);
 		// all the accounts relevant to this opportunity. Used to retrieve budget and revenue records.
 		Set<Id> relevantAccounts = new Set<Id>();
 		List<RevenueData> revenues = new List<RevenueData>();
@@ -47,11 +45,9 @@ public class OpportunityRevenueReportController {
 			Map<Id,OpportunityLineItem> oppLineItem = loadProductLineItems(opportunityId);
 			// the opportunity accountId is returned with the items, use the first one.
 			Id mainAccountId = oppLineItem.values()[0].Opportunity.AccountId;
-			system.debug('****** mainAccountId '+mainAccountId);
 			// add the main account to the relevant accounts
 			relevantAccounts.add(mainAccountId);
 			// get all the child accounts for the main accounts
-			system.debug('****** opportunityMap.get(opportunityId) '+opportunityMap.get(opportunityId));
 			Map<Id,Account> childAccounts = opportunityMap.get(opportunityId).DoNotUseAccountHierarchy__c ? loadMainAccountMap(mainAccountId) : loadChildAccountMap(mainAccountId);
 
 			// add child accounts to relevant accounts
@@ -65,13 +61,8 @@ public class OpportunityRevenueReportController {
 			Set<String> financialYears = new Set<String> {String.valueOf(getAustralianFinancialYear(calculationDate) - 1), String.valueOf(getAustralianFinancialYear(calculationDate))};
 			Map<String,Budget_and_Revenue__c> customerRevenues = loadBudgetAndRevenueRecords(relevantAccounts, oppLineItem.keySet(), financialYears);
 			list<String> restrictedAccounts = ProductRevenueService.csvToList( opportunityMap.get(opportunityId).RevenueCalculationAccountIDs__c);
-			system.debug('**** restrictedAccounts '+restrictedAccounts);
 			// get data row for main account
-			system.debug('****** childAccounts '+childAccounts);
 			RevenueData data = new RevenueData(childAccounts.get(mainAccountId)?.Name);
-			system.debug('****** oppLineItem '+oppLineItem);
-			system.debug('*** building account with mainAccountId ='+mainAccountId);
-			system.debug('*** building account with oppLineItem.values() ='+oppLineItem.values());
 			buildRevenueData(mainAccountId,oppLineItem.values(),customerRevenues,data);
 			revenues.add(data);
 			// get data rows for child accounts
@@ -94,8 +85,6 @@ public class OpportunityRevenueReportController {
 				}
 			}
 		} catch (Exception ex) {
-			System.debug(ex);
-			System.debug('Stack Trace: ' + ex.getStackTraceString());
 			// Error Logged to Exception object for analysis
 			UTIL_LoggingService.logHandledException(ex, UserInfo.getOrganizationId(), SSSWConstants.SSSW_APP,
 					AccountTriggerUtility.class.getName(), 'getRevenueData',
@@ -188,39 +177,25 @@ public class OpportunityRevenueReportController {
 				itemsToUpdate.put(schedule.OpportunityProduct__r.id,schedule.opportunityProduct__r);
 			}
 		}
-		try {
 		// register new revenue records
-		system.debug('****** revenuesToInsert '+revenuesToInsert);
 		if (!revenuesToInsert.isEmpty()) {
 		 insert(revenuesToInsert);
 		}
 		// register new schedules
-		system.debug('****** schedulesToInsert '+schedulesToInsert);
 		if (!schedulesToInsert.isEmpty()) {
 			insert(schedulesToInsert);
 		}
-		system.debug('****** revenuesToUpdate '+revenuesToUpdate);
 		if (!revenuesToUpdate.isEmpty()) {
 			update(revenuesToUpdate);
 		}
-		
 		// register schedules to update
-		system.debug('****** schedulesToUpdate '+schedulesToUpdate);
 		if (!schedulesToUpdate.isEmpty()) {
 			update(schedulesToUpdate);
 		}
-	 	
 		// register items to update
-		system.debug('****** itemsToUpdate '+itemsToUpdate);
 		if (!itemsToUpdate.isEmpty()) {
 			update(itemsToUpdate.values());
 		}
-		} catch (exception ex) {
-			system.debug('*** ERRROR ERROR ' +ex );
-			system.debug(ex.getStackTraceString());
-		}
-
-		system.debug('*** all data registered with uow');
 	}
 	
 	
@@ -245,15 +220,8 @@ public class OpportunityRevenueReportController {
 			else if (targetMonth==0) {
 				targetMonth = 12;
 			}
-			system.debug('***** Target year '+targetYear);
-			system.debug('***** Target month '+targetMonth);
-			system.debug(' ***** accountId '+accountId);
-			system.debug('****** productid '+productId);
 			String uniqueId = ProductRevenueService.getUID(accountId,productId,String.valueOf(targetYear));
-			system.debug('***** uniqueId '+uniqueId);
-
 			Budget_and_Revenue__c targetRevenue = customerRevenues.get(uniqueId);
-			 system.debug('***** targetRevenue '+targetRevenue);
 			if (targetRevenue != null) {
 				Double monthValue = getValueForMonth(targetRevenue,targetMonth);
 				if (monthValue != null) {
@@ -274,8 +242,6 @@ public class OpportunityRevenueReportController {
 			Date targetDate = item.Contract_Start_Date__c < calculationDate ? item.Contract_Start_Date__c : calculationDate;
 			Integer FY = getAustralianFinancialYear(targetDate);
 			Integer startMonth = targetDate.month();
-			system.debug('getting sum of past months with accountId '+accountId);
-			system.debug('getting sum of past months with item.Product2.Id '+item.Product2.Id);
 			Double amt = getSumOfPastTwelveMonths(accountId,item.Product2.Id,FY,startMonth,customerRevenues);
 			data.productRevenues.put(item.Product2.Name,amt);
 			if (!hasData && amt>0 ) {
@@ -297,7 +263,6 @@ public class OpportunityRevenueReportController {
 				Opportunity.SObjectType => new Set<SObjectField>{Opportunity.Name,Opportunity.AccountId,Opportunity.Id}
 		};
 		List<OpportunityLineItem> loadedItems = OpportunityLineItemSelector.newInstance(0, fieldOverrides).selectByOpportunity(new Set<Id>{opportunityId}, new Set<Object>{OpportunityLineItemSelector.Options.WITH_OPPORTUNITY, OpportunityLineItemSelector.Options.WITH_PRODUCT});
-		system.debug('*** loaded items '+loadedItems);
 		for (OpportunityLineItem item : loadedItems) {
 			oppLineItemMap.put(item.Product2Id, item);
 		}
@@ -355,19 +320,16 @@ public class OpportunityRevenueReportController {
 			]) {
 				userPermissionSetIds.add(psa.PermissionSetId);
 			}
-			System.debug('******UserPermissionSetIds '+ userPermissionSetIds);
 			
 			for (PermissionSet ps : [
 				SELECT Id 
 				FROM PermissionSet 
 				WHERE Name = :permissionSetName
 			]) {
-				System.debug('***** looking for id '+ps.Id);
 				if (userPermissionSetIds.contains(ps.Id)) {
 					return true;
 				}
 			}
-			System.debug('**** not found');
 			return false;
 		}
 	}
