@@ -6,6 +6,7 @@
  * @description A very simple selector class that sits in the base domain
  * @changelog
  * 2022-03-05	Naveen Rajanna	REQ2723199 Added enum and selectByCaseAndMilestoneNames method
+ * 2024-08-14	George Nguyen	Added FILTER_NOT_VIOLATED, FILTER_COMPLETED and FILTER_NOT_COMPLETED
  */
 public virtual inherited sharing class CaseMilestonesSelector extends ApplicationSelector {
 	
