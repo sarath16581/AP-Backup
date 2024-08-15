@@ -1,3 +1,8 @@
+/**
+ * @description An LWC Interface for displaying Customer Search Form for Unified Experience
+ * @changelog:
+ * 2024-08-08 - added handler methods to handle `createcontact` and `backtosearch` events and pass `formInputs` params to child LWCs
+ */
 import { LightningElement, api } from 'lwc';
 import customerSearch from '@salesforce/apex/UnifiedCustomerSearchController.search';
 import { isNotBlank } from 'c/utils';
@@ -57,6 +62,7 @@ export function getInputOnChangeValue(event) {
 	if (elementName === 'c-ame-address-validation2') {
 		const address = event.detail;
 		return {
+			address: address.address,
 			addressLine1: address.addressLine1,
 			addressLine2: address.addressLine2,
 			city: address.city,
@@ -131,21 +137,96 @@ export default class UnifiedCustomerSearchForm extends LightningElement {
 		this._emailAddress = value;
 	}
 
+	/**
+	 * The value of the 'Address Obj' field on the form
+	 * @type {object}
+	 */
+	@api get addressObj(){
+		return this._addressObj;
+	}
+	set addressObj(value) {
+		this._addressObj = value;
+	}
+
+	/**
+	 * The value of the 'Organisation Account Id' field on the form
+	 * @type {string}
+	 */
+	@api get organisationAccountId() {
+		return this._organisationAccountId;
+	}
+	set organisationAccountId(value) {
+		this._organisationAccountId = value;
+
+	}
+
+	/**
+	 * The value of the 'Address Override' field on the form
+	 * @type {boolean}
+	 */
+	@api get addressOverride() {
+		return this._addressOverride;
+	}
+	set addressOverride(value){
+		this._addressOverride = value;
+	}
+
+	/**
+	 * The value of the 'Customer Type' field on the form
+	 * @type {string|null}
+	 */
+	@api get customerType() {
+		if (this.consumerCheckbox === true) {
+			return CUSTOMER_TYPE_CONSUMER;
+		} else if (this.organisationCheckbox === true) {
+			return CUSTOMER_TYPE_ORGANISATION;
+		}
+		return null;
+	}
+	set customerType(value){
+		this._customerType = value;
+		if (this._customerType === CUSTOMER_TYPE_CONSUMER) {
+			this.consumerCheckbox = true;
+			this.organisationCheckbox = false;
+		} else if (this._customerType === CUSTOMER_TYPE_ORGANISATION) {
+			this.consumerCheckbox = false;
+			this.organisationCheckbox = true;
+		} else if (this._customerType === null) {
+			this.consumerCheckbox = false;
+			this.organisationCheckbox = false;
+		}
+	}
+
 	// Private variables for input fields, used with public getters/setters
 	_firstName = '';
 	_lastName = '';
 	_phoneNumber = '';
 	_emailAddress = '';
+	_addressObj = {};
+	_organisationAccountId = undefined;
+	_addressOverride = false;
+	_customerType = null;
 	// Private variables for input fields (with no public getters/setters)
 	organisationCheckbox = false;
 	consumerCheckbox = false;
-	addressObj;
-	organisationAccountId;
 	abnAcn = '';
 	includePhoneNumber = true;
 	includeEmailAddress = true;
-
 	showAddress = true;
+
+	get organisationCheckbox(){
+		return this.customerType === CUSTOMER_TYPE_ORGANISATION;
+	}
+	set organisationCheckbox(value){
+		this.organisationCheckbox = value;
+	}
+
+	get consumerCheckbox(){
+		return this.customerType === CUSTOMER_TYPE_CONSUMER;
+	}
+	set consumerCheckbox(value) {
+		this.consumerCheckbox = value;
+	}
 
 	get ignorePhoneNumber() {
 		return !this.includePhoneNumber;
@@ -153,16 +234,6 @@ export default class UnifiedCustomerSearchForm extends LightningElement {
 
 	get ignoreEmailAddress() {
 		return !this.includeEmailAddress;
-	}
-
-	get customerType() {
-		if (this.consumerCheckbox === true) {
-			return CUSTOMER_TYPE_CONSUMER;
-		}
-		if (this.organisationCheckbox === true) {
-			return CUSTOMER_TYPE_ORGANISATION;
-		}
-		return null;
 	}
 
 	get showOrganisationSection() {
@@ -280,6 +351,7 @@ export default class UnifiedCustomerSearchForm extends LightningElement {
 		// Invoke the search method
 		this.isLoading = true;
 		this.dispatchEvent(new CustomEvent('search'));
+
 		try {
 			const res = await customerSearch({
 				req: {
@@ -296,13 +368,13 @@ export default class UnifiedCustomerSearchForm extends LightningElement {
 					addressState: this.addressObj?.state,
 					addressPostalCode: this.addressObj?.postcode,
 					// Ignore Account Id if the searching for consumers only
-					accountId: this.consumerCheckbox ? null : this.organisationAccountId,
+					accountId: this.consumerCheckbox ? null : this.organisationAccountId || null,
 					// Ignore ABN/ACN if the searching for consumers only, or the organisationAccountId is set
 					abnAcn:
-						this.consumerCheckbox || this.organisationAccountId
-							? null
-							: this.abnAcn,
-				},
+							this.consumerCheckbox || this.organisationAccountId
+									? null
+									: this.abnAcn,
+				}
 			});
 			// Handle search results
 			this.dispatchEvent(
@@ -338,10 +410,10 @@ export default class UnifiedCustomerSearchForm extends LightningElement {
 		this._phoneNumber = '';
 		this.includePhoneNumber = true;
 		this.includeEmailAddress = true;
-		this.addressObj = undefined;
+		this._addressObj = undefined;
 		this.organisationCheckbox = false;
 		this.consumerCheckbox = false;
-		this.organisationAccountId = undefined;
+		this._organisationAccountId = undefined;
 		this.abnAcn = undefined;
 
 		// Ensure field values are updated before continuing
@@ -385,8 +457,38 @@ export default class UnifiedCustomerSearchForm extends LightningElement {
 	handleInputChange(event) {
 		const { fieldName } = event.target.dataset;
 		const fieldValue = getInputOnChangeValue(event);
+
+		// check the event type for AME address search if it has a manual override
+		if (event.type === 'editaddress') {
+			this._addressOverride = true;
+		} else if (event.type === 'selectaddress') {
+			this._addressOverride = false;
+		}
 		// store the field value based on the `name` attribute
 		this[fieldName] = fieldValue;
+
+		// reset selected organisation when a consumer checkbox is ticked
+		if (this.consumerCheckbox === true){
+			this._organisationAccountId = undefined;
+		}
+	}
+
+	/**
+	 * Invoked on demand, to get the latest form input data from customer search ui
+	 * @returns {{firstname: string, emailAddress: string, phoneNumber: string, addressObj, lastname: string}}
+	 */
+	@api
+	getFormInputs() {
+		return {
+			firstName: this.firstName,
+			lastName: this.lastName,
+			phoneNumber: this.phoneNumber,
+			emailAddress: this.emailAddress,
+			addressObj: this.addressObj,
+			organisationAccountId: this.organisationAccountId,
+			addressOverride: this.addressOverride,
+			customerType: this.customerType
+		};
 	}
 
 	/**
@@ -419,5 +521,17 @@ export default class UnifiedCustomerSearchForm extends LightningElement {
 	 */
 	handleSearchBtnClick() {
 		this.performSearch();
+	}
+
+	get ameDefaultAddress(){
+		return this.addressOverride === true ? this.addressObj : undefined;
+	}
+
+	get ameSearchTerm(){
+		return this.addressOverride === false ? this.addressObj.address : undefined;
+	}
+
+	get ameSupportAutoSearchOnLoad() {
+		return this.addressOverride === false;
 	}
 }
