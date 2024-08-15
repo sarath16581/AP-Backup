@@ -9,6 +9,7 @@
  * 2023-07-05 - Mahesh Parvathaneni - Updated the logic to include billing account filter at app level
  * 2023-07-14 - Nathan Franklin - Uplifting some capability to frameworks and integration to Auth0
  * 2023-08-16 - Mahesh Parvathaneni - Executing the ThirdPartyAccountLink SOQL for running user for a workaround in MerchantPortalOIDCRegHandler 
+  * 2024-08-16 - Swati Mogadala - REQ3615873 - Increase max limit for access management admins from 3 to 6
  */
 public with sharing class BAMUserUtility {
 
