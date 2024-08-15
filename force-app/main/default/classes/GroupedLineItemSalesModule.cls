@@ -10,7 +10,7 @@ History:
 2024-06-25 	Ken McGuire	- code cleanup
 2024-07-12modify for line items of closed opportunities (major refactoring)
  */
-public inherited sharingclass GroupedLineItemSalesModule extends ApplicationModule {
+public inherited sharing class GroupedLineItemSalesModule extends ApplicationModule {
 
 	// Tracks the opportunities that have had their line items 
 	// updated in current session to avoid recursive calculations.
