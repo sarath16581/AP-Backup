@@ -36,6 +36,7 @@ History
 17.03.2023  Naveen Rajanna						Correct formatting error
 1/12/2023 Ken McGuire			OPC Replacement - update incremental and retained reveue for line items of reparented accounts - updateLIneItemRevenues
 03.05.2024  Swati Mogadala             			REQ3225476-Added deleteRReconDelete() to delete 'Customer Rev' and 'Rev by Billing account'records related to an Account on merge/delete 
+16/8/2024 Ken McGuire		reverted opc replacement work of 1/12/2023
 ------------------------------------------------------------**/
 public with sharing class AccountTriggerUtility {
     public  static final set<string> LICENCE_APPROVAL_STATUSES = LICENCE_APPROVAL_STATUSES__c.getAll().keySet();
@@ -1005,7 +1006,7 @@ public with sharing class AccountTriggerUtility {
                 }
             }
         }
-        updateLineItemRevenues(reparentedAccountIds);
+        //updateLineItemRevenues(reparentedAccountIds);
     }
 
     public void updateLIneItemRevenues(List<Account> newList) {
@@ -1016,25 +1017,9 @@ public with sharing class AccountTriggerUtility {
                 reparentedAccountIds.add(record.ParentId);
             }
         }
-        updateLineItemRevenues(reparentedAccountIds);
+        //updateLineItemRevenues(reparentedAccountIds);
     }
 
-    private void updateLineItemRevenues (Set<Id> reparentedAccountIds){
-        if (reparentedAccountIds.isEmpty()) return;
-        ProductRevenueService service = ProductRevenueService.getInstance();
-        List<GroupedAccountProductRevenue__c> reCalculatedRevenues = service.reCalculateGroupRevenuesForAccounts(reparentedAccountIds);
-        List<OpportunityLineItem> updatedLineItems = service.reCalculateRetainedIncremental();
-        if (!updatedLineItems.isEmpty()) {
-            List<Database.SaveResult> results = ApplicationDatabase.getInstance().dmlUpdate(updatedLineItems, false);
-            UTIL_LoggingService.logDmlResults(results, null, updatedLineItems, 'DML update results',
-                    AccountTriggerUtility.class.getName(), 'updateLineItemRevenues','AccountTrigger', LoggingLevel.ERROR);
-        }
-        if (!reCalculatedRevenues.isEmpty()) {
-            List<Database.UpsertResult> results = ApplicationDatabase.getInstance().dmlUpsert(updatedLineItems,OpportunityLineItem.Id);
-            UTIL_LoggingService.createExceptionForUpsertResults(results,null,'DML upsert results',
-                    AccountTriggerUtility.class.getName(),'updateLineItemRevenues','AccountTrigger',LoggingLevel.ERROR);
-        }
-    }
 
     /**
       * @description       Method to insert holding role

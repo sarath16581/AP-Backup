@@ -125,15 +125,15 @@
                 <behavior>Readonly</behavior>
                 <field>TotalRetainedInYearRevenue__c</field>
             </layoutItems>
-			<layoutItems>
+            <layoutItems>
                 <behavior>Readonly</behavior>
                 <field>RevenueCalculationAccountIDs__c</field>
             </layoutItems>
-			<layoutItems>
+            <layoutItems>
                 <behavior>Readonly</behavior>
                 <field>RevenueRefreshDate__c</field>
             </layoutItems>
-			<layoutItems>
+            <layoutItems>
                 <behavior>Readonly</behavior>
                 <field>RevenueRefreshedBy__c</field>
             </layoutItems>

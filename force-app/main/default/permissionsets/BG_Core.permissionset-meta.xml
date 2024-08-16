@@ -5,10 +5,6 @@
         <visible>true</visible>
     </applicationVisibilities>
     <classAccesses>
-        <apexClass>ABNChangeController</apexClass>
-        <enabled>true</enabled>
-    </classAccesses>
-    <classAccesses>
         <apexClass>AMEAddressValidationController1</apexClass>
         <enabled>true</enabled>
     </classAccesses>
@@ -30,6 +26,10 @@
     </classAccesses>
     <classAccesses>
         <apexClass>BG_QualificationSummary</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>BudgetAndRevenueModule</apexClass>
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
@@ -61,6 +61,18 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>GroupedAccountProductRevenueSelector</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>GroupedLineItemSalesModule</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>GroupedRevenueScheduleSelector</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>LookupController</apexClass>
         <enabled>true</enabled>
     </classAccesses>
@@ -82,6 +94,14 @@
     </classAccesses>
     <classAccesses>
         <apexClass>OpportunityRevenueReportController</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>ProductRevenueService</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>ProductScheduleService</apexClass>
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
