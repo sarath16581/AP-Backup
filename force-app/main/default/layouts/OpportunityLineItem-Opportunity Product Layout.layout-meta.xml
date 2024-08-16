@@ -99,6 +99,10 @@
                 <behavior>Readonly</behavior>
                 <field>TotalIncremental__c</field>
             </layoutItems>
+			<layoutItems>
+                <behavior>Readonly</behavior>
+                <field>TotalInYearRevenue__c</field>
+            </layoutItems>
             <layoutItems>
                 <behavior>Readonly</behavior>
                 <field>Annualised_Value__c</field>

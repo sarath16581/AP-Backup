@@ -121,9 +121,17 @@
                 <behavior>Edit</behavior>
                 <field>OverrideOPCCalculation__c</field>
             </layoutItems>
-            <layoutItems>
+			<layoutItems>
                 <behavior>Readonly</behavior>
-                <field>TotalRetainedInYearRevenue__c</field>
+                <field>RevenueCalculationAccountIDs__c</field>
+            </layoutItems>
+			<layoutItems>
+                <behavior>Readonly</behavior>
+                <field>RevenueRefreshDate__c</field>
+            </layoutItems>
+			<layoutItems>
+                <behavior>Readonly</behavior>
+                <field>RevenueRefreshedBy__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Readonly</behavior>
