@@ -10,6 +10,7 @@
  * 2022-11-24	Noel Lim - updated testInternalEscalationScenario(), assert for taskCount from 1 to 2 as a temporary fix. Refer to assert for reasoning and technical details.
  * 2023-06-05	Mahesh Parvathaneni - Added tests testTransportEnquiryApplyDefaultEntitlement
  * 2024-08-14	George Nguyen - Added tests for Unified milestone entitlements: testInitialisation, testInsertMilestones, testUpdateMilestones
+ * 2024-08-16	George Nguyen - tests for future updates of Start Date on milestones
  */
 @isTest
 private with sharing class CaseMilestoneUtility_Test {
@@ -127,20 +128,28 @@ private with sharing class CaseMilestoneUtility_Test {
 		MilestoneType milestoneType = ApplicationTestDataFactory.getMilestoneTypes(1, true)[0];
 
 		Map<Id, Case> oldMap = new Map<Id, Case>();
-		List<Case> caseList = ApplicationTestDataFactoryCase.getCases(3, true);
-		Case case1 = caseList[0];
+		List<Case> caseList = new List<Case>();
+		Case case1 = ApplicationTestDataFactoryCase.getCases(1, true)[0];
+		case1 = (Case)ApplicationTestDataFactory.setUnwritableFields(case1, new Map <String, Object>{ 'CreatedDate' => Datetime.now().addDays(-3)}); // simulating an older date
 		case1.RecordTypeId = unifiedInvestigationRecordTypeId;
 		case1.Type = SSSWConstants.INVESTIGATION;
+		caseList.add(case1);
+
 		Case oldCase1 = case1.clone(true, true, true, true);
 		oldCase1.Type = SSSWConstants.GENERAL_ENQUIRY;
 		oldMap.put(oldCase1.Id, oldCase1);
+		CaseMilestone caseMilestoneCase1 = ApplicationTestDataFactory.getCaseMilestones(1, true, false, false, milestoneType.Id, case1.Id)[0];
+		caseMilestoneCase1.CompletionDate = null; // milestone is not completed
+		caseMilestoneCase1.StartDate = null; // this is to test that it is being set to a date
 
 		// Case to close
-		Case case2 = caseList[1];
+		Case case2 = ApplicationTestDataFactoryCase.getCases(1, true)[0];
 		case2.RecordTypeId = unifiedInvestigationRecordTypeId;
 		case2.Type = SSSWConstants.INVESTIGATION;
 		case2.Status = closedStatus[0]; // simulating closed case
 		case2.IsStopped = false;
+		caseList.add(case2);
+
 		Case oldCase2 = case2.clone(true, true, true, true);
 		oldCase2.Status = SSSWConstants.CASE_STATUS; // old case status set to New
 		oldMap.put(oldCase2.Id, oldCase2);
@@ -148,11 +157,13 @@ private with sharing class CaseMilestoneUtility_Test {
 		caseMilestoneCase2.CompletionDate = null; // milestone is not completed
 
 		// Case to re-open
-		Case case3 = caseList[2];
+		Case case3 = ApplicationTestDataFactoryCase.getCases(1, true)[0];
 		case3.RecordTypeId = unifiedInvestigationRecordTypeId;
 		case3.Type = SSSWConstants.INVESTIGATION;
 		case3.Status = SSSWConstants.CASE_STATUS; // simulating re-opened case
 		case3.IsStopped = true;
+		caseList.add(case3);
+
 		Case oldCase3 = case3.clone(true, true, true, true);
 		oldCase3.Status = closedStatus[0]; // old case status set to Closed
 		oldMap.put(oldCase3.Id, oldCase3);
@@ -164,6 +175,11 @@ private with sharing class CaseMilestoneUtility_Test {
 																(Set<String>)fflib_Match.eq(new Set<String>{SSSWConstants.UNIFIED_ENTITLEMENTS}), 
 																(Set<String>)fflib_Match.eq(new Set<String>{SSSWConstants.UNIFIED_ENTITLEMENTS})
 															)).thenReturn(entitlements);
+
+		MockUtility.Mocks.when(mockCaseMilestonesSelector.selectByCase(
+																(Set<Id>)fflib_Match.eq(new Set<Id>{case1.Id}), 
+																(Set<Object>)fflib_Match.eq(new Set<Object>{CaseMilestonesSelector.Options.FILTER_NOT_VIOLATED, CaseMilestonesSelector.Options.FILTER_NOT_COMPLETED})
+															)).thenReturn(new Map<Id, CaseMilestone>{caseMilestoneCase1.Id => caseMilestoneCase1});
 
 		MockUtility.Mocks.when(mockCaseMilestonesSelector.selectByCase(
 																(Set<Id>)fflib_Match.eq(new Set<Id>{case2.Id}), 
@@ -188,6 +204,9 @@ private with sharing class CaseMilestoneUtility_Test {
 		System.assertEquals(false, case3.IsStopped, 'Should not be stopped');
 		System.assert(caseMilestoneCase3.CompletionDate == null, 'Completion date should blanked out');
 
+		System.assert(caseMilestoneCase1.StartDate > case1.CreatedDate, 'The StartDate should be set to a later date than created date');
+
+		((ApplicationDatabase)MockUtility.Mocks.verify(mockApplicationDatabase, MockUtility.Mocks.times(1))).dmlUpdate((List<CaseMilestone>)fflib_Match.eq(new List<CaseMilestone>{caseMilestoneCase1}));
 		((ApplicationDatabase)MockUtility.Mocks.verify(mockApplicationDatabase, MockUtility.Mocks.times(1))).dmlUpdate((List<CaseMilestone>)fflib_Match.eq(new List<CaseMilestone>{caseMilestoneCase2}));
 		((ApplicationDatabase)MockUtility.Mocks.verify(mockApplicationDatabase, MockUtility.Mocks.times(1))).dmlUpdate((List<CaseMilestone>)fflib_Match.eq(new List<CaseMilestone>{caseMilestoneCase3}));
 		

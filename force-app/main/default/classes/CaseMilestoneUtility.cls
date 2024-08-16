@@ -21,6 +21,7 @@
   * 2023-06-02 - Mahesh Parvathaneni - Added logic to assign entitlement to transport enquiry record type cases
   * 2024-05-07 - Boris Bachovski - Add logic to assign entitlement to bulk mail record type cases
   * 2024-08-12 - George Nguyen - Added Unified Entitlement process to cases with Unifield Investigation record types
+  * 2024-08-16 - George Nguyen - Added futureUpdateUnifiedMilestones(...) to future update the StartDate of the milestones
   */
 public with sharing class CaseMilestoneUtility{
 	   
@@ -421,6 +422,35 @@ public with sharing class CaseMilestoneUtility{
 		
 		return escalationMap;
 	}
+
+	/* 
+	This method is invoked in After Update event, checks that cases are Unified reocrd type and that Type has changed from General Enquiry to Investigation
+	This is required in After Update because the Case.EntitlementId is set on Before Update and the milestones will not be exist (yet)
+	*/
+	@future
+	static void futureUpdateUnifiedMilestones(Set<Id> caseIds){
+		try{
+			Datetime now = Datetime.now();
+			List<CaseMilestone> milestonesToUpdate = new List<CaseMilestone>();
+			Set<Object> filterOptions = new Set<Object>{CaseMilestonesSelector.Options.FILTER_NOT_VIOLATED, CaseMilestonesSelector.Options.FILTER_NOT_COMPLETED};
+
+			for(CaseMilestone cm: CaseMilestonesSelector.newInstance().selectByCase(caseIds, filterOptions).values()) {
+				cm.StartDate = now;
+				milestonesToUpdate.add(cm);
+			}
+			
+			if(milestonesToUpdate.isEmpty() == false) {
+				ApplicationDatabase.getInstance().dmlUpdate(milestonesToUpdate);
+			}
+		}
+		catch(Exception exp){
+			// Error Logged to Exception object for analysis
+			UTIL_LoggingService.logHandledException(exp, UserInfo.getOrganizationId(), SSSWConstants.UNIFIED_ENTITLEMENTS, 
+													CaseMilestoneUtility.class.getName(), 'futureUpdateUnifiedMilestones', 
+													SSSWConstants.CASE_TRIGGER, LoggingLevel.ERROR);
+		}
+	}
+
 	
 	/**
 	  * @description	   This method is invoked in Before udpate event, sets the escalation mail if 
@@ -436,6 +466,7 @@ public with sharing class CaseMilestoneUtility{
 			List<Case> completeCharterCases = new List<Case>();
 			List<Case> milestoneStoppedCases = new List<Case>();
 			List<Case> milestoneResumedCases = new List<Case>();
+			Set<Id> caseIdToFutureUpdateMilestones = new Set<Id>(); 
 
 			for(Case csRec : caseList){
 				Case oldCase = oldMap.get(csRec.Id);	// get old values of case
@@ -443,6 +474,7 @@ public with sharing class CaseMilestoneUtility{
 				if(UNIFIED_ENTITLEMENT_ID != null && unifiedRecordTypes.contains(csRec.RecordTypeId) == true) {
 					if(oldCase.Type == SSSWConstants.GENERAL_ENQUIRY && csRec.Type == SSSWConstants.INVESTIGATION) {
 						csRec.EntitlementId = UNIFIED_ENTITLEMENT_ID;
+						caseIdToFutureUpdateMilestones.add(csRec.Id); // this is required because the milestones will be created upon setting the Case.EntitlementId. 
 					}
 
 					if(closedStatus.contains(oldCase.Status) == false && closedStatus.contains(csRec.Status) == true) {
@@ -492,6 +524,10 @@ public with sharing class CaseMilestoneUtility{
 
 			if(milestoneResumedCases.isEmpty() == false) {
 				setMilestoneCompletionDates(milestoneResumedCases, null); // this will resume the milestone
+			}
+
+			if(caseIdToFutureUpdateMilestones.isEmpty() == false) {
+				futureUpdateUnifiedMilestones(caseIdToFutureUpdateMilestones);
 			}
 		}
 		catch(Exception exp){
