@@ -10,6 +10,7 @@
  * 2022-11-24	Noel Lim - updated testInternalEscalationScenario(), assert for taskCount from 1 to 2 as a temporary fix. Refer to assert for reasoning and technical details.
  * 2023-06-05	Mahesh Parvathaneni - Added tests testTransportEnquiryApplyDefaultEntitlement
  * 2024-08-14	George Nguyen - Added tests for Unified milestone entitlements: testInitialisation, testInsertMilestones, testUpdateMilestones
+ * 2024-08-16	George Nguyen - tests for future updates of Start Date on milestones
  */
 @isTest
 private with sharing class CaseMilestoneUtility_Test {
