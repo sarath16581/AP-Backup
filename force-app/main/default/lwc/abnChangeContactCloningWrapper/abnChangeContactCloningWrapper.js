@@ -76,9 +76,7 @@ export default class AbnChangeContactCloningWrapper extends LightningElement {
 					});
 					// insert name at index 0
 					this.columns.splice(0, 0, { label: 'Name', fieldName: 'nameUrl', type: 'url', typeAttributes: {label: { fieldName: 'Name' }, target: '_blank'}});
-					console.log(JSON.stringify(this.columns));
-				}).catch(columnError => {
-					console.error(columnError);
+				}).catch(() => {
 					LightningAlert.open({
 						message: 'Something went wrong while retrieving the columns. Please try again',
 						theme: 'error',
