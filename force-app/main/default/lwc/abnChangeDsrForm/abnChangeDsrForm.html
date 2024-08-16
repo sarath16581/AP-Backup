@@ -1,0 +1,121 @@
+<template>
+	<div>
+		<lightning-radio-group name="activeContract"
+							   label="Does the customer have an active contract?"
+							   data-id="activeContract"
+							   options={radioOptions}
+							   value={isActiveContract}
+							   required
+							   type="radio"
+							   onchange={handleInputChange}
+							   class="slds-m-bottom_small input">
+		</lightning-radio-group>
+		<p class="slds-text-title_bold slds-m-bottom_xx-small" style="font-size: 12px;"><abbr class="slds-required" title="required">*</abbr>Estimated account closure date</p>
+		<lightning-input type="date"
+						 name="estimatedAccountClosureDate"
+						 label="Estimated account closure date"
+						 data-id="estimatedAccountClosureDate"
+						 value={estimatedAccountClosureDate}
+						 min={todayDate}
+						 variant="label-hidden"
+						 required
+						 onchange={handleInputChange}
+						 class="slds-m-bottom_small input">
+		</lightning-input>
+		<lightning-file-upload
+				label="Customer Request Attached"
+				name="fileUploader"
+				data-id="requestAttached"
+				accept={acceptedFormats}
+				onuploadfinished={handleUploadFinished}
+				class="slds-m-bottom_small"
+				required
+				multiple>
+		</lightning-file-upload>
+
+		<div class="slds-text-body_regular slds-p-bottom_small slds-text-color_error">{fileUploadError}</div>
+		<div class="slds-m-bottom_small">
+			<template for:each={attachedFiles} for:item="file" for:index="index">
+				<lightning-pill key={file.documentId} label={file.name} name={index} onremove={handleDeleteFile}>
+					<lightning-icon icon-name="standard:file" alternative-text="file"></lightning-icon>
+				</lightning-pill>
+			</template>
+		</div>
+
+		<template lwc:if={hasActiveContract}>
+			<lightning-radio-group name="skipProposal"
+								   label="Do you want to skip proposal generation and go straight to contract?"
+								   data-id="skipProposal"
+								   options={radioOptions}
+								   value={isSkipProposal}
+								   required
+								   type="radio"
+								   onchange={handleInputChange}
+								   class="slds-m-bottom_small input">
+			</lightning-radio-group>
+			<lightning-radio-group name="standardPricing"
+								   label="Will standard Apttus pricing be utilised?"
+								   data-id="standardPricing"
+								   options={radioOptions}
+								   value={isStandardPricing}
+								   required
+								   type="radio"
+								   onchange={handleInputChange}
+								   class="slds-m-bottom_small input">
+			</lightning-radio-group>
+			<template lwc:if={noDSRError}>
+				<div class="slds-text-body_regular slds-p-bottom_small slds-text-color_error">{noDSRError}</div>
+			</template>
+			<template lwc:else>
+				<lightning-checkbox-group name="products"
+										  label="What products does the customer have?"
+										  data-id="products"
+										  options={productsOptions}
+										  disabled={noStandardPricing}
+										  required
+										  value={products}
+										  onchange={handleInputChange}
+										  class="slds-m-bottom_small input">
+				</lightning-checkbox-group>
+			</template>
+			<template lwc:if={noStandardPricing}>
+				<div class="slds-text-title_bold slds-p-bottom_xx-small">Please select the current pricing DSR from the table below</div>
+				<div class="slds-border_top slds-p-bottom_small" style="height: 120px">
+					<lightning-datatable
+							data-id="dsrTable"
+							columns={dsrColumns}
+							data={dsrs}
+							key-field="Id"
+							selected-rows={selectedDsrIds}
+							onrowselection={handleSelectedRows}
+					>
+					</lightning-datatable>
+				</div>
+				<div class="slds-text-body_regular slds-p-bottom_small slds-text-color_error">{dsrSelectionError}</div>
+			</template>
+			<template lwc:if={noOpportunitiesError}>
+				<div class="slds-text-body_regular slds-p-bottom_small slds-text-color_error">{noOpportunitiesError}</div>
+			</template>
+			<template lwc:if={hasProductsSelected}>
+				<div class="slds-text-title_bold slds-p-bottom_xx-small">{customerSignerInfo}</div>
+				<div class="slds-border_top" style="height: 120px">
+					<lightning-datatable
+							data-id="oppTable"
+							columns={opportunityColumns}
+							data={filteredOpportunities}
+							key-field="Id"
+							selected-rows={selectedOppIds}
+							onrowselection={handleSelectedRows}
+					>
+					</lightning-datatable>
+				</div>
+				<div class="slds-text-body_regular slds-p-bottom_small slds-text-color_error">{oppSelectionError}</div>
+			</template>
+		</template>
+	</div>
+	<footer class="slds-card__footer slds-clearfix">
+		<div class="slds-float_right slds-button-group">
+			<lightning-button class="slds-var-m-left_x-small" label="Create" onclick={handleCreateDSRs}></lightning-button>
+		</div>
+	</footer>
+</template>

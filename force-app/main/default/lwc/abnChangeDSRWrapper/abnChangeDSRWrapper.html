@@ -1,0 +1,22 @@
+<template>
+	<lightning-quick-action-panel header="ABN Change DSRs">
+		<template lwc:if={errorMessage}>
+			<div class="slds-text-title_bold">{errorMessage}</div>
+		</template>
+		<template lwc:elseif={hasExistingDSR}>
+			<c-abn-change-dsr-show-dsrs dsr-list={dsrList} onclose={handleClose}></c-abn-change-dsr-show-dsrs>
+			<div class="slds-text-title_bold slds-text-color_error">{dsrFailureMessage}</div>
+		</template>
+		<template lwc:else>
+			<c-abn-change-dsr-form
+					business-at-risk={businessAtRisk}
+					new-organisation-name={relatedOrganisationName}
+					oncreate={handleCreateDSRs}
+			>
+			</c-abn-change-dsr-form>
+		</template>
+		<div lwc:if={isLoading}>
+			<lightning-spinner alternative-text="Loading" variant="brand" size="medium"></lightning-spinner>
+		</div>
+	</lightning-quick-action-panel>
+</template>
