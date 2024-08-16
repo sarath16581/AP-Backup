@@ -57,41 +57,42 @@ export default class AbnChangeContactCloningWrapper extends LightningElement {
 		const {data, error} = result;
 		this._wiredContacts = result;
 		if (error) {
-			console.error(error);
 			this.errorMessage = error;
+			this.isLoading = false;
 			return;
 		}
-		if (data?.contacts.length > 0) {
-			// map contact name url
-			let nameUrl;
-			this.contacts = data.contacts.map(row => {
-				nameUrl = `/${row.Id}`;
-				return {...row , nameUrl}
-			});
-			// Retrieve columns
-			getColumns({objectName: 'Contact', fieldSetName: 'ABNChangeContactColumn'}).then(c => {
-				this.columns = c.map(item => {
-					return {...item};
+		if (data) {
+			if (data.contacts.length > 0) {
+				// map contact name url
+				let nameUrl;
+				this.contacts = data.contacts.map(row => {
+					nameUrl = `/${row.Id}`;
+					return {...row , nameUrl}
 				});
-				// insert name at index 0
-				this.columns.splice(0, 0, { label: 'Name', fieldName: 'nameUrl', type: 'url', typeAttributes: {label: { fieldName: 'Name' }, target: '_blank'}});
-				console.log(JSON.stringify(this.columns));
-			}).catch(columnError => {
-				console.error(columnError);
-				LightningAlert.open({
-					message: 'Something went wrong while retrieving the columns. Please try again',
-					theme: 'error',
-					label: LABEL_CONTACT_CLONING
+				// Retrieve columns
+				getColumns({objectName: 'Contact', fieldSetName: 'ABNChangeContactColumn'}).then(c => {
+					this.columns = c.map(item => {
+						return {...item};
+					});
+					// insert name at index 0
+					this.columns.splice(0, 0, { label: 'Name', fieldName: 'nameUrl', type: 'url', typeAttributes: {label: { fieldName: 'Name' }, target: '_blank'}});
+					console.log(JSON.stringify(this.columns));
+				}).catch(columnError => {
+					console.error(columnError);
+					LightningAlert.open({
+						message: 'Something went wrong while retrieving the columns. Please try again',
+						theme: 'error',
+						label: LABEL_CONTACT_CLONING
+					});
 				});
-			});
 
-			// this.contacts = data.contacts;
-			this.atRiskBusiness = data.businessAtRisk;
-			this.errorMessage = null;
-		} else {
-			this.errorMessage = LABEL_CONTACT_NO_CONTACTS_ERROR;
+				this.atRiskBusiness = data.businessAtRisk;
+				this.errorMessage = null;
+			} else {
+				this.errorMessage = LABEL_CONTACT_NO_CONTACTS_ERROR;
+			}
+			this.isLoading = false;
 		}
-		this.isLoading = false;
 	}
 
 	get filteredContacts() {
