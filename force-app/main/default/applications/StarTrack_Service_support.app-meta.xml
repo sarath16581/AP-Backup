@@ -2,8 +2,9 @@
 <CustomApplication xmlns="http://soap.sforce.com/2006/04/metadata">
     <consoleConfig>
         <componentList>
-            <alignment>right</alignment>
+            <alignment>left</alignment>
             <components>Console.BuiltInComponent.mostRecentlyUsed</components>
+            <components>purecloud__PureCloudScript</components>
             <components>QuickLinksStarTrack</components>
             <components>Console.BuiltInComponent.knowledgeOne</components>
             <components>Console.BuiltInComponent.macroBrowser</components>
@@ -12,6 +13,7 @@
             <components>StarTrackConsignmentSearch</components>
             <components>Console.BuiltInComponent.servicePresence</components>
             <components>STConsoleChatterScrollBar</components>
+            <components>GenesysConnector</components>
         </componentList>
         <detailPageRefreshMethod>autoRefresh</detailPageRefreshMethod>
         <footerColor>#009fda</footerColor>
@@ -195,8 +197,8 @@
     </preferences>
     <tabs>standard-Case</tabs>
     <tabs>standard-Account</tabs>
-    <tabs>standard-home</tabs>
     <tabs>standard-Lead</tabs>
+    <tabs>standard-home</tabs>
     <tabs>Article__c</tabs>
     <tabs>Network__c</tabs>
     <tabs>Un_Identified_Freight__c</tabs>
