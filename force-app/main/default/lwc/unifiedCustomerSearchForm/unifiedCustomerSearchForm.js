@@ -214,20 +214,6 @@ export default class UnifiedCustomerSearchForm extends LightningElement {
 	includeEmailAddress = true;
 	showAddress = true;
 
-	get organisationCheckbox(){
-		return this.customerType === CUSTOMER_TYPE_ORGANISATION;
-	}
-	set organisationCheckbox(value){
-		this.organisationCheckbox = value;
-	}
-
-	get consumerCheckbox(){
-		return this.customerType === CUSTOMER_TYPE_CONSUMER;
-	}
-	set consumerCheckbox(value) {
-		this.consumerCheckbox = value;
-	}
-
 	get ignorePhoneNumber() {
 		return !this.includePhoneNumber;
 	}
@@ -528,7 +514,7 @@ export default class UnifiedCustomerSearchForm extends LightningElement {
 	}
 
 	get ameSearchTerm(){
-		return this.addressOverride === false ? this.addressObj.address : undefined;
+		return this.addressOverride === false ? this.addressObj?.address : undefined;
 	}
 
 	get ameSupportAutoSearchOnLoad() {
