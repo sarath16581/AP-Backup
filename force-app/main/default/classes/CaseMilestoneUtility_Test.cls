@@ -178,7 +178,7 @@ private with sharing class CaseMilestoneUtility_Test {
 
 		MockUtility.Mocks.when(mockCaseMilestonesSelector.selectByCase(
 																(Set<Id>)fflib_Match.eq(new Set<Id>{case1.Id}), 
-																(Set<Object>)fflib_Match.eq(new Set<Object>{CaseMilestonesSelector.Options.FILTER_NOT_VIOLATED, CaseMilestonesSelector.Options.FILTER_NOT_COMPLETED})
+																(Set<Object>)fflib_Match.eq(new Set<Object>{CaseMilestonesSelector.Options.FILTER_NOT_COMPLETED})
 															)).thenReturn(new Map<Id, CaseMilestone>{caseMilestoneCase1.Id => caseMilestoneCase1});
 
 		MockUtility.Mocks.when(mockCaseMilestonesSelector.selectByCase(

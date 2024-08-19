@@ -432,7 +432,7 @@ public with sharing class CaseMilestoneUtility{
 		try{
 			Datetime now = Datetime.now();
 			List<CaseMilestone> milestonesToUpdate = new List<CaseMilestone>();
-			Set<Object> filterOptions = new Set<Object>{CaseMilestonesSelector.Options.FILTER_NOT_VIOLATED, CaseMilestonesSelector.Options.FILTER_NOT_COMPLETED};
+			Set<Object> filterOptions = new Set<Object>{CaseMilestonesSelector.Options.FILTER_NOT_COMPLETED};
 
 			for(CaseMilestone cm: CaseMilestonesSelector.newInstance().selectByCase(caseIds, filterOptions).values()) {
 				cm.StartDate = now;
