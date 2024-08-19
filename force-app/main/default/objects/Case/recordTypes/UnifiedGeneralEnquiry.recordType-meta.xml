@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>UnifiedGeneralEnquiry</fullName>
+    <active>true</active>
+    <businessProcess>Unified Process</businessProcess>
+    <description>General type enquiry for Unified cases</description>
+    <label>Unified General Enquiry</label>
+    <picklistValues>
+        <picklist>Origin</picklist>
+        <values>
+            <fullName>Phone</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Chat</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+	<picklistValues>
+        <picklist>Status</picklist>
+        <values>
+            <fullName>Closed</fullName>
+            <default>true</default>
+        </values>
+    </picklistValues>
+	<picklistValues>
+        <picklist>CaseOriginator__c</picklist>
+        <values>
+            <fullName>Sender</fullName>
+            <default>false</default>
+        </values>
+		<values>
+            <fullName>Addressee</fullName>
+            <default>true</default>
+        </values>
+		<values>
+            <fullName>3rd Party</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+	<picklistValues>
+        <picklist>Root_cause__c</picklist>
+        <values>
+            <fullName>Unclear EDD</fullName>
+            <default>true</default>
+        </values>
+    </picklistValues>
+	<picklistValues>
+        <picklist>ResolutionCode__c</picklist>
+        <values>
+            <fullName>Closed - Tracking only</fullName>
+            <default>true</default>
+        </values>
+    </picklistValues>
+	<picklistValues>
+        <picklist>ProductCategory__c</picklist>
+        <values>
+            <fullName>Domestic</fullName>
+            <default>true</default>
+        </values>
+    </picklistValues>
+	<picklistValues>
+        <picklist>ProductSubCategory__c</picklist>
+        <values>
+            <fullName>StarTrack Road Express</fullName>
+            <default>false</default>
+        </values>
+		<values>
+            <fullName>StarTrack Premium</fullName>
+            <default>false</default>
+        </values>
+		<values>
+            <fullName>Parcel Post</fullName>
+            <default>false</default>
+        </values>
+		<values>
+            <fullName>Express Post</fullName>
+            <default>false</default>
+        </values>
+		<values>
+            <fullName>Metro</fullName>
+            <default>false</default>
+        </values>
+		<values>
+            <fullName>eParcel Parcel Post</fullName>
+            <default>false</default>
+        </values>
+		<values>
+            <fullName>eParcel Express Post</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+</RecordType>
