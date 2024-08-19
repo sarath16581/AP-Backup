@@ -90,4 +90,25 @@
             <default>false</default>
         </values>
     </picklistValues>
+	<picklistValues>
+        <picklist>Type_And_Product__c</picklist>
+        <values>
+            <fullName>Unified Model</fullName>
+            <default>true</default>
+        </values>
+    </picklistValues>
+	<picklistValues>
+        <picklist>Type</picklist>
+        <values>
+            <fullName>General Enquiry</fullName>
+            <default>true</default>
+        </values>
+    </picklistValues>
+	<picklistValues>
+        <picklist>EnquirySubType__c</picklist>
+        <values>
+            <fullName>Tracking</fullName>
+            <default>true</default>
+        </values>
+    </picklistValues>
 </RecordType>

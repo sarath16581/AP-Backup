@@ -16,6 +16,14 @@
         <enabled>true</enabled>
         <name>TransferAnyCase</name>
     </userPermissions>
+	<recordTypeVisibilities>
+        <recordType>Case.UnifiedInvestigation</recordType>
+        <visible>true</visible>
+    </recordTypeVisibilities>
+	<recordTypeVisibilities>
+        <recordType>Case.UnifiedGeneralEnquiry</recordType>
+        <visible>true</visible>
+    </recordTypeVisibilities>
 	<objectPermissions>
 		<object>Account</object>
 		<allowRead>true</allowRead>
@@ -117,5 +125,4 @@
         <field>Case.Complaint__c</field>
         <readable>true</readable>
     </fieldPermissions>
-	
 </PermissionSet>
