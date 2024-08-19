@@ -2,7 +2,7 @@
 <ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Check_if_Phone_is_valid</fullName>
     <active>true</active>
-    <errorConditionFormula>AND(CONTAINS($Profile.Name, &apos;SSSW&apos;),
+    <errorConditionFormula>AND(OR(CONTAINS($Profile.Name, &apos;SSSW&apos;),$Profile.Name = &apos;CustomerService&apos;),
 OR(ISNEW(),OR(ISCHANGED(HomePhone),ISCHANGED(Phone),ISCHANGED(Fax),ISCHANGED(OtherPhone),ISCHANGED(MobilePhone))), 
 
 OR(
