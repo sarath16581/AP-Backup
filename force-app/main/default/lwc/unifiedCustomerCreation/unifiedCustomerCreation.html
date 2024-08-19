@@ -1,5 +1,11 @@
 <template>
 	<div class="slds-is-relative">
+		<lightning-spinner
+				if:true={isLoading}
+				variant="brand"
+				alternative-text="Saving..."
+				title="Saving..."
+		></lightning-spinner>
 
 		<!-- Back button -->
 		<div class="slds-var-m-top_small">
@@ -58,7 +64,7 @@
 				<lightning-input
 						data-field-name="firstName"
 						label={firstNameLabel}
-						max-length="40"
+						max-length="80"
 						message-when-pattern-mismatch={invalidNameMsg}
 						name="firstName"
 						pattern={nameInputRegex}
@@ -73,7 +79,7 @@
 				<lightning-input
 						data-field-name="lastName"
 						label={lastNameLabel}
-						max-length="40"
+						max-length="80"
 						message-when-pattern-mismatch={invalidNameMsg}
 						name="lastName"
 						pattern={nameInputRegex}
@@ -112,7 +118,7 @@
 								<lightning-input
 										data-field-name="phoneNumber"
 										label={phoneNumberLabel}
-										max-length="40"
+										max-length="20"
 										message-when-pattern-mismatch={invalidPhoneNumberMsg}
 										name="phoneNumber"
 										pattern={phoneInputRegex}
@@ -162,7 +168,7 @@
 						<template lwc:if={newOrganisationToggle}>
 							<!-- New Organisation Text field -->
 							<lightning-input
-									data-field-name="newOrganisationText"
+									data-field-name="newOrganisationName"
 									label={newOrganisationTextLabel}
 									max-length="40"
 									message-when-pattern-mismatch={invalidNameMsg}
@@ -182,7 +188,6 @@
 									placeholder={organisationLookupLabel}
 									object-api-name="Account"
 									filter={organisationLookupFilter}
-									display-info={organisationLookupDisplayInfo}
 									value={organisationAccountId}
 									onchange={handleInputChange}
 							>
@@ -209,12 +214,22 @@
 			</template>
 		</div>
 
+		<!-- Error message -->
+		<div
+				data-id="error"
+				if:true={errorMessage}
+				class="slds-text-align_center slds-text-color_error slds-var-m-around_medium"
+		>
+			{errorMessage}
+		</div>
+
 		<!-- Create Button -->
 		<div class="slds-var-m-top_small slds-text-align_center">
 			<lightning-button data-id="submitContactCreation"
-			                  label={createContactLabel}
-			                  onclick={handleSubmitContactCreation}
-			                  variant="brand">
+							  disabled={disableCreateBtn}
+							  label={createContactLabel}
+							  onclick={handleSubmitContactCreation}
+							  variant="brand">
 			</lightning-button>
 		</div>
 	</div>
