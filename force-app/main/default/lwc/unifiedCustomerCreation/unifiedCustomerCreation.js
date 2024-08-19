@@ -420,6 +420,7 @@ export default class UnifiedCustomerCreation extends LightningElement {
 
 	/**
 	 * Handle the creation of a new Consumer/Business contact, and optionally a new Organisation including all appropriate fields mapped from the UI form
+	 * @fires UnifiedCustomerCreation#customercreated
 	 */
 	async handleSubmitContactCreation(){
 		// Validate inputs before invoking the search method
