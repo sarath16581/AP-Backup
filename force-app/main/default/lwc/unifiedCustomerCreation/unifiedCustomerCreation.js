@@ -455,7 +455,7 @@ export default class UnifiedCustomerCreation extends LightningElement {
 			// Dispatch the ShowToastEvent
 			this.dispatchEvent(new ShowToastEvent({
 				title: 'Success!',
-				message: 'Contact is created successfully.',
+				message: 'Contact Created Successfully',
 				variant: 'success',
 			}));
 
