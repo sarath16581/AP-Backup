@@ -129,12 +129,12 @@ public with sharing class UnifiedCustomerCreationController {
 				}
 				// Customise Duplicate error message for Contact object
 				else if (dupRes.duplicateRuleEntityType == CONTACT_OBJECT_NAME) {
-					// customise error message because the configured error message present potential duplicates for user to select
 					AuraHandledException ae = new AuraHandledException(DUPLICATE_CONTACT_MESSAGE);
 					ae.setMessage(DUPLICATE_CONTACT_MESSAGE);
 					throw ae;
 				}
 			}
+			// pass through other DML-related error (e.g. validation rule's message)
 			AuraHandledException ae = new AuraHandledException(error.getMessage());
 			ae.setMessage(error.getMessage());
 			throw ae;
