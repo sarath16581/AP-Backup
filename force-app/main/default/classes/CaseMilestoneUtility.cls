@@ -22,6 +22,7 @@
   * 2024-05-07 - Boris Bachovski - Add logic to assign entitlement to bulk mail record type cases
   * 2024-08-12 - George Nguyen - Added Unified Entitlement process to cases with Unifield Investigation record types
   * 2024-08-16 - George Nguyen - Added futureUpdateUnifiedMilestones(...) to future update the StartDate of the milestones
+  * 2024-08-19 - George Nguyen - Removed IsViolated filter from cases when moved from General Enquiry to Investigation because the case creation date might have passed the milestone threshold
   */
 public with sharing class CaseMilestoneUtility{
 	   
