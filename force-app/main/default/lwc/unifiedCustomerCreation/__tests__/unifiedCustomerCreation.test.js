@@ -17,11 +17,13 @@ import {
 	ORGANISATION_RADIO_LABEL,
 	NEW_ORGANISATION_RADIO_LABEL,
 	NEW_ORGANISATION_TEXT_LABEL,
-	ORGANISATION_REQUIRED_ERROR_MESSAGE
+	ORGANISATION_REQUIRED_ERROR_MESSAGE,
+	CREATE_BUTTON_LABEL,
+	BACK_BUTTON_LABEL
 } from 'c/unifiedCustomerCreation';
 
 const CUSTOMER_CREATION_RES_SUCCESS = '003000000000000001';
-const CUSTOMER_SEARCH_RES_ERROR = {
+const CUSTOMER_CREATION_RES_ERROR = {
 	body: { message: 'An internal server error has occurred' },
 	ok: false,
 	status: 500,
@@ -208,6 +210,14 @@ describe('c-unified-customer-creation', () => {
 		const ameAddressValidationCmp = getInputFieldElement(element, 'addressObj');
 		expect(ameAddressValidationCmp).not.toBeNull();
 
+		const createButton = getButtonByDataId(element, 'create');
+		expect(createButton).not.toBeNull();
+		expect(createButton.label).toBe(CREATE_BUTTON_LABEL);
+
+		const backButton = getButtonByDataId(element, 'back');
+		expect(backButton).not.toBeNull();
+		expect(backButton.label).toBe(BACK_BUTTON_LABEL);
+		expect(backButton.disabled).toBeFalsy;
 	});
 
 	it('displays specific creation form input and button elements for when customer type is null', () => {
@@ -338,8 +348,71 @@ describe('c-unified-customer-creation', () => {
 		expect(newOrganisationNameText.type).toBe('text');
 		expect(newOrganisationNameText.maxLength).toBe('40');
 		expect(newOrganisationNameText.value).toBe('');
+	});
 
-		console.log('SETH newOrganisationToggle.checked:' + newOrganisationToggle.checked);
+	it('allows pre-populating input field values', async () => {
+		// Arrange
+		const element = createElement('c-unified-customer-creation', {
+			is: UnifiedCustomerCreation
+		});
+		element.firstName = 'Jame';
+		element.lastName = 'George';
+		element.emailAddress = 'bulkyman@example.com';
+		element.phoneNumber = '0401234567';
+		element.addressObj = {
+			address: '111 Bourke St, 9th Floor',
+			addressLine1: '111 Bourke St',
+			addressLine2: '9th Floor',
+			city: 'Melbourne',
+			state: 'VIC',
+			postcode: '3000',
+			dpid: '12345',
+			latitude: '-140.233',
+			longitude: '37.232'
+		};
+		element.organisationAccountId = '001000000000001AAA';
+		element.addressOverride = true;
+		element.customerType = CUSTOMER_TYPE_ORGANISATION;
+
+		// Act
+		document.body.appendChild(element);
+
+		// Assert
+		const firstNameInput = getInputFieldElement(element, 'firstName');
+		expect(firstNameInput).not.toBeNull();
+		expect(firstNameInput.value).toBe('Jame');
+
+		const lastNameInput = getInputFieldElement(element, 'lastName');
+		expect(lastNameInput).not.toBeNull();
+		expect(lastNameInput.value).toBe('George');
+
+		const emailAddressInput = getInputFieldElement(element, 'emailAddress');
+		expect(emailAddressInput).not.toBeNull();
+		expect(emailAddressInput.value).toBe('bulkyman@example.com');
+
+		const phoneNumberInput = getInputFieldElement(element, 'phoneNumber');
+		expect(phoneNumberInput).not.toBeNull();
+		expect(phoneNumberInput.value).toBe('0401234567');
+
+		const addressObjInput = getInputFieldElement(element, 'addressObj');
+		expect(addressObjInput).not.toBeNull();
+		expect(addressObjInput.searchTerm).toBeFalsy;
+		expect(addressObjInput.supportsAutoSearchOnLoad).toBeFalsy;
+		expect(addressObjInput.defaultAddress).toEqual({
+			address: '111 Bourke St, 9th Floor',
+			addressLine1: '111 Bourke St',
+			addressLine2: '9th Floor',
+			city: 'Melbourne',
+			state: 'VIC',
+			postcode: '3000',
+			dpid: '12345',
+			latitude: '-140.233',
+			longitude: '37.232'
+		});
+
+		const organisationAccountIdInput = getInputFieldElement(element, 'organisationAccountId');
+		expect(organisationAccountIdInput).not.toBeNull();
+		expect(organisationAccountIdInput.value).toBe('001000000000001AAA');
 	});
 
 	it('displays error when one or more fields are invalid', async () => {
@@ -362,12 +435,14 @@ describe('c-unified-customer-creation', () => {
 		await flushAllPromises();
 
 		// Assert
+		expect(createButton.disabled).toBe(true);
+
 		const errorDiv = element.shadowRoot.querySelector("div[data-id='error']");
 		expect(errorDiv).not.toBeNull();
 		expect(errorDiv.textContent).toBe(INVALID_FORM_ERROR);
 	});
 
-	it('displays required fields error when submitted without filling firstname and lastname, and at least one of mobile or email', async () => {
+	it('displays required fields error when submitted without entering at least one of mobile or email', async () => {
 		// Arrange
 		const element = createElement('c-unified-customer-creation', {
 			is: UnifiedCustomerCreation
@@ -376,6 +451,12 @@ describe('c-unified-customer-creation', () => {
 
 		// Act
 		document.body.appendChild(element);
+
+		const firstNameInput = getInputFieldElement(element, 'firstName');
+		changeInputFieldValue(firstNameInput, 'Tim');
+
+		const lastNameInput = getInputFieldElement(element, 'lastName');
+		changeInputFieldValue(lastNameInput, 'Tam');
 
 		// Mock all input checkValidity() methods to return 'true'
 		mockCheckValidity(element, INPUT_ELEMENT_SELECTORS.join(','), true);
@@ -388,12 +469,14 @@ describe('c-unified-customer-creation', () => {
 		await flushAllPromises();
 
 		// Assert
+		expect(createButton.disabled).toBe(true);
+
 		const errorDiv = element.shadowRoot.querySelector("div[data-id='error']");
 		expect(errorDiv).not.toBeNull();
 		expect(errorDiv.textContent).toBe(MORE_INFO_REQUIRED_ERROR_MESSAGE);
 	});
 
-	it('displays required fields error when submitted without filling organisation details when custom type is organisation', async () => {
+	it('displays required fields error when submitted without entering organisation details when custom type is organisation', async () => {
 		// Arrange
 		const element = createElement('c-unified-customer-creation', {
 			is: UnifiedCustomerCreation
@@ -424,13 +507,14 @@ describe('c-unified-customer-creation', () => {
 		await flushAllPromises();
 
 		// Assert
+		expect(createButton.disabled).toBe(true);
+
 		const errorDiv = element.shadowRoot.querySelector("div[data-id='error']");
 		expect(errorDiv).not.toBeNull();
 		expect(errorDiv.textContent).toBe(ORGANISATION_REQUIRED_ERROR_MESSAGE);
 	});
 
-
-	it('send request to submit customer details successfully', async () => {
+	it('send request to submit customer details for consumer with failure', async () => {
 		// Arrange
 		const element = createElement('c-unified-customer-creation', {
 			is: UnifiedCustomerCreation
@@ -438,10 +522,15 @@ describe('c-unified-customer-creation', () => {
 		element.customerType = CUSTOMER_TYPE_CONSUMER;
 
 		// mock success
-		createCustomer.mockResolvedValue(CUSTOMER_CREATION_RES_SUCCESS);
+		createCustomer.mockRejectedValue(CUSTOMER_CREATION_RES_ERROR);
 
 		// Act
 		document.body.appendChild(element);
+
+		const customerCreatedEvent = jest.fn();
+		element.addEventListener('customercreated', customerCreatedEvent);
+
+		const handler = jest.spyOn(element, 'dispatchEvent'); // Spy on the dispatchEvent method
 
 		// Set field values
 		changeFormInputValues(element, {
@@ -449,6 +538,17 @@ describe('c-unified-customer-creation', () => {
 			lastName: 'The Bear',
 			phoneNumber: '0400123456',
 			emailAddress: 'codybear@test.com',
+			addressObj: {
+				address: '111 Bourke St, 9th Floor',
+				addressLine1: '111 Bourke St',
+				addressLine2: '9th Floor',
+				city: 'Melbourne',
+				state: 'VIC',
+				postcode: '3000',
+				dpid: '12345',
+				latitude: '-140.233',
+				longitude: '37.232'
+			}
 		});
 
 		await flushAllPromises();
@@ -463,6 +563,249 @@ describe('c-unified-customer-creation', () => {
 		// Wait for any asynchronous code to complete
 		await flushAllPromises();
 
-
+		expect(customerCreatedEvent).not.toHaveBeenCalled();
+		expect(handler).not.toHaveBeenCalled();
+		expect(createButton.disabled).toBe(true);
+		const errorDiv = element.shadowRoot.querySelector("div[data-id='error']");
+		expect(errorDiv).not.toBeNull();
 	});
-})
+
+	it('click Back button to send backtosearch event', async () => {
+		// Arrange
+		const element = createElement('c-unified-customer-creation', {
+			is: UnifiedCustomerCreation
+		});
+
+		// Act
+		document.body.appendChild(element);
+
+		const backToSearchEvent = jest.fn();
+		element.addEventListener('backtosearch', backToSearchEvent);
+
+
+		await flushAllPromises();
+
+		// Mock all input checkValidity() methods to return 'true'
+		mockCheckValidity(element, INPUT_ELEMENT_SELECTORS.join(','), true);
+
+		// Click the search button
+		const backButton = getButtonByDataId(element, 'back');
+		backButton.click();
+
+		// Wait for any asynchronous code to complete
+		await flushAllPromises();
+
+		expect(backToSearchEvent).toHaveBeenCalled();
+	});
+
+	it('displays spinner while searching', async () => {
+		// Arrange
+		const element = createElement('c-unified-customer-creation', {
+			is: UnifiedCustomerCreation,
+		});
+		element.customerType = CUSTOMER_TYPE_CONSUMER;
+
+		// Assign mock value for resolved Apex promise
+		createCustomer.mockResolvedValue(CUSTOMER_CREATION_RES_SUCCESS);
+
+		// Act
+		document.body.appendChild(element);
+
+		// Expect lightning-spinner to be hidden by default
+		expect(element.shadowRoot.querySelector('lightning-spinner')).toBeFalsy();
+
+		changeFormInputValues(element, {
+			firstName: 'Seth',
+			lastName: 'The Bear',
+			phoneNumber: '0400123456',
+			emailAddress: 'codybear@test.com',
+		});
+
+		// Mock all input checkValidity() methods to return 'true'
+		mockCheckValidity(element, INPUT_ELEMENT_SELECTORS.join(','), true);
+
+		// Click the search button
+		const createButton = getButtonByDataId(element, 'create');
+		createButton.click();
+
+		// Wait for DOM to update (but not for Apex method to resolve)
+		await Promise.resolve();
+
+		// Assert
+		// Expect lightning-spinner to be displayed
+		expect(element.shadowRoot.querySelector('lightning-spinner')).toBeTruthy();
+
+		// Wait for any asynchronous code to complete
+		await flushAllPromises();
+
+		// Expect lightning-spinner to be hidden after search completed
+		expect(element.shadowRoot.querySelector('lightning-spinner')).toBeFalsy();
+	});
+
+	it('send request to submit customer details for consumer successfully', async () => {
+		// Arrange
+		const element = createElement('c-unified-customer-creation', {
+			is: UnifiedCustomerCreation
+		});
+		element.customerType = CUSTOMER_TYPE_CONSUMER;
+
+		// mock success
+		createCustomer.mockResolvedValue(CUSTOMER_CREATION_RES_SUCCESS);
+
+		// Act
+		document.body.appendChild(element);
+
+		const customerCreatedEvent = jest.fn();
+		element.addEventListener('customercreated', customerCreatedEvent);
+
+		const handler = jest.spyOn(element, 'dispatchEvent'); // Spy on the dispatchEvent method
+
+		// Set field values
+		changeFormInputValues(element, {
+			firstName: 'Seth',
+			lastName: 'Bearer',
+			preferredName: 'The Bear',
+			phoneNumber: '0400123456',
+			emailAddress: 'codybear@test.com',
+			addressObj: {
+				address: '111 Bourke St, 9th Floor',
+				addressLine1: '111 Bourke St',
+				addressLine2: '9th Floor',
+				city: 'Melbourne',
+				state: 'VIC',
+				postcode: '3000',
+				dpid: '12345',
+				latitude: '-140.233',
+				longitude: '37.232'
+			}
+		});
+
+		await flushAllPromises();
+
+		// Mock all input checkValidity() methods to return 'true'
+		mockCheckValidity(element, INPUT_ELEMENT_SELECTORS.join(','), true);
+
+		// Click the search button
+		const createButton = getButtonByDataId(element, 'create');
+		createButton.click();
+
+		// Wait for any asynchronous code to complete
+		await flushAllPromises();
+
+		const { request } = createCustomer.mock.calls[0][0];
+		expect(Object.keys(request).length).toBe(15);
+		expect(request.firstName).toBe('Seth');
+		expect(request.lastName).toBe('Bearer');
+		expect(request.preferredName).toBe('The Bear');
+		expect(request.mobileNumber).toBe('0400123456');
+		expect(request.emailAddress).toBe('codybear@test.com');
+		expect(request.customerType).toBe(CUSTOMER_TYPE_CONSUMER);
+		expect(request.addressStreet).toBe('111 Bourke St, 9th Floor');
+		expect(request.addressCity).toBe('Melbourne');
+		expect(request.addressState).toBe('VIC');
+		expect(request.addressPostalCode).toBe('3000');
+		expect(request.addressDPID).toBe('12345');
+		expect(request.addressLatitude).toBe('-140.233');
+		expect(request.addressLongitude).toBe('37.232');
+		expect(request.accountId).toBe('');
+		expect(request.accountName).toBe('');
+
+		expect(customerCreatedEvent).toHaveBeenCalledWith(
+			expect.objectContaining({
+				detail: {
+					customerId: CUSTOMER_CREATION_RES_SUCCESS
+				},
+				bubbles: true,
+				composed: true
+			})
+		);
+		expect(handler).toHaveBeenCalled();
+
+		const event = handler.mock.calls;
+		expect(event.length).toBe(2); // ShowToastEvent & customercreated event
+	});
+
+	it('send request to submit customer details for organisation successfully', async () => {
+		// Arrange
+		const element = createElement('c-unified-customer-creation', {
+			is: UnifiedCustomerCreation
+		});
+		element.customerType = CUSTOMER_TYPE_ORGANISATION;
+
+		// mock success
+		createCustomer.mockResolvedValue(CUSTOMER_CREATION_RES_SUCCESS);
+
+		// Act
+		document.body.appendChild(element);
+
+		const customerCreatedEvent = jest.fn();
+		element.addEventListener('customercreated', customerCreatedEvent);
+
+		const handler = jest.spyOn(element, 'dispatchEvent'); // Spy on the dispatchEvent method
+
+		// Set field values
+		changeFormInputValues(element, {
+			firstName: 'Seth',
+			lastName: 'Bearer',
+			preferredName: 'The Bear',
+			phoneNumber: '0400123456',
+			emailAddress: 'codybear@test.com',
+			addressObj: {
+				address: '111 Bourke St, 9th Floor',
+				addressLine1: '111 Bourke St',
+				addressLine2: '9th Floor',
+				city: 'Melbourne',
+				state: 'VIC',
+				postcode: '3000',
+				dpid: '12345',
+				latitude: '-140.233',
+				longitude: '37.232'
+			},
+			organisationAccountId: '001000000000000001'
+		});
+
+		await flushAllPromises();
+
+		// Mock all input checkValidity() methods to return 'true'
+		mockCheckValidity(element, INPUT_ELEMENT_SELECTORS.join(','), true);
+
+		// Click the search button
+		const createButton = getButtonByDataId(element, 'create');
+		createButton.click();
+
+		// Wait for any asynchronous code to complete
+		await flushAllPromises();
+
+		const { request } = createCustomer.mock.calls[0][0];
+		expect(Object.keys(request).length).toBe(15);
+		expect(request.firstName).toBe('Seth');
+		expect(request.lastName).toBe('Bearer');
+		expect(request.preferredName).toBe('The Bear');
+		expect(request.mobileNumber).toBe('0400123456');
+		expect(request.emailAddress).toBe('codybear@test.com');
+		expect(request.customerType).toBe(CUSTOMER_TYPE_ORGANISATION);
+		expect(request.addressStreet).toBe('111 Bourke St, 9th Floor');
+		expect(request.addressCity).toBe('Melbourne');
+		expect(request.addressState).toBe('VIC');
+		expect(request.addressPostalCode).toBe('3000');
+		expect(request.addressDPID).toBe('12345');
+		expect(request.addressLatitude).toBe('-140.233');
+		expect(request.addressLongitude).toBe('37.232');
+		expect(request.accountId).toBe('001000000000000001');
+		expect(request.accountName).toBe('');
+
+		expect(customerCreatedEvent).toHaveBeenCalledWith(
+			expect.objectContaining({
+				detail: {
+					customerId: CUSTOMER_CREATION_RES_SUCCESS
+				},
+				bubbles: true,
+				composed: true
+			})
+		);
+		expect(handler).toHaveBeenCalled();
+
+		const event = handler.mock.calls;
+		expect(event.length).toBe(2); // ShowToastEvent & customercreated event
+	});
+});
