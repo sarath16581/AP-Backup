@@ -25,6 +25,7 @@
   * 19-07-2024 - Ranjeewa Silva - Added constants for new SSSWRouting record type (UnifiedRouting) and new customer service agent profile name.
   * 31.07.2024 - Seth Heang - added constants for case's new 'Update' and 'Monitoring' status
   * 12.08.2024 - George Nguyen - added constants for Unified Investigation and Unified Entitlements
+  * 20.08.2024 - George Nguyen - Added Unified App constant
   */  
 public with sharing class SSSWConstants {
 
@@ -48,7 +49,11 @@ public with sharing class SSSWConstants {
 
     /*** Case Object ***/
     public static final String CASE_SLA_STATUS = 'Awaiting Network Response';
-    public static final String CASE_TYPE = 'General Enquiry';
+    
+	public static final String CASE_TYPE_GENERAL_ENQUIRY = 'General Enquiry';
+	public static final String CASE_TYPE = CASE_TYPE_GENERAL_ENQUIRY; // NOTE: Please do not use this as it is not properly named. Use CASE_TYPE_GENERAL_ENQUIRE instead
+    public static final String CASE_TYPE_INVESTIGATION  = 'Investigation';
+
     public static final String CASE_ORIGIN = 'Phone';
 	public static final String CASE_ORIGIN_DIRECT_EMAIL = 'Direct Email';
     public static final String CASE_PRIORITY = 'Low';
@@ -59,7 +64,6 @@ public with sharing class SSSWConstants {
     public static final String CASE_STATUS_NEW = 'New';
 	public static final String CASE_STATUS_UPDATED = 'Updated';
 	public static final String CASE_STATUS_MONITORING = 'Monitoring';
-    public static final String CASE_TYPE_INVESTIGATION  = 'Investigation';
     public static final String CASE_ENQUIRY_SUBTYPE = 'Disputed delivery scan';
     public static final String CASE_LOCALITY_DOMESTIC = 'Domestic';
     public static final String CASE_ORIGINATOR_ADDRESSEE = 'Addressee';
@@ -83,6 +87,7 @@ public with sharing class SSSWConstants {
     
     /*** Variables to hold Class constants ***/
     public static final String SSSW_APP = 'SSSW';
+	public static final String UNIFIED_APP = 'Unified';
     
     /*** CaseTriggerHelper Constants  ***/
     public static final String CASE_TRIGGER = 'CaseTrigger'; 
@@ -130,6 +135,7 @@ public with sharing class SSSWConstants {
 	/*** CaseMilestoneUtility Constants  ***/
 	public static final String UNIFIED_ENTITLEMENTS = 'Unified Entitlements';
 	public static final String UNIFIED_INVESTIGATION_DEVELOPER_NAME = 'UnifiedInvestigation';
+	public static final String UNIFIED_GENERAL_ENQUIRY_DEVELOPER_NAME = 'UnifiedGeneralEnquiry';
 
 	public static final Decimal DEF_MILESTONE_WARNING_PERCENT = 0.2;
 	public static final String STAT_COMPLETED = 'Completed';
@@ -299,7 +305,9 @@ public with sharing class SSSWConstants {
 	/*** START OF SSSW Send Bulk EMail Constants -- kalpita ***/
 	public static final String CASE_OBJ = 'Case';
 	public static final String CASE_RECTYPE_LIKE = 'SSSW%';
-	public static final String CASE_STATUS = 'New';
+	
+	public static final String CASE_STATUS = CASE_STATUS_NEW; // NOTE: Please do not use this as it is not properly named. Use CASE_STATUS_NEW instead
+
 	public static final String ORGWIDEEMAIL = 'customerservice@auspost.com.au';
 	public static final String TASK_SUB = 'Email: Australia Post – Case';
 	public static final String TASK_INT_TYPE = 'SSSW Bulk Emails';
