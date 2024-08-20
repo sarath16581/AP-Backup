@@ -2,6 +2,7 @@
 <ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>SSSW_Contact_Mandatory_Fields</fullName>
     <active>true</active>
+    <description>Mandatory fields for contact creation for SSSW Service Agents and Unified Agents.</description>
     <errorConditionFormula>OR(CONTAINS($Profile.Name,&quot;SSSW - Service Agent&quot;), $Profile.Name = &apos;CustomerService&apos;)
 &amp;&amp;
 (
