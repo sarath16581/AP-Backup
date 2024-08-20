@@ -99,6 +99,10 @@
     </picklistValues>
 	<picklistValues>
         <picklist>Type</picklist>
+		<values>
+            <fullName>Investigation</fullName>
+            <default>false</default>
+        </values>
         <values>
             <fullName>General Enquiry</fullName>
             <default>true</default>
