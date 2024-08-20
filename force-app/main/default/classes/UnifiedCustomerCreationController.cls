@@ -80,8 +80,7 @@ public with sharing class UnifiedCustomerCreationController {
 
 	/**
 	 * @description Insert a customer of type Account/Contact and return back contactId or personContactId
-	 * @param newCustomer Account(PersonAccount), Contact
-	 * @param newOrganisationName Optional
+	 * @param newCustomer SObject instance of Account(PersonAccount), Contact
 	 * @return Id - New Customer Id (Contact.Id or Account.PersonContactId)
 	 */
 	private static Id insertCustomer(SObject newCustomer) {
