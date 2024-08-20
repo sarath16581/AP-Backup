@@ -11,6 +11,7 @@
  * 2023-06-05	Mahesh Parvathaneni - Added tests testTransportEnquiryApplyDefaultEntitlement
  * 2024-08-14	George Nguyen - Added tests for Unified milestone entitlements: testInitialisation, testInsertMilestones, testUpdateMilestones
  * 2024-08-16	George Nguyen - tests for future updates of Start Date on milestones
+ * 2024-08-19 - George Nguyen - Removed IsViolated filter from cases when moved from General Enquiry to Investigation because the case creation date might have passed the milestone threshold
  */
 @isTest
 private with sharing class CaseMilestoneUtility_Test {
@@ -178,7 +179,7 @@ private with sharing class CaseMilestoneUtility_Test {
 
 		MockUtility.Mocks.when(mockCaseMilestonesSelector.selectByCase(
 																(Set<Id>)fflib_Match.eq(new Set<Id>{case1.Id}), 
-																(Set<Object>)fflib_Match.eq(new Set<Object>{CaseMilestonesSelector.Options.FILTER_NOT_VIOLATED, CaseMilestonesSelector.Options.FILTER_NOT_COMPLETED})
+																(Set<Object>)fflib_Match.eq(new Set<Object>{CaseMilestonesSelector.Options.FILTER_NOT_COMPLETED})
 															)).thenReturn(new Map<Id, CaseMilestone>{caseMilestoneCase1.Id => caseMilestoneCase1});
 
 		MockUtility.Mocks.when(mockCaseMilestonesSelector.selectByCase(
