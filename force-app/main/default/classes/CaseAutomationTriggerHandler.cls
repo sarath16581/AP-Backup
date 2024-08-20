@@ -107,6 +107,9 @@ public inherited sharing class CaseAutomationTriggerHandler extends ApplicationT
 		// all of the old case execution logic which hasn't been uplifted yet
 		registerModule(CaseLegacyAutomationModule.class);
 
+		// This module will use fields on the case to classify them. Such as Type and Record types
+		registerModule(CaseAutomationClassificationModule.class);
+
 		// these module will be available for domain operations and trigger execution
 		// each module will register their trigger entry points
 		// additionally, each module will specify a list of fields that it monitors changes for.
@@ -128,9 +131,6 @@ public inherited sharing class CaseAutomationTriggerHandler extends ApplicationT
 
 		// Logic related to proactive monitor queue routing including time-based SLA validation
 		registerModule(CaseUnifiedProactiveMonitoringModule.class, 'filterUnified');
-
-		// This module will use fields on the case to classify them. Such as Type and Record types
-		registerModule(CaseAutomationClassificationModule.class);
 	}
 
 	/**

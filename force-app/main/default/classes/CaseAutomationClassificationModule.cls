@@ -3,7 +3,7 @@
  * @changelog
  * 2024-08-20	George Nguyen	Created and added classifyUnifiedCases(...)
  */
-public inherited sharing  class CaseAutomationClassificationModule extends ApplicationModule {
+public inherited sharing class CaseAutomationClassificationModule extends ApplicationModule {
 	 /*
 	 * Creates a new instance of the utility to facilitate dependency injection for mocking
 	 * @return the new instance
