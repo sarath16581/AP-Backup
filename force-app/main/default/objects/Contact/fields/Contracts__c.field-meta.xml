@@ -4,8 +4,10 @@
     <defaultValue>false</defaultValue>
     <description>Checking this field indicates that the Contact will receive information about Contracts.</description>
     <externalId>false</externalId>
-    <inlineHelpText>Notify this Contact about any Contract issues affecting  their Organisation.</inlineHelpText>
-    <label>Contracts</label>
+    <inlineHelpText>Tick this box if this contact signed the contract for the organisation. 
+
+Please ensure there is only one contact within the organisation who has this field ticked.</inlineHelpText>
+    <label>Contract signatory</label>
     <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>true</trackHistory>

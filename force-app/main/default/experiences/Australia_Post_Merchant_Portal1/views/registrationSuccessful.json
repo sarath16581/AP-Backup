@@ -27,7 +27,7 @@
   }, {
     "components" : [ {
       "componentAttributes" : {
-        "customHeadTags" : "",
+        "customHeadTags" : "<meta name=\"robots\" content=\"noindex\" />",
         "description" : "",
         "title" : "Australia Post - Merchant Portal - Registration Successful"
       },

@@ -7,6 +7,7 @@
  * @description A very simple selector class that sits in the base domain
  * @changelog
  * 2022-10-20 George Nguyen - Created
+ * 2024-08-12 - Ranjeewa Silva - Added test to verify search method behaviour.
  */
 @IsTest
 public with sharing class AgentWorkSelector_Test {
@@ -61,6 +62,72 @@ public with sharing class AgentWorkSelector_Test {
 		queryString = qa.toSoqlString();
 		System.assertEquals(true, Pattern.compile('\\b' + AgentWork.WorkItemId + ' in :workItemIds AND ' + AgentWork.AcceptDateTime + ' != NULL AND User.IsActive = TRUE\\b').matcher(queryString).find(), 'Filters by workItemIds and AcceptDateTime not null in query');
 		System.assertEquals(true, Pattern.compile('\\bORDER BY ' + AgentWork.WorkItemId + ' ASC, ' + AgentWork.AcceptDateTime + ' DESC').matcher(queryString).find(), 'Order by work item id and date in query');
+	}
+
+	/**
+	 * Test to ensure that the search method QueryBuilder is generating the correct output
+	 */
+	@IsTest
+	public static void testEnsureSearchMethodProducesCorrectString() {
+		// =====================================
+		// Data Preparation
+		// =====================================
+		// None!
+
+		// =====================================
+		// Stubbing
+		// =====================================
+		// None!
+
+		// =====================================
+		// Testing
+		// =====================================
+		Test.startTest();
+
+		Map<String, Object> searchParams;
+
+		AgentWorkSelector selector = AgentWorkSelector.newInstance();
+
+		searchParams = new Map<String, Object>{
+				'workItemIds' => new Set<Id>{'500000000000000'},
+				'status' => new Set<String>{'Opened'}
+		};
+
+		String soql = selector.getSearchSoql(searchParams, new Set<Object>(), true);
+		Assert.isTrue(Pattern.compile('(?ism)\\s+from AgentWork\\s+where\\b.*?\\bWorkItemId\\s+In\\b').matcher(soql).find(), 'Resulting query does not filter work item.');
+		Assert.isTrue(Pattern.compile('(?ism)\\s+from AgentWork\\s+where\\b.*?\\bStatus\\s+In\\b').matcher(soql).find(), 'Resulting query does not filter status.');
+		Assert.isTrue(Pattern.compile('(?ism)\\s+from AgentWork\\s+where\\b.*?\\bAND\\b').matcher(soql).find(), 'Resulting query does not limit by ALL');
+
+		// make sure the query is valid (even though no records will be returned)
+		// note if the query fails, an exception will be thrown
+		selector.search(searchParams, true);
+
+		searchParams = new Map<String, Object>{
+				'workItemIds' => new Set<Id>{'500000000000000'}
+		};
+
+		soql = selector.getSearchSoql(searchParams, new Set<Object>(), true);
+		Assert.isTrue(Pattern.compile('(?ism)\\s+from AgentWork\\s+where\\b.*?\\bWorkItemId\\s+In\\b').matcher(soql).find(), 'Resulting query does not filter by Work Item.');
+		Assert.isFalse(Pattern.compile('(?ism)\\s+from AgentWork\\s+where\\b.*?\\bStatus\\s+In\\b').matcher(soql).find(), 'Resulting query filter status, but it should not.');
+
+		// make sure the query is valid (even though no records will be returned)
+		// note if the query fails, an exception will be thrown
+		selector.search(searchParams, true);
+
+		// make sure an exception is thrown for invalid search parameters
+		searchParams = new Map<String, Object>{
+				'invalidParam' => new Set<String>{'somevalue'},
+				'workItemIds' => new Set<Id>{'500000000000000'}
+		};
+
+		try {
+			soql = selector.getSearchSoql(searchParams, new Set<Object>(), false);
+		} catch (Exception e) {
+			// ensure correct type of exception thrown
+			Assert.isInstanceOfType(e, ApplicationSelector.SelectorException.class);
+		}
+
+		Test.stopTest();
 	}
 
 }

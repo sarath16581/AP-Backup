@@ -4,6 +4,7 @@
     <defaultValue>false</defaultValue>
     <description>Phase 1 - Contact Management</description>
     <externalId>false</externalId>
+    <inlineHelpText>Tick this box if this contact requests that we do not send them any physical mail</inlineHelpText>
     <label>Do Not Mail</label>
     <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>

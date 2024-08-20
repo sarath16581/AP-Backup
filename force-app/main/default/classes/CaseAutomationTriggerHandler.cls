@@ -19,9 +19,9 @@ public inherited sharing class CaseAutomationTriggerHandler extends ApplicationT
 					'SSSWWithSocial' => new Set<Id>(),
 					'StarTrack' => new Set<Id>(),
 					'Enterprise_Credit_Dispute_Claim' => new Set<Id>(),
-					'UnifiedInvestigation' => new Set<Id>()
+					'Unified' => new Set<Id>()
 				};
-				List<RecordType> recordTypes = new RecordTypesSelector().selectByDeveloperNamesLike('Case', new Set<String>{'SSSW', 'Social', 'StarTrack', 'Enterprise_Credit_Dispute_Claim', 'UnifiedInvestigation'}).values();
+				List<RecordType> recordTypes = new RecordTypesSelector().selectByDeveloperNamesLike('Case', new Set<String>{'SSSW', 'Social', 'StarTrack', 'Enterprise_Credit_Dispute_Claim', 'Unified'}).values();
 				for(RecordType rt : recordTypes) {
 					if(rt.DeveloperName.startsWithIgnoreCase('SSSW')) {
 						recordTypesByKey.get('SSSW').add(rt.Id);
@@ -36,8 +36,8 @@ public inherited sharing class CaseAutomationTriggerHandler extends ApplicationT
 					if(rt.DeveloperName.startsWithIgnoreCase('Enterprise_Credit_Dispute_Claim')) {
 						recordTypesByKey.get('Enterprise_Credit_Dispute_Claim').add(rt.Id);
 					}
-					if(rt.DeveloperName.startsWithIgnoreCase('UnifiedInvestigation')) {
-						recordTypesByKey.get('UnifiedInvestigation').add(rt.Id);
+					if(rt.DeveloperName.startsWithIgnoreCase('Unified')) {
+						recordTypesByKey.get('Unified').add(rt.Id);
 					}
 				}
 			}
@@ -81,7 +81,7 @@ public inherited sharing class CaseAutomationTriggerHandler extends ApplicationT
 			if(recordTypesByKey.get('Enterprise_Credit_Dispute_Claim').contains(recordTypeId)) {
 				filteredRecords.get('filterCreditDisputeClaim').add(record);
 			}
-			if(recordTypesByKey.get('UnifiedInvestigation').contains(recordTypeId)) {
+			if(recordTypesByKey.get('Unified').contains(recordTypeId)) {
 				filteredRecords.get('filterUnified').add(record);
 			}
 		}
@@ -141,7 +141,8 @@ public inherited sharing class CaseAutomationTriggerHandler extends ApplicationT
 			CaseMilestone.SObjectType,
 			AuthorisedContacts__c.SObjectType,
 			PendingServiceRouting.SObjectType,
-			CaseInvestigation__c.SObjectType
+			CaseInvestigation__c.SObjectType,
+			ScheduledAction__c.SObjectType
 		};
 	}
 

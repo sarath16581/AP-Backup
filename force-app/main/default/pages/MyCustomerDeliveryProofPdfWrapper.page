@@ -50,7 +50,7 @@
 	<!-- Loop and render each PDF page -->
 	<apex:repeat value="{!deliveryProofAttributes}" var="dp">
 		<!-- HEADER START -->
-		<div class="header">
+		<div class="header" style="text-align: right">
 			<!-- AusPost OR StarTrack Logo -->
 			<apex:outputText rendered="{!dp.isStarTrackProduct == true}">
 				<img style="width: 168px; height: 63px;" src="{!$Resource.StarTrack_Logo_Proof_of_Delivery}"/>

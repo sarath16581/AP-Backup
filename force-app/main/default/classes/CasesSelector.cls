@@ -28,12 +28,14 @@
  * 2023-12-04 - Steve L - added new methods: getClosedCasesByAccountIds, and getOpenCasesByAccountIds
  * 2024-04-25 - Vasu Gorakati - Added new method selectCasesByReferenceId and selectByArticleId
  * 2024-07-19 - Ranjeewa Silva - Added new search method with search parameter validation
+ * 2024-07-30 - Seth Heang - added fields in getSObjectFieldList.
+ * 2024-08-12 - Ranjeewa Silva - New selector option to select child contact requests.
  */
 public virtual inherited sharing class CasesSelector extends ApplicationSelector {
 
 	public enum Options {
 		WITH_RECORDTYPE, WITH_OWNER, WITH_CONTACT, WITH_NETWORK, WITH_ARTICLE, WITH_CHILDINITIALCONTACT, WITH_SINGLE_EMAIL_MESSAGES_ASC_ORDER, WITH_BILLINGACCOUNT, WITH_ACCOUNT, 
-		WITH_CHILD_INVESTIGATIONS, WITH_NETWORK_RESPONSE, WITH_INCOMING_EMAIL_MESSAGES_ASC_ORDER
+		WITH_CHILD_INVESTIGATIONS, WITH_NETWORK_RESPONSE, WITH_INCOMING_EMAIL_MESSAGES_ASC_ORDER, WITH_CONTACT_REQUESTS
 	}
 
 	public static CasesSelector newInstance() {
@@ -92,7 +94,8 @@ public virtual inherited sharing class CasesSelector extends ApplicationSelector
 			Case.Last_Status_Change__c, Case.Article_Receiver_Address__c, Case.Article_Receiver_Postcode__c,
 			Case.Article_Sender_Name__c, Case.Article_Sender_Address__c, Case.Description_of_contents__c, 
 			Case.Description_of_packaging__c, Case.Related_Billing_Account__c, Case.Value_of_Goods__c, Case.Calc_Link_Account__c,
-			Case.Checkbox__c, Case.Customer_Type__c, Case.Service_SLA__c, Case.Article_Receiver_Suburb__c, Case.Billing_Number__c
+			Case.Checkbox__c, Case.Customer_Type__c, Case.Service_SLA__c, Case.Article_Receiver_Suburb__c, Case.Billing_Number__c,
+			Case.ProductSubCategory__c, Case.Exclude_Subscription_Automation__c
 
 		};
 	}
@@ -341,7 +344,7 @@ public virtual inherited sharing class CasesSelector extends ApplicationSelector
 		}
 		
 		if(selectorOptions.contains(Options.WITH_CHILDINITIALCONTACT)){
-			builder.addSubQuery(AuthorisedContactsSelector.newInstance().newQueryBuilder().addConditions().add(new QueryBuilder.SimpleCondition(AuthorisedContacts__c.Initial_Contact__c + ' =  true')).endConditions(), 'Authorised_Contacts__r');
+			builder.addSubQuery(AuthorisedContactsSelector.newInstance().newQueryBuilder().addConditions().add(new QueryBuilder.SimpleCondition(AuthorisedContacts__c.Initial_Contact__c + ' = true')).endConditions(), 'Authorised_Contacts__r');
 		}
 	
 		if(selectorOptions.contains(Options.WITH_NETWORK)) {
@@ -372,7 +375,10 @@ public virtual inherited sharing class CasesSelector extends ApplicationSelector
 		}
 		if(selectorOptions.contains(Options.WITH_INCOMING_EMAIL_MESSAGES_ASC_ORDER)) {
 			builder.addSubQuery(EmailMessagesSelector.newInstance(EmailMessage.CreatedDate, 'Asc', 0).setFieldOverrides(fieldOverrides).newQueryBuilder(selectorOptions), 'EmailMessages');
-		}				
+		}
+		if (selectorOptions.contains(Options.WITH_CONTACT_REQUESTS)) {
+			builder.addSubQuery(ContactRequestsSelector.newInstance().setFieldOverrides(fieldOverrides).newQueryBuilder(selectorOptions), 'ContactRequests');
+		}
 		return builder;
 	}
 

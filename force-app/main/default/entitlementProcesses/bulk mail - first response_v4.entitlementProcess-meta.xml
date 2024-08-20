@@ -10,7 +10,7 @@
         <operation>equals</operation>
         <value>true</value>
     </exitCriteriaFilterItems>
-    <isVersionDefault>true</isVersionDefault>
+    <isVersionDefault>false</isVersionDefault>
     <milestones>
         <businessHours>Bulk Mail - Customer Onboarding</businessHours>
         <milestoneCriteriaFilterItems>

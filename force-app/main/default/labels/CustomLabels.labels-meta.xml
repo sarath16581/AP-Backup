@@ -4168,7 +4168,7 @@ To add a comment or check for updates, visit your MyPost dashboard now</value>
         <shortDescription>ERROR_NOMINATED_CONTACT_REQUIRED</shortDescription>
         <value>The Parent Organisation must have a &quot;Nominated Partner Contact &amp; Incent User&quot; before creating a Licence.</value>
     </labels>
-	<labels>
+    <labels>
         <fullName>PartnerInfoIncentCrentialsInvalidErrorMessage</fullName>
         <categories>Partner Info Licence Activation</categories>
         <language>en_US</language>
@@ -7080,6 +7080,14 @@ We manage your personal information in accordance with our Privacy policy. The p
         <shortDescription>Record Type Developer Name of Transport Enquiry</shortDescription>
         <value>Transport_Enquiry</value>
     </labels>
+	<labels>
+        <fullName>REC_TYPE_DEV_Network_Partner</fullName>
+        <categories>Record Type Name</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Record Type for Network Partner Support Cases</shortDescription>
+        <value>REC_TYPE_DEV_Network_Partner</value>
+    </labels>
     <labels>
         <fullName>RED_POST</fullName>
         <categories>Process Builder - Carded Case Notification</categories>
@@ -9161,5 +9169,13 @@ We&apos;ll let you if it&apos;s successful. Thank you. Please do not reply.</val
         <protected>false</protected>
         <shortDescription>Record Type Developer Name of Bulk Mail</shortDescription>
         <value>Bulk_Mail_Onboarding</value>
+    </labels>
+    <labels>
+        <fullName>REC_TYPE_DEV_Network_Partner</fullName>
+        <categories>Record Type Name</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>REC_TYPE_DEV_Network_Partner</shortDescription>
+        <value>NetworkPartnerSupport</value>
     </labels>
 </CustomLabels>

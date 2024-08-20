@@ -159,7 +159,6 @@ public with sharing class TasksSelector_Test {
 		};
 		taskMap = selector.search(searchParams, new Set<Object>(), true);
 		System.assertEquals(1, taskMap.size(), 'Expected 1 result');
-		
 		Test.stopTest();
 	}
 

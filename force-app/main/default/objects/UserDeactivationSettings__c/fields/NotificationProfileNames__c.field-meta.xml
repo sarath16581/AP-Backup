@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>NotificationProfileNames__c</fullName>
+    <defaultValue>&apos;MyNetwork Portal&apos;</defaultValue>
+    <description>Enter comma separated Profile Names to be included to send Email Notification before few days from Deactivation from UserDeactivationBatchable</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Enter comma separated Profile Names to be included to send Email Notification before few days from Deactivation from UserDeactivationBatchable</inlineHelpText>
+    <label>Notification Profile Names</label>
+	<securityClassification>INTERNAL</securityClassification>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>TextArea</type>
+</CustomField>

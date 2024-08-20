@@ -25,6 +25,7 @@
  * 2024-07-23 - Marcel HK - Removed 'Country' mailing address filters (CSLU-1072)
  * 2024-07-23 - Marcel HK - Allow match if MailingStreet equals addressLine1 + addressLine2 (CSLU-1106)
  * 2024-07-23 - Marcel HK - Added filters for accountId and abn/acn lookup (CSLU-447)
+ * 2024-08-08 - Marcel HK - Update Address filters for `selectByCustomerSearchParamsQB` (CSLU-1072)
  */
 public virtual inherited sharing class ContactsSelector extends ApplicationSelector {
 	public enum Options {
@@ -172,7 +173,7 @@ public virtual inherited sharing class ContactsSelector extends ApplicationSelec
 	/**
 	 * @description Execute SOQL query and return a Map with Contact objects matching the search parameters.
 	 * 
-	 * This method was intially developed for CSLU-107 and is used by class `CustomerSearchFormController`.
+	 * This method was intially developed for CSLU-107 and is used by class `UnifiedCustomerSearchController`.
 	 * 
 	 * @param params - The search parameters to build the query from.
 	 * @param selectorOptions - The Selector framework options used when building the query.
@@ -190,7 +191,7 @@ public virtual inherited sharing class ContactsSelector extends ApplicationSelec
 	 * 
 	 * For example: `WHERE (FirstName LIKE 'Joan%' OR PreferredName LIKE 'Joan%') AND LastName LIKE 'Watson%'`
 	 * 
-	 * This method was intially developed for CSLU-107 and is used by class `CustomerSearchFormController`.
+	 * This method was intially developed for CSLU-107 and is used by class `UnifiedCustomerSearchController`.
 	 * 
 	 * @param params - The search parameters to build the query from.
 	 * @param selectorOptions - The Selector framework options used when building the query.
@@ -275,36 +276,45 @@ public virtual inherited sharing class ContactsSelector extends ApplicationSelec
 		/**
 		 *  Add the Address to the search query criteria.
 		 */
-		if(String.isNotBlank(params.addressStreet1) && String.isNotBlank(params.addressStreet2)) {
+		String addressStreet1 = params.addressStreet1?.trim();
+		String addressStreet2 = params.addressStreet2?.trim();
+		String addressCity = params.addressCity?.trim();
+		String addressState = params.addressState?.trim();
+		String addressPostalCode = params.addressPostalCode?.trim();
+		if(String.isNotBlank(addressStreet1) && String.isNotBlank(addressStreet2)) {
 			// Where both addressStreet1 and addressStreet2 are set, try a few different possible data combinations
 			Integer n = cm.conditions.size();
-			String combinedAddressLines = params.addressStreet1 + ' ' + params.addressStreet2;
-			cm.add(new QueryBuilder.CompareCondition(Contact.MailingStreet).eq(params.addressStreet1));
-			cm.add(new QueryBuilder.CompareCondition(Contact.MailingStreet2__c).eq(params.addressStreet2));
-			cm.add(new QueryBuilder.CompareCondition(Contact.MailingStreet).eq(combinedAddressLines));
+			String combinedAddressLines = addressStreet1 + ' ' + addressStreet2;
+			cm.add(new QueryBuilder.LikeCondition(Contact.MailingStreet).likeAnyRight(addressStreet1));
+			cm.add(new QueryBuilder.LikeCondition(Contact.MailingStreet2__c).likeAnyRight(addressStreet2));
+			cm.add(new QueryBuilder.LikeCondition(Contact.MailingStreet).likeAnyRight(combinedAddressLines));
 			conditionsOrder.add('((' + (n + 1) + ' AND ' + (n + 2) + ') OR ' + (n + 3) + ')');
-		} else if(String.isNotBlank(params.addressStreet1)) {
+		} else if(String.isNotBlank(addressStreet1)) {
 			Integer n = cm.conditions.size();
-			cm.add(new QueryBuilder.CompareCondition(Contact.MailingStreet).eq(params.addressStreet1));
-			conditionsOrder.add(String.valueOf(n + 1));
-		} else if(String.isNotBlank(params.addressStreet2)) {
+			cm.add(new QueryBuilder.LikeCondition(Contact.MailingStreet).likeAnyRight(addressStreet1));
+			cm.add(new QueryBuilder.LikeCondition(Contact.MailingStreet2__c).likeAnyRight(addressStreet1));
+			// MailingStreet OR MailingStreet2__c
+			conditionsOrder.add('(' + (n + 1) + ' OR ' + (n + 2) + ')');
+		} else if(String.isNotBlank(addressStreet2)) {
 			Integer n = cm.conditions.size();
-			cm.add(new QueryBuilder.CompareCondition(Contact.MailingStreet2__c).eq(params.addressStreet2));
+			cm.add(new QueryBuilder.LikeCondition(Contact.MailingStreet).likeAnyRight(addressStreet2));
+			cm.add(new QueryBuilder.LikeCondition(Contact.MailingStreet2__c).likeAnyRight(addressStreet2));
+			// MailingStreet OR MailingStreet2__c
+			conditionsOrder.add('(' + (n + 1) + ' OR ' + (n + 2) + ')');
+		}
+		if(String.isNotBlank(addressCity)) {
+			Integer n = cm.conditions.size();
+			cm.add(new QueryBuilder.LikeCondition(Contact.MailingCity).likeAnyRight(addressCity));
 			conditionsOrder.add(String.valueOf(n + 1));
 		}
-		if(String.isNotBlank(params.addressCity)) {
+		if(String.isNotBlank(addressState)) {
 			Integer n = cm.conditions.size();
-			cm.add(new QueryBuilder.CompareCondition(Contact.MailingCity).eq(params.addressCity));
+			cm.add(new QueryBuilder.LikeCondition(Contact.MailingState).likeAnyRight(addressState));
 			conditionsOrder.add(String.valueOf(n + 1));
 		}
-		if(String.isNotBlank(params.addressState)) {
+		if(String.isNotBlank(addressPostalCode)) {
 			Integer n = cm.conditions.size();
-			cm.add(new QueryBuilder.CompareCondition(Contact.MailingState).eq(params.addressState));
-			conditionsOrder.add(String.valueOf(n + 1));
-		}
-		if(String.isNotBlank(params.addressPostalCode)) {
-			Integer n = cm.conditions.size();
-			cm.add(new QueryBuilder.CompareCondition(Contact.MailingPostalCode).eq(params.addressPostalCode));
+			cm.add(new QueryBuilder.CompareCondition(Contact.MailingPostalCode).eq(addressPostalCode));
 			conditionsOrder.add(String.valueOf(n + 1));
 		}
 

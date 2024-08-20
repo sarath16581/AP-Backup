@@ -9,23 +9,23 @@ const logPrefix = 'StarTrackLog ';
 class GenSTBusinessLogic {
     callLog;
 	stFieldMappings = {
-        enquiryType: 'attributes.Participant\\.Dim_Attribute_2',
-        consignmentNumber: 'attributes.Participant\\.Record_ID',
-        phoneNumber: 'attributes.Call\\.Ani',
+        enquiryType: 'attributes.Participant\\.Enquiry_Type',
+        consignmentNumber: 'attributes.Participant\\.Consignment',
+        phoneNumber: 'ani',
         customerSegment: 'attributes.Participant\\.Customer_Segment',
         serviceType: 'attributes.Participant\\.Service_Type',
         serviceSubType: 'attributes.Participant\\.Service_Subtype',
         atlFlag: 'attributes.Participant\\.ATL',
         exitCode: 'attributes.Participant\\.Exit_Code',
-        partyType: 'attributes.Participant\\.Party_Type'
+        partyType: 'attributes.Participant\\.Contact_Type'
     };
 
     handleCtiEvent(eventName, eventDetail) {
-        console.log(logPrefix + 'eventName ' + eventName);
-        console.log(logPrefix + 'eventDetail ' + eventDetail);
-
         if (eventName === 'INTERACTION_EVENT') {
             this.callLog = new CallInteractionProxy(eventDetail.detail, this.stFieldMappings);
+			if (this.callLog.phoneNumber?.startsWith('+61')) {
+				this.callLog.phoneNumber = `0${this.callLog.phoneNumber.slice(3)}`;
+			}
         }
 
         if (eventName === 'INTERACTION_CONNECTED' && eventDetail.lastDetail.direction === 'Inbound') {
@@ -34,11 +34,9 @@ class GenSTBusinessLogic {
     }
 
     handleSTLogic() {
-        console.log(logPrefix + 'call log==>' + JSON.stringify(this.callLog));
         const {
             enquiryType,
             consignmentNumber,
-            phoneNumber,
             customerSegment,
             serviceType,
             serviceSubType,
@@ -46,6 +44,7 @@ class GenSTBusinessLogic {
             exitCode,
             partyType
         } = this.callLog;
+		let { phoneNumber } = this.callLog;
 
         let caseType = '';
         let casePurpose = '';
@@ -54,41 +53,25 @@ class GenSTBusinessLogic {
         let screenPopNoData = false;
         let trackingSearchCase = false;
 
-        console.log(logPrefix + "enquiryType ==>" + enquiryType);
-        console.log(logPrefix + "consignmentNumber ==>" + consignmentNumber);
-        console.log(logPrefix + "phoneNumber ==>" + phoneNumber);
-        console.log(logPrefix + "customerSegment ==>" + customerSegment);
-        console.log(logPrefix + "serviceType ==>" + serviceType);
-        console.log(logPrefix + "serviceSubType ==>" + serviceSubType);
-        console.log(logPrefix + "atlFlag ==>" + atlFlag);
-        console.log(logPrefix + "exitCode ==>" + exitCode);
-
         // Logic for Screen pops
         if (enquiryType === "Priority" && (consignmentNumber === null || consignmentNumber === undefined)
             && (customerSegment === "Priority 1" || customerSegment === "Priority 2")
             && (serviceSubType === "Invalid or No Selection" || serviceSubType === "Tracking Enquiry")
             && serviceType === "Main Menu") {
-            console.log(logPrefix + "Scenario: Tracking - Screen Pop without data.");
             screenPopNoData = true; // Flag to Pop out the search consignment page without data
         } else if (enquiryType === "BusinessSolutions") {
             if (consignmentNumber === null || consignmentNumber === undefined) {
-                console.log(logPrefix + "Scenario: BusinessSolutions - Screen Pop without data.");
                 screenPopNoData = true; // Flag to Pop out the search consignment page with data
             } else {
-                console.log(logPrefix + "Scenario: BusinessSolutions - Screen Pop with data.");
                 trackingSearchConsignment = true; // Flag to Pop out the search consignment page with data
             }
         } else if (enquiryType === "Tracking" && serviceType === "Tracking and Cards" && customerSegment === "Main") {
-            console.log(logPrefix + "Scenario: Tracking|Tracking and Cards");
             if ((exitCode === "Error" || exitCode === "Duplicate") && (serviceSubType === "Error" || serviceSubType === "Duplicate Consignment Found" || serviceSubType === "Duplicate Consignments Found")) {
                 trackingSearchConsignment = true; // Flag to Pop out the search consignment page with data
-                console.log(logPrefix + "Scenario: Error| Duplicate");
             } else if ((exitCode === "NoScan" || exitCode === "TransferRequired" || exitCode === "Transit")) { // Removed as hopefully not needed! && (serviceSubType === "No Scanning Events" || serviceSubType === "In Transit or Delivered")){
                 trackingSearchCase = true; // Flag to search for the related case on a consignment
-                console.log(logPrefix + "Scenario: NoScan|Transit|TransferRequired");
             } else if ((exitCode === "Redeliver" || exitCode === "Redirect" || exitCode === "Depot") && (serviceSubType === "Organise Redelivery" || serviceSubType === "Organise Redirection" || serviceSubType === "Depot Collection")) {
                 cardIVRSearchCase = true; // Flag to search for the related case on a consignment
-                console.log(logPrefix + "Scenario: Redeliver|Redirect|Depot");
 
                 // Based on the exit code, any case that is created should be created with a specific case type
                 casePurpose = 'Card Left';
@@ -99,14 +82,10 @@ class GenSTBusinessLogic {
                 } else if (exitCode === "Depot") {
                     caseType = 'Depot Collection';
                 }
-            } else {
-                console.log(logPrefix + "Scenario: Tracking|Tracking and Cards| Main - No conditions met.");
             }
         } else if (enquiryType === "Tracking" && serviceType === "Main Menu" && customerSegment === "Training") {
             trackingSearchConsignment = true; // Flag to Pop out the search consignment page with data
-            console.log(logPrefix + "Scenario: Training");
         } else {
-            console.log(logPrefix + "Selection is not valid on any scenario");
         }
 
         if (screenPopNoData) {
@@ -121,20 +100,16 @@ class GenSTBusinessLogic {
     }
 
     popConsignmentSearchpage(consignment, partyType) {
-        console.log(logPrefix + "popConsignmentSearchpage");
-
         if (sforce.console.isInConsole()) {
             // Attempt to refresh the primary consignment search tab
             // If it fails, it's not open and we attempt to open it as a new tab
             sforce.console.refreshPrimaryTabByName(consignmentSearchTabName, true, function (result) {
                 const openCompleteCallback = function () {
                     if (consignment != null && consignment != '' && consignment !== false) {
-                        console.log(logPrefix, 'consignment search opened', consignment)
                         // Fire the event to set the consignment search string and trigger a search.
                         // This is picked up by StarTrack Consignment Search page.
                         // Also send the caller type which is either Sender / Receiver based on the response they gave in the IVR
                         const listener = function (result) {
-                            console.log(logPrefix, 'RequestParentData_SearchString received');
                             let datapop = { 'consignment': consignment, 'contactType': '' };
                             if (partyType != null && partyType != '') {
                                 datapop = { 'consignment': consignment, 'contactType': partyType };
@@ -161,12 +136,8 @@ class GenSTBusinessLogic {
 
     // Method called for searching consignment number via searchconsignment page
     searchCaseUsingConsignment(consignmentNumber, phoneNumber, atlFlag, casePurpose, caseType, contactType) {
-        console.log(logPrefix + "searchCaseUsingConsignment" + consignmentNumber);
-
 		new Promise(callback => GenesysConnectorController.findConsignmentStarTrack(consignmentNumber, callback))
 		.then((result ) =>{
-                console.log(logPrefix, 'findConsignment result', result);
-
                 const res = result.split("_");
 
                 if (result.includes("NoCase")) { // No case exists against Consignment, Create a case
@@ -194,9 +165,6 @@ class GenSTBusinessLogic {
 
     // Method to check related contacts on a case
     checkRelatedContactOfCase(caseId, caseNumber, phoneNumber, callerType) {
-		
-        console.log(logPrefix + "checkRelatedContactOfCase");
-
         new Promise(callback => GenesysConnectorController.checkRelatedContactOfCaseStarTrack(caseId, phoneNumber, callback))
          .then((result) => {
                 if (result !== null) {
@@ -214,8 +182,6 @@ class GenSTBusinessLogic {
 
     // Method to update case with new related contact and pops out the case
     updateCaseWithRelatedContact(relatedContact, caseId) {
-        console.log(logPrefix + "updateCaseWithRelatedContact");
-
         new Promise(callback =>GenesysConnectorController.updateCaseWithRecentCallerStarTrack(relatedContact, caseId, callback))
         .then((result) => {
                 if (result !== null) {
@@ -231,8 +197,6 @@ class GenSTBusinessLogic {
 
     // Create case for consignment
     createCaseForConsignment(consignmentNumber, phoneNumber, atlFlag, casePurpose, caseType, contactType) {
-        console.log(logPrefix + "createCaseForConsignment");
-
         // Logic here to create a case against a consignment
         new Promise(callback =>GenesysConnectorController.createCasewithConsignmentNumberStarTrack(consignmentNumber, phoneNumber, atlFlag, casePurpose, caseType, contactType, callback))
 		.then((result) => {
@@ -249,7 +213,6 @@ class GenSTBusinessLogic {
 
     // Pops out the case related to a consignment
     openCaseRecord(caseId, caseNumber, callLog) {
-        console.log(logPrefix + "openCaseRecord", caseId, caseNumber, callLog);
         // Open a new primary tab with the Salesforce.com home page in it
         if (caseId != null) {
             if (sforce.console.isInConsole()) {
@@ -264,15 +227,8 @@ class GenSTBusinessLogic {
 
     // Creates call log of case
     createCallLog(caseId) {
-
-        console.log(logPrefix + "createCallLog");
-		
         if (caseId != null) {
-            new Promise(callback =>GenesysConnectorController.createCallLogStarTrack(caseId, callback))
-			.then((result) => {
-                    console.log("openCaseRecord_createCallLog" + result);
-                }
-			).catch(
+            new Promise(callback =>GenesysConnectorController.createCallLogStarTrack(caseId, callback)).catch(
 				function (err) { console.error(err); }
 			);
         }
@@ -280,10 +236,9 @@ class GenSTBusinessLogic {
 
     // Fires event for the prepopulation of contact fields
     prepopulateContactSidePanel(phoneNumber, callerType, recordId) {
-        console.log(logPrefix + 'prepopulateContactSidePanel');
         if (sforce.console.isInConsole()) {
             const listener = function (result) {
-                let payload = { phoneNumber: phoneNumber, callerType: callerType, caseId: recordId };
+                let payload = { phoneNumber, callerType: callerType, caseId: recordId };
                 payload = JSON.stringify(payload);
                 sforce.console.fireEvent('ParentDataResponse_AddContactDetails', payload);
                 sforce.console.removeEventListener('RequestParentData_AddContactDetails', listener);
@@ -297,10 +252,9 @@ class GenSTBusinessLogic {
 
     // Fires event for the prepopulation of related contact data
     loadRelatedContact(relatedContactId, caseId) {
-        console.log(logPrefix + 'loadRelatedContact');
         if (sforce.console.isInConsole()) {
             const listener = function (result) {
-                let payload = { relatedContactId: relatedContactId, caseId: caseId };
+                let payload = { relatedContactId, caseId: caseId };
                 payload = JSON.stringify(payload);
 
                 sforce.console.fireEvent('ParentDataResponse_LoadContact', payload);

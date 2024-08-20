@@ -1,91 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Area_to_Benefit__c</fullName>
+    <businessStatus>DeprecateCandidate</businessStatus>
     <externalId>false</externalId>
-    <label>Area to Benefit</label>
+    <label>Dep - Area to Benefit</label>
+    <length>40</length>
     <required>false</required>
-    <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
-    <type>Picklist</type>
-    <valueSet>
-        <valueSetDefinition>
-            <sorted>false</sorted>
-            <value>
-                <fullName>Service</fullName>
-                <default>false</default>
-                <label>Service</label>
-            </value>
-            <value>
-                <fullName>Optimisation</fullName>
-                <default>false</default>
-                <label>Optimisation</label>
-            </value>
-            <value>
-                <fullName>Contracts</fullName>
-                <default>false</default>
-                <label>Contracts</label>
-            </value>
-            <value>
-                <fullName>Reporting</fullName>
-                <default>false</default>
-                <label>Reporting</label>
-            </value>
-            <value>
-                <fullName>Implementation</fullName>
-                <default>false</default>
-                <label>Implementation</label>
-            </value>
-            <value>
-                <fullName>Systems</fullName>
-                <default>false</default>
-                <label>Systems</label>
-            </value>
-            <value>
-                <fullName>Product</fullName>
-                <default>false</default>
-                <label>Product</label>
-            </value>
-            <value>
-                <fullName>Transport</fullName>
-                <default>false</default>
-                <label>Transport</label>
-            </value>
-            <value>
-                <fullName>Finance</fullName>
-                <default>false</default>
-                <label>Finance</label>
-            </value>
-            <value>
-                <fullName>Sales</fullName>
-                <default>false</default>
-                <label>Sales</label>
-            </value>
-            <value>
-                <fullName>Other</fullName>
-                <default>false</default>
-                <label>Other</label>
-            </value>
-            <value>
-                <fullName>Customer Contact Centre</fullName>
-                <default>false</default>
-                <label>Customer Contact Centre</label>
-            </value>
-            <value>
-                <fullName>Business Hubs</fullName>
-                <default>false</default>
-                <label>Business Hubs</label>
-            </value>
-            <value>
-                <fullName>EC&amp;G Sales</fullName>
-                <default>false</default>
-                <label>EC&amp;G Sales</label>
-            </value>
-            <value>
-                <fullName>Business Sales</fullName>
-                <default>false</default>
-                <label>Business Sales</label>
-            </value>
-        </valueSetDefinition>
-    </valueSet>
+    <type>Text</type>
+    <unique>false</unique>
 </CustomField>

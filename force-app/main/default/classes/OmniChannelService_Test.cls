@@ -400,6 +400,7 @@ public class OmniChannelService_Test {
 		custSetting.DefaultOmniQueueId__c = queues[3].Id;
 		custSetting.UnifiedDefaultOmniQueueId__c = queues[4].Id;
 		custSetting.UnifiedPreferredAgentExpiry__c = 1;
+		custSetting.DefaultPreferredAgentExpiry__c = 2;
 
 		Insert custSetting;
 
@@ -418,6 +419,7 @@ public class OmniChannelService_Test {
 		Assert.areEqual(queues[3].Id, OmniChannelService.getInstance().omniDefaultQueueId, 'Omni Default Queue Id is not as configured in custom setting.');
 		Assert.areEqual(queues[4].Id, OmniChannelService.getInstance().omniUnifiedDefaultQueueId, 'Unified preferred agent Queue Id is not as configured in custom setting.');
 		Assert.areEqual(1, OmniChannelService.omniUnifiedPreferredAgentExpiry, 'Unified preferred agent expiry is not as configured in custom setting.');
+		Assert.areEqual(2, OmniChannelService.defaultPreferredAgentExpiry, 'Default preferred agent expiry is not as configured in custom setting.');
 
 		Test.stopTest();
 	}

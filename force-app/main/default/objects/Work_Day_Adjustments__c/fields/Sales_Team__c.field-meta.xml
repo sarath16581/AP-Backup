@@ -406,23 +406,92 @@
                 <label>Key Retail NSW</label>
             </value>
             <value>
+                <fullName>LBP Sales Manager NSW 1</fullName>
+                <default>false</default>
+                <label>LBP Sales Manager NSW 1</label>
+            </value>
+            <value>
+                <fullName>LBP Sales Manager NSW 2</fullName>
+                <default>false</default>
+                <label>LBP Sales Manager NSW 2</label>
+            </value>
+            <value>
+                <fullName>LBP Sales Manager NSW 3</fullName>
+                <default>false</default>
+                <label>LBP Sales Manager NSW 3</label>
+            </value>
+            <value>
+                <fullName>LBP Sales Manager QLD 1</fullName>
+                <default>false</default>
+                <label>LBP Sales Manager QLD 1</label>
+            </value>
+            <value>
+                <fullName>LBP Sales Manager QLD 2</fullName>
+                <default>false</default>
+                <label>LBP Sales Manager QLD 2</label>
+            </value>
+            <value>
+                <fullName>LBP Sales Manager QLD 3</fullName>
+                <default>false</default>
+                <label>LBP Sales Manager QLD 3</label>
+            </value>
+            <value>
+                <fullName>LBP Sales Manager QLD 4</fullName>
+                <default>false</default>
+                <label>LBP Sales Manager QLD 4</label>
+            </value>
+            <value>
+                <fullName>LBP Sales Manager SA 1</fullName>
+                <default>false</default>
+                <label>LBP Sales Manager SA 1</label>
+            </value>
+            <value>
+                <fullName>LBP Sales Manager VIC 1</fullName>
+                <default>false</default>
+                <label>LBP Sales Manager VIC 1</label>
+            </value>
+            <value>
+                <fullName>LBP Sales Manager VIC 2</fullName>
+                <default>false</default>
+                <label>LBP Sales Manager VIC 2</label>
+            </value>
+            <value>
+                <fullName>LBP Sales Manager VIC 3</fullName>
+                <default>false</default>
+                <label>LBP Sales Manager VIC 3</label>
+            </value>
+            <value>
+                <fullName>LBP Sales Manager WA 1</fullName>
+                <default>false</default>
+                <label>LBP Sales Manager WA 1</label>
+            </value>
+            <value>
+                <fullName>LBP Sales Manager WA 2</fullName>
+                <default>false</default>
+                <label>LBP Sales Manager WA 2</label>
+            </value>
+            <value>
                 <fullName>LBP Tier 2 CPO North</fullName>
                 <default>false</default>
+                <isActive>false</isActive>
                 <label>LBP Tier 2 CPO North</label>
             </value>
             <value>
                 <fullName>LBP Tier 2 CPO South</fullName>
                 <default>false</default>
+                <isActive>false</isActive>
                 <label>LBP Tier 2 CPO South</label>
             </value>
             <value>
                 <fullName>LBP Tier 2 LPO North</fullName>
                 <default>false</default>
+                <isActive>false</isActive>
                 <label>LBP Tier 2 LPO North</label>
             </value>
             <value>
                 <fullName>LBP Tier 2 LPO South</fullName>
                 <default>false</default>
+                <isActive>false</isActive>
                 <label>LBP Tier 2 LPO South</label>
             </value>
             <value>

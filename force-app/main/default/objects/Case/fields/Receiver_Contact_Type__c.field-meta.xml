@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Receiver_Contact_Type__c</fullName>
+    <businessStatus>DeprecateCandidate</businessStatus>
     <description>Capture receiver caller type information.</description>
     <externalId>false</externalId>
-    <label>Contact Type</label>
+    <label>Dep - Contact Type</label>
     <length>255</length>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>

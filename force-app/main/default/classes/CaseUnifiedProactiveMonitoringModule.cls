@@ -8,10 +8,13 @@
  * @test CaseUnifiedProactiveMonitoringModuleTest
  * @changelog
  * 2024-07-10 - Seth Heang - Created.
+ * 2024-07-18 - Seth Heang - Added new methods for processing 3 days and 5 days monitoring alerts
  */
 public inherited sharing class CaseUnifiedProactiveMonitoringModule extends ApplicationModule {
 	@TestVisible
 	private final static String ERROR_SLA_EXPIRED = 'Case has passed SLA, refer to Knowledge for next steps.';
+	private final static QM__c QUEUE_SETTINGS = QM__c.getInstance();
+	private final static Set<Id> UNIFIED_RECORD_TYPE_IDS = CaseUnifiedAutomationService.getUnifiedCaseRecordTypeIds();
 
 	public static CaseUnifiedProactiveMonitoringModule newInstance() {
 		return (CaseUnifiedProactiveMonitoringModule) Application.Utilities.newInstance(CaseUnifiedProactiveMonitoringModule.class);
@@ -19,7 +22,7 @@ public inherited sharing class CaseUnifiedProactiveMonitoringModule extends Appl
 
 	// Setup which triggers this module should respond to
 	public CaseUnifiedProactiveMonitoringModule() {
-		getTriggerEvents().enableBeforeUpdate();
+		getTriggerEvents().enableBeforeUpdate().enableAfterInsert().enableAfterUpdate();
 	}
 
 	/**
@@ -36,59 +39,61 @@ public inherited sharing class CaseUnifiedProactiveMonitoringModule extends Appl
 	}
 
 	/**
-	 * @description Retrieve unified customer service monitoring queue once, and save as a constant for repeated usage
+	 * @description Called After an insert and validate case for 3 days and 5 days case monitoring scheduled action
 	 */
-	private static final Group UNIFIED_CUSTOMER_SERVICE_MONITORING_QUEUE {
-		get {
-			if (UNIFIED_CUSTOMER_SERVICE_MONITORING_QUEUE == null) {
-				UNIFIED_CUSTOMER_SERVICE_MONITORING_QUEUE = ((GroupsSelector) GroupsSelector.newInstance(1).setFieldOverrides(new Set<SObjectField>{ Group.Id, Group.DeveloperName }))
-					.selectByGroupTypeAndDeveloperName(new Set<String>{ 'queue' }, new Set<String>{ 'UnifiedCustomerServiceMonitoringQueue' })
-					.values()[0];
-			}
-			return UNIFIED_CUSTOMER_SERVICE_MONITORING_QUEUE;
+	public override void onAfterInsert(List<SObject> records, ApplicationUnitOfWork uow) {
+		try {
+			validateCaseForScheduledActions((List<Case>) records, null, uow);
+		} catch (Exception ex) {
+			ApplicationLogger.getInstance()
+				.logException(ApplicationLogger.wrapException(ex), 'UnifiedCase', CaseUnifiedProactiveMonitoringModule.class.getName(), 'onAfterInsert', 'Case', ApplicationLogger.LoggingLevel.ERROR);
 		}
-		private set;
 	}
 
 	/**
-	 * @description Fetch unified customer service monitoring queue and return back to the LWC
-	 * @return Group
+	 * @description Called After an Update and validate case for 3 days and 5 days case monitoring scheduled action
 	 */
-	@AuraEnabled(Cacheable=true)
-	public static Group getUnifiedCustomerServiceMonitoringQueue() {
-		return UNIFIED_CUSTOMER_SERVICE_MONITORING_QUEUE;
+	public override void onAfterUpdate(List<SObject> records, Map<Id, SObject> existingRecords, ApplicationUnitOfWork uow) {
+		try {
+			validateCaseForScheduledActions((List<Case>) records, (Map<Id, Case>) existingRecords, uow);
+		} catch (Exception ex) {
+			ApplicationLogger.getInstance()
+				.logException(ApplicationLogger.wrapException(ex), 'UnifiedCase', CaseUnifiedProactiveMonitoringModule.class.getName(), 'onAfterUpdate', 'Case', ApplicationLogger.LoggingLevel.ERROR);
+		}
 	}
 
 	/**
-	 * @description Validate SLA period of the case's createdDate and update case's status
+	 * @description Validate SLA period of the case's createdDate and update case's status to 'Monitoring'
 	 * @param records new changes including updates
 	 * @param existingRecords old changes without updates
 	 * @param uow
 	 */
 	private void updateCaseForProactiveMonitoring(List<Case> records, Map<Id, Case> existingRecords, ApplicationUnitOfWork uow) {
-		List<Case> eligibleCasesForUpdate = new List<Case>();
-		for (Case updatedCase : records) {
-			Case oldCase = existingRecords.get(updatedCase.Id);
-			if (checkEligibilityForProactiveMonitoring(oldCase, updatedCase)) {
-				eligibleCasesForUpdate.add(updatedCase);
+		String context = CaseUnifiedProactiveMonitoringModule.class.getName();
+		Set<SObjectField> monitoredFields = new Set<SObjectField>{ Case.OwnerId };
+		List<ApplicationRecursion.RecordState> changedRecords = ApplicationRecursion.getInstance().getProcessableRecords(context, records, existingRecords, monitoredFields);
+		// Eligibility Check on changed state
+		for (ApplicationRecursion.RecordState recordState : changedRecords) {
+			Case updatedCase = (Case) recordState.record;
+			Set<SObjectField> changed = recordState.changedFields;
+			if (!changed.isEmpty() && changed.contains(Case.OwnerId)) {
+				if (checkEligibilityForProactiveMonitoring(updatedCase)) {
+					updatedCase.Status = SSSWConstants.CASE_STATUS_MONITORING;
+				}
 			}
-		}
-		if (!eligibleCasesForUpdate.isEmpty()) {
-			pushCaseToMonitoring(eligibleCasesForUpdate);
 		}
 	}
 
 	/**
 	 * @description Check eligibility and validate the SLA period from case's createdDate and throw error if SLA is not met
-	 * @param oldRecord old cases
 	 * @param newRecord new cases with updates
 	 * @return Boolean
 	 */
-	private Boolean checkEligibilityForProactiveMonitoring(Case oldRecord, Case newRecord) {
+	private Boolean checkEligibilityForProactiveMonitoring(Case newRecord) {
 		// Calculate the date 5 business days after the Case's CreatedDate
 		Date fiveBusinessDaysAfterCreation = BusinessHoursService.newInstance().calculateNextBusinessDay(newRecord.CreatedDate.date(), 5);
 		Date currentDate = Date.today();
-		if (oldRecord.OwnerId != newRecord.OwnerId && newRecord.OwnerId.equals(UNIFIED_CUSTOMER_SERVICE_MONITORING_QUEUE.Id)) {
+		if (newRecord.OwnerId.equals((Id) QUEUE_SETTINGS.UnifiedDefaultMonitoringQueueId__c)) {
 			if (currentDate < fiveBusinessDaysAfterCreation) {
 				return true;
 			} else {
@@ -99,12 +104,80 @@ public inherited sharing class CaseUnifiedProactiveMonitoringModule extends Appl
 	}
 
 	/**
-	 * @description update relevant details for eligible cases that met SLA period including status
-	 * @param eligibleCases filtered case that met eligibility
+	 * @description Validate Case for 3 days and 5 days case monitoring scheduled action with below criteria:
+	 *				- Case is not closed
+	 *				- Case Record type is UnifiedInvestigation
+	 *				- Owner id Unified CustomerService Monitor ingQueue
+	 *				Then enqueue an async worker for eligibile case to be executed in async context
+	 * @param records
+	 * @param existingRecords
+	 * @param uow
+	 * @param revalidate false for Insert context, true for Update context
 	 */
-	private void pushCaseToMonitoring(List<Case> eligibleCases) {
-		for (Case updateCase : eligibleCases) {
-			updateCase.Status = 'Monitoring';
+	private void validateCaseForScheduledActions(List<Case> records, Map<Id, Case> existingRecords, ApplicationUnitOfWork uow) {
+		List<Case> eligibleCasesForScheduledActions = new List<Case>();
+		Boolean revalidate = existingRecords != null && !existingRecords.isEmpty();
+		for (Case updatedCase : records) {
+			if (!updatedCase.IsClosed && UNIFIED_RECORD_TYPE_IDS.contains(updatedCase.RecordTypeId)) {
+				eligibleCasesForScheduledActions.add(updatedCase);
+			}
+		}
+		// register and enqueue an async worker
+		if (!eligibleCasesForScheduledActions.isEmpty()) {
+			CaseUnifiedScheduledActionsParam params = new CaseUnifiedScheduledActionsParam(eligibleCasesForScheduledActions, revalidate);
+			uow.registerAsyncWork(new ApplicationUnitOfWork.AsyncStagingWorker(AsyncUnifiedCaseScheduledActionWorker.class, params));
+		}
+	}
+
+	/**
+	 * @description Wrapper to be passed as parameters to the Async Worker Framwork for scheduled action automation
+	 */
+	public class CaseUnifiedScheduledActionsParam {
+		@TestVisible
+		private List<Case> cases;
+		@TestVisible
+		private Boolean revalidateOperation;
+
+		public CaseUnifiedScheduledActionsParam(List<Case> cases, Boolean revalidate) {
+			this.cases = cases;
+			this.revalidateOperation = revalidate;
+		}
+	}
+
+	/**
+	 * Async worker implementation that schedule action for Unified Case proactive monitoring if applicable
+	 */
+	public without sharing class AsyncUnifiedCaseScheduledActionWorker extends ApplicationUnitOfWork.AsyncWorker {
+		@TestVisible
+		private CaseUnifiedScheduledActionsParam params;
+
+		/**
+		 * @description Run logic to validate and insert/delete scheduled action, by calling ApplicationScheduledActionsService
+		 * @param uow
+		 */
+		public override void execute(ApplicationUnitOfWork uow) {
+			try {
+				if (this.params != null) {
+					ApplicationScheduledActionsService.newInstance().validateCaseActionsSetup(new Map<Id, Case>(params.cases), params.revalidateOperation, uow);
+				}
+			} catch (Exception ex) {
+				ApplicationLogger.getInstance()
+						.logException(ApplicationLogger.wrapException(ex), 'UnifiedCase', AsyncUnifiedCaseScheduledActionWorker.class.getName(), 'execute', 'Case', ApplicationLogger.LoggingLevel.ERROR);
+			}
+		}
+
+		public override Type getClassType() {
+			return AsyncUnifiedCaseScheduledActionWorker.class;
+		}
+
+		public override SObjectType getSObjectTypeGroup() {
+			return Case.SObjectType;
+		}
+
+		public override void deserialiseParams(String serialisedParams) {
+			if (!String.isEmpty(serialisedParams)) {
+				this.params = (CaseUnifiedScheduledActionsParam) JSON.deserialize(serialisedParams, CaseUnifiedScheduledActionsParam.class);
+			}
 		}
 	}
 }

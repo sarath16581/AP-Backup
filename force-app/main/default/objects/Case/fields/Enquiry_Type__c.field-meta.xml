@@ -1029,6 +1029,7 @@
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Collection</controllingFieldValue>
+            <controllingFieldValue>Delivery</controllingFieldValue>
             <valueName>Missed</valueName>
         </valueSettings>
         <valueSettings>

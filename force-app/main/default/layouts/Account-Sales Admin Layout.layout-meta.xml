@@ -96,10 +96,6 @@
                 <behavior>Readonly</behavior>
                 <field>Business_at_Risk__c</field>
             </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>IndirectCustomer__c</field>
-            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>
@@ -519,22 +515,6 @@
         <editHeading>false</editHeading>
         <label>Description Information</label>
         <layoutColumns/>
-        <style>OneColumn</style>
-    </layoutSections>
-    <layoutSections>
-        <customLabel>true</customLabel>
-        <detailHeading>true</detailHeading>
-        <editHeading>false</editHeading>
-        <label>Relationship Map</label>
-        <layoutColumns>
-            <layoutItems>
-                <height>260</height>
-                <page>DMAPP__AccountPolMapLaunchpad</page>
-                <showLabel>false</showLabel>
-                <showScrollbars>true</showScrollbars>
-                <width>100%</width>
-            </layoutItems>
-        </layoutColumns>
         <style>OneColumn</style>
     </layoutSections>
     <layoutSections>

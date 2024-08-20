@@ -6,8 +6,6 @@
  * @changelog
  *
  */
-	console.log('Genesys Connector Widget Integration: init');
-
 	// Properties used for each interaction
 	let businessLogic;
 	let lastCtiInteractionLog = { };
@@ -22,7 +20,7 @@
 		sforce.console.fireEvent(
 			'inin.salesforce.constants.consoleevent.addCustomAttributes',
 			JSON.stringify({ data: { id, attributes } }),
-			callback ? callback : (data) => console.log(data)
+			callback
 		);
 	}
 
@@ -80,7 +78,7 @@
 
 		// Wireup tab focus change
 		sforce.console.onFocusedPrimaryTab((event) => handleCtiEvent('PRIMTABFOCUS_CHANGE', event));
-		sforce.console.onFocusedSubtab((event) => handleCtiEvent('SUBTABFOCUS_CHANGE', event));		
+		sforce.console.onFocusedSubtab((event) => handleCtiEvent('SUBTABFOCUS_CHANGE', event));
 
 		// Wire up storage event to CTI Eventlistener
 		// - Storage events are used for cross window / iframe communication
@@ -114,10 +112,14 @@
 	}
 
 	// Which call centre logic do we need to handle calls? (AP / ST)
-	// The below solution is based on the idea that Genesys provides an attribute called 
+	// The below solution is based on the idea that Genesys provides an attribute called
 	// Participant.Division that would drive this logic to pick the correct handler class
 	initialiseCallCentreHandlerInstance = (ctiEvent) => {
 		this.ccDivision = ctiEvent.detail?.attributes?.['Participant.Division'];
+
+		if (!this.ccDivision && ctiEvent.detail?.['queueName']?.startsWith('CS_')) {
+			this.ccDivision = 'AP';
+		}
 
 		if (this.ccDivision === 'ST') {
 			return new GenSTBusinessLogic();
@@ -145,7 +147,6 @@
 	}
 
 	handleCtiEvent = (eventName, event) => {
-		console.log(eventName, event);
 		const result = GenesysCTIUtils.extractEventDetail(eventName, event);
 
 		if (eventName === 'INTERACTION_EVENT') {

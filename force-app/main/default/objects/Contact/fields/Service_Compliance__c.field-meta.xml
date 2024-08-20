@@ -4,7 +4,8 @@
     <defaultValue>false</defaultValue>
     <description>Checking this field indicates that the Contact will receive information about Service &amp; Compliance</description>
     <externalId>false</externalId>
-    <inlineHelpText>Sales &amp; Marketing can accurately target account-related communications to customers.</inlineHelpText>
+    <inlineHelpText>Tick this box to notify this contact about any service-related matter affecting their organisation.
+For example, Service disruptions, new services and Account Manager changes.</inlineHelpText>
     <label>Service &amp; Compliance</label>
     <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>

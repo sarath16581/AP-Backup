@@ -26,9 +26,9 @@ let genSimulationTimeout = null;
 		);
 	};
 
-	// /**
-	//  * Visual representation in the UI of the incoming events and call state
-	//  */
+	/**
+	 * Visual representation in the UI of the incoming events and call state
+	 */
 	updateEventTracker = function({ eventName, ctiEvent, detail}) {
 		if (eventName === 'ConnectorAction') {
 			return trackEvent({ detail });

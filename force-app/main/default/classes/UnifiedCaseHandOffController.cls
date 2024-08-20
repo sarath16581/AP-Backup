@@ -136,8 +136,10 @@ public with sharing class UnifiedCaseHandOffController {
 		ApplicationDatabase.getInstance().dmlUpdate(new List<SObject>{ casedetails });
 
 		// Delete impacted articles
+		// Calling seperate method to run in system mode as unified agent no longer has access impacted articles 
+		// due to Case Owner and record type change
 		if (impactedArticles.size() > 0) {
-			ApplicationDatabase.getInstance().dmlDelete(impactedArticles);
+			UnifiedCaseHandoffImpactedArticlesDelete.impactedArticlesDelete(impactedArticles);
 		}
 	}
 

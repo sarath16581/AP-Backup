@@ -136,10 +136,6 @@
                 <behavior>Edit</behavior>
                 <field>ULD_s_incl_ULD_labels__c</field>
             </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>Consumables_and_or_Packaging__c</field>
-            </layoutItems>
         </layoutColumns>
         <style>TwoColumnsLeftToRight</style>
     </layoutSections>
