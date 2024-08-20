@@ -52,7 +52,6 @@ private class UnifiedCustomerCreationControllerTest {
 		Assert.areEqual(personAccountReq.addressDPID, result.MailingDPID__pc, 'mailing dpid should match but instead got: ' + result.MailingDPID__pc);
 		Assert.areEqual(personAccountReq.addressLongitude, result.PersonMailingLongitude, 'longitude should match but instead got: ' + result.PersonMailingLongitude);
 		Assert.areEqual(personAccountReq.addressLatitude, result.PersonMailingLatitude, 'latitude should match but instead got: ' + result.PersonMailingLatitude);
-		Assert.areEqual(personAccountReq.addressLatitude, result.PersonMailingLatitude, 'latitude should match but instead got: ' + result.PersonMailingLatitude);
 	}
 
 	/**
