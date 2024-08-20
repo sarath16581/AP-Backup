@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>StatusId__c</fullName>
+    <caseSensitive>true</caseSensitive>
+    <description>This fields contains the Genesys Presence StatusId</description>
+    <externalId>true</externalId>
+    <inlineHelpText>This fields contains the Genesys Presence StatusId</inlineHelpText>
+    <label>StatusId</label>
+    <length>36</length>
+    <required>true</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>true</unique>
+</CustomField>

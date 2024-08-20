@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomMetadata xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <label>genesysStatusChange</label>
+    <protected>false</protected>
+    <values>
+        <field>MappingData__c</field>
+        <value xsi:type="xsd:string">{
+    &quot;AVAILABLE&quot;: &quot;AVAILABLEFORVOICE&quot;,
+    &quot;AWAY&quot;: &quot;BUSY&quot;,
+    &quot;BUSY&quot;: &quot;OFFLINE&quot;,
+    &quot;OFFLINE&quot;: &quot;IDLE&quot;,
+    &quot;IDLE&quot;: &quot;ON_QUEUE&quot;,
+    &quot;ON_QUEUE&quot;: &quot;MEAL&quot;,
+    &quot;MEAL&quot;: &quot;TRAINING&quot;,
+    &quot;TRAINING&quot;: &quot;MEETING&quot;,
+    &quot;MEETING&quot;: &quot;BREAK&quot;
+}</value>
+    </values>
+    <values>
+        <field>MappingType__c</field>
+        <value xsi:type="xsd:string">genesysStatusChange</value>
+    </values>
+</CustomMetadata>
