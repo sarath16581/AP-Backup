@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Unified_General_to_Investigation</fullName>
+    <active>true</active>
+    <description>This validation is to stop cases moving Unified Investigation to Unified General Enquiry</description>
+    <errorConditionFormula>$RecordType.DeveloperName = &apos;UnifiedInvestigation&apos;
+&amp;&amp; ISCHANGED(Type) 
+&amp;&amp; ISPICKVAL(PRIORVALUE( Type ), &apos;Investigation&apos;)
+&amp;&amp; ISPICKVAL(Type, &apos;General Enquiry&apos;)</errorConditionFormula>
+    <errorMessage>Cannot change case from Investigation to General Enquiry</errorMessage>
+</ValidationRule>
