@@ -13,12 +13,12 @@
       "componentAttributes" : {
         "cacheAge" : 1440,
         "filterName" : "",
-        "reportId" : "00OBm000001A0B3",
+        "reportId" : "00OBm000001eNBp",
         "showRefreshButton" : true,
         "showTitle" : true
       },
       "componentName" : "forceCommunity:reportChart",
-      "id" : "82757f8d-3c68-4473-b398-d2c13b3e2809",
+      "id" : "77e8a687-a9c4-4823-86b5-f3d1217fbafc",
       "renderPriority" : "NEUTRAL",
       "renditionMap" : { },
       "type" : "component"
@@ -31,7 +31,7 @@
         "showTitle" : true
       },
       "componentName" : "forceCommunity:reportChart",
-      "id" : "0e749708-f0d6-4a68-a585-36f781e1382d",
+      "id" : "7e580b9f-10e5-4aa6-9432-b06555601bc5",
       "renderPriority" : "NEUTRAL",
       "renditionMap" : { },
       "type" : "component"
@@ -44,7 +44,7 @@
       "componentAttributes" : {
         "cacheAge" : 1440,
         "filterName" : "",
-        "reportId" : "00OBm0000019zzl",
+        "reportId" : "00OBm000001eeXd",
         "showRefreshButton" : true,
         "showTitle" : true
       },

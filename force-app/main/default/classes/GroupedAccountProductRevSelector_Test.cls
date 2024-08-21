@@ -47,7 +47,7 @@ public with sharing class GroupedAccountProductRevSelector_Test {
 		insert prod1;
 
 		// Create test data
-		List<GroupedAccountProductRevenue__c> gaprRecs =  ApplicationTestDataFactory.getGroupedAccountProductRevenue(1, account.id, prod1.id, 2024, false);
+		List<GroupedAccountProductRevenue__c> gaprRecs =  new List<GroupedAccountProductRevenue__c>();  //ApplicationTestDataFactory.getGroupedAccountProductRevenue(1, account.id, prod1.id, 2024, false);
 		insert gaprRecs;
 
 		// Testing

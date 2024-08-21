@@ -4,7 +4,7 @@
     <businessStatus>DeprecateCandidate</businessStatus>
     <deleteConstraint>SetNull</deleteConstraint>
     <externalId>false</externalId>
-    <label>Dep - StarTrack Operation User</label>
+    <label>Dep -StarTrack Operation User</label>
     <referenceTo>User</referenceTo>
     <relationshipName>StarTrackCases</relationshipName>
     <required>false</required>

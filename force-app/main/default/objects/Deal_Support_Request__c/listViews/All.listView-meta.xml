@@ -7,6 +7,11 @@
     <columns>RECORDTYPE</columns>
     <columns>OWNER.ALIAS</columns>
     <filterScope>Everything</filterScope>
+    <filters>
+        <field>RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>Deal_Support_Request__c.Pricing_Support_Request_Australia_Post_Parcel_Contract</value>
+    </filters>
     <label>All</label>
     <sharedTo>
         <group>SystemAdmin</group>

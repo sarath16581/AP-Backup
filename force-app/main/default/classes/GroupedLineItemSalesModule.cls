@@ -104,7 +104,7 @@ public inherited sharing class GroupedLineItemSalesModule extends ApplicationMod
 			}
 		} catch(Exception ex) {
 			// Error Logged to Exception object for analysis
-			system.debug(ex.getStackTraceString());
+			system.debug('***** eorror ' + ex.getStackTraceString());
 			UTIL_LoggingService.logHandledException(ex, UserInfo.getOrganizationId(), SSSWConstants.SSSW_APP, GroupedLineItemSalesModule.class.getName(), 'onAfterUpdate', SSSWConstants.CASE_TRIGGER, LoggingLevel.ERROR);
 		}
 	}

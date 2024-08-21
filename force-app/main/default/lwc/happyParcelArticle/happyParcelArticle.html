@@ -86,28 +86,26 @@
 		</div>
 
 		<!-- Sender / Receiver details -->
-		<template if:true={displaySenderReceiverDetails}>
-			<div class="slds-col slds-size_1-of-1 slds-small-size_1-of-2 slds-m-bottom_medium slds-has-flexi-truncate">
-				<c-happy-parcel-customer-details detail-type="1" loading={loadingTrackingApi}
-												contact={article.trackingResult.senderContact}
-												tracking-api-result={article.trackingResult}
-												supports-customer-selection={supportsCustomerSelection}
-												selected={senderSelected}
-												oncustomerselect={handleCustomerSelected}
-												oncustomerdeselect={handleCustomerDeselected}>
-				</c-happy-parcel-customer-details>
-			</div>
-			<div class="slds-col slds-size_1-of-1 slds-small-size_1-of-2 slds-m-bottom_medium slds-has-flexi-truncate">
-				<c-happy-parcel-customer-details detail-type="2" loading={loadingTrackingApi}
-												contact={article.trackingResult.receiverContact}
-												tracking-api-result={article.trackingResult}
-												supports-customer-selection={supportsCustomerSelection}
-												selected={receiverSelected}
-												oncustomerselect={handleCustomerSelected}
-												oncustomerdeselect={handleCustomerDeselected}>
-				</c-happy-parcel-customer-details>
-			</div>
-		</template>
+		<div class="slds-col slds-size_1-of-1 slds-small-size_1-of-2 slds-m-bottom_medium slds-has-flexi-truncate">
+			<c-happy-parcel-customer-details detail-type="1" loading={loadingTrackingApi}
+	                                         contact={article.trackingResult.senderContact}
+		                                     tracking-api-result={article.trackingResult}
+		                                     supports-customer-selection={supportsCustomerSelection}
+			                                 selected={senderSelected}
+			                                 oncustomerselect={handleCustomerSelected}
+			                                 oncustomerdeselect={handleCustomerDeselected}>
+			</c-happy-parcel-customer-details>
+		</div>
+		<div class="slds-col slds-size_1-of-1 slds-small-size_1-of-2 slds-m-bottom_medium slds-has-flexi-truncate">
+			<c-happy-parcel-customer-details detail-type="2" loading={loadingTrackingApi}
+			                                 contact={article.trackingResult.receiverContact}
+			                                 tracking-api-result={article.trackingResult}
+			                                 supports-customer-selection={supportsCustomerSelection}
+			                                 selected={receiverSelected}
+			                                 oncustomerselect={handleCustomerSelected}
+			                                 oncustomerdeselect={handleCustomerDeselected}>
+			</c-happy-parcel-customer-details>
+		</div>
 
 		<!-- Latest Scans -->
 		<div class="slds-col slds-size_1-of-1 slds-m-bottom_medium">

@@ -12,7 +12,6 @@
     <columns>LEAD.CREATED_DATE</columns>
     <columns>Campaign_Name__c</columns>
     <columns>CREATEDBY_USER.ALIAS</columns>
-    <columns>LEAD_SCORE</columns>
     <filterScope>Everything</filterScope>
     <filters>
         <field>LEAD.STATUS</field>
@@ -25,6 +24,7 @@
         <value>BrandWrapped</value>
     </filters>
     <label>All Open Leads</label>
+    <language>en_US</language>
     <sharedTo>
         <allInternalUsers></allInternalUsers>
     </sharedTo>

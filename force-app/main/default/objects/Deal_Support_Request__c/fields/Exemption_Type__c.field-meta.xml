@@ -16,36 +16,6 @@
         <valueSetDefinition>
             <sorted>false</sorted>
             <value>
-                <fullName>Fuel Surcharge (FSC)</fullName>
-                <default>false</default>
-                <label>Fuel Surcharge (FSC)</label>
-            </value>
-            <value>
-                <fullName>Manual Handling Surcharge (MHS)</fullName>
-                <default>false</default>
-                <label>Manual Handling Surcharge (MHS)</label>
-            </value>
-            <value>
-                <fullName>Security Management Charge (SMC)</fullName>
-                <default>false</default>
-                <label>Security Management Charge (SMC)</label>
-            </value>
-            <value>
-                <fullName>Unmanifested Fee (UF)</fullName>
-                <default>false</default>
-                <label>Unmanifested Fee (UF)</label>
-            </value>
-            <value>
-                <fullName>Oversize Charge (OSC)</fullName>
-                <default>false</default>
-                <label>Oversize Charge (OSC)</label>
-            </value>
-            <value>
-                <fullName>Other</fullName>
-                <default>false</default>
-                <label>Other</label>
-            </value>
-            <value>
                 <fullName>1 Tier Delegation</fullName>
                 <default>false</default>
                 <label>1 Tier Delegation</label>
@@ -56,21 +26,6 @@
                 <label>2 Tier Delegation</label>
             </value>
             <value>
-                <fullName>Peak Fee</fullName>
-                <default>false</default>
-                <label>Peak Fee</label>
-            </value>
-            <value>
-                <fullName>Over Maximum Limits Fee</fullName>
-                <default>false</default>
-                <label>Over Maximum Limits Fee</label>
-            </value>
-            <value>
-                <fullName>Manifest Correction Fee</fullName>
-                <default>false</default>
-                <label>Manifest Correction Fee</label>
-            </value>
-            <value>
                 <fullName>Force Majeure Fee</fullName>
                 <default>false</default>
                 <label>Force Majeure Fee</label>
@@ -79,6 +34,51 @@
                 <fullName>FPP Satchel Flip</fullName>
                 <default>false</default>
                 <label>FPP Satchel Flip</label>
+            </value>
+            <value>
+                <fullName>Fuel Surcharge (FSC)</fullName>
+                <default>false</default>
+                <label>Fuel Surcharge (FSC)</label>
+            </value>
+            <value>
+                <fullName>Manifest Correction Fee</fullName>
+                <default>false</default>
+                <label>Manifest Correction Fee</label>
+            </value>
+            <value>
+                <fullName>Manual Handling Surcharge (MHS)</fullName>
+                <default>false</default>
+                <label>Manual Handling Surcharge (MHS)</label>
+            </value>
+            <value>
+                <fullName>Other</fullName>
+                <default>false</default>
+                <label>Other</label>
+            </value>
+            <value>
+                <fullName>Over Maximum Limits Fee</fullName>
+                <default>false</default>
+                <label>Over Maximum Limits Fee</label>
+            </value>
+            <value>
+                <fullName>Oversize Charge (OSC)</fullName>
+                <default>false</default>
+                <label>Oversize Charge (OSC)</label>
+            </value>
+            <value>
+                <fullName>Peak Fee</fullName>
+                <default>false</default>
+                <label>Peak Fee</label>
+            </value>
+            <value>
+                <fullName>Security Management Charge (SMC)</fullName>
+                <default>false</default>
+                <label>Security Management Charge (SMC)</label>
+            </value>
+            <value>
+                <fullName>Unmanifested Fee (UF)</fullName>
+                <default>false</default>
+                <label>Unmanifested Fee (UF)</label>
             </value>
         </valueSetDefinition>
     </valueSet>

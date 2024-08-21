@@ -13538,10 +13538,6 @@
         <enabled>true</enabled>
     </pageAccesses>
     <pageAccesses>
-        <apexPage>ConsignmentAttachment</apexPage>
-        <enabled>true</enabled>
-    </pageAccesses>
-    <pageAccesses>
         <apexPage>ContactFilteringSearch</apexPage>
         <enabled>true</enabled>
     </pageAccesses>

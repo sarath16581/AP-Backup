@@ -19,6 +19,7 @@ public without sharing class APT_CheckoutController{
 		// get parameters from VF Page
 		configId = apexpages.currentPage().getParameters().get('id');
 		proposalId = apexpages.currentPage().getParameters().get('businessObjectId');
+        system.debug(apexpages.currentPage().getParameters() + configId + proposalId);
 	}
 
 	public String checkoutAttributes{
@@ -171,21 +172,21 @@ public without sharing class APT_CheckoutController{
 	**/
 	@AuraEnabled
 	public static Boolean docGenerationRequired(string configId, Id proposalId, Boolean notificationDisabled){
-		Set<String> productNames = new Set<String>();
-		for(APT_Proposal_Doc_Generation_Products__mdt proposalProduct : [SELECT APT_Product_Name__c FROM APT_Proposal_Doc_Generation_Products__mdt]){
-			productNames.add(proposalProduct.APT_Product_Name__c);
-		}
+        Set<String> productNames = new Set<String>();
+        for(APT_Proposal_Doc_Generation_Products__mdt proposalProduct : [SELECT APT_Product_Name__c FROM APT_Proposal_Doc_Generation_Products__mdt]){
+            productNames.add(proposalProduct.APT_Product_Name__c);
+        }
 
 		List<Apttus_Config2__LineItem__c> lineItem = LineItemsSelector.newInstance().selectByProdConfIdAndProductName(new set<ID>{(ID)configId}, productNames);
-		if(lineItem != null && lineItem.size() > 0){
+        if(lineItem != null && lineItem.size() > 0){
 			if(notificationDisabled == true) {
 				Apttus_Proposal__Proposal__c proposalRecord = new Apttus_Proposal__Proposal__c();
 				proposalRecord.Id= proposalId;
 				proposalRecord.APT_Document_Notification_Off__c = true;
 				ApplicationDatabase.getInstance().dmlUpdate(new List<Apttus_Proposal__Proposal__c> {proposalRecord});
 			}
-			return true;
-		}
+            return true;
+        }
 
 		return false;
 	}

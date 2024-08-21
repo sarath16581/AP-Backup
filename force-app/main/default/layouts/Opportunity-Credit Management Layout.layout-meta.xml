@@ -153,7 +153,20 @@
         <detailHeading>true</detailHeading>
         <editHeading>false</editHeading>
         <label>Data Quality</label>
-        <layoutColumns/>
+        <layoutColumns>
+            <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>Score_Stars_del__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>Data_Quality_Score__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>Data_Quality_Description__c</field>
+            </layoutItems>
+        </layoutColumns>
         <style>OneColumn</style>
     </layoutSections>
     <layoutSections>
@@ -634,15 +647,15 @@
     <relatedLists>
         <excludeButtons>ChoosePricebook</excludeButtons>
         <fields>Product2</fields>
+        <fields>Classification__c</fields>
+        <fields>Contract_Number__c</fields>
+        <fields>Quantity</fields>
+        <fields>Annualised_Value__c</fields>
         <fields>Contract_Start_Date__c</fields>
         <fields>Contract_End_Date__c</fields>
-        <fields>Quantity</fields>
         <fields>UnitPrice</fields>
         <fields>TotalPrice</fields>
-        <fields>Annualised_Value__c</fields>
-        <fields>TweleveMonthRevenue__c</fields>
-        <fields>RetainedRevenue__c</fields>
-        <fields>IncrementalRevenue__c</fields>
+        <fields>In_Year_Revenue__c</fields>
         <relatedList>RelatedLineItemList</relatedList>
     </relatedLists>
     <relatedLists>

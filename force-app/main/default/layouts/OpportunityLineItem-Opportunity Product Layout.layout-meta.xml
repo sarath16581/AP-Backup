@@ -220,10 +220,6 @@
     <multilineLayoutFields>Contract_Number__c</multilineLayoutFields>
     <relatedLists>
         <fields>NAME</fields>
-        <relatedList>OpportunityProductRevenueForecast__c.OpportunityProduct__c</relatedList>
-    </relatedLists>
-    <relatedLists>
-        <fields>NAME</fields>
         <fields>Year__c</fields>
         <fields>TotalForecast__c</fields>
         <fields>TotalRetained__c</fields>

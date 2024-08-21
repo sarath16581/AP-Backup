@@ -429,6 +429,10 @@
         </timeTriggers>
         <timeTriggers>
             <actions>
+                <name>SSSW_Send_Customer_Escalation_Closure</name>
+                <type>Alert</type>
+            </actions>
+            <actions>
                 <name>SSSW_Case_Milestone_Violation_FALSE</name>
                 <type>FieldUpdate</type>
             </actions>

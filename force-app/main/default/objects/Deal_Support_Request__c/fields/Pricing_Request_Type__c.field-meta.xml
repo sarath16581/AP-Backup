@@ -12,26 +12,26 @@
     <type>Picklist</type>
     <valueSet>
         <valueSetDefinition>
-            <sorted>true</sorted>
-            <value>
-                <fullName>Additional Lodgement Points</fullName>
-                <default>false</default>
-                <label>Additional Lodgement Points</label>
-            </value>
-            <value>
-                <fullName>Annual Price Review (Renewal)</fullName>
-                <default>false</default>
-                <label>Annual Price Review (Renewal)</label>
-            </value>
+            <sorted>false</sorted>
             <value>
                 <fullName>New Business / Growth</fullName>
                 <default>false</default>
                 <label>New Business / Growth</label>
             </value>
             <value>
-                <fullName>Out of cycle Rate Review</fullName>
+                <fullName>Renewal / Rate review</fullName>
                 <default>false</default>
-                <label>Out of cycle Rate Review</label>
+                <label>Renewal / Rate review</label>
+            </value>
+            <value>
+                <fullName>Rate Card Extraction</fullName>
+                <default>false</default>
+                <label>Rate Card Extraction</label>
+            </value>
+            <value>
+                <fullName>Other</fullName>
+                <default>false</default>
+                <label>Other</label>
             </value>
         </valueSetDefinition>
     </valueSet>

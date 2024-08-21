@@ -4,9 +4,10 @@
     <businessStatus>DeprecateCandidate</businessStatus>
     <externalId>false</externalId>
     <label>Dep - Date of initial contact</label>
+    <length>40</length>
     <required>false</required>
-    <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
-    <type>Date</type>
+    <type>Text</type>
+    <unique>false</unique>
 </CustomField>

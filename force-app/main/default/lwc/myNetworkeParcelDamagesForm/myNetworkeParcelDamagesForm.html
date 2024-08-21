@@ -246,16 +246,16 @@
                             value={values.totalBottlesDamaged} step="1" max="999">
                         </lightning-input>
                     </c-lwc-form-element>
+                </lightning-layout-item>
+				<lightning-layout-item size="6" padding="horizontal-small">
+					<c-lwc-form-element visibility-state={visibilities} name="totalBottlesNotDamaged"
+						render-config={containsWineRenderConfig}>
+						<lightning-input required class="form-input" type="number" label="Total bottles without any damage"
+							value={values.totalBottlesNotDamaged} step="1" max="999">
+						</lightning-input>
+					</c-lwc-form-element>
 				</lightning-layout-item>
-					<lightning-layout-item size="6" padding="horizontal-small">
-						<c-lwc-form-element visibility-state={visibilities} name="totalBottlesNotDamaged"
-							render-config={containsWineRenderConfig}>
-							<lightning-input required class="form-input" type="number" label="Total bottles without any damage"
-								value={values.totalBottlesNotDamaged} step="1" max="999">
-							</lightning-input>
-						</c-lwc-form-element>
-					</lightning-layout-item>
-					<lightning-layout-item size="6"></lightning-layout-item>
+				<lightning-layout-item size="6"></lightning-layout-item>
                 <lightning-layout-item size="6" padding="horizontal-small">
                     <c-lwc-form-element visibility-state={visibilities} name="noOfCapsDamaged"
                         render-config={containsWineRenderConfig}>

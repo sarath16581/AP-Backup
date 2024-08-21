@@ -11,6 +11,7 @@
  * 2023-08-18 - Ranjeewa Silva - Added selector options to select competitor, dsr and apttus contract child records
  * 2023-10-25 - Mahesh Parvathaneni - Added selector options to select opportunity line items child records
  * 2024-06-19 - Harry Wang - Added selector options to select key contact relationship and added selectByAccountId
+ * 2024-08-20 - Ken McGuire - Added selectOpenOpportunitiesByAccountIds
  */
 
 public virtual inherited sharing class OpportunitiesSelector extends ApplicationSelector {
@@ -80,6 +81,30 @@ public virtual inherited sharing class OpportunitiesSelector extends Application
 				.endConditions();
 		return Database.query(qb.toSoqlString());
 	}
+
+
+	 /**
+     * Retrieves open opportunities for a set of accounts.
+     * 
+     * @param accountIds The set of account IDs to retrieve opportunities for
+     * @return A Map of Opportunity IDs to Opportunities
+     */
+    public virtual Map<Id, Opportunity> selectOpenOpportunitiesByAccountIds(Set<Id> accountIds) {
+        // Check if accountIds is not null or empty
+        if(accountIds == null || accountIds.isEmpty()) {
+            return new Map<Id, Opportunity>();
+        }
+
+        // Construct the query
+        QueryBuilder qb = newQueryBuilder(new Set<Object>())
+            .addConditions()
+            .add(new QueryBuilder.SimpleCondition(Opportunity.AccountId + ' in :accountIds'))
+            .add(new QueryBuilder.SimpleCondition(Opportunity.IsClosed + '= false')) 
+            .endConditions();
+
+        // Execute the query and return the results
+        return new Map<Id, Opportunity>((List<Opportunity>)Database.query(qb.toSoqlString()));
+    }
 
 	public virtual override QueryBuilder newQueryBuilder() {
 		return newQueryBuilder(new Set<Object>());

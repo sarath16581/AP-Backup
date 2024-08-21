@@ -2,53 +2,12 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Technical_Parcel_Set_up__c</fullName>
     <businessStatus>DeprecateCandidate</businessStatus>
-    <description>used by Sales Implementation case</description>
     <externalId>false</externalId>
     <label>Dep - Technical Parcel Set-up</label>
+    <length>40</length>
     <required>false</required>
-    <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
-    <type>MultiselectPicklist</type>
-    <valueSet>
-        <valueSetDefinition>
-            <sorted>false</sorted>
-            <value>
-                <fullName>eParcel Integration</fullName>
-                <default>false</default>
-                <label>eParcel Integration</label>
-            </value>
-            <value>
-                <fullName>eParcel Labels</fullName>
-                <default>false</default>
-                <label>eParcel Labels</label>
-            </value>
-            <value>
-                <fullName>eParcel Online</fullName>
-                <default>false</default>
-                <label>eParcel Online</label>
-            </value>
-            <value>
-                <fullName>Return Logistics</fullName>
-                <default>false</default>
-                <label>Return Logistics</label>
-            </value>
-            <value>
-                <fullName>Delivery Choices</fullName>
-                <default>false</default>
-                <label>Delivery Choices</label>
-            </value>
-            <value>
-                <fullName>Click &amp; Send</fullName>
-                <default>false</default>
-                <label>Click &amp; Send</label>
-            </value>
-            <value>
-                <fullName>Track Event Extract</fullName>
-                <default>false</default>
-                <label>Track Event Extract</label>
-            </value>
-        </valueSetDefinition>
-    </valueSet>
-    <visibleLines>4</visibleLines>
+    <type>Text</type>
+    <unique>false</unique>
 </CustomField>

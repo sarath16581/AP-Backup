@@ -4,11 +4,10 @@
     <businessStatus>DeprecateCandidate</businessStatus>
     <externalId>false</externalId>
     <label>Dep - FOS Dispute Fee</label>
-    <precision>10</precision>
+    <length>40</length>
     <required>false</required>
-    <scale>2</scale>
-    <securityClassification>OFFICIAL_SENSITIVE</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
-    <type>Currency</type>
+    <type>Text</type>
+    <unique>false</unique>
 </CustomField>

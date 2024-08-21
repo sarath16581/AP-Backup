@@ -12,6 +12,12 @@
             <layoutItems>
                 <field>Message__c</field>
             </layoutItems>
+            <layoutItems>
+                <field>Title</field>
+            </layoutItems>
+            <layoutItems>
+                <field>UrlName</field>
+            </layoutItems>
         </layoutColumns>
         <style>OneColumn</style>
     </layoutSections>

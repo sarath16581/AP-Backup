@@ -4,10 +4,10 @@
     <businessStatus>DeprecateCandidate</businessStatus>
     <externalId>false</externalId>
     <label>Dep - Other Savings/Improvement</label>
-    <length>32768</length>
-    <securityClassification>INTERNAL</securityClassification>
+    <length>40</length>
+    <required>false</required>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
-    <type>LongTextArea</type>
-    <visibleLines>5</visibleLines>
+    <type>Text</type>
+    <unique>false</unique>
 </CustomField>

@@ -37,10 +37,6 @@
         <layoutColumns>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>Estimated_Completion_Date__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
                 <field>Deployment_Date__c</field>
             </layoutItems>
             <layoutItems>

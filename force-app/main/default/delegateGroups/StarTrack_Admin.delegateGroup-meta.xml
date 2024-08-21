@@ -98,6 +98,7 @@
     <groups>StarTrack LDC Approval Step 2</groups>
     <groups>StarTrack Recycle Bin</groups>
     <groups>BSC - Schenker</groups>
+    <groups>BSC - Banking</groups>
     <label>StarTrack Admin</label>
     <loginAccess>false</loginAccess>
     <permissionSetGroups>ST Team Leader Basic Permissions</permissionSetGroups>
@@ -121,6 +122,7 @@
     <permissionSets>StarTrack:Edit &quot;Is Bulk Task?&quot; on Task and &quot;Close Bulk Tasks&quot; on case</permissionSets>
     <permissionSets>Create Report and Dashboard</permissionSets>
     <permissionSets>Manage StarTrack Articles</permissionSets>
+    <permissionSets>ACL Remediation</permissionSets>
     <profiles>StarTrack Partner Community</profiles>
     <profiles>SSSE User</profiles>
     <profiles>SSSE- Depot User</profiles>

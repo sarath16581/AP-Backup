@@ -5,244 +5,214 @@
     <authenticationFailureAction>Bounce</authenticationFailureAction>
     <authorizationFailureAction>Discard</authorizationFailureAction>
     <emailServicesAddresses>
-        <developerName>accountspayable</developerName>
-        <isActive>true</isActive>
-        <localPart>accountspayable</localPart>
-        <runAsUser>salessystemssupport@auspost.com.au.ptest</runAsUser>
-    </emailServicesAddresses>
-    <emailServicesAddresses>
         <developerName>actgovsupport</developerName>
         <isActive>true</isActive>
         <localPart>actgovsupport</localPart>
-        <runAsUser>salessystemssupport@auspost.com.au.ptest</runAsUser>
+        <runAsUser>salessystemssupport@auspost.com.au.stest</runAsUser>
     </emailServicesAddresses>
     <emailServicesAddresses>
         <developerName>amazonstrategicsupport</developerName>
         <isActive>true</isActive>
         <localPart>amazonstrategicsupport</localPart>
-        <runAsUser>salessystemssupport@auspost.com.au.ptest</runAsUser>
+        <runAsUser>salessystemssupport@auspost.com.au.stest</runAsUser>
     </emailServicesAddresses>
     <emailServicesAddresses>
         <developerName>awsenquiries</developerName>
         <isActive>true</isActive>
         <localPart>awsenquiries</localPart>
-        <runAsUser>salessystemssupport@auspost.com.au.ptest</runAsUser>
+        <runAsUser>salessystemssupport@auspost.com.au.stest</runAsUser>
+    </emailServicesAddresses>
+    <emailServicesAddresses>
+        <developerName>bayswatervanpickups</developerName>
+        <isActive>true</isActive>
+        <localPart>bayswatervanpickups</localPart>
+        <runAsUser>salessystemssupport@auspost.com.au.stest</runAsUser>
     </emailServicesAddresses>
     <emailServicesAddresses>
         <developerName>bgsbusinesssupport</developerName>
         <isActive>true</isActive>
         <localPart>bgsbusinesssupport</localPart>
-        <runAsUser>salessystemssupport@auspost.com.au.ptest</runAsUser>
+        <runAsUser>salessystemssupport@auspost.com.au.stest</runAsUser>
     </emailServicesAddresses>
     <emailServicesAddresses>
         <developerName>billing</developerName>
         <isActive>true</isActive>
         <localPart>billing</localPart>
-        <runAsUser>salessystemssupport@auspost.com.au.ptest</runAsUser>
+        <runAsUser>salessystemssupport@auspost.com.au.stest</runAsUser>
     </emailServicesAddresses>
     <emailServicesAddresses>
-        <developerName>bulkmailproductsuat</developerName>
+        <developerName>bulkmailproducts</developerName>
         <isActive>true</isActive>
-        <localPart>bulkmailproductsuat</localPart>
-        <runAsUser>salessystemssupport@auspost.com.au.ptest</runAsUser>
-    </emailServicesAddresses>
-    <emailServicesAddresses>
-        <developerName>businesscentre</developerName>
-        <isActive>true</isActive>
-        <localPart>businesscentre</localPart>
-        <runAsUser>salessystemssupport@auspost.com.au.ptest</runAsUser>
+        <localPart>bulkmailproducts</localPart>
+        <runAsUser>salessystemssupport@auspost.com.au.stest</runAsUser>
     </emailServicesAddresses>
     <emailServicesAddresses>
         <developerName>businesspartner</developerName>
         <isActive>true</isActive>
         <localPart>businesspartner</localPart>
-        <runAsUser>salessystemssupport@auspost.com.au.ptest</runAsUser>
-    </emailServicesAddresses>
-    <emailServicesAddresses>
-        <developerName>car</developerName>
-        <isActive>true</isActive>
-        <localPart>car</localPart>
-        <runAsUser>salessystemssupport@auspost.com.au.ptest</runAsUser>
+        <runAsUser>salessystemssupport@auspost.com.au.stest</runAsUser>
     </emailServicesAddresses>
     <emailServicesAddresses>
         <developerName>credit_claims</developerName>
         <isActive>true</isActive>
         <localPart>credit.claims</localPart>
-        <runAsUser>salessystemssupport@auspost.com.au.ptest</runAsUser>
+        <runAsUser>salessystemssupport@auspost.com.au.stest</runAsUser>
     </emailServicesAddresses>
     <emailServicesAddresses>
         <developerName>credit_claims1</developerName>
         <isActive>true</isActive>
         <localPart>credit.claims</localPart>
-        <runAsUser>salessystemssupport@auspost.com.au.ptest</runAsUser>
-    </emailServicesAddresses>
-    <emailServicesAddresses>
-        <developerName>customerenquiry</developerName>
-        <isActive>true</isActive>
-        <localPart>customerenquiry</localPart>
-        <runAsUser>salessystemssupport@auspost.com.au.ptest</runAsUser>
+        <runAsUser>salessystemssupport@auspost.com.au.stest</runAsUser>
     </emailServicesAddresses>
     <emailServicesAddresses>
         <developerName>customerservice</developerName>
         <isActive>true</isActive>
         <localPart>customerservice</localPart>
-        <runAsUser>salessystemssupport@auspost.com.au.ptest</runAsUser>
+        <runAsUser>salessystemssupport@auspost.com.au.stest</runAsUser>
     </emailServicesAddresses>
     <emailServicesAddresses>
         <developerName>customerservice1</developerName>
         <isActive>true</isActive>
         <localPart>customerservice</localPart>
-        <runAsUser>salessystemssupport@auspost.com.au.ptest</runAsUser>
+        <runAsUser>salessystemssupport@auspost.com.au.stest</runAsUser>
     </emailServicesAddresses>
     <emailServicesAddresses>
         <developerName>dell_sydney</developerName>
         <isActive>true</isActive>
         <localPart>dell.sydney</localPart>
-        <runAsUser>salessystemssupport@auspost.com.au.ptest</runAsUser>
-    </emailServicesAddresses>
-    <emailServicesAddresses>
-        <developerName>dhl</developerName>
-        <isActive>true</isActive>
-        <localPart>dhl</localPart>
-        <runAsUser>salessystemssupport@auspost.com.au.ptest</runAsUser>
-    </emailServicesAddresses>
-    <emailServicesAddresses>
-        <developerName>dlwtimprinttest</developerName>
-        <isActive>true</isActive>
-        <localPart>dlwtimprinttest</localPart>
-        <runAsUser>salessystemssupport@auspost.com.au.ptest</runAsUser>
+        <runAsUser>salessystemssupport@auspost.com.au.stest</runAsUser>
     </emailServicesAddresses>
     <emailServicesAddresses>
         <developerName>dtf_mads_spc</developerName>
         <isActive>true</isActive>
         <localPart>dtf.mads.spc</localPart>
-        <runAsUser>salessystemssupport@auspost.com.au.ptest</runAsUser>
+        <runAsUser>salessystemssupport@auspost.com.au.stest</runAsUser>
     </emailServicesAddresses>
     <emailServicesAddresses>
         <developerName>educationsupport</developerName>
         <isActive>true</isActive>
         <localPart>educationsupport</localPart>
-        <runAsUser>salessystemssupport@auspost.com.au.ptest</runAsUser>
+        <runAsUser>salessystemssupport@auspost.com.au.stest</runAsUser>
     </emailServicesAddresses>
     <emailServicesAddresses>
         <developerName>enterprisesupport</developerName>
         <isActive>true</isActive>
         <localPart>enterprisesupport</localPart>
-        <runAsUser>salessystemssupport@auspost.com.au.ptest</runAsUser>
+        <runAsUser>salessystemssupport@auspost.com.au.stest</runAsUser>
     </emailServicesAddresses>
     <emailServicesAddresses>
         <developerName>fedgovsupport</developerName>
         <isActive>true</isActive>
         <localPart>fedgovsupport</localPart>
-        <runAsUser>salessystemssupport@auspost.com.au.ptest</runAsUser>
+        <runAsUser>salessystemssupport@auspost.com.au.stest</runAsUser>
     </emailServicesAddresses>
     <emailServicesAddresses>
         <developerName>finservicesupport</developerName>
         <isActive>true</isActive>
         <localPart>finservicesupport</localPart>
-        <runAsUser>salessystemssupport@auspost.com.au.ptest</runAsUser>
+        <runAsUser>salessystemssupport@auspost.com.au.stest</runAsUser>
     </emailServicesAddresses>
     <emailServicesAddresses>
         <developerName>mycustomersinboxproduct</developerName>
         <isActive>true</isActive>
         <localPart>mycustomersinboxproduction</localPart>
-        <runAsUser>salessystemssupport@auspost.com.au.ptest</runAsUser>
+        <runAsUser>salessystemssupport@auspost.com.au.stest</runAsUser>
     </emailServicesAddresses>
     <emailServicesAddresses>
         <developerName>nswgovsupport</developerName>
         <isActive>true</isActive>
         <localPart>nswgovsupport</localPart>
-        <runAsUser>salessystemssupport@auspost.com.au.ptest</runAsUser>
-    </emailServicesAddresses>
-    <emailServicesAddresses>
-        <developerName>printpostapplicationste</developerName>
-        <isActive>true</isActive>
-        <localPart>printpostapplicationstest</localPart>
-        <runAsUser>salessystemssupport@auspost.com.au.ptest</runAsUser>
+        <runAsUser>salessystemssupport@auspost.com.au.stest</runAsUser>
     </emailServicesAddresses>
     <emailServicesAddresses>
         <developerName>publicpurposesupport</developerName>
         <isActive>true</isActive>
         <localPart>publicpurposesupport</localPart>
-        <runAsUser>salessystemssupport@auspost.com.au.ptest</runAsUser>
+        <runAsUser>salessystemssupport@auspost.com.au.stest</runAsUser>
     </emailServicesAddresses>
     <emailServicesAddresses>
         <developerName>qldgovsupport</developerName>
         <isActive>true</isActive>
         <localPart>qldgovsupport</localPart>
-        <runAsUser>salessystemssupport@auspost.com.au.ptest</runAsUser>
+        <runAsUser>salessystemssupport@auspost.com.au.stest</runAsUser>
     </emailServicesAddresses>
     <emailServicesAddresses>
-        <developerName>replypaiduat</developerName>
+        <developerName>replypaidtest</developerName>
         <isActive>true</isActive>
-        <localPart>replypaiduat</localPart>
-        <runAsUser>salessystemssupport@auspost.com.au.ptest</runAsUser>
+        <localPart>replypaidtest</localPart>
+        <runAsUser>salessystemssupport@auspost.com.au.stest</runAsUser>
     </emailServicesAddresses>
     <emailServicesAddresses>
         <developerName>santgovsupport</developerName>
         <isActive>true</isActive>
         <localPart>santgovsupport</localPart>
-        <runAsUser>salessystemssupport@auspost.com.au.ptest</runAsUser>
+        <runAsUser>salessystemssupport@auspost.com.au.stest</runAsUser>
     </emailServicesAddresses>
     <emailServicesAddresses>
         <developerName>schenkerhp</developerName>
         <isActive>true</isActive>
         <localPart>schenkerhp</localPart>
-        <runAsUser>salessystemssupport@auspost.com.au.ptest</runAsUser>
+        <runAsUser>salessystemssupport@auspost.com.au.stest</runAsUser>
     </emailServicesAddresses>
     <emailServicesAddresses>
         <developerName>schenkerphillips</developerName>
         <isActive>true</isActive>
         <localPart>schenkerphillips</localPart>
-        <runAsUser>salessystemssupport@auspost.com.au.ptest</runAsUser>
+        <runAsUser>salessystemssupport@auspost.com.au.stest</runAsUser>
     </emailServicesAddresses>
     <emailServicesAddresses>
         <developerName>shipster</developerName>
         <isActive>true</isActive>
         <localPart>shipster</localPart>
-        <runAsUser>salessystemssupport@auspost.com.au.ptest</runAsUser>
+        <runAsUser>salessystemssupport@auspost.com.au.stest</runAsUser>
     </emailServicesAddresses>
     <emailServicesAddresses>
         <developerName>startrackaccountspayabl</developerName>
         <isActive>true</isActive>
         <localPart>startrackaccountspayable</localPart>
-        <runAsUser>salessystemssupport@auspost.com.au.ptest</runAsUser>
+        <runAsUser>salessystemssupport@auspost.com.au.stest</runAsUser>
     </emailServicesAddresses>
     <emailServicesAddresses>
         <developerName>startrackbc</developerName>
         <isActive>true</isActive>
         <localPart>startrackbc</localPart>
-        <runAsUser>salessystemssupport@auspost.com.au.ptest</runAsUser>
+        <runAsUser>salessystemssupport@auspost.com.au.stest</runAsUser>
     </emailServicesAddresses>
     <emailServicesAddresses>
         <developerName>strategicsupport</developerName>
         <isActive>true</isActive>
         <localPart>strategicsupport</localPart>
-        <runAsUser>salessystemssupport@auspost.com.au.ptest</runAsUser>
+        <runAsUser>salessystemssupport@auspost.com.au.stest</runAsUser>
     </emailServicesAddresses>
     <emailServicesAddresses>
         <developerName>telstrasupport</developerName>
         <isActive>true</isActive>
         <localPart>telstrasupport</localPart>
-        <runAsUser>salessystemssupport@auspost.com.au.ptest</runAsUser>
+        <runAsUser>salessystemssupport@auspost.com.au.stest</runAsUser>
     </emailServicesAddresses>
     <emailServicesAddresses>
         <developerName>transportcustomercollec</developerName>
         <isActive>true</isActive>
         <localPart>transportcustomercollectionsatf</localPart>
-        <runAsUser>salessystemssupport@auspost.com.au.ptest</runAsUser>
+        <runAsUser>salessystemssupport@auspost.com.au.stest</runAsUser>
+    </emailServicesAddresses>
+    <emailServicesAddresses>
+        <developerName>transportcustomercollec1</developerName>
+        <isActive>true</isActive>
+        <localPart>transportcustomercollectionsntf</localPart>
+        <runAsUser>salessystemssupport@auspost.com.au.stest</runAsUser>
     </emailServicesAddresses>
     <emailServicesAddresses>
         <developerName>victasgovsupport</developerName>
         <isActive>true</isActive>
         <localPart>victasgovsupport</localPart>
-        <runAsUser>salessystemssupport@auspost.com.au.ptest</runAsUser>
+        <runAsUser>salessystemssupport@auspost.com.au.stest</runAsUser>
     </emailServicesAddresses>
     <emailServicesAddresses>
         <developerName>wagovsupport</developerName>
         <isActive>true</isActive>
         <localPart>wagovsupport</localPart>
-        <runAsUser>salessystemssupport@auspost.com.au.ptest</runAsUser>
+        <runAsUser>salessystemssupport@auspost.com.au.stest</runAsUser>
     </emailServicesAddresses>
     <functionInactiveAction>Bounce</functionInactiveAction>
     <functionName>EmailToCase</functionName>

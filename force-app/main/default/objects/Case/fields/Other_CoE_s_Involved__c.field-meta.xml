@@ -3,46 +3,11 @@
     <fullName>Other_CoE_s_Involved__c</fullName>
     <businessStatus>DeprecateCandidate</businessStatus>
     <externalId>false</externalId>
-    <label>Dep - Other CoE&apos;s Involved</label>
+    <label>Dep - Other CoEs Involved</label>
+    <length>40</length>
     <required>false</required>
-    <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
-    <type>MultiselectPicklist</type>
-    <valueSet>
-        <valueSetDefinition>
-            <sorted>false</sorted>
-            <value>
-                <fullName>Service</fullName>
-                <default>false</default>
-                <label>Service</label>
-            </value>
-            <value>
-                <fullName>Optimisation</fullName>
-                <default>false</default>
-                <label>Optimisation</label>
-            </value>
-            <value>
-                <fullName>Contracts</fullName>
-                <default>false</default>
-                <label>Contracts</label>
-            </value>
-            <value>
-                <fullName>Reporting</fullName>
-                <default>false</default>
-                <label>Reporting</label>
-            </value>
-            <value>
-                <fullName>Implementation</fullName>
-                <default>false</default>
-                <label>Implementation</label>
-            </value>
-            <value>
-                <fullName>Systems</fullName>
-                <default>false</default>
-                <label>Systems</label>
-            </value>
-        </valueSetDefinition>
-    </valueSet>
-    <visibleLines>6</visibleLines>
+    <type>Text</type>
+    <unique>false</unique>
 </CustomField>

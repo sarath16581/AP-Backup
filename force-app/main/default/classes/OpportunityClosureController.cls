@@ -184,12 +184,7 @@ public with sharing class OpportunityClosureController {
 			}
 		}
 		return null;
-	}
-
-	@AuraEnabled
-	public static Boolean recalculateRevenue(String oppId) {
-		return opcNavToBulkEditController.recalculateRevenue(oppId);
-	}
+	} 
 
 	/*
 	* This wrapper is used to show the DSR's as a lightning data table in the UI. 

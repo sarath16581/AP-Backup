@@ -960,7 +960,11 @@
     <picklistValues>
         <picklist>Salesteam__c</picklist>
         <values>
-            <fullName>Centrally Managed</fullName>
+            <fullName>Holding Sales Team</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Intermediaries</fullName>
             <default>false</default>
         </values>
     </picklistValues>

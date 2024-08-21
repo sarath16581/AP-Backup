@@ -1,10 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <PresenceUserConfig xmlns="http://soap.sforce.com/2006/04/metadata">
-    <assignments>
-        <users>
-            <user>terrence.maxey@auspost.com.au</user>
-        </users>
-    </assignments>
     <capacity>1</capacity>
     <declineReasons>Other</declineReasons>
     <declineReasons>Permission_to_Pause</declineReasons>
@@ -14,7 +9,7 @@
     <enableDeclineReason>true</enableDeclineReason>
     <enableDisconnectSound>true</enableDisconnectSound>
     <enableRequestSound>true</enableRequestSound>
-    <label>New agents</label>
+    <label>New Agents</label>
     <presenceStatusOnDecline>Away</presenceStatusOnDecline>
     <presenceStatusOnPushTimeout>Away</presenceStatusOnPushTimeout>
 </PresenceUserConfig>

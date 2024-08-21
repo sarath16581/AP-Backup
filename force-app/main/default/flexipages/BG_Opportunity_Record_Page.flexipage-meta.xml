@@ -304,73 +304,53 @@
         <itemInstances>
             <componentInstance>
                 <componentInstanceProperties>
-                    <name>actionNames</name>
-                    <valueList>
-                        <valueListItems>
-                            <value>New</value>
-                        </valueListItems>
-                    </valueList>
+                    <name>parentFieldApiName</name>
+                    <value>Opportunity.Id</value>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
-                    <name>adminFilters</name>
+                    <name>relatedListApiName</name>
+                    <value>Opp_Product_Classification__r</value>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
-                    <name>maxRecordsToDisplay</name>
+                    <name>relatedListComponentOverride</name>
+                    <value>NONE</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>rowsToDisplay</name>
                     <value>10</value>
                 </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>showActionBar</name>
+                    <value>true</value>
+                </componentInstanceProperties>
+                <componentName>force:relatedListSingleContainer</componentName>
+                <identifier>force_relatedListSingleContainer6</identifier>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
                 <componentInstanceProperties>
                     <name>parentFieldApiName</name>
                     <value>Opportunity.Id</value>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>relatedListApiName</name>
-                    <value>Grouped_Revenue_Schedules__r</value>
+                    <value>Opportunity_Billings_Revenue_del__r</value>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
-                    <name>relatedListDisplayType</name>
-                    <value>ADVGRID</value>
+                    <name>relatedListComponentOverride</name>
+                    <value>NONE</value>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
-                    <name>relatedListFieldAliases</name>
-                    <valueList>
-                        <valueListItems>
-                            <value>NAME</value>
-                        </valueListItems>
-                        <valueListItems>
-                            <value>ProductName__c</value>
-                        </valueListItems>
-                        <valueListItems>
-                            <value>Year__c</value>
-                        </valueListItems>
-                        <valueListItems>
-                            <value>TotalForecast__c</value>
-                        </valueListItems>
-                        <valueListItems>
-                            <value>TotalRetained__c</value>
-                        </valueListItems>
-                        <valueListItems>
-                            <value>TotalIncremental__c</value>
-                        </valueListItems>
-                    </valueList>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>relatedListLabel</name>
-                    <value>Expected Revenue</value>
+                    <name>rowsToDisplay</name>
+                    <value>10</value>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>showActionBar</name>
                     <value>true</value>
                 </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>sortFieldAlias</name>
-                    <value>__DEFAULT__</value>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>sortFieldOrder</name>
-                    <value>Default</value>
-                </componentInstanceProperties>
-                <componentName>lst:dynamicRelatedList</componentName>
-                <identifier>lst_dynamicRelatedList2</identifier>
+                <componentName>force:relatedListSingleContainer</componentName>
+                <identifier>force_relatedListSingleContainer7</identifier>
             </componentInstance>
         </itemInstances>
         <name>Facet-f8c8d211-1a79-4790-a8bf-228f22dae5ef</name>
@@ -413,10 +393,6 @@
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>showHeader</name>
-                    <value>false</value>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>showPostToSlack</name>
                     <value>false</value>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
@@ -937,17 +913,7 @@
                 <identifier>kfsell_standaloneScorecardNavigate</identifier>
             </componentInstance>
         </itemInstances>
-        <name>Facet-38f29a28-70f0-4e6c-a1ec-7409de3dc4db</name>
-        <type>Facet</type>
-    </flexiPageRegions>
-    <flexiPageRegions>
-        <itemInstances>
-            <componentInstance>
-                <componentName>runtime_sales_opportunitysplit:opportunityRelatedAuditHistory</componentName>
-                <identifier>runtime_sales_opportunitysplit_opportunityRelatedAuditHistory</identifier>
-            </componentInstance>
-        </itemInstances>
-        <name>Facet-eea654ac-b570-4254-a784-eeb7f09d3fc4</name>
+        <name>Facet-7a98f886-f429-4eba-868d-8db2d9b35e40</name>
         <type>Facet</type>
     </flexiPageRegions>
     <flexiPageRegions>
@@ -1047,7 +1013,7 @@
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>title</name>
-                    <value>Opportunity 360</value>
+                    <value>Customer 360</value>
                 </componentInstanceProperties>
                 <componentName>flexipage:tab</componentName>
                 <identifier>flexipage_tab2</identifier>
@@ -1141,7 +1107,7 @@
             <componentInstance>
                 <componentInstanceProperties>
                     <name>body</name>
-                    <value>Facet-38f29a28-70f0-4e6c-a1ec-7409de3dc4db</value>
+                    <value>Facet-7a98f886-f429-4eba-868d-8db2d9b35e40</value>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>title</name>
@@ -1149,20 +1115,6 @@
                 </componentInstanceProperties>
                 <componentName>flexipage:tab</componentName>
                 <identifier>flexipage_tab3</identifier>
-            </componentInstance>
-        </itemInstances>
-        <itemInstances>
-            <componentInstance>
-                <componentInstanceProperties>
-                    <name>body</name>
-                    <value>Facet-eea654ac-b570-4254-a784-eeb7f09d3fc4</value>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>title</name>
-                    <value>Audit</value>
-                </componentInstanceProperties>
-                <componentName>flexipage:tab</componentName>
-                <identifier>flexipage_tab4</identifier>
             </componentInstance>
         </itemInstances>
         <mode>Replace</mode>

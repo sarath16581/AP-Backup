@@ -9,10 +9,6 @@
         <layoutColumns>
             <layoutItems>
                 <behavior>Required</behavior>
-                <field>Lean_Type__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Required</behavior>
                 <field>Subject</field>
             </layoutItems>
             <layoutItems>

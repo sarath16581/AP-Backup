@@ -1,71 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ReportType xmlns="http://soap.sforce.com/2006/04/metadata">
-    <baseObject>Critical_Incident__ka</baseObject>
+    <baseObject></baseObject>
     <category>cases</category>
     <deployed>true</deployed>
     <description>Knowledge Article - Critical Incidents chatter feed</description>
     <label>Knowledge Article - Critical Incidents</label>
     <sections>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>Id</field>
-            <table>Critical_Incident__ka</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>CreatedDate</field>
-            <table>Critical_Incident__ka</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>CreatedBy</field>
-            <table>Critical_Incident__ka</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>LastModifiedDate</field>
-            <table>Critical_Incident__ka</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>LastModifiedBy</field>
-            <table>Critical_Incident__ka</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>MasterLanguage</field>
-            <table>Critical_Incident__ka</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>ArticleNumber</field>
-            <table>Critical_Incident__ka</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>ArchivedDate</field>
-            <table>Critical_Incident__ka</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>ArchivedBy</field>
-            <table>Critical_Incident__ka</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>FirstPublishedDate</field>
-            <table>Critical_Incident__ka</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>LastPublishedDate</field>
-            <table>Critical_Incident__ka</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>CaseAssociationCount</field>
-            <table>Critical_Incident__ka</table>
-        </columns>
         <masterLabel>Critical Incidents</masterLabel>
     </sections>
     <sections>

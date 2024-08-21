@@ -31,6 +31,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Budget_and_Revenue__c.uid__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>GroupedAccountProductRevenue__c.FinancialYear__c</field>
         <readable>true</readable>
     </fieldPermissions>
