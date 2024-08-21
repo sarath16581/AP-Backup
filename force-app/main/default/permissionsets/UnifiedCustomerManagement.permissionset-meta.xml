@@ -11,7 +11,7 @@
     <description>This permission set shall be used to define and control all object, app and user permissions for the purpose of managing a customer</description>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Account.Billing_DPID__c</field>
+        <field>Account.Shipping_DPID__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
