@@ -23,7 +23,7 @@ private class UnifiedCustomerCreationControllerTest {
 		personAccountReq.lastName = 'Test';
 		personAccountReq.preferredName = 'Sam';
 		personAccountReq.emailAddress = 'seth@test.com';
-		personAccountReq.mobileNumber = '0400123456';
+		personAccountReq.phoneNumber = '0300123456';
 		personAccountReq.addressStreet = '111 Bourke St';
 		personAccountReq.addressCity = 'Melbourne';
 		personAccountReq.addressState = 'VIC';
@@ -44,7 +44,7 @@ private class UnifiedCustomerCreationControllerTest {
 		Assert.areEqual(personAccountReq.lastName, result.LastName, 'last name should match but instead got: ' + result.LastName);
 		Assert.areEqual(personAccountReq.preferredName, result.Preferred_Name__pc, 'preferred name should match but instead got: ' + result.Preferred_Name__pc);
 		Assert.areEqual(personAccountReq.emailAddress, result.PersonEmail, 'email should match but instead got: ' + result.PersonEmail);
-		Assert.areEqual(personAccountReq.mobileNumber, result.PersonMobilePhone, 'mobile number should match but instead got: ' + result.PersonMobilePhone);
+		Assert.areEqual(personAccountReq.phoneNumber, result.Phone, 'phone number should match but instead got: ' + result.Phone);
 		Assert.areEqual(personAccountReq.addressStreet, result.PersonMailingStreet, 'street should match but instead got: ' + result.PersonMailingStreet);
 		Assert.areEqual(personAccountReq.addressCity, result.PersonMailingCity, 'city should match but instead got: ' + result.PersonMailingCity);
 		Assert.areEqual(personAccountReq.addressState, result.PersonMailingState, 'state should match but instead got: ' + result.PersonMailingState);
@@ -63,7 +63,7 @@ private class UnifiedCustomerCreationControllerTest {
 		// Data Preparation
 		// =====================================
 		UnifiedCustomerCreationController.CustomerCreationRequest organisationReq = new UnifiedCustomerCreationController.CustomerCreationRequest();
-		organisationReq.accountName = 'Seth Org';
+		organisationReq.organisationName = 'Seth Org';
 		organisationReq.addressStreet = '111 Bourke St';
 		organisationReq.addressCity = 'Melbourne';
 		organisationReq.addressState = 'VIC';
@@ -79,12 +79,12 @@ private class UnifiedCustomerCreationControllerTest {
 		Test.stopTest();
 
 		Assert.areEqual(ApplicationTestDataFactory.accountRecordType, result.RecordTypeId, 'record type Id should be Organisation but instead got: ' + result.RecordTypeId);
-		Assert.areEqual(organisationReq.accountName, result.Name, 'organisation name should match but instead got: ' + result.Name);
+		Assert.areEqual(organisationReq.organisationName, result.Name, 'organisation name should match but instead got: ' + result.Name);
 		Assert.areEqual(organisationReq.addressStreet, result.ShippingStreet, 'street should match but instead got: ' + result.ShippingStreet);
 		Assert.areEqual(organisationReq.addressCity, result.ShippingCity, 'city should match but instead got: ' + result.ShippingCity);
 		Assert.areEqual(organisationReq.addressState, result.ShippingState, 'state should match but instead got: ' + result.ShippingState);
 		Assert.areEqual(organisationReq.addressPostalCode, result.ShippingPostalCode, 'postcode should match but instead got: ' + result.ShippingPostalCode);
-		Assert.areEqual(organisationReq.addressDPID, result.Billing_DPID__c, 'shipping dpid should match but instead got: ' + result.Billing_DPID__c);
+		Assert.areEqual(organisationReq.addressDPID, result.Shipping_DPID__c, 'shipping dpid should match but instead got: ' + result.Shipping_DPID__c);
 		Assert.areEqual(organisationReq.addressLongitude, result.ShippingLongitude, 'longitude should match but instead got: ' + result.ShippingLongitude);
 		Assert.areEqual(organisationReq.addressLatitude, result.ShippingLatitude, 'latitude should match but instead got: ' + result.ShippingLatitude);
 
@@ -103,7 +103,7 @@ private class UnifiedCustomerCreationControllerTest {
 		contactReq.lastName = 'Test';
 		contactReq.preferredName = 'Sam';
 		contactReq.emailAddress = 'seth@test.com';
-		contactReq.mobileNumber = '0400123456';
+		contactReq.phoneNumber = '0400123456';
 		contactReq.addressStreet = '111 Bourke St';
 		contactReq.addressCity = 'Melbourne';
 		contactReq.addressState = 'VIC';
@@ -122,7 +122,7 @@ private class UnifiedCustomerCreationControllerTest {
 		Assert.areEqual(contactReq.lastName, result.LastName, 'last name should match but instead got: ' + result.LastName);
 		Assert.areEqual(contactReq.preferredName, result.Preferred_Name__c, 'preferred name should match but instead got: ' + result.Preferred_Name__c);
 		Assert.areEqual(contactReq.emailAddress, result.Email, 'email should match but instead got: ' + result.Email);
-		Assert.areEqual(contactReq.mobileNumber, result.MobilePhone, 'mobile number should match but instead got: ' + result.MobilePhone);
+		Assert.areEqual(contactReq.phoneNumber, result.MobilePhone, 'mobile number should match but instead got: ' + result.MobilePhone);
 		Assert.areEqual(contactReq.addressStreet, result.MailingStreet, 'street should match but instead got: ' + result.MailingStreet);
 		Assert.areEqual(contactReq.addressCity, result.MailingCity, 'city should match but instead got: ' + result.MailingCity);
 		Assert.areEqual(contactReq.addressState, result.MailingState, 'state should match but instead got: ' + result.MailingState);
@@ -130,7 +130,7 @@ private class UnifiedCustomerCreationControllerTest {
 		Assert.areEqual(contactReq.addressDPID, result.MailingDPID__c, 'mailing dpid should match but instead got: ' + result.MailingDPID__c);
 		Assert.areEqual(contactReq.addressLongitude, result.MailingLongitude, 'longitude should match but instead got: ' + result.MailingLongitude);
 		Assert.areEqual(contactReq.addressLatitude, result.MailingLatitude, 'latitude should match but instead got: ' + result.MailingLatitude);
-		Assert.areEqual(contactReq.accountId, result.AccountId, 'accountId should match but instead got: ' + result.AccountId);
+		Assert.areEqual(contactReq.organisationAccountId, result.AccountId, 'accountId should match but instead got: ' + result.AccountId);
 	}
 
 	/**
@@ -146,7 +146,7 @@ private class UnifiedCustomerCreationControllerTest {
 		consumerReq.lastName = 'Test';
 		consumerReq.preferredName = 'Sam';
 		consumerReq.emailAddress = 'seth@test.com';
-		consumerReq.mobileNumber = '0400123456';
+		consumerReq.phoneNumber = '0400123456';
 		consumerReq.addressStreet = '111 Bourke St';
 		consumerReq.addressCity = 'Melbourne';
 		consumerReq.addressState = 'VIC';
@@ -158,7 +158,7 @@ private class UnifiedCustomerCreationControllerTest {
 
 		UnifiedCustomerCreationController.CustomerCreationRequest contactReq = consumerReq.clone();
 		contactReq.customerType = UnifiedCustomerCreationController.CUSTOMER_TYPE_ORGANISATION;
-		contactReq.accountName = 'Seth Org';
+		contactReq.organisationName = 'Seth Org';
 		// =====================================
 		// Stubbing
 		// =====================================
@@ -184,7 +184,7 @@ private class UnifiedCustomerCreationControllerTest {
 		Assert.isNotNull(insertableAccounts[0].Id, 'Organisation Id should not be null but instead got null');
 		Assert.isNotNull(((Contact) contactObj).AccountId, 'AccountId should be populated but instead was null');
 		Assert.areEqual(((Contact) contactObj).AccountId, insertableAccounts[0].Id, 'Organisation Id should match but instead got: ' + insertableAccounts[0].Id);
-		Assert.areEqual(contactReq.accountName, insertableAccounts[0].Name, 'Organisation Name should match but instead got: ' + insertableAccounts[0].Name);
+		Assert.areEqual(contactReq.organisationName, insertableAccounts[0].Name, 'Organisation Name should match but instead got: ' + insertableAccounts[0].Name);
 	}
 
 	/**
@@ -203,7 +203,7 @@ private class UnifiedCustomerCreationControllerTest {
 		contactReq.lastName = 'Test';
 		contactReq.preferredName = 'Sam';
 		contactReq.emailAddress = 'seth@test.com';
-		contactReq.mobileNumber = '0400123456';
+		contactReq.phoneNumber = '0400123456';
 		contactReq.addressStreet = '111 Bourke St';
 		contactReq.addressCity = 'Melbourne';
 		contactReq.addressState = 'VIC';
@@ -211,7 +211,7 @@ private class UnifiedCustomerCreationControllerTest {
 		contactReq.addressDPID = '12345';
 		contactReq.addressLongitude = 10.23;
 		contactReq.addressLatitude = 20.34;
-		contactReq.accountId = testOrg.Id;
+		contactReq.organisationAccountId = testOrg.Id;
 		contactReq.customerType = UnifiedCustomerCreationController.CUSTOMER_TYPE_ORGANISATION;
 		// =====================================
 		// Stubbing
@@ -250,7 +250,7 @@ private class UnifiedCustomerCreationControllerTest {
 		contactReq.lastName = 'Test';
 		contactReq.preferredName = 'Sam';
 		contactReq.emailAddress = 'seth@test.com';
-		contactReq.mobileNumber = '0400123456';
+		contactReq.phoneNumber = '0400123456';
 		contactReq.addressStreet = '111 Bourke St';
 		contactReq.addressCity = 'Melbourne';
 		contactReq.addressState = 'VIC';
@@ -258,7 +258,7 @@ private class UnifiedCustomerCreationControllerTest {
 		contactReq.addressDPID = '12345';
 		contactReq.addressLongitude = 10.23;
 		contactReq.addressLatitude = 20.34;
-		contactReq.accountName = 'Seth New Org';
+		contactReq.organisationName = 'Seth New Org';
 		contactReq.customerType = UnifiedCustomerCreationController.CUSTOMER_TYPE_ORGANISATION;
 		// =====================================
 		// Stubbing
@@ -310,7 +310,7 @@ private class UnifiedCustomerCreationControllerTest {
 		consumerReq.lastName = 'Test';
 		consumerReq.preferredName = 'Sam';
 		consumerReq.emailAddress = 'seth@test.com';
-		consumerReq.mobileNumber = '0400123456';
+		consumerReq.phoneNumber = '0400123456';
 		consumerReq.addressStreet = '111 Bourke St';
 		consumerReq.addressCity = 'Melbourne';
 		consumerReq.addressState = 'VIC';
@@ -374,7 +374,7 @@ private class UnifiedCustomerCreationControllerTest {
 		consumerReq.lastName = 'Test';
 		consumerReq.preferredName = 'Sam';
 		consumerReq.emailAddress = 'seth@test.com';
-		consumerReq.mobileNumber = '0400123456';
+		consumerReq.phoneNumber = '0400123456';
 		consumerReq.addressStreet = '111 Bourke St';
 		consumerReq.addressCity = 'Melbourne';
 		consumerReq.addressState = 'VIC';
@@ -420,7 +420,7 @@ private class UnifiedCustomerCreationControllerTest {
 		contactReq.lastName = 'Test';
 		contactReq.preferredName = 'Sam';
 		contactReq.emailAddress = 'seth@dup.com';
-		contactReq.mobileNumber = '0400123456';
+		contactReq.phoneNumber = '0400123456';
 		contactReq.addressStreet = '111 Bourke St';
 		contactReq.addressCity = 'Melbourne';
 		contactReq.addressState = 'VIC';
@@ -470,7 +470,7 @@ private class UnifiedCustomerCreationControllerTest {
 		contactReq.lastName = 'Test';
 		contactReq.preferredName = 'Sam';
 		contactReq.emailAddress = 'seth@dup.com';
-		contactReq.mobileNumber = '0400123456';
+		contactReq.phoneNumber = '0400123456';
 		contactReq.addressStreet = '111 Bourke St';
 		contactReq.addressCity = 'Melbourne';
 		contactReq.addressState = 'VIC';
@@ -478,7 +478,7 @@ private class UnifiedCustomerCreationControllerTest {
 		contactReq.addressDPID = '12345';
 		contactReq.addressLongitude = 10.23;
 		contactReq.addressLatitude = 20.34;
-		contactReq.accountName = 'Seth Test Org';
+		contactReq.organisationName = 'Seth Test Org';
 		contactReq.customerType = UnifiedCustomerCreationController.CUSTOMER_TYPE_ORGANISATION;
 
 		Account newOrganisation = ApplicationTestDataFactory.getAccounts(1, true)[0];

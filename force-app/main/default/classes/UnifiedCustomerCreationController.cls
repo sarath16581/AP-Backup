@@ -21,6 +21,7 @@ public with sharing class UnifiedCustomerCreationController {
 	private static final String DUPLICATE_CONTACT_MESSAGE = 'A contact with these details already exists. Use existing contact record.';
 	@TestVisible
 	private static final String GENERIC_ERROR_MESSAGE = 'An unexpected error occurred. Please check the data you\'ve entered and try again. If this error persists, please inform your manager.';
+	private static final String MOBILE_PREFIX = '04';
 
 	@TestVisible
 	private static final Id CONSUMER_RECORD_TYPE_ID {
@@ -157,7 +158,7 @@ public with sharing class UnifiedCustomerCreationController {
 			newCustomer = buildContactDataForInsert(request);
 
 			// require new organisation creation
-			if(!String.isBlank(request.accountName) && String.isBlank(request.accountId)){
+			if(!String.isBlank(request.organisationName) && String.isBlank(request.organisationAccountId)){
 				Account newOrganisation = buildOrganisationDataForInsert(request);
 				Id organisationId = insertCustomer(newOrganisation);
 				// link new organisation id to contact, on successful insert
@@ -180,7 +181,11 @@ public with sharing class UnifiedCustomerCreationController {
 		newAccount.LastName = request.lastName;
 		newAccount.Preferred_Name__pc = request.preferredName;
 		newAccount.PersonEmail = request.emailAddress;
-		newAccount.PersonMobilePhone = request.mobileNumber;
+		if (request.phoneNumber.startsWith(MOBILE_PREFIX)){
+			newAccount.PersonMobilePhone = request.phoneNumber;
+		} else {
+			newAccount.Phone = request.phoneNumber;
+		}
 		newAccount.PersonMailingStreet = request.addressStreet;
 		newAccount.PersonMailingCity = request.addressCity;
 		newAccount.PersonMailingState = request.addressState;
@@ -204,7 +209,11 @@ public with sharing class UnifiedCustomerCreationController {
 		newContact.LastName = request.lastName;
 		newContact.Preferred_Name__c = request.preferredName;
 		newContact.Email = request.emailAddress;
-		newContact.MobilePhone = request.mobileNumber;
+		if (request.phoneNumber.startsWith(MOBILE_PREFIX)){
+			newContact.MobilePhone = request.phoneNumber;
+		} else {
+			newContact.Phone = request.phoneNumber;
+		}
 		newContact.MailingStreet = request.addressStreet;
 		newContact.MailingCity = request.addressCity;
 		newContact.MailingState = request.addressState;
@@ -212,7 +221,7 @@ public with sharing class UnifiedCustomerCreationController {
 		newContact.MailingDPID__c = request.addressDPID;
 		newContact.MailingLongitude = request.addressLongitude;
 		newContact.MailingLatitude = request.addressLatitude;
-		newContact.AccountId = request.accountId;
+		newContact.AccountId = request.organisationAccountId;
 		return newContact;
 	}
 
@@ -225,12 +234,12 @@ public with sharing class UnifiedCustomerCreationController {
 	private static Account buildOrganisationDataForInsert(CustomerCreationRequest request) {
 		Account newAccount = new Account();
 		newAccount.RecordTypeId = ORGANISATION_RECORD_TYPE_ID;
-		newAccount.Name = request.accountName;
+		newAccount.Name = request.organisationName;
 		newAccount.ShippingStreet = request.addressStreet;
 		newAccount.ShippingCity = request.addressCity;
 		newAccount.ShippingState = request.addressState;
 		newAccount.ShippingPostalCode = request.addressPostalCode;
-		newAccount.Billing_DPID__c = request.addressDPID;
+		newAccount.Shipping_DPID__c = request.addressDPID;
 		newAccount.ShippingLongitude = request.addressLongitude;
 		newAccount.ShippingLatitude = request.addressLatitude;
 		return newAccount;
@@ -253,7 +262,7 @@ public with sharing class UnifiedCustomerCreationController {
 		public String emailAddress { get; set; }
 
 		@AuraEnabled
-		public String mobileNumber { get; set; }
+		public String phoneNumber { get; set; }
 
 		@AuraEnabled
 		public String customerType { get; set; }
@@ -280,9 +289,9 @@ public with sharing class UnifiedCustomerCreationController {
 		public String addressDPID { get; set; }
 
 		@AuraEnabled
-		public Id accountId { get; set; }
+		public Id organisationAccountId { get; set; }
 
 		@AuraEnabled
-		public String accountName { get; set; }
+		public String organisationName { get; set; }
 	}
 }

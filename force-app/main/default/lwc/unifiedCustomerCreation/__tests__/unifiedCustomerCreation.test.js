@@ -442,7 +442,7 @@ describe('c-unified-customer-creation', () => {
 		expect(errorDiv.textContent).toBe(INVALID_FORM_ERROR);
 	});
 
-	it('displays required fields error when submitted without entering at least one of mobile or email', async () => {
+	it('displays required fields error when submitted without entering at least one of phone or email', async () => {
 		// Arrange
 		const element = createElement('c-unified-customer-creation', {
 			is: UnifiedCustomerCreation
@@ -697,7 +697,7 @@ describe('c-unified-customer-creation', () => {
 		expect(request.firstName).toBe('Seth');
 		expect(request.lastName).toBe('Bearer');
 		expect(request.preferredName).toBe('The Bear');
-		expect(request.mobileNumber).toBe('0400123456');
+		expect(request.phoneNumber).toBe('0400123456');
 		expect(request.emailAddress).toBe('codybear@test.com');
 		expect(request.customerType).toBe(CUSTOMER_TYPE_CONSUMER);
 		expect(request.addressStreet).toBe('111 Bourke St, 9th Floor');
@@ -707,8 +707,8 @@ describe('c-unified-customer-creation', () => {
 		expect(request.addressDPID).toBe('12345');
 		expect(request.addressLatitude).toBe('-140.233');
 		expect(request.addressLongitude).toBe('37.232');
-		expect(request.accountId).toBe('');
-		expect(request.accountName).toBe('');
+		expect(request.organisationAccountId).toBe('');
+		expect(request.organisationName).toBe('');
 
 		expect(customerCreatedEvent).toHaveBeenCalledWith(
 			expect.objectContaining({
@@ -781,7 +781,7 @@ describe('c-unified-customer-creation', () => {
 		expect(request.firstName).toBe('Seth');
 		expect(request.lastName).toBe('Bearer');
 		expect(request.preferredName).toBe('The Bear');
-		expect(request.mobileNumber).toBe('0400123456');
+		expect(request.phoneNumber).toBe('0400123456');
 		expect(request.emailAddress).toBe('codybear@test.com');
 		expect(request.customerType).toBe(CUSTOMER_TYPE_ORGANISATION);
 		expect(request.addressStreet).toBe('111 Bourke St, 9th Floor');
@@ -791,8 +791,8 @@ describe('c-unified-customer-creation', () => {
 		expect(request.addressDPID).toBe('12345');
 		expect(request.addressLatitude).toBe('-140.233');
 		expect(request.addressLongitude).toBe('37.232');
-		expect(request.accountId).toBe('001000000000000001');
-		expect(request.accountName).toBe('');
+		expect(request.organisationAccountId).toBe('001000000000000001');
+		expect(request.organisationName).toBe('');
 
 		expect(customerCreatedEvent).toHaveBeenCalledWith(
 			expect.objectContaining({

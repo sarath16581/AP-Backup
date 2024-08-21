@@ -439,17 +439,17 @@ export default class UnifiedCustomerCreation extends LightningElement {
 					lastName: this.lastName,
 					preferredName: this.preferredName,
 					emailAddress: this.emailAddress,
-					mobileNumber: this.phoneNumber,
+					phoneNumber: this.phoneNumber,
 					customerType: this.customerType,
-					addressStreet: this.addressObj?.address,
+					addressStreet: this.addressObj?.addressLine1 + ', ' + this.addressObj?.addressLine2,
 					addressCity: this.addressObj?.city,
 					addressState: this.addressObj?.state,
 					addressPostalCode: this.addressObj?.postcode,
 					addressDPID: this.addressObj?.dpid,
 					addressLatitude: this.addressObj?.latitude,
 					addressLongitude: this.addressObj?.longitude,
-					accountId: this.organisationAccountId, // link existing org
-					accountName: this.newOrganisationName // create new org
+					organisationAccountId: this.organisationAccountId, // link existing org
+					organisationName: this.newOrganisationName // create new org
 				}
 			});
 			// Dispatch the ShowToastEvent
