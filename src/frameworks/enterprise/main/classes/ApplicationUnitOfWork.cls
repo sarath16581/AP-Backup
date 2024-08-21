@@ -185,7 +185,21 @@ global virtual inherited sharing class ApplicationUnitOfWork extends Application
 	}
 
 	protected override void onDMLFinished() {
+		registerEmailAsyncWork();	
 		doAsyncWork();
+	}
+
+	/**
+	 * Register asyncworker for email notifications (if there are any)
+	 */
+	private void registerEmailAsyncWork() {
+		// retrieve all pending email notifications from the ApplicationEmailService registry (and clear the registry at the some time)
+		List<ApplicationFlowEmailType> flowEmailNotifications = ApplicationEmailService.getInstance().removeAllPendingEmailNotifications();
+		
+		// if there are any pending email notifications, register a worker to send the email notifications asynchronously
+		if (!flowEmailNotifications.isEmpty()) {
+			registerAsyncWork(new AsyncStagingWorker(FlowEmailAsyncWorker.class, flowEmailNotifications));
+		}
 	}
 
 	/**
@@ -333,6 +347,17 @@ global virtual inherited sharing class ApplicationUnitOfWork extends Application
 				ApplicationUnitOfWorkAsyncEventHandler.handleExecution(workersToProcessInCurrentContext);
 			}
 		}
+	}
+
+	/**
+	 * Adds the email to registry. The email notification is only dispatched when commitWork is invoked.
+	 *
+	 * @param srcRecordId id of the record related to the email notification.
+	 * @param srcObjectType object type of the record.
+	 * @param emailAlertName API name of the pre-configured workflow email alert that will be invoked
+	 */
+	public void queueEmailNotification(Id srcRecordId, sObjectType srcObjectType, String emailAlertName) {
+		ApplicationEmailService.getInstance().queueEmailNotification(srcRecordId, srcObjectType, emailAlertName);
 	}
 
 	/**
@@ -568,6 +593,49 @@ global virtual inherited sharing class ApplicationUnitOfWork extends Application
 			this.params = params;
 		}
 
+	}
+
+	/**
+	 * AsyncWorker for sending out email notifications registered to the ApplicationEmailService through the unit of work
+	 * 
+	 */
+	public class FlowEmailAsyncWorker extends AsyncWorker {
+
+		private List<ApplicationFlowEmailType> params = new List<ApplicationFlowEmailType>();
+
+		public override void execute(ApplicationUnitOfWork uow) {
+
+			if (this.params != null && !this.params.isEmpty()) {
+				// get an instance of ApplicationEmailService
+				ApplicationEmailService emailService = ApplicationEmailService.getInstance();
+
+				// go through ApplicationFlowEmailTypes stored as parameters and queue them
+				// on the service
+				for (ApplicationFlowEmailType flowEmailType : this.params) {
+					emailService.queueEmailNotification(flowEmailType);
+				}
+
+				// use service to dispatch the email notifications
+				emailService.dispatchAllPendingEmailNotifications();
+			}
+		}
+		
+		public override void deserialiseParams(String serialisedParams) {
+			if (!String.isEmpty(serialisedParams)) {
+				try {
+					this.params = (List<ApplicationFlowEmailType>) JSON.deserialize(serialisedParams, List<ApplicationFlowEmailType>.class);
+				} catch (Exception e) {
+					ApplicationLogger.getInstance().logException(ApplicationLogger.wrapException(e), 'Application', FlowEmailAsyncWorker.class.getName(),
+							'deserialiseParams', 'Emails', ApplicationLogger.LoggingLevel.ERROR);
+				}
+
+			}
+		}
+
+		public override Type getClassType() {
+			return FlowEmailAsyncWorker.class;
+		}
+		
 	}
 
 
