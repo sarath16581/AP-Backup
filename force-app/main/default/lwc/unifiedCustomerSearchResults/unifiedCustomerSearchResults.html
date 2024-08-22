@@ -15,6 +15,14 @@
 		title-text="No results found"
 		body-text="Search results not relevant?"
 	>
+		<div class="slds-var-m-vertical_medium create-contact-button slds-text-align_center">
+			<lightning-button
+					label="Create Contact"
+					variant="neutral"
+					icon-name="utility:contact"
+					onclick={handleCreateContact}
+			></lightning-button>
+		</div>
 	</c-empty-state>
 
 	<!-- Data Returned, With Results -->
@@ -44,7 +52,7 @@
 		</div>
 	</template>
 
-	<template if:true={showContactCreationButton}>
+	<template if:false={noResults}>
 		<div class="slds-var-m-vertical_medium create-contact-button slds-text-align_center">
 			<lightning-button
 					label="Create Contact"

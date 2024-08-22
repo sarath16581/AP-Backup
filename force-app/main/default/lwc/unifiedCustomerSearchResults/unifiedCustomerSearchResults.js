@@ -138,8 +138,4 @@ export default class UnifiedCustomerSearchResults extends NavigationMixin(
 	handleCreateContact(){
 		this.dispatchEvent(new CustomEvent('createcontact'));
 	}
-
-	get showContactCreationButton() {
-		return !!this.searchResponse;
-	}
 }
