@@ -4,7 +4,7 @@
         <apexClass>AMEAddressValidationController1</apexClass>
         <enabled>true</enabled>
     </classAccesses>
-	<classAccesses>
+    <classAccesses>
         <apexClass>UnifiedCustomerCreationController</apexClass>
         <enabled>true</enabled>
     </classAccesses>
