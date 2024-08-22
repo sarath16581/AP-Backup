@@ -441,7 +441,7 @@ export default class UnifiedCustomerCreation extends LightningElement {
 					emailAddress: this.emailAddress,
 					phoneNumber: this.phoneNumber,
 					customerType: this.customerType,
-					addressStreet: this.addressObj?.addressLine1 + ', ' + this.addressObj?.addressLine2,
+					addressStreet: [this.addressObj?.addressLine1, this.addressObj?.addressLine2].filter(Boolean).join(', '),
 					addressCity: this.addressObj?.city,
 					addressState: this.addressObj?.state,
 					addressPostalCode: this.addressObj?.postcode,
