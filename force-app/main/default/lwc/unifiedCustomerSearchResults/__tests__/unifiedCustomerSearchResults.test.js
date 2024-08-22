@@ -54,7 +54,7 @@ describe('c-unified-customer-search-results', () => {
 		expect(emptyStateEl.titleText).toBe('No results found');
 		expect(emptyStateEl.bodyText).toBe('Search results not relevant?');
 
-		const createContactBtn = emptyStateEl.querySelector('lightning-button');
+		const createContactBtn = element.shadowRoot.querySelector('lightning-button');
 		expect(createContactBtn).not.toBe(null);
 		expect(createContactBtn.label).toBe('Create Contact');
 		expect(createContactBtn.variant).toBe('neutral');
