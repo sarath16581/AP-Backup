@@ -363,6 +363,10 @@ export default class UnifiedCustomerCreation extends LightningElement {
 		return this.addressOverride === false;
 	}
 
+	get ameAddressVariant(){
+		return !!this.addressOverride ? 'standard' : 'show-detail-onsearch';
+	}
+
 	/**
 	 * Identifies and iterates over each input element, and checks that
 	 * all inputs are valid. Use this before submitting the form.
