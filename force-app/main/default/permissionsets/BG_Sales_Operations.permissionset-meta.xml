@@ -180,62 +180,62 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>true</editable>
+        <editable>false</editable>
         <field>GroupedRevenueSchedule__c.For10__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>true</editable>
+        <editable>false</editable>
         <field>GroupedRevenueSchedule__c.For11__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>true</editable>
+        <editable>false</editable>
         <field>GroupedRevenueSchedule__c.For12__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>true</editable>
+        <editable>false</editable>
         <field>GroupedRevenueSchedule__c.For1__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>true</editable>
+        <editable>false</editable>
         <field>GroupedRevenueSchedule__c.For2__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>true</editable>
+        <editable>false</editable>
         <field>GroupedRevenueSchedule__c.For3__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>true</editable>
+        <editable>false</editable>
         <field>GroupedRevenueSchedule__c.For4__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>true</editable>
+        <editable>false</editable>
         <field>GroupedRevenueSchedule__c.For5__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>true</editable>
+        <editable>false</editable>
         <field>GroupedRevenueSchedule__c.For6__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>true</editable>
+        <editable>false</editable>
         <field>GroupedRevenueSchedule__c.For7__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>true</editable>
+        <editable>false</editable>
         <field>GroupedRevenueSchedule__c.For9__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>true</editable>
+        <editable>false</editable>
         <field>GroupedRevenueSchedule__c.GroupedAccountProductRevenue__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -300,12 +300,12 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>true</editable>
+        <editable>false</editable>
         <field>GroupedRevenueSchedule__c.IncrementalNRT__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>true</editable>
+        <editable>false</editable>
         <field>GroupedRevenueSchedule__c.NRTBaseline__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -370,12 +370,12 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>true</editable>
+        <editable>false</editable>
         <field>GroupedRevenueSchedule__c.OpportunityProduct__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>true</editable>
+        <editable>false</editable>
         <field>GroupedRevenueSchedule__c.Opportunity__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -475,7 +475,7 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>true</editable>
+        <editable>false</editable>
         <field>GroupedRevenueSchedule__c.for8__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -1208,7 +1208,7 @@
         <allowDelete>true</allowDelete>
         <allowEdit>true</allowEdit>
         <allowRead>true</allowRead>
-        <modifyAllRecords>true</modifyAllRecords>
+        <modifyAllRecords>false</modifyAllRecords>
         <object>GroupedRevenueSchedule__c</object>
         <viewAllRecords>true</viewAllRecords>
     </objectPermissions>

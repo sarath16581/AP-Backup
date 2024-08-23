@@ -109,6 +109,10 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>OpportunityAutomationTriggerHandler</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>OpportunityCloseErrorsController</apexClass>
         <enabled>true</enabled>
     </classAccesses>
@@ -126,6 +130,10 @@
     </classAccesses>
     <classAccesses>
         <apexClass>OpportunityRevenueReportController</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>OpportunityRevenueScheduleModule</apexClass>
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>

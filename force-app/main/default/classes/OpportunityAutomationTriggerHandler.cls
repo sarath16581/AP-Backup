@@ -4,7 +4,9 @@
  * @date 2023-06-21
  * @changelog
  * 2023-08-22 - Ranjeewa Silva - Register new modules OpportunitySalesPipelineModule and OpportunityContributionSplitsModule
+ * 2024-01-15 - Ken Mcguire - Register module for generating grouped revenue schedules.
  * 2024-05-24 - Ranjeewa Silva - Register module for creating tasks to sales manager and account manager on opportunity assignment.
+ * 
  */
 public inherited sharing class OpportunityAutomationTriggerHandler extends ApplicationTriggerHandler {
     public override SObjectType getSObjectType() {
@@ -22,6 +24,8 @@ public inherited sharing class OpportunityAutomationTriggerHandler extends Appli
         registerModule(OpportunityContributionSplitsModule.class);
         // automation specific to sales pipeline based on stage
         registerModule(OpportunitySalesPipelineModule.class);
+        // create Grouped Revenue Schedules
+		registerModule(OpportunityRevenueScheduleModule.class);
         // create tasks related to opportunity and assign to opportunity owner
         registerModule(OpportunityOwnerTasksModule.class);
     }
@@ -29,12 +33,17 @@ public inherited sharing class OpportunityAutomationTriggerHandler extends Appli
     /**
      * This defines a list of objects that may be 'touched' during module execution. 
      * It also defines the order in which the work will be committed
+     * The GroupedAccountProductRevenue data object must preceed
+	 * the GroupedRevenueSchedule data object because the latter has a lookup to the former. 
      */
     public static List<SObjectType> getUnitOfWorkSObjectTypes() {
         return new List<SObjectType>{
                 Opportunity.SObjectType,
                 Account.SObjectType,
                 OpportunitySplit.SObjectType,
+                GroupedAccountProductRevenue__c.SObjectType,
+				GroupedRevenueSchedule__c.SObjectType,
+				OpportunityLineItem.SObjectType,
                 Task.SObjectType
         };
     }   
