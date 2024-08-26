@@ -13,15 +13,17 @@ public abstract with sharing class ABNChangeDSRGenerator {
 	private final Id organisationId;
 	private final Id atRiskBusinessId;
 	private final String productType;
+	private final String reason;
 
-	public ABNChangeDSRGenerator(Id organisationId, Id atRiskBusinessId) {
-		this(organisationId, atRiskBusinessId, null);
+	public ABNChangeDSRGenerator(Id organisationId, Id atRiskBusinessId, String reason) {
+		this(organisationId, atRiskBusinessId, reason, null);
 	}
 
-	public ABNChangeDSRGenerator(Id organisationId, Id atRiskBusinessId, String productType) {
+	public ABNChangeDSRGenerator(Id organisationId, Id atRiskBusinessId, String reason, String productType) {
 		this.organisationId = organisationId;
 		this.atRiskBusinessId = atRiskBusinessId;
 		this.productType = productType;
+		this.reason = reason;
 	}
 
 	/**
@@ -69,8 +71,8 @@ public abstract with sharing class ABNChangeDSRGenerator {
 		private final String isStandardPricing;
 		private final List<String> pricingDSRNames;
 
-		public ProposalContractDSR(Boolean isProposal, Id organisationId, String opportunityId, String productType, Id keyContactId, Id atRiskBusinessId, String isStandardPricing, List<String> pricingDSRNames) {
-			super(organisationId, atRiskBusinessId, productType);
+		public ProposalContractDSR(Boolean isProposal, Id organisationId, String opportunityId, String reason, String productType, Id keyContactId, Id atRiskBusinessId, String isStandardPricing, List<String> pricingDSRNames) {
+			super(organisationId, atRiskBusinessId, reason, productType);
 
 			this.isProposal = isProposal;
 			this.keyContactId = keyContactId;
@@ -111,7 +113,7 @@ public abstract with sharing class ABNChangeDSRGenerator {
 		* @return record type Id
 		*/
 		public override String getDescription() {
-			String text = 'Customer has changed ABN.\nReason: ABN Change - Same Owners.\nWill standard Apttus pricing be utilized: ' + this.isStandardPricing;
+			String text = 'Customer has changed ABN.\nReason: '+ this.reason + '\nWill standard Apttus pricing be utilized: ' + this.isStandardPricing;
 			if (this.isStandardPricing == 'No') {
 				text = text + '\nPricing Request DSR: ' + String.join(this.pricingDSRNames, ', ');
 			}
@@ -124,8 +126,8 @@ public abstract with sharing class ABNChangeDSRGenerator {
 	 */
 	public class TerminateDSR extends ABNChangeDSRGenerator {
 		private final String organisationABN;
-		public TerminateDSR(Id organisationId, String productType, Id atRiskBusinessId, String organisationABN) {
-			super(organisationId, atRiskBusinessId, productType);
+		public TerminateDSR(Id organisationId, String reason, String productType, Id atRiskBusinessId, String organisationABN) {
+			super(organisationId, atRiskBusinessId, reason, productType);
 			this.organisationABN = organisationABN;
 		}
 
@@ -160,7 +162,7 @@ public abstract with sharing class ABNChangeDSRGenerator {
 		* @return record type Id
 		*/
 		public override String getDescription() {
-			return 'Customer has changed ABN.\nReason: ABN Change - Same Owners.\nCancel all contracts associated to this ABN: ' + this.organisationABN;
+			return 'Customer has changed ABN.\nReason: ' + this.reason + '\nCancel all contracts associated to this ABN: ' + this.organisationABN;
 		}
 	}
 
@@ -171,8 +173,8 @@ public abstract with sharing class ABNChangeDSRGenerator {
 		private final Id relatedOpportunityId;
 		private final String organisationABN;
 
-		public TerminateSTBAs(Id organisationId, Id atRiskBusinessId, Id opportunityId, String organisationABN) {
-			super(organisationId, atRiskBusinessId, 'ST');
+		public TerminateSTBAs(Id organisationId, Id atRiskBusinessId, Id opportunityId, String organisationABN, String reason) {
+			super(organisationId, atRiskBusinessId, reason, 'ST');
 			this.relatedOpportunityId = opportunityId;
 			this.organisationABN = organisationABN;
 		}
@@ -209,7 +211,7 @@ public abstract with sharing class ABNChangeDSRGenerator {
 		* @return record type Id
 		*/
 		public override String getDescription() {
-			return 'Customer has changed ABN.\nReason: ABN Change - Same Owners.\nClose all ST Billing Accounts associated to this ABN: ' + this.organisationABN;
+			return 'Customer has changed ABN.\nReason: ' + this.reason + '\nClose all ST Billing Accounts associated to this ABN: ' + this.organisationABN;
 		}
 	}
 
@@ -223,8 +225,8 @@ public abstract with sharing class ABNChangeDSRGenerator {
 		private final Set<String> creditOfficerEmails = new Set<String>();
 		private Integer countOfParent = 0;
 
-		public CloseAllBAs(Id organisationId, Id atRiskBusinessId, List<Billing_Account__c> billingAccounts, Date estimatedClosureDate) {
-			super(organisationId, atRiskBusinessId);
+		public CloseAllBAs(Id organisationId, Id atRiskBusinessId, String reason, List<Billing_Account__c> billingAccounts, Date estimatedClosureDate) {
+			super(organisationId, atRiskBusinessId, reason);
 			this.billingAccounts = billingAccounts;
 			this.estimatedClosureDate = estimatedClosureDate;
 		}
@@ -291,7 +293,7 @@ public abstract with sharing class ABNChangeDSRGenerator {
 		*/
 		public override String getDescription() {
 			//list all billing account numbers if less than 6, otherwise give count of parent and sub-account  types billing accounts
-			String text =  'Customer has changed ABN.\nReason: ABN Change - Same Owners.';
+			String text =  'Customer has changed ABN.\nReason: ' + this.reason;
 			if (this.billingAccounts.size() <= 5) {
 				text += '\nBilling Account Number(s): ' + String.join(this.billingAccountNumbers, ', ');
 			} else {
