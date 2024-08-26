@@ -5,6 +5,7 @@
  *				This controller manages the creation of consumer including a PersonAccount, Organisation or Contact including appropriate error handling back to LWC.
  * @changelog
  * 2024-08-15 - Seth Heang - created
+ * 2024-08-26 - Seth Heang - added without-sharing inner class to link Organisation to Contact due to technical challenge related to criteria-based sharing rule order of execution
  */
 public with sharing class UnifiedCustomerCreationController {
 	// Customer type segments
@@ -101,6 +102,12 @@ public with sharing class UnifiedCustomerCreationController {
 					.selectById(new Set<Id>{ sr.getId() }).values()[0].PersonContactId;
 		} else {
 			customerId = sr.getId();
+			if ((newCustomer instanceof Contact) && !String.isBlank(((Contact)newCustomer).AccountId)) {
+				// Note: link new organisation id to contact, in without sharing mode because the criteria-based sharing rule for Account is calculated only after the end of current transaction.
+				// And asynchronous operation is not desirable, due to impact to front-end user experience and also technical difficulty posed for rollback capability
+				WithoutSharingDataAccessHelper innerClassWithoutSharing = new WithoutSharingDataAccessHelper();
+				innerClassWithoutSharing.linkOrganisationToContact(customerId, ((Contact)newCustomer).AccountId);
+			}
 		}
 		return customerId;
 	}
@@ -293,5 +300,26 @@ public with sharing class UnifiedCustomerCreationController {
 
 		@AuraEnabled
 		public String organisationName { get; set; }
+	}
+
+
+	/**
+	 * Private inner class that elevates access privileges of the current user to link Organisation to Contact without being limited by
+	 * sharing settings. This is implemented due to a niche-case limitation where criteria-based sharing rule is calculated only after the end of current transaction.
+	 * And making asynchronous operation would impact the user experience on the front-end LWC and posed difficulty for rollback functionality
+	 *
+	 * IMPORTANT: Not intended for general use. Only for handling special scenarios as described above.
+	*/
+	private without sharing class WithoutSharingDataAccessHelper {
+		private void linkOrganisationToContact(Id contactId, Id organisationId){
+			Contact updatableContact = new Contact(Id = contactId, AccountId = organisationId);
+			try{
+				ApplicationDatabase.getInstance().dmlUpdate(new List<Contact> { updatableContact });
+			}catch(Exception ex){
+				AuraHandledException ae = new AuraHandledException(ex.getMessage());
+				ae.setMessage(ex.getMessage());
+				throw ae;
+			}
+		}
 	}
 }

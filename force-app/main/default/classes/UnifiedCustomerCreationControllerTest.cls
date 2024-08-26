@@ -266,6 +266,7 @@ private class UnifiedCustomerCreationControllerTest {
 		ApplicationDatabase mockDatabase = MockUtility.mockDatabase();
 		MockUtility.Mocks.startStubbing();
 		MockUtility.Mocks.when(mockDatabase.dmlInsert((List<SObject>) fflib_Match.anyObject(), (Boolean) fflib_Match.anyBoolean())).thenAnswer(new MockUtility.AnswerGenericDMLInserted());
+		MockUtility.Mocks.when(mockDatabase.dmlUpdate((List<SObject>) fflib_Match.anyObject())).thenAnswer(new MockUtility.AnswerGenericDMLUpdated());
 		MockUtility.Mocks.stopStubbing();
 		// =====================================
 		// Testing
@@ -294,6 +295,12 @@ private class UnifiedCustomerCreationControllerTest {
 		Assert.isNotNull(newContact?.Id, 'Contact Id should not be null but instead got null');
 		Assert.areEqual(customerId, newContact?.Id, 'Contact Id should match but instead got: ' + newContact?.Id);
 		Assert.areEqual(newAccount?.Id, newContact?.AccountId, 'AccountId should match but instead got: ' + newContact?.AccountId);
+
+		fflib_ArgumentCaptor updatableContactCaptor = fflib_ArgumentCaptor.forClass(List<Contact>.class);
+		((ApplicationDatabase) MockUtility.Mocks.verify(mockDatabase, MockUtility.Mocks.times(1))).dmlUpdate((List<Contact>) updatableContactCaptor.capture());
+		List<Contact> updatableContacts = (List<Contact>) updatableContactCaptor.getValue();
+		Assert.isNotNull(updatableContacts[0].AccountId, 'AccountId should be populated but instead was null');
+		Assert.areEqual(newAccount.Id, updatableContacts[0].AccountId, 'Organisation Id should match but instead got: ' + updatableContacts[0].AccountId);
 	}
 
 	/**
