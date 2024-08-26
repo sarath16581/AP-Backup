@@ -5,6 +5,48 @@
 */
 @IsTest
 class CaseRecordPopulationModule_Test {
+
+	@IsTest
+	static void triggerMethods() {
+		Contact con = TestDataProvider.createTestContact();
+        insert con;
+        
+	    Case case1 = new Case();
+        case1.RecordTypeId = [select Id from RecordType where SObjectType = 'Case' and DeveloperName = 'SSSWGeneralEnquiry' limit 1].Id;
+        case1.Type = 'Feedback';
+        case1.Subject = 'Newsdd';
+        case1.Status = 'New';
+        case1.ProductCategory__c = 'Travel & ID';
+        case1.EnquirySubType__c = 'Product Support';
+        case1.ProductSubCategory__c = 'KeyPass';
+        case1.ContactId = con.Id;
+        case1.ReferenceID__c = '123';
+        case1.ChatKey__c = '8f441452-eb7d-4142-8ae6-5b3f4a44f7d0';
+        insert case1;
+        
+        LiveChatVisitor lcv = new LiveChatVisitor();
+        insert lcv;
+        
+        LiveChatTranscript testScript = new LiveChatTranscript();
+        testScript.ChatKey =  '8f441452-eb7d-4142-8ae6-5b3f4a44f7d0';
+        testScript.Body = 'test';
+        testScript.LiveChatVisitorid = lcv.id;
+        insert testScript;
+
+	    LiveChatTranscript testScript1 = [select CaseId from LiveChatTranscript where Id = :testScript.Id];
+        system.assert(case1.Id == testScript1.CaseId);
+
+		ContactRequest cr = new ContactRequest(
+			WhoId = con.Id,
+			WhatId = case1.id,
+			RequestDescription = 'test call'
+		);
+
+		insert cr;
+
+		cr = [SELECT Case__c FROM ContactRequest WHERE Id =: cr.Id LIMIT 1];
+		System.assertEquals(case1.Id, cr.Case__c, 'Case look up Id should match');
+	}
     
 	@IsTest
 	static void mappedFields() {

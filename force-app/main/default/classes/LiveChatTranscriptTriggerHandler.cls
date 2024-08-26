@@ -1,5 +1,6 @@
 /**************************************************
 Description:    Handles all the specific functionality when the LiveAgentTranscript trigger fires
+@Test LiveChatTranscriptTriggerTest
 History:
 --------------------------------------------------
 2018-10-28  nathan.franklin@auspost.com.au  Created

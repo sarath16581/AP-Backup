@@ -23,12 +23,15 @@ class ContactRequestTrigger_Test {
 		);
         insert case1;
 
-		insert new ContactRequest(
+		ContactRequest cr = new ContactRequest(
 			WhoId = con.Id,
 			WhatId = case1.id,
-			FromPhoneNumber = '23432423423',
-			RequestDescription = 'test call',
-			VendorCallKey = '8f441452-eb7d-4142-8ae6-5b3f4a44f7d0'
+			RequestDescription = 'test call'
 		);
+
+		insert cr;
+
+		cr = [SELECT Case__c FROM ContactRequest WHERE Id =: cr.Id LIMIT 1];
+		System.assertEquals(case1.Id, cr.Case__c, 'Case look up Id should match');
 	}
 }
