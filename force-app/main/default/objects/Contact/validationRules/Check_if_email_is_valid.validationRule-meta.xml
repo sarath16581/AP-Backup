@@ -2,7 +2,8 @@
 <ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Check_if_email_is_valid</fullName>
     <active>true</active>
-    <errorConditionFormula>AND(  CONTAINS($Profile.Name, &apos;SSSW&apos;),   NOT(ISBLANK(Email)),OR(NOT(REGEX ( UPPER ( Email) ,&quot;^[A-Z0-9._%+-/!#$%&amp;&apos;*=?^_`{|}~]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$&quot;)),LEFT(RIGHT( LEFT(Email, FIND(&quot;@&quot;, Email) ), 2),1) = &quot;.&quot;))</errorConditionFormula>
+    <description>Validation to ensure the email is in correct format.</description>
+    <errorConditionFormula>AND(  OR(CONTAINS($Profile.Name, &apos;SSSW&apos;),$Profile.Name = &apos;CustomerService&apos;),   NOT(ISBLANK(Email)),OR(NOT(REGEX ( UPPER ( Email) ,&quot;^[A-Z0-9._%+-/!#$%&amp;&apos;*=?^_`{|}~]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$&quot;)),LEFT(RIGHT( LEFT(Email, FIND(&quot;@&quot;, Email) ), 2),1) = &quot;.&quot;))</errorConditionFormula>
     <errorDisplayField>Email</errorDisplayField>
     <errorMessage>Invalid email</errorMessage>
 </ValidationRule>

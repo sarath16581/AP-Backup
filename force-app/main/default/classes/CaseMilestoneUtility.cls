@@ -22,6 +22,8 @@
   * 2024-05-07 - Boris Bachovski - Add logic to assign entitlement to bulk mail record type cases
   * 2024-08-12 - George Nguyen - Added Unified Entitlement process to cases with Unifield Investigation record types
   * 2024-08-16 - George Nguyen - Added futureUpdateUnifiedMilestones(...) to future update the StartDate of the milestones
+  * 2024-08-19 - George Nguyen - Removed IsViolated filter from cases when moved from General Enquiry to Investigation because the case creation date might have passed the milestone threshold
+  * 2024-08-21 - George Nguyen - Added Unified General Enquiry to the list of Unified Record Types. 
   */
 public with sharing class CaseMilestoneUtility{
 	   
@@ -62,7 +64,7 @@ public with sharing class CaseMilestoneUtility{
 				UNIFIED_ENTITLEMENT_ID = entitlements[0].Id;
 			}
 
-			unifiedRecordTypes = Utility.getRecordTypesAsSObjectByDevName(String.valueOf(Case.getsObjectType()),new Set<String>{SSSWConstants.UNIFIED_INVESTIGATION_DEVELOPER_NAME}).keySet();
+			unifiedRecordTypes = RecordTypesSelector.newInstance().selectByDeveloperNameLike(String.valueOf(Case.getsObjectType()), SSSWConstants.UNIFIED_APP).keySet();
 		}
 		catch(Exception exp){
 			// Error Logged to Exception object for analysis
@@ -135,6 +137,7 @@ public with sharing class CaseMilestoneUtility{
 			Case_Entitlements__mdt caseEntitlement = Case_Entitlements__mdt.getInstance('origins');
 			List<String> originList = new List<String>();
 			originList = caseEntitlement.Case_Origin__c.split(',');
+			
 
 			for(Case csRec : caseList){
 
@@ -142,7 +145,8 @@ public with sharing class CaseMilestoneUtility{
 				if(Utility.isValidRecordType(ssswRecTypes,csRec.RecordTypeId) && STD_ENTITLEMENT != null){  // verify if its SSSW recordtype
 					csRec.EntitlementId = STD_ENTITLEMENT;  // assign default entitlement to cases
 				}
-				else if(UNIFIED_ENTITLEMENT_ID != null && unifiedRecordTypes.contains(csRec.RecordTypeId) == true && csRec.Type == SSSWConstants.INVESTIGATION) {
+				else if(UNIFIED_ENTITLEMENT_ID != null && unifiedRecordTypes.contains(csRec.RecordTypeId) == true && csRec.Type == SSSWConstants.CASE_TYPE_INVESTIGATION) {
+					
 					csRec.EntitlementId = UNIFIED_ENTITLEMENT_ID; 
 				}
 				else if(Utility.isValidRecordType(bgsRecTypes, csRec.RecordTypeId) && (!originList.contains(csRec.Origin) || (originList.contains(csRec.Origin) && UserInfo.getUserId() != systemSupportUserId)))//only this condition modified for SMWD-312 - MW0004779
@@ -432,7 +436,7 @@ public with sharing class CaseMilestoneUtility{
 		try{
 			Datetime now = Datetime.now();
 			List<CaseMilestone> milestonesToUpdate = new List<CaseMilestone>();
-			Set<Object> filterOptions = new Set<Object>{CaseMilestonesSelector.Options.FILTER_NOT_VIOLATED, CaseMilestonesSelector.Options.FILTER_NOT_COMPLETED};
+			Set<Object> filterOptions = new Set<Object>{CaseMilestonesSelector.Options.FILTER_NOT_COMPLETED};
 
 			for(CaseMilestone cm: CaseMilestonesSelector.newInstance().selectByCase(caseIds, filterOptions).values()) {
 				cm.StartDate = now;
@@ -472,7 +476,7 @@ public with sharing class CaseMilestoneUtility{
 				Case oldCase = oldMap.get(csRec.Id);	// get old values of case
 
 				if(UNIFIED_ENTITLEMENT_ID != null && unifiedRecordTypes.contains(csRec.RecordTypeId) == true) {
-					if(oldCase.Type == SSSWConstants.GENERAL_ENQUIRY && csRec.Type == SSSWConstants.INVESTIGATION) {
+					if(oldCase.Type == SSSWConstants.CASE_TYPE_GENERAL_ENQUIRY && csRec.Type == SSSWConstants.CASE_TYPE_INVESTIGATION) {
 						csRec.EntitlementId = UNIFIED_ENTITLEMENT_ID;
 						caseIdToFutureUpdateMilestones.add(csRec.Id); // this is required because the milestones will be created upon setting the Case.EntitlementId. 
 					}

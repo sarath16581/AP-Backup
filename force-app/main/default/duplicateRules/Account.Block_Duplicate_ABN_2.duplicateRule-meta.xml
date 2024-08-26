@@ -9,7 +9,7 @@
         <duplicateRuleFilterItems>
             <field>Profile_Name_in_Text__c</field>
             <operation>contains</operation>
-            <value>Coverage Sales, Sales 3rd Party, PartnerInfo Read Only, Enterprise Onboarding, Retail Operations, StarTrack Support, SSSW - Service Agent, BG Base, SecurePay SuperUser, Hub Users, Credit Management, Product Sales, Marketing, PT1</value>
+            <value>Coverage Sales, Sales 3rd Party, PartnerInfo Read Only, Enterprise Onboarding, Retail Operations, StarTrack Support, SSSW - Service Agent, BG Base, SecurePay SuperUser, Hub Users, Credit Management, Product Sales, Marketing, PT1, CustomerService</value>
             <sortOrder>1</sortOrder>
             <table>User</table>
         </duplicateRuleFilterItems>

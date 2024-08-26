@@ -520,4 +520,8 @@ export default class UnifiedCustomerSearchForm extends LightningElement {
 	get ameSupportAutoSearchOnLoad() {
 		return this.addressOverride === false;
 	}
+
+	get ameAddressVariant(){
+		return !!this.addressOverride ? 'standard' : 'show-detail-onsearch';
+	}
 }

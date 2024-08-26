@@ -11,6 +11,8 @@
  * 2023-06-05	Mahesh Parvathaneni - Added tests testTransportEnquiryApplyDefaultEntitlement
  * 2024-08-14	George Nguyen - Added tests for Unified milestone entitlements: testInitialisation, testInsertMilestones, testUpdateMilestones
  * 2024-08-16	George Nguyen - tests for future updates of Start Date on milestones
+ * 2024-08-19 - George Nguyen - Removed IsViolated filter from cases when moved from General Enquiry to Investigation because the case creation date might have passed the milestone threshold
+ * 2024-08-21 - George Nguyen - Added Unified General Enquiry to the list of Unified Record Types. 
  */
 @isTest
 private with sharing class CaseMilestoneUtility_Test {
@@ -123,6 +125,7 @@ private with sharing class CaseMilestoneUtility_Test {
 		ApplicationDatabase mockApplicationDatabase = MockUtility.mockDatabase();
 
 		Id unifiedInvestigationRecordTypeId = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName().get(SSSWConstants.UNIFIED_INVESTIGATION_DEVELOPER_NAME).getRecordTypeId();
+		Id unifiedGeneralEnquiryRecordTypeId = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName().get(SSSWConstants.UNIFIED_GENERAL_ENQUIRY_DEVELOPER_NAME).getRecordTypeId();
 
 		List<String> closedStatus = new List<String>(Utility.getCaseClosedStatus());
 		MilestoneType milestoneType = ApplicationTestDataFactory.getMilestoneTypes(1, true)[0];
@@ -131,12 +134,12 @@ private with sharing class CaseMilestoneUtility_Test {
 		List<Case> caseList = new List<Case>();
 		Case case1 = ApplicationTestDataFactoryCase.getCases(1, true)[0];
 		case1 = (Case)ApplicationTestDataFactory.setUnwritableFields(case1, new Map <String, Object>{ 'CreatedDate' => Datetime.now().addDays(-3)}); // simulating an older date
-		case1.RecordTypeId = unifiedInvestigationRecordTypeId;
-		case1.Type = SSSWConstants.INVESTIGATION;
+		case1.Type = SSSWConstants.CASE_TYPE_INVESTIGATION;
+		case1.RecordTypeId = unifiedGeneralEnquiryRecordTypeId;
 		caseList.add(case1);
 
 		Case oldCase1 = case1.clone(true, true, true, true);
-		oldCase1.Type = SSSWConstants.GENERAL_ENQUIRY;
+		oldCase1.Type = SSSWConstants.CASE_TYPE_GENERAL_ENQUIRY;
 		oldMap.put(oldCase1.Id, oldCase1);
 		CaseMilestone caseMilestoneCase1 = ApplicationTestDataFactory.getCaseMilestones(1, true, false, false, milestoneType.Id, case1.Id)[0];
 		caseMilestoneCase1.CompletionDate = null; // milestone is not completed
@@ -151,7 +154,7 @@ private with sharing class CaseMilestoneUtility_Test {
 		caseList.add(case2);
 
 		Case oldCase2 = case2.clone(true, true, true, true);
-		oldCase2.Status = SSSWConstants.CASE_STATUS; // old case status set to New
+		oldCase2.Status = SSSWConstants.CASE_STATUS_NEW; // old case status set to New
 		oldMap.put(oldCase2.Id, oldCase2);
 		CaseMilestone caseMilestoneCase2 = ApplicationTestDataFactory.getCaseMilestones(1, true, false, false, milestoneType.Id, case2.Id)[0];
 		caseMilestoneCase2.CompletionDate = null; // milestone is not completed
@@ -160,7 +163,7 @@ private with sharing class CaseMilestoneUtility_Test {
 		Case case3 = ApplicationTestDataFactoryCase.getCases(1, true)[0];
 		case3.RecordTypeId = unifiedInvestigationRecordTypeId;
 		case3.Type = SSSWConstants.INVESTIGATION;
-		case3.Status = SSSWConstants.CASE_STATUS; // simulating re-opened case
+		case3.Status = SSSWConstants.CASE_STATUS_NEW; // simulating re-opened case
 		case3.IsStopped = true;
 		caseList.add(case3);
 
@@ -178,7 +181,7 @@ private with sharing class CaseMilestoneUtility_Test {
 
 		MockUtility.Mocks.when(mockCaseMilestonesSelector.selectByCase(
 																(Set<Id>)fflib_Match.eq(new Set<Id>{case1.Id}), 
-																(Set<Object>)fflib_Match.eq(new Set<Object>{CaseMilestonesSelector.Options.FILTER_NOT_VIOLATED, CaseMilestonesSelector.Options.FILTER_NOT_COMPLETED})
+																(Set<Object>)fflib_Match.eq(new Set<Object>{CaseMilestonesSelector.Options.FILTER_NOT_COMPLETED})
 															)).thenReturn(new Map<Id, CaseMilestone>{caseMilestoneCase1.Id => caseMilestoneCase1});
 
 		MockUtility.Mocks.when(mockCaseMilestonesSelector.selectByCase(

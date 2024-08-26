@@ -5,7 +5,7 @@
     <alertText>We found some other organisations with similar names. Use one of these?</alertText>
     <description>Warn users when similar account names with existing accounts are detected</description>
     <duplicateRuleFilter>
-        <booleanFilter>2 AND 4 AND  (1 OR 3 OR 5 OR 6 OR 7)</booleanFilter>
+        <booleanFilter>3 AND 7 AND  (1 OR 2 OR 4 OR 5 OR 6 OR 8)</booleanFilter>
         <duplicateRuleFilterItems>
             <field>Profile_Name_in_Text__c</field>
             <operation>equals</operation>
@@ -54,6 +54,13 @@
             <value>Organisation</value>
             <sortOrder>7</sortOrder>
             <table>Account</table>
+        </duplicateRuleFilterItems>
+        <duplicateRuleFilterItems>
+            <field>Profile_Name_in_Text__c</field>
+            <operation>equals</operation>
+            <value>CustomerService</value>
+            <sortOrder>8</sortOrder>
+            <table>User</table>
         </duplicateRuleFilterItems>
     </duplicateRuleFilter>
     <duplicateRuleMatchRules>
