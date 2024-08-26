@@ -1,10 +1,11 @@
 /**
- * @description Test Class covering ContactRequestTrigger
+ * @description Test Class covering VoiceCallTrigger
  * @changelog
  * 2024-08-21	George Nguyen	Created
  */
 @IsTest
-class ContactRequestTrigger_Test {
+class VoiceCallTrigger_Test {
+    
 	@IsTest
 	static void handler() {
 		Contact con = TestDataProvider.createTestContact();
@@ -23,12 +24,14 @@ class ContactRequestTrigger_Test {
 		);
         insert case1;
 
-		insert new ContactRequest(
-			WhoId = con.Id,
-			WhatId = case1.id,
+		insert new VoiceCall(
+			initiationMethod = 'Inbound',
+			RelatedRecordId = case1.id,
 			FromPhoneNumber = '23432423423',
-			RequestDescription = 'test call',
-			VendorCallKey = '8f441452-eb7d-4142-8ae6-5b3f4a44f7d0'
+			Description = 'test call',
+			VendorCallKey = '8f441452-eb7d-4142-8ae6-5b3f4a44f7d0',
+			VendorType = '', 
+			callCenterApiName = 'MyContactCenter'
 		);
 	}
 }

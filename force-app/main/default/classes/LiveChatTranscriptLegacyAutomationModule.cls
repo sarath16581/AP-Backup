@@ -6,6 +6,7 @@
  * @author Nathan Franklin
  * @date 2024-08-01
  * @changelog
+ * 2024-08-23	George Nguyen	Changed the call to LiveChatTranscriptTriggerHandler.execute(...) to LiveChatTranscriptTriggerHandler.getInstance().executeLegacy(...) to enable mocking in unit test
  */
 public inherited sharing class LiveChatTranscriptLegacyAutomationModule extends ApplicationModule {
 	
@@ -14,33 +15,31 @@ public inherited sharing class LiveChatTranscriptLegacyAutomationModule extends 
 		getTriggerEvents().enableAll();
 	}
 
-
 	public override void onBeforeInsert(List<SObject> records, ApplicationUnitOfWork uow) {
-		LiveChatTranscriptTriggerHandler.execute();
+		LiveChatTranscriptTriggerHandler.getInstance().executeLegacy();
 	}
 
 	public override void onAfterInsert(List<SObject> records, ApplicationUnitOfWork uow) {
-		LiveChatTranscriptTriggerHandler.execute();
+		LiveChatTranscriptTriggerHandler.getInstance().executeLegacy();
 	}
 
 	public override void onBeforeUpdate(List<SObject> records, Map<Id, SObject> existingRecords, ApplicationUnitOfWork uow) {
-		LiveChatTranscriptTriggerHandler.execute();
+		LiveChatTranscriptTriggerHandler.getInstance().executeLegacy();
 	}
 
 	public override void onAfterUpdate(List<SObject> records, Map<Id, SObject> existingRecords, ApplicationUnitOfWork uow) {
-		LiveChatTranscriptTriggerHandler.execute();
+		LiveChatTranscriptTriggerHandler.getInstance().executeLegacy();
 	}
 
 	public override void onBeforeDelete(List<SObject> records, ApplicationUnitOfWork uow) {
-		LiveChatTranscriptTriggerHandler.execute();
+		LiveChatTranscriptTriggerHandler.getInstance().executeLegacy();
 	}
 
 	public override void onAfterDelete(List<SObject> records, ApplicationUnitOfWork uow) {
-		LiveChatTranscriptTriggerHandler.execute();
+		LiveChatTranscriptTriggerHandler.getInstance().executeLegacy();
 	}
 
 	public override void onAfterUndelete(List<SObject> records, ApplicationUnitOfWork uow) {
-		LiveChatTranscriptTriggerHandler.execute();
+		LiveChatTranscriptTriggerHandler.getInstance().executeLegacy();
 	}
-
 }

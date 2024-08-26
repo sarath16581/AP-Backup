@@ -5,7 +5,7 @@
  * @changelog
  */
 public inherited sharing class VoiceCallTriggerHandler extends ApplicationTriggerHandler {
-	
+
 	public override SObjectType getSObjectType() {
 		return VoiceCall.SObjectType;
 	}

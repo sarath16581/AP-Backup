@@ -1,5 +1,6 @@
 /**
  * @description Trigger handler to execute all the registered ApplicationModule's
+ * @Test LiveChatTranscriptAutomationTrigHdr_Test
  * @author Nathan Franklin
  * @date 2024-07-31
  * @changelog
