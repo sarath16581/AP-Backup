@@ -40,7 +40,7 @@ public inherited sharing class UnifiedCaseEmailMessagesModule extends Applicatio
 				// we have incoming email messages that are not auto generated,
 				// need to apply record type filter on parent cases to select only unified cases to perform case automation.
 				List<Case> unifiedCases = CasesSelector.newInstance(new Set<SObjectField>{
-						Case.Id, Case.OwnerId, Case.IsClosed, Case.PreferredAgentExpiry__c, Case.BusinessHoursId
+						Case.Id, Case.OwnerId, Case.IsClosed, Case.PreferredAgentExpiry__c, Case.BusinessHoursId, Case.Status
 				}).search(new Map<String, Object>{
 						'caseIds' => parentCaseIds,
 						'recordTypeIds' => unifiedCaseRecordTypeIds
