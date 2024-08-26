@@ -42,8 +42,10 @@ export default class AbnChangeDsrForm extends LightningElement {
 	opportunityColumns;
 	dsrs = [];
 	dsrColumns;
-	selectedOpps = [];
-	selectedOppIds = [];
+	selectedAPOpps = [];
+	selectedSTOpps = [];
+	selectedAPOppIds = [];
+	selectedSTOppIds = [];
 	selectedDSRs = []
 	selectedDsrIds = [];
 	hasSelectedAPOpportunity = false;
@@ -151,11 +153,23 @@ export default class AbnChangeDsrForm extends LightningElement {
 	}
 
 	get hasProductsSelected() {
-		// clear opportunity selection if opportunity table is hidden
-		if (this.products.length === 0 || this.filteredOpportunities.length === 0) {
-			this.selectedOpps = [];
+		return this.hasAPProductsSelected || this.hasSTProductsSelected;
+	}
+
+	get hasAPProductsSelected() {
+		// clear AP opportunity selection if AP opportunity table is hidden
+		if (!this.products.includes('AP') || this.filteredAPOpportunities.length === 0) {
+			this.selectedAPOpps = [];
 		}
-		return this.products.length > 0 && this.filteredOpportunities.length > 0;
+		return this.products.includes('AP') && this.filteredAPOpportunities.length > 0;
+	}
+
+	get hasSTProductsSelected() {
+		// clear ST opportunity selection if ST opportunity table is hidden
+		if (!this.products.includes('ST') || this.filteredSTOpportunities.length === 0) {
+			this.selectedSTOpps = [];
+		}
+		return this.products.includes('ST') && this.filteredSTOpportunities.length > 0;
 	}
 
 	get noStandardPricing() {
@@ -173,11 +187,30 @@ export default class AbnChangeDsrForm extends LightningElement {
 		return null;
 	}
 
-	get oppSelectionError() {
-		if (this.selectedOpps.length === 0) {
-			return 'At least one opportunity needs to be selected';
+	get apOppSelectionError() {
+		if (this.products.includes('AP') && this.selectedAPOpps.length === 0) {
+			return 'At least one AP opportunity needs to be selected';
 		}
 		return null;
+	}
+
+	get stOppSelectionError() {
+		if (this.products.includes('ST') && this.selectedSTOpps.length === 0) {
+			return 'At least one ST opportunity needs to be selected';
+		}
+		return null;
+	}
+
+	get selectedOpps() {
+		return this.selectedAPOpps.concat(this.selectedSTOpps);
+	}
+
+	get filteredAPOpportunities() {
+		return this.filteredOpportunities.filter(e => e.IsStartrackProposal__c !== 'Yes');
+	}
+
+	get filteredSTOpportunities() {
+		return this.filteredOpportunities.filter(e => e.IsStartrackProposal__c === 'Yes');
 	}
 
 	/**
@@ -242,47 +275,53 @@ export default class AbnChangeDsrForm extends LightningElement {
 	 *  Validate user inputs then structure the request wrapper.
 	 *  Dispatch 'create' event with request wrapper to parent for DSR creation.
 	 */
-	handleCreateDSRs() {
-		this.validateCreateDSRs()
-			.then(validationResult => {
-				if (validationResult) {
-					const dsrTypes = [];
-					if (this.isActiveContract === 'Yes') {
-						if (this.isSkipProposal === 'No') {
-							dsrTypes.push('proposalGeneration');
-						} else {
-							dsrTypes.push('contractGeneration');
-						}
-						if (this.selectedOpps.reduce((previousValue, currentValue) => previousValue || currentValue.IsStartrackProposal__c === 'Yes', false)) {
-							dsrTypes.push('terminateSTBAs');
-						}
-						dsrTypes.push('terminateContracts');
-					}
-					dsrTypes.push('closeAllBAs');
-					const wrapper = {
-						dsrTypes: dsrTypes,
-						atRiskBusinessId: this.businessAtRisk.Id,
-						organisationId: this.businessAtRisk.Legal_Entity_Name__c,
-						organisationABN: this.businessAtRisk.Legal_Entity_Name__r.ABN__c,
-						opportunityWrappers: this.selectedOpps.map(opp => {
-							return {
-								opportunityId: opp.Id,
-								productType: opp.IsStartrackProposal__c === 'Yes' ? 'ST' : 'AP',
-								keyContactId: opp.KeyContact__c
-							}
-						}),
-						relatedOpportunity: this.businessAtRisk.Related_Opportunity__c,
-						allProductTypes:this.productTypes,
-						isStandardPricing: this.isStandardPricing,
-						pricingDSRNames: this.selectedDSRs.map(e => e.Name),
-						estimatedClosureDate: this.estimatedAccountClosureDate,
-						customerRequestDocumentIds: this.attachedFiles.map(f => f.documentId)
-					};
-					this.dispatchEvent(new CustomEvent('create', {
-						detail : wrapper
-					}));
-				}
+	async handleCreateDSRs() {
+		if (this.validateCreateDSRs()) {
+			const result = await LightningConfirm.open({
+				message: 'Do you want to create DSR(s) for ABN change?  ',
+				theme: 'inverse',
+				label: 'ABN Change DSRs Creation'
 			});
+
+			if (result) {
+				const dsrTypes = [];
+				if (this.isActiveContract === 'Yes') {
+					if (this.isSkipProposal === 'No') {
+						dsrTypes.push('proposalGeneration');
+					} else {
+						dsrTypes.push('contractGeneration');
+					}
+					if (this.selectedOpps.reduce((previousValue, currentValue) => previousValue || currentValue.IsStartrackProposal__c === 'Yes', false)) {
+						dsrTypes.push('terminateSTBAs');
+					}
+					dsrTypes.push('terminateContracts');
+				}
+				dsrTypes.push('closeAllBAs');
+				const wrapper = {
+					dsrTypes: dsrTypes,
+					atRiskBusinessId: this.businessAtRisk.Id,
+					organisationId: this.businessAtRisk.Legal_Entity_Name__c,
+					organisationABN: this.businessAtRisk.Legal_Entity_Name__r.ABN__c,
+					reason: this.businessAtRisk.Reason__c === 'Business Sold - New Owners' ? 'ABN Change - Business Sold - New Owners' : this.businessAtRisk.Reason__c,
+					opportunityWrappers: this.selectedOpps.map(opp => {
+						return {
+							opportunityId: opp.Id,
+							productType: opp.IsStartrackProposal__c === 'Yes' ? 'ST' : 'AP',
+							keyContactId: opp.KeyContact__c
+						}
+					}),
+					relatedOpportunity: this.businessAtRisk.Related_Opportunity__c,
+					allProductTypes: this.productTypes,
+					isStandardPricing: this.isStandardPricing,
+					pricingDSRNames: this.selectedDSRs.map(e => e.Name),
+					estimatedClosureDate: this.estimatedAccountClosureDate,
+					customerRequestDocumentIds: this.attachedFiles.map(f => f.documentId)
+				};
+				this.dispatchEvent(new CustomEvent('create', {
+					detail: wrapper
+				}));
+			}
+		}
 	}
 
 	/**
@@ -342,8 +381,11 @@ export default class AbnChangeDsrForm extends LightningElement {
 			});
 			this.computeOpportunities();
 		}
-		if (event.target.dataset.id === 'oppTable') {
-			this.selectedOpps = event.detail.selectedRows;
+		if (event.target.dataset.id === 'apOppTable') {
+			this.selectedAPOpps = event.detail.selectedRows;
+		}
+		if (event.target.dataset.id === 'stOppTable') {
+			this.selectedSTOpps = event.detail.selectedRows;
 		}
 
 	}
@@ -352,7 +394,7 @@ export default class AbnChangeDsrForm extends LightningElement {
 	 *  Validate form before creating DSRs.
 	 *  Ensure all required inputs are not blank, date is valid, customer request documents are attached and at least opportunity is selected
 	 */
-	async validateCreateDSRs() {
+	validateCreateDSRs() {
 		// validate all inputs
 		const allInputValid = [...this.template.querySelectorAll('.input')]
 			.reduce((validSoFar, inputCmp) => {
@@ -371,13 +413,9 @@ export default class AbnChangeDsrForm extends LightningElement {
 			requestValid = true;
 		}
 
-		const opportunitySelectionValid = this.isActiveContract === 'No' || this.selectedOpps.length > 0;
-		const result = await LightningConfirm.open({
-			message: 'Do you want to create DSR(s) for ABN change?  ',
-			theme: 'inverse',
-			label: 'ABN Change DSRs Creation'
-		});
-		return result && allInputValid && opportunitySelectionValid && requestValid;
+		const opportunitySelectionValid = this.apOppSelectionError == null && this.stOppSelectionError == null && (this.isActiveContract === 'No' || this.selectedOpps.length > 0);
+
+		return allInputValid && opportunitySelectionValid && requestValid;
 	}
 
 	/**
@@ -389,6 +427,7 @@ export default class AbnChangeDsrForm extends LightningElement {
 	 */
 	computeOpportunities() {
 		this.filteredOpportunities = [];
+		this.noOpportunitiesError = null;
 		this.opportunities.forEach(row => {
 			const oppProductType = row.IsStartrackProposal__c === 'Yes' ? 'ST' : 'AP';
 			if (this.products.includes(oppProductType)) {
@@ -410,9 +449,13 @@ export default class AbnChangeDsrForm extends LightningElement {
 		}
 
 		// Pre-select row if only one opportunity
-		if (this.filteredOpportunities.length === 1 && this.selectedOpps.length === 0) {
-			this.selectedOppIds.push(this.filteredOpportunities[0].Id);
-			this.selectedOpps.push(this.filteredOpportunities);
+		if (this.filteredAPOpportunities.length === 1 && this.selectedAPOpps.length === 0) {
+			this.selectedAPOppIds.push(this.filteredAPOpportunities[0].Id);
+			this.selectedAPOpps.push(this.filteredAPOpportunities[0]);
+		}
+		if (this.filteredSTOpportunities.length === 1 && this.selectedSTOpps.length === 0) {
+			this.selectedSTOppIds.push(this.filteredSTOpportunities[0].Id);
+			this.selectedSTOpps.push(this.filteredSTOpportunities[0]);
 		}
 	}
 }

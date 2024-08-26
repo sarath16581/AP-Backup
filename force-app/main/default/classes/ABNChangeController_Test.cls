@@ -192,6 +192,7 @@ public with sharing class ABNChangeController_Test {
 		request.atRiskBusinessId = atRiskBusinesses[0].Id;
 		request.organisationId = accs[0].Id;
 		request.organisationABN = '88888888';
+		request.reason = 'ABN Change - Same Owners';
 		request.relatedOpportunity = opps[0].Id;
 		request.allProductTypes = new List<String>{'StarTrack', 'AP'};
 		request.isStandardPricing = 'Yes';

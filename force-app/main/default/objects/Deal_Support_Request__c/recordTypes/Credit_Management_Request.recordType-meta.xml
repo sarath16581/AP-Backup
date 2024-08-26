@@ -2051,6 +2051,10 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Account pending closure</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Cancelled</fullName>
             <default>false</default>
         </values>
