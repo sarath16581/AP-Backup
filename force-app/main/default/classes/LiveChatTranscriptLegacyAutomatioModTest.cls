@@ -1,6 +1,5 @@
 /**
 * @description Test class covering LiveChatTranscriptLegacyAutomationModule
-* @test LiveChatTranscriptLegacyAutomationModule
 * @changelog
 * 2024-08-20	George Nguyen	Created
 */

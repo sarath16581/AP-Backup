@@ -2,7 +2,7 @@
  * @description Module that wraps all of the Case legacy code which hasn't been uplifted yet for the LiveChatTranscript Object
  * NOTE: Because this is wrapping legacy code, filters should NOT be used here as they won't work 
  * 
- * @test LiveChatTranscriptTriggerTest
+ * @test LiveChatTranscriptLegacyAutomatioModTest
  * @author Nathan Franklin
  * @date 2024-08-01
  * @changelog

@@ -18,9 +18,9 @@ public inherited sharing class CaseRecordPopulationModule extends ApplicationMod
 
 	// stores a list of fields (usually should only ever be 1 per object)
 	public static final Map<SObjectType, SObjectField> MAPPED_CASE_FIELDS = new Map<SObjectType, SObjectField>{
+		LiveChatTranscript.SobjectType => LiveChatTranscript.CaseId, 
 		ContactRequest.SobjectType => ContactRequest.Case__c,
-		VoiceCall.SobjectType => VoiceCall.Case__c,
-		LiveChatTranscript.SobjectType => LiveChatTranscript.CaseId
+		VoiceCall.SobjectType => VoiceCall.Case__c
 	};
 
 	// Setup which triggers this module should respond to
@@ -109,7 +109,7 @@ public inherited sharing class CaseRecordPopulationModule extends ApplicationMod
 		for(SObjectType monitoredSObjectType : monitoredRecords.keySet()) {
 			processableRecords.addAll(ApplicationRecursion.getInstance().getProcessableRecords(recursionContext, monitoredRecords.get(monitoredSObjectType), oldMap, new Set<SObjectField>{MAPPED_LOOKUP_FIELDS.get(monitoredSObjectType)}));
 		}
-		
+
 		for(ApplicationRecursion.RecordState recordState : processableRecords){
 			SObject processableRecord = recordState.record;
 			SObjectType processableRecordSObjectType = processableRecord.getSObjectType();
@@ -138,7 +138,6 @@ public inherited sharing class CaseRecordPopulationModule extends ApplicationMod
 					processableRecord.put(MAPPED_CASE_FIELDS.get(processableRecordSObjectType), recordId);
 				}
 			}
-			
 		}
 
 		// reset the recursion state to ensure changes any changes we have made in this method won't retrigger on next pass (if there is one)
@@ -153,6 +152,7 @@ public inherited sharing class CaseRecordPopulationModule extends ApplicationMod
 	 * This is used to populate agent work records with the associated case id from a channel based interaction integrated into omni channel
 	 * This is used to allow for easy case access on the agent work record for things like preferred agent identification or accessing case attributes directly
 	 */
+	@TestVisible
 	private void backfillAgentWorkRecords(List<SObject> recordList, Map<Id, SObject> oldMap, ApplicationUnitOfWork uow) {
 
 		Map<Id, Id> processableWorkItemIds = new Map<Id, Id>();
@@ -178,7 +178,7 @@ public inherited sharing class CaseRecordPopulationModule extends ApplicationMod
 		for(SObjectType monitoredSObjectType : monitoredRecords.keySet()) {
 			processableRecords.addAll(ApplicationRecursion.getInstance().getProcessableRecords(recursionContext, monitoredRecords.get(monitoredSObjectType), oldMap, new Set<SObjectField>{MAPPED_CASE_FIELDS.get(monitoredSObjectType)}));
 		}
-		
+
 		for(ApplicationRecursion.RecordState recordState : processableRecords){
 			SObject processableRecord = recordState.record;
 			SObjectType processableRecordSObjectType = processableRecord.getSObjectType();
@@ -221,7 +221,7 @@ public inherited sharing class CaseRecordPopulationModule extends ApplicationMod
 		// reset the recursion state to ensure changes any changes we have made in this method won't retrigger on next pass (if there is one)
 		// its usually unlikely we need to do this, but it is a best practice just incase we ever introduce changes above to update fields we are monitoring
 		for(SObjectType monitoredSObjectType : monitoredRecords.keySet()) {
-			ApplicationRecursion.getInstance().updateRecordState(recursionContext, monitoredRecords.get(monitoredSObjectType), new Set<SObjectField>{MAPPED_LOOKUP_FIELDS.get(monitoredSObjectType)});
+			ApplicationRecursion.getInstance().updateRecordState(recursionContext, monitoredRecords.get(monitoredSObjectType), new Set<SObjectField>{MAPPED_CASE_FIELDS.get(monitoredSObjectType)});
 		}
 
 	}
