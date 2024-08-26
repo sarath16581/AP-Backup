@@ -8,7 +8,7 @@ import {
 	PHONE_NUMBER_LABEL,
 	EMAIL_ADDRESS_LABEL,
 	ORGANISATION_LOOKUP_LABEL,
-	MORE_INFO_REQUIRED_ERROR_MESSAGE,
+	PHONE_OR_EMAIL_REQUIRED_ERROR_MESSAGE,
 	INPUT_ELEMENT_SELECTORS,
 	INVALID_FORM_ERROR,
 	CUSTOMER_TYPE_CONSUMER,
@@ -473,7 +473,7 @@ describe('c-unified-customer-creation', () => {
 
 		const errorDiv = element.shadowRoot.querySelector("div[data-id='error']");
 		expect(errorDiv).not.toBeNull();
-		expect(errorDiv.textContent).toBe(MORE_INFO_REQUIRED_ERROR_MESSAGE);
+		expect(errorDiv.textContent).toBe(PHONE_OR_EMAIL_REQUIRED_ERROR_MESSAGE);
 	});
 
 	it('displays required fields error when submitted without entering organisation details when custom type is organisation', async () => {
