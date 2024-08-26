@@ -87,6 +87,12 @@ public with sharing class UnifiedCustomerCreationController {
 	 */
 	private static Id insertCustomer(SObject newCustomer) {
 		Id customerId; // Contact.Id or PersonAccount.PersonContactId
+		Boolean requireLinkOrganisationToContact = (newCustomer instanceof Contact) && !String.isBlank(((Contact)newCustomer).AccountId);
+		Id accountId;
+		if(requireLinkOrganisationToContact){
+			accountId = ((Contact)newCustomer).AccountId; // save accountId for later update
+			((Contact)newCustomer).AccountId = null; // set to null to allow successful insert
+		}
 		List<Database.SaveResult> srs = ApplicationDatabase.getInstance().dmlInsert(new List<SObject>{
 				newCustomer
 		}, false); // set allOrNothing to false, to get duplicate errors
@@ -102,11 +108,11 @@ public with sharing class UnifiedCustomerCreationController {
 					.selectById(new Set<Id>{ sr.getId() }).values()[0].PersonContactId;
 		} else {
 			customerId = sr.getId();
-			if ((newCustomer instanceof Contact) && !String.isBlank(((Contact)newCustomer).AccountId)) {
+			if (requireLinkOrganisationToContact && accountId != null) {
 				// Note: link new organisation id to contact, in without sharing mode because the criteria-based sharing rule for Account is calculated only after the end of current transaction.
 				// And asynchronous operation is not desirable, due to impact to front-end user experience and also technical difficulty posed for rollback capability
 				WithoutSharingDataAccessHelper innerClassWithoutSharing = new WithoutSharingDataAccessHelper();
-				innerClassWithoutSharing.linkOrganisationToContact(customerId, ((Contact)newCustomer).AccountId);
+				innerClassWithoutSharing.linkOrganisationToContact(customerId, accountId);
 			}
 		}
 		return customerId;
