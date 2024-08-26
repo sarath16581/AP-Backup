@@ -6,11 +6,10 @@
  *
  * @author Seth Heang
  * @date 2024-07-18
- * @test CaseUnifiedAutomationServiceTest
+ * @test CaseUnifiedAutomationService_Test
  * @changelog
  * 2024-07-18 - Seth Heang - Created.
  * 2024-08-12 - Ranjeewa Silva - Updated case re-assignment to cater for email automation
- * 2024-08-23 - Seth Heang - Added PreferredAgentExpiry__c mapping to Reassigned Case Update
  */
 public inherited sharing class CaseUnifiedAutomationService {
 	private final String REASSIGNMENT_REASON_OPT_OUT_AUTOMATION = 'Cannot autoclose due to opt out automations';
@@ -353,9 +352,8 @@ public inherited sharing class CaseUnifiedAutomationService {
 		updatedCase.OwnerId = QUEUE_SETTINGS.UnifiedDefaultOmniQueueId__c;
 		updatedCase.ClosedBySystem__c = record.isClosedBySystem;
 		updatedCase.ReassignmentReason__c = record.caseRecord.Exclude_Subscription_Automation__c == true
-				? REASSIGNMENT_REASON_OPT_OUT_AUTOMATION
-				: record.caseRecord.ContactEmail == null ? REASSIGNMENT_REASON_MISSING_CUSTOMER_EMAIL : null;
-		updatedCase.PreferredAgentExpiry__c = calculatePreferredAgentExpiry(record);
+			? REASSIGNMENT_REASON_OPT_OUT_AUTOMATION
+			: record.caseRecord.ContactEmail == null ? REASSIGNMENT_REASON_MISSING_CUSTOMER_EMAIL : null;
 		return updatedCase;
 	}
 
