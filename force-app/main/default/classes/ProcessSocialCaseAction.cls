@@ -61,7 +61,7 @@ global with sharing class ProcessSocialCaseAction {
 				existingCase.IsNewForRouting__c = true;
 				existingCase.Type = CASETYPE_GENERAL_ENQUIRY;
 				socialPostIdCaseMap.put(post.Id, existingCase);
-			} else {
+			} else if (!post.isOutbound) { // only create cases for inbound posts
 				socialPostIdCaseMap.put(post.Id, createCase(param));
 			}
 		}
