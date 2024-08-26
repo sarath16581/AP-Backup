@@ -4,43 +4,10 @@
     <businessStatus>DeprecateCandidate</businessStatus>
     <externalId>false</externalId>
     <label>Dep - Error</label>
+    <length>40</length>
     <required>false</required>
-    <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
-    <type>Picklist</type>
-    <valueSet>
-        <controllingField>Work_Type__c</controllingField>
-        <restricted>true</restricted>
-        <valueSetDefinition>
-            <sorted>false</sorted>
-            <value>
-                <fullName>AP Error</fullName>
-                <default>false</default>
-                <label>AP Error</label>
-            </value>
-            <value>
-                <fullName>Customer Error</fullName>
-                <default>false</default>
-                <label>Customer Error</label>
-            </value>
-            <value>
-                <fullName>Both</fullName>
-                <default>false</default>
-                <label>Both</label>
-            </value>
-        </valueSetDefinition>
-        <valueSettings>
-            <controllingFieldValue>Credits</controllingFieldValue>
-            <valueName>AP Error</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Credits</controllingFieldValue>
-            <valueName>Customer Error</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Credits</controllingFieldValue>
-            <valueName>Both</valueName>
-        </valueSettings>
-    </valueSet>
+    <type>Text</type>
+    <unique>false</unique>
 </CustomField>

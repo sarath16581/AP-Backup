@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Layout xmlns="http://soap.sforce.com/2006/04/metadata">
-    <customButtons>OverridenSendEmail</customButtons>
+    <emailDefault>false</emailDefault>
     <excludeButtons>AddToActionableList</excludeButtons>
     <excludeButtons>AssignRecordLabel</excludeButtons>
     <excludeButtons>CaseHierarchy</excludeButtons>
@@ -9,6 +9,7 @@
     <excludeButtons>CloseCase</excludeButtons>
     <excludeButtons>CreateGroupAction</excludeButtons>
     <excludeButtons>Delete</excludeButtons>
+    <excludeButtons>Edit</excludeButtons>
     <excludeButtons>MassAccept</excludeButtons>
     <excludeButtons>MergeCase</excludeButtons>
     <excludeButtons>PrintableView</excludeButtons>
@@ -43,15 +44,6 @@
         <fullWidthFeed>true</fullWidthFeed>
         <hideSidebar>false</hideSidebar>
         <highlightExternalFeedItems>false</highlightExternalFeedItems>
-        <leftComponents>
-            <componentType>Following</componentType>
-        </leftComponents>
-        <leftComponents>
-            <componentType>Followers</componentType>
-        </leftComponents>
-        <leftComponents>
-            <componentType>CaseUnifiedFiles</componentType>
-        </leftComponents>
         <useInlineFiltersInConsole>false</useInlineFiltersInConsole>
     </feedLayout>
     <layoutSections>
@@ -69,10 +61,6 @@
                 <field>Status</field>
             </layoutItems>
             <layoutItems>
-                <behavior>Edit</behavior>
-                <field>Description</field>
-            </layoutItems>
-            <layoutItems>
                 <behavior>Required</behavior>
                 <field>ProductCategory__c</field>
             </layoutItems>
@@ -88,6 +76,10 @@
         <layoutColumns>
             <layoutItems>
                 <behavior>Edit</behavior>
+                <field>Type</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
                 <field>OwnerId</field>
             </layoutItems>
             <layoutItems>
@@ -97,10 +89,6 @@
             <layoutItems>
                 <behavior>Required</behavior>
                 <field>Priority</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Required</behavior>
-                <field>Type</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
@@ -118,6 +106,10 @@
             <layoutItems>
                 <behavior>Edit</behavior>
                 <field>ContactId</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>PrimaryContactName__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
@@ -140,6 +132,19 @@
         <layoutColumns/>
         <layoutColumns/>
         <style>CustomLinks</style>
+    </layoutSections>
+    <layoutSections>
+        <customLabel>true</customLabel>
+        <detailHeading>true</detailHeading>
+        <editHeading>true</editHeading>
+        <label>Decsription</label>
+        <layoutColumns>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Description</field>
+            </layoutItems>
+        </layoutColumns>
+        <style>OneColumn</style>
     </layoutSections>
     <layoutSections>
         <customLabel>true</customLabel>
@@ -168,19 +173,6 @@
         </layoutColumns>
         <style>TwoColumnsLeftToRight</style>
     </layoutSections>
-    <miniLayout>
-        <fields>Status</fields>
-        <fields>Description</fields>
-        <fields>ProductCategory__c</fields>
-        <fields>ProductSubCategory__c</fields>
-        <fields>Origin</fields>
-        <fields>Priority</fields>
-        <fields>Type</fields>
-        <fields>ContactId</fields>
-        <fields>Subject</fields>
-        <fields>SuppliedEmail</fields>
-        <fields>ReferenceID__c</fields>
-    </miniLayout>
     <platformActionList>
         <actionListContext>Record</actionListContext>
         <platformActionListItems>
@@ -221,6 +213,29 @@
         <relatedList>RelatedEntityHistoryList</relatedList>
     </relatedLists>
     <relatedLists>
+        <fields>TASK.SUBJECT</fields>
+        <fields>TASK.WHO_NAME</fields>
+        <fields>ACTIVITY.TASK</fields>
+        <fields>TASK.DUE_DATE</fields>
+        <fields>TASK.STATUS</fields>
+        <fields>TASK.PRIORITY</fields>
+        <fields>CORE.USERS.FULL_NAME</fields>
+        <relatedList>RelatedActivityList</relatedList>
+    </relatedLists>
+    <relatedLists>
+        <fields>TASK.SUBJECT</fields>
+        <fields>TASK.WHO_NAME</fields>
+        <fields>TASK.WHAT_NAME</fields>
+        <fields>ACTIVITY.TASK</fields>
+        <fields>TASK.DUE_DATE</fields>
+        <fields>TASK.STATUS</fields>
+        <fields>TASK.CLOSED</fields>
+        <fields>TASK.PRIORITY</fields>
+        <fields>CORE.USERS.FULL_NAME</fields>
+        <fields>TASK.LAST_UPDATE</fields>
+        <relatedList>Activity.CaseObject__c</relatedList>
+    </relatedLists>
+    <relatedLists>
         <relatedList>RelatedCommentsList</relatedList>
     </relatedLists>
     <relatedLists>
@@ -256,14 +271,15 @@
         <relatedList>RelatedAttachmentList</relatedList>
     </relatedLists>
     <relatedObjects>ContactId</relatedObjects>
-    <showEmailCheckbox>false</showEmailCheckbox>
-    <showHighlightsPanel>false</showHighlightsPanel>
-    <showInteractionLogPanel>false</showInteractionLogPanel>
+    <runAssignmentRulesDefault>false</runAssignmentRulesDefault>
+    <showEmailCheckbox>true</showEmailCheckbox>
+    <showHighlightsPanel>true</showHighlightsPanel>
+    <showInteractionLogPanel>true</showInteractionLogPanel>
     <showKnowledgeComponent>false</showKnowledgeComponent>
-    <showRunAssignmentRulesCheckbox>false</showRunAssignmentRulesCheckbox>
-    <showSubmitAndAttachButton>false</showSubmitAndAttachButton>
+    <showRunAssignmentRulesCheckbox>true</showRunAssignmentRulesCheckbox>
+    <showSubmitAndAttachButton>true</showSubmitAndAttachButton>
     <summaryLayout>
-        <masterLabel>00hBm000006igg1</masterLabel>
+        <masterLabel>00hOc00000184kF</masterLabel>
         <sizeX>3</sizeX>
         <sizeY>2</sizeY>
         <summaryLayoutItems>

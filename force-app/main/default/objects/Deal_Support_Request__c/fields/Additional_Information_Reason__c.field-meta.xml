@@ -15,24 +15,24 @@
         <valueSetDefinition>
             <sorted>false</sorted>
             <value>
-                <fullName>Insufficient Sales Justification</fullName>
-                <default>false</default>
-                <label>Insufficient Sales Justification</label>
-            </value>
-            <value>
-                <fullName>Awaiting outcome of decision forum</fullName>
-                <default>false</default>
-                <label>Awaiting outcome of decision forum</label>
-            </value>
-            <value>
                 <fullName>Copy of Contract or Uprate Letter required</fullName>
                 <default>false</default>
                 <label>Copy of Contract or Uprate Letter required</label>
             </value>
             <value>
-                <fullName>Customer acceptance of APR required</fullName>
+                <fullName>Engage Product for support</fullName>
                 <default>false</default>
-                <label>Customer acceptance of APR required</label>
+                <label>Engage Product for support</label>
+            </value>
+            <value>
+                <fullName>Further details required to support request</fullName>
+                <default>false</default>
+                <label>Further details required to support request</label>
+            </value>
+            <value>
+                <fullName>Incomplete data file</fullName>
+                <default>false</default>
+                <label>Incomplete data file</label>
             </value>
             <value>
                 <fullName>Leader Account number was not provided</fullName>
@@ -40,66 +40,24 @@
                 <label>Leader Account number was not provided</label>
             </value>
             <value>
-                <fullName>Missing / Incomplete data file</fullName>
-                <default>false</default>
-                <label>Missing / Incomplete data file</label>
-            </value>
-            <value>
-                <fullName>Require ABS data</fullName>
-                <default>false</default>
-                <label>Require ABS data</label>
-            </value>
-            <value>
-                <fullName>Require approval</fullName>
-                <default>false</default>
-                <label>Require approval</label>
-            </value>
-            <value>
-                <fullName>Require fully approved CSQ</fullName>
-                <default>false</default>
-                <label>Require fully approved CSQ</label>
-            </value>
-            <value>
-                <fullName>Engage Product for support</fullName>
-                <default>false</default>
-                <isActive>false</isActive>
-                <label>Engage Product for support</label>
-            </value>
-            <value>
-                <fullName>Further details required to support request</fullName>
-                <default>false</default>
-                <isActive>false</isActive>
-                <label>Further details required to support request</label>
-            </value>
-            <value>
-                <fullName>Incomplete data file</fullName>
-                <default>false</default>
-                <isActive>false</isActive>
-                <label>Incomplete data file</label>
-            </value>
-            <value>
                 <fullName>Opportunity not aligned with request</fullName>
                 <default>false</default>
-                <isActive>false</isActive>
                 <label>Opportunity not aligned with request</label>
-            </value>
-            <value>
-                <fullName>Other</fullName>
-                <default>false</default>
-                <isActive>false</isActive>
-                <label>Other</label>
             </value>
             <value>
                 <fullName>Self-serve system issue</fullName>
                 <default>false</default>
-                <isActive>false</isActive>
                 <label>Self-serve system issue</label>
             </value>
             <value>
                 <fullName>Supporting evidence not attached</fullName>
                 <default>false</default>
-                <isActive>false</isActive>
                 <label>Supporting evidence not attached</label>
+            </value>
+            <value>
+                <fullName>Other</fullName>
+                <default>false</default>
+                <label>Other</label>
             </value>
         </valueSetDefinition>
     </valueSet>

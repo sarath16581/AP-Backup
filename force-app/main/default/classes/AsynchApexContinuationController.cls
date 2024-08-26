@@ -52,7 +52,7 @@ global with sharing class AsynchApexContinuationController {
             } else {
                 urlConfig.baseURL =  strFrag0 + '--c.sandbox.vf.force.com';
             }*/
-           urlConfig.baseURL = 'https://'+System.DomainCreator.getVisualforceHostname(null);
+            urlConfig.baseURL = 'https://'+System.DomainCreator.getVisualforceHostname(null);
 
         }
 

@@ -2,13 +2,12 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>ULD_s_incl_ULD_labels__c</fullName>
     <businessStatus>DeprecateCandidate</businessStatus>
-    <defaultValue>false</defaultValue>
-    <description>Used for Sales Implementation case</description>
     <externalId>false</externalId>
-    <inlineHelpText>Include ULD Labels</inlineHelpText>
-    <label>Dep - ULD&apos;s</label>
-    <securityClassification>INTERNAL</securityClassification>
+    <label>Dep - ULDs</label>
+    <length>40</length>
+    <required>false</required>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
-    <type>Checkbox</type>
+    <type>Text</type>
+    <unique>false</unique>
 </CustomField>

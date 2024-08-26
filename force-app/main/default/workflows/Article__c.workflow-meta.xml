@@ -25,7 +25,7 @@
         <fullName>Article_Remediation_Event</fullName>
         <apiVersion>39.0</apiVersion>
         <description>Sends a remediation event to SAP in the event a parcel is missorting or looping. Triggered by inout of remediation information by Call Centre staff</description>
-        <endpointUrl>https://salesforce-bw-ptest.npe.auspost.com.au:10543/Services/CustomerCommunicationsManagement_v1/RemediationRequestEventPortEndpoint</endpointUrl>
+        <endpointUrl>https://salesforce-bw-stest.npe.auspost.com.au:10543/Services/CustomerCommunicationsManagement_v1/RemediationRequestEventPortEndpoint</endpointUrl>
         <fields>CCCAgentId__c</fields>
         <fields>EventCode__c</fields>
         <fields>FacilityOrOutletWCC__c</fields>

@@ -303,7 +303,7 @@ public class OpportunityRevenueReportController {
 	private static Map<String,Budget_and_Revenue__c> loadBudgetAndRevenueRecords(Set<id> accountIds, Set<Id> productIds, Set<String> financialYears) {
 		Map<String,Budget_and_Revenue__c> loadedRevenueMap = new Map<String,Budget_and_Revenue__c>();
 		for (Budget_and_Revenue__c currentBudget : BudgetAndRevenueSelector.newInstance().selectByOrganisationAndProduct(accountIds,productIds,financialYears,new Set<Id>())) {
-			loadedRevenueMap.put(currentBudget.UniqueId__c, currentBudget);
+			loadedRevenueMap.put(currentBudget.uid__c, currentBudget);
 		}
 		return loadedRevenueMap;
 	}

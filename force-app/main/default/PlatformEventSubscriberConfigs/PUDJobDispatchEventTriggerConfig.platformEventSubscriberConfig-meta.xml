@@ -3,5 +3,5 @@
     <batchSize>200</batchSize>
     <masterLabel>PUDJobDispatchEventTriggerConfig</masterLabel>
     <platformEventConsumer>PUDJobDispatchEventTrigger</platformEventConsumer>
-    <user>pudintegration@auspost.com.au.ptest</user>
+    <user>pudintegration@auspost.com.au.stest</user>
 </PlatformEventSubscriberConfig>

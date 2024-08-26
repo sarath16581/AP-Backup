@@ -3,7 +3,7 @@
     <fullName>Existing_Action_Details__c</fullName>
     <businessStatus>DeprecateCandidate</businessStatus>
     <externalId>false</externalId>
-    <label>Dep-Existing Action DetailsIf Applicable</label>
+    <label>Dep - Existing Action Details</label>
     <length>255</length>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>

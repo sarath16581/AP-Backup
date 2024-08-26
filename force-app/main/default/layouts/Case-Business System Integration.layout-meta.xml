@@ -42,10 +42,6 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>APT_ACN__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
                 <field>APT_ABN__c</field>
             </layoutItems>
         </layoutColumns>
@@ -61,10 +57,6 @@
             <layoutItems>
                 <behavior>Edit</behavior>
                 <field>Distribution_Channel__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>APT_Cash_Account__c</field>
             </layoutItems>
         </layoutColumns>
         <style>TwoColumnsTopToBottom</style>

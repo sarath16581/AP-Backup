@@ -15,8 +15,8 @@
     <clickjackProtectionLevel>SameOriginOnly</clickjackProtectionLevel>
     <contentSniffingProtection>true</contentSniffingProtection>
     <customWebAddresses>
-        <domainName>ptest.npe.helpandsupport.auspost.com.au</domainName>
-        <primary>true</primary>
+        <domainName>stest.npe.helpandsupport.auspost.com.au</domainName>
+        <primary>false</primary>
     </customWebAddresses>
     <enableAuraRequests>true</enableAuraRequests>
     <fileNotFoundPage>FileNotFound</fileNotFoundPage>
@@ -42,6 +42,13 @@
         <isActive>true</isActive>
         <isDynamic>false</isDynamic>
         <source>/my-support</source>
+        <target>/s</target>
+    </siteRedirectMappings>
+    <siteRedirectMappings>
+        <action>Permanent</action>
+        <isActive>true</isActive>
+        <isDynamic>false</isDynamic>
+        <source>/s/complaints-and-feedback</source>
         <target>/s</target>
     </siteRedirectMappings>
     <siteType>ChatterNetwork</siteType>

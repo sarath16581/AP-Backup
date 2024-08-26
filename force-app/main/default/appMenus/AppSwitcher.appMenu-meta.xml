@@ -669,6 +669,10 @@
         <type>CustomApplication</type>
     </appMenuItems>
     <appMenuItems>
+        <name>Coveo</name>
+        <type>ConnectedApp</type>
+    </appMenuItems>
+    <appMenuItems>
         <name>APXT_BPM__Conga_Conductor</name>
         <type>CustomApplication</type>
     </appMenuItems>
@@ -729,7 +733,7 @@
         <type>ConnectedApp</type>
     </appMenuItems>
     <appMenuItems>
-        <name>bbtest</name>
+        <name>STEST_NPE_Connected_Clients</name>
         <type>ConnectedApp</type>
     </appMenuItems>
     <appMenuItems>
@@ -745,31 +749,7 @@
         <type>CustomApplication</type>
     </appMenuItems>
     <appMenuItems>
-        <name>NetworkPartnerManagement</name>
+        <name>Network_Partners_Support</name>
         <type>CustomApplication</type>
-    </appMenuItems>
-    <appMenuItems>
-        <name>standard__ExpressionSetConsole</name>
-        <type>CustomApplication</type>
-    </appMenuItems>
-    <appMenuItems>
-        <name>standard__LightningScheduler</name>
-        <type>CustomApplication</type>
-    </appMenuItems>
-    <appMenuItems>
-        <name>standard__QueueManagement</name>
-        <type>CustomApplication</type>
-    </appMenuItems>
-    <appMenuItems>
-        <name>standard__PrivacyCenterConsole</name>
-        <type>CustomApplication</type>
-    </appMenuItems>
-    <appMenuItems>
-        <name>Pardot_to_SF_Integration_Secure_Connected_App</name>
-        <type>ConnectedApp</type>
-    </appMenuItems>
-    <appMenuItems>
-        <name>b2bma_canvas</name>
-        <type>ConnectedApp</type>
     </appMenuItems>
 </AppMenu>

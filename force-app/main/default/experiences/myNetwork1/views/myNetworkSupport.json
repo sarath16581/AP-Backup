@@ -78,7 +78,7 @@
       "regions" : [ {
         "components" : [ {
           "componentAttributes" : {
-            "richTextValue" : "<div style=\"border: solid; padding:15px\">\n<img src=\"/sfsites/c/resource/MyNetworkFormImages/SomethingElse.png\"width=\"36\" height=\"36\">\n<a href=\"https://auspost--ptest.sandbox.my.salesforce.com/servlet/servlet.FileDownload?file=015Bm000000wNgz\" title=\"MyNetwork Information Guide\" target=\"__blank\"><h3>MyNetwork Information Guide</h3></a>\n</div>"
+            "richTextValue" : "<div style=\"border: solid; padding:15px\">\n<img src=\"/sfsites/c/resource/MyNetworkFormImages/SomethingElse.png\"width=\"36\" height=\"36\">\n<a href=\"https://auspost--stest.sandbox.file.force.com/servlet/servlet.FileDownload?file=015Bm000000whsb\" title=\"MyNetwork Information Guide\" target=\"__blank\"><h3>MyNetwork Information Guide</h3></a>\n</div>"
           },
           "componentName" : "forceCommunity:htmlBlock",
           "id" : "c1739d4a-d1bb-40df-a324-a12a956ee757",

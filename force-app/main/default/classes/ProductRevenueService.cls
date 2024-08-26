@@ -157,8 +157,8 @@ public with sharing class ProductRevenueService {
 		// ensure opportunity info is available
 		loadOpportunityInfoForOpportunityLineItems(items);
 		// collect accounts associated with the line items
-			loadOpportunityAccounts(opportunityInfo.values());
-		system.debug('Loaded opportunity accounts ');
+		loadOpportunityAccounts(opportunityInfo.values());
+		system.debug('Loaded opportunity accounts for items '+items);
 		// return the newly created or recalculated grouped revenues
 		return reCalculateGroupRevenues(items);
 	}
@@ -174,12 +174,15 @@ public with sharing class ProductRevenueService {
 		loadOpportunityInfoForOpportunityLineItems(itemsToUpdate);
 		// update opportunity line item incremental and retained values
 		for (OpportunityLineItem record : itemsToUpdate) {
+            system.debug('*** updating fiancials for record '+record);
 			Opportunity recordOpportunity = this.opportunityInfo.get(record.opportunityid);
+            system.debug('**** record opportunity '+recordOpportunity);
 			record.Hidden_In_Year_Revenue__c = record.In_Year_Revenue__c;
 			// pre-conditions
 			if (record.Contract_Start_Date__c != null && record.Contract_End_Date__c != null) {
 				// get last twelve months sales history
 				Double pastSales = getSumOfPastTwelveMonths(recordOpportunity.AccountId, record.Product2Id, record.Contract_Start_Date__c);
+                system.debug('**** past sales '+pastSales);
 				updateRetainedIncrementalAnnualised(record,pastSales);
 				record.X3MonthAverageActual__c = getPastMonthsAverage(recordOpportunity.AccountId, record.Product2Id, 3, record.Contract_Start_Date__c);
 				record.TotalInYearRevenue__c = calculateTotalInYearRevenue(record.contract_Start_Date__c, record.contract_End_Date__c, record.totalPrice);
@@ -768,17 +771,21 @@ public with sharing class ProductRevenueService {
 		uids.addAll(configureProductAccountMaps(items, useDefaultDate));
 		// get all relevant budget and revenue records
 		loadBudgetAndRevenueRecords(uids);
+        system.debug('*** have budget and revenue records '+budgetAndRevenues.values());
 		// reconfigure account and product maps
 		Map<Id,Set<Id>> parentToChildAccountMap = getParentToChildAccountMap();
 		for(OpportunityLineItem item : items) {
+            system.debug('***** recalculating grouped revenues for item '+ item);
 			Date dateToUse = useDefaultDate ? revenueCalculationContextDate : getDateToUse(item);
 			Integer currentFY = getAustralianFinancialYear(dateToUse);
 			opportunity recordOpportunity = opportunityInfo.get(item.opportunityId);
 			List<String> accountRestriction = csvToList(recordOpportunity.RevenueCalculationAccountIDs__c);
 			for (Integer year = currentFY-YEARS_HISTORY; year <currentFY+1; year++) {
-					String revenueKey = getUID(recordOpportunity.AccountId, item.Product2Id, String.valueOf(year));
-				// retrieve the grouped revenue records for this item
+                String revenueKey = getUID(recordOpportunity.AccountId, item.Product2Id, String.valueOf(year));
+				system.debug('**** getting grouped revenue record for uid '+revenueKey);
+                // retrieve the grouped revenue records for this item
 				GroupedAccountProductRevenue__c currentGroupedRevenue =groupedRevenues.get(revenueKey);
+                system.debug('**** got grouped revenue '+ currentGroupedRevenue);
 				// update the current group revenue figures only in the case that
 				// (1) the revenue record is new (doesn't exist) or the revenue record is not more than 1 FY ago.
 				if(currentGroupedRevenue.id == null || year >currentFY-2) {
@@ -809,6 +816,7 @@ public with sharing class ProductRevenueService {
 							}
 						}
 					}
+                    system.debug('*** isUpdated = '+isUpdated);
 					if (isUpdated) {
 						updatedRevenueRecords.put(currentGroupedRevenue.UID__c,currentGroupedRevenue);
 					}
@@ -998,7 +1006,7 @@ public with sharing class ProductRevenueService {
 		}
 		// populate unloaded budget and revenue records
 		for (Budget_and_Revenue__c currentBudget : BudgetAndRevenueSelector.newInstance().selectByUniqueIds(unloadedIds).values()) {
-			budgetAndRevenues.put(currentBudget.UniqueId__c, currentBudget);
+			budgetAndRevenues.put(currentBudget.uid__c, currentBudget);
 		}
 	}
 
@@ -1054,7 +1062,7 @@ public with sharing class ProductRevenueService {
 	* @return 	a map of open opportunities associated with the specified account ids.
 	*/
 	private Map<Id,Opportunity> loadOpenOpportunitiesForAccounts(Set<Id> accountIds) {
-		Map<Id,Opportunity> loadedOpportunities = OpportunitySelector.newInstance().selectOpenOpportunitiesByAccountIds(accountIds);
+		Map<Id,Opportunity> loadedOpportunities = OpportunitiesSelector.newInstance().selectOpenOpportunitiesByAccountIds(accountIds);
 		for (Opportunity opp : loadedOpportunities.values()) {
 			if (!this.opportunityInfo.containsKey(opp.id)) {
 				this.opportunityInfo.put(opp.id,opp);

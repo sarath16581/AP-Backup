@@ -1108,49 +1108,6 @@ public with sharing class ApplicationTestDataFactory {
 		}
 		private set;
 	}
-    
-    public static List<OpportunityProductRevenueForecast__c> getOpportunityProductRevenueForecasts(Integer count, Id opportunityProductId, Boolean generateIds) {
-		integer currentMonth = Date.today().Month();
-        decimal percentRevenue = 100/12;
-        return (List<OpportunityProductRevenueForecast__c>)maybeGenerateIds(populateSObjects(OpportunityProductRevenueForecast__c.SObjectType, new Map<SObjectField, Object> {
-				OpportunityProductRevenueForecast__c.OpportunityProduct__c => opportunityProductId,
-                OpportunityProductRevenueForecast__c.FinancialYear__c => currentMonth,
-                OpportunityProductRevenueForecast__c.FCT1__c => percentRevenue,
-                OpportunityProductRevenueForecast__c.FCT2__c => percentRevenue,
-                OpportunityProductRevenueForecast__c.FCT3__c => percentRevenue,
-                OpportunityProductRevenueForecast__c.FCT4__c => percentRevenue,
-                OpportunityProductRevenueForecast__c.FCT5__c => percentRevenue,
-                OpportunityProductRevenueForecast__c.FCT6__c => percentRevenue,
-                OpportunityProductRevenueForecast__c.FCT7__c => percentRevenue,
-                OpportunityProductRevenueForecast__c.FCT8__c => percentRevenue,
-                OpportunityProductRevenueForecast__c.FCT9__c => percentRevenue,
-                OpportunityProductRevenueForecast__c.FCT10__c => percentRevenue,
-                OpportunityProductRevenueForecast__c.FCT11__c => percentRevenue,
-                OpportunityProductRevenueForecast__c.FCT12__c => percentRevenue
-		}, count), generateIds);
-	}
-    
-    public static List<GroupedAccountProductRevenue__c> getGroupedAccountProductRevenue(Integer count, Id accountId, Id productId, Integer year, Boolean generateIds) {
-        decimal revenue = 10000;
-        return (List<GroupedAccountProductRevenue__c>)maybeGenerateIds(populateSObjects(GroupedAccountProductRevenue__c.SObjectType, new Map<SObjectField, Object> {
-				GroupedAccountProductRevenue__c.AnchorOrganisation__c => accountId,
-                GroupedAccountProductRevenue__c.PrimaryProduct__c => productId,
-                GroupedAccountProductRevenue__c.FinancialYear__c => year,
-                GroupedAccountProductRevenue__c.Rev1__c => revenue,
-                GroupedAccountProductRevenue__c.Rev2__c => revenue,
-                GroupedAccountProductRevenue__c.Rev3__c => revenue,
-                GroupedAccountProductRevenue__c.Rev4__c => revenue,
-                GroupedAccountProductRevenue__c.Rev5__c => revenue,
-                GroupedAccountProductRevenue__c.Rev6__c => revenue,
-                GroupedAccountProductRevenue__c.Rev7__c => revenue,
-                GroupedAccountProductRevenue__c.Rev8__c => revenue,
-                GroupedAccountProductRevenue__c.Rev9__c => revenue,
-                GroupedAccountProductRevenue__c.Rev10__c => revenue,
-                GroupedAccountProductRevenue__c.Rev11__c => revenue,
-                GroupedAccountProductRevenue__c.Rev12__c => revenue,
-				GroupedAccountProductRevenue__c.UID__c => ProductRevenueService.getUID(accountId,productId,String.valueOf(year))
-		}, count), generateIds);
-	}
 	
 	/**
 	* Generates test data for Auspost_Vendors_Email_Address__mdt custom metadata records

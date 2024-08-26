@@ -7,8 +7,6 @@
 -->
 
 <aura:component controller="OpportunityClosureController" implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global">
-  <aura:attribute name="recordId" type="String" />
-  <aura:attribute name="oppLinesUpdated" type="Boolean" default="false"/>
   <!-- CSS for Modal Width -->
   <aura:html tag="style">
     .slds-modal__container{ 
@@ -29,7 +27,5 @@
     }
   </aura:html>     
   <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
-  <aura:if isTrue="{!v.oppLinesUpdated}">
-    <c:opportunityClosure recordId="{!v.recordId}" onclose="{!c.closeComp}" />
-  </aura:if>
+  <c:opportunityClosure recordId="{!v.recordId}" onclose="{!c.closeComp}" />
 </aura:component>

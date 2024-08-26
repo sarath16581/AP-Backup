@@ -8,16 +8,16 @@
  -->
 <apex:page id="MyCustomerDeliveryProofPdfWrapper" controller="MyCustomerDeliveryProofPdfController" action="{!getSafeDropOrSignature}" showHeader="false" sideBar="false" renderAs="advanced_pdf">
 
-	<apex:outputPanel rendered="{!NOT(ISNULL(pageError))}" layout="none">
-		<div id="errorWrapper" style="margin:20px;">
-			<div class="alert alert-warning" role="alert">
-				{!pageError}
-			</div>
-		</div>
-	</apex:outputPanel>
+    <apex:outputPanel rendered="{!NOT(ISNULL(pageError))}" layout="none">
+        <div id="errorWrapper" style="margin:20px;">
+            <div class="alert alert-warning" role="alert">
+                {!pageError}
+            </div>
+        </div>
+    </apex:outputPanel>
 
-	<apex:outputPanel rendered="{!ISNULL(pageError)}" layout="none">
-		<c:DeliveryProofPdfRenderer eventMessage="{!eventMessage}" signatureAttachmentId="{!signatureAttachmentId}" safeDropAttachmentId="{!safeDropAttachmentId}" />
-	</apex:outputPanel>
+    <apex:outputPanel rendered="{!ISNULL(pageError)}" layout="none">
+        <c:DeliveryProofPdfRenderer eventMessage="{!eventMessage}" signatureAttachmentId="{!signatureAttachmentId}" safeDropAttachmentId="{!safeDropAttachmentId}" />
+    </apex:outputPanel>
 
 </apex:page>

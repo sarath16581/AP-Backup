@@ -25,12 +25,12 @@ private static void testRecalculateGroupedRevenues() {
 	Budget_and_Revenue__c budgrev = ApplicationTestDataFactory.getBudgetAndRevenue(1,account.Id,prod.Id,dateOfTest.year(),true)[0];
 	budgrev.uid__c = ProductRevenueService.getUID(budgrev);
 	budgrev = (Budget_and_Revenue__c)ApplicationTestDataFactory.setUnwritableFields(budgrev, new Map<String, Object>{
-		'UniqueId__c' => ProductRevenueService.getUID(budgrev)
+		'uid__c' => ProductRevenueService.getUID(budgrev)
 	});
 	Budget_and_Revenue__c budgrevp = ApplicationTestDataFactory.getBudgetAndRevenue(1,account.Id,prod.Id,dateOfTest.year()-1,true)[0];
 	budgrevp.uid__c = ProductRevenueService.getUID(budgrevp);
 	budgrevp = (Budget_and_Revenue__c)ApplicationTestDataFactory.setUnwritableFields(budgrevp, new Map<String, Object>{
-		'UniqueId__c' => ProductRevenueService.getUID(budgrevp)
+		'uid__c' => ProductRevenueService.getUID(budgrevp)
 	});
 
 	Id priceBookId = Test.getStandardPricebookId();
@@ -74,7 +74,7 @@ private static void testRecalculateGroupedRevenues() {
 	MockUtility.Mocks.when(groupedRevenueSelector.selectByUniqueIds((Set<String>)fflib_Match.anyObject())).thenReturn(new Map<Id,GroupedAccountProductRevenue__c>(new List<GroupedAccountProductRevenue__c>{groupedRev2023,groupedRev2024}));
 	MockUtility.Mocks.when(revenueSelector.selectByUniqueIds((Set<String>)fflib_Match.anyObject())).thenReturn(new Map<Id,Budget_and_Revenue__c>{budgrev.Id => budgrev, budgrevp.Id => budgrevp});
 	MockUtility.Mocks.when(lineItemSelector.selectByOPCCalculationOpportunityIds((Set<Id>)fflib_Match.anyObject(), (Set<Object>)fflib_Match.anyObject())).thenReturn(new List<OpportunityLineItem>{oli1});
-	MockUtility.Mocks.when(aprSelector.selectByAccount((Set<Id>)fflib_Match.anyObject(),(Set<Object>)fflib_Match.anyObject())).thenReturn(new List<APR__c>{apr});
+	//MockUtility.Mocks.when(aprSelector.selectByAccount((Set<Id>)fflib_Match.anyObject(),(Set<Object>)fflib_Match.anyObject())).thenReturn(new List<APR__c>{apr});
 	MockUtility.Mocks.when(arSelector.selectByOPCParentEndDateInFuture((Set<Id>)fflib_Match.anyObject())).thenReturn(new List<AccountRelationship__c>{accRelation});
 	MockUtility.Mocks.stopStubbing();
 	Test.startTest();
@@ -143,12 +143,12 @@ private static void testRecalculateGroupedRevenues() {
 		Budget_and_Revenue__c budgrev = ApplicationTestDataFactory.getBudgetAndRevenue(1,account.Id,prod.Id,dateOfTest.year(),true)[0];
 		budgrev.uid__c = ProductRevenueService.getUID(budgrev);
 		budgrev = (Budget_and_Revenue__c)ApplicationTestDataFactory.setUnwritableFields(budgrev, new Map<String, Object>{
-			'UniqueId__c' => ProductRevenueService.getUID(budgrev)
+			'uid__c' => ProductRevenueService.getUID(budgrev)
 		});
 		Budget_and_Revenue__c budgrevp = ApplicationTestDataFactory.getBudgetAndRevenue(1,account.Id,prod.Id,dateOfTest.year()-1,true)[0];
 		budgrevp.uid__c = ProductRevenueService.getUID(budgrevp);
 		budgrevp = (Budget_and_Revenue__c)ApplicationTestDataFactory.setUnwritableFields(budgrevp, new Map<String, Object>{
-			'UniqueId__c' => ProductRevenueService.getUID(budgrevp)
+			'uid__c' => ProductRevenueService.getUID(budgrevp)
 		});
 
 		Id priceBookId = Test.getStandardPricebookId();
@@ -180,7 +180,7 @@ private static void testRecalculateGroupedRevenues() {
 		MockUtility.Mocks.when(groupedRevenueSelector.selectByUniqueIds((Set<String>)fflib_Match.anyObject())).thenReturn(new Map<Id,GroupedAccountProductRevenue__c>());
 		MockUtility.Mocks.when(revenueSelector.selectByUniqueIds((Set<String>)fflib_Match.anyObject())).thenReturn(new Map<Id,Budget_and_Revenue__c>{budgrev.Id => budgrev, budgrevp.Id => budgrevp});
 		MockUtility.Mocks.when(lineItemSelector.selectByOPCCalculationOpportunityIds((Set<Id>)fflib_Match.anyObject(), (Set<Object>)fflib_Match.anyObject())).thenReturn(new List<OpportunityLineItem>{oli1});
-		MockUtility.Mocks.when(aprSelector.selectByAccount((Set<Id>)fflib_Match.anyObject(),(Set<Object>)fflib_Match.anyObject())).thenReturn(new List<APR__c>{apr});
+		//MockUtility.Mocks.when(aprSelector.selectByAccount((Set<Id>)fflib_Match.anyObject(),(Set<Object>)fflib_Match.anyObject())).thenReturn(new List<APR__c>{apr});
 		MockUtility.Mocks.when(arSelector.selectByOPCParentEndDateInFuture((Set<Id>)fflib_Match.anyObject())).thenReturn(new List<AccountRelationship__c>{accRelation});
 		MockUtility.Mocks.stopStubbing();
 		Test.startTest();

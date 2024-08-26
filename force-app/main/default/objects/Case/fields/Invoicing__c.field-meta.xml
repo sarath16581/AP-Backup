@@ -2,33 +2,12 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Invoicing__c</fullName>
     <businessStatus>DeprecateCandidate</businessStatus>
-    <description>Used for Sales Implementation case</description>
     <externalId>false</externalId>
     <label>Dep - Invoicing</label>
+    <length>40</length>
     <required>false</required>
-    <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
-    <type>MultiselectPicklist</type>
-    <valueSet>
-        <valueSetDefinition>
-            <sorted>false</sorted>
-            <value>
-                <fullName>Combined Billing</fullName>
-                <default>false</default>
-                <label>Combined Billing</label>
-            </value>
-            <value>
-                <fullName>MBA (My Business Account)</fullName>
-                <default>false</default>
-                <label>MBA (My Business Account)</label>
-            </value>
-            <value>
-                <fullName>Non Standard Invoicing</fullName>
-                <default>false</default>
-                <label>Non Standard Invoicing</label>
-            </value>
-        </valueSetDefinition>
-    </valueSet>
-    <visibleLines>3</visibleLines>
+    <type>Text</type>
+    <unique>false</unique>
 </CustomField>

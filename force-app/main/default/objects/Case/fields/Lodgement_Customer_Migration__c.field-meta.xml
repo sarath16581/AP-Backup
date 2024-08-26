@@ -4,7 +4,7 @@
     <businessStatus>DeprecateCandidate</businessStatus>
     <deleteConstraint>SetNull</deleteConstraint>
     <externalId>false</externalId>
-    <label>Dep - Lodgement Customer Migration</label>
+    <label>Dep-Lodgement Customer Migration</label>
     <referenceTo>Lodgement_Customer_Migration__c</referenceTo>
     <relationshipLabel>Cases</relationshipLabel>
     <relationshipName>Cases</relationshipName>

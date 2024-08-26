@@ -12,7 +12,7 @@
     <valueSet>
         <controllingField>Call_Purpose__c</controllingField>
         <valueSetDefinition>
-            <sorted>true</sorted>
+            <sorted>false</sorted>
             <value>
                 <fullName>2nd Follow up</fullName>
                 <default>false</default>

@@ -4,30 +4,10 @@
     <businessStatus>DeprecateCandidate</businessStatus>
     <externalId>false</externalId>
     <label>Dep - FOS Membership</label>
+    <length>40</length>
     <required>false</required>
-    <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
-    <type>Picklist</type>
-    <valueSet>
-        <restricted>true</restricted>
-        <valueSetDefinition>
-            <sorted>false</sorted>
-            <value>
-                <fullName>Australia Postal Corporation (10045)</fullName>
-                <default>false</default>
-                <label>Australia Postal Corporation (10045)</label>
-            </value>
-            <value>
-                <fullName>Australia Post Services Pty Ltd (35661)</fullName>
-                <default>false</default>
-                <label>Australia Post Services Pty Ltd (35661)</label>
-            </value>
-            <value>
-                <fullName>Heritage Bank Limited (14728)</fullName>
-                <default>false</default>
-                <label>Heritage Bank Limited (14728)</label>
-            </value>
-        </valueSetDefinition>
-    </valueSet>
+    <type>Text</type>
+    <unique>false</unique>
 </CustomField>

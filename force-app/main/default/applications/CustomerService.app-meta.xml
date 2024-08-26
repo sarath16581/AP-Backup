@@ -2,17 +2,15 @@
 <CustomApplication xmlns="http://soap.sforce.com/2006/04/metadata">
     <consoleConfig>
         <componentList>
-            <alignment>left</alignment>
+            <alignment>right</alignment>
             <components>Console.BuiltInComponent.servicePresence</components>
             <components>Console.BuiltInComponent.mostRecentlyUsed</components>
-            <components>purecloud__PureCloudScript</components>
             <components>QuickLinks</components>
             <components>ContactSearch</components>
             <components>Console.BuiltInComponent.knowledgeOne</components>
             <components>URLShortenerComponent</components>
             <components>Fill_Inbox</components>
             <components>ConsoleChatterScrollBar</components>
-            <components>GenesysConnector</components>
         </componentList>
         <detailPageRefreshMethod>none</detailPageRefreshMethod>
         <keyboardShortcuts>

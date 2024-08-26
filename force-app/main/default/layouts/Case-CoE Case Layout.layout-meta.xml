@@ -49,7 +49,7 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>InitiatedBy_NonSF__c</field>
+                <field>Initiating_Area__c</field>
             </layoutItems>
             <layoutItems>
                 <emptySpace>true</emptySpace>
@@ -68,14 +68,6 @@
             <layoutItems>
                 <behavior>Required</behavior>
                 <field>Work_Type__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Required</behavior>
-                <field>Work_Activity__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Required</behavior>
-                <field>Work_Category__c</field>
             </layoutItems>
             <layoutItems>
                 <emptySpace>true</emptySpace>
@@ -104,10 +96,6 @@
             <layoutItems>
                 <behavior>Edit</behavior>
                 <field>Closed_Date__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>Alert_Status__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Readonly</behavior>

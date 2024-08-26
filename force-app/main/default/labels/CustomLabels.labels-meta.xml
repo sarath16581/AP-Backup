@@ -723,7 +723,7 @@
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>APT_EmailServiceAddress</shortDescription>
-        <value>approvalreplyservice@s-2e0qb4mvauzbol5piqo43h11g76aowtg7j35fyx40j2fpd9wuz.1e-jbteaq.cs111.apex.sandbox.salesforce.com</value>
+        <value>approvalreplyservice@1-xeqhgi8zif71chv0dgwrrb9sym6frpv00m1dpq51m7ujghyj8.bm-1gamvmac.aus18s.apex.sandbox.salesforce.com</value>
     </labels>
     <labels>
         <fullName>APT_Enter_Billing_Account_Details</fullName>
@@ -2033,7 +2033,7 @@
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>AddressSearch NoAccess Error Message</shortDescription>
-        <value>You do not have access to update this record. Please raise a case record to the Data Quality Management team with your change request.</value>
+        <value>You do not have access to update this record. Please raise a case record to the Sales Operations Support team with your change request.</value>
     </labels>
     <labels>
         <fullName>AdvancedSearchOutletName</fullName>
@@ -2352,7 +2352,7 @@
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>CHAS_CommunityUrl</shortDescription>
-        <value>ptest.npe.helpandsupport.auspost.com.au</value>
+        <value>stest.npe.helpandsupport.auspost.com.au</value>
     </labels>
     <labels>
         <fullName>CHAS_CompensationSitePath</fullName>
@@ -7849,12 +7849,12 @@ something new for us, so we&apos;d love to know what you think.</value>
         <protected>false</protected>
         <shortDescription>StarTrackNewBillingAccountSubmitNonTransientErrorAdditionalInstructions</shortDescription>
         <value>&lt;b&gt;Please report an IT issue via the &apos;Report a Fault&apos; icon on the MyIT Service Portal and select the following details:&lt;/b&gt;&lt;br/&gt;&lt;br/&gt;
-&lt;ul&gt;
-&lt;li&gt;Please select the area this relates to: 2.Applications &amp; Software&lt;br/&gt;&lt;/li&gt;
-&lt;li&gt;What does this relate to? Salesforce&lt;br/&gt;&lt;/li&gt;
-&lt;li&gt;What best describes your issue? Issues with Sales Cloud&lt;br/&gt;&lt;/li&gt;
-&lt;li&gt;Can you provide a short description: TEAM Charge Account Integration not working &lt;/li&gt;
-&lt;ul&gt;</value>
+            &lt;ul&gt;
+            &lt;li&gt;Please select the area this relates to: 2.Applications &amp; Software&lt;br/&gt;&lt;/li&gt;
+            &lt;li&gt;What does this relate to? Salesforce&lt;br/&gt;&lt;/li&gt;
+            &lt;li&gt;What best describes your issue? Issues with Sales Cloud&lt;br/&gt;&lt;/li&gt;
+            &lt;li&gt;Can you provide a short description: TEAM Charge Account Integration not working &lt;/li&gt;
+            &lt;ul&gt;</value>
     </labels>
     <labels>
         <fullName>StarTrackNewBillingAccountSubmitTransientErrorAdditionalInstructions</fullName>
@@ -7863,12 +7863,12 @@ something new for us, so we&apos;d love to know what you think.</value>
         <protected>false</protected>
         <shortDescription>StarTrackNewBillingAccountSubmitTransientErrorAdditionalInstructions</shortDescription>
         <value>&lt;b&gt;If the problem persists, Please report an IT issue via the &apos;Report a Fault&apos; icon on the MyIT Service Portal and select the following details:&lt;/b&gt;&lt;br/&gt;&lt;br/&gt;
-&lt;ul&gt;
-&lt;li&gt;Please select the area this relates to: 2.Applications &amp; Software&lt;br/&gt;&lt;/li&gt;
-&lt;li&gt;What does this relate to? Salesforce&lt;br/&gt;&lt;/li&gt;
-&lt;li&gt;What best describes your issue? Issues with Sales Cloud&lt;br/&gt;&lt;/li&gt;
-&lt;li&gt;Can you provide a short description: TEAM Charge Account Integration not working &lt;/li&gt;
-&lt;ul&gt;</value>
+            &lt;ul&gt;
+            &lt;li&gt;Please select the area this relates to: 2.Applications &amp; Software&lt;br/&gt;&lt;/li&gt;
+            &lt;li&gt;What does this relate to? Salesforce&lt;br/&gt;&lt;/li&gt;
+            &lt;li&gt;What best describes your issue? Issues with Sales Cloud&lt;br/&gt;&lt;/li&gt;
+            &lt;li&gt;Can you provide a short description: TEAM Charge Account Integration not working &lt;/li&gt;
+            &lt;ul&gt;</value>
     </labels>
     <labels>
         <fullName>StarTrackNextRevenueDateRequiredForNewAccountsErrorMessage</fullName>
@@ -8919,10 +8919,9 @@ something new for us, so we&apos;d love to know what you think.</value>
     </labels>
     <labels>
         <fullName>The_agent_was_equipped_to_provide_a_response</fullName>
-        <categories>FlagCaseForReview</categories>
         <language>en_US</language>
         <protected>false</protected>
-        <shortDescription>The agent was equipped to provide a response</shortDescription>
+        <shortDescription>The_agent_was_equipped_to_provide_a_response</shortDescription>
         <value>Please provide further details in Network Response</value>
     </labels>
     <labels>
@@ -9192,7 +9191,11 @@ We&apos;ll let you if it&apos;s successful. Thank you. Please do not reply.</val
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>Send for eSignature Custom Message</shortDescription>
-        <value>Once the agreement is signed by Australia Post and the Customer, you will receive an email confirmation and the Customer Onboarding team will be notified to provision the rates, and activate the contract.</value>
+        <value>Please confirm that you want to send this agreement for eSignature.
+                   
+                  Once the agreement is signed by Australia Post and Customer you will receive an
+                         email confirmation and Customer Onboarding team will be notified to provision the rates
+                          and activate the contract.</value>
     </labels>
     <labels>
         <fullName>REC_TYPE_DEV_BULK_MAIL</fullName>
@@ -9201,5 +9204,21 @@ We&apos;ll let you if it&apos;s successful. Thank you. Please do not reply.</val
         <protected>false</protected>
         <shortDescription>Record Type Developer Name of Bulk Mail</shortDescription>
         <value>Bulk_Mail_Onboarding</value>
+    </labels>
+    <labels>
+        <fullName>REC_TYPE_DEV_EG_Sales</fullName>
+        <categories>Record Type Name</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Record Type Developer Name of E&amp;G Sales Implementation</shortDescription>
+        <value>Sales_Implementation_Case</value>
+    </labels>
+    <labels>
+        <fullName>REC_TYPE_DEV_Shipster</fullName>
+        <categories>Record Type Name</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Record Type Developer Name of Shipster</shortDescription>
+        <value>Shipster</value>
     </labels>
 </CustomLabels>

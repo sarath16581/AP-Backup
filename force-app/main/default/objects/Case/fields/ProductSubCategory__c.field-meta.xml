@@ -924,34 +924,39 @@
                 <label>Product &amp; service information</label>
             </value>
             <value>
-                <fullName>new links</fullName>
+                <fullName>New Links</fullName>
                 <default>false</default>
                 <label>New Links</label>
             </value>
             <value>
-                <fullName>queries</fullName>
+                <fullName>Queries</fullName>
                 <default>false</default>
                 <label>Queries</label>
             </value>
             <value>
-                <fullName>queries - IT Ticket</fullName>
+                <fullName>Queries - IT Ticket</fullName>
                 <default>false</default>
                 <label>Queries - IT Ticket</label>
             </value>
             <value>
-                <fullName>training</fullName>
+                <fullName>Training</fullName>
                 <default>false</default>
                 <label>Training</label>
             </value>
             <value>
-                <fullName>access requests</fullName>
+                <fullName>Access Requests</fullName>
                 <default>false</default>
                 <label>Access Requests</label>
             </value>
             <value>
-                <fullName>duplicate records/multiple CPs</fullName>
+                <fullName>Duplicate Records/Multiple CPs</fullName>
                 <default>false</default>
                 <label>Duplicate Records/Multiple CPs</label>
+            </value>
+            <value>
+                <fullName>CCR</fullName>
+                <default>false</default>
+                <label>CCR</label>
             </value>
             <value>
                 <fullName>Appeals</fullName>
@@ -959,7 +964,7 @@
                 <label>Appeals</label>
             </value>
             <value>
-                <fullName>cessation notice</fullName>
+                <fullName>Cessation Notice</fullName>
                 <default>false</default>
                 <label>Cessation Notice</label>
             </value>
@@ -967,11 +972,6 @@
                 <fullName>ARC</fullName>
                 <default>false</default>
                 <label>ARC</label>
-            </value>
-            <value>
-                <fullName>CCR</fullName>
-                <default>false</default>
-                <label>CCR</label>
             </value>
         </valueSetDefinition>
         <valueSettings>
@@ -1038,21 +1038,21 @@
             <controllingFieldValue>CMS</controllingFieldValue>
             <controllingFieldValue>MMT/SAP HR</controllingFieldValue>
             <controllingFieldValue>Fit2Work</controllingFieldValue>
-            <valueName>queries</valueName>
+            <valueName>Queries</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>CMS</controllingFieldValue>
             <controllingFieldValue>MMT/SAP HR</controllingFieldValue>
-            <valueName>queries - IT Ticket</valueName>
+            <valueName>Queries - IT Ticket</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>CMS</controllingFieldValue>
             <controllingFieldValue>MMT/SAP HR</controllingFieldValue>
-            <valueName>training</valueName>
+            <valueName>Training</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>CMS</controllingFieldValue>
-            <valueName>access requests</valueName>
+            <valueName>Access Requests</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Accounting Service Helpdesk</controllingFieldValue>
@@ -1138,7 +1138,7 @@
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>MMT/SAP HR</controllingFieldValue>
-            <valueName>duplicate records/multiple CPs</valueName>
+            <valueName>Duplicate Records/Multiple CPs</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>eParcel</controllingFieldValue>
@@ -1200,11 +1200,11 @@
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>CCR &amp; Appeals</controllingFieldValue>
-            <valueName>Appeals</valueName>
+            <valueName>CCR</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>CCR &amp; Appeals</controllingFieldValue>
-            <valueName>CCR</valueName>
+            <valueName>Appeals</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>S &amp; T APIs</controllingFieldValue>
@@ -1244,7 +1244,7 @@
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Fit2Work</controllingFieldValue>
-            <valueName>new links</valueName>
+            <valueName>New Links</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Domestic Parcels</controllingFieldValue>
@@ -1586,7 +1586,7 @@
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Cessations</controllingFieldValue>
-            <valueName>cessation notice</valueName>
+            <valueName>Cessation Notice</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Cessations</controllingFieldValue>

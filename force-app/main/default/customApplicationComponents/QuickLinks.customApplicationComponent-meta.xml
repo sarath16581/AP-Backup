@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomApplicationComponent xmlns="http://soap.sforce.com/2006/04/metadata">
-    <buttonIconUrl>https://auspost--ptest.sandbox.my.salesforce.com/resource/CTIScreenPopResources/LinksFooter.png</buttonIconUrl>
+    <buttonIconUrl>https://auspost--stest.sandbox.my.salesforce.com/resource/CTIScreenPopResources/LinksFooter.png</buttonIconUrl>
     <buttonText>Quick Links</buttonText>
     <buttonWidth>160</buttonWidth>
     <height>500</height>

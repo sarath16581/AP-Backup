@@ -342,7 +342,7 @@
     <description>Enterprise credit disputes approval process. All credit dispute approvals (discretionary and non-discretionary) go through this approval process.
 Approvers are configured in Credit Approval Matrix by Product Family, Product Sub-Category and credit amounts.</description>
     <emailTemplate>All_Email_Templates/Credit_Approval_Request</emailTemplate>
-    <enableMobileDeviceAccess>true</enableMobileDeviceAccess>
+    <enableMobileDeviceAccess>false</enableMobileDeviceAccess>
     <entryCriteria>
         <formula>AND (  
    NOT(ISPICKVAL( Status__c, &apos;Approved&apos;)), 

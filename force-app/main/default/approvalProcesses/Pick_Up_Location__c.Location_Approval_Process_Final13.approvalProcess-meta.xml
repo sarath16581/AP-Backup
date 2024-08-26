@@ -689,7 +689,7 @@
         </approvalActions>
         <assignedApprover>
             <approver>
-                <name>darren.vandenberg@startrack.com.au</name>
+                <name>darren.vandenberg@auspost.com.au</name>
                 <type>user</type>
             </approver>
             <approver>
@@ -881,10 +881,6 @@
             </approver>
             <approver>
                 <name>paul.trembath@auspost.com.au</name>
-                <type>user</type>
-            </approver>
-            <approver>
-                <name>philip.faulks@startrack.com.au</name>
                 <type>user</type>
             </approver>
             <whenMultipleApprovers>FirstResponse</whenMultipleApprovers>
@@ -1117,10 +1113,6 @@
             </approver>
             <approver>
                 <name>roby.esh@startrack.com.au</name>
-                <type>user</type>
-            </approver>
-            <approver>
-                <name>tony.field@startrack.com.au</name>
                 <type>user</type>
             </approver>
             <whenMultipleApprovers>FirstResponse</whenMultipleApprovers>
@@ -1412,10 +1404,6 @@
                 <name>roby.esh@startrack.com.au</name>
                 <type>user</type>
             </approver>
-            <approver>
-                <name>tony.field@startrack.com.au</name>
-                <type>user</type>
-            </approver>
             <whenMultipleApprovers>FirstResponse</whenMultipleApprovers>
         </assignedApprover>
         <entryCriteria>
@@ -1527,7 +1515,7 @@
         </approvalActions>
         <assignedApprover>
             <approver>
-                <name>darren.vandenberg@startrack.com.au</name>
+                <name>darren.vandenberg@auspost.com.au</name>
                 <type>user</type>
             </approver>
             <approver>

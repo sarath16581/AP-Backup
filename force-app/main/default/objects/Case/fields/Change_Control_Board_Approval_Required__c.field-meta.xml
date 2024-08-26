@@ -3,7 +3,7 @@
     <fullName>Change_Control_Board_Approval_Required__c</fullName>
     <businessStatus>DeprecateCandidate</businessStatus>
     <externalId>false</externalId>
-    <label>Dep -ChangeControlBoardApproval Required</label>
+    <label>D Change Control Board Approval Required</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
