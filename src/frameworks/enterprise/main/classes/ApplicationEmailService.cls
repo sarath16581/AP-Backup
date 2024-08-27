@@ -72,7 +72,6 @@ public inherited sharing class ApplicationEmailService {
 
 			if (!this.emailNotificationDispatchKeyHistory.contains(registryKey)) {
 				emailNotificationRegistry.put(registryKey, emailNotification);
-				//emailNotificationRegistryKeyHistory.add(registryKey);
 			} else {
 				System.debug(LoggingLevel.INFO, 'Cannot queue this email notification. ' + registryKey 
 					+ ' has already been dispatched previously on this instance of ApplicationEmailService.');
