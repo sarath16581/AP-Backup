@@ -1,0 +1,238 @@
+<template>
+	<div class="slds-is-relative">
+		<lightning-spinner
+				if:true={isLoading}
+				variant="brand"
+				alternative-text="Saving..."
+				title="Saving..."
+		></lightning-spinner>
+
+		<!-- Back button -->
+		<div class="slds-var-m-top_small">
+			<div class="slds-text-align_left">
+				<lightning-button
+						data-id="back"
+						label={backButtonLabel}
+						onclick={handleBackBtnClick}
+						variant="brand-outline"
+				></lightning-button>
+			</div>
+		</div>
+
+		<div class="slds-grid slds-wrap slds-gutters_x-small">
+			<!-- Customer Type Radio Button -->
+			<div class="slds-col slds-size_1-of-1 slds-grid_align-center slds-text-align_center">
+				<h2><strong>Customer Type</strong></h2>
+				<div class="slds-grid slds-wrap slds-gutters slds-p-top_small">
+					<div class="slds-col slds-size_1-of-2 slds-grid_align-center slds-text-align_right">
+						<lightning-radio-group
+								data-field-name="customerTypeConsumerRadioBtnValue"
+								label="Customer Type"
+								options={customerTypeConsumerOption}
+								value={customerTypeConsumerRadioBtnValue}
+								type="radio"
+								onchange={handleInputChange}
+								variant="label-hidden"
+						></lightning-radio-group>
+					</div>
+					<div class="slds-col slds-size_1-of-2 slds-grid_align-center slds-text-align_left">
+						<lightning-radio-group
+								data-field-name="customerTypeOrganisationRadioBtnValue"
+								label="Customer Type"
+								options={customerTypeOrganisationOption}
+								value={customerTypeOrganisationRadioBtnValue}
+								type="radio"
+								onchange={handleInputChange}
+								variant="label-hidden"
+						></lightning-radio-group>
+					</div>
+				</div>
+			</div>
+
+			<!-- Horizontal Line Break below the Customer Type Radio button -->
+			<div class="slds-col slds-size_1-of-1 slds-grid slds-gutters slds-p-bottom_medium slds-m-around_medium">
+				<div class="slds-col slds-size_1-of-3">
+				</div>
+				<div class="slds-col slds-size_1-of-3 slds-border_bottom">
+				</div>
+				<div class="slds-col slds-size_1-of-3">
+				</div>
+			</div>
+
+			<div class="slds-col slds-size_1-of-1 slds-large-size_1-of-3">
+				<!-- First Name -->
+				<lightning-input
+						data-field-name="firstName"
+						label={firstNameLabel}
+						max-length="80"
+						message-when-pattern-mismatch={invalidNameMsg}
+						name="firstName"
+						pattern={nameInputRegex}
+						placeholder={firstNameLabel}
+						type="text"
+						value={firstName}
+						onchange={handleInputChange}
+						required="true"
+				></lightning-input>
+			</div>
+			<!-- Last Name -->
+			<div class="slds-col slds-size_1-of-1 slds-large-size_1-of-3">
+				<lightning-input
+						data-field-name="lastName"
+						label={lastNameLabel}
+						max-length="80"
+						message-when-pattern-mismatch={invalidNameMsg}
+						name="lastName"
+						pattern={nameInputRegex}
+						placeholder={lastNameLabel}
+						type="text"
+						value={lastName}
+						required="true"
+						onchange={handleInputChange}
+				></lightning-input>
+			</div>
+
+			<!-- Preferred Name -->
+			<div class="slds-col slds-size_1-of-1 slds-large-size_1-of-3">
+				<lightning-input
+						data-field-name="preferredName"
+						label={preferredNameLabel}
+						max-length="80"
+						message-when-pattern-mismatch={invalidNameMsg}
+						name="preferredName"
+						pattern={nameInputRegex}
+						placeholder={preferredNameLabel}
+						type="text"
+						value={preferredName}
+						onchange={handleInputChange}
+				></lightning-input>
+			</div>
+
+			<!-- Wrap Mobile Number and Email Address within a box with border -->
+			<div class="slds-col slds-size_1-of-1 slds-large-size_1-of-1">
+				<div class="slds-box slds-box_small slds-box_border slds-m-top_small">
+					<div class="slds-m-horizontal_medium slds-m-bottom_medium slds-m-top_x-small">
+						<p class="slds-text-align_center">Complete at least one <span class="slds-required">*</span></p>
+						<div class="slds-grid slds-gutters_direct-x-small slds-wrap">
+							<!-- Mobile Number -->
+							<div class="slds-col slds-size_1-of-1 slds-large-size_1-of-2">
+								<lightning-input
+										data-field-name="phoneNumber"
+										label={phoneNumberLabel}
+										max-length="20"
+										message-when-pattern-mismatch={invalidPhoneNumberMsg}
+										name="phoneNumber"
+										pattern={phoneInputRegex}
+										placeholder={phoneNumberLabel}
+										type="tel"
+										value={phoneNumber}
+										onchange={handleInputChange}
+								></lightning-input>
+							</div>
+
+							<!-- Email Address -->
+							<div class="slds-col slds-size_1-of-1 slds-large-size_1-of-2">
+								<lightning-input
+										data-field-name="emailAddress"
+										label={emailAddressLabel}
+										max-length="80"
+										message-when-pattern-mismatch={invalidEmailAddressMsg}
+										name="emailAddress"
+										pattern={emailInputRegex}
+										placeholder={emailAddressLabel}
+										type="email"
+										value={emailAddress}
+										onchange={handleInputChange}
+								></lightning-input>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- Address Lookup -->
+			<div class="slds-col slds-size_1-of-1 slds-large-size_1-of-1">
+				<c-ame-address-validation2
+						data-field-name="addressObj"
+						oneditaddress={handleInputChange}
+						onselectaddress={handleInputChange}
+						default-address={ameDefaultAddress}
+						search-term={ameSearchTerm}
+						supports-auto-search-on-load={ameSupportAutoSearchOnLoad}
+						variant={ameAddressVariant}
+				></c-ame-address-validation2>
+			</div>
+
+			<!-- Organization Lookup and New Organisation Toggle -->
+			<template if:true={showOrganisationSection}>
+				<div class="slds-col lds-size_1-of-1 slds-large-size_1-of-1 slds-gutters_direct-xxx-small slds-grid slds-grid_vertical-align-end">
+					<div class="slds-col slds-grow">
+						<template lwc:if={newOrganisationToggle}>
+							<!-- New Organisation Text field -->
+							<lightning-input
+									data-field-name="newOrganisationName"
+									label={newOrganisationTextLabel}
+									max-length="40"
+									message-when-pattern-mismatch={invalidNameMsg}
+									name="newOrganisation"
+									pattern={nameInputRegex}
+									placeholder={newOrganisationTextLabel}
+									type="text"
+									value={newOrganisationName}
+									onchange={handleInputChange}
+							></lightning-input>
+						</template>
+						<template lwc:else>
+							<!-- Organisation Lookup -->
+							<lightning-record-picker
+									data-field-name="organisationAccountId"
+									label={organisationLookupLabel}
+									placeholder={organisationLookupLabel}
+									object-api-name="Account"
+									filter={organisationLookupFilter}
+									value={organisationAccountId}
+									onchange={handleInputChange}
+							>
+							</lightning-record-picker>
+						</template>
+					</div>
+					<div class="slds-col slds-grow-none slds-var-m-left_xx-small slds-var-m-bottom_xx-small">
+						<!-- New Organisation Toggle -->
+						<p class="slds-p-vertical_xxx-small slds-m-bottom_xx-small">New Organisation</p>
+						<lightning-input
+								data-field-name="newOrganisationToggle"
+								label={newOrganisationRadioLabel}
+								message-toggle-active=""
+								message-toggle-inactive=""
+								onchange={handleInputChange}
+								type="toggle"
+								checked={isNewOrganisationToggle}
+								variant="label-hidden"
+						></lightning-input>
+					</div>
+
+				</div>
+
+			</template>
+		</div>
+
+		<!-- Error message -->
+		<div
+				data-id="error"
+				if:true={errorMessage}
+				class="slds-text-align_center slds-text-color_error slds-var-m-around_medium"
+		>
+			{errorMessage}
+		</div>
+
+		<!-- Create Button -->
+		<div class="slds-var-m-top_small slds-text-align_center">
+			<lightning-button data-id="create"
+							  disabled={disableCreateBtn}
+							  label={createContactLabel}
+							  onclick={handleSubmitContactCreation}
+							  variant="brand">
+			</lightning-button>
+		</div>
+	</div>
+</template>

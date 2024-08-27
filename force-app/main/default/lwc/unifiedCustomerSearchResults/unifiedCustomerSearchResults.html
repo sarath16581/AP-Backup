@@ -15,11 +15,12 @@
 		title-text="No results found"
 		body-text="Search results not relevant?"
 	>
-		<div class="slds-var-m-vertical_medium create-contact-button">
+		<div class="slds-var-m-vertical_medium create-contact-button slds-text-align_center">
 			<lightning-button
-				label="Create Contact"
-				variant="neutral"
-				icon-name="utility:contact"
+					label="Create Contact"
+					variant="neutral"
+					icon-name="utility:contact"
+					onclick={handleCreateContact}
 			></lightning-button>
 		</div>
 	</c-empty-state>
@@ -48,6 +49,17 @@
 				columns={columns}
 				hide-checkbox-column
 			></c-unified-customer-search-results-table>
+		</div>
+	</template>
+
+	<template if:false={noResults}>
+		<div class="slds-var-m-vertical_medium create-contact-button slds-text-align_center">
+			<lightning-button
+					label="Create Contact"
+					variant="neutral"
+					icon-name="utility:contact"
+					onclick={handleCreateContact}
+			></lightning-button>
 		</div>
 	</template>
 </template>
