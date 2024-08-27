@@ -5,9 +5,24 @@
   * /*******************************  History ************************************************
     *24/06/2017        disha.kariya@auspost.com.au   Created
     *01/05/2020        disha.kariya@auspost.com.au   Modified to create exception log
+	*26/08/2024			changing exception email to default support email
   */
-global class SendProductDetailstoCOM implements System.Queueable, Database.AllowsCallouts {
+  global class SendProductDetailstoCOM implements System.Queueable, Database.AllowsCallouts {
     private List<Asset> assetList;
+
+	private static final String DEFAULT_NOTIFICATIONEMAIL = 'DLITRCPCMSalesforceSupport@auspost.com.au';
+
+	private static UserDeactivationSettings__c CONFIG {
+		get {
+			if(CONFIG == null) {
+				CONFIG = UserDeactivationSettings__c.getOrgDefaults();
+			}
+			return CONFIG;
+		}
+		private set;
+	}
+
+	private static final String CONFIG_NOTIFICATIONEMAIL = String.valueOf(CONFIG?.NotificationEmail__c) ?? DEFAULT_NOTIFICATIONEMAIL;
 
     public sendProductDetailstoCOM(List<Asset> assetList) {
         this.assetList = assetList;
@@ -78,7 +93,7 @@ global class SendProductDetailstoCOM implements System.Queueable, Database.Allow
         Messaging.SingleEmailMessage mail = new Messaging.SingleEmailMessage();
 
         String[] toAddresses = new String[]{
-                'DLITCandSCustomerSystems@auspost.com.au'
+			CONFIG_NOTIFICATIONEMAIL
         };
 
         mail.setToAddresses(toAddresses);
