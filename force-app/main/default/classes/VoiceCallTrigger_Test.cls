@@ -24,14 +24,24 @@ class VoiceCallTrigger_Test {
 		);
         insert case1;
 
-		insert new VoiceCall(
-			initiationMethod = 'Inbound',
-			RelatedRecordId = case1.id,
-			FromPhoneNumber = '23432423423',
-			Description = 'test call',
-			VendorCallKey = '8f441452-eb7d-4142-8ae6-5b3f4a44f7d0',
-			VendorType = '', 
-			callCenterApiName = 'MyContactCenter'
+		CallCenter cc = [select id,name from CallCenter limit 1];
+
+		VoiceCall vc = new VoiceCall(
+			CallCenterId = cc.id, 
+			VendorType = 'ContactCenter', 
+			CallType = 'Inbound',
+			FromPhoneNumber = '+19999999999', 
+			ToPhoneNumber = '+19999999999',
+			CallStartDateTime = System.now().addMinutes( - 3 ),
+			CallEndDateTime = System.now(),
+			CallDisposition = 'completed'
 		);
+
+		// TO-DO: DML should be enabled as of Winter '24. However, due to settings this is currently not working. It is likely depending on the other squad to setup Voice.
+		// Will need to revisit before going to UAT
+		insert vc;
+
+		vc = [SELECT Case__c FROM VoiceCall WHERE Id =: vc.Id LIMIT 1];
+		System.assertEquals(case1.Id, vc.Case__c, 'Case look up Id should match');
 	}
 }
