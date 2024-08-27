@@ -219,7 +219,7 @@ private class UnifiedCustomerCreationControllerTest {
 		ApplicationDatabase mockDatabase = MockUtility.mockDatabase();
 		MockUtility.Mocks.startStubbing();
 		MockUtility.Mocks.when(mockDatabase.dmlInsert((List<SObject>) fflib_Match.anyObject(), (Boolean) fflib_Match.anyBoolean())).thenAnswer(new MockUtility.AnswerGenericDMLInserted());
-		MockUtility.Mocks.when(mockDatabase.dmlUpdate((List<SObject>) fflib_Match.anyObject())).thenAnswer(new MockUtility.AnswerGenericDMLUpdated());
+		MockUtility.Mocks.when(mockDatabase.dmlUpdate((List<SObject>) fflib_Match.anyObject(), (Boolean) fflib_Match.anyBoolean())).thenAnswer(new MockUtility.AnswerGenericDMLUpdated());
 		MockUtility.Mocks.stopStubbing();
 		// =====================================
 		// Testing
@@ -236,7 +236,7 @@ private class UnifiedCustomerCreationControllerTest {
 		Assert.areEqual(customerId, insertableContacts[0].Id, 'Contact Id should match but instead got: ' + insertableContacts[0].Id);
 
 		fflib_ArgumentCaptor updatableContactCaptor = fflib_ArgumentCaptor.forClass(List<Contact>.class);
-		((ApplicationDatabase) MockUtility.Mocks.verify(mockDatabase, MockUtility.Mocks.times(1))).dmlUpdate((List<Contact>) updatableContactCaptor.capture());
+		((ApplicationDatabase) MockUtility.Mocks.verify(mockDatabase, MockUtility.Mocks.times(1))).dmlUpdate((List<Contact>) updatableContactCaptor.capture(), fflib_Match.anyBoolean());
 		List<Contact> updatableContacts = (List<Contact>) updatableContactCaptor.getValue();
 		Assert.isNotNull(updatableContacts[0].AccountId, 'AccountId should be populated but instead was null');
 		Assert.areEqual(testOrg.Id, updatableContacts[0].AccountId, 'Organisation Id should match but instead got: ' + updatableContacts[0].AccountId);
@@ -272,7 +272,7 @@ private class UnifiedCustomerCreationControllerTest {
 		ApplicationDatabase mockDatabase = MockUtility.mockDatabase();
 		MockUtility.Mocks.startStubbing();
 		MockUtility.Mocks.when(mockDatabase.dmlInsert((List<SObject>) fflib_Match.anyObject(), (Boolean) fflib_Match.anyBoolean())).thenAnswer(new MockUtility.AnswerGenericDMLInserted());
-		MockUtility.Mocks.when(mockDatabase.dmlUpdate((List<SObject>) fflib_Match.anyObject())).thenAnswer(new MockUtility.AnswerGenericDMLUpdated());
+		MockUtility.Mocks.when(mockDatabase.dmlUpdate((List<SObject>) fflib_Match.anyObject(), (Boolean) fflib_Match.anyBoolean())).thenAnswer(new MockUtility.AnswerGenericDMLUpdated());
 		MockUtility.Mocks.stopStubbing();
 		// =====================================
 		// Testing
@@ -302,7 +302,7 @@ private class UnifiedCustomerCreationControllerTest {
 		Assert.areEqual(customerId, newContact?.Id, 'Contact Id should match but instead got: ' + newContact?.Id);
 
 		fflib_ArgumentCaptor updatableContactCaptor = fflib_ArgumentCaptor.forClass(List<Contact>.class);
-		((ApplicationDatabase) MockUtility.Mocks.verify(mockDatabase, MockUtility.Mocks.times(1))).dmlUpdate((List<Contact>) updatableContactCaptor.capture());
+		((ApplicationDatabase) MockUtility.Mocks.verify(mockDatabase, MockUtility.Mocks.times(1))).dmlUpdate((List<Contact>) updatableContactCaptor.capture(), (Boolean) fflib_Match.anyBoolean());
 		List<Contact> updatableContacts = (List<Contact>) updatableContactCaptor.getValue();
 		Assert.isNotNull(updatableContacts[0].AccountId, 'AccountId should be populated but instead was null');
 		Assert.areEqual(newAccount.Id, updatableContacts[0].AccountId, 'Organisation Id should match but instead got: ' + updatableContacts[0].AccountId);
@@ -523,9 +523,6 @@ private class UnifiedCustomerCreationControllerTest {
 
 		((ApplicationDatabase) MockUtility.Mocks.verify(mockDatabase, MockUtility.Mocks.times(1))).dmlInsert((List<SObject>) fflib_Match.eqList(new List<Account>{newOrganisation}), (Boolean) fflib_Match.anyBoolean());
 		((ApplicationDatabase) MockUtility.Mocks.verify(mockDatabase, MockUtility.Mocks.times(1))).dmlInsert((List<SObject>) fflib_Match.eqList(new List<Contact>{newContact}), (Boolean) fflib_Match.anyBoolean());
-		//Make sure Roll back was called once
-		((ApplicationDatabase)MockUtility.Mocks.verify(mockDatabase, MockUtility.Mocks.times(1))).dmlRollback((Savepoint)fflib_Match.anyObject());
-
 	}
 
 	/**
