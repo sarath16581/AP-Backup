@@ -44,7 +44,7 @@ export const PHONE_INPUT_REGEX = '^[\\d ]+$'; // TODO: leverage existing utility
 export const INVALID_NAME_MSG = 'Invalid name format';
 export const INVALID_PHONE_NUMBER_MSG = 'Invalid phone number';
 export const INVALID_EMAIL_ADDRESS_MSG = 'Invalid email address format';
-export const MORE_INFO_REQUIRED_ERROR_MESSAGE = 'Please enter First and Last Name and at least one of Phone or Email.';
+export const PHONE_OR_EMAIL_REQUIRED_ERROR_MESSAGE = 'Please enter at least one of Phone or Email.';
 export const CUSTOMER_TYPE_REQUIRED_ERROR_MESSAGE = 'Please select a customer type.';
 export const ORGANISATION_REQUIRED_ERROR_MESSAGE = 'Please enter Organisation.';
 export const INVALID_FORM_ERROR = 'Please fix errors and try again';
@@ -394,14 +394,11 @@ export default class UnifiedCustomerCreation extends LightningElement {
 				return false;
 			}
 
-			// Check at least First AND Last Name, or Phone, or Email is entered
-			const hasFirstAndLast =
-					isNotBlank(this.firstName) && isNotBlank(this.lastName);
-			const hasPhoneOrEmail =
-					isNotBlank(this.phoneNumber) || isNotBlank(this.emailAddress);
-			if (!(hasFirstAndLast && hasPhoneOrEmail)) {
+			// Check at least Phone, or Email is entered
+			const hasBlankPhoneOrEmail = isBlank(this.phoneNumber) && isBlank(this.emailAddress);
+			if (hasBlankPhoneOrEmail) {
 				isValid = false;
-				this.errorMessage = MORE_INFO_REQUIRED_ERROR_MESSAGE;
+				this.errorMessage = PHONE_OR_EMAIL_REQUIRED_ERROR_MESSAGE;
 			}
 
 			const hasCustomerType = isNotBlank(this.customerType);
@@ -478,5 +475,4 @@ export default class UnifiedCustomerCreation extends LightningElement {
 			this.isLoading = false;
 		}
 	}
-
 }
