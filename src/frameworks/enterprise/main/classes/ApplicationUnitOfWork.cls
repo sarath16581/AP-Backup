@@ -194,7 +194,7 @@ global virtual inherited sharing class ApplicationUnitOfWork extends Application
 	 */
 	private void registerEmailAsyncWork() {
 		// retrieve all pending email notifications from the ApplicationEmailService registry (and clear the registry at the some time)
-		List<ApplicationFlowEmailType> flowEmailNotifications = ApplicationEmailService.getInstance().removeAllPendingEmailNotifications();
+		List<ApplicationFlowEmailType> flowEmailNotifications = ApplicationEmailService.getInstance().dispatchAllPendingEmailNotifications(false);
 		
 		// if there are any pending email notifications, register a worker to send the email notifications asynchronously
 		if (!flowEmailNotifications.isEmpty()) {

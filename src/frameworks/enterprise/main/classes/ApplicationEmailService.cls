@@ -70,12 +70,11 @@ public inherited sharing class ApplicationEmailService {
 		if (emailNotification != null) {
 			String registryKey = emailNotification.generateRegistryKey();
 
+			// Ensures that the email notification for the same record is not queued after it has been dispatched
+			// TODO: Implement a way to bypass this check if required
 			if (!this.emailNotificationDispatchKeyHistory.contains(registryKey)) {
 				emailNotificationRegistry.put(registryKey, emailNotification);
-			} else {
-				System.debug(LoggingLevel.INFO, 'Cannot queue this email notification. ' + registryKey 
-					+ ' has already been dispatched previously on this instance of ApplicationEmailService.');
-			}
+			} 
 			
 		} else {
 			throw new EmailServiceException('Cannot queue up an empty email notification. Object not instantiated.');
@@ -110,30 +109,90 @@ public inherited sharing class ApplicationEmailService {
 	
 
 	/**
-	 * @return 
+	 * Dispatch a single email notification that matches the registry key provided. Has the option of dispatching
+	 * the email immediately (via Flow) or just returning. 
+	 * 
+	 * If the sendImmediately argument is false, this will only return the ApplicationFlowEmailType
+	 * but still remove it from the registry and consider it dispatched. It will be the responsibility of the 
+	 * client calling this method to send the returned ApplicationFlowEmailType out by other means 
+	 * (ex: through an Async Worker that will instantiate its own ApplicationEmailService)
+	 * 
+	 * @param registryKey Registry key of the email notification to be dispatched
+	 * @param sendImmediately If true, the email notification will be sent out via the Flow. If false, 
+	 * no emails will be sent out; the email notification will still be removed from the registry and considered as
+	 * dispatched
+	 * 
+	 * @return The email notification that has been dispatched
 	 */
-	public void dispatchPendingEmailNotification(String registryKey) {
+	public ApplicationFlowEmailType dispatchPendingEmailNotification(String registryKey, Boolean sendImmediately) {
 		// attempt to remove email notification from registry
 		ApplicationFlowEmailType pendingEmailNotification = removePendingEmailNotification(registryKey);
 
 		// if email notification with registry key exists, dispatch to flow
 		if (pendingEmailNotification != null) {
-			dispatchEmailNotifications(new List<ApplicationFlowEmailType> {pendingEmailNotification});
+			List<ApplicationFlowEmailType> pendingEmailNotificationList = new List<ApplicationFlowEmailType> {pendingEmailNotification};
+
+			// send to flow if dispatching immediately
+			if (sendImmediately) {
+				dispatchEmailNotifications(pendingEmailNotificationList);
+			}
+
+			// add to dispatch history
+			addNotificationsToDispatchHistory(pendingEmailNotificationList);
 		}
-	}	
+
+		return pendingEmailNotification;
+	}
+	
+	/**
+	 * Dispatch and send a single email notification that matches the registry key provided.
+	 * 
+	 * @param registryKey Registry key of the email notification to be dispatched
+	 * 
+	 * @return The email notification that has been dispatched
+	 */
+	public ApplicationFlowEmailType dispatchPendingEmailNotification(String registryKey) {
+		return dispatchPendingEmailNotification(registryKey, true);
+	}
 
 	/**
-	 * Dispatches all pending email notifications and clears the registry.
+	 * Dispatches all pending email notifications and clears the registry. 
+	 * 
+	 * If the sendImmediately argument is false, this will only remove all the current contents of the 
+	 * registry and consider them dispatched. It will be the responsibility of the 
+	 * client calling this method to send the returned List of ApplicationFlowEmailType out by other means 
+	 * (ex: through an Async Worker that will instantiate its own ApplicationEmailService)
+	 * 
+	 * @param sendImmediately If true, all the queued email notifications in the registry will be sent out via the Flow. 
+	 * If false, no emails will be sent out; all email notifications will still be removed from the registry and considered as
+	 * dispatched.
+	 * 
+	 * @return List of all email notifications that have been dispatched
 	 */
-	public void dispatchAllPendingEmailNotifications() {
+	public List<ApplicationFlowEmailType> dispatchAllPendingEmailNotifications(Boolean sendImmediately) {
 
 		// remove all pending email notifications from the registry and store in a list
 		List<ApplicationFlowEmailType> pendingEmailNotifications = removeAllPendingEmailNotifications();
 
 		// if there are pending notifications, dispatch to flow
 		if (!pendingEmailNotifications.isEmpty()) {
-			dispatchEmailNotifications(pendingEmailNotifications);
+			if (sendImmediately) { 
+				dispatchEmailNotifications(pendingEmailNotifications);
+			}
+			// add to dispatch history
+			addNotificationsToDispatchHistory(pendingEmailNotifications);
 		}
+
+		return pendingEmailNotifications;
+	}
+
+	/**
+	 * Dispatches all pending email notifications and clears the registry. 
+	 *  
+	 * @return List of all email notifications that have been dispatched
+	 */
+	public List<ApplicationFlowEmailType> dispatchAllPendingEmailNotifications() {
+		return dispatchAllPendingEmailNotifications(true);
 	}
 
 	/**
@@ -144,13 +203,6 @@ public inherited sharing class ApplicationEmailService {
 	private void dispatchEmailNotifications(List<ApplicationFlowEmailType> emailNotifications) {
 
 		if (!emailNotifications.isEmpty()) {
-
-			// add email notifications to dispatch history so the same email notification 
-			// can't be registered again in the same transaction
-			for (ApplicationFlowEmailType emailNotification : emailNotifications) {
-				this.emailNotificationDispatchKeyHistory.add(emailNotification.generateRegistryKey());
-			}
-
 			// Group all email notifications by object to minimise looping in the master Flow
 			List<ApplicationFlowEmailTypeObjectCollection> emailNotificationsGroupedByObject = generateFlowEmailTypeObjectCollections(emailNotifications);
 
@@ -163,6 +215,15 @@ public inherited sharing class ApplicationEmailService {
 			Flow.Interview flowEmailServiceDispatcher = Flow.Interview.createInterview(MASTER_FLOW_API_NAME, flowParams);
 			flowEmailServiceDispatcher.start();
 			
+		}
+	}
+
+	private void addNotificationsToDispatchHistory(List<ApplicationFlowEmailType> emailNotifications) {
+
+		// keeps track of all email notifications that have been dispatched by this 
+		// instance
+		for (ApplicationFlowEmailType emailNotification : emailNotifications) {
+			this.emailNotificationDispatchKeyHistory.add(emailNotification.generateRegistryKey());
 		}
 	}
 
