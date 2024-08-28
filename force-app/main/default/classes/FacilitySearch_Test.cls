@@ -5,6 +5,7 @@ Description:		Test class for FacilitySearchController
 * 2017-08-01 nathan.franklin@auspost.com.au  - Creating tests to increase code coverage.
 * 2017-10-24 nathan.franklin@auspost.com.au  - Recreated facility search test class
 * 2019-10-01 gunith.devasurendra@auspost.com.au	- Fixed tests by inserting SSSWNonRoutingEventCodes__c on Setup
+* 2024-08-28 mona.raghav@auspost.com.au - mehtod testTrimEscalationEmailContent added to test trimming of the string
 --------------------------------------------------
 */
 @isTest
@@ -767,6 +768,20 @@ private class FacilitySearch_Test {
 		System.assert(true);
 
 		Test.stopTest();
+	}
+
+	/**
+	  * SCENARIO:
+	  *   Scenario will test the trimEscalationEmailContent functionality where the escalation email content is trimmed to the fields length
+	  */
+	  public static testMethod void testTrimEscalationEmailContent() {
+
+		Test.startTest();
+		string trimmedString = FacilitySearchController.trimContent('email comment', 2);
+		Test.stopTest();
+
+		// check the string passed is trimmed
+		System.assertEquals(trimmedString, 'em');
 	}
 
 }
