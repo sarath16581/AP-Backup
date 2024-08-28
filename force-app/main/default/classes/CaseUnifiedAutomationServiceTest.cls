@@ -7,6 +7,7 @@
  * @changelog
  * 2024-07-26 - Seth Heang - Created
  * 2024-08-12 - Ranjeewa Silva - Added tests to cover case re-assignment on email automation
+ * 2024-08-23 - Seth Heang - Added Assertion on PreferredAgentExpiry__c for Reassigned Case Update Check
  */
 @IsTest(IsParallel=true)
 public with sharing class CaseUnifiedAutomationServiceTest {
@@ -18,6 +19,7 @@ public with sharing class CaseUnifiedAutomationServiceTest {
 		unifiedMonitoringQueue.Name = 'Unified Customer Service Monitoring Queue';
 
 		queueSettings.UnifiedDefaultMonitoringQueueId__c = unifiedMonitoringQueue.Id;
+		queueSettings.UnifiedPreferredAgentExpiry__c = 1;
 		insert queueSettings;
 	}
 
@@ -164,6 +166,7 @@ public with sharing class CaseUnifiedAutomationServiceTest {
 		testCase.OwnerId = QM__c.getInstance().UnifiedDefaultMonitoringQueueId__c;
 		testCase.Exclude_Subscription_Automation__c = true;
 		testCase = (Case) ApplicationTestDataFactory.setUnwritableFields(testCase, new Map<String, Object>{ 'ContactEmail' => 'seth@test.com' });
+		testCase.BusinessHoursId = BusinessHoursSelector.newInstance().selectDefault(true).Id;
 
 		String actionType = CaseMonitoring5DayAutoClosureAction.newInstance().getName();
 		ScheduledAction__c scheduledAction = ApplicationTestDataFactory.getScheduledActions(1, 'Test Scheduled Action', actionType, System.now(), testCase.Id, true)[0];
@@ -196,12 +199,17 @@ public with sharing class CaseUnifiedAutomationServiceTest {
 		Assert.areEqual(
 			'Cannot autoclose due to opt out automations',
 			updateableCases.get(testCase.Id).ReassignmentReason__c,
-			'Case ReassignmentReason__c should match but instead got ' + updateableCases.get(testCase.Id).Root_cause__c
+			'Case ReassignmentReason__c should match but instead got ' + updateableCases.get(testCase.Id).ReassignmentReason__c
 		);
 		Assert.areEqual(
 			QM__c.getInstance().UnifiedDefaultOmniQueueId__c,
 			updateableCases.get(testCase.Id).OwnerId,
 			'Case OwnerId should match but instead got ' + updateableCases.get(testCase.Id).OwnerId
+		);
+		Assert.areEqual(
+			BusinessHours.add(updateableCases.get(testCase.Id).BusinessHoursId, Datetime.now(), QM__c.getInstance().UnifiedPreferredAgentExpiry__c.longValue() * 3600000),
+			updateableCases.get(testCase.Id).PreferredAgentExpiry__c,
+			'Case PreferredAgentExpiry__c should match but instead got: ' + updateableCases.get(testCase.Id).PreferredAgentExpiry__c
 		);
 		Assert.areEqual(false, updateableCases.get(testCase.Id).ClosedBySystem__c, 'Case ClosedBySystem__c should match but instead got ' + updateableCases.get(testCase.Id).ClosedBySystem__c);
 		Assert.areEqual(SSSWConstants.CASE_STATUS_UPDATED, updateableCases.get(testCase.Id).Status, 'Case Status should match but instead got ' + updateableCases.get(testCase.Id).Status);
@@ -220,6 +228,7 @@ public with sharing class CaseUnifiedAutomationServiceTest {
 		testCase.RecordTypeId = ApplicationTestDataFactoryCase.caseUnifiedInvestigationRecordType;
 		testCase.OwnerId = QM__c.getInstance().UnifiedDefaultMonitoringQueueId__c;
 		testCase.Exclude_Subscription_Automation__c = false;
+		testCase.BusinessHoursId = BusinessHoursSelector.newInstance().selectDefault(true).Id;
 
 		String actionType = CaseMonitoring5DayAutoClosureAction.newInstance().getName();
 		ScheduledAction__c scheduledAction = ApplicationTestDataFactory.getScheduledActions(1, 'Test Scheduled Action', actionType, System.now(), testCase.Id, true)[0];
@@ -252,12 +261,17 @@ public with sharing class CaseUnifiedAutomationServiceTest {
 		Assert.areEqual(
 			'Cannot autoclose due to missing customer email',
 			updateableCases.get(testCase.Id).ReassignmentReason__c,
-			'Case ReassignmentReason__c should match but instead got ' + updateableCases.get(testCase.Id).Root_cause__c
+			'Case ReassignmentReason__c should match but instead got ' + updateableCases.get(testCase.Id).ReassignmentReason__c
 		);
 		Assert.areEqual(
 			QM__c.getInstance().UnifiedDefaultOmniQueueId__c,
 			updateableCases.get(testCase.Id).OwnerId,
 			'Case OwnerId should match but instead got ' + updateableCases.get(testCase.Id).OwnerId
+		);
+		Assert.areEqual(
+			BusinessHours.add(updateableCases.get(testCase.Id).BusinessHoursId, Datetime.now(), QM__c.getInstance().UnifiedPreferredAgentExpiry__c.longValue() * 3600000),
+			updateableCases.get(testCase.Id).PreferredAgentExpiry__c,
+			'Case PreferredAgentExpiry__c should match but instead got: ' + updateableCases.get(testCase.Id).PreferredAgentExpiry__c
 		);
 		Assert.areEqual(false, updateableCases.get(testCase.Id).ClosedBySystem__c, 'Case ClosedBySystem__c should match but instead got ' + updateableCases.get(testCase.Id).ClosedBySystem__c);
 		Assert.areEqual(SSSWConstants.CASE_STATUS_UPDATED, updateableCases.get(testCase.Id).Status, 'Case Status should match but instead got ' + updateableCases.get(testCase.Id).Status);
@@ -533,5 +547,4 @@ public with sharing class CaseUnifiedAutomationServiceTest {
 		Assert.areEqual(caseWrappers[2].newReassignmentReason, updateableCases[0].ReassignmentReason__c, 'Expected the case reassignment reason to be set.');
 		Assert.isTrue(updateableCases[0].Case_Reopen_Date__c == null, 'Expected Case_Reopen_Date__c field to be blank as the case was already open.');
 	}
-
 }
