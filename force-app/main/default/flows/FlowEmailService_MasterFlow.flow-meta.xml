@@ -107,7 +107,7 @@
         <connector>
             <targetReference>Process_Flow_Email_Types_Per_Object</targetReference>
         </connector>
-        <flowName>Flow_Email_Service_Case_Emails</flowName>
+        <flowName>FlowEmailService_CaseEmails</flowName>
         <inputAssignments>
             <name>flowEmailTypeRequests</name>
             <value>
@@ -121,14 +121,6 @@
         <dataType>Apex</dataType>
         <isCollection>true</isCollection>
         <isInput>true</isInput>
-        <isOutput>false</isOutput>
-    </variables>
-    <variables>
-        <name>objectNotFoundResult</name>
-        <apexClass>ApplicationFlowEmailResult</apexClass>
-        <dataType>Apex</dataType>
-        <isCollection>false</isCollection>
-        <isInput>false</isInput>
         <isOutput>false</isOutput>
     </variables>
     <variables>
