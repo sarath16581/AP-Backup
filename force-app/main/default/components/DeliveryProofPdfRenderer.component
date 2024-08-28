@@ -108,21 +108,18 @@
 							<apex:panelGrid columns="1">
 								<apex:outputText rendered="{!NOT(ISBLANK(eventMessage[em]))}">
 									<apex:outputText rendered="{!em.type == 'date' || em.type == 'datetime'}">
-										<apex:outputText value="{0,date,dd-MM-yyyy}">
 											<apex:outputText rendered="{!em.fieldPath == 'ActualDateTime__c'}">
-												Delivery Date: &nbsp;
+											Delivery Date: &nbsp;<apex:outputField value="{!eventMessage[em]}"/>
 											</apex:outputText>
 											<apex:outputText rendered="{!em.fieldPath != 'ActualDateTime__c'}">
-												{!em.label}: &nbsp;
-											</apex:outputText>
-											<apex:param value="{!eventMessage[em]}"/>
+											{!em.label}: &nbsp;<apex:outputField value="{!eventMessage[em]}"/>
 										</apex:outputText>
 									</apex:outputText>
 									<apex:outputText rendered="{!em.fieldPath == 'Article__r.SubProduct__c'}">
-										Delivery Service: {!eventMessage[em]}
+										Delivery Service: &nbsp;{!eventMessage[em]}
 									</apex:outputText>
 									<apex:outputText rendered="{!em.fieldPath == 'Article__r.DeliveryInstructions__c'}">
-										Special Instructions: {!eventMessage[em]}
+										Special Instructions: &nbsp;{!eventMessage[em]}
 									</apex:outputText>
 								</apex:outputText>
 							</apex:panelGrid>
@@ -152,7 +149,7 @@
 						</thead>
 						<tbody>
 						<tr style="vertical-align: top;text-align: center;font-size: 0.9em; width:50%;">
-							<td style="text-align: left; padding: 0px 10px 0px 10px;">{!articleList}</td>
+							<td style="text-align: left; padding: 0px 3px 0px 3px;">{!articleList}</td>
 							<apex:outputText rendered="{!NOT(ISBLANK(signatureAttachmentId))}">
 								<td>
 									<div>Signatory Name: {!eventMessage.SignatoryName__c}</div>
