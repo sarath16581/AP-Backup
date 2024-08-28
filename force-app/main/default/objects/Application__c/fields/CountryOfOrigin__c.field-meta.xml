@@ -5,6 +5,7 @@
     <externalId>false</externalId>
     <formula>IF ( IsGovernmentEntity__c = &quot;Y&quot; , &quot;036&quot;, &quot;&quot;)</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <inlineHelpText>Auto populated when MCC is Government MCC</inlineHelpText>
     <label>Country Code Of Origin</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>

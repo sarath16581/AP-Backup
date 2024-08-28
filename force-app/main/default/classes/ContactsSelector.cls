@@ -17,6 +17,7 @@
  * 2023-07-05 - Mahesh Parvathaneni - Added options WITH_BILLING_ACCOUNT
  * 2023-10-01 - Hasantha Liyanage - Added Contact.BillingAccount__c in getSObjectFieldList
  * 2024-01-22 - Hasantha Liyanage - Added selectPrimaryContactByAccount method
+ * 2024-05-24 - Harry Wang - Added selectCloneableContactsByAccount
  */
 public virtual inherited sharing class ContactsSelector extends ApplicationSelector {
 	public enum Options {
@@ -50,7 +51,7 @@ public virtual inherited sharing class ContactsSelector extends ApplicationSelec
 		return new Set<SObjectField> {
 				Contact.Id, Contact.AccountId, Contact.FirstName, Contact.LastName, Contact.OwnerId, Contact.Name, Contact.APCN__c,
 				Contact.Email, Contact.OID_ID__c, Contact.CRMCSSOID__c , Contact.Phone , Contact.Fax, Contact.MobilePhone, Contact.HomePhone, Contact.Salutation, Contact.Title,
-				Contact.VerifiedMobile__c,Contact.Unique_Mobile__c, Contact.BillingAccount__c, Contact.IncentCredential__c
+				Contact.VerifiedMobile__c,Contact.Unique_Mobile__c, Contact.BillingAccount__c
 		};
 	}
 
@@ -159,6 +160,22 @@ public virtual inherited sharing class ContactsSelector extends ApplicationSelec
 			.endConditions();
 		qb.addOrderAsc(Contact.Name);
 		return new Map<Id, Contact>((List<Contact>) Database.query(qb.toSoqlString()));
+	}
+
+	/**
+	 * @description Select cloneable contact by parent account ID.
+	 * Cloneable contacts are active and maintained by Account Manager
+	 * @param accountId parent account ID
+	 * @return matching Contact records
+	 */
+	public List<Contact> selectCloneableContactsByAccount(Id accountId) {
+		QueryBuilder qb = newQueryBuilder()
+				.addConditions()
+				.add(new QueryBuilder.CompareCondition(Contact.AccountId).eq(accountId))
+				.add(new QueryBuilder.CompareCondition(Contact.Status__c).eq('Active'))
+				.add(new QueryBuilder.CompareCondition(Contact.Record_Maintainer__c).eq('Account Manager'))
+				.endConditions();
+		return Database.query(qb.toSoqlString());
 	}
 
 	/**

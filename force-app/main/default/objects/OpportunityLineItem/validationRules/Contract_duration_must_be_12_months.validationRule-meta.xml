@@ -10,11 +10,11 @@
         ISPICKVAL(Product2.Product_Level_2__c, &quot;Parcel + Express Services&quot;),
         ISPICKVAL(Product2.Product_Level_2__c, &quot;StarTrack Courier + Fulfilment&quot;)
     ),
-    NOT(
-        $Permission.BG_Sales_Operations
-    ),
-    (
-        (Contract_End_Date__c - Contract_Start_Date__c) &lt; 365
+    NOT($Permission.BG_Sales_Operations),
+    (Contract_End_Date__c - Contract_Start_Date__c) &lt; 365,
+    OR(
+        ISCHANGED(Contract_Start_Date__c),
+        ISCHANGED(Contract_End_Date__c)
     )
 )</errorConditionFormula>
     <errorMessage>The contract duration for this product must be at least one year.</errorMessage>
