@@ -4,7 +4,7 @@
  * @date 2023-05-29
  * @changelog
  * 2024-06-13 - Parveen Kaushik - Added default value for mapping model on test data. See CSLU-470 (JIRA) for details.
- * 2024-07-23 - Ranjeewa Silva - New method to return new ContactRequests.
+ * 2024-07-23 - Ranjeewa Silva - New methods to return new ContactRequests and ImpactedArticle__c.
 */
 @IsTest
 public with sharing class ApplicationTestDataFactoryCase {
@@ -84,7 +84,7 @@ public with sharing class ApplicationTestDataFactoryCase {
 						ProductCategory__c = 'Domestic Parcels',
 						ProductSubcategory__c = 'StarTrack (Next Flight Premium & Express)',
 						SAPProductCategory__c = 'StarTrack',
-						SAPProductSubcategory__c = 'ST Next Flight'
+						SAPProductSubcategory__c = 'ST Next Flight',
 						MappingModel__c = SSSWConstants.ENQUIRYMAPPING_CLASSIC_MODEL
 				),
 				new MiniCaseFieldMapping__c(
@@ -150,6 +150,13 @@ public with sharing class ApplicationTestDataFactoryCase {
 		return (List<ContactRequest>)ApplicationTestDataFactory.maybeGenerateIds(ApplicationTestDataFactory.populateSObjects(ContactRequest.SObjectType, new Map<SObjectField, Object> {
 				ContactRequest.WhatId => whatIds,
 				ContactRequest.WhoId => whoIds
+		}, count), generateIds);
+	}
+
+	public static List<ImpactedArticle__c> getImpactedArticles(Integer count, Object caseIds, Object articleIds, Boolean generateIds) {
+		return (List<ImpactedArticle__c>)ApplicationTestDataFactory.maybeGenerateIds(ApplicationTestDataFactory.populateSObjects(ImpactedArticle__c.SObjectType, new Map<SObjectField, Object> {
+				ImpactedArticle__c.Article__c => articleIds,
+				ImpactedArticle__c.Case__c => caseIds
 		}, count), generateIds);
 	}
 
