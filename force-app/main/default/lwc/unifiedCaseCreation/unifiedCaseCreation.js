@@ -25,9 +25,6 @@ export const PRODUCT_SUBCATEGORY_LABEL = 'Product Sub Category';
 export const NOTES_LABEL = 'Notes';
 export const CREATE_BUTTON_LABEL = 'Create';
 
-//const TEST_CONTACT_ID = '003Bm00000NVg7PIAT';
-const TEST_CONTACT_ID = undefined;
-
 export default class UnifiedCaseCreation extends LightningElement {
 
 	/**
@@ -84,7 +81,7 @@ export default class UnifiedCaseCreation extends LightningElement {
 	wiredCaseRecordTypeInfos({ data, error }) {
 		if (error) {
 			this.caseRecordTypeInfos = undefined;
-			// TODO: handle errors
+			// TODO: handle errors for next story: https://australiapost.jira.com/browse/CSLU-616
 			console.log(error);
 		} else if (data) {
 			this.caseRecordTypeInfos = data;
@@ -102,7 +99,7 @@ export default class UnifiedCaseCreation extends LightningElement {
 	wiredCasePicklists({ data, error }) {
 		if (error) {
 			this.casePicklistFieldValues = undefined;
-			// TODO: handle errors
+			// TODO: handle errors for next story: https://australiapost.jira.com/browse/CSLU-616
 			console.log(error);
 		} else if (data) {
 			const { EnquirySubType__c, ProductCategory__c, ProductSubCategory__c } = data.picklistFieldValues;
