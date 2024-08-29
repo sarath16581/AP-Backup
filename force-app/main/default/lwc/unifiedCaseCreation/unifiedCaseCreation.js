@@ -82,7 +82,7 @@ export default class UnifiedCaseCreation extends LightningElement {
 		if (error) {
 			this.caseRecordTypeInfos = undefined;
 			// TODO: handle errors for next story: https://australiapost.jira.com/browse/CSLU-616
-			console.log(error);
+			console.error(error);
 		} else if (data) {
 			this.caseRecordTypeInfos = data;
 			// Set the default record type (but don't overwrite if already set)
@@ -100,7 +100,7 @@ export default class UnifiedCaseCreation extends LightningElement {
 		if (error) {
 			this.casePicklistFieldValues = undefined;
 			// TODO: handle errors for next story: https://australiapost.jira.com/browse/CSLU-616
-			console.log(error);
+			console.error(error);
 		} else if (data) {
 			const { EnquirySubType__c, ProductCategory__c, ProductSubCategory__c } = data.picklistFieldValues;
 			this.casePicklistFieldValues = {
@@ -129,7 +129,7 @@ export default class UnifiedCaseCreation extends LightningElement {
 			productSubCategory: this.productSubCategory
 		};
 
-		if (fieldsToRevalidate.hasOwnProperty(fieldName) && previousValue !== value) {
+		if (Object.hasOwnProperty.call(fieldsToRevalidate, fieldName) && previousValue !== value) {
 			this.revalidatePicklists();
 		}
 	}

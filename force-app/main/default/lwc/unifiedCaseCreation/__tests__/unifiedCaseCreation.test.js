@@ -28,21 +28,18 @@ const mockGetCaseRecordTypeInfos = require('./data/getCaseRecordTypeInfos.json')
 function changeInputFieldValue(element, value) {
 	if (element?.nodeName.toLowerCase() === 'lightning-combobox') {
 		element.value = value;
-		console.log('SETH lightning-combobox: ' + element.value);
 		element.dispatchEvent(
 			new CustomEvent('change', { detail: { recordId: element.value } })
 		);
 		return;
 	} else if (element?.nodeName.toLowerCase() === 'lightning-record-picker') {
 		element.value = value;
-		console.log('SETH lightning-record-picker: ' + element.value);
 		element.dispatchEvent(
 			new CustomEvent('change', { detail: { recordId: element.value } })
 		);
 		return;
 	} else if (element?.nodeName.toLowerCase() === 'lightning-textarea') {
 		element.value = value;
-		console.log('SETH lightning-textarea: ' + element.value);
 		element.dispatchEvent(
 			new CustomEvent('change', { detail: { recordId: element.value } })
 		);
@@ -87,9 +84,7 @@ function getButtonByDataId(element, dataId) {
  * @returns {HTMLElement} - The HTMLElement that was found
  */
 function getInputFieldElement(element, fieldName, throwError = false) {
-	//console.log('SETH fieldName: ' + fieldName);
 	const inputEl = element.shadowRoot.querySelector(`[data-field-name='${fieldName}']`);
-	//console.log('SETH inputEl: ' + inputEl);
 	if(!inputEl && throwError) {
 		throw new Error(`Could not find element for '${fieldName}'`);
 	}
@@ -97,9 +92,7 @@ function getInputFieldElement(element, fieldName, throwError = false) {
 }
 
 function getClassElement(element, className) {
-	//console.log('SETH fieldName: ' + fieldName);
 	const inputEl = element.shadowRoot.querySelectorAll(className);
-	//console.log('SETH inputEl: ' + inputEl);
 	if(!inputEl) {
 		throw new Error(`Could not find element for '${className}'`);
 	}
