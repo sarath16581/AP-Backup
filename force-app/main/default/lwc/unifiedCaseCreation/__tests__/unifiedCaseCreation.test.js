@@ -111,9 +111,9 @@ jest.mock(
 	'@salesforce/apex/UnifiedCaseCreationController.getCaseRecordTypeInfos',
 	() => {
 		const { createApexTestWireAdapter } = require("@salesforce/sfdx-lwc-jest");
-        return {
-            default: createApexTestWireAdapter(jest.fn()),
-        };
+		return {
+			default: createApexTestWireAdapter(jest.fn()),
+		};
 	},
 	{ virtual: true }
 );
@@ -130,23 +130,23 @@ function flushAllPromises() {
 }
 
 describe('c-unified-case-creation', () => {
-    afterEach(() => {
-        // The jsdom instance is shared across test cases in a single file so reset the DOM
-        while (document.body.firstChild) {
-            document.body.removeChild(document.body.firstChild);
+	afterEach(() => {
+		// The jsdom instance is shared across test cases in a single file so reset the DOM
+		while (document.body.firstChild) {
+			document.body.removeChild(document.body.firstChild);
 		}
 		
 		// Reset all jest mocks after each test
 		jest.clearAllMocks();
-    });
+	});
 
-    it('displays input elements on the Case Creation form UI', async () => {
-        // Arrange
-        const element = createElement('c-unified-case-creation', {
-            is: UnifiedCaseCreation
-        });
+	it('displays input elements on the Case Creation form UI', async () => {
+		// Arrange
+		const element = createElement('c-unified-case-creation', {
+			is: UnifiedCaseCreation
+		});
 
-        // Act
+		// Act
 		document.body.appendChild(element);
 		
 		getPicklistValuesByRecordType.emit(
@@ -165,12 +165,12 @@ describe('c-unified-case-creation', () => {
 		expect(articleHeaderDivElement.classList).toContain('slds-text-body_regular');
 		expect(articleHeaderDivElement.textContent).toBe(ARTICLES_LABEL+ ' (None Linked)');
 
-        const contactLookupReadOnlyInput = getInputFieldElement(element, 'contactLookup');
+		const contactLookupReadOnlyInput = getInputFieldElement(element, 'contactLookup');
 		expect(contactLookupReadOnlyInput).toBeTruthy();
 		expect(contactLookupReadOnlyInput.label).toBe(CONTACT_LABEL);
 		expect(contactLookupReadOnlyInput.disabled).toBe(true);
 
-        const enquiryTypeInput = getInputFieldElement(element, 'recordTypeId');
+		const enquiryTypeInput = getInputFieldElement(element, 'recordTypeId');
 		expect(enquiryTypeInput).toBeTruthy();
 		expect(enquiryTypeInput.label).toBe(ENQUIRY_TYPE_LABEL);
 		expect(enquiryTypeInput.options[0].label).toBe('Unified General Enquiry');
@@ -241,8 +241,8 @@ describe('c-unified-case-creation', () => {
 
 		const pillElements = getClassElement(element, '.slds-pill__label');
 		expect(pillElements.length).toBe(3);
-        expect(pillElements[0].textContent).toBe('111ASFDASAASDFASGFAST3532f');
-        expect(pillElements[1].textContent).toBe('222ASFDASAASDFASGFAST3532f');
+		expect(pillElements[0].textContent).toBe('111ASFDASAASDFASGFAST3532f');
+		expect(pillElements[1].textContent).toBe('222ASFDASAASDFASGFAST3532f');
 		expect(pillElements[2].textContent).toBe('333ASFDASAASDFASGFAST3532f');
 	});
 });
