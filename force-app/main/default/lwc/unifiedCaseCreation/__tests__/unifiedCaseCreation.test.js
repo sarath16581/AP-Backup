@@ -101,7 +101,7 @@ function getClassElement(element, className) {
 	const inputEl = element.shadowRoot.querySelectorAll(className);
 	//console.log('SETH inputEl: ' + inputEl);
 	if(!inputEl) {
-		throw new Error(`Could not find element for '${fieldName}'`);
+		throw new Error(`Could not find element for '${className}'`);
 	}
 	return inputEl;
 }
