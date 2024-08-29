@@ -23,6 +23,7 @@
  * 2021-09-02 - Nathan Franklin - Ordered the Networks in Always Shown by Name, Increased version to 52.0
  * 2021-09-02 - Nathan Franklin - Fixed some SOQL injection attack issues
  * 2024-04-13 - Raghav Ravipati - Replaced Critical incident articaltype with salesforce lighting article Knowledge__kav as part of knowledge lightning uplift
+ * 2024-08-28 - Mona Raghav - REQ3388493 - Method TrimContent added to trim the escalation email content to the field length before updating
  */
 global with sharing class FacilitySearchController {
 
@@ -85,6 +86,8 @@ global with sharing class FacilitySearchController {
 
 	private static string UNKNOWN_EMAIL = 'unknown@email.com';
 	private static string AWAITING_NETW0RK_RESPONSE = 'Awaiting Network Response';
+
+	private static integer escalationEmailFieldLength = Schema.SObjectType.Case.fields.EscalationEmail__c.getLength();
 
 	// if the page is opened via the iFrame and need to be read only considered
 	public Boolean isReadOnly {
@@ -1471,7 +1474,8 @@ global with sharing class FacilitySearchController {
 						cases[0].Status = 'Closed';
 					} else {
 						cases[0].Status = AWAITING_NETW0RK_RESPONSE;
-						cases[0].EscalationEmail__c = setEscEmailContent(caseId);
+						string emailContent = setEscEmailContent(caseId);
+						cases[0].EscalationEmail__c = trimContent(emailContent, escalationEmailFieldLength);
 					}
 					cases[0].Root_cause__c = AWAITING_NETW0RK_RESPONSE;
 					update cases[0];
@@ -1597,7 +1601,7 @@ global with sharing class FacilitySearchController {
 		PageReference htmlpdf = new PageReference('/apex/SSSW_Case_FaxTemplateHTML');
 		htmlpdf.getParameters().put('id', tempCase.id);
 		if (!test.isRunningTest()) {
-			tempCase.EscalationEmail__c = htmlpdf.getContent().toString();
+			tempCase.EscalationEmail__c  = trimContent(htmlpdf.getContent().toString(), escalationEmailFieldLength);
 		} else {
 			tempCase.EscalationEmail__c = 'test';
 		}
@@ -1657,7 +1661,8 @@ global with sharing class FacilitySearchController {
 				c.Status = 'Closed';
 			} else {
 				c.Status = AWAITING_NETW0RK_RESPONSE;
-				c.EscalationEmail__c = setEscEmailContent(caseID);
+				string emailContent = setEscEmailContent(caseID);
+				c.EscalationEmail__c = trimContent(emailContent, escalationEmailFieldLength);
 			}
 			c.Root_cause__c = AWAITING_NETW0RK_RESPONSE;
 			update c;
@@ -1886,7 +1891,7 @@ global with sharing class FacilitySearchController {
 		}
 
 		system.debug('>>>>>>>>>>>>>>>>> emailContent:' + emailContent.length());
-		aCase.EscalationEmail__c = emailContent;
+		aCase.EscalationEmail__c = trimContent(emailContent, escalationEmailFieldLength);
 		update aCase;
 
 		if (ct != null) {
@@ -1902,6 +1907,13 @@ global with sharing class FacilitySearchController {
 		}
 
 		return aCase.id;
+	}
+
+	public static string trimContent(String content, integer length) {
+		if(content.length() > length) {
+			content = content.substring(0,length);
+		}
+		return content;
 	}
 
 	static string generateEmail(Messaging.SingleEmailMessage sem, String[] toAddresses, Contact ct, id emailTemplateId, id whatId) {

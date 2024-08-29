@@ -17,6 +17,7 @@ History:
 03.02.20 - Gunith.Devasurendra@auspost.com.au - Selection on Case.DescriptionofContents__c (REQ2085413)
 2020-05-20 - haraprasad.sahoo@auspost.com.au - Added requestoHold variable and its handling
 2023-06-05 - jacob.isaac@auspost.com.au - Resetting Flag Case for Review Field on UI for all SSSW Scenarios - REQ3111278
+2024-08-28 - Mona Raghav - REQ3388493 - Method TrimContent added to trim the escalation email content to the field length before updating
 **************************************************/
 public class SSSW_MyNetworkResponsePageContr {
 
@@ -713,7 +714,7 @@ public class SSSW_MyNetworkResponsePageContr {
         }
 
         system.debug('>>>>>>>>>>>>>>>>> emailContent:' + emailContent.length());
-        aCase.EscalationEmail__c = emailContent;
+        aCase.EscalationEmail__c = trimContent(emailContent, Schema.SObjectType.Case.fields.EscalationEmail__c.getLength());
         update aCase;
         if (ct != null) {
             if (ct.IsPersonAccount) {
@@ -729,6 +730,13 @@ public class SSSW_MyNetworkResponsePageContr {
 
         return aCase.id;
     }
+
+	public static string trimContent(String content, integer length) {
+		if(content.length() > length) {
+			content = content.substring(0,length);
+		}
+		return content;
+	}
 
 
     /** 
