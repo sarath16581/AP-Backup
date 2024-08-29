@@ -1,6 +1,6 @@
 /**
  * @description Controller for the Lightning Web Component `UnifiedCaseCreation`
- *              This controller manages the creation of case including appropriate error handling back and query related data for the LWC
+ *				This controller manages the creation of case including appropriate error handling and query related data for the LWC
  * @author: Marcel HK
  * @changelog:
  * 2024-08-21 - Marcel HK - Created
@@ -18,7 +18,7 @@ public with sharing class UnifiedCaseCreationController {
 	public static Map<String, Object> getCaseRecordTypeInfos(List<String> developerNames) {
 		try {
 			Map<String, Object> recordTypeInfos = new Map<String, Object>();
-			for(Schema.RecordTypeInfo info :  Case.getSObjectType().getDescribe().getRecordTypeInfos()) {
+			for(Schema.RecordTypeInfo info : Case.getSObjectType().getDescribe().getRecordTypeInfos()) {
 				if(developerNames.contains(info.getDeveloperName())) {
 					Map<String, Object> data = new Map<String, Object>();
 					data.put('available', info.available);
