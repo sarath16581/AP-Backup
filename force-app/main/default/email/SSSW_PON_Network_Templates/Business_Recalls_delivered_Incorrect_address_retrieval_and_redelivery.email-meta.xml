@@ -17,7 +17,7 @@ Hi {!Contact.FirstName}
 
 Re: Article {!Case.ReferenceID__c}
 
-I have met with the team member responsible for the delivery of this item, and after reviewing route and tracking information, they recall that this item was delivered to an incorrect address. We are now attempting to retrieve the item from that address and will deliver it to you as soon as possible.
+I have met with the team member responsible for the delivery of this item, and after reviewing route and tracking information, they recall that this item was delivered to an incorrect address. We have now retrieved the item from that address and will deliver it to you as soon as possible.
 
 If you have not received this delivery within 3 business days please notify us by replying to this email and we can investigate the situation. For tracking information, please visit https://auspost.com.au/track
 

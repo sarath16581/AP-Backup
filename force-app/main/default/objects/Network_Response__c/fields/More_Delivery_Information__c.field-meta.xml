@@ -130,7 +130,7 @@
             <value>
                 <fullName>Delivered to incorrect address - retrieval and redelivery</fullName>
                 <default>false</default>
-                <label>Delivered to incorrect address - Attempting retrieval and redelivery</label>
+                <label>Delivered to incorrect address - retrieval and redelivery</label>
             </value>
             <value>
                 <fullName>Delivered to incorrect address – Retrieved and redelivered</fullName>
@@ -158,6 +158,11 @@
                 <label>Delivered to incorrect address - retrieval attempt - delivered by resident</label>
             </value>
             <value>
+                <fullName>Unsafe Safe Drop - Unable to recover - DC prepared to pay compensation*</fullName>
+                <default>false</default>
+                <label>Unsafe Safe Drop - Unable to recover - DC prepared to pay compensation*</label>
+            </value>
+            <value>
                 <fullName>Delivered to incorrect address - retrieval attempt - delivered by another business</fullName>
                 <default>false</default>
                 <label>Delivered to incorrect address - retrieval attempt - delivered by another business</label>
@@ -173,14 +178,14 @@
                 <label>PO BOX diversion</label>
             </value>
             <value>
-                <fullName>Redirection failure - retrieval and redelivery</fullName>
-                <default>false</default>
-                <label>Redirection failure - Attempting retrieval and redelivery</label>
-            </value>
-            <value>
                 <fullName>Redirection failure - customer now has article</fullName>
                 <default>false</default>
                 <label>Redirection failure - customer now has article</label>
+            </value>
+            <value>
+                <fullName>Redirection failure - retrieval and redelivery</fullName>
+                <default>false</default>
+                <label>Redirection failure - retrieval and redelivery</label>
             </value>
             <value>
                 <fullName>Redirection failure - unable to recover - DC prepared to compensate for loss*</fullName>
@@ -310,7 +315,6 @@
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>ResidentialRecalls - delivered</controllingFieldValue>
-            <controllingFieldValue>BusinessRecalls - delivered</controllingFieldValue>
             <valueName>3rd party locker</valueName>
         </valueSettings>
         <valueSettings>
@@ -334,11 +338,6 @@
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>ResidentialRecalls - delivered</controllingFieldValue>
-            <controllingFieldValue>BusinessRecalls - delivered</controllingFieldValue>
-            <valueName>Delivered to incorrect address - retrieval and redelivery</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>ResidentialRecalls - delivered</controllingFieldValue>
             <valueName>Delivered to incorrect address – Retrieved and redelivered</valueName>
         </valueSettings>
         <valueSettings>
@@ -359,17 +358,22 @@
         <valueSettings>
             <controllingFieldValue>ResidentialRecalls - delivered</controllingFieldValue>
             <controllingFieldValue>BusinessRecalls - delivered</controllingFieldValue>
+            <valueName>Unsafe Safe Drop - Unable to recover - DC prepared to pay compensation*</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>ResidentialRecalls - delivered</controllingFieldValue>
+            <controllingFieldValue>BusinessRecalls - delivered</controllingFieldValue>
             <valueName>PO BOX</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>ResidentialRecalls - delivered</controllingFieldValue>
             <controllingFieldValue>BusinessRecalls - delivered</controllingFieldValue>
-            <valueName>Redirection failure - retrieval and redelivery</valueName>
+            <valueName>Redirection failure - customer now has article</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>ResidentialRecalls - delivered</controllingFieldValue>
             <controllingFieldValue>BusinessRecalls - delivered</controllingFieldValue>
-            <valueName>Redirection failure - customer now has article</valueName>
+            <valueName>Redirection failure - retrieval and redelivery</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>ResidentialRecalls - delivered</controllingFieldValue>
@@ -450,6 +454,10 @@
             <controllingFieldValue>BusinessRecalls - delivered</controllingFieldValue>
             <controllingFieldValue>ResidentialRecalls - safe dropped</controllingFieldValue>
             <valueName>Back Door</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>BusinessRecalls - delivered</controllingFieldValue>
+            <valueName>Delivered to incorrect address - retrieval and redelivery</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>BusinessRecalls - delivered</controllingFieldValue>

@@ -101,18 +101,19 @@
 Re: Article {!Case.ReferenceID__c}<br/><br/> 
 
 We have an update on the delivery of your {!Case.ProductSubCategory__c} item. <br/><br/>
-I have met with the driver responsible for the delivery of this item, and after reviewing route and tracking information, they recall that your item was delivered into a third-party locker at the delivery location.<br/><br/>
 
-Third-party lockers are parcel lockers that are not managed by Australia Post, and may be installed by arrangement at building complexes or business locations. <br/><br/>
+I have met with the driver responsible for the delivery of this item, and after reviewing route and tracking information, they recall that your item was delivered into a 3rd party locker at the delivery location.<br/><br/>
+
+Third-party lockers are parcel lockers that are not managed by Australia Post, and may be installed by arrangement at building complexes or business locations.<br/><br/>
 
 If you’re unaware of deliveries to third-party lockers within your building complex, we suggest speaking to someone familiar with your internal mail arrangements or request assistance from your concierge service / reception. <br/><br/>
 
-Should they be unable to locate your item, we recommend you contact your sender to confirm the delivery details. <br/><br/>
-For future deliveries, you may like to find out about alternative delivery options by visiting <a href='https://auspost.com.au/receiving/mypost'/>https://auspost.com.au/receiving/mypost</a><br/><br/>
+For future deliveries, you may like to find out about alternative delivery options by visiting https://auspost.com.au/receiving/mypost <br/><br/>
 
-Thank you for taking the time to contact Australia Post.<br/><br/>
+Thanks for taking the time to contact us. I hope that this information assists you.
 
-
+ 
+<br/><br/>
 								</td>
 							</tr>								
 							<tr>
@@ -128,7 +129,7 @@ Thank you for taking the time to contact Australia Post.<br/><br/>
 																<tr>
 																	<td style="font:13px Arial, Helvetica, sans-serif; color:#807370; line-height:16px; padding:11px 0 6px;">
 																		Kind Regards, <br/>
-                                                                                                                                                   {!User.FirstName}<br/>
+																																				   {!User.FirstName}<br/>
 																		<b style="color:#dc1928;">Australia Post</b>
 																	<br/><span style="color:#ffffff">{!Case.Thread_Id}</span></td>
 																</tr>
@@ -157,7 +158,7 @@ Thank you for taking the time to contact Australia Post.<br/><br/>
 				<tr><td height="1" bgcolor="#d7d2cb" style="font-size:0; line-height:0;">&nbsp;</td></tr>
 				<tr>
 					<td class="button" style="padding:13px 2px 0; font:11px/13px Arial, Helvetica, sans-serif; color:#444;">
-						<a href="http://auspost.com.au/help?ilink=ccc-edm-cases-help" target="_blank" style="text-decoration:none; color:#fff;background:#5e514d;padding:10px 15px 16px 15px;border-top-left-radius:3px;border-top-right-radius:3px;"><span style="padding-right:10px;"><img src="http://auspost.com.au/images/emails/track/help-icon.png" width="16" height="12" vspace="0" hspace="0" align="centre" alt="Help icon" /></span>Help &amp; support</a>
+						<a href="http://auspost.com.au/help-and-support?ilink=ccc-edm-cases-help" target="_blank" style="text-decoration:none; color:#fff;background:#5e514d;padding:10px 15px 16px 15px;border-top-left-radius:3px;border-top-right-radius:3px;"><span style="padding-right:10px;"><img src="http://auspost.com.au/images/emails/track/help-icon.png" width="16" height="12" vspace="0" hspace="0" align="centre" alt="Help icon" /></span>Help &amp; support</a>
 						<span class="hide">&nbsp;&nbsp;|&nbsp;&nbsp;</span>
 						<a href="http://auspost.com.au/terms-conditions.html?ilink=ccc-edm-cases-terms-conditions" target="_blank" style="text-decoration:none; color:#444">Terms &amp; conditions</a>
 						<span class="hide">&nbsp;&nbsp;|&nbsp;&nbsp;</span>
