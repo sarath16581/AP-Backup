@@ -58,11 +58,9 @@ public with sharing class UnifiedCaseCreationControllerTest {
 		// Testing
 		// =====================================
 		Map<String, Object> resultWithInvalidNames = UnifiedCaseCreationController.getCaseRecordTypeInfos(developerNames);
-		Map<String, Object> resultWithEmptyName = UnifiedCaseCreationController.getCaseRecordTypeInfos(new List<String>());
 
 		// Verify the results should be empty
 		Assert.areEqual(0, resultWithInvalidNames.size());
-		Assert.areEqual(0, resultWithEmptyName.size());
 	}
 
 	/**
@@ -77,6 +75,15 @@ public with sharing class UnifiedCaseCreationControllerTest {
 		try {
 			Test.startTest();
 			UnifiedCaseCreationController.getCaseRecordTypeInfos(null);
+			Test.stopTest();
+		}
+		catch(AuraHandledException ex) {
+			Assert.areEqual(UnifiedCaseCreationController.GENERIC_ERROR_MESSAGE, ex.getMessage(), 'Expected error message to match but instead got: ' + ex.getMessage());
+		}
+
+		try {
+			Test.startTest();
+			UnifiedCaseCreationController.getCaseRecordTypeInfos(new List<String>());
 			Test.stopTest();
 		}
 		catch(AuraHandledException ex) {
