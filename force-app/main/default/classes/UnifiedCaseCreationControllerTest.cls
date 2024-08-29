@@ -8,7 +8,7 @@
  * 2024-08-29 - Seth Heang - Created
  */
 @IsTest(IsParallel=true)
-public with sharing class UnifiedCaseCreationControllerTest {
+public class UnifiedCaseCreationControllerTest {
 
 	/**
 	 *	Test getCaseRecordTypeInfos() with valid record type names
@@ -30,7 +30,7 @@ public with sharing class UnifiedCaseCreationControllerTest {
 		Test.stopTest();
 
 		// Verify the results
-		Assert.areEqual(2, result.size());
+		Assert.areEqual(2, result.size(), 'Recordtype result count should be 2 but instead got ' + result.size());
 		for (String recordTypeId : result.keySet()) {
 			Map<String, Object> recordTypeInfo = (Map<String, Object>) result.get(recordTypeId);
 			Assert.isTrue(developerNames.contains((String)recordTypeInfo.get('developerName')), 'Expected developerName to exists but was not found');
