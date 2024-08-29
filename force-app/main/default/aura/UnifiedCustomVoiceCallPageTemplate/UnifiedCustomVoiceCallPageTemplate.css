@@ -1,0 +1,25 @@
+.THIS .no-right-padding {
+    padding-right: 0;
+}
+
+.THIS .no-top-padding .slds-card__header {
+    padding-top: 0;
+}
+
+.THIS .cUnifiedCustomRecordPageTemplate {
+    margin-right: 0 !important;
+}
+
+.THIS .compact-min-width {
+    margin-left: 0;
+    margin-top: 0;
+}
+
+.THIS .slds-icon-standard-voice-call {
+    margin-right: 0;
+    margin-left: -19px;
+}
+
+.THIS .slds-text-heading_small {
+    margin-left: -12px;
+}
