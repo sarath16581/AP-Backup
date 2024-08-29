@@ -72,22 +72,20 @@ public with sharing class UnifiedCaseCreationControllerTest {
 		// =====================================
 		// Testing
 		// =====================================
+		Test.startTest();
 		try {
-			Test.startTest();
 			UnifiedCaseCreationController.getCaseRecordTypeInfos(null);
-			Test.stopTest();
 		}
 		catch(AuraHandledException ex) {
 			Assert.areEqual(UnifiedCaseCreationController.GENERIC_ERROR_MESSAGE, ex.getMessage(), 'Expected error message to match but instead got: ' + ex.getMessage());
 		}
 
 		try {
-			Test.startTest();
 			UnifiedCaseCreationController.getCaseRecordTypeInfos(new List<String>());
-			Test.stopTest();
 		}
 		catch(AuraHandledException ex) {
 			Assert.areEqual(UnifiedCaseCreationController.GENERIC_ERROR_MESSAGE, ex.getMessage(), 'Expected error message to match but instead got: ' + ex.getMessage());
 		}
+		Test.stopTest();
 	}
 }
