@@ -21,10 +21,9 @@ We have an update on the delivery of your {!Case.ProductSubCategory__c} item.
 
 I have met with the team member responsible for the delivery of this item, and they have advised that your item was mistakenly delivered to an incorrect address.
 
-They have also advised that your item has since been retrieved and delivered to the correct address.
+They have also advised that your item has since been retrieved and delivered to the correct address.Tracking updates are available at https://auspost.com.au/track or on our mobile app
 
 I&apos;m sorry that this delivery did not go as planned.
-
 
 Kind Regards,
 {!User.FirstName}
