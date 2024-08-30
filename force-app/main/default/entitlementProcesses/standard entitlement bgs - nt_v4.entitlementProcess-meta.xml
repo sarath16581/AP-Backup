@@ -10,7 +10,7 @@
         <operation>equals</operation>
         <value>true</value>
     </exitCriteriaFilterItems>
-    <isVersionDefault>true</isVersionDefault>
+    <isVersionDefault>false</isVersionDefault>
     <milestones>
         <milestoneCriteriaFilterItems>
             <field>Case.RecordTypeId</field>
@@ -23,7 +23,7 @@
             <value>Thu Feb 27 08:30:00 GMT 2020</value>
         </milestoneCriteriaFilterItems>
         <milestoneName>First Customer Response</milestoneName>
-        <minutesToComplete>1440</minutesToComplete>
+        <minutesToComplete>240</minutesToComplete>
         <useCriteriaStartTime>false</useCriteriaStartTime>
     </milestones>
     <milestones>

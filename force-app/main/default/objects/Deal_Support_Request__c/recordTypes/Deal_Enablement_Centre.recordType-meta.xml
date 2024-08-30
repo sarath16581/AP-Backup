@@ -22,35 +22,7 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Engage Product for support</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Further details required to support request</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Incomplete data file</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>Leader Account number was not provided</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Opportunity not aligned with request</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Other</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Self-serve system issue</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Supporting evidence not attached</fullName>
             <default>false</default>
         </values>
     </picklistValues>
@@ -1431,18 +1403,6 @@
         <picklist>Pricing_Request_Type__c</picklist>
         <values>
             <fullName>New Business %2F Growth</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Other</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Rate Card Extraction</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Renewal %2F Rate review</fullName>
             <default>false</default>
         </values>
     </picklistValues>

@@ -731,13 +731,6 @@ public class SSSW_MyNetworkResponsePageContr {
         return aCase.id;
     }
 
-	public static string trimContent(String content, integer length) {
-		if(content.length() > length) {
-			content = content.substring(0,length);
-		}
-		return content;
-	}
-
 
     /** 
       * @name: generateEmail
@@ -887,5 +880,12 @@ public class SSSW_MyNetworkResponsePageContr {
 
         return aFax.Id;
     }  
+    public static string trimContent(String content, integer length) {
+		if(content.length() > length) {
+			content = content.substring(0,length);
+		}
+		return content;
+	}
+
 
 }

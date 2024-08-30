@@ -21,11 +21,9 @@ We have an update on the delivery of your {!Case.ProductSubCategory__c} item.
 
 I have met with the team member responsible for the delivery of this item, however they are unable to recall the specifics of this delivery. They did advise that items delivered to your address are usually left by the front door.
 
-I hope this information has helped, but if you require further assistance or any clarification please reply to this email, and we can assist further.
-
 For future deliveries, you may like to find out about alternative delivery options by visiting https://auspost.com.au/receiving/mypost
 
-Thank you for contacting Australia Post.
+Thank you for contacting Australia Post. I hope that this information assists you.
 
 Kind Regards,
 {!User.FirstName}

@@ -254,10 +254,6 @@
     <picklistValues>
         <picklist>Disqualified_Lead_Reason__c</picklist>
         <values>
-            <fullName>API Request</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>Could not contact</fullName>
             <default>false</default>
         </values>
@@ -271,10 +267,6 @@
         </values>
         <values>
             <fullName>Enquiry does not meet criteria</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Existing customer%2C no opportunity</fullName>
             <default>false</default>
         </values>
         <values>

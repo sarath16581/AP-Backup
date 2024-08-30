@@ -21,7 +21,7 @@ We have an update on the delivery of your {!Case.ProductSubCategory__c} item.
 
 I have met with the team member responsible for the delivery of this item, and after reviewing route and tracking information, they confirmed that your parcel was awaiting collection at a nearby post office. It will be retrieved and delivered to you as soon as possible.
 
-Our website https://auspost.com.au/track and mobile app, has the information regarding the location of your item.  I’m sorry that this delivery didn’t go as planned.
+I’m sorry that this delivery didn’t go as planned.
 
 Kind Regards,
 {!User.FirstName}

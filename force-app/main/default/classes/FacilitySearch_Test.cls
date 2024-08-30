@@ -769,17 +769,15 @@ private class FacilitySearch_Test {
 
 		Test.stopTest();
 	}
-
-	/**
+    
+    /**
 	  * SCENARIO:
 	  *   Scenario will test the trimEscalationEmailContent functionality where the escalation email content is trimmed to the fields length
 	  */
 	  public static testMethod void testTrimEscalationEmailContent() {
-
 		Test.startTest();
 		string trimmedString = FacilitySearchController.trimContent('email comment', 2);
 		Test.stopTest();
-
 		// check the string passed is trimmed
 		System.assertEquals(trimmedString, 'em');
 	}

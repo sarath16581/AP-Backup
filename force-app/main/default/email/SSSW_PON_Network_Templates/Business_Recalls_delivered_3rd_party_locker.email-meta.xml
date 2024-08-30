@@ -20,11 +20,17 @@ Re: Article {!Case.ReferenceID__c}
 
 We have an update on the delivery of your {!Case.ProductSubCategory__c} item.
 
-I have met with the driver responsible for the delivery of this item, and after reviewing route and tracking information, they recall that your item was delivered into a 3rd party locker at the delivery location.
+I have met with the driver responsible for the delivery of this item, and after reviewing route and tracking information, they recall that your item was delivered into a third-party locker at the delivery location.
+
+Third-party lockers are parcel lockers that are not managed by Australia Post, and may be installed by arrangement at building complexes or business locations.
+
+If you’re unaware of deliveries to third-party lockers within your building complex, we suggest speaking to someone familiar with your internal mail arrangements or request assistance from your concierge service / reception.
+
+Should they be unable to locate your item, we recommend you contact your sender to confirm the delivery details.
 
 For future deliveries, you may like to find out about alternative delivery options by visiting https://auspost.com.au/receiving/mypost
 
-Thanks for taking the time to contact us. I hope that this information assists you.
+Thank you for taking the time to contact Australia Post.
 
 Kind Regards,
 {!User.FirstName}

@@ -295,6 +295,10 @@
     <picklistValues>
         <picklist>Disqualified_Lead_Reason__c</picklist>
         <values>
+            <fullName>Contacted</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Could not contact</fullName>
             <default>false</default>
         </values>
@@ -315,15 +319,15 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Existing customer%2C no opportunity</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>Incorrect Contact Details</fullName>
             <default>false</default>
         </values>
         <values>
             <fullName>Nurturing</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Verified</fullName>
             <default>false</default>
         </values>
     </picklistValues>
