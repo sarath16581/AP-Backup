@@ -15,11 +15,10 @@
     margin-top: 0;
 }
 
-.THIS .slds-icon-standard-voice-call {
-    margin-right: 0;
-    margin-left: -19px;
-}
-
 .THIS .slds-text-heading_small {
     margin-left: -12px;
+}
+
+.THIS .top-left-element .slds-col{
+    padding-left: 0;
 }
