@@ -140,12 +140,11 @@ public inherited sharing class CaseRecordPopulationModule extends ApplicationMod
 			}
 		}
 
-		// reset the recursion state to ensure changes any changes we have made in this method won't retrigger on next pass (if there is one)
+		// reset the recursion state to ensure any changes we have made in this method won't retrigger on next pass (if there is one)
 		// its usually unlikely we need to do this, but it is a best practice just incase we ever introduce changes above to update fields we are monitoring
 		for(SObjectType monitoredSObjectType : monitoredRecords.keySet()) {
 			ApplicationRecursion.getInstance().updateRecordState(recursionContext, monitoredRecords.get(monitoredSObjectType), new Set<SObjectField>{MAPPED_LOOKUP_FIELDS.get(monitoredSObjectType)});
 		}
-		
 	}
 
 	/**
