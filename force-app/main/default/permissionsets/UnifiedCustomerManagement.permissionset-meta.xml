@@ -5,7 +5,15 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>AddressLookupWrapperController</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>ContactProductHoldingTableCompController</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>HappyParcelController</apexClass>
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
@@ -168,12 +176,12 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Contact.MailingDPID__c</field>
+        <field>Contact.MobilePhone</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Contact.MobilePhone</field>
+        <field>Contact.OtherAddress</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
