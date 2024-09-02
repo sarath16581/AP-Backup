@@ -5,6 +5,7 @@
     <externalId>false</externalId>
     <formula>IF(  CountryOfOrigin__c = &quot;036&quot;, &quot;AU&quot;, &quot;&quot; )</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <inlineHelpText>Auto populated when MCC is Government MCC</inlineHelpText>
     <label>Country Of Origin</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>

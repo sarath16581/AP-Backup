@@ -365,6 +365,10 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Pending Information</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Rejected</fullName>
             <default>false</default>
         </values>

@@ -40,6 +40,7 @@ export default class AbnChangeDsrWrapper extends LightningElement {
 
 			if (this.businessAtRisk.Related_Organisation__c == null || this.businessAtRisk.Related_Opportunity__c == null) {
 				this.errorMessage = 'Please populate Opportunity and Related Organisation links on the Business at Risk record before proceeding with DSR creation.';
+				this.isLoading = false;
 				return;
 			}
 
