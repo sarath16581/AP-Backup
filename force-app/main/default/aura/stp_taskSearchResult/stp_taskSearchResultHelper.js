@@ -48,11 +48,25 @@
                 }
             });
 
-            component.set('v.columns', columnsData);
+			console.log('Mona data '+ JSON.stringify(columnsData) );
+			//columnsData[3].sortable = true;
+
+			columnsData.map( function(element){
+				if(element.fieldName === 'CaseObject__r.Enquiry_Type__c') {
+					element.sortable = true;
+				}
+			} )
+			//var colVal = columnsData.find(myFunction);
+
+            component.set('v.columns',  columnsData);
             component.set('v.data', PagList);
         }
     },
 
+
+	// myFunction: function(value, index, array) {
+	// 	return value.fieldName == 'CaseObject__r.Enquiry_Type__c'
+	// }
     /**
      *   Raise event to display Detail data
      *
@@ -73,6 +87,24 @@
         notify.setParams(params);
         notify.fire();
     },
+
+	sortData: function(component, fieldName, sortDirection) {
+		console.log('sortBy'+fieldName);
+		console.log('sortDirection'+sortDirection);
+		var data = component.get("v.data");
+		console.log('mona data'+ data);
+        var key = function(a) { return a[fieldName]; }
+		console.log('mona key'+ key);
+        var reverse = sortDirection == 'asc' ? 1: -1;   
+		console.log('mona reverse'+ reverse);          
+        data.sort(function(a,b){
+                var a = key(a) ? key(a) : '';
+                var b = key(b) ? key(b) : '';
+                return reverse * ((a>b) - (b>a));
+            });
+			console.log('mona data'+ data); 
+        component.set("v.data",data);
+	},
 
     /**
     *   Function to acknowledge the tasks based on taskId.
