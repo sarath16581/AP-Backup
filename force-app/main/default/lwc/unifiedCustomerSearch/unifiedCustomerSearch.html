@@ -6,6 +6,8 @@
 			<div class="slds-var-m-around_medium">
 				<c-unified-customer-search-form
 						lwc:spread={formInputs}
+						auto-search-on-load={autoSearchOnLoad}
+						auto-link-contact={autoLinkContact}
 						onsearch={handleSearchStart}
 						onerror={handleSearchError}
 						onresult={handleSearchResults}

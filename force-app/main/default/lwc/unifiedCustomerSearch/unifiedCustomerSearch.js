@@ -2,6 +2,7 @@
  * @description an LWC Customer Search Interface for Unified Experience
  * @changelog:
  * 2024-08-08 - added handler methods to handle `createcontact` and `backtosearch` events and pass `formInputs` params to child LWCs
+ * 2024-08-28 - Added public properties `autoSearchOnLoad` and `autoLinkContact`, added public method `setFormInput`
  */
 import { LightningElement, api } from 'lwc';
 
@@ -17,10 +18,41 @@ export const SEARCH_FORM_TITLE = 'Customer Search';
  */
 export default class UnifiedCustomerSearch extends LightningElement {
 	/**
-	 * The Id of the record to provide context to this component.
-	 * @type {string|undefined}
+	 * If enabled, the a search will be invoked when the search form is loaded.
+	 * @type {boolean}
 	 */
-	@api recordId;
+	@api autoSearchOnLoad = false;
+
+	/**
+	 * If enabled, the a search will automatically link the Contact if only one is found.
+	 * @type {boolean}
+	 */
+	@api autoLinkContact = false;
+
+	/**
+	 * Sets the form fields for the firstName, lastName, emailAddress, and phoneNumber.
+	 * This is used to pre-fill the form fields.
+	 *
+	 * @param {object} data Form fields to set
+	 */
+	@api setFormInputs({ firstName, lastName, emailAddress, phoneNumber }) {
+		this.formInputs = {
+			...this.formInputs,
+			firstName,
+			lastName,
+			emailAddress,
+			phoneNumber
+		};
+	}
+
+	/**
+	 * The `connectedCallback` lifecycle hook is called after the component is inserted into the DOM.
+	 *
+	 * This is used to notify the wrapper component which will call the `setFormInputs` method.
+	 */
+	connectedCallback() {
+		this.dispatchEvent(new CustomEvent('connected'));
+	}
 
 	searchFormTitle = SEARCH_FORM_TITLE;
 	isSearching = false;
