@@ -49,8 +49,8 @@ public with sharing class PartnerInfoLicenceActivationController {
 							AccountsSelector.Options.WITH_CREATEDBY_USER, AccountsSelector.Options.WITH_LASTMODIFIEDBY_USER, 
 							AccountsSelector.Options.WITH_PARENT, AccountsSelector.Options.WITH_NETWORK,  AccountsSelector.Options.WITH_CONTACT
 						}
-					);				
-					
+					);
+				
 				// Update the wrapper with the details to be return to lwc
 				initWrapper = new InitWrapper();
 				initWrapper.domainURL = String.valueof(URL.getOrgDomainUrl().toExternalForm());

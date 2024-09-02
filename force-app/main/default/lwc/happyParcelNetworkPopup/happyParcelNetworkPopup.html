@@ -1,108 +1,108 @@
 <!--
-    2020-09-09 Disha Kariya Created
-    2020-09-21 Disha Kariya Updated to use Happy Parcel Card
-    2020-09-23 Disha Kariya Changes for error handling
+	2020-09-09 Disha Kariya Created
+	2020-09-21 Disha Kariya Updated to use Happy Parcel Card
+	2020-09-23 Disha Kariya Changes for error handling
  -->
 <template>
-    <template if:true= {loadingNetworkDetails}>
-            <lightning-spinner size="small" variant="brand" alternative-text="loading data..."></lightning-spinner>
-    </template>
-    <template if:true={network}>
-        <div class={variant}>
-        <c-happy-parcel-card title={network.Name} icon-name="utility:company" button-icon="utility:close" button-variant="bare" oncardbuttonclick={closePopup}>
-                <div class="slds-grid slds-wrap slds-grid_vertical-stretch slds-size_1-of-1 stretch">
-                    <div class={detailsWrapper}>
-                        <table class="slds-table slds-no-row-hover slds-table_bordered" role="grid">
-                            <tr>
-                                <th><div class="slds-truncate" title="Contact">Contact</div></th>
-                                <td><div class="slds-truncate" title={network.Phone_Number__c}>{network.Phone_Number__c}</div></td>
-                            </tr>
-                            <tr>
-                                <th><div class="slds-truncate" title="Address">Address</div></th>
-                                <td><div class="slds-truncate" title={network.Network_Address__c}>{network.Network_Address__c}</div></td>
-                            </tr>
-                            <tr>
-                                <th><div class="slds-truncate" title="Network Type">Network Type</div></th>
-                                <td><div class="slds-truncate" title={network.RecordType.Name}>{network.RecordType.Name}</div></td>
-                            </tr>
-                        </table>
-                    </div>
-                    <template if:true={hasHours}>
-                        <div class={hoursWrapper}>
-                            <table class="slds-table slds-no-row-hover slds-table_bordered" role="grid">
-                                <tr>
-                                    <th><div class="slds-truncate"></div></th>
-                                    <template if:true={hasOpeningHours}><th><div class="slds-truncate"><b>Opening hours</b></div></th></template>
-                                    <template if:true={hasLunchHours}><th><div class="slds-truncate"><b>Lunch hours</b></div></th></template>
-                                    <template if:true={hasHatchHours}><th><div class="slds-truncate"><b>Hatch hours</b></div></th></template>
-                                </tr>
-                                <tr>
-                                    <th><div class="slds-truncate">Mon</div></th>
-                                    <template if:true={hasOpeningHours}><td><div class="slds-truncate">{network.Mon__c}</div></td></template>
-                                    <template if:true={hasLunchHours}><td><div class="slds-truncate">{network.CL_Mon__c}</div></td></template>
-                                    <template if:true={hasHatchHours}><td><div class="slds-truncate">{network.Hatch_Mon__c}</div></td></template>
-                                </tr>
-                                <tr>
-                                    <th><div class="slds-truncate">Tue</div></th>
-                                    <template if:true={hasOpeningHours}><td><div class="slds-truncate">{network.Tue__c}</div></td></template>
-                                    <template if:true={hasLunchHours}><td><div class="slds-truncate">{network.CL_Tue__c}</div></td></template>
-                                    <template if:true={hasHatchHours}><td><div class="slds-truncate">{network.Hatch_Tue__c}</div></td></template>
-                                </tr>
-                                <tr>
-                                    <th><div class="slds-truncate">Wed</div></th>
-                                    <template if:true={hasOpeningHours}><td><div class="slds-truncate">{network.Wed__c}</div></td></template>
-                                    <template if:true={hasLunchHours}><td><div class="slds-truncate">{network.CL_Wed__c}</div></td></template>
-                                    <template if:true={hasHatchHours}><td><div class="slds-truncate">{network.Hatch_Wed__c}</div></td></template>
-                                </tr>
-                                <tr>
-                                    <th><div class="slds-truncate">Thu</div></th>
-                                    <template if:true={hasOpeningHours}><td><div class="slds-truncate">{network.Thu__c}</div></td></template>
-                                    <template if:true={hasLunchHours}><td><div class="slds-truncate">{network.CL_Thu__c}</div></td></template>
-                                    <template if:true={hasHatchHours}><td><div class="slds-truncate">{network.Hatch_Thu__c}</div></td></template>
-                                </tr>
-                                <tr>
-                                    <th><div class="slds-truncate">Fri</div></th>
-                                    <template if:true={hasOpeningHours}><td><div class="slds-truncate">{network.Fri__c}</div></td></template>
-                                    <template if:true={hasLunchHours}><td><div class="slds-truncate">{network.CL_Fri__c}</div></td></template>
-                                    <template if:true={hasHatchHours}><td><div class="slds-truncate">{network.Hatch_Fri__c}</div></td></template>
-                                </tr>
-                                <tr>
-                                    <th><div class="slds-truncate">Sat</div></th>
-                                    <template if:true={hasOpeningHours}><td><div class="slds-truncate">{network.Sat__c}</div></td></template>
-                                    <template if:true={hasLunchHours}><td><div class="slds-truncate">{network.CL_Sat__c}</div></td></template>
-                                    <template if:true={hasHatchHours}><td><div class="slds-truncate">{network.Hatch_Sat__c}</div></td></template>
-                                </tr>
-                                <tr>
-                                    <th><div class="slds-truncate">Sun</div></th>
-                                    <template if:true={hasOpeningHours}><td><div class="slds-truncate">{network.Sun__c}</div></td></template>
-                                    <template if:true={hasLunchHours}><td><div class="slds-truncate">{network.CL_Sun__c}</div></td></template>
-                                    <template if:true={hasHatchHours}><td><div class="slds-truncate">{network.Hatch_Sun__c}</div></td></template>
-                                </tr>
-                                <template if:true={network.Hatch_Desc__c}>
-                                    <tr>
-                                        <th><div class="slds-truncate">Hatch Location</div></th>
-                                        <td colspan="3"><div class="slds-truncate">{network.Hatch_Desc__c}</div></td>
-                                    </tr>
-                                </template>
-                            </table>
-                        </div>
-                    </template>
-                </div>
-        </c-happy-parcel-card>
-        </div>
-    </template>
-    <template if:true={error}>
-        <div class={variant}>
-            <div class="slds-grid slds-wrap slds-grid_vertical-stretch slds-size_1-of-2 stretch">
-                <div class="slds-notify slds-notify_alert slds-theme_info" role="alert">
-                    <div class="slds-col slds-size_1-of-2 slds-float_left">
-                        <span>{error}</span>
-                    </div>
-                    <div class="slds-col slds-size_1-of-2">
-                        <lightning-button-icon icon-name="utility:close" variant="bare-inverse" size="small" onclick={closePopup} class="slds-float_right" ></lightning-button-icon>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </template>
+	<template if:true= {loadingNetworkDetails}>
+			<lightning-spinner size="small" variant="brand" alternative-text="loading data..."></lightning-spinner>
+	</template>
+	<template if:true={network}>
+		<div class={variant}>
+		<c-happy-parcel-card title={network.Name} icon-name="utility:company" button-icon="utility:close" button-variant="bare" oncardbuttonclick={closePopup}>
+				<div class="slds-grid slds-wrap slds-grid_vertical-stretch slds-size_1-of-1 stretch">
+					<div class={detailsWrapper}>
+						<table class="slds-table slds-no-row-hover slds-table_bordered" role="grid">
+							<tr>
+								<th><div class="slds-truncate" title="Contact">Contact</div></th>
+								<td><div class="slds-truncate" title={network.Phone_Number__c}>{network.Phone_Number__c}</div></td>
+							</tr>
+							<tr>
+								<th><div class="slds-truncate" title="Address">Address</div></th>
+								<td><div class="slds-truncate" title={network.Network_Address__c}>{network.Network_Address__c}</div></td>
+							</tr>
+							<tr>
+								<th><div class="slds-truncate" title="Network Type">Network Type</div></th>
+								<td><div class="slds-truncate" title={network.RecordType.Name}>{network.RecordType.Name}</div></td>
+							</tr>
+						</table>
+					</div>
+					<template if:true={hasHours}>
+						<div class={hoursWrapper}>
+							<table class="slds-table slds-no-row-hover slds-table_bordered" role="grid">
+								<tr>
+									<th><div class="slds-truncate"></div></th>
+									<template if:true={hasOpeningHours}><th><div class="slds-truncate"><b>Opening hours</b></div></th></template>
+									<template if:true={hasLunchHours}><th><div class="slds-truncate"><b>Lunch hours</b></div></th></template>
+									<template if:true={hasHatchHours}><th><div class="slds-truncate"><b>Hatch hours</b></div></th></template>
+								</tr>
+								<tr>
+									<th><div class="slds-truncate">Mon</div></th>
+									<template if:true={hasOpeningHours}><td><div class="slds-truncate">{network.Mon__c}</div></td></template>
+									<template if:true={hasLunchHours}><td><div class="slds-truncate">{network.CL_Mon__c}</div></td></template>
+									<template if:true={hasHatchHours}><td><div class="slds-truncate">{network.Hatch_Mon__c}</div></td></template>
+								</tr>
+								<tr>
+									<th><div class="slds-truncate">Tue</div></th>
+									<template if:true={hasOpeningHours}><td><div class="slds-truncate">{network.Tue__c}</div></td></template>
+									<template if:true={hasLunchHours}><td><div class="slds-truncate">{network.CL_Tue__c}</div></td></template>
+									<template if:true={hasHatchHours}><td><div class="slds-truncate">{network.Hatch_Tue__c}</div></td></template>
+								</tr>
+								<tr>
+									<th><div class="slds-truncate">Wed</div></th>
+									<template if:true={hasOpeningHours}><td><div class="slds-truncate">{network.Wed__c}</div></td></template>
+									<template if:true={hasLunchHours}><td><div class="slds-truncate">{network.CL_Wed__c}</div></td></template>
+									<template if:true={hasHatchHours}><td><div class="slds-truncate">{network.Hatch_Wed__c}</div></td></template>
+								</tr>
+								<tr>
+									<th><div class="slds-truncate">Thu</div></th>
+									<template if:true={hasOpeningHours}><td><div class="slds-truncate">{network.Thu__c}</div></td></template>
+									<template if:true={hasLunchHours}><td><div class="slds-truncate">{network.CL_Thu__c}</div></td></template>
+									<template if:true={hasHatchHours}><td><div class="slds-truncate">{network.Hatch_Thu__c}</div></td></template>
+								</tr>
+								<tr>
+									<th><div class="slds-truncate">Fri</div></th>
+									<template if:true={hasOpeningHours}><td><div class="slds-truncate">{network.Fri__c}</div></td></template>
+									<template if:true={hasLunchHours}><td><div class="slds-truncate">{network.CL_Fri__c}</div></td></template>
+									<template if:true={hasHatchHours}><td><div class="slds-truncate">{network.Hatch_Fri__c}</div></td></template>
+								</tr>
+								<tr>
+									<th><div class="slds-truncate">Sat</div></th>
+									<template if:true={hasOpeningHours}><td><div class="slds-truncate">{network.Sat__c}</div></td></template>
+									<template if:true={hasLunchHours}><td><div class="slds-truncate">{network.CL_Sat__c}</div></td></template>
+									<template if:true={hasHatchHours}><td><div class="slds-truncate">{network.Hatch_Sat__c}</div></td></template>
+								</tr>
+								<tr>
+									<th><div class="slds-truncate">Sun</div></th>
+									<template if:true={hasOpeningHours}><td><div class="slds-truncate">{network.Sun__c}</div></td></template>
+									<template if:true={hasLunchHours}><td><div class="slds-truncate">{network.CL_Sun__c}</div></td></template>
+									<template if:true={hasHatchHours}><td><div class="slds-truncate">{network.Hatch_Sun__c}</div></td></template>
+								</tr>
+								<template if:true={network.Hatch_Desc__c}>
+									<tr>
+										<th><div class="slds-truncate">Hatch Location</div></th>
+										<td colspan="3"><div class="slds-truncate">{network.Hatch_Desc__c}</div></td>
+									</tr>
+								</template>
+							</table>
+						</div>
+					</template>
+				</div>
+		</c-happy-parcel-card>
+		</div>
+	</template>
+	<template if:true={error}>
+		<div class={variant}>
+			<div class="slds-grid slds-wrap slds-grid_vertical-stretch slds-size_1-of-2 stretch">
+				<div class="slds-notify slds-notify_alert slds-theme_info" role="alert">
+					<div class="slds-col slds-size_1-of-2 slds-float_left">
+						<span>{error}</span>
+					</div>
+					<div class="slds-col slds-size_1-of-2">
+						<lightning-button-icon icon-name="utility:close" variant="bare-inverse" size="small" onclick={closePopup} class="slds-float_right" ></lightning-button-icon>
+					</div>
+				</div>
+			</div>
+		</div>
+	</template>
 </template>

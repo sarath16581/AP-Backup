@@ -15,3 +15,7 @@ package.xml
 **/objects/**/indexes/*.index-meta.xml
 #temp
 force-app/main/default/email/unfiled$public/NetworkPartnerCaseCreationFromEmailtoCase.email-meta.xml
+
+**/tsconfig.json
+
+**/*.ts

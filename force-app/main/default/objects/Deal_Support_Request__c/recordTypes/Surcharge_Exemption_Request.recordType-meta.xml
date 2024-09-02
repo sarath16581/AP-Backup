@@ -22,35 +22,7 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Engage Product for support</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Further details required to support request</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Incomplete data file</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>Leader Account number was not provided</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Opportunity not aligned with request</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Other</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Self-serve system issue</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Supporting evidence not attached</fullName>
             <default>false</default>
         </values>
     </picklistValues>
@@ -1429,18 +1401,6 @@
             <fullName>New Business %2F Growth</fullName>
             <default>false</default>
         </values>
-        <values>
-            <fullName>Other</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Rate Card Extraction</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Renewal %2F Rate review</fullName>
-            <default>false</default>
-        </values>
     </picklistValues>
     <picklistValues>
         <picklist>Primed_By__c</picklist>
@@ -1509,43 +1469,11 @@
     <picklistValues>
         <picklist>Product__c</picklist>
         <values>
-            <fullName>3PL</fullName>
+            <fullName>Airlock</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>AaE</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Address Post</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Bank%40Post</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Decipha</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Digital</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Digital ID</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Digital Mailbox</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Express AP</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Express Courier International</fullName>
+            <fullName>Courier</fullName>
             <default>false</default>
         </values>
         <values>
@@ -1553,67 +1481,27 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Express eParcel</fullName>
+            <fullName>Fixed Price Airlock</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Financial %26 Commercial Services</fullName>
+            <fullName>Fixed Price Premium</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>First Direct Solutions</fullName>
+            <fullName>International Commercial</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Fulfilment %26 Unaddressed</fullName>
+            <fullName>International Standard%2C Express %26 Letters</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>ID%26G and F%26CS</fullName>
+            <fullName>Metro</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>ID%26V</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Identity %26 Government Services</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>International</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>International AP</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Letters%2FTrusted Services</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>MRS %26 Data Insights</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Mail Products</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Mail Services</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Mailroom</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>MessengerPost Couriers</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>NXF</fullName>
+            <fullName>Next Flight</fullName>
             <default>false</default>
         </values>
         <values>
@@ -1621,99 +1509,23 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Other</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Other Postal Services</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Other Retail Services</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Parcel AP</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>Parcel Post</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Parcels</fullName>
+            <fullName>Premium</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Payments</fullName>
+            <fullName>Road Express</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>PostBillPay</fullName>
+            <fullName>Road Express 2 men</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>PostLogistics International</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Print Post</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Retail Services</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>ST FPP</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>ST Next Flight</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>ST Premium</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Securepay</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Star Track Express</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Star Track International</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>StarTrack</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>StarTrack Logistics</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Supply Chain</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>UMS</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>VOI</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>eLetter</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>eParcel</fullName>
+            <fullName>Road Express Tailgate</fullName>
             <default>false</default>
         </values>
     </picklistValues>

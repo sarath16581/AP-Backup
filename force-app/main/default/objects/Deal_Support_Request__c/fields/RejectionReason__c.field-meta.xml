@@ -47,6 +47,31 @@
                 <default>false</default>
                 <label>Request Withdrawn by Sales Team</label>
             </value>
+            <value>
+                <fullName>Additional Pricing DSR required</fullName>
+                <default>false</default>
+                <label>Additional Pricing DSR required</label>
+            </value>
+            <value>
+                <fullName>No action taken - Duplicate</fullName>
+                <default>false</default>
+                <label>No action taken - Duplicate</label>
+            </value>
+            <value>
+                <fullName>No action taken - Invalid record type</fullName>
+                <default>false</default>
+                <label>No action taken - Invalid record type</label>
+            </value>
+            <value>
+                <fullName>No action taken - Not a pricing support request</fullName>
+                <default>false</default>
+                <label>No action taken - Not a pricing support request</label>
+            </value>
+            <value>
+                <fullName>No action taken - Self-serve</fullName>
+                <default>false</default>
+                <label>No action taken - Self-serve</label>
+            </value>
         </valueSetDefinition>
     </valueSet>
 </CustomField>

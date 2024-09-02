@@ -9,6 +9,7 @@
 	2021-10-01 - Nathan Franklin - Add event reason (with transient attributes) + uplift to version 52
 	2021-10-04 - Mathew Jose - Added the changes associated with row overflow feature in the data table.
 	2022-04-11 - Mahesh Parvathaneni - Changed from google map new tab to lightning map
+	2024-06-12 - Raghav Ravipati - Added child component to show critical incidents using network org id
 -->
 <template>
 
@@ -62,17 +63,30 @@
 												</template>
 												<template if:true={column.fieldNameIs_ActualLocation__c}>
 													<td class="slds-cell-wrap slds-truncate maxWidth" key={column.key}>
-														{event.ActualLocation__c}
+														<div>
+															{event.ActualLocation__c}
+														</div>
 														<template if:true={event.Facility__c}>
-															<lightning-button-icon data-id = {event.EventID__c}
-																				   icon-name="utility:preview"
-																				   size="small"
-																				   variant="bare"
-																				   class="icon-style slds-m-left_xx-small"
-																				   onclick={handleNetworkInfo}
-																				   alternative-text="Network Info">
-															</lightning-button-icon>
-														</template>
+															<div>
+																<lightning-button-icon data-id = {event.EventID__c}
+																					icon-name="utility:preview"
+																					size="small"
+																					variant="bare"
+																					class="icon-style slds-m-left_xx-small"
+																					onclick={handleNetworkInfo}
+																					alternative-text="Network Info">
+																</lightning-button-icon>
+																<template if:true={event.criticalIncidents}>
+																	<lightning-button-icon data-id={event.EventID__c}
+																						class="btn-x-large slds-m-horizontal_x-small"
+																						icon-name="utility:warning"
+																						alternative-text="Critical Incidents" size="medium"
+																						variant="bare" onclick={handleShowCriticalIncidents}
+																						style="position:relative;top:-3px;">
+																	</lightning-button-icon>
+																</template>
+															</div>
+															</template>
 													</td>
 												</template>
 												<template if:true={column.fieldNameIs_EventDescription__c}>
@@ -135,6 +149,12 @@
 											<template if:true={event.showNetworkDetails}>
 												<div class="slds-p-horizontal_x-small slds-p-bottom_x-small event-message-popup-container">
 													<c-happy-parcel-network-popup onclosepopup= {closePopupHandler} event-id={event.EventID__c} wcc={event.FacilityOrganisationID__c} variant="width-card"></c-happy-parcel-network-popup>
+												</div>
+											</template>
+
+											<template if:true={event.showCriticalIncidents}>
+												<div class="slds-p-horizontal_x-small slds-p-bottom_x-small event-message-popup-container">
+													<c-happy-parcel-critical-incidents onclosepopup={handleCloseCriticalIncidents} event-id={event.EventID__c} variant="width-card" critical-incidents={event.criticalIncidents}></c-happy-parcel-critical-incidents>
 												</div>
 											</template>
 

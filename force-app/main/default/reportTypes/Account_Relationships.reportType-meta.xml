@@ -68,6 +68,19 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
+            <field>ParentAccount__c.Legal_Name__c</field>
+            <table>AccountRelationship__c</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>ParentAccount__c.Id</field>
+            <table>AccountRelationship__c</table>
+        </columns>
+        <masterLabel>Account Relationships</masterLabel>
+    </sections>
+    <sections>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
             <field>ParentAccount__c.Customer_Number__c</field>
             <table>AccountRelationship__c</table>
         </columns>
@@ -76,6 +89,24 @@
             <field>RelatedAccount__c.Customer_Number__c</field>
             <table>AccountRelationship__c</table>
         </columns>
-        <masterLabel>Account Relationships</masterLabel>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>ParentAccount__c.Legal_Entity_Type__c</field>
+            <table>AccountRelationship__c</table>
+        </columns>
+        <masterLabel>Account Relationships Parent</masterLabel>
+    </sections>
+    <sections>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>RelatedAccount__c.Legal_Entity_Type__c</field>
+            <table>AccountRelationship__c</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>RelatedAccount__c.Legal_Name__c</field>
+            <table>AccountRelationship__c</table>
+        </columns>
+        <masterLabel>Account Relationships Child</masterLabel>
     </sections>
 </ReportType>

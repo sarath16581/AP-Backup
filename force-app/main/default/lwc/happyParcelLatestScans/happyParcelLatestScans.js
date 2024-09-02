@@ -90,6 +90,7 @@ export default class HappyParcelLatestScans extends HappyParcelBase {
 					eventDetailsRequired: eventDetailsRequired,
 					eventDescriptionCombined: eventDescriptionCombined,
 					showEventDetails: false,
+					showCriticalIncidents: false,
 					_eventColumns: columns,
 					isLock: (get(item, 'event.Status__c', '').indexOf('Lock') > -1) ,
 					animationCssStyle: this.getAnimationStyleCss(animationDelay),
@@ -142,7 +143,7 @@ export default class HappyParcelLatestScans extends HappyParcelBase {
 	 * Used to push the column names based on the array of fields from the field set (Base and overflow)
 	 */
 	pushColumns(columnArray, overFlow, initialValue) {
-        return columnArray.reduce((acc, obj)=> {
+		return columnArray.reduce((acc, obj)=> {
 
 			var css = (obj.fieldName === 'EventDescription__c') ? "slds-th__action slds-text-link_reset event-width" 
 					: (obj.fieldName === 'State_Territory_Province__c') ? "slds-th__action slds-text-link_reset event-state"
@@ -152,8 +153,8 @@ export default class HappyParcelLatestScans extends HappyParcelBase {
 
 			return acc;
 
-        }, initialValue)
-    }	
+		}, initialValue)
+	}	
 
 	/**
 	* Used to set field values and key in the columns(Overflow & Base) to derive the rows to be presented in the event message table. 
@@ -188,9 +189,9 @@ export default class HappyParcelLatestScans extends HappyParcelBase {
 				//Show event details
 				this.featuredScanEvents[eventIndex].showEventDetails = true;
 				this.expandEventSection(eventIndex);
-			}         
+			}
 		}
-    }
+	}
 	/*
 	 * Used to set showEventDetails to false associated with each event to facilitate the closure of more details section.
 	 */
@@ -225,6 +226,31 @@ export default class HappyParcelLatestScans extends HappyParcelBase {
 		}
 	}
 
+	
+	/**
+	 * Determines the event to show related critical incidents
+	 */
+	handleShowCriticalIncidents(event) {
+		const target = event.currentTarget;
+		const eventId = target.dataset.id;
+		let eventIndex = this.featuredScanEvents.findIndex(item => item.event.EventID__c === eventId);
+		if (eventIndex > -1) {
+			this.featuredScanEvents[eventIndex].showCriticalIncidents = true;
+			this.expandEventSection(eventIndex);
+		}
+	}
+
+	/**
+	 * Determines the event to close related critical incidents
+	 */
+	handleCloseCriticalIncidents(event) {
+		const eventId = event.detail;
+		let eventIndex = this.featuredScanEvents.findIndex(item => item.event.EventID__c === eventId);
+		if (eventIndex > -1) {
+			this.featuredScanEvents[eventIndex].showCriticalIncidents = false;
+		}
+	}
+	
 	handleShowAttachment(event) {
 		const target = event.currentTarget;
 		const eventId = target.dataset.id;

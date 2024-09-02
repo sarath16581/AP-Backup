@@ -18,7 +18,7 @@ public inherited sharing  class BudgetAndRevenueModule extends ApplicationModule
 	// Constructor
 	public BudgetAndRevenueModule() {
 		// Setup which triggers this module should respond to
-		getTriggerEvents().enableBeforeInsert().enableAfterInsert().enableAfterUpdate();
+		getTriggerEvents().enableBeforeInsert().enableAfterInsert().enableBeforeUpdate().enableAfterUpdate();
 	}
 
 	public override void onBeforeInsert(List<SObject> records, ApplicationUnitOfWork uow)  {
