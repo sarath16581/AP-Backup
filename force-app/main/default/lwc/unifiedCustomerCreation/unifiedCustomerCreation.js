@@ -386,7 +386,7 @@ export default class UnifiedCustomerCreation extends LightningElement {
 	}
 
 	get ameAddressVariant(){
-		return !!this.addressOverride ? 'standard' : 'show-detail-onsearch';
+		return this.addressOverride ? 'standard' : 'show-detail-onsearch';
 	}
 
 	/**
