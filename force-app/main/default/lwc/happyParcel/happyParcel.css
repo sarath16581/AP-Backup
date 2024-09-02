@@ -1,11 +1,11 @@
 /*
 2020-04-01 nathan.franklin@auspost.com.au Created
-2022-11-18 dattaraj.deshmukh@auspost.com.au Added 'clickableDiv',clickableDiv:hover, slds-pill__remove class
-                                            to show case investigations pills.
+2022-11-18 dattaraj.deshmukh@auspost.com.au Added 'clickableDiv',clickableDiv:hover, slds-pill__remove class to show case investigations pills.
+2024-07-12 - Seth Heang - Added styling for StarTrack warning display
 */
 article.is-article .article-selector {
-    border-bottom-right-radius: 0 !important;
-    border-bottom-left-radius: 0 !important;
+	border-bottom-right-radius: 0 !important;
+	border-bottom-left-radius: 0 !important;
 }
 
 .article-status-slot {
@@ -14,23 +14,28 @@ article.is-article .article-selector {
 
 /*@media --lwc-mqMedium {*/
 @media screen and (min-width: 48em) {
-    .article-status-slot {
+	.article-status-slot {
 
-    }
+	}
 }
 
 .clickableDiv{
-    cursor: pointer;
-    display: inline-flex;
-    border-radius: 0.25rem;
-    border-color: var(--sds-c-pill-color-border,#dddbda);
-    border-style: solid;
-    align-items : center; 
+	cursor: pointer;
+	display: inline-flex;
+	border-radius: 0.25rem;
+	border-color: var(--sds-c-pill-color-border,#dddbda);
+	border-style: solid;
+	align-items : center; 
 }
 .clickableDiv:hover{
-    background-color: rgba(204, 0, 0, 0.05);
+	background-color: rgba(204, 0, 0, 0.05);
 }
 
 .slds-pill__remove{
-    display: none !important;
+	display: none !important;
+}
+
+.starTrackWarning{
+	background-color: #E5535E;
+	text-decoration-color: white;
 }

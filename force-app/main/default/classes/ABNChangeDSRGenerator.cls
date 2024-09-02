@@ -297,8 +297,8 @@ public abstract with sharing class ABNChangeDSRGenerator {
 			if (this.billingAccounts.size() <= 5) {
 				text += '\nBilling Account Number(s): ' + String.join(this.billingAccountNumbers, ', ');
 			} else {
-				text += '\nCount of Parent Accounts: ' + this.countOfParent + ' and Count of Sub-Accounts: ' + (this.billingAccounts.size() - this.countOfParent) + '\nRefer to CSV for all billing/sub accounts'
-						+ (this.creditOfficerEmails.size() > 1 ? '\nThere are more than 1 credit officers linked to the billing accounts under this ABN' : '');
+				text += '\nCount of Parent Accounts: ' + this.countOfParent + ' and Count of Sub-Accounts: ' + (this.billingAccounts.size() - this.countOfParent) + '\nRefer to CSV for all billing accounts'
+						+ (this.creditOfficerEmails.size() > 1 ? '\nMore than 1 credit officers linked to the billing accounts' : '');
 			}
 			return text;
 		}

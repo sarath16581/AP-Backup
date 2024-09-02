@@ -224,42 +224,42 @@
             <sortOrder>0</sortOrder>
         </platformActionListItems>
         <platformActionListItems>
-            <actionName>New_Task</actionName>
+            <actionName>At_Risk_Business__c.Submit_BAR</actionName>
             <actionType>QuickAction</actionType>
             <sortOrder>1</sortOrder>
         </platformActionListItems>
         <platformActionListItems>
-            <actionName>New_Event</actionName>
+            <actionName>At_Risk_Business__c.Escalate_BAR</actionName>
             <actionType>QuickAction</actionType>
             <sortOrder>2</sortOrder>
         </platformActionListItems>
         <platformActionListItems>
-            <actionName>FeedItem.ContentNote</actionName>
+            <actionName>New_BG_Task</actionName>
             <actionType>QuickAction</actionType>
             <sortOrder>3</sortOrder>
         </platformActionListItems>
         <platformActionListItems>
-            <actionName>FeedItem.TextPost</actionName>
+            <actionName>At_Risk_Business__c.Close_BAR</actionName>
             <actionType>QuickAction</actionType>
             <sortOrder>4</sortOrder>
         </platformActionListItems>
         <platformActionListItems>
-            <actionName>At_Risk_Business__c.Submit_BAR</actionName>
+            <actionName>At_Risk_Business__c.New_Deal_Support_Request</actionName>
             <actionType>QuickAction</actionType>
             <sortOrder>5</sortOrder>
         </platformActionListItems>
         <platformActionListItems>
-            <actionName>At_Risk_Business__c.Escalate_BAR</actionName>
-            <actionType>QuickAction</actionType>
+            <actionName>Edit</actionName>
+            <actionType>StandardButton</actionType>
             <sortOrder>6</sortOrder>
         </platformActionListItems>
         <platformActionListItems>
-            <actionName>New_BG_Task</actionName>
+            <actionName>New_Task</actionName>
             <actionType>QuickAction</actionType>
             <sortOrder>7</sortOrder>
         </platformActionListItems>
         <platformActionListItems>
-            <actionName>At_Risk_Business__c.Close_BAR</actionName>
+            <actionName>New_Event</actionName>
             <actionType>QuickAction</actionType>
             <sortOrder>8</sortOrder>
         </platformActionListItems>
@@ -277,11 +277,6 @@
             <actionName>Create_Sales_Event</actionName>
             <actionType>QuickAction</actionType>
             <sortOrder>11</sortOrder>
-        </platformActionListItems>
-        <platformActionListItems>
-            <actionName>At_Risk_Business__c.New_Deal_Support_Request</actionName>
-            <actionType>QuickAction</actionType>
-            <sortOrder>12</sortOrder>
         </platformActionListItems>
     </platformActionList>
     <quickActionList>
@@ -310,13 +305,13 @@
             <quickActionName>FeedItem.ContentNote</quickActionName>
         </quickActionListItems>
         <quickActionListItems>
-            <quickActionName>NewEvent</quickActionName>
+            <quickActionName>NewTask</quickActionName>
         </quickActionListItems>
         <quickActionListItems>
             <quickActionName>New_BG_Task</quickActionName>
         </quickActionListItems>
         <quickActionListItems>
-            <quickActionName>NewTask</quickActionName>
+            <quickActionName>NewEvent</quickActionName>
         </quickActionListItems>
     </quickActionList>
     <relatedLists>
@@ -361,6 +356,8 @@
         <fields>NAME</fields>
         <fields>Stage__c</fields>
         <fields>Status__c</fields>
+        <fields>Work_Type__c</fields>
+        <fields>Credit_Work_Type__c</fields>
         <fields>RECORDTYPE</fields>
         <fields>OWNER.ALIAS</fields>
         <fields>CREATED_DATE</fields>

@@ -924,20 +924,17 @@ private class SSSW_MyNetworkResponsePageContr_Test{
                 'SSSW_MyNetworkResponsePageContr_Test_testNwResp_ExistingReassign_NullifyData: Network Response values are nullified.' );
         
     }
-
-	/**
+    
+    /**
 	  * SCENARIO:
 	  *   Scenario will test the trimEscalationEmailContent functionality where the escalation email content is trimmed to the fields length
 	  */
 	  public static testMethod void testTrimEscalationEmailContent() {
-
 		Test.startTest();
 		string trimmedString = SSSW_MyNetworkResponsePageContr.trimContent('email comment', 2);
 		Test.stopTest();
-
 		// check the string passed is trimmed
 		System.assertEquals(trimmedString, 'em');
 	}
-
 
 }

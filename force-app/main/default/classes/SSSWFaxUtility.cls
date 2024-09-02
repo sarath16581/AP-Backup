@@ -78,8 +78,8 @@ public with sharing class SSSWFaxUtility
         }
         
     }
-
-	public static string trimContent(String content, integer length) {
+    
+    public static string trimContent(String content, integer length) {
 		if(content.length() > length) {
 			content = content.substring(0,length);
 		}

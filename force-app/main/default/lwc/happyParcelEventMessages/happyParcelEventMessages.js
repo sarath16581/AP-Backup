@@ -14,6 +14,7 @@
  * 2021-10-01 - Nathan Franklin - Add event reason (with transient attributes) + uplift to version 52
  * 2021-10-04 - Mathew Jose - Added the changes associated with row overflow feature in the data table.
  *	2022-04-11 - Mahesh Parvathaneni - Changed from google map new tab to lightning map
+ *	2024-06-12 - Passing related critical incidents to the events
  */
  import { LightningElement, api, track } from "lwc";
  import { getConfig, getDataTableMappingFromDisplayType, CONSTANTS, get } from "c/happyParcelService";
@@ -182,11 +183,13 @@
 				 //_overFlowColumns has the overflow colum values.
 				 return {
 					 ...item.event,
+					 criticalIncidents : item.criticalIncidents,
 					 _columns: columns,
 					 overflowRequired: overflowRequired,
 					 showOverflow: false,
 					 _overflowColumns: overflowColumns,
 					 showNetworkDetails: false,
+					 showCriticalIncidents: false,
 					 showAttachment: false,
 					 hasGeoCoordinates,
 					 showMap: false,
@@ -270,7 +273,7 @@
 			 if (eventIndex > -1) {
 				 //Show overflow
 				 this._events[eventIndex].showOverflow = true;
-			 }         
+			 }
 		 }
 	 }
 	 onHandleSort(event) {
@@ -296,6 +299,29 @@
 			 this._events[eventIndex].showNetworkDetails = false;
 		 }
 	 }
+
+	/**
+	 * Determines the event to show related critical incidents
+	 */
+	handleShowCriticalIncidents(event) {
+		const target = event.currentTarget;
+		const eventId = target.dataset.id;
+		let eventIndex = this._events.findIndex(event => event.EventID__c === eventId);
+		if (eventIndex > -1) {
+			this._events[eventIndex].showCriticalIncidents = true;
+		}
+	}
+
+	/**
+	 * Determines the event to close related critical incidents
+	 */
+	handleCloseCriticalIncidents(event) {
+		const eventId = event.detail;
+		let eventIndex = this._events.findIndex(event => event.EventID__c === eventId);
+		if (eventIndex > -1) {
+			this._events[eventIndex].showCriticalIncidents = false;
+		}
+	}
  
 	 handleShowAttachment(event) {
 		 const target = event.currentTarget;

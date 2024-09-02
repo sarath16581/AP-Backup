@@ -86,8 +86,8 @@ global with sharing class FacilitySearchController {
 
 	private static string UNKNOWN_EMAIL = 'unknown@email.com';
 	private static string AWAITING_NETW0RK_RESPONSE = 'Awaiting Network Response';
-
-	private static integer escalationEmailFieldLength = Schema.SObjectType.Case.fields.EscalationEmail__c.getLength();
+    
+    private static integer escalationEmailFieldLength = Schema.SObjectType.Case.fields.EscalationEmail__c.getLength();
 
 	// if the page is opened via the iFrame and need to be read only considered
 	public Boolean isReadOnly {
@@ -1908,8 +1908,8 @@ global with sharing class FacilitySearchController {
 
 		return aCase.id;
 	}
-
-	public static string trimContent(String content, integer length) {
+    
+    public static string trimContent(String content, integer length) {
 		if(content.length() > length) {
 			content = content.substring(0,length);
 		}

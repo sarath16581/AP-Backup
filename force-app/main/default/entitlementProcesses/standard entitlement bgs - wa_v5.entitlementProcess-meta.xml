@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EntitlementProcess xmlns="http://soap.sforce.com/2006/04/metadata">
+    <SObjectType>Case</SObjectType>
+    <active>true</active>
+    <businessHours>Service Delivery WA</businessHours>
+    <description>Standard entitlement process for BGS Service Delivery for Perth WA Time Zone</description>
+    <entryStartDateField>Case.CreatedDate</entryStartDateField>
+    <exitCriteriaFilterItems>
+        <field>Case.IsClosed</field>
+        <operation>equals</operation>
+        <value>true</value>
+    </exitCriteriaFilterItems>
+    <isVersionDefault>true</isVersionDefault>
+    <milestones>
+        <milestoneCriteriaFilterItems>
+            <field>Case.RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Service Delivery</value>
+        </milestoneCriteriaFilterItems>
+        <milestoneCriteriaFilterItems>
+            <field>Case.CreatedDate</field>
+            <operation>greaterThan</operation>
+            <value>Thu Feb 27 08:30:00 GMT 2020</value>
+        </milestoneCriteriaFilterItems>
+        <milestoneName>First Customer Response</milestoneName>
+        <minutesToComplete>1440</minutesToComplete>
+        <useCriteriaStartTime>false</useCriteriaStartTime>
+    </milestones>
+    <milestones>
+        <milestoneCriteriaFilterItems>
+            <field>Case.RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Service Delivery</value>
+        </milestoneCriteriaFilterItems>
+        <milestoneName>Resolution Time BGS</milestoneName>
+        <minutesToComplete>2400</minutesToComplete>
+        <timeTriggers>
+            <actions>
+                <name>Warn_BGS_Resolution_WA</name>
+                <type>FlowAction</type>
+            </actions>
+            <timeLength>-3</timeLength>
+            <workflowTimeTriggerUnit>Hours</workflowTimeTriggerUnit>
+        </timeTriggers>
+        <timeTriggers>
+            <timeLength>1</timeLength>
+            <workflowTimeTriggerUnit>Minutes</workflowTimeTriggerUnit>
+        </timeTriggers>
+        <useCriteriaStartTime>true</useCriteriaStartTime>
+    </milestones>
+    <name>Standard Entitlement BGS - WA</name>
+    <versionMaster>5520k00000001VZ</versionMaster>
+    <versionNotes>REQ2952617</versionNotes>
+    <versionNumber>5</versionNumber>
+</EntitlementProcess>

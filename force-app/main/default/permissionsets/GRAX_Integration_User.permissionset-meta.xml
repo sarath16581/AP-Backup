@@ -47318,6 +47318,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Article__c.FurtherReferences__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Article__c.HasExtraCover__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -47389,6 +47394,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Article__c.Invoice__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Article__c.IsDelivered__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

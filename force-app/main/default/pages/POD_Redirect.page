@@ -2,35 +2,20 @@
     Redirection page to perform safe drop call out for Proof of delivery details 
     Created: kalpita.talwadekar@auspost.com.au
     Date: 10/11/2018
-
+    @changelog:
     2018-11-19 nathan.franklin@auspost.com.au Add redirect capability after safe drop image has been retrieved.
+    2024-08-02 - Seth Heang - Remove the safedrop download functionality as it's already been downloaded in parent bspArticleEventRow Component
+								And skip POD_SafeDrop page and directly call MyCustomerDeliveryProofPdfWrapper to render POD PDF
 -->
 <apex:page standardController="EventMessage__c" extensions="POD_SafeDropController" showHeader="false" sidebar="false">
     <!-- load the JQ library and spinner -->
     <c:ScriptLoader jsLibraries="jquery" csslibraries="bootstrap" />
-    <c:LoadingSpinnerComponent showFunctionName="showSafeDropLoading" hideFunctionName="hideSafeDropLoading"  />
 
     <apex:outputPanel rendered="{!isValidUser}" layout="none">
         <!-- javascript for remoting into controller for grabbing safe drop image and sending through to PDF page -->
         <script type="text/javascript" >
             jQuery(function($) {
-                showSafeDropLoading();
-
-                // use Apex to get the image from the Safe Drop API using remote actions
-                POD_SafeDropController.getArticleImage(
-                    '{!EventMessage__c.Id}',
-                    function(result, event) {
-                        hideSafeDropLoading();
-
-                        if(result === 'OK') {
-                            // either the safe drop guid was successfully retrieved or there was no safe drop guid to be retrieved
-                            location.href = '{!$Site.BaseUrl}/POD_SafeDrop?id=' + encodeURI('{!EventMessage__c.Id}');
-                        } else {
-                            // an error occured when retrieving the image so do not redirect the user
-                            jQuery('#errorWrapper').append('<div class="alert alert-warning" role="alert">' + jQuery('<div/>').text(result).text()  + '</div>');
-                        }
-                    }
-                );
+                location.href = '{!$Site.BaseUrl}/MyCustomerDeliveryProofPdfWrapper?articleId=' + encodeURI('{!EventMessage__c.Article__r.Name}');
             });
         </script>
     </apex:outputPanel>
