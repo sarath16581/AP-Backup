@@ -153,6 +153,7 @@
 			<!-- Address Lookup -->
 			<div class="slds-col slds-size_1-of-1 slds-large-size_1-of-1">
 				<c-ame-address-validation2
+						if:true={showAddress}
 						data-field-name="addressObj"
 						oneditaddress={handleInputChange}
 						onselectaddress={handleInputChange}
@@ -161,6 +162,7 @@
 						supports-auto-search-on-load={ameSupportAutoSearchOnLoad}
 						variant={ameAddressVariant}
 				></c-ame-address-validation2>
+				<a href="#" onclick={handleClearAddressClick} class="slds-float_right">Clear address</a>
 			</div>
 
 			<!-- Organization Lookup and New Organisation Toggle -->
