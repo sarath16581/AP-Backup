@@ -381,6 +381,19 @@ export default class UnifiedCustomerSearchForm extends LightningElement {
 	}
 
 	/**
+	 * Workaround to reset address by removing the element, allow DOM update, then add element again.
+	 * TODO: Update address component to allow clear/reset function.
+	 */
+	async resetAddress() {
+		this._addressObj = undefined;
+		this._addressOverride = false;
+		this.showAddress = false;
+		// Wait for DOM to update
+		await Promise.resolve();
+		this.showAddress = true;
+	}
+
+	/**
 	 * Resets the form inputs.
 	 *
 	 * @fires UnifiedCustomerSearchForm#reset
@@ -397,6 +410,7 @@ export default class UnifiedCustomerSearchForm extends LightningElement {
 		this.includePhoneNumber = true;
 		this.includeEmailAddress = true;
 		this._addressObj = undefined;
+		this._addressOverride = false;
 		this.organisationCheckbox = false;
 		this.consumerCheckbox = false;
 		this._organisationAccountId = undefined;
@@ -423,12 +437,8 @@ export default class UnifiedCustomerSearchForm extends LightningElement {
 			}
 		});
 
-		// Workaround to reset address by removing the element, allow DOM update, then add element again.
-		// TODO: Update address component to allow clear/reset function.
-		this.showAddress = false;
-		Promise.resolve().then(() => {
-			this.showAddress = true;
-		});
+		// Workaround to reset address lookup component
+		await this.resetAddress();
 
 		// Notify form has been reset
 		this.dispatchEvent(new CustomEvent('reset'));
@@ -507,6 +517,15 @@ export default class UnifiedCustomerSearchForm extends LightningElement {
 	 */
 	handleSearchBtnClick() {
 		this.performSearch();
+	}
+
+	/**
+	 * Clears the address from the lookup component.
+	 * @param {Event} event 
+	 */
+	handleClearAddressClick(event) {
+		event.preventDefault();
+		this.resetAddress();
 	}
 
 	get ameDefaultAddress(){
