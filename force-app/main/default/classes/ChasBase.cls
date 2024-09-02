@@ -11,7 +11,7 @@
  * @changelog
  * 2022-06-06 - Hasantha Liyanage - Created
  * 2022-07-15 - Hasantha Liyanage - DDS-11324 added support for unit test mocking
- * 2024-08-16 - Talib Raza - PRB0051724, REQ3488651 : Setting Root Cause to Awaiting Network Response for Direct to network cases. 
+ * 2024-08-16 - Talib Raza - PRB0051724, REQ3488651: Setting Root Cause to Awaiting Network Response for Direct to network cases. 
  */
 public virtual inherited sharing class ChasBase {
 
