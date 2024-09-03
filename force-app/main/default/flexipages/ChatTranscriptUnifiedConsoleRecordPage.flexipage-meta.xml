@@ -141,8 +141,8 @@
     <flexiPageRegions>
         <itemInstances>
             <componentInstance>
-                <componentName>unifiedCustomerSearch</componentName>
-                <identifier>c_unifiedCustomerSearch</identifier>
+                <componentName>unifiedCustomerSearchLiveChatWrapper</componentName>
+                <identifier>c_unifiedCustomerSearchLiveChatWrapper</identifier>
             </componentInstance>
         </itemInstances>
         <itemInstances>
