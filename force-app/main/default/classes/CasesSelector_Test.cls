@@ -185,7 +185,7 @@ public with sharing class CasesSelector_Test {
 
 		qb = selector.newQueryBuilder(new Set<Object>{CasesSelector.Options.WITH_IMPACTED_ARTICLES});
 		soql = qb.toSoqlString();
-		Assert.isTrue(Pattern.compile('(?ism)Select.*?\\(Select.*?\\bfrom ImpactedArticles\\b.*?\\).*?\\bfrom case\\b').matcher(soql).find(), 'Resulting query does not select ImpactedArticle child records: ' + soql);
+		Assert.isTrue(Pattern.compile('(?ism)Select.*?\\(Select.*?\\bfrom ImpactedArticles__r\\b.*?\\).*?\\bfrom case\\b').matcher(soql).find(), 'Resulting query does not select ImpactedArticle child records: ' + soql);
 
 		Test.stopTest();
 
