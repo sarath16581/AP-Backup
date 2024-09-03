@@ -11,9 +11,13 @@
             console.log('1.stp_taskSearchResultHelper rowsData.length =' +rowsData.length);
 			console.log("this is rowsdata " + JSON.stringify(rowsData));
 			rowsData.map(function(element){ 
-				var date = new Date(element.CreatedDate);			 
-				element.CreatedDate = $A.localizationService.formatDateTime(date);
-			})
+                console.log('Mona created date ' + element.CreatedDate);
+				if(element.CreatedDate) {
+					var date = new Date(element.CreatedDate);			 
+					element.CreatedDate = $A.localizationService.formatDateTime(date);
+					console.log('Mona created date ' + element.CreatedDate);
+				}
+			});
 
             var columnsData = rslt.columnData;
 
