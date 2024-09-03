@@ -38,7 +38,7 @@ export default class UnifiedCustomerSearchVoiceCallWrapper extends LightningElem
 	 * If enabled, the a search will automatically link the Contact if only one is found.
 	 * @type {boolean}
 	 */
-	autoLinkContact = false;
+	autoLinkContact = true;
 
 	/**
 	 * Used to display an error message to the user.
@@ -162,9 +162,9 @@ export default class UnifiedCustomerSearchVoiceCallWrapper extends LightningElem
 			// This event may have bubbled up from a child component
 			event.stopPropagation();
 
-			// Disable auto-search after first link/unlink event
+			// Disable auto-linking after first link/unlink event
 			// TODO: handle this better based on component initial load/search rather than link
-			this.autoSearchOnLoad = false;
+			this.autoLinkContact = false;
 
 			// Show loading spinner while updating the interation record
 			this.isUpdating = true;
