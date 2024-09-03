@@ -5,6 +5,7 @@
  * @changelog
  * 2024-06-13 - Parveen Kaushik - Added default value for mapping model on test data. See CSLU-470 (JIRA) for details.
  * 2024-07-23 - Ranjeewa Silva - New methods to return new ContactRequests and ImpactedArticle__c.
+ * 2024-08-23 - George Nguyen - added getLiveChatTranscripts(...), getVoiceCalls(...) and updated getContactRequests(...)
 */
 @IsTest
 public with sharing class ApplicationTestDataFactoryCase {
@@ -150,6 +151,23 @@ public with sharing class ApplicationTestDataFactoryCase {
 		return (List<ContactRequest>)ApplicationTestDataFactory.maybeGenerateIds(ApplicationTestDataFactory.populateSObjects(ContactRequest.SObjectType, new Map<SObjectField, Object> {
 				ContactRequest.WhatId => whatIds,
 				ContactRequest.WhoId => whoIds
+		}, count), generateIds);
+	}
+
+	public static List<VoiceCall> getVoiceCalls(List<Id> relatedRecordIds, Boolean generateIds) {
+		List<VoiceCall> output = (List<VoiceCall>)ApplicationTestDataFactory.maybeGenerateIds(ApplicationTestDataFactory.populateSObjects(VoiceCall.SObjectType, new Map<SObjectField, Object> {
+		}, relatedRecordIds.size()), generateIds);
+
+		for(Integer i=0;i<relatedRecordIds.size();i++) {
+			output[i] = (VoiceCall)ApplicationTestDataFactory.setUnwritableFields(output[i], new Map<String, Object>{'RelatedRecordId' => relatedRecordIds[0]});
+		}
+
+		return output;
+	}
+
+	public static List<LiveChatTranscript> getLiveChatTranscripts(Integer count, Object caseIds, Boolean generateIds) {
+		return (List<LiveChatTranscript>)ApplicationTestDataFactory.maybeGenerateIds(ApplicationTestDataFactory.populateSObjects(LiveChatTranscript.SObjectType, new Map<SObjectField, Object> {
+			LiveChatTranscript.CaseId => caseIds
 		}, count), generateIds);
 	}
 
