@@ -2,7 +2,7 @@
  * @description This class is used to classify cases based on fields on the case, such as Types, etc. 
  * @changelog
  * 2024-08-20	George Nguyen	Created and added classifyUnifiedCases(...)
- * 2024-09-02	George Nguyen	Checked for on insert if the record type matches the type field
+ * 2024-09-02	George Nguyen	Checked for on insert if the record type matches the type field. Included default values for when Type changes from Geneal Enquiry to Investigation
  */
 public inherited sharing class CaseAutomationClassificationModule extends ApplicationModule {
 	 /*
@@ -68,7 +68,8 @@ public inherited sharing class CaseAutomationClassificationModule extends Applic
 					) {
 						aCase.RecordTypeId = unifiedRecordTypeDeveloperNameVsIds.get(SSSWConstants.UNIFIED_INVESTIGATION_DEVELOPER_NAME);
 						aCase.Status = SSSWConstants.CASE_STATUS_NEW;
-
+						aCase.Type_and_Product__c = SSSWConstants.CASE_TYPE_AND_PRODUCT_UNIFIED_MODEL;
+						aCase.EnquirySubType__c = SSSWConstants.CASE_ENQUIRY_SUBTYPE_LATE_ITEM;
 					}
 
 				} else { // on insert

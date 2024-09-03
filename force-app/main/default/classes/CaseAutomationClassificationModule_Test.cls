@@ -2,7 +2,7 @@
 * @description Test class covering CaseAutomationClassificationModule
 * @changelog
 * 2024-08-20	George Nguyen	Created and added classifyUnifiedCases(...)
-* 2024-09-02	George Nguyen	Added test to check on insert the correct record type matches the Type field
+* 2024-09-02	George Nguyen	Added test to check on insert the correct record type matches the Type field. Included check of values for when Type changes from Geneal Enquiry to Investigation
 */
 @IsTest
 class CaseAutomationClassificationModule_Test {
@@ -56,5 +56,7 @@ class CaseAutomationClassificationModule_Test {
 
 		System.assertEquals(unifiedInvestigationRecordTypeId, case2.RecordTypeId, 'It should be set to UnifiedInvestigation record type');
 		System.assertEquals(SSSWConstants.CASE_STATUS_NEW, case2.Status, 'Status should be set to New');
+		System.assertEquals(SSSWConstants.CASE_TYPE_AND_PRODUCT_UNIFIED_MODEL, case2.Type_and_Product__c, 'Status should be set to Unified Model');
+		System.assertEquals(SSSWConstants.CASE_ENQUIRY_SUBTYPE_LATE_ITEM, case2.EnquirySubType__c, 'Status should be set to Late Item');
 	}
 }
