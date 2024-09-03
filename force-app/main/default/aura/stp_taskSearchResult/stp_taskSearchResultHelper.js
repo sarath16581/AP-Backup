@@ -9,6 +9,11 @@
             //setting
             component.set("v.dataList", rowsData);
             console.log('1.stp_taskSearchResultHelper rowsData.length =' +rowsData.length);
+			console.log("this is rowsdata " + JSON.stringify(rowsData));
+			rowsData.map(function(element){ 
+				var date = new Date(element.CreatedDate);			 
+				element.CreatedDate = $A.localizationService.formatDateTime(date);
+			})
 
             var columnsData = rslt.columnData;
 
@@ -52,7 +57,7 @@
 			//columnsData[3].sortable = true;
 
 			columnsData.map( function(element){
-				if(element.fieldName === 'CaseObject__r.Enquiry_Type__c') {
+				if(element.fieldName === 'CaseObject__r.Enquiry_Type__c' || element.fieldName === 'CaseObject__r.Calc_Case_Consignment__c' || element.fieldName === 'CaseObject__r.Priority' || element.fieldName === 'TaskUpdate__c') {
 					element.sortable = true;
 				}
 			} )
@@ -89,20 +94,14 @@
     },
 
 	sortData: function(component, fieldName, sortDirection) {
-		console.log('sortBy'+fieldName);
-		console.log('sortDirection'+sortDirection);
 		var data = component.get("v.data");
-		console.log('mona data'+ data);
         var key = function(a) { return a[fieldName]; }
-		console.log('mona key'+ key);
-        var reverse = sortDirection == 'asc' ? 1: -1;   
-		console.log('mona reverse'+ reverse);          
+        var reverse = sortDirection == 'asc' ? 1: -1;          
         data.sort(function(a,b){
                 var a = key(a) ? key(a) : '';
                 var b = key(b) ? key(b) : '';
                 return reverse * ((a>b) - (b>a));
             });
-			console.log('mona data'+ data); 
         component.set("v.data",data);
 	},
 
