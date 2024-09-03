@@ -1,0 +1,51 @@
+<template>
+	<lightning-card title="Contact Details" icon-name="standard:contact" class={lightningCardClass}>
+		<lightning-spinner if:true={isLoading}></lightning-spinner>
+		<div slot="actions">
+			<lightning-button-menu alternative-text="Show menu" onselect={handleActionButton} icon-size="x-small" menu-alignment="right">
+				<lightning-menu-item value="view" label="View" title="View"></lightning-menu-item>
+				<lightning-menu-item value="unlink" label="Unlink" title="Unlink" disabled={unlinkButtonDisabled}></lightning-menu-item>
+			</lightning-button-menu>
+		</div>
+		<!-- <div slot="actions" class="slds-grid slds-gutters_xx-small">
+			<div class="slds-col">
+				<lightning-button if:true={showUnlinkButton} onclick={handleUnlickClick} label="Unlink"></lightning-button>
+			</div>
+			<div class="slds-col">
+				<lightning-button variant="brand" onclick={handleViewContact} label="View Contact"></lightning-button>
+			</div>
+		</div> -->
+		<div class={lightningCardContentClass}>
+			<lightning-record-view-form record-id={recordId} object-api-name="Contact" onload={handleRecordLoaded}>
+				<div class="slds-grid slds-wrap slds-gutters">
+					<div class="slds-col slds-size_1-of-1 slds-large-size_1-of-2">
+						<lightning-output-field class="slds-form-element_readonly" field-name={fields.name}></lightning-output-field>
+					</div>
+					<div class="slds-col slds-size_1-of-1 slds-large-size_1-of-2">
+						<!-- blank -->
+					</div>
+					<div class="slds-col slds-size_1-of-1 slds-large-size_1-of-2">
+						<lightning-output-field class="slds-form-element_readonly" field-name={fields.preferredName}></lightning-output-field>
+					</div>
+					<div class="slds-col slds-size_1-of-1 slds-large-size_1-of-2">
+						<template if:false={isPersonAccount}>
+							<lightning-output-field class="slds-form-element_readonly" field-name={fields.accountId}></lightning-output-field>
+						</template>
+					</div>
+					<div class="slds-col slds-size_1-of-1 slds-large-size_1-of-2">
+						<lightning-output-field class="slds-form-element_readonly" field-name={fields.verifiedEmail}></lightning-output-field>
+					</div>
+					<div class="slds-col slds-size_1-of-1 slds-large-size_1-of-2">
+						<lightning-output-field class="slds-form-element_readonly" field-name={fields.verifiedMobile}></lightning-output-field>
+					</div>
+					<div class="slds-col slds-size_1-of-1 slds-large-size_1-of-2">
+						<lightning-output-field class="slds-form-element_readonly" field-name={fields.email}></lightning-output-field>
+					</div>
+					<div class="slds-col slds-size_1-of-1 slds-large-size_1-of-2">
+						<lightning-output-field class="slds-form-element_readonly" field-name={fields.mobilePhone}></lightning-output-field>
+					</div>
+				</div>
+			</lightning-record-view-form>
+		</div>
+	</lightning-card>
+</template>

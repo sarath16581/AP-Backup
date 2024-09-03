@@ -5,6 +5,7 @@
  * 2024-07-10 - Seth Heang - Created
  * 2024-07-30 - Seth Heang - Added test methods for 3Days/5Days Case monitoring Scheduled Actions functionalities
  * 2024-08-08 - Seth Heang - Added more test methods for missed use cases
+ * 2024-08-28 - Seth Heang - Added testEnsureClosingCaseWillDeleteExistingScheduledAction()
  */
 @IsTest
 public with sharing class CaseUnifiedProactiveMonitoringModuleTest {
@@ -484,5 +485,82 @@ public with sharing class CaseUnifiedProactiveMonitoringModuleTest {
 		Assert.areEqual(Case.SObjectType, caseUnifiedCaseScheduledActionWorker.getSObjectTypeGroup(), 'Expected Case SObjectType but instead got ' + caseUnifiedCaseScheduledActionWorker.getSObjectTypeGroup());
 		Assert.areEqual(testCase, caseUnifiedCaseScheduledActionWorker.params.cases[0], 'Expected Case to match but instead got ' + caseUnifiedCaseScheduledActionWorker.params.cases[0]);
 		Assert.areEqual(true, caseUnifiedCaseScheduledActionWorker.params.revalidateOperation, 'Expected revalidateOperation to match but instead got ' + caseUnifiedCaseScheduledActionWorker.params.revalidateOperation);
+	}
+
+	/**
+	 *	Test: AfterUpdate Scenario, Closing the case will fail 3 and 5 Days Case Monitoring validation,
+	 *			Then ensure that the Scheduled Actions are deleted for 3 Days and 5 Days Case Monitoring
+	 */
+	@IsTest
+	private static void testEnsureClosingCaseWillDeleteExistingScheduledAction() {
+		// =====================================
+		// Data Preparation
+		// =====================================
+		Case testCase = ApplicationTestDataFactory.getCases(1, true)[0];
+		testCase.RecordTypeId = ApplicationTestDataFactoryCase.caseUnifiedInvestigationRecordType;
+		testCase.OwnerId = (Id) QM__c.getInstance().UnifiedDefaultMonitoringQueueId__c;
+		testCase.EnquirySubType__c = 'Late Item';
+		testCase.Exclude_Subscription_Automation__c = false;
+		testCase = (Case) ApplicationTestDataFactory.setUnwritableFields(testCase, new Map<String, Object>{ 'ContactEmail' => 'seth@test.com' });
+
+		String actionTypeFor3Days = CaseMonitoring3DayReminderEmailAction.newInstance().getName();
+		ScheduledAction__c scheduledActionFor3Days = ApplicationTestDataFactory.getScheduledActions(1, 'Test Scheduled Action', actionTypeFor3Days, System.now(), testCase.Id, true)[0];
+		String actionTypeFor5Days = CaseMonitoring5DayAutoClosureAction.newInstance().getName();
+		ScheduledAction__c scheduledActionFor5Days = ApplicationTestDataFactory.getScheduledActions(1, 'Test Scheduled Action', actionTypeFor5Days, System.now(), testCase.Id, true)[0];
+
+		Datetime caseCreatedDate = Datetime.newInstance(Date.today(), Time.newInstance(0, 0, 0, 0));
+		testCase = (Case) ApplicationTestDataFactory.setUnwritableFields(testCase, new Map<String, Object>{ 'CreatedDate' => caseCreatedDate });
+
+		Case closedCase = testCase.clone(true);
+		// Close the case will fail the validation, and automation will delete the scheduled action
+		closedCase.Status = 'Closed';
+		closedCase.Root_cause__c = 'Poor Communication';
+		closedCase.ResolutionCode__c = 'Closed - Duplicate';
+		closedCase = (Case) ApplicationTestDataFactory.setUnwritableFields(closedCase, new Map<String, Object>{ 'IsClosed' => true });
+		closedCase = (Case) ApplicationTestDataFactory.setUnwritableFields(closedCase, new Map<String, Object>{ 'CreatedDate' => caseCreatedDate.addDays(-1) });
+
+		// =====================================
+		// Stubbing
+		// =====================================
+		ApplicationUnitOfWork mockUow = MockUtility.mockUnitOfWork();
+		ScheduledActionsSelector mockScheduledActionsSelector = (ScheduledActionsSelector) MockUtility.mockSelector(ScheduledActionsSelector.class);
+		MockUtility.Mocks.startStubbing();
+		MockUtility.Mocks.when(mockScheduledActionsSelector.selectByCaseId((Set<Id>) fflib_Match.eq(new Set<Id>{ testCase.Id })))
+				.thenReturn(new List<ScheduledAction__c>{ scheduledActionFor3Days, scheduledActionFor5Days });
+		((ApplicationUnitOfWork) MockUtility.Mocks.doAnswer(new MockUtility.AnswerVoid(), mockUow)).registerDeleted((List<SObject>) fflib_Match.anyObject());
+		MockUtility.Mocks.stopStubbing();
+
+		// =====================================
+		// Testing
+		// =====================================
+		Test.startTest();
+
+		CaseUnifiedProactiveMonitoringModule module = CaseUnifiedProactiveMonitoringModule.newInstance();
+		module.onAfterUpdate(new List<Case>{ closedCase }, new Map<Id, Case>{ testCase.Id => testCase }, mockUow);
+
+		// verify worker was enqueued correctly
+		fflib_ArgumentCaptor stagedWorkerCapture = fflib_ArgumentCaptor.forClass(ApplicationUnitOfWork.AsyncStagingWorker.class);
+		((ApplicationUnitOfWork) MockUtility.Mocks.verify(mockUow, MockUtility.Mocks.times(1))).registerAsyncWork((ApplicationUnitOfWork.AsyncStagingWorker) stagedWorkerCapture.capture());
+
+		ApplicationUnitOfWork.AsyncStagingWorker stagedWorker = (ApplicationUnitOfWork.AsyncStagingWorker) stagedWorkerCapture.getValue();
+		CaseUnifiedProactiveMonitoringModule.AsyncUnifiedCaseScheduledActionWorker caseUnifiedCaseScheduledActionWorker = new CaseUnifiedProactiveMonitoringModule.AsyncUnifiedCaseScheduledActionWorker();
+		caseUnifiedCaseScheduledActionWorker.params = (CaseUnifiedProactiveMonitoringModule.CaseUnifiedScheduledActionsParam) stagedWorker.params;
+
+		Test.stopTest();
+
+		// Since the Platform Event trigger does not automatically get triggered, explicitly call execute() to trigger the next step of automation
+		caseUnifiedCaseScheduledActionWorker.execute(mockUow);
+		((ScheduledActionsSelector) MockUtility.Mocks.verify(mockScheduledActionsSelector, 2)).selectByCaseId((Set<Id>) fflib_Match.eq(new Set<Id>{ testCase.Id }));
+
+		// verify the scheduled action is inserted correctly
+		fflib_ArgumentCaptor deletedScheduledActionCaptor = fflib_ArgumentCaptor.forClass(Object.class);
+		((ApplicationUnitOfWork) MockUtility.Mocks.verify(mockUow, 2)).registerDeleted((List<ScheduledAction__c>) deletedScheduledActionCaptor.capture());
+		List<Object> deletedRecords = (List<Object>) deletedScheduledActionCaptor.getAllValues();
+		List<ScheduledAction__c> deletedScheduledActions = new List<ScheduledAction__c>();
+		deletedScheduledActions.addAll((List<ScheduledAction__c>) deletedRecords[0]);
+		deletedScheduledActions.addAll((List<ScheduledAction__c>) deletedRecords[1]);
+		Set<Id> deletedIds = new Set<Id>{ deletedScheduledActions[0].Id, deletedScheduledActions[1].Id };
+		Assert.areEqual(true, deletedIds.contains(scheduledActionFor3Days.Id), 'Expected the scheduled action to be deleted but did not ' + deletedIds);
+		Assert.areEqual(true, deletedIds.contains(scheduledActionFor5Days.Id), 'Expected the scheduled action to be deleted but did not ' + deletedIds);
 	}
 }
