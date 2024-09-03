@@ -3,6 +3,7 @@
  * @author: Seth Heang
  * @changelog:
  * 2024-08-06 - Seth Heang - Created
+ * 2024-08-28 - Marcel HK - Updated event detail variable to use `contactId`
  */
 import {LightningElement, api} from 'lwc';
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
@@ -485,7 +486,7 @@ export default class UnifiedCustomerCreation extends LightningElement {
 			// Dispatch the `customercreated` event with customerId and propagate up to parent component
 			this.dispatchEvent(new CustomEvent('customercreated', {
 				detail: {
-					customerId: contactId
+					contactId: contactId
 				},
 				bubbles: true,
 				composed: true
