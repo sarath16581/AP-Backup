@@ -296,14 +296,19 @@ export default class HappyParcelWrapper extends NavigationMixin(LightningElement
 			if (this.forceConsignmentLevelResults && consignment.trackingId !== currentTrackingId) {
 				this.activeSections.push(currentTrackingId);
 			}
-			const totalArticlesDeliveredField = [
+			const additionalConsignmentAttributes = [
+				{
+					fieldLabel: "Consignment ID", // add the consignment ID this way instead of the field set, so we can change the field label
+					fieldType: "STRING",
+					fieldValue: consignment.trackingId
+				},
 				{
 					fieldLabel: "Total Delivered",
 					fieldType: "STRING",
 					fieldValue: totalArticlesDelivered
 				}
 			];
-			this.consignment.trackingResult.additionalAttributes = totalArticlesDeliveredField;
+			this.consignment.trackingResult.additionalAttributes = additionalConsignmentAttributes;
 		}
 
 		// assign the tracking response for each article into the articles array
