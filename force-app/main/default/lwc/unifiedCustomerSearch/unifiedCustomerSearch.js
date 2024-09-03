@@ -18,13 +18,13 @@ export const SEARCH_FORM_TITLE = 'Customer Search';
  */
 export default class UnifiedCustomerSearch extends LightningElement {
 	/**
-	 * If enabled, the a search will be invoked when the search form is loaded.
+	 * If enabled, then a search will be invoked when the search form is loaded.
 	 * @type {boolean}
 	 */
 	@api autoSearchOnLoad = false;
 
 	/**
-	 * If enabled, the a search will automatically link the Contact if only one is found.
+	 * If enabled, then a search will automatically link the Contact if only one is found.
 	 * @type {boolean}
 	 */
 	@api autoLinkContact = false;

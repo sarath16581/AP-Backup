@@ -93,7 +93,7 @@ export default class UnifiedCustomerSearchLiveChatWrapper extends LightningEleme
 	 * Show the Contact Card if a Contact has been linked.
 	 */
 	get showContactCard() {
-		return !!this.linkedContactId;
+		return this.linkedContactId;
 	}
 
 	/**
