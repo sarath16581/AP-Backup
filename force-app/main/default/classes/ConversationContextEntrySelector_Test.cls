@@ -32,6 +32,30 @@ public with sharing class ConversationContextEntrySelector_Test {
 	}
 
 	@IsTest
+	private static void testNewQueryBuilderWithFieldOverrides() {
+		// =====================================
+		// Data Preparation
+		// =====================================
+		Set<SObjectField> fieldOverrides = new Set<SObjectField>{ ConversationContextEntry.Id };
+
+		// =====================================
+		// Stubbing
+		// =====================================
+		// None!
+
+		// =====================================
+		// Testing
+		// =====================================
+		Test.startTest();
+		ConversationContextEntrySelector selector = ConversationContextEntrySelector.newInstance(fieldOverrides);
+		QueryBuilder qb = selector.newQueryBuilder();
+		String soql = qb.toSoqlString();
+		Test.stopTest();
+
+		Assert.isTrue(Pattern.compile('(?is)SELECT Id\\s+FROM').matcher(soql).find(), 'Query does not select expected columns');
+	}
+
+	@IsTest
 	private static void testGetSelectByParentIdQuery() {
 		// =====================================
 		// Data Preparation
@@ -47,11 +71,35 @@ public with sharing class ConversationContextEntrySelector_Test {
 		// Testing
 		// =====================================
 		Test.startTest();
-		ConversationContextEntrySelector selector = ConversationContextEntrySelector.newInstance();
+		ConversationContextEntrySelector selector = ConversationContextEntrySelector.newInstance(20);
 		QueryBuilder qb = selector.getSelectByParentIdQuery(parentId, new Set<Object>());
 		String soql = qb.toSoqlString();
 		Test.stopTest();
 
 		Assert.isTrue(Pattern.compile('(?is)\\bWHERE ParentId = \'' + parentId + '\'').matcher(soql).find(), 'Query does not filter on ParentId');
+	}
+
+	
+	@IsTest
+	private static void testSelectByParentId() {
+		// =====================================
+		// Data Preparation
+		// =====================================
+		Id parentId = fflib_IDGenerator.generate(LiveChatTranscript.getSObjectType());
+
+		// =====================================
+		// Stubbing
+		// =====================================
+		// None!
+
+		// =====================================
+		// Testing
+		// =====================================
+		Test.startTest();
+		ConversationContextEntrySelector selector = ConversationContextEntrySelector.newInstance(20);
+		Map<Id, ConversationContextEntry> result = selector.selectByParentId(parentId);
+		Test.stopTest();
+
+		Assert.areEqual(0, result.size(), 'Expected no results');
 	}
 }
