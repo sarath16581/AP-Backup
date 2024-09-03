@@ -26,6 +26,7 @@
   * 31.07.2024 - Seth Heang - added constants for case's new 'Update' and 'Monitoring' status
   * 12.08.2024 - George Nguyen - added constants for Unified Investigation and Unified Entitlements
   * 20.08.2024 - George Nguyen - Added Unified App constant
+  * 03.09.2024 - George Nguyen - Added CASE_TYPE_AND_PRODUCT_UNIFIED_MODEL
   */  
 public with sharing class SSSWConstants {
 
@@ -67,6 +68,7 @@ public with sharing class SSSWConstants {
     public static final String CASE_ENQUIRY_SUBTYPE = 'Disputed delivery scan';
     public static final String CASE_LOCALITY_DOMESTIC = 'Domestic';
     public static final String CASE_ORIGINATOR_ADDRESSEE = 'Addressee';
+	public static final String CASE_TYPE_AND_PRODUCT_UNIFIED_MODEL = 'Unified Model';
     
     /*** @author: rajesh.punjabi@mav3rik.com MyNetworkSmartForm Contants (Case Object)*/
     public static final String CASE_PRIORITY_HIGH = 'High';

@@ -2,6 +2,7 @@
 * @description Test class covering CaseAutomationClassificationModule
 * @changelog
 * 2024-08-20	George Nguyen	Created and added classifyUnifiedCases(...)
+* 2024-09-02	George Nguyen	Added test to check on insert the correct record type matches the Type field
 */
 @IsTest
 class CaseAutomationClassificationModule_Test {
@@ -28,23 +29,32 @@ class CaseAutomationClassificationModule_Test {
 
 		MockUtility.Mocks.stopStubbing();
 
-		Map<Id, Case> oldMap = new Map<Id, Case>();
-		List<Case> caseList = new List<Case>();
+		List<Case> caseInsertList = new List<Case>();
 		Case case1 = ApplicationTestDataFactoryCase.getCases(1, true)[0];
 		case1.RecordTypeId = unifiedGeneralEnquiryRecordTypeId;
-		case1.Type = SSSWConstants.INVESTIGATION;
-		caseList.add(case1);
+		case1.Type = SSSWConstants.INVESTIGATION; // setting the wrong type for this record type
+		caseInsertList.add(case1);
 
-		Case oldCase1 = case1.clone(true, true, true, true);
-		oldCase1.Type = SSSWConstants.GENERAL_ENQUIRY;
-		oldMap.put(oldCase1.Id, oldCase1);
+		Map<Id, Case> oldMap = new Map<Id, Case>();
+		List<Case> caseUpdateList = new List<Case>();
+		Case case2 = ApplicationTestDataFactoryCase.getCases(1, true)[0];
+		case2.RecordTypeId = unifiedGeneralEnquiryRecordTypeId;
+		case2.Type = SSSWConstants.INVESTIGATION;
+		caseUpdateList.add(case2);
+
+		Case oldCase2 = case2.clone(true, true, true, true);
+		oldCase2.Type = SSSWConstants.GENERAL_ENQUIRY;
+		oldMap.put(oldCase2.Id, oldCase2);
 
 		Test.startTest();
 		CaseAutomationClassificationModule module = new CaseAutomationClassificationModule();
-		module.onBeforeUpdate(caseList, oldMap, mockApplicationUnitOfWork);
+		module.onBeforeInsert(caseInsertList, mockApplicationUnitOfWork);
+		module.onBeforeUpdate(caseUpdateList, oldMap, mockApplicationUnitOfWork);
 		Test.stopTest();
 
 		System.assertEquals(unifiedInvestigationRecordTypeId, case1.RecordTypeId, 'It should be set to UnifiedInvestigation record type');
-		System.assertEquals(SSSWConstants.CASE_STATUS_NEW, case1.Status, 'Status should be set to New');
+
+		System.assertEquals(unifiedInvestigationRecordTypeId, case2.RecordTypeId, 'It should be set to UnifiedInvestigation record type');
+		System.assertEquals(SSSWConstants.CASE_STATUS_NEW, case2.Status, 'Status should be set to New');
 	}
 }
