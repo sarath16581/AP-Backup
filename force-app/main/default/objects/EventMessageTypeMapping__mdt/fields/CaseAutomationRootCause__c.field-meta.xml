@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>CaseAutomationRootCause__c</fullName>
+    <businessStatus>Active</businessStatus>
     <description>Identifies applicable root cause for case closures triggered as a result of receiving this event message. Applicable only when IsCaseClosureEligible__c = true.</description>
     <externalId>false</externalId>
     <fieldManageability>DeveloperControlled</fieldManageability>
@@ -8,6 +9,7 @@
     <label>Case Automation Root Cause</label>
     <length>255</length>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <type>Text</type>
     <unique>false</unique>
 </CustomField>

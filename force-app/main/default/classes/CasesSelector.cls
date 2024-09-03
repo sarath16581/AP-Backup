@@ -380,7 +380,7 @@ public virtual inherited sharing class CasesSelector extends ApplicationSelector
 			builder.addSubQuery(ContactRequestsSelector.newInstance().setFieldOverrides(fieldOverrides).newQueryBuilder(selectorOptions), 'ContactRequests');
 		}
 		if (selectorOptions.contains(Options.WITH_IMPACTED_ARTICLES)) {
-			builder.addSubQuery(ImpactedArticlesSelector.newInstance().setFieldOverrides(fieldOverrides).newQueryBuilder(selectorOptions), 'ImpactedArticles');
+			builder.addSubQuery(ImpactedArticlesSelector.newInstance().setFieldOverrides(fieldOverrides).newQueryBuilder(selectorOptions), 'ImpactedArticles__r');
 		}
 		return builder;
 	}

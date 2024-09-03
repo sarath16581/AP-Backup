@@ -73,8 +73,8 @@ private class ImpactedArticlesSelector_Test {
 		ImpactedArticlesSelector selector = ImpactedArticlesSelector.newInstance();
 
 		searchParams = new Map<String, Object>{
-				'articleIds' => new Set<Id>{'a1hBm000000l13uIAA'},
-				'caseRecordTypeIds' => new Set<Id>{'012900000015ftsAAA'},
+				'articleIds' => new Set<Id>{'a1h000000000000000'},
+				'caseRecordTypeIds' => new Set<Id>{'012900000000000000'},
 				'caseEnquirySubTypes' => new Set<String>{'Test'},
 				'isCaseOpen' => true
 		};

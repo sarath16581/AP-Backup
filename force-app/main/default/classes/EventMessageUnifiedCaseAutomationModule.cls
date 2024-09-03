@@ -120,7 +120,6 @@ public inherited sharing class EventMessageUnifiedCaseAutomationModule extends A
 	 * @return impacted articles mapping for supplied article ids. key - article id, value - list of impacted articles
 	 */
 	private static Map<Id, List<ImpactedArticle__c>> selectImpactedArticlesForAutomationEligibleUnifiedCases(Set<Id> articleIds) {
-		//TODO review field overrides
 		List<ImpactedArticle__c> openCaseImpactedArticles = ((ImpactedArticlesSelector)ImpactedArticlesSelector.newInstance().setFieldOverrides(new Map<SObjectType, Set<SObjectField>>{
 				Case.SObjectType => new Set<SObjectField>{Case.IsClosed, Case.ProductSubCategory__c, Case.RecordTypeId},
 				ImpactedArticle__c.SObjectType => new Set<SObjectField>{ImpactedArticle__c.Article__c, ImpactedArticle__c.Case__c, ImpactedArticle__c.ArticleId__c}
@@ -181,8 +180,11 @@ public inherited sharing class EventMessageUnifiedCaseAutomationModule extends A
 
 		public override void execute(ApplicationUnitOfWork uow) {
 			// select existing cases with child contact requests and impacted articles
-			Map<Id, Case> cases = ((CasesSelector)CasesSelector.newInstance().setFieldOverrides(new Map<SObjectType, Set<SObjectField>>{
-					Case.SObjectType => new Set<SObjectField>{Case.Id, Case.OwnerId, Case.IsClosed, Case.PreferredAgentExpiry__c, Case.BusinessHoursId, Case.Status},
+			Map<Id, Case> cases = ((CasesSelector) CasesSelector.newInstance().setFieldOverrides(new Map<SObjectType, Set<SObjectField>>{
+					Case.SObjectType => new Set<SObjectField>{
+							Case.Id, Case.OwnerId, Case.IsClosed, Case.PreferredAgentExpiry__c, Case.BusinessHoursId, Case.Status,
+							Case.Exclude_Subscription_Automation__c, Case.ContactEmail
+					},
 					ContactRequest.SObjectType => new Set<SObjectField>{ContactRequest.Id},
 					ImpactedArticle__c.SObjectType => new Set<SObjectField>{ImpactedArticle__c.Id, ImpactedArticle__c.Article__c, ImpactedArticle__c.Case__c}
 			})).selectById(params.keySet(), new Set<Object>{
@@ -210,7 +212,6 @@ public inherited sharing class EventMessageUnifiedCaseAutomationModule extends A
 						EventMessageTypeMapping__mdt eventTypeDefinition = automationEligibleEventTypeDefinitions.get(commonClosureEventTypes.iterator().next());
 						caseAutomationServiceParam.newRootCause = eventTypeDefinition.CaseAutomationRootCause__c;
 						caseAutomationServiceParam.newResolutionCode = eventTypeDefinition.CaseAutomationResolutionCode__c;
-						caseAutomationServiceParam.isClosedBySystem = true;
 						caseClosureServiceParams.add(caseAutomationServiceParam);
 					} else {
 						// either we haven't found common closure codes across impacted articles or there are more than one common closure codes.

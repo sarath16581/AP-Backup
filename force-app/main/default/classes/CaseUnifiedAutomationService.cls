@@ -308,7 +308,7 @@ public inherited sharing class CaseUnifiedAutomationService {
 				// case is eligible for reassignment. update relevant fields.
 				updatable.Status = SSSWConstants.CASE_STATUS_UPDATED;
 				updatable.ReassignmentReason__c = wrapper.caseRecord.Exclude_Subscription_Automation__c ? REASSIGNMENT_REASON_OPT_OUT_AUTOMATION :
-						String.isEmpty(wrapper.caseRecord.ContactEmail) ? REASSIGNMENT_REASON_MISSING_CUSTOMER_EMAIL : wrapper.newReassignmentReason;//TODO
+						String.isEmpty(wrapper.caseRecord.ContactEmail) ? REASSIGNMENT_REASON_MISSING_CUSTOMER_EMAIL : wrapper.newReassignmentReason;
 				updatable.OwnerId = QUEUE_SETTINGS?.UnifiedDefaultOmniQueueId__c;
 				updatable.PreferredAgentExpiry__c = calculatePreferredAgentExpiry(wrapper);
 				updatableCases.add(updatable);
@@ -380,7 +380,7 @@ public inherited sharing class CaseUnifiedAutomationService {
 				// 3. email address on the related contact record on case is blank. such cases are to be assigned to an agent
 				//	when closure automation is triggered.
 				if (!casesWithActiveAgentWork.contains(wrapper.caseRecord.Id)
-						&&  !wrapper.caseRecord.Exclude_Subscription_Automation__c
+						&& !wrapper.caseRecord.Exclude_Subscription_Automation__c
 						&& String.isNotEmpty(wrapper.caseRecord.ContactEmail)) {
 					results.closableCasesIds.add(wrapper.caseRecord.Id);
 				} else if (!casesWithActiveAgentWork.contains(wrapper.caseRecord.Id)
