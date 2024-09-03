@@ -3,6 +3,7 @@
  * @author: Seth Heang
  * @changelog:
  * 2024-08-06 - Seth Heang - Created
+ * 2024-08-28 - Marcel HK - Updated event detail variable to use `contactId`
  */
 import {LightningElement, api} from 'lwc';
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
@@ -239,6 +240,7 @@ export default class UnifiedCustomerCreation extends LightningElement {
 	_errorMessage = undefined;
 	isLoading = false;
 	disableCreateBtn = false;
+	showAddress = true;
 
 	get errorMessage(){
 		return this._errorMessage;
@@ -247,7 +249,6 @@ export default class UnifiedCustomerCreation extends LightningElement {
 		this._errorMessage = value;
 		this.disableCreateBtn = true;
 	}
-
 
 	get showOrganisationSection() {
 		// Show unless only searching for consumers
@@ -335,6 +336,15 @@ export default class UnifiedCustomerCreation extends LightningElement {
 	}
 
 	/**
+	 * Clears the address from the lookup component.
+	 * @param {Event} event 
+	 */
+	handleClearAddressClick(event) {
+		event.preventDefault();
+		this.resetAddress();
+	}
+
+	/**
 	 * Invoked on demand, to get the latest form input data from customer creation ui
 	 * @returns {{firstName: string, lastName: string, emailAddress: string, phoneNumber: string, addressObj: {}, organisationAccountId: string}}
 	 */
@@ -351,6 +361,19 @@ export default class UnifiedCustomerCreation extends LightningElement {
 		}
 	}
 
+	/**
+	 * Workaround to reset address by removing the element, allow DOM update, then add element again.
+	 * TODO: Update address component to allow clear/reset function.
+	 */
+		async resetAddress() {
+			this._addressObj = undefined;
+			this._addressOverride = false;
+			this.showAddress = false;
+			// Wait for DOM to update
+			await Promise.resolve();
+			this.showAddress = true;
+		}
+
 	get ameDefaultAddress(){
 		return this.addressOverride === true ? this.addressObj : undefined;
 	}
@@ -364,7 +387,7 @@ export default class UnifiedCustomerCreation extends LightningElement {
 	}
 
 	get ameAddressVariant(){
-		return !!this.addressOverride ? 'standard' : 'show-detail-onsearch';
+		return this.addressOverride ? 'standard' : 'show-detail-onsearch';
 	}
 
 	/**
@@ -463,7 +486,7 @@ export default class UnifiedCustomerCreation extends LightningElement {
 			// Dispatch the `customercreated` event with customerId and propagate up to parent component
 			this.dispatchEvent(new CustomEvent('customercreated', {
 				detail: {
-					customerId: contactId
+					contactId: contactId
 				},
 				bubbles: true,
 				composed: true

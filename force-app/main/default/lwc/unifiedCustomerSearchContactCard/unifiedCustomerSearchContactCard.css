@@ -1,0 +1,9 @@
+lightning-card.compact {
+	--slds-c-card-header-spacing-inline-start: 0;
+	--slds-c-card-header-spacing-inline-end: 0;
+}
+
+lightning-button-menu {
+	/* Aligns the styling to other standard components */
+	--_slds-g-shadow-inset-focus: none;
+}
