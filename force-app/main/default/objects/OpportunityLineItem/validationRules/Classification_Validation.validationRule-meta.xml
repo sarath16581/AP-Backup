@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Classification_Validation</fullName>
-    <active>true</active>
+    <active>false</active>
     <description>Classification field can only be edited if Stage is Closed Won</description>
     <errorConditionFormula>AND( ISCHANGED(Classification__c), NOT(ISPICKVAL(Opportunity.StageName, &apos;Closed Won&apos;)), NOT(ISPICKVAL(OPCOverride__c , &apos;Yes&apos;)), NOT( OR(ISCHANGED(Contract_Start_Date__c), ISCHANGED(Contract_End_Date__c)) ), OR( $Profile.Name = &apos;Business Enablement&apos;, $Profile.Name = &apos;Sales Admin&apos;, $Profile.Name = &apos;System Administrator&apos;, $Profile.Name = &apos;SSSW - Service Agent&apos;, $Profile.Name = &apos;Sales Contracts CME&apos;, $Profile.Name = &apos;Enterprise Onboarding&apos; ), OR( (AND( ISPICKVAL(PRIORVALUE(Classification__c), &apos;Renewal&apos;), NOT(ISPICKVAL(Classification__c, &apos;Growth&apos;)) )), (AND( ISPICKVAL(PRIORVALUE(Classification__c), &apos;Growth&apos;), NOT(ISPICKVAL(Classification__c, &apos;Renewal&apos;)) )) ) )</errorConditionFormula>
     <errorMessage>You can only change Classification to Growth when the Opportunity is open.</errorMessage>

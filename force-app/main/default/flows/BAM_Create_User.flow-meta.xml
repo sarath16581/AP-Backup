@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Flow xmlns="http://soap.sforce.com/2006/04/metadata">
-    <apiVersion>49.0</apiVersion>
+    <apiVersion>59.0</apiVersion>
     <assignments>
         <description>Assign flow fault message to varError</description>
         <name>Assign_Error</name>
         <label>Assign Error</label>
-        <locationX>263</locationX>
-        <locationY>332</locationY>
+        <locationX>440</locationX>
+        <locationY>458</locationY>
         <assignmentItems>
             <assignToReference>varError</assignToReference>
             <operator>Assign</operator>
@@ -19,8 +19,8 @@
         <description>Place holder to end flow</description>
         <name>End</name>
         <label>End</label>
-        <locationX>731</locationX>
-        <locationY>332</locationY>
+        <locationX>176</locationX>
+        <locationY>458</locationY>
         <assignmentItems>
             <assignToReference>varError</assignToReference>
             <operator>Assign</operator>
@@ -30,6 +30,7 @@
         </assignmentItems>
     </assignments>
     <description>Flow to create a community user.  Performed in this flow to allow a standard community user create another user record.</description>
+    <environments>Default</environments>
     <formulas>
         <description>Calculated alias string based of contact id</description>
         <name>fxAlias</name>
@@ -51,6 +52,12 @@
         </value>
     </processMetadataValues>
     <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
         <name>OriginBuilderType</name>
         <value>
             <stringValue>LightningFlowBuilder</stringValue>
@@ -61,8 +68,8 @@
         <description>Create a community user and associate it to the contact passed in. Create as active to allow permission set to be associated</description>
         <name>Create_User</name>
         <label>Create User</label>
-        <locationX>594</locationX>
-        <locationY>332</locationY>
+        <locationX>176</locationX>
+        <locationY>350</locationY>
         <assignRecordIdToReference>varUserId</assignRecordIdToReference>
         <connector>
             <targetReference>End</targetReference>
@@ -154,13 +161,14 @@
         <description>Get the contact record based on contact id passed in</description>
         <name>Get_Contact</name>
         <label>Get Contact</label>
-        <locationX>191</locationX>
-        <locationY>50</locationY>
+        <locationX>176</locationX>
+        <locationY>134</locationY>
         <assignNullValuesIfNoRecordsFound>true</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Get_Profile</targetReference>
         </connector>
         <faultConnector>
+            <isGoTo>true</isGoTo>
             <targetReference>Assign_Error</targetReference>
         </faultConnector>
         <filterLogic>and</filterLogic>
@@ -182,13 +190,14 @@
         <description>Get the Profile based on profile name passed in.  Default value is &apos;Merchant Portal Community User&apos;</description>
         <name>Get_Profile</name>
         <label>Get Profile</label>
-        <locationX>331</locationX>
-        <locationY>50</locationY>
+        <locationX>176</locationX>
+        <locationY>242</locationY>
         <assignNullValuesIfNoRecordsFound>true</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Create_User</targetReference>
         </connector>
         <faultConnector>
+            <isGoTo>true</isGoTo>
             <targetReference>Assign_Error</targetReference>
         </faultConnector>
         <filterLogic>and</filterLogic>
@@ -203,7 +212,14 @@
         <outputReference>sobjProfile</outputReference>
         <queriedFields>Id</queriedFields>
     </recordLookups>
-    <startElementReference>Get_Contact</startElementReference>
+    <runInMode>SystemModeWithoutSharing</runInMode>
+    <start>
+        <locationX>50</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Get_Contact</targetReference>
+        </connector>
+    </start>
     <status>Active</status>
     <variables>
         <description>The contact record</description>

@@ -8,9 +8,24 @@
  * 2020-09-27 - Nathan Franklin - Changed Safe Drop eligibility functions and added pubsub methods
  * 2020-10-05 - Disha Kariya - Allow safe drop attachment for case creation
  * 2021-10-06 - Nathan Franklin - Changed the logic behind attaching delivery proof to case + uplift to v52
+ * 2024-06-13 - Seth Heang - Update the Proof Of Delivery PDF Download logic to perform consignment search and bulk retrieve safe drop images if applicable prior to downloading the PDF
+ * 2024-06-14 - Seth Heang - Refactor and move out method to download Proof of delivery PDF into HappyParcelService.js
+ * 2024-06-25 - Raghav Ravipati - changes to retrieveSafeDropImage method which used Deliveryrepository V2 API
  */
 import { api, track, LightningElement } from "lwc";
-import { getConfig, getSafeDropEligibilityStatus, addSafeDrop, deleteSafeDrop, getSafeDropImage, CONSTANTS, get, subscribe, unsubscribe, publish, downloadDeliveryProofPdf } from 'c/happyParcelService';
+import {
+	getConfig,
+	getSafeDropEligibilityStatus,
+	addSafeDrop,
+	deleteSafeDrop,
+	getSafeDropImage,
+	CONSTANTS,
+	get,
+	subscribe,
+	unsubscribe,
+	publish,
+	downloadPODPDF
+} from 'c/happyParcelService';
 import HappyParcelBase from "c/happyParcelBase";
 
 export default class HappyParcelDeliveryProof extends HappyParcelBase {
@@ -25,7 +40,7 @@ export default class HappyParcelDeliveryProof extends HappyParcelBase {
 	_events = [];
 
 	// if this is true then this allows happyParcelDeliveryProof component to attach safe drop image on Case creation.
-    // when the component is clicked, attachdeliveryproof event is generated and propagated up the DOM
+	// when the component is clicked, attachdeliveryproof event is generated and propagated up the DOM
 	@api supportsDeliveryProofAttachment;
 
 	@api loading = false;
@@ -59,7 +74,7 @@ export default class HappyParcelDeliveryProof extends HappyParcelBase {
 
 	// this stores the result of checking for Safe drop eligibility
 	@track safeDropEligibilityStatus;
-	
+
 	// when a safe drop preference is set or unset, this is the status message that displays the result
 	// this is only displayed for x seconds before disappearing
 	@track safeDropPreferenceStatusMessage;
@@ -81,9 +96,9 @@ export default class HappyParcelDeliveryProof extends HappyParcelBase {
 	 * This ensures optmial memory consumption
 	 */
 	@api
-	get article() { return null; };
+	get article() { return null; }
 	set article(value) {
-		if(value) {
+		if (value) {
 			this.signatureRequired = value.SignatureRequiredFlag__c;
 			this.trackingId = value.ArticleID__c;
 			this.consignmentId = value.ConsignmentTrackingNumber__c;
@@ -102,38 +117,38 @@ export default class HappyParcelDeliveryProof extends HappyParcelBase {
 	 * Store the events and extract delivery proof details from the events received.
 	 */
 	@api
-	get events() { return _events; }
+	get events() { return this._events; }
 	set events(value) {
-		if(value) {
-		    this._events = value;
+		if (value) {
+			this._events = value;
 		} else {
-		    this._events = [];
+			this._events = [];
 		}
 		this.setDeliveryProof(this._events);
 	}
 
-    /**
-     * Extract signature on delivery and safe drop image details from the events passed in.
-     */
+	/**
+	 * Extract signature on delivery and safe drop image details from the events passed in.
+	 */
 	setDeliveryProof(events) {
-	    if (events && events.length > 0) {
-	        events.forEach(item => {
-                if (this._signatureEventTypes.includes(item.event.EventType__c) && item.event.SignatureXString__c) {
-                    this.base64SignatureImage = 'data:image/jpeg;base64,' + item.event.SignatureXString__c;
-                    this.signatoryName = item.event.SignatoryName__c;
-                }
+		if (events && events.length > 0) {
+			events.forEach(item => {
+				if (this._signatureEventTypes.includes(item.event.EventType__c) && item.event.SignatureXString__c) {
+					this.base64SignatureImage = 'data:image/jpeg;base64,' + item.event.SignatureXString__c;
+					this.signatoryName = item.event.SignatoryName__c;
+				}
 
-                // check for SafeDropGUID (we don't check for specific event types since an 'attachment type' check is done when the article is queried from the tracking API
-                if (item.event.Safe_Drop_GUID__c) {
-                    this.safeDropGuid = item.event.Safe_Drop_GUID__c;
-                }
-            });
-        } else {
-            this.base64SignatureImage = '';
-            this.signatoryName = '';
-            this.safeDropGuid = '';
-        }
-    }
+				// check for SafeDropGUID (we don't check for specific event types since an 'attachment type' check is done when the article is queried from the tracking API
+				if (item.event.Safe_Drop_GUID__c) {
+					this.safeDropGuid = item.event.Safe_Drop_GUID__c;
+				}
+			});
+		} else {
+			this.base64SignatureImage = '';
+			this.signatoryName = '';
+			this.safeDropGuid = '';
+		}
+	}
 
 	connectedCallback() {
 		// grab a list of event types to monitor for with signature for delivery
@@ -143,8 +158,8 @@ export default class HappyParcelDeliveryProof extends HappyParcelBase {
 			// now that signature event types are known, check if event data is available.
 			// if available, extract delivery proof details.
 			if (this._events && this._events.length > 0) {
-    			this.setDeliveryProof(this._events);
-    		}
+				this.setDeliveryProof(this._events);
+			}
 		});
 
 		subscribe('SafedropEligibilityRefresh', this.doGetSafeDropEligibility);
@@ -163,14 +178,14 @@ export default class HappyParcelDeliveryProof extends HappyParcelBase {
 		this.showSafeDropModel = false;
 	}
 
-	handleDeliveryProofCheckboxClicked(event){
-		if(this.trackingId) {
+	handleDeliveryProofCheckboxClicked(event) {
+		if (this.trackingId) {
 			this.attachDeliveryProof = event.target.checked;
 
-		    const detail = {trackingId : this.trackingId, selected : this.attachDeliveryProof};
+			const detail = { trackingId: this.trackingId, selected: this.attachDeliveryProof };
 			this.dispatchEvent(new CustomEvent('attachdeliveryproof', { detail: detail, bubbles: true, composed: true }));
-  		}
- 	}
+		}
+	}
 
 	/**
 	 * When the user clicks the camera icon to load the safe drop image
@@ -180,14 +195,17 @@ export default class HappyParcelDeliveryProof extends HappyParcelBase {
 		this.loadingSafeDropImage = true;
 
 		// perform the callout to the api and grab the split details from the result
-		const result = await getSafeDropImage(this.safeDropGuid);
+		const result = await getSafeDropImage(this.safeDropGuid, null);
 
-		if(result.isError) {
-			this.safeDropImageErrorMessage = result.errorMessage;
+		if (result.isError) {
+			this.safeDropImageErrorMessage = result.errors[0];
 			this.base64SafeDropImage = null;
 		} else {
 			this.safeDropImageErrorMessage = '';
-			this.base64SafeDropImage = 'data:image/jpeg;base64,' + result.imageBody;
+			this.base64SafeDropImage;
+			if (result.document && result.document.object_details) {
+				this.base64SafeDropImage = 'data:image/jpeg;base64,' + result.document.object_details.object_content;
+			}
 		}
 
 		this.loadingSafeDropImage = false;
@@ -269,26 +287,14 @@ export default class HappyParcelDeliveryProof extends HappyParcelBase {
 
 		// wrap in try/catch to ensure waiting attribute is removed
 		try {
-			const pdfBase64 = await downloadDeliveryProofPdf(this.trackingId);
-
-			const fileName = 'DeliveryProof-' + encodeURIComponent(this.trackingId) + '.pdf';
-
-			// deal with IE
-			if (navigator && navigator.msSaveBlob) { // IE10+
-				return navigator.msSaveBlob(new Blob([pdfBase64], { type: '.pdf' }), fileName);
-			}
-
-			// now download the generated content
-			const downloadElement = document.createElement('a');
-			downloadElement.href = 'data:application/octet-stream;base64,' + encodeURIComponent(pdfBase64);
-			downloadElement.target = '_self';
-			downloadElement.download = fileName;
-			document.body.appendChild(downloadElement);
-			downloadElement.click();
-		} catch(exception) {
+			const trackingIds = {
+				consignmentId: null,
+				articleId: this.trackingId
+			};
+			await downloadPODPDF(trackingIds);
+		} catch (exception) {
 			console.error(exception);
 		}
-
 		this.waitingDownload = false;
 	}
 
@@ -352,8 +358,8 @@ export default class HappyParcelDeliveryProof extends HappyParcelBase {
 	}
 
 	get safeDropDisabled() {
-	    return !!this.parentArticleSelected;
-    }
+		return !!this.parentArticleSelected;
+	}
 
 	get safeDropCardBodyCssClass() {
 		return 'full-height-container animated pulse' + (this.safeDropGuid ? ' slds-p-bottom_medium' : '');

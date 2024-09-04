@@ -15,6 +15,7 @@ October 02, 2017 - Angelo Rivera - Added for Minor Work MWT0004521
 2022-11-23 - Mahesh Parvathaneni - Addded constants for StarTrack Agent and Care agent
 2023-02-15 - naveen.rajanna@auspost.com.au - REQ3072620 Added constants for Web Bookings Queue, ETA Queue and renamed labels
 2023-07-18 - mel.patil2@auspost.com.au - REQ3247592 renamed label for StarTrack Recycle Bin to CRM Recycle Bin
+2024-05-22 - Seth Heang - Added constants for .NET StarTrack callout related to consignment/article search
 **************************************************/
 public class StarTrack_Constants {
 
@@ -25,8 +26,12 @@ public class StarTrack_Constants {
     public static final Boolean hideSSCR5 = StarTrack_Settings__c.getOrgDefaults().Hide_SSCR5_Changes_for_AP_User__c;
     public static final String ST_CASE_AUTOCLOSE_CUST_PERM = 'StarTrack_Autoclose_Case_from_Task';
 
-    public static final Set<String> CONSIGN_SUMSTATUS = new Set<String>{'Notified', 'Picked Up', 'In Transit', 'Delivered', 'Partially Picked Up', 'Partially Delivered', 'Partially On Forwarded', 'On Forwarded'};
-    public static final Set<String> ARTICLE_ADDRESS_FIELDS = new Set<String>{'SenderCompany__c', 'SenderName__c', 'SenderAddress__c', 'Sender_Suburb__c', 'SenderState__c', 'SenderPostcode__c', 'ReceiverCompany__c', 'ReceiverName__c', 'ReceiverAddress__c', 'Receiver_Suburb__c', 'ReceiverState__c', 'ReceiverPostcode__c'};
+    public static final Set<String> CONSIGN_SUMSTATUS = new Set<String>{
+            'Notified', 'Picked Up', 'In Transit', 'Delivered', 'Partially Picked Up', 'Partially Delivered', 'Partially On Forwarded', 'On Forwarded'
+    };
+    public static final Set<String> ARTICLE_ADDRESS_FIELDS = new Set<String>{
+            'SenderCompany__c', 'SenderName__c', 'SenderAddress__c', 'Sender_Suburb__c', 'SenderState__c', 'SenderPostcode__c', 'ReceiverCompany__c', 'ReceiverName__c', 'ReceiverAddress__c', 'Receiver_Suburb__c', 'ReceiverState__c', 'ReceiverPostcode__c'
+    };
     public static final String TASK_TYPE_OPERATION = 'Operations Task';
     public static final Boolean ST_TRUE = true;
     public static final Boolean ST_FALSE = false;
@@ -134,8 +139,8 @@ public class StarTrack_Constants {
     public static final String WEB_BOOKINGS_QUEUE = 'StarTrack Pickup Enquiry Queue';
     public static final String ETA_QUEUE = 'StarTrack ETA Request Queue';
     public static final String ST_NETWORK_CUST_NOTIF = 'StarTrack Network Customer Notification';
-    public static final String ST_EVENT_TYPE = 'DELIVERED'; 
-    public static final String ST_SCAN_TYPE = 'Label'; 
+    public static final String ST_EVENT_TYPE = 'DELIVERED';
+    public static final String ST_SCAN_TYPE = 'Label';
     public static final String CON_LASTUP_TYPE = 'FULL';
     public static final String CON_REC_TYPE = 'Consignment';
     public static final String CASE_ACTCLOSED = 'Close Case';
@@ -164,7 +169,7 @@ public class StarTrack_Constants {
     public static final String REJECT_APPROVAL = 'Reject';
     public static final String SUCCESS_COMMENT = 'Subscription Automation success for Case Action ';
     public static final String CASECLOSE_SUCCESS_COMMENT = 'Subscription Automation success for Case Action Close Case. \n\n Consignment Summary Status - <ConsignSumStat> \n Number of PODs - <NumofPODs> \n Number of Delivery Events - <NumofEvents> \n' +
-                                                            'Case Record Type - <CaseRecType> \n Case Type - <CaseType> \n Case Purpose - <CasePurpose> \n Case Status - <CaseStat> \n Is POD Required to Close Case for the Billing Account? - <IsPODReq>';
+            'Case Record Type - <CaseRecType> \n Case Type - <CaseType> \n Case Purpose - <CasePurpose> \n Case Status - <CaseStat> \n Is POD Required to Close Case for the Billing Account? - <IsPODReq>';
     public static final String FAILURE_COMMENT = 'Subscription Automation not processed for Case Action ';
     public static final String ID_FIELD = 'Id';
     public static final String PRIORITY_NORMAL = 'Normal';
@@ -193,7 +198,7 @@ public class StarTrack_Constants {
     public static final String forwardPrefix4 = 'FWD: ';
     public static final String KEYWRD_SUBJECT_PREFIX_REF = 'ref:_';
     public static final String KEYWRD_SUBJECT_SUFFIX_REF = ':ref';
-    
+
     //StarTrack_Case_ConsignSearch_Controllerx.cls constants
     public static final String STARTRACK = 'StarTrack';
     public static final String CUSTOM = 'Custom';
@@ -231,7 +236,7 @@ public class StarTrack_Constants {
     public static final String ERR_KEYWRD_TIMEOUT = 'Time out';
     public static final String ERR_KEYWRD_FAILEDTOGETELEM = 'Failed to get next element';
     public static final String ERR_KEYWRD_POLICYFALSIFIED = 'Policy Falsified';
-    
+
     public static final String ERR_CODE_0 = '0';
     public static final String ERR_CODE_ART_NOT_FOUND = 'Article Not Found';
 
@@ -310,26 +315,28 @@ public class StarTrack_Constants {
     public static final String ERRORMSG_PHONEINVALID = 'Invalid Phone Number. Please enter 6 or 10 digits.';
     public static final String ERRORMSG_PHONEINVALID13 = 'Invalid Phone Number. The 6-digit phone number should start with 13.';
     public static final String ERRORMSG_CONTACTTYPE = 'Contact Type is required.';
-    
+
     //David Catindoy - Sept. 12, 2016 - Added constants for StarTrackNoConsignmentDataPAController.
-     public static final String DELIVERY_TYPE = 'Delivery Type';
-     public static final String QUEUE_PREFIX = '00G';
-     public static final String ERRORMSG_DELIVERYTYPE = 'Delivery Type: Value is required.';
-     public static final String ERRORMSG_OWNERISQUEUE = 'Please take ownership of the case and try again.';
-     public static final String ERRORMSG_LDCCASE = 'LDC case depot can no longer be changed after it entered the LDC process.';
-     public static final String ERRORMSG_CONSIGNNODATA = 'You cannot edit \'No Data\' Sender and Receiver details if the associated Consignment is not a \'No Data\' Consignment.';
-     
-     public static final String CASEMILESTONE_CUST_FIRST_RESP ='StarTrack - Customer 1st Response';
-     //Andrew Judd - 06-04-2017 - B1647 - Added constant for bspEnquiry
-     public static final String CASE_CONTACT_TYPE_SENDER = 'Sender';
-       
-     // Madhusudhan | PBRP 2021 *** CaseTriggerHelper Constants  ***/
-     public static final String CASE_TRIGGER = 'CaseTrigger';
+    public static final String DELIVERY_TYPE = 'Delivery Type';
+    public static final String QUEUE_PREFIX = '00G';
+    public static final String ERRORMSG_DELIVERYTYPE = 'Delivery Type: Value is required.';
+    public static final String ERRORMSG_OWNERISQUEUE = 'Please take ownership of the case and try again.';
+    public static final String ERRORMSG_LDCCASE = 'LDC case depot can no longer be changed after it entered the LDC process.';
+    public static final String ERRORMSG_CONSIGNNODATA = 'You cannot edit \'No Data\' Sender and Receiver details if the associated Consignment is not a \'No Data\' Consignment.';
+
+    public static final String CASEMILESTONE_CUST_FIRST_RESP = 'StarTrack - Customer 1st Response';
+    //Andrew Judd - 06-04-2017 - B1647 - Added constant for bspEnquiry
+    public static final String CASE_CONTACT_TYPE_SENDER = 'Sender';
+
+    // Madhusudhan | PBRP 2021 *** CaseTriggerHelper Constants  ***/
+    public static final String CASE_TRIGGER = 'CaseTrigger';
     public static final String ASYNC_QUEUEABLE = 'Queueable';
-     // a list of fields which define an IVR case as non 'transactional'
-     // this is applicable to any cases with Origin of 'IVR'
-     public static final Map<String, Set<String>> NON_TRANSACTIONAL_IVR_EXCLUSIONS = new Map<String, Set<String>>{
-        'Call_Purpose__c' => new Set<String>{'Card Left'}
+    // a list of fields which define an IVR case as non 'transactional'
+    // this is applicable to any cases with Origin of 'IVR'
+    public static final Map<String, Set<String>> NON_TRANSACTIONAL_IVR_EXCLUSIONS = new Map<String, Set<String>>{
+            'Call_Purpose__c' => new Set<String>{
+                    'Card Left'
+            }
     };
 
     /**
@@ -352,5 +359,26 @@ public class StarTrack_Constants {
             return CURRENT_USER_CAN_AUTO_CLOSE_CASE_FROM_TASK;
         }
         private set;
+    }
+
+    /**
+     * @description		Retrieve a list of StarTrack product id's that may be surfaced from SAP EM from the custom setting
+     * 				This is used to indicate that the consignment should be searched using the ST .NET search
+     * @return		Map<String, StarTrackConsignmentProductIDs__c>
+     * */
+    public static Map<String, StarTrackConsignmentProductIDs__c> startrackProdIDs {
+        get {
+            return StarTrackConsignmentProductIDs__c.getAll();
+        }
+    }
+
+    /**
+     * @description		Retrieve the StarTrack generic custom setting configurations
+     * @return		StarTrack_Settings__c
+     */
+    public static final StarTrack_Settings__c starTrackConfigSetting {
+        get {
+            return StarTrack_Settings__c.getInstance();
+        }
     }
 }

@@ -5,6 +5,8 @@
 * @domain SSSW
 * @description A very simple selector class that sits in the SSSW domain
 * @changelog
+* 13.06.2024 Parveen Kaushik Added MappingModel__c in the field list. See CSLU-470 (JIRA) for details.
+* 17.06.2024 Raghav Ravipati Introduced selectBySAPKeyAndMappingModel method to filter records using Sapkeys, MappingModel field values. See CLSU-557 for details.
 */
 public inherited sharing class EnquiryMappingsSelector extends ApplicationSelector {
 
@@ -20,7 +22,7 @@ public inherited sharing class EnquiryMappingsSelector extends ApplicationSelect
 		return new Set<SObjectField> {
 				MiniCaseFieldMapping__c.CaseRecordTypeId__c, MiniCaseFieldMapping__c.CTICustomerSegment__c, MiniCaseFieldMapping__c.CTIKey__c, MiniCaseFieldMapping__c.CTIServiceType__c, MiniCaseFieldMapping__c.Id,
 				MiniCaseFieldMapping__c.Name, MiniCaseFieldMapping__c.ProductCategory__c, MiniCaseFieldMapping__c.ProductSubcategory__c, MiniCaseFieldMapping__c.SAPKey__c, MiniCaseFieldMapping__c.SAPProductCategory__c,
-				MiniCaseFieldMapping__c.SAPProductSubcategory__c, MiniCaseFieldMapping__c.Type__c
+				MiniCaseFieldMapping__c.SAPProductSubcategory__c, MiniCaseFieldMapping__c.Type__c, MiniCaseFieldMapping__c.MappingModel__c
 		};
 	}
 
@@ -37,6 +39,33 @@ public inherited sharing class EnquiryMappingsSelector extends ApplicationSelect
 			if(!String.isEmpty(mapping.SAPKey__c)) {
 				if (upperCaseSapKeys.contains(mapping.SAPKey__c.toUpperCase())) {
 					output.put(mapping.Id, mapping);
+				}
+			}
+		}
+		return output;
+	}
+
+	/**
+	 * Returns equiry mapping records based on the provided sapKeys and Mapping model values.
+	 * @param sapKeys set of sap keys which are used to filter records using SAPKey__c field.
+	 * @param mappingModelValues set of mappingModelValues which are used to filter records using MappingModel__c field.
+	 * @return List of Equiry mapping records.
+	 */
+	public List<MiniCaseFieldMapping__c> selectBySAPKeyAndMappingModel(Set<String> sapKeys, Set<String> mappingModelValues) {
+		// convert all the sap keys to uppercase
+		Set<String> upperCaseSapKeys = new Set<String>();
+
+		for (String key : sapKeys) {
+			upperCaseSapKeys.add(key.toUpperCase());
+		}
+
+		Map<Id, MiniCaseFieldMapping__c> mappings = getAllMappings();
+		List<MiniCaseFieldMapping__c> output = new List<MiniCaseFieldMapping__c>();
+
+		for (MiniCaseFieldMapping__c mapping : mappings.values()) {
+			if (!String.isEmpty(mapping.SAPKey__c)) {
+				if (upperCaseSapKeys.contains(mapping.SAPKey__c.toUpperCase()) && mappingModelValues.contains(mapping.MappingModel__c)) {
+					output.add(mapping);
 				}
 			}
 		}

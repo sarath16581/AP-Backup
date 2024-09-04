@@ -310,6 +310,12 @@ public class OpportunityRevenueReportController {
 	
 	public without sharing class PermissionChecker {
 		public Boolean hasRefreshRevenuePermission() {
+            
+            // Check if the user is a System Administrator
+            if ([SELECT Profile.Name FROM User WHERE Id = :UserInfo.getUserId()].Profile.Name == 'System Administrator') {
+                return true;
+            }
+            
 			String permissionSetName = 'BG_Sales_Operations';
 			Set<Id> userPermissionSetIds = new Set<Id>();
 			
