@@ -6,16 +6,14 @@
     populateDataTable: function(component, rslt) {
         if (rslt) {
             var rowsData = rslt.rowData;
+			var fieldsToSort = ["CaseObject__r.Calc_Case_Consignment__c","CaseObject__r.Priority","TaskUpdate__c"];
             //setting
             component.set("v.dataList", rowsData);
             console.log('1.stp_taskSearchResultHelper rowsData.length =' +rowsData.length);
-			console.log("this is rowsdata " + JSON.stringify(rowsData));
 			rowsData.map(function(element){ 
-                console.log('Mona created date ' + element.CreatedDate);
 				if(element.CreatedDate) {
 					var date = new Date(element.CreatedDate);			 
 					element.CreatedDate = $A.localizationService.formatDateTime(date);
-					console.log('Mona created date ' + element.CreatedDate);
 				}
 			});
 
@@ -57,15 +55,11 @@
                 }
             });
 
-			console.log('Mona data '+ JSON.stringify(columnsData) );
-			//columnsData[3].sortable = true;
-
 			columnsData.map( function(element){
-				if(element.fieldName === 'CaseObject__r.Enquiry_Type__c' || element.fieldName === 'CaseObject__r.Calc_Case_Consignment__c' || element.fieldName === 'CaseObject__r.Priority' || element.fieldName === 'TaskUpdate__c') {
+				if(fieldsToSort.includes(element.fieldName)) {
 					element.sortable = true;
 				}
-			} )
-			//var colVal = columnsData.find(myFunction);
+			});
 
             component.set('v.columns',  columnsData);
             component.set('v.data', PagList);
