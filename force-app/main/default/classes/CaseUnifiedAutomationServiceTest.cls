@@ -8,6 +8,7 @@
  * 2024-07-26 - Seth Heang - Created
  * 2024-08-12 - Ranjeewa Silva - Added tests to cover case re-assignment on email automation
  * 2024-08-23 - Seth Heang - Added Assertion on PreferredAgentExpiry__c for Reassigned Case Update Check
+ * 2024-09-02 - Ranjeewa Silva - Added tests to cover case reassignment / closure on scan event automation
  */
 @IsTest(IsParallel=true)
 public with sharing class CaseUnifiedAutomationServiceTest {
@@ -547,4 +548,307 @@ public with sharing class CaseUnifiedAutomationServiceTest {
 		Assert.areEqual(caseWrappers[2].newReassignmentReason, updateableCases[0].ReassignmentReason__c, 'Expected the case reassignment reason to be set.');
 		Assert.isTrue(updateableCases[0].Case_Reopen_Date__c == null, 'Expected Case_Reopen_Date__c field to be blank as the case was already open.');
 	}
+
+	/**
+	* Test to ensure open cases with active AgentWork are NOT closed on scan event case closure automation.
+	*/
+	@IsTest
+	static void testOpenCasesWithActiveAgentWorkAreNotClosedOrReassignedOnScanEventCaseClosureAutomation() {
+		// =====================================
+		// Data Preparation
+		// =====================================
+		List<Case> cases = ApplicationTestDataFactoryCase.getCases(2, true);
+		cases[0].Status = SSSWConstants.CASE_STATUS_UPDATED;
+		// cases[1] is in 'Monitoring' status. this should get updated to 'Updated'
+		cases[1].Status = SSSWConstants.CASE_STATUS_MONITORING;
+
+		// setup AgentWork records for each case
+		List<AgentWork> agentWork = ApplicationTestDataFactoryCase.getAgentWorks(2, null, new List<Id>{cases[0].Id, cases[1].Id}, true);
+		// agentWork[0] is in status 'Opened'. cases[0] should not be closed as an agent is actively working on the case and has opened the case record.
+		agentWork[0] = (AgentWork) ApplicationTestDataFactory.setUnwritableFields(agentWork[0], new Map<String, Object>{
+				'Status' => SSSWConstants.OMNI_AGENTWORK_STATUS_OPENED
+		});
+		// agentWork[1] is in status 'Assigned'. cases[1] should not be closed as the case has been pushed to an agent by omni channel and in the process of being assigned to an agent.
+		agentWork[1] = (AgentWork) ApplicationTestDataFactory.setUnwritableFields(agentWork[1], new Map<String, Object>{
+				'Status' => SSSWConstants.OMNI_AGENTWORK_STATUS_ASSIGNED
+		});
+
+		// =====================================
+		// Stubbing
+		// =====================================
+		ApplicationUnitOfWork mockUow = MockUtility.mockUnitOfWork();
+		AgentWorkSelector mockAgentWorkSelector = (AgentWorkSelector)MockUtility.mockSelector(AgentWorkSelector.class);
+		PendingServiceRoutingSelector mockPSRSelector = (PendingServiceRoutingSelector)MockUtility.mockSelector(PendingServiceRoutingSelector.class);
+
+		// set up our responses
+		MockUtility.Mocks.startStubbing();
+		MockUtility.Mocks.when(mockPSRSelector.selectByWorkItemId((Set<Id>)fflib_Match.eq(new Set<Id>{cases[0].Id, cases[1].Id}), (Set<Object>)fflib_Match.anyObject())).thenReturn(new List<PendingServiceRouting>());
+		MockUtility.Mocks.when(mockAgentWorkSelector.search((Map<String, Object>)fflib_Match.anyObject(), fflib_Match.anyBoolean())).thenReturn(agentWork);
+		MockUtility.Mocks.stopStubbing();
+
+		// =====================================
+		// Testing
+		// =====================================
+		Test.startTest();
+
+		List<CaseUnifiedAutomationService.RecordWrapper> caseWrappers = new List<CaseUnifiedAutomationService.RecordWrapper>();
+		for (Case caseRecord: cases) {
+			CaseUnifiedAutomationService.RecordWrapper caseWrapper = new CaseUnifiedAutomationService.RecordWrapper();
+			caseWrapper.caseRecord = caseRecord;
+			caseWrapper.newRootCause = 'test root cause';
+			caseWrapper.newResolutionCode = 'test resolution code';
+			caseWrappers.add(caseWrapper);
+		}
+		CaseUnifiedAutomationService.getInstance().processForCaseClosure(caseWrappers, CaseUnifiedAutomationService.InvocationPoint.SCANAUTO, mockUow);
+
+		Test.stopTest();
+
+		// verify that only cases[a1] are registered with unit of work for a status update. no cases are reassigned or closed.
+		fflib_ArgumentCaptor updatableCasesCaptor = fflib_ArgumentCaptor.forClass(List<Case>.class);
+		((ApplicationUnitOfWork) MockUtility.Mocks.verify(mockUow, MockUtility.Mocks.times(1))).registerDirty((List<Case>) updatableCasesCaptor.capture(), fflib_Match.eqBoolean(false), fflib_Match.anyString());
+		List<Case> updateableCases = (List<Case>) updatableCasesCaptor.getValue();
+
+		Assert.areEqual(1, updateableCases.size(), 'Expected the case to be updated.');
+		Assert.areEqual(cases[1].Id, updateableCases[0].Id, 'Expected the case to be updated.');
+		Assert.areEqual(SSSWConstants.CASE_STATUS_UPDATED, updateableCases[0].Status, 'Expected the case status to be set to \'Updated\'.');
+		Assert.isNull(updateableCases[0].ReassignmentReason__c, 'Expected the case reassignment reason to be null, as the case is not reassigned.');
+
+		//((ApplicationUnitOfWork) MockUtility.Mocks.verify(mockUow, MockUtility.Mocks.times(0))).registerDirty((List<Case>) fflib_Match.anyObject(), fflib_Match.eqBoolean(false), fflib_Match.anyString());
+	}
+
+	/**
+	 * Test to ensure open cases with PSRs are closed on scan event case closure automation.
+	 */
+	@IsTest
+	static void testOpenCasesWithPSRsAreClosedOnScanEventClosureAutomation() {
+		// =====================================
+		// Data Preparation
+		// =====================================
+		Case caseRecord = ApplicationTestDataFactoryCase.getCases(1, true)[0];
+		caseRecord.Status = SSSWConstants.CASE_STATUS_UPDATED;
+		caseRecord.Exclude_Subscription_Automation__c = false;
+		caseRecord = (Case)ApplicationTestDataFactory.setUnwritableFields(caseRecord, new Map<String, Object>{
+				'ContactEmail' => 'test@test.invalid'
+		});
+
+		PendingServiceRouting psr = ApplicationTestDataFactoryCase.getPendingServiceRoutings(1, null, null, caseRecord.Id, true)[0];
+
+		// =====================================
+		// Stubbing
+		// =====================================
+		ApplicationUnitOfWork mockUow = MockUtility.mockUnitOfWork();
+		AgentWorkSelector mockAgentWorkSelector = (AgentWorkSelector)MockUtility.mockSelector(AgentWorkSelector.class);
+		PendingServiceRoutingSelector mockPSRSelector = (PendingServiceRoutingSelector)MockUtility.mockSelector(PendingServiceRoutingSelector.class);
+
+		// set up our responses
+		MockUtility.Mocks.startStubbing();
+		MockUtility.Mocks.when(mockPSRSelector.selectByWorkItemId((Set<Id>)fflib_Match.eq(new Set<Id>{caseRecord.Id}), (Set<Object>)fflib_Match.anyObject())).thenReturn(new List<PendingServiceRouting>{psr});
+		MockUtility.Mocks.when(mockAgentWorkSelector.search((Map<String, Object>)fflib_Match.anyObject(), fflib_Match.anyBoolean())).thenReturn(new List<AgentWork>());
+		MockUtility.Mocks.stopStubbing();
+
+		// =====================================
+		// Testing
+		// =====================================
+		Test.startTest();
+
+		CaseUnifiedAutomationService.RecordWrapper caseWrapper = new CaseUnifiedAutomationService.RecordWrapper();
+		caseWrapper.caseRecord = caseRecord;
+		caseWrapper.newRootCause = 'test root cause';
+		caseWrapper.newResolutionCode = 'test resolution code';
+		CaseUnifiedAutomationService.getInstance().processForCaseClosure(new List<CaseUnifiedAutomationService.RecordWrapper>{caseWrapper}, CaseUnifiedAutomationService.InvocationPoint.SCANAUTO, mockUow);
+
+		Test.stopTest();
+
+		fflib_ArgumentCaptor updatableCasesCaptor = fflib_ArgumentCaptor.forClass(List<Case>.class);
+		((ApplicationUnitOfWork) MockUtility.Mocks.verify(mockUow, MockUtility.Mocks.times(1))).registerDirty((List<Case>) updatableCasesCaptor.capture(), fflib_Match.eqBoolean(false), fflib_Match.anyString());
+		List<Case> updateableCases = (List<Case>) updatableCasesCaptor.getValue();
+
+		Assert.areEqual(1, updateableCases.size(), 'Expected the case to be updated.');
+		Assert.areEqual(caseRecord.Id, updateableCases[0].Id, 'Expected the case to be updated.');
+		Assert.areEqual(CaseUnifiedAutomationService.QUEUE_SETTINGS?.ClosedQueueId__c, updateableCases[0].OwnerId, 'Expected the case to be assigned to closed cases omni queue.');
+		Assert.areEqual(SSSWConstants.CASE_STATUS_CLOSED, updateableCases[0].Status, 'Expected the case status to be closed.');
+		Assert.areEqual(caseWrapper.newRootCause, updateableCases[0].Root_cause__c, 'Expected the case root cause to be set.');
+		Assert.areEqual(caseWrapper.newResolutionCode, updateableCases[0].ResolutionCode__c, 'Expected the case resolution code to be set.');
+	}
+
+	/**
+	 * Test to ensure open cases opted out of subscription automation (Exclude_Subscription_Automation__c = true) are
+	 * reassigned (NOT closed) on scan event case closure automation.
+	 */
+	@IsTest
+	static void testOpenCasesOptedOutOfSubscriptionAutomationAreReassignedOnScanEventClosureAutomation() {
+		// =====================================
+		// Data Preparation
+		// =====================================
+		Case caseRecord = ApplicationTestDataFactoryCase.getCases(1, true)[0];
+		caseRecord.Status = SSSWConstants.CASE_STATUS_UPDATED;
+		caseRecord.Exclude_Subscription_Automation__c = true;
+		caseRecord = (Case)ApplicationTestDataFactory.setUnwritableFields(caseRecord, new Map<String, Object>{
+				'ContactEmail' => 'test@test.invalid'
+		});
+
+		// =====================================
+		// Stubbing
+		// =====================================
+		ApplicationUnitOfWork mockUow = MockUtility.mockUnitOfWork();
+		AgentWorkSelector mockAgentWorkSelector = (AgentWorkSelector)MockUtility.mockSelector(AgentWorkSelector.class);
+		PendingServiceRoutingSelector mockPSRSelector = (PendingServiceRoutingSelector)MockUtility.mockSelector(PendingServiceRoutingSelector.class);
+
+		// set up our responses
+		MockUtility.Mocks.startStubbing();
+		MockUtility.Mocks.when(mockPSRSelector.selectByWorkItemId((Set<Id>)fflib_Match.eq(new Set<Id>{caseRecord.Id}), (Set<Object>)fflib_Match.anyObject())).thenReturn(new List<PendingServiceRouting>());
+		MockUtility.Mocks.when(mockAgentWorkSelector.search((Map<String, Object>)fflib_Match.anyObject(), fflib_Match.anyBoolean())).thenReturn(new List<AgentWork>());
+		MockUtility.Mocks.stopStubbing();
+
+		// =====================================
+		// Testing
+		// =====================================
+		Test.startTest();
+
+		CaseUnifiedAutomationService.RecordWrapper caseWrapper = new CaseUnifiedAutomationService.RecordWrapper();
+		caseWrapper.caseRecord = caseRecord;
+		caseWrapper.newRootCause = 'test root cause';
+		caseWrapper.newResolutionCode = 'test resolution code';
+		CaseUnifiedAutomationService.getInstance().processForCaseClosure(new List<CaseUnifiedAutomationService.RecordWrapper>{caseWrapper}, CaseUnifiedAutomationService.InvocationPoint.SCANAUTO, mockUow);
+
+		Test.stopTest();
+
+		fflib_ArgumentCaptor updatableCasesCaptor = fflib_ArgumentCaptor.forClass(List<Case>.class);
+		((ApplicationUnitOfWork) MockUtility.Mocks.verify(mockUow, MockUtility.Mocks.times(1))).registerDirty((List<Case>) updatableCasesCaptor.capture(), fflib_Match.eqBoolean(false), fflib_Match.anyString());
+		List<Case> updateableCases = (List<Case>) updatableCasesCaptor.getValue();
+
+		Assert.areEqual(1, updateableCases.size(), 'Expected the case to be updated.');
+		Assert.areEqual(caseRecord.Id, updateableCases[0].Id, 'Expected the case to be updated.');
+		Assert.areEqual(CaseUnifiedAutomationService.QUEUE_SETTINGS?.UnifiedDefaultOmniQueueId__c, updateableCases[0].OwnerId, 'Expected the case to be assigned to unified cases omni queue.');
+		Assert.areEqual(SSSWConstants.CASE_STATUS_UPDATED, updateableCases[0].Status, 'Expected the case status to be updated.');
+		Assert.areEqual(CaseUnifiedAutomationService.REASSIGNMENT_REASON_OPT_OUT_AUTOMATION, updateableCases[0].ReassignmentReason__c, 'Expected the case reassignment reason to be set.');
+	}
+
+	/**
+	 * Test to ensure open cases with no associated contact email are reassigned (NOT closed) on scan event case closure automation.
+	 */
+	@IsTest
+	static void testOpenCasesWithNoContactEmailAreReassignedOnScanEventClosureAutomation() {
+		// =====================================
+		// Data Preparation
+		// =====================================
+		Case caseRecord = ApplicationTestDataFactoryCase.getCases(1, true)[0];
+		caseRecord.Status = SSSWConstants.CASE_STATUS_UPDATED;
+		caseRecord.Exclude_Subscription_Automation__c = false;
+
+		// =====================================
+		// Stubbing
+		// =====================================
+		ApplicationUnitOfWork mockUow = MockUtility.mockUnitOfWork();
+		AgentWorkSelector mockAgentWorkSelector = (AgentWorkSelector)MockUtility.mockSelector(AgentWorkSelector.class);
+		PendingServiceRoutingSelector mockPSRSelector = (PendingServiceRoutingSelector)MockUtility.mockSelector(PendingServiceRoutingSelector.class);
+
+		// set up our responses
+		MockUtility.Mocks.startStubbing();
+		MockUtility.Mocks.when(mockPSRSelector.selectByWorkItemId((Set<Id>)fflib_Match.eq(new Set<Id>{caseRecord.Id}), (Set<Object>)fflib_Match.anyObject())).thenReturn(new List<PendingServiceRouting>());
+		MockUtility.Mocks.when(mockAgentWorkSelector.search((Map<String, Object>)fflib_Match.anyObject(), fflib_Match.anyBoolean())).thenReturn(new List<AgentWork>());
+		MockUtility.Mocks.stopStubbing();
+
+		// =====================================
+		// Testing
+		// =====================================
+		Test.startTest();
+
+		CaseUnifiedAutomationService.RecordWrapper caseWrapper = new CaseUnifiedAutomationService.RecordWrapper();
+		caseWrapper.caseRecord = caseRecord;
+		caseWrapper.newRootCause = 'test root cause';
+		caseWrapper.newResolutionCode = 'test resolution code';
+		CaseUnifiedAutomationService.getInstance().processForCaseClosure(new List<CaseUnifiedAutomationService.RecordWrapper>{caseWrapper}, CaseUnifiedAutomationService.InvocationPoint.SCANAUTO, mockUow);
+
+		Test.stopTest();
+
+		fflib_ArgumentCaptor updatableCasesCaptor = fflib_ArgumentCaptor.forClass(List<Case>.class);
+		((ApplicationUnitOfWork) MockUtility.Mocks.verify(mockUow, MockUtility.Mocks.times(1))).registerDirty((List<Case>) updatableCasesCaptor.capture(), fflib_Match.eqBoolean(false), fflib_Match.anyString());
+		List<Case> updateableCases = (List<Case>) updatableCasesCaptor.getValue();
+
+		Assert.areEqual(1, updateableCases.size(), 'Expected the case to be updated.');
+		Assert.areEqual(caseRecord.Id, updateableCases[0].Id, 'Expected the case to be updated.');
+		Assert.areEqual(CaseUnifiedAutomationService.QUEUE_SETTINGS?.UnifiedDefaultOmniQueueId__c, updateableCases[0].OwnerId, 'Expected the case to be assigned to unified cases omni queue.');
+		Assert.areEqual(SSSWConstants.CASE_STATUS_UPDATED, updateableCases[0].Status, 'Expected the case status to be updated.');
+		Assert.areEqual(CaseUnifiedAutomationService.REASSIGNMENT_REASON_MISSING_CUSTOMER_EMAIL, updateableCases[0].ReassignmentReason__c, 'Expected the case reassignment reason to be set.');
+	}
+
+	/**
+	* Test to ensure cases with scheduled contact requests are closed on scan event case closure automation only if case
+	 * and child contact requests do not have any active AgentWork.
+	*/
+	@IsTest
+	static void testOpenCasesWithChildContactRequestsOnScanEventClosureAutomation() {
+		// =====================================
+		// Data Preparation
+		// =====================================
+		List<Case> cases = ApplicationTestDataFactoryCase.getCases(3, true);
+		cases[0].Status = SSSWConstants.CASE_STATUS_UPDATED;
+		cases[1].Status = SSSWConstants.CASE_STATUS_UPDATED;
+		cases[2].Status = SSSWConstants.CASE_STATUS_UPDATED;
+		cases[2] = (Case)ApplicationTestDataFactory.setUnwritableFields(cases[2], new Map<String, Object>{
+				'ContactEmail' => 'test@test.invalid'
+		});
+
+		List<ContactRequest> contactRequests = ApplicationTestDataFactoryCase.getContactRequests(3, new List<Id>{cases[0].Id, cases[1].Id, cases[2].Id}, null, true);
+
+		// setup child contact requests on each case
+		cases[0] = (Case)ApplicationTestDataFactory.setChildRelationships(cases[0], new Map<String, List<SObject>>{'ContactRequests' => new List<ContactRequest>{contactRequests[0]}});
+		cases[1] = (Case)ApplicationTestDataFactory.setChildRelationships(cases[1], new Map<String, List<SObject>>{'ContactRequests' => new List<ContactRequest>{contactRequests[1]}});
+		cases[2] = (Case)ApplicationTestDataFactory.setChildRelationships(cases[2], new Map<String, List<SObject>>{'ContactRequests' => new List<ContactRequest>{contactRequests[2]}});
+
+		// setup PSR record for contactRequests[0]. cases[0] should be closed as there is currently no active agent work on Case or child contact request.
+		PendingServiceRouting psr = ApplicationTestDataFactoryCase.getPendingServiceRoutings(1, null, null, new List<Id>{contactRequests[0].Id}, true)[0];
+
+		// setup AgentWork record on contactRequests[1]
+		List<AgentWork> agentWork = ApplicationTestDataFactoryCase.getAgentWorks(1, null, new List<Id>{contactRequests[1].Id}, true);
+		// agentWork[0] is in status 'Opened'. cases[1] should not be closed or reassigned as the contact request has been assigned to an agent.
+		agentWork[0] = (AgentWork) ApplicationTestDataFactory.setUnwritableFields(agentWork[0], new Map<String, Object>{
+				'Status' => SSSWConstants.OMNI_AGENTWORK_STATUS_OPENED
+		});
+
+		// contactRequests[2] has no PSR records or AgentWork. cases[2] should be closed.
+
+		// =====================================
+		// Stubbing
+		// =====================================
+		ApplicationUnitOfWork mockUow = MockUtility.mockUnitOfWork();
+		AgentWorkSelector mockAgentWorkSelector = (AgentWorkSelector)MockUtility.mockSelector(AgentWorkSelector.class);
+		PendingServiceRoutingSelector mockPSRSelector = (PendingServiceRoutingSelector)MockUtility.mockSelector(PendingServiceRoutingSelector.class);
+
+		// set up our responses
+		MockUtility.Mocks.startStubbing();
+		MockUtility.Mocks.when(mockPSRSelector.selectByWorkItemId((Set<Id>)fflib_Match.eq(new Set<Id>{cases[0].Id, cases[1].Id, cases[2].Id, contactRequests[0].Id, contactRequests[1].Id, contactRequests[2].Id}), (Set<Object>)fflib_Match.anyObject())).thenReturn(new List<PendingServiceRouting>{psr});
+		MockUtility.Mocks.when(mockAgentWorkSelector.search((Map<String, Object>)fflib_Match.anyObject(), fflib_Match.anyBoolean())).thenReturn(agentWork);
+		MockUtility.Mocks.stopStubbing();
+
+		// =====================================
+		// Testing
+		// =====================================
+		Test.startTest();
+
+		List<CaseUnifiedAutomationService.RecordWrapper> caseWrappers = new List<CaseUnifiedAutomationService.RecordWrapper>();
+		for (Case caseRecord: cases) {
+			CaseUnifiedAutomationService.RecordWrapper caseWrapper = new CaseUnifiedAutomationService.RecordWrapper();
+			caseWrapper.caseRecord = caseRecord;
+			caseWrapper.newResolutionCode = 'test resolution code';
+			caseWrapper.newRootCause = 'test root cause';
+			caseWrappers.add(caseWrapper);
+		}
+		CaseUnifiedAutomationService.getInstance().processForCaseClosure(caseWrappers, CaseUnifiedAutomationService.InvocationPoint.SCANAUTO, mockUow);
+
+		Test.stopTest();
+
+		fflib_ArgumentCaptor updatableCasesCaptor = fflib_ArgumentCaptor.forClass(List<Case>.class);
+		((ApplicationUnitOfWork) MockUtility.Mocks.verify(mockUow, MockUtility.Mocks.times(1))).registerDirty((List<Case>) updatableCasesCaptor.capture(), fflib_Match.eqBoolean(false), fflib_Match.anyString());
+		List<Case> updateableCases = (List<Case>) updatableCasesCaptor.getValue();
+
+		Assert.areEqual(1, updateableCases.size(), 'Expected only one case to be updated.');
+		Assert.areEqual(cases[2].Id, updateableCases[0].Id, 'Only the case whose SCRs does not have PSRs or active AgentWork is expected to be updated.');
+		Assert.areEqual(CaseUnifiedAutomationService.QUEUE_SETTINGS?.ClosedQueueId__c, updateableCases[0].OwnerId, 'Expected the case to be assigned to closed cases omni queue.');
+		Assert.areEqual(SSSWConstants.CASE_STATUS_CLOSED, updateableCases[0].Status, 'Expected the case to be closed.');
+		Assert.areEqual(caseWrappers[2].newRootCause, updateableCases[0].Root_cause__c, 'Expected the case root cause to be set.');
+		Assert.areEqual(caseWrappers[2].newResolutionCode, updateableCases[0].ResolutionCode__c, 'Expected the case resolution code to be set.');
+	}
+
 }
