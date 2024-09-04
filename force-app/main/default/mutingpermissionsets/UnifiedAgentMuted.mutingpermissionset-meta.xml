@@ -45,5 +45,15 @@
         <field>Account.Sales_Segment__c</field>
         <readable>false</readable>
     </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Contact.SpecialTreatment__c</field>
+        <readable>false</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Contact.Special_Treatment_Notes__c</field>
+        <readable>false</readable>
+    </fieldPermissions>
     <label>Unified Agent Muted</label>
 </MutingPermissionSet>
