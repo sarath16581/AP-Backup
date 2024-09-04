@@ -134,6 +134,16 @@
         }
     },
 
+	/**
+     *  Sort the data based on the column name
+     */
+	onDoSorting: function(component, event, helper) {
+        var fieldName = event.getParam('fieldName');
+        var sortDirection = event.getParam('sortDirection');
+		component.set("v.sortBy", fieldName);
+		component.set("v.sortDirection", sortDirection);
+		helper.sortData(component, fieldName, sortDirection);
+    },
     /**
     *   Handle when check box on data table is clicked
     *   Select the rows clicked
