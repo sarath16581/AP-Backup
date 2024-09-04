@@ -63,6 +63,16 @@
 			</div>
 		</template>
 
+		<template for:each={hasCriticalIncidentErrors} for:item="error">
+			<div key={error.message}>
+				<div class="slds-notify slds-notify_alert slds-theme_alert-texture slds-theme_error" role="alert"
+					key={error}>
+					<span class="slds-assistive-text">error</span>
+					<h2>{error.message}</h2>
+				</div>
+			</div>
+		</template>
+
 		<template for:each={hasStarTrackWarnings} for:item="warning">
 			<div key={warning.message}>
 				<div class="slds-notify slds-notify_alert slds-theme_alert-texture starTrackWarning" role="alert" key={warning}>
