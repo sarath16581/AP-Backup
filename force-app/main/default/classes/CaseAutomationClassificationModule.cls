@@ -3,6 +3,7 @@
  * @changelog
  * 2024-08-20	George Nguyen	Created and added classifyUnifiedCases(...)
  * 2024-09-02	George Nguyen	Checked for on insert if the record type matches the type field. Included default values for when Type changes from Geneal Enquiry to Investigation
+ * 2024-09-03	George Nguyen	Included default values on Insert for type and subtype
  */
 public inherited sharing class CaseAutomationClassificationModule extends ApplicationModule {
 	 /*
@@ -74,11 +75,13 @@ public inherited sharing class CaseAutomationClassificationModule extends Applic
 
 				} else { // on insert
 
-					// If Type is set to Investigation but Record Type does not match
+					// If Type is set to Investigation but Record Type does not match, set default values
 					if(aCase.Type == SSSWConstants.CASE_TYPE_INVESTIGATION
 						&& aCase.RecordTypeId != unifiedRecordTypeDeveloperNameVsIds.get(SSSWConstants.UNIFIED_INVESTIGATION_DEVELOPER_NAME)
 					) {
 						aCase.RecordTypeId = unifiedRecordTypeDeveloperNameVsIds.get(SSSWConstants.UNIFIED_INVESTIGATION_DEVELOPER_NAME);
+						aCase.Type_and_Product__c = SSSWConstants.CASE_TYPE_AND_PRODUCT_UNIFIED_MODEL;
+						aCase.EnquirySubType__c = SSSWConstants.CASE_ENQUIRY_SUBTYPE_LATE_ITEM;
 					}
 				}
 			}
