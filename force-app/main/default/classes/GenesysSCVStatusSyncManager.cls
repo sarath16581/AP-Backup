@@ -184,14 +184,18 @@ global with sharing class GenesysSCVStatusSyncManager implements genesyscloud.Ge
 		String id = '';
 		String presence = '';
 
+		String fromStatusId;
+
 		if (salesforceInputStatus != null) {
 			statusName = (String)salesforceInputStatus.get('statusName');
 			statusId = (String)salesforceInputStatus.get('statusId');
+			fromStatusId = (String)salesforceInputStatus.get('statusId');
 		}
 
 		if (genesysInputStatus != null) {
-			id = (String)genesysInputStatus.get('id');
 			presence = (String)genesysInputStatus.get('systemPresence');
+			id = (String)genesysInputStatus.get('id');
+			fromStatusId = (String)genesysInputStatus.get('id');
 		}
 
 		GenesysTargetStatus genesysTargetStatus = new GenesysTargetStatus(id);
@@ -219,6 +223,10 @@ global with sharing class GenesysSCVStatusSyncManager implements genesyscloud.Ge
 	 * @return Response payload
 	 */
 	public String onSalesforceStatusChange(String data) {
+		if (UserInfo.getUserId() == paulId) {
+			GenesysSCVStatusSyncManager2 instance = new GenesysSCVStatusSyncManager2();
+			return instance.onSalesforceStatusChange(data);
+		}
 		return JSON.serialize(handleStatusChange(StatusOrigin.SALESFORCE, data));
 	}
 
@@ -230,6 +238,12 @@ global with sharing class GenesysSCVStatusSyncManager implements genesyscloud.Ge
 	 * @return Response payload
 	 */
 	public String onGenesysCloudStatusChange(String data) {
+		if (UserInfo.getUserId() == paulId) {
+			GenesysSCVStatusSyncManager2 instance = new GenesysSCVStatusSyncManager2();
+			return instance.onGenesysCloudStatusChange(data);
+		}
 		return JSON.serialize(handleStatusChange(StatusOrigin.GENESYS, data));
 	}
+
+	private static Id paulId = '0052v00000kLvGP';
 }

@@ -5,15 +5,15 @@
     <values>
         <field>MappingData__c</field>
         <value xsi:type="xsd:string">{
-    &quot;AVAILABLE&quot;: &quot;AVAILABLEFORVOICE&quot;,
-    &quot;AWAY&quot;: &quot;BUSY&quot;,
-    &quot;BUSY&quot;: &quot;OFFLINE&quot;,
-    &quot;OFFLINE&quot;: &quot;IDLE&quot;,
-    &quot;IDLE&quot;: &quot;ON_QUEUE&quot;,
-    &quot;ON_QUEUE&quot;: &quot;MEAL&quot;,
-    &quot;MEAL&quot;: &quot;TRAINING&quot;,
-    &quot;TRAINING&quot;: &quot;MEETING&quot;,
-    &quot;MEETING&quot;: &quot;BREAK&quot;
+  &quot;AVAILABLE&quot;: &quot;PERSONAL&quot;,
+  &quot;AWAY&quot;: &quot;AWAY&quot;,
+  &quot;BUSY&quot;: &quot;BUSY&quot;,
+  &quot;OFFLINE&quot;: &quot;AWAY&quot;,
+  &quot;ON_QUEUE&quot;: &quot;AVAILABLEFORVOICE&quot;,
+  &quot;MEAL&quot;: &quot;ON_BREAK&quot;,
+  &quot;TRAINING&quot;: &quot;COACHING&quot;,
+  &quot;MEETING&quot;: &quot;MEETING&quot;,
+  &quot;BREAK&quot;: &quot;PERSONAL&quot;
 }</value>
     </values>
     <values>

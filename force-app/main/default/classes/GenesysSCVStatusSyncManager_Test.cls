@@ -10,18 +10,56 @@ public with sharing class GenesysSCVStatusSyncManager_Test {
     @IsTest
 	public static void testSyncManager(){
 		// Salesforce Service Presence Statuses
-		ServicePresenceStatus testServicePresenceStatus = new ServicePresenceStatus(
+		ServicePresenceStatus sfPresenceAvailableVoice = new ServicePresenceStatus(
 			Id = fflib_IDGenerator.generate(ServicePresenceStatus.SObjectType),
 			MasterLabel = 'Available for Voice',
-			DeveloperName = 'AVAILABLE_VOICE'
+			DeveloperName = 'Available_for_Voice'
 		);
 
+		ServicePresenceStatus sfPresenceAvailable =new ServicePresenceStatus(
+			Id = fflib_IDGenerator.generate(ServicePresenceStatus.SObjectType),
+			MasterLabel = 'Available',
+			DeveloperName = 'Available'
+		);
+
+		List<ServicePresenceStatus> testServicePresenceStatuses = new List<ServicePresenceStatus>{
+			sfPresenceAvailableVoice, sfPresenceAvailable
+		};
+
 		// Genesys Agent Status Statuses
-		GenesysAgentStatusIdMapping__c testAgentStatus = new GenesysAgentStatusIdMapping__c(
+		GenesysAgentStatusIdMapping__c genStatusAway = new GenesysAgentStatusIdMapping__c(
 			Id = fflib_IDGenerator.generate(GenesysAgentStatusIdMapping__c.SObjectType),
-			Name = 'AWAY',
-			StatusId__c = 'GEN-AWAY-Id',
+			Name = 'Away',
+			StatusId__c = 'GEN-Away-Id',
 			Source__c = 'Genesys'
+		);
+
+		GenesysAgentStatusIdMapping__c genStatusAvailable = new GenesysAgentStatusIdMapping__c(
+			Id = fflib_IDGenerator.generate(GenesysAgentStatusIdMapping__c.SObjectType),
+			Name = 'Available',
+			StatusId__c = 'GEN-Available-Id',
+			Source__c = 'Genesys'
+		);
+
+		List<GenesysAgentStatusIdMapping__c> testAgentStatus = new List<GenesysAgentStatusIdMapping__c>{
+			genStatusAway, genStatusAvailable
+		};
+
+		// System Mappings SF => Genesys + Genesys => SF
+		Map<String,GenesysAgentStatusMapping__mdt> systemMappings = getSystemMappings(
+			new Map<String,Map<String,Object>>{
+				// Mappings Genesys => Salesforce
+				'genesysStatusChange' => new Map<String,Object>{
+					// 'AVAILABLE' => 'AVAILABLE FOR VOICE'
+					genStatusAvailable.Name => sfPresenceAvailableVoice.DeveloperName
+				},
+
+				// Mappings Salesforce => Genesys
+				'salesforceStatusChange' => new Map<String,Object>{
+					// 'AVAILABLE' => 'AWAY'
+					sfPresenceAvailable.DeveloperName => genStatusAway.Name
+				}
+			}
 		);
 
 		// Emulate the input parameter payload from the genesyscloud.GenesysSCVExtension.Status interface
@@ -29,30 +67,15 @@ public with sharing class GenesysSCVStatusSyncManager_Test {
 			new Map<String,Object>{
 				'salesforceStatus' => new Map<String,Object>{
 					'targetStatus' => new Map<String,Object>{
-						'statusName' => 'AVAILABLE',
-						'statusId' => 'SF_AVAILABLE-Id'
+						'statusName' => sfPresenceAvailable.DeveloperName,
+						'statusId' => sfPresenceAvailable.Id
 					}
 				},
 				'genesysCloudStatus' => new Map<String,Object>{
 					'targetStatus' => new Map<String,Object>{
-						'systemPresence' => 'AVAILABLE',
-						'id' => 'GEN_AVAILABLE-Id'
+						'systemPresence' => genStatusAvailable.Name,
+						'id' => genStatusAvailable.StatusId__c
 					}
-				}
-			}
-		);
-
-		// System Mappings SF => Genesys + Genesys => SF
-		Map<String,GenesysAgentStatusMapping__mdt> systemMappings = getSystemMappings(
-			new Map<String,Map<String,Object>>{
-				// Mappings Genesys => Salesforce
-				'genesysStatusChange' => new Map<String,Object>{
-					'AVAILABLE' => 'AVAILABLE_VOICE'
-				},
-
-				// Mappings Salesforce => Genesys
-				'salesforceStatusChange' => new Map<String,Object>{
-					'AVAILABLE' => 'AWAY'
 				}
 			}
 		);
@@ -65,11 +88,11 @@ public with sharing class GenesysSCVStatusSyncManager_Test {
 
 		MockUtility.Mocks
 			.when(mockPresenceStatus.selectActiveStatuses())
-			.thenReturn(new List<ServicePresenceStatus>{ testServicePresenceStatus });
+			.thenReturn(testServicePresenceStatuses);
 
 		MockUtility.Mocks
 			.when(mockAgentStatusId.selectBySource((String)fflib_Match.anyString()))
-			.thenReturn(new List<GenesysAgentStatusIdMapping__c>{ testAgentStatus });
+			.thenReturn(testAgentStatus);
 
 		MockUtility.Mocks
 			.when(mockAgentStatusMapping.selectByDeveloperName((Set<String>)fflib_Match.anyObject()))
@@ -83,25 +106,29 @@ public with sharing class GenesysSCVStatusSyncManager_Test {
 		String toSalesforce = syncManagerInstance.onGenesysCloudStatusChange(eventData);
 		String toGenesys = syncManagerInstance.onSalesforceStatusChange(eventData);
 
+		System.debug(String.join(new String[]{ toSalesforce, toGenesys }, '\n'));
+
 		System.assertNotEquals(null, toGenesys, 'Response message expected');
 		System.assertNotEquals(null, toSalesforce, 'Response message expected');
 
 		String salesforceTargetStatusId = GenesysSCVStatusSyncManager.getTargetStatus(
 			GenesysSCVStatusSyncManager.StatusOrigin.GENESYS,
-			'AVAILABLE'
+			genStatusAvailable.Name,
+			genStatusAvailable.StatusId__c
 		);
 
-		System.assertEquals(testServicePresenceStatus.Id, salesforceTargetStatusId, 'Incorrect Status Mapping to Salesforce');
+		System.assertEquals(sfPresenceAvailableVoice.Id, salesforceTargetStatusId, 'Incorrect Status Mapping to Salesforce');
 
 		String genesysTargetStatusId = GenesysSCVStatusSyncManager.getTargetStatus(
 			GenesysSCVStatusSyncManager.StatusOrigin.SALESFORCE,
-			'AVAILABLE'
+			sfPresenceAvailable.MasterLabel,
+			sfPresenceAvailable.Id
 		);
 
-		System.assertEquals(testAgentStatus.StatusId__c, genesysTargetStatusId, 'Incorrect Status Mapping to Genesys');
+		System.assertEquals(genStatusAway.StatusId__c, genesysTargetStatusId, 'Incorrect Status Mapping to Genesys');
 
 		try{
-			GenesysSCVStatusSyncManager.getTargetStatus(null, 'UNAVAILABLE');
+			GenesysSCVStatusSyncManager.getTargetStatus(null, 'UNAVAILABLE', null);
 			System.assert(false, 'Exception should\'ve been thrown');
 		} catch (HandledException hEx) {
 			System.assert(true, 'Expected caught');
