@@ -66,10 +66,6 @@
         }
     },
 
-
-	// myFunction: function(value, index, array) {
-	// 	return value.fieldName == 'CaseObject__r.Enquiry_Type__c'
-	// }
     /**
      *   Raise event to display Detail data
      *
