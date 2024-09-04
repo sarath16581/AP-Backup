@@ -4,7 +4,7 @@
     <hasActivationRequired>false</hasActivationRequired>
     <label>Unified Quick Text &amp; Reporting</label>
     <license>Salesforce</license>
-	<objectPermissions>
+    <objectPermissions>
         <allowCreate>true</allowCreate>
         <allowDelete>true</allowDelete>
         <allowEdit>true</allowEdit>
@@ -29,7 +29,7 @@
         <tab>standard-QuickText</tab>
         <visibility>Visible</visibility>
     </tabSettings>
-	<userPermissions>
+    <userPermissions>
         <enabled>true</enabled>
         <name>CreateCustomizeDashboards</name>
     </userPermissions>
