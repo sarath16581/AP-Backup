@@ -3,7 +3,8 @@
     <description>This permission set group will bundle together permissions and shall be assigned to Unified Agents</description>
     <hasActivationRequired>false</hasActivationRequired>
     <label>Unified Agent</label>
-	<permissionSets>UnifiedAgentQuickTextsUser</permissionSets>
+    <mutingPermissionSets>UnifiedAgentMuted</mutingPermissionSets>
+    <permissionSets>UnifiedAgentQuickTextsUser</permissionSets>
     <permissionSets>UnifiedCaseManagement</permissionSets>
     <permissionSets>UnifiedCustomerManagement</permissionSets>
     <permissionSets>UnifiedKnowledgeUser</permissionSets>
