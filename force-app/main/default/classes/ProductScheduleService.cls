@@ -99,7 +99,7 @@ public with sharing class ProductScheduleService {
 		Map<String,String> opportunityAccountList = ProductRevenueServiceInstance.getOpportunityAccountList(ProductRevenueServiceInstance.opportunityInfo.values());
 		if (resetRevenueAccountIds==true) {
 			for (Opportunity opportunityToUpdate : ProductRevenueServiceInstance.opportunityInfo.values()) {
-				opportunityToUpdate.RevenueCalculationAccountIDs__c = opportunityAccountList.get(opportunityToUpdate.accountId);
+				opportunityToUpdate.RevenueCalculationAccountIDs__c = opportunityAccountList.get(opportunityToUpdate.id);
 			}
 		}
 		return results;

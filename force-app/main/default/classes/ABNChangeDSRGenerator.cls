@@ -34,7 +34,6 @@ public abstract with sharing class ABNChangeDSRGenerator {
 	public virtual Deal_Support_Request__c toDsrRecord() {
 		Deal_Support_Request__c dsr = new Deal_Support_Request__c();
 		dsr.Requestor_Name__c = UserInfo.getName();
-		dsr.Billing_Number__c = 'TBA';
 		dsr.Stage__c = 'New';
 		dsr.Priority__c = 'Medium';
 		dsr.Status__c = 'Draft';
@@ -42,7 +41,6 @@ public abstract with sharing class ABNChangeDSRGenerator {
 		dsr.Requestor__c = UserInfo.getUserId();
 		dsr.Organisation__c = this.organisationId;
 		dsr.Product__c = getProducts(productType);
-		// Map common fields here
 
 		return dsr;
 	}
@@ -89,6 +87,7 @@ public abstract with sharing class ABNChangeDSRGenerator {
 		public override Deal_Support_Request__c toDsrRecord() {
 			Deal_Support_Request__c dsr = super.toDsrRecord();
 			// Map other fields specifically for proposal dsr below and return
+			dsr.Billing_Number__c = 'TBA';
 			dsr.Work_Type__c = this.isProposal ? 'New Proposal' : 'New Agreement';
 			dsr.Support_Work_Type__c = 'Deal Enablement Support';
 			dsr.Description__c = getDescription();
@@ -139,6 +138,7 @@ public abstract with sharing class ABNChangeDSRGenerator {
 		public override Deal_Support_Request__c toDsrRecord() {
 			Deal_Support_Request__c dsr = super.toDsrRecord();
 			// Map other fields specifically for proposal dsr below and return
+			dsr.Billing_Number__c = 'See all Billing Accounts';
 			dsr.Sub_Accounts__c = 'See all Sub-Accounts';
 			dsr.Work_Type__c = productType == 'ST' ? 'Termination of all ST Contract(s) - ABN Change' : 'Termination of all AP Contract(s) - ABN Change';
 			dsr.Support_Work_Type__c = 'Deal Processing';
@@ -187,7 +187,8 @@ public abstract with sharing class ABNChangeDSRGenerator {
 		public override Deal_Support_Request__c toDsrRecord() {
 			Deal_Support_Request__c dsr = super.toDsrRecord();
 			// Map other fields specifically for proposal dsr below and return
-			dsr.Sub_Accounts__c = 'See all Sub-Accounts';
+			dsr.Billing_Number__c = 'See all ST Billing Accounts';
+			dsr.Sub_Accounts__c = 'See all ST Sub-Accounts';
 			dsr.Work_Type__c = 'Close all ST Billing Account(s) - ABN Change';
 			dsr.Support_Work_Type__c = 'Deal Processing';
 			dsr.Description__c = getDescription();
@@ -297,8 +298,8 @@ public abstract with sharing class ABNChangeDSRGenerator {
 			if (this.billingAccounts.size() <= 5) {
 				text += '\nBilling Account Number(s): ' + String.join(this.billingAccountNumbers, ', ');
 			} else {
-				text += '\nCount of Parent Accounts: ' + this.countOfParent + ' and Count of Sub-Accounts: ' + (this.billingAccounts.size() - this.countOfParent) + '\nRefer to CSV for all billing/sub accounts'
-						+ (this.creditOfficerEmails.size() > 1 ? '\nThere are more than 1 credit officers linked to the billing accounts under this ABN' : '');
+				text += '\nCount of Parent Accounts: ' + this.countOfParent + ' and Count of Sub-Accounts: ' + (this.billingAccounts.size() - this.countOfParent) + '\nRefer to CSV for all billing accounts'
+						+ (this.creditOfficerEmails.size() > 1 ? '\nMore than 1 credit officers linked to the billing accounts' : '');
 			}
 			return text;
 		}

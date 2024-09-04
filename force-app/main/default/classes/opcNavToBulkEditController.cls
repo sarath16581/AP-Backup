@@ -16,12 +16,16 @@ public with sharing class opcNavToBulkEditController {
 	@AuraEnabled
 	public static Boolean recalculateRevenue(String oppId) {
 		try {
+            system.debug('*** getting uow for' + oppId);
 			ApplicationUnitOfWork uow = ApplicationUnitOfWork.newInstance(getUnitOfWorkSObjectTypes());
+            system.debug('*** performing updates for '+uow);
 			GroupedLineItemSalesModule.newInstance().performRevenueUpdates(new Set<Id>{oppId}, uow);
 			uow.commitWork();
 			return true;
 		} catch (Exception ex) {
-			UTIL_LoggingService.logHandledException(ex, UserInfo.getOrganizationId(), 'opcNavToBulkEditController', opcNavToBulkEditController.class.getName(), 'recalculateRevenue', 'opcNavToBulkEditController', LoggingLevel.ERROR);
+  			System.debug('***** Error: ' + ex.getMessage());
+    		System.debug('***** Stack Trace: ' + ex.getStackTraceString());
+            UTIL_LoggingService.logHandledException(ex, UserInfo.getOrganizationId(), 'opcNavToBulkEditController', opcNavToBulkEditController.class.getName(), 'recalculateRevenue', 'opcNavToBulkEditController', LoggingLevel.ERROR);
 			return false;
 		}
 	}

@@ -5,19 +5,86 @@
  @author Nathan Franklin
  @date 30.01.2014
  @changelog
+ 2024-06-13 - Seth Heang - Update the PDF page layout including page break and additional attribute passing to the DeliveryProofPdfRenderer VF component
+ 2024-07-05 - Seth Heang - Added Header and Footer to the PDF layout
  -->
-<apex:page id="MyCustomerDeliveryProofPdfWrapper" controller="MyCustomerDeliveryProofPdfController" action="{!getSafeDropOrSignature}" showHeader="false" sideBar="false" renderAs="advanced_pdf">
+ <apex:page id="MyCustomerDeliveryProofPdfWrapper" controller="MyCustomerDeliveryProofPdfController" showHeader="false"
+			sideBar="false" renderAs="advanced_pdf" applyBodyTag="false">
 
-    <apex:outputPanel rendered="{!NOT(ISNULL(pageError))}" layout="none">
-        <div id="errorWrapper" style="margin:20px;">
-            <div class="alert alert-warning" role="alert">
-                {!pageError}
-            </div>
-        </div>
-    </apex:outputPanel>
+	<!-- Page, Header and Footer Configuration -->
+	<head>
+		<style type="text/css" media="print">
+			@page {
+				size: A4 portrait;
+				margin-top: 2cm;
+				margin-bottom: 2.2cm;
+				@top-left {
+					content: element(header);
+					display: flex;
+				}
+				@bottom-left {
+					content: element(footer);
+					height: 50px;
+				}
+			}
 
-    <apex:outputPanel rendered="{!ISNULL(pageError)}" layout="none">
-        <c:DeliveryProofPdfRenderer eventMessage="{!eventMessage}" signatureAttachmentId="{!signatureAttachmentId}" safeDropAttachmentId="{!safeDropAttachmentId}" />
-    </apex:outputPanel>
+			div.header {
+				position: running(header);
+			}
 
+			div.footer {
+				position: running(footer);
+			}
+		</style>
+	</head>
+
+	<!-- Error Page -->
+	<apex:outputPanel rendered="{!NOT(ISNULL(pageError))}" layout="none">
+		<div id="errorWrapper" style="margin:20px;">
+			<div class="alert alert-warning" role="alert">
+				{!pageError}
+			</div>
+		</div>
+	</apex:outputPanel>
+
+	<!-- Loop and render each PDF page -->
+	<apex:repeat value="{!deliveryProofAttributes}" var="dp">
+		<!-- HEADER START -->
+		<div class="header" style="text-align: right">
+			<!-- AusPost OR StarTrack Logo -->
+			<apex:outputText rendered="{!dp.isStarTrackProduct == true}">
+				<img style="width: 168px; height: 63px;" src="{!$Resource.StarTrack_Logo_Proof_of_Delivery}"/>
+			</apex:outputText>
+			<apex:outputText rendered="{!dp.isStarTrackProduct == false}">
+				<img style="width: 168px; height: 63px;" src="{!$Resource.AusPost_Logo_Proof_Of_Delivery}"/>
+			</apex:outputText>
+		</div>
+		<!-- HEADER END -->
+
+		<!-- FOOTER START -->
+		<div class="footer">
+			<!-- DISCLAIMER -->
+			<p style="font-size:0.8em;">{!$Label.Disclaimer_POD}</p>
+		</div>
+		<!-- FOOTER END -->
+
+		<!-- BODY START -->
+		<div class="content">
+			<apex:outputPanel rendered="{!ISNULL(pageError)}" layout="none">
+				<c:DeliveryProofPdfRenderer isStarTrackProduct="{!dp.isStarTrackProduct}"
+					eventMessage="{!dp.eventMessage}"
+					signatureAttachmentId="{!dp.signatureAttachmentId}"
+					safeDropAttachmentId="{!dp.safeDropAttachmentId}"
+					articleList="{!dp.articlesInDeliveryEvent}"
+					consignedCount="{!dp.consigned}"
+					deliveredCount="{!dp.delivered}"
+				/>
+			</apex:outputPanel>
+			<!-- NOTE: set up page break after each page, excluding the last page -->
+			<apex:outputText rendered="{!dp.isLastPage != true}">
+				<div style="page-break-after: always;"></div>
+			</apex:outputText>
+		</div>
+		<!-- BODY END -->
+	</apex:repeat>
 </apex:page>

@@ -3,7 +3,17 @@
     <fullName>PODSafeDropDelivered</fullName>
     <description>This is used to render the delivered fields in the delivery proof PDF used by both MyCustomer and BSP</description>
     <displayedFields>
-        <field>SignatoryName__c</field>
+        <field>ActualDateTime__c</field>
+        <isFieldManaged>false</isFieldManaged>
+        <isRequired>false</isRequired>
+    </displayedFields>
+    <displayedFields>
+        <field>Article__r.SubProduct__c</field>
+        <isFieldManaged>false</isFieldManaged>
+        <isRequired>false</isRequired>
+    </displayedFields>
+    <displayedFields>
+        <field>Article__r.DeliveryInstructions__c</field>
         <isFieldManaged>false</isFieldManaged>
         <isRequired>false</isRequired>
     </displayedFields>

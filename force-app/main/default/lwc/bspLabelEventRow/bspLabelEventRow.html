@@ -1,57 +1,68 @@
 <!--
-  * @author       : Jansi Rani. jansi.rani@auspost.com.au
-  * @date         : 31/08/2020
-  * @description  : Component for Article Event Row.
+	* @author		: Jansi Rani. jansi.rani@auspost.com.au
+	* @date		: 31/08/2020
+	* @description	: Component for Article Event Row.
 --------------------------------------- History --------------------------------------------------
-31.08.2020    Jansi Rani   Created
+31.08.2020	Jansi Rani Created
 -->
 <template>
-    <template if:true={le}>
-        
-        <td class="table-first-cell"><lightning-button class={articleLinkClass} variant="base" label={le.Article__r.Name} onclick={selectEventArticle}></lightning-button></td>
-        
-        <!--<template if:true={isConsignmentSerchIsAPType}>
-            <td><lightning-button class={articleLinkClass} variant="base" label={le.Article__r.Name} onclick={selectEventArticle}></lightning-button></td>
-        </template>
+	<template if:true={le}>
 
-        <template if:false={isConsignmentSerchIsAPType}>
-            <td>{le.Article__r.Name}</td>
-        </template>-->
-    
-        <td>
-            <template if:true='{isConsignmentSerchIsAPType}'>
-                <lightning-formatted-date-time value={le.ActualDateTime__c} year="numeric" month="numeric"
-                    day="numeric">
-                </lightning-formatted-date-time>&nbsp;
-                <lightning-formatted-date-time value={le.ActualDateTime__c} hour="2-digit" minute="2-digit"
-                    hour12="true">
-                </lightning-formatted-date-time>
+		<td class="table-first-cell"><lightning-button class={articleLinkClass} variant="base"
+				label={le.Article__r.Name} onclick={selectEventArticle}></lightning-button></td>
 
-            </template>
-            <template if:false='{isConsignmentSerchIsAPType}'>
-                {stFormattedActualDateTimeStr}<!--{le.ActualDateTime_TimeStamp__c}--> 
-            </template>
-        </td>
+		<!--<template if:true={isConsignmentSerchIsAPType}>
+			<td><lightning-button class={articleLinkClass} variant="base" label={le.Article__r.Name} onclick={selectEventArticle}></lightning-button></td>
+		</template>
 
-        <td><div class="slds-cell-wrap">{le.ExternalDescription__c}</div></td>
+		<template if:false={isConsignmentSerchIsAPType}>
+			<td>{le.Article__r.Name}</td>
+		</template>-->
 
-        <td>
-            <template if:true='{isConsignmentSerchIsAPType}'>
-                {le.WorkCentreText__c}
-            </template>
-            <template if:false='{isConsignmentSerchIsAPType}'>
-                {le.Depot_Code__c}
-            </template>
-        </td>
-        <template if:true='{isConsignmentSerchIsAPType}'>
-            <template if:true={isConsignmentAuthenticated}>
-                <td>
-                    <template if:true={isCENotesAttachmentsExists}>
-                        <a href={podHref} target='_blank'>Click to view</a>
-                    </template>
-                    <template if:false={isCENotesAttachmentsExists}>&nbsp;</template>
-                </td>
-            </template>
-        </template>
-    </template>
+		<td>
+			<template if:true='{isConsignmentSerchIsAPType}'>
+				<lightning-formatted-date-time value={le.ActualDateTime__c} year="numeric" month="numeric"
+					day="numeric">
+				</lightning-formatted-date-time>&nbsp;
+				<lightning-formatted-date-time value={le.ActualDateTime__c} hour="2-digit" minute="2-digit"
+					hour12="true">
+				</lightning-formatted-date-time>
+
+			</template>
+			<template if:false='{isConsignmentSerchIsAPType}'>
+				{stFormattedActualDateTimeStr}<!--{le.ActualDateTime_TimeStamp__c}-->
+			</template>
+		</td>
+
+		<td>
+			<div class="slds-cell-wrap">{le.ExternalDescription__c}</div>
+		</td>
+
+		<td>
+			<template if:true='{isConsignmentSerchIsAPType}'>
+				{le.WorkCentreText__c}
+			</template>
+			<template if:false='{isConsignmentSerchIsAPType}'>
+				{le.Depot_Code__c}
+			</template>
+		</td>
+		<template if:true='{isConsignmentSerchIsAPType}'>
+			<template if:true={isConsignmentAuthenticated}>
+				<td>
+					<template if:true={isCENotesAttachmentsExists}>
+						<a onclick={handlePodHref} target='_blank'>Click to view</a>
+						<template if:true={isLoading}>
+							<div role="status"
+								class="slds-m-left_x-small slds-m-top_small slds-spinner slds-spinner_x-small slds-spinner_inline">
+								<span class="slds-assistive-text">Loading</span>
+								<div class="slds-spinner__dot-a"></div>
+								<div class="slds-spinner__dot-b"></div>
+							</div>
+						</template>
+					</template>
+					<template if:false={isCENotesAttachmentsExists}>&nbsp;</template>
+				</td>
+			</template>
+		</template>
+	</template>
 </template>
