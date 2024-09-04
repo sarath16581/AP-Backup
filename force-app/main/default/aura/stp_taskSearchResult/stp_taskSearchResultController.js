@@ -134,6 +134,9 @@
         }
     },
 
+	/**
+     *  Sort the data based on the column name
+     */
 	onDoSorting: function(component, event, helper) {
         var fieldName = event.getParam('fieldName');
         var sortDirection = event.getParam('sortDirection');

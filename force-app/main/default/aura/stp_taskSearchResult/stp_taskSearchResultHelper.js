@@ -87,6 +87,10 @@
         notify.fire();
     },
 
+	/**
+     *   Sort the data based on the sort direction and column name
+     *
+     */
 	sortData: function(component, fieldName, sortDirection) {
 		var data = component.get("v.data");
         var key = function(a) { return a[fieldName]; }
