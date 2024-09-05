@@ -9,6 +9,7 @@
  * @changelog
  * 2024-07-10 - Seth Heang - Created.
  * 2024-07-18 - Seth Heang - Added new methods for processing 3 days and 5 days monitoring alerts
+ * 2024-07-28 - Seth Heang - remove isClosed check from entry condition for processing scheduledActions
  */
 public inherited sharing class CaseUnifiedProactiveMonitoringModule extends ApplicationModule {
 	@TestVisible
@@ -118,7 +119,7 @@ public inherited sharing class CaseUnifiedProactiveMonitoringModule extends Appl
 		List<Case> eligibleCasesForScheduledActions = new List<Case>();
 		Boolean revalidate = existingRecords != null && !existingRecords.isEmpty();
 		for (Case updatedCase : records) {
-			if (!updatedCase.IsClosed && UNIFIED_RECORD_TYPE_IDS.contains(updatedCase.RecordTypeId)) {
+			if (UNIFIED_RECORD_TYPE_IDS.contains(updatedCase.RecordTypeId)) {
 				eligibleCasesForScheduledActions.add(updatedCase);
 			}
 		}

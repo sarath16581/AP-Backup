@@ -5,6 +5,8 @@
  *				This controller manages the creation of consumer including a PersonAccount, Organisation or Contact including appropriate error handling back to LWC.
  * @changelog
  * 2024-08-15 - Seth Heang - created
+ * 2024-08-26 - Seth Heang - added without-sharing inner class to link Organisation to Contact due to technical challenge related to criteria-based sharing rule order of execution
+ * 2024-08-27 - Seth Heang - remove savepoint/rollback as unnecessary and split error message to get only validation rule message and discarded unnecessary technical details
  */
 public with sharing class UnifiedCustomerCreationController {
 	// Customer type segments
@@ -57,26 +59,21 @@ public with sharing class UnifiedCustomerCreationController {
 	 */
 	@AuraEnabled
 	public static Id createNewCustomer(CustomerCreationRequest request) {
-		Savepoint sp = Database.setSavepoint();
-		Id customerId;
-		SObject newCustomer;
 		try {
+			SObject newCustomer;
 			// populate field attribute mappings for contact, organisation, personaccount
 			newCustomer = buildConsumerDataForInsert(request);
 			// insert contact or personAccount
-			customerId = insertCustomer(newCustomer);
+			return insertCustomer(newCustomer);
 		} catch (AuraHandledException ex) {
-			ApplicationDatabase.getInstance().dmlRollback(sp);
 			AuraHandledException ae = new AuraHandledException(ex.getMessage());
 			ae.setMessage(ex.getMessage());
 			throw ae;
 		} catch (Exception ex) {
-			ApplicationDatabase.getInstance().dmlRollback(sp);
 			AuraHandledException ae = new AuraHandledException(GENERIC_ERROR_MESSAGE);
 			ae.setMessage(GENERIC_ERROR_MESSAGE);
 			throw ae;
 		}
-		return customerId;
 	}
 
 	/**
@@ -86,12 +83,18 @@ public with sharing class UnifiedCustomerCreationController {
 	 */
 	private static Id insertCustomer(SObject newCustomer) {
 		Id customerId; // Contact.Id or PersonAccount.PersonContactId
+		Boolean requireLinkOrganisationToContact = (newCustomer instanceof Contact) && !String.isBlank(((Contact)newCustomer).AccountId);
+		Id accountId;
+		if(requireLinkOrganisationToContact){
+			accountId = ((Contact)newCustomer).AccountId; // save accountId for later update
+			((Contact)newCustomer).AccountId = null; // set to null to allow successful insert
+		}
 		List<Database.SaveResult> srs = ApplicationDatabase.getInstance().dmlInsert(new List<SObject>{
 				newCustomer
 		}, false); // set allOrNothing to false, to get duplicate errors
 		Database.SaveResult sr = srs[0];
 		if (!sr.isSuccess()) {
-			handleDuplicateError(sr);
+			handleDatabaseError(sr);
 		}
 
 		// successful insert
@@ -101,6 +104,12 @@ public with sharing class UnifiedCustomerCreationController {
 					.selectById(new Set<Id>{ sr.getId() }).values()[0].PersonContactId;
 		} else {
 			customerId = sr.getId();
+			if (requireLinkOrganisationToContact && accountId != null) {
+				// Note: link new organisation id to contact, in without sharing mode because the criteria-based sharing rule for Account is calculated only after the end of current transaction.
+				// And asynchronous operation is not desirable, due to impact to front-end user experience and also technical difficulty posed for rollback capability
+				WithoutSharingDataAccessHelper innerClassWithoutSharing = new WithoutSharingDataAccessHelper();
+				innerClassWithoutSharing.linkOrganisationToContact(customerId, accountId);
+			}
 		}
 		return customerId;
 	}
@@ -109,7 +118,7 @@ public with sharing class UnifiedCustomerCreationController {
 	 * @description handle duplicate error and customise the error message prior to throwing AuraHandledException back to creation form LWC
 	 * @param sr Database.SaveResult
 	 */
-	private static void handleDuplicateError(Database.SaveResult sr) {
+	private static void handleDatabaseError(Database.SaveResult sr) {
 		for (Database.Error error : sr.getErrors()) {
 			if (error instanceof Database.DuplicateError) {
 				Datacloud.DuplicateResult dupRes = ((Database.DuplicateError) error).getDuplicateResult();
@@ -134,9 +143,17 @@ public with sharing class UnifiedCustomerCreationController {
 					throw ae;
 				}
 			}
+			// Added below code to split error.getMessage() where error message sometimes returns one long string with technical details (e.g. Update failed. First exception on row 0 with id ...)
+			// Thus, split the error message to only display the message from validation rule
+			String updatedErrorMessage;
+			if(error.getMessage().contains('FIELD_CUSTOM_VALIDATION_EXCEPTION')){
+				updatedErrorMessage = error.getMessage().substringAfter('FIELD_CUSTOM_VALIDATION_EXCEPTION,');
+			}else {
+				updatedErrorMessage = error.getMessage();
+			}
 			// pass through other DML-related error (e.g. validation rule's message)
-			AuraHandledException ae = new AuraHandledException(error.getMessage());
-			ae.setMessage(error.getMessage());
+			AuraHandledException ae = new AuraHandledException(updatedErrorMessage);
+			ae.setMessage(updatedErrorMessage);
 			throw ae;
 		}
 	}
@@ -181,10 +198,10 @@ public with sharing class UnifiedCustomerCreationController {
 		newAccount.LastName = request.lastName;
 		newAccount.Preferred_Name__pc = request.preferredName;
 		newAccount.PersonEmail = request.emailAddress;
-		if (request.phoneNumber.startsWith(MOBILE_PREFIX)){
-			newAccount.PersonMobilePhone = request.phoneNumber;
+		if (request?.phoneNumber.startsWith(MOBILE_PREFIX)){
+			newAccount.PersonMobilePhone = request?.phoneNumber;
 		} else {
-			newAccount.Phone = request.phoneNumber;
+			newAccount.Phone = request?.phoneNumber;
 		}
 		newAccount.PersonMailingStreet = request.addressStreet;
 		newAccount.PersonMailingCity = request.addressCity;
@@ -209,10 +226,10 @@ public with sharing class UnifiedCustomerCreationController {
 		newContact.LastName = request.lastName;
 		newContact.Preferred_Name__c = request.preferredName;
 		newContact.Email = request.emailAddress;
-		if (request.phoneNumber.startsWith(MOBILE_PREFIX)){
-			newContact.MobilePhone = request.phoneNumber;
+		if (request?.phoneNumber.startsWith(MOBILE_PREFIX)){
+			newContact.MobilePhone = request?.phoneNumber;
 		} else {
-			newContact.Phone = request.phoneNumber;
+			newContact.Phone = request?.phoneNumber;
 		}
 		newContact.MailingStreet = request.addressStreet;
 		newContact.MailingCity = request.addressCity;
@@ -293,5 +310,32 @@ public with sharing class UnifiedCustomerCreationController {
 
 		@AuraEnabled
 		public String organisationName { get; set; }
+	}
+
+
+	/**
+	 * Private inner class that elevates access privileges of the current user to link Organisation to Contact without being limited by
+	 * sharing settings. This is implemented due to a niche-case limitation where criteria-based sharing rule is calculated only after the end of current transaction.
+	 * And making asynchronous operation would impact the user experience on the front-end LWC and posed difficulty for rollback functionality
+	 *
+	 * IMPORTANT: Not intended for general use. Only for handling special scenarios as described above.
+	*/
+	private without sharing class WithoutSharingDataAccessHelper {
+		private void linkOrganisationToContact(Id contactId, Id organisationId){
+			Contact updatableContact = new Contact(Id = contactId, AccountId = organisationId);
+			try{
+				List<Database.SaveResult> srs = ApplicationDatabase.getInstance().dmlUpdate(new List<SObject>{
+						updatableContact
+				}, false); // set allOrNothing to false, to get duplicate errors
+				Database.SaveResult sr = srs[0];
+				if (!sr.isSuccess()) {
+					handleDatabaseError(sr);
+				}
+			}catch(Exception ex){
+				AuraHandledException ae = new AuraHandledException(ex.getMessage());
+				ae.setMessage(ex.getMessage());
+				throw ae;
+			}
+		}
 	}
 }

@@ -5,6 +5,10 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>UnifiedCaseHandOffController</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>UnifiedPushToMonitoringQueueController</apexClass>
         <enabled>true</enabled>
     </classAccesses>
@@ -67,6 +71,16 @@
     </fieldPermissions>
 	<fieldPermissions>
         <editable>true</editable>
+        <field>Case.CaseTransferDate__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+	<fieldPermissions>
+        <editable>true</editable>
+        <field>Case.CaseTransferReason__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+	<fieldPermissions>
+        <editable>true</editable>
         <field>Case.CaseOriginator__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -103,6 +117,11 @@
 	<fieldPermissions>
         <editable>true</editable>
         <field>Case.Address2__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+	<fieldPermissions>
+        <editable>true</editable>
+        <field>Case.ArticleTest__c</field>
         <readable>true</readable>
     </fieldPermissions>
 	<fieldPermissions>
