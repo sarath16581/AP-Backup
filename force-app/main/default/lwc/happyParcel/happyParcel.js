@@ -22,8 +22,6 @@
 import { LightningElement, track, wire, api } from "lwc";
 import { getAnalyticsApiResponse, getTrackingApiResponse, getTrackingApiResponseForStarTrack, getCriticalIncidentDetails, getConfig, safeTrim, safeToUpper, subscribe, unsubscribe, downloadPODPDF, CONSTANTS } from 'c/happyParcelService'
 import { NavigationMixin } from 'lightning/navigation';
-import { publish, MessageContext } from 'lightning/messageService';
-import GENERIC_LMS_CHANNEL from '@salesforce/messageChannel/genericMessageChannel__c';
 
 export default class HappyParcelWrapper extends NavigationMixin(LightningElement) {
 
@@ -40,6 +38,9 @@ export default class HappyParcelWrapper extends NavigationMixin(LightningElement
 
 	// When showing a consignment search result, child articls are selectable and dom events are dispatched if this option is enabled
 	@api supportsSelectableChildArticles;
+
+	// When showing a consignment search result, child articles shows read only checkbox
+	@api supportsReadOnlyCheckboxChildArticles;
 
 	// if this is true then a this allows the happyParcelCustomerDetails component to be selectedable
 	// when the component is clicked, an event is generated and propagated up the DOM
@@ -101,10 +102,8 @@ export default class HappyParcelWrapper extends NavigationMixin(LightningElement
 
 	_displayPodDownloadButton = false; // flag to show proof of delivery download button in Consignment Detail section
 	_signatureEventTypes; // store event type to validate signature event
-	
-	@wire(MessageContext)
-	messageContext; // wire the message context and pass to publisher to send LMS events
-
+	@track displaySelectAllTick = false; // show or hide select all tick mark when it is clicked
+	@track displayIndeterminate = false; // show or hide Indeterminate icon
 	/**
 	 * Using getter/setter to enable us to trigger a search from either above (receiving tracking id from external source), or below (receiving tracking id from article selector component)
 	 */
@@ -369,11 +368,6 @@ export default class HappyParcelWrapper extends NavigationMixin(LightningElement
 					};
 				})
 			);
-		} else {
-			// build and publish 'searchCompleted' LMS Event
-			const type = consignment ? 'Consignment' : 'Article';
-			const trackingId = consignment ? consignment.trackingId : currentTrackingId;
-			this.publishSapSearchCompletedLMS(type, trackingId);
 		}
 
 		this.loadingTrackingApi = false;
@@ -500,10 +494,8 @@ export default class HappyParcelWrapper extends NavigationMixin(LightningElement
 				break;
 			}
 		}
-
-		// build and publish LMS Event for selected articles
-		const selectedArticles = this.articles.filter((item) => item.articleSelected).map((item) => item.trackingId);
-		this.publishSelectedArticlesLMS(this.consignment.trackingId, selectedArticles);
+		//To display tick or Dash icon on the select all checkbox on articles container.
+		this.setIconInSelectAllCheckbox();
 
 		this.broadcastSelectedArticles();
 	}
@@ -549,13 +541,73 @@ export default class HappyParcelWrapper extends NavigationMixin(LightningElement
 		this.dispatchEvent(new CustomEvent('selectedarticles', { detail: selectedArticles, bubbles: true, composed: true }));
 	}
 
-	resetSearch() {
+	@api resetSearch() {
 		this.consignment = { trackingResults: {}, analyticsResult: {} };
 		this.articles = [];
 		this.errors = [];
 		this.warnings = [];
 		this.retryAnalytics = false;
 		this.vodvWarning = null;
+	}
+
+	@api selectOrDeselectImpactedArticles(selectedArticles) {
+		for(let indx = 0; indx < this.articles.length; indx++){
+
+			if(selectedArticles.includes(this.articles[indx].trackingId)){
+				this.articles[indx].articleSelected = true;
+			}else{
+				this.articles[indx].articleSelected = false;
+			}
+		}
+		//To display tick or Dash icon on the select all checkbox on articles container.
+		this.setIconInSelectAllCheckbox();
+		this.broadcastSelectedArticles();
+	}
+
+	handleSelectAllDeselectAll(){		
+		let selectAll = true;
+		this.displaySelectAllTick = true;
+		this.displayIndeterminate = false;
+		if(this.articles){
+			if(this.getSelectedArticlesLength() > 0){
+				selectAll = false;
+				this.displaySelectAllTick = false;
+			}
+
+			for(let indx = 0; indx < this.articles.length; indx++){
+				this.articles[indx].articleSelected = selectAll;
+			}
+		}
+
+		this.broadcastSelectedArticles();
+	}
+
+	getSelectedArticlesLength(){
+		let selectedArticlesLength = 0;
+		for(let indx = 0; indx < this.articles.length; indx++){
+			if(this.articles[indx].articleSelected){
+				selectedArticlesLength++;
+			}
+		}
+
+		return selectedArticlesLength;
+	}
+
+	setIconInSelectAllCheckbox(){		
+		const selectedArticlesLength = this.getSelectedArticlesLength();
+
+		if(selectedArticlesLength > 0 && selectedArticlesLength != this.articles.length){
+			this.displayIndeterminate = true;
+			this.displaySelectAllTick = false;
+		}
+		else if(selectedArticlesLength == 0){
+			this.displayIndeterminate = false;
+			this.displaySelectAllTick = false;
+		}
+		else if(selectedArticlesLength == this.articles.length){
+			this.displayIndeterminate = false;
+			this.displaySelectAllTick = true;
+		}
 	}
 
 	getNewArticleContainer() {
@@ -640,6 +692,7 @@ export default class HappyParcelWrapper extends NavigationMixin(LightningElement
 	triggerClearviewMappingEvent() {
 		if (this.consignment && this.consignment.trackingId) {
 			const detail = {
+				articleRecordId: (this.consignment.trackingResult.article ? this.consignment.trackingResult.article.Id : null),
 				isConsignment: this.isConsignment,
 				articleCount: this.articles.length,
 				trackingId: this.consignment.trackingId,
@@ -651,8 +704,11 @@ export default class HappyParcelWrapper extends NavigationMixin(LightningElement
 			this.dispatchEvent(new CustomEvent('trackingsearchcomplete', { detail: detail, bubbles: true, composed: true }));
 		} else if (this.articles && this.articles.length > 0) {
 			// there should only ever be one article here since if it was a consignment, this code would not be called)
+			console.log('Articles : ');
+			console.log(JSON.stringify(this.articles));
 			const detail = {
 				trackingId: this.articles[0].trackingId,
+				articleRecordId: (this.articles[0].trackingResult.article ? this.articles[0].trackingResult.article.Id : null),
 				type: this.articles[0].trackingResult.caseTypeMapping,
 				productCategory: this.articles[0].trackingResult.caseProductCategory,
 				productSubCategory: this.articles[0].trackingResult.caseProductSubCategory,
@@ -714,40 +770,6 @@ export default class HappyParcelWrapper extends NavigationMixin(LightningElement
 			console.error(exception);
 		}
 		this.loadingPODPDFDownload = false;
-	}
-
-	/**
-	 * @description Publish the selected articles LMS event
-	 * @param trackingId
-	 * @param selectedArticles
-	 */
-	publishSelectedArticlesLMS(trackingId, selectedArticles) {
-		const lmsEventPayload = {
-			source: 'HappyParcel',
-			type: 'articleSelected',
-			body: {
-				consignmentId: trackingId,
-				selectedArticleIds: selectedArticles
-			}
-		};
-		publish(this.messageContext, GENERIC_LMS_CHANNEL, lmsEventPayload);
-	}
-
-	/**
-	 * @description Publish the SAP search complete LMS event
-	 * @param type
-	 * @param trackingId
-	 */
-	publishSapSearchCompletedLMS(type, trackingId) {
-		const lmsEventPayload = {
-			source: 'HappyParcel',
-			type: 'searchCompleted',
-			body: {
-				type: type,
-				trackingId: trackingId
-			}
-		}
-		publish(this.messageContext, GENERIC_LMS_CHANNEL, lmsEventPayload);
 	}
 
 	get displayPodDownloadButton() {

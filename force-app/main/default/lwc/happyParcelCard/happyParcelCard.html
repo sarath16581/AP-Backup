@@ -44,8 +44,9 @@
 				<!-- Only display for consignment WHERE safe drop image or signature exists -->
 				<template if:true={showPodDownloadButton}>
 					<div class="slds-no-flex">
-						<span>Download POD</span>&nbsp;
-						<lightning-button-icon icon-name="utility:download" variant="border" alternative-text="Download" size="x-small" onclick={handlePODButtonClick}> </lightning-button-icon>
+						<lightning-button label="Download POD" title="Download POD" icon-name="utility:download" class="slds-m-left_x-small" icon-position="right" onclick={handlePODButtonClick}></lightning-button>
+						<!--<span>Download POD</span>&nbsp;
+						<lightning-button-icon icon-name="utility:download" variant="border" alternative-text="Download" size="x-small" onclick={handlePODButtonClick}> </lightning-button-icon>-->
 					</div>
 				</template>
 			</header>

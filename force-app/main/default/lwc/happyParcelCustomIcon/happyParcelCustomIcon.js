@@ -16,7 +16,8 @@ const DEFAULT_COLOURS = {
 	'happy-face': '#fccf3e',
 	'wink-face': '#fccf3e',
 	'neutral-face': '#fccf3e',
-	'event-message': '#ffffff'
+	'event-message': '#ffffff',
+	'dash': '#00ff00'
 };
 
 export default class HappyParcelCustomIcon extends LightningElement {
@@ -65,5 +66,8 @@ export default class HappyParcelCustomIcon extends LightningElement {
 	}
 	get fillColour() {
 		return (this.colour === 'default' && Object.keys(DEFAULT_COLOURS).includes(this.icon) ? DEFAULT_COLOURS[this.icon] : (this.colour === 'default' ? '#000000' : this.colour));
+	}
+	get iconIsDash(){
+		return this.icon === 'dash';
 	}
 }
