@@ -5,11 +5,12 @@
                 record-id={recordId}
                 ontrackingsearchcomplete={handleSearchComplete}
                 onselectedarticles={handleSelectedArticles}
-        >
-        </c-unified-tracking-voice-wrapper>
+        ></c-unified-tracking-voice-wrapper>
     </c-accordion-custom>
 
     <c-accordion-custom section-title={customerNameSectionTitle} variant="default">
-        LWC TBD
+        <c-unified-customer-search-voice-call-wrapper
+                record-id={recordId}
+        ></c-unified-customer-search-voice-call-wrapper>
     </c-accordion-custom>
 </template>

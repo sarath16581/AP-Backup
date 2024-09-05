@@ -56,8 +56,6 @@ export default class UnifiedVoiceCallFieldSync extends LightningElement {
     }
 
     connectedCallback() {
-        console.log('this.voiceCallFields');
-        console.log(this.voiceCallFields);
         this.registerErrorListener();
         this.registerSubscribe();
     }
@@ -91,21 +89,8 @@ export default class UnifiedVoiceCallFieldSync extends LightningElement {
                 fieldApiNames.push(field.fieldApiName);
             });
 
-            // only sync the records when the call is in progress and previous/next call Id matches
-            //todo enable this line when it is not testing if (recordIds.includes(this.voiceCallDetails.NextCallId) && this.voiceCallDetails.CallDisposition === IN_PROGRESS_VOICE_STATUS) { // this is to decision if the record is the original record, if the changed record Id is the same as the Next Call field value, then it is indicating the current record is the original
-            if (recordIds.includes(this.voiceCallDetails.NextCallId)) { // this is to decision if the record is the original record, if the changed record Id is the same as the Next Call field value, then it is indicating the current record is the original
-                const fields = {}; // fields to be updated on the original record
-                fields.Id = this.recordId;
-                fieldApiNames.forEach((fieldApiName)=>{
-                    if (changePayload.hasOwnProperty(fieldApiName)) { // the newly changed value from the record that initiated the change
-                        fields[fieldApiName] = changePayload[fieldApiName];
-                    }
-                });
-
-                const recordInput = {fields};
-                updateRecord(recordInput).then(()=>{
-                    notifyRecordUpdateAvailable([{recordId: this.recordId}]);
-                });
+            if (recordIds.includes(this.recordId)) {
+                notifyRecordUpdateAvailable([{recordId: this.recordId}]);
             }
         } catch (err) {
             console.error(reduceErrors(error).join(','));

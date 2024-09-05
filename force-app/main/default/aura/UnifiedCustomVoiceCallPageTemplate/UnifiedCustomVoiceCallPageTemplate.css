@@ -22,3 +22,7 @@
 .THIS .top-left-element .slds-col{
     padding-left: 0;
 }
+
+.THIS .conversation-card {
+    min-width: auto !important;
+}

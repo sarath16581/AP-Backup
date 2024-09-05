@@ -18,7 +18,7 @@
 
     <!-- Main Content Layout -->
     <div class="slds-grid slds-gutters slds-wrap">
-        <div class="slds-col slds-small-size_12-of-12 slds-medium-size_3-of-12 slds-large-3-of-12 no-right-padding">
+        <div class="slds-col slds-small-size_12-of-12 slds-medium-size_12-of-12 slds-large-size_3-of-12 no-right-padding">
             <div class="top-left-element">
                 {!v.leftTopElement}
             </div>
@@ -32,11 +32,11 @@
             </lightning:card>
         </div>
 
-        <div class="slds-col slds-small-size_12-of-12 slds-medium-size_3-of-12 slds-large-3-of-12 no-right-padding">
+        <div class="slds-col slds-small-size_12-of-12 slds-medium-size_12-of-12 slds-large-size_3-of-12 no-right-padding">
             <span>{!v.secondElement}</span>
         </div>
 
-        <div class="slds-col slds-small-size_12-of-12 slds-medium-size_6-of-12 slds-large-size_6-of-12">
+        <div class="slds-col slds-small-size_12-of-12 slds-medium-size_12-of-12 slds-large-size_6-of-12">
             <span>{!v.thirdElement}</span>
         </div>
     </div>
