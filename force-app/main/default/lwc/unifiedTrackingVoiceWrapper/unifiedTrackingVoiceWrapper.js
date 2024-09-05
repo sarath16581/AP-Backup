@@ -39,7 +39,7 @@ export default class UnifiedTrackingVoiceWrapper extends LightningElement {
 	articleRecordId;
 	// Tracking Id that is available on the interation record.
 	trackingIdFromRecord;
-	// Consignment records that ois available on the interation record.
+	// Consignment recordId that is available on the interation record.
 	consignmentIdFromRecord;
 	// Holds case record Id available on the voice all record.
 	caseId;
@@ -103,6 +103,7 @@ export default class UnifiedTrackingVoiceWrapper extends LightningElement {
 			this.showSpinner = false;
 			console.error(error);
 		} else if (data && data.records) {
+			this.impactedArticleIds = [];
 			data.records.forEach(element => this.impactedArticleIds.push(element.fields.ArticleId__c.value));
 			this.selectOrDeselectImpactedArticles();
 		}
