@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <UserAccessPolicy xmlns="http://soap.sforce.com/2006/04/metadata">
     <booleanFilter>1 AND 2 AND 3</booleanFilter>
-    <description>This policy is used to onboard new users as Unified Agent Team Leads</description>
-    <masterLabel>Unified_Agent_Team_Lead_Policy</masterLabel>
+    <description>This policy is used to onboard new users as Unified Knowledge and Content Users</description>
+    <masterLabel>Unified Agent Knowledge And Content Policy</masterLabel>
     <order>1</order>
     <status>Design</status>
     <triggerType>CreateAndUpdate</triggerType>
     <userAccessPolicyActions>
         <action>Grant</action>
-        <target>UnifiedAgentTeamLead</target>
+        <target>UnifiedAgentKnowledgeAndContent</target>
         <type>PermissionSetGroup</type>
     </userAccessPolicyActions>
     <userAccessPolicyFilters>
@@ -20,7 +20,7 @@
     <userAccessPolicyFilters>
         <operation>equals</operation>
         <sortOrder>2</sortOrder>
-        <target>UnifiedTeamLead</target>
+        <target>UnifiedTeamSupportLead</target>
         <type>UserRole</type>
     </userAccessPolicyFilters>
     <userAccessPolicyFilters>
