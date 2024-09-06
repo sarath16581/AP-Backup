@@ -1,0 +1,88 @@
+{
+	"picklistFieldValues": {
+		"EnquirySubType__c": {
+			"controllerValues": {
+				"Unified Model": 0
+			},
+			"defaultValue": null,
+			"url": "/services/data/v61.0/ui-api/object-info/Case/picklist-values/012Bm000005r2TpIAI/EnquirySubType__c",
+			"values": [
+				{
+					"attributes": null,
+					"label": "Late item",
+					"validFor": [
+						0
+					],
+					"value": "Late item"
+				}
+			]
+		},
+		"ProductCategory__c": {
+			"controllerValues": {},
+			"defaultValue": null,
+			"url": "/services/data/v61.0/ui-api/object-info/Case/picklist-values/012Bm000005r2TpIAI/ProductCategory__c",
+			"values": [
+				{
+					"attributes": null,
+					"label": "Domestic",
+					"validFor": [],
+					"value": "Domestic"
+				}
+			]
+		},
+		"ProductSubCategory__c": {
+			"controllerValues": {
+				"Domestic": 0
+			},
+			"defaultValue": null,
+			"url": "/services/data/v61.0/ui-api/object-info/Case/picklist-values/012Bm000005r2TpIAI/ProductSubCategory__c",
+			"values": [
+				{
+					"attributes": null,
+					"label": "Express Post",
+					"validFor": [
+						0
+					],
+					"value": "Express Post"
+				},
+				{
+					"attributes": null,
+					"label": "Metro",
+					"validFor": [
+						0
+					],
+					"value": "Metro"
+				},
+				{
+					"attributes": null,
+					"label": "Parcel Post",
+					"validFor": [
+						0
+					],
+					"value": "Parcel Post"
+				},
+				{
+					"attributes": null,
+					"label": "StarTrack Premium",
+					"validFor": [
+						0
+					],
+					"value": "StarTrack Premium"
+				}
+			]
+		},
+		"Type_and_Product__c": {
+			"controllerValues": {},
+			"defaultValue": null,
+			"url": "/services/data/v61.0/ui-api/object-info/Case/picklist-values/012Bm000005r2TpIAI/Type_and_Product__c",
+			"values": [
+				{
+					"attributes": null,
+					"label": "Unified Model",
+					"validFor": [],
+					"value": "Unified Model"
+				}
+			]
+		}
+	}
+}

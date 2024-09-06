@@ -4,4 +4,18 @@
     <hasActivationRequired>false</hasActivationRequired>
     <label>Unified Tracking</label>
     <license>Salesforce</license>
+	<objectPermissions>
+		<object>Article__c</object>
+		<allowRead>true</allowRead>
+		<allowCreate>true</allowCreate>
+		<allowEdit>false</allowEdit>
+		<allowDelete>false</allowDelete>
+		<viewAllRecords>false</viewAllRecords>
+		<modifyAllRecords>false</modifyAllRecords>
+	 </objectPermissions>
+	 <fieldPermissions>
+        <editable>true</editable>
+        <field>Article__c.ProductID__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
 </PermissionSet>

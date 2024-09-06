@@ -1,0 +1,18 @@
+{
+	"012Bm000006HBurIAG": {
+		"available": true,
+		"defaultRecordTypeMapping": true,
+		"developerName": "UnifiedGeneralEnquiry",
+		"master": false,
+		"name": "Unified General Enquiry",
+		"recordTypeId": "012Bm000006HBurIAG"
+	},
+	"012Bm000005r2TpIAI": {
+		"available": true,
+		"defaultRecordTypeMapping": false,
+		"developerName": "UnifiedInvestigation",
+		"master": false,
+		"name": "Investigation",
+		"recordTypeId": "012Bm000005r2TpIAI"
+	}
+}

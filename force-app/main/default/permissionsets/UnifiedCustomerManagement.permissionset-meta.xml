@@ -9,6 +9,10 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>UnifiedCustomerSearchChatWrapCtrl</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>UnifiedCustomerSearchController</apexClass>
         <enabled>true</enabled>
     </classAccesses>
