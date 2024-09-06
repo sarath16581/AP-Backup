@@ -26,6 +26,7 @@
   * 31.07.2024 - Seth Heang - added constants for case's new 'Update' and 'Monitoring' status
   * 12.08.2024 - George Nguyen - added constants for Unified Investigation and Unified Entitlements
   * 20.08.2024 - George Nguyen - Added Unified App constant
+  * 06.09.2024 - George Nguyen - Renamed the name of this constant: UNIFIED_AGENT_PROFILE
   */  
 public with sharing class SSSWConstants {
 
@@ -338,7 +339,7 @@ public with sharing class SSSWConstants {
 	public static final String SSSW_AGENT_PROFILE = 'SSSW - Service Agent';
 	public static final String SSSW_SOCIAL_INTEGRATION_PROFILE = 'SSSW Social Integration';
 	public static final String SSSW_BSP_COMMUNITY_USER_PROFILE = 'BSP Community User';
-	public static final String UNIFIED_AGENT_PROFILE = 'CustomerService';
+	public static final String UNIFIED_AGENT_PROFILE = 'Customer Service';
 
 	/*** Omnichannel Constants ***/
 	public static final String OMNI_AGENTWORK_STATUS_OPENED = 'Opened';

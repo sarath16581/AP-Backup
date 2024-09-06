@@ -9,6 +9,7 @@
  * @changelog
  * 2024-07-10 - Seth Heang - Created.
  * 2024-07-18 - Seth Heang - Added new methods for processing 3 days and 5 days monitoring alerts
+ * 2024-09-06 - George Nguyen - removed invalid comments
  */
 public inherited sharing class CaseUnifiedProactiveMonitoringModule extends ApplicationModule {
 	@TestVisible
@@ -107,7 +108,6 @@ public inherited sharing class CaseUnifiedProactiveMonitoringModule extends Appl
 	 * @description Validate Case for 3 days and 5 days case monitoring scheduled action with below criteria:
 	 *				- Case is not closed
 	 *				- Case Record type is UnifiedInvestigation
-	 *				- Owner id Unified CustomerService Monitor ingQueue
 	 *				Then enqueue an async worker for eligibile case to be executed in async context
 	 * @param records
 	 * @param existingRecords

@@ -7,7 +7,7 @@
 	</applicationVisibilities>
 	<custom>true</custom>
 	<description>For unified agents. It is a No Access profile as access shall be managed via granular permission sets and grouped in a Permission Set Group based on Personas.</description>
-	<fullName>CustomerService</fullName>
+	<fullName>Unified Customer Service</fullName>
     <layoutAssignments>
         <layout>Account-Unified Agent Organisation Layout</layout>
     </layoutAssignments>
