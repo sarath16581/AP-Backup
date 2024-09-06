@@ -6,7 +6,7 @@
     populateDataTable: function(component, rslt) {
         if (rslt) {
             var rowsData = rslt.rowData;
-			var fieldsToSort = ["CaseObject__r.Calc_Case_Consignment__c","CaseObject__r.Priority","TaskUpdate__c",,"CreatedDate"];
+			var fieldsToSort = ["CaseObject__r.Calc_Case_Consignment__c","CaseObject__r.Priority","TaskUpdate__c","CreatedDate"];
             //setting
             component.set("v.dataList", rowsData);
             console.log('1.stp_taskSearchResultHelper rowsData.length =' +rowsData.length);
