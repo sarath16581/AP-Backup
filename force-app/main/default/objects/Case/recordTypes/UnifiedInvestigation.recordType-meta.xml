@@ -4,7 +4,7 @@
     <active>true</active>
     <businessProcess>Unified Process</businessProcess>
     <description>Investigation type enquiry for Unified cases</description>
-    <label>Unified Investigation</label>
+    <label>Investigation</label>
     <picklistValues>
         <picklist>AMLCTF_Please_Explain_Type__c</picklist>
         <values>
