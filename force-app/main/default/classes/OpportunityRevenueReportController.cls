@@ -11,6 +11,7 @@ public class OpportunityRevenueReportController {
 	public static final String SUFFIX = '_Revenue_Amount__c';
 	public static final String[] months = new String[] { 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec' };
 	public static final String errorMessage = 'Failed to retrieve revenue data. Please contact your administrator.';
+    private static final String OPPORTUNITY_CLOSED_WON = 'Closed Won';
 	@testVisible
 	private static Date calculationDate {
 		get {
@@ -21,7 +22,7 @@ public class OpportunityRevenueReportController {
 		}
 		set;
 	}
-
+    
 	// Sub-class to represent each row of data
 	public class RevenueData {
 		@AuraEnabled public String companyName { get; set; }
@@ -32,7 +33,6 @@ public class OpportunityRevenueReportController {
 			this.productRevenues = new Map<String, Decimal>();
 		}
 	}
-
 	// Method to get revenue data
 	@AuraEnabled(cacheable=true)
 	public static List<RevenueData> getRevenueData(String opportunityId) {
@@ -56,11 +56,13 @@ public class OpportunityRevenueReportController {
 			Map<Id,AccountRelationship__c> relatedAccounts =loadRelatedAccounts(mainAccountId);
 			// add these to the relevant accounts
 			relevantAccounts.addAll(relatedAccounts.keySet());
-
+			list<String> restrictedAccounts = ProductRevenueService.csvToList( opportunityMap.get(opportunityId).RevenueCalculationAccountIDs__c);
+            if (!restrictedAccounts.isEmpty()) {
+                relevantAccounts.addAll((List<id>)restrictedAccounts);
+            }
 			// retrieve relevant budget and revenues for all relevant accounts for this year and last (we need 12 months of sales data)
 			Set<String> financialYears = new Set<String> {String.valueOf(getAustralianFinancialYear(calculationDate) - 1), String.valueOf(getAustralianFinancialYear(calculationDate))};
 			Map<String,Budget_and_Revenue__c> customerRevenues = loadBudgetAndRevenueRecords(relevantAccounts, oppLineItem.keySet(), financialYears);
-			list<String> restrictedAccounts = ProductRevenueService.csvToList( opportunityMap.get(opportunityId).RevenueCalculationAccountIDs__c);
 			// get data row for main account
 			RevenueData data = new RevenueData(childAccounts.get(mainAccountId)?.Name);
 			buildRevenueData(mainAccountId,oppLineItem.values(),customerRevenues,data);
@@ -239,9 +241,11 @@ public class OpportunityRevenueReportController {
 	private static Boolean buildRevenueData(Id accountId,List<OpportunityLineItem> oppLineItem,Map<String,Budget_and_Revenue__c> customerRevenues,RevenueData data) {
 		Boolean hasData = false;
 		for(OpportunityLineItem item : oppLineItem) {
-			Date targetDate = item.Contract_Start_Date__c < calculationDate ? item.Contract_Start_Date__c : calculationDate;
+            Date targetDate = getDateToUse(item);
 			Integer FY = getAustralianFinancialYear(targetDate);
 			Integer startMonth = targetDate.month();
+            system.debug('*** Target Year '+FY);
+            system.debug('*** Target Month '+startMonth);
 			Double amt = getSumOfPastTwelveMonths(accountId,item.Product2.Id,FY,startMonth,customerRevenues);
 			data.productRevenues.put(item.Product2.Name,amt);
 			if (!hasData && amt>0 ) {
@@ -260,7 +264,7 @@ public class OpportunityRevenueReportController {
 		Map<SObjectType, Set<SObjectField>> fieldOverrides = new Map<SObjectType, Set<SObjectField>>{
 				OpportunityLineItem.SObjectType => new Set<SObjectField>{OpportunityLineItem.Id, OpportunityLineItem.Name,OpportunityLineItem.Quantity, OpportunityLineItem.Contract_Start_Date__c, OpportunityLineItem.Contract_End_Date__c,OpportunityLineItem.UnitPrice, OpportunityLineItem.TotalPrice, OpportunityLineItem.Annualised_Value__c, OpportunityLineItem.RetainedRevenue__c,OpportunityLineItem.IncrementalRevenue__c, OpportunityLineItem.TweleveMonthRevenue__c},
 				Product2.SObjectType => new Set<SObjectField>{Product2.Id,Product2.Name},
-				Opportunity.SObjectType => new Set<SObjectField>{Opportunity.Name,Opportunity.AccountId,Opportunity.Id}
+				Opportunity.SObjectType => new Set<SObjectField>{Opportunity.Name,Opportunity.AccountId,Opportunity.Id,Opportunity.Pre_Entry__c,Opportunity.StageName,Opportunity.CloseDate}
 		};
 		List<OpportunityLineItem> loadedItems = OpportunityLineItemSelector.newInstance(0, fieldOverrides).selectByOpportunity(new Set<Id>{opportunityId}, new Set<Object>{OpportunityLineItemSelector.Options.WITH_OPPORTUNITY, OpportunityLineItemSelector.Options.WITH_PRODUCT});
 		for (OpportunityLineItem item : loadedItems) {
@@ -299,7 +303,27 @@ public class OpportunityRevenueReportController {
 	}
 
 
-
+	/**
+	* @description Applies business rules for the revenue calculation starting date to be used for a particular line item
+	* @param item The opportunity line item to determine the revenue caclulation starting date for
+	* @return the calculation revenue starting date to be used.
+	* */
+	private static Date getDateToUse(OpportunityLineItem item) {
+		//If the pre-entry scenario checkbox has been ticked, then use the Contract Start Date of the Line Item
+		if (item.opportunity.Pre_Entry__c == true && item.Contract_Start_Date__c != null) { 
+            system.debug(' using item.contract_start_date '+ item.Contract_Start_Date__c);
+			return item.Contract_Start_Date__c;
+		}
+		//If the pre-entry scenario checkbox is unticked, then use the Close Date of the opportunity. 
+		if (item.opportunity.Pre_Entry__c == false && item.opportunity.StageName == OPPORTUNITY_CLOSED_WON) { 
+            system.debug(' using opportunity close date of '+item.opportunity.CloseDate);
+			return item.opportunity.CloseDate;
+		}
+		// a default date to use
+	    system.debug(' using revenueCalculationContextDate of '+date.Today());
+		return date.Today();
+	}
+    
 	private static Map<String,Budget_and_Revenue__c> loadBudgetAndRevenueRecords(Set<id> accountIds, Set<Id> productIds, Set<String> financialYears) {
 		Map<String,Budget_and_Revenue__c> loadedRevenueMap = new Map<String,Budget_and_Revenue__c>();
 		for (Budget_and_Revenue__c currentBudget : BudgetAndRevenueSelector.newInstance().selectByOrganisationAndProduct(accountIds,productIds,financialYears,new Set<Id>())) {

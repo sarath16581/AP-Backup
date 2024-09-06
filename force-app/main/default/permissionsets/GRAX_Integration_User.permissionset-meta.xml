@@ -98029,12 +98029,9 @@
         <allowDelete>false</allowDelete>
         <allowEdit>false</allowEdit>
         <allowRead>true</allowRead>
-        <customizeSetup>true</customizeSetup>
-        <deleteSetup>true</deleteSetup>
         <modifyAllRecords>false</modifyAllRecords>
         <object>Addresses__x</object>
         <viewAllRecords>false</viewAllRecords>
-        <viewSetup>true</viewSetup>
     </objectPermissions>
     <objectPermissions>
         <allowCreate>true</allowCreate>
@@ -101605,12 +101602,9 @@
         <allowDelete>false</allowDelete>
         <allowEdit>false</allowEdit>
         <allowRead>true</allowRead>
-        <customizeSetup>true</customizeSetup>
-        <deleteSetup>true</deleteSetup>
         <modifyAllRecords>false</modifyAllRecords>
         <object>Assets__x</object>
         <viewAllRecords>false</viewAllRecords>
-        <viewSetup>true</viewSetup>
     </objectPermissions>
     <objectPermissions>
         <allowCreate>true</allowCreate>
@@ -102437,15 +102431,6 @@
         <allowEdit>true</allowEdit>
         <allowRead>true</allowRead>
         <modifyAllRecords>true</modifyAllRecords>
-        <object>DataKitDeploymentLog</object>
-        <viewAllRecords>true</viewAllRecords>
-    </objectPermissions>
-    <objectPermissions>
-        <allowCreate>true</allowCreate>
-        <allowDelete>true</allowDelete>
-        <allowEdit>true</allowEdit>
-        <allowRead>true</allowRead>
-        <modifyAllRecords>true</modifyAllRecords>
         <object>DataUseLegalBasis</object>
         <viewAllRecords>true</viewAllRecords>
     </objectPermissions>
@@ -103066,12 +103051,9 @@
         <allowDelete>false</allowDelete>
         <allowEdit>false</allowEdit>
         <allowRead>true</allowRead>
-        <customizeSetup>true</customizeSetup>
-        <deleteSetup>true</deleteSetup>
         <modifyAllRecords>false</modifyAllRecords>
         <object>LeaseHeaders__x</object>
         <viewAllRecords>false</viewAllRecords>
-        <viewSetup>true</viewSetup>
     </objectPermissions>
     <objectPermissions>
         <allowCreate>true</allowCreate>
@@ -103294,24 +103276,18 @@
         <allowDelete>false</allowDelete>
         <allowEdit>false</allowEdit>
         <allowRead>true</allowRead>
-        <customizeSetup>true</customizeSetup>
-        <deleteSetup>true</deleteSetup>
         <modifyAllRecords>false</modifyAllRecords>
         <object>MyPostCards__x</object>
         <viewAllRecords>false</viewAllRecords>
-        <viewSetup>true</viewSetup>
     </objectPermissions>
     <objectPermissions>
         <allowCreate>false</allowCreate>
         <allowDelete>false</allowDelete>
         <allowEdit>false</allowEdit>
         <allowRead>true</allowRead>
-        <customizeSetup>true</customizeSetup>
-        <deleteSetup>true</deleteSetup>
         <modifyAllRecords>false</modifyAllRecords>
         <object>MyPostPreferences__x</object>
         <viewAllRecords>false</viewAllRecords>
-        <viewSetup>true</viewSetup>
     </objectPermissions>
     <objectPermissions>
         <allowCreate>true</allowCreate>
@@ -103696,12 +103672,9 @@
         <allowDelete>false</allowDelete>
         <allowEdit>false</allowEdit>
         <allowRead>true</allowRead>
-        <customizeSetup>true</customizeSetup>
-        <deleteSetup>true</deleteSetup>
         <modifyAllRecords>false</modifyAllRecords>
         <object>ProductHoldings__x</object>
         <viewAllRecords>false</viewAllRecords>
-        <viewSetup>true</viewSetup>
     </objectPermissions>
     <objectPermissions>
         <allowCreate>true</allowCreate>
@@ -105445,12 +105418,9 @@
         <allowDelete>false</allowDelete>
         <allowEdit>false</allowEdit>
         <allowRead>true</allowRead>
-        <customizeSetup>true</customizeSetup>
-        <deleteSetup>true</deleteSetup>
         <modifyAllRecords>false</modifyAllRecords>
         <object>items_Quip__x</object>
         <viewAllRecords>false</viewAllRecords>
-        <viewSetup>true</viewSetup>
     </objectPermissions>
     <objectPermissions>
         <allowCreate>true</allowCreate>

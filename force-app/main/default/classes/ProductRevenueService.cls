@@ -170,6 +170,7 @@ public with sharing class ProductRevenueService {
 		loadOpportunityInfoForOpportunityLineItems(items);
 		// collect accounts associated with the line items
 		loadOpportunityAccounts(opportunityInfo.values());
+        
 		system.debug('Loaded opportunity accounts for items '+items);
 		// return the newly created or recalculated grouped revenues
 		return reCalculateGroupRevenues(items,false);
@@ -483,33 +484,45 @@ public with sharing class ProductRevenueService {
 	}
  
 	public Map<String,String> getOpportunityAccountList(List<Opportunity> opportunities) {
-		Map<String,String> opportunityAccountList = new Map<String,String>();
-		loadOpportunityAccounts(opportunities);
+		system.debug('**** generating account list for opportunities '+opportunities);
+        Map<String,String> opportunityAccountList = new Map<String,String>();
+		Set<Id> loadedAccounts = loadOpportunityAccounts(opportunities);
+        
 		Map<Id,Set<Id>> parentToChildMap = getParentToChildAccountMap();
+        system.debug('**** parent to child account map '+parentToChildMap);
 		for(Opportunity opp : opportunities) {
-			List<String> opportunityAccountIds = new List<String>{opp.accountId};
-			if (parentToChildMap.containsKey(opp.accountId)) {
-				Set<Id> accountIds = parentToChildMap.get(opp.accountId);
-				if (accountIds != null) {
-					for (Id nextChildAccountId : accountIds) {
-						opportunityAccountIds.add(nextChildAccountId);
-					}
-				}
-			}
+			Set<String> opportunityAccountIds = new Set<String>();
+            if (opp.DoNotUseAccountHierarchy__c == false){
+				getOpportunityAccountListRecursive(parentToChildMap,opportunityAccountIds,opp.accountId);
+            }
 			if (relatedChildAccountsMap.containsKey(opp.accountId)) {
-			Set<Id> accountIds = relatedChildAccountsMap.get(opp.accountId);
+				Set<Id> accountIds = relatedChildAccountsMap.get(opp.accountId);
 				if (accountIds != null) {
 					for (Id nextRelatedAccountId : accountIds) {
 						opportunityAccountIds.add(nextRelatedAccountId);
 					}
 				}
 			}
-			opportunityAccountList.put(opp.id,listToCSV(opportunityAccountIds));
+			opportunityAccountList.put(opp.id,setToCSV(opportunityAccountIds));
 		}
 		return opportunityAccountList;
 	}
+
+	private void getOpportunityAccountListRecursive(Map<id,Set<Id>> parentToChildAccountMap, Set<String> opportunityAccountIds, id accountId) {
+		if (opportunityAccountIds.contains(accountId)) return;
+        opportunityAccountIds.add(accountId);
+		if (parentToChildAccountMap.containsKey(accountId)) {
+				Set<Id> accountIds = parentToChildAccountMap.get(accountId);
+				if (accountIds != null) {
+					for (Id nextChildAccountId : accountIds) {
+                    	getOpportunityAccountListRecursive(parentToChildAccountMap, opportunityAccountIds,nextChildAccountId);
+					}
+				}
+			}
+	}
+     
  
-	public static String listToCSV(List<String> stringList) {
+	public static String setToCSV(Set<String> stringList) {
 		if (stringList == null || stringList.isEmpty()) {
 			return '';
 		}
@@ -524,56 +537,65 @@ public with sharing class ProductRevenueService {
 	}
 
 	// ***** PRIVATE METHODS ******* //
-	private void loadOpportunityAccounts(List<Opportunity> opportunities) {
+	private Set<Id> loadOpportunityAccounts(List<Opportunity> opportunities) {
 		Set<Id> accountIds = new Set<Id>();
 
 		for(Opportunity opp : opportunities) {
 			// get the primary opportunity account ids
 			accountIds.add(opp.AccountId);
 			system.debug('all accounts accountIds'+accountIds);
-			// if the opportunity specifies revenue accounts, load these
-			for(String specifiedAccountId : csvToList(opp.RevenueCalculationAccountIDs__c)) {
-				accountIds.add(specifiedAccountId);
-			}
+			// if the opportunity specifies revenue accounts, load these as related accounts
+            if(!string.isBlank(opp.RevenueCalculationAccountIDs__c)) {
+                if (!relatedChildAccountsMap.containsKey(opp.accountId)) {
+                    relatedChildAccountsMap.put(opp.accountId, new Set<id>());
+                }
+                for(String specifiedAccountId : csvToList(opp.RevenueCalculationAccountIDs__c)) {
+                    accountIds.add(specifiedAccountId);
+                    relatedChildAccountsMap.get(opp.accountId).add(specifiedAccountId);
+                }
+                system.debug('***** added the following revenue calculation account ids to related accounts '+relatedChildAccountsMap.get(opp.accountId) );
+            }
 		}
 		// collect related accounts
-		LoadAccountsAndRelatedAccounts(accountIds);
+		return LoadAccountsAndRelatedAccounts(accountIds);
 	}
 
 	private static double fytotal(GroupedAccountProductRevenue__c record) {
 		if (record==null) {
 			return 0;
 		} 
-		return record.Rev1__c == null ? 0 : record.Rev1__c +
-		record.Rev2__c == null ? 0 : record.Rev2__c + 
-		record.Rev3__c == null ? 0 : record.Rev3__c + 
-		record.Rev4__c == null ? 0 : record.Rev4__c + 
-		record.Rev5__c == null ? 0 : record.Rev5__c + 
-		record.Rev6__c == null ? 0 : record.Rev6__c + 
-		record.Rev7__c == null ? 0 : record.Rev7__c + 
-		record.Rev8__c == null ? 0 : record.Rev8__c + 
-		record.Rev9__c == null ? 0 : record.Rev9__c + 
-		record.Rev10__c == null ? 0 : record.Rev10__c + 
-		record.Rev11__c == null ? 0 : record.Rev11__c + 
-		record.Rev12__c == null ? 0 : record.Rev12__c; 
+		return 
+        (record.Rev1__c == null ? 0 : record.Rev1__c) +
+		(record.Rev2__c == null ? 0 : record.Rev2__c) + 
+		(record.Rev3__c == null ? 0 : record.Rev3__c) + 
+		(record.Rev4__c == null ? 0 : record.Rev4__c) + 
+		(record.Rev5__c == null ? 0 : record.Rev5__c) + 
+		(record.Rev6__c == null ? 0 : record.Rev6__c) + 
+		(record.Rev7__c == null ? 0 : record.Rev7__c) + 
+		(record.Rev8__c == null ? 0 : record.Rev8__c) + 
+		(record.Rev9__c == null ? 0 : record.Rev9__c) + 
+		(record.Rev10__c == null ? 0 : record.Rev10__c) + 
+		(record.Rev11__c == null ? 0 : record.Rev11__c) + 
+		(record.Rev12__c == null ? 0 : record.Rev12__c); 
 	}
     
     private static double fytotal(Budget_and_Revenue__c record) {
 		if (record==null) {
 			return 0;
 		} 
-		return record.Dec_Revenue_Amount__c == null ? 0 : record.Dec_Revenue_Amount__c +
-		record.Jan_Revenue_Amount__c == null ? 0 : record.Jan_Revenue_Amount__c + 
-		record.Feb_Revenue_Amount__c == null ? 0 : record.Feb_Revenue_Amount__c + 
-		record.Mar_Revenue_Amount__c == null ? 0 : record.Mar_Revenue_Amount__c + 
-		record.Apr_Revenue_Amount__c == null ? 0 : record.Apr_Revenue_Amount__c + 
-		record.May_Revenue_Amount__c == null ? 0 : record.May_Revenue_Amount__c + 
-		record.Jun_Revenue_Amount__c == null ? 0 : record.Jun_Revenue_Amount__c + 
-		record.Jul_Revenue_Amount__c == null ? 0 : record.Jul_Revenue_Amount__c + 
-		record.Aug_Revenue_Amount__c == null ? 0 : record.Aug_Revenue_Amount__c + 
-		record.Sep_Revenue_Amount__c == null ? 0 : record.Sep_Revenue_Amount__c +  
-		record.Oct_Revenue_Amount__c == null ? 0 : record.Oct_Revenue_Amount__c + 
-		record.Nov_Revenue_Amount__c == null ? 0 : record.Nov_Revenue_Amount__c  ; 
+		return 
+        (record.Dec_Revenue_Amount__c == null ? 0 : record.Dec_Revenue_Amount__c) +
+		(record.Jan_Revenue_Amount__c == null ? 0 : record.Jan_Revenue_Amount__c) + 
+		(record.Feb_Revenue_Amount__c == null ? 0 : record.Feb_Revenue_Amount__c) + 
+		(record.Mar_Revenue_Amount__c == null ? 0 : record.Mar_Revenue_Amount__c) + 
+		(record.Apr_Revenue_Amount__c == null ? 0 : record.Apr_Revenue_Amount__c) + 
+		(record.May_Revenue_Amount__c == null ? 0 : record.May_Revenue_Amount__c) + 
+		(record.Jun_Revenue_Amount__c == null ? 0 : record.Jun_Revenue_Amount__c) + 
+		(record.Jul_Revenue_Amount__c == null ? 0 : record.Jul_Revenue_Amount__c) + 
+		(record.Aug_Revenue_Amount__c == null ? 0 : record.Aug_Revenue_Amount__c) + 
+		(record.Sep_Revenue_Amount__c == null ? 0 : record.Sep_Revenue_Amount__c) +  
+		(record.Oct_Revenue_Amount__c == null ? 0 : record.Oct_Revenue_Amount__c) + 
+		(record.Nov_Revenue_Amount__c == null ? 0 : record.Nov_Revenue_Amount__c)  ; 
 	}
 
 	private static Decimal calculateTotalInYearRevenue(Date contractStartDate, Date contractEndDate, Decimal totalPrice) {
@@ -617,7 +639,7 @@ public with sharing class ProductRevenueService {
 	* @param item The opportunity line item to determine the revenue caclulation starting date for
 	* @return the calculation revenue starting date to be used.
 	* */
-	private Date getDateToUse(OpportunityLineItem item) {
+	public Date getDateToUse(OpportunityLineItem item) {
 		//If the pre-entry scenario checkbox has been ticked, then use the Contract Start Date of the Line Item
 		Opportunity recordOpportunity = this.opportunityInfo.get(item.opportunityid);
 		if (item.opportunity.Pre_Entry__c == true && item.Contract_Start_Date__c != null) { 
@@ -692,6 +714,7 @@ public with sharing class ProductRevenueService {
 
 		// load related child accounts (these are manually added relationships that lie outside the standard account hierarchy)
 		loadRelatedChildAccountMap(unprocessedAccountIds);
+        
 
 		// convert related child accounts to related parent accounts. When cascade uupdating grouped records, we are interested
 		// in updating the parents.
@@ -742,6 +765,22 @@ public with sharing class ProductRevenueService {
 		// pass back the updated group revenue records.
 		return updatedGroupedRevenues;
 	}
+    
+    private Set<id> loadSpecifiedAccountsIntoRelatedMap(List<Opportunity> opportunities) {
+        Set<id> specifiedAccounts = new Set<id>();
+    	for (Opportunity opp: opportunities) {
+            If (!String.isblank(opp.RevenueCalculationAccountIDs__c)) {
+                if (!relatedChildAccountsMap.containsKey(opp.AccountId)) {
+                    relatedChildAccountsMap.put(opp.AccountId,new set<id>());
+                }
+            	for(String specifiedAccountId : csvToList(opp.RevenueCalculationAccountIDs__c)) {
+					relatedChildAccountsMap.get(opp.AccountId).add(specifiedAccountId);
+                    specifiedAccounts.add(specifiedAccountId);
+				}
+            }
+        }
+        return specifiedAccounts;
+    }
  
 	private set<id> getRelatedChildAccountIds() {
 		set<id> relatedAccountIds = new set<id>();
@@ -818,19 +857,35 @@ public with sharing class ProductRevenueService {
 		// sales for the past twelve months
 		record.TweleveMonthRevenue__c = pastSales;
 		// calculate retained and incremental based on the sales history 
-		if (annualValue > pastSales) {
-			// sales of the contract exceed historical sales.
-			// The retained revenue will be based on sales history
-			record.RetainedRevenue__c = pastSales / DAYS_IN_YEAR * contractDays;
-			// The incremental revenue will be the contract value in excess of sales history
-			record.IncrementalRevenue__c = (annualValue - pastSales) / DAYS_IN_YEAR * contractDays;
-		} else {
-			// sales of the contract are less or equal to the sales history.
-			// Only retained value applies, and is equal to the total value of the contract.
-			record.RetainedRevenue__c = totalValue;
-			record.IncrementalRevenue__c = 0;
+		if (contractDays < DAYS_IN_YEAR ) {
+			if (totalValue > pastSales) {
+				// sales of the contract exceed historical sales.
+				// The retained revenue will be based on sales history
+				record.RetainedRevenue__c = pastSales;
+				// The incremental revenue will be the contract value in excess of sales history
+				record.IncrementalRevenue__c = totalValue - pastSales;
+			} else {
+				// sales of the contract are less or equal to the sales history.
+				// Only retained value applies, and is equal to the total value of the contract.
+				record.RetainedRevenue__c = totalValue;
+				record.IncrementalRevenue__c = 0;
+			}
+		} else
+		{
+			if (annualValue > pastSales) {
+				// sales of the contract exceed historical sales.
+				// The retained revenue will be based on sales history
+				record.RetainedRevenue__c = pastSales / DAYS_IN_YEAR * contractDays;
+				// The incremental revenue will be the contract value in excess of sales history
+				record.IncrementalRevenue__c = (annualValue - pastSales) / DAYS_IN_YEAR * contractDays;
+			} else {
+				// sales of the contract are less or equal to the sales history.
+				// Only retained value applies, and is equal to the total value of the contract.
+				record.RetainedRevenue__c = totalValue;
+				record.IncrementalRevenue__c = 0;
+			}
 		}
-	}
+    }
 
 	/**
 	* Calculates the duration of a contract in days for a given OpportunityLineItem record.
@@ -890,25 +945,32 @@ public with sharing class ProductRevenueService {
 					// don't add the revenue record for update / insert unless it is a new record or has budget and revenue data applied to it
 					Boolean isUpdated = currentGroupedRevenue.id == null ? true: false;
 					// add current budget and revenue values
+                    Set<String> childRevenueKeys = new Set<String>{currentGroupedRevenue.uid__c};
 					if (addRevenueValues(currentGroupedRevenue)) {
 						isUpdated = true;
 					}
 					// add records for child accounts from the Hierarchy
 					if (!recordOpportunity.DoNotUseAccountHierarchy__c) {
-						if (addChildAccountRevenueRecursive(item.Opportunity.AccountId,item.Product2.Id,String.valueOf(year),currentGroupedRevenue,parentToChildAccountMap,accountRestriction,0) >0) {
-							isUpdated = true;
-						}
-					} else {
+						addChildAccountRevenueRecursive(item.Opportunity.AccountId,item.Product2.Id,String.valueOf(year),currentGroupedRevenue,parentToChildAccountMap,accountRestriction,childRevenueKeys);
+                        if (childRevenueKeys.size() > 0) {
+                            isUpdated = true;
+                        }
 						// records for related accounts from the AccountRelationship Object
-						Set<Id> relatedAccounts = relatedChildAccountsMap.containsKey(item.Opportunity.AccountId) // AR contains the parent as keys
-						&& relatedChildAccountsMap.get(item.Opportunity.AccountId) != null // the children records exist
-						? relatedChildAccountsMap.get(item.Opportunity.AccountId) : new Set<Id>();
-						for (Id relatedAccountId : relatedAccounts) {
+						Set<Id> relatedAccounts = relatedChildAccountsMap.containsKey(recordOpportunity.AccountId) // AR contains the parent as keys
+						&& relatedChildAccountsMap.get(recordOpportunity.AccountId) != null // the children records exist
+						? relatedChildAccountsMap.get(recordOpportunity.AccountId) : new Set<Id>();
+                        system.debug('**** relatedAccounts '+relatedAccounts);
+                        system.debug('**** childRevenueKeys '+childRevenueKeys);
+                        for (Id relatedAccountId : relatedAccounts) {
+                            // adhere to restrictions on accounts to include and don't double up on related accounts that are also child accounts.
 							if(accountRestriction.isempty() || accountRestriction.contains(relatedAccountId)) {
 								String relatedAccountRevenueKey = getUID(relatedAccountId,item.Product2.Id,String.valueOf(year));
-								if (addRevenueValues(currentGroupedRevenue,relatedAccountRevenueKey)) {
-									isUpdated = true;
-								}
+                                if(!childRevenueKeys.contains(relatedAccountRevenueKey)) {
+                                    if (addRevenueValues(currentGroupedRevenue,relatedAccountRevenueKey)) {
+                                        childRevenueKeys.add(relatedAccountRevenueKey);
+                                        isUpdated = true;
+                                    }
+                                }
 							}
 						}
 					}
@@ -962,9 +1024,9 @@ public with sharing class ProductRevenueService {
 		// grouped revenue record that was not in the database will be a null entry in the map.
 		// replace these null entries with the newly created records above.
 		for (String uid : uids) {
-		if (groupedRevenues.get(uid) == null) {
-		groupedRevenues.put(uid,createGroupedRevenueFromUID(uid));
-		}
+            if (groupedRevenues.get(uid) == null) {
+                groupedRevenues.put(uid,createGroupedRevenueFromUID(uid));
+            }
 		}
 		// return all relevant uids for the revenue records needed for the line items passed in. 
 		return uids;
@@ -990,6 +1052,7 @@ public with sharing class ProductRevenueService {
 		}
 		// load account hierarchy
 		loadChildToParentAccountMap(allAccounts);
+        system.debug('all accounts after load '+allAccounts);
 		return allAccounts;
 	}
 
@@ -1037,16 +1100,15 @@ public with sharing class ProductRevenueService {
 	* @return 	true if the sales history record was found.
 	*/
 	private Boolean addRevenueValues(GroupedAccountProductRevenue__c summaryRecord, String revenueKey) {
-		system.debug('*** looking for customer revenue key '+revenueKey);
-        system.debug('*** budgetAndRevenues.containsKey(revenueKey) '+ budgetAndRevenues.containsKey(revenueKey));
+		system.debug('*** Modifying grouped account product revenue with key '+revenueKey);
         if (!budgetAndRevenues.containsKey(revenueKey)) {
 			return false;
 		}
 		Budget_and_Revenue__c recordToAdd = budgetAndRevenues.get(revenueKey);
-        system.debug('*** got revenue record '+revenueKey);
 		if (recordToAdd == null) {
 			return false;
 		}
+        system.debug('*** adding in the budget and revenue record '+revenueKey);
 		for (Integer i = 1; i<13; i++) {
 			Double summaryValue = getValueForMonth(summaryRecord,i);
 			Double valueToAdd = getValueForMonth(recordToAdd,i);
@@ -1066,25 +1128,24 @@ public with sharing class ProductRevenueService {
 	* @param 			revenueKey - the budget and revenue record (actual sales) to add to the summary.
 	* @return 	true if the sales history record was found.
 	*/
-	private Integer addChildAccountRevenueRecursive(Id parentAccountId,Id productId, String year, GroupedAccountProductRevenue__c currentGroupedRevenue, Map<Id,Set<Id>> parentToChildAccountMap, List<String> accountRestriction, Integer updateCount) {
+	private void addChildAccountRevenueRecursive(Id parentAccountId,Id productId, String year, GroupedAccountProductRevenue__c currentGroupedRevenue, Map<Id,Set<Id>> parentToChildAccountMap, List<String> accountRestriction, set<string> childRevenueKeys) {
 		if (!parentToChildAccountMap.containsKey(parentAccountId)) {
-			return updateCount;
+			return;
 		}
 		Set<Id> childAccounts = parentToChildAccountMap.get(parentAccountId);
 		if (childAccounts == null) {
-			return updateCount;
+			return;
 		}
 		// records for child accounts of item account
 		for (Id childAccountId : childAccounts) {
 			if (accountRestriction.isEmpty() || accountRestriction.contains(childAccountId)) {
 				String currentRevenueKey = getUID(childAccountId,productId, year);
 				if(addRevenueValues(currentGroupedRevenue,currentRevenueKey)) {
-					updateCount++;
+					childRevenueKeys.add(currentRevenueKey);
 				}
 			}
-			updateCount = addChildAccountRevenueRecursive(childAccountId,ProductId,year,currentGroupedRevenue,parentToChildAccountMap,accountRestriction,updateCount);
+			addChildAccountRevenueRecursive(childAccountId,ProductId,year,currentGroupedRevenue,parentToChildAccountMap,accountRestriction,childRevenueKeys);
 		}
-		return updateCount;
 	}
 
 	/**
@@ -1330,10 +1391,12 @@ public with sharing class ProductRevenueService {
 		Map<Id,Set<Id>> parentToChildMap = new Map<Id,Set<Id>>();
 		for (Id childId : childToParentAccountMap.keySet()) {
 			Id parentId = childToParentAccountMap.get(childId);
-			if (!parentToChildMap.containsKey(parentId)) {
-				parentToChildMap.put(parentId, new Set<Id>());
-			}
-			parentToChildMap.get(parentId).add(childId);
+            if(parentId != null) {
+                if (!parentToChildMap.containsKey(parentId)) {
+                    parentToChildMap.put(parentId, new Set<Id>());
+                }
+                parentToChildMap.get(parentId).add(childId);
+            }
 		}
 		return parentToChildMap;
 	}

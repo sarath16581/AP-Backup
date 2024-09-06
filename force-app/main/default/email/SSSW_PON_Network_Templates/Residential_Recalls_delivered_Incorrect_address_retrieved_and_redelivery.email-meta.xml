@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>Residential – Recalls – delivered – Incorrect address – retrieved and redelivery</name>
+    <style>none</style>
+    <subject>Australia Post – Case: {!Case.CaseNumber}</subject>
+    <textOnly>Australia Post
+
+Help &amp; Support
+
+Reference {!Case.CaseNumber}
+
+Update for {!Case.Type} - {!Case.CaseNumber}
+
+Hi {!Contact.FirstName}
+
+Re: Article {!Case.ReferenceID__c}
+
+We have an update on the delivery of your {!Case.ProductSubCategory__c} item.
+
+I have met with the team member responsible for the delivery of this item, and they have advised that your item was mistakenly delivered to an incorrect address.
+
+They have also advised that your item has since been retrieved and is on track to be delivered to your address.
+
+Tracking updates are available at https://auspost.com.au/track or on our mobile app.
+
+I’m sorry that this delivery did not go as planned.
+
+Kind Regards,
+{!User.FirstName}
+Australia Post
+{!Case.Thread_Id}
+
+This email was sent by Australia Post. Australia Post does not represent, warrant or guarantee that the integrity of this email communication has been maintained nor that the communication is free of errors, viruses or interference.
+Help &amp; support  |  Terms &amp; conditions  |  Privacy policy</textOnly>
+    <type>custom</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

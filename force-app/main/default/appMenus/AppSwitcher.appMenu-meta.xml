@@ -752,4 +752,8 @@
         <name>Network_Partners_Support</name>
         <type>CustomApplication</type>
     </appMenuItems>
+    <appMenuItems>
+        <name>PermComparator</name>
+        <type>ConnectedApp</type>
+    </appMenuItems>
 </AppMenu>
