@@ -9,8 +9,8 @@
  * @changelog
  * 2024-07-10 - Seth Heang - Created.
  * 2024-07-18 - Seth Heang - Added new methods for processing 3 days and 5 days monitoring alerts
- * 2024-09-06 - George Nguyen - removed invalid comments
  * 2024-07-28 - Seth Heang - remove isClosed check from entry condition for processing scheduledActions
+ * 2024-09-06 - George Nguyen - removed invalid comments
  */
 public inherited sharing class CaseUnifiedProactiveMonitoringModule extends ApplicationModule {
 	@TestVisible
