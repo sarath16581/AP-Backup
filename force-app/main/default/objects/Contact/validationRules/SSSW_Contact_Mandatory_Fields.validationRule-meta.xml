@@ -3,7 +3,7 @@
     <fullName>SSSW_Contact_Mandatory_Fields</fullName>
     <active>true</active>
     <description>Mandatory fields for contact creation for SSSW Service Agents and Unified Agents.</description>
-    <errorConditionFormula>OR(CONTAINS($Profile.Name,&quot;SSSW - Service Agent&quot;), $Profile.Name = &apos;Customer Service&apos;)
+    <errorConditionFormula>CONTAINS($Profile.Name,&quot;SSSW - Service Agent&quot;)
 &amp;&amp;
 (
 ISBLANK( FirstName )
