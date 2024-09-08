@@ -30,7 +30,7 @@ private class OpportunityRevenueScheduleModule_Test {
         oppProd.Contract_Start_Date__c = dateOfTest;
         oppProd.Contract_End_Date__c = dateOfTest.addDays(730);
         oppProd.Product2 = prod;
-        oppProd = (OpportunityLineItem)ApplicationTestDataFactory.setUnwritableFields(oppProd, new Map<String, Object>{'Product2Id' => prod.Id, 'Opportunity' => oppRec});
+        oppProd = (OpportunityLineItem)ApplicationTestDataFactory.setUnwritableFields(oppProd, new Map<String, Object>{'Product2Id' => prod.Id, 'Opportunity' => oppRec, 'Annualised_Value__c' => 500});
 
         GroupedAccountProductRevenue__c groupedRev2023 = new GroupedAccountProductRevenue__c( AnchorOrganisation__c = account.Id, PrimaryProduct__c = prod.Id,
                 FinancialYear__c = 2023, UID__c = ProductRevenueService.getUID(account.Id,prod.Id,'2023'),
@@ -64,9 +64,11 @@ private class OpportunityRevenueScheduleModule_Test {
         Test.startTest();
         OpportunityRevenueScheduleModule module = OpportunityRevenueScheduleModule.newInstance();
         module.onAfterUpdate(new List<Opportunity>{changedOppRec}, new Map<Id,Opportunity>{oppRec.Id=>oppRec}, mockUow);
+        module.onBeforeUpdate(new List<Opportunity>{changedOppRec}, new Map<Id,Opportunity>{oppRec.Id=>oppRec}, mockUow);
         Test.stopTest();
 
         ((ApplicationUnitOfWork)MockUtility.Mocks.verify(mockUow, 2)).registerNew((List<SObject>)fflib_Match.anyObject());
+        ((ApplicationUnitOfWork)MockUtility.Mocks.verify(mockUow, 2)).registerDirty((List<SObject>)fflib_Match.anyObject());
     }
 
 }

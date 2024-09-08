@@ -297,6 +297,8 @@ public with sharing class ProductScheduleService {
 	private static String getUID(String oppProductId, String financialYear) {
 		return oppProductId + financialYear;
 	}
+    
+    
 
 	/**
 	* Inner class designed for calculating revenue schedules based on Opportunity Line Item details.

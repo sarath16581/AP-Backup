@@ -102,9 +102,10 @@ Re: Article {!Case.ReferenceID__c}<br/><br/>
 
 We have an update on the delivery of your {!Case.ProductSubCategory__c} item.<br/><br/>
 
-I have met with the team member responsible for the delivery of this item, and after reviewing route and tracking information, they recall that this item was delivered to an incorrect address. We are now attempting to retrieve the item from that address and will deliver it to you as soon as possible.<br/><br/> 
+I have met with the team member responsible for the delivery of this item, and they have advised that your item was mistakenly delivered to an incorrect address.<br/><br/> 
 
-If you have not received this delivery within three business days, please notify us by replying to this email and we can investigate the situation. For tracking information, please visit <a href='https://auspost.com.au/track'>https://auspost.com.au/track</a> <br/><br/> 
+They have also advised that your item has since been retrieved and is on track to be delivered to your address.<br/><br/>
+Tracking updates are available at <a href='https://auspost.com.au/track'>https://auspost.com.au/track</a> or on our mobile app. <br/><br/> 
 
 I’m sorry that this delivery did not go as planned.<br/><br/> 
 								</td>

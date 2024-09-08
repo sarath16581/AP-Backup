@@ -53,6 +53,9 @@ export default class HappyParcelArticle extends HappyParcelBase {
     //Contextual information passed in by the happy parcel host component.
 	@api hostContext = {};
 
+	// Display sender and receiver details
+	@api displaySenderReceiverDetails = false;
+
 	// sender/receiver selected store the state of the selected customer boxes when supportsCustomerSelection is true
 	@track senderSelected;
 	@track receiverSelected;

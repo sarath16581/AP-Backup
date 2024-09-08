@@ -123,6 +123,7 @@
     <permissionSets>Create Report and Dashboard</permissionSets>
     <permissionSets>Manage StarTrack Articles</permissionSets>
     <permissionSets>ACL Remediation</permissionSets>
+    <permissionSets>StarTrack View Unified Tracking</permissionSets>
     <profiles>StarTrack Partner Community</profiles>
     <profiles>SSSE User</profiles>
     <profiles>SSSE- Depot User</profiles>

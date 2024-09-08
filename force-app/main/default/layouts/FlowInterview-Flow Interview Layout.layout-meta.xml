@@ -15,6 +15,10 @@
                 <field>InterviewStatus</field>
             </layoutItems>
             <layoutItems>
+                <behavior>Required</behavior>
+                <field>Error</field>
+            </layoutItems>
+            <layoutItems>
                 <behavior>Edit</behavior>
                 <field>MasterVersionProcessType</field>
             </layoutItems>
@@ -65,6 +69,7 @@
     <miniLayout>
         <fields>Guid</fields>
         <fields>InterviewStatus</fields>
+        <fields>Error</fields>
         <fields>MasterVersionProcessType</fields>
         <fields>WasPausedFromScreen</fields>
     </miniLayout>

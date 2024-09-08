@@ -68,7 +68,8 @@ public with sharing class GroupedRevenueScheduleSelector_Test{
 		Product2 prod =  ApplicationTestDataFactory.getProducts(1,false)[0];
 		insert prod;
 	   	Id priceBookId = Test.getStandardPricebookId();
-		PricebookEntry pbe  = ApplicationTestDataFactorySales.getPriceBookEntries(1, priceBookId, prod.Id, true)[0];
+		PricebookEntry pbe  = ApplicationTestDataFactorySales.getPriceBookEntries(1, priceBookId, prod.Id, false)[0];
+		insert pbe;
 		OpportunityLineItem oppProd = ApplicationTestDataFactory.getOpportunityLineItems(1, oppRec.Id, pbe.Id, false).get(0);
 		oppProd.Quantity = 1;
 		insert oppProd;

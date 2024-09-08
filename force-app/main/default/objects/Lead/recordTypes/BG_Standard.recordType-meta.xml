@@ -323,7 +323,15 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Not Contacted</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Nurturing</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Test Lead</fullName>
             <default>false</default>
         </values>
         <values>

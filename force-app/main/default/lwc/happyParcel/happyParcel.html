@@ -9,8 +9,7 @@
 <template>
 	<article class={happyParcelCssClass}>
 		<div class="slds-box_border article-selector">
-			<c-happy-parcel-article-selector read-only={selectorReadOnly} loading={loading} tracking-id={trackingId}
-				onsearch={handleSearch}> </c-happy-parcel-article-selector>
+			<c-happy-parcel-article-selector read-only={selectorReadOnly} loading={loading} tracking-id={trackingId} onsearch={handleSearch}> </c-happy-parcel-article-selector>
 		</div>
 		<template if:true={isStarTrackCase}>
 			<div class="slds-grid slds-p-vertical_medium">
@@ -19,8 +18,7 @@
 					<div class="slds-grid slds-p-vertical_small">
 						<!-- <lightning-pill-container items={articleItems} ></lightning-pill-container> -->
 						<template for:each={caseInvestigations} for:item="cInv">
-							<div class="slds-col slds-grow-none slds-m-right_xx-small clickableDiv" key={cInv}
-								data-id={cInv.Article__r} onclick={updateHappyParcels}>{cInv.Article__r}</div>
+							<div class="slds-col slds-grow-none slds-m-right_xx-small clickableDiv" key={cInv} data-id={cInv.Article__r} onclick={updateHappyParcels}>{cInv.Article__r}</div>
 						</template>
 					</div>
 				</div>
@@ -28,8 +26,7 @@
 					<div class="slds-col slds-grow-none slds-m-right_xx-small">
 						<h3 class="slds-tile__title slds-truncate">Consignment</h3>
 						<div class="slds-grid slds-p-vertical_small">
-							<div class="slds-col slds-grow-none slds-m-right_xx-small clickableDiv"
-								data-id={caseConsignmentId} onclick={updateHappyParcels}>{caseConsignmentId}</div>
+							<div class="slds-col slds-grow-none slds-m-right_xx-small clickableDiv" data-id={caseConsignmentId} onclick={updateHappyParcels}>{caseConsignmentId}</div>
 						</div>
 					</div>
 				</template>
@@ -38,8 +35,7 @@
 
 		<template for:each={hasAnalyticsErrors} for:item="error">
 			<div key={error.message}>
-				<div class="slds-notify slds-notify_alert slds-theme_alert-texture slds-theme_error" role="alert"
-					key={error}>
+				<div class="slds-notify slds-notify_alert slds-theme_alert-texture slds-theme_error" role="alert" key={error}>
 					<span class="slds-assistive-text">error</span>
 					<h2>{error.message}</h2>
 				</div>
@@ -48,8 +44,7 @@
 
 		<template for:each={hasTrackingErrors} for:item="error">
 			<div key={error.message}>
-				<div class="slds-notify slds-notify_alert slds-theme_alert-texture slds-theme_error" role="alert"
-					key={error}>
+				<div class="slds-notify slds-notify_alert slds-theme_alert-texture slds-theme_error" role="alert" key={error}>
 					<span class="slds-assistive-text">error</span>
 					<h2>{error.message}</h2>
 				</div>
@@ -58,8 +53,7 @@
 
 		<template for:each={hasStarTrackErrors} for:item="error">
 			<div key={error.message}>
-				<div class="slds-notify slds-notify_alert slds-theme_alert-texture slds-theme_error" role="alert"
-					key={error}>
+				<div class="slds-notify slds-notify_alert slds-theme_alert-texture slds-theme_error" role="alert" key={error}>
 					<span class="slds-assistive-text">error</span>
 					<h2>{error.message}</h2>
 					<template if:true={doRetryStarTrackCallout}>
@@ -69,10 +63,19 @@
 			</div>
 		</template>
 
+		<template for:each={hasCriticalIncidentErrors} for:item="error">
+			<div key={error.message}>
+				<div class="slds-notify slds-notify_alert slds-theme_alert-texture slds-theme_error" role="alert"
+					key={error}>
+					<span class="slds-assistive-text">error</span>
+					<h2>{error.message}</h2>
+				</div>
+			</div>
+		</template>
+
 		<template for:each={hasStarTrackWarnings} for:item="warning">
 			<div key={warning.message}>
-				<div class="slds-notify slds-notify_alert slds-theme_alert-texture starTrackWarning" role="alert"
-					key={warning}>
+				<div class="slds-notify slds-notify_alert slds-theme_alert-texture starTrackWarning" role="alert" key={warning}>
 					<span class="slds-assistive-text">warning</span>
 					<h2>{warning.message}</h2>
 				</div>
@@ -80,22 +83,20 @@
 		</template>
 
 		<template if:true={vodvWarning}>
-			<div class="slds-notify slds-notify_alert slds-theme_alert-texture slds-theme_warning" role="alert"
-				key={vodvWarning}>
+			<div class="slds-notify slds-notify_alert slds-theme_alert-texture slds-theme_warning" role="alert" key={vodvWarning}>
 				<span class="slds-assistive-text">warning</span>
 				<h2>{vodvWarning}</h2>
 				<p><a class="slds-text-link" onclick={handleKnowledgeClick}>Refer Knowledge</a></p>
 			</div>
 		</template>
 		<template if:true={retryAnalytics}>
-			<div class="slds-notify slds-notify_alert slds-theme_alert-texture slds-theme_error" role="alert"
-				key={error}>
+			<div class="slds-notify slds-notify_alert slds-theme_alert-texture slds-theme_error" role="alert" key={error}>
 				<span class="slds-assistive-text">error</span>
 				<h2>
 					<span class="slds-show_inline-block slds-align-middle">Analytics API failed, please retry.</span>
-					<span class="slds-show_inline-block slds-align-middle slds-m-left_small"><lightning-button
-							variant="destructive-text" label="Try Again"
-							onclick={handleRetriggerAnalyticsSearch}></lightning-button></span>
+					<span class="slds-show_inline-block slds-align-middle slds-m-left_small"
+						><lightning-button variant="destructive-text" label="Try Again" onclick={handleRetriggerAnalyticsSearch}></lightning-button
+					></span>
 				</h2>
 			</div>
 		</template>
@@ -104,67 +105,91 @@
 			<div class="slds-grid slds-wrap slds-grid_vertical-stretch slds-m-top_medium slds-gutters_direct-x-small">
 				<!-- Sender / Receiver details -->
 				<div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-m-bottom_medium">
-					<c-happy-parcel-customer-details detail-type="1" loading={loading}
-						contact={consignmentSenderContact} tracking-api-result={consignmentTrackingResult}
-						supports-customer-selection={supportsCustomerSelection} selected={consignmentSenderSelected}
+					<c-happy-parcel-customer-details
+						detail-type="1"
+						loading={loading}
+						contact={consignmentSenderContact}
+						tracking-api-result={consignmentTrackingResult}
+						supports-customer-selection={supportsCustomerSelection}
+						selected={consignmentSenderSelected}
 						oncustomerselect={handleConsignmentCustomerSelected}
-						oncustomerdeselect={handleConsignmentCustomerDeselected} animation-delay="0">
+						oncustomerdeselect={handleConsignmentCustomerDeselected}
+						animation-delay="0"
+					>
 					</c-happy-parcel-customer-details>
 				</div>
 				<div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-m-bottom_medium">
-					<c-happy-parcel-customer-details detail-type="2" loading={loading}
-						contact={consignmentReceiverContact} tracking-api-result={consignmentTrackingResult}
-						supports-customer-selection={supportsCustomerSelection} selected={consignmentReceiverSelected}
+					<c-happy-parcel-customer-details
+						detail-type="2"
+						loading={loading}
+						contact={consignmentReceiverContact}
+						tracking-api-result={consignmentTrackingResult}
+						supports-customer-selection={supportsCustomerSelection}
+						selected={consignmentReceiverSelected}
 						oncustomerselect={handleConsignmentCustomerSelected}
-						oncustomerdeselect={handleConsignmentCustomerDeselected} animation-delay="100">
+						oncustomerdeselect={handleConsignmentCustomerDeselected}
+						animation-delay="100"
+					>
 					</c-happy-parcel-customer-details>
 				</div>
 
 				<!-- Consignment Details -->
 				<div class="slds-col slds-size_1-of-1 slds-m-bottom_medium">
-					<c-happy-parcel-article-details loading={loadingConsignmentDetailsCard}
-						title-loading={loadingStarTrackApi} tracking-api-result={consignment.trackingResult}
-						animation-delay="150" animation-speed="500" use-consignment-field-set
+					<c-happy-parcel-article-details
+						loading={loadingConsignmentDetailsCard}
+						title-loading={loadingStarTrackApi}
+						tracking-api-result={consignment.trackingResult}
+						animation-delay="150"
+						animation-speed="500"
+						use-consignment-field-set
 						display-pod-download-button={displayPodDownloadButton}
-						display-additional-attributes={consignment.trackingResult.additionalAttributes}>
+						display-additional-attributes={consignment.trackingResult.additionalAttributes}
+					>
 					</c-happy-parcel-article-details>
 				</div>
 			</div>
 
 			<div class="slds-card slds-card_boundary">
-				<lightning-accordion allow-multiple-sections-open active-section-name={activeSections}
-					onsectiontoggle={handleToggleSection}>
+				<lightning-accordion allow-multiple-sections-open active-section-name={activeSections} onsectiontoggle={handleToggleSection}>
 					<template for:each={articles} for:item="article">
-						<lightning-accordion-section name={article.trackingId} label={article.trackingId}
-							key={article.trackingId} class="slds-is-relative">
+						<lightning-accordion-section name={article.trackingId} label={article.trackingId} key={article.trackingId} class="slds-is-relative">
 							<div slot="actions" class="article-status-slot slds-grid slds-grid_vertical-align-center">
 								<!-- use code to set hideAccordionSummary to true when we expand the individual panel -->
 								<template if:false={article.hideAccordionSummary}>
-									<c-happy-parcel-milestone-path loading-tracking-api={loadingTrackingApi}
-										tracking-api-result={article.trackingResult} class="slds-show_inline-block"
-										variant="compact">
+									<c-happy-parcel-milestone-path loading-tracking-api={loadingTrackingApi} tracking-api-result={article.trackingResult} class="slds-show_inline-block" variant="compact">
 									</c-happy-parcel-milestone-path>
 								</template>
 
 								<template if:true={supportsSelectableChildArticles}>
-									<div class="slds-show_inline-block slds-box_border slds-m-left_large slds-is-relative"
-										data-article={article.trackingId} style="width: 30px; height: 30px"
-										onclick={handleArticleSelectorClick}>
+									<div
+										class="slds-show_inline-block slds-box_border slds-m-left_large slds-is-relative"
+										data-article={article.trackingId}
+										style="width: 30px; height: 30px"
+										onclick={handleArticleSelectorClick}
+									>
 										<div style="pointer-events: none">
 											<template if:true={article.articleSelected}>
-												<c-happy-parcel-custom-icon icon="tick" size="small"
-													style="position: absolute; top: 50%; left: 50%; margin-left: -10px; margin-top: -10px"></c-happy-parcel-custom-icon>
+												<c-happy-parcel-custom-icon
+													icon="tick"
+													size="small"
+													style="position: absolute; top: 50%; left: 50%; margin-left: -10px; margin-top: -10px"
+												></c-happy-parcel-custom-icon>
 											</template>
 										</div>
 									</div>
 								</template>
 							</div>
 
-							<c-happy-parcel-article article={article} read-only={readOnly}
-								loading-tracking-api={loadingTrackingApi} loading-analytics-api={loadingAnalyticsApi}
-								supports-external-edd={supportsExternalEdd} is-article-consignment
+							<c-happy-parcel-article
+								article={article}
+								read-only={readOnly}
+								loading-tracking-api={loadingTrackingApi}
+								loading-analytics-api={loadingAnalyticsApi}
+								supports-external-edd={supportsExternalEdd}
+								is-article-consignment
 								is-article-selected={article.articleSelected}
-								supports-delivery-proof-attachment={supportsSafeDropAttachment}>
+								supports-delivery-proof-attachment={supportsSafeDropAttachment}
+							>
 							</c-happy-parcel-article>
 						</lightning-accordion-section>
 					</template>
@@ -174,12 +199,20 @@
 
 		<template if:false={isConsignment}>
 			<template for:each={articles} for:item="article">
-				<c-happy-parcel-article article={article} read-only={readOnly} loading-tracking-api={loadingTrackingApi}
-					loading-analytics-api={loadingAnalyticsApi} supports-external-edd={supportsExternalEdd}
+				<c-happy-parcel-article
+					article={article}
+					read-only={readOnly}
+					loading-tracking-api={loadingTrackingApi}
+					loading-analytics-api={loadingAnalyticsApi}
+					supports-external-edd={supportsExternalEdd}
 					supports-customer-selection={articleCustomerSelectionEnabled}
 					supports-delivery-proof-attachment={supportsSafeDropAttachment}
-					supports-case-creation={supportsCaseCreation} display-sender-receiver-details
-					host-context={hostContext} is-article-selected key={article.trackingId}>
+					supports-case-creation={supportsCaseCreation}
+					display-sender-receiver-details
+					host-context={hostContext}
+					is-article-selected
+					key={article.trackingId}
+				>
 				</c-happy-parcel-article>
 			</template>
 		</template>
@@ -188,8 +221,7 @@
 			<template if:true={consignmentHasEventMessages}>
 				<!-- consignment event messages -->
 				<div class="slds-col slds-size_1-of-1 slds-m-vertical_medium">
-					<c-happy-parcel-event-messages loading={loadingTrackingApi}
-						event-messages={consignment.trackingResult.events}> </c-happy-parcel-event-messages>
+					<c-happy-parcel-event-messages loading={loadingTrackingApi} event-messages={consignment.trackingResult.events}> </c-happy-parcel-event-messages>
 				</div>
 			</template>
 		</template>

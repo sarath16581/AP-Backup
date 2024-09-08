@@ -10,6 +10,7 @@
     <columns>ReceiverEmail__c</columns>
     <columns>ConsignmentParcelCount__c</columns>
     <columns>SenderEmail__c</columns>
+    <columns>ProductCategory__c</columns>
     <filterScope>Everything</filterScope>
     <filters>
         <field>RECORDTYPE</field>

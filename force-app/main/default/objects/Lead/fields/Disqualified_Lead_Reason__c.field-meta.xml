@@ -13,7 +13,12 @@
     <valueSet>
         <controllingField>Status</controllingField>
         <valueSetDefinition>
-            <sorted>true</sorted>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Not Contacted</fullName>
+                <default>false</default>
+                <label>Not Contacted</label>
+            </value>
             <value>
                 <fullName>Contacted</fullName>
                 <default>false</default>
@@ -55,6 +60,11 @@
                 <label>Nurturing</label>
             </value>
             <value>
+                <fullName>Test Lead</fullName>
+                <default>false</default>
+                <label>Test Lead</label>
+            </value>
+            <value>
                 <fullName>Unsuccessful Contact Attempts</fullName>
                 <default>false</default>
                 <label>Unsuccessful Contact Attempts</label>
@@ -65,6 +75,10 @@
                 <label>Verified</label>
             </value>
         </valueSetDefinition>
+        <valueSettings>
+            <controllingFieldValue>In progress</controllingFieldValue>
+            <valueName>Not Contacted</valueName>
+        </valueSettings>
         <valueSettings>
             <controllingFieldValue>In progress</controllingFieldValue>
             <valueName>Contacted</valueName>
@@ -101,6 +115,10 @@
         <valueSettings>
             <controllingFieldValue>Disqualified</controllingFieldValue>
             <valueName>Incorrect Contact Details</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Disqualified</controllingFieldValue>
+            <valueName>Test Lead</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Disqualified</controllingFieldValue>
