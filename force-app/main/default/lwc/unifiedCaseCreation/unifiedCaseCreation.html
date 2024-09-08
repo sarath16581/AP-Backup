@@ -1,77 +1,89 @@
 <template>
 	<lightning-card title="Create Case" icon-name="standard:case">
-		<div class="slds-var-p-around_medium">
-			<template lwc:if={isLoading}>
-				<lightning-spinner></lightning-spinner>
+		<div class="slds-var-p-around_medium slds-is-relative">
+			<template if:true={isLoading}>
+				<lightning-spinner variant="brand" size="medium"></lightning-spinner>
 			</template>
-			<template lwc:else>
-			<div data-name="articleHeader" class="slds-text-body_regular">{linkedArticlesLabel}</div>
+			<div class="slds-text-body_regular">{linkedArticlesLabel}</div>
 			<div class="slds-pill_container slds-grid slds-wrap pill-scrollable">
 				<template for:each={impactedArticles} for:item="impactedArticle">
-					<span key={impactedArticle} class="slds-col slds-grow-none slds-pill slds-var-p-around_xx-small slds-var-m-around_xx-small">
-						<span class="slds-pill__icon_container">
-							<span class="slds-icon_container" title="Account">
-								<lightning-icon icon-name="custom:custom46" size="xx-small" alternative-text="Article" title="Article"></lightning-icon>
-							</span>
+				<span key={impactedArticle} class="slds-col slds-grow-none slds-pill slds-var-p-around_xx-small slds-var-m-around_xx-small">
+					<span class="slds-pill__icon_container">
+						<span class="slds-icon_container" title="Account">
+							<lightning-icon icon-name="custom:custom46" size="xx-small" alternative-text="Article" title="Article"></lightning-icon>
 						</span>
-						<span class="slds-pill__label">{impactedArticle}</span>
-					  </span>
+					</span>
+					<span class="slds-pill__label">{impactedArticle}</span>
+				</span>
 				</template>
 			</div>
 
 			<lightning-record-picker
-				data-field-name="contactLookup"
-				value={contactId}
-				label={contactLabel}
-				object-api-name="Contact"
-				disabled
+					value={contactId}
+					label={contactLabel}
+					object-api-name="Contact"
+					disabled
 			></lightning-record-picker>
 
 			<lightning-combobox
-				data-field-name="recordTypeId"
-				value={recordTypeId}
-				label={enquiryTypeLabel}
-				options={enquiryTypeOptions}
-				onchange={handleInputChange}
+					data-field-name="enquiryType"
+					value={enquiryType}
+					label={enquiryTypeLabel}
+					options={enquiryTypeOptions}
+					onchange={handleInputChange}
+					required="true"
 			></lightning-combobox>
 
 			<lightning-combobox
-				data-field-name="enquirySubType"
-				value={enquirySubType}
-				label={enquirySubTypeLabel}
-				options={enquirySubTypeOptions}
-				onchange={handleInputChange}
+					data-field-name="enquirySubType"
+					value={enquirySubType}
+					label={enquirySubTypeLabel}
+					options={enquirySubTypeOptions}
+					onchange={handleInputChange}
+					required="true"
 			></lightning-combobox>
 
 			<lightning-combobox
-				data-field-name="productCategory"
-				value={productCategory}
-				label={productCategoryLabel}
-				options={productCategoryOptions}
-				onchange={handleInputChange}
+					data-field-name="productCategory"
+					value={productCategory}
+					label={productCategoryLabel}
+					options={productCategoryOptions}
+					onchange={handleInputChange}
+					required="true"
 			></lightning-combobox>
 
 			<lightning-combobox
-				data-field-name="productSubCategory"
-				value={productSubCategory}
-				label={productSubCategoryLabel}
-				options={productSubCategoryOptions}
-				onchange={handleInputChange}
+					data-field-name="productSubCategory"
+					value={productSubCategory}
+					label={productSubCategoryLabel}
+					options={productSubCategoryOptions}
+					onchange={handleInputChange}
+					required="true"
 			></lightning-combobox>
+
 			<lightning-textarea
-				data-field-name="notes"
-				label={notesLabel}
-				value={notes}
-				onchange={handleInputChange}
+					data-field-name="notes"
+					label={notesLabel}
+					value={notes}
+					onchange={handleInputChange}
 			></lightning-textarea>
+
+			<!-- Error message -->
+			<div
+					data-id="error"
+					if:true={errorMessage}
+					class="slds-text-align_center slds-text-color_error slds-var-m-around_medium"
+			>
+				{errorMessage}
+			</div>
+
 			<div class="slds-text-align_center slds-m-top_medium">
 				<lightning-button data-id="create"
-								  label={createBtnLabel}
-								  onclick={handleCaseCreation}
-								  variant="brand">
+								label={createBtnLabel}
+								onclick={handleCaseCreation}
+								variant="brand">
 				</lightning-button>
 			</div>
-			</template>
 		</div>
 	</lightning-card>
 </template>

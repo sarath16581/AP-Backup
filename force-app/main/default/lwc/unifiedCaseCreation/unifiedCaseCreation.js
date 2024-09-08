@@ -4,16 +4,29 @@
  * @changelog:
  * 2024-08-21 - Marcel HK - Created
  * 2024-08-29 - Seth Heang - Updated the Form UI and refactor codes
-*/
+ */
 import { api, LightningElement, wire } from "lwc";
 import getCaseRecordTypeInfos from "@salesforce/apex/UnifiedCaseCreationController.getCaseRecordTypeInfos";
+import createNewCase from "@salesforce/apex/UnifiedCaseCreationController.createNewCase";
 import { getPicklistValuesByRecordType } from "lightning/uiObjectInfoApi";
 import CASE_OBJECT from "@salesforce/schema/Case";
 import { getPicklistOptions, isPicklistOptionAvailable } from "./util";
+import { reduceErrors } from "c/ldsUtils";
+import { getRecord, getFieldValue } from "lightning/uiRecordApi";
+import { ShowToastEvent } from "lightning/platformShowToastEvent";
+import { isBlank } from "c/utils";
 
-const DEFAULT_RECORD_TYPE = "UnifiedInvestigation";
-const RECORD_TYPE_DEVELOPER_NAMES = ['UnifiedInvestigation','UnifiedGeneralEnquiry'];
+import LIVECHAT_INTENT_FIELD from "@salesforce/schema/LiveChatTranscript.Chat_Intent__c";
+import LIVECHAT_CONTACT_ID_FIELD from "@salesforce/schema/LiveChatTranscript.ContactId";
+
+const INVESTIGATION_RECORD_TYPE = 'UnifiedInvestigation';
+const GENERAL_ENQUIRY_RECORD_TYPE = 'UnifiedGeneralEnquiry';
+const RECORD_TYPE_DEVELOPER_NAMES = [INVESTIGATION_RECORD_TYPE, GENERAL_ENQUIRY_RECORD_TYPE];
 const DEFAULT_TYPE_AND_PRODUCT = 'Unified Model';
+const LIVECHAT_FIELDS = [LIVECHAT_INTENT_FIELD, LIVECHAT_CONTACT_ID_FIELD];
+
+// Element selectors
+export const INPUT_ELEMENT_SELECTORS = ['lightning-textarea', 'lightning-combobox', 'lightning-record-picker'];
 
 // Field and button labels
 export const ARTICLES_LABEL = 'Articles';
@@ -24,9 +37,25 @@ export const PRODUCT_CATEGORY_LABEL = 'Product Category';
 export const PRODUCT_SUBCATEGORY_LABEL = 'Product Sub Category';
 export const NOTES_LABEL = 'Notes';
 export const CREATE_BUTTON_LABEL = 'Create';
+export const ENQUIRY_TYPE_OPTIONS = [
+	{
+		label: 'General Enquiry',
+		value: 'General Enquiry'
+	},
+	{
+		label: 'Investigation',
+		value: 'Investigation'
+	}
+];
+
+export const CONTACTID_MISSING_ERROR = 'Contact cannot be empty for investigation case, Please link a contact.';
+export const INVALID_FORM_ERROR = 'Please fix errors and try again';
 
 export default class UnifiedCaseCreation extends LightningElement {
+	// ChatTranscript Obj
+	@api recordId;
 
+	// Public Properties
 	/**
 	 * The Contact Id to associate with the Case record.
 	 * @type {string}
@@ -34,15 +63,52 @@ export default class UnifiedCaseCreation extends LightningElement {
 	@api contactId;
 
 	/**
+	 * The consignment number to associate with the Case record.
+	 * @type {string}
+	 */
+	@api consignmentId;
+
+	/**
 	 * A list of article identifiers to associate with the Case via the `ImpactedArticle__c` object.
 	 * @type {string[]}
 	 */
 	@api impactedArticles;
 
-	// Private properties
+	/**
+	 * getter for enquiry type value to associate with the Case record
+	 * @type {string[]}
+	 */
+	@api get enquiryType() {
+		return this._enquiryType;
+	}
+
+	/**
+	 * setter for enquiry type value to associate with the Case record.
+	 * update recordTypeId when enquiry type is set
+	 * @param value
+	 */
+	set enquiryType(value) {
+		this._enquiryType = value;
+		this.recordTypeId = this.getRecordTypeIdByEnquiryType(value);
+	}
+
+	// Used to show spinner while retrieving object schema data and when creating the Case
+	get isLoading() {
+		return this._isLoading;
+	}
+
+	set isLoading(value) {
+		this._isLoading = value;
+	}
+
+	// Private properties with getter and setter
+	_enquiryType;
+	_isLoading = true;
+
+	// Private properties without getter and setter
+	recordTypeId;
 	caseRecordTypeInfos;
 	casePicklistFieldValues;
-	recordTypeId; // Enquiry Type
 	typeAndProduct = DEFAULT_TYPE_AND_PRODUCT; // Controlling value for 'Enquiry Sub Type'
 	enquirySubType = '';
 	productCategory = '';
@@ -57,41 +123,85 @@ export default class UnifiedCaseCreation extends LightningElement {
 	productSubCategoryLabel = PRODUCT_SUBCATEGORY_LABEL;
 	notesLabel = NOTES_LABEL;
 	createBtnLabel = CREATE_BUTTON_LABEL;
+	liveChatIntent;
+	errorMessage;
 
+	/**
+	 * get default Investigation recordType Id
+	 * @returns Id
+	 */
 	get defaultRecordTypeId() {
 		// Use the SObject schema to get Record IDs, and return the Id for the one
 		// that is configured as the default in this component.
-		return Object.values(this.caseRecordTypeInfos || {}).find(recordTypeInfo => recordTypeInfo.developerName === DEFAULT_RECORD_TYPE)?.recordTypeId;
+		return Object.values(this.caseRecordTypeInfos || {}).find((recordTypeInfo) => recordTypeInfo.developerName === INVESTIGATION_RECORD_TYPE)?.recordTypeId;
 	}
 
-	// Used to show spinner while retrieving object schema data and when creating the Case
-	get isLoading() {
-		if (this.caseRecordTypeInfos) {
-			return false;
-		}
-		return true;
+	/**
+	 * get unified general enquiry recordType Id
+	 * @returns Id
+	 */
+	get generalEnquiryRecordTypeId() {
+		// Use the SObject schema to get Record IDs, and return the Id for the one
+		// that is configured as the default in this component.
+		return Object.values(this.caseRecordTypeInfos || {}).find((recordTypeInfo) => recordTypeInfo.developerName === GENERAL_ENQUIRY_RECORD_TYPE)?.recordTypeId;
 	}
 
-	get linkedArticlesLabel(){
-		return !this.impactedArticles ? ARTICLES_LABEL + ' (None Linked)' : ARTICLES_LABEL + ' (' + (this.impactedArticles?.length) + ')';
+	get linkedArticlesLabel() {
+		return !this.impactedArticles ? ARTICLES_LABEL + ' (None Linked)' : ARTICLES_LABEL + ' (' + this.impactedArticles?.length + ')';
 	}
 
-	// Wire Adapters to retrieve case's record type
-	@wire(getCaseRecordTypeInfos, { developerNames: RECORD_TYPE_DEVELOPER_NAMES })
-	wiredCaseRecordTypeInfos({ data, error }) {
+	get isUnifiedGeneralEnquiryCase() {
+		return this.enquiryType === 'General Enquiry';
+	}
+
+	get isUnifiedInvestigationCase() {
+		return this.enquiryType === 'Investigation';
+	}
+
+	getRecordTypeIdByEnquiryType(enquiryType) {
+		return enquiryType === 'General Enquiry' ? this.generalEnquiryRecordTypeId : this.defaultRecordTypeId;
+	}
+
+	/**
+	 * Wire adaptor to retrieve LiveChatTranscript data such as liveChatIntent
+	 */
+	@wire(getRecord, { recordId: '$recordId', fields: LIVECHAT_FIELDS })
+	wiredChatTranscriptRecord({ data, error }) {
 		if (error) {
 			this.caseRecordTypeInfos = undefined;
-			// TODO: handle errors for next story: https://australiapost.jira.com/browse/CSLU-616
 			console.error(error);
+			this.errorMessage = reduceErrors(error).join(',');
 		} else if (data) {
-			this.caseRecordTypeInfos = data;
-			// Set the default record type (but don't overwrite if already set)
-			if (!this.recordTypeId) {
-				this.recordTypeId = this.defaultRecordTypeId;
+			this.liveChatIntent = getFieldValue(data, LIVECHAT_INTENT_FIELD);
+			if (!this.contactId) {
+				this.contactId = getFieldValue(data, LIVECHAT_CONTACT_ID_FIELD);
 			}
 		}
 	}
 
+	/**
+	 * Wire adaptor to retrieve case's record type
+	 */
+	@wire(getCaseRecordTypeInfos, { developerNames: RECORD_TYPE_DEVELOPER_NAMES })
+	wiredCaseRecordTypeInfos({ data, error }) {
+		if (error) {
+			this.caseRecordTypeInfos = undefined;
+			console.error(error);
+			this.errorMessage = reduceErrors(error).join(',');
+		} else if (data) {
+			this.caseRecordTypeInfos = data;
+			// Set the default record type (but don't overwrite if already set)
+			if (!this.enquiryType) {
+				this.enquiryType = 'Investigation';
+			}
+			this.recordTypeId = this.getRecordTypeIdByEnquiryType(this.enquiryType);
+			this.isLoading = false;
+		}
+	}
+
+	/**
+	 * Wire adaptor to retrieve case's picklist values by record type
+	 */
 	@wire(getPicklistValuesByRecordType, {
 		recordTypeId: '$recordTypeId',
 		objectApiName: CASE_OBJECT
@@ -99,8 +209,8 @@ export default class UnifiedCaseCreation extends LightningElement {
 	wiredCasePicklists({ data, error }) {
 		if (error) {
 			this.casePicklistFieldValues = undefined;
-			// TODO: handle errors for next story: https://australiapost.jira.com/browse/CSLU-616
 			console.error(error);
+			this.errorMessage = reduceErrors(error).join(',');
 		} else if (data) {
 			const { EnquirySubType__c, ProductCategory__c, ProductSubCategory__c } = data.picklistFieldValues;
 			this.casePicklistFieldValues = {
@@ -111,10 +221,28 @@ export default class UnifiedCaseCreation extends LightningElement {
 
 			// Revalidate picklists when the Case Record Type changes
 			this.revalidatePicklists();
+			this.handleDefaultInputFieldValues();
 		}
 	}
 
+	/**
+	 * Handle default values for input fields on LWC form
+	 */
+	handleDefaultInputFieldValues() {
+		const enquirySubTypeOptions = getPicklistOptions(this.casePicklistFieldValues, 'EnquirySubType__c', this.typeAndProduct);
+		this.enquirySubType = enquirySubTypeOptions.length === 1 ? enquirySubTypeOptions[0].value : this.enquirySubType;
 
+		const productCategoryOptions = getPicklistOptions(this.casePicklistFieldValues, 'ProductCategory__c');
+		this.productCategory = productCategoryOptions.length === 1 ? productCategoryOptions[0].value : this.productCategory;
+
+		const productSubCategoryOptions = getPicklistOptions(this.casePicklistFieldValues, 'ProductSubCategory__c', this.productCategory);
+		this.productSubCategory = productSubCategoryOptions.length === 1 ? productSubCategoryOptions[0].value : this.productSubCategory;
+	}
+
+	/**
+	 * Handle input field changes
+	 * @param {*} event 
+	 */
 	handleInputChange(event) {
 		const { fieldName } = event.target.dataset;
 		const value = event.target.value;
@@ -123,12 +251,11 @@ export default class UnifiedCaseCreation extends LightningElement {
 
 		// Only re-calculate if picklists are changing (not any field)
 		const fieldsToRevalidate = {
-			recordTypeId: this.recordTypeId,
+			enquiryType: this.enquiryType,
 			enquirySubType: this.enquirySubType,
 			productCategory: this.productCategory,
 			productSubCategory: this.productSubCategory
 		};
-
 		if (Object.hasOwnProperty.call(fieldsToRevalidate, fieldName) && previousValue !== value) {
 			this.revalidatePicklists();
 		}
@@ -152,28 +279,103 @@ export default class UnifiedCaseCreation extends LightningElement {
 
 	// Picklist Options
 	get enquiryTypeOptions() {
-		return Object.values(this.caseRecordTypeInfos || {}).map((recordTypeInfo) => ({
-			label: recordTypeInfo.name,
-			value: recordTypeInfo.recordTypeId
-		}));
+		return ENQUIRY_TYPE_OPTIONS;
 	}
 
+	// Picklist options for enquiry sub type field
 	get enquirySubTypeOptions() {
 		const options = getPicklistOptions(this.casePicklistFieldValues, 'EnquirySubType__c', this.typeAndProduct);
-		return [{ label: 'None', value: '' }, ...options];
+		return options.length === 0 ? [{ label: 'None', value: '' }] : options;
 	}
 
+	// Picklist options for product category field
 	get productCategoryOptions() {
 		const options = getPicklistOptions(this.casePicklistFieldValues, 'ProductCategory__c');
-		return [{ label: 'None', value: '' }, ...options];
+		return options.length === 0 ? [{ label: 'None', value: '' }] : options;
 	}
 
+	// Picklist options for product sub category field
 	get productSubCategoryOptions() {
 		const options = getPicklistOptions(this.casePicklistFieldValues, 'ProductSubCategory__c', this.productCategory);
-		return [{ label: 'None', value: '' }, ...options];
+		return options.length === 0 ? [{ label: 'None', value: '' }] : options;
 	}
 
-	handleCaseCreation() {
-		// TODO	for the next story: https://australiapost.jira.com/browse/CSLU-616
+	/**
+	 * Validate all form inputs
+	 * @returns {boolean}
+	 */
+	validateInputs() {
+		try {
+			this.errorMessage = undefined;
+
+			// Collect all form input elements
+			const inputElements = [...this.template.querySelectorAll(INPUT_ELEMENT_SELECTORS.join(','))];
+
+			// Check each individual field is valid
+			let isValid = inputElements.reduce((validSoFar, el) => {
+				el.reportValidity();
+				return validSoFar && el.checkValidity();
+			}, true);
+
+			// If one or more fields is invalid, stop validating (field will display error message)
+			if (!isValid) {
+				return false;
+			}
+
+			if (this.isUnifiedInvestigationCase && isBlank(this.contactId)) {
+				isValid = false;
+				this.errorMessage = CONTACTID_MISSING_ERROR;
+			}
+			return isValid;
+		} catch (err) {
+			this.errorMessage = reduceErrors(err).join(',');
+			return false;
+		}
+	}
+
+	/**
+	 * handle new case creation and new impacted article with all appropriate fields mapped from the UI form
+	 * @returns {Promise<void>}
+	 */
+	async handleCaseCreation() {
+		// Validate inputs before invoking the search method
+		if (!this.validateInputs()) {
+			if (this.errorMessage === undefined) {
+				this.errorMessage = INVALID_FORM_ERROR;
+			}
+			return;
+		}
+
+		this.isLoading = true;
+		try {
+			const caseId = await createNewCase({
+				request: {
+					impactedArticles: this.impactedArticles,
+					contactId: this.contactId,
+					enquiryType: this.enquiryType,
+					enquirySubType: this.enquirySubType,
+					productCategory: this.productCategory,
+					productSubCategory: this.productSubCategory,
+					notes: this.notes,
+					liveChatIntent: this.liveChatIntent,
+					recordTypeId: this.recordTypeId,
+					consignmentId: this.consignmentId
+				}
+			});
+
+			// Dispatch the ShowToastEvent
+			this.dispatchEvent(
+				new ShowToastEvent({
+					title: 'Success!',
+					message: 'Case Created Successfully',
+					variant: 'success'
+				})
+			);
+		} catch (error) {
+			console.error(error);
+			this.errorMessage = reduceErrors(error).join(',');
+		} finally {
+			this.isLoading = false;
+		}
 	}
 }
