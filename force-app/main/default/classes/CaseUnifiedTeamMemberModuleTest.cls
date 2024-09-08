@@ -173,5 +173,7 @@ private class CaseUnifiedTeamMemberModuleTest {
 				fflib_Match.eqBoolean(false),
 				fflib_Match.anyString()
 		);
+		List<CaseTeamMember> caseTeamMemberResult = (List<CaseTeamMember>) caseTeamMembersCaptor.getValue();
+		Assert.isNull(caseTeamMemberResult, 'Result should be null as no CaseTeamMember should be created');
 	}
 }
