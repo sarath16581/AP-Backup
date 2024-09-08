@@ -11,7 +11,10 @@ NOT(ClosedBySystem__c) &amp;&amp; ( $User.ProfileId != &apos;00e90000001eeTh&apo
 &amp;&amp; 
 ISBLANK(TEXT(Resolution_Result__c)) 
 &amp;&amp; 
-CONTAINS(RecordType.DeveloperName, &quot;SSSW&quot;) 
+OR(
+  CONTAINS(RecordType.DeveloperName, &quot;SSSW&quot;),
+  CONTAINS(RecordType.DeveloperName, &apos;Unified&apos;)
+)
 &amp;&amp; 
 NOT(ISNEW()) 
 &amp;&amp; 

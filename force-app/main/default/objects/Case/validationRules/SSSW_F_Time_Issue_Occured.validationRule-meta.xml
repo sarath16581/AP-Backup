@@ -3,7 +3,10 @@
     <fullName>SSSW_F_Time_Issue_Occured</fullName>
     <active>true</active>
     <errorConditionFormula>AND( ISBLANK( DateofIncident__c ), NOT(ISPICKVAL( Origin , &quot;Internal form&quot;)), 
-     CONTAINS( RecordType.DeveloperName, &quot;SSSWService&quot;), 
+	OR(
+		CONTAINS( RecordType.DeveloperName, &quot;SSSWService&quot;),
+		CONTAINS( RecordType.DeveloperName, &apos;Unified&apos;)
+	),
      Bypass_Data_enforcement__c = FALSE, 
      Email_Bypass_Data_enforcement__c = FALSE, 
 
