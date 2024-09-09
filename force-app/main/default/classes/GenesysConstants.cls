@@ -27,7 +27,7 @@ public with sharing class GenesysConstants {
 					// Tracking Number
 					VoiceCall.TrackingNumber__c => 'Tracking_Number',
 					// // Tracking ID (former Article ID)
-					// VoiceCall.Consignment__c => 'Tracking_Number',
+					// VoiceCall.Consignment__c => 'Tracking_Number2',
 					//	Product Category
 					VoiceCall.ProductCategory__c => 'Product_Category',
 					//	Product Sub Category
@@ -37,15 +37,13 @@ public with sharing class GenesysConstants {
 					//	Enquiry Sub Type
 					VoiceCall.EnquirySubType__c => 'Unified_Enquiry_Sub_Type',
 					//	Case ID
-					VoiceCall.Case__c => 'CaseId'//,
-					// //	Contact ID
-					// VoiceCall.Contact__c => 'ContactId',
-					// //
-					// VoiceCall.Consignment__c => 'Tracking_Number',
-					// //	Root Cause
-					// VoiceCall.RootCause__c => 'Root_Cause',
-					// //	Outcome
-					// VoiceCall.Outcome__c => 'Outcome'
+					VoiceCall.Case__c => 'CaseId',
+					//	Contact ID
+					VoiceCall.Contact__c => 'ContactId',
+					//	Root Cause
+					VoiceCall.RootCause__c => 'Root_Cause',
+					//	Outcome
+					VoiceCall.Outcome__c => 'Outcome'
 				};
 			}
 
@@ -53,7 +51,6 @@ public with sharing class GenesysConstants {
 		}
 		set;
 	}
-
 	/**
 	 * Mappings from Salesforce VoiceCall fields => related VoiceCall fields
 	 */
