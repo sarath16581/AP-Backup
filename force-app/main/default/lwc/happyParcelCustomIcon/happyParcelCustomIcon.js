@@ -59,8 +59,8 @@ export default class HappyParcelCustomIcon extends LightningElement {
 		return this.icon === 'exclamation';
 	}
 	get iconIsEventMessage() {
-        return this.icon === 'event-message';
-    }
+		return this.icon === 'event-message';
+	}
 	get cssClass() {
 		return this.size + ' ' + (this.maintainWidthRatio ? 'maintain-width-ratio' : (this.maintainHeightRatio ? 'maintain-height-ratio' : '' ));
 	}
