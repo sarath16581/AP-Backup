@@ -103,7 +103,7 @@
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>lookupFieldName</name>
-                    <value>VoiceCall.Case__c</value>
+                    <value>VoiceCall.RelatedRecordId[Case]</value>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>titleFieldName</name>
@@ -195,8 +195,8 @@
         </itemInstances>
         <itemInstances>
             <componentInstance>
-                <componentName>unifiedVoiceCallGenesysIntegration</componentName>
-                <identifier>c_unifiedVoiceCallGenesysIntegration</identifier>
+                <componentName>unifiedCaseVoiceCallSync</componentName>
+                <identifier>c_unifiedCaseVoiceCallSync</identifier>
             </componentInstance>
         </itemInstances>
         <name>thirdElement</name>
