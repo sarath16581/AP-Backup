@@ -4,6 +4,7 @@
  * @changelog:
  * 2024-08-21 - Marcel HK - Created
  * 2024-08-29 - Seth Heang - Updated the Form UI and refactor codes
+ * 2024-09-02 - Seth Heang - Added case creation handler and validation/error handling
  */
 import { api, LightningElement, wire } from "lwc";
 import getCaseRecordTypeInfos from "@salesforce/apex/UnifiedCaseCreationController.getCaseRecordTypeInfos";
@@ -21,6 +22,8 @@ import LIVECHAT_CONTACT_ID_FIELD from "@salesforce/schema/LiveChatTranscript.Con
 
 const INVESTIGATION_RECORD_TYPE = 'UnifiedInvestigation';
 const GENERAL_ENQUIRY_RECORD_TYPE = 'UnifiedGeneralEnquiry';
+const INVESTIGATION_ENQUIRY_TYPE = 'Investigation';
+const GENERAL_ENQUIRY_TYPE = 'General Enquiry';
 const RECORD_TYPE_DEVELOPER_NAMES = [INVESTIGATION_RECORD_TYPE, GENERAL_ENQUIRY_RECORD_TYPE];
 const DEFAULT_TYPE_AND_PRODUCT = 'Unified Model';
 const LIVECHAT_FIELDS = [LIVECHAT_INTENT_FIELD, LIVECHAT_CONTACT_ID_FIELD];
@@ -39,12 +42,12 @@ export const NOTES_LABEL = 'Notes';
 export const CREATE_BUTTON_LABEL = 'Create';
 export const ENQUIRY_TYPE_OPTIONS = [
 	{
-		label: 'General Enquiry',
-		value: 'General Enquiry'
+		label: INVESTIGATION_ENQUIRY_TYPE,
+		value: INVESTIGATION_ENQUIRY_TYPE
 	},
 	{
-		label: 'Investigation',
-		value: 'Investigation'
+		label: GENERAL_ENQUIRY_TYPE,
+		value: GENERAL_ENQUIRY_TYPE
 	}
 ];
 
@@ -63,7 +66,7 @@ export default class UnifiedCaseCreation extends LightningElement {
 	@api contactId;
 
 	/**
-	 * The consignment number to associate with the Case record.
+	 * The consignment SF Id to associate with the Case record.
 	 * @type {string}
 	 */
 	@api consignmentId;
@@ -151,15 +154,15 @@ export default class UnifiedCaseCreation extends LightningElement {
 	}
 
 	get isUnifiedGeneralEnquiryCase() {
-		return this.enquiryType === 'General Enquiry';
+		return this.enquiryType === GENERAL_ENQUIRY_TYPE;
 	}
 
 	get isUnifiedInvestigationCase() {
-		return this.enquiryType === 'Investigation';
+		return this.enquiryType === INVESTIGATION_ENQUIRY_TYPE;
 	}
 
 	getRecordTypeIdByEnquiryType(enquiryType) {
-		return enquiryType === 'General Enquiry' ? this.generalEnquiryRecordTypeId : this.defaultRecordTypeId;
+		return this.isUnifiedGeneralEnquiryCase ? this.generalEnquiryRecordTypeId : this.defaultRecordTypeId;
 	}
 
 	/**
@@ -192,7 +195,7 @@ export default class UnifiedCaseCreation extends LightningElement {
 			this.caseRecordTypeInfos = data;
 			// Set the default record type (but don't overwrite if already set)
 			if (!this.enquiryType) {
-				this.enquiryType = 'Investigation';
+				this.enquiryType = INVESTIGATION_ENQUIRY_TYPE;
 			}
 			this.recordTypeId = this.getRecordTypeIdByEnquiryType(this.enquiryType);
 			this.isLoading = false;
@@ -266,13 +269,13 @@ export default class UnifiedCaseCreation extends LightningElement {
 	 * This is used to prevent unintentionally saving values which are not allowed.
 	 */
 	revalidatePicklists() {
-		if (!isPicklistOptionAvailable(this.casePicklistFieldValues, 'EnquirySubType__c', this.typeAndProduct, this.enquirySubType)){
+		if (!isPicklistOptionAvailable(this.casePicklistFieldValues, 'EnquirySubType__c', this.typeAndProduct, this.enquirySubType)) {
 			this.enquirySubType = '';
 		}
-		if (!isPicklistOptionAvailable(this.casePicklistFieldValues, 'ProductCategory__c', null, this.productCategory)){
+		if (!isPicklistOptionAvailable(this.casePicklistFieldValues, 'ProductCategory__c', null, this.productCategory)) {
 			this.productCategory = '';
 		}
-		if (!isPicklistOptionAvailable(this.casePicklistFieldValues, 'ProductSubCategory__c', this.productCategory, this.productSubCategory)){
+		if (!isPicklistOptionAvailable(this.casePicklistFieldValues, 'ProductSubCategory__c', this.productCategory, this.productSubCategory)) {
 			this.productSubCategory = '';
 		}
 	}
