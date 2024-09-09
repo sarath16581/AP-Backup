@@ -1271,6 +1271,30 @@
         <template>Transport_Enquiry_Case_Template/Transport_Enquiry_New_Case_Notification</template>
     </alerts>
     <alerts>
+        <fullName>UnifiedGeneralEnquiryToInvestigationAP</fullName>
+        <description>Email alert to notify related contact on the Case when Unified General Enquiry case related to an AP product is converted in to Unified Investigation case.</description>
+        <protected>false</protected>
+        <recipients>
+            <field>ContactId</field>
+            <type>contactLookup</type>
+        </recipients>
+        <senderAddress>customerservice@auspost.com.au</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>Unified_Case_Notifications/APCaseCreation</template>
+    </alerts>
+    <alerts>
+        <fullName>UnifiedGeneralEnquiryToInvestigationST</fullName>
+        <description>Email alert to notify related contact on the Case when Unified General Enquiry case related to a StarTrack product is converted in to Unified Investigation case.</description>
+        <protected>false</protected>
+        <recipients>
+            <field>ContactId</field>
+            <type>contactLookup</type>
+        </recipients>
+        <senderAddress>customerservice@startrack.com.au</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>Unified_Case_Notifications/STCaseCreation</template>
+    </alerts>
+    <alerts>
         <fullName>VL_First_email</fullName>
         <description>VL - First email</description>
         <protected>false</protected>
