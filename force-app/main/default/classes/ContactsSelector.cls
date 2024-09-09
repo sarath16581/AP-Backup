@@ -171,6 +171,24 @@ public virtual inherited sharing class ContactsSelector extends ApplicationSelec
 	}
 
 	/**
+	 * @param selectorOptions Set<Object> selectorOptions
+	 * @param reversedPhoneNumbers Set<String> a collection of reversed phone numbers
+	 * @description returns a list of Contacts based on either matching on ReverseMobilePhone__c, ReverseVerifiedMobile__c, or ReversePhone__c
+	 *
+	 * @return Map<Id, Contact>
+	 */
+	public Map<Id, Contact> selectByReversedPhoneNumbers(Set<Object> selectorOptions, Set<String> reversedPhoneNumbers) {
+		QueryBuilder qb = newQueryBuilder(selectorOptions)
+				.addConditions()
+				.add(new QueryBuilder.InCondition(Contact.ReverseMobilePhone__c).inCollection(reversedPhoneNumbers))
+				.add(new QueryBuilder.InCondition(Contact.ReverseVerifiedMobile__c).inCollection(reversedPhoneNumbers))
+				.add(new QueryBuilder.InCondition(Contact.ReversePhone__c).inCollection(reversedPhoneNumbers))
+				.setConditionOrder('(1 OR 2 OR 3)')
+				.endConditions();
+		return new Map<Id, Contact>((List<Contact>) Database.query(qb.toSoqlString()));
+	}
+
+	/**
 	 * @description Execute SOQL query and return a Map with Contact objects matching the search parameters.
 	 * 
 	 * This method was intially developed for CSLU-107 and is used by class `UnifiedCustomerSearchController`.

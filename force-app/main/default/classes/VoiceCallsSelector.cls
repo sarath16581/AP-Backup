@@ -8,7 +8,7 @@
  */
 public virtual inherited sharing class VoiceCallsSelector extends ApplicationSelector {
 	public enum Options {
-		ORDERBY_OLDTONEW
+		ORDERBY_OLDTONEW,WITH_CALLER,WITH_RECIPIENT
 	}
 
 	public static VoiceCallsSelector newInstance() {
@@ -96,7 +96,12 @@ public virtual inherited sharing class VoiceCallsSelector extends ApplicationSel
 	 */
 	public virtual override QueryBuilder newQueryBuilder(Set<Object> selectorOptions) {
 		QueryBuilder builder = super.newQueryBuilder(selectorOptions);
-
+		if(selectorOptions.contains(Options.WITH_CALLER)) {
+			builder.addRelatedFields(ConversationParticipantsSelector.newInstance().newQueryBuilder(), 'Caller');
+		}
+		if(selectorOptions.contains(Options.WITH_RECIPIENT)) {
+			builder.addRelatedFields(ConversationParticipantsSelector.newInstance().newQueryBuilder(), 'Recipient');
+		}
 		return builder;
 	}
 }

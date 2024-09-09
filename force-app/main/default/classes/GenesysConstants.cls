@@ -17,6 +17,8 @@ public with sharing class GenesysConstants {
 	public static final String VOICE_CALL_OUTCOME_FCR = 'FCR';
 	public static final String VOICE_CALL_OUTCOME_ENQUIRY_LODGED = 'Enquiry lodged';
 	public static final String VOICE_CALL_OUTCOME_ENQUIRY_UPDATED = 'Enquiry updated';
+	public static final String VOICE_CALL_INBOUND_CALL_TYPE = 'Inbound';
+	public static final String VOICE_CALL_OUTBOUND_CALL_TYPE = 'Outbound';
     /**
 	 * Mappings from Salesforce VoiceCall fields => Genesys Custom Attribute names
 	 */
