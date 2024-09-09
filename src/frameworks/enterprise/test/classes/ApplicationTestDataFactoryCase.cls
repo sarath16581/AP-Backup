@@ -6,6 +6,7 @@
  * 2024-06-13 - Parveen Kaushik - Added default value for mapping model on test data. See CSLU-470 (JIRA) for details.
  * 2024-07-23 - Ranjeewa Silva - New methods to return new ContactRequests and ImpactedArticle__c.
  * 2024-08-23 - George Nguyen - added getLiveChatTranscripts(...), getVoiceCalls(...) and updated getContactRequests(...)
+ * 2024-09-06 - Seth Heang - added new method for getCaseTeamMember and caseTeamRoleUnifiedAgent
 */
 @IsTest
 public with sharing class ApplicationTestDataFactoryCase {

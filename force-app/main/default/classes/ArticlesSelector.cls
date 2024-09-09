@@ -12,6 +12,7 @@
  * 2023-03-10 - Mahesh Parvathaneni - Updated WITH_EVENTMESSAGES_DESC_ORDER options
  * 2024-05-29 - Seth Heang - Added ConsignmentTrackingNumber__c, FurtherReferences__c, ProductID__c, IsDelivered__c into SOQL field list 
  * 2024-04-24 - Vasu Gorakati - Added selectByArticleNames method
+ * 2024-09-09 - Seth Heang - Added selectByConsignmentIdAndChildArticles
  */
 public virtual inherited sharing class ArticlesSelector extends ApplicationSelector {
 
@@ -88,6 +89,25 @@ public virtual inherited sharing class ArticlesSelector extends ApplicationSelec
 	 */
 	public virtual Map<Id, Article__c> selectByArticleIds(Set<String> ids) {
 		return selectByArticleIds(ids, new Set<Object>());
+	}
+
+	/**
+	 * @description Run a simple query to get records based on Id's
+	 */
+	public virtual Map<Id, Article__c> selectByConsignmentIdAndChildArticles(Set<Id> consignmentIds, Set<String> articlesIds) {
+		return selectByConsignmentIdAndChildArticles(consignmentIds, articlesIds, new Set<Object>());
+	}
+
+	/**
+	 * @description Run a simple query to get records based on Id's
+	 */
+	public virtual Map<Id, Article__c> selectByConsignmentIdAndChildArticles(Set<Id> consignmentIds, Set<String> articlesIds, Set<Object> selectorOptions) {
+		QueryBuilder qb = newQueryBuilder(selectorOptions)
+			.addConditions()
+				.add(new QueryBuilder.SimpleCondition(Article__c.ArticleID__c + ' in :articlesIds'))
+				.add(new QueryBuilder.SimpleCondition(Article__c.Consignment__c + ' in :consignmentIds'))
+			.endConditions();
+		return new Map<Id, Article__c>((List<Article__c>)Database.query(qb.toSoqlString()));
 	}
 
 	/**

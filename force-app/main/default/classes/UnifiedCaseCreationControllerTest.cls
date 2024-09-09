@@ -12,8 +12,8 @@
 public class UnifiedCaseCreationControllerTest {
 
 	/**
-	 *	Test getCaseRecordTypeInfos() with valid record type names
-	 *	And verify that the record types return successfully
+	 * Test getCaseRecordTypeInfos() with valid record type names
+	 * And verify that the record types return successfully
 	 */
 	@IsTest
 	static void testGetCaseRecordTypeInfosWithValidNames() {
@@ -21,7 +21,9 @@ public class UnifiedCaseCreationControllerTest {
 		// Data Preparation
 		// =====================================
 		// Test with valid developer names
-		List<String> developerNames = new List<String>{'UnifiedInvestigation', 'UnifiedGeneralEnquiry'};
+		List<String> developerNames = new List<String>{
+				'UnifiedInvestigation', 'UnifiedGeneralEnquiry'
+		};
 
 		// =====================================
 		// Testing
@@ -44,8 +46,8 @@ public class UnifiedCaseCreationControllerTest {
 	}
 
 	/**
-	 *	Test getCaseRecordTypeInfos() with invalid record type names
-	 *	And verify that the record types return blank result
+	 * Test getCaseRecordTypeInfos() with invalid record type names
+	 * And verify that the record types return blank result
 	 */
 	@IsTest
 	static void testGetCaseRecordTypeInfosWithInvalidNames() {
@@ -53,7 +55,9 @@ public class UnifiedCaseCreationControllerTest {
 		// Data Preparation
 		// =====================================
 		// Test with invalid developer names
-		List<String> developerNames = new List<String>{'Business_Account', 'Consumer', 'InvalidName'};
+		List<String> developerNames = new List<String>{
+				'Business_Account', 'Consumer', 'InvalidName'
+		};
 
 		// =====================================
 		// Testing
@@ -65,8 +69,8 @@ public class UnifiedCaseCreationControllerTest {
 	}
 
 	/**
-	 *	Test getCaseRecordTypeInfos() with invalid input
-	 *	And verify that exception is thrown with pre-defined generic message
+	 * Test getCaseRecordTypeInfos() with invalid input
+	 * And verify that exception is thrown with pre-defined generic message
 	 */
 	@IsTest
 	static void testGetCaseRecordTypeInfosExceptionHandling() {
@@ -89,8 +93,8 @@ public class UnifiedCaseCreationControllerTest {
 	}
 
 	/**
-	 *	Test buildGeneralEnquiryCaseAttributes() for populating UnifiedInvestigation Case attributes
-	 *	And verify all the attributes mapping is correct
+	 * Test buildGeneralEnquiryCaseAttributes() for populating UnifiedInvestigation Case attributes
+	 * And verify all the attributes mapping is correct
 	 */
 	@IsTest
 	static void testBuildUnifiedGeneralEnquiryCaseDataMapping() {
@@ -133,8 +137,8 @@ public class UnifiedCaseCreationControllerTest {
 	}
 
 	/**
-	 *	Test buildInvestigationCaseAttributes() for populating UnifiedInvestigation Case attributes
-	 *	And verify all the attributes mapping is correct
+	 * Test buildInvestigationCaseAttributes() for populating UnifiedInvestigation Case attributes
+	 * And verify all the attributes mapping is correct
 	 */
 	@IsTest
 	static void testBuildUnifiedInvestigationCaseDataMapping() {
@@ -175,8 +179,8 @@ public class UnifiedCaseCreationControllerTest {
 	}
 
 	/**
-	 *	Test create 'UnifiedGeneralEnquiry' case and subsequent ImpactedArticle__c successfully
-	 *	And verify all the attributes mapping for the case and ImpactedArticle__c are correct
+	 * Test create 'UnifiedGeneralEnquiry' case and subsequent ImpactedArticle__c successfully
+	 * And verify all the attributes mapping for the case and ImpactedArticle__c are correct
 	 */
 	@IsTest
 	static void testCreateNewUnifiedGeneralEnquiryCaseAndNewImpactedArticle() {
@@ -210,8 +214,9 @@ public class UnifiedCaseCreationControllerTest {
 		ApplicationDatabase mockDatabase = MockUtility.mockDatabase();
 		MockUtility.Mocks.startStubbing();
 		MockUtility.Mocks.when(
-				mockArticlesSelector.selectByArticleIds(
-						(Set<String>) new Set<String>(articleIds)
+				mockArticlesSelector.selectByConsignmentIdAndChildArticles(
+						(Set<Id>) fflib_Match.anyObject(),
+						(Set<String>) fflib_Match.anyObject()
 				)
 		).thenReturn(new Map<Id, Article__c>(articles));
 		MockUtility.Mocks.when(mockDatabase.dmlInsert((List<SObject>) fflib_Match.anyObject())).thenAnswer(new MockUtility.AnswerGenericDMLInserted());
@@ -253,8 +258,8 @@ public class UnifiedCaseCreationControllerTest {
 	}
 
 	/**
-	 *	Test create 'UnifiedInvestigation' case and subsequent ImpactedArticle__c successfully
-	 *	And verify all the attributes mapping for the case and ImpactedArticle__c are correct
+	 * Test create 'UnifiedInvestigation' case and subsequent ImpactedArticle__c successfully
+	 * And verify all the attributes mapping for the case and ImpactedArticle__c are correct
 	 */
 	@IsTest
 	static void testCreateNewUnifiedInvestigationCaseAndNewImpactedArticle() {
@@ -288,8 +293,9 @@ public class UnifiedCaseCreationControllerTest {
 		ApplicationDatabase mockDatabase = MockUtility.mockDatabase();
 		MockUtility.Mocks.startStubbing();
 		MockUtility.Mocks.when(
-				mockArticlesSelector.selectByArticleIds(
-						(Set<String>) new Set<String>(articleIds)
+				mockArticlesSelector.selectByConsignmentIdAndChildArticles(
+						(Set<Id>) fflib_Match.anyObject(),
+						(Set<String>) fflib_Match.anyObject()
 				)
 		).thenReturn(new Map<Id, Article__c>(articles));
 		MockUtility.Mocks.when(mockDatabase.dmlInsert((List<SObject>) fflib_Match.anyObject())).thenAnswer(new MockUtility.AnswerGenericDMLInserted());
@@ -331,8 +337,9 @@ public class UnifiedCaseCreationControllerTest {
 	}
 
 	/**
-	 *	Test create a case with failure due to one or more article does not exist in the system
-	 *	And verify that appropriate error message is returned
+	 * Test create a case with failure due to article count mismatch between the linked articles (which may contain duplicate)
+	 * against child articles under a unique consignment in the system
+	 * And verify that appropriate error message is returned
 	 */
 	@IsTest
 	static void testCaseCreationWithFailureDueToMissingArticle() {
@@ -366,8 +373,9 @@ public class UnifiedCaseCreationControllerTest {
 		ApplicationDatabase mockDatabase = MockUtility.mockDatabase();
 		MockUtility.Mocks.startStubbing();
 		MockUtility.Mocks.when(
-				mockArticlesSelector.selectByArticleIds(
-						(Set<String>) new Set<String>(articleIds)
+				mockArticlesSelector.selectByConsignmentIdAndChildArticles(
+						(Set<Id>) fflib_Match.anyObject(),
+						(Set<String>) fflib_Match.anyObject()
 				)
 		).thenReturn(new Map<Id, Article__c>{
 				articles[0].Id => articles[0]
@@ -383,13 +391,13 @@ public class UnifiedCaseCreationControllerTest {
 			Test.stopTest();
 			Assert.fail('Expecting an exception here but there was no exception');
 		} catch (AuraHandledException ex) {
-			Assert.areEqual(UnifiedCaseCreationController.ONE_OR_MORE_ARTICLES_NOT_EXIST, ex.getMessage(), 'Expect error message to match but instead got: ' + ex.getMessage());
+			Assert.areEqual(UnifiedCaseCreationController.GENERIC_ERROR_MESSAGE, ex.getMessage(), 'Expect error message to match but instead got: ' + ex.getMessage());
 		}
 	}
 
 	/**
-	 *	Test create a case with failure due to unexpected error
-	 *	And verify that appropriate error message is returned
+	 * Test create a case with failure due to unexpected error
+	 * And verify that appropriate error message is returned
 	 */
 	@IsTest
 	static void testCaseCreationWithFailureDueToUnexpectedError() {

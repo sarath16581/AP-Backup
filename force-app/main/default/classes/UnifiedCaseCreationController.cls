@@ -19,8 +19,6 @@ public with sharing class UnifiedCaseCreationController {
 	private static final String UNCLEAR_EDD_ROOT_CAUSE = 'Unclear EDD';
 	@TestVisible
 	private static final String CLOSED_TRACKING_ONLY_RESOLUTION_CODE = 'Closed - Tracking only';
-	@TestVisible
-	private static final String ONE_OR_MORE_ARTICLES_NOT_EXIST = 'One or more articles do not exist in the system.';
 
 	/**
 	 * @description This method is used to get the Record Type Ids for the selected Record Type Names.
@@ -66,7 +64,7 @@ public with sharing class UnifiedCaseCreationController {
 
 	/**
 	 * @description Create Case with either 'UnifiedInvestigation' or 'UnifiedGeneralEnquiry' type from LWC form inputs
-	 *				Also, create ImpactedArticle__c and link to case and article
+	 *			Also, create ImpactedArticle__c and link to case and article
 	 * @param request LWC form inputs
 	 *
 	 * @return Case Id
@@ -75,20 +73,22 @@ public with sharing class UnifiedCaseCreationController {
 	public static Id createNewCase(CaseCreationRequest request) {
 		try {
 			Set<String> impactedArticleNames = new Set<String>(request.impactedArticles);
-			List<Article__c> articles = ArticlesSelector.newInstance().selectByArticleIds(impactedArticleNames).values();
+			List<Article__c> articles = ArticlesSelector.newInstance().selectByConsignmentIdAndChildArticles(
+					new Set<Id> { request.consignmentId },
+					impactedArticleNames
+			).values();
 
-			// additional check for existing article if the count match the impacted article passed from LWC,
-			// mismatch article count should never happen as SAP tracking search would create article in upstream process
+			// additional check for existing articles where the article count is mismatch due to duplicate in the system
 			if(impactedArticleNames.size() != articles.size()){
-				AuraHandledException ae = new AuraHandledException(ONE_OR_MORE_ARTICLES_NOT_EXIST);
-				ae.setMessage(ONE_OR_MORE_ARTICLES_NOT_EXIST);
+				AuraHandledException ae = new AuraHandledException(GENERIC_ERROR_MESSAGE);
+				ae.setMessage(GENERIC_ERROR_MESSAGE);
 				throw ae;
 			}
 
 			Id caseId = insertNewCaseRecord(request);
 			createImpactedArticles(
-				caseId,
-				articles
+					caseId,
+					articles
 			);
 			return caseId;
 		} catch (AuraHandledException ex) {
@@ -128,7 +128,7 @@ public with sharing class UnifiedCaseCreationController {
 		}
 		if (newCase != null){
 			ApplicationDatabase.getInstance().dmlInsert(new List<Case>{
-				newCase
+					newCase
 			});
 		}
 		return newCase.Id;
