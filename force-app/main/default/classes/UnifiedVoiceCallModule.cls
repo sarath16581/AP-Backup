@@ -29,11 +29,12 @@ public with sharing class UnifiedVoiceCallModule extends ApplicationModule {
 	}
 
 	/**
-	 * Called after a VoiceCall is updated.
+	 * @param records List<SObject>
+	 * @param existingRecords Map<Id, SObject>
+	 * @param uow ApplicationUnitOfWork
+	 * @description Called after a VoiceCall is updated.
 	 */
 	public override void onAfterUpdate(List<SObject> records, Map<Id, SObject> existingRecords, ApplicationUnitOfWork uow) {
-		syncVoiceCallToGenesysCallInteraction(records, existingRecords);
-
 		try {
 			Set<SObjectField> monitoredFields = GenesysConstants.voiceCallFieldMappings.keySet();
 			List<ApplicationRecursion.RecordState> changedRecordStates = ApplicationRecursion.getInstance().getProcessableRecords('UnifiedVoiceCallModule', records, existingRecords, monitoredFields);
@@ -41,10 +42,10 @@ public with sharing class UnifiedVoiceCallModule extends ApplicationModule {
 			for (ApplicationRecursion.RecordState recordState : changedRecordStates) {
 				changedRecords.add(recordState.record);
 			}
-			syncCaseWhenRelatedRecordIdChanged(records, existingRecords, uow);
+			syncVoiceCallToGenesysCallInteraction(records, existingRecords);
+			syncCaseWhenRelatedRecordIdChanged(changedRecords, existingRecords, uow);
 			syncVoiceCallParticipants(changedRecords, existingRecords, uow);
 		} catch (Exception ex) {
-			// Error Logged to Exception object for analysis
 			ApplicationLogger.getInstance().logException(ApplicationLogger.wrapException(ex), 'Unified Voice Call', UnifiedVoiceCallModule.class.getName(), 'onAfterUpdate', 'VoiceCall', ApplicationLogger.LoggingLevel.ERROR);
 		}
 	}
@@ -56,7 +57,6 @@ public with sharing class UnifiedVoiceCallModule extends ApplicationModule {
 	 */
 	@TestVisible
 	private static void populateOriginalVoiceCall(List<SObject> records, ApplicationUnitOfWork uow) {
-		System.debug('@@@here');
 		Map<Id,Id> previousCallIds = new Map<Id,Id>();
 		Set<Id> voiceToProcessIds = new Set<Id>();
 		for (VoiceCall vc : (List<VoiceCall>) records) {
@@ -65,8 +65,7 @@ public with sharing class UnifiedVoiceCallModule extends ApplicationModule {
 				voiceToProcessIds.add(vc.Id);
 			}
 		}
-		System.debug('previousCallIds');
-		System.debug(previousCallIds);
+
 		if (previousCallIds.isEmpty()) {
 			return;
 		}
@@ -82,11 +81,6 @@ public with sharing class UnifiedVoiceCallModule extends ApplicationModule {
 				vc.put(field, previousCallsMap.get(vc.PreviousCallId).get(field));
 			}
 		}
-		System.debug('previousCallsMap');
-		System.debug(previousCallsMap);
-
-		System.debug('voiceCallsUpdatable');
-		System.debug(voiceCallsUpdatable);
 
 		uow.registerDirty(voiceCallsUpdatable);
 	}
@@ -104,7 +98,8 @@ public with sharing class UnifiedVoiceCallModule extends ApplicationModule {
 		Set<Id> relatedCaseIds = new Set<Id>();
 		for (VoiceCall vc : (List<VoiceCall>) records) {
 			oldVc = (VoiceCall) existingRecords.get(vc.Id);
-			if (vc.RelatedRecordId != oldVc.RelatedRecordId && String.valueOf(vc.RelatedRecordId).startsWith('500')) {
+			if ((vc.RelatedRecordId == null && oldVc.RelatedRecordId != null) ||
+					(vc.RelatedRecordId != oldVc.RelatedRecordId && String.valueOf(vc.RelatedRecordId).startsWith('500'))) {
 				relatedCaseIds.add(vc.RelatedRecordId);
 				voiceCallIdToProcess.put(vc.Id, vc);
 			}
@@ -124,7 +119,6 @@ public with sharing class UnifiedVoiceCallModule extends ApplicationModule {
 		for (Id vcId : voiceCallUpdatable.keySet()) {
 			VoiceCall vc = voiceCallUpdatable.get(vcId);
 			vc.Case__c = voiceCallIdToProcess.get(vcId).RelatedRecordId;
-			System.debug(vc.Case__c);
 			for (SObjectField field : GenesysConstants.voiceCallCaseFieldMappings.keySet()) {
 				vc.put(GenesysConstants.voiceCallCaseFieldMappings.get(field), relatedCases.get(vc.RelatedRecordId).get(field));
 			}
@@ -137,6 +131,7 @@ public with sharing class UnifiedVoiceCallModule extends ApplicationModule {
 
 	/**
 	 * @param voiceCall VoiceCall
+	 * @return String
 	 * @description logic to determine the value of the Outcome__c field
 	 */
 	private static String determineVoiceCallOutcome(VoiceCall voiceCall) {
@@ -146,17 +141,16 @@ public with sharing class UnifiedVoiceCallModule extends ApplicationModule {
 			return GenesysConstants.VOICE_CALL_OUTCOME_FCR;
 		} else if (GenesysConstants.VOICE_CALL_ENQUIRY_TYPE_INVESTIGATION.equalsIgnoreCase(voiceCall.EnquiryType__c)) {
 			return GenesysConstants.VOICE_CALL_OUTCOME_ENQUIRY_LODGED;
-		} else if (GenesysConstants.VOICE_CALL_ENQUIRY_TYPE_INVESTIGATION.equalsIgnoreCase(voiceCall.EnquiryType__c)) { //todo figure the distinction with the above
+		} else if (GenesysConstants.VOICE_CALL_ENQUIRY_TYPE_INVESTIGATION.equalsIgnoreCase(voiceCall.EnquiryType__c)) { //todo figure out the distinction with the above
 			return GenesysConstants.VOICE_CALL_OUTCOME_ENQUIRY_UPDATED;
 		}
 		return null;
 	}
 
 	/**
-	 * Syncs the VoiceCall status to the Call Interaction record so that the view call page can show the call status.
-	 *
-	 * @param 	{List<VoiceCall>} 	updated records - List of VoiceCall that triggered the update
-	 * @param 	{Map<Id,VoiceCall>} old record map - Map with prior record values
+	 * @param records List<SObject>
+	 * @param existingRecords Map<Id, SObject>
+	 * @description Syncs the VoiceCall status to the Call Interaction record so that the view call page can show the call status.
 	 */
 	@TestVisible
 	private static void syncVoiceCallToGenesysCallInteraction(List<SObject> records, Map<Id, SObject> existingRecords) {
@@ -165,8 +159,6 @@ public with sharing class UnifiedVoiceCallModule extends ApplicationModule {
 			records,
 			existingRecords
 		);
-
-		System.debug(eventList);
 
 		if (eventList != null && !eventList.isEmpty()) {
 			ApplicationDatabase.getInstance().eventPublish(eventList);
@@ -219,22 +211,6 @@ public with sharing class UnifiedVoiceCallModule extends ApplicationModule {
 			}
 		}
 		uow.registerDirty(voiceCallUpdatable);
-	}
-
-	/**
-	 * Extract the conversation Id from the VendorCallKey which is formatted like this:
-	 * 	[agent-participantid]:[conversationId]
-	 * @param vendorCallKey as String
-	 * @return conversationId as string
-	 */
-	private static String extractConversionId(String vendorCallKey) {
-		String result = vendorCallKey;
-
-		if (String.isNotBlank(vendorCallKey) && vendorCallKey.contains(':')) {
-			result = vendorCallKey.split(':', 2)[1];
-		}
-
-		return result;
 	}
 
 	/**
