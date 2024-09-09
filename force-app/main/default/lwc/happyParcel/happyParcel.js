@@ -596,15 +596,15 @@ export default class HappyParcelWrapper extends NavigationMixin(LightningElement
 	setIconInSelectAllCheckbox(){		
 		const selectedArticlesLength = this.getSelectedArticlesLength();
 
-		if(selectedArticlesLength > 0 && selectedArticlesLength != this.articles.length){
+		if(selectedArticlesLength > 0 && selectedArticlesLength !== this.articles.length){
 			this.displayIndeterminate = true;
 			this.displaySelectAllTick = false;
 		}
-		else if(selectedArticlesLength == 0){
+		else if(selectedArticlesLength === 0){
 			this.displayIndeterminate = false;
 			this.displaySelectAllTick = false;
 		}
-		else if(selectedArticlesLength == this.articles.length){
+		else if(selectedArticlesLength === this.articles.length){
 			this.displayIndeterminate = false;
 			this.displaySelectAllTick = true;
 		}
@@ -704,8 +704,6 @@ export default class HappyParcelWrapper extends NavigationMixin(LightningElement
 			this.dispatchEvent(new CustomEvent('trackingsearchcomplete', { detail: detail, bubbles: true, composed: true }));
 		} else if (this.articles && this.articles.length > 0) {
 			// there should only ever be one article here since if it was a consignment, this code would not be called)
-			console.log('Articles : ');
-			console.log(JSON.stringify(this.articles));
 			const detail = {
 				trackingId: this.articles[0].trackingId,
 				articleRecordId: (this.articles[0].trackingResult.article ? this.articles[0].trackingResult.article.Id : null),
