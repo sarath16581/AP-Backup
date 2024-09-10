@@ -62,17 +62,42 @@ global with sharing class GenesysSCVStatusSyncManager implements genesyscloud.Ge
 		GENESYS
 	}
 
+	private static Map<StatusOrigin,StatusOrigin> counterpartStatus = new Map<StatusOrigin,StatusOrigin>{
+		StatusOrigin.SALESFORCE => StatusOrigin.GENESYS,
+		StatusOrigin.GENESYS => StatusOrigin.SALESFORCE
+	};
+
+	// Map of Salesforce Status Name by StatusId
+	private static Map<String,String> salesforceStatusesById {
+		get {
+			if (salesforceStatusesById == null) {
+				salesforceStatusesById = new Map<String,String>();
+
+				ServicePresenceStatus[] spsList = ServicePresenceStatusSelector.newInstance().selectActiveStatuses();
+
+				for (ServicePresenceStatus servicePresenceStatus :spsList) {
+					salesforceStatusesById.put(
+						servicePresenceStatus.Id,
+						servicePresenceStatus.DeveloperName?.toUpperCase()
+					);
+				}
+			}
+
+			return salesforceStatusesById;
+		}
+		set;
+	}
+
+	// Reverses Map containing Stalesforce StatusId by Status Name
 	private static Map<String,String> salesforceStatuses {
 		get {
 			if (salesforceStatuses == null) {
 				salesforceStatuses = new Map<String,String>();
 
-				ServicePresenceStatus[] spsList = ServicePresenceStatusSelector.newInstance().selectActiveStatuses();
-
-				for (ServicePresenceStatus servicePresenceStatus :spsList) {
+				for (String statusId :salesforceStatusesById.keySet()) {
 					salesforceStatuses.put(
-						servicePresenceStatus.DeveloperName?.toUpperCase(),
-						servicePresenceStatus.Id
+						salesforceStatusesById.get(statusId).toUpperCase(),
+						statusId
 					);
 				}
 			}
@@ -82,15 +107,32 @@ global with sharing class GenesysSCVStatusSyncManager implements genesyscloud.Ge
 		set;
 	}
 
+	// Map of Genesys Status Name by StatusId
+	private static Map<String,String> genesysStatusesById {
+		get {
+			if (genesysStatusesById == null) {
+				genesysStatusesById = new Map<String,String>();
+
+				GenesysAgentStatusIdMapping__c[] mappings = GenesysAgentStatusIdMappingsSelector.newInstance().selectBySource('Genesys');
+
+				for (GenesysAgentStatusIdMapping__c mapping :mappings) {
+					genesysStatusesById.put(mapping.StatusId__c, mapping.Name?.toUpperCase());
+				}
+			}
+
+			return genesysStatusesById;
+		}
+		set;
+	}
+
+	// Reverses Map containing Genesys StatusId by Status Name
 	private static Map<String,String> genesysStatuses {
 		get {
 			if (genesysStatuses == null) {
 				genesysStatuses = new Map<String,String>();
 
-				GenesysAgentStatusIdMapping__c[] mappings = GenesysAgentStatusIdMappingsSelector.newInstance().selectBySource('Genesys');
-
-				for (GenesysAgentStatusIdMapping__c mapping :mappings) {
-					genesysStatuses.put(mapping.Name?.toUpperCase(), mapping.StatusId__c);
+				for (String statusId :genesysStatusesById.keySet()) {
+					genesysStatuses.put(genesysStatusesById.get(statusId), statusId);
 				}
 			}
 
@@ -106,9 +148,9 @@ global with sharing class GenesysSCVStatusSyncManager implements genesyscloud.Ge
 	 */
 	private static Map<String,String> getStatusIdMappings(StatusOrigin origin) {
 		// Target is the oposite as the origin
-		if (origin == StatusOrigin.SALESFORCE) {
+		if (origin == StatusOrigin.GENESYS) {
 			return genesysStatuses;
-		} else if (origin == StatusOrigin.GENESYS) {
+		} else if (origin == StatusOrigin.SALESFORCE) {
 			return salesforceStatuses;
 		}
 
@@ -128,10 +170,9 @@ global with sharing class GenesysSCVStatusSyncManager implements genesyscloud.Ge
 
 		String statusChangeOrigin = mappingOrigin.get(origin);
 		Map<String,GenesysAgentStatusMapping__mdt> configMap = GenesysAgentStatusMappingsSelector.newInstance().selectByDeveloperName(new Set<String>{ statusChangeOrigin });
-		System.debug(configMap);
 		GenesysAgentStatusMapping__mdt gasm = configMap.get(statusChangeOrigin);
 
-		return (Map<String,String>)JSON.deserialize(gasm.MappingData__c, Map<String,String>.class);
+		return (Map<String,String>)JSON.deserialize(gasm.MappingData__c.toUpperCase(), Map<String,String>.class);
 	}
 
 	@TestVisible
@@ -141,23 +182,38 @@ global with sharing class GenesysSCVStatusSyncManager implements genesyscloud.Ge
 	 * @param originStatusName Status in the originating system
 	 * @return StatusId for mapped status in the target system
 	 */
-	private static String getTargetStatus(StatusOrigin origin, String originStatusName) {
-		if (String.isNotBlank(originStatusName)) {
-			originStatusName = originStatusName.toUpperCase();
+	private static String getTargetStatus(StatusOrigin origin, String originStatusName, String sourceStatusId) {
+		// Genesys provides us with the status label which could change over time, fetch DeveloperName first
+		String sourceStatusApiName = originStatusName;
+		
+		if (origin == StatusOrigin.SALESFORCE) {			
+			originStatusName = salesforceStatusesById.get(sourceStatusId);
+		} 
+
+		if (String.isNotBlank(sourceStatusApiName)) {
+			sourceStatusApiName = sourceStatusApiName.toUpperCase();
 		}
 
-		Map<String,String> targetStatusIdMappings = getStatusIdMappings(origin);
+		StatusOrigin target = counterpartStatus.get(origin);
+
+		Map<String,String> targetStatusIdMappings = getStatusIdMappings(target);
 		Map<String,String> targetStatusNameMappings = getStatusNameMapping(origin);
 
-		String targetStatusName = targetStatusNameMappings.get(originStatusName);
+		String targetStatusName = targetStatusNameMappings.get(sourceStatusApiName);
 		String targetStatusId = targetStatusIdMappings.get(targetStatusName);
 
 		System.debug(JSON.serializePretty(new Map<String,Object>{
 			'origin' => origin,
+			'sourceStatusId' => sourceStatusId,
 			'originStatusName' => originStatusName,
-			'targetStatusNameMappings' => targetStatusNameMappings,
+			'sourceStatusApiName' => sourceStatusApiName,
+			'mappings' => new Map<String,Object>{
+				'salesforceStatuses' => salesforceStatuses,
+				'salesforceStatusesById' => salesforceStatusesById,
+				'targetStatusNameMappings' => targetStatusNameMappings,
+				'targetStatusIdMappings' => targetStatusIdMappings
+			},
 			'targetStatusName' => targetStatusName,
-			'targetStatusIdMappings' => targetStatusIdMappings,
 			'targetStatusId' => targetStatusId
 		}));
 
@@ -204,9 +260,9 @@ global with sharing class GenesysSCVStatusSyncManager implements genesyscloud.Ge
 		SalesforceStatus salesforceStatus = new SalesforceStatus(salesforceTargetStatus);
 
 		if (origin == StatusOrigin.SALESFORCE) {
-			genesysTargetStatus = new genesysTargetStatus(getTargetStatus(origin, statusName));
+			genesysTargetStatus = new genesysTargetStatus(getTargetStatus(origin, statusName, fromStatusId));
 		} else if (origin == StatusOrigin.GENESYS) {
-			salesforceTargetStatus = new SalesforceTargetStatus(getTargetStatus(origin, presence));
+			salesforceTargetStatus = new SalesforceTargetStatus(getTargetStatus(origin, presence, fromStatusId));
 		}
 
 		genesysCloudStatus = new GenesysCloudStatus(genesysTargetStatus);
@@ -223,10 +279,6 @@ global with sharing class GenesysSCVStatusSyncManager implements genesyscloud.Ge
 	 * @return Response payload
 	 */
 	public String onSalesforceStatusChange(String data) {
-		if (UserInfo.getUserId() == paulId) {
-			GenesysSCVStatusSyncManager2 instance = new GenesysSCVStatusSyncManager2();
-			return instance.onSalesforceStatusChange(data);
-		}
 		return JSON.serialize(handleStatusChange(StatusOrigin.SALESFORCE, data));
 	}
 
@@ -238,12 +290,6 @@ global with sharing class GenesysSCVStatusSyncManager implements genesyscloud.Ge
 	 * @return Response payload
 	 */
 	public String onGenesysCloudStatusChange(String data) {
-		if (UserInfo.getUserId() == paulId) {
-			GenesysSCVStatusSyncManager2 instance = new GenesysSCVStatusSyncManager2();
-			return instance.onGenesysCloudStatusChange(data);
-		}
 		return JSON.serialize(handleStatusChange(StatusOrigin.GENESYS, data));
 	}
-
-	private static Id paulId = '0052v00000kLvGP';
 }
