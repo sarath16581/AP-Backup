@@ -90,7 +90,7 @@ public with sharing class GenesysConstants {
 						Case.ProductCategory__c => VoiceCall.ProductCategory__c,
 						Case.ProductSubCategory__c => VoiceCall.ProductSubCategory__c,
 						Case.EnquirySubType__c => VoiceCall.EnquirySubType__c,
-						Case.Enquiry_Type__c => VoiceCall.EnquiryType__c
+						Case.Type => VoiceCall.EnquiryType__c
 				};
 			}
 
