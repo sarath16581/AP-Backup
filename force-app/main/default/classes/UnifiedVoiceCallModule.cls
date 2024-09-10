@@ -168,7 +168,7 @@ public with sharing class UnifiedVoiceCallModule extends ApplicationModule {
 		Map<Id,Case> relatedCases = CasesSelector.newInstance(voiceCaseFieldOverride).selectById(relatedCaseIds, new Set<Object>{CasesSelector.Options.WITH_RECORDTYPE});
 		Map<Id,CaseHistory> caseGEHistories = CaseHistoriesSelector.newInstance().selectCaseHistoriesByTypeAndCaseIds(new Set<Object>{CaseHistoriesSelector.Options.WITH_CASE}, relatedCaseIds, GenesysConstants.VOICE_CALL_ENQUIRY_TYPE_GENERAL_ENQUIRY);
 		Map<Id,CaseHistory[]> relatedCaseGEHistory = new Map<Id,CaseHistory[]>();
-		for (CaseHistory cHistory : caseGEHistories) {
+		for (CaseHistory cHistory : caseGEHistories.values()) {
 			if (relatedCaseGEHistory.get(cHistory.CaseId) == null) {
 				relatedCaseGEHistory.put(cHistory.CaseId, new List<CaseHistory>{cHistory});
 			} else {
