@@ -16,16 +16,25 @@ public with sharing class UnifiedVoiceCallModule extends ApplicationModule {
 	 * Constructor
 	 */
     public UnifiedVoiceCallModule() {
-		getTriggerEvents().enableAfterInsert().enableAfterUpdate();
+		getTriggerEvents().enableAfterInsert().enableAfterUpdate().enableBeforeUpdate();
     }
 
 	public override void onAfterInsert(List<SObject> records, ApplicationUnitOfWork uow) {
 		try {
-			populateOriginalVoiceCall(records, uow);
+			autoLinkContact(records, uow);
 		} catch (Exception ex) {
 			ApplicationLogger.getInstance().logException(ApplicationLogger.wrapException(ex), 'Unified Voice Call', UnifiedVoiceCallModule.class.getName(), 'onBeforeUpdate', 'VoiceCall', ApplicationLogger.LoggingLevel.ERROR);
 		}
 
+	}
+
+	public override void onBeforeUpdate(List<SObject> records, Map<Id, SObject> existingRecords, ApplicationUnitOfWork uow) {
+		Id paulUserId = '0052v00000kLvGP';
+
+		// WORK IN PROGRESS: Minimise impact for anyone but me
+		if (UserInfo.getUserId() == paulUserId) {
+			PaulVoiceCallModuleExtension.onBeforeUpdate(records, existingRecords, uow);
+		}
 	}
 
 	/**
@@ -36,53 +45,93 @@ public with sharing class UnifiedVoiceCallModule extends ApplicationModule {
 	 */
 	public override void onAfterUpdate(List<SObject> records, Map<Id, SObject> existingRecords, ApplicationUnitOfWork uow) {
 		try {
+			Id paulUserId = '0052v00000kLvGP';
+
+			// WORK IN PROGRESS: Minimise impact for anyone but me
+			if (UserInfo.getUserId() == paulUserId) {
+				PaulVoiceCallModuleExtension.onAfterUpdate(records, existingRecords, uow);
+			} else {
+				syncVoiceCallToGenesysCallInteraction(records, existingRecords);
+			}
+
 			Set<SObjectField> monitoredFields = GenesysConstants.voiceCallFieldMappings.keySet();
 			List<ApplicationRecursion.RecordState> changedRecordStates = ApplicationRecursion.getInstance().getProcessableRecords('UnifiedVoiceCallModule', records, existingRecords, monitoredFields);
 			List<SObject> changedRecords = new List<SObject>();
 			for (ApplicationRecursion.RecordState recordState : changedRecordStates) {
 				changedRecords.add(recordState.record);
 			}
-			syncVoiceCallToGenesysCallInteraction(records, existingRecords);
 			syncCaseWhenRelatedRecordIdChanged(changedRecords, existingRecords, uow);
-			syncVoiceCallParticipants(changedRecords, existingRecords, uow);
 		} catch (Exception ex) {
+			// Error Logged to Exception object for analysis
 			ApplicationLogger.getInstance().logException(ApplicationLogger.wrapException(ex), 'Unified Voice Call', UnifiedVoiceCallModule.class.getName(), 'onAfterUpdate', 'VoiceCall', ApplicationLogger.LoggingLevel.ERROR);
 		}
 	}
 
 	/**
-	 * @param records List<SObject> records
+	 * @param records List<SObject>
 	 * @param uow ApplicationUnitOfWork
-	 * @description when a VoiceCall record is created, check if it has PreviousCallId, and if it does, populate the OriginalVoiceCall__c field with its Previous Call's OriginalVoiceCall__c value
+	 * @description when a Voice Call record is created, attempt to auto populate the Contact__c field base on the phone number
 	 */
 	@TestVisible
-	private static void populateOriginalVoiceCall(List<SObject> records, ApplicationUnitOfWork uow) {
-		Map<Id,Id> previousCallIds = new Map<Id,Id>();
-		Set<Id> voiceToProcessIds = new Set<Id>();
+	private static void autoLinkContact(List<SObject> records, ApplicationUnitOfWork uow) {
+		Set<Id> voiceCallToProcess = new Set<Id>();
 		for (VoiceCall vc : (List<VoiceCall>) records) {
-			if (vc.PreviousCallId != null && vc.CallType.equalsIgnoreCase(GenesysConstants.TRANSFER_CALL_TYPE)) {
-				previousCallIds.put(vc.Id, vc.PreviousCallId);
-				voiceToProcessIds.add(vc.Id);
+			if ((vc.CallType == GenesysConstants.VOICE_CALL_INBOUND_CALL_TYPE || vc.CallType == GenesysConstants.VOICE_CALL_OUTBOUND_CALL_TYPE) &&
+					(vc.CallerId != null || vc.RecipientId != null) ) {
+				voiceCallToProcess.add(vc.Id);
 			}
 		}
 
-		if (previousCallIds.isEmpty()) {
+		if (voiceCallToProcess.isEmpty()) {
 			return;
 		}
 
-		Set<SObjectField> fieldOverrides = new Set<SObjectField>(GenesysConstants.voiceCallFieldMappings.keySet());
-		fieldOverrides.add(VoiceCall.OriginalVoiceCall__c);
-		fieldOverrides.add(VoiceCall.PreviousCallId);
-		Map<Id,VoiceCall> previousCallsMap = new Map<Id, VoiceCall>(VoiceCallsSelector.newInstance(0,fieldOverrides).selectByIds(new Set<Object>(), new Set<Id>(previousCallIds.values())));
-		List<VoiceCall> voiceCallsUpdatable = VoiceCallsSelector.newInstance(0,fieldOverrides).selectByIds(new Set<Object>(), voiceToProcessIds);
-		for (VoiceCall vc : voiceCallsUpdatable) {
-			vc.OriginalVoiceCall__c = previousCallsMap.get(vc.PreviousCallId).OriginalVoiceCall__c ?? previousCallsMap.get(vc.PreviousCallId).Id;
-			for (SObjectField field : GenesysConstants.voiceCallFieldMappings.keySet()) {
-				vc.put(field, previousCallsMap.get(vc.PreviousCallId).get(field));
+		Set<SObjectField> fieldOverrides = new Set<SObjectField>();
+		fieldOverrides.add(VoiceCall.Contact__c);
+		fieldOverrides.add(VoiceCall.CallType);
+
+		Set<Object> selectorOptions = new Set<Object>();
+		selectorOptions.add(VoiceCallsSelector.Options.WITH_CALLER);
+		selectorOptions.add(VoiceCallsSelector.Options.WITH_RECIPIENT);
+		Map<Id,VoiceCall> voiceCallRecordsMap = new Map<Id, VoiceCall>(VoiceCallsSelector.newInstance(0,fieldOverrides).selectByIds(selectorOptions, voiceCallToProcess));
+
+		Set<String> voiceCallReversedPhoneNumber = new Set<String>();
+		for (VoiceCall vc : voiceCallRecordsMap.values()) {
+			if (vc.CallType.equalsIgnoreCase(GenesysConstants.VOICE_CALL_INBOUND_CALL_TYPE) && !String.isBlank(Util.reversePhoneString(vc.Caller.ParticipantDisplayName))) {
+				voiceCallReversedPhoneNumber.add(Util.reversePhoneString(vc.Caller.ParticipantDisplayName));
+			} else if (vc.CallType.equalsIgnoreCase(GenesysConstants.VOICE_CALL_OUTBOUND_CALL_TYPE) && !String.isBlank(Util.reversePhoneString(vc.Recipient.ParticipantDisplayName))) {
+				voiceCallReversedPhoneNumber.add(Util.reversePhoneString(vc.Recipient.ParticipantDisplayName));
 			}
 		}
 
-		uow.registerDirty(voiceCallsUpdatable);
+		if (voiceCallReversedPhoneNumber.isEmpty()) {
+			return;
+		}
+
+		Map<Id, Contact> contactMap = ContactsSelector.newInstance(0, getContactFieldOverrides()).selectByReversedPhoneNumbers(new Set<Object>(), voiceCallReversedPhoneNumber);
+		
+		Map<String, Contact[]> contactsByReversedPhone = new Map<String,Contact[]>();
+		for (Contact con : contactMap.values()) {
+			String reversedPhoneNumber = con.ReverseMobilePhone__c ?? con.ReverseVerifiedMobile__c;
+			reversedPhoneNumber = reversedPhoneNumber ?? con.ReversePhone__c;
+			if (contactsByReversedPhone.get(reversedPhoneNumber) == null) {
+				contactsByReversedPhone.put(reversedPhoneNumber, new List<Contact>{con});
+			} else {
+				contactsByReversedPhone.get(reversedPhoneNumber).add(con);
+			}
+		}
+
+		for (VoiceCall vc : voiceCallRecordsMap.values()) {
+			if (vc.CallType.equalsIgnoreCase(GenesysConstants.VOICE_CALL_INBOUND_CALL_TYPE) && !String.isBlank(Util.reversePhoneString(vc.Caller.ParticipantDisplayName))) {
+				List<Contact> potentialContact = contactsByReversedPhone.get(Util.reversePhoneString(vc.Caller.ParticipantDisplayName));
+				vc.Contact__c = potentialContact?.size() == 1 ? potentialContact.get(0).Id : null;
+			} else if (vc.CallType.equalsIgnoreCase(GenesysConstants.VOICE_CALL_OUTBOUND_CALL_TYPE) && !String.isBlank(Util.reversePhoneString(vc.Recipient.ParticipantDisplayName))) {
+				List<Contact> potentialContact = contactsByReversedPhone.get(Util.reversePhoneString(vc.Recipient.ParticipantDisplayName));
+				vc.Contact__c = potentialContact?.size() == 1 ? potentialContact.get(0).Id : null;
+			}
+		}
+
+		uow.registerDirty(voiceCallRecordsMap.values());
 	}
 
 	/**
@@ -109,39 +158,56 @@ public with sharing class UnifiedVoiceCallModule extends ApplicationModule {
 			return;
 		}
 
-		Set<SObjectField> voiceCaseFieldOverride = new Set<SObjectField>(GenesysConstants.voiceCallCaseFieldMappings.values());
-		voiceCaseFieldOverride.add(VoiceCall.Case__c);
-		voiceCaseFieldOverride.add(VoiceCall.RelatedRecordId);
-		voiceCaseFieldOverride.add(VoiceCall.RootCause__c);
-		voiceCaseFieldOverride.add(VoiceCall.Outcome__c);
-		Map<Id,VoiceCall> voiceCallUpdatable = new Map<Id,VoiceCall>(VoiceCallsSelector.newInstance(0, voiceCaseFieldOverride).selectByIds(new Set<Object>(), voiceCallIdToProcess.keySet()));
-		Map<Id,Case> relatedCases = CasesSelector.newInstance(GenesysConstants.voiceCallCaseFieldMappings.keySet()).selectById(relatedCaseIds);
+		Set<SObjectField> voiceCallFieldOverride = new Set<SObjectField>(GenesysConstants.voiceCallCaseFieldMappings.values());
+		voiceCallFieldOverride.addAll(getVoiceCallAdditionalFieldOverrides());
+
+		Set<SObjectField> voiceCaseFieldOverride = new Set<SObjectField>(GenesysConstants.voiceCallCaseFieldMappings.keySet());
+		voiceCaseFieldOverride.addAll(getCaseAdditionalFieldOverrides());
+
+		Map<Id,VoiceCall> voiceCallUpdatable = new Map<Id,VoiceCall>(VoiceCallsSelector.newInstance(0, voiceCallFieldOverride).selectByIds(new Set<Object>(), voiceCallIdToProcess.keySet()));
+		Map<Id,Case> relatedCases = CasesSelector.newInstance(voiceCaseFieldOverride).selectById(relatedCaseIds, new Set<Object>{CasesSelector.Options.WITH_RECORDTYPE});
+		Map<Id,CaseHistory> caseGEHistories = CaseHistoriesSelector.newInstance().selectCaseHistoriesByTypeAndCaseIds(new Set<Object>{CaseHistoriesSelector.Options.WITH_CASE}, relatedCaseIds, GenesysConstants.VOICE_CALL_ENQUIRY_TYPE_GENERAL_ENQUIRY);
+		Map<Id,CaseHistory[]> relatedCaseGEHistory = new Map<Id,CaseHistory[]>();
+		for (CaseHistory cHistory : caseGEHistories) {
+			if (relatedCaseGEHistory.get(cHistory.CaseId) == null) {
+				relatedCaseGEHistory.put(cHistory.CaseId, new List<CaseHistory>{cHistory});
+			} else {
+				relatedCaseGEHistory.get(cHistory.CaseId).add(cHistory);
+			}
+		}
+
 		for (Id vcId : voiceCallUpdatable.keySet()) {
 			VoiceCall vc = voiceCallUpdatable.get(vcId);
 			vc.Case__c = voiceCallIdToProcess.get(vcId).RelatedRecordId;
-			for (SObjectField field : GenesysConstants.voiceCallCaseFieldMappings.keySet()) {
-				vc.put(GenesysConstants.voiceCallCaseFieldMappings.get(field), relatedCases.get(vc.RelatedRecordId).get(field));
+			if (vc.Case__c == null) {
+				vc.Outcome__c = GenesysConstants.VOICE_CALL_OUTCOME_UNLINKED_CONTACT;
+			} else {
+				for (SObjectField field : GenesysConstants.voiceCallCaseFieldMappings.keySet()) {
+					vc.put(GenesysConstants.voiceCallCaseFieldMappings.get(field), relatedCases.get(vc.RelatedRecordId).get(field));
+				}
+				vc.RootCause__c = vc.RootCause__c ?? GenesysConstants.DEFAULT_VOICE_CALL_ROOT_CAUSE;
+				vc.Outcome__c = determineVoiceCallOutcome(relatedCases.get(vc.RelatedRecordId), vc, relatedCaseGEHistory.get(vc.Case__c));
 			}
-			vc.RootCause__c = vc.RootCause__c ?? GenesysConstants.DEFAULT_VOICE_CALL_ROOT_CAUSE;
-			vc.Outcome__c = determineVoiceCallOutcome(vc);
 		}
 
 		uow.registerDirty(voiceCallUpdatable.values());
 	}
 
 	/**
+	 * @param relatedCase Case
 	 * @param voiceCall VoiceCall
+	 * @param relatedGECaseHistory List<CaseHistory>
 	 * @return String
 	 * @description logic to determine the value of the Outcome__c field
 	 */
-	private static String determineVoiceCallOutcome(VoiceCall voiceCall) {
-		if (voiceCall.Case__c == null) { //todo can the below constant be made into a map to reduce code
-			return GenesysConstants.VOICE_CALL_OUTCOME_UNLINKED_CONTACT;
-		} else if (GenesysConstants.VOICE_CALL_ENQUIRY_TYPE_GENERAL_ENQUIRY.equalsIgnoreCase(voiceCall.EnquiryType__c)) {
+	private static String determineVoiceCallOutcome(Case relatedCase, VoiceCall voiceCall, List<CaseHistory> relatedGECaseHistory) {
+		Boolean caseOlderThanVoice = relatedCase.CreatedDate < voiceCall.CallStartDateTime;
+		if (GenesysConstants.VOICE_CALL_ENQUIRY_TYPE_GENERAL_ENQUIRY.equalsIgnoreCase(relatedCase.Type) && !caseOlderThanVoice) { // the case is created with Type = General Enquiry during the interaction
 			return GenesysConstants.VOICE_CALL_OUTCOME_FCR;
-		} else if (GenesysConstants.VOICE_CALL_ENQUIRY_TYPE_INVESTIGATION.equalsIgnoreCase(voiceCall.EnquiryType__c)) {
+		} else if ((GenesysConstants.VOICE_CALL_ENQUIRY_TYPE_INVESTIGATION.equalsIgnoreCase(relatedCase.Type) && !caseOlderThanVoice) ||
+				(GenesysConstants.VOICE_CALL_ENQUIRY_TYPE_INVESTIGATION.equalsIgnoreCase(relatedCase.Type) && caseOlderThanVoice && !relatedGECaseHistory.isEmpty())) { // the case is created with Type = Investigation is before the call OR the case was of Type GE, but has been updated to Investigate during the call
 			return GenesysConstants.VOICE_CALL_OUTCOME_ENQUIRY_LODGED;
-		} else if (GenesysConstants.VOICE_CALL_ENQUIRY_TYPE_INVESTIGATION.equalsIgnoreCase(voiceCall.EnquiryType__c)) { //todo figure out the distinction with the above
+		} else if (GenesysConstants.VOICE_CALL_ENQUIRY_TYPE_INVESTIGATION.equalsIgnoreCase(relatedCase.Type) && caseOlderThanVoice && relatedGECaseHistory == null) { // the case has always been of Type Investigation before and during the call
 			return GenesysConstants.VOICE_CALL_OUTCOME_ENQUIRY_UPDATED;
 		}
 		return null;
@@ -165,99 +231,18 @@ public with sharing class UnifiedVoiceCallModule extends ApplicationModule {
 		}
 	}
 
-	/**
-	 * @param records List<SObject>
-	 * @param existingRecords Map<Id, SObject>
-	 * @param uow ApplicationUnitOfWork
-	 * @description when a Voice Call is being transferred, if the subsequent Voice Call changes, it should sync back to the original call
-	 */
 	@TestVisible
-	private static void syncVoiceCallParticipants(List<SObject> records, Map<Id, SObject> existingRecords, ApplicationUnitOfWork uow) {
-		Map<Id,Map<SObjectField,Object>> updatesByOriginalCallId = new Map<Id,Map<SObjectField,Object>>();
-		Set<SObjectField> fieldOverrides = new Set<SObjectField>{VoiceCall.Id, VoiceCall.OriginalVoiceCall__c};
-		for (VoiceCall record :(List<VoiceCall>)records) {
-			if (record.OriginalVoiceCall__c == null && record.NextCallId == null) {
-				continue;
-			}
-			for (SObjectField field :GenesysConstants.voiceCallFieldMappings.keySet()) {
-				if (hasChanged(record, existingRecords?.get(record.Id), field)) {
-					Id keyVoiceCallId = record.OriginalVoiceCall__c ?? record.Id;
-					if (!updatesByOriginalCallId.containsKey(keyVoiceCallId)) {
-						updatesByOriginalCallId.put(keyVoiceCallId, new Map<SObjectField,Object>());
-					}
-
-					updatesByOriginalCallId.get(keyVoiceCallId).put(
-						field, record.get(field)
-					);
-
-					fieldOverrides.add(field);
-				}
-			}
-		}
-
-		if (updatesByOriginalCallId.isEmpty()) {
-			return;
-		}
-
-		List<VoiceCall> relatedVoiceCalls = VoiceCallsSelector.newInstance(0,fieldOverrides).selectByOriginalVoiceCalls(new Set<Object>(), updatesByOriginalCallId.keySet());
-		List<VoiceCall> originalVoiceCalls = VoiceCallsSelector.newInstance(0,fieldOverrides).selectByIds(new Set<Object>(), updatesByOriginalCallId.keySet());
-		List<VoiceCall> voiceCallUpdatable = new List<VoiceCall>();
-		voiceCallUpdatable.addAll(relatedVoiceCalls);
-		voiceCallUpdatable.addAll(originalVoiceCalls);
-		for (VoiceCall vc : voiceCallUpdatable) {
-			Map<SObjectField,Object> fieldValues = updatesByOriginalCallId.get(vc.OriginalVoiceCall__c) ?? updatesByOriginalCallId.get(vc.Id); // use OriginalVoiceCall__c for the related calls, and id for the original call itself
-			for (SObjectField field : fieldValues.keySet()) {
-				vc.put(field, fieldValues.get(field));
-			}
-		}
-		uow.registerDirty(voiceCallUpdatable);
+	private static Set<SObjectField> getVoiceCallAdditionalFieldOverrides() {
+		return new Set<SObjectField>{VoiceCall.Case__c, VoiceCall.RelatedRecordId, VoiceCall.RootCause__c, VoiceCall.Outcome__c, VoiceCall.CallStartDateTime};
 	}
 
-	/**
-	 * Filter the list of records by comparing the old record's field values with the new record's field values
-	 * @param newList - new list of records
-	 * @param oldMap - map of old record values
-	 * @param comparisonFields - list of fields to compare
-	 * @return list of records that have >= 1 comparisonFields changed
-	 */
-	private static List<SObject> hasChanged(List<SObject> newList, Map<Id,SObject> oldMap, Set<SObjectField> comparisonFields) {
-		List<SObject> result = new List<SObject>();
-
-		for (SObject record :newList) {
-			if (hasChanged(record, oldMap.get(record.Id), comparisonFields)) {
-				result.add(record);
-			}
-		}
-
-		return result;
+	@TestVisible
+	private static Set<SObjectField> getCaseAdditionalFieldOverrides() {
+		return new Set<SObjectField>{Case.CreatedDate, Case.LastModifiedDate};
 	}
 
-	/**
-	 * Compare the two SObject instances passed in by doing a field by field comparison for the set of fields
-	 * Returns true if at least one field is different.
-	 *
-	 * @param newRecord SObject for comparison
-	 * @param existingRecord SObject for comparison
-	 * @param comparisonFields fields to compare
-	 *
-	 * @return true if at least one field from the interested field set is different. false otherwise.
-	 */
-	private static Boolean hasChanged(SObject newRecord, SObject existingRecord, Set<SObjectField> comparisonFields) {
-		Boolean result = false;
-
-		if (newRecord != null && existingRecord != null) {
-			for (SObjectField field : comparisonFields) {
-				if (hasChanged(newRecord, existingRecord, field)) {
-					result = true;
-					break;
-				}
-			}
-		}
-
-		return result;
-	}
-
-	private static Boolean hasChanged(SObject newRecord, SObject existingRecord, SObjectField field) {
-		return existingRecord == null || newRecord.get(field) != existingRecord.get(field);
+	@TestVisible
+	private static Set<SObjectField> getContactFieldOverrides() {
+		return new Set<SObjectField>{Contact.ReverseMobilePhone__c, Contact.ReverseVerifiedMobile__c, Contact.ReversePhone__c};
 	}
 }
