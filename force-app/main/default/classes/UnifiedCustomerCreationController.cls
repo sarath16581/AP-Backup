@@ -198,7 +198,7 @@ public with sharing class UnifiedCustomerCreationController {
 		newAccount.LastName = request.lastName;
 		newAccount.Preferred_Name__pc = request.preferredName;
 		newAccount.PersonEmail = request.emailAddress;
-		if (request?.phoneNumber != null & request?.phoneNumber.startsWith(MOBILE_PREFIX)){
+		if (request?.phoneNumber != null && request?.phoneNumber.startsWith(MOBILE_PREFIX)){
 			newAccount.PersonMobilePhone = request?.phoneNumber;
 		} else {
 			newAccount.Phone = request?.phoneNumber;
@@ -226,7 +226,7 @@ public with sharing class UnifiedCustomerCreationController {
 		newContact.LastName = request.lastName;
 		newContact.Preferred_Name__c = request.preferredName;
 		newContact.Email = request.emailAddress;
-		if (request?.phoneNumber != null & request?.phoneNumber.startsWith(MOBILE_PREFIX)){
+		if (request?.phoneNumber != null && request?.phoneNumber.startsWith(MOBILE_PREFIX)){
 			newContact.MobilePhone = request?.phoneNumber;
 		} else {
 			newContact.Phone = request?.phoneNumber;
