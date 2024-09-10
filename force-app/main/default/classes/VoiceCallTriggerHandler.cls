@@ -1,7 +1,10 @@
-/**
- * @description Trigger handler to execute all the registered ApplicationModule's
- * @author Nathan Franklin
- * @date 2024-07-31
+/***
+ * @description VoiceCall trigger handler
+ * NOTE: 	Invokes all the logic upon DML for the VoiceCall object
+ * @author 	Paul Perry
+ * @date 	2024-08-27
+ * @group 	Domain
+ * @test 	TBD
  * @changelog
  */
 public inherited sharing class VoiceCallTriggerHandler extends ApplicationTriggerHandler {

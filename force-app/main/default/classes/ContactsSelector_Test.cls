@@ -24,6 +24,7 @@
 * 2024-07-23 - Marcel HK - Allow match if MailingStreet equals addressLine1 + addressLine2 (CSLU-1106)
 * 2024-07-23 - Marcel HK - Added filters for accountId and abn/acn lookup (CSLU-447)
 * 2024-08-08 - Marcel HK - Update Address filters for `selectByCustomerSearchParamsQB` (CSLU-1072)
+* 2024-09-10 - SteveL - added test for selectByReversedPhoneNumbers
 */
 @IsTest
 private with sharing class ContactsSelector_Test {
@@ -185,6 +186,8 @@ private with sharing class ContactsSelector_Test {
 		List<Contact> listResults = selector.selectPrimaryContactByAccount(new Set<Id> {acc.Id});
 		System.assertEquals(1, listResults.size(), 'Expected result size of 1');
 
+		results = selector.selectByReversedPhoneNumbers(new Set<Object>(), new Set<String>{Util.reversePhoneString(contacts.get(0).Phone)});
+		Assert.isFalse(results.isEmpty(), 'expect the selector to pick the contact with the Phone field being formatted by Util.reversePhoneString');
 		Test.stopTest();
 
 	}

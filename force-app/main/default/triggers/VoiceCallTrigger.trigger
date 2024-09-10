@@ -1,13 +1,16 @@
 /**
-  * @author	Nathan Franklin
-  * @date 2024-07-31
-  * @description Trigger for handling VoiceCall object
-  * @changelog
-  */
-  trigger VoiceCallTrigger on VoiceCall (before insert, before update, after insert, after update) {
-
-	if(!TriggerHelper.isTriggerDisabled(String.valueOf(VoiceCall.sObjectType))){	 // verify if triggers are disabled
-		(new VoiceCallTriggerHandler()).dispatch();	
+ * @description VoiceCall trigger 
+ * NOTE: invokes all the logic upon DML for the VoiceCall object
+ * @author Paul Perry
+ * @date 2024-08-27
+ * @group Unified
+ * @test VoiceCallTrigger_Test
+ * @changelog
+ * 2024-08-27 Paul - created
+ */
+trigger VoiceCallTrigger on VoiceCall (after update, before insert, before update, before delete, after insert, after delete, after undelete) {
+	if(!TriggerHelper.isTriggerDisabled(String.valueOf(VoiceCall.SObjectType))) {
+		// domain base trigger dispatch
+		(new VoiceCallTriggerHandler()).dispatch();
 	}
-
 }

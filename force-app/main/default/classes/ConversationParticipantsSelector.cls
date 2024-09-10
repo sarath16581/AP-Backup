@@ -1,10 +1,10 @@
 /**
- * @author 		SteveL
- * @date 		09-09-2024
- * @group 		Selector
- * @tag			Selector
+ * @author SteveL
+ * @date 09-09-2024
+ * @group Selector
+ * @tag	Selector
  *
- * @description 	A very simple selector class for ConversationParticipant Object
+ * @description A very simple selector class for ConversationParticipant Object
  */
 public virtual inherited sharing class ConversationParticipantsSelector extends ApplicationSelector {
 
@@ -26,19 +26,5 @@ public virtual inherited sharing class ConversationParticipantsSelector extends 
 				ConversationParticipant.ParticipantDisplayName
 		};
 		return result;
-	}
-
-	/**
-	 * @param displayNames Set<String>
-	 *
-	 * @return List<ConversationParticipant>
-	 */
-	public List<ConversationParticipant> selectByParticipantDisplayNames(Set<String> displayNames) {
-		QueryBuilder qb = newQueryBuilder(new Set<Object>())
-				.addConditions()
-				.add(new QueryBuilder.InCondition(ConversationParticipant.ParticipantDisplayName).inCollection(displayNames))
-				.endConditions();
-
-		return (List<ConversationParticipant>)Database.query(qb.toSoqlString());
 	}
 }

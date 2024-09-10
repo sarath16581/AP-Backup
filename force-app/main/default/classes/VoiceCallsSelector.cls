@@ -55,42 +55,6 @@ public virtual inherited sharing class VoiceCallsSelector extends ApplicationSel
 		return (List<VoiceCall>)Database.query(qb.toSoqlString());
 	}
 
-
-	/**
-	 * @param selectorOptions Set<Object> selectorOptions
-	 * @param callIds Set<Id>
-	 * @description returns a list of Voice Call records base on their ConversationId
-	 *
-	 * @return List<VoiceCall>
-	 */
-	public List<VoiceCall> selectByConversationIds(Set<Object> selectorOptions, Set<Id> callIds) {
-		QueryBuilder qb = newQueryBuilder(selectorOptions)
-			.addConditions()
-			.add(new QueryBuilder.InCondition(VoiceCall.ConversationId).inCollection(callIds))
-			.endConditions();
-
-		if (selectorOptions.contains(Options.ORDERBY_OLDTONEW)) {
-			qb.setOrder(new QueryBuilder.Order(VoiceCall.CreatedDate));
-		}
-
-		return (List<VoiceCall>)Database.query(qb.toSoqlString());
-	}
-
-	/**
-	 * @param selectorOptions Set<Object> selectorOptions
-	 * @param callIds Set<Id>
-	 * @description returns a list of Voice Call records base on their PreviousCallId or NextCallId
-	 *
-	 * @return List<VoiceCall>
-	 */
-	public List<VoiceCall> selectByOriginalVoiceCalls(Set<Object> selectorOptions, Set<Id> callIds) {
-		QueryBuilder qb = newQueryBuilder(selectorOptions)
-				.addConditions()
-				.add(new QueryBuilder.InCondition(VoiceCall.OriginalVoiceCall__c).inCollection(callIds))
-				.endConditions();
-		return (List<VoiceCall>)Database.query(qb.toSoqlString());
-	}
-
 	/**
 	 * Contruct a new QueryBuilder based on the selector options passed in
 	 */
