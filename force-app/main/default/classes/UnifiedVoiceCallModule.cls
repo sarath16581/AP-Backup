@@ -29,12 +29,7 @@ public with sharing class UnifiedVoiceCallModule extends ApplicationModule {
 	}
 
 	public override void onBeforeUpdate(List<SObject> records, Map<Id, SObject> existingRecords, ApplicationUnitOfWork uow) {
-		Id paulUserId = '0052v00000kLvGP';
-
-		// WORK IN PROGRESS: Minimise impact for anyone but me
-		if (UserInfo.getUserId() == paulUserId) {
-			PaulVoiceCallModuleExtension.onBeforeUpdate(records, existingRecords, uow);
-		}
+		PaulVoiceCallModuleExtension.onBeforeUpdate(records, existingRecords, uow);
 	}
 
 	/**
@@ -45,15 +40,7 @@ public with sharing class UnifiedVoiceCallModule extends ApplicationModule {
 	 */
 	public override void onAfterUpdate(List<SObject> records, Map<Id, SObject> existingRecords, ApplicationUnitOfWork uow) {
 		try {
-			Id paulUserId = '0052v00000kLvGP';
-
-			// WORK IN PROGRESS: Minimise impact for anyone but me
-			if (UserInfo.getUserId() == paulUserId) {
-				PaulVoiceCallModuleExtension.onAfterUpdate(records, existingRecords, uow);
-			} else {
-				syncVoiceCallToGenesysCallInteraction(records, existingRecords);
-			}
-
+			syncVoiceCallToGenesysCallInteraction(records, existingRecords);
 			Set<SObjectField> monitoredFields = GenesysConstants.voiceCallFieldMappings.keySet();
 			List<ApplicationRecursion.RecordState> changedRecordStates = ApplicationRecursion.getInstance().getProcessableRecords('UnifiedVoiceCallModule', records, existingRecords, monitoredFields);
 			List<SObject> changedRecords = new List<SObject>();
