@@ -1,11 +1,49 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionCalls>
+        <description>Email alert to notify Aus Post customer on converting general enquiry Unified case to Investigation type.</description>
+        <name>UnifiedGeneralEnquiryToInvestigationAPAlert</name>
+        <label>UnifiedGeneralEnquiryToInvestigationAPAlert</label>
+        <locationX>616</locationX>
+        <locationY>350</locationY>
+        <actionName>Case.UnifiedGeneralEnquiryToInvestigationAP</actionName>
+        <actionType>emailAlert</actionType>
+        <connector>
+            <targetReference>Process_Flow_Email_Type_Requests</targetReference>
+        </connector>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>SObjectRowId</name>
+            <value>
+                <elementReference>Process_Flow_Email_Type_Requests.srcRecordId</elementReference>
+            </value>
+        </inputParameters>
+    </actionCalls>
+    <actionCalls>
+        <description>Email alert to notify StarTrack customer on converting general enquiry Unified case to Investigation type.</description>
+        <name>UnifiedGeneralEnquiryToInvestigationSTAlert</name>
+        <label>UnifiedGeneralEnquiryToInvestigationSTAlert</label>
+        <locationX>880</locationX>
+        <locationY>350</locationY>
+        <actionName>Case.UnifiedGeneralEnquiryToInvestigationST</actionName>
+        <actionType>emailAlert</actionType>
+        <connector>
+            <targetReference>Process_Flow_Email_Type_Requests</targetReference>
+        </connector>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>SObjectRowId</name>
+            <value>
+                <elementReference>Process_Flow_Email_Type_Requests.srcRecordId</elementReference>
+            </value>
+        </inputParameters>
+    </actionCalls>
     <apiVersion>60.0</apiVersion>
     <decisions>
         <description>Select which static email alert will be invoked</description>
         <name>Select_Case_Email_Alert</name>
         <label>Select Case Email Alert</label>
-        <locationX>440</locationX>
+        <locationX>704</locationX>
         <locationY>242</locationY>
         <defaultConnector>
             <targetReference>Process_Flow_Email_Type_Requests</targetReference>
@@ -40,6 +78,36 @@
                 <targetReference>Process_Flow_Email_Type_Requests</targetReference>
             </connector>
             <label>Test Static Email Alert 2</label>
+        </rules>
+        <rules>
+            <name>UnifiedGeneralEnquiryToInvestigationAusPost</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Process_Flow_Email_Type_Requests.emailAlertName</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>UnifiedGeneralEnquiryToInvestigationAP</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>UnifiedGeneralEnquiryToInvestigationAPAlert</targetReference>
+            </connector>
+            <label>UnifiedGeneralEnquiryToInvestigationAusPost</label>
+        </rules>
+        <rules>
+            <name>UnifiedGeneralEnquiryToInvestigationStarTrack</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Process_Flow_Email_Type_Requests.emailAlertName</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>UnifiedGeneralEnquiryToInvestigationST</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>UnifiedGeneralEnquiryToInvestigationSTAlert</targetReference>
+            </connector>
+            <label>UnifiedGeneralEnquiryToInvestigationStarTrack</label>
         </rules>
     </decisions>
     <description>Subflow of Application Email Service framework that manages the sending of Case email alerts</description>
