@@ -3,7 +3,7 @@
     <fullName>Check_if_Phone_is_valid</fullName>
     <active>true</active>
     <description>Validation to ensure the phone number is in correct format.</description>
-    <errorConditionFormula>AND(OR(CONTAINS($Profile.Name, &apos;SSSW&apos;),$Profile.Name = &apos;CustomerService&apos;),
+    <errorConditionFormula>AND(OR(CONTAINS($Profile.Name, &apos;SSSW&apos;),$Profile.Name = &apos;Customer Service&apos;),
 OR(ISNEW(),OR(ISCHANGED(HomePhone),ISCHANGED(Phone),ISCHANGED(Fax),ISCHANGED(OtherPhone),ISCHANGED(MobilePhone))), 
 
 OR(

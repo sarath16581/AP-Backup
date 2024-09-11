@@ -7,7 +7,7 @@
     &amp;&amp;
     NOT(CONTAINS($Profile.Name,&quot;SSSW&quot;))
     &amp;&amp;
-    NOT(CONTAINS($Profile.Name,&quot;CustomerService&quot;))
+    NOT(CONTAINS($Profile.Name,&quot;Customer Service&quot;))
     &amp;&amp;
     NOT(CONTAINS($Profile.Name,&quot;AusPost Integration&quot;))
     &amp;&amp;
