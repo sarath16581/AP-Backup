@@ -4,7 +4,7 @@
     <active>true</active>
     <businessProcess>Unified Process</businessProcess>
     <description>Investigation type enquiry for Unified cases</description>
-    <label>Investigation</label>
+    <label>Unified Investigation</label>
     <picklistValues>
         <picklist>AMLCTF_Please_Explain_Type__c</picklist>
         <values>
@@ -308,69 +308,6 @@
         </values>
         <values>
             <fullName>Reports %26 Dashboards</fullName>
-            <default>false</default>
-        </values>
-    </picklistValues>
-    <picklistValues>
-        <picklist>Area_to_Benefit__c</picklist>
-        <values>
-            <fullName>Business Hubs</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Business Sales</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Contracts</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Customer Contact Centre</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>EC%26G Sales</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Finance</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Implementation</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Optimisation</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Other</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Product</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Reporting</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Sales</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Service</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Systems</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Transport</fullName>
             <default>false</default>
         </values>
     </picklistValues>
@@ -6390,16 +6327,8 @@
     <picklistValues>
         <picklist>Type</picklist>
         <values>
-            <fullName>Feedback</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>General Enquiry</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>Investigation</fullName>
-            <default>false</default>
+            <default>true</default>
         </values>
     </picklistValues>
     <picklistValues>
@@ -6458,7 +6387,7 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>0350 - Altona</fullName>
+            <fullName>0350 - DHL(VIC) Supply Chain</fullName>
             <default>false</default>
         </values>
         <values>
