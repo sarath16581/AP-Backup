@@ -35,6 +35,7 @@
  * 2021-10-04 - Nathan Franklin - Deprecated shareUtility.createSignatureAttachments
  * 16.05.2022   SaiSwetha Pingali  Removed snapIt logic as it is no longer required.
  * 2023-05-25 - Nathan Franklin - Refactoring routing code
+ * 2024-09-11 - Vasu Gorakati - CSLU-1413 Service Cloud Voice Work Summaries
  */
 public with sharing class CaseTriggerHandler{
 
@@ -147,6 +148,8 @@ public with sharing class CaseTriggerHandler{
 			StarTrackUtil.processFCRFlag((List<Case>)Trigger.new, (Map<Id, Case>)Trigger.oldMap);
 
 			helper.updateSentToNetworkDate((List<Case>)Trigger.new, (Map<Id, Case>)Trigger.oldMap);
+
+			helper.setValuesforUnifiedCases((List<Case>)Trigger.new, (Map<Id, Case>)Trigger.oldMap);
 
 			isBeforeUpdateExecuted = true;
 

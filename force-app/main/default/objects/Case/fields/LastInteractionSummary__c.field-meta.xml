@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>LastInteractionSummary__c</fullName>
+    <description>This is to map Voice Call Issue from Einstein work summary. This is hidden field and copied into Subject</description>
     <externalId>false</externalId>
-    <label>Last Interaction Summary</label>
+    <label>Issue</label>
     <required>false</required>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>

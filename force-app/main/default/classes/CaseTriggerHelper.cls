@@ -17,8 +17,9 @@
   * 2022-02-17 - Nathan Franklin - updated minor comments
   * 2022-11-04 - Nathan Franklin - slightly refactor processHLCCases to only execute a dml if needed... NOTE: The method should be refactored... I don't think a DML is needed at all, but have ran out of time
   * 2023-06-02 - Mahesh Parvathaneni - Added logic to complete milestones for transport enquiry record type cases
+  * 2024-09-11 - Vasu Gorakati - CSLU-1413 Service Cloud Voice Work Summaries
   */
-public with sharing class CaseTriggerHelper{
+  public with sharing class CaseTriggerHelper{
 
 	// Constants
 	private static final String HLC = 'HLC';
@@ -45,6 +46,7 @@ public with sharing class CaseTriggerHelper{
 	private static Set<Id> validRecTypes;				   // type of cases for which code executes
 	private static Set<Id> bgsRecTypes;				   // type of cases for Service Delivery
 	private static Id transportEnquiryRecTypeId;
+	private static Set<Id> unifiedRecordTypes;
 
 	// Set the recordTypeMap variable to store the map of id and record type name
 	static{
@@ -59,7 +61,9 @@ public with sharing class CaseTriggerHelper{
 			bgsRecTypes =  Utility.getRecordTypeIds(String.valueOf(Case.getsObjectType()),BGSConstants.SERVICE_DELIVERY_NAME);
 			// Get the Record Type Id for Transport Enquiry Cases
 			transportEnquiryRecTypeId = TransportEnquiryCaseService.getInstance().getTransportEnquiryRecordTypeId();
-
+			
+			unifiedRecordTypes = RecordTypesSelector.newInstance().selectByDeveloperNameLike(String.valueOf(Case.getsObjectType()), SSSWConstants.UNIFIED_APP).keySet();
+			
 			if(queueMap.isEmpty()){
 				queueMap = HLCUtility.getGroupDetails(HLCUtility.AGENT_QUEUE_SET,HLCUtility.QUEUE);   // variable to store queue details
 			}
@@ -559,5 +563,41 @@ public with sharing class CaseTriggerHelper{
 			Messaging.sendEmail(bgsClosureEmails);
 		}
 
+	}
+   
+	/**
+	 * @description		Set values for Unified cases
+	 * @param			caseList - Cases from Trigger.New
+	 * @param 			oldCaseMap - Cases from Trigger.OldMap
+	 * @return			Void
+	 * @throws			Exception
+	 */
+	public void setValuesforUnifiedCases(List<Case> caseList, Map<Id, Case> oldCaseMap) {
+		try {
+			Case oldCase = null;
+
+			for (Case caseRecord : caseList) {
+				oldCase = oldCaseMap.get(caseRecord.Id);
+				//copy last interaction summary to subject for unified cases
+				if (
+					unifiedRecordTypes.contains(caseRecord.RecordTypeId) &&
+					caseRecord.LastInteractionSummary__c != null &&
+					caseRecord.LastInteractionSummary__c != oldCase.LastInteractionSummary__c
+				) {
+					caseRecord.Subject = caseRecord.LastInteractionSummary__c;
+				}
+			}
+		} catch (Exception exp) {
+			// Error Logged to Exception object for analysis
+			UTIL_LoggingService.logHandledException(
+				exp,
+				UserInfo.getOrganizationId(),
+				SSSWConstants.UNIFIED_APP,
+				CaseTriggerHelper.class.getName(),
+				'setValuesforUnifiedCases',
+				SSSWConstants.CASE_TRIGGER,
+				LoggingLevel.ERROR
+			);
+		}
 	}
 }
