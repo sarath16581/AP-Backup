@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>UnifiedClosedCasesCannotMoveToMonitoring</fullName>
+    <active>true</active>
+    <description>Unified cases cannot be placed in &quot;Monitoring&quot; queue if it is already closed. Only open unified cases are expected to be placed in monitoring queue and should be moved out when they are closed.</description>
+    <errorConditionFormula>AND( 
+    IsClosed,
+    CONTAINS(RecordType.DeveloperName, &quot;Unified&quot;),
+    OR(
+        AND(ISCHANGED(Status), ISPICKVAL(Status, &quot;Monitoring&quot;)),
+        AND(ISCHANGED(OwnerId), (Owner:Queue.DeveloperName = &quot;UnifiedCustomerServiceMonitoringQueue&quot;))
+    )
+)</errorConditionFormula>
+    <errorMessage>Case is closed and cannot be moved to Monitoring queue.</errorMessage>
+</ValidationRule>
