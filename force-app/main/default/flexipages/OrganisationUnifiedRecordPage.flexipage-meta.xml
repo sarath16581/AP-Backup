@@ -124,6 +124,16 @@
                 <identifier>RecordABN_cField2</identifier>
             </fieldInstance>
         </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.ACN__c</fieldItem>
+                <identifier>RecordACN_cField</identifier>
+            </fieldInstance>
+        </itemInstances>
         <name>Facet-4e2ce9a4-5632-44e6-afc3-3abd562c752b</name>
         <type>Facet</type>
     </flexiPageRegions>
