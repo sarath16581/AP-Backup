@@ -113,7 +113,7 @@ private class UnifiedVoiceCallModule_Test {
 		System.assertEquals(cases[0].Id, vcNew.Case__c, 'Expect the Case__c to be populated based on the RelatedRecordId');
 		System.assertEquals(GenesysConstants.DEFAULT_VOICE_CALL_ROOT_CAUSE, vcNew.RootCause__c, 'Expect RootCause__c to be populated by the default value');
 		System.assertEquals(GenesysConstants.VOICE_CALL_OUTCOME_FCR, vcNew.Outcome__c, 'Expect Outcome to be FCR as Case is created after the Voice Call record, and it is of Type General Enquiry');
-
+		
 		Test.stopTest();
 	}
 }

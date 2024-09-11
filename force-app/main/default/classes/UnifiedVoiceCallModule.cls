@@ -28,15 +28,6 @@ public with sharing class UnifiedVoiceCallModule extends ApplicationModule {
 
 	}
 
-	public override void onBeforeUpdate(List<SObject> records, Map<Id, SObject> existingRecords, ApplicationUnitOfWork uow) {
-		Id paulUserId = '0052v00000kLvGP';
-
-		// WORK IN PROGRESS: Minimise impact for anyone but me
-		if (UserInfo.getUserId() == paulUserId) {
-			PaulVoiceCallModuleExtension.onBeforeUpdate(records, existingRecords, uow);
-		}
-	}
-
 	/**
 	 * @param records List<SObject>
 	 * @param existingRecords Map<Id, SObject>
@@ -45,15 +36,6 @@ public with sharing class UnifiedVoiceCallModule extends ApplicationModule {
 	 */
 	public override void onAfterUpdate(List<SObject> records, Map<Id, SObject> existingRecords, ApplicationUnitOfWork uow) {
 		try {
-			Id paulUserId = '0052v00000kLvGP';
-
-			// WORK IN PROGRESS: Minimise impact for anyone but me
-			if (UserInfo.getUserId() == paulUserId) {
-				PaulVoiceCallModuleExtension.onAfterUpdate(records, existingRecords, uow);
-			} else {
-				syncVoiceCallToGenesysCallInteraction(records, existingRecords);
-			}
-
 			Set<SObjectField> monitoredFields = GenesysConstants.voiceCallFieldMappings.keySet();
 			List<ApplicationRecursion.RecordState> changedRecordStates = ApplicationRecursion.getInstance().getProcessableRecords('UnifiedVoiceCallModule', records, existingRecords, monitoredFields);
 			List<SObject> changedRecords = new List<SObject>();
@@ -109,7 +91,7 @@ public with sharing class UnifiedVoiceCallModule extends ApplicationModule {
 		}
 
 		Map<Id, Contact> contactMap = ContactsSelector.newInstance(0, getContactFieldOverrides()).selectByReversedPhoneNumbers(new Set<Object>(), voiceCallReversedPhoneNumber);
-		
+
 		Map<String, Contact[]> contactsByReversedPhone = new Map<String,Contact[]>();
 		for (Contact con : contactMap.values()) {
 			String reversedPhoneNumber = con.ReverseMobilePhone__c ?? con.ReverseVerifiedMobile__c;
@@ -211,24 +193,6 @@ public with sharing class UnifiedVoiceCallModule extends ApplicationModule {
 			return GenesysConstants.VOICE_CALL_OUTCOME_ENQUIRY_UPDATED;
 		}
 		return null;
-	}
-
-	/**
-	 * @param records List<SObject>
-	 * @param existingRecords Map<Id, SObject>
-	 * @description Syncs the VoiceCall status to the Call Interaction record so that the view call page can show the call status.
-	 */
-	@TestVisible
-	private static void syncVoiceCallToGenesysCallInteraction(List<SObject> records, Map<Id, SObject> existingRecords) {
-		// Consolidate voice call records and invoke platform event for synchronisation to Genesys
-		List<GenesysVoiceInteraction__e> eventList = GenesysInteractionSyncQueueable.obtainVoiceCallChangeEvents(
-			records,
-			existingRecords
-		);
-
-		if (eventList != null && !eventList.isEmpty()) {
-			ApplicationDatabase.getInstance().eventPublish(eventList);
-		}
 	}
 
 	@TestVisible

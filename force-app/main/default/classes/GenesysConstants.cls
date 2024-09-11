@@ -10,6 +10,8 @@
  */
 public with sharing class GenesysConstants {
 	public static final String TRANSFER_CALL_TYPE = 'Transfer';
+	public static final String VOICE_CALL_OUTBOUND_CALL_TYPE = 'Outbound';
+	public static final String VOICE_CALL_INBOUND_CALL_TYPE = 'Inbound';
 	public static final String DEFAULT_VOICE_CALL_ROOT_CAUSE = 'Unclear EDD';
 	public static final String VOICE_CALL_ENQUIRY_TYPE_GENERAL_ENQUIRY = 'General Enquiry';
 	public static final String VOICE_CALL_ENQUIRY_TYPE_INVESTIGATION = 'Investigation';
@@ -17,8 +19,6 @@ public with sharing class GenesysConstants {
 	public static final String VOICE_CALL_OUTCOME_FCR = 'FCR';
 	public static final String VOICE_CALL_OUTCOME_ENQUIRY_LODGED = 'Enquiry lodged';
 	public static final String VOICE_CALL_OUTCOME_ENQUIRY_UPDATED = 'Enquiry updated';
-	public static final String VOICE_CALL_INBOUND_CALL_TYPE = 'Inbound';
-	public static final String VOICE_CALL_OUTBOUND_CALL_TYPE = 'Outbound';
     /**
 	 * Mappings from Salesforce VoiceCall fields => Genesys Custom Attribute names
 	 */
@@ -26,14 +26,25 @@ public with sharing class GenesysConstants {
 		get {
 			if (genesysFieldMappings == null) {
 				genesysFieldMappings = new Map<SObjectField,String>{
+					// Tracking Number
 					VoiceCall.TrackingNumber__c => 'Tracking_Number',
+					// // Tracking ID (former Article ID)
+					// VoiceCall.Consignment__c => 'Tracking_Number2',
+					//	Product Category
 					VoiceCall.ProductCategory__c => 'Product_Category',
+					//	Product Sub Category
 					VoiceCall.ProductSubCategory__c => 'Product_Sub_Category',
-					VoiceCall.EnquiryType__c => 'Unified_Enquiry_Type',
-					VoiceCall.EnquirySubType__c => 'Unified_Enquiry_Sub_Type',
+					//	Enquiry Type
+					VoiceCall.EnquiryType__c => 'Enquiry_Type',
+					//	Enquiry Sub Type
+					VoiceCall.EnquirySubType__c => 'Enquiry_Sub_Type',
+					//	Case ID
 					VoiceCall.Case__c => 'CaseId',
+					//	Contact ID
 					VoiceCall.Contact__c => 'ContactId',
+					//	Root Cause
 					VoiceCall.RootCause__c => 'Root_Cause',
+					//	Outcome
 					VoiceCall.Outcome__c => 'Outcome'
 				};
 			}
