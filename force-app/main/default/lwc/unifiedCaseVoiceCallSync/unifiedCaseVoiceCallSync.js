@@ -4,7 +4,7 @@ import RELATED_RECORD_FIELD from '@salesforce/schema/VoiceCall.RelatedRecordId';
 import CASE_PRODUCT_CATEGORY_FIELD from '@salesforce/schema/Case.ProductCategory__c';
 import CASE_PRODUCT_SUBCATEGORY_FIELD from '@salesforce/schema/Case.ProductSubCategory__c';
 import CASE_ENQUIRY_SUBTYPE_FIELD from '@salesforce/schema/Case.EnquirySubType__c';
-import CASE_ENQUIRY_TYPE_FIELD from '@salesforce/schema/Case.CHASEnquiryType__c';
+import CASE_ENQUIRY_TYPE_FIELD from '@salesforce/schema/Case.Type';
 
 export default class UnifiedCaseVoiceCallSync extends LightningElement {
 	@api recordId; // Voice Call record Id
@@ -31,14 +31,7 @@ export default class UnifiedCaseVoiceCallSync extends LightningElement {
 			this.caseProductCategory = data.fields.ProductCategory__c.value;
 			this.caseProductSubCategory = data.fields.ProductSubCategory__c.value;
 			this.caseEnquirySubType = data.fields.EnquirySubType__c.value;
-			this.caseEnquiryType = data.fields.CHASEnquiryType__c.value;
-
-			console.log('Case fields:', {
-				ProductCategory__c: this.caseProductCategory,
-				ProductSubCategory__c: this.caseProductSubCategory,
-				EnquirySubType__c: this.caseEnquirySubType,
-				CHASEnquiryType__c: this.caseEnquiryType
-			});
+			this.caseEnquiryType = data.fields.Type.value;
 
 			if (this.recordId) {
 				this.updateVoiceRecord();
