@@ -58,7 +58,7 @@
         <duplicateRuleFilterItems>
             <field>Profile_Name_in_Text__c</field>
             <operation>equals</operation>
-            <value>CustomerService</value>
+            <value>Customer Service</value>
             <sortOrder>8</sortOrder>
             <table>User</table>
         </duplicateRuleFilterItems>
