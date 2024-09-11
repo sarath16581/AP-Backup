@@ -1294,6 +1294,30 @@
         <senderType>OrgWideEmailAddress</senderType>
         <template>Unified_Case_Notifications/STCaseCreation</template>
     </alerts>
+	<alerts>
+        <fullName>UnifiedInvestigationCaseCreationAP</fullName>
+        <description>Email alert to notify related contact on the Case when a new Unified Investigation case related to an AP product is created.</description>
+        <protected>false</protected>
+        <recipients>
+            <field>ContactId</field>
+            <type>contactLookup</type>
+        </recipients>
+        <senderAddress>customerservice@auspost.com.au</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>Unified_Case_Notifications/APCaseCreation</template>
+    </alerts>
+    <alerts>
+        <fullName>UnifiedInvestigationCaseCreationST</fullName>
+        <description>Email alert to notify related contact on the Case when a new Unified Investigation case related to an ST product is created.</description>
+        <protected>false</protected>
+        <recipients>
+            <field>ContactId</field>
+            <type>contactLookup</type>
+        </recipients>
+        <senderAddress>customerservice@startrack.com.au</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>Unified_Case_Notifications/STCaseCreation</template>
+    </alerts>
     <alerts>
         <fullName>VL_First_email</fullName>
         <description>VL - First email</description>
