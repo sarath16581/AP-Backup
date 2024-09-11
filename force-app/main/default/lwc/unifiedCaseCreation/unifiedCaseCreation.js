@@ -6,19 +6,18 @@
  * 2024-08-29 - Seth Heang - Updated the Form UI and refactor codes
  * 2024-09-02 - Seth Heang - Added case creation handler and validation/error handling
  */
-import { api, LightningElement, wire } from "lwc";
-import getCaseRecordTypeInfos from "@salesforce/apex/UnifiedCaseCreationController.getCaseRecordTypeInfos";
-import createNewCase from "@salesforce/apex/UnifiedCaseCreationController.createNewCase";
-import { getPicklistValuesByRecordType } from "lightning/uiObjectInfoApi";
-import CASE_OBJECT from "@salesforce/schema/Case";
-import { getPicklistOptions, isPicklistOptionAvailable } from "./util";
-import { reduceErrors } from "c/ldsUtils";
-import { getRecord, getFieldValue } from "lightning/uiRecordApi";
-import { ShowToastEvent } from "lightning/platformShowToastEvent";
-import { isBlank } from "c/utils";
+import { api, LightningElement, wire } from 'lwc';
+import getCaseRecordTypeInfos from '@salesforce/apex/UnifiedCaseCreationController.getCaseRecordTypeInfos';
+import createNewCase from '@salesforce/apex/UnifiedCaseCreationController.createNewCase';
+import { getPicklistValuesByRecordType } from 'lightning/uiObjectInfoApi';
+import CASE_OBJECT from '@salesforce/schema/Case';
+import { getPicklistOptions, isPicklistOptionAvailable } from './util';
+import { reduceErrors } from 'c/ldsUtils';
+import { getFieldValue } from 'lightning/uiRecordApi';
+import { ShowToastEvent } from 'lightning/platformShowToastEvent';
+import { isBlank } from 'c/utils';
 
-import LIVECHAT_INTENT_FIELD from "@salesforce/schema/LiveChatTranscript.Chat_Intent__c";
-import LIVECHAT_CONTACT_ID_FIELD from "@salesforce/schema/LiveChatTranscript.ContactId";
+import LIVECHAT_INTENT_FIELD from '@salesforce/schema/LiveChatTranscript.Chat_Intent__c';
 
 const INVESTIGATION_RECORD_TYPE = 'UnifiedInvestigation';
 const GENERAL_ENQUIRY_RECORD_TYPE = 'UnifiedGeneralEnquiry';
@@ -26,7 +25,6 @@ const INVESTIGATION_ENQUIRY_TYPE = 'Investigation';
 const GENERAL_ENQUIRY_TYPE = 'General Enquiry';
 const RECORD_TYPE_DEVELOPER_NAMES = [INVESTIGATION_RECORD_TYPE, GENERAL_ENQUIRY_RECORD_TYPE];
 const DEFAULT_TYPE_AND_PRODUCT = 'Unified Model';
-const LIVECHAT_FIELDS = [LIVECHAT_INTENT_FIELD, LIVECHAT_CONTACT_ID_FIELD];
 
 // Element selectors
 export const INPUT_ELEMENT_SELECTORS = ['lightning-textarea', 'lightning-combobox', 'lightning-record-picker'];
@@ -55,15 +53,29 @@ export const CONTACTID_MISSING_ERROR = 'Contact cannot be empty for investigatio
 export const INVALID_FORM_ERROR = 'Please fix errors and try again';
 
 export default class UnifiedCaseCreation extends LightningElement {
-	// ChatTranscript Obj
-	@api recordId;
+	// LiveChatTranscript record
+	@api interactionRecord;
 
 	// Public Properties
 	/**
 	 * The Contact Id to associate with the Case record.
 	 * @type {string}
 	 */
-	@api contactId;
+	@api get contactId(){
+		return this._contactId;
+	}
+
+	/**
+	 * setter for contactId with functionality to dynamically clear contact lookup if contact is unlinked from liveChat
+	 * @param value
+	 */
+	set contactId(value){
+		this._contactId = value;
+		const el = this.template.querySelector('lightning-record-picker[data-field-name=contactId]');
+		if(el && !value){
+			el.clearSelection();
+		}
+	}
 
 	/**
 	 * The consignment SF Id to associate with the Case record.
@@ -79,44 +91,91 @@ export default class UnifiedCaseCreation extends LightningElement {
 
 	/**
 	 * getter for enquiry type value to associate with the Case record
-	 * @type {string[]}
+	 * @returns {string}
 	 */
 	@api get enquiryType() {
 		return this._enquiryType;
 	}
 
 	/**
-	 * setter for enquiry type value to associate with the Case record.
-	 * update recordTypeId when enquiry type is set
-	 * @param value
+	 * setter for Enquiry type which dynamically updates the record type Id to refresh the dependencies picklist on case creation form
+	 * @returns {string}
 	 */
 	set enquiryType(value) {
 		this._enquiryType = value;
-		this.recordTypeId = this.getRecordTypeIdByEnquiryType(value);
+		this._recordTypeId = this.getRecordTypeIdByEnquiryType();
 	}
 
-	// Used to show spinner while retrieving object schema data and when creating the Case
-	get isLoading() {
-		return this._isLoading;
+	/**
+	 * getter for enquiry sub type value to associate with the Case record
+	 * @returns {string}
+	 */
+	@api get enquirySubType() {
+		return this._enquirySubType;
 	}
 
-	set isLoading(value) {
-		this._isLoading = value;
+	/**
+	 * setter for Enquiry sub type
+	 * @returns {string}
+	 */
+	set enquirySubType(value){
+		this._enquirySubType = value;
+	}
+
+	/**
+	 * getter for product category value to associate with the Case record
+	 * @returns {string}
+	 */
+	@api get productCategory() {
+		return this._productCategory;
+	}
+
+	/**
+	 * setter for product category
+	 * @returns {string}
+	 */
+	set productCategory(value){
+		this._productCategory = value;
+	}
+
+	/**
+	 * getter for product sub category value to associate with the Case record
+	 * @returns {string}
+	 */
+	@api get productSubCategory() {
+		return this._productSubCategory;
+	}
+
+	/**
+	 * setter for product sub category
+	 * @returns {string}
+	 */
+	set productSubCategory(value){
+		this._productSubCategory = value;
+	}
+
+	/**
+	 * Get latest the record type Id based on selected enquiry type
+	 * @returns {Id}
+	 */
+	get recordTypeId() {
+		return this._recordTypeId ??  this.getRecordTypeIdByEnquiryType();
 	}
 
 	// Private properties with getter and setter
+	_contactId;
 	_enquiryType;
 	_isLoading = true;
+	_recordTypeId;
+	_enquirySubType = '';
+	_productCategory = '';
+	_productSubCategory = '';
 
 	// Private properties without getter and setter
-	recordTypeId;
+	notes = '';
 	caseRecordTypeInfos;
 	casePicklistFieldValues;
 	typeAndProduct = DEFAULT_TYPE_AND_PRODUCT; // Controlling value for 'Enquiry Sub Type'
-	enquirySubType = '';
-	productCategory = '';
-	productSubCategory = '';
-	notes = '';
 
 	// Field and button labels
 	contactLabel = CONTACT_LABEL;
@@ -126,8 +185,16 @@ export default class UnifiedCaseCreation extends LightningElement {
 	productSubCategoryLabel = PRODUCT_SUBCATEGORY_LABEL;
 	notesLabel = NOTES_LABEL;
 	createBtnLabel = CREATE_BUTTON_LABEL;
-	liveChatIntent;
 	errorMessage;
+
+
+	/**
+	 * LiveChat Intent from the interaction record.
+	 * @type {string}
+	 */
+	get liveChatIntent() {
+		return getFieldValue(this.interactionRecord, LIVECHAT_INTENT_FIELD);
+	}
 
 	/**
 	 * get default Investigation recordType Id
@@ -149,6 +216,19 @@ export default class UnifiedCaseCreation extends LightningElement {
 		return Object.values(this.caseRecordTypeInfos || {}).find((recordTypeInfo) => recordTypeInfo.developerName === GENERAL_ENQUIRY_RECORD_TYPE)?.recordTypeId;
 	}
 
+	// Used to show spinner while retrieving object schema data and when creating the Case
+	get isLoading() {
+		return this._isLoading;
+	}
+
+	set isLoading(value) {
+		this._isLoading = value;
+	}
+
+	/**
+	 * Show the impacted article label with count on the case creation form
+	 * @returns {string}
+	 */
 	get linkedArticlesLabel() {
 		return !this.impactedArticles ? ARTICLES_LABEL + ' (None Linked)' : ARTICLES_LABEL + ' (' + this.impactedArticles?.length + ')';
 	}
@@ -161,25 +241,12 @@ export default class UnifiedCaseCreation extends LightningElement {
 		return this.enquiryType === INVESTIGATION_ENQUIRY_TYPE;
 	}
 
-	getRecordTypeIdByEnquiryType(enquiryType) {
-		return this.isUnifiedGeneralEnquiryCase ? this.generalEnquiryRecordTypeId : this.defaultRecordTypeId;
-	}
-
 	/**
-	 * Wire adaptor to retrieve LiveChatTranscript data such as liveChatIntent
+	 * Get record type Id based on currently selected enquiry type
+	 * @returns {Id}
 	 */
-	@wire(getRecord, { recordId: '$recordId', fields: LIVECHAT_FIELDS })
-	wiredChatTranscriptRecord({ data, error }) {
-		if (error) {
-			this.caseRecordTypeInfos = undefined;
-			console.error(error);
-			this.errorMessage = reduceErrors(error).join(',');
-		} else if (data) {
-			this.liveChatIntent = getFieldValue(data, LIVECHAT_INTENT_FIELD);
-			if (!this.contactId) {
-				this.contactId = getFieldValue(data, LIVECHAT_CONTACT_ID_FIELD);
-			}
-		}
+	getRecordTypeIdByEnquiryType() {
+		return this.isUnifiedGeneralEnquiryCase ? this.generalEnquiryRecordTypeId : this.defaultRecordTypeId;
 	}
 
 	/**
@@ -197,7 +264,7 @@ export default class UnifiedCaseCreation extends LightningElement {
 			if (!this.enquiryType) {
 				this.enquiryType = INVESTIGATION_ENQUIRY_TYPE;
 			}
-			this.recordTypeId = this.getRecordTypeIdByEnquiryType(this.enquiryType);
+			this._recordTypeId = this.getRecordTypeIdByEnquiryType();
 			this.isLoading = false;
 		}
 	}
@@ -221,7 +288,6 @@ export default class UnifiedCaseCreation extends LightningElement {
 				ProductCategory__c,
 				ProductSubCategory__c
 			};
-
 			// Revalidate picklists when the Case Record Type changes
 			this.revalidatePicklists();
 			this.handleDefaultInputFieldValues();
@@ -229,22 +295,45 @@ export default class UnifiedCaseCreation extends LightningElement {
 	}
 
 	/**
+	 * Re-calculate selected picklist values which have controlling fields.
+	 * This is used to prevent unintentionally saving values which are not allowed.
+	 */
+	revalidatePicklists() {
+		if (this.enquirySubType && !isPicklistOptionAvailable(this.casePicklistFieldValues, 'EnquirySubType__c', this.typeAndProduct, this.enquirySubType)) {
+			this.enquirySubType = '';
+		}
+		if (this.productCategory && !isPicklistOptionAvailable(this.casePicklistFieldValues, 'ProductCategory__c', null, this.productCategory)) {
+			this.productCategory = '';
+		}
+		if ((this.productSubCategory && this.productCategory)
+				&& !isPicklistOptionAvailable(this.casePicklistFieldValues, 'ProductSubCategory__c', this.productCategory, this.productSubCategory)) {
+			this.productSubCategory = '';
+		}
+	}
+
+	/**
 	 * Handle default values for input fields on LWC form
 	 */
 	handleDefaultInputFieldValues() {
-		const enquirySubTypeOptions = getPicklistOptions(this.casePicklistFieldValues, 'EnquirySubType__c', this.typeAndProduct);
-		this.enquirySubType = enquirySubTypeOptions.length === 1 ? enquirySubTypeOptions[0].value : this.enquirySubType;
+		if(!this.enquirySubType){
+			const enquirySubTypeOptions = getPicklistOptions(this.casePicklistFieldValues, 'EnquirySubType__c', this.typeAndProduct);
+			this.enquirySubType = enquirySubTypeOptions.length === 1 ? enquirySubTypeOptions[0].value : this.enquirySubType;
+		}
 
-		const productCategoryOptions = getPicklistOptions(this.casePicklistFieldValues, 'ProductCategory__c');
-		this.productCategory = productCategoryOptions.length === 1 ? productCategoryOptions[0].value : this.productCategory;
+		if(!this.productCategory){
+			const productCategoryOptions = getPicklistOptions(this.casePicklistFieldValues, 'ProductCategory__c');
+			this.productCategory = productCategoryOptions.length === 1 ? productCategoryOptions[0].value : this.productCategory;
+		}
 
-		const productSubCategoryOptions = getPicklistOptions(this.casePicklistFieldValues, 'ProductSubCategory__c', this.productCategory);
-		this.productSubCategory = productSubCategoryOptions.length === 1 ? productSubCategoryOptions[0].value : this.productSubCategory;
+		if(!this.productSubCategory){
+			const productSubCategoryOptions = getPicklistOptions(this.casePicklistFieldValues, 'ProductSubCategory__c', this.productCategory);
+			this.productSubCategory = productSubCategoryOptions.length === 1 ? productSubCategoryOptions[0].value : this.productSubCategory;
+		}
 	}
 
 	/**
 	 * Handle input field changes
-	 * @param {*} event 
+	 * @param {*} event
 	 */
 	handleInputChange(event) {
 		const { fieldName } = event.target.dataset;
@@ -259,28 +348,12 @@ export default class UnifiedCaseCreation extends LightningElement {
 			productCategory: this.productCategory,
 			productSubCategory: this.productSubCategory
 		};
+
 		if (Object.hasOwnProperty.call(fieldsToRevalidate, fieldName) && previousValue !== value) {
 			this.revalidatePicklists();
 		}
 	}
 
-	/**
-	 * Re-calculate selected picklist values which have controlling fields.
-	 * This is used to prevent unintentionally saving values which are not allowed.
-	 */
-	revalidatePicklists() {
-		if (!isPicklistOptionAvailable(this.casePicklistFieldValues, 'EnquirySubType__c', this.typeAndProduct, this.enquirySubType)) {
-			this.enquirySubType = '';
-		}
-		if (!isPicklistOptionAvailable(this.casePicklistFieldValues, 'ProductCategory__c', null, this.productCategory)) {
-			this.productCategory = '';
-		}
-		if (!isPicklistOptionAvailable(this.casePicklistFieldValues, 'ProductSubCategory__c', this.productCategory, this.productSubCategory)) {
-			this.productSubCategory = '';
-		}
-	}
-
-	// Picklist Options
 	get enquiryTypeOptions() {
 		return ENQUIRY_TYPE_OPTIONS;
 	}
