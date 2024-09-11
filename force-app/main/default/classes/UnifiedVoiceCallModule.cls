@@ -204,7 +204,7 @@ public with sharing class UnifiedVoiceCallModule extends ApplicationModule {
 		if (GenesysConstants.VOICE_CALL_ENQUIRY_TYPE_GENERAL_ENQUIRY.equalsIgnoreCase(relatedCase.Type) && !caseOlderThanVoice) { // the case is created with Type = General Enquiry during the interaction
 			return GenesysConstants.VOICE_CALL_OUTCOME_FCR;
 		} else if ((GenesysConstants.VOICE_CALL_ENQUIRY_TYPE_INVESTIGATION.equalsIgnoreCase(relatedCase.Type) && !caseOlderThanVoice) ||
-				(GenesysConstants.VOICE_CALL_ENQUIRY_TYPE_INVESTIGATION.equalsIgnoreCase(relatedCase.Type) && caseOlderThanVoice && !relatedGECaseHistory.isEmpty())) { // the case is created with Type = Investigation is before the call OR the case was of Type GE, but has been updated to Investigate during the call
+				(GenesysConstants.VOICE_CALL_ENQUIRY_TYPE_INVESTIGATION.equalsIgnoreCase(relatedCase.Type) && caseOlderThanVoice && relatedGECaseHistory != null && !relatedGECaseHistory.isEmpty())) { // the case is created with Type = Investigation is before the call OR the case was of Type GE, but has been updated to Investigate during the call
 			return GenesysConstants.VOICE_CALL_OUTCOME_ENQUIRY_LODGED;
 		} else if (GenesysConstants.VOICE_CALL_ENQUIRY_TYPE_INVESTIGATION.equalsIgnoreCase(relatedCase.Type) && caseOlderThanVoice && relatedGECaseHistory == null) { // the case has always been of Type Investigation before and during the call
 			return GenesysConstants.VOICE_CALL_OUTCOME_ENQUIRY_UPDATED;
