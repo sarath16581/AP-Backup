@@ -339,6 +339,7 @@ export default class UnifiedCaseCreation extends LightningElement {
 	/**
 	 * handle new case creation and new impacted article with all appropriate fields mapped from the UI form
 	 * @returns {Promise<void>}
+	 * @fire UnifiedCaseCreation#casecreated
 	 */
 	async handleCaseCreation() {
 		// Validate inputs before invoking the search method
@@ -365,6 +366,8 @@ export default class UnifiedCaseCreation extends LightningElement {
 					consignmentId: this.consignmentId
 				}
 			});
+
+			this.dispatchEvent(new CustomEvent('casecreated', { detail: { caseId }, bubbles: true, composed: true }));
 
 			// Dispatch the ShowToastEvent
 			this.dispatchEvent(
