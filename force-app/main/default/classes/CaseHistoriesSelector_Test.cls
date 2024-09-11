@@ -1,12 +1,10 @@
-/**
-* @author SteveL
-* @date 2024-09-10
-* @group Tests
-* @tag Selector
-* @description A very simple selector test class 
-* @changelog
-* 2024-09-10 - SteveL - Created
-* */
+/***
+ * @description Test class for CaseHistoriesSelector
+ * @author SteveL
+ * @date 2024-09-11
+ * @changelog
+ * 11/9/2024 created - SteveL
+ */
 
 @IsTest
 private class CaseHistoriesSelector_Test {

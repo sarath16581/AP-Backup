@@ -1,10 +1,9 @@
 /**
- * @author SteveL
- * @date 09-09-2024
- * @group Selector
- * @tag	Selector
- *
  * @description A very simple selector class for ConversationParticipant Object
+ * @author SteveL
+ * @date 2024-09-09
+ * @changelog
+ * 2024-09-09 - SteveL - created
  */
 public virtual inherited sharing class ConversationParticipantsSelector extends ApplicationSelector {
 

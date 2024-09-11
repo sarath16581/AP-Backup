@@ -1,11 +1,10 @@
 /***
  * @description VoiceCall trigger handler
- * NOTE: 	Invokes all the logic upon DML for the VoiceCall object
- * @author 	Paul Perry
- * @date 	2024-08-27
- * @group 	Domain
- * @test 	TBD
+ * NOTE: Invokes all the logic upon DML for the VoiceCall object
+ * @author Paul Perry
+ * @date 2024-08-27
  * @changelog
+ * 2024-08-27 Paul Perry - create it
  */
 public inherited sharing class VoiceCallTriggerHandler extends ApplicationTriggerHandler {
 	private final String FILTER_ALLWITHVENDORKEY = 'allWithVendorCallKey';

@@ -1,12 +1,11 @@
 /**
  * @description Constant definitions for Genesys related logic
- * NOTE: 	Contains Field Mappings for synchronising SF VoiceCall => Genesys Call Interaction
- * @author 	Paul Perry
- * @date 	2024-08-28
- * @group 	SCV/Unified
- * @test 	TBD
+ * NOTE: Contains Field Mappings for synchronising SF VoiceCall => Genesys Call Interaction
+ * @author Paul Perry
+ * @date 2024-08-28
+ * @group SCV/Unified
  * @changelog
- * 
+ * 2024-08-28 - Paul Perry - created
  */
 public with sharing class GenesysConstants {
 	public static final String TRANSFER_CALL_TYPE = 'Transfer';
