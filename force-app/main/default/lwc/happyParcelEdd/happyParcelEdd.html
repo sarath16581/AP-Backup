@@ -2,6 +2,7 @@
 	2020-04-01 nathan.franklin@auspost.com.au Created
 	2020-10-22 disha.kariya@auspost.com.au Added delivery ETA
 	2021-10-01 - Nathan Franklin - refactored the use of transient attributes
+	2024-06-08 - Seth Heang - add conditional display for SAP EM and .NET header
 -->
 <template>
 	<c-happy-parcel-card title="Estimated Delivery Dates" icon-name="utility:weeklyview" variant="vanilla-stretch" help-text={helpText}>
@@ -9,7 +10,12 @@
 			<div class="slds-col slds-size_1-of-2 slds-p-left_medium">
 				<div class="slds-form-element slds-clearfix">
 					<div class="slds-form-element__label">
-						<strong>SAP EM</strong>
+						<template if:true={isDotNetEdd}>
+							<strong>{displaySourceSystem}</strong>
+						</template>
+						<template if:false={isDotNetEdd}>
+							<strong>SAP EM</strong>
+						</template>
 					</div>
 					<div class="slds-form-element__control">
 						<template if:true={loading}>

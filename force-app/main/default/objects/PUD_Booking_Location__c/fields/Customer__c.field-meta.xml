@@ -5,6 +5,7 @@
     <externalId>false</externalId>
     <label>Customer</label>
     <referenceTo>Account</referenceTo>
+    <relationshipLabel>Locations</relationshipLabel>
     <relationshipName>Booking_Locations</relationshipName>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>

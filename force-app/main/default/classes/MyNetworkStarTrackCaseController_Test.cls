@@ -262,17 +262,17 @@ public with sharing class MyNetworkStarTrackCaseController_Test {
 		// =====================================
 		// Data Preparation
 		// =====================================
-		List<Critical_Incident__kav> criticalIncidents = ApplicationTestDataFactory.getCriticalIncidents(1, true);
-		criticalIncidents[0].Network_Org_Id__c = '1234;4321';
+		List<Knowledge__kav> criticalIncidents = ApplicationTestDataFactoryKnowledge.getCriticalIncidents(1, true);
+		criticalIncidents[0].NetworkOrgId__c = '1234;4321';
 
 		// =====================================
 		// Stubbing
 		// =====================================
-		CriticalIncidentsSelector mockCriticalIncidentsSelector = (CriticalIncidentsSelector)MockUtility.mockSelector(CriticalIncidentsSelector.class);
+		KnowledgeArticleVersionsSelector mockCriticalIncidentsSelector = (KnowledgeArticleVersionsSelector)MockUtility.mockSelector(KnowledgeArticleVersionsSelector.class);
 
 		// set up our responses
 		MockUtility.Mocks.startStubbing();
-		MockUtility.Mocks.when(mockCriticalIncidentsSelector.selectCriticalIncidentsByPublishStatus((String)fflib_Match.anyObject())).thenReturn(new Map<Id, Critical_Incident__kav>{criticalIncidents[0].Id => criticalIncidents[0]});
+		MockUtility.Mocks.when(mockCriticalIncidentsSelector.search((Map<String, Object>)fflib_Match.anyObject(), (Boolean)fflib_Match.anyObject())).thenReturn(new List<Knowledge__kav>{criticalIncidents[0]});
 		MockUtility.Mocks.stopStubbing();
 
 		// =====================================
@@ -283,7 +283,7 @@ public with sharing class MyNetworkStarTrackCaseController_Test {
 		List<MyNetworkStarTrackCaseController.CriticalIncidentWrapper> ciWrapper = MyNetworkStarTrackCaseController.getCriticalIncidents();
 
 		Test.stopTest();
-
+		((KnowledgeArticleVersionsSelector)MockUtility.Mocks.verify(mockCriticalIncidentsSelector, MockUtility.Mocks.times(1))).search((Map<String, Object>)fflib_Match.anyObject(), (Boolean)fflib_Match.anyObject());
 		System.assertNotEquals(null, ciWrapper, 'Expected critical incidents wrapper to return');
 		System.assertEquals(1, ciWrapper[0].criticalIncidentList.size(), 'Expected critical incidents knowledge articles to return');
 

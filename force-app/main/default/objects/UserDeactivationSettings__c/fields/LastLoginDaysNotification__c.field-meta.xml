@@ -6,10 +6,10 @@
     <externalId>false</externalId>
     <inlineHelpText>The number of days of inactivity after which an email notification would be sent to user.</inlineHelpText>
     <label>Last Login Notification(days)</label>
-	<securityClassification>INTERNAL</securityClassification>
     <precision>5</precision>
     <required>false</required>
     <scale>0</scale>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Number</type>
     <unique>false</unique>

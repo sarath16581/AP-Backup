@@ -1,10 +1,11 @@
 /**************************************************
-Description:       Test class for FacilitySearchController
+Description:		Test class for FacilitySearchController
 
 --------------------------------------------------
 * 2017-08-01 nathan.franklin@auspost.com.au  - Creating tests to increase code coverage.
 * 2017-10-24 nathan.franklin@auspost.com.au  - Recreated facility search test class
 * 2019-10-01 gunith.devasurendra@auspost.com.au	- Fixed tests by inserting SSSWNonRoutingEventCodes__c on Setup
+* 2024-08-28 mona.raghav@auspost.com.au - mehtod testTrimEscalationEmailContent added to test trimming of the string
 --------------------------------------------------
 */
 @isTest
@@ -126,17 +127,17 @@ private class FacilitySearch_Test {
 		nwMelb4.AlwaysShown__c = true;
 		nwMelb4.RecordTypeId = [Select Id From RecordType Where sObjectType = 'Network__c' And DeveloperName = 'Other_8'].Id;
 		networks.add(nwMelb4);
-        
-        //Closed Business Hubs shouldn't appear in results
-        Network__c nwSyd4 = TestDataProvider.createTestNetwork();
-        nwSyd4.Name = 'Sydney4';
-        nwSyd4.ORG_UNIT_ADDR_3__c = 'Sydney';
-        nwSyd4.Email__c = 'top@top.com';
-        nwSyd4.Status__c = 'Closed';
-        nwSyd4.Geolocation__Latitude__s = -33.86785; // Sydney
-        nwSyd4.Geolocation__Longitude__s = 151.20732;
-        nwSyd4.RecordTypeId = [Select Id From RecordType Where sObjectType = 'Network__c' And DeveloperName = 'Business_Hub_3'].Id;
-        networks.add(nwSyd4);
+
+//Closed Business Hubs shouldn't appear in results
+		Network__c nwSyd4 = TestDataProvider.createTestNetwork();
+		nwSyd4.Name = 'Sydney4';
+		nwSyd4.ORG_UNIT_ADDR_3__c = 'Sydney';
+		nwSyd4.Email__c = 'top@top.com';
+		nwSyd4.Status__c = 'Closed';
+		nwSyd4.Geolocation__Latitude__s = -33.86785; // Sydney
+		nwSyd4.Geolocation__Longitude__s = 151.20732;
+		nwSyd4.RecordTypeId = [Select Id From RecordType Where sObjectType = 'Network__c' And DeveloperName = 'Business_Hub_3'].Id;
+		networks.add(nwSyd4);
 
 		Network__c nwGerm = TestDataProvider.createTestNetwork();
 		nwGerm.Name = 'Germany Network';
@@ -235,7 +236,7 @@ private class FacilitySearch_Test {
 		Test.startTest();
 		SSSWRouting__c routing = TestUtility.createSSSWRouting(null,'KeyPass','General Enquiry',null,'Consumer','Social','Any',SSSWConstants.RECTYPEESCALATION);
 		routing.AutoEscalate__c = true;
-        routing.IsActive__c = true;
+		routing.IsActive__c = true;
 		insert routing;
 
 		Case case1 = [Select Id From Case LIMIT 1];
@@ -409,7 +410,7 @@ private class FacilitySearch_Test {
 
 	/**
 	  * Scenario:
-	  *     Test to make sure that bypass networks are appearing in search results
+	  *	Test to make sure that bypass networks are appearing in search results
 	  */
 	public static testMethod void testNetworkBypasses() {
 
@@ -466,7 +467,7 @@ private class FacilitySearch_Test {
 
 	/**
 	  * Scenario:
-	  *     Test to make sure that bypass networks are appearing in search results
+	  *	Test to make sure that bypass networks are appearing in search results
 	  */
 	public static testMethod void testNetworkInternationalSearch() {
 
@@ -477,7 +478,7 @@ private class FacilitySearch_Test {
 		Contact contact1 = [Select Id From Contact LIMIT 1];
 		SSSWRouting__c routing = TestUtility.createSSSWRouting(null,'KeyPass','General Enquiry',null,'Consumer','Social','All',SSSWConstants.RECTYPEESCALATION);
 		routing.AutoEscalate__c = true;
-        routing.IsActive__c = true;
+		routing.IsActive__c = true;
 		insert routing;
 		ApexPages.currentPage().getParameters().put('id', case1.Id);
 
@@ -493,18 +494,18 @@ private class FacilitySearch_Test {
 
 	/**
 	  * Scenario:
-	  *     Test to make sure that bypass networks are appearing in search results
+	  *	Test to make sure that bypass networks are appearing in search results
 	  */
 	public static testMethod void testNetworkIncidents() {
 
 		Test.startTest();
-
-		Critical_Incident__kav kav = new Critical_Incident__kav(Network_Org_Id__c = '12345;2222;', URLNAme = 'test1244', Title = 'tt', language = 'en_US');
+		Id CriticalIncidentRecordTypeId = RecordTypesSelector.newInstance().selectByDeveloperName('Knowledge__kav', new Set<String>{'Critical_Incident'}).values()[0].Id;
+		Knowledge__kav kav = new Knowledge__kav(NetworkOrgId__c = '12345;2222;', URLNAme = 'test1244', Title = 'tt', language = 'en_US', Timetoremind__c = Date.today(), RecordTypeId = CriticalIncidentRecordTypeId);
 		insert kav;
 
 		//retrieve master article Id created on FAQ__kav record insertion
 		//in order to get the KnowledgeArticleId
-		kav = [SELECT KnowledgeArticleId FROM Critical_Incident__kav WHERE Id = :kav.Id];
+		kav = [SELECT KnowledgeArticleId FROM Knowledge__kav WHERE Id = :kav.Id];
 
 		//publish it
 		KbManagement.PublishingService.publishArticle(kav.KnowledgeArticleId, true);
@@ -524,7 +525,7 @@ private class FacilitySearch_Test {
 
 		// ensure at least 1 incident was found
 		// in the testSetup a sydney network was given the Org Id 12345
-		//      given that we are searching for Sydney, the incident should be found and attached to that network.
+		//  given that we are searching for Sydney, the incident should be found and attached to that network.
 		System.assertEquals(1, incidentCount);
 
 		Test.stopTest();
@@ -567,7 +568,7 @@ private class FacilitySearch_Test {
 
 		FacilitySearchController.EmailParticipant ep = new FacilitySearchController.EmailParticipant('test', 'test@test.com');
 		String output = FacilitySearchController.getEmailTemplateAndSendMail('test@test.com', case1.Id, new List<FacilitySearchController.EmailParticipant>{ep});
-        System.Debug('>>> output: ' + output);
+		System.Debug('>>> output: ' + output);
 		Boolean result = !(output.contains('Error'));
 		System.Debug('>>> result: ' + result);
 		System.assert(result);
@@ -767,6 +768,18 @@ private class FacilitySearch_Test {
 		System.assert(true);
 
 		Test.stopTest();
+	}
+    
+    /**
+	  * SCENARIO:
+	  *   Scenario will test the trimEscalationEmailContent functionality where the escalation email content is trimmed to the fields length
+	  */
+	  public static testMethod void testTrimEscalationEmailContent() {
+		Test.startTest();
+		string trimmedString = FacilitySearchController.trimContent('email comment', 2);
+		Test.stopTest();
+		// check the string passed is trimmed
+		System.assertEquals(trimmedString, 'em');
 	}
 
 }

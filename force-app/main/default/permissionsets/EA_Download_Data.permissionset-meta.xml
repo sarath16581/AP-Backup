@@ -5,6 +5,10 @@
     <license>EinsteinAnalyticsPlusPsl</license>
     <userPermissions>
         <enabled>true</enabled>
+        <name>UseSubscriptionEmails</name>
+    </userPermissions>
+    <userPermissions>
+        <enabled>true</enabled>
         <name>WaveTabularDownload</name>
     </userPermissions>
 </PermissionSet>

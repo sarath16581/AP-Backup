@@ -29,7 +29,7 @@
         <name>SCCRDescription</name>
         <dataType>String</dataType>
         <expression>&quot;Customer has changed ABN&quot; &amp;&quot;&lt;br&gt;&quot; &amp;
-&quot;Reason: &quot; &amp; TEXT({!$Record.Reason__c}) &amp; &quot;&lt;br&gt;&quot; &amp;
+&quot;Reason: &quot; &amp; CASE({!$Record.Reason__c}, &quot;Business Sold - New Owners&quot;, &quot;ABN Change - Business Sold - New Owners&quot;, TEXT({!$Record.Reason__c})) &amp; &quot;&lt;br&gt;&quot; &amp;
 &quot;Identified Date: &quot; &amp; TEXT(DAY({!$Record.Identified_Date__c})) &amp; &quot;/&quot; &amp; TEXT(MONTH({!$Record.Identified_Date__c})) &amp; &quot;/&quot; &amp; TEXT(YEAR({!$Record.Identified_Date__c})) &amp; &quot;&lt;br&gt;&quot; &amp;
 &quot;Closed Date: &quot; &amp; TEXT(DAY({!$Record.Closed_Date__c})) &amp; &quot;/&quot; &amp; TEXT(MONTH({!$Record.Closed_Date__c})) &amp; &quot;/&quot; &amp; TEXT(YEAR({!$Record.Closed_Date__c})) &amp; &quot;&lt;br&gt;&quot; &amp;
 &quot;Outcome Comments: &quot; &amp; {!$Record.Outcome_Comments__c}</expression>

@@ -1,15 +1,40 @@
+<!--
+* @author Carlo Inting
+* @date 2024-05-14
+* @changelog
+* 2024-05-14 - Carlo Inting - Created
+* 2024-05-21 - Seth Heang - Passed forceConsignmentSearch parameter to happyParcel Component
+-->
 <apex:page showHeader="false" applyBodyTag="false" applyHtmlTag="false">
 	<html>
 		<head>
+			<c:ScriptLoader jsLibraries="integration,jquery"/>
 		</head>
 		<body class="slds-scope">
-		<apex:outputPanel layout="block" style="position: absolute;top: 0px;bottom: 0px;overflow: auto;width: 100%" >
-			<c:LightningWrapper lightningApp="c:HappyParcelWrapperApp"
-		                    lightningComponent="c:happyParcel"
-	                        crossOriginLwcEvents="idclick,externaledd,articledetails,customerselect,customerdeselect,customerdetails,trackingsearchcomplete,selectedarticles,attachdeliveryproof"
-	                        crossOriginSupport="true"
-	                        componentAttributes="{&quotsupportsExternalLinkHandling&quot:true,&quot;supportsSelectableChildArticles&quot;:true,&quot;supportsCustomerSelection&quot;:true,&quot;readonly&quot;:false,&quot;supportsExternalEdd&quot;:true,&quot;supportsSafeDropAttachment&quot;:true,&quot;supportsCaseCreation&quot;:true}"/>
-		</apex:outputPanel>					
+			<apex:outputPanel layout="block" style="position: absolute;top: 0px;bottom: 0px;overflow: auto;width: 100%">
+				<div id="wrapper">
+					<c:LightningWrapper lightningApp="c:HappyParcelWrapperApp"
+								lightningComponent="c:happyParcel"
+								crossOriginSupport="false"
+								componentAttributes="{&quot;supportsExternalLinkHandling&quot;:true,&quot;supportsSelectableChildArticles&quot;:false,&quot;supportsCustomerSelection&quot;:false,&quot;readonly&quot;:false,&quot;supportsExternalEdd&quot;:true,&quot;supportsSafeDropAttachment&quot;:false,&quot;supportsCaseCreation&quot;:false,&quot;forceConsignmentLevelResults&quot;:true}"/>
+				</div>
+			</apex:outputPanel>
 		</body>
+
+		<script>
+			jQuery(function($) {
+				// define our dom events we will receive from the Happy Parcels lightning component
+				document.getElementById('wrapper').addEventListener('idclick', handleHappyParcelLightningEvent);
+			});
+
+			function handleHappyParcelLightningEvent(e) {
+				if(e && e.detail && e.type === 'idclick' && e.detail.id) {
+					// this occurs if a link is clicked in Happy Parcel that requires a record page to be opened
+					if (sforce && sforce.console && sforce.console.isInConsole()) {
+						sforce.console.openPrimaryTab(null, '/' + e.detail.id, true);
+					}
+				}
+			}
+		</script>		
 	</html>
 </apex:page>

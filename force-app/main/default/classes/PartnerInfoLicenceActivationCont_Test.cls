@@ -23,6 +23,7 @@ private without sharing class PartnerInfoLicenceActivationCont_Test {
 		List<Account> orgAccounts = new List<Account>(ApplicationTestDataFactory.getAccounts(2, true));
 		Account outgoingLicence = ApplicationTestDataFactory.getLPOAccounts(1, orgAccounts[1].Id, facilityAccount.Id, true)[0];
 		Account incomingLicence = ApplicationTestDataFactory.getLPOAccounts(1, orgAccounts[0].Id, facilityAccount.Id, true)[0];
+		Contact incentContact =  ApplicationTestDataFactory.getContacts(1,orgAccounts[0].Id,true)[0];
 		facilityAccount = (Account) ApplicationTestDataFactory.setUnwritableFields(
 			facilityAccount,
 			new Map<String, Object>{
@@ -73,16 +74,16 @@ private without sharing class PartnerInfoLicenceActivationCont_Test {
 			.thenReturn(new Map<Id, Account>{ incomingLicence.Id => incomingLicence });
 		MockUtility.Mocks.when(
 				mockAccountsSelector.selectById(
-					(Set<Id>) fflib_Match.eq(new Set<Id>{ incomingLicence.Id, facilityAccount.Id, outgoingLicence.Id }),
+					(Set<Id>) fflib_Match.eq(new Set<Id>{ incomingLicence.Id, incomingLicence.ParentId, facilityAccount.Id, outgoingLicence.Id }),
 					(Set<Object>) fflib_Match.eq(
 						new Set<Object>{ 
 							AccountsSelector.Options.WITH_CREATEDBY_USER, AccountsSelector.Options.WITH_LASTMODIFIEDBY_USER, 
-							AccountsSelector.Options.WITH_PARENT, AccountsSelector.Options.WITH_NETWORK 
+							AccountsSelector.Options.WITH_PARENT, AccountsSelector.Options.WITH_NETWORK, AccountsSelector.Options.WITH_CONTACT 
 						}
 					)
 				)
 			)
-			.thenReturn(new Map<Id, Account>(new List<Account>{ incomingLicence, facilityAccount, outgoingLicence }));
+			.thenReturn(new Map<Id, Account>(new List<Account>{ incomingLicence, orgAccounts[0], facilityAccount, outgoingLicence }));
 		MockUtility.Mocks.stopStubbing();
 
 		// =====================================
@@ -151,14 +152,14 @@ private without sharing class PartnerInfoLicenceActivationCont_Test {
 			.thenReturn(new Map<Id, Account>{ incomingLicence.Id => incomingLicence });
 		MockUtility.Mocks.when(
 				mockAccountsSelector.selectById(
-					(Set<Id>) fflib_Match.eq(new Set<Id>{ incomingLicence.Id, facilityAccount.Id }),
+					(Set<Id>) fflib_Match.eq(new Set<Id>{ incomingLicence.Id,incomingLicence.ParentId, facilityAccount.Id }),
 					(Set<Object>) fflib_Match.eq(
 						new Set<Object>{ AccountsSelector.Options.WITH_CREATEDBY_USER, AccountsSelector.Options.WITH_LASTMODIFIEDBY_USER, 
-							AccountsSelector.Options.WITH_PARENT, AccountsSelector.Options.WITH_NETWORK }
+							AccountsSelector.Options.WITH_PARENT, AccountsSelector.Options.WITH_NETWORK, AccountsSelector.Options.WITH_CONTACT }
 					)
 				)
 			)
-			.thenReturn(new Map<Id, Account>(new List<Account>{ incomingLicence, facilityAccount }));
+			.thenReturn(new Map<Id, Account>(new List<Account>{ incomingLicence, orgAccounts[0], facilityAccount }));
 		MockUtility.Mocks.stopStubbing();
 
 		// =====================================

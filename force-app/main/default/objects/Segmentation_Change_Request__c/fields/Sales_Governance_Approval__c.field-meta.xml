@@ -14,11 +14,16 @@
     <valueSet>
         <restricted>true</restricted>
         <valueSetDefinition>
-            <sorted>false</sorted>
+            <sorted>true</sorted>
             <value>
                 <fullName>Approved</fullName>
                 <default>false</default>
                 <label>Approved</label>
+            </value>
+            <value>
+                <fullName>Pending Information</fullName>
+                <default>false</default>
+                <label>Pending Information</label>
             </value>
             <value>
                 <fullName>Rejected</fullName>

@@ -44,6 +44,8 @@ export default class BcaForm extends LightningElement {
 
     @track welcomeText;
 
+	welcomeTextHardcoded = '(Knowledge uplift test) If your business is spending over $1,000 each month on postage, then you&rsquo;re eligible to apply for a Business Credit Account with Australia Post.<br /><br />To complete this online application you&rsquo;ll need:<ul><li>Business details, including your ABN, registered address and business type</li><li>Director details, including name, address and date of birth</li><li>Bank account details to set up direct debit</li><li>Details of other suppliers you currently have credit terms with to provide as references</li></ul>Make sure the person completing this application is over 18 and is a director of the business, or has authorisation to complete it on a director&rsquo;s behalf.<br /><br />If you&rsquo;ve got everything listed above ready, the online form should take 5-10 minutes to complete.';
+
     skipValidation = false;
 
     showCreditAmount;
@@ -79,10 +81,13 @@ export default class BcaForm extends LightningElement {
             }
             if (this.showWizard) {
                 // get welcome text
+				/*
                 getWelcomeMessage().then(data => {
                     this.welcomeText = data.Message__c;
                 }).catch(error => {
                 });
+				*/
+				this.welcomeText = this.welcomeTextHardcoded;
                 // get skipvalidations
                 skipValidationSetting().then(result => {
                     this.skipValidation = result;

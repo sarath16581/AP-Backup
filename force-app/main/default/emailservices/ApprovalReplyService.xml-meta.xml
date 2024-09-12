@@ -4,6 +4,13 @@
     <attachmentOption>None</attachmentOption>
     <authenticationFailureAction>Discard</authenticationFailureAction>
     <authorizationFailureAction>Discard</authorizationFailureAction>
+    <emailServicesAddresses>
+        <authorizedSenders>sheryl.crisostomo@auspost.com.au</authorizedSenders>
+        <developerName>ApprovalReplyService</developerName>
+        <isActive>true</isActive>
+        <localPart>approvalreplyservice</localPart>
+        <runAsUser>sheryl.crisostomo@auspost.com.au.stest</runAsUser>
+    </emailServicesAddresses>
     <errorRoutingAddress>vera.octavia@auspost.com.au</errorRoutingAddress>
     <functionInactiveAction>Discard</functionInactiveAction>
     <functionName>ApprovalReplyService</functionName>

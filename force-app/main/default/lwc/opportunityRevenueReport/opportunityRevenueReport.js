@@ -9,6 +9,7 @@ import { LightningElement, api, wire, track } from 'lwc';
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 import getRevenueData from '@salesforce/apex/OpportunityRevenueReportController.getRevenueData';
 
+
 export default class  OpportunityRevenueReport extends LightningElement {
     @api recordId; // This property is automatically populated with the Opportunity record ID
 
@@ -21,13 +22,14 @@ export default class  OpportunityRevenueReport extends LightningElement {
         if (data) {
             this.processRevenueData(data);
         } else if (error) {
+            let errorMessage = typeof error === 'object' ? JSON.stringify(error) : String(error);
             // Handle the error
             this.dispatchEvent( new ShowToastEvent({
 				title: 'Error',
-				message: 'Error retrieving revenue data: ' + error,
+				message: 'Error retrieving revenue data: ' + errorMessage,
 				variant: 'error'
 			}));
-            console.error('Error retrieving revenue data: ', error);
+            console.error('Error retrieving revenue data: ', errorMessage);
         }
     }
 
@@ -71,4 +73,22 @@ export default class  OpportunityRevenueReport extends LightningElement {
         ];
     }
 
+    @api
+    async reloadData() {
+        console.log('Reloading data in LWC Opportunity Revenue Report');
+        try {
+            // Fetch the latest data from Apex
+            const data = await getRevenueData({ opportunityId: this.recordId });
+            this.processRevenueData(data); // Process and display the data
+        } catch (error) {
+            let errorMessage = typeof error === 'object' ? JSON.stringify(error) : String(error);
+            // Handle the error
+            this.dispatchEvent(new ShowToastEvent({
+                title: 'Error',
+                message: 'Error retrieving revenue data: ' + errorMessage,
+                variant: 'error'
+            }));
+            console.error('Error retrieving revenue data: ', errorMessage);
+        }
+    }
 }

@@ -2,26 +2,26 @@
   "appPageId" : "d5d19161-a65a-41cf-81d4-d7d67de3e4ce",
   "componentName" : "siteforce:sldsOneColLayout",
   "dataProviders" : [ ],
-  "id" : "42297d60-802f-49d2-b18d-4fc7bcf20f34",
+  "id" : "4c6d2fa6-7402-44d2-a44a-5bd330b2449a",
   "label" : "BSP Credit Claim Form",
   "regions" : [ {
-    "id" : "59205768-0aa0-444f-bc39-c88d90188a81",
+    "id" : "c7b16fd4-a231-4191-b153-86e6978fff83",
     "regionName" : "header",
     "type" : "region"
   }, {
     "components" : [ {
       "componentAttributes" : { },
       "componentName" : "c:bspFormCreditClaim",
-      "id" : "65ba9b9e-51e9-4dd8-8ad2-870837d2fc43",
+      "id" : "733c582c-48c5-4449-8179-596920187da8",
       "renderPriority" : "NEUTRAL",
       "renditionMap" : { },
       "type" : "component"
     } ],
-    "id" : "2c5ce314-6990-495b-9852-048decbb1ce1",
+    "id" : "36c416d9-a185-4b02-a068-444031f152a1",
     "regionName" : "content",
     "type" : "region"
   }, {
-    "id" : "12929dce-5301-47a6-a03d-6ee912406974",
+    "id" : "849ae451-07f5-4a9c-af49-155113981fc3",
     "regionName" : "footer",
     "type" : "region"
   }, {
@@ -32,11 +32,11 @@
         "title" : "BSP Credit Claim Form"
       },
       "componentName" : "forceCommunity:seoAssistant",
-      "id" : "216c0221-081d-4ea5-82ae-9ee3aa2aceee",
+      "id" : "bd2fd275-ea51-413b-843d-75c60608c2bf",
       "renditionMap" : { },
       "type" : "component"
     } ],
-    "id" : "a0a2ab12-8957-427e-aff6-757ab2e57e33",
+    "id" : "8ac32837-5c12-446c-be9c-5b2fb8ce5bf8",
     "regionName" : "sfdcHiddenRegion",
     "type" : "region"
   } ],

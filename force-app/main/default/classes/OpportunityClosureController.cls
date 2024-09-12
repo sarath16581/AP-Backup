@@ -6,6 +6,7 @@
 * 2017-10-17 - Lavanya Kavuri (lkavuri@salesforce.com) - Created
 * 2023-06-11 - Ken McGuire - cleanup
 * 2023-08-07 - Ranjeewa Silva - Fixed an issue where validation error messages are displayed with special characters (e.g. &quot;)
+* 2024-08-27 - Ken McGuire - Added recalcualte revenue function
 ******************************************************************************************
 */
 
@@ -184,10 +185,11 @@ public with sharing class OpportunityClosureController {
 			}
 		}
 		return null;
-	}
+	} 
 
 	@AuraEnabled
 	public static Boolean recalculateRevenue(String oppId) {
+        system.debug('***** navigating to recalculate revenue for '+oppId );
 		return opcNavToBulkEditController.recalculateRevenue(oppId);
 	}
 

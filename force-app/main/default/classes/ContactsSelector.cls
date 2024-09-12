@@ -51,7 +51,7 @@ public virtual inherited sharing class ContactsSelector extends ApplicationSelec
 		return new Set<SObjectField> {
 				Contact.Id, Contact.AccountId, Contact.FirstName, Contact.LastName, Contact.OwnerId, Contact.Name, Contact.APCN__c,
 				Contact.Email, Contact.OID_ID__c, Contact.CRMCSSOID__c , Contact.Phone , Contact.Fax, Contact.MobilePhone, Contact.HomePhone, Contact.Salutation, Contact.Title,
-				Contact.VerifiedMobile__c,Contact.Unique_Mobile__c, Contact.BillingAccount__c, Contact.IncentCredential__c
+				Contact.VerifiedMobile__c,Contact.Unique_Mobile__c, Contact.BillingAccount__c
 		};
 	}
 
