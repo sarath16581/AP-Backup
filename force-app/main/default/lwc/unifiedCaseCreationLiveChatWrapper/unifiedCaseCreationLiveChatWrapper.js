@@ -228,11 +228,9 @@ export default class UnifiedCaseCreationLiveChatWrapper extends LightningElement
 	 * @param message
 	 */
 	handleLMSEvent(message) {
-		console.log('LMS message: ' + JSON.stringify(message));
 		// filter for `articlesSelected`
 		if(message.source === 'HappyParcel' && message.type === 'articleSelected'){
 			this.impactedArticles = message.body.selectedArticleIds;
-			console.log('selectedArticleIds: ' + this.impactedArticles);
 		}
 	}
 
