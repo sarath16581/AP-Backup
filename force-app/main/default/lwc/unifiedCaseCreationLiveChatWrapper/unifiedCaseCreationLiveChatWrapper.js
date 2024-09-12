@@ -16,7 +16,7 @@ import GENERIC_LMS_CHANNEL from '@salesforce/messageChannel/genericMessageChanne
 import ID_FIELD from '@salesforce/schema/LiveChatTranscript.Id';
 import CONTACT_ID_FIELD from '@salesforce/schema/LiveChatTranscript.ContactId';
 import CASE_ID_FIELD from '@salesforce/schema/LiveChatTranscript.CaseId';
-import CONSIGNMENT_ID_FIELD from '@salesforce/schema/LiveChatTranscript.ConsignmentId__c';
+import CONSIGNMENT_ID_FIELD from '@salesforce/schema/LiveChatTranscript.Consignment__c';
 import LIVECHAT_INTENT_FIELD from '@salesforce/schema/LiveChatTranscript.Chat_Intent__c';
 import ENQUIRY_TYPE_FIELD from '@salesforce/schema/LiveChatTranscript.EnquiryType__c';
 import ENQUIRY_SUBTYPE_FIELD from '@salesforce/schema/LiveChatTranscript.EnquirySubType__c';
