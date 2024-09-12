@@ -91,7 +91,31 @@
                     <value>none</value>
                 </fieldInstanceProperties>
                 <fieldItem>Record.Phone</fieldItem>
+                <identifier>RecordPhoneField</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!$User.Profile.Name}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>CustomerService</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>readonly</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Phone</fieldItem>
                 <identifier>RecordPhoneField2</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!$User.Profile.Name}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>CustomerService</rightValue>
+                    </criteria>
+                </visibilityRule>
             </fieldInstance>
         </itemInstances>
         <itemInstances>
@@ -122,6 +146,16 @@
                 </fieldInstanceProperties>
                 <fieldItem>Record.ABN__c</fieldItem>
                 <identifier>RecordABN_cField2</identifier>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.ACN__c</fieldItem>
+                <identifier>RecordACN_cField</identifier>
             </fieldInstance>
         </itemInstances>
         <name>Facet-4e2ce9a4-5632-44e6-afc3-3abd562c752b</name>
@@ -208,7 +242,7 @@
             <fieldInstance>
                 <fieldInstanceProperties>
                     <name>uiBehavior</name>
-                    <value>none</value>
+                    <value>readonly</value>
                 </fieldInstanceProperties>
                 <fieldItem>Record.ShippingAddress</fieldItem>
                 <identifier>RecordShippingAddressField2</identifier>
