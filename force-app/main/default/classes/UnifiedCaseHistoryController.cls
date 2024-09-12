@@ -60,7 +60,6 @@ public with sharing class UnifiedCaseHistoryController {
 
 			return response;
 		} catch (Exception e) {
-			System.debug(e);
 			throw new AuraHandledException(e.getMessage());
 		}
 	}
