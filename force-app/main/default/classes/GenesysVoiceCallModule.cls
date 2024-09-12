@@ -1,3 +1,10 @@
+/**
+ * @description A class that acts as a module to handle Genesys Voice Call callouts
+ * @author Paul Perry
+ * @date 2024-09-10
+ * @changelog
+ * 2024-09-10 - Paul Perry - created
+ */
 public with sharing class GenesysVoiceCallModule extends ApplicationModule {
 	public static GenesysVoiceCallModule newInstance() {
 		return (GenesysVoiceCallModule)Application.Utilities.newInstance(GenesysVoiceCallModule.class);
@@ -20,6 +27,12 @@ public with sharing class GenesysVoiceCallModule extends ApplicationModule {
 	 */
 	private static final Integer CALLOUT_CHUNK_SIZE = 10;
 
+	/**
+	 * the actual method that is invoked by the trigger handler to perform update sync operation with Genesys
+	 * @param records  List<SObject>
+	 * @param existingRecords Map<Id, SObject>
+	 * @param uow ApplicationUnitOfWork
+	 */
 	public static void performGenesysUpdateSync(List<SObject> records, Map<Id, SObject> existingRecords, ApplicationUnitOfWork uow) {
 		List<VoiceCall> requiresUpdate = (List<VoiceCall>)filterByChanged(
 			records, existingRecords,
@@ -78,13 +91,6 @@ public with sharing class GenesysVoiceCallModule extends ApplicationModule {
 						'updatedFieldsByVoiceCallId' => updateFieldsSubSet
 					}
 				));
-
-				// // FOR TROUBLESHOOTING ONLY
-				// AsyncGenesysAttributeSync syncTest = new AsyncGenesysAttributeSync();
-				// syncTest.deserialiseParams(JSON.serialize(new Map<String,Object>{
-				// 	'updatedFieldsByVoiceCallId' => updateFieldsSubSet
-				// }));
-				// System.enqueueJob(syncTest);
 			}
 		}
     }
@@ -302,7 +308,6 @@ public with sharing class GenesysVoiceCallModule extends ApplicationModule {
 		public String sfConversationId;
 		public String participantId;
 		public Integer reattempts;
-		// public DateTime lastUpdateTimestamp;
 
 		public GenesysSyncRequest(String conversationId, String participantId) {
 			this.conversationId = conversationId;

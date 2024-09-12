@@ -25,25 +25,14 @@ public with sharing class GenesysConstants {
 		get {
 			if (genesysFieldMappings == null) {
 				genesysFieldMappings = new Map<SObjectField,String>{
-					// Tracking Number
 					VoiceCall.TrackingNumber__c => 'Tracking_Number',
-					// // Tracking ID (former Article ID)
-					// VoiceCall.Consignment__c => 'Tracking_Number2',
-					//	Product Category
 					VoiceCall.ProductCategory__c => 'Product_Category',
-					//	Product Sub Category
 					VoiceCall.ProductSubCategory__c => 'Product_Sub_Category',
-					//	Enquiry Type
 					VoiceCall.EnquiryType__c => 'Enquiry_Type',
-					//	Enquiry Sub Type
 					VoiceCall.EnquirySubType__c => 'Enquiry_Sub_Type',
-					//	Case ID
 					VoiceCall.Case__c => 'CaseId',
-					//	Contact ID
 					VoiceCall.Contact__c => 'ContactId',
-					//	Root Cause
 					VoiceCall.RootCause__c => 'Root_Cause',
-					//	Outcome
 					VoiceCall.Outcome__c => 'Outcome'
 				};
 			}

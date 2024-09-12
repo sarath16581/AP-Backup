@@ -6,7 +6,7 @@
  * @tag SCV/Unified
  */
 @IsTest
-global with sharing class GenesysIntegration_Test {
+public with sharing class GenesysIntegration_Test {
 	@IsTest
 	private static void testHappyFlow() {
 		Test.setMock(HttpCalloutMock.class, new MockHttpResponseGenerator());
@@ -74,18 +74,18 @@ global with sharing class GenesysIntegration_Test {
 		Test.stopTest();
 	}
 
-    global class MockHttpResponseGenerator implements HttpCalloutMock {
+    public class MockHttpResponseGenerator implements HttpCalloutMock {
 		private List<Integer> responseCodes;
 
 		@SuppressWarnings('PMD.EmptyStatementBlock')
-		global MockHttpResponseGenerator() { }
-		global MockHttpResponseGenerator(List<Integer> responseCodes) {
+		public MockHttpResponseGenerator() { }
+		public MockHttpResponseGenerator(List<Integer> responseCodes) {
 			this();
 			this.responseCodes = responseCodes;
 		}
 
 		// Implement this interface method
-		global HTTPResponse respond(HTTPRequest req) {
+		public HTTPResponse respond(HTTPRequest req) {
 			String body;
 			Integer responseCode;
 

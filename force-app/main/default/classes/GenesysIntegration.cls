@@ -1,11 +1,9 @@
-/***
- * @description Genesys Intergration contains the callout logic to Genesys
- *
- * @author 	Paul Perry
- * @date 	2024-08-27
- * @group 	SCV/Unified
- * @test 	GenesysIntegration_Test
+/**
+ * @description Genesys Integration contains the callout logic to Genesys
+ * @author Paul Perry
+ * @date 2024-08-27
  * @changelog
+ * 2024-08-27 - Paul Perry - created
  */
 public with sharing class GenesysIntegration {
 	private static GenesysIntegration instance {
