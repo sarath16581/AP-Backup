@@ -11,6 +11,7 @@ import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 import { reduceErrors } from 'c/ldsUtils';
 import { subscribe, unsubscribe, MessageContext, APPLICATION_SCOPE } from 'lightning/messageService';
 import GENERIC_LMS_CHANNEL from '@salesforce/messageChannel/genericMessageChannel__c';
+import getExistingCasesCount from '@salesforce/apex/UnifiedCaseHistoryController.getCountForDuplicatedCasesRelatedToArticle';
 
 import ID_FIELD from '@salesforce/schema/VoiceCall.Id';
 import CONTACT_ID_FIELD from '@salesforce/schema/VoiceCall.Contact__c';
@@ -205,6 +206,8 @@ export default class UnifiedCaseCreationVoiceCallWrapper extends LightningElemen
 		// filter for `articlesSelected`
 		if(message.source === 'HappyParcel' && message.type === 'articleSelected'){
 			this.impactedArticles = message.body.selectedArticleIds;
+			const consignmentTrackingId = message.body.consignmentId;
+			this.handleExistingCaseValidation(consignmentTrackingId);
 		}
 	}
 
@@ -212,8 +215,11 @@ export default class UnifiedCaseCreationVoiceCallWrapper extends LightningElemen
 	 * Call apex controller to retrieve existing cases associated to this liveChat record that met specified criteria
 	 * and update warningMessage if applicable
 	 */
-	handleExistingCaseValidation(){
-		// TODO this.warningMessage = '5 Existing Cases';
+	handleExistingCaseValidation(consignmentTrackingId){
+		const existingCaseCount = await getExistingCasesCount(consignmentTrackingId);
+		if(existingCaseCount){
+			this.warningMessage = existingCaseCount + ' Existing Cases';
+		}
 	}
 
 	/**
