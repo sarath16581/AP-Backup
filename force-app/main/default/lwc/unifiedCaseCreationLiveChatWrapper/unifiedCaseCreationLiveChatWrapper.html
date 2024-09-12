@@ -23,23 +23,17 @@
 		<template lwc:else>
 			<lightning-spinner if:true={isUpdating}></lightning-spinner>
 
-			<template lwc:if={showCaseCard}>
-				<!-- Show Case Wrapper Summary -->
-				<p>TODO: Show Case Wrapper Summary as the case has been linked</p>
-			</template>
-			<template lwc:else>
-				<c-unified-case-creation
+			<c-unified-case-creation
 					contact-id={linkedContactId}
 					interaction-record={interactionRecord}
 					consignment-id={linkedConsignmentId}
 					impacted-articles={impactedArticles}
-					enquiry-type={enquiryType}
-					enquiry-sub-type={enquirySubType}
-					product-category={productCategory}
-					product-sub-category={productSubCategory}
+					enquiry-type={linkedEnquiryType}
+					enquiry-sub-type={linkedEnquirySubType}
+					product-category={linkedProductCategory}
+					product-sub-category={linkedProductSubCategory}
 					oncasecreated={handleLinkUnlinkCase}
-				></c-unified-case-creation>
-			</template>
+			></c-unified-case-creation>
 		</template>
 	</div>
 </template>

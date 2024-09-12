@@ -6,7 +6,6 @@
  * 2024-09-10 - Marcel HK - Created
  * 2024-09-11 - Seth Heang - Updated to handle LMS event, liveChat fields wiring, UI validation display and pass down necessary data to case creation LWC
  */
-
 import { LightningElement, api, wire } from 'lwc';
 import { getRecord, getFieldValue, updateRecord, notifyRecordUpdateAvailable } from 'lightning/uiRecordApi';
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
@@ -140,10 +139,35 @@ export default class UnifiedCaseCreationLiveChatWrapper extends LightningElement
 	}
 
 	/**
-	 * Show the Case Card if a Case has been linked.
+	 * The enquiry type related to the interaction record.
+	 * @type {string}
 	 */
-	get showCaseCard() {
-		return this.linkedCaseId;
+	get linkedEnquiryType() {
+		return getFieldValue(this.interactionRecord, ENQUIRY_TYPE_FIELD);
+	}
+
+	/**
+	 * The enquiry sub type related to the interaction record.
+	 * @type {string}
+	 */
+	get linkedEnquirySubType() {
+		return getFieldValue(this.interactionRecord, ENQUIRY_SUBTYPE_FIELD);
+	}
+
+	/**
+	 * The product category related to the interaction record.
+	 * @type {string}
+	 */
+	get linkedProductCategory() {
+		return getFieldValue(this.interactionRecord, PRODUCT_CATEGORY_FIELD);
+	}
+
+	/**
+	 * The product sub category related to the interaction record.
+	 * @type {string}
+	 */
+	get linkedProductSubCategory() {
+		return getFieldValue(this.interactionRecord, PRODUCT_SUBCATEGORY_FIELD);
 	}
 
 	/**
