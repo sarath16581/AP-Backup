@@ -11,7 +11,6 @@ public with sharing class GenesysIntegration {
 			if (instance == null) {
 				instance = new GenesysIntegration();
 			}
-
 			return instance;
 		}
 		set;
