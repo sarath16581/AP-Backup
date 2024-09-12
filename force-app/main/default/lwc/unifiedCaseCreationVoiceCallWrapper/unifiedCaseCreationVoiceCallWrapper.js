@@ -91,30 +91,6 @@ export default class UnifiedCaseCreationVoiceCallWrapper extends LightningElemen
 	impactedArticles;
 
 	/**
-	 * Retrieved from liveChat object and pass over to the Case Creation LWC
-	 * @type {string}
-	 */
-	enquiryType;
-
-	/**
-	 * Retrieved from liveChat object and pass over to the Case Creation LWC
-	 * @type {string}
-	 */
-	enquirySubType;
-
-	/**
-	 * Retrieved from liveChat object and pass over to the Case Creation LWC
-	 * @type {string}
-	 */
-	productCategory;
-
-	/**
-	 * Retrieved from liveChat object and pass over to the Case Creation LWC
-	 * @type {string}
-	 */
-	productSubCategory;
-
-	/**
 	 * The Contact Id related to the interaction record.
 	 * @type {string}
 	 */
@@ -131,7 +107,7 @@ export default class UnifiedCaseCreationVoiceCallWrapper extends LightningElemen
 	}
 
 	/**
-	 * The Contact Id related to the interaction record.
+	 * The Consignment Id related to the interaction record.
 	 * @type {string}
 	 */
 	get linkedConsignmentId() {
@@ -139,10 +115,35 @@ export default class UnifiedCaseCreationVoiceCallWrapper extends LightningElemen
 	}
 
 	/**
-	 * Show the Case Card if a Case has been linked.
+	 * The enquiry type related to the interaction record.
+	 * @type {string}
 	 */
-	get showCaseCard() {
-		return this.linkedCaseId;
+	get linkedEnquiryType() {
+		return getFieldValue(this.interactionRecord, ENQUIRY_TYPE_FIELD);
+	}
+
+	/**
+	 * The enquiry sub type related to the interaction record.
+	 * @type {string}
+	 */
+	get linkedEnquirySubType() {
+		return getFieldValue(this.interactionRecord, ENQUIRY_SUBTYPE_FIELD);
+	}
+
+	/**
+	 * The product category related to the interaction record.
+	 * @type {string}
+	 */
+	get linkedProductCategory() {
+		return getFieldValue(this.interactionRecord, PRODUCT_CATEGORY_FIELD);
+	}
+
+	/**
+	 * The product sub category related to the interaction record.
+	 * @type {string}
+	 */
+	get linkedProductSubCategory() {
+		return getFieldValue(this.interactionRecord, PRODUCT_SUBCATEGORY_FIELD);
 	}
 
 	/**
@@ -215,7 +216,7 @@ export default class UnifiedCaseCreationVoiceCallWrapper extends LightningElemen
 	 * Call apex controller to retrieve existing cases associated to this liveChat record that met specified criteria
 	 * and update warningMessage if applicable
 	 */
-	handleExistingCaseValidation(consignmentTrackingId){
+	async handleExistingCaseValidation(consignmentTrackingId){
 		const existingCaseCount = await getExistingCasesCount(consignmentTrackingId);
 		if(existingCaseCount){
 			this.warningMessage = existingCaseCount + ' Existing Cases';

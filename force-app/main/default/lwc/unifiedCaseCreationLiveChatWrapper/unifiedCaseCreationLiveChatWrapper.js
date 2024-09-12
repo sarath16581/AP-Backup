@@ -92,30 +92,6 @@ export default class UnifiedCaseCreationLiveChatWrapper extends LightningElement
 	impactedArticles;
 
 	/**
-	 * Retrieved from liveChat object and pass over to the Case Creation LWC
-	 * @type {string}
-	 */
-	enquiryType;
-
-	/**
-	 * Retrieved from liveChat object and pass over to the Case Creation LWC
-	 * @type {string}
-	 */
-	enquirySubType;
-
-	/**
-	 * Retrieved from liveChat object and pass over to the Case Creation LWC
-	 * @type {string}
-	 */
-	productCategory;
-
-	/**
-	 * Retrieved from liveChat object and pass over to the Case Creation LWC
-	 * @type {string}
-	 */
-	productSubCategory;
-
-	/**
 	 * The Contact Id related to the interaction record.
 	 * @type {string}
 	 */
@@ -132,7 +108,7 @@ export default class UnifiedCaseCreationLiveChatWrapper extends LightningElement
 	}
 
 	/**
-	 * The Contact Id related to the interaction record.
+	 * The Consignment Id related to the interaction record.
 	 * @type {string}
 	 */
 	get linkedConsignmentId() {
