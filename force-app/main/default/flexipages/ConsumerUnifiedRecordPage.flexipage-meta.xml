@@ -196,7 +196,7 @@
             <fieldInstance>
                 <fieldInstanceProperties>
                     <name>uiBehavior</name>
-                    <value>none</value>
+                    <value>readonly</value>
                 </fieldInstanceProperties>
                 <fieldItem>Record.PersonOtherAddress</fieldItem>
                 <identifier>RecordPersonOtherAddressField</identifier>
@@ -210,7 +210,7 @@
             <fieldInstance>
                 <fieldInstanceProperties>
                     <name>uiBehavior</name>
-                    <value>none</value>
+                    <value>readonly</value>
                 </fieldInstanceProperties>
                 <fieldItem>Record.PersonMailingAddress</fieldItem>
                 <identifier>RecordPersonMailingAddressField</identifier>
