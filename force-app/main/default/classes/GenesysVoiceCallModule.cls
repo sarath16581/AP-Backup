@@ -5,6 +5,7 @@
  * @changelog
  * 2024-09-10 - Paul Perry - created
  */
+@SuppressWarnings('PMD.CognitiveComplexity')
 public with sharing class GenesysVoiceCallModule extends ApplicationModule {
 	public static GenesysVoiceCallModule newInstance() {
 		return (GenesysVoiceCallModule)Application.Utilities.newInstance(GenesysVoiceCallModule.class);
@@ -13,11 +14,16 @@ public with sharing class GenesysVoiceCallModule extends ApplicationModule {
 	/**
 	 * Constructor
 	 */
-    public GenesysVoiceCallModule() {		
+    public GenesysVoiceCallModule() {
 		getTriggerEvents().enableAfterUpdate();
     }
 
-	
+	/**
+	 * Handle AfterUpdate
+	 * @param records			Records updated in this context
+	 * @param existingRecords	Representation of the previous record state
+	 * @param uow				Unit of work
+	 */
 	public override void onAfterUpdate(List<SObject> records, Map<Id, SObject> existingRecords, ApplicationUnitOfWork uow) {
 		performGenesysUpdateSync(records, existingRecords, uow);
 	}
@@ -28,23 +34,36 @@ public with sharing class GenesysVoiceCallModule extends ApplicationModule {
 	private static final Integer CALLOUT_CHUNK_SIZE = 10;
 
 	/**
-	 * the actual method that is invoked by the trigger handler to perform update sync operation with Genesys
-	 * @param records  List<SObject>
-	 * @param existingRecords Map<Id, SObject>
-	 * @param uow ApplicationUnitOfWork
+	 * Performs a Genesys update sync.
+	 * - Given a collection of records, and a map of the records' previous states, it identifies the set of records
+	 *	 which require an update.
+	 * - Given a set of changed records, it identifies the related ConversationIds and performs a callout to Genesys
+	 * 	 using the AsyncWorker.
+	 * @param records			Records updated in this context
+	 * @param existingRecords	Representation of the previous record state
+	 * @param uow				Unit of work
 	 */
 	public static void performGenesysUpdateSync(List<SObject> records, Map<Id, SObject> existingRecords, ApplicationUnitOfWork uow) {
-		List<VoiceCall> requiresUpdate = (List<VoiceCall>)filterByChanged(
-			records, existingRecords,
-			GenesysConstants.genesysFieldMappings.keySet()
-		);
+		String routingContext = 'genesysFieldSync';
+
+		List<ApplicationRecursion.RecordState> voiceCallChangedRecords = ApplicationRecursion.getInstance()
+			.getProcessableRecords(
+				routingContext,
+				records,
+				existingRecords,
+				GenesysConstants.genesysFieldMappings.keySet()
+			);
 
 		// Map containing all VoiceCall Ids by ConversationId
 		Map<Id,Set<Id>> conversationVoiceCallMap = new Map<Id,Set<Id>>();
 		// Map containing a set of changed mapped fields for each VoiceCall
 		Map<Id,Set<String>> updatedFieldsByVoiceCallId = new Map<Id,Set<String>>();
-		
-		for (VoiceCall voiceCall :(List<VoiceCall>)records) {
+
+		// Collect all the changes, and collect all the VoiceCall Ids by ConversationId
+		for(ApplicationRecursion.RecordState recordState :voiceCallChangedRecords) {
+			VoiceCall voiceCall = (VoiceCall)recordState.record;
+			Map<String,Object> previousState = recordState.previousState;
+
 			if (!conversationVoiceCallMap.containsKey(voiceCall.ConversationId)) {
 				conversationVoiceCallMap.put(voiceCall.ConversationId, new Set<Id>());
 			}
@@ -52,9 +71,9 @@ public with sharing class GenesysVoiceCallModule extends ApplicationModule {
 			// Track each VoiceCall Id by ConversationId
 			conversationVoiceCallMap.get(voiceCall.ConversationId).add(voiceCall.Id);
 
-			for (SObjectField field :GenesysConstants.genesysFieldMappings.keySet()) {
+			for (SObjectField field :recordState.changedFields) {
 				// Add the field to the set of changed fields for this voicecall, if updated
-				if (voiceCall.get(field) != existingRecords.get(voiceCall.Id)?.get(field)) {
+				if (voiceCall.get(field) != previousState.get(String.valueOf(field))) {
 					if (!updatedFieldsByVoiceCallId.containsKey(voiceCall.Id)) {
 						updatedFieldsByVoiceCallId.put(voiceCall.Id, new Set<String>());
 					}
@@ -66,6 +85,7 @@ public with sharing class GenesysVoiceCallModule extends ApplicationModule {
 
 		List<Id> conversationIdList = new List<Id>(conversationVoiceCallMap.keySet());
 
+		// Invoke an instance of the async wworker for every chunk of required updates
 		while (!conversationIdList.isEmpty()) {
 			Map<Id,Set<String>> updateFieldsSubSet = new Map<Id,Set<String>>();
 			Integer mapSize = 0;
@@ -85,6 +105,7 @@ public with sharing class GenesysVoiceCallModule extends ApplicationModule {
 			}
 
 			if (!updateFieldsSubSet.isEmpty()) {
+				// Invoke the AsyncWorker, use Queueable Context for troubleshooting purposes
 				uow.registerAsyncWork(new ApplicationUnitOfWork.AsyncStagingWorker(
 					AsyncGenesysAttributeSync.class,
 					new Map<String,Object>{
@@ -95,12 +116,12 @@ public with sharing class GenesysVoiceCallModule extends ApplicationModule {
 		}
     }
 
-	public without sharing class AsyncGenesysAttributeSync extends ApplicationUnitOfWork.AsyncWorker implements Queueable, Database.AllowsCallouts {		
+	public with sharing class AsyncGenesysAttributeSync extends ApplicationUnitOfWork.AsyncWorker implements Queueable, Database.AllowsCallouts {
 		@TestVisible
-		public Set<Id> conversationIds;	
+		public Set<Id> conversationIds;
 		public Map<Id,Set<String>> updatedFieldsByVoiceCallId;
 		private Map<Id,Set<Id>> voiceCallIdsByConversationId = new Map<Id,Set<Id>>();
-		
+
 		public override void execute(ApplicationUnitOfWork uow) {
 			executeTask();
 		}
@@ -112,7 +133,7 @@ public with sharing class GenesysVoiceCallModule extends ApplicationModule {
 		public void executeTask() {
 			try {
 				processGenesysCallouts();
-			} catch(Exception ex) {			
+			} catch(Exception ex) {
 				System.debug(ex.getMessage() + '\r\n' + ex.getStackTraceString());
 				// Error Logged to Exception object for analysis
 				ApplicationLogger.getInstance().logException(
@@ -136,11 +157,11 @@ public with sharing class GenesysVoiceCallModule extends ApplicationModule {
 
 		public override void deserialiseParams(String serialisedParams) {
 			if (!String.isEmpty(serialisedParams)) {
-				Map<String,Object> params = 
+				Map<String,Object> params =
 					(Map<String,Object>)JSON.deserializeUntyped(
 						serialisedParams
 					);
-				
+
 				if (params.containsKey('updatedFieldsByVoiceCallId')) {
 					updatedFieldsByVoiceCallId = new Map<Id,Set<String>>();
 
@@ -155,17 +176,17 @@ public with sharing class GenesysVoiceCallModule extends ApplicationModule {
 
 						updatedFieldsByVoiceCallId.put(recordId, values);
 					}
-				}				
+				}
 			}
 		}
-	
+
 		public void processGenesysCallouts() {
 			// Retrieve the voice call records
 			List<VoiceCall> voiceCallMap = VoiceCallsSelector.newInstance().selectByIds(
 				new Set<Object>{ VoiceCallsSelector.Options.ORDERBY_OLDTONEW },
 				updatedFieldsByVoiceCallId.keySet()
 			);
-	
+
 			Map<String,GenesysSyncRequest> syncRequests = new Map<String,GenesysSyncRequest>();
 			Map<String,String> genesysFieldMappings = new Map<String,String>();
 
@@ -173,7 +194,7 @@ public with sharing class GenesysVoiceCallModule extends ApplicationModule {
 				genesysFieldMappings.put(String.valueOf(field), GenesysConstants.genesysFieldMappings.get(field));
 			}
 
-	
+
 			for (VoiceCall voiceCall :voiceCallMap) {
 				Map<String,Object> genesysUpdates = new Map<String,Object>();
 
@@ -183,14 +204,14 @@ public with sharing class GenesysVoiceCallModule extends ApplicationModule {
 				}
 
 				voiceCallIdsByConversationId.get(voiceCall.ConversationId).add(voiceCall.Id);
-				
+
 				// Populate target map with updated field values against Genesys mapped attributes
 				for (String field :updatedFieldsByVoiceCallId.get(voiceCall.Id)) {
 					genesysUpdates.put(genesysFieldMappings.get(field), voiceCall.get(field));
 				}
-	
+
 				String conversationId = extractConversionId(voiceCall.VendorCallKey);
-	
+
 				if (!syncRequests.containsKey(conversationId)) {
 					syncRequests.put(conversationId, new GenesysSyncRequest(
 						conversationId,
@@ -198,7 +219,7 @@ public with sharing class GenesysVoiceCallModule extends ApplicationModule {
 						voiceCall.ConversationId
 					));
 				}
-				
+
 				// In case of >1 updates on the same call interaction, accumulate accordingly
 				GenesysSyncRequest genesysRecord = syncRequests.get(conversationId);
 				genesysRecord.customAttributes.putAll(genesysUpdates);
@@ -206,13 +227,13 @@ public with sharing class GenesysVoiceCallModule extends ApplicationModule {
 					applyAdditionbalBusinessRules(genesysUpdates, voiceCall.Division__c)
 				);
 			}
-	
+
 			List<String> errorList = new List<String>();
-	
+
 			// Process the callouts
 			for (GenesysSyncRequest syncRequest :syncRequests.values()) {
 				try {
-					processGenesysUpdate(syncRequest);				
+					processGenesysUpdate(syncRequest);
 				} catch (GenesysIntegration.GenesysResponseException grException) {
 					errorList.add(String.format(
 						'Unable to sync interaction {0} with values {1} to Genesys\nReason: {2}',
@@ -224,19 +245,18 @@ public with sharing class GenesysVoiceCallModule extends ApplicationModule {
 					));
 				}
 			}
-	
+
 			if (!errorList.isEmpty()) {
-				System.debug(errorList);
 				ApplicationLogger.getInstance().logGenericMessage(
 					errorList,
 					'Genesys Attribute Synchronisation',
-					'GenesysInteractionSyncQueueable', 
+					'GenesysInteractionSyncQueueable',
 					'processGenesysCallouts',
 					'GenesysVoiceCallModule',
 					ApplicationLogger.LoggingLevel.ERROR
 				);
-			}				
-		}	
+			}
+		}
 	}
 
 	/**
@@ -256,50 +276,6 @@ public with sharing class GenesysVoiceCallModule extends ApplicationModule {
 	}
 
 	/**
-	 * Filter the list of records by comparing the old record's field values with the new record's field values
-	 * @param newList - new list of records
-	 * @param oldMap - map of old record values
-	 * @param comparisonFields - list of fields to compare
-	 * @return list of records that have >= 1 comparisonFields changed
-	 */
-	public static List<SObject> filterByChanged(List<SObject> newList, Map<Id,SObject> oldMap, Set<SObjectField> comparisonFields) {
-		List<SObject> result = new List<SObject>();
-
-		for (SObject record :newList) {
-			if (hasChanged(record, oldMap.get(record.Id), comparisonFields)) {
-				result.add(record);
-			}
-		}
-
-		return result;
-	}
-
-	/**
-	 * Compare the two SObject instances passed in by doing a field by field comparison for the set of fields
-	 * Returns true if at least one field is different.
-	 *
-	 * @param newRecord SObject for comparison
-	 * @param existingRecord SObject for comparison
-	 * @param comparisonFields fields to compare
-	 *
-	 * @return true if at least one field from the interested field set is different. false otherwise.
-	 */
-	public static Boolean hasChanged(SObject newRecord, SObject existingRecord, Set<SObjectField> comparisonFields) {
-		Boolean result = false;
-
-		if (newRecord != null && existingRecord != null) {
-			for (SObjectField field : comparisonFields) {
-				if(newRecord.get(field) != existingRecord.get(field)) {
-					result = true;
-					break;
-				}
-			}
-		}
-
-		return result;
-	}
-
-	/**
 	 * Wrapper class for the actual sync request
 	 */
 	public class GenesysSyncRequest {
@@ -307,21 +283,12 @@ public with sharing class GenesysVoiceCallModule extends ApplicationModule {
 		public String conversationId;
 		public String sfConversationId;
 		public String participantId;
-		public Integer reattempts;
-
-		public GenesysSyncRequest(String conversationId, String participantId) {
-			this.conversationId = conversationId;
-			this.participantId = participantId;
-			this.customAttributes = new Map<String,Object>();
-			this.reattempts = 0;
-		}
 
 		public GenesysSyncRequest(String conversationId, String participantId, String sfConversationId) {
 			this.sfConversationId = sfConversationId;
 			this.conversationId = conversationId;
 			this.participantId = participantId;
 			this.customAttributes = new Map<String,Object>();
-			this.reattempts = 0;
 		}
 	}
 
@@ -375,11 +342,11 @@ public with sharing class GenesysVoiceCallModule extends ApplicationModule {
 		}
 
 		if (!requiredUpdates.isEmpty()) {
-			System.debug(genesysIntegration.patchConversationParticipantAttributes(
+			genesysIntegration.patchConversationParticipantAttributes(
 				request.conversationId,
 				participantId,
 				requiredUpdates
-			));
+			);
 		}
 	}
 
@@ -429,8 +396,6 @@ public with sharing class GenesysVoiceCallModule extends ApplicationModule {
 		return null;
 	}
 
-
-
 	/**
 	 * Contains the additional business logic to be applied when updating Genesys
 	 * When a call gets transferred from Unified (SCV) to OpenCTI (classic):
@@ -441,8 +406,6 @@ public with sharing class GenesysVoiceCallModule extends ApplicationModule {
 	 * @return Map of key value pairs to be updated including additional attributes added by business rules
 	 */
 	public static Map<String,Object> applyAdditionbalBusinessRules(Map<String,Object> setCustomAttributes, String division) {
-		// String division = String.valueOf(participantDetail.get('Division'));
-
 		// Mapping details are configured below
 		Map<String,Map<String,String>> mappingsByDivision = new Map<String,Map<String,String>>{
 			'AP' => new Map<String,String>{

@@ -6,21 +6,11 @@
  * 2024-08-27 - Paul Perry - created
  */
 public with sharing class GenesysIntegration {
-	private static GenesysIntegration instance {
-		get {
-			if (instance == null) {
-				instance = new GenesysIntegration();
-			}
-			return instance;
-		}
-		set;
-	}
-
 	/**
 	 * Instance for mocking
 	 */
 	public static GenesysIntegration newInstance() {
-		return instance;
+		return (GenesysIntegration)Application.Utilities.newInstance(GenesysIntegration.class);
 	}
 
 	/**
@@ -71,7 +61,6 @@ public with sharing class GenesysIntegration {
 		if (response.getStatusCode() == 202) {
 			return response.getBody();
 		} else {
-
 			throw new GenesysResponseException(String.join(new String[] {
 				'Failed to update participant attributes. Status: ' + response.getStatusCode(),
 				'Response Body: ' + response.getBody()
@@ -87,8 +76,7 @@ public with sharing class GenesysIntegration {
 	 *
 	 * @return HttpResponse from Genesys
 	 */
-	@TestVisible
-	private static HttpResponse sendGenesysApiRequest(String method, String endpoint, String body) {
+	public static HttpResponse sendGenesysApiRequest(String method, String endpoint, String body) {
 		HttpRequest request = new HttpRequest();
 
 		request.setMethod(method);
