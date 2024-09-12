@@ -10,6 +10,7 @@
  * 2024-03-01 - REQ3451627 - Minor Change to expose Excluded Profile in Custom Settings
  * 2024-08-01 - Mona Raghav -  REQ3575796 - Feature added to notify the users via Email few days prior to the deactivation -
  * Execute method modification and new method sendNotificationEmail added.
+ * 2024-08-19 - Mona Raghav -  REQ3575796 - Notification email to be sent via no-reply instead of salesforce support user.
  */
 
  public class UserDeactivationBatchable implements Database.Batchable<SObject>, Database.Stateful, Schedulable {
@@ -47,6 +48,8 @@
 	private static final List<String> DEFAULT_EXCLUDEDPROFILES = new List<String>{'Sales Insights Integration User','SalesforceIQ Integration User','B2BMA Integration User'};
 	// define all the profiles to be included for sending email notification prior to deactivation
 	private static final List<String> DEFAULT_NOTIFICATIONPROFILES = new List<String>{'MyNetwork Portal'};
+	// define from notification email
+	private static final String DEFAULT_FROM_NOTIFICATIONEMAIL = 'no-reply@auspost.com.au';
 
 	private static UserDeactivationSettings__c CONFIG {
 		get {
@@ -65,6 +68,7 @@
 	private static final String CONFIG_NOTIFICATIONEMAIL = String.valueOf(CONFIG?.NotificationEmail__c) ?? DEFAULT_NOTIFICATIONEMAIL;
 	private static final List<String> CONFIG_EXCLUDEDPROFILES = CONFIG?.ExcludedProfileNames__c?.split(',') ?? DEFAULT_EXCLUDEDPROFILES;
 	private static final List<String> CONFIG_NOTIFICATIONPROFILES = CONFIG?.NotificationProfileNames__c?.split(',') ?? DEFAULT_NOTIFICATIONPROFILES;
+	private static final String CONFIG_FROMNOTIFICATIONEMAIL = String.valueOf(CONFIG?.NotificationFromEmail__c) ?? DEFAULT_FROM_NOTIFICATIONEMAIL;
 	
 	//Fields to query
 	private static final Set<SObjectField> USER_FIELDS = new Set<SObjectField>{ User.Id, User.Name, User.Username, User.Email, User.CreatedDate, User.MyNetwork_Retail_User__c, User.LastAutoDeactivatedDate__c, User.LastLoginDate };
@@ -214,6 +218,10 @@
 	 */
 	private void sendNotificationEmail() {
 		Messaging.SingleEmailMessage mail = new Messaging.SingleEmailMessage();
+		OrgWideEmailAddress[] owea = [select Id from OrgWideEmailAddress where Address =: CONFIG_FROMNOTIFICATIONEMAIL];
+		  if ( owea.size() > 0 ) {
+			  mail.setOrgWideEmailAddressId(owea.get(0).Id);
+		  }
 
 		// define the body
 		String htmlBody = 

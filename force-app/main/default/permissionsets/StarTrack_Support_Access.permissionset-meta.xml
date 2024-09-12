@@ -61,26 +61,6 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
-        <apexClass>DMPPT__EditKeyController</apexClass>
-        <enabled>true</enabled>
-    </classAccesses>
-    <classAccesses>
-        <apexClass>DMPPT__EditKeyControllerTest</apexClass>
-        <enabled>true</enabled>
-    </classAccesses>
-    <classAccesses>
-        <apexClass>DMPPT__PPTXDownloaderController</apexClass>
-        <enabled>true</enabled>
-    </classAccesses>
-    <classAccesses>
-        <apexClass>DMPPT__PPTXDownloaderControllerTest</apexClass>
-        <enabled>true</enabled>
-    </classAccesses>
-    <classAccesses>
-        <apexClass>DMPPT__PostInstallClass</apexClass>
-        <enabled>true</enabled>
-    </classAccesses>
-    <classAccesses>
         <apexClass>DeletedRecordUtil</apexClass>
         <enabled>true</enabled>
     </classAccesses>
@@ -2205,6 +2185,11 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
+        <editable>true</editable>
+        <field>Article__c.FurtherReferences__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
         <editable>false</editable>
         <field>Article__c.Has_Sub_Docket_del__c</field>
         <readable>true</readable>
@@ -2232,6 +2217,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Article__c.Invoice__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Article__c.IsDelivered__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -13559,26 +13549,6 @@
     </pageAccesses>
     <pageAccesses>
         <apexPage>ContactFilteringSearch</apexPage>
-        <enabled>true</enabled>
-    </pageAccesses>
-    <pageAccesses>
-        <apexPage>DMPPT__EditKeyPage</apexPage>
-        <enabled>true</enabled>
-    </pageAccesses>
-    <pageAccesses>
-        <apexPage>DMPPT__PPTXAMDownloader</apexPage>
-        <enabled>true</enabled>
-    </pageAccesses>
-    <pageAccesses>
-        <apexPage>DMPPT__PPTXCommon</apexPage>
-        <enabled>true</enabled>
-    </pageAccesses>
-    <pageAccesses>
-        <apexPage>DMPPT__PPTXDocument</apexPage>
-        <enabled>true</enabled>
-    </pageAccesses>
-    <pageAccesses>
-        <apexPage>DMPPT__PPTXDownloader</apexPage>
         <enabled>true</enabled>
     </pageAccesses>
     <pageAccesses>

@@ -15,86 +15,104 @@ public inherited sharing class OpportunityRevenueScheduleModule extends Applicat
     public static OpportunityRevenueScheduleModule newInstance() {
         return (OpportunityRevenueScheduleModule )Application.Utilities.newInstance(OpportunityRevenueScheduleModule.class);
     }
-
+    
     // Setup which triggers this module should respond to
     public OpportunityRevenueScheduleModule () {
-        getTriggerEvents().enableAfterUpdate();
+        getTriggerEvents().enableBeforeUpdate().enableAfterUpdate();
     }
-
+    
     /**
-	* Handles post-update logic for Opportunity records.
-	* creates or updating revenue schedules for Opportunities that have moved to the 'Closed Won' stage.
-	* @param records A List of updated SObjects (Opportunity records in this context) after the update operation.
-	* @param existingRecords A Map linking the record Ids to their corresponding existing (pre-update) SObject instances.
-	* @param uow An instance of ApplicationUnitOfWork, used for managing the database transactions (insertions, updates) in a consolidated manner.
-	*/
-    public override void onAfterUpdate(List<SObject> records, Map<Id, SObject> existingRecords, ApplicationUnitOfWork uow)  {
+    * Handles pre-update logic for Opportunity records.
+    * updates revenue account list for opportunities that are transitioning to closed-won
+    * @param records A List of updated SObjects (Opportunity records in this context) after the update operation.
+    * @param existingRecords A Map linking the record Ids to their corresponding existing (pre-update) SObject instances.
+    * @param uow An instance of ApplicationUnitOfWork, used for managing the database transactions (insertions, updates) in a consolidated manner.
+    */
+    public override void onBeforeUpdate(List<SObject> records, Map<Id, SObject> existingRecords, ApplicationUnitOfWork uow)  {
         try {
-            createGroupedRevenueSchedules((List<Opportunity>)records, (Map<Id,Opportunity>)existingRecords, uow);
+                system.debug('**** opportunity onBeforeUPdate ENTRY');
+                // Recursion
+                Set<SObjectField> monitoredFields = new Set<SObjectField>{Opportunity.StageName};
+                String context = 'updateRevenueAccountList.action';
+                List<ApplicationRecursion.RecordState> changedRecords = ApplicationRecursion.getInstance().getProcessableRecords(context, records, existingRecords, monitoredFields); 
+                Map<Id,Opportunity> closingOpportunties = getClosingOpportunityMap(records,changedRecords);
+                system.debug('**** closing opportunities '+closingOpportunties);
+                Map<String,String> opportunityAccountList =  ProductRevenueService.newInstance().getOpportunityAccountList(closingOpportunties.values());
+                system.debug('**** opportunityAccountList '+opportunityAccountList);
+                for (Opportunity opportunityToUpdate : closingOpportunties.values()) {
+                    opportunityToUpdate.RevenueCalculationAccountIDs__c = opportunityAccountList.get(opportunityToUpdate.id);
+                    system.debug('**** opportunityToUpdate.RevenueCalculationAccountIDs__c  '+opportunityToUpdate.RevenueCalculationAccountIDs__c );
+                }
+                system.debug('**** opportunity onAfterUPdate EXIT');
         } catch(Exception ex) {
             // Error Logged to Exception object for analysis
             UTIL_LoggingService.logHandledException(ex, UserInfo.getOrganizationId(), SSSWConstants.SSSW_APP, CaseSurveyInvitationModule.class.getName(), 'onAfterUpdate', 'BudgetAndRevenueTrigger', LoggingLevel.ERROR);
         }
     }
 
-
     /**
-     * Creates revenue schedules for opportunities that have transitioned to the 'Closed Won' stage.
-     * This method examines a list of updated opportunities and identifies those whose stage has changed to 'Closed Won'.
-     * 
-     * @param opportunities A List of `Opportunity` objects that have been updated and need to be evaluated for revenue schedule creation.
-     * @param oldOpportunities A Map linking Opportunity Ids to their corresponding pre-update `Opportunity` instances for comparison.
-     * @param uow An instance of `ApplicationUnitOfWork` for managing database transactions during the creation and update of revenue schedules.
-  	*/
-    private static void createGroupedRevenueSchedules(List<Opportunity> opportunities, Map<Id,Opportunity> oldOpportunities,  ApplicationUnitOfWork uow) {
-        // Recursion
-        Set<SObjectField> monitoredFields = new Set<SObjectField>{Opportunity.StageName};
-        String context = 'createGroupedRevenueSchedules.action';
-        List<ApplicationRecursion.RecordState> changedRecords = ApplicationRecursion.getInstance().getProcessableRecords(context, opportunities, oldOpportunities, monitoredFields);
-        //Collect opportunities being closed as won
-        Set<Id> closedWonOpportunityIds = new Set<Id>();
-        for(ApplicationRecursion.RecordState recordState : changedRecords){
-            Opportunity currentRecord = (Opportunity)recordState.record;
-            if(currentRecord.StageName == STAGE_CLOSED_WON){
-                closedWonOpportunityIds.add(currentRecord.Id);
+    * Handles post-update logic for Opportunity records.
+    * creates or updating revenue schedules for Opportunities that have moved to the 'Closed Won' stage.
+    * @param records A List of updated SObjects (Opportunity records in this context) after the update operation.
+    * @param existingRecords A Map linking the record Ids to their corresponding existing (pre-update) SObject instances.
+    * @param uow An instance of ApplicationUnitOfWork, used for managing the database transactions (insertions, updates) in a consolidated manner.
+    */
+    public override void onAfterUpdate(List<SObject> records, Map<Id, SObject> existingRecords, ApplicationUnitOfWork uow)  {
+        try {
+                system.debug('**** opportunity onAfterUPdate ENTRY');
+                // Recursion
+                Set<SObjectField> monitoredFields = new Set<SObjectField>{Opportunity.StageName};
+                String context = 'createGroupedRevenueSchedules.action';
+                List<ApplicationRecursion.RecordState> changedRecords = ApplicationRecursion.getInstance().getProcessableRecords(context, records, existingRecords, monitoredFields); 
+                Map<Id,Opportunity> closingOpportunties = getClosingOpportunityMap(records,changedRecords);
+                system.debug('**** performScheduleUpdates '+closingOpportunties);
+                performScheduleUpdates(closingOpportunties, uow);
+                system.debug('**** opportunity onAfterUPdate EXIT');
+        } catch(Exception ex) {
+            // Error Logged to Exception object for analysis
+            UTIL_LoggingService.logHandledException(ex, UserInfo.getOrganizationId(), SSSWConstants.SSSW_APP, CaseSurveyInvitationModule.class.getName(), 'onAfterUpdate', 'BudgetAndRevenueTrigger', LoggingLevel.ERROR);
+        }
+    }
+
+    
+    /**
+    * Filters updated opportunities for those transitioning to closed-won.
+    * @param lineItems the updated line items
+    * @param priorValues - a map of the line item values prior to update
+    * @return List<OpportunityLineItem> - only newly inserted line items that are associated with closed opportunities.
+    */
+    private static Map<Id,Opportunity> getClosingOpportunityMap(List<Opportunity> opportunities,List<ApplicationRecursion.RecordState> changedRecords) {
+        Set<Id> changedIds = new Set<Id>();
+        for (ApplicationRecursion.RecordState recordState : changedRecords) {
+            changedIds.add(recordState.record.Id);
+        }
+        Map<Id,Opportunity>  closingOpportunities = new  Map<Id,Opportunity>();
+        for (Opportunity opp : opportunities) {
+            if (opp.StageName == OpportunityRevenueScheduleModule.STAGE_CLOSED_WON && changedIds.contains(opp.id)) 
+            {
+               closingOpportunities.put(opp.id,opp);
             }
         }
-
-        if(!closedWonOpportunityIds.isEmpty()){
-            // create or update revenue schedules for opportunities being closed as won
-            List<GroupedRevenueSchedule__c> schedules = ProductScheduleService.newInstance().createUpdateRevenueSchedules(closedWonOpportunityIds);
-            List<GroupedRevenueSchedule__c> schedulesToInsert = new  List<GroupedRevenueSchedule__c>();
-            List<GroupedRevenueSchedule__c> schedulesToUpdate = new  List<GroupedRevenueSchedule__c>();
-            List<GroupedAccountProductRevenue__c> revenuesToInsert = new  List<GroupedAccountProductRevenue__c>();
-            // gather schedule records to insert or update
-            // together with any new revenue records that the schedules have a lookup to.
-            for (GroupedRevenueSchedule__c schedule : schedules) {
-                if (schedule.Id == null) {
-                    schedulesToInsert.add(schedule);
-                }else {
-                    schedulesToUpdate.add(schedule);
-                }
-                if (schedule.GroupedAccountProductRevenue__r != null && schedule.GroupedAccountProductRevenue__r.Id == null) { // Group Account Product Revenue record does not exist yet, put it into a to insert list, and register the relationship
-                    uow.registerRelationship(schedule, GroupedRevenueSchedule__c.GroupedAccountProductRevenue__c, schedule.GroupedAccountProductRevenue__r);
-                    revenuesToInsert.add(schedule.GroupedAccountProductRevenue__r);
-                }
-            }
-
-            // register new revenue records
-            if (!revenuesToInsert.isEmpty()) {
-                uow.registerNew(revenuesToInsert);
-            }
-            // register new schedule records
-            if (!schedulesToInsert.isEmpty()) {
-                uow.registerNew(schedulesToInsert);
-            }
-            // register pre-existing schedules.
-            if (!schedulesToUpdate.isEmpty()) {
-                uow.registerDirty(schedulesToUpdate);
-            }
-
+        return closingOpportunities;
+    }
+    
+    /**
+     * @description when an oportunity is moved from open to closed won:
+     * (1) creates / updates product revenues
+     * (2) creates / updates revenue schedules
+     * (3) Updates all line items of the opportunity with retained and incremental revenue values, classification etc.
+     * @param closedWonOppIds Set<Id> of the opportunities that have been closed won
+     * @param uow ApplicationUnitOfWork
+     */
+    public void performScheduleUpdates(Map<Id,Opportunity> closedWonOpportunities, ApplicationUnitOfWork uow) {
+        // the case where there are no opportunities in the trigger whcih have moved to closed-won status
+        if (closedWonOpportunities.size()==0) {
+            return;
         }
-        // reset the recursion state to ensure changes we have made won't re-trigger on next pass (if there is one
-        ApplicationRecursion.getInstance().updateRecordState(context, changedRecords, monitoredFields);
+        // call on the product schedule service to create the schedules. 
+        // This service in turn uses the product revenue service for updates to product revenues and product line item sales info 
+        List<GroupedRevenueSchedule__c> schedules = ProductScheduleService.newInstance().createUpdateRevenueSchedules(closedWonOpportunities.keyset());
+        // register all the canged or updated revenue and schedule records with the unit of work data object.
+        ProductScheduleService.registerDataForUpdateInsert(schedules,uow);
     }
 }

@@ -57,40 +57,39 @@ export default class AbnChangeContactCloningWrapper extends LightningElement {
 		const {data, error} = result;
 		this._wiredContacts = result;
 		if (error) {
-			console.error(error);
 			this.errorMessage = error;
+			this.isLoading = false;
 			return;
 		}
-		if (data?.contacts.length > 0) {
-			// map contact name url
-			let nameUrl;
-			this.contacts = data.contacts.map(row => {
-				nameUrl = `/${row.Id}`;
-				return {...row , nameUrl}
-			});
-			// Retrieve columns
-			getColumns().then(c => {
-				this.columns = c.map(item => {
-					return {...item};
+		if (data) {
+			if (data.contacts.length > 0) {
+				// map contact name url
+				let nameUrl;
+				this.contacts = data.contacts.map(row => {
+					nameUrl = `/${row.Id}`;
+					return {...row , nameUrl}
 				});
-				// insert name at index 0
-				this.columns.splice(0, 0, { label: 'Name', fieldName: 'nameUrl', type: 'url', typeAttributes: {label: { fieldName: 'Name' }, target: '_blank'}});
-				console.log(JSON.stringify(this.columns));
-			}).catch(error => {
-				console.error(error);
-				LightningAlert.open({
-					message: 'Something went wrong while retrieving the columns. Please try again',
-					theme: 'error',
-					label: LABEL_CONTACT_CLONING
+				// Retrieve columns
+				getColumns({objectName: 'Contact', fieldSetName: 'ABNChangeContactColumn'}).then(c => {
+					this.columns = c.map(item => {
+						return {...item};
+					});
+					// insert name at index 0
+					this.columns.splice(0, 0, { label: 'Name', fieldName: 'nameUrl', type: 'url', typeAttributes: {label: { fieldName: 'Name' }, target: '_blank'}});
+				}).catch(() => {
+					LightningAlert.open({
+						message: 'Something went wrong while retrieving the columns. Please try again',
+						theme: 'error',
+						label: LABEL_CONTACT_CLONING
+					});
 				});
-			});
 
-			// this.contacts = data.contacts;
-			this.atRiskBusiness = data.businessAtRisk;
-			this.errorMessage = null;
+				this.atRiskBusiness = data.businessAtRisk;
+				this.errorMessage = null;
+			} else {
+				this.errorMessage = LABEL_CONTACT_NO_CONTACTS_ERROR;
+			}
 			this.isLoading = false;
-		} else if (data?.length === 0) {
-			this.errorMessage = LABEL_CONTACT_NO_CONTACTS_ERROR;
 		}
 	}
 
@@ -159,7 +158,7 @@ export default class AbnChangeContactCloningWrapper extends LightningElement {
 	 */
 	handleSelectedRows(event) {
 		switch (event.detail.config.action) {
-			case 'selectAllRows':
+			case 'selectAllRows': {
 				// filter records based on the search term
 				if (this.searchTerm) {
 					const contactsCopy = this.contacts.filter(item => {
@@ -176,22 +175,27 @@ export default class AbnChangeContactCloningWrapper extends LightningElement {
 					this.selectedRows = this.contacts.slice(0, this.selectLimit);
 				}
 				break;
-			case 'deselectAllRows':
+			}
+			case 'deselectAllRows': {
 				this.selectedRows = [];
 				break;
-			case 'rowSelect':
+			}
+			case 'rowSelect': {
 				if (this.selectedRows.length < CLONE_LIMIT) {
 					this.selectedRows.push(...this.contacts.filter(c => c.Id === event.detail.config.value));
 				}
 				break;
-			case 'rowDeselect':
+			}
+			case 'rowDeselect': {
 				const deselectedIndex = this.selectedRows.findIndex(c => c.Id === event.detail.config.value);
 				if (deselectedIndex !== -1) {
 					this.selectedRows.splice(deselectedIndex, 1);
 				}
 				break;
-			default:
+			}
+			default: {
 				break;
+			}
 		}
 	}
 

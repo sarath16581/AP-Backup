@@ -132,7 +132,7 @@ public class TIBCOConsignmentWrapper {
 											if (addType.AddressDetails.AustralianAddress.UnstructuredAddress != null
 													&& addType.AddressDetails.AustralianAddress.UnstructuredAddress.AddressLine != null) {
 												for (String s : addType.AddressDetails.AustralianAddress.UnstructuredAddress.AddressLine) {
-													proxyConsignment.ReceiverAddress__c += s + ',';
+													proxyConsignment.ReceiverAddress__c += s + ', ';
 												}
 
 												if (addType.AddressDetails.AustralianAddress.UnstructuredAddress.AddressLine.size() > 0) {
@@ -149,9 +149,9 @@ public class TIBCOConsignmentWrapper {
 												}
 											}
 
-											proxyConsignment.ReceiverAddress__c += TIBCOUtils.removeNull(addType.AddressDetails.AustralianAddress.SuburbOrPlaceOrLocality) + ',';
+											proxyConsignment.ReceiverAddress__c += TIBCOUtils.removeNull(addType.AddressDetails.AustralianAddress.SuburbOrPlaceOrLocality) + ', ';
 											proxyConsignment.ReceiverAddress__c += TIBCOUtils.removeNull(addType.AddressDetails.AustralianAddress.StateOrTerritory) + ' ';
-											proxyConsignment.ReceiverAddress__c += TIBCOUtils.removeNull(addType.AddressDetails.AustralianAddress.PostCode) + ',';
+											proxyConsignment.ReceiverAddress__c += TIBCOUtils.removeNull(addType.AddressDetails.AustralianAddress.PostCode) + ', ';
 											if (addType.AddressDetails.AustralianAddress.Country != null) {
 												proxyConsignment.ReceiverAddress__c += TIBCOUtils.removeNull(addType.AddressDetails.AustralianAddress.Country.CountryCode);
 												proxyConsignment.ReceiverCountry__c = addType.AddressDetails.AustralianAddress.Country.CountryCode;
@@ -165,7 +165,7 @@ public class TIBCOConsignmentWrapper {
 											if (addType.AddressDetails.InternationalAddress.UnstructuredAddress != null
 													&& addType.AddressDetails.InternationalAddress.UnstructuredAddress.AddressLine != null) {
 												for (String s : addType.AddressDetails.InternationalAddress.UnstructuredAddress.AddressLine) {
-													proxyConsignment.ReceiverAddress__c += s + ',';
+													proxyConsignment.ReceiverAddress__c += s + ', ';
 												}
 
 												if (addType.AddressDetails.InternationalAddress.UnstructuredAddress.AddressLine.size() > 0) {
@@ -182,9 +182,9 @@ public class TIBCOConsignmentWrapper {
 												}
 											}
 
-											proxyConsignment.ReceiverAddress__c += TIBCOUtils.removeNull(addType.AddressDetails.InternationalAddress.SuburbOrPlaceOrLocality) + ',';
+											proxyConsignment.ReceiverAddress__c += TIBCOUtils.removeNull(addType.AddressDetails.InternationalAddress.SuburbOrPlaceOrLocality) + ', ';
 											proxyConsignment.ReceiverAddress__c += TIBCOUtils.removeNull(addType.AddressDetails.InternationalAddress.StateOrTerritory) + ' ';
-											proxyConsignment.ReceiverAddress__c += TIBCOUtils.removeNull(addType.AddressDetails.InternationalAddress.PostCode) + ',';
+											proxyConsignment.ReceiverAddress__c += TIBCOUtils.removeNull(addType.AddressDetails.InternationalAddress.PostCode) + ', ';
 											if (addType.AddressDetails.InternationalAddress.Country != null) {
 												proxyConsignment.ReceiverAddress__c += TIBCOUtils.removeNull(addType.AddressDetails.InternationalAddress.Country.CountryCode);
 												proxyConsignment.ReceiverCountry__c = addType.AddressDetails.InternationalAddress.Country.CountryCode;
@@ -253,7 +253,7 @@ public class TIBCOConsignmentWrapper {
 											if (addType.AddressDetails.AustralianAddress.UnstructuredAddress != null
 													&& addType.AddressDetails.AustralianAddress.UnstructuredAddress.AddressLine != null) {
 												for (String s : addType.AddressDetails.AustralianAddress.UnstructuredAddress.AddressLine) {
-													proxyConsignment.SenderAddress__c += s + ',';
+													proxyConsignment.SenderAddress__c += s + ', ';
 												}
 
 												if (addType.AddressDetails.AustralianAddress.UnstructuredAddress.AddressLine.size() > 0) {
@@ -270,9 +270,9 @@ public class TIBCOConsignmentWrapper {
 												}
 											}
 
-											proxyConsignment.SenderAddress__c += TIBCOUtils.removeNull(addType.AddressDetails.AustralianAddress.SuburbOrPlaceOrLocality) + ',';
+											proxyConsignment.SenderAddress__c += TIBCOUtils.removeNull(addType.AddressDetails.AustralianAddress.SuburbOrPlaceOrLocality) + ', ';
 											proxyConsignment.SenderAddress__c += TIBCOUtils.removeNull(addType.AddressDetails.AustralianAddress.StateOrTerritory) + ' ';
-											proxyConsignment.SenderAddress__c += TIBCOUtils.removeNull(addType.AddressDetails.AustralianAddress.PostCode) + ',';
+											proxyConsignment.SenderAddress__c += TIBCOUtils.removeNull(addType.AddressDetails.AustralianAddress.PostCode) + ', ';
 											if (addType.AddressDetails.AustralianAddress.Country != null) {
 												proxyConsignment.SenderAddress__c += TIBCOUtils.removeNull(addType.AddressDetails.AustralianAddress.Country.CountryCode);
 												proxyConsignment.SenderCountry__c = addType.AddressDetails.AustralianAddress.Country.CountryCode;
@@ -284,7 +284,7 @@ public class TIBCOConsignmentWrapper {
 											if (addType.AddressDetails.InternationalAddress.UnstructuredAddress != null
 													&& addType.AddressDetails.InternationalAddress.UnstructuredAddress.AddressLine != null) {
 												for (String s : addType.AddressDetails.InternationalAddress.UnstructuredAddress.AddressLine) {
-													proxyConsignment.SenderAddress__c += s + ',';
+													proxyConsignment.SenderAddress__c += s + ', ';
 												}
 
 												if (addType.AddressDetails.InternationalAddress.UnstructuredAddress.AddressLine.size() > 0) {
@@ -301,9 +301,9 @@ public class TIBCOConsignmentWrapper {
 												}
 											}
 
-											proxyConsignment.SenderAddress__c += TIBCOUtils.removeNull(addType.AddressDetails.InternationalAddress.SuburbOrPlaceOrLocality) + ',';
+											proxyConsignment.SenderAddress__c += TIBCOUtils.removeNull(addType.AddressDetails.InternationalAddress.SuburbOrPlaceOrLocality) + ', ';
 											proxyConsignment.SenderAddress__c += TIBCOUtils.removeNull(addType.AddressDetails.InternationalAddress.StateOrTerritory) + ' ';
-											proxyConsignment.SenderAddress__c += TIBCOUtils.removeNull(addType.AddressDetails.InternationalAddress.PostCode) + ',';
+											proxyConsignment.SenderAddress__c += TIBCOUtils.removeNull(addType.AddressDetails.InternationalAddress.PostCode) + ', ';
 											if (addType.AddressDetails.InternationalAddress.Country != null) {
 												proxyConsignment.SenderAddress__c += TIBCOUtils.removeNull(addType.AddressDetails.InternationalAddress.Country.CountryCode);
 												proxyConsignment.SenderCountry__c = addType.AddressDetails.InternationalAddress.Country.CountryCode;
@@ -357,17 +357,22 @@ public class TIBCOConsignmentWrapper {
 
 				ArticleUtil.setAdditionalServices(c.AdditionalServices, proxyConsignment, eventMessages);
 			}
-
+			
+            System.debug('>>>>>> TIBCOConsignmentWrapper ArticleEnvelopes: ' + consignmentDetails.ConsignmentEnvelope.ArticleEnvelope);
+            
 			if (consignmentDetails.ConsignmentEnvelope.ArticleEnvelope != null) {
 				for (AuspostQueryTrackEventsSchema.ArticleEnvelope ae : consignmentDetails.ConsignmentEnvelope.ArticleEnvelope) {
+                    
 					if (String.isNotBlank(consignmentMLID) && ae.Article != null && consignmentMLID.equals(ae.Article.MerchantLocationId)) { //Added by David Catindoy (March 22, 2017) - StarTrack SSC5.1
 						articles.add(new TIBCOArticleWrapper(ae, this));																	 //It validates if child article has the same MLID with the parent consignment.
 					} else if (String.isBlank(consignmentMLID)) {
 						articles.add(new TIBCOArticleWrapper(ae, this));
-					}
+					}                    
 				}
 			}
-
+			
+            System.debug('>>>>>> TIBCOConsignmentWrapper Articles: ' + articles);
+            
 			for (TIBCOEventMessageWrapper em : eventMessages) {
 				if (em.proxyEM.EventType__c == 'CE-EN01' || em.proxyEM.EventType__c == 'CE-EN02') {
 					proxyConsignment.Notification__c = true;

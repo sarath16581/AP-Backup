@@ -397,7 +397,7 @@
                 <stringValue>$CustomMetadata.DSR_CTA_Record_Types__mdt.CTA_Pursue.RecordTypeID__c </stringValue>
             </value>
         </processMetadataValues>
-        <name>formula_15_myRule_14_A1_3758344123</name>
+        <name>formula_15_myRule_14_A1_5963492435</name>
         <dataType>String</dataType>
         <expression>{!$CustomMetadata.DSR_CTA_Record_Types__mdt.CTA_Pursue.RecordTypeID__c}</expression>
     </formulas>
@@ -408,7 +408,7 @@
                 <stringValue>$CustomMetadata.DSR_CTA_Record_Types__mdt.CTA_Propose.RecordTypeID__c </stringValue>
             </value>
         </processMetadataValues>
-        <name>formula_18_myRule_17_A1_0111710878</name>
+        <name>formula_18_myRule_17_A1_6382771860</name>
         <dataType>String</dataType>
         <expression>{!$CustomMetadata.DSR_CTA_Record_Types__mdt.CTA_Propose.RecordTypeID__c}</expression>
     </formulas>
@@ -419,7 +419,7 @@
                 <stringValue>[Opportunity].Opportunity_Close_Date_Counter__c +1</stringValue>
             </value>
         </processMetadataValues>
-        <name>formula_22_myRule_20_A1_2995802741</name>
+        <name>formula_22_myRule_20_A1_7519608926</name>
         <dataType>Number</dataType>
         <expression>{!myVariable_current.Opportunity_Close_Date_Counter__c} +1</expression>
         <scale>18</scale>
@@ -431,7 +431,7 @@
                 <stringValue>[Opportunity].Total_In_Year_Revenue_Estimate__c </stringValue>
             </value>
         </processMetadataValues>
-        <name>formula_26_myRule_24_A1_9907470540</name>
+        <name>formula_26_myRule_24_A1_2412431684</name>
         <dataType>Currency</dataType>
         <expression>{!myVariable_current.Total_In_Year_Revenue_Estimate__c}</expression>
         <scale>18</scale>
@@ -443,7 +443,7 @@
                 <stringValue>[Opportunity].Opportunity_Annualised_Value__c </stringValue>
             </value>
         </processMetadataValues>
-        <name>formula_27_myRule_24_A1_6745632597</name>
+        <name>formula_27_myRule_24_A1_2231816694</name>
         <dataType>Currency</dataType>
         <expression>{!myVariable_current.Opportunity_Annualised_Value__c}</expression>
         <scale>18</scale>
@@ -455,7 +455,7 @@
                 <stringValue>$CustomMetadata.Opportunity_Record_Type__mdt.Simple.RecordTypeId__c </stringValue>
             </value>
         </processMetadataValues>
-        <name>formula_2_myRule_1_A1_9534206210</name>
+        <name>formula_2_myRule_1_A1_6683123301</name>
         <dataType>String</dataType>
         <expression>{!$CustomMetadata.Opportunity_Record_Type__mdt.Simple.RecordTypeId__c}</expression>
     </formulas>
@@ -466,7 +466,7 @@
                 <stringValue>$CustomMetadata.Opportunity_Record_Type__mdt.Complex.RecordTypeId__c </stringValue>
             </value>
         </processMetadataValues>
-        <name>formula_5_myRule_4_A1_6254796098</name>
+        <name>formula_5_myRule_4_A1_0243194674</name>
         <dataType>String</dataType>
         <expression>{!$CustomMetadata.Opportunity_Record_Type__mdt.Complex.RecordTypeId__c}</expression>
     </formulas>
@@ -477,7 +477,7 @@
                 <stringValue>$CustomMetadata.Opportunity_Record_Type__mdt.Major.RecordTypeId__c </stringValue>
             </value>
         </processMetadataValues>
-        <name>formula_8_myRule_7_A1_3530279742</name>
+        <name>formula_8_myRule_7_A1_2089711395</name>
         <dataType>String</dataType>
         <expression>{!$CustomMetadata.Opportunity_Record_Type__mdt.Major.RecordTypeId__c}</expression>
     </formulas>
@@ -830,7 +830,7 @@ ISCHANGED({!myVariable_current.Opportunity_Annualised_Value__c}),
             </processMetadataValues>
             <field>RecordTypeId</field>
             <value>
-                <elementReference>formula_15_myRule_14_A1_3758344123</elementReference>
+                <elementReference>formula_15_myRule_14_A1_5963492435</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
@@ -1134,7 +1134,7 @@ ISCHANGED({!myVariable_current.Opportunity_Annualised_Value__c}),
             </processMetadataValues>
             <field>RecordTypeId</field>
             <value>
-                <elementReference>formula_18_myRule_17_A1_0111710878</elementReference>
+                <elementReference>formula_18_myRule_17_A1_6382771860</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
@@ -1695,7 +1695,7 @@ ISCHANGED({!myVariable_current.Opportunity_Annualised_Value__c}),
             </processMetadataValues>
             <field>RecordTypeId</field>
             <value>
-                <elementReference>formula_2_myRule_1_A1_9534206210</elementReference>
+                <elementReference>formula_2_myRule_1_A1_6683123301</elementReference>
             </value>
         </inputAssignments>
         <object>Opportunity</object>
@@ -1779,7 +1779,7 @@ ISCHANGED({!myVariable_current.Opportunity_Annualised_Value__c}),
             </processMetadataValues>
             <field>Opportunity_Close_Date_Counter__c</field>
             <value>
-                <elementReference>formula_22_myRule_20_A1_2995802741</elementReference>
+                <elementReference>formula_22_myRule_20_A1_7519608926</elementReference>
             </value>
         </inputAssignments>
         <object>Opportunity</object>
@@ -1860,7 +1860,7 @@ ISCHANGED({!myVariable_current.Opportunity_Annualised_Value__c}),
             </processMetadataValues>
             <field>Hidden_In_Year_Revenue_Estimate__c</field>
             <value>
-                <elementReference>formula_26_myRule_24_A1_9907470540</elementReference>
+                <elementReference>formula_26_myRule_24_A1_2412431684</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
@@ -1896,7 +1896,7 @@ ISCHANGED({!myVariable_current.Opportunity_Annualised_Value__c}),
             </processMetadataValues>
             <field>Hidden_Opportunity_Annualised_Value__c</field>
             <value>
-                <elementReference>formula_27_myRule_24_A1_6745632597</elementReference>
+                <elementReference>formula_27_myRule_24_A1_2231816694</elementReference>
             </value>
         </inputAssignments>
         <object>Opportunity</object>
@@ -1980,7 +1980,7 @@ ISCHANGED({!myVariable_current.Opportunity_Annualised_Value__c}),
             </processMetadataValues>
             <field>RecordTypeId</field>
             <value>
-                <elementReference>formula_5_myRule_4_A1_6254796098</elementReference>
+                <elementReference>formula_5_myRule_4_A1_0243194674</elementReference>
             </value>
         </inputAssignments>
         <object>Opportunity</object>
@@ -2064,7 +2064,7 @@ ISCHANGED({!myVariable_current.Opportunity_Annualised_Value__c}),
             </processMetadataValues>
             <field>RecordTypeId</field>
             <value>
-                <elementReference>formula_8_myRule_7_A1_3530279742</elementReference>
+                <elementReference>formula_8_myRule_7_A1_2089711395</elementReference>
             </value>
         </inputAssignments>
         <object>Opportunity</object>

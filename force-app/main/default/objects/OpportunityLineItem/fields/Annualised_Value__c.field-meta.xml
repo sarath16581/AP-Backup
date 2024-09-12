@@ -3,7 +3,11 @@
     <fullName>Annualised_Value__c</fullName>
     <description>converts the total value of a contract, regardless of its duration, into a standardized annual amount. This allows you to compare contracts of varying lengths on a consistent basis by expressing their value as if they were all one-year contracts.</description>
     <externalId>false</externalId>
-    <formula>TotalPrice / ( Contract_End_Date__c -  Contract_Start_Date__c ) * 365</formula>
+    <formula>IF(
+    (Contract_End_Date__c - Contract_Start_Date__c) &lt; 365,
+    TotalPrice,
+    (TotalPrice / (Contract_End_Date__c - Contract_Start_Date__c + 1)) * 365
+)</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <inlineHelpText>how much the contract is worth over the course of a year.</inlineHelpText>
     <label>ACV</label>

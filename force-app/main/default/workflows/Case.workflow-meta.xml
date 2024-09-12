@@ -218,14 +218,6 @@
         <description>Send Email to the case requestor when the associated Case is closed/resolved</description>
         <protected>false</protected>
         <recipients>
-            <field>ContactEmail1__c</field>
-            <type>email</type>
-        </recipients>
-        <recipients>
-            <field>SuppliedEmail</field>
-            <type>email</type>
-        </recipients>
-        <recipients>
             <field>Requestor__c</field>
             <type>userLookup</type>
         </recipients>
@@ -292,6 +284,96 @@
         <senderAddress>noreply@auspost.com.au</senderAddress>
         <senderType>OrgWideEmailAddress</senderType>
         <template>Customer_Integration_Application/CIA_Survey_Email</template>
+    </alerts>
+    <alerts>
+        <fullName>Carded_Case_Notification_LMN_NSW_ACT</fullName>
+        <ccEmails>DLLMNEMNNSWACT@auspost.com.au</ccEmails>
+        <description>Carded_Case_Notification_LMN_NSW_ACT</description>
+        <protected>false</protected>
+        <senderAddress>customerservice@auspost.com.au</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>All_Email_Templates/Home_when_carded_notification</template>
+    </alerts>
+    <alerts>
+        <fullName>Carded_Case_Notification_LMN_QLD</fullName>
+        <ccEmails>DLLMNEMNQLD@auspost.com.au</ccEmails>
+        <description>Carded_Case_Notification_LMN_QLD</description>
+        <protected>false</protected>
+        <senderAddress>customerservice@auspost.com.au</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>All_Email_Templates/Home_when_carded_notification</template>
+    </alerts>
+    <alerts>
+        <fullName>Carded_Case_Notification_LMN_SA_NT</fullName>
+        <ccEmails>DLLMNEMNSANT@auspost.com.au</ccEmails>
+        <description>Carded_Case_Notification_LMN_SA_NT</description>
+        <protected>false</protected>
+        <senderAddress>customerservice@auspost.com.au</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>All_Email_Templates/Home_when_carded_notification</template>
+    </alerts>
+    <alerts>
+        <fullName>Carded_Case_Notification_LMN_VIC_TAS</fullName>
+        <ccEmails>DLLMNEMNVICTAS@auspost.com.au</ccEmails>
+        <description>Carded_Case_Notification_LMN_VIC_TAS</description>
+        <protected>false</protected>
+        <senderAddress>customerservice@auspost.com.au</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>All_Email_Templates/Home_when_carded_notification</template>
+    </alerts>
+    <alerts>
+        <fullName>Carded_Case_Notification_LMN_WA</fullName>
+        <ccEmails>DLLMNEMNWA@auspost.com.au</ccEmails>
+        <description>Carded_Case_Notification_LMN_WA</description>
+        <protected>false</protected>
+        <senderAddress>customerservice@auspost.com.au</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>All_Email_Templates/Home_when_carded_notification</template>
+    </alerts>
+    <alerts>
+        <fullName>Carded_Case_Notification_Parcel_NSW_ACT</fullName>
+        <ccEmails>DLPUDEMNNSWACT@auspost.com.au</ccEmails>
+        <description>Carded_Case_Notification_Parcel_NSW_ACT</description>
+        <protected>false</protected>
+        <senderAddress>customerservice@auspost.com.au</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>All_Email_Templates/Home_when_carded_notification</template>
+    </alerts>
+    <alerts>
+        <fullName>Carded_Case_Notification_Parcel_QLD</fullName>
+        <ccEmails>DLPUDEMNQLD@auspost.com.au</ccEmails>
+        <description>Carded_Case_Notification_Parcel_QLD</description>
+        <protected>false</protected>
+        <senderAddress>customerservice@auspost.com.au</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>All_Email_Templates/Home_when_carded_notification</template>
+    </alerts>
+    <alerts>
+        <fullName>Carded_Case_Notification_Parcel_SA_NT</fullName>
+        <ccEmails>DLPUDEMNSANT@auspost.com.au</ccEmails>
+        <description>Carded_Case_Notification_Parcel_SA_NT</description>
+        <protected>false</protected>
+        <senderAddress>customerservice@auspost.com.au</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>All_Email_Templates/Home_when_carded_notification</template>
+    </alerts>
+    <alerts>
+        <fullName>Carded_Case_Notification_Parcel_VIC_TAS</fullName>
+        <ccEmails>DLPUDEMNVICTAS@auspost.com.au</ccEmails>
+        <description>Carded_Case_Notification_Parcel_VIC_TAS</description>
+        <protected>false</protected>
+        <senderAddress>customerservice@auspost.com.au</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>All_Email_Templates/Home_when_carded_notification</template>
+    </alerts>
+    <alerts>
+        <fullName>Carded_Case_Notification_Parcel_WA</fullName>
+        <ccEmails>DLPUDEMNWA@auspost.com.au</ccEmails>
+        <description>Carded_Case_Notification_Parcel_WA</description>
+        <protected>false</protected>
+        <senderAddress>customerservice@auspost.com.au</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>All_Email_Templates/Home_when_carded_notification</template>
     </alerts>
     <alerts>
         <fullName>Case_Comments_Updated</fullName>
@@ -462,7 +544,7 @@
         <senderType>OrgWideEmailAddress</senderType>
         <template>Australia_Post_Case_Templates/Dispute_Case_Approved_Late_Payment</template>
     </alerts>
-	<alerts>
+    <alerts>
         <fullName>NetworkPartnerCaseClosureEmail</fullName>
         <description>Network Partner Case Closure Email</description>
         <protected>false</protected>
@@ -474,13 +556,9 @@
             <field>Contact_Email__c</field>
             <type>email</type>
         </recipients>
-        <recipients>
-            <field>Recent_Caller_Email__c</field>
-            <type>email</type>
-        </recipients>
         <senderAddress>noreply@auspost.com.au</senderAddress>
         <senderType>OrgWideEmailAddress</senderType>
-        <template>unfiled$public/NetworkPartnersCaseClosed</template>
+        <template>unfiled$public/NetworkPartnersClosedCase</template>
     </alerts>
     <alerts>
         <fullName>NetworkPartnerCaseCreationEmail</fullName>
@@ -492,7 +570,7 @@
         </recipients>
         <senderAddress>noreply@auspost.com.au</senderAddress>
         <senderType>OrgWideEmailAddress</senderType>
-        <template>unfiled$public/NetworkPartnerCaseCreationFromEmailtoCase</template>
+        <template>unfiled$public/NetworkPartnerCaseCreationEmailtoCase</template>
     </alerts>
     <alerts>
         <fullName>NetworkPartnerNoReply</fullName>
@@ -845,7 +923,7 @@
     </alerts>
     <alerts>
         <fullName>SSSW_Send_a_Email_when_a_new_Case_has_been_created</fullName>
-        <ccEmails>customerservice@7-2sw00juo2qexbggmk4l682xcotvk5xnxk33oer1n9mxdpf8qqn.bm-198h7mai.aus18s.case.sandbox.salesforce.com</ccEmails>
+        <ccEmails>customerservice@auspost.com.au</ccEmails>
         <description>SSSW - Send a Email when a new Case has been created,</description>
         <protected>false</protected>
         <recipients>
@@ -858,7 +936,7 @@
     </alerts>
     <alerts>
         <fullName>SSSW_Send_a_Email_when_a_new_Case_has_been_created_Web_Portal</fullName>
-        <ccEmails>customerservice@7-2sw00juo2qexbggmk4l682xcotvk5xnxk33oer1n9mxdpf8qqn.bm-198h7mai.aus18s.case.sandbox.salesforce.com</ccEmails>
+        <ccEmails>customerservice@auspost.com.au</ccEmails>
         <description>SSSW - Send a Email when a new Case has been created Web/Portal</description>
         <protected>false</protected>
         <recipients>
@@ -2441,17 +2519,6 @@ IF(ISPICKVAL(Origin, &apos;Social&apos;), 40,
         <reevaluateOnChange>false</reevaluateOnChange>
     </fieldUpdates>
     <fieldUpdates>
-        <fullName>SSSW_Set_to_Social_Back_Office</fullName>
-        <field>OwnerId</field>
-        <lookupValue>SSSW_BOH_Group_4</lookupValue>
-        <lookupValueType>Queue</lookupValueType>
-        <name>SSSW - Set to Social Back Office</name>
-        <notifyAssignee>false</notifyAssignee>
-        <operation>LookupValue</operation>
-        <protected>false</protected>
-        <reevaluateOnChange>false</reevaluateOnChange>
-    </fieldUpdates>
-    <fieldUpdates>
         <fullName>SSSW_Set_to_Unaddressed_Mail_Inbound</fullName>
         <field>OwnerId</field>
         <lookupValue>SSSW_Niche_Group_3</lookupValue>
@@ -3486,7 +3553,7 @@ IF(ISPICKVAL(Origin, &apos;Social&apos;), 40,
     <outboundMessages>
         <fullName>Create_Incident_Outbound_msg</fullName>
         <apiVersion>31.0</apiVersion>
-        <endpointUrl>https://salesforce-bw-ptest.npe.auspost.com.au:10543/Services/CustomerEnquiryManagement/createCase</endpointUrl>
+        <endpointUrl>https://salesforce-bw-stest.npe.auspost.com.au:10543/Services/CustomerEnquiryManagement/createCase</endpointUrl>
         <fields>CaseNumber</fields>
         <fields>ContactEmail__c</fields>
         <fields>ContactFirstName__c</fields>
@@ -3510,7 +3577,7 @@ IF(ISPICKVAL(Origin, &apos;Social&apos;), 40,
         <fullName>SAP_Subscribe_Article</fullName>
         <apiVersion>29.0</apiVersion>
         <description>Created for SSSW project. This outbound message will be sent TIBCO which will process it and create Subscription/Admin Events in SAP-EM.</description>
-        <endpointUrl>https://salesforce-bw-ptest.npe.auspost.com.au:10543/Services/CustomerContractManagement_v1/CreateAdminEventPortEndpoint</endpointUrl>
+        <endpointUrl>https://salesforce-bw-stest.npe.auspost.com.au:10543/Services/CustomerContractManagement_v1/CreateAdminEventPortEndpoint</endpointUrl>
         <fields>ArticleCount__c</fields>
         <fields>CaseNumber</fields>
         <fields>EventCode__c</fields>
@@ -3531,7 +3598,7 @@ IF(ISPICKVAL(Origin, &apos;Social&apos;), 40,
         <fullName>Update_Incident_Outbound_Msg</fullName>
         <apiVersion>31.0</apiVersion>
         <description>Update incident message</description>
-        <endpointUrl>https://salesforce-bw-ptest.npe.auspost.com.au:10543/Services/CustomerEnquiryManagement/updateCase</endpointUrl>
+        <endpointUrl>https://salesforce-bw-stest.npe.auspost.com.au:10543/Services/CustomerEnquiryManagement/updateCase</endpointUrl>
         <fields>CaseNumber</fields>
         <fields>Description</fields>
         <fields>Id</fields>
@@ -4246,41 +4313,6 @@ Warehouse: 0200, 0350, 0600, 0990</description>
             <field>Case.Origin</field>
             <operation>equals</operation>
             <value>Web,Portal</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>Case.LastRoutingRuleIsStrategic__c</field>
-            <operation>equals</operation>
-            <value>False</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>Case.ByPassRoutingRulesOnCreation__c</field>
-            <operation>equals</operation>
-            <value>False</value>
-        </criteriaItems>
-        <triggerType>onCreateOnly</triggerType>
-    </rules>
-    <rules>
-        <fullName>SSSW - Consumer Portal Route to Social Back Office</fullName>
-        <actions>
-            <name>SSSW_Set_to_Social_Back_Office</name>
-            <type>FieldUpdate</type>
-        </actions>
-        <active>true</active>
-        <booleanFilter>1 AND 2 AND 3 AND 4 AND 5</booleanFilter>
-        <criteriaItems>
-            <field>Case.ProductSubCategory__c</field>
-            <operation>equals</operation>
-            <value>eBay Store</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>Case.RecordTypeId</field>
-            <operation>contains</operation>
-            <value>SSSW</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>Case.Origin</field>
-            <operation>equals</operation>
-            <value>Portal,Web</value>
         </criteriaItems>
         <criteriaItems>
             <field>Case.LastRoutingRuleIsStrategic__c</field>
@@ -5264,7 +5296,6 @@ Temp Fix: To exclude HeldtoOpen cases where in some eventmessagecode belonging t
             <type>FieldUpdate</type>
         </actions>
         <active>true</active>
-        <booleanFilter>1 AND 2</booleanFilter>
         <criteriaItems>
             <field>Case.IsClosed</field>
             <operation>equals</operation>
@@ -5331,7 +5362,7 @@ Temp Fix: To exclude HeldtoOpen cases where in some eventmessagecode belonging t
             <type>FieldUpdate</type>
         </actions>
         <actions>
-            <name>SSSW_Set_Customer_Milestones_to_3</name>
+            <name>SSSW_Set_Customer_Milestones_to_1</name>
             <type>FieldUpdate</type>
         </actions>
         <active>true</active>
@@ -5374,7 +5405,7 @@ Temp Fix: To exclude HeldtoOpen cases where in some eventmessagecode belonging t
             <type>FieldUpdate</type>
         </actions>
         <active>true</active>
-        <formula>AND( NOT(IsNetworkResponseFromUI__c), TEXT(Status) == &apos;Awaiting Network Response&apos; &amp;&amp;  CONTAINS(RecordType.Name,&apos;SSSW&apos;) &amp;&amp;  TEXT(Network__r.Contact_Facility__c )&lt;&gt;&apos;ServiceNow&apos;, NOT(ISPICKVAL(Type,&quot;Feedback&quot;)))</formula>
+        <formula>AND( NOT(IsNetworkResponseFromUI__c), TEXT(Status) == &apos;Awaiting Network Response&apos; &amp;&amp;  CONTAINS(RecordType.Name,&apos;SSSW&apos;) &amp;&amp;  TEXT(Network__r.Contact_Facility__c )&lt;&gt;&apos;ServiceNow&apos;)</formula>
         <triggerType>onCreateOrTriggeringUpdate</triggerType>
     </rules>
     <rules>

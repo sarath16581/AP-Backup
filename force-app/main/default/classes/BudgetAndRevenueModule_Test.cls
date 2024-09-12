@@ -3,11 +3,12 @@
  * @description Test class for BudgetAndRevenueModule
  * @changelog
  * 2/11/2023 created
+ * 2024-07-09modify for line items of closed opportunities 
  */
 @IsTest
 private class BudgetAndRevenueModule_Test{
 	/**
-		* Testing of field updates on the module for before insert
+	* Testing of field updates on the module for before insert
 	*/
 	@IsTest
 	private static void testBeforeInsertPopulateUID() {
@@ -18,7 +19,7 @@ private class BudgetAndRevenueModule_Test{
 		Account account = ApplicationTestDataFactory.getAccounts(1, true)[0];
 		Opportunity oppRec = ApplicationTestDataFactory.getOpportunities(1, account.Id, true)[0];
 		oppRec.AccountId = account.Id;
-		Product2 prod =  ApplicationTestDataFactory.getProducts(1,true)[0];
+		Product2 prod =ApplicationTestDataFactory.getProducts(1,true)[0];
 
 		Budget_and_Revenue__c budgrev = ApplicationTestDataFactory.getBudgetAndRevenue(1,account.Id,prod.Id,dateOfTest.year(),true)[0];
 		Budget_and_Revenue__c budgrevp = ApplicationTestDataFactory.getBudgetAndRevenue(1,account.Id,prod.Id,dateOfTest.year()-1,true)[0];
@@ -44,7 +45,7 @@ private class BudgetAndRevenueModule_Test{
 	}
 
 	/**
-	 	* Testing of field updates on the module for before update
+	* Testing of field updates on the module for before update
 	 */
 	@IsTest
 	private static void testBeforeUpdatePopulateUID() {
@@ -55,7 +56,7 @@ private class BudgetAndRevenueModule_Test{
 		Account account = ApplicationTestDataFactory.getAccounts(1, true)[0];
 		Opportunity oppRec = ApplicationTestDataFactory.getOpportunities(1, account.Id, true)[0];
 		oppRec.AccountId = account.Id;
-		Product2 prod =  ApplicationTestDataFactory.getProducts(1,true)[0];
+		Product2 prod =ApplicationTestDataFactory.getProducts(1,true)[0];
 
 		Budget_and_Revenue__c budgrev = ApplicationTestDataFactory.getBudgetAndRevenue(1,account.Id,prod.Id,dateOfTest.year(),true)[0];
 		Budget_and_Revenue__c budgrevp = ApplicationTestDataFactory.getBudgetAndRevenue(1,account.Id,prod.Id,dateOfTest.year()-1,true)[0];
@@ -80,7 +81,7 @@ private class BudgetAndRevenueModule_Test{
 	}
 
 	/**
-	 	* Testing of field updates on the module for after insert
+	* Testing of field updates on the module for after insert
 	 */
 	@IsTest
 	private static void testAfterInsertUpdateGroupedRevenues() {
@@ -94,7 +95,7 @@ private class BudgetAndRevenueModule_Test{
 
 		Opportunity oppRec = ApplicationTestDataFactory.getOpportunities(1, account.Id, true)[0];
 		oppRec.AccountId = account.Id;
-		Product2 prod =  ApplicationTestDataFactory.getProducts(1,true)[0];
+		Product2 prod =ApplicationTestDataFactory.getProducts(1,true)[0];
 
 		Budget_and_Revenue__c budgrev = ApplicationTestDataFactory.getBudgetAndRevenue(1,account.Id,prod.Id,dateOfTest.year(),true)[0];
 		Budget_and_Revenue__c budgrevp = ApplicationTestDataFactory.getBudgetAndRevenue(1,account.Id,prod.Id,dateOfTest.year()-1,true)[0];
@@ -136,7 +137,7 @@ private class BudgetAndRevenueModule_Test{
 	}
 
 	/**
-		* Testing of field updates on the module for after update
+	* Testing of field updates on the module for after update
 	*/
 	@IsTest
 	private static void testAfterUpdateUpdateGroupedRevenues() {
@@ -150,7 +151,7 @@ private class BudgetAndRevenueModule_Test{
 
 		Opportunity oppRec = ApplicationTestDataFactory.getOpportunities(1, account.Id, true)[0];
 		oppRec.AccountId = account.Id;
-		Product2 prod =  ApplicationTestDataFactory.getProducts(1,true)[0];
+		Product2 prod =ApplicationTestDataFactory.getProducts(1,true)[0];
 
 		Budget_and_Revenue__c budgrev = ApplicationTestDataFactory.getBudgetAndRevenue(1,account.Id,prod.Id,dateOfTest.year(),true)[0];
 		Budget_and_Revenue__c budgrevp = ApplicationTestDataFactory.getBudgetAndRevenue(1,account.Id,prod.Id,dateOfTest.year()-1,true)[0];

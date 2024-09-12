@@ -19,10 +19,13 @@
         </articleTypeTemplates>
     </articleTypeChannelDisplay>
     <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
-    <deploymentStatus>Deployed</deploymentStatus>
+    <deploymentStatus>InDevelopment</deploymentStatus>
     <description>StarTrack Knowledge Article How To.</description>
     <enableFeeds>false</enableFeeds>
     <enableHistory>true</enableHistory>
+    <externalSharingModel>ReadWrite</externalSharingModel>
     <label>How To (StarTrack)</label>
     <pluralLabel>How To (StarTrack)</pluralLabel>
+    <searchLayouts></searchLayouts>
+    <sharingModel>ReadWrite</sharingModel>
 </CustomObject>

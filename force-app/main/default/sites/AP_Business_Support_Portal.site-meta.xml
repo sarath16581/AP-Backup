@@ -15,7 +15,7 @@
     <clickjackProtectionLevel>SameOriginOnly</clickjackProtectionLevel>
     <contentSniffingProtection>true</contentSniffingProtection>
     <customWebAddresses>
-        <domainName>ptest.npe.bsp.auspost.com.au</domainName>
+        <domainName>stest.npe.bsp.auspost.com.au</domainName>
         <primary>true</primary>
     </customWebAddresses>
     <enableAuraRequests>true</enableAuraRequests>

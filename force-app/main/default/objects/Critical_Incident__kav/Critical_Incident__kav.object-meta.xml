@@ -19,9 +19,12 @@
         </articleTypeTemplates>
     </articleTypeChannelDisplay>
     <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
-    <deploymentStatus>Deployed</deploymentStatus>
+    <deploymentStatus>InDevelopment</deploymentStatus>
     <enableFeeds>false</enableFeeds>
     <enableHistory>true</enableHistory>
+    <externalSharingModel>ReadWrite</externalSharingModel>
     <label>Critical Incident</label>
     <pluralLabel>Critical Incidents</pluralLabel>
+    <searchLayouts></searchLayouts>
+    <sharingModel>ReadWrite</sharingModel>
 </CustomObject>

@@ -62,7 +62,7 @@
                 <behavior>Edit</behavior>
                 <field>Multicurrency_Risk_Category__c</field>
             </layoutItems>
-			<layoutItems>
+            <layoutItems>
                 <behavior>Readonly</behavior>
                 <field>CountryOfOriginValue__c</field>
             </layoutItems>

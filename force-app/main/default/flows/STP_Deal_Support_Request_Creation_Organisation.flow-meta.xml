@@ -170,7 +170,7 @@
     </choices>
     <choices>
         <name>Choice_PSR_StarTrack</name>
-        <choiceText>&lt;b&gt;Pricing Support Request - StarTrack&lt;/b&gt;&lt;p&gt;Engage support from StarTrack Pricing Team regarding customised rates, business at risk due to price, where you are unable to Self Service rates, or general pricing enquiries&lt;/p&gt;</choiceText>
+        <choiceText>&lt;strong&gt;Pricing Support Request - StarTrack&lt;/strong&gt;&lt;p&gt;Engage support from ST Pricing Team regarding customised rates, business at risk due to price, unable to Self Service rates, or general pricing enquiries Incl ST Courier &amp;amp; On Demand.&lt;/p&gt;</choiceText>
         <dataType>String</dataType>
         <value>
             <stringValue>Pricing_Support_Request_StarTrack</stringValue>

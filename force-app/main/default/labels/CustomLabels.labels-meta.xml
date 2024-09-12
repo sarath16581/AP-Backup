@@ -41,6 +41,46 @@
         <value>No active contacts available for cloning. Please verify the contacts under the old organisation if at least 1 contact that is Active and maintained by Account Manager.</value>
     </labels>
     <labels>
+        <fullName>ABNChangeDSRFormCustomerSignerInfo</fullName>
+        <categories>ABN Update</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>ABNChangeDSRFormCustomerSignerInfo</shortDescription>
+        <value>Please ensure the Key Contact on the selected Opportunity is the Customer Signer.</value>
+    </labels>
+    <labels>
+        <fullName>ABNChangeDSRFormNoAPOpportunitiesError</fullName>
+        <categories>ABN Update</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>ABNChangeDSRFormNoAPOpportunitiesError</shortDescription>
+        <value>Please create AP opportunity under the new Organisation before proceeding with Proposal/Contract DSR creation.</value>
+    </labels>
+    <labels>
+        <fullName>ABNChangeDSRFormNoDSRError</fullName>
+        <categories>ABN Update</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>ABNChangeDSRFormNoDSRError</shortDescription>
+        <value>If customised pricing is required, please raise a Pricing Support Request DSR and select the DSR number to proceed.</value>
+    </labels>
+    <labels>
+        <fullName>ABNChangeDSRFormNoOpportunitiesError</fullName>
+        <categories>ABN Update</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>ABNChangeDSRFormNoOpportunitiesError</shortDescription>
+        <value>Please create AP and ST opportunities under the new Organisation before proceeding with Proposal/Contract DSR creation.</value>
+    </labels>
+    <labels>
+        <fullName>ABNChangeDSRFormNoSTOpportunitiesError</fullName>
+        <categories>ABN Update</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>ABNChangeDSRFormNoSTOpportunitiesError</shortDescription>
+        <value>Please create ST opportunity under the new Organisation before proceeding with Proposal/Contract DSR creation.</value>
+    </labels>
+    <labels>
         <fullName>ABNChangeNotificationError</fullName>
         <language>en_US</language>
         <protected>false</protected>
@@ -683,7 +723,7 @@
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>APT_EmailServiceAddress</shortDescription>
-        <value>approvalreplyservice@s-2e0qb4mvauzbol5piqo43h11g76aowtg7j35fyx40j2fpd9wuz.1e-jbteaq.cs111.apex.sandbox.salesforce.com</value>
+        <value>approvalreplyservice@1-xeqhgi8zif71chv0dgwrrb9sym6frpv00m1dpq51m7ujghyj8.bm-1gamvmac.aus18s.apex.sandbox.salesforce.com</value>
     </labels>
     <labels>
         <fullName>APT_Enter_Billing_Account_Details</fullName>
@@ -1993,7 +2033,7 @@
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>AddressSearch NoAccess Error Message</shortDescription>
-        <value>You do not have access to update this record. Please raise a case record to the Data Quality Management team with your change request.</value>
+        <value>You do not have access to update this record. Please raise a case record to the Sales Operations Support team with your change request.</value>
     </labels>
     <labels>
         <fullName>AdvancedSearchOutletName</fullName>
@@ -2312,7 +2352,7 @@
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>CHAS_CommunityUrl</shortDescription>
-        <value>ptest.npe.helpandsupport.auspost.com.au</value>
+        <value>stest.npe.helpandsupport.auspost.com.au</value>
     </labels>
     <labels>
         <fullName>CHAS_CompensationSitePath</fullName>
@@ -4114,7 +4154,7 @@ To add a comment or check for updates, visit your MyPost dashboard now</value>
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>Disclaimer_POD</shortDescription>
-        <value>Disclaimer: Although every effort has been made to ensure the accuracy of the information provided and the integrity of the software used to generate the information, Australia Post makes no representation or warranty as to the accuracy or completeness of any statement. To the extent permissible by law, Australia Post shall not be liable for any loss or damage whatsoever arising from errors and omissions in this report or from reliance placed on all or part of its contents.</value>
+        <value>Disclaimer: Although every effort has been made to ensure the accuracy of the information provided and the integrity of the software used to generate the information, Australia Post makes no representation or warranty as to the accuracy or completeness of any statement. To the extent permitted by Law, Australia Post shall not be liable for any loss or damage whatsoever arising from errors and omissions in this report or from reliance placed on all or part of its contents.</value>
     </labels>
     <labels>
         <fullName>DisplayViewLabel</fullName>
@@ -7072,13 +7112,13 @@ We manage your personal information in accordance with our Privacy policy. The p
         <shortDescription>Record Type Developer Name of Transport Enquiry</shortDescription>
         <value>Transport_Enquiry</value>
     </labels>
-	<labels>
+    <labels>
         <fullName>REC_TYPE_DEV_Network_Partner</fullName>
         <categories>Record Type Name</categories>
         <language>en_US</language>
         <protected>false</protected>
-        <shortDescription>Record Type for Network Partner Support Cases</shortDescription>
-        <value>REC_TYPE_DEV_Network_Partner</value>
+        <shortDescription>REC_TYPE_DEV_Network_Partner</shortDescription>
+        <value>NetworkPartnerSupport</value>
     </labels>
     <labels>
         <fullName>RED_POST</fullName>
@@ -7809,12 +7849,12 @@ something new for us, so we&apos;d love to know what you think.</value>
         <protected>false</protected>
         <shortDescription>StarTrackNewBillingAccountSubmitNonTransientErrorAdditionalInstructions</shortDescription>
         <value>&lt;b&gt;Please report an IT issue via the &apos;Report a Fault&apos; icon on the MyIT Service Portal and select the following details:&lt;/b&gt;&lt;br/&gt;&lt;br/&gt;
-&lt;ul&gt;
-&lt;li&gt;Please select the area this relates to: 2.Applications &amp; Software&lt;br/&gt;&lt;/li&gt;
-&lt;li&gt;What does this relate to? Salesforce&lt;br/&gt;&lt;/li&gt;
-&lt;li&gt;What best describes your issue? Issues with Sales Cloud&lt;br/&gt;&lt;/li&gt;
-&lt;li&gt;Can you provide a short description: TEAM Charge Account Integration not working &lt;/li&gt;
-&lt;ul&gt;</value>
+            &lt;ul&gt;
+            &lt;li&gt;Please select the area this relates to: 2.Applications &amp; Software&lt;br/&gt;&lt;/li&gt;
+            &lt;li&gt;What does this relate to? Salesforce&lt;br/&gt;&lt;/li&gt;
+            &lt;li&gt;What best describes your issue? Issues with Sales Cloud&lt;br/&gt;&lt;/li&gt;
+            &lt;li&gt;Can you provide a short description: TEAM Charge Account Integration not working &lt;/li&gt;
+            &lt;ul&gt;</value>
     </labels>
     <labels>
         <fullName>StarTrackNewBillingAccountSubmitTransientErrorAdditionalInstructions</fullName>
@@ -7823,12 +7863,12 @@ something new for us, so we&apos;d love to know what you think.</value>
         <protected>false</protected>
         <shortDescription>StarTrackNewBillingAccountSubmitTransientErrorAdditionalInstructions</shortDescription>
         <value>&lt;b&gt;If the problem persists, Please report an IT issue via the &apos;Report a Fault&apos; icon on the MyIT Service Portal and select the following details:&lt;/b&gt;&lt;br/&gt;&lt;br/&gt;
-&lt;ul&gt;
-&lt;li&gt;Please select the area this relates to: 2.Applications &amp; Software&lt;br/&gt;&lt;/li&gt;
-&lt;li&gt;What does this relate to? Salesforce&lt;br/&gt;&lt;/li&gt;
-&lt;li&gt;What best describes your issue? Issues with Sales Cloud&lt;br/&gt;&lt;/li&gt;
-&lt;li&gt;Can you provide a short description: TEAM Charge Account Integration not working &lt;/li&gt;
-&lt;ul&gt;</value>
+            &lt;ul&gt;
+            &lt;li&gt;Please select the area this relates to: 2.Applications &amp; Software&lt;br/&gt;&lt;/li&gt;
+            &lt;li&gt;What does this relate to? Salesforce&lt;br/&gt;&lt;/li&gt;
+            &lt;li&gt;What best describes your issue? Issues with Sales Cloud&lt;br/&gt;&lt;/li&gt;
+            &lt;li&gt;Can you provide a short description: TEAM Charge Account Integration not working &lt;/li&gt;
+            &lt;ul&gt;</value>
     </labels>
     <labels>
         <fullName>StarTrackNextRevenueDateRequiredForNewAccountsErrorMessage</fullName>
@@ -8879,10 +8919,9 @@ something new for us, so we&apos;d love to know what you think.</value>
     </labels>
     <labels>
         <fullName>The_agent_was_equipped_to_provide_a_response</fullName>
-        <categories>FlagCaseForReview</categories>
         <language>en_US</language>
         <protected>false</protected>
-        <shortDescription>The agent was equipped to provide a response</shortDescription>
+        <shortDescription>The_agent_was_equipped_to_provide_a_response</shortDescription>
         <value>Please provide further details in Network Response</value>
     </labels>
     <labels>
@@ -9152,7 +9191,11 @@ We&apos;ll let you if it&apos;s successful. Thank you. Please do not reply.</val
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>Send for eSignature Custom Message</shortDescription>
-        <value>Once the agreement is signed by Australia Post and the Customer, you will receive an email confirmation and the Customer Onboarding team will be notified to provision the rates, and activate the contract.</value>
+        <value>Please confirm that you want to send this agreement for eSignature.
+                   
+                  Once the agreement is signed by Australia Post and Customer you will receive an
+                         email confirmation and Customer Onboarding team will be notified to provision the rates
+                          and activate the contract.</value>
     </labels>
     <labels>
         <fullName>REC_TYPE_DEV_BULK_MAIL</fullName>
@@ -9163,11 +9206,27 @@ We&apos;ll let you if it&apos;s successful. Thank you. Please do not reply.</val
         <value>Bulk_Mail_Onboarding</value>
     </labels>
     <labels>
-        <fullName>REC_TYPE_DEV_Network_Partner</fullName>
+        <fullName>REC_TYPE_DEV_EG_Sales</fullName>
         <categories>Record Type Name</categories>
         <language>en_US</language>
         <protected>false</protected>
-        <shortDescription>REC_TYPE_DEV_Network_Partner</shortDescription>
-        <value>NetworkPartnerSupport</value>
+        <shortDescription>Record Type Developer Name of E&amp;G Sales Implementation</shortDescription>
+        <value>Sales_Implementation_Case</value>
+    </labels>
+    <labels>
+        <fullName>REC_TYPE_DEV_Shipster</fullName>
+        <categories>Record Type Name</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Record Type Developer Name of Shipster</shortDescription>
+        <value>Shipster</value>
+    </labels>
+    <labels>
+        <fullName>HappyParcelNETDuplicateConsignmentWarningText</fullName>
+        <categories>Happy Parcel</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Happy Parcel .NET Duplicate Consignment Warning Text</shortDescription>
+        <value>WARNING! Multiple results found for this tracking ID. Enquiries need to be handled by Classic team.</value>
     </labels>
 </CustomLabels>
