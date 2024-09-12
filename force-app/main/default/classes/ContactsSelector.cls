@@ -27,6 +27,7 @@
  * 2024-07-23 - Marcel HK - Allow match if MailingStreet equals addressLine1 + addressLine2 (CSLU-1106)
  * 2024-07-23 - Marcel HK - Added filters for accountId and abn/acn lookup (CSLU-447)
  * 2024-08-08 - Marcel HK - Update Address filters for `selectByCustomerSearchParamsQB` (CSLU-1072)
+ * 2024-09-13 - Rejeesh Raghavan - Added changes for RoutingAPI-CustomerInsights
  */
 public virtual inherited sharing class ContactsSelector extends ApplicationSelector {
 	public enum Options {
@@ -362,6 +363,138 @@ public virtual inherited sharing class ContactsSelector extends ApplicationSelec
 		qb.addOrder(new QueryBuilder.Order(Contact.LastName).setSortingOrderAsc().setNullsOrderLast());
 
 		return qb.toSoqlString();
+	}
+	/**
+	 * @description Select contacts with Cases and Interactions by Phone Number(exact match).
+	 * @param phoneNumber phoneNumber
+	 * @param bindMap map of bind variables
+	 * @param selectorOptions contacts selector options
+	 * @return matching Contact records
+	 */
+	public List<Contact> selectWithCasesAndInteractionsByPhoneNumber(String phoneNumber, Map<String, Object> bindMap, Set<Object> selectorOptions) {
+		String queryConditions;
+		if(String.isNotBlank(phoneNumber)){
+			queryConditions= ' AND (HomePhone =:searchKey OR MobilePhone =:searchKey OR Phone =:searchKey)';
+			bindMap.put('searchKey', phoneNumber);
+		}
+		return selectWithCasesAndInteractionsHelper(queryConditions, bindMap, selectorOptions);
+	}
+	/**
+	 * @description Select contacts with Cases and Interactions by Email Address(exact match).
+	 * @param emailAddress emailAddress
+	 * @param bindMap map of bind variables
+	 * @param selectorOptions contacts selector options
+	 * @return matching Contact records
+	 */
+	public List<Contact> selectWithCasesAndInteractionsByEmailAddress(String emailAddress, Map<String, Object> bindMap, Set<Object> selectorOptions) {
+		String queryConditions;
+		if(String.isNotBlank(emailAddress)){
+			queryConditions=' AND (Email =:searchKey)';
+			bindMap.put('searchKey', emailAddress);
+		}
+		return selectWithCasesAndInteractionsHelper(queryConditions, bindMap, selectorOptions);
+	}
+	/**
+	 * @description Helper method to query contacts with Cases & Interaction
+	 * Filters contacts based on the following criteria
+	 * 1. PersonAccount
+	 * 2. Account.RecordType = Organisation
+	 * 3. Additional search conditions can be passed in queryConditions, searchKey
+	 * The Cases & Interactions are limited to last 30 days
+	 * @param queryConditions additional conditions with field to be searched for SOQL
+	 * @param bindMap map of bind variables
+	 * @param selectorOptions contacts selector options
+	 * @return  `List<Contact>`matching Contact records
+	 */
+	public List<Contact> selectWithCasesAndInteractionsHelper(String queryConditions, Map<String, Object> bindMap, Set<Object> selectorOptions) {
+	
+		Set<SobjectField> caseFields = new Set<SObjectField>{
+			Case.Id, Case.CaseNumber, Case.IsClosed, Case.ClosedDate, Case.Type
+			, Case.Call_Purpose__c, Case.EnquirySubType__c, Case.Enquiry_Type__c, Case.Status};
+		
+		final String businessContactRecordType = 'Organisation',
+			apVoiceCallRecordType = 'SSSWCall';
+			bindMap.put('businessContactRecordType','Organisation');
+			bindMap.put('apVoiceCallRecordType','SSSWCall');
+		String contactQueryConditions = ' (IsPersonAccount=true'
+			+ ' OR Account.RecordType.DeveloperName=:businessContactRecordType)';
+		//append additional query condition to include search key
+		if(String.isNotBlank(queryConditions)){
+			contactQueryConditions+=queryConditions;
+		}
+		QueryBuilder qb = newQueryBuilder(selectorOptions)
+			.addField('Contact.Account.RecordType.DeveloperName')
+			.addConditions()
+			.add(new QueryBuilder.SimpleCondition(contactQueryConditions))
+			.endConditions();
+		//add Cases subquery based on bind variable
+		if (bindMap.containsKey('caseRecordTypes')) {
+			qb.addSubQuery(
+				CasesSelector.newInstance(0, caseFields)
+					.newQueryBuilder(new Set<Object>{CasesSelector.Options.WITH_RECORDTYPE
+					})
+					.addField('ArticleTest__r.ArticleId__c')
+					.addField('ArticleTest__r.Name')
+					.addConditions()
+					.add(new QueryBuilder.CompareCondition(Case.IsClosed).eq(true))
+					.add(new QueryBuilder.SimpleCondition(Case.ClosedDate + ' <=LAST_N_DAYS:30'))
+					.add(new QueryBuilder.CompareCondition(Case.IsClosed).eq(false))
+					.add(new QueryBuilder.SimpleCondition(' RecordType.DeveloperName  IN :caseRecordTypes'))
+					.setConditionOrder('((1 AND 2) OR 3) AND 4')
+					.endConditions()
+					.addOrderDesc(Case.ClosedDate)
+				, 'Cases'
+			);
+		}
+		//add interaction suqueries based on bind variable
+		if (bindMap.containsKey('interactionProfiles')) {
+			//add Tasks subquery
+			qb.addSubQuery(
+				TasksSelector.newInstance()
+					.newQueryBuilder()
+					.addField(Task.ActivityDate)
+					.addField('CreatedBy.Profile.Name')
+					.addConditions()
+					.add(new QueryBuilder.CompareCondition(Task.Type).eq('Phone Call'))
+					.add(new QueryBuilder.SimpleCondition(' RecordType.DeveloperName =:apVoiceCallRecordType'))
+					.add(new QueryBuilder.SimpleCondition(Task.CreatedDate + ' <=LAST_N_DAYS:30'))
+					.add(new QueryBuilder.SimpleCondition('Task.CreatedBy.Profile.Name IN :interactionProfiles'))
+					.setConditionOrder('(1 OR 2) AND 3 AND 4')
+					.endConditions()
+					.addOrderDesc(Task.CreatedDate)
+				,'Tasks'
+			);
+			//add VoiceCalls subquery
+			qb.addSubQuery(
+				VoiceCallsSelector.newInstance()
+					.newQueryBuilder()
+					.addField(VoiceCall.CreatedDate)
+					.addField('CreatedBy.Profile.Name')
+					.addConditions()
+					.add(new QueryBuilder.SimpleCondition(VoiceCall.CreatedDate + ' <=LAST_N_DAYS:30'))
+					.add(new QueryBuilder.SimpleCondition('VoiceCall.CreatedBy.Profile.Name IN :interactionProfiles'))
+					.setConditionOrder('1 AND 2')
+					.endConditions()
+					.addOrderDesc(VoiceCall.CreatedDate)
+				,'RelatedRecords'
+			);
+			//add LiveChatTranscripts subquery
+			qb.addSubQuery(
+				LiveChatTranscriptsSelector.newInstance()
+					.newQueryBuilder()
+					.addField(LiveChatTranscript.CreatedDate)
+					.addField('Owner.Profile.Name')
+					.addConditions()
+					.add(new QueryBuilder.SimpleCondition(LiveChatTranscript.CreatedDate + ' <=LAST_N_DAYS:30'))
+					.add(new QueryBuilder.SimpleCondition('LiveChatTranscript.Owner.Profile.Name IN :interactionProfiles'))
+					.setConditionOrder('1 AND 2')
+					.endConditions()
+					.addOrderDesc(LiveChatTranscript.CreatedDate)
+				,'LiveChatTranscripts'
+			);
+		}
+		qb.addOrderAsc(Contact.Name);
+		return Database.queryWithBinds(qb.toSoqlString(), bindMap, AccessLevel.USER_MODE);
 	}
 
 	/**
