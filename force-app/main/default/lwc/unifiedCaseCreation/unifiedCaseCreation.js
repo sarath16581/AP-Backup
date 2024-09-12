@@ -444,11 +444,11 @@ export default class UnifiedCaseCreation extends LightningElement {
 
 			// Dispatch the ShowToastEvent
 			this.dispatchEvent(
-				new ShowToastEvent({
-					title: 'Success!',
-					message: 'Case Created Successfully',
-					variant: 'success'
-				})
+					new ShowToastEvent({
+						title: 'Success!',
+						message: 'Case Created Successfully',
+						variant: 'success'
+					})
 			);
 		} catch (error) {
 			console.error(error);

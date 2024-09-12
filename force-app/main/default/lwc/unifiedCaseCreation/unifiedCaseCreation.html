@@ -6,15 +6,17 @@
 			</template>
 			<div class="slds-text-body_regular">{linkedArticlesLabel}</div>
 			<div class="slds-pill_container slds-grid slds-wrap pill-scrollable">
-				<template for:each={impactedArticles} for:item="impactedArticle">
-				<span key={impactedArticle} class="slds-col slds-grow-none slds-pill slds-var-p-around_xx-small slds-var-m-around_xx-small">
-					<span class="slds-pill__icon_container">
-						<span class="slds-icon_container" title="Account">
-							<lightning-icon icon-name="custom:custom46" size="xx-small" alternative-text="Article" title="Article"></lightning-icon>
+				<template if:true={impactedArticles}>
+					<template for:each={impactedArticles} for:item="impactedArticle">
+						<span key={impactedArticle} class="slds-col slds-grow-none slds-pill slds-var-p-around_xx-small slds-var-m-around_xx-small">
+							<span class="slds-pill__icon_container">
+								<span class="slds-icon_container" title="Account">
+									<lightning-icon icon-name="custom:custom46" size="xx-small" alternative-text="Article" title="Article"></lightning-icon>
+								</span>
+							</span>
+							<span class="slds-pill__label">{impactedArticle}</span>
 						</span>
-					</span>
-					<span class="slds-pill__label">{impactedArticle}</span>
-				</span>
+					</template>
 				</template>
 			</div>
 
@@ -80,9 +82,9 @@
 
 			<div class="slds-text-align_center slds-m-top_medium">
 				<lightning-button data-id="create"
-								label={createBtnLabel}
-								onclick={handleCaseCreation}
-								variant="brand">
+								  label={createBtnLabel}
+								  onclick={handleCaseCreation}
+								  variant="brand">
 				</lightning-button>
 			</div>
 		</div>
