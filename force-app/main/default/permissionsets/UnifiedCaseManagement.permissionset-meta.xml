@@ -12,6 +12,10 @@
         <apexClass>UnifiedPushToMonitoringQueueController</apexClass>
         <enabled>true</enabled>
     </classAccesses>
+	<classAccesses>
+        <apexClass>UnifiedCaseHistoryController</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
     <description>This permission set shall be used to define and control all object, app and user permissions for the purpose of case management</description>
     <hasActivationRequired>false</hasActivationRequired>
     <label>Unified Case Management</label>
