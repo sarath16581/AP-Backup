@@ -6,4 +6,5 @@
 	<targets>
 		<target>lightning__RecordPage</target>
 	</targets>
+	<description>Unified Case Creation Live Chat Wrapper</description>
 </LightningComponentBundle>

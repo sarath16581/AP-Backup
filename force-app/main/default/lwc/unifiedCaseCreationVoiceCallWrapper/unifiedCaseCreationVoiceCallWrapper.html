@@ -1,0 +1,39 @@
+<template>
+	<div class="slds-is-relative">
+		<template lwc:if={errorMessage}>
+			<div class="slds-notify slds-notify_alert slds-theme_alert-texture slds-theme_error" role="alert">
+				<span class="slds-assistive-text">error</span>
+				<lightning-icon icon-name="utility:error" alternative-text="Error!" size="x-small" variant="inverse"></lightning-icon>
+				<p>&nbsp; Error: {errorMessage}</p>
+			</div>
+		</template>
+
+		<template lwc:elseif={warningMessage}>
+			<div class="slds-notify slds-notify_alert slds-theme_alert-texture slds-theme_warning" role="alert">
+				<span class="slds-assistive-text">warning</span>
+				<lightning-icon icon-name="utility:warning" alternative-text="Warning!" size="x-small"></lightning-icon>
+				<p>&nbsp; {warningMessage}</p>
+			</div>
+		</template>
+
+		<template lwc:elseif={isLoading}>
+			<lightning-spinner variant="brand" size="medium" title="Loading LiveChat data" alternative-text="Loading LiveChat data"></lightning-spinner>
+		</template>
+
+		<template lwc:else>
+			<lightning-spinner if:true={isUpdating}></lightning-spinner>
+
+			<c-unified-case-creation
+					contact-id={linkedContactId}
+					interaction-record={interactionRecord}
+					consignment-id={linkedConsignmentId}
+					impacted-articles={impactedArticles}
+					enquiry-type={linkedEnquiryType}
+					enquiry-sub-type={linkedEnquirySubType}
+					product-category={linkedProductCategory}
+					product-sub-category={linkedProductSubCategory}
+					oncasecreated={handleLinkUnlinkCase}
+			></c-unified-case-creation>
+		</template>
+	</div>
+</template>
