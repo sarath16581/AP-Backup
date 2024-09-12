@@ -115,7 +115,7 @@ public class ProcessSocialCaseActionTest {
 		ProcessSocialCaseAction.processCases(new list<ProcessSocialCaseAction.SocialBusinessCaseParams>{params});
 		List<Case> newCases = [SELECT Id, Status, Origin, ContactId FROM Case WHERE Status = 'New'];
 		System.assertEquals(1, newCases.size(), 'Case created');
-		System.assertEquals('Social Business', newCases[0].Origin, 'case Origin Social Business');
+		System.assertEquals('Social', newCases[0].Origin, 'case Origin Social');
 		System.assertEquals(contact.Id, newCases[0].ContactId, 'Mapped Contact Id');
 
 	}
