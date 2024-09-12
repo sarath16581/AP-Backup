@@ -99,14 +99,6 @@ export default class UnifiedCaseCreationVoiceCallWrapper extends LightningElemen
 	}
 
 	/**
-	 * The Case Id related to the interaction record.
-	 * @type {string}
-	 */
-	get linkedCaseId() {
-		return getFieldValue(this.interactionRecord, CASE_ID_FIELD);
-	}
-
-	/**
 	 * The Consignment Id related to the interaction record.
 	 * @type {string}
 	 */
