@@ -30,7 +30,7 @@ public with sharing class UnifiedCaseHistoryController_Test {
 	}
 
 	static Case createCase(String recordTypeDeveloperName, String caseNumber, String status, Boolean isClosed) {
-		Case c = ApplicationTestDataFactory.getCases(1, true).get(0);
+		Case c = ApplicationTestDataFactoryCase.getCases(1, true).get(0);
 		c.ArticleTest__c = null;
 		c.ContactId = fflib_IDGenerator.generate(Contact.getSObjectType());
 		c.RecordType = new RecordType(DeveloperName = recordTypeDeveloperName);
