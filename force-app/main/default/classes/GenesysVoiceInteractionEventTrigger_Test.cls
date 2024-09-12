@@ -3,8 +3,8 @@
  * NOTE: 	Executes synchronisation from VoiceCall to Genesys when published
  * @author 	Paul Perry
  * @date 	2024-08-27
- * @group 	Unified
  * @changelog
+ * 2024-08-27 - Paul Perry - created
  */
 @IsTest
 public with sharing class GenesysVoiceInteractionEventTrigger_Test {
