@@ -199,7 +199,6 @@ public with sharing class UnifiedCaseCreationController {
 		newCase.EnquirySubType__c = req.enquirySubType;
 		newCase.ProductCategory__c = req.productCategory;
 		newCase.ProductSubCategory__c = req.productSubCategory;
-		newCase.Subject = req.liveChatIntent;
 		newCase.Priority = StarTrack_Constants.PRIORITY_NORMAL;
 		newCase.Recent_Caller_Type__c = StarTrack_Constants.CASE_CONTYPE_RECEIVER;
 		newCase.OwnerId = UserInfo.getUserId();
@@ -253,9 +252,6 @@ public with sharing class UnifiedCaseCreationController {
 
 		@AuraEnabled
 		public String notes { get; set; }
-
-		@AuraEnabled
-		public String liveChatIntent { get; set; }
 
 		@AuraEnabled
 		public String recordTypeId { get; set; }

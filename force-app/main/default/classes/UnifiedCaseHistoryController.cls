@@ -131,7 +131,9 @@ public with sharing class UnifiedCaseHistoryController {
 	@TestVisible
 	private static String getConsignmentTrackingNumber(Id articleId) {
 		// Select the specified Article
-		Article__c article = ArticlesSelector.newInstance(1, new Set<SObjectField>{ Article__c.ArticleID__c, Article__c.ConsignmentTrackingNumber__c }).selectById(new Set<Id>{ articleId }).get(articleId);
+		Article__c article = ArticlesSelector.newInstance(1, new Set<SObjectField>{ Article__c.ArticleID__c, Article__c.ConsignmentTrackingNumber__c })
+			.selectById(new Set<Id>{ articleId })
+			.get(articleId);
 
 		// Get the Consignment Tracking Number
 		String consignmentTrackingNumber;
@@ -268,7 +270,7 @@ public with sharing class UnifiedCaseHistoryController {
 
 		@AuraEnabled
 		public String caseNumber;
-		
+
 		@AuraEnabled
 		public Id contactId;
 

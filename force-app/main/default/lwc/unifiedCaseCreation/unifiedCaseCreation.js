@@ -53,8 +53,6 @@ export const CONTACTID_MISSING_ERROR = 'Contact cannot be empty for investigatio
 export const INVALID_FORM_ERROR = 'Please fix errors and try again';
 
 export default class UnifiedCaseCreation extends LightningElement {
-	// LiveChatTranscript record
-	@api interactionRecord;
 
 	// Public Properties
 	/**
@@ -186,15 +184,6 @@ export default class UnifiedCaseCreation extends LightningElement {
 	notesLabel = NOTES_LABEL;
 	createBtnLabel = CREATE_BUTTON_LABEL;
 	errorMessage;
-
-
-	/**
-	 * LiveChat Intent from the interaction record.
-	 * @type {string}
-	 */
-	get liveChatIntent() {
-		return getFieldValue(this.interactionRecord, LIVECHAT_INTENT_FIELD);
-	}
 
 	/**
 	 * get default Investigation recordType Id
@@ -434,7 +423,6 @@ export default class UnifiedCaseCreation extends LightningElement {
 					productCategory: this.productCategory,
 					productSubCategory: this.productSubCategory,
 					notes: this.notes,
-					liveChatIntent: this.liveChatIntent,
 					recordTypeId: this.recordTypeId,
 					consignmentId: this.consignmentId
 				}

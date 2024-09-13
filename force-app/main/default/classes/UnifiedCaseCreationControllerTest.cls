@@ -108,7 +108,6 @@ public class UnifiedCaseCreationControllerTest {
 		caseRequest.contactId = ApplicationTestDataFactory.getContacts(1, testAccount.Id, true)[0].Id;
 		caseRequest.enquiryType = UnifiedCaseCreationController.GENERAL_ENQUIRY_TYPE;
 		caseRequest.enquirySubType = 'Tracking';
-		caseRequest.liveChatIntent = 'Test Case Subject';
 		caseRequest.productCategory = 'Domestic';
 		caseRequest.productSubCategory = 'StarTrack Express';
 		caseRequest.notes = 'This is a case note';
@@ -124,7 +123,6 @@ public class UnifiedCaseCreationControllerTest {
 		Assert.areEqual(caseRequest.contactId, result.ContactId, 'ContactId should match but instead got: ' + result.ContactId);
 		Assert.areEqual(caseRequest.enquiryType, result.Type, 'Type should match but instead got: ' + result.Type);
 		Assert.areEqual(caseRequest.enquirySubType, result.EnquirySubType__c, 'EnquirySubType__c should match but instead got: ' + result.EnquirySubType__c);
-		Assert.areEqual(caseRequest.liveChatIntent, result.Subject, 'Subject should match but instead got: ' + result.Subject);
 		Assert.areEqual(caseRequest.productCategory, result.ProductCategory__c, 'ProductCategory__c should match but instead got: ' + result.ProductCategory__c);
 		Assert.areEqual(caseRequest.productSubCategory, result.ProductSubCategory__c, 'ProductSubCategory__c should match but instead got: ' + result.ProductSubCategory__c);
 		Assert.areEqual(caseRequest.notes, result.Description, 'Description should match but instead got: ' + result.Description);
@@ -152,7 +150,6 @@ public class UnifiedCaseCreationControllerTest {
 		caseRequest.contactId = ApplicationTestDataFactory.getContacts(1, testAccount.Id, true)[0].Id;
 		caseRequest.enquiryType = UnifiedCaseCreationController.INVESTIGATION_ENQUIRY_TYPE;
 		caseRequest.enquirySubType = 'Late item';
-		caseRequest.liveChatIntent = 'Test Case Subject';
 		caseRequest.productCategory = 'Domestic';
 		caseRequest.productSubCategory = 'StarTrack Express';
 		caseRequest.notes = 'This is a case note';
@@ -168,7 +165,6 @@ public class UnifiedCaseCreationControllerTest {
 		Assert.areEqual(caseRequest.contactId, result.ContactId, 'ContactId should match but instead got: ' + result.ContactId);
 		Assert.areEqual(caseRequest.enquiryType, result.Type, 'Type should match but instead got: ' + result.Type);
 		Assert.areEqual(caseRequest.enquirySubType, result.EnquirySubType__c, 'EnquirySubType__c should match but instead got: ' + result.EnquirySubType__c);
-		Assert.areEqual(caseRequest.liveChatIntent, result.Subject, 'Subject should match but instead got: ' + result.Subject);
 		Assert.areEqual(caseRequest.productCategory, result.ProductCategory__c, 'ProductCategory__c should match but instead got: ' + result.ProductCategory__c);
 		Assert.areEqual(caseRequest.productSubCategory, result.ProductSubCategory__c, 'ProductSubCategory__c should match but instead got: ' + result.ProductSubCategory__c);
 		Assert.areEqual(caseRequest.notes, result.Description, 'Description should match but instead got: ' + result.Description);
@@ -200,7 +196,6 @@ public class UnifiedCaseCreationControllerTest {
 		caseRequest.contactId = ApplicationTestDataFactory.getContacts(1, testAccount.Id, true)[0].Id;
 		caseRequest.enquiryType = UnifiedCaseCreationController.GENERAL_ENQUIRY_TYPE;
 		caseRequest.enquirySubType = 'Tracking';
-		caseRequest.liveChatIntent = 'Test Case Subject';
 		caseRequest.productCategory = 'Domestic';
 		caseRequest.productSubCategory = 'StarTrack Express';
 		caseRequest.notes = 'This is a case note';
@@ -279,7 +274,6 @@ public class UnifiedCaseCreationControllerTest {
 		caseRequest.contactId = ApplicationTestDataFactory.getContacts(1, testAccount.Id, true)[0].Id;
 		caseRequest.enquiryType = UnifiedCaseCreationController.INVESTIGATION_ENQUIRY_TYPE;
 		caseRequest.enquirySubType = 'Late item';
-		caseRequest.liveChatIntent = 'Test Case Subject';
 		caseRequest.productCategory = 'Domestic';
 		caseRequest.productSubCategory = 'StarTrack Express';
 		caseRequest.notes = 'This is a case note';
@@ -359,7 +353,6 @@ public class UnifiedCaseCreationControllerTest {
 		caseRequest.contactId = ApplicationTestDataFactory.getContacts(1, testAccount.Id, true)[0].Id;
 		caseRequest.enquiryType = UnifiedCaseCreationController.INVESTIGATION_ENQUIRY_TYPE;
 		caseRequest.enquirySubType = 'Late item';
-		caseRequest.liveChatIntent = 'Test Case Subject';
 		caseRequest.productCategory = 'Domestic';
 		caseRequest.productSubCategory = 'StarTrack Express';
 		caseRequest.notes = 'This is a case note';
@@ -417,7 +410,6 @@ public class UnifiedCaseCreationControllerTest {
 		caseRequest.contactId = ApplicationTestDataFactory.getContacts(1, testAccount.Id, true)[0].Id;
 		caseRequest.enquiryType = UnifiedCaseCreationController.INVESTIGATION_ENQUIRY_TYPE;
 		caseRequest.enquirySubType = 'Late item';
-		caseRequest.liveChatIntent = 'Test Case Subject';
 		caseRequest.productCategory = 'Domestic';
 		caseRequest.productSubCategory = 'StarTrack Express';
 		caseRequest.notes = 'This is a case note';

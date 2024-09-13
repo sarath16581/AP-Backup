@@ -17,7 +17,6 @@ import ID_FIELD from '@salesforce/schema/VoiceCall.Id';
 import CONTACT_ID_FIELD from '@salesforce/schema/VoiceCall.Contact__c';
 import CASE_ID_FIELD from '@salesforce/schema/VoiceCall.Case__c';
 import CONSIGNMENT_ID_FIELD from '@salesforce/schema/VoiceCall.Consignment__c';
-//import INTENT_FIELD from '@salesforce/schema/VoiceCall.Voice_Intent__c'; // TODO: map to Case.Subject, wait for Dan's update
 import ENQUIRY_TYPE_FIELD from '@salesforce/schema/VoiceCall.EnquiryType__c';
 import ENQUIRY_SUBTYPE_FIELD from '@salesforce/schema/VoiceCall.EnquirySubType__c';
 import PRODUCT_CATEGORY_FIELD from '@salesforce/schema/VoiceCall.ProductCategory__c';
@@ -27,7 +26,6 @@ const VOICECALL_FIELDS = [
 	CONTACT_ID_FIELD,
 	CASE_ID_FIELD,
 	CONSIGNMENT_ID_FIELD,
-	//INTENT_FIELD,
 	ENQUIRY_TYPE_FIELD,
 	ENQUIRY_SUBTYPE_FIELD,
 	PRODUCT_CATEGORY_FIELD,
