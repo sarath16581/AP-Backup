@@ -162,7 +162,7 @@ export default class UnifiedCustomerSearchLiveChatWrapper extends LightningEleme
 	 *  - `unlinkcontact`
 	 *  - `customercreated`
 	 *
-	 * @param {CustomEvent<string|null>} event - The object for the `linkcontact` event.
+	 * @param {CustomEvent<{contactId:string|null}>} event
 	 */
 	async handleLinkUnlinkContact(event) {
 		try {
