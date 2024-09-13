@@ -420,4 +420,88 @@ public virtual inherited sharing class CasesSelector extends ApplicationSelector
 
 		return (List<Case>)Database.query(qb.toSoqlString());
 	}
+
+	/**
+	 * This method is used by the the `UnifiedCaseHistoryController` to return Cases which are related
+	 * to the Contact Id.
+	 * 
+	 * The results are ordered by Open cases first, then by most recently modified.
+	 * 
+	 * @param contactIds - Set of Contact Ids
+	 * @param selectorOptions - Set of Selector Options
+	 * 
+	 * @return Map of Case records
+	 */
+	public Map<Id, Case> selectByContactIdCaseHistory(Set<Id> contactIds, Set<Object> selectorOptions) {
+		QueryBuilder qb = selectByContactIdCaseHistoryQB(contactIds, selectorOptions);
+		return new Map<Id, Case> ((List<Case>) Database.query(qb.toSoqlString()));
+	}
+
+	/**
+	 * Constructs the `QueryBuilder` class for the `selectByContactIdCaseHistory` method.
+	 * 
+	 * @param contactIds - Set of Contact Ids
+	 * @param selectorOptions - Set of Selector Options
+	 * 
+	 * @return Map of Case records
+	 */
+	@TestVisible
+	private QueryBuilder selectByContactIdCaseHistoryQB(Set<Id> contactIds, Set<Object> selectorOptions) {
+		QueryBuilder qb = newQueryBuilder(selectorOptions);
+		QueryBuilder.ConditionsManager conditions = qb.addConditions();
+		conditions.add(new QueryBuilder.SimpleCondition('ContactId IN :contactIds'));
+		conditions.endConditions();
+
+		qb.setOrder(new QueryBuilder.Order(Case.IsClosed).setSortingOrderDesc());
+		qb.addOrder(new QueryBuilder.Order(Case.LastModifiedDate).setSortingOrderDesc());
+
+		return qb;
+	}
+
+	/**
+	 * This method is used by the the `UnifiedCaseHistoryController` to return Cases which are related
+	 * to either the Consignment or a child Article of the Consignment.
+	 * 
+	 * The results are ordered by Open cases first, then by most recently modified.
+	 * 
+	 * @param consignmentTrackingNumbers - Set of Consignment Tracking Numbers
+	 * @param selectorOptions - Set of Selector Options
+	 * 
+	 * @return Map of Case records
+	 */
+	public Map<Id, Case> selectByConsignmentTrackingNumberCaseHistory(Set<String> consignmentTrackingNumbers, Set<Object> selectorOptions) {
+		// Ensure there are no null or empty values
+		consignmentTrackingNumbers?.remove(null);
+		consignmentTrackingNumbers?.remove('');
+		if(consignmentTrackingNumbers == null || consignmentTrackingNumbers.isEmpty()) {
+			return new Map<Id, Case>();
+		}
+
+		QueryBuilder qb = selectByConsignmentTrackingNumberCaseHistoryQB(consignmentTrackingNumbers, selectorOptions);
+		return new Map<Id, Case> ((List<Case>) Database.query(qb.toSoqlString()));
+	}
+
+	/**
+	 * Constructs the `QueryBuilder` class for the `selectByConsignmentTrackingNumberCaseHistory` method.
+	 * 
+	 * @param consignmentTrackingNumbers - Set of Consignment Tracking Numbers
+	 * @param selectorOptions - Set of Selector Options
+	 * 
+	 * @return Map of Case records
+	 */
+	@TestVisible
+	private QueryBuilder selectByConsignmentTrackingNumberCaseHistoryQB(Set<String> consignmentTrackingNumbers, Set<Object> selectorOptions) {
+		QueryBuilder qb = newQueryBuilder(selectorOptions);
+		QueryBuilder.ConditionsManager conditions = qb.addConditions();
+		// Consignment directly related to the Case
+		conditions.add(new QueryBuilder.SimpleCondition('ArticleTest__r.' + String.valueOf(Article__c.ArticleId__c) + ' IN :consignmentTrackingNumbers'));
+		// Consignment's child article is related to the Case
+		conditions.add(new QueryBuilder.SimpleCondition('ArticleTest__r.' + String.valueOf(Article__c.ConsignmentTrackingNumber__c) + ' IN :consignmentTrackingNumbers'));
+		conditions.setConditionOrder('1 OR 2');
+		conditions.endConditions();
+
+		qb.setOrder(new QueryBuilder.Order(Case.IsClosed).setSortingOrderDesc());
+		qb.addOrder(new QueryBuilder.Order(Case.LastModifiedDate).setSortingOrderDesc());
+		return qb;
+	}
 }

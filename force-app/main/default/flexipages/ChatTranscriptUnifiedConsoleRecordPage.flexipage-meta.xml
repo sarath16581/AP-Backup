@@ -189,6 +189,12 @@
         </itemInstances>
         <itemInstances>
             <componentInstance>
+                <componentName>unifiedCaseHistoryLiveChatWrapper</componentName>
+                <identifier>c_unifiedCaseHistoryLiveChatWrapper</identifier>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
                 <componentInstanceProperties>
                     <name>createQuickActionName</name>
                     <value>NewCase</value>

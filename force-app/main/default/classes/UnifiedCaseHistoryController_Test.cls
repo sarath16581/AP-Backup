@@ -7,7 +7,7 @@
  */
 @IsTest
 public with sharing class UnifiedCaseHistoryController_Test {
-	
+
 	//
 	// Test Setup and Utility Methods
 	//
@@ -24,9 +24,9 @@ public with sharing class UnifiedCaseHistoryController_Test {
 
 	static Article__c createArticle(String trackingNumber, Boolean isConsignment) {
 		Article__c article = new Article__c(
-			Id = fflib_IDGenerator.generate(Article__c.getSObjectType()),
-			ArticleID__c = isConsignment ? trackingNumber : null,
-			ConsignmentTrackingNumber__c = isConsignment ? null : trackingNumber
+				Id = fflib_IDGenerator.generate(Article__c.getSObjectType()),
+				ArticleID__c = isConsignment ? trackingNumber : null,
+				ConsignmentTrackingNumber__c = isConsignment ? null : trackingNumber
 		);
 		return article;
 	}
@@ -35,31 +35,24 @@ public with sharing class UnifiedCaseHistoryController_Test {
 		Case c = ApplicationTestDataFactoryCase.getCases(1, true).get(0);
 		c.ArticleTest__c = null;
 		c.ContactId = fflib_IDGenerator.generate(Contact.getSObjectType());
+		c.RecordType = new RecordType(DeveloperName = recordTypeDeveloperName);
 		c.ReferenceID__c = null;
 		c.Status = status;
 		c.Subject = 'Testing Case';
-		c.RecordType = new RecordType(DeveloperName = recordTypeDeveloperName);
-		Boolean isUnifiedCase = false;
 		if(recordTypeDeveloperName == UNIFIED_GENERAL_ENQUIRY_CASE_RT){
-			isUnifiedCase = true;
 			c.Type = GENERAL_ENQUIRY_TYPE;
 		}else if(recordTypeDeveloperName == UNIFIED_INVESTIGATION_CASE_RT) {
-			isUnifiedCase = true;
 			c.Type = INVESTIGATION_TYPE;
 		}else if(recordTypeDeveloperName == CLASSIC_GENERAL_ENQUIRY_CASE_RT) {
-			isUnifiedCase = false;
 			c.Type = GENERAL_ENQUIRY_TYPE;
 		}else if(recordTypeDeveloperName == CLASSIC_SSSW_DELIVERY_CASE_RT){
-			isUnifiedCase = false;
 			c.Type = INVESTIGATION_TYPE;
 		}
 		// Set the non-writable fields
-		c = (Case) ApplicationTestDataFactory.setUnwritableFields(c, new Map<String, Object> {
-			'CaseNumber' => caseNumber,
-			'IsClosed' => isClosed,
-			'IsUnifiedCase__c' => isUnifiedCase,
-			'LastModifiedDate' => DateTime.now()
-		});
+		c = (Case) ApplicationTestDataFactory.setUnwritableFields(
+				c,
+				new Map<String, Object>{ 'CaseNumber' => caseNumber, 'IsClosed' => isClosed, 'LastModifiedDate' => DateTime.now() }
+		);
 		return c;
 	}
 
@@ -68,7 +61,6 @@ public with sharing class UnifiedCaseHistoryController_Test {
 		// Linkable (Unified General Enquiry - Closed)
 		cases.add(createCase(UNIFIED_GENERAL_ENQUIRY_CASE_RT, '987654', 'Closed', true));
 		cases.get(0).ReferenceID__c = 'ABC123XYZ';
-		
 		// Linkable (Unified Investigation Case - Open)
 		cases.add(createCase(UNIFIED_INVESTIGATION_CASE_RT, '123456', 'New', false));
 
@@ -86,7 +78,7 @@ public with sharing class UnifiedCaseHistoryController_Test {
 			when '987654' {
 				isLinkable = true;
 			}
-			when  '123456' {
+			when '123456' {
 				isLinkable = true;
 			}
 			when '159753' {
@@ -97,12 +89,13 @@ public with sharing class UnifiedCaseHistoryController_Test {
 			}
 		}
 
+		Boolean isUnifiedCase = CommonUtils.isUnifiedCase(c.RecordType.DeveloperName);
 		Assert.areEqual(c.Id, res.caseId, 'caseId should match original Case');
 		Assert.areEqual(c.CaseNumber, res.caseNumber, 'caseNumber should match original Case');
 		Assert.areEqual(c.ContactId, res.contactId, 'contactId should match original Case');
 		Assert.areEqual(c.IsClosed, res.isClosed, 'isClosed should match original Case');
 		Assert.areEqual(isLinkable, res.isLinkable, 'isLinkable should be ' + isLinkable + ' for CaseNumber ' + c.CaseNumber + JSON.serialize(res));
-		Assert.areEqual(c.IsUnifiedCase__c, res.isUnifiedCase, 'isUnifiedCase should match original Case');
+		Assert.areEqual(isUnifiedCase, res.isUnifiedCase, 'isUnifiedCase should match');
 		Assert.areEqual(c.LastModifiedDate, res.lastModifiedDate, 'LastModifiedDate should match original Case');
 		Assert.areEqual(c.RecordType.DeveloperName, res.recordTypeDeveloperName, 'recordTypeDeveloperName should match original Case');
 		Assert.areEqual(c.ReferenceID__c, res.referenceId, 'referenceId should match original Case');
@@ -125,9 +118,8 @@ public with sharing class UnifiedCaseHistoryController_Test {
 		selector = (CasesSelector) MockUtility.mockSelector(CasesSelector.class);
 
 		MockUtility.Mocks.startStubbing();
-		MockUtility.Mocks.when(selector.selectByConsignmentTrackingNumberCaseHistory(
-			(Set<String>) fflib_Match.anyObject(), (Set<Object>) fflib_Match.anyObject())
-		).thenReturn(casesMap);
+		MockUtility.Mocks.when(selector.selectByConsignmentTrackingNumberCaseHistory((Set<String>) fflib_Match.anyObject(), (Set<Object>) fflib_Match.anyObject()))
+				.thenReturn(casesMap);
 		MockUtility.Mocks.stopStubbing();
 	}
 
@@ -136,16 +128,14 @@ public with sharing class UnifiedCaseHistoryController_Test {
 		selector = (CasesSelector) MockUtility.mockSelector(CasesSelector.class);
 
 		MockUtility.Mocks.startStubbing();
-		MockUtility.Mocks.when(selector.selectByContactIdCaseHistory(
-			(Set<Id>) fflib_Match.anyObject(), (Set<Object>) fflib_Match.anyObject())
-		).thenReturn(casesMap);
+		MockUtility.Mocks.when(selector.selectByContactIdCaseHistory((Set<Id>) fflib_Match.anyObject(), (Set<Object>) fflib_Match.anyObject())).thenReturn(casesMap);
 		MockUtility.Mocks.stopStubbing();
 	}
-	
+
 	//
 	// Unit Tests
 	//
-	
+
 	@IsTest
 	static void getCasesRelatedToArticleTestPositive() {
 		// =====================================
@@ -193,7 +183,7 @@ public with sharing class UnifiedCaseHistoryController_Test {
 		Id contactId = fflib_IDGenerator.generate(Contact.getSObjectType());
 		Article__c article = createArticle('ABC123XYZ', true);
 		Map<Id, Case> casesMap = createCases();
-		for(Case c : casesMap.values()) {
+		for (Case c : casesMap.values()) {
 			c.ContactId = contactId;
 		}
 		Integer maxRecords = 10;
@@ -235,7 +225,6 @@ public with sharing class UnifiedCaseHistoryController_Test {
 		// =====================================
 		Assert.areEqual('ABC123XYZ', consignmentTrackingNumber, 'Consignment Tracking Number should be returned');
 	}
-	
 	@IsTest
 	static void getConsignmentTrackingNumberTestFromArticle() {
 		// =====================================
@@ -309,6 +298,6 @@ public with sharing class UnifiedCaseHistoryController_Test {
 		// Verification
 		// =====================================
 		Assert.isTrue(res.hasMore, 'hasMore should be true');
-		Assert.areEqual(2, res.results.size(),'Should have 2 results');
+		Assert.areEqual(2, res.results.size(), 'Should have 2 results');
 	}
 }

@@ -157,7 +157,7 @@ export default class UnifiedCustomerSearchResults extends NavigationMixin(
 	 * 
 	 * @param {CustomEvent} event - The row action event.
 	 * 
-	 * @fires {CustomEvent} `
+	 * @fires {CustomEvent} `linkcontact`
 	 */
 	handleRowAction(event) {
         const contactId = event.detail?.row?.contactId;
