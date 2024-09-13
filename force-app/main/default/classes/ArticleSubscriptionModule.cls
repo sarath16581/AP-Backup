@@ -1,6 +1,6 @@
 /**
  * @description Article Subscription Module process Impacted Articles from Insert Trigger in a specified batch size
-  *             And sends the subscription notification to SAP via SOAP API service
+ *			And sends the subscription notification to SAP via SOAP API service
  * @author Seth Heang
  * @changelog:
  * 2024-09-05 - Seth Heang - created
@@ -28,7 +28,7 @@ public inherited sharing class ArticleSubscriptionModule extends ApplicationModu
 
 	/**
 	 * @description Process the ImpactedArticle__c records, split into a sublist with specified batch size
-	 *              and make SOAP service callout for article subscription via Async Worker Framework
+	 *			and make SOAP service callout for article subscription via Async Worker Framework
 	 * @param records
 	 * @param uow
 	 */

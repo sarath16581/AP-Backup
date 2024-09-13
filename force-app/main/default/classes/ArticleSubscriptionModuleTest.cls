@@ -7,9 +7,9 @@
 public class ArticleSubscriptionModuleTest {
 
 	/**
-	 *  Test: AfterInsert Scenario, when new ImpactedArticles are created
-	 *  Verify that ImpactedArticles are partition into sublist of 100 batch size and
-	 *  Verify that AsyncArticleSubscriptionActionWorker is enqueued for each batch
+	 * Test: AfterInsert Scenario, when new ImpactedArticles are created
+	 * Verify that ImpactedArticles are partition into sublist of 100 batch size and
+	 * Verify that AsyncArticleSubscriptionActionWorker is enqueued for each batch
 	 */
 	@IsTest
 	static void testProcessArticleSubscriptionAndEnsureAsyncWorkerIsEnqueuedForEachBatch(){
@@ -55,8 +55,8 @@ public class ArticleSubscriptionModuleTest {
 	}
 
 	/**
-	 *  Test: AfterInsert Scenario, when new ImpactedArticles are created and unexpected exception occurs
-	 *  Verify that No AsyncArticleSubscriptionActionWorker is enqueued
+	 * Test: AfterInsert Scenario, when new ImpactedArticles are created and unexpected exception occurs
+	 * Verify that No AsyncArticleSubscriptionActionWorker is enqueued
 	 */
 	@IsTest
 	static void testProcessArticleSubscriptionWithException(){
@@ -95,8 +95,8 @@ public class ArticleSubscriptionModuleTest {
 	}
 
 	/**
-	 *  Test: splitList() method
-	  *  And Verify that any list bigger than 100 will be partitioned into many sublist of the specified batch size
+	 * Test: splitList() method
+	 * And Verify that any list bigger than 100 will be partitioned into many sublist of the specified batch size
 	 */
 	@IsTest
 	static void testEnsureBatchListPartitionerCreateSubListOfCorrectBatchSize(){
@@ -116,16 +116,16 @@ public class ArticleSubscriptionModuleTest {
 		Test.stopTest();
 
 		// Assert
-		System.assertEquals(10, result.size(), 'The list should be split into 10 sublists.');
-		System.assertEquals(100, result[0].size(), 'The first sublist should contain 100 items.');
-		System.assertEquals(100, result[1].size(), 'The second sublist should contain 100 items.');
-		System.assertEquals(100, result[2].size(), 'The third sublist should contain 100 items.');
-		System.assertEquals(100, result[3].size(), 'The fourth sublist should contain 100 items.');
-		System.assertEquals(100, result[4].size(), 'The fifth sublist should contain 100 items.');
-		System.assertEquals(100, result[5].size(), 'The sixth sublist should contain 100 items.');
-		System.assertEquals(100, result[6].size(), 'The seventh sublist should contain 100 items.');
-		System.assertEquals(100, result[7].size(), 'The eighth sublist should contain 100 items.');
-		System.assertEquals(100, result[8].size(), 'The ninth sublist should contain 100 items.');
-		System.assertEquals(90, result[9].size(), 'The tenth sublist should contain 90 items.');
+		Assert.areEqual(10, result.size(), 'The list should be split into 10 sublists.');
+		Assert.areEqual(100, result[0].size(), 'The first sublist should contain 100 items.');
+		Assert.areEqual(100, result[1].size(), 'The second sublist should contain 100 items.');
+		Assert.areEqual(100, result[2].size(), 'The third sublist should contain 100 items.');
+		Assert.areEqual(100, result[3].size(), 'The fourth sublist should contain 100 items.');
+		Assert.areEqual(100, result[4].size(), 'The fifth sublist should contain 100 items.');
+		Assert.areEqual(100, result[5].size(), 'The sixth sublist should contain 100 items.');
+		Assert.areEqual(100, result[6].size(), 'The seventh sublist should contain 100 items.');
+		Assert.areEqual(100, result[7].size(), 'The eighth sublist should contain 100 items.');
+		Assert.areEqual(100, result[8].size(), 'The ninth sublist should contain 100 items.');
+		Assert.areEqual(90, result[9].size(), 'The tenth sublist should contain 90 items.');
 	}
 }
