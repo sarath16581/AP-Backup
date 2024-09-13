@@ -3,8 +3,11 @@
     <fullName>Outcome__c</fullName>
     <businessStatus>Active</businessStatus>
     <description>Outcome of Voice Call</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Outcome of Voice Call</inlineHelpText>
     <label>Outcome</label>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <type>Picklist</type>
     <valueSet>
@@ -30,6 +33,12 @@
                 <fullName>Enquiry updated</fullName>
                 <default>false</default>
                 <label>Enquiry updated</label>
+            </value>
+            <value>
+                <fullName>Pricing &gt; Domestic Letters &gt; Express Post &gt; Investigation</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Pricing &gt; Domestic Letters &gt; Express Post &gt; Investigation</label>
             </value>
             <value>
                 <fullName>Safety issue &gt; Domestic Parcels &gt; Courier Post &gt; General Enquiry</fullName>

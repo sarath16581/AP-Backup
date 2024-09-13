@@ -4,9 +4,11 @@
     <businessStatus>Active</businessStatus>
     <description>Clear View Codes - Product Category field</description>
     <externalId>false</externalId>
+    <inlineHelpText>Clear View Codes - Product Category field</inlineHelpText>
     <label>Product Category</label>
     <length>255</length>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <type>Text</type>
     <unique>false</unique>
