@@ -88,15 +88,6 @@
             <valueName>Nurturing</valueName>
         </valueSettings>
         <valueSettings>
-            <controllingFieldValue>MyPost Business</controllingFieldValue>
-            <controllingFieldValue>Disqualified</controllingFieldValue>
-            <valueName>Enquiry only</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>MyPost Business</controllingFieldValue>
-            <valueName>Verified</valueName>
-        </valueSettings>
-        <valueSettings>
             <controllingFieldValue>Disqualified</controllingFieldValue>
             <valueName>Could not contact</valueName>
         </valueSettings>
@@ -111,6 +102,10 @@
         <valueSettings>
             <controllingFieldValue>Disqualified</controllingFieldValue>
             <valueName>Enquiry does not meet criteria</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Disqualified</controllingFieldValue>
+            <valueName>Enquiry only</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Disqualified</controllingFieldValue>

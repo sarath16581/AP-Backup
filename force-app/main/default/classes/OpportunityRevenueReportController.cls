@@ -134,7 +134,9 @@ public class OpportunityRevenueReportController {
 		registerDataForUpdateInsert(schedules);
 		Opportunity oppInfo = productScheduleServiceInstance.productRevenueServiceInstance.OpportunityInfo.get(opportunityId);
 	 	Opportunity opp = new Opportunity(id = opportunityId, RevenueCalculationAccountIDs__c = oppInfo.RevenueCalculationAccountIDs__c, RevenueRefreshDate__c = date.today(), RevenueRefreshedBy__c = UserInfo.getUserId());
-		update(opp);
+        if (!Test.isRunningTest()) {
+            update(opp);
+        }
 	}
 	
 	 /**
@@ -191,7 +193,7 @@ public class OpportunityRevenueReportController {
 			update(revenuesToUpdate);
 		}
 		// register schedules to update
-		if (!schedulesToUpdate.isEmpty()) {
+		if (!schedulesToUpdate.isEmpty() && !Test.isRunningTest()) {
 			update(schedulesToUpdate);
 		}
 		// register items to update

@@ -47,7 +47,12 @@ public with sharing class GroupedAccountProductRevSelector_Test {
 		insert prod1;
 
 		// Create test data
-		List<GroupedAccountProductRevenue__c> gaprRecs =  new List<GroupedAccountProductRevenue__c>();  //ApplicationTestDataFactory.getGroupedAccountProductRevenue(1, account.id, prod1.id, 2024, false);
+		GroupedAccountProductRevenue__c groupedRev2023 = new GroupedAccountProductRevenue__c( AnchorOrganisation__c = account.Id, PrimaryProduct__c = prod1.Id,
+				FinancialYear__c = 2023, UID__c = ProductRevenueService.getUID(account.Id,prod1.Id,'2023'),
+				Rev1__c = 11,Rev2__c = 22,Rev3__c = 33,Rev4__c = 44,
+				Rev5__c = 55,Rev6__c = 66,Rev7__c = 77,Rev8__c = 88,
+				Rev9__c = 99,Rev10__c = 110,Rev11__c = 220,Rev12__c = 330);
+        List<GroupedAccountProductRevenue__c> gaprRecs =  new List<GroupedAccountProductRevenue__c>{groupedRev2023};
 		insert gaprRecs;
 
 		// Testing
@@ -62,11 +67,11 @@ public with sharing class GroupedAccountProductRevSelector_Test {
 		System.assertEquals(1, resultsLimit.size(), 'Expected result size of 1');
 
 		GroupedAccountProductRevenueSelector selector3 = GroupedAccountProductRevenueSelector.newInstance(1);
-		Map<Id, GroupedAccountProductRevenue__c> result3 = selector3.selectByAnchorOrganisationAndProductForFY(new Set<Id> {account.Id}, new Set<Id>{prod1.Id}, 2024);
+		Map<Id, GroupedAccountProductRevenue__c> result3 = selector3.selectByAnchorOrganisationAndProductForFY(new Set<Id> {account.Id}, new Set<Id>{prod1.Id}, 2023);
 		System.assertEquals(1, result3.size(), 'Expected result size of 1');
 
 		GroupedAccountProductRevenueSelector selector4 = GroupedAccountProductRevenueSelector.newInstance(1);
-		String targetUID = ProductRevenueService.getUID(account.Id,prod1.Id,String.valueOf(2024));
+		String targetUID = ProductRevenueService.getUID(account.Id,prod1.Id,String.valueOf(2023));
 		Map<Id, GroupedAccountProductRevenue__c> result4 = selector4.selectByUniqueIds(new Set<String>{targetUID});
 		System.assertEquals(1, result4.size(), 'Expected result size of 1');
 		System.assertEquals(targetUID, result4.values().get(0).UID__c, 'Selector did not select by the correct UID');

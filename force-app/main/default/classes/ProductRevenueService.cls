@@ -150,17 +150,6 @@ public with sharing class ProductRevenueService {
 	} 
 
 	/**
-	* @description 	Retrieves all the line items for open opportunities of the specified accounts.
-	* @param 		accountIds a set of ids for the relevant accounts
-	* @return A list of opportunity line items associated with the specified accounts.
-	*/
-	public List<OpportunityLineItem> getLineItemsForAccounts(Set<Id> accountIds) {
-		Set<Id> allAccountIds = LoadAccountsAndRelatedAccounts(accountIds);
-		Set<Id> opportunityIds = loadOpenOpportunitiesForAccounts(allAccountIds).keySet();
-		return getProductLineItemsForOpportunities(opportunityIds);
-	}
-
-	/**
 	* @description 	Recalculates the Grouped Revenues for all the opportunity line items passed in
 	* @param 			opportunityIds a set of ids for the relevant opportunities
 	* @return A list of Grouped Revenue records which have been created or modified.
@@ -766,26 +755,15 @@ public with sharing class ProductRevenueService {
 		return updatedGroupedRevenues;
 	}
     
-    private Set<id> loadSpecifiedAccountsIntoRelatedMap(List<Opportunity> opportunities) {
-        Set<id> specifiedAccounts = new Set<id>();
-    	for (Opportunity opp: opportunities) {
-            If (!String.isblank(opp.RevenueCalculationAccountIDs__c)) {
-                if (!relatedChildAccountsMap.containsKey(opp.AccountId)) {
-                    relatedChildAccountsMap.put(opp.AccountId,new set<id>());
-                }
-            	for(String specifiedAccountId : csvToList(opp.RevenueCalculationAccountIDs__c)) {
-					relatedChildAccountsMap.get(opp.AccountId).add(specifiedAccountId);
-                    specifiedAccounts.add(specifiedAccountId);
-				}
-            }
-        }
-        return specifiedAccounts;
-    }
  
 	private set<id> getRelatedChildAccountIds() {
 		set<id> relatedAccountIds = new set<id>();
+        system.debug('************ relatedChildAccountsMap '+relatedChildAccountsMap);
 		for (id nextRelatedAccountId : relatedChildAccountsMap.keyset()) {
-			relatedAccountIds.addAll(relatedChildAccountsMap.get(nextRelatedAccountId));
+            Set<id> relatedAccountsToAdd = relatedChildAccountsMap.get(nextRelatedAccountId);
+            if (relatedAccountsToAdd != null) {
+                relatedAccountIds.addAll(relatedAccountsToAdd);
+            }
 		}
 		return relatedAccountIds;
 	}
@@ -898,12 +876,6 @@ public with sharing class ProductRevenueService {
 		return contractDays; // == 0 ? 1 : contractDays;
 	}
 
-	@TestVisible
-	private Map<String,GroupedAccountProductRevenue__c> reCalculateGroupRevenues(List<OpportunityLineItem> items) {
-		return reCalculateGroupRevenues(items, true);
-	}
-
- 
 	/**
 	* @description 	Recalculate Grouped Revenues for opportunity line items
 	* @param 			items a list of opportunity line items to recalculate grouped revenues for
@@ -1249,6 +1221,7 @@ public with sharing class ProductRevenueService {
 		}
 		return loadedItems;
 	}
+    
  
 	/**
 	* @description 	Retrieve grouped revenue schedules for specified line item ids.
@@ -1259,20 +1232,6 @@ public with sharing class ProductRevenueService {
 		return GroupedRevenueScheduleSelector.newInstance().selectByOpportunityProductIds(lineItemIds, null);
 	}
 
-	/**
-	* @description 	Retrieve open opportunities based on account ids.
-	* @param 			accountIds - The accounts linked to the opportunities to be retireved
-	* @return 	a map of open opportunities associated with the specified account ids.
-	*/
-	private Map<Id,Opportunity> loadOpenOpportunitiesForAccounts(Set<Id> accountIds) {
-		Map<Id,Opportunity> loadedOpportunities = OpportunitiesSelector.newInstance().selectOpenOpportunitiesByAccountIds(accountIds);
-		for (Opportunity opp : loadedOpportunities.values()) {
-			if (!this.opportunityInfo.containsKey(opp.id)) {
-				this.opportunityInfo.put(opp.id,opp);
-			}
-		}
-		return loadedOpportunities;
-	}
 
 	/**
 	* @description 	Retrieve accounts that have manually been reparented through the account relationship junction object.
@@ -1292,11 +1251,14 @@ public with sharing class ProductRevenueService {
 		
 		// retrieve any manually liked related accounts and place them into the global related account map.
 		for (AccountRelationship__c arr: AccountRelationshipSelector.newInstance().selectByOPCParentEndDateInFuture(unloadedAccountIds)) {
-			if (relatedChildAccountsMap.get(arr.ParentAccount__c) == null) {
-				relatedChildAccountsMap.put(arr.ParentAccount__c, new Set<Id>{arr.RelatedAccount__c});
-			} else {
-				relatedChildAccountsMap.get(arr.ParentAccount__c).add(arr.RelatedAccount__c);
-			}
+            if(arr.ParentAccount__c != null && arr.RelatedAccount__c != null) {
+                if (!relatedChildAccountsMap.containsKey(arr.ParentAccount__c)) {
+                    system.debug('**** arr '+arr);
+                    relatedChildAccountsMap.put(arr.ParentAccount__c, new Set<Id>{arr.RelatedAccount__c});
+                } else {
+                    relatedChildAccountsMap.get(arr.ParentAccount__c).add(arr.RelatedAccount__c);
+                }
+            }
 			loadedRelatedAccountIds.add(arr.RelatedAccount__c);
 		}
 		return loadedRelatedAccountIds;

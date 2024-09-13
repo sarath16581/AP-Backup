@@ -547,7 +547,10 @@ public with sharing class HappyParcelController {
 		// this happens after the search result have been loaded into the Happy Parcel LWC components
 		// Note: We are filtering the mapping records using the mappingModel__c field this is just temporary filter and will be removed once all users moved to lightning.
 		EnquiryMappingsSelector selector = EnquiryMappingsSelector.newInstance();
-
+		
+        System.debug('Mapping model: ' + mappingModel);
+        System.debug('Article keys: ' + articleMappingsMap.keySet());
+        
 		for (MiniCaseFieldMapping__c mapping : selector.selectBySAPKeyAndMappingModel(articleMappingsMap.keySet(), new Set<String>{ mappingModel })) {
 			if(articleMappingsMap.containsKey(mapping.SAPKey__c)){
 				for (TrackingArticle article : articleMappingsMap.get(mapping.SAPKey__c)) {

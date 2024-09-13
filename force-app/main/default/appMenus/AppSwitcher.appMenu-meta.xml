@@ -756,4 +756,8 @@
         <name>PermComparator</name>
         <type>ConnectedApp</type>
     </appMenuItems>
+    <appMenuItems>
+        <name>SproutSocialApp__Setup</name>
+        <type>CustomApplication</type>
+    </appMenuItems>
 </AppMenu>

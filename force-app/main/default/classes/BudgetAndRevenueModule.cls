@@ -71,7 +71,7 @@ public inherited sharing  class BudgetAndRevenueModule extends ApplicationModule
 		List<GroupedAccountProductRevenue__c> recordsToCreate = new List<GroupedAccountProductRevenue__c>();
 		List<GroupedAccountProductRevenue__c> recordsToUpdate = new List<GroupedAccountProductRevenue__c>();
 		for (GroupedAccountProductRevenue__c record : recordsChanged.values()) {
-			if (record.uid__c == null) {
+			if (record.id == null) {
 				recordsToCreate.add(record);
 			}
 			else {
