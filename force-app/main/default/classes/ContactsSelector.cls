@@ -26,6 +26,7 @@
  * 2024-07-23 - Marcel HK - Allow match if MailingStreet equals addressLine1 + addressLine2 (CSLU-1106)
  * 2024-07-23 - Marcel HK - Added filters for accountId and abn/acn lookup (CSLU-447)
  * 2024-08-08 - Marcel HK - Update Address filters for `selectByCustomerSearchParamsQB` (CSLU-1072)
+ * 2024-05-24 - Harry Wang - Added selectCloneableContactsByAccount
  * 2024-09-10 - SteveL - added method selectByReversedPhoneNumbers
  */
 public virtual inherited sharing class ContactsSelector extends ApplicationSelector {

@@ -1,10 +1,14 @@
 /**
- * @description A very simple selector class that sits in the base domain
- * @author SteveL
- * @date 2024-09-10
- * @changelog
- * 2024-09-10 - SteveL - created
- */
+* @author SteveL
+* @date 2024-09-10
+* @group Selector
+* @tag Selector
+* @tag Case History SObject
+* @domain Core
+* @description A very simple selector class that sits in the base domain
+* @changelog
+* 2024-09-10 - SteveL - Created
+*/
 
 public virtual inherited sharing class CaseHistoriesSelector extends ApplicationSelector{
 	public enum Options {
@@ -29,10 +33,11 @@ public virtual inherited sharing class CaseHistoriesSelector extends Application
 	}
 
 	/**
-	 * Run a simple query to get Case History based on CaseId
 	 * @param selectorOptions Set<Object>
 	 * @param caseIds Set<Id>
 	 * @param caseType String
+	 * @description Run a simple query to get Case History based on CaseId
+	 *
 	 * @return Map<Id, CaseHistory>
 	 */
 	public Map<Id, CaseHistory> selectCaseHistoriesByTypeAndCaseIds(Set<Object> selectorOptions, Set<Id> caseIds, String caseType) {

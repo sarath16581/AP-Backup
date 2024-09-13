@@ -159,7 +159,7 @@ private with sharing class ContactsSelector_Test {
 		// Testing
 		// =====================================
 		Test.startTest();
-		
+
 		ContactsSelector selector = ContactsSelector.newInstance(2);
 		Map<Id, Contact> results = selector.selectById(mappedContacts.keySet());
 		System.assertEquals(2, results.size(), 'Expected result size of 2');
@@ -175,7 +175,7 @@ private with sharing class ContactsSelector_Test {
 
 		results = selector.selectByLikedNameOrderByConsumerAndNameNullFirst(contacts[0].FirstName);
 		System.assertEquals(1, results.size(), 'Expected result size of 1');
-		
+
 		results = selector.selectByLikedAnyPhoneOrderByName(contacts[0].phone);
 		//System.assertEquals(2, results.size(), 'Expected result size of 2');
 
@@ -415,7 +415,7 @@ private with sharing class ContactsSelector_Test {
 		Assert.isTrue(Pattern.compile('(?is)\\(MailingStreet LIKE \'U 3%\' AND MailingStreet2__c LIKE \'123 Example St%\'\\)').matcher(soql).find(), 'Query should filter MailingStreet AND MailingStreet2__c');
 		Assert.isTrue(Pattern.compile('(?is)\\bOR MailingStreet LIKE \'U 3 123 Example St%\'').matcher(soql).find(), 'Query should filter MailingStreet with AddressLine1+AddressLine2');
 	}
-	
+
 	@IsTest
 	static void testSelectByCustomerSearchParamsQBWithAddressLine2() {
 		// =====================================
@@ -511,7 +511,7 @@ private with sharing class ContactsSelector_Test {
 		Test.startTest();
 		ContactsSelector selector = ContactsSelector.newInstance(0, fieldOverrides);
 		String soql = selector.newQueryBuilder(selectorOptions).toSoqlString();
-		
+
 		Test.stopTest();
 
 		// Verify the SELECT includes the sub-query
