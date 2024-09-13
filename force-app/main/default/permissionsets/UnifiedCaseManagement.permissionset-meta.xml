@@ -148,9 +148,4 @@
         <field>Case.Complaint__c</field>
         <readable>true</readable>
     </fieldPermissions>
-	<fieldPermissions>
-        <editable>false</editable>
-        <field>Case.IsUnifiedCase__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
 </PermissionSet>
