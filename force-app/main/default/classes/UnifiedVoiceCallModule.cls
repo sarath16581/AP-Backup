@@ -39,7 +39,7 @@ public with sharing class UnifiedVoiceCallModule extends ApplicationModule {
 			List<ApplicationRecursion.RecordState> changedRecordStates = ApplicationRecursion.getInstance().getProcessableRecords('UnifiedVoiceCallModule', records, existingRecords, monitoredFields);
 			List<SObject> changedRecords = new List<SObject>();
 			for (ApplicationRecursion.RecordState recordState : changedRecordStates) {
-	changedRecords.add(recordState.record);
+				changedRecords.add(recordState.record);
 			}
 			syncCaseWhenRelatedRecordIdChanged(changedRecords, existingRecords, uow);
 		} catch (Exception ex) {
@@ -59,7 +59,7 @@ public with sharing class UnifiedVoiceCallModule extends ApplicationModule {
 		for (VoiceCall vc : (List<VoiceCall>) records) {
 			if ((vc.CallType == GenesysConstants.VOICE_CALL_INBOUND_CALL_TYPE || vc.CallType == GenesysConstants.VOICE_CALL_OUTBOUND_CALL_TYPE) &&
 		(vc.CallerId != null || vc.RecipientId != null) ) {
-	voiceCallToProcess.add(vc.Id);
+				voiceCallToProcess.add(vc.Id);
 			}
 		}
 
@@ -79,9 +79,9 @@ public with sharing class UnifiedVoiceCallModule extends ApplicationModule {
 		Set<String> voiceCallReversedPhoneNumber = new Set<String>();
 		for (VoiceCall vc : voiceCallRecordsMap.values()) {
 			if (vc.CallType.equalsIgnoreCase(GenesysConstants.VOICE_CALL_INBOUND_CALL_TYPE) && !String.isBlank(Util.reversePhoneString(vc.Caller.ParticipantDisplayName))) {
-	voiceCallReversedPhoneNumber.add(Util.reversePhoneString(vc.Caller.ParticipantDisplayName));
+				voiceCallReversedPhoneNumber.add(Util.reversePhoneString(vc.Caller.ParticipantDisplayName));
 			} else if (vc.CallType.equalsIgnoreCase(GenesysConstants.VOICE_CALL_OUTBOUND_CALL_TYPE) && !String.isBlank(Util.reversePhoneString(vc.Recipient.ParticipantDisplayName))) {
-	voiceCallReversedPhoneNumber.add(Util.reversePhoneString(vc.Recipient.ParticipantDisplayName));
+				voiceCallReversedPhoneNumber.add(Util.reversePhoneString(vc.Recipient.ParticipantDisplayName));
 			}
 		}
 
@@ -96,19 +96,19 @@ public with sharing class UnifiedVoiceCallModule extends ApplicationModule {
 			String reversedPhoneNumber = con.ReverseMobilePhone__c ?? con.ReverseVerifiedMobile__c;
 			reversedPhoneNumber = reversedPhoneNumber ?? con.ReversePhone__c;
 			if (contactsByReversedPhone.get(reversedPhoneNumber) == null) {
-	contactsByReversedPhone.put(reversedPhoneNumber, new List<Contact>{con});
+				contactsByReversedPhone.put(reversedPhoneNumber, new List<Contact>{con});
 			} else {
-	contactsByReversedPhone.get(reversedPhoneNumber).add(con);
+				contactsByReversedPhone.get(reversedPhoneNumber).add(con);
 			}
 		}
 
 		for (VoiceCall vc : voiceCallRecordsMap.values()) {
 			if (vc.CallType.equalsIgnoreCase(GenesysConstants.VOICE_CALL_INBOUND_CALL_TYPE) && !String.isBlank(Util.reversePhoneString(vc.Caller.ParticipantDisplayName))) {
-	List<Contact> potentialContact = contactsByReversedPhone.get(Util.reversePhoneString(vc.Caller.ParticipantDisplayName));
-	vc.Contact__c = potentialContact?.size() == 1 ? potentialContact.get(0).Id : null;
+				List<Contact> potentialContact = contactsByReversedPhone.get(Util.reversePhoneString(vc.Caller.ParticipantDisplayName));
+				vc.Contact__c = potentialContact?.size() == 1 ? potentialContact.get(0).Id : null;
 			} else if (vc.CallType.equalsIgnoreCase(GenesysConstants.VOICE_CALL_OUTBOUND_CALL_TYPE) && !String.isBlank(Util.reversePhoneString(vc.Recipient.ParticipantDisplayName))) {
-	List<Contact> potentialContact = contactsByReversedPhone.get(Util.reversePhoneString(vc.Recipient.ParticipantDisplayName));
-	vc.Contact__c = potentialContact?.size() == 1 ? potentialContact.get(0).Id : null;
+				List<Contact> potentialContact = contactsByReversedPhone.get(Util.reversePhoneString(vc.Recipient.ParticipantDisplayName));
+				vc.Contact__c = potentialContact?.size() == 1 ? potentialContact.get(0).Id : null;
 			}
 		}
 
@@ -130,8 +130,8 @@ public with sharing class UnifiedVoiceCallModule extends ApplicationModule {
 			oldVc = (VoiceCall) existingRecords.get(vc.Id);
 			if ((vc.RelatedRecordId == null && oldVc.RelatedRecordId != null) ||
 		(vc.RelatedRecordId != oldVc.RelatedRecordId && String.valueOf(vc.RelatedRecordId).startsWith('500'))) {
-	relatedCaseIds.add(vc.RelatedRecordId);
-	voiceCallIdToProcess.put(vc.Id, vc);
+				relatedCaseIds.add(vc.RelatedRecordId);
+				voiceCallIdToProcess.put(vc.Id, vc);
 			}
 		}
 
@@ -151,9 +151,9 @@ public with sharing class UnifiedVoiceCallModule extends ApplicationModule {
 		Map<Id,CaseHistory[]> relatedCaseGEHistory = new Map<Id,CaseHistory[]>();
 		for (CaseHistory cHistory : caseGEHistories.values()) {
 			if (relatedCaseGEHistory.get(cHistory.CaseId) == null) {
-	relatedCaseGEHistory.put(cHistory.CaseId, new List<CaseHistory>{cHistory});
+				relatedCaseGEHistory.put(cHistory.CaseId, new List<CaseHistory>{cHistory});
 			} else {
-	relatedCaseGEHistory.get(cHistory.CaseId).add(cHistory);
+				relatedCaseGEHistory.get(cHistory.CaseId).add(cHistory);
 			}
 		}
 
@@ -161,13 +161,13 @@ public with sharing class UnifiedVoiceCallModule extends ApplicationModule {
 			VoiceCall vc = voiceCallUpdatable.get(vcId);
 			vc.Case__c = voiceCallIdToProcess.get(vcId).RelatedRecordId;
 			if (vc.Case__c == null) {
-	vc.Outcome__c = GenesysConstants.VOICE_CALL_OUTCOME_UNLINKED_CONTACT;
+				vc.Outcome__c = GenesysConstants.VOICE_CALL_OUTCOME_UNLINKED_CONTACT;
 			} else {
-	for (SObjectField field : GenesysConstants.voiceCallCaseFieldMappings.keySet()) {
-		vc.put(GenesysConstants.voiceCallCaseFieldMappings.get(field), relatedCases.get(vc.RelatedRecordId).get(field));
-	}
-	vc.RootCause__c = vc.RootCause__c ?? GenesysConstants.DEFAULT_VOICE_CALL_ROOT_CAUSE;
-	vc.Outcome__c = determineVoiceCallOutcome(relatedCases.get(vc.RelatedRecordId), vc, relatedCaseGEHistory.get(vc.Case__c));
+				for (SObjectField field : GenesysConstants.voiceCallCaseFieldMappings.keySet()) {
+					vc.put(GenesysConstants.voiceCallCaseFieldMappings.get(field), relatedCases.get(vc.RelatedRecordId).get(field));
+				}
+				vc.RootCause__c = vc.RootCause__c ?? GenesysConstants.DEFAULT_VOICE_CALL_ROOT_CAUSE;
+				vc.Outcome__c = determineVoiceCallOutcome(relatedCases.get(vc.RelatedRecordId), vc, relatedCaseGEHistory.get(vc.Case__c));
 			}
 		}
 
@@ -186,7 +186,7 @@ public with sharing class UnifiedVoiceCallModule extends ApplicationModule {
 		if (GenesysConstants.VOICE_CALL_ENQUIRY_TYPE_GENERAL_ENQUIRY.equalsIgnoreCase(relatedCase.Type) && !caseOlderThanVoice) { // the case is created with Type = General Enquiry during the interaction
 			return GenesysConstants.VOICE_CALL_OUTCOME_FCR;
 		} else if ((GenesysConstants.VOICE_CALL_ENQUIRY_TYPE_INVESTIGATION.equalsIgnoreCase(relatedCase.Type) && !caseOlderThanVoice) ||
-	(GenesysConstants.VOICE_CALL_ENQUIRY_TYPE_INVESTIGATION.equalsIgnoreCase(relatedCase.Type) && caseOlderThanVoice && relatedGECaseHistory != null && !relatedGECaseHistory.isEmpty())) { // the case is created with Type = Investigation is before the call OR the case was of Type GE, but has been updated to Investigate during the call
+					(GenesysConstants.VOICE_CALL_ENQUIRY_TYPE_INVESTIGATION.equalsIgnoreCase(relatedCase.Type) && caseOlderThanVoice && relatedGECaseHistory != null && !relatedGECaseHistory.isEmpty())) { // the case is created with Type = Investigation is before the call OR the case was of Type GE, but has been updated to Investigate during the call
 			return GenesysConstants.VOICE_CALL_OUTCOME_ENQUIRY_LODGED;
 		} else if (GenesysConstants.VOICE_CALL_ENQUIRY_TYPE_INVESTIGATION.equalsIgnoreCase(relatedCase.Type) && caseOlderThanVoice && relatedGECaseHistory == null) { // the case has always been of Type Investigation before and during the call
 			return GenesysConstants.VOICE_CALL_OUTCOME_ENQUIRY_UPDATED;
