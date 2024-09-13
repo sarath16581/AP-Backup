@@ -144,4 +144,14 @@
         <field>Case.Complaint__c</field>
         <readable>true</readable>
     </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>ImpactedArticle__c.Subscribed__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>ImpactedArticle__c.SubscriptionErrorCode__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
 </PermissionSet>
