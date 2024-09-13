@@ -1,9 +1,10 @@
 /**
- * @description A very simple selector class for ConversationParticipant Object
  * @author SteveL
- * @date 2024-09-09
- * @changelog
- * 2024-09-09 - SteveL - created
+ * @date 09-09-2024
+ * @group Selector
+ * @tag	Selector
+ *
+ * @description A very simple selector class for ConversationParticipant Object
  */
 public virtual inherited sharing class ConversationParticipantsSelector extends ApplicationSelector {
 
@@ -21,8 +22,8 @@ public virtual inherited sharing class ConversationParticipantsSelector extends 
 
 	public virtual override Set<SObjectField> getSObjectFieldList() {
 		Set<SObjectField> result = new Set<SObjectField>{
-				ConversationParticipant.Id,
-				ConversationParticipant.ParticipantDisplayName
+			ConversationParticipant.Id,
+			ConversationParticipant.ParticipantDisplayName
 		};
 		return result;
 	}

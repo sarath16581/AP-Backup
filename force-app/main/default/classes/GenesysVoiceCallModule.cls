@@ -14,15 +14,15 @@ public with sharing class GenesysVoiceCallModule extends ApplicationModule {
 	/**
 	 * Constructor
 	 */
-    public GenesysVoiceCallModule() {
+	public GenesysVoiceCallModule() {
 		getTriggerEvents().enableAfterUpdate();
-    }
+	}
 
 	/**
 	 * Handle AfterUpdate
 	 * @param records			Records updated in this context
 	 * @param existingRecords	Representation of the previous record state
-	 * @param uow				Unit of work
+	 * @param uow	Unit of work
 	 */
 	public override void onAfterUpdate(List<SObject> records, Map<Id, SObject> existingRecords, ApplicationUnitOfWork uow) {
 		performGenesysUpdateSync(records, existingRecords, uow);
@@ -41,7 +41,7 @@ public with sharing class GenesysVoiceCallModule extends ApplicationModule {
 	 * 	 using the AsyncWorker.
 	 * @param records			Records updated in this context
 	 * @param existingRecords	Representation of the previous record state
-	 * @param uow				Unit of work
+	 * @param uow	Unit of work
 	 */
 	public static void performGenesysUpdateSync(List<SObject> records, Map<Id, SObject> existingRecords, ApplicationUnitOfWork uow) {
 		String routingContext = 'genesysFieldSync';
@@ -114,7 +114,7 @@ public with sharing class GenesysVoiceCallModule extends ApplicationModule {
 				));
 			}
 		}
-    }
+	}
 
 	public with sharing class AsyncGenesysAttributeSync extends ApplicationUnitOfWork.AsyncWorker implements Queueable, Database.AllowsCallouts {
 		@TestVisible
@@ -401,7 +401,7 @@ public with sharing class GenesysVoiceCallModule extends ApplicationModule {
 	 * When a call gets transferred from Unified (SCV) to OpenCTI (classic):
 	 * - TrackingNumber gets captured in a different attribute for divisions AP/ST
 	 * @param setCustomAttributes	The custom attributes to be synced to Genesys
-	 * @param division				Division from the Call Log (AP/ST)
+	 * @param division	Division from the Call Log (AP/ST)
 	 *
 	 * @return Map of key value pairs to be updated including additional attributes added by business rules
 	 */

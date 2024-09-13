@@ -37,9 +37,7 @@ public with sharing class GenesysIntegration_Test {
 	@IsTest
 	private static void testBlueMoonFlow() {
 		List<Integer> responseCodes = new List<Integer>{
-			200, 	// Authentication token response
 			404,	// fetchConversationCallDetail response
-			200, 	// Authentication token response
 			429		// unable to patch Conversation Participant Attributres
 		};
 
@@ -74,7 +72,7 @@ public with sharing class GenesysIntegration_Test {
 		Test.stopTest();
 	}
 
-    public class MockHttpResponseGenerator implements HttpCalloutMock {
+	public class MockHttpResponseGenerator implements HttpCalloutMock {
 		private List<Integer> responseCodes;
 
 		@SuppressWarnings('PMD.EmptyStatementBlock')

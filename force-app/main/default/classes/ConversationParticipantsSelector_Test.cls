@@ -1,7 +1,6 @@
 /***
- * @description Test class for ConversationParticipantsSelector
  * @author SteveL
- * @date 2024-09-11
+ * @description Test class for ConversationParticipantsSelector
  * @changelog
  * 11/9/2024 created - SteveL
  */

@@ -9,7 +9,7 @@
 public inherited sharing class VoiceCallTriggerHandler extends ApplicationTriggerHandler {
 	private final String FILTER_ALLWITHVENDORKEY = 'allWithVendorCallKey';
 
-    public override SObjectType getSObjectType() {
+	public override SObjectType getSObjectType() {
 		return VoiceCall.SObjectType;
 	}
 
@@ -42,6 +42,7 @@ public inherited sharing class VoiceCallTriggerHandler extends ApplicationTrigge
 	public override void registerModules() {
 		// SVC/Unified
 		// - Synchronise custom attributes to Call Interaction
+		registerModule(GenesysVoiceCallModule.class, FILTER_ALLWITHVENDORKEY);
 		// - Synchronise VoiceCall attributes across consult/conferance/transferred calls
 		registerModule(UnifiedVoiceCallModule.class, FILTER_ALLWITHVENDORKEY);
 		// populate the case id on both the relevant agent work records and the contactrequest records themselves
@@ -50,7 +51,7 @@ public inherited sharing class VoiceCallTriggerHandler extends ApplicationTrigge
 	}
 
 	/**
-	 * This defines a list of objects that may be 'touched' during module execution. 
+	 * This defines a list of objects that may be 'touched' during module execution.
 	 * It also defines the order in which the work will be committed
 	 */
 	public static List<SObjectType> getUnitOfWorkSObjectTypes() {

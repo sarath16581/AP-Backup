@@ -1,9 +1,11 @@
-/**
- * @description Genesys Integration contains the callout logic to Genesys
- * @author Paul Perry
- * @date 2024-08-27
+/***
+ * @description Genesys Intergration contains the callout logic to Genesys
+ *	NOTE: Genesys Intergration enables callouts to all Genesys Api's (see: https://developer.genesys.cloud/devapps/api-explorer)
+ * @author 	Paul Perry
+ * @date 	2024-08-27
+ * @group 	SCV/Unified
+ * @test 	GenesysIntegration_Test
  * @changelog
- * 2024-08-27 - Paul Perry - created
  */
 public with sharing class GenesysIntegration {
 	/**
@@ -84,7 +86,7 @@ public with sharing class GenesysIntegration {
 		request.setEndpoint('callout:Genesys/api/v2/' + endpoint);
 		// Set headers for the update request, obtaining token from Genesys first
 		request.setHeader('Content-Type', 'application/json');
-	
+
 		if (body != null) {
 			request.setBody(body);
 		}

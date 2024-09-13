@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Division__c</fullName>
+    <businessStatus>Active</businessStatus>
     <description>Container for Division attribute provided by Genesys when the record gets created. Should contain AP/ST</description>
     <externalId>false</externalId>
     <inlineHelpText>Container for Division attribute provided by Genesys when the record gets created. Should contain AP/ST</inlineHelpText>

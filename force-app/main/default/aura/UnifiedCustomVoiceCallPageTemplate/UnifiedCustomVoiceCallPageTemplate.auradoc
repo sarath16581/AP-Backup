@@ -1,3 +1,3 @@
 <aura:documentation>
-    <aura:description>An Aura Component that implements the recordHomeTemplate, and it is designed to be used on the Voice Call Flexipage</aura:description>
+	<aura:description>An Aura Component that implements the recordHomeTemplate, and it is designed to be used on the Voice Call Flexipage</aura:description>
 </aura:documentation>

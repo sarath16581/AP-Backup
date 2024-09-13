@@ -1,13 +1,13 @@
 /**
- * @description Test class for Genesys VoiceCall Module (Interaction Sync)
+ * @description Testclass for Genesys VoiceCall Module (Interaction Sync)
  * NOTE: 	Synchronises VoiceCall changes to Genesys
- * 			- Filters changes in VoiceCall record data (newList => oldMap)
- * 			- Generates platform events based on Genesys field Mappings
- * 			- Contains the AsyncWorker logic to perform callouts outside of the trigger context
+ *	- Filters changes in VoiceCall record data (newList => oldMap)
+ *	- Generates plaftorm events based on Genesys field Mappings
+ *	- Contains the AsyncWorker logic to perform callouts outside of the trigger context
  * @author 	Paul Perry
  * @date 	2024-08-27
+ * @group 	Unified
  * @changelog
- * 2024-08-27 - Paul Perry - created
  */
 @IsTest
 public with sharing class GenesysVoiceCallModule_Test {
@@ -21,8 +21,8 @@ public with sharing class GenesysVoiceCallModule_Test {
 		MOCKGENESYSINTEGRATION,
 		MOCKDATABASE
 	}
-	
-	@IsTest
+
+	@isTest
 	public static void runGenesysVoiceCallModuleTest() {
 		// Test Data
 		VoiceCall testVoiceCall = generateTestVoiceCall();
@@ -100,7 +100,7 @@ public with sharing class GenesysVoiceCallModule_Test {
 		// Test input for the async worker
 		Map<Id,Set<String>> updateFieldsSubSet = new Map<Id,Set<String>>{
 			// Actual test records, tracking number + case updated
-			testVoiceCalls[0].Id => new Set<String>{ 
+			testVoiceCalls[0].Id => new Set<String>{
 				String.valueOf(VoiceCall.TrackingNumber__c),
 				String.valueOf(VoiceCall.Contact__c)
 			},
@@ -126,7 +126,7 @@ public with sharing class GenesysVoiceCallModule_Test {
 		fflib_ArgumentCaptor conversationIdCaptor = fflib_ArgumentCaptor.forClass(GenesysIntegration.class);
 		fflib_ArgumentCaptor participantIdCaptor = fflib_ArgumentCaptor.forClass(GenesysIntegration.class);
 		fflib_ArgumentCaptor attributesCaptor = fflib_ArgumentCaptor.forClass(GenesysIntegration.class);
-		
+
 		// Ensure fetchConversationCallDetail has been invoked once
 		((GenesysIntegration)MockUtility.Mocks.verify(mockGenesysIntegration, 1)).fetchConversationCallDetail(
 			(String)conversationIdCaptor.capture()
@@ -217,7 +217,7 @@ public with sharing class GenesysVoiceCallModule_Test {
 		if (setup.contains(MockSetup.MOCKGENESYSINTEGRATION)) {
 			MockUtility.Mocks.when(
 				mockGenesysIntegration.fetchConversationCallDetail(
-					(String)fflib_Match.anyString()				// conversationId
+					(String)fflib_Match.anyString()	// conversationId
 				)
 			).thenReturn(
 				(Map<String,Object>)JSON.deserializeUntyped(GenesysIntegration_Test.MOCKRESPONSECALLLOG)

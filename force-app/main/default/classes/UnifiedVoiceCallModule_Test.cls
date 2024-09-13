@@ -1,9 +1,11 @@
-/***
- * @description Test class for UnifiedVoiceCallModule
+/**
+ * @description
+ * Test class for UnifiedVoiceCallModule
  * @author SteveL
- * @date 2024-09-11
+ * @date 2024-09-10
+ * @group Tests
  * @changelog
- * 11/9/2024 created - SteveL
+ * 2024-09-10 - SteveL - Created
  */
 
 @IsTest
@@ -20,20 +22,20 @@ private class UnifiedVoiceCallModule_Test {
 		contacts[0].Phone = '+61440123456';
 		contacts[0].BillingAccount__c = billingAcc.Id;
 		contacts[0] = (Contact)ApplicationTestDataFactory.setUnwritableFields(contacts[0], new Map<String, Object>{
-				'ReverseMobilePhone__c' => '654321044'
+	'ReverseMobilePhone__c' => '654321044'
 		});
 
 		VoiceCall vc = ApplicationTestDataFactory.getVoiceCalls(1, true)[0];
 
-        ConversationParticipant caller = new ConversationParticipant();
+		ConversationParticipant caller = new ConversationParticipant();
 		caller = (ConversationParticipant)ApplicationTestDataFactory.setUnwritableFields(caller, new Map<String, Object>{
-				'ParticipantDisplayName' => '+61440123456'
+	'ParticipantDisplayName' => '+61440123456'
 		});
 
 		vc = (VoiceCall)ApplicationTestDataFactory.setUnwritableFields(vc, new Map<String, Object>{
-				'CallType' => GenesysConstants.VOICE_CALL_INBOUND_CALL_TYPE,
-				'CallerId' => '123456',
-				'Caller' => caller
+	'CallType' => GenesysConstants.VOICE_CALL_INBOUND_CALL_TYPE,
+	'CallerId' => '123456',
+	'Caller' => caller
 		});
 
 		// =====================================
@@ -56,7 +58,7 @@ private class UnifiedVoiceCallModule_Test {
 
 		UnifiedVoiceCallModule module = UnifiedVoiceCallModule.newInstance();
 		module.onAfterInsert(new List<VoiceCall>{vc}, uow);
-        System.assertEquals(contacts[0].Id, vc.Contact__c, 'Expect the new Voice Record to link to the existing Contact record');
+		System.assertEquals(contacts[0].Id, vc.Contact__c, 'Expect the new Voice Record to link to the existing Contact record');
 		Test.stopTest();
 	}
 
@@ -65,7 +67,7 @@ private class UnifiedVoiceCallModule_Test {
 		List<Case> cases = ApplicationTestDataFactory.getCases(1, 'REF0001', true);
 		cases[0].Type = GenesysConstants.VOICE_CALL_ENQUIRY_TYPE_GENERAL_ENQUIRY;
 		cases[0] = (Case)ApplicationTestDataFactory.setUnwritableFields(cases[0], new Map<String, Object>{
-				'CreatedDate' => System.now()
+	'CreatedDate' => System.now()
 		});
 
 		List<VoiceCall> voiceCalls = ApplicationTestDataFactory.getVoiceCalls(2, true);
@@ -73,14 +75,14 @@ private class UnifiedVoiceCallModule_Test {
 
 		ConversationParticipant caller = new ConversationParticipant();
 		caller = (ConversationParticipant)ApplicationTestDataFactory.setUnwritableFields(caller, new Map<String, Object>{
-				'ParticipantDisplayName' => '+61440123456'
+	'ParticipantDisplayName' => '+61440123456'
 		});
 
 		vcOld = (VoiceCall)ApplicationTestDataFactory.setUnwritableFields(vcOld, new Map<String, Object>{
-				'CallType' => GenesysConstants.VOICE_CALL_INBOUND_CALL_TYPE,
-				'CallerId' => '123456',
-				'Caller' => caller,
-				'CallStartDateTime' => System.now().addMinutes(-5)
+	'CallType' => GenesysConstants.VOICE_CALL_INBOUND_CALL_TYPE,
+	'CallerId' => '123456',
+	'Caller' => caller,
+	'CallStartDateTime' => System.now().addMinutes(-5)
 		});
 
 		VoiceCall vcNew = vcOld.clone(true,true,true);
@@ -111,7 +113,7 @@ private class UnifiedVoiceCallModule_Test {
 		System.assertEquals(cases[0].Id, vcNew.Case__c, 'Expect the Case__c to be populated based on the RelatedRecordId');
 		System.assertEquals(GenesysConstants.DEFAULT_VOICE_CALL_ROOT_CAUSE, vcNew.RootCause__c, 'Expect RootCause__c to be populated by the default value');
 		System.assertEquals(GenesysConstants.VOICE_CALL_OUTCOME_FCR, vcNew.Outcome__c, 'Expect Outcome to be FCR as Case is created after the Voice Call record, and it is of Type General Enquiry');
-		
+
 		Test.stopTest();
 	}
 }

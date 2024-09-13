@@ -1,16 +1,16 @@
 <design:component>
-    <flexipage:template>
-        <!-- Header Region -->
-        <flexipage:region name="headerElement" defaultWidth="Large">
-            <flexipage:formfactor type="LARGE" width="LARGE" />
-        </flexipage:region>
+	<flexipage:template>
+		<!-- Header Region -->
+		<flexipage:region name="headerElement" defaultWidth="Large">
+			<flexipage:formfactor type="LARGE" width="LARGE" />
+		</flexipage:region>
 
-        <!-- Main Content Regions -->
-        <flexipage:region name="leftTopElement" defaultWidth="Small"/>
-        <flexipage:region name="firstElement" defaultWidth="Small"/>
-        <flexipage:region name="secondElement" defaultWidth="Small"/>
-        <flexipage:region name="thirdElement" defaultWidth="Medium">
-            <flexipage:formfactor type="Medium" width="Medium" />
-        </flexipage:region>
-    </flexipage:template>
+		<!-- Main Content Regions -->
+		<flexipage:region name="leftTopElement" defaultWidth="Small"/>
+		<flexipage:region name="firstElement" defaultWidth="Small"/>
+		<flexipage:region name="secondElement" defaultWidth="Small"/>
+		<flexipage:region name="thirdElement" defaultWidth="Medium">
+			<flexipage:formfactor type="Medium" width="Medium" />
+		</flexipage:region>
+	</flexipage:template>
 </design:component>
