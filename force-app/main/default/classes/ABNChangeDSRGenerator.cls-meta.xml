@@ -1,9 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ApexClass xmlns="http://soap.sforce.com/2006/04/metadata">
-<<<<<<<< HEAD:force-app/main/default/classes/AgentWorkCaseAutomationModule_Test.cls-meta.xml
     <apiVersion>61.0</apiVersion>
-========
-    <apiVersion>60.0</apiVersion>
->>>>>>>> ptest:force-app/main/default/classes/ABNChangeDSRGenerator.cls-meta.xml
     <status>Active</status>
 </ApexClass>
