@@ -87,6 +87,72 @@
                         <valueListItems>
                             <value>At_Risk_Business__c.Recalculate_Revenue</value>
                         </valueListItems>
+                        <valueListItems>
+                            <value>At_Risk_Business__c.Contact_Cloning</value>
+                            <visibilityRule>
+                                <booleanFilter>(1 OR 2) AND 3 AND 4 AND 5 AND 6 AND 7</booleanFilter>
+                                <criteria>
+                                    <leftValue>{!Record.Reason__c}</leftValue>
+                                    <operator>EQUAL</operator>
+                                    <rightValue>ABN Change - Same Owners</rightValue>
+                                </criteria>
+                                <criteria>
+                                    <leftValue>{!Record.Reason__c}</leftValue>
+                                    <operator>EQUAL</operator>
+                                    <rightValue>Business Sold - New Owners</rightValue>
+                                </criteria>
+                                <criteria>
+                                    <leftValue>{!Record.Related_Organisation__r.Name}</leftValue>
+                                    <operator>NE</operator>
+                                </criteria>
+                                <criteria>
+                                    <leftValue>{!Record.Status__c}</leftValue>
+                                    <operator>NE</operator>
+                                    <rightValue>Rejected by SM</rightValue>
+                                </criteria>
+                                <criteria>
+                                    <leftValue>{!Record.Status__c}</leftValue>
+                                    <operator>NE</operator>
+                                    <rightValue>Rejected by Service Performance Manager</rightValue>
+                                </criteria>
+                                <criteria>
+                                    <leftValue>{!Record.Status__c}</leftValue>
+                                    <operator>NE</operator>
+                                    <rightValue>Business Lost</rightValue>
+                                </criteria>
+                                <criteria>
+                                    <leftValue>{!Record.Status__c}</leftValue>
+                                    <operator>NE</operator>
+                                    <rightValue>Business Retained</rightValue>
+                                </criteria>
+                            </visibilityRule>
+                        </valueListItems>
+                        <valueListItems>
+                            <value>At_Risk_Business__c.ABN_change_DSRs</value>
+                            <visibilityRule>
+                                <booleanFilter>1 AND 2 AND (3 OR 4)</booleanFilter>
+                                <criteria>
+                                    <leftValue>{!Record.Stage__c}</leftValue>
+                                    <operator>EQUAL</operator>
+                                    <rightValue>Work In Progress</rightValue>
+                                </criteria>
+                                <criteria>
+                                    <leftValue>{!Record.Status__c}</leftValue>
+                                    <operator>EQUAL</operator>
+                                    <rightValue>Approved by SM</rightValue>
+                                </criteria>
+                                <criteria>
+                                    <leftValue>{!Record.Reason__c}</leftValue>
+                                    <operator>EQUAL</operator>
+                                    <rightValue>Business Sold - New Owners</rightValue>
+                                </criteria>
+                                <criteria>
+                                    <leftValue>{!Record.Reason__c}</leftValue>
+                                    <operator>EQUAL</operator>
+                                    <rightValue>ABN Change - Same Owners</rightValue>
+                                </criteria>
+                            </visibilityRule>
+                        </valueListItems>
                     </valueList>
                 </componentInstanceProperties>
                 <componentInstanceProperties>

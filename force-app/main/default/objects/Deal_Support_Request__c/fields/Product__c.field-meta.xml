@@ -30,6 +30,11 @@
                 <label>Address Post</label>
             </value>
             <value>
+                <fullName>Airlock</fullName>
+                <default>false</default>
+                <label>Airlock</label>
+            </value>
+            <value>
                 <fullName>APGL Commercial Outbound</fullName>
                 <default>false</default>
                 <label>APGL Commercial Outbound</label>
@@ -125,6 +130,16 @@
                 <label>First Direct Solutions</label>
             </value>
             <value>
+                <fullName>Fixed Price Airlock</fullName>
+                <default>false</default>
+                <label>Fixed Price Airlock</label>
+            </value>
+            <value>
+                <fullName>Fixed Price Premium</fullName>
+                <default>false</default>
+                <label>Fixed Price Premium</label>
+            </value>
+            <value>
                 <fullName>Fulfilio</fullName>
                 <default>false</default>
                 <label>Fulfilio</label>
@@ -163,6 +178,21 @@
                 <fullName>International AP</fullName>
                 <default>false</default>
                 <label>International AP</label>
+            </value>
+            <value>
+                <fullName>International Commercial</fullName>
+                <default>false</default>
+                <label>International Commercial</label>
+            </value>
+            <value>
+                <fullName>International Returns</fullName>
+                <default>false</default>
+                <label>International Returns</label>
+            </value>
+            <value>
+                <fullName>International Standard, Express &amp; Letters</fullName>
+                <default>false</default>
+                <label>International Standard, Express &amp; Letters</label>
             </value>
             <value>
                 <fullName>Letters/Trusted Services</fullName>
@@ -208,6 +238,11 @@
                 <fullName>MRS &amp; Data Insights</fullName>
                 <default>false</default>
                 <label>MRS &amp; Data Insights</label>
+            </value>
+            <value>
+                <fullName>Next Flight</fullName>
+                <default>false</default>
+                <label>Next Flight</label>
             </value>
             <value>
                 <fullName>NXF</fullName>
@@ -265,6 +300,11 @@
                 <label>PostLogistics International</label>
             </value>
             <value>
+                <fullName>Premium</fullName>
+                <default>false</default>
+                <label>Premium</label>
+            </value>
+            <value>
                 <fullName>Print Post</fullName>
                 <default>false</default>
                 <label>Print Post</label>
@@ -278,6 +318,21 @@
                 <fullName>Retail Services</fullName>
                 <default>false</default>
                 <label>Retail Services</label>
+            </value>
+            <value>
+                <fullName>Road Express</fullName>
+                <default>false</default>
+                <label>Road Express</label>
+            </value>
+            <value>
+                <fullName>Road Express 2 men</fullName>
+                <default>false</default>
+                <label>Road Express 2 men</label>
+            </value>
+            <value>
+                <fullName>Road Express Tailgate</fullName>
+                <default>false</default>
+                <label>Road Express Tailgate</label>
             </value>
             <value>
                 <fullName>Securepay</fullName>

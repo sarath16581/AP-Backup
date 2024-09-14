@@ -490,7 +490,6 @@ private class APT_SyncContractAndRatesBatch_Test {
             APT_SyncContractAndRatesBatch.populateExpressCourierRates(r2tSystemProperties,'UK');
             APT_SyncContractAndRatesBatch.populateExpressCourierRates(r2tSystemProperties,'NZ');
             APT_SyncContractAndRatesBatch.populateAirmailRates(r2tSystemProperties);
-
 			// this test is failing as the test is expecting an Active user named 'Natasha Adelson' !!!
 			//User user=[select id,name,Phone,Title,FirstName,LastName,MiddleName,MobilePhone,Fax,Email from user where name='Natasha Adelson' AND isactive =true LIMIT 1];
 			User user = ApplicationTestDataFactory.getUsers(1, true)[0];

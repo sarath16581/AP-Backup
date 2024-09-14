@@ -4,7 +4,7 @@
         <fullName>ArticleRecallRedirect</fullName>
         <apiVersion>41.0</apiVersion>
         <description>Sends a Redirect/Recall event message to SAP EM. Used by AusPost Business Portal (Merchant Recall)</description>
-        <endpointUrl>https://webapi-ptestext.npe.auspost.com.au/ptest/Services/TransportandLogisticsServices/EventManagement/PublishMerchantRecall</endpointUrl>
+        <endpointUrl>https://webapi-ptestext.npe.auspost.com.au/stest/Services/TransportandLogisticsServices/EventManagement/PublishMerchantRecall</endpointUrl>
         <fields>AddressLine1__c</fields>
         <fields>AddressLine2__c</fields>
         <fields>City__c</fields>

@@ -3,6 +3,7 @@
     <fullName>All</fullName>
     <columns>NAME</columns>
     <columns>Scale__c</columns>
+    <columns>Stage__c</columns>
     <columns>Product_1__c</columns>
     <columns>Risk_Type__c</columns>
     <columns>Reason__c</columns>

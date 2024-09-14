@@ -62,7 +62,7 @@
                 <field>CRMCSSOID__c</field>
             </layoutItems>
             <layoutItems>
-                <behavior>Readonly</behavior>
+                <behavior>Edit</behavior>
                 <field>OID_ID__c</field>
             </layoutItems>
             <layoutItems>

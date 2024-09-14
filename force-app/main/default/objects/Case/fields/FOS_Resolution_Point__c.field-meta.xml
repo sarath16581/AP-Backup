@@ -1,72 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>FOS_Resolution_Point__c</fullName>
+    <businessStatus>DeprecateCandidate</businessStatus>
     <externalId>false</externalId>
-    <label>FOS Resolution Point</label>
+    <label>Dep - FOS Resolution Point</label>
+    <length>40</length>
     <required>false</required>
-    <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
-    <type>Picklist</type>
-    <valueSet>
-        <restricted>true</restricted>
-        <valueSetDefinition>
-            <sorted>false</sorted>
-            <value>
-                <fullName>Registration &amp; Referral</fullName>
-                <default>false</default>
-                <label>Registration &amp; Referral</label>
-            </value>
-            <value>
-                <fullName>TOR Review</fullName>
-                <default>false</default>
-                <label>TOR Review</label>
-            </value>
-            <value>
-                <fullName>Case Management 1</fullName>
-                <default>false</default>
-                <label>Case Management 1</label>
-            </value>
-            <value>
-                <fullName>Case Management 2 (Standard)</fullName>
-                <default>false</default>
-                <label>Case Management 2 (Standard)</label>
-            </value>
-            <value>
-                <fullName>Case Management - Concilliation (Standard)</fullName>
-                <default>false</default>
-                <label>Case Management - Concilliation (Standard)</label>
-            </value>
-            <value>
-                <fullName>Case Management - Concilliation (Complex)</fullName>
-                <default>false</default>
-                <label>Case Management - Concilliation (Complex)</label>
-            </value>
-            <value>
-                <fullName>Fast Track - Preliminary View</fullName>
-                <default>false</default>
-                <label>Fast Track - Preliminary View</label>
-            </value>
-            <value>
-                <fullName>Fast Track - Decision</fullName>
-                <default>false</default>
-                <label>Fast Track - Decision</label>
-            </value>
-            <value>
-                <fullName>Referred to NCCC</fullName>
-                <default>false</default>
-                <label>Referred to NCCC</label>
-            </value>
-            <value>
-                <fullName>Direct Contact</fullName>
-                <default>false</default>
-                <label>Direct Contact</label>
-            </value>
-            <value>
-                <fullName>Possible Systemic Issue</fullName>
-                <default>false</default>
-                <label>Possible Systemic Issue</label>
-            </value>
-        </valueSetDefinition>
-    </valueSet>
+    <type>Text</type>
+    <unique>false</unique>
 </CustomField>
