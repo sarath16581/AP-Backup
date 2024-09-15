@@ -366,7 +366,10 @@
             "numberOfArticles" : 5,
             "showTitle" : false,
             "title" : "Domestic Parcels",
-            "topicList" : [ ]
+            "topicList" : [ {
+              "isPublic" : false,
+              "name" : "0TO1m000000012EGAQ"
+            } ]
           },
           "componentName" : "forceCommunity:topArticleList",
           "id" : "701836d4-aa9a-45cc-96d9-d0db896d36f0",

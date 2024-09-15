@@ -8,12 +8,12 @@ History:
 26.09.2012      Richard Enojas (Salesforce.com) Added AFTER DELETE to delete all Revenue Schedules related to the Opportunity Line Item being deleted   
 18.01.2019      John.Mapanao@auspost.com.au     Added logic for Email links for MW0003089 - Opportunity Complexity rating in Salesforce
 11.02.2021		Madhuri.awasthi@auspost.com.au	: REQ2368013 Added Quantity to create revenue schedule record with Contract Start and End Date logic
+20.08.2024 	Ken McGuire - OPC replacement added application framework
 **************************************************/
 trigger OpportunityLineItemTrigger on OpportunityLineItem (before insert, before update, before delete, after delete, after insert, after update) {
     if (!SystemSettings__c.getInstance().Disable_Triggers__c) {
         // application framework
         (new OpportunityLineItemTriggerHandler()).dispatch();
-        
         // legacy
         if (trigger.isAfter && trigger.isDelete){
             

@@ -687,11 +687,6 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>DMAPP__Dealmaker_Opportunity__c</field>
-            <table>Opportunity</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
             <field>Description</field>
             <table>Opportunity</table>
         </columns>
@@ -1660,11 +1655,6 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>DMAPP__ThirdPartyName__c</field>
-            <table>Opportunity.Activities</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
             <field>Acknowledged_Date__c</field>
             <table>Opportunity.Activities</table>
         </columns>
@@ -2155,11 +2145,6 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>DMAPP__TTG_Prime_Action_Type__c</field>
-            <table>Opportunity.Activities</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
             <field>Priority</field>
             <table>Opportunity.Activities</table>
         </columns>
@@ -2291,11 +2276,6 @@
         <columns>
             <checkedByDefault>false</checkedByDefault>
             <field>TaskUpdate__c</field>
-            <table>Opportunity.Activities</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>DMAPP__ThirdPartyId__c</field>
             <table>Opportunity.Activities</table>
         </columns>
         <columns>

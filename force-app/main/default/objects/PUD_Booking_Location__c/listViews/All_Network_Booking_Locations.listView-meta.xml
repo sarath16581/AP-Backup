@@ -7,11 +7,12 @@
     <columns>City__c</columns>
     <columns>Post_Code__c</columns>
     <columns>State__c</columns>
-    <filterScope>Mine</filterScope>
+    <filterScope>Everything</filterScope>
     <filters>
-        <field>State__c</field>
+        <field>RECORDTYPE</field>
         <operation>equals</operation>
-        <value>NSW</value>
+        <value>PUD_Booking_Location__c.AP_Network</value>
     </filters>
     <label>All Network Booking Locations</label>
+    <language>en_US</language>
 </ListView>

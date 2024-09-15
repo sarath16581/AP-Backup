@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>InYearRevenue__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF(
+    Contract_Start_Date__c = Contract_End_Date__c,
+    TotalPrice,
+    IF(
+        IF(
+            IF(Close_Date__c &lt; DATE(YEAR(Close_Date__c), 7, 1), DATE(YEAR(Close_Date__c), 6, 30), DATE(YEAR(Close_Date__c) + 1, 6, 30)) &gt; Contract_End_Date__c,
+            Contract_End_Date__c,
+            IF(Close_Date__c &lt; DATE(YEAR(Close_Date__c), 7, 1), DATE(YEAR(Close_Date__c), 6, 30), DATE(YEAR(Close_Date__c) + 1, 6, 30))
+        ) = IF(Close_Date__c &gt; Contract_Start_Date__c, Close_Date__c, Contract_Start_Date__c),
+        (1 / ( (Contract_End_Date__c - Contract_Start_Date__c) + 1)) * TotalPrice,
+        IF(
+            (
+                IF(
+                    IF(Close_Date__c &lt; DATE(YEAR(Close_Date__c), 7, 1), DATE(YEAR(Close_Date__c), 6, 30), DATE(YEAR(Close_Date__c) + 1, 6, 30)) &gt; Contract_End_Date__c,
+                    Contract_End_Date__c,
+                    IF(Close_Date__c &lt; DATE(YEAR(Close_Date__c), 7, 1), DATE(YEAR(Close_Date__c), 6, 30), DATE(YEAR(Close_Date__c) + 1, 6, 30))
+                ) - 
+                IF(Close_Date__c &gt; Contract_Start_Date__c, Close_Date__c, Contract_Start_Date__c)
+            ) &gt; 0,
+            (
+                (
+                    IF(
+                        IF(Close_Date__c &lt; DATE(YEAR(Close_Date__c), 7, 1), DATE(YEAR(Close_Date__c), 6, 30), DATE(YEAR(Close_Date__c) + 1, 6, 30)) &gt; Contract_End_Date__c,
+                        Contract_End_Date__c,
+                        IF(Close_Date__c &lt; DATE(YEAR(Close_Date__c), 7, 1), DATE(YEAR(Close_Date__c), 6, 30), DATE(YEAR(Close_Date__c) + 1, 6, 30))
+                    ) - 
+                    IF(Close_Date__c &gt; Contract_Start_Date__c, Close_Date__c, Contract_Start_Date__c)
+                ) + 1
+            ) / (Contract_End_Date__c - Contract_Start_Date__c + 1) * TotalPrice,
+            0
+        )
+    )
+)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>In Year Revenue</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>2</scale>
+    <type>Currency</type>
+</CustomField>

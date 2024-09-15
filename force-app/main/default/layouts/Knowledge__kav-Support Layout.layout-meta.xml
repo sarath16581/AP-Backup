@@ -7,7 +7,7 @@
         <label>Information</label>
         <layoutColumns>
             <layoutItems>
-                <field>Supportinformation__c</field>
+                <field>SupportInformation__c</field>
             </layoutItems>
             <layoutItems>
                 <field>TimeToRemind__c</field>

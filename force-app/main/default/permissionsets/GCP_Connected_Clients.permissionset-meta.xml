@@ -209,11 +209,6 @@ This perm set is to provision access to Data Science team to extract data from S
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Location.Service_Territory__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
         <field>Location.SiteInstructions__c</field>
         <readable>true</readable>
     </fieldPermissions>

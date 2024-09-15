@@ -33,6 +33,7 @@
 * 2023-10-10 jacob.isaac@auspost.com.au REQ3267978 - removing all reference of Mail Redirection picklist for International Letters/Parcel Product Cateogry
 * 2023-11-20 - Nathan Franklin - Adding a tactical reCAPTCHA implementation to assist with reducing botnet attack vectors (INC2251557)
 * 2024-02-14 - Swati Mogadala - REQ3414153 Adding address details to case description 
+* 2024-07-29 - Jacob Isaac - REQ3579832 - Removed Express Post from autoclosing cases. Exporess Post will be routed to agents instead of going through exception checker
 */
 public with sharing class ChasApexController extends ChasBase{
 

@@ -61,12 +61,12 @@
                 <targetReference>Reopen_Leads</targetReference>
             </connector>
             <label>7 days after disqualified</label>
-            <offsetNumber>5</offsetNumber>
-            <offsetUnit>Minutes</offsetUnit>
+            <offsetNumber>7</offsetNumber>
+            <offsetUnit>Days</offsetUnit>
             <recordField>Lead_Converted_or_Disqualified_Time__c</recordField>
             <timeSource>RecordField</timeSource>
         </scheduledPaths>
         <triggerType>RecordAfterSave</triggerType>
     </start>
-    <status>Obsolete</status>
+    <status>Active</status>
 </Flow>

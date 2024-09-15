@@ -217,30 +217,6 @@
         <type>CustomApplication</type>
     </appMenuItems>
     <appMenuItems>
-        <name>DMAPP__Account_Manager_Admin</name>
-        <type>CustomApplication</type>
-    </appMenuItems>
-    <appMenuItems>
-        <name>DMAPP__Dealmaker_Admin</name>
-        <type>CustomApplication</type>
-    </appMenuItems>
-    <appMenuItems>
-        <name>DMAPP__Dealmaker_eLearning_Admin</name>
-        <type>CustomApplication</type>
-    </appMenuItems>
-    <appMenuItems>
-        <name>DMAPP__Milestones</name>
-        <type>CustomApplication</type>
-    </appMenuItems>
-    <appMenuItems>
-        <name>DMAPP__Playbook_Admin</name>
-        <type>CustomApplication</type>
-    </appMenuItems>
-    <appMenuItems>
-        <name>DMAPP__Smart_Catalog_Publisher</name>
-        <type>CustomApplication</type>
-    </appMenuItems>
-    <appMenuItems>
         <name>Apttus__ApttusConfigurableWizard</name>
         <type>CustomApplication</type>
     </appMenuItems>
@@ -757,11 +733,7 @@
         <type>ConnectedApp</type>
     </appMenuItems>
     <appMenuItems>
-        <name>NPE_Connected_Clients</name>
-        <type>ConnectedApp</type>
-    </appMenuItems>
-    <appMenuItems>
-        <name>bbtest</name>
+        <name>STEST_NPE_Connected_Clients</name>
         <type>ConnectedApp</type>
     </appMenuItems>
     <appMenuItems>
@@ -777,31 +749,15 @@
         <type>CustomApplication</type>
     </appMenuItems>
     <appMenuItems>
-        <name>NetworkPartnerManagement</name>
+        <name>Network_Partners_Support</name>
         <type>CustomApplication</type>
     </appMenuItems>
     <appMenuItems>
-        <name>standard__ExpressionSetConsole</name>
-        <type>CustomApplication</type>
-    </appMenuItems>
-    <appMenuItems>
-        <name>standard__LightningScheduler</name>
-        <type>CustomApplication</type>
-    </appMenuItems>
-    <appMenuItems>
-        <name>standard__QueueManagement</name>
-        <type>CustomApplication</type>
-    </appMenuItems>
-    <appMenuItems>
-        <name>standard__PrivacyCenterConsole</name>
-        <type>CustomApplication</type>
-    </appMenuItems>
-    <appMenuItems>
-        <name>Pardot_to_SF_Integration_Secure_Connected_App</name>
+        <name>PermComparator</name>
         <type>ConnectedApp</type>
     </appMenuItems>
     <appMenuItems>
-        <name>b2bma_canvas</name>
-        <type>ConnectedApp</type>
+        <name>SproutSocialApp__Setup</name>
+        <type>CustomApplication</type>
     </appMenuItems>
 </AppMenu>

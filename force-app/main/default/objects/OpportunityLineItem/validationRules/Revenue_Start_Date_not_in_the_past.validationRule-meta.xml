@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Revenue_Start_Date_not_in_the_past</fullName>
+    <active>true</active>
+    <description>The revenue start date must not be in the past unless it is a pre-entry senario</description>
+    <errorConditionFormula>AND(
+    ISCHANGED( Contract_Start_Date__c ),
+    Contract_Start_Date__c &lt; TODAY(),
+    Opportunity.Pre_Entry__c = FALSE
+)</errorConditionFormula>
+    <errorDisplayField>Hidden_Contract_End_Date__c</errorDisplayField>
+    <errorMessage>Revenue Start Date Cannot be in the Past.</errorMessage>
+</ValidationRule>

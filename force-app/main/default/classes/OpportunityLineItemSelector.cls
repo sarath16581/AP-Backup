@@ -7,6 +7,7 @@
  * @description A selector class that sits in the base domain for OpportunityLineItem
  * @changelog
  * 2023-04-12 - Harry Wang - Created
+ * 2024-07-09 - Ken McGuire - added selector options to line item selector
  */
 public with sharing class OpportunityLineItemSelector extends ApplicationSelector {
 	public enum Options {
@@ -59,6 +60,14 @@ public with sharing class OpportunityLineItemSelector extends ApplicationSelecto
 		return Database.query(qb.toSoqlString());
 	}
 
+   /**
+	 * @description Run a simple query to get records based on Id's and selector options
+	 */
+	public virtual List<OpportunityLineItem> selectById(Set<Id> ids, Set<Object> selectorOptions) {
+		QueryBuilder qb = newQueryBuilder(selectorOptions).addConditions().add(new QueryBuilder.SimpleCondition(OpportunityLineItem.Id + ' in :ids')).endConditions();
+		return Database.query(qb.toSoqlString());
+	}
+    
 	/**
 	 * @description Select opportunity line item by given opportunity IDs
 	 */

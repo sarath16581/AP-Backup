@@ -140,10 +140,6 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Required</behavior>
-                <field>Reporting_TIme__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Required</behavior>
                 <field>Classification__c</field>
             </layoutItems>
         </layoutColumns>
@@ -154,12 +150,7 @@
         <detailHeading>true</detailHeading>
         <editHeading>true</editHeading>
         <label>Report Type</label>
-        <layoutColumns>
-            <layoutItems>
-                <behavior>Required</behavior>
-                <field>Reporting_Type__c</field>
-            </layoutItems>
-        </layoutColumns>
+        <layoutColumns/>
         <layoutColumns/>
         <style>TwoColumnsLeftToRight</style>
     </layoutSections>
@@ -185,10 +176,6 @@
             <layoutItems>
                 <behavior>Edit</behavior>
                 <field>Time_to_Resolve_mins__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>Rework_Time_mins__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>

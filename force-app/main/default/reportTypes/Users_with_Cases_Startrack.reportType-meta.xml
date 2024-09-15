@@ -258,7 +258,4 @@
         </columns>
         <masterLabel>Users</masterLabel>
     </sections>
-    <sections>
-        <masterLabel>Cases</masterLabel>
-    </sections>
 </ReportType>

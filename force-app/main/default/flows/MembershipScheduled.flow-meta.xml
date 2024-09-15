@@ -442,7 +442,7 @@
         </scheduledPaths>
         <triggerType>RecordAfterSave</triggerType>
     </start>
-    <status>Active</status>
+    <status>Obsolete</status>
     <variables>
         <description>Variable to capture EmailMessageId after record creation</description>
         <name>Var_EmailMessageId</name>

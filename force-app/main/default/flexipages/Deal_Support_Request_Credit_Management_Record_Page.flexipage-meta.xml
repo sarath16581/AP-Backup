@@ -340,7 +340,7 @@
                 <fieldItem>Record.Customer_Request_Attached__c</fieldItem>
                 <identifier>RecordCustomer_Request_Attached__cField</identifier>
                 <visibilityRule>
-                    <booleanFilter>1 OR 2 OR 3</booleanFilter>
+                    <booleanFilter>1 OR 2 OR 3 OR 4</booleanFilter>
                     <criteria>
                         <leftValue>{!Record.Credit_Work_Type__c}</leftValue>
                         <operator>EQUAL</operator>
@@ -356,7 +356,22 @@
                         <operator>EQUAL</operator>
                         <rightValue>Add lodgement point</rightValue>
                     </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Credit_Work_Type__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Close All Billing Accounts - ABN Change</rightValue>
+                    </criteria>
                 </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Business_At_Risk__c</fieldItem>
+                <identifier>RecordBusiness_At_Risk_cField</identifier>
             </fieldInstance>
         </itemInstances>
         <itemInstances>
@@ -610,10 +625,33 @@
                 <fieldItem>Record.Reason_for_Account_Closure__c</fieldItem>
                 <identifier>RecordReason_for_Account_Closure__cField</identifier>
                 <visibilityRule>
+                    <booleanFilter>1 OR 2</booleanFilter>
                     <criteria>
                         <leftValue>{!Record.Credit_Work_Type__c}</leftValue>
                         <operator>EQUAL</operator>
                         <rightValue>Close billing account</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Credit_Work_Type__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Close All Billing Accounts - ABN Change</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.EstimatedAccountClosureDate__c</fieldItem>
+                <identifier>RecordEstimatedAccountClosureDate_cField</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.Credit_Work_Type__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Close All Billing Accounts - ABN Change</rightValue>
                     </criteria>
                 </visibilityRule>
             </fieldInstance>

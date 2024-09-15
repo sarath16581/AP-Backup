@@ -6,8 +6,8 @@
     <externalId>false</externalId>
     <inlineHelpText>Enter comma separated Profile Names to be included to send Email Notification before few days from Deactivation from UserDeactivationBatchable</inlineHelpText>
     <label>Notification Profile Names</label>
-	<securityClassification>INTERNAL</securityClassification>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>TextArea</type>
 </CustomField>

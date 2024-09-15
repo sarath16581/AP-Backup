@@ -583,41 +583,6 @@
         </values>
     </picklistValues>
     <picklistValues>
-        <picklist>CoE_Team__c</picklist>
-        <values>
-            <fullName>After Sales</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Business Transition</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Performance and Solutions</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Sales Optimisation</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Sales Performance</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Sales Planning %26 Governance</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Sales Systems</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Systems and Governance</fullName>
-            <default>false</default>
-        </values>
-    </picklistValues>
-    <picklistValues>
         <picklist>Complaint__c</picklist>
         <values>
             <fullName>No</fullName>
@@ -898,40 +863,6 @@
         </values>
         <values>
             <fullName>happy</fullName>
-            <default>false</default>
-        </values>
-    </picklistValues>
-    <picklistValues>
-        <picklist>DWS_Type__c</picklist>
-        <values>
-            <fullName>Consignment Detailed Data %28R0468%29</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Contract Renewal Cubic Summary %28R0464%29</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Cube Factor History %28R0462%29</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Merchant Profile Report R0530</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Trend Report R0504</fullName>
-            <default>false</default>
-        </values>
-    </picklistValues>
-    <picklistValues>
-        <picklist>Deploy_in_Business_Hour__c</picklist>
-        <values>
-            <fullName>No</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Yes</fullName>
             <default>false</default>
         </values>
     </picklistValues>
@@ -1613,21 +1544,6 @@
         </values>
     </picklistValues>
     <picklistValues>
-        <picklist>Invoicing__c</picklist>
-        <values>
-            <fullName>Combined Billing</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>MBA %28My Business Account%29</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Non Standard Invoicing</fullName>
-            <default>false</default>
-        </values>
-    </picklistValues>
-    <picklistValues>
         <picklist>Issue_Resolution__c</picklist>
         <values>
             <fullName>64-bit windows 7</fullName>
@@ -2005,29 +1921,6 @@
         </values>
     </picklistValues>
     <picklistValues>
-        <picklist>Lean_Type__c</picklist>
-        <values>
-            <fullName>A3 Project</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Green Belt</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Problem Solving</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Quick Win</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>VSM%2FLBC</fullName>
-            <default>false</default>
-        </values>
-    </picklistValues>
-    <picklistValues>
         <picklist>Network_Response__c</picklist>
         <values>
             <fullName>Addressed with staff</fullName>
@@ -2160,67 +2053,6 @@
         </values>
         <values>
             <fullName>Web</fullName>
-            <default>false</default>
-        </values>
-    </picklistValues>
-    <picklistValues>
-        <picklist>Other_CoE_s_Involved__c</picklist>
-        <values>
-            <fullName>Contracts</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Implementation</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Optimisation</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Reporting</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Service</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Systems</fullName>
-            <default>false</default>
-        </values>
-    </picklistValues>
-    <picklistValues>
-        <picklist>Other_Report_Detail__c</picklist>
-        <values>
-            <fullName>Billing Account Detail</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Product Transaction Level Detail</fullName>
-            <default>false</default>
-        </values>
-    </picklistValues>
-    <picklistValues>
-        <picklist>Others_Involved__c</picklist>
-        <values>
-            <fullName>Finance</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Other</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Product</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Sales</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Transport</fullName>
             <default>false</default>
         </values>
     </picklistValues>
@@ -3138,80 +2970,6 @@
         </values>
     </picklistValues>
     <picklistValues>
-        <picklist>Reporting_TIme__c</picklist>
-        <values>
-            <fullName>12 Months</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>24 Months</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>One Year - FY</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Other</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Two Years - FY</fullName>
-            <default>false</default>
-        </values>
-    </picklistValues>
-    <picklistValues>
-        <picklist>Reporting_Type__c</picklist>
-        <values>
-            <fullName>CMS</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Develop New Reporting Solution</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>International Only</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Letter Services Only</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Other</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Other Reporting</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Parcel Performance - DOT</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Parcel and Express Only</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Post Billpay</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Schedule Recurring Reports</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Spend and volume all products</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>eParcel Dispersion</fullName>
-            <default>false</default>
-        </values>
-    </picklistValues>
-    <picklistValues>
         <picklist>Request_Origin__c</picklist>
         <values>
             <fullName>Compliance Team</fullName>
@@ -3405,21 +3163,6 @@
         </values>
         <values>
             <fullName>Western Union Money Transfers</fullName>
-            <default>false</default>
-        </values>
-    </picklistValues>
-    <picklistValues>
-        <picklist>Risk_Status__c</picklist>
-        <values>
-            <fullName>High</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Low</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Medium</fullName>
             <default>false</default>
         </values>
     </picklistValues>
@@ -3715,25 +3458,6 @@
         </values>
         <values>
             <fullName>WA</fullName>
-            <default>false</default>
-        </values>
-    </picklistValues>
-    <picklistValues>
-        <picklist>Strategic_Goal__c</picklist>
-        <values>
-            <fullName>Attack the revenue line</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Build the best team</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Create exceptional customer service</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Optimise operations with insights</fullName>
             <default>false</default>
         </values>
     </picklistValues>
@@ -4629,37 +4353,6 @@
         </values>
     </picklistValues>
     <picklistValues>
-        <picklist>Technical_Parcel_Set_up__c</picklist>
-        <values>
-            <fullName>Click %26 Send</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Delivery Choices</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Return Logistics</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Track Event Extract</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>eParcel Integration</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>eParcel Labels</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>eParcel Online</fullName>
-            <default>false</default>
-        </values>
-    </picklistValues>
-    <picklistValues>
         <picklist>Type</picklist>
         <values>
             <fullName>All Other Enquiries</fullName>
@@ -4986,7 +4679,7 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>0350 - DHL%28VIC%29 Supply Chain</fullName>
+            <fullName>0350 - Altona</fullName>
             <default>false</default>
         </values>
         <values>
@@ -5010,164 +4703,6 @@
         </values>
         <values>
             <fullName>Declared Value</fullName>
-            <default>false</default>
-        </values>
-    </picklistValues>
-    <picklistValues>
-        <picklist>Work_Activity__c</picklist>
-        <values>
-            <fullName>Audit Requirement</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Baselining</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Coaching</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Customer %26 Product Insight</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Data Maintenance</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Document P%26P</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Insights %26 Analysis</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Knowledge Sharing</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Maintenance P%26P</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Non SFDC Reporting %2F  Dashboard</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Other</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Presentation</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Process</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Process  Investigation</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Process Improvement</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Requirements</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Risk Item</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>SBU Initiatives</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>SFDC Dashboard</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>SFDC Reporting</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Safety Item</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Sales Incentive Scheme</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Scorecard Methodology</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Solution Assessment</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>System - SCCR</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>System Documentation</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>System Enhancement</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>System Fix</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>System Maintenance</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Usage</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>User Support</fullName>
-            <default>false</default>
-        </values>
-    </picklistValues>
-    <picklistValues>
-        <picklist>Work_Category__c</picklist>
-        <values>
-            <fullName>Other</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Process</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Program</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Sales Analytics</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Sales Incentive Scheme</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>System</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>User Support</fullName>
             <default>false</default>
         </values>
     </picklistValues>

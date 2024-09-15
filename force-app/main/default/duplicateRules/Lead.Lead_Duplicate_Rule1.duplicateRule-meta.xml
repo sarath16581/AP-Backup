@@ -84,7 +84,7 @@ A.judd 10/03/20- Update on Contact and Lead mappings
             <outputObject>Contact</outputObject>
         </objectMapping>
     </duplicateRuleMatchRules>
-    <isActive>true</isActive>
+    <isActive>false</isActive>
     <masterLabel>Lead Duplicate Rule1</masterLabel>
     <operationsOnInsert>Alert</operationsOnInsert>
     <operationsOnInsert>Report</operationsOnInsert>

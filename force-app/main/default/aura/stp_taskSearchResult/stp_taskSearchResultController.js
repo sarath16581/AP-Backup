@@ -15,64 +15,19 @@
             console.log('1.stp_tasksearchResult : search button clicked');
         }
     },
-	sortData: function(component,event,helper){
-		console.log('sorting invoked');
-		console.log(JSON.stringify(event));
-		console.log(event.Ep.fieldName);
-		console.log(event.Ep.sortDirection);
-		let sortDirection = event.Ep.sortDirection;
-		let fieldName = event.Ep.fieldName;
-		//var payload = event.getParam("payload");
-		console.log(JSON.stringify(component.get("v.dataList")));
-		//toBeSorted(event.Ep.fieldName,event.Ep.sortDirection);
-		var data = component.get("v.dataList");
-		var reverse = sortDirection !== 'asc';
-		data.sort(function(a, b) {
-            var aVal = a[fieldName] || '';
-            var bVal = b[fieldName] || '';
 
-            // For numeric fields
-            if (!isNaN(aVal) && !isNaN(bVal)) {
-                return reverse ? aVal - bVal : bVal - aVal;
-            }
+    /**
+    *  When displaying My Finished task,
+    *  Hide Acknowledge button
+    *
+    */
+    onMyFinishedTasksDisplay:function(component,event, helper){
+        var acknowledgeBtn = component.find("btnAcknowledge");
+        if (acknowledgeBtn) {
+            $A.util.addClass(acknowledgeBtn, 'slds-hide');
+        }
+    },
 
-            // For text fields
-            if (typeof aVal === 'string' && typeof bVal === 'string') {
-                return reverse ? bVal.localeCompare(aVal) : aVal.localeCompare(bVal);
-            }
-
-            // For other types, just return 0 to maintain the order
-            return 0;
-        });
-
-        // Update the data with sorted data
-        component.set('v.dataList', data);
-		console.log(component.get('v.dataList'));
-		var rowsData = component.get('v.dataList');
-		var pageSize = component.get("v.pageSize");
-            component.set("v.totalRecords", rowsData.length);
-            component.set("v.startRec", 1);
-            component.set("v.currentPageNumber", 1);
-            component.set("v.lastRec", pageSize);
-            var PagList = [];
-            for ( var i=0; i< pageSize; i++ ) {
-                if ( rowsData.length> i ){
-                    PagList.push(rowsData[i]);
-                }
-            }
-
-            // setting up the record range
-            if(rowsData.length != 1){
-                var last = Math.min((pageSize), rowsData.length );
-                var range = '1 - '+last;
-                component.set('v.currentRange', range);
-            } else {
-                var range = rowsData.length;
-                component.set("v.currentRange", range);
-            }
-            component.set('v.data', PagList);
-	},
-	
     /**
      *  Populate data into component
      *  Reset  attributes
@@ -179,6 +134,16 @@
         }
     },
 
+	/**
+     *  Sort the data based on the column name
+     */
+	onDoSorting: function(component, event, helper) {
+        var fieldName = event.getParam('fieldName');
+        var sortDirection = event.getParam('sortDirection');
+		component.set("v.sortBy", fieldName);
+		component.set("v.sortDirection", sortDirection);
+		helper.sortData(component, fieldName, sortDirection);
+    },
     /**
     *   Handle when check box on data table is clicked
     *   Select the rows clicked

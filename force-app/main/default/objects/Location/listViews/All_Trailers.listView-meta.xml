@@ -7,7 +7,6 @@
     <columns>Make__c</columns>
     <columns>Model__c</columns>
     <columns>ParentLocation</columns>
-    <columns>Service_Territory__c</columns>
     <columns>Line_Haul__c</columns>
     <columns>LastModifiedBy</columns>
     <columns>LastModifiedDate</columns>
@@ -25,11 +24,6 @@
         <field>Type__c</field>
         <operation>equals</operation>
         <value>Trailer</value>
-    </filters>
-    <filters>
-        <field>Service_Territory__c</field>
-        <operation>equals</operation>
-        <value>Melbourne,Dandenong</value>
     </filters>
     <filters>
         <field>Status__c</field>

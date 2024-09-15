@@ -197,7 +197,20 @@
         <detailHeading>true</detailHeading>
         <editHeading>true</editHeading>
         <label>Data Quality</label>
-        <layoutColumns/>
+        <layoutColumns>
+            <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>Score_Stars_del__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>Data_Quality_Score__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Data_Quality_Description__c</field>
+            </layoutItems>
+        </layoutColumns>
         <layoutColumns>
             <layoutItems>
                 <behavior>Readonly</behavior>
@@ -393,6 +406,11 @@
             <sortOrder>15</sortOrder>
         </platformActionListItems>
         <platformActionListItems>
+            <actionName>FeedItem.TextPost</actionName>
+            <actionType>QuickAction</actionType>
+            <sortOrder>19</sortOrder>
+        </platformActionListItems>
+        <platformActionListItems>
             <actionName>FeedItem.PollPost</actionName>
             <actionType>QuickAction</actionType>
             <sortOrder>16</sortOrder>
@@ -406,11 +424,6 @@
             <actionName>Submit</actionName>
             <actionType>StandardButton</actionType>
             <sortOrder>18</sortOrder>
-        </platformActionListItems>
-        <platformActionListItems>
-            <actionName>FeedItem.TextPost</actionName>
-            <actionType>QuickAction</actionType>
-            <sortOrder>19</sortOrder>
         </platformActionListItems>
     </platformActionList>
     <relatedContent>
@@ -433,15 +446,15 @@
         <excludeButtons>ChoosePricebook</excludeButtons>
         <excludeButtons>MultiEdit</excludeButtons>
         <fields>Product2</fields>
+        <fields>Classification__c</fields>
+        <fields>Contract_Number__c</fields>
+        <fields>Quantity</fields>
+        <fields>Annualised_Value__c</fields>
         <fields>Contract_Start_Date__c</fields>
         <fields>Contract_End_Date__c</fields>
-        <fields>Quantity</fields>
         <fields>UnitPrice</fields>
         <fields>TotalPrice</fields>
-        <fields>Annualised_Value__c</fields>
-        <fields>TweleveMonthRevenue__c</fields>
-        <fields>RetainedRevenue__c</fields>
-        <fields>IncrementalRevenue__c</fields>
+        <fields>In_Year_Revenue__c</fields>
         <relatedList>RelatedLineItemList</relatedList>
     </relatedLists>
     <relatedLists>

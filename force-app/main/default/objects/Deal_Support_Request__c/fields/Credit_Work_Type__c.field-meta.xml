@@ -4,6 +4,7 @@
     <description>Work Type selection for Credit Management Deal Support Request. 
 The field is a dependent picklist field of &apos;Pay Account Type&apos; picklist controlling field.</description>
     <externalId>false</externalId>
+    <inlineHelpText>Please select most accurate option available from the list.</inlineHelpText>
     <label>Credit Work Type</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>
@@ -51,6 +52,11 @@ The field is a dependent picklist field of &apos;Pay Account Type&apos; picklist
                 <default>false</default>
                 <label>Payment related query</label>
             </value>
+            <value>
+                <fullName>Close All Billing Accounts - ABN Change</fullName>
+                <default>false</default>
+                <label>Close All Billing Accounts - ABN Change</label>
+            </value>
         </valueSetDefinition>
         <valueSettings>
             <controllingFieldValue>Billing Account</controllingFieldValue>
@@ -88,6 +94,10 @@ The field is a dependent picklist field of &apos;Pay Account Type&apos; picklist
             <controllingFieldValue>Billing Account</controllingFieldValue>
             <controllingFieldValue>StarTrack Account</controllingFieldValue>
             <valueName>Payment related query</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Billing Account</controllingFieldValue>
+            <valueName>Close All Billing Accounts - ABN Change</valueName>
         </valueSettings>
     </valueSet>
 </CustomField>
