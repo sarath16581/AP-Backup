@@ -342,7 +342,7 @@ public with sharing class SSSWConstants {
 	public static final String SSSW_AGENT_PROFILE = 'SSSW - Service Agent';
 	public static final String SSSW_SOCIAL_INTEGRATION_PROFILE = 'SSSW Social Integration';
 	public static final String SSSW_BSP_COMMUNITY_USER_PROFILE = 'BSP Community User';
-	public static final String UNIFIED_AGENT_PROFILE = 'Customer Service';
+	public static final String UNIFIED_AGENT_PROFILE = 'Unified Customer Service';
 
 	/*** Omnichannel Constants ***/
 	public static final String OMNI_AGENTWORK_STATUS_OPENED = 'Opened';
