@@ -9,16 +9,27 @@
 private class ImpactedArticleTriggerHandlerTest {
 
 	@IsTest
-	private static void testForCoverage() {
+	private static void testImpactedArticleTriggerHandlerMethods() {
+		ImpactedArticleTriggerHandler mockModule = (ImpactedArticleTriggerHandler)MockUtility.mockUtility(ImpactedArticleTriggerHandler.class);
+		Case caseTest = ApplicationTestDataFactoryCase.getCases(1, false)[0];
+		insert caseTest;
+		Article__c articleTest = ApplicationTestDataFactory.getArticles(1, false)[0];
+		insert articleTest;
+		ImpactedArticle__c impactedArticle = ApplicationTestDataFactory.getImpactedArticles(1, caseTest.Id, articleTest.Id, false)[0];
+		insert impactedArticle;
+
+		Assert.areEqual(true, Pattern.compile('\\bImpactedArticleTriggerHandler\\b').matcher(mockModule.toString()).find(), 'ImpactedArticleTriggerHandler should get called');
+		Assert.areEqual(true, Pattern.compile('\\bArticleSubscriptionModule\\b').matcher(mockModule.toString()).find(), 'ArticleSubscriptionModule should get called');
+
 		ImpactedArticleTriggerHandler handler = new ImpactedArticleTriggerHandler();
 		handler.registerModules();
 
-		System.assertEquals(ImpactedArticle__c.SObjectType, handler.getSObjectType());
+		Assert.areEqual(ImpactedArticle__c.SObjectType, handler.getSObjectType());
 		List<SObjectType> sObjectTypes = new List<SObjectType>{
 			ImpactedArticle__c.SObjectType,
 			Case.SObjectType,
 			Article__c.SObjectType
 		};
-		System.assertEquals(sObjectTypes, ImpactedArticleTriggerHandler.getUnitOfWorkSObjectTypes(), 'SObjectType should match but instead got: ' + ImpactedArticleTriggerHandler.getUnitOfWorkSObjectTypes());
+		Assert.areEqual(sObjectTypes, ImpactedArticleTriggerHandler.getUnitOfWorkSObjectTypes(), 'SObjectType should match but instead got: ' + ImpactedArticleTriggerHandler.getUnitOfWorkSObjectTypes());
 	}
 }
