@@ -76,7 +76,7 @@ public with sharing class HappyParcelController {
 	 * @return	TrackingResult
 	 */
 	@AuraEnabled(Cacheable=false)
-	public static TrackingResult queryTrackingApi(String trackingId, Boolean forceConsignmentSearch) {
+	public static TrackingResult queryTrackingApi(String trackingId, Boolean forceConsignmentSearch, String clearViewMappingModel) {
 		try {
 			TIBCOArticleService articleService = TIBCOArticleService.getInstance();
 			TIBCOSearchResult searchResult;
@@ -101,7 +101,7 @@ public with sharing class HappyParcelController {
 
 			// go through all the process results that will be outputted and provide the correct case clearview code mappings (for when a new case needs to be created)
 			// this allows the clearview codes to be defaulted with the correct values in the mini case component (or any external caller to Happy Parcel) based on the article that was queried
-			mapCaseTypesToArticleProducts(output);
+			mapCaseTypesToArticleProducts(output, clearViewMappingModel);
 
 			return output;
 		} catch (Exception e) {
@@ -507,7 +507,7 @@ public with sharing class HappyParcelController {
 	 * Loop through all the search results that will be outputted and provide the correct case clearview code mappings (for when a new case needs to be created)
 	 * this allows the clearview codes to be defaulted with the correct values based on the article that was queried
 	 */
-	private static void mapCaseTypesToArticleProducts(TrackingResult result) {
+	private static void mapCaseTypesToArticleProducts(TrackingResult result, String clearViewMappingModel) {
 		Map<String, List<TrackingArticle>> articleMappingsMap = new Map<String, List<TrackingArticle>>();
 
 		if (result.consignment != null) {
@@ -536,13 +536,18 @@ public with sharing class HappyParcelController {
 			}
 		}
 		// Retrives the UI theme that user currently in.
-		String userTheme = UserInfo.getUiThemeDisplayed();
-		String mappingModel = 'Unified';
+		//String userTheme = UserInfo.getUiThemeDisplayed();
+		//String mappingModel = 'Unified';
 		
 		//setting mapping model based on User UI to use this to filter the mapping records.
-		if(userTheme.equalsIgnoreCase('Theme3')){
-			mappingModel = 'Classic';
+		//if(userTheme.equalsIgnoreCase('Theme3')){
+		//	mappingModel = 'Classic';
+		//}
+		String mappingModel = 'Classic';
+		if (String.isNotBlank(clearViewMappingModel)) {
+			mappingModel = clearViewMappingModel;
 		}
+
 		// grab the clearview code mappings so we can default the clearview code fields in the mini case component
 		// this happens after the search result have been loaded into the Happy Parcel LWC components
 		// Note: We are filtering the mapping records using the mappingModel__c field this is just temporary filter and will be removed once all users moved to lightning.
