@@ -18,13 +18,15 @@ import CASE_STATUS_FIELD from '@salesforce/schema/Case.Status';
 import CASE_ARTICLE_ID_FIELD from '@salesforce/schema/Case.ArticleTest__c';
 import CASE_ID_FIELD from '@salesforce/schema/Case.Id';
 import CASE_TRACKING_ID_FIELD from '@salesforce/schema/Case.ArticleTest__r.TrackingID__c';
-import CASE_IS_UNIFIED_CASE_FIELD from '@salesforce/schema/Case.IsUnifiedCase__c';
+import CASE_RECORDTYPE_NAME from '@salesforce/schema/Case.RecordType.DeveloperName';
 // Impacted Article Fields
 import IMPACTED_ARTICLE_ARTICLE_FIELD from '@salesforce/schema/ImpactedArticle__c.Article__c';
 import IMPACTED_ARTICLE_ARTICLEID_FIELD from '@salesforce/schema/ImpactedArticle__c.ArticleId__c';
 import IMPACTED_ARTICLE_CASE_FIELD from '@salesforce/schema/ImpactedArticle__c.Case__c';
+// Apex class
+import checkIsUnifiedCase from '@salesforce/apex/UnifiedTrackingCaseWrapperController.isUnifiedCase';
 
-const CASE_FIELDS = [CASE_STATUS_FIELD, CASE_ARTICLE_ID_FIELD, CASE_ID_FIELD, CASE_TRACKING_ID_FIELD, CASE_IS_UNIFIED_CASE_FIELD];
+const CASE_FIELDS = [CASE_STATUS_FIELD, CASE_ARTICLE_ID_FIELD, CASE_ID_FIELD, CASE_TRACKING_ID_FIELD, CASE_RECORDTYPE_NAME];
 const IMPCATED_ARTICLE_FIELDS = ['ImpactedArticle__c.Id', 'ImpactedArticle__c.Article__c', 'ImpactedArticle__c.ArticleId__c'];
 const IMPACTED_ARTICLE_RELATION_ID = 'ImpactedArticles__r';
 
@@ -44,11 +46,12 @@ export default class UnifiedTrackingChatWrapper extends LightningElement {
 	enableSelectArticles = false;
 	// Holds tracking Id provided on the record
 	trackingId;
-	// Consignment records that's available on the interation record.
+	// Consignment records that's available on the case record.
 	consignmentIdFromRecord;
 	// Holds case status value from the record
 	statusFromRecord;
-
+	// RecordType developer name
+	recordTypeName;
 	// wire the message context and pass to publisher to send LMS events
 	@wire(MessageContext)
 	messageContext;
@@ -65,22 +68,38 @@ export default class UnifiedTrackingChatWrapper extends LightningElement {
 			this.showSpinner = true;
 			this.mapValuesToVariablesFromGetRecord(data);
 
-			if (!this.consignmentIdFromRecord) {
-				this.trackingId = '';
-				if (this.template.querySelector('c-happy-parcel')) {
-					this.template.querySelector('c-happy-parcel').resetSearch();
-				}
-			} else {
-				this.readOnly = true;
-				this.handleEnableCheckBoxes(true);
-			}
-
-			if (this.statusFromRecord === 'Completed') {
-				this.readOnly = true;
-				this.handleEnableCheckBoxes(false);
-			}
+			this.configHappyParcelComponent();
 		}
 	}
+	/**Only executes on page load and when the record type changes. */
+	@wire(checkIsUnifiedCase, { recordTypeDeveloperName: '$recordTypeName' })
+	wiredIsUnifiedCase({ error, data }) {
+		if (data) {
+			this.isUnifiedCase = data;
+			this.configHappyParcelComponent();
+		} else if (error) {
+			this.isUnifiedCase = false;
+			console.error(error);
+		}
+	}
+
+	configHappyParcelComponent() {
+		if (!this.consignmentIdFromRecord) {
+			this.trackingId = '';
+			if (this.template.querySelector('c-happy-parcel')) {
+				this.template.querySelector('c-happy-parcel').resetSearch();
+			}
+		} else {
+			this.readOnly = true;
+			this.handleEnableCheckBoxes(true);
+		}
+
+		if (this.statusFromRecord === 'Completed') {
+			this.readOnly = true;
+			this.handleEnableCheckBoxes(false);
+		}
+	}
+
 	/**
 	 * Uses getRelatedListRecords to get the related impacted article records of case.
 	 */
@@ -106,7 +125,7 @@ export default class UnifiedTrackingChatWrapper extends LightningElement {
 		const eventDetail = event.detail;
 		if (eventDetail) {
 			if (eventDetail.articleRecordId) {
-				if(this.isUnifiedCase){					
+				if (this.isUnifiedCase) {
 					this.selectOrDeselectImpactedArticles();
 				}
 			}
@@ -114,12 +133,13 @@ export default class UnifiedTrackingChatWrapper extends LightningElement {
 
 		this.showSpinner = false;
 	}
+
 	/** Maps fields to variables */
 	mapValuesToVariablesFromGetRecord(data) {
 		this.trackingId = getFieldValue(data, CASE_TRACKING_ID_FIELD);
 		this.consignmentIdFromRecord = getFieldValue(data, CASE_ARTICLE_ID_FIELD);
 		this.statusFromRecord = getFieldValue(data, CASE_STATUS_FIELD);
-		this.isUnifiedCase = getFieldValue(data, CASE_IS_UNIFIED_CASE_FIELD);
+		this.recordTypeName = getFieldValue(data, CASE_RECORDTYPE_NAME);
 	}
 
 	/** Handler to receive messages from happy parcel component when checkboxes selected.
@@ -140,7 +160,7 @@ export default class UnifiedTrackingChatWrapper extends LightningElement {
 		});
 
 		if (listToCreateImpactedArticles && listToCreateImpactedArticles.length > 0) {
-			this.handleEnableCheckBoxes(false);			
+			this.handleEnableCheckBoxes(false);
 			this.doCreate(listToCreateImpactedArticles);
 		}
 		if (listToDeleteImpactedArticles && listToDeleteImpactedArticles.length > 0) {
@@ -203,7 +223,7 @@ export default class UnifiedTrackingChatWrapper extends LightningElement {
 		return this.isUnifiedCase ? !this.enableSelectArticles : false;
 	}
 
-	handleEnableCheckBoxes(enableCheck){
+	handleEnableCheckBoxes(enableCheck) {
 		this.enableSelectArticles = this.isUnifiedCase ? enableCheck : false;
 	}
 
