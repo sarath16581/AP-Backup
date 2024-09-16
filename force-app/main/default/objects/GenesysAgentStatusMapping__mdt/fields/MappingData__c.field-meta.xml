@@ -2,11 +2,11 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>MappingData__c</fullName>
     <description>Container for the actual status mapping in JSON format</description>
-    <externalId>false</externalId>
     <fieldManageability>DeveloperControlled</fieldManageability>
     <inlineHelpText>Container for the actual status mapping in JSON format</inlineHelpText>
     <label>Mapping Data</label>
     <length>32768</length>
+    <securityClassification>INTERNAL</securityClassification>
     <type>LongTextArea</type>
     <visibleLines>3</visibleLines>
 </CustomField>

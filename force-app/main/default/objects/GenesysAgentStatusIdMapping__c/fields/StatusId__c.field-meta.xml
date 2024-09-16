@@ -8,6 +8,7 @@
     <label>StatusId</label>
     <length>36</length>
     <required>true</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Text</type>
     <unique>true</unique>

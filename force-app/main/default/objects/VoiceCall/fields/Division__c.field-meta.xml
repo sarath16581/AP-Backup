@@ -8,6 +8,7 @@
     <label>Division</label>
     <length>12</length>
     <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <type>Text</type>
     <unique>false</unique>

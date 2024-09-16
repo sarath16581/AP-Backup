@@ -1,10 +1,9 @@
 /**
- * @author 		Paul Perry
- * @date 		15-08-2024
- * @group 		Selector
- * @tag			Selector
- *
- * @description 	A very simple selector class for VoiceCall Object
+ * @description A very simple selector class for VoiceCall Object
+ * @author Paul Perry
+ * @date 2024-08-15
+ * @changelog
+ * 2024-08-15 - Paul Perry - created
  */
 public virtual inherited sharing class VoiceCallsSelector extends ApplicationSelector {
 	public enum Options {
@@ -82,22 +81,9 @@ public virtual inherited sharing class VoiceCallsSelector extends ApplicationSel
 	}
 
 	/**
-	 * @param selectorOptions Set<Object> selectorOptions
-	 * @param callIds Set<Id>
-	 * @description returns a list of Voice Call records base on their PreviousCallId or NextCallId
-	 *
-	 * @return List<VoiceCall>
-	 */
-	public List<VoiceCall> selectByOriginalVoiceCalls(Set<Object> selectorOptions, Set<Id> callIds) {
-		QueryBuilder qb = newQueryBuilder(selectorOptions)
-	.addConditions()
-	.add(new QueryBuilder.InCondition(VoiceCall.OriginalVoiceCall__c).inCollection(callIds))
-	.endConditions();
-		return (List<VoiceCall>)Database.query(qb.toSoqlString());
-	}
-
-	/**
 	 * Contruct a new QueryBuilder based on the selector options passed in
+	 * @param selectorOptions Set<Object>
+	 * @return QueryBuilder
 	 */
 	public virtual override QueryBuilder newQueryBuilder(Set<Object> selectorOptions) {
 		QueryBuilder builder = super.newQueryBuilder(selectorOptions);
