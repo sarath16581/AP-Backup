@@ -535,14 +535,9 @@ public with sharing class HappyParcelController {
 				articleMappingsMap.get(key).add(article);
 			}
 		}
-		// Retrives the UI theme that user currently in.
-		//String userTheme = UserInfo.getUiThemeDisplayed();
-		//String mappingModel = 'Unified';
 		
-		//setting mapping model based on User UI to use this to filter the mapping records.
-		//if(userTheme.equalsIgnoreCase('Theme3')){
-		//	mappingModel = 'Classic';
-		//}
+		// get the clearview code mapping model to apply to the articles (different teams can have different clearview code mappings)
+		// if no mapping model is provided, it defaults to Classic
 		String mappingModel = 'Classic';
 		if (String.isNotBlank(clearViewMappingModel)) {
 			mappingModel = clearViewMappingModel;
