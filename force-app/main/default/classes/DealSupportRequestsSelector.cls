@@ -19,6 +19,7 @@
 * 2023-06-21 - sarath.burra@auspost.com.au - CI 834-Added Transit Cover fields
 * 2023-10-31 - Ranjeewa Silva - Updated newQueryBuilder to pass fieldOverrides and selectorOptions to related object query builder instances.
 * 2024-02-02 - Mahesh Parvathaneni - Added Name field condition in search method
+* 2024-08-10 - Harry Wang - Added new selector by parent at risk business Id and parent account Id
 */
 public with sharing class DealSupportRequestsSelector extends ApplicationSelector{
 	public enum Options {
@@ -100,6 +101,17 @@ public with sharing class DealSupportRequestsSelector extends ApplicationSelecto
 	}
 
 	/**
+	 * @description Run a simple query to get records based on At Risk Business Id
+	 */
+	public virtual List<Deal_Support_Request__c> selectByAtRiskBusinessId(Set<Id> atRiskBusinessIds, Set<Object> selectorOptions) {
+		QueryBuilder qb = newQueryBuilder(selectorOptions)
+				.addConditions()
+				.add(new QueryBuilder.InCondition(Deal_Support_Request__c.Business_At_Risk__c).inCollection(atRiskBusinessIds))
+				.endConditions();
+		return Database.query(qb.toSoqlString());
+	}
+
+	/**
 	* Returns a query locator to retrieve DSR records based on the account ids passed in. If set of account ids
 	* is null or empty, returns all DSR records having a parent account.
 	* Query results are ordered by parent account Id desc
@@ -123,6 +135,17 @@ public with sharing class DealSupportRequestsSelector extends ApplicationSelecto
 
 		qb = conditions.endConditions().addOrderDesc(Deal_Support_Request__c.Organisation__c);
 		return Database.getQueryLocator(qb.toSoqlString());
+	}
+
+	/**
+	 * @description Run a simple query to get records based on parent account Id
+	 */
+	public List<Deal_Support_Request__c> selectByAccountId(Set<Id> accountIds, Set<Object> selectorOptions) {
+		QueryBuilder qb = newQueryBuilder(selectorOptions)
+				.addConditions()
+				.add(new QueryBuilder.InCondition(Deal_Support_Request__c.Organisation__c).inCollection(accountIds))
+				.endConditions();
+		return Database.query(qb.toSoqlString());
 	}
 
 	/**

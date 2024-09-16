@@ -1104,11 +1104,6 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>Apttus_CMConfig__OptionId__c.DMAPP__AM_Solution__c</field>
-            <table>Apttus__AgreementLineItem__c</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
             <field>Apttus_CMConfig__OptionId__c.APT_Annual_Spend_Revenue__c</field>
             <table>Apttus__AgreementLineItem__c</table>
         </columns>
@@ -3506,11 +3501,6 @@
         <columns>
             <checkedByDefault>false</checkedByDefault>
             <field>Apttus__ProductId__c.Apttus_Config2__IconSize__c</field>
-            <table>Apttus__AgreementLineItem__c</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>Apttus__ProductId__c.DMAPP__AM_Solution__c</field>
             <table>Apttus__AgreementLineItem__c</table>
         </columns>
         <columns>

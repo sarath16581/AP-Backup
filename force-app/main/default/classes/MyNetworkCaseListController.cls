@@ -22,7 +22,8 @@
 01/03/2023		   Mahesh Parvathaneni		   Updated - SF-830 Updated method validateCaseInvestigations
 08/03/2023		   Mahesh Parvathaneni		   Updated - SF-873 Updated method getSafeDropInformation to work for case investigations
 09/03/2023		   Dattaraj Deshmukh		   Updated - SF-867 Added logic to return case investigation records when 'My_Cases' list view is selected.	
-											   		   - Added 'filterBasedOnSearchCriteria' method to filter based on search criteria.											 
+											   		   - Added 'filterBasedOnSearchCriteria' method to filter based on search criteria.		
+22/04/2024			Jacob Isaac					Updated filter in getContactCenterUpdatedCases to fetch agent closed cases which were not showing up in myNetwork as Updated
 *******************************  History ************************************************/
 public with sharing class MyNetworkCaseListController {
 	
@@ -664,7 +665,6 @@ public with sharing class MyNetworkCaseListController {
 			}
 		}
 		SelectedViewWithFiltersWrapper selectedViewWithFiltersWrap = new SelectedViewWithFiltersWrapper(selectedlistview, dynamicFilter, filtersMap);
-		
 		return selectedViewWithFiltersWrap ;
 	}
 	/**

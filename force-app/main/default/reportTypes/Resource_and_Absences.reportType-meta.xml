@@ -4,10 +4,6 @@
     <category>other</category>
     <deployed>true</deployed>
     <description>Service Resource and Resource Absences REQ2348297</description>
-    <join>
-        <outerJoin>true</outerJoin>
-        <relationship>ResourceAbsences</relationship>
-    </join>
     <label>Service Resource and Resource Absences</label>
     <sections>
         <columns>
@@ -83,101 +79,6 @@
         <masterLabel>Service Resources</masterLabel>
     </sections>
     <sections>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>Id</field>
-            <table>ServiceResource.ResourceAbsences</table>
-        </columns>
-        <columns>
-            <checkedByDefault>true</checkedByDefault>
-            <field>Name</field>
-            <table>ServiceResource.ResourceAbsences</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>CreatedDate</field>
-            <table>ServiceResource.ResourceAbsences</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>CreatedBy</field>
-            <table>ServiceResource.ResourceAbsences</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>LastModifiedDate</field>
-            <table>ServiceResource.ResourceAbsences</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>LastModifiedBy</field>
-            <table>ServiceResource.ResourceAbsences</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>Type</field>
-            <table>ServiceResource.ResourceAbsences</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>Description</field>
-            <table>ServiceResource.ResourceAbsences</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>Start</field>
-            <table>ServiceResource.ResourceAbsences</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>End</field>
-            <table>ServiceResource.ResourceAbsences</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>Address</field>
-            <table>ServiceResource.ResourceAbsences</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>Street</field>
-            <table>ServiceResource.ResourceAbsences</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>City</field>
-            <table>ServiceResource.ResourceAbsences</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>State</field>
-            <table>ServiceResource.ResourceAbsences</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>PostalCode</field>
-            <table>ServiceResource.ResourceAbsences</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>Country</field>
-            <table>ServiceResource.ResourceAbsences</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>Latitude</field>
-            <table>ServiceResource.ResourceAbsences</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>Longitude</field>
-            <table>ServiceResource.ResourceAbsences</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>GeocodeAccuracy</field>
-            <table>ServiceResource.ResourceAbsences</table>
-        </columns>
         <masterLabel>Resource Absences</masterLabel>
     </sections>
 </ReportType>

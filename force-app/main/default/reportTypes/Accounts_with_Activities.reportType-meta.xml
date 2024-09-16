@@ -2985,21 +2985,6 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>DMAPP__TTG_Prime_Action_Type__c</field>
-            <table>Account.Activities</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>DMAPP__ThirdPartyId__c</field>
-            <table>Account.Activities</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>DMAPP__ThirdPartyName__c</field>
-            <table>Account.Activities</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
             <field>Resolution_Code__c</field>
             <table>Account.Activities</table>
         </columns>

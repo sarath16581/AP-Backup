@@ -1,9 +1,9 @@
 {
-  "activeViewId" : "42297d60-802f-49d2-b18d-4fc7bcf20f34",
+  "activeViewId" : "4c6d2fa6-7402-44d2-a44a-5bd330b2449a",
   "appPageId" : "d5d19161-a65a-41cf-81d4-d7d67de3e4ce",
   "configurationTags" : [ ],
   "devName" : "BSP_Credit_Claim_Form__c",
-  "id" : "56e1001a-250b-4cba-aff1-12c4690efa1e",
+  "id" : "69a6c1ba-e27b-4fba-8728-0d3907970a5b",
   "label" : "BSP Credit Claim Form",
   "pageAccess" : "UseParent",
   "routeType" : "custom-credit-claim-form",

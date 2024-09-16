@@ -6,9 +6,16 @@
     populateDataTable: function(component, rslt) {
         if (rslt) {
             var rowsData = rslt.rowData;
+			var fieldsToSort = ["CaseObject__r.Calc_Case_Consignment__c","CaseObject__r.Priority","TaskUpdate__c","CreatedDate"];
             //setting
             component.set("v.dataList", rowsData);
             console.log('1.stp_taskSearchResultHelper rowsData.length =' +rowsData.length);
+			rowsData.map(function(element){ 
+				if(element.CreatedDate) {
+					var date = new Date(element.CreatedDate);			 
+					element.CreatedDate = $A.localizationService.formatDateTime(date);
+				}
+			});
 
             var columnsData = rslt.columnData;
 
@@ -48,7 +55,13 @@
                 }
             });
 
-            component.set('v.columns', columnsData);
+			columnsData.map( function(element){
+				if(fieldsToSort.includes(element.fieldName)) {
+					element.sortable = true;
+				}
+			});
+
+            component.set('v.columns',  columnsData);
             component.set('v.data', PagList);
         }
     },
@@ -73,6 +86,22 @@
         notify.setParams(params);
         notify.fire();
     },
+
+	/**
+     *   Sort the data based on the sort direction and column name
+     *
+     */
+	sortData: function(component, fieldName, sortDirection) {
+		var data = component.get("v.data");
+        var key = function(a) { return a[fieldName]; }
+        var reverse = sortDirection == 'asc' ? 1: -1;          
+        data.sort(function(a,b){
+                var a = key(a) ? key(a) : '';
+                var b = key(b) ? key(b) : '';
+                return reverse * ((a>b) - (b>a));
+            });
+        component.set("v.data",data);
+	},
 
     /**
     *   Function to acknowledge the tasks based on taskId.

@@ -974,6 +974,11 @@
                 <label>Duplicate Records/Multiple CPs</label>
             </value>
             <value>
+                <fullName>CCR</fullName>
+                <default>false</default>
+                <label>CCR</label>
+            </value>
+            <value>
                 <fullName>Appeals</fullName>
                 <default>false</default>
                 <label>Appeals</label>
@@ -987,11 +992,6 @@
                 <fullName>ARC</fullName>
                 <default>false</default>
                 <label>ARC</label>
-            </value>
-            <value>
-                <fullName>CCR</fullName>
-                <default>false</default>
-                <label>CCR</label>
             </value>
         </valueSetDefinition>
         <valueSettings>
@@ -1058,7 +1058,7 @@
             <controllingFieldValue>CMS</controllingFieldValue>
             <controllingFieldValue>MMT/SAP HR</controllingFieldValue>
             <controllingFieldValue>Fit2Work</controllingFieldValue>
-            <valueName>queries</valueName>
+            <valueName>Queries</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>CMS</controllingFieldValue>
@@ -1220,11 +1220,11 @@
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>CCR &amp; Appeals</controllingFieldValue>
-            <valueName>Appeals</valueName>
+            <valueName>CCR</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>CCR &amp; Appeals</controllingFieldValue>
-            <valueName>CCR</valueName>
+            <valueName>Appeals</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>S &amp; T APIs</controllingFieldValue>
@@ -1333,6 +1333,14 @@
             <controllingFieldValue>Post Office &amp; Business Hub Services</controllingFieldValue>
             <controllingFieldValue>Domestic Letters</controllingFieldValue>
             <valueName>Mail redirection</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Domestic Parcels</controllingFieldValue>
+            <valueName>Metro</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Domestic Parcels</controllingFieldValue>
+            <valueName>Parcel Post</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Domestic Parcels</controllingFieldValue>
@@ -1530,6 +1538,10 @@
         <valueSettings>
             <controllingFieldValue>Domestic Letters</controllingFieldValue>
             <valueName>Business Letters</valueName>
+		</valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Domestic Letters</controllingFieldValue>
+            <valueName>Express Post</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Domestic Letters</controllingFieldValue>

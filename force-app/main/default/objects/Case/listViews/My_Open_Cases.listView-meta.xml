@@ -19,6 +19,7 @@
     <sharedTo>
         <group>All_StarTrack_Users</group>
         <group>All_Users_Ex_SSSW</group>
+        <role>NetworkPartnerSupport</role>
         <role>SSSW_Call_Centre_Manager</role>
         <role>SSSW_Management</role>
         <role>SSSW_North_Manager</role>

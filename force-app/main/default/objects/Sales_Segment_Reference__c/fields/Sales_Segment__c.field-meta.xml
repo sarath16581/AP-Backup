@@ -10,7 +10,7 @@
     <type>Picklist</type>
     <valueSet>
         <valueSetDefinition>
-            <sorted>true</sorted>
+            <sorted>false</sorted>
             <value>
                 <fullName>Centrally Managed</fullName>
                 <default>false</default>
@@ -132,6 +132,11 @@
                 <label>LBP Sales Manager NSW 3</label>
             </value>
             <value>
+                <fullName>LBP Sales Manager NSW 4</fullName>
+                <default>false</default>
+                <label>LBP Sales Manager NSW 4</label>
+            </value>
+            <value>
                 <fullName>LBP Sales Manager QLD 1</fullName>
                 <default>false</default>
                 <label>LBP Sales Manager QLD 1</label>
@@ -180,6 +185,26 @@
                 <fullName>LBP Sales Manager WA 2</fullName>
                 <default>false</default>
                 <label>LBP Sales Manager WA 2</label>
+            </value>
+            <value>
+                <fullName>LBP Tier 2 CPO North</fullName>
+                <default>false</default>
+                <label>LBP Tier 2 CPO North</label>
+            </value>
+            <value>
+                <fullName>LBP Tier 2 CPO South</fullName>
+                <default>false</default>
+                <label>LBP Tier 2 CPO South</label>
+            </value>
+            <value>
+                <fullName>LBP Tier 2 LPO North</fullName>
+                <default>false</default>
+                <label>LBP Tier 2 LPO North</label>
+            </value>
+            <value>
+                <fullName>LBP Tier 2 LPO South</fullName>
+                <default>false</default>
+                <label>LBP Tier 2 LPO South</label>
             </value>
             <value>
                 <fullName>Medium Business NSW 1</fullName>

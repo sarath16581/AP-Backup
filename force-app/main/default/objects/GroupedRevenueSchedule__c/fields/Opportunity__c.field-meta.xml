@@ -7,7 +7,6 @@
     <inlineHelpText>The parent Opportunity of the Group Revenue Schedule record.</inlineHelpText>
     <label>Opportunity</label>
     <referenceTo>Opportunity</referenceTo>
-    <relationshipLabel>Grouped Revenue Schedules</relationshipLabel>
     <relationshipName>Grouped_Revenue_Schedules</relationshipName>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>
