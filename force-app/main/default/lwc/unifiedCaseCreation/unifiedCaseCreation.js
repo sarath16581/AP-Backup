@@ -49,6 +49,7 @@ export const ENQUIRY_TYPE_OPTIONS = [
 	}
 ];
 
+export const IMPACTED_ARTICLE_MISSING_ERROR = 'Impacted articles cannot be empty, Please link at least one impacted article.';
 export const CONTACTID_MISSING_ERROR = 'Contact cannot be empty for investigation case, Please link a contact.';
 export const INVALID_FORM_ERROR = 'Please fix errors and try again';
 
@@ -183,7 +184,8 @@ export default class UnifiedCaseCreation extends LightningElement {
 	productSubCategoryLabel = PRODUCT_SUBCATEGORY_LABEL;
 	notesLabel = NOTES_LABEL;
 	createBtnLabel = CREATE_BUTTON_LABEL;
-	errorMessage;
+	_errorMessage;
+	disableCreateBtn = false;
 
 	/**
 	 * get default Investigation recordType Id
@@ -212,6 +214,15 @@ export default class UnifiedCaseCreation extends LightningElement {
 
 	set isLoading(value) {
 		this._isLoading = value;
+	}
+
+	// Use to set or get error message, disable create button when there is error message
+	get errorMessage(){
+		return this._errorMessage;
+	}
+	set errorMessage(value){
+		this._errorMessage = value;
+		this.disableCreateBtn = true;
 	}
 
 	/**
@@ -325,6 +336,7 @@ export default class UnifiedCaseCreation extends LightningElement {
 	 * @param {*} event
 	 */
 	handleInputChange(event) {
+		this.disableCreateBtn = false;
 		const { fieldName } = event.target.dataset;
 		const value = event.target.value;
 		const previousValue = this[fieldName];
@@ -387,9 +399,16 @@ export default class UnifiedCaseCreation extends LightningElement {
 				return false;
 			}
 
+			// check for blank contact for unified investigation case
 			if (this.isUnifiedInvestigationCase && isBlank(this.contactId)) {
 				isValid = false;
 				this.errorMessage = CONTACTID_MISSING_ERROR;
+			}
+
+			// check for blank impacted articles
+			if (!this.impactedArticles) {
+				isValid = false;
+				this.errorMessage = IMPACTED_ARTICLE_MISSING_ERROR;
 			}
 			return isValid;
 		} catch (err) {

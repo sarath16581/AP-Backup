@@ -4,7 +4,7 @@
 			<template if:true={isLoading}>
 				<lightning-spinner variant="brand" size="medium"></lightning-spinner>
 			</template>
-			<div class="slds-text-body_regular">{linkedArticlesLabel}</div>
+			<div data-name="articleHeader" class="slds-text-body_regular">{linkedArticlesLabel}</div>
 			<div class="slds-pill_container slds-grid slds-wrap pill-scrollable">
 				<template if:true={impactedArticles}>
 					<template for:each={impactedArticles} for:item="impactedArticle">
@@ -82,9 +82,10 @@
 
 			<div class="slds-text-align_center slds-m-top_medium">
 				<lightning-button data-id="create"
-								  label={createBtnLabel}
-								  onclick={handleCaseCreation}
-								  variant="brand">
+								disabled={disableCreateBtn}
+								label={createBtnLabel}
+								onclick={handleCaseCreation}
+								variant="brand">
 				</lightning-button>
 			</div>
 		</div>
