@@ -13,7 +13,7 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Knowledge__kav.Approvingstakeholders__c</field>
+        <field>Knowledge__kav.ApprovingStakeholders__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

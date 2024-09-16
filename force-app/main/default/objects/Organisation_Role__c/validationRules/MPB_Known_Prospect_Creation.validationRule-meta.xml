@@ -2,7 +2,8 @@
 <ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>MPB_Known_Prospect_Creation</fullName>
     <active>true</active>
-    <description>MPB - Known Account Management - Not allowed to add a known if a prospect already exists</description>
+    <description>MPB - Known Account Management - Not allowed to add a known if a prospect already exists
+//REQ3569210 added logic to exclude sales admin &amp; system admin profile</description>
     <errorConditionFormula>IF(Organisation__r.Prospect_Party_Role_Count__c &gt;= 1 &amp;&amp; ISPICKVAL(Role_Type__c,&apos;Known&apos;) &amp;&amp; ($Profile.Name &lt;&gt; &quot;System Administrator&quot; &amp;&amp; $Profile.Name &lt;&gt; &quot;Sales Admin&quot; ), true, false)</errorConditionFormula>
     <errorMessage>You are unable to enter a known if a prospect record already exists</errorMessage>
 </ValidationRule>

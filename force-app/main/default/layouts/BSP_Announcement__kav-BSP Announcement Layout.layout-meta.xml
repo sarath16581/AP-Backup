@@ -12,6 +12,12 @@
             <layoutItems>
                 <field>What_do_I_tell_customers__c</field>
             </layoutItems>
+            <layoutItems>
+                <field>Title</field>
+            </layoutItems>
+            <layoutItems>
+                <field>UrlName</field>
+            </layoutItems>
         </layoutColumns>
         <style>OneColumn</style>
     </layoutSections>

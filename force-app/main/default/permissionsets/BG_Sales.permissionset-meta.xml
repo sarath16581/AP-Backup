@@ -2173,11 +2173,6 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Opportunity.DMAPP__Dealmaker_Opportunity__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
         <field>Opportunity.DM_Source_System__c</field>
         <readable>true</readable>
     </fieldPermissions>

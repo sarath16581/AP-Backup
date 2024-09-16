@@ -506,8 +506,6 @@
         <fields>FULL_NAME</fields>
         <fields>ACCOUNT.NAME</fields>
         <fields>CONTACT.PHONE1</fields>
-        <fields>CONTACT.TITLE</fields>
-        <fields>CONTACT.EMAIL</fields>
         <relatedList>Contact.BillingAccount__c</relatedList>
     </relatedLists>
     <relatedLists>

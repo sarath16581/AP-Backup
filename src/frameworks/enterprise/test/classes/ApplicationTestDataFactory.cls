@@ -122,6 +122,17 @@ public with sharing class ApplicationTestDataFactory {
 		return output;
 	}
 
+	public static List<Critical_Incident__kav> getCriticalIncidents(Integer count, Boolean generateIds) {
+		List<Critical_Incident__kav> output = (List<Critical_Incident__kav>)maybeGenerateIds(populateSObjects(Schema.SObjectType.Critical_Incident__kav.SObjectType, new Map<SObjectField, Object> {
+			Critical_Incident__kav.Title => 'Test Title %count%',
+			Critical_Incident__kav.UrlName => 'Test-UrlName-%count%',
+			Critical_Incident__kav.Time_To_Remind__c => System.today(),
+			Critical_Incident__kav.language => 'en_US'
+		}, count), generateIds);
+
+		return output;
+	}
+
 	public static List<Account> getPersonAccounts(Integer count, Boolean generateIds) {
 		return (List<Account>)maybeGenerateIds(populateSObjects(Account.SObjectType, new Map<SObjectField, Object> {
 				Account.RecordTypeId => personAccountRecordType,

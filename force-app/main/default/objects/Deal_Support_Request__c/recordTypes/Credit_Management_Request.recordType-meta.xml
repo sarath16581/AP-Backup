@@ -22,35 +22,7 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Engage Product for support</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Further details required to support request</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Incomplete data file</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>Leader Account number was not provided</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Opportunity not aligned with request</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Other</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Self-serve system issue</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Supporting evidence not attached</fullName>
             <default>false</default>
         </values>
     </picklistValues>
@@ -722,6 +694,10 @@
         </values>
         <values>
             <fullName>Change billing account details</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Close All Billing Accounts - ABN Change</fullName>
             <default>false</default>
         </values>
         <values>
@@ -1441,18 +1417,6 @@
             <fullName>New Business %2F Growth</fullName>
             <default>false</default>
         </values>
-        <values>
-            <fullName>Other</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Rate Card Extraction</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Renewal %2F Rate review</fullName>
-            <default>false</default>
-        </values>
     </picklistValues>
     <picklistValues>
         <picklist>Primed_By__c</picklist>
@@ -2084,6 +2048,10 @@
         <picklist>Status__c</picklist>
         <values>
             <fullName>Accepted</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Account pending closure</fullName>
             <default>false</default>
         </values>
         <values>

@@ -4,7 +4,6 @@
     <businessStatus>Active</businessStatus>
     <deleteConstraint>SetNull</deleteConstraint>
     <description>Indicates the StarTrack billing account responsible for paying the invoice when payer account is already provisioned in TEAM. Only used for StarTrack billing accounts managed in TEAM. 
-
 N.B. The filter criteria has been moved to validation rule as we needed to bypass validation with PRIORVALUE function which is not supported in Lookup Filter.</description>
     <externalId>false</externalId>
     <inlineHelpText>Indicates the StarTrack billing account responsible for paying the invoice when payer account is already provisioned in TEAM.</inlineHelpText>

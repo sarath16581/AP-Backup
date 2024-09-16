@@ -864,17 +864,10 @@
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>label</name>
-                    <value>AUSTRAC S75</value>
+                    <value>Change Of Details Information</value>
                 </componentInstanceProperties>
                 <componentName>flexipage:fieldSection</componentName>
                 <identifier>flexipage_fieldSection6</identifier>
-                <visibilityRule>
-                    <criteria>
-                        <leftValue>{!Record.Type_of_Registration__c}</leftValue>
-                        <operator>EQUAL</operator>
-                        <rightValue>New Registration</rightValue>
-                    </criteria>
-                </visibilityRule>
             </componentInstance>
         </itemInstances>
         <itemInstances>

@@ -6,7 +6,7 @@
     <columns>Stage__c</columns>
     <columns>RECORDTYPE</columns>
     <columns>OWNER.ALIAS</columns>
-    <filterScope>Mine</filterScope>
+    <filterScope>Everything</filterScope>
     <filters>
         <field>RECORDTYPE</field>
         <operation>equals</operation>

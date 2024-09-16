@@ -17,6 +17,21 @@ public with sharing class MyCustomerDeliveryProofPdfController {
 	public static List<DeliveryProofAttributes> deliveryProofAttributes { get; set; }
 	public static Boolean isConsignment;
 
+	// Stores the continuation label
+	private String safeDropRequestLabel;
+
+	/**
+	 * Attachment id's associated to the event message being rendered from
+	 */
+	public transient Id safeDropAttachmentId { get; set; }
+	public transient Id signatureAttachmentId { get; set; }
+
+	/**
+	 * Retrieve the specific event message for either the safe drop or signature image
+	 * We do this as a separate request so we can include Article & Consignment related object (without needing to select the data for all event messages)
+	 */
+	public EventMessage__c eventMessage { get; set; }
+
 	/**
 	 * @description	On VF page launch, it will build up a delivery proof result object and populate all necessary attributes for VF PDF display
 	 */
@@ -58,24 +73,41 @@ public with sharing class MyCustomerDeliveryProofPdfController {
 	 * @return List<DeliveryProofAttributes>
 	 */
 	public List<DeliveryProofAttributes> filterDeliveryEventsByArticleIdORConsignmentIdSearch(List<DeliveryProofAttributes> deliveryProofAttributes) {
-		if (isConsignment) {
-			return deliveryProofAttributes;
-		}
-		// Get a unique delivery key from the article if the Proof of Delivery PDF generation is at article level
-		String deliveryKeyEvent;
-		for (DeliveryProofAttributes pod : deliveryProofAttributes) {
-			if (pod.eventMessage.Article__r.ArticleID__c.equals(articleId)) {
-				deliveryKeyEvent = pod.deliveryKey;
-				break;
-			}
-		}
+		
 		// Keep only delivery result where the unique delivery key is matched and filter out the rest
 		List<DeliveryProofAttributes> filterDeliveryResult = new List<DeliveryProofAttributes>();
-		for (DeliveryProofAttributes pod : deliveryProofAttributes) {
-			if (pod.deliveryKey.equals(deliveryKeyEvent)) {
-				filterDeliveryResult.add(pod);
+		
+		if (isConsignment) {
+			// map to store just one DeliveryProofAttribute per unique delivery event
+			Map<String, DeliveryProofAttributes> deliveryProofAttributeByDeliveryKey = new Map<String, DeliveryProofAttributes>();
+			
+			for (DeliveryProofAttributes pod : deliveryProofAttributes) {
+				// if first time seeing delivery key, add the pod to the map
+				if (!deliveryProofAttributeByDeliveryKey.containsKey(pod.deliveryKey)) {
+					deliveryProofAttributeByDeliveryKey.put(pod.deliveryKey, pod);
+				}
+			}
+
+			filterDeliveryResult.addAll(deliveryProofAttributeByDeliveryKey.values());
+		} else {
+			// Get a unique delivery key from the article if the Proof of Delivery PDF generation is at article level
+			String deliveryKeyEvent;
+			for (DeliveryProofAttributes pod : deliveryProofAttributes) {
+				if (pod.eventMessage.Article__r.ArticleID__c.equals(articleId)) {
+					deliveryKeyEvent = pod.deliveryKey;
+					break;
+				}
+			}
+			// Keep only delivery result where the unique delivery key is matched and filter out the rest
+			filterDeliveryResult = new List<DeliveryProofAttributes>();
+			for (DeliveryProofAttributes pod : deliveryProofAttributes) {
+				if (pod.deliveryKey.equals(deliveryKeyEvent)) {
+					filterDeliveryResult.add(pod);
+					break;
+				}
 			}
 		}
+		
 		return filterDeliveryResult;
 	}
 
@@ -393,6 +425,7 @@ public with sharing class MyCustomerDeliveryProofPdfController {
 		for (EventMessage__c message : eventMessages) {
 			Boolean hasSignature = getSignatureFlagFromEventMessageTypeMapping(message);
 			Boolean hasSafeDrop = getSafeDropFlagFromEventMessageTypeMapping(message);
+			//if (isDelivered(message)) {
 			if (hasSignature || hasSafeDrop) {
 				// build a key to identify a unique delivery event key when a driver made a successful delivery
 				String uniqueDeliveryEventKey = message.Article__r.ConsignmentTrackingNumber__c + ':' + message.ActualDateTime__c.toString();
@@ -435,6 +468,16 @@ public with sharing class MyCustomerDeliveryProofPdfController {
 	public static Boolean getSafeDropFlagFromEventMessageTypeMapping(EventMessage__c eventMsg) {
 		return (EventMessageUtil.getInstance().getEventMessageTypeDefinitions().get(eventMsg.EventType__c)?.IsSafeDrop__c == true && !String.isEmpty(eventMsg?.Safe_Drop_GUID__c));
 	}
+
+	/*
+	public static Boolean isDelivered(EventMessage__c eventMsg) {
+
+		System.debug('Event category: ' + eventMsg.EventType__c + ' => ' + EventMessageUtil.getInstance().getEventMessageTypeDefinitions().get(eventMsg.EventType__c)?.Category__c);
+
+
+		return (EventMessageUtil.getInstance().getEventMessageTypeDefinitions().get(eventMsg.EventType__c)?.Category__c == 'Delivered');
+	}
+	*/
 
 	/**
 	 * @description State object used to keep track of the SafeDrop image state if it already exists in Salesforce

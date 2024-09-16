@@ -85,14 +85,6 @@
         <style>CustomLinks</style>
     </layoutSections>
     <relatedLists>
-        <fields>CASES.CASE_NUMBER</fields>
-        <fields>CASES.SUBJECT</fields>
-        <fields>CASES.CLOSED_DATE</fields>
-        <fields>CORE.USERS.ALIAS</fields>
-        <fields>CASES.PRIORITY</fields>
-        <relatedList>Case.Monthly_Time_Utilisation__c</relatedList>
-    </relatedLists>
-    <relatedLists>
         <relatedList>RelatedEntityHistoryList</relatedList>
     </relatedLists>
     <showEmailCheckbox>false</showEmailCheckbox>

@@ -17,6 +17,8 @@
 09.06.2021    Naveen Rajanna             REQ2525818 -Updated case comments method to include Cust Ref only in case of eparcel damages
 16.06.2021    SaiSwetha Pingali          REQ2866516 -Introduced a new metadata to store product sub category to disable compensation and updated the logic here to utilise the metadata.
 18.10.2022    Talib Raza                 REQ2866516 - getAll() only return 255 char, replace it with SOQL 
+01.06.2024    Jacob Isaac                REQ3357026 - new question on wine/edamages form
+28.05.2024    Snigdha Sahu               REQ2911157 - Update to Lost Article Form
 **/
 
 public with sharing class MyNetworkSmartFormsService {
@@ -193,13 +195,13 @@ public with sharing class MyNetworkSmartFormsService {
             ParcelDamageDetails += SSSWConstants.NEW_LINE + 'Total bottles without any damage - ' + oSmartFormWrapper.totalBottlesNotDamaged;
             ParcelDamageDetails += SSSWConstants.NEW_LINE + 'Number of caps damaged - ' + oSmartFormWrapper.noOfCapsDamaged;
             ParcelDamageDetails += SSSWConstants.NEW_LINE + 'Number of labels damaged - ' + oSmartFormWrapper.noOfLabelsDamaged;
-            ParcelDamageDetails += SSSWConstants.NEW_LINE + 'Carton adequate? - ' + oSmartFormWrapper.isCartonAdequate;
+            ParcelDamageDetails += SSSWConstants.NEW_LINE + 'Carton adequate? (Must be 3mm minimum) - ' + oSmartFormWrapper.isCartonAdequate;
             if(oSmartFormWrapper.isCartonAdequate=='no'){
-                ParcelDamageDetails += SSSWConstants.NEW_LINE + 'Provide Details - ' + oSmartFormWrapper.cartonInadequecyDetails;
+                ParcelDamageDetails += SSSWConstants.NEW_LINE + 'Provide details - ' + oSmartFormWrapper.cartonInadequecyDetails;
             }
-            ParcelDamageDetails += SSSWConstants.NEW_LINE + 'Inserts or dividers adequate? - ' + oSmartFormWrapper.isDividerAdequate;
+            ParcelDamageDetails += SSSWConstants.NEW_LINE + 'Inserts or dividers adequate? (Must be 3mm minimum) - ' + oSmartFormWrapper.isDividerAdequate;
             if(oSmartFormWrapper.isDividerAdequate=='no'){
-                ParcelDamageDetails += SSSWConstants.NEW_LINE + 'Provide Details - ' + oSmartFormWrapper.dividerInadequecyDetails;
+                ParcelDamageDetails += SSSWConstants.NEW_LINE + 'Provide details - ' + oSmartFormWrapper.dividerInadequecyDetails;
             }
             if(oSmartFormWrapper.actionTaken != null){
                 ParcelDamageDetails += SSSWConstants.NEW_LINE + 'Damage instructions - ' + oSmartFormWrapper.damageInstructions;
@@ -212,6 +214,10 @@ public with sharing class MyNetworkSmartFormsService {
             ParcelDamageDetails += SSSWConstants.NEW_LINE + 'Have all the items in the parcel sustained damage?' + SSSWConstants.HYPHEN_SPACED + oSmartFormWrapper.sustainedDamage;
             if(oSmartFormWrapper.sustainedDamage == 'no'){
                 ParcelDamageDetails += SSSWConstants.NEW_LINE + 'Please list the items that have not sustained damage -' + oSmartFormWrapper.sustainedDamageDetails;
+            }
+            ParcelDamageDetails += SSSWConstants.NEW_LINE + 'Was the article sufficiently packaged? ' + SSSWConstants.HYPHEN_SPACED + oSmartFormWrapper.sufficientPackage;
+            if(oSmartFormWrapper.sufficientPackage == 'no'){
+                ParcelDamageDetails += SSSWConstants.NEW_LINE + 'Provide details - ' + oSmartFormWrapper.sufficientPackageDetails;
             }
         }
         ParcelDamageDetails += SSSWConstants.NEW_LINE;
@@ -254,6 +260,8 @@ public with sharing class MyNetworkSmartFormsService {
         System.debug('  Lost Article - Case Comments - Start');
         sLostArticle += SSSWConstants.NEW_LINE;
         sLostArticle += SSSWConstants.NEW_LINE + 'Additional comments - ' + oSmartFormWrapper.comments;
+        //REQ2911157
+        sLostArticle += SSSWConstants.NEW_LINE + 'Has the article been scanned as Delivered? - ' + oSmartFormWrapper.scannedDelivered;
         
         sLostArticle += SSSWConstants.NEW_LINE + 'Description of contents - ' + oSmartFormWrapper.contents;
         sLostArticle += SSSWConstants.NEW_LINE + 'Value of contents - ' + oSmartFormWrapper.valueOfContents;
