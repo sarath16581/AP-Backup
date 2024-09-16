@@ -76,6 +76,43 @@ private class CaseHistoriesSelector_Test {
 	}
 
 	/**
+	 * Test:
+	 *  Ensures that the selectors QueryBuilder is generating the correct output
+	 */
+	@IsTest
+	private static void testEnsureQueryBuilderProducesCorrectStringWithFieldOverrides() {
+
+		// =====================================
+		// Data Preparation
+		// =====================================
+		// None!
+
+		// =====================================
+		// Stubbing
+		// =====================================
+		// None!
+
+		// =====================================
+		// Testing
+		// =====================================
+		Test.startTest();
+
+		CaseHistoriesSelector selector = CaseHistoriesSelector.newInstance(0, new Map<SObjectType, Set<SObjectField>>{
+				Case.SObjectType => new Set<SObjectField>{Case.CaseNumber},
+				CaseHistory.SObjectType => new Set<SObjectField>{CaseHistory.NewValue,CaseHistory.OldValue}
+		});
+		QueryBuilder qb = selector.newQueryBuilder(new Set<Object>{CaseHistoriesSelector.Options.WITH_CASE});
+		String soql = qb.toSoqlString();
+		System.assertEquals(true, Pattern.compile('(?ism)Case\\..*?\\bfrom CaseHistory\\b').matcher(soql).find(), 'Resulting query does not select CaseHistory fields: ' + soql);
+		System.assertEquals(true, Pattern.compile('(?ism)Case\\.CaseNumber.*?\\bfrom CaseHistory\\b').matcher(soql).find(), 'Resulting query does not select Case.CaseNumber field: ' + soql);
+		System.assertEquals(true, Pattern.compile('(?ism)\\bNewValue\\b.*?\\bfrom CaseHistory\\b').matcher(soql).find(), 'Resulting query does not select NewValue field: ' + soql);
+		System.assertEquals(true, Pattern.compile('(?ism)\\bOldValue\\b.*?\\bfrom CaseHistory\\b').matcher(soql).find(), 'Resulting query does not select OldValue field: ' + soql);
+		System.assertEquals(false, Pattern.compile('(?ism)\\bCaseId\\b.*?\\bfrom CaseHistory\\b').matcher(soql).find(), 'Resulting selects CaseId but it shouldn\'t: ' + soql);
+		Test.stopTest();
+
+	}
+
+	/**
 	 * Executes a query to ensure it returns expected results with actual inserted data
 	 */
 	@IsTest

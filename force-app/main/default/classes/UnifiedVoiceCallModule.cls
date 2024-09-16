@@ -35,13 +35,7 @@ public with sharing class UnifiedVoiceCallModule extends ApplicationModule {
 	 */
 	public override void onAfterUpdate(List<SObject> records, Map<Id, SObject> existingRecords, ApplicationUnitOfWork uow) {
 		try {
-			Set<SObjectField> monitoredFields = GenesysConstants.voiceCallFieldMappings.keySet();
-			List<ApplicationRecursion.RecordState> changedRecordStates = ApplicationRecursion.getInstance().getProcessableRecords('UnifiedVoiceCallModule', records, existingRecords, monitoredFields);
-			List<SObject> changedRecords = new List<SObject>();
-			for (ApplicationRecursion.RecordState recordState : changedRecordStates) {
-				changedRecords.add(recordState.record);
-			}
-			syncCaseWhenRelatedRecordIdChanged(changedRecords, existingRecords, uow);
+			syncCaseWhenRelatedRecordIdChanged(records, existingRecords, uow);
 		} catch (Exception ex) {
 			// Error Logged to Exception object for analysis
 			ApplicationLogger.getInstance().logException(ApplicationLogger.wrapException(ex), 'Unified Voice Call', UnifiedVoiceCallModule.class.getName(), 'onAfterUpdate', 'VoiceCall', ApplicationLogger.LoggingLevel.ERROR);
@@ -128,8 +122,7 @@ public with sharing class UnifiedVoiceCallModule extends ApplicationModule {
 		Set<Id> relatedCaseIds = new Set<Id>();
 		for (VoiceCall vc : (List<VoiceCall>) records) {
 			oldVc = (VoiceCall) existingRecords.get(vc.Id);
-			if ((vc.RelatedRecordId == null && oldVc.RelatedRecordId != null) ||
-		(vc.RelatedRecordId != oldVc.RelatedRecordId && String.valueOf(vc.RelatedRecordId).startsWith('500'))) {
+			if ((vc.RelatedRecordId == null && oldVc.RelatedRecordId != null) || (vc.RelatedRecordId != oldVc.RelatedRecordId && String.valueOf(vc.RelatedRecordId).startsWith('500'))) {
 				relatedCaseIds.add(vc.RelatedRecordId);
 				voiceCallIdToProcess.put(vc.Id, vc);
 			}

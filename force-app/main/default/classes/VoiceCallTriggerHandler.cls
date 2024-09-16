@@ -40,14 +40,15 @@ public inherited sharing class VoiceCallTriggerHandler extends ApplicationTrigge
 	 * List of modules that are registered within this Trigger Handler
 	 */
 	public override void registerModules() {
+		// populate the case id on both the relevant agent work records and the contactrequest records themselves
+		// This provides an easy to reference lookup to the case the record is associated with
+		registerModule(CaseRecordPopulationModule.class);
 		// SVC/Unified
 		// - Synchronise custom attributes to Call Interaction
 		registerModule(GenesysVoiceCallModule.class, FILTER_ALLWITHVENDORKEY);
 		// - Synchronise VoiceCall attributes across consult/conferance/transferred calls
 		registerModule(UnifiedVoiceCallModule.class, FILTER_ALLWITHVENDORKEY);
-		// populate the case id on both the relevant agent work records and the contactrequest records themselves
-		// This provides an easy to reference lookup to the case the record is associated with
-		registerModule(CaseRecordPopulationModule.class);
+
 	}
 
 	/**

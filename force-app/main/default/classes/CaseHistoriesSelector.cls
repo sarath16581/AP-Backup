@@ -18,8 +18,14 @@ public virtual inherited sharing class CaseHistoriesSelector extends Application
 	public static CaseHistoriesSelector newInstance() {
 		return (CaseHistoriesSelector)Application.Selectors.newInstance(CaseHistoriesSelector.class);
 	}
+
 	public static CaseHistoriesSelector newInstance(Integer recordLimit) {
 		return (CaseHistoriesSelector)Application.Selectors.newInstance(CaseHistoriesSelector.class).setLimit(recordLimit);
+	}
+
+	public static CaseHistoriesSelector newInstance(Integer recordLimit, Map<SObjectType, Set<SObjectField>> fieldOverrides) {
+		CaseHistoriesSelector selector = (CaseHistoriesSelector)Application.Selectors.newInstance(CaseHistoriesSelector.class).setLimit(recordLimit).setFieldOverrides(fieldOverrides);
+		return selector;
 	}
 
 	public override SObjectType getSObjectType() {
