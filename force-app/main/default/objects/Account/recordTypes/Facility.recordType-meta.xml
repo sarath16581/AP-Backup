@@ -1645,6 +1645,10 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>LBP Sales Manager NSW 4</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>LBP Sales Manager QLD 1</fullName>
             <default>false</default>
         </values>
@@ -1654,6 +1658,10 @@
         </values>
         <values>
             <fullName>LBP Sales Manager QLD 3</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>LBP Sales Manager QLD 4</fullName>
             <default>false</default>
         </values>
         <values>
@@ -1678,10 +1686,6 @@
         </values>
         <values>
             <fullName>LBP Sales Manager WA 2</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Small Business QLD 1</fullName>
             <default>false</default>
         </values>
     </picklistValues>

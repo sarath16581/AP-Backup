@@ -125,16 +125,6 @@
         <fields>Daily_Utilisation__c</fields>
         <relatedList>Timesheet_Entry__c.Time_Utilisation__c</relatedList>
     </relatedLists>
-    <relatedLists>
-        <fields>CASES.CASE_NUMBER</fields>
-        <fields>CASES.SUBJECT</fields>
-        <fields>CASES.CLOSED_DATE</fields>
-        <fields>CASES.STATUS</fields>
-        <fields>Time_to_Resolve_mins__c</fields>
-        <relatedList>Case.Time_Utilisation_Ref__c</relatedList>
-        <sortField>CASES.CLOSED_DATE</sortField>
-        <sortOrder>Desc</sortOrder>
-    </relatedLists>
     <showEmailCheckbox>false</showEmailCheckbox>
     <showHighlightsPanel>false</showHighlightsPanel>
     <showInteractionLogPanel>false</showInteractionLogPanel>

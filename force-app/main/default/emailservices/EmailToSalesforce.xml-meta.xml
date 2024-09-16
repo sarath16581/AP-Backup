@@ -4,6 +4,27 @@
     <attachmentOption>All</attachmentOption>
     <authenticationFailureAction>Discard</authenticationFailureAction>
     <authorizationFailureAction>Bounce</authorizationFailureAction>
+    <emailServicesAddresses>
+        <authorizedSenders>sharon.dcruz@auspost.com.au</authorizedSenders>
+        <developerName>emailtosalesforce</developerName>
+        <isActive>true</isActive>
+        <localPart>emailtosalesforce</localPart>
+        <runAsUser>sharon.dcruz@auspost.com.au.stest</runAsUser>
+    </emailServicesAddresses>
+    <emailServicesAddresses>
+        <authorizedSenders>sans.sharma60@auspost.com.au</authorizedSenders>
+        <developerName>emailtosalesforce1</developerName>
+        <isActive>true</isActive>
+        <localPart>emailtosalesforce</localPart>
+        <runAsUser>sans.sharma60@auspost.com.au.stest</runAsUser>
+    </emailServicesAddresses>
+    <emailServicesAddresses>
+        <authorizedSenders>mona.raghav@auspost.com.au</authorizedSenders>
+        <developerName>emailtosalesforce2</developerName>
+        <isActive>true</isActive>
+        <localPart>emailtosalesforce</localPart>
+        <runAsUser>mona.raghav@auspost.com.au.stest</runAsUser>
+    </emailServicesAddresses>
     <functionInactiveAction>Bounce</functionInactiveAction>
     <functionName>EmailToSalesforce</functionName>
     <isActive>true</isActive>

@@ -2,4 +2,5 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>LikesAndVotes</fullName>
     <securityClassification>INTERNAL</securityClassification>
+    <trackFeedHistory>true</trackFeedHistory>
 </CustomField>

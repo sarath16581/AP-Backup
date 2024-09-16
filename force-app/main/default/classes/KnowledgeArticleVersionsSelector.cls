@@ -186,6 +186,7 @@ public virtual inherited sharing class KnowledgeArticleVersionsSelector extends 
 				qb.addOrderAsc(orderByField);
 			}
 		}
+        
 		List<SObject> queryResults = Database.query((qb.toSoqlString()));
 		
 		return queryResults;

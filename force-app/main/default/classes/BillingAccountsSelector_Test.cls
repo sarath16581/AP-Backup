@@ -9,7 +9,8 @@
  * 2021-08-24 - Seth Heang - Uplift SF API Version to 52
  * 2022-06-01 - Seth Heang - Added selectByOrgId and WITH_PAYER_ACCOUNT_ID related list test coverage
  * 2023-07-10 - Mahesh Parvathaneni - Added tests for options FILTER_TYPE_NOT_IN_SBBA_CASH, FILTER_SOURCE_SYSTEM_NOT_IN_PEOPLE_SOFT
- * 2023-10-27 - Harry Wang - Added tests for selectByLeaderAccountId and option FILTER_TYPE_FOLLOWER
+ * 2023-10-27 - Harry Wang - Added tests for selectByLeaderAccountId and option FILTER_TYPE_FOLLOWER\
+ * 2024-08-08 - Harry Wang - Added tests for selectByOrganisationABN and option FILTER_SOURCE_SYSTEM_SAP_ERP
  */
 @IsTest
 private class BillingAccountsSelector_Test {
@@ -135,6 +136,7 @@ private class BillingAccountsSelector_Test {
 
 		Account accountRecord = ApplicationTestDataFactory.getAccounts(1, false)[0];
 		accountRecord.LEGACY_ID__c = '60000000';
+		accountRecord.ABN__c = '1234567890';
 		insert accountRecord;
 
 		Account account2 =  ApplicationTestDataFactory.getAccounts(1, false)[0];
@@ -146,6 +148,7 @@ private class BillingAccountsSelector_Test {
 
 		List<Billing_Account__c> billingAccounts = ApplicationTestDataFactory.getBillingAccounts(2, accountRecord.Id, 'SAP ERP', false);
 		billingAccounts[0].Name = 'MYER Account';
+		billingAccounts[1].Name = 'MYER Account';
 		insert billingAccounts;
 
 		Billing_Account__c billingAccount2 = ApplicationTestDataFactory.getBillingAccounts(1, account2.Id, 'TEAM', false)[0];
@@ -187,7 +190,7 @@ private class BillingAccountsSelector_Test {
 		System.assertEquals(billingAccounts[0].Id, results.values()[0].Id, 'Result count was wrong');
 
 		results = selector.selectByLikedNameOrderByName(billingAccounts[0].Name);
-		System.assertEquals(1, results.size(), 'Result count was wrong');
+		System.assertEquals(2, results.size(), 'Result count was wrong');
 
 		Map<Id, Billing_Account__c> resultsforBillingAccountwithNumbers = selector.selectByIdorAccountNumber(billingAccounts,parentLegacyIdSet);
 		System.assertEquals(2, resultsforBillingAccountwithNumbers.size(), 'Result count was wrong');
@@ -201,6 +204,10 @@ private class BillingAccountsSelector_Test {
 		List<Billing_Account__c> resultList = selector.selectByLeaderAccountId(new set<Id>{leaderBillingAccount.Id}, new Set<Object>{BillingAccountsSelector.Options.FILTER_TYPE_FOLLOWER, BillingAccountsSelector.Options.FILTER_ACTIVE});
 		System.assertEquals(1, resultList.size(), 'Expecting one result');
 		System.assertEquals('Test Account', resultList[0].Name, 'Name not matched');
+
+		resultList = selector.selectByOrganisationABN(new Set<String>{'1234567890'}, new Set<Object>{BillingAccountsSelector.Options.FILTER_SOURCE_SYSTEM_SAP_ERP});
+		System.assertEquals(2, resultList.size(), 'Expecting one result');
+		System.assertEquals('MYER Account', resultList[0].Name, 'Name was wrong');
 		Test.stopTest();
 	}
 }

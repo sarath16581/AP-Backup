@@ -510,7 +510,4 @@
         </columns>
         <masterLabel>case fields</masterLabel>
     </sections>
-    <sections>
-        <masterLabel>Cases</masterLabel>
-    </sections>
 </ReportType>

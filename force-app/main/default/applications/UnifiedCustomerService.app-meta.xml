@@ -135,7 +135,7 @@
         <pageOrSobjectType>Account</pageOrSobjectType>
         <recordType>PersonAccount.PersonAccount</recordType>
         <type>Flexipage</type>
-        <profile>Customer Service</profile>
+        <profile>Unified Customer Service</profile>
     </profileActionOverrides>
     <profileActionOverrides>
         <actionName>View</actionName>
@@ -144,7 +144,7 @@
         <pageOrSobjectType>Account</pageOrSobjectType>
         <recordType>PersonAccount.PersonAccount</recordType>
         <type>Flexipage</type>
-        <profile>Customer Service</profile>
+        <profile>Unified Customer Service</profile>
     </profileActionOverrides>
     <setupExperience>service</setupExperience>
     <tabs>standard-home</tabs>

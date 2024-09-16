@@ -20,14 +20,24 @@
                 <label>ABN Change</label>
             </value>
             <value>
-                <fullName>Customer Hierarchy</fullName>
-                <default>false</default>
-                <label>Customer Hierarchy</label>
-            </value>
-            <value>
                 <fullName>Director Requested</fullName>
                 <default>false</default>
                 <label>Director Requested</label>
+            </value>
+            <value>
+                <fullName>Hierarchy Alignment</fullName>
+                <default>false</default>
+                <label>Hierarchy Alignment</label>
+            </value>
+            <value>
+                <fullName>Physical Customer Location Alignment</fullName>
+                <default>false</default>
+                <label>Physical Customer Location Alignment</label>
+            </value>
+            <value>
+                <fullName>Unmanaged Customer Accounts</fullName>
+                <default>false</default>
+                <label>Unmanaged Customer Accounts</label>
             </value>
         </valueSetDefinition>
     </valueSet>

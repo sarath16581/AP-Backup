@@ -1077,11 +1077,6 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>DMAPP__Dealmaker_Opportunity__c</field>
-            <table>Opportunity</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
             <field>Commit_to_close_value__c</field>
             <table>Opportunity</table>
         </columns>
@@ -2191,11 +2186,6 @@
         <columns>
             <checkedByDefault>false</checkedByDefault>
             <field>Distribution_Type__c</field>
-            <table>Opportunity.Opportunities__r</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>DMAPP__Dealmaker_Opportunity__c</field>
             <table>Opportunity.Opportunities__r</table>
         </columns>
         <columns>

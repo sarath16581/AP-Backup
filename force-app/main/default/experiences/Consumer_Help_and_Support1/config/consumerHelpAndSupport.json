@@ -14,13 +14,13 @@
     "trustedSiteUrl" : "https://assets.adobedtm.com",
     "type" : "trustedSitesForScripts"
   }, {
-    "id" : "b889ceb7-c28c-4a1b-b196-dbd0a5e4c00c",
+    "id" : "860b0c57-f078-48a8-9169-71f9721fed37",
     "isActive" : true,
     "trustedSiteName" : "Google Recaptcha",
     "trustedSiteUrl" : "https://www.google.com",
     "type" : "trustedSitesForScripts"
   }, {
-    "id" : "035b6aa0-3d2c-4da5-8b20-217e61eb04b8",
+    "id" : "9a679256-ac1a-477b-b066-c39b3b9650be",
     "isActive" : true,
     "trustedSiteName" : "Google Recaptcha Gstatic",
     "trustedSiteUrl" : "https://www.gstatic.com",

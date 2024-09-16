@@ -623,7 +623,6 @@ public without sharing class OPCUtility {
 		// the products with revenue (related product) has been replaced with a parent product (in the revenue schedue products)
 		Map<String, Set<String>> productReplacementIdMap = getReplacementProductIdMap(productsWithRevenue, productIdSet);
 		calculateParentAccountRevenueMap(parentChildAccountIdMap, productReplacementIdMap, budgetAndRevenues);
-	
 	}
 
 	/**********************************
@@ -671,6 +670,7 @@ public without sharing class OPCUtility {
 	Date Author What Changed
 	2023-03-23 Ken McGuire Created
 	2023-04-17 - Ken McGuire added product replacement logic
+	2024-08-22 - Ken McGuire temporary remove product replacement logic.
 	****************************/
 	private static void calculateParentAccountRevenueMap(Map<String, String> parentChildAccountIdMap, Map<String, Set<String>> productReplacementIdMap, List<Budget_and_Revenue__c> budgetAndRevenue) {
 		
@@ -693,7 +693,7 @@ public without sharing class OPCUtility {
 			}
 
 			// roll up child product revenues into their replacement products
-			if (productReplacementIdMap.containsKey(bar.Product__c)) {
+			/*if (productReplacementIdMap.containsKey(bar.Product__c)) {
 				for (String replacementProductId: productReplacementIdMap.get(bar.Product__c)) {
 					revenueKey = constructRevenueKey(parentAccountId, replacementProductId, bar.Financial_Year__c);
 					if (parentAccountRevenueMap.containsKey(revenueKey)) {
@@ -702,7 +702,7 @@ public without sharing class OPCUtility {
 						parentAccountRevenueMap.put(revenueKey, new ParentAccountRevenue(parentAccountId, bar, replacementProductId, isChildAccount));
 					}
 				}
-			}
+			}*/
 		}
 	}
 

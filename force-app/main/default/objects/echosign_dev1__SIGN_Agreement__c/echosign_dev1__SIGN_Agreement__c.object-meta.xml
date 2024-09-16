@@ -44,8 +44,7 @@
     </actionOverrides>
     <actionOverrides>
         <actionName>Delete</actionName>
-        <skipRecordTypeSelect>false</skipRecordTypeSelect>
-        <type>Standard</type>
+        <type>Default</type>
     </actionOverrides>
     <actionOverrides>
         <actionName>Delete</actionName>
@@ -168,6 +167,7 @@
         <customTabListAdditionalFields>echosign_dev1__Status__c</customTabListAdditionalFields>
         <customTabListAdditionalFields>echosign_dev1__Document__c</customTabListAdditionalFields>
         <listViewButtons>echosign_dev1__Cancel_Agreement_Bulk</listViewButtons>
+        <listViewButtons>echosign_dev1__Delete_Agreement_Bulk</listViewButtons>
         <listViewButtons>echosign_dev1__Send_Agreement_Bulk</listViewButtons>
         <listViewButtons>echosign_dev1__Send_Reminder_Bulk</listViewButtons>
         <listViewButtons>echosign_dev1__Update_Agreement_Bulk</listViewButtons>

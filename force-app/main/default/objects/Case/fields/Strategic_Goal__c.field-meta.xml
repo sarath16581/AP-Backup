@@ -1,39 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Strategic_Goal__c</fullName>
-    <description>BOS Strategic Plan / SESD Strategic Plan</description>
+    <businessStatus>DeprecateCandidate</businessStatus>
     <externalId>false</externalId>
-    <inlineHelpText>Link to the BOS Strategic Plan or SESD Strategic Plan</inlineHelpText>
-    <label>Strategic Goal</label>
+    <label>Dep - Strategic Goal</label>
+    <length>40</length>
     <required>false</required>
-    <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
-    <type>MultiselectPicklist</type>
-    <valueSet>
-        <valueSetDefinition>
-            <sorted>false</sorted>
-            <value>
-                <fullName>Create exceptional customer service</fullName>
-                <default>false</default>
-                <label>Create exceptional customer service</label>
-            </value>
-            <value>
-                <fullName>Build the best team</fullName>
-                <default>false</default>
-                <label>Build the best team</label>
-            </value>
-            <value>
-                <fullName>Optimise operations with insights</fullName>
-                <default>false</default>
-                <label>Optimise operations with insights</label>
-            </value>
-            <value>
-                <fullName>Attack the revenue line</fullName>
-                <default>false</default>
-                <label>Attack the revenue line</label>
-            </value>
-        </valueSetDefinition>
-    </valueSet>
-    <visibleLines>5</visibleLines>
+    <type>Text</type>
+    <unique>false</unique>
 </CustomField>
