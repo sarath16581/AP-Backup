@@ -18,7 +18,7 @@
   * 2022-11-04 - Nathan Franklin - slightly refactor processHLCCases to only execute a dml if needed... NOTE: The method should be refactored... I don't think a DML is needed at all, but have ran out of time
   * 2023-06-02 - Mahesh Parvathaneni - Added logic to complete milestones for transport enquiry record type cases
   */
-  public with sharing class CaseTriggerHelper{
+public with sharing class CaseTriggerHelper{
 
 	// Constants
 	private static final String HLC = 'HLC';

@@ -94,7 +94,7 @@ global with sharing class GenesysSCVStatusSyncManager implements genesyscloud.Ge
 			if (salesforceStatuses == null) {
 				salesforceStatuses = new Map<String,String>();
 
-				for (String statusId :salesforceStatusesById.keySet()) {
+				for (String statusId : salesforceStatusesById.keySet()) {
 					salesforceStatuses.put(
 						salesforceStatusesById.get(statusId).toUpperCase(),
 						statusId
