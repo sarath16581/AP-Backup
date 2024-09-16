@@ -1,6 +1,6 @@
 /**
  * @description A LiveChat Wrapper for case creation.
- *             The wrapper manages the LMS event, UI validation and display and pre-populate data to the embedded case creation LWC component.
+ *			The wrapper manages the LMS event, UI validation and display and pre-populate data to the embedded case creation LWC component.
  * @author: Marcel HK
  * @changelog:
  * 2024-09-10 - Marcel HK - Created
@@ -219,9 +219,7 @@ export default class UnifiedCaseCreationLiveChatWrapper extends LightningElement
 	 * The `caseId` is passed in the event detail. This will be `null` in case of unlinking.
 	 *
 	 * Handles the following events:
-	 *  - `linkcase`
-	 *  - `unlinkcase`
-	 *  - `casecreated`
+	 * - `casecreated`
 	 *
 	 * @param {CustomEvent<{caseId:string|null}>} event
 	 */
