@@ -11,7 +11,7 @@ public with sharing class UnifiedTrackingCaseWrapperController {
 	 * @return Returns true if recordtype related to unified.
 	 */
 	@AuraEnabled(cacheable=true)
-    public static Boolean isUnifiedCase(String recordTypeDeveloperName) {
+	public static Boolean isUnifiedCase(String recordTypeDeveloperName) {
 		return CommonUtils.isUnifiedCase(recordTypeDeveloperName);
-    }
+	}
 }
