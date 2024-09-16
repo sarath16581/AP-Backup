@@ -122,6 +122,7 @@ public with sharing class ResourceCustomerInsightsV1 extends ResourceAPIService.
 	 * @param paramType 
 	 * @return  `List<SObject>`
 	 */
+	@TestVisible
 	static List<SObject> getCustomerInsights(String paramType){
 		//contact fields to be queried
 		Set<SObjectField> contactFields = new Set<SObjectField>{
@@ -163,6 +164,7 @@ public with sharing class ResourceCustomerInsightsV1 extends ResourceAPIService.
 	 * @param records 
 	 * @return  `List<Map<String, Object>>`
 	 */
+	@TestVisible
 	static List<Map<String, Object>> transformOutput(List<Contact> records){
 		//Contact field mapping
 		Map<String, String> contactMapping = new Map<String, String>{
@@ -209,9 +211,9 @@ public with sharing class ResourceCustomerInsightsV1 extends ResourceAPIService.
 				if(contactMapping.get(key)!=null){
 					//value for 'type' key cannot be directly mapped, instead has to be mapped based on Account.RecordType
 					if(key=='type'){				
-						mapRecord.put(key, record.Account.RecordType.Developername=='Consumer'?
+						mapRecord.put(key, record.Account.RecordType.Developername=='PersonAccount'?
 							'Consumer':
-							record.Account.RecordType.Developername=='Organization'?
+							record.Account.RecordType.Developername=='Business_Account'?
 								'Business Contact':
 								null);
 					}//map key value with straight-forward field mappings

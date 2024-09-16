@@ -412,10 +412,10 @@ public virtual inherited sharing class ContactsSelector extends ApplicationSelec
 			Case.Id, Case.CaseNumber, Case.IsClosed, Case.ClosedDate, Case.Type
 			, Case.Call_Purpose__c, Case.EnquirySubType__c, Case.Enquiry_Type__c, Case.Status};
 		
-		final String businessContactRecordType = 'Organisation',
+		final String businessContactRecordType = 'Business_Account',
 			apVoiceCallRecordType = 'SSSWCall';
-			bindMap.put('businessContactRecordType','Organisation');
-			bindMap.put('apVoiceCallRecordType','SSSWCall');
+			bindMap.put('businessContactRecordType',businessContactRecordType);
+			bindMap.put('apVoiceCallRecordType',apVoiceCallRecordType);
 		String contactQueryConditions = ' (IsPersonAccount=true'
 			+ ' OR Account.RecordType.DeveloperName=:businessContactRecordType)';
 		//append additional query condition to include search key
