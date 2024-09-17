@@ -92,14 +92,21 @@ public virtual inherited sharing class ArticlesSelector extends ApplicationSelec
 	}
 
 	/**
-	 * @description Run a simple query to get records based on Id's
+	 * @description Run a query to get child articles for a specified parent consignment record
+	 * @param consignmentIds parent consignment salesforce Id
+	 * @param articlesIds child article Ids
+	 * @return Map<Id, Article__c>
 	 */
 	public virtual Map<Id, Article__c> selectByConsignmentIdAndChildArticles(Set<Id> consignmentIds, Set<String> articlesIds) {
 		return selectByConsignmentIdAndChildArticles(consignmentIds, articlesIds, new Set<Object>());
 	}
 
 	/**
-	 * @description Run a simple query to get records based on Id's
+	 * @description Run a query to get child articles for a specified parent consignment record
+	 * @param consignmentIds parent consignment salesforce Id
+	 * @param articlesIds child article Ids
+	 * @param selectorOptions specify related objects that need to be retrieved with child articles
+	 * @return Map<Id, Article__c>
 	 */
 	public virtual Map<Id, Article__c> selectByConsignmentIdAndChildArticles(Set<Id> consignmentIds, Set<String> articlesIds, Set<Object> selectorOptions) {
 		QueryBuilder qb = newQueryBuilder(selectorOptions)

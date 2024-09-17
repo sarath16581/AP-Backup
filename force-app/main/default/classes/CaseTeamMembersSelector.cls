@@ -25,6 +25,10 @@ public virtual inherited sharing class CaseTeamMembersSelector extends Applicati
 
 	/**
 	 * @description Run a simple query to get records based on Parent Case Id, Member Id and CaseTeamRold Id
+	 * @param caseIds parent case Id of case team member
+	 * @param memberId member Id of case team member
+	 * @param teamRoleId team role Id of case team member
+	 * @return List<CaseTeamMember>
 	 */
 	public virtual List<CaseTeamMember> selectByCaseIdAndMemberIdAndTeamRoleId(Set<Id> caseIds, Set<Id> memberId, Set<Id> teamRoleId) {
 		return selectByCaseIdAndMemberIdAndTeamRoleId(caseIds, memberId, teamRoleId, new Set<Object>());
@@ -32,6 +36,11 @@ public virtual inherited sharing class CaseTeamMembersSelector extends Applicati
 
 	/**
 	 * @description Run a simple query to get records based on Parent Case Id, Member Id and CaseTeamRold Id
+	 * @param caseIds parent case Id of case team member
+	 * @param memberId member Id of case team member
+	 * @param teamRoleId team role Id of case team member
+	 * @param selectorOptions specify the related objects that need to be retrieved with case team member
+	 * @return List<CaseTeamMember>
 	 */
 	public virtual List<CaseTeamMember> selectByCaseIdAndMemberIdAndTeamRoleId(Set<Id> caseIds, Set<Id> memberId, Set<Id> teamRoleId, Set<Object> selectorOptions) {
 		QueryBuilder qb = newQueryBuilder();

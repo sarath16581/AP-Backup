@@ -490,7 +490,7 @@
         <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
-        <fullName>Share_with_Unified_Team</fullName>
+        <fullName>ShareUnifiedCasesWithUnifiedAgents</fullName>
         <accessLevel>Edit</accessLevel>
         <label>Share with Unified Team</label>
         <sharedTo>
@@ -499,7 +499,7 @@
         <criteriaItems>
             <field>RecordTypeId</field>
             <operation>equals</operation>
-            <value>Investigation,Unified General Enquiry</value>
+            <value>Unified Investigation,Unified General Enquiry</value>
         </criteriaItems>
         <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
