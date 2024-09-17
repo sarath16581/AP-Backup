@@ -22,7 +22,7 @@ public with sharing class UnifiedVoiceCallModule extends ApplicationModule {
 		try {
 			autoLinkContact(records, uow);
 		} catch (Exception ex) {
-			ApplicationLogger.getInstance().logException(ApplicationLogger.wrapException(ex), 'Unified Voice Call', UnifiedVoiceCallModule.class.getName(), 'onBeforeUpdate', 'VoiceCall', ApplicationLogger.LoggingLevel.ERROR);
+			ApplicationLogger.getInstance().logException(ApplicationLogger.wrapException(ex), 'Unified Voice Call', UnifiedVoiceCallModule.class.getName(), 'onAfterInsert', 'VoiceCall', ApplicationLogger.LoggingLevel.ERROR);
 		}
 	}
 
@@ -56,10 +56,12 @@ public with sharing class UnifiedVoiceCallModule extends ApplicationModule {
 
 		Set<String> voiceCallReversedPhoneNumber = new Set<String>();
 		for (VoiceCall vc : voiceCallRecordsMap.values()) {
-			if (vc.CallType.equalsIgnoreCase(GenesysConstants.VOICE_CALL_INBOUND_CALL_TYPE) && !String.isBlank(Util.reversePhoneString(vc.Caller.ParticipantDisplayName))) {
-				voiceCallReversedPhoneNumber.add(Util.reversePhoneString(vc.Caller.ParticipantDisplayName));
-			} else if (vc.CallType.equalsIgnoreCase(GenesysConstants.VOICE_CALL_OUTBOUND_CALL_TYPE) && !String.isBlank(Util.reversePhoneString(vc.Recipient.ParticipantDisplayName))) {
-				voiceCallReversedPhoneNumber.add(Util.reversePhoneString(vc.Recipient.ParticipantDisplayName));
+			String reversedParticipantDisplayName = Util.reversePhoneString(vc.Caller.ParticipantDisplayName);
+			String reversedRecipientDisplayName = Util.reversePhoneString(vc.Recipient.ParticipantDisplayName);
+			if (vc.CallType.equalsIgnoreCase(GenesysConstants.VOICE_CALL_INBOUND_CALL_TYPE) && !String.isBlank(reversedParticipantDisplayName)) {
+				voiceCallReversedPhoneNumber.add(reversedParticipantDisplayName);
+			} else if (vc.CallType.equalsIgnoreCase(GenesysConstants.VOICE_CALL_OUTBOUND_CALL_TYPE) && !String.isBlank(reversedRecipientDisplayName)) {
+				voiceCallReversedPhoneNumber.add(reversedRecipientDisplayName);
 			}
 		}
 
@@ -81,11 +83,13 @@ public with sharing class UnifiedVoiceCallModule extends ApplicationModule {
 		}
 
 		for (VoiceCall vc : voiceCallRecordsMap.values()) {
-			if (vc.CallType.equalsIgnoreCase(GenesysConstants.VOICE_CALL_INBOUND_CALL_TYPE) && !String.isBlank(Util.reversePhoneString(vc.Caller.ParticipantDisplayName))) {
+			String reversedParticipantDisplayName = Util.reversePhoneString(vc.Caller.ParticipantDisplayName);
+			String reversedRecipientDisplayName = Util.reversePhoneString(vc.Recipient.ParticipantDisplayName);
+			if (vc.CallType.equalsIgnoreCase(GenesysConstants.VOICE_CALL_INBOUND_CALL_TYPE) && !String.isBlank(reversedParticipantDisplayName)) {
 				List<Contact> potentialContact = contactsByReversedPhone.get(Util.reversePhoneString(vc.Caller.ParticipantDisplayName));
 				vc.Contact__c = potentialContact?.size() == 1 ? potentialContact.get(0).Id : null;
-			} else if (vc.CallType.equalsIgnoreCase(GenesysConstants.VOICE_CALL_OUTBOUND_CALL_TYPE) && !String.isBlank(Util.reversePhoneString(vc.Recipient.ParticipantDisplayName))) {
-				List<Contact> potentialContact = contactsByReversedPhone.get(Util.reversePhoneString(vc.Recipient.ParticipantDisplayName));
+			} else if (vc.CallType.equalsIgnoreCase(GenesysConstants.VOICE_CALL_OUTBOUND_CALL_TYPE) && !String.isBlank(reversedRecipientDisplayName)) {
+				List<Contact> potentialContact = contactsByReversedPhone.get(reversedRecipientDisplayName);
 				vc.Contact__c = potentialContact?.size() == 1 ? potentialContact.get(0).Id : null;
 			}
 		}
