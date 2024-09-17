@@ -7,12 +7,12 @@
  * @test 	GenesysIntegration_Test
  * @changelog
  */
-public with sharing class GenesysIntegration {
+public with sharing class GenesysIntegrationService {
 	/**
 	 * Instance for mocking
 	 */
-	public static GenesysIntegration newInstance() {
-		return (GenesysIntegration)Application.Utilities.newInstance(GenesysIntegration.class);
+	public static GenesysIntegrationService newInstance() {
+		return (GenesysIntegrationService)Application.Utilities.newInstance(GenesysIntegrationService.class);
 	}
 
 	/**
@@ -20,7 +20,7 @@ public with sharing class GenesysIntegration {
 	 * @param conversationId the unique identifier for a call interaction
 	 */
 	public Map<String,Object> fetchConversationCallDetail(String conversationId) {
-		String endpoint = 'conversations/calls/' + conversationId;
+		String endpoint = 'conversations/calls/' + conversationId.escapeHtml4();
 
 		// Send the update request and handle the response
 		HttpResponse response = sendGenesysApiRequest('GET', endpoint, null);
@@ -47,8 +47,8 @@ public with sharing class GenesysIntegration {
 		String endpoint = String.format(
 			'conversations/calls/{0}/participants/{1}/attributes',
 			new String[] {
-				conversationId,
-				participantId
+				conversationId.escapeHtml4(),
+				participantId.escapeHtml4()
 			}
 		);
 

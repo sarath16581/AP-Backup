@@ -27,16 +27,7 @@ public virtual inherited sharing class VoiceCallsSelector extends ApplicationSel
 	}
 
 	public virtual override Set<SObjectField> getSObjectFieldList() {
-		Set<SObjectField> result = new Set<SObjectField>{
-			VoiceCall.Id,
-			VoiceCall.VendorCallKey,
-			VoiceCall.Division__c,
-			VoiceCall.CustomerParticipantId__c,
-			VoiceCall.ConversationId
-		};
-
-		result.addAll(GenesysConstants.genesysFieldMappings.keySet());
-		return result;
+		return new Set<SObjectField>{ VoiceCall.Id };
 	}
 
 	/**
