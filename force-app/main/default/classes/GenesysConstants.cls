@@ -8,16 +8,10 @@
  * 2024-08-28 - Paul Perry - created
  */
 public with sharing class GenesysConstants {
-	public static final String TRANSFER_CALL_TYPE = 'Transfer';
 	public static final String VOICE_CALL_OUTBOUND_CALL_TYPE = 'Outbound';
 	public static final String VOICE_CALL_INBOUND_CALL_TYPE = 'Inbound';
-	public static final String DEFAULT_VOICE_CALL_ROOT_CAUSE = 'Unclear EDD';
 	public static final String VOICE_CALL_ENQUIRY_TYPE_GENERAL_ENQUIRY = 'General Enquiry';
 	public static final String VOICE_CALL_ENQUIRY_TYPE_INVESTIGATION = 'Investigation';
-	public static final String VOICE_CALL_OUTCOME_UNLINKED_CONTACT = 'Unlinked contact';
-	public static final String VOICE_CALL_OUTCOME_FCR = 'FCR';
-	public static final String VOICE_CALL_OUTCOME_ENQUIRY_LODGED = 'Enquiry lodged';
-	public static final String VOICE_CALL_OUTCOME_ENQUIRY_UPDATED = 'Enquiry updated';
 	/**
 	 * Mappings from Salesforce VoiceCall fields => Genesys Custom Attribute names
 	 */
