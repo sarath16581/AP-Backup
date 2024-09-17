@@ -97,14 +97,16 @@ public with sharing class CaseUnifiedTeamMemberModule extends ApplicationModule 
 		// unified agent case team role
 		Id unifiedCaseTeamRoleId = Utility.getCaseTeamRole(UNIFIED_CASE_TEAM_ROLE);
 
-		// check for existing case team member then terminate, to prevent inserting duplicate
-		if (hasExistingCaseTeamMember(cases, unifiedCaseTeamRoleId)) {
+		// filter out cases that has existing case team member, to prevent inserting duplicate
+		List<Case> filteredCases = filterCasesWithoutExistingCaseTeamMember(cases, unifiedCaseTeamRoleId);
+		// terminate if there is no filtered cases
+		if (filteredCases.isEmpty()){
 			return;
 		}
 
 		// Add Case Team Member record for each Case
 		List<CaseTeamMember> insertCaseTeamMembers = new List<CaseTeamMember>();
-		for (Case cs : cases) {
+		for (Case cs : filteredCases) {
 			insertCaseTeamMembers.add(new CaseTeamMember(ParentId = cs.Id, MemberId = cs.OwnerId, TeamRoleId = unifiedCaseTeamRoleId));
 		}
 
@@ -114,24 +116,32 @@ public with sharing class CaseUnifiedTeamMemberModule extends ApplicationModule 
 	}
 
 	/**
-	 * @description check for existing case team member based on caseId, memberId and teamRoleId in order to prevent duplicate creation
+	 * @description get existing case team member based on caseId, memberId and teamRoleId in order to prevent duplicate creation
 	 * @param cases new cases from trigger
 	 * @param unifiedCaseTeamRoleId
 	 *
-	 * @return Boolean
+	 * @return List<Case>
 	 */
-	private static Boolean hasExistingCaseTeamMember(List<Case> cases, Id unifiedCaseTeamRoleId) {
+	private static List<Case> filterCasesWithoutExistingCaseTeamMember(List<Case> cases, Id unifiedCaseTeamRoleId) {
 		Set<Id> caseOwnerIds = new Set<Id>();
 		Set<Id> caseIds = new Set<Id>();
 		for (Case parentCase : cases) {
 			caseIds.add(parentCase.Id);
 			caseOwnerIds.add(parentCase.OwnerId);
 		}
-		List<CaseTeamMember> existingCaseTeamMember = CaseTeamMembersSelector.newInstance().selectByCaseIdAndMemberIdAndTeamRoleId(caseIds, caseOwnerIds, new Set<Id>{ unifiedCaseTeamRoleId });
-		// Check for existing CaseTeamMember and prevent duplicate creation of CaseTeamMember
-		if (!existingCaseTeamMember.isEmpty()) {
-			return true;
+		// fetch existing team members for the given cases and members and unified team role
+		List<CaseTeamMember> existingCaseTeamMembers = CaseTeamMembersSelector.newInstance().selectByCaseIdAndMemberIdAndTeamRoleId(caseIds, caseOwnerIds, new Set<Id>{ unifiedCaseTeamRoleId });
+		Set<Id> caseIdsWithTeamMember = new Set<Id>();
+		for (CaseTeamMember teamMember : existingCaseTeamMembers) {
+			caseIdsWithTeamMember.add(teamMember.ParentId);
 		}
-		return false;
+		// build filter cases list
+		List<Case> filteredCases = new List<Case>();
+		for (Case cs : cases) {
+			if (!caseIdsWithTeamMember.contains(cs.Id)) {
+				filteredCases.add(cs);
+			}
+		}
+		return filteredCases;
 	}
 }
