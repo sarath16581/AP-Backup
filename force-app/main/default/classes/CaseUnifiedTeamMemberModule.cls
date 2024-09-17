@@ -131,15 +131,22 @@ public with sharing class CaseUnifiedTeamMemberModule extends ApplicationModule 
 		}
 		// fetch existing team members for the given cases and members and unified team role
 		List<CaseTeamMember> existingCaseTeamMembers = CaseTeamMembersSelector.newInstance().selectByCaseIdAndMemberIdAndTeamRoleId(caseIds, caseOwnerIds, new Set<Id>{ unifiedCaseTeamRoleId });
-		Set<Id> caseIdsWithTeamMember = new Set<Id>();
-		for (CaseTeamMember teamMember : existingCaseTeamMembers) {
-			caseIdsWithTeamMember.add(teamMember.ParentId);
+		if (existingCaseTeamMembers.isEmpty()){
+			return cases;
 		}
-		// build filter cases list
+		// build key for unique combination of case Id and member Id
+		Set<String> uniqueKeyForExistingCaseAndMemberId = new Set<String>();
+		for (CaseTeamMember teamMember : existingCaseTeamMembers) {
+			uniqueKeyForExistingCaseAndMemberId.add(teamMember.ParentId + ':' + teamMember.MemberId);
+		}
+		// build filter cases list using unique key
 		List<Case> filteredCases = new List<Case>();
 		for (Case cs : cases) {
-			if (!caseIdsWithTeamMember.contains(cs.Id)) {
-				filteredCases.add(cs);
+			String uniqueKeyForCaseIdOwnerId = cs.Id + ':' + cs.OwnerId;
+			for(String uniqueKey : uniqueKeyForExistingCaseAndMemberId){
+				if(!uniqueKey.equals(uniqueKeyForCaseIdOwnerId)){
+					filteredCases.add(cs);
+				}
 			}
 		}
 		return filteredCases;
