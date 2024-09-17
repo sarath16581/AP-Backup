@@ -12,7 +12,7 @@
 @IsTest
 public with sharing class GenesysVoiceCallModule_Test {
 	// Mocking
-	private static GenesysIntegration mockGenesysIntegration;
+	private static GenesysIntegrationService mockGenesysIntegration;
 	private static ApplicationDatabase mockDatabase;
 	private static VoiceCallsSelector voiceCallsSelector;
 	private static ApplicationUnitOfWork uow;
@@ -123,12 +123,12 @@ public with sharing class GenesysVoiceCallModule_Test {
 		System.assertEquals(GenesysVoiceCallModule.AsyncGenesysAttributeSync.class, instance.getClassType(), 'Invalid class type');
 		System.assertEquals(VoiceCall.SObjectType, instance.getSObjectTypeGroup(), 'Invalid SObjectType');
 
-		fflib_ArgumentCaptor conversationIdCaptor = fflib_ArgumentCaptor.forClass(GenesysIntegration.class);
-		fflib_ArgumentCaptor participantIdCaptor = fflib_ArgumentCaptor.forClass(GenesysIntegration.class);
-		fflib_ArgumentCaptor attributesCaptor = fflib_ArgumentCaptor.forClass(GenesysIntegration.class);
+		fflib_ArgumentCaptor conversationIdCaptor = fflib_ArgumentCaptor.forClass(GenesysIntegrationService.class);
+		fflib_ArgumentCaptor participantIdCaptor = fflib_ArgumentCaptor.forClass(GenesysIntegrationService.class);
+		fflib_ArgumentCaptor attributesCaptor = fflib_ArgumentCaptor.forClass(GenesysIntegrationService.class);
 
 		// Ensure fetchConversationCallDetail has been invoked once
-		((GenesysIntegration)MockUtility.Mocks.verify(mockGenesysIntegration, 1)).fetchConversationCallDetail(
+		((GenesysIntegrationService)MockUtility.Mocks.verify(mockGenesysIntegration, 1)).fetchConversationCallDetail(
 			(String)conversationIdCaptor.capture()
 		);
 
@@ -136,9 +136,9 @@ public with sharing class GenesysVoiceCallModule_Test {
 
 		System.assertEquals(conversationId, conversationIdCaptor.getValue(), 'ConversationId incorrect');
 
-		conversationIdCaptor = fflib_ArgumentCaptor.forClass(GenesysIntegration.class);
+		conversationIdCaptor = fflib_ArgumentCaptor.forClass(GenesysIntegrationService.class);
 		// Ensure fetchConversationCallDetail has been invoked 2 times
-		((GenesysIntegration)MockUtility.Mocks.verify(mockGenesysIntegration, 2)).patchConversationParticipantAttributes(
+		((GenesysIntegrationService)MockUtility.Mocks.verify(mockGenesysIntegration, 2)).patchConversationParticipantAttributes(
 			(String)conversationIdCaptor.capture(),
 			(String)participantIdCaptor.capture(),
 			(Map<String,Object>)attributesCaptor.capture()
@@ -202,7 +202,7 @@ public with sharing class GenesysVoiceCallModule_Test {
 	private static void mockClasses(Set<MockSetup> setup, Map<SObjectType,Object> testRecordsBySObjectType) {
 		// Mocking
 		if (setup.contains(MockSetup.MOCKGENESYSINTEGRATION)) {
-			mockGenesysIntegration = (GenesysIntegration)MockUtility.mockUtility(GenesysIntegration.class);
+			mockGenesysIntegration = (GenesysIntegrationService)MockUtility.mockUtility(GenesysIntegrationService.class);
 		}
 
 		if (setup.contains(MockSetup.MOCKDATABASE)) {

@@ -7,12 +7,17 @@
  */
 @SuppressWarnings('PMD.CognitiveComplexity')
 public with sharing class GenesysVoiceCallModule extends ApplicationModule {
+	/**
+	 * Chunk size - representing the number of callouts to be performed in a single transaction.
+	 */
+	private static final Integer CALLOUT_CHUNK_SIZE = 10;
+
 	public static GenesysVoiceCallModule newInstance() {
 		return (GenesysVoiceCallModule)Application.Utilities.newInstance(GenesysVoiceCallModule.class);
 	}
 
 	/**
-	 * Constructor
+	 * Constructor hooking up event handlers for trigger logic
 	 */
 	public GenesysVoiceCallModule() {
 		getTriggerEvents().enableAfterUpdate();
@@ -27,11 +32,6 @@ public with sharing class GenesysVoiceCallModule extends ApplicationModule {
 	public override void onAfterUpdate(List<SObject> records, Map<Id, SObject> existingRecords, ApplicationUnitOfWork uow) {
 		performGenesysUpdateSync(records, existingRecords, uow);
 	}
-
-	/**
-	 * Chunk size - representing the number of callouts to be performed in a single transaction.
-	 */
-	private static final Integer CALLOUT_CHUNK_SIZE = 10;
 
 	/**
 	 * Performs a Genesys update sync.
@@ -73,13 +73,11 @@ public with sharing class GenesysVoiceCallModule extends ApplicationModule {
 
 			for (SObjectField field :recordState.changedFields) {
 				// Add the field to the set of changed fields for this voicecall, if updated
-				if (voiceCall.get(field) != previousState.get(String.valueOf(field))) {
-					if (!updatedFieldsByVoiceCallId.containsKey(voiceCall.Id)) {
-						updatedFieldsByVoiceCallId.put(voiceCall.Id, new Set<String>());
-					}
-
-					updatedFieldsByVoiceCallId.get(voiceCall.Id).add(String.valueOf(field));
+				if (!updatedFieldsByVoiceCallId.containsKey(voiceCall.Id)) {
+					updatedFieldsByVoiceCallId.put(voiceCall.Id, new Set<String>());
 				}
+
+				updatedFieldsByVoiceCallId.get(voiceCall.Id).add(String.valueOf(field));
 			}
 		}
 
@@ -95,13 +93,11 @@ public with sharing class GenesysVoiceCallModule extends ApplicationModule {
 			while (!conversationIdList.isEmpty() && mapSize < CALLOUT_CHUNK_SIZE - 1) {
 				Id conversationId = conversationIdList.remove(0);
 
-				if (conversationVoiceCallMap.containsKey(conversationId)) {
-					for (Id voiceCallId :conversationVoiceCallMap.get(conversationId)) {
-						updateFieldsSubSet.put(voiceCallId, updatedFieldsByVoiceCallId.get(voiceCallId));
-					}
-
-					mapSize++;
+				for (Id voiceCallId :conversationVoiceCallMap.get(conversationId)) {
+					updateFieldsSubSet.put(voiceCallId, updatedFieldsByVoiceCallId.get(voiceCallId));
 				}
+
+				mapSize++;
 			}
 
 			if (!updateFieldsSubSet.isEmpty()) {
@@ -116,25 +112,16 @@ public with sharing class GenesysVoiceCallModule extends ApplicationModule {
 		}
 	}
 
-	public with sharing class AsyncGenesysAttributeSync extends ApplicationUnitOfWork.AsyncWorker implements Queueable, Database.AllowsCallouts {
+	public with sharing class AsyncGenesysAttributeSync extends ApplicationUnitOfWork.AsyncWorker implements Database.AllowsCallouts {
 		@TestVisible
 		public Set<Id> conversationIds;
 		public Map<Id,Set<String>> updatedFieldsByVoiceCallId;
 		private Map<Id,Set<Id>> voiceCallIdsByConversationId = new Map<Id,Set<Id>>();
 
 		public override void execute(ApplicationUnitOfWork uow) {
-			executeTask();
-		}
-
-		public void execute(QueueableContext context) {
-			executeTask();
-		}
-
-		public void executeTask() {
 			try {
 				processGenesysCallouts();
 			} catch(Exception ex) {
-				System.debug(ex.getMessage() + '\r\n' + ex.getStackTraceString());
 				// Error Logged to Exception object for analysis
 				ApplicationLogger.getInstance().logException(
 					new ApplicationLogger.ExceptionWrapper(ex),
@@ -181,8 +168,18 @@ public with sharing class GenesysVoiceCallModule extends ApplicationModule {
 		}
 
 		public void processGenesysCallouts() {
+			Set<SObjectField> voiceCallFieldSet = new Set<SObjectField>{
+				VoiceCall.Id,
+				VoiceCall.VendorCallKey,
+				VoiceCall.Division__c,
+				VoiceCall.CustomerParticipantId__c,
+				VoiceCall.ConversationId
+			};
+	
+			voiceCallFieldSet.addAll(GenesysConstants.genesysFieldMappings.keySet());
+
 			// Retrieve the voice call records
-			List<VoiceCall> voiceCallMap = VoiceCallsSelector.newInstance().selectByIds(
+			List<VoiceCall> voiceCallMap = VoiceCallsSelector.newInstance(0, voiceCallFieldSet).selectByIds(
 				new Set<Object>{ VoiceCallsSelector.Options.ORDERBY_OLDTONEW },
 				updatedFieldsByVoiceCallId.keySet()
 			);
@@ -300,7 +297,7 @@ public with sharing class GenesysVoiceCallModule extends ApplicationModule {
 	 * @param request	Contains the conversationId and the attribute values
 	 */
 	public static void processGenesysUpdate(GenesysSyncRequest request) {
-		GenesysIntegration genesysIntegration = GenesysIntegration.newInstance();
+		GenesysIntegrationService genesysIntegration = GenesysIntegrationService.newInstance();
 		Map<String,Object> requiredUpdates = request.customAttributes;
 		String participantId = request.participantId;
 
@@ -311,7 +308,7 @@ public with sharing class GenesysVoiceCallModule extends ApplicationModule {
 			// Participant purpose depends on call type
 			List<String> participantPurposes = new List<String>{
 				'customer',		// default inbound call including consult / transfer
-				'external',		// outbound call
+				'external',		// outbound call wo/ queue selected
 				'agent'			// call from agent to other agent
 			};
 
@@ -330,8 +327,8 @@ public with sharing class GenesysVoiceCallModule extends ApplicationModule {
 
 			Map<String,Object> existingAttributeValues = (Map<String,Object>)participantDetail?.get('attributes');
 
+			// No participant details found, not likely to happen. Simply prevent further execution to prevent Exception
 			if (existingAttributeValues == null) {
-				// No participant details found
 				return;
 			}
 
