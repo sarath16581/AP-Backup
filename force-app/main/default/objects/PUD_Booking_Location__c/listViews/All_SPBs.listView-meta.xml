@@ -11,9 +11,15 @@
     <columns>State__c</columns>
     <filterScope>Everything</filterScope>
     <filters>
-        <field>NAME</field>
-        <operation>contains</operation>
-        <value>the gap</value>
+        <field>RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>PUD_Booking_Location__c.AP_Network</value>
+    </filters>
+    <filters>
+        <field>Network_Type__c</field>
+        <operation>equals</operation>
+        <value>Street Posting Box</value>
     </filters>
     <label>All SPBs</label>
+    <language>en_US</language>
 </ListView>

@@ -7,8 +7,8 @@ import ID_FIELD from '@salesforce/schema/VoiceCall.Id';
 import CONTACT_ID_FIELD from '@salesforce/schema/VoiceCall.Contact__c';
 import CASE_ID_FIELD from '@salesforce/schema/VoiceCall.Case__c';
 import CALL_TYPE_FIELD from '@salesforce/schema/VoiceCall.CallType';
-import PHONE_NUMBER_FIELD from '@salesforce/schema/VoiceCall.FromPhoneNumber';
-import ORIGINAL_PHONE_NUMBER_FIELD from '@salesforce/schema/VoiceCall.OriginalVoiceCall__r.FromPhoneNumber';
+import CALLER_PARTICIPANT_DISPLAY_NAME_FIELD from '@salesforce/schema/VoiceCall.Caller.ParticipantDisplayName';
+import RECIPIENT_PARTICIPANT_DISPLAY_NAME_FIELD from '@salesforce/schema/VoiceCall.Recipient.ParticipantDisplayName';
 
 /**
  * @typedef {object} PreFillData
@@ -87,12 +87,12 @@ export default class UnifiedCustomerSearchVoiceCallWrapper extends LightningElem
 	 * @type {PreFillData}
 	 */
 	get preFillData() {
-		const isTransfer = getFieldValue(this.interactionRecord, CALL_TYPE_FIELD)?.toLowerCase() === 'transfer';
-		const phoneNumber = getFieldValue(this.interactionRecord, PHONE_NUMBER_FIELD);
-		const originalPhoneNumber = getFieldValue(this.interactionRecord, ORIGINAL_PHONE_NUMBER_FIELD);
+		const isOutboundCall = getFieldValue(this.interactionRecord, CALL_TYPE_FIELD)?.toLowerCase() === 'outbound';
+		const callerPhoneNumber = getFieldValue(this.interactionRecord, CALLER_PARTICIPANT_DISPLAY_NAME_FIELD);
+		const recipeintPhoneNumber = getFieldValue(this.interactionRecord, RECIPIENT_PARTICIPANT_DISPLAY_NAME_FIELD);
 		return {
-			// Transfers need to get the phoneNumber from the original `VoiceCall` record
-			phoneNumber: (isTransfer ? originalPhoneNumber : phoneNumber)?.replace(/[^0-9]/g, '')
+			// Outbound calls need to get the phoneNumber from a different field to inbound or transfer calls
+			phoneNumber: (isOutboundCall ? recipeintPhoneNumber : callerPhoneNumber)?.replace(/[^0-9]/g, '')
 		};
 	}
 
@@ -120,7 +120,7 @@ export default class UnifiedCustomerSearchVoiceCallWrapper extends LightningElem
 	/**
 	 * Wire the interaction (Voice Call) record.
 	 */
-	@wire(getRecord, { recordId: '$recordId', fields: [CONTACT_ID_FIELD, CASE_ID_FIELD, PHONE_NUMBER_FIELD, CALL_TYPE_FIELD, ORIGINAL_PHONE_NUMBER_FIELD] })
+	@wire(getRecord, { recordId: '$recordId', fields: [CONTACT_ID_FIELD, CASE_ID_FIELD, CALLER_PARTICIPANT_DISPLAY_NAME_FIELD, CALL_TYPE_FIELD, RECIPIENT_PARTICIPANT_DISPLAY_NAME_FIELD] })
 	wiredInterationRecord({ error, data }) {
 		if (data) {
 			this.interactionRecord = data;

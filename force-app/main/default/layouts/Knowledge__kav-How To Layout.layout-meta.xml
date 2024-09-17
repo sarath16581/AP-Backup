@@ -19,7 +19,7 @@
                 <field>Action__c</field>
             </layoutItems>
             <layoutItems>
-                <field>Categoryselections__c</field>
+                <field>CategorySelections__c</field>
             </layoutItems>
             <layoutItems>
                 <field>TimeToRemind__c</field>

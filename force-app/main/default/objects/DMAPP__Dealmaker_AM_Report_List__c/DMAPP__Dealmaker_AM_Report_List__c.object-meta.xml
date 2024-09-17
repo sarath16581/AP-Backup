@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
-    <customSettingsType>List</customSettingsType>
-    <description>Allows the user to define a list of Account Plan reports to be displayed as navigation links on the AM screens</description>
-    <enableEnhancedLookup>false</enableEnhancedLookup>
-    <enableFeeds>false</enableFeeds>
-    <label>Dealmaker AM Report List</label>
-    <visibility>Public</visibility>
-</CustomObject>

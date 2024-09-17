@@ -3009,11 +3009,6 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>DMAPP__Dealmaker_Opportunity__c</field>
-            <table>Account.Opportunities</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
             <field>Description</field>
             <table>Account.Opportunities</table>
         </columns>
@@ -4121,18 +4116,5 @@
             <table>Account.Opportunities.OpportunityLineItems</table>
         </columns>
         <masterLabel>Products</masterLabel>
-    </sections>
-    <sections>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>InYearRevenueRetainedOnly__c</field>
-            <table>Account.Opportunities.OpportunityLineItems</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>InYearRevenueIncrementalOnly__c</field>
-            <table>Account.Opportunities.OpportunityLineItems</table>
-        </columns>
-        <masterLabel>Opportunity Product</masterLabel>
     </sections>
 </ReportType>

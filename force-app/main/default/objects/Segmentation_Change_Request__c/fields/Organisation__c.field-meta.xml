@@ -4,6 +4,7 @@
     <externalId>false</externalId>
     <label>Organisation</label>
     <referenceTo>Account</referenceTo>
+    <relationshipLabel>Sales Coverage Change Requests (SCCR)</relationshipLabel>
     <relationshipName>Segmentation_Change_Requests</relationshipName>
     <relationshipOrder>0</relationshipOrder>
     <reparentableMasterDetail>false</reparentableMasterDetail>

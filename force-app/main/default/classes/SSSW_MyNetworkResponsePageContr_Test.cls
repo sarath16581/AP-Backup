@@ -9,6 +9,7 @@
  04.06.18     kalpita.talwadekar@auspost.com.au            updated code for test class failure fix and coding standards TDO - 203
 2019-04-26 - Swati.mogadala@auspost.com.au  - Update 'Message to network' from the case description field as per REQ1760281
 2023-07-18 - Nathan Franklin - Update failing test method - a bit of dodgy fix (testNwResp_sendbckCCC) - Move test.starttest()
+2024-08-28 mona.raghav@auspost.com.au - mehtod testTrimEscalationEmailContent added to test trimming of the string
 
  *******************************  History ************************************************/
 @isTest
@@ -923,5 +924,17 @@ private class SSSW_MyNetworkResponsePageContr_Test{
                 'SSSW_MyNetworkResponsePageContr_Test_testNwResp_ExistingReassign_NullifyData: Network Response values are nullified.' );
         
     }
+    
+    /**
+	  * SCENARIO:
+	  *   Scenario will test the trimEscalationEmailContent functionality where the escalation email content is trimmed to the fields length
+	  */
+	  public static testMethod void testTrimEscalationEmailContent() {
+		Test.startTest();
+		string trimmedString = SSSW_MyNetworkResponsePageContr.trimContent('email comment', 2);
+		Test.stopTest();
+		// check the string passed is trimmed
+		System.assertEquals(trimmedString, 'em');
+	}
 
 }

@@ -342,11 +342,19 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Customer Hierarchy</fullName>
+            <fullName>Director Requested</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Director Requested</fullName>
+            <fullName>Hierarchy Alignment</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Physical Customer Location Alignment</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Unmanaged Customer Accounts</fullName>
             <default>false</default>
         </values>
     </picklistValues>
@@ -354,6 +362,10 @@
         <picklist>Sales_Governance_Approval__c</picklist>
         <values>
             <fullName>Approved</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Pending Information</fullName>
             <default>false</default>
         </values>
         <values>

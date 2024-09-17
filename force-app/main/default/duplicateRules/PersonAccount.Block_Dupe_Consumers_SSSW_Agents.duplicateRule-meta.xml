@@ -16,7 +16,7 @@
         <duplicateRuleFilterItems>
             <field>Profile</field>
             <operation>equals</operation>
-            <value>CustomerService</value>
+            <value>Customer Service</value>
             <sortOrder>2</sortOrder>
             <table>User</table>
         </duplicateRuleFilterItems>

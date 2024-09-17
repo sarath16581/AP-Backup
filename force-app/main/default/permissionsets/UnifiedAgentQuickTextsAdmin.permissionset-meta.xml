@@ -14,6 +14,10 @@
         <viewAllRecords>false</viewAllRecords>
     </objectPermissions>
     <recordTypeVisibilities>
+        <recordType>QuickText.ClassicService</recordType>
+        <visible>true</visible>
+    </recordTypeVisibilities>
+    <recordTypeVisibilities>
         <recordType>QuickText.UnifiedService</recordType>
         <visible>true</visible>
     </recordTypeVisibilities>

@@ -179,7 +179,8 @@ export default class myNetworkeParcelDamagesForm extends LwcForm {
     }
 
     handleUploadFinished(event) {
-		// Get the list of uploaded files
+		try{
+        // Get the list of uploaded files
         const uploadedFiles = event.detail.files
         if(uploadedFiles.length > 0) {
 			for(var i = 0; i < uploadedFiles.length; ++i){
@@ -188,6 +189,11 @@ export default class myNetworkeParcelDamagesForm extends LwcForm {
         }
         this.fileUploaded = true;
 	}
+	catch(e){
+		throw(e);
+	}
+		
+    }
 
     connectedCallback() {
         getNetworkUsers()

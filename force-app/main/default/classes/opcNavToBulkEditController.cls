@@ -21,7 +21,9 @@ public with sharing class opcNavToBulkEditController {
 			uow.commitWork();
 			return true;
 		} catch (Exception ex) {
-			UTIL_LoggingService.logHandledException(ex, UserInfo.getOrganizationId(), 'opcNavToBulkEditController', opcNavToBulkEditController.class.getName(), 'recalculateRevenue', 'opcNavToBulkEditController', LoggingLevel.ERROR);
+  			System.debug('***** Error: ' + ex.getMessage());
+    		System.debug('***** Stack Trace: ' + ex.getStackTraceString());
+            UTIL_LoggingService.logHandledException(ex, UserInfo.getOrganizationId(), 'opcNavToBulkEditController', opcNavToBulkEditController.class.getName(), 'recalculateRevenue', 'opcNavToBulkEditController', LoggingLevel.ERROR);
 			return false;
 		}
 	}

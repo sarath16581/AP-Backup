@@ -2,6 +2,7 @@
  ------------------------------------- History --------------------------------------------------
 09.09.2021    Swati Mogadala REQ2596608- Added the header "Remaining Bottles" under 'ContainsWine'
 01.06.2024    Jacob Isaac	 REQ3357026 - new question on wine/edamages form
+22.07.2024    Jacob Isaac	 REQ3513981 - made file upload into multiple and updated label for file upload
 -->
 <template>
     <div class="slds-m-horizontal_large slds-p-horizontal_large">
@@ -27,14 +28,15 @@
                     <div class="text-center">Article Id : {articleId}</div>
                     <div class="text-center">Sender name : {senderName}</div>
                     <div class="text-center">Addressee name : {addresseeName}</div>
-                    <div class="slds-box text-center slds-no-print">If you would like to include a photo or file, attach here.
+                    <div class="slds-box text-center slds-text-title_bold slds-no-print">Please upload photos of the damaged item as received. Include all packaging/inserts and all contents.
                         <div class="slds-align_absolute-center slds-m-around_large">
                             <lightning-file-upload
                                 label="Attach file (jpg, png, or pdf)"
                                 name="fileUploader"
                                 accept={acceptedFormats}
                                 record-id={caseId}
-                                onuploadfinished={handleUploadFinished}
+                                onuploadfinished={handleUploadFinished} 
+								multiple
                                 >
                             </lightning-file-upload>
                         </div>
@@ -246,13 +248,13 @@
                     </c-lwc-form-element>
                 </lightning-layout-item>
 				<lightning-layout-item size="6" padding="horizontal-small">
-                    <c-lwc-form-element visibility-state={visibilities} name="totalBottlesNotDamaged"
-                        render-config={containsWineRenderConfig}>
-                        <lightning-input required class="form-input" type="number" label="Total bottles without any damage"
-                            value={values.totalBottlesNotDamaged} step="1" max="999">
-                        </lightning-input>
-                    </c-lwc-form-element>
-                </lightning-layout-item>
+					<c-lwc-form-element visibility-state={visibilities} name="totalBottlesNotDamaged"
+						render-config={containsWineRenderConfig}>
+						<lightning-input required class="form-input" type="number" label="Total bottles without any damage"
+							value={values.totalBottlesNotDamaged} step="1" max="999">
+						</lightning-input>
+					</c-lwc-form-element>
+				</lightning-layout-item>
 				<lightning-layout-item size="6"></lightning-layout-item>
                 <lightning-layout-item size="6" padding="horizontal-small">
                     <c-lwc-form-element visibility-state={visibilities} name="noOfCapsDamaged"

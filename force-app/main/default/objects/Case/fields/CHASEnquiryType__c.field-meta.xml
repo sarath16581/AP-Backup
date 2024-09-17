@@ -102,6 +102,11 @@
                 <default>false</default>
                 <label>Assessment sheet</label>
             </value>
+            <value>
+                <fullName>Credit initiated Cancellation</fullName>
+                <default>false</default>
+                <label>Credit initiated Cancellation</label>
+            </value>
         </valueSetDefinition>
     </valueSet>
 </CustomField>

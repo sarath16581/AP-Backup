@@ -4,41 +4,12 @@
     <category>other</category>
     <deployed>true</deployed>
     <description>Which organisations do or do not have Altify Relationship maps attached.</description>
-    <join>
-        <outerJoin>true</outerJoin>
-        <relationship>DMAPP__Account_Political_Maps__r</relationship>
-    </join>
     <label>Organisations with or without Relationship Maps</label>
     <sections>
         <columns>
             <checkedByDefault>true</checkedByDefault>
             <field>Name</field>
             <table>Account</table>
-        </columns>
-        <columns>
-            <checkedByDefault>true</checkedByDefault>
-            <field>Name</field>
-            <table>Account.DMAPP__Account_Political_Maps__r</table>
-        </columns>
-        <columns>
-            <checkedByDefault>true</checkedByDefault>
-            <field>Opportunity_Name__c</field>
-            <table>Account.DMAPP__Account_Political_Maps__r</table>
-        </columns>
-        <columns>
-            <checkedByDefault>true</checkedByDefault>
-            <field>DMAPP__Primary_Map__c</field>
-            <table>Account.DMAPP__Account_Political_Maps__r</table>
-        </columns>
-        <columns>
-            <checkedByDefault>true</checkedByDefault>
-            <field>CreatedDate</field>
-            <table>Account.DMAPP__Account_Political_Maps__r</table>
-        </columns>
-        <columns>
-            <checkedByDefault>true</checkedByDefault>
-            <field>DMAPP__Number_Contacts__c</field>
-            <table>Account.DMAPP__Account_Political_Maps__r</table>
         </columns>
         <columns>
             <checkedByDefault>true</checkedByDefault>
@@ -55,35 +26,7 @@
             <field>Sales_Director__c</field>
             <table>Account</table>
         </columns>
-        <columns>
-            <checkedByDefault>true</checkedByDefault>
-            <field>CreatedBy</field>
-            <table>Account.DMAPP__Account_Political_Maps__r</table>
-        </columns>
         <masterLabel>Key Relationship Map Fields</masterLabel>
-    </sections>
-    <sections>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>LastModifiedBy</field>
-            <table>Account.DMAPP__Account_Political_Maps__r</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>LastModifiedDate</field>
-            <table>Account.DMAPP__Account_Political_Maps__r</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>DMAPP__Linked_Map__c</field>
-            <table>Account.DMAPP__Account_Political_Maps__r</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>Id</field>
-            <table>Account.DMAPP__Account_Political_Maps__r</table>
-        </columns>
-        <masterLabel>Relationship Maps</masterLabel>
     </sections>
     <sections>
         <columns>

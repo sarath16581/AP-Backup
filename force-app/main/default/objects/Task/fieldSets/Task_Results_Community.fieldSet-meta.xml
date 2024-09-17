@@ -3,11 +3,6 @@
     <fullName>Task_Results_Community</fullName>
     <description>StarTrack Community: Used in Search results</description>
     <displayedFields>
-        <field>CreatedDate</field>
-        <isFieldManaged>false</isFieldManaged>
-        <isRequired>false</isRequired>
-    </displayedFields>
-    <displayedFields>
         <field>Subject</field>
         <isFieldManaged>false</isFieldManaged>
         <isRequired>false</isRequired>
@@ -64,6 +59,11 @@
     </displayedFields>
     <displayedFields>
         <field>CaseObject__r.ArticleTest__c</field>
+        <isFieldManaged>false</isFieldManaged>
+        <isRequired>false</isRequired>
+    </displayedFields>
+    <displayedFields>
+        <field>CreatedDate</field>
         <isFieldManaged>false</isFieldManaged>
         <isRequired>false</isRequired>
     </displayedFields>

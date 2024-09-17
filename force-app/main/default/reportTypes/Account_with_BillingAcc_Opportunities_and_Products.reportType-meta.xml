@@ -4346,11 +4346,6 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>DMAPP__Dealmaker_Opportunity__c</field>
-            <table>Account.Billing_Accounts__r.Opportunities__r</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
             <field>Commit_to_close_value__c</field>
             <table>Account.Billing_Accounts__r.Opportunities__r</table>
         </columns>

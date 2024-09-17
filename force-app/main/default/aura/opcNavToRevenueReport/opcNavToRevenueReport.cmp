@@ -4,14 +4,25 @@
  @author Ken McGuire
  @date 2024-02-06
  @changelog
-  2024-02-06 - KenMcGuire created
-
+2024-02-06 - KenMcGuire created
+2024-08-16 refresh revenue 
 -->
-<aura:component implements="lightning:isUrlAddressable" description="Aura wrapper navigate user to RevenueReport component" >
-	<aura:attribute name="recordId" type="String" />
-
+<aura:component  controller="OpportunityRevenueReportController"  implements="lightning:isUrlAddressable" description="Aura wrapper navigate user to RevenueReport component">
+    <aura:attribute name="recordId" type="String" />
+    <aura:attribute name="pageReference" type="Object" />
+    <aura:attribute name="showButton" type="Boolean" default="false" />
+    
 	<aura:handler name="init" value="{!this}" action="{!c.onPageReferenceChange}"/>
 	<aura:handler name="change" value="{!v.pageReference}" action="{!c.onPageReferenceChange}"/>
-
-	<c:opportunityRevenueReport recordId="{!v.recordId}"/>
+    <!-- for modal -->
+	<aura:handler event="c:AuraModalEvent" action="{!c.handleModalEvent}"/>
+    
+    <aura:if isTrue="{!v.showButton}">
+        <lightning:button label="Refresh Revenue" onclick="{!c.handleRefreshRevenueClick}"/>
+    </aura:if>
+    
+	<c:opportunityRevenueReport aura:id="opportunityRevenueReportComponent"  recordId="{!v.recordId}"/>
+    
+	<c:AuraModal aura:id="confirmRefreshModal" title="Confirm Refresh" contentBody="Are you sure you want to recalculate revenue for this opportunity? This process cannot be undone." okText="OK"></c:AuraModal>
+    
 </aura:component>

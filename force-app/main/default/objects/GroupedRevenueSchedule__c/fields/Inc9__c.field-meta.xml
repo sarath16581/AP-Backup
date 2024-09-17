@@ -3,10 +3,10 @@
     <fullName>Inc9__c</fullName>
     <description>Incremental Sales forecast for September</description>
     <externalId>false</externalId>
-    <formula>For9__c *  OpportunityProduct__r.TotalIncremental__c</formula>
+    <formula>For9__c *  TotalIncremental__c</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <inlineHelpText>Incremental Sales forecast for September</inlineHelpText>
-    <label>September Expected Incremental Value</label>
+    <label>September  Expected Incremental Value</label>
     <precision>18</precision>
     <required>false</required>
     <scale>2</scale>

@@ -14,5 +14,11 @@
         <operation>equals</operation>
         <value>QLD</value>
     </filters>
+    <filters>
+        <field>RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>PUD_Booking_Location__c.AP_Customer</value>
+    </filters>
     <label>Qld Customers</label>
+    <language>en_US</language>
 </ListView>
