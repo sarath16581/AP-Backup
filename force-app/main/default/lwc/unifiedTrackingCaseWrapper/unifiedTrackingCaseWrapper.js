@@ -9,8 +9,6 @@ import { api, LightningElement, wire, track } from 'lwc';
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 import { getRecord, getFieldValue, createRecord, deleteRecord } from 'lightning/uiRecordApi';
 import { getRelatedListRecords } from 'lightning/uiRelatedListApi';
-import { publish, MessageContext } from 'lightning/messageService';
-import GENERIC_LMS_CHANNEL from '@salesforce/messageChannel/genericMessageChannel__c';
 // Object
 import IMPACTED_ARTICLE_OBJECT from '@salesforce/schema/ImpactedArticle__c';
 // Case Fields
@@ -38,8 +36,8 @@ export default class UnifiedTrackingChatWrapper extends LightningElement {
 	@track impactedArticleIdsWithTrackingIds = {};
 	// Boolean to determine if the current record is an unified case or not.
 	isUnifiedCase = false;
-	// Boolean to make search field read only and writable on happyparcel component
-	readOnly = false;
+	// Boolean to make search field read only and writable on happyparcel component.
+	readOnly = true;
 	// Boolean to hide and show Spinner
 	showSpinner = false;
 	// Boolean to hide and show checkboxes on the happy parcel component.
@@ -52,9 +50,6 @@ export default class UnifiedTrackingChatWrapper extends LightningElement {
 	statusFromRecord;
 	// RecordType developer name
 	recordTypeName;
-	// wire the message context and pass to publisher to send LMS events
-	@wire(MessageContext)
-	messageContext;
 
 	/**
 	 * Uses getRecord to get case records field values and passes variables to happy parcel component.
@@ -89,13 +84,12 @@ export default class UnifiedTrackingChatWrapper extends LightningElement {
 			if (this.template.querySelector('c-happy-parcel')) {
 				this.template.querySelector('c-happy-parcel').resetSearch();
 			}
+			this.showSpinner = false;
 		} else {
-			this.readOnly = true;
 			this.handleEnableCheckBoxes(true);
 		}
 
 		if (this.statusFromRecord === 'Completed') {
-			this.readOnly = true;
 			this.handleEnableCheckBoxes(false);
 		}
 	}
@@ -146,8 +140,6 @@ export default class UnifiedTrackingChatWrapper extends LightningElement {
 	 * Publishes LMS on select event.
 	 */
 	handleSelectedArticles(event) {
-		// build and publish LMS Event for selected articles
-		this.publishSelectedArticlesLMS(this.trackingId, event.detail);
 		this.processImpactedArticles(event.detail);
 	}
 
@@ -225,23 +217,6 @@ export default class UnifiedTrackingChatWrapper extends LightningElement {
 
 	handleEnableCheckBoxes(enableCheck) {
 		this.enableSelectArticles = this.isUnifiedCase ? enableCheck : false;
-	}
-
-	/**
-	 * @description Publish the selected articles LMS event
-	 * @param trackingId
-	 * @param selectedArticles
-	 */
-	publishSelectedArticlesLMS(trackingId, selectedArticles) {
-		const lmsEventPayload = {
-			source: 'HappyParcel',
-			type: 'articleSelected',
-			body: {
-				consignmentId: trackingId,
-				selectedArticleIds: selectedArticles
-			}
-		};
-		publish(this.messageContext, GENERIC_LMS_CHANNEL, lmsEventPayload);
 	}
 
 	displayToastMessage(toastMessage, toastTittle, toastVariant) {
