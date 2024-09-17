@@ -24,9 +24,12 @@ Profile_Name_in_Text__c == &apos;Credit Management&apos;,
 Profile_Name_in_Text__c == &apos;Product Sales&apos;,
 Profile_Name_in_Text__c == &apos;Marketing&apos;,
 Profile_Name_in_Text__c == &apos;Solutions Sales&apos;,
-Profile_Name_in_Text__c == &apos;StarTrack Operations&apos;),
+Profile_Name_in_Text__c == &apos;StarTrack Operations&apos;,
+Profile_Name_in_Text__c == &apos;Customer Service&apos;),
 TRUE, FALSE)</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <inlineHelpText>The checkbox is used to identify if the user profile is applicable to the duplicate rule check for contact record creation.</inlineHelpText>
     <label>Applicable to Contact Duplicate Rule</label>
+    <securityClassification>INTERNAL</securityClassification>
     <type>Checkbox</type>
 </CustomField>

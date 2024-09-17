@@ -16,5 +16,10 @@
     <columns>Latest_End_Time__c</columns>
     <columns>LAST_UPDATE</columns>
     <filterScope>Everything</filterScope>
+    <filters>
+        <field>Street__c</field>
+        <operation>contains</operation>
+        <value>Albert</value>
+    </filters>
     <label>All</label>
 </ListView>

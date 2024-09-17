@@ -24,6 +24,7 @@
  * 2023-06-08 - Mahesh Parvathaneni - Added tests for WITH_INCOMING_EMAIL_MESSAGES_ASC_ORDER
  * 2023-12-04 - SteveL - Added tests for: getClosedCasesByAccountIdsNMonths, and getOpenCasesByAccountIds
  * 2024-04-25 - Vasu Gorakati - Added test method for selectCasesByReferenceId
+ * 2024-08-12 - Ranjeewa Silva - Updated tests to verify selector options WITH_CONTACT_REQUESTS, WITH_IMPACTED_ARTICLES
  */
 @IsTest
 public with sharing class CasesSelector_Test {
@@ -177,7 +178,15 @@ public with sharing class CasesSelector_Test {
 		qb = selectorNew3.newQueryBuilder(new Set<Object>{CasesSelector.Options.WITH_ACCOUNT});
 		soql = qb.toSoqlString();
 		System.assertEquals(true, Pattern.compile('(?is)Account\\..*?\\bfrom case\\b').matcher(soql).find(), 'Resulting query does not select Account fields'+soql);
-		
+
+		qb = selector.newQueryBuilder(new Set<Object>{CasesSelector.Options.WITH_CONTACT_REQUESTS});
+		soql = qb.toSoqlString();
+		Assert.isTrue(Pattern.compile('(?ism)Select.*?\\(Select.*?\\bfrom ContactRequests\\b.*?\\).*?\\bfrom case\\b').matcher(soql).find(), 'Resulting query does not select ContactRequest child records: ' + soql);
+
+		qb = selector.newQueryBuilder(new Set<Object>{CasesSelector.Options.WITH_IMPACTED_ARTICLES});
+		soql = qb.toSoqlString();
+		Assert.isTrue(Pattern.compile('(?ism)Select.*?\\(Select.*?\\bfrom ImpactedArticles__r\\b.*?\\).*?\\bfrom case\\b').matcher(soql).find(), 'Resulting query does not select ImpactedArticle child records: ' + soql);
+
 		Test.stopTest();
 
 	}
@@ -346,5 +355,30 @@ public with sharing class CasesSelector_Test {
 		System.assertEquals(1, listResults.size(), 'Expected result size of 1');
 		Test.stopTest();
 
+	}
+
+	@IsTest
+	static void testSelectByContactIdCaseHistoryQB() {
+		CasesSelector selector = CasesSelector.newInstance();
+		Set<Id> contactIds = new Set<Id> { fflib_IDGenerator.generate(Contact.getSObjectType()) };
+		Set<Object> selectorOptions = new Set<Object>();
+		QueryBuilder qb = selector.selectByContactIdCaseHistoryQB(contactIds, selectorOptions);
+		String soql = qb.toSoqlString();
+
+		Assert.isTrue(Pattern.compile('(?is)\\bWHERE ContactId IN :contactIds').matcher(soql).find(),  'Did not include the ContactId filter');
+		Assert.isTrue(Pattern.compile('(?is)\\bORDER BY IsClosed DESC, LastModifiedDate DESC').matcher(soql).find(),  'Did not include the correct ORDER BY');
+	}
+
+	@IsTest
+	static void testSelectByConsignmentTrackingNumberCaseHistoryQB() {
+		CasesSelector selector = CasesSelector.newInstance();
+		Set<String> contconsignmentTrackingNumbersactIds = new Set<String> { '123456' };
+		Set<Object> selectorOptions = new Set<Object>();
+		QueryBuilder qb = selector.selectByConsignmentTrackingNumberCaseHistoryQB(contconsignmentTrackingNumbersactIds, selectorOptions);
+		String soql = qb.toSoqlString();
+
+		Assert.isTrue(Pattern.compile('(?is)\\bWHERE ArticleTest__r.ArticleId__c IN :consignmentTrackingNumbers').matcher(soql).find(),  'Did not include the ArticleId__c filter');
+		Assert.isTrue(Pattern.compile('(?is)\\bOR ArticleTest__r.ConsignmentTrackingNumber__c IN :consignmentTrackingNumbers').matcher(soql).find(),  'Did not include the ConsignmentTrackingNumber__c filter');
+		Assert.isTrue(Pattern.compile('(?is)\\bORDER BY IsClosed DESC, LastModifiedDate DESC').matcher(soql).find(),  'Did not include the correct ORDER BY');
 	}
 }

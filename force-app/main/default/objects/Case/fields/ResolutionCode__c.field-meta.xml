@@ -87,6 +87,11 @@
                 <default>false</default>
                 <label>Closed - Invalid</label>
             </value>
+			<value>
+                <fullName>Closed - Tracking only</fullName>
+                <default>false</default>
+                <label>Closed - Tracking only</label>
+            </value>
             <value>
                 <fullName>Closed - Resolved by Advocate</fullName>
                 <default>false</default>

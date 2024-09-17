@@ -5,6 +5,7 @@
  * @changelog
  * 2023-11-23 - Thang Nguyen - include the credit claim case business logic
  * 2024-07-08 - Seth Heang - Added 'filterUnified' to recordtype filtering and register a new module for handling proactive monitoring queue routing
+ * 2024-08-20 - George Nguyen - Added registerModule(CaseAutomationClassificationModule.class) to classify cases
  */
 public inherited sharing class CaseAutomationTriggerHandler extends ApplicationTriggerHandler {
 
@@ -105,6 +106,9 @@ public inherited sharing class CaseAutomationTriggerHandler extends ApplicationT
 
 		// all of the old case execution logic which hasn't been uplifted yet
 		registerModule(CaseLegacyAutomationModule.class);
+
+		// This module will use fields on the case to classify them. Such as Type and Record types
+		registerModule(CaseAutomationClassificationModule.class);
 
 		// these module will be available for domain operations and trigger execution
 		// each module will register their trigger entry points

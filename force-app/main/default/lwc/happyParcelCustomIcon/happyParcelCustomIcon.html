@@ -1,5 +1,5 @@
 <!--
-    2020-04-01 nathan.franklin@auspost.com.au Created
+	2020-04-01 nathan.franklin@auspost.com.au Created
 -->
 <template>
 
@@ -85,5 +85,9 @@
 			</g>
 		</svg>
 	</template>
-
+	<template if:true={iconIsDash}>
+		<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 192 512" fill={fillColour} class={cssClass}>
+			<g id="dash"></g><path d="M500 275c0 8-7 15-15 15H35c-8 0-15-7-15-15v-30c0-8 7-15 15-15h450c8 0 15 7 15 15z"/></g>
+		</svg>
+	</template>
 </template>

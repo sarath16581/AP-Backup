@@ -1,3 +1,9 @@
+/**
+ * @description an LWC search result table embedded in the unifiedCustomerSearch LWC
+ * @changelog:
+ * 2024-08-08 - added handleCreateContact() to fire `createcontact` event
+ * 2024-08-06 - Added 'Link' Action button to results table
+ */
 import { LightningElement, api } from 'lwc';
 import { NavigationMixin } from 'lightning/navigation';
 import { transformSearchResults } from './helper';
@@ -50,6 +56,17 @@ const TABLE_COLUMNS = [
 		wrapText: false,
 		hideDefaultActions: true,
 	},
+	{
+		fixedWidth: 100,
+		label: 'Link',
+		type: 'button',
+		typeAttributes: {
+			iconName: 'action:new_contact',
+			label: 'Link',
+			name: 'linkContact',
+			title: 'Link'
+		}
+	}
 ];
 
 /**
@@ -124,4 +141,29 @@ export default class UnifiedCustomerSearchResults extends NavigationMixin(
 		const navigateToRecordPageFn = this.navigateToRecordPage.bind(this);
 		return transformSearchResults(this.searchResults, navigateToRecordPageFn);
 	}
+
+	/**
+	 * Navigate to customer creation form
+	 *
+	 * @fires UnifiedCustomerSearchResults#createcontact
+	 */
+	handleCreateContact(){
+		this.dispatchEvent(new CustomEvent('createcontact'));
+	}
+
+	/**
+	 * Handle row action events from lightning-datatable.
+	 *  - 'Link' Action Button Click
+	 * 
+	 * @param {CustomEvent} event - The row action event.
+	 * 
+	 * @fires {CustomEvent} `linkcontact`
+	 */
+	handleRowAction(event) {
+        const contactId = event.detail?.row?.contactId;
+        const actionName = event.detail?.action?.name;
+        if (actionName === 'linkContact') {
+            this.dispatchEvent(new CustomEvent('linkcontact', { detail: { contactId }, bubbles:true, composed:true }));
+		}
+    }
 }

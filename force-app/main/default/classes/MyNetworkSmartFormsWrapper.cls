@@ -8,6 +8,8 @@
 07.02.2020    Gunith Devasurendra        REQ2086450: Add PhotoId field
 22.03.2021    Suman Gunaganti            added wine damages instructions fields
 26.03.2021    Madhuri Awasthi            REQ2447384 - Adding new Wine damages fields
+01.06.2024    Jacob Isaac                REQ3357026 - new question on wine/edamages form
+28.05.2024    Snigdha Sahu               REQ2911157 - Update to Lost Article Form
 **/
 
 public class MyNetworkSmartFormsWrapper {
@@ -58,6 +60,8 @@ public class MyNetworkSmartFormsWrapper {
     public String sustainedDamage;
     public String totalItemInParcel;
     public String sustainedDamageDetails;
+    public String sufficientPackage;
+    public String sufficientPackageDetails;
     
     public AddressWrapper customerAddress;
     public AddressWrapper senderAddress;
@@ -82,6 +86,8 @@ public class MyNetworkSmartFormsWrapper {
     public String productSubCategory;
     public string enquirySubType;
     
+    //REQ2911157
+    public String scannedDelivered;
 
     public String typeOfDamage;
     public String contents;

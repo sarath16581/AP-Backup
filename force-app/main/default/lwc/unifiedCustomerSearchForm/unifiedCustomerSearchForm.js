@@ -1,3 +1,9 @@
+/**
+ * @description An LWC Interface for displaying Customer Search Form for Unified Experience
+ * @changelog:
+ * 2024-08-08 - added handler methods to handle `createcontact` and `backtosearch` events and pass `formInputs` params to child LWCs
+ * 2024-08-28 - Added public properties `autoSearchOnLoad` and `autoLinkContact`, added `connectedCallback` to handle auto-search-on-load.
+ */
 import { LightningElement, api } from 'lwc';
 import customerSearch from '@salesforce/apex/UnifiedCustomerSearchController.search';
 import { isNotBlank } from 'c/utils';
@@ -26,13 +32,12 @@ export const PHONE_INPUT_REGEX = '^[\\d ]+$'; // TODO: leverage existing utility
 export const ABN_ACN_INPUT_REGEX = '^(\\d{9}|\\d{11})$';
 
 // Error messages
-export const INVALID_NAME_MSG = 'Invalid name format';
-export const INVALID_PHONE_NUMBER_MSG = 'Invalid phone number';
-export const INVALID_EMAIL_ADDRESS_MSG = 'Invalid email address format';
-export const INVALID_ABN_ACN_MSG = 'Invalid ABN/ACN';
-export const MORE_INFO_REQUIRED_ERROR_MESSAGE =
-	'Please enter at least First and Last Name, or Phone, or Email.';
-export const INVALID_FORM_ERROR = 'Please fix and errors and try again';
+export const INVALID_NAME_MSG = 'Invalid Name format';
+export const INVALID_PHONE_NUMBER_MSG = 'Invalid Phone format';
+export const INVALID_EMAIL_ADDRESS_MSG = 'Incorrect Email format';
+export const INVALID_ABN_ACN_MSG = 'Invalid ABN/ACN format';
+export const MORE_INFO_REQUIRED_ERROR_MESSAGE = 'More information needed to search';
+export const GENERIC_SEARCH_ERROR_MSG = 'Oops! That didn\'t work. Your criteria may be too broad. Please try again or consider refining your search criteria';
 
 // Element selectors
 export const INPUT_ELEMENT_SELECTORS = [
@@ -58,6 +63,7 @@ export function getInputOnChangeValue(event) {
 	if (elementName === 'c-ame-address-validation2') {
 		const address = event.detail;
 		return {
+			address: address.address,
 			addressLine1: address.addressLine1,
 			addressLine2: address.addressLine2,
 			city: address.city,
@@ -132,20 +138,104 @@ export default class UnifiedCustomerSearchForm extends LightningElement {
 		this._emailAddress = value;
 	}
 
+	/**
+	 * The value of the 'Address Obj' field on the form
+	 * @type {object}
+	 */
+	@api get addressObj(){
+		return this._addressObj;
+	}
+	set addressObj(value) {
+		this._addressObj = value;
+	}
+
+	/**
+	 * The value of the 'Organisation Account Id' field on the form
+	 * @type {string}
+	 */
+	@api get organisationAccountId() {
+		return this._organisationAccountId;
+	}
+	set organisationAccountId(value) {
+		this._organisationAccountId = value;
+
+	}
+
+	/**
+	 * The value of the 'Address Override' field on the form
+	 * @type {boolean}
+	 */
+	@api get addressOverride() {
+		return this._addressOverride;
+	}
+	set addressOverride(value){
+		this._addressOverride = value;
+	}
+
+	/**
+	 * The value of the 'Customer Type' field on the form
+	 * @type {string|null}
+	 */
+	@api get customerType() {
+		if (this.consumerCheckbox === true) {
+			return CUSTOMER_TYPE_CONSUMER;
+		} else if (this.organisationCheckbox === true) {
+			return CUSTOMER_TYPE_ORGANISATION;
+		}
+		return null;
+	}
+	set customerType(value){
+		this._customerType = value;
+		if (this._customerType === CUSTOMER_TYPE_CONSUMER) {
+			this.consumerCheckbox = true;
+			this.organisationCheckbox = false;
+		} else if (this._customerType === CUSTOMER_TYPE_ORGANISATION) {
+			this.consumerCheckbox = false;
+			this.organisationCheckbox = true;
+		} else if (this._customerType === null) {
+			this.consumerCheckbox = false;
+			this.organisationCheckbox = false;
+		}
+	}
+
+	/**
+	 * If enabled, the a search will be invoked when the search form is loaded.
+	 * @type {boolean}
+	 */
+	@api autoSearchOnLoad = false;
+
+	/**
+	 * If enabled, the a search will automatically link the Contact if only one is found.
+	 * @type {boolean}
+	 */
+	@api autoLinkContact;
+
+	/**
+	 * The `connectedCallback` lifecycle hook is called after the component is inserted into the DOM.
+	 * 
+	 * This is used to invoke the search method automatically (if required).
+	 */
+	connectedCallback() {
+		if (this.autoSearchOnLoad) {
+			this.performSearch(this.autoLinkContact);
+		}
+	}
+
 	// Private variables for input fields, used with public getters/setters
 	_firstName = '';
 	_lastName = '';
 	_phoneNumber = '';
 	_emailAddress = '';
+	_addressObj = {};
+	_organisationAccountId = undefined;
+	_addressOverride = false;
+	_customerType = null;
 	// Private variables for input fields (with no public getters/setters)
 	organisationCheckbox = false;
 	consumerCheckbox = false;
-	addressObj;
-	organisationAccountId;
 	abnAcn = '';
 	includePhoneNumber = true;
 	includeEmailAddress = true;
-
 	showAddress = true;
 
 	get ignorePhoneNumber() {
@@ -154,16 +244,6 @@ export default class UnifiedCustomerSearchForm extends LightningElement {
 
 	get ignoreEmailAddress() {
 		return !this.includeEmailAddress;
-	}
-
-	get customerType() {
-		if (this.consumerCheckbox === true) {
-			return CUSTOMER_TYPE_CONSUMER;
-		}
-		if (this.organisationCheckbox === true) {
-			return CUSTOMER_TYPE_ORGANISATION;
-		}
-		return null;
 	}
 
 	get showOrganisationSection() {
@@ -265,15 +345,17 @@ export default class UnifiedCustomerSearchForm extends LightningElement {
 	/**
 	 * Submits the form and performs the search.
 	 *
+	 * @param {boolean} autoLink If true, will automatically link the found account to the form.
+	 *
 	 * @fires UnifiedCustomerSearchForm#search
 	 * @fires UnifiedCustomerSearchForm#result
 	 * @fires UnifiedCustomerSearchForm#error
 	 */
-	async performSearch() {
+	async performSearch(autoLink = false) {
 		// Validate inputs before invoking the search method
 		if (!this.validateInputs()) {
 			if (this.errorMessage === undefined) {
-				this.errorMessage = INVALID_FORM_ERROR;
+				this.errorMessage = GENERIC_SEARCH_ERROR_MSG;
 			}
 			return;
 		}
@@ -281,6 +363,7 @@ export default class UnifiedCustomerSearchForm extends LightningElement {
 		// Invoke the search method
 		this.isLoading = true;
 		this.dispatchEvent(new CustomEvent('search'));
+
 		try {
 			const res = await customerSearch({
 				req: {
@@ -297,14 +380,18 @@ export default class UnifiedCustomerSearchForm extends LightningElement {
 					addressState: this.addressObj?.state,
 					addressPostalCode: this.addressObj?.postcode,
 					// Ignore Account Id if the searching for consumers only
-					accountId: this.consumerCheckbox ? null : this.organisationAccountId,
+					accountId: this.consumerCheckbox ? null : this.organisationAccountId || null,
 					// Ignore ABN/ACN if the searching for consumers only, or the organisationAccountId is set
-					abnAcn:
-						this.consumerCheckbox || this.organisationAccountId
-							? null
-							: this.abnAcn,
-				},
+					abnAcn: this.consumerCheckbox || this.organisationAccountId ? null : this.abnAcn
+				}
 			});
+			
+			// If enabled, automatically link the Contact if there's only 1 result
+			if (autoLink && (res.searchResults ?? []).length === 1) {
+				const contactId = res.searchResults[0].contactId;
+				this.dispatchEvent(new CustomEvent('linkcontact', { detail: { contactId }, bubbles:true, composed: true }));
+			}
+
 			// Handle search results
 			this.dispatchEvent(
 				new CustomEvent('result', {
@@ -313,13 +400,27 @@ export default class UnifiedCustomerSearchForm extends LightningElement {
 			);
 		} catch (error) {
 			// Handle search errors
-			this.errorMessage = reduceErrors(error).join(',');
+			this.errorMessage = GENERIC_SEARCH_ERROR_MSG;
+			console.error(error);
 			this.dispatchEvent(
 				new CustomEvent('error', { detail: this.errorMessage })
 			);
 		} finally {
 			this.isLoading = false;
 		}
+	}
+
+	/**
+	 * Workaround to reset address by removing the element, allow DOM update, then add element again.
+	 * TODO: Update address component to allow clear/reset function.
+	 */
+	async resetAddress() {
+		this._addressObj = undefined;
+		this._addressOverride = false;
+		this.showAddress = false;
+		// Wait for DOM to update
+		await Promise.resolve();
+		this.showAddress = true;
 	}
 
 	/**
@@ -338,10 +439,11 @@ export default class UnifiedCustomerSearchForm extends LightningElement {
 		this._phoneNumber = '';
 		this.includePhoneNumber = true;
 		this.includeEmailAddress = true;
-		this.addressObj = undefined;
+		this._addressObj = undefined;
+		this._addressOverride = false;
 		this.organisationCheckbox = false;
 		this.consumerCheckbox = false;
-		this.organisationAccountId = undefined;
+		this._organisationAccountId = undefined;
 		this.abnAcn = undefined;
 
 		// Ensure field values are updated before continuing
@@ -365,12 +467,8 @@ export default class UnifiedCustomerSearchForm extends LightningElement {
 			}
 		});
 
-		// Workaround to reset address by removing the element, allow DOM update, then add element again.
-		// TODO: Update address component to allow clear/reset function.
-		this.showAddress = false;
-		Promise.resolve().then(() => {
-			this.showAddress = true;
-		});
+		// Workaround to reset address lookup component
+		await this.resetAddress();
 
 		// Notify form has been reset
 		this.dispatchEvent(new CustomEvent('reset'));
@@ -385,8 +483,38 @@ export default class UnifiedCustomerSearchForm extends LightningElement {
 	handleInputChange(event) {
 		const { fieldName } = event.target.dataset;
 		const fieldValue = getInputOnChangeValue(event);
+
+		// check the event type for AME address search if it has a manual override
+		if (event.type === 'editaddress') {
+			this._addressOverride = true;
+		} else if (event.type === 'selectaddress') {
+			this._addressOverride = false;
+		}
 		// store the field value based on the `name` attribute
 		this[fieldName] = fieldValue;
+
+		// reset selected organisation when a consumer checkbox is ticked
+		if (this.consumerCheckbox === true){
+			this._organisationAccountId = undefined;
+		}
+	}
+
+	/**
+	 * Invoked on demand, to get the latest form input data from customer search ui
+	 * @returns {{firstname: string, emailAddress: string, phoneNumber: string, addressObj, lastname: string}}
+	 */
+	@api
+	getFormInputs() {
+		return {
+			firstName: this.firstName,
+			lastName: this.lastName,
+			phoneNumber: this.phoneNumber,
+			emailAddress: this.emailAddress,
+			addressObj: this.addressObj,
+			organisationAccountId: this.organisationAccountId,
+			addressOverride: this.addressOverride,
+			customerType: this.customerType
+		};
 	}
 
 	/**
@@ -418,6 +546,31 @@ export default class UnifiedCustomerSearchForm extends LightningElement {
 	 * Handles when the "Search" button is clicked.
 	 */
 	handleSearchBtnClick() {
-		this.performSearch();
+		this.performSearch(false);
+	}
+
+	/**
+	 * Clears the address from the lookup component.
+	 * @param {Event} event 
+	 */
+	handleClearAddressClick(event) {
+		event.preventDefault();
+		this.resetAddress();
+	}
+
+	get ameDefaultAddress(){
+		return this.addressOverride === true ? this.addressObj : undefined;
+	}
+
+	get ameSearchTerm(){
+		return this.addressOverride === false ? this.addressObj?.address : undefined;
+	}
+
+	get ameSupportAutoSearchOnLoad() {
+		return this.addressOverride === false;
+	}
+
+	get ameAddressVariant(){
+		return this.addressOverride ? 'standard' : 'show-detail-onsearch';
 	}
 }

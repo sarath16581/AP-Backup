@@ -16,10 +16,10 @@
                 <field>Features__c</field>
             </layoutItems>
             <layoutItems>
-                <field>Addvalue__c</field>
+                <field>AddValue__c</field>
             </layoutItems>
             <layoutItems>
-                <field>Websiteinformation__c</field>
+                <field>WebsiteInformation__c</field>
             </layoutItems>
             <layoutItems>
                 <field>Author__c</field>

@@ -19,9 +19,12 @@
         </articleTypeTemplates>
     </articleTypeChannelDisplay>
     <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
-    <deploymentStatus>Deployed</deploymentStatus>
+    <deploymentStatus>InDevelopment</deploymentStatus>
     <enableFeeds>false</enableFeeds>
     <enableHistory>true</enableHistory>
+    <externalSharingModel>ReadWrite</externalSharingModel>
     <label>Support</label>
     <pluralLabel>Support</pluralLabel>
+    <searchLayouts></searchLayouts>
+    <sharingModel>ReadWrite</sharingModel>
 </CustomObject>

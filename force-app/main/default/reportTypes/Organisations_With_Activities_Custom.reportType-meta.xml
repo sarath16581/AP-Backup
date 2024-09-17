@@ -2650,11 +2650,6 @@
     <sections>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>DMAPP__ThirdPartyName__c</field>
-            <table>Account.Activities</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
             <field>Acknowledged_Date__c</field>
             <table>Account.Activities</table>
         </columns>
@@ -3160,11 +3155,6 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>DMAPP__TTG_Prime_Action_Type__c</field>
-            <table>Account.Activities</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
             <field>Priority</field>
             <table>Account.Activities</table>
         </columns>
@@ -3311,11 +3301,6 @@
         <columns>
             <checkedByDefault>false</checkedByDefault>
             <field>TaskUpdate__c</field>
-            <table>Account.Activities</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>DMAPP__ThirdPartyId__c</field>
             <table>Account.Activities</table>
         </columns>
         <columns>

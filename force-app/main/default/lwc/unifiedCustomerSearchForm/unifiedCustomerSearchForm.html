@@ -6,7 +6,7 @@
 			alternative-text="Searching..."
 			title="Searching..."
 		></lightning-spinner>
-		<div class="slds-grid slds-wrap slds-gutters">
+		<div class="slds-grid slds-wrap slds-gutters_xx-small">
 			<!-- First Name -->
 			<div class="slds-col slds-size_1-of-1 slds-large-size_2-of-12">
 				<lightning-input
@@ -65,16 +65,16 @@
 					class="slds-col slds-grow-none slds-var-m-left_xx-small slds-var-m-bottom_xx-small"
 				>
 				<lightning-input
-				data-field-name="includePhoneNumber"
-				label="Include/Exclude Phone"
-				message-toggle-active=""
-				message-toggle-inactive=""
-				onchange={handleInputChange}
-				onkeyup={handleInputKeyUp}
-				type="toggle"
-				checked={includePhoneNumber}
-				variant="label-hidden"
-			></lightning-input>
+					data-field-name="includePhoneNumber"
+					label="Include/Exclude Phone"
+					message-toggle-active=""
+					message-toggle-inactive=""
+					onchange={handleInputChange}
+					onkeyup={handleInputKeyUp}
+					type="toggle"
+					checked={includePhoneNumber}
+					variant="label-hidden"
+				></lightning-input>
 				</div>
 			</div>
 
@@ -88,6 +88,7 @@
 						disabled={ignoreEmailAddress}
 						label={emailAddressLabel}
 						max-length="80"
+						message-when-type-mismatch={invalidEmailAddressMsg}
 						message-when-pattern-mismatch={invalidEmailAddressMsg}
 						name="emailAddress"
 						onchange={handleInputChange}
@@ -181,12 +182,17 @@
 			<!-- Address Lookup -->
 			<div class="slds-col slds-size_1-of-1 slds-large-size_1-of-1">
 				<c-ame-address-validation2
-					if:true={showAddress}
-					data-field-name="addressObj"
-					oneditaddress={handleInputChange}
-					onselectaddress={handleInputChange}
-					onkeyup={handleInputKeyUp}
+						if:true={showAddress}
+						data-field-name="addressObj"
+						oneditaddress={handleInputChange}
+						onselectaddress={handleInputChange}
+						onkeyup={handleInputKeyUp}
+						default-address={ameDefaultAddress}
+						search-term={ameSearchTerm}
+						supports-auto-search-on-load={ameSupportAutoSearchOnLoad}
+						variant={ameAddressVariant}
 				></c-ame-address-validation2>
+				<a href="#" onclick={handleClearAddressClick} class="slds-float_right">Clear address</a>
 			</div>
 		</div>
 

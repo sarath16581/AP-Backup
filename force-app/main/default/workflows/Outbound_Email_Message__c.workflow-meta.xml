@@ -3,7 +3,7 @@
     <outboundMessages>
         <fullName>Message4OutboundEmailMessage</fullName>
         <apiVersion>31.0</apiVersion>
-        <endpointUrl>https://salesforce-bw-ptest.npe.auspost.com.au:10543/Services/CustomerEnquiryManagement/addCaseEmail</endpointUrl>
+        <endpointUrl>https://salesforce-bw-stest.npe.auspost.com.au:10543/Services/CustomerEnquiryManagement/addCaseEmail</endpointUrl>
         <fields>ActivityId__c</fields>
         <fields>BccAddress__c</fields>
         <fields>CcAddress__c</fields>

@@ -10,6 +10,7 @@
  * 2023-07-25 - Nathan Franklin - Change to force routing for all cases moving from closed -> open 
  * 2023-08-07 - Nathan Franklin - Change to force routing for all cases moving from closed -> open (excluded certain scenarios)
  * 2024-07-19 - Ranjeewa Silva - Changes to enable routing for Unified cases and preferred agent override logic for Unified cases
+ * 2024-09-10 - Ranjeewa Silva - Updated to move Unified cases in monitoring queue into closed cases queue on case closure.
  */
 public inherited sharing class CaseRoutingService {
 
@@ -283,8 +284,8 @@ public inherited sharing class CaseRoutingService {
 			if (changedFields.contains(Case.Status) && 
 					closedStatuses.contains(csRec.Status) &&
 					!closedStatuses.contains(String.valueOf(previousState.get('Status'))) &&
-					(omniGroups.containsKey(csRec.OwnerId) ||
-						csRec.OwnerId == omniService.preferredAgentQueueId)) {
+					(omniGroups.containsKey(csRec.OwnerId) || csRec.OwnerId == omniService.preferredAgentQueueId ||
+							csRec.OwnerId == omniService.unifiedMonitoringQueueId)) {
 
 				csRec.AllocateToQueue__c = false;
 				csRec.OwnerId = omniService.omniClosedCaseQueueId;

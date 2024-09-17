@@ -157,9 +157,6 @@
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Closed Lost</controllingFieldValue>
-            <controllingFieldValue>Closed Disqualified</controllingFieldValue>
-            <controllingFieldValue>Closed Won</controllingFieldValue>
-            <controllingFieldValue>Closed Duplicate</controllingFieldValue>
             <valueName>Potential Fraud</valueName>
         </valueSettings>
         <valueSettings>

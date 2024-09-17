@@ -32,8 +32,8 @@ public class APT_Save_RedirectToOPCScreen{
 			}
 				productConfig.APT_Configuration_Update_Version__c = productConfig.APT_Configuration_Update_Version__c + 1;
 				prodConfigListToUpdate.add(productConfig);
+			}
 		}
-	}
 
 		ApplicationDatabase.getInstance().dmlUpdate(prodConfigListToUpdate);
 

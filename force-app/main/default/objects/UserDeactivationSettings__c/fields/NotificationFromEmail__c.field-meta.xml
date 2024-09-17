@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>NotificationFromEmail__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <defaultValue>&quot;no-reply@auspost.com.au&quot;</defaultValue>
+    <description>from email to send out the email notification to notify users for deactivation</description>
+    <externalId>false</externalId>
+    <inlineHelpText>from email to send out the email notification to notify users for deactivation</inlineHelpText>
+    <label>Notification From Email</label>
+    <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
+    <trackTrending>false</trackTrending>
+    <type>Email</type>
+    <unique>false</unique>
+</CustomField>

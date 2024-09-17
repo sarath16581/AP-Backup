@@ -373,9 +373,11 @@
 			// store the changes per app
 			appState.destructive = [];
 			appState.upsert = [];
-
 			// the role which is currently selected on the page
 			var pageRole = appState.contactRole;
+			if(appState.BSPCanViewAllConsignments__c){
+			appState.upsert.BSPCanViewAllConsignments__c=appState.BSPCanViewAllConsignments__c;
+			}
 
 			// the role which was retrieved from APEX
 			var sfRole = appState.ContactRole__c;
@@ -461,6 +463,8 @@
 		// console.log(JSON.stringify(pageState));
 		var contactId = component.get('v.contactId');
 		// send to apex for DML
+		console.log('JSON.stringify(pageState)');
+			console.log(JSON.stringify(pageState));
 		var actionSave = component.get("c.saveProvisionRequests");
 		var objParams = {
 			'contactId': contactId,

@@ -15,6 +15,7 @@
 * 2022-07-19 - Sreenish Krishnan - Added new fields
 * 2023-07-05 - Mahesh Parvathaneni - Added tests for options WITH_BILLING_ACCOUNT
 * 2024-01-31 - Hasantha L - added ConveyancerContact__c field update to testSelectorIntegration()
+* 2024-05-24 - Harry Wang - Added tests for selectCloneableContactsByAccount
 * 2024-05-21 - Marcel HK - Added tests for new selector method `selectByCustomerSearchParams` for Customer Search (CSLU-107)
 * 2024-07-05 - Marcel HK - Updated tests for selector method `selectByCustomerSearchParamsQB` (CSLU-955)
 * 2024-07-15 - Marcel HK - Added selector option WITH_RELATED_CASES to include related cases sub-query (CSLU-439)
@@ -183,6 +184,9 @@ private with sharing class ContactsSelector_Test {
 		System.assertNotEquals(null, results.get(contacts[0].Id).BillingAccount__r, 'Expected billing account object');
 
 		List<Contact> listResults = selector.selectPrimaryContactByAccount(new Set<Id> {acc.Id});
+		System.assertEquals(1, listResults.size(), 'Expected result size of 1');
+
+		listResults = selector.selectCloneableContactsByAccount(acc.Id);
 		System.assertEquals(1, listResults.size(), 'Expected result size of 1');
 
 		Test.stopTest();

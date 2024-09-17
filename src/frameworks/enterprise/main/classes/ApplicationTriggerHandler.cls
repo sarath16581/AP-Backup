@@ -17,6 +17,7 @@ public inherited sharing abstract class ApplicationTriggerHandler {
 	 * Stores a cached copy of the domain modules to minimise the need to continually instantiating new instances
 	 */
 	private static Map<String, Map<Type, ApplicationModule>> cachedModules;
+	@TestVisible
 	private static Map<String, Map<Type, String>> recordFilterIndexes;
 
 	public enum TriggerState {
