@@ -146,7 +146,7 @@ describe('c-unified-case-creation-voice-call-wrapper', () => {
 		element.addEventListener(ShowToastEventName, toastHandler);
 		
 		const caseCreationCmp = element.shadowRoot.querySelector('c-unified-case-creation');
-		expect(caseCreationCmp).not.toBeNull;
+		expect(caseCreationCmp).not.toBeNull();
 		// Dispatch the 'casecreated' event from the child component
 		const eventDetail = { caseId: '500000000012312ABC' }; // Example event detail
 		const customEvent = new CustomEvent('casecreated', { detail: eventDetail });
@@ -175,7 +175,7 @@ describe('c-unified-case-creation-voice-call-wrapper', () => {
 		document.body.appendChild(element);
 		
 		const caseCreationCmp = element.shadowRoot.querySelector('c-unified-case-creation');
-		expect(caseCreationCmp).not.toBeNull;
+		expect(caseCreationCmp).not.toBeNull();
 		// Dispatch the 'casecreated' event from the child component
 		caseCreationCmp.dispatchEvent(
 			new CustomEvent('casecreated',
