@@ -72,12 +72,12 @@ public with sharing class UnifiedCaseCreationController {
 	@AuraEnabled
 	public static Id createNewCase(CaseCreationRequest request) {
 		try {
-			if (String.isBlank(request?.consignmentId) || (request.impactedArticles?.size() ?? 0) > 0){
+			if (String.isBlank(request?.consignmentId) || (request.impactedArticles?.size() ?? 0) == 0){
 				AuraHandledException ae = new AuraHandledException(GENERIC_ERROR_MESSAGE);
 				ae.setMessage(GENERIC_ERROR_MESSAGE);
 				throw ae;
 			}
-			
+
 			Set<String> impactedArticleNames = new Set<String>(request.impactedArticles);
 			List<Article__c> articles = ArticlesSelector.newInstance().selectByConsignmentIdAndChildArticles(
 					new Set<Id> { request.consignmentId },
