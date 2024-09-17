@@ -492,7 +492,7 @@
     <sharingCriteriaRules>
         <fullName>ShareUnifiedCasesWithUnifiedAgents</fullName>
         <accessLevel>Edit</accessLevel>
-        <label>Share with Unified Team</label>
+        <label>Share Unified Cases With Unified Agents</label>
         <sharedTo>
             <role>UnifiedAgent</role>
         </sharedTo>
