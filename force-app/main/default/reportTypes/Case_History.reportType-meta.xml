@@ -3872,11 +3872,6 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>DMAPP__ThirdPartyName__c</field>
-            <table>Case.Activities__r</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
             <field>Work_Type__c</field>
             <table>Case</table>
         </columns>
@@ -4342,11 +4337,6 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>DMAPP__ThirdPartyId__c</field>
-            <table>Case.Activities__r</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
             <field>Who</field>
             <table>Case.Activities__r</table>
         </columns>
@@ -4358,11 +4348,6 @@
         <columns>
             <checkedByDefault>false</checkedByDefault>
             <field>ManagerLevel2__c</field>
-            <table>Case.Activities__r</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>DMAPP__TTG_Prime_Action_Type__c</field>
             <table>Case.Activities__r</table>
         </columns>
         <columns>

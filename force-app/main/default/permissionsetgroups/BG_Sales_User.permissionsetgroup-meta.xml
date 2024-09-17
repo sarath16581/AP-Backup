@@ -3,7 +3,6 @@
     <description>Permissions for B&amp;G Sales users.</description>
     <hasActivationRequired>false</hasActivationRequired>
     <label>BG Sales User</label>
-    <permissionSets>BGOPCSupport</permissionSets>
     <permissionSets>BG_Core</permissionSets>
     <permissionSets>BG_Sales</permissionSets>
     <permissionSets>Credit_Assessment</permissionSets>

@@ -113,7 +113,6 @@
             for (iCnt = 0; iCnt < result.length; iCnt++) {
                 var rowObj = {
                     label: '',
-					sortable:'true',
                     fieldName: '',
                     type: 'string'
                 };

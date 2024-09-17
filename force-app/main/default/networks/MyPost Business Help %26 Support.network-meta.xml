@@ -34,6 +34,7 @@
     <headlessForgotPasswordTemplate>unfiled$public/CommunityHeadlessForgotPasswordTemplate</headlessForgotPasswordTemplate>
     <headlessRegistrationTemplate>unfiled$public/CommunityHeadlessRegistrationTemplate</headlessRegistrationTemplate>
     <networkMemberGroups>
+        <permissionSet>CommunityAccessMyPostBusinessHelpandSupport</permissionSet>
         <profile>admin</profile>
         <profile>mypost business help &amp; support community user</profile>
         <profile>system support</profile>

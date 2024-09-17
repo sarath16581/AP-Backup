@@ -1,20 +1,22 @@
-<!doctype html>
-<html>
-<head>
-	<title>Case Closed </title>
-</head>
-<body>
-<p><span style="font-size:11.0pt;font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;">Dear Sender,</span></p>
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Network Partner Do Not Reply</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>Network Partner Do Not Reply</name>
+    <style>none</style>
+    <subject>Do Not Reply : Case Closed :{!Case.CaseNumber}</subject>
+    <textOnly>Case Closed
 
-<p><span style="font-size:11.0pt;font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;">Your  Case No {!Case.CaseNumber} is in Closed status. </span></p>
-<p><span style="font-size:11.0pt;font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;">
-Please direct any new requests or inquiries on a new email to Network Partners Query Management and Support team on <a href="businesspartner@auspost.com.au">businesspartner@auspost.com.au</a>. </p>
+Dear Sender,
 
-																
-<td style="font:13px Arial, Helvetica, sans-serif; color:#807370; line-height:16px; padding:11px 0 6px;">
-																		Kind regards, <br /></br>
-																		<b style="color:#807370;">Network Partners Query Management and Support team</b>
-																		<br/><span style="color:#ffffff">{!Case.Thread_Id}</span>
-																	</td>
-</body>
-</html>
+Your  Case No {!Case.CaseNumber} is in Closed status.
+
+Please direct any new requests or inquiries on a new email to Network Partners Query Management and Support team on businesspartner@auspost.com.au.
+
+Kind regards,
+Network Partners Query Management and Support team
+{!Case.Thread_Id}</textOnly>
+    <type>custom</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

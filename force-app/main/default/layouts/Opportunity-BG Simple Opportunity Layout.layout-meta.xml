@@ -114,16 +114,20 @@
                 <field>Opportunity_Annualised_Value__c</field>
             </layoutItems>
             <layoutItems>
-                <behavior>Readonly</behavior>
-                <field>Total_In_Year_Revenue_Estimate__c</field>
-            </layoutItems>
-            <layoutItems>
                 <behavior>Edit</behavior>
                 <field>OverrideOPCCalculation__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Readonly</behavior>
-                <field>TotalRetainedInYearRevenue__c</field>
+                <field>RevenueCalculationAccountIDs__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>RevenueRefreshDate__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>RevenueRefreshedBy__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Readonly</behavior>
@@ -146,6 +150,14 @@
             <layoutItems>
                 <behavior>Edit</behavior>
                 <field>DoNotUseAccountHierarchy__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>TotalInYearRevenue__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>TotalRetainedInYearRevenue__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Readonly</behavior>

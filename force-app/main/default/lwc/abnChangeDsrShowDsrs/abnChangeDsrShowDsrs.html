@@ -1,0 +1,17 @@
+<template>
+	<lightning-datatable
+			columns={columns}
+			data={dsrList}
+			key-field="Id"
+			hide-checkbox-column
+	>
+	</lightning-datatable>
+	<footer class="slds-card__footer slds-clearfix">
+		<div class="slds-float_right slds-button-group">
+			<lightning-button class="slds-var-m-left_x-small" label="Close" onclick={handleClose}></lightning-button>
+		</div>
+	</footer>
+	<div lwc:if={isLoading}>
+		<lightning-spinner alternative-text="Loading" variant="brand" size="medium"></lightning-spinner>
+	</div>
+</template>

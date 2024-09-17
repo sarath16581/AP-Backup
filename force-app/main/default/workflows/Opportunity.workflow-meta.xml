@@ -631,7 +631,7 @@ date(
         <fullName>APMS_Ariba_Contract</fullName>
         <apiVersion>29.0</apiVersion>
         <description>2014-09 APMS</description>
-        <endpointUrl>https://salesforce-bw-ptest.npe.auspost.com.au:10543/CustomerContractManagement/Notification</endpointUrl>
+        <endpointUrl>https://salesforce-bw-stest.npe.auspost.com.au:10543/CustomerContractManagement/Notification</endpointUrl>
         <fields>Id</fields>
         <includeSessionId>true</includeSessionId>
         <integrationUser>apintegrationuser@auspost.com.au</integrationUser>
@@ -643,7 +643,7 @@ date(
         <fullName>APMS_Credit_Team</fullName>
         <apiVersion>30.0</apiVersion>
         <description>2014-07 APMS - Opportunity driven</description>
-        <endpointUrl>https://salesforce-bw-ptest.npe.auspost.com.au:10543/APMSCreditCheck/v1/Notification</endpointUrl>
+        <endpointUrl>https://salesforce-bw-stest.npe.auspost.com.au:10543/APMSCreditCheck/v1/Notification</endpointUrl>
         <fields>Id</fields>
         <includeSessionId>true</includeSessionId>
         <integrationUser>apintegrationuser@auspost.com.au</integrationUser>
@@ -655,7 +655,7 @@ date(
         <fullName>APMS_NAB_Merchant</fullName>
         <apiVersion>29.0</apiVersion>
         <description>2014-09 APMS</description>
-        <endpointUrl>https://salesforce-bw-ptest.npe.auspost.com.au:10543/Opportunity/v1/Notification</endpointUrl>
+        <endpointUrl>https://salesforce-bw-stest.npe.auspost.com.au:10543/Opportunity/v1/Notification</endpointUrl>
         <fields>Id</fields>
         <includeSessionId>true</includeSessionId>
         <integrationUser>apintegrationuser@auspost.com.au</integrationUser>
@@ -667,7 +667,7 @@ date(
         <fullName>APMS_SecurePay</fullName>
         <apiVersion>29.0</apiVersion>
         <description>2014-09 APMS</description>
-        <endpointUrl>https://salesforce-bw-ptest.npe.auspost.com.au:10543/APMSOrder/v1/Notification</endpointUrl>
+        <endpointUrl>https://salesforce-bw-stest.npe.auspost.com.au:10543/APMSOrder/v1/Notification</endpointUrl>
         <fields>Id</fields>
         <includeSessionId>true</includeSessionId>
         <integrationUser>apintegrationuser@auspost.com.au</integrationUser>
@@ -679,7 +679,7 @@ date(
         <fullName>APMS_TEST_PRD_FIREWALL</fullName>
         <apiVersion>31.0</apiVersion>
         <description>2014-09 APMS - This Outbound Message is used to test Production Firewall, as part of Go-Live preparation.</description>
-        <endpointUrl>https://salesforce-bw-ptest.npe.auspost.com.au/</endpointUrl>
+        <endpointUrl>https://www.testOM9.com</endpointUrl>
         <fields>Id</fields>
         <includeSessionId>true</includeSessionId>
         <integrationUser>apintegrationuser@auspost.com.au</integrationUser>
@@ -691,7 +691,7 @@ date(
         <fullName>Create_Contract_Notification</fullName>
         <apiVersion>27.0</apiVersion>
         <description>2014-09 APMS - Endpoint is updated to match APMS Contract</description>
-        <endpointUrl>https://salesforce-bw-ptest.npe.auspost.com.au:10543/CustomerContractManagement/Notification</endpointUrl>
+        <endpointUrl>https://salesforce-bw-stest.npe.auspost.com.au:10543/CustomerContractManagement/Notification</endpointUrl>
         <fields>Id</fields>
         <includeSessionId>true</includeSessionId>
         <integrationUser>apintegrationuser@auspost.com.au</integrationUser>

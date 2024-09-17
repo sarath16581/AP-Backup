@@ -18,19 +18,19 @@
     <picklistValues>
         <picklist>Additional_Information_Reason__c</picklist>
         <values>
+            <fullName>Awaiting outcome of decision forum</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Copy of Contract or Uprate Letter required</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Engage Product for support</fullName>
+            <fullName>Customer acceptance of APR required</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Further details required to support request</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Incomplete data file</fullName>
+            <fullName>Insufficient Sales Justification</fullName>
             <default>false</default>
         </values>
         <values>
@@ -38,19 +38,19 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Opportunity not aligned with request</fullName>
+            <fullName>Missing %2F Incomplete data file</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Other</fullName>
+            <fullName>Require ABS data</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Self-serve system issue</fullName>
+            <fullName>Require approval</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Supporting evidence not attached</fullName>
+            <fullName>Require fully approved CSQ</fullName>
             <default>false</default>
         </values>
     </picklistValues>
@@ -1390,19 +1390,19 @@
     <picklistValues>
         <picklist>Pricing_Request_Type__c</picklist>
         <values>
+            <fullName>Additional Lodgement Points</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Annual Price Review %28Renewal%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>New Business %2F Growth</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Other</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Rate Card Extraction</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Renewal %2F Rate review</fullName>
+            <fullName>Out of cycle Rate Review</fullName>
             <default>false</default>
         </values>
     </picklistValues>
@@ -1473,103 +1473,7 @@
     <picklistValues>
         <picklist>Product__c</picklist>
         <values>
-            <fullName>3PL</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>AaE</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Address Post</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Bank%40Post</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Decipha</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Digital</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Digital ID</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Express AP</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Express Courier International</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>Express Post</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Express eParcel</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Financial %26 Commercial Services</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>First Direct Solutions</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Fulfilment %26 Unaddressed</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>ID%26G and F%26CS</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>ID%26V</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Identity %26 Government Services</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>International</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>International AP</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Letters%2FTrusted Services</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>MRS %26 Data Insights</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Mail Products</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Mail Services</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Mailroom</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>MessengerPost Couriers</fullName>
             <default>false</default>
         </values>
         <values>
@@ -1577,103 +1481,7 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>NXF</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>On Demand</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Other</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Other Postal Services</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Other Retail Services</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Parcel AP</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>Parcel Post</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Parcels</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Payments</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>PostBillPay</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>PostLogistics International</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Print Post</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Retail Services</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>ST FPP</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>ST Next Flight</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>ST Premium</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Securepay</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Star Track Express</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Star Track International</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>StarTrack Logistics</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Supply Chain</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>UMS</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>VOI</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>eLetter</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>eParcel</fullName>
             <default>false</default>
         </values>
     </picklistValues>
@@ -1730,19 +1538,23 @@
     <picklistValues>
         <picklist>RejectionReason__c</picklist>
         <values>
-            <fullName>Contact Commercial Team</fullName>
+            <fullName>Additional Pricing DSR required</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Contact Legal Team</fullName>
+            <fullName>No action taken - Duplicate</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Contract Value too Low</fullName>
+            <fullName>No action taken - Invalid record type</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Refer to OGF %28Formal Bid%29</fullName>
+            <fullName>No action taken - Not a pricing support request</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>No action taken - Self-serve</fullName>
             <default>false</default>
         </values>
     </picklistValues>

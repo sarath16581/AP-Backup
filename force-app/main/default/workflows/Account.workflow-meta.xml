@@ -502,7 +502,7 @@
         <fullName>Set_Assignment_Effective_To_Date</fullName>
         <description>Set Assignment Effective To Date to 4 years from Assignment Effective From Date on CMA CPA Licence when not Active or Rejected or Cease Approved</description>
         <field>Assignment_Effective_To_Date__c</field>
-        <formula>ADDMONTHS( Assignment_Effective_From_Date__c ,60)</formula>
+        <formula>ADDMONTHS( Assignment_Effective_From_Date__c ,48)</formula>
         <name>Set Assignment Effective To Date</name>
         <notifyAssignee>false</notifyAssignee>
         <operation>Formula</operation>
@@ -679,7 +679,7 @@ IF(AND(Total_Budget__c &gt;= 10000, Total_Budget__c &lt; 29999), 12, 26)))), 0))
         <fullName>PartnerInfoLicenceActivation</fullName>
         <apiVersion>57.0</apiVersion>
         <description>Notify POST+ system upon Licence Activation.</description>
-        <endpointUrl>https://webapi-ptestext.npe.auspost.com.au/ptest/aws.cce.auspost/abns</endpointUrl>
+        <endpointUrl>https://webapi-ptestext.npe.auspost.com.au/stest/aws.cce.auspost/abns</endpointUrl>
         <fields>Assignment_Effective_From_Date__c</fields>
         <fields>Id</fields>
         <fields>ParentABN__c</fields>
@@ -695,7 +695,7 @@ IF(AND(Total_Budget__c &gt;= 10000, Total_Budget__c &lt; 29999), 12, 26)))), 0))
         <fullName>SAP_Sync_Customer</fullName>
         <apiVersion>55.0</apiVersion>
         <description>SSSW</description>
-        <endpointUrl>https://salesforce-bw-ptest.npe.auspost.com.au:10543/Services/CustomerManagement/SyncCustomer</endpointUrl>
+        <endpointUrl>https://salesforce-bw-stest.npe.auspost.com.au:10543/Services/CustomerManagement/SyncCustomer</endpointUrl>
         <fields>APCN__pc</fields>
         <fields>CRMCSSOID__pc</fields>
         <fields>ClickAndSendID__pc</fields>

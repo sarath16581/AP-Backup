@@ -152,16 +152,20 @@ public with sharing class APRsSelector_Test {
 		Test.startTest();
 
 		Set<Id> accountIds = new Set<Id>{parentAccounts[0].Id};
-		List<APR__c> queryResults = APRsSelector.newInstance().selectByAccount(accountIds, new Set<Object>{
+		Database.QueryLocator queryLocator = APRsSelector.newInstance().selectByAccountOrderByAccountIdQueryLocator(accountIds, new Set<Object>{
 				APRsSelector.Options.WITH_ORGANISATION
 		});
+
+		List<APR__c> queryResults = (List<APR__c>)Database.query(queryLocator.getQuery());
+
 		System.assertEquals(1, queryResults.size(), 'Expected to return only the APRs related to the supplied account');
 		System.assertEquals(aprs[0].Id, queryResults[0].Id, 'Expected to return only the APRs related to the supplied account');
 
 
-		queryResults = APRsSelector.newInstance().selectByAccount(new Set<Id>(), new Set<Object>{
-			APRsSelector.Options.WITH_ORGANISATION
+		queryLocator = APRsSelector.newInstance().selectByAccountOrderByAccountIdQueryLocator(new Set<Id>(), new Set<Object>{
+				APRsSelector.Options.WITH_ORGANISATION
 		});
+		queryResults = (List<APR__c>)Database.query(queryLocator.getQuery());
 		System.assertEquals(2, queryResults.size(), 'Expected to return APRs related to any account when account id is not specified');
 		Test.stopTest();
 	}

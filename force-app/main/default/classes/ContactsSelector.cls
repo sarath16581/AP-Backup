@@ -18,6 +18,7 @@
  * 2023-10-01 - Hasantha Liyanage - Added Contact.BillingAccount__c in getSObjectFieldList
  * 2024-01-22 - Hasantha Liyanage - Added selectPrimaryContactByAccount method
  * 2024-05-21 - Marcel HK - Added selector method `selectByCustomerSearchParams` for Customer Search (CSLU-107)
+ * 2024-05-24 - Harry Wang - Added selectCloneableContactsByAccount
  * 2024-07-05 - Marcel HK - Updated ORDER BY for the selector method `selectByCustomerSearchParamsQB` (CSLU-955)
  * 2024-07-15 - Marcel HK - Added selector option WITH_RELATED_CASES to include related cases sub-query (CSLU-439)
  * 2024-07-15 - Marcel HK - Added enum `CustomerSearchCustomerType` and customer type filters (CSLU-446)
@@ -168,6 +169,22 @@ public virtual inherited sharing class ContactsSelector extends ApplicationSelec
 			.endConditions();
 		qb.addOrderAsc(Contact.Name);
 		return new Map<Id, Contact>((List<Contact>) Database.query(qb.toSoqlString()));
+	}
+	
+	/**
+	 * @description Select cloneable contact by parent account ID.
+	 * Cloneable contacts are active and maintained by Account Manager
+	 * @param accountId parent account ID
+	 * @return matching Contact records
+	 */
+	public List<Contact> selectCloneableContactsByAccount(Id accountId) {
+		QueryBuilder qb = newQueryBuilder()
+				.addConditions()
+				.add(new QueryBuilder.CompareCondition(Contact.AccountId).eq(accountId))
+				.add(new QueryBuilder.CompareCondition(Contact.Status__c).eq('Active'))
+				.add(new QueryBuilder.CompareCondition(Contact.Record_Maintainer__c).eq('Account Manager'))
+				.endConditions();
+		return Database.query(qb.toSoqlString());
 	}
 
 	/**

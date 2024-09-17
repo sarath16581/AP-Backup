@@ -268,4 +268,14 @@ public with sharing class ApplicationTestDataFactoryCase {
 		private set;
 	}
 
+	public static Id caseUnifiedGeneralEnquiryRecordType {
+		get {
+			if (caseUnifiedGeneralEnquiryRecordType == null) {
+				caseUnifiedGeneralEnquiryRecordType = SObjectType.Case.getRecordTypeInfosByDeveloperName().get('UnifiedGeneralEnquiry').getRecordTypeId();
+			}
+			return caseUnifiedGeneralEnquiryRecordType;
+		}
+		private set;
+	}
+
 }
