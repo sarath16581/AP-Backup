@@ -101,5 +101,5 @@
         <searchResultsAdditionalFields>Owner</searchResultsAdditionalFields>
         <searchResultsAdditionalFields>CallOrigin</searchResultsAdditionalFields>
     </searchLayouts>
-    <sharingModel>Read</sharingModel>
+    <sharingModel>Private</sharingModel>
 </CustomObject>

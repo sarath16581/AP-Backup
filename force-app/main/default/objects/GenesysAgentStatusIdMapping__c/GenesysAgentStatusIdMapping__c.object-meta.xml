@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
     <customSettingsType>List</customSettingsType>
+    <description>To store the mapping between status IDs and values, this object is used to efficiently manage status sync between Sa;esforce and Genesys. Since syncing Omni Status with Genesys requires passing the status ID rather than the status value, this object helps by storing the ID and value mapping. This approach eliminates the need to retrieve the status ID for every transaction by making an API call.</description>
     <enableFeeds>false</enableFeeds>
-    <label>Genesys Aent StatusId Mapping</label>
+    <label>Genesys Agent Status Id Mapping</label>
     <visibility>Public</visibility>
 </CustomObject>
