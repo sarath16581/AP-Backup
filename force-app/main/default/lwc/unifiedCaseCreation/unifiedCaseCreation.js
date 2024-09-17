@@ -13,11 +13,8 @@ import { getPicklistValuesByRecordType } from 'lightning/uiObjectInfoApi';
 import CASE_OBJECT from '@salesforce/schema/Case';
 import { getPicklistOptions, isPicklistOptionAvailable } from './util';
 import { reduceErrors } from 'c/ldsUtils';
-import { getFieldValue } from 'lightning/uiRecordApi';
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 import { isBlank } from 'c/utils';
-
-import LIVECHAT_INTENT_FIELD from '@salesforce/schema/LiveChatTranscript.Chat_Intent__c';
 
 const INVESTIGATION_RECORD_TYPE = 'UnifiedInvestigation';
 const GENERAL_ENQUIRY_RECORD_TYPE = 'UnifiedGeneralEnquiry';

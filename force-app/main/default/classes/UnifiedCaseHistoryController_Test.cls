@@ -181,7 +181,6 @@ public with sharing class UnifiedCaseHistoryController_Test {
 		// Data Preparation
 		// =====================================
 		Id contactId = fflib_IDGenerator.generate(Contact.getSObjectType());
-		Article__c article = createArticle('ABC123XYZ', true);
 		Map<Id, Case> casesMap = createCases();
 		for (Case c : casesMap.values()) {
 			c.ContactId = contactId;
