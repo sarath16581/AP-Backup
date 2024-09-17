@@ -6,6 +6,7 @@ import {getRecord, getFieldValue} from 'lightning/uiRecordApi';
 
 export default class UnifiedVoiceCallMainHub extends LightningElement {
     @api recordId;
+    activeSections = ['consignment', 'customer'];
     consignmentNumber = '';
     numberOfArticles = 0;
     relatedContactId;
@@ -26,6 +27,10 @@ export default class UnifiedVoiceCallMainHub extends LightningElement {
         if (data) {
             this.customerName = getFieldValue(data,FIRST_NAME_FIELD) + ' ' + getFieldValue(data,LAST_NAME_FIELD);
         }
+    }
+
+    handleSectionToggle(event) {
+        const openSections = event.detail.openSections;
     }
 
     get consignmentSectionTitle() {

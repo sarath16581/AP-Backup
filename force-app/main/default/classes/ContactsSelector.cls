@@ -182,9 +182,9 @@ public virtual inherited sharing class ContactsSelector extends ApplicationSelec
 	public Map<Id, Contact> selectByReversedPhoneNumbers(Set<Object> selectorOptions, Set<String> reversedPhoneNumbers) {
 		QueryBuilder qb = newQueryBuilder(selectorOptions)
 				.addConditions()
-				.add(new QueryBuilder.InCondition(Contact.ReverseMobilePhone__c).inCollection(reversedPhoneNumbers))
-				.add(new QueryBuilder.InCondition(Contact.ReverseVerifiedMobile__c).inCollection(reversedPhoneNumbers))
-				.add(new QueryBuilder.InCondition(Contact.ReversePhone__c).inCollection(reversedPhoneNumbers))
+				.add(new QueryBuilder.SimpleCondition(Contact.ReverseMobilePhone__c + ' in :reversedPhoneNumbers'))
+				.add(new QueryBuilder.SimpleCondition(Contact.ReverseVerifiedMobile__c + ' in :reversedPhoneNumbers'))
+				.add(new QueryBuilder.SimpleCondition(Contact.ReversePhone__c + ' in :reversedPhoneNumbers'))
 				.setConditionOrder('(1 OR 2 OR 3)')
 				.endConditions();
 		return new Map<Id, Contact>((List<Contact>) Database.query(qb.toSoqlString()));

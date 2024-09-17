@@ -1,16 +1,20 @@
 <!-- Voice Call Main Hub -->
 <template>
-    <c-accordion-custom section-title={consignmentSectionTitle} variant="default" expanded>
-        <c-unified-tracking-voice-wrapper
-                record-id={recordId}
-                ontrackingsearchcomplete={handleSearchComplete}
-                onselectedarticles={handleSelectedArticles}
-        ></c-unified-tracking-voice-wrapper>
-    </c-accordion-custom>
+	<lightning-accordion allow-multiple-sections-open
+						 onsectiontoggle={handleSectionToggle}
+						 active-section-name={activeSections}>
+		<lightning-accordion-section name="consignment" label={consignmentSectionTitle}>
+			<c-unified-tracking-voice-wrapper
+					record-id={recordId}
+					ontrackingsearchcomplete={handleSearchComplete}
+					onselectedarticles={handleSelectedArticles}
+			></c-unified-tracking-voice-wrapper>
+		</lightning-accordion-section>
 
-    <c-accordion-custom section-title={customerNameSectionTitle} variant="default">
-        <c-unified-customer-search-voice-call-wrapper
-                record-id={recordId}
-        ></c-unified-customer-search-voice-call-wrapper>
-    </c-accordion-custom>
+		<lightning-accordion-section name="customer" label={customerNameSectionTitle}>
+			<c-unified-customer-search-voice-call-wrapper
+					record-id={recordId}
+			></c-unified-customer-search-voice-call-wrapper>
+		</lightning-accordion-section>
+	</lightning-accordion>
 </template>
