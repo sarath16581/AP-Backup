@@ -11812,7 +11812,7 @@
         <recordType>Case.SE_P_Data_Capture</recordType>
     </layoutAssignments>
     <layoutAssignments>
-        <layout>Case-Case Layout</layout>
+        <layout>Case-Unified Case Layout</layout>
         <recordType>Case.SSSWDelivery</recordType>
     </layoutAssignments>
     <layoutAssignments>
@@ -11820,11 +11820,11 @@
         <recordType>Case.SSSWFax</recordType>
     </layoutAssignments>
     <layoutAssignments>
-        <layout>Case-Case Layout</layout>
+        <layout>Case-Unified Case Layout</layout>
         <recordType>Case.SSSWGeneralEnquiry</recordType>
     </layoutAssignments>
     <layoutAssignments>
-        <layout>Case-Case Layout</layout>
+        <layout>Case-Unified Case Layout</layout>
         <recordType>Case.SSSWService</recordType>
     </layoutAssignments>
     <layoutAssignments>
