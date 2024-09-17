@@ -17,7 +17,7 @@ NOT(ISPICKVAL(Status, &apos;Closed&apos;))
 
 OR(
   CONTAINS(RecordType.DeveloperName, &quot;SSSW&quot;),
-  CONTAINS(RecordType.DeveloperName, &apos;Unified&apos;)
+  BEGINS(RecordType.DeveloperName, &apos;Unified&apos;)
 )
 
 &amp;&amp; 

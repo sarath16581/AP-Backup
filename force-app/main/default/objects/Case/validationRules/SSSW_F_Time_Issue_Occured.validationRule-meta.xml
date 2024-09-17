@@ -6,7 +6,7 @@
     <errorConditionFormula>AND( ISBLANK( DateofIncident__c ), NOT(ISPICKVAL( Origin , &quot;Internal form&quot;)), 
 	OR(
 		CONTAINS( RecordType.DeveloperName, &quot;SSSWService&quot;),
-		CONTAINS( RecordType.DeveloperName, &apos;Unified&apos;)
+		BEGINS( RecordType.DeveloperName, &apos;Unified&apos;)
 	),
      Bypass_Data_enforcement__c = FALSE, 
      Email_Bypass_Data_enforcement__c = FALSE, 

@@ -13,7 +13,7 @@ ISBLANK(TEXT(ResolutionCode__c))
 &amp;&amp;
 OR(
   CONTAINS(RecordType.DeveloperName, &quot;SSSW&quot;),
-  CONTAINS(RecordType.DeveloperName, &apos;Unified&apos;)
+  BEGINS(RecordType.DeveloperName, &apos;Unified&apos;)
 )
 &amp;&amp;
 NOT(ISNEW())</errorConditionFormula>

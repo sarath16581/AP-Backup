@@ -7,7 +7,7 @@
 &amp;&amp;
 OR(
    BEGINS(RecordType.DeveloperName, &apos;SSSW&apos;),
-   CONTAINS(RecordType.DeveloperName, &apos;Unified&apos;)
+   BEGINS(RecordType.DeveloperName, &apos;Unified&apos;)
 )
 &amp;&amp;
 $Profile.Name != &apos;System Administrator&apos; 

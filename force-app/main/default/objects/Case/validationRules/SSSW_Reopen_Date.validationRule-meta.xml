@@ -5,7 +5,7 @@
     <description>Ensures the reopen date is not in the past</description>
     <errorConditionFormula>OR(
 		CONTAINS(RecordType.DeveloperName, &quot;SSSW&quot;),
-		CONTAINS(RecordType.DeveloperName, &apos;Unified&apos;)
+		BEGINS(RecordType.DeveloperName, &apos;Unified&apos;)
 	)
 &amp;&amp;
 Case_Reopen_Date__c  &lt;=  NOW()
