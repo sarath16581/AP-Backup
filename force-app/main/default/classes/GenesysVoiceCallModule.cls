@@ -231,7 +231,7 @@ public with sharing class GenesysVoiceCallModule extends ApplicationModule {
 			for (GenesysSyncRequest syncRequest :syncRequests.values()) {
 				try {
 					processGenesysUpdate(syncRequest);
-				} catch (Exception grException) {
+				} catch (GenesysIntegration.GenesysResponseException grException) {
 					errorList.add(String.format(
 						'Unable to sync interaction {0} with values {1} to Genesys\nReason: {2}',
 						new String[] {
