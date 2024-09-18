@@ -33,8 +33,6 @@ export default class UnifiedCaseVoiceCallSync extends LightningElement {
 	wiredVoiceCallRecord({error,data}) {
 		if (data) {
             this.relatedCaseId = getFieldValue(data, VOICE_CALL_RELATED_RECORD_FIELD) ?? getFieldValue(data, VOICE_CALL_CASE_FIELD);
-			console.log('this.relatedCaseId');
-			console.log(this.relatedCaseId);
 			VOICE_CALL_FIELDS.forEach((field)=>{
                 this.voiceCallDetails[field.fieldApiName] = getFieldValue(data, field);
             });
@@ -65,7 +63,7 @@ export default class UnifiedCaseVoiceCallSync extends LightningElement {
         if (this.caseDetails.Type === CASE_TYPE_GENERAL_ENQUIRY && !caseOlderThanVoice) { // the case is created with Type = General Enquiry during the interaction
             return FCR;
         } else if ((this.caseDetails.Type === CASE_TYPE_INVESTIGATION && !caseOlderThanVoice) ||
-                    (this.caseDetails.Type === CASE_TYPE_GENERAL_ENQUIRY && caseOlderThanVoice && this.originalCaseType === CASE_TYPE_GENERAL_ENQUIRY)) { // the case is created with Type = Investigation is before the call OR the case was of Type GE, but has been updated to Investigate during the call
+                    (this.caseDetails.Type === CASE_TYPE_INVESTIGATION && caseOlderThanVoice && this.originalCaseType === CASE_TYPE_GENERAL_ENQUIRY)) { // the case is created with Type = Investigation is before the call OR the case was of Type GE, but has been updated to Investigate during the call
             return ENQUIRY_LODGED;
         } else if ((this.caseDetails.Type === CASE_TYPE_INVESTIGATION && caseOlderThanVoice && this.originalCaseType === CASE_TYPE_INVESTIGATION) ||
                     (this.caseDetails.Type === CASE_TYPE_GENERAL_ENQUIRY && caseOlderThanVoice)) { // the case has always been of Type Investigation before and during the call
