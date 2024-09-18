@@ -143,10 +143,8 @@ public with sharing class CaseUnifiedTeamMemberModule extends ApplicationModule 
 		List<Case> filteredCases = new List<Case>();
 		for (Case cs : cases) {
 			String uniqueKeyForCaseIdOwnerId = cs.Id + ':' + cs.OwnerId;
-			for(String uniqueKey : uniqueKeyForExistingCaseAndMemberId){
-				if(!uniqueKey.equals(uniqueKeyForCaseIdOwnerId)){
-					filteredCases.add(cs);
-				}
+			if(!uniqueKeyForExistingCaseAndMemberId.contains(uniqueKeyForCaseIdOwnerId)){
+				filteredCases.add(cs);
 			}
 		}
 		return filteredCases;
