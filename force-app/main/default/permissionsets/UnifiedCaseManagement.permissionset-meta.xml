@@ -191,12 +191,12 @@
         <readable>true</readable>
     </fieldPermissions>
 	<fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>ImpactedArticle__c.ArticleId__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>ImpactedArticle__c.Article__c</field>
         <readable>true</readable>
     </fieldPermissions>
