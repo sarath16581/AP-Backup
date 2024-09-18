@@ -39,3 +39,7 @@ article.is-article .article-selector {
 	background-color: #E5535E;
 	text-decoration-color: white;
 }
+
+.read-only-checkbox{
+	background-color: #f3f3f3;
+}
