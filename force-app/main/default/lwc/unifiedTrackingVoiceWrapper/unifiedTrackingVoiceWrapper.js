@@ -43,6 +43,8 @@ export default class UnifiedTrackingVoiceWrapper extends LightningElement {
 	consignmentIdFromRecord;
 	// Holds case record Id available on the voice all record.
 	caseId;
+	// Holds tracking Id that has duplicates
+	duplicateTrackingId;
 	// wire the message context and pass to publisher to send LMS events
 	@wire(MessageContext)
 	messageContext;
@@ -116,11 +118,22 @@ export default class UnifiedTrackingVoiceWrapper extends LightningElement {
 			if (eventDetail.articleRecordId) {
 				this.articleRecordId = eventDetail.articleRecordId;
 				this.trackingId = eventDetail.trackingId;
-				// Link only consignment if there is no consignment on the voice call record
-				if (this.trackingIdFromRecord && !this.consignmentIdFromRecord && !this.noConsignment) {
-					this.autoLinkOnlyConsignment();
-				} else if (this.articleRecordId && this.consignmentIdFromRecord !== this.articleRecordId) {
-					this.autoLink();
+				// Auto link only if there are no duplicates
+				if (!eventDetail.hasDuplicates) {
+					if (!this.duplicateTrackingId) {
+						// Link only consignment if there is no consignment on the voice call record
+						if (this.trackingIdFromRecord && !this.consignmentIdFromRecord && !this.noConsignment) {
+							this.autoLinkOnlyConsignment();
+						} else if (this.articleRecordId && this.consignmentIdFromRecord !== this.articleRecordId) {
+							this.autoLink();
+						}
+					} else {
+						// This will only run if the previous transaction has duplicates.
+						this.duplicateTrackingId = '';
+						this.autoLink();
+					}
+				} else {
+					this.duplicateTrackingId = this.trackingId;
 				}
 				// executes only if case available and the page loaded or refreshed.
 				if (this.caseId) {
@@ -139,8 +152,8 @@ export default class UnifiedTrackingVoiceWrapper extends LightningElement {
 	}
 
 	/** Handler to receive messages from happy parcel component when checkboxes selected.
-	* Publishes LMS on select event.
-	*/
+	 * Publishes LMS on select event.
+	 */
 	handleSelectedArticles(event) {
 		// build and publish LMS Event for selected articles
 		this.publishSelectedArticlesLMS(this.trackingId, event.detail);
@@ -199,7 +212,7 @@ export default class UnifiedTrackingVoiceWrapper extends LightningElement {
 	 */
 	publishSelectedArticlesLMS(trackingId, selectedArticles) {
 		const lmsEventPayload = {
-			source: 'HappyParcel',
+			source: 'UnifiedTrackingVoiceWrapper',
 			type: 'articleSelected',
 			body: {
 				consignmentId: trackingId,

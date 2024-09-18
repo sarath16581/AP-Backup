@@ -428,16 +428,18 @@ export default class HappyParcelWrapper extends NavigationMixin(LightningElement
 		}
 
 		// additional attributes mapping
-		result.article.ProductCategory__c = this.articles?.[0]?.trackingResult?.article?.ProductCategory__c ?? result.article.ProductCategory__c;
-		result.article.SubProduct__c = this.articles?.[0]?.trackingResult?.article?.SubProduct__c ?? result.article.SubProduct__c;
+		if(result.article){
+			result.article.ProductCategory__c = this.articles?.[0]?.trackingResult?.article?.ProductCategory__c ?? result.article?.ProductCategory__c;
+			result.article.SubProduct__c = this.articles?.[0]?.trackingResult?.article?.SubProduct__c ?? result.article?.SubProduct__c;
+		}
 		result.additionalAttributes = this.consignment?.trackingResult?.additionalAttributes ?? result.additionalAttributes;
 		// populate EDD for StarTrack including a flag to pass down to child component(happyParcelEdd)
 		this.articles?.forEach(item => {
 			// only set isDotNetEdd to TRUE if both EDD and SourceSystem data from .NET are not null
 			const dotNetEddExists = !!(result.article?.ExpectedDeliveryDate__c && result.article?.Source_System__c);
 			item.trackingResult.isDotNetEdd = dotNetEddExists;
-			item.trackingResult.article.ExpectedDeliveryDate__c = dotNetEddExists ? result.article?.ExpectedDeliveryDate__c : item.trackingResult.article.ExpectedDeliveryDate__c;
-			item.trackingResult.article.Source_System__c = dotNetEddExists ? result.article?.Source_System__c : item.trackingResult.article.Source_System__c;
+			item.trackingResult.article.ExpectedDeliveryDate__c = dotNetEddExists ? result.article?.ExpectedDeliveryDate__c : item.trackingResult.article?.ExpectedDeliveryDate__c;
+			item.trackingResult.article.Source_System__c = dotNetEddExists ? result.article?.Source_System__c : item.trackingResult.article?.Source_System__c;
 		});
 		// update display attributes from StarTrack response
 		this.consignment.trackingResult = result;
