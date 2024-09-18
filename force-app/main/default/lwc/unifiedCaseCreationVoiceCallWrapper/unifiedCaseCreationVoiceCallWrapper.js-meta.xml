@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
 	<apiVersion>61.0</apiVersion>
-	<description>Voice call wrapper for Case Creation</description>
+	<description>This is a case creation wrapper embedded on the VoiceCall Flexipage. 
+		It facilitates exchange of data including article and consignment data via the LMS (Lightning Message Service), with other wrapper components also embedded on the same VoiceCall Flexipage.</description>
 	<isExposed>true</isExposed>
-	<masterLabel>This is a case creation wrapper embedded on the VoiceCall Flexipage. 
-		It facilitates exchange of data including article and consignment data via the LMS (Lightning Message Service), with other wrapper components also embedded on the same VoiceCall Flexipage.</masterLabel>
+	<masterLabel>Voice call wrapper for Case Creation</masterLabel>
 </LightningComponentBundle>
