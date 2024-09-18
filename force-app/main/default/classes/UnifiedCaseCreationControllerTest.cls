@@ -127,11 +127,11 @@ public class UnifiedCaseCreationControllerTest {
 		Assert.areEqual(caseRequest.productSubCategory, result.ProductSubCategory__c, 'ProductSubCategory__c should match but instead got: ' + result.ProductSubCategory__c);
 		Assert.areEqual(caseRequest.notes, result.Description, 'Description should match but instead got: ' + result.Description);
 		Assert.areEqual(UserInfo.getUserId(), result.OwnerId, 'OwnerId should match but instead got: ' + result.OwnerId);
-		Assert.areEqual(StarTrack_Constants.PRIORITY_NORMAL, result.Priority, 'Priority should match but instead got: ' + result.Priority);
-		Assert.areEqual(APT_Constants.CLOSED, result.Status, 'Status should match but instead got: ' + result.Status);
+		Assert.areEqual(UnifiedConstants.CASE_PRIORITY_NORMAL, result.Priority, 'Priority should match but instead got: ' + result.Priority);
+		Assert.areEqual(UnifiedConstants.CASE_STATUS_CLOSED, result.Status, 'Status should match but instead got: ' + result.Status);
 		Assert.areEqual(UnifiedCaseCreationController.UNCLEAR_EDD_ROOT_CAUSE, result.Root_cause__c, 'Root_cause__c should match but instead got: ' + result.Root_cause__c);
 		Assert.areEqual(UnifiedCaseCreationController.CLOSED_TRACKING_ONLY_RESOLUTION_CODE, result.ResolutionCode__c, 'ResolutionCode__c should match but instead got: ' + result.ResolutionCode__c);
-		Assert.areEqual(StarTrack_Constants.CASE_CONTYPE_RECEIVER, result.Recent_Caller_Type__c, 'Recent_Caller_Type__c should match but instead got: ' + result.Recent_Caller_Type__c);
+		Assert.areEqual(UnifiedConstants.CASE_CONTYPE_RECEIVER, result.Recent_Caller_Type__c, 'Recent_Caller_Type__c should match but instead got: ' + result.Recent_Caller_Type__c);
 	}
 
 	/**
@@ -169,9 +169,9 @@ public class UnifiedCaseCreationControllerTest {
 		Assert.areEqual(caseRequest.productSubCategory, result.ProductSubCategory__c, 'ProductSubCategory__c should match but instead got: ' + result.ProductSubCategory__c);
 		Assert.areEqual(caseRequest.notes, result.Description, 'Description should match but instead got: ' + result.Description);
 		Assert.areEqual(UserInfo.getUserId(), result.OwnerId, 'OwnerId should match but instead got: ' + result.OwnerId);
-		Assert.areEqual(StarTrack_Constants.PRIORITY_NORMAL, result.Priority, 'Priority should match but instead got: ' + result.Priority);
-		Assert.areEqual(APT_Constants.CASE_STATUS_NEW, result.Status, 'Status should match but instead got: ' + result.Status);
-		Assert.areEqual(StarTrack_Constants.CASE_CONTYPE_RECEIVER, result.Recent_Caller_Type__c, 'Recent_Caller_Type__c should match but instead got: ' + result.Recent_Caller_Type__c);
+		Assert.areEqual(UnifiedConstants.CASE_PRIORITY_NORMAL, result.Priority, 'Priority should match but instead got: ' + result.Priority);
+		Assert.areEqual(UnifiedConstants.CASE_STATUS_NEW, result.Status, 'Status should match but instead got: ' + result.Status);
+		Assert.areEqual(UnifiedConstants.CASE_CONTYPE_RECEIVER, result.Recent_Caller_Type__c, 'Recent_Caller_Type__c should match but instead got: ' + result.Recent_Caller_Type__c);
 	}
 
 	/**

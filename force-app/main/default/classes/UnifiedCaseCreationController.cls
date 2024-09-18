@@ -150,7 +150,7 @@ public with sharing class UnifiedCaseCreationController {
 	private static Case buildInvestigationCaseAttributes(CaseCreationRequest req) {
 		Case newCase = new Case();
 		newCase = buildCommonFieldsAttributes(req);
-		newCase.Status = APT_Constants.CASE_STATUS_NEW;
+		newCase.Status = UnifiedConstants.CASE_STATUS_NEW;
 		newCase.RecordTypeId = req.recordTypeId;
 		return newCase;
 	}
@@ -165,7 +165,7 @@ public with sharing class UnifiedCaseCreationController {
 	private static Case buildGeneralEnquiryCaseAttributes(CaseCreationRequest req) {
 		Case newCase = new Case();
 		newCase = buildCommonFieldsAttributes(req);
-		newCase.Status = APT_Constants.CLOSED;
+		newCase.Status = UnifiedConstants.CASE_STATUS_CLOSED;
 		newCase.Root_cause__c = UNCLEAR_EDD_ROOT_CAUSE;
 		newCase.ResolutionCode__c = CLOSED_TRACKING_ONLY_RESOLUTION_CODE;
 		newCase.RecordTypeId = req.recordTypeId;
@@ -185,8 +185,8 @@ public with sharing class UnifiedCaseCreationController {
 		newCase.EnquirySubType__c = req.enquirySubType;
 		newCase.ProductCategory__c = req.productCategory;
 		newCase.ProductSubCategory__c = req.productSubCategory;
-		newCase.Priority = StarTrack_Constants.PRIORITY_NORMAL;
-		newCase.Recent_Caller_Type__c = StarTrack_Constants.CASE_CONTYPE_RECEIVER;
+		newCase.Priority = UnifiedConstants.CASE_PRIORITY_NORMAL;
+		newCase.Recent_Caller_Type__c = UnifiedConstants.CASE_CONTYPE_RECEIVER;
 		newCase.OwnerId = UserInfo.getUserId();
 		newCase.ContactId = req.contactId;
 		newCase.Description = req.notes;
