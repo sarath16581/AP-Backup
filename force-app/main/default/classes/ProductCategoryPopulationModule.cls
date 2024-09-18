@@ -117,8 +117,10 @@ public inherited sharing class ProductCategoryPopulationModule extends Applicati
 				if (String.isNotBlank(chatTranscript.CaseId)) {
 					mappingModel = mappingModelsFromCaseRecords.get(chatTranscript.CaseId);
 				}
-				chatTranscript.ProductCategory__c = articlesWithEnquiryMappings.get(chatTranscript.Consignment__c).get(mappingModel).ProductCategory__c;
-				chatTranscript.ProductSubcategory__c = articlesWithEnquiryMappings.get(chatTranscript.Consignment__c).get(mappingModel).ProductSubcategory__c;
+				if(chatTranscript.Consignment__c != null){					
+					chatTranscript.ProductCategory__c = articlesWithEnquiryMappings.get(chatTranscript.Consignment__c).get(mappingModel).ProductCategory__c;
+					chatTranscript.ProductSubcategory__c = articlesWithEnquiryMappings.get(chatTranscript.Consignment__c).get(mappingModel).ProductSubcategory__c;
+				}
 			}
 		}
 	}
