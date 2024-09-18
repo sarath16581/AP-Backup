@@ -89,7 +89,7 @@ public inherited sharing class CaseAutomationClassificationModule extends Applic
 							// queue email notification to notify customer on unified investigation case that has
 							// been converted from unified general enquiry case. note that the email framework handles
 							// recursion scenarios (if any).
-							String emailAlertName = aCase.ProductSubCategory__c.containsIgnoreCase('StarTrack')
+							String emailAlertName = CaseUnifiedAutomationService.isStarTrackCase(aCase)
 									? EMAIL_ALERT_UNIFIED_GENERAL_ENQUIRY_TO_INVESTIGATION_ST
 									: EMAIL_ALERT_UNIFIED_GENERAL_ENQUIRY_TO_INVESTIGATION_AP;
 							uow.queueEmailNotification(aCase.Id, Case.SObjectType, emailAlertName);
@@ -120,7 +120,7 @@ public inherited sharing class CaseAutomationClassificationModule extends Applic
 			if (aCase.RecordTypeId == unifiedRecordTypeDeveloperNameVsIds.get(SSSWConstants.UNIFIED_INVESTIGATION_DEVELOPER_NAME)
 				&& String.isNotBlank(aCase.ContactEmail) && aCase.ProductSubCategory__c != null) {
 				// queue email notification to notify customer on new unified investigation case creation
-				String emailAlertName = aCase.ProductSubCategory__c.containsIgnoreCase('StarTrack')
+				String emailAlertName = CaseUnifiedAutomationService.isStarTrackCase(aCase)
 						? EMAIL_ALERT_UNIFIED_INVESTIGATION_CASE_CREATION_ST
 						: EMAIL_ALERT_UNIFIED_INVESTIGATION_CASE_CREATION_AP;
 				uow.queueEmailNotification(aCase.Id, Case.SObjectType, emailAlertName);
