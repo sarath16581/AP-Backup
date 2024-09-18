@@ -357,17 +357,22 @@ public class TIBCOConsignmentWrapper {
 
 				ArticleUtil.setAdditionalServices(c.AdditionalServices, proxyConsignment, eventMessages);
 			}
-
+			
+            System.debug('>>>>>> TIBCOConsignmentWrapper ArticleEnvelopes: ' + consignmentDetails.ConsignmentEnvelope.ArticleEnvelope);
+            
 			if (consignmentDetails.ConsignmentEnvelope.ArticleEnvelope != null) {
 				for (AuspostQueryTrackEventsSchema.ArticleEnvelope ae : consignmentDetails.ConsignmentEnvelope.ArticleEnvelope) {
+                    
 					if (String.isNotBlank(consignmentMLID) && ae.Article != null && consignmentMLID.equals(ae.Article.MerchantLocationId)) { //Added by David Catindoy (March 22, 2017) - StarTrack SSC5.1
 						articles.add(new TIBCOArticleWrapper(ae, this));																	 //It validates if child article has the same MLID with the parent consignment.
 					} else if (String.isBlank(consignmentMLID)) {
 						articles.add(new TIBCOArticleWrapper(ae, this));
-					}
+					}                    
 				}
 			}
-
+			
+            System.debug('>>>>>> TIBCOConsignmentWrapper Articles: ' + articles);
+            
 			for (TIBCOEventMessageWrapper em : eventMessages) {
 				if (em.proxyEM.EventType__c == 'CE-EN01' || em.proxyEM.EventType__c == 'CE-EN02') {
 					proxyConsignment.Notification__c = true;

@@ -9,6 +9,7 @@
 * 2014-06-23 - Frank Chen - Created
 * 2014-06-23 - Frank Chen - Test Coverage
 * 2020-06-10 - Dheeraj Mandavilli - Included the test method for generateAttachments method
+* 2024-08-28 mona.raghav@auspost.com.au - mehtod testTrimEscalationEmailContent added to test trimming of the string
 */
 @isTest
 private with sharing class SSSWFaxUtility_Test {
@@ -304,4 +305,16 @@ private with sharing class SSSWFaxUtility_Test {
         }
         
     }
+    
+    /**
+	  * SCENARIO:
+	  *   Scenario will test the trimEscalationEmailContent functionality where the escalation email content is trimmed to the fields length
+	  */
+	  public static testMethod void testTrimEscalationEmailContent() {
+		Test.startTest();
+		string trimmedString = SSSWFaxUtility.trimContent('email comment', 2);
+		Test.stopTest();
+		// check the string passed is trimmed
+		System.assertEquals(trimmedString, 'em');
+	}
 }

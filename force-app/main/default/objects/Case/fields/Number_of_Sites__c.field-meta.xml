@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Number_of_Sites__c</fullName>
+    <businessStatus>DeprecateCandidate</businessStatus>
     <description>Ability to capture number of sites to be set-up e.g. franchise/drop ship models etc.
 Used by Sales Implementation Case</description>
     <externalId>false</externalId>
-    <label>Number of Sites</label>
+    <label>Dep - Number of Sites</label>
     <precision>4</precision>
     <required>false</required>
     <scale>0</scale>

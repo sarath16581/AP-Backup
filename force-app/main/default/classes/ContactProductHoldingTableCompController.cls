@@ -42,7 +42,7 @@ public with sharing class ContactProductHoldingTableCompController {
     private static final String IMG_FORMAT = '.png';                
     private static final String COLOR_CODED_STATUSES = 'Active,New,Replaced due to loss,Replaced due to name change,Passed,Expired,Invalidate,Inactive' + 
                                  '17000,67909,CASEMAN,  IDV_MYPOST,MPBiz,MYDELIVERIES,MYIDENTITY,MYPOST_CARD,MYPOST_CONSUMER,PARCEL_COLLECT,' +
-                                 'PARCEL_LOCKER, POB, RECEIVER_SERVICES';
+                                 'PARCEL_LOCKER, POB, RECEIVER_SERVICES,APOLN';
     private static final String DATE_FORMAT = 'dd/MM/yy HH:mm';
     private static final String ZONE = 'Australia/Sydney';
     

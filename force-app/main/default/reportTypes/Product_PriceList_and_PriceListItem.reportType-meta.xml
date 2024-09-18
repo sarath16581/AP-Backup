@@ -131,11 +131,6 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>DMAPP__AM_Solution__c</field>
-            <table>Product2</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
             <field>Apttus_Config2__BundleInvoiceLevel__c</field>
             <table>Product2</table>
         </columns>

@@ -43,29 +43,6 @@
         </values>
     </picklistValues>
     <picklistValues>
-        <picklist>DMAPP__TTG_Prime_Action_Type__c</picklist>
-        <values>
-            <fullName>Emphasize your strengths</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Insulate against competition</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Minimize your weaknesses</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Prove your value</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Retrieve missing information</fullName>
-            <default>false</default>
-        </values>
-    </picklistValues>
-    <picklistValues>
         <picklist>Depot_Filter__c</picklist>
         <values>
             <fullName>All</fullName>

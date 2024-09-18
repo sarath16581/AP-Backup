@@ -19,7 +19,7 @@ public with sharing class APT_OpptyProductListController {
 	*/
 	@AuraEnabled(Cacheable=true)
 	public static List<OpportunityLineItem> getOpptyProducts(Id oppId, Boolean recalculate){
-		Map<SObjectType, Set<SObjectField>> fieldOverrides = new Map<SObjectType, Set<SObjectField>>{
+				Map<SObjectType, Set<SObjectField>> fieldOverrides = new Map<SObjectType, Set<SObjectField>>{
 				OpportunityLineItem.SObjectType => new Set<SObjectField>{
 						OpportunityLineItem.Id, OpportunityLineItem.Name, OpportunityLineItem.Classification__c, OpportunityLineItem.Change_Classification__c,
 						OpportunityLineItem.Quantity, OpportunityLineItem.Contract_Start_Date__c, OpportunityLineItem.Contract_End_Date__c,
@@ -80,20 +80,20 @@ public with sharing class APT_OpptyProductListController {
 
 	}
 	//Wrapper class used to determine the error type accepted by lightning datatable.
-	public class Errors{
-		public String status;
-		public RowError[] rows;
-		public TableError table;
+	Public class Errors{
+		Public String status;
+		Public RowError[] rows;
+		Public TableError table;
 	}
 
-	public class RowError{
-		public String rowId;
-		public String title;
-		public String[] fieldNames;
-		public String[] errorMessages;
+	Public class RowError{
+		Public String rowId;
+		Public String title;
+		Public String[] fieldNames;
+		Public String[] errorMessages;
 	}
-	public class TableError{
-		public String title;
-		public String[] errorMessages;
+	Public class TableError{
+		Public String title;
+		Public String[] errorMessages;
 	}
 }

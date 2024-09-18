@@ -156,11 +156,11 @@
     <label>Expected Revenue</label>
     <nameField>
         <displayFormat>ER-{0000000000}</displayFormat>
-        <label>Expected Revenue Name</label>
+        <label>Expected Revenue</label>
         <type>AutoNumber</type>
     </nameField>
-    <pluralLabel>Expected Revenues</pluralLabel>
+    <pluralLabel>Expected Revenue</pluralLabel>
     <searchLayouts></searchLayouts>
-    <sharingModel>ReadWrite</sharingModel>
+    <sharingModel>Read</sharingModel>
     <visibility>Public</visibility>
 </CustomObject>

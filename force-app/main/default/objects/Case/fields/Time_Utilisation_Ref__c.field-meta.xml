@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Time_Utilisation_Ref__c</fullName>
+    <businessStatus>DeprecateCandidate</businessStatus>
     <deleteConstraint>SetNull</deleteConstraint>
     <description>Reference to Time Utilisation object &lt;to be decommissioned - User Support Query RT cleanup&gt;</description>
     <externalId>false</externalId>
-    <label>Time Utilisation Ref</label>
+    <label>Dep - Time Utilisation Ref</label>
     <referenceTo>Time_Utilisation__c</referenceTo>
     <relationshipLabel>Weekly Cases</relationshipLabel>
     <relationshipName>Cases</relationshipName>

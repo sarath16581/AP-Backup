@@ -3,7 +3,7 @@
     <fullName>NRTInc1__c</fullName>
     <description>NRT Incremental value for January</description>
     <externalId>false</externalId>
-    <formula>IF (TotalIncremental__c = 0, 0 , IF (Act1__c -  NRTBaseline__c &gt; 0 ,Act1__c -  NRTBaseline__c ,0))</formula>
+    <formula>IF (Act1__c -  NRTBaseline__c &gt; 0 ,Act1__c -  NRTBaseline__c ,0)</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <inlineHelpText>NRT Incremental value for January</inlineHelpText>
     <label>January Incremental Revenue</label>
