@@ -116,11 +116,12 @@ public with sharing class CaseUnifiedTeamMemberModule extends ApplicationModule 
 	}
 
 	/**
-	 * @description get existing case team member based on caseId, memberId and teamRoleId in order to prevent duplicate creation
+	 * @description retrieve a filtered list of cases that do not have any existing team member by filtering a unique configuration of case Id, case owner and team role.
+	 *  		This is done to prevent duplicate creation of case team member.
 	 * @param cases new cases from trigger
 	 * @param unifiedCaseTeamRoleId
-	 *
-	 * @return List<Case>
+	 * 
+	 * @return List<Case> Cases which need Case Team Member to be created
 	 */
 	private static List<Case> filterCasesWithoutExistingCaseTeamMember(List<Case> cases, Id unifiedCaseTeamRoleId) {
 		Set<Id> caseOwnerIds = new Set<Id>();
