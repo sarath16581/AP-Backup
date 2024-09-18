@@ -2070,7 +2070,4 @@
         </columns>
         <masterLabel>Cases (Created By)</masterLabel>
     </sections>
-    <sections>
-        <masterLabel>Cases</masterLabel>
-    </sections>
 </ReportType>

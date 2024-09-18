@@ -1,0 +1,58 @@
+<template>
+	<lightning-quick-action-panel header="Contact Cloning">
+		<template lwc:if={errorMessage}>
+			<div class="slds-text-title_bold">{errorMessage}</div>
+		</template>
+		<template lwc:else>
+			<div class="slds-media slds-media_center slds-scoped-notification_dark slds-p-around_x-small" role="status">
+				<lightning-icon class="slds-m-right_xx-small slds-align-top" variant="inverse" size="small" icon-name="utility:info" alternative-text="information" title="information"></lightning-icon>
+				<p>{headerInfo}</p>
+			</div>
+			<template lwc:if={hasReachSelectLimit}>
+				<div class="slds-media slds-media_center slds-scoped-notification_dark slds-p-around_x-small" role="status">
+					<lightning-icon class="slds-p-right_xx-small slds-align-top" variant="inverse" size="small" icon-name="utility:info" alternative-text="information" title="information"></lightning-icon>
+					<p>{limitInfo}</p>
+				</div>
+			</template>
+			<div class="slds-border_top slds-clearfix slds-p-vertical_xx-small" style="background-color:#f3f3f3;">
+				<div class="slds-float_left slds-m-top_x-small">
+					<span class="slds-align_absolute-center slds-p-horizontal_small slds-text-body_small" style="color: grey">
+						{selectedCountText}
+					</span>
+				</div>
+				<div class="slds-float_right slds-button-group-row">
+					<span class="slds-align_absolute-center slds-p-horizontal_small slds-text-body_small" style="color: grey">{searchCountText}</span>
+					<lightning-input class="slds-m-right_x-small"
+					                 type="search"
+					                 label="Search Contacts"
+					                 placeholder="Search this list.."
+					                 value={searchTerm}
+					                 autocomplete="off"
+					                 variant="label-hidden"
+					                 onchange={handleSearchChange}></lightning-input>
+				</div>
+			</div>
+			<div class="slds-border_top" style="height: 350px">
+				<c-abn-change-contact-list
+						columns={columns}
+						data={filteredContacts}
+						key-field="Id"
+						max-row-selection={selectLimit}
+						enable-infinite-loading
+						selected-rows={selectedIds}
+						onloadmore={handleLoadData}
+						onrowselection={handleSelectedRows}
+				>
+				</c-abn-change-contact-list>
+			</div>
+			<footer class="slds-card__footer slds-clearfix">
+				<div class="slds-float_right slds-button-group">
+					<lightning-button class="slds-var-m-left_x-small" label="Clone" onclick={handleClone} disabled={isActionDisabled}></lightning-button>
+				</div>
+			</footer>
+		</template>
+		<div lwc:if={isLoading}>
+			<lightning-spinner alternative-text="Loading" variant="brand" size="medium"></lightning-spinner>
+		</div>
+	</lightning-quick-action-panel>
+</template>

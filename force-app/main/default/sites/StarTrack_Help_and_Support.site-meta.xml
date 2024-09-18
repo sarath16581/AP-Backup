@@ -15,7 +15,7 @@
     <clickjackProtectionLevel>SameOriginOnly</clickjackProtectionLevel>
     <contentSniffingProtection>true</contentSniffingProtection>
     <customWebAddresses>
-        <domainName>ptest.npe.contact.startrack.com.au</domainName>
+        <domainName>stest.npe.contact.startrack.com.au</domainName>
         <primary>true</primary>
     </customWebAddresses>
     <enableAuraRequests>true</enableAuraRequests>

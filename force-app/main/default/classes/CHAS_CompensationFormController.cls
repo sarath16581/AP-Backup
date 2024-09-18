@@ -115,7 +115,7 @@ public with sharing class CHAS_CompensationFormController
         message.setTemplateId(templates[0].Id);
         message.setWhatId(compensation.Id);
 
-		// send email
+        // send email
         Messaging.SingleEmailMessage[] messages = new List<Messaging.SingleEmailMessage> {message};
         Messaging.SendEmailResult[] results = Messaging.sendEmail(messages);
 

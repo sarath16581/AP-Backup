@@ -14,7 +14,7 @@
         <fullName>PUD_MobileSTAR_Sync_Job</fullName>
         <apiVersion>52.0</apiVersion>
         <description>Outbound message that push job details to external dispatch system (MobileSTAR) via TIBCO for dispatching to a resource.</description>
-        <endpointUrl>https://webapi-ptestext.npe.auspost.com.au/ptest/booking/jobs</endpointUrl>
+        <endpointUrl>https://webapi-ptestext.npe.auspost.com.au/stest/booking/jobs</endpointUrl>
         <fields>Article_Count__c</fields>
         <fields>Bags_Quantity__c</fields>
         <fields>Billing_Account_Number__c</fields>

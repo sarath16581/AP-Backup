@@ -8,8 +8,12 @@
 * @description A very simple selector class that sits in the base domain
 * @changelog
 * 2023-04-21 - Pratyush Chalasani - Created
+* 2024-05-21 - Harry Wang - Added new option WITH_RELATED_ORGANISATION and fieldOverrides
 */
 public virtual inherited sharing class AtRiskBusinessSelector extends ApplicationSelector {
+	public enum Options {
+		WITH_RELATED_ORGANISATION
+	}
 
 	public static AtRiskBusinessSelector newInstance() {
 		return (AtRiskBusinessSelector)Application.Selectors.newInstance(AtRiskBusinessSelector.class);
@@ -20,7 +24,12 @@ public virtual inherited sharing class AtRiskBusinessSelector extends Applicatio
 		selector.setFieldOverrides(fieldOverrides);
 		return selector;
 	}
-	
+
+	public static AtRiskBusinessSelector newInstance(Map<SObjectType, Set<SObjectField>> fieldOverrides) {
+		return (AtRiskBusinessSelector) Application.Selectors.newInstance(AtRiskBusinessSelector.class)
+				.setFieldOverrides(fieldOverrides);
+	}
+
 	public virtual override SObjectType getSObjectType() {
 		return At_Risk_Business__c.getSObjectType();
 	}
@@ -34,7 +43,27 @@ public virtual inherited sharing class AtRiskBusinessSelector extends Applicatio
 	 * @description Run a simple query to get records based on Id's
 	 */
 	public List<At_Risk_Business__c> selectById(Set<Id> ids) {
-		QueryBuilder qb = newQueryBuilder().addConditions().add(new QueryBuilder.SimpleCondition(At_Risk_Business__c.Id + ' in :ids')).endConditions();
+		return selectById(ids, new Set<Object>());
+	}
+
+	/**
+	 * @description Run a simple query to get records based on Id's
+	 */
+	public List<At_Risk_Business__c> selectById(Set<Id> ids, Set<Object> selectorOptions) {
+		QueryBuilder qb = newQueryBuilder(selectorOptions).addConditions().add(new QueryBuilder.SimpleCondition(At_Risk_Business__c.Id + ' in :ids')).endConditions();
 		return (List<At_Risk_Business__c>)Database.query(qb.toSoqlString());
+	}
+
+	/**
+	 * Grabs a new QueryBuilder based on the selector options passed in
+	 */
+	public virtual override QueryBuilder newQueryBuilder(Set<Object> selectorOptions) {
+		QueryBuilder builder = super.newQueryBuilder(selectorOptions);
+
+		if (selectorOptions.contains(Options.WITH_RELATED_ORGANISATION)) {
+			builder.addRelatedFields(AccountsSelector.newInstance().newQueryBuilder(), 'Related_Organisation__r');
+			builder.addRelatedFields(AccountsSelector.newInstance().newQueryBuilder(), 'Legal_Entity_Name__r');
+		}
+		return builder;
 	}
 }

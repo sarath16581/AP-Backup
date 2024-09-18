@@ -3692,7 +3692,7 @@ OR(
 ,&apos;Product Specialist Team&apos;,&apos;Pricing Team&apos;)</stringValue>
             </value>
         </processMetadataValues>
-        <name>formula_12_myRule_11_A1_3501125893</name>
+        <name>formula_12_myRule_11_A1_6291353129</name>
         <dataType>String</dataType>
         <expression>IF(
 OR(
@@ -3708,7 +3708,7 @@ OR(
 ,&apos;00G2v000005RttvEAC&apos;,&apos;00G2v000005RttuEAC&apos;)</stringValue>
             </value>
         </processMetadataValues>
-        <name>formula_13_myRule_11_A1_8819807061</name>
+        <name>formula_13_myRule_11_A1_6306625546</name>
         <dataType>String</dataType>
         <expression>IF(OR(
 ({!myVariable_current.Organisation__r.Total_Intermediary_Account_for_StarTrack__c}&gt; 0),({!myVariable_current.Organisation__r.Is_Strategic_Account_StarTrack__c}))
@@ -3721,7 +3721,7 @@ OR(
                 <stringValue>IF([Deal_Support_Request__c].Organisation__c.Is_Strategic_Account__c , &quot;Product Specialist Team&quot;,&quot;Pricing Team&quot;)</stringValue>
             </value>
         </processMetadataValues>
-        <name>formula_22_myRule_21_A1_9790299620</name>
+        <name>formula_22_myRule_21_A1_5559591184</name>
         <dataType>String</dataType>
         <expression>IF({!myVariable_current.Organisation__r.Is_Strategic_Account__c} , &quot;Product Specialist Team&quot;,&quot;Pricing Team&quot;)</expression>
     </formulas>
@@ -3733,7 +3733,7 @@ OR(
 </stringValue>
             </value>
         </processMetadataValues>
-        <name>formula_23_myRule_21_A1_0519908160</name>
+        <name>formula_23_myRule_21_A1_9700620359</name>
         <dataType>String</dataType>
         <expression>IF({!myVariable_current.Organisation__r.Is_Strategic_Account__c},&apos;00G2v000005RttvEAC&apos;,&apos;00G2v000005RttsEAC&apos;)</expression>
     </formulas>
@@ -3744,7 +3744,7 @@ OR(
                 <stringValue>NOW() </stringValue>
             </value>
         </processMetadataValues>
-        <name>formula_42_myRule_40_A3_4664576794</name>
+        <name>formula_42_myRule_40_A3_4750106867</name>
         <dataType>DateTime</dataType>
         <expression>NOW()</expression>
     </formulas>
@@ -3755,7 +3755,7 @@ OR(
                 <stringValue>NOW()</stringValue>
             </value>
         </processMetadataValues>
-        <name>formula_46_myRule_44_A3_7721743270</name>
+        <name>formula_46_myRule_44_A3_7028331206</name>
         <dataType>DateTime</dataType>
         <expression>NOW()</expression>
     </formulas>
@@ -3766,7 +3766,7 @@ OR(
                 <stringValue>[Deal_Support_Request__c].CreatedById </stringValue>
             </value>
         </processMetadataValues>
-        <name>formula_51_myRule_50_A1_9875609038</name>
+        <name>formula_51_myRule_50_A1_6825120364</name>
         <dataType>String</dataType>
         <expression>{!myVariable_current.CreatedById}</expression>
     </formulas>
@@ -3777,7 +3777,7 @@ OR(
                 <stringValue>[Deal_Support_Request__c].Request_for_Review_Counter__c +1</stringValue>
             </value>
         </processMetadataValues>
-        <name>formula_61_myRule_60_A1_4235572265</name>
+        <name>formula_61_myRule_60_A1_6031143155</name>
         <dataType>Number</dataType>
         <expression>{!myVariable_current.Request_for_Review_Counter__c} +1</expression>
         <scale>18</scale>
@@ -3789,7 +3789,7 @@ OR(
                 <stringValue>TODAY()</stringValue>
             </value>
         </processMetadataValues>
-        <name>formula_73_myRule_71_A1_2009161707</name>
+        <name>formula_73_myRule_71_A1_8070084640</name>
         <dataType>Date</dataType>
         <expression>TODAY()</expression>
     </formulas>
@@ -3800,7 +3800,7 @@ OR(
                 <stringValue>NOW()</stringValue>
             </value>
         </processMetadataValues>
-        <name>formula_74_myRule_71_A1_9668447214</name>
+        <name>formula_74_myRule_71_A1_7273002271</name>
         <dataType>DateTime</dataType>
         <expression>NOW()</expression>
     </formulas>
@@ -4476,7 +4476,7 @@ AND(ISCHANGED({!myVariable_current.Record_Submitted_Check__c}),{!myVariable_curr
             </processMetadataValues>
             <field>Assigned_Team__c</field>
             <value>
-                <elementReference>formula_12_myRule_11_A1_3501125893</elementReference>
+                <elementReference>formula_12_myRule_11_A1_6291353129</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
@@ -4512,7 +4512,7 @@ AND(ISCHANGED({!myVariable_current.Record_Submitted_Check__c}),{!myVariable_curr
             </processMetadataValues>
             <field>OwnerId</field>
             <value>
-                <elementReference>formula_13_myRule_11_A1_8819807061</elementReference>
+                <elementReference>formula_13_myRule_11_A1_6306625546</elementReference>
             </value>
         </inputAssignments>
         <object>Deal_Support_Request__c</object>
@@ -4956,7 +4956,7 @@ AND(ISCHANGED({!myVariable_current.Record_Submitted_Check__c}),{!myVariable_curr
             </processMetadataValues>
             <field>Assigned_Team__c</field>
             <value>
-                <elementReference>formula_22_myRule_21_A1_9790299620</elementReference>
+                <elementReference>formula_22_myRule_21_A1_5559591184</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
@@ -4992,7 +4992,7 @@ AND(ISCHANGED({!myVariable_current.Record_Submitted_Check__c}),{!myVariable_curr
             </processMetadataValues>
             <field>OwnerId</field>
             <value>
-                <elementReference>formula_23_myRule_21_A1_0519908160</elementReference>
+                <elementReference>formula_23_myRule_21_A1_9700620359</elementReference>
             </value>
         </inputAssignments>
         <object>Deal_Support_Request__c</object>
@@ -5466,7 +5466,7 @@ AND(ISCHANGED({!myVariable_current.Record_Submitted_Check__c}),{!myVariable_curr
             </processMetadataValues>
             <field>Requested_Information__c</field>
             <value>
-                <elementReference>formula_42_myRule_40_A3_4664576794</elementReference>
+                <elementReference>formula_42_myRule_40_A3_4750106867</elementReference>
             </value>
         </inputAssignments>
         <object>Deal_Support_Request__c</object>
@@ -5550,7 +5550,7 @@ AND(ISCHANGED({!myVariable_current.Record_Submitted_Check__c}),{!myVariable_curr
             </processMetadataValues>
             <field>Requested_Information__c</field>
             <value>
-                <elementReference>formula_46_myRule_44_A3_7721743270</elementReference>
+                <elementReference>formula_46_myRule_44_A3_7028331206</elementReference>
             </value>
         </inputAssignments>
         <object>Deal_Support_Request__c</object>
@@ -5718,7 +5718,7 @@ AND(ISCHANGED({!myVariable_current.Record_Submitted_Check__c}),{!myVariable_curr
             </processMetadataValues>
             <field>Requestor__c</field>
             <value>
-                <elementReference>formula_51_myRule_50_A1_9875609038</elementReference>
+                <elementReference>formula_51_myRule_50_A1_6825120364</elementReference>
             </value>
         </inputAssignments>
         <object>Deal_Support_Request__c</object>
@@ -6060,7 +6060,7 @@ AND(ISCHANGED({!myVariable_current.Record_Submitted_Check__c}),{!myVariable_curr
             </processMetadataValues>
             <field>Request_for_Review_Counter__c</field>
             <value>
-                <elementReference>formula_61_myRule_60_A1_4235572265</elementReference>
+                <elementReference>formula_61_myRule_60_A1_6031143155</elementReference>
             </value>
         </inputAssignments>
         <object>Deal_Support_Request__c</object>
@@ -6144,7 +6144,7 @@ AND(ISCHANGED({!myVariable_current.Record_Submitted_Check__c}),{!myVariable_curr
             </processMetadataValues>
             <field>DateClosed__c</field>
             <value>
-                <elementReference>formula_73_myRule_71_A1_2009161707</elementReference>
+                <elementReference>formula_73_myRule_71_A1_8070084640</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
@@ -6180,7 +6180,7 @@ AND(ISCHANGED({!myVariable_current.Record_Submitted_Check__c}),{!myVariable_curr
             </processMetadataValues>
             <field>Date_Time_Closed__c</field>
             <value>
-                <elementReference>formula_74_myRule_71_A1_9668447214</elementReference>
+                <elementReference>formula_74_myRule_71_A1_7273002271</elementReference>
             </value>
         </inputAssignments>
         <object>Deal_Support_Request__c</object>

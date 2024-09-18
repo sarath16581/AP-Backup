@@ -105,6 +105,7 @@
     <groups>Knowledge: Specialist Skill</groups>
     <groups>Knowledge: StarTrack</groups>
     <groups>BSC - Schenker</groups>
+    <groups>BSC - Banking</groups>
     <label>StarTrack Admin</label>
     <loginAccess>false</loginAccess>
     <permissionSetGroups>ST Team Leader Basic Permissions</permissionSetGroups>
@@ -130,6 +131,8 @@
     <permissionSets>Manage StarTrack Articles</permissionSets>
     <permissionSets>Knowledge - API</permissionSets>
     <permissionSets>Knowledge - Manage Articles</permissionSets>
+    <permissionSets>ACL Remediation</permissionSets>
+    <permissionSets>StarTrack View Unified Tracking</permissionSets>
     <permissionSets>Knowledge - Manage FAQs</permissionSets>
     <permissionSets>Knowledge - View Articles</permissionSets>
     <profiles>StarTrack Partner Community</profiles>

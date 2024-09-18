@@ -338,11 +338,17 @@ private class HappyParcelController_Test {
 		// Testing
 		// =====================================
 		Test.startTest();
-		Map<String, List<Knowledge__kav>> result = HappyParcelController.getCriticalIncidents();
+		Map<String, Object> result = (Map<String, Object>)JSON.deserializeUntyped(HappyParcelController.getCriticalIncidents());
+		List<Object> resultLst = (List<Object>) result.get('12345');
+		Set<Id> criticalIncidentIds = new Set<Id>();
+		for(Object obj : resultLst){
+			Map<String, Object> knowledgeMap = (Map<String, Object>)obj;
+			criticalIncidentIds.add((Id) knowledgeMap.get('Id'));
+		}
 		Test.stopTest();
 		((KnowledgeArticleVersionsSelector)MockUtility.Mocks.verify(kavSelector, MockUtility.Mocks.times(1))).search((Map<String, Object>)fflib_Match.eq(searchParams), (Boolean)fflib_Match.eq(true));
 		System.assertEquals(1, result.Values().size(), 'Map updated with network ids and knowledge articles');
-		System.assertEquals(new List<Knowledge__kav>{criticalIncidents[0]}, result.get('12345'), 'one record matches with the given network org Id');
+		System.assert(criticalIncidentIds.contains(criticalIncidents[0].Id), 'one record matches with the given network org Id');
 	}
 
 	/**

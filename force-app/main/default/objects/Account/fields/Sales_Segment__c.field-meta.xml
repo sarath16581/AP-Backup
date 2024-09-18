@@ -11,7 +11,7 @@
     <type>Picklist</type>
     <valueSet>
         <valueSetDefinition>
-            <sorted>true</sorted>
+            <sorted>false</sorted>
             <value>
                 <fullName>Centrally Managed</fullName>
                 <default>false</default>
@@ -131,6 +131,11 @@
                 <fullName>LBP Sales Manager NSW 3</fullName>
                 <default>false</default>
                 <label>LBP Sales Manager NSW 3</label>
+            </value>
+            <value>
+                <fullName>LBP Sales Manager NSW 4</fullName>
+                <default>false</default>
+                <label>LBP Sales Manager NSW 4</label>
             </value>
             <value>
                 <fullName>LBP Sales Manager QLD 1</fullName>

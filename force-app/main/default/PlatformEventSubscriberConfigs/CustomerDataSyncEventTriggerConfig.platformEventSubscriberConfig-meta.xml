@@ -3,5 +3,5 @@
     <batchSize>200</batchSize>
     <masterLabel>CustomerDataSyncEventTriggerConfig</masterLabel>
     <platformEventConsumer>CustomerDataSyncEventTrigger</platformEventConsumer>
-    <user>apintegrationuser@auspost.com.au.ptest</user>
+    <user>apintegrationuser@auspost.com.au.stest</user>
 </PlatformEventSubscriberConfig>

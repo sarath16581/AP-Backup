@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>FOS_Dispute_Case_No__c</fullName>
+    <businessStatus>DeprecateCandidate</businessStatus>
     <description>FOS Dispute Case No.</description>
     <externalId>false</externalId>
-    <label>FOS Dispute Case No.</label>
+    <label>Dep -FOS Dispute Case No.</label>
     <length>10</length>
     <required>false</required>
     <trackFeedHistory>false</trackFeedHistory>

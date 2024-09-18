@@ -92,6 +92,16 @@ public inherited sharing class OmniChannelService {
 		private set;
 	}
 
+	public String unifiedMonitoringQueueId {
+		get {
+			if (unifiedMonitoringQueueId == null) {
+				unifiedMonitoringQueueId = QM__c.getOrgDefaults().UnifiedDefaultMonitoringQueueId__c;
+			}
+			return unifiedMonitoringQueueId;
+		}
+		private set;
+	}
+
 	public static Decimal omniUnifiedPreferredAgentExpiry {
 		get {
 			if (omniUnifiedPreferredAgentExpiry == null) {

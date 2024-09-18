@@ -4,7 +4,7 @@
     <businessStatus>DeprecateCandidate</businessStatus>
     <description>SSSW - Used to supply the Escalation Email with the previous outbound email content</description>
     <externalId>false</externalId>
-    <label>Dep - Customer Comments/Email</label>
+    <label>Dep -Customer Comments/Email</label>
     <length>32768</length>
     <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
