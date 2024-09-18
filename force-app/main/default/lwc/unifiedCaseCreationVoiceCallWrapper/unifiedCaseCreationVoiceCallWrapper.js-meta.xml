@@ -3,5 +3,6 @@
 	<apiVersion>61.0</apiVersion>
 	<description>Voice call wrapper for Case Creation</description>
 	<isExposed>true</isExposed>
-	<masterLabel>Unified Case Creation Voice Call Wrapper</masterLabel>
+	<masterLabel>This is a case creation wrapper embedded on the VoiceCall Flexipage. 
+		It facilitates exchange of data including article and consignment data via the LMS (Lightning Message Service), with other wrapper components also embedded on the same VoiceCall Flexipage.</masterLabel>
 </LightningComponentBundle>

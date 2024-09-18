@@ -6,5 +6,6 @@
 	<targets>
 		<target>lightning__RecordPage</target>
 	</targets>
-	<description>Unified Case Creation Live Chat Wrapper</description>
+	<description>This is a case creation wrapper embedded on the LiveChat Flexipage. 
+		It facilitates exchange of data including article and consignment data via the LMS (Lightning Message Service), with other wrapper components also embedded on the same LiveChat Flexipage.</description>
 </LightningComponentBundle>

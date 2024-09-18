@@ -1,6 +1,7 @@
 /**
- * @description Application Module to handle creating CaseTeamMember for new or updated Case for Unified Case Automation
- *
+ * @description Application Module to handle the creation of CaseTeamMember.
+ *	This is to ensure newly assigned as well as historical case owner will have sharing access of the case, even if it's passed on to another agent.
+ *	The creation of CaseTeamMember happens on new creation of a unified case or case owner update of an existing unified case.
  * @author Seth Heang
  * @date 2024-09-02
  * @test CaseUnifiedTeamMemberModuleTest
