@@ -79,7 +79,10 @@ public with sharing class UnifiedCaseCreationController {
 			}
 
 			Set<String> impactedArticleNames = new Set<String>(request.impactedArticles);
-			List<Article__c> articles = ArticlesSelector.newInstance().selectByConsignmentIdAndChildArticles(
+			Set<SObjectField> articleFields = new Set<SObjectField>{
+					Article__c.Id, Article__c.ArticleID__c
+			};
+			List<Article__c> articles = ArticlesSelector.newInstance(articleFields).selectByConsignmentIdAndChildArticles(
 					new Set<Id> { request.consignmentId },
 					impactedArticleNames
 			);

@@ -132,7 +132,11 @@ public with sharing class CaseUnifiedTeamMemberModule extends ApplicationModule 
 			caseOwnerIds.add(parentCase.OwnerId);
 		}
 		// fetch existing team members for the given cases and members and unified team role
-		List<CaseTeamMember> existingCaseTeamMembers = CaseTeamMembersSelector.newInstance().selectByCaseIdAndMemberIdAndTeamRoleId(caseIds, caseOwnerIds, new Set<Id>{ unifiedCaseTeamRoleId });
+		Set<SObjectField> caseTeamMemberFields = new Set<SObjectField>{
+			CaseTeamMember.ParentId, CaseTeamMember.MemberId
+		};
+		List<CaseTeamMember> existingCaseTeamMembers = CaseTeamMembersSelector.newInstance(caseTeamMemberFields)
+				.selectByCaseIdAndMemberIdAndTeamRoleId(caseIds, caseOwnerIds, new Set<Id>{ unifiedCaseTeamRoleId });
 		if (existingCaseTeamMembers.isEmpty()){
 			return cases;
 		}

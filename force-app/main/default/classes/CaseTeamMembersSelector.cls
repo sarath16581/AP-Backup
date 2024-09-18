@@ -10,6 +10,22 @@
  */
 public virtual inherited sharing class CaseTeamMembersSelector extends ApplicationSelector {
 
+	/**
+	 * Instantiate the CaseTeamMembersSelector and passed in fieldOverrides
+	 * @param fieldOverrides NOTE: Field overrides should only ever be used when the results are not passed from method to method.
+	 *						  This approach removes data consistency and prevents possible caching of results
+	 * @return new instance of CaseTeamMembersSelector with setFieldOverrides
+	 */
+	public static CaseTeamMembersSelector newInstance(Set<SObjectField> fieldOverrides) {
+		CaseTeamMembersSelector selector = (CaseTeamMembersSelector)Application.Selectors.newInstance(CaseTeamMembersSelector.class);
+		selector.setFieldOverrides(fieldOverrides);
+		return selector;
+	}
+
+	/**
+	 * Instantiate a new instance of CaseTeamMembersSelector
+	 * @return new instance of CaseTeamMembersSelector
+	 */
 	public static CaseTeamMembersSelector newInstance() {
 		CaseTeamMembersSelector selector = (CaseTeamMembersSelector) Application.Selectors.newInstance(CaseTeamMembersSelector.class);
 		return selector;

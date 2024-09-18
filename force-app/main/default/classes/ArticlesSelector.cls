@@ -28,6 +28,18 @@ public virtual inherited sharing class ArticlesSelector extends ApplicationSelec
 	}
 
 	/**
+	 * Instantiate the ArticlesSelector and passed in fieldOverrides
+	 * @param fieldOverrides NOTE: Field overrides should only ever be used when the results are not passed from method to method.
+	 *						  This approach removes data consistency and prevents possible caching of results
+	 * @return new instance of ArticlesSelector with setFieldOverrides
+	 */
+	public static ArticlesSelector newInstance(Set<SObjectField> fieldOverrides) {
+		ArticlesSelector selector = (ArticlesSelector)Application.Selectors.newInstance(ArticlesSelector.class);
+		selector.setFieldOverrides(fieldOverrides);
+		return selector;
+	}
+
+	/**
 	 * @param fieldOverrides NOTE: Field overrides should only ever be used when the results are not passed from method to method.
 	 *						  This approach removes data consistency and prevents possible caching of results
 	 */
