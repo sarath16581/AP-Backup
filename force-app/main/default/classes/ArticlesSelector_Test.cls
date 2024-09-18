@@ -206,11 +206,11 @@ private class ArticlesSelector_Test {
 		List<Article__c> resultList = selector.selectByArticleNames(new Set<String>{articles[0].Name}, Constants.RECORDTYPE_NAME_ARTICLE_ARTICLE, new Set<Object>{ArticlesSelector.Options.WITH_RECORDTYPE});
 		System.assertEquals(1, resultList.size(), 'Expected result size of 1');
 
-		results = selector.selectByConsignmentIdAndChildArticles(
+		resultList = selector.selectByConsignmentIdAndChildArticles(
 				new Set<Id>{consignment.Id},
 				new Set<String>{articles[1].ArticleID__c}
 		);
-		System.assertEquals(1, results.size(), 'Expected result size of 1');
+		System.assertEquals(1, resultList.size(), 'Expected result size of 1');
 
 		Test.stopTest();
 

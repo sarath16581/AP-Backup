@@ -82,7 +82,7 @@ public with sharing class UnifiedCaseCreationController {
 			List<Article__c> articles = ArticlesSelector.newInstance().selectByConsignmentIdAndChildArticles(
 					new Set<Id> { request.consignmentId },
 					impactedArticleNames
-			).values();
+			);
 
 			// additional check for existing articles where the article count is mismatch due to duplicate in the system
 			if(impactedArticleNames.size() != articles.size()){

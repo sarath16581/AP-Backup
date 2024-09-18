@@ -213,7 +213,7 @@ public class UnifiedCaseCreationControllerTest {
 						(Set<Id>) fflib_Match.anyObject(),
 						(Set<String>) fflib_Match.anyObject()
 				)
-		).thenReturn(new Map<Id, Article__c>(articles));
+		).thenReturn(articles);
 		MockUtility.Mocks.when(mockDatabase.dmlInsert((List<SObject>) fflib_Match.anyObject())).thenAnswer(new MockUtility.AnswerGenericDMLInserted());
 		MockUtility.Mocks.stopStubbing();
 		// =====================================
@@ -291,7 +291,7 @@ public class UnifiedCaseCreationControllerTest {
 						(Set<Id>) fflib_Match.anyObject(),
 						(Set<String>) fflib_Match.anyObject()
 				)
-		).thenReturn(new Map<Id, Article__c>(articles));
+		).thenReturn(articles);
 		MockUtility.Mocks.when(mockDatabase.dmlInsert((List<SObject>) fflib_Match.anyObject())).thenAnswer(new MockUtility.AnswerGenericDMLInserted());
 		MockUtility.Mocks.stopStubbing();
 		// =====================================
@@ -370,8 +370,8 @@ public class UnifiedCaseCreationControllerTest {
 						(Set<Id>) fflib_Match.anyObject(),
 						(Set<String>) fflib_Match.anyObject()
 				)
-		).thenReturn(new Map<Id, Article__c>{
-				articles[0].Id => articles[0]
+		).thenReturn(new List<Article__c>{
+				articles[0]
 		}); // mock selector to only return one of two articles
 		MockUtility.Mocks.when(mockDatabase.dmlInsert((List<SObject>) fflib_Match.anyObject())).thenAnswer(new MockUtility.AnswerGenericDMLInserted());
 		MockUtility.Mocks.stopStubbing();

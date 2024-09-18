@@ -95,9 +95,9 @@ public virtual inherited sharing class ArticlesSelector extends ApplicationSelec
 	 * @description Run a query to get child articles for a specified parent consignment record
 	 * @param consignmentIds parent consignment salesforce Id
 	 * @param articlesIds child article Ids
-	 * @return Map<Id, Article__c>
+	 * @return List<Article__c>
 	 */
-	public virtual Map<Id, Article__c> selectByConsignmentIdAndChildArticles(Set<Id> consignmentIds, Set<String> articlesIds) {
+	public virtual List<Article__c> selectByConsignmentIdAndChildArticles(Set<Id> consignmentIds, Set<String> articlesIds) {
 		return selectByConsignmentIdAndChildArticles(consignmentIds, articlesIds, new Set<Object>());
 	}
 
@@ -106,15 +106,15 @@ public virtual inherited sharing class ArticlesSelector extends ApplicationSelec
 	 * @param consignmentIds parent consignment salesforce Id
 	 * @param articlesIds child article Ids
 	 * @param selectorOptions specify related objects that need to be retrieved with child articles
-	 * @return Map<Id, Article__c>
+	 * @return List<Article__c>
 	 */
-	public virtual Map<Id, Article__c> selectByConsignmentIdAndChildArticles(Set<Id> consignmentIds, Set<String> articlesIds, Set<Object> selectorOptions) {
+	public virtual List<Article__c> selectByConsignmentIdAndChildArticles(Set<Id> consignmentIds, Set<String> articlesIds, Set<Object> selectorOptions) {
 		QueryBuilder qb = newQueryBuilder(selectorOptions)
 			.addConditions()
 				.add(new QueryBuilder.SimpleCondition(Article__c.ArticleID__c + ' in :articlesIds'))
 				.add(new QueryBuilder.SimpleCondition(Article__c.Consignment__c + ' in :consignmentIds'))
 			.endConditions();
-		return new Map<Id, Article__c>((List<Article__c>)Database.query(qb.toSoqlString()));
+		return (List<Article__c>) Database.query(qb.toSoqlString());
 	}
 
 	/**
