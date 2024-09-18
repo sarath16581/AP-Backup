@@ -47,4 +47,35 @@ private class CaseTeamMembersSelectorTest {
 		System.assertEquals(true, Pattern.compile('\\b' + CaseTeamMember.MemberId + ' in :memberId\\b').matcher(queryString).find(), 'Filters by MemberId in query but Ids does not exist: ' + queryString);
 		System.assertEquals(true, Pattern.compile('\\b' + CaseTeamMember.TeamRoleId + ' in :teamRoleId\\b').matcher(queryString).find(), 'Filters by TeamRoleId in query but Ids does not exist: ' + queryString);
 	}
+
+	 /**
+	 * Test: Ensures that the selectors QueryBuilder is generating the correct output
+	 */
+	@IsTest
+	private static void testEnsureQueryBuilderProducesCorrectStringWithFieldOverrides() {
+
+		// =====================================
+		// Data Preparation
+		// =====================================
+		// None!
+
+		// =====================================
+		// Stubbing
+		// =====================================
+		// None!
+
+		// =====================================
+		// Testing
+		// =====================================
+		Test.startTest();
+
+		CaseTeamMembersSelector selector = CaseTeamMembersSelector.newInstance(new Set<SObjectField>{CaseTeamMember.ParentId, CaseTeamMember.MemberId, CaseTeamMember.TeamRoleId});
+		QueryBuilder qb = selector.newQueryBuilder();
+		String soql = qb.toSoqlString();
+		Assert.areEqual(true, Pattern.compile('(?ism)\\bParentId\\b.*?\\bfrom CaseTeamMember\\b').matcher(soql).find(), 'Resulting query does not select ParentId field: ' + soql);
+		Assert.areEqual(true, Pattern.compile('(?ism)\\bMemberId\\b.*?\\bfrom CaseTeamMember\\b').matcher(soql).find(), 'Resulting query does not select MemberId field: ' + soql);
+		Assert.areEqual(true, Pattern.compile('(?ism)\\bTeamRoleId\\b.*?\\bfrom CaseTeamMember\\b').matcher(soql).find(), 'Resulting query does not select TeamRoleId field: ' + soql);
+
+		Test.stopTest();
+	}
 }

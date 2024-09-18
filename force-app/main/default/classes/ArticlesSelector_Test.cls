@@ -8,7 +8,7 @@
  * 2020-08-02 - Nathan Franklin - Updated for new return values in ApplicationDatabase
  * 2022-11-29 - Mahesh Parvathaneni - Updated for selectByCaseIds method
  * 2024-05-02 - Vasu Gorakati - updated for selectByArticleNames
- * 2024-09-09 - Seth Heang - added test for selectByConsignmentIdAndChildArticles()
+ * 2024-09-09 - Seth Heang - added test for selectByConsignmentIdAndChildArticles() and newInstance(fieldOverrides)
  */
 @IsTest
 private class ArticlesSelector_Test {
@@ -138,6 +138,12 @@ private class ArticlesSelector_Test {
 		System.assertEquals(true, Pattern.compile('(?ism)Billing_Account__r\\.Name.*?\\bfrom Article__c\\b').matcher(soql).find(), 'Resulting query does not select Billing_Account__r.Name field: ' + soql);
 		System.assertEquals(false, Pattern.compile('(?ism)\\bArticleID__c\\b.*?\\bfrom Article__c\\b').matcher(soql).find(), 'Resulting selects ArticleID__c but it shouldn\'t: ' + soql);
 		System.assertEquals(true, Pattern.compile('(?ism)\\bSource_System__c\\b.*?\\bfrom Article__c\\b').matcher(soql).find(), 'Resulting query does not select Source_System__c field: ' + soql);
+
+		selector = ArticlesSelector.newInstance(new Set<SObjectField>{Article__c.Source_System__c, Article__c.ArticleID__c});
+		qb = selector.newQueryBuilder();
+		soql = qb.toSoqlString();
+		Assert.areEqual(true, Pattern.compile('(?ism)\\bArticleID__c\\b.*?\\bfrom Article__c\\b').matcher(soql).find(), 'Resulting query does not select ArticleID__c field: ' + soql);
+		Assert.areEqual(true, Pattern.compile('(?ism)\\bSource_System__c\\b.*?\\bfrom Article__c\\b').matcher(soql).find(), 'Resulting query does not select Source_System__c field: ' + soql);
 
 		Test.stopTest();
 
