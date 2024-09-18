@@ -37,8 +37,9 @@ private class ConversationParticipantsSelector_Test {
 		ConversationParticipantsSelector selector2 = ConversationParticipantsSelector.newInstance(1,fieldOverrides);
 		QueryBuilder qb2 = selector2.newQueryBuilder();
 		String soql2 = qb2.toSoqlString();
-		System.assertEquals(true, Pattern.compile('(?is)\\bid\\b').matcher(soql2).find(), 'Resulting query does not do filter overrides');
-
+		System.assertEquals(true, Pattern.compile('(?ism)Contact\\.Id\\..*?\\bfrom ConversationParticipant\\b').matcher(soql).find(), 'Resulting query does not select Contact fields: ' + soql);
+		System.assertEquals(true, Pattern.compile('(?ism)Contact\\.AccountId.*?\\bfrom Contact\\b').matcher(soql).find(), 'Resulting query does not select Contact fields: ' + soql);
+		System.assertEquals(false, Pattern.compile('(?ism)Contact\\.Name.*?\\bfrom Contact\\b').matcher(soql).find(), 'Resulting selects Contact.Name but it shouldn\'t: ' + soql);
 		Test.stopTest();
 	}
 }

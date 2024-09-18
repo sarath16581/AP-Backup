@@ -2,13 +2,14 @@ import { LightningElement, api, wire, track } from 'lwc';
 import { getRecord, updateRecord, getFieldValue } from 'lightning/uiRecordApi';
 import VOICE_CALL_RELATED_RECORD_FIELD from '@salesforce/schema/VoiceCall.RelatedRecordId';
 import VOICE_CALL_CREATED_DATE_FIELD from '@salesforce/schema/VoiceCall.CreatedDate';
+import VOICE_CALL_CASE_FIELD from '@salesforce/schema/VoiceCall.Case__c';
 import CASE_PRODUCT_CATEGORY_FIELD from '@salesforce/schema/Case.ProductCategory__c';
 import CASE_CREATED_DATE_FIELD from '@salesforce/schema/Case.CreatedDate';
 import CASE_PRODUCT_SUBCATEGORY_FIELD from '@salesforce/schema/Case.ProductSubCategory__c';
 import CASE_ENQUIRY_SUBTYPE_FIELD from '@salesforce/schema/Case.EnquirySubType__c';
 import CASE_TYPE_FIELD from '@salesforce/schema/Case.Type';
 
-const VOICE_CALL_FIELDS = [VOICE_CALL_RELATED_RECORD_FIELD,VOICE_CALL_CREATED_DATE_FIELD];
+const VOICE_CALL_FIELDS = [VOICE_CALL_RELATED_RECORD_FIELD,VOICE_CALL_CREATED_DATE_FIELD,VOICE_CALL_CASE_FIELD];
 const CASE_FIELDS = [CASE_PRODUCT_CATEGORY_FIELD, CASE_CREATED_DATE_FIELD, CASE_PRODUCT_SUBCATEGORY_FIELD, CASE_ENQUIRY_SUBTYPE_FIELD, CASE_TYPE_FIELD];
 
 const DEFAULT_VOICE_CALL_ROOT_CAUSE = 'Unclear EDD';
@@ -31,7 +32,9 @@ export default class UnifiedCaseVoiceCallSync extends LightningElement {
 	@wire(getRecord, {recordId: '$recordId', fields: '$voiceCallFields'})
 	wiredVoiceCallRecord({error,data}) {
 		if (data) {
-            this.relatedCaseId = getFieldValue(data, VOICE_CALL_RELATED_RECORD_FIELD);
+            this.relatedCaseId = getFieldValue(data, VOICE_CALL_RELATED_RECORD_FIELD) ?? getFieldValue(data, VOICE_CALL_CASE_FIELD);
+			console.log('this.relatedCaseId');
+			console.log(this.relatedCaseId);
 			VOICE_CALL_FIELDS.forEach((field)=>{
                 this.voiceCallDetails[field.fieldApiName] = getFieldValue(data, field);
             });
@@ -73,10 +76,10 @@ export default class UnifiedCaseVoiceCallSync extends LightningElement {
 
 	//Update voicecall record
 	updateVoiceRecord() {
-        console.log('this.caseDetails');
-        console.log(this.caseDetails);
         const fields = {};
         fields.Id = this.recordId;
+        fields.RelatedRecordId = this.relatedCaseId;
+        fields.Case__c = this.relatedCaseId;
         fields.ProductCategory__c = this.caseDetails.ProductCategory__c;
         fields.ProductSubCategory__c = this.caseDetails.ProductSubCategory__c;
         fields.EnquirySubType__c = this.caseDetails.EnquirySubType__c;
