@@ -127,9 +127,9 @@ public with sharing class UnifiedCaseCreationController {
 	 */
 	private static Id insertNewCaseRecord(CaseCreationRequest req) {
 		Case newCase;
-		if (isUnifiedGeneralEnquiryCase(req.enquiryType)) {
+		if (req.enquiryType == GENERAL_ENQUIRY_TYPE) {
 			newCase = buildGeneralEnquiryCaseAttributes(req);
-		} else if (isUnifiedInvestigationCase(req.enquiryType)){
+		} else if (req.enquiryType == INVESTIGATION_ENQUIRY_TYPE){
 			newCase = buildInvestigationCaseAttributes(req);
 		}
 		if (newCase != null){
@@ -138,26 +138,6 @@ public with sharing class UnifiedCaseCreationController {
 			});
 		}
 		return newCase.Id;
-	}
-
-	/**
-	 * @description Check case's enquiry type if it is 'General Enquiry' case
-	 * @param enquiryType LWC form input
-	 *
-	 * @return Boolean
-	 */
-	private static Boolean isUnifiedGeneralEnquiryCase(String enquiryType){
-		return enquiryType == GENERAL_ENQUIRY_TYPE;
-	}
-
-	/**
-	 * @description Check case's enquiry type if it is 'Investigation' case
-	 * @param enquiryType LWC form input
-	 *
-	 * @return Boolean
-	 */
-	private static Boolean isUnifiedInvestigationCase(String enquiryType){
-		return enquiryType == INVESTIGATION_ENQUIRY_TYPE;
 	}
 
 	/**
@@ -219,9 +199,9 @@ public with sharing class UnifiedCaseCreationController {
 	 * @param impactedArticles
 	 */
 	private static void createImpactedArticles(Id caseId, List<Article__c> impactedArticles) {
-		List<ImpactedArticle__c> insertImpactArticles = new List<ImpactedArticle__c>();
+		List<ImpactedArticle__c> newImpactedArticleList = new List<ImpactedArticle__c>();
 		for (Article__c article : impactedArticles) {
-			insertImpactArticles.add(
+			newImpactedArticleList.add(
 					new ImpactedArticle__c(
 							Name = article.ArticleID__c,
 							Case__c = caseId,
@@ -229,8 +209,8 @@ public with sharing class UnifiedCaseCreationController {
 					)
 			);
 		}
-		if (!insertImpactArticles.isEmpty()){
-			ApplicationDatabase.getInstance().dmlInsert(insertImpactArticles);
+		if (!newImpactedArticleList.isEmpty()){
+			ApplicationDatabase.getInstance().dmlInsert(newImpactedArticleList);
 		}
 	}
 
