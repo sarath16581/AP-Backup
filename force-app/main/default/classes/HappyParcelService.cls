@@ -12,6 +12,7 @@
  * 2024-05-17 - Seth Heang - Added continuation methods for async callout to .NET API for retrieving StarTrack consignment/article details
  * 2024-06-26 - Seth Heang - Added additional mapping for .NET Callout including EDD and SourceSystem to response payload
  * 2024-07-15 - Seth Heang - Updated .NET callout response handling to handle duplicate consignment scenario
+ * 2024-09-10 - Raghav Ravipati - Mapping hasDuplicates variable which helps to identify if the consignment number has duplicates
  **/
 public with sharing class HappyParcelService {
 	/**
@@ -436,6 +437,12 @@ public with sharing class HappyParcelService {
 		if(conWrapper?.warningMessages != null){
 			trackingResult.warningMessages = conWrapper?.warningMessages;
 		}
+
+		// Map hasDuplicates which can be used to used to carter duplicate scenarios in UnifiedTrackingWrappers
+		trackingResult.hasDuplicates = false;
+		if(conWrapper?.hasDuplicates){
+			trackingResult.hasDuplicates = conWrapper?.hasDuplicates;
+		}
 		return trackingResult;
 	}
 
@@ -481,7 +488,7 @@ public with sharing class HappyParcelService {
 				// Multiple valid consignments after the filtering
 				else if (validDupConData.size() > 1) {
 					// Display duplicate consignment warning and do not update any new mappings from .NET API
-					return new StarTrackConsignmentSearchUtil.ConsignmentWrapper(false, null, null, new List<String>{ System.Label.HappyParcelNETDuplicateConsignmentWarningText });
+					return new StarTrackConsignmentSearchUtil.ConsignmentWrapper(false, null, null, new List<String>{ System.Label.HappyParcelNETDuplicateConsignmentWarningText }, true);
 				}
 			}
 		} catch (Exception e) {

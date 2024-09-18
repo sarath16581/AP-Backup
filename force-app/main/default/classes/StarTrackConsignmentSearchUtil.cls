@@ -14,6 +14,7 @@ History:
 2021-09-16 - prerna.rahangdale@auspost.cm.au - Updated the save Events method to popuate the truckId , FacilitySublocationId and FacilitySubLocationName for WP-40 Agg
 2021-10-21 - naveen.rajanna@auspost.cm.au - Addded null check when making soql call and changed api version to 52
 2024-07-12 - Seth Heang - Added new attributes to ConsignmentWrapper
+2024-09-10 - Raghav Ravipati - Added hasDuplicates attribute to ConsignmentWrapper which helps to identify if the consignment number has duplicates
 **************************************************/
 public without sharing class StarTrackConsignmentSearchUtil {
 
@@ -968,6 +969,7 @@ public without sharing class StarTrackConsignmentSearchUtil {
 	public class ConsignmentWrapper {
 		public Boolean isConsignmentSaved { get; set; }
 		public String errorCode { get; set; }
+		public Boolean hasDuplicates {get; set;}
 		public List<Article__c> articleList { get; set; }
 		public List<String> warningMessages { get; set; }
 		public AdditionalStarTrackCallout requiredAdditionalCallout { get; set; }
@@ -983,6 +985,14 @@ public without sharing class StarTrackConsignmentSearchUtil {
 			this.errorCode = errorCode;
 			this.articleList = articleList;
 			this.warningMessages = warningMessages;
+		}
+
+		public ConsignmentWrapper(Boolean isConsignmentSaved, String errorCode, List<Article__c> articleList, List<String> warningMessages, Boolean hasDuplicates) {
+			this.isConsignmentSaved = isConsignmentSaved;
+			this.errorCode = errorCode;
+			this.articleList = articleList;
+			this.warningMessages = warningMessages;
+			this.hasDuplicates = hasDuplicates;
 		}
 
 		public ConsignmentWrapper(Boolean isConsignmentSaved, String errorCode, List<Article__c> articleList, AdditionalStarTrackCallout additionalCallout) {
