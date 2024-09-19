@@ -10,5 +10,6 @@
     <permissionSets>UnifiedOmniSupervisor</permissionSets>
     <permissionSets>UnifiedQuickTextAndReporting</permissionSets>
     <permissionSets>UnifiedTracking</permissionSets>
+	<permissionSets>ServiceCloudVoiceSupervisor</permissionSets>	
     <status>Updated</status>
 </PermissionSetGroup>

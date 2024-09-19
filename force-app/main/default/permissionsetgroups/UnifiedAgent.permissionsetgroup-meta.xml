@@ -9,5 +9,6 @@
     <permissionSets>UnifiedOmniAgent</permissionSets>
     <permissionSets>UnifiedQuickTextAndReporting</permissionSets>
     <permissionSets>UnifiedTracking</permissionSets>
+	<permissionSets>ServiceCloudVoiceAgent</permissionSets>	
     <status>Updated</status>
 </PermissionSetGroup>
