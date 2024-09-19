@@ -35,8 +35,7 @@ public with sharing class UnifiedVoiceCallModule extends ApplicationModule {
 	private static void autoLinkContact(List<SObject> records, ApplicationUnitOfWork uow) {
 		Set<Id> voiceCallToProcess = new Set<Id>();
 		for (VoiceCall vc : (List<VoiceCall>) records) {
-			if ((vc.CallType == GenesysConstants.VOICE_CALL_INBOUND_CALL_TYPE || vc.CallType == GenesysConstants.VOICE_CALL_OUTBOUND_CALL_TYPE) &&
-		(vc.CallerId != null || vc.RecipientId != null) ) {
+			if ((vc.CallType == GenesysConstants.VOICE_CALL_INBOUND_CALL_TYPE || vc.CallType == GenesysConstants.VOICE_CALL_OUTBOUND_CALL_TYPE) && (vc.CallerId != null || vc.RecipientId != null) ) {
 				voiceCallToProcess.add(vc.Id);
 			}
 		}
@@ -56,8 +55,8 @@ public with sharing class UnifiedVoiceCallModule extends ApplicationModule {
 
 		Set<String> voiceCallReversedPhoneNumber = new Set<String>();
 		for (VoiceCall vc : voiceCallRecordsMap.values()) {
-			String reversedParticipantDisplayName = Util.reversePhoneString(vc.Caller.ParticipantDisplayName);
-			String reversedRecipientDisplayName = Util.reversePhoneString(vc.Recipient.ParticipantDisplayName);
+			String reversedParticipantDisplayName = Util.reversePhoneString(vc.Caller?.ParticipantDisplayName);
+			String reversedRecipientDisplayName = Util.reversePhoneString(vc.Recipient?.ParticipantDisplayName);
 			if (vc.CallType.equalsIgnoreCase(GenesysConstants.VOICE_CALL_INBOUND_CALL_TYPE) && !String.isBlank(reversedParticipantDisplayName)) {
 				voiceCallReversedPhoneNumber.add(reversedParticipantDisplayName);
 			} else if (vc.CallType.equalsIgnoreCase(GenesysConstants.VOICE_CALL_OUTBOUND_CALL_TYPE) && !String.isBlank(reversedRecipientDisplayName)) {
@@ -83,8 +82,8 @@ public with sharing class UnifiedVoiceCallModule extends ApplicationModule {
 		}
 
 		for (VoiceCall vc : voiceCallRecordsMap.values()) {
-			String reversedParticipantDisplayName = Util.reversePhoneString(vc.Caller.ParticipantDisplayName);
-			String reversedRecipientDisplayName = Util.reversePhoneString(vc.Recipient.ParticipantDisplayName);
+			String reversedParticipantDisplayName = Util.reversePhoneString(vc.Caller?.ParticipantDisplayName);
+			String reversedRecipientDisplayName = Util.reversePhoneString(vc.Recipient?.ParticipantDisplayName);
 			if (vc.CallType.equalsIgnoreCase(GenesysConstants.VOICE_CALL_INBOUND_CALL_TYPE) && !String.isBlank(reversedParticipantDisplayName)) {
 				List<Contact> potentialContact = contactsByReversedPhone.get(Util.reversePhoneString(vc.Caller.ParticipantDisplayName));
 				vc.Contact__c = potentialContact?.size() == 1 ? potentialContact.get(0).Id : null;
