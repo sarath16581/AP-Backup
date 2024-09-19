@@ -52,6 +52,12 @@ public class ArticleSubscriptionModuleTest {
 		// verify worker was enqueued for 3 times as 1st batch is 100, 2nd batch is 100 and 3rd batch is 50
 		fflib_ArgumentCaptor stagedWorkerCapture = fflib_ArgumentCaptor.forClass(List<ApplicationUnitOfWork.AsyncStagingWorker>.class);
 		((ApplicationUnitOfWork) MockUtility.Mocks.verify(mockUow, MockUtility.Mocks.times(3))).registerAsyncWork((ApplicationUnitOfWork.AsyncStagingWorker) stagedWorkerCapture.capture());
+		ApplicationUnitOfWork.AsyncStagingWorker stagedWorker = (ApplicationUnitOfWork.AsyncStagingWorker) stagedWorkerCapture.getValue();
+		ArticleSubscriptionModule.ArticleSubscriptionActionsParam articleSubscriptionActionWorkerParam = ((ArticleSubscriptionModule.ArticleSubscriptionActionsParam) stagedWorker.params);
+		Assert.isNotNull(articleSubscriptionActionWorkerParam.impactedArticles, 'Impacted articles param should not be empty.');
+		// we have no way to retrieving the 1st and 2nd batch async worker based on the current implement of ApplicationUnitOfWork.registerAsyncWork() as it does not take a List<AsyncStagingWorker>
+		// verify the last batch size which is 50
+		Assert.areEqual(50, articleSubscriptionActionWorkerParam.impactedArticles.size(), 'Impacted articles list size should be 50 but instead got: ' + articleSubscriptionActionWorkerParam.impactedArticles.size());
 	}
 
 	/**
@@ -79,7 +85,7 @@ public class ArticleSubscriptionModuleTest {
 		ImpactedArticlesSelector impactedArticlesSelector = (ImpactedArticlesSelector) MockUtility.mockSelector(ImpactedArticlesSelector.class);
 		MockUtility.Mocks.startStubbing();
 		MockUtility.Mocks.when(impactedArticlesSelector.selectById((Set<Id>) fflib_Match.anyObject()))
-				.thenReturn(null);
+				.thenReturn(new List<ImpactedArticle__c>());
 		MockUtility.Mocks.stopStubbing();
 		// =====================================
 		// Testing
@@ -92,6 +98,8 @@ public class ArticleSubscriptionModuleTest {
 		// verify worker was enqueued for 0 times
 		fflib_ArgumentCaptor stagedWorkerCapture = fflib_ArgumentCaptor.forClass(List<ApplicationUnitOfWork.AsyncStagingWorker>.class);
 		((ApplicationUnitOfWork) MockUtility.Mocks.verify(mockUow, MockUtility.Mocks.times(0))).registerAsyncWork((ApplicationUnitOfWork.AsyncStagingWorker) stagedWorkerCapture.capture());
+		ApplicationUnitOfWork.AsyncStagingWorker stagedWorker = (ApplicationUnitOfWork.AsyncStagingWorker) stagedWorkerCapture.getValue();
+		Assert.isNull(stagedWorker, 'Async worker should be null but instead got: ' + stagedWorker);
 	}
 
 	/**

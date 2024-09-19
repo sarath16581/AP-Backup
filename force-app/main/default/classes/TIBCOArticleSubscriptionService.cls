@@ -1,5 +1,6 @@
 /**
- * @description TIBCO Article Subscription Service sends the subscription notification to SAP via SOAP API service
+ * @description TIBCO Article Subscription Service sends the subscription notification to SAP via SOAP API service.
+ *			Thereafter, the existing TIBCO integration is expected to insert an event message with event type of "ADMIN-ER44" into Salesforce.
  * @author Seth Heang
  * @changelog:
  * 2024-09-11 - Seth Heang - created
@@ -27,7 +28,7 @@ public with sharing class TIBCOArticleSubscriptionService {
 		for (ImpactedArticle__c impactedArticle : impactedArticles){
 			try {
 				TIBCOArticleSubscriptionSOAPService.CaseNotification notification = buildCaseNotificationRequestPayload(
-						impactedArticle.ArticleId__c,
+						impactedArticle.Article__r.ArticleID__c,
 						impactedArticle.Case__r
 				);
 
@@ -95,11 +96,11 @@ public with sharing class TIBCOArticleSubscriptionService {
 		notification.sObject_x.Id = caseRecord.Id; // case.Id
 		notification.sObject_x.ArticleCount_xc = '1'; // hardcoded
 		notification.sObject_x.CaseNumber = caseRecord.CaseNumber; // case number
-		notification.sObject_x.EventCode_xc = 'Subscribe';  // Case.EventCode__c defaults "Subscribe" in formula field
+		notification.sObject_x.EventCode_xc = caseRecord.EventCode__c; // Case.EventCode__c defaults "Subscribe" in formula field
 		notification.sObject_x.FacilityOrOutletWCC_xc = caseRecord.FacilityOrOutletWCC__c; // formula field 111894 for consumer or 111931 for business
 		notification.sObject_x.LastModifiedDate = caseRecord.LastModifiedDate; // Case.LastModifiedDate
 		notification.sObject_x.OwnerUserName_xc = caseRecord.OwnerUserName__c; // username formula field from Case.Owner.User.Username
-		notification.sObject_x.ReferenceID_xc = articleNumber; // article to create event for
+		notification.sObject_x.ReferenceID_xc = articleNumber; // article tracking Id to raise the event for
 		notification.sObject_x.Subject = caseRecord.Subject;
 		notification.sObject_x.Type_x = caseRecord.Type;
 		return notification;

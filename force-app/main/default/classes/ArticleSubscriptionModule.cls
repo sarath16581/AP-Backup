@@ -8,6 +8,26 @@
 public inherited sharing class ArticleSubscriptionModule extends ApplicationModule {
 	@TestVisible
 	private static final Integer ARTICLE_SUBSCRIPTION_BATCH_SIZE = 100;
+	@TestVisible
+	private static final Map<SObjectType, Set<SObjectField>> SELECTOR_FIELDS = new Map<SObjectType, Set<SObjectField>>{
+			ImpactedArticle__c.SObjectType => new Set<SObjectField>{
+					ImpactedArticle__c.Id,
+					ImpactedArticle__c.Article__c
+			},
+			Case.SObjectType => new Set<SObjectField>{
+					Case.Id,
+					Case.CaseNumber,
+					Case.EventCode__c,
+					Case.FacilityOrOutletWCC__c,
+					Case.LastModifiedDate,
+					Case.OwnerUserName__c,
+					Case.Subject,
+					Case.Type
+			},
+			Article__c.SObjectType => new Set<SObjectField>{
+					Article__c.ArticleID__c
+			}
+	};
 
 	// Setup which triggers this module should respond to
 	public ArticleSubscriptionModule() {
@@ -35,7 +55,7 @@ public inherited sharing class ArticleSubscriptionModule extends ApplicationModu
 	private void processArticleSubscription(List<ImpactedArticle__c> records, ApplicationUnitOfWork uow){
 
 		// query impacted articles with related case
-		List<ImpactedArticle__c> impactedArticles = ImpactedArticlesSelector.newInstance().selectById(
+		List<ImpactedArticle__c> impactedArticles = ImpactedArticlesSelector.newInstance(SELECTOR_FIELDS).selectById(
 				new Map<Id, ImpactedArticle__c>(records).keySet(), // impactedArticle Ids set
 				new Set<Object> { ImpactedArticlesSelector.Options.WITH_CASE } // related cases
 
