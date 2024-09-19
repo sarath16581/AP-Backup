@@ -5,6 +5,7 @@
     <externalId>false</externalId>
     <label>Network</label>
     <referenceTo>Network__c</referenceTo>
+    <relationshipLabel>Locations</relationshipLabel>
     <relationshipName>Booking_Locations</relationshipName>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>

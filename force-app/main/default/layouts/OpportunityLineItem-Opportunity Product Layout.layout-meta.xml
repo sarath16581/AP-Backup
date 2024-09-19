@@ -88,6 +88,10 @@
         <label>Expected Revenue Calculations</label>
         <layoutColumns>
             <layoutItems>
+                <behavior>Edit</behavior>
+                <field>TweleveMonthRevenue__c</field>
+            </layoutItems>
+            <layoutItems>
                 <behavior>Readonly</behavior>
                 <field>TotalPrice</field>
             </layoutItems>
@@ -105,10 +109,6 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>TweleveMonthRevenue__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
                 <field>RetainedRevenue__c</field>
             </layoutItems>
             <layoutItems>
@@ -123,7 +123,7 @@
         <layoutColumns>
             <layoutItems>
                 <behavior>Readonly</behavior>
-                <field>In_Year_Revenue__c</field>
+                <field>InYearRevenue__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Readonly</behavior>
@@ -214,10 +214,6 @@
     <multilineLayoutFields>TotalPrice</multilineLayoutFields>
     <multilineLayoutFields>Contract_Product__c</multilineLayoutFields>
     <multilineLayoutFields>Contract_Number__c</multilineLayoutFields>
-    <relatedLists>
-        <fields>NAME</fields>
-        <relatedList>OpportunityProductRevenueForecast__c.OpportunityProduct__c</relatedList>
-    </relatedLists>
     <relatedLists>
         <fields>NAME</fields>
         <fields>Year__c</fields>

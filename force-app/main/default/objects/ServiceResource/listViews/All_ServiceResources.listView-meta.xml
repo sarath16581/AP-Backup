@@ -10,4 +10,5 @@
     <columns>Location</columns>
     <filterScope>Everything</filterScope>
     <label>All Service Resources</label>
+    <language>en_US</language>
 </ListView>

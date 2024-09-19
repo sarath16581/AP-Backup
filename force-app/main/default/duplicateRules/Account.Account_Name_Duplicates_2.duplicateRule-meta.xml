@@ -5,7 +5,7 @@
     <alertText>We found some other organisations with similar names. Use one of these?</alertText>
     <description>Warn users when similar account names with existing accounts are detected</description>
     <duplicateRuleFilter>
-        <booleanFilter>3 AND 7 AND  (1 OR 2 OR 4 OR 5 OR 6 OR 8)</booleanFilter>
+        <booleanFilter>3 AND 8 AND  (1 OR 2 OR 4 OR 5 OR 6 OR 7 OR 9 OR 10)</booleanFilter>
         <duplicateRuleFilterItems>
             <field>Profile_Name_in_Text__c</field>
             <operation>equals</operation>
@@ -30,14 +30,14 @@
         <duplicateRuleFilterItems>
             <field>Profile_Name_in_Text__c</field>
             <operation>equals</operation>
-            <value>Hub Users</value>
+            <value>Sales Admin</value>
             <sortOrder>4</sortOrder>
             <table>User</table>
         </duplicateRuleFilterItems>
         <duplicateRuleFilterItems>
             <field>Profile_Name_in_Text__c</field>
             <operation>equals</operation>
-            <value>Credit Management</value>
+            <value>System Administrator</value>
             <sortOrder>5</sortOrder>
             <table>User</table>
         </duplicateRuleFilterItems>
@@ -49,17 +49,31 @@
             <table>User</table>
         </duplicateRuleFilterItems>
         <duplicateRuleFilterItems>
+            <field>Profile_Name_in_Text__c</field>
+            <operation>equals</operation>
+            <value>Credit Management</value>
+            <sortOrder>7</sortOrder>
+            <table>User</table>
+        </duplicateRuleFilterItems>
+        <duplicateRuleFilterItems>
             <field>RecordType</field>
             <operation>equals</operation>
             <value>Organisation</value>
-            <sortOrder>7</sortOrder>
+            <sortOrder>8</sortOrder>
             <table>Account</table>
         </duplicateRuleFilterItems>
         <duplicateRuleFilterItems>
             <field>Profile_Name_in_Text__c</field>
             <operation>equals</operation>
-            <value>CustomerService</value>
-            <sortOrder>8</sortOrder>
+            <value>Hub Users</value>
+            <sortOrder>9</sortOrder>
+            <table>User</table>
+        </duplicateRuleFilterItems>
+        <duplicateRuleFilterItems>
+            <field>Profile_Name_in_Text__c</field>
+            <operation>equals</operation>
+            <value>Network Partner Support</value>
+            <sortOrder>10</sortOrder>
             <table>User</table>
         </duplicateRuleFilterItems>
     </duplicateRuleFilter>

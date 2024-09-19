@@ -713,7 +713,7 @@ describe('c-unified-customer-creation', () => {
 		expect(customerCreatedEvent).toHaveBeenCalledWith(
 			expect.objectContaining({
 				detail: {
-					customerId: CUSTOMER_CREATION_RES_SUCCESS
+					contactId: CUSTOMER_CREATION_RES_SUCCESS
 				},
 				bubbles: true,
 				composed: true
@@ -797,7 +797,7 @@ describe('c-unified-customer-creation', () => {
 		expect(customerCreatedEvent).toHaveBeenCalledWith(
 			expect.objectContaining({
 				detail: {
-					customerId: CUSTOMER_CREATION_RES_SUCCESS
+					contactId: CUSTOMER_CREATION_RES_SUCCESS
 				},
 				bubbles: true,
 				composed: true

@@ -4,6 +4,7 @@
  * @date 2023-05-26
  * @changelog
  * 2024-07-19 - Ranjeewa Silva - Added tests to verify routing and preferred agent override logic for Unified cases.
+ * 2024-09-10 - Ranjeewa Silva - New test to verify moving unified cases in monitoring queue to closed cases queue on closure.
  */
 @IsTest
 private class CaseRoutingService_Test {
@@ -72,6 +73,7 @@ private class CaseRoutingService_Test {
 		custSetting.PreferredAgentQueueId__c = queues.get('SSSW_Routing_Preferred_Agent_Queue');
 		custSetting.PreferredAgentSkillDeveloperNames__c = 'BOH';
 		custSetting.UnifiedDefaultOmniQueueId__c = queues.get('UnifiedCustomerServiceCaseQueue');
+		custSetting.UnifiedDefaultMonitoringQueueId__c = queues.get('UnifiedCustomerServiceMonitoringQueue');
 		custSetting.UnifiedPreferredAgentExpiry__c = 1;
 		insert custSetting;
 
@@ -1276,6 +1278,49 @@ private class CaseRoutingService_Test {
 		Assert.areEqual(cases[1].Id, insertedPsrRecords[1].WorkItemId);
 		Assert.areEqual(unifiedAgent.Id, insertedPsrRecords[1].PreferredUserId);
 		Assert.isTrue(cases[1].Comment__c.contains('preferred agent queue assigned'));
+
+	}
+
+	/**
+	 * Scenario: When a unified case is closed and sits in monitoring queue, we move it to a generic close cases queue
+	 */
+	@isTest
+	public static void testEnsureUnifiedCaseInMonitoringQueueIsMovedToOmniClosedCaseOnClosure() {
+
+		// =====================================
+		// Data Preparation
+		// =====================================
+
+		List<Case> cases = ApplicationTestDataFactoryCase.getCases(1, true);
+		cases[0].OwnerId = queues.get('UnifiedCustomerServiceMonitoringQueue');
+		cases[0].Status = 'Monitoring';
+		cases[0].Type = 'Investigation';
+		cases[0].Origin = 'Email';
+		cases[0].Comment__c = '';
+		cases[0].RecordTypeId = ApplicationTestDataFactoryCase.caseUnifiedInvestigationRecordType;
+
+		List<Case> casesOld = new List<Case>{cases[0].clone(true)};
+		Map<Id, Case> casesOldMap = new Map<Id, Case>(casesOld);
+
+		// case is closed
+		cases[0].Status = 'Closed';
+		cases[0] = (Case)ApplicationTestDataFactory.setUnwritableFields(cases[0], new Map<String, Object>{'IsClosed' => true});
+
+		// =====================================
+		// Stubbing
+		// =====================================
+		// None!
+
+		// =====================================
+		// Testing
+		// =====================================
+		Test.startTest();
+
+		CaseRoutingService.getInstance().maybeRouteCase(cases, casesOldMap, false);
+
+		Test.stopTest();
+
+		System.assertEquals(queues.get('SSSW_Closed_Omnichannel_Cases'), cases[0].OwnerId);
 
 	}
 

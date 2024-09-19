@@ -82,7 +82,9 @@ private class UnifiedCaseEmailMessagesModule_Test {
 		((CasesSelector)MockUtility.Mocks.verify(mockCasesSelector, 1)).search((Map<String, Object>)searchParamsCaptor.capture(), (Set<Object>)fflib_Match.anyObject(), fflib_Match.anyBoolean());
 		Map<String, Object> searchParams = (Map<String, Object>)searchParamsCaptor.getValue();
 		Assert.areEqual(new Set<Id>{caseRecord.Id}, searchParams.get('caseIds'));
-		Assert.areEqual(new Set<Id>{ApplicationTestDataFactoryCase.caseUnifiedInvestigationRecordType}, searchParams.get('recordTypeIds'));
+		Assert.isInstanceOfType(searchParams.get('recordTypeIds'), Set<Id>.class);
+		Assert.isFalse(((Set<Id>)searchParams.get('recordTypeIds')).isEmpty(), 'Expected unified case record type ids parameter to be non empty, but is empty.');
+		Assert.isTrue(((Set<Id>)searchParams.get('recordTypeIds')).contains(ApplicationTestDataFactoryCase.caseUnifiedInvestigationRecordType));
 
 		// verify case automation service is not called.
 		((CaseUnifiedAutomationService)MockUtility.Mocks.verify(mockCaseAutomationService, 0)).processForCaseReassignment((List<CaseUnifiedAutomationService.RecordWrapper>)fflib_Match.anyObject(), (CaseUnifiedAutomationService.InvocationPoint)fflib_Match.anyObject(), (ApplicationUnitOfWork)fflib_Match.anyObject());
@@ -126,7 +128,9 @@ private class UnifiedCaseEmailMessagesModule_Test {
 		((CasesSelector)MockUtility.Mocks.verify(mockCasesSelector, 1)).search((Map<String, Object>)searchParamsCaptor.capture(), (Set<Object>)fflib_Match.anyObject(), fflib_Match.anyBoolean());
 		Map<String, Object> searchParams = (Map<String, Object>)searchParamsCaptor.getValue();
 		Assert.areEqual(new Set<Id>{caseRecord.Id}, searchParams.get('caseIds'));
-		Assert.areEqual(new Set<Id>{ApplicationTestDataFactoryCase.caseUnifiedInvestigationRecordType}, searchParams.get('recordTypeIds'));
+		Assert.isInstanceOfType(searchParams.get('recordTypeIds'), Set<Id>.class);
+		Assert.isFalse(((Set<Id>)searchParams.get('recordTypeIds')).isEmpty(), 'Expected unified case record type ids parameter to be non empty, but is empty.');
+		Assert.isTrue(((Set<Id>)searchParams.get('recordTypeIds')).contains(ApplicationTestDataFactoryCase.caseUnifiedInvestigationRecordType));
 
 		// verify case automation service is called.
 		fflib_ArgumentCaptor caseReassignParamsCaptor = fflib_ArgumentCaptor.forClass(List<CaseUnifiedAutomationService.RecordWrapper>.class);

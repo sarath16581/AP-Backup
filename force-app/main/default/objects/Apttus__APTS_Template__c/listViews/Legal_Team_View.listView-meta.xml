@@ -6,7 +6,6 @@
     <columns>Apttus__Agreement_Types__c</columns>
     <columns>UPDATEDBY_USER</columns>
     <columns>LAST_UPDATE</columns>
-    <columns>Apttus__ReferenceId__c</columns>
     <filterScope>Everything</filterScope>
     <filters>
         <field>Apttus__IsActive__c</field>

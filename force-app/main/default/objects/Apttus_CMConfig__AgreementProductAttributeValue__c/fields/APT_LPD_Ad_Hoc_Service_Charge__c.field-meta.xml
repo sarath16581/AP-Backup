@@ -9,7 +9,7 @@ This is used for &apos;Local Pickup and Delivery Services&apos; Product only.</d
         OR(
             ISPICKVAL(APT_LPD_Service_Type__c , &apos;Delivery Service&apos;), ISPICKVAL(APT_LPD_Service_Type__c , &apos;Pickup Service&apos;), ISPICKVAL(APT_LPD_Service_Type__c , &apos;Pickup &amp; Delivery At the same time&apos;)
         ),
-        INCLUDES ( APT_LPD_Multiple_Frequency__c, &quot;Ad hoc&quot; ) 
+        INCLUDES ( APT_LPD_Multiple_Frequency__c, &quot;Ad hoc&quot; )
     ), 
     1,
     0

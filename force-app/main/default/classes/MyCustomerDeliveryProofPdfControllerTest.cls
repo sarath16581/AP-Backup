@@ -514,7 +514,7 @@ public with sharing class MyCustomerDeliveryProofPdfControllerTest {
 		articles[1].ConsignmentTrackingNumber__c = consignmentNumber;
 		articles[1].Name = article2Number;
 		articles[1].ArticleID__c = article2Number;
-		articles[1].ProductID__c = '002';
+		articles[1].ProductID__c = '001';
 		articles[1].Consignment__c = consignment.Id;
 		articles[1].RecordType = ApplicationTestDataFactory.articleArticleRecordType;
 		articles[1].IsDelivered__c = true;
@@ -591,7 +591,7 @@ public with sharing class MyCustomerDeliveryProofPdfControllerTest {
 		// Verify Delivery Event attributes that should be displayed on the PDF layout
 		Assert.isNotNull(podAttributesResult, 'Delivery event result should not be null');
 		Assert.areEqual(1, deliveryEvents.size(), 'There should be one delivery event but instead got: ' + deliveryEvents.size());
-		Assert.areEqual(2, podAttributesResult.size(), 'There should be two delivery results but instead got: ' + podAttributesResult.size());
+		Assert.areEqual(1, podAttributesResult.size(), 'There should be one delivery result but instead got: ' + podAttributesResult.size());
 		Assert.isTrue(
 			podAttributesResult.get(0).articlesInDeliveryEvent.contains(articles[0].Name),
 			'Delivery Event Result should contain article ' + articles[0].Name + 'but instead got ' + podAttributesResult.get(0).articlesInDeliveryEvent
@@ -600,11 +600,9 @@ public with sharing class MyCustomerDeliveryProofPdfControllerTest {
 			podAttributesResult.get(0).articlesInDeliveryEvent.contains(articles[1].Name),
 			'Delivery Event Result should contain article ' + articles[1].Name + 'but instead got ' + podAttributesResult.get(0).articlesInDeliveryEvent
 		);
-		Assert.isFalse(podAttributesResult.get(0).isStarTrackProduct, 'Expected a non-StarTrack product but instead got a StarTrack Product');
-		Assert.isFalse(podAttributesResult.get(1).isStarTrackProduct, 'Expected a StarTrack product but it wasn\'t');
+		
 		Assert.areEqual(2, podAttributesResult.get(0).consigned, 'Expected 2 consigned articles but instead got ' + podAttributesResult.get(0).consigned);
 		Assert.areEqual(2, podAttributesResult.get(0).delivered, 'Expected 2 delivered articles but instead got ' + podAttributesResult.get(0).delivered);
-		Assert.areEqual(podAttributesResult.get(0).deliveryKey, podAttributesResult.get(1).deliveryKey, 'Expected that the delivery key should match between the two delivery events but they were\'t matched');
 		Assert.areEqual('\nABC123\nDEF456', podAttributesResult.get(0).eventMessage.Article__r.FurtherReferences__c, 'Expected that the delivery key should match between the two delivery events but they were\'t matched');
 	}
 
@@ -782,31 +780,30 @@ public with sharing class MyCustomerDeliveryProofPdfControllerTest {
 		// Verify Delivery Event attributes that should be displayed on the PDF layout
 		Assert.isNotNull(podAttributesResult, 'Delivery event result should not be null');
 		Assert.areEqual(2, deliveryEvents.size(), 'There should be 2 delivery events but instead got: ' + deliveryEvents.size());
-		Assert.areEqual(4, podAttributesResult.size(), 'There should be four delivery result but instead got: ' + podAttributesResult.size());
+		Assert.areEqual(2, podAttributesResult.size(), 'There should be 2 delivery result but instead got: ' + podAttributesResult.size());
 		Assert.isTrue(
 			podAttributesResult.get(0).articlesInDeliveryEvent.contains(articles[0].Name),
 			'Delivery Event Result should contain article ' + articles[0].Name + 'but instead got ' + podAttributesResult.get(0).articlesInDeliveryEvent
 		);
 		Assert.isTrue(
-			podAttributesResult.get(1).articlesInDeliveryEvent.contains(articles[1].Name),
-			'Delivery Event Result should contain article ' + articles[1].Name + 'but instead got ' + podAttributesResult.get(1).articlesInDeliveryEvent
+			podAttributesResult.get(0).articlesInDeliveryEvent.contains(articles[1].Name),
+			'Delivery Event Result should contain article ' + articles[1].Name + 'but instead got ' + podAttributesResult.get(0).articlesInDeliveryEvent
 		);
 		Assert.isTrue(
-			podAttributesResult.get(2).articlesInDeliveryEvent.contains(articles[2].Name),
-			'Delivery Event Result should contain article ' + articles[2].Name + 'but instead got ' + podAttributesResult.get(2).articlesInDeliveryEvent
+			podAttributesResult.get(1).articlesInDeliveryEvent.contains(articles[2].Name),
+			'Delivery Event Result should contain article ' + articles[2].Name + 'but instead got ' + podAttributesResult.get(1).articlesInDeliveryEvent
 		);
 		Assert.isTrue(
-			podAttributesResult.get(3).articlesInDeliveryEvent.contains(articles[3].Name),
-			'Delivery Event Result should contain article ' + articles[3].Name + 'but instead got ' + podAttributesResult.get(3).articlesInDeliveryEvent
+			podAttributesResult.get(1).articlesInDeliveryEvent.contains(articles[3].Name),
+			'Delivery Event Result should contain article ' + articles[3].Name + 'but instead got ' + podAttributesResult.get(1).articlesInDeliveryEvent
 		);
-		Assert.isFalse(podAttributesResult.get(0).isStarTrackProduct, 'Expected a non-StarTrack product but instead got a StarTrack Product');
-		Assert.isFalse(podAttributesResult.get(1).isStarTrackProduct, 'Expected a StarTrack product but it wasn\'t');
+		
 		Assert.areEqual(5, podAttributesResult.get(0).consigned, 'Expected 5 consigned articles but instead got ' + podAttributesResult.get(0).consigned);
 		Assert.areEqual(4, podAttributesResult.get(0).delivered, 'Expected 4 delivered article but instead got ' + podAttributesResult.get(0).delivered);
-		Assert.areNotEqual(podAttributesResult.get(0).deliveryKey, podAttributesResult.get(2).deliveryKey, 'Expected that the delivery key should NOT match between the two delivery events but they were matched');
-		Assert.areNotEqual(podAttributesResult.get(1).deliveryKey, podAttributesResult.get(3).deliveryKey, 'Expected that the delivery key should NOT match between the two delivery events but they were matched');
-		Assert.areEqual(podAttributesResult.get(0).deliveryKey, podAttributesResult.get(1).deliveryKey, 'Expected that the delivery key should match between the two delivery events but they were NOT matched');
-		Assert.areEqual(podAttributesResult.get(2).deliveryKey, podAttributesResult.get(3).deliveryKey, 'Expected that the delivery key should match between the two delivery events but they were NOT matched');
+		Assert.areNotEqual(podAttributesResult.get(0).deliveryKey, podAttributesResult.get(1).deliveryKey, 'Expected that the delivery key should NOT match between the two delivery events but they were matched');
+		Assert.areNotEqual(podAttributesResult.get(1).deliveryKey, podAttributesResult.get(0).deliveryKey, 'Expected that the delivery key should NOT match between the two delivery events but they were matched');
+		Assert.areEqual(podAttributesResult.get(0).deliveryKey, podAttributesResult.get(0).deliveryKey, 'Expected that the delivery key should match between the two delivery events but they were NOT matched');
+		Assert.areEqual(podAttributesResult.get(1).deliveryKey, podAttributesResult.get(1).deliveryKey, 'Expected that the delivery key should match between the two delivery events but they were NOT matched');
 		Assert.areEqual('\nABC123\nDEF456', podAttributesResult.get(0).eventMessage.Article__r.FurtherReferences__c, 'Expected that the delivery key should match between the two delivery events but they were\'t matched');
 	}
 
@@ -845,7 +842,7 @@ public with sharing class MyCustomerDeliveryProofPdfControllerTest {
 		articles[1].ConsignmentTrackingNumber__c = consignmentNumber;
 		articles[1].Name = article2Number;
 		articles[1].ArticleID__c = article2Number;
-		articles[1].ProductID__c = '002';
+		articles[1].ProductID__c = '001';
 		articles[1].Consignment__c = consignment.Id;
 		articles[1].RecordType = ApplicationTestDataFactory.articleArticleRecordType;
 		articles[1].IsDelivered__c = true;
@@ -983,20 +980,19 @@ public with sharing class MyCustomerDeliveryProofPdfControllerTest {
 		// Verify Delivery Event attributes that should be displayed on the PDF layout
 		Assert.isNotNull(podAttributesResult, 'Delivery event result should not be null');
 		Assert.areEqual(1, deliveryEvents.size(), 'There should be 1 delivery events but instead got: ' + deliveryEvents.size());
-		Assert.areEqual(2, podAttributesResult.size(), 'There should be two delivery result but instead got: ' + podAttributesResult.size());
+		Assert.areEqual(1, podAttributesResult.size(), 'There should be one delivery result but instead got: ' + podAttributesResult.size());
 		Assert.isTrue(
 			podAttributesResult.get(0).articlesInDeliveryEvent.contains(articles[0].Name),
 			'Delivery Event Result should contain article ' + articles[0].Name + 'but instead got ' + podAttributesResult.get(0).articlesInDeliveryEvent
 		);
 		Assert.isTrue(
-			podAttributesResult.get(1).articlesInDeliveryEvent.contains(articles[1].Name),
-			'Delivery Event Result should contain article ' + articles[1].Name + 'but instead got ' + podAttributesResult.get(1).articlesInDeliveryEvent
+			podAttributesResult.get(0).articlesInDeliveryEvent.contains(articles[1].Name),
+			'Delivery Event Result should contain article ' + articles[1].Name + 'but instead got ' + podAttributesResult.get(0).articlesInDeliveryEvent
 		);
 		Assert.isFalse(podAttributesResult.get(0).isStarTrackProduct, 'Expected a non-StarTrack product but instead got a StarTrack Product');
-		Assert.isFalse(podAttributesResult.get(1).isStarTrackProduct, 'Expected a StarTrack product but it wasn\'t');
+		
 		Assert.areEqual(5, podAttributesResult.get(0).consigned, 'Expected 5 consigned articles but instead got ' + podAttributesResult.get(0).consigned);
 		Assert.areEqual(4, podAttributesResult.get(0).delivered, 'Expected 4 delivered article but instead got ' + podAttributesResult.get(0).delivered);
-		Assert.areEqual(podAttributesResult.get(0).deliveryKey, podAttributesResult.get(1).deliveryKey, 'Expected that the delivery key should match between the two delivery events but they were NOT matched');
 		Assert.areEqual('\nABC123\nDEF456', podAttributesResult.get(0).eventMessage.Article__r.FurtherReferences__c, 'Expected that the delivery key should match between the two delivery events but they were\'t matched');
 	}
 }

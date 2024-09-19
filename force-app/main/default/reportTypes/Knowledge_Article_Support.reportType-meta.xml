@@ -1,71 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ReportType xmlns="http://soap.sforce.com/2006/04/metadata">
-    <baseObject>Support__ka</baseObject>
+    <baseObject></baseObject>
     <category>cases</category>
     <deployed>true</deployed>
     <description>Knowledge Article - Support with chatter feed</description>
     <label>Knowledge Article - Support</label>
     <sections>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>Id</field>
-            <table>Support__ka</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>CreatedDate</field>
-            <table>Support__ka</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>CreatedBy</field>
-            <table>Support__ka</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>LastModifiedDate</field>
-            <table>Support__ka</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>LastModifiedBy</field>
-            <table>Support__ka</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>MasterLanguage</field>
-            <table>Support__ka</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>ArticleNumber</field>
-            <table>Support__ka</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>ArchivedDate</field>
-            <table>Support__ka</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>ArchivedBy</field>
-            <table>Support__ka</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>FirstPublishedDate</field>
-            <table>Support__ka</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>LastPublishedDate</field>
-            <table>Support__ka</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>CaseAssociationCount</field>
-            <table>Support__ka</table>
-        </columns>
         <masterLabel>Support</masterLabel>
     </sections>
     <sections>

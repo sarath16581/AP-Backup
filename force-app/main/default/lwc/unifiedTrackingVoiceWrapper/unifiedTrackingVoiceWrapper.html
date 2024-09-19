@@ -1,0 +1,54 @@
+<template>
+	<lightning-layout horizontal-align="center">
+		<lightning-layout-item size="12">
+			<template lwc:if={trackingId}>
+				<div class="slds-border_top slds-border_right slds-border_left slds-border_bottom">
+					<div class="slds-page-header slds-page-header_record-home">
+						<div class="slds-page-header__row">
+							<div class="slds-page-header__col-title">
+								<div class="slds-media">
+									<div class="slds-media__figure">
+										<lightning-icon icon-name="standard:account" alternative-text="Article" title="Article" class="slds-page-header__icon"></lightning-icon>
+									</div>
+									<div class="slds-media__body">
+										<div class="slds-page-header__name">
+											<div class="slds-page-header__name-title">
+												<h1>
+													<span>Article</span>
+													<span class="slds-page-header__title slds-truncate" title={trackingId}>{trackingId}</span>
+												</h1>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</template>
+		</lightning-layout-item>
+	</lightning-layout>
+	<lightning-layout>
+		<lightning-layout-item size="12">
+			<div class="slds-p-top_x-small">
+				<c-happy-parcel
+					read-only={readOnly}
+					supports-external-edd 
+					supports-case-creation 
+					supports-customer-selection 
+					supports-external-link-handling 
+					supports-safe-drop-attachment 
+					force-consignment-level-results
+					supports-selectable-child-articles={enableSelectArticles}
+					supports-read-only-checkbox-child-articles={disableSelectArticles}
+					tracking-id={trackingId}
+					ontrackingsearchcomplete={handleSearchResults}
+					onselectedarticles={handleSelectedArticles}
+				></c-happy-parcel>
+			</div>
+		</lightning-layout-item>
+	</lightning-layout>
+	<template lwc:if={showSpinner}>
+		<lightning-spinner alternative-text="Loading" size="small"></lightning-spinner>
+	</template>
+</template>

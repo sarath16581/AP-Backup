@@ -7,7 +7,7 @@
         <label>Information</label>
         <layoutColumns>
             <layoutItems>
-                <field>Whathappened__c</field>
+                <field>WhatHappened__c</field>
             </layoutItems>
             <layoutItems>
                 <field>WhatDoITellCustomers__c</field>
