@@ -2,12 +2,8 @@
 <ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>SSSW_F_Time_Issue_Occured</fullName>
     <active>true</active>
-    <description>Mandatory field criteria for &apos;Date of Incident&apos; field</description>
     <errorConditionFormula>AND( ISBLANK( DateofIncident__c ), NOT(ISPICKVAL( Origin , &quot;Internal form&quot;)), 
-	OR(
-		CONTAINS( RecordType.DeveloperName, &quot;SSSWService&quot;),
-		BEGINS( RecordType.DeveloperName, &apos;Unified&apos;)
-	),
+     CONTAINS( RecordType.DeveloperName, &quot;SSSWService&quot;), 
      Bypass_Data_enforcement__c = FALSE, 
      Email_Bypass_Data_enforcement__c = FALSE, 
 
