@@ -44,8 +44,6 @@ public inherited sharing class VoiceCallTriggerHandler extends ApplicationTrigge
 		// This provides an easy to reference lookup to the case the record is associated with
 		registerModule(CaseRecordPopulationModule.class);
 		// SVC/Unified
-		// - Synchronise custom attributes to Call Interaction
-		registerModule(GenesysVoiceCallModule.class, FILTER_ALLWITHVENDORKEY);
 		// - Synchronise VoiceCall attributes across consult/conferance/transferred calls
 		registerModule(UnifiedVoiceCallModule.class, FILTER_ALLWITHVENDORKEY);
 
