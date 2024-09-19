@@ -45,13 +45,13 @@ private class ImpactedArticlesSelector_Test {
 		Assert.isTrue(Pattern.compile('(?ism)Case__r\\.IsClosed.*?\\bfrom ImpactedArticle__c\\b').matcher(soql).find(), 'Resulting query does not select Case__r fields: ' + soql);
 
 
-		Map<SObjectType, Set<SObjectField>> SELECTOR_FIELDS = new Map<SObjectType, Set<SObjectField>>{
+		Map<SObjectType, Set<SObjectField>> overrideFields = new Map<SObjectType, Set<SObjectField>>{
 			ImpactedArticle__c.SObjectType => new Set<SObjectField>{ ImpactedArticle__c.Case__c, ImpactedArticle__c.Article__c },
 			Case.SObjectType => new Set<SObjectField>{ Case.Id, Case.CaseNumber },
 			Article__c.SObjectType => new Set<SObjectField>{ Article__c.ArticleID__c }
 		};
 
-		ImpactedArticlesSelector selector = ImpactedArticlesSelector.newInstance(SELECTOR_FIELDS);
+		ImpactedArticlesSelector selector = ImpactedArticlesSelector.newInstance(overrideFields);
 		QueryBuilder qb = selector.newQueryBuilder(new Set<Object>{ ImpactedArticlesSelector.Options.WITH_CASE, ImpactedArticlesSelector.Options.WITH_ARTICLE });
 		String soql = qb.toSoqlString();
 		Assert.areEqual(true, Pattern.compile('(?ism)\\bArticle__c\\b.*?\\bfrom ImpactedArticle__c\\b').matcher(soql).find(), 'Resulting query does not select Article__c field: ' + soql);
