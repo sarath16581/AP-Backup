@@ -11,5 +11,5 @@
   "name": "auspost-sfdx",
   "namespace": "",
   "sfdcLoginUrl": "https://test.salesforce.com",
-  "sourceApiVersion": "57.0"
+  "sourceApiVersion": "60.0"
 }

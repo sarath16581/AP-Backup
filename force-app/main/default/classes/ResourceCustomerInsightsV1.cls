@@ -15,41 +15,43 @@ public with sharing class ResourceCustomerInsightsV1 extends ResourceAPIService.
 	/**
 	 * @description Set of case record types for AP
 	 */
-	public static Set<String> apCaseRecordTypes = new Set<String>{
+	public final static Set<String> AP_CASE_RECORDTYPES = new Set<String>{
 		'NCCCDirectEmail', 'Social_Record_Type','SSSWDelivery','SSSWFax'
 		,'SSSWGeneralEnquiry','SSSWService'
 	};
 	/**
 	 * @description Set of case record types for ST
 	 */
-	public static Set<String> stCaseRecordTypes = new Set<String>{
+	public final static Set<String> ST_CASE_RECORDTYPES = new Set<String>{
 		'StarTrack_Credit_Dispute_Claim','StarTrack_PUD_Enquiry','StarTrack_General_Enquiry'
 		,'StarTrack_Pickup_Booking_Enquiry','StarTrack_Sales_Enquiry', 'StarTrack_Transit_Warranty_Claim'
 	};
 	/**
 	 * @description Set of case record types for Unified
 	 */
-	public static Set<String> unifiedCaseRecordTypes = new Set<String>{
+	public final static Set<String> UNIFIED_CASE_RECORDTYPES = new Set<String>{
 		'UnifiedGeneralEnquiry','UnifiedInvestigation'
 	};
 	/**
 	 * @description Set of APCC team profile names
 	 */
-	public static Set<String> apccProfiles = new Set<String>{
+	public final static Set<String> AP_CC_PROFILES = new Set<String>{
 		'SSSW - Service Agent','SSSW Security and Investigations'
 	};
 	/**
 	 * @description Set of STCC team profile names
 	 */
-	public static Set<String> stccProfiles = new Set<String>{
+	public final static Set<String> ST_CC_PROFILES = new Set<String>{
 		'StarTrack Support','StarTrack VOC'
 	};
 	/**
 	 * @description Set of UCC team profile names
 	 */
-	public static Set<String> uccProfiles = new Set<String>{
+	public final static Set<String> U_CC_PROFILES = new Set<String>{
 		'CustomerService'
 	};
+	//custom permission API to access this apex class
+	@TestVisible private final static String PERMISSION_API_NAME='AccessRoutingInsightsAPI';
 	
 	@TestVisible private static String emailAddress;
 	@TestVisible private static String phoneNumber;
@@ -62,6 +64,10 @@ public with sharing class ResourceCustomerInsightsV1 extends ResourceAPIService.
 	public override ResourceAPIService.IResourceResponse query() {
 		Object response;
 		try {
+			//check for access
+			if(!FeatureManagement.checkPermission(PERMISSION_API_NAME)){
+				return new ResourceAPIService.ResourceResponse(403,'Forbidden');
+			}
 			Map<String,String> params = requestParams.queryStringParams;
 			//validate uri email & phone
 			if(!params.isEmpty() && validateUriParams(params)){
@@ -136,18 +142,20 @@ public with sharing class ResourceCustomerInsightsV1 extends ResourceAPIService.
 		//use caseType param to filter case record types
 		if(caseType== null || caseType.equalsIgnoreCase('allcontactcentre')){
 			Set<String> caseRecordTypes = new Set<String>();
-			caseRecordTypes.addAll(apCaseRecordTypes);
-			caseRecordTypes.addAll(stCaseRecordTypes);
-			caseRecordTypes.addAll(unifiedCaseRecordTypes);
+			caseRecordTypes.addAll(AP_CASE_RECORDTYPES);
+			caseRecordTypes.addAll(ST_CASE_RECORDTYPES);
+			caseRecordTypes.addAll(UNIFIED_CASE_RECORDTYPES);
 			bindMap.put('caseRecordTypes',caseRecordTypes);
+			bindMap.put('closedCaseCutoffDate',Date.today().addDays(-30));
 		}
 		//use interactionType param to filter Task, VoiceCall & LiveChatTranscript record teams
 		if(interactionType== null || interactionType.equalsIgnoreCase('allcontactcentre')){
 			Set<String> interactionProfiles = new Set<String>();
-			interactionProfiles.addAll(apccProfiles);
-			interactionProfiles.addAll(stccProfiles);
-			interactionProfiles.addAll(uccProfiles);
+			interactionProfiles.addAll(AP_CC_PROFILES);
+			interactionProfiles.addAll(ST_CC_PROFILES);
+			interactionProfiles.addAll(U_CC_PROFILES);
 			bindMap.put('interactionProfiles',interactionProfiles);
+			bindMap.put('interactionCutoffDate',Date.today().addDays(-30));
 		}
 		if(paramType==PARAM_NAMES.phone.name()){
 			//get contacts by Phone Number
@@ -233,32 +241,32 @@ public with sharing class ResourceCustomerInsightsV1 extends ResourceAPIService.
 							mapCase.put(key, caseRecord.IsClosed?'Closed':'Open');
 						}//value for 'enquiry_type' key cannot be directly mapped, instead has to be mapped based on caseRecord.RecordType
 						else if(key=='enquiry_type'){
-							mapCase.put(key, apCaseRecordTypes.contains(caseRecord.RecordType.DeveloperName)?
+							mapCase.put(key, AP_CASE_RECORDTYPES.contains(caseRecord.RecordType.DeveloperName)?
 								caseRecord.Type:
-								stCaseRecordTypes.contains(caseRecord.RecordType.DeveloperName)?
+								ST_CASE_RECORDTYPES.contains(caseRecord.RecordType.DeveloperName)?
 									caseRecord.Call_Purpose__c:
 									null);
 						}//value for 'enquiry_subtype' key cannot be directly mapped, instead has to be mapped based on caseRecord.RecordType
 						else if(key=='enquiry_subtype'){
-							mapCase.put(key, apCaseRecordTypes.contains(caseRecord.RecordType.DeveloperName)?
+							mapCase.put(key, AP_CASE_RECORDTYPES.contains(caseRecord.RecordType.DeveloperName)?
 								caseRecord.EnquirySubType__c:
-								stCaseRecordTypes.contains(caseRecord.RecordType.DeveloperName)?
+								ST_CASE_RECORDTYPES.contains(caseRecord.RecordType.DeveloperName)?
 									caseRecord.Enquiry_Type__c:
 									null);
 						}//value for 'tracking_id' key cannot be directly mapped, instead has to be mapped based on caseRecord.RecordType
 						else if(key=='tracking_id'){
-							mapCase.put(key, apCaseRecordTypes.contains(caseRecord.RecordType.DeveloperName)?
+							mapCase.put(key, AP_CASE_RECORDTYPES.contains(caseRecord.RecordType.DeveloperName)?
 								caseRecord.ArticleTest__r.ArticleId__c:
-								stCaseRecordTypes.contains(caseRecord.RecordType.DeveloperName)?
+								ST_CASE_RECORDTYPES.contains(caseRecord.RecordType.DeveloperName)?
 									caseRecord.ArticleTest__r.Name:
 									null);
 						}//value for 'team' key cannot be directly mapped, instead has to be mapped based on caseRecord.RecordType
 						else if(key=='team'){
-							mapCase.put(key, apCaseRecordTypes.contains(caseRecord.RecordType.DeveloperName)?
+							mapCase.put(key, AP_CASE_RECORDTYPES.contains(caseRecord.RecordType.DeveloperName)?
 								'APCC':
-								stCaseRecordTypes.contains(caseRecord.RecordType.DeveloperName)?
+								ST_CASE_RECORDTYPES.contains(caseRecord.RecordType.DeveloperName)?
 									'STCC':
-									unifiedCaseRecordTypes.contains(caseRecord.RecordType.DeveloperName)?
+									UNIFIED_CASE_RECORDTYPES.contains(caseRecord.RecordType.DeveloperName)?
 									'UCC':
 										null);
 						}//map key value with straight-forward field mappings
@@ -302,11 +310,11 @@ public with sharing class ResourceCustomerInsightsV1 extends ResourceAPIService.
 	 * @return  `String`
 	 */
 	static String getInteractionTeam(String profileName){
-		return apccProfiles.contains(profileName)?
+		return AP_CC_PROFILES.contains(profileName)?
 					'APCC':
-					stccProfiles.contains(profileName)?
+					ST_CC_PROFILES.contains(profileName)?
 						'STCC':
-						uccProfiles.contains(profileName)?
+						U_CC_PROFILES.contains(profileName)?
 							'UCC':
 							null;
 	}

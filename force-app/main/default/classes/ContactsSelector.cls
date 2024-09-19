@@ -269,9 +269,9 @@ public virtual inherited sharing class ContactsSelector extends ApplicationSelec
 			String reversePhone = Util.reversePhoneString(phoneNumber);
 
 			Integer n = cm.conditions.size();
-			cm.add(new QueryBuilder.CompareCondition(Contact.ReverseMobilePhone__c).eq(reversePhone));
-			cm.add(new QueryBuilder.CompareCondition(Contact.ReverseVerifiedMobile__c).eq(reversePhone));
-			cm.add(new QueryBuilder.CompareCondition(Contact.ReversePhone__c).eq(reversePhone));
+			// cm.add(new QueryBuilder.CompareCondition(Contact.ReverseMobilePhone__c).eq(reversePhone));
+			// cm.add(new QueryBuilder.CompareCondition(Contact.ReverseVerifiedMobile__c).eq(reversePhone));
+			// cm.add(new QueryBuilder.CompareCondition(Contact.ReversePhone__c).eq(reversePhone));
 
 			// (ReverseMobilePhone__c OR ReverseVerifiedMobile__c OR ReversePhone__c)
 			conditionsOrder.add('(' + (n + 1) + ' OR ' + (n + 2) + ' OR ' + (n + 3) + ')');
@@ -358,7 +358,7 @@ public virtual inherited sharing class ContactsSelector extends ApplicationSelec
 		cm.endConditions();
 					
 		// Configure results order
-		qb.setOrder(new QueryBuilder.Order(Contact.UnifiedDataScore__c).setSortingOrderDesc().setNullsOrderLast());
+		// qb.setOrder(new QueryBuilder.Order(Contact.UnifiedDataScore__c).setSortingOrderDesc().setNullsOrderLast());
 		qb.addOrder(new QueryBuilder.Order(Contact.FirstName).setSortingOrderAsc().setNullsOrderLast());
 		qb.addOrder(new QueryBuilder.Order(Contact.LastName).setSortingOrderAsc().setNullsOrderLast());
 
@@ -437,7 +437,7 @@ public virtual inherited sharing class ContactsSelector extends ApplicationSelec
 					.addField('ArticleTest__r.Name')
 					.addConditions()
 					.add(new QueryBuilder.CompareCondition(Case.IsClosed).eq(true))
-					.add(new QueryBuilder.SimpleCondition(Case.ClosedDate + ' <=LAST_N_DAYS:30'))
+					.add(new QueryBuilder.SimpleCondition(Case.ClosedDate + ' <=:closedCaseCutoffDate'))
 					.add(new QueryBuilder.CompareCondition(Case.IsClosed).eq(false))
 					.add(new QueryBuilder.SimpleCondition(' RecordType.DeveloperName  IN :caseRecordTypes'))
 					.setConditionOrder('((1 AND 2) OR 3) AND 4')
@@ -457,7 +457,7 @@ public virtual inherited sharing class ContactsSelector extends ApplicationSelec
 					.addConditions()
 					.add(new QueryBuilder.CompareCondition(Task.Type).eq('Phone Call'))
 					.add(new QueryBuilder.SimpleCondition(' RecordType.DeveloperName =:apVoiceCallRecordType'))
-					.add(new QueryBuilder.SimpleCondition(Task.CreatedDate + ' <=LAST_N_DAYS:30'))
+					.add(new QueryBuilder.SimpleCondition(Task.CreatedDate + ' <=:interactionCutoffDate'))
 					.add(new QueryBuilder.SimpleCondition('Task.CreatedBy.Profile.Name IN :interactionProfiles'))
 					.setConditionOrder('(1 OR 2) AND 3 AND 4')
 					.endConditions()
@@ -471,7 +471,7 @@ public virtual inherited sharing class ContactsSelector extends ApplicationSelec
 					.addField(VoiceCall.CreatedDate)
 					.addField('CreatedBy.Profile.Name')
 					.addConditions()
-					.add(new QueryBuilder.SimpleCondition(VoiceCall.CreatedDate + ' <=LAST_N_DAYS:30'))
+					.add(new QueryBuilder.SimpleCondition(VoiceCall.CreatedDate + ' <=:interactionCutoffDate'))
 					.add(new QueryBuilder.SimpleCondition('VoiceCall.CreatedBy.Profile.Name IN :interactionProfiles'))
 					.setConditionOrder('1 AND 2')
 					.endConditions()
@@ -485,7 +485,7 @@ public virtual inherited sharing class ContactsSelector extends ApplicationSelec
 					.addField(LiveChatTranscript.CreatedDate)
 					.addField('Owner.Profile.Name')
 					.addConditions()
-					.add(new QueryBuilder.SimpleCondition(LiveChatTranscript.CreatedDate + ' <=LAST_N_DAYS:30'))
+					.add(new QueryBuilder.SimpleCondition(LiveChatTranscript.CreatedDate + ' <=:interactionCutoffDate'))
 					.add(new QueryBuilder.SimpleCondition('LiveChatTranscript.Owner.Profile.Name IN :interactionProfiles'))
 					.setConditionOrder('1 AND 2')
 					.endConditions()

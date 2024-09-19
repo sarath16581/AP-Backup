@@ -1,18 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ExtlClntAppGlobalOauthSettings xmlns="http://soap.sforce.com/2006/04/metadata">
     <callbackUrl>https://auspost--devrejeesh.sandbox.my.salesforce.com/</callbackUrl>
-    <consumerKey>3MVG9rZSDEiGkwu_6u10Bg5aXeuofiXT7iF3QDBaDOAU5H5SYABgVz0igCFxKPtC6xQioV40lc60LW2NyEOtS</consumerKey>
-    <externalClientApplication>Fullstop</externalClientApplication>
+    <consumerKey>3MVG9rZSDEiGkwu_6u10Bg5aXekeGTFwdRcwN7JlOE9N8bWuQdstE_D.lPjf43CWA.pTwhqPqjhenj9beTzRD</consumerKey>
+    <externalClientApplication>REST_API</externalClientApplication>
     <isClientCredentialsFlowEnabled>true</isClientCredentialsFlowEnabled>
     <isConsumerSecretOptional>false</isConsumerSecretOptional>
-    <isDeviceFlowEnabled>false</isDeviceFlowEnabled>
     <isIntrospectAllTokens>false</isIntrospectAllTokens>
     <isPkceRequired>true</isPkceRequired>
-    <isRefreshTokenRotationEnabled>false</isRefreshTokenRotationEnabled>
     <isSecretRequiredForRefreshToken>true</isSecretRequiredForRefreshToken>
-    <isSecretRequiredForTokenExchange>true</isSecretRequiredForTokenExchange>
-    <isTokenExchangeEnabled>false</isTokenExchangeEnabled>
-    <label>Fullstop_glbloauth</label>
+    <label>REST_API_glbloauth</label>
     <shouldRotateConsumerKey>false</shouldRotateConsumerKey>
     <shouldRotateConsumerSecret>false</shouldRotateConsumerSecret>
 </ExtlClntAppGlobalOauthSettings>
