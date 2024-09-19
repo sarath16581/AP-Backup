@@ -3,11 +3,15 @@
     <description>This permission set group will bundle together permissions and shall be assigned to Team Leads and Team Support Leads</description>
     <hasActivationRequired>false</hasActivationRequired>
     <label>Unified Agent Team Lead</label>
+    <mutingPermissionSets>UnifiedAgentTeamLead_Muted</mutingPermissionSets>
     <permissionSets>UnifiedCaseManagement</permissionSets>
     <permissionSets>UnifiedCustomerManagement</permissionSets>
-    <permissionSets>UnifiedKnowledgeUser</permissionSets>
     <permissionSets>UnifiedOmniAgent</permissionSets>
     <permissionSets>UnifiedOmniSupervisor</permissionSets>
+    <permissionSets>UnifiedQuickTextAndReporting</permissionSets>
     <permissionSets>UnifiedTracking</permissionSets>
+    <permissionSets>force__EinsteinGPTServiceReplies</permissionSets>
+    <permissionSets>force__EinsteinGPTWorkSummaries</permissionSets>
+    <permissionSets>force__EinsteinReplyRecommendations</permissionSets>
     <status>Updated</status>
 </PermissionSetGroup>
