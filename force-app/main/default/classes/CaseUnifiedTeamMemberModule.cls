@@ -11,6 +11,7 @@
 public with sharing class CaseUnifiedTeamMemberModule extends ApplicationModule {
 	@TestVisible
 	private static final String UNIFIED_CASE_TEAM_ROLE = 'Unified Agent';
+	private static final String USER_OBJECT_PREFIX = '005';
 
 	public static CaseUnifiedTeamMemberModule newInstance() {
 		return (CaseUnifiedTeamMemberModule) Application.Utilities.newInstance(CaseUnifiedTeamMemberModule.class);
@@ -72,14 +73,13 @@ public with sharing class CaseUnifiedTeamMemberModule extends ApplicationModule 
 		List<ApplicationRecursion.RecordState> changedRecords = ApplicationRecursion.getInstance().getProcessableRecords(context, records, existingRecords, monitoredFields);
 		List<Case> filteredCases = new List<Case>();
 
-		String userPrefix = User.getSObjectType().getDescribe().getKeyPrefix();
 		// Eligibility Check on changed state
 		for (ApplicationRecursion.RecordState recordState : changedRecords) {
 			Case updatedCase = (Case) recordState.record;
 			Set<SObjectField> changed = recordState.changedFields;
 			String caseOwnerPrefix = updatedCase.OwnerId.toString().substring(0, 3);
 			// check for ownerId changes and new ownerId belongs to a user
-			if (!changed.isEmpty() && changed.contains(Case.OwnerId) && caseOwnerPrefix == userPrefix) {
+			if (!changed.isEmpty() && changed.contains(Case.OwnerId) && caseOwnerPrefix == USER_OBJECT_PREFIX) {
 				filteredCases.add(updatedCase);
 			}
 		}
