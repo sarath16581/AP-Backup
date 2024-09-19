@@ -116,6 +116,11 @@
         <field>Compensation__c.Contact__c</field>
         <readable>true</readable>
     </fieldPermissions>
+	<fieldPermissions>
+        <editable>false</editable>
+        <field>Compensation__c.Status__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
     <hasActivationRequired>false</hasActivationRequired>
     <label>Unified Case Management</label>
     <license>Salesforce</license>
