@@ -57,8 +57,10 @@ public inherited sharing class ArticleSubscriptionModule extends ApplicationModu
 		// query impacted articles with related case
 		List<ImpactedArticle__c> impactedArticles = ImpactedArticlesSelector.newInstance(SELECTOR_FIELDS).selectById(
 				new Map<Id, ImpactedArticle__c>(records).keySet(), // impactedArticle Ids set
-				new Set<Object> { ImpactedArticlesSelector.Options.WITH_CASE } // related cases
-
+				new Set<Object> {
+						ImpactedArticlesSelector.Options.WITH_CASE,
+						ImpactedArticlesSelector.Options.WITH_ARTICLE
+				} // related cases
 		);
 
 		//split the list into sublist of 100 as per batch size
