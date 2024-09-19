@@ -1,32 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Risk_Status__c</fullName>
-    <description>Used by Sales Implementation Case</description>
+    <businessStatus>DeprecateCandidate</businessStatus>
     <externalId>false</externalId>
-    <label>Risk Status</label>
+    <label>Dep - Risk Status</label>
+    <length>40</length>
     <required>false</required>
-    <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
-    <type>Picklist</type>
-    <valueSet>
-        <valueSetDefinition>
-            <sorted>false</sorted>
-            <value>
-                <fullName>Low</fullName>
-                <default>false</default>
-                <label>Low</label>
-            </value>
-            <value>
-                <fullName>Medium</fullName>
-                <default>false</default>
-                <label>Medium</label>
-            </value>
-            <value>
-                <fullName>High</fullName>
-                <default>false</default>
-                <label>High</label>
-            </value>
-        </valueSetDefinition>
-    </valueSet>
+    <type>Text</type>
+    <unique>false</unique>
 </CustomField>

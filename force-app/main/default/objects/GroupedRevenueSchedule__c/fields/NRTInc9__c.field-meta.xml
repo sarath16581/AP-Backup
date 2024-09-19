@@ -3,7 +3,7 @@
     <fullName>NRTInc9__c</fullName>
     <description>NRT Incremental value for September</description>
     <externalId>false</externalId>
-    <formula>IF (TotalIncremental__c = 0, 0 , IF (Act9__c -  NRTBaseline__c &gt; 0 ,Act9__c -  NRTBaseline__c ,0))</formula>
+    <formula>IF (Act9__c - NRTBaseline__c &gt; 0 ,Act9__c - NRTBaseline__c ,0)</formula>
     <inlineHelpText>NRT Incremental value for September</inlineHelpText>
     <label>September Incremental Revenue</label>
     <precision>18</precision>

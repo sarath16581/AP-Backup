@@ -660,11 +660,6 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>DMAPP__Dealmaker_Opportunity__c</field>
-            <table>Opportunity</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
             <field>Description</field>
             <table>Opportunity</table>
         </columns>
@@ -1738,17 +1733,17 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
+            <field>PreApprovalReferralReasons__c</field>
+            <table>Opportunity.Customer_Scoping_Questionnaires__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
             <field>PreApprover__c</field>
             <table>Opportunity.Customer_Scoping_Questionnaires__r</table>
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
             <field>PreApprovalStatus__c</field>
-            <table>Opportunity.Customer_Scoping_Questionnaires__r</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>PreApprovalReferralReasons__c</field>
             <table>Opportunity.Customer_Scoping_Questionnaires__r</table>
         </columns>
         <columns>

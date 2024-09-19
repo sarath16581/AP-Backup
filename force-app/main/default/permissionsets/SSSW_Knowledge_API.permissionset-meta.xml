@@ -1,13 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <PermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
-    <classAccesses>
-        <apexClass>UpdatePublicViewCountController</apexClass>
-        <enabled>true</enabled>
-    </classAccesses>
-    <classAccesses>
-        <apexClass>internalArticlePreview</apexClass>
-        <enabled>true</enabled>
-    </classAccesses>
     <description>Has all permissions needed to access Knowledge/FAQ Objects</description>
     <fieldPermissions>
         <editable>true</editable>
@@ -90,12 +82,4 @@
         <object>PKB_Article_Feedback_Deflection__c</object>
         <viewAllRecords>true</viewAllRecords>
     </objectPermissions>
-    <pageAccesses>
-        <apexPage>FAQPreview</apexPage>
-        <enabled>true</enabled>
-    </pageAccesses>
-    <pageAccesses>
-        <apexPage>UpdatePublicViewCount</apexPage>
-        <enabled>true</enabled>
-    </pageAccesses>
 </PermissionSet>

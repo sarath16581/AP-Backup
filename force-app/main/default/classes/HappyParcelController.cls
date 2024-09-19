@@ -25,6 +25,7 @@
  * 2024-06-25 - Raghav Ravipati - Updated the Amazon s3 deliveryRepository API from V1 to V2 
  * 2024-07-17 - Seth Heang - Added POD related method calls from MyCustomerDeliveryProofPdfController so the permission is inherited
  * 2024-07-24 - Seth Heang - Added warningMessages attribute to TrackingArticle wrapper
+ * 2024-09-03 - Raghav Ravipati - Accessibility check for knowledge__kav and Changed method return type for getCriticalIncidents as we are getting error is we have knowledge__kav as return type.
  */
 public with sharing class HappyParcelController {
 	/**
@@ -325,34 +326,39 @@ public with sharing class HappyParcelController {
 	}
 
 	@AuraEnabled
-	public static Map<String, List<Knowledge__kav>> getCriticalIncidents() {
+	public static String getCriticalIncidents() {
+		String newtorkOrgIdsWithIncidentsJSON;
 		try {
-			Map<String, List<Knowledge__kav>> newtorkOrgIdsWithIncidents = new Map<String, List<Knowledge__kav>>();
-			//query critical incidents
-			Set<SObjectField> fieldOverrides = new Set<SObjectField>{ Knowledge__kav.Id, Knowledge__kav.NetworkOrgId__c, Knowledge__kav.Title, Knowledge__kav.UrlName };
-			KnowledgeArticleVersionsSelector selector = KnowledgeArticleVersionsSelector.newInstance(fieldOverrides);
-			Map<String, Object> searchParams = new Map<String, Object>();
-			searchParams.put('recordTypeNames', new Set<String>{ 'Critical_Incident' });
-			searchParams.put('IsLatestVersion', true);
-			searchParams.put('statuses', new Set<String>{ 'Online' });
+			if(Schema.sObjectType.Knowledge__ka.isAccessible()){
+				Map<String, List<Knowledge__kav>> newtorkOrgIdsWithIncidents = new Map<String, List<Knowledge__kav>>();
+				//query critical incidents
+				Set<SObjectField> fieldOverrides = new Set<SObjectField>{ Knowledge__kav.Id, Knowledge__kav.NetworkOrgId__c, Knowledge__kav.Title, Knowledge__kav.UrlName };
+				KnowledgeArticleVersionsSelector selector = KnowledgeArticleVersionsSelector.newInstance(fieldOverrides);
+				Map<String, Object> searchParams = new Map<String, Object>();
+				searchParams.put('recordTypeNames', new Set<String>{ 'Critical_Incident' });
+				searchParams.put('IsLatestVersion', true);
+				searchParams.put('statuses', new Set<String>{ 'Online' });
 
-			//NetworkOrgId__c is longtext area field so we are Iterating over all the publised critical incidents and will fitler using if condition
-			for (Knowledge__kav criticalIncident : selector.search(searchParams, true)) {
-				String networkOrgIdAsString = criticalIncident.NetworkOrgId__c;
+				//NetworkOrgId__c is longtext area field so we are Iterating over all the publised critical incidents and will fitler using if condition
+				for (Knowledge__kav criticalIncident : selector.search(searchParams, true)) {
+					String networkOrgIdAsString = criticalIncident.NetworkOrgId__c;
 
-				if (String.isNotBlank(networkOrgIdAsString)) {
-					for (String networkOrgId : networkOrgIdAsString.split(';')) {
-						if (newtorkOrgIdsWithIncidents.containsKey(networkOrgId)) {
-							newtorkOrgIdsWithIncidents.get(networkOrgId).add(criticalIncident);
-						} else {
-							newtorkOrgIdsWithIncidents.put(networkOrgId, new List<Knowledge__kav>{ criticalIncident });
+					if (String.isNotBlank(networkOrgIdAsString)) {
+						for (String networkOrgId : networkOrgIdAsString.split(';')) {
+							if (newtorkOrgIdsWithIncidents.containsKey(networkOrgId)) {
+								newtorkOrgIdsWithIncidents.get(networkOrgId).add(criticalIncident);
+							} else {
+								newtorkOrgIdsWithIncidents.put(networkOrgId, new List<Knowledge__kav>{ criticalIncident });
+							}
 						}
 					}
 				}
+				newtorkOrgIdsWithIncidentsJSON = JSON.serialize(newtorkOrgIdsWithIncidents);
 			}
 
-			return newtorkOrgIdsWithIncidents;
-		} catch (Exception e) {
+			return newtorkOrgIdsWithIncidentsJSON;
+		} 
+		catch (Exception e) {
 			throw new AuraHandledException(e.getMessage());
 		}
 	}
@@ -541,7 +547,10 @@ public with sharing class HappyParcelController {
 		// this happens after the search result have been loaded into the Happy Parcel LWC components
 		// Note: We are filtering the mapping records using the mappingModel__c field this is just temporary filter and will be removed once all users moved to lightning.
 		EnquiryMappingsSelector selector = EnquiryMappingsSelector.newInstance();
-
+		
+        System.debug('Mapping model: ' + mappingModel);
+        System.debug('Article keys: ' + articleMappingsMap.keySet());
+        
 		for (MiniCaseFieldMapping__c mapping : selector.selectBySAPKeyAndMappingModel(articleMappingsMap.keySet(), new Set<String>{ mappingModel })) {
 			if(articleMappingsMap.containsKey(mapping.SAPKey__c)){
 				for (TrackingArticle article : articleMappingsMap.get(mapping.SAPKey__c)) {

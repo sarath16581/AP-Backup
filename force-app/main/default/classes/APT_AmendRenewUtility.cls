@@ -31,6 +31,7 @@ Last Modified Date -  18th June, 2021 | INC1739984  : Making the SAP Contract In
 2023-11-22 - Bharat Patel - STP-9770 - added resetOpportunityProposalPrimary(), to reset respected opportunity's proposal's primary flag
 2024-02-05 - Mahesh Parvathaneni - STP-8256 - Reset the cloned opportunity fields on Dov Increase and Renewal process
 2024-02-15 - Mahesh Parvathaneni - STP-8256 - Updated the close date logic on cloned opportunity.
+2024-08-16 - Talib Raza - REQ3537828: CTA fields set to false on cloned Opporunity.
 */
 public without sharing class APT_AmendRenewUtility {
 
@@ -115,6 +116,10 @@ public without sharing class APT_AmendRenewUtility {
 			clonedOpportunity.Pre_Entry__c = false;
 			clonedOpportunity.Offline_Contract_Received__c = false;
 			clonedOpportunity.Data_Integrity_Compliance__c = false;
+			clonedOpportunity.CTA_Propose_Approved__c = false;
+			clonedOpportunity.CTA_Propose_Request_Exists__c = false;
+			clonedOpportunity.CTA_Pursue_Approved__c = false;
+			clonedOpportunity.CTA_Pursue_Request_Exists__c = false;
 			clonedOpportunity.DOV_Reason__c = '';
 			
 			/* Shashwat.Nath@Auspost.com.code ends*/

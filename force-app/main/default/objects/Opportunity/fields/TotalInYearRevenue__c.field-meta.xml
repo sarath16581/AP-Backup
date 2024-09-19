@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>TotalInYearRevenue__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF(
+    MONTH(CloseDate) &gt;= 7,
+    365 - (CloseDate - DATE(YEAR(CloseDate), 7, 1)),
+    365 - (CloseDate - DATE(YEAR(CloseDate) - 1, 7, 1))
+)* Amount / (365 + 1)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Total In Year Revenue</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>2</scale>
+    <trackHistory>false</trackHistory>
+    <type>Currency</type>
+</CustomField>

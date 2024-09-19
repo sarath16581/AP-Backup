@@ -1582,7 +1582,7 @@
         <picklist>EnquirySubType__c</picklist>
         <values>
             <fullName>Late item</fullName>
-            <default>false</default>
+            <default>true</default>
         </values>
     </picklistValues>
     <picklistValues>
@@ -4179,7 +4179,7 @@
         <picklist>ProductCategory__c</picklist>
         <values>
             <fullName>Domestic</fullName>
-            <default>false</default>
+            <default>true</default>
         </values>
     </picklistValues>
     <picklistValues>
@@ -6335,7 +6335,7 @@
         <picklist>Type_and_Product__c</picklist>
         <values>
             <fullName>Unified Model</fullName>
-            <default>false</default>
+            <default>true</default>
         </values>
     </picklistValues>
     <picklistValues>
@@ -6387,7 +6387,7 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>0350 - DHL(VIC) Supply Chain</fullName>
+            <fullName>0350 - DHL%28VIC%29 Supply Chain</fullName>
             <default>false</default>
         </values>
         <values>

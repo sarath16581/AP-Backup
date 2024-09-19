@@ -1444,11 +1444,6 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>DMAPP__ThirdPartyName__c</field>
-            <table>Apttus_Approval__Approval_Process__c.Apttus_Approval__ApprovalProcessInstances__r.Apttus_Approval__ProcessInstanceId__r.Activities</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
             <field>Acknowledged_Date__c</field>
             <table>Apttus_Approval__Approval_Process__c.Apttus_Approval__ApprovalProcessInstances__r.Apttus_Approval__ProcessInstanceId__r.Activities</table>
         </columns>
@@ -1954,11 +1949,6 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>DMAPP__TTG_Prime_Action_Type__c</field>
-            <table>Apttus_Approval__Approval_Process__c.Apttus_Approval__ApprovalProcessInstances__r.Apttus_Approval__ProcessInstanceId__r.Activities</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
             <field>Priority</field>
             <table>Apttus_Approval__Approval_Process__c.Apttus_Approval__ApprovalProcessInstances__r.Apttus_Approval__ProcessInstanceId__r.Activities</table>
         </columns>
@@ -2100,11 +2090,6 @@
         <columns>
             <checkedByDefault>false</checkedByDefault>
             <field>TaskUpdate__c</field>
-            <table>Apttus_Approval__Approval_Process__c.Apttus_Approval__ApprovalProcessInstances__r.Apttus_Approval__ProcessInstanceId__r.Activities</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>DMAPP__ThirdPartyId__c</field>
             <table>Apttus_Approval__Approval_Process__c.Apttus_Approval__ApprovalProcessInstances__r.Apttus_Approval__ProcessInstanceId__r.Activities</table>
         </columns>
         <columns>

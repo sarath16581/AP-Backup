@@ -4,7 +4,7 @@
     <businessStatus>DeprecateCandidate</businessStatus>
     <deleteConstraint>SetNull</deleteConstraint>
     <externalId>false</externalId>
-    <label>Dep - Case Lead</label>
+    <label>Dep -Case Lead</label>
     <referenceTo>User</referenceTo>
     <relationshipName>Cases9</relationshipName>
     <required>false</required>

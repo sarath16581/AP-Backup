@@ -20,12 +20,9 @@ History:
 2021-03-01 - Alvin Zhou   Updated registerOpptyOwner method to reference to the Current_Owner_Role__c in the user object
 2021-03-04 - disha.kariya@auspost.com.au - Modified to use Current Owner Role field from User for rollup description for Opportunity Split closing owner.
 2023-09-12 - Ranjeewa Silva - Updated to check current closing owner on Opportunity Splits before performing update operation.
-
 **************************************************/
 
 public class OpportunityUtility_part2 {
-
-    public static final string STAGE_CLOSED_WON = 'Closed Won';
 
     // stores the queried user records as transactional cache when updating the opportunity with the owners employee number
     public static Map<Id, User> queriedOwnerUsers = new Map<Id, User>();

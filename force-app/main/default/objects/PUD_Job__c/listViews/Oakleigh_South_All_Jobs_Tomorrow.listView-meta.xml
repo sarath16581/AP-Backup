@@ -21,11 +21,12 @@
     <filters>
         <field>Date__c</field>
         <operation>equals</operation>
-        <value>TOMORROW</value>
+        <value>11/9/2023</value>
     </filters>
     <filters>
-        <field>Booking__c</field>
-        <operation>equals</operation>
+        <field>Booking_Record_Type__c</field>
+        <operation>contains</operation>
+        <value>Adhoc</value>
     </filters>
     <label>Oakleigh South - All Jobs Tomorrow</label>
 </ListView>

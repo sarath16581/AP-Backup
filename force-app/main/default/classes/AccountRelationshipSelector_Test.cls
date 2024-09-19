@@ -24,7 +24,7 @@ private class AccountRelationshipSelector_Test {
             ids.add(relation.Id);
         }
 
-        AccountRelationshipSelector selector = AccountRelationshipSelector.newInstance();
+        AccountRelationshipSelector selector = AccountRelationshipSelector.newInstance(10);
         Map<Id, AccountRelationship__c> result = selector.selectById(ids);
 
         Test.stopTest();
@@ -50,7 +50,25 @@ private class AccountRelationshipSelector_Test {
         System.assert(result != null, 'The result should not be null');
         System.assertEquals(ids.size(), result.size(), 'The result size should match the number of test records');
     }
+    
+    @isTest
+    static void testSelectByParent() {
+        Test.startTest();
 
+        Set<Id> ids = new Set<Id>();
+        for(AccountRelationship__c relation : [SELECT ParentAccount__c FROM AccountRelationship__c]) {
+            ids.add(relation.ParentAccount__c);
+        }
+
+        AccountRelationshipSelector selector = AccountRelationshipSelector.newInstance();
+        List<AccountRelationship__c> result = selector.selectByParent(ids);
+
+        Test.stopTest();
+
+        System.assert(result != null, 'The result should not be null');
+        System.assertEquals(ids.size(), result.size(), 'The result size should match the number of test records');
+    }
+    
     @isTest
     static void testSelectByIdWithRelatedAccount() {
         Test.startTest();

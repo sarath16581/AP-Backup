@@ -2062,7 +2062,4 @@
         </columns>
         <masterLabel>Status Tracking</masterLabel>
     </sections>
-    <sections>
-        <masterLabel>Cases</masterLabel>
-    </sections>
 </ReportType>

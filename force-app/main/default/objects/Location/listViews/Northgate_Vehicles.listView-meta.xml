@@ -13,7 +13,6 @@
     <columns>Line_Haul__c</columns>
     <columns>Model__c</columns>
     <columns>Make__c</columns>
-    <columns>Service_Territory__c</columns>
     <columns>State__c</columns>
     <filterScope>Everything</filterScope>
     <filters>
@@ -30,11 +29,6 @@
         <field>Status__c</field>
         <operation>notContain</operation>
         <value>Decommsioned</value>
-    </filters>
-    <filters>
-        <field>Service_Territory__c</field>
-        <operation>equals</operation>
-        <value>Northgate</value>
     </filters>
     <label>Northgate Vehicles</label>
 </ListView>

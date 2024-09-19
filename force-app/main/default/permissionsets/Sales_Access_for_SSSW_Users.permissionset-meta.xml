@@ -1325,14 +1325,6 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
-        <apexClass>UpdatePublicViewCountController</apexClass>
-        <enabled>true</enabled>
-    </classAccesses>
-    <classAccesses>
-        <apexClass>UpdatePublicViewCountController_Test</apexClass>
-        <enabled>true</enabled>
-    </classAccesses>
-    <classAccesses>
         <apexClass>UserSharingUtil</apexClass>
         <enabled>true</enabled>
     </classAccesses>
@@ -1442,14 +1434,6 @@
     </classAccesses>
     <classAccesses>
         <apexClass>groupMasterBatch</apexClass>
-        <enabled>true</enabled>
-    </classAccesses>
-    <classAccesses>
-        <apexClass>internalArticlePreview</apexClass>
-        <enabled>true</enabled>
-    </classAccesses>
-    <classAccesses>
-        <apexClass>internalArticlePreview_Test</apexClass>
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
@@ -5903,7 +5887,7 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>true</editable>
+        <editable>false</editable>
         <field>Opportunity.ControlsLodgement__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -6123,7 +6107,7 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>true</editable>
+        <editable>false</editable>
         <field>Opportunity.FreightOwnership__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -8598,10 +8582,6 @@
         <enabled>true</enabled>
     </pageAccesses>
     <pageAccesses>
-        <apexPage>FAQPreview</apexPage>
-        <enabled>true</enabled>
-    </pageAccesses>
-    <pageAccesses>
         <apexPage>FacilitySearch</apexPage>
         <enabled>true</enabled>
     </pageAccesses>
@@ -8835,10 +8815,6 @@
     </pageAccesses>
     <pageAccesses>
         <apexPage>UnderConstruction</apexPage>
-        <enabled>true</enabled>
-    </pageAccesses>
-    <pageAccesses>
-        <apexPage>UpdatePublicViewCount</apexPage>
         <enabled>true</enabled>
     </pageAccesses>
     <pageAccesses>

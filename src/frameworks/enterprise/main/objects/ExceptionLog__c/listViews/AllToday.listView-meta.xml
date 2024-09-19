@@ -11,10 +11,6 @@
     <columns>CREATED_DATE</columns>
     <columns>CREATEDBY_USER</columns>
     <filterScope>Everything</filterScope>
-    <filters>
-        <field>CREATED_DATE</field>
-        <operation>equals</operation>
-        <value>TODAY</value>
-    </filters>
     <label>All -Today</label>
+    <language>en_US</language>
 </ListView>

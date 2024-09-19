@@ -51,7 +51,7 @@
     <outboundMessages>
         <fullName>APMS_Credit_Team_for_Multicurrency</fullName>
         <apiVersion>50.0</apiVersion>
-        <endpointUrl>https://salesforce-bw-ptest.npe.auspost.com.au:10543/APMSCreditCheck/v1/ExistingMerchant/Notification</endpointUrl>
+        <endpointUrl>https://salesforce-bw-stest.npe.auspost.com.au:10543/APMSCreditCheck/v1/ExistingMerchant/Notification</endpointUrl>
         <fields>Id</fields>
         <fields>Opportunity__c</fields>
         <includeSessionId>true</includeSessionId>
@@ -64,7 +64,7 @@
         <fullName>APMS_SecurePay_for_Multicurrency</fullName>
         <apiVersion>50.0</apiVersion>
         <description>APMS Securepay Multicurrency</description>
-        <endpointUrl>https://salesforce-bw-ptest.npe.auspost.com.au:10543/APMSOrder/v1/ExistingMerchant/Notification</endpointUrl>
+        <endpointUrl>https://salesforce-bw-stest.npe.auspost.com.au:10543/APMSOrder/v1/ExistingMerchant/Notification</endpointUrl>
         <fields>Id</fields>
         <fields>Opportunity__c</fields>
         <includeSessionId>true</includeSessionId>

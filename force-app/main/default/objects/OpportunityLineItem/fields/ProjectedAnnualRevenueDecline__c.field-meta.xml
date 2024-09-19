@@ -3,7 +3,7 @@
     <fullName>ProjectedAnnualRevenueDecline__c</fullName>
     <description>The difference between expected annualised revenue and the last 12 months of trade. Expected to be a negative number or 0.</description>
     <externalId>false</externalId>
-    <formula>IF( TweleveMonthRevenue__c -  Annualised_Value__c  &lt; 0, TweleveMonthRevenue__c -  Annualised_Value__c , 0)</formula>
+    <formula>IF( Annualised_Value__c &lt; TweleveMonthRevenue__c, Annualised_Value__c - TweleveMonthRevenue__c, 0)</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <inlineHelpText>The difference between expected annualised revenue and the last 12 months of trade. Expected to be a negative number or 0.</inlineHelpText>
     <label>Projected Annual Revenue Decline</label>

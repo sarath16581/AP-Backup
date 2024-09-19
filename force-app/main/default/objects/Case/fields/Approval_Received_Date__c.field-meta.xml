@@ -2,12 +2,12 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Approval_Received_Date__c</fullName>
     <businessStatus>DeprecateCandidate</businessStatus>
-    <description>Dep - field no longer in use - REQ3448199 Used by CDMT - Sales Director Approval date for Acc Restructure/Merger</description>
     <externalId>false</externalId>
-    <label>Dep - Approval Received Date</label>
+    <label>Dep -Approval Received Date</label>
+    <length>40</length>
     <required>false</required>
-    <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
-    <type>DateTime</type>
+    <type>Text</type>
+    <unique>false</unique>
 </CustomField>
