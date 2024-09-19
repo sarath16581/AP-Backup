@@ -218,7 +218,9 @@ public with sharing class CasesSelector_Test {
 
 		searchParams = new Map<String, Object>{
 				'caseIds' => new Set<Id>{'500000000000000'},
-				'recordTypeIds' => new Set<Id>{'012Bm000005SlxBIAS', '012900000015ftpAAA'}
+				'recordTypeIds' => new Set<Id>{'012Bm000005SlxBIAS', '012900000015ftpAAA'},
+				'relatedArticleIds' => new Set<Id>{'a1h000000000000000'},
+				'isClosed' => false
 		};
 
 		String soql = selector.getSearchSoql(searchParams, new Set<Object>(), true);
