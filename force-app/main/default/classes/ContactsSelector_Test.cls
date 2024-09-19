@@ -520,4 +520,131 @@ private with sharing class ContactsSelector_Test {
 		String subQueryExMsg = 'Did not match the Cases sub-query pattern.' + soql.replaceAll('\n','');
 		Assert.isTrue(Pattern.compile('(?is)' + subQueryPattern).matcher(soql).find(), subQueryExMsg);
 	}
+	/**
+	 * @description Test method for ContactsSelector.selectWithCasesAndInteractionsHelper()
+	 */
+    @IsTest
+	static void testSelectWithCasesAndInteractionsHelper(){
+		String customerPhone='0300300300';
+		String queryConditions= ' AND (HomePhone =:searchKey OR MobilePhone =:searchKey OR Phone =:searchKey)';
+		Map<String, Object> bindMap = new Map<String, Object>();
+		bindMap.put('searchKey', customerPhone);
+		// Mock Data
+		RecordType consumerRecordType = [SELECT Id, DeveloperName FROM RecordType WHERE SObjectType='Account' AND DeveloperName='Business_Account' LIMIT 1];
+		Account personAccount = ApplicationTestDataFactory.getPersonAccounts(1, true)[0];
+		Contact personContact = ApplicationTestDataFactory.getContacts(1, personAccount.Id, true)[0];
+		personAccount.RecordTypeId = consumerRecordType.Id;
+		personAccount = (Account)ApplicationTestDataFactory.setUnwritableFields(personAccount, new Map<String, Object>{
+				'PersonContactId' => personContact.Id
+				,'RecordType.DeveloperName'=>'Business_Account'
+		});
+		personContact = (Contact)ApplicationTestDataFactory.setUnwritableFields(personContact, new Map<String, Object>{
+				'IsPersonAccount'=>true
+		});
+		personContact.Phone=customerPhone;
+		//stubs
+		ContactsSelector mockContactsSelector = (ContactsSelector) MockUtility.mockSelector(ContactsSelector.class);
+
+		MockUtility.Mocks.startStubbing();
+		MockUtility.Mocks.when(mockContactsSelector.selectWithCasesAndInteractionsHelper(queryConditions,bindMap, new Set<Object>()))
+			.thenReturn(new List<Contact>{personContact});
+		MockUtility.Mocks.stopStubbing();
+
+		
+		Test.startTest();
+
+		// Call the Selector method
+		Set<SObjectField> contactFields = new Set<SObjectField>{
+			Contact.Id, Contact.APCN__c, Contact.Firstname, Contact.Lastname, Contact.Email
+			, Contact.VerifiedEmail__c, Contact.Phone, Contact.MobilePhone, Contact.VerifiedMobile__c
+		};
+		ContactsSelector contactSelector = ContactsSelector.newInstance(0, contactFields);
+		List<Contact> contacts = contactSelector.selectWithCasesAndInteractionsHelper(queryConditions,bindMap, new Set<Object>());
+		Test.stopTest();
+		Assert.areEqual(1, contacts.size(), '1 contact should be returned');
+	}
+	/**
+	 * @description Test method for ContactsSelector.selectWithCasesAndInteractionsByPhoneNumber()
+	 */
+    @IsTest
+	static void testSelectWithCasesAndInteractionsByPhoneNumber(){
+		String customerPhone='0300300300';
+		Map<String, Object> bindMap = new Map<String, Object>();
+		bindMap.put('searchKey', customerPhone);
+		// Mock Data
+		RecordType consumerRecordType = [SELECT Id, DeveloperName FROM RecordType WHERE SObjectType='Account' AND DeveloperName='Business_Account' LIMIT 1];
+		Account personAccount = ApplicationTestDataFactory.getPersonAccounts(1, true)[0];
+		Contact personContact = ApplicationTestDataFactory.getContacts(1, personAccount.Id, true)[0];
+		personAccount.RecordTypeId = consumerRecordType.Id;
+		personAccount = (Account)ApplicationTestDataFactory.setUnwritableFields(personAccount, new Map<String, Object>{
+				'PersonContactId' => personContact.Id
+				,'RecordType.DeveloperName'=>'Business_Account'
+		});
+		personContact = (Contact)ApplicationTestDataFactory.setUnwritableFields(personContact, new Map<String, Object>{
+				'IsPersonAccount'=>true
+		});
+		personContact.Phone=customerPhone;
+		//stubs
+		ContactsSelector mockContactsSelector = (ContactsSelector) MockUtility.mockSelector(ContactsSelector.class);
+
+		MockUtility.Mocks.startStubbing();
+		MockUtility.Mocks.when(mockContactsSelector.selectWithCasesAndInteractionsByPhoneNumber(customerPhone, bindMap, new Set<Object>()))
+			.thenReturn(new List<Contact>{personContact});
+		MockUtility.Mocks.stopStubbing();
+
+		
+		Test.startTest();
+
+		// Call the Selector method
+		Set<SObjectField> contactFields = new Set<SObjectField>{
+			Contact.Id, Contact.APCN__c, Contact.Firstname, Contact.Lastname, Contact.Email
+			, Contact.VerifiedEmail__c, Contact.Phone, Contact.MobilePhone, Contact.VerifiedMobile__c
+		};
+		ContactsSelector contactSelector = ContactsSelector.newInstance(0, contactFields);
+		List<Contact> contacts = contactSelector.selectWithCasesAndInteractionsByPhoneNumber(customerPhone,bindMap, new Set<Object>());
+		Test.stopTest();
+		Assert.areEqual(1, contacts.size(), '1 contact should be returned');
+	}
+	/**
+	 * @description Test method for ContactsSelector.selectWithCasesAndInteractionsByEmailAddress()
+	 */
+    @IsTest
+	static void testSelectWithCasesAndInteractionsByEmailAddress(){
+		String customerEmail='invalid@invalid.com.invalid';
+		Map<String, Object> bindMap = new Map<String, Object>();
+		bindMap.put('searchKey', customerEmail);
+		// Mock Data
+		RecordType consumerRecordType = [SELECT Id, DeveloperName FROM RecordType WHERE SObjectType='Account' AND DeveloperName='Business_Account' LIMIT 1];
+		Account personAccount = ApplicationTestDataFactory.getPersonAccounts(1, true)[0];
+		Contact personContact = ApplicationTestDataFactory.getContacts(1, personAccount.Id, true)[0];
+		personAccount.RecordTypeId = consumerRecordType.Id;
+		personAccount = (Account)ApplicationTestDataFactory.setUnwritableFields(personAccount, new Map<String, Object>{
+				'PersonContactId' => personContact.Id
+				,'RecordType.DeveloperName'=>'Business_Account'
+		});
+		personContact = (Contact)ApplicationTestDataFactory.setUnwritableFields(personContact, new Map<String, Object>{
+				'IsPersonAccount'=>true
+		});
+		personContact.Email=customerEmail;
+		//stubs
+		ContactsSelector mockContactsSelector = (ContactsSelector) MockUtility.mockSelector(ContactsSelector.class);
+
+		MockUtility.Mocks.startStubbing();
+		MockUtility.Mocks.when(mockContactsSelector.selectWithCasesAndInteractionsByEmailAddress(customerEmail, bindMap, new Set<Object>()))
+			.thenReturn(new List<Contact>{personContact});
+		MockUtility.Mocks.stopStubbing();
+
+		
+		Test.startTest();
+
+		// Call the Selector method
+		Set<SObjectField> contactFields = new Set<SObjectField>{
+			Contact.Id, Contact.APCN__c, Contact.Firstname, Contact.Lastname, Contact.Email
+			, Contact.VerifiedEmail__c, Contact.Phone, Contact.MobilePhone, Contact.VerifiedMobile__c
+		};
+		ContactsSelector contactSelector = ContactsSelector.newInstance(0, contactFields);
+		List<Contact> contacts = contactSelector.selectWithCasesAndInteractionsByEmailAddress(customerEmail,bindMap, new Set<Object>());
+		Test.stopTest();
+		Assert.areEqual(1, contacts.size(), '1 contact should be returned');
+	}
 }

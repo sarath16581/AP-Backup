@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ExternalClientApplication xmlns="http://soap.sforce.com/2006/04/metadata">
+    <contactEmail>rejeesh.raghavan2@auspost.com.au</contactEmail>
+    <distributionState>Local</distributionState>
+    <isProtected>false</isProtected>
+    <label>REST API</label>
+    <orgScopedExternalApp>00DAD000004LYdt:REST_API</orgScopedExternalApp>
+</ExternalClientApplication>
