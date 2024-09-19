@@ -226,6 +226,8 @@ public with sharing class CasesSelector_Test {
 		String soql = selector.getSearchSoql(searchParams, new Set<Object>(), true);
 		Assert.isTrue(Pattern.compile('(?ism)\\s+from Case\\s+where\\b.*?\\bRecordTypeId\\s+In\\b').matcher(soql).find(), 'Resulting query does not filter RecordType.');
 		Assert.isTrue(Pattern.compile('(?ism)\\s+from Case\\s+where\\b.*?\\bId\\s+In\\b').matcher(soql).find(), 'Resulting query does not filter Case Id.');
+		Assert.isTrue(Pattern.compile('(?ism)\\s+from Case\\s+where\\b.*?\\bArticleTest__c\\s+In\\b').matcher(soql).find(), 'Resulting query does not filter article id : ' + soql);
+		Assert.isTrue(Pattern.compile('(?ism)\\s+from Case\\s+where\\b.*?\\bIsClosed\\s*=\\s').matcher(soql).find(), 'Resulting query does not filter case IsClosed : ' + soql);
 		Assert.isTrue(Pattern.compile('(?ism)\\s+from Case\\s+where\\b.*?\\bAND\\b').matcher(soql).find(), 'Resulting query does not limit by ALL');
 
 		// make sure the query is valid (even though no records will be returned)
