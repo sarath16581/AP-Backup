@@ -118,6 +118,11 @@
     </fieldPermissions>
 	<fieldPermissions>
         <editable>false</editable>
+        <field>Compensation__c.Status__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>ImpactedArticle__c.Subscribed__c</field>
         <readable>false</readable>
     </fieldPermissions>
