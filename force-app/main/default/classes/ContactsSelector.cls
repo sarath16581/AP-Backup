@@ -269,9 +269,9 @@ public virtual inherited sharing class ContactsSelector extends ApplicationSelec
 			String reversePhone = Util.reversePhoneString(phoneNumber);
 
 			Integer n = cm.conditions.size();
-			// cm.add(new QueryBuilder.CompareCondition(Contact.ReverseMobilePhone__c).eq(reversePhone));
-			// cm.add(new QueryBuilder.CompareCondition(Contact.ReverseVerifiedMobile__c).eq(reversePhone));
-			// cm.add(new QueryBuilder.CompareCondition(Contact.ReversePhone__c).eq(reversePhone));
+			cm.add(new QueryBuilder.CompareCondition(Contact.ReverseMobilePhone__c).eq(reversePhone));
+			cm.add(new QueryBuilder.CompareCondition(Contact.ReverseVerifiedMobile__c).eq(reversePhone));
+			cm.add(new QueryBuilder.CompareCondition(Contact.ReversePhone__c).eq(reversePhone));
 
 			// (ReverseMobilePhone__c OR ReverseVerifiedMobile__c OR ReversePhone__c)
 			conditionsOrder.add('(' + (n + 1) + ' OR ' + (n + 2) + ' OR ' + (n + 3) + ')');
@@ -358,7 +358,7 @@ public virtual inherited sharing class ContactsSelector extends ApplicationSelec
 		cm.endConditions();
 					
 		// Configure results order
-		// qb.setOrder(new QueryBuilder.Order(Contact.UnifiedDataScore__c).setSortingOrderDesc().setNullsOrderLast());
+		qb.setOrder(new QueryBuilder.Order(Contact.UnifiedDataScore__c).setSortingOrderDesc().setNullsOrderLast());
 		qb.addOrder(new QueryBuilder.Order(Contact.FirstName).setSortingOrderAsc().setNullsOrderLast());
 		qb.addOrder(new QueryBuilder.Order(Contact.LastName).setSortingOrderAsc().setNullsOrderLast());
 
