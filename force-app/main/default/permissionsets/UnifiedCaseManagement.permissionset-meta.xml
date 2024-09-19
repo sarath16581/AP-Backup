@@ -115,12 +115,12 @@
 	<fieldPermissions>
         <editable>false</editable>
         <field>ImpactedArticle__c.Subscribed__c</field>
-        <readable>true</readable>
+        <readable>false</readable>
     </fieldPermissions>
 	<fieldPermissions>
         <editable>false</editable>
         <field>ImpactedArticle__c.SubscriptionErrorCode__c</field>
-        <readable>true</readable>
+        <readable>false</readable>
     </fieldPermissions>
     <hasActivationRequired>false</hasActivationRequired>
     <label>Unified Case Management</label>
