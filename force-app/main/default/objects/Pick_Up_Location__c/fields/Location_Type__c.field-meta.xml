@@ -17,7 +17,6 @@ Region 3 = Coffs Harbour-Newcastle-Port Macquarie-Tuggerah</inlineHelpText>
     <type>Picklist</type>
     <valueSet>
         <controllingField>State__c</controllingField>
-        <restricted>true</restricted>
         <valueSetDefinition>
             <sorted>false</sorted>
             <value>
@@ -39,6 +38,16 @@ Region 3 = Coffs Harbour-Newcastle-Port Macquarie-Tuggerah</inlineHelpText>
                 <fullName>Regional 2 (MAC, TVL, ROC)</fullName>
                 <default>false</default>
                 <label>Regional 2 (MAC, TVL, ROC)</label>
+            </value>
+            <value>
+                <fullName>Regional 1 (CBR,WOL,ALB,WAG)</fullName>
+                <default>false</default>
+                <label>Regional 1 (CBR,WOL,ALB,WAG)</label>
+            </value>
+            <value>
+                <fullName>Regional 2 (ORG,TAM)</fullName>
+                <default>false</default>
+                <label>Regional 2 (ORG,TAM)</label>
             </value>
             <value>
                 <fullName>Regional 3 (COF,NCL,PTM,TUG)</fullName>
@@ -69,24 +78,6 @@ Region 3 = Coffs Harbour-Newcastle-Port Macquarie-Tuggerah</inlineHelpText>
                 <fullName>Regional 4 (COF, NCL, PTM, TUG, TAM)</fullName>
                 <default>false</default>
                 <label>Regional 4 (COF, NCL, PTM, TUG, TAM)</label>
-            </value>
-            <value>
-                <fullName>Regional 1 (CBR, WOL, ALB, WAG, ORG)</fullName>
-                <default>false</default>
-                <isActive>false</isActive>
-                <label>Regional 1 (CBR, WOL, ALB, WAG, ORG)</label>
-            </value>
-            <value>
-                <fullName>Regional 1 (CBR,WOL,ALB,WAG)</fullName>
-                <default>false</default>
-                <isActive>false</isActive>
-                <label>Regional 1 (CBR,WOL,ALB,WAG)</label>
-            </value>
-            <value>
-                <fullName>Regional 2 (ORG,TAM)</fullName>
-                <default>false</default>
-                <isActive>false</isActive>
-                <label>Regional 2 (ORG,TAM)</label>
             </value>
         </valueSetDefinition>
         <valueSettings>

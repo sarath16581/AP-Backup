@@ -1,0 +1,89 @@
+<template>
+	<lightning-card title="Related Cases" icon-name="standard:case">
+		<!-- Cases Related Article -->
+		<lightning-card>
+			<lightning-spinner if:true={casesRelatedToArticleIsLoading} title="Loading" alternative-text="Loading data" variant="brand"></lightning-spinner>
+			<h2 class="slds-var-m-vertical_medium slds-text-align_center slds-text-heading_medium"><b>Article&apos;s Related Cases</b></h2>
+			<p if:true={casesRelatedToArticleError} class="slds-text-align_center slds-text-color_error slds-var-m-around_medium">{casesRelatedToArticleError}</p>
+			<template lwc:if={articleId}>
+				<template lwc:if={casesRelatedToArticleCount}>
+					<div class="slds-grid slds-grid_vertical">
+						<p class="slds-text-align_right slds-var-m-bottom_small">
+							{casesRelatedToArticleCount}<template if:true={casesRelatedToArticleHasMore}>+</template> Cases Found
+						</p>
+						<lightning-datatable
+							key-field="caseId"
+							data={casesRelatedToArticleRows}
+							columns={casesRelatedToArticleColumns}
+							hide-checkbox-column
+							onrowaction={handleRowAction}
+						>
+						</lightning-datatable>
+					</div>
+					<template if:true={casesRelatedToArticleHasMore}>
+						<div slot="footer" class="slds-text-align_center">
+							<a
+								href="javascript:void(0)"
+								onclick={handleViewAllCasesClick}
+								data-record-id={articleId}
+								data-object-api-name="Article__c"
+								data-relationship-api-name="Cases__r"
+							>
+								<span class="view-all-label">View All<span class="assistiveText">Cases for Contact</span></span>
+							</a>
+						</div>
+					</template>
+				</template>
+				<template lwc:else>
+					<c-empty-state illustration="desert" size="small" title-text="No Cases Related to Article"></c-empty-state>
+				</template>
+			</template>
+			<template lwc:else>
+				<h3 class="slds-var-m-vertical_medium slds-text-align_center slds-text-heading_small">No Article Selected</h3>
+			</template>
+		</lightning-card>
+
+		<!-- Contact -->
+		<lightning-card>
+			<lightning-spinner if:true={casesRelatedToContactIsLoading} title="Loading" alternative-text="Loading data" variant="brand"></lightning-spinner>
+			<h2 class="slds-var-m-vertical_medium slds-text-align_center slds-text-heading_medium"><b>Contact&apos;s Related Cases</b></h2>
+			<p if:true={casesRelatedToContactError} class="slds-text-align_center slds-text-color_error slds-var-m-around_medium">{casesRelatedToContactError}</p>
+			<template lwc:if={contactId}>
+				<template lwc:if={casesRelatedToContactCount}>
+					<div class="slds-grid slds-grid_vertical">
+						<p class="slds-text-align_right slds-var-m-bottom_small">
+							{casesRelatedToContactCount}<template if:true={casesRelatedToContactHasMore}>+</template> Cases Found
+						</p>
+						<lightning-datatable
+							key-field="caseId"
+							data={casesRelatedToContactRows}
+							columns={casesRelatedToContactColumns}
+							hide-checkbox-column
+							onrowaction={handleRowAction}
+						>
+						</lightning-datatable>
+					</div>
+					<template if:true={casesRelatedToContactHasMore}>
+						<div slot="footer" class="slds-text-align_center">
+							<a
+								href="javascript:void(0)"
+								onclick={handleViewAllCasesClick}
+								data-record-id={contactId}
+								data-object-api-name="Contact"
+								data-relationship-api-name="Cases"
+							>
+								<span class="view-all-label">View All<span class="assistiveText">Cases for Contact</span></span>
+							</a>
+						</div>
+					</template>
+				</template>
+				<template lwc:else>
+					<c-empty-state illustration="desert" size="small" title-text="No Cases Related to Contact"></c-empty-state>
+				</template>
+			</template>
+			<template lwc:else>
+				<h3 class="slds-var-m-vertical_medium slds-text-align_center slds-text-heading_small">No Contact Selected</h3>
+			</template>
+		</lightning-card>
+	</lightning-card>
+</template>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Last Mile attempted delivery</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>AP Last Mile - Attempted delivery</name>
+    <style>none</style>
+    <subject>Good news! Your delivery will soon be ready to collect on case {!Case.CaseNumber}</subject>
+    <type>custom</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

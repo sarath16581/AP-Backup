@@ -4,7 +4,7 @@
         <fullName>ICPSArticleOutboundMessagetoSAPEM</fullName>
         <apiVersion>54.0</apiVersion>
         <description>This outbound message is triggered whenever a new ICPS article record is created or whenever an existing ICPS record has it&apos;s status changed.</description>
-        <endpointUrl>https://webapi-ptestext.npe.auspost.com.au/ptest/internationalparcels/icps/v1/article/events</endpointUrl>
+        <endpointUrl>https://webapi-ptestext.npe.auspost.com.au/stest/internationalparcels/icps/v1/article/events</endpointUrl>
         <fields>EventCode__c</fields>
         <fields>ICPSReference__c</fields>
         <fields>Id</fields>

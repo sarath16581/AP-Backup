@@ -19,7 +19,9 @@ Re: Article {!Case.ReferenceID__c}
 
 We have an update on the delivery of your {!Case.ProductSubCategory__c} item.
 
-I have met with the team member responsible for the delivery of this item, and after reviewing route and tracking information, they confirmed that your parcel was awaiting collection at a nearby post office. It will be retrieved and delivered to you as soon as possible.
+I have met with the team member responsible for the delivery of this item, and after reviewing route and tracking information, they confirmed that your parcel was awaiting collection at a nearby post office. It has been retrieved and will be delivered to you as soon as possible
+
+Tracking updates are available at https://auspost.com.au/track, or on our mobile app.
 
 I’m sorry that this delivery didn’t go as planned.
 

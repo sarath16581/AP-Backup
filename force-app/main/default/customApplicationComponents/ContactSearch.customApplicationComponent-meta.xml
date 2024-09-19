@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomApplicationComponent xmlns="http://soap.sforce.com/2006/04/metadata">
-    <buttonIconUrl>https://auspost--ptest.sandbox.my.salesforce.com/resource/CTIScreenPopResources/ContactsGrey.png</buttonIconUrl>
+    <buttonIconUrl>https://https://auspost--stest.sandbox.my.salesforce.com/resource/CTIScreenPopResources/ContactsGrey.png</buttonIconUrl>
     <buttonText>Contact Search</buttonText>
     <height>600</height>
     <isHeightFixed>false</isHeightFixed>

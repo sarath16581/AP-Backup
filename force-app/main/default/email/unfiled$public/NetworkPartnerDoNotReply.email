@@ -1,0 +1,20 @@
+<!doctype html>
+<html>
+<head>
+	<title>Case Closed </title>
+</head>
+<body>
+<p><span style="font-size:11.0pt;font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;">Dear Sender,</span></p>
+
+<p><span style="font-size:11.0pt;font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;">Your  Case No {!Case.CaseNumber} is in Closed status. </span></p>
+<p><span style="font-size:11.0pt;font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;">
+Please direct any new requests or inquiries on a new email to Network Partners Query Management and Support team on <a href="businesspartner@auspost.com.au">businesspartner@auspost.com.au</a>. </p>
+
+																
+<td style="font:13px Arial, Helvetica, sans-serif; color:#807370; line-height:16px; padding:11px 0 6px;">
+																		Kind regards, <br /></br>
+																		<b style="color:#807370;">Network Partners Query Management and Support team</b>
+																		<br/><span style="color:#ffffff">{!Case.Thread_Id}</span>
+																	</td>
+</body>
+</html>

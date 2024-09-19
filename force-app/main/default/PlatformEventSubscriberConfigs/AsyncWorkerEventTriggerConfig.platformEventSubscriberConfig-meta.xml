@@ -3,5 +3,5 @@
     <batchSize>2000</batchSize>
     <masterLabel>AsyncWorkerEventTriggerConfig</masterLabel>
     <platformEventConsumer>AsyncWorkerEventTrigger</platformEventConsumer>
-    <user>apintegrationuser@auspost.com.au.ptest</user>
+    <user>apintegrationuser@auspost.com.au.stest</user>
 </PlatformEventSubscriberConfig>

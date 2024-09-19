@@ -14,9 +14,10 @@
     <columns>Geo__Longitude__s</columns>
     <filterScope>Everything</filterScope>
     <filters>
-        <field>Street_Fx__c</field>
+        <field>State__c</field>
         <operation>equals</operation>
-        <value>australis</value>
+        <value>VIC</value>
     </filters>
     <label>All VIC Locations</label>
+    <language>en_US</language>
 </ListView>
