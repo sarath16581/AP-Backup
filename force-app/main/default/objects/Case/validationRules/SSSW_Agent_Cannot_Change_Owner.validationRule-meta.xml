@@ -3,10 +3,7 @@
     <fullName>SSSW_Agent_Cannot_Change_Owner</fullName>
     <active>true</active>
     <description>SSSW Prevent Agent from changing the Case Owner, unless the Status has also been changed (as completed by System Changes)</description>
-    <errorConditionFormula>OR(
-		CONTAINS($UserRole.DeveloperName, &apos;Service_Agent&apos;),
-		$UserRole.DeveloperName = &apos;UnifiedAgent&apos;
-	)
+    <errorConditionFormula>CONTAINS($UserRole.DeveloperName, &apos;Service_Agent&apos;)
 &amp;&amp;
 ISCHANGED(OwnerId) 
 &amp;&amp;  
