@@ -7,9 +7,9 @@
 public class TIBCOArticleSubscriptionServiceTest {
 
 	/**
-	 *  Test Article Subscription with successful acknowledgement from TIBCO
-	 *  And Verify that Article__c.Subscribed flag is updated to true
-	 *  And Verify that no ExceptionLog__c is inserted
+	 * Test Article Subscription with successful acknowledgement from TIBCO
+	 * And Verify that Article__c.Subscribed flag is updated to true
+	 * And Verify that no ExceptionLog__c is inserted
 	 */
 	@IsTest
 	static void testArticleSubscriptionWithSuccessfulAcknowledgement(){
@@ -77,9 +77,9 @@ public class TIBCOArticleSubscriptionServiceTest {
 	}
 
 	/**
-	 *  Test Article Subscription with failed acknowledgement from TIBCO
-	 *  And Verify that ImpactedArticle is updated with appropriate error message
-	 *  And Verify that ExceptionLog__c is inserted
+	 * Test Article Subscription with failed acknowledgement from TIBCO
+	 * And Verify that ImpactedArticle is updated with appropriate error message
+	 * And Verify that ExceptionLog__c is inserted
 	 */
 	@IsTest
 	static void testArticleSubscriptionWithFailedAcknowledgement(){
@@ -128,9 +128,9 @@ public class TIBCOArticleSubscriptionServiceTest {
 	}
 
 	/**
-	 *  Test Article Subscription with unexpected exception
-	 *  And Verify that ImpactedArticle is updated with appropriate error message
-	 *  And Verify that ExceptionLog__c is inserted
+	 * Test Article Subscription with unexpected exception
+	 * And Verify that ImpactedArticle is updated with appropriate error message
+	 * And Verify that ExceptionLog__c is inserted
 	 */
 	@IsTest
 	static void testArticleSubscriptionWithUnexpectedException(){
@@ -178,12 +178,11 @@ public class TIBCOArticleSubscriptionServiceTest {
 	}
 
 	/**
-      * @description	   Mock webservice which simulates the response for article subscription
-      * @param			 stub, request, response, endpoint, soapAction, requestName, responseNS,
-                           responseName, responseType
-      * @return			Void
-      * @throws			NA
-      */
+	 * @description	Mock webservice which simulates the response for article subscription
+	 * @param	stub, request, response, endpoint, soapAction, requestName, responseNS, responseName, responseType
+	 * @return	Void
+	 * @throws	NA
+	*/
 	public class ArticleSubscriptionToSAPMockResponse implements WebServiceMock {
 		public Boolean acknowledgementResult;
 
