@@ -111,7 +111,7 @@
         <field>genesysps__Chat_Transcript__c.genesysps__Body__c</field>
         <readable>true</readable>
     </fieldPermissions>
-	<fieldPermissions>
+    <fieldPermissions>
         <editable>true</editable>
         <field>LiveChatTranscript.AccountId</field>
         <readable>true</readable>
@@ -210,7 +210,7 @@
         <object>genesyscloud__Packaging_Information__c</object>
         <viewAllRecords>false</viewAllRecords>
     </objectPermissions>
-	<objectPermissions>
+    <objectPermissions>
         <allowCreate>false</allowCreate>
         <allowDelete>false</allowDelete>
         <allowEdit>true</allowEdit>
