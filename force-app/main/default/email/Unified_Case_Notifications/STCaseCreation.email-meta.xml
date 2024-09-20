@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>When a Unified Investigation Case has been created</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>ST Case creation</name>
+    <style>none</style>
+    <subject>We&apos;re monitoring your case {!Case.CaseNumber}</subject>
+    <type>custom</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

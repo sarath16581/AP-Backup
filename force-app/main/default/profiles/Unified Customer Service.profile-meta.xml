@@ -11892,11 +11892,11 @@
         <recordType>Case.Transport_Enquiry</recordType>
     </layoutAssignments>
     <layoutAssignments>
-        <layout>Case-Case Layout</layout>
+        <layout>Case-Unified Case Layout</layout>
         <recordType>Case.UnifiedGeneralEnquiry</recordType>
     </layoutAssignments>
     <layoutAssignments>
-        <layout>Case-Case Layout</layout>
+        <layout>Case-Unified Case Layout</layout>
         <recordType>Case.UnifiedInvestigation</recordType>
     </layoutAssignments>
     <layoutAssignments>

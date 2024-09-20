@@ -490,6 +490,20 @@
         <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
+        <fullName>ShareUnifiedCasesWithUnifiedAgents</fullName>
+        <accessLevel>Edit</accessLevel>
+        <label>Share Unified Cases With Unified Agents</label>
+        <sharedTo>
+            <role>UnifiedAgent</role>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Unified Investigation,Unified General Enquiry</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
         <fullName>StarTrack_Account_Manager</fullName>
         <accessLevel>Read</accessLevel>
         <description>This sharing rule will allow StarTrack Account Manager group to have read only access to the specified case record type.</description>
