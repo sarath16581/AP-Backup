@@ -3,6 +3,7 @@
     <fullName>ProductCategory__c</fullName>
     <description>Mapped clearview code product category.</description>
     <externalId>false</externalId>
+    <inlineHelpText>Clearview code product category.</inlineHelpText>
     <label>Product Category</label>
     <length>255</length>
     <required>false</required>

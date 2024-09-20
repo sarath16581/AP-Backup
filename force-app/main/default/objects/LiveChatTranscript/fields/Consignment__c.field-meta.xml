@@ -4,6 +4,7 @@
     <deleteConstraint>SetNull</deleteConstraint>
     <description>Linked consignment.</description>
     <externalId>false</externalId>
+    <inlineHelpText>Linked consignment.</inlineHelpText>
     <label>Consignment</label>
     <referenceTo>Article__c</referenceTo>
     <relationshipLabel>Chat Transcripts</relationshipLabel>
