@@ -36,6 +36,7 @@ import PROP_IS_ST_FIELD from '@salesforce/schema/Apttus_Proposal__Proposal__c.Is
 import PROP_APPROVAL_REQ_STATUS from '@salesforce/schema/Apttus_Proposal__Proposal__c.Apttus_Proposal__Approval_Stage__c';
 import PROP_ACCOUNT_ROLE_TYPE from '@salesforce/schema/Apttus_Proposal__Proposal__c.Apttus_Proposal__Account__r.Role_Type_Roll_Up__c';
 import PROP_RT_ID from '@salesforce/schema/Apttus_Proposal__Proposal__c.RecordTypeId';
+import PROP_OPP_STAGE from '@salesforce/schema/Apttus_Proposal__Proposal__c.Apttus_Proposal__Opportunity__r.StageName';
 
 export default class APT_CheckoutLWC extends LightningElement {
 
@@ -67,7 +68,9 @@ export default class APT_CheckoutLWC extends LightningElement {
 	renewRecordTypeId;
 	isCheckOutOnlyRequest = false;
 	syncProductsProcessMsg = "Please wait while the system processes your request. Once processing has completed, you will be redirected to Bulk Edit Products Screen. Please click 'OK' to continue.";
-
+	opportunityStageName ='';
+	userProfileName = '';
+	salesUserProfile = 'BG Base';
 	@api
 	get errorMsg() {
 		//Disable Buttons in case of error
@@ -120,7 +123,7 @@ export default class APT_CheckoutLWC extends LightningElement {
 	/**
 	*Wire function to retrieve proposal record fields
 	*/
-	@wire(getRecord, { recordId: '$proposalId', fields: [PROP_OPP_FIELD, PROP_IS_ST_FIELD, PROP_APPROVAL_REQ_STATUS, PROP_ACCOUNT_ROLE_TYPE, PROP_RT_ID] })
+	@wire(getRecord, { recordId: '$proposalId', fields: [PROP_OPP_FIELD, PROP_IS_ST_FIELD, PROP_APPROVAL_REQ_STATUS, PROP_ACCOUNT_ROLE_TYPE, PROP_RT_ID, PROP_OPP_STAGE] })
 	getProposal({data, error}){
 		if(data){
 			if(getFieldValue(data, PROP_RT_ID) === this.amendRecordTypeId){
@@ -128,6 +131,7 @@ export default class APT_CheckoutLWC extends LightningElement {
 			}else if(getFieldValue(data, PROP_RT_ID) === this.renewRecordTypeId){
 				this.isRenew = true;
 			}
+			this.opportunityStageName = getFieldValue(data, PROP_OPP_STAGE);
 			let approvalStage = getFieldValue(data, PROP_APPROVAL_REQ_STATUS);
 			if(approvalStage === this.approvalReqStage || approvalStage === this.inReviewStage){
 				this.error = this.approvalReqErrorMsg;
@@ -162,7 +166,8 @@ export default class APT_CheckoutLWC extends LightningElement {
 	@wire(getRecord, { recordId: Id, fields: [UserProfileField] })
 	currentUserInfo({ error, data }) {
 		if (data) {
-			if (getFieldValue(data, UserProfileField) === this.customerOnboardingUserProfile) {
+			this.userProfileName = getFieldValue(data, UserProfileField);
+			if (this.userProfileName === this.customerOnboardingUserProfile) {
 				this.showManualAggBtn = true;
 			}
 
@@ -177,6 +182,10 @@ export default class APT_CheckoutLWC extends LightningElement {
 	*@param proposalId
 	*/
 	genProposal() {
+		if(this.userProfileName === this.salesUserProfile && (this.opportunityStageName === 'Identify' || this.opportunityStageName === 'Qualify')) {
+			this.error = 'Please move the Opportunity stage from ' +  this.opportunityStageName + ' to Propose or Negotiate to Generate Proposal Document';
+		}
+		else {
 		this.isLoading = true;
 		checkoutOnly({ configId: this.configId })
 			.then((result) => {
@@ -191,6 +200,7 @@ export default class APT_CheckoutLWC extends LightningElement {
 				this.error = error;
 				this.isLoading = false;
 			});
+	}
 	}
 
 	/**
@@ -282,6 +292,10 @@ export default class APT_CheckoutLWC extends LightningElement {
 	*@param proposalId
 	*/
 	genAgreement() {
+		if((this.userProfileName === this.customerOnboardingUserProfile || this.userProfileName === this.salesUserProfile) && (this.opportunityStageName === 'Identify' || this.opportunityStageName === 'Qualify')) {
+			this.error = 'Please move the Opportunity stage from ' + this.opportunityStageName + ' to Propose or Negotiate to Generate Agreement Document';
+		}
+		else {
 		this.isLoading = true;
 		checkoutOnly({ configId: this.configId })
 			.then((result) => {
@@ -303,6 +317,7 @@ export default class APT_CheckoutLWC extends LightningElement {
 				this.error = error;
 				this.isLoading = false;
 			});
+			}
 	}
 
 	/**
