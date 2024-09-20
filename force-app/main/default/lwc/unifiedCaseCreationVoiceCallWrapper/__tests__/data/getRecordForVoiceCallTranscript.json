@@ -1,0 +1,42 @@
+{
+	"apiName":"VoiceCall",
+	"childRelationships":{
+	   
+	},
+	"fields":{
+	   "Case__c":{
+		  "displayValue":null,
+		  "value":"500000000000000001"
+	   },
+	   "Consignment__c":{
+		  "displayValue":null,
+		  "value":"a1h000000000000001"
+	   },
+	   "Contact__c":{
+		  "displayValue":null,
+		  "value":"003000000000001AAA"
+	   },
+	   "EnquirySubType__c":{
+		  "displayValue":null,
+		  "value":"Late item"
+	   },
+	   "EnquiryType__c":{
+		  "displayValue":null,
+		  "value":"Investigation"
+	   },
+	   "ProductCategory__c":{
+		  "displayValue":null,
+		  "value":"Domestic"
+	   },
+	   "ProductSubCategory__c":{
+		  "displayValue":null,
+		  "value":"Express Post"
+	   }
+	},
+	"id":"570Bm000004LxKYIA0",
+	"lastModifiedById":"0052v00000bMerFAAS",
+	"lastModifiedDate":"2024-09-16T04:00:30.000Z",
+	"recordTypeId":"012000000000000AAA",
+	"recordTypeInfo":null,
+	"systemModstamp":"2024-09-16T04:00:30.000Z"
+ }

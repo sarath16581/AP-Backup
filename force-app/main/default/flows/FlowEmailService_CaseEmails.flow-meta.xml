@@ -114,7 +114,7 @@
         <description>Email alert to notify Aus Post customer on converting general enquiry Unified case to Investigation type.</description>
         <name>UnifiedGeneralEnquiryToInvestigationAPAlert</name>
         <label>UnifiedGeneralEnquiryToInvestigationAPAlert</label>
-        <locationX>616</locationX>
+        <locationX>792</locationX>
         <locationY>350</locationY>
         <actionName>Case.UnifiedGeneralEnquiryToInvestigationAP</actionName>
         <actionType>emailAlert</actionType>
@@ -136,7 +136,7 @@
         <description>Email alert to notify StarTrack customer on converting general enquiry Unified case to Investigation type.</description>
         <name>UnifiedGeneralEnquiryToInvestigationSTAlert</name>
         <label>UnifiedGeneralEnquiryToInvestigationSTAlert</label>
-        <locationX>880</locationX>
+        <locationX>1056</locationX>
         <locationY>350</locationY>
         <actionName>Case.UnifiedGeneralEnquiryToInvestigationST</actionName>
         <actionType>emailAlert</actionType>
@@ -154,6 +154,50 @@
         <offset>0</offset>
         <versionSegment>1</versionSegment>
     </actionCalls>
+    <actionCalls>
+        <description>Email alert to notify Aus Post customer on new Unified Investigation case creation.</description>
+        <name>UnifiedInvestigationCaseCreationAPAlert</name>
+        <label>UnifiedInvestigationCaseCreationAPAlert</label>
+        <locationX>264</locationX>
+        <locationY>350</locationY>
+        <actionName>Case.UnifiedInvestigationCaseCreationAP</actionName>
+        <actionType>emailAlert</actionType>
+        <connector>
+            <targetReference>Process_Flow_Email_Type_Requests</targetReference>
+        </connector>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>SObjectRowId</name>
+            <value>
+                <elementReference>Process_Flow_Email_Type_Requests.srcRecordId</elementReference>
+            </value>
+        </inputParameters>
+        <nameSegment>Case.UnifiedInvestigationCaseCreationAP</nameSegment>
+        <offset>0</offset>
+        <versionSegment>1</versionSegment>
+    </actionCalls>
+    <actionCalls>
+        <description>Email alert to notify StarTrack customer on new Unified Investigation case creation.</description>
+        <name>UnifiedInvestigationCaseCreationSTAlert</name>
+        <label>UnifiedInvestigationCaseCreationSTAlert</label>
+        <locationX>528</locationX>
+        <locationY>350</locationY>
+        <actionName>Case.UnifiedInvestigationCaseCreationST</actionName>
+        <actionType>emailAlert</actionType>
+        <connector>
+            <targetReference>Process_Flow_Email_Type_Requests</targetReference>
+        </connector>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>SObjectRowId</name>
+            <value>
+                <elementReference>Process_Flow_Email_Type_Requests.srcRecordId</elementReference>
+            </value>
+        </inputParameters>
+        <nameSegment>Case.UnifiedInvestigationCaseCreationST</nameSegment>
+        <offset>0</offset>
+        <versionSegment>1</versionSegment>
+    </actionCalls>
     <apiVersion>60.0</apiVersion>
     <decisions>
         <description>Select which static email alert will be invoked</description>
@@ -166,34 +210,34 @@
         </defaultConnector>
         <defaultConnectorLabel>Email Alert Not Found</defaultConnectorLabel>
         <rules>
-            <name>Test_Static_Email_Alert_1</name>
+            <name>UnifiedInvestigationCaseCreationAusPost</name>
             <conditionLogic>and</conditionLogic>
             <conditions>
                 <leftValueReference>Process_Flow_Email_Type_Requests.emailAlertName</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
-                    <stringValue>Test_Static_Email_Alert</stringValue>
+                    <stringValue>UnifiedInvestigationCaseCreationAP</stringValue>
                 </rightValue>
             </conditions>
             <connector>
-                <targetReference>Process_Flow_Email_Type_Requests</targetReference>
+                <targetReference>UnifiedInvestigationCaseCreationAPAlert</targetReference>
             </connector>
-            <label>Test Static Email Alert 1</label>
+            <label>UnifiedInvestigationCaseCreationAusPost</label>
         </rules>
         <rules>
-            <name>Test_Static_Email_Alert_2</name>
+            <name>UnifiedInvestigationCaseCreationStarTrack</name>
             <conditionLogic>and</conditionLogic>
             <conditions>
                 <leftValueReference>Process_Flow_Email_Type_Requests.emailAlertName</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
-                    <stringValue>Test_Static_Email_Alert_2</stringValue>
+                    <stringValue>UnifiedInvestigationCaseCreationST</stringValue>
                 </rightValue>
             </conditions>
             <connector>
-                <targetReference>Process_Flow_Email_Type_Requests</targetReference>
+                <targetReference>UnifiedInvestigationCaseCreationSTAlert</targetReference>
             </connector>
-            <label>Test Static Email Alert 2</label>
+            <label>UnifiedInvestigationCaseCreationStarTrack</label>
         </rules>
         <rules>
             <name>UnifiedGeneralEnquiryToInvestigationAusPost</name>
