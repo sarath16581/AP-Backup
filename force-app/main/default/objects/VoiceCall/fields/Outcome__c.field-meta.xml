@@ -35,10 +35,22 @@
                 <label>Enquiry updated</label>
             </value>
             <value>
+                <fullName>&gt; Domestic &gt; Metro &gt; General Enquiry</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>&gt; Domestic &gt; Metro &gt; General Enquiry</label>
+            </value>
+            <value>
                 <fullName>Pricing &gt; Domestic Letters &gt; Express Post &gt; Investigation</fullName>
                 <default>false</default>
                 <isActive>false</isActive>
                 <label>Pricing &gt; Domestic Letters &gt; Express Post &gt; Investigation</label>
+            </value>
+            <value>
+                <fullName>Pricing &gt; Domestic Parcels &gt; Parcel Post &gt; Investigation</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Pricing &gt; Domestic Parcels &gt; Parcel Post &gt; Investigation</label>
             </value>
             <value>
                 <fullName>Safety issue &gt; Domestic Parcels &gt; Courier Post &gt; General Enquiry</fullName>
