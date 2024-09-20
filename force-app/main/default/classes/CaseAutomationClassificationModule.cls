@@ -5,12 +5,16 @@
  * 2024-09-02	George Nguyen	Checked for on insert if the record type matches the type field. Included default values for when Type changes from Geneal Enquiry to Investigation
  * 2024-09-03	George Nguyen	Included default values on Insert for type and subtype
  * 2024-09-09 - Ranjeewa Silva - Updated to send email notification to customer on converting general enquiry unified case to investigation type.
+ * 2024-09-10 - Seth Heang - added After Insert Trigger to send email notification for new unified investigation case
  */
 public inherited sharing class CaseAutomationClassificationModule extends ApplicationModule {
 
 	// email alerts to use for customer notifications on converting general enquiry unified cases to investigation type.
 	@TestVisible private static final String EMAIL_ALERT_UNIFIED_GENERAL_ENQUIRY_TO_INVESTIGATION_AP = 'UnifiedGeneralEnquiryToInvestigationAP';
 	@TestVisible private static final String EMAIL_ALERT_UNIFIED_GENERAL_ENQUIRY_TO_INVESTIGATION_ST = 'UnifiedGeneralEnquiryToInvestigationST';
+	// email alerts to use for new 'unifiedInvestigation' case creation
+	@TestVisible private static final String EMAIL_ALERT_UNIFIED_INVESTIGATION_CASE_CREATION_AP = 'UnifiedInvestigationCaseCreationAP';
+	@TestVisible private static final String EMAIL_ALERT_UNIFIED_INVESTIGATION_CASE_CREATION_ST = 'UnifiedInvestigationCaseCreationST';
 
 	// Get all record types that starts with 'Unified'
 	Map<String, Id> unifiedRecordTypeDeveloperNameVsIds {
@@ -29,7 +33,7 @@ public inherited sharing class CaseAutomationClassificationModule extends Applic
 	// Constructor
 	public CaseAutomationClassificationModule() {
 		// Setup which triggers this module should respond to
-		getTriggerEvents().enableBeforeUpdate().enableBeforeInsert();
+		getTriggerEvents().enableBeforeUpdate().enableBeforeInsert().enableAfterInsert();
 	}
 
 	public override void onBeforeInsert(List<SObject> records, ApplicationUnitOfWork uow)  {
@@ -47,6 +51,15 @@ public inherited sharing class CaseAutomationClassificationModule extends Applic
 		} catch(Exception ex) {
 			// Error Logged to Exception object for analysis
 			ApplicationLogger.getInstance().logException(ApplicationLogger.wrapException(ex), SSSWConstants.UNIFIED_APP, CaseAutomationClassificationModule.class.getName(), 'onBeforeUpdate', SSSWConstants.CASE_TRIGGER, ApplicationLogger.LoggingLevel.ERROR);
+		}
+	}
+
+	public override void onAfterInsert(List<SObject> records, ApplicationUnitOfWork uow)  {
+		try {
+			sendEmailNotificationsOnUnifiedInvestigationCaseCreation(records, uow);
+		} catch(Exception ex) {
+			// Error Logged to Exception object for analysis
+			ApplicationLogger.getInstance().logException(ApplicationLogger.wrapException(ex), SSSWConstants.UNIFIED_APP, CaseAutomationClassificationModule.class.getName(), 'onAfterInsert', SSSWConstants.CASE_TRIGGER, ApplicationLogger.LoggingLevel.ERROR);
 		}
 	}
 
@@ -76,7 +89,7 @@ public inherited sharing class CaseAutomationClassificationModule extends Applic
 							// queue email notification to notify customer on unified investigation case that has
 							// been converted from unified general enquiry case. note that the email framework handles
 							// recursion scenarios (if any).
-							String emailAlertName = aCase.ProductSubCategory__c.containsIgnoreCase('StarTrack')
+							String emailAlertName = CaseUnifiedAutomationService.isStarTrackCase(aCase)
 									? EMAIL_ALERT_UNIFIED_GENERAL_ENQUIRY_TO_INVESTIGATION_ST
 									: EMAIL_ALERT_UNIFIED_GENERAL_ENQUIRY_TO_INVESTIGATION_AP;
 							uow.queueEmailNotification(aCase.Id, Case.SObjectType, emailAlertName);
@@ -93,6 +106,24 @@ public inherited sharing class CaseAutomationClassificationModule extends Applic
 						aCase.EnquirySubType__c = SSSWConstants.CASE_ENQUIRY_SUBTYPE_LATE_ITEM;
 					}
 				}
+			}
+		}
+	}
+
+	/**
+	 * @description Send AP or ST email notification using configured email alerts via the email service framework
+	 * @param records
+	 * @param uow
+	 */
+	void sendEmailNotificationsOnUnifiedInvestigationCaseCreation(List<SObject> records, ApplicationUnitOfWork uow){
+		for(Case aCase: (List<Case>)records) {
+			if (aCase.RecordTypeId == unifiedRecordTypeDeveloperNameVsIds.get(SSSWConstants.UNIFIED_INVESTIGATION_DEVELOPER_NAME)
+				&& String.isNotBlank(aCase.ContactEmail) && aCase.ProductSubCategory__c != null) {
+				// queue email notification to notify customer on new unified investigation case creation
+				String emailAlertName = CaseUnifiedAutomationService.isStarTrackCase(aCase)
+						? EMAIL_ALERT_UNIFIED_INVESTIGATION_CASE_CREATION_ST
+						: EMAIL_ALERT_UNIFIED_INVESTIGATION_CASE_CREATION_AP;
+				uow.queueEmailNotification(aCase.Id, Case.SObjectType, emailAlertName);
 			}
 		}
 	}
