@@ -76,7 +76,7 @@ public with sharing class HappyParcelController {
 	 * @return	TrackingResult
 	 */
 	@AuraEnabled(Cacheable=false)
-	public static TrackingResult queryTrackingApi(String trackingId, Boolean forceConsignmentSearch) {
+	public static TrackingResult queryTrackingApi(String trackingId, Boolean forceConsignmentSearch, String clearViewMappingModel) {
 		try {
 			TIBCOArticleService articleService = TIBCOArticleService.getInstance();
 			TIBCOSearchResult searchResult;
@@ -101,7 +101,7 @@ public with sharing class HappyParcelController {
 
 			// go through all the process results that will be outputted and provide the correct case clearview code mappings (for when a new case needs to be created)
 			// this allows the clearview codes to be defaulted with the correct values in the mini case component (or any external caller to Happy Parcel) based on the article that was queried
-			mapCaseTypesToArticleProducts(output);
+			mapCaseTypesToArticleProducts(output, clearViewMappingModel);
 
 			return output;
 		} catch (Exception e) {
@@ -332,7 +332,7 @@ public with sharing class HappyParcelController {
 			if(Schema.sObjectType.Knowledge__ka.isAccessible()){
 				Map<String, List<Knowledge__kav>> newtorkOrgIdsWithIncidents = new Map<String, List<Knowledge__kav>>();
 				//query critical incidents
-				Set<SObjectField> fieldOverrides = new Set<SObjectField>{ Knowledge__kav.Id, Knowledge__kav.NetworkOrgId__c, Knowledge__kav.Title, Knowledge__kav.UrlName };
+				Set<SObjectField> fieldOverrides = new Set<SObjectField>{ Knowledge__kav.Id, Knowledge__kav.NetworkOrgId__c, Knowledge__kav.Title, Knowledge__kav.UrlName, Knowledge__kav.KnowledgeArticleId };
 				KnowledgeArticleVersionsSelector selector = KnowledgeArticleVersionsSelector.newInstance(fieldOverrides);
 				Map<String, Object> searchParams = new Map<String, Object>();
 				searchParams.put('recordTypeNames', new Set<String>{ 'Critical_Incident' });
@@ -507,7 +507,7 @@ public with sharing class HappyParcelController {
 	 * Loop through all the search results that will be outputted and provide the correct case clearview code mappings (for when a new case needs to be created)
 	 * this allows the clearview codes to be defaulted with the correct values based on the article that was queried
 	 */
-	private static void mapCaseTypesToArticleProducts(TrackingResult result) {
+	private static void mapCaseTypesToArticleProducts(TrackingResult result, String clearViewMappingModel) {
 		Map<String, List<TrackingArticle>> articleMappingsMap = new Map<String, List<TrackingArticle>>();
 
 		if (result.consignment != null) {
@@ -535,22 +535,19 @@ public with sharing class HappyParcelController {
 				articleMappingsMap.get(key).add(article);
 			}
 		}
-		// Retrives the UI theme that user currently in.
-		String userTheme = UserInfo.getUiThemeDisplayed();
-		String mappingModel = 'Unified';
 		
-		//setting mapping model based on User UI to use this to filter the mapping records.
-		if(userTheme.equalsIgnoreCase('Theme3')){
-			mappingModel = 'Classic';
+		// get the clearview code mapping model to apply to the articles (different teams can have different clearview code mappings)
+		// if no mapping model is provided, it defaults to Classic
+		String mappingModel = 'Classic';
+		if (String.isNotBlank(clearViewMappingModel)) {
+			mappingModel = clearViewMappingModel;
 		}
+
 		// grab the clearview code mappings so we can default the clearview code fields in the mini case component
 		// this happens after the search result have been loaded into the Happy Parcel LWC components
 		// Note: We are filtering the mapping records using the mappingModel__c field this is just temporary filter and will be removed once all users moved to lightning.
 		EnquiryMappingsSelector selector = EnquiryMappingsSelector.newInstance();
-		
-        System.debug('Mapping model: ' + mappingModel);
-        System.debug('Article keys: ' + articleMappingsMap.keySet());
-        
+
 		for (MiniCaseFieldMapping__c mapping : selector.selectBySAPKeyAndMappingModel(articleMappingsMap.keySet(), new Set<String>{ mappingModel })) {
 			if(articleMappingsMap.containsKey(mapping.SAPKey__c)){
 				for (TrackingArticle article : articleMappingsMap.get(mapping.SAPKey__c)) {

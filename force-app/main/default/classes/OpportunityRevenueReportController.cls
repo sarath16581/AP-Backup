@@ -23,6 +23,7 @@ public class OpportunityRevenueReportController {
 		set;
 	}
     
+    
 	// Sub-class to represent each row of data
 	public class RevenueData {
 		@AuraEnabled public String companyName { get; set; }
@@ -33,6 +34,14 @@ public class OpportunityRevenueReportController {
 			this.productRevenues = new Map<String, Decimal>();
 		}
 	}
+    
+    public static void tempDeleteThis(RevenueData data) {
+        system.debug('company name: '+data.companyName);
+        for(String product : data.productRevenues.keyset()) {
+            system.debug('Product '+product+ ' Revenue ' + data.productRevenues.get(product));
+        }
+    }
+    
 	// Method to get revenue data
 	@AuraEnabled(cacheable=true)
 	public static List<RevenueData> getRevenueData(String opportunityId) {
@@ -67,12 +76,16 @@ public class OpportunityRevenueReportController {
 			RevenueData data = new RevenueData(childAccounts.get(mainAccountId)?.Name);
 			buildRevenueData(mainAccountId,oppLineItem.values(),customerRevenues,data);
 			revenues.add(data);
+            system.debug('**** adding revenues for main acocunts ');
+            tempDeleteThis(data);
 			// get data rows for child accounts
 			for (Account child : childAccounts.values()) {
 				if (child.Id != mainAccountId && (restrictedAccounts.isEmpty() || restrictedAccounts.contains(child.id))) {
 					data = new RevenueData(child.Name);
 					if (buildRevenueData(child.Id,oppLineItem.values(),customerRevenues,data)) {
-						revenues.add(data);
+						system.debug('**** adding revenues for child accounts ');
+                        tempdeletethis(data);
+                        revenues.add(data);
 					}
 
 				}
@@ -82,12 +95,15 @@ public class OpportunityRevenueReportController {
 				if (relatedAccount.relatedAccount__c != mainAccountId && !childAccounts.containsKey(relatedAccount.relatedAccount__c) && (restrictedAccounts.isEmpty() || restrictedAccounts.contains(relatedAccount.relatedAccount__c))) {
 					data = new RevenueData(relatedAccount.relatedAccount__r.Name);
 					if (buildRevenueData(relatedAccount.relatedAccount__c,oppLineItem.values(),customerRevenues,data)) {
+                        system.debug('**** adding revenues for related accounts ');
+                        tempdeletethis(data);
 						revenues.add(data);
 					}
 				}
 			}
 		} catch (Exception ex) {
 			// Error Logged to Exception object for analysis
+			system.debug('**** error '+ex);
 			UTIL_LoggingService.logHandledException(ex, UserInfo.getOrganizationId(), SSSWConstants.SSSW_APP,
 					AccountTriggerUtility.class.getName(), 'getRevenueData',
 					'RevenueReport', LoggingLevel.ERROR);
@@ -246,10 +262,10 @@ public class OpportunityRevenueReportController {
             Date targetDate = getDateToUse(item);
 			Integer FY = getAustralianFinancialYear(targetDate);
 			Integer startMonth = targetDate.month();
-            system.debug('*** Target Year '+FY);
-            system.debug('*** Target Month '+startMonth);
+            system.debug('*** Target '+FY +' '+startMonth);
 			Double amt = getSumOfPastTwelveMonths(accountId,item.Product2.Id,FY,startMonth,customerRevenues);
-			data.productRevenues.put(item.Product2.Name,amt);
+			system.debug('*** amt '+amt);
+            data.productRevenues.put(item.Product2.Name,amt);
 			if (!hasData && amt>0 ) {
 				hasData = true;
 			}

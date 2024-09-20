@@ -76,10 +76,7 @@ public class APT_CreateOpportunityProductLICntlr implements Queueable {
                                                             Apttus_Config2__OptionId__r.APT_Sync_with_Opportunity__c,Apttus_Config2__IsPrimaryLine__c,Apttus_Config2__LineType__c,
                                                             APT_Product_Name__c, APT_Contracted_Line_Item__c, Apttus_Config2__AttributeValueId__r.APT_Volume_Thresholds__c,
                                                             Apttus_Config2__AttributeValueId__r.APT_Non_Contracted_Rates_Printpost__c from Apttus_Config2__LineItem__c 
-                                                            where Apttus_Config2__ConfigurationId__c =:configIdSet and APT_Is_OPC_deleted__c = false and
-                                                            ((Apttus_Config2__LineType__c = 'Product/Service' and Apttus_Config2__IsPrimaryLine__c = true and Apttus_Config2__ProductId__r.APT_Sync_with_Opportunity__c = true) OR
-                                                            (Apttus_Config2__LineType__c = 'Option' and Apttus_Config2__OptionId__r.APT_Sync_with_Opportunity__c = true))]){
-
+                                                            where Apttus_Config2__ConfigurationId__c =:configIdSet and APT_Is_OPC_deleted__c = false]){
         
         
                     /* Creating a Map of the Proposal Id to the List of Related Line Item Records */
