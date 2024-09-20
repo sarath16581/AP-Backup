@@ -59,7 +59,7 @@ public inherited sharing class CaseUnifiedAutomationService {
 	 */
 	public static Id getUnifiedInvestigationCaseRecordTypeId() {
 		for (RecordType recType : VALID_UNIFIED_CASE_RECORDTYPES) {
-			if (recType.DeveloperName.equals('UnifiedInvestigation')) {
+			if (recType.DeveloperName.equalsIgnoreCase('UnifiedInvestigation')) {
 				return recType.Id;
 			}
 		}
