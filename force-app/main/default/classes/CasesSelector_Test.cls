@@ -366,7 +366,7 @@ public with sharing class CasesSelector_Test {
 		String soql = qb.toSoqlString();
 
 		Assert.isTrue(Pattern.compile('(?is)\\bWHERE ContactId IN :contactIds').matcher(soql).find(),  'Did not include the ContactId filter');
-		Assert.isTrue(Pattern.compile('(?is)\\bORDER BY IsClosed DESC, LastModifiedDate DESC').matcher(soql).find(),  'Did not include the correct ORDER BY');
+		Assert.isTrue(Pattern.compile('(?is)\\bORDER BY IsClosed ASC, LastModifiedDate DESC').matcher(soql).find(),  'Did not include the correct ORDER BY');
 	}
 
 	@IsTest
@@ -379,6 +379,6 @@ public with sharing class CasesSelector_Test {
 
 		Assert.isTrue(Pattern.compile('(?is)\\bWHERE ArticleTest__r.ArticleId__c IN :consignmentTrackingNumbers').matcher(soql).find(),  'Did not include the ArticleId__c filter');
 		Assert.isTrue(Pattern.compile('(?is)\\bOR ArticleTest__r.ConsignmentTrackingNumber__c IN :consignmentTrackingNumbers').matcher(soql).find(),  'Did not include the ConsignmentTrackingNumber__c filter');
-		Assert.isTrue(Pattern.compile('(?is)\\bORDER BY IsClosed DESC, LastModifiedDate DESC').matcher(soql).find(),  'Did not include the correct ORDER BY');
+		Assert.isTrue(Pattern.compile('(?is)\\bORDER BY IsClosed ASC, LastModifiedDate DESC').matcher(soql).find(),  'Did not include the correct ORDER BY');
 	}
 }
