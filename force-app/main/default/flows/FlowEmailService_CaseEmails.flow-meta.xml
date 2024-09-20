@@ -18,6 +18,9 @@
                 <elementReference>Process_Flow_Email_Type_Requests.srcRecordId</elementReference>
             </value>
         </inputParameters>
+        <nameSegment>Case.SSSW_Awaiting_Collection</nameSegment>
+        <offset>0</offset>
+        <versionSegment>1</versionSegment>
     </actionCalls>
     <actionCalls>
         <description>Email alert to notify customer on MyCustomer case closure due to receiving &quot;Delivered&quot; scan event message.</description>
@@ -37,6 +40,9 @@
                 <elementReference>Process_Flow_Email_Type_Requests.srcRecordId</elementReference>
             </value>
         </inputParameters>
+        <nameSegment>Case.SSSW_Email_Delivered</nameSegment>
+        <offset>0</offset>
+        <versionSegment>1</versionSegment>
     </actionCalls>
     <actionCalls>
         <description>Email alert to notify customer on MyCustomer case closure due to receiving &quot;Delivered in Safe Place&quot; scan event message.</description>
@@ -56,6 +62,9 @@
                 <elementReference>Process_Flow_Email_Type_Requests.srcRecordId</elementReference>
             </value>
         </inputParameters>
+        <nameSegment>Case.SSSW_Email_Delivered_in_a_Safe_Place</nameSegment>
+        <offset>0</offset>
+        <versionSegment>1</versionSegment>
     </actionCalls>
     <actionCalls>
         <description>Email alert to notify customer on MyCustomer case closure due to receiving &quot;Onboard with Driver&quot; scan event message.</description>
@@ -75,6 +84,9 @@
                 <elementReference>Process_Flow_Email_Type_Requests.srcRecordId</elementReference>
             </value>
         </inputParameters>
+        <nameSegment>Case.SSSW_Onboard_with_Driver</nameSegment>
+        <offset>0</offset>
+        <versionSegment>1</versionSegment>
     </actionCalls>
     <actionCalls>
         <description>Email alert to notify customer on MyCustomer case closure due to receiving &quot;Onboard with Driver International&quot; scan event message.</description>
@@ -94,6 +106,9 @@
                 <elementReference>Process_Flow_Email_Type_Requests.srcRecordId</elementReference>
             </value>
         </inputParameters>
+        <nameSegment>Case.SSSW_Onboard_with_driver_international</nameSegment>
+        <offset>0</offset>
+        <versionSegment>1</versionSegment>
     </actionCalls>
     <actionCalls>
         <description>Email alert to notify Aus Post customer on converting general enquiry Unified case to Investigation type.</description>
@@ -113,6 +128,9 @@
                 <elementReference>Process_Flow_Email_Type_Requests.srcRecordId</elementReference>
             </value>
         </inputParameters>
+        <nameSegment>Case.UnifiedGeneralEnquiryToInvestigationAP</nameSegment>
+        <offset>0</offset>
+        <versionSegment>1</versionSegment>
     </actionCalls>
     <actionCalls>
         <description>Email alert to notify StarTrack customer on converting general enquiry Unified case to Investigation type.</description>
@@ -132,6 +150,9 @@
                 <elementReference>Process_Flow_Email_Type_Requests.srcRecordId</elementReference>
             </value>
         </inputParameters>
+        <nameSegment>Case.UnifiedGeneralEnquiryToInvestigationST</nameSegment>
+        <offset>0</offset>
+        <versionSegment>1</versionSegment>
     </actionCalls>
     <apiVersion>60.0</apiVersion>
     <decisions>
