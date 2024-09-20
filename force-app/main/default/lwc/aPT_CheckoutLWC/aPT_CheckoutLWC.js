@@ -182,7 +182,7 @@ export default class APT_CheckoutLWC extends LightningElement {
 	*@param proposalId
 	*/
 	genProposal() {
-		if(this.userProfileName == this.salesUserProfile && (this.opportunityStageName === 'Identify' || this.opportunityStageName === 'Qualify')) {
+		if(this.userProfileName === this.salesUserProfile && (this.opportunityStageName === 'Identify' || this.opportunityStageName === 'Qualify')) {
 			this.error = 'Please move the Opportunity stage from ' +  this.opportunityStageName + ' to Propose or Negotiate to Generate Proposal Document';
 		}
 		else {
@@ -292,7 +292,7 @@ export default class APT_CheckoutLWC extends LightningElement {
 	*@param proposalId
 	*/
 	genAgreement() {
-		if((this.userProfileName == this.customerOnboardingUserProfile || this.userProfileName == this.salesUserProfile) && (this.opportunityStageName === 'Identify' || this.opportunityStageName === 'Qualify')) {
+		if((this.userProfileName === this.customerOnboardingUserProfile || this.userProfileName === this.salesUserProfile) && (this.opportunityStageName === 'Identify' || this.opportunityStageName === 'Qualify')) {
 			this.error = 'Please move the Opportunity stage from ' + this.opportunityStageName + ' to Propose or Negotiate to Generate Agreement Document';
 		}
 		else {
