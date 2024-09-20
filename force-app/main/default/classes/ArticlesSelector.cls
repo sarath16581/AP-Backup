@@ -12,6 +12,7 @@
  * 2023-03-10 - Mahesh Parvathaneni - Updated WITH_EVENTMESSAGES_DESC_ORDER options
  * 2024-05-29 - Seth Heang - Added ConsignmentTrackingNumber__c, FurtherReferences__c, ProductID__c, IsDelivered__c into SOQL field list 
  * 2024-04-24 - Vasu Gorakati - Added selectByArticleNames method
+ * 2024-09-09 - Seth Heang - Added selectByConsignmentIdAndChildArticles and newInstance(fieldOverrides)
  */
 public virtual inherited sharing class ArticlesSelector extends ApplicationSelector {
 
@@ -24,6 +25,18 @@ public virtual inherited sharing class ArticlesSelector extends ApplicationSelec
 
 	public static ArticlesSelector newInstance() {
 		return (ArticlesSelector)Application.Selectors.newInstance(ArticlesSelector.class);
+	}
+
+	/**
+	 * Instantiate the ArticlesSelector and passed in fieldOverrides
+	 * @param fieldOverrides NOTE: Field overrides should only ever be used when the results are not passed from method to method.
+	 *						  This approach removes data consistency and prevents possible caching of results
+	 * @return new instance of ArticlesSelector with setFieldOverrides
+	 */
+	public static ArticlesSelector newInstance(Set<SObjectField> fieldOverrides) {
+		ArticlesSelector selector = (ArticlesSelector)Application.Selectors.newInstance(ArticlesSelector.class);
+		selector.setFieldOverrides(fieldOverrides);
+		return selector;
 	}
 
 	/**
@@ -88,6 +101,32 @@ public virtual inherited sharing class ArticlesSelector extends ApplicationSelec
 	 */
 	public virtual Map<Id, Article__c> selectByArticleIds(Set<String> ids) {
 		return selectByArticleIds(ids, new Set<Object>());
+	}
+
+	/**
+	 * @description Run a query to get child articles for a specified parent consignment record
+	 * @param consignmentIds parent consignment salesforce Id
+	 * @param articlesIds child article Ids
+	 * @return List<Article__c>
+	 */
+	public virtual List<Article__c> selectByConsignmentIdAndChildArticles(Set<Id> consignmentIds, Set<String> articlesIds) {
+		return selectByConsignmentIdAndChildArticles(consignmentIds, articlesIds, new Set<Object>());
+	}
+
+	/**
+	 * @description Run a query to get child articles for a specified parent consignment record
+	 * @param consignmentIds parent consignment salesforce Id
+	 * @param articlesIds child article Ids
+	 * @param selectorOptions specify related objects that need to be retrieved with child articles
+	 * @return List<Article__c>
+	 */
+	public virtual List<Article__c> selectByConsignmentIdAndChildArticles(Set<Id> consignmentIds, Set<String> articlesIds, Set<Object> selectorOptions) {
+		QueryBuilder qb = newQueryBuilder(selectorOptions)
+			.addConditions()
+				.add(new QueryBuilder.SimpleCondition(Article__c.ArticleID__c + ' in :articlesIds'))
+				.add(new QueryBuilder.SimpleCondition(Article__c.Consignment__c + ' in :consignmentIds'))
+			.endConditions();
+		return (List<Article__c>) Database.query(qb.toSoqlString());
 	}
 
 	/**

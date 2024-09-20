@@ -6,6 +6,7 @@
  * 2024-06-13 - Parveen Kaushik - Added default value for mapping model on test data. See CSLU-470 (JIRA) for details.
  * 2024-07-23 - Ranjeewa Silva - New methods to return new ContactRequests and ImpactedArticle__c.
  * 2024-08-23 - George Nguyen - added getLiveChatTranscripts(...), getVoiceCalls(...) and updated getContactRequests(...)
+ * 2024-09-06 - Seth Heang - added new method for getCaseTeamMember and caseTeamRoleUnifiedAgent
 */
 @IsTest
 public with sharing class ApplicationTestDataFactoryCase {
@@ -178,6 +179,14 @@ public with sharing class ApplicationTestDataFactoryCase {
 		}, count), generateIds);
 	}
 
+	public static List<CaseTeamMember> getCaseTeamMembers(Integer count, Id caseId, Id memberId, Id teamRoleId, Boolean generateIds) {
+		return (List<CaseTeamMember>)ApplicationTestDataFactory.maybeGenerateIds(ApplicationTestDataFactory.populateSObjects(CaseTeamMember.SObjectType, new Map<SObjectField, Object> {
+				CaseTeamMember.ParentId => caseId,
+				CaseTeamMember.MemberId => memberId,
+				CaseTeamMember.TeamRoleId => teamRoleId
+		}, count), generateIds);
+	}
+
 	public static Id caseSSSWGeneralEnquiryRecordType {
 		get {
 			if(caseSSSWGeneralEnquiryRecordType == null) {
@@ -197,28 +206,27 @@ public with sharing class ApplicationTestDataFactoryCase {
 		}
 		private set;
 	}
-	
 	public static Id caseStarTrackDeliveryEnquiryRecordType {
 		get {
 			if(caseStarTrackDeliveryEnquiryRecordType == null) {
 				caseStarTrackDeliveryEnquiryRecordType = [Select Id From RecordType Where SObjectType = 'Case' And DeveloperName = 'StarTrack_PUD_Enquiry'].Id;
-			  }
-			  return caseStarTrackDeliveryEnquiryRecordType;
-		 }
-		 private set;
-	}
-	
-   public static Id caseStarTrackVoiceOfCustRecordType {
-	   get {
-		   if(caseStarTrackVoiceOfCustRecordType == null) {
-				caseStarTrackVoiceOfCustRecordType = [Select Id From RecordType Where SObjectType = 'Case' And DeveloperName = 'StarTrack_Voice_of_Customer'].Id;
-			 }
-			 return caseStarTrackVoiceOfCustRecordType;
+			}
+			return caseStarTrackDeliveryEnquiryRecordType;
 		}
 		private set;
-   }
+	}
 
-   public static Id caseStarTransitWarrantyClaimRecordType {
+	public static Id caseStarTrackVoiceOfCustRecordType {
+		get {
+			if(caseStarTrackVoiceOfCustRecordType == null) {
+				caseStarTrackVoiceOfCustRecordType = [Select Id From RecordType Where SObjectType = 'Case' And DeveloperName = 'StarTrack_Voice_of_Customer'].Id;
+			}
+			return caseStarTrackVoiceOfCustRecordType;
+		}
+		private set;
+	}
+
+	public static Id caseStarTransitWarrantyClaimRecordType {
 		get {
 			if(caseStarTransitWarrantyClaimRecordType == null) {
 				caseStarTransitWarrantyClaimRecordType = [Select Id From RecordType Where SObjectType = 'Case' And DeveloperName = 'StarTrack_Transit_Warranty_Claim'].Id;
@@ -227,7 +235,7 @@ public with sharing class ApplicationTestDataFactoryCase {
 		}
 		private set;
 	}
-	
+
 	public static Id casestarTrackGeneralEnquiryRecordType {
 		get {
 			if(casestarTrackGeneralEnquiryRecordType == null) {
@@ -237,7 +245,7 @@ public with sharing class ApplicationTestDataFactoryCase {
 		}
 		private set;
 	}
-	
+
 	public static Id casestarTrackCreditDisputeRecordType {
 		get {
 			if(casestarTrackCreditDisputeRecordType == null) {
@@ -278,4 +286,13 @@ public with sharing class ApplicationTestDataFactoryCase {
 		private set;
 	}
 
+	public static Id caseTeamRoleUnifiedAgent {
+		get {
+			if (caseTeamRoleUnifiedAgent == null) {
+				caseTeamRoleUnifiedAgent = [Select Id From CaseTeamRole Where Name = 'Unified Agent'].Id;
+			}
+			return caseTeamRoleUnifiedAgent;
+		}
+		private set;
+	}
 }
