@@ -72,27 +72,12 @@ public with sharing class UnifiedVoiceCallModule extends ApplicationModule {
 
 		Map<String, Contact[]> contactsByReversedPhone = new Map<String,Contact[]>();
 		for (Contact con : contactMap.values()) {
-			String reversedVerifiedMobile = con.ReverseVerifiedMobile__c;
-			String reversedMobile = con.ReverseMobilePhone__c;
-			String reversedPhone = con.ReversePhone__c;
-
-			if (!String.isBlank(reversedVerifiedMobile)) {
-				if (contactsByReversedPhone.get(reversedVerifiedMobile) == null) {
-					contactsByReversedPhone.put(reversedVerifiedMobile, new List<Contact>{con});
+			Set<String> reversedNumbers = new Set<String>{con.ReverseVerifiedMobile__c, con.ReverseMobilePhone__c, con.ReversePhone__c};
+			for (String rNumber : reversedNumbers) {
+				if (contactsByReversedPhone.get(rNumber) == null) {
+					contactsByReversedPhone.put(rNumber, new List<Contact>{con});
 				} else {
-					contactsByReversedPhone.get(reversedVerifiedMobile).add(con);
-				}
-			} else if (!String.isBlank(reversedMobile)) {
-				if (contactsByReversedPhone.get(reversedMobile) == null) {
-					contactsByReversedPhone.put(reversedMobile, new List<Contact>{con});
-				} else {
-					contactsByReversedPhone.get(reversedMobile).add(con);
-				}
-			} else if (!String.isBlank(reversedPhone)) {
-				if (contactsByReversedPhone.get(reversedPhone) == null) {
-					contactsByReversedPhone.put(reversedPhone, new List<Contact>{con});
-				} else {
-					contactsByReversedPhone.get(reversedPhone).add(con);
+					contactsByReversedPhone.get(rNumber).add(con);
 				}
 			}
 		}
