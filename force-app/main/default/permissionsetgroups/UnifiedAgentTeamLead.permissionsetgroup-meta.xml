@@ -13,5 +13,6 @@
     <permissionSets>force__EinsteinGPTServiceReplies</permissionSets>
     <permissionSets>force__EinsteinGPTWorkSummaries</permissionSets>
     <permissionSets>force__EinsteinReplyRecommendations</permissionSets>
+	<permissionSets>ServiceCloudVoiceAgent</permissionSets>
     <status>Updated</status>
 </PermissionSetGroup>
