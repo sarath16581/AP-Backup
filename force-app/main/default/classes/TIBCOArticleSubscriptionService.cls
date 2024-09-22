@@ -9,7 +9,7 @@
 public with sharing class TIBCOArticleSubscriptionService {
 	@TestVisible
 	private static final String ARTICLE_SUBSCRIPTION_FAILURE = 'Article Subscription failed with false acknowledgement.';
-	private static final String ARTICLE_SUBSCRIPTION = 'Services/CustomerContractManagement_v1/CreateAdminEventPortEndpoint';
+	private static final String ARTICLE_SUBSCRIPTION = '/Services/CustomerContractManagement_v1/CreateAdminEventPortEndpoint';
 
 	public static TIBCOArticleSubscriptionService newInstance() {
 		return (TIBCOArticleSubscriptionService) Application.Utilities.newInstance(TIBCOArticleSubscriptionService.class);
