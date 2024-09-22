@@ -1,7 +1,12 @@
 /***
  * @author Nathan Franklin
  * @date 2024-05-16
+ * @description WebService Class for managing the SOAP callout of article subscription notification to SAP via the existing TIBCO Integration.
+ * 			Thereafter, on successful acknowledgement, the existing TIBCO integration is expected to insert an event message with event type of "ADMIN-ER44" into Salesforce.
+ * 			This same integration service was previously implemented via Outbound Message, but now has been uplifted into apex code implementation for better code maintainability and exception handling.
+ * @test TIBCOArticleSubscriptionServiceTest
  * @changelog
+ * 2024-05-16 - Nathan Franklin - Created
  */
 public class TIBCOArticleSubscriptionSOAPService {
 	private static final String s_ns0 = 'http://soap.sforce.com/2005/09/outbound';
@@ -57,7 +62,6 @@ public class TIBCOArticleSubscriptionSOAPService {
 			);
 
 			response_x = response_map_x.get('response_x');
-			System.debug('SETH response_x: ' + response_x);
 
 			return response_x.Ack;
 		}

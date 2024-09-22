@@ -1,6 +1,7 @@
 /**
- * @description TIBCO Article Subscription Service sends the subscription notification to SAP via SOAP API service.
+ * @description TIBCO Article Subscription Service utilises SOAP WebService Class 'TIBCOArticleSubscriptionSOAPService' to sends the subscription notification to SAP via the existing TIBCO integration.
  *			Thereafter, the existing TIBCO integration is expected to insert an event message with event type of "ADMIN-ER44" into Salesforce.
+ * 			This same integration service was previously implemented via Outbound Message, but now has been uplifted into apex code implementation for better code maintainability, response handling and exception handling.
  * @author Seth Heang
  * @changelog:
  * 2024-09-11 - Seth Heang - created

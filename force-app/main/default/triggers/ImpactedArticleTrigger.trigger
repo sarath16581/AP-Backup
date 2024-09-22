@@ -2,6 +2,7 @@
   * @author : Seth Heang
   * @date   : 2024-09-04
   * @description  : Trigger on ImpactedArticle__c Object
+  * @test ImpactedArticleTriggerHandlerTest
   * @changelog
   * 2024-09-04 - Seth Heang - Created
   */
