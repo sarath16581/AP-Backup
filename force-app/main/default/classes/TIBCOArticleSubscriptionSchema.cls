@@ -2,7 +2,7 @@
  * @author Nathan Franklin
  * @date 2024-05-16
  * @description Schema Class used by TIBCOArticleSubscriptionSOAPService to build payloads for sending Article Subscription notifications to SAP via existing TIBCO Integration service.
- * @test TIBCOArticleSubscriptionServiceTest
+ * @test TIBCOArticleSubscriptionSchemaTest
  * @changelog
  * 2024-05-16 - Nathan Franklin - Created
  */
