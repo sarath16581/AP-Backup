@@ -160,7 +160,6 @@ export default class UnifiedCaseCreationLiveChatWrapper extends LightningElement
 	connectedCallback() {
 		// subscribe to LMS
 		this.subscribeToMessageChannel();
-		this.handleExistingCaseValidation();
 	}
 
 	disconnectedCallback() {
@@ -207,10 +206,17 @@ export default class UnifiedCaseCreationLiveChatWrapper extends LightningElement
 	 * Call apex controller to retrieve existing cases associated to this liveChat record that met specified criteria
 	 * and update warningMessage if applicable
 	 */
-	async handleExistingCaseValidation(consignmentTrackingId){
-		const existingCaseCount = await getExistingCasesCount(consignmentTrackingId);
-		if(existingCaseCount){
-			this.warningMessage = existingCaseCount + ' Existing Cases';
+	async handleExistingCaseValidation(consignmentTrackingNumber){
+		try {
+			const existingCaseCount = await getExistingCasesCount({
+				consignmentTrackingNumber: consignmentTrackingNumber
+			});
+			if(existingCaseCount){
+				this.warningMessage = existingCaseCount + ' Existing Cases';
+			}
+		} catch (error) {
+			console.error(error);
+			this.errorMessage = reduceErrors(error).join(", ");
 		}
 	}
 
