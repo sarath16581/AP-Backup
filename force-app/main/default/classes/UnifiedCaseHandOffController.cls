@@ -5,6 +5,7 @@
  * @changelog
  * 2024-06-18 - Vasu Gorakati - Case Hand-off
  * 2024-07-18 - Raghav Ravipati - Added logic to perform additional callout if we have duplicate consignments see CSLU-696 for details.
+ * 2024-09-20 - Vasu Gorakati - CSLU-799 - Schedule Contact Request Cancellation
  **/
 public with sharing class UnifiedCaseHandOffController {
 	private static final String AUSTRALIAPOST = 'AustraliaPost';
@@ -120,9 +121,14 @@ public with sharing class UnifiedCaseHandOffController {
 				}
 			}
 		}
+		
 
-		// Creating case comment before updating the case because the case record will not available to the user as its owner will change to respective queue.
+		// Creating case comment before updating the case because the case record will not visible to the user as its owner will change to respective queue.
 		createCaseComment(casedetails, casedetails.CaseTransferReason__c, handoffWrapper.comment);
+
+		//Cancel schedule contact request
+		updateContactRequestStatus(new Set<Id>{casedetails.Id});
+
 		// Add related contact for star track
 		if (handoffWrapper.businessUnit == AUSTRALIAPOST) {
 			// This is added after parent case update so that latest info is available for child cases
@@ -311,6 +317,33 @@ public with sharing class UnifiedCaseHandOffController {
 		ApplicationDatabase.getInstance().dmlInsert(new List<SObject>{ relCont });
 	}
 
+	// Private method to update the status of ContactRequests
+	private static void updateContactRequestStatus(Set<Id> parentIds) {
+		List<ContactRequest> contactRequests = new List<ContactRequest>(
+			ContactRequestsSelector.newInstance(0, new Set<SObjectField>{
+				ContactRequest.Id, ContactRequest.WhatId, ContactRequest.Status
+			}).search(new Map<String, Object>{
+				'whatIds' => parentIds
+			}, true)
+		);
+
+		// Filter the requests to update only those with status 'New' or 'Rescheduled'
+		List<ContactRequest> requestsToUpdate = new List<ContactRequest>();
+		for (ContactRequest cr : contactRequests) {
+			if (cr.Status == UnifiedConstants.CONTACT_REQUEST_STATUS_NEW || cr.Status == UnifiedConstants.CONTACT_REQUEST_STATUS_RESCHEDULED) {
+				cr.Status = UnifiedConstants.CONTACT_REQUEST_STATUS_ABANDONED; // Update status to 'Abandoned'
+				requestsToUpdate.add(cr);
+			}
+		}
+
+		// Perform the update operation using ApplicationDatabase
+		if (!requestsToUpdate.isEmpty()) {
+			ApplicationDatabase.getInstance().dmlUpdate(requestsToUpdate);
+		}
+	}  
+ 	/**
+	 * Method to get SSSW Entitlement Id
+	 */
 	public static Id getSSSWEntitlementId() {
 		List<Entitlement> entitlements = EntitlementsSelector.newInstance()
 			.selectByNameAndAccountName(new Set<String>{ SSSWConstants.SSSW_ENTITLEMENT }, new Set<String>{ SSSWConstants.ENTITLEMENT_ACC });
