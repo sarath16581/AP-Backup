@@ -5,8 +5,6 @@
  * @changelog
  */
 public inherited sharing class ProductCategoryPopulationModule extends ApplicationModule {
-	private final String MAPPING_MODEL_UNIFIED = 'Unified';
-	private final String MAPPING_MODEL_CLASSIC = 'Classic';
 
 	public ProductCategoryPopulationModule() {
 		getTriggerEvents().enableBeforeInsert().enableBeforeUpdate();
@@ -68,10 +66,9 @@ public inherited sharing class ProductCategoryPopulationModule extends Applicati
 	 */
 	@TestVisible
 	private Map<Id, Map<String, MiniCaseFieldMapping__c>> getEnquiryMappingForArticles(Set<Id> articleIds) {
-		Set<String> mappingModels = new Set<String>{MAPPING_MODEL_UNIFIED, MAPPING_MODEL_CLASSIC};
-		
 		EnquiryMappingService enquiryMappingInstance = EnquiryMappingService.getInstance();
-		return enquiryMappingInstance.getEnquiryMappingsByMappingModelAndArticleIds(articleIds, mappingModels);
+
+		return enquiryMappingInstance.getEnquiryMappingsByMappingModelAndArticleIds(articleIds);
 	}
 	/**
 	 * @Description: Queries the case record which is on the livechat transcript to determine its mapping model based on its recordtype 
@@ -89,9 +86,9 @@ public inherited sharing class ProductCategoryPopulationModule extends Applicati
 		for (Case caseRecord : caseSelector.selectById(caseIds, selectorOptions).values()) {
 			// check if the record type is unified
 			if (CommonUtils.isUnifiedCase(caseRecord.RecordType.DeveloperName)) {
-				caseIdWithMappingModel.put(caseRecord.Id, MAPPING_MODEL_UNIFIED);
+				caseIdWithMappingModel.put(caseRecord.Id, EnquiryMappingService.MAPPING_MODEL_UNIFIED);
 			} else {
-				caseIdWithMappingModel.put(caseRecord.Id, MAPPING_MODEL_CLASSIC);
+				caseIdWithMappingModel.put(caseRecord.Id, EnquiryMappingService.MAPPING_MODEL_CLASSIC);
 			}
 		}
 
@@ -110,7 +107,8 @@ public inherited sharing class ProductCategoryPopulationModule extends Applicati
 		Map<Id, Map<String, MiniCaseFieldMapping__c>> articlesWithEnquiryMappings
 	) {
 		for (LiveChatTranscript chatTranscript : transcripts) {
-			String mappingModel = MAPPING_MODEL_UNIFIED;
+			// Defaulting to the Unified Mapping Model as LiveChatTranscript's ProductCategory and ProductSubCategory is currently only used by Unified Team.
+			String mappingModel = EnquiryMappingService.MAPPING_MODEL_UNIFIED;
 			
 			if (mappingModelsFromCaseRecords != null && articlesWithEnquiryMappings != null) {
 
@@ -118,8 +116,8 @@ public inherited sharing class ProductCategoryPopulationModule extends Applicati
 					mappingModel = mappingModelsFromCaseRecords.get(chatTranscript.CaseId);
 				}
 				if(chatTranscript.Consignment__c != null){					
-					chatTranscript.ProductCategory__c = articlesWithEnquiryMappings.get(chatTranscript.Consignment__c).get(mappingModel).ProductCategory__c;
-					chatTranscript.ProductSubcategory__c = articlesWithEnquiryMappings.get(chatTranscript.Consignment__c).get(mappingModel).ProductSubcategory__c;
+					chatTranscript.ProductCategory__c = articlesWithEnquiryMappings.get(chatTranscript.Consignment__c)?.get(mappingModel)?.ProductCategory__c;
+					chatTranscript.ProductSubcategory__c = articlesWithEnquiryMappings.get(chatTranscript.Consignment__c)?.get(mappingModel)?.ProductSubcategory__c;
 				}
 			}
 		}

@@ -7,6 +7,8 @@
 public with sharing class EnquiryMappingService {
 	private final String ARTICLE_RECORD_TYPE_CONSIGNMENT = 'Consignment';
 	private final String ARTICLE_RECORD_TYPE_ARTICLE = 'Article';
+	public static final String MAPPING_MODEL_UNIFIED = 'Unified';
+	public static final String MAPPING_MODEL_CLASSIC = 'Classic';
 	/**
 	 * Returns a new instance of the service
 	 * @return new instance
@@ -14,6 +16,17 @@ public with sharing class EnquiryMappingService {
 	public static EnquiryMappingService getInstance() {
 		return (EnquiryMappingService) Application.Utilities.getInstance(EnquiryMappingService.class);
 	}
+	/**
+	 * @description: Calls a service class method to get the product category and product sub category from enqury mappings based on the article's ProductCategory__c and SubProduct__c fields.
+	 * @param articleIds: Article object record ids.
+	 * @return A map of article Id and is respective enquiry mapping.
+	 */
+	public Map<Id, Map<String, MiniCaseFieldMapping__c>> getEnquiryMappingsByMappingModelAndArticleIds(Set<Id> articleIds) {
+		Set<String> mappingModels = new Set<String>{MAPPING_MODEL_UNIFIED, MAPPING_MODEL_CLASSIC};
+
+		return getEnquiryMappingsByMappingModelAndArticleIds(articleIds, mappingModels);
+	}
+	
 	/**
 	 * @description: Calls a service class method to get the product category and product sub category from enqury mappings based on the article's ProductCategory__c and SubProduct__c fields.
 	 * @param articleIds: Article object record ids.
@@ -72,7 +85,7 @@ public with sharing class EnquiryMappingService {
 			(String.isEmpty(article.ProductCategory__c) ? '' : article.ProductCategory__c.trim()) +
 			(String.isEmpty(article.SubProduct__c) ? '' : article.SubProduct__c.trim());
 		} 
-		// If consignment, the we use the recent related article's fields
+		// If consignment, then we use the recent related article's fields
 		else if (article.RecordType.DeveloperName == ARTICLE_RECORD_TYPE_CONSIGNMENT && article.Articles__r.size() > 0) {
 		  Article__c childArticle = article.Articles__r[0];
 		  sapKey =
