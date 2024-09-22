@@ -1,89 +1,105 @@
 <!--
 Description: This page is used in Task List View in Side Panel.
 History:
-Oct 26, 2016     Jen Karen Tan    Created
+Oct 26, 2016	 Jen Karen Tan	Created
+2024-09-20	   Vasu Gorakati	Case Hand-off - Voice call records visibility to classic users
 -->
 <apex:page standardStylesheets="true" standardController="Case" extensions="StarTrackTaskRListSidePanel_Controller" showHeader="false" sidebar="false" docType="html-5.0">
-    <apex:includeScript value="/support/console/34.0/integration.js"/>
-    <script src="//code.jquery.com/jquery-1.10.1.min.js"></script>   
-    <script>
-        function getPrimaryTabIdAndOpenSubtab(objId, label) {
-            if(sforce && sforce.console && sforce.console.isInConsole()){
-                objectId = objId;
-                tabLabel = label;
-                sforce.console.getEnclosingPrimaryTabId(openSubtab);
-             }
-        }
+	<apex:includeScript value="/support/console/34.0/integration.js"/>
+	<script src="//code.jquery.com/jquery-1.10.1.min.js"></script>   
+	<script>
+		function getPrimaryTabIdAndOpenSubtab(objId, label) {
+			if(sforce && sforce.console && sforce.console.isInConsole()){
+				objectId = objId;
+				tabLabel = label;
+				sforce.console.getEnclosingPrimaryTabId(openSubtab);
+			 }
+		}
 
-        var openSubtab = function openSubtab(result) {
-            var primaryTabId = result.id;
-            sforce.console.openSubtab(primaryTabId , '/' + objectId, true,
-                tabLabel, null);
-            //sforce.console.refreshPrimaryTabById(primaryTabId, true);
+		var openSubtab = function openSubtab(result) {
+			var primaryTabId = result.id;
+			sforce.console.openSubtab(primaryTabId , '/' + objectId, true,
+				tabLabel, null);
+			//sforce.console.refreshPrimaryTabById(primaryTabId, true);
 
-        };
-    </script>
-    <style>
-        thead th {
-            font-size: 80%;
-        }
-    
-        tbody td {
-            font-size: 80%;
-        }
-    </style>
-    <div class="slds">
-    <apex:pageMessages id="pageMsg"/>
-    <apex:stylesheet value="{!URLFOR($Resource.slds, 'assets/styles/salesforce-lightning-design-system-vf.css')}"/>
-    <apex:form id="pageForm">
-        <br/>
-        <apex:outputPanel id="mainPanel">
-            <apex:outputText value="No records found." style="color:gray; font-style:italic; padding-left:2em;" rendered="{!taskList.size == 0}" escape="false"/>
-            <apex:outputPanel rendered="{!taskList.size > 0}" id="tasksPanel">
-                <div class="slds-scrollable--x slds-scrollable--y" style="overflow:auto; width:100%;" id="firstDiv">
-                    <table class="slds-table slds-table--bordered" id="consignmentEventsTable">
-                        <thead>
-                            <tr class="slds-text-heading--label">
-                                <apex:repeat value="{!$ObjectType.Task.FieldSets.Task_List_View}" var="tsk">
-                                    <th scope="col">
-                                        <span class="slds-truncate">
-                                            <apex:outputText value="{!tsk.label}"/>                                            
-                                        </span>
-                                    </th>
-                                </apex:repeat>
-                             </tr>
-                        </thead>
-                        <tbody>
-                            <apex:repeat value="{!taskList}" var="tskObj">
-                                <tr class="slds-hint-parent">
-                                    <apex:repeat value="{!$ObjectType.Task.FieldSets.Task_List_View}" var="tsk">
-                                        <td data-label="{!tsk.label}" role="row">
-                                            <span class="slds-truncate">
-                                                <apex:outputField value="{!tskObj[tsk]}" rendered="{!tsk != 'Subject'}"/>
-                                                <apex:outputLink value="{!tskObj[tsk]}" onclick="getPrimaryTabIdAndOpenSubtab('{!tskObj.Id}', '');" rendered="{!tsk == 'Subject'}">
-                                                    <apex:outputText value="{!tskObj[tsk]}"/>
-                                                </apex:outputLink>
-                                            </span>
-                                        </td>
-                                    </apex:repeat>
-                                </tr>
-                            </apex:repeat>
-                        </tbody>
-                    </table>
-                </div>
-            </apex:outputPanel>
-            <br/>
-            <apex:outputPanel rendered="{!taskList.size > 0}" id="buttonsContainer" style="position: relative; left: 39%; font-size: 12px;">
-                <apex:commandLink action="{!previous}" value="<< Previous" rerender="tasksPanel, mainPanel" rendered="{!NOT(disablePreviousBtn)}"/>
-                <apex:outputText value="<< Previous" rendered="{!disablePreviousBtn}" />
-                &nbsp;
-                <apex:outputText value="|" />
-                &nbsp;
-                <apex:commandLink action="{!next}" value="Next >>" rerender="tasksPanel, mainPanel" rendered="{!NOT(disableNextBtn)}"/>
-                <apex:outputText value="Next >>" rendered="{!disableNextBtn}" />
-            </apex:outputPanel>
-            <br/>
-            </apex:outputPanel>
-    </apex:form>
-    </div>
+		};
+	</script>
+	<style>
+		thead th {
+			font-size: 80%;
+		}
+	
+		tbody td {
+			font-size: 80%;
+		}
+	</style>
+	<div class="slds">
+	<apex:pageMessages id="pageMsg"/>
+	<apex:stylesheet value="{!URLFOR($Resource.slds, 'assets/styles/salesforce-lightning-design-system-vf.css')}"/>
+	<apex:form id="pageForm">
+		<br/>
+		<apex:outputPanel id="mainPanel">
+			<apex:outputText value="No records found." style="color:gray; font-style:italic; padding-left:2em;" rendered="{!taskList.size == 0}" escape="false"/>
+			<apex:outputPanel rendered="{!taskList.size > 0}" id="tasksPanel">
+				<div class="slds-scrollable--x slds-scrollable--y" style="overflow:auto; width:100%;" id="firstDiv">
+					<table class="slds-table slds-table--bordered" id="consignmentEventsTable">
+						<thead>
+							<tr class="slds-text-heading--label">
+								<apex:repeat value="{!$ObjectType.Task.FieldSets.Task_List_View}" var="tsk">
+									<th scope="col">
+										<span class="slds-truncate">
+											<apex:outputText value="{!tsk.label}"/>											
+										</span>
+									</th>
+								</apex:repeat>
+							 </tr>
+						</thead>
+						<tbody>
+							<apex:repeat value="{!taskList}" var="tskObj">
+								<tr class="slds-hint-parent">
+									<apex:repeat value="{!$ObjectType.Task.FieldSets.Task_List_View}" var="tsk">
+										<td data-label="{!tsk.label}" role="row">
+											<span class="slds-truncate">
+												<apex:outputField value="{!tskObj[tsk]}" rendered="{!tsk != 'Subject'}"/>
+												<apex:outputLink value="{!tskObj[tsk]}" onclick="getPrimaryTabIdAndOpenSubtab('{!tskObj.Id}', '');" rendered="{!tsk == 'Subject'}">
+													<apex:outputText value="{!tskObj[tsk]}"/>
+												</apex:outputLink>
+											</span>
+										</td>
+									</apex:repeat>
+								</tr>
+							</apex:repeat>
+						</tbody>
+					</table>
+				</div>
+			</apex:outputPanel>
+			<br/>
+			<apex:outputPanel rendered="{!taskList.size > 0}" id="buttonsContainer" style="position: relative; left: 39%; font-size: 12px;">
+				<apex:commandLink action="{!previous}" value="<< Previous" rerender="tasksPanel, mainPanel" rendered="{!NOT(disablePreviousBtn)}"/>
+				<apex:outputText value="<< Previous" rendered="{!disablePreviousBtn}" />
+				&nbsp;
+				<apex:outputText value="|" />
+				&nbsp;
+				<apex:commandLink action="{!next}" value="Next >>" rerender="tasksPanel, mainPanel" rendered="{!NOT(disableNextBtn)}"/>
+				<apex:outputText value="Next >>" rendered="{!disableNextBtn}" />
+			</apex:outputPanel>
+			<br/>
+			</apex:outputPanel>
+	</apex:form>
+		<apex:form id="voiceCallForm" rendered="{!NOT(voiceCalls == null)}">
+			<apex:outputText>				
+				<br/>
+				<b>Voice Calls</b>
+				<br/>
+				<br/>
+			</apex:outputText>
+			
+			<apex:dataTable value="{!voiceCalls}" var="vc" styleClass="list table table-bordered table-hover" rowClasses="dataRow">
+				<apex:column value=" {!vc.Name}" headerValue="Voice Call"/>
+				<apex:column value=" {!vc.CallStartDateTime}" headerValue="Call Started"/>
+				<apex:column value=" {!vc.CallEndDateTime}" headerValue="Call Ended"/>
+				<apex:column value=" {!vc.CallType}" headerValue="Call Type"/>
+			</apex:dataTable>
+		</apex:form>
+	</div>
 </apex:page>

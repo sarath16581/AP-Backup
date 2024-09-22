@@ -9,6 +9,7 @@ History
 26/11/2018  saiswetha.pingali@auspost.com.au	 Added new field container_Id__c for REQ1469903
 12/07/2019  ronnie.yang@sodastrategic.com.au	 Rearranged the order of elements the Network Response tab REQ1850466
 2021-10-06 - Nathan Franklin - Changed Safe Drop capability to Delivery Proof (with a PDF)
+2024-09-20 - Vasu Gorakati - Case Hand-off - Voice call records visibility to classic users
 -->
 <apex:page standardController="Case" extensions="CaseRelatedListPanelContExt" standardStylesheets="false" showHeader="false" sidebar="false">
 
@@ -81,16 +82,6 @@ History
 			font-weight: bold;
 		}
 
-		/* Fix for TIBCO Panel (Article tab) */
-	   /* #Articles h4 {
-			margin: 0;
-			display: inline;
-		}
-		#Articles input[type="checkbox"],
-		#Articles thead>tr>th:first-child,
-		#Articles td.articleTicks {
-			display: none;
-		}*/
 	</style>
 
 	<script type="text/javascript">
@@ -212,7 +203,7 @@ History
 				// this is required for the Omni channel routing pilot. 
 				if({!currentUserIsPartOfOmniGroup} && url != undefined) {
 					var omniRedirectURL = '/apex/OmniBugRedirect?isdtp=vw&url=' + encodeURIComponent(url);
-            		sforce.console.openSubtab(result.id, omniRedirectURL, true, tabName, null);
+					sforce.console.openSubtab(result.id, omniRedirectURL, true, tabName, null);
 				} else {
 					sforce.console.openSubtab(result.id, url, true, tabName, null);
 				}
@@ -554,15 +545,26 @@ History
 					</tbody>
 				</table>
 			</apex:outputPanel>
-			<!-- apex:form >
-				<c:TIBCODataVisualizerComponent searchResult="{!articles}" enableCreateCase="false"/>
-			</apex:form-->
 		</div>
 
 		<div class="tab-pane fade" id="Activities">
 			<apex:relatedList list="ActivityHistories" >
 				<apex:facet name="footer"><script>initialiseAll();</script></apex:facet>
 			</apex:relatedList>
+			
+			<apex:outputText rendered="{!NOT(voiceCalls == null)}">				
+				<br/>
+				<b>Voice Calls</b>
+				<br/>
+				<br/>
+			</apex:outputText>
+ 
+			<apex:dataTable value="{!voiceCalls}" var="vc" styleClass="list table table-bordered table-hover" rowClasses="dataRow" rendered="{!NOT(voiceCalls == null)}">
+				<apex:column value=" {!vc.Name}" headerValue="Voice Call"/>
+				<apex:column value=" {!vc.CallStartDateTime}" headerValue="Call Started"/>
+				<apex:column value=" {!vc.CallEndDateTime}" headerValue="Call Ended"/>
+				<apex:column value=" {!vc.CallType}" headerValue="Call Type"/>
+			</apex:dataTable>
 		</div>
 
 		<div class="tab-pane fade" id="Emails">
@@ -744,10 +746,6 @@ History
 				<apex:column value="{!stsTrck.BusinessTime__c}" headerValue="Business Time"/>
 				<apex:column value="{!stsTrck.CreatedDateList__c}" headerValue="Created Date"/>
 			</apex:dataTable>
-
-			<!--<apex:relatedList list="Status_Tracking__r">
-				<apex:facet name="footer"><script>initialiseAll();</script></apex:facet>
-			</apex:relatedList>-->
 		</div>
 
 		<div class="tab-pane fade" id="AuthorisedContacts">
