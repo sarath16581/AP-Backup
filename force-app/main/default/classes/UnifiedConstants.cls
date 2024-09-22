@@ -10,4 +10,8 @@ public with sharing class UnifiedConstants {
 	public static final String CASE_STATUS_CLOSED = 'Closed';
 	public static final String CASE_PRIORITY_NORMAL = 'Normal';
 	public static final String CASE_CONTYPE_RECEIVER = 'Receiver';
+	// Contact Request Status constants
+	public static final String CONTACT_REQUEST_STATUS_NEW = 'New';
+	public static final String CONTACT_REQUEST_STATUS_RESCHEDULED = 'Rescheduled';
+	public static final String CONTACT_REQUEST_STATUS_ABANDONED = 'Abandoned';
 }
