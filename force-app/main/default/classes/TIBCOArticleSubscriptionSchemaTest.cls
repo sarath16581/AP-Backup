@@ -23,11 +23,12 @@ private class TIBCOArticleSubscriptionSchemaTest {
 
 		// Modify and test the fields
 		aggregateResult.fieldsToNull = new String[] {'Field1', 'Field2'};
-		aggregateResult.Id = '0012v00002ID9jFAAT';
+		Id caseId = ApplicationTestDataFactory.getCases(1, true)[0].Id;
+		aggregateResult.Id = caseId;
 
 		// Check the modified values
 		Assert.areEqual(2, aggregateResult.fieldsToNull.size(), 'fieldsToNull should have 2 elements');
-		Assert.areEqual('0012v00002ID9jFAAT', aggregateResult.Id, 'Id should be set to the correct value');
+		Assert.areEqual(caseId, aggregateResult.Id, 'Id should be set to the correct value');
 	}
 
 	/**
@@ -51,9 +52,11 @@ private class TIBCOArticleSubscriptionSchemaTest {
 		Assert.areEqual(null, caseInstance.Subject, 'Subject should be null');
 		Assert.areEqual(null, caseInstance.Type_x, 'Type_x should be null');
 
+
+		Id caseId = ApplicationTestDataFactory.getCases(1, true)[0].Id;
 		// Modify and test the fields
 		caseInstance.fieldsToNull = new String[] {'Field1', 'Field2'};
-		caseInstance.Id = '5002v00001ABCDf';
+		caseInstance.Id = caseId;
 		caseInstance.ArticleCount_xc = '10';
 		caseInstance.CaseNumber = '00012345';
 		caseInstance.EventCode_xc = 'EC123';
@@ -66,7 +69,7 @@ private class TIBCOArticleSubscriptionSchemaTest {
 
 		// Check the modified values
 		Assert.areEqual(2, caseInstance.fieldsToNull.size(), 'fieldsToNull should have 2 elements');
-		Assert.areEqual('5002v00001ABCDf', caseInstance.Id, 'Id should be set to the correct value');
+		Assert.areEqual(caseId, caseInstance.Id, 'Id should be set to the correct value');
 		Assert.areEqual('10', caseInstance.ArticleCount_xc, 'ArticleCount_xc should be set to 10');
 		Assert.areEqual('00012345', caseInstance.CaseNumber, 'CaseNumber should be set to 00012345');
 		Assert.areEqual('EC123', caseInstance.EventCode_xc, 'EventCode_xc should be set to EC123');
@@ -91,10 +94,11 @@ private class TIBCOArticleSubscriptionSchemaTest {
 
 		// Modify and test the fields
 		sObjectInstance.fieldsToNull = new String[] {'Field1', 'Field2'};
-		sObjectInstance.Id = '0012v00002ID9kFAA';
+		Id caseId = ApplicationTestDataFactory.getCases(1, true)[0].Id;
+		sObjectInstance.Id = caseId;
 
 		// Check the modified values
 		Assert.areEqual(2, sObjectInstance.fieldsToNull.size(), 'fieldsToNull should have 2 elements');
-		Assert.areEqual('0012v00002ID9kFAA', sObjectInstance.Id, 'Id should be set to the correct value');
+		Assert.areEqual(caseId, sObjectInstance.Id, 'Id should be set to the correct value');
 	}
 }
