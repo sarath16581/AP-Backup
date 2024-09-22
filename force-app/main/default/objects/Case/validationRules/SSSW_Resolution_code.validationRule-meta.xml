@@ -11,7 +11,10 @@ NOT(ClosedBySystem__c)
 &amp;&amp; 
 ISBLANK(TEXT(ResolutionCode__c))
 &amp;&amp;
-CONTAINS(RecordType.DeveloperName, &quot;SSSW&quot;)
+OR(
+  CONTAINS(RecordType.DeveloperName, &quot;SSSW&quot;),
+  BEGINS(RecordType.DeveloperName, &apos;Unified&apos;)
+)
 &amp;&amp;
 NOT(ISNEW())</errorConditionFormula>
     <errorDisplayField>ResolutionCode__c</errorDisplayField>

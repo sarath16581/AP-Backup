@@ -2,6 +2,7 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>EnquirySubType__c</fullName>
     <description>SSSW - Dependant on Sub Product</description>
+    <inlineHelpText>SSSW - Dependent on Sub Product</inlineHelpText>
     <externalId>false</externalId>
     <label>Enquiry Sub Type</label>
     <required>false</required>
@@ -3224,6 +3225,7 @@
             <valueName>Facility reported damages</valueName>
         </valueSettings>
         <valueSettings>
+            <controllingFieldValue>Unified Model</controllingFieldValue>
             <controllingFieldValue>General Enquiry|Domestic Parcels|Metro</controllingFieldValue>
             <controllingFieldValue>General Enquiry|Domestic Letters|Premium Unaddressed Mail</controllingFieldValue>
             <controllingFieldValue>General Enquiry|Domestic Parcels|Cash on Delivery</controllingFieldValue>
