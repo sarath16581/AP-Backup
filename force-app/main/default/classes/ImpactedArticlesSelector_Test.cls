@@ -51,9 +51,9 @@ private class ImpactedArticlesSelector_Test {
 			Article__c.SObjectType => new Set<SObjectField>{ Article__c.ArticleID__c }
 		};
 
-		ImpactedArticlesSelector selector = ImpactedArticlesSelector.newInstance(overrideFields);
-		QueryBuilder qb = selector.newQueryBuilder(new Set<Object>{ ImpactedArticlesSelector.Options.WITH_CASE, ImpactedArticlesSelector.Options.WITH_ARTICLE });
-		String soql = qb.toSoqlString();
+		selector = ImpactedArticlesSelector.newInstance(overrideFields);
+		qb = selector.newQueryBuilder(new Set<Object>{ ImpactedArticlesSelector.Options.WITH_CASE, ImpactedArticlesSelector.Options.WITH_ARTICLE });
+		soql = qb.toSoqlString();
 		Assert.areEqual(true, Pattern.compile('(?ism)\\bArticle__c\\b.*?\\bfrom ImpactedArticle__c\\b').matcher(soql).find(), 'Resulting query does not select Article__c field: ' + soql);
 		Assert.areEqual(true, Pattern.compile('(?ism)\\bCase__c\\b.*?\\bfrom ImpactedArticle__c\\b').matcher(soql).find(), 'Resulting query does not select Case__c field: ' + soql);
 		Assert.areEqual(true, Pattern.compile('(?ism)\\bCase__r.Id\\b.*?\\bfrom ImpactedArticle__c\\b').matcher(soql).find(), 'Resulting query does not select Case__r.Id field: ' + soql);
