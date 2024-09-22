@@ -26,7 +26,6 @@
  * 2024-07-10 - Vasu Gorakati - Added method getImpactedArticles
  * 2024-07-26 - Seth Heang - Added method getScheduledActions
  * 2024-07-19 - Nathan Franklin - resetting data factory due to some overwrites
- * 2024-09-10 - SteveL - added method to getVoiceCalls method
 */
 @IsTest
 public with sharing class ApplicationTestDataFactory {
@@ -1191,17 +1190,6 @@ public with sharing class ApplicationTestDataFactory {
 			ImpactedArticle__c.Case__c => caseId,
 			ImpactedArticle__c.Article__c => articleId
 		}, count), generateIds);
-	}
-
-	/**
-	 * @param count Integer
-	 * @param generateIds Boolean
-	 * @description generate test Voice Call data
-	 *
-	 * @return List<VoiceCall>
-	 */
-	public static List<VoiceCall> getVoiceCalls(Integer count, Boolean generateIds) {
-		return (List<VoiceCall>)maybeGenerateIds(populateSObjects(VoiceCall.SObjectType, new Map<SObjectField, Object>(), count), generateIds);
 	}
 
 	/**

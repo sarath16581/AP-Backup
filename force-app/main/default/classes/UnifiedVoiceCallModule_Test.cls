@@ -25,7 +25,8 @@ private class UnifiedVoiceCallModule_Test {
 			'ReverseMobilePhone__c' => '654321044'
 		});
 
-		VoiceCall vc = ApplicationTestDataFactory.getVoiceCalls(1, true)[0];
+		Case aCase = ApplicationTestDataFactoryCase.getCases(1, new Set<Id>{contacts[0].Id}, true)[0];
+		VoiceCall vc = ApplicationTestDataFactoryCase.getVoiceCalls(new List<Id>{aCase.Id}, true)[0];
 
 		ConversationParticipant caller = new ConversationParticipant();
 		caller = (ConversationParticipant)ApplicationTestDataFactory.setUnwritableFields(caller, new Map<String, Object>{
