@@ -452,7 +452,7 @@ public virtual inherited sharing class CasesSelector extends ApplicationSelector
 		conditions.add(new QueryBuilder.SimpleCondition('ContactId IN :contactIds'));
 		conditions.endConditions();
 
-		qb.setOrder(new QueryBuilder.Order(Case.IsClosed).setSortingOrderDesc());
+		qb.setOrder(new QueryBuilder.Order(Case.IsClosed).setSortingOrderAsc());
 		qb.addOrder(new QueryBuilder.Order(Case.LastModifiedDate).setSortingOrderDesc());
 
 		return qb;
@@ -500,7 +500,7 @@ public virtual inherited sharing class CasesSelector extends ApplicationSelector
 		conditions.setConditionOrder('1 OR 2');
 		conditions.endConditions();
 
-		qb.setOrder(new QueryBuilder.Order(Case.IsClosed).setSortingOrderDesc());
+		qb.setOrder(new QueryBuilder.Order(Case.IsClosed).setSortingOrderAsc());
 		qb.addOrder(new QueryBuilder.Order(Case.LastModifiedDate).setSortingOrderDesc());
 		return qb;
 	}

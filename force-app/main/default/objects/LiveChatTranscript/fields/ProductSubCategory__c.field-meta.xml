@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>ProductSubCategory__c</fullName>
+    <description>Mapped clearview code product subcategory.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Clearview code product subcategory.</inlineHelpText>
+    <label>Product Sub Category</label>
+    <length>255</length>
+    <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
+    <trackHistory>false</trackHistory>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>
