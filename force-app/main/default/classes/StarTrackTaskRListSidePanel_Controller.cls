@@ -4,7 +4,7 @@
  ** Date Created: OCT.26.2016
  ** History:--------------------------------------------
  **	 OCT.26.2016	 Jen Karen Tan - Created
- **	 2024-09-20	     Vasu Gorakati - Case Hand-off - Voice call records visibility to classic users
+ **	 2024-09-20		 Vasu Gorakati - Case Hand-off - Voice call records visibility to classic users
  **/
  public class StarTrackTaskRListSidePanel_Controller {
 	public Case caseRecord {get; set;}
