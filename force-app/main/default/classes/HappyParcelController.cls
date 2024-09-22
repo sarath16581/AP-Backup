@@ -332,7 +332,7 @@ public with sharing class HappyParcelController {
 			if(Schema.sObjectType.Knowledge__ka.isAccessible()){
 				Map<String, List<Knowledge__kav>> newtorkOrgIdsWithIncidents = new Map<String, List<Knowledge__kav>>();
 				//query critical incidents
-				Set<SObjectField> fieldOverrides = new Set<SObjectField>{ Knowledge__kav.Id, Knowledge__kav.NetworkOrgId__c, Knowledge__kav.Title, Knowledge__kav.UrlName };
+				Set<SObjectField> fieldOverrides = new Set<SObjectField>{ Knowledge__kav.Id, Knowledge__kav.NetworkOrgId__c, Knowledge__kav.Title, Knowledge__kav.UrlName, Knowledge__kav.KnowledgeArticleId };
 				KnowledgeArticleVersionsSelector selector = KnowledgeArticleVersionsSelector.newInstance(fieldOverrides);
 				Map<String, Object> searchParams = new Map<String, Object>();
 				searchParams.put('recordTypeNames', new Set<String>{ 'Critical_Incident' });
