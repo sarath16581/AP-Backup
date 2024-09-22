@@ -1,6 +1,7 @@
 /**
  * @description This is a Trigger Handler class for ImpactedArticle__c
  * @author Seth Heang
+ * @test ImpactedArticleTriggerHandlerTest
  * @changelog
  * 2024-09-13 - Seth Heang - created
  **/
@@ -13,6 +14,7 @@ public inherited sharing class ImpactedArticleTriggerHandler extends Application
 		return ApplicationUnitOfWork.newInstance(getUnitOfWorkSObjectTypes());
 	}
 
+	// register modules for trigger automation
 	public override void registerModules() {
 		registerModule(ArticleSubscriptionModule.class);
 	}
