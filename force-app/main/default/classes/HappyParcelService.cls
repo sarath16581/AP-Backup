@@ -57,7 +57,6 @@ public with sharing class HappyParcelService {
 
 	public Integer getApiTimeout() {
 		AusPostSettings__c setting = AusPostSettings__c.getValues('HAPPYPARCEL_GCP');
-		System.debug(setting);
 		return Integer.valueOf(setting.LockDuration__c);
 	}
 
@@ -65,9 +64,6 @@ public with sharing class HappyParcelService {
 		Integer statusCode = response.getStatusCode();
 		String statusText = response.getStatus();
 		String responseBody = response.getBody();
-		System.debug('statusCode: ' + statusCode);
-		System.debug('statusText: ' + statusText);
-		System.debug('Response: ' + responseBody);
 
 		Result result = new Result();
 		result.articles = new List<Article>();
@@ -82,7 +78,6 @@ public with sharing class HappyParcelService {
 				result.isSuccess = true;
 			} catch (Exception ex) {
 				// JSON parse error most likely meaning the data can not be surfaced
-				System.debug(ex);
 				result.isSuccess = false;
 				result.errors.add(ex.getMessage());
 			}
@@ -147,7 +142,6 @@ public with sharing class HappyParcelService {
 			}
 		}
 
-		System.debug('parsed articles: ' + articles);
 		return articles;
 	}
 
@@ -171,7 +165,6 @@ public with sharing class HappyParcelService {
 			}
 		}
 
-		System.debug('parsed errors: ' + errors);
 		return errors;
 	}
 
@@ -438,7 +431,7 @@ public with sharing class HappyParcelService {
 			trackingResult.warningMessages = conWrapper?.warningMessages;
 		}
 
-		// Map hasDuplicates which can be used to used to carter duplicate scenarios in UnifiedTrackingWrappers
+		// Map hasDuplicates which can be used to cater duplicate scenarios in UnifiedTrackingWrappers
 		trackingResult.hasDuplicates = false;
 		if(conWrapper?.hasDuplicates){
 			trackingResult.hasDuplicates = conWrapper?.hasDuplicates;

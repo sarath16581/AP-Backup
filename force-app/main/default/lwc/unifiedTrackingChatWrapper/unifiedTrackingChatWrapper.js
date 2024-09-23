@@ -63,7 +63,7 @@ export default class UnifiedTrackingChatWrapper extends LightningElement {
 			// Assigns the tracking number to trackingId If tracking number is porvided on the record and trackingId variable is blank.
 			// If there is consignment attached on the record enables the checkboxes.
 			if (this.trackingIdFromRecord) {
-				if (this.trackingId != this.trackingIdFromRecord) {
+				if (this.trackingId !== this.trackingIdFromRecord) {
 					this.trackingId = this.trackingIdFromRecord;
 				}
 				if (this.consignmentIdFromRecord) {
@@ -124,7 +124,7 @@ export default class UnifiedTrackingChatWrapper extends LightningElement {
 						// Link only consignment if there is no consignment on the chat record
 						if (this.trackingIdFromRecord && !this.consignmentIdFromRecord && !this.noConsignment) {
 							this.autoLinkOnlyConsignment();
-						} else if (this.articleRecordId && this.consignmentIdFromRecord != this.articleRecordId) {
+						} else if (this.articleRecordId && this.consignmentIdFromRecord !== this.articleRecordId) {
 							this.autoLink();
 						}
 					}else{

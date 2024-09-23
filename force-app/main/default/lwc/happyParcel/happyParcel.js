@@ -448,7 +448,7 @@ export default class HappyParcelWrapper extends NavigationMixin(LightningElement
 		// validate 'Download POD' button display
 		this._displayPodDownloadButton = this.handlePODDownloadButtonDisplay();
 
-		// Fire Search complete event for strack track consignments.
+		// Fire Search complete event for star track consignments.
 		this.triggerClearviewMappingEvent();
 	}
 
@@ -811,9 +811,9 @@ export default class HappyParcelWrapper extends NavigationMixin(LightningElement
 	get searchResultsText() {
 		if (this.isConsignment) {
 			return 'Consignment';
-		} else {
-			return 'Article';
 		}
+		
+		return 'Article';
 	}
 
 	get hasSearchResults() {

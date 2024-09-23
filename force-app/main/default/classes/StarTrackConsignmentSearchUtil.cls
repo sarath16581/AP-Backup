@@ -981,24 +981,17 @@ public without sharing class StarTrackConsignmentSearchUtil {
 		}
 
 		public ConsignmentWrapper(Boolean isConsignmentSaved, String errorCode, List<Article__c> articleList, List<String> warningMessages) {
-			this.isConsignmentSaved = isConsignmentSaved;
-			this.errorCode = errorCode;
-			this.articleList = articleList;
+			this(isConsignmentSaved, errorCode, articleList);
 			this.warningMessages = warningMessages;
 		}
 
 		public ConsignmentWrapper(Boolean isConsignmentSaved, String errorCode, List<Article__c> articleList, List<String> warningMessages, Boolean hasDuplicates) {
-			this.isConsignmentSaved = isConsignmentSaved;
-			this.errorCode = errorCode;
-			this.articleList = articleList;
-			this.warningMessages = warningMessages;
+			this(isConsignmentSaved, errorCode, articleList, warningMessages);
 			this.hasDuplicates = hasDuplicates;
 		}
 
 		public ConsignmentWrapper(Boolean isConsignmentSaved, String errorCode, List<Article__c> articleList, AdditionalStarTrackCallout additionalCallout) {
-			this.isConsignmentSaved = isConsignmentSaved;
-			this.errorCode = errorCode;
-			this.articleList = articleList;
+			this(isConsignmentSaved, errorCode, articleList);
 			this.requiredAdditionalCallout = additionalCallout;
 		}
 	}
