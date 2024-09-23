@@ -469,7 +469,15 @@ public with sharing class CaseRelatedListPanelContExt {
 	*/
 	private List<VoiceCall> getVoiceCalls(Id caseId) {
 
-		List<VoiceCall> VoiceCallList = VoiceCallsSelector.newInstance().selectByRelatedRecordIds(New Set<Id>{caseId},new Set<Object>());
+		Set<SObjectField> voiceCallFields = new Set<SObjectField>{
+			VoiceCall.Id, 
+			VoiceCall.Name, 
+			VoiceCall.CallStartDateTime, 
+			VoiceCall.CallEndDateTime, 
+			VoiceCall.CallType
+		};
+
+		List<VoiceCall> VoiceCallList = VoiceCallsSelector.newInstance(voiceCallFields).selectByRelatedRecordIds(New Set<Id>{caseId},new Set<Object>());
 		return voiceCallList.isEmpty() ? null : voiceCallList;
 	}
 }

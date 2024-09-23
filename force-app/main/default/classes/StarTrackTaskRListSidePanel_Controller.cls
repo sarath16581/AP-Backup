@@ -115,6 +115,13 @@
 	*/
 	public void getVoiceCalls(Id caseId) {
 		voiceCalls = new List<VoiceCall>();
-		VoiceCalls = VoiceCallsSelector.newInstance().selectByRelatedRecordIds(New Set<Id>{caseId},new Set<Object>());
+		Set<SObjectField> voiceCallFields = new Set<SObjectField>{
+			VoiceCall.Id, 
+			VoiceCall.Name, 
+			VoiceCall.CallStartDateTime, 
+			VoiceCall.CallEndDateTime, 
+			VoiceCall.CallType
+		};
+		VoiceCalls = VoiceCallsSelector.newInstance(voiceCallFields).selectByRelatedRecordIds(New Set<Id>{caseId},new Set<Object>());
 	}
 }

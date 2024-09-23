@@ -97,7 +97,7 @@ private class VoiceCallsSelector_Test {
 		List<Case> cases = ApplicationTestDataFactory.getCases(1, false);
 		Insert cases;
 
-		List<VoiceCall> voiceCalls = ApplicationTestDataFactory.getVoiceCalls(1, false);
+		List<VoiceCall> voiceCalls = ApplicationTestDataFactoryCase.getVoiceCalls(new List<Id>{cases[0].Id}, false);
 		voiceCalls.get(0).RelatedRecordId = cases[0].Id;
 		voiceCalls.get(0).CallType = 'Inbound';
 		voiceCalls.get(0).VendorType = 'ContactCenter';
