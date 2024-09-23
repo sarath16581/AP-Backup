@@ -151,7 +151,8 @@ public with sharing class ApplicationTestDataFactoryCase {
 	public static List<ContactRequest> getContactRequests(Integer count, Object whatIds, Object whoIds, Boolean generateIds) {
 		return (List<ContactRequest>)ApplicationTestDataFactory.maybeGenerateIds(ApplicationTestDataFactory.populateSObjects(ContactRequest.SObjectType, new Map<SObjectField, Object> {
 				ContactRequest.WhatId => whatIds,
-				ContactRequest.WhoId => whoIds
+				ContactRequest.WhoId => whoIds,
+				ContactRequest.Status => 'New'
 		}, count), generateIds);
 	}
 
