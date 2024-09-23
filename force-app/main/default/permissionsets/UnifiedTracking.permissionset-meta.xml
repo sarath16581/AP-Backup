@@ -14,7 +14,7 @@
 		<modifyAllRecords>false</modifyAllRecords>
 	 </objectPermissions>
 	 <fieldPermissions>
-		<editable>true</editable>
+		<editable>false</editable>
 		<field>Article__c.ConsignmentTrackingNumber__c</field>
 		<readable>true</readable>
 	</fieldPermissions>
