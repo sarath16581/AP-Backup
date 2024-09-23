@@ -96,14 +96,17 @@ private class VoiceCallsSelector_Test {
 		// =====================================
 		MockUtility.disableTriggerExecution();
 
-		List<VoiceCall> voiceCalls = ApplicationTestDataFactory.getVoiceCalls(1, false);
-		voiceCalls.get(0).CallType = 'Inbound';
-		voiceCalls.get(0).VendorType = 'ContactCenter';
-		voiceCalls.get(0).CallStartDateTime = System.now();
-		voiceCalls.get(0).CallEndDateTime = System.now().addMinutes(5);
-		voiceCalls.get(0).FromPhoneNumber = '+61 432 077 455';
-		voiceCalls.get(0).ToPhoneNumber = 'CS_Test';
-		insert voiceCalls;
+		Account acc = ApplicationTestDataFactory.getAccounts(1, false)[0];
+		Contact ct = ApplicationTestDataFactory.getContacts(1, acc.Id, false)[0];
+		Case aCase = ApplicationTestDataFactoryCase.getCases(1, new Set<Id>{ct.Id}, false)[0];
+		VoiceCall voiceCall = ApplicationTestDataFactoryCase.getVoiceCalls(new List<Id>{aCase.Id}, false)[0];
+		voiceCall.CallType = 'Inbound';
+		voiceCall.VendorType = 'ContactCenter';
+		voiceCall.CallStartDateTime = System.now();
+		voiceCall.CallEndDateTime = System.now().addMinutes(5);
+		voiceCall.FromPhoneNumber = '+61 432 077 455';
+		voiceCall.ToPhoneNumber = 'CS_Test';
+		insert voiceCall;
 
 		// =====================================
 		// Stubbing
@@ -116,7 +119,7 @@ private class VoiceCallsSelector_Test {
 		Test.startTest();
 
 		VoiceCallsSelector selector = VoiceCallsSelector.newInstance(2);
-		List<VoiceCall> results = selector.selectByIds(new Set<Object>(), new Set<Id>{voiceCalls.get(0).Id});
+		List<VoiceCall> results = selector.selectByIds(new Set<Object>(), new Set<Id>{voiceCall.Id});
 		System.assertEquals(1, results.size(), 'Expected result size of 2');
 
 		Test.stopTest();

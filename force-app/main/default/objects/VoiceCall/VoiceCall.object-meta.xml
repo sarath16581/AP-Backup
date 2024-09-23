@@ -58,14 +58,6 @@
     </actionOverrides>
     <actionOverrides>
         <actionName>View</actionName>
-        <comment>Action override created by Lightning App Builder during activation.</comment>
-        <content>Voice_Record_Page1</content>
-        <formFactor>Small</formFactor>
-        <skipRecordTypeSelect>false</skipRecordTypeSelect>
-        <type>Flexipage</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>View</actionName>
         <comment>Action override updated by Lightning App Builder during activation.</comment>
         <content>UnifiedVoiceCallRecordPage</content>
         <formFactor>Large</formFactor>
@@ -93,8 +85,6 @@
         <lookupPhoneDialogsAdditionalFields>CallDisposition</lookupPhoneDialogsAdditionalFields>
         <lookupPhoneDialogsAdditionalFields>CallDurationInSeconds</lookupPhoneDialogsAdditionalFields>
         <lookupPhoneDialogsAdditionalFields>QualityScore</lookupPhoneDialogsAdditionalFields>
-        <lookupPhoneDialogsAdditionalFields>FromPhoneNumber</lookupPhoneDialogsAdditionalFields>
-        <lookupPhoneDialogsAdditionalFields>ToPhoneNumber</lookupPhoneDialogsAdditionalFields>
         <searchResultsAdditionalFields>CallType</searchResultsAdditionalFields>
         <searchResultsAdditionalFields>FromPhoneNumber</searchResultsAdditionalFields>
         <searchResultsAdditionalFields>CallStartDateTime</searchResultsAdditionalFields>

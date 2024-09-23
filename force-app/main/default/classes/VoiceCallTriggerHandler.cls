@@ -7,7 +7,8 @@
  * 2024-08-27 Paul Perry - create it
  */
 public inherited sharing class VoiceCallTriggerHandler extends ApplicationTriggerHandler {
-	private final String FILTER_ALLWITHVENDORKEY = 'allWithVendorCallKey';
+	@TestVisible
+	private static final String FILTER_ALLWITHVENDORKEY = 'allWithVendorCallKey';
 
 	public override SObjectType getSObjectType() {
 		return VoiceCall.SObjectType;
