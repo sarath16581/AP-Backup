@@ -1353,6 +1353,10 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Support Lead Case</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Web</fullName>
             <default>false</default>
         </values>

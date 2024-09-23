@@ -1389,6 +1389,10 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Support Lead Case</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Vendor</fullName>
             <default>false</default>
         </values>
