@@ -270,6 +270,20 @@
         <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
+        <fullName>NetworkPartnerSupport</fullName>
+        <accessLevel>Edit</accessLevel>
+        <label>Network Partner Support</label>
+        <sharedTo>
+            <role>NetworkPartnerSupport</role>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Network Partner Support</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
         <fullName>Non_Compliance_Sharing_Rule</fullName>
         <accessLevel>Edit</accessLevel>
         <description>sharing rule to enable PON users to run report against non-compliance related cases</description>

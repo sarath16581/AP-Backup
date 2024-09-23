@@ -4,8 +4,11 @@
     <defaultValue>false</defaultValue>
     <description>Checking this field indicates that the Contact will receive information about Pricing changes</description>
     <externalId>false</externalId>
-    <inlineHelpText>Notify this Contact about any Pricing issues affecting  their Organisation.</inlineHelpText>
-    <label>Pricing</label>
+    <inlineHelpText>Tick this box to notify this contact about any Australia Post pricing related matter, including StarTrack Courier.
+For example, annual price rises and other pricing updates for Australia Post services.
+
+Please ensure at least one contact within the organisation has this field ticked.</inlineHelpText>
+    <label>Australia Post Pricing</label>
     <securityClassification>OFFICIAL_SENSITIVE</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>true</trackHistory>

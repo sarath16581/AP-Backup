@@ -33,6 +33,7 @@
 * 2023-10-10 jacob.isaac@auspost.com.au REQ3267978 - removing all reference of Mail Redirection picklist for International Letters/Parcel Product Cateogry
 * 2023-11-20 - Nathan Franklin - Adding a tactical reCAPTCHA implementation to assist with reducing botnet attack vectors (INC2251557)
 * 2024-02-14 - Swati Mogadala - REQ3414153 Adding address details to case description 
+* 2024-07-29 - Jacob Isaac - REQ3579832 - Removed Express Post from autoclosing cases. Exporess Post will be routed to agents instead of going through exception checker
 */
 public with sharing class ChasApexController extends ChasBase{
 
@@ -238,7 +239,7 @@ public with sharing class ChasApexController extends ChasBase{
 			 Boolean isExpressPost = wizardData.get('selectedRadio3Name') == ChasConstants.EXPRESS_POST? true:false;
 
              // DDS-5273: article that contains pharma should not be held
-             if (!containsPharma && !isExpressPost) {
+             if (!containsPharma) {
                  if (!isMultipleArticlesSelected // DDS-8586 4. ignore holding for more than one tracking id and all of them are delivered but delivered by different delivery centres (non medication/medication priority set above in existing logic)
                          && String.isEmpty(wizardData.get('latestDeliveredScanWcid')) && ((!String.isEmpty(wizardData.get('isEnquiryDateWithinEDDPlusBusinessdays')) && 'true'.equalsIgnoreCase(wizardData.get('isEnquiryDateWithinEDDPlusBusinessdays'))) ||
                          !String.isEmpty(wizardData.get('isEnquiryDateWithinEDD')) && 'true'.equalsIgnoreCase(wizardData.get('isEnquiryDateWithinEDD')))) {
@@ -426,7 +427,8 @@ public with sharing class ChasApexController extends ChasBase{
                     'Is the item urgent, sentimental or high value? : ' + containsSentimentalValue + '\n' +
                     'Description of contents : ' + issueDetails+ '\n' +'Value of contents : ' + valuesOfContents + '\n' +
                     'Contact Preference : ' + contactPreferrence // Contact Preference, added by Edmarco on July 2019
-                    + issueDetailsDisplayText + '\n';
+                    + issueDetailsDisplayText + '\n'
+					+ 'EDD + Business Days: ' + EDDPlusBusinessDays + '\n';
                 // Change made for roll out of Safe Drop feature on Missing Items form : add reason for enquiry to the case comments
                 if(String.IsNotEmpty(reasonForEnquiry))
                 {
@@ -459,7 +461,8 @@ public with sharing class ChasApexController extends ChasBase{
                     'Is the item urgent, sentimental or high value? : ' + containsSentimentalValue + '\n' +
                     'Description of contents : ' + issueDetails + '\n' +
                     'Contact Preference : ' + contactPreferrence // Contact Preference, added by Edmarco on July 2019
-                    + issueDetailsDisplayText + '\n';
+                    + issueDetailsDisplayText + '\n'
+					+ 'EDD + Business Days' + EDDPlusBusinessDays + '\n';
                 // Change made for roll out of Safe Drop feature on Missing Items form : add reason for enquiry to the case comments
                 if(String.IsNotEmpty(reasonForEnquiry))
                 {

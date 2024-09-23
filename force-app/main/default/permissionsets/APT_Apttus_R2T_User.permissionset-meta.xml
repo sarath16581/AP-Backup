@@ -880,10 +880,6 @@
         <apexClass>ProductsSelector</apexClass>
         <enabled>true</enabled>
     </classAccesses>
-    <classAccesses>
-        <apexClass>opcNavToBulkEditController</apexClass>
-        <enabled>true</enabled>
-    </classAccesses>
     <fieldPermissions>
         <editable>true</editable>
         <field>APT_ABRreport__c.APT_ABN_Status_From_Date__c</field>
@@ -6269,11 +6265,11 @@
         <field>Account.BillingAddressText__c</field>
         <readable>true</readable>
     </fieldPermissions>
-	<fieldPermissions>
-		<editable>false</editable>
-		<field>Account.IndirectCustomer__c</field>
-		<readable>true</readable>
-	</fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Account.IndirectCustomer__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
         <field>Apttus_Approval__ApprovalRuleAssignee__c.APTS_Ext_ID__c</field>
@@ -16495,8 +16491,23 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
+        <editable>false</editable>
+        <field>Opportunity.ControlsLodgement__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
         <editable>true</editable>
         <field>Opportunity.DOV_Reason__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Opportunity.FreightOwnership__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Opportunity.IndirectCustomer__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

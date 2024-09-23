@@ -15,6 +15,7 @@
  * 2022-05-30 - Seth Heang - Added PAYER_ACCOUNT_ID related list and selectByOrgId method
  * 2023-07-10 - Mahesh Parvathaneni - Added options FILTER_TYPE_NOT_IN_SBBA_CASH, FILTER_SOURCE_SYSTEM_NOT_IN_PEOPLE_SOFT
  * 2023-10-27 - Harry Wang - Added method selectByLeaderAccountId and option FILTER_TYPE_FOLLOWER
+ * 2024-08-08 - Harry Wang - Added method selectByOrganisationABN and option FILTER_SOURCE_SYSTEM_SAP_ERP
  */
 public virtual inherited sharing class BillingAccountsSelector extends ApplicationSelector {
 
@@ -25,7 +26,8 @@ public virtual inherited sharing class BillingAccountsSelector extends Applicati
 		WITH_PAYER_ACCOUNT_ID,
 		FILTER_TYPE_NOT_IN_SBBA_CASH,
 		FILTER_SOURCE_SYSTEM_NOT_IN_PEOPLE_SOFT,
-		FILTER_TYPE_FOLLOWER
+		FILTER_TYPE_FOLLOWER,
+		FILTER_SOURCE_SYSTEM_SAP_ERP
 	}
 
 	public static String sortOrder ='Desc';
@@ -164,6 +166,17 @@ public virtual inherited sharing class BillingAccountsSelector extends Applicati
 		return (List<Billing_Account__c>)Database.query(qb.toSoqlString());
 	}
 
+	/**
+	 * @description Select billing accounts by parent account's ABN number
+	 * @param organisationABNs parent account's ABN number
+	 * @param selectorOptions selector options
+	 * @return matching list of billing accounts
+	 */
+	public List<Billing_Account__c> selectByOrganisationABN(Set<String> organisationABNs, Set<Object> selectorOptions) {
+		QueryBuilder qb = newQueryBuilder(selectorOptions).addConditions().add(new QueryBuilder.SimpleCondition('Organisation__r.ABN__c IN :organisationABNs')).endConditions();
+		return Database.query(qb.toSoqlString());
+	}
+
 	public override QueryBuilder newQueryBuilder() {
 		return newQueryBuilder(new Set<Object>());
 	}
@@ -197,6 +210,10 @@ public virtual inherited sharing class BillingAccountsSelector extends Applicati
 
 		if (selectorOptions.contains(Options.FILTER_TYPE_FOLLOWER)) {
 			builder.addConditions().add(new QueryBuilder.CompareCondition(Billing_Account__c.BillingAccountType__c).eq('Follower')).endConditions();
+		}
+
+		if (selectorOptions.contains(Options.FILTER_SOURCE_SYSTEM_SAP_ERP)) {
+			builder.addConditions().add(new QueryBuilder.CompareCondition(Billing_Account__c.Source_System__c).eq('SAP ERP')).endConditions();
 		}
 
 		return builder;

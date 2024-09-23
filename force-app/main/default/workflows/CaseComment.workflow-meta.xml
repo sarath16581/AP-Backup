@@ -203,7 +203,7 @@
     <outboundMessages>
         <fullName>Create_Case_Comment_Outbound_Msg</fullName>
         <apiVersion>31.0</apiVersion>
-        <endpointUrl>https://salesforce-bw-ptest.npe.auspost.com.au:10543/Services/CustomerEnquiryManagement/addCaseComment</endpointUrl>
+        <endpointUrl>https://salesforce-bw-stest.npe.auspost.com.au:10543/Services/CustomerEnquiryManagement/addCaseComment</endpointUrl>
         <fields>CommentBody</fields>
         <fields>CreatedById</fields>
         <fields>CreatedDate</fields>

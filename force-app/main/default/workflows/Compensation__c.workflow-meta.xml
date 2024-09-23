@@ -189,7 +189,7 @@
             <type>FieldUpdate</type>
         </actions>
         <active>true</active>
-        <formula>RecordType.Name != &apos;Money Order&apos; &amp;&amp; RecordType.Name != &apos;Money Order Number Required&apos; &amp;&amp; Replacement_Value__c &lt; 100 &amp;&amp; Total_Compensation_Amount__c &lt; 100 &amp;&amp; OR(ISBLANK(Other__c),Other__c = 0) &amp;&amp;  TEXT(Case__r.ProductCategory__c) != &apos;&apos; &amp;&amp; TEXT(Case__r.ProductSubCategory__c) != &apos;&apos; &amp;&amp; TEXT(Case__r.EnquirySubType__c) != &apos;&apos; &amp;&amp; TEXT(Case__r.Type) != &apos;&apos;</formula>
+        <formula>RecordType.Name != &apos;Money Order&apos; &amp;&amp; RecordType.Name != &apos;Money Order Number Required&apos; &amp;&amp; Replacement_Value__c &lt; 100 &amp;&amp; Total_Compensation_Amount__c &lt; 100 &amp;&amp; OR(ISBLANK(Other__c),Other__c = 0) &amp;&amp; TEXT(Case__r.ProductCategory__c) != &apos;&apos; &amp;&amp; TEXT(Case__r.ProductSubCategory__c) != &apos;&apos; &amp;&amp; TEXT(Case__r.EnquirySubType__c) != &apos;&apos; &amp;&amp; TEXT(Case__r.Type) != &apos;&apos;</formula>
         <triggerType>onCreateOrTriggeringUpdate</triggerType>
     </rules>
     <rules>

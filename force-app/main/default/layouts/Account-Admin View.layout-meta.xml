@@ -20,10 +20,6 @@
                 <behavior>Edit</behavior>
                 <field>Outlet_Plant_Number__c</field>
             </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>IndirectCustomer__c</field>
-            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>
@@ -136,6 +132,18 @@
             <layoutItems>
                 <behavior>Readonly</behavior>
                 <field>Tableau_Lodgement_Report__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>Data_Quality_Score__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>Data_Quality_Description__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>Score_Stars__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Readonly</behavior>
@@ -585,22 +593,6 @@
         <style>OneColumn</style>
     </layoutSections>
     <layoutSections>
-        <customLabel>true</customLabel>
-        <detailHeading>true</detailHeading>
-        <editHeading>false</editHeading>
-        <label>Relationship Map</label>
-        <layoutColumns>
-            <layoutItems>
-                <height>260</height>
-                <page>DMAPP__AccountPolMapLaunchpad</page>
-                <showLabel>false</showLabel>
-                <showScrollbars>true</showScrollbars>
-                <width>100%</width>
-            </layoutItems>
-        </layoutColumns>
-        <style>OneColumn</style>
-    </layoutSections>
-    <layoutSections>
         <customLabel>false</customLabel>
         <detailHeading>true</detailHeading>
         <editHeading>true</editHeading>
@@ -972,8 +964,8 @@
         <fields>NAME</fields>
         <fields>Scale__c</fields>
         <fields>Status__c</fields>
-        <fields>CREATEDBY_USER</fields>
         <fields>Product_1__c</fields>
+        <fields>Risk_Type__c</fields>
         <fields>Reason__c</fields>
         <fields>Threat_Risk__c</fields>
         <fields>Value_of_Business_at_Risk__c</fields>
@@ -1354,12 +1346,6 @@
         <fields>Connection__c</fields>
         <fields>EndDate__c</fields>
         <relatedList>AccountRelationship__c.ParentAccount__c</relatedList>
-    </relatedLists>
-    <relatedLists>
-        <fields>NAME</fields>
-        <fields>FinancialYear__c</fields>
-        <fields>PrimaryProduct__c</fields>
-        <relatedList>GroupedAccountProductRevenue__c.AnchorOrganisation__c</relatedList>
     </relatedLists>
     <relatedObjects>ParentId</relatedObjects>
     <showEmailCheckbox>false</showEmailCheckbox>

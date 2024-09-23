@@ -64,10 +64,6 @@
                 <behavior>Edit</behavior>
                 <field>L2C_Star_Track_Approved_Credit_Limit__c</field>
             </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>IndirectCustomer__c</field>
-            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>
@@ -97,6 +93,18 @@
             <layoutItems>
                 <behavior>Readonly</behavior>
                 <field>Tableau_Lodgement_Report__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>Data_Quality_Score__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>Data_Quality_Description__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>Score_Stars__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Readonly</behavior>
@@ -531,22 +539,6 @@
         <layoutColumns/>
         <style>CustomLinks</style>
     </layoutSections>
-    <layoutSections>
-        <customLabel>true</customLabel>
-        <detailHeading>true</detailHeading>
-        <editHeading>false</editHeading>
-        <label>Relationship Map</label>
-        <layoutColumns>
-            <layoutItems>
-                <height>260</height>
-                <page>DMAPP__AccountPolMapLaunchpad</page>
-                <showLabel>false</showLabel>
-                <showScrollbars>true</showScrollbars>
-                <width>100%</width>
-            </layoutItems>
-        </layoutColumns>
-        <style>OneColumn</style>
-    </layoutSections>
     <platformActionList>
         <actionListContext>Record</actionListContext>
         <platformActionListItems>
@@ -645,8 +637,8 @@
         <fields>NAME</fields>
         <fields>Scale__c</fields>
         <fields>Status__c</fields>
-        <fields>CREATEDBY_USER</fields>
         <fields>Product_1__c</fields>
+        <fields>Risk_Type__c</fields>
         <fields>Reason__c</fields>
         <fields>Threat_Risk__c</fields>
         <fields>Value_of_Business_at_Risk__c</fields>
@@ -697,12 +689,6 @@
         <relatedList>RelatedContactList</relatedList>
         <sortField>Record_Maintainer__c</sortField>
         <sortOrder>Asc</sortOrder>
-    </relatedLists>
-    <relatedLists>
-        <fields>NAME</fields>
-        <fields>DMAPP__Number_Contacts__c</fields>
-        <fields>DMAPP__Primary_Map__c</fields>
-        <relatedList>DMAPP__Account_Political_Map__c.DMAPP__Account__c</relatedList>
     </relatedLists>
     <relatedLists>
         <fields>NAME</fields>

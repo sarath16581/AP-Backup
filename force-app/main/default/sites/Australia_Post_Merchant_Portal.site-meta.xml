@@ -15,7 +15,7 @@
     <clickjackProtectionLevel>SameOriginOnly</clickjackProtectionLevel>
     <contentSniffingProtection>true</contentSniffingProtection>
     <customWebAddresses>
-        <domainName>ptest.npe.merchant-portal.auspost.com.au</domainName>
+        <domainName>stest.npe.merchant-portal.auspost.com.au</domainName>
         <primary>true</primary>
     </customWebAddresses>
     <enableAuraRequests>true</enableAuraRequests>
@@ -26,6 +26,7 @@
     <masterLabel>Australia Post Merchant Portal</masterLabel>
     <redirectToCustomDomain>true</redirectToCustomDomain>
     <referrerPolicyOriginWhenCrossOrigin>true</referrerPolicyOriginWhenCrossOrigin>
+    <robotsTxtPage>Robots_MerchantPortal</robotsTxtPage>
     <selfRegPage>CommunitiesSelfReg</selfRegPage>
     <serverIsDown>SNA_Australia_Post_Merchant_Portal1_sf_default_cdn_YlU0J</serverIsDown>
     <siteAdmin>salessystemssupport@auspost.com.au</siteAdmin>

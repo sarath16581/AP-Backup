@@ -1,0 +1,124 @@
+{
+  "appPageId" : "09e90440-dbed-4496-b14c-1a294d7bc2e4",
+  "componentName" : "siteforce:sldsOneColLayout",
+  "dataProviders" : [ ],
+  "id" : "6e7426f6-9513-48c2-9500-40b7d96ed73c",
+  "label" : "Action Plan Detail",
+  "regions" : [ {
+    "components" : [ {
+      "componentAttributes" : {
+        "recordId" : "{!recordId}"
+      },
+      "componentName" : "forceCommunity:recordHeadline",
+      "id" : "0c721f9f-cae1-428c-aece-77d107069085",
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "342bc6ba-0291-4352-a1ef-6f2bf06f97e8",
+    "regionName" : "header",
+    "type" : "region"
+  }, {
+    "components" : [ {
+      "componentAttributes" : {
+        "tabsetConfig" : {
+          "UUID" : "a712a53d-70c6-4353-b9b4-d650a1398ac1",
+          "activeTab" : "tab1",
+          "tabs" : [ {
+            "UUID" : "f3fcbddd-23e9-4aa8-890b-24655e904a9f",
+            "allowGuestUser" : false,
+            "locked" : false,
+            "seedComponents" : [ {
+              "attributes" : { },
+              "fqn" : "runtime_industries_actionplan:itemListCard"
+            }, {
+              "attributes" : { },
+              "fqn" : "runtime_industries_actionplan:itemListCardDCI"
+            } ],
+            "tabKey" : "tab1",
+            "tabName" : "Items"
+          }, {
+            "UUID" : "c7ea4165-66b4-451c-b110-a7737d770533",
+            "allowGuestUser" : false,
+            "locked" : false,
+            "seedComponents" : [ {
+              "attributes" : { },
+              "fqn" : "forceCommunity:recordDetail"
+            } ],
+            "tabKey" : "tab2",
+            "tabName" : "Details"
+          } ],
+          "useOverflowMenu" : false
+        }
+      },
+      "componentName" : "forceCommunity:tabLayout",
+      "id" : "a712a53d-70c6-4353-b9b4-d650a1398ac1",
+      "regions" : [ {
+        "components" : [ {
+          "componentAttributes" : { },
+          "componentName" : "runtime_industries_actionplan:itemListCard",
+          "id" : "44d824eb-f9f2-4543-b119-61d6e85274ad",
+          "renderPriority" : "NEUTRAL",
+          "renditionMap" : { },
+          "type" : "component"
+        }, {
+          "componentAttributes" : { },
+          "componentName" : "runtime_industries_actionplan:itemListCardDCI",
+          "id" : "f3a2a24a-c2a5-4804-9cac-721d0d9f5371",
+          "renderPriority" : "NEUTRAL",
+          "renditionMap" : { },
+          "type" : "component"
+        } ],
+        "id" : "f3fcbddd-23e9-4aa8-890b-24655e904a9f",
+        "regionLabel" : "Items",
+        "regionName" : "tab1",
+        "renditionMap" : { },
+        "type" : "region"
+      }, {
+        "components" : [ {
+          "componentAttributes" : {
+            "recordId" : "{!recordId}"
+          },
+          "componentName" : "forceCommunity:recordDetail",
+          "id" : "ae5738c2-9bee-45f4-b9e4-c4342c198287",
+          "renderPriority" : "NEUTRAL",
+          "renditionMap" : { },
+          "type" : "component"
+        } ],
+        "id" : "c7ea4165-66b4-451c-b110-a7737d770533",
+        "regionLabel" : "Details",
+        "regionName" : "tab2",
+        "renditionMap" : { },
+        "type" : "region"
+      } ],
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "f6c2f574-5c3e-490b-a2ad-ee0d660d5f44",
+    "regionName" : "content",
+    "type" : "region"
+  }, {
+    "id" : "466a5806-23a6-48d6-82d9-af3101dd8ee6",
+    "regionName" : "footer",
+    "type" : "region"
+  }, {
+    "components" : [ {
+      "componentAttributes" : {
+        "customHeadTags" : "",
+        "description" : "",
+        "title" : "{!Record._Object}: {!Record._Title}"
+      },
+      "componentName" : "forceCommunity:seoAssistant",
+      "id" : "20f96bd3-b24f-4f87-b95f-b36cca5c9acf",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "5ae2676e-4e7c-48d5-83d9-7e087a1c3df0",
+    "regionName" : "sfdcHiddenRegion",
+    "type" : "region"
+  } ],
+  "themeLayoutType" : "Inner",
+  "type" : "view",
+  "viewType" : "detail-07r"
+}

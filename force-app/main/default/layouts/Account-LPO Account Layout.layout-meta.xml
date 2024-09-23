@@ -2,9 +2,6 @@
 <Layout xmlns="http://soap.sforce.com/2006/04/metadata">
     <customButtons>APT_Export_Accounts</customButtons>
     <customButtons>BAM_Configure_Apps</customButtons>
-    <excludeButtons>DataDotComAccountInsights</excludeButtons>
-    <excludeButtons>DataDotComClean</excludeButtons>
-    <excludeButtons>DataDotComCompanyHierarchy</excludeButtons>
     <excludeButtons>DisableCustomerPortalAccount</excludeButtons>
     <excludeButtons>DisablePartnerPortalAccount</excludeButtons>
     <excludeButtons>IncludeOffline</excludeButtons>
@@ -47,10 +44,6 @@
             <layoutItems>
                 <behavior>Readonly</behavior>
                 <field>L2C_Star_Track_Approved_Credit_Limit__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>IndirectCustomer__c</field>
             </layoutItems>
         </layoutColumns>
         <layoutColumns>
@@ -133,7 +126,7 @@
                 <field>NewLastActivityDate__c</field>
             </layoutItems>
             <layoutItems>
-                <behavior>Readonly</behavior>
+                <behavior>Edit</behavior>
                 <field>Call_Cycle_Frequency__c</field>
             </layoutItems>
         </layoutColumns>

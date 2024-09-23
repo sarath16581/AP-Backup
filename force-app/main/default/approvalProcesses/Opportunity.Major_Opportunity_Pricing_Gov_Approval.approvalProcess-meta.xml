@@ -24,6 +24,10 @@
                 <name>gen.nenna@auspost.com.au</name>
                 <type>user</type>
             </approver>
+            <approver>
+                <name>sean.patterson@auspost.com.au</name>
+                <type>user</type>
+            </approver>
             <whenMultipleApprovers>FirstResponse</whenMultipleApprovers>
         </assignedApprover>
         <description>STP: Update approval status to Approval</description>

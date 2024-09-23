@@ -83,12 +83,13 @@
 					<td bgcolor="#ffffff" style="padding:17px 10px 0 10px; border-radius:0 0 2px 2px;">
 						<table width="100%" cellpadding="0" cellspacing="0">	
 							<tr>
-								<td style="padding:14px 0 5px; font:bold 16px/18px Arial, Helvetica, sans-serif; color:#5c514d;">Sorry, we couldn’t accept your request
+								<td style="padding:14px 0 5px; font:bold 16px/18px Arial, Helvetica, sans-serif; color:#5c514d;">Sorry, we were unable to process your request.
 </td>
 							</tr>
 							<tr>
 <td style="font:13px Arial, Helvetica, sans-serif; color:#807370; line-height:16px; padding:11px 0 6px;border-bottom:1px solid #cdc6c5;">
-			<p>This means that your enquiry has been closed for some time. Here are some FAQs that may answer your enquiry.</p>
+			<p>This means that your enquiry cannot be actioned at this time. Here are some FAQ's that may answer your enquiry.
+</p>
 
 			<ul>
 				<li><a href="https://auspost.com.au/help-and-support?group=delaysanddisruptions">Delays and Disruptions</a></li>

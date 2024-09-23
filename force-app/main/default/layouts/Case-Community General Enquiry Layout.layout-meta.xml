@@ -132,10 +132,6 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>CommunityAgent__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
                 <field>SuppliedEmail</field>
             </layoutItems>
         </layoutColumns>
@@ -228,11 +224,6 @@
             <field>Priority</field>
             <posX>2</posX>
             <posY>1</posY>
-        </summaryLayoutItems>
-        <summaryLayoutItems>
-            <field>CommunityAgent__c</field>
-            <posX>2</posX>
-            <posY>2</posY>
         </summaryLayoutItems>
         <summaryLayoutStyle>CaseInteraction</summaryLayoutStyle>
     </summaryLayout>

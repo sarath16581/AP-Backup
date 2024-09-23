@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>CommunityAgent__c</fullName>
+    <businessStatus>DeprecateCandidate</businessStatus>
     <deleteConstraint>SetNull</deleteConstraint>
     <externalId>false</externalId>
-    <label>Community Agent</label>
+    <label>Dep -Community Agent</label>
     <referenceTo>User</referenceTo>
     <relationshipName>CommunityAgent</relationshipName>
     <required>false</required>

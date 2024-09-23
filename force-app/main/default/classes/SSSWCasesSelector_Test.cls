@@ -12,6 +12,8 @@
  * 2020-08-24 - Disha Kariya - Updated with test for field override
  * 2022-02-10 - Alex Volkov - Added test for selectCasesEligibleForReopenByOwnerAndDate method
  * 2023-05-30 - StephenL - Added test for getCasesByCreatedByUserOrAPCN
+ * 2024-06-25 - Mona Raghav - REQ3564142 - Test coverage for selectCasesByCreatedByUserAndCaseOrigin method, for case origin logic
+ * 2024-06-28 - Mona Raghav - Method name updated from selectCasesByCreatedByUserAndCaseOrigin to selectCasesByCreatedByUserOrAPCNAndCaseOrigin
  */
 @IsTest
 public with sharing class SSSWCasesSelector_Test {
@@ -105,6 +107,7 @@ public with sharing class SSSWCasesSelector_Test {
 		cases[2].Case_Reopen_Date__c = System.now();
 		cases[2].OwnerId = vHoldQueueId;
 		cases[2].RecordTypeId = rt.Id;
+		cases[2].Origin = 'Direct Email';
 		insert cases;
 		cases[1].ParentId = cases[0].Id;
 		update cases[1];
@@ -147,7 +150,9 @@ public with sharing class SSSWCasesSelector_Test {
 		System.assertNotEquals(null, (Database.QueryLocator)selector.selectCasesEligibleForReopenByOwnerAndDate(new Set<String>{vHoldQueueId}, Datetime.newInstance(vReopenUpToDate.year(), vReopenUpToDate.month(), vReopenUpToDate.day()), new Set<Object>{SSSWCasesSelector.Options.RETURN_QUERY_LOCATOR}), 'Invalid query locator');
 
 		selector = SSSWCasesSelector.newInstance();
-		System.assertNotEquals(null, selector.selectCasesByCreatedByUserOrAPCN(UserInfo.getUserId(),null, new Set<Object>{SSSWCasesSelector.Options.WITH_CONTACT}), 'Invalid query locator');
+		results = (Map<Id, Case>)selector.selectCasesByCreatedByUserOrAPCNAndCaseOrigin(UserInfo.getUserId(),null, new Set<Object>{SSSWCasesSelector.Options.WITH_CONTACT});
+		System.assertEquals(2, results.size(), 'Expected result size of 2');
 
+		Test.stopTest();
 	}
 }

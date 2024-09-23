@@ -37,14 +37,6 @@
         <layoutColumns>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>Date_Issue_Occurred__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>Estimated_Completion_Date__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
                 <field>Deployment_Date__c</field>
             </layoutItems>
             <layoutItems>
@@ -67,18 +59,6 @@
             <layoutItems>
                 <behavior>Required</behavior>
                 <field>Status</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>No_of_ULDs_on_Hand__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>No_of_ULDs_Ordered__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>No_of_ULDs_Delivered__c</field>
             </layoutItems>
         </layoutColumns>
         <layoutColumns>

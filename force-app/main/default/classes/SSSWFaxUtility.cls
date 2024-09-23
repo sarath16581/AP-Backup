@@ -12,6 +12,7 @@
 			delay between the Fax is received and when the Case is linked.
 * 2013-12-16 - A Tran - Created
 * 2020-06-10 - Dheeraj Mandavilli - Included @Future on Add Attachments method
+* 2024-08-28 - Mona Raghav - REQ3388493 - Method TrimContent added to trim the escalation email content to the field length before updating
 */
 public with sharing class SSSWFaxUtility 
 {   
@@ -70,13 +71,20 @@ public with sharing class SSSWFaxUtility
         if(!casesVsContent.isEmpty()){
             List<Case> casesToUpdate = new List<Case>();
             for(Case c: [select EscalationEmail__c from Case where id in: casesVsContent.keySet()]){
-                c.EscalationEmail__c = casesVsContent.get(c.id);
+                c.EscalationEmail__c = trimContent(casesVsContent.get(c.id), Schema.SObjectType.Case.fields.EscalationEmail__c.getLength());
                 casesToUpdate.add(c);
             }
             update casesToUpdate;
         }
         
     }
+    
+    public static string trimContent(String content, integer length) {
+		if(content.length() > length) {
+			content = content.substring(0,length);
+		}
+		return content;
+	}
     
     // Flag for CaseTrackingUtility to determine which class will create the new StatusTracking
     public static Boolean isFax = false;

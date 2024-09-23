@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Cost_Saving_per_Annum__c</fullName>
+    <businessStatus>DeprecateCandidate</businessStatus>
     <externalId>false</externalId>
-    <label>Cost Saving per Annum</label>
-    <precision>18</precision>
+    <label>Dep - Cost Saving per Annum</label>
+    <length>40</length>
     <required>false</required>
-    <scale>0</scale>
-    <securityClassification>OFFICIAL_SENSITIVE</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
-    <type>Currency</type>
+    <type>Text</type>
+    <unique>false</unique>
 </CustomField>

@@ -26,14 +26,14 @@
         <field>Account.BillingAddressText__c</field>
         <readable>true</readable>
     </fieldPermissions>
-	<fieldPermissions>
-		<editable>false</editable>
-		<field>Account.IndirectCustomer__c</field>
-		<readable>true</readable>
-	</fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
         <field>Account.CoverageMethod__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Account.IndirectCustomer__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -1866,22 +1866,6 @@
         <field>Opportunity.APT_Create_Rebate_Contract__c</field>
         <readable>true</readable>
     </fieldPermissions>
-	<fieldPermissions>
-		<editable>true</editable>
-		<field>Opportunity.ControlsLodgement__c</field>
-		<readable>true</readable>
-	</fieldPermissions>
-	<fieldPermissions>
-		<editable>true</editable>
-		<field>Opportunity.FreightOwnership__c</field>
-		<readable>true</readable>
-	</fieldPermissions>
-	<fieldPermissions>
-		<editable>false</editable>
-		<field>Opportunity.IndirectCustomer__c</field>
-		<readable>true</readable>
-	</fieldPermissions>
-	
     <fieldPermissions>
         <editable>false</editable>
         <field>Opportunity.APT_Create_SOP_Contract__c</field>
@@ -2128,6 +2112,11 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
+        <editable>true</editable>
+        <field>Opportunity.ControlsLodgement__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
         <editable>false</editable>
         <field>Opportunity.Count_of_CSQ__c</field>
         <readable>true</readable>
@@ -2180,11 +2169,6 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Opportunity.Customer_Story__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
-        <field>Opportunity.DMAPP__Dealmaker_Opportunity__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -2424,6 +2408,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Opportunity.FreightOwnership__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Opportunity.Gov_Solutions_Category__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -2470,6 +2459,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Opportunity.Incumbents__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Opportunity.IndirectCustomer__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

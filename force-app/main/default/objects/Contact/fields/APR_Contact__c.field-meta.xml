@@ -4,8 +4,11 @@
     <defaultValue>false</defaultValue>
     <description>A check in this field indicates the contact should receive information on the APR % increase applicable to their StarTrack products. (Relates to the APR object developed by SalesForce as part of the “SalesLogix project”)</description>
     <externalId>false</externalId>
-    <inlineHelpText>Send this contact information on the APR % increase applicable to their StarTrack products</inlineHelpText>
-    <label>Annual Price Review (StarTrack)</label>
+    <inlineHelpText>Tick this box to notify this contact about any StarTrack pricing relating matter, excluding StarTrack Courier.
+For example, annual price rises and other pricing updates for StarTrack services.
+
+Please ensure at least one contact within the organisation has this field ticked.</inlineHelpText>
+    <label>StarTrack Pricing</label>
     <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>

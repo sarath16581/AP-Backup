@@ -36,6 +36,24 @@
         <versionSegment>1</versionSegment>
     </actionCalls>
     <actionCalls>
+        <description>No reply email send when there is an incoming email related to a closed case</description>
+        <name>NetworkPartnersCaseNoReply</name>
+        <label>Network Partners Case No Reply</label>
+        <locationX>1634</locationX>
+        <locationY>539</locationY>
+        <actionName>Case.NetworkPartnerNoReply</actionName>
+        <actionType>emailAlert</actionType>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>SObjectRowId</name>
+            <value>
+                <elementReference>$Record.ParentId</elementReference>
+            </value>
+        </inputParameters>
+        <nameSegment>Case.NetworkPartnerNoReply</nameSegment>
+        <versionSegment>1</versionSegment>
+    </actionCalls>
+    <actionCalls>
         <name>Notify_Case_Owner_on_New_Email_BGS</name>
         <label>Notify Case Owner on New Email BGS</label>
         <locationX>50</locationX>
@@ -73,7 +91,7 @@
         <nameSegment>Case.Transport_Enquiry_Case_Closed_Case_Email</nameSegment>
         <versionSegment>1</versionSegment>
     </actionCalls>
-    <apiVersion>57.0</apiVersion>
+    <apiVersion>59.0</apiVersion>
     <decisions>
         <description>Bulk Mail scenarios: permanent closed case</description>
         <name>Bulk_Mail_Scenarios</name>
@@ -133,7 +151,7 @@
     <decisions>
         <name>Identify_Case_Domain</name>
         <label>Identify Case Domain</label>
-        <locationX>908</locationX>
+        <locationX>1040</locationX>
         <locationY>431</locationY>
         <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
         <rules>
@@ -181,11 +199,40 @@
             </connector>
             <label>Bulk Mail</label>
         </rules>
+        <rules>
+            <name>NetworkPartnerEmail</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Parent.RecordType.DeveloperName</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <elementReference>$Label.REC_TYPE_DEV_Network_Partner</elementReference>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Parent.Status</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Closed</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Status</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>0</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>NetworkPartnersCaseNoReply</targetReference>
+            </connector>
+            <label>Network Partner Email</label>
+        </rules>
     </decisions>
     <decisions>
         <name>is_Incoming_Case_Email</name>
         <label>is Incoming Case Email?</label>
-        <locationX>1403</locationX>
+        <locationX>1601</locationX>
         <locationY>323</locationY>
         <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
         <rules>
@@ -294,7 +341,7 @@
     </processMetadataValues>
     <processType>AutoLaunchedFlow</processType>
     <start>
-        <locationX>1277</locationX>
+        <locationX>1475</locationX>
         <locationY>0</locationY>
         <connector>
             <targetReference>is_Incoming_Case_Email</targetReference>

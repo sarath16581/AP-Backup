@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Number_Of_Days_In_Current_S75_Status__c</fullName>
-    <description>Number of days in current S75 status. This will be wiped on each status change.</description>
+    <description>Number of days in current S75 status. This will be wiped on each status change.
+S75 Re-modelled to Change of Details Information</description>
     <externalId>false</externalId>
     <formula>IF(
   OR(
@@ -22,8 +23,8 @@
     &quot;Submitted To AUSTRAC&quot;, TODAY() - Submitted_To_AUSTRAC_Date__c,
   null)
 )</formula>
-    <inlineHelpText>The number of days that the S75 has been in its current status</inlineHelpText>
-    <label>Number Of Days In Current S75 Status</label>
+    <inlineHelpText>The number of days that the COD has been in its current status</inlineHelpText>
+    <label>Number Of Days In Current COD Status</label>
     <precision>18</precision>
     <required>false</required>
     <scale>0</scale>

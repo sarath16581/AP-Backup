@@ -5,14 +5,15 @@
     <encodingKey>ISO-8859-1</encodingKey>
     <name>SSSW Direct Email</name>
     <style>none</style>
-    <subject>Australia Post - Auto Reply - Please visit Help &amp; Support | Case number: {!Case.CaseNumber}</subject>
+    <subject>Australia Post - Auto Reply - Please visit Help &amp; Support</subject>
     <textOnly>Australia Post
 
 Help &amp; Support
 
-Sorry, we couldn’t accept your request
+Sorry, we were unable to process your request.
 
-This means that your enquiry has been closed for some time. Here are some FAQs that may answer your enquiry.
+This means that your enquiry cannot be actioned at this time. Here are some FAQ&apos;s that may answer your enquiry.
+
 
 Delays and Disruptions
 Tracking

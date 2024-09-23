@@ -105,6 +105,7 @@
 	<groups>Knowledge: Specialist Skill</groups>
 	<groups>Knowledge: StarTrack</groups>
 	<groups>BSC - Schenker</groups>
+	<groups>BSC - Banking</groups>
 	<label>StarTrack Admin</label>
 	<loginAccess>false</loginAccess>
 	<permissionSetGroups>ST Team Leader Basic Permissions</permissionSetGroups>
@@ -125,8 +126,7 @@
 	<permissionSets>StarTrack Edit BSC and Transfer Case Queue fields on account</permissionSets>
 	<permissionSets>StarTrack Edit Case Priority Permission Set</permissionSets>
 	<permissionSets>StarTrack Override Customer Restriction Permission Set</permissionSets>
-	<permissionSets>StarTrack:Edit &quot;Is Bulk Task?&quot; on Task and &quot;Close Bulk
-		Tasks&quot; on case</permissionSets>
+	<permissionSets>StarTrack:Edit &quot;Is Bulk Task?&quot; on Task and &quot;Close Bulk Tasks&quot; on case</permissionSets>
 	<permissionSets>Create Report and Dashboard</permissionSets>
 	<permissionSets>Manage StarTrack Articles</permissionSets>
 	<permissionSets>Knowledge - API</permissionSets>
@@ -134,6 +134,7 @@
 	<permissionSets>Knowledge - Manage FAQs</permissionSets>
 	<permissionSets>Knowledge - View Articles</permissionSets>
 	<permissionSets>StarTrack View Unified Tracking</permissionSets>
+	<permissionSets>ACL Remediation</permissionSets>
 	<profiles>StarTrack Partner Community</profiles>
 	<profiles>SSSE User</profiles>
 	<profiles>SSSE- Depot User</profiles>

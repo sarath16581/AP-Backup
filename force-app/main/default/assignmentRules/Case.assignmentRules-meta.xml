@@ -169,7 +169,7 @@
             <criteriaItems>
                 <field>Case.Warehouse__c</field>
                 <operation>equals</operation>
-                <value>0200 - NSW,0300 - Sprintpak,0350 - DHL(VIC) Supply Chain,0600 - WA,0990 - Sai Cheng,0450 - Townsville,0550 - NT,0380 - Mickleham</value>
+                <value>0200 - NSW,0300 - Sprintpak,0350 - Altona,0600 - WA,0990 - Sai Cheng,0450 - Townsville,0550 - NT,0380 - Mickleham</value>
             </criteriaItems>
         </ruleEntry>
         <ruleEntry>
@@ -212,7 +212,7 @@
             <criteriaItems>
                 <field>Case.Warehouse__c</field>
                 <operation>equals</operation>
-                <value>0200 - NSW,0300 - Sprintpak,0350 - DHL(VIC) Supply Chain,0600 - WA,0990 - Sai Cheng,0380 - Mickleham,0550 - NT,0450 - Townsville</value>
+                <value>0200 - NSW,0300 - Sprintpak,0350 - Altona,0600 - WA,0990 - Sai Cheng,0380 - Mickleham,0550 - NT,0450 - Townsville</value>
             </criteriaItems>
         </ruleEntry>
         <ruleEntry>
@@ -274,7 +274,7 @@
             <criteriaItems>
                 <field>Case.Warehouse__c</field>
                 <operation>equals</operation>
-                <value>0350 - DHL(VIC) Supply Chain</value>
+                <value>0350 - Altona</value>
             </criteriaItems>
         </ruleEntry>
         <ruleEntry>
@@ -322,7 +322,7 @@
             <criteriaItems>
                 <field>Case.Warehouse__c</field>
                 <operation>contains</operation>
-                <value>0200 - NSW,0350 - DHL(VIC) Supply Chain,0600 - WA,0990 - Sai Cheng</value>
+                <value>0200 - NSW,0350 - Altona,0600 - WA,0990 - Sai Cheng</value>
             </criteriaItems>
         </ruleEntry>
         <ruleEntry>
@@ -355,7 +355,7 @@
             <criteriaItems>
                 <field>Case.Warehouse__c</field>
                 <operation>equals</operation>
-                <value>0350 - DHL(VIC) Supply Chain</value>
+                <value>0350 - Altona</value>
             </criteriaItems>
         </ruleEntry>
         <ruleEntry>

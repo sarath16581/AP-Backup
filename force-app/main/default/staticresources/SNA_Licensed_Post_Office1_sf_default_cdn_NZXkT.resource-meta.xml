@@ -2,5 +2,5 @@
 <StaticResource xmlns="http://soap.sforce.com/2006/04/metadata">
     <cacheControl>Public</cacheControl>
     <contentType>application/zip</contentType>
-    <description>System-generated SNA Licensed_Post_Office1 sf_default_cdn</description>
+    <description>System-generated SNA sf_default_cdn Licensed_Post_Office1</description>
 </StaticResource>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Add_Products_Access_Validation</fullName>
+    <active>true</active>
+    <description>&apos;Add Products&apos; action&apos;s accessibility based on Profile, Opportunity Sub Type and Special Roles</description>
+    <errorConditionFormula>NOT(
+	OR(
+	OR(
+		$Profile.Name = &apos;Sales Admin&apos;,
+		$Profile.Name = &apos;Enterprise Onboarding&apos;,
+		$Profile.Name = &apos;System Administrator&apos;,
+		$Profile.Name = &apos;PartnerInfo Agreement Admin&apos;,
+		$Profile.Name = &apos;PartnerInfo Read Only&apos;,
+		$Profile.Name = &apos;Sales Operations&apos;,
+		$Profile.Name = &apos;Sales Operations Super User&apos;,
+		$Profile.Name = &apos;Sales Read Only&apos;,
+		$Profile.Name = &apos;SecurePay SuperUser&apos;,
+		$Profile.Name = &apos;SecurePay Online Payments Service Profile&apos;,
+        ISPICKVAL(Change_Classification__c, &apos;Yes&apos;),
+		AND(
+			OR(ISPICKVAL(Opportunity.Opportunity_SubType__c,&quot;Re-Contract&quot;), ISPICKVAL(Opportunity.Opportunity_SubType__c,&quot;DoV Increase&quot;)),
+			$Profile.Name = &apos;BG Base&apos;,
+			OR(
+                CONTAINS($UserRole.DeveloperName, &apos;Enterprise_VIC&apos;),
+                CONTAINS($UserRole.DeveloperName, &apos;Enterprise_NSW&apos;),
+                CONTAINS($UserRole.DeveloperName, &apos;Government_North&apos;),
+                CONTAINS($UserRole.DeveloperName, &apos;Enterprise_North&apos;),
+                CONTAINS($UserRole.DeveloperName, &apos;Enterprise_QLD_NT&apos;),
+                CONTAINS($UserRole.DeveloperName, &apos;Enterprise_South&apos;),
+                CONTAINS($UserRole.DeveloperName, &apos;Financial_Institutions&apos;),
+                CONTAINS($UserRole.DeveloperName, &apos;Intermediaries&apos;),
+				CONTAINS($UserRole.DeveloperName, &apos;Government_South&apos;)                
+			)
+		)
+	),
+	NOT(ISBLANK(Contract_Number__c))
+	)
+)</errorConditionFormula>
+    <errorMessage>Products can only be added using &apos;Add Pricing Products&apos; button on the Opportunity.</errorMessage>
+</ValidationRule>

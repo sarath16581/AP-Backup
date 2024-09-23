@@ -153,7 +153,20 @@
         <detailHeading>true</detailHeading>
         <editHeading>false</editHeading>
         <label>Data Quality</label>
-        <layoutColumns/>
+        <layoutColumns>
+            <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>Score_Stars_del__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>Data_Quality_Score__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>Data_Quality_Description__c</field>
+            </layoutItems>
+        </layoutColumns>
         <style>OneColumn</style>
     </layoutSections>
     <layoutSections>
@@ -521,22 +534,6 @@
     <layoutSections>
         <customLabel>true</customLabel>
         <detailHeading>true</detailHeading>
-        <editHeading>false</editHeading>
-        <label>Relationship Map</label>
-        <layoutColumns>
-            <layoutItems>
-                <height>200</height>
-                <page>DMAPP__SummaryPoliticalMapExpress</page>
-                <showLabel>true</showLabel>
-                <showScrollbars>true</showScrollbars>
-                <width>100%</width>
-            </layoutItems>
-        </layoutColumns>
-        <style>OneColumn</style>
-    </layoutSections>
-    <layoutSections>
-        <customLabel>true</customLabel>
-        <detailHeading>true</detailHeading>
         <editHeading>true</editHeading>
         <label>Seismic</label>
         <layoutColumns>
@@ -711,12 +708,6 @@
         <relatedList>Revenue_Schedule__c.Opportunity__c</relatedList>
         <sortField>Product__c</sortField>
         <sortOrder>Asc</sortOrder>
-    </relatedLists>
-    <relatedLists>
-        <fields>NAME</fields>
-        <fields>DMAPP__Number_Contacts__c</fields>
-        <fields>DMAPP__Primary_Map__c</fields>
-        <relatedList>DMAPP__Account_Political_Map__c.Opportunity_Name__c</relatedList>
     </relatedLists>
     <relatedLists>
         <fields>TASK.SUBJECT</fields>

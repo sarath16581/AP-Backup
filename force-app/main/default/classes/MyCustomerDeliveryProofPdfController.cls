@@ -12,6 +12,7 @@
 public with sharing class MyCustomerDeliveryProofPdfController {
 	// Causes an error to be displayed on the page and will prevent the rendering of anything else
 	public static String pageError { get; set; }
+	public static String pageError { get; set; }
 
 	public String articleId { get; set; }
 	public static List<DeliveryProofAttributes> deliveryProofAttributes { get; set; }

@@ -31,6 +31,7 @@ Last Modified Date -  18th June, 2021 | INC1739984  : Making the SAP Contract In
 2023-11-22 - Bharat Patel - STP-9770 - added resetOpportunityProposalPrimary(), to reset respected opportunity's proposal's primary flag
 2024-02-05 - Mahesh Parvathaneni - STP-8256 - Reset the cloned opportunity fields on Dov Increase and Renewal process
 2024-02-15 - Mahesh Parvathaneni - STP-8256 - Updated the close date logic on cloned opportunity.
+2024-08-16 - Talib Raza - REQ3537828: CTA fields set to false on cloned Opporunity.
 */
 public without sharing class APT_AmendRenewUtility {
 
@@ -115,6 +116,10 @@ public without sharing class APT_AmendRenewUtility {
 			clonedOpportunity.Pre_Entry__c = false;
 			clonedOpportunity.Offline_Contract_Received__c = false;
 			clonedOpportunity.Data_Integrity_Compliance__c = false;
+			clonedOpportunity.CTA_Propose_Approved__c = false;
+			clonedOpportunity.CTA_Propose_Request_Exists__c = false;
+			clonedOpportunity.CTA_Pursue_Approved__c = false;
+			clonedOpportunity.CTA_Pursue_Request_Exists__c = false;
 			clonedOpportunity.DOV_Reason__c = '';
 			
 			/* Shashwat.Nath@Auspost.com.code ends*/
@@ -1357,5 +1362,27 @@ public without sharing class APT_AmendRenewUtility {
 		clonedOpportunity.LBP_Tier_1__c = null;
 		clonedOpportunity.LBP_Tier_2__c = null;
 		clonedOpportunity.Amount = null;
+	}
+
+	/**
+	On DoV/Renewal, this method will copy Opportunity Products, which are added using Add Products action.
+	*/
+	public static List<OpportunityLineItem> copyOpporunityProducts(Id opportunityId, Apttus__APTS_Agreement__c agreement, List<OpportunityLineItem> listOpportunityLineItem, String actionType) {
+		List<OpportunityLineItem> listClonedOpportunityLineItem = new List<OpportunityLineItem>();
+		try {
+			for(OpportunityLineItem originalOTM : listOpportunityLineItem) {
+				OpportunityLineItem oppLineItem = originalOTM.clone(false, true);
+				oppLineItem.Contract_Start_Date__c = Date.today().addMonths(1);
+				oppLineItem.Contract_End_Date__c = date.today().addMonths(12).addDays(-1);
+				oppLineItem.Change_Classification__c = APT_Constants.OPTION_YES;
+				oppLineItem.ProdClassFieldUpdate__c = null;
+				oppLineItem.OPCValidated__c = false;
+				oppLineItem.OpportunityId = opportunityId;
+				listClonedOpportunityLineItem.add(oppLineItem);
+			}
+		} catch (System.Exception ex) {
+			return null;
+		}
+		return listClonedOpportunityLineItem;
 	}
 }

@@ -40,11 +40,15 @@
     <tabs>standard-home</tabs>
     <tabs>APT_Charge_Code__c</tabs>
     <tabs>standard-WaveHomeLightning</tabs>
+    <tabs>Knowledge__kav</tabs>
     <uiType>Lightning</uiType>
     <utilityBar>LightningService_UtilityBar</utilityBar>
     <workspaceConfig>
         <mappings>
             <tab>APT_Charge_Code__c</tab>
+        </mappings>
+        <mappings>
+            <tab>Knowledge__kav</tab>
         </mappings>
         <mappings>
             <tab>standard-Account</tab>

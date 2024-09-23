@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Receiver_Contact_Last_Name__c</fullName>
-    <description>Capture receiver caller last name information.</description>
+    <businessStatus>DeprecateCandidate</businessStatus>
     <externalId>false</externalId>
-    <label>Contact Last Name</label>
-    <length>90</length>
+    <label>Dep - Contact Last Name</label>
+    <length>40</length>
     <required>false</required>
-    <securityClassification>OFFICIAL_SENSITIVE_PERSONAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <type>Text</type>

@@ -4747,6 +4747,10 @@
         <visible>true</visible>
     </recordTypeVisibilities>
     <recordTypeVisibilities>
+        <recordType>Case.Enterprise_Credit_Dispute_Claim_Guest</recordType>
+        <visible>true</visible>
+    </recordTypeVisibilities>
+    <recordTypeVisibilities>
         <recordType>Case.NCCCDirectEmail</recordType>
         <visible>true</visible>
     </recordTypeVisibilities>

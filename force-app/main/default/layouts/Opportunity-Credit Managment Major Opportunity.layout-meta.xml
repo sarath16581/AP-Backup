@@ -197,7 +197,20 @@
         <detailHeading>true</detailHeading>
         <editHeading>true</editHeading>
         <label>Data Quality</label>
-        <layoutColumns/>
+        <layoutColumns>
+            <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>Score_Stars_del__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>Data_Quality_Score__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Data_Quality_Description__c</field>
+            </layoutItems>
+        </layoutColumns>
         <layoutColumns>
             <layoutItems>
                 <behavior>Readonly</behavior>
@@ -393,6 +406,11 @@
             <sortOrder>15</sortOrder>
         </platformActionListItems>
         <platformActionListItems>
+            <actionName>FeedItem.TextPost</actionName>
+            <actionType>QuickAction</actionType>
+            <sortOrder>19</sortOrder>
+        </platformActionListItems>
+        <platformActionListItems>
             <actionName>FeedItem.PollPost</actionName>
             <actionType>QuickAction</actionType>
             <sortOrder>16</sortOrder>
@@ -406,11 +424,6 @@
             <actionName>Submit</actionName>
             <actionType>StandardButton</actionType>
             <sortOrder>18</sortOrder>
-        </platformActionListItems>
-        <platformActionListItems>
-            <actionName>FeedItem.TextPost</actionName>
-            <actionType>QuickAction</actionType>
-            <sortOrder>19</sortOrder>
         </platformActionListItems>
     </platformActionList>
     <relatedContent>

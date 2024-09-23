@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Date_Rates_Entered__c</fullName>
+    <businessStatus>DeprecateCandidate</businessStatus>
     <externalId>false</externalId>
-    <label>Date Rates Entered</label>
+    <label>Dep - Date Rates Entered</label>
+    <length>40</length>
     <required>false</required>
-    <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
-    <type>DateTime</type>
+    <type>Text</type>
+    <unique>false</unique>
 </CustomField>

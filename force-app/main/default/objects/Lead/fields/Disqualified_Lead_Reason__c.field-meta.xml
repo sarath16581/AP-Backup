@@ -4,7 +4,7 @@
     <description>BAU - This field is a Dependent filed of the Lead status field, this field captures reasons why a lead has been disqualified.</description>
     <externalId>false</externalId>
     <inlineHelpText>Please provide a lead disqualification reason, values provided not suitable please select &quot;Other&quot;.</inlineHelpText>
-    <label>Disqualified Lead Reason</label>
+    <label>Lead Status Reason</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
@@ -13,11 +13,16 @@
     <valueSet>
         <controllingField>Status</controllingField>
         <valueSetDefinition>
-            <sorted>true</sorted>
+            <sorted>false</sorted>
             <value>
-                <fullName>API Request</fullName>
+                <fullName>Not Contacted</fullName>
                 <default>false</default>
-                <label>API Request</label>
+                <label>Not Contacted</label>
+            </value>
+            <value>
+                <fullName>Contacted</fullName>
+                <default>false</default>
+                <label>Contacted</label>
             </value>
             <value>
                 <fullName>Could not contact</fullName>
@@ -40,11 +45,6 @@
                 <label>Enquiry does not meet criteria</label>
             </value>
             <value>
-                <fullName>Existing customer, no opportunity</fullName>
-                <default>false</default>
-                <label>Existing Customer</label>
-            </value>
-            <value>
                 <fullName>Enquiry only</fullName>
                 <default>false</default>
                 <label>General Enquiry / Information Only</label>
@@ -60,14 +60,32 @@
                 <label>Nurturing</label>
             </value>
             <value>
+                <fullName>Test Lead</fullName>
+                <default>false</default>
+                <label>Test Lead</label>
+            </value>
+            <value>
                 <fullName>Unsuccessful Contact Attempts</fullName>
                 <default>false</default>
                 <label>Unsuccessful Contact Attempts</label>
             </value>
+            <value>
+                <fullName>Verified</fullName>
+                <default>false</default>
+                <label>Verified</label>
+            </value>
         </valueSetDefinition>
         <valueSettings>
-            <controllingFieldValue>Disqualified</controllingFieldValue>
-            <valueName>API Request</valueName>
+            <controllingFieldValue>In progress</controllingFieldValue>
+            <valueName>Not Contacted</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>In progress</controllingFieldValue>
+            <valueName>Contacted</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>In progress</controllingFieldValue>
+            <valueName>Nurturing</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Disqualified</controllingFieldValue>
@@ -87,10 +105,6 @@
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Disqualified</controllingFieldValue>
-            <valueName>Existing customer, no opportunity</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Disqualified</controllingFieldValue>
             <valueName>Enquiry only</valueName>
         </valueSettings>
         <valueSettings>
@@ -99,7 +113,7 @@
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Disqualified</controllingFieldValue>
-            <valueName>Nurturing</valueName>
+            <valueName>Test Lead</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Disqualified</controllingFieldValue>

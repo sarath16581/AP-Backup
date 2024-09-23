@@ -105,10 +105,6 @@
                 <field>Product_Type__c</field>
             </layoutItems>
             <layoutItems>
-                <behavior>Edit</behavior>
-                <field>APT_Product_Group__c</field>
-            </layoutItems>
-            <layoutItems>
                 <behavior>Required</behavior>
                 <field>Work_Type__c</field>
             </layoutItems>
@@ -155,10 +151,6 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>APT_Contract_Category__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
                 <field>APT_Contract__c</field>
             </layoutItems>
         </layoutColumns>
@@ -166,14 +158,6 @@
             <layoutItems>
                 <behavior>Edit</behavior>
                 <field>Contract_Status__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>Sub_Account_Checkbox__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>APT_Cash_Account__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
@@ -186,10 +170,6 @@
             <layoutItems>
                 <behavior>Edit</behavior>
                 <field>APT_Sum_Contract_Amount__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>APT_GA_Codes__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>

@@ -1325,14 +1325,6 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
-        <apexClass>UpdatePublicViewCountController</apexClass>
-        <enabled>true</enabled>
-    </classAccesses>
-    <classAccesses>
-        <apexClass>UpdatePublicViewCountController_Test</apexClass>
-        <enabled>true</enabled>
-    </classAccesses>
-    <classAccesses>
         <apexClass>UserSharingUtil</apexClass>
         <enabled>true</enabled>
     </classAccesses>
@@ -1445,14 +1437,6 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
-        <apexClass>internalArticlePreview</apexClass>
-        <enabled>true</enabled>
-    </classAccesses>
-    <classAccesses>
-        <apexClass>internalArticlePreview_Test</apexClass>
-        <enabled>true</enabled>
-    </classAccesses>
-    <classAccesses>
         <apexClass>opp_update_test</apexClass>
         <enabled>true</enabled>
     </classAccesses>
@@ -1552,11 +1536,6 @@
         <field>Account.ABN_Incorrect_del__c</field>
         <readable>true</readable>
     </fieldPermissions>
-	<fieldPermissions>
-		<editable>false</editable>
-		<field>Account.IndirectCustomer__c</field>
-		<readable>true</readable>
-	</fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
         <field>Account.ABN__c</field>
@@ -1765,6 +1744,11 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Account.Hub_Catchment__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Account.IndirectCustomer__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -5737,21 +5721,6 @@
         <field>Opportunity.AccountId</field>
         <readable>true</readable>
     </fieldPermissions>
-	<fieldPermissions>
-		<editable>true</editable>
-		<field>Opportunity.ControlsLodgement__c</field>
-		<readable>true</readable>
-	</fieldPermissions>
-	<fieldPermissions>
-		<editable>true</editable>
-		<field>Opportunity.FreightOwnership__c</field>
-		<readable>true</readable>
-	</fieldPermissions>
-	<fieldPermissions>
-		<editable>false</editable>
-		<field>Opportunity.IndirectCustomer__c</field>
-		<readable>true</readable>
-	</fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
         <field>Opportunity.Account_Manager__c</field>
@@ -5915,6 +5884,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Opportunity.Contract_Start_Date__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Opportunity.ControlsLodgement__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -6133,6 +6107,11 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
+        <editable>false</editable>
+        <field>Opportunity.FreightOwnership__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
         <editable>true</editable>
         <field>Opportunity.Has_Activity_Begun__c</field>
         <readable>true</readable>
@@ -6235,6 +6214,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Opportunity.Incumbents__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Opportunity.IndirectCustomer__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -8598,10 +8582,6 @@
         <enabled>true</enabled>
     </pageAccesses>
     <pageAccesses>
-        <apexPage>FAQPreview</apexPage>
-        <enabled>true</enabled>
-    </pageAccesses>
-    <pageAccesses>
         <apexPage>FacilitySearch</apexPage>
         <enabled>true</enabled>
     </pageAccesses>
@@ -8835,10 +8815,6 @@
     </pageAccesses>
     <pageAccesses>
         <apexPage>UnderConstruction</apexPage>
-        <enabled>true</enabled>
-    </pageAccesses>
-    <pageAccesses>
-        <apexPage>UpdatePublicViewCount</apexPage>
         <enabled>true</enabled>
     </pageAccesses>
     <pageAccesses>

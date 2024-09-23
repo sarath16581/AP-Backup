@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Contact_Postcode__c</fullName>
+    <businessStatus>DeprecateCandidate</businessStatus>
     <externalId>false</externalId>
-    <label>Contact Postcode</label>
-    <precision>4</precision>
+    <label>Dep - Contact Postcode</label>
+    <length>40</length>
     <required>false</required>
-    <scale>0</scale>
-    <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
-    <type>Number</type>
+    <type>Text</type>
     <unique>false</unique>
 </CustomField>

@@ -30,10 +30,6 @@
                 <behavior>Edit</behavior>
                 <field>Western_Union_Blacklisted__c</field>
             </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>IndirectCustomer__c</field>
-            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>

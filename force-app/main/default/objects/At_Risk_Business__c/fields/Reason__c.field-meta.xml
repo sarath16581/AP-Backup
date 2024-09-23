@@ -20,6 +20,11 @@
                 <label>3rd Party Channel shift</label>
             </value>
             <value>
+                <fullName>Business Sold - New Owners</fullName>
+                <default>false</default>
+                <label>ABN Change - Business Sold - New Owners</label>
+            </value>
+            <value>
                 <fullName>ABN Change - Same Owners</fullName>
                 <default>false</default>
                 <label>ABN Change - Same Owners</label>
@@ -33,11 +38,6 @@
                 <fullName>Auspost Decision - Perishables</fullName>
                 <default>false</default>
                 <label>Auspost Decision - Perishables</label>
-            </value>
-            <value>
-                <fullName>Business Sold - New Owners</fullName>
-                <default>false</default>
-                <label>Business Sold - New Owners</label>
             </value>
             <value>
                 <fullName>Credit Issues</fullName>
@@ -70,9 +70,19 @@
                 <label>Product Migration</label>
             </value>
             <value>
-                <fullName>Service Performance</fullName>
+                <fullName>Service - Experience</fullName>
                 <default>false</default>
-                <label>Service Performance</label>
+                <label>Service - Experience</label>
+            </value>
+            <value>
+                <fullName>Service - Lodgement</fullName>
+                <default>false</default>
+                <label>Service - Lodgement</label>
+            </value>
+            <value>
+                <fullName>Service - Performance</fullName>
+                <default>false</default>
+                <label>Service - Performance</label>
             </value>
         </valueSetDefinition>
     </valueSet>

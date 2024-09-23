@@ -12,14 +12,10 @@
     <columns>Geolocation__c</columns>
     <filterScope>Everything</filterScope>
     <filters>
-        <field>State__c</field>
+        <field>RECORDTYPE</field>
         <operation>equals</operation>
-        <value>QLD</value>
-    </filters>
-    <filters>
-        <field>NAME</field>
-        <operation>contains</operation>
-        <value>stefan</value>
+        <value>PUD_Booking_Location__c.AP_Customer</value>
     </filters>
     <label>All Customer Booking Locations</label>
+    <language>en_US</language>
 </ListView>

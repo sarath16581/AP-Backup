@@ -1,27 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <SharingRules xmlns="http://soap.sforce.com/2006/04/metadata">
     <sharingCriteriaRules>
-        <fullName>StarTrack_Case_Investigation_Read_Write</fullName>
+        <fullName>StarTrack_MyNetwork_Case_Investigation_Read_Write_Test</fullName>
         <accessLevel>Edit</accessLevel>
-        <description>Share the StarTrack MyNetwork Case Investigation records to the role and internal subordinates of StarTrack CSC Manager</description>
-        <label>StarTrack Case Investigation Read Write</label>
+        <description>Share the StarTrack MyNetwork Case Investigation records to the role and internal subordinates of StarTrack CSC Manager, StartTrack VOC Manager and SSSW MyNetwork Manager</description>
+        <label>StarTrack MyNetwork Case Investigation Read Write Test</label>
         <sharedTo>
-            <roleAndSubordinatesInternal>StarTrack_CSC_Manager</roleAndSubordinatesInternal>
-        </sharedTo>
-        <criteriaItems>
-            <field>RecordTypeId</field>
-            <operation>equals</operation>
-            <value>StarTrack MyNetwork</value>
-        </criteriaItems>
-        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
-    </sharingCriteriaRules>
-    <sharingCriteriaRules>
-        <fullName>StarTrack_Case_Investigation_Read_Write_MyNetwork</fullName>
-        <accessLevel>Edit</accessLevel>
-        <description>Shares the case investigations created by StarTrack contact center agents to the role and internal subordinates of SSSW MyNetwork Manager</description>
-        <label>StarTrack Case Investigation Read Write MyNetwork</label>
-        <sharedTo>
-            <roleAndSubordinatesInternal>SSSW_Facility_Manager_VIC</roleAndSubordinatesInternal>
+            <group>StarTrack_Managers</group>
         </sharedTo>
         <criteriaItems>
             <field>RecordTypeId</field>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>IsGovernmentEntity__c</fullName>
+    <description>MCC is Government MCC if the value is in the provided list</description>
+    <externalId>false</externalId>
+    <formula>IF(OR(MCC__c = &quot;9211&quot;,MCC__c = &quot;9222&quot;,MCC__c = &quot;9311&quot;,MCC__c = &quot;9399&quot;,MCC__c = &quot;9402&quot;,MCC__c = &quot;9405&quot;,MCC__c = &quot;9406&quot;),&quot;Y&quot;,&quot;&quot;)</formula>
+    <label>Government Entity</label>
+    <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

@@ -665,11 +665,6 @@
         <field>Account.ABN_ACN_Status__c</field>
         <readable>true</readable>
     </fieldPermissions>
-	<fieldPermissions>
-		<editable>false</editable>
-		<field>Account.IndirectCustomer__c</field>
-		<readable>true</readable>
-	</fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
         <field>Account.ABN_Check__c</field>
@@ -1638,6 +1633,11 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Account.Importer__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Account.IndirectCustomer__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -15536,21 +15536,6 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>true</editable>
-        <field>Event.DMAPP__TTG_Prime_Action_Type__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
-        <field>Event.DMAPP__ThirdPartyId__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
-        <field>Event.DMAPP__ThirdPartyName__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
         <editable>false</editable>
         <field>Event.Days_Since_Last_Acty__c</field>
         <readable>true</readable>
@@ -18405,21 +18390,6 @@
         <field>Opportunity.APS_number__c</field>
         <readable>true</readable>
     </fieldPermissions>
-	<fieldPermissions>
-		<editable>false</editable>
-		<field>Opportunity.ControlsLodgement__c</field>
-		<readable>true</readable>
-	</fieldPermissions>
-	<fieldPermissions>
-		<editable>false</editable>
-		<field>Opportunity.FreightOwnership__c</field>
-		<readable>true</readable>
-	</fieldPermissions>
-	<fieldPermissions>
-		<editable>false</editable>
-		<field>Opportunity.IndirectCustomer__c</field>
-		<readable>true</readable>
-	</fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
         <field>Opportunity.APT_Create_Rebate_Contract__c</field>
@@ -18717,6 +18687,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Opportunity.ControlsLodgement__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Opportunity.Count_of_CSQ__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -18788,11 +18763,6 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Opportunity.DB_Competitor__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>Opportunity.DMAPP__Dealmaker_Opportunity__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -19047,6 +19017,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Opportunity.FreightOwnership__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Opportunity.Gov_Solutions_Category__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -19213,6 +19188,11 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Opportunity.Incumbents__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Opportunity.IndirectCustomer__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -20712,11 +20692,6 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Product2.DMAPP__AM_Solution__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
         <field>Product2.Description</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -21058,21 +21033,6 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Task.DB_Activity_Type__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
-        <field>Task.DMAPP__TTG_Prime_Action_Type__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
-        <field>Task.DMAPP__ThirdPartyId__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
-        <field>Task.DMAPP__ThirdPartyName__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

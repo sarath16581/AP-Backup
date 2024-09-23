@@ -12,12 +12,7 @@
         <detailHeading>true</detailHeading>
         <editHeading>true</editHeading>
         <label>Summary Account Information</label>
-        <layoutColumns>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>IndirectCustomer__c</field>
-            </layoutItems>
-        </layoutColumns>
+        <layoutColumns/>
         <layoutColumns/>
         <style>TwoColumnsLeftToRight</style>
     </layoutSections>
@@ -96,6 +91,18 @@
             <layoutItems>
                 <behavior>Readonly</behavior>
                 <field>Tableau_Lodgement_Report__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>Data_Quality_Score__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>Data_Quality_Description__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>Score_Stars__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Readonly</behavior>
@@ -517,22 +524,6 @@
         <layoutColumns/>
         <style>CustomLinks</style>
     </layoutSections>
-    <layoutSections>
-        <customLabel>true</customLabel>
-        <detailHeading>true</detailHeading>
-        <editHeading>false</editHeading>
-        <label>Relationship Map</label>
-        <layoutColumns>
-            <layoutItems>
-                <height>260</height>
-                <page>DMAPP__AccountPolMapLaunchpad</page>
-                <showLabel>false</showLabel>
-                <showScrollbars>true</showScrollbars>
-                <width>100%</width>
-            </layoutItems>
-        </layoutColumns>
-        <style>OneColumn</style>
-    </layoutSections>
     <miniLayout>
         <fields>Name</fields>
         <fields>OwnerId</fields>
@@ -644,10 +635,6 @@
         <relatedList>RelatedContactList</relatedList>
         <sortField>Record_Maintainer__c</sortField>
         <sortOrder>Asc</sortOrder>
-    </relatedLists>
-    <relatedLists>
-        <fields>NAME</fields>
-        <relatedList>DMAPP__Account_Political_Map__c.DMAPP__Account__c</relatedList>
     </relatedLists>
     <relatedLists>
         <excludeButtons>New</excludeButtons>

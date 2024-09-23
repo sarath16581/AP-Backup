@@ -1946,6 +1946,10 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>LBP Sales Manager QLD 4</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>LBP Sales Manager SA 1</fullName>
             <default>false</default>
         </values>
@@ -1967,22 +1971,6 @@
         </values>
         <values>
             <fullName>LBP Sales Manager WA 2</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>LBP Tier 2 CPO North</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>LBP Tier 2 CPO South</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>LBP Tier 2 LPO North</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>LBP Tier 2 LPO South</fullName>
             <default>false</default>
         </values>
         <values>
