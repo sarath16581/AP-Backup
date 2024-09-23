@@ -17,6 +17,7 @@ import ID_FIELD from '@salesforce/schema/VoiceCall.Id';
 import CONTACT_ID_FIELD from '@salesforce/schema/VoiceCall.Contact__c';
 import CASE_ID_FIELD from '@salesforce/schema/VoiceCall.Case__c';
 import CONSIGNMENT_ID_FIELD from '@salesforce/schema/VoiceCall.Consignment__c';
+import CONSIGNMENT_TRACKING_NUMBER_FIELD from '@salesforce/schema/VoiceCall.Consignment__r.ConsignmentTrackingNumber__c';
 import ENQUIRY_TYPE_FIELD from '@salesforce/schema/VoiceCall.EnquiryType__c';
 import ENQUIRY_SUBTYPE_FIELD from '@salesforce/schema/VoiceCall.EnquirySubType__c';
 import PRODUCT_CATEGORY_FIELD from '@salesforce/schema/VoiceCall.ProductCategory__c';
@@ -29,7 +30,8 @@ const VOICECALL_FIELDS = [
 	ENQUIRY_TYPE_FIELD,
 	ENQUIRY_SUBTYPE_FIELD,
 	PRODUCT_CATEGORY_FIELD,
-	PRODUCT_SUBCATEGORY_FIELD
+	PRODUCT_SUBCATEGORY_FIELD,
+	CONSIGNMENT_TRACKING_NUMBER_FIELD
 ];
 
 /**
@@ -143,6 +145,8 @@ export default class UnifiedCaseCreationVoiceCallWrapper extends LightningElemen
 	wiredInteractionRecord({ error, data }) {
 		if (data) {
 			this.interactionRecord = data;
+			const consignmentTrackingNumber = getFieldValue(this.interactionRecord, CONSIGNMENT_TRACKING_NUMBER_FIELD);
+			this.handleExistingCaseValidation(consignmentTrackingNumber);
 		} else if (error) {
 			console.error(error);
 			this.interactionRecord = undefined;
@@ -159,7 +163,6 @@ export default class UnifiedCaseCreationVoiceCallWrapper extends LightningElemen
 	connectedCallback() {
 		// subscribe to LMS
 		this.subscribeToMessageChannel();
-		this.handleExistingCaseValidation();
 	}
 
 	disconnectedCallback() {
@@ -206,10 +209,17 @@ export default class UnifiedCaseCreationVoiceCallWrapper extends LightningElemen
 	 * Call apex controller to retrieve existing cases associated to this liveChat record that met specified criteria
 	 * and update warningMessage if applicable
 	 */
-	async handleExistingCaseValidation(consignmentTrackingId){
-		const existingCaseCount = await getExistingCasesCount(consignmentTrackingId);
-		if(existingCaseCount){
-			this.warningMessage = existingCaseCount + ' Existing Cases';
+	async handleExistingCaseValidation(consignmentTrackingNumber){
+		try {
+			const existingCaseCount = await getExistingCasesCount({
+				consignmentTrackingNumber: consignmentTrackingNumber
+			});
+			if(existingCaseCount){
+				this.warningMessage = existingCaseCount + ' Existing Cases';
+			}
+		} catch (error) {
+			console.error(error);
+			this.errorMessage = reduceErrors(error).join(", ");
 		}
 	}
 
