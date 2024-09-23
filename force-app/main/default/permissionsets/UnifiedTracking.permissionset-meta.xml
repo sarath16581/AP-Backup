@@ -18,4 +18,9 @@
         <field>Article__c.ProductID__c</field>
         <readable>true</readable>
     </fieldPermissions>
+	<fieldPermissions>
+		<editable>true</editable>
+        <field>LiveChatTranscript.Consignment__c</field>
+        <readable>true</readable>
+	</fieldPermissions>
 </PermissionSet>
