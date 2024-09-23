@@ -1,141 +1,152 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <DelegateGroup xmlns="http://soap.sforce.com/2006/04/metadata">
-    <groups>BSC - TPG</groups>
-    <groups>BSC – Accent Brands</groups>
-    <groups>BSC – Cora Group</groups>
-    <groups>BSC – Country Road Group</groups>
-    <groups>BSC – Dicker Data</groups>
-    <groups>BSC – EFM</groups>
-    <groups>BSC – Ingram Micro</groups>
-    <groups>BSC – IVE Group</groups>
-    <groups>BSC – Packcentre</groups>
-    <groups>BSC - Techtronics</groups>
-    <groups>BSC – TIG</groups>
-    <groups>BSC - TPG STOPS</groups>
-    <groups>StarTrack ETA Request</groups>
-    <groups>StarTrack Network Customer Notification</groups>
-    <groups>BSC - SBA</groups>
-    <groups>StarTrack AP Support</groups>
-    <groups>BSC - AFS</groups>
-    <groups>BSC - Spinmaster</groups>
-    <groups>BSC - Team 6</groups>
-    <groups>BSC - Unassigned</groups>
-    <groups>BSC - Government</groups>
-    <groups>BSC - Team 5</groups>
-    <groups>BSC - UPS</groups>
-    <groups>BSC - Spare 3</groups>
-    <groups>BSC – TMS</groups>
-    <groups>StarTrack Account Manager</groups>
-    <groups>StarTrack Business Enablement Admin</groups>
-    <groups>StarTrack Business Enablement Team</groups>
-    <groups>BSP General</groups>
-    <groups>StarTrack Depot Created</groups>
-    <groups>StarTrack Investigations General</groups>
-    <groups>StarTrack Investigations WA</groups>
-    <groups>StarTrack Pickup Enquiry</groups>
-    <groups>BSC - Westpac</groups>
-    <groups>StarTrack Shop</groups>
-    <groups>StarTrack SWMY Temp</groups>
-    <groups>uli</groups>
-    <groups>Disputes Access</groups>
-    <groups>Security Express</groups>
-    <groups>Special Services</groups>
-    <groups>Special Services &amp; Security Express</groups>
-    <groups>BSC - DoD Final Shortages</groups>
-    <groups>BSC - Optus Stop Delivery</groups>
-    <groups>Startrack Damages</groups>
-    <groups>All StarTrack Users</groups>
-    <groups>All VOC</groups>
-    <groups>BSC - Team 1</groups>
-    <groups>BSC - Team 2</groups>
-    <groups>BSC - Team 3</groups>
-    <groups>BSC - Team 4</groups>
-    <groups>DRs to GM of Finance</groups>
-    <groups>EGM Postal/Parcel Services</groups>
-    <groups>GM Product</groups>
-    <groups>GM StarTrack &amp; Express Products Group</groups>
-    <groups>GM Finance</groups>
-    <groups>StarTrack TL Escalation</groups>
-    <groups>Head of Product (Express)</groups>
-    <groups>Head of Product (Premium)</groups>
-    <groups>ST National Dispute Mgr</groups>
-    <groups>StarTrack Business Solutions Consultants</groups>
-    <groups>StarTrack Client Services Manager Group</groups>
-    <groups>StarTrack Corporate Claims Manager Group</groups>
-    <groups>StarTrack Credit Disputes Manager</groups>
-    <groups>StarTrack Credit Disputes Team</groups>
-    <groups>StarTrack Delegated Users</groups>
-    <groups>StarTrack Knowledge Management</groups>
-    <groups>StarTrack Late Delivery Claims Team</groups>
-    <groups>StarTrack Security Report Access</groups>
-    <groups>StarTrack Transit Warranty Manager</groups>
-    <groups>StarTrack Transit Warranty Team</groups>
-    <groups>StarTrack VOC access</groups>
-    <groups>Startrack CFO</groups>
-    <groups>BSC - DHL Apple</groups>
-    <groups>BSC - DHL ColdChain</groups>
-    <groups>BSC - DHL Road</groups>
-    <groups>BSC - Westpac Booking</groups>
-    <groups>BSC - Fedex Pickups</groups>
-    <groups>StarTrack Customer Service Project</groups>
-    <groups>BSC - Apple</groups>
-    <groups>BSC - DHL Air/Road</groups>
-    <groups>BSC - Defence Force</groups>
-    <groups>BSC - Spare 1</groups>
-    <groups>BSC - Spare 2</groups>
-    <groups>BSC - Optus</groups>
-    <groups>BSC - Samsung</groups>
-    <groups>BSC - Telstra Stop Delivery</groups>
-    <groups>BSC - Telstra</groups>
-    <groups>Priority Investigations - Senders</groups>
-    <groups>Sorry We Missed You</groups>
-    <groups>StarTrack Controlled Returns</groups>
-    <groups>StarTrack Delivery Enquiry Team</groups>
-    <groups>StarTrack Final Shortage Approver</groups>
-    <groups>StarTrack Manage Driver Listings</groups>
-    <groups>StarTrack Operations</groups>
-    <groups>StarTrack Service Team</groups>
-    <groups>StarTrack LDC Approval Step 2</groups>
-    <groups>StarTrack Recycle Bin</groups>
-    <groups>BSC - Schenker</groups>
-    <groups>BSC - Banking</groups>
-    <label>StarTrack Admin</label>
-    <loginAccess>false</loginAccess>
-    <permissionSetGroups>ST Team Leader Basic Permissions</permissionSetGroups>
-    <permissionSets>StarTrack Autoclose Case from Task</permissionSets>
-    <permissionSets>Knowledge Management Manager Article Permisssions</permissionSets>
-    <permissionSets>MFA Authorization for User Logins</permissionSets>
-    <permissionSets>SSSE CoOrdinator</permissionSets>
-    <permissionSets>SE Depot User</permissionSets>
-    <permissionSets>SS Depot User</permissionSets>
-    <permissionSets>Credit Disputes Business Systems</permissionSets>
-    <permissionSets>Customer Resolutions</permissionSets>
-    <permissionSets>StarTrack Email Templates access</permissionSets>
-    <permissionSets>Manage Authorization Rules</permissionSets>
-    <permissionSets>Ability to edit StarTrack customer restrictions</permissionSets>
-    <permissionSets>StarTrack Create Consignment</permissionSets>
-    <permissionSets>StarTrack Delegated Users</permissionSets>
-    <permissionSets>StarTrack Due Date Override</permissionSets>
-    <permissionSets>StarTrack Edit BSC and Transfer Case Queue fields on account</permissionSets>
-    <permissionSets>StarTrack Edit Case Priority Permission Set</permissionSets>
-    <permissionSets>StarTrack Override Customer Restriction Permission Set</permissionSets>
-    <permissionSets>StarTrack:Edit &quot;Is Bulk Task?&quot; on Task and &quot;Close Bulk Tasks&quot; on case</permissionSets>
-    <permissionSets>Create Report and Dashboard</permissionSets>
-    <permissionSets>Manage StarTrack Articles</permissionSets>
-    <permissionSets>ACL Remediation</permissionSets>
-    <permissionSets>StarTrack View Unified Tracking</permissionSets>
-    <profiles>StarTrack Partner Community</profiles>
-    <profiles>SSSE User</profiles>
-    <profiles>SSSE- Depot User</profiles>
-    <profiles>StarTrack Operations</profiles>
-    <profiles>StarTrack Support</profiles>
-    <profiles>StarTrack VOC</profiles>
-    <roles>Security Express &amp; Special Services</roles>
-    <roles>StarTrack Credit Disputes Manager</roles>
-    <roles>StarTrack VOC Manager</roles>
-    <roles>StarTrack Business Solutions Manager</roles>
-    <roles>StarTrack CSC Manager</roles>
-    <roles>StarTrack Investigations Manager</roles>
-    <roles>StarTrack Operations Manager</roles>
-    <roles>StarTrack Service Manager</roles>
+	<groups>BSC - TPG</groups>
+	<groups>BSC – Accent Brands</groups>
+	<groups>BSC – Cora Group</groups>
+	<groups>BSC – Country Road Group</groups>
+	<groups>BSC – Dicker Data</groups>
+	<groups>BSC – EFM</groups>
+	<groups>BSC – Ingram Micro</groups>
+	<groups>BSC – IVE Group</groups>
+	<groups>BSC – Packcentre</groups>
+	<groups>BSC - Techtronics</groups>
+	<groups>BSC – TIG</groups>
+	<groups>BSC - TPG STOPS</groups>
+	<groups>StarTrack ETA Request</groups>
+	<groups>StarTrack Network Customer Notification</groups>
+	<groups>BSC - SBA</groups>
+	<groups>StarTrack AP Support</groups>
+	<groups>BSC - AFS</groups>
+	<groups>BSC - Spinmaster</groups>
+	<groups>BSC - Team 6</groups>
+	<groups>BSC - Unassigned</groups>
+	<groups>BSC - Government</groups>
+	<groups>BSC - Team 5</groups>
+	<groups>BSC - UPS</groups>
+	<groups>BSC - Spare 3</groups>
+	<groups>BSC – TMS</groups>
+	<groups>StarTrack Account Manager</groups>
+	<groups>StarTrack Business Enablement Admin</groups>
+	<groups>StarTrack Business Enablement Team</groups>
+	<groups>BSP General</groups>
+	<groups>StarTrack Depot Created</groups>
+	<groups>StarTrack Investigations General</groups>
+	<groups>StarTrack Investigations WA</groups>
+	<groups>StarTrack Pickup Enquiry</groups>
+	<groups>BSC - Westpac</groups>
+	<groups>StarTrack Shop</groups>
+	<groups>StarTrack SWMY Temp</groups>
+	<groups>uli</groups>
+	<groups>Disputes Access</groups>
+	<groups>Security Express</groups>
+	<groups>Special Services</groups>
+	<groups>Special Services &amp; Security Express</groups>
+	<groups>BSC - DoD Final Shortages</groups>
+	<groups>BSC - Optus Stop Delivery</groups>
+	<groups>Startrack Damages</groups>
+	<groups>All StarTrack Users</groups>
+	<groups>All VOC</groups>
+	<groups>BSC - Team 1</groups>
+	<groups>BSC - Team 2</groups>
+	<groups>BSC - Team 3</groups>
+	<groups>BSC - Team 4</groups>
+	<groups>DRs to GM of Finance</groups>
+	<groups>EGM Postal/Parcel Services</groups>
+	<groups>GM Product</groups>
+	<groups>GM StarTrack &amp; Express Products Group</groups>
+	<groups>GM Finance</groups>
+	<groups>StarTrack TL Escalation</groups>
+	<groups>Head of Product (Express)</groups>
+	<groups>Head of Product (Premium)</groups>
+	<groups>ST National Dispute Mgr</groups>
+	<groups>StarTrack Business Solutions Consultants</groups>
+	<groups>StarTrack Client Services Manager Group</groups>
+	<groups>StarTrack Corporate Claims Manager Group</groups>
+	<groups>StarTrack Credit Disputes Manager</groups>
+	<groups>StarTrack Credit Disputes Team</groups>
+	<groups>StarTrack Delegated Users</groups>
+	<groups>StarTrack Knowledge Management</groups>
+	<groups>StarTrack Late Delivery Claims Team</groups>
+	<groups>StarTrack Security Report Access</groups>
+	<groups>StarTrack Transit Warranty Manager</groups>
+	<groups>StarTrack Transit Warranty Team</groups>
+	<groups>StarTrack VOC access</groups>
+	<groups>Startrack CFO</groups>
+	<groups>BSC - DHL Apple</groups>
+	<groups>BSC - DHL ColdChain</groups>
+	<groups>BSC - DHL Road</groups>
+	<groups>BSC - Westpac Booking</groups>
+	<groups>BSC - Fedex Pickups</groups>
+	<groups>StarTrack Customer Service Project</groups>
+	<groups>BSC - Apple</groups>
+	<groups>BSC - DHL Air/Road</groups>
+	<groups>BSC - Defence Force</groups>
+	<groups>BSC - Spare 1</groups>
+	<groups>BSC - Spare 2</groups>
+	<groups>BSC - Optus</groups>
+	<groups>BSC - Samsung</groups>
+	<groups>BSC - Telstra Stop Delivery</groups>
+	<groups>BSC - Telstra</groups>
+	<groups>Priority Investigations - Senders</groups>
+	<groups>Sorry We Missed You</groups>
+	<groups>StarTrack Controlled Returns</groups>
+	<groups>StarTrack Delivery Enquiry Team</groups>
+	<groups>StarTrack Final Shortage Approver</groups>
+	<groups>StarTrack Manage Driver Listings</groups>
+	<groups>StarTrack Operations</groups>
+	<groups>StarTrack Service Team</groups>
+	<groups>StarTrack LDC Approval Step 2</groups>
+	<groups>StarTrack Recycle Bin</groups>
+	<groups>Knowledge: Article Managers</groups>
+	<groups>Knowledge: Australia Post</groups>
+	<groups>Knowledge: FAQ</groups>
+	<groups>Knowledge: Manager</groups>
+	<groups>Knowledge: Recovery Team</groups>
+	<groups>Knowledge: Specialist Skill</groups>
+	<groups>Knowledge: StarTrack</groups>
+	<groups>BSC - Schenker</groups>
+	<groups>BSC - Banking</groups>
+	<label>StarTrack Admin</label>
+	<loginAccess>false</loginAccess>
+	<permissionSetGroups>ST Team Leader Basic Permissions</permissionSetGroups>
+	<permissionSets>StarTrack Autoclose Case from Task</permissionSets>
+	<permissionSets>Knowledge Management Manager Article Permisssions</permissionSets>
+	<permissionSets>MFA Authorization for User Logins</permissionSets>
+	<permissionSets>SSSE CoOrdinator</permissionSets>
+	<permissionSets>SE Depot User</permissionSets>
+	<permissionSets>SS Depot User</permissionSets>
+	<permissionSets>Credit Disputes Business Systems</permissionSets>
+	<permissionSets>Customer Resolutions</permissionSets>
+	<permissionSets>StarTrack Email Templates access</permissionSets>
+	<permissionSets>Manage Authorization Rules</permissionSets>
+	<permissionSets>Ability to edit StarTrack customer restrictions</permissionSets>
+	<permissionSets>StarTrack Create Consignment</permissionSets>
+	<permissionSets>StarTrack Delegated Users</permissionSets>
+	<permissionSets>StarTrack Due Date Override</permissionSets>
+	<permissionSets>StarTrack Edit BSC and Transfer Case Queue fields on account</permissionSets>
+	<permissionSets>StarTrack Edit Case Priority Permission Set</permissionSets>
+	<permissionSets>StarTrack Override Customer Restriction Permission Set</permissionSets>
+	<permissionSets>StarTrack:Edit &quot;Is Bulk Task?&quot; on Task and &quot;Close Bulk Tasks&quot; on case</permissionSets>
+	<permissionSets>Create Report and Dashboard</permissionSets>
+	<permissionSets>Manage StarTrack Articles</permissionSets>
+	<permissionSets>Knowledge - API</permissionSets>
+	<permissionSets>Knowledge - Manage Articles</permissionSets>
+	<permissionSets>Knowledge - Manage FAQs</permissionSets>
+	<permissionSets>Knowledge - View Articles</permissionSets>
+	<permissionSets>StarTrack View Unified Tracking</permissionSets>
+	<permissionSets>ACL Remediation</permissionSets>
+	<profiles>StarTrack Partner Community</profiles>
+	<profiles>SSSE User</profiles>
+	<profiles>SSSE- Depot User</profiles>
+	<profiles>StarTrack Operations</profiles>
+	<profiles>StarTrack Support</profiles>
+	<profiles>StarTrack VOC</profiles>
+	<roles>Security Express &amp; Special Services</roles>
+	<roles>StarTrack Credit Disputes Manager</roles>
+	<roles>StarTrack VOC Manager</roles>
+	<roles>StarTrack Business Solutions Manager</roles>
+	<roles>StarTrack CSC Manager</roles>
+	<roles>StarTrack Investigations Manager</roles>
+	<roles>StarTrack Operations Manager</roles>
+	<roles>StarTrack Service Manager</roles>
 </DelegateGroup>

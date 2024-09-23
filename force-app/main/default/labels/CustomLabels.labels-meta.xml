@@ -4409,6 +4409,14 @@ Compass quote end date has passed, please request re-activation</value>
         <value>Determines if article has taken an alternate delivery path. May be due to missort, or change in logistics route.</value>
     </labels>
     <labels>
+        <fullName>HappyParcelNETDuplicateConsignmentWarningText</fullName>
+        <categories>Happy Parcel</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Happy Parcel .NET Duplicate Consignment Warning Text</shortDescription>
+        <value>WARNING! Multiple results found for this tracking ID. Enquiries need to be handled by Classic team.</value>
+    </labels>
+    <labels>
         <fullName>HappyParcelNotificationPreferencesAPCNEmailHelpText</fullName>
         <categories>Happy Parcel</categories>
         <language>en_US</language>
