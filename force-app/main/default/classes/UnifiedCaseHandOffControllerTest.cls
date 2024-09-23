@@ -5,6 +5,7 @@
  * @changelog
  * 2024-06-18 - Vasu Gorakati - Case Hand-off
  * 2024-07-18 - Raghav Ravipati - Added changes to test duplicate consigment scenarios.
+ * 2024-09-20 - Vasu Gorakati - CSLU-799 - Schedule Contact Request Cancellation
  **/
 @isTest
 public class UnifiedCaseHandOffControllerTest {
@@ -315,6 +316,8 @@ public class UnifiedCaseHandOffControllerTest {
 		List<Article__c> articles = ApplicationTestDataFactory.getConsignments(1, true);
 		List<Case> cases = ApplicationTestDataFactory.getCases(1, true);
 		List<ImpactedArticle__c> impactedArticles = ApplicationTestDataFactory.getImpactedArticles(1, cases[0].Id, articles[0].Id, true);
+		Account consumer = ApplicationTestDataFactory.getPersonAccounts(1, true)[0];
+		List<ContactRequest> contactRequests = ApplicationTestDataFactoryCase.getContactRequests(1, new List<Id>{cases[0].Id}, consumer.PersonContactId, true);
 
 		// =====================================
 		// Stubbing
@@ -322,7 +325,8 @@ public class UnifiedCaseHandOffControllerTest {
 		ArticlesSelector mockArticlesSelector = (ArticlesSelector) MockUtility.mockSelector(ArticlesSelector.class);
 		CasesSelector mockCasesSelector = (CasesSelector) MockUtility.mockSelector(CasesSelector.class);
 		ImpactedArticlesSelector mockImpactedArticlesSelector = (ImpactedArticlesSelector) MockUtility.mockSelector(ImpactedArticlesSelector.class);
-
+		ContactRequestsSelector mockContactRequestsSelector = (ContactRequestsSelector) MockUtility.mockSelector(ContactRequestsSelector.class);
+  
 		MockUtility.Mocks.startStubbing();
 
 		//Set up responses
@@ -333,6 +337,7 @@ public class UnifiedCaseHandOffControllerTest {
 		MockUtility.Mocks.when(mockCasesSelector.selectById(new Set<Id>{ cases[0].Id }, new Set<Object>{ CasesSelector.Options.WITH_CONTACT }))
 			.thenReturn(new Map<Id, Case>{ cases[0].Id => cases[0] });
 		MockUtility.Mocks.when(mockImpactedArticlesSelector.selectByCaseId(new Set<Id>{ cases[0].Id }, new Set<Object>())).thenReturn(impactedArticles);
+		MockUtility.Mocks.when(mockContactRequestsSelector.search(new Map<String, Object>{'whatIds' => new Set<Id>{ cases[0].Id }}, true)).thenReturn(contactRequests);
 
 		ApplicationDatabase mockDatabase = MockUtility.mockDatabase();
 		MockUtility.Mocks.when(mockDatabase.dmlUpdate((List<SObject>) fflib_Match.anyObject())).thenAnswer(new MockUtility.AnswerGenericDMLUpdated());
@@ -365,5 +370,6 @@ public class UnifiedCaseHandOffControllerTest {
 		System.assertNotEquals(null, cases[0].CaseTransferDate__c, 'Case transfer date should be updated');
 		System.assertEquals('Network contact required', cases[0].CaseTransferReason__c, 'Case transfer reason should be updated');
 		System.assertEquals(caseStarTrackDeliveryEnquiryRecordType, cases[0].RecordTypeId, 'Record type should be set to StarTrack_PUD_Enquiry');
+		System.assertEquals('Abandoned', contactRequests[0].Status, 'Contact Request Status should be set to Abandoned');
 	}
 }
