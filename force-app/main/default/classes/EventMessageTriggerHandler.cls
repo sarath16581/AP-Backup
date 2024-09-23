@@ -3,6 +3,7 @@
  * @author Ranjeewa Silva
  * @date 2024-08-27
  * @changelog
+ * 2024-09-23 - Ranjeewa Silva - Registered new module that handle case automation for classic MyCustomer cases.
  */
 public inherited sharing class EventMessageTriggerHandler extends ApplicationTriggerHandler {
 
