@@ -6,6 +6,7 @@
  * 2024-09-03	George Nguyen	Included default values on Insert for type and subtype
  * 2024-09-09 - Ranjeewa Silva - Updated to send email notification to customer on converting general enquiry unified case to investigation type.
  * 2024-09-10 - Seth Heang - added After Insert Trigger to send email notification for new unified investigation case
+ * 2024-09-11 - Vasu Gorakati   CSLU-1413 Service Cloud Voice Work Summaries
  */
 public inherited sharing class CaseAutomationClassificationModule extends ApplicationModule {
 
@@ -75,6 +76,17 @@ public inherited sharing class CaseAutomationClassificationModule extends Applic
 			if(unifiedRecordTypeIds.contains(aCase.RecordTypeId) == true) {
 
 				if(existingRecords != null) { // on update
+
+					// This addresses the limitation of mapping work summaries directly to the Subject field due to TextArea constraints.
+					// As a workaround, the Last Interaction Summary maps the Einstein Work Summary,
+					// and the following code copies the value from Last Interaction Summary to the Subject field.
+
+
+					if (acase.LastInteractionSummary__c != null &&
+						acase.LastInteractionSummary__c != ((Case)existingRecords.get(aCase.Id)).LastInteractionSummary__c
+					) {
+						acase.Subject = acase.LastInteractionSummary__c;
+					}
 
 					// if Type has changed from General Enquiry to Investigation
 					if(aCase.Type == SSSWConstants.CASE_TYPE_INVESTIGATION

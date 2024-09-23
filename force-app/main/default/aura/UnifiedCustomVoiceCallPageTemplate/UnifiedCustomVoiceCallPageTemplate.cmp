@@ -1,0 +1,44 @@
+<aura:component implements="lightning:recordHomeTemplate" description="Two Left Side Bar and One Right Main Bar">
+	<aura:attribute name="leftTopElement" type="Aura.Component[]" />
+	<aura:attribute name="firstElement" type="Aura.Component[]" />
+	<aura:attribute name="secondElement" type="Aura.Component[]" />
+	<aura:attribute name="thirdElement" type="Aura.Component[]" />
+	<aura:attribute name="headerElement" type="Aura.Component[]" />
+	<aura:attribute name="activeSections" type="List" default="['conversation']" />
+	<aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+
+	<!-- Header Section -->
+	<div class="slds-text-heading_small slds-m-bottom_small slds-size_12-of-12">
+		<lightning:layout>
+			<lightning:layoutItem size="12">
+				<div>{!v.headerElement}</div>
+			</lightning:layoutItem>
+		</lightning:layout>
+	</div>
+
+	<!-- Main Content Layout -->
+	<div class="slds-grid slds-gutters slds-wrap">
+		<div class="slds-col slds-small-size_12-of-12 slds-medium-size_12-of-12 slds-large-size_3-of-12 no-right-padding">
+			<div class="top-left-element">
+				{!v.leftTopElement}
+			</div>
+
+			<lightning:card class="no-top-padding">
+				<lightning:accordion aura:id="accordionConversationSection" class="section-with-background-colour" allowMultipleSectionsOpen="true" activeSectionName="{!v.activeSections}">
+					<lightning:accordionSection name="conversation" label="Conversation">
+						{!v.firstElement}
+					</lightning:accordionSection>
+				</lightning:accordion>
+			</lightning:card>
+		</div>
+
+		<div class="slds-col slds-small-size_12-of-12 slds-medium-size_12-of-12 slds-large-size_3-of-12 no-right-padding">
+			<span>{!v.secondElement}</span>
+		</div>
+
+		<div class="slds-col slds-small-size_12-of-12 slds-medium-size_12-of-12 slds-large-size_6-of-12">
+			<span>{!v.thirdElement}</span>
+		</div>
+	</div>
+
+</aura:component>
