@@ -76,7 +76,7 @@ describe('c-unified-case-creation-voice-call-wrapper', () => {
 		document.body.appendChild(element);
 		
 		const messagePayload = {
-			source: 'HappyParcel',
+			source: 'unifiedTrackingChatWrapper',
 			type: 'articleSelected',
 			body: {
 				consignmentId: '000ASFDASAASDFASGFAST3532f',
