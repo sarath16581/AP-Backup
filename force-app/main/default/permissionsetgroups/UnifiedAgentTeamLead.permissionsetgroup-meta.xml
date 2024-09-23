@@ -10,5 +10,9 @@
     <permissionSets>UnifiedOmniSupervisor</permissionSets>
     <permissionSets>UnifiedQuickTextAndReporting</permissionSets>
     <permissionSets>UnifiedTracking</permissionSets>
+    <permissionSets>force__EinsteinGPTServiceReplies</permissionSets>
+    <permissionSets>force__EinsteinGPTWorkSummaries</permissionSets>
+    <permissionSets>force__EinsteinReplyRecommendations</permissionSets>
+	<permissionSets>ServiceCloudVoiceAgent</permissionSets>
     <status>Updated</status>
 </PermissionSetGroup>

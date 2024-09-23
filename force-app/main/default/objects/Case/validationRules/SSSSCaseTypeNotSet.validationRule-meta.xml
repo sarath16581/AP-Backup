@@ -5,7 +5,10 @@
     <description>SSSW is based on Case Types. These are required for all Cases.</description>
     <errorConditionFormula>Bypass_Data_enforcement__c = FALSE 
 &amp;&amp;
-BEGINS(RecordType.DeveloperName, &apos;SSSW&apos;) 
+OR(
+   BEGINS(RecordType.DeveloperName, &apos;SSSW&apos;),
+   BEGINS(RecordType.DeveloperName, &apos;Unified&apos;)
+)
 &amp;&amp;
 $Profile.Name != &apos;System Administrator&apos; 
 &amp;&amp; 
