@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <PermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
 	<description>This permission set shall be used to define and control all object, app and user permissions for the Unified Tracking</description>
-    <hasActivationRequired>false</hasActivationRequired>
-    <label>Unified Tracking</label>
-    <license>Salesforce</license>
+	<hasActivationRequired>false</hasActivationRequired>
+	<label>Unified Tracking</label>
+	<license>Salesforce</license>
 	<objectPermissions>
 		<object>Article__c</object>
 		<allowRead>true</allowRead>
@@ -14,8 +14,18 @@
 		<modifyAllRecords>false</modifyAllRecords>
 	 </objectPermissions>
 	 <fieldPermissions>
-        <editable>true</editable>
-        <field>Article__c.ProductID__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
+		<editable>false</editable>
+		<field>Article__c.ConsignmentTrackingNumber__c</field>
+		<readable>true</readable>
+	</fieldPermissions>
+	 <fieldPermissions>
+		<editable>true</editable>
+		<field>Article__c.ProductID__c</field>
+		<readable>true</readable>
+	</fieldPermissions>
+	<fieldPermissions>
+		<editable>true</editable>
+		<field>LiveChatTranscript.Consignment__c</field>
+		<readable>true</readable>
+	</fieldPermissions>
 </PermissionSet>

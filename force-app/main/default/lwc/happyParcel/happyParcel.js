@@ -428,9 +428,11 @@ export default class HappyParcelWrapper extends NavigationMixin(LightningElement
 		}
 
 		// additional attributes mapping
-		result.article.ProductCategory__c = this.articles?.[0]?.trackingResult?.article?.ProductCategory__c ?? result.article.ProductCategory__c;
-		result.article.SubProduct__c = this.articles?.[0]?.trackingResult?.article?.SubProduct__c ?? result.article.SubProduct__c;
-		result.additionalAttributes = this.consignment?.trackingResult?.additionalAttributes ?? result.additionalAttributes;
+		if(result && result.article){
+			result.article.ProductCategory__c = this.articles?.[0]?.trackingResult?.article?.ProductCategory__c ?? result.article.ProductCategory__c;
+			result.article.SubProduct__c = this.articles?.[0]?.trackingResult?.article?.SubProduct__c ?? result.article.SubProduct__c;
+			result.additionalAttributes = this.consignment?.trackingResult?.additionalAttributes ?? result.additionalAttributes;
+		}
 		// populate EDD for StarTrack including a flag to pass down to child component(happyParcelEdd)
 		this.articles?.forEach(item => {
 			// only set isDotNetEdd to TRUE if both EDD and SourceSystem data from .NET are not null
@@ -445,6 +447,9 @@ export default class HappyParcelWrapper extends NavigationMixin(LightningElement
 		this.loadingStarTrackApi = false;
 		// validate 'Download POD' button display
 		this._displayPodDownloadButton = this.handlePODDownloadButtonDisplay();
+
+		// Fire Search complete event for star track consignments.
+		this.triggerClearviewMappingEvent();
 	}
 
 	/**
@@ -692,6 +697,7 @@ export default class HappyParcelWrapper extends NavigationMixin(LightningElement
 	triggerClearviewMappingEvent() {
 		if (this.consignment && this.consignment.trackingId) {
 			const detail = {
+				hasDuplicates: this.consignment.trackingResult.hasDuplicates,
 				articleRecordId: (this.consignment.trackingResult.article ? this.consignment.trackingResult.article.Id : null),
 				isConsignment: this.isConsignment,
 				articleCount: this.articles.length,
@@ -805,9 +811,9 @@ export default class HappyParcelWrapper extends NavigationMixin(LightningElement
 	get searchResultsText() {
 		if (this.isConsignment) {
 			return 'Consignment';
-		} else {
-			return 'Article';
 		}
+		
+		return 'Article';
 	}
 
 	get hasSearchResults() {
