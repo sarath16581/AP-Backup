@@ -25,6 +25,7 @@
 * 2024-07-23 - Marcel HK - Allow match if MailingStreet equals addressLine1 + addressLine2 (CSLU-1106)
 * 2024-07-23 - Marcel HK - Added filters for accountId and abn/acn lookup (CSLU-447)
 * 2024-08-08 - Marcel HK - Update Address filters for `selectByCustomerSearchParamsQB` (CSLU-1072)
+* 2024-09-23 - Rejeesh Raghavan - Added tests for `selectWithCasesAndInteractionsHelper` `selectWithCasesAndInteractionsByPhoneNumber` `selectWithCasesAndInteractionsByEmailAddress` (CSLU-1367)
 */
 @IsTest
 private with sharing class ContactsSelector_Test {
@@ -527,30 +528,41 @@ private with sharing class ContactsSelector_Test {
 	static void testSelectWithCasesAndInteractionsHelper(){
 		String customerPhone='0300300300';
 		String queryConditions= ' AND (HomePhone =:searchKey OR MobilePhone =:searchKey OR Phone =:searchKey)';
+		String currentUserProfileName = [SELECT Name FROM Profile WHERE Id =:UserInfo.getProfileId() LIMIT 1].Name;
 		Map<String, Object> bindMap = new Map<String, Object>();
 		bindMap.put('searchKey', customerPhone);
-		// Mock Data
-		RecordType consumerRecordType = [SELECT Id, DeveloperName FROM RecordType WHERE SObjectType='Account' AND DeveloperName='Business_Account' LIMIT 1];
-		Account personAccount = ApplicationTestDataFactory.getPersonAccounts(1, true)[0];
-		Contact personContact = ApplicationTestDataFactory.getContacts(1, personAccount.Id, true)[0];
-		personAccount.RecordTypeId = consumerRecordType.Id;
-		personAccount = (Account)ApplicationTestDataFactory.setUnwritableFields(personAccount, new Map<String, Object>{
-				'PersonContactId' => personContact.Id
-				,'RecordType.DeveloperName'=>'Business_Account'
-		});
-		personContact = (Contact)ApplicationTestDataFactory.setUnwritableFields(personContact, new Map<String, Object>{
-				'IsPersonAccount'=>true
-		});
-		personContact.Phone=customerPhone;
-		//stubs
-		ContactsSelector mockContactsSelector = (ContactsSelector) MockUtility.mockSelector(ContactsSelector.class);
-
-		MockUtility.Mocks.startStubbing();
-		MockUtility.Mocks.when(mockContactsSelector.selectWithCasesAndInteractionsHelper(queryConditions,bindMap, new Set<Object>()))
-			.thenReturn(new List<Contact>{personContact});
-		MockUtility.Mocks.stopStubbing();
-
+		bindMap.put('caseRecordTypes',ResourceCustomerInsightsV1.AP_CASE_RECORDTYPES);
+		bindMap.put('closedCaseCutoffDate',Date.today().addDays(-30));
+		bindMap.put('interactionProfiles',new Set<String>{currentUserProfileName});
+		bindMap.put('interactionCutoffDate',Date.today().addDays(-30));
 		
+		//Data setup
+		
+		MockUtility.disableTriggerExecution();
+		RecordType consumerRecordType = [SELECT Id, DeveloperName FROM RecordType WHERE SObjectType='Account' AND DeveloperName='Business_Account' LIMIT 1];
+		
+		Account businessAccount = ApplicationTestDataFactory.getAccounts(1, false)[0];
+		businessAccount.Name ='John Doe Account';
+		businessAccount.NumberOfEmployees =10;
+		insert businessAccount;
+
+		Contact personContact = ApplicationTestDataFactory.getContacts(1, businessAccount.Id, false)[0];
+		personContact.Phone=customerPhone;
+		insert personContact;
+
+		Case caseRecord = ApplicationTestDataFactory.getCases(1, false)[0];
+		caseRecord.Contact = personContact;
+		caseRecord.RecordTypeId = ApplicationTestDataFactory.caseSSSWDeliveryRecordType;
+		insert caseRecord;
+
+		Task taskRecord = ApplicationTestDataFactory.getTasks(1, null, false)[0];
+		taskRecord.WhoId = personContact.Id;
+		taskRecord.ActivityDate = System.today();
+		taskRecord.Status = 'Completed';
+		taskRecord.Type = 'Phone Call';
+		taskRecord.RecordTypeId = RecordTypes.getRecordTypeByName('SSSWCall', 'Task').Id;
+		insert taskRecord;
+
 		Test.startTest();
 
 		// Call the Selector method
@@ -562,6 +574,7 @@ private with sharing class ContactsSelector_Test {
 		List<Contact> contacts = contactSelector.selectWithCasesAndInteractionsHelper(queryConditions,bindMap, new Set<Object>());
 		Test.stopTest();
 		Assert.areEqual(1, contacts.size(), '1 contact should be returned');
+		Assert.areEqual(1, contacts[0].Tasks.size(), '1 Task should be returned');
 	}
 	/**
 	 * @description Test method for ContactsSelector.selectWithCasesAndInteractionsByPhoneNumber()
