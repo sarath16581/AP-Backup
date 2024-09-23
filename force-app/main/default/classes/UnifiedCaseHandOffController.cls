@@ -321,7 +321,7 @@ public with sharing class UnifiedCaseHandOffController {
 	private static void updateContactRequestStatus(Set<Id> parentIds) {
 		List<ContactRequest> contactRequests = new List<ContactRequest>(
 			ContactRequestsSelector.newInstance(0, new Set<SObjectField>{
-				ContactRequest.Id, ContactRequest.WhatId, ContactRequest.Status
+				ContactRequest.Id, ContactRequest.WhatId, ContactRequest.Status, ContactRequest.AutoAbandonedFlag__c
 			}).search(new Map<String, Object>{
 				'whatIds' => parentIds
 			}, true)
@@ -332,6 +332,7 @@ public with sharing class UnifiedCaseHandOffController {
 		for (ContactRequest cr : contactRequests) {
 			if (cr.Status == UnifiedConstants.CONTACT_REQUEST_STATUS_NEW || cr.Status == UnifiedConstants.CONTACT_REQUEST_STATUS_RESCHEDULED) {
 				cr.Status = UnifiedConstants.CONTACT_REQUEST_STATUS_ABANDONED; // Update status to 'Abandoned'
+				cr.AutoAbandonedFlag__c = true;
 				requestsToUpdate.add(cr);
 			}
 		}
