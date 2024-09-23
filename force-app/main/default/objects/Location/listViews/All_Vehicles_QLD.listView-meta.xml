@@ -13,6 +13,7 @@
     <columns>Line_Haul__c</columns>
     <columns>Model__c</columns>
     <columns>Make__c</columns>
+    <columns>Service_Territory__c</columns>
     <columns>State__c</columns>
     <filterScope>Everything</filterScope>
     <filters>

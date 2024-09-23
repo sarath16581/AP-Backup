@@ -671,6 +671,7 @@ public with sharing class BAMUserUtility {
          * NOTE: this instance will always be in the context of a network or community
          */
         public BAMPersonaSwitchUtility(Id userId, Id networkId) {
+            system.debug(UserInfo.getUserType());
             if((PORTAL_PERSONA_USER_TYPES.contains(UserInfo.getUserType()) && Id.valueOf(userId) != Id.valueOf(UserInfo.getUserId()))) {
                 throw new InvalidPersonaException('Not authorised to change user context.');
             } else {
