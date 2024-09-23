@@ -39,9 +39,10 @@ public with sharing class TIBCOArticleSubscriptionService {
 				String partnerUrl = sfdcBaseURL + '/services/Soap/u/29.0/' + organizationId;
 				String sessionId = UserInfo.getSessionId();
 
+				String actionId = '04k000000000000000'; // value does not matter, TIBCO need this field populated in order to insert the scan event back into SF
 				Boolean result = service.notifications(
 						organizationId,
-						null,
+						actionId,
 						sessionId,
 						enterpriseUrl,
 						partnerUrl,
