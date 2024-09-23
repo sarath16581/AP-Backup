@@ -143,7 +143,7 @@ public inherited sharing class CaseUnifiedAutomationService {
 	 * @return Case
 	 */
 	private Case updateCaseForCaseClosure(RecordWrapper record) {
-		Boolean currentOwnerIsNotAgent = !record.caseRecord.OwnerId.toString().startsWith(APT_Constants.LABEL_USER_ID_PREFIX);
+		Boolean currentOwnerIsNotAgent = !record.caseRecord.OwnerId.toString().startsWith('005');
 		Case updatedCase = record.caseRecord;
 		updatedCase.Status = SSSWConstants.CASE_STATUS_CLOSED;
 		updatedCase.OwnerId = currentOwnerIsNotAgent ? QUEUE_SETTINGS.ClosedQueueId__c : record.caseRecord.OwnerId;

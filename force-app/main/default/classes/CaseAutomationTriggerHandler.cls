@@ -109,7 +109,7 @@ public inherited sharing class CaseAutomationTriggerHandler extends ApplicationT
 		registerModule(CaseLegacyAutomationModule.class);
 
 		// This module will use fields on the case to classify them. Such as Type and Record types
-		registerModule(CaseAutomationClassificationModule.class);
+		registerModule(CaseAutomationClassificationModule.class, 'filterUnified');
 
 		// these module will be available for domain operations and trigger execution
 		// each module will register their trigger entry points
