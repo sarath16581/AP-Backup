@@ -76,7 +76,7 @@ describe('c-unified-case-creation-voice-call-wrapper', () => {
 		document.body.appendChild(element);
 		
 		const messagePayload = {
-			source: 'HappyParcel',
+			source: 'unifiedTrackingChatWrapper',
 			type: 'articleSelected',
 			body: {
 				consignmentId: '000ASFDASAASDFASGFAST3532f',
@@ -107,7 +107,30 @@ describe('c-unified-case-creation-voice-call-wrapper', () => {
 		expect(caseCreationCmp.productSubCategory).toBe('Express Post');
 	});
 	
-	it('validates existing case count and display warning message', async () => {
+	it('validates existing case count via @wire and display warning message', async () => {
+		// Create component
+		const element = createElement('c-unified-case-creation-voice-call-wrapper', {
+			is: UnifiedCaseCreationVoiceCallWrapper
+		});
+
+		getExistingCasesCount.mockResolvedValue(
+			EXISTING_CASE_RES_SUCCESS
+		);
+		
+		getRecord.emit(
+			mockGetRecordForVoiceCallTranscript
+		);
+	
+		document.body.appendChild(element);
+
+		// Wait for any asynchronous DOM updates
+		await flushAllPromises();
+		
+		const warningMsg = element.shadowRoot.querySelector("p");
+		expect(warningMsg.textContent).toContain('5 Existing Cases');
+	});
+
+	it('validates existing case count via LMS event handling and display warning message', async () => {
 		// Create component
 		const element = createElement('c-unified-case-creation-voice-call-wrapper', {
 			is: UnifiedCaseCreationVoiceCallWrapper
@@ -118,6 +141,20 @@ describe('c-unified-case-creation-voice-call-wrapper', () => {
 		);
 	
 		document.body.appendChild(element);
+		
+		const messagePayload = {
+			source: 'unifiedTrackingChatWrapper',
+			type: 'articleSelected',
+			body: {
+				consignmentId: '000ASFDASAASDFASGFAST3532f',
+				selectedArticleIds: [
+					'111ASFDASAASDFASGFAST3532f',
+					'222ASFDASAASDFASGFAST3532f',
+					'333ASFDASAASDFASGFAST3532f'
+				]
+			}
+		}
+		publish(MessageContext, GENERIC_LMS_CHANNEL, messagePayload);
 
 		// Wait for any asynchronous DOM updates
 		await flushAllPromises();
