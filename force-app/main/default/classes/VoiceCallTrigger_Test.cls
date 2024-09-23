@@ -27,7 +27,8 @@ class VoiceCallTrigger_Test {
 		CallCenter cc = [select id,name from CallCenter limit 1];
 
 		VoiceCall vc = new VoiceCall(
-			CallCenterId = cc.id,
+			CallCenterId = cc.Id,
+			Case__c = case1.Id,
 			VendorType = 'ContactCenter',
 			CallType = 'Inbound',
 			FromPhoneNumber = '+19999999999',
