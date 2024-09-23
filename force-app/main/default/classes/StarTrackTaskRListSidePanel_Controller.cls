@@ -122,6 +122,6 @@
 			VoiceCall.CallEndDateTime, 
 			VoiceCall.CallType
 		};
-		VoiceCalls = VoiceCallsSelector.newInstance(voiceCallFields).selectByRelatedRecordIds(New Set<Id>{caseId},new Set<Object>());
+		voiceCalls = VoiceCallsSelector.newInstance(voiceCallFields).selectByRelatedRecordIds(New Set<Id>{caseId},new Set<Object>());
 	}
 }
