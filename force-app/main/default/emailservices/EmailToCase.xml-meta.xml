@@ -5,6 +5,12 @@
     <authenticationFailureAction>Bounce</authenticationFailureAction>
     <authorizationFailureAction>Discard</authorizationFailureAction>
     <emailServicesAddresses>
+        <developerName>account_managers</developerName>
+        <isActive>true</isActive>
+        <localPart>account.managers</localPart>
+        <runAsUser>salessystemssupport@auspost.com.au.stest</runAsUser>
+    </emailServicesAddresses>
+    <emailServicesAddresses>
         <developerName>actgovsupport</developerName>
         <isActive>true</isActive>
         <localPart>actgovsupport</localPart>
@@ -65,6 +71,12 @@
         <runAsUser>salessystemssupport@auspost.com.au.stest</runAsUser>
     </emailServicesAddresses>
     <emailServicesAddresses>
+        <developerName>customer_satisfaction</developerName>
+        <isActive>true</isActive>
+        <localPart>customer.satisfaction</localPart>
+        <runAsUser>salessystemssupport@auspost.com.au.stest</runAsUser>
+    </emailServicesAddresses>
+    <emailServicesAddresses>
         <developerName>customerservice</developerName>
         <isActive>true</isActive>
         <localPart>customerservice</localPart>
@@ -80,6 +92,12 @@
         <developerName>dell_sydney</developerName>
         <isActive>true</isActive>
         <localPart>dell.sydney</localPart>
+        <runAsUser>salessystemssupport@auspost.com.au.stest</runAsUser>
+    </emailServicesAddresses>
+    <emailServicesAddresses>
+        <developerName>dhl</developerName>
+        <isActive>true</isActive>
+        <localPart>dhl</localPart>
         <runAsUser>salessystemssupport@auspost.com.au.stest</runAsUser>
     </emailServicesAddresses>
     <emailServicesAddresses>
@@ -122,6 +140,12 @@
         <developerName>nswgovsupport</developerName>
         <isActive>true</isActive>
         <localPart>nswgovsupport</localPart>
+        <runAsUser>salessystemssupport@auspost.com.au.stest</runAsUser>
+    </emailServicesAddresses>
+    <emailServicesAddresses>
+        <developerName>priorityteam1</developerName>
+        <isActive>true</isActive>
+        <localPart>priorityteam1</localPart>
         <runAsUser>salessystemssupport@auspost.com.au.stest</runAsUser>
     </emailServicesAddresses>
     <emailServicesAddresses>
@@ -188,6 +212,12 @@
         <developerName>telstrasupport</developerName>
         <isActive>true</isActive>
         <localPart>telstrasupport</localPart>
+        <runAsUser>salessystemssupport@auspost.com.au.stest</runAsUser>
+    </emailServicesAddresses>
+    <emailServicesAddresses>
+        <developerName>telstrateam</developerName>
+        <isActive>true</isActive>
+        <localPart>telstrateam</localPart>
         <runAsUser>salessystemssupport@auspost.com.au.stest</runAsUser>
     </emailServicesAddresses>
     <emailServicesAddresses>

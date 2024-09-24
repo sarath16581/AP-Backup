@@ -87,6 +87,7 @@
         <lookupPhoneDialogsAdditionalFields>QualityScore</lookupPhoneDialogsAdditionalFields>
         <searchResultsAdditionalFields>CallType</searchResultsAdditionalFields>
         <searchResultsAdditionalFields>FromPhoneNumber</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>CallResolution</searchResultsAdditionalFields>
         <searchResultsAdditionalFields>CallStartDateTime</searchResultsAdditionalFields>
         <searchResultsAdditionalFields>CallEndDateTime</searchResultsAdditionalFields>
         <searchResultsAdditionalFields>User</searchResultsAdditionalFields>

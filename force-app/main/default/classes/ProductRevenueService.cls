@@ -587,20 +587,24 @@ public with sharing class ProductRevenueService {
 		(record.Nov_Revenue_Amount__c == null ? 0 : record.Nov_Revenue_Amount__c)  ; 
 	}
 
-	private static Decimal calculateTotalInYearRevenue(Date contractStartDate, Date contractEndDate, Decimal totalPrice) {
+	public static Decimal calculateTotalInYearRevenue(Date contractStartDate, Date contractEndDate, Decimal totalPrice) {
 		if (contractStartDate == contractEndDate) {
 			return totalPrice;
 		}
 		Date today = Date.today();
+        system.debug('**** today '+today);
 		Date fiscalYearEnd = Date.newInstance(today.year(), 6, 30);
+        system.debug('**** fiscalYearEnd '+fiscalYearEnd);
 		Date nextFiscalYearEnd = Date.newInstance(today.year() + 1, 6, 30);
-
+		system.debug('**** nextFiscalYearEnd '+nextFiscalYearEnd);
 		Date effectiveEndDate = contractEndDate <= fiscalYearEnd ? contractEndDate : (contractStartDate > fiscalYearEnd ? fiscalYearEnd : nextFiscalYearEnd);
-		Date effectiveStartDate = contractStartDate >= fiscalYearEnd ? contractStartDate : (contractEndDate < fiscalYearEnd ? fiscalYearEnd : today);
-
-		Integer totalDays = contractEndDate.daysBetween(contractStartDate) + 1;
-		Integer effectiveDays = effectiveEndDate.daysBetween(effectiveStartDate) + 1;
-
+		system.debug('**** effectiveEndDate '+effectiveEndDate);
+        Date effectiveStartDate = contractStartDate >= fiscalYearEnd ? contractStartDate : (contractEndDate < fiscalYearEnd ? fiscalYearEnd : today);
+		system.debug('**** effectiveStartDate '+effectiveStartDate);
+		Integer totalDays = contractStartDate.daysBetween(contractEndDate) + 1;
+		system.debug('**** totalDays '+totalDays);
+        Integer effectiveDays = effectiveStartDate.daysBetween(effectiveEndDate) + 1;
+		system.debug('**** effectiveDays '+effectiveDays);
 		return (Decimal.valueOf(effectiveDays) / Decimal.valueOf(totalDays)) * totalPrice;
 	}
  
@@ -1252,10 +1256,14 @@ public with sharing class ProductRevenueService {
 		// retrieve any manually liked related accounts and place them into the global related account map.
 		for (AccountRelationship__c arr: AccountRelationshipSelector.newInstance().selectByOPCParentEndDateInFuture(unloadedAccountIds)) {
             if(arr.ParentAccount__c != null && arr.RelatedAccount__c != null) {
-                if (!relatedChildAccountsMap.containsKey(arr.ParentAccount__c)) {
+                if (!relatedChildAccountsMap.containsKey(arr.ParentAccount__c) || relatedChildAccountsMap.get(arr.ParentAccount__c)== null) {
                     system.debug('**** arr '+arr);
                     relatedChildAccountsMap.put(arr.ParentAccount__c, new Set<Id>{arr.RelatedAccount__c});
                 } else {
+                    system.debug('arr '+arr);
+                    system.debug('arr.ParentAccount__c '+arr.ParentAccount__c );
+                    system.debug('arr.RelatedAccount__c '+arr.RelatedAccount__c);
+                    system.debug('relatedChildAccountsMap.get(arr.ParentAccount__c) '+relatedChildAccountsMap.get(arr.ParentAccount__c));
                     relatedChildAccountsMap.get(arr.ParentAccount__c).add(arr.RelatedAccount__c);
                 }
             }

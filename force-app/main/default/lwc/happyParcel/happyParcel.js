@@ -18,6 +18,7 @@
  * 2024-06-18 - Seth Heang - Added EDD data mapping from StarTrack .NET query including SourceSystem and isDotNet Attribute
  * 2024-06-26 - Seth Heang - Added logic to publish LMS events for SAP callout completion and article selected
  * 2024-07-12 - Seth Heang - Added logic to handle the .NET StarTrack API warning from Controller and UI display
+ * 2024-09-04 - Raghav Ravipati - updated getCriticalIncidentDetails logic to display errors. 
  */
 import { LightningElement, track, wire, api } from "lwc";
 import { getAnalyticsApiResponse, getTrackingApiResponse, getTrackingApiResponseForStarTrack, getCriticalIncidentDetails, getConfig, safeTrim, safeToUpper, subscribe, unsubscribe, downloadPODPDF, CONSTANTS } from 'c/happyParcelService'
@@ -295,14 +296,19 @@ export default class HappyParcelWrapper extends NavigationMixin(LightningElement
 			if (this.forceConsignmentLevelResults && consignment.trackingId !== currentTrackingId) {
 				this.activeSections.push(currentTrackingId);
 			}
-			const totalArticlesDeliveredField = [
+			const additionalConsignmentAttributes = [
+				{
+					fieldLabel: "Consignment ID", // add the consignment ID this way instead of the field set, so we can change the field label
+					fieldType: "STRING",
+					fieldValue: consignment.trackingId
+				},
 				{
 					fieldLabel: "Total Delivered",
 					fieldType: "STRING",
 					fieldValue: totalArticlesDelivered
 				}
 			];
-			this.consignment.trackingResult.additionalAttributes = totalArticlesDeliveredField;
+			this.consignment.trackingResult.additionalAttributes = additionalConsignmentAttributes;
 		}
 
 		// assign the tracking response for each article into the articles array
@@ -310,6 +316,12 @@ export default class HappyParcelWrapper extends NavigationMixin(LightningElement
 		if (articles) {
 			//Get published critical incident knowledge articles that are available in the system
 			const criticalIncidents = await getCriticalIncidentDetails();
+			if (criticalIncidents.isError){
+				this.errors = this.errors.concat({
+					source: CONSTANTS.CRITICAL_INCIDENTS,
+					message: CONSTANTS.CRITICAL_INCIDENTS + ': ' + criticalIncidents.error
+				});
+			}
 			articles.forEach((item) => {
 				let articleIndex = this.articles.findIndex(article => article.trackingId === item.trackingId);
 				if (articleIndex > -1) {
@@ -331,13 +343,6 @@ export default class HappyParcelWrapper extends NavigationMixin(LightningElement
 					if (!Object.keys(this.articles[articleIndex]).includes('articleDetailsExpanded')) {
 						this.articles[articleIndex].articleDetailsExpanded = !this.isConsignment;
 					}
-					//Add related critical incidents to the article based on network Id
-					let events = item.events;
-					events.forEach((event) => {
-						if (event.event.FacilityOrganisationID__c) {
-							event.criticalIncidents = criticalIncidents[event.event.FacilityOrganisationID__c];
-						}
-					});
 
 				} else {
 					// note because we are adding this article we can set the default value of articleDetailsExpanded
@@ -351,6 +356,15 @@ export default class HappyParcelWrapper extends NavigationMixin(LightningElement
 						articleSelected: false
 					}); //, articleDetailsExpanded: !this.isConsignment
 				}
+
+				//Add related critical incidents to the article based on network Id
+				let events = item.events;
+				events.forEach((event) => {
+					if (event.event && event.event.FacilityOrganisationID__c && criticalIncidents.criticalIncidentsResults) {
+						let criticalIncidentsMap = JSON.parse(criticalIncidents.criticalIncidentsResults);
+						event.criticalIncidents = criticalIncidentsMap[event.event.FacilityOrganisationID__c];
+					}
+				});
 			});
 		}
 
@@ -862,6 +876,14 @@ export default class HappyParcelWrapper extends NavigationMixin(LightningElement
 	get hasStarTrackErrors() {
 		return this.errors.filter(error => error.source === CONSTANTS.STARTRACK_API);
 	}
+
+	/**
+	 * Display StarTrack API related error
+	 */
+	get hasCriticalIncidentErrors() {
+		return this.errors.filter(error => error.source === CONSTANTS.CRITICAL_INCIDENTS);
+	}
+	
 
 	/**
 	 * Display StarTrack API related warning
