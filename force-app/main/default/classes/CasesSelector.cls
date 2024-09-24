@@ -280,6 +280,8 @@ public virtual inherited sharing class CasesSelector extends ApplicationSelector
 	 * @param searchParams A map containing searchable values:
 	 *						 caseIds: maps to Id (Set<Id>/Id)
 	 *						 recordTypeIds: maps to RecordTypeId (Set<Id>/Id)
+	 *						 relatedArticleIds: maps to ArticleTest__c (Set<Id>/Id)
+	 *						 isClosed: maps to IsClosed (Boolean).
 	 * @param selectorOptions selector options
 	 * @param matchAll If true will search based on AND, else search based on OR
 	 *
@@ -288,6 +290,8 @@ public virtual inherited sharing class CasesSelector extends ApplicationSelector
 	public List<Case> search(Map<String, Object> searchParams, Set<Object> selectorOptions, Boolean matchAll) {
 		Set<Id> caseIds = (Set<Id>)(searchParams.get('caseIds') == null ? new Set<Id>() : (searchParams.get('caseIds') instanceof Set<Id> ? searchParams.get('caseIds') : new Set<Id>{(Id)searchParams.get('caseIds')}));
 		Set<Id> recordTypeIds = (Set<Id>)(searchParams.get('recordTypeIds') == null ? new Set<Id>() : (searchParams.get('recordTypeIds') instanceof Set<Id> ? searchParams.get('recordTypeIds') : new Set<Id>{(Id)searchParams.get('recordTypeIds')}));
+		Set<Id> relatedArticleIds = (Set<Id>)(searchParams.get('relatedArticleIds') == null ? new Set<Id>() : (searchParams.get('relatedArticleIds') instanceof Set<Id> ? searchParams.get('relatedArticleIds') : new Set<Id>{(Id)searchParams.get('relatedArticleIds')}));
+		Boolean isClosed = searchParams.get('isClosed') instanceof Boolean ? (Boolean)searchParams.get('isClosed') : false;
 
 		return (List<Case>)Database.query(getSearchSoql(searchParams, selectorOptions, matchAll));
 	}
@@ -297,7 +301,7 @@ public virtual inherited sharing class CasesSelector extends ApplicationSelector
 	 */
 	@TestVisible
 	private String getSearchSoql(Map<String, Object> searchParams, Set<Object> selectorOptions, Boolean matchAll) {
-		validateSearchParams(searchParams.keySet(), new Set<String>{'caseIds', 'recordTypeIds'});
+		validateSearchParams(searchParams.keySet(), new Set<String>{'caseIds', 'recordTypeIds', 'relatedArticleIds', 'isClosed'});
 
 		QueryBuilder builder = newQueryBuilder(selectorOptions);
 		QueryBuilder.ConditionsManager conditions = builder.addConditions();
@@ -309,6 +313,14 @@ public virtual inherited sharing class CasesSelector extends ApplicationSelector
 		}
 		if(searchParams.containsKey('recordTypeIds')) {
 			conditions.add(new QueryBuilder.SimpleCondition(Case.RecordTypeId + ' in :recordTypeIds'));
+			conditionCount++;
+		}
+		if(searchParams.containsKey('relatedArticleIds')) {
+			conditions.add(new QueryBuilder.SimpleCondition(Case.ArticleTest__c + ' in :relatedArticleIds'));
+			conditionCount++;
+		}
+		if (searchParams.containsKey('isClosed')) {
+			conditions.add(new QueryBuilder.SimpleCondition(Case.IsClosed + ' = :isClosed'));
 			conditionCount++;
 		}
 

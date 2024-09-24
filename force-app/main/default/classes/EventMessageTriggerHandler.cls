@@ -3,12 +3,16 @@
  * @author Ranjeewa Silva
  * @date 2024-08-27
  * @changelog
+ * 2024-09-23 - Ranjeewa Silva - Registered new module that handle case automation for classic MyCustomer cases.
  */
 public inherited sharing class EventMessageTriggerHandler extends ApplicationTriggerHandler {
 
 	public override void registerModules() {
 		// all of the old event message automation logic which hasn't been uplifted yet
 		registerModule(EventMessageLegacyAutomationModule.class);
+
+		// automation for classic MyCustomer cases (moved over from workflow rules)
+		registerModule(EventMessageMyCustomerCaseAutoModule.class);
 
 		// automation for unified cases on receiving Event Messages on impacted articles linked to the case
 		registerModule(EventMessageUnifiedCaseAutomationModule.class);
