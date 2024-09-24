@@ -333,7 +333,7 @@ public with sharing class UnifiedCaseHandOffController {
 		for (ContactRequest cr : contactRequests) {
 			if (cr.Status == UnifiedConstants.CONTACT_REQUEST_STATUS_NEW || cr.Status == UnifiedConstants.CONTACT_REQUEST_STATUS_RESCHEDULED) {
 				cr.Status = UnifiedConstants.CONTACT_REQUEST_STATUS_ABANDONED; // Update status to 'Abandoned'
-				cr.AutoAbandonedFlag__c = true;
+				cr.AutoAbandonedFlag__c = true; //Set auto abandoned flag to true which is used for reporting
 				requestsToUpdate.add(cr);
 			}
 		}
