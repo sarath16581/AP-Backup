@@ -197,8 +197,8 @@ export default class UnifiedCaseCreationVoiceCallWrapper extends LightningElemen
 	 * @param message
 	 */
 	handleLMSEvent(message) {
-		// filter for source = `unifiedTrackingChatWrapper` and type = `articlesSelected`
-		if(message.source === 'unifiedTrackingChatWrapper' && message.type === 'articleSelected'){
+		// filter for source = `unifiedTrackingVoiceWrapper` and type = `articlesSelected`
+		if(message.source === 'unifiedTrackingVoiceWrapper' && message.type === 'articleSelected'){
 			this.impactedArticles = message.body.selectedArticleIds;
 			const consignmentTrackingId = message.body.consignmentId;
 			this.handleExistingCaseValidation(consignmentTrackingId);
