@@ -2,10 +2,7 @@
 <ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>BusinessSold_Reason_Rule</fullName>
     <active>true</active>
-    <errorConditionFormula>AND (
- ISPICKVAL(Stage__c, &quot;Closed&quot;),
- ISPICKVAL(Reason__c, &quot;Business Sold - New Owners&quot;),
- ISBLANK(Related_Organisation__c)
-)</errorConditionFormula>
-    <errorMessage>Please go back to BAR record and enter Related Organisation</errorMessage>
+    <description>ABN change At Risk Business should not be closed without related organisation or opportunity</description>
+    <errorConditionFormula>AND(ISPICKVAL(Stage__c, &quot;Closed&quot;),ISPICKVAL(Reason__c,&quot;Business Sold - New Owners&quot;),OR(ISBLANK(Related_Organisation__c),ISBLANK(Related_Opportunity__c)))</errorConditionFormula>
+    <errorMessage>Please go back to BAR record and enter Related Organisation and Related Opportunity</errorMessage>
 </ValidationRule>

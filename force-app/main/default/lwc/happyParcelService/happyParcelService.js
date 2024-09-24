@@ -19,6 +19,7 @@
  * 2024-06-13 - Seth Heang - Added getCurrentStateOfSafeDropImageRequiredForDownload and getSafeDropImageForPOD
  * 2024-06-14 - Seth Heang - Moved in download Proof of delivery method from HappyParcelDeliveryProof
  * 2024-06-25 - Raghav Ravipati - Changed signature of getSafeDropImage method to identify stracktrack bucket attachemnts
+ * 2024-09-04 - Raghav Ravipati - updated getCriticalIncidentDetails logic to display errors. 
  */
 
 //continuations
@@ -188,7 +189,8 @@ export const CONSTANTS = {
 	LOCATION_ICON_SVG_PATH: 'M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z',
 	ANALYTICS_API: 'Analytics API',
 	TRACKING_API: 'Tracking API',
-	STARTRACK_API: 'StarTrack API'
+	STARTRACK_API: 'StarTrack API',
+	CRITICAL_INCIDENTS: 'Critical Incidents'
 };
 
 export const safeTrim = (str) => {
@@ -372,9 +374,13 @@ export const getNetworkDetails = async (wcc) => {
  * Allows the user to get critical incidents based on the network org Id
  */
 export const getCriticalIncidentDetails = async () => {
-	let result = await getCriticalIncidents();
-
-	return result;
+	try {
+		let result = await getCriticalIncidents();
+		return { isError: false, criticalIncidentsResults: result};
+	} catch (error) {
+		const errorMessage = 'Unable to retrieve critical incident details for networks.';
+		return { isError: true, error: errorMessage };
+	}
 }
 
 /**
