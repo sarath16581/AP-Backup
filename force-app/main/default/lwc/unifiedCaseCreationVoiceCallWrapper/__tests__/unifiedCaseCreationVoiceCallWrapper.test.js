@@ -76,7 +76,7 @@ describe('c-unified-case-creation-voice-call-wrapper', () => {
 		document.body.appendChild(element);
 		
 		const messagePayload = {
-			source: 'unifiedTrackingChatWrapper',
+			source: 'unifiedTrackingVoiceWrapper',
 			type: 'articleSelected',
 			body: {
 				consignmentId: '000ASFDASAASDFASGFAST3532f',
@@ -143,7 +143,7 @@ describe('c-unified-case-creation-voice-call-wrapper', () => {
 		document.body.appendChild(element);
 		
 		const messagePayload = {
-			source: 'unifiedTrackingChatWrapper',
+			source: 'unifiedTrackingVoiceWrapper',
 			type: 'articleSelected',
 			body: {
 				consignmentId: '000ASFDASAASDFASGFAST3532f',
