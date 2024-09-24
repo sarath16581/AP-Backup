@@ -6,6 +6,7 @@
  * 2024-06-18 - Vasu Gorakati - Case Hand-off
  * 2024-07-18 - Raghav Ravipati - Added logic to perform additional callout if we have duplicate consignments see CSLU-696 for details.
  * 2024-09-20 - Vasu Gorakati - CSLU-799 - Schedule Contact Request Cancellation
+ * 2024-09-20 - Vasu Gorakati - CSLU-799 - Schedule Contact Request Cancellation - to set auto abandoned flag
  **/
 public with sharing class UnifiedCaseHandOffController {
 	private static final String AUSTRALIAPOST = 'AustraliaPost';
