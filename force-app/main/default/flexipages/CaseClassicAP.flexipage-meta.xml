@@ -1034,7 +1034,7 @@
                 <componentName>flexipage:fieldSection</componentName>
                 <identifier>flexipage_fieldSection9</identifier>
                 <visibilityRule>
-                    <booleanFilter>1 OR 2</booleanFilter>
+                    <booleanFilter>1 OR 2 OR 3</booleanFilter>
                     <criteria>
                         <leftValue>{!Record.RecordType.DeveloperName}</leftValue>
                         <operator>EQUAL</operator>
@@ -1045,6 +1045,11 @@
                         <operator>EQUAL</operator>
                         <rightValue>SSSW General Enquiry</rightValue>
                     </criteria>
+					<criteria>
+                        <leftValue>{!Record.RecordType.Name}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Social Record Type</rightValue>
+                    </criteria>					
                 </visibilityRule>
             </componentInstance>
         </itemInstances>
