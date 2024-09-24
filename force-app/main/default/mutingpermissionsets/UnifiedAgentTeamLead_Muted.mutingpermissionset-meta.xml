@@ -30,6 +30,11 @@
         <field>Account.Phone</field>
         <readable>false</readable>
     </fieldPermissions>
+	<fieldPermissions>
+        <editable>true</editable>
+        <field>Account.ParentId</field>
+        <readable>false</readable>
+    </fieldPermissions>	
     <label>Unified Agent Team Lead Muted</label>
     <objectPermissions>
         <allowCreate>true</allowCreate>
