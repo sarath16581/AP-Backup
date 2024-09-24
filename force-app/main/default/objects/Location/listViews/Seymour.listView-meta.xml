@@ -4,5 +4,10 @@
     <columns>Name</columns>
     <columns>LocationType</columns>
     <filterScope>Everything</filterScope>
+    <filters>
+        <field>Service_Territory__c</field>
+        <operation>contains</operation>
+        <value>Seymour</value>
+    </filters>
     <label>Seymour</label>
 </ListView>

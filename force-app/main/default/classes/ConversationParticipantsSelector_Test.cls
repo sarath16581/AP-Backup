@@ -33,13 +33,13 @@ private class ConversationParticipantsSelector_Test {
 		String soql = qb.toSoqlString();
 		System.assertEquals(true, Pattern.compile('(?is)\\bfrom ConversationParticipant\\b').matcher(soql).find(), 'Resulting query does not select from ConversationParticipant');
 
-		Set<SObjectField> fieldOverrides=new Set<SObjectField>{Contact.Id, Contact.AccountId};
+		Set<SObjectField> fieldOverrides=new Set<SObjectField>{ConversationParticipant.Id, ConversationParticipant.ParticipantDisplayName};
 		ConversationParticipantsSelector selector2 = ConversationParticipantsSelector.newInstance(1,fieldOverrides);
 		QueryBuilder qb2 = selector2.newQueryBuilder();
 		String soql2 = qb2.toSoqlString();
-		System.assertEquals(true, Pattern.compile('(?ism)Contact\\.Id\\..*?\\bfrom ConversationParticipant\\b').matcher(soql).find(), 'Resulting query does not select Contact fields: ' + soql);
-		System.assertEquals(true, Pattern.compile('(?ism)Contact\\.AccountId.*?\\bfrom Contact\\b').matcher(soql).find(), 'Resulting query does not select Contact fields: ' + soql);
-		System.assertEquals(false, Pattern.compile('(?ism)Contact\\.Name.*?\\bfrom Contact\\b').matcher(soql).find(), 'Resulting selects Contact.Name but it shouldn\'t: ' + soql);
+		System.assertEquals(true, Pattern.compile('(?ism)Id.*?\\bfrom ConversationParticipant\\b').matcher(soql).find(), 'Resulting query does not select ConversationParticipant field: ' + soql);
+		System.assertEquals(true, Pattern.compile('(?ism)ParticipantDisplayName.*?\\bfrom ConversationParticipant\\b').matcher(soql2).find(), 'Resulting query does not select ConversationParticipant fields: ' + soql2);
+		System.assertEquals(false, Pattern.compile('(?ism)CreatedDate.*?\\bfrom ConversationParticipant\\b').matcher(soql2).find(), 'Resulting selects ConversationParticipant but it shouldn\'t: ' + soql2);
 		Test.stopTest();
 	}
 }

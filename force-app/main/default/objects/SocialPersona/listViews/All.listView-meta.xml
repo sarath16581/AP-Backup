@@ -3,6 +3,7 @@
     <fullName>All</fullName>
     <columns>Name</columns>
     <columns>Provider</columns>
-    <filterScope>Mine</filterScope>
+    <columns>CreatedDate</columns>
+    <filterScope>Everything</filterScope>
     <label>All</label>
 </ListView>
