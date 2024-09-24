@@ -18,6 +18,7 @@ import ID_FIELD from '@salesforce/schema/LiveChatTranscript.Id';
 import CONTACT_ID_FIELD from '@salesforce/schema/LiveChatTranscript.ContactId';
 import CASE_ID_FIELD from '@salesforce/schema/LiveChatTranscript.CaseId';
 import CONSIGNMENT_ID_FIELD from '@salesforce/schema/LiveChatTranscript.Consignment__c';
+import CONSIGNMENT_TRACKING_NUMBER_FIELD from '@salesforce/schema/LiveChatTranscript.Consignment__r.ConsignmentTrackingNumber__c';
 import ENQUIRY_TYPE_FIELD from '@salesforce/schema/LiveChatTranscript.EnquiryType__c';
 import ENQUIRY_SUBTYPE_FIELD from '@salesforce/schema/LiveChatTranscript.EnquirySubType__c';
 import PRODUCT_CATEGORY_FIELD from '@salesforce/schema/LiveChatTranscript.ProductCategory__c';
@@ -30,7 +31,8 @@ const LIVECHAT_FIELDS = [
 	ENQUIRY_TYPE_FIELD,
 	ENQUIRY_SUBTYPE_FIELD,
 	PRODUCT_CATEGORY_FIELD,
-	PRODUCT_SUBCATEGORY_FIELD
+	PRODUCT_SUBCATEGORY_FIELD,
+	CONSIGNMENT_TRACKING_NUMBER_FIELD
 ];
 
 /**
@@ -144,6 +146,8 @@ export default class UnifiedCaseCreationLiveChatWrapper extends LightningElement
 	wiredInteractionRecord({ error, data }) {
 		if (data) {
 			this.interactionRecord = data;
+			const consignmentTrackingNumber = getFieldValue(this.interactionRecord, CONSIGNMENT_TRACKING_NUMBER_FIELD);
+			this.handleExistingCaseValidation(consignmentTrackingNumber);
 		} else if (error) {
 			console.error(error);
 			this.interactionRecord = undefined;
@@ -160,7 +164,6 @@ export default class UnifiedCaseCreationLiveChatWrapper extends LightningElement
 	connectedCallback() {
 		// subscribe to LMS
 		this.subscribeToMessageChannel();
-		this.handleExistingCaseValidation();
 	}
 
 	disconnectedCallback() {
@@ -195,8 +198,8 @@ export default class UnifiedCaseCreationLiveChatWrapper extends LightningElement
 	 * @param message
 	 */
 	handleLMSEvent(message) {
-		// filter for `articlesSelected`
-		if(message.source === 'HappyParcel' && message.type === 'articleSelected'){
+		// filter for source = `unifiedTrackingChatWrapper` and type = `articlesSelected`
+		if(message.source === 'unifiedTrackingChatWrapper' && message.type === 'articleSelected'){
 			this.impactedArticles = message.body.selectedArticleIds;
 			const consignmentTrackingId = message.body.consignmentId;
 			this.handleExistingCaseValidation(consignmentTrackingId);
@@ -207,10 +210,17 @@ export default class UnifiedCaseCreationLiveChatWrapper extends LightningElement
 	 * Call apex controller to retrieve existing cases associated to this liveChat record that met specified criteria
 	 * and update warningMessage if applicable
 	 */
-	async handleExistingCaseValidation(consignmentTrackingId){
-		const existingCaseCount = await getExistingCasesCount(consignmentTrackingId);
-		if(existingCaseCount){
-			this.warningMessage = existingCaseCount + ' Existing Cases';
+	async handleExistingCaseValidation(consignmentTrackingNumber){
+		try {
+			const existingCaseCount = await getExistingCasesCount({
+				consignmentTrackingNumber: consignmentTrackingNumber
+			});
+			if(existingCaseCount){
+				this.warningMessage = existingCaseCount + ' Existing Cases';
+			}
+		} catch (error) {
+			console.error(error);
+			this.errorMessage = reduceErrors(error).join(", ");
 		}
 	}
 

@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
-    <fullName>Default__c</fullName>
-    <defaultValue>false</defaultValue>
-    <description>This field helps to Identify the default configuration of image.</description>
-    <externalId>false</externalId>
-    <inlineHelpText>Only one default record is expected. Please check if there are any existing default records before checking.</inlineHelpText>
-    <label>Default</label>
-    <securityClassification>INTERNAL</securityClassification>
-    <trackTrending>false</trackTrending>
-    <type>Checkbox</type>
+	<fullName>Default__c</fullName>
+	<defaultValue>false</defaultValue>
+	<description>This field helps to Identify the default configuration of image.</description>
+	<externalId>false</externalId>
+	<inlineHelpText>Only one default record is expected. Please check if there are any existing default records before checking.</inlineHelpText>
+	<label>Default</label>
+	<securityClassification>INTERNAL</securityClassification>
+	<trackTrending>false</trackTrending>
+	<type>Checkbox</type>
 </CustomField>

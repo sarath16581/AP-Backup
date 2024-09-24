@@ -4558,7 +4558,7 @@ Warehouse: 0200, 0350, 0600, 0990</description>
             <name>Set_Closed_By_System</name>
             <type>FieldUpdate</type>
         </actions>
-        <active>true</active>
+        <active>false</active>
         <booleanFilter>1 AND 2 AND 3 AND 4 AND 5 AND 6 AND 7 AND 8 AND ((9 AND 10) OR 11)</booleanFilter>
         <criteriaItems>
             <field>Case.Article_Event_Codes__c</field>
@@ -4623,7 +4623,7 @@ Warehouse: 0200, 0350, 0600, 0990</description>
             <name>SSSW_Set_as_Network_Resolution</name>
             <type>FieldUpdate</type>
         </actions>
-        <active>true</active>
+        <active>false</active>
         <criteriaItems>
             <field>Case.Article_Event_Codes__c</field>
             <operation>equals</operation>
@@ -4646,7 +4646,7 @@ Warehouse: 0200, 0350, 0600, 0990</description>
             <name>Reassign_Case_to_Queue</name>
             <type>FieldUpdate</type>
         </actions>
-        <active>true</active>
+        <active>false</active>
         <formula>AND((((Article_Event_Codes__c = &apos;DD-ER4&apos;) || (Article_Event_Codes__c = &apos;NT-ER4&apos;) || (Article_Event_Codes__c = &apos;TTP-ER4&apos;) ) &amp;&amp; NOT(ISPICKVAL(Status, &apos;Closed&apos;)) &amp;&amp; ISBLANK(Contact.Email) &amp;&amp; TEXT(ProductCategory__c) != &apos;&apos; &amp;&amp; TEXT(ProductSubCategory__c) != &apos;&apos; &amp;&amp; TEXT(EnquirySubType__c) != &apos;&apos; &amp;&amp; TEXT(Type) != &apos;&apos;),OR(CONTAINS(Case_RecordType_Name__c, &apos;SSSW&apos;),(Case_RecordType_Name__c = &apos;Social Record Type&apos;)),OR(ISCHANGED(Article_Event_Codes__c), ISCHANGED(ProductCategory__c), ISCHANGED(ProductSubCategory__c), ISCHANGED(EnquirySubType__c), ISCHANGED(Type),ISCHANGED(Status)))</formula>
         <triggerType>onAllChanges</triggerType>
     </rules>
@@ -4656,7 +4656,7 @@ Warehouse: 0200, 0350, 0600, 0990</description>
             <name>Reassign_Case_to_Queue</name>
             <type>FieldUpdate</type>
         </actions>
-        <active>true</active>
+        <active>false</active>
         <formula>AND(((Article_Event_Codes__c = &apos;DD-ER4&apos;) || (Article_Event_Codes__c = &apos;NT-ER4&apos;) || (Article_Event_Codes__c = &apos;TTP-ER4&apos;) ),  NOT(ISPICKVAL(Status, &apos;Closed&apos;)), ISBLANK(Contact.Email), NOT(IsCR__c), NOT(IsHLC__c), OR(CONTAINS(Case_RecordType_Name__c, &apos;SSSW&apos;),(Case_RecordType_Name__c = &apos;Social Record Type&apos;)),OR(ISCHANGED(Article_Event_Codes__c), ISCHANGED(Status), ISCHANGED(IsCR__c), ISCHANGED(IsHLC__c)))</formula>
         <triggerType>onAllChanges</triggerType>
     </rules>
@@ -4682,7 +4682,7 @@ Warehouse: 0200, 0350, 0600, 0990</description>
             <name>Set_Closed_By_System</name>
             <type>FieldUpdate</type>
         </actions>
-        <active>true</active>
+        <active>false</active>
         <booleanFilter>1 AND 2 AND 3 AND 4 AND 5 AND 6 AND 7 AND 8 AND ((9 AND 10) OR 11)</booleanFilter>
         <criteriaItems>
             <field>Case.Article_Event_Codes__c</field>
@@ -4767,7 +4767,7 @@ Warehouse: 0200, 0350, 0600, 0990</description>
             <name>Set_Closed_By_System</name>
             <type>FieldUpdate</type>
         </actions>
-        <active>true</active>
+        <active>false</active>
         <booleanFilter>1 AND 2 AND 3 AND 4 AND 5 AND 6 AND 7 AND 8 AND ((9 AND 10) OR 11)</booleanFilter>
         <criteriaItems>
             <field>Case.Article_Event_Codes__c</field>
@@ -4848,7 +4848,7 @@ Warehouse: 0200, 0350, 0600, 0990</description>
             <name>Set_Closed_By_System</name>
             <type>FieldUpdate</type>
         </actions>
-        <active>true</active>
+        <active>false</active>
         <booleanFilter>1 AND 2 AND 3 AND 4 AND 5 AND 6 AND 7 AND 8 AND ((9 AND 10) OR 11)</booleanFilter>
         <criteriaItems>
             <field>Case.Article_Event_Codes__c</field>
@@ -4995,7 +4995,7 @@ Warehouse: 0200, 0350, 0600, 0990</description>
             <name>SSSW_Set_EnquirySubType_to_Tracking</name>
             <type>FieldUpdate</type>
         </actions>
-        <active>true</active>
+        <active>false</active>
         <booleanFilter>1 AND 3 AND 4 AND 5 AND 2</booleanFilter>
         <criteriaItems>
             <field>Case.Article_Event_Codes__c</field>
@@ -5081,7 +5081,7 @@ Warehouse: 0200, 0350, 0600, 0990</description>
             <name>SSSW_Set_Res_Result_Delivered</name>
             <type>FieldUpdate</type>
         </actions>
-        <active>true</active>
+        <active>false</active>
         <booleanFilter>1 AND 2 AND 3 AND 4 AND 5 AND 6 AND 7 AND 8</booleanFilter>
         <criteriaItems>
             <field>Case.Article_Event_Codes__c</field>
