@@ -71,7 +71,8 @@
 		<!-- BODY START -->
 		<div class="content">
 			<apex:outputPanel rendered="{!ISNULL(pageError)}" layout="none">
-				<c:DeliveryProofPdfRenderer isStarTrackProduct="{!dp.isStarTrackProduct}"
+				<c:DeliveryProofPdfRenderer
+					isStarTrackProduct="{!dp.isStarTrackProduct}"
 					eventMessage="{!dp.eventMessage}"
 					signatureAttachmentId="{!dp.signatureAttachmentId}"
 					safeDropAttachmentId="{!dp.safeDropAttachmentId}"
