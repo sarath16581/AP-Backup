@@ -5,6 +5,7 @@
  * @date 	2024-08-27
  * @changelog
  * 2024-08-27 Paul Perry - created
+ * 2024-09-24 SteveL - added assignRelatedRecordIdWhenCaseLinked
  */
 public with sharing class UnifiedVoiceCallModule extends ApplicationModule {
 	public static UnifiedVoiceCallModule newInstance() {
@@ -15,14 +16,30 @@ public with sharing class UnifiedVoiceCallModule extends ApplicationModule {
 	 * Constructor
 	 */
 	public UnifiedVoiceCallModule() {
-		getTriggerEvents().enableAfterInsert();
+		getTriggerEvents().enableBeforeInsert().enableAfterInsert().enableBeforeUpdate();
+	}
+
+	public override void onBeforeInsert(List<SObject> records, ApplicationUnitOfWork uow) {
+		try {
+			assignRelatedRecordIdWhenCaseLinked(records, null, uow);
+		} catch (Exception ex) {
+			ApplicationLogger.getInstance().logException(ApplicationLogger.wrapException(ex), 'UnifiedVoiceCallModule', CaseRecordPopulationModule.class.getName(), 'onBeforeInsert', 'VoiceCall', ApplicationLogger.LoggingLevel.ERROR);
+		}
 	}
 
 	public override void onAfterInsert(List<SObject> records, ApplicationUnitOfWork uow) {
 		try {
 			autoLinkContact(records, uow);
 		} catch (Exception ex) {
-			ApplicationLogger.getInstance().logException(ApplicationLogger.wrapException(ex), 'Unified Voice Call', UnifiedVoiceCallModule.class.getName(), 'onAfterInsert', 'VoiceCall', ApplicationLogger.LoggingLevel.ERROR);
+			ApplicationLogger.getInstance().logException(ApplicationLogger.wrapException(ex), 'UnifiedVoiceCallModule', UnifiedVoiceCallModule.class.getName(), 'onAfterInsert', 'VoiceCall', ApplicationLogger.LoggingLevel.ERROR);
+		}
+	}
+
+	public override void onBeforeUpdate(List<SObject> records, Map<Id, SObject> existingRecords, ApplicationUnitOfWork uow) {
+		try {
+			assignRelatedRecordIdWhenCaseLinked(records, existingRecords, uow);
+		} catch (Exception ex) {
+			ApplicationLogger.getInstance().logException(ApplicationLogger.wrapException(ex), 'UnifiedVoiceCallModule', CaseRecordPopulationModule.class.getName(), 'onBeforeUpdate', 'VoiceCall', ApplicationLogger.LoggingLevel.ERROR);
 		}
 	}
 
@@ -96,6 +113,28 @@ public with sharing class UnifiedVoiceCallModule extends ApplicationModule {
 		}
 
 		uow.registerDirty(voiceCallRecordsMap.values());
+	}
+
+	/**
+	 * Sync the RelatedRecordId field when there is a change detected to the Case__c field
+	 * @param recordList List<SObject>
+	 * @param oldMap Map<Id, SObject>
+	 * @param uow ApplicationUnitOfWork
+	 */
+	private static void assignRelatedRecordIdWhenCaseLinked(List<SObject> recordList, Map<Id, SObject> oldMap, ApplicationUnitOfWork uow) {
+		List<ApplicationRecursion.RecordState> processableRecords = new List<ApplicationRecursion.RecordState>();
+		String recursionContext = 'UnifiedVoiceCallModule.assignRelatedRecordIdWhenCaseLinked';
+
+		processableRecords.addAll(ApplicationRecursion.getInstance().getProcessableRecords(recursionContext, recordList, oldMap, new Set<SObjectField>{VoiceCall.Case__c}));
+
+		for(ApplicationRecursion.RecordState recordState : processableRecords){
+			if (recordState.changedFields.contains(VoiceCall.Case__c)) {
+				VoiceCall voiceCallRecord = (VoiceCall) recordState.record;
+				voiceCallRecord.RelatedRecordId = voiceCallRecord.Case__c; // it is the intention to not check for Case__c null value here as it is required to sync null value of Case__c to RelatedRecordId
+			}
+		}
+
+		ApplicationRecursion.getInstance().updateRecordState(recursionContext, recordList, new Set<SObjectField>{VoiceCall.Case__c});
 	}
 
 	@TestVisible
