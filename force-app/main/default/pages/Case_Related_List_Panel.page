@@ -81,7 +81,13 @@ History
 		.bold {
 			font-weight: bold;
 		}
-
+        .header-label {
+            padding-left: 10px;
+            color: #337ab7;
+            font-family: 'HelveticaNeue', Helvetica, Arial, sans-serif;
+            font-size: 11px;
+            font-weight: bold;
+        }
 	</style>
 
 	<script type="text/javascript">
@@ -552,11 +558,11 @@ History
 				<apex:facet name="footer"><script>initialiseAll();</script></apex:facet>
 			</apex:relatedList>
 			
-			<apex:outputText rendered="{!NOT(voiceCalls == null)}">				
-				<br/>
-				<b>Voice Calls</b>
-				<br/>
-				<br/>
+			<apex:outputText rendered="{!NOT(voiceCalls == null)}">
+				<span class="header-label">
+					Voice Calls
+				</span>
+				<br/><br/>
 			</apex:outputText>
  
 			<apex:dataTable value="{!voiceCalls}" var="vc" styleClass="list table table-bordered table-hover" rowClasses="dataRow" rendered="{!NOT(voiceCalls == null)}">

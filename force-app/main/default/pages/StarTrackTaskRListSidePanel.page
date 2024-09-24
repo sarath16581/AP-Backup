@@ -30,6 +30,10 @@ Oct 26, 2016	 Jen Karen Tan	Created
 		tbody td {
 			font-size: 80%;
 		}
+		.header-label {
+            background-color: #e7edf4; 
+            padding-left: 25px;
+         }
 	</style>
 	<div class="slds">
 		<apex:pageMessages id="pageMsg" />
@@ -91,7 +95,7 @@ Oct 26, 2016	 Jen Karen Tan	Created
 		<apex:form id="voiceCallForm" rendered="{!voiceCalls.size > 0}">
 			<apex:outputText rendered="{!voiceCalls.size > 0}">
 				<br />
-				<b>Voice Calls</b>
+				<span class="x-panel-header-text header-label">Voice Calls</span>
 				<br />
 				<br />
 			</apex:outputText>
