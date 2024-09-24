@@ -11,8 +11,14 @@
  *
  * @changelog
  * 2024-07-26 - Seth Heang - Created
+ * 2024-09-24 - Ranjeewa Silva - Updated to send customer notification email using ApplicationEmailService
  */
 public with sharing class CaseMonitoring3DayReminderEmailAction extends ApplicationScheduledAction {
+
+	// email alerts to use to notify customer on the case.
+	@TestVisible private static final String EMAIL_ALERT_NO_SCANS_OR_UPDATES_AP = 'UnifiedCaseNoScansOrUpdatesNotificationAP';
+	@TestVisible private static final String EMAIL_ALERT_NO_SCANS_OR_UPDATES_ST = 'UnifiedCaseNoScansOrUpdatesNotificationST';
+
 
 	private final static QM__c QUEUE_SETTINGS = QM__c.getInstance();
 	private final static Id RECORD_TYPE_UNIFIED_INVESTIGATION_ID {
@@ -43,7 +49,9 @@ public with sharing class CaseMonitoring3DayReminderEmailAction extends Applicat
 
 		ApplicationEmailService emailService = ApplicationEmailService.getInstance();
 		for (ScheduledAction__c action : actions) {
-			String emailAlertName = CaseUnifiedAutomationService.isStarTrackCase(action.Case__r) ? 'TODO - Static Email Template for AP' : 'TODO - Static Email Template for AP';
+			String emailAlertName = CaseUnifiedAutomationService.isStarTrackCase(action.Case__r)
+					? EMAIL_ALERT_NO_SCANS_OR_UPDATES_ST
+					: EMAIL_ALERT_NO_SCANS_OR_UPDATES_AP;
 			emailService.queueEmailNotification(action.Case__c, Case.SObjectType, emailAlertName);
 		}
 		emailService.dispatchAllPendingEmailNotifications();
