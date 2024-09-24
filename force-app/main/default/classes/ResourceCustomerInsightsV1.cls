@@ -189,12 +189,6 @@ public with sharing class ResourceCustomerInsightsV1 extends ResourceAPIService.
 			'cases'=>null,
 			'interactions'=>null
 		};
-		//Task, VoiceCall & LiveChatTranscript field mapping
-		Map<String, String> interactionMapping = new Map<String, String>{
-			'type'=> 'Chat',
-			'date'=> 'LiveChatTranscript.CreatedDate',
-			'team'=> 'LiveChatTranscipt.Owner.Profile.Name'
-		};
 		List<Map<String, Object>> output = new List<Map<String, Object>>();
 		List<Object> listCases = new List<Object>()
 			, listInteractions = new List<Object>();
@@ -251,6 +245,11 @@ public with sharing class ResourceCustomerInsightsV1 extends ResourceAPIService.
 		}
         return output;
 	}
+	/**
+	 * @description Transform a Case record to JSON mapping
+	 * @param caseRecord Case record
+	 * @return  `Map<String, Object>` JSON mapping
+	 */
 	public static Map<String, Object> getCaseMapping(Case caseRecord){
 		//Case field mapping
 		Map<String, String> caseMapping = new Map<String, String>{

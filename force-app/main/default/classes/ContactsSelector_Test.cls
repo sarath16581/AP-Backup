@@ -539,7 +539,6 @@ private with sharing class ContactsSelector_Test {
 		//Data setup
 		
 		MockUtility.disableTriggerExecution();
-		RecordType consumerRecordType = [SELECT Id, DeveloperName FROM RecordType WHERE SObjectType='Account' AND DeveloperName='Business_Account' LIMIT 1];
 		
 		Account businessAccount = ApplicationTestDataFactory.getAccounts(1, false)[0];
 		businessAccount.Name ='John Doe Account';
@@ -551,7 +550,7 @@ private with sharing class ContactsSelector_Test {
 		insert personContact;
 
 		Case caseRecord = ApplicationTestDataFactory.getCases(1, false)[0];
-		caseRecord.Contact = personContact;
+		caseRecord.ContactId = personContact.Id;
 		caseRecord.RecordTypeId = ApplicationTestDataFactory.caseSSSWDeliveryRecordType;
 		insert caseRecord;
 
@@ -574,6 +573,7 @@ private with sharing class ContactsSelector_Test {
 		List<Contact> contacts = contactSelector.selectWithCasesAndInteractionsHelper(queryConditions,bindMap, new Set<Object>());
 		Test.stopTest();
 		Assert.areEqual(1, contacts.size(), '1 contact should be returned');
+		Assert.areEqual(1, contacts[0].Cases.size(), '1 Case should be returned');
 		Assert.areEqual(1, contacts[0].Tasks.size(), '1 Task should be returned');
 	}
 	/**

@@ -122,18 +122,11 @@ public with sharing class ResourceEnquiryInsightsV1 extends ResourceAPIService.I
 	}
 	/**
 	 * @description Transform List of records to JSON structure for output.
-	 * @TODO: Optimise method to improve reusability
 	 * @param records 
 	 * @return  `List<Map<String, Object>>`
 	 */
 	@TestVisible
 	static Map<String, Object> transformOutput(List<Case> records){
-		//Contact field mapping
-		Map<String, String> contactMapping = new Map<String, String>{
-			PARAM_NAMES.tracking_id.name()=> 'trackingId',
-			'cases'=>null
-		};
-		List<Map<String, Object>> output = new List<Map<String, Object>>();
 		List<Object> listCases = new List<Object>();
 		Map<String, Object> mapRecord = new Map<String, Object>()
 			, mapCase  = new Map<String, Object>();
@@ -142,7 +135,7 @@ public with sharing class ResourceEnquiryInsightsV1 extends ResourceAPIService.I
 		//loop through the Case records
 		for(Case caseRecord: records){
 			mapCase = ResourceCustomerInsightsV1.getCaseMapping(caseRecord);
-			//remove tracking_id from Case, as it's not required in Enquiry Insights
+			//removing tracking_id from Case, as it's not required in Enquiry Insights
 			mapCase.remove(PARAM_NAMES.tracking_id.name());
 			listCases.add(mapCase);
 		}

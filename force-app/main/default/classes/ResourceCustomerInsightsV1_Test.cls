@@ -345,8 +345,7 @@ public class ResourceCustomerInsightsV1_Test {
 		String customerPhone='0300300300';
 		// Mock Data
 		RecordType accountRecordType = RecordTypesSelector.newInstance().selectByDeveloperName('Account', new Set<String>{'Business_Account'}).values()[0];
-		RecordType caseRecordType = RecordTypesSelector.newInstance().selectByDeveloperName('Case', new Set<String>{'SSSWGeneralEnquiry'}).values()[0];
-		RecordType taskRecordType = RecordTypesSelector.newInstance().selectByDeveloperName('Task', new Set<String>{'SSSWCall'}).values()[0];
+
 		//Account data
 		Account personAccount = ApplicationTestDataFactory.getPersonAccounts(1, true)[0];
 		personAccount.RecordTypeId = accountRecordType.Id;

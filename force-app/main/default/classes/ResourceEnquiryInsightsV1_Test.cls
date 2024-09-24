@@ -164,8 +164,6 @@ public class ResourceEnquiryInsightsV1_Test {
 		Map<String, Object> responseBody = (Map<String, Object>)(jsonResponseBody.get('response'));
 		List<Object> jsonCases = (List<Object>)(responseBody.get('cases'));
 		Map<String, Object> jsonCaseRecord = (Map<String, Object>)jsonCases[0];
-		System.debug('jsonCaseRecord: ' + JSON.serialize(jsonCaseRecord));
-		System.debug('caseIds: ' + JSON.serialize(caseIds));
 		Assert.areEqual(200, response.statusCode,'Response code should be success');
         Assert.areEqual(true, jsonResponseBody.get('success'),'Response code should be success');
         Assert.areEqual(article.Name, responseBody.get('tracking_id'),'Tracking Id should match');
