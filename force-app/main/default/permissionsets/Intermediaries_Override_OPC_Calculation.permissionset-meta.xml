@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>This perm set is designed for Intermediaries users, to allow them to use the Override OPC Calculation checkbox on the opportunity.</description>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Opportunity.OverrideOPCCalculation__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <hasActivationRequired>false</hasActivationRequired>
+    <label>Intermediaries Override OPC Calculation</label>
+</PermissionSet>

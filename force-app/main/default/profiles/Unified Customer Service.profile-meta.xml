@@ -11933,6 +11933,9 @@
         <layout>QuickText-Quick Text Layout</layout>
         <recordType>QuickText.ClassicService</recordType>
     </layoutAssignments>
+    <layoutAssignments>
+        <layout>Voice-Unified Voice Call Layout</layout>
+    </layoutAssignments>
     <loginHours/>
     <objectPermissions>
         <allowCreate>false</allowCreate>

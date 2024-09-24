@@ -165,6 +165,12 @@
     <flexiPageRegions>
         <itemInstances>
             <componentInstance>
+                <componentName>unifiedTrackingChatWrapper</componentName>
+                <identifier>c_unifiedTrackingChatWrapper</identifier>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
                 <componentName>unifiedCustomerSearchLiveChatWrapper</componentName>
                 <identifier>c_unifiedCustomerSearchLiveChatWrapper</identifier>
             </componentInstance>
