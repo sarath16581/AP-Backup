@@ -4,8 +4,7 @@ Company:	   Accenture
 Description:   Test class for StarTrack StarTrackTaskRListSidePanel controller
 History
 November 10, 2016 - Jen Karen Tan - Created
-2024-09-20			Vasu Gorakati - Case Hand-off - Voice call records visibility to classic users
-
+2024-09-20	Vasu Gorakati - Case Hand-off - Voice call records visibility to classic users
 ------------------------------------------------------------*/
 
 @isTest

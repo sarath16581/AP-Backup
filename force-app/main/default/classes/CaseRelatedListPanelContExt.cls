@@ -477,7 +477,7 @@ public with sharing class CaseRelatedListPanelContExt {
 			VoiceCall.CallType
 		};
 
-		List<VoiceCall> VoiceCallList = VoiceCallsSelector.newInstance(voiceCallFields).selectByRelatedRecordIds(New Set<Id>{caseId},new Set<Object>());
+		List<VoiceCall> voiceCallList = VoiceCallsSelector.newInstance(voiceCallFields).selectByRelatedRecordIds(New Set<Id>{caseId},new Set<Object>());
 		return voiceCallList.isEmpty() ? null : voiceCallList;
 	}
 }
