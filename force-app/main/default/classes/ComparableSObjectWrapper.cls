@@ -10,8 +10,8 @@
  * 	- Used By: 	for eg to sort a list of SObjects based on a Number field value
  * 
  * @changelog:
- * 	Rewritten to extend its capabilities sorting on all kinds of fields
- *  Added support for using SObjectFields
+ * 	Rewritten to extend its capabilities sorting on all kinds of field
+ *  Added support for using SObjectField
  *  Added support for order ASC/DESC
  **/
 public without sharing class ComparableSObjectWrapper implements Comparable {
@@ -23,11 +23,11 @@ public without sharing class ComparableSObjectWrapper implements Comparable {
 	/*
 	 * SUPPORT FOR LEGACY USE
 	 * parameter sObj : wrapped SObject
-	 * parameter fieldToCompare : the Number type field of which values are used to compare the SObjects
+	 * parameter fieldToCompare : the Number type field of which values are used to compare the SObject
 	 */
 	public ComparableSObjectWrapper(SObject sObj, String fieldToCompare) {
-    	this.sObj = sObj;
-    	this.fieldToCompare = fieldToCompare;
+		this.sObj = sObj;
+		this.fieldToCompare = fieldToCompare;
 	}
 
 	public ComparableSObjectWrapper(SObject record, SObjectField orderByField) {
@@ -91,44 +91,44 @@ public without sharing class ComparableSObjectWrapper implements Comparable {
 	}
 
 	public static List<SObject> sortRecords(List<SObject> recordList, Object orderByField, String sortDirection) {
-        // Validate input parameters
-        if (recordList == null || recordList.isEmpty() || orderByField == null || String.isBlank(sortDirection)) {
-            return recordList;
-        }
+		// Validate input parameter
+		if (recordList == null || recordList.isEmpty() || orderByField == null || String.isBlank(sortDirection)) {
+			return recordList;
+		}
 
-        // Normalize sort direction
-        sortDirection = sortDirection.toUpperCase();
+		// Normalize sort direction
+		sortDirection = sortDirection.toUpperCase();
 
-        if (sortDirection != 'ASC' && sortDirection != 'DESC') {
-            sortDirection = 'ASC';
-        }
+		if (sortDirection != 'ASC' && sortDirection != 'DESC') {
+			sortDirection = 'ASC';
+		}
 
-        // Create a list of wrapper objects for sorting
-        List<ComparableSObjectWrapper> wrapperList = new List<ComparableSObjectWrapper>();
+		// Create a list of wrapper objects for sorting
+		List<ComparableSObjectWrapper> wrapperList = new List<ComparableSObjectWrapper>();
 
-        for (SObject record :recordList) {
+		for (SObject record :recordList) {
 			ComparableSObjectWrapper comparisonInstance = orderByField instanceof SObjectField
 				? new ComparableSObjectWrapper(record, (SObjectField)orderByField)
 				: new ComparableSObjectWrapper(record, (String)orderByField);
 
-            wrapperList.add(comparisonInstance);
-        }
+			wrapperList.add(comparisonInstance);
+		}
 
-        // Sort the wrapper list
-        wrapperList.sort();
+		// Sort the wrapper list
+		wrapperList.sort();
 
-        // Create the sorted SObject list
-        List<SObject> sortedList = new List<SObject>();
+		// Create the sorted SObject list
+		List<SObject> sortedList = new List<SObject>();
 
-        for (ComparableSObjectWrapper wrapper :wrapperList) {
+		for (ComparableSObjectWrapper wrapper :wrapperList) {
 			if (sortedList.isEmpty() || sortDirection == 'ASC') {
-            	sortedList.add(wrapper.sObj);
+				sortedList.add(wrapper.sObj);
 			} else {
 				// Descending order, insert all at the front of the list
 				sortedList.add(0, wrapper.sObj);
 			}
-        }
+		}
 
-        return sortedList;
-    }
+		return sortedList;
+	}
 }
