@@ -1,10 +1,120 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Flow xmlns="http://soap.sforce.com/2006/04/metadata">
     <actionCalls>
+        <description>Email alert to notify customer on MyCustomer case closure due to receiving an &quot;Awaiting Collection&quot; event message.</description>
+        <name>MyCustomerAwaitingCollectionEventMessageCaseClosureAlert</name>
+        <label>MyCustomerAwaitingCollectionEventMessageCaseClosureAlert</label>
+        <locationX>1144</locationX>
+        <locationY>350</locationY>
+        <actionName>Case.SSSW_Awaiting_Collection</actionName>
+        <actionType>emailAlert</actionType>
+        <connector>
+            <targetReference>Process_Flow_Email_Type_Requests</targetReference>
+        </connector>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>SObjectRowId</name>
+            <value>
+                <elementReference>Process_Flow_Email_Type_Requests.srcRecordId</elementReference>
+            </value>
+        </inputParameters>
+        <nameSegment>Case.SSSW_Awaiting_Collection</nameSegment>
+        <offset>0</offset>
+        <versionSegment>1</versionSegment>
+    </actionCalls>
+    <actionCalls>
+        <description>Email alert to notify customer on MyCustomer case closure due to receiving &quot;Delivered&quot; scan event message.</description>
+        <name>MyCustomerDeliveredEventMessageCaseClosureAlert</name>
+        <label>MyCustomerDeliveredEventMessageCaseClosureAlert</label>
+        <locationX>1408</locationX>
+        <locationY>350</locationY>
+        <actionName>Case.SSSW_Email_Delivered</actionName>
+        <actionType>emailAlert</actionType>
+        <connector>
+            <targetReference>Process_Flow_Email_Type_Requests</targetReference>
+        </connector>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>SObjectRowId</name>
+            <value>
+                <elementReference>Process_Flow_Email_Type_Requests.srcRecordId</elementReference>
+            </value>
+        </inputParameters>
+        <nameSegment>Case.SSSW_Email_Delivered</nameSegment>
+        <offset>0</offset>
+        <versionSegment>1</versionSegment>
+    </actionCalls>
+    <actionCalls>
+        <description>Email alert to notify customer on MyCustomer case closure due to receiving &quot;Delivered in Safe Place&quot; scan event message.</description>
+        <name>MyCustomerDeliveredInSafePlaceEventMessageCaseClosureAlert</name>
+        <label>MyCustomerDeliveredInSafePlaceEventMessageCaseClosureAlert</label>
+        <locationX>1672</locationX>
+        <locationY>350</locationY>
+        <actionName>Case.SSSW_Email_Delivered_in_a_Safe_Place</actionName>
+        <actionType>emailAlert</actionType>
+        <connector>
+            <targetReference>Process_Flow_Email_Type_Requests</targetReference>
+        </connector>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>SObjectRowId</name>
+            <value>
+                <elementReference>Process_Flow_Email_Type_Requests.srcRecordId</elementReference>
+            </value>
+        </inputParameters>
+        <nameSegment>Case.SSSW_Email_Delivered_in_a_Safe_Place</nameSegment>
+        <offset>0</offset>
+        <versionSegment>1</versionSegment>
+    </actionCalls>
+    <actionCalls>
+        <description>Email alert to notify customer on MyCustomer case closure due to receiving &quot;Onboard with Driver&quot; scan event message.</description>
+        <name>MyCustomerOnboardWithDriverEventMessageCaseClosureAlert</name>
+        <label>MyCustomerOnboardWithDriverEventMessageCaseClosureAlert</label>
+        <locationX>1936</locationX>
+        <locationY>350</locationY>
+        <actionName>Case.SSSW_Onboard_with_Driver</actionName>
+        <actionType>emailAlert</actionType>
+        <connector>
+            <targetReference>Process_Flow_Email_Type_Requests</targetReference>
+        </connector>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>SObjectRowId</name>
+            <value>
+                <elementReference>Process_Flow_Email_Type_Requests.srcRecordId</elementReference>
+            </value>
+        </inputParameters>
+        <nameSegment>Case.SSSW_Onboard_with_Driver</nameSegment>
+        <offset>0</offset>
+        <versionSegment>1</versionSegment>
+    </actionCalls>
+    <actionCalls>
+        <description>Email alert to notify customer on MyCustomer case closure due to receiving &quot;Onboard with Driver International&quot; scan event message.</description>
+        <name>MyCustomerOnboardWithDriverInternationalEventMessageCaseClosureAlert</name>
+        <label>MyCustomerOnboardWithDriverInternationalEventMessageCaseClosureAlert</label>
+        <locationX>2200</locationX>
+        <locationY>350</locationY>
+        <actionName>Case.SSSW_Onboard_with_driver_international</actionName>
+        <actionType>emailAlert</actionType>
+        <connector>
+            <targetReference>Process_Flow_Email_Type_Requests</targetReference>
+        </connector>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>SObjectRowId</name>
+            <value>
+                <elementReference>Process_Flow_Email_Type_Requests.srcRecordId</elementReference>
+            </value>
+        </inputParameters>
+        <nameSegment>Case.SSSW_Onboard_with_driver_international</nameSegment>
+        <offset>0</offset>
+        <versionSegment>1</versionSegment>
+    </actionCalls>
+    <actionCalls>
         <description>Email alert to notify Aus Post customer on converting general enquiry Unified case to Investigation type.</description>
         <name>UnifiedGeneralEnquiryToInvestigationAPAlert</name>
         <label>UnifiedGeneralEnquiryToInvestigationAPAlert</label>
-        <locationX>616</locationX>
+        <locationX>792</locationX>
         <locationY>350</locationY>
         <actionName>Case.UnifiedGeneralEnquiryToInvestigationAP</actionName>
         <actionType>emailAlert</actionType>
@@ -18,12 +128,15 @@
                 <elementReference>Process_Flow_Email_Type_Requests.srcRecordId</elementReference>
             </value>
         </inputParameters>
+        <nameSegment>Case.UnifiedGeneralEnquiryToInvestigationAP</nameSegment>
+        <offset>0</offset>
+        <versionSegment>1</versionSegment>
     </actionCalls>
     <actionCalls>
         <description>Email alert to notify StarTrack customer on converting general enquiry Unified case to Investigation type.</description>
         <name>UnifiedGeneralEnquiryToInvestigationSTAlert</name>
         <label>UnifiedGeneralEnquiryToInvestigationSTAlert</label>
-        <locationX>880</locationX>
+        <locationX>1056</locationX>
         <locationY>350</locationY>
         <actionName>Case.UnifiedGeneralEnquiryToInvestigationST</actionName>
         <actionType>emailAlert</actionType>
@@ -37,47 +150,94 @@
                 <elementReference>Process_Flow_Email_Type_Requests.srcRecordId</elementReference>
             </value>
         </inputParameters>
+        <nameSegment>Case.UnifiedGeneralEnquiryToInvestigationST</nameSegment>
+        <offset>0</offset>
+        <versionSegment>1</versionSegment>
+    </actionCalls>
+    <actionCalls>
+        <description>Email alert to notify Aus Post customer on new Unified Investigation case creation.</description>
+        <name>UnifiedInvestigationCaseCreationAPAlert</name>
+        <label>UnifiedInvestigationCaseCreationAPAlert</label>
+        <locationX>264</locationX>
+        <locationY>350</locationY>
+        <actionName>Case.UnifiedInvestigationCaseCreationAP</actionName>
+        <actionType>emailAlert</actionType>
+        <connector>
+            <targetReference>Process_Flow_Email_Type_Requests</targetReference>
+        </connector>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>SObjectRowId</name>
+            <value>
+                <elementReference>Process_Flow_Email_Type_Requests.srcRecordId</elementReference>
+            </value>
+        </inputParameters>
+        <nameSegment>Case.UnifiedInvestigationCaseCreationAP</nameSegment>
+        <offset>0</offset>
+        <versionSegment>1</versionSegment>
+    </actionCalls>
+    <actionCalls>
+        <description>Email alert to notify StarTrack customer on new Unified Investigation case creation.</description>
+        <name>UnifiedInvestigationCaseCreationSTAlert</name>
+        <label>UnifiedInvestigationCaseCreationSTAlert</label>
+        <locationX>528</locationX>
+        <locationY>350</locationY>
+        <actionName>Case.UnifiedInvestigationCaseCreationST</actionName>
+        <actionType>emailAlert</actionType>
+        <connector>
+            <targetReference>Process_Flow_Email_Type_Requests</targetReference>
+        </connector>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>SObjectRowId</name>
+            <value>
+                <elementReference>Process_Flow_Email_Type_Requests.srcRecordId</elementReference>
+            </value>
+        </inputParameters>
+        <nameSegment>Case.UnifiedInvestigationCaseCreationST</nameSegment>
+        <offset>0</offset>
+        <versionSegment>1</versionSegment>
     </actionCalls>
     <apiVersion>60.0</apiVersion>
     <decisions>
         <description>Select which static email alert will be invoked</description>
         <name>Select_Case_Email_Alert</name>
         <label>Select Case Email Alert</label>
-        <locationX>704</locationX>
+        <locationX>1364</locationX>
         <locationY>242</locationY>
         <defaultConnector>
             <targetReference>Process_Flow_Email_Type_Requests</targetReference>
         </defaultConnector>
         <defaultConnectorLabel>Email Alert Not Found</defaultConnectorLabel>
         <rules>
-            <name>Test_Static_Email_Alert_1</name>
+            <name>UnifiedInvestigationCaseCreationAusPost</name>
             <conditionLogic>and</conditionLogic>
             <conditions>
                 <leftValueReference>Process_Flow_Email_Type_Requests.emailAlertName</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
-                    <stringValue>Test_Static_Email_Alert</stringValue>
+                    <stringValue>UnifiedInvestigationCaseCreationAP</stringValue>
                 </rightValue>
             </conditions>
             <connector>
-                <targetReference>Process_Flow_Email_Type_Requests</targetReference>
+                <targetReference>UnifiedInvestigationCaseCreationAPAlert</targetReference>
             </connector>
-            <label>Test Static Email Alert 1</label>
+            <label>UnifiedInvestigationCaseCreationAusPost</label>
         </rules>
         <rules>
-            <name>Test_Static_Email_Alert_2</name>
+            <name>UnifiedInvestigationCaseCreationStarTrack</name>
             <conditionLogic>and</conditionLogic>
             <conditions>
                 <leftValueReference>Process_Flow_Email_Type_Requests.emailAlertName</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
-                    <stringValue>Test_Static_Email_Alert_2</stringValue>
+                    <stringValue>UnifiedInvestigationCaseCreationST</stringValue>
                 </rightValue>
             </conditions>
             <connector>
-                <targetReference>Process_Flow_Email_Type_Requests</targetReference>
+                <targetReference>UnifiedInvestigationCaseCreationSTAlert</targetReference>
             </connector>
-            <label>Test Static Email Alert 2</label>
+            <label>UnifiedInvestigationCaseCreationStarTrack</label>
         </rules>
         <rules>
             <name>UnifiedGeneralEnquiryToInvestigationAusPost</name>
@@ -108,6 +268,81 @@
                 <targetReference>UnifiedGeneralEnquiryToInvestigationSTAlert</targetReference>
             </connector>
             <label>UnifiedGeneralEnquiryToInvestigationStarTrack</label>
+        </rules>
+        <rules>
+            <name>MyCustomerAwaitingCollectionEventMessageCaseClosure</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Process_Flow_Email_Type_Requests.emailAlertName</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>SSSW_Awaiting_Collection</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>MyCustomerAwaitingCollectionEventMessageCaseClosureAlert</targetReference>
+            </connector>
+            <label>MyCustomerAwaitingCollectionEventMessageCaseClosure</label>
+        </rules>
+        <rules>
+            <name>MyCustomerDelieveredEventMessageCaseClosure</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Process_Flow_Email_Type_Requests.emailAlertName</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>SSSW_Email_Delivered</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>MyCustomerDeliveredEventMessageCaseClosureAlert</targetReference>
+            </connector>
+            <label>MyCustomerDelieveredEventMessageCaseClosure</label>
+        </rules>
+        <rules>
+            <name>MyCustomerDelieveredInSafePlaceEventMessageCaseClosure</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Process_Flow_Email_Type_Requests.emailAlertName</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>SSSW_Email_Delivered_in_a_Safe_Place</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>MyCustomerDeliveredInSafePlaceEventMessageCaseClosureAlert</targetReference>
+            </connector>
+            <label>MyCustomerDelieveredInSafePlaceEventMessageCaseClosure</label>
+        </rules>
+        <rules>
+            <name>MyCustomerOnboardWithDriverEventMessageCaseClosure</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Process_Flow_Email_Type_Requests.emailAlertName</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>SSSW_Onboard_with_Driver</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>MyCustomerOnboardWithDriverEventMessageCaseClosureAlert</targetReference>
+            </connector>
+            <label>MyCustomerOnboardWithDriverEventMessageCaseClosure</label>
+        </rules>
+        <rules>
+            <name>MyCustomerOnboardWithDriverInternationalEventMessageCaseClosure</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Process_Flow_Email_Type_Requests.emailAlertName</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>SSSW_Onboard_with_driver_international</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>MyCustomerOnboardWithDriverInternationalEventMessageCaseClosureAlert</targetReference>
+            </connector>
+            <label>MyCustomerOnboardWithDriverInternationalEventMessageCaseClosure</label>
         </rules>
     </decisions>
     <description>Subflow of Application Email Service framework that manages the sending of Case email alerts</description>

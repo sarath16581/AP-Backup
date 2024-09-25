@@ -218,12 +218,16 @@ public with sharing class CasesSelector_Test {
 
 		searchParams = new Map<String, Object>{
 				'caseIds' => new Set<Id>{'500000000000000'},
-				'recordTypeIds' => new Set<Id>{'012Bm000005SlxBIAS', '012900000015ftpAAA'}
+				'recordTypeIds' => new Set<Id>{'012Bm000005SlxBIAS', '012900000015ftpAAA'},
+				'relatedArticleIds' => new Set<Id>{'a1h000000000000000'},
+				'isClosed' => false
 		};
 
 		String soql = selector.getSearchSoql(searchParams, new Set<Object>(), true);
 		Assert.isTrue(Pattern.compile('(?ism)\\s+from Case\\s+where\\b.*?\\bRecordTypeId\\s+In\\b').matcher(soql).find(), 'Resulting query does not filter RecordType.');
 		Assert.isTrue(Pattern.compile('(?ism)\\s+from Case\\s+where\\b.*?\\bId\\s+In\\b').matcher(soql).find(), 'Resulting query does not filter Case Id.');
+		Assert.isTrue(Pattern.compile('(?ism)\\s+from Case\\s+where\\b.*?\\bArticleTest__c\\s+In\\b').matcher(soql).find(), 'Resulting query does not filter article id : ' + soql);
+		Assert.isTrue(Pattern.compile('(?ism)\\s+from Case\\s+where\\b.*?\\bIsClosed\\s*=\\s').matcher(soql).find(), 'Resulting query does not filter case IsClosed : ' + soql);
 		Assert.isTrue(Pattern.compile('(?ism)\\s+from Case\\s+where\\b.*?\\bAND\\b').matcher(soql).find(), 'Resulting query does not limit by ALL');
 
 		// make sure the query is valid (even though no records will be returned)
@@ -366,7 +370,7 @@ public with sharing class CasesSelector_Test {
 		String soql = qb.toSoqlString();
 
 		Assert.isTrue(Pattern.compile('(?is)\\bWHERE ContactId IN :contactIds').matcher(soql).find(),  'Did not include the ContactId filter');
-		Assert.isTrue(Pattern.compile('(?is)\\bORDER BY IsClosed DESC, LastModifiedDate DESC').matcher(soql).find(),  'Did not include the correct ORDER BY');
+		Assert.isTrue(Pattern.compile('(?is)\\bORDER BY IsClosed ASC, LastModifiedDate DESC').matcher(soql).find(),  'Did not include the correct ORDER BY');
 	}
 
 	@IsTest
@@ -379,6 +383,6 @@ public with sharing class CasesSelector_Test {
 
 		Assert.isTrue(Pattern.compile('(?is)\\bWHERE ArticleTest__r.ArticleId__c IN :consignmentTrackingNumbers').matcher(soql).find(),  'Did not include the ArticleId__c filter');
 		Assert.isTrue(Pattern.compile('(?is)\\bOR ArticleTest__r.ConsignmentTrackingNumber__c IN :consignmentTrackingNumbers').matcher(soql).find(),  'Did not include the ConsignmentTrackingNumber__c filter');
-		Assert.isTrue(Pattern.compile('(?is)\\bORDER BY IsClosed DESC, LastModifiedDate DESC').matcher(soql).find(),  'Did not include the correct ORDER BY');
+		Assert.isTrue(Pattern.compile('(?is)\\bORDER BY IsClosed ASC, LastModifiedDate DESC').matcher(soql).find(),  'Did not include the correct ORDER BY');
 	}
 }

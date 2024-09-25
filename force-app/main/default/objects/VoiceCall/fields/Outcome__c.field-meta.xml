@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Outcome__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <description>Outcome of Voice Call</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Outcome of Voice Call</inlineHelpText>
+    <label>Outcome</label>
+    <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
+    <trackFeedHistory>false</trackFeedHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Unlinked contact</fullName>
+                <default>false</default>
+                <label>Unlinked contact</label>
+            </value>
+            <value>
+                <fullName>FCR</fullName>
+                <default>false</default>
+                <label>FCR</label>
+            </value>
+            <value>
+                <fullName>Enquiry lodged</fullName>
+                <default>false</default>
+                <label>Enquiry lodged</label>
+            </value>
+            <value>
+                <fullName>Enquiry updated</fullName>
+                <default>false</default>
+                <label>Enquiry updated</label>
+            </value>
+            <value>
+                <fullName>&gt; Domestic &gt; Metro &gt; General Enquiry</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>&gt; Domestic &gt; Metro &gt; General Enquiry</label>
+            </value>
+            <value>
+                <fullName>Pricing &gt; Domestic Letters &gt; Express Post &gt; Investigation</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Pricing &gt; Domestic Letters &gt; Express Post &gt; Investigation</label>
+            </value>
+            <value>
+                <fullName>Pricing &gt; Domestic Parcels &gt; Parcel Post &gt; Investigation</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Pricing &gt; Domestic Parcels &gt; Parcel Post &gt; Investigation</label>
+            </value>
+            <value>
+                <fullName>Safety issue &gt; Domestic Parcels &gt; Courier Post &gt; General Enquiry</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Safety issue &gt; Domestic Parcels &gt; Courier Post &gt; General Enquiry</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>
