@@ -43,6 +43,8 @@ public with sharing class GenesysIntegrationService {
 	 * @return The response by Genesys
 	 */
 	public String patchConversationParticipantAttributes(String conversationId, String participantId, Map<String,Object> attributes) {
+		System.debug('UPDATES for Genesys conversationId ' + conversationId + '\r\n' + JSON.serialize(attributes));
+		
 		// Set the endpoint URL for the update request
 		String endpoint = String.format(
 			'conversations/calls/{0}/participants/{1}/attributes',
