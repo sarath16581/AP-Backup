@@ -5,5 +5,5 @@
         <channel>ContactRequest</channel>
         <channel>sfdc_phone</channel>
     </channels>
-    <label>Available for case</label>
+    <label>Available for Case</label>
 </ServicePresenceStatus>

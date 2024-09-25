@@ -5,5 +5,5 @@
         <channel>sfdc_liveagent</channel>
         <channel>ContactRequest</channel>
     </channels>
-    <label>Available for chat</label>
+    <label>Available for Chat</label>
 </ServicePresenceStatus>
