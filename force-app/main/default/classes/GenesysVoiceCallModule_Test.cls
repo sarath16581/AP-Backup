@@ -105,7 +105,7 @@ public with sharing class GenesysVoiceCallModule_Test {
 		);
 
 		Map<String,Object> asyncWorkerParams = (Map<String,Object>)asyncWorker.params;
-		System.debug(JSON.serialize(asyncWorkerParams));
+
 		System.assert(asyncWorkerParams.containsKey('voiceCallIds'), 'Missing parameters');
 		System.assert(
 			((List<Id>)asyncWorkerParams.get('voiceCallIds')).contains(testVoiceCall.Id),
