@@ -27,20 +27,45 @@ public with sharing class GenesysVoiceCallModule_Test {
 	@isTest
 	public static void runGenesysVoiceCallModuleTest() {
 		// Test Data
-		VoiceCall testVoiceCall = generateTestVoiceCall(fflib_IdGenerator.generate(Conversation.SObjectType));
-		VoiceCall testVoiceCall2 = generateTestVoiceCall(testVoiceCall.Id);
 
-		Map<Id,SObject> oldMap = new Map<Id,SObject>{
-			testVoiceCall.Id => testVoiceCall.clone(true)
+		// This scenario updates 2 different voice call records:
+		/*
+		 	Conversation #1:
+				testVoiceCall => Simulates field update for this VoiceCall
+				testVoiceCall2 => Consult call to agent #2 - VoiceCall
+			Conversation #2:
+				testVoiceCall3 => Simulates field update for this VoiceCall
+
+			Conversation 1 requires AgentWork to determine the authoritative VC
+			Conversation 2 is the authoritative VC as it's the only call within the conversation
+		*/
+		VoiceCall testVoiceCall = generateTestVoiceCall(fflib_IdGenerator.generate(Conversation.SObjectType));
+		VoiceCall testVoiceCall2 = generateTestVoiceCall(testVoiceCall.ConversationId);
+		VoiceCall testVoiceCall3 = generateTestVoiceCall(fflib_IdGenerator.generate(Conversation.SObjectType));
+
+		// Only these VC records were updated in this simulation
+		List<VoiceCall> triggerNewList = new List<VoiceCall>{
+			testVoiceCall,
+			testVoiceCall3
 		};
 
+		Map<Id,SObject> oldMap = new Map<Id,SObject>();
+
+		// Populate triggerOldMap
+		for (SObject voiceCall :triggerNewList) {
+			oldMap.put(voiceCall.Id, voiceCall.clone(true));
+		}
+
 		testVoiceCall.TrackingNumber__c = 'TRACK_PAUL_TEST';
+		testVoiceCall3.TrackingNumber__c = 'TRACK_PAUL_TEST';
 
 		// Mock classes
 		mockClasses(
 			new Set<MockSetup>{ MockSetup.MOCKDATABASE, MockSetup.MOCKGENESYSINTEGRATION },
 			new Map<SObjectType,Object>{
-				VoiceCall.SObjectType => new List<VoiceCall>{ testVoiceCall, testVoiceCall2 },
+				// Return all existing voicecalls for this simulation
+				VoiceCall.SObjectType => new List<VoiceCall>{ testVoiceCall, testVoiceCall2, testVoiceCall3 },
+				// Return all AgentWork records for Conversation 1
 				AgentWork.SObjectType => new List<AgentWork>{
 					generateTestAgentWork(new Map<SObjectField,Object>{
 						AgentWork.WorkItemId => testVoiceCall.Id,
@@ -60,7 +85,7 @@ public with sharing class GenesysVoiceCallModule_Test {
 		Test.startTest();
 
 		GenesysVoiceCallModule instance = GenesysVoiceCallModule.newInstance();
- 		instance.onAfterUpdate(new List<SObject>{ testVoiceCall }, oldMap, uow);
+ 		instance.onAfterUpdate(triggerNewList, oldMap, uow);
 
 		fflib_ArgumentCaptor registerWorkCaptor = fflib_ArgumentCaptor.forClass(ApplicationUnitOfWork.AsyncStagingWorker.class);
 		// Ensure registerAsyncWork has been invoked once
@@ -409,8 +434,8 @@ public with sharing class GenesysVoiceCallModule_Test {
 
 			MockUtility.Mocks.when(
 				voiceCallsSelector.selectByConversationIds(
-					(Set<Object>)fflib_Match.anyObject(),
-					(Set<Id>)fflib_Match.anyObject()
+					(Set<Id>)fflib_Match.anyObject(),
+					(Set<Object>)fflib_Match.anyObject()
 				)
 			).thenReturn(
 				(List<VoiceCall>)testRecordsBySObjectType.get(VoiceCall.SObjectType)

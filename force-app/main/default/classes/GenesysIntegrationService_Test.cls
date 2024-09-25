@@ -94,7 +94,7 @@ public with sharing class GenesysIntegrationService_Test {
 
 		Test.startTest();
 
-		GenesysIntegrationService instance = GenesysIntegrationService.newInstance();
+		GenesysIntegrationService instance = GenesysIntegrationService.getInstance();
 		String conversationId = String.valueOf(UUID.randomUUID());
 		String participantId = String.valueOf(UUID.randomUUID());
 
@@ -127,7 +127,7 @@ public with sharing class GenesysIntegrationService_Test {
 		String conversationId = String.valueOf(UUID.randomUUID());
 
 		Test.startTest();
-		GenesysIntegrationService instance = GenesysIntegrationService.newInstance();
+		GenesysIntegrationService instance = GenesysIntegrationService.getInstance();
 
 		try {
 			// Scenario where the conversation attributes cannot be retrieved from Genesy

@@ -58,7 +58,7 @@ public virtual inherited sharing class VoiceCallsSelector extends ApplicationSel
 	 *
 	 * @return List<VoiceCall>
 	 */
-	public List<VoiceCall> selectByConversationIds(Set<Object> selectorOptions, Set<Id> conversationIds) {
+	public List<VoiceCall> selectByConversationIds(Set<Id> conversationIds, Set<Object> selectorOptions) {
 		QueryBuilder qb = newQueryBuilder(selectorOptions);
 		QueryBuilder.ConditionsManager conditions = qb.addConditions();
 		conditions.add(new QueryBuilder.SimpleCondition(VoiceCall.ConversationId + ' IN :conversationIds'));

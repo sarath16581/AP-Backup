@@ -122,6 +122,11 @@
 		 System.assertEquals(1, results.size(), 'Expected result size of 1');
 		 results = selector.selectByRelatedRecordIds(new Set<Id>{voiceCalls.get(0).RelatedRecordId}, new Set<Object>());
 		 System.assertEquals(1, results.size(), 'Expected result size of 1');
+         results = selector.selectByConversationIds(
+             new Set<Id>{ voiceCalls.get(0).ConversationId },
+             new Set<Object>{ VoiceCallsSelector.Options.ORDER_BY_CREATED_DATE_ASC }
+         );
+		 System.assertEquals(1, results.size(), 'Expected result size of 1');
 		 Test.stopTest();
 	 }
  }

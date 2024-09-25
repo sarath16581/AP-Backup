@@ -1,5 +1,5 @@
 /***
- * @description Genesys Intergration contains the callout logic to Genesy
+ * @description Genesys Intergration contains the callout logic to Genesys
  *	NOTE: Genesys Intergration enables callouts to all Genesys Api's (see: https://developer.genesys.cloud/devapps/api-explorer)
  * @author 	Paul Perry
  * @date 	2024-08-27
@@ -11,8 +11,8 @@ public with sharing class GenesysIntegrationService {
 	/**
 	 * Instance for mocking
 	 */
-	public static GenesysIntegrationService newInstance() {
-		return (GenesysIntegrationService)Application.Utilities.newInstance(GenesysIntegrationService.class);
+	public static GenesysIntegrationService getInstance() {
+		return (GenesysIntegrationService)Application.Utilities.getInstance(GenesysIntegrationService.class);
 	}
 
 	/**
@@ -40,7 +40,7 @@ public with sharing class GenesysIntegrationService {
 	 * @param conversationId the unique identifier for a call interaction
 	 * @param participantId the unique identifier for a participant on a call interaction
 	 *
-	 * @return The response by Genesy
+	 * @return The response by Genesys
 	 */
 	public String patchConversationParticipantAttributes(String conversationId, String participantId, Map<String,Object> attributes) {
 		// Set the endpoint URL for the update request
@@ -54,7 +54,7 @@ public with sharing class GenesysIntegrationService {
 
 		// Convert attributes map to JSON string and set the body
 		String body = JSON.serialize(new Map<String,Object>{
-			'attributes' => attribute
+			'attributes' => attributes
 		});
 
 		// Send the update request and handle the response
@@ -76,7 +76,7 @@ public with sharing class GenesysIntegrationService {
 	 * @param endpoint 	suffix for the endpoint specific to your operation
 	 * @param body 		optional body to be sent with the request
 	 *
-	 * @return HttpResponse from Genesy
+	 * @return HttpResponse from Genesys
 	 */
 	public static HttpResponse sendGenesysApiRequest(String method, String endpoint, String body) {
 		HttpRequest request = new HttpRequest();

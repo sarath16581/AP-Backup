@@ -114,8 +114,8 @@ public without sharing class GenesysVoiceCallModule extends ApplicationModule {
 		// Obtain all related voice call records
 		Map<Id,VoiceCall> voiceCallMap = new Map<Id,VoiceCall>(
 			VoiceCallsSelector.newInstance(0, vcFields).selectByConversationIds(
-				new Set<Object>{ VoiceCallsSelector.Options.ORDER_BY_CREATED_DATE_ASC },
-				conversationIds
+				conversationIds,
+				new Set<Object>{ VoiceCallsSelector.Options.ORDER_BY_CREATED_DATE_ASC }
 			)
 		);
 
@@ -128,11 +128,12 @@ public without sharing class GenesysVoiceCallModule extends ApplicationModule {
 			}
 
 			voiceCallsByConversationId.get(voiceCall.ConversationId).add(
+				// Add Trigger context record here if available
 				syncCandidatesMap.get(voiceCall.Id) ?? voiceCall
 			);
 		}
 
-		// Strip all processed VoiceCalls from this list
+		// Process all VoiceCalls and Strip them from this list once processed
 		for (VoiceCall voiceCall :syncCandidatesMap.values()) {
 			Boolean isAuthoritative = isAuthoritativeVoiceCall(voiceCall, voiceCallsByConversationId.get(voiceCall.ConversationId), null);
 
@@ -188,7 +189,7 @@ public without sharing class GenesysVoiceCallModule extends ApplicationModule {
 	 * Examine whether or not provided syncVoiceCall is the authoritative VoiceCall for its parent Conversation
 	 * As soon as the voiceCall fits a scenario, we can tell whether it is or not
 	 * - #1: There is only one call for the parent conversation
-	 * - #2: Single active voice call found (can't rely on VoiceCall.CalDisposition (call status) at this time)
+	 * - #2: Single active voice call found - can't rely on VoiceCall.CalDisposition (call status) yet at this time
 	 * - #3: Based on related AgentWork records used for Omni routing
 	 * - #3.1: Related "Opened" AgentWork records (matching the oldest AcceptedDateTime)
 	 * - #3.2: Related "Closed" AgentWork records (matching the most recent CloseDateTime)
@@ -202,7 +203,7 @@ public without sharing class GenesysVoiceCallModule extends ApplicationModule {
 		if (relatedVoiceCalls.size() == 1) {
 			return relatedVoiceCalls[0].Id == syncVoiceCall.Id;
 		} else if (agentWorkByVoiceCallId == null) {
-			// return inconclusive, come back with AgentWork map for next check
+			// return inconclusive, come back with AgentWork map evaluating more scenarios
 			return null;
 		}
 
@@ -407,7 +408,7 @@ public without sharing class GenesysVoiceCallModule extends ApplicationModule {
 	 * @param request	Contains the conversationId and the attribute values
 	 */
 	public static void processGenesysUpdate(GenesysSyncRequest request) {
-		GenesysIntegrationService genesysIntegrationService = GenesysIntegrationService.newInstance();
+		GenesysIntegrationService genesysIntegrationService = GenesysIntegrationService.getInstance();
 		Map<String,Object> requiredUpdates = request.customAttributes;
 		String participantId = request.participantId;
 
@@ -437,7 +438,7 @@ public without sharing class GenesysVoiceCallModule extends ApplicationModule {
 
 			Map<String,Object> existingAttributeValues = (Map<String,Object>)participantDetail?.get('attributes');
 
-			// No participant details found, not likely to happen. Simply prevent further execution to prevent Exception
+			// No participant details found, not likely to happen. Cannot sync without, prevent Exception
 			if (existingAttributeValues == null) {
 				return;
 			}
