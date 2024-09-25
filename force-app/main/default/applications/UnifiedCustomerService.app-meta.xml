@@ -169,7 +169,7 @@
     <tabs>standard-Case</tabs>
     <tabs>standard-Account</tabs>
     <tabs>standard-Contact</tabs>
-	<tabs>standard-VoiceCall</tabs>
+    <tabs>standard-VoiceCall</tabs>
     <tabs>Knowledge__kav</tabs>
     <tabs>standard-Feed</tabs>
     <tabs>standard-File</tabs>
@@ -208,6 +208,9 @@
             <tab>standard-OmniSupervisorLightning</tab>
         </mappings>
 		<mappings>
+            <tab>standard-VoiceCall</tab>
+        </mappings>
+        <mappings>
             <tab>standard-VoiceCall</tab>
         </mappings>
         <mappings>
