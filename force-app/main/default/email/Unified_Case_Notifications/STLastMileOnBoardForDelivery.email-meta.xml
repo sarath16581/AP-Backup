@@ -3,7 +3,7 @@
     <available>true</available>
     <description>Last mile on board for delivery</description>
     <encodingKey>ISO-8859-1</encodingKey>
-    <name>ST Last Mile - On board for delivery</name>
+    <name>ST Last Mile - On Board For Delivery</name>
     <style>none</style>
     <subject>Good news! Your delivery is coming today for case {!Case.CaseNumber}</subject>
     <textOnly>Australia Post

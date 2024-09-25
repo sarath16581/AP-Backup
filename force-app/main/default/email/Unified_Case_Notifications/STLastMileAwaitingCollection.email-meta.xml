@@ -3,7 +3,7 @@
     <available>true</available>
     <description>Last Mile awaiting collection</description>
     <encodingKey>ISO-8859-1</encodingKey>
-    <name>ST Last Mile - Awaiting collection</name>
+    <name>ST Last Mile - Awaiting Collection</name>
     <style>none</style>
     <subject>Good news! Your delivery is ready to collect for case {!Case.CaseNumber}</subject>
     <textOnly>Australia Post

@@ -3,7 +3,7 @@
     <available>true</available>
     <description>When a Unified Investigation Case has been created</description>
     <encodingKey>ISO-8859-1</encodingKey>
-    <name>ST Case creation</name>
+    <name>ST Case Creation</name>
     <style>none</style>
     <subject>We&apos;re monitoring your case {!Case.CaseNumber}</subject>
     <textOnly>Australia Post

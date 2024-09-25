@@ -3,7 +3,7 @@
     <available>true</available>
     <description>Last mile attempted delivery</description>
     <encodingKey>ISO-8859-1</encodingKey>
-    <name>ST Last Mile - Attempted delivery</name>
+    <name>ST Last Mile - Attempted Delivery</name>
     <style>none</style>
     <subject>Good news! We&apos;ve located your delivery on case {!Case.CaseNumber}</subject>
     <textOnly>Australia Post

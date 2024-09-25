@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Unified Investigation where no scans or updates have occurred for 3 days</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>ST No Scans Or Updates For 3 Days</name>
+    <style>none</style>
+    <subject>We are continuing to investigate your case {!Case.CaseNumber}</subject>
+    <textOnly>Australia Post
+
+Case {!Case.CaseNumber}
+
+Hi NAME,
+
+We are investigating the status of your delivery
+
+We appreciate your patience while we continue to look into the delivery of 											your item with tracking number {!Case.ReferenceID__c}.
+
+We will be in touch with an update shortly. In the unlikely event that your 											parcel is not delivered within the next few days, we’ll contact you with 											information and advice on what to do next.
+
+Thank you for your understanding.
+
+StarTrack
+
+This email was sent by Startrack. Startrack does not represent, warrant or guarantee that 								the integrity of this email communication has been maintained nor that the communication 								is free of errors, viruses or interference.
+
+Help &amp; support |  Terms &amp; conditions |  Privacy policy</textOnly>
+    <type>custom</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

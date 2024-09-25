@@ -3,7 +3,7 @@
     <available>true</available>
     <description>New EDD in transit redirection</description>
     <encodingKey>ISO-8859-1</encodingKey>
-    <name>AP New EDD – In transit redirection</name>
+    <name>AP New EDD – In Transit Redirection</name>
     <style>none</style>
     <subject>We have a new estimated delivery date for case {!Case.CaseNumber}</subject>
     <textOnly>Australia Post

@@ -1,26 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
     <available>true</available>
-    <description>Last mile on board for delivery</description>
+    <description>New EDD new information + dropship</description>
     <encodingKey>ISO-8859-1</encodingKey>
-    <name>AP Last Mile - On Board For Delivery</name>
+    <name>AP New EDD – New Information + Dropship</name>
     <style>none</style>
-    <subject>Good news! Your delivery is coming today for case {!Case.CaseNumber}</subject>
+    <subject>We have a new estimated delivery date for case {!Case.CaseNumber}</subject>
     <textOnly>Australia Post
 
 Case {!Case.CaseNumber}
 
 Hi {!IF(ISBLANK(Contact.Preferred_Name__c),Contact.FirstName,Contact.Preferred_Name__c)},
 
-Your delivery is coming today
+Your delivery will arrive shortly
 
-Thank you for your patience while we’ve been monitoring your delivery. We 											are delighted to see that it has now been located and is with a driver for 											delivery today.
+Thank you for your patience while we’ve been monitoring your delivery. We 											are happy to report that the tracking has updated and you can now expect 											your delivery on or before {!Case.EstimatedDelivery__c}
 
-The driver will arrive with your parcel between 1-3pm / by end of day today. 											If you&apos;re not at home, we&apos;ll either leave it in a safe place at the delivery 											address (if the sender hasn&apos;t requested a signature), or it will be taken to 											a Post Office for collection.
+Where we’d previously calculated the journey of your parcel based on 											information from the sender, we’ve since received new information about the 											parcel allowing us to update you with this more accurate delivery estimate. 											You’ll see more activity on the tracking from here to help reassure that 											it’ll be with you shortly.
 
 Your case will be closed now that your delivery is on the way. You can 											continue to monitor the tracking for further updates – click here to 											see delivery options and notification preferences for this parcel.
-
-Your case will be closed now that your delivery is almost there.
 
 Australia Post
 
