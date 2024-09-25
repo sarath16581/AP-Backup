@@ -6,6 +6,23 @@
     <name>AP Undeliverable – General</name>
     <style>none</style>
     <subject>We have an update on your delivery for case {!Case.CaseNumber}</subject>
+    <textOnly>Australia Post
+
+Case {!Case.CaseNumber}
+
+Hi {!IF(ISBLANK(Contact.Preferred_Name__c),Contact.FirstName,Contact.Preferred_Name__c)},
+
+Your delivery was unable to be completed, please contact the sender for a 												resolution
+
+Thank you for your patience while we’ve been monitoring your delivery. We 											now have a tracking update and can recommend some next steps.
+
+It appears that something has gone wrong during the journey of your parcel and it is now returning to the sender. Due to the volumes of parcels we transport each day we’re sorry to advise that we are unable to intercept items in transit.  Please reach out to your sender for advice on next steps regarding your delivery, as we trust they will be best placed to offer a resolution in line with their terms and conditions. If the sender is unable to assist you or you can’t reach them, please let us know.
+
+Australia Post
+
+This email was sent by Australia Post. Australia Post does not represent, warrant or 								guarantee that the integrity of this email communication has been maintained nor that 								the communication is free of errors, viruses or interference.
+
+Help &amp; support |  Terms &amp; conditions |  Privacy policy</textOnly>
     <type>custom</type>
     <uiType>Aloha</uiType>
 </EmailTemplate>

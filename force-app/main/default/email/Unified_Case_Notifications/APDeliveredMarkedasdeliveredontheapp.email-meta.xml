@@ -6,6 +6,27 @@
     <name>AP Delivered - Marked as delivered on the app</name>
     <style>none</style>
     <subject>Thanks for confirming delivery on {!Case.CaseNumber}</subject>
+    <textOnly>Australia Post
+
+Case {!Case.CaseNumber}
+
+Hi {!IF(ISBLANK(Contact.Preferred_Name__c),Contact.FirstName,Contact.Preferred_Name__c)},
+
+Your delivery has been completed
+
+Thank you for your patience while we’ve been monitoring your delivery. We are delighted to see that it has now been located and marked as delivered via the app.
+
+Thank you for letting us know you’ve received your delivery, we’ll now close your case. If this was an error, please feel free to reply to this email and we’ll continue to monitor for updates.
+
+Australia Post delivers more than 2 billion parcels each year, and the vast majority are delivered on time. We&apos;re sorry that on this occasion your delivery was later than expected.
+
+Our website can 											help if you’re looking for alternative ways to receive your parcels in 											future.
+
+Australia Post
+
+This email was sent by Australia Post. Australia Post does not represent, warrant or 								guarantee that the integrity of this email communication has been maintained nor that 								the communication is free of errors, viruses or interference.
+
+Help &amp; support |  Terms &amp; conditions |  Privacy policy</textOnly>
     <type>custom</type>
     <uiType>Aloha</uiType>
 </EmailTemplate>

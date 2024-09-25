@@ -6,6 +6,25 @@
     <name>AP No scans or updates for 5 Days</name>
     <style>none</style>
     <subject>We have an outcome for your case {!Case.CaseNumber}</subject>
+    <textOnly>Australia Post
+
+Case {!Case.CaseNumber}
+
+Hi {!IF(ISBLANK(Contact.Preferred_Name__c),Contact.FirstName,Contact.Preferred_Name__c)},
+
+We are investigating the status of your delivery
+
+Thank you for your patience during our investigation.
+
+Despite our best efforts we are sorry to say that we have been unsuccessful 											in locating your delivery and now consider it to be lost in transit. We 											apologise that we don’t have a better outcome to provide.
+
+Please reach out to your sender for advice on next steps regarding your 											delivery, as we trust they will be best placed to offer a resolution in line 											with their terms and conditions. If the sender is unable to assist you or 											you can’t reach them, please let us know.
+
+Australia Post
+
+This email was sent by Australia Post. Australia Post does not represent, warrant or 								guarantee that the integrity of this email communication has been maintained nor that 								the communication is free of errors, viruses or interference.
+
+Help &amp; support |  Terms &amp; conditions |  Privacy policy</textOnly>
     <type>custom</type>
     <uiType>Aloha</uiType>
 </EmailTemplate>

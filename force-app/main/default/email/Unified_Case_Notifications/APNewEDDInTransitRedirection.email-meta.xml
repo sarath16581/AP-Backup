@@ -6,6 +6,25 @@
     <name>AP New EDD – In transit redirection</name>
     <style>none</style>
     <subject>We have a new estimated delivery date for case {!Case.CaseNumber}</subject>
+    <textOnly>Australia Post
+
+Case {!Case.CaseNumber}
+
+Hi {!IF(ISBLANK(Contact.Preferred_Name__c),Contact.FirstName,Contact.Preferred_Name__c)},
+
+Your delivery will arrive shortly
+
+Thank you for your patience while we’ve been monitoring your delivery. We 											are happy to report that the tracking has updated and you can now expect 											your delivery on or before {!Case.EstimatedDelivery__c}
+
+When a parcel is redirected a new address label is applied by the delivery 											facility that looks after the original address, who then send it on to the 											updated address. As you’ll have been made aware this redirection does add a 											little time to the journey but it’s on the final stretch now and will arrive 											at the new address shortly.
+
+Your case will be closed now that your delivery is on the way. You can 											continue to monitor the tracking for further updates – click here to 											see delivery options and notification preferences for this parcel.
+
+Australia Post
+
+This email was sent by Australia Post. Australia Post does not represent, warrant or 								guarantee that the integrity of this email communication has been maintained nor that 								the communication is free of errors, viruses or interference.
+
+Help &amp; support |  Terms &amp; conditions |  Privacy policy</textOnly>
     <type>custom</type>
     <uiType>Aloha</uiType>
 </EmailTemplate>

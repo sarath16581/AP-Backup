@@ -6,6 +6,25 @@
     <name>ST Undeliverable RTS</name>
     <style>none</style>
     <subject>Your delivery has been returned to sender on case {!Case.CaseNumber}</subject>
+    <textOnly>Australia Post
+
+Case {!Case.CaseNumber}
+
+Hi {!IF(ISBLANK(Contact.Preferred_Name__c),Contact.FirstName,Contact.Preferred_Name__c)},
+
+Your delivery was unable to be completed, please contact the sender for a 												resolution
+
+Thank you for your patience while we’ve been monitoring your delivery. We 											now have a tracking update and can recommend some next steps.
+
+Your delivery has been located and we can now confirm that it was delivered 											back to the sender. This may have been due to an incorrect or incomplete 											address, a damaged address label, or a request from the sender. We’re unable 											to see the reason however your sender should be able to confirm this with 											you.
+
+As your sender is now in possession of the parcel, please reach out to them 											for assistance.
+
+StarTrack
+
+This email was sent by Startrack. Startrack does not represent, warrant or guarantee that 								the integrity of this email communication has been maintained nor that the communication 								is free of errors, viruses or interference.
+
+Help &amp; support |  Terms &amp; conditions |  Privacy policy</textOnly>
     <type>custom</type>
     <uiType>Aloha</uiType>
 </EmailTemplate>

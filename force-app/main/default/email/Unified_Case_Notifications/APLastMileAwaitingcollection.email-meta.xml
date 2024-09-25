@@ -6,6 +6,27 @@
     <name>AP Last Mile - Awaiting collection</name>
     <style>none</style>
     <subject>Good news! Your delivery is ready to collect for case {!Case.CaseNumber}</subject>
+    <textOnly>Australia Post
+
+Case {!Case.CaseNumber}
+
+Hi {!IF(ISBLANK(Contact.Preferred_Name__c),Contact.FirstName,Contact.Preferred_Name__c)},
+
+Your delivery is awaiting collection
+
+Thank you for your patience while we’ve been monitoring your delivery. We 											are delighted to see that it has now been located and has had an attempted 											delivery today.
+
+Thank you for your patience while we’ve been monitoring your delivery. We are delighted to see that it has now been located and is awaiting collection at Brisbane GPO.
+
+Brisbane GPO can be found at 261 Queen Street, BRISBANE CITY, QLD, 4000 and 											you have 10 business days to collect your parcel. Brisbane GPO is also open 											6:15am-5pm for parcel collection via hatch. Bring along some photo ID 											showing your name or the address matching the parcel, or find other ways to 													collect or to authorise someone else on your behalf.
+
+Your case will be closed now that your delivery is almost there.
+
+Australia Post
+
+This email was sent by Australia Post. Australia Post does not represent, warrant or 								guarantee that the integrity of this email communication has been maintained nor that 								the communication is free of errors, viruses or interference.
+
+Help &amp; support |  Terms &amp; conditions |  Privacy policy</textOnly>
     <type>custom</type>
     <uiType>Aloha</uiType>
 </EmailTemplate>
