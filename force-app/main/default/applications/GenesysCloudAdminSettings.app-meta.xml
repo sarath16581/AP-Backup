@@ -4,32 +4,29 @@
         <headerColor>#0070D2</headerColor>
         <shouldOverrideOrgTheme>false</shouldOverrideOrgTheme>
     </brand>
+    <description>To manage CX Genesys Cloud</description>
     <formFactors>Small</formFactors>
     <formFactors>Large</formFactors>
     <isNavAutoTempTabsDisabled>false</isNavAutoTempTabsDisabled>
     <isNavPersonalizationDisabled>false</isNavPersonalizationDisabled>
     <isNavTabPersistenceDisabled>false</isNavTabPersistenceDisabled>
     <isOmniPinnedViewEnabled>false</isOmniPinnedViewEnabled>
-    <label>GC Admin Settings</label>
+    <label>Genesys Cloud Admin Settings</label>
     <navType>Console</navType>
-    <tabs>GCForSalesforcePackages</tabs>
-    <tabs>GCForSalesforceSettings</tabs>
-    <tabs>GCForSalesforceSCVAdmin</tabs>
-    <tabs>GCCallCenterSettings</tabs>
+    <tabs>GCCoreServicies</tabs>
+    <tabs>GCPackageManager</tabs>
+    <tabs>GCforSCVSettings</tabs>
     <uiType>Lightning</uiType>
-    <utilityBar>GC_Admin_Settings_UtilityBar</utilityBar>
+    <utilityBar>Genesys_Cloud_Admin_Settings_UtilityBar</utilityBar>
     <workspaceConfig>
         <mappings>
-            <tab>GCCallCenterSettings</tab>
+            <tab>GCCoreServicies</tab>
         </mappings>
         <mappings>
-            <tab>GCForSalesforcePackages</tab>
+            <tab>GCPackageManager</tab>
         </mappings>
         <mappings>
-            <tab>GCForSalesforceSCVAdmin</tab>
-        </mappings>
-        <mappings>
-            <tab>GCForSalesforceSettings</tab>
+            <tab>GCforSCVSettings</tab>
         </mappings>
     </workspaceConfig>
 </CustomApplication>
