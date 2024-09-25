@@ -1,3 +1,10 @@
+/**
+ * @description Test Class used for ResourceCustomerInsightsV1
+ * @author Rejeesh Raghavan
+ * @date 2024/09/05
+ * @changelog
+ * 2024/09/05 - Rejeesh Raghavan - Initial version
+ */
 @IsTest
 public class ResourceCustomerInsightsV1_Test {
 	/**
@@ -5,7 +12,7 @@ public class ResourceCustomerInsightsV1_Test {
 	 * @param hasAccess : `Boolean` Indicate if the user should be granted access to the apex classes
 	 * @return  `User`
 	 */
-	static User setupTesUser(Boolean hasAccess){
+	static User setupTestUser(Boolean hasAccess){
 		Id integrationProfileId = [SELECT Id FROM Profile 
 									WHERE Name = 'AusPost Integration'
 									LIMIT 1].Id;
@@ -19,6 +26,28 @@ public class ResourceCustomerInsightsV1_Test {
 		}
 		return integrationUser;
 	}
+	/**
+	 * @description : Create bindMap variable to be passed as bindMap for SOQL
+	 * @param hasCaseType 
+	 * @param hasInteractionType 
+	 * @return  `Map<String, Object>` bindMap
+	 */
+	static Map<String, Object> getBindMap(Boolean hasCaseType, Boolean hasInteractionType){
+		Map<String, Object> bindMap = new Map<String, Object>();
+		Set<String> caseRecordTypes = new Set<String>();
+		caseRecordTypes.addAll(ResourceCustomerInsightsV1.AP_CASE_RECORDTYPES);
+		caseRecordTypes.addAll(ResourceCustomerInsightsV1.ST_CASE_RECORDTYPES);
+		caseRecordTypes.addAll(ResourceCustomerInsightsV1.UNIFIED_CASE_RECORDTYPES);
+		Set<String> interactionProfiles = new Set<String>();
+		interactionProfiles.addAll(ResourceCustomerInsightsV1.AP_CC_PROFILES);
+		interactionProfiles.addAll(ResourceCustomerInsightsV1.ST_CC_PROFILES);
+		interactionProfiles.addAll(ResourceCustomerInsightsV1.U_CC_PROFILES);
+		bindMap.put('caseRecordTypes',caseRecordTypes);
+		bindMap.put('closedCaseCutoffDate',Date.today().addDays(-30));
+		bindMap.put('interactionProfiles', interactionProfiles);
+		bindMap.put('interactionCutoffDate', Date.today().addDays(-30));
+		return bindMap;
+	}
     /**
 	 * @description : Test with no access
 	 * Response should return error
@@ -27,7 +56,7 @@ public class ResourceCustomerInsightsV1_Test {
 	static void testUserAccess(){
 
 		//setup test user
-		User integrationUser = setupTesUser(false);
+		User integrationUser = setupTestUser(false);
 
 		Test.startTest();
 		RestRequest request = new RestRequest();
@@ -53,7 +82,7 @@ public class ResourceCustomerInsightsV1_Test {
 	static void testNoParams(){
 
 		//setup test user
-		User integrationUser = setupTesUser(true);
+		User integrationUser = setupTestUser(true);
 		
 		Test.startTest();
 		RestRequest request = new RestRequest();
@@ -82,7 +111,7 @@ public class ResourceCustomerInsightsV1_Test {
 		RestResponse response = new RestResponse();
 
 		//setup test user
-		User integrationUser = setupTesUser(true);
+		User integrationUser = setupTestUser(true);
 		
 		Test.startTest();
         request.requestUri =
@@ -102,120 +131,16 @@ public class ResourceCustomerInsightsV1_Test {
 		Assert.areEqual(true, response.responseBody.toString().containsIgnoreCase('Bad Request'), 'BAD REQUEST: Due to BOTH Email & Phone Number params');
 	}
 	/**
-	 * @description : Test with only phone param
+	 * @description : Test with only phone param (case_type & interaction_type will be defaulted to allcontactcentre)
 	 * Response should return success
-	 * 
-	 * TODO: Fix the test mock to get 200 response code
 	 */
     @IsTest
 	static void testPhoneNumberParam(){
 		String customerPhone='0300300300';
 		// Mock Data
-		RecordType consumerRecordType = [SELECT Id, DeveloperName FROM RecordType WHERE SObjectType='Account' AND DeveloperName='Business_Account' LIMIT 1];
-		Account personAccount = ApplicationTestDataFactory.getPersonAccounts(1, true)[0];
-		Contact personContact = ApplicationTestDataFactory.getContacts(1, personAccount.Id, true)[0];
-		personAccount.RecordTypeId = consumerRecordType.Id;
-		personAccount = (Account)ApplicationTestDataFactory.setUnwritableFields(personAccount, new Map<String, Object>{
-				'PersonContactId' => personContact.Id
-				,'RecordType.DeveloperName'=>'Business_Account'
-		});
-		personContact = (Contact)ApplicationTestDataFactory.setUnwritableFields(personContact, new Map<String, Object>{
-				'IsPersonAccount'=>true
-		});
-		personContact.Phone=customerPhone;
-		//stubs
-		ContactsSelector mockContactsSelector = (ContactsSelector) MockUtility.mockSelector(ContactsSelector.class);
-
-		MockUtility.Mocks.startStubbing();
-		MockUtility.Mocks.when(mockContactsSelector.selectWithCasesAndInteractionsByPhoneNumber(customerPhone, new Map<String,Object>(), new Set<Object>()))
-			.thenReturn(new List<Contact>{personContact});
-		MockUtility.Mocks.stopStubbing();
-
-		RestRequest request = new RestRequest();
-		RestResponse response = new RestResponse();
-		//setup test user
-		User integrationUser = setupTesUser(true);
-
-		Test.startTest();
-        request.requestUri =
-            '/api/1.0/insights/customer';
-		request.params.put('phone', customerPhone);
-        request.httpMethod = 'GET';
-        RestContext.request = request;
-		RestContext.response = response;
-		System.runAs(integrationUser){
-			// Call the method to test
-			ResourceApiController.query();
-		}
-		Test.stopTest();
-		Assert.areEqual(500, response.statusCode, 'Mocking returns null(Needs to be fixed)');
-		Assert.areEqual(true, response.responseBody.toString().containsIgnoreCase('System.NullPointerException'), 'Mocking returns null(Needs to be fixed)');
-	}
-	/**
-	 * @description : Test with only email param
-	 * Response should return success
-	 * 
-	 * TODO: Fix the test mock to get 200 response code
-	 */
-    @IsTest
-	static void testEmailParam(){
-		String customerEmail='invalid@invalid.com.invalid';
-		// Mock Data
-		RecordType consumerRecordType = [SELECT Id, DeveloperName FROM RecordType WHERE SObjectType='Account' AND DeveloperName='Business_Account' LIMIT 1];
-		Account personAccount = ApplicationTestDataFactory.getPersonAccounts(1, true)[0];
-		Contact personContact = ApplicationTestDataFactory.getContacts(1, personAccount.Id, true)[0];
-		personAccount.RecordTypeId = consumerRecordType.Id;
-		personAccount = (Account)ApplicationTestDataFactory.setUnwritableFields(personAccount, new Map<String, Object>{
-				'PersonContactId' => personContact.Id
-				,'RecordType.DeveloperName'=>'Business_Account'
-		});
-		personContact = (Contact)ApplicationTestDataFactory.setUnwritableFields(personContact, new Map<String, Object>{
-				'IsPersonAccount'=>true
-		});
-		personContact.Email=customerEmail;
-		//stubs
-		ContactsSelector mockContactsSelector = (ContactsSelector) MockUtility.mockSelector(ContactsSelector.class);
-
-		MockUtility.Mocks.startStubbing();
-		MockUtility.Mocks.when(mockContactsSelector.selectWithCasesAndInteractionsByPhoneNumber(customerEmail, new Map<String,Object>(), new Set<Object>()))
-			.thenReturn(new List<Contact>{personContact});
-		MockUtility.Mocks.stopStubbing();
-
-		//setup test user
-		User integrationUser = setupTesUser(true);
-
-		RestRequest request = new RestRequest();
-		RestResponse response = new RestResponse();
-
-		Test.startTest();
-        request.requestUri =
-            '/api/1.0/insights/customer';
-		request.params.put('email', customerEmail);
-        request.httpMethod = 'GET';
-        RestContext.request = request;
-		RestContext.response = response;
-		System.runAs(integrationUser){
-			// Call the method to test
-			ResourceApiController.query();
-		}
-		Test.stopTest();
-		Assert.areEqual(500, response.statusCode, 'Mocking returns 500 error(Needs to be fixed)');
-		Assert.areEqual(true, response.responseBody.toString().containsIgnoreCase('System.NullPointerException'), 'Mocking returns null(Needs to be fixed)');
-	}
-	/**
-	 * @description Test method for ResourceCustomerInsightsV1.transformOutput()
-	 */
-	@IsTest
-	static void testTransformOutput(){
-		String customerPhone='0300300300';
-		String queryConditions= ' AND (HomePhone =:searchKey OR MobilePhone =:searchKey OR Phone =:searchKey)';
-		Map<String, Object> bindMap = new Map<String, Object>();
-		bindMap.put('searchKey', customerPhone);
-		// Mock Data
 		RecordType accountRecordType = RecordTypesSelector.newInstance().selectByDeveloperName('Account', new Set<String>{'Business_Account'}).values()[0];
 		RecordType caseRecordType = RecordTypesSelector.newInstance().selectByDeveloperName('Case', new Set<String>{'SSSWGeneralEnquiry'}).values()[0];
 		RecordType taskRecordType = RecordTypesSelector.newInstance().selectByDeveloperName('Task', new Set<String>{'SSSWCall'}).values()[0];
-		
 		//Account data
 		Account personAccount = ApplicationTestDataFactory.getPersonAccounts(1, true)[0];
 		personAccount.RecordTypeId = accountRecordType.Id;
@@ -225,7 +150,6 @@ public class ResourceCustomerInsightsV1_Test {
 				'PersonContactId' => personContact.Id
 				,'RecordType.DeveloperName'=>'Business_Account'
 		});
-		
 		personContact = (Contact)ApplicationTestDataFactory.setUnwritableFields(personContact, new Map<String, Object>{
 				'IsPersonAccount'=>true
 		});
@@ -268,33 +192,317 @@ public class ResourceCustomerInsightsV1_Test {
 		});
 
 		personContact = (Contact)ApplicationTestDataFactory.setChildRelationships(personContact,new Map <String, List <SObject>> {'LiveChatTranscripts' => new List <LiveChatTranscript>{ transcriptRecord }});
+		//class bindMap variables
+		Map<String, Object> bindMap = getBindMap(true, true);
 		
 		//stubs
 		ContactsSelector mockContactsSelector = (ContactsSelector) MockUtility.mockSelector(ContactsSelector.class);
 
 		MockUtility.Mocks.startStubbing();
-		MockUtility.Mocks.when(mockContactsSelector.selectWithCasesAndInteractionsHelper(queryConditions,bindMap, new Set<Object>()))
+		MockUtility.Mocks.when(mockContactsSelector.selectWithCasesAndInteractionsByPhoneNumber(customerPhone, bindMap, new Set<Object>()))
 			.thenReturn(new List<Contact>{personContact});
 		MockUtility.Mocks.stopStubbing();
 
-		
-		Test.startTest();
+		RestRequest request = new RestRequest();
+		RestResponse response = new RestResponse();
+		//setup test user
+		User integrationUser = setupTestUser(true);
 
-		// Call the Selector Mehtod
-		Set<SObjectField> contactFields = new Set<SObjectField>{
-			Contact.Id, Contact.APCN__c, Contact.Firstname, Contact.Lastname, Contact.Email
-			, Contact.VerifiedEmail__c, Contact.Phone, Contact.MobilePhone, Contact.VerifiedMobile__c
-		};
-		ContactsSelector contactSelector = ContactsSelector.newInstance(0, contactFields);
-		List<Contact> contacts = contactSelector.selectWithCasesAndInteractionsHelper(queryConditions,bindMap, new Set<Object>());
-		// Call the transformOutput method
-		List<Map<String, Object>> output = ResourceCustomerInsightsV1.transformOutput(contacts);
+		Test.startTest();
+        request.requestUri =
+            '/api/1.0/insights/customer';
+		request.params.put('phone', customerPhone);
+        request.httpMethod = 'GET';
+        RestContext.request = request;
+		RestContext.response = response;
+		System.runAs(integrationUser){
+			// Call the method to test
+			ResourceApiController.query();
+		}
 		Test.stopTest();
-		List<Object> cases = (List<Object>)output[0].get('cases');
-		Map<String, Object> caseOutput = (Map<String, Object>) cases[0];
-		List<Object> interactions = (List<Object>)output[0].get('interactions');
-		Assert.areEqual(personContact.Id, output[0].get('sfid'), 'Contact Id should match');
-		Assert.areEqual(caseRecord.Id, String.valueOf(caseOutput.get('sfid')), 'Case Id should match');
-		Assert.areEqual(3, interactions.size(), 'There should be 3 interactions');
+		Map<String, Object> jsonResponseBody = (Map<String, Object>)JSON.deserializeUntyped(response.responseBody.toString());
+		List<Object> responseBody = (List<Object>)(jsonResponseBody.get('response'));
+		Map<String, Object> jsonCustomerRecord = (Map<String, Object>)responseBody[0];
+		List<Object> jsonCases = (List<Object>)(jsonCustomerRecord.get('cases'));
+		Map<String, Object> jsonCaseRecord = (Map<String, Object>)jsonCases[0];
+		List<Object> jsonInteractions = (List<Object>)(jsonCustomerRecord.get('interactions'));
+		Assert.areEqual(200, response.statusCode, 'Respose code should be success');
+		Assert.areEqual(true, jsonResponseBody.get('success'),'Response code should be success');
+		Assert.areEqual(personContact.Id, jsonCustomerRecord.get('sfid'),'Contact Id should match');
+		Assert.areEqual(caseRecord.Id, (String)jsonCaseRecord.get('sfid'),'Case Id should match');
+		Assert.areEqual(3, jsonInteractions.size(),'There should be 3 interactions');
+	}
+	/**
+	 * @description : Test with phone param & case_type params & interaction_type as allcontactcentre
+	 * Response should return success
+	 */
+    @IsTest
+	static void testValidPhoneNumberAndCaseTypeAndInteractionTypeParams(){
+		String customerPhone='0300300300';
+		// Mock Data
+		RecordType accountRecordType = RecordTypesSelector.newInstance().selectByDeveloperName('Account', new Set<String>{'Business_Account'}).values()[0];
+		RecordType caseRecordType = RecordTypesSelector.newInstance().selectByDeveloperName('Case', new Set<String>{'SSSWGeneralEnquiry'}).values()[0];
+		RecordType taskRecordType = RecordTypesSelector.newInstance().selectByDeveloperName('Task', new Set<String>{'SSSWCall'}).values()[0];
+		//Account data
+		Account personAccount = ApplicationTestDataFactory.getPersonAccounts(1, true)[0];
+		personAccount.RecordTypeId = accountRecordType.Id;
+		//Contact data
+		Contact personContact = ApplicationTestDataFactory.getContacts(1, personAccount.Id, true)[0];
+		personAccount = (Account)ApplicationTestDataFactory.setUnwritableFields(personAccount, new Map<String, Object>{
+				'PersonContactId' => personContact.Id
+				,'RecordType.DeveloperName'=>'Business_Account'
+		});
+		personContact = (Contact)ApplicationTestDataFactory.setUnwritableFields(personContact, new Map<String, Object>{
+				'IsPersonAccount'=>true
+		});
+		personContact.Phone=customerPhone;
+		//case data
+		Case caseRecord = ApplicationTestDataFactory.getCases(1, true)[0];
+		caseRecord.RecordTypeId = caseRecordType.Id;
+		caseRecord.Type = 'All Other Enquiries';
+		caseRecord.EnquirySubTYpe__c = 'All Other';
+		caseRecord = (Case)ApplicationTestDataFactory.setUnwritableFields(caseRecord, new Map<String, Object>{
+				'ArticleTest__r.ArticleId__c' =>'123456'
+				,'ClosedDate' => Date.today()
+				,'IsClosed'=>true
+				,'RecordType.DeveloperName'=>'SSSWGeneralEnquiry'
+		});
+		
+		personContact = (Contact)ApplicationTestDataFactory.setChildRelationships(personContact,new Map <String, List <SObject>> {'Cases' => new List <Case>{ caseRecord }});
+		//Task data
+		Task taskRecord = ApplicationTestDataFactory.getTasks(2, null, true)[0];
+		taskRecord.RecordTypeId = taskRecordType.Id;
+		taskRecord.ActivityDate = Date.today();
+		taskRecord = (Task)ApplicationTestDataFactory.setUnwritableFields(taskRecord, new Map<String, Object>{
+				'CreatedBy.Profile.Name' =>'SSSW - Service Agent'
+				,'RecordType.DeveloperName'=>'SSSWGeneralEnquiry'
+		});
+
+		personContact = (Contact)ApplicationTestDataFactory.setChildRelationships(personContact,new Map <String, List <SObject>> {'Tasks' => new List <Task>{ taskRecord }});
+		//VoiceCall Data
+		VoiceCall voiceCallRecord = new VoiceCall();
+		voiceCallRecord = (VoiceCall)ApplicationTestDataFactory.setUnwritableFields(voiceCallRecord, new Map<String, Object>{
+				'CreatedBy.Profile.Name' =>'SSSW - Service Agent'
+		});
+
+		personContact = (Contact)ApplicationTestDataFactory.setChildRelationships(personContact,new Map <String, List <SObject>> {'RelatedRecords' => new List <VoiceCall>{ voiceCallRecord }});
+		
+		//LiveChatTranscript data
+		LiveChatTranscript transcriptRecord = new LiveChatTranscript();
+		transcriptRecord = (LiveChatTranscript)ApplicationTestDataFactory.setUnwritableFields(transcriptRecord, new Map<String, Object>{
+				'Owner.Profile.Name' =>'SSSW - Service Agent'
+		});
+
+		personContact = (Contact)ApplicationTestDataFactory.setChildRelationships(personContact,new Map <String, List <SObject>> {'LiveChatTranscripts' => new List <LiveChatTranscript>{ transcriptRecord }});
+		//class bindMap variables
+		Map<String, Object> bindMap = getBindMap(true, true);
+		
+		//stubs
+		ContactsSelector mockContactsSelector = (ContactsSelector) MockUtility.mockSelector(ContactsSelector.class);
+
+		MockUtility.Mocks.startStubbing();
+		MockUtility.Mocks.when(mockContactsSelector.selectWithCasesAndInteractionsByPhoneNumber(customerPhone, bindMap, new Set<Object>()))
+			.thenReturn(new List<Contact>{personContact});
+		MockUtility.Mocks.stopStubbing();
+
+		RestRequest request = new RestRequest();
+		RestResponse response = new RestResponse();
+		//setup test user
+		User integrationUser = setupTestUser(true);
+
+		Test.startTest();
+        request.requestUri =
+            '/api/1.0/insights/customer';
+		request.params.put('phone', customerPhone);
+		request.params.put('case_type', 'allcontactcentre');
+		request.params.put('interaction_type', 'allcontactcentre');
+        request.httpMethod = 'GET';
+        RestContext.request = request;
+		RestContext.response = response;
+		System.runAs(integrationUser){
+			// Call the method to test
+			ResourceApiController.query();
+		}
+		Test.stopTest();
+		Map<String, Object> jsonResponseBody = (Map<String, Object>)JSON.deserializeUntyped(response.responseBody.toString());
+		List<Object> responseBody = (List<Object>)(jsonResponseBody.get('response'));
+		Map<String, Object> jsonCustomerRecord = (Map<String, Object>)responseBody[0];
+		List<Object> jsonCases = (List<Object>)(jsonCustomerRecord.get('cases'));
+		Map<String, Object> jsonCaseRecord = (Map<String, Object>)jsonCases[0];
+		List<Object> jsonInteractions = (List<Object>)(jsonCustomerRecord.get('interactions'));
+		Assert.areEqual(200, response.statusCode, 'Respose code should be success');
+		Assert.areEqual(true, jsonResponseBody.get('success'),'Response code should be success');
+		Assert.areEqual(personContact.Id, jsonCustomerRecord.get('sfid'),'Contact Id should match');
+		Assert.areEqual(caseRecord.Id, (String)jsonCaseRecord.get('sfid'),'Case Id should match');
+		Assert.areEqual(3, jsonInteractions.size(),'There should be 3 interactions');
+	}
+	/**
+	 * @description : Test with phone param & INVALID case_type params & interaction_type params
+	 * Response should return success, but there should not be any case or interaction records
+	 */
+    @IsTest
+	static void testValidPhoneNumberAndInvalidCaseTypeAndInteractionTypeParams(){
+		String customerPhone='0300300300';
+		// Mock Data
+		RecordType accountRecordType = RecordTypesSelector.newInstance().selectByDeveloperName('Account', new Set<String>{'Business_Account'}).values()[0];
+
+		//Account data
+		Account personAccount = ApplicationTestDataFactory.getPersonAccounts(1, true)[0];
+		personAccount.RecordTypeId = accountRecordType.Id;
+		//Contact data
+		Contact personContact = ApplicationTestDataFactory.getContacts(1, personAccount.Id, true)[0];
+		personAccount = (Account)ApplicationTestDataFactory.setUnwritableFields(personAccount, new Map<String, Object>{
+				'PersonContactId' => personContact.Id
+				,'RecordType.DeveloperName'=>'Business_Account'
+		});
+		personContact = (Contact)ApplicationTestDataFactory.setUnwritableFields(personContact, new Map<String, Object>{
+				'IsPersonAccount'=>true
+		});
+		personContact.Phone=customerPhone;
+		
+		//class bindMap variables
+		Map<String, Object> bindMap = new Map<String, Object>();
+		
+		//stubs
+		ContactsSelector mockContactsSelector = (ContactsSelector) MockUtility.mockSelector(ContactsSelector.class);
+
+		MockUtility.Mocks.startStubbing();
+		MockUtility.Mocks.when(mockContactsSelector.selectWithCasesAndInteractionsByPhoneNumber(customerPhone, bindMap, new Set<Object>()))
+			.thenReturn(new List<Contact>{personContact});
+		MockUtility.Mocks.stopStubbing();
+
+		RestRequest request = new RestRequest();
+		RestResponse response = new RestResponse();
+		//setup test user
+		User integrationUser = setupTestUser(true);
+
+		Test.startTest();
+        request.requestUri =
+            '/api/1.0/insights/customer';
+		request.params.put('phone', customerPhone);
+		request.params.put('case_type', 'invalid');
+		request.params.put('interaction_type', 'invalid');
+        request.httpMethod = 'GET';
+        RestContext.request = request;
+		RestContext.response = response;
+		System.runAs(integrationUser){
+			// Call the method to test
+			ResourceApiController.query();
+		}
+		Test.stopTest();
+		Map<String, Object> jsonResponseBody = (Map<String, Object>)JSON.deserializeUntyped(response.responseBody.toString());
+		List<Object> responseBody = (List<Object>)(jsonResponseBody.get('response'));
+		Map<String, Object> jsonCustomerRecord = (Map<String, Object>)responseBody[0];
+		List<Object> jsonCases = (List<Object>)(jsonCustomerRecord.get('cases'));
+		// Map<String, Object> jsonCaseRecord = (Map<String, Object>)jsonCases[0];
+		List<Object> jsonInteractions = (List<Object>)(jsonCustomerRecord.get('interactions'));
+		Assert.areEqual(200, response.statusCode, 'Respose code should be success');
+		Assert.areEqual(true, jsonResponseBody.get('success'),'Response code should be success');
+		Assert.areEqual(personContact.Id, jsonCustomerRecord.get('sfid'),'Contact Id should match');
+		// Assert.areEqual(caseRecord.Id, (String)jsonCaseRecord.get('sfid'),'Case Id should match');
+		Assert.areEqual(0, jsonCases.size(),'There should be 0 cases');
+		Assert.areEqual(0, jsonInteractions.size(),'There should be 0 interactions');
+	}
+	/**
+	 * @description : Test with only email param (case_type & interaction_type will be defaulted to allcontactcentre)
+	 * Response should return success
+	 */
+    @IsTest
+	static void testEmailParam(){
+		String customerEmail='invalid@invalid.com.invalid';
+		// Mock Data
+		RecordType accountRecordType = RecordTypesSelector.newInstance().selectByDeveloperName('Account', new Set<String>{'Business_Account'}).values()[0];
+		RecordType caseRecordType = RecordTypesSelector.newInstance().selectByDeveloperName('Case', new Set<String>{'SSSWGeneralEnquiry'}).values()[0];
+		RecordType taskRecordType = RecordTypesSelector.newInstance().selectByDeveloperName('Task', new Set<String>{'SSSWCall'}).values()[0];
+		//Account data
+		Account personAccount = ApplicationTestDataFactory.getPersonAccounts(1, true)[0];
+		personAccount.RecordTypeId = accountRecordType.Id;
+		//Contact data
+		Contact personContact = ApplicationTestDataFactory.getContacts(1, personAccount.Id, true)[0];
+		personAccount = (Account)ApplicationTestDataFactory.setUnwritableFields(personAccount, new Map<String, Object>{
+				'PersonContactId' => personContact.Id
+				,'RecordType.DeveloperName'=>'Business_Account'
+		});
+		personContact = (Contact)ApplicationTestDataFactory.setUnwritableFields(personContact, new Map<String, Object>{
+				'IsPersonAccount'=>true
+		});
+		personContact.Email=customerEmail;
+		//case data
+		Case caseRecord = ApplicationTestDataFactory.getCases(1, true)[0];
+		caseRecord.RecordTypeId = caseRecordType.Id;
+		caseRecord.Type = 'All Other Enquiries';
+		caseRecord.EnquirySubTYpe__c = 'All Other';
+		caseRecord = (Case)ApplicationTestDataFactory.setUnwritableFields(caseRecord, new Map<String, Object>{
+				'ArticleTest__r.ArticleId__c' =>'123456'
+				,'ClosedDate' => Date.today()
+				,'IsClosed'=>true
+				,'RecordType.DeveloperName'=>'SSSWGeneralEnquiry'
+		});
+		
+		personContact = (Contact)ApplicationTestDataFactory.setChildRelationships(personContact,new Map <String, List <SObject>> {'Cases' => new List <Case>{ caseRecord }});
+		//Task data
+		Task taskRecord = ApplicationTestDataFactory.getTasks(2, null, true)[0];
+		taskRecord.RecordTypeId = taskRecordType.Id;
+		taskRecord.ActivityDate = Date.today();
+		taskRecord = (Task)ApplicationTestDataFactory.setUnwritableFields(taskRecord, new Map<String, Object>{
+				'CreatedBy.Profile.Name' =>'SSSW - Service Agent'
+				,'RecordType.DeveloperName'=>'SSSWGeneralEnquiry'
+		});
+
+		personContact = (Contact)ApplicationTestDataFactory.setChildRelationships(personContact,new Map <String, List <SObject>> {'Tasks' => new List <Task>{ taskRecord }});
+		//VoiceCall Data
+		VoiceCall voiceCallRecord = new VoiceCall();
+		voiceCallRecord = (VoiceCall)ApplicationTestDataFactory.setUnwritableFields(voiceCallRecord, new Map<String, Object>{
+				'CreatedBy.Profile.Name' =>'SSSW - Service Agent'
+		});
+
+		personContact = (Contact)ApplicationTestDataFactory.setChildRelationships(personContact,new Map <String, List <SObject>> {'RelatedRecords' => new List <VoiceCall>{ voiceCallRecord }});
+		
+		//LiveChatTranscript data
+		LiveChatTranscript transcriptRecord = new LiveChatTranscript();
+		transcriptRecord = (LiveChatTranscript)ApplicationTestDataFactory.setUnwritableFields(transcriptRecord, new Map<String, Object>{
+				'Owner.Profile.Name' =>'SSSW - Service Agent'
+		});
+
+		personContact = (Contact)ApplicationTestDataFactory.setChildRelationships(personContact,new Map <String, List <SObject>> {'LiveChatTranscripts' => new List <LiveChatTranscript>{ transcriptRecord }});
+		//class bindMap variables
+		Map<String, Object> bindMap = getBindMap(true, true);
+		
+		//stubs
+		ContactsSelector mockContactsSelector = (ContactsSelector) MockUtility.mockSelector(ContactsSelector.class);
+
+		MockUtility.Mocks.startStubbing();
+		MockUtility.Mocks.when(mockContactsSelector.selectWithCasesAndInteractionsByEmailAddress(customerEmail, bindMap, new Set<Object>()))
+			.thenReturn(new List<Contact>{personContact});
+		MockUtility.Mocks.stopStubbing();
+
+		RestRequest request = new RestRequest();
+		RestResponse response = new RestResponse();
+		//setup test user
+		User integrationUser = setupTestUser(true);
+
+		Test.startTest();
+        request.requestUri =
+            '/api/1.0/insights/customer';
+			request.params.put('email', customerEmail);
+        request.httpMethod = 'GET';
+        RestContext.request = request;
+		RestContext.response = response;
+		System.runAs(integrationUser){
+			// Call the method to test
+			ResourceApiController.query();
+		}
+		Test.stopTest();
+		Map<String, Object> jsonResponseBody = (Map<String, Object>)JSON.deserializeUntyped(response.responseBody.toString());
+		List<Object> responseBody = (List<Object>)(jsonResponseBody.get('response'));
+		Map<String, Object> jsonCustomerRecord = (Map<String, Object>)responseBody[0];
+		List<Object> jsonCases = (List<Object>)(jsonCustomerRecord.get('cases'));
+		Map<String, Object> jsonCaseRecord = (Map<String, Object>)jsonCases[0];
+		List<Object> jsonInteractions = (List<Object>)(jsonCustomerRecord.get('interactions'));
+		Assert.areEqual(200, response.statusCode, 'Respose code should be success');
+		Assert.areEqual(true, jsonResponseBody.get('success'),'Response code should be success');
+		Assert.areEqual(personContact.Id, jsonCustomerRecord.get('sfid'),'Contact Id should match');
+		Assert.areEqual(caseRecord.Id, (String)jsonCaseRecord.get('sfid'),'Case Id should match');
+		Assert.areEqual(3, jsonInteractions.size(),'There should be 3 interactions');
 	}
 }

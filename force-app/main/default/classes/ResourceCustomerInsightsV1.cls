@@ -189,23 +189,6 @@ public with sharing class ResourceCustomerInsightsV1 extends ResourceAPIService.
 			'cases'=>null,
 			'interactions'=>null
 		};
-		//Case field mapping
-		Map<String, String> caseMapping = new Map<String, String>{
-			'sfid'=> 'Id',
-			'case_number'=> 'CaseNumber',
-			'status'=> 'Status',//Closed or Open
-			'closed_date'=> 'ClosedDate',
-			'enquiry_type'=> 'Enquiry_Type__c',
-			'enquiry_subtype'=> 'EnquirySubType__c',
-			'tracking_id'=> 'ArticleTest__r.ArticleId__c',//'ArticleTest__r.Name'
-			'team'=> 'RecordType.DeveloperName'
-		};
-		//Task, VoiceCall & LiveChatTranscript field mapping
-		Map<String, String> interactionMapping = new Map<String, String>{
-			'type'=> 'Chat',
-			'date'=> 'LiveChatTranscript.CreatedDate',
-			'team'=> 'LiveChatTranscipt.Owner.Profile.Name'
-		};
 		List<Map<String, Object>> output = new List<Map<String, Object>>();
 		List<Object> listCases = new List<Object>()
 			, listInteractions = new List<Object>();
@@ -230,51 +213,9 @@ public with sharing class ResourceCustomerInsightsV1 extends ResourceAPIService.
 					}
 				}
 			}
-			// @TODO: Refactor the below loop
 			//loop through cases
 			for(Case caseRecord: record.Cases){
-				mapCase = new Map<String, Object>();
-				for(String key : caseMapping.keySet()) {
-					if(caseMapping.get(key)!=null){
-						//value for 'status' key cannot be directly mapped, instead has to be mapped based on Case.IsClosed
-						if(key=='status'){
-							mapCase.put(key, caseRecord.IsClosed?'Closed':'Open');
-						}//value for 'enquiry_type' key cannot be directly mapped, instead has to be mapped based on caseRecord.RecordType
-						else if(key=='enquiry_type'){
-							mapCase.put(key, AP_CASE_RECORDTYPES.contains(caseRecord.RecordType.DeveloperName)?
-								caseRecord.Type:
-								ST_CASE_RECORDTYPES.contains(caseRecord.RecordType.DeveloperName)?
-									caseRecord.Call_Purpose__c:
-									null);
-						}//value for 'enquiry_subtype' key cannot be directly mapped, instead has to be mapped based on caseRecord.RecordType
-						else if(key=='enquiry_subtype'){
-							mapCase.put(key, AP_CASE_RECORDTYPES.contains(caseRecord.RecordType.DeveloperName)?
-								caseRecord.EnquirySubType__c:
-								ST_CASE_RECORDTYPES.contains(caseRecord.RecordType.DeveloperName)?
-									caseRecord.Enquiry_Type__c:
-									null);
-						}//value for 'tracking_id' key cannot be directly mapped, instead has to be mapped based on caseRecord.RecordType
-						else if(key=='tracking_id'){
-							mapCase.put(key, AP_CASE_RECORDTYPES.contains(caseRecord.RecordType.DeveloperName)?
-								caseRecord.ArticleTest__r.ArticleId__c:
-								ST_CASE_RECORDTYPES.contains(caseRecord.RecordType.DeveloperName)?
-									caseRecord.ArticleTest__r.Name:
-									null);
-						}//value for 'team' key cannot be directly mapped, instead has to be mapped based on caseRecord.RecordType
-						else if(key=='team'){
-							mapCase.put(key, AP_CASE_RECORDTYPES.contains(caseRecord.RecordType.DeveloperName)?
-								'APCC':
-								ST_CASE_RECORDTYPES.contains(caseRecord.RecordType.DeveloperName)?
-									'STCC':
-									UNIFIED_CASE_RECORDTYPES.contains(caseRecord.RecordType.DeveloperName)?
-									'UCC':
-										null);
-						}//map key value with straight-forward field mappings
-						else if(caseRecord.isSet(caseMapping.get(key))) {
-							mapCase.put(key, caseRecord.get(caseMapping.get(key)));
-						}
-					}
-				}
+				mapCase = getCaseMapping(caseRecord);
 				listCases.add(mapCase);
 			}
 			
@@ -303,6 +244,68 @@ public with sharing class ResourceCustomerInsightsV1 extends ResourceAPIService.
 			output.add(mapRecord);
 		}
         return output;
+	}
+	/**
+	 * @description Transform a Case record to JSON mapping
+	 * @param caseRecord Case record
+	 * @return  `Map<String, Object>` JSON mapping
+	 */
+	public static Map<String, Object> getCaseMapping(Case caseRecord){
+		//Case field mapping
+		Map<String, String> caseMapping = new Map<String, String>{
+			'sfid'=> 'Id',
+			'case_number'=> 'CaseNumber',
+			'status'=> 'Status',//Closed or Open
+			'closed_date'=> 'ClosedDate',
+			'enquiry_type'=> 'Enquiry_Type__c',
+			'enquiry_subtype'=> 'EnquirySubType__c',
+			'tracking_id'=> 'ArticleTest__r.ArticleId__c',//'ArticleTest__r.Name'
+			'team'=> 'RecordType.DeveloperName'
+		};
+		Map<String, Object> mapCase = new Map<String, Object>();
+		// @TODO: Refactor the below loop
+		for(String key : caseMapping.keySet()) {
+			if(caseMapping.get(key)!=null){
+				//value for 'status' key cannot be directly mapped, instead has to be mapped based on Case.IsClosed
+				if(key=='status'){
+					mapCase.put(key, caseRecord.IsClosed?'Closed':'Open');
+				}//value for 'enquiry_type' key cannot be directly mapped, instead has to be mapped based on caseRecord.RecordType
+				else if(key=='enquiry_type'){
+					mapCase.put(key, AP_CASE_RECORDTYPES.contains(caseRecord.RecordType.DeveloperName)?
+						caseRecord.Type:
+						ST_CASE_RECORDTYPES.contains(caseRecord.RecordType.DeveloperName)?
+							caseRecord.Call_Purpose__c:
+							null);
+				}//value for 'enquiry_subtype' key cannot be directly mapped, instead has to be mapped based on caseRecord.RecordType
+				else if(key=='enquiry_subtype'){
+					mapCase.put(key, AP_CASE_RECORDTYPES.contains(caseRecord.RecordType.DeveloperName)?
+						caseRecord.EnquirySubType__c:
+						ST_CASE_RECORDTYPES.contains(caseRecord.RecordType.DeveloperName)?
+							caseRecord.Enquiry_Type__c:
+							null);
+				}//value for 'tracking_id' key cannot be directly mapped, instead has to be mapped based on caseRecord.RecordType
+				else if(key=='tracking_id'){
+					mapCase.put(key, AP_CASE_RECORDTYPES.contains(caseRecord.RecordType.DeveloperName)?
+						caseRecord.ArticleTest__r.ArticleId__c:
+						ST_CASE_RECORDTYPES.contains(caseRecord.RecordType.DeveloperName)?
+							caseRecord.ArticleTest__r.Name:
+							null);
+				}//value for 'team' key cannot be directly mapped, instead has to be mapped based on caseRecord.RecordType
+				else if(key=='team'){
+					mapCase.put(key, AP_CASE_RECORDTYPES.contains(caseRecord.RecordType.DeveloperName)?
+						'APCC':
+						ST_CASE_RECORDTYPES.contains(caseRecord.RecordType.DeveloperName)?
+							'STCC':
+							UNIFIED_CASE_RECORDTYPES.contains(caseRecord.RecordType.DeveloperName)?
+							'UCC':
+								null);
+				}//map key value with straight-forward field mappings
+				else if(caseRecord.isSet(caseMapping.get(key))) {
+					mapCase.put(key, caseRecord.get(caseMapping.get(key)));
+				}
+			}
+		}
+		return mapCase;
 	}
 	/**
 	 * @description Get Interaction Team name based on Owner/CreatedBy profile name

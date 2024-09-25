@@ -403,6 +403,11 @@ public virtual inherited sharing class ContactsSelector extends ApplicationSelec
 	 * The Cases & Interactions are limited to last 30 days
 	 * @param queryConditions additional conditions with field to be searched for SOQL
 	 * @param bindMap map of bind variables
+	 * searchKey search param [Mandatory]
+	 * caseRecordTypes set of case record types to filter on [Optional]
+	 * closedCaseCutoffDate Case ClosedDate filter [Optional. Mandatory if caseRecordTypes is provided]
+	 * interactionProfiles set of interaction profile names to filter on [Optional]
+	 * interactionCutoffDate Interaction cut off date filter [Optional. Mandatory if interactionProfiles is provided]
 	 * @param selectorOptions contacts selector options
 	 * @return  `List<Contact>`matching Contact records
 	 */
@@ -437,7 +442,7 @@ public virtual inherited sharing class ContactsSelector extends ApplicationSelec
 					.addField('ArticleTest__r.Name')
 					.addConditions()
 					.add(new QueryBuilder.CompareCondition(Case.IsClosed).eq(true))
-					.add(new QueryBuilder.SimpleCondition(Case.ClosedDate + ' <=:closedCaseCutoffDate'))
+					.add(new QueryBuilder.SimpleCondition(Case.ClosedDate + ' >=:closedCaseCutoffDate'))
 					.add(new QueryBuilder.CompareCondition(Case.IsClosed).eq(false))
 					.add(new QueryBuilder.SimpleCondition(' RecordType.DeveloperName  IN :caseRecordTypes'))
 					.setConditionOrder('((1 AND 2) OR 3) AND 4')
@@ -457,7 +462,7 @@ public virtual inherited sharing class ContactsSelector extends ApplicationSelec
 					.addConditions()
 					.add(new QueryBuilder.CompareCondition(Task.Type).eq('Phone Call'))
 					.add(new QueryBuilder.SimpleCondition(' RecordType.DeveloperName =:apVoiceCallRecordType'))
-					.add(new QueryBuilder.SimpleCondition(Task.CreatedDate + ' <=:interactionCutoffDate'))
+					.add(new QueryBuilder.SimpleCondition(Task.CreatedDate + ' >=:interactionCutoffDate'))
 					.add(new QueryBuilder.SimpleCondition('Task.CreatedBy.Profile.Name IN :interactionProfiles'))
 					.setConditionOrder('(1 OR 2) AND 3 AND 4')
 					.endConditions()
@@ -471,7 +476,7 @@ public virtual inherited sharing class ContactsSelector extends ApplicationSelec
 					.addField(VoiceCall.CreatedDate)
 					.addField('CreatedBy.Profile.Name')
 					.addConditions()
-					.add(new QueryBuilder.SimpleCondition(VoiceCall.CreatedDate + ' <=:interactionCutoffDate'))
+					.add(new QueryBuilder.SimpleCondition(VoiceCall.CreatedDate + ' >=:interactionCutoffDate'))
 					.add(new QueryBuilder.SimpleCondition('VoiceCall.CreatedBy.Profile.Name IN :interactionProfiles'))
 					.setConditionOrder('1 AND 2')
 					.endConditions()
@@ -485,7 +490,7 @@ public virtual inherited sharing class ContactsSelector extends ApplicationSelec
 					.addField(LiveChatTranscript.CreatedDate)
 					.addField('Owner.Profile.Name')
 					.addConditions()
-					.add(new QueryBuilder.SimpleCondition(LiveChatTranscript.CreatedDate + ' <=:interactionCutoffDate'))
+					.add(new QueryBuilder.SimpleCondition(LiveChatTranscript.CreatedDate + ' >=:interactionCutoffDate'))
 					.add(new QueryBuilder.SimpleCondition('LiveChatTranscript.Owner.Profile.Name IN :interactionProfiles'))
 					.setConditionOrder('1 AND 2')
 					.endConditions()

@@ -12,6 +12,7 @@
  * 2023-03-10 - Mahesh Parvathaneni - Updated WITH_EVENTMESSAGES_DESC_ORDER options
  * 2024-05-29 - Seth Heang - Added ConsignmentTrackingNumber__c, FurtherReferences__c, ProductID__c, IsDelivered__c into SOQL field list 
  * 2024-04-24 - Vasu Gorakati - Added selectByArticleNames method
+ * 2024-09-23 - Rejeesh Raghavan - Added selectWithCasesByIdOrTrackingOrName method
  */
 public virtual inherited sharing class ArticlesSelector extends ApplicationSelector {
 
@@ -153,6 +154,54 @@ public virtual inherited sharing class ArticlesSelector extends ApplicationSelec
 
 		String soql = conditions.endConditions().toSoqlString();
 		return new Map<Id, Article__c>((List<Article__c>)Database.query(soql));
+	}
+	/**
+	 * description Queries Articles, with related cases, by the Name, ArticleId__c, ConsignmentTrackingNumber__c
+	 * @param bindMap Map of Bind variables
+	 * trackingIds set of trackingIds [Mandatory]
+	 * caseRecordTypes set of case record types to filter on [Optional]
+	 * closedCaseCutoffDate Case ClosedDate filter [Optional. Mandatory if caseRecordTypes is provided]
+	 * @param selectorOptions Selector Options
+	 * @return  `Map<Id, Article__c>`
+	 */
+	public Map<Id, Article__c> selectWithCasesByIdOrTrackingOrName(Map<String, Object> bindMap, Set<Object> selectorOptions) {
+		// Set<String> trackingIds = new Set<String>();
+		Set<SobjectField> caseFields = new Set<SObjectField>{
+			Case.Id, Case.CaseNumber, Case.IsClosed, Case.ClosedDate, Case.Type
+			, Case.Call_Purpose__c, Case.EnquirySubType__c, Case.Enquiry_Type__c, Case.Status};
+		QueryBuilder qb = newQueryBuilder(selectorOptions)
+			.addField('Article__c.RecordType.DeveloperName')
+			.addConditions()
+			.add(new QueryBuilder.SimpleCondition('RecordTypeId != null'))
+			.add(new QueryBuilder.SimpleCondition('Name IN :trackingIds'))
+			.add(new QueryBuilder.SimpleCondition('Consignment__r.Name IN :trackingIds'))
+			.add(new QueryBuilder.SimpleCondition('Consignment__r.ArticleID__c IN :trackingIds'))
+			.add(new QueryBuilder.SimpleCondition('ConsignmentTrackingNumber__c IN :trackingIds'))
+			.setConditionOrder('(1 AND (2 OR 3 OR 4 OR 5))')
+			.endConditions();
+		
+			if (bindMap.containsKey('caseRecordTypes')) {
+				qb.addSubQuery(
+					CasesSelector.newInstance(0, caseFields)
+						.newQueryBuilder(new Set<Object>{CasesSelector.Options.WITH_RECORDTYPE})
+						.addField('ArticleTest__r.ArticleId__c')
+						.addField('ArticleTest__r.Name')
+						.addConditions()
+						.add(new QueryBuilder.CompareCondition(Case.IsClosed).eq(true))
+						.add(new QueryBuilder.SimpleCondition(Case.ClosedDate + ' <=:closedCaseCutoffDate'))
+						.add(new QueryBuilder.CompareCondition(Case.IsClosed).eq(false))
+						.add(new QueryBuilder.SimpleCondition(' RecordType.DeveloperName  IN :caseRecordTypes'))
+						.setConditionOrder('((1 AND 2) OR 3) AND 4')
+						.endConditions()
+						.addOrderDesc(Case.ClosedDate)
+					, 'Cases__r'
+				);
+			}
+			qb.addOrderDesc(Article__c.RecordType.Name);
+
+		return new Map<Id, Article__c>(
+			(List<Article__c>)
+				Database.queryWithBinds(qb.toSoqlString(), bindMap, AccessLevel.USER_MODE));
 	}
 
 	public virtual override QueryBuilder newQueryBuilder(Set<Object> selectorOptions) {
