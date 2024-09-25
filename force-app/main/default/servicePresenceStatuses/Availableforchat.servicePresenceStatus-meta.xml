@@ -2,7 +2,8 @@
 <ServicePresenceStatus xmlns="http://soap.sforce.com/2006/04/metadata">
     <channels>
         <channel>Case_Channel</channel>
-        <channel>sfdc_phone</channel>
+        <channel>sfdc_liveagent</channel>
+        <channel>ContactRequest</channel>
     </channels>
-    <label>Available for Voice</label>
+    <label>Available for chat</label>
 </ServicePresenceStatus>

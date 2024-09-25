@@ -1,9 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <PermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
-    <description>This permission set shall be used for TL/TSLs and defines additional permissions for the purpose of using Salesforce Omni Supervisor and its features</description>
-    <hasActivationRequired>false</hasActivationRequired>
-    <label>Unified Omni Supervisor</label>
-    <license>Salesforce</license>
     <classAccesses>
         <apexClass>genesyscloud__GenesysSCVExtensionService</apexClass>
         <enabled>true</enabled>
@@ -24,6 +20,7 @@
         <apexClass>genesyscloud__SCVUninstallScript</apexClass>
         <enabled>true</enabled>
     </classAccesses>
+    <description>This permission set shall be used for TL/TSLs and defines additional permissions for the purpose of using Salesforce Omni Supervisor and its features</description>
     <fieldPermissions>
         <editable>false</editable>
         <field>genesyscloud__Genesys_Attribute_Mapping__c.genesyscloud__Call_Center_Internal_Name__c</field>
@@ -114,6 +111,9 @@
         <field>genesysps__Chat_Transcript__c.genesysps__Body__c</field>
         <readable>true</readable>
     </fieldPermissions>
+    <hasActivationRequired>false</hasActivationRequired>
+    <label>Unified Omni Supervisor</label>
+    <license>Salesforce</license>
     <objectPermissions>
         <allowCreate>false</allowCreate>
         <allowDelete>false</allowDelete>
@@ -150,6 +150,10 @@
         <object>genesyscloud__Packaging_Information__c</object>
         <viewAllRecords>false</viewAllRecords>
     </objectPermissions>
+    <tabSettings>
+        <tab>standard-OmniSupervisorLightning</tab>
+        <visibility>Visible</visibility>
+    </tabSettings>
     <tabSettings>
         <tab>standard-VoiceCall</tab>
         <visibility>Visible</visibility>
