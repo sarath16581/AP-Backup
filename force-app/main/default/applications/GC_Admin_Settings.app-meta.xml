@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomApplication xmlns="http://soap.sforce.com/2006/04/metadata">
+    <brand>
+        <headerColor>#0070D2</headerColor>
+        <shouldOverrideOrgTheme>false</shouldOverrideOrgTheme>
+    </brand>
+    <formFactors>Small</formFactors>
+    <formFactors>Large</formFactors>
+    <isNavAutoTempTabsDisabled>false</isNavAutoTempTabsDisabled>
+    <isNavPersonalizationDisabled>false</isNavPersonalizationDisabled>
+    <isNavTabPersistenceDisabled>false</isNavTabPersistenceDisabled>
+    <isOmniPinnedViewEnabled>false</isOmniPinnedViewEnabled>
+    <label>GC Admin Settings</label>
+    <navType>Console</navType>
+    <tabs>GCForSalesforcePackages</tabs>
+    <tabs>GCForSalesforceSettings</tabs>
+    <tabs>GCForSalesforceSCVAdmin</tabs>
+    <tabs>GCCallCenterSettings</tabs>
+    <uiType>Lightning</uiType>
+    <utilityBar>GC_Admin_Settings_UtilityBar</utilityBar>
+    <workspaceConfig>
+        <mappings>
+            <tab>GCCallCenterSettings</tab>
+        </mappings>
+        <mappings>
+            <tab>GCForSalesforcePackages</tab>
+        </mappings>
+        <mappings>
+            <tab>GCForSalesforceSCVAdmin</tab>
+        </mappings>
+        <mappings>
+            <tab>GCForSalesforceSettings</tab>
+        </mappings>
+    </workspaceConfig>
+</CustomApplication>
