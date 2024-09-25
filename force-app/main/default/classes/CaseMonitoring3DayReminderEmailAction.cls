@@ -43,16 +43,21 @@ public with sharing class CaseMonitoring3DayReminderEmailAction extends Applicat
 	 * @param actionRecordIds
 	 */
 	public override void execute(List<Id> actionRecordIds) {
-		List<ScheduledAction__c> actions = ScheduledActionsSelector.newInstance().selectById(new Set<Id>(actionRecordIds), new Set<Object>{ ScheduledActionsSelector.Options.WITH_CASE });
+		List<ScheduledAction__c> actions = ((ScheduledActionsSelector)ScheduledActionsSelector.newInstance().setFieldOverrides(new Map<SObjectType, Set<SObjectField>>{
+				ScheduledAction__c.SObjectType => new Set<SObjectField>{ScheduledAction__c.Id, ScheduledAction__c.Case__c},
+				Case.SObjectType => new Set<SObjectField>{Case.Id, Case.ProductSubCategory__c}
+		})).selectById(new Set<Id>(actionRecordIds), new Set<Object>{ ScheduledActionsSelector.Options.WITH_CASE });
 
-		ApplicationEmailService emailService = ApplicationEmailService.getInstance();
-		for (ScheduledAction__c action : actions) {
-			String emailAlertName = CaseUnifiedAutomationService.isStarTrackCase(action.Case__r)
-					? EMAIL_ALERT_NO_SCANS_OR_UPDATES_ST
-					: EMAIL_ALERT_NO_SCANS_OR_UPDATES_AP;
-			emailService.queueEmailNotification(action.Case__c, Case.SObjectType, emailAlertName);
+		if (!actions.isEmpty()) {
+			ApplicationEmailService emailService = ApplicationEmailService.getInstance();
+			for (ScheduledAction__c action : actions) {
+				String emailAlertName = CaseUnifiedAutomationService.isStarTrackCase(action.Case__r)
+						? EMAIL_ALERT_NO_SCANS_OR_UPDATES_ST
+						: EMAIL_ALERT_NO_SCANS_OR_UPDATES_AP;
+				emailService.queueEmailNotification(action.Case__c, Case.SObjectType, emailAlertName);
+			}
+			emailService.dispatchAllPendingEmailNotifications();
 		}
-		emailService.dispatchAllPendingEmailNotifications();
 	}
 
 	/**
