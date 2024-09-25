@@ -38,15 +38,26 @@ public with sharing class CaseMonitoring3DayReminderEmailAction extends Applicat
 	 * @param actionRecordIds
 	 */
 	public override void execute(List<Id> actionRecordIds) {
-		Set<SObjectField> scheduledActionFields = new Set<SObjectField>{ScheduledAction__c.Case__c, ScheduledAction__c.ActionType__c};
-		List<ScheduledAction__c> actions = ScheduledActionsSelector.newInstance(scheduledActionFields).selectById(new Set<Id>(actionRecordIds), new Set<Object>{ ScheduledActionsSelector.Options.WITH_CASE });
+		// TODO: Dependency on other squad working on ApplicationEmailService framework
+		// Below code will be soon be replaced to make use of ApplicationEmailService once that is ready
+		// For testing purpose, the email message sent is hardcoded
+		List<ScheduledAction__c> actions = ScheduledActionsSelector.newInstance().selectById(new Set<Id>(actionRecordIds), new Set<Object>{ ScheduledActionsSelector.Options.WITH_CASE });
+		List<Messaging.SingleEmailMessage> mails = new List<Messaging.SingleEmailMessage>();
 
-		ApplicationEmailService emailService = ApplicationEmailService.getInstance();
 		for (ScheduledAction__c action : actions) {
-			String emailAlertName = CaseUnifiedAutomationService.isStarTrackCase(action.Case__r) ? 'TODO - Static Email Template for AP' : 'TODO - Static Email Template for AP';
-			emailService.queueEmailNotification(action.Case__c, Case.SObjectType, emailAlertName);
+			Case newCase = action.Case__r;
+			Messaging.SingleEmailMessage mail = new Messaging.SingleEmailMessage();
+			mail.setToAddresses(new List<String>{ newCase.ContactEmail });
+			if (newCase.ProductSubCategory__c.contains('StarTrack')) {
+				mail.setSubject('TEST StarTrack Email');
+				mail.setPlainTextBody('StarTrack Email Body');
+			} else {
+				mail.setSubject('TEST AusPost Email');
+				mail.setPlainTextBody('AusPost Email Body');
+			}
+			mails.add(mail);
 		}
-		emailService.dispatchAllPendingEmailNotifications();
+		Messaging.sendEmail(mails);
 	}
 
 	/**
@@ -103,13 +114,13 @@ public with sharing class CaseMonitoring3DayReminderEmailAction extends Applicat
 			caseIdToAgentWorkMap.get(work.Case__c).add(work);
 			caseIdToCreatorUserIdMap.put(work.Case__c, work.Case__r.CreatedById);
 		}
-		// Validate if AgentWork has individual user assignment, this includes case creator as agentwork record is not created as a result of agent creating the case.
-		String userPrefix = '005';
+		// Validate if AgentWork has individual user assignment, excluding case creator
+		String userPrefix = User.getSObjectType().getDescribe().getKeyPrefix();
 		for (Id caseId : caseIdToAgentWorkMap.keySet()) {
 			for (AgentWork work : caseIdToAgentWorkMap.get(caseId)) {
 				String workOwnerPrefix = work.OwnerId.toString().substring(0, 3);
 				Id caseCreatorUserId = caseIdToCreatorUserIdMap.get(work.Case__c);
-				if (workOwnerPrefix == userPrefix) {
+				if (workOwnerPrefix == userPrefix && !work.OwnerId.equals(caseCreatorUserId)) {
 					caseIdHasNoIndividualAgentAssignment.put(work.Case__c, false);
 				}
 			}
@@ -141,11 +152,7 @@ public with sharing class CaseMonitoring3DayReminderEmailAction extends Applicat
 			Map<Id, ScheduledAction__c> existingActionsForDelete = new Map<Id, ScheduledAction__c>();
 			Map<Id, SObject> recordsWithExistingActions = new Map<Id, SObject>();
 			if(!validationStatusMap.isEmpty()){
-				Set<SObjectField> scheduledActionFields = new Set<SObjectField>{ScheduledAction__c.Case__c, ScheduledAction__c.ActionType__c};
-				List<ScheduledAction__c> actionRecordsList = ScheduledActionsSelector.newInstance(scheduledActionFields)
-					.selectByCaseIdAndActionType(validationStatusMap.keySet(), new Set<String>{ getName()});
-
-				for (ScheduledAction__c action : actionRecordsList){
+				for (ScheduledAction__c action : ScheduledActionsSelector.newInstance().selectByCaseId(validationStatusMap.keySet())){
 					if (successfulValidatedRecords.get(action.Case__c) != null && action.ActionType__c.equals(getName()) ){
 						recordsWithExistingActions.put(action.Case__c, parentRecords.get(action.Case__c));
 					}

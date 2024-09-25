@@ -100,8 +100,7 @@ private class StarTrackTaskRListSidePanel_Cont_Test {
 		
 		INSERT taskList;
 		
-		List<VoiceCall> voiceCalls = ApplicationTestDataFactory.getVoiceCalls(1, false);
-		voiceCalls.get(0).RelatedRecordId = testCase.Id;
+		List<VoiceCall> voiceCalls = ApplicationTestDataFactoryCase.getVoiceCalls(new List<Id>{testCase.Id}, false);
 		voiceCalls.get(0).CallType = 'Inbound';
 		voiceCalls.get(0).VendorType = 'ContactCenter';
 		voiceCalls.get(0).CallStartDateTime = System.now();
