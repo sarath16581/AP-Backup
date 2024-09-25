@@ -64,10 +64,6 @@ private class UnifiedVoiceCallModule_Test {
 		Test.stopTest();
 	}
 
-	/**
-	 * test the assignRelatedRecordIdWhenCaseLinked method in both before insert and before update method by setting up data to cather for both transactions.
-	 * successful test should assert the RelatedRecordId value to be equal to Case__c
-	 */
 	@IsTest
 	private static void testBeforeTrigger_assignRelatedRecordIdWhenCaseLinked() {
 		Account acc = ApplicationTestDataFactory.getAccounts(1, true)[0];
