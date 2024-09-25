@@ -6,7 +6,7 @@
     <name>ST Last Mile - Attempted Delivery</name>
     <style>none</style>
     <subject>Good news! We&apos;ve located your delivery on case {!Case.CaseNumber}</subject>
-    <textOnly>Australia Post
+    <textOnly>Star Track
 
 Case {!Case.CaseNumber}
 

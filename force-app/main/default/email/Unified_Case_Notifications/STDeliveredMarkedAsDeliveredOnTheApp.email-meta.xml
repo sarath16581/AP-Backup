@@ -6,7 +6,7 @@
     <name>ST Delivered - Marked As Delivered On The App</name>
     <style>none</style>
     <subject>Thanks for confirming delivery on {!Case.CaseNumber}</subject>
-    <textOnly>Australia Post
+    <textOnly>Star Track
 
 Case {!Case.CaseNumber}
 

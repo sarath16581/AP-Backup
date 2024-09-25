@@ -6,7 +6,7 @@
     <name>ST Delivered - Collected</name>
     <style>none</style>
     <subject>Thanks for picking up your delivery for case {!Case.CaseNumber}</subject>
-    <textOnly>Australia Post
+    <textOnly>Star Track
 
 Case {!Case.CaseNumber}
 

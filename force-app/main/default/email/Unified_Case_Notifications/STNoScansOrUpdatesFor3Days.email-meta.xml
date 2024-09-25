@@ -6,7 +6,7 @@
     <name>ST No Scans Or Updates For 3 Days</name>
     <style>none</style>
     <subject>We are continuing to investigate your case {!Case.CaseNumber}</subject>
-    <textOnly>Australia Post
+    <textOnly>Star Track
 
 Case {!Case.CaseNumber}
 

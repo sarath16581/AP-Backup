@@ -6,7 +6,7 @@
     <name>ST New EDD – New Information + Dropship</name>
     <style>none</style>
     <subject>We have a new estimated delivery date for case {!Case.CaseNumber}</subject>
-    <textOnly>Australia Post
+    <textOnly>Star Track
 
 Case {!Case.CaseNumber}
 

@@ -6,7 +6,7 @@
     <name>ST Undeliverable RTS</name>
     <style>none</style>
     <subject>Your delivery has been returned to sender on case {!Case.CaseNumber}</subject>
-    <textOnly>Australia Post
+    <textOnly>Star Track
 
 Case {!Case.CaseNumber}
 

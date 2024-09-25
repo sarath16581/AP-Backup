@@ -6,7 +6,7 @@
     <name>ST Last Mile - On Board For Delivery</name>
     <style>none</style>
     <subject>Good news! Your delivery is coming today for case {!Case.CaseNumber}</subject>
-    <textOnly>Australia Post
+    <textOnly>Star Track
 
 Case {!Case.CaseNumber}
 

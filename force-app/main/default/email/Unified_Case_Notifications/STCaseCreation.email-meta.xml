@@ -6,7 +6,7 @@
     <name>ST Case Creation</name>
     <style>none</style>
     <subject>We&apos;re monitoring your case {!Case.CaseNumber}</subject>
-    <textOnly>Australia Post
+    <textOnly>Star Track
 
 Case {!Case.CaseNumber}
 
