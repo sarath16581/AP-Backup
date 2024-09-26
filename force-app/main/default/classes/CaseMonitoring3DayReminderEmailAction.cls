@@ -11,8 +11,13 @@
  *
  * @changelog
  * 2024-07-26 - Seth Heang - Created
+ * 2024-09-24 - Ranjeewa Silva - Updated to send customer notification email using ApplicationEmailService
  */
 public with sharing class CaseMonitoring3DayReminderEmailAction extends ApplicationScheduledAction {
+
+	// email alerts to use to notify customer on the case.
+	@TestVisible private static final String EMAIL_ALERT_NO_SCANS_OR_UPDATES_AP = 'UnifiedCaseNoScansOrUpdatesNotificationAP';
+	@TestVisible private static final String EMAIL_ALERT_NO_SCANS_OR_UPDATES_ST = 'UnifiedCaseNoScansOrUpdatesNotificationST';
 
 	private final static QM__c QUEUE_SETTINGS = QM__c.getInstance();
 	private final static Id RECORD_TYPE_UNIFIED_INVESTIGATION_ID {
@@ -38,26 +43,21 @@ public with sharing class CaseMonitoring3DayReminderEmailAction extends Applicat
 	 * @param actionRecordIds
 	 */
 	public override void execute(List<Id> actionRecordIds) {
-		// TODO: Dependency on other squad working on ApplicationEmailService framework
-		// Below code will be soon be replaced to make use of ApplicationEmailService once that is ready
-		// For testing purpose, the email message sent is hardcoded
-		List<ScheduledAction__c> actions = ScheduledActionsSelector.newInstance().selectById(new Set<Id>(actionRecordIds), new Set<Object>{ ScheduledActionsSelector.Options.WITH_CASE });
-		List<Messaging.SingleEmailMessage> mails = new List<Messaging.SingleEmailMessage>();
+		List<ScheduledAction__c> actions = ((ScheduledActionsSelector)ScheduledActionsSelector.newInstance().setFieldOverrides(new Map<SObjectType, Set<SObjectField>>{
+				ScheduledAction__c.SObjectType => new Set<SObjectField>{ScheduledAction__c.Id, ScheduledAction__c.Case__c},
+				Case.SObjectType => new Set<SObjectField>{Case.Id, Case.ProductSubCategory__c}
+		})).selectById(new Set<Id>(actionRecordIds), new Set<Object>{ ScheduledActionsSelector.Options.WITH_CASE });
 
-		for (ScheduledAction__c action : actions) {
-			Case newCase = action.Case__r;
-			Messaging.SingleEmailMessage mail = new Messaging.SingleEmailMessage();
-			mail.setToAddresses(new List<String>{ newCase.ContactEmail });
-			if (newCase.ProductSubCategory__c.contains('StarTrack')) {
-				mail.setSubject('TEST StarTrack Email');
-				mail.setPlainTextBody('StarTrack Email Body');
-			} else {
-				mail.setSubject('TEST AusPost Email');
-				mail.setPlainTextBody('AusPost Email Body');
+		if (!actions.isEmpty()) {
+			ApplicationEmailService emailService = ApplicationEmailService.getInstance();
+			for (ScheduledAction__c action : actions) {
+				String emailAlertName = CaseUnifiedAutomationService.isStarTrackCase(action.Case__r)
+						? EMAIL_ALERT_NO_SCANS_OR_UPDATES_ST
+						: EMAIL_ALERT_NO_SCANS_OR_UPDATES_AP;
+				emailService.queueEmailNotification(action.Case__c, Case.SObjectType, emailAlertName);
 			}
-			mails.add(mail);
+			emailService.dispatchAllPendingEmailNotifications();
 		}
-		Messaging.sendEmail(mails);
 	}
 
 	/**
