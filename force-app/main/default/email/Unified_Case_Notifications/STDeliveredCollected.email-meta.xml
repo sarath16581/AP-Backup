@@ -14,7 +14,7 @@ Hi {!IF(ISBLANK(Contact.Preferred_Name__c),Contact.FirstName,Contact.Preferred_N
 
 Your delivery has been completed
 
-Thank you for your patience while we’ve been monitoring your delivery. We are delighted to see that it has now been located and collected from Brisbane GPO.
+Thank you for your patience while we’ve been monitoring your delivery. We are delighted to see that it has now been located and collected.
 
 If you did not collect this please check in with any friends or family who might have collected on your behalf. The vast majority of Startrack deliveries are completed on time. We&apos;re sorry that on this occasion your delivery was later than expected.
 

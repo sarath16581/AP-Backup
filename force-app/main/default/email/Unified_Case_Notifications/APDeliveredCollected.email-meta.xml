@@ -14,7 +14,7 @@ Hi {!IF(ISBLANK(Contact.Preferred_Name__c),Contact.FirstName,Contact.Preferred_N
 
 Your delivery has been completed
 
-Thank you for your patience while we’ve been monitoring your delivery. We 											are delighted to see that it has now been located and collected from 											Brisbane GPO.
+Thank you for your patience while we’ve been monitoring your delivery. We 											are delighted to see that it has now been located and collected.
 
 If you did not collect this you can find out who might have collected 													on your behalf.
 
