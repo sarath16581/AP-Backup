@@ -4,6 +4,7 @@
  * @author: Seth Heang
  * @changelog:
  * 2024-09-12 - Seth Heang - Created
+ * 2024-09-25 - Marcel HK - Updated Case linking to use `ReleatedRecordId` instead of `Case__c`
  */
 import { LightningElement, api, wire } from 'lwc';
 import { getRecord, getFieldValue, updateRecord, notifyRecordUpdateAvailable } from 'lightning/uiRecordApi';
@@ -15,7 +16,7 @@ import getExistingCasesCount from '@salesforce/apex/UnifiedCaseHistoryController
 
 import ID_FIELD from '@salesforce/schema/VoiceCall.Id';
 import CONTACT_ID_FIELD from '@salesforce/schema/VoiceCall.Contact__c';
-import CASE_ID_FIELD from '@salesforce/schema/VoiceCall.Case__c';
+import RELATED_RECORD_ID_FIELD from '@salesforce/schema/VoiceCall.RelatedRecordId';
 import CONSIGNMENT_ID_FIELD from '@salesforce/schema/VoiceCall.Consignment__c';
 import CONSIGNMENT_TRACKING_NUMBER_FIELD from '@salesforce/schema/VoiceCall.Consignment__r.ConsignmentTrackingNumber__c';
 import ENQUIRY_TYPE_FIELD from '@salesforce/schema/VoiceCall.EnquiryType__c';
@@ -25,7 +26,7 @@ import PRODUCT_SUBCATEGORY_FIELD from '@salesforce/schema/VoiceCall.ProductSubCa
 
 const VOICECALL_FIELDS = [
 	CONTACT_ID_FIELD,
-	CASE_ID_FIELD,
+	RELATED_RECORD_ID_FIELD,
 	CONSIGNMENT_ID_FIELD,
 	ENQUIRY_TYPE_FIELD,
 	ENQUIRY_SUBTYPE_FIELD,
@@ -244,7 +245,7 @@ export default class UnifiedCaseCreationVoiceCallWrapper extends LightningElemen
 			const caseId = event.detail?.caseId ?? null;
 
 			// Update record and notify other components that the record was updated.
-			await updateRecord({ fields: { [ID_FIELD.fieldApiName]: this.recordId, [CASE_ID_FIELD.fieldApiName]: caseId } });
+			await updateRecord({ fields: { [ID_FIELD.fieldApiName]: this.recordId, [RELATED_RECORD_ID_FIELD.fieldApiName]: caseId } });
 			await notifyRecordUpdateAvailable([{ recordId: this.recordId }]);
 
 			// Success toast message

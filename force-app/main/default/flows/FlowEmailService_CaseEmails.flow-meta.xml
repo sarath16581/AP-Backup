@@ -4,7 +4,7 @@
         <description>Email alert to notify customer on MyCustomer case closure due to receiving an &quot;Awaiting Collection&quot; event message.</description>
         <name>MyCustomerAwaitingCollectionEventMessageCaseClosureAlert</name>
         <label>MyCustomerAwaitingCollectionEventMessageCaseClosureAlert</label>
-        <locationX>1144</locationX>
+        <locationX>1320</locationX>
         <locationY>350</locationY>
         <actionName>Case.SSSW_Awaiting_Collection</actionName>
         <actionType>emailAlert</actionType>
@@ -26,7 +26,7 @@
         <description>Email alert to notify customer on MyCustomer case closure due to receiving &quot;Delivered&quot; scan event message.</description>
         <name>MyCustomerDeliveredEventMessageCaseClosureAlert</name>
         <label>MyCustomerDeliveredEventMessageCaseClosureAlert</label>
-        <locationX>1408</locationX>
+        <locationX>1584</locationX>
         <locationY>350</locationY>
         <actionName>Case.SSSW_Email_Delivered</actionName>
         <actionType>emailAlert</actionType>
@@ -48,7 +48,7 @@
         <description>Email alert to notify customer on MyCustomer case closure due to receiving &quot;Delivered in Safe Place&quot; scan event message.</description>
         <name>MyCustomerDeliveredInSafePlaceEventMessageCaseClosureAlert</name>
         <label>MyCustomerDeliveredInSafePlaceEventMessageCaseClosureAlert</label>
-        <locationX>1672</locationX>
+        <locationX>1848</locationX>
         <locationY>350</locationY>
         <actionName>Case.SSSW_Email_Delivered_in_a_Safe_Place</actionName>
         <actionType>emailAlert</actionType>
@@ -70,7 +70,7 @@
         <description>Email alert to notify customer on MyCustomer case closure due to receiving &quot;Onboard with Driver&quot; scan event message.</description>
         <name>MyCustomerOnboardWithDriverEventMessageCaseClosureAlert</name>
         <label>MyCustomerOnboardWithDriverEventMessageCaseClosureAlert</label>
-        <locationX>1936</locationX>
+        <locationX>2112</locationX>
         <locationY>350</locationY>
         <actionName>Case.SSSW_Onboard_with_Driver</actionName>
         <actionType>emailAlert</actionType>
@@ -92,7 +92,7 @@
         <description>Email alert to notify customer on MyCustomer case closure due to receiving &quot;Onboard with Driver International&quot; scan event message.</description>
         <name>MyCustomerOnboardWithDriverInternationalEventMessageCaseClosureAlert</name>
         <label>MyCustomerOnboardWithDriverInternationalEventMessageCaseClosureAlert</label>
-        <locationX>2200</locationX>
+        <locationX>2376</locationX>
         <locationY>350</locationY>
         <actionName>Case.SSSW_Onboard_with_driver_international</actionName>
         <actionType>emailAlert</actionType>
@@ -107,6 +107,94 @@
             </value>
         </inputParameters>
         <nameSegment>Case.SSSW_Onboard_with_driver_international</nameSegment>
+        <offset>0</offset>
+        <versionSegment>1</versionSegment>
+    </actionCalls>
+    <actionCalls>
+        <description>Email alert to notify related contact on a Case related to an AP product, when the case is auto closed due to no scan event or update has been received for 5 business days.</description>
+        <name>UnifiedCaseNoScansOrUpdatesClosureNotificationAPAlert</name>
+        <label>UnifiedCaseNoScansOrUpdatesClosureNotificationAPAlert</label>
+        <locationX>3168</locationX>
+        <locationY>350</locationY>
+        <actionName>Case.UnifiedCaseNoScansOrUpdatesClosureNotificationAP</actionName>
+        <actionType>emailAlert</actionType>
+        <connector>
+            <targetReference>Process_Flow_Email_Type_Requests</targetReference>
+        </connector>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>SObjectRowId</name>
+            <value>
+                <elementReference>Process_Flow_Email_Type_Requests.srcRecordId</elementReference>
+            </value>
+        </inputParameters>
+        <nameSegment>Case.UnifiedCaseNoScansOrUpdatesClosureNotificationAP</nameSegment>
+        <offset>0</offset>
+        <versionSegment>1</versionSegment>
+    </actionCalls>
+    <actionCalls>
+        <description>Email alert to notify related contact on a Case related to an ST product, when the case is auto closed due to no scan event or update has been received for 5 business days.</description>
+        <name>UnifiedCaseNoScansOrUpdatesClosureNotificationSTAlert</name>
+        <label>UnifiedCaseNoScansOrUpdatesClosureNotificationSTAlert</label>
+        <locationX>3432</locationX>
+        <locationY>350</locationY>
+        <actionName>Case.UnifiedCaseNoScansOrUpdatesClosureNotificationST</actionName>
+        <actionType>emailAlert</actionType>
+        <connector>
+            <targetReference>Process_Flow_Email_Type_Requests</targetReference>
+        </connector>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>SObjectRowId</name>
+            <value>
+                <elementReference>Process_Flow_Email_Type_Requests.srcRecordId</elementReference>
+            </value>
+        </inputParameters>
+        <nameSegment>Case.UnifiedCaseNoScansOrUpdatesClosureNotificationST</nameSegment>
+        <offset>0</offset>
+        <versionSegment>1</versionSegment>
+    </actionCalls>
+    <actionCalls>
+        <description>Email alert to notify related contact on a Case related to an AP product, when no scan event or update has been received for 3 business days.</description>
+        <name>UnifiedCaseNoScansOrUpdatesNotificationAPAlert</name>
+        <label>UnifiedCaseNoScansOrUpdatesNotificationAPAlert</label>
+        <locationX>2640</locationX>
+        <locationY>350</locationY>
+        <actionName>Case.UnifiedCaseNoScansOrUpdatesNotificationAP</actionName>
+        <actionType>emailAlert</actionType>
+        <connector>
+            <targetReference>Process_Flow_Email_Type_Requests</targetReference>
+        </connector>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>SObjectRowId</name>
+            <value>
+                <elementReference>Process_Flow_Email_Type_Requests.srcRecordId</elementReference>
+            </value>
+        </inputParameters>
+        <nameSegment>Case.UnifiedCaseNoScansOrUpdatesNotificationAP</nameSegment>
+        <offset>0</offset>
+        <versionSegment>1</versionSegment>
+    </actionCalls>
+    <actionCalls>
+        <description>Email alert to notify related contact on a Case related to an StarTrack product, when no scan event or update has been received for 3 business days.</description>
+        <name>UnifiedCaseNoScansOrUpdatesNotificationSTAlert</name>
+        <label>UnifiedCaseNoScansOrUpdatesNotificationSTAlert</label>
+        <locationX>2904</locationX>
+        <locationY>350</locationY>
+        <actionName>Case.UnifiedCaseNoScansOrUpdatesNotificationST</actionName>
+        <actionType>emailAlert</actionType>
+        <connector>
+            <targetReference>Process_Flow_Email_Type_Requests</targetReference>
+        </connector>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>SObjectRowId</name>
+            <value>
+                <elementReference>Process_Flow_Email_Type_Requests.srcRecordId</elementReference>
+            </value>
+        </inputParameters>
+        <nameSegment>Case.UnifiedCaseNoScansOrUpdatesNotificationST</nameSegment>
         <offset>0</offset>
         <versionSegment>1</versionSegment>
     </actionCalls>
@@ -203,7 +291,7 @@
         <description>Select which static email alert will be invoked</description>
         <name>Select_Case_Email_Alert</name>
         <label>Select Case Email Alert</label>
-        <locationX>1364</locationX>
+        <locationX>1980</locationX>
         <locationY>242</locationY>
         <defaultConnector>
             <targetReference>Process_Flow_Email_Type_Requests</targetReference>
@@ -343,6 +431,66 @@
                 <targetReference>MyCustomerOnboardWithDriverInternationalEventMessageCaseClosureAlert</targetReference>
             </connector>
             <label>MyCustomerOnboardWithDriverInternationalEventMessageCaseClosure</label>
+        </rules>
+        <rules>
+            <name>UnifiedCaseNoScansOrUpdatesNotificationAusPost</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Process_Flow_Email_Type_Requests.emailAlertName</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>UnifiedCaseNoScansOrUpdatesNotificationAP</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>UnifiedCaseNoScansOrUpdatesNotificationAPAlert</targetReference>
+            </connector>
+            <label>UnifiedCaseNoScansOrUpdatesNotificationAusPost</label>
+        </rules>
+        <rules>
+            <name>UnifiedCaseNoScansOrUpdatesNotificationStarTrack</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Process_Flow_Email_Type_Requests.emailAlertName</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>UnifiedCaseNoScansOrUpdatesNotificationST</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>UnifiedCaseNoScansOrUpdatesNotificationSTAlert</targetReference>
+            </connector>
+            <label>UnifiedCaseNoScansOrUpdatesNotificationStarTrack</label>
+        </rules>
+        <rules>
+            <name>UnifiedCaseNoScansOrUpdatesClosureNotificationAusPost</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Process_Flow_Email_Type_Requests.emailAlertName</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>UnifiedCaseNoScansOrUpdatesClosureNotificationAP</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>UnifiedCaseNoScansOrUpdatesClosureNotificationAPAlert</targetReference>
+            </connector>
+            <label>UnifiedCaseNoScansOrUpdatesClosureNotificationAusPost</label>
+        </rules>
+        <rules>
+            <name>UnifiedCaseNoScansOrUpdatesClosureNotificationStarTrack</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Process_Flow_Email_Type_Requests.emailAlertName</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>UnifiedCaseNoScansOrUpdatesClosureNotificationST</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>UnifiedCaseNoScansOrUpdatesClosureNotificationSTAlert</targetReference>
+            </connector>
+            <label>UnifiedCaseNoScansOrUpdatesClosureNotificationStarTrack</label>
         </rules>
     </decisions>
     <description>Subflow of Application Email Service framework that manages the sending of Case email alerts</description>
