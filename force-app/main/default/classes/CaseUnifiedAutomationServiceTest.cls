@@ -9,6 +9,7 @@
  * 2024-08-12 - Ranjeewa Silva - Added tests to cover case re-assignment on email automation
  * 2024-08-23 - Seth Heang - Added Assertion on PreferredAgentExpiry__c for Reassigned Case Update Check
  * 2024-09-02 - Ranjeewa Silva - Added tests to cover case reassignment / closure on scan event automation
+ * 2024-09-24 - Ranjeewa Silva - Updated tests to assert case closure email for proactively monitored cases.
  */
 @IsTest(IsParallel=true)
 public with sharing class CaseUnifiedAutomationServiceTest {
@@ -55,6 +56,7 @@ public with sharing class CaseUnifiedAutomationServiceTest {
 		// Stubbing
 		// =====================================
 		ApplicationDatabase mockDatabase = MockUtility.mockDatabase();
+		ApplicationEmailService mockEmailService = (ApplicationEmailService) MockUtility.mockUtility(ApplicationEmailService.class);
 		MockUtility.Mocks.startStubbing();
 		MockUtility.Mocks.when(mockDatabase.dmlUpdate((List<SObject>) fflib_Match.anyObject(), (Boolean) fflib_Match.anyBoolean())).thenReturn(true);
 		MockUtility.Mocks.stopStubbing();
@@ -64,15 +66,18 @@ public with sharing class CaseUnifiedAutomationServiceTest {
 		// =====================================
 		Test.startTest();
 		CaseUnifiedAutomationService.getInstance().processForCaseClosure(new List<CaseUnifiedAutomationService.RecordWrapper>{ recordWrapper }, CaseUnifiedAutomationService.InvocationPoint.PROACTIVEAUTO, null);
-		Integer invocations = Limits.getEmailInvocations();
 		Test.stopTest();
 
-		List<EmailMessage> sentEmails = [SELECT Id, ToAddress, TextBody, Subject FROM EmailMessage];
-		System.assertEquals(1, invocations, 'One email should have been sent.');
-		System.assertEquals(1, sentEmails.size(), 'One email should have been sent.');
-		System.assertEquals('seth@test.com', sentEmails[0].ToAddress, 'Expected ToAddress is seth@test.com but instead got: ' + sentEmails[0].ToAddress);
-		System.assertEquals(true, sentEmails[0].Subject.contains('StarTrack'), 'Expected Subject to contains AusPost but it did not: ' + sentEmails[0].Subject);
-		System.assertEquals(true, sentEmails[0].TextBody.contains('StarTrack'), 'Expected TextBody to contains AusPost but it did not: ' + sentEmails[0].TextBody);
+		// verify notification emails are queued for StarTrack case.
+		fflib_ArgumentCaptor caseIdArgCaptor = fflib_ArgumentCaptor.forClass(Id.class);
+		fflib_ArgumentCaptor emailAlertArgCaptor = fflib_ArgumentCaptor.forClass(String.class);
+		((ApplicationEmailService) MockUtility.Mocks.verify(mockEmailService, MockUtility.Mocks.times(1))).queueEmailNotification((Id)caseIdArgCaptor.capture(), fflib_Match.eqSObjectType(Case.SObjectType), (String)emailAlertArgCaptor.capture());
+
+		Id caseId = (Id)caseIdArgCaptor.getValue();
+		Assert.areEqual(testCase.Id, caseId, 'Expected email notification not sent for the ST Case');
+
+		String emailAlertName = (String)emailAlertArgCaptor.getValue();
+		Assert.areEqual(CaseUnifiedAutomationService.EMAIL_ALERT_CASE_CLOSURE_NO_SCANS_OR_UPDATES_ST, emailAlertName, 'Incorrect email alert used to notify customer on ST Case.');
 
 		fflib_ArgumentCaptor updatableCasesCaptor = fflib_ArgumentCaptor.forClass(List<Case>.class);
 		((ApplicationDatabase) MockUtility.Mocks.verify(mockDatabase, MockUtility.Mocks.times(1))).dmlUpdate((List<Case>) updatableCasesCaptor.capture());
@@ -118,8 +123,8 @@ public with sharing class CaseUnifiedAutomationServiceTest {
 		// =====================================
 		// Stubbing
 		// =====================================
-		ScheduledActionsSelector mockScheduledActionsSelector = (ScheduledActionsSelector) MockUtility.mockSelector(ScheduledActionsSelector.class);
 		ApplicationDatabase mockDatabase = MockUtility.mockDatabase();
+		ApplicationEmailService mockEmailService = (ApplicationEmailService) MockUtility.mockUtility(ApplicationEmailService.class);
 		MockUtility.Mocks.startStubbing();
 		MockUtility.Mocks.when(mockDatabase.dmlUpdate((List<SObject>) fflib_Match.anyObject(), (Boolean) fflib_Match.anyBoolean())).thenReturn(true);
 		MockUtility.Mocks.stopStubbing();
@@ -129,15 +134,18 @@ public with sharing class CaseUnifiedAutomationServiceTest {
 		// =====================================
 		Test.startTest();
 		CaseUnifiedAutomationService.getInstance().processForCaseClosure(new List<CaseUnifiedAutomationService.RecordWrapper>{ recordWrapper }, CaseUnifiedAutomationService.InvocationPoint.PROACTIVEAUTO, null);
-		Integer invocations = Limits.getEmailInvocations();
 		Test.stopTest();
 
-		List<EmailMessage> sentEmails = [SELECT Id, ToAddress, TextBody, Subject FROM EmailMessage];
-		System.assertEquals(1, invocations, 'One email should have been sent.');
-		System.assertEquals(1, sentEmails.size(), 'One email should have been sent.');
-		System.assertEquals('seth@test.com', sentEmails[0].ToAddress, 'Expected ToAddress is seth@test.com but instead got: ' + sentEmails[0].ToAddress);
-		System.assertEquals(true, sentEmails[0].Subject.contains('AusPost'), 'Expected Subject to contains AusPost but it did not: ' + sentEmails[0].Subject);
-		System.assertEquals(true, sentEmails[0].TextBody.contains('AusPost'), 'Expected TextBody to contains AusPost but it did not: ' + sentEmails[0].TextBody);
+		// verify notification emails are queued for Aus Post case.
+		fflib_ArgumentCaptor caseIdArgCaptor = fflib_ArgumentCaptor.forClass(Id.class);
+		fflib_ArgumentCaptor emailAlertArgCaptor = fflib_ArgumentCaptor.forClass(String.class);
+		((ApplicationEmailService) MockUtility.Mocks.verify(mockEmailService, MockUtility.Mocks.times(1))).queueEmailNotification((Id)caseIdArgCaptor.capture(), fflib_Match.eqSObjectType(Case.SObjectType), (String)emailAlertArgCaptor.capture());
+
+		Id caseId = (Id)caseIdArgCaptor.getValue();
+		Assert.areEqual(testCase.Id, caseId, 'Expected email notification not sent for the AP Case');
+
+		String emailAlertName = (String)emailAlertArgCaptor.getValue();
+		Assert.areEqual(CaseUnifiedAutomationService.EMAIL_ALERT_CASE_CLOSURE_NO_SCANS_OR_UPDATES_AP, emailAlertName, 'Incorrect email alert used to notify customer on AP Case.');
 
 		fflib_ArgumentCaptor updatableCasesCaptor = fflib_ArgumentCaptor.forClass(List<Case>.class);
 		((ApplicationDatabase) MockUtility.Mocks.verify(mockDatabase, MockUtility.Mocks.times(1))).dmlUpdate((List<Case>) updatableCasesCaptor.capture());

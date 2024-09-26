@@ -6,6 +6,7 @@
  * @description Test class for CaseMonitoring3DayReminderEmailAction
  * @changelog
  * 2024-07-28 - Seth Heang - Created
+ * 2024-09-24 - Ranjeewa Silva - Updated tests to assert sending customer notification email.
  */
 @IsTest(IsParallel=true)
 public with sharing class CaseMonitoring3DayReminderEmailActTest {
@@ -295,6 +296,7 @@ public with sharing class CaseMonitoring3DayReminderEmailActTest {
 		// Stubbing
 		// =====================================
 		ScheduledActionsSelector mockScheduledActionsSelector = (ScheduledActionsSelector) MockUtility.mockSelector(ScheduledActionsSelector.class);
+		ApplicationEmailService mockEmailService = (ApplicationEmailService) MockUtility.mockUtility(ApplicationEmailService.class);
 		MockUtility.Mocks.startStubbing();
 		MockUtility.Mocks.when(
 				mockScheduledActionsSelector.selectById((Set<Id>) fflib_Match.eq(new Set<Id>{ scheduledAction.Id }), (Set<Object>) fflib_Match.eq(new Set<Object>{ ScheduledActionsSelector.Options.WITH_CASE }))
@@ -307,17 +309,18 @@ public with sharing class CaseMonitoring3DayReminderEmailActTest {
 		// =====================================
 		Test.startTest();
 		CaseMonitoring3DayReminderEmailAction.newInstance().execute(new List<Id>{ scheduledAction.Id });
-		Integer invocations = Limits.getEmailInvocations();
 		Test.stopTest();
 
-		List<EmailMessage> sentEmails = [SELECT Id, ToAddress, TextBody, Subject FROM EmailMessage];
-		System.assertEquals(1, invocations, 'One email should have been sent.');
-		System.assertEquals(1, sentEmails.size(), 'One email should have been sent.');
-		System.assertEquals('seth@test.com', sentEmails[0].ToAddress, 'Expected ToAddress is seth@test.com but instead got: ' + sentEmails[0].ToAddress);
-		System.assertEquals(true, sentEmails[0].Subject.contains('AusPost'), 'Expected Subject to contains AusPost but it did not: ' + sentEmails[0].Subject);
-		System.assertEquals(true, sentEmails[0].TextBody.contains('AusPost'), 'Expected TextBody to contains AusPost but it did not: ' + sentEmails[0].TextBody);
-		((ScheduledActionsSelector) MockUtility.Mocks.verify(mockScheduledActionsSelector, 1))
-			.selectById((Set<Id>) fflib_Match.eq(new Set<Id>{ scheduledAction.Id }), (Set<Object>) fflib_Match.eq(new Set<Object>{ ScheduledActionsSelector.Options.WITH_CASE }));
+		// verify notification emails are queued for Aus Post case.
+		fflib_ArgumentCaptor caseIdArgCaptor = fflib_ArgumentCaptor.forClass(Id.class);
+		fflib_ArgumentCaptor emailAlertArgCaptor = fflib_ArgumentCaptor.forClass(String.class);
+		((ApplicationEmailService) MockUtility.Mocks.verify(mockEmailService, MockUtility.Mocks.times(1))).queueEmailNotification((Id)caseIdArgCaptor.capture(), fflib_Match.eqSObjectType(Case.SObjectType), (String)emailAlertArgCaptor.capture());
+
+		Id caseId = (Id)caseIdArgCaptor.getValue();
+		Assert.areEqual(testCase.Id, caseId, 'Expected email notification not sent for the AP Case');
+
+		String emailAlertName = (String)emailAlertArgCaptor.getValue();
+		Assert.areEqual(CaseMonitoring3DayReminderEmailAction.EMAIL_ALERT_NO_SCANS_OR_UPDATES_AP, emailAlertName, 'Incorrect email alert used to notify customer on AP Case.');
 	}
 
 	/**
@@ -341,6 +344,7 @@ public with sharing class CaseMonitoring3DayReminderEmailActTest {
 		// Stubbing
 		// =====================================
 		ScheduledActionsSelector mockScheduledActionsSelector = (ScheduledActionsSelector) MockUtility.mockSelector(ScheduledActionsSelector.class);
+		ApplicationEmailService mockEmailService = (ApplicationEmailService) MockUtility.mockUtility(ApplicationEmailService.class);
 		MockUtility.Mocks.startStubbing();
 		MockUtility.Mocks.when(
 				mockScheduledActionsSelector.selectById((Set<Id>) fflib_Match.eq(new Set<Id>{ scheduledAction.Id }), (Set<Object>) fflib_Match.eq(new Set<Object>{ ScheduledActionsSelector.Options.WITH_CASE }))
@@ -353,16 +357,17 @@ public with sharing class CaseMonitoring3DayReminderEmailActTest {
 		// =====================================
 		Test.startTest();
 		CaseMonitoring3DayReminderEmailAction.newInstance().execute(new List<Id>{ scheduledAction.Id });
-		Integer invocations = Limits.getEmailInvocations();
 		Test.stopTest();
 
-		List<EmailMessage> sentEmails = [SELECT Id, ToAddress, TextBody, Subject FROM EmailMessage];
-		System.assertEquals(1, invocations, 'One email should have been sent.');
-		System.assertEquals(1, sentEmails.size(), 'One email should have been sent.');
-		System.assertEquals('seth@test.com', sentEmails[0].ToAddress, 'Expected ToAddress is seth@test.com but instead got: ' + sentEmails[0].ToAddress);
-		System.assertEquals(true, sentEmails[0].Subject.contains('StarTrack'), 'Expected Subject to contains AusPost but it did not: ' + sentEmails[0].Subject);
-		System.assertEquals(true, sentEmails[0].TextBody.contains('StarTrack'), 'Expected TextBody to contains AusPost but it did not: ' + sentEmails[0].TextBody);
-		((ScheduledActionsSelector) MockUtility.Mocks.verify(mockScheduledActionsSelector, 1))
-			.selectById((Set<Id>) fflib_Match.eq(new Set<Id>{ scheduledAction.Id }), (Set<Object>) fflib_Match.eq(new Set<Object>{ ScheduledActionsSelector.Options.WITH_CASE }));
+		// verify notification emails are queued for StarTrack case.
+		fflib_ArgumentCaptor caseIdArgCaptor = fflib_ArgumentCaptor.forClass(Id.class);
+		fflib_ArgumentCaptor emailAlertArgCaptor = fflib_ArgumentCaptor.forClass(String.class);
+		((ApplicationEmailService) MockUtility.Mocks.verify(mockEmailService, MockUtility.Mocks.times(1))).queueEmailNotification((Id)caseIdArgCaptor.capture(), fflib_Match.eqSObjectType(Case.SObjectType), (String)emailAlertArgCaptor.capture());
+
+		Id caseId = (Id)caseIdArgCaptor.getValue();
+		Assert.areEqual(testCase.Id, caseId, 'Expected email notification not sent for the ST Case');
+
+		String emailAlertName = (String)emailAlertArgCaptor.getValue();
+		Assert.areEqual(CaseMonitoring3DayReminderEmailAction.EMAIL_ALERT_NO_SCANS_OR_UPDATES_ST, emailAlertName, 'Incorrect email alert used to notify customer on ST Case.');
 	}
 }

@@ -72,12 +72,10 @@ export default class UnifiedCaseVoiceCallSync extends LightningElement {
         return null;
     }
 
-	//Update voicecall record
+	//Update Voice Call record
 	updateVoiceRecord() {
         const fields = {};
         fields.Id = this.recordId;
-        fields.RelatedRecordId = this.relatedCaseId;
-        fields.Case__c = this.relatedCaseId;
         fields.ProductCategory__c = this.caseDetails.ProductCategory__c;
         fields.ProductSubCategory__c = this.caseDetails.ProductSubCategory__c;
         fields.EnquirySubType__c = this.caseDetails.EnquirySubType__c;
