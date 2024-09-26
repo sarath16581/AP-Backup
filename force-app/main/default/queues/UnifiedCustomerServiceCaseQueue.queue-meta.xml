@@ -2,13 +2,6 @@
 <Queue xmlns="http://soap.sforce.com/2006/04/metadata">
     <doesSendEmailToMembers>false</doesSendEmailToMembers>
     <name>Unified Customer Service Case Queue</name>
-    <queueMembers>
-        <users>
-            <user>satish.singisetty@auspost.com.au</user>
-            <user>vasudeva.gorakati@auspost.com.au</user>
-            <user>vikas.malchalam@auspost.com.au.devg</user>
-        </users>
-    </queueMembers>
     <queueRoutingConfig>UnifiedCustomerServiceCaseRoutingConfiguration</queueRoutingConfig>
     <queueSobject>
         <sobjectType>Case</sobjectType>
