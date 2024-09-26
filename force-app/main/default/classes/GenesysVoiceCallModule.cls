@@ -66,7 +66,9 @@ public without sharing class GenesysVoiceCallModule extends ApplicationModule {
 		}
 
 		// Filter out all non authoritative voice calls
-		syncCandidates = filterSyncCandidates(conversationIds, new Map<Id,VoiceCall>(syncCandidates));
+		if (!syncCandidates.isEmpty()) {
+			syncCandidates = filterSyncCandidates(conversationIds, new Map<Id,VoiceCall>(syncCandidates));
+		}
 
 		// None of the sync fields were updated, so we can safely exit
 		if (syncCandidates.isEmpty()) {
