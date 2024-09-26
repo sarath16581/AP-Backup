@@ -194,7 +194,7 @@
             <componentInstance>
                 <componentInstanceProperties>
                     <name>contactCenterName</name>
-                    <value>ap1devgcloud</value>
+                    <value>unifiedcontactcenter</value>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>emailId</name>
