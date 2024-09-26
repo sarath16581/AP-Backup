@@ -194,7 +194,7 @@
             <componentInstance>
                 <componentInstanceProperties>
                     <name>contactCenterName</name>
-                    <value>unifiedcontactcenter</value>
+                    <value>ap1devgcloud</value>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>emailId</name>
@@ -312,6 +312,12 @@
             <componentInstance>
                 <componentName>unifiedCaseVoiceCallSync</componentName>
                 <identifier>c_unifiedCaseVoiceCallSync</identifier>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentName>unifiedCaseOutboundVoiceCall</componentName>
+                <identifier>c_unifiedCaseOutboundVoiceCall</identifier>
             </componentInstance>
         </itemInstances>
         <name>thirdElement</name>
