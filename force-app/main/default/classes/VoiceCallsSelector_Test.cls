@@ -4,14 +4,15 @@
  * @date 2024-08-15
  * @changelog
  * 2024-08-15 - Steve L - created
+ * 2024-09-24 - George Nguyen - fixed test errors
  */
 
  @IsTest
  private class VoiceCallsSelector_Test {
 	 /**
 	  * Test:
-	  *  Ensures that the selectors QueryBuilder is generating the correct output
-	  */
+	 *  Ensures that the selectors QueryBuilder is generating the correct output
+	 */
 	 @IsTest
 	 private static void testEnsureQueryBuilderProducesCorrectString() {
  
@@ -40,19 +41,26 @@
 		 String soql1 = qb1.toSoqlString();
 		 System.assertEquals(true, Pattern.compile('(?is)\\blimit 1\\b').matcher(soql1).find(), 'Resulting query does not have limit');
  
-		 Set<SObjectField> fieldOverrides=new Set<SObjectField>{VoiceCall.Id, VoiceCall.CallAcceptDateTime};
+		 Set<SObjectField> fieldOverrides=new Set<SObjectField>{VoiceCall.FromPhoneNumber};
 		 VoiceCallsSelector selector2 = VoiceCallsSelector.newInstance(1,fieldOverrides);
 		 QueryBuilder qb2 = selector2.newQueryBuilder();
 		 String soql2 = qb2.toSoqlString();
-		 System.assertEquals(true, Pattern.compile('(?is)\\bid\\b').matcher(soql2).find(), 'Resulting query does not do filter overrides');
+		 System.assertEquals(true, Pattern.compile('(?is)\\bFromPhoneNumber\\b').matcher(soql2).find(), 'Resulting query does not do filter overrides');
  
+		 fieldOverrides = new Set<SObjectField>{VoiceCall.CallerId};
+		 selector2 = VoiceCallsSelector.newInstance(fieldOverrides);
+		 qb2 = selector2.newQueryBuilder();
+		 soql2 = qb2.toSoqlString();
+		 System.assertEquals(true, Pattern.compile('(?is)\\bCallerId\\b').matcher(soql2).find(), 'Resulting query does not do filter overrides');
+ 
+
 		 Test.stopTest();
 	 }
  
 	 /**
 	  * Test:
-	  *  Ensures that the selectors QueryBuilder is generating the correct output
-	  */
+	 *  Ensures that the selectors QueryBuilder is generating the correct output
+	 */
 	 @IsTest
 	 private static void testEnsureQueryBuilderProducesCorrectStringWithRelatedFields() {
  
@@ -79,13 +87,18 @@
 		 qb = selector.newQueryBuilder(new Set<Object>{VoiceCallsSelector.Options.WITH_CALLER});
 		 soql = qb.toSoqlString();
 		 System.assertEquals(true, Pattern.compile('(?is)Caller\\..*?\\bfrom VoiceCall\\b').matcher(soql).find(), 'Resulting query does not select Owner fields');
+
+		 qb = selector.newQueryBuilder(new Set<Object>{VoiceCallsSelector.Options.ORDER_BY_CREATED_DATE_ASC});
+		 soql = qb.toSoqlString();
+		 System.assertEquals(true, soql.contains('CreatedDate ASC'), 'Resulting query does not have CreatedDate ASC');
+ 
  
 		 Test.stopTest();
 	 }
  
 	 /**
 	  * Executes a query to ensure it returns expected results with actual inserted data
-	  */
+	 */
 	 @IsTest
 	 private static void testSelectorIntegration() {
  
@@ -97,15 +110,18 @@
 		 List<Case> cases = ApplicationTestDataFactory.getCases(1, false);
 		 Insert cases;
  
-		 List<VoiceCall> voiceCalls = ApplicationTestDataFactoryCase.getVoiceCalls(new List<Id>{cases[0].Id}, false);
-		 voiceCalls.get(0).RelatedRecordId = cases[0].Id;
-		 voiceCalls.get(0).CallType = 'Inbound';
-		 voiceCalls.get(0).VendorType = 'ContactCenter';
-		 voiceCalls.get(0).CallStartDateTime = System.now();
-		 voiceCalls.get(0).CallEndDateTime = System.now().addMinutes(5);
-		 voiceCalls.get(0).FromPhoneNumber = '+61 432 077 455';
-		 voiceCalls.get(0).ToPhoneNumber = 'CS_Test';
-		 insert voiceCalls;
+		 VoiceCall vc = new VoiceCall(
+			 CallCenterId = null, 
+			 VendorType = 'ContactCenter', 
+			 CallType = 'Inbound',
+			 FromPhoneNumber = '+19999999999', 
+			 ToPhoneNumber = '+19999999999',
+			 CallStartDateTime = System.now().addMinutes( - 3 ),
+			 CallEndDateTime = System.now(),
+			 CallDisposition = 'completed',
+			 relatedrecordid = cases[0].id
+		 );
+		 insert vc;
  
 		 // =====================================
 		 // Stubbing
@@ -118,9 +134,9 @@
 		 Test.startTest();
  
 		 VoiceCallsSelector selector = VoiceCallsSelector.newInstance(2);
-		 List<VoiceCall> results = selector.selectByIds(new Set<Object>(), new Set<Id>{voiceCalls.get(0).Id});
+		 List<VoiceCall> results = selector.selectByIds(new Set<Object>(), new Set<Id>{vc.Id});
 		 System.assertEquals(1, results.size(), 'Expected result size of 1');
-		 results = selector.selectByRelatedRecordIds(new Set<Id>{voiceCalls.get(0).RelatedRecordId}, new Set<Object>());
+		 results = selector.selectByRelatedRecordIds(new Set<Id>{vc.RelatedRecordId}, new Set<Object>());
 		 System.assertEquals(1, results.size(), 'Expected result size of 1');
 		 Test.stopTest();
 	 }
