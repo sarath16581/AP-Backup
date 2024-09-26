@@ -3,7 +3,6 @@
  *	NOTE: Genesys Intergration enables callouts to all Genesys Api's (see: https://developer.genesys.cloud/devapps/api-explorer)
  * @author 	Paul Perry
  * @date 	2024-08-27
- * @group 	SCV/Unified
  * @test 	GenesysIntegration_Test
  * @changelog
  */

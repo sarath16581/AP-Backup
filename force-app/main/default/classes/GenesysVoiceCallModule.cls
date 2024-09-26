@@ -6,7 +6,6 @@
  *	- Contains AsyncWorker logic to perform callouts outside of the trigger context
  * @author 	Paul Perry
  * @date 	2024-08-27
- * @group 	Unified
  * @changelog
  * 	2024-08-27 - Paul Perry - created
  */
@@ -40,10 +39,8 @@ public without sharing class GenesysVoiceCallModule extends ApplicationModule {
 
 	/**
 	 * Performs a Genesys update sync.
-	 * - Given a collection of records, and a map of the records' previous states, it identifies the set of records
-	 *	 which require an update.
-	 * - Given a set of changed records, it identifies the related ConversationIds and performs a callout to Genesys
-	 * 	 using the AsyncWorker.
+	 * - Given a collection of records, and a map of the records' previous states, it identifies the set of records which require an update.
+	 * - Given a set of changed records, it identifies the related ConversationIds and performs a callout to Genesys using the AsyncWorker.
 	 * @param records			Records updated in this context
 	 * @param existingRecords	Representation of the previous record state
 	 * @param uow	Unit of work
@@ -99,6 +96,9 @@ public without sharing class GenesysVoiceCallModule extends ApplicationModule {
 	 * Filter out all VoiceCall records that shouldn't be synchronised to Genesys
 	 * 	- Based on number of VC's within Conversation
 	 *  - Based on Related AgentWork Status and AcceptedDateTime/ClosedDateTime
+	 * @param conversationIds - Set of Salesforce ConversationIds
+	 * @param syncCandidatesMap - Map of VoiceCalls by their record Id
+	 * @return List of provided syncCandidatesMap where all non authoritative VC's have been filtered out
 	 */
 	private static List<VoiceCall> filterSyncCandidates(Set<Id> conversationIds, Map<Id,VoiceCall> syncCandidatesMap) {
 		List<VoiceCall> result = new List<VoiceCall>();
@@ -193,6 +193,10 @@ public without sharing class GenesysVoiceCallModule extends ApplicationModule {
 	 * - #3: Based on related AgentWork records used for Omni routing
 	 * - #3.1: Related "Opened" AgentWork records (matching the oldest AcceptedDateTime)
 	 * - #3.2: Related "Closed" AgentWork records (matching the most recent CloseDateTime)
+	 * @param syncVoiceCall - The voicecall in question of being authoritative
+	 * @param relatedVoiceCalls - List of all other voice call records for the same Conversation
+	 * @param agentWorkByVoiceCallId - Map of most recent AgentWork record mapped by VoiceCall Id
+	 * @return Boolean - whether or not syncVoiceCall is the authoritative VoiceCall
 	 */
 	public static Boolean isAuthoritativeVoiceCall(
 		VoiceCall syncVoiceCall, List<VoiceCall> relatedVoiceCalls, Map<Id,AgentWork> agentWorkByVoiceCallId
@@ -246,6 +250,10 @@ public without sharing class GenesysVoiceCallModule extends ApplicationModule {
 		throw new NoDataFoundException();
 	}
 
+	/**
+	 * AsyncWorker Class that gets executed in it's own async context
+	 *	- class will perform callouts to Genesys to Synchronise all Custom Attributes
+	 */ 
 	public with sharing class AsyncGenesysAttributeSync extends ApplicationUnitOfWork.AsyncWorker implements Database.AllowsCallouts {
 		public Set<Id> conversationIds;
 		public List<Id> voiceCallIds;
@@ -290,6 +298,9 @@ public without sharing class GenesysVoiceCallModule extends ApplicationModule {
 			}
 		}
 
+		/**
+		 * Converting VoiceCall values to Genesys Attributes and performing the callout to synchronise
+		 */
 		public void processGenesysCallouts() {
 			Set<SObjectField> voiceCallFieldSet = new Set<SObjectField>{
 				VoiceCall.Id,

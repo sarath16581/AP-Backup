@@ -6,7 +6,6 @@
  *	- Contains the AsyncWorker logic to perform callouts outside of the trigger context
  * @author 	Paul Perry
  * @date 	2024-08-27
- * @group 	Unified
  * @changelog
  * 	2024-08-27 - Paul Perry - created
  */
@@ -18,11 +17,6 @@ public with sharing class GenesysVoiceCallModule_Test {
 	private static VoiceCallsSelector voiceCallsSelector;
 	private static AgentWorkSelector agentWorkSelector;
 	private static ApplicationUnitOfWork uow;
-
-	private Enum MockSetup {
-		MOCKGENESYSINTEGRATION,
-		MOCKDATABASE
-	}
 
 	@isTest
 	public static void runGenesysVoiceCallModuleTest() {
@@ -61,7 +55,6 @@ public with sharing class GenesysVoiceCallModule_Test {
 
 		// Mock classes
 		mockClasses(
-			new Set<MockSetup>{ MockSetup.MOCKDATABASE, MockSetup.MOCKGENESYSINTEGRATION },
 			new Map<SObjectType,Object>{
 				// Return all existing voicecalls for this simulation
 				VoiceCall.SObjectType => new List<VoiceCall>{ testVoiceCall, testVoiceCall2, testVoiceCall3 },
@@ -105,7 +98,7 @@ public with sharing class GenesysVoiceCallModule_Test {
 		);
 
 		Map<String,Object> asyncWorkerParams = (Map<String,Object>)asyncWorker.params;
-
+		System.debug(JSON.serialize(asyncWorkerParams));
 		System.assert(asyncWorkerParams.containsKey('voiceCallIds'), 'Missing parameters');
 		System.assert(
 			((List<Id>)asyncWorkerParams.get('voiceCallIds')).contains(testVoiceCall.Id),
@@ -113,6 +106,19 @@ public with sharing class GenesysVoiceCallModule_Test {
 		);
 	}
 
+	/**
+	 * @description
+	 * This test method verifies the logic of the AsyncWorker
+	 *  - providing it with 2 updated voicecall records
+	 *		- 1 without CustomerParticipantId (outbound call scenario)
+	 *		- 1 with CustomerParticipantId (regular inbound call scenario)
+	 * The expected result is that the system will provide 3 callouts in total
+	 *	- 1 for each of the 2 records updating attribute calls
+	 *	- 1 to fetch the Conversation Details to obtain the ParticipantId for voicecall #1
+	 * The test class will verify whether:
+	 *	- The conversation details have been fetched with the correct conversationId
+	 *	- The Update request callout contains the correct attributes
+	 */
 	@IsTest
 	public static void runAsyncGenesysAttributeSyncTest() {
 		// Test Data
@@ -128,12 +134,7 @@ public with sharing class GenesysVoiceCallModule_Test {
 		};
 
 		// Mock classes
-		mockClasses(
-			new Set<MockSetup>{ MockSetup.MOCKDATABASE, MockSetup.MOCKGENESYSINTEGRATION },
-			new Map<SObjectType,Object>{
-				VoiceCall.SObjectType => testVoiceCalls
-			}
-		);
+		mockClasses(new Map<SObjectType,Object>{ VoiceCall.SObjectType => testVoiceCalls });
 
 		// Test
 		Test.startTest();
@@ -190,6 +191,17 @@ public with sharing class GenesysVoiceCallModule_Test {
 		Test.stopTest();
 	}
 
+	/**
+	 * @description This test method ensures the authoritative voicecall logic
+	 * works correctly, covering the different scenarios that could occur
+	 *	- Single VoiceCall in Conversation [✅]
+	 *	- Active Conversation with consult, consulting party: [✅]
+	 *	- Active Conversation with consult, consulted party: [❌]
+	 *	- Active Conversation after transfer, transferring party: [❌]
+	 *	- Active Conversation after transfer, transferred party: [✅]
+	 *	- Concluded Conversation after transfer, transferring party: [❌]
+	 *	- Concluded Conversation after transfer, transferring party: [✅]
+	 */
 	@isTest
 	public static void authoritativeVoiceCallTest() {
 		// All VC's share the same ConversationId
@@ -329,12 +341,22 @@ public with sharing class GenesysVoiceCallModule_Test {
 		);
 	}
 
+	/**
+	 * Create a voiceCall SObject with default values and provided converwationId
+	 * @param conversationId
+	 * @return VoiceCall instance
+	 */
 	private static VoiceCall generateTestVoiceCall(Id conversationId) {
 		return generateTestVoiceCall(new Map<SObjectField,Object>{
 			VoiceCall.ConversationId => conversationId
 		});
 	}
 
+	/**
+	 * Create a voiceCall SObject with provided fieldOverrids
+	 * @param fieldOverrides - key value pair field => value
+	 * @return VoiceCall instance
+	 */
 	private static VoiceCall generateTestVoiceCall(Map<SObjectField,Object> fieldOverrides) {
 		// Populate all fixed fields
 		Map<SObjectField,Object> voiceCallObjMap = new Map<SObjectField,Object>{
@@ -373,6 +395,11 @@ public with sharing class GenesysVoiceCallModule_Test {
 		return result;
 	}
 
+	/**
+	 * Create a AgentWork SObject with provided fieldOverrids
+	 * @param fieldOverrides - key value pair field => value
+	 * @return AgentWork instance
+	 */
 	private static AgentWork generateTestAgentWork(Map<SObjectField,Object> fieldOverrides) {
 		return (AgentWork)ApplicationTestDataFactory.setUnwritableFields(
 			new AgentWork(Id = fflib_IDGenerator.generate(AgentWork.SObjectType)),
@@ -380,90 +407,81 @@ public with sharing class GenesysVoiceCallModule_Test {
 		);
 	}
 
-	private static void mockClasses(Set<MockSetup> setup, Map<SObjectType,Object> testRecordsBySObjectType) {
+	/**
+	 * Helper method to setup all the mock responses
+	 * @param testRecordsBySObjectType map with response by SObjectType
+	 */
+	private static void mockClasses(Map<SObjectType,Object> testRecordsBySObjectType) {
 		// Mocking
-		if (setup.contains(MockSetup.MOCKGENESYSINTEGRATION)) {
-			mockGenesysIntegration = (GenesysIntegrationService)MockUtility.mockUtility(GenesysIntegrationService.class);
-		}
-
-		if (setup.contains(MockSetup.MOCKDATABASE)) {
-			mockDatabase = MockUtility.mockDatabase();
-			voiceCallsSelector = (VoiceCallsSelector)MockUtility.mockSelector(VoiceCallsSelector.class);
-			agentWorkSelector = (AgentWorkSelector)MockUtility.mockSelector(AgentWorkSelector.class);
-		}
+		mockGenesysIntegration = (GenesysIntegrationService)MockUtility.mockUtility(GenesysIntegrationService.class);
+		mockDatabase = MockUtility.mockDatabase();
+		voiceCallsSelector = (VoiceCallsSelector)MockUtility.mockSelector(VoiceCallsSelector.class);
+		agentWorkSelector = (AgentWorkSelector)MockUtility.mockSelector(AgentWorkSelector.class);
 
 		uow = (ApplicationUnitOfWork)MockUtility.mockUtility(ApplicationUnitOfWork.class);
 
 		MockUtility.Mocks.startStubbing();
 
-		if (setup.contains(MockSetup.MOCKGENESYSINTEGRATION)) {
-			MockUtility.Mocks.when(
-				mockGenesysIntegration.fetchConversationCallDetail(
-					(String)fflib_Match.anyString()	// conversationId
-				)
-			).thenReturn(
-				(Map<String,Object>)JSON.deserializeUntyped(GenesysIntegrationService_Test.MOCKRESPONSECALLLOG)
-			);
+		// Provide all the mocked responses
+		MockUtility.Mocks.when(
+			mockGenesysIntegration.fetchConversationCallDetail(
+				(String)fflib_Match.anyString()				// conversationId
+			)
+		).thenReturn(
+			(Map<String,Object>)JSON.deserializeUntyped(GenesysIntegrationService_Test.MOCKRESPONSECALLLOG)
+		);
 
-			MockUtility.Mocks.when(
-				mockGenesysIntegration.patchConversationParticipantAttributes(
-					(String)fflib_Match.anyString(),			// conversationId
-					(String)fflib_Match.anyString(),			// participantId
-					(Map<String,Object>)fflib_Match.anyObject()	// custom attributes to set
-				)
-			).thenReturn(
-				(String)JSON.serialize(new Map<String,Object>{ 'Tracking_Number' => '123456' })
-			);
-		}
+		MockUtility.Mocks.when(
+			mockGenesysIntegration.patchConversationParticipantAttributes(
+				(String)fflib_Match.anyString(),			// conversationId
+				(String)fflib_Match.anyString(),			// participantId
+				(Map<String,Object>)fflib_Match.anyObject()	// custom attributes to set
+			)
+		).thenReturn(
+			(String)JSON.serialize(new Map<String,Object>{ 'Tracking_Number' => '123456' })
+		);
 
-		if (setup.contains(MockSetup.MOCKDATABASE)) {
-			MockUtility.Mocks.when(
-				mockDatabase.enqueueJob((Object)fflib_Match.anyObject())
-			).thenReturn(
-				fflib_IDGenerator.generate(AsyncApexJob.SObjectType)
-			);
+		MockUtility.Mocks.when(
+			mockDatabase.enqueueJob((Object)fflib_Match.anyObject())
+		).thenReturn(
+			fflib_IDGenerator.generate(AsyncApexJob.SObjectType)
+		);
 
-			MockUtility.Mocks.when(
-				voiceCallsSelector.selectByIds(
-					(Set<Object>)fflib_Match.anyObject(),
-					(Set<Id>)fflib_Match.anyObject()
-				)
-			).thenReturn(
-				(List<VoiceCall>)testRecordsBySObjectType.get(VoiceCall.SObjectType)
-			);
+		MockUtility.Mocks.when(
+			voiceCallsSelector.selectByIds(
+				(Set<Object>)fflib_Match.anyObject(),
+				(Set<Id>)fflib_Match.anyObject()
+			)
+		).thenReturn(
+			(List<VoiceCall>)testRecordsBySObjectType.get(VoiceCall.SObjectType)
+		);
 
-			MockUtility.Mocks.when(
-				voiceCallsSelector.selectByConversationIds(
-					(Set<Id>)fflib_Match.anyObject(),
-					(Set<Object>)fflib_Match.anyObject()
-				)
-			).thenReturn(
-				(List<VoiceCall>)testRecordsBySObjectType.get(VoiceCall.SObjectType)
-			);
+		MockUtility.Mocks.when(
+			voiceCallsSelector.selectByConversationIds(
+				(Set<Id>)fflib_Match.anyObject(),
+				(Set<Object>)fflib_Match.anyObject()
+			)
+		).thenReturn(
+			(List<VoiceCall>)testRecordsBySObjectType.get(VoiceCall.SObjectType)
+		);
 
-			MockUtility.Mocks.when(
-				agentWorkSelector.selectByAcceptedWorkItemIds(
-					(Set<Id>)fflib_Match.anyObject(),
-					(Set<Object>)fflib_Match.anyObject()
-				)
-			).thenReturn(
-				(List<AgentWork>)testRecordsBySObjectType.get(AgentWork.SObjectType)
-			);
-		}
+		MockUtility.Mocks.when(
+			agentWorkSelector.selectByAcceptedWorkItemIds(
+				(Set<Id>)fflib_Match.anyObject(),
+				(Set<Object>)fflib_Match.anyObject()
+			)
+		).thenReturn(
+			(List<AgentWork>)testRecordsBySObjectType.get(AgentWork.SObjectType)
+		);
 
 		MockUtility.Mocks.stopStubbing();
 	}
 
-	private static Set<String> convertSObjToString(Set<SObjectField> fieldSet) {
-		Set<String> result = new Set<String>();
-
-		for (SObjectField field :fieldSet) {
-			result.add(String.valueOf(field));
-		}
-
-		return result;
-	}
-
+	/**
+	 * Converts a Map of SObjectFields to a Map of FieldApiNames with values
+	 * @param objectMap input map
+	 * @return Map where SObjectField keys are turned into String keys
+	 */
 	private static Map<String,Object> convertFieldMap(Map<SObjectField,Object> objectMap) {
 		Map<String,Object> result = new Map<String,Object>();
 
