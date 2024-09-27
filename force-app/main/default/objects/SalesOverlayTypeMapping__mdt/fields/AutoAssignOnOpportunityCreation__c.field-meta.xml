@@ -4,7 +4,6 @@
     <businessStatus>Active</businessStatus>
     <defaultValue>true</defaultValue>
     <description>Auto assign corresponding overlay opportunity split when opportunity is owned by a Sales Specialist Group member on opportunity creation.</description>
-    <externalId>false</externalId>
     <fieldManageability>DeveloperControlled</fieldManageability>
     <inlineHelpText>Auto assign corresponding overlay opportunity split when opportunity is owned by a Sales Specialist Group member on opportunity creation.</inlineHelpText>
     <label>Auto Assign on Opportunity Creation</label>

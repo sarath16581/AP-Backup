@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>New_Bus_Spotters_Fee__c</fullName>
     <description>Partner Addendum &apos;New Business Spotter&apos;s Fee&apos; Sub Type Description</description>
-    <externalId>false</externalId>
     <label>New Bus Spotters Fee</label>
     <required>false</required>
     <trackTrending>false</trackTrending>

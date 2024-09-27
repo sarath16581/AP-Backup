@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__ValueType__c</fullName>
     <deprecated>false</deprecated>
     <description>Specifies the search context.</description>
-    <externalId>false</externalId>
     <label>Value Type</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>

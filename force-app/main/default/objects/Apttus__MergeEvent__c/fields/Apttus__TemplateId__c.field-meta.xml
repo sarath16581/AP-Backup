@@ -4,7 +4,6 @@
     <deleteConstraint>SetNull</deleteConstraint>
     <deprecated>false</deprecated>
     <description>ID of the template associated with the event</description>
-    <externalId>false</externalId>
     <label>Template</label>
     <referenceTo>Apttus__APTS_Template__c</referenceTo>
     <relationshipLabel>Merge Events</relationshipLabel>

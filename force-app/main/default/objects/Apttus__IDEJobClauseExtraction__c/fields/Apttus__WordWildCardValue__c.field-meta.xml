@@ -3,7 +3,6 @@
     <fullName>Apttus__WordWildCardValue__c</fullName>
     <deprecated>false</deprecated>
     <description>The word wild card value of the extracted data</description>
-    <externalId>false</externalId>
     <inlineHelpText>The word wild card value of the extracted data</inlineHelpText>
     <label>Word Wild Card Value</label>
     <length>32768</length>

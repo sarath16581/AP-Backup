@@ -3,7 +3,6 @@
     <fullName>Apttus__JobDetail__c</fullName>
     <deprecated>false</deprecated>
     <description>Additional detail of the job</description>
-    <externalId>false</externalId>
     <inlineHelpText>Additional detail of the job</inlineHelpText>
     <label>Job Detail</label>
     <length>32768</length>

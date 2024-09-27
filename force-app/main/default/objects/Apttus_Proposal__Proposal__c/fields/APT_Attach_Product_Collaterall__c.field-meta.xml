@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>APT_Attach_Product_Collaterall__c</fullName>
     <defaultValue>true</defaultValue>
-    <externalId>false</externalId>
     <label>Attach Product Collateral</label>
     <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>

@@ -3,7 +3,6 @@
     <fullName>Apttus__ExceptionDetail__c</fullName>
     <deprecated>false</deprecated>
     <description>Includes exception details from Intelligent Discovery provider.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Includes exception details from Intelligent Discovery provider.</inlineHelpText>
     <label>Exception Detail</label>
     <length>32768</length>

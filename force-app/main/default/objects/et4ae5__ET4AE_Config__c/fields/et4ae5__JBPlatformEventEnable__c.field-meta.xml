@@ -3,7 +3,6 @@
     <fullName>et4ae5__JBPlatformEventEnable__c</fullName>
     <defaultValue>true</defaultValue>
     <deprecated>false</deprecated>
-    <externalId>false</externalId>
     <label>JB Platform Event Enabled</label>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>

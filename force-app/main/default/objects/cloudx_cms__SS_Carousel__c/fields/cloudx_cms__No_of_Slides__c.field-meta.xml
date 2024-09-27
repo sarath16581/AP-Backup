@@ -3,7 +3,6 @@
     <fullName>cloudx_cms__No_of_Slides__c</fullName>
     <deprecated>false</deprecated>
     <description>Number of Slides in this carousel</description>
-    <externalId>false</externalId>
     <label>No. of Slides</label>
     <securityClassification>INTERNAL</securityClassification>
     <summaryForeignKey>cloudx_cms__SS_Carousel_Slide__c.cloudx_cms__Carousel__c</summaryForeignKey>

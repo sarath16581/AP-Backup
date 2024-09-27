@@ -3,7 +3,6 @@
     <fullName>kfsell__Last_Active_Date__c</fullName>
     <deprecated>false</deprecated>
     <description>Last active date for each lesson.</description>
-    <externalId>false</externalId>
     <label>Last Active Date</label>
     <required>false</required>
     <trackTrending>false</trackTrending>

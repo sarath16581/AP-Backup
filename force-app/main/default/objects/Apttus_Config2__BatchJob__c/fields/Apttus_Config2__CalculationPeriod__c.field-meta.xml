@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__CalculationPeriod__c</fullName>
     <deprecated>false</deprecated>
     <description>The period for which the rollup or rebate calculation needs to be run.Only input records that fall within the specified period will be selected for processing.</description>
-    <externalId>false</externalId>
     <inlineHelpText>The period for which the rollup or rebate calculation needs to be run.Only input records that fall within the specified period will be selected for processing.</inlineHelpText>
     <label>Calculation Period</label>
     <required>false</required>

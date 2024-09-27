@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Migration_Sales_Owner__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
-    <externalId>false</externalId>
     <inlineHelpText>Contact for Migration Sales support</inlineHelpText>
     <label>Migration Sales Owner</label>
     <referenceTo>User</referenceTo>

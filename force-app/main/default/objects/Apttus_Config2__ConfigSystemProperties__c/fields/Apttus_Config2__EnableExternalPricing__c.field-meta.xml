@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Indicates whether pricing will be done externally</description>
-    <externalId>false</externalId>
     <inlineHelpText>A global setting to enable external price calls. The external pricing call must be coded and associated with the reprice all button in the view cart page.</inlineHelpText>
     <label>Enable External Pricing</label>
     <trackTrending>false</trackTrending>

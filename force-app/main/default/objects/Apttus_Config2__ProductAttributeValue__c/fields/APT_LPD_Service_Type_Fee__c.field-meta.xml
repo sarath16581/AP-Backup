@@ -3,7 +3,6 @@
     <fullName>APT_LPD_Service_Type_Fee__c</fullName>
     <description>The Service Type Fee calculate fee based on selected Service Type for &apos;Local Pickup and Delivery Services&apos; Product.
 The fee is $15 for &apos;Delivery Service&apos; or &apos;Pickup Service&apos;, $26 for &apos;Combined Pickup &amp; Delivery Service&apos; and $18 for &apos;Consolidated Delivery&apos;.</description>
-    <externalId>false</externalId>
     <formula>IF(
     OR( 
         ISPICKVAL(APT_LPD_Service_Type__c , &apos;Delivery Service&apos;), ISPICKVAL(APT_LPD_Service_Type__c , &apos;Pickup &amp; Delivery At the same time&apos;), ISPICKVAL(APT_LPD_Service_Type__c , &apos;Pickup Service&apos;) 

@@ -3,7 +3,6 @@
     <fullName>Clone_Source__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <description>If populated, this indicates that this record was originally cloned with listed reference as the source record</description>
-    <externalId>false</externalId>
     <inlineHelpText>If populated, this indicates that this record was originally cloned with listed reference as the source record</inlineHelpText>
     <label>Clone Source</label>
     <referenceTo>Freight_Offering__c</referenceTo>

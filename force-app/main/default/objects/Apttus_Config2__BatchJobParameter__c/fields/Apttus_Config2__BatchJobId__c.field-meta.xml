@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__BatchJobId__c</fullName>
     <deprecated>false</deprecated>
     <description>ID of the associated batch job</description>
-    <externalId>false</externalId>
     <inlineHelpText>ID of the associated batch job</inlineHelpText>
     <label>Batch Job (CPQ)</label>
     <referenceTo>Apttus_Config2__BatchJob__c</referenceTo>

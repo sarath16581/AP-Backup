@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Originating_OPC__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
-    <externalId>false</externalId>
     <label>Originating OPC</label>
     <referenceTo>Opp_Product_Classification__c</referenceTo>
     <relationshipLabel>Cases</relationshipLabel>

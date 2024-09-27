@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>ConversationStartDate__c</fullName>
     <description>Date conversation can begin with customer</description>
-    <externalId>false</externalId>
     <inlineHelpText>Date conversation can begin with customer</inlineHelpText>
     <label>Conversation Start Date</label>
     <required>false</required>

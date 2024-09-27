@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Included_Product_Lines__c</fullName>
     <description>Displays the products included in the contract.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Please select all of the product lines that will be covered by this contract</inlineHelpText>
     <label>Included Product Lines</label>
     <required>false</required>

@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__ProductCategory__c</fullName>
     <deprecated>false</deprecated>
     <description>One or more categories associated with the product</description>
-    <externalId>false</externalId>
     <label>Product Category</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>

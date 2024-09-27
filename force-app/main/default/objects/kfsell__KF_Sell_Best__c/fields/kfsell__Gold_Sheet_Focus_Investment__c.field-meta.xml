@@ -3,7 +3,6 @@
     <fullName>kfsell__Gold_Sheet_Focus_Investment__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <deprecated>false</deprecated>
-    <externalId>false</externalId>
     <label>Gold Sheet Focus Investment</label>
     <referenceTo>kfsell__Focus_Investment__c</referenceTo>
     <relationshipLabel>KF Sell Best Actions</relationshipLabel>

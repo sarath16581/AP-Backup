@@ -3,7 +3,6 @@
     <fullName>UserSurveyDateSent__c</fullName>
     <businessStatus>DeprecateCandidate</businessStatus>
     <description>This field is used to see if case has met the require business criteria to trigger a survey email to requestor.</description>
-    <externalId>false</externalId>
     <inlineHelpText>This field is used to see if case has met the require business criteria to trigger a survey email to requestor.</inlineHelpText>
     <label>Dep - User Survey Date Sent</label>
     <required>false</required>

@@ -3,7 +3,6 @@
     <fullName>Parent_Booking__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <description>The related booking - for van services permanent delivery bookings this will be the related pickup booking</description>
-    <externalId>false</externalId>
     <inlineHelpText>The related booking - for AP this is the related pickup booking.</inlineHelpText>
     <label>Parent Booking</label>
     <lookupFilter>

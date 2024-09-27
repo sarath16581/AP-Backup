@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>APT_Help_Text_International__c</fullName>
     <defaultValue>&quot;If Domestic customer = No, Revenue commitment cannot be less than $3000 to qualify for an International Contract&quot;</defaultValue>
-    <externalId>false</externalId>
     <label>Help Text</label>
     <length>32768</length>
     <securityClassification>INTERNAL</securityClassification>

@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>CTA_Propose_Forum_Attendance_Required__c</fullName>
     <description>This field describes whether this request will go to CTA propose forum</description>
-    <externalId>false</externalId>
     <label>CTA Propose Forum Attendance Required</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>

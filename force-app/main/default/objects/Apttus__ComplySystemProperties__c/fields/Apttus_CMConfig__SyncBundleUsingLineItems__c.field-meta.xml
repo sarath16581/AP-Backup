@@ -4,7 +4,6 @@
     <defaultValue>true</defaultValue>
     <deprecated>false</deprecated>
     <description>Indicates whether agreement line items should be used to synchronize bundle products. The default uses agreement summary objects. Only applicable when agreement summary is enabled.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Indicates whether agreement line items should be used to synchronize bundle products. The default uses agreement summary objects.</inlineHelpText>
     <label>Sync Bundle Using Line Items</label>
     <trackTrending>false</trackTrending>

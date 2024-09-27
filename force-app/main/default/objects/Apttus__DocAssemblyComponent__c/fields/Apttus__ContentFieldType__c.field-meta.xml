@@ -3,7 +3,6 @@
     <fullName>Apttus__ContentFieldType__c</fullName>
     <deprecated>false</deprecated>
     <description>Type of the content field when the ComponentType is Content (Object/Field)</description>
-    <externalId>false</externalId>
     <inlineHelpText>Type of the content field when the ComponentType is Content (Object/Field)</inlineHelpText>
     <label>Content Field Type</label>
     <required>false</required>

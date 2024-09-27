@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>DateofPosting__c</fullName>
     <description>The date the article/s allocated to this ICPS were posted from abroad.</description>
-    <externalId>false</externalId>
     <inlineHelpText>The date the article/s allocated to this ICPS were posted from abroad.</inlineHelpText>
     <label>Date of Posting</label>
     <required>false</required>

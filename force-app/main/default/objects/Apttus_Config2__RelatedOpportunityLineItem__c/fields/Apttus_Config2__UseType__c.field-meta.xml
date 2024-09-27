@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__UseType__c</fullName>
     <deprecated>false</deprecated>
     <description>The application type</description>
-    <externalId>false</externalId>
     <inlineHelpText>The application type</inlineHelpText>
     <label>Application Type</label>
     <required>false</required>

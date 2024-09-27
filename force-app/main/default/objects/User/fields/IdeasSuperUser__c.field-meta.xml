@@ -3,7 +3,6 @@
     <fullName>IdeasSuperUser__c</fullName>
     <defaultValue>false</defaultValue>
     <description>Grant a user with additional permissions in terms of community Ideas (AdvancedCommunities)</description>
-    <externalId>false</externalId>
     <label>Ideas Super User</label>
     <trackFeedHistory>false</trackFeedHistory>
     <type>Checkbox</type>

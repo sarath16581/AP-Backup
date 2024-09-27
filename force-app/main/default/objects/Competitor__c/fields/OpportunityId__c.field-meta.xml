@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>OpportunityId__c</fullName>
     <description>Phase 1 - Holds Opportunity Id for the Competitors related list in Opportunity</description>
-    <externalId>false</externalId>
     <label>Opportunity</label>
     <referenceTo>Opportunity</referenceTo>
     <relationshipLabel>Competitors and Incumbents</relationshipLabel>

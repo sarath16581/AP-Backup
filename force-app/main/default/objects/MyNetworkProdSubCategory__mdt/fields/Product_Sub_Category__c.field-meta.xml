@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Product_Sub_Category__c</fullName>
     <description>List of all the sub categories for which the compensation is to be disabled</description>
-    <externalId>false</externalId>
     <fieldManageability>DeveloperControlled</fieldManageability>
     <label>Product Sub Category</label>
     <length>32768</length>

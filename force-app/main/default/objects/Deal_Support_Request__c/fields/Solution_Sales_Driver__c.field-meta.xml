@@ -3,7 +3,6 @@
     <fullName>Solution_Sales_Driver__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <description>Who is the Solution Sales Rep on this Opp?</description>
-    <externalId>false</externalId>
     <inlineHelpText>Who is the Solution Sales Rep on this Opp?</inlineHelpText>
     <label>Solution Sales Driver</label>
     <referenceTo>User</referenceTo>

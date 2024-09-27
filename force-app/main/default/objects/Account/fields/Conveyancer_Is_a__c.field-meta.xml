@@ -3,7 +3,6 @@
     <fullName>Conveyancer_Is_a__c</fullName>
     <defaultValue>false</defaultValue>
     <description>Check to generate the unique Conveyancer Number for this Organisation. Only do this once.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Check to generate the unique Conveyancer Number for this Organisation. Only do this once.</inlineHelpText>
     <label>Is a Conveyancer?</label>
     <securityClassification>INTERNAL</securityClassification>

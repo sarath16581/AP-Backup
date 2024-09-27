@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__ContractPrice__c</fullName>
     <deprecated>false</deprecated>
     <description>The contract price for the option</description>
-    <externalId>false</externalId>
     <inlineHelpText>The contract price for the option</inlineHelpText>
     <label>Contract Price</label>
     <precision>18</precision>

@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Suggested possible action is a red flag</description>
-    <externalId>false</externalId>
     <fieldManageability>SubscriberControlled</fieldManageability>
     <inlineHelpText>Is suggested possible action a red flag?</inlineHelpText>
     <label>Is Red Flag</label>

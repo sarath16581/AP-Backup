@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__AttributeId__c</fullName>
     <deprecated>false</deprecated>
     <description>ID of the attribute to which this type is associated</description>
-    <externalId>false</externalId>
     <inlineHelpText>ID of the attribute to which this type is associated</inlineHelpText>
     <label>Attribute</label>
     <referenceTo>Apttus_Config2__ProductAttribute__c</referenceTo>

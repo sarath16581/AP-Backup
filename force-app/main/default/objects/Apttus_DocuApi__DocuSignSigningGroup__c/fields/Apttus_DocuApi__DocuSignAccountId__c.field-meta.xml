@@ -3,7 +3,6 @@
     <fullName>Apttus_DocuApi__DocuSignAccountId__c</fullName>
     <deprecated>false</deprecated>
     <description>ID for the DocuSign account being used by the org</description>
-    <externalId>false</externalId>
     <inlineHelpText>ID for the DocuSign account being used by the org</inlineHelpText>
     <label>DocuSign Account Id</label>
     <referenceTo>Apttus_DocuApi__DocuSignUser__c</referenceTo>

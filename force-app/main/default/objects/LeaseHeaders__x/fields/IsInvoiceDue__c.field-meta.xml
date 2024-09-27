@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <description>IsInvoiceDue</description>
     <externalDeveloperName>IsInvoiceDue</externalDeveloperName>
-    <externalId>false</externalId>
     <isFilteringDisabled>false</isFilteringDisabled>
     <isNameField>false</isNameField>
     <isSortingDisabled>false</isSortingDisabled>

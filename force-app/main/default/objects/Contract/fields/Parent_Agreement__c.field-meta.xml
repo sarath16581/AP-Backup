@@ -3,7 +3,6 @@
     <fullName>Parent_Agreement__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <description>Main lookup field that links the parent contract and the child clone sf contract</description>
-    <externalId>false</externalId>
     <label>Original Agreement</label>
     <referenceTo>Apttus__APTS_Agreement__c</referenceTo>
     <relationshipLabel>Salesforce Contract</relationshipLabel>

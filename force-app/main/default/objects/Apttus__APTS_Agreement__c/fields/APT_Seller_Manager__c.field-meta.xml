@@ -3,7 +3,6 @@
     <fullName>APT_Seller_Manager__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <description>Auto populated by the system - populates mamanger of the Agreement Holder</description>
-    <externalId>false</externalId>
     <label>Sales Manager</label>
     <referenceTo>User</referenceTo>
     <relationshipName>Agreements</relationshipName>

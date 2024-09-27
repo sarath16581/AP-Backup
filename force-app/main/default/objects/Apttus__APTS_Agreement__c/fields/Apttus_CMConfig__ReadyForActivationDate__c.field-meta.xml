@@ -3,7 +3,6 @@
     <fullName>Apttus_CMConfig__ReadyForActivationDate__c</fullName>
     <deprecated>false</deprecated>
     <description>The date the order is ready for activation. The order is activated on this date.</description>
-    <externalId>false</externalId>
     <inlineHelpText>The date the order is ready for activation. The order is activated on this date.</inlineHelpText>
     <label>Ready For Activation Date</label>
     <required>false</required>

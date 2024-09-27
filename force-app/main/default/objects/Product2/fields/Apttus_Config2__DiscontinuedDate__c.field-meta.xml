@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__DiscontinuedDate__c</fullName>
     <deprecated>false</deprecated>
     <description>The date when the product is pulled out and rendered unavailable for sale on the store</description>
-    <externalId>false</externalId>
     <inlineHelpText>The date when the product is pulled out and rendered unavailable for sale on the store</inlineHelpText>
     <label>Discontinued Date</label>
     <required>false</required>

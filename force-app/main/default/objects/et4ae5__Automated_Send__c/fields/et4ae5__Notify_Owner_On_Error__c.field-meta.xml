@@ -3,7 +3,6 @@
     <fullName>et4ae5__Notify_Owner_On_Error__c</fullName>
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
-    <externalId>false</externalId>
     <label>Notify Owner On Error</label>
     <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>

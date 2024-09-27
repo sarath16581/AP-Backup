@@ -3,7 +3,6 @@
     <fullName>AP_Listed__c</fullName>
     <defaultValue>false</defaultValue>
     <description>Is the insurance provider recognised by Australia Post</description>
-    <externalId>false</externalId>
     <label>AP Listed</label>
     <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>

@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__AccrualDate__c</fullName>
     <deprecated>false</deprecated>
     <description>The points accrual date</description>
-    <externalId>false</externalId>
     <inlineHelpText>The points accrual date</inlineHelpText>
     <label>Accrual Date</label>
     <required>false</required>

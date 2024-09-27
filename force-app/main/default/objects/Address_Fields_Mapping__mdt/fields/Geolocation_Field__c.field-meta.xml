@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Geolocation_Field__c</fullName>
     <description>Field definition to map geolocation to</description>
-    <externalId>false</externalId>
     <fieldManageability>SubscriberControlled</fieldManageability>
     <inlineHelpText>If a validation rule has been triggered and the field picklist disappeared, please re-select the object.</inlineHelpText>
     <label>Geolocation Field</label>

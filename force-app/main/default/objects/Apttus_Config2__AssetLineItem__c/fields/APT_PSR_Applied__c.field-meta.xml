@@ -3,7 +3,6 @@
     <fullName>APT_PSR_Applied__c</fullName>
     <defaultValue>false</defaultValue>
     <description>Returns true or false based on wheather PSR is applied on the cart or not</description>
-    <externalId>false</externalId>
     <label>PSR Applied?</label>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>

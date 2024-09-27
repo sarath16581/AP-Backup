@@ -4,7 +4,6 @@
     <businessStatus>Active</businessStatus>
     <complianceGroup>GDPR</complianceGroup>
     <description>This field is used to track implementation stage value from deal support request record.</description>
-    <externalId>false</externalId>
     <inlineHelpText>This field is used to track implementation stage value from deal support request record.</inlineHelpText>
     <label>Stage</label>
     <required>false</required>

@@ -3,7 +3,6 @@
     <fullName>Has_Licence__c</fullName>
     <defaultValue>false</defaultValue>
     <description>Flag indicating the Legal Entity has one or more Licenses</description>
-    <externalId>false</externalId>
     <inlineHelpText>Flag indicating the Legal Entity has one or more Licenses</inlineHelpText>
     <label>Has Licence?</label>
     <securityClassification>INTERNAL</securityClassification>

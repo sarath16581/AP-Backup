@@ -3,7 +3,6 @@
     <fullName>AutoCreateRevenue__c</fullName>
     <defaultValue>false</defaultValue>
     <description>Indicates whether revenue schedules would be created for the order associated with the agreement when the agreement is executed.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Indicates whether revenue schedules would be created for the order associated with the agreement when the agreement is executed.</inlineHelpText>
     <label>Auto Create Revenue ?</label>
     <securityClassification>OFFICIAL_SENSITIVE</securityClassification>

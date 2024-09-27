@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__ErrorType__c</fullName>
     <deprecated>false</deprecated>
     <description>The type of issue that will be logged in case validation fails. Error will mean that issue needs to be resolved before next process step</description>
-    <externalId>false</externalId>
     <inlineHelpText>The type of issue that will be logged in case validation fails. Error will mean that issue needs to be resolved before next process step</inlineHelpText>
     <label>Error Type</label>
     <required>false</required>

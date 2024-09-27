@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>APT_Agreement_Date__c</fullName>
     <businessStatus>DeprecateCandidate</businessStatus>
-    <externalId>false</externalId>
     <label>Dep -Agreement Date</label>
     <required>false</required>
     <trackFeedHistory>false</trackFeedHistory>

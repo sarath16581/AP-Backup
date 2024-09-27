@@ -4,7 +4,6 @@
     <deleteConstraint>SetNull</deleteConstraint>
     <deprecated>false</deprecated>
     <description>Id of the Collaboration Request object associated with this line item</description>
-    <externalId>false</externalId>
     <label>Collaboration</label>
     <referenceTo>Apttus_Config2__CollaborationRequest__c</referenceTo>
     <relationshipLabel>Line Items</relationshipLabel>

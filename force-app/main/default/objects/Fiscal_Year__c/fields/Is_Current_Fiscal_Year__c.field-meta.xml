@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Is_Current_Fiscal_Year__c</fullName>
-    <externalId>false</externalId>
     <formula>AND(Start_of_financial_year__c &lt;= TODAY(), End_of_financial_year__c &gt;= TODAY())</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <label>Is Current Fiscal Year</label>

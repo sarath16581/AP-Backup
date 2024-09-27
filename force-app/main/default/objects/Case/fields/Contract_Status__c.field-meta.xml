@@ -3,7 +3,6 @@
     <fullName>Contract_Status__c</fullName>
     <businessStatus>DeprecateCandidate</businessStatus>
     <description>Sales implementation case field</description>
-    <externalId>false</externalId>
     <label>Dep -Contract Status</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>

@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__JobSpec__c</fullName>
     <deprecated>false</deprecated>
     <description>The job specification</description>
-    <externalId>false</externalId>
     <inlineHelpText>The job specification</inlineHelpText>
     <label>Job Spec</label>
     <length>2000</length>

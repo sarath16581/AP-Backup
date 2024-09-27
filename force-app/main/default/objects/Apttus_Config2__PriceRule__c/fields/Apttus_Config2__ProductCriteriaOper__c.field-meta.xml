@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__ProductCriteriaOper__c</fullName>
     <deprecated>false</deprecated>
     <description>The product criteria operator</description>
-    <externalId>false</externalId>
     <inlineHelpText>The product criteria operator</inlineHelpText>
     <label>Product Criteria Oper</label>
     <required>false</required>

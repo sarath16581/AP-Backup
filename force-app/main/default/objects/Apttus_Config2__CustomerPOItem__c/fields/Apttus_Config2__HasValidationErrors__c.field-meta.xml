@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Indicates whether there are validation errors associated with the po item</description>
-    <externalId>false</externalId>
     <inlineHelpText>Indicates whether there are validation errors associated with the po item</inlineHelpText>
     <label>Validation Errors ?</label>
     <securityClassification>INTERNAL</securityClassification>

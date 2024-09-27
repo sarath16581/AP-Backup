@@ -3,7 +3,6 @@
     <fullName>Apttus_QPConfig__UsedBenefitAmount__c</fullName>
     <deprecated>false</deprecated>
     <description>The benefit used on amount</description>
-    <externalId>false</externalId>
     <inlineHelpText>The benefit used on amount</inlineHelpText>
     <label>Used Benefit Amount</label>
     <precision>18</precision>

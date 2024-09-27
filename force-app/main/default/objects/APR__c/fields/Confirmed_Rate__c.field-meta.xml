@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Confirmed_Rate__c</fullName>
     <description>Confirmed Rate</description>
-    <externalId>false</externalId>
     <inlineHelpText>The APR rate that has been agreed to with the Account Manager after an APR negotiation. Based on the selection in the Status field, this field may auto-populate with a standard rate.</inlineHelpText>
     <label>Confirmed Rate (%)</label>
     <precision>7</precision>

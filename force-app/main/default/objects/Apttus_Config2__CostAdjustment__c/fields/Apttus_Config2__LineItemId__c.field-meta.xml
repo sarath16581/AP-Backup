@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__LineItemId__c</fullName>
     <deprecated>false</deprecated>
     <description>Reference to the master line item record</description>
-    <externalId>false</externalId>
     <inlineHelpText>Reference to the master line item record</inlineHelpText>
     <label>Line Item</label>
     <referenceTo>Apttus_Config2__LineItem__c</referenceTo>

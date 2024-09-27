@@ -4,7 +4,6 @@
     <deprecated>false</deprecated>
     <description>Wizard Input Field - A field which exists only within the wizard to make determinations 
 Object Field - A field which exists only as a salesforce object to make determinations</description>
-    <externalId>false</externalId>
     <inlineHelpText>Wizard Input Field - A field which exists only within the wizard to make determinations 
 Object Field - A field which exists only as a salesforce object to make determinations</inlineHelpText>
     <label>Field Class</label>

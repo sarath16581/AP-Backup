@@ -3,7 +3,6 @@
     <fullName>Apttus__PublishedDate__c</fullName>
     <deprecated>false</deprecated>
     <description>Date when the template was published</description>
-    <externalId>false</externalId>
     <inlineHelpText>Date when the template was published</inlineHelpText>
     <label>Published Date</label>
     <required>false</required>

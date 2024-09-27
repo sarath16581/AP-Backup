@@ -3,7 +3,6 @@
     <fullName>Apttus__Termination_Notice_Issue_Date__c</fullName>
     <deprecated>false</deprecated>
     <description>Date termination notice was sent / received</description>
-    <externalId>false</externalId>
     <label>Termination Notice Issue Date</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>

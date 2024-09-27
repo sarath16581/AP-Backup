@@ -3,7 +3,6 @@
     <fullName>Hidden_Opportunity_Annualised_Value__c</fullName>
     <businessStatus>Hidden</businessStatus>
     <description>A stamped field created to record the Opportunity ACV, updated by a workflow rule from the Roll up Formula field, in order to produce field history tracking for an opportunity record. This is for the purposes of building out reporting in Einstein Analytics Dataflows</description>
-    <externalId>false</externalId>
     <label>{Hidden} Opportunity Annualised Value</label>
     <precision>18</precision>
     <required>false</required>

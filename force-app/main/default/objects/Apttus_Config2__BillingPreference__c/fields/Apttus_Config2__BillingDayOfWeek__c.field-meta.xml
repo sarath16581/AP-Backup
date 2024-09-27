@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__BillingDayOfWeek__c</fullName>
     <deprecated>false</deprecated>
     <description>The billing day of the week. Indicates the starting day of week for which billing happens.</description>
-    <externalId>false</externalId>
     <inlineHelpText>The billing day of the week. Indicates the starting day of week for which billing happens.</inlineHelpText>
     <label>Billing Day Of Week</label>
     <required>false</required>

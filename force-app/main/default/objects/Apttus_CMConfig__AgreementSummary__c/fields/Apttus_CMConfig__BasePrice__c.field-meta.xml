@@ -3,7 +3,6 @@
     <fullName>Apttus_CMConfig__BasePrice__c</fullName>
     <deprecated>false</deprecated>
     <description>The base price is List price + Automatic Adjustments for individual products and options</description>
-    <externalId>false</externalId>
     <label>Base Price</label>
     <precision>18</precision>
     <required>false</required>

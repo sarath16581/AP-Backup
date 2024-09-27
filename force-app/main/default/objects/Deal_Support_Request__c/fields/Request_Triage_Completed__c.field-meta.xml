@@ -3,7 +3,6 @@
     <fullName>Request_Triage_Completed__c</fullName>
     <defaultValue>false</defaultValue>
     <description>This field signifies that Domestic Pricing Request Triaging has been completed</description>
-    <externalId>false</externalId>
     <inlineHelpText>Complete this field once you have triaged the pricing request</inlineHelpText>
     <label>Triage of request completed?</label>
     <securityClassification>INTERNAL</securityClassification>

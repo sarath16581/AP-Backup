@@ -3,7 +3,6 @@
     <fullName>APT_Commercial_Contact__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <description>Customer Commercial Contact</description>
-    <externalId>false</externalId>
     <inlineHelpText>Customer Commercial Contact</inlineHelpText>
     <label>Customer Contact For Notices</label>
     <referenceTo>Contact</referenceTo>

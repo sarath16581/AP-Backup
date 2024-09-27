@@ -3,7 +3,6 @@
     <fullName>CTA_Propose_Approved__c</fullName>
     <defaultValue>false</defaultValue>
     <description>This flag is set to True when associated CTA Propose DSR is approved</description>
-    <externalId>false</externalId>
     <label>CTA - Propose Approved</label>
     <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>

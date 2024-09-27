@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Exemption_Type__c</fullName>
     <description>Indicates Exemption Type that is used for Exemption Record Type</description>
-    <externalId>false</externalId>
     <inlineHelpText>indicates why there is an exemption</inlineHelpText>
     <label>Exemption Type</label>
     <required>false</required>

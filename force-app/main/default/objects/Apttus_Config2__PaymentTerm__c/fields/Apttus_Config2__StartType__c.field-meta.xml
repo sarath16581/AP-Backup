@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__StartType__c</fullName>
     <deprecated>false</deprecated>
     <description>Indicates which type of start type will be used to calculate the payment term.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Indicates which type of start type will be used to calculate the payment term.</inlineHelpText>
     <label>Start Type</label>
     <required>false</required>

@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Event_Timestamp__c</fullName>
     <description>The Date/Time when the event occurred in dispatch system.</description>
-    <externalId>false</externalId>
     <isFilteringDisabled>false</isFilteringDisabled>
     <isNameField>false</isNameField>
     <isSortingDisabled>false</isSortingDisabled>

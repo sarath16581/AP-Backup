@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Resubmitted_to_WU_date2__c</fullName>
     <description>Resubmitted to WU date - used in PB when status is updated to Resubmitted to WU</description>
-    <externalId>false</externalId>
     <inlineHelpText>Updated when status is changed to Resubmitted to WU</inlineHelpText>
     <label>Resubmitted to WU date</label>
     <required>false</required>

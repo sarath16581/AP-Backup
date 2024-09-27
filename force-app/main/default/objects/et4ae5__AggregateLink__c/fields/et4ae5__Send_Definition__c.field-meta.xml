@@ -3,7 +3,6 @@
     <fullName>et4ae5__Send_Definition__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <deprecated>false</deprecated>
-    <externalId>false</externalId>
     <label>Send Definition</label>
     <referenceTo>et4ae5__SendDefinition__c</referenceTo>
     <relationshipLabel>Aggregate Link Level Details</relationshipLabel>

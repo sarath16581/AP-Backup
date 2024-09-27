@@ -3,7 +3,6 @@
     <fullName>Apttus_QPConfig__ParamData__c</fullName>
     <deprecated>false</deprecated>
     <description>The parameter data associated with the quote/proposal</description>
-    <externalId>false</externalId>
     <inlineHelpText>The parameter data associated with the quote/proposal</inlineHelpText>
     <label>Param Data</label>
     <length>4000</length>

@@ -3,7 +3,6 @@
     <fullName>ByPassValidation__c</fullName>
     <defaultValue>false</defaultValue>
     <description>Flag to bypass validation in Apex RateListTriggerHandler_Test</description>
-    <externalId>false</externalId>
     <label>ByPassValidation</label>
     <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>

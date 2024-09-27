@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>kfsell__Single_Sales_Objective__c</fullName>
     <deprecated>false</deprecated>
-    <externalId>false</externalId>
     <label>Single Sales Objective</label>
     <length>32000</length>
     <trackHistory>false</trackHistory>

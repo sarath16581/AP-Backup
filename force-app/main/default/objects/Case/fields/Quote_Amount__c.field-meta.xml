@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Quote_Amount__c</fullName>
     <description>StarTrack - Quote Amount</description>
-    <externalId>false</externalId>
     <label>Quote Amount</label>
     <precision>18</precision>
     <required>false</required>

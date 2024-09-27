@@ -3,7 +3,6 @@
     <fullName>Apttus_Approval__Approval_Level__c</fullName>
     <deprecated>false</deprecated>
     <description>Field moved to Approval Matrix table</description>
-    <externalId>false</externalId>
     <label>Approval Level_OBSOLETE</label>
     <required>false</required>
     <trackFeedHistory>false</trackFeedHistory>

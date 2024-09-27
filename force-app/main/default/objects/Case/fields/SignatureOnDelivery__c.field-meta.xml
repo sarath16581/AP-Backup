@@ -3,7 +3,6 @@
     <fullName>SignatureOnDelivery__c</fullName>
     <defaultValue>false</defaultValue>
     <description>Used for Contact Us Form</description>
-    <externalId>false</externalId>
     <label>Signature On Delivery</label>
     <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>

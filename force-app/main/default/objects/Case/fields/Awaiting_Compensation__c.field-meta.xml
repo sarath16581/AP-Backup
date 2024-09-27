@@ -3,7 +3,6 @@
     <fullName>Awaiting_Compensation__c</fullName>
     <defaultValue>false</defaultValue>
     <description>SSSW</description>
-    <externalId>false</externalId>
     <label>Awaiting Compensation</label>
     <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>

@@ -3,7 +3,6 @@
     <fullName>APT_Credit_Assessment__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <description>.</description>
-    <externalId>false</externalId>
     <label>Account Assessment Outcome</label>
     <referenceTo>APT_Credit_Assessment__c</referenceTo>
     <relationshipLabel>Proposals</relationshipLabel>

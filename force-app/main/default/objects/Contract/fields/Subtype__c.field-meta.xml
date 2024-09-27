@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Subtype__c</fullName>
     <description>The subtype of the agreement for a given agreement type</description>
-    <externalId>false</externalId>
     <inlineHelpText>Depending on selection in this field, appropriate set of templates will be visible upon clicking &apos;Generate&apos;/&apos;Regenerate&apos; button.</inlineHelpText>
     <label>Subtype</label>
     <required>false</required>

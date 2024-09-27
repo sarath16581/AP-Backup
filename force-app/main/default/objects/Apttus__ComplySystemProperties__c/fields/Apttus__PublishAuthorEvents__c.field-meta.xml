@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Indicates whether author events should be published. If enabled, a record is inserted in the Merge Event table.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Indicates whether author events should be published. If enabled, a record is inserted in the Merge Event table.</inlineHelpText>
     <label>Publish Author Events</label>
     <trackTrending>false</trackTrending>

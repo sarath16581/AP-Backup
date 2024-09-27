@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Support_required_from_Solutions_Team__c</fullName>
     <description>Field is populated from the Bids Request Flow</description>
-    <externalId>false</externalId>
     <label>Support required from Solutions Team?</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>

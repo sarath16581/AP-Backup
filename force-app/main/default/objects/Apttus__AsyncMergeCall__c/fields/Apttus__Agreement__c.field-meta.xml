@@ -4,7 +4,6 @@
     <deleteConstraint>SetNull</deleteConstraint>
     <deprecated>false</deprecated>
     <description>The associated agreement</description>
-    <externalId>false</externalId>
     <label>Agreement</label>
     <referenceTo>Apttus__APTS_Agreement__c</referenceTo>
     <relationshipName>AsyncMerge_Calls</relationshipName>

@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Indicates whether the selling term is modifiable for the recurring product or option</description>
-    <externalId>false</externalId>
     <inlineHelpText>Indicates whether the selling term is modifiable for the recurring product or option</inlineHelpText>
     <label>Is Selling Term Read Only</label>
     <securityClassification>INTERNAL</securityClassification>

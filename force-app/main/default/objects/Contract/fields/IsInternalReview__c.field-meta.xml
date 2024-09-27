@@ -3,7 +3,6 @@
     <fullName>IsInternalReview__c</fullName>
     <defaultValue>false</defaultValue>
     <description>Indicates internal review was initiated</description>
-    <externalId>false</externalId>
     <label>Is Internal Review</label>
     <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>

@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__IsIncluded__c</fullName>
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
-    <externalId>false</externalId>
     <label>IsIncluded</label>
     <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>

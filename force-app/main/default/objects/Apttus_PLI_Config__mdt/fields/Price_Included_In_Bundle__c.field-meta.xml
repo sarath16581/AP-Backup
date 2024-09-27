@@ -3,7 +3,6 @@
     <fullName>Price_Included_In_Bundle__c</fullName>
     <defaultValue>false</defaultValue>
     <description>To capture whether the field Apttus_Config2__PriceIncludedInBundle__c needs to set on the PLI for a given product type.</description>
-    <externalId>false</externalId>
     <fieldManageability>DeveloperControlled</fieldManageability>
     <label>Price Included In Bundle</label>
     <type>Checkbox</type>

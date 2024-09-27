@@ -3,7 +3,6 @@
     <fullName>Second_Transit_Depot__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <description>Field used to capture the second transit point in a delivery</description>
-    <externalId>false</externalId>
     <label>Second Transit Depot</label>
     <lookupFilter>
         <active>true</active>

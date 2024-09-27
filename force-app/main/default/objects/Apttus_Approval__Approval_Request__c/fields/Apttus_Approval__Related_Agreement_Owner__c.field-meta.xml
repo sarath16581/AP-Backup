@@ -4,7 +4,6 @@
     <deleteConstraint>SetNull</deleteConstraint>
     <deprecated>false</deprecated>
     <description>This field is used to indicate a user who is the agreement owner when the request is for an agreement or agreement term exception.  This value is populated at runtime by the approvals engine when the request is assigned and is used the Approval Request Comments Modified email alert to send additional notifications to the Agreement Owner, Requestor, and Opportunity owner.</description>
-    <externalId>false</externalId>
     <label>Related Agreement Owner</label>
     <referenceTo>User</referenceTo>
     <relationshipName>Approval_Requests</relationshipName>

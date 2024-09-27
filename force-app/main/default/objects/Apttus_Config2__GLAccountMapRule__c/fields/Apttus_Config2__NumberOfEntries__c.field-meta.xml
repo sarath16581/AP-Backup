@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__NumberOfEntries__c</fullName>
     <deprecated>false</deprecated>
     <description>Indicates the number of entries associated with the mapping rule</description>
-    <externalId>false</externalId>
     <inlineHelpText>Indicates the number of entries associated with the mapping rule</inlineHelpText>
     <label>Number Of Entries</label>
     <securityClassification>INTERNAL</securityClassification>

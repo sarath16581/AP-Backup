@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Annual_Foreign_Currency_Turnover__c</fullName>
     <description>This is a new field to handle multi-currency feature in secure pay on platform.</description>
-    <externalId>false</externalId>
     <label>Annual Foreign Currency Turnover</label>
     <precision>10</precision>
     <required>false</required>

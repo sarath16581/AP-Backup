@@ -3,7 +3,6 @@
     <fullName>Customer__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <description>The customer to collect from / deliver to, depending on the booking record type.</description>
-    <externalId>false</externalId>
     <inlineHelpText>The customer to collect from / deliver to, depending on the booking record type.</inlineHelpText>
     <label>Customer</label>
     <referenceTo>Account</referenceTo>

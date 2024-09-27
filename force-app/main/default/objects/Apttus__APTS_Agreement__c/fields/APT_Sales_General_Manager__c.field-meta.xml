@@ -3,7 +3,6 @@
     <fullName>APT_Sales_General_Manager__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <description>This field is being populated by the system going through hierarchy from Agreement Owner. System will look for a user who has GM, of &apos;General Manager&apos; in the title and populate this person in this field</description>
-    <externalId>false</externalId>
     <label>Sales General Manager</label>
     <referenceTo>User</referenceTo>
     <relationshipName>Agreements1</relationshipName>

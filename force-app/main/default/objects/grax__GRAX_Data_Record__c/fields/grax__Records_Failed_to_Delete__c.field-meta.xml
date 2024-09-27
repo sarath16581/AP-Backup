@@ -3,7 +3,6 @@
     <fullName>grax__Records_Failed_to_Delete__c</fullName>
     <deprecated>false</deprecated>
     <description># of records which could not be deleted from SF</description>
-    <externalId>false</externalId>
     <label># Records Failed to Delete</label>
     <summaryFilterItems>
         <field>grax__GRAX_Data_Record_Id__c.grax__Status__c</field>

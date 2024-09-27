@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>APT_ProductAttributeValue_Fields_Mapping__c</fullName>
     <description>Add Product attribute fields to use in Quantity calculation.</description>
-    <externalId>false</externalId>
     <label>Product Attribute Value Fields Mapping</label>
     <required>false</required>
     <trackTrending>false</trackTrending>

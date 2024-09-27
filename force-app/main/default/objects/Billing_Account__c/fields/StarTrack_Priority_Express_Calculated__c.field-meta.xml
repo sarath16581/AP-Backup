@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>StarTrack_Priority_Express_Calculated__c</fullName>
-    <externalId>false</externalId>
     <formula>IF( Override_ST_Priority_Express__c , StarTrack_Priority_Express_Customer__c , Organisation__r.StarTrack_Priority_Express_Customer__c )</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <label>StarTrack Priority Express Customer</label>

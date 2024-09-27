@@ -3,7 +3,6 @@
     <fullName>Apttus_DealMgr__Description__c</fullName>
     <deprecated>false</deprecated>
     <description>Term description</description>
-    <externalId>false</externalId>
     <inlineHelpText>Term description</inlineHelpText>
     <label>Description</label>
     <length>4000</length>

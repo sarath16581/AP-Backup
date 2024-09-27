@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>APT_Domestic_Indicator__c</fullName>
     <description>For SAP Mapping: Domestic Indicator</description>
-    <externalId>false</externalId>
     <inlineHelpText>For SAP Mapping: Domestic Indicator</inlineHelpText>
     <label>Domestic Indicator</label>
     <required>false</required>

@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Indicates whether the line item is associated with a base product</description>
-    <externalId>false</externalId>
     <label>Has Base Product</label>
     <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>

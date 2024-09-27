@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Auto update default quantity when participants of expression change.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Auto update default quantity when participants of expression change.</inlineHelpText>
     <label>Auto Update Quantity</label>
     <securityClassification>INTERNAL</securityClassification>

@@ -3,7 +3,6 @@
     <fullName>StarTrack_Operation_User__c</fullName>
     <businessStatus>DeprecateCandidate</businessStatus>
     <deleteConstraint>SetNull</deleteConstraint>
-    <externalId>false</externalId>
     <label>Dep -StarTrack Operation User</label>
     <referenceTo>User</referenceTo>
     <relationshipName>StarTrackCases</relationshipName>

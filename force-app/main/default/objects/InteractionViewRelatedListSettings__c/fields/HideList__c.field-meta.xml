@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>HideList__c</fullName>
     <defaultValue>false</defaultValue>
-    <externalId>false</externalId>
     <label>Hide List</label>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>

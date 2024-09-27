@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>APT_Per_Annum_Value_of_Customers_Rev__c</fullName>
-    <externalId>false</externalId>
     <inlineHelpText>Per Annum Value of Customers combined eParcel &amp; BPA revenue ($)</inlineHelpText>
     <label>Per Annum Value of Customers Revenue</label>
     <precision>16</precision>

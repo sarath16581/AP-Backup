@@ -5,7 +5,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Process preview and submit approval actions asynchronously in the background.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Process submit for Approvals in async/batch mode</inlineHelpText>
     <label>Process Preview/Submit Asynchronously</label>
     <securityClassification>PUBLIC</securityClassification>

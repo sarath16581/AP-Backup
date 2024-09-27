@@ -3,7 +3,6 @@
     <fullName>Article_Case_field__c</fullName>
     <defaultValue>false</defaultValue>
     <description>StarTrack: capture if this is a Article field or case field.</description>
-    <externalId>false</externalId>
     <label>Article/Case field</label>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>

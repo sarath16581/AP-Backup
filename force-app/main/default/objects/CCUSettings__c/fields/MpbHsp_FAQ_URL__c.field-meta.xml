@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>MpbHsp_FAQ_URL__c</fullName>
     <description>This field is added as part of the Mypost Business Help &amp; support Portal implementation.</description>
-    <externalId>false</externalId>
     <label>MPB Help &amp; Support Portal FAQ URL</label>
     <required>false</required>
     <trackTrending>false</trackTrending>

@@ -3,7 +3,6 @@
     <fullName>Gold_Sheet_Read_Only_License__c</fullName>
     <defaultValue>false</defaultValue>
     <description>SAM - Gold Sheet Read Only license for large orgs.</description>
-    <externalId>false</externalId>
     <label>Gold Sheet Read Only License</label>
     <trackFeedHistory>false</trackFeedHistory>
     <type>Checkbox</type>

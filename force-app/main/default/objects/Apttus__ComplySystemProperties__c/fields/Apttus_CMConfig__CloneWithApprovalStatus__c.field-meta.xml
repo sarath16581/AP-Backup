@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Indicates whether approval status should be retained on the cart and line items associated with the cloned quote/proposal</description>
-    <externalId>false</externalId>
     <inlineHelpText>Indicates whether approval status should be retained on the cart and line items associated with the cloned quote/proposal</inlineHelpText>
     <label>Clone With Approval Status</label>
     <trackTrending>false</trackTrending>

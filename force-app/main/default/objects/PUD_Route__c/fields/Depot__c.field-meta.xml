@@ -3,7 +3,6 @@
     <fullName>Depot__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <description>Depot responsible for the route</description>
-    <externalId>false</externalId>
     <label>Depot</label>
     <lookupFilter>
         <active>true</active>

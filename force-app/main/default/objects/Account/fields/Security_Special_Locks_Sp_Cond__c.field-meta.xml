@@ -3,7 +3,6 @@
     <fullName>Security_Special_Locks_Sp_Cond__c</fullName>
     <defaultValue>false</defaultValue>
     <description>Is Licensee required to provide and maintain special locks on the premises?</description>
-    <externalId>false</externalId>
     <inlineHelpText>Is Licensee required to provide and maintain special locks on the premises?</inlineHelpText>
     <label>Security Special Locks Sp Cond</label>
     <securityClassification>INTERNAL</securityClassification>

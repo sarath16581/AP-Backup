@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Warehouse__c</fullName>
     <description>This field will be used by AP Fulfilment Fulfilio claims where they can set the warehouse assigned to the disputed item</description>
-    <externalId>false</externalId>
     <inlineHelpText>This field will be used by AP Fulfilment Fulfilio claims where they can set the warehouse assigned to the disputed item</inlineHelpText>
     <label>Warehouse</label>
     <required>false</required>

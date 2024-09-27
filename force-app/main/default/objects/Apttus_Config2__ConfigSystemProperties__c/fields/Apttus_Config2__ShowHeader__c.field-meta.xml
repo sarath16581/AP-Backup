@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Indicates whether the header tabs and sidebar should be displayed.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Indicates whether the header tabs and sidebar should be displayed.</inlineHelpText>
     <label>Show Header</label>
     <trackTrending>false</trackTrending>

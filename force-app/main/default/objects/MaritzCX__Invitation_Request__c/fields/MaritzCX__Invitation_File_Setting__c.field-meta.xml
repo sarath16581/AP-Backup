@@ -4,7 +4,6 @@
     <deleteConstraint>SetNull</deleteConstraint>
     <deprecated>false</deprecated>
     <description>Reference to  Invitation File Settings</description>
-    <externalId>false</externalId>
     <label>Invitation File Setting</label>
     <referenceTo>MaritzCX__Invitation_File_Setting__c</referenceTo>
     <relationshipLabel>Invitation Requests</relationshipLabel>

@@ -6,7 +6,6 @@ It is the sum of three different criteria&apos;s cost including Service Type Fee
 
 This field is used in the after insert/update trigger(Apt_RateCardKeyTrigger) for Line Item object,
 to overwrite Apttus&apos; NetPrice field with this field&apos;s value as part of pricing customisation for &apos;Local Pickup and Delivery Services&apos; Product.</description>
-    <externalId>false</externalId>
     <formula>APT_LPD_Service_Type_Fee__c + APT_LPD_Distance_Surcharge__c + APT_LPD_Ad_Hoc_Service_Charge__c</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <label>Total Service Fee</label>

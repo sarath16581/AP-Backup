@@ -118,6 +118,17 @@ public with sharing class ApplicationTestDataFactory {
 		return output;
 	}
 
+	public static List<Critical_Incident__kav> getCriticalIncidents(Integer count, Boolean generateIds) {
+		List<Critical_Incident__kav> output = (List<Critical_Incident__kav>)maybeGenerateIds(populateSObjects(Schema.SObjectType.Critical_Incident__kav.SObjectType, new Map<SObjectField, Object> {
+			Critical_Incident__kav.Title => 'Test Title %count%',
+			Critical_Incident__kav.UrlName => 'Test-UrlName-%count%',
+			Critical_Incident__kav.Time_To_Remind__c => System.today(),
+			Critical_Incident__kav.language => 'en_US'
+		}, count), generateIds);
+
+		return output;
+	}
+
 	public static List<Account> getPersonAccounts(Integer count, Boolean generateIds) {
 		return (List<Account>)maybeGenerateIds(populateSObjects(Account.SObjectType, new Map<SObjectField, Object> {
 				Account.RecordTypeId => personAccountRecordType,
@@ -897,7 +908,7 @@ public with sharing class ApplicationTestDataFactory {
 			Budget_and_Revenue__c.Dec_Revenue_Amount__c => 1000
 		}, count), generateIds);
 	}
-	
+    
 
 
 	public static List<Product2> getProducts(Integer count, Boolean generateIds) {
@@ -916,16 +927,16 @@ public with sharing class ApplicationTestDataFactory {
         }, count), generateIds);
     }
 
-	public static List<OpportunityLineItem> getOpportunityLineItems(Integer count, Id opportunityId, Id pricebookEntryId, Boolean generateIds) {
-		Date todaysDate = Date.today();
-		return (List<OpportunityLineItem>) maybeGenerateIds(populateSObjects(OpportunityLineItem.SObjectType, new Map<SObjectField, Object> {
-			OpportunityLineItem.OpportunityId => opportunityId,
-			OpportunityLineItem.PricebookEntryId => pricebookEntryId,
-			OpportunityLineItem.TotalPrice => 1000,
-			OpportunityLineItem.Contract_Start_Date__c => todaysDate,
-			OpportunityLineItem.Contract_End_Date__c => todaysDate.addDays(3)
-		}, count), generateIds);
-	}
+    public static List<OpportunityLineItem> getOpportunityLineItems(Integer count, Id opportunityId, Id pricebookEntryId, Boolean generateIds) {
+        Date todaysDate = Date.today();
+        return (List<OpportunityLineItem>) maybeGenerateIds(populateSObjects(OpportunityLineItem.SObjectType, new Map<SObjectField, Object> {
+            OpportunityLineItem.OpportunityId => opportunityId,
+            OpportunityLineItem.PricebookEntryId => pricebookEntryId,
+            OpportunityLineItem.TotalPrice => 1000,
+            OpportunityLineItem.Contract_Start_Date__c => todaysDate,
+            OpportunityLineItem.Contract_End_Date__c => todaysDate.addDays(3)
+        }, count), generateIds);
+    }
 
 	public static List<BAMApplication__c> getBamApplications(Integer count, String appName, Id productId, Boolean generateIds) {
 		return (List<BAMApplication__c>)maybeGenerateIds(populateSObjects(BAMApplication__c.SObjectType, new Map<SObjectField, Object> {
@@ -1097,6 +1108,7 @@ public with sharing class ApplicationTestDataFactory {
 		}
 		private set;
 	}
+	
 	/**
 	* Generates test data for Auspost_Vendors_Email_Address__mdt custom metadata records
 	**/

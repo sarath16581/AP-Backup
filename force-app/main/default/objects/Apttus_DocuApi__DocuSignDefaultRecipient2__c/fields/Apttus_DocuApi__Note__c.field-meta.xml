@@ -3,7 +3,6 @@
     <fullName>Apttus_DocuApi__Note__c</fullName>
     <deprecated>false</deprecated>
     <description>Note for the individual recipient</description>
-    <externalId>false</externalId>
     <inlineHelpText>Note for the individual recipient</inlineHelpText>
     <label>Note</label>
     <length>1000</length>

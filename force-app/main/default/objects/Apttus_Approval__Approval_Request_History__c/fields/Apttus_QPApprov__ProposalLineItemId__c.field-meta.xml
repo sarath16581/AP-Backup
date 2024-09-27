@@ -4,7 +4,6 @@
     <deleteConstraint>SetNull</deleteConstraint>
     <deprecated>false</deprecated>
     <description>ID of the associated quote/proposal line item</description>
-    <externalId>false</externalId>
     <label>Related Quote/ProposalProposal Line Item</label>
     <referenceTo>Apttus_Proposal__Proposal_Line_Item__c</referenceTo>
     <relationshipLabel>Approval Request History</relationshipLabel>

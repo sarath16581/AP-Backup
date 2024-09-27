@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Status__c</fullName>
     <description>The status of the request. Set to Pending when submitted to Camunda.  Updated to Success if successful, Partial Success for partially successful, else Error if and issue has occurred.</description>
-    <externalId>false</externalId>
     <label>Status</label>
     <required>true</required>
     <trackTrending>false</trackTrending>

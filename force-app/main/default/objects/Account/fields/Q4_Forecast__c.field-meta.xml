@@ -3,7 +3,6 @@
     <fullName>Q4_Forecast__c</fullName>
     <defaultValue>0</defaultValue>
     <description>Stores Q4 Forecast for a Customer</description>
-    <externalId>false</externalId>
     <inlineHelpText>Stores Q4 Forecast for a Customer</inlineHelpText>
     <label>Q4 Forecast</label>
     <precision>18</precision>

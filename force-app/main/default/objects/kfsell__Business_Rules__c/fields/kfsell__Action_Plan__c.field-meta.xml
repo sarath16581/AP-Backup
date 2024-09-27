@@ -3,7 +3,6 @@
     <fullName>kfsell__Action_Plan__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <deprecated>false</deprecated>
-    <externalId>false</externalId>
     <label>Action Plan</label>
     <referenceTo>kfsell__Action_Plan__c</referenceTo>
     <relationshipLabel>Business Rules</relationshipLabel>

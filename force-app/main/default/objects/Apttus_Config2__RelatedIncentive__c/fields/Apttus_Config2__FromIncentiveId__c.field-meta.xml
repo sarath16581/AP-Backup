@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__FromIncentiveId__c</fullName>
     <deprecated>false</deprecated>
     <description>ID of the related incentive (from)</description>
-    <externalId>false</externalId>
     <inlineHelpText>ID of the related incentive (from)</inlineHelpText>
     <label>Related Incentive (From)</label>
     <referenceTo>Apttus_Config2__Incentive__c</referenceTo>

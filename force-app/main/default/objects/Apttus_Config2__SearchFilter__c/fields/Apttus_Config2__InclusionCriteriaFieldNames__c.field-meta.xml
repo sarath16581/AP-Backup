@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__InclusionCriteriaFieldNames__c</fullName>
     <deprecated>false</deprecated>
     <description>The list of field names used in the inclusion criteria</description>
-    <externalId>false</externalId>
     <inlineHelpText>The list of field names used in the inclusion criteria</inlineHelpText>
     <label>Inclusion Criteria Field Names</label>
     <length>1024</length>

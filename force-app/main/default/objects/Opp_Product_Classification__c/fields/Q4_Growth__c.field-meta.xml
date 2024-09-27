@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Q4_Growth__c</fullName>
-    <externalId>false</externalId>
     <formula>Apr_Growth__c + May_Growth__c + Jun_Growth__c</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <label>Q4 Growth</label>

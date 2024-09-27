@@ -4,7 +4,6 @@
     <deleteConstraint>SetNull</deleteConstraint>
     <deprecated>false</deprecated>
     <description>Indicates Associated Document Version ID</description>
-    <externalId>false</externalId>
     <inlineHelpText>Indicates Associated Document Version ID</inlineHelpText>
     <label>Document Version</label>
     <referenceTo>Apttus__DocumentVersion__c</referenceTo>

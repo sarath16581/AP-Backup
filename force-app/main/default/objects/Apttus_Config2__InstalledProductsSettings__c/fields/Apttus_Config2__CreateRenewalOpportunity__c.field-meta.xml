@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Indicates whether a renewal opportunity should be created for system generated asset renewal quotes</description>
-    <externalId>false</externalId>
     <inlineHelpText>Indicates whether a renewal opportunity should be created for system generated asset renewal quotes</inlineHelpText>
     <label>Create Renewal Opportunity</label>
     <trackTrending>false</trackTrending>

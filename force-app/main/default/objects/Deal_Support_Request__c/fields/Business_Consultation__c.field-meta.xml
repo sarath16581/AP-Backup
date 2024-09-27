@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Business_Consultation__c</fullName>
-    <externalId>false</externalId>
     <inlineHelpText>List the contacts from other areas of AP that you have already consulted with (eg Product, Solutions, Pricing, Operations, Service, Privacy, Risk).</inlineHelpText>
     <label>Business Consultation</label>
     <length>131072</length>

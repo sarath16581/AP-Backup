@@ -3,7 +3,6 @@
     <fullName>AnnualPriceReviewEffectiveDate__c</fullName>
     <businessStatus>Active</businessStatus>
     <description>The day on which Annual Price Review is Effective every year. Currently this is being used for TEAM only for nextRevenueDueDate calculation.</description>
-    <externalId>false</externalId>
     <fieldManageability>DeveloperControlled</fieldManageability>
     <inlineHelpText>Annual Price Review Date. Only Day of the month  and month part of the date is considered.</inlineHelpText>
     <label>Annual Price Review Effective Date</label>

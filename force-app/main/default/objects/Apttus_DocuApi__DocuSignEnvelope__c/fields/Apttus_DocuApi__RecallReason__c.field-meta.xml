@@ -3,7 +3,6 @@
     <fullName>Apttus_DocuApi__RecallReason__c</fullName>
     <deprecated>false</deprecated>
     <description>Reason for voiding/recalling the envelope.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Reason for voiding/recalling the envelope.</inlineHelpText>
     <label>Recall Reason</label>
     <required>false</required>

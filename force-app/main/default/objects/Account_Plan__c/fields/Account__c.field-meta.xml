@@ -3,7 +3,6 @@
     <fullName>Account__c</fullName>
     <description>Phase 1 - Sales Process (PWC)
 13/11 CV - added filter to limit Account Lookup to Organisation only.</description>
-    <externalId>false</externalId>
     <label>Organisation</label>
     <lookupFilter>
         <active>true</active>

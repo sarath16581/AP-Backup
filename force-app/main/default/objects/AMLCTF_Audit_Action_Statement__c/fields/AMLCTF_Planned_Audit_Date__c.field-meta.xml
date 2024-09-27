@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>AMLCTF_Planned_Audit_Date__c</fullName>
     <description>The Planned Audit Date, from Case record. Part of the Retail Audit Case Management Solution, AML/CTF Austrac Phase 2.</description>
-    <externalId>false</externalId>
     <formula>AMLCTF_Audit_Case__r.AMLCTF_Planned_Audit_Date__c</formula>
     <inlineHelpText>The Planned Audit Date, from Case record. Part of the Retail Audit Case Management Solution, AML/CTF Austrac Phase 2.</inlineHelpText>
     <label>Planned Audit Date</label>

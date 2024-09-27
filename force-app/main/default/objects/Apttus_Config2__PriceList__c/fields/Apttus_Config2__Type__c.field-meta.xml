@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__Type__c</fullName>
     <deprecated>false</deprecated>
     <description>The price list type</description>
-    <externalId>false</externalId>
     <inlineHelpText>The price list type</inlineHelpText>
     <label>Type</label>
     <required>false</required>

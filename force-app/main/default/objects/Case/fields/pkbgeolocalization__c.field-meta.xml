@@ -3,7 +3,6 @@
     <fullName>pkbgeolocalization__c</fullName>
     <description>Store the geolocalization of the customer on case creation from mobile.</description>
     <displayLocationInDecimal>false</displayLocationInDecimal>
-    <externalId>false</externalId>
     <inlineHelpText>Where the customer was when the case has been created</inlineHelpText>
     <label>Customer Geolocalization</label>
     <required>false</required>

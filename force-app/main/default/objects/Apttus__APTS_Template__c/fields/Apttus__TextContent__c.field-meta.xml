@@ -3,7 +3,6 @@
     <fullName>Apttus__TextContent__c</fullName>
     <deprecated>false</deprecated>
     <description>The text content of the template document</description>
-    <externalId>false</externalId>
     <label>Text Content</label>
     <length>32768</length>
     <securityClassification>INTERNAL</securityClassification>

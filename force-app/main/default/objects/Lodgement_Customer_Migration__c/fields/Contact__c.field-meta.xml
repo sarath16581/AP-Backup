@@ -3,7 +3,6 @@
     <fullName>Contact__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <description>Name of contact at legal entity</description>
-    <externalId>false</externalId>
     <inlineHelpText>The decision maker at the Lodgement Customer</inlineHelpText>
     <label>Business Contact</label>
     <referenceTo>Contact</referenceTo>

@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>ValidationAPIUrl__c</fullName>
     <description>API URL to consume to validate configurations put together in BAM</description>
-    <externalId>false</externalId>
     <inlineHelpText>API URL to consume to validate configurations put together in BAM</inlineHelpText>
     <label>Validation API Url</label>
     <required>false</required>

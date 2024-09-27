@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>SAP_Weight_Rounding__c</fullName>
     <description>Stores the weight rounding coming from I2 and passes on to I5</description>
-    <externalId>false</externalId>
     <label>SAP Weight Rounding</label>
     <required>false</required>
     <trackHistory>false</trackHistory>

@@ -4,7 +4,6 @@
     <defaultValue>true</defaultValue>
     <deprecated>false</deprecated>
     <description>Whether user can override the adjustment</description>
-    <externalId>false</externalId>
     <label>Allow Manual Adjustment</label>
     <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>

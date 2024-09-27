@@ -3,7 +3,6 @@
     <fullName>Apttus__Description__c</fullName>
     <deprecated>false</deprecated>
     <description>Additional information for reference</description>
-    <externalId>false</externalId>
     <inlineHelpText>Please add additional information for reference</inlineHelpText>
     <label>Description</label>
     <required>false</required>

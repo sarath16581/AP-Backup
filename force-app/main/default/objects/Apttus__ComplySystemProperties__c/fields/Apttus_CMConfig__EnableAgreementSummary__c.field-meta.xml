@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Indicator to enable the agreement summary object</description>
-    <externalId>false</externalId>
     <inlineHelpText>Indicator to enable the agreement summary object</inlineHelpText>
     <label>Enable Agreement Summary</label>
     <trackTrending>false</trackTrending>

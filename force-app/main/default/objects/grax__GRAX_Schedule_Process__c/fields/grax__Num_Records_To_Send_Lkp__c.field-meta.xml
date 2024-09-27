@@ -3,7 +3,6 @@
     <fullName>grax__Num_Records_To_Send_Lkp__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <deprecated>false</deprecated>
-    <externalId>false</externalId>
     <label>Num Records To Send Lkp</label>
     <referenceTo>grax__GRAX_Helper__c</referenceTo>
     <relationshipLabel>Num Records To Send Lkps</relationshipLabel>

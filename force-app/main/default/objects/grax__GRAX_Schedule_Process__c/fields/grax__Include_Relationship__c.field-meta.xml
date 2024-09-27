@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Field Used for Internal Auditing</description>
-    <externalId>false</externalId>
     <label>Include Relationship</label>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>

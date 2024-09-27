@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__ExtendedDescription__c</fullName>
     <deprecated>false</deprecated>
     <description>The extended line description</description>
-    <externalId>false</externalId>
     <label>Extended Description</label>
     <length>2048</length>
     <securityClassification>INTERNAL</securityClassification>

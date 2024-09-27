@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__Frequency__c</fullName>
     <deprecated>false</deprecated>
     <description>The pricing frequency associated with the recurring or usage price</description>
-    <externalId>false</externalId>
     <label>Pricing Frequency</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>

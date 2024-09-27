@@ -4,7 +4,6 @@
     <description>Phase 1 - Opportunity Assessment (PWC)
 
 When will the opportunity start? What is the length of the project?</description>
-    <externalId>false</externalId>
     <label>Expected Start Date</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>

@@ -3,7 +3,6 @@
     <fullName>APT_Postcode_Suburb__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <description>Lookup to the post code suburb mapping to gather information about the zone in case of startrack products</description>
-    <externalId>false</externalId>
     <inlineHelpText>Primary pickup location</inlineHelpText>
     <label>Primary pickup location(Postcode-Suburb)</label>
     <referenceTo>APT_Post_Code_Mapping__c</referenceTo>

@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Enabling this setting allows you to have more characters available for questions and answers in your wizards</description>
-    <externalId>false</externalId>
     <inlineHelpText>Enabling this setting allows you to have more characters available for questions and answers in your wizards</inlineHelpText>
     <label>Use text areas for wizards</label>
     <trackTrending>false</trackTrending>

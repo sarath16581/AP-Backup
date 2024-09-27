@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>PreferredAgentExpiry__c</fullName>
-    <externalId>false</externalId>
     <inlineHelpText>This date is used by Omni to determine whether to assign the case to the preferred agent or to other agents</inlineHelpText>
     <label>Preferred Agent Expiry</label>
     <required>false</required>

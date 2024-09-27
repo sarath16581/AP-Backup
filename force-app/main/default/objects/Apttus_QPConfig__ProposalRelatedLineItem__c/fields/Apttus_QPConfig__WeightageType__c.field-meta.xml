@@ -3,7 +3,6 @@
     <fullName>Apttus_QPConfig__WeightageType__c</fullName>
     <deprecated>false</deprecated>
     <description>The weightage type</description>
-    <externalId>false</externalId>
     <inlineHelpText>The weightage type</inlineHelpText>
     <label>Weightage Type</label>
     <required>false</required>

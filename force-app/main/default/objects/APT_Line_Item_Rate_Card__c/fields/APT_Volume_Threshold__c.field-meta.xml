@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>APT_Volume_Threshold__c</fullName>
-    <externalId>false</externalId>
     <formula>IF( APT_Value_3__c  =  TEXT( APT_Proposal_Line_Item__r.Apttus_QPConfig__DerivedFromId__r.Apttus_Config2__AttributeValueId__r.APT_Volume_Threshold_Post_BillPay__c ),True,False)
 /*IF( APT_Value_3__c  =  APT_Proposal_Line_Item__r.Apttus_QPConfig__AttributeValueId__r.APT_Volume_Threshold_Post_BillPay__c ,True,False)*/</formula>
     <label>Volume Threshold</label>

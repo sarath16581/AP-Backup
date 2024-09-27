@@ -3,7 +3,6 @@
     <fullName>Apttus__FilterCriteria__c</fullName>
     <deprecated>false</deprecated>
     <description>Criteria spec used for filtering the line items. This is a SOQL WHERE clause</description>
-    <externalId>false</externalId>
     <inlineHelpText>Criteria spec used for filtering the line items. This is a SOQL WHERE clause</inlineHelpText>
     <label>Filter Criteria</label>
     <length>2000</length>

@@ -3,7 +3,6 @@
     <fullName>Line_Manager_2__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <description>Co-Host&apos;s line manager</description>
-    <externalId>false</externalId>
     <inlineHelpText>Co-Host&apos;s line manager</inlineHelpText>
     <label>Line Manager</label>
     <referenceTo>User</referenceTo>

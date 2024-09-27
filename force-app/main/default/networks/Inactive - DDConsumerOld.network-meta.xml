@@ -9,6 +9,7 @@
     <emailFooterText>Australia Post will never send you an email asking for your password, credit card details or account information. This email was sent by Australia Post, 111 Bourke Street, MELBOURNE VIC 3000. If you have any concerns, or don&apos;t think you should have received this email, please call us on 13 13 18. Visit auspost.com.au for further information on our online security. Please note that this is an automatically generated email, replies will not be answered. Australia Post does not represent, warrant or guarantee that the integrity of this email communication has been maintained nor that the communication is free of errors, viruses or interference.</emailFooterText>
     <emailSenderAddress>noreply@national.community.auspost.com.au</emailSenderAddress>
     <emailSenderName>Australia Post Community</emailSenderName>
+    <embeddedLoginEnabled>true</embeddedLoginEnabled>
     <enableApexCDNCaching>true</enableApexCDNCaching>
     <enableCustomVFErrorPageOverrides>false</enableCustomVFErrorPageOverrides>
     <enableDirectMessages>false</enableDirectMessages>

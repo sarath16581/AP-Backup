@@ -3,7 +3,6 @@
     <fullName>Apttus_QPConfig__PricingDate__c</fullName>
     <deprecated>false</deprecated>
     <description>The pricing date, The product list price is determined based on this date.</description>
-    <externalId>false</externalId>
     <inlineHelpText>The pricing date, The product list price is determined based on this date.</inlineHelpText>
     <label>Pricing Date</label>
     <required>false</required>

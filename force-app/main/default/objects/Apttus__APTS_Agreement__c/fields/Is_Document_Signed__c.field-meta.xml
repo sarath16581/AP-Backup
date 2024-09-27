@@ -3,7 +3,6 @@
     <fullName>Is_Document_Signed__c</fullName>
     <defaultValue>false</defaultValue>
     <description>This Checkbox is used to acknowledge if the manual documents uploaded are signed or not , Until Checked user is not allowed to activate contract.</description>
-    <externalId>false</externalId>
     <label>Is Document Manually Signed ?</label>
     <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>

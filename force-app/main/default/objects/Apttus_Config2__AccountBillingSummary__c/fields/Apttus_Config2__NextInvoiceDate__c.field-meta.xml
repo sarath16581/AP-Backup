@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__NextInvoiceDate__c</fullName>
     <deprecated>false</deprecated>
     <description>The next invoice date for the account</description>
-    <externalId>false</externalId>
     <inlineHelpText>The next invoice date for the account</inlineHelpText>
     <label>Next Invoice Date</label>
     <required>false</required>

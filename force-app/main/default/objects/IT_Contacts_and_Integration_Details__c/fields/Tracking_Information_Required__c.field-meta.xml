@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Tracking_Information_Required__c</fullName>
     <description>Does the customer want access to tracking information?</description>
-    <externalId>false</externalId>
     <inlineHelpText>Does the customer want to be notified of consignment status? Sales agent to advise IT.</inlineHelpText>
     <label>Tracking Information Required?</label>
     <required>false</required>

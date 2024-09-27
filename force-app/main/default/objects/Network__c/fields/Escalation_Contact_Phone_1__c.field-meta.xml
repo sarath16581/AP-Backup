@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Escalation_Contact_Phone_1__c</fullName>
     <description>Escalation Contact phone for the depot - Depot Manager</description>
-    <externalId>false</externalId>
     <inlineHelpText>Escalation Contact phone for the depot - Depot Manager</inlineHelpText>
     <label>Depot Manager Contact Number</label>
     <required>false</required>

@@ -3,7 +3,6 @@
     <fullName>Proposal_ID__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <description>Lookup to the proposal ID for any approved rates to be attached to</description>
-    <externalId>false</externalId>
     <label>Proposal ID</label>
     <referenceTo>Apttus_Proposal__Proposal__c</referenceTo>
     <relationshipLabel>Deal Support Request</relationshipLabel>

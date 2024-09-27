@@ -3,7 +3,6 @@
     <fullName>Apttus_Approval__SelectValueType__c</fullName>
     <deprecated>false</deprecated>
     <description>The select value type</description>
-    <externalId>false</externalId>
     <label>Value Type</label>
     <required>false</required>
     <trackTrending>false</trackTrending>

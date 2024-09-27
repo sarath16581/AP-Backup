@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Reason_For_interest__c</fullName>
     <description>Response for the Generic Email profiling questions</description>
-    <externalId>false</externalId>
     <inlineHelpText>Response for the Generic Email profiling questions</inlineHelpText>
     <label>Reason For interest</label>
     <required>false</required>

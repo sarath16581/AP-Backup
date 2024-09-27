@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Customer_Request_Attached__c</fullName>
-    <externalId>false</externalId>
     <inlineHelpText>Attach Customer Request to Deal Support Request</inlineHelpText>
     <label>Customer Request Attached</label>
     <required>false</required>

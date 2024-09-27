@@ -3,7 +3,6 @@
     <fullName>Events__c</fullName>
     <defaultValue>false</defaultValue>
     <description>Phase 1 - Marketing Characteristics</description>
-    <externalId>false</externalId>
     <inlineHelpText>e.g. Tradeshows</inlineHelpText>
     <label>Events</label>
     <securityClassification>INTERNAL</securityClassification>

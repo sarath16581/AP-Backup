@@ -4,7 +4,6 @@
     <defaultValue>true</defaultValue>
     <deprecated>false</deprecated>
     <description>Enables collection of Conga product(s) telemetry data for proactive monitoring.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Enables collection of Conga product(s) telemetry data for proactive monitoring.</inlineHelpText>
     <label>Enable Telemetry</label>
     <trackTrending>false</trackTrending>

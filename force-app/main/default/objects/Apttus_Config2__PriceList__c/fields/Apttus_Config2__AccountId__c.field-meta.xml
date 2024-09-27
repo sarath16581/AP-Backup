@@ -4,7 +4,6 @@
     <deleteConstraint>SetNull</deleteConstraint>
     <deprecated>false</deprecated>
     <description>ID of the account associated with the price list</description>
-    <externalId>false</externalId>
     <inlineHelpText>ID of the account associated with the price list</inlineHelpText>
     <label>Account</label>
     <referenceTo>Account</referenceTo>

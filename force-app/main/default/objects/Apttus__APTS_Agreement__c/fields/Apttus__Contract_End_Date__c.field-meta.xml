@@ -3,7 +3,6 @@
     <fullName>Apttus__Contract_End_Date__c</fullName>
     <deprecated>false</deprecated>
     <description>The end date for this agreement</description>
-    <externalId>false</externalId>
     <inlineHelpText>For Open Ended contract, Agreement Expiry Date is defaulted to 31/12/2999. For Fixed Term Contract, Agreement Expiry Date is calculated based on Term of Agreement (Months).   
 		Note: For Fixed Term Contract, ensure that Service Expiry Date is updated accordingly.</inlineHelpText>
     <label>Agreement End Date</label>

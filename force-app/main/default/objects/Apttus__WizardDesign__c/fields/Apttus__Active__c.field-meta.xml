@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Indicates the Wizard Design is Active. Once activated, the wizard cannot be modified.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Indicates the Wizard Design is Active. Once activated, the wizard cannot be modified.</inlineHelpText>
     <label>Active (Deprecated)</label>
     <securityClassification>INTERNAL</securityClassification>

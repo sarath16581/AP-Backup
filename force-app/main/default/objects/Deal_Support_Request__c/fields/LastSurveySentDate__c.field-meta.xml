@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>LastSurveySentDate__c</fullName>
     <description>The date that a survey for this record was last sent</description>
-    <externalId>false</externalId>
     <inlineHelpText>The date that a survey for this record was last sent</inlineHelpText>
     <label>Last Survey Sent Date</label>
     <required>false</required>

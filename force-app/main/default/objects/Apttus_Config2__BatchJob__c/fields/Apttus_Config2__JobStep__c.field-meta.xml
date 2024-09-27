@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__JobStep__c</fullName>
     <deprecated>false</deprecated>
     <description>The job step</description>
-    <externalId>false</externalId>
     <label>Job Step</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>

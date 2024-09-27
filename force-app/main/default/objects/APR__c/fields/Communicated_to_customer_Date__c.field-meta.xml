@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Communicated_to_customer_Date__c</fullName>
     <description>The date when the APR was communicated to the customer</description>
-    <externalId>false</externalId>
     <inlineHelpText>The date when the APR was communicated to the customer</inlineHelpText>
     <label>Communicated to customer Date</label>
     <required>false</required>

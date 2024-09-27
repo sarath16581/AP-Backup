@@ -4,7 +4,6 @@
     <deleteConstraint>SetNull</deleteConstraint>
     <deprecated>false</deprecated>
     <description>Holds the User Id of the User who accessed this configuration in edit mode</description>
-    <externalId>false</externalId>
     <inlineHelpText>Holds the User Id of the User who accessed this configuration in edit mode</inlineHelpText>
     <label>Current User</label>
     <referenceTo>User</referenceTo>

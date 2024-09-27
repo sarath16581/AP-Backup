@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>APT_Help_Text__c</fullName>
-    <externalId>false</externalId>
     <inlineHelpText>User visible help text when user selects the option</inlineHelpText>
     <label>Help Text</label>
     <required>false</required>

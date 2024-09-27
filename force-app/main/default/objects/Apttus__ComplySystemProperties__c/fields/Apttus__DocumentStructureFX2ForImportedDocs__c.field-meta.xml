@@ -4,7 +4,6 @@
     <defaultValue>true</defaultValue>
     <deprecated>false</deprecated>
     <description>Applies FX2 framework to CM actions Create, Import Offline Documents, else Pre-FX2. Not for X-Author actions</description>
-    <externalId>false</externalId>
     <inlineHelpText>Applies FX2 framework to CM actions Create, Import Offline Documents, else Pre-FX2. Not for X-Author actions</inlineHelpText>
     <label>Document Structure FX2 For Imported Docs</label>
     <trackTrending>false</trackTrending>

@@ -10,7 +10,6 @@ HALF_UP
 DOWN
 HALF_DOWN
 HALF_EVEN</description>
-    <externalId>false</externalId>
     <inlineHelpText>The custom rounding mode. 
 Valid values (default=&quot;HALF_EVEN&quot;)
 UP

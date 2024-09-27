@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__LineItemId__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <deprecated>false</deprecated>
-    <externalId>false</externalId>
     <label>Line Item</label>
     <referenceTo>Apttus_Config2__LineItem__c</referenceTo>
     <relationshipLabel>Lineitem Rollups</relationshipLabel>

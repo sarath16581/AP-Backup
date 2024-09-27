@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Whether to hide copy action for a line item</description>
-    <externalId>false</externalId>
     <inlineHelpText>Check to hide copy action for the line item</inlineHelpText>
     <label>Hide Copy Action</label>
     <securityClassification>INTERNAL</securityClassification>

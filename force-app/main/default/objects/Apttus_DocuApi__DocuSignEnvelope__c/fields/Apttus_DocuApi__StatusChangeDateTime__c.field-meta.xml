@@ -3,7 +3,6 @@
     <fullName>Apttus_DocuApi__StatusChangeDateTime__c</fullName>
     <deprecated>false</deprecated>
     <description>Date and time of last Envelope Status change.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Date and time of last Envelope Status change.</inlineHelpText>
     <label>Status Change Date</label>
     <required>false</required>

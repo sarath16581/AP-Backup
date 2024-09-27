@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Accessible_Amount_FY__c</fullName>
     <description>Financial Value</description>
-    <externalId>false</externalId>
     <inlineHelpText>Thinking about the products/services we offer, what is the amount of the organisations total spend that aligns to our current capabilities</inlineHelpText>
     <label>Accessible Amount (FY)</label>
     <precision>18</precision>

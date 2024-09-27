@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Selling_on_any_other_marketplace__c</fullName>
-    <externalId>false</externalId>
     <inlineHelpText>If &apos;Yes - Other&apos; please idenfify marketplace in additional comments</inlineHelpText>
     <label>Selling on any other marketplace?</label>
     <required>false</required>

@@ -4,7 +4,6 @@
     <deleteConstraint>SetNull</deleteConstraint>
     <deprecated>false</deprecated>
     <description>ID of the related incentive (to)</description>
-    <externalId>false</externalId>
     <inlineHelpText>ID of the related incentive (to)</inlineHelpText>
     <label>Related Incentive (To)</label>
     <referenceTo>Apttus_Config2__Incentive__c</referenceTo>

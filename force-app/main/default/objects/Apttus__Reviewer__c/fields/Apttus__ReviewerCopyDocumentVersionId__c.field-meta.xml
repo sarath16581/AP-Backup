@@ -4,7 +4,6 @@
     <deleteConstraint>SetNull</deleteConstraint>
     <deprecated>false</deprecated>
     <description>Reviewer copy of document, submitted by reviewer</description>
-    <externalId>false</externalId>
     <inlineHelpText>Reviewer copy of document, submitted by reviewer</inlineHelpText>
     <label>Reviewer Copy Document Version</label>
     <referenceTo>Apttus__DocumentVersionDetail__c</referenceTo>

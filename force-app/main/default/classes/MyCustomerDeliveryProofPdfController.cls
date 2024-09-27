@@ -12,11 +12,25 @@
 public with sharing class MyCustomerDeliveryProofPdfController {
 	// Causes an error to be displayed on the page and will prevent the rendering of anything else
 	public static String pageError { get; set; }
-	public static String pageError { get; set; }
 
 	public String articleId { get; set; }
 	public static List<DeliveryProofAttributes> deliveryProofAttributes { get; set; }
 	public static Boolean isConsignment;
+
+	// Stores the continuation label
+	private String safeDropRequestLabel;
+
+	/**
+	 * Attachment id's associated to the event message being rendered from
+	 */
+	public transient Id safeDropAttachmentId { get; set; }
+	public transient Id signatureAttachmentId { get; set; }
+
+	/**
+	 * Retrieve the specific event message for either the safe drop or signature image
+	 * We do this as a separate request so we can include Article & Consignment related object (without needing to select the data for all event messages)
+	 */
+	public EventMessage__c eventMessage { get; set; }
 
 	/**
 	 * @description	On VF page launch, it will build up a delivery proof result object and populate all necessary attributes for VF PDF display
@@ -214,7 +228,10 @@ public with sharing class MyCustomerDeliveryProofPdfController {
 	 * @return	List<SafeDropImageState> e.g. SafeDropImageState in JSON: ([{guidID: "guidId123456", requireDownload: true}])
 	 */
 	public static List<SafeDropImageState> getCurrentStateOfSafeDropImageRequiredForDownload(String trackingId) {
+        System.debug('Tracking ID: ' + trackingId);
+        
 		List<Article__c> consignments = queryConsignmentByTrackingId(trackingId);
+        System.debug('Consignment: ' + consignments);
 		List<DeliveryProofAttributes> deliveryEventKeyList = buildAttributesForPDFDisplay(getArticleIdsFromArticles(consignments));
 		// Build a list of State object with the latest State of SafeDrop image cache in Salesforce for the entire consignment set
 		List<SafeDropImageState> safeDropImageStates = new List<SafeDropImageState>();
@@ -228,6 +245,7 @@ public with sharing class MyCustomerDeliveryProofPdfController {
 				safeDropImageStates.add(state);
 			}
 		}
+        System.debug('Delivery Proof Attributes: ' + safeDropImageStates);
 		return safeDropImageStates;
 	}
 
@@ -240,9 +258,11 @@ public with sharing class MyCustomerDeliveryProofPdfController {
 		List<Article__c> consignments = ArticlesSelector.newInstance()
 			.selectByIdOrTracking(new Set<String>{ trackingId }, new Set<Id>(), new Set<Object>{ ArticlesSelector.Options.WITH_CONSIGNMENT, ArticlesSelector.Options.WITH_RECORDTYPE }, true)
 			.values();
+        System.debug('First query results: ' + consignments);
 		Boolean requireConsignmentQuery = isNotConsignmentTrackingID(consignments);
 		isConsignment = !requireConsignmentQuery;
 		if (requireConsignmentQuery) {
+            System.debug('Requires consignment query: ' + consignments.get(0).ConsignmentTrackingNumber__c);
 			consignments = ArticlesSelector.newInstance()
 				.selectByIdOrTracking(
 					new Set<String>{ consignments.get(0).ConsignmentTrackingNumber__c },
@@ -251,6 +271,8 @@ public with sharing class MyCustomerDeliveryProofPdfController {
 					true
 				)
 				.values();
+            
+            System.debug('Number of articles found:' + consignments.size());
 		}
 		return consignments;
 	}
@@ -261,6 +283,7 @@ public with sharing class MyCustomerDeliveryProofPdfController {
 	 * @return	List<DeliveryProofAttributes> - each wrapper will generate exactly one VF Page
 	 */
 	public static List<DeliveryProofAttributes> buildAttributesForPDFDisplay(Set<String> articleIds) {
+        System.debug('Building Delivery Proof Attributes for the following article ids: ' + articleIds );
 		List<DeliveryProofAttributes> podAttributes = new List<DeliveryProofAttributes>();
 		// note the order is determined by the selector configuration
 		Set<Object> selectorOptions = new Set<Object>{
@@ -269,10 +292,14 @@ public with sharing class MyCustomerDeliveryProofPdfController {
 			EventMessagesSelector.Options.WITH_ARTICLE,
 			ArticlesSelector.Options.WITH_CONSIGNMENT
 		};
-
+            
 		List<EventMessage__c> eventMessages = EventMessagesSelector.newInstance().selectByArticleNumber(articleIds, selectorOptions);
+        System.debug('EventMessages: ' + eventMessages);
+        
 		Map<String, List<DeliveryProofAttributes>> deliveryEventKeyMap = buildDeliveryEventKeyMapFromValidEventMessages(eventMessages);
-
+		
+        System.debug('DeliveryEventKeyMap ' + deliveryEventKeyMap);
+        
 		// validate if there is no valid event message with safedrop/signature scan event
 		if (deliveryEventKeyMap.size() == 0) {
 			pageError = 'Tracking number is not associated to any safe drop or signature scan event';

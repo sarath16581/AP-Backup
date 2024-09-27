@@ -4,7 +4,6 @@
     <businessStatus>DeprecateCandidate</businessStatus>
     <deleteConstraint>SetNull</deleteConstraint>
     <description>DEPRECATED. DO NOT USE. EGM Sales</description>
-    <externalId>false</externalId>
     <label>EGM Sales (DEPRECATED)</label>
     <referenceTo>User</referenceTo>
     <relationshipName>Credit_Approvals2GC2</relationshipName>

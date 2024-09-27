@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Deferred_Date__c</fullName>
     <description>The date nominated by the customer as the time when they will be ready to discuss migration again</description>
-    <externalId>false</externalId>
     <label>Re-engagement Date</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>

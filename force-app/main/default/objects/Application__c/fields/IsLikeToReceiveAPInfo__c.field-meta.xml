@@ -3,7 +3,6 @@
     <fullName>IsLikeToReceiveAPInfo__c</fullName>
     <defaultValue>false</defaultValue>
     <description>I give consent for my contact details to be shared with Square and to be sent information from Square about accepting credit and debit card payments in person using a Square Reader.</description>
-    <externalId>false</externalId>
     <inlineHelpText>I give consent for my contact details to be shared with Square and to be sent information from Square about accepting credit and debit card payments in person using a Square Reader.</inlineHelpText>
     <label>Like to Receive AP Information?</label>
     <securityClassification>INTERNAL</securityClassification>

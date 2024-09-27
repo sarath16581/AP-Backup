@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Indicator to disable pricing query optimization for carts under the large cart threshold. By default fewer fields are retrieved for line items in the cart to optimize the heap. This indicator is used to disable the optimization to support customization.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Indicator to disable pricing query optimization for carts under the large cart threshold. By default fewer fields are retrieved for line items in the cart to optimize the heap. This indicator is used to disable the optimization to support customization.</inlineHelpText>
     <label>Disable Pricing Query Optimization</label>
     <trackTrending>false</trackTrending>

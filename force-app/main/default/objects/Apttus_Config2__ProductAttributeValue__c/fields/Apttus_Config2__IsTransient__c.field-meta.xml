@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Indicates a transient record created by the application with default values. A new product attribute value is in transient state until the record is explicitly saved by the user. Workflow rules should check this field to test for false before executing so that rules are not incorrectly executed when transient product attribute values are created .</description>
-    <externalId>false</externalId>
     <inlineHelpText>Indicates a transient record created by the application with default values. A new product attribute value is in transient state until the record is explicitly saved by the user.</inlineHelpText>
     <label>Is Transient</label>
     <securityClassification>INTERNAL</securityClassification>

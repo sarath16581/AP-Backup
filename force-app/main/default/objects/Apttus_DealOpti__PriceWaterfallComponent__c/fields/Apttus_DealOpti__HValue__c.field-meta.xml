@@ -3,7 +3,6 @@
     <fullName>Apttus_DealOpti__HValue__c</fullName>
     <deprecated>false</deprecated>
     <description>The horizontal value</description>
-    <externalId>false</externalId>
     <inlineHelpText>The horizontal value</inlineHelpText>
     <label>HValue</label>
     <precision>18</precision>

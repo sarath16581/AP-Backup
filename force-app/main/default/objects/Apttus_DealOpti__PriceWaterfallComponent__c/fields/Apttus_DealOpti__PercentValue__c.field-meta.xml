@@ -3,7 +3,6 @@
     <fullName>Apttus_DealOpti__PercentValue__c</fullName>
     <deprecated>false</deprecated>
     <description>The price component percent value</description>
-    <externalId>false</externalId>
     <inlineHelpText>The price component percent value</inlineHelpText>
     <label>Percent Value</label>
     <precision>5</precision>

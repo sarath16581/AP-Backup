@@ -3,7 +3,6 @@
     <fullName>Apttus_QPApprov__Approval_Status__c</fullName>
     <deprecated>false</deprecated>
     <description>The quote approval status</description>
-    <externalId>false</externalId>
     <label>Approval Status</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>

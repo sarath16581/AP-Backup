@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Outward_Bulk_Mail_Processing_Code__c</fullName>
     <description>This code determines the level of OMPF performed at the LPO</description>
-    <externalId>false</externalId>
     <inlineHelpText>This code determines the level of OMPF performed at the LPO</inlineHelpText>
     <label>Outward Bulk Mail Processing Code</label>
     <required>false</required>

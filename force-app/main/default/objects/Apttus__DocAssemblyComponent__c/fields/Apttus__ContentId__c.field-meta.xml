@@ -4,7 +4,6 @@
     <deleteConstraint>SetNull</deleteConstraint>
     <deprecated>false</deprecated>
     <description>ID of the content for the component</description>
-    <externalId>false</externalId>
     <inlineHelpText>ID of the content for the component</inlineHelpText>
     <label>Content</label>
     <referenceTo>Apttus__APTS_Template__c</referenceTo>

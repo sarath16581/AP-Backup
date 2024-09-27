@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__BeneficiaryType__c</fullName>
     <deprecated>false</deprecated>
     <description>The beneficiary type</description>
-    <externalId>false</externalId>
     <inlineHelpText>The beneficiary type</inlineHelpText>
     <label>Beneficiary Type</label>
     <required>false</required>

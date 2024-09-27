@@ -3,7 +3,6 @@
     <fullName>LogLevel_Info__c</fullName>
     <defaultValue>false</defaultValue>
     <description>Determines if the Log messages at Information level should be logged in the Application Log object. Use LoggingLevel__c now</description>
-    <externalId>false</externalId>
     <label>LogLevel_Info (Deprecated)</label>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>

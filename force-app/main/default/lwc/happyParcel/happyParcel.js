@@ -344,6 +344,14 @@ export default class HappyParcelWrapper extends NavigationMixin(LightningElement
 					if (!Object.keys(this.articles[articleIndex]).includes('articleDetailsExpanded')) {
 						this.articles[articleIndex].articleDetailsExpanded = !this.isConsignment;
 					}
+					//Add related critical incidents to the article based on network Id
+					let events = item.events;
+					events.forEach((event) => {
+						if (event.event && event.event.FacilityOrganisationID__c && criticalIncidents.criticalIncidentsResults) {
+							let criticalIncidentsMap = JSON.parse(criticalIncidents.criticalIncidentsResults);
+							event.criticalIncidents = criticalIncidentsMap[event.event.FacilityOrganisationID__c];
+						}
+					});
 
 				} else {
 					// note because we are adding this article we can set the default value of articleDetailsExpanded
@@ -357,15 +365,6 @@ export default class HappyParcelWrapper extends NavigationMixin(LightningElement
 						articleSelected: false
 					}); //, articleDetailsExpanded: !this.isConsignment
 				}
-
-				//Add related critical incidents to the article based on network Id
-				let events = item.events;
-				events.forEach((event) => {
-					if (event.event && event.event.FacilityOrganisationID__c && criticalIncidents.criticalIncidentsResults) {
-						let criticalIncidentsMap = JSON.parse(criticalIncidents.criticalIncidentsResults);
-						event.criticalIncidents = criticalIncidentsMap[event.event.FacilityOrganisationID__c];
-					}
-				});
 			});
 		}
 

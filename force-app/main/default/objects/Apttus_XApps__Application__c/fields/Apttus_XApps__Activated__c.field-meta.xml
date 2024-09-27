@@ -3,7 +3,6 @@
     <fullName>Apttus_XApps__Activated__c</fullName>
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
-    <externalId>false</externalId>
     <label>Activated</label>
     <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>

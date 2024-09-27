@@ -3,7 +3,6 @@
     <fullName>AvoidCustomerClose__c</fullName>
     <defaultValue>false</defaultValue>
     <description>SSSW</description>
-    <externalId>false</externalId>
     <label>Avoid Customer Close</label>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>

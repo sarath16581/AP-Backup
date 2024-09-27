@@ -4,7 +4,6 @@
     <deleteConstraint>SetNull</deleteConstraint>
     <deprecated>false</deprecated>
     <description>ID of the previous version associated with the amendment order</description>
-    <externalId>false</externalId>
     <inlineHelpText>ID of the previous version associated with the amendment order</inlineHelpText>
     <label>Previous Version</label>
     <referenceTo>Apttus_Config2__Order__c</referenceTo>

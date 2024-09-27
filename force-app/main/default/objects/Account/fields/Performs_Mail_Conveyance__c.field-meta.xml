@@ -3,7 +3,6 @@
     <fullName>Performs_Mail_Conveyance__c</fullName>
     <defaultValue>false</defaultValue>
     <description>Does this site perform conveyance of mail?</description>
-    <externalId>false</externalId>
     <inlineHelpText>Does this site perform conveyance of mail?</inlineHelpText>
     <label>Performs Mail Conveyance</label>
     <securityClassification>INTERNAL</securityClassification>

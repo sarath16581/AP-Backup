@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Bid_Tender_Owner_del__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
-    <externalId>false</externalId>
     <inlineHelpText>Who in the Bids &amp; Tenders Team is leading  this?</inlineHelpText>
     <label>Bid Leader</label>
     <referenceTo>User</referenceTo>

@@ -3,7 +3,6 @@
     <fullName>Pre_Post_Manual_Steps__c</fullName>
     <businessStatus>DeprecateCandidate</businessStatus>
     <description>to be decommissioned - User Support Query RT cleanup</description>
-    <externalId>false</externalId>
     <inlineHelpText>Are there any pre/post deployment manual work? If yes, list all steps</inlineHelpText>
     <label>Dep - Pre/Post Manual Steps</label>
     <length>32768</length>

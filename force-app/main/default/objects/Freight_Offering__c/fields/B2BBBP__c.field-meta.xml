@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>B2BBBP__c</fullName>
     <description>Break Bulk Palets</description>
-    <externalId>false</externalId>
     <inlineHelpText>B2B% and B2C% must add up to 100%</inlineHelpText>
     <label>B2B%</label>
     <precision>18</precision>

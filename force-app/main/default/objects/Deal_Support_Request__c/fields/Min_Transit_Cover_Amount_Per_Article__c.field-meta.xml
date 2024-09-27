@@ -3,7 +3,6 @@
     <fullName>Min_Transit_Cover_Amount_Per_Article__c</fullName>
     <defaultValue>0.00</defaultValue>
     <description>Field to represent Minimum Transit cover Amount. Is updated by the pricing team.</description>
-    <externalId>false</externalId>
     <label>Min Transit Cover Amount Per Article</label>
     <precision>18</precision>
     <required>false</required>

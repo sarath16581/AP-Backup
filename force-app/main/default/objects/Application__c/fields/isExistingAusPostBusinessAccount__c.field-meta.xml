@@ -3,7 +3,6 @@
     <fullName>isExistingAusPostBusinessAccount__c</fullName>
     <description>If No - instruction display to complete the fields - fields will be highlighted and displayed
 If Yes - please enter your Customer 7 digit number.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Do you have a Business Credit Account with Australia Post?</inlineHelpText>
     <label>Existing Business Account?</label>
     <required>false</required>

@@ -3,7 +3,6 @@
     <fullName>Apttus_CMConfig__IncentivePeriodStatus__c</fullName>
     <deprecated>false</deprecated>
     <description>The status of the incentive processing window</description>
-    <externalId>false</externalId>
     <inlineHelpText>The status of the incentive processing window</inlineHelpText>
     <label>Incentive Period Status</label>
     <required>false</required>

@@ -4,7 +4,6 @@
     <deleteConstraint>SetNull</deleteConstraint>
     <deprecated>false</deprecated>
     <description>Lookup to the wizard input control design element</description>
-    <externalId>false</externalId>
     <inlineHelpText>Lookup to the wizard input control design element</inlineHelpText>
     <label>Wizard Input Control</label>
     <referenceTo>Apttus__WizardInputControl2__c</referenceTo>

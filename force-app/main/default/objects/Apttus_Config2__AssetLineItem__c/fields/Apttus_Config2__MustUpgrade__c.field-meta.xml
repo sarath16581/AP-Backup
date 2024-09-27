@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Whether the product requires upgrade during renewal.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Whether the product requires upgrade during renewal.</inlineHelpText>
     <label>Must Upgrade</label>
     <securityClassification>INTERNAL</securityClassification>

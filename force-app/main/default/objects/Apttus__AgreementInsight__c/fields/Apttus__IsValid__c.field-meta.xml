@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Validity of the Insight</description>
-    <externalId>false</externalId>
     <inlineHelpText>Validity of the Insight</inlineHelpText>
     <label>Is Valid</label>
     <trackTrending>false</trackTrending>

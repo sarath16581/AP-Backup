@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Indicates whether the runtime user is allowed to edit inputs during review</description>
-    <externalId>false</externalId>
     <inlineHelpText>Indicates whether the runtime user is allowed to edit inputs during review</inlineHelpText>
     <label>Allow Review Edit</label>
     <securityClassification>INTERNAL</securityClassification>

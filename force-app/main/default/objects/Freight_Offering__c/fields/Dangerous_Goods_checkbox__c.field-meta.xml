@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Dangerous_Goods_checkbox__c</fullName>
-    <externalId>false</externalId>
     <formula>Dangerous_Goods_count__c &gt;0</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <label>Dangerous Goods</label>

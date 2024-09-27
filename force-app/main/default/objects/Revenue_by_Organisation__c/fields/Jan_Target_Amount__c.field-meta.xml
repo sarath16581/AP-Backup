@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Jan_Target_Amount__c</fullName>
     <description>Target amount for month of January. Previous name was &quot;Jan Target Amount&quot; (MW0003520).</description>
-    <externalId>false</externalId>
     <label>Jan Planned Revenue</label>
     <precision>18</precision>
     <required>false</required>

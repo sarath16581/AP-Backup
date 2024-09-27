@@ -4,7 +4,6 @@
     <businessStatus>Active</businessStatus>
     <complianceGroup>GDPR</complianceGroup>
     <description>The Growth Amount for this account and all OPC related child accounts for the month of March</description>
-    <externalId>false</externalId>
     <inlineHelpText>March OPC Grouped Growth Amount</inlineHelpText>
     <label>Mar Group Growth +/-</label>
     <precision>18</precision>

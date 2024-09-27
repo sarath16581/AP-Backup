@@ -3,7 +3,6 @@
     <fullName>Apttus_Base2__StartTimestamp__c</fullName>
     <deprecated>false</deprecated>
     <description>Start timestamp of the operation being logged.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Start timestamp of the operation being logged.</inlineHelpText>
     <label>Start Timestamp</label>
     <required>false</required>

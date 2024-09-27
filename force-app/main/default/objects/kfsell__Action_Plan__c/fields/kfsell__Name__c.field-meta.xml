@@ -3,7 +3,6 @@
     <fullName>kfsell__Name__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <deprecated>false</deprecated>
-    <externalId>false</externalId>
     <label>Name</label>
     <referenceTo>User</referenceTo>
     <relationshipName>Action_Plans</relationshipName>

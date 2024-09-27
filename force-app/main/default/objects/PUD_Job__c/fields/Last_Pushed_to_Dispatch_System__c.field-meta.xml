@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Last_Pushed_to_Dispatch_System__c</fullName>
     <description>The Date/Time when an outbound message was last sent to dispatch system (via Tibco).</description>
-    <externalId>false</externalId>
     <inlineHelpText>The Date/Time when an outbound message was last sent to dispatch system (via Tibco).</inlineHelpText>
     <label>Last Pushed to Dispatch System</label>
     <required>false</required>

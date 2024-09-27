@@ -3,7 +3,6 @@
     <fullName>CaseNumber__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <description>This field is lookup to case object obtaining case number</description>
-    <externalId>false</externalId>
     <label>Case Number</label>
     <referenceTo>Case</referenceTo>
     <relationshipLabel>GetFeedback Surveys</relationshipLabel>

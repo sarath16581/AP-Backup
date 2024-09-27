@@ -4,7 +4,6 @@
     <deleteConstraint>SetNull</deleteConstraint>
     <deprecated>false</deprecated>
     <description>ID of the partner account who created the quote on behalf of a customer</description>
-    <externalId>false</externalId>
     <inlineHelpText>ID of the partner account who created the quote on behalf of a customer</inlineHelpText>
     <label>Partner</label>
     <referenceTo>Account</referenceTo>

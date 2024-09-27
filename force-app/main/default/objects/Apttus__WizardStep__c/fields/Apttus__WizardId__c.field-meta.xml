@@ -4,7 +4,6 @@
     <deleteConstraint>SetNull</deleteConstraint>
     <deprecated>false</deprecated>
     <description>Lookup to wizard this step belongs to.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Lookup to wizard this step belongs to.</inlineHelpText>
     <label>Wizard</label>
     <referenceTo>Apttus__Wizard__c</referenceTo>

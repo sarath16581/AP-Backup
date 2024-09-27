@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Proposed_Account_Manager__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
-    <externalId>false</externalId>
     <inlineHelpText>Once you have selected the Proposed Account Manager and saved the record the Proposed Sales Team will automatically populate based on their team</inlineHelpText>
     <label>Proposed Account Manager</label>
     <lookupFilter>

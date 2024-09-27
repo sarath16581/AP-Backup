@@ -3,7 +3,6 @@
     <fullName>Apttus__ReturnToRequestor__c</fullName>
     <deprecated>false</deprecated>
     <description>Indicator to return the agreement back to requestor</description>
-    <externalId>false</externalId>
     <formula>ISPICKVAL(Apttus__AgreementId__r.Apttus__Status_Category__c,&quot;In Authoring&quot;)</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <inlineHelpText>Indicator to return the agreement back to requestor</inlineHelpText>

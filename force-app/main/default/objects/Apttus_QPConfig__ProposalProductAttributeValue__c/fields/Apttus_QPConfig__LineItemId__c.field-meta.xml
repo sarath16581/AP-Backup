@@ -3,7 +3,6 @@
     <fullName>Apttus_QPConfig__LineItemId__c</fullName>
     <deprecated>false</deprecated>
     <description>ID of the associated proposal line item</description>
-    <externalId>false</externalId>
     <label>Line Item</label>
     <referenceTo>Apttus_Proposal__Proposal_Line_Item__c</referenceTo>
     <relationshipLabel>Product Attribute Values</relationshipLabel>

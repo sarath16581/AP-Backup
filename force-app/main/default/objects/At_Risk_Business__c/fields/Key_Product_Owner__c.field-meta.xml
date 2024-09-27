@@ -3,7 +3,6 @@
     <fullName>Key_Product_Owner__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <description>Lookup on user record</description>
-    <externalId>false</externalId>
     <inlineHelpText>The key product owner/contact for this risk.</inlineHelpText>
     <label>Key Product Owner</label>
     <referenceTo>User</referenceTo>

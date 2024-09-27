@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>APT_Charge_Type_Checked__c</fullName>
     <description>Test Chandni for template</description>
-    <externalId>false</externalId>
     <formula>AND ( ( Apttus_Proposal__Product__r.Name = &apos;eParcel&apos;|| Apttus_Proposal__Product__r.Name = &quot;eParcel Express&quot;), (APT_Product_Name__c = &quot;Missing Manifest Fee&quot; || APT_Product_Name__c = &quot;Administrative Fee&quot; || APT_Product_Name__c = &quot;Return to Sender&quot; || APT_Product_Name__c = &quot;Minimum Collection Value&quot;))</formula>
     <label>Charge Type Checked</label>
     <securityClassification>INTERNAL</securityClassification>

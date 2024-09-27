@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Postcode_Field__c</fullName>
     <description>Which field the postcode maps to</description>
-    <externalId>false</externalId>
     <fieldManageability>SubscriberControlled</fieldManageability>
     <label>Postcode Field</label>
     <metadataRelationshipControllingField>Address_Fields_Mapping__mdt.Object__c</metadataRelationshipControllingField>

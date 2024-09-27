@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Active_Date__c</fullName>
     <description>The date the agreement document became Active</description>
-    <externalId>false</externalId>
     <inlineHelpText>The date the Agreement Document became Active.  Automatically set by the system when the Status becomes active.</inlineHelpText>
     <label>Active Date</label>
     <required>false</required>

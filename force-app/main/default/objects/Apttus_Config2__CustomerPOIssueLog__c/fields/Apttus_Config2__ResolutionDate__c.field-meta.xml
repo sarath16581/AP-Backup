@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__ResolutionDate__c</fullName>
     <deprecated>false</deprecated>
     <description>The DateTime when the issue was resolved</description>
-    <externalId>false</externalId>
     <inlineHelpText>The DateTime when the issue was resolved</inlineHelpText>
     <label>Resolution Date</label>
     <required>false</required>

@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Annual_Amount__c</fullName>
     <description>Accommodation Payment Negotiated Rate, Storage of Carded Articles Annual Fee, Storage of Mail fee, Mail Conveyancing Fee rate per KM, Clearance of Remote SPB Fee Amount and Counter Collection on non RSD days Rate per point</description>
-    <externalId>false</externalId>
     <label>Annual Amount</label>
     <precision>8</precision>
     <required>false</required>

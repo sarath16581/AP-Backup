@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__UnitAdjustment__c</fullName>
     <deprecated>false</deprecated>
     <description>The unit adjustment</description>
-    <externalId>false</externalId>
     <inlineHelpText>The unit adjustment</inlineHelpText>
     <label>Unit Adjustment</label>
     <precision>18</precision>

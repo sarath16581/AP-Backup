@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>MTD_Revised_Budget__c</fullName>
-    <externalId>false</externalId>
     <formula>CASE( MONTH(TODAY()),1,  Jan_Original_Budget__c , 2, Feb_Original_Budget__c,3, Mar_Original_Budget__c,4, Apr_Original_Budget__c,5, May_Original_Budget__c, 6, Jun_Original_Budget__c, 7, Jul_Original_Budget__c, 8, Aug_Original_Budget__c, 9,Sep_Original_Budget__c, 10, Oct_Original_Budget__c, 11, Nov_Original_Budget__c, 12, Dec_Original_Budget__c,0 )</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <label>Current Month Target(R)</label>
