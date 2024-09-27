@@ -12,10 +12,16 @@
  * 2024-08-12 - Ranjeewa Silva - Updated case re-assignment to cater for email automation
  * 2024-08-23 - Seth Heang - Added PreferredAgentExpiry__c mapping to Reassigned Case Update
  * 2024-09-02 - Ranjeewa Silva - Updated case closure / reassignment to cater for scan event automation.
+ * 2024-09-24 - Ranjeewa Silva - Implemented email notification on case closure due to no activity on monitored cases.
  */
 public inherited sharing class CaseUnifiedAutomationService {
 	@TestVisible private static final String REASSIGNMENT_REASON_OPT_OUT_AUTOMATION = 'Cannot autoclose due to opt out automations';
 	@TestVisible private static final String REASSIGNMENT_REASON_MISSING_CUSTOMER_EMAIL = 'Cannot autoclose due to missing customer email';
+
+	// email alerts to use for customer notifications on automated closure of proactively monitored cases due to no scans
+	// or updates in the monitoring period (5 business days in H1).
+	@TestVisible private static final String EMAIL_ALERT_CASE_CLOSURE_NO_SCANS_OR_UPDATES_AP = 'UnifiedCaseNoScansOrUpdatesClosureNotificationAP';
+	@TestVisible private static final String EMAIL_ALERT_CASE_CLOSURE_NO_SCANS_OR_UPDATES_ST = 'UnifiedCaseNoScansOrUpdatesClosureNotificationST';
 
 	// Define an ENUM to identify the initial entry/invocation/caller.
 	public enum InvocationPoint {
@@ -100,9 +106,14 @@ public inherited sharing class CaseUnifiedAutomationService {
 	 * @param uow
 	 */
 	private void closeCasesProactiveMonitoringAutomation(List<RecordWrapper> records, ApplicationUnitOfWork uow) {
+		ApplicationEmailService emailService = ApplicationEmailService.getInstance();
 		List<Case> caseClosureForUpdate = new List<Case>();
 		for (RecordWrapper record : records) {
 			caseClosureForUpdate.add(updateCaseForCaseClosure(record));
+			String emailAlertName = isStarTrackCase(record.caseRecord)
+					? EMAIL_ALERT_CASE_CLOSURE_NO_SCANS_OR_UPDATES_ST
+					: EMAIL_ALERT_CASE_CLOSURE_NO_SCANS_OR_UPDATES_AP;
+			emailService.queueEmailNotification(record.srcRecordId, Case.SObjectType, emailAlertName);
 		}
 		if (!caseClosureForUpdate.isEmpty()) {
 			if (uow != null) {
@@ -110,25 +121,7 @@ public inherited sharing class CaseUnifiedAutomationService {
 			} else {
 				ApplicationDatabase.getInstance().dmlUpdate(caseClosureForUpdate);
 			}
-
-			// TODO: Dependency on other squad working on ApplicationEmailService framework
-			// Below code will be soon be replaced to make use of ApplicationEmailService once that is ready
-			// For testing purpose, the email message sent is hardcoded
-			List<Messaging.SingleEmailMessage> mails = new List<Messaging.SingleEmailMessage>();
-			for (Case newCase : caseClosureForUpdate) {
-				Messaging.SingleEmailMessage mail = new Messaging.SingleEmailMessage();
-				mail.setToAddresses(new List<String>{ newCase.ContactEmail });
-				if (newCase.ProductSubCategory__c.contains('StarTrack')) {
-					mail.setSubject('TEST StarTrack Closure Email');
-					mail.setPlainTextBody('StarTrack Email Closure Body');
-				} else {
-					mail.setSubject('TEST AusPost Closure Email');
-					mail.setPlainTextBody('AusPost Email Closure Body');
-				}
-				mails.add(mail);
-			}
-			// Send the email
-			Messaging.sendEmail(mails);
+			emailService.dispatchAllPendingEmailNotifications();
 		}
 	}
 
@@ -143,7 +136,7 @@ public inherited sharing class CaseUnifiedAutomationService {
 	 * @return Case
 	 */
 	private Case updateCaseForCaseClosure(RecordWrapper record) {
-		Boolean currentOwnerIsNotAgent = !record.caseRecord.OwnerId.toString().startsWith('005');
+		Boolean currentOwnerIsNotAgent = !record.caseRecord.OwnerId.toString().startsWith(APT_Constants.LABEL_USER_ID_PREFIX);
 		Case updatedCase = record.caseRecord;
 		updatedCase.Status = SSSWConstants.CASE_STATUS_CLOSED;
 		updatedCase.OwnerId = currentOwnerIsNotAgent ? QUEUE_SETTINGS.ClosedQueueId__c : record.caseRecord.OwnerId;

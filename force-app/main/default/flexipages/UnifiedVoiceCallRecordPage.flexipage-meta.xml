@@ -97,6 +97,30 @@
     <flexiPageRegions>
         <itemInstances>
             <componentInstance>
+                <componentName>unifiedCaseCreationVoiceCallWrapper</componentName>
+                <identifier>c_unifiedCaseCreationVoiceCallWrapper</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.Case__r.CaseNumber}</leftValue>
+                        <operator>EQUAL</operator>
+                    </criteria>
+                </visibilityRule>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentName>unifiedVoiceCallOpenCase</componentName>
+                <identifier>c_unifiedVoiceCallOpenCase</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.Case__r.CaseNumber}</leftValue>
+                        <operator>NE</operator>
+                    </criteria>
+                </visibilityRule>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
                 <componentInstanceProperties>
                     <name>classificationType</name>
                     <value>CaseWrapUp</value>
@@ -111,10 +135,53 @@
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>updateQuickActionName</name>
-                    <value>Case.CaseWorkSummary</value>
+                    <value>Case.CaseWorkSummaryVoiceCall</value>
                 </componentInstanceProperties>
                 <componentName>runtime_service_predictions:einsteinFieldRecommendations</componentName>
                 <identifier>runtime_service_predictions_einsteinFieldRecommendations</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.Case__r.CaseNumber}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>&apos;&apos;</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </componentInstance>
+        </itemInstances>
+        <name>Facet-df46cc22-3802-4cbe-a55a-fb7ce3b19942</name>
+        <type>Facet</type>
+    </flexiPageRegions>
+    <flexiPageRegions>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>active</name>
+                    <value>true</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>body</name>
+                    <value>Facet-df46cc22-3802-4cbe-a55a-fb7ce3b19942</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>title</name>
+                    <value>Case</value>
+                </componentInstanceProperties>
+                <componentName>flexipage:tab</componentName>
+                <identifier>flexipage_tab4</identifier>
+            </componentInstance>
+        </itemInstances>
+        <name>Facet-37e5a0a6-2bc3-42bb-913f-cca87b75e6bf</name>
+        <type>Facet</type>
+    </flexiPageRegions>
+    <flexiPageRegions>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>tabs</name>
+                    <value>Facet-37e5a0a6-2bc3-42bb-913f-cca87b75e6bf</value>
+                </componentInstanceProperties>
+                <componentName>flexipage:tabset</componentName>
+                <identifier>flexipage_tabset2</identifier>
             </componentInstance>
         </itemInstances>
         <itemInstances>
@@ -127,7 +194,7 @@
             <componentInstance>
                 <componentInstanceProperties>
                     <name>contactCenterName</name>
-                    <value>ap1devgcloud</value>
+                    <value>unifiedcontactcenter</value>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>emailId</name>
