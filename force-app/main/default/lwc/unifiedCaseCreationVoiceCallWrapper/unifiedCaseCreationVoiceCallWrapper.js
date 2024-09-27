@@ -4,6 +4,7 @@
  * @author: Seth Heang
  * @changelog:
  * 2024-09-12 - Seth Heang - Created
+ * 2024-09-25 - Marcel HK - Updated Case linking to use `ReleatedRecordId` instead of `Case__c`
  */
 import { LightningElement, api, wire } from 'lwc';
 import { getRecord, getFieldValue, updateRecord, notifyRecordUpdateAvailable } from 'lightning/uiRecordApi';
@@ -15,8 +16,9 @@ import getExistingCasesCount from '@salesforce/apex/UnifiedCaseHistoryController
 
 import ID_FIELD from '@salesforce/schema/VoiceCall.Id';
 import CONTACT_ID_FIELD from '@salesforce/schema/VoiceCall.Contact__c';
-import CASE_ID_FIELD from '@salesforce/schema/VoiceCall.Case__c';
+import RELATED_RECORD_ID_FIELD from '@salesforce/schema/VoiceCall.RelatedRecordId';
 import CONSIGNMENT_ID_FIELD from '@salesforce/schema/VoiceCall.Consignment__c';
+import CONSIGNMENT_TRACKING_NUMBER_FIELD from '@salesforce/schema/VoiceCall.Consignment__r.ConsignmentTrackingNumber__c';
 import ENQUIRY_TYPE_FIELD from '@salesforce/schema/VoiceCall.EnquiryType__c';
 import ENQUIRY_SUBTYPE_FIELD from '@salesforce/schema/VoiceCall.EnquirySubType__c';
 import PRODUCT_CATEGORY_FIELD from '@salesforce/schema/VoiceCall.ProductCategory__c';
@@ -24,12 +26,13 @@ import PRODUCT_SUBCATEGORY_FIELD from '@salesforce/schema/VoiceCall.ProductSubCa
 
 const VOICECALL_FIELDS = [
 	CONTACT_ID_FIELD,
-	CASE_ID_FIELD,
+	RELATED_RECORD_ID_FIELD,
 	CONSIGNMENT_ID_FIELD,
 	ENQUIRY_TYPE_FIELD,
 	ENQUIRY_SUBTYPE_FIELD,
 	PRODUCT_CATEGORY_FIELD,
-	PRODUCT_SUBCATEGORY_FIELD
+	PRODUCT_SUBCATEGORY_FIELD,
+	CONSIGNMENT_TRACKING_NUMBER_FIELD
 ];
 
 /**
@@ -143,6 +146,8 @@ export default class UnifiedCaseCreationVoiceCallWrapper extends LightningElemen
 	wiredInteractionRecord({ error, data }) {
 		if (data) {
 			this.interactionRecord = data;
+			const consignmentTrackingNumber = getFieldValue(this.interactionRecord, CONSIGNMENT_TRACKING_NUMBER_FIELD);
+			this.handleExistingCaseValidation(consignmentTrackingNumber);
 		} else if (error) {
 			console.error(error);
 			this.interactionRecord = undefined;
@@ -159,7 +164,6 @@ export default class UnifiedCaseCreationVoiceCallWrapper extends LightningElemen
 	connectedCallback() {
 		// subscribe to LMS
 		this.subscribeToMessageChannel();
-		this.handleExistingCaseValidation();
 	}
 
 	disconnectedCallback() {
@@ -194,8 +198,8 @@ export default class UnifiedCaseCreationVoiceCallWrapper extends LightningElemen
 	 * @param message
 	 */
 	handleLMSEvent(message) {
-		// filter for `articlesSelected`
-		if(message.source === 'HappyParcel' && message.type === 'articleSelected'){
+		// filter for source = `unifiedTrackingVoiceWrapper` and type = `articlesSelected`
+		if(message.source === 'unifiedTrackingVoiceWrapper' && message.type === 'articleSelected'){
 			this.impactedArticles = message.body.selectedArticleIds;
 			const consignmentTrackingId = message.body.consignmentId;
 			this.handleExistingCaseValidation(consignmentTrackingId);
@@ -206,10 +210,17 @@ export default class UnifiedCaseCreationVoiceCallWrapper extends LightningElemen
 	 * Call apex controller to retrieve existing cases associated to this liveChat record that met specified criteria
 	 * and update warningMessage if applicable
 	 */
-	async handleExistingCaseValidation(consignmentTrackingId){
-		const existingCaseCount = await getExistingCasesCount(consignmentTrackingId);
-		if(existingCaseCount){
-			this.warningMessage = existingCaseCount + ' Existing Cases';
+	async handleExistingCaseValidation(consignmentTrackingNumber){
+		try {
+			const existingCaseCount = await getExistingCasesCount({
+				consignmentTrackingNumber: consignmentTrackingNumber
+			});
+			if(existingCaseCount){
+				this.warningMessage = existingCaseCount + ' Existing Cases';
+			}
+		} catch (error) {
+			console.error(error);
+			this.errorMessage = reduceErrors(error).join(", ");
 		}
 	}
 
@@ -234,7 +245,7 @@ export default class UnifiedCaseCreationVoiceCallWrapper extends LightningElemen
 			const caseId = event.detail?.caseId ?? null;
 
 			// Update record and notify other components that the record was updated.
-			await updateRecord({ fields: { [ID_FIELD.fieldApiName]: this.recordId, [CASE_ID_FIELD.fieldApiName]: caseId } });
+			await updateRecord({ fields: { [ID_FIELD.fieldApiName]: this.recordId, [RELATED_RECORD_ID_FIELD.fieldApiName]: caseId } });
 			await notifyRecordUpdateAvailable([{ recordId: this.recordId }]);
 
 			// Success toast message

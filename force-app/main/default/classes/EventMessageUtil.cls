@@ -15,6 +15,7 @@
  * 2021-10-01 - Nathan Franklin - get a getInstance method for mocking and a new method getEventMessageTypeDefinitions
  * 2021-10-05 - Nathan Franklin - Removed the AP Case signature attachment capability since it's no longer in use in light of new PDF delivery proof capability (StarTrack still remains)
  * 2021-09-27 - Hasantha Liyanage - Added CHAS_EventMessageTypeMapping__mdt related getters for consumer help and support
+ * 2024-09-20 - Ranjeewa Silva - Excluded unified cases from the automation in 'updateCases' (invoked on event message insert).
  */
 public without sharing class EventMessageUtil {
 
@@ -56,6 +57,16 @@ public without sharing class EventMessageUtil {
 		}
 	}
 
+	private static Set<Id> unifiedCaseRecordTypeIds {
+		get {
+			if (unifiedCaseRecordTypeIds == null) {
+				unifiedCaseRecordTypeIds = RecordTypesSelector.newInstance().selectByDeveloperNameLike('Case', 'Unified').keySet();
+			}
+			return unifiedCaseRecordTypeIds;
+		}
+		set;
+	}
+
 	public static EventMessageUtil getInstance() {
 		return (EventMessageUtil) Application.Utilities.getInstance(EventMessageUtil.class);
 	}
@@ -75,7 +86,7 @@ public without sharing class EventMessageUtil {
 
 		Map<string, List<Case>> lodgementPointUpdates = new Map<string, List<Case>>();
 		Map<string, EventMessage__c> eventCodes = new Map<string, EventMessage__c>();
-		list<Case> cases = [select Article_Event_Codes__c,Network__c,Lodgement_Network__c,ArticleTest__c,status, CreatedDate, IsClosed from Case where ArticleTest__c in:articleIDs];
+		list<Case> cases = [select Article_Event_Codes__c,Network__c,Lodgement_Network__c,ArticleTest__c,status, CreatedDate, IsClosed from Case where ArticleTest__c in:articleIDs AND RecordTypeId NOT IN :unifiedCaseRecordTypeIds];
 		for (Case c : cases) {
 			for (EventMessage__c e : events) {
 				if (e.ActualDateTime__c != null) {

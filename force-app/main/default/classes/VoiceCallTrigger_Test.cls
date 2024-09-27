@@ -27,7 +27,8 @@ class VoiceCallTrigger_Test {
 		CallCenter cc = [select id,name from CallCenter limit 1];
 
 		VoiceCall vc = new VoiceCall(
-			CallCenterId = cc.id,
+			CallCenterId = cc.Id,
+			Case__c = case1.Id,
 			VendorType = 'ContactCenter',
 			CallType = 'Inbound',
 			FromPhoneNumber = '+19999999999',
@@ -49,7 +50,12 @@ class VoiceCallTrigger_Test {
 	private static void voiceCallTriggerTest() {
 		VoiceCallTriggerHandler mock = (VoiceCallTriggerHandler)MockUtility.mockUtility(VoiceCallTriggerHandler.class);
 
-		VoiceCall voiceCall = ApplicationTestDataFactory.getVoiceCalls(1, false).get(0);
+		Account acc = ApplicationTestDataFactory.getAccounts(1, false)[0];
+		Contact ct = ApplicationTestDataFactory.getContacts(1, acc.Id, false)[0];
+		Case aCase = ApplicationTestDataFactoryCase.getCases(1, new Set<Id>{ct.Id}, false)[0];
+
+		VoiceCall voiceCall = ApplicationTestDataFactoryCase.getVoiceCalls(new List<Id>{aCase.Id}, false)[0];
+		voiceCall.RelatedRecordId = null;
 		voiceCall.CallType = 'Inbound';
 		voiceCall.VendorType = 'ContactCenter';
 		voiceCall.CallStartDateTime = System.now();

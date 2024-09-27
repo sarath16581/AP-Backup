@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
-    <customSettingsType>List</customSettingsType>
-    <description>This setting is used to hold configurations of Digital Repository V2 API.</description>
-    <enableFeeds>false</enableFeeds>
-    <label>Digital Repository API V2 Settings</label>
-    <visibility>Public</visibility>
+	<customSettingsType>List</customSettingsType>
+	<description>This setting is used to hold configurations of Digital Repository V2 API.</description>
+	<enableFeeds>false</enableFeeds>
+	<label>Digital Repository API V2 Settings</label>
+	<visibility>Public</visibility>
 </CustomObject>

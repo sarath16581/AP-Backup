@@ -147,6 +147,8 @@ private with sharing class ContactsSelector_Test {
 		contacts[0].BillingAccount__c = billingAcc.Id;
 		contacts[0].ConveyancerContact__c = true;
 		contacts[1].MobilePhone = '+61440123456';
+		contacts[1].Status__c = 'Active';
+		contacts[1].Record_Maintainer__c = 'Account Manager';
 		insert contacts;
 
 

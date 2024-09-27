@@ -4,7 +4,7 @@
 	   
 	},
 	"fields":{
-	   "Case__c":{
+	   "RelatedRecordId__c":{
 		  "displayValue":null,
 		  "value":"500000000000000001"
 	   },
