@@ -7,6 +7,7 @@
  * @description A Selector Class for ScheduledAction__c object
  * @changelog
  * 2024-07-18 - Seth Heang - Created
+ * 2024-09-24 - Parveen Kaushik - Added support for selectByCaseIdAndActionType 
  */
 public virtual inherited sharing class ScheduledActionsSelector extends ApplicationSelector {
 	public enum Options {
@@ -39,6 +40,24 @@ public virtual inherited sharing class ScheduledActionsSelector extends Applicat
 	public virtual List<ScheduledAction__c> selectByCaseId(Set<Id> caseIds, Set<Object> selectorOptions) {
 		QueryBuilder qb = newQueryBuilder();
 		qb.addConditions().add(new QueryBuilder.SimpleCondition(ScheduledAction__c.Case__c + ' in :caseIds')).endConditions();
+		return (List<ScheduledAction__c>) Database.query(qb.toSoqlString());
+	}
+
+	/**
+	 * @description Run a simple query to get records based on Parent Case Id and Action Type
+	 */
+	public virtual List<ScheduledAction__c> selectByCaseIdAndActionType(Set<Id> caseIds, Set<String> actionNames) {
+		return selectByCaseIdAndActionType(caseIds, actionNames, new Set<Object>());
+	}
+
+	/**
+	 * @description Run a simple query to get records based on Parent Case Id and Action Type
+	 */
+	public virtual List<ScheduledAction__c> selectByCaseIdAndActionType(Set<Id> caseIds, Set<String> actionNames, Set<Object> selectorOptions) {
+		QueryBuilder qb = newQueryBuilder(selectorOptions).addConditions()
+		.add(new QueryBuilder.SimpleCondition(ScheduledAction__c.Case__c + ' in :caseIds'))
+		.add(new QueryBuilder.SimpleCondition(ScheduledAction__c.ActionType__c + ' in :actionNames'))
+		.endConditions();
 		return (List<ScheduledAction__c>) Database.query(qb.toSoqlString());
 	}
 
