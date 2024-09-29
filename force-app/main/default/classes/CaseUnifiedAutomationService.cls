@@ -13,6 +13,7 @@
  * 2024-08-23 - Seth Heang - Added PreferredAgentExpiry__c mapping to Reassigned Case Update
  * 2024-09-02 - Ranjeewa Silva - Updated case closure / reassignment to cater for scan event automation.
  * 2024-09-24 - Ranjeewa Silva - Implemented email notification on case closure due to no activity on monitored cases.
+ * 2024-09-29 - Parveen Kaushik - Used prefix 005 (user object) for perf improvements. 
  */
 public inherited sharing class CaseUnifiedAutomationService {
 	@TestVisible private static final String REASSIGNMENT_REASON_OPT_OUT_AUTOMATION = 'Cannot autoclose due to opt out automations';
@@ -136,7 +137,7 @@ public inherited sharing class CaseUnifiedAutomationService {
 	 * @return Case
 	 */
 	private Case updateCaseForCaseClosure(RecordWrapper record) {
-		Boolean currentOwnerIsNotAgent = !record.caseRecord.OwnerId.toString().startsWith(APT_Constants.LABEL_USER_ID_PREFIX);
+		Boolean currentOwnerIsNotAgent = !record.caseRecord.OwnerId.toString().startsWith('005');
 		Case updatedCase = record.caseRecord;
 		updatedCase.Status = SSSWConstants.CASE_STATUS_CLOSED;
 		updatedCase.OwnerId = currentOwnerIsNotAgent ? QUEUE_SETTINGS.ClosedQueueId__c : record.caseRecord.OwnerId;

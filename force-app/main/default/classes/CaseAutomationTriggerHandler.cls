@@ -7,6 +7,7 @@
  * 2024-07-08 - Seth Heang - Added 'filterUnified' to recordtype filtering and register a new module for handling proactive monitoring queue routing
  * 2024-08-20 - George Nguyen - Added registerModule(CaseAutomationClassificationModule.class) to classify cases
  * 2024-09-03 - Seth Heang - registered CaseUnifiedTeamMemberModule for unified case
+ * 2024-09-29 - Parveen Kaushik - Added unifiedCases filter for AutomationClassification module
  */
 public inherited sharing class CaseAutomationTriggerHandler extends ApplicationTriggerHandler {
 
@@ -109,7 +110,7 @@ public inherited sharing class CaseAutomationTriggerHandler extends ApplicationT
 		registerModule(CaseLegacyAutomationModule.class);
 
 		// This module will use fields on the case to classify them. Such as Type and Record types
-		registerModule(CaseAutomationClassificationModule.class);
+		registerModule(CaseAutomationClassificationModule.class, 'filterUnified');
 
 		// these module will be available for domain operations and trigger execution
 		// each module will register their trigger entry points
