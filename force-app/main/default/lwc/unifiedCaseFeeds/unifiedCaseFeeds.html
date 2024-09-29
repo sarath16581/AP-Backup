@@ -1,0 +1,109 @@
+<template>
+	<div class="slds-is-relative">
+		<!-- Error Messages -->
+		<template lwc:if={errorMessage}>
+			<div class="slds-card">
+				<div class="slds-notify slds-notify_alert slds-theme_alert-texture slds-theme_error" role="alert">
+					<span class="slds-assistive-text">error</span>
+					<lightning-icon icon-name="utility:error" alternative-text="Error!" size="x-small" variant="inverse"></lightning-icon>
+					<div class="slds-var-m-left_xx-small">Error: {errorMessage}</div>
+				</div>
+			</div>
+		</template>
+		<!-- Display Empty State if there is no update -->
+		<template lwc:elseif={noFeedResult}>
+			<div class="slds-card">
+				<template lwc:if={isLoading}>
+					<lightning-spinner variant="brand" size="medium"></lightning-spinner>
+				</template>
+				<c-empty-state
+						illustration="fishingDeals"
+						title-text="No Update"
+						text-position="above"
+						size="small"
+				></c-empty-state>
+			</div>
+		</template>
+		<!-- Display Case Feed Cards -->
+		<template lwc:else>
+			<div class="slds-grid slds-wrap slds-var-p-around_xxx-small slds-gutters_xx-small">
+				<article class="slds-card slds-col slds-size_1-of-1">
+					<div class="slds-grid slds-wrap slds-var-m-left_xxx-small slds-grid_vertical-stretch slds-size_1-of-1">
+						<div class="slds-col slds-size_1-of-1 slds-grow slds-var-m-around_xxx-small">
+							<span class="slds-var-m-right_small slds-var-m-vertical_xx-small slds-float_right">
+								<lightning-button-icon variant="bare" icon-name="utility:refresh" size="large" onclick={handleRefreshFeeds}></lightning-button-icon>
+							</span>
+						</div>
+						<template lwc:if={isLoading}>
+							<lightning-spinner variant="brand" size="medium"></lightning-spinner>
+						</template>
+						<!-- Display the top 3 latest feed cards -->
+						<template for:each={latest3Feeds} for:item="feed">
+							<div key={feed.feedDateTime} class="slds-col slds-size_1-of-3 slds-grid_align-center slds-var-m-bottom_x-small slds-grid_vertical-stretch slds-grow">
+								<div class="slds-tabs_card feed-card">
+									<lightning-card>
+										<div slot="title" class="no-wrap">
+											<lightning-icon class={feed.iconClass} icon-name={feed.feedCustomIcon} size="small"></lightning-icon>
+											<span class="slds-var-m-left_x-small slds-text-body_regular header-color">{feed.feedHeader}</span>
+										</div>
+										<div class="slds-text-body_regular wrapped-content"><strong>{feed.feedBody}</strong>
+											<template if:true={feed.feedRecordId}>
+									<span class="slds-float_right">
+										<lightning-button-icon data-value={feed.feedRecordId} variant="bare" class="scr-popup-button" icon-name="utility:new_window" size="large" onclick={navigateToRecordViewPage}></lightning-button-icon>
+									</span>
+											</template>
+										</div>
+										<div class="slds-text-body_regular">{feed.formattedDateTime}</div>
+									</lightning-card>
+								</div>
+							</div>
+						</template>
+						<!-- Display the remaining feed cards when view more button is clicked -->
+						<template lwc:if={viewMore}>
+							<template for:each={remainingFeeds} for:item="feed">
+								<div key={feed.feedDateTime} class="slds-col slds-size_1-of-3 slds-grid_align-center slds-var-m-bottom_x-small slds-grid_vertical-stretch slds-grow">
+									<div class="slds-tabs_card feed-card">
+										<lightning-card>
+											<div slot="title" class="no-wrap">
+												<lightning-icon class={feed.iconClass} icon-name={feed.feedCustomIcon} size="small"></lightning-icon>
+												<span class="slds-var-m-left_x-small slds-text-body_regular header-color">{feed.feedHeader}</span>
+											</div>
+											<div class="slds-text-body_regular wrapped-content"><strong>{feed.feedBody}</strong>
+												<template if:true={feed.feedRecordId}>
+										<span class="slds-float_right">
+											<lightning-button-icon data-value={feed.feedRecordId} variant="bare" class="scr-popup-button" icon-name="utility:new_window" size="large" onclick={navigateToRecordViewPage}></lightning-button-icon>
+										</span>
+												</template>
+											</div>
+											<div class="slds-text-body_regular">{feed.formattedDateTime}</div>
+										</lightning-card>
+									</div>
+								</div>
+							</template>
+						</template>
+					</div>
+					<!-- Display view more button, when click will display the remaining cards -->
+					<template lwc:if={hasMoreRows}>
+						<footer class="slds-card__footer">
+							<a class="slds-card__footer-action slds-text-link" href="#" onclick={handleViewMore}>
+								<template lwc:if={viewMore}>
+									<div class="slds-text-link">
+										Hide Updates
+									</div>
+								</template>
+								<template lwc:else>
+									<div class="slds-text-link">
+										View {viewMoreCount} More
+									</div>
+								</template>
+							</a>
+						</footer>
+					</template>
+					<template lwc:else>
+						<div class="slds-var-m-bottom_small"></div>
+					</template>
+				</article>
+			</div>
+		</template>
+	</div>
+</template>
