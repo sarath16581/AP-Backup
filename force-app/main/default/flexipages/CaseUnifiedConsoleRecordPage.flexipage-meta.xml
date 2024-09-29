@@ -109,6 +109,13 @@
                 </fieldInstanceProperties>
                 <fieldItem>Record.Description</fieldItem>
                 <identifier>RecordDescriptionField</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.RecordType.DeveloperName}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>UnifiedInvestigation</rightValue>
+                    </criteria>
+                </visibilityRule>
             </fieldInstance>
         </itemInstances>
         <name>Facet-19b73afe-1e2e-4dda-a8a8-399467c6526e</name>
@@ -133,6 +140,13 @@
                 </fieldInstanceProperties>
                 <fieldItem>Record.Recent_Caller_Pref_Method_of_Contact__c</fieldItem>
                 <identifier>RecordRecent_Caller_Pref_Method_of_Contact_cField</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.RecordType.DeveloperName}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>UnifiedInvestigation</rightValue>
+                    </criteria>
+                </visibilityRule>
             </fieldInstance>
         </itemInstances>
         <itemInstances>
@@ -143,6 +157,23 @@
                 </fieldInstanceProperties>
                 <fieldItem>Record.ResolutionNote__c</fieldItem>
                 <identifier>RecordResolutionNote_cField</identifier>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Description</fieldItem>
+                <identifier>RecordDescriptionField2</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.RecordType.DeveloperName}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>UnifiedGeneralEnquiry</rightValue>
+                    </criteria>
+                </visibilityRule>
             </fieldInstance>
         </itemInstances>
         <name>Facet-b708aa11-de37-4872-9448-37e97d1a5fc4</name>
@@ -235,6 +266,13 @@
                 </fieldInstanceProperties>
                 <fieldItem>Record.Exclude_Subscription_Automation__c</fieldItem>
                 <identifier>RecordExclude_Subscription_Automation_cField</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.RecordType.DeveloperName}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>UnifiedInvestigation</rightValue>
+                    </criteria>
+                </visibilityRule>
             </fieldInstance>
         </itemInstances>
         <name>Facet-dcaa6326-031e-4ff8-8fad-d17993b12d69</name>
@@ -379,6 +417,74 @@
                     <name>uiBehavior</name>
                     <value>none</value>
                 </fieldInstanceProperties>
+                <fieldItem>Record.ReferenceID__c</fieldItem>
+                <identifier>RecordReferenceID_cField2</identifier>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Article_Receiver_Name__c</fieldItem>
+                <identifier>RecordArticle_Receiver_Name_cField2</identifier>
+            </fieldInstance>
+        </itemInstances>
+        <name>Facet-0e4c1caf-2b0e-4b23-be8a-a3a5e459c96f</name>
+        <type>Facet</type>
+    </flexiPageRegions>
+    <flexiPageRegions>
+        <itemInstances>
+            <componentInstance>
+                <componentName>flexipage:blankSpace</componentName>
+                <identifier>flexipage_blankSpace2</identifier>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Article_Receiver_Address__c</fieldItem>
+                <identifier>RecordArticle_Receiver_Address_cField2</identifier>
+            </fieldInstance>
+        </itemInstances>
+        <name>Facet-5160f007-c236-459e-ac7b-6967873c4e6e</name>
+        <type>Facet</type>
+    </flexiPageRegions>
+    <flexiPageRegions>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>body</name>
+                    <value>Facet-0e4c1caf-2b0e-4b23-be8a-a3a5e459c96f</value>
+                </componentInstanceProperties>
+                <componentName>flexipage:column</componentName>
+                <identifier>flexipage_column9</identifier>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>body</name>
+                    <value>Facet-5160f007-c236-459e-ac7b-6967873c4e6e</value>
+                </componentInstanceProperties>
+                <componentName>flexipage:column</componentName>
+                <identifier>flexipage_column10</identifier>
+            </componentInstance>
+        </itemInstances>
+        <name>Facet-040cb9af-f127-42ab-95fc-990aa809de42</name>
+        <type>Facet</type>
+    </flexiPageRegions>
+    <flexiPageRegions>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
                 <fieldItem>Record.Origin</fieldItem>
                 <identifier>RecordOriginField</identifier>
             </fieldInstance>
@@ -411,6 +517,13 @@
                 </fieldInstanceProperties>
                 <fieldItem>Record.CaseTransferDate__c</fieldItem>
                 <identifier>RecordCaseTransferDate_cField</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.RecordType.DeveloperName}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>UnifiedInvestigation</rightValue>
+                    </criteria>
+                </visibilityRule>
             </fieldInstance>
         </itemInstances>
         <itemInstances>
@@ -465,6 +578,13 @@
                 </fieldInstanceProperties>
                 <fieldItem>Record.CaseTransferReason__c</fieldItem>
                 <identifier>RecordCaseTransferReason_cField</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.RecordType.DeveloperName}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>UnifiedInvestigation</rightValue>
+                    </criteria>
+                </visibilityRule>
             </fieldInstance>
         </itemInstances>
         <name>Facet-750fe55a-6633-42c0-9e90-faf423fe7d6f</name>
@@ -547,6 +667,38 @@
                 </componentInstanceProperties>
                 <componentName>flexipage:fieldSection</componentName>
                 <identifier>flexipage_fieldSection3</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.RecordType.DeveloperName}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>UnifiedInvestigation</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>columns</name>
+                    <value>Facet-040cb9af-f127-42ab-95fc-990aa809de42</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>horizontalAlignment</name>
+                    <value>false</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>label</name>
+                    <value>Parcel Details</value>
+                </componentInstanceProperties>
+                <componentName>flexipage:fieldSection</componentName>
+                <identifier>flexipage_fieldSection5</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.RecordType.DeveloperName}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>UnifiedGeneralEnquiry</rightValue>
+                    </criteria>
+                </visibilityRule>
             </componentInstance>
         </itemInstances>
         <itemInstances>
