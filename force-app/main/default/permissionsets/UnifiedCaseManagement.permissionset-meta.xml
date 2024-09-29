@@ -82,7 +82,7 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Case.LastInteractionSummary__c</field>
+        <field>Case.ContactId</field>
         <readable>true</readable>
     </fieldPermissions>
 	<fieldPermissions>
@@ -113,6 +113,11 @@
 	<fieldPermissions>
         <editable>false</editable>
         <field>Case.Expected_Delivery_Date__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Case.LastInteractionSummary__c</field>
         <readable>true</readable>
     </fieldPermissions>
 	<fieldPermissions>
@@ -158,6 +163,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Case.ResolutionCode__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Case.ResolutionNote__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
