@@ -355,10 +355,6 @@ public with sharing class CaseRelatedListPanelContExt {
 	public static Map<String, Object> attachDeliveryProof(Id caseId) {
 		DeliveryProofAvailability availability = canAttachDeliveryProof(caseId);
 		if(availability == DeliveryProofAvailability.AVAILABLE) {
-
-			// refresh consignment data
-			//refreshConsignmentAndArticleData(caseId);
-
 			// all checks have passed, now we execute the job to get the delivery proof PDF attached
 			// NOTE: this will perform a DML insert on Attachment after the PDF content is retrieved
 			DeliveryProofService.getInstance().attachAPDeliveryProofPdf(new Set<Id>{caseId});
@@ -373,47 +369,6 @@ public with sharing class CaseRelatedListPanelContExt {
 			};
 		}
 	}
-
-	@RemoteAction
-	public static void refreshConsignmentAndArticleData(Id caseId) {
-
-		// get
-		List<Case> casesToAttach = SSSWCasesSelector.newInstance(0, new Map<SObjectType, Set<SObjectField>>{
-				Case.SObjectType => new Set<SObjectField>{Case.Id, Case.ReferenceID__c, Case.ArticleTest__c},
-				Article__c.SObjectType => new Set<SObjectField>{Article__c.ArticleID__c, Article__c.ConsignmentTrackingNumber__c}
-		}).selectById(new Set<Id> {caseId}, new Set<Object>{CasesSelector.Options.WITH_ARTICLE}).values();
-		
-		if (!casesToAttach.isEmpty()) {
-
-			Case currentCase = casesToAttach.get(0);
-
-			String trackingId;
-			
-			if (currentCase.ArticleTest__r.RecordType.DeveloperName == 'Article') {
-				trackingId = currentCase.ArticleTest__r.ConsignmentTrackingNumber__c;
-			} else {
-				trackingId = currentCase.ArticleTest__r.ArticleId__c;
-			}
-
-			System.debug('>>>> Refreshing Data for Consignment: ' + trackingId);
-			/*
-			HappyParcelController.queryTrackingApi(trackingId, false, null);
-			*/
-
-			if (String.isNotBlank(trackingId)) {
-
-				TIBCOArticleService articleService = TIBCOArticleService.getInstance();
-				TIBCOSearchResult searchResult;
-
-				searchResult = articleService.searchByArticleIdsInSAP(new List<String>{ trackingId });
-				searchResult = articleService.processTIBCOSearchResults(new List<String>{ trackingId }, searchResult, false, true);
-				
-				//articleService.search(new List<String>{ trackingId }, true, false, false, false, true);
-			}
-			
-		} 
-			
-	} 
 
 	public static DeliveryProofAvailability canAttachDeliveryProof(Id caseId) {
 		DeliveryProofAvailability output = DeliveryProofAvailability.NOT_AVAILABLE;

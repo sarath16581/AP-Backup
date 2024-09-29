@@ -273,19 +273,7 @@ History
 			// show waiting wheel courtesy of LoadingSpinnerComponent
 			showAttachmentsLoading();
 
-
-			console.log('Attaching delivery proof!!!');
-			
-			CaseRelatedListPanelContExt.refreshConsignmentAndArticleData('{!Case.Id}', function(result, event) {
-				
-				console.log('Article data refreshed. Generating POD');
-				generateDeliveryProof();
-				//reloadAttachments();
-			});
-			
-		}
-
-		function generateDeliveryProof() {
+			// use Apex to get the image from the Safe Drop API using remote actions
 			CaseRelatedListPanelContExt.attachDeliveryProof(
 				'{!Case.Id}',
 				function(result, event) {
