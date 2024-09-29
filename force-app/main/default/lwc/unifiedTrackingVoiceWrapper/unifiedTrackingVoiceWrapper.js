@@ -212,7 +212,7 @@ export default class UnifiedTrackingVoiceWrapper extends LightningElement {
 	 */
 	publishSelectedArticlesLMS(trackingId, selectedArticles) {
 		const lmsEventPayload = {
-			source: 'UnifiedTrackingVoiceWrapper',
+			source: 'unifiedTrackingVoiceWrapper',
 			type: 'articleSelected',
 			body: {
 				consignmentId: trackingId,

@@ -6,6 +6,7 @@
  * 2023-11-23 - Thang Nguyen - include the credit claim case business logic
  * 2024-07-08 - Seth Heang - Added 'filterUnified' to recordtype filtering and register a new module for handling proactive monitoring queue routing
  * 2024-08-20 - George Nguyen - Added registerModule(CaseAutomationClassificationModule.class) to classify cases
+ * 2024-09-03 - Seth Heang - registered CaseUnifiedTeamMemberModule for unified case
  */
 public inherited sharing class CaseAutomationTriggerHandler extends ApplicationTriggerHandler {
 
@@ -131,6 +132,9 @@ public inherited sharing class CaseAutomationTriggerHandler extends ApplicationT
 
 		// Logic related to proactive monitor queue routing including time-based SLA validation
 		registerModule(CaseUnifiedProactiveMonitoringModule.class, 'filterUnified');
+
+		// Update CaseTeamMember from Case's owner
+		registerModule(CaseUnifiedTeamMemberModule.class, 'filterUnified');
 	}
 
 	/**
@@ -146,7 +150,8 @@ public inherited sharing class CaseAutomationTriggerHandler extends ApplicationT
 			AuthorisedContacts__c.SObjectType,
 			PendingServiceRouting.SObjectType,
 			CaseInvestigation__c.SObjectType,
-			ScheduledAction__c.SObjectType
+			ScheduledAction__c.SObjectType,
+			CaseTeamMember.SObjectType
 		};
 	}
 

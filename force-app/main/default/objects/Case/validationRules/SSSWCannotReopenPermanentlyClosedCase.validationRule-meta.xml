@@ -15,7 +15,10 @@ NOT(ISPICKVAL(Status, &apos;Closed&apos;))
 
 &amp;&amp; 
 
-CONTAINS(RecordType.DeveloperName, &quot;SSSW&quot;)
+OR(
+  CONTAINS(RecordType.DeveloperName, &quot;SSSW&quot;),
+  BEGINS(RecordType.DeveloperName, &apos;Unified&apos;)
+)
 
 &amp;&amp; 
 NOT(ISPICKVAL(Origin, &apos;Social&apos;))</errorConditionFormula>

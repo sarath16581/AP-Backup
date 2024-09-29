@@ -19,9 +19,9 @@
     <permissionSets>Create Sales Manager Coaching Records</permissionSets>
     <permissionSets>SSSW Knowledge for inside sales</permissionSets>
     <permissionSets>Knowledge - API</permissionSets>
+    <permissionSets>Knowledge - View Articles</permissionSets>
     <permissionSets>Knowledge - Manage Articles</permissionSets>
     <permissionSets>Knowledge - Manage FAQs</permissionSets>
-    <permissionSets>Knowledge - View Articles</permissionSets>
     <profiles>BG Base</profiles>
     <profiles>Coverage Sales</profiles>
     <profiles>Marketing User</profiles>

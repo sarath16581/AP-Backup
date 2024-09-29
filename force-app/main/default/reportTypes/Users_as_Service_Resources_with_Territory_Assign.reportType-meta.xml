@@ -5,6 +5,10 @@
     <deployed>true</deployed>
     <description>Users set up as Service Resources with their assigned Service Territories</description>
     <join>
+        <join>
+            <outerJoin>true</outerJoin>
+            <relationship>ServiceTerritories</relationship>
+        </join>
         <outerJoin>false</outerJoin>
         <relationship>ServiceResources</relationship>
     </join>
@@ -703,6 +707,111 @@
         <masterLabel>Service Resources (User)</masterLabel>
     </sections>
     <sections>
+        <columns>
+            <checkedByDefault>true</checkedByDefault>
+            <field>ServiceTerritory</field>
+            <table>User.ServiceResources.ServiceTerritories</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>EffectiveStartDate</field>
+            <table>User.ServiceResources.ServiceTerritories</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>EffectiveEndDate</field>
+            <table>User.ServiceResources.ServiceTerritories</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Address</field>
+            <table>User.ServiceResources.ServiceTerritories</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Country</field>
+            <table>User.ServiceResources.ServiceTerritories</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>GeocodeAccuracy</field>
+            <table>User.ServiceResources.ServiceTerritories</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>CreatedDate</field>
+            <table>User.ServiceResources.ServiceTerritories</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>LastModifiedBy</field>
+            <table>User.ServiceResources.ServiceTerritories</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Latitude</field>
+            <table>User.ServiceResources.ServiceTerritories</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Name</field>
+            <table>User.ServiceResources.ServiceTerritories</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>City</field>
+            <table>User.ServiceResources.ServiceTerritories</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Street</field>
+            <table>User.ServiceResources.ServiceTerritories</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>CreatedBy</field>
+            <table>User.ServiceResources.ServiceTerritories</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>LastModifiedDate</field>
+            <table>User.ServiceResources.ServiceTerritories</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Longitude</field>
+            <table>User.ServiceResources.ServiceTerritories</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>OperatingHours</field>
+            <table>User.ServiceResources.ServiceTerritories</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>State</field>
+            <table>User.ServiceResources.ServiceTerritories</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Id</field>
+            <table>User.ServiceResources.ServiceTerritories</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>PostalCode</field>
+            <table>User.ServiceResources.ServiceTerritories</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>ServiceResource</field>
+            <table>User.ServiceResources.ServiceTerritories</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>TerritoryType</field>
+            <table>User.ServiceResources.ServiceTerritories</table>
+        </columns>
         <masterLabel>Service Territory Members</masterLabel>
     </sections>
 </ReportType>
