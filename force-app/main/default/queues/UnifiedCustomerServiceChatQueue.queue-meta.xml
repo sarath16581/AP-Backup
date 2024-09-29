@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Queue xmlns="http://soap.sforce.com/2006/04/metadata">
     <doesSendEmailToMembers>false</doesSendEmailToMembers>
-    <name>Unified Customer Service Case Queue</name>
-    <queueRoutingConfig>UnifiedCustomerServiceCaseRoutingConfiguration</queueRoutingConfig>
+    <name>Unified Customer Service Chat Queue</name>
+    <queueRoutingConfig>UnifiedCustomeServiceChatRoutingConfiguration</queueRoutingConfig>
     <queueSobject>
-        <sobjectType>Case</sobjectType>
+        <sobjectType>LiveChatTranscript</sobjectType>
     </queueSobject>
 </Queue>
