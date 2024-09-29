@@ -75,7 +75,7 @@ export default class UnifiedCaseFeeds extends NavigationMixin(LightningElement) 
 					};
 				});
 				// Sorting the feedResults by feedDateTime in descending order
-				this.sortFeedDateTimeInDescendingOrder(this.feedResults);
+				this.feedResults = this.sortFeedDateTimeInDescendingOrder(this.feedResults);
 
 				// Loop over the feedResults and format each feedDateTime
 				this.feedResults = this.feedResults.map((item) => {
@@ -96,7 +96,7 @@ export default class UnifiedCaseFeeds extends NavigationMixin(LightningElement) 
 	/**
 	 * @description sort date time in descending order (latest date time comes first in the list)
 	 * @param feedResults
-	 * @returns {*}
+	 * @returns {{feedHeader: string, feedBody: string, feedDateTime: string, feedCustomIcon: string, feedRecordId: string}[]}
 	 */
 	sortFeedDateTimeInDescendingOrder(feedResults) {
 		if (!feedResults && feedResults.length === 0) {
