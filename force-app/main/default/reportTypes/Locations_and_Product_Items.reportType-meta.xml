@@ -268,6 +268,11 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
+            <field>Service_Territory__c</field>
+            <table>Location</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
             <field>Hire_Vehicle__c</field>
             <table>Location</table>
         </columns>

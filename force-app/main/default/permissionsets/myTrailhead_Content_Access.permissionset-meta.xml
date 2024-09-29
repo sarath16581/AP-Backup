@@ -3,8 +3,4 @@
     <description>Permission Set for Content Access</description>
     <hasActivationRequired>false</hasActivationRequired>
     <label>myTrailhead Content Access</label>
-    <userPermissions>
-        <enabled>true</enabled>
-        <name>MyTrailheadContentAccess</name>
-    </userPermissions>
 </PermissionSet>

@@ -43,7 +43,7 @@
         <isAdditionalSkill>false</isAdditionalSkill>
         <skill>CCS_Threats</skill>
         <skillLevel>5</skillLevel>
-        <value>Internal Specialist Threat - Email</value>
+        <value>Support Lead Case</value>
     </workSkillRoutingAttributes>
     <workSkillRoutingAttributes>
         <field>Case.Origin</field>

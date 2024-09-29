@@ -258,6 +258,11 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
+            <field>Service_Territory__c</field>
+            <table>Location</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
             <field>SiteInstructions__c</field>
             <table>Location</table>
         </columns>
@@ -304,6 +309,16 @@
         <columns>
             <checkedByDefault>false</checkedByDefault>
             <field>VisitorAddress</field>
+            <table>Location</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Service_Territory__c.Id</field>
+            <table>Location</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Service_Territory__c.OperatingHours</field>
             <table>Location</table>
         </columns>
         <masterLabel>Locations</masterLabel>

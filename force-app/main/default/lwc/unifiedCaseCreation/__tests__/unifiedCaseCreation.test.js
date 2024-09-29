@@ -298,7 +298,7 @@ describe('c-unified-case-creation', () => {
 		const productSubCategoryInput = getInputFieldElement(element, 'productSubCategory');
 		expect(productSubCategoryInput).toBeTruthy();
 		expect(productSubCategoryInput.label).toBe(PRODUCT_SUBCATEGORY_LABEL);
-		expect(productSubCategoryInput.value).toBeNull(); // no default due to many available options
+		expect(productSubCategoryInput.value).toBe(''); // no default due to many available options
 	});
 
 	it('test pre-populating input field values where Investigation enquiryType is passed over from parent component', async () => {
@@ -341,7 +341,7 @@ describe('c-unified-case-creation', () => {
 		const productSubCategoryInput = getInputFieldElement(element, 'productSubCategory');
 		expect(productSubCategoryInput).toBeTruthy();
 		expect(productSubCategoryInput.label).toBe(PRODUCT_SUBCATEGORY_LABEL);
-		expect(productSubCategoryInput.value).toBeNull(); // no default due to many available options
+		expect(productSubCategoryInput.value).toBe(''); // no default due to many available options
 	});
 
 	it('test pre-populating input field values where General Enquiry enquiryType is passed over from parent component', async () => {
@@ -384,7 +384,7 @@ describe('c-unified-case-creation', () => {
 		const productSubCategoryInput = getInputFieldElement(element, 'productSubCategory');
 		expect(productSubCategoryInput).toBeTruthy();
 		expect(productSubCategoryInput.label).toBe(PRODUCT_SUBCATEGORY_LABEL);
-		expect(productSubCategoryInput.value).toBeNull(); // no default due to many available options
+		expect(productSubCategoryInput.value).toBe(''); // no default due to many available options
 	});
 
 	it('displays error when one or more fields are invalid', async () => {

@@ -17,21 +17,6 @@ public with sharing class MyCustomerDeliveryProofPdfController {
 	public static List<DeliveryProofAttributes> deliveryProofAttributes { get; set; }
 	public static Boolean isConsignment;
 
-	// Stores the continuation label
-	private String safeDropRequestLabel;
-
-	/**
-	 * Attachment id's associated to the event message being rendered from
-	 */
-	public transient Id safeDropAttachmentId { get; set; }
-	public transient Id signatureAttachmentId { get; set; }
-
-	/**
-	 * Retrieve the specific event message for either the safe drop or signature image
-	 * We do this as a separate request so we can include Article & Consignment related object (without needing to select the data for all event messages)
-	 */
-	public EventMessage__c eventMessage { get; set; }
-
 	/**
 	 * @description	On VF page launch, it will build up a delivery proof result object and populate all necessary attributes for VF PDF display
 	 */

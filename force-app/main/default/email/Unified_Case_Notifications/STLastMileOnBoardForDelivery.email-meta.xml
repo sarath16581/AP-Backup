@@ -3,9 +3,28 @@
     <available>true</available>
     <description>Last mile on board for delivery</description>
     <encodingKey>ISO-8859-1</encodingKey>
-    <name>ST Last Mile - On board for delivery</name>
+    <name>ST Last Mile - On Board For Delivery</name>
     <style>none</style>
     <subject>Good news! Your delivery is coming today for case {!Case.CaseNumber}</subject>
+    <textOnly>Star Track
+
+Case {!Case.CaseNumber}
+
+Hi {!IF(ISBLANK(Contact.Preferred_Name__c),Contact.FirstName,Contact.Preferred_Name__c)},
+
+Your delivery is coming today
+
+Thank you for your patience while we’ve been monitoring your delivery. We 											are delighted to see that it has now been located and is on board to be 											delivered today.
+
+The driver will arrive with your parcel between 1-3pm / by end of day today. 											If you&apos;re not at home, we&apos;ll either leave it in a safe place at the delivery 											address (if the sender hasn&apos;t requested a signature), or you’ll receive a 											card or notification with your delivery options.
+
+Your case will be closed now that your delivery is on the way. You can 											continue to monitor the tracking  for 											further updates.
+
+StarTrack
+
+This email was sent by Startrack. Startrack does not represent, warrant or guarantee that 								the integrity of this email communication has been maintained nor that the communication 								is free of errors, viruses or interference.
+
+Help &amp; support |  Terms &amp; conditions |  Privacy policy</textOnly>
     <type>custom</type>
     <uiType>Aloha</uiType>
 </EmailTemplate>
