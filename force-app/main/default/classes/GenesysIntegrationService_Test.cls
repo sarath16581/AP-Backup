@@ -1,8 +1,8 @@
 /**
- * Test class for Genesys Integration Service that asserts processing callouts and its different responses
+ * Test class for Genesys Integration Service that asserts processing callouts and its different response
  * @author Paul Perry
  * @date 27/08/2024
- * @group Tests
+ * @group Test
  * @tag SCV/Unified
  */
 @IsTest
@@ -94,7 +94,7 @@ public with sharing class GenesysIntegrationService_Test {
 
 		Test.startTest();
 
-		GenesysIntegrationService instance = GenesysIntegrationService.newInstance();
+		GenesysIntegrationService instance = GenesysIntegrationService.getInstance();
 		String conversationId = String.valueOf(UUID.randomUUID());
 		String participantId = String.valueOf(UUID.randomUUID());
 
@@ -119,7 +119,7 @@ public with sharing class GenesysIntegrationService_Test {
 	private static void testBlueMoonFlow() {
 		List<Integer> responseCodes = new List<Integer>{
 			404,	// fetchConversationCallDetail response
-			429		// unable to patch Conversation Participant Attributres
+			429		// unable to patch Conversation Participant Attributre
 		};
 
 		Test.setMock(HttpCalloutMock.class, new MockHttpResponseGenerator(responseCodes));
@@ -127,10 +127,10 @@ public with sharing class GenesysIntegrationService_Test {
 		String conversationId = String.valueOf(UUID.randomUUID());
 
 		Test.startTest();
-		GenesysIntegrationService instance = GenesysIntegrationService.newInstance();
+		GenesysIntegrationService instance = GenesysIntegrationService.getInstance();
 
 		try {
-			// Scenario where the conversation attributes cannot be retrieved from Genesys
+			// Scenario where the conversation attributes cannot be retrieved from Genesy
 			instance.fetchConversationCallDetail(conversationId);
 			System.assert(false, 'Exception expected');
 		} catch (GenesysIntegrationService.GenesysResponseException grEx) {
