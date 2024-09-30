@@ -22,45 +22,8 @@
 				width: 100% !important;
 			}
 
-			span[class="hide"] {
-				display: none !important;
-				width: 0 !important;
-				height: 0 !important;
-				padding: 0 !important;
-				font-size: 0 !important;
-				line-height: 0 !important;
-			}
-
 			td[class="alignjustify"] {
 				text-align: justify !important;
-			}
-
-			td[class="button"] {
-				padding-top: 0 !important;
-			}
-
-			td[class="button"] a {
-				padding: 8px 0;
-				display: block !important;
-				border-bottom: 1px solid #d7d2cb;
-				text-align: center !important;
-				font-size: 13px !important;
-				line-height: 15px !important;
-			}
-
-			td[class="style-01"] {
-				padding: 0 !important;
-			}
-		}
-
-		@media only screen and (max-width:343px) {
-			td[class="img-01"] {
-				width: 100px !important;
-			}
-
-			td[class="img-01"] img {
-				width: 100% !important;
-				height: auto !important;
 			}
 		}
 	</style>
@@ -69,24 +32,25 @@
 <body style="margin:0; padding:0;">
 	<table class="wrapper" width="100%" cellspacing="0" cellpadding="0">
 		<tr>
-			<td style="padding:19px 5px 30px;">
+			<td style="padding:19px 5px;">
 				<table class="flexible" align="center" width="510" cellpadding="0" cellspacing="0">
 					<tr>
 						<td style="padding:0 0 25px;">
 							<table width="100%" cellpadding="0" cellspacing="0">
 								<tr>
-									<td	style="font:bold 16px/20px Arial, Helvetica, sans-serif; color:#382f2d;"></td>
-									<td width="10"></td>
-									<td width="25%">
+									<td>
 										<table width="100%" cellpadding="0" cellspacing="0">
 											<tr>
-												<td align="right"><a href="http://auspost.com.au?ilink=track-em4-edm-aplogo"><img
-															src="http://auspost.com.au/images/emails/track/logo.png"
+												<td align="right" style="padding:0 0 10px;"><a
+														href="http://auspost.com.au?ilink=track-em4-edm-aplogo"><img
+															src="https://cdn.bfldr.com/O9150MZM/at/c39tbx6msfffvmw8j8t4h2v/ap_symbol_red_rgb.svg?auto=webp&format=png"
 															border="0" style="vertical-align:top;" width="99"
 															height="100" alt="Australia Post" /></a></td>
 											</tr>
 											<tr>
-												<td  align="right" width="60" style="padding:1px; font:13px/16px Arial, Helvetica, sans-serif; color:#807370;">Case 0141254121</td>
+												<td align="right" width="60"
+													style="padding:1px; font:11px/16px Arial, Helvetica, sans-serif;">
+													Case {!Case.CaseNumber}</td>
 											</tr>
 										</table>
 									</td>
@@ -95,57 +59,76 @@
 						</td>
 					</tr>
 					<tr>
-						<td bgcolor="#ffffff" style="padding:17px 10px 0 10px; border-radius:0 0 2px 2px;">
+						<td bgcolor="#ffffff" style="padding:17px 10px 0px 10px; border-radius:0 0 2px 2px;">
 							<table width="100%" cellpadding="0" cellspacing="0">
 								<tr>
-									<td
-										style="padding:0 0 5px; font:13px/16px Arial, Helvetica, sans-serif; color:#807370;">
+									<td style="padding:0 0 10px; font:13px/16px Arial, Helvetica, sans-serif;">
 
 										<p>
+											Hi {!IF(ISBLANK(Contact.Preferred_Name__c),Contact.FirstName,Contact.Preferred_Name__c)},
 										</p>
-									</td>
-								</tr>
-								<tr>
-									<td
-										style="padding:0 0 10px; font:13px/16px Arial, Helvetica, sans-serif; color:#807370;border-bottom:0px solid #cdc6c5;">
-
 										<p>
-										Hi Name, 
-
-Your delivery will soon be ready to collect 
-
-Thank you for your patience while we’ve been monitoring your delivery. We are delighted to see that it has now been located and will be ready to collect shortly.  
-
-Your delivery will be dropped off soon - by end of day today or tomorrow morning. Please wait for your tracking to update with “awaiting collection” to know when and where it’s ready for you. 
-
-You have 10 business days to collect your parcel and you can find the location and hours here. Bring along some photo ID showing your name or the address matching the parcel, or *find other ways to collect or to authorise someone else on your behalf.(https://auspost.com.au/receiving/collecting-missed-deliveries)
-
-Your case will be closed now that your delivery is almost there.  
-
-Australia Post 
+											<b>Your delivery will soon be ready to collect</b>
+										</p>
+										<p>
+											Thank you for your patience while we’ve been monitoring your delivery. We
+											are delighted to see that it has now been located and will be ready to
+											collect shortly.
+										</p>
+										<p>
+											Your delivery will be dropped off soon - by end of day today or tomorrow
+											morning. Please wait for your tracking to update with “awaiting collection”
+											to know when and where it’s ready for you.
+										</p>
+										<p>
+											You have 10 business days to collect your parcel and you can find the
+											location and hours <a href="http://auspost.com.au/locate"
+												style="text-decoration:none; color:#0000FF;"><u>here</u></a> Bring along
+											some photo ID showing your name or the address matching the parcel, or <a
+												href="https://auspost.com.au/receiving/collecting-missed-deliveries"
+												style="text-decoration:none; color:#0000FF;"><u> find other ways to
+													collect or to authorise someone else on your behalf.</u></a>
+										</p>
+										<p>
+											Your case will be closed now that your delivery is almost there.
+										</p>
+										<p>
+											Australia Post
 										</p>
 									</td>
 								</tr>
 							</table>
 						</td>
 					</tr>
+				</table>
+			</td>
+		</tr>
+		<tr>
+			<td style="padding:45px 5px;">
+				<table align="center" class="flexible" width="510" cellpadding="0" cellspacing="0">
 					<tr>
-						<td height="14" style="font-size:0; line-height:0;">&nbsp;</td>
+						<td width="13%">&nbsp;</td>
+						<td style="font:11px/16px Arial, Helvetica, sans-serif; text-align: justify !important;">
+							<p>This email was sent by Australia Post. Australia Post does not represent, warrant or
+								guarantee that the integrity of this email communication has been maintained nor that
+								the communication is free of errors, viruses or interference.
+							</p>
+						</td>
+						<td width="13%">&nbsp;</td>
 					</tr>
 					<tr>
-						<td class="alignjustify"
-							style="padding:0 2px 12px; font:11px/13px Arial, Helvetica, sans-serif; color:#444;">
-							<br>This email was sent by Australia Post. Australia Post does not
-							represent, warrant or guarantee that the integrity of this email
-							communication has been maintained nor that the communication is
-							free of errors, viruses or interference.<p>
-							<a href="https://auspost.com.au/help-and-support"
-								style="text-decoration:none; color:#0000FF;"><u>Help & support</u> | </a> <a href="https://auspost.com.au/terms-conditions"
-								style="text-decoration:none; color:#0000FF;"><u>Terms & conditions</u> | </a> <a href="https://auspost.com.au/privacy"
-								style="text-decoration:none; color:#0000FF;"><u>Privacy policy</u></a><br>
-								</p>
-							<br
-							<br></td>
+						<td width="13%">&nbsp;</td>
+						<td align="center" style="font:11px/0px Arial, Helvetica, sans-serif;">
+							<p>
+								<a href="https://auspost.com.au/help-and-support"
+									style="text-decoration:none; color:#0000FF;"><u>Help & support</u> | </a> <a
+									href="https://auspost.com.au/terms-conditions"
+									style="text-decoration:none; color:#0000FF;"><u>Terms & conditions</u> | </a> <a
+									href="https://auspost.com.au/privacy"
+									style="text-decoration:none; color:#0000FF;"><u>Privacy policy</u></a><br>
+							</p>
+						</td>
+						<td width="13%">&nbsp;</td>
 					</tr>
 				</table>
 			</td>
