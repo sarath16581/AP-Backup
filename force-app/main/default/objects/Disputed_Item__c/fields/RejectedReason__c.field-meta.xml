@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>RejectedReason__c</fullName>
     <description>Explaining the reason for rejection to the customer</description>
-    <externalId>false</externalId>
     <label>Rejected Reason</label>
     <length>32768</length>
     <securityClassification>INTERNAL</securityClassification>

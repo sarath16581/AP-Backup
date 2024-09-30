@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__Status__c</fullName>
     <deprecated>false</deprecated>
     <description>The status of the child job</description>
-    <externalId>false</externalId>
     <inlineHelpText>The status of the child job</inlineHelpText>
     <label>Status</label>
     <required>false</required>

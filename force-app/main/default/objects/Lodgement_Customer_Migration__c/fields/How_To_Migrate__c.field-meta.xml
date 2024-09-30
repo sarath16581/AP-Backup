@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>How_To_Migrate__c</fullName>
-    <externalId>false</externalId>
     <inlineHelpText>If customer requires migration to occur in stages provide detail, e.g. customer requires warehouse integration seperately from store-to-door, or specify actual billing accounts/ products that need to be migrated in stages</inlineHelpText>
     <label>How To Migrate</label>
     <length>10000</length>

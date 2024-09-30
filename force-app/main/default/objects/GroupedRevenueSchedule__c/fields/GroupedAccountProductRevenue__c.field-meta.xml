@@ -3,7 +3,6 @@
     <fullName>GroupedAccountProductRevenue__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <description>Grouped Account Product Revenue</description>
-    <externalId>false</externalId>
     <inlineHelpText>Associated Revenue</inlineHelpText>
     <label>Grouped Account Product Revenue</label>
     <referenceTo>GroupedAccountProductRevenue__c</referenceTo>

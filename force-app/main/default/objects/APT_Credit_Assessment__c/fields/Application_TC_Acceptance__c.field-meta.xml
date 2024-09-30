@@ -3,7 +3,6 @@
     <fullName>Application_TC_Acceptance__c</fullName>
     <defaultValue>true</defaultValue>
     <description>This field is to capture the acceptance of T&amp;C from BCA Online application</description>
-    <externalId>false</externalId>
     <label>Application TC Acceptance</label>
     <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>

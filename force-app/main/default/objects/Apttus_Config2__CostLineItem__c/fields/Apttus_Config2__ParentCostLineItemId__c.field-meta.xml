@@ -4,7 +4,6 @@
     <deleteConstraint>SetNull</deleteConstraint>
     <deprecated>false</deprecated>
     <description>Lookup to parent cost line item based on hierarchical relationship</description>
-    <externalId>false</externalId>
     <label>Parent Cost Line Item</label>
     <referenceTo>Apttus_Config2__CostLineItem__c</referenceTo>
     <relationshipLabel>Cost Line Items</relationshipLabel>

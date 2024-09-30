@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__Action__c</fullName>
     <deprecated>false</deprecated>
     <description>The action associated with the rule</description>
-    <externalId>false</externalId>
     <inlineHelpText>The action associated with the rule</inlineHelpText>
     <label>Action</label>
     <required>false</required>

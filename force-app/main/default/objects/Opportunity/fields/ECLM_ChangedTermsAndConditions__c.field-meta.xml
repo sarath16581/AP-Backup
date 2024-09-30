@@ -3,7 +3,6 @@
     <fullName>ECLM_ChangedTermsAndConditions__c</fullName>
     <defaultValue>false</defaultValue>
     <description>ECLM fields</description>
-    <externalId>false</externalId>
     <label>Changes to AusPost T&amp;C</label>
     <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>

@@ -3,7 +3,6 @@
     <fullName>cloudx_cms__Raw_MP4_Video_URL__c</fullName>
     <deprecated>false</deprecated>
     <description>Raw MP4 Video URL</description>
-    <externalId>false</externalId>
     <inlineHelpText>Raw MP4 Video URL</inlineHelpText>
     <label>Raw MP4 Video URL</label>
     <required>false</required>

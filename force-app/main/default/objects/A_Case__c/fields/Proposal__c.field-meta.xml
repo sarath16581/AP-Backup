@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Proposal__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
-    <externalId>false</externalId>
     <label>Proposal</label>
     <referenceTo>Apttus_Proposal__Proposal__c</referenceTo>
     <relationshipLabel>OLD Archived Cases (Proposal__c)</relationshipLabel>

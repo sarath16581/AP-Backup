@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>isMerchantFacilityToBeUsedByOthers__c</fullName>
     <description>Do you operate different business types from the same trading location that will require use of this merchant facility?</description>
-    <externalId>false</externalId>
     <inlineHelpText>Do you operate different business types from the same website that will require use of this merchant facility?</inlineHelpText>
     <label>Merchant Facility To Be Used By Others?</label>
     <required>false</required>

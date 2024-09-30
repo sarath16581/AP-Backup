@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>In_year_actual_APR_uplift__c</fullName>
-    <externalId>false</externalId>
     <formula>IF(RecordType.DeveloperName = &apos;StarTrack&apos;, 
 ((Conclusion_Date__c -  Confirmed_Date__c )/365)* (Billing_Account_Revenue__c * Confirmed_Rate__c),
 ((Conclusion_Date__c -  Confirmed_Date__c )/365)* (Customer_Revenue__c  * Confirmed_Rate__c)

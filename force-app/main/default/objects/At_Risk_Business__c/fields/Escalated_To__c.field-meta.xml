@@ -3,7 +3,6 @@
     <fullName>Escalated_To__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <description>Lookup on user record</description>
-    <externalId>false</externalId>
     <inlineHelpText>If the Status is Escalated. Identify who the Executive is that the issue has been escalated to</inlineHelpText>
     <label>Escalated To</label>
     <referenceTo>User</referenceTo>

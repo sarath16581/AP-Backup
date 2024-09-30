@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>kfsell__EBI_Count__c</fullName>
     <deprecated>false</deprecated>
-    <externalId>false</externalId>
     <label>EBI Count</label>
     <summaryFilterItems>
         <field>kfsell__Buying_Influence__c.kfsell__Economic__c</field>

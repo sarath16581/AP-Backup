@@ -3,7 +3,6 @@
     <fullName>SalesDirectorApprover__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <description>Select Sales Director for approvals</description>
-    <externalId>false</externalId>
     <inlineHelpText>Select Sales Director for approvals</inlineHelpText>
     <label>Sales Director</label>
     <referenceTo>User</referenceTo>

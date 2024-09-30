@@ -3,7 +3,6 @@
     <fullName>MaritzCX__Recipient_Payload__c</fullName>
     <deprecated>false</deprecated>
     <description>This field holds an Invitation Request data for a recipient in JSON format.</description>
-    <externalId>false</externalId>
     <label>Recipient Payload</label>
     <length>32768</length>
     <securityClassification>INTERNAL</securityClassification>

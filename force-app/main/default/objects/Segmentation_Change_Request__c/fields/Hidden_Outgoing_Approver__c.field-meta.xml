@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Hidden_Outgoing_Approver__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
-    <externalId>false</externalId>
     <label>Hidden Outgoing Approver</label>
     <referenceTo>User</referenceTo>
     <relationshipName>Sales_Coverage_Change_Requests1</relationshipName>

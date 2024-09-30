@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__RecurrenceType__c</fullName>
     <deprecated>false</deprecated>
     <description>The limit recurrence type</description>
-    <externalId>false</externalId>
     <inlineHelpText>The limit recurrence type</inlineHelpText>
     <label>Recurrence Type</label>
     <required>false</required>

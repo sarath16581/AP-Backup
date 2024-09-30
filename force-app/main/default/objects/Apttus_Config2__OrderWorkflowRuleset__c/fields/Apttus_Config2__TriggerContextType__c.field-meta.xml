@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__TriggerContextType__c</fullName>
     <deprecated>false</deprecated>
     <description>The trigger context type</description>
-    <externalId>false</externalId>
     <inlineHelpText>The trigger context type</inlineHelpText>
     <label>Trigger Context Type</label>
     <required>true</required>

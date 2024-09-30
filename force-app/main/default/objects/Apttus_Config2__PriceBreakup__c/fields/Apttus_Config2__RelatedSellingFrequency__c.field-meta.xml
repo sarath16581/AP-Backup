@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__RelatedSellingFrequency__c</fullName>
     <deprecated>false</deprecated>
     <description>The selling frequency associated with the related product/service</description>
-    <externalId>false</externalId>
     <inlineHelpText>The selling frequency associated with the related product/service</inlineHelpText>
     <label>Related Selling Frequency</label>
     <required>false</required>

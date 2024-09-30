@@ -5,6 +5,7 @@
     <customButtons>APT_Create_Quote_Proposal</customButtons>
     <customButtons>RevenueReport</customButtons>
     <excludeButtons>Clone</excludeButtons>
+    <excludeButtons>OpenSlackRecordChannel</excludeButtons>
     <excludeButtons>Share</excludeButtons>
     <layoutSections>
         <customLabel>false</customLabel>
@@ -564,6 +565,7 @@
         </relatedContentItems>
     </relatedContent>
     <relatedLists>
+        <customButtons>Add_Product1</customButtons>
         <customButtons>Edit_Product_LWC</customButtons>
         <excludeButtons>AddProduct</excludeButtons>
         <excludeButtons>ChoosePricebook</excludeButtons>

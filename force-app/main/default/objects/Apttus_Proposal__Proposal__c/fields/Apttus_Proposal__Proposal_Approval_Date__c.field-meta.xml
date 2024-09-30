@@ -3,7 +3,6 @@
     <fullName>Apttus_Proposal__Proposal_Approval_Date__c</fullName>
     <deprecated>false</deprecated>
     <description>The date the quote/proposal was approved</description>
-    <externalId>false</externalId>
     <label>Proposal Approval Date</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>

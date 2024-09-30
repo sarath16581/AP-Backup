@@ -3,7 +3,6 @@
     <fullName>et4ae5__HardBounce__c</fullName>
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
-    <externalId>false</externalId>
     <inlineHelpText>The email sent to this subscriber  was rejected due to permanent conditions (this typically results when &quot;user unknown&quot; or &quot;domain not found&quot; errors occur)</inlineHelpText>
     <label>Hard Bounce</label>
     <securityClassification>INTERNAL</securityClassification>

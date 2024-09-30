@@ -3,7 +3,6 @@
     <fullName>Primary_Campaign__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <description>The primary campaign listed on the Opportunity, else lookup to Campaign</description>
-    <externalId>false</externalId>
     <label>Primary Campaign</label>
     <referenceTo>Campaign</referenceTo>
     <relationshipLabel>Deal Support Request</relationshipLabel>

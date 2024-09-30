@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__CountryCriteriaOper__c</fullName>
     <deprecated>false</deprecated>
     <description>The country criteria operator</description>
-    <externalId>false</externalId>
     <inlineHelpText>The country criteria operator</inlineHelpText>
     <label>Country Criteria Oper</label>
     <required>false</required>

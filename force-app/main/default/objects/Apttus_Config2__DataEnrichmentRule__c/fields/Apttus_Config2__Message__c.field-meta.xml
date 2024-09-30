@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__Message__c</fullName>
     <deprecated>false</deprecated>
     <description>The help text message for the target object field</description>
-    <externalId>false</externalId>
     <inlineHelpText>The help text message for the target object field</inlineHelpText>
     <label>Message</label>
     <length>1024</length>

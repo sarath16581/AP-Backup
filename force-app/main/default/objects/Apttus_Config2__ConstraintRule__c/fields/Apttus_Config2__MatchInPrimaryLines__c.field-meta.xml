@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Conditions are evaluated against products added as primary lines.</description>
-    <externalId>false</externalId>
     <label>Match In Primary Lines (DEPRECATED</label>
     <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>

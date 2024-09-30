@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__FilterCriteria__c</fullName>
     <deprecated>false</deprecated>
     <description>Cart views filter criteria specification</description>
-    <externalId>false</externalId>
     <inlineHelpText>Cart views filter criteria specification</inlineHelpText>
     <label>Filter Criteria</label>
     <length>2048</length>

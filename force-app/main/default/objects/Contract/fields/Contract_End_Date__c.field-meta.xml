@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Contract_End_Date__c</fullName>
     <description>The end date for this agreement</description>
-    <externalId>false</externalId>
     <inlineHelpText>If contract is Open Ended this field represents Contract Anniversary Date
 
 If Contract is Fixed Term this field represents Contract End Date (Expiration Date)</inlineHelpText>

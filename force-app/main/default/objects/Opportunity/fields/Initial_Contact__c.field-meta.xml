@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Initial_Contact__c</fullName>
     <description>Requested by MK for LPO lodgement</description>
-    <externalId>false</externalId>
     <inlineHelpText>How was the initial conversation with Customer initiated?
 Select Customer approached Account Manager or Account Manager approached the customer (incs LPO or Hub referred the customer to AM, Outbound Marketing activity asked customer to engage)</inlineHelpText>
     <label>Initial Contact</label>

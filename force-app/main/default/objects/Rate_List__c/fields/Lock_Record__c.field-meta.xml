@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Lock_Record__c</fullName>
     <defaultValue>false</defaultValue>
-    <externalId>false</externalId>
     <label>Lock Record</label>
     <securityClassification>OFFICIAL_SENSITIVE</securityClassification>
     <trackHistory>false</trackHistory>

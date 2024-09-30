@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Indicates whether the quick add filter will be collapsed by default.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Indicates whether the quick add filter will be collapsed by default.</inlineHelpText>
     <label>Collapse Quick Add Filter</label>
     <trackTrending>false</trackTrending>

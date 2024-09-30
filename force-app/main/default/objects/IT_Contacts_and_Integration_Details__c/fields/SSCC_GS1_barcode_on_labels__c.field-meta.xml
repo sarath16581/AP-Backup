@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>SSCC_GS1_barcode_on_labels__c</fullName>
-    <externalId>false</externalId>
     <inlineHelpText>Is the client using SSCC GS1 barcode on labels?</inlineHelpText>
     <label>SSCC GS1 barcode (on labels)</label>
     <required>false</required>

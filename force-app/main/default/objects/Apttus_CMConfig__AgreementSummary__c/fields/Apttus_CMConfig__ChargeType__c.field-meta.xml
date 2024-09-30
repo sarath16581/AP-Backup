@@ -3,7 +3,6 @@
     <fullName>Apttus_CMConfig__ChargeType__c</fullName>
     <deprecated>false</deprecated>
     <description>v</description>
-    <externalId>false</externalId>
     <label>Charge Type</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>

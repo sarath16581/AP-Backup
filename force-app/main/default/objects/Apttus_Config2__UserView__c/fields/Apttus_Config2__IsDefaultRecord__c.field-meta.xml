@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>This field stores the default value for the record based on apex logic.This doesn&apos;t reflect the default attribute provided by the user.</description>
-    <externalId>false</externalId>
     <inlineHelpText>This field stores the default value for the record based on apex logic.This doesn&apos;t reflect the default attribute provided by the user.</inlineHelpText>
     <label>IsDefaultRecord</label>
     <securityClassification>INTERNAL</securityClassification>

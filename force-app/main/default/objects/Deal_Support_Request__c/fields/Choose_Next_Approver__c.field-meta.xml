@@ -3,7 +3,6 @@
     <fullName>Choose_Next_Approver__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <description>This field will allow Surcharge users to select approver when Submitting a request. Note: this field is due to be deprecated in a future release.</description>
-    <externalId>false</externalId>
     <label>Choose Next Approver (Deprecated)</label>
     <referenceTo>User</referenceTo>
     <relationshipName>Deal_Support_RequestaAeh</relationshipName>

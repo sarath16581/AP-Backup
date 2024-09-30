@@ -3,7 +3,6 @@
     <fullName>Disallow_Community_Stepup__c</fullName>
     <defaultValue>false</defaultValue>
     <description>Controls the user access to &apos;AP Community User&apos;,If checked user access to community will be denied.</description>
-    <externalId>false</externalId>
     <label>Disallow Community Stepup</label>
     <trackFeedHistory>false</trackFeedHistory>
     <type>Checkbox</type>

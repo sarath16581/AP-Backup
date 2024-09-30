@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>APT_Evaluated_Spend_per_annum__c</fullName>
     <description>Evaluated spend per annum (part of compass price management data)</description>
-    <externalId>false</externalId>
     <label>Evaluated Spend (per annum)</label>
     <precision>18</precision>
     <required>false</required>

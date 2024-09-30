@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>What_decisions_need_to_be_made_by_whom__c</fullName>
     <description>This field stores the details of the decisions made in the forum for Deal Governance requests</description>
-    <externalId>false</externalId>
     <label>What Decisions Required &amp; By whom?</label>
     <length>32768</length>
     <securityClassification>INTERNAL</securityClassification>

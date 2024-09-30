@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Indicator to disable search filters for the category.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Disables search filters for the category</inlineHelpText>
     <label>Hide All Search Filters</label>
     <securityClassification>INTERNAL</securityClassification>

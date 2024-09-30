@@ -3,7 +3,6 @@
     <fullName>kfsell__Due_Date__c</fullName>
     <deprecated>false</deprecated>
     <description>Due Date</description>
-    <externalId>false</externalId>
     <label>Due Date</label>
     <required>false</required>
     <trackHistory>false</trackHistory>

@@ -3,7 +3,6 @@
     <fullName>EnableReportDownload__c</fullName>
     <defaultValue>true</defaultValue>
     <description>Allow or disable Download of Reports</description>
-    <externalId>false</externalId>
     <inlineHelpText>Allow or disable Download of Reports</inlineHelpText>
     <label>Enable Report Download</label>
     <trackTrending>false</trackTrending>

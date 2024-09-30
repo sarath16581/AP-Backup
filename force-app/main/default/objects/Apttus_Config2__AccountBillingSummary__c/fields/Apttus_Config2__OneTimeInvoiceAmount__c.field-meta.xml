@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__OneTimeInvoiceAmount__c</fullName>
     <deprecated>false</deprecated>
     <description>The total of all one time charges that are invoiced</description>
-    <externalId>false</externalId>
     <inlineHelpText>The total of all one time charges that are invoiced</inlineHelpText>
     <label>One-Time Invoice Amount</label>
     <precision>18</precision>

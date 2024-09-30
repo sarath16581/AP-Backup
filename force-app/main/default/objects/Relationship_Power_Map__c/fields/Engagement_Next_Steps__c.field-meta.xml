@@ -4,7 +4,6 @@
     <description>Phase 1 - Opportunity Assessment (PWC)
 
 Identify next steps we will take to engage them</description>
-    <externalId>false</externalId>
     <inlineHelpText>How will we engage them?</inlineHelpText>
     <label>Engagement Next Steps</label>
     <length>32768</length>

@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Indicates whether audit trail entries would be written to the Adjustment Line Item object for Price Rules applied to the Line Item</description>
-    <externalId>false</externalId>
     <inlineHelpText>Indicates whether audit trail entries would be written to the Adjustment Line Item object for Price Rules applied to the Line Item</inlineHelpText>
     <label>Enable Price Rule Audit Trail</label>
     <trackTrending>false</trackTrending>

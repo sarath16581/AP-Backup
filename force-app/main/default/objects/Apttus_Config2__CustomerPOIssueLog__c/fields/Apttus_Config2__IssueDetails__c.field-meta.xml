@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__IssueDetails__c</fullName>
     <deprecated>false</deprecated>
     <description>The details of the issue</description>
-    <externalId>false</externalId>
     <inlineHelpText>The details of the issue</inlineHelpText>
     <label>Issue Details (Deprecated)</label>
     <required>false</required>

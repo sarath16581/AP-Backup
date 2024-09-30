@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>AMLCTF_Number_Of_Audit_Programs__c</fullName>
     <description>Field to indicate number of Audit Program child records. Field added as part of the Retail Audit Case Management Solution, AML/CTF Austrac Phase 2.</description>
-    <externalId>false</externalId>
     <label>Number Of Audit Programs</label>
     <securityClassification>INTERNAL</securityClassification>
     <summaryForeignKey>AMLCTF_Audit_Program__c.AMLCTF_Audit_Case__c</summaryForeignKey>

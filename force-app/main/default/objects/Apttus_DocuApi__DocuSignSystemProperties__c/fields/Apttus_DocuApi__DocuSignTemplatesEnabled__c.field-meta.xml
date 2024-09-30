@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>If checked, it will provide a DocuSign template selection list on the user interface, under the additional details section. When it is checked, recipient role selection will not be available on the user interface.</description>
-    <externalId>false</externalId>
     <inlineHelpText>If checked, it will provide a DocuSign template selection list on the user interface, under the additional details section. When it is checked, recipient role selection will not be available on the user interface.</inlineHelpText>
     <label>DocuSign Templates Enabled</label>
     <trackTrending>false</trackTrending>

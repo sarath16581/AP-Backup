@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__InvoiceBalance__c</fullName>
     <deprecated>false</deprecated>
     <description>The invoice balance for the account</description>
-    <externalId>false</externalId>
     <inlineHelpText>The invoice balance for the account</inlineHelpText>
     <label>Invoice Balance</label>
     <precision>18</precision>

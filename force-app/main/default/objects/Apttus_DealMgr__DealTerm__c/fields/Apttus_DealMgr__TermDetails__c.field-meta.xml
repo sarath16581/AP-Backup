@@ -3,7 +3,6 @@
     <fullName>Apttus_DealMgr__TermDetails__c</fullName>
     <deprecated>false</deprecated>
     <description>Short description of the term associated with the deal</description>
-    <externalId>false</externalId>
     <inlineHelpText>Short description of the term associated with the deal</inlineHelpText>
     <label>Term Details</label>
     <required>false</required>

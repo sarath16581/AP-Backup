@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Variance_Revenue_to_Last_Year__c</fullName>
     <description>Phase 2 - To be used for Reporting Purposes.</description>
-    <externalId>false</externalId>
     <formula>100*( MTD_Actual__c -  MTD_Revenue_Last_Year__c ) / MTD_Revenue_Last_Year__c</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <label>% Variance Revenue to Last Year</label>

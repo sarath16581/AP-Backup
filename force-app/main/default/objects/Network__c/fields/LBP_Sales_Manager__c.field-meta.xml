@@ -3,7 +3,6 @@
     <fullName>LBP_Sales_Manager__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <description>This field is used to identify the Sales Manager that manages the relationship with the Network as part of the LBP Sales Program.</description>
-    <externalId>false</externalId>
     <inlineHelpText>This field is used to identify the Sales Manager that manages the relationship with the Network as part of the LBP Sales Program.</inlineHelpText>
     <label>LBP Sales Manager</label>
     <referenceTo>User</referenceTo>

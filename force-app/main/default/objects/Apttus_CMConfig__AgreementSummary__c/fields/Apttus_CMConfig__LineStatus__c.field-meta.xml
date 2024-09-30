@@ -3,7 +3,6 @@
     <fullName>Apttus_CMConfig__LineStatus__c</fullName>
     <deprecated>false</deprecated>
     <description>The line status</description>
-    <externalId>false</externalId>
     <label>Line Status</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>

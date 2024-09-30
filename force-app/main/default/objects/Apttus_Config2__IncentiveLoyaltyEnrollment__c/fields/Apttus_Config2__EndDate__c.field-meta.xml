@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__EndDate__c</fullName>
     <deprecated>false</deprecated>
     <description>The enrollment end date</description>
-    <externalId>false</externalId>
     <inlineHelpText>The enrollment end date</inlineHelpText>
     <label>End Date</label>
     <required>false</required>

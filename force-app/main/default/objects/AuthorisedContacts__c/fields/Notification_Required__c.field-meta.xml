@@ -3,7 +3,6 @@
     <fullName>Notification_Required__c</fullName>
     <defaultValue>false</defaultValue>
     <description>This will capture boolean flag if the contact should be notified when the case is closed.</description>
-    <externalId>false</externalId>
     <label>Notification Required?</label>
     <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>

@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Depot_Role__c</fullName>
     <description>StarTrack: Capture depot role for depot role person</description>
-    <externalId>false</externalId>
     <label>Depot Area</label>
     <referenceTo>Depot_Area__c</referenceTo>
     <relationshipLabel>Depot Area User</relationshipLabel>

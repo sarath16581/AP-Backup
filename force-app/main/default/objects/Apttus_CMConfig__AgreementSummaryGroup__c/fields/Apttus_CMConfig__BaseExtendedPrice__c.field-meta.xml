@@ -3,7 +3,6 @@
     <fullName>Apttus_CMConfig__BaseExtendedPrice__c</fullName>
     <deprecated>false</deprecated>
     <description>The rolled up base extended price of products and options that belong to the group</description>
-    <externalId>false</externalId>
     <label>Base Extended Price</label>
     <precision>18</precision>
     <required>false</required>

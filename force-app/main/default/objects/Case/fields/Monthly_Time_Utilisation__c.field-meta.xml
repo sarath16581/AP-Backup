@@ -4,7 +4,6 @@
     <businessStatus>DeprecateCandidate</businessStatus>
     <deleteConstraint>SetNull</deleteConstraint>
     <description>to be decommissioned - User Support Query RT cleanup</description>
-    <externalId>false</externalId>
     <label>Dep -Monthly Time Utilisation</label>
     <referenceTo>Monthly_Time_Utilisation__c</referenceTo>
     <relationshipLabel>Cases</relationshipLabel>

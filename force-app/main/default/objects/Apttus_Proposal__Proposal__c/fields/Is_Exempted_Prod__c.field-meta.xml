@@ -3,7 +3,6 @@
     <fullName>Is_Exempted_Prod__c</fullName>
     <defaultValue>false</defaultValue>
     <description>This is the backend field used for identifying the products for which we need to create proposal document without pricing</description>
-    <externalId>false</externalId>
     <inlineHelpText>This is the backend field used for identifying the products for which we need to create proposal document without pricing</inlineHelpText>
     <label>Is Exempted Prod</label>
     <securityClassification>INTERNAL</securityClassification>

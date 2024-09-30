@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>IT_Contact__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
-    <externalId>false</externalId>
     <inlineHelpText>The IT manager in control of the process or project that interfaces to AP</inlineHelpText>
     <label>IT Contact</label>
     <referenceTo>Contact</referenceTo>

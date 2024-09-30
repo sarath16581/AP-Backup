@@ -3,7 +3,6 @@
     <fullName>Apttus_Base2__Config__c</fullName>
     <deprecated>false</deprecated>
     <description>Configuration for grid and other components. The format is JSON.</description>
-    <externalId>false</externalId>
     <label>Config</label>
     <length>32768</length>
     <securityClassification>INTERNAL</securityClassification>

@@ -3,7 +3,6 @@
     <fullName>Apttus_Base2__Severity__c</fullName>
     <deprecated>false</deprecated>
     <description>Level of severity of the exception or error being logged.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Level of severity of the exception or error being logged.</inlineHelpText>
     <label>Severity</label>
     <required>false</required>

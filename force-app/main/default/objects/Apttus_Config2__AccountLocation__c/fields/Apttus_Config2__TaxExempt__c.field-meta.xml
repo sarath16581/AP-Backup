@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__TaxExempt__c</fullName>
     <deprecated>false</deprecated>
     <description>The tax exempt indicator for the location</description>
-    <externalId>false</externalId>
     <inlineHelpText>The tax exempt indicator for the location</inlineHelpText>
     <label>Tax Exempt</label>
     <required>false</required>

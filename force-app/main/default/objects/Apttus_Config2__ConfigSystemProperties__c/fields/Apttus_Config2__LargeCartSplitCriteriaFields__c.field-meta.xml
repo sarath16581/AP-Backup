@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__LargeCartSplitCriteriaFields__c</fullName>
     <deprecated>false</deprecated>
     <description>The criteria fields used to split a large cart</description>
-    <externalId>false</externalId>
     <inlineHelpText>The list of Line item fields to break summarized view of items added during a large cart process. Each field API name separated by a comma or a new line.</inlineHelpText>
     <label>Large Cart Split Criteria Fields</label>
     <required>false</required>

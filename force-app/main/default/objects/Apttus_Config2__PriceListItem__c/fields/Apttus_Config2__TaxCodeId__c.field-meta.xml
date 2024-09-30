@@ -4,7 +4,6 @@
     <deleteConstraint>SetNull</deleteConstraint>
     <deprecated>false</deprecated>
     <description>ID of the tax code associated with the price item. Only applicable for taxable items.</description>
-    <externalId>false</externalId>
     <inlineHelpText>ID of the tax code associated with the price item. Only applicable for taxable items.</inlineHelpText>
     <label>Tax Code</label>
     <referenceTo>Apttus_Config2__TaxCode__c</referenceTo>

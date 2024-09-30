@@ -3,7 +3,6 @@
     <fullName>Issue__c</fullName>
     <defaultValue>false</defaultValue>
     <description>Check this flag to exclude the record from reporting (only applicable for reports configured to use this field)</description>
-    <externalId>false</externalId>
     <inlineHelpText>Check this flag to exclude the record from reporting (only applicable for reports configured to use this field)</inlineHelpText>
     <label>Issue?</label>
     <securityClassification>INTERNAL</securityClassification>

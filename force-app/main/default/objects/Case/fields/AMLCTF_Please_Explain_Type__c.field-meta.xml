@@ -3,7 +3,6 @@
     <fullName>AMLCTF_Please_Explain_Type__c</fullName>
     <businessStatus>DeprecateCandidate</businessStatus>
     <description>Type of Please Explain audit request, similar to Report Name in FIC.  Part of the Retail Audit Case Management Solution, AML/CTF Austrac Phase 2.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Type of Please Explain audit request, similar to Report Name in FIC.  Part of the Retail Audit Case Management Solution, AML/CTF Austrac Phase 2.</inlineHelpText>
     <label>Dep -Please Explain Type</label>
     <required>false</required>

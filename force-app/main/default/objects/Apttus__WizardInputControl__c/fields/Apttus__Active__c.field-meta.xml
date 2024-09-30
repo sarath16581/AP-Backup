@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Signifies that the Input control within a step is Active. Setting Wizard Design as Active automatically activates the included input controls.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Signifies that the Input control within a step is Active. Setting Wizard Design as Active automatically activates the included input controls.</inlineHelpText>
     <label>Active</label>
     <securityClassification>INTERNAL</securityClassification>

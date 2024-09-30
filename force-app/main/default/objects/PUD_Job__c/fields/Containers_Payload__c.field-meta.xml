@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Containers_Payload__c</fullName>
     <description>Stores all container types related information and is structured into a JSON format to be sent out to TIBCO and dispatch system.</description>
-    <externalId>false</externalId>
     <label>Containers Payload</label>
     <length>32768</length>
     <trackTrending>false</trackTrending>

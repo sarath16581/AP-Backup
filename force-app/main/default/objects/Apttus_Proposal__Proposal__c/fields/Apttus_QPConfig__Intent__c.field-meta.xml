@@ -3,7 +3,6 @@
     <fullName>Apttus_QPConfig__Intent__c</fullName>
     <deprecated>false</deprecated>
     <description>The intent associated with the quote/proposal</description>
-    <externalId>false</externalId>
     <inlineHelpText>The intent associated with the quote/proposal</inlineHelpText>
     <label>Intent</label>
     <required>false</required>

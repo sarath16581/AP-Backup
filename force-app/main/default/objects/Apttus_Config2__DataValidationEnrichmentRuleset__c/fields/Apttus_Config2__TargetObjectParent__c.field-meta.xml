@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__TargetObjectParent__c</fullName>
     <deprecated>false</deprecated>
     <description>Related parent object when the child object also need to be validated and enriched</description>
-    <externalId>false</externalId>
     <inlineHelpText>Related parent object when the child object also need to be validated and enriched</inlineHelpText>
     <label>Target Object Parent</label>
     <required>false</required>

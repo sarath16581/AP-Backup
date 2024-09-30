@@ -3,7 +3,6 @@
     <fullName>Annual_Report__c</fullName>
     <defaultValue>false</defaultValue>
     <description>Checking this field indicates the Contact will be sent a copy of the Australia Post Annual Report when it becomes available each year.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Send this contact a new Australia Post Annual Report each year. Ensure all personal and mailing details are correct.</inlineHelpText>
     <label>Annual Report</label>
     <securityClassification>INTERNAL</securityClassification>

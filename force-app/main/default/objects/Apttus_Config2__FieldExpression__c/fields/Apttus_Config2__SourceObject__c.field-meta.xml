@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__SourceObject__c</fullName>
     <deprecated>false</deprecated>
     <description>Represents the source object for expression.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Represents the source object for expression.</inlineHelpText>
     <label>Source Object</label>
     <required>false</required>

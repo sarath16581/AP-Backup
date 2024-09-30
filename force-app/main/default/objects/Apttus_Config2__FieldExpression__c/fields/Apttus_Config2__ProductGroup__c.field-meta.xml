@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__ProductGroup__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <deprecated>false</deprecated>
-    <externalId>false</externalId>
     <label>Product Group</label>
     <referenceTo>Apttus_Config2__ProductGroup__c</referenceTo>
     <relationshipLabel>Field Expressions</relationshipLabel>

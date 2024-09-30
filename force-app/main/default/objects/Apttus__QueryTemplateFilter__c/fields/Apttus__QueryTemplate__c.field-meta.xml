@@ -3,7 +3,6 @@
     <fullName>Apttus__QueryTemplate__c</fullName>
     <deprecated>false</deprecated>
     <description>The associated query template</description>
-    <externalId>false</externalId>
     <inlineHelpText>The associated query template</inlineHelpText>
     <label>Query Template</label>
     <referenceTo>Apttus__QueryTemplate__c</referenceTo>

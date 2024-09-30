@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Remediation_TimeStamp__c</fullName>
     <description>The Date/Time that a remediation event for this article was last sent to TIBCO/SAP-EM</description>
-    <externalId>false</externalId>
     <inlineHelpText>The Date/Time that a remediation event for this article was last sent to TIBCO/SAP-EM</inlineHelpText>
     <label>Remediation TimeStamp</label>
     <required>false</required>

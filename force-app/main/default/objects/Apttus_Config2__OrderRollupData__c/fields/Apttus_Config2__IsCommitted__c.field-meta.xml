@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Indicates whether the order rollup data is already committed to the rollup data</description>
-    <externalId>false</externalId>
     <inlineHelpText>Indicates whether the order rollup data is already committed to the rollup data</inlineHelpText>
     <label>Is Committed</label>
     <trackTrending>false</trackTrending>

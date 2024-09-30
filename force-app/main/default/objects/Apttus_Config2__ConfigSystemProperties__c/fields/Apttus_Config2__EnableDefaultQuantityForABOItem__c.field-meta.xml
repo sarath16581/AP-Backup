@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Indicates whether default quantity rules should be applied to ABO items</description>
-    <externalId>false</externalId>
     <inlineHelpText>Indicates whether default quantity rules should be applied to ABO items</inlineHelpText>
     <label>Enable Default Quantity For ABO Item</label>
     <trackTrending>false</trackTrending>

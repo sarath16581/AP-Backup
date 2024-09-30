@@ -3,7 +3,6 @@
     <fullName>Condition__c</fullName>
     <businessStatus>Active</businessStatus>
     <description>Condition of container</description>
-    <externalId>false</externalId>
     <inlineHelpText>Condition of container</inlineHelpText>
     <label>Condition</label>
     <required>false</required>

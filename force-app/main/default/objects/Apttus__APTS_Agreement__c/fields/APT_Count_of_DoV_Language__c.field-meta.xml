@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>APT_Count_of_DoV_Language__c</fullName>
     <description>Counter for sentence/plural sentences in DOV Template</description>
-    <externalId>false</externalId>
     <label>Count of DoV Language</label>
     <securityClassification>INTERNAL</securityClassification>
     <summaryFilterItems>

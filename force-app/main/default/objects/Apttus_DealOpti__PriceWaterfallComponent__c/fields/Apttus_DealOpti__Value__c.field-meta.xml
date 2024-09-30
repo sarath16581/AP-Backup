@@ -3,7 +3,6 @@
     <fullName>Apttus_DealOpti__Value__c</fullName>
     <deprecated>false</deprecated>
     <description>The price component value</description>
-    <externalId>false</externalId>
     <inlineHelpText>The price component value</inlineHelpText>
     <label>Value</label>
     <precision>18</precision>

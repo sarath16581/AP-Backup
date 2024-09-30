@@ -4,7 +4,6 @@
     <deprecated>false</deprecated>
     <description>The account Id of the agreement leaf in the agreement hierarchy.
 Root &gt; Parent &gt; Leaf - Account Id</description>
-    <externalId>false</externalId>
     <inlineHelpText>The account Id of the agreement leaf in the agreement hierarchy.
 Root &gt; Parent &gt; Leaf - Account Id</inlineHelpText>
     <label>Agreement Leaf Account</label>

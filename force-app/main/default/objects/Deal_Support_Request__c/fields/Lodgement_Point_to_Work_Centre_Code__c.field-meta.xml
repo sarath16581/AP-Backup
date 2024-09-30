@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Lodgement_Point_to_Work_Centre_Code__c</fullName>
     <description>Contain mapping of Lodgement Point to Work Centre Code</description>
-    <externalId>false</externalId>
     <label>Lodgement Point : Work Centre</label>
     <length>1000</length>
     <securityClassification>INTERNAL</securityClassification>

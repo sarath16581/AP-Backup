@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Ancestor selection for Import Offline</description>
-    <externalId>false</externalId>
     <inlineHelpText>Allows a user to link an offline document to an existing major version of a document.</inlineHelpText>
     <label>Ancestor selection for Import Offline</label>
     <trackTrending>false</trackTrending>

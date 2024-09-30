@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Set this flag to make approval comments mandatory for this process. When set, the user will be forced to enter comments when a request is approved.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Set this flag to make approval comments mandatory for this process. When set, the user will be forced to enter comments when a request is approved.</inlineHelpText>
     <label>Approval Comments Mandatory</label>
     <trackTrending>false</trackTrending>

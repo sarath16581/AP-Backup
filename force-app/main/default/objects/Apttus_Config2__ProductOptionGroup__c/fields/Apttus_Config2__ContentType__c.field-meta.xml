@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__ContentType__c</fullName>
     <deprecated>false</deprecated>
     <description>Based on the choice Options, Attributes or Detail Page Url contents are displayed. Detail page is displayed inside iframe. Default value is Options.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Based on the choice Options, Attributes or Detail Page Url contents are displayed.</inlineHelpText>
     <label>Content Type</label>
     <required>false</required>

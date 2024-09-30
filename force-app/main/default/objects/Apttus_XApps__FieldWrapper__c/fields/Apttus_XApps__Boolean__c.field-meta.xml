@@ -3,7 +3,6 @@
     <fullName>Apttus_XApps__Boolean__c</fullName>
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
-    <externalId>false</externalId>
     <label>Boolean</label>
     <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>

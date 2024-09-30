@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__BaseExtendedPrice__c</fullName>
     <deprecated>false</deprecated>
     <description>The base extended price is Quantity X Term (if applicable) X (Base Price + Price Adjustment) for individual products and options</description>
-    <externalId>false</externalId>
     <label>Base Extended Price</label>
     <precision>18</precision>
     <required>false</required>

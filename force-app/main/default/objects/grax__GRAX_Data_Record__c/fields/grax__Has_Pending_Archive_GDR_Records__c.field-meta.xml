@@ -3,7 +3,6 @@
     <fullName>grax__Has_Pending_Archive_GDR_Records__c</fullName>
     <deprecated>false</deprecated>
     <description>Field Used for Internal Auditing</description>
-    <externalId>false</externalId>
     <formula>grax__Num_Records_To_Process__c &lt;&gt; grax__Num_Records_Successfully_Deleted__c + grax__Num_Records_Failed_To_Delete__c</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <label>Has Pending Archive GDR Records</label>

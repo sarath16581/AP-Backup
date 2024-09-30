@@ -3,7 +3,6 @@
     <fullName>Use_Continuation_for_Consignment_Search__c</fullName>
     <defaultValue>false</defaultValue>
     <description>To use Continuation server for Consignment Search, set this to true.</description>
-    <externalId>false</externalId>
     <label>Use Continuation for Consignment Search</label>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>

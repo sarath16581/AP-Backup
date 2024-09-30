@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>LPO_Work_Type_Values__c</fullName>
     <description>Comma Separated List of Support Work Type Values</description>
-    <externalId>false</externalId>
     <inlineHelpText>e.g. Addendum/DOV,New Account</inlineHelpText>
     <label>LPO Work Type Values</label>
     <required>false</required>

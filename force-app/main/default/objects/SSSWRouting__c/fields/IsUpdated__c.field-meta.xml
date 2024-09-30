@@ -3,7 +3,6 @@
     <fullName>IsUpdated__c</fullName>
     <defaultValue>false</defaultValue>
     <description>Checkbox to route cases which were already worked on by an agent and needs a routing again.</description>
-    <externalId>false</externalId>
     <label>Is Updated?</label>
     <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>

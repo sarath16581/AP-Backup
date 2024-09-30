@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Proposed_Position_to_Win__c</fullName>
     <description>Details on what rates would be required to win the business</description>
-    <externalId>false</externalId>
     <inlineHelpText>Customer expectation of price</inlineHelpText>
     <label>Proposed Position to Win</label>
     <length>5000</length>

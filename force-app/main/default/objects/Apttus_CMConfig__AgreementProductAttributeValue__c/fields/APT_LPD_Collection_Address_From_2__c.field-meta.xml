@@ -3,7 +3,6 @@
     <fullName>APT_LPD_Collection_Address_From_2__c</fullName>
     <description>Collection Address To is used to capture collection address for &apos;Pickup Service&apos; Service Type.
 This is used for &apos;Local Pickup and Delivery Services&apos; product only.</description>
-    <externalId>false</externalId>
     <label>From Address</label>
     <length>1000</length>
     <securityClassification>OFFICIAL_SENSITIVE_PERSONAL</securityClassification>

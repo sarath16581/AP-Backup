@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Credit_Amount__c</fullName>
     <description>Amount to be credited to the customer if approved</description>
-    <externalId>false</externalId>
     <label>Credit Amount</label>
     <precision>18</precision>
     <required>false</required>

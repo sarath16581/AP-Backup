@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__BillingDayOfMonth__c</fullName>
     <deprecated>false</deprecated>
     <description>The billing day of month for the account location. Specific Day of Month, End of Month, etc</description>
-    <externalId>false</externalId>
     <inlineHelpText>The billing day of month for the account location. Specific Day of Month, End of Month, etc</inlineHelpText>
     <label>Billing Day Of Month</label>
     <required>false</required>

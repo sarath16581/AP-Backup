@@ -3,7 +3,6 @@
     <fullName>Apttus_Proposal__DocumentType__c</fullName>
     <deprecated>false</deprecated>
     <description>What sort of document this record is a representation of</description>
-    <externalId>false</externalId>
     <inlineHelpText>What sort of document this record is a representation of</inlineHelpText>
     <label>Document Type</label>
     <required>false</required>

@@ -4,7 +4,6 @@
     <deleteConstraint>SetNull</deleteConstraint>
     <deprecated>false</deprecated>
     <description>ID of the associated benefit</description>
-    <externalId>false</externalId>
     <inlineHelpText>ID of the associated benefit</inlineHelpText>
     <label>Benefit</label>
     <referenceTo>Apttus_Config2__PriceRule__c</referenceTo>

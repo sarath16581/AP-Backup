@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Specific_analytics_work_required__c</fullName>
     <description>Used for Commercial Analytics &amp; Modelling request.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Please provide more context to analytics requirement</inlineHelpText>
     <label>Specific analytics work required?</label>
     <required>false</required>

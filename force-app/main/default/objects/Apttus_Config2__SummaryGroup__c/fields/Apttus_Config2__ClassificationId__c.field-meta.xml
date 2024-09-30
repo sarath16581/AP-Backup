@@ -4,7 +4,6 @@
     <deleteConstraint>SetNull</deleteConstraint>
     <deprecated>false</deprecated>
     <description>ID of the associated product category. Only applicable to category summary groups</description>
-    <externalId>false</externalId>
     <label>Category</label>
     <referenceTo>Apttus_Config2__ClassificationHierarchy__c</referenceTo>
     <relationshipLabel>Summary Groups</relationshipLabel>

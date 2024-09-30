@@ -2,15 +2,18 @@
 <CustomApplication xmlns="http://soap.sforce.com/2006/04/metadata">
     <consoleConfig>
         <componentList>
-            <alignment>right</alignment>
+            <alignment>left</alignment>
             <components>Console.BuiltInComponent.servicePresence</components>
             <components>Console.BuiltInComponent.mostRecentlyUsed</components>
+            <components>purecloud__PureCloudScript</components>
             <components>QuickLinks</components>
             <components>ContactSearch</components>
             <components>Console.BuiltInComponent.knowledgeOne</components>
             <components>URLShortenerComponent</components>
             <components>Fill_Inbox</components>
             <components>ConsoleChatterScrollBar</components>
+            <components>GenesysConnector</components>
+            <components>Genesys_Monitor</components>
         </componentList>
         <detailPageRefreshMethod>none</detailPageRefreshMethod>
         <keyboardShortcuts>
@@ -219,6 +222,7 @@
     <isNavAutoTempTabsDisabled>false</isNavAutoTempTabsDisabled>
     <isNavPersonalizationDisabled>false</isNavPersonalizationDisabled>
     <isNavTabPersistenceDisabled>false</isNavTabPersistenceDisabled>
+    <isOmniPinnedViewEnabled>false</isOmniPinnedViewEnabled>
     <isServiceCloudConsole>true</isServiceCloudConsole>
     <label>Customer Service</label>
     <preferences>

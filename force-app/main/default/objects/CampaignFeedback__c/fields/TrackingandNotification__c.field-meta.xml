@@ -3,7 +3,6 @@
     <fullName>TrackingandNotification__c</fullName>
     <defaultValue>false</defaultValue>
     <description>Tracking and Notification.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Tracking and Notification</inlineHelpText>
     <label>Tracking and Notification</label>
     <securityClassification>INTERNAL</securityClassification>

@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Indicates whether adjustments provided for summary groups and bundles may be spread to child line items that roll into them. Only applicable when multiple adjustments are disabled.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Indicates whether adjustments provided for summary groups and bundles may be spread to child line items that roll into them. Only applicable when multiple adjustments are disabled.</inlineHelpText>
     <label>Enable Adjustment Spread</label>
     <trackTrending>false</trackTrending>

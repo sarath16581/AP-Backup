@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>By_when_is_this_work_required__c</fullName>
     <description>used in Legal Support Request layout</description>
-    <externalId>false</externalId>
     <inlineHelpText>Bearing in mind that the legal team are working on numerous matters with competing priorities, please provide a realistic date by when this work is required?</inlineHelpText>
     <label>By when is this work required?</label>
     <required>false</required>

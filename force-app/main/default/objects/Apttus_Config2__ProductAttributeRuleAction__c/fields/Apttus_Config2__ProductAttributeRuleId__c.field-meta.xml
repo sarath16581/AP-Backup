@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__ProductAttributeRuleId__c</fullName>
     <deprecated>false</deprecated>
     <description>ID of the associated product attribute rule</description>
-    <externalId>false</externalId>
     <inlineHelpText>ID of the associated product attribute rule</inlineHelpText>
     <label>Product Attribute Rule</label>
     <referenceTo>Apttus_Config2__ProductAttributeRule__c</referenceTo>

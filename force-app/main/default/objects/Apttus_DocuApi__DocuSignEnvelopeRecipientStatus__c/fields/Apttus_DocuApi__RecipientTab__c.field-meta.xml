@@ -3,7 +3,6 @@
     <fullName>Apttus_DocuApi__RecipientTab__c</fullName>
     <deprecated>false</deprecated>
     <description>Recipient Tab from DocuSign</description>
-    <externalId>false</externalId>
     <inlineHelpText>Recipient Tab from DocuSign</inlineHelpText>
     <label>RecipientTab</label>
     <length>32768</length>

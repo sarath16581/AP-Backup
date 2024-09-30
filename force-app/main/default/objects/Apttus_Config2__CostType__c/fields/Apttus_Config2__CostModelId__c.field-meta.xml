@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__CostModelId__c</fullName>
     <deprecated>false</deprecated>
     <description>Reference to master cost model</description>
-    <externalId>false</externalId>
     <label>Cost Model</label>
     <referenceTo>Apttus_Config2__CostModel__c</referenceTo>
     <relationshipLabel>Cost Types</relationshipLabel>

@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Q2_Revenue_Amount__c</fullName>
-    <externalId>false</externalId>
     <formula>Oct_Actual_Amount__c + Nov_Actual_Amount__c + Dec_Actual_Amount__c</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <label>Q2 Revenue Amount</label>

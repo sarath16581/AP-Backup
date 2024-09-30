@@ -4,7 +4,6 @@
     <deprecated>false</deprecated>
     <description>The status of this approval process instance, for example Submitted,
 Cancelled, or Approved.</description>
-    <externalId>false</externalId>
     <label>Status</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>

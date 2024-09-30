@@ -4,7 +4,6 @@
     <deleteConstraint>SetNull</deleteConstraint>
     <deprecated>false</deprecated>
     <description>ID of the user who locked the agreement</description>
-    <externalId>false</externalId>
     <label>Locked By</label>
     <referenceTo>User</referenceTo>
     <relationshipName>LockedAgreements</relationshipName>

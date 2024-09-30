@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Comments__c</fullName>
     <description>Annual Price Review Comments</description>
-    <externalId>false</externalId>
     <inlineHelpText>Additional commentary to help support the value that has been selected in the Status and Sub-Status fields.</inlineHelpText>
     <label>Comments</label>
     <required>false</required>

@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__Guidance__c</fullName>
     <deprecated>false</deprecated>
     <description>The pricing guidance associated with the line item</description>
-    <externalId>false</externalId>
     <inlineHelpText>The pricing guidance associated with the line item</inlineHelpText>
     <label>Guidance</label>
     <required>false</required>

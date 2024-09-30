@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Reasonforchange__c</fullName>
     <description>The reason why the customer is to be transferred into your portfolio</description>
-    <externalId>false</externalId>
     <inlineHelpText>The reason why the customer is to be transferred into your portfolio</inlineHelpText>
     <label>Reason for change</label>
     <required>false</required>

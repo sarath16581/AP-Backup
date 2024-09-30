@@ -3,7 +3,6 @@
     <fullName>Apttus__Type__c</fullName>
     <deprecated>false</deprecated>
     <description>The obligation type</description>
-    <externalId>false</externalId>
     <inlineHelpText>The obligation type</inlineHelpText>
     <label>Type</label>
     <required>false</required>

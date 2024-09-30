@@ -3,7 +3,6 @@
     <fullName>et4ae5__Opt_in_Certification_User__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <deprecated>false</deprecated>
-    <externalId>false</externalId>
     <label>Opt-in Certification User</label>
     <referenceTo>User</referenceTo>
     <relationshipLabel>SMS Sends</relationshipLabel>

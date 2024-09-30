@@ -3,7 +3,6 @@
     <fullName>Organisation__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <description>Organisation to which the revenue start date belongs to mapped with Legacy ID</description>
-    <externalId>false</externalId>
     <inlineHelpText>Organisation to which the revenue start date belongs to mapped with Legacy ID</inlineHelpText>
     <label>Organisation</label>
     <referenceTo>Account</referenceTo>

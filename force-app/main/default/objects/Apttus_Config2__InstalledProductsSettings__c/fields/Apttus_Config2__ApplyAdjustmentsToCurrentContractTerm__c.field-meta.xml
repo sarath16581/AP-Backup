@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Indicates whether to keep the discounting limited to the current contract term</description>
-    <externalId>false</externalId>
     <inlineHelpText>Setting this indicator to true will result in the adjustments on ABO actions being applied to the current contract term only.</inlineHelpText>
     <label>Apply Adj To Current Contract Term</label>
     <trackTrending>false</trackTrending>

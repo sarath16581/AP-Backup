@@ -3,7 +3,6 @@
     <fullName>Apttus_Approval__InstanceUrl__c</fullName>
     <deprecated>false</deprecated>
     <description>The Salesforce instance url for redirecting to custom pages</description>
-    <externalId>false</externalId>
     <label>Instance Url</label>
     <required>false</required>
     <trackTrending>false</trackTrending>

@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Previous_registration_expiry__c</fullName>
     <description>To accommodate process of auto-creation of new records and Assignment date for previously un-registered records and still give a &apos;deadline&apos; for processing and therefore the ability to prioritise records</description>
-    <externalId>false</externalId>
     <inlineHelpText>Auto-populated when a record is auto-created 12 months before the expiry date of the previous record or populated by the team when a new registration starts</inlineHelpText>
     <label>Assignment date/Previous reg expiry</label>
     <required>false</required>

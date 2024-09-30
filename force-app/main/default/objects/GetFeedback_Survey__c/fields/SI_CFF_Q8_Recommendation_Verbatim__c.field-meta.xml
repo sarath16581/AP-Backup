@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>SI_CFF_Q8_Recommendation_Verbatim__c</fullName>
     <description>What is the main reason for giving a score out of 10?</description>
-    <externalId>false</externalId>
     <inlineHelpText>What is the main reason for giving a score out of 10?</inlineHelpText>
     <label>SI-CFF - Q8 Recommendation Verbatim</label>
     <length>1000</length>

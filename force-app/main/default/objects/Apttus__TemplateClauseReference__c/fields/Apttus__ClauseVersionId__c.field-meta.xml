@@ -4,7 +4,6 @@
     <deleteConstraint>SetNull</deleteConstraint>
     <deprecated>false</deprecated>
     <description>Lookup to clause version</description>
-    <externalId>false</externalId>
     <inlineHelpText>Lookup to clause version</inlineHelpText>
     <label>Clause Version</label>
     <referenceTo>Apttus__TemplateVersion__c</referenceTo>

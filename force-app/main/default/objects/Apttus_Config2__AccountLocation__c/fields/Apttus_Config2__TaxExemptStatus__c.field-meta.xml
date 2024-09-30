@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__TaxExemptStatus__c</fullName>
     <deprecated>false</deprecated>
     <description>The tax exempt status. Applicable only when tax exempt.</description>
-    <externalId>false</externalId>
     <inlineHelpText>The tax exempt status. Applicable only when tax exempt.</inlineHelpText>
     <label>Tax Exempt Status</label>
     <required>false</required>

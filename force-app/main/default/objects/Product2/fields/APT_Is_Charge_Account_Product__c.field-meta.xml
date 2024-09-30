@@ -3,7 +3,6 @@
     <fullName>APT_Is_Charge_Account_Product__c</fullName>
     <defaultValue>false</defaultValue>
     <description>To check if the Billing Account associate to the product is of Charge Type</description>
-    <externalId>false</externalId>
     <label>Is Charge Account Product</label>
     <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>

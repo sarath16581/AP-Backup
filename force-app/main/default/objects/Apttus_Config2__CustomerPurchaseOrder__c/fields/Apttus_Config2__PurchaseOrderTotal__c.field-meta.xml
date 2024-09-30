@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__PurchaseOrderTotal__c</fullName>
     <deprecated>false</deprecated>
     <description>The Total amount authorized in the purchase order</description>
-    <externalId>false</externalId>
     <inlineHelpText>The Total amount authorized in the purchase order</inlineHelpText>
     <label>Purchase Order Total</label>
     <precision>18</precision>

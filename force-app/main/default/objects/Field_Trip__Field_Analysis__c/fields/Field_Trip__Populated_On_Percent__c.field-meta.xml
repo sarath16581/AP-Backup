@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Field_Trip__Populated_On_Percent__c</fullName>
     <deprecated>false</deprecated>
-    <externalId>false</externalId>
     <formula>VALUE(
 IF(Field_Trip__Object_Analysis__r.Field_Trip__Records__c = 0, &quot;&quot;, TEXT(Field_Trip__Populated_On__c /  Field_Trip__Object_Analysis__r.Field_Trip__Records__c) )
 )</formula>

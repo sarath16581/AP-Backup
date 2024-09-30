@@ -3,7 +3,6 @@
     <fullName>Apttus__Auto_Renewal_Terms__c</fullName>
     <deprecated>false</deprecated>
     <description>Specifies any terms for renewal</description>
-    <externalId>false</externalId>
     <label>Renewal Terms</label>
     <length>32000</length>
     <securityClassification>INTERNAL</securityClassification>

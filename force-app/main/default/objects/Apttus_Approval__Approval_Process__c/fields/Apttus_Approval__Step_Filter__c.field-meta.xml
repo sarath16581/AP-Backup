@@ -3,7 +3,6 @@
     <fullName>Apttus_Approval__Step_Filter__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <deprecated>false</deprecated>
-    <externalId>false</externalId>
     <label>Step Filter</label>
     <referenceTo>Apttus_Approval__Approval_Process__c</referenceTo>
     <relationshipLabel>Step Filters</relationshipLabel>

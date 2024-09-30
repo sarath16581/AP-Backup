@@ -3,7 +3,6 @@
     <fullName>cloudx_cms__Raw_WEBM_Video_URL__c</fullName>
     <deprecated>false</deprecated>
     <description>Raw Video URL in Webm Format</description>
-    <externalId>false</externalId>
     <inlineHelpText>Raw Video URL in Webm Format</inlineHelpText>
     <label>Raw WEBM Video URL</label>
     <required>false</required>

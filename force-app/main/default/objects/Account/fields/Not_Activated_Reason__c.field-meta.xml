@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Not_Activated_Reason__c</fullName>
     <description>Reason why Licence Status was changed to Not Activated</description>
-    <externalId>false</externalId>
     <inlineHelpText>Reason why Licence Status was changed to Not Activated.
 
 For Non LPO Licences; select a value in this field, then submit the Licence for Approval.

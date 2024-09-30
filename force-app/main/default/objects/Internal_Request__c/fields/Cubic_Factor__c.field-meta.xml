@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Cubic_Factor__c</fullName>
     <description>To store the cubic profile of the customers goods associated with this request</description>
-    <externalId>false</externalId>
     <inlineHelpText>Provide Cubic Factor and/or parcel dimensions for new business opportunities and International AP Global Logistics</inlineHelpText>
     <label>Cubic Factor</label>
     <length>1000</length>

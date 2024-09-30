@@ -3,7 +3,6 @@
     <fullName>Apttus_CMConfig__BaseCost__c</fullName>
     <deprecated>false</deprecated>
     <description>The base cost is Cost + Automatic Adjustments for individual products and options</description>
-    <externalId>false</externalId>
     <inlineHelpText>The base cost is Cost + Automatic Adjustments for individual products and options</inlineHelpText>
     <label>Base Cost</label>
     <precision>18</precision>

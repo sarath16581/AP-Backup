@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Organisation__c</fullName>
     <description>Organisation to which the revenue record belongs to.</description>
-    <externalId>false</externalId>
     <label>Organisation</label>
     <referenceTo>Account</referenceTo>
     <relationshipLabel>Revenue by Organisation</relationshipLabel>

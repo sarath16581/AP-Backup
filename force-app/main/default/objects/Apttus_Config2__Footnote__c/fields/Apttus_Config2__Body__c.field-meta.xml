@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__Body__c</fullName>
     <deprecated>false</deprecated>
     <description>The body of the footnote</description>
-    <externalId>false</externalId>
     <inlineHelpText>The body of the footnote</inlineHelpText>
     <label>Body</label>
     <length>4000</length>

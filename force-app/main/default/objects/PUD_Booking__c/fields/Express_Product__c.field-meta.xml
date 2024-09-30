@@ -3,7 +3,6 @@
     <fullName>Express_Product__c</fullName>
     <defaultValue>false</defaultValue>
     <description>Express Product type, used by Metro Transport fleet.</description>
-    <externalId>false</externalId>
     <label>Express</label>
     <trackFeedHistory>false</trackFeedHistory>
     <trackTrending>false</trackTrending>

@@ -3,7 +3,6 @@
     <fullName>Apttus__OriginalDocumentVersionDetail__c</fullName>
     <deprecated>false</deprecated>
     <description>Initial document version sent for review.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Initial document version sent for review.</inlineHelpText>
     <label>Original Document Version Detail</label>
     <referenceTo>Apttus__DocumentVersionDetail__c</referenceTo>

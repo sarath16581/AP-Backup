@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__SuspensionEndDate__c</fullName>
     <deprecated>false</deprecated>
     <description>The date when the asset line item may resume after a suspension.</description>
-    <externalId>false</externalId>
     <inlineHelpText>The date when the asset line item may resume after a suspension.</inlineHelpText>
     <label>Suspension End Date</label>
     <required>false</required>

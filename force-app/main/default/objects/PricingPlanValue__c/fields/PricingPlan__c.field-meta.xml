@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>PricingPlan__c</fullName>
     <description>2014-04 APMS</description>
-    <externalId>false</externalId>
     <label>Pricing Plan</label>
     <referenceTo>PricingPlan__c</referenceTo>
     <relationshipLabel>Pricing Plan Values</relationshipLabel>

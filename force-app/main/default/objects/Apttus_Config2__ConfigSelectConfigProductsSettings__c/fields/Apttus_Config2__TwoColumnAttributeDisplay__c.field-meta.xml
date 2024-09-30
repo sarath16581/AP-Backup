@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Attribute Details will be gathered in a two column fashion during product configuration. This setting is now handled by option group property.</description>
-    <externalId>false</externalId>
     <inlineHelpText>This setting is now handled by option group property.</inlineHelpText>
     <label>Show Two Columns In Attribute (D)</label>
     <trackTrending>false</trackTrending>

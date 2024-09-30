@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__AmendmentEffectiveDate__c</fullName>
     <deprecated>false</deprecated>
     <description>The date this amendment is effective</description>
-    <externalId>false</externalId>
     <inlineHelpText>The date this amendment is effective</inlineHelpText>
     <label>Amendment Effective Date</label>
     <required>false</required>

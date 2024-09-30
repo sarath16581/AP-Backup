@@ -3,7 +3,6 @@
     <fullName>Apttus__Exception__c</fullName>
     <deprecated>false</deprecated>
     <description>Stores errors from Office 365.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Stores errors from Office 365.</inlineHelpText>
     <label>Exception</label>
     <length>32768</length>

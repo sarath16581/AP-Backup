@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__OrderLineStatus__c</fullName>
     <deprecated>false</deprecated>
     <description>The order line status</description>
-    <externalId>false</externalId>
     <inlineHelpText>The order line status</inlineHelpText>
     <label>Order Line Status</label>
     <required>false</required>

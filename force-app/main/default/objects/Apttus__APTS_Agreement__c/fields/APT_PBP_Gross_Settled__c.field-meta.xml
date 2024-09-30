@@ -3,7 +3,6 @@
     <fullName>APT_PBP_Gross_Settled__c</fullName>
     <defaultValue>false</defaultValue>
     <description>Indicates if PBP Contract is Gross Settled</description>
-    <externalId>false</externalId>
     <inlineHelpText>Indicates if PBP Contract is Gross Settled</inlineHelpText>
     <label>PBP Gross Settled</label>
     <securityClassification>INTERNAL</securityClassification>

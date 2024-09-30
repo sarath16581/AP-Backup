@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__CalendarCycleStart__c</fullName>
     <deprecated>false</deprecated>
     <description>Indicates which calendar month the billing cycle will align to for a given account.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Indicates which calendar month the billing cycle will align to for a given account.</inlineHelpText>
     <label>Calendar Cycle Start</label>
     <required>false</required>

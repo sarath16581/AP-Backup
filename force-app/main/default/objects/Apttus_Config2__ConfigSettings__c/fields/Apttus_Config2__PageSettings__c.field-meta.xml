@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__PageSettings__c</fullName>
     <deprecated>false</deprecated>
     <description>Captures Catalog Page, Bundle Page and Assets Page settings</description>
-    <externalId>false</externalId>
     <label>Page Settings</label>
     <length>8000</length>
     <securityClassification>INTERNAL</securityClassification>

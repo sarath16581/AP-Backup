@@ -3,7 +3,6 @@
     <fullName>purecloud__Reconciled_Result__c</fullName>
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
-    <externalId>false</externalId>
     <label>Reconciled Result</label>
     <type>Checkbox</type>
 </CustomField>

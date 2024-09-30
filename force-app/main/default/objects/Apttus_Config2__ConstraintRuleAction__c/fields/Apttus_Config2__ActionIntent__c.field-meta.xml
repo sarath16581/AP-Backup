@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__ActionIntent__c</fullName>
     <deprecated>false</deprecated>
     <description>Describes the intent of the action</description>
-    <externalId>false</externalId>
     <label>Action Intent</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>

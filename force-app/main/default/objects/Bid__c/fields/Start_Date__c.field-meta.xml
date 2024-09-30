@@ -3,7 +3,6 @@
     <fullName>Start_Date__c</fullName>
     <defaultValue>Today()</defaultValue>
     <description>The date work commenced or will commence on the Bid or Tender.</description>
-    <externalId>false</externalId>
     <inlineHelpText>The date work commenced or will commence on the Bid or Tender.</inlineHelpText>
     <label>Start Date</label>
     <required>false</required>

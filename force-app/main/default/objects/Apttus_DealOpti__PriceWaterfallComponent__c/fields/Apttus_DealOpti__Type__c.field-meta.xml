@@ -3,7 +3,6 @@
     <fullName>Apttus_DealOpti__Type__c</fullName>
     <deprecated>false</deprecated>
     <description>The price component type</description>
-    <externalId>false</externalId>
     <inlineHelpText>The price component type</inlineHelpText>
     <label>Type</label>
     <required>false</required>

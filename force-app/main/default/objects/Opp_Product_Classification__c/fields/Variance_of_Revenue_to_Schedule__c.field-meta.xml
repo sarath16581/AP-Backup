@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Variance_of_Revenue_to_Schedule__c</fullName>
     <description>This field will show the variance between the actual revenue and the scheduled revenue.</description>
-    <externalId>false</externalId>
     <formula>Total_Actual_Revenue__c -  Total_Schedule_Amount__c</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <label>Variance of Revenue to Schedule</label>

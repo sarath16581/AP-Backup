@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__RecurrenceFrequency__c</fullName>
     <deprecated>false</deprecated>
     <description>The recurrence frequency.  e.g. Loyalty program cycle.</description>
-    <externalId>false</externalId>
     <inlineHelpText>The recurrence frequency.  e.g. Loyalty program cycle.</inlineHelpText>
     <label>Recurrence Frequency</label>
     <required>false</required>

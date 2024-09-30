@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>QRG_s_tested__c</fullName>
     <defaultValue>false</defaultValue>
-    <externalId>false</externalId>
     <inlineHelpText>If QRG&apos;s require updated/develoment - have they been tested?</inlineHelpText>
     <label>QRG&apos;s tested</label>
     <securityClassification>INTERNAL</securityClassification>

@@ -3,7 +3,6 @@
     <fullName>et4ae5__SyncComplete__c</fullName>
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
-    <externalId>false</externalId>
     <label>SyncComplete</label>
     <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>

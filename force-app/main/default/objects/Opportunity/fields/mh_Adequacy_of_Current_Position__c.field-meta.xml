@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>mh_Adequacy_of_Current_Position__c</fullName>
     <description>SAM Integration</description>
-    <externalId>false</externalId>
     <inlineHelpText>This field will populate with the adequacy of the current position from the Miller Heiman Blue Sheet</inlineHelpText>
     <label>Adequacy of Current Position</label>
     <required>false</required>

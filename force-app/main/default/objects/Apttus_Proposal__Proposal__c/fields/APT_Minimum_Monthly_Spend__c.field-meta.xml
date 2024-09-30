@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>APT_Minimum_Monthly_Spend__c</fullName>
     <description>Used to capture the minimum monthly spend at the proposal level for startrack products.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Minimum monthly spend across ALL StarTrack Products</inlineHelpText>
     <label>Minimum Monthly Spend</label>
     <precision>18</precision>

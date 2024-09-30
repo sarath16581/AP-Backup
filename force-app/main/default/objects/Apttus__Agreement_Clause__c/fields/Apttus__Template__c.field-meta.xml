@@ -3,7 +3,6 @@
     <fullName>Apttus__Template__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <deprecated>false</deprecated>
-    <externalId>false</externalId>
     <label>Template</label>
     <referenceTo>Apttus__APTS_Template__c</referenceTo>
     <relationshipName>R00N50000001os4wEAA</relationshipName>

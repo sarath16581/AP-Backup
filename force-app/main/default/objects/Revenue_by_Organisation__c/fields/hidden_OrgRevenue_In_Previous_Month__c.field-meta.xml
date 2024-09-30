@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>hidden_OrgRevenue_In_Previous_Month__c</fullName>
-    <externalId>false</externalId>
     <formula>IF(CurrentYear__c,CASE(MONTH(TODAY()), /* Returns integer for current Month eg 1 = Jan */
 
 1, Dec_Revenue_Amount__c, /* Assigns previous months Rev Amount eg 1 = Dec 2=Jan */

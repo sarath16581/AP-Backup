@@ -3,7 +3,6 @@
     <fullName>Security_TimeLock_Cash_Container_Sp_Cond__c</fullName>
     <defaultValue>false</defaultValue>
     <description>Is Licensee required to provide and maintain an additional time lock cash container?</description>
-    <externalId>false</externalId>
     <inlineHelpText>Is Licensee required to provide and maintain an additional time lock cash container?</inlineHelpText>
     <label>Security TimeLock Cash Container Sp Cond</label>
     <securityClassification>INTERNAL</securityClassification>

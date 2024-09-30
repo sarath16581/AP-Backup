@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Reason_for_Account_Closure__c</fullName>
     <description>Provide Reason for Billing Account Closure for Credit Management Request.</description>
-    <externalId>false</externalId>
     <label>Reason for Account Closure</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>

@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>DeclaredValue__c</fullName>
     <description>This is the sum of the declared value across all the articles associated with this ICPS</description>
-    <externalId>false</externalId>
     <inlineHelpText>This is the sum of the declared value across all the articles associated with this ICPS</inlineHelpText>
     <label>Declared Value</label>
     <summarizedField>ICPSArticle__c.DeclaredValue__c</summarizedField>

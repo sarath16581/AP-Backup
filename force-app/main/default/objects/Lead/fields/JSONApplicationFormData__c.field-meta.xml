@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>JSONApplicationFormData__c</fullName>
     <description>Contains data fields in the application form which don&apos;t map directly to lead custom fields</description>
-    <externalId>false</externalId>
     <label>JSONApplicationFormData</label>
     <length>32768</length>
     <securityClassification>INTERNAL</securityClassification>

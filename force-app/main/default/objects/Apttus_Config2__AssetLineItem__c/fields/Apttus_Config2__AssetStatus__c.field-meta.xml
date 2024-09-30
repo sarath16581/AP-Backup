@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__AssetStatus__c</fullName>
     <deprecated>false</deprecated>
     <description>The asset status</description>
-    <externalId>false</externalId>
     <label>Asset Status</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>

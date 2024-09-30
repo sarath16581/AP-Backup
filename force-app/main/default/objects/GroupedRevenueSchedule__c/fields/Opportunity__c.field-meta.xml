@@ -3,7 +3,6 @@
     <fullName>Opportunity__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <description>The parent Opportunity of the Group Revenue Schedule record.</description>
-    <externalId>false</externalId>
     <inlineHelpText>The parent Opportunity of the Group Revenue Schedule record.</inlineHelpText>
     <label>Opportunity</label>
     <referenceTo>Opportunity</referenceTo>

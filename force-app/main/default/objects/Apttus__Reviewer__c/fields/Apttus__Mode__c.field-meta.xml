@@ -3,7 +3,6 @@
     <fullName>Apttus__Mode__c</fullName>
     <deprecated>false</deprecated>
     <description>Mode in which Review is completed</description>
-    <externalId>false</externalId>
     <inlineHelpText>Mode in which Review is completed</inlineHelpText>
     <label>Mode</label>
     <required>false</required>

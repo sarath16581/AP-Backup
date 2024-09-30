@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Facility_Additional_Information__c</fullName>
     <description>Partner Info - Additional information about Facility Status</description>
-    <externalId>false</externalId>
     <inlineHelpText>If Facility Floor Plan is not included or Facility is not DDA Compliant, then please enter reason here.</inlineHelpText>
     <label>Facility Additional Information</label>
     <length>32768</length>

@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>CustDelPrefOptionCode__c</fullName>
     <description>SSSW - Holds concatenated Delivery Preference Option Codes</description>
-    <externalId>false</externalId>
     <label>Cust Delivery Pref Option Code</label>
     <length>1500</length>
     <securityClassification>INTERNAL</securityClassification>

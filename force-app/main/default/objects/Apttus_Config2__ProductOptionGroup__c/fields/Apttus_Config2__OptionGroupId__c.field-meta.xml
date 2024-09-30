@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__OptionGroupId__c</fullName>
     <deprecated>false</deprecated>
     <description>ID of the associated classification</description>
-    <externalId>false</externalId>
     <label>Option Group</label>
     <referenceTo>Apttus_Config2__ClassificationHierarchy__c</referenceTo>
     <relationshipLabel>Offerings</relationshipLabel>

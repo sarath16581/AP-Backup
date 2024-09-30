@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Indicates whether matrix pricing is enabled for options</description>
-    <externalId>false</externalId>
     <inlineHelpText>A global setting to enable matrix pricing for options.</inlineHelpText>
     <label>Enable Matrix Pricing For Options</label>
     <trackTrending>false</trackTrending>

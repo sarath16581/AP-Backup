@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__AssetDataCache__c</fullName>
     <deprecated>false</deprecated>
     <description>The asset data cache</description>
-    <externalId>false</externalId>
     <inlineHelpText>The asset data cache</inlineHelpText>
     <label>Asset Data Cache</label>
     <length>131072</length>

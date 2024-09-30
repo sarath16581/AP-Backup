@@ -3,7 +3,6 @@
     <fullName>et4ae5__Restrict_Automation__c</fullName>
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
-    <externalId>false</externalId>
     <label>Restrict Automation</label>
     <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>

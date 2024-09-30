@@ -3,7 +3,6 @@
     <fullName>Apttus_Base2__Published__c</fullName>
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
-    <externalId>false</externalId>
     <fieldManageability>DeveloperControlled</fieldManageability>
     <label>Published</label>
     <type>Checkbox</type>

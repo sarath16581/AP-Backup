@@ -3,7 +3,6 @@
     <fullName>Hidden_1st_of_Multi_Year__c</fullName>
     <defaultValue>false</defaultValue>
     <description>Phase 2 - Field to indicate that the OPC record is the first in a multi-year contract.</description>
-    <externalId>false</externalId>
     <label>Hidden 1st of Multi-Year</label>
     <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>

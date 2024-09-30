@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__ProrationPeriodTreatment__c</fullName>
     <deprecated>false</deprecated>
     <description>The proration period treatment method. This is to deal with the time between when the service period starts and the ready for billing day.</description>
-    <externalId>false</externalId>
     <inlineHelpText>The proration period treatment method. This is to deal with the time between when the service period starts and the ready for billing day.</inlineHelpText>
     <label>Proration Period Treatment</label>
     <required>false</required>

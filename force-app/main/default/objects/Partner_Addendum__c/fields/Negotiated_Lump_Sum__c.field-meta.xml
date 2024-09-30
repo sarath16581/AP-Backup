@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Negotiated_Lump_Sum__c</fullName>
     <description>This is the negotiated lump sum amount for Customer Transfer Fee.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Negotiated lump sum amount for Customer Transfer Fee.</inlineHelpText>
     <label>Negotiated Lump Sum</label>
     <precision>8</precision>

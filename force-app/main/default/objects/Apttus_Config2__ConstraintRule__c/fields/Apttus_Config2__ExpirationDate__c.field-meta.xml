@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__ExpirationDate__c</fullName>
     <deprecated>false</deprecated>
     <description>End date when rule will stop triggering. Leave this blank for always effective rule.</description>
-    <externalId>false</externalId>
     <label>Expiration Date</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>

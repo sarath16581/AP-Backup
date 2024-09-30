@@ -3,7 +3,6 @@
     <fullName>Communication_Email__c</fullName>
     <defaultValue>false</defaultValue>
     <description>Indicates if this is the email used by the consumer for communication.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Indicates if this is the email used by the consumer for communication.</inlineHelpText>
     <label>Communication Email</label>
     <trackHistory>false</trackHistory>

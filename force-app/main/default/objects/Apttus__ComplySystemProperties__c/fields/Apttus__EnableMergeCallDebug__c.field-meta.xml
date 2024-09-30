@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Indicates whether the merge service debug is enabled</description>
-    <externalId>false</externalId>
     <inlineHelpText>Indicates whether the merge service debug is enabled</inlineHelpText>
     <label>Enable Merge Call Debug</label>
     <trackTrending>false</trackTrending>

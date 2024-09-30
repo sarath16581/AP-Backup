@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Indicates whether items in the cart can be toggled as optional</description>
-    <externalId>false</externalId>
     <inlineHelpText>A global setting to enable optional items in the cart.</inlineHelpText>
     <label>Enable Optional Items</label>
     <trackTrending>false</trackTrending>

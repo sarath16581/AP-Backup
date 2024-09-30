@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__ConditionScope__c</fullName>
     <deprecated>false</deprecated>
     <description>Scope which determines when the rollup will be attached to the configuration.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Scope which determines when the rollup will be attached to the configuration.</inlineHelpText>
     <label>Scope</label>
     <required>false</required>

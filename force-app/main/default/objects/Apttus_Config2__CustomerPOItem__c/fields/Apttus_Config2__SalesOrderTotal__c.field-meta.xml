@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__SalesOrderTotal__c</fullName>
     <deprecated>false</deprecated>
     <description>The Total amount for which sales orders have already been created and confirmed against the purchase order item</description>
-    <externalId>false</externalId>
     <inlineHelpText>The Total amount for which sales orders have already been created and confirmed against the purchase order item</inlineHelpText>
     <label>Sales Order Total</label>
     <precision>18</precision>

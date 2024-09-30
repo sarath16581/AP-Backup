@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__Criteria__c</fullName>
     <deprecated>false</deprecated>
     <description>The ruleset criteria specification</description>
-    <externalId>false</externalId>
     <label>Ruleset Criteria</label>
     <length>32000</length>
     <trackTrending>false</trackTrending>

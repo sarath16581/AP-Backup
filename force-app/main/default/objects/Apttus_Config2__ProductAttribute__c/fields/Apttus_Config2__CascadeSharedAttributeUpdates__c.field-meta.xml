@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__CascadeSharedAttributeUpdates__c</fullName>
     <deprecated>false</deprecated>
     <description>Indicates whether updates to shared bundle attributes are cascaded to options in the bundle</description>
-    <externalId>false</externalId>
     <inlineHelpText>Indicates whether updates to shared bundle attributes are cascaded to options in the bundle</inlineHelpText>
     <label>Cascade Shared Attribute Updates</label>
     <required>false</required>

@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Customer_Recovery_Flag__c</fullName>
     <defaultValue>false</defaultValue>
-    <externalId>false</externalId>
     <label>Customer Recovery Flag</label>
     <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>

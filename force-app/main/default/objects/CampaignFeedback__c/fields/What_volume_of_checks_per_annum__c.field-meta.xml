@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>What_volume_of_checks_per_annum__c</fullName>
     <description>Annual volumes of checks required</description>
-    <externalId>false</externalId>
     <inlineHelpText>Annual volumes of checks required</inlineHelpText>
     <label>What volume of checks per annum?</label>
     <required>false</required>

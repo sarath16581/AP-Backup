@@ -3,7 +3,6 @@
     <fullName>kfsell__Stage_BS_Req_Rev_Range__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <deprecated>false</deprecated>
-    <externalId>false</externalId>
     <label>Opportunity Stage</label>
     <referenceTo>kfsell__OpportunityStage__c</referenceTo>
     <relationshipLabel>Business Rules (Opportunity Stage)</relationshipLabel>

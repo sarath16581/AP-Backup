@@ -3,7 +3,6 @@
     <fullName>Apttus_Approval__DimensionType__c</fullName>
     <deprecated>false</deprecated>
     <description>The dimension type</description>
-    <externalId>false</externalId>
     <label>Dimension Type</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>

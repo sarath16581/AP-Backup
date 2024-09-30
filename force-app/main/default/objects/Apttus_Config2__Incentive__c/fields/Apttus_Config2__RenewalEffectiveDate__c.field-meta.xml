@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__RenewalEffectiveDate__c</fullName>
     <deprecated>false</deprecated>
     <description>The date when the renewal for the incentive takes effect</description>
-    <externalId>false</externalId>
     <inlineHelpText>The date when the renewal for the incentive takes effect</inlineHelpText>
     <label>Renewal Effective Date</label>
     <required>false</required>

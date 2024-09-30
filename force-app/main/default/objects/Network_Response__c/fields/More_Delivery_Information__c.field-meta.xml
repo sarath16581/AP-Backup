@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>More_Delivery_Information__c</fullName>
-    <externalId>false</externalId>
     <inlineHelpText>Relevant information about the delivery</inlineHelpText>
     <label>Delivery Information</label>
     <required>false</required>

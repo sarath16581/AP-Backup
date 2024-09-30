@@ -3,7 +3,6 @@
     <fullName>APT_Zone_2_Dispersion__c</fullName>
     <defaultValue>0.1964</defaultValue>
     <description>Zone 2 Dispersion(%) for Estimated Revenue Calculation</description>
-    <externalId>false</externalId>
     <label>Zone 2 Dispersion(%)</label>
     <precision>18</precision>
     <required>false</required>

@@ -3,7 +3,6 @@
     <fullName>APT_Email_sent_on_Contract_Activation__c</fullName>
     <defaultValue>false</defaultValue>
     <description>Check box to determine whether an email has been sent on activating a contract</description>
-    <externalId>false</externalId>
     <label>Email sent on Contract Activation</label>
     <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>

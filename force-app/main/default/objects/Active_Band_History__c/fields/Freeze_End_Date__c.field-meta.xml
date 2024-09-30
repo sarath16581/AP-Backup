@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Freeze_End_Date__c</fullName>
     <description>When &apos;Assigned&apos; Asset is active, Freeze period end date from Asset is stored.</description>
-    <externalId>false</externalId>
     <label>Freeze End Date</label>
     <required>false</required>
     <securityClassification>OFFICIAL_SENSITIVE</securityClassification>

@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__InclusionCriteriaCompOper__c</fullName>
     <deprecated>false</deprecated>
     <description>The filter inclusion criteria comparison operator</description>
-    <externalId>false</externalId>
     <inlineHelpText>The filter inclusion criteria comparison operator</inlineHelpText>
     <label>Inclusion Criteria Operator (Deprecated)</label>
     <required>false</required>

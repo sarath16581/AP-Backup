@@ -3,7 +3,6 @@
     <fullName>Apttus_Approval__ChildObjectTypes__c</fullName>
     <deprecated>false</deprecated>
     <description>The list of child object types associated with the approval process for the parent object. This list is automatically maintained by the application.</description>
-    <externalId>false</externalId>
     <inlineHelpText>The list of child object types associated with the approval process for the parent object. This list is automatically maintained by the application.</inlineHelpText>
     <label>Child Object Types</label>
     <required>false</required>

@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Approver1Role__c</fullName>
     <description>Role of the first approver for this credit approval record. E.g. Customer Resolutions Manager</description>
-    <externalId>false</externalId>
     <inlineHelpText>Role of the first approver for this credit approval record. E.g. Customer Resolutions Manager</inlineHelpText>
     <label>Approver 1 Role</label>
     <required>false</required>

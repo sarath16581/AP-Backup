@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__CycleStartDate__c</fullName>
     <deprecated>false</deprecated>
     <description>The cycle start date. Indicates the start of a loyalty program cycle.</description>
-    <externalId>false</externalId>
     <inlineHelpText>The cycle start date. Indicates the start of a loyalty program cycle.</inlineHelpText>
     <label>Cycle Start Date</label>
     <required>false</required>

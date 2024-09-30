@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Sales_Rep_Comment__c</fullName>
-    <externalId>false</externalId>
     <inlineHelpText>Input comment on revenue performance which will provide information for bugdet in future.</inlineHelpText>
     <label>Revenue Comment</label>
     <length>32768</length>

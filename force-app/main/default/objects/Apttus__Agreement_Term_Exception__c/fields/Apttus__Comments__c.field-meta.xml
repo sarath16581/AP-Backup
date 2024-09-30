@@ -3,7 +3,6 @@
     <fullName>Apttus__Comments__c</fullName>
     <deprecated>false</deprecated>
     <description>Comments about this Term Exception in the context of this Agreement.</description>
-    <externalId>false</externalId>
     <label>Comments</label>
     <length>32000</length>
     <securityClassification>INTERNAL</securityClassification>

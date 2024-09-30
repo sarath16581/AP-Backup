@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>BSP_Rule__c</fullName>
     <defaultValue>true</defaultValue>
-    <externalId>false</externalId>
     <label>BSP Rule</label>
     <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>

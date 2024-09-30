@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__PeriodEndDate__c</fullName>
     <deprecated>false</deprecated>
     <description>The fixed end date up to which the input records will be considered for rollup or rebate calculation. Only applicable for fixed calculation period.</description>
-    <externalId>false</externalId>
     <inlineHelpText>The fixed end date up to which the input records will be considered for rollup or rebate calculation. Only applicable for fixed calculation period.</inlineHelpText>
     <label>Period End Date</label>
     <required>false</required>

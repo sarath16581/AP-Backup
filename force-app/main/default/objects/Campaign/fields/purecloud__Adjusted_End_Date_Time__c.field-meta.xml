@@ -3,7 +3,6 @@
     <fullName>purecloud__Adjusted_End_Date_Time__c</fullName>
     <deprecated>false</deprecated>
     <description>An end date and time of a campaign in user&apos;s local timezone adjusted based on the end date in the selected timezone.</description>
-    <externalId>false</externalId>
     <label>Adjusted End Date Time</label>
     <required>false</required>
     <type>DateTime</type>

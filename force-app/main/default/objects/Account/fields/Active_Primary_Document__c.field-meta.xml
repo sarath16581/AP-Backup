@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Active_Primary_Document__c</fullName>
     <description>Active primary Agreement Document count</description>
-    <externalId>false</externalId>
     <label>Active Primary Document</label>
     <securityClassification>INTERNAL</securityClassification>
     <summaryFilterItems>

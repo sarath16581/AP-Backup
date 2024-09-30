@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>YTD_Variance_Actual_to_Budget__c</fullName>
     <description>Previous name was &quot;YTD Revenue Variance to Target&quot; (MW0003520)</description>
-    <externalId>false</externalId>
     <formula>YTD_Actual_Amount__c -   Total_Original_Budget__c</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <inlineHelpText>YTD billed revenue for the current financial year minus the current financial year Target amount. This will display the gap between expected Target and revenue received to date within the financial year.</inlineHelpText>

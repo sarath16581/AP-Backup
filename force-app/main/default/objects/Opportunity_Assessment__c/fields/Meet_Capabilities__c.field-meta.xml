@@ -5,7 +5,6 @@
     <description>Phase 1 - Opportunity Assessment (PWC)
 
 Identify whether our offering will likely meet the customers needs</description>
-    <externalId>false</externalId>
     <inlineHelpText>Can we meet their needs with our current capabilities?</inlineHelpText>
     <label>Meet Capabilities</label>
     <securityClassification>INTERNAL</securityClassification>

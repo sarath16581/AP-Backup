@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>APT_Apttus_Delete_Override__c</fullName>
     <defaultValue>false</defaultValue>
-    <externalId>false</externalId>
     <label>Apttus Delete Override</label>
     <securityClassification>INTERNAL</securityClassification>
     <type>Checkbox</type>

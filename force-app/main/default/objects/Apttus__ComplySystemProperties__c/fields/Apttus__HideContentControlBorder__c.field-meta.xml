@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Indicates if content control border has to hidden</description>
-    <externalId>false</externalId>
     <inlineHelpText>Indicates if content control border has to hidden</inlineHelpText>
     <label>Hide Content Control Border</label>
     <trackTrending>false</trackTrending>

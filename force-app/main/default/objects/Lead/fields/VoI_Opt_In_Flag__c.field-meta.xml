@@ -3,7 +3,6 @@
     <fullName>VoI_Opt_In_Flag__c</fullName>
     <defaultValue>false</defaultValue>
     <description>Used on the Land Title Verification of Identity Check Conveyancer Onboarding Form</description>
-    <externalId>false</externalId>
     <inlineHelpText>If Yes, we will set up the Land Title VOI form and stay informed of Verification of Identity industry related news and developments. If No, customer will not be informed.</inlineHelpText>
     <label>VoI Opt In Flag</label>
     <securityClassification>INTERNAL</securityClassification>

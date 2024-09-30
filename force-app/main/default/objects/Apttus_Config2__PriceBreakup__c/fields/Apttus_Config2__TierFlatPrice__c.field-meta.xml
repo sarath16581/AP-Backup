@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__TierFlatPrice__c</fullName>
     <deprecated>false</deprecated>
     <description>The flat price associated with the tier</description>
-    <externalId>false</externalId>
     <inlineHelpText>The flat price associated with the tier</inlineHelpText>
     <label>Tier Flat Price</label>
     <precision>18</precision>

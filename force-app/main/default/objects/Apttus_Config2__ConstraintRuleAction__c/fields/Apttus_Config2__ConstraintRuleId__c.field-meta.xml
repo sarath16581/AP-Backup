@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__ConstraintRuleId__c</fullName>
     <deprecated>false</deprecated>
     <description>References the master Constraint Rule record</description>
-    <externalId>false</externalId>
     <label>Constraint Rule</label>
     <referenceTo>Apttus_Config2__ConstraintRule__c</referenceTo>
     <relationshipLabel>Constraint Rule Actions</relationshipLabel>

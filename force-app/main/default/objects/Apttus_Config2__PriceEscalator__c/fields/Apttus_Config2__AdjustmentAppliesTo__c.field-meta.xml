@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__AdjustmentAppliesTo__c</fullName>
     <deprecated>false</deprecated>
     <description>Indicates the price field the price adjustment should be applied to.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Indicates the price field the price adjustment should be applied to.</inlineHelpText>
     <label>Adjustment Applies To</label>
     <required>false</required>

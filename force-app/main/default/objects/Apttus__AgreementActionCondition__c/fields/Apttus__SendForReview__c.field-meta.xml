@@ -3,7 +3,6 @@
     <fullName>Apttus__SendForReview__c</fullName>
     <deprecated>false</deprecated>
     <description>Indicator to send agreement for review</description>
-    <externalId>false</externalId>
     <formula>OR(ISPICKVAL(Apttus__AgreementId__r.Apttus__Status_Category__c,&quot;In Signatures&quot;), ISPICKVAL(Apttus__AgreementId__r.Apttus__Status_Category__c,&quot;In Authoring&quot;))</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <inlineHelpText>Indicator to send agreement for review</inlineHelpText>

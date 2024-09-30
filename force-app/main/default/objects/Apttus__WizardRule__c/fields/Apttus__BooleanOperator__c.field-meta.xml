@@ -3,7 +3,6 @@
     <fullName>Apttus__BooleanOperator__c</fullName>
     <deprecated>false</deprecated>
     <description>How to use in conjunction with other rules</description>
-    <externalId>false</externalId>
     <inlineHelpText>How to use in conjunction with other rules</inlineHelpText>
     <label>Boolean Operator</label>
     <required>false</required>

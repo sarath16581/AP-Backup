@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>IT_Reason__c</fullName>
     <description>used by Sales implementation case</description>
-    <externalId>false</externalId>
     <label>IT/Parcel Reason</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>

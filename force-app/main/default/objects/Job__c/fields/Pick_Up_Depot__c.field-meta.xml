@@ -3,7 +3,6 @@
     <fullName>Pick_Up_Depot__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <description>Field used to capture the pick up depot</description>
-    <externalId>false</externalId>
     <label>Pick Up Depot</label>
     <lookupFilter>
         <active>true</active>

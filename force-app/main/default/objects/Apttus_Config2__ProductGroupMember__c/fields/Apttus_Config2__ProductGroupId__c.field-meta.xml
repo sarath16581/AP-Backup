@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__ProductGroupId__c</fullName>
     <deprecated>false</deprecated>
     <description>ID of the associated group</description>
-    <externalId>false</externalId>
     <label>Product Group</label>
     <referenceTo>Apttus_Config2__ProductGroup__c</referenceTo>
     <relationshipLabel>Products</relationshipLabel>

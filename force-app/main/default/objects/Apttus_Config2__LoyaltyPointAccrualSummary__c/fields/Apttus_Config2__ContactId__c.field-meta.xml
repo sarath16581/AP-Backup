@@ -4,7 +4,6 @@
     <deleteConstraint>SetNull</deleteConstraint>
     <deprecated>false</deprecated>
     <description>ID of the contact associated with the point accrual summary</description>
-    <externalId>false</externalId>
     <inlineHelpText>ID of the contact associated with the point accrual summary</inlineHelpText>
     <label>Contact</label>
     <referenceTo>Contact</referenceTo>

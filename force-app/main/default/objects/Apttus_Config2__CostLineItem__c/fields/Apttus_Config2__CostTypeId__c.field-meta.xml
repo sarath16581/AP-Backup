@@ -4,7 +4,6 @@
     <deleteConstraint>SetNull</deleteConstraint>
     <deprecated>false</deprecated>
     <description>Lookup to the cost type object</description>
-    <externalId>false</externalId>
     <label>Cost Type</label>
     <referenceTo>Apttus_Config2__CostType__c</referenceTo>
     <relationshipLabel>Cost Line Items</relationshipLabel>

@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Weight__c</fullName>
     <description>This is the sum of the weight across all the articles associated with this ICPS</description>
-    <externalId>false</externalId>
     <inlineHelpText>This is the sum of the weight across all the articles associated with this ICPS</inlineHelpText>
     <label>Weight (in kgs)</label>
     <summarizedField>ICPSArticle__c.Weight__c</summarizedField>
