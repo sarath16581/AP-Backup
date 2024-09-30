@@ -1,6 +1,6 @@
 /**
  * @description This LWC component displays case's related feed update from associated objects such as Scheduled Contact Requests, EmailMessage and Scan Event Messages
- *          The list is sorted in descending order where latest changes will be displayed at the top row, and in the leftmost of the three cards of the row.
+ *		The list is sorted in descending order where latest changes will be displayed at the top row, and in the leftmost of the three cards of the row.
  * @author Seth Heang
  * @changelog
  * 2024-06-23 - Seth Heang - created
