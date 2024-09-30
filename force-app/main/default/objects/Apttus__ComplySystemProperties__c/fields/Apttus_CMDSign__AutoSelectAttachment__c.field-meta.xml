@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Indicates whether the most recent attachment is auto selected</description>
-    <externalId>false</externalId>
     <inlineHelpText>Indicates whether the most recent attachment is auto selected</inlineHelpText>
     <label>Auto Select Attachment ?</label>
     <trackTrending>false</trackTrending>

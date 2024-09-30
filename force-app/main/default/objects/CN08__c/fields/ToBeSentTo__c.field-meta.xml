@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>ToBeSentTo__c</fullName>
     <description>This categories is asking what to do with the article should the postal administration locate it.</description>
-    <externalId>false</externalId>
     <inlineHelpText>This categories is asking what to do with the article should the postal administration locate it.</inlineHelpText>
     <label>To Be Sent To (If Item Found)</label>
     <required>false</required>

@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__SellingUom__c</fullName>
     <deprecated>false</deprecated>
     <description>The selling unit of measure for the product</description>
-    <externalId>false</externalId>
     <inlineHelpText>The selling unit of measure for the product</inlineHelpText>
     <label>Selling Uom</label>
     <required>false</required>

@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Indicator to enable/disable notification to Delegate Approver.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Indicator to enable/disable notification to Delegate Approver</inlineHelpText>
     <label>Suppress Delegate Notification</label>
     <trackHistory>false</trackHistory>

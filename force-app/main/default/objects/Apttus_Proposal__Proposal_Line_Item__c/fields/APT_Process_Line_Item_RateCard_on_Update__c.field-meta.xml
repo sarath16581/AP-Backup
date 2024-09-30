@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>APT_Process_Line_Item_RateCard_on_Update__c</fullName>
     <defaultValue>false</defaultValue>
-    <externalId>false</externalId>
     <label>Process Line Item RateCard on Update</label>
     <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>

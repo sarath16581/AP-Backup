@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Job_Closed_Date__c</fullName>
     <description>Date/Time when the Job status changes to Closed</description>
-    <externalId>false</externalId>
     <label>Job Closed Date</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>

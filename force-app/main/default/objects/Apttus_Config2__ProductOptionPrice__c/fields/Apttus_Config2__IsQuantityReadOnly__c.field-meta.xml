@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Indicates whether the quantity is modifiable for the option</description>
-    <externalId>false</externalId>
     <inlineHelpText>Indicates whether the quantity is modifiable for the option</inlineHelpText>
     <label>Is Quantity Read Only</label>
     <securityClassification>INTERNAL</securityClassification>

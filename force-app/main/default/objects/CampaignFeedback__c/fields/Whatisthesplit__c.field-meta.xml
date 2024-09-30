@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Whatisthesplit__c</fullName>
     <description>What is the split?.</description>
-    <externalId>false</externalId>
     <inlineHelpText>What is the split?</inlineHelpText>
     <label>What is the split?</label>
     <required>false</required>

@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Indicates whether subtotals should be hidden in the cart view</description>
-    <externalId>false</externalId>
     <inlineHelpText>Indicates whether subtotals should be hidden in the cart view</inlineHelpText>
     <label>Hide Subtotals In Cart</label>
     <trackTrending>false</trackTrending>

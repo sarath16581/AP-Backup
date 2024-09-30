@@ -3,7 +3,6 @@
     <fullName>Apttus_DocuApi__EnvelopeContent__c</fullName>
     <deprecated>false</deprecated>
     <description>Holds Envelope data at the time of creation</description>
-    <externalId>false</externalId>
     <label>Envelope Content</label>
     <length>32768</length>
     <securityClassification>INTERNAL</securityClassification>

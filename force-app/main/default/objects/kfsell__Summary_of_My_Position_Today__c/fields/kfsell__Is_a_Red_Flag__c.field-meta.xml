@@ -3,7 +3,6 @@
     <fullName>kfsell__Is_a_Red_Flag__c</fullName>
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
-    <externalId>false</externalId>
     <label>Is a Red Flag</label>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>

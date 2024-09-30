@@ -3,7 +3,6 @@
     <fullName>kfsell__EnableStandaloneScorecard__c</fullName>
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
-    <externalId>false</externalId>
     <fieldManageability>SubscriberControlled</fieldManageability>
     <label>Enable Standalone Scorecard</label>
     <type>Checkbox</type>

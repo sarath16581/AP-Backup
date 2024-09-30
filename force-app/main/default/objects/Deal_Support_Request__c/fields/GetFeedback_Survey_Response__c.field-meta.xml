@@ -3,7 +3,6 @@
     <fullName>GetFeedback_Survey_Response__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <description>This lookup field is looking at survey response record from Get Feedback Custom Object.</description>
-    <externalId>false</externalId>
     <label>GetFeedback Survey Response</label>
     <referenceTo>GetFeedback_Survey__c</referenceTo>
     <relationshipLabel>Deal Support Request</relationshipLabel>

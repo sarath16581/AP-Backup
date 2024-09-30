@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Transfer_Movement__c</fullName>
     <defaultValue>false</defaultValue>
-    <externalId>false</externalId>
     <label>Transfer Movement</label>
     <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>

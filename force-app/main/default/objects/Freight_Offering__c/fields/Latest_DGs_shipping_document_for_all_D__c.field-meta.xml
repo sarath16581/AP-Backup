@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Latest_DGs_shipping_document_for_all_D__c</fullName>
     <defaultValue>false</defaultValue>
-    <externalId>false</externalId>
     <label>Latest DGs shipping document for all D</label>
     <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>

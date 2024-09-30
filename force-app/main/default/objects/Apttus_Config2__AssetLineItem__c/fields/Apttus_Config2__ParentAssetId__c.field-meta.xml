@@ -4,7 +4,6 @@
     <deleteConstraint>SetNull</deleteConstraint>
     <deprecated>false</deprecated>
     <description>The ID of the direct parent asset.</description>
-    <externalId>false</externalId>
     <inlineHelpText>The ID of the direct parent asset.</inlineHelpText>
     <label>Parent Asset Line Item</label>
     <referenceTo>Apttus_Config2__AssetLineItem__c</referenceTo>

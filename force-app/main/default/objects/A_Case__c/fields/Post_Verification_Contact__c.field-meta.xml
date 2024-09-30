@@ -3,7 +3,6 @@
     <fullName>Post_Verification_Contact__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <description>to be decommissioned - User Support Query RT cleanup</description>
-    <externalId>false</externalId>
     <label>Post Verification Contact</label>
     <referenceTo>User</referenceTo>
     <relationshipLabel>OLD Archived Cases (Post_Verification_Contact__c)</relationshipLabel>

@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Hide Dates For One Time Charge</description>
-    <externalId>false</externalId>
     <inlineHelpText>Hide Dates For One Time Charge</inlineHelpText>
     <label>Hide Dates For One Time Charge</label>
     <trackTrending>false</trackTrending>

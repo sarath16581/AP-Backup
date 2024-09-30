@@ -3,7 +3,6 @@
     <fullName>RelatedProposalId__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <description>ID of the associated quote/proposal</description>
-    <externalId>false</externalId>
     <label>Related Quote/Proposal</label>
     <referenceTo>Apttus_Proposal__Proposal__c</referenceTo>
     <relationshipLabel>Agreements</relationshipLabel>

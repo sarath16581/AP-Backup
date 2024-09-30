@@ -3,7 +3,6 @@
     <fullName>kfsell__Score_Card__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <deprecated>false</deprecated>
-    <externalId>false</externalId>
     <label>Score Card</label>
     <referenceTo>kfsell__Score_Card__c</referenceTo>
     <relationshipLabel>Strategy Engine</relationshipLabel>

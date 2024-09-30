@@ -3,7 +3,6 @@
     <fullName>Apttus__Description__c</fullName>
     <deprecated>false</deprecated>
     <description>The provision description</description>
-    <externalId>false</externalId>
     <inlineHelpText>The provision description</inlineHelpText>
     <label>Description</label>
     <required>false</required>

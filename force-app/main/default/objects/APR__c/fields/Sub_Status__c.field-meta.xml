@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Sub_Status__c</fullName>
     <description>Annual Price Review Sub-Status</description>
-    <externalId>false</externalId>
     <inlineHelpText>A dependant field based on the Status field that justifies the Status selection. Must be completed for all records.</inlineHelpText>
     <label>Sub-Status</label>
     <required>false</required>

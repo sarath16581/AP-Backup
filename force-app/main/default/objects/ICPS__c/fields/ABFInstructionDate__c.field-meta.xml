@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>ABFInstructionDate__c</fullName>
     <description>The date that the ABF provided instructions relating to the article/s allocated to the ICPS</description>
-    <externalId>false</externalId>
     <inlineHelpText>The date that the ABF provided instructions relating to the article/s allocated to the ICPS</inlineHelpText>
     <label>ABF Instruction Date</label>
     <required>false</required>

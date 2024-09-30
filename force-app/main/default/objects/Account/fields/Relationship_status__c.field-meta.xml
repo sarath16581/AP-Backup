@@ -5,7 +5,6 @@
 Requested and owned by Christopher Doyle 
 Customer &amp; Market Analyst .
 Customer Data &amp; Insights</description>
-    <externalId>false</externalId>
     <inlineHelpText>Used to identify the current relationship status to the organisation</inlineHelpText>
     <label>Relationship status</label>
     <required>false</required>

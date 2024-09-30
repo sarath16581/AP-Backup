@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__OrderLineItemId__c</fullName>
     <deprecated>false</deprecated>
     <description>ID of the associated order line item</description>
-    <externalId>false</externalId>
     <inlineHelpText>ID of the associated order line item</inlineHelpText>
     <label>Order Line Item</label>
     <referenceTo>Apttus_Config2__OrderLineItem__c</referenceTo>

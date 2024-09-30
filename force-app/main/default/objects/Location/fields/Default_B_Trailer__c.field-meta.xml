@@ -3,7 +3,6 @@
     <fullName>Default_B_Trailer__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <description>The default B Trailer for this Truck. It&apos;s rego will be populated on the Work Order on selection of the Vehicle</description>
-    <externalId>false</externalId>
     <label>Default B Trailer</label>
     <referenceTo>Location</referenceTo>
     <relationshipLabel>Locations (Default B Trailer)</relationshipLabel>

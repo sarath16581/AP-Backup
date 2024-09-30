@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Allows_authority_to_leave__c</fullName>
-    <externalId>false</externalId>
     <formula>IF(NOT(ISBLANK(AccountId)), !ISPICKVAL(Account.Authority_to_leave__c, &apos;No&apos;), false)</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <label>Allows Authority To Leave?</label>

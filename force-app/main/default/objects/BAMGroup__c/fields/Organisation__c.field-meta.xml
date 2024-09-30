@@ -3,7 +3,6 @@
     <fullName>Organisation__c</fullName>
     <deleteConstraint>Restrict</deleteConstraint>
     <description>The Organisation this group has been created for</description>
-    <externalId>false</externalId>
     <inlineHelpText>The Organisation this group has been created for</inlineHelpText>
     <label>Organisation</label>
     <referenceTo>Account</referenceTo>

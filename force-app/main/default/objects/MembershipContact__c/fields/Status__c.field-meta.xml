@@ -4,7 +4,6 @@
     <businessStatus>Active</businessStatus>
     <complianceGroup>GDPR</complianceGroup>
     <description>The current status of this Membership Contact record</description>
-    <externalId>false</externalId>
     <inlineHelpText>Membership Contact Record Status</inlineHelpText>
     <label>Status</label>
     <required>false</required>

@@ -4,7 +4,6 @@
     <deleteConstraint>SetNull</deleteConstraint>
     <description>The owner for the AUSTRAC/Western Union registration
 This field is related to contact record of contact type Compliance Officer</description>
-    <externalId>false</externalId>
     <label>Compliance Officer</label>
     <lookupFilter>
         <active>true</active>

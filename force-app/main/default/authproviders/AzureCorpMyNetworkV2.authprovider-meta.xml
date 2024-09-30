@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<AuthProvider xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customMetadataTypeRecord>AzureOIDCAuthProvider__mdt.AzureCorpMyNetworkV2</customMetadataTypeRecord>
+    <executionUser>jithandler@auspost.com.au.stest</executionUser>
+    <friendlyName>MyNetwork - Single Sign On</friendlyName>
+    <includeOrgIdInIdentifier>false</includeOrgIdInIdentifier>
+    <isPkceEnabled>false</isPkceEnabled>
+    <plugin>AzureOIDCAuthProvider</plugin>
+    <providerType>Custom</providerType>
+    <registrationHandler>AzureOIDCRegistrationHandler</registrationHandler>
+    <requireMfa>false</requireMfa>
+    <sendAccessTokenInHeader>false</sendAccessTokenInHeader>
+    <sendClientCredentialsInHeader>false</sendClientCredentialsInHeader>
+    <sendSecretInApis>false</sendSecretInApis>
+</AuthProvider>

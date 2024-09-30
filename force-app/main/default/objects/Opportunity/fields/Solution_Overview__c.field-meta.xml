@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Solution_Overview__c</fullName>
     <description>Field to capture Solution Details</description>
-    <externalId>false</externalId>
     <inlineHelpText>This field will be used in Commit To Action go/no-go decision. Briefly summarise our proposed solution.  Are we able to meet the customer requirements? Are there any gaps?</inlineHelpText>
     <label>Solution Overview</label>
     <length>32768</length>

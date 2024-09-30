@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Apttus_Approval__Object_Qualifier__c</fullName>
     <deprecated>false</deprecated>
-    <externalId>false</externalId>
     <inlineHelpText>Qualify the object that this condition applies to.  For example, an object qualifier of &quot;Agreement Owner&quot; means get the value of the &quot;Area__c&quot; field from the &quot;User&quot; specified by the agreement owner in the agreement related to the term exception approval.</inlineHelpText>
     <label>Object Qualifier</label>
     <required>false</required>

@@ -4,7 +4,6 @@
     <deleteConstraint>SetNull</deleteConstraint>
     <deprecated>false</deprecated>
     <description>The approval request id for which this async queueable job applies</description>
-    <externalId>false</externalId>
     <inlineHelpText>The approval request id for which this async queueable job applies</inlineHelpText>
     <label>Approval Request Id</label>
     <referenceTo>Apttus_Approval__Approval_Request__c</referenceTo>

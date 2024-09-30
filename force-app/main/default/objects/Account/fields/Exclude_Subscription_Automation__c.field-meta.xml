@@ -3,7 +3,6 @@
     <fullName>Exclude_Subscription_Automation__c</fullName>
     <defaultValue>false</defaultValue>
     <description>This will determine if a case record will be excluded in the subscription automation.</description>
-    <externalId>false</externalId>
     <label>Exclude Scanning Automation</label>
     <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>

@@ -4,7 +4,6 @@
     <deleteConstraint>SetNull</deleteConstraint>
     <deprecated>false</deprecated>
     <description>Lookup to the wizard step design element</description>
-    <externalId>false</externalId>
     <inlineHelpText>Lookup to the wizard step design element</inlineHelpText>
     <label>Wizard Step</label>
     <referenceTo>Apttus__WizardStep2__c</referenceTo>

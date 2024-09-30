@@ -3,7 +3,6 @@
     <fullName>APLAC_Welcome_Email_Sent__c</fullName>
     <defaultValue>false</defaultValue>
     <description>Checks if the APLAC Welcome Email has been sent.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Has the APLAC Welcome Email been sent?</inlineHelpText>
     <label>{hidden} APLAC Welcome Email Sent</label>
     <securityClassification>INTERNAL</securityClassification>

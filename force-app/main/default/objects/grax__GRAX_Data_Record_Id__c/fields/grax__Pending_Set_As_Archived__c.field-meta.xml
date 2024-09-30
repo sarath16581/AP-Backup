@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Denotes if the Salesforce&apos;s record was successfully deleted, but that information was not sent to GRAX</description>
-    <externalId>false</externalId>
     <label>Pending Set As Archived</label>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>

@@ -3,7 +3,6 @@
     <fullName>Contact__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <description>Facilitate the selection of contacts associated with each account owned by account managed to whom campaign feedback survey needs to be sent.</description>
-    <externalId>false</externalId>
     <label>Contact</label>
     <lookupFilter>
         <active>true</active>

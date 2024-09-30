@@ -3,7 +3,6 @@
     <fullName>Has_Product_Specialist__c</fullName>
     <defaultValue>false</defaultValue>
     <description>STP: Indicates if an opportunity record has any Opportunity Team Member record with Role as Product Specialist</description>
-    <externalId>false</externalId>
     <label>Has Product Specialist</label>
     <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>

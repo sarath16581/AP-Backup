@@ -3,7 +3,6 @@
     <fullName>Freight_Offering__c</fullName>
     <deleteConstraint>Restrict</deleteConstraint>
     <description>Testing relationship between FO &amp; Location</description>
-    <externalId>false</externalId>
     <label>Freight Offering</label>
     <lookupFilter>
         <active>false</active>

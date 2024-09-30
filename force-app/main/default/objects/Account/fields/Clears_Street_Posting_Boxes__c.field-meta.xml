@@ -3,7 +3,6 @@
     <fullName>Clears_Street_Posting_Boxes__c</fullName>
     <defaultValue>false</defaultValue>
     <description>Does this site clear Street Posting Boxes?</description>
-    <externalId>false</externalId>
     <inlineHelpText>Does this site clear Street Posting Boxes?</inlineHelpText>
     <label>Clears Street Posting Boxes</label>
     <securityClassification>INTERNAL</securityClassification>

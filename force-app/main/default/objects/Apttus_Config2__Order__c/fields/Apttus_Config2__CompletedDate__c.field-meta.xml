@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__CompletedDate__c</fullName>
     <deprecated>false</deprecated>
     <description>The date when the order is closed. The order is completed on this date.</description>
-    <externalId>false</externalId>
     <inlineHelpText>The date when the order is closed. The order is completed on this date.</inlineHelpText>
     <label>Close Date</label>
     <required>false</required>

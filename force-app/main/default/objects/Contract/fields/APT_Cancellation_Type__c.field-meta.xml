@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>APT_Cancellation_Type__c</fullName>
     <description>Maps to Closed Reason on Opportunity</description>
-    <externalId>false</externalId>
     <inlineHelpText>Indicate whether Customer is getting disqualified, or contract is lost / cancelled</inlineHelpText>
     <label>Cancellation Type</label>
     <required>false</required>

@@ -3,7 +3,6 @@
     <fullName>LogLevel_Error__c</fullName>
     <defaultValue>true</defaultValue>
     <description>Determines if the Log messages at Error level should be logged in the Application Log object. Use LoggingLevel__c now</description>
-    <externalId>false</externalId>
     <label>LogLevel_Error (Deprecated)</label>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>

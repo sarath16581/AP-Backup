@@ -3,7 +3,6 @@
     <fullName>Apttus__Mergefields__c</fullName>
     <deprecated>false</deprecated>
     <description>Merge fields used in the template. Automatically maintained by the Apttus Author or manually entered using the following form: object1 (field1,field2,...fieldn); object2 (field1,field2,...fieldn); etc</description>
-    <externalId>false</externalId>
     <inlineHelpText>Merge fields used in the template.</inlineHelpText>
     <label>Mergefields (Internal)</label>
     <length>32000</length>

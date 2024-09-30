@@ -3,7 +3,6 @@
     <fullName>NotificationProfileNames__c</fullName>
     <defaultValue>&apos;MyNetwork Portal&apos;</defaultValue>
     <description>Enter comma separated Profile Names to be included to send Email Notification before few days from Deactivation from UserDeactivationBatchable</description>
-    <externalId>false</externalId>
     <inlineHelpText>Enter comma separated Profile Names to be included to send Email Notification before few days from Deactivation from UserDeactivationBatchable</inlineHelpText>
     <label>Notification Profile Names</label>
     <required>false</required>

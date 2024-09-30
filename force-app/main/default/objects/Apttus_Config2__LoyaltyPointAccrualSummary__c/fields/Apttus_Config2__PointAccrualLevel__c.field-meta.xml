@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__PointAccrualLevel__c</fullName>
     <deprecated>false</deprecated>
     <description>The point accrual level</description>
-    <externalId>false</externalId>
     <inlineHelpText>The point accrual level</inlineHelpText>
     <label>Point Accrual Level</label>
     <required>false</required>

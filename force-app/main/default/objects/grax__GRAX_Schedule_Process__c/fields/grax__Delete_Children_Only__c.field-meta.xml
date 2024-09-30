@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>On an &quot;Archive&quot; process, when this field is checked, the Parent record would not be deleted from Salesforce, but would be backed up with the other records in the hierarchy.</description>
-    <externalId>false</externalId>
     <label>Delete Children Only</label>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>

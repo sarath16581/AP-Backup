@@ -3,7 +3,6 @@
     <fullName>ApttusContract__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <description>Lookup to an Apttus Contract</description>
-    <externalId>false</externalId>
     <inlineHelpText>Lookup to an Apttus Contract</inlineHelpText>
     <label>Apttus Contract</label>
     <referenceTo>Apttus__APTS_Agreement__c</referenceTo>

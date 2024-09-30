@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Annual_Lease_Fee__c</fullName>
     <description>Partner Addendum &apos;Annual Lease Fee&apos; Sub Type Description</description>
-    <externalId>false</externalId>
     <label>Annual Lease Fee</label>
     <required>false</required>
     <trackTrending>false</trackTrending>

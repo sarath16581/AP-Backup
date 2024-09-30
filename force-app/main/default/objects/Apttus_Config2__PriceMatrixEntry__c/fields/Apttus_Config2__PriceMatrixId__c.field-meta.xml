@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__PriceMatrixId__c</fullName>
     <deprecated>false</deprecated>
     <description>ID of the associated matrix</description>
-    <externalId>false</externalId>
     <label>Price Matrix</label>
     <referenceTo>Apttus_Config2__PriceMatrix__c</referenceTo>
     <relationshipLabel>Entries</relationshipLabel>

@@ -4,7 +4,6 @@
     <businessStatus>Active</businessStatus>
     <complianceGroup>GDPR</complianceGroup>
     <description>The Group Growth for this account and all OPC related child accounts for the month of May</description>
-    <externalId>false</externalId>
     <inlineHelpText>May OPC Grouped Growth Amount</inlineHelpText>
     <label>May Group Growth +/-</label>
     <precision>18</precision>

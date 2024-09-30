@@ -3,7 +3,6 @@
     <fullName>Apttus_Approval__StartTime__c</fullName>
     <deprecated>false</deprecated>
     <description>Async action processing start date time</description>
-    <externalId>false</externalId>
     <inlineHelpText>Async action processing start date time</inlineHelpText>
     <label>Start Time</label>
     <required>false</required>

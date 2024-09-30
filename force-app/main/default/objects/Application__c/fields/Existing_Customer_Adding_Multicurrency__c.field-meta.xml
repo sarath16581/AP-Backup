@@ -3,7 +3,6 @@
     <fullName>Existing_Customer_Adding_Multicurrency__c</fullName>
     <defaultValue>false</defaultValue>
     <description>This is a new field to handle multi-currency feature in secure pay on platform.</description>
-    <externalId>false</externalId>
     <label>Existing Customer Adding Multicurrency</label>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>

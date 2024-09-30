@@ -3,7 +3,6 @@
     <fullName>Preferred__c</fullName>
     <defaultValue>false</defaultValue>
     <description>Indicates if this is the preferred phone number of the consumer</description>
-    <externalId>false</externalId>
     <inlineHelpText>Indicates if this is the preferred phone number of the consumer</inlineHelpText>
     <label>Preferred</label>
     <trackHistory>false</trackHistory>

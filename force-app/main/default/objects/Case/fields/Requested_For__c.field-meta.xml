@@ -3,7 +3,6 @@
     <fullName>Requested_For__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <description>Only the requestor&apos;s manager is able to create a case. This is used for Sales Manager Review Exception cases.</description>
-    <externalId>false</externalId>
     <inlineHelpText>These cases can only be created by your Manager. The “Requestor” field is to be used for the Account Manager or Sales Representative that wants to make the claim</inlineHelpText>
     <label>Requestor</label>
     <lookupFilter>

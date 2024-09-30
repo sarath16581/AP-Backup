@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Facility_By_Pass_From__c</fullName>
     <deleteConstraint>Restrict</deleteConstraint>
-    <externalId>false</externalId>
     <label>Network By Pass From</label>
     <referenceTo>Network__c</referenceTo>
     <relationshipLabel>Network Bypasses (Facility By Pass From)</relationshipLabel>

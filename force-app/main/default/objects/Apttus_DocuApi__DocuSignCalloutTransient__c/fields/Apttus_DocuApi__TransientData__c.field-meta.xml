@@ -3,7 +3,6 @@
     <fullName>Apttus_DocuApi__TransientData__c</fullName>
     <deprecated>false</deprecated>
     <description>system data</description>
-    <externalId>false</externalId>
     <inlineHelpText>system data</inlineHelpText>
     <label>Transient Data</label>
     <length>32768</length>

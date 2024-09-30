@@ -3,7 +3,6 @@
     <fullName>kfsell__is_pos_competition_zero__c</fullName>
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
-    <externalId>false</externalId>
     <label>is pos competition zero</label>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>

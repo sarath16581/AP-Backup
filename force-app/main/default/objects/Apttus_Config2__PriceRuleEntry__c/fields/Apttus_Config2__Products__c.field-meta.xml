@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__Products__c</fullName>
     <deprecated>false</deprecated>
     <description>The list of products associated with the entry</description>
-    <externalId>false</externalId>
     <inlineHelpText>The list of products associated with the entry</inlineHelpText>
     <label>Products</label>
     <required>false</required>

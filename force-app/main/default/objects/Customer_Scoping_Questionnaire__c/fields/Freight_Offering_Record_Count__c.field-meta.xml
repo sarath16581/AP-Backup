@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Freight_Offering_Record_Count__c</fullName>
-    <externalId>false</externalId>
     <label>Freight Offering Record Count</label>
     <securityClassification>INTERNAL</securityClassification>
     <summaryForeignKey>Freight_Offering__c.Customer_Scoping_Questionnaire__c</summaryForeignKey>

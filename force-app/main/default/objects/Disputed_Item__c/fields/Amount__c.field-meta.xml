@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Amount__c</fullName>
     <description>The amount that the customer was originally charged.</description>
-    <externalId>false</externalId>
     <label>Amount Charged</label>
     <precision>18</precision>
     <required>false</required>

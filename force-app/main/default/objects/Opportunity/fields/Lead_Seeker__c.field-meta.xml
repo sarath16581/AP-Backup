@@ -3,7 +3,6 @@
     <fullName>Lead_Seeker__c</fullName>
     <defaultValue>false</defaultValue>
     <description>Field will be auto updated when a lead is converted</description>
-    <externalId>false</externalId>
     <inlineHelpText>Pre-filled automatically if this Opportunity was created from a  Lead submitted through the Seeker program.</inlineHelpText>
     <label>Lead Seeker</label>
     <securityClassification>INTERNAL</securityClassification>

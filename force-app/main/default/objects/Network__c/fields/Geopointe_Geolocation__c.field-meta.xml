@@ -4,7 +4,6 @@
     <description>Retail PON Geopointe Related Field
 This is used to map the Geolocation for the app Geopointe</description>
     <displayLocationInDecimal>true</displayLocationInDecimal>
-    <externalId>false</externalId>
     <label>Geopointe Geolocation</label>
     <required>false</required>
     <scale>10</scale>

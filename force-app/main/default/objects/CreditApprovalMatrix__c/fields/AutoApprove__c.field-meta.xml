@@ -3,7 +3,6 @@
     <fullName>AutoApprove__c</fullName>
     <defaultValue>false</defaultValue>
     <description>Indicates approval is provided automatically on submission.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Indicates approval is provided automatically on submission.</inlineHelpText>
     <label>Auto Approve</label>
     <securityClassification>INTERNAL</securityClassification>

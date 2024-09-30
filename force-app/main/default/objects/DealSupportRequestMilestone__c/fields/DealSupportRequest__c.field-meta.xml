@@ -4,7 +4,6 @@
     <businessStatus>Active</businessStatus>
     <complianceGroup>GDPR</complianceGroup>
     <description>Id of deal support request related to this deal support request milestone record.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Id of deal support request related to this deal support request milestone record.</inlineHelpText>
     <label>Deal Support Request</label>
     <referenceTo>Deal_Support_Request__c</referenceTo>

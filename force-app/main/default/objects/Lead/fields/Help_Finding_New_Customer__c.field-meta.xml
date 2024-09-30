@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Help_Finding_New_Customer__c</fullName>
     <defaultValue>false</defaultValue>
-    <externalId>false</externalId>
     <label>Help Finding New Customer</label>
     <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>

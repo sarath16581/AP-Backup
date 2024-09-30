@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Priority_Overridden__c</fullName>
     <description>StarTrack - Formula to determine if there is a Priority Override Reason</description>
-    <externalId>false</externalId>
     <formula>NOT(ISBLANK(Priority_Overridden_Reason__c))</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <label>Priority Overridden</label>

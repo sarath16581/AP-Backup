@@ -3,7 +3,6 @@
     <fullName>LBP_Tier_1__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <description>Added as a part of STP LBP : Identify which Post Office is the LBP Tier 1 associated to the Opportunity</description>
-    <externalId>false</externalId>
     <inlineHelpText>The LPO for existing Tier 1 partners. Only applies to Local Business Partner opportunities.</inlineHelpText>
     <label>LBP Tier 1</label>
     <lookupFilter>

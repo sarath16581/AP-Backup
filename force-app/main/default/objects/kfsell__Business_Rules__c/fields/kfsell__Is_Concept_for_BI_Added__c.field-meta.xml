@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Is Concept for BI Added</description>
-    <externalId>false</externalId>
     <label>Is Concept for BI Added</label>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>

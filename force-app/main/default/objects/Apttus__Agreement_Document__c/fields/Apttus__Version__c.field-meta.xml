@@ -3,7 +3,6 @@
     <fullName>Apttus__Version__c</fullName>
     <deprecated>false</deprecated>
     <description>Optional version information about the document</description>
-    <externalId>false</externalId>
     <label>Version</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>

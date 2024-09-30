@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__AssignedToType__c</fullName>
     <deprecated>false</deprecated>
     <description>Indicates the type of entity the coupon is assigned to</description>
-    <externalId>false</externalId>
     <inlineHelpText>Indicates the type of entity the coupon is assigned to</inlineHelpText>
     <label>Assigned To Type (Deprecated)</label>
     <required>false</required>

@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Indicates whether totaling should be performed in a separate step or combined with the base pricing step</description>
-    <externalId>false</externalId>
     <inlineHelpText>Indicates whether totaling should be performed in a separate step or combined with the base pricing step</inlineHelpText>
     <label>Compute Totals In Separate Step</label>
     <trackTrending>false</trackTrending>

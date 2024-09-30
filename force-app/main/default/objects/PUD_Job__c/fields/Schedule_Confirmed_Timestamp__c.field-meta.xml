@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Schedule_Confirmed_Timestamp__c</fullName>
     <description>The Date/Time when the dispatch system has confirmed the Job has been scheduled successfully.</description>
-    <externalId>false</externalId>
     <inlineHelpText>The Date/Time when the dispatch system has confirmed the Job has been scheduled successfully.</inlineHelpText>
     <label>Schedule Confirmed Timestamp</label>
     <required>false</required>

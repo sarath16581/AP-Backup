@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>ContentsItemsPayload__c</fullName>
     <description>SSSW - TIBCO populates this field with Contents Item payload xml.</description>
-    <externalId>false</externalId>
     <label>Contents Items Payload</label>
     <length>131072</length>
     <securityClassification>INTERNAL</securityClassification>

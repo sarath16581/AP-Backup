@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>ANZSIC_Code__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
-    <externalId>false</externalId>
     <inlineHelpText>Enter the 4 digit code</inlineHelpText>
     <label>ANZSIC Code</label>
     <referenceTo>ANZSIC_Code__c</referenceTo>

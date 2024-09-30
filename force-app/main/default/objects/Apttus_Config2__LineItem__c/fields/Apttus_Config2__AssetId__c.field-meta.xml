@@ -4,7 +4,6 @@
     <deleteConstraint>SetNull</deleteConstraint>
     <deprecated>false</deprecated>
     <description>ID of the asset associated with the line item</description>
-    <externalId>false</externalId>
     <inlineHelpText>ID of the asset associated with the line item</inlineHelpText>
     <label>Asset</label>
     <referenceTo>Asset</referenceTo>

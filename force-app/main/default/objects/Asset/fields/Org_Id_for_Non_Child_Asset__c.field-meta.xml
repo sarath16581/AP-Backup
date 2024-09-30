@@ -3,7 +3,6 @@
     <fullName>Org_Id_for_Non_Child_Asset__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <description>This field has Account Id if it is a product holding.</description>
-    <externalId>false</externalId>
     <label>Org Id for Non Child Asset</label>
     <referenceTo>Account</referenceTo>
     <relationshipLabel>Assets</relationshipLabel>

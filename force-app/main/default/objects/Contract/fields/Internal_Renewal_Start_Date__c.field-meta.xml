@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Internal_Renewal_Start_Date__c</fullName>
     <description>Date by which internal notice of internal renewal is approaching – Issue Renewal Notice Date less internal renewal notification days</description>
-    <externalId>false</externalId>
     <formula>Renewal_Notice_Date__c  -   Internal_Renewal_Notification_Days__c</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <label>Internal Renewal Start Date</label>

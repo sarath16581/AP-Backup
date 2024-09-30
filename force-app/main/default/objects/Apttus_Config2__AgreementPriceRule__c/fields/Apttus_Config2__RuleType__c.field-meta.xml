@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__RuleType__c</fullName>
     <deprecated>false</deprecated>
     <description>The rule type</description>
-    <externalId>false</externalId>
     <inlineHelpText>The rule type</inlineHelpText>
     <label>Rule Type</label>
     <required>false</required>

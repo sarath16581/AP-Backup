@@ -3,7 +3,6 @@
     <fullName>Contact_Facility__c</fullName>
     <description>DO NOT ADD SERVICENOW - this field is integrated to Tibco To ServiceNow
 A change request will be needed for Tibco</description>
-    <externalId>false</externalId>
     <inlineHelpText>If ServiceNow is required, please contact Voice &amp; Desktop</inlineHelpText>
     <label>Contact Method</label>
     <required>false</required>

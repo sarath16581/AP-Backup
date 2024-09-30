@@ -3,7 +3,6 @@
     <fullName>Apttus__MessageDetail__c</fullName>
     <deprecated>false</deprecated>
     <description>Message Detail</description>
-    <externalId>false</externalId>
     <isFilteringDisabled>false</isFilteringDisabled>
     <isNameField>false</isNameField>
     <isSortingDisabled>false</isSortingDisabled>

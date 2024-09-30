@@ -3,7 +3,6 @@
     <fullName>Apttus_QPConfig__ReadyForFulfillmentDate__c</fullName>
     <deprecated>false</deprecated>
     <description>The date the order item is ready for fulfillment. The order item is fulfilled on this date.</description>
-    <externalId>false</externalId>
     <inlineHelpText>The date the order item is ready for fulfillment. The order item is fulfilled on this date.</inlineHelpText>
     <label>Ready For Fulfillment Date</label>
     <required>false</required>

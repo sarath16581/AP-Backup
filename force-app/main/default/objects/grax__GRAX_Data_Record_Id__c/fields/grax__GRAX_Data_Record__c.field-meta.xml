@@ -3,7 +3,6 @@
     <fullName>grax__GRAX_Data_Record__c</fullName>
     <deprecated>false</deprecated>
     <description>Relationship to related GRAX_Data_Record</description>
-    <externalId>false</externalId>
     <label>GRAX Data Record</label>
     <referenceTo>grax__GRAX_Data_Record__c</referenceTo>
     <relationshipLabel>GRAX Data Record Ids</relationshipLabel>

@@ -3,7 +3,6 @@
     <fullName>Is_APPC__c</fullName>
     <defaultValue>&quot;No&quot;</defaultValue>
     <description>Is this related to an APPC product?</description>
-    <externalId>false</externalId>
     <inlineHelpText>Is this related to an APPC product?</inlineHelpText>
     <label>Is APPC</label>
     <required>false</required>

@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Indicates whether approval check should performed automatically when a quote updated</description>
-    <externalId>false</externalId>
     <inlineHelpText>Indicates whether approval check should performed automatically when a quote updated</inlineHelpText>
     <label>Enable Approval Check On Quote Update</label>
     <trackTrending>false</trackTrending>

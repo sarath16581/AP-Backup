@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__Formula__c</fullName>
     <deprecated>false</deprecated>
     <description>The field formula</description>
-    <externalId>false</externalId>
     <label>Field</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>

@@ -3,7 +3,6 @@
     <fullName>Network_Facility__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <description>Links an Account which represents an Australia Post facility (e.g. a Retail Outlet or Business Hub) to its appropriate Network/Facility record (WCIS master data)</description>
-    <externalId>false</externalId>
     <inlineHelpText>Link to WCIS data for this facility</inlineHelpText>
     <label>Network (Facility)</label>
     <lookupFilter>

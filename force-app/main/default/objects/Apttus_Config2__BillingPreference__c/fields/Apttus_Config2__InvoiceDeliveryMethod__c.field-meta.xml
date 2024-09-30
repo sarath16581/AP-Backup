@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__InvoiceDeliveryMethod__c</fullName>
     <deprecated>false</deprecated>
     <description>The invoice delivery preference</description>
-    <externalId>false</externalId>
     <inlineHelpText>The invoice delivery preference</inlineHelpText>
     <label>Invoice Delivery Method</label>
     <required>false</required>

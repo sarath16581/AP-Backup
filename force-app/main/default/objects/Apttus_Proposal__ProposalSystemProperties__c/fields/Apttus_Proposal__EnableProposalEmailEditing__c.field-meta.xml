@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Enable editing of Proposal email template.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Enable editing of Proposal email template.</inlineHelpText>
     <label>Enable Proposal Email Editing</label>
     <trackTrending>false</trackTrending>

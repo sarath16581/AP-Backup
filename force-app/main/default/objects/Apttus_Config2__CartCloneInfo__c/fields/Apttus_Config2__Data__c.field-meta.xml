@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__Data__c</fullName>
     <deprecated>false</deprecated>
     <description>Stores Serialized clone ref data</description>
-    <externalId>false</externalId>
     <label>Data</label>
     <length>128000</length>
     <securityClassification>INTERNAL</securityClassification>

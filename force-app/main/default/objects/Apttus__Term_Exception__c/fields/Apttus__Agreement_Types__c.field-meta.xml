@@ -3,7 +3,6 @@
     <fullName>Apttus__Agreement_Types__c</fullName>
     <deprecated>false</deprecated>
     <description>Applicable lIst of agreement types</description>
-    <externalId>false</externalId>
     <label>Agreement Types</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>

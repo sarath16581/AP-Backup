@@ -3,7 +3,6 @@
     <fullName>APT_Sales_Director__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <description>Used in Extension Approvals. Auto populated by the system with the value of manger of the Requestor Manager (two levels through user hierarchy)</description>
-    <externalId>false</externalId>
     <inlineHelpText>Sales Director</inlineHelpText>
     <label>Sales Director</label>
     <referenceTo>User</referenceTo>

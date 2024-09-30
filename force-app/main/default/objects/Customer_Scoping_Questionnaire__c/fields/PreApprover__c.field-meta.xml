@@ -3,7 +3,6 @@
     <fullName>PreApprover__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <description>The user who is responsible for the onboarding review, and the decider of the CSQ Pre-Approval Process. This field is auto populated to the user Id who changed Pre-Approval status to &apos;Under Onboarding Review&apos;.</description>
-    <externalId>false</externalId>
     <inlineHelpText>The user who is responsible for the onboarding review, and the decider of the CSQ Pre-Approval Process. This field is auto populated to the user Id who changed Pre-Approval status to &apos;Under Onboarding Review&apos;.</inlineHelpText>
     <label>Pre-Approver</label>
     <referenceTo>User</referenceTo>

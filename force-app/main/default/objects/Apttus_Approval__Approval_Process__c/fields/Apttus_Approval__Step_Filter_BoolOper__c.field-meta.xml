@@ -3,7 +3,6 @@
     <fullName>Apttus_Approval__Step_Filter_BoolOper__c</fullName>
     <deprecated>false</deprecated>
     <description>The step filter boolean operator</description>
-    <externalId>false</externalId>
     <label>Step Filter Boolean Operator</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>

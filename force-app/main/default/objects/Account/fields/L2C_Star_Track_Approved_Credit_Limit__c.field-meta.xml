@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>L2C_Star_Track_Approved_Credit_Limit__c</fullName>
-    <externalId>false</externalId>
     <label>StarTrack Approved Credit Limit</label>
     <precision>18</precision>
     <required>false</required>

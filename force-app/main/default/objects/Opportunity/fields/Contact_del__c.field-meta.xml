@@ -3,7 +3,6 @@
     <fullName>Contact_del__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <description>Phase 1 - Opportunity Fields (SAP)</description>
-    <externalId>false</externalId>
     <label>Contact</label>
     <referenceTo>Contact</referenceTo>
     <relationshipLabel>Opportunities</relationshipLabel>

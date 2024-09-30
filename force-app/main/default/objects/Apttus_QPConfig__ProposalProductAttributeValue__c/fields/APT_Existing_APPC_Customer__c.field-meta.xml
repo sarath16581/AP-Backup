@@ -3,7 +3,6 @@
     <fullName>APT_Existing_APPC_Customer__c</fullName>
     <defaultValue>false</defaultValue>
     <description>The value indicates if the customer is existing or not</description>
-    <externalId>false</externalId>
     <label>Existing APPC Customer</label>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>

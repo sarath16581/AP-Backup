@@ -3,7 +3,6 @@
     <fullName>Facility_Fitout__c</fullName>
     <defaultValue>false</defaultValue>
     <description>Is property owned or leased by Australia Post?</description>
-    <externalId>false</externalId>
     <inlineHelpText>Is property owned or leased by Australia Post?</inlineHelpText>
     <label>Facility Fit out AP Owned</label>
     <securityClassification>INTERNAL</securityClassification>

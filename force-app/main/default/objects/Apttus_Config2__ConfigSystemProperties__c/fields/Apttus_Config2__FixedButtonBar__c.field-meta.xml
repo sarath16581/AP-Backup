@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Indicates that the button bar will be fixed on catalog, configuration and cart pages.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Indicates that the button bar will be fixed on catalog, configuration and cart pages.</inlineHelpText>
     <label>Fixed Button Bar</label>
     <trackTrending>false</trackTrending>

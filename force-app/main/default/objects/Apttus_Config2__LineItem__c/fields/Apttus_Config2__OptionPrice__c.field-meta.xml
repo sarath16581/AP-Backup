@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__OptionPrice__c</fullName>
     <deprecated>false</deprecated>
     <description>The rolled up adjusted price of options for each unit of the bundle product</description>
-    <externalId>false</externalId>
     <inlineHelpText>The rolled up adjusted price of options for each unit of the bundle product</inlineHelpText>
     <label>Option Price</label>
     <precision>18</precision>

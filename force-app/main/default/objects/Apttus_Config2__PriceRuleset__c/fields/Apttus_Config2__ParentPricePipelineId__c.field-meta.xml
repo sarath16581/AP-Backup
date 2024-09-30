@@ -4,7 +4,6 @@
     <deleteConstraint>SetNull</deleteConstraint>
     <deprecated>false</deprecated>
     <description>Lookup to the Price Pipeline to which this Price Waterfall belongs to</description>
-    <externalId>false</externalId>
     <inlineHelpText>Lookup to the Price Pipeline to which this Price Waterfall belongs to</inlineHelpText>
     <label>Parent Price Pipeline Id</label>
     <referenceTo>Apttus_Config2__PriceRuleset__c</referenceTo>

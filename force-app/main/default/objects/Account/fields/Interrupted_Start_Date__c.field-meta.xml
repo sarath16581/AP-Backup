@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Interrupted_Start_Date__c</fullName>
     <description>Date on which Licence status is changed from Active to Suspended.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Licence will be suspended on this date</inlineHelpText>
     <label>Suspend Start Date</label>
     <required>false</required>

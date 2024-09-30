@@ -3,7 +3,6 @@
     <fullName>kfsell__Seller_Email_Alert__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <deprecated>false</deprecated>
-    <externalId>false</externalId>
     <label>Seller Email Alert</label>
     <lookupFilter>
         <active>true</active>

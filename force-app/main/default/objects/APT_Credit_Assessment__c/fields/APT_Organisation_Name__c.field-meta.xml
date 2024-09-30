@@ -3,7 +3,6 @@
     <fullName>APT_Organisation_Name__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <description>.</description>
-    <externalId>false</externalId>
     <label>Organisation Name</label>
     <referenceTo>Account</referenceTo>
     <relationshipLabel>Credit Assessments</relationshipLabel>

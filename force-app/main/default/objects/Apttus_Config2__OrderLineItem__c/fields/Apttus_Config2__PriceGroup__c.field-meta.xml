@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__PriceGroup__c</fullName>
     <deprecated>false</deprecated>
     <description>The price group associated with the product or option</description>
-    <externalId>false</externalId>
     <inlineHelpText>The price group associated with the product or option</inlineHelpText>
     <label>Price Group</label>
     <required>false</required>

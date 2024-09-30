@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Additional_Information_Reason__c</fullName>
     <description>This field is used to capture Deal Support Member&apos;s reason when requesting Additional Information on request.</description>
-    <externalId>false</externalId>
     <label>Additional Information Required Reason</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>
@@ -13,11 +12,11 @@
     <valueSet>
         <restricted>true</restricted>
         <valueSetDefinition>
-            <sorted>false</sorted>
+            <sorted>true</sorted>
             <value>
-                <fullName>Insufficient Sales Justification</fullName>
+                <fullName>Awaiting operations approval</fullName>
                 <default>false</default>
-                <label>Insufficient Sales Justification</label>
+                <label>Awaiting operations approval</label>
             </value>
             <value>
                 <fullName>Awaiting outcome of decision forum</fullName>
@@ -33,31 +32,6 @@
                 <fullName>Customer acceptance of APR required</fullName>
                 <default>false</default>
                 <label>Customer acceptance of APR required</label>
-            </value>
-            <value>
-                <fullName>Leader Account number was not provided</fullName>
-                <default>false</default>
-                <label>Leader Account number was not provided</label>
-            </value>
-            <value>
-                <fullName>Missing / Incomplete data file</fullName>
-                <default>false</default>
-                <label>Missing / Incomplete data file</label>
-            </value>
-            <value>
-                <fullName>Require ABS data</fullName>
-                <default>false</default>
-                <label>Require ABS data</label>
-            </value>
-            <value>
-                <fullName>Require approval</fullName>
-                <default>false</default>
-                <label>Require approval</label>
-            </value>
-            <value>
-                <fullName>Require fully approved CSQ</fullName>
-                <default>false</default>
-                <label>Require fully approved CSQ</label>
             </value>
             <value>
                 <fullName>Engage Product for support</fullName>
@@ -78,6 +52,21 @@
                 <label>Incomplete data file</label>
             </value>
             <value>
+                <fullName>Insufficient Sales Justification</fullName>
+                <default>false</default>
+                <label>Insufficient Sales Justification</label>
+            </value>
+            <value>
+                <fullName>Leader Account number was not provided</fullName>
+                <default>false</default>
+                <label>Leader Account number was not provided</label>
+            </value>
+            <value>
+                <fullName>Missing / Incomplete data file</fullName>
+                <default>false</default>
+                <label>Missing / Incomplete data file</label>
+            </value>
+            <value>
                 <fullName>Opportunity not aligned with request</fullName>
                 <default>false</default>
                 <isActive>false</isActive>
@@ -88,6 +77,21 @@
                 <default>false</default>
                 <isActive>false</isActive>
                 <label>Other</label>
+            </value>
+            <value>
+                <fullName>Require ABS data</fullName>
+                <default>false</default>
+                <label>Require ABS data</label>
+            </value>
+            <value>
+                <fullName>Require approval</fullName>
+                <default>false</default>
+                <label>Require approval</label>
+            </value>
+            <value>
+                <fullName>Require fully approved CSQ</fullName>
+                <default>false</default>
+                <label>Require fully approved CSQ</label>
             </value>
             <value>
                 <fullName>Self-serve system issue</fullName>

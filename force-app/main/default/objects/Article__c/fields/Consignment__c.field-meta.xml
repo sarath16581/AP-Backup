@@ -3,7 +3,6 @@
     <fullName>Consignment__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <description>SSSW - Collection of multiple Articles used to track set of Articles</description>
-    <externalId>false</externalId>
     <label>Consignment</label>
     <referenceTo>Article__c</referenceTo>
     <relationshipLabel>Articles</relationshipLabel>

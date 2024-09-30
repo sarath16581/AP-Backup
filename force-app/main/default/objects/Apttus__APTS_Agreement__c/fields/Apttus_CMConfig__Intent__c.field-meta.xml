@@ -3,7 +3,6 @@
     <fullName>Apttus_CMConfig__Intent__c</fullName>
     <deprecated>false</deprecated>
     <description>The intent associated with the agreement</description>
-    <externalId>false</externalId>
     <inlineHelpText>The intent associated with the agreement</inlineHelpText>
     <label>Intent</label>
     <required>false</required>

@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Set this flag to enable submission comments for this process at either the process or step level.  When enabled, the user will be prompted to enter submission comments when the request is submitted for approval.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Set this flag to enable submission comments for this process at either the process or step level.  When enabled, the user will be prompted to enter submission comments when the request is submitted for approval.</inlineHelpText>
     <label>Submission Comments Enabled</label>
     <securityClassification>INTERNAL</securityClassification>

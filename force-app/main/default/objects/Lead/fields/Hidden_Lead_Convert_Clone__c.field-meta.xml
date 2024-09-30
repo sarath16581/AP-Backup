@@ -3,7 +3,6 @@
     <fullName>Hidden_Lead_Convert_Clone__c</fullName>
     <defaultValue>false</defaultValue>
     <description>Phase 2 - Field to indicate that the record is a clone produced from the Lead Conversion process</description>
-    <externalId>false</externalId>
     <label>{Hidden} Lead Convert Clone</label>
     <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>

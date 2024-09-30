@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__SplitPercent__c</fullName>
     <deprecated>false</deprecated>
     <description>The revenue split percentage</description>
-    <externalId>false</externalId>
     <inlineHelpText>The revenue split percentage</inlineHelpText>
     <label>Split Percent</label>
     <precision>4</precision>

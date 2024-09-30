@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>StarTrack_ConSearch_BA_Endpoint__c</fullName>
     <description>URL for StarTrack Consignment Search with Basic Authentication.</description>
-    <externalId>false</externalId>
     <inlineHelpText>URL for StarTrack Consignment Search with Basic Authentication.</inlineHelpText>
     <label>StarTrack ConSearch BA Endpoint</label>
     <required>false</required>

@@ -3,7 +3,6 @@
     <fullName>APT_RK_Code_Applied__c</fullName>
     <defaultValue>false</defaultValue>
     <description>when Attributes are updated from RK Code response this field is made true</description>
-    <externalId>false</externalId>
     <label>RK Code Applied</label>
     <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>

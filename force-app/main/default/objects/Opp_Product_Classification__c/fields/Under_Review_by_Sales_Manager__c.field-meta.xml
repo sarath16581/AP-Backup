@@ -3,7 +3,6 @@
     <fullName>Under_Review_by_Sales_Manager__c</fullName>
     <defaultValue>false</defaultValue>
     <description>Field that can be checked by the sales manager for OPC to be under review</description>
-    <externalId>false</externalId>
     <label>Under Review by Sales Manager</label>
     <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>

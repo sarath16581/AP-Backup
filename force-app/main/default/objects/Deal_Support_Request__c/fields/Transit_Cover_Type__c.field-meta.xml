@@ -3,7 +3,6 @@
     <fullName>Transit_Cover_Type__c</fullName>
     <description>Field to represent the Transit cover type feature for a product
 populated on the cart based on the Approved event on PSR</description>
-    <externalId>false</externalId>
     <label>Transit Cover Type</label>
     <required>false</required>
     <trackFeedHistory>false</trackFeedHistory>

@@ -3,7 +3,6 @@
     <fullName>Apttus_QPConfig__RenewalAdjustmentType__c</fullName>
     <deprecated>false</deprecated>
     <description>The renewal price adjustment type</description>
-    <externalId>false</externalId>
     <inlineHelpText>The renewal price adjustment type</inlineHelpText>
     <label>Renewal Adjustment Type</label>
     <required>false</required>

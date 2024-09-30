@@ -4,7 +4,6 @@
     <deleteConstraint>SetNull</deleteConstraint>
     <deprecated>false</deprecated>
     <description>Reference to original process definition that is associated with Approval Requests</description>
-    <externalId>false</externalId>
     <inlineHelpText>Reference to original process definition that is associated with Approval Requests</inlineHelpText>
     <label>Original Instance Process</label>
     <referenceTo>Apttus_Approval__Approval_Process__c</referenceTo>

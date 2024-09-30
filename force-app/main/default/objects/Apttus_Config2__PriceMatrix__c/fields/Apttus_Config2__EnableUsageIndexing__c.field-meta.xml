@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Index the usage quantity to enable cumulative usage rating</description>
-    <externalId>false</externalId>
     <inlineHelpText>Index the usage quantity to enable cumulative usage rating</inlineHelpText>
     <label>Enable Usage Indexing</label>
     <securityClassification>INTERNAL</securityClassification>

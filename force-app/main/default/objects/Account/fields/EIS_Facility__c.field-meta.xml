@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>EIS_Facility__c</fullName>
-    <externalId>false</externalId>
     <formula>IF(Network_Facility__r.ATO__c  = True,True,False)</formula>
     <label>EIS Facility</label>
     <trackHistory>false</trackHistory>

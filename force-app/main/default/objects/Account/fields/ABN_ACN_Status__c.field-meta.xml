@@ -6,7 +6,6 @@ Requested and owned by Christopher Doyle
 Customer &amp; Market Analyst .
 Label edited from ABN/ACN Status to ABN Status at Chris&apos; request
 Customer Data &amp; Insights</description>
-    <externalId>false</externalId>
     <inlineHelpText>Used to Identify the status of the organisation</inlineHelpText>
     <label>ABN Status</label>
     <required>false</required>

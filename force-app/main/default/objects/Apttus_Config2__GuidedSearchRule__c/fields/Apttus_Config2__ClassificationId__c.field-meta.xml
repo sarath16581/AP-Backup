@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__ClassificationId__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <deprecated>false</deprecated>
-    <externalId>false</externalId>
     <label>Category Hierarchy</label>
     <referenceTo>Apttus_Config2__ClassificationHierarchy__c</referenceTo>
     <relationshipLabel>Guided Selling Rules</relationshipLabel>

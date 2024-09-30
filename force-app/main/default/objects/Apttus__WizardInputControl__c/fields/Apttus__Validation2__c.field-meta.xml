@@ -3,7 +3,6 @@
     <fullName>Apttus__Validation2__c</fullName>
     <deprecated>false</deprecated>
     <description>List of values to be displayed during runtime.</description>
-    <externalId>false</externalId>
     <inlineHelpText>List of values to be displayed during runtime.</inlineHelpText>
     <label>Validation Input</label>
     <length>2000</length>

@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Approver2Role__c</fullName>
     <description>Role of the second approver for this credit approval record (e.g. &quot;Customer Resolutions Manager&quot;, &quot;CEO&quot;).</description>
-    <externalId>false</externalId>
     <inlineHelpText>Role of the second approver for this credit approval record (e.g. &quot;Customer Resolutions Manager&quot;, &quot;CEO&quot;).</inlineHelpText>
     <label>Approver 2 Role</label>
     <required>false</required>

@@ -3,7 +3,6 @@
     <fullName>Apttus__Comments__c</fullName>
     <deprecated>false</deprecated>
     <description>Optional comments about the document</description>
-    <externalId>false</externalId>
     <label>Comments</label>
     <length>32000</length>
     <securityClassification>INTERNAL</securityClassification>

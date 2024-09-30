@@ -3,7 +3,6 @@
     <fullName>Apttus_QPConfig__BillingFrequency__c</fullName>
     <deprecated>false</deprecated>
     <description>The billing frequency associated with the recurring or usage price</description>
-    <externalId>false</externalId>
     <inlineHelpText>The billing frequency associated with the recurring or usage price</inlineHelpText>
     <label>Billing Frequency</label>
     <required>false</required>

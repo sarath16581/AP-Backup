@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__Criteria__c</fullName>
     <deprecated>false</deprecated>
     <description>The triggering criteria</description>
-    <externalId>false</externalId>
     <inlineHelpText>The triggering criteria</inlineHelpText>
     <label>Criteria</label>
     <length>32768</length>

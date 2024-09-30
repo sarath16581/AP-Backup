@@ -4,7 +4,6 @@
     <deleteConstraint>SetNull</deleteConstraint>
     <deprecated>false</deprecated>
     <description>ID of the dimension that identifies the assigned to data source</description>
-    <externalId>false</externalId>
     <inlineHelpText>ID of the dimension that identifies the assigned to data source</inlineHelpText>
     <label>Assigned To Dimension</label>
     <referenceTo>Apttus_Config2__PriceDimension__c</referenceTo>

@@ -3,7 +3,6 @@
     <fullName>et4ae5__FilterFields__c</fullName>
     <deprecated>false</deprecated>
     <description>List of fields used in primary filter criteria in case of update</description>
-    <externalId>false</externalId>
     <label>Filter Fields</label>
     <length>5000</length>
     <securityClassification>INTERNAL</securityClassification>

@@ -3,7 +3,6 @@
     <fullName>APT_Submit_to_Contract_Consulting_Team__c</fullName>
     <defaultValue>false</defaultValue>
     <description>Used in Process Builder to create case for contract consulting team</description>
-    <externalId>false</externalId>
     <inlineHelpText>NOTE: System will automatically uncheck this checkbox after it is checked. 
 This is mainly for DOV Purposes.
 New Case will be created and assigned to Contract Consulting Team. Please provide details in &apos;Details for Contract Consulting/Legal&apos; field.</inlineHelpText>

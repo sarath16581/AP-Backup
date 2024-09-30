@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Indicates whether the price item has criteria associated with the charge type</description>
-    <externalId>false</externalId>
     <inlineHelpText>Indicates whether the price item has criteria associated with the charge type</inlineHelpText>
     <label>Has Charge Type Criteria</label>
     <securityClassification>INTERNAL</securityClassification>

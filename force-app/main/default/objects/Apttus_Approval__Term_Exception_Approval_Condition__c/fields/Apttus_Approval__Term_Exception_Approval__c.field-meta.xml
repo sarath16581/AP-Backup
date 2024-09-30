@@ -3,7 +3,6 @@
     <fullName>Apttus_Approval__Term_Exception_Approval__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <deprecated>false</deprecated>
-    <externalId>false</externalId>
     <inlineHelpText>This field denotes the Term Exception Approval record that this condition applies to.</inlineHelpText>
     <label>Term Exception Approval (Deprecated)</label>
     <referenceTo>Apttus_Approval__Term_Exception_Approval__c</referenceTo>

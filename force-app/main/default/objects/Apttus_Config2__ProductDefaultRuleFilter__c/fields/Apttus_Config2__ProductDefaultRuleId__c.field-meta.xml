@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__ProductDefaultRuleId__c</fullName>
     <deprecated>false</deprecated>
     <description>ID of the associated rule</description>
-    <externalId>false</externalId>
     <label>Product Default Rule</label>
     <referenceTo>Apttus_Config2__ProductDefaultRule__c</referenceTo>
     <relationshipLabel>Filters</relationshipLabel>

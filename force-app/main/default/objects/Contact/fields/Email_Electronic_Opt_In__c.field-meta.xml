@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Email_Electronic_Opt_In__c</fullName>
-    <externalId>false</externalId>
     <inlineHelpText>Tick this box if this contact is linked to a known business customer of ours and would like to receive marketing communication from Australia Post Group. 
 For example, Business eNewsletter, invitations to events and webinars and reports and insights.</inlineHelpText>
     <label>Email Opt-in (Business)</label>

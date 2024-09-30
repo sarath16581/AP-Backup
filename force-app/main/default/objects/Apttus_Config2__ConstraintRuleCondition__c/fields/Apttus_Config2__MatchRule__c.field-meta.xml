@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__MatchRule__c</fullName>
     <deprecated>false</deprecated>
     <description>Specifies number of products to match.</description>
-    <externalId>false</externalId>
     <label>Match Rule</label>
     <required>false</required>
     <trackTrending>false</trackTrending>

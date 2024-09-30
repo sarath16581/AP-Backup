@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>APT_Min_Spend_Per_Annum__c</fullName>
     <description>Minimum spend per annum to identify the Tier applicable</description>
-    <externalId>false</externalId>
     <label>Evaluated Spend (per annum)</label>
     <precision>18</precision>
     <required>false</required>

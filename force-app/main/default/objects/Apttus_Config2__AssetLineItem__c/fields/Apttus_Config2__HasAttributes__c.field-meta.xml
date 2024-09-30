@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Indicates whether the product has attributes.</description>
-    <externalId>false</externalId>
     <label>Has Attributes</label>
     <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>

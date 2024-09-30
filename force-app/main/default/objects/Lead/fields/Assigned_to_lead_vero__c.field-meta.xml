@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Assigned_to_lead_vero__c</fullName>
-    <externalId>false</externalId>
     <inlineHelpText>Date and time of lead assignment to vero team member</inlineHelpText>
     <label>Assigned To lead vero</label>
     <required>false</required>

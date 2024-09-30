@@ -4,7 +4,6 @@
     <deprecated>false</deprecated>
     <description>This filed defines what kind of job should use this record.
 Like Upload attachments docs or download and attach documents to parent.</description>
-    <externalId>false</externalId>
     <inlineHelpText>This filed defines what kind of job should use this record.
 Like Upload attachments docs or download and attach documents to parent.</inlineHelpText>
     <label>Batch Apex Job Type</label>

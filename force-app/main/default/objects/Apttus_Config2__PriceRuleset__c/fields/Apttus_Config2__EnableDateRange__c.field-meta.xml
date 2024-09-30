@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Indicates whether date range is enabled for the rule or benefit entries</description>
-    <externalId>false</externalId>
     <inlineHelpText>Indicates whether date range is enabled for the rule or benefit entries</inlineHelpText>
     <label>Enable Date Range</label>
     <trackTrending>false</trackTrending>

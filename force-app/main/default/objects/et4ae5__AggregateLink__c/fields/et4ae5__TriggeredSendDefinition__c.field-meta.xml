@@ -3,7 +3,6 @@
     <fullName>et4ae5__TriggeredSendDefinition__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <deprecated>false</deprecated>
-    <externalId>false</externalId>
     <label>Triggered Send</label>
     <referenceTo>et4ae5__Automated_Send__c</referenceTo>
     <relationshipLabel>Aggregate Link Level Details</relationshipLabel>

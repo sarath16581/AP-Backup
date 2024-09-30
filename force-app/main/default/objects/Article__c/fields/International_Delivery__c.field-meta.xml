@@ -3,7 +3,6 @@
     <fullName>International_Delivery__c</fullName>
     <defaultValue>false</defaultValue>
     <description>StarTrack - International Delivery</description>
-    <externalId>false</externalId>
     <label>International Delivery</label>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>

@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Match in location is set to true when any of the rule condition has match in location.</description>
-    <externalId>false</externalId>
     <label>Match In Location</label>
     <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>

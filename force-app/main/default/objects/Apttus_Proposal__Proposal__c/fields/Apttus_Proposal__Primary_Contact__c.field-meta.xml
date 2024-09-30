@@ -4,7 +4,6 @@
     <deleteConstraint>SetNull</deleteConstraint>
     <deprecated>false</deprecated>
     <description>The primary contact associated with the quote/proposal</description>
-    <externalId>false</externalId>
     <label>Primary Contact</label>
     <referenceTo>Contact</referenceTo>
     <relationshipLabel>Proposals</relationshipLabel>

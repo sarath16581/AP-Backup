@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__EffectiveDate__c</fullName>
     <deprecated>false</deprecated>
     <description>The certificate effective date. The certificate becomes effective on this date.</description>
-    <externalId>false</externalId>
     <inlineHelpText>The certificate effective date. The certificate becomes effective on this date.</inlineHelpText>
     <label>Effective Date</label>
     <required>false</required>

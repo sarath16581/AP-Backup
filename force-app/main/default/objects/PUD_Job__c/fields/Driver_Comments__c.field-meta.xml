@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Driver_Comments__c</fullName>
     <description>Additional comments entered by the driver.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Additional comments entered by the driver.</inlineHelpText>
     <label>Driver Comments</label>
     <required>false</required>

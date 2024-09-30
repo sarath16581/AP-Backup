@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Key_Sales_Owner_General_Manager__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
-    <externalId>false</externalId>
     <inlineHelpText>The General Manager of the sales segment. This is the person that the Fuel Surcharge exemption will be sent to for approval</inlineHelpText>
     <label>Sales Segment GM</label>
     <referenceTo>User</referenceTo>

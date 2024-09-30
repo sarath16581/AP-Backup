@@ -3,7 +3,6 @@
     <fullName>ST_Automate_SWMY_Task_Creation__c</fullName>
     <defaultValue>false</defaultValue>
     <description>Will determine if task creation for Sorry We Missed You cases will be done using automation.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Will determine if task creation for Sorry We Missed You cases will be done using automation.</inlineHelpText>
     <label>ST Automate SWMY Task Creation</label>
     <trackTrending>false</trackTrending>

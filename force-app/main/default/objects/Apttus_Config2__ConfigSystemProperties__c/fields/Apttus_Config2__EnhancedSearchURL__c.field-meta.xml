@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__EnhancedSearchURL__c</fullName>
     <deprecated>false</deprecated>
     <description>Search URL end point for enhanced search. When it is blank native search is used.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Search URL end point for enhanced product search</inlineHelpText>
     <label>Enhanced Search URL</label>
     <required>false</required>

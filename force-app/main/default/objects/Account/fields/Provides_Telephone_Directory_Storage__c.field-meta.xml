@@ -3,7 +3,6 @@
     <fullName>Provides_Telephone_Directory_Storage__c</fullName>
     <defaultValue>false</defaultValue>
     <description>Does this site provide storage for telephone directories?</description>
-    <externalId>false</externalId>
     <inlineHelpText>Does this site provide storage for telephone directories?</inlineHelpText>
     <label>Provides Telephone Directory Storage</label>
     <securityClassification>INTERNAL</securityClassification>

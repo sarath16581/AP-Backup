@@ -3,7 +3,6 @@
     <fullName>LaunchApplicationInNewWindow__c</fullName>
     <defaultValue>true</defaultValue>
     <description>Instruct Merchant Portal whether to launch the application in a new window or keep the user in the same window.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Instruct Merchant Portal whether to launch the application in a new window or keep the user in the same window.</inlineHelpText>
     <label>Launch Application In New Window</label>
     <securityClassification>INTERNAL</securityClassification>

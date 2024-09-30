@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Indicates whether the &quot;Configure&quot; action should be hidden in the page.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Indicates whether the &quot;Configure&quot; action should be hidden in the page.</inlineHelpText>
     <label>Hide Configure Action</label>
     <trackTrending>false</trackTrending>

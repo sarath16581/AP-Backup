@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>IsCreatorLoggedIn__c</fullName>
     <description>Field to determine if logged in user is the creator for Performance report used by reporting team</description>
-    <externalId>false</externalId>
     <formula>CreatedById = $User.Id</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <label>Is Creator Logged In</label>

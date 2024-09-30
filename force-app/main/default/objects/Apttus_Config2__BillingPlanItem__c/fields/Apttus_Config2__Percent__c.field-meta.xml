@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__Percent__c</fullName>
     <deprecated>false</deprecated>
     <description>The billing amount expressed as a percentage</description>
-    <externalId>false</externalId>
     <inlineHelpText>The billing amount expressed as a percentage</inlineHelpText>
     <label>Percent</label>
     <precision>18</precision>

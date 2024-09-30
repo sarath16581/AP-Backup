@@ -3,7 +3,6 @@
     <fullName>Apttus__ReviewEndTime__c</fullName>
     <deprecated>false</deprecated>
     <description>The review end time</description>
-    <externalId>false</externalId>
     <inlineHelpText>The review end time</inlineHelpText>
     <label>Review End Time</label>
     <required>false</required>

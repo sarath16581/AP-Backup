@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Lodge_At_LPO__c</fullName>
     <description>Requested by MK for LPO Lodgement Audit Action #A27927</description>
-    <externalId>false</externalId>
     <inlineHelpText>Does this customer have an operational relationship with an LPO? For example, they are lodging parcels or mail at an LPO.</inlineHelpText>
     <label>Lodge At LPO</label>
     <required>false</required>

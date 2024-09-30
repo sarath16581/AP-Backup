@@ -4,7 +4,6 @@
     <description>Phase 1 - Opportunity Assessment (PWC) 
 
 What budget has the customer allocated to this opportunity?</description>
-    <externalId>false</externalId>
     <label>Customer Budget</label>
     <precision>18</precision>
     <required>false</required>

@@ -3,7 +3,6 @@
     <fullName>GeneralManager__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <description>Select Sales Team General Manager for approvals</description>
-    <externalId>false</externalId>
     <inlineHelpText>Select Sales Team General Manager for approvals</inlineHelpText>
     <label>General Manager</label>
     <referenceTo>User</referenceTo>

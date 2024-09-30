@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__PeriodStartDate__c</fullName>
     <deprecated>false</deprecated>
     <description>The period start date</description>
-    <externalId>false</externalId>
     <inlineHelpText>The period start date</inlineHelpText>
     <label>Period Start Date (Deprecated)</label>
     <required>false</required>

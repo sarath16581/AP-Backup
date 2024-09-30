@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__EndDate__c</fullName>
     <deprecated>false</deprecated>
     <description>The Expected end date of the subscription or service</description>
-    <externalId>false</externalId>
     <inlineHelpText>The Expected end date of the subscription or service</inlineHelpText>
     <label>End Date</label>
     <required>false</required>

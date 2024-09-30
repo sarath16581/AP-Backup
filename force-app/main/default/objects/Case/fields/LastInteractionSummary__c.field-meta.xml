@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>LastInteractionSummary__c</fullName>
     <description>This field maps the Voice Call Issue from the Einstein work summary and addresses the Text Area constraints that prevent direct mapping to the Subject field. It is a temporary field and will be reviewed and removed in a subsequent release of the CST program</description>
-    <externalId>false</externalId>
     <inlineHelpText>This field maps the Voice Call Issue from the Einstein work summary and addresses the Text Area constraints that prevent direct mapping to the Subject field. It is a temporary field and will be reviewed and removed in a subsequent release of the CST program</inlineHelpText>
     <label>Issue</label>
     <required>false</required>

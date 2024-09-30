@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Customer_Requirements__c</fullName>
     <description>Summarise the customer requirements</description>
-    <externalId>false</externalId>
     <inlineHelpText>This field will be used in Commit To Action go/no-go decision. Briefly summarise the customer&apos;s business problem and their key requirements.</inlineHelpText>
     <label>Customer Requirements</label>
     <length>32768</length>

@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Subscription_Automation_Enabled__c</fullName>
     <defaultValue>true</defaultValue>
-    <externalId>false</externalId>
     <label>Subscription Automation Enabled</label>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>

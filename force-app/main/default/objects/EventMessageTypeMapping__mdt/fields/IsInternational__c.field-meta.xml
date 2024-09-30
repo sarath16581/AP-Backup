@@ -3,7 +3,6 @@
     <fullName>IsInternational__c</fullName>
     <defaultValue>false</defaultValue>
     <description>The event type is an international scan event</description>
-    <externalId>false</externalId>
     <fieldManageability>DeveloperControlled</fieldManageability>
     <inlineHelpText>The event type is an international scan event</inlineHelpText>
     <label>Is International</label>

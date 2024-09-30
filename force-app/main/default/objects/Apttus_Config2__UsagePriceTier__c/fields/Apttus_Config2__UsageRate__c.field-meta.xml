@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__UsageRate__c</fullName>
     <deprecated>false</deprecated>
     <description>The unit price for the tier or period</description>
-    <externalId>false</externalId>
     <inlineHelpText>The unit price for the tier or period</inlineHelpText>
     <label>Unit Price</label>
     <precision>18</precision>

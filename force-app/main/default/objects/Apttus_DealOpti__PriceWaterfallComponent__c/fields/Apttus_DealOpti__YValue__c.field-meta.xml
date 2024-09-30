@@ -3,7 +3,6 @@
     <fullName>Apttus_DealOpti__YValue__c</fullName>
     <deprecated>false</deprecated>
     <description>The Y position of the value</description>
-    <externalId>false</externalId>
     <inlineHelpText>The Y position of the value</inlineHelpText>
     <label>YValue</label>
     <precision>18</precision>

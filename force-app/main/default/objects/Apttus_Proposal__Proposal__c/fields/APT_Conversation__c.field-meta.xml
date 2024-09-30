@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>APT_Conversation__c</fullName>
     <description>Capture conversation with customer</description>
-    <externalId>false</externalId>
     <inlineHelpText>What conversations have you had with customer? 
 Why are standard rates not acceptable?</inlineHelpText>
     <label>(depr) Customer interactions</label>

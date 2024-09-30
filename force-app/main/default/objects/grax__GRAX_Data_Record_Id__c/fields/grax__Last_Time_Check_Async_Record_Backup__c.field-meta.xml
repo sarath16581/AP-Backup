@@ -3,7 +3,6 @@
     <fullName>grax__Last_Time_Check_Async_Record_Backup__c</fullName>
     <deprecated>false</deprecated>
     <description>Last time this GRAX Async Record was verified to be fully backed up</description>
-    <externalId>false</externalId>
     <inlineHelpText>Last time this GRAX Async Record was verified to be fully backed up</inlineHelpText>
     <label>Last Time Check Async Record Backup</label>
     <required>false</required>

@@ -3,7 +3,6 @@
     <fullName>Apttus__MergeEventId__c</fullName>
     <deprecated>false</deprecated>
     <description>Id of the merge event this is associated with</description>
-    <externalId>false</externalId>
     <inlineHelpText>Id of the merge event this is associated with</inlineHelpText>
     <label>Merge Event</label>
     <referenceTo>Apttus__MergeEvent__c</referenceTo>

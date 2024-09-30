@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>GSForm_testEmailAddresses__c</fullName>
     <description>Email addresses used for testing, use semicolon to separate each email address</description>
-    <externalId>false</externalId>
     <label>GSForm_testEmailAddresses</label>
     <required>false</required>
     <trackTrending>false</trackTrending>

@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Indicates if this agreement is Version aware. This flag enables versioning on all documents of this agreement record, provided document versioning is enabled in custom settings.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Indicates if this agreement is Version aware. This flag enables versioning on all documents of this agreement record, provided document versioning is enabled in custom settings.</inlineHelpText>
     <label>Version Aware</label>
     <securityClassification>INTERNAL</securityClassification>

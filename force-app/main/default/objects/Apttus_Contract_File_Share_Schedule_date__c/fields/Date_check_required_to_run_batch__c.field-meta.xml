@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Date_check_required_to_run_batch__c</fullName>
     <defaultValue>false</defaultValue>
-    <externalId>false</externalId>
     <label>Date check required to run batch</label>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>

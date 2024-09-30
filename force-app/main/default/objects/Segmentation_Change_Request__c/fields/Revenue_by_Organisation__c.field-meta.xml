@@ -3,7 +3,6 @@
     <fullName>Revenue_by_Organisation__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <description>Created to fetch the values for &apos;Traded in the Last 3 Months&apos; and &apos;Traded in the Last 6 Months&apos; fields.</description>
-    <externalId>false</externalId>
     <label>Revenue by Organisation</label>
     <referenceTo>Revenue_by_Organisation__c</referenceTo>
     <relationshipLabel>Sales Coverage Change Requests</relationshipLabel>

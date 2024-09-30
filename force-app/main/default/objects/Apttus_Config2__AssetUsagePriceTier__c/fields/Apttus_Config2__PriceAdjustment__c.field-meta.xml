@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__PriceAdjustment__c</fullName>
     <deprecated>false</deprecated>
     <description>The price adjustment currently applied to the price tier</description>
-    <externalId>false</externalId>
     <inlineHelpText>The price adjustment currently applied to the price tier</inlineHelpText>
     <label>Price Adjustment</label>
     <precision>18</precision>

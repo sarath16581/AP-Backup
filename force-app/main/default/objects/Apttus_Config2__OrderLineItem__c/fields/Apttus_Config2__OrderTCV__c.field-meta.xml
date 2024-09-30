@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__OrderTCV__c</fullName>
     <deprecated>false</deprecated>
     <description>The total contract value of the order</description>
-    <externalId>false</externalId>
     <inlineHelpText>The total contract value of the order</inlineHelpText>
     <label>Order TCV</label>
     <precision>18</precision>

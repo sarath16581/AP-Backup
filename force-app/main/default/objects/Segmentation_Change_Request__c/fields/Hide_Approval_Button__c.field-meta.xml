@@ -3,7 +3,6 @@
     <fullName>Hide_Approval_Button__c</fullName>
     <description>At the end of the FY, the business requires no SSCR be submitted after a certain date.
 When this is set to TRUE, there is a filter on the SCCR Submit for approval button.</description>
-    <externalId>false</externalId>
     <formula>$Setup.SCCR_Setting__c.Hide_Approval_Button__c</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <inlineHelpText>TRUE = hides the approval button on the SCCR record

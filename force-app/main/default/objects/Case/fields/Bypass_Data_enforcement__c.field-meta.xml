@@ -3,7 +3,6 @@
     <fullName>Bypass_Data_enforcement__c</fullName>
     <defaultValue>false</defaultValue>
     <description>SSSW</description>
-    <externalId>false</externalId>
     <label>Bypass Data enforcement?</label>
     <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>

@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>CTA_Pursue_Forum_Attendees__c</fullName>
     <description>This field will store the list of attendees that were present in CTA Pursue Forum</description>
-    <externalId>false</externalId>
     <label>CTA Pursue Forum Attendees</label>
     <required>false</required>
     <securityClassification>OFFICIAL_SENSITIVE_PERSONAL</securityClassification>

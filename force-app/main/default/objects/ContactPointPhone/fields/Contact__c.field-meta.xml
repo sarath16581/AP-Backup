@@ -3,7 +3,6 @@
     <fullName>Contact__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <description>The consumer contact record that this phone record is related to</description>
-    <externalId>false</externalId>
     <inlineHelpText>The consumer contact record that this phone record is related to</inlineHelpText>
     <label>Contact</label>
     <referenceTo>Contact</referenceTo>

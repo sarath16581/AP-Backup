@@ -3,7 +3,6 @@
     <fullName>LogBody__c</fullName>
     <defaultValue>false</defaultValue>
     <description>Enables storing of BODY if API is a POST. Logging must be enabled for this to be applicable.</description>
-    <externalId>false</externalId>
     <fieldManageability>DeveloperControlled</fieldManageability>
     <inlineHelpText>Enables storing of BODY if API is a POST. Logging must be enabled for this to be applicable.</inlineHelpText>
     <label>Log Body</label>

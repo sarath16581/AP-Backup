@@ -3,7 +3,6 @@
     <fullName>ECLM_Review_Date_Changed__c</fullName>
     <defaultValue>false</defaultValue>
     <description>ECLM field, turns to true if Review Date is changed from previous value.</description>
-    <externalId>false</externalId>
     <inlineHelpText>ECLM field, turns to true if Review Date is changed from previous value.</inlineHelpText>
     <label>Review Date Changed</label>
     <securityClassification>INTERNAL</securityClassification>

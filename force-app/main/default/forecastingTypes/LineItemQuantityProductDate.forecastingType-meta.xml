@@ -4,6 +4,7 @@
     <amount>false</amount>
     <dateType>1</dateType>
     <developerName>LineItemQuantityProductDate</developerName>
+    <hasCustomGroup>false</hasCustomGroup>
     <hasProductFamily>true</hasProductFamily>
     <masterLabel>Line Item Quantity Product Date</masterLabel>
     <quantity>true</quantity>

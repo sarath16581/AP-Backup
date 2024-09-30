@@ -3,7 +3,6 @@
     <fullName>Apttus__Locale__c</fullName>
     <deprecated>false</deprecated>
     <description>APTTUS RESERVED. CUSTOMERS SHOULD NOT CHANGE VALUES</description>
-    <externalId>false</externalId>
     <inlineHelpText>The locale the wizard runtime user will be in.</inlineHelpText>
     <label>Locale</label>
     <required>false</required>

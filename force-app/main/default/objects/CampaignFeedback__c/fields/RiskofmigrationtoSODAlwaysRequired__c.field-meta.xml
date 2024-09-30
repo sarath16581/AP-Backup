@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>RiskofmigrationtoSODAlwaysRequired__c</fullName>
     <description>Is there risk of migration to another AP/ST product.?</description>
-    <externalId>false</externalId>
     <inlineHelpText>Is there risk of migration to another AP/ST product?</inlineHelpText>
     <label>Risk of migration to SOD Always Required</label>
     <required>false</required>

@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>ReadyForFulfillmentDate__c</fullName>
     <description>The date the order is ready for fulfillment. The order is fulfilled on this date.</description>
-    <externalId>false</externalId>
     <inlineHelpText>The date the order is ready for fulfillment. The order is fulfilled on this date.</inlineHelpText>
     <label>Ready For Fulfillment Date</label>
     <required>false</required>

@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Whether to show information message from auto include or auto exclude in the header</description>
-    <externalId>false</externalId>
     <inlineHelpText>Whether to show information message from auto include or auto exclude in the header</inlineHelpText>
     <label>Show Info In Header</label>
     <trackTrending>false</trackTrending>

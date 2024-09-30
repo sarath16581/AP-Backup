@@ -4,7 +4,6 @@
     <deleteConstraint>SetNull</deleteConstraint>
     <deprecated>false</deprecated>
     <description>Id of the associated category.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Id of the associated category.</inlineHelpText>
     <label>Category</label>
     <referenceTo>Apttus_Config2__ClassificationHierarchy__c</referenceTo>

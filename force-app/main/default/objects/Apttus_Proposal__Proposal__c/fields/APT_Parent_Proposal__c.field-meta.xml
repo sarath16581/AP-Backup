@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>APT_Parent_Proposal__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
-    <externalId>false</externalId>
     <label>Cloned from</label>
     <referenceTo>Apttus_Proposal__Proposal__c</referenceTo>
     <relationshipLabel>Proposals</relationshipLabel>

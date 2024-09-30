@@ -3,7 +3,6 @@
     <fullName>grax__Next_Run_Date__c</fullName>
     <deprecated>false</deprecated>
     <description>Next date/time this Scheduled Process will execute</description>
-    <externalId>false</externalId>
     <inlineHelpText>Next date/time this Scheduled Process will execute</inlineHelpText>
     <label>Next Run Date</label>
     <required>false</required>

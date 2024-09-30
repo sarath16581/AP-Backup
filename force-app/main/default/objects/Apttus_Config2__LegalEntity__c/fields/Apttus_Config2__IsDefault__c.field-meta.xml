@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Indicates whether this is a default legal entity</description>
-    <externalId>false</externalId>
     <inlineHelpText>This flag should e checked in order to use a default legal entity for any exception scenarios where the legal entity is missing.</inlineHelpText>
     <label>Is Default</label>
     <securityClassification>INTERNAL</securityClassification>

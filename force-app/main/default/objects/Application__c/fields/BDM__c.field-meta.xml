@@ -3,7 +3,6 @@
     <fullName>BDM__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <description>Business Development Manager looking after this SecurePay application</description>
-    <externalId>false</externalId>
     <label>BDM</label>
     <referenceTo>User</referenceTo>
     <relationshipName>APMS_Applications</relationshipName>

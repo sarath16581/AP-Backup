@@ -3,7 +3,6 @@
     <fullName>Apttus_CMConfig__DeltaPrice__c</fullName>
     <deprecated>false</deprecated>
     <description>The change to the net price of the asset due to the latest order. It is positive for increments, negative for decrements and zero when there is no change.</description>
-    <externalId>false</externalId>
     <inlineHelpText>The change to the net price of the asset due to the latest order. It is positive for increments, negative for decrements and zero when there is no change.</inlineHelpText>
     <label>Delta Price</label>
     <precision>18</precision>

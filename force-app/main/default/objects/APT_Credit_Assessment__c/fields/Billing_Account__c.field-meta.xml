@@ -3,7 +3,6 @@
     <fullName>Billing_Account__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <description>This field will be populated once the billing account is created for the credit assessment. It is will be populated automatically once the SAP charge account is created.</description>
-    <externalId>false</externalId>
     <label>Billing Account</label>
     <referenceTo>Billing_Account__c</referenceTo>
     <relationshipLabel>Credit Assessments</relationshipLabel>

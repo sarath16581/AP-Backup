@@ -3,7 +3,6 @@
     <fullName>Apttus_DealMgr__DimensionType__c</fullName>
     <deprecated>false</deprecated>
     <description>The dimension type</description>
-    <externalId>false</externalId>
     <inlineHelpText>The dimension type</inlineHelpText>
     <label>Dimension Type</label>
     <required>false</required>

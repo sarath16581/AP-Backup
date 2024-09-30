@@ -9,7 +9,6 @@
 now()+ 2 /* Default (Mon/Tue/Wed): now()+ 2 days */ 
 )</defaultValue>
     <description>Date used to drive the reminder date</description>
-    <externalId>false</externalId>
     <inlineHelpText>Date used to drive the reminder date</inlineHelpText>
     <label>Task Reminder Date</label>
     <required>false</required>

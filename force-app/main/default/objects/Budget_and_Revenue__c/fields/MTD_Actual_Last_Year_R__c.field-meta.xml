@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>MTD_Actual_Last_Year_R__c</fullName>
     <description>Phase 2 - This field is to be used for the MTD Reporting purposes.</description>
-    <externalId>false</externalId>
     <label>MTD Actual Last Year (R)</label>
     <precision>18</precision>
     <required>false</required>

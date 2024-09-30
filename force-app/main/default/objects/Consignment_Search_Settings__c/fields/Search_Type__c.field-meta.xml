@@ -3,7 +3,6 @@
     <fullName>Search_Type__c</fullName>
     <defaultValue>false</defaultValue>
     <description>StarTrack: Capture Search type information to identify which picklist field belongs to</description>
-    <externalId>false</externalId>
     <inlineHelpText>Currently expected values are true for consignment search and false for Date</inlineHelpText>
     <label>Search Type</label>
     <trackTrending>false</trackTrending>

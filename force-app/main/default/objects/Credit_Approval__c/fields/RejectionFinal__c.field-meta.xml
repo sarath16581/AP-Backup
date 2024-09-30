@@ -3,7 +3,6 @@
     <fullName>RejectionFinal__c</fullName>
     <defaultValue>false</defaultValue>
     <description>Used to indicate to the CRO that the rejection of the approval request is final</description>
-    <externalId>false</externalId>
     <label>Outright Rejection</label>
     <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>

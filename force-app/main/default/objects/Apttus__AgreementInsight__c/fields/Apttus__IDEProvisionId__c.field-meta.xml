@@ -4,7 +4,6 @@
     <deleteConstraint>SetNull</deleteConstraint>
     <deprecated>false</deprecated>
     <description>Provision on which the insight was found</description>
-    <externalId>false</externalId>
     <inlineHelpText>Provision on which the insight was found</inlineHelpText>
     <label>IDE Provision</label>
     <referenceTo>Apttus__IDEProvision__c</referenceTo>

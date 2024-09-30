@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__AffectedProductIds__c</fullName>
     <deprecated>false</deprecated>
     <description>List of product ids affected by the rule action.</description>
-    <externalId>false</externalId>
     <label>Affected Product Ids</label>
     <length>20900</length>
     <securityClassification>INTERNAL</securityClassification>

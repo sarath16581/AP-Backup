@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>CustCommDecisionCode__c</fullName>
     <description>SSSW - Holds concatenated Communication Decision Codes</description>
-    <externalId>false</externalId>
     <label>Cust Comm Decision Code</label>
     <length>1500</length>
     <trackHistory>false</trackHistory>

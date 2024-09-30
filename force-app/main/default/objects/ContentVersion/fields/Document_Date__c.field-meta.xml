@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Document_Date__c</fullName>
     <description>Defines the date of the document where record type is Report</description>
-    <externalId>false</externalId>
     <inlineHelpText>Defines the date of the document where record type is Report</inlineHelpText>
     <label>Document Date</label>
     <required>false</required>

@@ -4,7 +4,6 @@
     <deleteConstraint>SetNull</deleteConstraint>
     <deprecated>false</deprecated>
     <description>ID of the bundle product associated with the option</description>
-    <externalId>false</externalId>
     <inlineHelpText>ID of the bundle product associated with the option</inlineHelpText>
     <label>Bundle Product</label>
     <referenceTo>Product2</referenceTo>

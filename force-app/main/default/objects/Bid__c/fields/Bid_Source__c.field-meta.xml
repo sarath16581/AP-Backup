@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Bid_Source__c</fullName>
     <description>Indicates the source of the bid (ie either from internal or external sources)</description>
-    <externalId>false</externalId>
     <inlineHelpText>indicate the source of the bid (ie either from internal or external sources)</inlineHelpText>
     <label>Bid Source</label>
     <required>false</required>

@@ -4,7 +4,6 @@
     <deleteConstraint>SetNull</deleteConstraint>
     <deprecated>false</deprecated>
     <description>ID of the product associated with the rule. Only applicable to Line Guidance Types</description>
-    <externalId>false</externalId>
     <inlineHelpText>ID of the product associated with the rule. Only applicable to Line Guidance Types</inlineHelpText>
     <label>Product</label>
     <referenceTo>Product2</referenceTo>

@@ -4,7 +4,6 @@
     <description>Phase 1 - Opportunity Assessment (PWC)
 
 Identifying if any extra resources will be required to deliver the product/solution</description>
-    <externalId>false</externalId>
     <inlineHelpText>What internal resources will be required to deliver this product/ solution?</inlineHelpText>
     <label>Internal Resources</label>
     <length>32768</length>

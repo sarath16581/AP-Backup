@@ -5,7 +5,6 @@
     <description>Phase 1 - Opportunity Assessment (PWC)
 
 Identify if we have developed plans for how we would deliver this product/ service if we won it</description>
-    <externalId>false</externalId>
     <inlineHelpText>Have we developed an execution plan?</inlineHelpText>
     <label>Executive Plan Developed</label>
     <securityClassification>INTERNAL</securityClassification>

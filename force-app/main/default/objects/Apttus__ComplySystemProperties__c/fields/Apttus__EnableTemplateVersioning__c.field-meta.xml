@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Enables template versioning</description>
-    <externalId>false</externalId>
     <inlineHelpText>Enables template versioning</inlineHelpText>
     <label>Enable Template Versioning</label>
     <trackTrending>false</trackTrending>

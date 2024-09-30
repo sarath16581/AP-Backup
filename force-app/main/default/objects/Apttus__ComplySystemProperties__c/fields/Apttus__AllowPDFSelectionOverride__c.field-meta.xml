@@ -4,7 +4,6 @@
     <defaultValue>true</defaultValue>
     <deprecated>false</deprecated>
     <description>Indicates whether the pdf selection is allowed to be overridden by the user. Only applicable when pdf is auto enabled for final documents.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Indicates whether the pdf selection is allowed to be overridden by the user. Only applicable when pdf is auto enabled for final documents.</inlineHelpText>
     <label>Allow PDF Selection Override</label>
     <trackTrending>false</trackTrending>

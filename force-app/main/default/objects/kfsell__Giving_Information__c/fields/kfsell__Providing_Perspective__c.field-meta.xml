@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>kfsell__Providing_Perspective__c</fullName>
     <deprecated>false</deprecated>
-    <externalId>false</externalId>
     <label>Providing Perspective</label>
     <length>32768</length>
     <trackTrending>false</trackTrending>

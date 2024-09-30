@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>APT_Revenue_Type__c</fullName>
     <description>Determine if amendment will be increase or decrease or no change in revenue</description>
-    <externalId>false</externalId>
     <inlineHelpText>Determine if amendment will be increase or decrease or no change in revenue</inlineHelpText>
     <label>Revenue Type</label>
     <required>false</required>

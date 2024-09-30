@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__TaxType__c</fullName>
     <deprecated>false</deprecated>
     <description>The tax type</description>
-    <externalId>false</externalId>
     <inlineHelpText>The tax type</inlineHelpText>
     <label>Tax Type</label>
     <required>false</required>

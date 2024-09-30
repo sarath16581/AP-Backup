@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>APT_Apttus_Product_Classification__c</fullName>
     <description>Classifies wheather the product belong to speed, feature or return group</description>
-    <externalId>false</externalId>
     <inlineHelpText>Captures the product classification.</inlineHelpText>
     <label>Apttus Product Classification</label>
     <required>false</required>

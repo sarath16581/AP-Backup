@@ -3,7 +3,6 @@
     <fullName>Performs_Mail_Transit__c</fullName>
     <defaultValue>false</defaultValue>
     <description>Does this site transit mail?</description>
-    <externalId>false</externalId>
     <inlineHelpText>Does this site transit mail?</inlineHelpText>
     <label>Performs Mail Transit</label>
     <securityClassification>INTERNAL</securityClassification>

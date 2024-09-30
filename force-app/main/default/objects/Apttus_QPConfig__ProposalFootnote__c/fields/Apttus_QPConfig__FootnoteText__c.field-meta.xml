@@ -3,7 +3,6 @@
     <fullName>Apttus_QPConfig__FootnoteText__c</fullName>
     <deprecated>false</deprecated>
     <description>The footnote text</description>
-    <externalId>false</externalId>
     <label>Footnote Text (Deprecated)</label>
     <length>32768</length>
     <securityClassification>INTERNAL</securityClassification>

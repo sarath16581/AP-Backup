@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__BaseExtendedCost__c</fullName>
     <deprecated>false</deprecated>
     <description>The rolled up base extended cost of products and options that belong to the group</description>
-    <externalId>false</externalId>
     <label>Base Extended Cost</label>
     <precision>18</precision>
     <required>false</required>

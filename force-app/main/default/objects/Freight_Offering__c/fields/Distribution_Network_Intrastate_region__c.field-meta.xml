@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Distribution_Network_Intrastate_region__c</fullName>
-    <externalId>false</externalId>
     <inlineHelpText>Interstate metro, Interstate regional , Intrastate metro and Intrastate regional should add up to 100</inlineHelpText>
     <label>Distribution Network-Intrastate region%</label>
     <precision>18</precision>

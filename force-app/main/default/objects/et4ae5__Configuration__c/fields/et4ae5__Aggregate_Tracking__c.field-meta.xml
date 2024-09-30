@@ -3,7 +3,6 @@
     <fullName>et4ae5__Aggregate_Tracking__c</fullName>
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
-    <externalId>false</externalId>
     <label>Aggregate Tracking</label>
     <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>

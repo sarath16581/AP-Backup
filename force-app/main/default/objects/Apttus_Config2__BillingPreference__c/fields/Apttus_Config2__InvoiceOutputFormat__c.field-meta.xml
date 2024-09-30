@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__InvoiceOutputFormat__c</fullName>
     <deprecated>false</deprecated>
     <description>The invoice output format.</description>
-    <externalId>false</externalId>
     <inlineHelpText>The invoice output format.</inlineHelpText>
     <label>Invoice Output Format</label>
     <required>false</required>

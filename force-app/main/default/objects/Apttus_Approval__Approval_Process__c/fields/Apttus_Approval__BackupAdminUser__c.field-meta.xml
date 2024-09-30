@@ -4,7 +4,6 @@
     <deleteConstraint>SetNull</deleteConstraint>
     <deprecated>false</deprecated>
     <description>This field allows you to specify a backup admin approver at the process level instead of the default system wide level that is assigned to requests that have an invalid or deactivated approver.</description>
-    <externalId>false</externalId>
     <inlineHelpText>This field allows you to specify a backup admin approver at the process level instead of the default system wide level that is assigned to requests that have an invalid or deactivated approver.</inlineHelpText>
     <label>Backup Admin User</label>
     <referenceTo>User</referenceTo>

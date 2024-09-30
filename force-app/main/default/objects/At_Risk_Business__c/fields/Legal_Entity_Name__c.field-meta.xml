@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Legal_Entity_Name__c</fullName>
     <description>Look up on the &quot;Organisation&quot; record. Will auto populate if created from the Organisation record</description>
-    <externalId>false</externalId>
     <inlineHelpText>The customer to who the Risk/Lost Business is linked to.</inlineHelpText>
     <label>Legal Entity Name</label>
     <referenceTo>Account</referenceTo>
