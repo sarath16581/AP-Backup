@@ -59,7 +59,6 @@ export default class UnifiedCaseFeeds extends NavigationMixin(LightningElement) 
 	wiredCaseFeeds(result) {
 		try {
 			this.isLoading = true;
-			console.log("SETH result wired: " + JSON.stringify(result));
 			// this variable "wiredFeedResults" is used for refreshApex()
 			this.wiredFeedResults = result;
 			if (result.error) {
@@ -96,11 +95,11 @@ export default class UnifiedCaseFeeds extends NavigationMixin(LightningElement) 
 	/**
 	 * @description sort date time in descending order (latest date time comes first in the list)
 	 * @param feedResults
-	 * @returns {{feedHeader: string, feedBody: string, feedDateTime: string, feedCustomIcon: string, feedRecordId: string}[]}
+	 * @returns {[{feedHeader: string, feedBody: string, feedDateTime: string, feedCustomIcon: string, feedRecordId: string}]}
 	 */
 	sortFeedDateTimeInDescendingOrder(feedResults) {
 		if (!feedResults && feedResults.length === 0) {
-			return;
+			return feedResults;
 		}
 		return feedResults.sort((a, b) => new Date(b.feedDateTime) - new Date(a.feedDateTime));
 	}

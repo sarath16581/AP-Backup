@@ -31,7 +31,7 @@
 					<div class="slds-grid slds-wrap slds-var-m-left_xxx-small slds-grid_vertical-stretch slds-size_1-of-1">
 						<div class="slds-col slds-size_1-of-1 slds-grow slds-var-m-around_xxx-small">
 							<span class="slds-var-m-right_small slds-var-m-vertical_xx-small slds-float_right">
-								<lightning-button-icon variant="bare" icon-name="utility:refresh" size="large" onclick={handleRefreshFeeds}></lightning-button-icon>
+								<lightning-button-icon data-name="refreshFeed" variant="bare" icon-name="utility:refresh" size="large" onclick={handleRefreshFeeds}></lightning-button-icon>
 							</span>
 						</div>
 						<template lwc:if={isLoading}>
@@ -44,16 +44,16 @@
 									<lightning-card>
 										<div slot="title" class="no-wrap">
 											<lightning-icon class={feed.iconClass} icon-name={feed.feedCustomIcon} size="small"></lightning-icon>
-											<span class="slds-var-m-left_x-small slds-text-body_regular header-color">{feed.feedHeader}</span>
+											<span data-name="feedHeader" class="slds-var-m-left_x-small slds-text-body_regular header-color">{feed.feedHeader}</span>
 										</div>
-										<div class="slds-text-body_regular wrapped-content"><strong>{feed.feedBody}</strong>
+										<div data-name="feedBody" class="slds-text-body_regular wrapped-content"><strong>{feed.feedBody}</strong>
 											<template if:true={feed.feedRecordId}>
-									<span class="slds-float_right">
-										<lightning-button-icon data-value={feed.feedRecordId} variant="bare" class="scr-popup-button" icon-name="utility:new_window" size="large" onclick={navigateToRecordViewPage}></lightning-button-icon>
-									</span>
+												<span class="slds-float_right">
+													<lightning-button-icon data-name="feedRecordId" data-value={feed.feedRecordId} variant="bare" class="scr-popup-button" icon-name="utility:new_window" size="large" onclick={navigateToRecordViewPage}></lightning-button-icon>
+												</span>
 											</template>
 										</div>
-										<div class="slds-text-body_regular">{feed.formattedDateTime}</div>
+										<div data-name="feedFormattedDateTime" class="slds-text-body_regular">{feed.formattedDateTime}</div>
 									</lightning-card>
 								</div>
 							</div>
@@ -66,16 +66,16 @@
 										<lightning-card>
 											<div slot="title" class="no-wrap">
 												<lightning-icon class={feed.iconClass} icon-name={feed.feedCustomIcon} size="small"></lightning-icon>
-												<span class="slds-var-m-left_x-small slds-text-body_regular header-color">{feed.feedHeader}</span>
+												<span data-name="feedHeader" class="slds-var-m-left_x-small slds-text-body_regular header-color">{feed.feedHeader}</span>
 											</div>
-											<div class="slds-text-body_regular wrapped-content"><strong>{feed.feedBody}</strong>
+											<div data-name="feedBody" class="slds-text-body_regular wrapped-content"><strong>{feed.feedBody}</strong>
 												<template if:true={feed.feedRecordId}>
-										<span class="slds-float_right">
-											<lightning-button-icon data-value={feed.feedRecordId} variant="bare" class="scr-popup-button" icon-name="utility:new_window" size="large" onclick={navigateToRecordViewPage}></lightning-button-icon>
-										</span>
+													<span class="slds-float_right">
+														<lightning-button-icon data-name="feedRecordId" data-value={feed.feedRecordId} variant="bare" class="scr-popup-button" icon-name="utility:new_window" size="large" onclick={navigateToRecordViewPage}></lightning-button-icon>
+													</span>
 												</template>
 											</div>
-											<div class="slds-text-body_regular">{feed.formattedDateTime}</div>
+											<div data-name="feedFormattedDateTime" class="slds-text-body_regular">{feed.formattedDateTime}</div>
 										</lightning-card>
 									</div>
 								</div>
