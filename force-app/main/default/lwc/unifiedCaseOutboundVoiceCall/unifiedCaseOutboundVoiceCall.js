@@ -1,12 +1,20 @@
+/**
+ * @description A LWC component for automatically linking a case when agents initiate an outbound call from Case
+ * @author: SteveL
+ * @changelog:
+ * 2024-09-26 - Marcel HK - Created
+ */
 import { LightningElement,api, wire } from 'lwc';
 import { getRecord, updateRecord, getFieldValue, notifyRecordUpdateAvailable } from 'lightning/uiRecordApi';
 import { IsConsoleNavigation, getAllTabInfo } from 'lightning/platformWorkspaceApi';
 
+// fields needed to identify Voice Call as Outbound
 import VOICE_CALL_TYPE from '@salesforce/schema/VoiceCall.CallType';
 import VOICE_CALL_STATUS from '@salesforce/schema/VoiceCall.CallDisposition';
 
 const VOICE_CALL_FIELDS = [VOICE_CALL_TYPE,VOICE_CALL_STATUS];
 
+// field values that can be used to identify a Voice Call as outbound
 const VOICE_CALL_IN_PROGRESS_STATUS = 'in-progress';
 const VOICE_CALL_OUTBOUND_TYPE = 'Outbound';
 
@@ -31,6 +39,9 @@ export default class UnifiedCaseOutboundVoiceCall extends LightningElement {
 		}
 	}
 
+	/**
+	 * use the functions from platformWorkspaceApi to identify if the user is on console page, and if so go through all the open tabs, and find the first one opened with Case
+	 */
 	findCaseTab() {
 		if (!this.isConsoleNavigation) {
 			return;
@@ -49,6 +60,9 @@ export default class UnifiedCaseOutboundVoiceCall extends LightningElement {
 		}
 	}
 
+	/**
+	 * use the updateRecord function from uiRecordApi to update the Voice Call's RelatedRecordId with the caseId parameter, then use notifyRecordUpdateAvailable to notify other components within the same Flexipage
+	 */
 	updateVoiceRecord(caseId) {
 		const fields = {};
 		fields.Id = this.recordId;
