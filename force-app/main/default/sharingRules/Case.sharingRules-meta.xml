@@ -367,7 +367,7 @@
         <criteriaItems>
             <field>RecordTypeId</field>
             <operation>equals</operation>
-            <value>SSSW Service,SSSW Fax,NCCC Direct Email,SSSW Delivery,SSSW General Enquiry,Social Record Type</value>
+            <value>SSSW Service,SSSW Fax,NCCC Direct Email,SSSW Delivery,SSSW General Enquiry,Social Record Type,Unified General Enquiry,Unified Investigation</value>
         </criteriaItems>
         <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
