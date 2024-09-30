@@ -205,11 +205,12 @@ export default class UnifiedCaseCreationLiveChatWrapper extends LightningElement
 	/**
 	 * Call apex controller to retrieve existing cases associated to this liveChat record that met specified criteria
 	 * and update warningMessage if applicable
+	 * @param trackingSFId SF Id of article or consignment
 	 */
-	async handleExistingCaseValidation(trackingNumber){
+	async handleExistingCaseValidation(trackingSFId){
 		try {
 			const existingCaseCount = await getExistingCasesCount({
-				trackingId: trackingNumber
+				trackingId: trackingSFId
 			});
 			if(existingCaseCount){
 				this.warningMessage = existingCaseCount + ' Existing Cases';
