@@ -99,7 +99,7 @@ class CaseRecordPopulationModule_Test {
 															(String)fflib_Match.eq(recursionContext), 
 															(List<SObject>)fflib_Match.eq(new List<SObject>{cr}), 
 															(Map<Id, SObject>)fflib_Match.eq(oldMap), 
-															(Set<SObjectField>)fflib_Match.eq(new Set<SObjectField>{InteractionService.MAPPED_STANDARD_FIELDS.get(ContactRequest.getsObjectType())})
+															(Set<SObjectField>)fflib_Match.eq(new Set<SObjectField>{UnifiedInteractionService.MAPPED_STANDARD_FIELDS.get(ContactRequest.getsObjectType())})
 														)).thenReturn(
 															new List<ApplicationRecursion.RecordState>{
 																new ApplicationRecursion.RecordState(cr, new Map<String, SObject>{cr.Id => oldMap.get(cr.Id)}, new Set<SObjectField>{ContactRequest.WhatId})
@@ -110,7 +110,7 @@ class CaseRecordPopulationModule_Test {
 															(String)fflib_Match.eq(recursionContext), 
 															(List<SObject>)fflib_Match.eq(new List<SObject>{vc}), 
 															(Map<Id, SObject>)fflib_Match.eq(oldMap), 
-															(Set<SObjectField>)fflib_Match.eq(new Set<SObjectField>{InteractionService.MAPPED_STANDARD_FIELDS.get(Voicecall.getsObjectType())})
+															(Set<SObjectField>)fflib_Match.eq(new Set<SObjectField>{UnifiedInteractionService.MAPPED_STANDARD_FIELDS.get(Voicecall.getsObjectType())})
 														)).thenReturn(
 															new List<ApplicationRecursion.RecordState>{
 																new ApplicationRecursion.RecordState(vc, new Map<String, SObject>{vc.Id => oldMap.get(vc.Id)}, new Set<SObjectField>{VoiceCall.RelatedRecordId})
@@ -125,14 +125,14 @@ class CaseRecordPopulationModule_Test {
 		((ApplicationRecursion) MockUtility.Mocks.verify(mockApplicationRecursion, MockUtility.Mocks.times(1))).updateRecordState(
 															(String)fflib_Match.eq(recursionContext), 
 															(List<SObject>)fflib_Match.eq(new List<SObject>{cr}), 
-															(Set<SObjectField>)fflib_Match.eq(new Set<SObjectField>{InteractionService.MAPPED_STANDARD_FIELDS.get(ContactRequest.getsObjectType())})
+															(Set<SObjectField>)fflib_Match.eq(new Set<SObjectField>{UnifiedInteractionService.MAPPED_STANDARD_FIELDS.get(ContactRequest.getsObjectType())})
 														);
 
 		System.assertEquals(aCase.Id, vc.Case__c, 'The case lookup field should be set');
 		((ApplicationRecursion) MockUtility.Mocks.verify(mockApplicationRecursion, MockUtility.Mocks.times(1))).updateRecordState(
 															(String)fflib_Match.eq(recursionContext), 
 															(List<SObject>)fflib_Match.eq(new List<SObject>{vc}), 
-															(Set<SObjectField>)fflib_Match.eq(new Set<SObjectField>{InteractionService.MAPPED_STANDARD_FIELDS.get(VoiceCall.getsObjectType())})
+															(Set<SObjectField>)fflib_Match.eq(new Set<SObjectField>{UnifiedInteractionService.MAPPED_STANDARD_FIELDS.get(VoiceCall.getsObjectType())})
 														);
 	}
 
@@ -141,7 +141,7 @@ class CaseRecordPopulationModule_Test {
 		ApplicationRecursion mockApplicationRecursion = (ApplicationRecursion)MockUtility.mockUtility(ApplicationRecursion.class);
 		AgentWorkSelector mockAgentWorkSelector = (AgentWorkSelector)MockUtility.mockSelector(AgentWorkSelector.class);
 		ApplicationUnitOfWork mockApplicationUnitOfWork = MockUtility.mockUnitOfWork();
-		InteractionService mockInteractionService = (InteractionService)MockUtility.mockUtility(InteractionService.class);
+		UnifiedInteractionService mockUnifiedInteractionService = (UnifiedInteractionService)MockUtility.mockUtility(UnifiedInteractionService.class);
 
 		String recursionContext = 'CaseRecordPopulationModule.backfillAgentWorkRecords';
 
@@ -169,7 +169,7 @@ class CaseRecordPopulationModule_Test {
 															(String)fflib_Match.eq(recursionContext), 
 															(List<SObject>)fflib_Match.eq(new List<SObject>{cr}), 
 															(Map<Id, SObject>)fflib_Match.eq(oldMap), 
-															(Set<SObjectField>)fflib_Match.eq(new Set<SObjectField>{InteractionService.MAPPED_CASE_FIELDS.get(ContactRequest.getsObjectType())})
+															(Set<SObjectField>)fflib_Match.eq(new Set<SObjectField>{UnifiedInteractionService.MAPPED_CASE_FIELDS.get(ContactRequest.getsObjectType())})
 														)).thenReturn(
 															new List<ApplicationRecursion.RecordState>{
 																new ApplicationRecursion.RecordState(cr, new Map<String, SObject>{cr.Id => oldMap.get(cr.Id)}, new Set<SObjectField>{ContactRequest.Case__c})
@@ -180,7 +180,7 @@ class CaseRecordPopulationModule_Test {
 															(String)fflib_Match.eq(recursionContext), 
 															(List<SObject>)fflib_Match.eq(new List<SObject>{vc}), 
 															(Map<Id, SObject>)fflib_Match.eq(oldMap), 
-															(Set<SObjectField>)fflib_Match.eq(new Set<SObjectField>{InteractionService.MAPPED_CASE_FIELDS.get(Voicecall.getsObjectType())})
+															(Set<SObjectField>)fflib_Match.eq(new Set<SObjectField>{UnifiedInteractionService.MAPPED_CASE_FIELDS.get(Voicecall.getsObjectType())})
 														)).thenReturn(
 															new List<ApplicationRecursion.RecordState>{
 																new ApplicationRecursion.RecordState(vc, new Map<String, SObject>{vc.Id => oldMap.get(vc.Id)}, new Set<SObjectField>{VoiceCall.Case__c})
@@ -191,7 +191,7 @@ class CaseRecordPopulationModule_Test {
 															(String)fflib_Match.eq(recursionContext), 
 															(List<SObject>)fflib_Match.eq(new List<SObject>{lc}), 
 															(Map<Id, SObject>)fflib_Match.eq(oldMap), 
-															(Set<SObjectField>)fflib_Match.eq(new Set<SObjectField>{InteractionService.MAPPED_CASE_FIELDS.get(LiveChatTranscript.getsObjectType())})
+															(Set<SObjectField>)fflib_Match.eq(new Set<SObjectField>{UnifiedInteractionService.MAPPED_CASE_FIELDS.get(LiveChatTranscript.getsObjectType())})
 														)).thenReturn(
 															new List<ApplicationRecursion.RecordState>{
 																new ApplicationRecursion.RecordState(lc, new Map<String, SObject>{lc.Id => oldMap.get(lc.Id)}, new Set<SObjectField>{LiveChatTranscript.CaseId})
@@ -212,22 +212,22 @@ class CaseRecordPopulationModule_Test {
 		((ApplicationRecursion) MockUtility.Mocks.verify(mockApplicationRecursion, MockUtility.Mocks.times(1))).updateRecordState(
 															(String)fflib_Match.eq(recursionContext), 
 															(List<SObject>)fflib_Match.eq(new List<SObject>{cr}), 
-															(Set<SObjectField>)fflib_Match.eq(new Set<SObjectField>{InteractionService.MAPPED_CASE_FIELDS.get(ContactRequest.getsObjectType())})
+															(Set<SObjectField>)fflib_Match.eq(new Set<SObjectField>{UnifiedInteractionService.MAPPED_CASE_FIELDS.get(ContactRequest.getsObjectType())})
 														);
 
 		((ApplicationRecursion) MockUtility.Mocks.verify(mockApplicationRecursion, MockUtility.Mocks.times(1))).updateRecordState(
 															(String)fflib_Match.eq(recursionContext), 
 															(List<SObject>)fflib_Match.eq(new List<SObject>{vc}), 
-															(Set<SObjectField>)fflib_Match.eq(new Set<SObjectField>{InteractionService.MAPPED_CASE_FIELDS.get(VoiceCall.getsObjectType())})
+															(Set<SObjectField>)fflib_Match.eq(new Set<SObjectField>{UnifiedInteractionService.MAPPED_CASE_FIELDS.get(VoiceCall.getsObjectType())})
 														);
 
 		((ApplicationRecursion) MockUtility.Mocks.verify(mockApplicationRecursion, MockUtility.Mocks.times(1))).updateRecordState(
 															(String)fflib_Match.eq(recursionContext), 
 															(List<SObject>)fflib_Match.eq(new List<SObject>{lc}), 
-															(Set<SObjectField>)fflib_Match.eq(new Set<SObjectField>{InteractionService.MAPPED_CASE_FIELDS.get(LiveChatTranscript.getsObjectType())})
+															(Set<SObjectField>)fflib_Match.eq(new Set<SObjectField>{UnifiedInteractionService.MAPPED_CASE_FIELDS.get(LiveChatTranscript.getsObjectType())})
 														);
 
-		((InteractionService) MockUtility.Mocks.verify(mockInteractionService, MockUtility.Mocks.times(1))).populateCaseFieldOnAgentWorks(
+		((UnifiedInteractionService) MockUtility.Mocks.verify(mockUnifiedInteractionService, MockUtility.Mocks.times(1))).populateCaseFieldOnAgentWorks(
 															(Map<Id, SObject>)fflib_Match.eq(new Map<Id, SObject>(recordList)), 
 															(List<AgentWork>)fflib_Match.eq(agentWorkList), 
 															(ApplicationUnitOfWork)fflib_Match.eq(mockApplicationUnitOfWork),

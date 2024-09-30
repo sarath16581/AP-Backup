@@ -83,7 +83,7 @@ public inherited sharing class CaseRecordPopulationModule extends ApplicationMod
 		// normally there would be only a single iteration here, however, we do support multiple object types in a single call for efficiency
 		for(SObject sobjectRecord : recordList) {
 			SObjectType sobjectRecordType = sobjectRecord.getSObjectType();
-			if(InteractionService.MAPPED_STANDARD_FIELDS.containsKey(sobjectRecordType)) {
+			if(UnifiedInteractionService.MAPPED_STANDARD_FIELDS.containsKey(sobjectRecordType)) {
 				// this is an object we are wanting to update the case value on
 				if(monitoredRecords.get(sobjectRecordType) == null) {
 					monitoredRecords.put(sobjectRecordType, new List<SObject>());
@@ -99,7 +99,7 @@ public inherited sharing class CaseRecordPopulationModule extends ApplicationMod
 																			recursionContext, 
 																			monitoredRecords.get(monitoredSObjectType), 
 																			oldMap, 
-																			new Set<SObjectField>{InteractionService.MAPPED_STANDARD_FIELDS.get(monitoredSObjectType)}
+																			new Set<SObjectField>{UnifiedInteractionService.MAPPED_STANDARD_FIELDS.get(monitoredSObjectType)}
 																		));
 		}
 
@@ -109,8 +109,8 @@ public inherited sharing class CaseRecordPopulationModule extends ApplicationMod
 			
 			Set<SObjectField> changedFields = recordState.changedFields;
 
-			if(InteractionService.MAPPED_STANDARD_FIELDS.get(processableRecordSObjectType) != null) {
-				SObjectField fieldToCheck = InteractionService.MAPPED_STANDARD_FIELDS.get(processableRecordSObjectType);
+			if(UnifiedInteractionService.MAPPED_STANDARD_FIELDS.get(processableRecordSObjectType) != null) {
+				SObjectField fieldToCheck = UnifiedInteractionService.MAPPED_STANDARD_FIELDS.get(processableRecordSObjectType);
 
 				// store the case id if the value has been modified and it equals a case
 				// NOTE: this will accurately remove the case value if the field has changed value and no longer has a record id populated
@@ -122,9 +122,9 @@ public inherited sharing class CaseRecordPopulationModule extends ApplicationMod
 					}
 				}
 
-				if(InteractionService.MAPPED_CASE_FIELDS.get(processableRecordSObjectType) != null) {
+				if(UnifiedInteractionService.MAPPED_CASE_FIELDS.get(processableRecordSObjectType) != null) {
 					// since the values on the monitored records have changed, we need to populate the case values
-					processableRecord.put(InteractionService.MAPPED_CASE_FIELDS.get(processableRecordSObjectType), caseId);
+					processableRecord.put(UnifiedInteractionService.MAPPED_CASE_FIELDS.get(processableRecordSObjectType), caseId);
 				}
 			}
 		}
@@ -132,7 +132,7 @@ public inherited sharing class CaseRecordPopulationModule extends ApplicationMod
 		// reset the recursion state to ensure any changes we have made in this method won't retrigger on next pass (if there is one)
 		// its usually unlikely we need to do this, but it is a best practice just incase we ever introduce changes above to update fields we are monitoring
 		for(SObjectType monitoredSObjectType : monitoredRecords.keySet()) {
-			ApplicationRecursion.getInstance().updateRecordState(recursionContext, monitoredRecords.get(monitoredSObjectType), new Set<SObjectField>{InteractionService.MAPPED_STANDARD_FIELDS.get(monitoredSObjectType)});
+			ApplicationRecursion.getInstance().updateRecordState(recursionContext, monitoredRecords.get(monitoredSObjectType), new Set<SObjectField>{UnifiedInteractionService.MAPPED_STANDARD_FIELDS.get(monitoredSObjectType)});
 		}
 	}
 
@@ -152,7 +152,7 @@ public inherited sharing class CaseRecordPopulationModule extends ApplicationMod
 		// normally there would be only a single iteration here, however, we do support multiple object types in a single call for efficiency
 		for(SObject sobjectRecord : recordList) {
 			SObjectType sobjectRecordType = sobjectRecord.getSObjectType();
-			if(InteractionService.MAPPED_CASE_FIELDS.containsKey(sobjectRecordType)) {
+			if(UnifiedInteractionService.MAPPED_CASE_FIELDS.containsKey(sobjectRecordType)) {
 				// this is an object we are wanting to update the case value on
 				if(monitoredRecords.get(sobjectRecordType) == null) {
 					monitoredRecords.put(sobjectRecordType, new List<SObject>());
@@ -164,7 +164,7 @@ public inherited sharing class CaseRecordPopulationModule extends ApplicationMod
 		// build up a list of processable records for each of the object types we are monitoring
 		// normally there would be only a single iteration here, however, we do support multiple object types in a single call for efficiency
 		for(SObjectType monitoredSObjectType : monitoredRecords.keySet()) {
-			processableRecords.addAll(ApplicationRecursion.getInstance().getProcessableRecords(recursionContext, monitoredRecords.get(monitoredSObjectType), oldMap, new Set<SObjectField>{InteractionService.MAPPED_CASE_FIELDS.get(monitoredSObjectType)}));
+			processableRecords.addAll(ApplicationRecursion.getInstance().getProcessableRecords(recursionContext, monitoredRecords.get(monitoredSObjectType), oldMap, new Set<SObjectField>{UnifiedInteractionService.MAPPED_CASE_FIELDS.get(monitoredSObjectType)}));
 		}
 
 		for(ApplicationRecursion.RecordState recordState : processableRecords){
@@ -173,8 +173,8 @@ public inherited sharing class CaseRecordPopulationModule extends ApplicationMod
 			
 			Set<SObjectField> changedFields = recordState.changedFields;
 
-			if(InteractionService.MAPPED_CASE_FIELDS.get(processableRecordSObjectType) != null) {
-				SObjectField fieldToCheck = InteractionService.MAPPED_CASE_FIELDS.get(processableRecordSObjectType);
+			if(UnifiedInteractionService.MAPPED_CASE_FIELDS.get(processableRecordSObjectType) != null) {
+				SObjectField fieldToCheck = UnifiedInteractionService.MAPPED_CASE_FIELDS.get(processableRecordSObjectType);
 
 				if(changedFields.contains(fieldToCheck)) {
 					workItems.put(processableRecord.Id, processableRecord);
@@ -184,13 +184,13 @@ public inherited sharing class CaseRecordPopulationModule extends ApplicationMod
 
 		if(workItems.isEmpty() == false) {
 			List<AgentWork> agentWorkRecords = AgentWorkSelector.newInstance().selectByWorkItemIds(workItems.keySet(), new Set<Object>{});
-			InteractionService.getInstance().populateCaseFieldOnAgentWorks(workItems, agentWorkRecords, uow, recursionContext);
+			UnifiedInteractionService.getInstance().populateCaseFieldOnAgentWorks(workItems, agentWorkRecords, uow, recursionContext);
 		}
 
 		// reset the recursion state to ensure changes any changes we have made in this method won't retrigger on next pass (if there is one)
 		// its usually unlikely we need to do this, but it is a best practice just incase we ever introduce changes above to update fields we are monitoring
 		for(SObjectType monitoredSObjectType : monitoredRecords.keySet()) {
-			ApplicationRecursion.getInstance().updateRecordState(recursionContext, monitoredRecords.get(monitoredSObjectType), new Set<SObjectField>{InteractionService.MAPPED_CASE_FIELDS.get(monitoredSObjectType)});
+			ApplicationRecursion.getInstance().updateRecordState(recursionContext, monitoredRecords.get(monitoredSObjectType), new Set<SObjectField>{UnifiedInteractionService.MAPPED_CASE_FIELDS.get(monitoredSObjectType)});
 		}
 
 	}

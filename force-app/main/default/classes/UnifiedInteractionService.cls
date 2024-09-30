@@ -5,7 +5,7 @@
  * @changelog
  * 2024-09-24 - George Nguyen - Created.
  */
-public with sharing class InteractionService {
+public with sharing class UnifiedInteractionService {
 
 	public static final Map<SObjectType, SObjectField> MAPPED_STANDARD_FIELDS = new Map<SObjectType, SObjectField>{
 		ContactRequest.SobjectType => ContactRequest.WhatId,
@@ -19,8 +19,8 @@ public with sharing class InteractionService {
 		VoiceCall.SObjectType => VoiceCall.Case__c
 	};
 
-    public static InteractionService getInstance() {
-		return (InteractionService)Application.Utilities.getInstance(InteractionService.class);
+    public static UnifiedInteractionService getInstance() {
+		return (UnifiedInteractionService)Application.Utilities.getInstance(UnifiedInteractionService.class);
 	}
 
 	/**

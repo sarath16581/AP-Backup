@@ -246,7 +246,7 @@ class AgentWorkCaseAutomationModule_Test {
 	@IsTest
 	static void checkCaseLookupField() {
 		ApplicationUnitOfWork mockUow = MockUtility.mockUnitOfWork();
-		InteractionService mockInteractionService = (InteractionService)MockUtility.mockUtility(InteractionService.class);
+		UnifiedInteractionService mockUnifiedInteractionService = (UnifiedInteractionService)MockUtility.mockUtility(UnifiedInteractionService.class);
 
 		Account acc = ApplicationTestDataFactory.getAccounts(1, true)[0];
 		Contact ct = ApplicationTestDataFactory.getContacts(1, acc.Id, true)[0];
@@ -275,7 +275,7 @@ class AgentWorkCaseAutomationModule_Test {
 		// =====================================
 		MockUtility.Mocks.startStubbing();
 
-		MockUtility.Mocks.when(mockInteractionService.retrieveInteractionRecords(
+		MockUtility.Mocks.when(mockUnifiedInteractionService.retrieveInteractionRecords(
 																(Map<SObjectType, Set<Id>>)fflib_Match.eq(mappedObjectTypeAndIds)															
 															)).thenReturn(
 																workItems
@@ -295,7 +295,7 @@ class AgentWorkCaseAutomationModule_Test {
 		// PMD Warning
 		System.assertEquals(caseList[3].Id,agentWorks[3].Case__c,'Case Id assigned to the AgentWork record is incorrect');
 
-		((InteractionService) MockUtility.Mocks.verify(mockInteractionService, MockUtility.Mocks.times(1))).populateCaseFieldOnAgentWorks(
+		((UnifiedInteractionService) MockUtility.Mocks.verify(mockUnifiedInteractionService, MockUtility.Mocks.times(1))).populateCaseFieldOnAgentWorks(
 															(Map<Id, SObject>)fflib_Match.eq(workItems), 
 															(List<AgentWork>)fflib_Match.eq(qualifiedAgentWorkRecords), 
 															(ApplicationUnitOfWork)fflib_Match.eq(mockUow),

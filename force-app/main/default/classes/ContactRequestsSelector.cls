@@ -4,7 +4,7 @@
  * @description A very simple selector class
  * @test ContactRequestsSelector_Test
  * @changelog
- * 2024-09-24 - George Nguyen - Included Case__c field as default. It qualifies to be as it will be commonly used. Included method .selectByIds(...) to be used by InteractionService
+ * 2024-09-24 - George Nguyen - Included Case__c field as default. It qualifies to be as it will be commonly used. Included method .selectByIds(...) to be used by UnifiedInteractionService
  */
 public virtual inherited sharing class ContactRequestsSelector extends ApplicationSelector {
 

@@ -1,19 +1,19 @@
 /**
- * Test class for InteractionService
+ * Test class for UnifiedInteractionService
  * 
  * changelog:
  * 2024-09-24 	George Nguyen	created
  */
 @IsTest
-class InteractionService_Test {
+class UnifiedInteractionService_Test {
 
 	@IsTest
 	static void mappedFields() {
-		System.assertEquals(ContactRequest.WhatId, InteractionService.MAPPED_STANDARD_FIELDS.get(ContactRequest.SobjectType));
-		System.assertEquals(VoiceCall.RelatedRecordId, InteractionService.MAPPED_STANDARD_FIELDS.get(VoiceCall.SobjectType));
-		System.assertEquals(LiveChatTranscript.CaseId, InteractionService.MAPPED_CASE_FIELDS.get(LiveChatTranscript.SobjectType));
-		System.assertEquals(ContactRequest.Case__c, InteractionService.MAPPED_CASE_FIELDS.get(ContactRequest.SobjectType));
-		System.assertEquals(VoiceCall.Case__c, InteractionService.MAPPED_CASE_FIELDS.get(VoiceCall.SobjectType));
+		System.assertEquals(ContactRequest.WhatId, UnifiedInteractionService.MAPPED_STANDARD_FIELDS.get(ContactRequest.SobjectType));
+		System.assertEquals(VoiceCall.RelatedRecordId, UnifiedInteractionService.MAPPED_STANDARD_FIELDS.get(VoiceCall.SobjectType));
+		System.assertEquals(LiveChatTranscript.CaseId, UnifiedInteractionService.MAPPED_CASE_FIELDS.get(LiveChatTranscript.SobjectType));
+		System.assertEquals(ContactRequest.Case__c, UnifiedInteractionService.MAPPED_CASE_FIELDS.get(ContactRequest.SobjectType));
+		System.assertEquals(VoiceCall.Case__c, UnifiedInteractionService.MAPPED_CASE_FIELDS.get(VoiceCall.SobjectType));
 	}
     
 	@IsTest
@@ -63,7 +63,7 @@ class InteractionService_Test {
 														);
 		MockUtility.Mocks.stopStubbing();
 
-		InteractionService service = new InteractionService();
+		UnifiedInteractionService service = new UnifiedInteractionService();
 		Map<Id, SObject> workItems = service.retrieveInteractionRecords(mappedObjectTypeAndIds);
 
 		System.assert(workItems.containsKey(cr.Id), 'Should return a ContactRequest record');
@@ -74,7 +74,7 @@ class InteractionService_Test {
 	@IsTest
 	static void populateCaseFieldOnAgentWorks() {
 		ApplicationUnitOfWork mockApplicationUnitOfWork = MockUtility.mockUnitOfWork();
-		String source = 'InteractionService.populateCaseFieldOnAgentWorks';
+		String source = 'UnifiedInteractionService.populateCaseFieldOnAgentWorks';
 
 		Account acc = ApplicationTestDataFactory.getAccounts(1, true)[0];
 		Contact ct = ApplicationTestDataFactory.getContacts(1, acc.Id, true)[0];
@@ -94,7 +94,7 @@ class InteractionService_Test {
 		MockUtility.Mocks.startStubbing();
 		MockUtility.Mocks.stopStubbing();
 
-		InteractionService service = new InteractionService();
+		UnifiedInteractionService service = new UnifiedInteractionService();
 		service.populateCaseFieldOnAgentWorks(workItems, agentWorkRecords, mockApplicationUnitOfWork, source);
 
 		((ApplicationUnitOfWork) MockUtility.Mocks.verify(mockApplicationUnitOfWork, MockUtility.Mocks.times(1))).registerDirty(

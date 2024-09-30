@@ -83,7 +83,7 @@ public inherited sharing class AgentWorkCaseAutomationModule extends Application
 			}
 			
 			// Mapping SObject types to work item ids
-			if(InteractionService.MAPPED_CASE_FIELDS.containsKey(objType) == true) {
+			if(UnifiedInteractionService.MAPPED_CASE_FIELDS.containsKey(objType) == true) {
 				if(mappedObjectTypeAndIds.containsKey(objType) == false) {
 					mappedObjectTypeAndIds.put(objType, new Set<Id>());
 				}
@@ -94,8 +94,8 @@ public inherited sharing class AgentWorkCaseAutomationModule extends Application
 		}
 
 		if(mappedObjectTypeAndIds.isEmpty() == false && qualifiedAgentWorkRecords.isEmpty() == false) {
-			Map<Id, SObject> workItems = InteractionService.getInstance().retrieveInteractionRecords(mappedObjectTypeAndIds);
-			InteractionService.getInstance().populateCaseFieldOnAgentWorks(workItems, qualifiedAgentWorkRecords, uow, source);
+			Map<Id, SObject> workItems = UnifiedInteractionService.getInstance().retrieveInteractionRecords(mappedObjectTypeAndIds);
+			UnifiedInteractionService.getInstance().populateCaseFieldOnAgentWorks(workItems, qualifiedAgentWorkRecords, uow, source);
 		}
 	}
 
