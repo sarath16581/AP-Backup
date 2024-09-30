@@ -10,7 +10,7 @@ import { LightningElement, api, wire } from 'lwc';
 import { getRecord, getFieldValue, updateRecord, notifyRecordUpdateAvailable } from 'lightning/uiRecordApi';
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 import { reduceErrors } from 'c/ldsUtils';
-import { subscribe, unsubscribe, MessageContext, APPLICATION_SCOPE } from 'lightning/messageService';
+import { subscribe, unsubscribe, MessageContext } from 'lightning/messageService';
 import GENERIC_LMS_CHANNEL from '@salesforce/messageChannel/genericMessageChannel__c';
 import getExistingCasesCount from '@salesforce/apex/UnifiedCaseHistoryController.getCountForDuplicatedCasesRelatedToArticle';
 
@@ -146,8 +146,7 @@ export default class UnifiedCaseCreationVoiceCallWrapper extends LightningElemen
 	wiredInteractionRecord({ error, data }) {
 		if (data) {
 			this.interactionRecord = data;
-			const consignmentTrackingNumber = getFieldValue(this.interactionRecord, CONSIGNMENT_TRACKING_NUMBER_FIELD);
-			this.handleExistingCaseValidation(consignmentTrackingNumber);
+			this.handleExistingCaseValidation(this.linkedConsignmentId);
 		} else if (error) {
 			console.error(error);
 			this.interactionRecord = undefined;
@@ -179,8 +178,7 @@ export default class UnifiedCaseCreationVoiceCallWrapper extends LightningElemen
 			this.subscription = subscribe(
 					this.messageContext,
 					GENERIC_LMS_CHANNEL,
-					(message) => this.handleLMSEvent(message),
-					{ scope: APPLICATION_SCOPE }
+					(message) => this.handleLMSEvent(message)
 			);
 		}
 	}
@@ -201,19 +199,18 @@ export default class UnifiedCaseCreationVoiceCallWrapper extends LightningElemen
 		// filter for source = `unifiedTrackingVoiceWrapper` and type = `articlesSelected`
 		if(message.source === 'unifiedTrackingVoiceWrapper' && message.type === 'articleSelected'){
 			this.impactedArticles = message.body.selectedArticleIds;
-			const consignmentTrackingId = message.body.consignmentId;
-			this.handleExistingCaseValidation(consignmentTrackingId);
 		}
 	}
 
 	/**
 	 * Call apex controller to retrieve existing cases associated to this liveChat record that met specified criteria
 	 * and update warningMessage if applicable
+	 * @param trackingSFId SF Id of article or consignment
 	 */
-	async handleExistingCaseValidation(consignmentTrackingNumber){
+	async handleExistingCaseValidation(trackingSFId){
 		try {
 			const existingCaseCount = await getExistingCasesCount({
-				consignmentTrackingNumber: consignmentTrackingNumber
+				trackingId: trackingSFId
 			});
 			if(existingCaseCount){
 				this.warningMessage = existingCaseCount + ' Existing Cases';
