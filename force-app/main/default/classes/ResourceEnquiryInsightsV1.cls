@@ -12,7 +12,10 @@ public with sharing class ResourceEnquiryInsightsV1 extends ResourceAPIService.I
 	}
 	//custom permission API to access this apex class
 	@TestVisible private final static String PERMISSION_API_NAME='AccessRoutingInsightsAPI';
+
+	//Max length of trackingId Param
 	@TestVisible private final static Integer MAX_TRACKING_ID_LENGTH = 32;
+
 	@TestVisible private static String trackingId;
 	@TestVisible private static String caseType;
 	/**
@@ -95,16 +98,28 @@ public with sharing class ResourceEnquiryInsightsV1 extends ResourceAPIService.I
 	 */
 	@TestVisible
 	static List<Article__c> getArticles(Set<String> searchKeys){
+
 		//Article__c fields to be queried
 		Set<SObjectField> articleFields = new Set<SObjectField>{
 			Article__c.Id, Article__c.Name, Article__c.Source_System__c, Article__c.Consignment__c, Article__c.ConsignmentTrackingNumber__c
 			, Article__c.ArticleID__c, Article__c.Consignment__r.Name, Article__c.Consignment__r.ArticleID__c
 		};
-		Set<Object> selectorOptions = new Set<Object>();
+
+		Set<SobjectField> caseFields = new Set<SObjectField>{
+			Case.Id, Case.CaseNumber, Case.IsClosed, Case.ClosedDate, Case.Type
+			, Case.Call_Purpose__c, Case.EnquirySubType__c, Case.Enquiry_Type__c, Case.Status};
+
+		//add fields to fieldOverrides map
+		Map<SObjectType,Set<SObjectField>> fieldOverrides = new Map<SObjectType,Set<SObjectField>>();
+		fieldOverrides.put(Article__c.getSObjectType(), articleFields);
+		fieldOverrides.put(Case.getSObjectType(), caseFields);
+
+		Set<Object> complexQueryOptions = new Set<Object>();
 		Map<String, Object> bindMap = new Map<String, Object>();
 
-		ArticlesSelector recordSelector = ArticlesSelector.newInstance(0, articleFields);
+		ArticlesSelector recordSelector = ArticlesSelector.newInstance(0, fieldOverrides);
 		
+		//add tracking Ids to bindMap for SOQL
 		bindMap.put('trackingIds', searchKeys);
 		
 		//use caseType param to filter case record types
@@ -115,9 +130,12 @@ public with sharing class ResourceEnquiryInsightsV1 extends ResourceAPIService.I
 			caseRecordTypes.addAll(ResourceCustomerInsightsV1.UNIFIED_CASE_RECORDTYPES);
 			bindMap.put('caseRecordTypes',caseRecordTypes);
 			bindMap.put('closedCaseCutoffDate',Date.today().addDays(-30));
+
+			//add complex sub query options
+			complexQueryOptions.add(ArticlesSelector.ComplexSubQueryOptions.WITH_CASES);
 		}
 		return recordSelector.selectWithCasesByIdOrTrackingOrName(
-			bindMap, selectorOptions
+			bindMap, complexQueryOptions
 		).values();
 	}
 	/**
@@ -130,11 +148,14 @@ public with sharing class ResourceEnquiryInsightsV1 extends ResourceAPIService.I
 		List<Object> listCases = new List<Object>();
 		Map<String, Object> mapRecord = new Map<String, Object>()
 			, mapCase  = new Map<String, Object>();
+
 		//add tracking Id to response
 		mapRecord.put(PARAM_NAMES.tracking_id.name(),trackingId);
+
 		//loop through the Case records
 		for(Case caseRecord: records){
 			mapCase = ResourceCustomerInsightsV1.getCaseMapping(caseRecord);
+
 			//removing tracking_id from Case, as it's not required in Enquiry Insights
 			mapCase.remove(PARAM_NAMES.tracking_id.name());
 			listCases.add(mapCase);

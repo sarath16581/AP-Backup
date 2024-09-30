@@ -5,6 +5,7 @@
  * @date 2024/09/05
  */
 public with sharing class ResourceCustomerInsightsV1 extends ResourceAPIService.IApi{
+
 	//--uri params are case-sensitive & hence in lower case
 	private enum PARAM_NAMES {
 		email,
@@ -12,6 +13,10 @@ public with sharing class ResourceCustomerInsightsV1 extends ResourceAPIService.
 		case_type,
 		interaction_type
 	}
+
+	//Maximum number of Contact records to be returned
+	@TestVisible private final static Integer MAX_RECORD_COUNT = 20;
+
 	/**
 	 * @description Set of case record types for AP
 	 */
@@ -19,6 +24,7 @@ public with sharing class ResourceCustomerInsightsV1 extends ResourceAPIService.
 		'NCCCDirectEmail', 'Social_Record_Type','SSSWDelivery','SSSWFax'
 		,'SSSWGeneralEnquiry','SSSWService'
 	};
+
 	/**
 	 * @description Set of case record types for ST
 	 */
@@ -26,37 +32,43 @@ public with sharing class ResourceCustomerInsightsV1 extends ResourceAPIService.
 		'StarTrack_Credit_Dispute_Claim','StarTrack_PUD_Enquiry','StarTrack_General_Enquiry'
 		,'StarTrack_Pickup_Booking_Enquiry','StarTrack_Sales_Enquiry', 'StarTrack_Transit_Warranty_Claim'
 	};
+
 	/**
 	 * @description Set of case record types for Unified
 	 */
 	public final static Set<String> UNIFIED_CASE_RECORDTYPES = new Set<String>{
 		'UnifiedGeneralEnquiry','UnifiedInvestigation'
 	};
+
 	/**
 	 * @description Set of APCC team profile names
 	 */
 	public final static Set<String> AP_CC_PROFILES = new Set<String>{
 		'SSSW - Service Agent','SSSW Security and Investigations'
 	};
+
 	/**
 	 * @description Set of STCC team profile names
 	 */
 	public final static Set<String> ST_CC_PROFILES = new Set<String>{
 		'StarTrack Support','StarTrack VOC'
 	};
+
 	/**
 	 * @description Set of UCC team profile names
 	 */
 	public final static Set<String> U_CC_PROFILES = new Set<String>{
 		'CustomerService'
 	};
-	//custom permission API to access this apex class
+
+	//custom permission API used to validate access to this apex class
 	@TestVisible private final static String PERMISSION_API_NAME='AccessRoutingInsightsAPI';
 	
 	@TestVisible private static String emailAddress;
 	@TestVisible private static String phoneNumber;
 	@TestVisible private static String caseType;
 	@TestVisible private static String interactionType;
+
 	/**
 	 * @description Override query method to get Customer Insights
 	 * @return  `ResourceAPIService.IResourceResponse`
@@ -99,7 +111,8 @@ public with sharing class ResourceCustomerInsightsV1 extends ResourceAPIService.
 		interactionType = params.get(PARAM_NAMES.interaction_type.name());
 
 		//strip off any non-numeric characters from phone number
-		phoneNumber = String.isNotBlank(phoneNumber)?phoneNumber.replaceAll('[^0-9]',''):phoneNumber;
+		//phoneNumber = String.isNotBlank(phoneNumber)?phoneNumber.replaceAll('[^0-9]',''):phoneNumber;
+		phoneNumber = Util.reversePhoneString(phoneNumber);
 		return (!(String.isNotBlank(emailAddress) && String.isNotBlank(phoneNumber))
 			&& ((isValidEmail(emailAddress))
 			|| (isValidPhone(phoneNumber))));
@@ -113,6 +126,7 @@ public with sharing class ResourceCustomerInsightsV1 extends ResourceAPIService.
 	static Boolean isValidEmail(String email){
 		return String.isNotBlank(email);
 	}
+
 	/**
 	 * @description validate phone number
 	 * @param phone 
@@ -121,6 +135,7 @@ public with sharing class ResourceCustomerInsightsV1 extends ResourceAPIService.
 	static Boolean isValidPhone(String phone){
 		return String.isNotBlank(phone);
 	}
+
 	/**
 	 * @description get contact, cases & interaction details based on request param type(email or phone)
 	 * Also, derives caseType param to specify which all case record types should be queried
@@ -130,39 +145,97 @@ public with sharing class ResourceCustomerInsightsV1 extends ResourceAPIService.
 	 */
 	@TestVisible
 	static List<SObject> getCustomerInsights(String paramType){
-		//contact fields to be queried
+		//Contact fields to be queried
 		Set<SObjectField> contactFields = new Set<SObjectField>{
 			Contact.Id, Contact.APCN__c, Contact.Firstname, Contact.Lastname, Contact.Email
 			, Contact.VerifiedEmail__c, Contact.Phone, Contact.MobilePhone, Contact.VerifiedMobile__c
 		};
-		ContactsSelector contactSelector = ContactsSelector.newInstance(0, contactFields);
+
+		//Account fields to be queried
+		Set<SObjectField> accountFields = new Set<SObjectField>{
+			Account.Id
+		};
+		
+		// Case fields to be queried
+		Set<SobjectField> caseFields = new Set<SObjectField>{
+			Case.Id, Case.CaseNumber, Case.IsClosed, Case.ClosedDate, Case.Type
+			, Case.Call_Purpose__c, Case.EnquirySubType__c, Case.Enquiry_Type__c, Case.Status};
+		
+		//Article fields to be queried
+		Set<SobjectField> articleFields = new Set<SObjectField>{
+			Article__c.Name, Article__c.ArticleId__c
+		};
+
+		//Task fields to be queried
+		Set<SobjectField> taskFields = new Set<SObjectField>{
+			Task.Id, Task.ActivityDate
+		};
+
+		//User fields to be queried
+		Set<SobjectField> userFields = new Set<SObjectField>{
+			User.Id
+		};
+
+		//Profile fields to be queried
+		Set<SobjectField> profileFields = new Set<SObjectField>{
+			Profile.Id, Profile.Name
+		};
+
+		//add fields to fieldOverrides map
+		Map<SObjectType,Set<SObjectField>> fieldOverrides = new Map<SObjectType,Set<SObjectField>>();
+		fieldOverrides.put(Contact.getSObjectType(), contactFields);
+		fieldOverrides.put(Account.getSObjectType(), accountFields);
+		fieldOverrides.put(Case.getSObjectType(), caseFields);
+		fieldOverrides.put(Article__c.getSObjectType(), articleFields);
+		fieldOverrides.put(Task.getSObjectType(), taskFields);
+		fieldOverrides.put(User.getSObjectType(), userFields);
+		fieldOverrides.put(Profile.getSObjectType(), profileFields);
+
+		//instantiate the ContactsSelector
+		ContactsSelector contactSelector = ContactsSelector.newInstance(MAX_RECORD_COUNT, fieldOverrides);
+
 		List<Contact> contacts;
-		Set<Object> selectorOptions = new Set<Object>();
+		Set<Object> complexOptions = new Set<Object>();
 		Map<String, Object> bindMap = new Map<String, Object>();
+
 		//use caseType param to filter case record types
 		if(caseType== null || caseType.equalsIgnoreCase('allcontactcentre')){
 			Set<String> caseRecordTypes = new Set<String>();
 			caseRecordTypes.addAll(AP_CASE_RECORDTYPES);
 			caseRecordTypes.addAll(ST_CASE_RECORDTYPES);
 			caseRecordTypes.addAll(UNIFIED_CASE_RECORDTYPES);
+
+			//add caseRecordTypes & closedCaseCutoffDate to bindMap to be used in SOQL
 			bindMap.put('caseRecordTypes',caseRecordTypes);
 			bindMap.put('closedCaseCutoffDate',Date.today().addDays(-30));
+
+			//specify complexSearchOptions to include ALL Cases
+			complexOptions.add(ContactsSelector.ComplexSubQueryOptions.WITH_CASES);
 		}
+
 		//use interactionType param to filter Task, VoiceCall & LiveChatTranscript record teams
 		if(interactionType== null || interactionType.equalsIgnoreCase('allcontactcentre')){
 			Set<String> interactionProfiles = new Set<String>();
 			interactionProfiles.addAll(AP_CC_PROFILES);
 			interactionProfiles.addAll(ST_CC_PROFILES);
 			interactionProfiles.addAll(U_CC_PROFILES);
+			
+			//add interactionProfiles & interactionCutoffDate to bindMap to be used in SOQL
 			bindMap.put('interactionProfiles',interactionProfiles);
 			bindMap.put('interactionCutoffDate',Date.today().addDays(-30));
+
+			//specify complexSearchOptions to include ALL Interactions
+			complexOptions.add(ContactsSelector.ComplexSubQueryOptions.WITH_ALL_INTERACTIONS);
 		}
+		System.debug('emailAddress:'+ emailAddress);
+		System.debug('bindMap:'+ JSON.serialize(bindMap));
+		System.debug('complexOptions:'+ JSON.serialize(complexOptions));
 		if(paramType==PARAM_NAMES.phone.name()){
 			//get contacts by Phone Number
-			contacts = contactSelector.selectWithCasesAndInteractionsByPhoneNumber(phoneNumber,bindMap, selectorOptions);
+			contacts = contactSelector.selectWithCasesAndInteractionsByPhoneNumber(phoneNumber,bindMap, complexOptions);
 		}else if(paramType==PARAM_NAMES.email.name()){
 			//get contacts by EmailAddress
-			contacts = contactSelector.selectWithCasesAndInteractionsByEmailAddress(emailAddress, bindMap, selectorOptions);
+			contacts = contactSelector.selectWithCasesAndInteractionsByEmailAddress(emailAddress, bindMap, complexOptions);
 		}
 		return contacts;
 	}
