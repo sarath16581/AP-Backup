@@ -88,6 +88,9 @@ export default class UnifiedCaseHistory extends NavigationMixin(LightningElement
 	 * Columns for the Cases related to Article `lightning-datatable` component.
 	 */
 	get casesRelatedToArticleColumns() {
+		if(this.disableLinking) {
+			return COLUMNS.filter(column => column.label !== 'Link');
+		}
 		return COLUMNS;
 	}
 
