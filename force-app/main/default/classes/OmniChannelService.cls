@@ -19,6 +19,7 @@
 *		17/03/2023				Noel Lim					Added class variables omniClosedCaseQueueId and omniHoldingQueueId
 *		19/04/2023				George Nguyen				Added getUserIdsWithPreferredAgentSkills which gets the list of user ids that have Preferred agent skills
 *		16/07/2024				Ranjeewa Silva				Updates to support Unified case routing and preferred agent selection.
+*		30/09/2024				Ranjeewa Silva				Updated to use AgentWork.Case__c in finding the latest accepted AgentWork in-scope for a Case.
 **/
 public inherited sharing class OmniChannelService {
 
@@ -259,108 +260,30 @@ public inherited sharing class OmniChannelService {
 	}
 
 	/**
-	 * Return the latest accepted AgentWork, if available, for each of the work item in the collection passed in.
+	 * Return the latest accepted AgentWork in scope for cases, if available, for each of the case ids passed in.
+	 * AgentWork directly on Case record or child records of below sobject types are considered in scope for Cases:
+	 *  - ContactRequest
+	 *  - LiveChatTranscript
+	 *  - VoiceCall
 	 *
-	 * @param workItems Map of work items to get latest accepted AgentWork. key : work item Id, value : work item
-	 * @param includeChildContactRequestWorkItems If true include agents who previously handled child ContactRequests
-	 *											  related to the work items passed in.
+	 * @param caseIds Set of Case Ids to get latest accepted AgentWork.
 	 *
-	 * @return Map of latest accepted AgentWork to work item Ids passed in. key : work item Id, value : AgentWork record
+	 * @return Map of latest accepted AgentWork to case Ids passed in. key : case Id, value : AgentWork record
 	 *		 Only work items with accepted AgentWork record are included in the map.
 	 */
-	public Map<Id, AgentWork> getLatestAcceptedAgentWork(Map<Id, SObject> workItems, Boolean includeChildContactRequestWorkItems) {
-
-		// TODO new custom fields are to be introduced on AgentWork ('Case__c'). Review this and simplify if feasible.
-
-		// if 'includeChildContactRequestWorkItems' is set to true, we need to include child ContactRequests on eligible
-		// work items.
-		Map<Id, ContactRequest> workItemChildContactRequests = new Map<Id, ContactRequest>();
-		if (includeChildContactRequestWorkItems) {
-			// do we really need this 'unifiedRecordTypeId' check here ? TBC.
-			Set<Id> workItemRecordTypes = workItems.getSObjectType() == Case.SObjectType ? CaseRoutingService.unifiedRecordTypeIds : new Set<Id>();
-			workItemChildContactRequests = getChildContactRequests(workItems, workItemRecordTypes);
-		}
-
-		// work out the work items in scope for retrieving AgentWork including any child contact requests in scope.
-		Set<Id> workItemScope = new Set<Id>(workItems.keySet());
-		workItemScope.addAll(workItemChildContactRequests.keySet());
-
-		// get the latest accepted AgentWork for each of the work item in scope
-		Map<Id, AgentWork> workItemAcceptedAgentWorks = selectLatestAcceptedAgentWorkForWorkItems(workItemScope);
-
-		if (workItemChildContactRequests.isEmpty()) {
-			// child ContactRequests were NOT included when retrieving AgentWork. we now have latest accepted AgentWork
-			// for work items. return the results.
-			return workItemAcceptedAgentWorks;
-		}
-
-		// child ContactRequests were included into the scope. we need to find the last accepted AgentWork for each work
-		// item considering AgentWork on child ContactRequests.
+	public Map<Id, AgentWork> getLatestAcceptedAgentWorkInCaseScope(Set<Id> caseIds) {
 		Map<Id, AgentWork> results = new Map<Id, AgentWork>();
-		for (AgentWork aw: workItemAcceptedAgentWorks.values()) {
-			// if AgentWork.WorkItemId is one of the work items passed into this method we have the record id to include
-			// in the return map. if not AgentWork.WorkItemId must be one of the child ContactRequests of a work item passed in.
-			Id recordId = (workItems.containsKey(aw.WorkItemId) ? aw.WorkItemId : workItemChildContactRequests.get(aw.WorkItemId).WhatId);
-			// only need to return the latest AgentWork for a work item passed in.
-			if (results.get(recordId)?.AcceptDateTime == null || results.get(recordId).AcceptDateTime < aw.AcceptDateTime) {
-				results.put(recordId, aw);
+		// we need to find the last accepted AgentWork for each case considering AgentWork on Case and child interaction
+		// records (ContactRequest, Voice, Chat). AgentWork on Case and it's related child interaction records have
+		// AgentWork.Case__c field populated by automation (See CaseRecordPopulationModule and AgentWorkCaseAutomationModule).
+		// this makes it easier to find latest accepted AgentWork in scope for case records.
+		for(AgentWork aw: new WithoutSharingRetrieveData().getLatestAcceptedAgentWorkItems(caseIds)) {
+			// list returned by selector is sorted AcceptedDate DESC so we only need to take the first AgentWork on each case.
+			if(!results.containsKey(aw.Case__c)) {
+				results.put(aw.Case__c, aw);
 			}
 		}
-
 		return results;
-	}
-
-	/**
-	 * Return child ContactRequests for the records passed in. If 'parentRecordTypesFilter' is specified, ContactRequests
-	 * for parent records matching specified record types are returned.
-	 *
-	 * @param parentRecords Parent records of ContactRequests to return
-	 * @param parentRecordTypesFilter Optional. Additional record types filter to apply on parent records before querying
-	 *								and returning ContactRequests
-	 *
-	 * @return Child ContactRequest records for parent records passed in.
-	 */
-	private Map<Id, ContactRequest> getChildContactRequests(Map<Id, SObject> parentRecords, Set<Id> parentRecordTypesFilter) {
-
-		Set<Id> parentRecordIds = new Set<Id>();
-
-		if (!parentRecordTypesFilter.isEmpty()) {
-			// filter parent records by specified record types
-			for (SObject record: parentRecords.values()) {
-				if (parentRecordTypesFilter.contains((Id)record.get('RecordTypeId'))) {
-					parentRecordIds.add(record.Id);
-				}
-			}
-		} else {
-			// optional record types filter is not specified. include all parent records.
-			parentRecordIds.addAll(parentRecords.keySet());
-		}
-
-
-		if (!parentRecordIds.isEmpty()) {
-			return new WithoutSharingRetrieveData().getContactRequests(parentRecordIds);
-		}
-
-		return new Map<Id, ContactRequest>();
-	}
-
-	/**
-	 * Return latest accepted AgentWork for work items passed in. Work items with no accepted AgentWork is not included in
-	 * the return map.
-	 *
-	 * @param workItemIds set of parent work item Ids to select AgentWork
-	 *
-	 * @return map of latest accepted AgentWork for work items. key : work item id, value: AgentWork record
-	 */
-	private Map<Id,AgentWork> selectLatestAcceptedAgentWorkForWorkItems(Set<Id> workItemIds) {
-		Map<Id, AgentWork> workItemLatestAcceptedAgentWorks = new Map<Id, AgentWork>();
-		for(AgentWork aw: new WithoutSharingRetrieveData().getLatestAcceptedAgentWorkItems(workItemIds)) {
-			// selector returns by sorting AcceptedDate DESC so we only need to take the first AW for each work item.
-			if(workItemLatestAcceptedAgentWorks.containsKey(aw.WorkItemId) == false) {
-				workItemLatestAcceptedAgentWorks.put(aw.WorkItemId, aw);
-			}
-		}
-		return workItemLatestAcceptedAgentWorks;
 	}
 
 	/**
@@ -569,7 +492,7 @@ public inherited sharing class OmniChannelService {
 	public without sharing class WithoutSharingRetrieveData{
 
 		private List<AgentWork> getLatestAcceptedAgentWorkItems(Set<Id> caseIds){
-			return AgentWorkSelector.newInstance(0, new Set<SObjectField>{AgentWork.Id, AgentWork.WorkItemId, AgentWork.UserId}).selectByAcceptedWorkItemIdsAndActiveUser(caseIds, new Set<Object>());
+			return AgentWorkSelector.newInstance(0, new Set<SObjectField>{AgentWork.Id, AgentWork.WorkItemId, AgentWork.UserId, AgentWork.AcceptDateTime}).selectAcceptedAgentWorkByCaseIdsAndActiveUser(caseIds, new Set<Object>());
 		}
 
 		private List<ServiceResourceSkill> getPreferredAgentServiceResourceSkills(Set<Id> userIds){
@@ -615,16 +538,6 @@ public inherited sharing class OmniChannelService {
 			}
 
 			return queuesWithRoutingConfig;
-		}
-
-		private Map<Id, ContactRequest> getContactRequests(Set<Id> parentIds) {
-			return new Map<Id, ContactRequest>(
-					ContactRequestsSelector.newInstance(0, new Set<SObjectField>{
-							ContactRequest.Id, ContactRequest.WhatId
-					}).search(new Map<String, Object>{
-							'whatIds' => parentIds
-					}, true)
-			);
 		}
 
 		private Map<Id, Group> getGroupsWithDirectMembers(Set<Id> groupIds) {

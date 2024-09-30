@@ -5,6 +5,7 @@
  * @changelog
  * 2024-07-19 - Ranjeewa Silva - Added tests to verify routing and preferred agent override logic for Unified cases.
  * 2024-09-10 - Ranjeewa Silva - New test to verify moving unified cases in monitoring queue to closed cases queue on closure.
+ * 2024-09-30 - Ranjeewa Silva - Updated tests after the changes to 'getLatestAcceptedAgentWorkInCaseScope' parameter types.
  */
 @IsTest
 private class CaseRoutingService_Test {
@@ -780,7 +781,7 @@ private class CaseRoutingService_Test {
 
 		// set up our responses
 		MockUtility.Mocks.startStubbing();
-		MockUtility.Mocks.when(mockOmniChannelService.getLatestAcceptedAgentWork((Map<Id, SObject>)fflib_Match.eq(new Map<Id, Case>{cases[0].Id => cases[0]}), fflib_Match.eqBoolean(true))).thenReturn(new Map<Id,AgentWork>{cases[0].Id => agentWorks[0]} );
+		MockUtility.Mocks.when(mockOmniChannelService.getLatestAcceptedAgentWorkInCaseScope((Set<Id>)fflib_Match.eq(new Set<Id>{cases[0].Id}))).thenReturn(new Map<Id,AgentWork>{cases[0].Id => agentWorks[0]});
 		MockUtility.Mocks.when(mockOmniChannelService.verifyEligibilityForOmniChannelQueues((Map<Id, Set<Id>>)fflib_Match.eq(new Map<Id, Set<Id>>{cases[0].OwnerId => new Set<Id>{ssswAgent.Id}}))).thenReturn(new Map<Id, Set<Id>>{cases[0].OwnerId => new Set<Id>{ssswAgent.Id}});
 		MockUtility.Mocks.when(mockSelector.selectByWorkItemId((Set<Id>)fflib_Match.eq(new Set<Id>{cases[0].Id}), (Set<Object>)fflib_Match.anyObject())).thenReturn(new List<PendingServiceRouting>()); // return nothing
 		MockUtility.Mocks.when(mockDatabase.dmlDelete((List<SObject>)fflib_Match.anyObject(), fflib_Match.anyBoolean())).thenAnswer(new MockUtility.AnswerGenericDMLDeleted());
@@ -930,7 +931,7 @@ private class CaseRoutingService_Test {
 
 		// set up our responses
 		MockUtility.Mocks.startStubbing();
-		MockUtility.Mocks.when(mockOmniChannelService.getLatestAcceptedAgentWork((Map<Id, SObject>)fflib_Match.eq(new Map<Id, Case>(cases)), fflib_Match.eqBoolean(true))).thenReturn(new Map<Id,AgentWork>{cases[0].Id => agentWorks[0]} );
+		MockUtility.Mocks.when(mockOmniChannelService.getLatestAcceptedAgentWorkInCaseScope((Set<Id>) fflib_Match.eq(new Map<Id, Case>(cases).keySet()))).thenReturn(new Map<Id,AgentWork>{cases[0].Id => agentWorks[0]} );
 		MockUtility.Mocks.when(mockOmniChannelService.verifyEligibilityForOmniChannelQueues((Map<Id, Set<Id>>)fflib_Match.eq(new Map<Id, Set<Id>>{queues.get('SSSW_FOH_Group_1') => new Set<Id>{ssswAgent.Id}}))).thenReturn(new Map<Id, Set<Id>>{queues.get('SSSW_FOH_Group_1') => new Set<Id>{ssswAgent.Id}});
 		MockUtility.Mocks.when(mockSelector.search((Map<String, Object>)fflib_Match.anyObject(), fflib_Match.anyBoolean())).thenReturn(new List<PendingServiceRouting>());
 		MockUtility.Mocks.when(mockSelector.selectByWorkItemId((Set<Id>)fflib_Match.eq(new Set<Id>{cases[0].Id}), (Set<Object>)fflib_Match.anyObject())).thenReturn(new List<PendingServiceRouting>()); // return nothing
@@ -1245,7 +1246,9 @@ private class CaseRoutingService_Test {
 
 		// set up our responses
 		MockUtility.Mocks.startStubbing();
-		MockUtility.Mocks.when(mockOmniChannelService.getLatestAcceptedAgentWork((Map<Id, SObject>)fflib_Match.eq(new Map<Id, Case>{cases[0].Id => cases[0], cases[1].Id => cases[1]}), fflib_Match.eqBoolean(true))).thenReturn(new Map<Id,AgentWork>{cases[0].Id => agentWorks[0]} );
+		MockUtility.Mocks.when(mockOmniChannelService.getLatestAcceptedAgentWorkInCaseScope((Set<Id>) fflib_Match.eq(new Set<Id>{
+				cases[0].Id, cases[1].Id
+		}))).thenReturn(new Map<Id,AgentWork>{cases[0].Id => agentWorks[0]} );
 		MockUtility.Mocks.when(mockOmniChannelService.verifyEligibilityForOmniChannelQueues((Map<Id, Set<Id>>)fflib_Match.eq(new Map<Id, Set<Id>>{queues.get('UnifiedCustomerServiceCaseQueue') => new Set<Id>{unifiedAgent.Id}}))).thenReturn(new Map<Id, Set<Id>>{queues.get('UnifiedCustomerServiceCaseQueue') => new Set<Id>{unifiedAgent.Id}});
 		MockUtility.Mocks.when(mockSelector.selectByWorkItemId((Set<Id>)fflib_Match.eq(new Set<Id>{cases[0].Id, cases[1].Id}), (Set<Object>)fflib_Match.anyObject())).thenReturn(new List<PendingServiceRouting>()); // return nothing
 		MockUtility.Mocks.when(mockDatabase.dmlDelete((List<SObject>)fflib_Match.anyObject(), fflib_Match.anyBoolean())).thenAnswer(new MockUtility.AnswerGenericDMLDeleted());
@@ -1372,7 +1375,7 @@ private class CaseRoutingService_Test {
 
 		// set up our responses
 		MockUtility.Mocks.startStubbing();
-		MockUtility.Mocks.when(mockOmniChannelService.getLatestAcceptedAgentWork((Map<Id, SObject>)fflib_Match.eq(new Map<Id, Case>(cases)), fflib_Match.eqBoolean(true))).thenReturn(new Map<Id,AgentWork>{cases[0].Id => agentWorks[0]} );
+		MockUtility.Mocks.when(mockOmniChannelService.getLatestAcceptedAgentWorkInCaseScope((Set<Id>) fflib_Match.eq(new Map<Id, Case>(cases).keySet()))).thenReturn(new Map<Id,AgentWork>{cases[0].Id => agentWorks[0]} );
 		MockUtility.Mocks.when(mockOmniChannelService.verifyEligibilityForOmniChannelQueues((Map<Id, Set<Id>>)fflib_Match.eq(new Map<Id, Set<Id>>{queues.get('UnifiedCustomerServiceCaseQueue') => new Set<Id>{unifiedAgent.Id}}))).thenReturn(new Map<Id, Set<Id>>{queues.get('UnifiedCustomerServiceCaseQueue') => new Set<Id>{unifiedAgent.Id}});
 		MockUtility.Mocks.when(mockSelector.search((Map<String, Object>)fflib_Match.anyObject(), fflib_Match.anyBoolean())).thenReturn(new List<PendingServiceRouting>());
 		MockUtility.Mocks.when(mockSelector.selectByWorkItemId((Set<Id>)fflib_Match.eq(new Set<Id>{cases[0].Id}), (Set<Object>)fflib_Match.anyObject())).thenReturn(new List<PendingServiceRouting>()); // return nothing
