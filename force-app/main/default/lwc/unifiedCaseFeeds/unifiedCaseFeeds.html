@@ -6,7 +6,7 @@
 				<div class="slds-notify slds-notify_alert slds-theme_alert-texture slds-theme_error" role="alert">
 					<span class="slds-assistive-text">error</span>
 					<lightning-icon icon-name="utility:error" alternative-text="Error!" size="x-small" variant="inverse"></lightning-icon>
-					<div class="slds-var-m-left_xx-small">Error: {errorMessage}</div>
+					<div data-id="error" class="slds-var-m-left_xx-small">Error: {errorMessage}</div>
 				</div>
 			</div>
 		</template>
@@ -43,7 +43,7 @@
 								<div class="slds-tabs_card feed-card">
 									<lightning-card>
 										<div slot="title" class="no-wrap">
-											<lightning-icon class={feed.iconClass} icon-name={feed.feedCustomIcon} size="small"></lightning-icon>
+											<lightning-icon data-name="feedCustomIcon" class={feed.iconClass} icon-name={feed.feedCustomIcon} size="small"></lightning-icon>
 											<span data-name="feedHeader" class="slds-var-m-left_x-small slds-text-body_regular header-color">{feed.feedHeader}</span>
 										</div>
 										<div data-name="feedBody" class="slds-text-body_regular wrapped-content"><strong>{feed.feedBody}</strong>
@@ -65,7 +65,7 @@
 									<div class="slds-tabs_card feed-card">
 										<lightning-card>
 											<div slot="title" class="no-wrap">
-												<lightning-icon class={feed.iconClass} icon-name={feed.feedCustomIcon} size="small"></lightning-icon>
+												<lightning-icon data-name="feedCustomIcon" class={feed.iconClass} icon-name={feed.feedCustomIcon} size="small"></lightning-icon>
 												<span data-name="feedHeader" class="slds-var-m-left_x-small slds-text-body_regular header-color">{feed.feedHeader}</span>
 											</div>
 											<div data-name="feedBody" class="slds-text-body_regular wrapped-content"><strong>{feed.feedBody}</strong>
