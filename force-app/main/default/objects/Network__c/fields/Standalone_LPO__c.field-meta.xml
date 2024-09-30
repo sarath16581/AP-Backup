@@ -3,7 +3,6 @@
     <fullName>Standalone_LPO__c</fullName>
     <defaultValue>false</defaultValue>
     <description>This determines whether the LPO is a self contained business or an in conjunction business?</description>
-    <externalId>false</externalId>
     <inlineHelpText>This determines whether the LPO is a self contained business or an in conjunction business?</inlineHelpText>
     <label>Standalone LPO</label>
     <securityClassification>INTERNAL</securityClassification>

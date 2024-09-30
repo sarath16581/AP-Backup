@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Is_Startrack_Proposal__c</fullName>
     <description>Users to determine whether this is a Startrack proposal or not</description>
-    <externalId>false</externalId>
     <label>Is this proposal for StarTrack Product</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>

@@ -3,7 +3,6 @@
     <fullName>ApplicationRole__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <description>The Application Role of this context</description>
-    <externalId>false</externalId>
     <inlineHelpText>The Application Role of this context</inlineHelpText>
     <label>Application Role</label>
     <referenceTo>BAMApplicationRole__c</referenceTo>

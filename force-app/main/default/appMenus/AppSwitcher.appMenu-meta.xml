@@ -761,10 +761,6 @@
         <type>CustomApplication</type>
     </appMenuItems>
     <appMenuItems>
-        <name>REST_API</name>
-        <type>ExternalClientApplication</type>
-    </appMenuItems>
-    <appMenuItems>
         <name>standard__ExpressionSetConsole</name>
         <type>CustomApplication</type>
     </appMenuItems>

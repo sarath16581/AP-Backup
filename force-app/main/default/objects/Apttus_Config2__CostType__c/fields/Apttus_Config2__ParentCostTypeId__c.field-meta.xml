@@ -4,7 +4,6 @@
     <deleteConstraint>SetNull</deleteConstraint>
     <deprecated>false</deprecated>
     <description>Lookup to parent cost type</description>
-    <externalId>false</externalId>
     <label>Parent Cost Type</label>
     <lookupFilter>
         <active>true</active>

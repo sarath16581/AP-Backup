@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__RelatedListPrice__c</fullName>
     <deprecated>false</deprecated>
     <description>The list price associated with the related product/service</description>
-    <externalId>false</externalId>
     <inlineHelpText>The list price associated with the related product/service</inlineHelpText>
     <label>Related List Price</label>
     <precision>18</precision>

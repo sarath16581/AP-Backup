@@ -3,7 +3,6 @@
     <fullName>Email_Template__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <description>Lookup field to allow association of an email template to a document type</description>
-    <externalId>false</externalId>
     <label>Conga Email Template</label>
     <referenceTo>APXTConga4__Conga_Email_Template__c</referenceTo>
     <relationshipLabel>Conga Templates</relationshipLabel>

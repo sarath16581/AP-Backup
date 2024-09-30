@@ -3,7 +3,6 @@
     <fullName>IsStrategic__c</fullName>
     <defaultValue>false</defaultValue>
     <description>Checkbox used to route cases for Strategic/ Key customers</description>
-    <externalId>false</externalId>
     <label>Is Strategic?</label>
     <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>

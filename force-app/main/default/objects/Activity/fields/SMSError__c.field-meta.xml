@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>SMSError__c</fullName>
     <description>Use to store any errors from the TIBCO sms web service</description>
-    <externalId>false</externalId>
     <inlineHelpText>Use to store any errors from the TIBCO sms web service</inlineHelpText>
     <label>SMS Error</label>
     <required>false</required>

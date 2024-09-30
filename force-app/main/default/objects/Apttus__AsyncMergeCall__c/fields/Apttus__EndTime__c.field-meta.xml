@@ -3,7 +3,6 @@
     <fullName>Apttus__EndTime__c</fullName>
     <deprecated>false</deprecated>
     <description>Call end time</description>
-    <externalId>false</externalId>
     <label>End Time</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>

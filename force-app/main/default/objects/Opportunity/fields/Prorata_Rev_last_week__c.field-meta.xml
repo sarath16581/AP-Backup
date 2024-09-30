@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Prorata_Rev_last_week__c</fullName>
-    <externalId>false</externalId>
     <formula>IF( (Today_Week__c - Close_Date_Week__c = 1),  Prorata_Rev__c , 0)</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <label>Pro-rata Rev (last week)</label>

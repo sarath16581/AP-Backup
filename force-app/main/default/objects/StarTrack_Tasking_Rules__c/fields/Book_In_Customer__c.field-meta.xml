@@ -3,7 +3,6 @@
     <fullName>Book_In_Customer__c</fullName>
     <defaultValue>false</defaultValue>
     <description>StarTrack: Capture &quot;Book-In-Customer&quot; Information and match is against &quot;Book-In-Customer&quot; object store field.</description>
-    <externalId>false</externalId>
     <label>Book-In-Customer</label>
     <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>

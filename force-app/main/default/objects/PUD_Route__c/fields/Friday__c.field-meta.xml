@@ -4,7 +4,6 @@
     <businessStatus>Active</businessStatus>
     <defaultValue>false</defaultValue>
     <description>Indicates if the route is active on Friday.</description>
-    <externalId>false</externalId>
     <label>Friday</label>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>

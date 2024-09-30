@@ -3,7 +3,6 @@
     <fullName>Approved_Weighing_Instrument__c</fullName>
     <defaultValue>false</defaultValue>
     <description>Does this site have an approved weighing instrument?</description>
-    <externalId>false</externalId>
     <inlineHelpText>Does this site have an approved weighing instrument?</inlineHelpText>
     <label>Approved Weighing Instrument</label>
     <securityClassification>INTERNAL</securityClassification>

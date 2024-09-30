@@ -3,7 +3,6 @@
     <fullName>Apttus__CriteriaFieldNames__c</fullName>
     <deprecated>false</deprecated>
     <description>The list of field names used in the filter criteria</description>
-    <externalId>false</externalId>
     <inlineHelpText>The list of field names used in the filter criteria</inlineHelpText>
     <label>Criteria Field Names</label>
     <length>1024</length>

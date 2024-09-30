@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>CustomerPurchasingDrivers__c</fullName>
     <description>Not related to notifications, what is key decision making factor for your customer</description>
-    <externalId>false</externalId>
     <inlineHelpText>Not related to notifications, what is key decision making factor for your customer</inlineHelpText>
     <label>Customer Purchasing Drivers</label>
     <required>false</required>

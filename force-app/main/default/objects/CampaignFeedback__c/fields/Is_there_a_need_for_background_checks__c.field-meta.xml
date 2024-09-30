@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Is_there_a_need_for_background_checks__c</fullName>
     <description>Does your customer have a requirement for police or other background checks?</description>
-    <externalId>false</externalId>
     <inlineHelpText>Does your customer have a requirement for police or other background checks?</inlineHelpText>
     <label>Is there a need for background checks?</label>
     <required>false</required>

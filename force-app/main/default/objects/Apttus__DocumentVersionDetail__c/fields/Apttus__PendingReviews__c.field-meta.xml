@@ -3,7 +3,6 @@
     <fullName>Apttus__PendingReviews__c</fullName>
     <deprecated>false</deprecated>
     <description>Pending Reviews Count</description>
-    <externalId>false</externalId>
     <inlineHelpText>Count of Review Cycles Pending.</inlineHelpText>
     <label>Pending Reviews</label>
     <securityClassification>INTERNAL</securityClassification>

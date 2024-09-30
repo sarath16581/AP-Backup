@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__Dimension1ValueType__c</fullName>
     <deprecated>false</deprecated>
     <description>The value type of the first dimension</description>
-    <externalId>false</externalId>
     <inlineHelpText>The value type of the first dimension</inlineHelpText>
     <label>Dimension 1 Value Type</label>
     <required>false</required>

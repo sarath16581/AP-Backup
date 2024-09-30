@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Flag that gets set by the ApprovalAction visualforce page when comments are added to an approval request without actually approving or rejecting the request. This flag then becomes the trigger for workflow rules that get fired to send a notification to parties that comments have been entered for the request.</description>
-    <externalId>false</externalId>
     <label>Workflow Trigger Added Comments</label>
     <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>

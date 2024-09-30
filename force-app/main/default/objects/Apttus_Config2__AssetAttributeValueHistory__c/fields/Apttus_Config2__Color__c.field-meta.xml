@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__Color__c</fullName>
     <deprecated>false</deprecated>
     <description>Product color</description>
-    <externalId>false</externalId>
     <inlineHelpText>Product color</inlineHelpText>
     <label>Color</label>
     <required>false</required>

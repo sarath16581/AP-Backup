@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Approver3Role__c</fullName>
     <description>Role of the third approver for this credit approval record (e.g. &quot;Customer Resolutions Manager&quot;, &quot;CEO&quot;).</description>
-    <externalId>false</externalId>
     <inlineHelpText>Role of the third approver for this credit approval record.</inlineHelpText>
     <label>Approver 3 Role</label>
     <required>false</required>

@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Apttus_DocuApi__AccessTokenTimeStamp__c</fullName>
     <deprecated>false</deprecated>
-    <externalId>false</externalId>
     <inlineHelpText>Time stamp of last refreshed access token, Do not update system use only.</inlineHelpText>
     <label>Access Token Time Stamp</label>
     <required>false</required>

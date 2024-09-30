@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Integration_Status_Description__c</fullName>
     <description>Stores the Integration Message returned by camunda . In case of Error in Camunda/SAP this would store the concatenation of Error Code and Error description sent out by camunda</description>
-    <externalId>false</externalId>
     <label>Integration Status Description</label>
     <length>1200</length>
     <securityClassification>INTERNAL</securityClassification>

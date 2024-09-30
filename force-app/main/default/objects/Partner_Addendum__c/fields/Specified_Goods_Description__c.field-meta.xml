@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Specified_Goods_Description__c</fullName>
-    <externalId>false</externalId>
     <inlineHelpText>Itemised list of goods to be supplied and installed</inlineHelpText>
     <label>Specified Goods Description</label>
     <length>1000</length>

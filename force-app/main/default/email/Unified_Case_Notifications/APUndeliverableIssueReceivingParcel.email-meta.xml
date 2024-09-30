@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Undeliverable issue receiving parcel</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>AP Undeliverable – Issue Receiving Parcel</name>
+    <style>none</style>
+    <subject>We have an update on your delivery for case {!Case.CaseNumber}</subject>
+    <textOnly>Australia Post
+
+Case {!Case.CaseNumber}
+
+Hi {!IF(ISBLANK(Contact.Preferred_Name__c),Contact.FirstName,Contact.Preferred_Name__c)},
+
+Your delivery was unable to be completed, please contact the sender for a 												resolution
+
+Thank you for your patience while we’ve been monitoring your delivery. We 											now have a tracking update and can recommend some next steps.
+
+It appears that there has been an issue and we haven’t received your 											delivery as expected. It’s possible that the sender has since sent this 											under a new tracking number, or had a delay in dispatch, so the sender is 											your best source to approach for recourse. Please reach out to your sender 											for advice on next steps regarding your delivery, as we trust they will be 											best placed to offer a resolution in line with their terms and conditions. 											If the sender is unable to assist you or you can’t reach them, please let us 											know.
+
+Australia Post
+
+This email was sent by Australia Post. Australia Post does not represent, warrant or 								guarantee that the integrity of this email communication has been maintained nor that 								the communication is free of errors, viruses or interference.
+
+Help &amp; support |  Terms &amp; conditions |  Privacy policy</textOnly>
+    <type>custom</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

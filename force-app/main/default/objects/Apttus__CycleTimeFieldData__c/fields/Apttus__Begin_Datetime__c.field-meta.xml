@@ -3,7 +3,6 @@
     <fullName>Apttus__Begin_Datetime__c</fullName>
     <deprecated>false</deprecated>
     <description>The datetime when the field acquired the before value</description>
-    <externalId>false</externalId>
     <label>Begin Datetime</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>

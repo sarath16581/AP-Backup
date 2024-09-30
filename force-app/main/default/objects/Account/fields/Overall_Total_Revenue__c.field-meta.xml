@@ -3,7 +3,6 @@
     <fullName>Overall_Total_Revenue__c</fullName>
     <defaultValue>0</defaultValue>
     <description>Total Revenue value for the topmost node in the hierarchy</description>
-    <externalId>false</externalId>
     <inlineHelpText>Total Revenue value for the topmost node in the hierarchy. Note only top node Organisation will have value is this field.</inlineHelpText>
     <label>Top Node Revenue</label>
     <precision>18</precision>

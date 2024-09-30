@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>TotalIncrementalInYearRevenue__c</fullName>
     <description>The sum of all incremental revenues from line items.</description>
-    <externalId>false</externalId>
     <inlineHelpText>The sum of all incremental revenues from line items.</inlineHelpText>
     <label>Total Incremental In Year Revenue</label>
     <securityClassification>INTERNAL</securityClassification>

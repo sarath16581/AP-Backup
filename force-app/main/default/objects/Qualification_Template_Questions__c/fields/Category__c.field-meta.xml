@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Category__c</fullName>
     <description>Category includes the pre-defined list of Products and Services that the Customer may be interested in.</description>
-    <externalId>false</externalId>
     <inlineHelpText>List of Products &amp; Services + Discovery</inlineHelpText>
     <label>Category</label>
     <required>false</required>

@@ -3,7 +3,6 @@
     <fullName>et4ae5__Individual_Email_Result__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <deprecated>false</deprecated>
-    <externalId>false</externalId>
     <label>Individual Email Result</label>
     <referenceTo>et4ae5__IndividualEmailResult__c</referenceTo>
     <relationshipLabel>Individual Link Level Details</relationshipLabel>

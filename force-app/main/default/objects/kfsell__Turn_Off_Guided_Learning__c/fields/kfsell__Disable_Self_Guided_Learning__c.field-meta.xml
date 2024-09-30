@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Flag to disable self guided learning journey.</description>
-    <externalId>false</externalId>
     <label>Disable Self Guided Learning</label>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>

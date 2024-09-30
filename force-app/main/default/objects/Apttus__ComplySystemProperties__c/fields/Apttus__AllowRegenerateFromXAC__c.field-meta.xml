@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>This is a flag to control the UI button visibility on the XAC for regenerate</description>
-    <externalId>false</externalId>
     <inlineHelpText>This is a flag to control the UI button visibility on the XAC for regenerate</inlineHelpText>
     <label>Allow Regenerate From XAC</label>
     <trackTrending>false</trackTrending>

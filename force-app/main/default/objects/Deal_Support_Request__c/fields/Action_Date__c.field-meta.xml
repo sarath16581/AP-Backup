@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Action_Date__c</fullName>
     <description>Used by Contract Management Enquiry Case to determine the date is being actioned once information is provided</description>
-    <externalId>false</externalId>
     <inlineHelpText>Action date after the information is provided</inlineHelpText>
     <label>Action Date</label>
     <required>false</required>

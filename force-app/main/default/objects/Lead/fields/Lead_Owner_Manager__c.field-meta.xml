@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Lead_Owner_Manager__c</fullName>
     <description>The Manager of the Lead Owner, used for team list view.</description>
-    <externalId>false</externalId>
     <formula>Owner:User.ManagerId = $User.Id</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <label>Lead Owner Manager</label>

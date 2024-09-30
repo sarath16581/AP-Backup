@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Hide Line item &quot;Details&quot; section on the Product Attribute Detail page</description>
-    <externalId>false</externalId>
     <inlineHelpText>Hide Line item &quot;Details&quot; section on the Product Attribute Detail page if checked.</inlineHelpText>
     <label>Hide Line Item Attribute Details</label>
     <trackTrending>false</trackTrending>

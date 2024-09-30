@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>isYourSystemsMonitorCCTransactions__c</fullName>
     <description>Do your systems store, send or monitor and credit card transactions?</description>
-    <externalId>false</externalId>
     <inlineHelpText>Do your systems store, send or monitor credit card transactions?</inlineHelpText>
     <label>Your Systems Monitor CC Transactions?</label>
     <required>false</required>

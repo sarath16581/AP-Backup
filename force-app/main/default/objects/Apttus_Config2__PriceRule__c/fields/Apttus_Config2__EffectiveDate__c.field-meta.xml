@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__EffectiveDate__c</fullName>
     <deprecated>false</deprecated>
     <description>The rule or benefit effective date. The rule or benefit becomes effective on this date. It may also indicate the start date of a price ramp.</description>
-    <externalId>false</externalId>
     <inlineHelpText>The rule or benefit effective date. The rule or benefit becomes effective on this date. It may also indicate the start date of a price ramp.</inlineHelpText>
     <label>Effective Date</label>
     <required>false</required>

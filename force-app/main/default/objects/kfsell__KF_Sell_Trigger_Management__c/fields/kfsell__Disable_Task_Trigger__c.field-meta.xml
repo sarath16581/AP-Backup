@@ -3,7 +3,6 @@
     <fullName>kfsell__Disable_Task_Trigger__c</fullName>
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
-    <externalId>false</externalId>
     <label>Disable Task Trigger</label>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>

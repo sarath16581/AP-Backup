@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>APT_eParcel_Enabled__c</fullName>
-    <externalId>false</externalId>
     <inlineHelpText>This will be actioned if the customer has already signed for rates in the relevant lodgement zone. Otherwise, you will be notified that the Deal Support Request has been transferred so that a DoV can be performed.</inlineHelpText>
     <label>Add Contract Rates?</label>
     <required>false</required>

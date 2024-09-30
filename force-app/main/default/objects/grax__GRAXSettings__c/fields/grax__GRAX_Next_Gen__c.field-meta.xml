@@ -3,7 +3,6 @@
     <fullName>grax__GRAX_Next_Gen__c</fullName>
     <defaultValue>true</defaultValue>
     <deprecated>false</deprecated>
-    <externalId>false</externalId>
     <label>Enable GRAX Next Generation</label>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>

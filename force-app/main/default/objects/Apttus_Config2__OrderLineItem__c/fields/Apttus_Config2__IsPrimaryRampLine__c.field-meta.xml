@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Indicates whether the line is the primary line for the price ramp. Only applicable when price ramp is in effect for the product or option</description>
-    <externalId>false</externalId>
     <inlineHelpText>Indicates whether the line is the primary line for the price ramp. Only applicable when price ramp is in effect for the product or option</inlineHelpText>
     <label>Is Primary Ramp Line</label>
     <securityClassification>INTERNAL</securityClassification>

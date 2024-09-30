@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__SplitPolicyId__c</fullName>
     <deprecated>false</deprecated>
     <description>ID of the associated revenue split policy</description>
-    <externalId>false</externalId>
     <inlineHelpText>ID of the associated revenue split policy</inlineHelpText>
     <label>Split Policy</label>
     <referenceTo>Apttus_Config2__RevenueSplitPolicy__c</referenceTo>

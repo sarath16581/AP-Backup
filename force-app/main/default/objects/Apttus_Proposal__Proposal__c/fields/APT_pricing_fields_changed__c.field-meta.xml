@@ -3,7 +3,6 @@
     <fullName>APT_pricing_fields_changed__c</fullName>
     <defaultValue>false</defaultValue>
     <description>This flag is set to true if Pricing fields on proposal are changed.</description>
-    <externalId>false</externalId>
     <label>Pricing fields on Proposal Changed?</label>
     <securityClassification>OFFICIAL_SENSITIVE</securityClassification>
     <trackHistory>false</trackHistory>

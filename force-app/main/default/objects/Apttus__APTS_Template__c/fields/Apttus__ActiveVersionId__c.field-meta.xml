@@ -4,7 +4,6 @@
     <deleteConstraint>SetNull</deleteConstraint>
     <deprecated>false</deprecated>
     <description>Lookup to active version of the template</description>
-    <externalId>false</externalId>
     <inlineHelpText>Lookup to active version of the template</inlineHelpText>
     <label>Active Version</label>
     <referenceTo>Apttus__TemplateVersion__c</referenceTo>

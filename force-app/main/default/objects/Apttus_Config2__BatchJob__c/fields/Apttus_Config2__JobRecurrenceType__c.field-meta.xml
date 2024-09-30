@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__JobRecurrenceType__c</fullName>
     <deprecated>false</deprecated>
     <description>The job recurrence type. Indicates whether the job needs to execute one time or on a recurring basis.</description>
-    <externalId>false</externalId>
     <inlineHelpText>The job recurrence type. Indicates whether the job needs to execute one time or on a recurring basis.</inlineHelpText>
     <label>Job Recurrence Type</label>
     <required>false</required>

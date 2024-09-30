@@ -3,7 +3,6 @@
     <fullName>Created_Date__c</fullName>
     <defaultValue>NOW()</defaultValue>
     <description>This field will store the current date/time in which the task was created.</description>
-    <externalId>false</externalId>
     <label>Created Date</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>

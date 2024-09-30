@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__AvailableBalance__c</fullName>
     <deprecated>false</deprecated>
     <description>The balance currently available for consumption post additions and deductions</description>
-    <externalId>false</externalId>
     <inlineHelpText>The balance currently available for consumption post additions and deductions</inlineHelpText>
     <label>Available Balance</label>
     <precision>18</precision>

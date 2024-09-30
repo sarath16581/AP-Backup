@@ -4,7 +4,6 @@
     <deleteConstraint>SetNull</deleteConstraint>
     <deprecated>false</deprecated>
     <description>ID of the associated renewal line item</description>
-    <externalId>false</externalId>
     <inlineHelpText>ID of the associated renewal line item</inlineHelpText>
     <label>Renewal Line Item</label>
     <referenceTo>Apttus_Config2__LineItem__c</referenceTo>

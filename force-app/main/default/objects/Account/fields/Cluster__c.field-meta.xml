@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Cluster__c</fullName>
     <description>Cluster is a part of marketing segmentation used to identify the estimated number of employees (MW0003303). This field was previously used by Marketing Segmentation for targeted campaign messaging and potential offers.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Estimated number of employees</inlineHelpText>
     <label>Cluster</label>
     <required>false</required>

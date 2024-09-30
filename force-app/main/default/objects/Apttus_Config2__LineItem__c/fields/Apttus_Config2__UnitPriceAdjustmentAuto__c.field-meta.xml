@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__UnitPriceAdjustmentAuto__c</fullName>
     <deprecated>false</deprecated>
     <description>The automatic unit adjustment for the product or service applied to the base price</description>
-    <externalId>false</externalId>
     <inlineHelpText>The automatic unit adjustment for the product or service applied to the base price</inlineHelpText>
     <label>Unit Price Adjustment (Auto)</label>
     <precision>18</precision>

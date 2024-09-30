@@ -3,7 +3,6 @@
     <fullName>Offers_Business_Banking__c</fullName>
     <defaultValue>false</defaultValue>
     <description>Does this site offer Business Banking services?</description>
-    <externalId>false</externalId>
     <inlineHelpText>Does this site offer Business Banking services?</inlineHelpText>
     <label>Offers Business Banking</label>
     <securityClassification>INTERNAL</securityClassification>

@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__EndDatePreferencesForCotermination__c</fullName>
     <deprecated>false</deprecated>
     <description>End Date preferences for Cotermination.</description>
-    <externalId>false</externalId>
     <inlineHelpText>End Date preferences for Cotermination.</inlineHelpText>
     <label>End Date preferences for Cotermination</label>
     <required>false</required>

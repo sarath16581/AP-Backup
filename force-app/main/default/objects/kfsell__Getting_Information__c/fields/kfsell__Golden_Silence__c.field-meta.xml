@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>To remind me to stay silent/listen when asking this question.</description>
-    <externalId>false</externalId>
     <label>Golden Silence</label>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>

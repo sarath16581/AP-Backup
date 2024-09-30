@@ -3,7 +3,6 @@
     <fullName>ExcludeFromNPS__c</fullName>
     <defaultValue>false</defaultValue>
     <description>Used to exclude cases from NPS sent</description>
-    <externalId>false</externalId>
     <label>Exclude From NPS</label>
     <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>

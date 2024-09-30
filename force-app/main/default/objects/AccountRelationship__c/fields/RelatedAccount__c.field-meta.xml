@@ -5,7 +5,6 @@
     <complianceGroup>GDPR</complianceGroup>
     <deleteConstraint>SetNull</deleteConstraint>
     <description>The account which is related to the Parent Account.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Choose the Account which is related to the Parent Account.</inlineHelpText>
     <label>Related Account</label>
     <referenceTo>Account</referenceTo>

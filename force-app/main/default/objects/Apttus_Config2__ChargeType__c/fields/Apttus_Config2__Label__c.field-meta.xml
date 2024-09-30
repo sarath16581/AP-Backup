@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__Label__c</fullName>
     <deprecated>false</deprecated>
     <description>The charge type label</description>
-    <externalId>false</externalId>
     <inlineHelpText>The charge type label</inlineHelpText>
     <label>Label</label>
     <required>false</required>

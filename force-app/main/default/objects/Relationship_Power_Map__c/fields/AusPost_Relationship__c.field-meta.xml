@@ -4,7 +4,6 @@
     <description>Phase 1 - Opportunity Assessment (PWC)
 
 Identify if we have dealt with them in the past and, if so, they are a supporter</description>
-    <externalId>false</externalId>
     <inlineHelpText>Are they a supporter of Australia Post?</inlineHelpText>
     <label>AusPost Relationship</label>
     <required>false</required>

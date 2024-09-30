@@ -4,7 +4,6 @@
     <businessStatus>Active</businessStatus>
     <defaultValue>&apos;Sales Insights Integration User,SalesforceIQ Integration User,B2BMA Integration User&apos;</defaultValue>
     <description>Enter comma separated Profile Names to be excluded from UserDeactivationBatchable</description>
-    <externalId>false</externalId>
     <inlineHelpText>Enter comma separated Profile Names to be excluded from UserDeactivationBatchable</inlineHelpText>
     <label>Excluded Profile Names</label>
     <required>false</required>

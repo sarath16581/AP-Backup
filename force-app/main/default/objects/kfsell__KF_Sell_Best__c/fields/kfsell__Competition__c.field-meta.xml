@@ -3,7 +3,6 @@
     <fullName>kfsell__Competition__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <deprecated>false</deprecated>
-    <externalId>false</externalId>
     <label>Competition</label>
     <referenceTo>kfsell__Competition__c</referenceTo>
     <relationshipLabel>KF Sell Best Actions</relationshipLabel>

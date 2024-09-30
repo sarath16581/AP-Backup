@@ -3,7 +3,6 @@
     <fullName>DisableUOWExclusiveAsyncEvents__c</fullName>
     <defaultValue>false</defaultValue>
     <description>Stops the listener of the AsyncWorkerEvent__e which stops all async processing through the framework. This is a kill switch in the event of a catastrophic failure (infinite looping scenarios)</description>
-    <externalId>false</externalId>
     <inlineHelpText>Stops the listener of the AsyncWorkerEvent__e which stops all async processing through the framework. This is a kill switch in the event of a catastrophic failure (infinite looping scenarios)</inlineHelpText>
     <label>Async Framework Disable Platform Event</label>
     <trackTrending>false</trackTrending>

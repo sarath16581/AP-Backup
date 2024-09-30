@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__Message__c</fullName>
     <deprecated>false</deprecated>
     <description>The message that will be displayed to user in case of error or warning</description>
-    <externalId>false</externalId>
     <inlineHelpText>The message that will be displayed to user in case of error or warning</inlineHelpText>
     <label>Message</label>
     <length>1024</length>

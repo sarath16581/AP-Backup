@@ -3,7 +3,6 @@
     <fullName>Billing_Account__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <description>Billing Account for which the credit claim has been requested</description>
-    <externalId>false</externalId>
     <label>Billing Account</label>
     <referenceTo>Billing_Account__c</referenceTo>
     <relationshipLabel>Credit Approvals</relationshipLabel>

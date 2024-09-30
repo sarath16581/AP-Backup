@@ -4,7 +4,6 @@
     <defaultValue>true</defaultValue>
     <deprecated>false</deprecated>
     <description>Indicates whether the option quantity is modifiable during selection.</description>
-    <externalId>false</externalId>
     <label>Is Quantity Modifiable</label>
     <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>

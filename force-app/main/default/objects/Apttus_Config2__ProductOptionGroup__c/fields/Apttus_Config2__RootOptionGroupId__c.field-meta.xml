@@ -4,7 +4,6 @@
     <deleteConstraint>SetNull</deleteConstraint>
     <deprecated>false</deprecated>
     <description>ID of the primordial option group</description>
-    <externalId>false</externalId>
     <label>Root Option Group</label>
     <referenceTo>Apttus_Config2__ClassificationHierarchy__c</referenceTo>
     <relationshipLabel>Descendant Option Groups</relationshipLabel>

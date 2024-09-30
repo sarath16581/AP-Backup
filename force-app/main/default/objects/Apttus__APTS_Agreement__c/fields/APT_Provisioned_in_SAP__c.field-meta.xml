@@ -3,7 +3,6 @@
     <fullName>APT_Provisioned_in_SAP__c</fullName>
     <defaultValue>false</defaultValue>
     <description>Used for Provisioning in SAP</description>
-    <externalId>false</externalId>
     <inlineHelpText>Check this checkbox to indicate contract was provisioned in SAP</inlineHelpText>
     <label>Provisioned In SAP</label>
     <securityClassification>INTERNAL</securityClassification>

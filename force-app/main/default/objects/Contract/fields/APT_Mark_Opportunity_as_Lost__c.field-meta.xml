@@ -3,7 +3,6 @@
     <fullName>APT_Mark_Opportunity_as_Lost__c</fullName>
     <defaultValue>false</defaultValue>
     <description>Used in Process Flow to update Opportunity</description>
-    <externalId>false</externalId>
     <inlineHelpText>Check this checkbox if Opportunity is Lost and system should update Opportunity Stage</inlineHelpText>
     <label>Mark Opportunity As Lost</label>
     <securityClassification>INTERNAL</securityClassification>

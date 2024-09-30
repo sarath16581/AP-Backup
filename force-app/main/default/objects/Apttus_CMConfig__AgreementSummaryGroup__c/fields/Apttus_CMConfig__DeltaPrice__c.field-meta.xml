@@ -3,7 +3,6 @@
     <fullName>Apttus_CMConfig__DeltaPrice__c</fullName>
     <deprecated>false</deprecated>
     <description>The rolled up delta price of products that belong to the group</description>
-    <externalId>false</externalId>
     <inlineHelpText>The rolled up delta price of products that belong to the group</inlineHelpText>
     <label>Delta Price</label>
     <precision>18</precision>

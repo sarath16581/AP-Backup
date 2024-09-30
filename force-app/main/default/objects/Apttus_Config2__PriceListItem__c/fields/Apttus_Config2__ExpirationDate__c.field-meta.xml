@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__ExpirationDate__c</fullName>
     <deprecated>false</deprecated>
     <description>The price expiration date. The price becomes ineffective after this date and time.</description>
-    <externalId>false</externalId>
     <label>Expiration Date</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>

@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Approved_Event__c</fullName>
     <description>Pricing response to Sales to indicate whether the standard out of delegation offer is satisfactory or a custom rate card response is required.</description>
-    <externalId>false</externalId>
     <label>Approved Event</label>
     <required>false</required>
     <trackFeedHistory>false</trackFeedHistory>

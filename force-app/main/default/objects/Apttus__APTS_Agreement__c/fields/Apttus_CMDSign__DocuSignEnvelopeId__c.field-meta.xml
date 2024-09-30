@@ -4,7 +4,6 @@
     <deleteConstraint>SetNull</deleteConstraint>
     <deprecated>false</deprecated>
     <description>The Apttus - DocuSign envelope Id to which this agreement is associated to.</description>
-    <externalId>false</externalId>
     <inlineHelpText>The Apttus - DocuSign envelope Id to which this agreement is associated to.</inlineHelpText>
     <label>DocuSign Envelope Id</label>
     <referenceTo>Apttus_DocuApi__DocuSignEnvelope__c</referenceTo>

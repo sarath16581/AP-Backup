@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Chat_Bot_Transcript__c</fullName>
     <description>This is a Chat Bot Transcript field</description>
-    <externalId>false</externalId>
     <label>Chat Bot Transcript</label>
     <length>131072</length>
     <trackHistory>false</trackHistory>

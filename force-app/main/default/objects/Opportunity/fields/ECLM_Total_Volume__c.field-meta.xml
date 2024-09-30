@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>ECLM_Total_Volume__c</fullName>
     <description>ECLM field</description>
-    <externalId>false</externalId>
     <label>Total Volume</label>
     <securityClassification>INTERNAL</securityClassification>
     <summarizedField>OpportunityLineItem.Quantity</summarizedField>

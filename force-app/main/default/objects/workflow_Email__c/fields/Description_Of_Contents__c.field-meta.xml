@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Description_Of_Contents__c</fullName>
     <description>StarTrack: Capture &quot;Description Of Contents&quot; to send email.</description>
-    <externalId>false</externalId>
     <label>Description Of Contents</label>
     <length>32768</length>
     <securityClassification>INTERNAL</securityClassification>

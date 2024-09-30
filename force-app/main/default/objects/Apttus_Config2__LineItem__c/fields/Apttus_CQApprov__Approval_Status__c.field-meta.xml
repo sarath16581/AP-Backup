@@ -3,7 +3,6 @@
     <fullName>Apttus_CQApprov__Approval_Status__c</fullName>
     <deprecated>false</deprecated>
     <description>The approval status of the cart line item</description>
-    <externalId>false</externalId>
     <inlineHelpText>The approval status of the cart line item</inlineHelpText>
     <label>Approval Status</label>
     <required>false</required>

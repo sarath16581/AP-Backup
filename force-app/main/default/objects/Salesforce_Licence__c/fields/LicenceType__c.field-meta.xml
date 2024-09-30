@@ -4,7 +4,6 @@
     <description>To show the differences between the licences
 Standard is a full Salesforce licence
 Restricted is a licence with limitation on how much stuff a user can do</description>
-    <externalId>false</externalId>
     <label>LicenceType</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>

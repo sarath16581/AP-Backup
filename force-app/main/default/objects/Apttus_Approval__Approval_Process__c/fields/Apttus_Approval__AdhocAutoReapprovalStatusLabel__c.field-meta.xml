@@ -3,7 +3,6 @@
     <fullName>Apttus_Approval__AdhocAutoReapprovalStatusLabel__c</fullName>
     <deprecated>false</deprecated>
     <description>This is the value the approval status gets set to when a request is auto-reapproved by the system.</description>
-    <externalId>false</externalId>
     <inlineHelpText>This is the value the approval status gets set to when a request is auto-reapproved by the system.</inlineHelpText>
     <label>Adhoc Auto Reapproval Status Label</label>
     <required>false</required>

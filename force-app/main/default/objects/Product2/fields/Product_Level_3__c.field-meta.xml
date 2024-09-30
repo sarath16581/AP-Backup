@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Product_Level_3__c</fullName>
     <description>Level 3 of Product Category Mapping.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Level 3 of Product Category Mapping.</inlineHelpText>
     <label>Product Level 3</label>
     <required>false</required>

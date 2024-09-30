@@ -3,7 +3,6 @@
     <fullName>APT_Proposal_Status_Accepted_Denied__c</fullName>
     <defaultValue>true</defaultValue>
     <description>This field is to Navigate the user to a existing proposal or its creates a new Proposal depending upon the Status of Proposal</description>
-    <externalId>false</externalId>
     <inlineHelpText>This field is to Navigate the user to a existing proposal or its creates a new Proposal depending upon the Status of Proposal</inlineHelpText>
     <label>Proposal Status Accepted/Denied</label>
     <securityClassification>INTERNAL</securityClassification>

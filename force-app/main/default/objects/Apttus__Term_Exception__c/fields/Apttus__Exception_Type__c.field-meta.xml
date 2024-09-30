@@ -3,7 +3,6 @@
     <fullName>Apttus__Exception_Type__c</fullName>
     <deprecated>false</deprecated>
     <description>Logical grouping of term exceptions.</description>
-    <externalId>false</externalId>
     <label>Exception Type</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>

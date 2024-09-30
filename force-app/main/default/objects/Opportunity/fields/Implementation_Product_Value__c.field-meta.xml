@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Implementation_Product_Value__c</fullName>
     <description>The value of all of the products currently eleigible for an integration project. Currently this is only eParcels (Update this as this changes!)</description>
-    <externalId>false</externalId>
     <label>Implementation Product Value</label>
     <securityClassification>INTERNAL</securityClassification>
     <summarizedField>OpportunityLineItem.Implementation_value__c</summarizedField>

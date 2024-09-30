@@ -4,7 +4,6 @@
     <deleteConstraint>SetNull</deleteConstraint>
     <deprecated>false</deprecated>
     <description>Final document version of the review.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Final document version of the review.</inlineHelpText>
     <label>Final Document Version Detail</label>
     <referenceTo>Apttus__DocumentVersionDetail__c</referenceTo>

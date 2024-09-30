@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <FieldSet xmlns="http://soap.sforce.com/2006/04/metadata">
-	<fullName>PODSafeDropDelivered</fullName>
-	<description>This is used to render the delivered fields in the delivery proof PDF used by both MyCustomer and BSP</description>
-	<displayedFields>
-		<field>ActualDateTime__c</field>
-		<isFieldManaged>false</isFieldManaged>
-		<isRequired>false</isRequired>
-	</displayedFields>
-	<displayedFields>
-		<field>Article__r.SubProduct__c</field>
-		<isFieldManaged>false</isFieldManaged>
-		<isRequired>false</isRequired>
-	</displayedFields>
-	<displayedFields>
-		<field>Article__r.DeliveryInstructions__c</field>
-		<isFieldManaged>false</isFieldManaged>
-		<isRequired>false</isRequired>
-	</displayedFields>
-	<label>PODSafeDropDelivered</label>
+    <fullName>PODSafeDropDelivered</fullName>
+    <description>This is used to render the delivered fields in the delivery proof PDF used by both MyCustomer and BSP</description>
+    <displayedFields>
+        <field>ActualDateTime__c</field>
+        <isFieldManaged>false</isFieldManaged>
+        <isRequired>false</isRequired>
+    </displayedFields>
+    <displayedFields>
+        <field>Article__r.SubProduct__c</field>
+        <isFieldManaged>false</isFieldManaged>
+        <isRequired>false</isRequired>
+    </displayedFields>
+    <displayedFields>
+        <field>Article__r.DeliveryInstructions__c</field>
+        <isFieldManaged>false</isFieldManaged>
+        <isRequired>false</isRequired>
+    </displayedFields>
+    <label>PODSafeDropDelivered</label>
 </FieldSet>

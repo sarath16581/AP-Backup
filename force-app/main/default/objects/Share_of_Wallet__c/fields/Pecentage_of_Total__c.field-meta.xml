@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Pecentage_of_Total__c</fullName>
     <description>Percentage of their total spend does the Customer spend with this competitor?</description>
-    <externalId>false</externalId>
     <formula>AP_Spend_FY__c /Total_estimated_spend_on_this_Service__c</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <inlineHelpText>Percentage of their total spend does the Customer spend with this competitor?</inlineHelpText>

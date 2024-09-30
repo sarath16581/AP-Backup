@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__ActualDate__c</fullName>
     <deprecated>false</deprecated>
     <description>The milestone completed date</description>
-    <externalId>false</externalId>
     <inlineHelpText>The milestone completed date</inlineHelpText>
     <label>Actual Date</label>
     <required>false</required>

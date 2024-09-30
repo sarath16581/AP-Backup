@@ -7,6 +7,8 @@
  * @changelog
  * 2024-07-28 - Seth Heang - Created
  * 2024-09-24 - Ranjeewa Silva - Updated tests to assert sending customer notification email.
+ * 2024-09-24 - Parveen Kaushik - Fixed the test case to not exclude Case Creaor for the purpose of determining individual agent assignment
+ * 
  */
 @IsTest(IsParallel=true)
 public with sharing class CaseMonitoring3DayReminderEmailActTest {
@@ -203,8 +205,8 @@ public with sharing class CaseMonitoring3DayReminderEmailActTest {
 
 	/**
 	 * Scenario: Test getCaseIdHasNoIndividualAgentAssignmentsMap()
-	 *			And Validate that correct Case status map is returned with one status being true and other false
-	 *			Where one case has individual agent and the other does not
+	 *          And Validate that correct Case status map is returned with one status being true and other false
+	 *          Where one case has individual agent and the other does not
 	 */
 	@IsTest
 	static void testBuildCaseIdHasNoIndividualAgentAssignmentsMap() {
@@ -223,28 +225,27 @@ public with sharing class CaseMonitoring3DayReminderEmailActTest {
 
 		List<AgentWork> agentWorks = new List<AgentWork>{
 			OmniChannelTestDataFactory.getAgentWorks(1, testUsers[0].Id, new Set<Id>{ testCases[0].Id }, true)[0],
-			OmniChannelTestDataFactory.getAgentWorks(1, testUsers[0].Id, new Set<Id>{ testCases[0].Id }, true)[0],
 			OmniChannelTestDataFactory.getAgentWorks(1, testUsers[0].Id, new Set<Id>{ testCases[1].Id }, true)[0],
 			OmniChannelTestDataFactory.getAgentWorks(1, testUsers[0].Id, new Set<Id>{ testCases[1].Id }, true)[0]
 		};
 
 		agentWorks[0].Case__c = testCases[0].Id;
-		agentWorks[1].Case__c = testCases[0].Id;
+		agentWorks[1].Case__c = testCases[1].Id;
 		agentWorks[2].Case__c = testCases[1].Id;
-		agentWorks[3].Case__c = testCases[1].Id;
 
 		agentWorks[0] = (AgentWork) ApplicationTestDataFactory.setUnwritableFields(agentWorks[0], new Map<String, Object>{ 'Case__r' => testCases[0] });
-		agentWorks[1] = (AgentWork) ApplicationTestDataFactory.setUnwritableFields(agentWorks[1], new Map<String, Object>{ 'Case__r' => testCases[0] });
+		agentWorks[1] = (AgentWork) ApplicationTestDataFactory.setUnwritableFields(agentWorks[1], new Map<String, Object>{ 'Case__r' => testCases[1] });
 		agentWorks[2] = (AgentWork) ApplicationTestDataFactory.setUnwritableFields(agentWorks[2], new Map<String, Object>{ 'Case__r' => testCases[1] });
-		agentWorks[3] = (AgentWork) ApplicationTestDataFactory.setUnwritableFields(agentWorks[3], new Map<String, Object>{ 'Case__r' => testCases[1] });
 
-		// Case 1 has Queue assignment and ownerId as case creator, therefore has no individual agent assignment excluding creator
+		// Case 1 has Queue assignment only. 
 		agentWorks[0].OwnerId = (Id) QM__c.getInstance().UnifiedDefaultMonitoringQueueId__c;
-		agentWorks[1].OwnerId = testUsers[0].Id;
+        
+        // Removed ownerId as case creator, it shall not exclude case creator for eligibility as individual agent assignment so it wasnt a valid test earlier
+		//agentWorks[1].OwnerId = testUsers[0].Id; 
 
 		// Case 2 has ownerId as user Id that is not case creator
-		agentWorks[2].OwnerId = testUsers[0].Id;
-		agentWorks[3].OwnerId = testUsers[1].Id; // different user Id from case creator
+		agentWorks[1].OwnerId = testUsers[0].Id;
+		agentWorks[2].OwnerId = testUsers[1].Id; // different user Id from case creator
 
 		Set<Id> caseIds = new Map<Id, Case>(testCases).keySet();
 		// =====================================

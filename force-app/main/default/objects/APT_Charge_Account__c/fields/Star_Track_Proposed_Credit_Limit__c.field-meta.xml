@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Star_Track_Proposed_Credit_Limit__c</fullName>
-    <externalId>false</externalId>
     <inlineHelpText>Enter this Value by
 1) Take existing StarTrack Credit limit from Organisation Record PLUS
 2) Total Annual Opportunity Value Divided by four</inlineHelpText>

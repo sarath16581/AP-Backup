@@ -4,7 +4,6 @@
     <businessStatus>Active</businessStatus>
     <defaultValue>false</defaultValue>
     <description>To display the Start Time to the drivers hand held and within the dispatch portal.</description>
-    <externalId>false</externalId>
     <inlineHelpText>By checking the box the Start Time will be displayed within the dispatch portal and to the driver on their hand held scanner.</inlineHelpText>
     <label>Display ETA to Driver</label>
     <trackTrending>false</trackTrending>

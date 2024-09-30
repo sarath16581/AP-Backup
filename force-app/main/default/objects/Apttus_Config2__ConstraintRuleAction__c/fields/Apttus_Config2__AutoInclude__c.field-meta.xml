@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Whether to automatically include the product matched by the include type rule action criteria.</description>
-    <externalId>false</externalId>
     <label>Auto Include (Deprecated)</label>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>

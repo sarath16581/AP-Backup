@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>CCSameDayProcessingPercentage__c</fullName>
     <description>Credit card purchases for product or service received &amp; processed same day as purchase - Percentage</description>
-    <externalId>false</externalId>
     <inlineHelpText>Payment received and processed the same day as purchase made</inlineHelpText>
     <label>CC Same Day Processing - Percentage</label>
     <precision>3</precision>

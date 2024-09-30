@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Disqualified_Lead_Reason__c</fullName>
     <description>BAU - This field is a Dependent filed of the Lead status field, this field captures reasons why a lead has been disqualified.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Please provide a lead disqualification reason, values provided not suitable please select &quot;Other&quot;.</inlineHelpText>
     <label>Lead Status Reason</label>
     <required>false</required>

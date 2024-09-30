@@ -4,7 +4,6 @@
     <defaultValue>true</defaultValue>
     <deprecated>false</deprecated>
     <description>When checked this means this backup/delegate is active but not necessarily in effect.  A backup/delegate can be active, in effect, or both.  In order for requests to be actively assigned to the backup/delegate they must be active and in effect.</description>
-    <externalId>false</externalId>
     <label>Is Active</label>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>

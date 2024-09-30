@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__SuggestedProductIds__c</fullName>
     <deprecated>false</deprecated>
     <description>Product suggested by rule action definition to be included in the cart</description>
-    <externalId>false</externalId>
     <label>Suggested Product Ids</label>
     <length>20900</length>
     <securityClassification>INTERNAL</securityClassification>

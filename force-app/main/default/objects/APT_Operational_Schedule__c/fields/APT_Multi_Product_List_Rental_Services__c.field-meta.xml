@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>APT_Multi_Product_List_Rental_Services__c</fullName>
     <defaultValue>false</defaultValue>
-    <externalId>false</externalId>
     <label>Multi Product List Rental Services</label>
     <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>

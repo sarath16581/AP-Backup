@@ -3,7 +3,6 @@
     <fullName>Cancel_Cash_Bulk_Mail__c</fullName>
     <defaultValue>false</defaultValue>
     <description>Flag indicating whether LPO cancels bulk mail.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Flag indicating whether LPO cancels bulk mail.</inlineHelpText>
     <label>Cancel Cash Bulk Mail</label>
     <securityClassification>INTERNAL</securityClassification>

@@ -3,7 +3,6 @@
     <fullName>APT_Post_Code_Suburb__c</fullName>
     <deleteConstraint>Restrict</deleteConstraint>
     <description>lookup to postcode mapping table for star track</description>
-    <externalId>false</externalId>
     <inlineHelpText>Leave it blank if this product line is for your primary pickup location. Only complete this postcode selection for additional product line in shopping cart (i.e additional depot required)</inlineHelpText>
     <label>Postcode - Suburb</label>
     <referenceTo>APT_Post_Code_Mapping__c</referenceTo>

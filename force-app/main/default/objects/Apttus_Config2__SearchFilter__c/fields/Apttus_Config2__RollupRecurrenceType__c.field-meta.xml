@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__RollupRecurrenceType__c</fullName>
     <deprecated>false</deprecated>
     <description>The rollup recurrence type</description>
-    <externalId>false</externalId>
     <inlineHelpText>The rollup recurrence type</inlineHelpText>
     <label>Rollup Recurrence Type</label>
     <required>false</required>

@@ -3,7 +3,6 @@
     <fullName>ECLM_CustomLodgeCollectSort__c</fullName>
     <defaultValue>false</defaultValue>
     <description>ECLM field</description>
-    <externalId>false</externalId>
     <label>Custom Lodgement, Collection or Sorting</label>
     <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>

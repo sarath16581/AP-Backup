@@ -6,6 +6,23 @@
     <name>ST Delivered</name>
     <style>none</style>
     <subject>We&apos;ve completed your delivery for case {!Case.CaseNumber}</subject>
+    <textOnly>Star Track
+
+Case {!Case.CaseNumber}
+
+Hi {!IF(ISBLANK(Contact.Preferred_Name__c),Contact.FirstName,Contact.Preferred_Name__c)},
+
+Your delivery has been completed
+
+Thank you for your patience while we’ve been monitoring your delivery. We 											are delighted to see that it has now been located and delivered.
+
+The vast majority of StarTrack deliveries are completed on time. We&apos;re sorry 											that on this occasion your delivery was later than expected.
+
+StarTrack
+
+This email was sent by Startrack. Startrack does not represent, warrant or guarantee that 								the integrity of this email communication has been maintained nor that the communication 								is free of errors, viruses or interference.
+
+Help &amp; support |  Terms &amp; conditions |  Privacy policy</textOnly>
     <type>custom</type>
     <uiType>Aloha</uiType>
 </EmailTemplate>

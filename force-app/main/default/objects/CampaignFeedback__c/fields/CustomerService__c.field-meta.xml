@@ -3,7 +3,6 @@
     <fullName>CustomerService__c</fullName>
     <defaultValue>false</defaultValue>
     <description>Customer Service.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Customer Service</inlineHelpText>
     <label>Customer Service</label>
     <securityClassification>INTERNAL</securityClassification>

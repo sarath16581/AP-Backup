@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__StartDate__c</fullName>
     <deprecated>false</deprecated>
     <description>The default start date for a line item</description>
-    <externalId>false</externalId>
     <label>Start Date</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>

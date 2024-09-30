@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Status_Category__c</fullName>
     <description>The higher level state of the agreement – In Authoring, In Effect, Expired, etc.  These are Apttus reserved values and cannot be changed.</description>
-    <externalId>false</externalId>
     <label>Contract Steps</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>

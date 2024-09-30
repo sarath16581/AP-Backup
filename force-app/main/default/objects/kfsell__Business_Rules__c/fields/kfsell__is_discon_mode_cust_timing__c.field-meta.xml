@@ -3,7 +3,6 @@
     <fullName>kfsell__is_discon_mode_cust_timing__c</fullName>
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
-    <externalId>false</externalId>
     <label>is discon mode cust timing</label>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>

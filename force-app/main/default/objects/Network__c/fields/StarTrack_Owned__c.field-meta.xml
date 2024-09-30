@@ -3,7 +3,6 @@
     <fullName>StarTrack_Owned__c</fullName>
     <defaultValue>false</defaultValue>
     <description>StarTrack Owned</description>
-    <externalId>false</externalId>
     <label>StarTrack Owned</label>
     <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>

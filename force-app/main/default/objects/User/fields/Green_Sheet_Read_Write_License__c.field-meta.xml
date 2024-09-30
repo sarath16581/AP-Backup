@@ -3,7 +3,6 @@
     <fullName>Green_Sheet_Read_Write_License__c</fullName>
     <defaultValue>false</defaultValue>
     <description>SAM Green Sheet Read/Write licenses for large orgs.</description>
-    <externalId>false</externalId>
     <label>Green Sheet Read Write License</label>
     <trackFeedHistory>false</trackFeedHistory>
     <type>Checkbox</type>

@@ -4,7 +4,6 @@
     <defaultValue>true</defaultValue>
     <deprecated>false</deprecated>
     <description>Indicates whether manual price adjustments are allowed for the product option.</description>
-    <externalId>false</externalId>
     <label>Allow Manual Adjustment</label>
     <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>

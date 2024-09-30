@@ -3,7 +3,6 @@
     <fullName>APT_Recommended_Pricing_Action__c</fullName>
     <description>Guides the user to undertake next action: If “raise a DSR - Pricing”, user is
 		unable to proceed without pricing support</description>
-    <externalId>false</externalId>
     <inlineHelpText>Guides the user to undertake next action: If “raise a DSR - Pricing”, user is
 		unable to proceed without pricing support</inlineHelpText>
     <label>Recommended Pricing Action</label>

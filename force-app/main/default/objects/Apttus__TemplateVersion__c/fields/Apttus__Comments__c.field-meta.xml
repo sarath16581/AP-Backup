@@ -3,7 +3,6 @@
     <fullName>Apttus__Comments__c</fullName>
     <deprecated>false</deprecated>
     <description>User comments for this version</description>
-    <externalId>false</externalId>
     <inlineHelpText>User comments for this version</inlineHelpText>
     <label>Comments</label>
     <length>4000</length>

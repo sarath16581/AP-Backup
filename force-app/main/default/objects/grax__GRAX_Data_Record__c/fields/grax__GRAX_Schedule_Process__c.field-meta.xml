@@ -4,7 +4,6 @@
     <deleteConstraint>SetNull</deleteConstraint>
     <deprecated>false</deprecated>
     <description>GRAX_Schedule_Process</description>
-    <externalId>false</externalId>
     <label>GRAX Schedule Process</label>
     <referenceTo>grax__GRAX_Schedule_Process__c</referenceTo>
     <relationshipLabel>GRAX Data Records</relationshipLabel>

@@ -3,7 +3,6 @@
     <fullName>Workflow_Trigger_Created_From_Clone__c</fullName>
     <defaultValue>false</defaultValue>
     <description>Indicates a transient agreement that may get deleted by the user. A new agreement is in transient state until the agreement is explicitly saved by the user. A new agreement is created by new, clone, amend, renew, create offline or create from opportunity methods. Workflow rules should check this field to test for false before firing so that rules are not incorrectly fired when transient agreements are created .</description>
-    <externalId>false</externalId>
     <inlineHelpText>Indicates a transient contract that may get deleted by the user. A new contract is in transient state until the agreement is explicitly saved by the user.</inlineHelpText>
     <label>Is Transient</label>
     <securityClassification>INTERNAL</securityClassification>

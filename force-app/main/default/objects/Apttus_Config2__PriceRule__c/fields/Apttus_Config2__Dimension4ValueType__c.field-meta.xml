@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__Dimension4ValueType__c</fullName>
     <deprecated>false</deprecated>
     <description>The value type of the fourth dimension. Only applicable to Dimension rules.</description>
-    <externalId>false</externalId>
     <inlineHelpText>1.HIGHEST TIER RATE:  Same rate for all txns per highest tier  E.g. Tier table 1-100 - $5, 101-500 - $10. Qty purchased 450. Rebate = 450*$10 = $4,500
 2. RATE PER EACH TIER:  E.g. For 450 Qty with above Tier Table. Rebate = 100*$5 + 350*$10=$4,000</inlineHelpText>
     <label>Dimension 4 Value Type</label>

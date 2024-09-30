@@ -3,7 +3,6 @@
     <fullName>Apttus_DealMgr__NetPrice__c</fullName>
     <deprecated>false</deprecated>
     <description>The total net price for the group</description>
-    <externalId>false</externalId>
     <inlineHelpText>The total net price for the group</inlineHelpText>
     <label>Net Price</label>
     <precision>18</precision>

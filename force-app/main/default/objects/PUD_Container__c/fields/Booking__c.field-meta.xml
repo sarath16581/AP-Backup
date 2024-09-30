@@ -3,7 +3,6 @@
     <fullName>Booking__c</fullName>
     <businessStatus>Active</businessStatus>
     <description>Parent booking for child containers</description>
-    <externalId>false</externalId>
     <inlineHelpText>Parent booking for child containers</inlineHelpText>
     <label>Booking</label>
     <referenceTo>PUD_Booking__c</referenceTo>

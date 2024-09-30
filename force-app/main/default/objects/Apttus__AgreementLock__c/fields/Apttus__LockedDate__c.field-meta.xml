@@ -3,7 +3,6 @@
     <fullName>Apttus__LockedDate__c</fullName>
     <deprecated>false</deprecated>
     <description>Date the agreement was locked.</description>
-    <externalId>false</externalId>
     <label>Locked Date</label>
     <required>false</required>
     <trackTrending>false</trackTrending>

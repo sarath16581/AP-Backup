@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Q1_Claimed_Revenue__c</fullName>
-    <externalId>false</externalId>
     <formula>Jul_Claimed_Revenue__c + Aug_Claimed_Revenue__c + Sep_Claimed_Revenue__c</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <label>Q1 Scheduled</label>

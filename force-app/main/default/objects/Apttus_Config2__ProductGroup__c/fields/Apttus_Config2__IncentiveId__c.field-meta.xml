@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__IncentiveId__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <deprecated>false</deprecated>
-    <externalId>false</externalId>
     <label>ID of the associated incentive</label>
     <referenceTo>Apttus_Config2__Incentive__c</referenceTo>
     <relationshipLabel>Product Groups</relationshipLabel>

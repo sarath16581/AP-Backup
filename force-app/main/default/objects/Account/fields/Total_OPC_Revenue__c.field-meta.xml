@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Total_OPC_Revenue__c</fullName>
-    <externalId>false</externalId>
     <label>Opportunity Revenue</label>
     <securityClassification>OFFICIAL_SENSITIVE</securityClassification>
     <summarizedField>Opp_Product_Classification__c.Total_Actual_Revenue__c</summarizedField>

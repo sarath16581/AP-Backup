@@ -3,7 +3,6 @@
     <fullName>Apttus__End_Datetime__c</fullName>
     <deprecated>false</deprecated>
     <description>The datetime when the field acquired the after value</description>
-    <externalId>false</externalId>
     <label>End Datetime</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>

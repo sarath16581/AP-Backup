@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__ProductFamilyScopeOper__c</fullName>
     <deprecated>false</deprecated>
     <description>The product family scope operator</description>
-    <externalId>false</externalId>
     <inlineHelpText>The product family scope operator</inlineHelpText>
     <label>Product Family Scope Oper</label>
     <required>false</required>

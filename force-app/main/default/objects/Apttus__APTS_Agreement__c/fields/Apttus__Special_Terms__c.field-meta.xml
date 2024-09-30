@@ -3,7 +3,6 @@
     <fullName>Apttus__Special_Terms__c</fullName>
     <deprecated>false</deprecated>
     <description>Identifies any special terms related to contract</description>
-    <externalId>false</externalId>
     <label>Special Terms</label>
     <length>32000</length>
     <securityClassification>INTERNAL</securityClassification>

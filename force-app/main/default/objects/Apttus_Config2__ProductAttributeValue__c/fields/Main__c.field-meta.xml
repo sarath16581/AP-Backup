@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Main__c</fullName>
     <description>main text desc</description>
-    <externalId>false</externalId>
     <inlineHelpText>main text</inlineHelpText>
     <label>Main</label>
     <required>false</required>

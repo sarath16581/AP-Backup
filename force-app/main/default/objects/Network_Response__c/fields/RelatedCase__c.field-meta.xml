@@ -3,7 +3,6 @@
     <fullName>RelatedCase__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <description>.</description>
-    <externalId>false</externalId>
     <label>Related Case</label>
     <referenceTo>Case</referenceTo>
     <relationshipLabel>Network Response</relationshipLabel>

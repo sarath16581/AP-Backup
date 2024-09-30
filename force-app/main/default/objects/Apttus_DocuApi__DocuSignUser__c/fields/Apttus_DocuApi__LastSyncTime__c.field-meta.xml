@@ -3,7 +3,6 @@
     <fullName>Apttus_DocuApi__LastSyncTime__c</fullName>
     <deprecated>false</deprecated>
     <description>Field is used by Apttus system internal to keep track of DocuSign data sync</description>
-    <externalId>false</externalId>
     <inlineHelpText>Field is used by Apttus system internal to keep track of DocuSign data sync</inlineHelpText>
     <label>Last Sync Time</label>
     <required>false</required>

@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Pallet_overhang_over_100mmBBP__c</fullName>
     <defaultValue>false</defaultValue>
-    <externalId>false</externalId>
     <label>Pallet overhang over 100mm</label>
     <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>

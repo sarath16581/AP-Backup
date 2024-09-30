@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Indicates whether the option price is included in the bundle. Only applicable to Option line types.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Indicates whether the option price is included in the bundle. Only applicable to Option line types.</inlineHelpText>
     <label>Price Included In Bundle</label>
     <securityClassification>OFFICIAL_SENSITIVE</securityClassification>

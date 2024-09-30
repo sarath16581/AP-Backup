@@ -214,6 +214,9 @@ private class BudgetAndRevenueModule_Test{
 
 		Budget_and_Revenue__c budgrev = ApplicationTestDataFactory.getBudgetAndRevenue(1,account.Id,prod.Id,dateOfTest.year(),true)[0];
 		Budget_and_Revenue__c budgrevp = ApplicationTestDataFactory.getBudgetAndRevenue(1,account.Id,prod.Id,dateOfTest.year()-1,true)[0];
+        Budget_and_Revenue__c budgrevPrior = ApplicationTestDataFactory.getBudgetAndRevenue(1,account.Id,prod.Id,dateOfTest.year(),false)[0];
+        budgrevPrior.id = budgrev.id;
+        budgrev.Jan_Revenue_Amount__c = 12345;
 		List<Budget_and_Revenue__c> records = new List<Budget_and_Revenue__c>{budgrev,budgrevp};
 		GroupedAccountProductRevenue__c groupedRev2023 = new GroupedAccountProductRevenue__c( AnchorOrganisation__c = account.Id, PrimaryProduct__c = prod.Id,
 				FinancialYear__c = 2023, UID__c = ProductRevenueService.getUID(account.Id,prod.Id,'2023'), Id = fflib_IDGenerator.generate(GroupedAccountProductRevenue__c.getSObjectType()),
@@ -226,20 +229,25 @@ private class BudgetAndRevenueModule_Test{
 				Rev1__c = 440,Rev2__c = 550,Rev3__c = 660,Rev4__c = 770,
 				Rev5__c = 880,Rev6__c = 990,Rev7__c = 1100,Rev8__c = 2200,
 				Rev9__c = 3300,Rev10__c = 4400,Rev11__c = 5500,Rev12__c = 6600);
-
-
+        
+    	ApplicationRecursion.RecordState recordState = new ApplicationRecursion.RecordState(budgrev, New Map<String,SObject>{budgrevPrior.id => budgrevPrior}, new Set<SObjectField>{ Budget_And_Revenue__c.Jan_Revenue_Amount__c}) ;
 		// =====================================
 		// Stubbing
 		// =====================================
 		ApplicationUnitOfWork mockUow = MockUtility.mockUnitOfWork();
 		ProductRevenueService mockService = (ProductRevenueService)MockUtility.mockUtility(ProductRevenueService.class);
+        ApplicationRecursion mockRecursion = (ApplicationRecursion)MockUtility.mockUtility(ApplicationRecursion.class);
 		GroupedAccountProductRevenueSelector groupedRevenueSelector = (GroupedAccountProductRevenueSelector)MockUtility.mockSelector(GroupedAccountProductRevenueSelector.class);
 		BudgetAndRevenueSelector revenueSelector = (BudgetAndRevenueSelector)MockUtility.mockSelector(BudgetAndRevenueSelector.class);
-		MockUtility.Mocks.startStubbing();
+		ApplicationDatabase mockDatabase = MockUtility.mockDatabase();
+        MockUtility.Mocks.startStubbing();
         MockUtility.Mocks.when(mockService.updateGroupedRevenues((List<Budget_and_Revenue__c>)fflib_Match.anyObject(),(Map<Id,Budget_and_Revenue__c>)fflib_Match.anyObject())).thenReturn(new Map<String,GroupedAccountProductRevenue__c>{groupedRev2023.uid__c =>groupedRev2023,groupedRev2024.uid__c => groupedRev2024});
 		MockUtility.Mocks.when(groupedRevenueSelector.selectByUniqueIds((Set<String>)fflib_Match.anyObject())).thenReturn(new Map<Id,GroupedAccountProductRevenue__c>(new List<GroupedAccountProductRevenue__c>{groupedRev2023,groupedRev2024}));
 		MockUtility.Mocks.when(revenueSelector.selectByUniqueIds((Set<String>)fflib_Match.anyObject())).thenReturn(new Map<Id,Budget_and_Revenue__c>{budgrev.Id => budgrev, budgrevp.Id => budgrevp});
-		MockUtility.Mocks.stopStubbing();
+		MockUtility.Mocks.when(mockDatabase.dmlUpdate((List<SObject>)fflib_Match.anyObject(), fflib_Match.anyBoolean())).thenAnswer(new MockUtility.AnswerGenericDMLUpdated());
+        MockUtility.Mocks.when(mockRecursion.getProcessableRecords((String)fflib_Match.anyObject(),(List<SObject>)fflib_Match.anyObject(),(Map<Id,SObject>)fflib_Match.anyObject(),(Set<SObjectField>)fflib_Match.anyObject())).thenReturn(new List<ApplicationRecursion.RecordState>{recordState});
+	
+        MockUtility.Mocks.stopStubbing();
 		// =====================================
 		// Testing
 		// =====================================
@@ -249,6 +257,6 @@ private class BudgetAndRevenueModule_Test{
 		Test.stopTest();
 
 		// only verifying the invoke times for ProductRevenueService.updateGroupedRevenues, the actual logic for this is tested in the ProductRevenueService_Test class
-		((ProductRevenueService)MockUtility.Mocks.verify(mockService, MockUtility.Mocks.times(1))).updateGroupedRevenues(records,new Map<Id, Budget_and_Revenue__c>{records[0].Id => records[0]});
+		((ProductRevenueService)MockUtility.Mocks.verify(mockService, MockUtility.Mocks.times(0))).updateGroupedRevenues(records,new Map<Id, Budget_and_Revenue__c>{records[0].Id => records[0]});
 	}
 }

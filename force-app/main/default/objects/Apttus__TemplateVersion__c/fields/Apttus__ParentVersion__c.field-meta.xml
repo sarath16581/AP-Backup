@@ -4,7 +4,6 @@
     <deleteConstraint>SetNull</deleteConstraint>
     <deprecated>false</deprecated>
     <description>Parent Version from which the current version is created</description>
-    <externalId>false</externalId>
     <label>Parent Version</label>
     <referenceTo>Apttus__TemplateVersion__c</referenceTo>
     <relationshipLabel>Template Versions</relationshipLabel>

@@ -3,7 +3,6 @@
     <fullName>Originating_Network__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <description>(If applicable) records the network where this case is raised from (MyNetwork)</description>
-    <externalId>false</externalId>
     <inlineHelpText>Records the network where this case is raised from (Applicable to MyNetwork cases)</inlineHelpText>
     <label>Originating Network</label>
     <referenceTo>Network__c</referenceTo>

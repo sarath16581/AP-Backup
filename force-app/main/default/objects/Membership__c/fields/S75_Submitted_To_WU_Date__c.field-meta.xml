@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>S75_Submitted_To_WU_Date__c</fullName>
     <description>Date it changed to the Status “Submitted to WU&quot;. S75 re-purposed to Change of Details Information</description>
-    <externalId>false</externalId>
     <inlineHelpText>The date the COD status was updated to Submitted to WU</inlineHelpText>
     <label>COD Submitted To WU Date</label>
     <required>false</required>

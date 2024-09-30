@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>APT_Agreement__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
-    <externalId>false</externalId>
     <label>Apttus Contract</label>
     <referenceTo>Apttus__APTS_Agreement__c</referenceTo>
     <relationshipLabel>Agreement Rate Card</relationshipLabel>

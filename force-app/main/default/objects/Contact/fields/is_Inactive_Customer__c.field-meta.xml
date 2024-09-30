@@ -3,7 +3,6 @@
     <fullName>is_Inactive_Customer__c</fullName>
     <defaultValue>false</defaultValue>
     <description>Indiacates a closed account, ready to be archived and deleted. Examples - customer request, deceased etc. Set by SAP CRM via SSSW.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Closed account, soon to be archived and deleted. Examples include deceased, customer request etc.</inlineHelpText>
     <label>is Inactive Customer</label>
     <securityClassification>INTERNAL</securityClassification>

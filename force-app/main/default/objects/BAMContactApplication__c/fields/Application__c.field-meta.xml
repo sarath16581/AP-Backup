@@ -3,7 +3,6 @@
     <fullName>Application__c</fullName>
     <deleteConstraint>Restrict</deleteConstraint>
     <description>The application assigned to the contact</description>
-    <externalId>false</externalId>
     <label>Application</label>
     <referenceTo>BAMApplication__c</referenceTo>
     <relationshipName>ContactApplications</relationshipName>

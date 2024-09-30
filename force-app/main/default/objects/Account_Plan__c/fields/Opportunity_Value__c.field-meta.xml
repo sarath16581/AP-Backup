@@ -4,7 +4,6 @@
     <description>Phase 1 - Sales Process (PWC)
 
 Populated by trigger rolling up linked opportunities</description>
-    <externalId>false</externalId>
     <label>Opportunity Value</label>
     <precision>18</precision>
     <required>false</required>

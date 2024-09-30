@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Whether the rule is invalid.</description>
-    <externalId>false</externalId>
     <label>Invalid</label>
     <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>

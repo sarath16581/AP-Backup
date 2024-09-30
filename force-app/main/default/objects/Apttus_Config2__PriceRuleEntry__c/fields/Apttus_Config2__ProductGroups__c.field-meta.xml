@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__ProductGroups__c</fullName>
     <deprecated>false</deprecated>
     <description>The list of product groups associated with the entry</description>
-    <externalId>false</externalId>
     <inlineHelpText>The list of product groups associated with the entry</inlineHelpText>
     <label>Product Groups</label>
     <required>false</required>

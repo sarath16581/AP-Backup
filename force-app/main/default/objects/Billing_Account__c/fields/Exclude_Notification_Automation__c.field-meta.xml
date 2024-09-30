@@ -3,7 +3,6 @@
     <fullName>Exclude_Notification_Automation__c</fullName>
     <defaultValue>false</defaultValue>
     <description>This will determine if a case record will be excluded in the automated notification.</description>
-    <externalId>false</externalId>
     <label>Exclude Auto Customer Notification</label>
     <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>

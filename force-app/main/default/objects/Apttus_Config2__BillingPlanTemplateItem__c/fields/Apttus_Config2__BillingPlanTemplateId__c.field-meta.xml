@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__BillingPlanTemplateId__c</fullName>
     <deprecated>false</deprecated>
     <description>ID of the associated billing plan template</description>
-    <externalId>false</externalId>
     <inlineHelpText>ID of the associated billing plan template</inlineHelpText>
     <label>Billing Plan Template</label>
     <referenceTo>Apttus_Config2__BillingPlanTemplate__c</referenceTo>

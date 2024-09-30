@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Data_Collect_Source__c</fullName>
     <description>Code that identifies the way the monthly data for the LPO will be collected.</description>
-    <externalId>false</externalId>
     <label>Data Collect Source</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>

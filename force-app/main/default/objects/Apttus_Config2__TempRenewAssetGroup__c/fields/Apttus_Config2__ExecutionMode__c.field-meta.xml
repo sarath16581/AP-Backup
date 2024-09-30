@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__ExecutionMode__c</fullName>
     <deprecated>false</deprecated>
     <description>The renewal execution mode</description>
-    <externalId>false</externalId>
     <inlineHelpText>The renewal execution mode</inlineHelpText>
     <label>Execution Mode</label>
     <required>false</required>

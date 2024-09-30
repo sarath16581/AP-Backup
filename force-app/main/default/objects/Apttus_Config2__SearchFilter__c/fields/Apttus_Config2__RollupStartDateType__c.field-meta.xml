@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__RollupStartDateType__c</fullName>
     <deprecated>false</deprecated>
     <description>The rollup start date type</description>
-    <externalId>false</externalId>
     <inlineHelpText>The rollup start date type</inlineHelpText>
     <label>Rollup Start Date Type</label>
     <required>false</required>

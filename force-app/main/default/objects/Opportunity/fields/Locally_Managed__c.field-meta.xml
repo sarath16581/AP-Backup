@@ -3,7 +3,6 @@
     <fullName>Locally_Managed__c</fullName>
     <defaultValue>false</defaultValue>
     <description>This field will be checked if a Lead was created by a Hub.</description>
-    <externalId>false</externalId>
     <label>Locally Managed?</label>
     <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>

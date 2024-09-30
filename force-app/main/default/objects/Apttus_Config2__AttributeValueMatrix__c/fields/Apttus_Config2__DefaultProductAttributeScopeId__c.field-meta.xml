@@ -4,7 +4,6 @@
     <deleteConstraint>SetNull</deleteConstraint>
     <deprecated>false</deprecated>
     <description>ID of the product attribute group associated with the matrix</description>
-    <externalId>false</externalId>
     <inlineHelpText>ID of the product attribute group associated with the matrix</inlineHelpText>
     <label>Default Product Attribute Scope</label>
     <referenceTo>Apttus_Config2__ProductAttributeGroup__c</referenceTo>

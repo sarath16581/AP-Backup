@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Indicator to display rule dimensions in the pricing guidance detail</description>
-    <externalId>false</externalId>
     <inlineHelpText>Indicator to display rule dimensions in the pricing guidance detail</inlineHelpText>
     <label>Display Dimensions In Guidance</label>
     <trackTrending>false</trackTrending>

@@ -3,7 +3,6 @@
     <fullName>Bid_Solutions_Involvement_Old__c</fullName>
     <defaultValue>false</defaultValue>
     <description>18/07/2013 This field stores the old that prior to changes of field type</description>
-    <externalId>false</externalId>
     <label>Bid &amp; Solutions Involvement Old</label>
     <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>

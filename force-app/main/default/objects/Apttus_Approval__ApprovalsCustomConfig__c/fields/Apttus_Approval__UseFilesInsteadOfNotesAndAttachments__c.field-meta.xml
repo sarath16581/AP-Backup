@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>If checked the approvals engine will query all attachments from Files instead of Notes&amp;Attachment</description>
-    <externalId>false</externalId>
     <inlineHelpText>If checked the approvals engine will query all attachments from Files instead of Notes&amp;Attachment</inlineHelpText>
     <label>Use Files Instead of Notes &amp; Attachments</label>
     <trackTrending>false</trackTrending>

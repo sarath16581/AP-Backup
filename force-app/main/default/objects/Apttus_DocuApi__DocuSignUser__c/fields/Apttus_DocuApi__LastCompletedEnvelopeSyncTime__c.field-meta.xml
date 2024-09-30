@@ -4,7 +4,6 @@
     <deprecated>false</deprecated>
     <description>DateTime to keep track of the last Successful Sync of Completed Envelopes
 System use only not to be used on Layout</description>
-    <externalId>false</externalId>
     <inlineHelpText>System use only not to be used on Layout</inlineHelpText>
     <label>Last Sync Completed Envelope Time</label>
     <required>false</required>

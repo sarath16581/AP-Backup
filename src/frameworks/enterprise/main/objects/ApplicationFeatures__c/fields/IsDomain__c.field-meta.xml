@@ -3,7 +3,6 @@
     <fullName>IsDomain__c</fullName>
     <defaultValue>false</defaultValue>
     <description>Used to classify this custom settings as a Domain switch</description>
-    <externalId>false</externalId>
     <inlineHelpText>Used to classify this custom settings as a Domain switch</inlineHelpText>
     <label>Is Domain</label>
     <trackTrending>false</trackTrending>

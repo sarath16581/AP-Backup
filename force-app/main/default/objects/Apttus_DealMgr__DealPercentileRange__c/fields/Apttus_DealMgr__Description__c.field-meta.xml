@@ -3,7 +3,6 @@
     <fullName>Apttus_DealMgr__Description__c</fullName>
     <deprecated>false</deprecated>
     <description>The description for the color band</description>
-    <externalId>false</externalId>
     <label>Description</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>

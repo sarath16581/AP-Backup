@@ -20,7 +20,8 @@ public inherited sharing  class BudgetAndRevenueModule extends ApplicationModule
 		// Setup which triggers this module should respond to
 		getTriggerEvents().enableBeforeInsert().enableAfterInsert().enableBeforeUpdate().enableAfterUpdate();
 	}
-
+	
+    // add a unique identifier to new records.
 	public override void onBeforeInsert(List<SObject> records, ApplicationUnitOfWork uow)  {
 		try {
 			populateUID((List<Budget_and_Revenue__c>)records);
@@ -39,6 +40,7 @@ public inherited sharing  class BudgetAndRevenueModule extends ApplicationModule
 		}
 	}
 
+    // add a unique identifier to existing records that may not have one.
 	public override void onBeforeUpdate(List<SObject> records, Map<Id, SObject> existingRecords, ApplicationUnitOfWork uow) {
 		try {
 			List<Budget_and_Revenue__c> recordsToUpdate = new List<Budget_and_Revenue__c>();
@@ -57,16 +59,62 @@ public inherited sharing  class BudgetAndRevenueModule extends ApplicationModule
 		}
 	}
 	
+    // update grouped revenues with the revised values of budget and revenue
 	public override void onAfterUpdate(List<SObject> records, Map<Id, SObject> existingRecords, ApplicationUnitOfWork uow)  {
 		try {
-			updateGroupedRevenues((List<Budget_and_Revenue__c>)records, (Map<Id,Budget_and_Revenue__c>)existingRecords, uow);
+            Set<SObjectField> monitoredFields = new Set<SObjectField>{
+                Budget_And_Revenue__c.Jan_Revenue_Amount__c,
+                Budget_And_Revenue__c.Feb_Revenue_Amount__c,
+                Budget_And_Revenue__c.Mar_Revenue_Amount__c,
+                Budget_And_Revenue__c.Apr_Revenue_Amount__c,
+                Budget_And_Revenue__c.May_Revenue_Amount__c,
+                Budget_And_Revenue__c.Jun_Revenue_Amount__c,
+                Budget_And_Revenue__c.Jul_Revenue_Amount__c,
+                Budget_And_Revenue__c.Aug_Revenue_Amount__c,
+                Budget_And_Revenue__c.Sep_Revenue_Amount__c,
+                Budget_And_Revenue__c.Oct_Revenue_Amount__c,
+                Budget_And_Revenue__c.Nov_Revenue_Amount__c,
+                Budget_And_Revenue__c.Dec_Revenue_Amount__c
+            };
+            String context = 'updateGroupedRevenues.action';
+            List<ApplicationRecursion.RecordState> changedRecords = ApplicationRecursion.getInstance().getProcessableRecords(context, records, existingRecords, monitoredFields); 
+             system.debug('****** changedRecords '+changedRecords);
+			List<Budget_and_Revenue__c> updatedRecordsWithRevenue = getBudgetAndRevenueRecordsToProcess(records, changedRecords);
+            system.debug('****** calling update grouped revenues for records '+updatedRecordsWithRevenue);
+            updateGroupedRevenues((List<Budget_and_Revenue__c>) updatedRecordsWithRevenue, (Map<Id,Budget_and_Revenue__c>)existingRecords, uow);
 		} catch(Exception ex) {
 			// Error Logged to Exception object for analysis
 			UTIL_LoggingService.logHandledException(ex, UserInfo.getOrganizationId(), SSSWConstants.SSSW_APP, CaseSurveyInvitationModule.class.getName(), 'onAfterUpdate', 'BudgetAndRevenueTrigger', LoggingLevel.ERROR);
 		}
 	}
+    
+                /**
+    * Filters updated budget and revenue recorsd for those with revenue.
+    * @param revenue Records the updated revenue records
+    * @param changedRecords - a list of changed records
+    * @return List<Budget_and_Revenue__c> - a list of changed records with revenue.
+    */
+    private List<Budget_and_Revenue__c> getBudgetAndRevenueRecordsToProcess(List<Budget_and_Revenue__c> revenueRecords,List<ApplicationRecursion.RecordState> changedRecords) {
+        Map<Id,Budget_and_Revenue__c>  recordsWithRevenue = new  Map<Id,Budget_and_Revenue__c>();
+        Set<Id> changedIds = new Set<Id>();
+        for (ApplicationRecursion.RecordState recordState : changedRecords) {
+            changedIds.add(recordState.record.Id);
+        }
+        system.debug('**** changedIds '+changedIds);
+        system.debug('***** revenue recoreds '+revenueRecords);
+        for (Budget_and_Revenue__c br : revenueRecords) {
+            if (changedIds.contains(br.id)) 
+            {
+               recordsWithRevenue.put(br.id,br);
+            }
+        }
+        return recordsWithRevenue.values();
+    }
 
 	private void updateGroupedRevenues(List<Budget_and_Revenue__c> records, Map<Id, Budget_and_Revenue__c> existingRecords, ApplicationUnitOfWork uow) {
+        if (records.isEmpty()) {
+            return;
+        }
 		Map<String,GroupedAccountProductRevenue__c> recordsChanged = ProductRevenueService.getInstance().updateGroupedRevenues(records,existingRecords);
 		List<GroupedAccountProductRevenue__c> recordsToCreate = new List<GroupedAccountProductRevenue__c>();
 		List<GroupedAccountProductRevenue__c> recordsToUpdate = new List<GroupedAccountProductRevenue__c>();

@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Schedule_Request_Timestamp__c</fullName>
     <description>The Date/Time when an outbound message to schedule this Job was last sent to dispatch system (via Tibco).</description>
-    <externalId>false</externalId>
     <inlineHelpText>The Date/Time when an outbound message to schedule this Job was last sent to dispatch system.</inlineHelpText>
     <label>Schedule Request Timestamp</label>
     <required>false</required>

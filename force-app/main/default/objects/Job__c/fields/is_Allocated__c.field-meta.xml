@@ -3,7 +3,6 @@
     <fullName>is_Allocated__c</fullName>
     <defaultValue>false</defaultValue>
     <description>This is the backend field just to rec ord the job has been allocated once or not?</description>
-    <externalId>false</externalId>
     <inlineHelpText>This is the backend field just to rec ord the job has been allocated once or not?</inlineHelpText>
     <label>is Allocated</label>
     <securityClassification>INTERNAL</securityClassification>

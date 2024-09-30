@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__ChangeInAssetARR__c</fullName>
     <deprecated>false</deprecated>
     <description>The change in the asset annual recurring revenue due to the transaction</description>
-    <externalId>false</externalId>
     <inlineHelpText>The change in the asset annual recurring revenue due to the transaction</inlineHelpText>
     <label>Change In Asset ARR</label>
     <precision>18</precision>

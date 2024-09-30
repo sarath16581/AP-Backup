@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Pending_Credit__c</fullName>
     <description>APMS requirement</description>
-    <externalId>false</externalId>
     <inlineHelpText>Field to be used by SecurePay</inlineHelpText>
     <label>Pending Credit</label>
     <required>false</required>

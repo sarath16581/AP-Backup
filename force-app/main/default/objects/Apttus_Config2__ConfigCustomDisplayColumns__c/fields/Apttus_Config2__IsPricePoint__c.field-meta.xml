@@ -6,7 +6,6 @@
     <description>Used to determine type of a line item for use in Cost &amp; Profitability Price Waterfall
 
 if checked, item is a Price Point. If unchecked, item is an Adjustment.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Used to determine type of a line item for use in Cost &amp; Profitability Price Waterfall
 
 

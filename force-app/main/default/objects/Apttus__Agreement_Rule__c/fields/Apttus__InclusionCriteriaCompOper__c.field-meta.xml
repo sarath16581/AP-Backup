@@ -3,7 +3,6 @@
     <fullName>Apttus__InclusionCriteriaCompOper__c</fullName>
     <deprecated>false</deprecated>
     <description>The rule inclusion criteria comparison operator</description>
-    <externalId>false</externalId>
     <label>Inclusion Criteria Operator</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>

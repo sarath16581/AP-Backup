@@ -3,7 +3,6 @@
     <fullName>Apttus__Source__c</fullName>
     <deprecated>false</deprecated>
     <description>Source of this contract – internal paper or third party contract</description>
-    <externalId>false</externalId>
     <label>Source</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>

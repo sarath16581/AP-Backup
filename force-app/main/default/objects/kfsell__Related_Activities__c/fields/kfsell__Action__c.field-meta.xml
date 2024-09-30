@@ -3,7 +3,6 @@
     <fullName>kfsell__Action__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <deprecated>false</deprecated>
-    <externalId>false</externalId>
     <label>Action</label>
     <referenceTo>kfsell__Action__c</referenceTo>
     <relationshipLabel>Related Activities</relationshipLabel>

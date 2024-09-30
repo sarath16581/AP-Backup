@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>isProcessPaymentsForAnotherBusiness__c</fullName>
     <description>Do you process payments on behalf of another business?</description>
-    <externalId>false</externalId>
     <inlineHelpText>Do you process payments on behalf of another business?</inlineHelpText>
     <label>Process Payments For Another Business?</label>
     <required>false</required>

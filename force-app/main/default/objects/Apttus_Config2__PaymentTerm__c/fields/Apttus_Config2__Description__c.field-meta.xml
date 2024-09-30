@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__Description__c</fullName>
     <deprecated>false</deprecated>
     <description>The payment term description</description>
-    <externalId>false</externalId>
     <inlineHelpText>The payment term description</inlineHelpText>
     <label>Description</label>
     <required>false</required>

@@ -4,7 +4,6 @@
     <deleteConstraint>Restrict</deleteConstraint>
     <deprecated>false</deprecated>
     <description>ID of the search filter</description>
-    <externalId>false</externalId>
     <inlineHelpText>ID of the search filter</inlineHelpText>
     <label>Search Filter</label>
     <referenceTo>Apttus__SearchFilter__c</referenceTo>

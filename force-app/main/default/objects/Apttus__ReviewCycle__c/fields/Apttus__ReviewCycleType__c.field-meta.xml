@@ -3,7 +3,6 @@
     <fullName>Apttus__ReviewCycleType__c</fullName>
     <deprecated>false</deprecated>
     <description>Review Cycle Type “MS Teams” for MS Teams integration and “Parallel Review” or null for Parallel review</description>
-    <externalId>false</externalId>
     <inlineHelpText>Please provide Review Cycle Type</inlineHelpText>
     <label>Review Cycle Type</label>
     <required>false</required>

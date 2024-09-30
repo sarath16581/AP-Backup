@@ -3,7 +3,6 @@
     <fullName>Apttus__Notes__c</fullName>
     <deprecated>false</deprecated>
     <description>The notes associated with the version</description>
-    <externalId>false</externalId>
     <label>Notes</label>
     <length>2000</length>
     <securityClassification>INTERNAL</securityClassification>

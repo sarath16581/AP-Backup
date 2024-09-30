@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__EffectiveDate__c</fullName>
     <deprecated>false</deprecated>
     <description>The configuration effective date.</description>
-    <externalId>false</externalId>
     <label>Config Effective Date</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>

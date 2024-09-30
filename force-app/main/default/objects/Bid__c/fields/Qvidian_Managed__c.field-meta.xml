@@ -3,7 +3,6 @@
     <fullName>Qvidian_Managed__c</fullName>
     <defaultValue>false</defaultValue>
     <description>Field that will indicate if the Bid / Activity is going to be managed within the Qvidian environment</description>
-    <externalId>false</externalId>
     <label>Qvidian Managed</label>
     <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>

@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Legal_Related_To_Previous_Contract__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
-    <externalId>false</externalId>
     <inlineHelpText>If  this contract is related to any other contract
 Please provide name of anyone specific from Legal that has been involved previously and attach any relevant documents.</inlineHelpText>
     <label>Legal Related To Previous Contract</label>

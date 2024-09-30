@@ -3,7 +3,6 @@
     <fullName>Contractor_PDOs_Does_Sort_Round_Set_Up__c</fullName>
     <defaultValue>false</defaultValue>
     <description>Does this site accommodate contractors/PDOs to sort and do round set up?</description>
-    <externalId>false</externalId>
     <inlineHelpText>Does this site accommodate contractors/PDOs to sort and do round set up?</inlineHelpText>
     <label>Contractor/PDOs Does Sort &amp; Round Set Up</label>
     <securityClassification>INTERNAL</securityClassification>

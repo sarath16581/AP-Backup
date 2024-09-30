@@ -3,7 +3,6 @@
     <fullName>Apttus_Approval__Entry_Criteria__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <deprecated>false</deprecated>
-    <externalId>false</externalId>
     <label>Entry Criteria</label>
     <referenceTo>Apttus_Approval__Approval_Process__c</referenceTo>
     <relationshipLabel>Entry Criteria</relationshipLabel>

@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__ProductScope__c</fullName>
     <deprecated>false</deprecated>
     <description>Represents how to match a product for the rule action.</description>
-    <externalId>false</externalId>
     <label>Product Scope</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>

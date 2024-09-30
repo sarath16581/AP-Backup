@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Sort proposal documents by created date in descending order on Send Proposal page. The default is ascending.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Sort proposal documents by created date in descending order on Send Proposal page. The default is ascending.</inlineHelpText>
     <label>Sort Documents Descending</label>
     <trackTrending>false</trackTrending>

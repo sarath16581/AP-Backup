@@ -4,6 +4,7 @@
     <amount>false</amount>
     <dateType>1</dateType>
     <developerName>OpportunityQuantityProductDate</developerName>
+    <hasCustomGroup>false</hasCustomGroup>
     <hasProductFamily>false</hasProductFamily>
     <masterLabel>Opportunity Quantity Product Date</masterLabel>
     <quantity>true</quantity>

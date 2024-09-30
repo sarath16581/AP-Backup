@@ -4,7 +4,6 @@
     <deleteConstraint>SetNull</deleteConstraint>
     <deprecated>false</deprecated>
     <description>The child configuration associated with this collaboration task.</description>
-    <externalId>false</externalId>
     <inlineHelpText>The child configuration associated with this collaboration task.</inlineHelpText>
     <label>Child Product Configuration</label>
     <referenceTo>Apttus_Config2__ProductConfiguration__c</referenceTo>

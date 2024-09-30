@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Standard_Operational_Requirements__c</fullName>
-    <externalId>false</externalId>
     <inlineHelpText>Is your solution meeting standard operational requirements (or are there any complex/non-standard operational requirements)?</inlineHelpText>
     <label>Standard operational requirements?</label>
     <required>false</required>

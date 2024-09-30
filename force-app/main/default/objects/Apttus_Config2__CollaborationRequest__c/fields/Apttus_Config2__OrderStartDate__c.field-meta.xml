@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__OrderStartDate__c</fullName>
     <deprecated>false</deprecated>
     <description>The date at which the order becomes effective</description>
-    <externalId>false</externalId>
     <inlineHelpText>The date at which the order becomes effective</inlineHelpText>
     <label>Order Start Date</label>
     <required>false</required>

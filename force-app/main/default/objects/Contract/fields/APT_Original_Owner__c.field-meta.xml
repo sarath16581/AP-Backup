@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>APT_Original_Owner__c</fullName>
     <description>Name of the Original Owner of the record. Created for Ariba migration, should be auto populated with the Name of the first owner of the record</description>
-    <externalId>false</externalId>
     <inlineHelpText>Auto populated with the name of the first Owner of the record</inlineHelpText>
     <label>Original Owner</label>
     <required>false</required>

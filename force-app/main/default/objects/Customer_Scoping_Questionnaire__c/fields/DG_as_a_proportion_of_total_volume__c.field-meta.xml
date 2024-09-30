@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>DG_as_a_proportion_of_total_volume__c</fullName>
-    <externalId>false</externalId>
     <label>DG % as a proportion of total volume</label>
     <securityClassification>INTERNAL</securityClassification>
     <summarizedField>Freight_Offering__c.DG_as_a_proportion_of_total_volume__c</summarizedField>

@@ -4,7 +4,6 @@
     <defaultValue>DATETIMEVALUE(&apos;2000-01-01 00:00:00&apos;)</defaultValue>
     <deprecated>false</deprecated>
     <description>Indicates the date/time when the job would run next</description>
-    <externalId>false</externalId>
     <inlineHelpText>Indicates the date/time when the job would run next</inlineHelpText>
     <label>Next Run Date</label>
     <required>false</required>

@@ -3,7 +3,6 @@
     <fullName>grax__SchedJobAsyncAliveLastCheck__c</fullName>
     <deprecated>false</deprecated>
     <description>The last date, and, time, that at least one GRAX Data Record, that belongs to an &quot;Async Group GDR Backup&quot; Process, was properly verified that it was backed-up in GRAX</description>
-    <externalId>false</externalId>
     <label>Sched Job Async Alive Last Check</label>
     <required>false</required>
     <trackHistory>false</trackHistory>

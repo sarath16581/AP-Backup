@@ -3,7 +3,6 @@
     <fullName>Apttus_Approval__Next_Level_Approver__c</fullName>
     <deprecated>false</deprecated>
     <description>Field moved to Approval Matrix table</description>
-    <externalId>false</externalId>
     <label>Next Level Approver_OBSOLETE</label>
     <relationshipName>Users</relationshipName>
     <restrictedAdminField>false</restrictedAdminField>

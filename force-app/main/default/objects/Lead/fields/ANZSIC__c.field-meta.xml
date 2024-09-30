@@ -3,7 +3,6 @@
     <fullName>ANZSIC__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <description>The Australian and New Zealand Standard Industrial Classification (ANZSIC)</description>
-    <externalId>false</externalId>
     <inlineHelpText>Enter the 4 digit code</inlineHelpText>
     <label>ANZSIC</label>
     <referenceTo>ANZSIC_Code__c</referenceTo>

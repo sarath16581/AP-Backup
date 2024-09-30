@@ -398,7 +398,7 @@
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>richTextValue</name>
-                    <value>&lt;p style=&quot;text-align: center;&quot;&gt;&lt;a href=&quot;/resource/1592468426000/Pricing_Support_Request&quot; target=&quot;_blank&quot; style=&quot;color: rgb(27, 137, 234);&quot;&gt;&lt;b&gt;Pricing Support Requests Guidelines&lt;/b&gt;&lt;/a&gt;&lt;a href=&quot;/resource/1568878337000/Help_Internal_Request&quot; target=&quot;_blank&quot; style=&quot;color: rgb(27, 137, 234); background-color: rgb(255, 255, 255);&quot;&gt;&lt;b&gt;.&lt;/b&gt;&lt;/a&gt;&lt;/p&gt;</value>
+                    <value>&lt;p style=&quot;text-align: center;&quot;&gt;&lt;a href=&quot;/resource/1727225522000/Pricing_Support_Request&quot; rel=&quot;noopener noreferrer&quot; target=&quot;_blank&quot; style=&quot;color: rgb(27, 137, 234);&quot;&gt;&lt;strong&gt;Pricing Support Requests Guidelines&lt;/strong&gt;&lt;/a&gt;&lt;strong style=&quot;color: rgb(27, 137, 234); background-color: rgb(255, 255, 255);&quot;&gt;.&lt;/strong&gt;&lt;/p&gt;</value>
                 </componentInstanceProperties>
                 <componentName>flexipage:richText</componentName>
                 <identifier>flexipage_richText3</identifier>

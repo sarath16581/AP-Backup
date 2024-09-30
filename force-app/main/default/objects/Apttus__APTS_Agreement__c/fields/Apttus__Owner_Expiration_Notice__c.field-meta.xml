@@ -3,7 +3,6 @@
     <fullName>Apttus__Owner_Expiration_Notice__c</fullName>
     <deprecated>false</deprecated>
     <description>To indicate the number of days prior to expiration date that a notification needs to be sent to the owner</description>
-    <externalId>false</externalId>
     <label>Owner Expiration Notice</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>

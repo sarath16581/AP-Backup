@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__InvoiceSeparately__c</fullName>
     <deprecated>false</deprecated>
     <description>Indicates whether a separate invoice should to be generated for the location</description>
-    <externalId>false</externalId>
     <inlineHelpText>Indicates whether a separate invoice should to be generated for the location</inlineHelpText>
     <label>Invoice Separately ?</label>
     <required>false</required>

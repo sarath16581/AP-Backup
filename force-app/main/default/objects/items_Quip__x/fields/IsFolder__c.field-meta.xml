@@ -3,7 +3,6 @@
     <fullName>IsFolder__c</fullName>
     <defaultValue>false</defaultValue>
     <externalDeveloperName>IsFolder</externalDeveloperName>
-    <externalId>false</externalId>
     <isFilteringDisabled>false</isFilteringDisabled>
     <isNameField>false</isNameField>
     <isSortingDisabled>true</isSortingDisabled>

@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Indicates whether to allow option search in bundle configuration page</description>
-    <externalId>false</externalId>
     <inlineHelpText>Indicates whether to allow option search in bundle configuration page</inlineHelpText>
     <label>Enable Option Page Search</label>
     <trackTrending>false</trackTrending>

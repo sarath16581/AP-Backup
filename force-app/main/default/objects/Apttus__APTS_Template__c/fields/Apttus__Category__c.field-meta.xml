@@ -3,7 +3,6 @@
     <fullName>Apttus__Category__c</fullName>
     <deprecated>false</deprecated>
     <description>Specifies the class of template or clauses into a high level category</description>
-    <externalId>false</externalId>
     <label>Category</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>

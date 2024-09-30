@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Annual_Rent_Subsidy_Amount__c</fullName>
     <description>Partner Addendum &apos;Annual Rent Subsidy Amount&apos; Sub Type Description</description>
-    <externalId>false</externalId>
     <label>Annual Rent Subsidy Amount</label>
     <required>false</required>
     <trackTrending>false</trackTrending>

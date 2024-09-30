@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Apttus_Approval__Join__c</fullName>
     <deprecated>false</deprecated>
-    <externalId>false</externalId>
     <inlineHelpText>Enter the operator to join conditions with each other.</inlineHelpText>
     <label>Join</label>
     <required>false</required>

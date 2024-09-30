@@ -3,7 +3,6 @@
     <fullName>kfsell__Check_Business_Criteria_Score__c</fullName>
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
-    <externalId>false</externalId>
     <label>Check Business Criteria Score</label>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>

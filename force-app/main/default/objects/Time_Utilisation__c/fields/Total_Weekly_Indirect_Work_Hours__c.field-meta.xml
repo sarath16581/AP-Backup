@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Total_Weekly_Indirect_Work_Hours__c</fullName>
-    <externalId>false</externalId>
     <label>Total Weekly Indirect Work Hours</label>
     <securityClassification>INTERNAL</securityClassification>
     <summarizedField>Timesheet_Entry__c.Indirect_Work_Hours__c</summarizedField>

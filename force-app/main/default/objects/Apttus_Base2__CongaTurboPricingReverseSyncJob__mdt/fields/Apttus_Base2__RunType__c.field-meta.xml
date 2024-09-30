@@ -3,7 +3,6 @@
     <fullName>Apttus_Base2__RunType__c</fullName>
     <deprecated>false</deprecated>
     <description>Indicates if the Job run type is Batchable or Queueable</description>
-    <externalId>false</externalId>
     <fieldManageability>SubscriberControlled</fieldManageability>
     <inlineHelpText>Indicates if the Job run type is Batchable or Queueable</inlineHelpText>
     <label>Run Type</label>

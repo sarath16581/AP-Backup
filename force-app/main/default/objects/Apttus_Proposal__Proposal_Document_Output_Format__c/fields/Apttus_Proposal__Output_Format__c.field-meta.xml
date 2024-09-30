@@ -3,7 +3,6 @@
     <fullName>Apttus_Proposal__Output_Format__c</fullName>
     <deprecated>false</deprecated>
     <description>The document output format (either PDF, RTF or DOC or DOCX)</description>
-    <externalId>false</externalId>
     <label>Output Format</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>

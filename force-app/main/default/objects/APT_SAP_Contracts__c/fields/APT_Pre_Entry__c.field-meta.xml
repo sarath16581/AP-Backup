@@ -3,7 +3,6 @@
     <fullName>APT_Pre_Entry__c</fullName>
     <defaultValue>false</defaultValue>
     <description>Checkbox to flag pre entered SAP Contract</description>
-    <externalId>false</externalId>
     <inlineHelpText>Checkbox to flag pre entered SAP Contract</inlineHelpText>
     <label>Pre-Entry</label>
     <securityClassification>OFFICIAL_SENSITIVE</securityClassification>

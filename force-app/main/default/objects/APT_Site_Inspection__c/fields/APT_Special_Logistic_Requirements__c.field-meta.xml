@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>APT_Special_Logistic_Requirements__c</fullName>
-    <externalId>false</externalId>
     <inlineHelpText>eg: Call For Return, Oversized, Dangerous Goods, Wine)</inlineHelpText>
     <label>Special Logistic Requirements</label>
     <required>false</required>

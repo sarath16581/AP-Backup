@@ -3,7 +3,6 @@
     <fullName>Apttus__Other_Party_Sent_Date__c</fullName>
     <deprecated>false</deprecated>
     <description>Date agreement was sent to other party for signatures</description>
-    <externalId>false</externalId>
     <label>Other Party Sent Date</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>

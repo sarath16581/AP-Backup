@@ -4,7 +4,6 @@
     <deleteConstraint>SetNull</deleteConstraint>
     <deprecated>false</deprecated>
     <description>Reference to the default cost model for the price list</description>
-    <externalId>false</externalId>
     <label>Cost Model</label>
     <referenceTo>Apttus_Config2__CostModel__c</referenceTo>
     <relationshipLabel>Price Lists</relationshipLabel>

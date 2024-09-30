@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__Action__c</fullName>
     <deprecated>false</deprecated>
     <description>The asset action</description>
-    <externalId>false</externalId>
     <inlineHelpText>The asset action</inlineHelpText>
     <label>Action</label>
     <required>false</required>

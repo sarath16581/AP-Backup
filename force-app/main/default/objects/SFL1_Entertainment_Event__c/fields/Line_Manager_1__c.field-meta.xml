@@ -3,7 +3,6 @@
     <fullName>Line_Manager_1__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <description>Owner 1&apos;s line manager</description>
-    <externalId>false</externalId>
     <inlineHelpText>Owner 1&apos;s line manager</inlineHelpText>
     <label>Line Manager</label>
     <referenceTo>User</referenceTo>

@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Check whether the Deal review Tooltip has been shown to a user on first visit</description>
-    <externalId>false</externalId>
     <label>DealReview Tooltip Shown</label>
     <trackFeedHistory>false</trackFeedHistory>
     <type>Checkbox</type>

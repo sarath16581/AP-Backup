@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Inserts a page break after the component is inlined</description>
-    <externalId>false</externalId>
     <inlineHelpText>Inserts a page break after the component is inlined</inlineHelpText>
     <label>Insert Page Break</label>
     <securityClassification>INTERNAL</securityClassification>

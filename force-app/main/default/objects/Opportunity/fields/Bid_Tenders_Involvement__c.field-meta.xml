@@ -4,7 +4,6 @@
     <description>Phase 1 - Opportunity Assessment (PWC)
 
 Identify if the opportunity warrants involvement from Bids and Tenders based on predetermined criterion</description>
-    <externalId>false</externalId>
     <inlineHelpText>Does this opportunity require involvement from the Bids and Tenders team?</inlineHelpText>
     <label>Bid &amp; Solutions Involvement</label>
     <required>false</required>

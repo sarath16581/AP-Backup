@@ -3,7 +3,6 @@
     <fullName>Key_Decision_Maker__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <description>Look up to Contact record</description>
-    <externalId>false</externalId>
     <inlineHelpText>The key contact at the organisation who has primary decision making responsibility for the selection of service providers.</inlineHelpText>
     <label>Key Decision Maker</label>
     <referenceTo>Contact</referenceTo>

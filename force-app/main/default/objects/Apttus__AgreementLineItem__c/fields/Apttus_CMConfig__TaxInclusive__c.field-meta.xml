@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Indicates whether the price is tax inclusive. Only applicable for taxable items.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Indicates whether the price is tax inclusive. Only applicable for taxable items.</inlineHelpText>
     <label>Tax Inclusive ?</label>
     <securityClassification>INTERNAL</securityClassification>

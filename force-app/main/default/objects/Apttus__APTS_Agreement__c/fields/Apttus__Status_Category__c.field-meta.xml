@@ -3,7 +3,6 @@
     <fullName>Apttus__Status_Category__c</fullName>
     <deprecated>false</deprecated>
     <description>The higher level state of the agreement – In Authoring, In Effect, Expired, etc.  These are Apttus reserved values and cannot be changed.</description>
-    <externalId>false</externalId>
     <label>Status Category</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>

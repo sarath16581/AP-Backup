@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Article_Info__c</fullName>
     <description>This field will be used to capture the article info passed from MPB</description>
-    <externalId>false</externalId>
     <label>Article Info</label>
     <length>7000</length>
     <trackFeedHistory>false</trackFeedHistory>

@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>This flag is set to true for document send for signature manually.</description>
-    <externalId>false</externalId>
     <inlineHelpText>This flag is set to true for document send for signature manually.</inlineHelpText>
     <label>Is Sent for Manual Signature</label>
     <securityClassification>INTERNAL</securityClassification>

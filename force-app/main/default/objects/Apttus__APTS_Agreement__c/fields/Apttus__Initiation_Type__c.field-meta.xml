@@ -3,7 +3,6 @@
     <fullName>Apttus__Initiation_Type__c</fullName>
     <deprecated>false</deprecated>
     <description>To indicate whether this record is being filed as an executed agreement or is being negotiated in the system</description>
-    <externalId>false</externalId>
     <label>Initiation Type</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>

@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Denotes if notifications will be sent to users</description>
-    <externalId>false</externalId>
     <label>Send Notifications</label>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>

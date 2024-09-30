@@ -4,7 +4,6 @@
     <deleteConstraint>SetNull</deleteConstraint>
     <deprecated>false</deprecated>
     <description>ID of the price ruleset</description>
-    <externalId>false</externalId>
     <inlineHelpText>ID of the price ruleset</inlineHelpText>
     <label>Price Ruleset</label>
     <referenceTo>Apttus_Config2__PriceRuleset__c</referenceTo>

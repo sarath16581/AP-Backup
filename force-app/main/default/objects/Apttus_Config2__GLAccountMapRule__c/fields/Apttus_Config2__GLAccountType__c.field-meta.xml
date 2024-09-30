@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__GLAccountType__c</fullName>
     <deprecated>false</deprecated>
     <description>The G/L account type</description>
-    <externalId>false</externalId>
     <inlineHelpText>The G/L account type</inlineHelpText>
     <label>G/L Account Type</label>
     <required>false</required>

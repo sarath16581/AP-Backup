@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Contract_Term_Extension__c</fullName>
-    <externalId>false</externalId>
     <inlineHelpText>An option to extend the Contract term for an additional period (eg +2). If there is no extension option select 0</inlineHelpText>
     <label>Contract Term Extension</label>
     <required>false</required>

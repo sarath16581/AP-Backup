@@ -3,7 +3,6 @@
     <fullName>Apttus__Agreement__c</fullName>
     <deprecated>false</deprecated>
     <description>The agreement associated with the field</description>
-    <externalId>false</externalId>
     <label>Agreement</label>
     <referenceTo>Apttus__APTS_Agreement__c</referenceTo>
     <relationshipLabel>Cycle Time Field Data</relationshipLabel>

@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Body__c</fullName>
     <description>Text body of the email.</description>
-    <externalId>false</externalId>
     <label>Body</label>
     <length>32768</length>
     <securityClassification>INTERNAL</securityClassification>

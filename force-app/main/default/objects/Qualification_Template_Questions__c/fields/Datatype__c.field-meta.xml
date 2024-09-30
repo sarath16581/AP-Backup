@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Datatype__c</fullName>
     <description>This field determines the data type of the response to be captured, whether its a Text (free text) or a Picklist field.</description>
-    <externalId>false</externalId>
     <inlineHelpText>This field determines the data type of the response to be captured, whether its a Text (free text) or a Picklist field.</inlineHelpText>
     <label>Datatype</label>
     <required>false</required>

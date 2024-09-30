@@ -3,7 +3,6 @@
     <fullName>Is_T_C_Enabled__c</fullName>
     <defaultValue>true</defaultValue>
     <description>this field is to either show/hide the terms and condition button on the proposal record</description>
-    <externalId>false</externalId>
     <inlineHelpText>this field is to either show/hide the terms and condition button on the proposal record</inlineHelpText>
     <label>Is T&amp;C Enabled</label>
     <securityClassification>INTERNAL</securityClassification>

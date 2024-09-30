@@ -3,7 +3,6 @@
     <fullName>Apttus_Approval__ApprovalPolicy__c</fullName>
     <deprecated>false</deprecated>
     <description>The approval policy associated with the rule</description>
-    <externalId>false</externalId>
     <inlineHelpText>The approval policy associated with the rule</inlineHelpText>
     <label>Approval Policy</label>
     <required>false</required>

@@ -3,7 +3,6 @@
     <fullName>Apttus_Proposal__RFP_Response_Content__c</fullName>
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
-    <externalId>false</externalId>
     <label>RFP Response Content</label>
     <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>

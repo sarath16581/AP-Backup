@@ -3,7 +3,6 @@
     <fullName>Territory_Owner__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <description>The usual Sales Team member who manages the Territory [ when not on Leave ]</description>
-    <externalId>false</externalId>
     <inlineHelpText>Who usually manages opportunities for this Territory when not on Leave?</inlineHelpText>
     <label>Territory Owner</label>
     <referenceTo>User</referenceTo>

@@ -3,7 +3,6 @@
     <fullName>Close_Bulk_Tasks__c</fullName>
     <defaultValue>false</defaultValue>
     <description>StarTrack - Close all tasks related to this Case</description>
-    <externalId>false</externalId>
     <label>Close Bulk Tasks</label>
     <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>

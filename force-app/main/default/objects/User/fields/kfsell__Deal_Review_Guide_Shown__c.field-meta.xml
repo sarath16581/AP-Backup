@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>To check guided deal opening tour shown to user</description>
-    <externalId>false</externalId>
     <label>Deal Review Guide Shown</label>
     <trackFeedHistory>false</trackFeedHistory>
     <type>Checkbox</type>

@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>APT_Document_Generation_in_Progress__c</fullName>
     <defaultValue>false</defaultValue>
-    <externalId>false</externalId>
     <label>Document Generation in Progress</label>
     <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>

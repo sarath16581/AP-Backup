@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Pre_Post_Manual_Steps__c</fullName>
-    <externalId>false</externalId>
     <label>Pre/Post Manual Steps</label>
     <length>32768</length>
     <trackTrending>false</trackTrending>

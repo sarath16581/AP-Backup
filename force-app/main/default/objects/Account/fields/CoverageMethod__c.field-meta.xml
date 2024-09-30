@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>CoverageMethod__c</fullName>
     <description>.</description>
-    <externalId>false</externalId>
     <inlineHelpText>The method via which the sales relationship is managed</inlineHelpText>
     <label>Coverage Method</label>
     <required>false</required>

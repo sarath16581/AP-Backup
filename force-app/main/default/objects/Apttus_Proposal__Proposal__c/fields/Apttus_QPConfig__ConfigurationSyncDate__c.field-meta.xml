@@ -3,7 +3,6 @@
     <fullName>Apttus_QPConfig__ConfigurationSyncDate__c</fullName>
     <deprecated>false</deprecated>
     <description>Date when the configuration was synchronized for the quote/proposal</description>
-    <externalId>false</externalId>
     <inlineHelpText>Date when the configuration was synchronized for the quote/proposal</inlineHelpText>
     <label>Configuration Sync Date</label>
     <required>false</required>

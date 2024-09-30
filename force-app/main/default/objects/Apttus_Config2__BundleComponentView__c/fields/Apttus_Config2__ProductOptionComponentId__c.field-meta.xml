@@ -4,7 +4,6 @@
     <deleteConstraint>SetNull</deleteConstraint>
     <deprecated>false</deprecated>
     <description>The product option component associated with the system.</description>
-    <externalId>false</externalId>
     <label>Product Option Component</label>
     <referenceTo>Apttus_Config2__ProductOptionComponent__c</referenceTo>
     <relationshipName>SystemComponents</relationshipName>

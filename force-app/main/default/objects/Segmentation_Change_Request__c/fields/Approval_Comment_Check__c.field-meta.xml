@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Approval_Comment_Check__c</fullName>
     <description>Indicates to the system if an approval comment check is required</description>
-    <externalId>false</externalId>
     <label>Approval Comment Check</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>

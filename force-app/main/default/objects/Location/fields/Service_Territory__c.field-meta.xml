@@ -3,7 +3,6 @@
     <fullName>Service_Territory__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <description>Service Territory. Used to group Vehicles</description>
-    <externalId>false</externalId>
     <label>Service Territory</label>
     <referenceTo>ServiceTerritory</referenceTo>
     <relationshipLabel>Locations</relationshipLabel>

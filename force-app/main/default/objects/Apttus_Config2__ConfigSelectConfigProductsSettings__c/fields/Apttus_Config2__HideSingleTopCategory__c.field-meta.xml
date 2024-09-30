@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>If it is checked when there is only one top category for a price list and it has child categories, the top category will be hidden.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Check to hide top category when there is only one top category and it has one or more child categories.</inlineHelpText>
     <label>Hide Single Top Category</label>
     <trackTrending>false</trackTrending>

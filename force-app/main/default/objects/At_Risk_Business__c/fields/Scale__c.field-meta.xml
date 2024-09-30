@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Scale__c</fullName>
     <description>Identify the scale of the risk/lost business.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Identify the scale of the risk/lost business.</inlineHelpText>
     <label>Scale</label>
     <required>false</required>

@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__RegionScopeOper__c</fullName>
     <deprecated>false</deprecated>
     <description>The region scope operator</description>
-    <externalId>false</externalId>
     <inlineHelpText>The region scope operator</inlineHelpText>
     <label>Region Scope Oper</label>
     <required>false</required>

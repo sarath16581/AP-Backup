@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Opportunity_Initial_Estimate__c</fullName>
-    <externalId>false</externalId>
     <inlineHelpText>The initial revenue estimate of the opportunity. Generally recorded at the point of lead conversion.</inlineHelpText>
     <label>Opportunity Initial Estimate</label>
     <precision>18</precision>

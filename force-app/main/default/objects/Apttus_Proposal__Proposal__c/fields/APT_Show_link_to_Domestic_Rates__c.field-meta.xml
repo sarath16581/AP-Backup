@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>APT_Show_link_to_Domestic_Rates__c</fullName>
     <defaultValue>false</defaultValue>
-    <externalId>false</externalId>
     <label>Show Link to Domestic Rates?</label>
     <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>

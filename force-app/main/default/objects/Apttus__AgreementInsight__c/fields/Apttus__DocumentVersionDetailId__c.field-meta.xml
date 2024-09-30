@@ -4,7 +4,6 @@
     <deleteConstraint>SetNull</deleteConstraint>
     <deprecated>false</deprecated>
     <description>Document Version on which the Insight rating is defined</description>
-    <externalId>false</externalId>
     <inlineHelpText>Document Version on which the Insight rating is defined</inlineHelpText>
     <label>Document Version Detail</label>
     <referenceTo>Apttus__DocumentVersionDetail__c</referenceTo>

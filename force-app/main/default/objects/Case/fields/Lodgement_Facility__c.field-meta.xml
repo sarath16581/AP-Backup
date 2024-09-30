@@ -3,7 +3,6 @@
     <fullName>Lodgement_Facility__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <description>Origin facility that raises non-compliance case</description>
-    <externalId>false</externalId>
     <label>Lodgement Facility</label>
     <referenceTo>Non_Compliance_Facility__c</referenceTo>
     <relationshipLabel>Cases</relationshipLabel>

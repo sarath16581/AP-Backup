@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Total_Amount_of_Claim__c</fullName>
     <description>StarTrack - Total Amount of Claim</description>
-    <externalId>false</externalId>
     <label>Total Amount of Claim</label>
     <precision>18</precision>
     <required>false</required>

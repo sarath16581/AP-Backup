@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>SharedMailboxEmails2__c</fullName>
     <description>Shared mailboxes that the contact centre uses</description>
-    <externalId>false</externalId>
     <label>Shared Mailbox Emails 2</label>
     <required>false</required>
     <trackTrending>false</trackTrending>

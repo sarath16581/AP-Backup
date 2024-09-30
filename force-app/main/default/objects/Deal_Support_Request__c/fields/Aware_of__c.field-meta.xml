@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Aware_of__c</fullName>
     <defaultValue>true</defaultValue>
-    <externalId>false</externalId>
     <inlineHelpText>Were we aware of this opportunitiy before the tender was released. Tick here if so or leave blank if not.</inlineHelpText>
     <label>Aware of Opp before Tender Release?</label>
     <securityClassification>INTERNAL</securityClassification>

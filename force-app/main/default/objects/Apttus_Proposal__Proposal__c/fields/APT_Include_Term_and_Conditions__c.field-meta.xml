@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>APT_Include_Term_and_Conditions__c</fullName>
     <defaultValue>false</defaultValue>
-    <externalId>false</externalId>
     <label>Include Terms and Conditions?</label>
     <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>

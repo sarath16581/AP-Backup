@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>AccountLookup__c</fullName>
     <description>Field with the lookup relationship to Account entity to determine the Sales Team Type.</description>
-    <externalId>false</externalId>
     <fieldManageability>DeveloperControlled</fieldManageability>
     <inlineHelpText>Field with the lookup relationship to Account entity to determine the Sales Team Type.</inlineHelpText>
     <label>Account Lookup</label>

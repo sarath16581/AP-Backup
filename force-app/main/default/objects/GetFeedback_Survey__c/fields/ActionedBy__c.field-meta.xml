@@ -3,7 +3,6 @@
     <fullName>ActionedBy__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <description>Actioned By’ field to capture the name of the person who has actioned in the Get Feedback record.</description>
-    <externalId>false</externalId>
     <label>Actioned By</label>
     <referenceTo>User</referenceTo>
     <relationshipName>GetFeedback_Surveys1</relationshipName>

@@ -3,7 +3,6 @@
     <fullName>kfsell__is_business_result_identified__c</fullName>
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
-    <externalId>false</externalId>
     <label>is business result identified</label>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>

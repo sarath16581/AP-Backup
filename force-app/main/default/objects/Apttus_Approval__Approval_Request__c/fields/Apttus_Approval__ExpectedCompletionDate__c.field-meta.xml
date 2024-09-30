@@ -3,7 +3,6 @@
     <fullName>Apttus_Approval__ExpectedCompletionDate__c</fullName>
     <deprecated>false</deprecated>
     <description>The date this approval request is expected to be completed (approved or rejected).</description>
-    <externalId>false</externalId>
     <inlineHelpText>The date this approval request is expected to be completed (approved or rejected).</inlineHelpText>
     <label>Expected Completion Date</label>
     <required>false</required>

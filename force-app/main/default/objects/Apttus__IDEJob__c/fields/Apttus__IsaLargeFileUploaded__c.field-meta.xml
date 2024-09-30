@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Select the checkbox to indicate that a large file is uploaded.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Select the checkbox to indicate that a large file is uploaded.</inlineHelpText>
     <label>Is a Large File Uploaded?</label>
     <trackTrending>false</trackTrending>

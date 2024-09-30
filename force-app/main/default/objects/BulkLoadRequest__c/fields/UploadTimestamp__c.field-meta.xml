@@ -3,7 +3,6 @@
     <fullName>UploadTimestamp__c</fullName>
     <defaultValue>NOW()</defaultValue>
     <description>Date / Time at which the file is uploaded.</description>
-    <externalId>false</externalId>
     <label>Upload Timestamp</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>

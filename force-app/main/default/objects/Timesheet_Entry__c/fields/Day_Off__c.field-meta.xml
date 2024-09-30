@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Day_Off__c</fullName>
     <defaultValue>false</defaultValue>
-    <externalId>false</externalId>
     <label>Day Off</label>
     <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>

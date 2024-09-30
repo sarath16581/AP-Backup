@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>PAYER_ACCOUNT_ID__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
-    <externalId>false</externalId>
     <inlineHelpText>Identify the SAP ERP Head Office (Payer) Account number.</inlineHelpText>
     <label>Payer Account ID</label>
     <lookupFilter>

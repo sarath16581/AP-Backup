@@ -3,7 +3,6 @@
     <fullName>kfsell__Stop_Investment__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <deprecated>false</deprecated>
-    <externalId>false</externalId>
     <label>Stop Investment</label>
     <referenceTo>kfsell__Stop_Investment__c</referenceTo>
     <relationshipLabel>Related Activities</relationshipLabel>
