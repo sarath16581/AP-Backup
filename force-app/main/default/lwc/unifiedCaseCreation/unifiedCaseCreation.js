@@ -48,7 +48,7 @@ export const ENQUIRY_TYPE_OPTIONS = [
 
 export const IMPACTED_ARTICLE_MISSING_ERROR = 'Impacted articles cannot be empty, Please link at least one impacted article.';
 export const CONTACTID_MISSING_ERROR = 'Contact cannot be empty for investigation case, Please link a contact.';
-export const INVALID_FORM_ERROR = 'Please fix errors and try again';
+export const INVALID_FORM_ERROR = 'Please Fix Errors and Try Again';
 
 export default class UnifiedCaseCreation extends LightningElement {
 
