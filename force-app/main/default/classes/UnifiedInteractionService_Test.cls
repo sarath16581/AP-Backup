@@ -15,7 +15,7 @@ class UnifiedInteractionService_Test {
 		System.assertEquals(ContactRequest.Case__c, UnifiedInteractionService.MAPPED_CASE_FIELDS.get(ContactRequest.SobjectType));
 		System.assertEquals(VoiceCall.Case__c, UnifiedInteractionService.MAPPED_CASE_FIELDS.get(VoiceCall.SobjectType));
 	}
-    
+
 	@IsTest
 	static void retrieveInteractionRecords() {
 		LiveChatTranscriptsSelector mockLiveChatTranscriptsSelector = (LiveChatTranscriptsSelector)MockUtility.mockSelector(LiveChatTranscriptsSelector.class);

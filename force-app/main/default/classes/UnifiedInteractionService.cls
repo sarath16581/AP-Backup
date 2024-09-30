@@ -28,7 +28,7 @@ public with sharing class UnifiedInteractionService {
 	 */
 	public Map<Id, SObject> retrieveInteractionRecords(Map<SObjectType, Set<Id>> mappedObjectTypeAndIds) {
 		Map<Id, SObject> result = new Map<Id, SObject>();
-		Set<SObjectField> fieldOverrides = null;
+		
 		if(mappedObjectTypeAndIds.containsKey(LiveChatTranscript.SObjectType) == true && mappedObjectTypeAndIds.get(LiveChatTranscript.SObjectType).isEmpty() == false) {
 			// adding the related LiveChatTranscript from the set of Ids. The CaseId field is included on the Selector
 			result.putAll(LiveChatTranscriptsSelector.newInstance().selectByIds(new Set<Object>(), mappedObjectTypeAndIds.get(LiveChatTranscript.SObjectType)));
