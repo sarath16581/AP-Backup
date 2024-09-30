@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__GroupType__c</fullName>
     <deprecated>false</deprecated>
     <description>The group type</description>
-    <externalId>false</externalId>
     <label>Group Type</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>

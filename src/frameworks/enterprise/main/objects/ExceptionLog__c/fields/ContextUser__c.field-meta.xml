@@ -3,7 +3,6 @@
     <fullName>ContextUser__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <description>User who invoked the service.</description>
-    <externalId>false</externalId>
     <label>Context User</label>
     <referenceTo>User</referenceTo>
     <relationshipName>ExceptionLogs</relationshipName>

@@ -3,7 +3,6 @@
     <fullName>Apttus_Base2__Timestamp__c</fullName>
     <deprecated>false</deprecated>
     <description>Timestamp from when the operation occurred.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Timestamp from when the operation occurred.</inlineHelpText>
     <label>Timestamp</label>
     <required>false</required>

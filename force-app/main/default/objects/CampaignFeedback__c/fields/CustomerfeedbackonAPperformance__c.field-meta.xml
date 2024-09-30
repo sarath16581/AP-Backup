@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>CustomerfeedbackonAPperformance__c</fullName>
     <description>Customer&apos;s opinion on how AP performed during the peak period</description>
-    <externalId>false</externalId>
     <inlineHelpText>Customer&apos;s opinion on how AP performed during the peak period</inlineHelpText>
     <label>Customer feedback on AP performance</label>
     <required>false</required>

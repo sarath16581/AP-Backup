@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>SiteInstructions__c</fullName>
     <description>Links and images (rich text) about the location.  Note that data type of this field does not render correctly in the FSL mobile app at time of update.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Links and images (rich text) about the location.</inlineHelpText>
     <label>Site Information</label>
     <length>32768</length>

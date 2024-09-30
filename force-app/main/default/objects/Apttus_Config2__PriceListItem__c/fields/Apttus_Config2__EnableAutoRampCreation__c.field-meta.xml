@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Indicates whether price ramps are auto created based on ramp frequency and enforces bundle and option dates.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Indicates whether price ramps are auto created based on ramp frequency and enforces bundle and option dates.</inlineHelpText>
     <label>Enable Auto Ramp Creation</label>
     <securityClassification>INTERNAL</securityClassification>

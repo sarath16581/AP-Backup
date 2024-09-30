@@ -3,7 +3,6 @@
     <fullName>Proposal__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <description>ACIC Request Case will be created against this Proposal</description>
-    <externalId>false</externalId>
     <label>Proposal</label>
     <referenceTo>Apttus_Proposal__Proposal__c</referenceTo>
     <relationshipLabel>Cases</relationshipLabel>

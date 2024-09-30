@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Request_Support_Type__c</fullName>
     <description>This field is to classify sales solution request into Product Specialist Support and Solution Consultant requests</description>
-    <externalId>false</externalId>
     <inlineHelpText>What type of support do you require for request?</inlineHelpText>
     <label>Request Support Type</label>
     <required>false</required>

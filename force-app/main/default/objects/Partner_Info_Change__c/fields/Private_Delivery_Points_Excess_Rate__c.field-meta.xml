@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Private_Delivery_Points_Excess_Rate__c</fullName>
     <description>The agreed rate per delivery point per annum which is paid to a License for the delivery of mail for each private delivery point in excess of 1,000 point</description>
-    <externalId>false</externalId>
     <label>Private Delivery Points Excess Rate</label>
     <precision>8</precision>
     <required>false</required>

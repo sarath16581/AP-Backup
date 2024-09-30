@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>APT_Credit_Referred_Manually__c</fullName>
     <defaultValue>true</defaultValue>
-    <externalId>false</externalId>
     <label>Credit Referred Manually?</label>
     <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>

@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__AttributeValueMatrixId__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <deprecated>false</deprecated>
-    <externalId>false</externalId>
     <label>Attribute Value Matrix</label>
     <referenceTo>Apttus_Config2__AttributeValueMatrix__c</referenceTo>
     <relationshipLabel>Product Attribute Groups</relationshipLabel>

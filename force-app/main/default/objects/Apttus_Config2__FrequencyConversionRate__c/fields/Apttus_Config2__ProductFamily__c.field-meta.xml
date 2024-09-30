@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__ProductFamily__c</fullName>
     <deprecated>false</deprecated>
     <description>The product family</description>
-    <externalId>false</externalId>
     <inlineHelpText>The product family</inlineHelpText>
     <label>Product Family</label>
     <required>false</required>

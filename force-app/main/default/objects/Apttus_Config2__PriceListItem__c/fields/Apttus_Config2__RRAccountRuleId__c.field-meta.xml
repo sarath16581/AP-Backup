@@ -4,7 +4,6 @@
     <deleteConstraint>SetNull</deleteConstraint>
     <deprecated>false</deprecated>
     <description>ID of the recognized revenue account rule</description>
-    <externalId>false</externalId>
     <inlineHelpText>ID of the recognized revenue account rule</inlineHelpText>
     <label>Recognized Revenue Account</label>
     <lookupFilter>

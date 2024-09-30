@@ -3,7 +3,6 @@
     <fullName>Apttus_CMConfig__FulfillmentStatus__c</fullName>
     <deprecated>false</deprecated>
     <description>The order fulfillment line status</description>
-    <externalId>false</externalId>
     <inlineHelpText>The order fulfillment line status</inlineHelpText>
     <label>Fulfillment Status</label>
     <required>false</required>

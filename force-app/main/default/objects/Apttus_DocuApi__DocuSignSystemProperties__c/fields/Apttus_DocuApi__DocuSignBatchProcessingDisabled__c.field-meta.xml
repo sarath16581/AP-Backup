@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>This flag indicates whether to use Apex batch to process DocuSign eSignature request. If set to true the request would be processed synchronously.</description>
-    <externalId>false</externalId>
     <inlineHelpText>This flag indicates whether to use Apex batch to process DocuSign eSignature request. If set to true the request would be processed synchronously.</inlineHelpText>
     <label>DocuSign Batch Processing Disabled</label>
     <trackTrending>false</trackTrending>

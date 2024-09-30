@@ -3,7 +3,6 @@
     <fullName>ByPassRoutingRulesOnCreation__c</fullName>
     <defaultValue>false</defaultValue>
     <description>This field serves as a universal routing bypass flag for case creation only. Routing on case updates should not take this flag into consideration.</description>
-    <externalId>false</externalId>
     <label>Bypass Routing Rules On Creation</label>
     <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>

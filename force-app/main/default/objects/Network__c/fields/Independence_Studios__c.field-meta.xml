@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Independence_Studios__c</fullName>
     <description>Retail PON Geopointe Related Field</description>
-    <externalId>false</externalId>
     <label>Independence Studios</label>
     <precision>18</precision>
     <required>false</required>

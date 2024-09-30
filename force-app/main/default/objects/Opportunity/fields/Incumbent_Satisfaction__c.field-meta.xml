@@ -4,7 +4,6 @@
     <description>Phase 1 - Opportunity Assessment (PWC)
 
 Identify if the customer has indicated whether or not they are happy with this supplier and reasons they may choose to terminate that relationship</description>
-    <externalId>false</externalId>
     <inlineHelpText>Is the customer satisfied with their incumbents ? Would they change?</inlineHelpText>
     <label>Incumbent Satisfaction</label>
     <length>32768</length>

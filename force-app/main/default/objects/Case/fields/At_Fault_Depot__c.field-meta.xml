@@ -3,7 +3,6 @@
     <fullName>At_Fault_Depot__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <description>StarTrack - At Fault Depot (Network)</description>
-    <externalId>false</externalId>
     <label>At Fault Depot</label>
     <referenceTo>Network__c</referenceTo>
     <relationshipLabel>Cases (At Fault Depot)</relationshipLabel>

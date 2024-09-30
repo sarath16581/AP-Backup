@@ -3,7 +3,6 @@
     <fullName>APT_has_file__c</fullName>
     <defaultValue>false</defaultValue>
     <description>Apttus Contract Record has a file(s)</description>
-    <externalId>false</externalId>
     <inlineHelpText>Apttus Contract Record has a file(s)</inlineHelpText>
     <label>Agreement Attached</label>
     <securityClassification>INTERNAL</securityClassification>

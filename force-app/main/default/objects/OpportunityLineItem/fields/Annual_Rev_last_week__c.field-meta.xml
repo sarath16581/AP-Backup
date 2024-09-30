@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Annual_Rev_last_week__c</fullName>
-    <externalId>false</externalId>
     <formula>IF( ( Opportunity.Today_Week__c - Opportunity.Close_Date_Week__c = 1),  TotalPrice  , 0)</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <label>Annual Rev (last week)</label>

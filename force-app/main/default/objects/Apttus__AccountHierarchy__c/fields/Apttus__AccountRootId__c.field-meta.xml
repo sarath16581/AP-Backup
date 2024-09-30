@@ -5,7 +5,6 @@
     <deprecated>false</deprecated>
     <description>The account Id of the root. A root account is the primordial account which has all of the children, grandchildren, etc. in the hierarchy. There can be only one root account for a hierarchy.
 Root &gt; Parent &gt; Leaf</description>
-    <externalId>false</externalId>
     <inlineHelpText>The account Id of the root. A root account is the primordial account which has all of the children, grandchildren, etc. in the hierarchy. There can be only one root account for a hierarchy.
 Root &gt; Parent &gt; Leaf</inlineHelpText>
     <label>Account Root</label>

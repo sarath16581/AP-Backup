@@ -4,7 +4,6 @@
     <deleteConstraint>SetNull</deleteConstraint>
     <deprecated>false</deprecated>
     <description>The ID of the line item this was derived from</description>
-    <externalId>false</externalId>
     <label>Derived From</label>
     <referenceTo>Apttus_Config2__LineItem__c</referenceTo>
     <relationshipLabel>Derived Agreement Line Items</relationshipLabel>

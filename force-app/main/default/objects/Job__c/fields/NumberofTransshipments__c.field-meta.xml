@@ -3,7 +3,6 @@
     <fullName>NumberofTransshipments__c</fullName>
     <defaultValue>TEXT(0)</defaultValue>
     <description>Field used to capture the number of transhipments required.  Used for validations when changing status to &quot;Allocated&quot;</description>
-    <externalId>false</externalId>
     <label>Number of Transshipments Required</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>

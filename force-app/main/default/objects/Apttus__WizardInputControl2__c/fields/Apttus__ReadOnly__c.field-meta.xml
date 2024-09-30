@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Specifies if an input control value can be edited by the runtime user</description>
-    <externalId>false</externalId>
     <inlineHelpText>Specifies if an input control value can be edited by the runtime user</inlineHelpText>
     <label>Read Only</label>
     <securityClassification>INTERNAL</securityClassification>

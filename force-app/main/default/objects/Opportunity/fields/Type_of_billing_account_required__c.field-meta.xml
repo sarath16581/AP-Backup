@@ -3,7 +3,6 @@
     <fullName>Type_of_billing_account_required__c</fullName>
     <defaultValue>&quot;None&quot;</defaultValue>
     <description>Operational Details</description>
-    <externalId>false</externalId>
     <inlineHelpText>This field pre-fills the New Account Type field in the APTTUS Proposal step</inlineHelpText>
     <label>Type of billing account required</label>
     <required>false</required>

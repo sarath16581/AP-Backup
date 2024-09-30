@@ -3,7 +3,6 @@
     <fullName>Requestor__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <description>This is a custom field created for the User Support Case Page Layout</description>
-    <externalId>false</externalId>
     <inlineHelpText>Select the individual that the query is from</inlineHelpText>
     <label>Requestor</label>
     <referenceTo>User</referenceTo>

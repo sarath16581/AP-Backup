@@ -3,7 +3,6 @@
     <fullName>Apttus_CMConfig__Cost__c</fullName>
     <deprecated>false</deprecated>
     <description>The cost for the product or service with no adjustments</description>
-    <externalId>false</externalId>
     <label>Cost</label>
     <precision>18</precision>
     <required>false</required>

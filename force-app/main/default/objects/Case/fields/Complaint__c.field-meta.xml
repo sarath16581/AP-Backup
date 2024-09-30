@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Complaint__c</fullName>
     <description>Identify if the case is a complaint or not</description>
-    <externalId>false</externalId>
     <inlineHelpText>A complaint is defined as a customers expression of dissatisfaction related to our products, services or our complaints handling process itself.</inlineHelpText>
     <label>Complaint</label>
     <required>false</required>

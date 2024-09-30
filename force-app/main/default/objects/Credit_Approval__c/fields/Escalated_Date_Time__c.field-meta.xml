@@ -3,7 +3,6 @@
     <fullName>Escalated_Date_Time__c</fullName>
     <businessStatus>DeprecateCandidate</businessStatus>
     <description>DEPRECATED. DO NOT USE.</description>
-    <externalId>false</externalId>
     <label>Escalated Date Time (DEPRECATED)</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>

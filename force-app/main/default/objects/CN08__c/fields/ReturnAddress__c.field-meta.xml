@@ -7,7 +7,6 @@
 &quot;AUSTRALIA&quot; &amp; BR() &amp;
 &quot;international@auspost.com.au&quot;</defaultValue>
     <description>Dispatch Office/Return Address</description>
-    <externalId>false</externalId>
     <inlineHelpText>Dispatch Office/Return Address</inlineHelpText>
     <label>Return Address</label>
     <required>false</required>

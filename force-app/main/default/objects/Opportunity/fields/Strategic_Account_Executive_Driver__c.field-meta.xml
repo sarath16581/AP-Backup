@@ -3,7 +3,6 @@
     <fullName>Strategic_Account_Executive_Driver__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <description>requested by AVP for opportunity team reporting purpose.</description>
-    <externalId>false</externalId>
     <inlineHelpText>This field will populate when there is a Strategic Account Executive driver attached to the opportunity team.</inlineHelpText>
     <label>Strategic Account Executive Driver</label>
     <lookupFilter>

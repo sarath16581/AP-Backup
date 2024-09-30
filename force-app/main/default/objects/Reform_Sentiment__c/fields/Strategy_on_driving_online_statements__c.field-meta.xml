@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Strategy_on_driving_online_statements__c</fullName>
-    <externalId>false</externalId>
     <inlineHelpText>Strategy on driving online statements PLUS Impact on customer experience, payments, churn</inlineHelpText>
     <label>Strategy On Driving Online Statements</label>
     <length>32768</length>

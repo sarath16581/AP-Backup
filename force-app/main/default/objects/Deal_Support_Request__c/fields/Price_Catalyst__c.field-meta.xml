@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Price_Catalyst__c</fullName>
     <description>The price catalyst from Compass</description>
-    <externalId>false</externalId>
     <inlineHelpText>Contract renewal Ad-hoc review New to AP customer New acquisition or Campaign Business at risk of churning Price for significant customer growth Most relevant in-market offer</inlineHelpText>
     <label>Catalyst</label>
     <required>false</required>

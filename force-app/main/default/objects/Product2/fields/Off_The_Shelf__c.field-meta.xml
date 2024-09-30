@@ -3,7 +3,6 @@
     <fullName>Off_The_Shelf__c</fullName>
     <defaultValue>false</defaultValue>
     <description>Phase 1 - flag to denote that the product is an &quot;off the shelf&quot; product.</description>
-    <externalId>false</externalId>
     <label>Off The Shelf</label>
     <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>

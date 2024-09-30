@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__Status__c</fullName>
     <deprecated>false</deprecated>
     <description>The current status of the configuration</description>
-    <externalId>false</externalId>
     <label>Status</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>

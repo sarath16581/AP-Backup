@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Parcels_per_week__c</fullName>
     <description>populated via the web form at zingyourthing</description>
-    <externalId>false</externalId>
     <inlineHelpText>Populated via the web form at zingyourthing (e.g. 1-9, 10-19, 20+)</inlineHelpText>
     <label>Parcels per Week</label>
     <required>false</required>

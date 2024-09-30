@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>ServiceType__c</fullName>
     <description>The service type of the application which is used by Camunda to determine how authentication is handled.</description>
-    <externalId>false</externalId>
     <inlineHelpText>The service type of the application which is used by Camunda to determine how authentication is handled.</inlineHelpText>
     <label>Service Type</label>
     <required>true</required>

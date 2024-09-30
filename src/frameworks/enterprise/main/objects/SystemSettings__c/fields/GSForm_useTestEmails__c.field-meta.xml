@@ -3,7 +3,6 @@
     <fullName>GSForm_useTestEmails__c</fullName>
     <defaultValue>false</defaultValue>
     <description>When checked call call to action emails will be sent to the addresses specified in the GSForm_testEmailAddresses field</description>
-    <externalId>false</externalId>
     <label>GSForm_useTestEmails</label>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>

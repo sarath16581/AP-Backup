@@ -3,7 +3,6 @@
     <fullName>Route__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <description>Default route for the booking location</description>
-    <externalId>false</externalId>
     <inlineHelpText>Default route for the location.  Bookings created from this location will inherit this route unless otherwise specified.</inlineHelpText>
     <label>Route</label>
     <referenceTo>PUD_Route__c</referenceTo>

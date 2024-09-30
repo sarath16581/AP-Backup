@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>DeliveryOptions__c</fullName>
     <description>Used on MyNetwork community to add network response for ST cases.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Please provide delivery option</inlineHelpText>
     <label>Delivery Option</label>
     <required>false</required>

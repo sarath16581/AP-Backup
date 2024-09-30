@@ -3,7 +3,6 @@
     <fullName>Name_of_Intermediary_s_Client__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <description>Look up to Organisation</description>
-    <externalId>false</externalId>
     <label>Name of Intermediary&apos;s Client</label>
     <referenceTo>Account</referenceTo>
     <relationshipLabel>Deal Support Request (Name of Intermediary&apos;s Client)</relationshipLabel>

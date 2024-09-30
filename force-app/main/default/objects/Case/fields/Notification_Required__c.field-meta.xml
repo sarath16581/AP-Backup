@@ -3,7 +3,6 @@
     <fullName>Notification_Required__c</fullName>
     <defaultValue>false</defaultValue>
     <description>This will capture recent caller notification option.</description>
-    <externalId>false</externalId>
     <label>Notification Required?</label>
     <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>

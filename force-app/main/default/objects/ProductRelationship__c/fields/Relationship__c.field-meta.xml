@@ -4,7 +4,6 @@
     <businessStatus>Active</businessStatus>
     <complianceGroup>GDPR</complianceGroup>
     <description>Describes how the parent product is related to the related product</description>
-    <externalId>false</externalId>
     <inlineHelpText>Specify how the parent product is related to the related product.</inlineHelpText>
     <label>Relationship</label>
     <required>false</required>

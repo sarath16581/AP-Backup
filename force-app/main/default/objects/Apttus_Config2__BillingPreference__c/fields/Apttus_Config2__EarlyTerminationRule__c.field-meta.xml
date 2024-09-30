@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__EarlyTerminationRule__c</fullName>
     <deprecated>false</deprecated>
     <description>The early termination rule to apply when an asset is terminated</description>
-    <externalId>false</externalId>
     <inlineHelpText>Select an option to enable early termination charges. This is applicable only when the asset is terminated.</inlineHelpText>
     <label>Early Termination Rule</label>
     <required>false</required>

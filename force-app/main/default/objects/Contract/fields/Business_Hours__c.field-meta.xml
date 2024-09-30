@@ -3,7 +3,6 @@
     <fullName>Business_Hours__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <description>Corporate Business Hours associated with the agreement</description>
-    <externalId>false</externalId>
     <label>Business Hours</label>
     <referenceTo>BusinessHours</referenceTo>
     <relationshipName>SFCon_Agreements</relationshipName>

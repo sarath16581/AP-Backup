@@ -3,7 +3,6 @@
     <fullName>Apttus__Comment__c</fullName>
     <deprecated>false</deprecated>
     <description>Comment on canceling or Ending the Review Cycle.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Comment on canceling or Ending the Review Cycle.</inlineHelpText>
     <label>Comment</label>
     <length>32768</length>

@@ -3,7 +3,6 @@
     <fullName>IsDefault__c</fullName>
     <defaultValue>false</defaultValue>
     <description>When no status can be matched, this denotes the current record will be used as the default.</description>
-    <externalId>false</externalId>
     <fieldManageability>DeveloperControlled</fieldManageability>
     <inlineHelpText>When no status can be matched, this denotes the current record will be used as the default.</inlineHelpText>
     <label>Is Default</label>

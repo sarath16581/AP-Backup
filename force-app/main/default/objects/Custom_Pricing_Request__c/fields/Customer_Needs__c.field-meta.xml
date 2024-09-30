@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Customer_Needs__c</fullName>
-    <externalId>false</externalId>
     <inlineHelpText>What is the real need for customised pricing? Who are we competiting with? Do we have competition pricing info? If the need is flat rate pricing, please provide weight breaks?</inlineHelpText>
     <label>Customer Needs</label>
     <length>32768</length>

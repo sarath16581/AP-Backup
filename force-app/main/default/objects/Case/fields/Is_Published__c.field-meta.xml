@@ -3,7 +3,6 @@
     <fullName>Is_Published__c</fullName>
     <defaultValue>false</defaultValue>
     <description>StarTrack Comment Is Published</description>
-    <externalId>false</externalId>
     <label>Public</label>
     <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>

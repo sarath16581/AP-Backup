@@ -3,7 +3,6 @@
     <fullName>Depot__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <description>Custom lookup field to Depot used for tagging a content delivery with a specific depot</description>
-    <externalId>false</externalId>
     <label>Depot</label>
     <referenceTo>Network__c</referenceTo>
     <relationshipLabel>Depot Documents</relationshipLabel>

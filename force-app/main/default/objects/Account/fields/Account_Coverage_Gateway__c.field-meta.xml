@@ -5,7 +5,6 @@
     <description>Account Coverage Gateway - Indicates customers requiring contact this quarter.
 
 Only edited by Sys Admin profile via data load each quarter.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Indicates customers requiring contact this quarter</inlineHelpText>
     <label>Account Coverage Gateway</label>
     <securityClassification>INTERNAL</securityClassification>

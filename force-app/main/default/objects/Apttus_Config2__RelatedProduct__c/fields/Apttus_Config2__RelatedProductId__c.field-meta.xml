@@ -4,7 +4,6 @@
     <deleteConstraint>SetNull</deleteConstraint>
     <deprecated>false</deprecated>
     <description>The accessory or up sell product</description>
-    <externalId>false</externalId>
     <label>Related Product</label>
     <referenceTo>Product2</referenceTo>
     <relationshipLabel>Base Products (Related Product)</relationshipLabel>

@@ -3,7 +3,6 @@
     <fullName>Rural_Transaction_Centre__c</fullName>
     <defaultValue>false</defaultValue>
     <description>This code describes if the LPO is a Rural Transaction Centre.</description>
-    <externalId>false</externalId>
     <label>Rural Transaction Centre</label>
     <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>

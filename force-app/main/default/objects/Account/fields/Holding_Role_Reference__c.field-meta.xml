@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Holding_Role_Reference__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
-    <externalId>false</externalId>
     <label>Holding Role</label>
     <referenceTo>Holding_Role_Reference__c</referenceTo>
     <relationshipLabel>Holding Role</relationshipLabel>

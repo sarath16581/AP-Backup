@@ -3,7 +3,6 @@
     <fullName>Hidden_Restrict_Path_Closure__c</fullName>
     <defaultValue>false</defaultValue>
     <description>This is Hidden Field to Restrict the Usage of Path Button for Closing the Opportunity</description>
-    <externalId>false</externalId>
     <label>{Hidden} Restrict Path Closure</label>
     <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>

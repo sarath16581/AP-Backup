@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Network__c</fullName>
     <description>StarTrack  network facility.</description>
-    <externalId>false</externalId>
     <label>Network Facility</label>
     <referenceTo>Network__c</referenceTo>
     <relationshipLabel>Scanners</relationshipLabel>

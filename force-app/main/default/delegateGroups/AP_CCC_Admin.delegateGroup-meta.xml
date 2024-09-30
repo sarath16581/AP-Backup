@@ -17,13 +17,6 @@
     <groups>SSSW Knowledge Publish Articles</groups>
     <groups>Community Agents</groups>
     <groups>SSSW BO Admin</groups>
-    <groups>Knowledge: Article Managers</groups>
-    <groups>Knowledge: Australia Post</groups>
-    <groups>Knowledge: StarTrack</groups>
-    <groups>Knowledge: Manager</groups>
-    <groups>Knowledge: Recovery Team</groups>
-    <groups>Knowledge: Specialist Skill</groups>
-    <groups>Knowledge: FAQ</groups>
     <label>AP CCC Admin</label>
     <loginAccess>false</loginAccess>
     <permissionSets>SSSW Omni Supervisor PermSet</permissionSets>

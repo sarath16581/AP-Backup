@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__SearchContext__c</fullName>
     <deprecated>false</deprecated>
     <description>The search context</description>
-    <externalId>false</externalId>
     <inlineHelpText>The search context</inlineHelpText>
     <label>Search Context</label>
     <required>false</required>

@@ -3,7 +3,6 @@
     <fullName>NotifyApprover__c</fullName>
     <defaultValue>false</defaultValue>
     <description>Notify approver that the step has been auto approved and escalated</description>
-    <externalId>false</externalId>
     <inlineHelpText>When checked it will notify the previous approver that the approval has been escalated and they will no longer be able to approve or reject the request.</inlineHelpText>
     <label>Notify Approver</label>
     <securityClassification>INTERNAL</securityClassification>

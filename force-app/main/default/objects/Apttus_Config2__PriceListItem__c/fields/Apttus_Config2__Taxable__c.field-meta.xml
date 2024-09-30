@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Indicates whether the price item is taxable</description>
-    <externalId>false</externalId>
     <inlineHelpText>Indicates whether the price item is taxable</inlineHelpText>
     <label>Taxable ?</label>
     <securityClassification>INTERNAL</securityClassification>

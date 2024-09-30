@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__NetUnitPrice__c</fullName>
     <deprecated>false</deprecated>
     <description>The net unit price for the product or service as per the contract or quote</description>
-    <externalId>false</externalId>
     <inlineHelpText>The net unit price for the product or service as per the contract or quote</inlineHelpText>
     <label>Net Unit Price</label>
     <precision>18</precision>

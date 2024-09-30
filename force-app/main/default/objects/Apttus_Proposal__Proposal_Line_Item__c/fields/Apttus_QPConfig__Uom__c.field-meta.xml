@@ -3,7 +3,6 @@
     <fullName>Apttus_QPConfig__Uom__c</fullName>
     <deprecated>false</deprecated>
     <description>The product or service unit of measure</description>
-    <externalId>false</externalId>
     <label>Product Uom</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>

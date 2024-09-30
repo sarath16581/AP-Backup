@@ -3,7 +3,6 @@
     <fullName>grax__Bulk_Formula_Field_Backup__c</fullName>
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
-    <externalId>false</externalId>
     <label>Bulk Formula Field Backup</label>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>

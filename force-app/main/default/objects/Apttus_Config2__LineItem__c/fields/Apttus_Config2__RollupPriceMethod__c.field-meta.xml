@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__RollupPriceMethod__c</fullName>
     <deprecated>false</deprecated>
     <description>The rollup price method.Only applicable to Option line types.</description>
-    <externalId>false</externalId>
     <inlineHelpText>The rollup price method.Only applicable to Option line types.</inlineHelpText>
     <label>Rollup Price Method</label>
     <required>false</required>

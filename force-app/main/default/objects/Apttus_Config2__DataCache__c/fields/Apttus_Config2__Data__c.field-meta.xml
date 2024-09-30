@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__Data__c</fullName>
     <deprecated>false</deprecated>
     <description>Delimited data</description>
-    <externalId>false</externalId>
     <label>Data</label>
     <required>false</required>
     <trackTrending>false</trackTrending>

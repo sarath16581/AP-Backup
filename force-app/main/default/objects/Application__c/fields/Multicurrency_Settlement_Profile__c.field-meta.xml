@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Multicurrency_Settlement_Profile__c</fullName>
-    <externalId>false</externalId>
     <inlineHelpText>Multicurrency Settlement Profile (Payment Terms)</inlineHelpText>
     <label>Multicurrency Settlement Profile</label>
     <required>false</required>

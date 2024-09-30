@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__ApplicationMethod__c</fullName>
     <deprecated>false</deprecated>
     <description>The ruleset application method. Only applicable to aggregate price rules.</description>
-    <externalId>false</externalId>
     <label>Application Method</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>

@@ -5,7 +5,6 @@
 X hour(s) logic is defined in Trigger (Callback Request).
 
 Also, using same field for callback reminders.</description>
-    <externalId>false</externalId>
     <label>Due Date Time</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>

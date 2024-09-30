@@ -3,7 +3,6 @@
     <fullName>IsAgentFirstResponse__c</fullName>
     <defaultValue>false</defaultValue>
     <description>Indicates that this is agent&apos;s first response on related case</description>
-    <externalId>false</externalId>
     <label>Is Agent First Response</label>
     <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>

@@ -3,7 +3,6 @@
     <fullName>IsNetworkResponseFromUI__c</fullName>
     <defaultValue>false</defaultValue>
     <description>Hidden field used set if Status is changed to &quot;Awaiting Network Response&quot; from UI - CaseDetails Page</description>
-    <externalId>false</externalId>
     <label>IsNetworkResponseFromUI</label>
     <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>

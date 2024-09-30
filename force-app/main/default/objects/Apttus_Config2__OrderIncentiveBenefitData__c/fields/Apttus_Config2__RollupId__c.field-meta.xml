@@ -4,7 +4,6 @@
     <deleteConstraint>SetNull</deleteConstraint>
     <deprecated>false</deprecated>
     <description>ID of the associated rollup</description>
-    <externalId>false</externalId>
     <inlineHelpText>ID of the associated rollup</inlineHelpText>
     <label>Rollup</label>
     <referenceTo>Apttus_Config2__SearchFilter__c</referenceTo>

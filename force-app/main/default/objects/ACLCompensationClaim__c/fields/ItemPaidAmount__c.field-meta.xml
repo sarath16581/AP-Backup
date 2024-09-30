@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>ItemPaidAmount__c</fullName>
     <description>StarTrack receivers Claimsview journey.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Proof of Value identifier.</inlineHelpText>
     <label>Item Paid Amount</label>
     <precision>8</precision>

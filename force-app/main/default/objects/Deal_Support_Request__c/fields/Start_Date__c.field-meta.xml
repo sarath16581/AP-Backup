@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Start_Date__c</fullName>
     <description>The date work commenced or will commence on the Bid or Tender.</description>
-    <externalId>false</externalId>
     <inlineHelpText>The date work commenced or will commence on the Bid or Tender.</inlineHelpText>
     <label>Start Date</label>
     <required>false</required>

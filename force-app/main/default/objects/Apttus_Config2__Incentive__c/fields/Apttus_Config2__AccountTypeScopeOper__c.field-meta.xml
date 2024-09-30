@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__AccountTypeScopeOper__c</fullName>
     <deprecated>false</deprecated>
     <description>The account type scope operator</description>
-    <externalId>false</externalId>
     <inlineHelpText>The account type scope operator</inlineHelpText>
     <label>Account Type Scope Oper</label>
     <required>false</required>

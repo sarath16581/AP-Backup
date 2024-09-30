@@ -3,7 +3,6 @@
     <fullName>Apttus__Status__c</fullName>
     <deprecated>false</deprecated>
     <description>The obligation status</description>
-    <externalId>false</externalId>
     <inlineHelpText>The obligation status</inlineHelpText>
     <label>Status</label>
     <required>false</required>

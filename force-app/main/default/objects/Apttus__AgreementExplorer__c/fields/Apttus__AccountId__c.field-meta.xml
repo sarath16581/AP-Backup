@@ -4,7 +4,6 @@
     <deleteConstraint>SetNull</deleteConstraint>
     <deprecated>false</deprecated>
     <description>The Account Id associated with this query.</description>
-    <externalId>false</externalId>
     <inlineHelpText>The Account Id associated with this query.</inlineHelpText>
     <label>Account</label>
     <referenceTo>Account</referenceTo>

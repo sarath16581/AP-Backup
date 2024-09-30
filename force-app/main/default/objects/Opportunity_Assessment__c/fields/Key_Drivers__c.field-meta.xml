@@ -4,7 +4,6 @@
     <description>Phase 1 - Opportunity Assessment (PWC)
 
 Concise description of the events that have caused the customer to take action including the major issues, drivers of this opportunity</description>
-    <externalId>false</externalId>
     <inlineHelpText>Why is the customer acting? i.e. key drivers, issues</inlineHelpText>
     <label>Key Drivers</label>
     <length>32768</length>

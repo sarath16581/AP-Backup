@@ -3,7 +3,6 @@
     <fullName>Apttus_Approval__Status__c</fullName>
     <deprecated>false</deprecated>
     <description>Async processing current status from the ApexJob table</description>
-    <externalId>false</externalId>
     <inlineHelpText>Async processing current status from the ApexJob table</inlineHelpText>
     <label>Status</label>
     <required>false</required>

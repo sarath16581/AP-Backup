@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Solution_Specialist_Approval_Date__c</fullName>
     <description>Phase 2 - this field will capture when the Solution Specialist approves the request.</description>
-    <externalId>false</externalId>
     <label>Solution Specialist Approval Date</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>

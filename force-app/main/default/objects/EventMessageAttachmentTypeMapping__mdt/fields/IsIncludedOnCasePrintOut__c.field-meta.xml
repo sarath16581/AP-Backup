@@ -3,7 +3,6 @@
     <fullName>IsIncludedOnCasePrintOut__c</fullName>
     <defaultValue>false</defaultValue>
     <description>Marks that the attachment type is included on case print outs.</description>
-    <externalId>false</externalId>
     <fieldManageability>DeveloperControlled</fieldManageability>
     <inlineHelpText>Marks that the attachment type is included on case print outs.</inlineHelpText>
     <label>Is Included on Case Print Out</label>

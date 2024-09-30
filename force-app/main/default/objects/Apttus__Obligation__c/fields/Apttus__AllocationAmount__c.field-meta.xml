@@ -3,7 +3,6 @@
     <fullName>Apttus__AllocationAmount__c</fullName>
     <deprecated>false</deprecated>
     <description>The allocation amount</description>
-    <externalId>false</externalId>
     <inlineHelpText>1.       Lone Allocation Amount for single Agreement Line Item
 2.       Aggregate Allocation Amount for multiple Agreement Line Items
 3.       Partial Allocation Amount for when a Split Policy is applied to a single Agreement Line Item</inlineHelpText>

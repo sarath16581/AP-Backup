@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Annual_Topup_Payment__c</fullName>
     <description>This is a legacy payment that is given to Licensees.</description>
-    <externalId>false</externalId>
     <label>Annual Topup Payment</label>
     <precision>8</precision>
     <required>false</required>

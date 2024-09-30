@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>APT_Recommended_Tier__c</fullName>
     <description>APPC Pricing tier offered to customer based on customer’s evaluated spend</description>
-    <externalId>false</externalId>
     <inlineHelpText>APPC Pricing tier offered to customer based on customer’s evaluated spend</inlineHelpText>
     <label>Recommended Tier</label>
     <required>false</required>

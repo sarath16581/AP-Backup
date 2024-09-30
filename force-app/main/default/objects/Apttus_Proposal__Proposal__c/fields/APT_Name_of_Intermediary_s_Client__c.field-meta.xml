@@ -3,7 +3,6 @@
     <fullName>APT_Name_of_Intermediary_s_Client__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <description>Name of Intermediary account&apos;s client</description>
-    <externalId>false</externalId>
     <label>(depr) Name of Intermediary&apos;s Client</label>
     <referenceTo>Account</referenceTo>
     <relationshipLabel>Proposals (Name of Intermediary&apos;s Client)</relationshipLabel>

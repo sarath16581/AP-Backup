@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Perform Mass Actions In Parallel</description>
-    <externalId>false</externalId>
     <inlineHelpText>Perform Mass Actions In Parallel</inlineHelpText>
     <label>Perform Mass Actions In Parallel</label>
     <trackTrending>false</trackTrending>

@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__CountryScopeOper__c</fullName>
     <deprecated>false</deprecated>
     <description>The country scope operator</description>
-    <externalId>false</externalId>
     <inlineHelpText>The country scope operator</inlineHelpText>
     <label>Country Scope Oper</label>
     <required>false</required>

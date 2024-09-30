@@ -3,7 +3,6 @@
     <fullName>Requestor__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <description>This field looks up Case object to obtain the requestorr name.</description>
-    <externalId>false</externalId>
     <label>Requestor</label>
     <referenceTo>Case</referenceTo>
     <relationshipLabel>GetFeedback Surveys (Case)</relationshipLabel>

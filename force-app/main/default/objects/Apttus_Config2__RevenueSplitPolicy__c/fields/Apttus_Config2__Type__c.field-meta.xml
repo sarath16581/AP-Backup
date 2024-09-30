@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__Type__c</fullName>
     <deprecated>false</deprecated>
     <description>The type of Revenue policy.  Either split a single Agreement Line Item into multiple obligations or merge (combine) multiple Agreement Line Items into a single obligation.</description>
-    <externalId>false</externalId>
     <inlineHelpText>The type of Revenue policy.  Either split a single Agreement Line Item into multiple obligations or merge (combine) multiple Agreement Line Items into a single obligation.</inlineHelpText>
     <label>Type</label>
     <required>false</required>

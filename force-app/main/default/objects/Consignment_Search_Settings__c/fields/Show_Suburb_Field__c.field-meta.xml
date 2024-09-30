@@ -3,7 +3,6 @@
     <fullName>Show_Suburb_Field__c</fullName>
     <defaultValue>false</defaultValue>
     <description>StarTrack: Show Suburb field to capture information related to show/hide suburb field</description>
-    <externalId>false</externalId>
     <label>Show Suburb Field</label>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>

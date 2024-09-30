@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>This settings enables the users to select the recipient role name while adding a recipient and makes the tagging order explicit. When enabled, users will see an additional option list to select the role name for the recipient on the add recipient view.</description>
-    <externalId>false</externalId>
     <inlineHelpText>This settings enables the users to select the recipient role name while adding a recipient and makes the tagging order explicit. When enabled, users will see an additional option list to select the role name for the recipient on the add recipient view.</inlineHelpText>
     <label>Recipient Roles Enabled</label>
     <trackTrending>false</trackTrending>

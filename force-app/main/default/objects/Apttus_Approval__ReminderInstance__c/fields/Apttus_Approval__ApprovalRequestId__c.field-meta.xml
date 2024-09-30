@@ -3,7 +3,6 @@
     <fullName>Apttus_Approval__ApprovalRequestId__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <deprecated>false</deprecated>
-    <externalId>false</externalId>
     <label>Approval Request Id</label>
     <referenceTo>Apttus_Approval__Approval_Request__c</referenceTo>
     <relationshipLabel>Reminder Instances</relationshipLabel>

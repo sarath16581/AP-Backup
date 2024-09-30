@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>SalesTeamType__c</fullName>
     <description>Sales Team type to help determine which group to share to.</description>
-    <externalId>false</externalId>
     <fieldManageability>DeveloperControlled</fieldManageability>
     <inlineHelpText>Sales Team type to help determine which group to share to.</inlineHelpText>
     <label>Sales Team Type</label>

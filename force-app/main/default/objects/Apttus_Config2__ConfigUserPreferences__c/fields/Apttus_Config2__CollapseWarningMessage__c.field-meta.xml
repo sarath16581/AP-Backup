@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Whether to collapse warning message</description>
-    <externalId>false</externalId>
     <label>Collapse Warning Message</label>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>

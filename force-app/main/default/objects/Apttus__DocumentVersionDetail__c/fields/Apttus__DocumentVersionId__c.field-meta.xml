@@ -3,7 +3,6 @@
     <fullName>Apttus__DocumentVersionId__c</fullName>
     <deprecated>false</deprecated>
     <description>Lookup to the Document Version this record is part of</description>
-    <externalId>false</externalId>
     <inlineHelpText>Lookup to the Document Version this record is part of</inlineHelpText>
     <label>Document Version</label>
     <referenceTo>Apttus__DocumentVersion__c</referenceTo>

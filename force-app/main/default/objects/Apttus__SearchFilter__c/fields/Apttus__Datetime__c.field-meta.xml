@@ -3,7 +3,6 @@
     <fullName>Apttus__Datetime__c</fullName>
     <deprecated>false</deprecated>
     <description>Search datetime</description>
-    <externalId>false</externalId>
     <label>Datetime</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>

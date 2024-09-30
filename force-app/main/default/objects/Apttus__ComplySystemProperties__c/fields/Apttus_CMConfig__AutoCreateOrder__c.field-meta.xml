@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Indicates whether an order and assets would be created automatically when the agreement is activated.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Indicates whether an order and assets would be created automatically when the agreement is activated.</inlineHelpText>
     <label>Auto Create Order</label>
     <trackTrending>false</trackTrending>

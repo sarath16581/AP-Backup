@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>BAMInviteAcceptedDate__c</fullName>
     <description>The date a new merchant portal invite was accepted. This will be the date on the &apos;CSSO - Fulfilled&apos; platform event date, or, if the user already has access to CSSO, then this will be the date of the first successful onboarding request.</description>
-    <externalId>false</externalId>
     <inlineHelpText>The date a new merchant portal invite was accepted. This will be the date on the CSSO - Fulfilled platform event date, or, if the user already has access to CSSO, then this will be the date of the first successful onboarding request.</inlineHelpText>
     <label>Merchant Portal Invite Accepted Date</label>
     <required>false</required>

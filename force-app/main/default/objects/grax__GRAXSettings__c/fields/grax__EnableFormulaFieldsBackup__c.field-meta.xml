@@ -3,7 +3,6 @@
     <fullName>grax__EnableFormulaFieldsBackup__c</fullName>
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
-    <externalId>false</externalId>
     <label>Enable Formula Fields Backup</label>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>

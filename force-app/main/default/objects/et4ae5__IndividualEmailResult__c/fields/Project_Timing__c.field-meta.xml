@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Project_Timing__c</fullName>
     <description>Response to the timing profiling question for the tactical email stream</description>
-    <externalId>false</externalId>
     <inlineHelpText>Response to the timing profiling question for the tactical email stream</inlineHelpText>
     <label>Project Timing</label>
     <required>false</required>

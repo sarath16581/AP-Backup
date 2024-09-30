@@ -4,7 +4,6 @@
     <deleteConstraint>Restrict</deleteConstraint>
     <deprecated>false</deprecated>
     <description>Lookup to wizard design</description>
-    <externalId>false</externalId>
     <inlineHelpText>Lookup to wizard design</inlineHelpText>
     <label>Wizard Design</label>
     <referenceTo>Apttus__WizardDesign__c</referenceTo>

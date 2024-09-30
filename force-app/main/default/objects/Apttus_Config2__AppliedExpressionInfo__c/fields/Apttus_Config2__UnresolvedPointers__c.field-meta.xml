@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__UnresolvedPointers__c</fullName>
     <deprecated>false</deprecated>
     <description>Criteria specifying whether addition of items requires evaluation of rules.</description>
-    <externalId>false</externalId>
     <label>Unresolved Pointers</label>
     <length>16384</length>
     <securityClassification>INTERNAL</securityClassification>

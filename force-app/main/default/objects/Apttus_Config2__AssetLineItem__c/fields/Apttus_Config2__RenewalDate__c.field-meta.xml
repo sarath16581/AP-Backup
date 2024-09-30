@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__RenewalDate__c</fullName>
     <deprecated>false</deprecated>
     <description>The asset renewal date</description>
-    <externalId>false</externalId>
     <inlineHelpText>The asset renewal date</inlineHelpText>
     <label>Renewal Date</label>
     <required>false</required>

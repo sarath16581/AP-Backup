@@ -3,7 +3,6 @@
     <fullName>Apttus_Proposal__Strategic_Importance__c</fullName>
     <deprecated>false</deprecated>
     <description>The strategic importance of the quote/proposal</description>
-    <externalId>false</externalId>
     <label>Strategic Importance</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>

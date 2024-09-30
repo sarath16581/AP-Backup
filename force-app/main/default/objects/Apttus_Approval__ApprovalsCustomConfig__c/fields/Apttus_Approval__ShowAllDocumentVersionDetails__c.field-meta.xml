@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>When checked, this setting shows all agreement versions from the document version details related list.  When unchecked (default) it only shows the most recent version from the document versions related list.</description>
-    <externalId>false</externalId>
     <inlineHelpText>When checked, this setting shows all agreement versions from the document version details related list.  When unchecked (default) it only shows the most recent version from the document versions related list.</inlineHelpText>
     <label>Show All Document Version Details</label>
     <trackTrending>false</trackTrending>

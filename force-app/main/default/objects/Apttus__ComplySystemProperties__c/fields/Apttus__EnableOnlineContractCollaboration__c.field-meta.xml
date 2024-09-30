@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Indicates whether Online Contract Collaboration is enabled</description>
-    <externalId>false</externalId>
     <inlineHelpText>Indicates whether Online Contract Collaboration is enabled</inlineHelpText>
     <label>Online Contract Collab (Deprecated)</label>
     <trackTrending>false</trackTrending>

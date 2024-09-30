@@ -4,7 +4,6 @@
     <deleteConstraint>SetNull</deleteConstraint>
     <deprecated>false</deprecated>
     <description>The user who for whom the backup or delegate approver applies.</description>
-    <externalId>false</externalId>
     <label>Current User</label>
     <referenceTo>User</referenceTo>
     <relationshipName>R00N700000028l1fEAA</relationshipName>

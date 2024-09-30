@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Customer_Key_areas_of_Opportunity__c</fullName>
-    <externalId>false</externalId>
     <inlineHelpText>Transact, Retention, Growth, CX
 Flow On ...extended product conversations for a) current customer comms CRM  trans/ loyalty /fulfilment (Parcels, TS) and b) Grow &amp; Acquire strategic discussions &amp; opportunities (inc data, mail channel trials &amp; eComm score</inlineHelpText>
     <label>Customer Key Areas Of Opportunity</label>

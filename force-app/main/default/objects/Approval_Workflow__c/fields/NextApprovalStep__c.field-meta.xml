@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>NextApprovalStep__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
-    <externalId>false</externalId>
     <label>Next Approval Step</label>
     <referenceTo>Approval_Workflow__c</referenceTo>
     <relationshipName>Approval_Workflow_Reporting1</relationshipName>

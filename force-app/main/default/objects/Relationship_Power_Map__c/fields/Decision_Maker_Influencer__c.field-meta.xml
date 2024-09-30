@@ -4,7 +4,6 @@
     <description>Phase 1 - Opportunity Assessment (PWC)
 
 Identify if this person will be involved in the decision process</description>
-    <externalId>false</externalId>
     <inlineHelpText>Are they a key decision maker/influencer?</inlineHelpText>
     <label>Decision Maker/Influencer</label>
     <required>false</required>

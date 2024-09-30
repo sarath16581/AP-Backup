@@ -4,7 +4,6 @@
     <deleteConstraint>SetNull</deleteConstraint>
     <deprecated>false</deprecated>
     <description>Lookup to the user who submitted this runtime</description>
-    <externalId>false</externalId>
     <inlineHelpText>Lookup to the user who submitted this runtime</inlineHelpText>
     <label>Submitted By</label>
     <referenceTo>User</referenceTo>

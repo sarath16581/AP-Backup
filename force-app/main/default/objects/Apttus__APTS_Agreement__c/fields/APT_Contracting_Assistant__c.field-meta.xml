@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>APT_Contracting_Assistant__c</fullName>
     <description>Created for Ariba mapping purposes. Reused for future records with Sellers input</description>
-    <externalId>false</externalId>
     <inlineHelpText>Contract Authority details</inlineHelpText>
     <label>Prepared by User</label>
     <required>false</required>

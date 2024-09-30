@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__RollupEndDateSourceObjectType__c</fullName>
     <deprecated>false</deprecated>
     <description>Indicates the type of the object that contains the rollup end date source</description>
-    <externalId>false</externalId>
     <inlineHelpText>Indicates the type of the object that contains the rollup end date source</inlineHelpText>
     <label>Rollup End Date Source Object Type</label>
     <required>false</required>

@@ -4,7 +4,6 @@
     <deleteConstraint>SetNull</deleteConstraint>
     <deprecated>false</deprecated>
     <description>ID of the associated billing preference</description>
-    <externalId>false</externalId>
     <inlineHelpText>ID of the associated billing preference</inlineHelpText>
     <label>Billing Preference</label>
     <lookupFilter>

@@ -3,7 +3,6 @@
     <fullName>IsExcludedFromAutoDeactivation__c</fullName>
     <defaultValue>false</defaultValue>
     <description>if checked user will be excluded from the auto deactivation process</description>
-    <externalId>false</externalId>
     <inlineHelpText>if checked user will be excluded from the auto deactivation process</inlineHelpText>
     <label>Excluded From Auto Deactivation</label>
     <trackFeedHistory>false</trackFeedHistory>

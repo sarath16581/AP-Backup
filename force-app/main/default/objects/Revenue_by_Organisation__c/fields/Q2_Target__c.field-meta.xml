@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Q2_Target__c</fullName>
     <description>Target amount for Q2. Previous name was &quot;Q2 Target Amount&quot; (MW0003520).</description>
-    <externalId>false</externalId>
     <label>Q2 Planned Revenue</label>
     <precision>18</precision>
     <required>false</required>

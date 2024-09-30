@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__AgreementItemFieldsForPartialOrder__c</fullName>
     <deprecated>false</deprecated>
     <description>Enter the list of field API names from the agreement line item object for display when creating partial orders. Each field may be separated by a comma or a new line.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Enter the list of field API names from the agreement line item object for display when creating partial orders. Each field may be separated by a comma or a new line.</inlineHelpText>
     <label>Agreement Item Fields For Partial Order</label>
     <required>false</required>

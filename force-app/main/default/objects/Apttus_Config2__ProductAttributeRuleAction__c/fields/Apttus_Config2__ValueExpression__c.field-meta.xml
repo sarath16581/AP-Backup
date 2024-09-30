@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__ValueExpression__c</fullName>
     <deprecated>false</deprecated>
     <description>The value expression for the action</description>
-    <externalId>false</externalId>
     <inlineHelpText>The value expression for the action</inlineHelpText>
     <label>Value Expression</label>
     <length>8192</length>

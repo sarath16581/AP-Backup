@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>No_Data_Consignment__c</fullName>
     <description>StarTrack No Data Consignment field will be used to flag case record if Receiver Suburb and Receiver Postcode is blank.</description>
-    <externalId>false</externalId>
     <formula>IF(AND(ISBLANK( ArticleTest__r.ReceiverPostcode__c ), ISBLANK( ArticleTest__r.Receiver_Suburb__c )), true, false)</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <label>No Data Consignment</label>

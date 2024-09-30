@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Indicator to defer pricing until the user clicks on a pricing action. .</description>
-    <externalId>false</externalId>
     <inlineHelpText>Indicator to defer pricing until the user clicks on a pricing action.</inlineHelpText>
     <label>Defer Pricing</label>
     <trackTrending>false</trackTrending>

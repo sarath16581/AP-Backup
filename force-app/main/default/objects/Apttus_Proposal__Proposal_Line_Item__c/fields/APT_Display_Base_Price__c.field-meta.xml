@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>APT_Display_Base_Price__c</fullName>
     <description>The field is used to display the base price currency value in 2 decimal places on the proposal template for WINE{Z30} price structure and Product is &quot;Return to Sender&quot; for eParcel and eParcel Express.</description>
-    <externalId>false</externalId>
     <formula>Apttus_QPConfig__BasePrice__c</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <label>Base Price</label>

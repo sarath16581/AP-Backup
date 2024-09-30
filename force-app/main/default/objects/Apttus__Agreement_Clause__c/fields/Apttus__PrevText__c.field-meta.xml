@@ -3,7 +3,6 @@
     <fullName>Apttus__PrevText__c</fullName>
     <deprecated>false</deprecated>
     <description>The clause previous text</description>
-    <externalId>false</externalId>
     <label>Previous Text</label>
     <length>64000</length>
     <securityClassification>INTERNAL</securityClassification>

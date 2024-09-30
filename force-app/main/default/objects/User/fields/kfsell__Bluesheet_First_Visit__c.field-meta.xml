@@ -3,7 +3,6 @@
     <fullName>kfsell__Bluesheet_First_Visit__c</fullName>
     <deprecated>false</deprecated>
     <description>To track user&apos;s first visit date to bluesheet.</description>
-    <externalId>false</externalId>
     <label>Bluesheet First Visit</label>
     <required>false</required>
     <trackFeedHistory>false</trackFeedHistory>

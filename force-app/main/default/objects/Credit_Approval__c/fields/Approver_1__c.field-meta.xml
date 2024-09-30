@@ -3,7 +3,6 @@
     <fullName>Approver_1__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <description>Delegated Approver within the delegation workflow. Referenced by the standard approval process</description>
-    <externalId>false</externalId>
     <label>Approver 1</label>
     <referenceTo>User</referenceTo>
     <relationshipName>Credit_Approvals</relationshipName>

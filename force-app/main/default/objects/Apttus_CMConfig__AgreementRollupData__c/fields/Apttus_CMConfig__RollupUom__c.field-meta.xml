@@ -3,7 +3,6 @@
     <fullName>Apttus_CMConfig__RollupUom__c</fullName>
     <deprecated>false</deprecated>
     <description>The rollup unit of measure for the product</description>
-    <externalId>false</externalId>
     <inlineHelpText>The rollup unit of measure for the product</inlineHelpText>
     <label>Rollup Uom</label>
     <required>false</required>

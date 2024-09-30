@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__FulfillmentStatus__c</fullName>
     <deprecated>false</deprecated>
     <description>The item fulfillment status</description>
-    <externalId>false</externalId>
     <inlineHelpText>The item fulfillment status</inlineHelpText>
     <label>Fulfillment Status</label>
     <required>false</required>

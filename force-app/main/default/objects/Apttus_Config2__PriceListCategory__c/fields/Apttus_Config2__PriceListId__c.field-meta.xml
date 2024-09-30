@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__PriceListId__c</fullName>
     <deprecated>false</deprecated>
     <description>ID of the associated price list</description>
-    <externalId>false</externalId>
     <label>Price List</label>
     <referenceTo>Apttus_Config2__PriceList__c</referenceTo>
     <relationshipLabel>Categories</relationshipLabel>

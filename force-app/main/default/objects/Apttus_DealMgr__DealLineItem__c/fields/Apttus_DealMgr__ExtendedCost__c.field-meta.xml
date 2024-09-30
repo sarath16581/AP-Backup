@@ -3,7 +3,6 @@
     <fullName>Apttus_DealMgr__ExtendedCost__c</fullName>
     <deprecated>false</deprecated>
     <description>The extended cost is Quantity X Selling Term X Cost</description>
-    <externalId>false</externalId>
     <label>Extended Cost</label>
     <precision>18</precision>
     <required>false</required>

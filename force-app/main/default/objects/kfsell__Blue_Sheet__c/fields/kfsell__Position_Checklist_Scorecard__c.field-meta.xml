@@ -3,7 +3,6 @@
     <fullName>kfsell__Position_Checklist_Scorecard__c</fullName>
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
-    <externalId>false</externalId>
     <label>Position Checklist Scorecard</label>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>

@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Indicates whether the approver receives only a notification for the approval request (when set to true) or gets the request assigned to them in addition to receiving a notification (when set to false, which is the default).</description>
-    <externalId>false</externalId>
     <inlineHelpText>Indicates whether the approver receives only a notification for the approval request (when set to true) or gets the request assigned to them in addition to receiving a notification (when set to false, which is the default).</inlineHelpText>
     <label>Step Notify Only</label>
     <trackTrending>false</trackTrending>

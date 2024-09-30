@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__ExpressionType__c</fullName>
     <deprecated>false</deprecated>
     <description>Expression type</description>
-    <externalId>false</externalId>
     <inlineHelpText>Expression type</inlineHelpText>
     <label>Expression Type</label>
     <required>false</required>

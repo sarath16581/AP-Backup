@@ -3,7 +3,6 @@
     <fullName>Apttus__Description__c</fullName>
     <deprecated>false</deprecated>
     <description>For the user to understand the intended use of the Input Control</description>
-    <externalId>false</externalId>
     <inlineHelpText>For the user to understand the intended use of the Input Control</inlineHelpText>
     <label>Description</label>
     <required>false</required>

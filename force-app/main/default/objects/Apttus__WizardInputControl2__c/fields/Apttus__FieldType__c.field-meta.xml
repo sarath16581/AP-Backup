@@ -3,7 +3,6 @@
     <fullName>Apttus__FieldType__c</fullName>
     <deprecated>false</deprecated>
     <description>Data type of the field</description>
-    <externalId>false</externalId>
     <inlineHelpText>Data type of the field</inlineHelpText>
     <label>Field Type</label>
     <required>false</required>

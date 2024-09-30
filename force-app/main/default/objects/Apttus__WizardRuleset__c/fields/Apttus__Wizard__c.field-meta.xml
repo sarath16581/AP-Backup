@@ -4,7 +4,6 @@
     <deleteConstraint>SetNull</deleteConstraint>
     <deprecated>false</deprecated>
     <description>The Wizard this Ruleset is related to</description>
-    <externalId>false</externalId>
     <inlineHelpText>The Wizard this Ruleset is related to</inlineHelpText>
     <label>Wizard</label>
     <referenceTo>Apttus__Wizard__c</referenceTo>

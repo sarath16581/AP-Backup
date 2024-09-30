@@ -3,7 +3,6 @@
     <fullName>et4ae5__Configuration_Wizard_Completed__c</fullName>
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
-    <externalId>false</externalId>
     <label>Configuration Wizard Completed</label>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>

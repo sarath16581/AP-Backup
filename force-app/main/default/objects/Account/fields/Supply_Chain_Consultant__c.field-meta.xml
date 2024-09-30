@@ -3,7 +3,6 @@
     <fullName>Supply_Chain_Consultant__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <description>Field to enable the Account Manager and support staff including Call Centre Staff to easily identify who is responsible for the customer.</description>
-    <externalId>false</externalId>
     <inlineHelpText>If this field is populated then this person is the key contact for operational matters relating to Parcel and StarTrack products and services.</inlineHelpText>
     <label>Parcel Customer Solutions Partner</label>
     <referenceTo>User</referenceTo>

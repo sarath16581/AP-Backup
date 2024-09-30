@@ -3,7 +3,6 @@
     <fullName>Apttus_CMConfig__EndDate__c</fullName>
     <deprecated>false</deprecated>
     <description>The end date for products and services</description>
-    <externalId>false</externalId>
     <label>End Date</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>

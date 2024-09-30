@@ -4,7 +4,6 @@
     <deleteConstraint>SetNull</deleteConstraint>
     <deprecated>false</deprecated>
     <description>ID of the totaling group associated with the item</description>
-    <externalId>false</externalId>
     <label>Totaling Group</label>
     <referenceTo>Apttus_Config2__AdHocGroup__c</referenceTo>
     <relationshipLabel>Line Items</relationshipLabel>

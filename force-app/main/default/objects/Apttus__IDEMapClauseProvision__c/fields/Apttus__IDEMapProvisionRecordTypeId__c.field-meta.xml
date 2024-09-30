@@ -4,7 +4,6 @@
     <deleteConstraint>Restrict</deleteConstraint>
     <deprecated>false</deprecated>
     <description>ID of the IDE provision record type</description>
-    <externalId>false</externalId>
     <inlineHelpText>ID of the IDE provision record type</inlineHelpText>
     <label>IDE Provision Record Type</label>
     <referenceTo>Apttus__IDEMapProvisionRecordType__c</referenceTo>

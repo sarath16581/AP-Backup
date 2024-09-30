@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Whether to display the options as picklist values.</description>
-    <externalId>false</externalId>
     <inlineHelpText>When checked options within the options group will be displayed as picklist items</inlineHelpText>
     <label>Is Picklist</label>
     <securityClassification>INTERNAL</securityClassification>

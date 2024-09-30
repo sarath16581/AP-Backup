@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>et4ae5__Click_Through_Rate__c</fullName>
     <deprecated>false</deprecated>
-    <externalId>false</externalId>
     <formula>IF( AND( NOT( ISNULL( et4ae5__Number_Delivered__c ) ), et4ae5__Number_Delivered__c != 0 ), et4ae5__NumberofUniqueClicks__c / et4ae5__Number_Delivered__c, null )</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <inlineHelpText>The percentage of unique clicks versus the emails that were sent (excluding bounces)</inlineHelpText>

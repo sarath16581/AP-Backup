@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Whether the include or exclude products should be present in the shopping cart as primary lines.</description>
-    <externalId>false</externalId>
     <label>Is Target Primary Line</label>
     <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>

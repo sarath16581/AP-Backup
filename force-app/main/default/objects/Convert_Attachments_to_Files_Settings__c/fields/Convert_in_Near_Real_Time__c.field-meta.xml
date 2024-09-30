@@ -3,7 +3,6 @@
     <fullName>Convert_in_Near_Real_Time__c</fullName>
     <defaultValue>false</defaultValue>
     <description>Enables &apos;after insert&apos; trigger on Attachment that enqueues job to convert into Files in near real-time. This async conversion does not slow down save transaction, and if &apos;Delete Attachments&apos; option is enabled then deletes in separate transaction too.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Enables &apos;after insert&apos; trigger on Attachment that enqueues job to convert into Files in near real-time. This async conversion does not slow down save transaction, and if &apos;Delete Attachments&apos; option is enabled then deletes in separate transaction too.</inlineHelpText>
     <label>Convert in Near Real Time?</label>
     <trackTrending>false</trackTrending>

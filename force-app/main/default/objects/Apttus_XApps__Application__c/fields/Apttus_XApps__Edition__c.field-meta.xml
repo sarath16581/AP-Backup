@@ -3,7 +3,6 @@
     <fullName>Apttus_XApps__Edition__c</fullName>
     <deprecated>false</deprecated>
     <description>The edition associated with the application</description>
-    <externalId>false</externalId>
     <inlineHelpText>The edition associated with the application</inlineHelpText>
     <label>Edition</label>
     <required>false</required>

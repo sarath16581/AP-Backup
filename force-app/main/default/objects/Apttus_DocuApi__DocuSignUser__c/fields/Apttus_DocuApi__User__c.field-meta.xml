@@ -4,7 +4,6 @@
     <deleteConstraint>SetNull</deleteConstraint>
     <deprecated>false</deprecated>
     <description>The user who is registered/ Entered credential with DocuSign system</description>
-    <externalId>false</externalId>
     <inlineHelpText>The user who is registered/ Entered credential with DocuSign system</inlineHelpText>
     <label>User</label>
     <referenceTo>User</referenceTo>

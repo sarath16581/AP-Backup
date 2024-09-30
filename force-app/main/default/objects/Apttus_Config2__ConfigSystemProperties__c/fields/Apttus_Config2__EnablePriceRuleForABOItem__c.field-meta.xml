@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Indicates whether price rule adjustments should be applied to ABO items</description>
-    <externalId>false</externalId>
     <inlineHelpText>Indicates whether price rule adjustments should be applied to ABO items</inlineHelpText>
     <label>Enable Price Rule For ABO Item</label>
     <trackTrending>false</trackTrending>

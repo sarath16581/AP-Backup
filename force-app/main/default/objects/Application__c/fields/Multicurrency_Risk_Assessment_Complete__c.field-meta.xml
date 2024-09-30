@@ -3,7 +3,6 @@
     <fullName>Multicurrency_Risk_Assessment_Complete__c</fullName>
     <defaultValue>false</defaultValue>
     <description>This is a new field to handle multi-currency feature in securMue pay on platform.</description>
-    <externalId>false</externalId>
     <label>Multicurrency Risk Assessment Complete</label>
     <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>

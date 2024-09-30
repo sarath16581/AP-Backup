@@ -3,7 +3,6 @@
     <fullName>Apttus__Category__c</fullName>
     <deprecated>false</deprecated>
     <description>Category allows users to search, find, and select explorer records</description>
-    <externalId>false</externalId>
     <inlineHelpText>Category allows users to search, find, and select explorer records</inlineHelpText>
     <label>Category</label>
     <required>false</required>

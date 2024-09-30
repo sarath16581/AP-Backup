@@ -3,7 +3,6 @@
     <fullName>IsAttachmentRequired__c</fullName>
     <defaultValue>false</defaultValue>
     <description>&quot;Reason for credit claim&quot; value has been selected, is an attachment required. Used to provide a warning if no attachment detected when that attempt to submit</description>
-    <externalId>false</externalId>
     <fieldManageability>DeveloperControlled</fieldManageability>
     <inlineHelpText>&quot;Reason for credit claim&quot; value has been selected, is an attachment required. Used to provide a warning if no attachment detected when that attempt to submit</inlineHelpText>
     <label>Is Attachment Required</label>

@@ -3,7 +3,6 @@
     <fullName>ECLM_EnterpriseSolution__c</fullName>
     <defaultValue>false</defaultValue>
     <description>ECLM Field</description>
-    <externalId>false</externalId>
     <label>Enterprise Solution</label>
     <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>

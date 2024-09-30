@@ -3,7 +3,6 @@
     <fullName>kfsell__Self_Guided_Journey__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <deprecated>false</deprecated>
-    <externalId>false</externalId>
     <label>Self Guided Journey</label>
     <referenceTo>kfsell__Self_Guided_Journey__c</referenceTo>
     <relationshipLabel>Lessons</relationshipLabel>

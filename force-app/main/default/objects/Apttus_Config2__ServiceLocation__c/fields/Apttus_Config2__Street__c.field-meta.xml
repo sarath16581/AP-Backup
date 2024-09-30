@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__Street__c</fullName>
     <deprecated>false</deprecated>
     <description>The street address associated with the location.</description>
-    <externalId>false</externalId>
     <label>Street</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>

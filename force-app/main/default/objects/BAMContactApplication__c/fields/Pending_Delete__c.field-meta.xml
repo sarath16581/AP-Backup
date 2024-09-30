@@ -3,7 +3,6 @@
     <fullName>Pending_Delete__c</fullName>
     <defaultValue>false</defaultValue>
     <description>Indicates that a deprovisioning request has been sent to Camunda for the Contact Application. When deprovisioning has been confirmed the record will be deleted.</description>
-    <externalId>false</externalId>
     <label>Pending Delete</label>
     <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>

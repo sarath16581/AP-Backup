@@ -3,7 +3,6 @@
     <fullName>Verified__c</fullName>
     <defaultValue>false</defaultValue>
     <description>Indicates whether or not the mobile phone number has been verified by the consumer.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Indicates whether or not the mobile phone number has been verified by the consumer.</inlineHelpText>
     <label>Verified</label>
     <trackHistory>false</trackHistory>

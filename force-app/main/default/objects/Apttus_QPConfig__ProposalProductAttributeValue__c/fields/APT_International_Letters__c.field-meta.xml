@@ -3,7 +3,6 @@
     <fullName>APT_International_Letters__c</fullName>
     <defaultValue>false</defaultValue>
     <description>International Letters for Estimated Revenue Calculation</description>
-    <externalId>false</externalId>
     <label>International Letters</label>
     <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>

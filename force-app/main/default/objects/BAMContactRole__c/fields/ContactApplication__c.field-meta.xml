@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>ContactApplication__c</fullName>
     <description>The contact application the role relates to.</description>
-    <externalId>false</externalId>
     <label>Contact Application</label>
     <referenceTo>BAMContactApplication__c</referenceTo>
     <relationshipName>ContactRoles</relationshipName>

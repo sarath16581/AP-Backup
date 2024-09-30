@@ -3,7 +3,6 @@
     <fullName>Apttus_DocuApi__SignedDateTime__c</fullName>
     <deprecated>false</deprecated>
     <description>Recipients Signed Date Time</description>
-    <externalId>false</externalId>
     <inlineHelpText>Recipients Signed Date Time</inlineHelpText>
     <label>Signed Date</label>
     <required>false</required>

@@ -3,7 +3,6 @@
     <fullName>Apttus_DocuApi__DeliveredDateTime__c</fullName>
     <deprecated>false</deprecated>
     <description>Recipient Delivered Date Time</description>
-    <externalId>false</externalId>
     <inlineHelpText>Recipient Delivered Date Time</inlineHelpText>
     <label>Delivered Date</label>
     <required>false</required>

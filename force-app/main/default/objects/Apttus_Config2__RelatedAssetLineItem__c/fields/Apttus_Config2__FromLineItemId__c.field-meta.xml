@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__FromLineItemId__c</fullName>
     <deprecated>false</deprecated>
     <description>ID of the asset line item (from)</description>
-    <externalId>false</externalId>
     <inlineHelpText>ID of the asset line item (from)</inlineHelpText>
     <label>From</label>
     <referenceTo>Apttus_Config2__AssetLineItem__c</referenceTo>

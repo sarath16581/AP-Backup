@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Primary_Integration_Type_s__c</fullName>
     <description>Primary method of integration with AP/ST</description>
-    <externalId>false</externalId>
     <label>Integrated</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>

@@ -3,7 +3,6 @@
     <fullName>Written_Approval_Gained_To_Use_API__c</fullName>
     <defaultValue>false</defaultValue>
     <description>Customer has agreed in writing to start using API?</description>
-    <externalId>false</externalId>
     <inlineHelpText>Customer has agreed in writing to start using API?</inlineHelpText>
     <label>Written Approval Gained To Use API</label>
     <securityClassification>INTERNAL</securityClassification>

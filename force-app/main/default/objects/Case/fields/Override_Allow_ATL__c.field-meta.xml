@@ -3,7 +3,6 @@
     <fullName>Override_Allow_ATL__c</fullName>
     <defaultValue>false</defaultValue>
     <description>StarTrack Override the Account restriction and allow ATL</description>
-    <externalId>false</externalId>
     <inlineHelpText>Override the Account restriction and allow ATL</inlineHelpText>
     <label>Override: Allow ATL</label>
     <securityClassification>INTERNAL</securityClassification>

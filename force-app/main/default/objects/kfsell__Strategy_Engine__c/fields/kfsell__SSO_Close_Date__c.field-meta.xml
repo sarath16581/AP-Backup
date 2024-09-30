@@ -3,7 +3,6 @@
     <fullName>kfsell__SSO_Close_Date__c</fullName>
     <deprecated>false</deprecated>
     <description>Opportunity Close Date</description>
-    <externalId>false</externalId>
     <label>SSO Close Date</label>
     <required>false</required>
     <trackHistory>false</trackHistory>

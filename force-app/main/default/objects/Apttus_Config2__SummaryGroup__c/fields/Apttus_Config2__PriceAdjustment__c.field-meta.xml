@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__PriceAdjustment__c</fullName>
     <deprecated>false</deprecated>
     <description>The rolled up price adjustment of products that belong to the group</description>
-    <externalId>false</externalId>
     <label>Price Adjustment</label>
     <precision>18</precision>
     <required>false</required>

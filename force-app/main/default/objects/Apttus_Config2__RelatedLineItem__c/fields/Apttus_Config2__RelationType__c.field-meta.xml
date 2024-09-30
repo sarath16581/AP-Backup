@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__RelationType__c</fullName>
     <deprecated>false</deprecated>
     <description>The relation type</description>
-    <externalId>false</externalId>
     <inlineHelpText>The relation type</inlineHelpText>
     <label>Relation Type</label>
     <required>false</required>

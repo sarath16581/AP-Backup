@@ -3,7 +3,6 @@
     <fullName>Apttus__CriteriaFieldValues__c</fullName>
     <deprecated>false</deprecated>
     <description>Displays the existing values for the criteria fields</description>
-    <externalId>false</externalId>
     <inlineHelpText>Displays the existing values for the criteria fields</inlineHelpText>
     <label>Criteria Field Values</label>
     <length>131072</length>

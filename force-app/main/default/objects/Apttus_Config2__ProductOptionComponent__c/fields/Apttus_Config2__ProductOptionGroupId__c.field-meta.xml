@@ -4,7 +4,6 @@
     <deleteConstraint>SetNull</deleteConstraint>
     <deprecated>false</deprecated>
     <description>ID of the product option group</description>
-    <externalId>false</externalId>
     <label>Product Option Group</label>
     <referenceTo>Apttus_Config2__ProductOptionGroup__c</referenceTo>
     <relationshipLabel>Options</relationshipLabel>

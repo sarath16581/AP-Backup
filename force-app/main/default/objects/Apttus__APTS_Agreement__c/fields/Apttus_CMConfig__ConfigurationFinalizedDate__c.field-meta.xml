@@ -3,7 +3,6 @@
     <fullName>Apttus_CMConfig__ConfigurationFinalizedDate__c</fullName>
     <deprecated>false</deprecated>
     <description>Date when the configuration was finalized for the agreement</description>
-    <externalId>false</externalId>
     <label>Configuration Finalized Date</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>

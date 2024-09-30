@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>S75_Status__c</fullName>
     <description>The statuses that track the life cycle of the S75 process. S75 re-purposed to Change of Details Information</description>
-    <externalId>false</externalId>
     <inlineHelpText>The statuses that track the life cycle of the COD process</inlineHelpText>
     <label>COD Status</label>
     <required>false</required>

@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>APT_Product_Lines__c</fullName>
     <description>This is used to automate the determination of all the included product lines in an Agreement based on the products associated as proposal line items on a quote proposal.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Decides the included product lines in Apttus Contract record.</inlineHelpText>
     <label>Product Lines</label>
     <required>false</required>

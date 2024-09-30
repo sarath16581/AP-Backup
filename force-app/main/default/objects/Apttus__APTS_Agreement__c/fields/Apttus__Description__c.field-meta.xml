@@ -3,7 +3,6 @@
     <fullName>Apttus__Description__c</fullName>
     <deprecated>false</deprecated>
     <description>Detailed description of this agreement</description>
-    <externalId>false</externalId>
     <label>Description</label>
     <length>32000</length>
     <securityClassification>INTERNAL</securityClassification>

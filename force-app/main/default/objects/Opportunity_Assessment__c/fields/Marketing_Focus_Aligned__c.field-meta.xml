@@ -4,7 +4,6 @@
     <description>Phase 1 - Opportunity Assessment (PWC)
 
 Identifying if it’s a key account, market, product focus</description>
-    <externalId>false</externalId>
     <inlineHelpText>Is this opportunity aligned to our market focus?</inlineHelpText>
     <label>Marketing Focus Aligned</label>
     <length>32768</length>

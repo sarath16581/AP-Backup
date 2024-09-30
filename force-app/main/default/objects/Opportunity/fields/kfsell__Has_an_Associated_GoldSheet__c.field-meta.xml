@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Has an Associated Gold Sheet linked through an Account</description>
-    <externalId>false</externalId>
     <label>Has an Associated GoldSheet</label>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>

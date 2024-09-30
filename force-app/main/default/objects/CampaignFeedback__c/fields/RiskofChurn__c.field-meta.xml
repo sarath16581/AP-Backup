@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>RiskofChurn__c</fullName>
     <description>If there is a risk of churn of product to competitor</description>
-    <externalId>false</externalId>
     <inlineHelpText>If there is a risk of churn of product to competitor?</inlineHelpText>
     <label>Risk of Churn</label>
     <required>false</required>

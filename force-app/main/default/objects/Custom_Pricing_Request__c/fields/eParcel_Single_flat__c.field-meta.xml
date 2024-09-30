@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>eParcel_Single_flat__c</fullName>
     <defaultValue>false</defaultValue>
-    <externalId>false</externalId>
     <label>eParcel Single item+subsequent flat rate</label>
     <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>

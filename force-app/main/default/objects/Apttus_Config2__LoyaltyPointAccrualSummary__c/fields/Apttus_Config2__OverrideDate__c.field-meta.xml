@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__OverrideDate__c</fullName>
     <deprecated>false</deprecated>
     <description>The date the loyalty level was overridden</description>
-    <externalId>false</externalId>
     <inlineHelpText>The date the loyalty level was overridden</inlineHelpText>
     <label>Override Date</label>
     <required>false</required>

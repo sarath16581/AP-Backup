@@ -3,7 +3,6 @@
     <fullName>Open_Cases__c</fullName>
     <defaultValue>false</defaultValue>
     <description>Are there open cases on this organisation.</description>
-    <externalId>false</externalId>
     <label>Open Cases</label>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>

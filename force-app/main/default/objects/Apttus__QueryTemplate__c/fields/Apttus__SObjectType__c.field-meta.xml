@@ -3,7 +3,6 @@
     <fullName>Apttus__SObjectType__c</fullName>
     <deprecated>false</deprecated>
     <description>Specifies the type of the object to query</description>
-    <externalId>false</externalId>
     <inlineHelpText>The object type to query</inlineHelpText>
     <label>SObject Type</label>
     <required>false</required>

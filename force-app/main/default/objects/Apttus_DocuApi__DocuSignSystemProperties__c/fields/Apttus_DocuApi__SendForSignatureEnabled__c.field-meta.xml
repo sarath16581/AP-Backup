@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Send For Signature Enabled</description>
-    <externalId>false</externalId>
     <inlineHelpText>Send For Signature Enabled</inlineHelpText>
     <label>Send For Signature Enabled</label>
     <trackTrending>false</trackTrending>

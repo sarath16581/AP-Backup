@@ -3,7 +3,6 @@
     <fullName>CATS_Conveyancing_Software_user__c</fullName>
     <defaultValue>false</defaultValue>
     <description>Used on the Land Title Verification of Identity Check Conveyancer Onboarding Form</description>
-    <externalId>false</externalId>
     <inlineHelpText>If Yes, we will set up the Land Title VOI form for you to access via your CATS Conveyancing Software. If No, we will provide the Land Title VOI form via email.</inlineHelpText>
     <label>CATS Conveyancing Software user</label>
     <securityClassification>INTERNAL</securityClassification>

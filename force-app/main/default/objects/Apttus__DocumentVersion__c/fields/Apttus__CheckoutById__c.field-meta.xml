@@ -4,7 +4,6 @@
     <deleteConstraint>SetNull</deleteConstraint>
     <deprecated>false</deprecated>
     <description>ID of the user who checked out this document version</description>
-    <externalId>false</externalId>
     <inlineHelpText>ID of the user who checked out this document version</inlineHelpText>
     <label>Checkout By</label>
     <referenceTo>User</referenceTo>

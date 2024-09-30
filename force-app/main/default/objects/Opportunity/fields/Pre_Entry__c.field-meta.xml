@@ -3,7 +3,6 @@
     <fullName>Pre_Entry__c</fullName>
     <defaultValue>false</defaultValue>
     <description>This is a pre-entry scenario – rates have been loaded before customer signed off contract.</description>
-    <externalId>false</externalId>
     <inlineHelpText>This is a pre-entry scenario – rates have been loaded before customer signed off contract.</inlineHelpText>
     <label>Pre-entry of rates authorised</label>
     <securityClassification>INTERNAL</securityClassification>

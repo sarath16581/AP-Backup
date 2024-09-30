@@ -3,7 +3,6 @@
     <fullName>Apttus_Approval__EndTime__c</fullName>
     <deprecated>false</deprecated>
     <description>Async action processing end time</description>
-    <externalId>false</externalId>
     <inlineHelpText>Async action processing end time</inlineHelpText>
     <label>End Time</label>
     <required>false</required>

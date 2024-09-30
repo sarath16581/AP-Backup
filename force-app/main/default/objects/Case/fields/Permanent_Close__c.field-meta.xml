@@ -3,7 +3,6 @@
     <fullName>Permanent_Close__c</fullName>
     <defaultValue>false</defaultValue>
     <description>SSSW - Will prevent a Case from being reopened.</description>
-    <externalId>false</externalId>
     <label>Permanent Close</label>
     <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>

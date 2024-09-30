@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__Type__c</fullName>
     <deprecated>false</deprecated>
     <description>The dimension type</description>
-    <externalId>false</externalId>
     <inlineHelpText>The dimension type</inlineHelpText>
     <label>Type</label>
     <required>false</required>

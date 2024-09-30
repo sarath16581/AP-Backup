@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>When Standalone Scorecards are enabled it indicates if Bluesheet was created and linked to opportunity. False = linked, True = not linked</description>
-    <externalId>false</externalId>
     <label>Is Transient</label>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>

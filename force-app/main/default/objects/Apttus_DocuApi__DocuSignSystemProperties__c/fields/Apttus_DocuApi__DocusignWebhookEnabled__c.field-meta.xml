@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Indicates whether the DocuSign webhook is enabled to refresh the envelope status automatically.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Indicates whether the DocuSign webhook is enabled to refresh the envelope status automatically.</inlineHelpText>
     <label>Docusign Webhook Enabled</label>
     <trackTrending>false</trackTrending>

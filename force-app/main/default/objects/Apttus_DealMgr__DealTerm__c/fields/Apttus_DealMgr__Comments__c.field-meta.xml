@@ -3,7 +3,6 @@
     <fullName>Apttus_DealMgr__Comments__c</fullName>
     <deprecated>false</deprecated>
     <description>Comments about this Term in the context of this Deal.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Comments about this Term in the context of this Deal.</inlineHelpText>
     <label>Comments</label>
     <length>32000</length>

@@ -3,7 +3,6 @@
     <fullName>Use_Default_PLI_Config__c</fullName>
     <defaultValue>false</defaultValue>
     <description>This is to specify whether the PLI&apos;s use default pricing config defined for the product type or whether pricing config defined for the specific product.</description>
-    <externalId>false</externalId>
     <fieldManageability>SubscriberControlled</fieldManageability>
     <label>Use Default PLI Config</label>
     <type>Checkbox</type>

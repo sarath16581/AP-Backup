@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__TargetCostModelId__c</fullName>
     <deprecated>false</deprecated>
     <description>Reference to master cost model for which the transfer price is defined</description>
-    <externalId>false</externalId>
     <label>Target Cost Model</label>
     <referenceTo>Apttus_Config2__CostModel__c</referenceTo>
     <relationshipLabel>Transfer Prices</relationshipLabel>

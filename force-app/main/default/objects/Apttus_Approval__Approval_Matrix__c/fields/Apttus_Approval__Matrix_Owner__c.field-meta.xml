@@ -4,7 +4,6 @@
     <deleteConstraint>SetNull</deleteConstraint>
     <deprecated>false</deprecated>
     <description>Approval matrix owner</description>
-    <externalId>false</externalId>
     <inlineHelpText>Approval matrix owner</inlineHelpText>
     <label>Matrix Owner</label>
     <referenceTo>User</referenceTo>

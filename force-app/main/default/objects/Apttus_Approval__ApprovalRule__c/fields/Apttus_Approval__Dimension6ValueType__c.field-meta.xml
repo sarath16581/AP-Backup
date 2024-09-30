@@ -3,7 +3,6 @@
     <fullName>Apttus_Approval__Dimension6ValueType__c</fullName>
     <deprecated>false</deprecated>
     <description>The value type of the sixth dimension. Only applicable to Dimension rules.</description>
-    <externalId>false</externalId>
     <label>Dimension 6 Value Type</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>

@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>CancellationAPIUrl__c</fullName>
     <description>API Endpoint to consume when an Application request is cancelled.</description>
-    <externalId>false</externalId>
     <inlineHelpText>API Endpoint to consume when an Application request is cancelled.</inlineHelpText>
     <label>Cancellation API Url</label>
     <required>false</required>

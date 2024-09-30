@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>APT_Applicant_1_Credit_Check_Consent__c</fullName>
     <defaultValue>false</defaultValue>
-    <externalId>false</externalId>
     <label>Applicant 1 Credit Check Consent</label>
     <securityClassification>OFFICIAL_SENSITIVE</securityClassification>
     <trackHistory>false</trackHistory>

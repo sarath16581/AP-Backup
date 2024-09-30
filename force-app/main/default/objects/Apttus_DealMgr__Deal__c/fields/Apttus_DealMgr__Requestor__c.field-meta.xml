@@ -4,7 +4,6 @@
     <deleteConstraint>SetNull</deleteConstraint>
     <deprecated>false</deprecated>
     <description>The user who requested the deal</description>
-    <externalId>false</externalId>
     <inlineHelpText>The user who requested the deal</inlineHelpText>
     <label>Requestor</label>
     <referenceTo>User</referenceTo>

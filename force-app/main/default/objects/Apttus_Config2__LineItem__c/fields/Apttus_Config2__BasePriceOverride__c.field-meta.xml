@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__BasePriceOverride__c</fullName>
     <deprecated>false</deprecated>
     <description>The base price overridden by the user</description>
-    <externalId>false</externalId>
     <inlineHelpText>The base price overridden by the user</inlineHelpText>
     <label>Base Price (Override)</label>
     <precision>18</precision>

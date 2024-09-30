@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Whencouldbusinessbewonback__c</fullName>
     <description>When could the business by recovered by (if there is Opportunity to recover lost business)?</description>
-    <externalId>false</externalId>
     <inlineHelpText>When could the business by recovered by (if there is Opportunity to recover lost business)?</inlineHelpText>
     <label>When could business be won back?</label>
     <required>false</required>
