@@ -4,6 +4,6 @@
 	<fields>Subject</fields>
 	<fields>ContactId</fields>
 	<fields>Status</fields>
-	<fields>Calc_Link_Case_Number__c</fields>
+	<fields>CaseNumber</fields>
 	<label>Unified Compact Layout</label>
 </CompactLayout>
