@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Indicates whether the selling term is auto cascaded from the bundle product to the options. Only applicable for recurring and usage price types.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Indicates whether the selling term is auto cascaded from the bundle product to the options. Only applicable for recurring and usage price types.</inlineHelpText>
     <label>Auto Cascade Selling Term</label>
     <securityClassification>INTERNAL</securityClassification>

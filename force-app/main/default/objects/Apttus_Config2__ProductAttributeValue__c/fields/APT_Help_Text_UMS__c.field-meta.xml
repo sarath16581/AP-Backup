@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>APT_Help_Text_UMS__c</fullName>
     <defaultValue>&quot;1. Volumes &lt;100K will be charged at the published rate card pricing and will not qualify for a contract rate. 2. For Premium service and rates, please contact UMS Product/Pricing Specialist. More details is available on the product factsheet. To access the factsheet, you can copy and paste the following URL to your internet browser - https://auspost.com.au/business/marketing-and-communications/business-letter-services/bulk-mail-options/unaddressed-mail#tab4&quot;</defaultValue>
-    <externalId>false</externalId>
     <inlineHelpText>1. Volumes &lt;100K will be charged at the published rate card pricing and will not qualify for a contract rate. 2. For Premium service and rates, please contact UMS Product/Pricing Specialist. More details is available on the product factsheet. To access the factsheet, you can copy and paste the following URL to your internet browser - https://auspost.com.au/business/marketing-and-communications/business-letter-services/bulk-mail-options/unaddressed-mail#tab4</inlineHelpText>
     <label>Help Text</label>
     <length>32768</length>

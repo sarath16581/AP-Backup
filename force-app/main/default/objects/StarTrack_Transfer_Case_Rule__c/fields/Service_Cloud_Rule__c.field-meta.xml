@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Service_Cloud_Rule__c</fullName>
     <defaultValue>true</defaultValue>
-    <externalId>false</externalId>
     <label>Service Cloud Rule</label>
     <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>

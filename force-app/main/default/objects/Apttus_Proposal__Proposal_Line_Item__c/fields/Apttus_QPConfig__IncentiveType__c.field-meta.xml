@@ -3,7 +3,6 @@
     <fullName>Apttus_QPConfig__IncentiveType__c</fullName>
     <deprecated>false</deprecated>
     <description>The incentive type</description>
-    <externalId>false</externalId>
     <inlineHelpText>The incentive type</inlineHelpText>
     <label>Incentive Type</label>
     <required>false</required>

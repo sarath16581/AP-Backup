@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>kfsell__So_what__c</fullName>
     <deprecated>false</deprecated>
-    <externalId>false</externalId>
     <label>So what?</label>
     <length>32768</length>
     <trackTrending>false</trackTrending>

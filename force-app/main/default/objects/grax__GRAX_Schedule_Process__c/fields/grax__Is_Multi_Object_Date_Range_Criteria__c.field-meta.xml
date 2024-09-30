@@ -3,7 +3,6 @@
     <fullName>grax__Is_Multi_Object_Date_Range_Criteria__c</fullName>
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
-    <externalId>false</externalId>
     <label>Is Multi-Object Date Range Criteria</label>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>

@@ -4,7 +4,6 @@
     <deleteConstraint>SetNull</deleteConstraint>
     <deprecated>false</deprecated>
     <description>The user who activated the agreement in the system</description>
-    <externalId>false</externalId>
     <inlineHelpText>.</inlineHelpText>
     <label>Activated By</label>
     <referenceTo>User</referenceTo>

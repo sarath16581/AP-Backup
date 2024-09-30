@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>FreightOwnership__c</fullName>
     <description>This field is used in calculating ‘Indirect Customer?” formula field on the Opportunity. New field added to determine if the Opportunity is direct or indirect to let the users know to raise a pricing dsr for Indirect customers</description>
-    <externalId>false</externalId>
     <inlineHelpText>Is the legal owner of the freight being shipped.  Where a 3rd party is involved in freight handing only (e.g. 3PL), the 3rd party is an “Indirect” customer.</inlineHelpText>
     <label>Has Ownership Over the Freight?</label>
     <required>false</required>

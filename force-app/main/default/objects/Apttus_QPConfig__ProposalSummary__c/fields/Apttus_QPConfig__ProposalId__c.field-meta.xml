@@ -3,7 +3,6 @@
     <fullName>Apttus_QPConfig__ProposalId__c</fullName>
     <deprecated>false</deprecated>
     <description>ID of the associated quote/proposal</description>
-    <externalId>false</externalId>
     <label>Quote/Proposal</label>
     <referenceTo>Apttus_Proposal__Proposal__c</referenceTo>
     <relationshipLabel>Summary</relationshipLabel>

@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Principal1Premises__c</fullName>
     <description>Drop down box to select Rented / Mortgaged / Owned</description>
-    <externalId>false</externalId>
     <inlineHelpText>Is this address</inlineHelpText>
     <label>Premises</label>
     <required>false</required>

@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__Vendor__c</fullName>
     <deprecated>false</deprecated>
     <description>Product Vendor</description>
-    <externalId>false</externalId>
     <inlineHelpText>Product Vendor</inlineHelpText>
     <label>Vendor</label>
     <required>false</required>

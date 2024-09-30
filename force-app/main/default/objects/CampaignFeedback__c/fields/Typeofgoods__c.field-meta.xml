@@ -3,7 +3,6 @@
     <fullName>Typeofgoods__c</fullName>
     <defaultValue>false</defaultValue>
     <description>Type of goods.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Type of goods</inlineHelpText>
     <label>Type of goods</label>
     <securityClassification>INTERNAL</securityClassification>

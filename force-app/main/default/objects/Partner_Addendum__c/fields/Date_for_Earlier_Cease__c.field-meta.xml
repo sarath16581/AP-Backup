@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Date_for_Earlier_Cease__c</fullName>
-    <externalId>false</externalId>
     <inlineHelpText>If you want to cease this negotiated payment earlier than its End Date, then please specify new End Date, set Request Change to Cease Early and submit for approval.</inlineHelpText>
     <label>Revised End Date</label>
     <required>false</required>

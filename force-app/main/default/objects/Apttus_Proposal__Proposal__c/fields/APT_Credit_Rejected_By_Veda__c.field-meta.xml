@@ -3,7 +3,6 @@
     <fullName>APT_Credit_Rejected_By_Veda__c</fullName>
     <defaultValue>false</defaultValue>
     <description>.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Credit Assessment has been rejected by Veda or Credit Management Team?</inlineHelpText>
     <label>Credit Rejected By Veda?</label>
     <securityClassification>INTERNAL</securityClassification>

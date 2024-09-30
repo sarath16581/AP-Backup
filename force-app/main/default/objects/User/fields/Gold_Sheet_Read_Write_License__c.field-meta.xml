@@ -3,7 +3,6 @@
     <fullName>Gold_Sheet_Read_Write_License__c</fullName>
     <defaultValue>false</defaultValue>
     <description>SAM Gold Sheet R/W licenses for large orgs</description>
-    <externalId>false</externalId>
     <label>Gold Sheet Read Write License</label>
     <trackFeedHistory>false</trackFeedHistory>
     <type>Checkbox</type>

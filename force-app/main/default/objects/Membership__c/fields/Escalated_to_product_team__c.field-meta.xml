@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Escalated_to_product_team__c</fullName>
     <description>To record the date that the information was sent to the product team</description>
-    <externalId>false</externalId>
     <label>Escalated to product team</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>

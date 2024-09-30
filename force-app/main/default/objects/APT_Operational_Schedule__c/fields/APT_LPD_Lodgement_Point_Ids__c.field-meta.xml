@@ -3,7 +3,6 @@
     <fullName>APT_LPD_Lodgement_Point_Ids__c</fullName>
     <description>The field is used to capture Lodgement point id for &apos;Local Pickup and Delivery Services&apos; Product.
 It is used to catch Lodgement point name and display them in the R2T Legal Agreement Courier Services template</description>
-    <externalId>false</externalId>
     <label>Local Pickup Delivery Lodgement PointIds</label>
     <length>1000</length>
     <securityClassification>INTERNAL</securityClassification>

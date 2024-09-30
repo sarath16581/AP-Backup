@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>APT_PO_Box_or_Office_Mail_or_Delivered__c</fullName>
-    <externalId>false</externalId>
     <label>PO Box or Office Mail or Delivered?</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>

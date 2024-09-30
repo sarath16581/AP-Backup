@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Escalated_Internal_User__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
-    <externalId>false</externalId>
     <label>Escalated Internal User</label>
     <referenceTo>User</referenceTo>
     <relationshipLabel>OLD Archived Cases (Escalated_Internal_User__c)</relationshipLabel>

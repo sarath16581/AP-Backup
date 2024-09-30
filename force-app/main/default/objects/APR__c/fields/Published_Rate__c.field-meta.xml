@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Published_Rate__c</fullName>
     <description>Published Rate (%)</description>
-    <externalId>false</externalId>
     <inlineHelpText>The APR increase rate that has been agreed to and is applicable in the given year.</inlineHelpText>
     <label>Published Rate (%)</label>
     <precision>5</precision>

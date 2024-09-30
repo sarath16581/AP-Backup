@@ -4,7 +4,6 @@
     <deleteConstraint>SetNull</deleteConstraint>
     <deprecated>false</deprecated>
     <description>Link to contact record to identify internal signatory</description>
-    <externalId>false</externalId>
     <label>Company Signed By</label>
     <referenceTo>Contact</referenceTo>
     <relationshipName>R00N50000001Xl0CEAS</relationshipName>

@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__FieldUpdateCriteriaIds__c</fullName>
     <deprecated>false</deprecated>
     <description>Field update criteria for the product attributes in group</description>
-    <externalId>false</externalId>
     <label>Field Update Criteria</label>
     <length>2048</length>
     <securityClassification>INTERNAL</securityClassification>

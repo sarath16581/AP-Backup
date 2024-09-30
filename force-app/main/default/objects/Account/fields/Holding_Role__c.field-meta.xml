@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Holding_Role__c</fullName>
     <description>Supplementary information to further define Holding User for the Customer Data team. Do not update options without agreement of Customer Data team.</description>
-    <externalId>false</externalId>
     <inlineHelpText>When the Account Manager = Holding User, you must select a Holding Role</inlineHelpText>
     <label>Old Holding Role</label>
     <required>false</required>

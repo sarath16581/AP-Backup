@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__MaxPrice__c</fullName>
     <deprecated>false</deprecated>
     <description>The maximum price or net adjustment % for the line item.</description>
-    <externalId>false</externalId>
     <label>Max Price/Net Adj %</label>
     <precision>18</precision>
     <required>false</required>

@@ -3,7 +3,6 @@
     <fullName>Apttus_Proposal__Special_Terms__c</fullName>
     <deprecated>false</deprecated>
     <description>The special terms associated with the quote/proposal</description>
-    <externalId>false</externalId>
     <label>Special Terms</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>

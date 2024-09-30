@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Moki_YTD__c</fullName>
     <description>Retail PON Geopointe Related Field</description>
-    <externalId>false</externalId>
     <label>Moki YTD</label>
     <precision>18</precision>
     <required>false</required>

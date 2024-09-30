@@ -3,7 +3,6 @@
     <fullName>Include_POD_Check__c</fullName>
     <defaultValue>false</defaultValue>
     <description>This checkbox field will determine if the script/automation will check for POD before closing the case or not.</description>
-    <externalId>false</externalId>
     <inlineHelpText>This checkbox field will determine if the script/automation will check for POD before closing the case or not.</inlineHelpText>
     <label>Include POD Check?</label>
     <securityClassification>INTERNAL</securityClassification>

@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Network_Facility__c</fullName>
     <description>PartnerInfo - The LPO related to this record.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Facility or the LPO</inlineHelpText>
     <label>Network Facility</label>
     <lookupFilter>

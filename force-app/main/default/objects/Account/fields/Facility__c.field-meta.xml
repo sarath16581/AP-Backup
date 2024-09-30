@@ -3,7 +3,6 @@
     <fullName>Facility__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <description>Facility associated with this License</description>
-    <externalId>false</externalId>
     <inlineHelpText>Facility associated with this License</inlineHelpText>
     <label>Facility</label>
     <lookupFilter>

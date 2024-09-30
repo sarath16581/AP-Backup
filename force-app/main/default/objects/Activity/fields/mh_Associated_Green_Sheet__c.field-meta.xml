@@ -3,7 +3,6 @@
     <fullName>mh_Associated_Green_Sheet__c</fullName>
     <defaultValue>false</defaultValue>
     <description>SAM Integration</description>
-    <externalId>false</externalId>
     <label>Associated Green Sheet</label>
     <securityClassification>OFFICIAL_SENSITIVE</securityClassification>
     <type>Checkbox</type>

@@ -3,7 +3,6 @@
     <fullName>MEnableCall__c</fullName>
     <defaultValue>false</defaultValue>
     <description>Enable call button in mobile site</description>
-    <externalId>false</externalId>
     <inlineHelpText>Enable / Disable Call button in mobile site</inlineHelpText>
     <label>Enable Call</label>
     <trackTrending>false</trackTrending>

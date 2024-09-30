@@ -3,7 +3,6 @@
     <fullName>Apttus_DealMgr__BusinessObject__c</fullName>
     <deprecated>false</deprecated>
     <description>The business object which provides the context for the dimension</description>
-    <externalId>false</externalId>
     <inlineHelpText>The business object which provides the context for the dimension</inlineHelpText>
     <label>Business Object</label>
     <required>false</required>

@@ -4,7 +4,6 @@
     <deleteConstraint>SetNull</deleteConstraint>
     <deprecated>false</deprecated>
     <description>ID of the product configuration associated with the deal. Only valid for product configuration context</description>
-    <externalId>false</externalId>
     <label>Related Configuration</label>
     <referenceTo>Apttus_Config2__ProductConfiguration__c</referenceTo>
     <relationshipLabel>Deals</relationshipLabel>

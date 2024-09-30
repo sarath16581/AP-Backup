@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>APT_Previously_involved_from_Prod_Legal__c</fullName>
     <description>Seller to populate before submitting request for T&amp;C changes</description>
-    <externalId>false</externalId>
     <inlineHelpText>Names of anyone who has been engaged or previously involved from Product or Legal</inlineHelpText>
     <label>Previously Involved From Product/Legal</label>
     <length>500</length>

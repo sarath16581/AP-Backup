@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__ExpirationDate__c</fullName>
     <deprecated>false</deprecated>
     <description>The matrix expiration date. The matrix becomes ineffective after this date.</description>
-    <externalId>false</externalId>
     <inlineHelpText>The matrix expiration date. The matrix becomes ineffective after this date.</inlineHelpText>
     <label>Expiration Date</label>
     <required>false</required>

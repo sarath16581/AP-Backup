@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__EnrollmentType__c</fullName>
     <deprecated>false</deprecated>
     <description>The enrollment type</description>
-    <externalId>false</externalId>
     <inlineHelpText>The enrollment type</inlineHelpText>
     <label>Point Accrual Level</label>
     <required>false</required>

@@ -3,7 +3,6 @@
     <fullName>Show_Date_Range__c</fullName>
     <defaultValue>false</defaultValue>
     <description>StarTrack: Show date range if date range type is custom</description>
-    <externalId>false</externalId>
     <label>Show Date Range</label>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>

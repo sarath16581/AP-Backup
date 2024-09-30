@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__PlanType__c</fullName>
     <deprecated>false</deprecated>
     <description>The billing plan type</description>
-    <externalId>false</externalId>
     <inlineHelpText>The billing plan type</inlineHelpText>
     <label>Plan Type</label>
     <required>false</required>

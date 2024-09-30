@@ -3,7 +3,6 @@
     <fullName>Apttus__LoginTime__c</fullName>
     <deprecated>false</deprecated>
     <description>Login time of the lite user</description>
-    <externalId>false</externalId>
     <inlineHelpText>Login time of the lite user</inlineHelpText>
     <label>Login Time</label>
     <required>true</required>

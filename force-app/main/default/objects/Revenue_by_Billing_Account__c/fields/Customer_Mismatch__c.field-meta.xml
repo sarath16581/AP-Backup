@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Customer_Mismatch__c</fullName>
-    <externalId>false</externalId>
     <formula>If (  Customer__r.Customer_Number__c =    Billing_Account__r.Organisation__r.Customer_Number__c  , false, true)</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <label>Customer Mismatch?</label>

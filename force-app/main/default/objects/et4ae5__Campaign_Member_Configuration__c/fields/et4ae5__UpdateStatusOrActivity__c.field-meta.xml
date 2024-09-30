@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Determines if Campaign Member&apos;s Activity field (box is not checked) or the Status field (box is checked) will be updated if the Campaign Member is enabled.</description>
-    <externalId>false</externalId>
     <label>UpdateStatusOrActivity</label>
     <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>

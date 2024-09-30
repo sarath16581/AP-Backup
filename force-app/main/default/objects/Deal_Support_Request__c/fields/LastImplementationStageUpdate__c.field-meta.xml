@@ -4,7 +4,6 @@
     <businessStatus>Active</businessStatus>
     <complianceGroup>GDPR</complianceGroup>
     <description>This field is used to record timestamp when implementation stage is updated. It is also referenced in the Deal Support Milestone object, which tracks the time in Implementation Stage.</description>
-    <externalId>false</externalId>
     <inlineHelpText>This field is used to record timestamp when implementation stage is updated. It is also referenced in the Deal Support Milestone object, which tracks the time in Implementation Stage.</inlineHelpText>
     <label>Last Implementation Stage Update</label>
     <required>false</required>

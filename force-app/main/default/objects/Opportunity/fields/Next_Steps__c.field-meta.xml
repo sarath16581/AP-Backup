@@ -4,7 +4,6 @@
     <description>Phase 1 - Opportunity Assessment (PWC)
 
 Identify the key activities required to progress this opportunity</description>
-    <externalId>false</externalId>
     <inlineHelpText>What are the next activities we propose to undertake to pursue this opportunity?</inlineHelpText>
     <label>Next Steps</label>
     <length>32768</length>

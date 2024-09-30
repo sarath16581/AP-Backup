@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>IsDirectorPartnerTrustee__c</fullName>
     <defaultValue>false</defaultValue>
-    <externalId>false</externalId>
     <inlineHelpText>I am a director/partner or trustee of this business</inlineHelpText>
     <label>{delete}Director or Partner or Trustee?</label>
     <securityClassification>INTERNAL</securityClassification>

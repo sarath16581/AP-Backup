@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Rec_Tier_Band_Cat__c</fullName>
     <description>The recommended tier, band or category for the request</description>
-    <externalId>false</externalId>
     <label>Pricing Recommended Tier/Band/Category</label>
     <length>5000</length>
     <securityClassification>INTERNAL</securityClassification>

@@ -3,7 +3,6 @@
     <fullName>Apttus_Approval__Comment__c</fullName>
     <deprecated>false</deprecated>
     <description>Enter a comment to the person you are setting as your backup/delegate.</description>
-    <externalId>false</externalId>
     <label>Comment</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>

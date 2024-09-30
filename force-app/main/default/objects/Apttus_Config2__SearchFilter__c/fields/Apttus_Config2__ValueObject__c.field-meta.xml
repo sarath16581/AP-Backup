@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__ValueObject__c</fullName>
     <deprecated>false</deprecated>
     <description>The object to map the value to</description>
-    <externalId>false</externalId>
     <inlineHelpText>The object to map the value to</inlineHelpText>
     <label>Value Object</label>
     <required>false</required>

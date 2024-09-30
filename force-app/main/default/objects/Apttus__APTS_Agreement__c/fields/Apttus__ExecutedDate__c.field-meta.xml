@@ -3,7 +3,6 @@
     <fullName>Apttus__ExecutedDate__c</fullName>
     <deprecated>false</deprecated>
     <description>The date when the agreement was executed or signed</description>
-    <externalId>false</externalId>
     <inlineHelpText>The date when the agreement was executed or signed</inlineHelpText>
     <label>Executed Date</label>
     <required>false</required>

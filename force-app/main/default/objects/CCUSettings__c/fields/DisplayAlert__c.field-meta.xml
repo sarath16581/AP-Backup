@@ -3,7 +3,6 @@
     <fullName>DisplayAlert__c</fullName>
     <defaultValue>false</defaultValue>
     <description>If true, displays alert on home page</description>
-    <externalId>false</externalId>
     <inlineHelpText>If true, displays alert on home page</inlineHelpText>
     <label>Display Alert</label>
     <trackTrending>false</trackTrending>

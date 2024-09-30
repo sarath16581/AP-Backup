@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>GMOfProduct__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
-    <externalId>false</externalId>
     <label>GM Of Product</label>
     <referenceTo>User</referenceTo>
     <relationshipName>CAM_GMOfProduct</relationshipName>

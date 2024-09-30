@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__BillingContactFilterCriteria__c</fullName>
     <deprecated>false</deprecated>
     <description>Filter criteria to select billing contacts for the account location or the comma separated list of email Ids to send billing statements.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Filter criteria to select billing contacts for the account location or the comma separated list of email Ids to send billing statements.</inlineHelpText>
     <label>Billing Contact Filter Criteria</label>
     <length>5000</length>

@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Stack_Trace__c</fullName>
     <description>The original stack trace for exceptions</description>
-    <externalId>false</externalId>
     <inlineHelpText>The original stack trace for exceptions</inlineHelpText>
     <label>Stack Trace</label>
     <length>32768</length>

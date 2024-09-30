@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__FixedBillingDate__c</fullName>
     <deprecated>false</deprecated>
     <description>The fixed billing date</description>
-    <externalId>false</externalId>
     <inlineHelpText>The fixed billing date</inlineHelpText>
     <label>Fixed Billing Date (Deprecated)</label>
     <required>false</required>

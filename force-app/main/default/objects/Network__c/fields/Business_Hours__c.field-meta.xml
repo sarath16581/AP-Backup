@@ -3,7 +3,6 @@
     <fullName>Business_Hours__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <description>StarTrack required relationship to enable declarative update of a case&apos;s business hours via the depot (network)</description>
-    <externalId>false</externalId>
     <label>Business Hours</label>
     <referenceTo>BusinessHours</referenceTo>
     <relationshipName>Network</relationshipName>

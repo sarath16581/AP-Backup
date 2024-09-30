@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Description_of_contents__c</fullName>
     <description>StarTrack field used to capture Description of Goods (Contents)</description>
-    <externalId>false</externalId>
     <inlineHelpText>Enter contents description for each item in question i.e. Size, weight, colour</inlineHelpText>
     <label>Description Of Contents</label>
     <length>32768</length>

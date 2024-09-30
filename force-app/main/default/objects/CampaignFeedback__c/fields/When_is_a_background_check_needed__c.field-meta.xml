@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>When_is_a_background_check_needed__c</fullName>
     <description>Is the employer only screening new job candidates or are they rescreening existing employees?</description>
-    <externalId>false</externalId>
     <inlineHelpText>Is the employer only screening new job candidates or are they rescreening existing employees?</inlineHelpText>
     <label>When is a background check needed?</label>
     <required>false</required>

@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__Scope__c</fullName>
     <deprecated>false</deprecated>
     <description>Visibility scope of the favorite configuration</description>
-    <externalId>false</externalId>
     <inlineHelpText>Visibility scope of the favorite configuration</inlineHelpText>
     <label>Scope</label>
     <required>false</required>

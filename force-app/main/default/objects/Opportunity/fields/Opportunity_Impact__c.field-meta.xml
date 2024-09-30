@@ -4,7 +4,6 @@
     <description>Phase 1 - Opportunity Assessment (PWC)
 
 Identifying the likely outcome if we didn’t pursue this opportunity beyond financial i.e. missed opportunity to work with strategic account</description>
-    <externalId>false</externalId>
     <inlineHelpText>What would be the effect if we did not pursue this opportunity? (6%)</inlineHelpText>
     <label>Opportunity Impact</label>
     <required>false</required>

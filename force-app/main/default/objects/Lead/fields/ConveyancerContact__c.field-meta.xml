@@ -3,7 +3,6 @@
     <fullName>ConveyancerContact__c</fullName>
     <defaultValue>false</defaultValue>
     <description>This flag when checked means this is a Conveyancer primary contact in relation to Land Tittle VOI registration.</description>
-    <externalId>false</externalId>
     <inlineHelpText>This flag when checked means this is a Conveyancer primary contact in relation to Land Tittle VOI registration.</inlineHelpText>
     <label>Conveyancer Contact</label>
     <securityClassification>INTERNAL</securityClassification>

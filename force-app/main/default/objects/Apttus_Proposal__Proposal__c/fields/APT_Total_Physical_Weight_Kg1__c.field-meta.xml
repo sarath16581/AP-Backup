@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>APT_Total_Physical_Weight_Kg1__c</fullName>
-    <externalId>false</externalId>
     <label>Total Physical Weight Kg1</label>
     <securityClassification>INTERNAL</securityClassification>
     <summarizedField>APT_Cubic_Factor__c.APT_Physical_Weight_Kg_Weight_of_Volume__c</summarizedField>

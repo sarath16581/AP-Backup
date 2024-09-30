@@ -3,7 +3,6 @@
     <fullName>Apttus__Status__c</fullName>
     <deprecated>false</deprecated>
     <description>Status of this wizard runtime</description>
-    <externalId>false</externalId>
     <inlineHelpText>Status of this wizard runtime</inlineHelpText>
     <label>Status</label>
     <required>false</required>

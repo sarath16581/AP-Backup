@@ -3,7 +3,6 @@
     <fullName>Is_Platform_Partner__c</fullName>
     <defaultValue>false</defaultValue>
     <description>This checkbox indicates whether the customer is a Integration partner or not.</description>
-    <externalId>false</externalId>
     <inlineHelpText>This checkbox indicates whether the customer is a Integration partner or not.</inlineHelpText>
     <label>Is Platform Partner</label>
     <securityClassification>INTERNAL</securityClassification>

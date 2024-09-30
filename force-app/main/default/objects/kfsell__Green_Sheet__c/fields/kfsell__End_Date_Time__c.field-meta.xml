@@ -4,7 +4,6 @@
     <businessStatus>Active</businessStatus>
     <deprecated>false</deprecated>
     <description>End Date Time for Event created against Best Action</description>
-    <externalId>false</externalId>
     <inlineHelpText>End Date Time</inlineHelpText>
     <label>End Date Time</label>
     <required>false</required>

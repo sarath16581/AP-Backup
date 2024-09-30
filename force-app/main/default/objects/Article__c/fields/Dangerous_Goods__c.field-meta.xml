@@ -3,7 +3,6 @@
     <fullName>Dangerous_Goods__c</fullName>
     <defaultValue>false</defaultValue>
     <description>StarTrack capture dangerous goods information</description>
-    <externalId>false</externalId>
     <label>Dangerous Goods</label>
     <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>

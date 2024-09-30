@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Annual_Sales_Turnover__c</fullName>
     <description>Phase 1 - Marketing Characteristics</description>
-    <externalId>false</externalId>
     <label>Annual Sales/Turnover</label>
     <precision>18</precision>
     <required>false</required>

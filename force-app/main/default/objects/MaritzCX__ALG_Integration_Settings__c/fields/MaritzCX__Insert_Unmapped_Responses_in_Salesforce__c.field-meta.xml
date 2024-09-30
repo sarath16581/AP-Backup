@@ -5,7 +5,6 @@
     <deprecated>false</deprecated>
     <description>If Checked, the Responses will be inserted into Salesforce even if the matching record (Contact/Person Account/Lead) is not found.
 If Unchecked, the Responses with no mapped record will not be inserted into Salesforce.</description>
-    <externalId>false</externalId>
     <inlineHelpText>If Checked, the Responses will be inserted into Salesforce even if the matching record (Contact/Person Account/Lead) is not found.
 If Unchecked, the Responses with no mapped record will not be inserted into Salesforce.</inlineHelpText>
     <label>Insert Unmapped Responses in Salesforce</label>

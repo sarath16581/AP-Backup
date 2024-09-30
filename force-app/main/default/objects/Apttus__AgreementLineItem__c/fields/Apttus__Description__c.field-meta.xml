@@ -3,7 +3,6 @@
     <fullName>Apttus__Description__c</fullName>
     <deprecated>false</deprecated>
     <description>The line description</description>
-    <externalId>false</externalId>
     <label>Description</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>

@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>STE_Pricing_Tier__c</fullName>
     <description>Sales User to enter Pricing Tier for StarTrack product</description>
-    <externalId>false</externalId>
     <inlineHelpText>Enter the StarTrack pricing tier that is being offered to the Customer.</inlineHelpText>
     <label>STE Pricing Tier</label>
     <required>false</required>

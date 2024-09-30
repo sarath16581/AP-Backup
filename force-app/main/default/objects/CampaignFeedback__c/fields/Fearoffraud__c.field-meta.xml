@@ -3,7 +3,6 @@
     <fullName>Fearoffraud__c</fullName>
     <defaultValue>false</defaultValue>
     <description>Fear of fraud.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Fear of fraud</inlineHelpText>
     <label>Fear of fraud</label>
     <securityClassification>INTERNAL</securityClassification>

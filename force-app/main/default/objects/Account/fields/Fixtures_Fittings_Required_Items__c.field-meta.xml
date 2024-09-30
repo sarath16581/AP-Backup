@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Fixtures_Fittings_Required_Items__c</fullName>
     <description>List of fixture and fitting items required to be installed</description>
-    <externalId>false</externalId>
     <inlineHelpText>List of fixture and fitting items required to be installed</inlineHelpText>
     <label>Fixtures &amp; Fittings Required Items</label>
     <length>1000</length>

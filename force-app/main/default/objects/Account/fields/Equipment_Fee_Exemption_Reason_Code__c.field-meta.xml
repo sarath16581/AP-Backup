@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Equipment_Fee_Exemption_Reason_Code__c</fullName>
     <description>Field must be filled if Equipment Fee Exemption is True.</description>
-    <externalId>false</externalId>
     <label>Equipment Fee Exemption Reason Code</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>

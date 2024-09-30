@@ -3,7 +3,6 @@
     <fullName>Allocate_Group_Adjustment__c</fullName>
     <defaultValue>false</defaultValue>
     <description>To capture the field Apttus_Config2__AllocateGroupAdjustment__c on PLI for a given product type.</description>
-    <externalId>false</externalId>
     <fieldManageability>DeveloperControlled</fieldManageability>
     <label>Allocate Group Adjustment</label>
     <type>Checkbox</type>

@@ -3,7 +3,6 @@
     <fullName>APLAC_Member__c</fullName>
     <defaultValue>false</defaultValue>
     <description>Is Partner APLAC Member?</description>
-    <externalId>false</externalId>
     <inlineHelpText>Is Partner APLAC Member?</inlineHelpText>
     <label>APLAC Member</label>
     <securityClassification>INTERNAL</securityClassification>

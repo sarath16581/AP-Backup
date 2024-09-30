@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__Question__c</fullName>
     <deprecated>false</deprecated>
     <description>Question help documentation</description>
-    <externalId>false</externalId>
     <inlineHelpText>Question help documentation</inlineHelpText>
     <label>Question</label>
     <length>1024</length>

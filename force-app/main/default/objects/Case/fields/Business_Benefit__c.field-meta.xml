@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Business_Benefit__c</fullName>
-    <externalId>false</externalId>
     <inlineHelpText>Please select the change of organisation type if the selected work type is &apos;Change of Organisation Details&apos;</inlineHelpText>
     <label>Change of Organisation Details Type</label>
     <required>false</required>

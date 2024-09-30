@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Does_the_customer_have_budget_to_proceed__c</fullName>
-    <externalId>false</externalId>
     <label>Does customer have budget to proceed?</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>

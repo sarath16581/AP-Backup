@@ -3,7 +3,6 @@
     <fullName>Apttus__SObjectLabel__c</fullName>
     <deprecated>false</deprecated>
     <description>Specifies the object to query</description>
-    <externalId>false</externalId>
     <inlineHelpText>The object to query</inlineHelpText>
     <label>Object</label>
     <required>false</required>

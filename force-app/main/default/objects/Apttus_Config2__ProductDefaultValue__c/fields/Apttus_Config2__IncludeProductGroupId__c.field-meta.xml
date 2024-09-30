@@ -4,7 +4,6 @@
     <deleteConstraint>SetNull</deleteConstraint>
     <deprecated>false</deprecated>
     <description>D of the product group to include for the selected product or option</description>
-    <externalId>false</externalId>
     <label>Include Product Group</label>
     <referenceTo>Apttus_Config2__ProductGroup__c</referenceTo>
     <relationshipLabel>Product Default Values (Include Product Group)</relationshipLabel>

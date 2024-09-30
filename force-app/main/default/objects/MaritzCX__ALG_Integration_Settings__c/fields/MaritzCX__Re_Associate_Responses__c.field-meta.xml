@@ -6,7 +6,6 @@
     <description>This setting is used during ODRP(On Demand Response Push):
 If Checked, already associated Responses will also be considered for association along with the Orphan Responses.
 If Unchecked, only the Orphan Responses will be considered for the association.</description>
-    <externalId>false</externalId>
     <inlineHelpText>This setting is used during ODRP(On Demand Response Push):
 If Checked, already associated Responses will also be considered for association along with the Orphan Responses.
 If Unchecked, only the Orphan Responses will be considered for the association.</inlineHelpText>

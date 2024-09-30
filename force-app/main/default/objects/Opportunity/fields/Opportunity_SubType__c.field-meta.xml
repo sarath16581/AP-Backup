@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Opportunity_SubType__c</fullName>
     <description>It determines if the Opportunity is created as New, Re-contract (Renewal) or DoV (Deed of Variation)</description>
-    <externalId>false</externalId>
     <inlineHelpText>Modify this field if this Opportunity is a Renewal or Deed of Variation</inlineHelpText>
     <label>Opportunity SubType</label>
     <required>false</required>

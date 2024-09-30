@@ -3,7 +3,6 @@
     <fullName>Apttus_Approval__Step_Auto_Complete__c</fullName>
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
-    <externalId>false</externalId>
     <label>Step Auto Complete</label>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>

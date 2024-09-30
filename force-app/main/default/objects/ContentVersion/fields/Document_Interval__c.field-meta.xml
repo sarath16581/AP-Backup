@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Document_Interval__c</fullName>
     <description>Defines the interval value of a document where the record type is Report.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Defines the interval value of a document where the record type is Report.</inlineHelpText>
     <label>Document Interval</label>
     <required>false</required>

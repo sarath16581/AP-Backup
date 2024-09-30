@@ -3,7 +3,6 @@
     <fullName>Apttus_Proposal__Presented_Date__c</fullName>
     <deprecated>false</deprecated>
     <description>The date the quote/proposal was presented to the customer</description>
-    <externalId>false</externalId>
     <inlineHelpText>Date proposal was sent to the customer.</inlineHelpText>
     <label>Presented Date</label>
     <required>false</required>

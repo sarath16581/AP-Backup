@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>AccessUrl__c</fullName>
     <description>The community URL of the LBP community. This is needed for the welcome emails for SSO users that are not required to go the password reset page. It may also be required for other use cases too.</description>
-    <externalId>false</externalId>
     <inlineHelpText>The community URL of the LBP community. This is needed for the welcome emails for SSO users that are not required to go the password reset page. It may also be required for other use cases too.</inlineHelpText>
     <label>Access Url</label>
     <required>false</required>

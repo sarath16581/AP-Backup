@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>APT_Have_you_attached_Approval_Documents__c</fullName>
-    <externalId>false</externalId>
     <inlineHelpText>Please make sure to attach all Site Inspection Related documents including approval email if needed</inlineHelpText>
     <label>Approval Documents Attached?</label>
     <required>false</required>

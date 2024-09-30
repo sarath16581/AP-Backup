@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Indicates whether &apos;Add to Cart&apos; and &apos;Configure&apos; button should be hidden for option products on catalog page.</description>
-    <externalId>false</externalId>
     <inlineHelpText>A global setting to hide &apos;Add to Cart&apos; and &apos;Configure&apos; button for option products on catalog page.</inlineHelpText>
     <label>Disable Add To Cart for Option Products</label>
     <trackTrending>false</trackTrending>

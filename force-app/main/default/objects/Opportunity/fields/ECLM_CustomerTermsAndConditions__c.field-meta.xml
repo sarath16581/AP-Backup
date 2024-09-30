@@ -3,7 +3,6 @@
     <fullName>ECLM_CustomerTermsAndConditions__c</fullName>
     <defaultValue>false</defaultValue>
     <description>ECLM field</description>
-    <externalId>false</externalId>
     <label>Request to use Customer T&amp;C</label>
     <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>

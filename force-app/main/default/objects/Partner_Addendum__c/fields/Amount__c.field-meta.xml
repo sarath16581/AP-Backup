@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Amount__c</fullName>
     <description>This is the total amount of the Representation allowance.</description>
-    <externalId>false</externalId>
     <label>Amount</label>
     <precision>8</precision>
     <required>false</required>

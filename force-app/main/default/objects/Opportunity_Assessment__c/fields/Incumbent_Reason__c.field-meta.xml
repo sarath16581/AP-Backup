@@ -4,7 +4,6 @@
     <description>Phase 1 - Opportunity Assessment (PWC)
 
 Identifying why the customer has chosen to use this supplier in the past</description>
-    <externalId>false</externalId>
     <inlineHelpText>Why does the customer use this supplier?</inlineHelpText>
     <label>Incumbent Reason</label>
     <length>32768</length>

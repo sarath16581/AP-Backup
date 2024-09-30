@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>CardingRate__c</fullName>
     <description>Carding Rate.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Carding Rate</inlineHelpText>
     <label>Carding Rate</label>
     <precision>5</precision>

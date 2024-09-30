@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>When checked bundle price and quantity fields are displayed in options pages</description>
-    <externalId>false</externalId>
     <inlineHelpText>Check to show bundle price and quantity in options pages</inlineHelpText>
     <label>Show Bundle Detail</label>
     <trackTrending>false</trackTrending>

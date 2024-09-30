@@ -3,7 +3,6 @@
     <fullName>Apttus_Proposal__User__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <deprecated>false</deprecated>
-    <externalId>false</externalId>
     <label>Approved / Denied By</label>
     <referenceTo>User</referenceTo>
     <relationshipName>R00N70000001yUfGEAU</relationshipName>

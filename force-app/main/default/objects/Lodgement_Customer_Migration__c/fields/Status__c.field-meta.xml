@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Status__c</fullName>
     <description>Status of pipeline communication.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Current status of this migration record</inlineHelpText>
     <label>Status</label>
     <required>false</required>

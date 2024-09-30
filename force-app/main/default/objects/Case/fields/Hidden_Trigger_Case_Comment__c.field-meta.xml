@@ -3,7 +3,6 @@
     <fullName>Hidden_Trigger_Case_Comment__c</fullName>
     <defaultValue>false</defaultValue>
     <description>StarTrack Case Comment Trigger</description>
-    <externalId>false</externalId>
     <label>Hidden Trigger Case Comment</label>
     <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>

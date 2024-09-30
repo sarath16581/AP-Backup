@@ -3,7 +3,6 @@
     <fullName>Date_Literal__c</fullName>
     <defaultValue>false</defaultValue>
     <description>StarTrack: Date literal field</description>
-    <externalId>false</externalId>
     <label>Date Literal</label>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>

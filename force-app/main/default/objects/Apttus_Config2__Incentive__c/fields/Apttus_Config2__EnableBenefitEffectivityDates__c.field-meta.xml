@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Indicates whether effective dates are enabled for benefits associated with the incentive</description>
-    <externalId>false</externalId>
     <inlineHelpText>Indicates whether effective dates are enabled for benefits associated with the incentive</inlineHelpText>
     <label>Enable Benefit Effectivity Dates</label>
     <securityClassification>INTERNAL</securityClassification>

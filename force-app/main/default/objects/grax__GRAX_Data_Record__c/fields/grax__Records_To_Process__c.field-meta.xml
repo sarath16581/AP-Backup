@@ -3,7 +3,6 @@
     <fullName>grax__Records_To_Process__c</fullName>
     <deprecated>false</deprecated>
     <description>Field Used for Internal Auditing</description>
-    <externalId>false</externalId>
     <label># Records To Process</label>
     <summaryForeignKey>grax__GRAX_Data_Record_Id__c.grax__GRAX_Data_Record__c</summaryForeignKey>
     <summaryOperation>count</summaryOperation>

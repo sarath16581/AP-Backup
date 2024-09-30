@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Proposed_Sales_Team__c</fullName>
     <description>.</description>
-    <externalId>false</externalId>
     <inlineHelpText>The Proposed Sales Team will be pre-populated once the request is saved based on the Proposed Account Manager’s Sales Team.</inlineHelpText>
     <label>Proposed Sales Team</label>
     <required>false</required>

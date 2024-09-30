@@ -3,7 +3,6 @@
     <fullName>Apttus__DefaultNumberPrecision__c</fullName>
     <deprecated>false</deprecated>
     <description>Select Default Precision of Number fields.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Select Default Precision of Number fields.</inlineHelpText>
     <label>Default Number Precision</label>
     <required>false</required>

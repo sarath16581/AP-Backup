@@ -3,7 +3,6 @@
     <fullName>grax__Records_Sent_to_GRAX__c</fullName>
     <deprecated>false</deprecated>
     <description>Field Used for Internal Auditing</description>
-    <externalId>false</externalId>
     <label># Records Sent to GRAX</label>
     <summaryFilterItems>
         <field>grax__GRAX_Data_Record_Id__c.grax__Status__c</field>

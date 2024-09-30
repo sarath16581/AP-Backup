@@ -3,7 +3,6 @@
     <fullName>kfsell__Gold_Sheet__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <deprecated>false</deprecated>
-    <externalId>false</externalId>
     <label>Gold Sheet</label>
     <referenceTo>kfsell__Gold_Sheet__c</referenceTo>
     <relationshipLabel>Milestones</relationshipLabel>

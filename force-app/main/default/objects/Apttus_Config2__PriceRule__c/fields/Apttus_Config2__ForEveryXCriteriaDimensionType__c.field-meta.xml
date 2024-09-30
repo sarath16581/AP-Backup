@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__ForEveryXCriteriaDimensionType__c</fullName>
     <deprecated>false</deprecated>
     <description>The type associated with the For Every X criteria dimension</description>
-    <externalId>false</externalId>
     <inlineHelpText>The type associated with the For Every X criteria dimension</inlineHelpText>
     <label>For Every X Criteria Dimension Type</label>
     <required>false</required>

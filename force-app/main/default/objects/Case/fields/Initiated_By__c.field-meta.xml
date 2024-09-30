@@ -3,7 +3,6 @@
     <fullName>Initiated_By__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <description>Who initiated request it can also be sponsor.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Person who initially requested the work</inlineHelpText>
     <label>Initiated By</label>
     <referenceTo>User</referenceTo>

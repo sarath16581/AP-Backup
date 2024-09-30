@@ -3,7 +3,6 @@
     <fullName>Apttus__DocumentInfo__c</fullName>
     <deprecated>false</deprecated>
     <description>Additional document information</description>
-    <externalId>false</externalId>
     <inlineHelpText>Additional document information</inlineHelpText>
     <label>Document Info</label>
     <required>false</required>

@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__UseType__c</fullName>
     <deprecated>false</deprecated>
     <description>The filter use type</description>
-    <externalId>false</externalId>
     <inlineHelpText>The filter use type</inlineHelpText>
     <label>Filter Type</label>
     <required>false</required>

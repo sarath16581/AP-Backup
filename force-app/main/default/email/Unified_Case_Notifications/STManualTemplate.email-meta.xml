@@ -6,6 +6,17 @@
     <name>ST Manual template</name>
     <style>none</style>
     <subject>Manual template</subject>
+    <textOnly>Star Track
+
+Case {!Case.CaseNumber}
+
+
+Enter text here
+
+
+This email was sent by Startrack. Startrack does not represent, warrant or guarantee that the integrity of this email communication has been maintained nor that the communication is free of errors, viruses or interference.
+
+Help &amp; support |  Terms &amp; conditions |  Privacy policy</textOnly>
     <type>custom</type>
     <uiType>Aloha</uiType>
 </EmailTemplate>

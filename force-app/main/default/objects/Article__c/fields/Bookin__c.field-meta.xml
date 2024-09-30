@@ -3,7 +3,6 @@
     <fullName>Bookin__c</fullName>
     <defaultValue>false</defaultValue>
     <description>StarTrack - Book-in required</description>
-    <externalId>false</externalId>
     <label>Book-in</label>
     <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>

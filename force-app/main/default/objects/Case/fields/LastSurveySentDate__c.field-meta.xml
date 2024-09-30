@@ -3,7 +3,6 @@
     <fullName>LastSurveySentDate__c</fullName>
     <businessStatus>Active</businessStatus>
     <description>If a customer survey has been sent in relation to a record, this value will contain the date that the survey was sent.</description>
-    <externalId>false</externalId>
     <inlineHelpText>The date which  a survey invitation in relation to this case was sent to the case contact.</inlineHelpText>
     <label>Last Survey Sent Date</label>
     <required>false</required>

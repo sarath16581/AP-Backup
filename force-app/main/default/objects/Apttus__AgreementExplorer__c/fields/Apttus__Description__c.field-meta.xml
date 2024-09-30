@@ -3,7 +3,6 @@
     <fullName>Apttus__Description__c</fullName>
     <deprecated>false</deprecated>
     <description>The description of the query.</description>
-    <externalId>false</externalId>
     <inlineHelpText>The description of the query.</inlineHelpText>
     <label>Description</label>
     <required>false</required>

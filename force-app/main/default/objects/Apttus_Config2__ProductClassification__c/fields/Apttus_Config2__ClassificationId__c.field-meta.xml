@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__ClassificationId__c</fullName>
     <deprecated>false</deprecated>
     <description>ID of the associated category</description>
-    <externalId>false</externalId>
     <label>Category</label>
     <referenceTo>Apttus_Config2__ClassificationHierarchy__c</referenceTo>
     <relationshipLabel>Products</relationshipLabel>

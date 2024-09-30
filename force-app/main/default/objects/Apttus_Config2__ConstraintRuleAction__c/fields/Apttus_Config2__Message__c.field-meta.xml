@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__Message__c</fullName>
     <deprecated>false</deprecated>
     <description>Message entered in this field is displayed when the rule action requires user attention.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Example: Please select one of the following product {0}.</inlineHelpText>
     <label>Message</label>
     <length>2048</length>

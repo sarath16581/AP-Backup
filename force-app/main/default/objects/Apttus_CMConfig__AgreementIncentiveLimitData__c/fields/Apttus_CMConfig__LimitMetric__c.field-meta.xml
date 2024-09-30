@@ -3,7 +3,6 @@
     <fullName>Apttus_CMConfig__LimitMetric__c</fullName>
     <deprecated>false</deprecated>
     <description>The limit metric</description>
-    <externalId>false</externalId>
     <inlineHelpText>The limit metric</inlineHelpText>
     <label>Limit Metric</label>
     <required>false</required>

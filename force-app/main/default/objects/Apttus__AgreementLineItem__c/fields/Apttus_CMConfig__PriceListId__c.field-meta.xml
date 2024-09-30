@@ -4,7 +4,6 @@
     <deleteConstraint>SetNull</deleteConstraint>
     <deprecated>false</deprecated>
     <description>ID of the price list associated with the product or service</description>
-    <externalId>false</externalId>
     <label>Price List</label>
     <referenceTo>Apttus_Config2__PriceList__c</referenceTo>
     <relationshipLabel>Agreement Line Items</relationshipLabel>

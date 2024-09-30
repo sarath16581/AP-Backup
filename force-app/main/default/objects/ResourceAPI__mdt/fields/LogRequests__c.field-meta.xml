@@ -3,7 +3,6 @@
     <fullName>LogRequests__c</fullName>
     <defaultValue>false</defaultValue>
     <description>Stores a log entry in the API log table. NOTE, Use this sparingly! It has not been tested at volume!</description>
-    <externalId>false</externalId>
     <fieldManageability>DeveloperControlled</fieldManageability>
     <inlineHelpText>Stores a log entry in the API log table. NOTE, Use this sparingly! It has not been tested at volume!</inlineHelpText>
     <label>Log Requests</label>

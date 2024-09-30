@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__SyncMessage__c</fullName>
     <deprecated>false</deprecated>
     <description>Success or failure message for the sync</description>
-    <externalId>false</externalId>
     <inlineHelpText>Success or failure message for the sync</inlineHelpText>
     <label>Sync Message</label>
     <required>false</required>

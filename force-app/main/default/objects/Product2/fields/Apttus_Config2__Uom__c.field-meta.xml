@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__Uom__c</fullName>
     <deprecated>false</deprecated>
     <description>The default unit of measure for the product</description>
-    <externalId>false</externalId>
     <label>Uom</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>

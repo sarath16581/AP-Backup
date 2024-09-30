@@ -3,7 +3,6 @@
     <fullName>Apttus__WizardId__c</fullName>
     <deprecated>false</deprecated>
     <description>Master-detail to the wizard instance</description>
-    <externalId>false</externalId>
     <inlineHelpText>Master-detail to the wizard instance</inlineHelpText>
     <label>Wizard</label>
     <referenceTo>Apttus__Wizard2__c</referenceTo>

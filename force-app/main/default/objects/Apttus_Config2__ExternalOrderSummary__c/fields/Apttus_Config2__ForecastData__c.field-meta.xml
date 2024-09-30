@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Indicates whether the data provided is &quot;Forecast Data&quot; or the &quot;Actual Data&quot;</description>
-    <externalId>false</externalId>
     <inlineHelpText>Indicates whether the data provided is &quot;Forecast Data&quot; or the &quot;Actual Data&quot;</inlineHelpText>
     <label>Forecast Data ?</label>
     <securityClassification>INTERNAL</securityClassification>

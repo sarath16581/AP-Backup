@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Chatter_Group_Added__c</fullName>
     <defaultValue>false</defaultValue>
-    <externalId>false</externalId>
     <label>Chatter Group Added</label>
     <trackFeedHistory>false</trackFeedHistory>
     <type>Checkbox</type>

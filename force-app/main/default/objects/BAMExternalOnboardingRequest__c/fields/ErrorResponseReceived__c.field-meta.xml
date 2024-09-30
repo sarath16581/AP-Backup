@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>ErrorResponseReceived__c</fullName>
     <description>The date/time an error response was received.</description>
-    <externalId>false</externalId>
     <inlineHelpText>The date/time an error response was received.</inlineHelpText>
     <label>Error Response Received</label>
     <required>false</required>

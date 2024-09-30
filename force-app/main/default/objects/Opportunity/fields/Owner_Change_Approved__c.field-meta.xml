@@ -3,7 +3,6 @@
     <fullName>Owner_Change_Approved__c</fullName>
     <defaultValue>false</defaultValue>
     <description>This flag is used to allow the user to change the owner of the opportunity.</description>
-    <externalId>false</externalId>
     <label>Owner Change Approved</label>
     <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>

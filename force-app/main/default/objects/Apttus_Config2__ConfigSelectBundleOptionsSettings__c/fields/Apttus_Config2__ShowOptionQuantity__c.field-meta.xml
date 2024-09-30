@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Show the option quantity</description>
-    <externalId>false</externalId>
     <inlineHelpText>Show the option quantity</inlineHelpText>
     <label>Show Option Quantity</label>
     <trackTrending>false</trackTrending>

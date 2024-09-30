@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Indicates whether orders for the account hierarchy should be included for rebate processing</description>
-    <externalId>false</externalId>
     <inlineHelpText>Indicates whether orders for the account hierarchy should be included for rebate processing</inlineHelpText>
     <label>Include Orders For Account Hierarchy ?</label>
     <securityClassification>INTERNAL</securityClassification>

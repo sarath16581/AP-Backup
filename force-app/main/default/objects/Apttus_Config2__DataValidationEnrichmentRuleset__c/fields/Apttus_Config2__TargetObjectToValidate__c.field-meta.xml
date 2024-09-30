@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__TargetObjectToValidate__c</fullName>
     <deprecated>false</deprecated>
     <description>Data object that needs to be validated and enriched</description>
-    <externalId>false</externalId>
     <inlineHelpText>Data object that needs to be validated and enriched</inlineHelpText>
     <label>Target Object To Validate</label>
     <required>false</required>

@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Article_Expected_Delivery_Date__c</fullName>
     <description>StarTrack - Article Expected Delivery Date</description>
-    <externalId>false</externalId>
     <formula>DATETIMEVALUE(ArticleTest__r.ExpectedDeliveryDate__c) + IF(CONTAINS($Setup.StarTrack_Settings__c.Billing_Account_IDs__c, ArticleTest__r.Billing_Account__c),
 12/24, 17/24)</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>

@@ -4,7 +4,6 @@
     <businessStatus>Active</businessStatus>
     <complianceGroup>GDPR</complianceGroup>
     <description>The date that the status was last changed.</description>
-    <externalId>false</externalId>
     <inlineHelpText>The date that the status was last changed</inlineHelpText>
     <label>Last Status Changed Date</label>
     <required>false</required>

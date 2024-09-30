@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Recipient Tabs Enabled default set to false</description>
-    <externalId>false</externalId>
     <inlineHelpText>Recipient Tabs Enabled default set to false</inlineHelpText>
     <label>Recipient Tabs Enabled</label>
     <trackTrending>false</trackTrending>

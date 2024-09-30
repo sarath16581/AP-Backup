@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>ContentsItems__c</fullName>
     <description>SSSW - Holds all Content Items of an Article</description>
-    <externalId>false</externalId>
     <label>Contents Items</label>
     <length>32768</length>
     <securityClassification>INTERNAL</securityClassification>

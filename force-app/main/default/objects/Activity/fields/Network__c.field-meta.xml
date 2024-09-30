@@ -3,7 +3,6 @@
     <fullName>Network__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <description>StarTrack custom lookup to associate Activity to a depot</description>
-    <externalId>false</externalId>
     <label>Network</label>
     <lookupFilter>
         <active>true</active>

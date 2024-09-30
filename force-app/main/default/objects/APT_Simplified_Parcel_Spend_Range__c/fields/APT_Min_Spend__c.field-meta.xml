@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>APT_Min_Spend__c</fullName>
     <description>Spend Range - Minimum amount</description>
-    <externalId>false</externalId>
     <label>Min Spend</label>
     <precision>18</precision>
     <required>true</required>

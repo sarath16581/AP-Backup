@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Client_s_Distribution_Data_Attached__c</fullName>
     <defaultValue>false</defaultValue>
-    <externalId>false</externalId>
     <label>Client&apos;s Distribution Data Attached</label>
     <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>

@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>MHS_Cohort__c</fullName>
-    <externalId>false</externalId>
     <inlineHelpText>This field displays the cohort that this particular billing account belongs to. The MHS cohort dictates the MHS published rate.</inlineHelpText>
     <label>MHS Cohort</label>
     <required>false</required>

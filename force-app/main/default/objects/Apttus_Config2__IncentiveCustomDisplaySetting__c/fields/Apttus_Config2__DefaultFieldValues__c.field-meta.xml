@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__DefaultFieldValues__c</fullName>
     <deprecated>false</deprecated>
     <description>List of fields and their corresponding default values.  List should contain field name, equal sign then value with new line as the delimiter.</description>
-    <externalId>false</externalId>
     <inlineHelpText>List of fields and their corresponding default values.  List should contain field name, equal sign then value with new line as the delimiter.</inlineHelpText>
     <label>Default Field Values</label>
     <required>false</required>

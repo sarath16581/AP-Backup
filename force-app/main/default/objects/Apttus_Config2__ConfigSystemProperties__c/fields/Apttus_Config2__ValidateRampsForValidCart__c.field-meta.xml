@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Validate Ramps when the custom validation check is successful.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Validate Ramps when the custom validation check is successful.</inlineHelpText>
     <label>Validate Ramps For Valid Cart</label>
     <trackTrending>false</trackTrending>

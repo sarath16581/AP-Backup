@@ -9229,12 +9229,4 @@ We&apos;ll let you if it&apos;s successful. Thank you. Please do not reply.</val
         <shortDescription>Record Type Developer Name of Shipster</shortDescription>
         <value>Shipster</value>
     </labels>
-    <labels>
-        <fullName>HappyParcelNETDuplicateConsignmentWarningText</fullName>
-        <categories>Happy Parcel</categories>
-        <language>en_US</language>
-        <protected>false</protected>
-        <shortDescription>Happy Parcel .NET Duplicate Consignment Warning Text</shortDescription>
-        <value>WARNING! Multiple results found for this tracking ID. Enquiries need to be handled by Classic team.</value>
-    </labels>
 </CustomLabels>

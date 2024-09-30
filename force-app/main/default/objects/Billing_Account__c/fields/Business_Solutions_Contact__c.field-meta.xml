@@ -3,7 +3,6 @@
     <fullName>Business_Solutions_Contact__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <description>StarTrack - Business Solutions Contact</description>
-    <externalId>false</externalId>
     <label>Business Solutions Contact</label>
     <referenceTo>User</referenceTo>
     <relationshipName>Billing_Accounts</relationshipName>

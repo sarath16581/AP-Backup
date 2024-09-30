@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>ABFReason__c</fullName>
     <description>This field records the instructions provided by the ABF</description>
-    <externalId>false</externalId>
     <inlineHelpText>This field records the instructions provided by the ABF</inlineHelpText>
     <label>ABF Reason</label>
     <required>false</required>

@@ -4,7 +4,6 @@
     <defaultValue>true</defaultValue>
     <deprecated>false</deprecated>
     <description>Indicates whether the billing preference is active. Inactive preferences are not available for new associations.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Indicates whether the billing preference is active. Inactive preferences are not available for new associations.</inlineHelpText>
     <label>Active</label>
     <securityClassification>INTERNAL</securityClassification>

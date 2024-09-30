@@ -4,7 +4,6 @@
     <deleteConstraint>SetNull</deleteConstraint>
     <deprecated>false</deprecated>
     <description>ID of the deferred revenue account rule</description>
-    <externalId>false</externalId>
     <inlineHelpText>ID of the deferred revenue account rule</inlineHelpText>
     <label>Deferred Revenue Account</label>
     <lookupFilter>

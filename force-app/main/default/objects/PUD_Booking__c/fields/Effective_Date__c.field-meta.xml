@@ -3,7 +3,6 @@
     <fullName>Effective_Date__c</fullName>
     <defaultValue>TODAY()</defaultValue>
     <description>Date from which a permanent booking becomes active</description>
-    <externalId>false</externalId>
     <inlineHelpText>Date from which a permanent booking becomes active</inlineHelpText>
     <label>Effective Date</label>
     <required>false</required>

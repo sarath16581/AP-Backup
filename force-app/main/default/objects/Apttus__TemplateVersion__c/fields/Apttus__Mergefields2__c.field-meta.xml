@@ -3,7 +3,6 @@
     <fullName>Apttus__Mergefields2__c</fullName>
     <deprecated>false</deprecated>
     <description>Template merge fields</description>
-    <externalId>false</externalId>
     <inlineHelpText>Template merge fields</inlineHelpText>
     <label>Mergefields</label>
     <length>32768</length>

@@ -3,7 +3,6 @@
     <fullName>grax__Num_SFDC_Records_Lkp__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <deprecated>false</deprecated>
-    <externalId>false</externalId>
     <label>Num Total SFDC Records Lkp</label>
     <referenceTo>grax__GRAX_Helper__c</referenceTo>
     <relationshipLabel>Num Total SFDC Records Lkps</relationshipLabel>

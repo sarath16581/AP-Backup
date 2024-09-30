@@ -3,7 +3,6 @@
     <fullName>Suburb_Postcode__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <description>StarTrack: Capture Suburb / Postcode</description>
-    <externalId>false</externalId>
     <label>Suburb / Postcode</label>
     <referenceTo>Postcode__c</referenceTo>
     <relationshipLabel>Book-In Customers</relationshipLabel>

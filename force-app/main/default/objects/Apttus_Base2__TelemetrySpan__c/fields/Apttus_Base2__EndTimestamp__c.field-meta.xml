@@ -3,7 +3,6 @@
     <fullName>Apttus_Base2__EndTimestamp__c</fullName>
     <deprecated>false</deprecated>
     <description>Ending timestamp of the operation being logged.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Ending timestamp of the operation being logged.</inlineHelpText>
     <label>End Timestamp</label>
     <required>false</required>

@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>If the Lite user login count exceeded then user access will be controlled through this flag.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Determines whether to deactivate Lite user who exceeds allowed login limit</inlineHelpText>
     <label>Inactivate Non-Compliant Lite User</label>
     <trackTrending>false</trackTrending>

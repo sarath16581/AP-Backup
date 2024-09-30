@@ -3,7 +3,6 @@
     <fullName>Apttus__Description__c</fullName>
     <deprecated>false</deprecated>
     <description>Details and guidelines as to when this term exception should be used.</description>
-    <externalId>false</externalId>
     <label>Description</label>
     <length>4000</length>
     <securityClassification>INTERNAL</securityClassification>

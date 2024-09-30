@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Site_Instruction_Notes__c</fullName>
     <description>Brief searchable notes about the Location. Retrieved and displayed in the Transport mobile collect deliver flow.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Brief searchable notes about the Location. Retrieved and displayed in the Transport mobile collect deliver flow.</inlineHelpText>
     <label>Site Notes</label>
     <required>false</required>

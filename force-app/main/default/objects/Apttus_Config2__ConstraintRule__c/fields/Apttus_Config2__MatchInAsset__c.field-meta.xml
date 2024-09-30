@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Conditions are evaluated against the products found in asset.</description>
-    <externalId>false</externalId>
     <label>Match In Asset (DEPRECATED)</label>
     <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>

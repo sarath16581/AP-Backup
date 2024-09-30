@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Provide a one-time DocuSign consent on behalf of all the users.</description>
-    <externalId>false</externalId>
     <fieldManageability>SubscriberControlled</fieldManageability>
     <inlineHelpText>Provide a one-time DocuSign consent on behalf of all the users.</inlineHelpText>
     <label>Enable Admin Consent</label>

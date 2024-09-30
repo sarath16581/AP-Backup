@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__Condition__c</fullName>
     <deprecated>false</deprecated>
     <description>The condition specification</description>
-    <externalId>false</externalId>
     <label>Condition</label>
     <length>4000</length>
     <securityClassification>INTERNAL</securityClassification>

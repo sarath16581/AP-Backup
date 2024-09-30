@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Equipment_Start_Date_of_Terminals__c</fullName>
     <description>The earliest date terminals, scanners or label printers were obtained by the LPO.</description>
-    <externalId>false</externalId>
     <inlineHelpText>The earliest date terminals, scanners or label printers were obtained by the LPO.</inlineHelpText>
     <label>Equipment Start Date of Terminals</label>
     <required>false</required>

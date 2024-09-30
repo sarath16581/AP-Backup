@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Type_of_In_Conjunction_Business__c</fullName>
     <description>Secondary business types operated by the Partner</description>
-    <externalId>false</externalId>
     <inlineHelpText>Secondary business types operated by the Partner</inlineHelpText>
     <label>Type of In Conjunction Business</label>
     <required>false</required>

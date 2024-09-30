@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Off_the_shelf_check__c</fullName>
     <defaultValue>false</defaultValue>
-    <externalId>false</externalId>
     <label>Off the shelf</label>
     <securityClassification>INTERNAL</securityClassification>
     <type>Checkbox</type>

@@ -3,7 +3,6 @@
     <fullName>EligibleForRedirect__c</fullName>
     <defaultValue>false</defaultValue>
     <description>Determines whether the article can be redirected/recalled. This info comes from SAP (Article.Status)</description>
-    <externalId>false</externalId>
     <label>Eligible For Redirect</label>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>

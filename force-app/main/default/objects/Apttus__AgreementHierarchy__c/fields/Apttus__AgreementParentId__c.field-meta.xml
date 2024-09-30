@@ -5,7 +5,6 @@
     <deprecated>false</deprecated>
     <description>The agreement Id of the parent agreement within the agreement hierarchy.
 Root &gt; Parent &gt; Leaf</description>
-    <externalId>false</externalId>
     <inlineHelpText>The agreement Id of the parent agreement within the agreement hierarchy.
 Root &gt; Parent &gt; Leaf</inlineHelpText>
     <label>Agreement Parent</label>

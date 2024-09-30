@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Closing_time__c</fullName>
-    <externalId>false</externalId>
     <inlineHelpText>Please follow this format HH:MM AM/PM e.g. 03:00 PM</inlineHelpText>
     <label>Closing time</label>
     <required>false</required>

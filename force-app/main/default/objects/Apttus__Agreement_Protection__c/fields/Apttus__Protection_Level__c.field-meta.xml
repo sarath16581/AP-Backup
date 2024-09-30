@@ -3,7 +3,6 @@
     <fullName>Apttus__Protection_Level__c</fullName>
     <deprecated>false</deprecated>
     <description>Protection level applied to the Word document when an agreement is generated.</description>
-    <externalId>false</externalId>
     <label>Protection Level</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>

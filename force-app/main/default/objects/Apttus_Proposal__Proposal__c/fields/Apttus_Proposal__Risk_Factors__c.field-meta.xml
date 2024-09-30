@@ -3,7 +3,6 @@
     <fullName>Apttus_Proposal__Risk_Factors__c</fullName>
     <deprecated>false</deprecated>
     <description>The risk factors associated with the quote/proposal</description>
-    <externalId>false</externalId>
     <label>Risk Factors</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>

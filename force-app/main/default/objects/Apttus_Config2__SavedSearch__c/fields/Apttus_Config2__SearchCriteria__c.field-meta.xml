@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__SearchCriteria__c</fullName>
     <deprecated>false</deprecated>
     <description>The search criteria specification</description>
-    <externalId>false</externalId>
     <inlineHelpText>The search criteria specification</inlineHelpText>
     <label>Search Criteria</label>
     <length>4000</length>

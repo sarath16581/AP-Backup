@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Acting_Network__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
-    <externalId>false</externalId>
     <label>Acting Network</label>
     <referenceTo>Network__c</referenceTo>
     <relationshipLabel>Network Responses (Acting Network)</relationshipLabel>

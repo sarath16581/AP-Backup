@@ -3,7 +3,6 @@
     <fullName>Pre_Active_Checklist_Complete__c</fullName>
     <defaultValue>false</defaultValue>
     <description>Check box to indicate that all Pre Active Checklist tasks are complete.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Checking this flag confirms that all the Pre Active Checklist tasks have been completed.  This is required if there are Pre Active Checklist tasks associated to the Document Type as displayed in the Checklist section below.</inlineHelpText>
     <label>Pre Active Checklist Complete</label>
     <securityClassification>INTERNAL</securityClassification>

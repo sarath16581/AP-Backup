@@ -3,7 +3,6 @@
     <fullName>HideStatus__c</fullName>
     <defaultValue>false</defaultValue>
     <description>Hide Status on Happy parcel delivery proof.</description>
-    <externalId>false</externalId>
     <fieldManageability>DeveloperControlled</fieldManageability>
     <inlineHelpText>Hide Status on Happy parcel delivery proof.</inlineHelpText>
     <label>Hide Status</label>

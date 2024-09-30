@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>APT_International_Letters_Flag__c</fullName>
-    <externalId>false</externalId>
     <formula>Apttus_QPConfig__DerivedFromId__r.Apttus_Config2__AttributeValueId__r.APT_International_Letters__c /*Apttus_QPConfig__AttributeValueId__r.APT_International_Letters__c*/</formula>
     <label>International Letters Flag</label>
     <securityClassification>INTERNAL</securityClassification>

@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__Type__c</fullName>
     <deprecated>false</deprecated>
     <description>The footnote type</description>
-    <externalId>false</externalId>
     <inlineHelpText>The footnote type</inlineHelpText>
     <label>Type</label>
     <required>false</required>

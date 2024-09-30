@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>APT_Date_Response_Received_from_SI_Team__c</fullName>
-    <externalId>false</externalId>
     <inlineHelpText>Response from Business Hub or Transport/Van manager</inlineHelpText>
     <label>Date Response Received</label>
     <required>false</required>

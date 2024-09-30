@@ -3,7 +3,6 @@
     <fullName>MH_Action__c</fullName>
     <defaultValue>false</defaultValue>
     <description>SAM Integration Trigger Do not remove</description>
-    <externalId>false</externalId>
     <label>MH Action</label>
     <securityClassification>INTERNAL</securityClassification>
     <type>Checkbox</type>

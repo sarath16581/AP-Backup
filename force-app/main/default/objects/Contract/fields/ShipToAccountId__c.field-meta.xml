@@ -3,7 +3,6 @@
     <fullName>ShipToAccountId__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <description>ID of the ship to account associated with the agreement</description>
-    <externalId>false</externalId>
     <inlineHelpText>ID of the ship to account associated with the contract</inlineHelpText>
     <label>Ship To</label>
     <referenceTo>Account</referenceTo>

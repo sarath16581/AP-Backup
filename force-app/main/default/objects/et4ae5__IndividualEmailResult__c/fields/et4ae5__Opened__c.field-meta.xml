@@ -3,7 +3,6 @@
     <fullName>et4ae5__Opened__c</fullName>
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
-    <externalId>false</externalId>
     <inlineHelpText>Indicates whether the subscriber opened the email or not</inlineHelpText>
     <label>Opened</label>
     <securityClassification>INTERNAL</securityClassification>

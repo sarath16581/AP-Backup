@@ -3,7 +3,6 @@
     <fullName>BSPCanViewAllConsignments__c</fullName>
     <defaultValue>false</defaultValue>
     <description>This is a special BSP flag only that dictates whether a user should be able to search all consignments regardless of their role. A user can have Role of Admin for specific billing account and then use this option to get around access rule constraints.</description>
-    <externalId>false</externalId>
     <inlineHelpText>This is a special BSP flag only that dictates whether a user should be able to search all consignments regardless of their role. A user can have Role of Admin for specific billing account and then use this option to get around access rule constraints.</inlineHelpText>
     <label>BSP Can View All Consignments</label>
     <securityClassification>INTERNAL</securityClassification>

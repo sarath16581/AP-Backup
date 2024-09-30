@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>mobileaddressessupplied__c</fullName>
     <description>Consignment with mobile %.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Consignment with mobile %</inlineHelpText>
     <label>Mobile addresses supplied %</label>
     <precision>5</precision>

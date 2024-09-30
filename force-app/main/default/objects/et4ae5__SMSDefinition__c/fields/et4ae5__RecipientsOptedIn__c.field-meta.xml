@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Required as a compliance precaution to check that the send requestor has ensured all recipients are indeed opted into receiving emails.</description>
-    <externalId>false</externalId>
     <label>Recipients Opted In</label>
     <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>

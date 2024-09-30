@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__RelatedPercent__c</fullName>
     <deprecated>false</deprecated>
     <description>The list price expressed as a percentage of the related price list item</description>
-    <externalId>false</externalId>
     <label>Percent</label>
     <precision>14</precision>
     <required>false</required>

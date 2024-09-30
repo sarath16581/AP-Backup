@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Integration_Mod_Date__c</fullName>
     <description>Custom field to capture the date and time when changes to fields occur. This excludes roll-ups therefore the system fields are not suitable. This relates to a limitation in TIBCO that is impacted when the batch jobs run (Budget and Revenue Summary, OPC) and Account roll up fields change.</description>
-    <externalId>false</externalId>
     <label>Integration Modified Date</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>

@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>SI_CFF_Q9_Additional_Verbatim__c</fullName>
     <description>We appreciate you taking the time to give your honest &amp; constructive feedback on your implementation experience with us.  If you have any additional comments about your implementation experience please share these with us below.</description>
-    <externalId>false</externalId>
     <inlineHelpText>We appreciate you taking the time to give your honest &amp; constructive feedback on your implementation experience with us.  If you have any additional comments about your implementation experience please share these with us below.</inlineHelpText>
     <label>SI-CFF - Q9 Additional Verbatim</label>
     <length>2000</length>

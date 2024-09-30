@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Affected_System__c</fullName>
     <description>Custom field created for User support case record</description>
-    <externalId>false</externalId>
     <inlineHelpText>Please select the system the query is about</inlineHelpText>
     <label>Affected System</label>
     <required>false</required>

@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>In_Progress_Status__c</fullName>
     <description>Track SecurePay leads when it gets to conditional agreement on a APMS record and also when the Apttus Contract is signed</description>
-    <externalId>false</externalId>
     <inlineHelpText>This field provides the status while your lead is &quot;In Progress&quot;. Select from the drop down choices.</inlineHelpText>
     <label>In Progress Status</label>
     <required>false</required>

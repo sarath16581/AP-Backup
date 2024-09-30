@@ -3,7 +3,6 @@
     <fullName>Apttus__Criteria__c</fullName>
     <deprecated>false</deprecated>
     <description>The filter criteria specification</description>
-    <externalId>false</externalId>
     <inlineHelpText>The filter criteria specification</inlineHelpText>
     <label>Criteria</label>
     <length>4000</length>

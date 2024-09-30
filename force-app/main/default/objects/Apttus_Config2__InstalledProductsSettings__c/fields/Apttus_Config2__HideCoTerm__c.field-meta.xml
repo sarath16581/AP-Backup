@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Check to hide co-term end date on renew</description>
-    <externalId>false</externalId>
     <inlineHelpText>Check to hide co-term end date on renew</inlineHelpText>
     <label>Hide Co-Term</label>
     <trackTrending>false</trackTrending>

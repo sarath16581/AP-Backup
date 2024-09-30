@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__CostType__c</fullName>
     <deprecated>false</deprecated>
     <description>Cost type for the cost line item</description>
-    <externalId>false</externalId>
     <label>Cost Type</label>
     <required>false</required>
     <trackTrending>false</trackTrending>

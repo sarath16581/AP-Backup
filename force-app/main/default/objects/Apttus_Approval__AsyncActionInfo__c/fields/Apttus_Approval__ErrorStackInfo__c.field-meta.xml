@@ -3,7 +3,6 @@
     <fullName>Apttus_Approval__ErrorStackInfo__c</fullName>
     <deprecated>false</deprecated>
     <description>Technical information about the failure. Error call stack and other related information</description>
-    <externalId>false</externalId>
     <inlineHelpText>Technical information about the failure. Error call stack and other related information</inlineHelpText>
     <label>Error Stack Info</label>
     <length>32768</length>

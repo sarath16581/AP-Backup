@@ -3,7 +3,6 @@
     <fullName>Security_Alarm_System_Special_Condition__c</fullName>
     <defaultValue>false</defaultValue>
     <description>Is Licensee required to provide and maintain an alarm system?</description>
-    <externalId>false</externalId>
     <inlineHelpText>Is Licensee required to provide and maintain an alarm system?</inlineHelpText>
     <label>Security Alarm System Special Condition</label>
     <securityClassification>INTERNAL</securityClassification>

@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Implementation_or_Onboarding_Complexity__c</fullName>
-    <externalId>false</externalId>
     <inlineHelpText>Will the customer requirements result in straightforward onboarding and implementation?</inlineHelpText>
     <label>Standard implementation and onboarding?</label>
     <required>false</required>

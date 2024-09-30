@@ -4,7 +4,6 @@
     <businessStatus>Active</businessStatus>
     <deleteConstraint>SetNull</deleteConstraint>
     <description>For SAP - this is Parent Billing Account; For TEAM - this is Leader Billing Account.</description>
-    <externalId>false</externalId>
     <inlineHelpText>For SAP - this is Parent Billing Account; For TEAM - this is Leader Billing Account.</inlineHelpText>
     <label>Billing Account</label>
     <referenceTo>Billing_Account__c</referenceTo>

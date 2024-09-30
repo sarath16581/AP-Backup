@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__LastInvoiceDate__c</fullName>
     <deprecated>false</deprecated>
     <description>The last invoice date for the account</description>
-    <externalId>false</externalId>
     <inlineHelpText>The last invoice date for the account</inlineHelpText>
     <label>Last Invoice Date</label>
     <required>false</required>

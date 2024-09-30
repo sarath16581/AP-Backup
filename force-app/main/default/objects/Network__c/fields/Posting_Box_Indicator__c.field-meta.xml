@@ -3,7 +3,6 @@
     <fullName>Posting_Box_Indicator__c</fullName>
     <defaultValue>false</defaultValue>
     <description>This indicates whether the LPO gets paid for clearing local SPB</description>
-    <externalId>false</externalId>
     <inlineHelpText>This indicates whether the LPO gets paid for clearing local SPB</inlineHelpText>
     <label>Posting Box Indicator</label>
     <securityClassification>INTERNAL</securityClassification>

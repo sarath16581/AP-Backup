@@ -4,7 +4,6 @@
     <deleteConstraint>SetNull</deleteConstraint>
     <deprecated>false</deprecated>
     <description>Option Group should be specified when product scope is set as option group</description>
-    <externalId>false</externalId>
     <inlineHelpText>Option Group should be specified when product scope is set as option group</inlineHelpText>
     <label>Product Option Group</label>
     <referenceTo>Apttus_Config2__ProductOptionGroup__c</referenceTo>

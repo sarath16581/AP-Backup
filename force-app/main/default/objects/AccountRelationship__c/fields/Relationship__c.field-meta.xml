@@ -4,7 +4,6 @@
     <businessStatus>Active</businessStatus>
     <complianceGroup>GDPR</complianceGroup>
     <description>The type of relationship between the Parent and Related Accouunt.</description>
-    <externalId>false</externalId>
     <inlineHelpText>The account relationship type</inlineHelpText>
     <label>Relationship</label>
     <required>false</required>

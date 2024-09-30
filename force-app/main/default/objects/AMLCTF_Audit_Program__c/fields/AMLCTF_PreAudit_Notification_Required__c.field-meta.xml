@@ -3,7 +3,6 @@
     <fullName>AMLCTF_PreAudit_Notification_Required__c</fullName>
     <defaultValue>false</defaultValue>
     <description>Pre-audit notification indicator for the retail audit.  Field added as part of the Retail Audit Case Management Solution, AML/CTF Austrac Phase 2.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Pre-audit notification indicator for the retail audit.  Field added as part of the Retail Audit Case Management Solution, AML/CTF Austrac Phase 2.</inlineHelpText>
     <label>Pre-Audit Notification Required?</label>
     <securityClassification>OFFICIAL_SENSITIVE</securityClassification>

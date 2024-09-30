@@ -3,7 +3,6 @@
     <fullName>ECLM_Original_Opportunity_No__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <description>ECLM field</description>
-    <externalId>false</externalId>
     <label>Original Opportunity</label>
     <referenceTo>Opportunity</referenceTo>
     <relationshipLabel>Related Opportunity Details</relationshipLabel>

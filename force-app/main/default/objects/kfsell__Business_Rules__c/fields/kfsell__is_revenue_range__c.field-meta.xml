@@ -3,7 +3,6 @@
     <fullName>kfsell__is_revenue_range__c</fullName>
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
-    <externalId>false</externalId>
     <label>is revenue range</label>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>

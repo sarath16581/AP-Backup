@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__UnitCostAdjustment__c</fullName>
     <deprecated>false</deprecated>
     <description>The unit adjustment for the product or service applied to the base cost</description>
-    <externalId>false</externalId>
     <inlineHelpText>The unit adjustment for the product or service applied to the base cost</inlineHelpText>
     <label>Unit Cost Adjustment</label>
     <precision>18</precision>

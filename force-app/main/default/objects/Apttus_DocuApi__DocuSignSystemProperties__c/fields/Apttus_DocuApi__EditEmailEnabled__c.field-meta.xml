@@ -4,7 +4,6 @@
     <defaultValue>true</defaultValue>
     <deprecated>false</deprecated>
     <description>This setting controls whether users can edit the email subject and body on the user interface, under the additional details section.</description>
-    <externalId>false</externalId>
     <inlineHelpText>This setting controls whether users can edit the email subject and body on the user interface, under the additional details section. If it is checked, users will be able to edit the email subject and the email body.</inlineHelpText>
     <label>Edit Email Enabled</label>
     <trackTrending>false</trackTrending>

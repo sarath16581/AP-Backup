@@ -3,7 +3,6 @@
     <fullName>Related_Requirement__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <description>Other requirements that need to be delivered in the same solution</description>
-    <externalId>false</externalId>
     <inlineHelpText>Link requirements to this requirement to ensure that they are addressed together</inlineHelpText>
     <label>Related Requirement</label>
     <referenceTo>Requirement__c</referenceTo>

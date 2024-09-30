@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Closed_Date__c</fullName>
     <description>The date the Bid or Tender hit the Submitted/Cancelled/ or No Bid Stage.</description>
-    <externalId>false</externalId>
     <inlineHelpText>The date the Bid or Tender hit the Submitted/Cancelled/ or No Bid Stage.</inlineHelpText>
     <label>Submitted Date</label>
     <required>false</required>

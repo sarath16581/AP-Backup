@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__SuspensionStartDate__c</fullName>
     <deprecated>false</deprecated>
     <description>The date when the asset line item was suspended.</description>
-    <externalId>false</externalId>
     <inlineHelpText>The date when the asset line item was suspended.</inlineHelpText>
     <label>Suspension Start Date</label>
     <required>false</required>

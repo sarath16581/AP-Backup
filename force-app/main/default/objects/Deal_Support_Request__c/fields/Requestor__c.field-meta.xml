@@ -3,7 +3,6 @@
     <fullName>Requestor__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <description>This field store the creator name</description>
-    <externalId>false</externalId>
     <label>Requestor Name</label>
     <referenceTo>User</referenceTo>
     <relationshipName>Deal_Support_RequestZEHN</relationshipName>

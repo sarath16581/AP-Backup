@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>APT_Cubic_Factor_Record_Count__c</fullName>
-    <externalId>false</externalId>
     <label>Cubic Factor Record Count</label>
     <securityClassification>INTERNAL</securityClassification>
     <summaryForeignKey>APT_Cubic_Factor__c.APT_Proposal__c</summaryForeignKey>

@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>ReD_Fraud_Rules__c</fullName>
     <description>Select a ReD Fraud Segmentation Code</description>
-    <externalId>false</externalId>
     <inlineHelpText>Select a ReD Fraud Segmentation Code</inlineHelpText>
     <label>ReD Fraud Rules</label>
     <required>false</required>

@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__TierRate__c</fullName>
     <deprecated>false</deprecated>
     <description>The rate for the tier or period</description>
-    <externalId>false</externalId>
     <inlineHelpText>The rate for the tier or period</inlineHelpText>
     <label>Unit Price</label>
     <precision>18</precision>

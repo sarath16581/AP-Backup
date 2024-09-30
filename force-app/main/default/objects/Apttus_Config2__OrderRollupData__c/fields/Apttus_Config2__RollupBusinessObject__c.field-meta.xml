@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__RollupBusinessObject__c</fullName>
     <deprecated>false</deprecated>
     <description>The API name of the business object for the rollup</description>
-    <externalId>false</externalId>
     <inlineHelpText>The API name of the business object for the rollup</inlineHelpText>
     <label>Rollup Business Object</label>
     <required>false</required>

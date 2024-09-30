@@ -3,7 +3,6 @@
     <fullName>Apttus__RuntimeHelpText2__c</fullName>
     <deprecated>false</deprecated>
     <description>Describes what the runtime user can see as a help or instruction description of this input control.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Describes what the runtime user can see as a help or instruction description of this input control.</inlineHelpText>
     <label>Runtime Help Text</label>
     <length>510</length>

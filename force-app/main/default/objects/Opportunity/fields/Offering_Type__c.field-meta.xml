@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Offering_Type__c</fullName>
     <description>Used to indicate if this opportunity belongs to the product or solutions offering. Workflow is used to populate this field but can be overwritten.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Indicate whether this opportunity is a singular product or multi product solution.</inlineHelpText>
     <label>Offering Type</label>
     <required>false</required>

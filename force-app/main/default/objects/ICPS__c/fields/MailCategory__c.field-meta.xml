@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>MailCategory__c</fullName>
     <description>The Category assigned to the ICPS record.</description>
-    <externalId>false</externalId>
     <inlineHelpText>The Category assigned to the ICPS record.</inlineHelpText>
     <label>Mail Category</label>
     <required>false</required>

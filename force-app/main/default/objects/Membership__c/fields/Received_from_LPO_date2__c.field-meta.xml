@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Received_from_LPO_date2__c</fullName>
     <description>Received from LPO date - used in PB when status is updated to Received from LPO</description>
-    <externalId>false</externalId>
     <inlineHelpText>Updated when status is changed to received from LPO</inlineHelpText>
     <label>Received from LPO date</label>
     <required>false</required>

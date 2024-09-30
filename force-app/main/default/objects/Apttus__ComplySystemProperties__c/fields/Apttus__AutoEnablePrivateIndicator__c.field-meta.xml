@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Indicates whether private indicator is auto enabled for documents</description>
-    <externalId>false</externalId>
     <inlineHelpText>Indicates whether private indicator is auto enabled for documents</inlineHelpText>
     <label>Auto Enable Private Indicator</label>
     <trackTrending>false</trackTrending>

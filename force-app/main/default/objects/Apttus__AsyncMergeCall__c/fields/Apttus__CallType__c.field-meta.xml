@@ -3,7 +3,6 @@
     <fullName>Apttus__CallType__c</fullName>
     <deprecated>false</deprecated>
     <description>The call type</description>
-    <externalId>false</externalId>
     <label>Call Type</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>

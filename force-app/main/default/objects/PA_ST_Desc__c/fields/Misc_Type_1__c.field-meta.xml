@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Misc_Type_1__c</fullName>
     <description>Partner Addendum &apos;Miscellaneous Type 1&apos; Sub Type Description</description>
-    <externalId>false</externalId>
     <label>Misc Type 1</label>
     <required>false</required>
     <trackTrending>false</trackTrending>

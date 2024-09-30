@@ -3,7 +3,6 @@
     <fullName>Apttus_DocuApi__SigningGroupId__c</fullName>
     <deprecated>false</deprecated>
     <description>This field associates the signing group members to the DocuSign signing groups</description>
-    <externalId>false</externalId>
     <inlineHelpText>This field associates the signing group members to the DocuSign signing groups</inlineHelpText>
     <label>Signing Group Id</label>
     <referenceTo>Apttus_DocuApi__DocuSignSigningGroup__c</referenceTo>

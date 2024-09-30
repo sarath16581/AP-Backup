@@ -3,7 +3,6 @@
     <fullName>Container_Actuals_Payload__c</fullName>
     <businessStatus>Active</businessStatus>
     <description>This field captures containers payload received from MobileStar. This field will help debug issues in future to identify what was received from MobileStar.</description>
-    <externalId>false</externalId>
     <inlineHelpText>This field captures containers payload received from MobileStar. This field will help debug issues in future to identify what was received from MobileStar.</inlineHelpText>
     <label>Container Actuals Payload</label>
     <length>32768</length>

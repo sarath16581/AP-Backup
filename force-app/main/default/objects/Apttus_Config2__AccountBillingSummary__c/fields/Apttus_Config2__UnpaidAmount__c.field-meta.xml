@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__UnpaidAmount__c</fullName>
     <deprecated>false</deprecated>
     <description>The total amount of unpaid invoices</description>
-    <externalId>false</externalId>
     <inlineHelpText>The total amount of unpaid invoices</inlineHelpText>
     <label>Unpaid Amount</label>
     <precision>18</precision>

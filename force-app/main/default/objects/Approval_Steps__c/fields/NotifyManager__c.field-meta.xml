@@ -3,7 +3,6 @@
     <fullName>NotifyManager__c</fullName>
     <defaultValue>false</defaultValue>
     <description>Notify the users manager when the step has been escalated.</description>
-    <externalId>false</externalId>
     <label>Notify Manager</label>
     <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>

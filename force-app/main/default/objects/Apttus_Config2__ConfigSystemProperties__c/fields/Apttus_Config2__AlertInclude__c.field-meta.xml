@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Whether to display radio buttons for Renew, Increment, Amend, Cancel asset actions.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Check it to display radio buttons for  Renew, Increment, Amend, Cancel asset actions.</inlineHelpText>
     <label>Show Radio Buttons for Asset</label>
     <trackTrending>false</trackTrending>

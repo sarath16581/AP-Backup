@@ -25,7 +25,7 @@
 					description="Flag to indicate if the product belong to StarTrack when it's true, else it's AusPost product"/>
 
 	<apex:form style="font-family: Arial Unicode MS;">
-		<apex:pageBlock>
+		<apex:pageBlock >
 
 			<!-- START SECTION AND TABLES -->
 			<div style="border:2px solid ;width:100%;border-radius:8px;font-size: 0.9em;">
@@ -42,8 +42,7 @@
 						<apex:repeat value="{!$ObjectType.EventMessage__c.FieldSets.PODSafeDropSummary}" var="em">
 							<apex:outputText rendered="{!NOT(ISBLANK(eventMessage[em]))}">
 								<div style="margin-bottom: 8px;">
-									<apex:outputText
-											rendered="{!em.fieldPath == 'Article__r.ConsignmentTrackingNumber__c'}">
+									<apex:outputText rendered="{!em.fieldPath == 'Article__r.ConsignmentTrackingNumber__c'}">
 										Consignment Number: &nbsp;{!eventMessage[em]}
 									</apex:outputText>
 									<apex:outputText rendered="{!em.fieldPath == 'Article__r.FurtherReferences__c'}">

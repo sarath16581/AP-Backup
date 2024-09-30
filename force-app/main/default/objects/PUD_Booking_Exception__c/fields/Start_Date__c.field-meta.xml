@@ -3,7 +3,6 @@
     <fullName>Start_Date__c</fullName>
     <defaultValue>TODAY()</defaultValue>
     <description>The start date of the booking exception</description>
-    <externalId>false</externalId>
     <label>Start Date</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>

@@ -3,7 +3,6 @@
     <fullName>Apttus_QPConfig__ChargeType__c</fullName>
     <deprecated>false</deprecated>
     <description>The charge type  associated with the group</description>
-    <externalId>false</externalId>
     <label>Charge Type</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>

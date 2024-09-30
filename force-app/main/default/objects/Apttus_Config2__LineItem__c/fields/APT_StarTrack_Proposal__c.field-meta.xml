@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>APT_StarTrack_Proposal__c</fullName>
     <description>for startrack delegation</description>
-    <externalId>false</externalId>
     <formula>IF(
 ISPICKVAL(Apttus_Config2__ConfigurationId__r.Apttus_QPConfig__Proposald__r.Is_Startrack_Proposal__c, &apos;Yes&apos;)  , 
 TRUE, FALSE)</formula>

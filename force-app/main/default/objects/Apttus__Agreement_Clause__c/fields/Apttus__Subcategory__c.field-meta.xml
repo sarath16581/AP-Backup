@@ -3,7 +3,6 @@
     <fullName>Apttus__Subcategory__c</fullName>
     <deprecated>false</deprecated>
     <description>The clause subcategory</description>
-    <externalId>false</externalId>
     <label>Subcategory</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>

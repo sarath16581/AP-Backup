@@ -3,7 +3,6 @@
     <fullName>LeadSeekerConversionOverride__c</fullName>
     <defaultValue>false</defaultValue>
     <description>Tick this to allow linking to an old Opportunity when converting a Lead Seeker record.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Tick this to allow linking to an old Opportunity when converting a Lead Seeker record.</inlineHelpText>
     <label>Lead Seeker Conversion Override</label>
     <securityClassification>INTERNAL</securityClassification>

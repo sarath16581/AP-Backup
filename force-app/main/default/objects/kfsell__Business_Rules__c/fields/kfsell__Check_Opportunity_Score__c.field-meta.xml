@@ -3,7 +3,6 @@
     <fullName>kfsell__Check_Opportunity_Score__c</fullName>
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
-    <externalId>false</externalId>
     <label>Check Opportunity Score</label>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>

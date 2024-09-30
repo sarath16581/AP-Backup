@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Is_Exception_Product__c</fullName>
     <defaultValue>false</defaultValue>
-    <externalId>false</externalId>
     <label>Is Exception Product</label>
     <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>

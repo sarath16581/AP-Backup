@@ -3,7 +3,6 @@
     <fullName>Billing_Account__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <description>StarTrack: Billing Account field to capture billing account info</description>
-    <externalId>false</externalId>
     <label>Billing Account</label>
     <referenceTo>Billing_Account__c</referenceTo>
     <relationshipLabel>Articles</relationshipLabel>

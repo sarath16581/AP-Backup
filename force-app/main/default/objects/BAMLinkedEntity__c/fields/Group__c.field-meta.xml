@@ -3,7 +3,6 @@
     <fullName>Group__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <description>Group associated with this Role</description>
-    <externalId>false</externalId>
     <inlineHelpText>Group associated with this Role</inlineHelpText>
     <label>Group</label>
     <referenceTo>BAMGroup__c</referenceTo>

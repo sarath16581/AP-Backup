@@ -3,7 +3,6 @@
     <fullName>Supply_Chain_Optimisation_Driver__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <description>requested by AVP for opportunity team reporting purpose</description>
-    <externalId>false</externalId>
     <label>Parcel Customer Solutions Driver</label>
     <lookupFilter>
         <active>true</active>

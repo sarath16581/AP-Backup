@@ -3,7 +3,6 @@
     <fullName>Apttus_Approval__SubprocessRuleEntryId__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <deprecated>false</deprecated>
-    <externalId>false</externalId>
     <label>Subprocess Rule Entry Id (DEPRECATED)</label>
     <referenceTo>Apttus_Approval__ApprovalRuleEntry__c</referenceTo>
     <relationshipLabel>Reminders</relationshipLabel>

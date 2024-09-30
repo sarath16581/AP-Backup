@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Approver2Complete__c</fullName>
     <description>Indicates Approver 2 has completed the approval by either approving or rejecting the request.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Indicates Approver 2 has completed the approval by either approving or rejecting the request.</inlineHelpText>
     <label>Approver 2 Complete</label>
     <required>false</required>

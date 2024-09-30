@@ -3,7 +3,6 @@
     <fullName>MaritzCX__Is_Integration_Active__c</fullName>
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
-    <externalId>false</externalId>
     <inlineHelpText>This field is deprecated from the package version 2.5 .</inlineHelpText>
     <label>Integration Active [DEPRECATED]</label>
     <trackTrending>false</trackTrending>

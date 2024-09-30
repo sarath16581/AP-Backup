@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Security_Other_Requirements__c</fullName>
     <description>List other security requirements</description>
-    <externalId>false</externalId>
     <inlineHelpText>List other security requirements</inlineHelpText>
     <label>Security Other Requirements</label>
     <length>1000</length>

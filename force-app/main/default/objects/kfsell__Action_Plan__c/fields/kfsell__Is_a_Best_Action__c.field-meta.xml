@@ -3,7 +3,6 @@
     <fullName>kfsell__Is_a_Best_Action__c</fullName>
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
-    <externalId>false</externalId>
     <label>Is a Best Action</label>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>

@@ -3,7 +3,6 @@
     <fullName>Depot__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <description>Depot responsible for the booking</description>
-    <externalId>false</externalId>
     <inlineHelpText>Business hub responsible for the booking</inlineHelpText>
     <label>Depot</label>
     <lookupFilter>

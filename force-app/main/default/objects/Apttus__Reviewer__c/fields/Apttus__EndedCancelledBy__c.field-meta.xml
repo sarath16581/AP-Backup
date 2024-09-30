@@ -4,7 +4,6 @@
     <deleteConstraint>SetNull</deleteConstraint>
     <deprecated>false</deprecated>
     <description>Id of the User who has cancelled or Ended the Review.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Review Ended by user.</inlineHelpText>
     <label>Ended/Cancelled By</label>
     <referenceTo>User</referenceTo>

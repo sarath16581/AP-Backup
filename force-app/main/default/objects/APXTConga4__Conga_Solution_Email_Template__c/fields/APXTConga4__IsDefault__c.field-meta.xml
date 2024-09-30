@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>If the value is true, the related email template will be used. Also for one solution, only one record can be IsDefault = true, the others must be IsDefault = false.</description>
-    <externalId>false</externalId>
     <label>IsDefault</label>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>

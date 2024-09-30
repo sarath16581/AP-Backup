@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>FirstNoticeDate__c</fullName>
     <description>The date the first notice was generated.</description>
-    <externalId>false</externalId>
     <inlineHelpText>The date the first notice was generated.</inlineHelpText>
     <label>First Notice Date</label>
     <required>false</required>
