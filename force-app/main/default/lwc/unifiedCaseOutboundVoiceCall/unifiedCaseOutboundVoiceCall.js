@@ -2,7 +2,7 @@
  * @description A LWC component for automatically linking a case when agents initiate an outbound call from Case
  * @author: SteveL
  * @changelog:
- * 2024-09-26 - Marcel HK - Created
+ * 2024-09-26 - SteveL - Created
  */
 import { LightningElement,api, wire } from 'lwc';
 import { getRecord, updateRecord, getFieldValue, notifyRecordUpdateAvailable } from 'lightning/uiRecordApi';
