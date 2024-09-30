@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Indicates whether the line item fields will be displayed as read only field. User is prevented from entering values for all line item fields. However the API methods or other system methods can change field values.</description>
-    <externalId>false</externalId>
     <label>Is Read Only</label>
     <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>

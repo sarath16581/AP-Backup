@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Total_Schedule_Revenue_to_Date__c</fullName>
     <description>The field rolls up the Total Schedule Revenue to Date from the Opportunity Product Classification revenues.</description>
-    <externalId>false</externalId>
     <inlineHelpText>The sum of the expected revenue to date across all products attached to the opportunity from the revenue start date up to the revenue scheduled for the current month.</inlineHelpText>
     <label>Opportunity Scheduled Revenue</label>
     <precision>18</precision>

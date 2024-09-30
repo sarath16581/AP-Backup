@@ -3,7 +3,6 @@
     <fullName>Allow_Submit_For_Approval__c</fullName>
     <defaultValue>false</defaultValue>
     <description>Flag to only allow submit for approval via the flow AgreeMgt - Submit Approval - Rate List.  Flag is set and reset in the flow, and used as an entry criteria for the approval process AgreeMgt-Approval-RateList.</description>
-    <externalId>false</externalId>
     <label>Allow Submit For Approval</label>
     <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>

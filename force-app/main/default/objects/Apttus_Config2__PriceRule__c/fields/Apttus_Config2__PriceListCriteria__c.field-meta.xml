@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__PriceListCriteria__c</fullName>
     <deprecated>false</deprecated>
     <description>One or more price list inclusion/exclusion criteria</description>
-    <externalId>false</externalId>
     <inlineHelpText>One or more price list inclusion/exclusion criteria</inlineHelpText>
     <label>Price List Criteria</label>
     <required>false</required>

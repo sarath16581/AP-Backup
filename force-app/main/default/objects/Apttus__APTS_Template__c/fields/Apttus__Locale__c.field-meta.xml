@@ -3,7 +3,6 @@
     <fullName>Apttus__Locale__c</fullName>
     <deprecated>false</deprecated>
     <description>APTTUS RESERVED.  CUSTOMERS SHOULD NOT CHANGE VALUES</description>
-    <externalId>false</externalId>
     <label>Locale</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>

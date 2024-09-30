@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>When the parent category is in context the page should show content from this category by default.</description>
-    <externalId>false</externalId>
     <label>Default Search Category</label>
     <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>

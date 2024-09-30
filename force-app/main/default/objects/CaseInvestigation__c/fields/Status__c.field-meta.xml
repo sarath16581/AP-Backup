@@ -3,7 +3,6 @@
     <fullName>Status__c</fullName>
     <businessStatus>Active</businessStatus>
     <description>This field is used to determine the current status of a Case Investigation record.</description>
-    <externalId>false</externalId>
     <label>Status</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>

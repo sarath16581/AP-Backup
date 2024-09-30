@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Classification__c</fullName>
-    <externalId>false</externalId>
     <inlineHelpText>Product Classification (‘New Business’, ‘Cross-Sell’, ‘Win Back’, ‘Renewal’ and ‘Growth’) is essential enterprise information that is used for accurate sales pipeline and commission calculation. This classification (apart from Growth) is auto calculated.</inlineHelpText>
     <label>Classification</label>
     <required>false</required>

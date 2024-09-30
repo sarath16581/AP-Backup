@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Determines whether this record has been synchronized with the external system or not. If so, data will be deleted in the next scheduled batch job run.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Determines whether this record has been synchronized with the external system or not. If so, data will be deleted in the next scheduled batch job run.</inlineHelpText>
     <label>Is Record Synced?</label>
     <trackTrending>false</trackTrending>

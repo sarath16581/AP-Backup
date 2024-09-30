@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__Description__c</fullName>
     <deprecated>false</deprecated>
     <description>The search description</description>
-    <externalId>false</externalId>
     <inlineHelpText>The search description</inlineHelpText>
     <label>Description</label>
     <length>1028</length>

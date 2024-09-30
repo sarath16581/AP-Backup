@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Photos_of_all_DGs__c</fullName>
     <defaultValue>false</defaultValue>
-    <externalId>false</externalId>
     <inlineHelpText>Photos of all DGs labelling and packaging. Upload the photos in the file upload section.</inlineHelpText>
     <label>Photos of all DGs</label>
     <securityClassification>INTERNAL</securityClassification>

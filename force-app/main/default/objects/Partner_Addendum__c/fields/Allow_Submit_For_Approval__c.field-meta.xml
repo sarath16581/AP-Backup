@@ -3,7 +3,6 @@
     <fullName>Allow_Submit_For_Approval__c</fullName>
     <defaultValue>false</defaultValue>
     <description>Flag to only allow submit for approval via the flow &apos;Partner Info - Submit PA Approval&apos;. Flag is set in the flow, and used as an entry criteria for the approval process &apos;PartnerInfo New Addendum&apos;.  Approval Process also resets flag via an Initial Submission Action.</description>
-    <externalId>false</externalId>
     <label>Allow Submit For Approval</label>
     <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>

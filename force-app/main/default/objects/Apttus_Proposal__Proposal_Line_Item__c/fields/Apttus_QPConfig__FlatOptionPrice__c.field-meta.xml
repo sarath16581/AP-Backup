@@ -3,7 +3,6 @@
     <fullName>Apttus_QPConfig__FlatOptionPrice__c</fullName>
     <deprecated>false</deprecated>
     <description>The rolled up adjusted flat price of options for the bundle product</description>
-    <externalId>false</externalId>
     <inlineHelpText>The rolled up adjusted flat price of options for the bundle product</inlineHelpText>
     <label>Flat Option Price</label>
     <precision>18</precision>

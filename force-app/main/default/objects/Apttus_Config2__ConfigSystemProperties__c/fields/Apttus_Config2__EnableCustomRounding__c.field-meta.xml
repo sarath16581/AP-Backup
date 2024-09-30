@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Indicates whether list price, base price and selling term fields in the line item should be rounded using the custom field precision setting</description>
-    <externalId>false</externalId>
     <inlineHelpText>Indicates whether list price, base price and selling term fields in the line item should be rounded using the custom field precision setting</inlineHelpText>
     <label>Enable Custom Rounding</label>
     <trackTrending>false</trackTrending>

@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Indicates whether &quot;Create New View&quot; option on Cart View drop down is hidden.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Indicates whether &quot;Create New View&quot; option on Cart View drop down is hidden.</inlineHelpText>
     <label>Hide Cart Views Creation</label>
     <trackTrending>false</trackTrending>

@@ -4,7 +4,6 @@
     <defaultValue>true</defaultValue>
     <deprecated>false</deprecated>
     <description>Indicates whether field expressions are enabled</description>
-    <externalId>false</externalId>
     <inlineHelpText>A global setting to turn on field expressions.</inlineHelpText>
     <label>Enable Field Expressions</label>
     <trackTrending>false</trackTrending>

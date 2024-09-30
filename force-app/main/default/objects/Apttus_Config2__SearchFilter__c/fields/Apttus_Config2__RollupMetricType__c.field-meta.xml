@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__RollupMetricType__c</fullName>
     <deprecated>false</deprecated>
     <description>The rollup metric type.</description>
-    <externalId>false</externalId>
     <inlineHelpText>The rollup metric type.</inlineHelpText>
     <label>Rollup Metric Type</label>
     <required>false</required>

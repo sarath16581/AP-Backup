@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__ActionName__c</fullName>
     <deprecated>false</deprecated>
     <description>Renewal actions to increment, amend, renew or cancel</description>
-    <externalId>false</externalId>
     <label>Action Name</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>

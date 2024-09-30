@@ -5,6 +5,7 @@
 * 2022-10-18 - George Nguyen - Created 
 * 2023-05-21 - Nathan Franklin - Added new constructors
 * 2024-08-09 - Ranjeewa Silva - Added new search method with search parameter validation
+* 2024-09-16 - Seth Heang - Added Case__c, OwnerId to SOQL fields
 */
 public inherited sharing class AgentWorkSelector extends ApplicationSelector {
 
@@ -39,7 +40,9 @@ public inherited sharing class AgentWorkSelector extends ApplicationSelector {
 		return new Set<SObjectField> {
 			AgentWork.WorkItemId,
 			AgentWork.Status,
-			AgentWork.UserId
+			AgentWork.UserId,
+			AgentWork.Case__c,
+			AgentWork.OwnerId
 		};
 	}
 

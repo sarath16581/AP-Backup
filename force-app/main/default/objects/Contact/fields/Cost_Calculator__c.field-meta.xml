@@ -3,7 +3,6 @@
     <fullName>Cost_Calculator__c</fullName>
     <defaultValue>false</defaultValue>
     <description>A check in this field indicates the contact should receive a .DAT file containing new “rate” information based on the APR % increase applicable to their StarTrack products. (Relates to the APR object developed by SalesForce as part of the “SalesLogix project”)</description>
-    <externalId>false</externalId>
     <inlineHelpText>Send this contact the updated .DAT file containing the new rates based on the APR % increase applicable to their StarTrack products.</inlineHelpText>
     <label>Updated Cost Calculator File (StarTrack)</label>
     <securityClassification>INTERNAL</securityClassification>

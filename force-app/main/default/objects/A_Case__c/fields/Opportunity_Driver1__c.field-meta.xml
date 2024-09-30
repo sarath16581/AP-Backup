@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Opportunity_Driver1__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
-    <externalId>false</externalId>
     <label>Opportunity Driver</label>
     <referenceTo>User</referenceTo>
     <relationshipLabel>OLD Archived Cases (Opportunity_Driver1__c)</relationshipLabel>

@@ -3,7 +3,6 @@
     <fullName>Apttus__InputResponseRuleType__c</fullName>
     <deprecated>false</deprecated>
     <description>The rule type for the input</description>
-    <externalId>false</externalId>
     <inlineHelpText>The rule type for the input</inlineHelpText>
     <label>Rule Type</label>
     <required>false</required>

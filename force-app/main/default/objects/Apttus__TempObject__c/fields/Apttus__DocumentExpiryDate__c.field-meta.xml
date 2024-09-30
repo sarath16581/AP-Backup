@@ -3,7 +3,6 @@
     <fullName>Apttus__DocumentExpiryDate__c</fullName>
     <deprecated>false</deprecated>
     <description>Date to store the expiry date of documents linked to temp object</description>
-    <externalId>false</externalId>
     <inlineHelpText>Date to store the expiry date of documents linked to temp object</inlineHelpText>
     <label>Document Expiry Date</label>
     <required>false</required>

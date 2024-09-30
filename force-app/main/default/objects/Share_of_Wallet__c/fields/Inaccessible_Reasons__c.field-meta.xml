@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Inaccessible_Reasons__c</fullName>
-    <externalId>false</externalId>
     <inlineHelpText>What is the primary reason/s that the customers’ needs cannot be met by our current product/service offering?</inlineHelpText>
     <label>Inaccessible Reasons</label>
     <required>false</required>

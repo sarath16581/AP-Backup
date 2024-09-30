@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__PeriodStartDate__c</fullName>
     <deprecated>false</deprecated>
     <description>The usage period start date</description>
-    <externalId>false</externalId>
     <inlineHelpText>The usage period start date</inlineHelpText>
     <label>Start Date</label>
     <required>false</required>

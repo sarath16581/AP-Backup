@@ -3,7 +3,6 @@
     <fullName>ShowtoExternals__c</fullName>
     <defaultValue>false</defaultValue>
     <description>Flag to control whether Event can be shown to customers</description>
-    <externalId>false</externalId>
     <inlineHelpText>Can customers see this Event?</inlineHelpText>
     <label>Show to Externals</label>
     <securityClassification>INTERNAL</securityClassification>

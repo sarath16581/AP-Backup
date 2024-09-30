@@ -3,7 +3,6 @@
     <fullName>Pricing_Specialist__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <description>Phase 2</description>
-    <externalId>false</externalId>
     <label>Pricing Specialist</label>
     <lookupFilter>
         <active>false</active>

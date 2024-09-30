@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Continue with approval process even when a step is rejected.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Continue with approval process even when a step is rejected.</inlineHelpText>
     <label>Continue Pending Approvals on a Reject</label>
     <trackTrending>false</trackTrending>

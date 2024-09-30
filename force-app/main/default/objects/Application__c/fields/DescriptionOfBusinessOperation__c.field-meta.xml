@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>DescriptionOfBusinessOperation__c</fullName>
     <description>User to input - up to 250 characters</description>
-    <externalId>false</externalId>
     <inlineHelpText>Description of business operations</inlineHelpText>
     <label>Description of Business Operations</label>
     <required>false</required>

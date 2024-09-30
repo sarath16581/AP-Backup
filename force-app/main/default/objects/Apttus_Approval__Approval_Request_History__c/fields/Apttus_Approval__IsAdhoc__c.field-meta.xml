@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Indicates whether this request was created through adhoc process initiated by User.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Indicates whether this request was created through adhoc process initiated by User.</inlineHelpText>
     <label>Is Adhoc</label>
     <securityClassification>INTERNAL</securityClassification>

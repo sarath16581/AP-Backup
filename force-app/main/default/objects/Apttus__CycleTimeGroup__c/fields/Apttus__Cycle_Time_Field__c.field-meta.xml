@@ -3,7 +3,6 @@
     <fullName>Apttus__Cycle_Time_Field__c</fullName>
     <deprecated>false</deprecated>
     <description>The field associated with the group</description>
-    <externalId>false</externalId>
     <label>Cycle Time Field</label>
     <referenceTo>Apttus__CycleTimeField__c</referenceTo>
     <relationshipLabel>Cycle Time Groups</relationshipLabel>

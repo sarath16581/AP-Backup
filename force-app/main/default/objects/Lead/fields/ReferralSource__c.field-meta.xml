@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>ReferralSource__c</fullName>
     <description>Where the Lead is identified from for capture by AP (e.g. trade show, advertisement, external referral, etc.)</description>
-    <externalId>false</externalId>
     <label>Referral Source</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>

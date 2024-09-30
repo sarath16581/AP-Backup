@@ -4,7 +4,6 @@
     <deleteConstraint>SetNull</deleteConstraint>
     <deprecated>false</deprecated>
     <description>ID of the term exception associated with the clause or section</description>
-    <externalId>false</externalId>
     <inlineHelpText>ID of the term exception associated with the clause or section</inlineHelpText>
     <label>Term Exception</label>
     <referenceTo>Apttus__Term_Exception__c</referenceTo>

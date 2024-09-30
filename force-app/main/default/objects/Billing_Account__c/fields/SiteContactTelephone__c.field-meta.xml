@@ -3,7 +3,6 @@
     <fullName>SiteContactTelephone__c</fullName>
     <businessStatus>Active</businessStatus>
     <description>This is the Primary contact Telephone for the Billing Account. Currently, it is only used by Startrack Billing Accounts (mastered in TEAM).</description>
-    <externalId>false</externalId>
     <inlineHelpText>Site contact phone number.</inlineHelpText>
     <label>Site Contact Telephone</label>
     <required>false</required>

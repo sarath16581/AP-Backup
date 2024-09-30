@@ -3,7 +3,6 @@
     <fullName>Apttus_DocuApi__DeclinedReason__c</fullName>
     <deprecated>false</deprecated>
     <description>eSignature decline reason</description>
-    <externalId>false</externalId>
     <inlineHelpText>eSignature decline reason</inlineHelpText>
     <label>Declined Reason</label>
     <length>500</length>

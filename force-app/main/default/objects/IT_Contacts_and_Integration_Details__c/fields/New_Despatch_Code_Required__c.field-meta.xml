@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>New_Despatch_Code_Required__c</fullName>
     <description>If an existing customer, do they need to migrate to a new despatch code?</description>
-    <externalId>false</externalId>
     <inlineHelpText>If an existing customer, do they need to migrate to a new despatch code?</inlineHelpText>
     <label>New Despatch Code Required?</label>
     <required>false</required>

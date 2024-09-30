@@ -3,7 +3,6 @@
     <fullName>Processes_Postage_Meter_Items__c</fullName>
     <defaultValue>false</defaultValue>
     <description>Does this site process Postage Meter Items?</description>
-    <externalId>false</externalId>
     <inlineHelpText>Does this site process Postage Meter Items?</inlineHelpText>
     <label>Processes Postage Meter Items</label>
     <securityClassification>INTERNAL</securityClassification>

@@ -3,7 +3,6 @@
     <fullName>Apttus__MSTeamsStatus__c</fullName>
     <deprecated>false</deprecated>
     <description>Status of the review cycle</description>
-    <externalId>false</externalId>
     <inlineHelpText>Review cycle status</inlineHelpText>
     <label>MS Teams Status</label>
     <required>true</required>

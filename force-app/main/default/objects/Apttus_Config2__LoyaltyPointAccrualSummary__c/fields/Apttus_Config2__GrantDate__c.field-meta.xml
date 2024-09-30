@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__GrantDate__c</fullName>
     <deprecated>false</deprecated>
     <description>The date the loyalty level was granted to the account/contact based on points accrued for the incentive</description>
-    <externalId>false</externalId>
     <inlineHelpText>The date the loyalty level was granted to the account/contact based on points accrued for the incentive</inlineHelpText>
     <label>Grant Date</label>
     <required>false</required>

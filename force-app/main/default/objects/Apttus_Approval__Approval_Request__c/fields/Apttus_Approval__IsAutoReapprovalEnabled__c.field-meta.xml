@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Indicates whether auto re-approval is enabled for the step.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Indicates whether auto re-approval is enabled for the step.</inlineHelpText>
     <label>Is Auto Reapproval Enabled</label>
     <securityClassification>INTERNAL</securityClassification>

@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__TotalBalance__c</fullName>
     <deprecated>false</deprecated>
     <description>The amount added to the asset till date</description>
-    <externalId>false</externalId>
     <inlineHelpText>The amount added to the asset till date</inlineHelpText>
     <label>Total Balance</label>
     <precision>18</precision>

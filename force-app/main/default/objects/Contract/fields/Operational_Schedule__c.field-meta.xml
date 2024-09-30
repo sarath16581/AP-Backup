@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Operational_Schedule__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
-    <externalId>false</externalId>
     <label>Detailed Operational Schedule (DOS)</label>
     <referenceTo>APT_Operational_Schedule__c</referenceTo>
     <relationshipLabel>Apttus Contracts</relationshipLabel>

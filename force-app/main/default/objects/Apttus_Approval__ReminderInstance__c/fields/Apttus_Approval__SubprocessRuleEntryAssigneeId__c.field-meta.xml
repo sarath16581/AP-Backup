@@ -3,7 +3,6 @@
     <fullName>Apttus_Approval__SubprocessRuleEntryAssigneeId__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <deprecated>false</deprecated>
-    <externalId>false</externalId>
     <label>Subprocess Rule Entry Assignee Id</label>
     <referenceTo>Apttus_Approval__ApprovalRuleAssignee__c</referenceTo>
     <relationshipLabel>Reminder Instances</relationshipLabel>

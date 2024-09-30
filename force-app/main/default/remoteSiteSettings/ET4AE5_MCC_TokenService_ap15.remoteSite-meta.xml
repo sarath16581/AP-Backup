@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RemoteSiteSetting xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Remote Site setting to make callouts
+Added as ap15 version of ET4AE5_MCC_TokenService for instance refresh</description>
+    <disableProtocolSecurity>false</disableProtocolSecurity>
+    <isActive>true</isActive>
+    <url>https://CS75.salesforce.com</url>
+</RemoteSiteSetting>

@@ -3,7 +3,6 @@
     <fullName>Apttus_Approval__Expiration_Date__c</fullName>
     <deprecated>false</deprecated>
     <description>Please enter an expiration date only if you need the system to expire it automatically at a future date. Otherwise use the Deactivate button to cancel the backup/delegate immediately.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Please enter an expiration date only if you need the system to expire it automatically at a future date. Otherwise use the Deactivate button on the next screen to cancel the backup immediately</inlineHelpText>
     <label>Expiration Date</label>
     <required>false</required>

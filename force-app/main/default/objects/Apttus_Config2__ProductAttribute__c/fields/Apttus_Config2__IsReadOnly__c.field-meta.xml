@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Indicates whether the attribute is read-only</description>
-    <externalId>false</externalId>
     <inlineHelpText>Indicates whether the attribute is read-only</inlineHelpText>
     <label>Is Read Only</label>
     <securityClassification>INTERNAL</securityClassification>

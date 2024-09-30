@@ -3,7 +3,6 @@
     <fullName>Apttus__PeriodStartDate__c</fullName>
     <deprecated>false</deprecated>
     <description>Start date of the login count begin</description>
-    <externalId>false</externalId>
     <inlineHelpText>Start date of the login count period</inlineHelpText>
     <label>Period Start Date</label>
     <required>true</required>

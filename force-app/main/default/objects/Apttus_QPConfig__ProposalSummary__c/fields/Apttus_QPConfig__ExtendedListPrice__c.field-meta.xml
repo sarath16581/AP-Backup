@@ -3,7 +3,6 @@
     <fullName>Apttus_QPConfig__ExtendedListPrice__c</fullName>
     <deprecated>false</deprecated>
     <description>The rolled up extended list price of products that belong to the group</description>
-    <externalId>false</externalId>
     <inlineHelpText>The rolled up extended list price of products that belong to the group</inlineHelpText>
     <label>Extended List Price (Deprecated)</label>
     <precision>18</precision>

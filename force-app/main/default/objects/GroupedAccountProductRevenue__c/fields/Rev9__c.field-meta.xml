@@ -3,7 +3,6 @@
     <fullName>Rev9__c</fullName>
     <defaultValue>0</defaultValue>
     <description>This field captures the total revenue for the month of September.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Enter the total revenue for September.</inlineHelpText>
     <label>Revenue September</label>
     <precision>18</precision>

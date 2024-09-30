@@ -3,7 +3,6 @@
     <fullName>isPrincipal1AuthorisedSignatory__c</fullName>
     <defaultValue>false</defaultValue>
     <description>2014-06 APMS CR03</description>
-    <externalId>false</externalId>
     <inlineHelpText>I am an authorised signatory of the business</inlineHelpText>
     <label>Principal 1 Authorised Signatory?</label>
     <securityClassification>INTERNAL</securityClassification>

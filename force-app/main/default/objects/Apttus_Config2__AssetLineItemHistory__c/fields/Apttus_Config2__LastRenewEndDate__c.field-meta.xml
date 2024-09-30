@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__LastRenewEndDate__c</fullName>
     <deprecated>false</deprecated>
     <description>The last renew end date for the asset line item</description>
-    <externalId>false</externalId>
     <inlineHelpText>The last renew end date for the asset line item</inlineHelpText>
     <label>Last Renew End Date</label>
     <required>false</required>

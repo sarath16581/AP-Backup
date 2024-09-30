@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Apttus_Approval__Step_Group_Rejection_Action__c</fullName>
     <deprecated>false</deprecated>
-    <externalId>false</externalId>
     <label>Step Group Rejection Action</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>

@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Key_Customer_Contact__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
-    <externalId>false</externalId>
     <label>Key Customer Contact</label>
     <referenceTo>Contact</referenceTo>
     <relationshipLabel>Implementation Projects</relationshipLabel>

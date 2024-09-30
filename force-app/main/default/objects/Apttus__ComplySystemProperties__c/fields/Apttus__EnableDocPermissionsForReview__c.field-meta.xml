@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Indicates whether a user can set field level or clause level permissions for each reviewer.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Indicates whether a user can set field level or clause level permissions for each reviewer.</inlineHelpText>
     <label>Enable document permissions for review</label>
     <trackTrending>false</trackTrending>

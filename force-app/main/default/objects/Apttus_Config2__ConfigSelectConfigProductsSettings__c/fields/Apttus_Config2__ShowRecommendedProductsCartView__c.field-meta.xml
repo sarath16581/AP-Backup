@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Show the recommended products component in the Cart Detail View page</description>
-    <externalId>false</externalId>
     <inlineHelpText>Show the recommended products component in the Cart Detail View page</inlineHelpText>
     <label>Show Recommended Products Cart View</label>
     <trackTrending>false</trackTrending>

@@ -3,7 +3,6 @@
     <fullName>Apttus_Approval__DependsOn__c</fullName>
     <deprecated>false</deprecated>
     <description>List of rule entry sequences which must be completed before this rule entry</description>
-    <externalId>false</externalId>
     <label>Depends On</label>
     <length>2048</length>
     <securityClassification>INTERNAL</securityClassification>

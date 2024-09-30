@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Key_Contact__c</fullName>
     <description>Identifying Contacts in Salesforce who are the Key Contacts for those mail outs</description>
-    <externalId>false</externalId>
     <inlineHelpText>Identifying Contacts in Salesforce who are the Key Contacts for those mail outs</inlineHelpText>
     <label>Key Business Contact</label>
     <required>false</required>

@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Contact_A__c</fullName>
     <description>REQ1943772 created so the lead verifcation team know how many contact attempts a lead has had</description>
-    <externalId>false</externalId>
     <inlineHelpText>How many times the lead has tried to be contacted</inlineHelpText>
     <label>Contact Attempts</label>
     <required>false</required>

@@ -3,7 +3,6 @@
     <fullName>Apttus__Other_Party_Signed_Date__c</fullName>
     <deprecated>false</deprecated>
     <description>Date when external signatory signed</description>
-    <externalId>false</externalId>
     <label>Other Party Signed Date</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>

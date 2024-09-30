@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Decision_Endorsement_Details__c</fullName>
     <description>This is used to enter the Decision Details by Deal Governance Team</description>
-    <externalId>false</externalId>
     <label>Decision/Endorsement Details</label>
     <length>32768</length>
     <securityClassification>INTERNAL</securityClassification>

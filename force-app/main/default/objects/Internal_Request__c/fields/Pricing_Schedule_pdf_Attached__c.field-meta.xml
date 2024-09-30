@@ -3,7 +3,6 @@
     <fullName>Pricing_Schedule_pdf_Attached__c</fullName>
     <defaultValue>false</defaultValue>
     <description>Field to indicate that the pricing schedule .pdf has been attached</description>
-    <externalId>false</externalId>
     <inlineHelpText>Please check when pricing schedule .pdf has been attached to the request</inlineHelpText>
     <label>Pricing Schedule (.pdf) Attached?</label>
     <securityClassification>OFFICIAL_SENSITIVE</securityClassification>

@@ -3,7 +3,6 @@
     <fullName>APT_System_User__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <description>Customer System User</description>
-    <externalId>false</externalId>
     <label>System User</label>
     <referenceTo>Contact</referenceTo>
     <relationshipLabel>Contracts (System User)</relationshipLabel>

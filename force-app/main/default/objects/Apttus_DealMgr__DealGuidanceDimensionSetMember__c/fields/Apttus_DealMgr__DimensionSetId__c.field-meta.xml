@@ -3,7 +3,6 @@
     <fullName>Apttus_DealMgr__DimensionSetId__c</fullName>
     <deprecated>false</deprecated>
     <description>ID of the associated dimension set</description>
-    <externalId>false</externalId>
     <label>Dimension Set</label>
     <referenceTo>Apttus_DealMgr__DealGuidanceDimensionSet__c</referenceTo>
     <relationshipLabel>Dimensions</relationshipLabel>

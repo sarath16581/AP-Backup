@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__TriggeringProductIds__c</fullName>
     <deprecated>false</deprecated>
     <description>The list of ids representing the products that caused the rule to trigger.</description>
-    <externalId>false</externalId>
     <label>Triggering Product Ids</label>
     <length>20900</length>
     <securityClassification>INTERNAL</securityClassification>

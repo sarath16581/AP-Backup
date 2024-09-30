@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__MapTo__c</fullName>
     <deprecated>false</deprecated>
     <description>The type of field comparison value, maps to a Question or a Constant value</description>
-    <externalId>false</externalId>
     <label>Map To</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>

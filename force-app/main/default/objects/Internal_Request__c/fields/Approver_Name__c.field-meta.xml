@@ -3,7 +3,6 @@
     <fullName>Approver_Name__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <description>Complete where approver required field is checked</description>
-    <externalId>false</externalId>
     <label>Approver Name</label>
     <referenceTo>User</referenceTo>
     <relationshipName>Deal_Support_Requests4</relationshipName>

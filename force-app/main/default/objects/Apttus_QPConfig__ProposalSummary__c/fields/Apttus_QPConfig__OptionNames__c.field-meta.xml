@@ -3,7 +3,6 @@
     <fullName>Apttus_QPConfig__OptionNames__c</fullName>
     <deprecated>false</deprecated>
     <description>The list of option names associated with the product</description>
-    <externalId>false</externalId>
     <label>Option Names</label>
     <length>1024</length>
     <securityClassification>INTERNAL</securityClassification>

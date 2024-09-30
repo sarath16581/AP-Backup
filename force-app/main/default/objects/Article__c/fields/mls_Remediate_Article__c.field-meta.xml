@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>mls_Remediate_Article__c</fullName>
     <defaultValue>false</defaultValue>
-    <externalId>false</externalId>
     <label>Correct Article Address</label>
     <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>

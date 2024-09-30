@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Indicates whether the action should be displayed even when it is not enabled</description>
-    <externalId>false</externalId>
     <inlineHelpText>Check this to display the action as disabled(grayed out)  even when it is not enabled.</inlineHelpText>
     <label>Always Display</label>
     <trackTrending>false</trackTrending>

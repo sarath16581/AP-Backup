@@ -3,7 +3,6 @@
     <fullName>Failed_to_respond_in_time__c</fullName>
     <defaultValue>false</defaultValue>
     <description>Flag set by First Customer Response milestone. Used for Out of Charter reporting</description>
-    <externalId>false</externalId>
     <label>Failed to respond in time</label>
     <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>

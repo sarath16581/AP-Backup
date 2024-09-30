@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Returned_from_WU_Date2__c</fullName>
     <description>Returned from WU Date - used in PB when status is updated to Returned from WU</description>
-    <externalId>false</externalId>
     <inlineHelpText>Updated when status is set to Returned from WU</inlineHelpText>
     <label>Returned from WU Date</label>
     <required>false</required>

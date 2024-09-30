@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__RuleSubType__c</fullName>
     <deprecated>false</deprecated>
     <description>The rule subtype</description>
-    <externalId>false</externalId>
     <inlineHelpText>The rule subtype</inlineHelpText>
     <label>Rule Sub Type</label>
     <required>false</required>

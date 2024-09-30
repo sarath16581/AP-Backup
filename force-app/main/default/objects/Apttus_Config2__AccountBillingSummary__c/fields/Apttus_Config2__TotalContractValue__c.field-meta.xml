@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__TotalContractValue__c</fullName>
     <deprecated>false</deprecated>
     <description>The total contract value for the account</description>
-    <externalId>false</externalId>
     <inlineHelpText>The total contract value for the account</inlineHelpText>
     <label>Total Contract Value</label>
     <precision>18</precision>

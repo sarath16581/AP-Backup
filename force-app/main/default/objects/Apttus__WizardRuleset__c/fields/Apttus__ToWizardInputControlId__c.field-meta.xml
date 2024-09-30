@@ -4,7 +4,6 @@
     <deleteConstraint>SetNull</deleteConstraint>
     <deprecated>false</deprecated>
     <description>Applicable to rule type &apos;Go To Input&apos;.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Applicable to rule type &apos;Go To Input&apos;.</inlineHelpText>
     <label>Go To Wizard Input Control</label>
     <referenceTo>Apttus__WizardInputControl__c</referenceTo>

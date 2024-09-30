@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Depot_contact_number__c</fullName>
     <description>StarTrack Phone field to populate main depot contact number</description>
-    <externalId>false</externalId>
     <label>Depot contact number</label>
     <required>false</required>
     <securityClassification>OFFICIAL_SENSITIVE_PERSONAL</securityClassification>

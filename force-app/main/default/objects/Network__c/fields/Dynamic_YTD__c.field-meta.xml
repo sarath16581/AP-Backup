@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Dynamic_YTD__c</fullName>
     <description>Retail PON Geopointe Related Field</description>
-    <externalId>false</externalId>
     <label>Dynamic YTD</label>
     <precision>18</precision>
     <required>false</required>

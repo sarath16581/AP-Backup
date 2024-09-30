@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__ContextType__c</fullName>
     <deprecated>false</deprecated>
     <description>The context type associated with the rule entry</description>
-    <externalId>false</externalId>
     <inlineHelpText>The context type associated with the rule entry</inlineHelpText>
     <label>Context Type</label>
     <required>true</required>

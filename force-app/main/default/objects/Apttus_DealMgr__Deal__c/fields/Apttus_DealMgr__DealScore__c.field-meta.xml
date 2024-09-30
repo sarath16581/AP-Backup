@@ -3,7 +3,6 @@
     <fullName>Apttus_DealMgr__DealScore__c</fullName>
     <deprecated>false</deprecated>
     <description>The deal percentile score</description>
-    <externalId>false</externalId>
     <inlineHelpText>The deal percentile score</inlineHelpText>
     <label>Deal Score</label>
     <precision>7</precision>

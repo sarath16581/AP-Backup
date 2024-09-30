@@ -4,7 +4,6 @@
     <deleteConstraint>SetNull</deleteConstraint>
     <deprecated>false</deprecated>
     <description>Lookup to the clause in Template Clause Reference</description>
-    <externalId>false</externalId>
     <label>Clause</label>
     <referenceTo>Apttus__APTS_Template__c</referenceTo>
     <relationshipLabel>Template Clause Reference Versions (Clause)</relationshipLabel>

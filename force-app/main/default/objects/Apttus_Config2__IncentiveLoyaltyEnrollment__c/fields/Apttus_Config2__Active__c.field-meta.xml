@@ -4,7 +4,6 @@
     <defaultValue>true</defaultValue>
     <deprecated>false</deprecated>
     <description>Indicates whether the enrollment is active. Loyalty points are not accumulated for inactive enrollments.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Indicates whether the enrollment is active. Loyalty points are not accumulated for inactive enrollments.</inlineHelpText>
     <label>Active</label>
     <securityClassification>INTERNAL</securityClassification>

@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Submitted_for_Approval_Date__c</fullName>
     <description>Date and time in which the credit approval was submitted for approval</description>
-    <externalId>false</externalId>
     <label>Submitted for Approval Date</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>

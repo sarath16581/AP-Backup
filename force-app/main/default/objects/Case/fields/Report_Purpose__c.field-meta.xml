@@ -3,7 +3,6 @@
     <fullName>Report_Purpose__c</fullName>
     <businessStatus>DeprecateCandidate</businessStatus>
     <description>used by reporting case type</description>
-    <externalId>false</externalId>
     <label>Dep -Report Purpose</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>

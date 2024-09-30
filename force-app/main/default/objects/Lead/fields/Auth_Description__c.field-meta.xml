@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Auth_Description__c</fullName>
     <description>Select value that determines the influence/authority the lead has.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Used to pick the value that the lead holds for the opportunity.</inlineHelpText>
     <label>Authority Description</label>
     <required>false</required>

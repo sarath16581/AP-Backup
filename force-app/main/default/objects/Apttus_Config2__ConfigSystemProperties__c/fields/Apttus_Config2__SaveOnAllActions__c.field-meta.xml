@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>When checked save operation will be performed on all actions.</description>
-    <externalId>false</externalId>
     <inlineHelpText>When checked save operation will be performed on all actions.</inlineHelpText>
     <label>Save On All Actions</label>
     <trackTrending>false</trackTrending>

@@ -4,7 +4,6 @@
     <deleteConstraint>SetNull</deleteConstraint>
     <deprecated>false</deprecated>
     <description>User Id of the subscriber to receive document availability notification.</description>
-    <externalId>false</externalId>
     <inlineHelpText>User Id of the subscriber to receive document availability notification.</inlineHelpText>
     <label>User</label>
     <referenceTo>User</referenceTo>

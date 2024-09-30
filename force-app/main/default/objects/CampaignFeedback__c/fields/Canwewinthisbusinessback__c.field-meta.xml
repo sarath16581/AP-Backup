@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Canwewinthisbusinessback__c</fullName>
     <description>Is there an opportunity to win-back lost business?</description>
-    <externalId>false</externalId>
     <inlineHelpText>Is there an opportunity to win-back lost business?</inlineHelpText>
     <label>Can we win this business back?</label>
     <required>false</required>

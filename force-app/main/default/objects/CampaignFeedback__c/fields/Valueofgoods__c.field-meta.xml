@@ -3,7 +3,6 @@
     <fullName>Valueofgoods__c</fullName>
     <defaultValue>false</defaultValue>
     <description>Value of goods.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Value of goods</inlineHelpText>
     <label>Value of goods</label>
     <securityClassification>INTERNAL</securityClassification>

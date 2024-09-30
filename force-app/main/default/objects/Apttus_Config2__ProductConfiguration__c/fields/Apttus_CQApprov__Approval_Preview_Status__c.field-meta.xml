@@ -3,7 +3,6 @@
     <fullName>Apttus_CQApprov__Approval_Preview_Status__c</fullName>
     <deprecated>false</deprecated>
     <description>Indicates the status of the approval preview process</description>
-    <externalId>false</externalId>
     <inlineHelpText>Indicates the status of the approval preview process</inlineHelpText>
     <label>Approval Preview Status</label>
     <required>false</required>

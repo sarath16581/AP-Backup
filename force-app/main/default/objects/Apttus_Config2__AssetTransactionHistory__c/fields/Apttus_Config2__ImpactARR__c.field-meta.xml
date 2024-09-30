@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__ImpactARR__c</fullName>
     <deprecated>false</deprecated>
     <description>The change in annual recurring revenue due to the transaction</description>
-    <externalId>false</externalId>
     <inlineHelpText>The change in annual recurring revenue due to the transaction</inlineHelpText>
     <label>Impact ARR</label>
     <precision>18</precision>

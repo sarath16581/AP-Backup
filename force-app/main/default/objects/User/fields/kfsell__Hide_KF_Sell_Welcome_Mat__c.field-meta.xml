@@ -5,7 +5,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Whether to hide KF Sell Welcome Mat when viewing a Blue Sheet</description>
-    <externalId>false</externalId>
     <inlineHelpText>Disables KF Sell Welcome Mat when view a Blue Sheet</inlineHelpText>
     <label>Hide KF Sell Welcome Mat</label>
     <securityClassification>PUBLIC</securityClassification>

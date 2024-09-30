@@ -25,12 +25,12 @@
             <criteriaItems>
                 <field>Compensation__c.Total_Compensation_Amount__c</field>
                 <operation>greaterOrEqual</operation>
-                <value>100</value>
+                <value>100.01</value>
             </criteriaItems>
             <criteriaItems>
                 <field>Compensation__c.Replacement_Value__c</field>
                 <operation>greaterOrEqual</operation>
-                <value>100</value>
+                <value>100.01</value>
             </criteriaItems>
             <criteriaItems>
                 <field>Compensation__c.Other__c</field>
@@ -49,7 +49,7 @@
             <criteriaItems>
                 <field>Compensation__c.SDR_Value__c</field>
                 <operation>greaterOrEqual</operation>
-                <value>100</value>
+                <value>100.01</value>
             </criteriaItems>
             <criteriaItems>
                 <field>Compensation__c.Other__c</field>
@@ -58,7 +58,7 @@
             </criteriaItems>
         </entryCriteria>
         <ifCriteriaNotMet>ApproveRecord</ifCriteriaNotMet>
-        <label>Compensation Value is Greater than $100 or Discretionary Compensation is required</label>
+        <label>Compensation Value is Greater than $100.01 or Discretionary Compensation is required</label>
         <name>Compensation_Value_is_Greater_than_100</name>
     </approvalStep>
     <description>Approval Process that checks the Compensation amount relative to the user for International Accounting, Account Credit and Replacement Products</description>

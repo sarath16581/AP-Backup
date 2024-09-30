@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Contract_Decision_Form__c</fullName>
     <description>used within the Legal Support Request layout</description>
-    <externalId>false</externalId>
     <inlineHelpText>Has a Contract Decision Form been completed for this Contract</inlineHelpText>
     <label>Completed Contract Decision Form (CDF)?</label>
     <required>false</required>

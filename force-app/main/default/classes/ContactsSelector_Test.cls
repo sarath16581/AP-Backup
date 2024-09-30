@@ -25,6 +25,7 @@
 * 2024-07-23 - Marcel HK - Allow match if MailingStreet equals addressLine1 + addressLine2 (CSLU-1106)
 * 2024-07-23 - Marcel HK - Added filters for accountId and abn/acn lookup (CSLU-447)
 * 2024-08-08 - Marcel HK - Update Address filters for `selectByCustomerSearchParamsQB` (CSLU-1072)
+* 2024-09-10 - SteveL - added test for selectByReversedPhoneNumbers
 */
 @IsTest
 private with sharing class ContactsSelector_Test {
@@ -146,6 +147,8 @@ private with sharing class ContactsSelector_Test {
 		contacts[0].BillingAccount__c = billingAcc.Id;
 		contacts[0].ConveyancerContact__c = true;
 		contacts[1].MobilePhone = '+61440123456';
+		contacts[1].Status__c = 'Active';
+		contacts[1].Record_Maintainer__c = 'Account Manager';
 		insert contacts;
 
 
@@ -159,7 +162,7 @@ private with sharing class ContactsSelector_Test {
 		// Testing
 		// =====================================
 		Test.startTest();
-		
+
 		ContactsSelector selector = ContactsSelector.newInstance(2);
 		Map<Id, Contact> results = selector.selectById(mappedContacts.keySet());
 		System.assertEquals(2, results.size(), 'Expected result size of 2');
@@ -175,7 +178,7 @@ private with sharing class ContactsSelector_Test {
 
 		results = selector.selectByLikedNameOrderByConsumerAndNameNullFirst(contacts[0].FirstName);
 		System.assertEquals(1, results.size(), 'Expected result size of 1');
-		
+
 		results = selector.selectByLikedAnyPhoneOrderByName(contacts[0].phone);
 		//System.assertEquals(2, results.size(), 'Expected result size of 2');
 
@@ -189,6 +192,8 @@ private with sharing class ContactsSelector_Test {
 		listResults = selector.selectCloneableContactsByAccount(acc.Id);
 		System.assertEquals(1, listResults.size(), 'Expected result size of 1');
 
+		results = selector.selectByReversedPhoneNumbers(new Set<Object>(), new Set<String>{Util.reversePhoneString(contacts.get(0).Phone)});
+		Assert.isFalse(results.isEmpty(), 'expect the selector to pick the contact with the Phone field being formatted by Util.reversePhoneString');
 		Test.stopTest();
 
 	}
@@ -416,7 +421,7 @@ private with sharing class ContactsSelector_Test {
 		Assert.isTrue(Pattern.compile('(?is)\\(MailingStreet LIKE \'U 3%\' AND MailingStreet2__c LIKE \'123 Example St%\'\\)').matcher(soql).find(), 'Query should filter MailingStreet AND MailingStreet2__c');
 		Assert.isTrue(Pattern.compile('(?is)\\bOR MailingStreet LIKE \'U 3 123 Example St%\'').matcher(soql).find(), 'Query should filter MailingStreet with AddressLine1+AddressLine2');
 	}
-	
+
 	@IsTest
 	static void testSelectByCustomerSearchParamsQBWithAddressLine2() {
 		// =====================================
@@ -512,7 +517,7 @@ private with sharing class ContactsSelector_Test {
 		Test.startTest();
 		ContactsSelector selector = ContactsSelector.newInstance(0, fieldOverrides);
 		String soql = selector.newQueryBuilder(selectorOptions).toSoqlString();
-		
+
 		Test.stopTest();
 
 		// Verify the SELECT includes the sub-query

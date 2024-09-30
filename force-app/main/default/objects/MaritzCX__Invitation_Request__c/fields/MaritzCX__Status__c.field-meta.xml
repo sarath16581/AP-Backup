@@ -3,7 +3,6 @@
     <fullName>MaritzCX__Status__c</fullName>
     <deprecated>false</deprecated>
     <description>Stores the status of API Call</description>
-    <externalId>false</externalId>
     <label>Status</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>

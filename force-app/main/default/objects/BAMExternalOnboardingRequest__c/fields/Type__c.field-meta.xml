@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Type__c</fullName>
     <description>The type of request, either Provision or Deprovision</description>
-    <externalId>false</externalId>
     <label>Type</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>

@@ -4,7 +4,6 @@
     <deleteConstraint>SetNull</deleteConstraint>
     <deprecated>false</deprecated>
     <description>User who can be assigned to a X-Author Excel app</description>
-    <externalId>false</externalId>
     <inlineHelpText>User who can be assigned to a X-Author Excel app</inlineHelpText>
     <label>User</label>
     <referenceTo>User</referenceTo>

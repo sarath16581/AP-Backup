@@ -5,7 +5,6 @@
     <complianceGroup>GDPR</complianceGroup>
     <deleteConstraint>SetNull</deleteConstraint>
     <description>This field is used to identify the Portfolio assigned to the customer for the purpose of territory management. The code = Sub Segment - Team/Region - Portfolio Number within team</description>
-    <externalId>false</externalId>
     <inlineHelpText>This field is used to identify the Portfolio assigned to the customer for the purpose of territory management. The code = Sub Segment - Team/Region - Portfolio Number within team</inlineHelpText>
     <label>Portfolio Code</label>
     <referenceTo>PortfolioAssignment__c</referenceTo>

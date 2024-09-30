@@ -4,7 +4,6 @@
     <deleteConstraint>SetNull</deleteConstraint>
     <deprecated>false</deprecated>
     <description>Not supported yet. Identifies the next wizard runtime during navigation</description>
-    <externalId>false</externalId>
     <inlineHelpText>Not supported yet. Identifies the next wizard runtime during navigation</inlineHelpText>
     <label>Next Wizard Runtime</label>
     <referenceTo>Apttus__WizardRuntime__c</referenceTo>

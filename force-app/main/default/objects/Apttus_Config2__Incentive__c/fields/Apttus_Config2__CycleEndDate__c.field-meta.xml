@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__CycleEndDate__c</fullName>
     <deprecated>false</deprecated>
     <description>The cycle end date. Indicates the end of a loyalty program cycle</description>
-    <externalId>false</externalId>
     <inlineHelpText>The cycle end date. Indicates the end of a loyalty program cycle</inlineHelpText>
     <label>Cycle End Date</label>
     <required>false</required>

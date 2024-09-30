@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Problem_Related_to__c</fullName>
     <description>Problem Related to</description>
-    <externalId>false</externalId>
     <inlineHelpText>Problem Related to</inlineHelpText>
     <label>Problem Related to</label>
     <required>false</required>

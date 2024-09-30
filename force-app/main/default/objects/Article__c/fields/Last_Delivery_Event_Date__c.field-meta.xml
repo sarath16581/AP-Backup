@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Last_Delivery_Event_Date__c</fullName>
     <description>StarTrack field used for storing the last delivery date for a consignment record.</description>
-    <externalId>false</externalId>
     <label>Latest Delivery Event Date</label>
     <securityClassification>INTERNAL</securityClassification>
     <summarizedField>EventMessage__c.ActualDateTime__c</summarizedField>

@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Indicates whether the options is required have for the bundle.</description>
-    <externalId>false</externalId>
     <label>Required</label>
     <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>

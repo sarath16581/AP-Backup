@@ -3,7 +3,6 @@
     <fullName>Organisation__c</fullName>
     <deleteConstraint>Restrict</deleteConstraint>
     <description>To link to the Salesforce Organisation record to the DSR</description>
-    <externalId>false</externalId>
     <label>Organisation</label>
     <referenceTo>Account</referenceTo>
     <relationshipLabel>(Legacy) Pricing Support Requests</relationshipLabel>

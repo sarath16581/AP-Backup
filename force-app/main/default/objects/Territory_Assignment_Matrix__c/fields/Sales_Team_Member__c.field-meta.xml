@@ -3,7 +3,6 @@
     <fullName>Sales_Team_Member__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <description>This field determines who will receive the Opp from the converted Lead - based on Postcode and Amount.</description>
-    <externalId>false</externalId>
     <inlineHelpText>This user will be assigned Opportunity Owner for converted Leads for this Postcode and Amount range - if the opportunity is not for an existing organisation</inlineHelpText>
     <label>Opportunities Go To</label>
     <referenceTo>User</referenceTo>

@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__TaxLevel__c</fullName>
     <deprecated>false</deprecated>
     <description>The default tax level</description>
-    <externalId>false</externalId>
     <inlineHelpText>The default tax level</inlineHelpText>
     <label>Tax Level</label>
     <required>false</required>

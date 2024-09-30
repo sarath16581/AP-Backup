@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Indicates whether defaulting is enabled for options</description>
-    <externalId>false</externalId>
     <inlineHelpText>A global setting to enable option defaulting rules.</inlineHelpText>
     <label>Enable Defaulting For Options(D)</label>
     <trackTrending>false</trackTrending>

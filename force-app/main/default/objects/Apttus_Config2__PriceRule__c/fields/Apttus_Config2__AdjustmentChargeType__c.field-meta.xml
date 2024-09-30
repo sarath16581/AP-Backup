@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__AdjustmentChargeType__c</fullName>
     <deprecated>false</deprecated>
     <description>The adjustment charge type. Used to create Aggregate line items.</description>
-    <externalId>false</externalId>
     <label>Adjustment Charge Type</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>

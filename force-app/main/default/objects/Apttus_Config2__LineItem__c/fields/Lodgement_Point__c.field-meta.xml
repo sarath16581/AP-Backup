@@ -3,7 +3,6 @@
     <fullName>Lodgement_Point__c</fullName>
     <defaultValue>false</defaultValue>
     <description>For ADD LP new logic to determine whether the product is eligible for lodgement point</description>
-    <externalId>false</externalId>
     <label>Lodgement Point</label>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>

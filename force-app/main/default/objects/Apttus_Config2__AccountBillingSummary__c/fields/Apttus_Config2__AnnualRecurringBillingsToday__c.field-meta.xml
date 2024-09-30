@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__AnnualRecurringBillingsToday__c</fullName>
     <deprecated>false</deprecated>
     <description>The toal of all recurring billings from today and back for 12 months</description>
-    <externalId>false</externalId>
     <inlineHelpText>The toal of all recurring billings from today and back for 12 months</inlineHelpText>
     <label>Annual Recurring Billings (Today)</label>
     <precision>18</precision>

@@ -3,7 +3,6 @@
     <fullName>Apttus_CMConfig__PayoutFrequency__c</fullName>
     <deprecated>false</deprecated>
     <description>The incentive payout frequency</description>
-    <externalId>false</externalId>
     <inlineHelpText>The incentive payout frequency</inlineHelpText>
     <label>Payout Frequency</label>
     <required>false</required>

@@ -3,7 +3,6 @@
     <fullName>RNPNetworkManager__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <description>Network Manager Hierarchy - used only for reporting purposes</description>
-    <externalId>false</externalId>
     <inlineHelpText>Network Manager Hierarchy - used only for reporting purposes</inlineHelpText>
     <label>Network Manager</label>
     <referenceTo>User</referenceTo>

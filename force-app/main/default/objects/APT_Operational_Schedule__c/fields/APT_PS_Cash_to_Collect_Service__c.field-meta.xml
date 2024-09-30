@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>APT_PS_Cash_to_Collect_Service__c</fullName>
     <defaultValue>false</defaultValue>
-    <externalId>false</externalId>
     <label>Parcel Services Cash to Collect Service</label>
     <securityClassification>INTERNAL</securityClassification>
     <trackHistory>true</trackHistory>

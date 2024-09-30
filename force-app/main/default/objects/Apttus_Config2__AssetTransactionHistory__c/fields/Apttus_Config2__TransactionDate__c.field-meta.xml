@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__TransactionDate__c</fullName>
     <deprecated>false</deprecated>
     <description>The asset transaction date</description>
-    <externalId>false</externalId>
     <inlineHelpText>The asset transaction date</inlineHelpText>
     <label>Transaction Date</label>
     <required>false</required>

@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__AdjustmentValueType__c</fullName>
     <deprecated>false</deprecated>
     <description>The adjustment value type</description>
-    <externalId>false</externalId>
     <inlineHelpText>The adjustment value type</inlineHelpText>
     <label>Adjustment Value Type</label>
     <required>false</required>

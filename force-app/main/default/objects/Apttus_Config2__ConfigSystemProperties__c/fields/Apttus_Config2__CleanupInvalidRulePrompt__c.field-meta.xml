@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Enable removal of line items promted by currently invalid rules.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Enable removal of line items prompted by currently invalid rules.</inlineHelpText>
     <label>Cleanup Invalid Rule Prompt</label>
     <trackTrending>false</trackTrending>

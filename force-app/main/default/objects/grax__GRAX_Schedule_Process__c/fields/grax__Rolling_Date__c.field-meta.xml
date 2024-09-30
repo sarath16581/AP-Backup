@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Rolling Date set for true/false</description>
-    <externalId>false</externalId>
     <label>Rolling Date</label>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>

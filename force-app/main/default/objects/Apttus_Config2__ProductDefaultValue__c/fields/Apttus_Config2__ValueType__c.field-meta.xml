@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__ValueType__c</fullName>
     <deprecated>false</deprecated>
     <description>The value type. The Default value type is used to store defaults for the product/service. The Auto Include value type is used to indicate the product/service to be auto included.</description>
-    <externalId>false</externalId>
     <label>Value Type</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>

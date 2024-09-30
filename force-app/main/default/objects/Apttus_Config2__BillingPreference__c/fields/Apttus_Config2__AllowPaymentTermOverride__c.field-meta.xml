@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Indicates whether payment term may be overridden at lower levels</description>
-    <externalId>false</externalId>
     <inlineHelpText>Indicates whether payment term may be overridden at lower levels</inlineHelpText>
     <label>Allow Payment Term Override ?</label>
     <securityClassification>INTERNAL</securityClassification>

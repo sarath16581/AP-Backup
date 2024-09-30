@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Company_Type__c</fullName>
     <description>Type of company, which may contain company&apos;s Trading Name or Legal Name.</description>
-    <externalId>false</externalId>
     <label>Company Type</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>

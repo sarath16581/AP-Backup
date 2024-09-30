@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__ApprovalStatus__c</fullName>
     <deprecated>false</deprecated>
     <description>The quote/agreement/standard approval indicator. Not applicable when cart approval is in effect.</description>
-    <externalId>false</externalId>
     <inlineHelpText>The quote/agreement/standard approval indicator. Not applicable when cart approval is in effect.</inlineHelpText>
     <label>Approval Indicator</label>
     <required>false</required>

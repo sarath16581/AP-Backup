@@ -5,7 +5,6 @@
     <deprecated>false</deprecated>
     <description>Allows projects to specify a list of recipients that will be defaulted for the eSignature. 
 To use this option, projects will add &quot;DocuSign Default Recipients&quot; related list on the Agreement and user will specify the list for each Agreement</description>
-    <externalId>false</externalId>
     <inlineHelpText>Allows projects to specify a list of recipients that will be defaulted for the eSignature. 
 To use this option, projects will add &quot;DocuSign Default Recipients&quot; related list on the Agreement and user will specify the list for each Agreement</inlineHelpText>
     <label>Auto-Select multiple recipients?</label>

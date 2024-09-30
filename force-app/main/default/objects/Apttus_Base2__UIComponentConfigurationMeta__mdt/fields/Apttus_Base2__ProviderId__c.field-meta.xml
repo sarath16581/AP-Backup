@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Apttus_Base2__ProviderId__c</fullName>
     <deprecated>false</deprecated>
-    <externalId>false</externalId>
     <fieldManageability>DeveloperControlled</fieldManageability>
     <label>Data Provider</label>
     <referenceTo>Apttus_Base2__UIComponentProviderMeta__mdt</referenceTo>

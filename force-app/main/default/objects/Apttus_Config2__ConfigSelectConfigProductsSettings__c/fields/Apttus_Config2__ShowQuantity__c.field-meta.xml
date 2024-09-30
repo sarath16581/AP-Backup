@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Check this to show quantity input field. When a product is added to cart quantity entered in this field is used as line item quantity.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Check this to show quantity input field for add to cart action.</inlineHelpText>
     <label>Show Quantity Input</label>
     <trackTrending>false</trackTrending>

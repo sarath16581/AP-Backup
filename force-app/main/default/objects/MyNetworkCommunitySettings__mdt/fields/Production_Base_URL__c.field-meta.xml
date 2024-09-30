@@ -3,7 +3,6 @@
     <fullName>Production_Base_URL__c</fullName>
     <description>To capture the Salesforce host name (My Domain) for the given context. This is used as opposed to callouts to the Identity URL, which is the only other way to get the My Domain url from within a site/Community.
 https://help.salesforce.com/articleView?id=remoteaccess_using_openid.htm&amp;language=en_US&amp;type=0</description>
-    <externalId>false</externalId>
     <fieldManageability>SubscriberControlled</fieldManageability>
     <inlineHelpText>The full My Domain name for the given environment.</inlineHelpText>
     <label>Production Base URL</label>

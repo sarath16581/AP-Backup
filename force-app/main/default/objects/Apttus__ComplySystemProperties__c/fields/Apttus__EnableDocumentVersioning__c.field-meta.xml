@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Enables document versioning. Make sure EnableVersionControl is set to true.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Enables document versioning. Make sure EnableVersionControl is set to true.</inlineHelpText>
     <label>Enable Document Versioning</label>
     <trackTrending>false</trackTrending>

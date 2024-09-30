@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Submitted_To_AUSTRAC_Date__c</fullName>
     <description>Date it Changed to  the Status</description>
-    <externalId>false</externalId>
     <inlineHelpText>The date the S75 status was updated to Submitted to</inlineHelpText>
     <label>Submitted To AUSTRAC Date</label>
     <required>false</required>

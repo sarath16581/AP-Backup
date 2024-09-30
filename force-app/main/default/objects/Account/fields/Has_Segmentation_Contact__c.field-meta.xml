@@ -3,7 +3,6 @@
     <fullName>Has_Segmentation_Contact__c</fullName>
     <defaultValue>false</defaultValue>
     <description>Populated by process builder when a  Segmentation Contact checkbox is ticket on a related Contact record</description>
-    <externalId>false</externalId>
     <inlineHelpText>Indicates if there is a Segmentation Contact selected within the Contacts section of the Organisation</inlineHelpText>
     <label>Has Segmentation Contact</label>
     <securityClassification>INTERNAL</securityClassification>

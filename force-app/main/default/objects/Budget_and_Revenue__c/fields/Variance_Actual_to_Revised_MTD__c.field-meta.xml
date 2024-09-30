@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Variance_Actual_to_Revised_MTD__c</fullName>
     <description>Previous name was &quot;MTD Achievement of Target%&quot; (MW0003520)</description>
-    <externalId>false</externalId>
     <formula>MTD_Actual__c  / MTD_Original_Budget__c</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <inlineHelpText>MTD billed revenue for the current month divided by the current month Target amount and displayed as a percentage. This will display the percentage of revenue achieved towards Target to date within the current month.</inlineHelpText>

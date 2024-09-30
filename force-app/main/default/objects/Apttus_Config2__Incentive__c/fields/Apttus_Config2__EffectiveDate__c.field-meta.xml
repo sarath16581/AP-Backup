@@ -4,7 +4,6 @@
     <defaultValue>DATE(2000,01,01)</defaultValue>
     <deprecated>false</deprecated>
     <description>The incentive effective date. The incentive becomes effective on this date.</description>
-    <externalId>false</externalId>
     <inlineHelpText>The incentive effective date. The incentive becomes effective on this date.</inlineHelpText>
     <label>Effective Date</label>
     <required>false</required>

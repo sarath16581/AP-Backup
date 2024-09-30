@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>ClosureOwnerRole__c</fullName>
     <description>On the closure of a case, this field will store the User Role Display Name of the user that has closed the case.</description>
-    <externalId>false</externalId>
     <inlineHelpText>This field captures the Role of the Users that closes the Case</inlineHelpText>
     <label>Closing Owner Role Display Name</label>
     <required>false</required>

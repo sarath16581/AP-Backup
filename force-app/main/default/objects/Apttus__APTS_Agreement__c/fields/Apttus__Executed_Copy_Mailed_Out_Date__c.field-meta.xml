@@ -3,7 +3,6 @@
     <fullName>Apttus__Executed_Copy_Mailed_Out_Date__c</fullName>
     <deprecated>false</deprecated>
     <description>Date the final, executed copy was mailed to the other party</description>
-    <externalId>false</externalId>
     <label>Executed Copy Mailed Out Date</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>

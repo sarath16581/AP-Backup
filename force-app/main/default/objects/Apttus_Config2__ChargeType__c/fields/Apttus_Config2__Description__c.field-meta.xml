@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__Description__c</fullName>
     <deprecated>false</deprecated>
     <description>The charge type description</description>
-    <externalId>false</externalId>
     <inlineHelpText>The charge type description</inlineHelpText>
     <label>Description</label>
     <required>false</required>

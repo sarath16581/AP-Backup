@@ -3,7 +3,6 @@
     <fullName>Apttus__WizardRulesetId__c</fullName>
     <deprecated>false</deprecated>
     <description>Master-detail to wizard ruleset this rule belongs to</description>
-    <externalId>false</externalId>
     <inlineHelpText>Master-detail to wizard ruleset this rule belongs to</inlineHelpText>
     <label>Wizard Ruleset</label>
     <referenceTo>Apttus__WizardRuleset2__c</referenceTo>

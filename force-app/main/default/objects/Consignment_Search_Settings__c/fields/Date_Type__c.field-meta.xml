@@ -3,7 +3,6 @@
     <fullName>Date_Type__c</fullName>
     <defaultValue>false</defaultValue>
     <description>StarTrack: Date type field to capture date information</description>
-    <externalId>false</externalId>
     <label>Date Type</label>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>

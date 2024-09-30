@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>APT_Ready_For_APPC_Migration__c</fullName>
     <defaultValue>false</defaultValue>
-    <externalId>false</externalId>
     <inlineHelpText>This customer satisfies the criteria to migrate from the old Product (such as eParcel ) to the new simplified product (such as APPC) – This customer will only be offered the new parcel product</inlineHelpText>
     <label>Ready For APPC Migration</label>
     <trackFeedHistory>false</trackFeedHistory>

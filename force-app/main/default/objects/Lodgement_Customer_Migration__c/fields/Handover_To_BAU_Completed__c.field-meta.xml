@@ -3,7 +3,6 @@
     <fullName>Handover_To_BAU_Completed__c</fullName>
     <defaultValue>false</defaultValue>
     <description>Handover to BAU completed</description>
-    <externalId>false</externalId>
     <inlineHelpText>Handover to BAU completed</inlineHelpText>
     <label>Handover To BAU Completed</label>
     <securityClassification>INTERNAL</securityClassification>

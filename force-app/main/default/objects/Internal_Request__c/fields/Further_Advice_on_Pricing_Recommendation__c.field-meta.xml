@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Further_Advice_on_Pricing_Recommendation__c</fullName>
     <description>The adjustment recommended for this request</description>
-    <externalId>false</externalId>
     <label>Further Advice on Pricing Recommendation</label>
     <length>5000</length>
     <securityClassification>OFFICIAL_SENSITIVE</securityClassification>

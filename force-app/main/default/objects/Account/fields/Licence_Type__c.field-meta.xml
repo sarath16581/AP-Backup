@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Licence_Type__c</fullName>
     <description>Partner Info - Type of Outlet</description>
-    <externalId>false</externalId>
     <inlineHelpText>What type of Outlet does this Facility or Licence relate to?</inlineHelpText>
     <label>Outlet Type</label>
     <required>false</required>

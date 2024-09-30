@@ -4,6 +4,7 @@
     <amount>true</amount>
     <dateType>0</dateType>
     <developerName>Opportunity_00N9000000EOb4X_Overlay</developerName>
+    <hasCustomGroup>false</hasCustomGroup>
     <hasProductFamily>false</hasProductFamily>
     <masterLabel>Overlay Contribution</masterLabel>
     <opportunitySplitType>Opportunity_00N9000000EOb4X_Overlay</opportunitySplitType>

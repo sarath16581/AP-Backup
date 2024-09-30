@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Termination_Reason__c</fullName>
     <description>The reason codes for why a Licensee has terminated with POST</description>
-    <externalId>false</externalId>
     <inlineHelpText>Reason why Licence was Ceased.
 
 For Non LPO Licences; select a value in this field, set Assignment Effective To Date, then submit the Licence for Approval.

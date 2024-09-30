@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Prevent selection of products excluded by error type exclude rule action. Hides select button (DEPRECATED)</description>
-    <externalId>false</externalId>
     <inlineHelpText>This custom setting is deprecated</inlineHelpText>
     <label>Prevent Error Type Exclude Selection (D)</label>
     <trackTrending>false</trackTrending>

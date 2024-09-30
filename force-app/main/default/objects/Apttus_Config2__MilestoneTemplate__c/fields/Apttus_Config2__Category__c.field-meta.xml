@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__Category__c</fullName>
     <deprecated>false</deprecated>
     <description>The milestone category.</description>
-    <externalId>false</externalId>
     <inlineHelpText>The milestone category.</inlineHelpText>
     <label>Category</label>
     <required>false</required>

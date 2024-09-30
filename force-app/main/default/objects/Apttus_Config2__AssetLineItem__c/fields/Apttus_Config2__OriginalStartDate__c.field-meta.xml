@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__OriginalStartDate__c</fullName>
     <deprecated>false</deprecated>
     <description>The original start date associated with the asset</description>
-    <externalId>false</externalId>
     <inlineHelpText>The original start date associated with the asset</inlineHelpText>
     <label>Original Start Date</label>
     <required>false</required>

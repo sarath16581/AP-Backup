@@ -3,7 +3,10 @@
     <fullName>SSSW_Agent_Cannot_Change_Status_to_New</fullName>
     <active>true</active>
     <description>SSSW Prevents Agent from changing the Case Status to New. Agents should always act on the Case, they cannot simply change the status back to New</description>
-    <errorConditionFormula>CONTAINS($UserRole.DeveloperName, &apos;Service_Agent&apos;) 
+    <errorConditionFormula>OR(
+		CONTAINS($UserRole.DeveloperName, &apos;Service_Agent&apos;),
+		$UserRole.DeveloperName = &apos;UnifiedAgent&apos;
+	)
 &amp;&amp; 
 ISCHANGED(Status) 
 &amp;&amp; 

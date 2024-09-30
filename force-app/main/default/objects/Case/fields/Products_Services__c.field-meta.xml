@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Products_Services__c</fullName>
     <description>product and serviced used by sales implementation case. This field is also used by the CAR team to identify products and services.</description>
-    <externalId>false</externalId>
     <label>Products &amp; Services</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>

@@ -3,7 +3,6 @@
     <fullName>Apttus_DealMgr__ListPrice__c</fullName>
     <deprecated>false</deprecated>
     <description>The total list price for the group</description>
-    <externalId>false</externalId>
     <inlineHelpText>The total list price for the group</inlineHelpText>
     <label>List Price (Deprecated)</label>
     <precision>18</precision>

@@ -3,7 +3,6 @@
     <fullName>Apttus_DealMgr__Comments__c</fullName>
     <deprecated>false</deprecated>
     <description>The comments entered by the user</description>
-    <externalId>false</externalId>
     <label>Comments</label>
     <length>32768</length>
     <securityClassification>INTERNAL</securityClassification>

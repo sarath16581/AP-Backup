@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Indicates whether the end date will be hidden in the cart view for evergreen line items</description>
-    <externalId>false</externalId>
     <inlineHelpText>Indicates whether the end date will be hidden in the cart view for evergreen line items</inlineHelpText>
     <label>Hide Evergreen End Date</label>
     <trackTrending>false</trackTrending>

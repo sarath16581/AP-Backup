@@ -3,7 +3,6 @@
     <fullName>IsLocked__c</fullName>
     <defaultValue>false</defaultValue>
     <description>Indicates whether the agreement is locked for editing</description>
-    <externalId>false</externalId>
     <inlineHelpText>Indicates whether the contract is locked for editing</inlineHelpText>
     <label>Is Locked</label>
     <securityClassification>INTERNAL</securityClassification>

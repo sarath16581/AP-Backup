@@ -3,7 +3,6 @@
     <fullName>Rev5__c</fullName>
     <defaultValue>0</defaultValue>
     <description>This field captures the total revenue for the month of May.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Enter the total revenue for May.</inlineHelpText>
     <label>Revenue May</label>
     <precision>18</precision>

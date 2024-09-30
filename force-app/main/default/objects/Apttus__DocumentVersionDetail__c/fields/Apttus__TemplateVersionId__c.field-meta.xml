@@ -4,7 +4,6 @@
     <deleteConstraint>SetNull</deleteConstraint>
     <deprecated>false</deprecated>
     <description>Template version that was used to generate this document</description>
-    <externalId>false</externalId>
     <inlineHelpText>Template version that was used to generate this document</inlineHelpText>
     <label>Template Version</label>
     <referenceTo>Apttus__TemplateVersion__c</referenceTo>

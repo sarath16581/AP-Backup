@@ -3,7 +3,6 @@
     <fullName>AccountId__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <description>Phase 1 - Holds Id from Account for the competitor</description>
-    <externalId>false</externalId>
     <inlineHelpText>Who is the primary competitor AP are competing agains to win this opportunity? (2%)</inlineHelpText>
     <label>Competitor Name</label>
     <referenceTo>Account</referenceTo>

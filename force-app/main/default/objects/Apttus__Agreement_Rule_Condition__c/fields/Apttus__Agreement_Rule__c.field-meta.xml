@@ -3,7 +3,6 @@
     <fullName>Apttus__Agreement_Rule__c</fullName>
     <deprecated>false</deprecated>
     <description>The associated agreement rule</description>
-    <externalId>false</externalId>
     <inlineHelpText>The associated agreement rule</inlineHelpText>
     <label>Agreement Rule</label>
     <referenceTo>Apttus__Agreement_Rule__c</referenceTo>

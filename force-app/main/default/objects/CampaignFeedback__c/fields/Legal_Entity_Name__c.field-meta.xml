@@ -3,7 +3,6 @@
     <fullName>Legal_Entity_Name__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <description>Legal Entity Name.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Legal Entity Name</inlineHelpText>
     <label>Account</label>
     <referenceTo>Account</referenceTo>

@@ -3,7 +3,6 @@
     <fullName>Product_Specialist_Engagement__c</fullName>
     <defaultValue>false</defaultValue>
     <description>Indicate whether there has been a Product Specialist Engaged in this request</description>
-    <externalId>false</externalId>
     <inlineHelpText>Engage Product Specialist on NEW Business Opportunities</inlineHelpText>
     <label>Product Specialist Engagement</label>
     <securityClassification>INTERNAL</securityClassification>

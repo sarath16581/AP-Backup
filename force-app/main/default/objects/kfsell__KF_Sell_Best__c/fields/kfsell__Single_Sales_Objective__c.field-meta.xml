@@ -3,7 +3,6 @@
     <fullName>kfsell__Single_Sales_Objective__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <deprecated>false</deprecated>
-    <externalId>false</externalId>
     <label>Single Sales Objective</label>
     <referenceTo>kfsell__Single_Sales_Objective__c</referenceTo>
     <relationshipLabel>KF Sell Best Actions</relationshipLabel>

@@ -3,7 +3,6 @@
     <fullName>PrimaryProduct__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <description>This field identifies the &apos;Primary Product&apos; for the revenue summary. Sales revenue from all associated related products will be aggregated based on this primary product reference</description>
-    <externalId>false</externalId>
     <inlineHelpText>Select the primary Product for aggregation. Revenues from related products will be consolidated under this reference</inlineHelpText>
     <label>Primary Product</label>
     <referenceTo>Product2</referenceTo>

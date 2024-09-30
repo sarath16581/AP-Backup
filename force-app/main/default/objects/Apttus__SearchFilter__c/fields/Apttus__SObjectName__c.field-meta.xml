@@ -3,7 +3,6 @@
     <fullName>Apttus__SObjectName__c</fullName>
     <deprecated>false</deprecated>
     <description>The sobject to query</description>
-    <externalId>false</externalId>
     <label>Object Name</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>

@@ -4,7 +4,6 @@
     <deleteConstraint>SetNull</deleteConstraint>
     <deprecated>false</deprecated>
     <description>ID of the product or option to exclude for selected products or options</description>
-    <externalId>false</externalId>
     <label>Exclude Product</label>
     <referenceTo>Product2</referenceTo>
     <relationshipLabel>Product Constraint Entries (Exclude Product)</relationshipLabel>

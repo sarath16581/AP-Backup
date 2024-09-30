@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Hold_End__c</fullName>
     <description>Phase 2 - to capture when the Request is taken off hold.</description>
-    <externalId>false</externalId>
     <label>Hold End</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>

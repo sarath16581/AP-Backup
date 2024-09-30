@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>When this box is checked if the assignee cannot be resolved at runtime then the step will be skipped instead of getting assigned to the Backup Admin.</description>
-    <externalId>false</externalId>
     <inlineHelpText>When this box is checked if the assignee cannot be resolved at runtime then the step will be skipped instead of getting assigned to the Backup Admin.</inlineHelpText>
     <label>Skip Unresolved Assignee</label>
     <trackTrending>false</trackTrending>

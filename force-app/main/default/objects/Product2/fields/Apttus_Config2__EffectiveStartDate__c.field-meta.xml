@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__EffectiveStartDate__c</fullName>
     <deprecated>false</deprecated>
     <description>The start date of the product in a store</description>
-    <externalId>false</externalId>
     <inlineHelpText>The start date of the product in a store</inlineHelpText>
     <label>Effective Start Date</label>
     <required>false</required>

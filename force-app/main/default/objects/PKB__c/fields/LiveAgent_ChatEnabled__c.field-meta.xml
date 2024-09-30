@@ -3,7 +3,6 @@
     <fullName>LiveAgent_ChatEnabled__c</fullName>
     <defaultValue>false</defaultValue>
     <description>When checked, will display  Live Agent Chat buttons . Actual Chat wil also depend on live Agent availability</description>
-    <externalId>false</externalId>
     <inlineHelpText>When checked, will display  Live Agent Chat buttons . Actual Chat wil also depend on live Agent availability</inlineHelpText>
     <label>Live Agent Chat Enabled</label>
     <trackTrending>false</trackTrending>

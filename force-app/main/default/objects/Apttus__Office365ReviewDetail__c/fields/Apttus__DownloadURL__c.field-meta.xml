@@ -3,7 +3,6 @@
     <fullName>Apttus__DownloadURL__c</fullName>
     <deprecated>false</deprecated>
     <description>URL to download the uploaded document</description>
-    <externalId>false</externalId>
     <inlineHelpText>URL to download the uploaded document</inlineHelpText>
     <label>Download URL</label>
     <length>32768</length>

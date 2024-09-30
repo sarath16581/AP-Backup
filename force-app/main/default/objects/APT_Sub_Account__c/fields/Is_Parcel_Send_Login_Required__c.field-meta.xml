@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Is_Parcel_Send_Login_Required__c</fullName>
-    <externalId>false</externalId>
     <inlineHelpText>If ‘Yes’ and Contract Rates are required, Parcel Send registration email will be sent to indicated Customer Contact following successful account provisioning.</inlineHelpText>
     <label>Is Parcel Send Login Required?</label>
     <required>false</required>

@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>This field is set to true if this term exception approval should be auto-escalated by the system if it not approved, rejected, or reassigned by the expected completion date.</description>
-    <externalId>false</externalId>
     <inlineHelpText>This field is set to true if this term exception approval should be auto-escalated by the system if it not approved, rejected, or reassigned by the expected completion date.</inlineHelpText>
     <label>Auto Escalate</label>
     <securityClassification>INTERNAL</securityClassification>

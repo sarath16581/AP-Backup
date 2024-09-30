@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Nov_Original_Budget__c</fullName>
     <description>Previous name was &quot;Nov Target&quot; (MW0003520)</description>
-    <externalId>false</externalId>
     <label>Nov Planned Revenue</label>
     <precision>18</precision>
     <required>false</required>

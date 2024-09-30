@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Escalated__c</fullName>
     <defaultValue>false</defaultValue>
-    <externalId>false</externalId>
     <label>OOC</label>
     <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>

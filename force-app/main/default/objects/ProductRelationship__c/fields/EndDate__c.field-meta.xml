@@ -4,7 +4,6 @@
     <businessStatus>Active</businessStatus>
     <complianceGroup>GDPR</complianceGroup>
     <description>Invalidates the product relationship after the specified date</description>
-    <externalId>false</externalId>
     <inlineHelpText>Specify a date after which this relationship no longer applies. Leave empty for ongoing relationships.</inlineHelpText>
     <label>End Date</label>
     <required>false</required>

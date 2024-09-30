@@ -4,7 +4,6 @@
     <deleteConstraint>SetNull</deleteConstraint>
     <deprecated>false</deprecated>
     <description>Parent Product Configuration Id</description>
-    <externalId>false</externalId>
     <inlineHelpText>Parent Product Configuration Id</inlineHelpText>
     <label>Parent Configuration</label>
     <referenceTo>Apttus_Config2__ProductConfiguration__c</referenceTo>

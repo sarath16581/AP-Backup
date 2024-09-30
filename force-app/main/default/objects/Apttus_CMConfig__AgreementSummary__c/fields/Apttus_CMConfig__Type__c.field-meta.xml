@@ -3,7 +3,6 @@
     <fullName>Apttus_CMConfig__Type__c</fullName>
     <deprecated>false</deprecated>
     <description>The user defined type</description>
-    <externalId>false</externalId>
     <label>Type</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>

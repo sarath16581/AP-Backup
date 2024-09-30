@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__CountryCriteria__c</fullName>
     <deprecated>false</deprecated>
     <description>One or more country inclusion/exclusion criteria</description>
-    <externalId>false</externalId>
     <inlineHelpText>One or more country inclusion/exclusion criteria</inlineHelpText>
     <label>Country Criteria</label>
     <required>false</required>

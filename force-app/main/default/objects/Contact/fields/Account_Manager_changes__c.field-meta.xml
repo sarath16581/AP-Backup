@@ -3,7 +3,6 @@
     <fullName>Account_Manager_changes__c</fullName>
     <defaultValue>false</defaultValue>
     <description>Checking this field indicates that the Contact will receive information about Account Manager changes.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Notify this Contact about any Account Manager changes affecting  their Organisation.</inlineHelpText>
     <label>Account Manager changes</label>
     <securityClassification>INTERNAL</securityClassification>

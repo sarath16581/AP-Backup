@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Related_to_Organisation__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
-    <externalId>false</externalId>
     <inlineHelpText>This field is used to identify if there is a relationship between customers that can not be linked in the hierarchy.</inlineHelpText>
     <label>Related to Organisation</label>
     <lookupFilter>

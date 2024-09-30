@@ -4,7 +4,6 @@
     <businessStatus>Active</businessStatus>
     <complianceGroup>GDPR</complianceGroup>
     <description>The Revenue Amount for this account and all OPC related child accounts for the first Quater</description>
-    <externalId>false</externalId>
     <formula>Jul_Group_Actual_Amount__c + Aug_Group_Actual_Amount__c + Sep_Group_Actual_Amount__c</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <inlineHelpText>Q1 OPC Grouped Revenue Amount</inlineHelpText>

@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Counter_Collection_on_non_RSD_days__c</fullName>
     <description>Partner Addendum &apos;Counter Collection on non RSD days&apos; Sub Type Description</description>
-    <externalId>false</externalId>
     <label>Counter Collection on non RSD day</label>
     <required>false</required>
     <trackTrending>false</trackTrending>

@@ -3,7 +3,6 @@
     <fullName>grax__BackendDelete__c</fullName>
     <defaultValue>true</defaultValue>
     <deprecated>false</deprecated>
-    <externalId>false</externalId>
     <label>Backend Delete</label>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>

@@ -3,7 +3,6 @@
     <fullName>Invoice_Data_in_Excel_Attached__c</fullName>
     <defaultValue>false</defaultValue>
     <description>Field to indicate that the invoice date in XL has been attached</description>
-    <externalId>false</externalId>
     <inlineHelpText>Please check when invoice data in Excel has been attached to the request (attach to Notes &amp; Attachments section on request). For StarTrack - please use template link in help documentation</inlineHelpText>
     <label>Invoice Data in Excel Attached?</label>
     <securityClassification>INTERNAL</securityClassification>

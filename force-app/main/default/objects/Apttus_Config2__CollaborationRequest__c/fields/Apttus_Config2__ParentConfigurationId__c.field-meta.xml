@@ -4,7 +4,6 @@
     <deleteConstraint>SetNull</deleteConstraint>
     <deprecated>false</deprecated>
     <description>The parent configuration for which this collaboration task is created.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Enter the parent configuration id</inlineHelpText>
     <label>Parent Configuration</label>
     <referenceTo>Apttus_Config2__ProductConfiguration__c</referenceTo>

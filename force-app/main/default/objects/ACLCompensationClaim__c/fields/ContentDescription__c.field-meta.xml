@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>ContentDescription__c</fullName>
     <description>What was the item posted.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Description of contents of posted item.</inlineHelpText>
     <label>Content Description</label>
     <length>1000</length>

@@ -3,7 +3,6 @@
     <fullName>kfsell__Check_Scorecard_Last_Modified__c</fullName>
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
-    <externalId>false</externalId>
     <label>Check Scorecard Last Modified</label>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>

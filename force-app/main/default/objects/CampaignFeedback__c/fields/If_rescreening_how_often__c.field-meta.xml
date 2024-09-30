@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>If_rescreening_how_often__c</fullName>
     <description>If employer is rescreening employees, how often are they completing this?</description>
-    <externalId>false</externalId>
     <inlineHelpText>If employer is rescreening employees, how often are they completing this?</inlineHelpText>
     <label>If rescreening - how often?</label>
     <required>false</required>

@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Date_Street_Changed__c</fullName>
     <description>Phase 2</description>
-    <externalId>false</externalId>
     <label>Date Street Changed</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>

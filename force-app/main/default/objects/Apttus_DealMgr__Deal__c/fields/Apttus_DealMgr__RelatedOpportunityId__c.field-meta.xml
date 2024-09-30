@@ -4,7 +4,6 @@
     <deleteConstraint>SetNull</deleteConstraint>
     <deprecated>false</deprecated>
     <description>ID of the opportunity associated with the deal. Only valid for opportunity context</description>
-    <externalId>false</externalId>
     <label>Related Opportunity</label>
     <referenceTo>Opportunity</referenceTo>
     <relationshipLabel>Deals</relationshipLabel>

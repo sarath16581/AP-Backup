@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Allows to add quantity greater than the actual/remaining quantity of Price Agreement line items</description>
-    <externalId>false</externalId>
     <inlineHelpText>Allows to add quantity greater than the actual/remaining quantity of Price Agreement line items</inlineHelpText>
     <label>Allow Greater Partial Order Quantity</label>
     <trackTrending>false</trackTrending>

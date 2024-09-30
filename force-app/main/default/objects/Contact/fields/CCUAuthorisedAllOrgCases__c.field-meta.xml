@@ -3,7 +3,6 @@
     <fullName>CCUAuthorisedAllOrgCases__c</fullName>
     <defaultValue>false</defaultValue>
     <description>2014-07 SSSW - CCU portal access to all cases.</description>
-    <externalId>false</externalId>
     <inlineHelpText>If checked, the contact can view cases belong to the organisation from the CCU portal.</inlineHelpText>
     <label>(NOT IN USE)Authorised to View Org Cases</label>
     <securityClassification>INTERNAL</securityClassification>

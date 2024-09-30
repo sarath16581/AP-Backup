@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__OrderEndDate__c</fullName>
     <deprecated>false</deprecated>
     <description>The date at which the order ends</description>
-    <externalId>false</externalId>
     <inlineHelpText>The date at which the order ends</inlineHelpText>
     <label>Order End Date</label>
     <required>false</required>

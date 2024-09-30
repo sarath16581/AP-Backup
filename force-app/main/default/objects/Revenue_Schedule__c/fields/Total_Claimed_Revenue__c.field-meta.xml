@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Total_Claimed_Revenue__c</fullName>
-    <externalId>false</externalId>
     <formula>Round(Jul_Claimed_Revenue__c+Aug_Claimed_Revenue__c + Sep_Claimed_Revenue__c + Oct_Claimed_Revenue__c + Nov_Claimed_Revenue__c +Dec_Claimed_Revenue__c +Jan_Claimed_Revenue__c +Feb_Claimed_Revenue__c + Mar_Claimed_Revenue__c + Apr_Claimed_Revenue__c +May_Claimed_Revenue__c +  Jun_Claimed_Revenue__c, 0)</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <inlineHelpText>Rounded to zero decimal. Your adjustment should not make this value differ from the Scheduled Revenue.</inlineHelpText>

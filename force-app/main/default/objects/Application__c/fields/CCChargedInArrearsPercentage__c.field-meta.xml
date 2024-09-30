@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>CCChargedInArrearsPercentage__c</fullName>
     <description>Payments made after receiving goods or service - Percentage</description>
-    <externalId>false</externalId>
     <inlineHelpText>Payment received after goods/services received by customer</inlineHelpText>
     <label>CC Charged In Arrears - Percentage</label>
     <precision>3</precision>

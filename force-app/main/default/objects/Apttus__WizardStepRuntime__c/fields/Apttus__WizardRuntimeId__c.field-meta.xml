@@ -4,7 +4,6 @@
     <deleteConstraint>SetNull</deleteConstraint>
     <deprecated>false</deprecated>
     <description>Reference/Lookup to wizard runtime this step belongs to</description>
-    <externalId>false</externalId>
     <inlineHelpText>Reference/Lookup to wizard runtime this step belongs to</inlineHelpText>
     <label>Wizard Runtime</label>
     <referenceTo>Apttus__WizardRuntime__c</referenceTo>

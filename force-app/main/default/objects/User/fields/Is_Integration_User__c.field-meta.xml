@@ -4,7 +4,6 @@
     <description>This field is being utilised as a flag to check if the current user is part of the integration profile.
 REQ2349980 - updated formula to exclude Market Cloud Integration User
 08/2023 removed snnap integration profile reference</description>
-    <externalId>false</externalId>
     <formula>IF(
 OR(
 $User.Profile_Name_in_Text__c = &apos;AP Integration&apos;,

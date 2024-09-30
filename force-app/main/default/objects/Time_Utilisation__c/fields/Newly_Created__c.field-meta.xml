@@ -3,7 +3,6 @@
     <fullName>Newly_Created__c</fullName>
     <defaultValue>false</defaultValue>
     <description>Field to be used in the flow to capture all new created TU records</description>
-    <externalId>false</externalId>
     <label>Newly Created</label>
     <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>

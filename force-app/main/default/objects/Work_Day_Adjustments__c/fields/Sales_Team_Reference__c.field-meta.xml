@@ -3,7 +3,6 @@
     <fullName>Sales_Team_Reference__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <description>Field to look up the Sales Team Reference</description>
-    <externalId>false</externalId>
     <inlineHelpText>Field to look up the Sales Team Reference</inlineHelpText>
     <label>Sales Team Reference</label>
     <referenceTo>Sales_Segment_Reference__c</referenceTo>

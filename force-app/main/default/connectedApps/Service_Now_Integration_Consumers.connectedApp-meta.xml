@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ConnectedApp xmlns="http://soap.sforce.com/2006/04/metadata">
+    <contactEmail>DLITCandSSalesForceSupport@auspost.com.au</contactEmail>
+    <label>Service Now Integration Consumers</label>
+    <oauthConfig>
+        <callbackUrl>https://login.salesforce.com/services/oauth2/token</callbackUrl>
+        <certificate>MIIDHjCCAgYCCQDmyqJj9dhZRzANBgkqhkiG9w0BAQsFADBRMQswCQYDVQQGEwJBVTEMMAoGA1UECAwDVklDMRcwFQYDVQQKDA5BdXN0cmFsaWEgUG9zdDEbMBkGA1UECwwSU2VydmljZSBNYW5hZ2VtZW50MB4XDTIzMTIxNTAxMzQ0MVoXDTI0MTIxNDAxMzQ0MVowUTELMAkGA1UEBhMCQVUxDDAKBgNVBAgMA1ZJQzEXMBUGA1UECgwOQXVzdHJhbGlhIFBvc3QxGzAZBgNVBAsMElNlcnZpY2UgTWFuYWdlbWVudDCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBAKwF2HFnpUvsguJAOf0A3M/GOvnFKA8+SIr4hYl0ImZRLDbiX7boULnlQWaVhq53kfW4AKgqfolDvr8kSfcBZmjnsIoGY38Ex3FLTcWvoZE+fVQR2rav/MEbYDdZugioAiGHnzKZbkzF2+wFaqLdIj+pxAjZZxtEi/xe9nm4ZllEYTvW7UBzvbS3JhSI0RVFgj9aIQdFTaXGQHUez3QD1EvvzP9EV6q30dnydeIikzH/H6pWXiQXrXDizW7bEV+qyGM4pTgdfh7YZrhLB4Xn31BTs/cYGzV0ax1Vv/DGSQlc10dZ4eMEiwyGeCGZFf6wuGT9P9MG8ClFsHWJAU3i1jECAwEAATANBgkqhkiG9w0BAQsFAAOCAQEAnscPk05oTmzbEafUIZTTS/JDRwf45PFXkaXAqBFzSX3Pt9+J9otQqjuTaduXurdnUinaiSV6E0jXXkx9lZooVj3NqLctXLuPhvfY2u1WvmHOv6AC9rxyzfAJ2hMVeA2q0yeJ2a47Q8HjVIJg2tFYCqPEOki1pEmydRWLiQ+WOI5OtQBnHp6TIcAGW6bjt+Pt40k066J4h0imdHCZTZIpOmPrQDBhbIt5/9TUbqGbvI4BYMKGiUg7gxoLRMhOzP3Il2CMqNWh+LwyXHujaDvYU7mTCMqeYPU/PezVE8PcxZnhLn1usF1iHP/ciqgWwptjZgZvVTlKGw6s9vZ4JpmQGQ==</certificate>
+        <consumerKey>3MVG9vVKBifrxMjaZA4PhtX42wqxaMTca_mJICKde1.Qq2DgnwxDLfO8MD1.Nm5NPrvzCscxPaqHr61SNnaKF</consumerKey>
+        <isAdminApproved>true</isAdminApproved>
+        <isClientCredentialEnabled>false</isClientCredentialEnabled>
+        <isCodeCredentialEnabled>false</isCodeCredentialEnabled>
+        <isCodeCredentialPostOnly>false</isCodeCredentialPostOnly>
+        <isConsumerSecretOptional>false</isConsumerSecretOptional>
+        <isIntrospectAllTokens>false</isIntrospectAllTokens>
+        <isNamedUserJwtEnabled>false</isNamedUserJwtEnabled>
+        <isPkceRequired>false</isPkceRequired>
+        <isRefreshTokenRotationEnabled>false</isRefreshTokenRotationEnabled>
+        <isSecretRequiredForRefreshToken>false</isSecretRequiredForRefreshToken>
+        <isSecretRequiredForTokenExchange>false</isSecretRequiredForTokenExchange>
+        <isTokenExchangeEnabled>false</isTokenExchangeEnabled>
+        <scopes>Basic</scopes>
+        <scopes>Api</scopes>
+        <scopes>Web</scopes>
+        <scopes>Full</scopes>
+        <scopes>RefreshToken</scopes>
+    </oauthConfig>
+    <oauthPolicy>
+        <ipRelaxation>ENFORCE</ipRelaxation>
+        <isTokenExchangeFlowEnabled>false</isTokenExchangeFlowEnabled>
+        <refreshTokenPolicy>infinite</refreshTokenPolicy>
+    </oauthPolicy>
+    <permissionSetName>Integration User - Service Now</permissionSetName>
+</ConnectedApp>

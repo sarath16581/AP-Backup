@@ -3,7 +3,6 @@
     <fullName>Apttus__ClauseHeader__c</fullName>
     <deprecated>false</deprecated>
     <description>The clause header text</description>
-    <externalId>false</externalId>
     <inlineHelpText>The clause header text</inlineHelpText>
     <label>Clause Header</label>
     <length>32768</length>

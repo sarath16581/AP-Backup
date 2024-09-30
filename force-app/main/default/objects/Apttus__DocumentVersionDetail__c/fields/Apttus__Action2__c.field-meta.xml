@@ -3,7 +3,6 @@
     <fullName>Apttus__Action2__c</fullName>
     <deprecated>false</deprecated>
     <description>The action which created the version</description>
-    <externalId>false</externalId>
     <inlineHelpText>The action which created the version</inlineHelpText>
     <label>Action</label>
     <required>false</required>

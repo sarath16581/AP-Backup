@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__ProductEffectiveDate__c</fullName>
     <deprecated>false</deprecated>
     <description>The product effective date. The product becomes available for selection on this date and time</description>
-    <externalId>false</externalId>
     <formula>Apttus_Config2__ChildProductId__r.Apttus_Config2__EffectiveDate__c</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <label>Product Effective Date</label>

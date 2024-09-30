@@ -3,7 +3,6 @@
     <fullName>Field_Trip__isCustom__c</fullName>
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
-    <externalId>false</externalId>
     <label>Custom</label>
     <securityClassification>INTERNAL</securityClassification>
     <trackHistory>true</trackHistory>

@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>BSC__c</fullName>
-    <externalId>false</externalId>
     <formula>IF(Override_BSC__c, Business_Solution_Customer__c, Organisation__r.Business_Solutions_Customer__c)</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <label>BSC</label>

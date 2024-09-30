@@ -3,7 +3,6 @@
     <fullName>Apttus_Approval__RuleType__c</fullName>
     <deprecated>false</deprecated>
     <description>The rule type</description>
-    <externalId>false</externalId>
     <label>Rule Type</label>
     <required>false</required>
     <trackTrending>false</trackTrending>

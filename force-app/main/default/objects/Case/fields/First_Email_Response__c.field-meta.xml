@@ -3,7 +3,6 @@
     <fullName>First_Email_Response__c</fullName>
     <defaultValue>false</defaultValue>
     <description>StarTrack field used to flag that an Email has been sent outbound on a case indicating 1st customer response</description>
-    <externalId>false</externalId>
     <label>First Email Response</label>
     <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>

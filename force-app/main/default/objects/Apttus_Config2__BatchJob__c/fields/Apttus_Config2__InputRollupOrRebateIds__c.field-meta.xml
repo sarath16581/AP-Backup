@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__InputRollupOrRebateIds__c</fullName>
     <deprecated>false</deprecated>
     <description>A comma separated list of rollup or rebate ids provided as input for the rollup/rebate calculation job</description>
-    <externalId>false</externalId>
     <inlineHelpText>A comma separated list of rollup or rebate ids provided as input for the rollup/rebate calculation job</inlineHelpText>
     <label>Input Rollups Or Rebates</label>
     <length>500</length>

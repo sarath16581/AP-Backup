@@ -3,7 +3,6 @@
     <fullName>kfsell__Plan_Checklist_AP_Perspective_NoValue__c</fullName>
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
-    <externalId>false</externalId>
     <label>Plan Checklist AP Perspective NoValue</label>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>

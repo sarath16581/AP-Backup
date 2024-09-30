@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>PreApprovalReferralReasons__c</fullName>
     <description>The multi-picklist for Referral Reasons.</description>
-    <externalId>false</externalId>
     <inlineHelpText>The multi-picklist for Referral Reasons.</inlineHelpText>
     <label>Pre-Approval Referral Reasons</label>
     <required>false</required>

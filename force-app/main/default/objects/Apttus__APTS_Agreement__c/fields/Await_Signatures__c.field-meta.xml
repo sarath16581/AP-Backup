@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Await_Signatures__c</fullName>
-    <externalId>false</externalId>
     <label>Await Signatures</label>
     <securityClassification>INTERNAL</securityClassification>
     <summarizedField>Apttus__CycleTimeGroupData__c.Apttus__Duration_Business_Hours__c</summarizedField>

@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__ConstraintRuleId__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <deprecated>false</deprecated>
-    <externalId>false</externalId>
     <label>Constraint Rule</label>
     <referenceTo>Apttus_Config2__ConstraintRule__c</referenceTo>
     <relationshipLabel>Applied Rule Infos</relationshipLabel>

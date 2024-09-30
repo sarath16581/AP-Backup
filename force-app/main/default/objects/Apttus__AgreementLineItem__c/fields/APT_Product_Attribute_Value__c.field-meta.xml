@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>APT_Product_Attribute_Value__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
-    <externalId>false</externalId>
     <label>Product Attribute Value</label>
     <referenceTo>Apttus_Config2__ProductAttributeValue__c</referenceTo>
     <relationshipLabel>Apttus Contract Line Items</relationshipLabel>
