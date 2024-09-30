@@ -206,7 +206,12 @@ export default class UnifiedTrackingVoiceWrapper extends LightningElement {
 				selectedArticleIds: selectedArticles
 			}
 		};
-		publish(this.messageContext, GENERIC_LMS_CHANNEL, lmsEventPayload);
+		try {
+			publish(this.messageContext, GENERIC_LMS_CHANNEL, lmsEventPayload);
+		} catch (error) {
+			// One of the scenario that we expect to excecute the catch block is when user opens and closes the interaction record quickly before / while loading the happyparcel component.
+			console.error(error);
+		}
 	}
 
 	displayToastMessage(toastMessage, toastTittle, toastVariant) {
