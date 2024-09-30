@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>ContactRole__c</fullName>
     <description>The parent contact role this rule is linked to</description>
-    <externalId>false</externalId>
     <inlineHelpText>The parent contact role this rule is linked to</inlineHelpText>
     <label>Contact Role</label>
     <referenceTo>BAMContactRole__c</referenceTo>

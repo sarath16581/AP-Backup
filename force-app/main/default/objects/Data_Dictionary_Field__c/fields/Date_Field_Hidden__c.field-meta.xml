@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Date_Field_Hidden__c</fullName>
-    <externalId>false</externalId>
     <inlineHelpText>This is the date that the field was hidden from all users in preparation for deprecation and removal.</inlineHelpText>
     <label>Date Field Hidden</label>
     <required>false</required>

@@ -3,7 +3,6 @@
     <fullName>Apttus__ReviewStatus__c</fullName>
     <deprecated>false</deprecated>
     <description>Status of the review cycle</description>
-    <externalId>false</externalId>
     <inlineHelpText>Status of the review cycle</inlineHelpText>
     <label>Review Status</label>
     <required>false</required>

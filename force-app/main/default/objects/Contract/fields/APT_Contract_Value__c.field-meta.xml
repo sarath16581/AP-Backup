@@ -3,7 +3,6 @@
     <fullName>APT_Contract_Value__c</fullName>
     <defaultValue>0</defaultValue>
     <description>Value of the Contract. Should be approx value</description>
-    <externalId>false</externalId>
     <label>Contract Value</label>
     <precision>18</precision>
     <required>false</required>

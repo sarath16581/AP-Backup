@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Warehouse__c</fullName>
     <description>Used by Retail Fulfilment. The warehouse who supplied this product to the outlet.</description>
-    <externalId>false</externalId>
     <inlineHelpText>The warehouse who supplied this product to the outlet</inlineHelpText>
     <label>Warehouse</label>
     <required>false</required>

@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Add_Caller_Comment__c</fullName>
     <description>StarTrack field used for the &quot;Addd Caller&quot; Side Bar to ad comments to the feed</description>
-    <externalId>false</externalId>
     <label>Comment</label>
     <length>32768</length>
     <securityClassification>INTERNAL</securityClassification>

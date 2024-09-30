@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Indicator to prevent subsequent matrices from processing.</description>
-    <externalId>false</externalId>
     <label>Stop Processing More Matrices</label>
     <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>

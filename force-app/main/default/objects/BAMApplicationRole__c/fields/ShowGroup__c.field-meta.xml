@@ -3,7 +3,6 @@
     <fullName>ShowGroup__c</fullName>
     <defaultValue>false</defaultValue>
     <description>Determines whether this Role should expose a Group selector when it&apos;s selected</description>
-    <externalId>false</externalId>
     <inlineHelpText>Determines whether this Role should expose a Group selector when it&apos;s selected</inlineHelpText>
     <label>Show Groups</label>
     <trackTrending>false</trackTrending>

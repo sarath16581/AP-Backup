@@ -3,7 +3,6 @@
     <fullName>et4ae5__ABTest__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <deprecated>false</deprecated>
-    <externalId>false</externalId>
     <label>AB Test Lookup</label>
     <referenceTo>et4ae5__abTest__c</referenceTo>
     <relationshipLabel>Email Sends</relationshipLabel>

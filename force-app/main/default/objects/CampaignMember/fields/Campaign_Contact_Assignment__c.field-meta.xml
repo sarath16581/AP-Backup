@@ -3,7 +3,6 @@
     <fullName>Campaign_Contact_Assignment__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <description>This is a field for storing the Campaign Contact assignment object, which creates the campaign member records.</description>
-    <externalId>false</externalId>
     <label>Campaign Contact Assignment</label>
     <referenceTo>CampaignContactAssignment__c</referenceTo>
     <relationshipLabel>Campaign Targets</relationshipLabel>

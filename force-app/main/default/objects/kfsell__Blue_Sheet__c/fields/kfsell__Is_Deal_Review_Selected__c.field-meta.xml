@@ -3,7 +3,6 @@
     <fullName>kfsell__Is_Deal_Review_Selected__c</fullName>
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
-    <externalId>false</externalId>
     <label>Is Deal Review Ready Selected</label>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>

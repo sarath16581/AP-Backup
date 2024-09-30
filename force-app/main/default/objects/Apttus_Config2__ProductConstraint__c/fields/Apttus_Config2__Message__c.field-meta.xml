@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__Message__c</fullName>
     <deprecated>false</deprecated>
     <description>The message to display to the user when the constraint is violated</description>
-    <externalId>false</externalId>
     <label>Message</label>
     <length>4000</length>
     <securityClassification>INTERNAL</securityClassification>

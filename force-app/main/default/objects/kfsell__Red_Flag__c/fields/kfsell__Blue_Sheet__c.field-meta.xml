@@ -3,7 +3,6 @@
     <fullName>kfsell__Blue_Sheet__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <deprecated>false</deprecated>
-    <externalId>false</externalId>
     <label>Blue Sheet</label>
     <referenceTo>kfsell__Blue_Sheet__c</referenceTo>
     <relationshipLabel>Red Flags</relationshipLabel>

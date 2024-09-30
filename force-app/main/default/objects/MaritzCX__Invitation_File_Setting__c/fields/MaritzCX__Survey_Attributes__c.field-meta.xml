@@ -3,7 +3,6 @@
     <fullName>MaritzCX__Survey_Attributes__c</fullName>
     <deprecated>false</deprecated>
     <description>This field stores the mapping between MaritzCX Survey Attributes and Salesforce Contact Fields.</description>
-    <externalId>false</externalId>
     <label>Survey Attributes</label>
     <length>32768</length>
     <securityClassification>INTERNAL</securityClassification>

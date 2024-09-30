@@ -3,7 +3,6 @@
     <fullName>Route_Lookup__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <description>The name of the route the job is performed within.  Keep in sync with the booking if the Job is not Expired or in progress</description>
-    <externalId>false</externalId>
     <label>Route LU</label>
     <referenceTo>PUD_Route__c</referenceTo>
     <relationshipLabel>Jobs</relationshipLabel>

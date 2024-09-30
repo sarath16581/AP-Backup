@@ -4,7 +4,6 @@
     <deleteConstraint>SetNull</deleteConstraint>
     <deprecated>false</deprecated>
     <description>Review Cycle lookup</description>
-    <externalId>false</externalId>
     <inlineHelpText>Review Cycle lookup</inlineHelpText>
     <label>Review Cycle</label>
     <referenceTo>Apttus__ReviewCycle__c</referenceTo>

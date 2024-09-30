@@ -3,7 +3,6 @@
     <fullName>Renewable__c</fullName>
     <defaultValue>false</defaultValue>
     <description>Used to check if the Licence is renewed though Renewal agreement.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Used to check if the Licence is renewed though Renewal agreement.</inlineHelpText>
     <label>Renewable</label>
     <trackTrending>false</trackTrending>

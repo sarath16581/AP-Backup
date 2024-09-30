@@ -3,7 +3,6 @@
     <fullName>Apttus__InputResponseRuleType__c</fullName>
     <deprecated>false</deprecated>
     <description>Supports only rule of type &apos;Input Expression&apos;</description>
-    <externalId>false</externalId>
     <inlineHelpText>Supports only rule of type &apos;Input Expression&apos;</inlineHelpText>
     <label>Input Response Rule Type</label>
     <required>false</required>

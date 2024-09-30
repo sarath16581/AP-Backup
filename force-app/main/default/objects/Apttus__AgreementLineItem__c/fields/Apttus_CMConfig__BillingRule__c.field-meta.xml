@@ -3,7 +3,6 @@
     <fullName>Apttus_CMConfig__BillingRule__c</fullName>
     <deprecated>false</deprecated>
     <description>The billing rule associated with the price item</description>
-    <externalId>false</externalId>
     <inlineHelpText>The billing rule associated with the price item</inlineHelpText>
     <label>Billing Rule</label>
     <required>false</required>

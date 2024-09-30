@@ -3,7 +3,6 @@
     <fullName>Convert_Private_Attachments__c</fullName>
     <defaultValue>false</defaultValue>
     <description>Attachments have &apos;IsPrivate&apos; field that limits access to owner and admins. ContentVersions related to records are not private. Enable this option to convert private attachments to files. Please consider your company&apos;s regulatory and security policies before enabling this option as it may expose data to new audiences.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Attachments have &apos;IsPrivate&apos; field that limits access to owner and admins. ContentVersions related to records are not private. Consider your company&apos;s regulatory and security policies before enabling this option as it may expose data to new audiences.</inlineHelpText>
     <label>Convert Private Attachments?</label>
     <trackTrending>false</trackTrending>

@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__Comments__c</fullName>
     <deprecated>false</deprecated>
     <description>This is for internal use</description>
-    <externalId>false</externalId>
     <label>Comments (Internal)</label>
     <length>4000</length>
     <securityClassification>INTERNAL</securityClassification>

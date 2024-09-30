@@ -3,7 +3,6 @@
     <fullName>Apttus__Company_Signed_Date__c</fullName>
     <deprecated>false</deprecated>
     <description>Date when internal signatory signed</description>
-    <externalId>false</externalId>
     <label>Company Signed Date</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>

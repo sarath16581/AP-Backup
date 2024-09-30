@@ -3,7 +3,6 @@
     <fullName>AllocateToQueue__c</fullName>
     <defaultValue>false</defaultValue>
     <description>SSSW - This Field is used to fire the Workflow to allocate the Case back to the correct Queue.</description>
-    <externalId>false</externalId>
     <label>Allocate to Queue</label>
     <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>

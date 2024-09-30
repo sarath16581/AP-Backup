@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Indicates agreement lock is turned on for a version-aware record on first document check-out, thereby locking all the record’s documents to that user. Lock released on all documents on first check-in.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Indicates agreement lock is turned on for a version-aware record on first document check-out, thereby locking all the record’s documents to that user. Lock released on all documents on first check-in.</inlineHelpText>
     <label>Use Agreement Locks for Versioning</label>
     <trackTrending>false</trackTrending>

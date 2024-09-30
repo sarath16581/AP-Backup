@@ -3,7 +3,6 @@
     <fullName>Retail_Products__c</fullName>
     <businessStatus>DeprecateCandidate</businessStatus>
     <description>Retail Products are products and services known to Retail Outlets. Generally these products/services relates to a EPOS Transaction code.</description>
-    <externalId>false</externalId>
     <label>Dep - Retail Products</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>

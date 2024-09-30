@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Whether to hide the Cart Header in select pages</description>
-    <externalId>false</externalId>
     <label>Hide Cart Header</label>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>

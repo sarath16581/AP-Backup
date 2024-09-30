@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__ServiceLineSplitCriteria__c</fullName>
     <deprecated>false</deprecated>
     <description>Comma separated list of related line item fields and asset line item fields to be considered for automatic splitting.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Comma separated values of asset line item which define the split criteria for asset related line items.</inlineHelpText>
     <label>Service Line Split Criteria</label>
     <required>false</required>

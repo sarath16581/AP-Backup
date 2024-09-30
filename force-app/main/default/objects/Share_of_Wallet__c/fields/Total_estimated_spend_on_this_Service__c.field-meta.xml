@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Total_estimated_spend_on_this_Service__c</fullName>
     <description>Financial Value</description>
-    <externalId>false</externalId>
     <inlineHelpText>What is the organisations total financial year spend on this service?</inlineHelpText>
     <label>Total Spend (FY)</label>
     <precision>9</precision>

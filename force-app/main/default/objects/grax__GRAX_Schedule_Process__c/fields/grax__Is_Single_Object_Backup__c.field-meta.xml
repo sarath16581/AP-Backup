@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Checkbox to allow the user to select only one object on the table in the &quot;Object(s) Backup&quot; tab. When this checkbox is in true and the user selects an object from the table the other checkboxes will remain disabled until the current object is unselected.</description>
-    <externalId>false</externalId>
     <label>Is Single Object Backup</label>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>

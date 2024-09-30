@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>DeliveryInstructions__c</fullName>
     <description>Specific instruction to be followed for Delivery</description>
-    <externalId>false</externalId>
     <label>Delivery Instructions</label>
     <required>false</required>
     <trackHistory>false</trackHistory>

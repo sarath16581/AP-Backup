@@ -5,7 +5,6 @@
 -trigger on Booking (update of Booking Location)
 -trigger on Booking Location (update of address)
 -via API for bookings without location</description>
-    <externalId>false</externalId>
     <label>Street</label>
     <required>false</required>
     <trackFeedHistory>false</trackFeedHistory>

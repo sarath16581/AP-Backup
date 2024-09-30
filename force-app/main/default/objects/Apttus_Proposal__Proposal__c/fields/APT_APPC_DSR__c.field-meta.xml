@@ -3,7 +3,6 @@
     <fullName>APT_APPC_DSR__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <description>The deal support request lookup value</description>
-    <externalId>false</externalId>
     <label>APPC DSR</label>
     <referenceTo>Deal_Support_Request__c</referenceTo>
     <relationshipLabel>Proposals</relationshipLabel>

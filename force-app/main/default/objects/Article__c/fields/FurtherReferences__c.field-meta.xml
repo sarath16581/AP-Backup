@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
-	<fullName>FurtherReferences__c</fullName>
-	<description>Stores references that are retrieved from StarTrack consignment search API</description>
-	<externalId>false</externalId>
-	<label>Further References</label>
-	<length>1024</length>
-	<trackHistory>false</trackHistory>
-	<trackTrending>false</trackTrending>
-	<type>LongTextArea</type>
-	<visibleLines>3</visibleLines>
+    <fullName>FurtherReferences__c</fullName>
+    <description>Stores references that are retrieved from StarTrack consignment search API</description>
+    <label>Further References</label>
+    <length>1024</length>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>LongTextArea</type>
+    <visibleLines>3</visibleLines>
 </CustomField>

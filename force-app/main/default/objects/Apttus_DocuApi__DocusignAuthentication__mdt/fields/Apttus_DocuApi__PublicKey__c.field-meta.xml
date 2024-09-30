@@ -3,7 +3,6 @@
     <fullName>Apttus_DocuApi__PublicKey__c</fullName>
     <deprecated>false</deprecated>
     <description>This field for DocuSign Public Key.</description>
-    <externalId>false</externalId>
     <fieldManageability>SubscriberControlled</fieldManageability>
     <inlineHelpText>To generate the Public Key, you can log into DocuSign as an admin and go to Settings &gt; Apps and keys &gt; Add app and integration key &gt; Generate RSA key.</inlineHelpText>
     <label>Public Key</label>

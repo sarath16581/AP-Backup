@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Indicates whether the quote/proposal was accepted by an auto system operation</description>
-    <externalId>false</externalId>
     <inlineHelpText>Indicates whether the quote/proposal was accepted by an auto system operation</inlineHelpText>
     <label>Is Auto Accepted</label>
     <securityClassification>INTERNAL</securityClassification>

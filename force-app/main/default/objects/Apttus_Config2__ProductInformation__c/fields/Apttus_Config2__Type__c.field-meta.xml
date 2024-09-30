@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__Type__c</fullName>
     <deprecated>false</deprecated>
     <description>Identifies the type of product collateral</description>
-    <externalId>false</externalId>
     <inlineHelpText>Identifies the type of product collateral</inlineHelpText>
     <label>Type</label>
     <required>false</required>

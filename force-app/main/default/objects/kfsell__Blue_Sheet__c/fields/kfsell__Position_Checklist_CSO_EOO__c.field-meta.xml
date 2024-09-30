@@ -3,7 +3,6 @@
     <fullName>kfsell__Position_Checklist_CSO_EOO__c</fullName>
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
-    <externalId>false</externalId>
     <label>Position Checklist CSO EOO</label>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>

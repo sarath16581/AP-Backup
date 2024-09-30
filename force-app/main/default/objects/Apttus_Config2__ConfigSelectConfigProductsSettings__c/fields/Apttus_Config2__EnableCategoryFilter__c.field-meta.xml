@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Enable Narrow Your Search category filtering during product search.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Enable Narrow Your Search category filtering during product search.</inlineHelpText>
     <label>Enable Category Filter</label>
     <trackTrending>false</trackTrending>

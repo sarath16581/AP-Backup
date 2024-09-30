@@ -3,7 +3,6 @@
     <fullName>Apttus_Base2__ProviderId__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <deprecated>false</deprecated>
-    <externalId>false</externalId>
     <label>Action Provider</label>
     <lookupFilter>
         <active>false</active>

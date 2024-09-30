@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__Answer__c</fullName>
     <deprecated>false</deprecated>
     <description>Answer help documentation</description>
-    <externalId>false</externalId>
     <inlineHelpText>Answer help documentation</inlineHelpText>
     <label>Answer</label>
     <length>32768</length>

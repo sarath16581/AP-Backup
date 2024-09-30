@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__AdjustmentDate__c</fullName>
     <deprecated>false</deprecated>
     <description>The adjustment date</description>
-    <externalId>false</externalId>
     <inlineHelpText>The adjustment date</inlineHelpText>
     <label>Adjustment Date</label>
     <required>false</required>

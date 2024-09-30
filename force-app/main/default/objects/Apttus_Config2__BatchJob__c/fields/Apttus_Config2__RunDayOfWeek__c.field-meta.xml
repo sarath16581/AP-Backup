@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__RunDayOfWeek__c</fullName>
     <deprecated>false</deprecated>
     <description>The run day of week. Specific Day of Week when recurring weekly jobs should run.</description>
-    <externalId>false</externalId>
     <inlineHelpText>The run day of week. Specific Day of Week when recurring weekly jobs should run.</inlineHelpText>
     <label>Run Day Of Week</label>
     <required>false</required>

@@ -3,7 +3,6 @@
     <fullName>Apttus_Approval__Type__c</fullName>
     <deprecated>false</deprecated>
     <description>The type of formula field</description>
-    <externalId>false</externalId>
     <inlineHelpText>The type of formula field</inlineHelpText>
     <label>Type</label>
     <required>false</required>

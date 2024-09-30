@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Hidden_DoB__c</fullName>
     <description>A hidden field, updated by Lead Conversion field mapping - uses Workflow Field Update to update the Contact Birthdate Standard Field</description>
-    <externalId>false</externalId>
     <label>{Hidden} DoB</label>
     <required>false</required>
     <securityClassification>OFFICIAL_SENSITIVE_PERSONAL</securityClassification>

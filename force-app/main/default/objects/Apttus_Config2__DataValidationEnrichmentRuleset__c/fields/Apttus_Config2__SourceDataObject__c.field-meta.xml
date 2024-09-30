@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__SourceDataObject__c</fullName>
     <deprecated>false</deprecated>
     <description>Data object using which target data will be validated or enriched</description>
-    <externalId>false</externalId>
     <inlineHelpText>Data object using which target data will be validated or enriched</inlineHelpText>
     <label>Source Data Object</label>
     <required>false</required>

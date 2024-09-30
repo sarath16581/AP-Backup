@@ -3,7 +3,6 @@
     <fullName>Next_Question__c</fullName>
     <deleteConstraint>Restrict</deleteConstraint>
     <description>Response can be defined with a “Next Question”, to determine the next question if the given response is selected.</description>
-    <externalId>false</externalId>
     <inlineHelpText>The next question that is selected here will be presented to the user based on this response.</inlineHelpText>
     <label>Next Question</label>
     <referenceTo>Qualification_Template_Questions__c</referenceTo>

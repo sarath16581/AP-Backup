@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__RelatedEndDate__c</fullName>
     <deprecated>false</deprecated>
     <description>The end date associated with the related product/service</description>
-    <externalId>false</externalId>
     <inlineHelpText>The end date associated with the related product/service</inlineHelpText>
     <label>Related End Date</label>
     <required>false</required>

@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>DateOfTheExchangeRate__c</fullName>
     <description>The date which the value of the Exchange Rate field was retrieved</description>
-    <externalId>false</externalId>
     <inlineHelpText>The date which the value of the Exchange Rate field was retrieved</inlineHelpText>
     <label>Date of the Exchange Rate</label>
     <required>false</required>

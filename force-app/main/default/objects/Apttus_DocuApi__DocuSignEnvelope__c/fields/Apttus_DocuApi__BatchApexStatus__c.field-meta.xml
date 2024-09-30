@@ -3,7 +3,6 @@
     <fullName>Apttus_DocuApi__BatchApexStatus__c</fullName>
     <deprecated>false</deprecated>
     <description>This field to track Batch Apex currently running or not, it is only during first step of Envelope creation.</description>
-    <externalId>false</externalId>
     <inlineHelpText>This field to track Batch Apex currently running or not, it is only during first step of Envelope creation.</inlineHelpText>
     <label>Batch Apex Status</label>
     <required>false</required>

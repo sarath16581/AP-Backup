@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Indicates whether net adjustment percent should be calculated before rounding the net price</description>
-    <externalId>false</externalId>
     <inlineHelpText>Indicates whether net adjustment percent should be calculated before rounding the net price</inlineHelpText>
     <label>Calc Net Adj Percent Before Rounding</label>
     <trackTrending>false</trackTrending>

@@ -3,7 +3,6 @@
     <fullName>Help_Text_Int_D_PCMS_B_Inc_A__c</fullName>
     <defaultValue>&quot;International digital bundles are available for digital lodgement only. International Airmail Letters component of this bundle must be lodged over the counter using BML/eLMS. Have you investigated if your customer is lodging letters? Are they using the non digital bundle? If not, consider removing this from their contract.  If Domestic customer = No, Revenue commitment cannot be less than $3000 to qualify for an International Contract.&quot;</defaultValue>
     <description>created for International Digital PCMS Bundle Inc Airmail letters</description>
-    <externalId>false</externalId>
     <label>Help Text</label>
     <length>32768</length>
     <securityClassification>INTERNAL</securityClassification>

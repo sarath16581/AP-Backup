@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__ConfigType__c</fullName>
     <deprecated>false</deprecated>
     <description>To set whether the configuration should be inline or new page</description>
-    <externalId>false</externalId>
     <label>Config Type</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>

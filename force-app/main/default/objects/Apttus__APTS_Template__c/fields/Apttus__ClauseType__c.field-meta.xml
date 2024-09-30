@@ -3,7 +3,6 @@
     <fullName>Apttus__ClauseType__c</fullName>
     <deprecated>false</deprecated>
     <description>Type of clause</description>
-    <externalId>false</externalId>
     <inlineHelpText>Type of clause</inlineHelpText>
     <label>Clause Type</label>
     <required>false</required>

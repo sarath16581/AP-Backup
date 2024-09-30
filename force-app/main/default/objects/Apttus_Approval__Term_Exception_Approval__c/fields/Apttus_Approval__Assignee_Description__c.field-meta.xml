@@ -3,7 +3,6 @@
     <fullName>Apttus_Approval__Assignee_Description__c</fullName>
     <deprecated>false</deprecated>
     <description>The assignee description</description>
-    <externalId>false</externalId>
     <label>Assignee Description</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>

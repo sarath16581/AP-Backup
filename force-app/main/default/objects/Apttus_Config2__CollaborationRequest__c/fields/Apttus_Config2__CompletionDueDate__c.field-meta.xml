@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__CompletionDueDate__c</fullName>
     <deprecated>false</deprecated>
     <description>The date by which the child configuration should be completed and submitted for merging.</description>
-    <externalId>false</externalId>
     <inlineHelpText>The date by which the child configuration should be completed and submitted for merging.</inlineHelpText>
     <label>Completion Due Date</label>
     <required>false</required>

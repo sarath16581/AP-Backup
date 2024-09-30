@@ -3,7 +3,6 @@
     <fullName>BillingAccount__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <description>Billing account associated with this Role</description>
-    <externalId>false</externalId>
     <inlineHelpText>Billing account associated with this Role</inlineHelpText>
     <label>Billing Account</label>
     <referenceTo>Billing_Account__c</referenceTo>

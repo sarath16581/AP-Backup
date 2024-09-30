@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__AdjustmentAppliesTo__c</fullName>
     <deprecated>false</deprecated>
     <description>Indicates the price field the adjustment should be applied to. Not applicable to price override adjustments. This field is deprecated. The Adjustment applies to is moved to the Price Rule.</description>
-    <externalId>false</externalId>
     <label>Adjustment Applies To (Deprecated)</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>

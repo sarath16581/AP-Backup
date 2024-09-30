@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__AnnualRecurringBillingsRamped__c</fullName>
     <deprecated>false</deprecated>
     <description>The total of  all recurring billings from the end of the contract and back for 12 months</description>
-    <externalId>false</externalId>
     <inlineHelpText>The total of  all recurring billings from the end of the contract and back for 12 months</inlineHelpText>
     <label>Annual Recurring Billings (Ramped)</label>
     <precision>18</precision>

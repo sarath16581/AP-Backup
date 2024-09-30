@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__CollaborationType__c</fullName>
     <deprecated>false</deprecated>
     <description>Specifies what type of collaboration this request is created for.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Specifies what type of collaboration this request is created for.</inlineHelpText>
     <label>Collaboration Type</label>
     <required>false</required>

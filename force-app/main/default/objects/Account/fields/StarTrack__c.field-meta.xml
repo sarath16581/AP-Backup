@@ -3,7 +3,6 @@
     <fullName>StarTrack__c</fullName>
     <defaultValue>false</defaultValue>
     <description>a joint StarTrack customers</description>
-    <externalId>false</externalId>
     <inlineHelpText>A joint StarTrack customers</inlineHelpText>
     <label>StarTrack Customer</label>
     <securityClassification>INTERNAL</securityClassification>

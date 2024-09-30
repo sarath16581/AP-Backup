@@ -5,7 +5,6 @@
     <description>Lodgement Zone for the PSR. Defaults to Capital;Metro;Country
 This field has been deprecated based on the changes in APPC release 4.2
 Field is still being retained to accomodate any future reinstatement by business.</description>
-    <externalId>false</externalId>
     <label>Approved lodgement zone(Deprecated)</label>
     <required>false</required>
     <trackFeedHistory>false</trackFeedHistory>

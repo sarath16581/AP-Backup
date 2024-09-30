@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Merchant_Portal_T_C_Last_Accepted__c</fullName>
     <description>Terms and Conditions for the Merchant portal accepted time and date</description>
-    <externalId>false</externalId>
     <label>Merchant Portal T &amp; C Last Accepted</label>
     <required>false</required>
     <trackFeedHistory>false</trackFeedHistory>

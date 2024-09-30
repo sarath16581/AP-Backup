@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__LongDescription__c</fullName>
     <deprecated>false</deprecated>
     <description>Long description can store rich text for enhanced display of description</description>
-    <externalId>false</externalId>
     <label>Long Description</label>
     <length>32768</length>
     <securityClassification>INTERNAL</securityClassification>

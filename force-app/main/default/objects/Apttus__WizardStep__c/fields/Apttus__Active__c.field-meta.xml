@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Signifies that the Step within a Wizard Design is Active. Setting Wizard Design as Active automatically activates the included steps.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Signifies that the Step within a Wizard Design is Active. Setting Wizard Design as Active automatically activates the included steps.</inlineHelpText>
     <label>Active</label>
     <securityClassification>INTERNAL</securityClassification>

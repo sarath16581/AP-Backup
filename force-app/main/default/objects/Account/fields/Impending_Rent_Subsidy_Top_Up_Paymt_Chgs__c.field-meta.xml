@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Impending_Rent_Subsidy_Top_Up_Paymt_Chgs__c</fullName>
     <description>Impending changes to rent subsidy or top-up payment for the outlet</description>
-    <externalId>false</externalId>
     <inlineHelpText>Impending changes to rent subsidy or top-up payment for the outlet</inlineHelpText>
     <label>Impending Rent Subsidy/Top Up Paymt Chgs</label>
     <length>1200</length>

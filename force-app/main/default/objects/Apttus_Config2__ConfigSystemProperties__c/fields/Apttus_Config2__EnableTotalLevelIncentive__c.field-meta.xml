@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Indicates whether total level incentives are enabled</description>
-    <externalId>false</externalId>
     <inlineHelpText>Indicates whether total level incentives are enabled</inlineHelpText>
     <label>Enable Total Level Incentive</label>
     <trackTrending>false</trackTrending>

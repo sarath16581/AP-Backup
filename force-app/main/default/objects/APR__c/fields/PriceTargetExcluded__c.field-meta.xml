@@ -3,7 +3,6 @@
     <fullName>PriceTargetExcluded__c</fullName>
     <defaultValue>false</defaultValue>
     <description>Price Target Excluded</description>
-    <externalId>false</externalId>
     <inlineHelpText>Price Target Excluded</inlineHelpText>
     <label>Price Target Excluded</label>
     <securityClassification>OFFICIAL_SENSITIVE</securityClassification>

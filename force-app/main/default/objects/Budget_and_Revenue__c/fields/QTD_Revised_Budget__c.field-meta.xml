@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>QTD_Revised_Budget__c</fullName>
     <description>Previous name was &quot;Current QTR Target&quot; (MW0003520)</description>
-    <externalId>false</externalId>
     <formula>Case(MONTH(TODAY()),1,  Q3_Original_Budget__c  ,2,Q3_Original_Budget__c,3, Q3_Original_Budget__c,4, Q4_Original_Budget__c,5, Q4_Original_Budget__c,6, Q4_Original_Budget__c,7, Q1_Original_Budget__c, 8, Q1_Original_Budget__c, 9, Q1_Original_Budget__c, 10, Q2_Original_Budget__c, 11, Q2_Original_Budget__c, 12, Q2_Original_Budget__c, 0)</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <label>Current QTR Planned Revenue</label>

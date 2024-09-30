@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>SearchforSTConsignmentsOnly__c</fullName>
     <defaultValue>true</defaultValue>
-    <externalId>false</externalId>
     <label>Search for ST Consignments Only</label>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>

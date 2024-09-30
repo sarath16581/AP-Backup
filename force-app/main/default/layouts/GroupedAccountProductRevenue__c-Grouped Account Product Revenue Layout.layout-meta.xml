@@ -71,10 +71,6 @@
                 <field>Rev12__c</field>
             </layoutItems>
             <layoutItems>
-                <behavior>Readonly</behavior>
-                <field>UniqueId__c</field>
-            </layoutItems>
-            <layoutItems>
                 <behavior>Required</behavior>
                 <field>UID__c</field>
             </layoutItems>

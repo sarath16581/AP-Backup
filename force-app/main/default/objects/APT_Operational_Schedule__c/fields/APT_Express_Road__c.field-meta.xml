@@ -3,7 +3,6 @@
     <fullName>APT_Express_Road__c</fullName>
     <defaultValue>false</defaultValue>
     <description>Checked if the product is Startrack express road</description>
-    <externalId>false</externalId>
     <label>Road Express</label>
     <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>

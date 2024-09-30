@@ -5,7 +5,6 @@
     <description>Type of context, whether its All or Object. 
 All means that any input can be used in the step design. 
 Object means that only aligned (same object) inputs can be used in the step design.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Type of context, whether its All or Object. 
 All means that any input can be used in the step design. 
 Object means that only aligned (same object) inputs can be used in the step design.</inlineHelpText>

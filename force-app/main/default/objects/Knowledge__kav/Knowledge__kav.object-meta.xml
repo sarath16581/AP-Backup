@@ -25,6 +25,22 @@
     <externalSharingModel>Private</externalSharingModel>
     <label>Knowledge</label>
     <pluralLabel>Knowledge</pluralLabel>
-    <searchLayouts></searchLayouts>
+    <profileSearchLayouts>
+        <fields>TITLE</fields>
+        <fields>ABSTRACT</fields>
+        <fields>ARTICLE_NUMBER</fields>
+        <fields>LAST_PUBLISHED_DATE</fields>
+        <fields>PUBLISH_STATUS</fields>
+        <fields>RECORDTYPE</fields>
+        <profileName>System Administrator</profileName>
+    </profileSearchLayouts>
+    <searchLayouts>
+        <searchResultsAdditionalFields>TITLE</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>RECORDTYPE</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>ABSTRACT</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>ARTICLE_NUMBER</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>LAST_PUBLISHED_DATE</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>PUBLISH_STATUS</searchResultsAdditionalFields>
+    </searchLayouts>
     <sharingModel>Private</sharingModel>
 </CustomObject>

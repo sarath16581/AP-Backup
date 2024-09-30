@@ -3,7 +3,6 @@
     <fullName>Apttus_CMConfig__ConfigurationSyncDate__c</fullName>
     <deprecated>false</deprecated>
     <description>Date when the configuration was synchronized for the agreement</description>
-    <externalId>false</externalId>
     <inlineHelpText>Date when the configuration was synchronized for the contract</inlineHelpText>
     <label>Configuration Sync Date</label>
     <required>false</required>

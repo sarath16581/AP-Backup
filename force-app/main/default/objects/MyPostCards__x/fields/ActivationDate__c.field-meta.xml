@@ -3,7 +3,6 @@
     <fullName>ActivationDate__c</fullName>
     <description>ActivationDate</description>
     <externalDeveloperName>ActivationDate</externalDeveloperName>
-    <externalId>false</externalId>
     <isFilteringDisabled>false</isFilteringDisabled>
     <isNameField>false</isNameField>
     <isSortingDisabled>false</isSortingDisabled>

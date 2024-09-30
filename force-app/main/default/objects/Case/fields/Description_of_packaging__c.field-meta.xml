@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Description_of_packaging__c</fullName>
     <description>StarTrack field used to capture Description of Goods (Packaging)</description>
-    <externalId>false</externalId>
     <inlineHelpText>Enter packaging description for each item in question i.e. Material, size, weight, colour</inlineHelpText>
     <label>Description Of Packaging</label>
     <length>32768</length>

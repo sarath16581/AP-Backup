@@ -4,7 +4,6 @@
     <defaultValue>true</defaultValue>
     <deprecated>false</deprecated>
     <description>Indicates whether the weightage is calculated by the system. System calculated weightage may be overridden by the user.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Indicates whether the weightage is calculated by the system. System calculated weightage may be overridden by the user.</inlineHelpText>
     <label>Is System Calculated</label>
     <trackTrending>false</trackTrending>

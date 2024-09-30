@@ -3,7 +3,6 @@
     <fullName>Recalculate_Revenue__c</fullName>
     <defaultValue>false</defaultValue>
     <description>If ticked, will force a recalculation of annual revenue at risk, even if product selection has not changed.</description>
-    <externalId>false</externalId>
     <inlineHelpText>If ticked, will force a recalculation of annual revenue at risk, even if product selection has not changed.</inlineHelpText>
     <label>Recalculate Revenue</label>
     <trackFeedHistory>false</trackFeedHistory>

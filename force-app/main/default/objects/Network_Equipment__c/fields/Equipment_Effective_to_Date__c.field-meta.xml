@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Equipment_Effective_to_Date__c</fullName>
     <description>PartnerInfo - This is the date the equipment was effective to.</description>
-    <externalId>false</externalId>
     <inlineHelpText>This is the date the equipment was effective to.</inlineHelpText>
     <label>Equipment Effective to Date</label>
     <required>false</required>

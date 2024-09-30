@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__PODate__c</fullName>
     <deprecated>false</deprecated>
     <description>The purchase order date</description>
-    <externalId>false</externalId>
     <inlineHelpText>The purchase order date</inlineHelpText>
     <label>PO Date</label>
     <required>false</required>

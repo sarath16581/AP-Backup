@@ -3,7 +3,6 @@
     <fullName>Apttus_DealMgr__ProductScope__c</fullName>
     <deprecated>false</deprecated>
     <description>One or more products associated with the rule</description>
-    <externalId>false</externalId>
     <inlineHelpText>One or more products associated with the rule</inlineHelpText>
     <label>Product Scope</label>
     <required>false</required>

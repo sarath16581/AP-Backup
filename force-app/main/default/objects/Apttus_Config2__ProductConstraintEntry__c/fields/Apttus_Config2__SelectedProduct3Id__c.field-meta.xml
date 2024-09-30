@@ -4,7 +4,6 @@
     <deleteConstraint>SetNull</deleteConstraint>
     <deprecated>false</deprecated>
     <description>ID of the selected product or option</description>
-    <externalId>false</externalId>
     <label>Selected Product 3</label>
     <referenceTo>Product2</referenceTo>
     <relationshipLabel>Product Constraint Entries (Selected Product 3)</relationshipLabel>

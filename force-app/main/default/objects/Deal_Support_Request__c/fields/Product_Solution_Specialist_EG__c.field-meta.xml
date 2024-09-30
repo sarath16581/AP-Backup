@@ -3,7 +3,6 @@
     <fullName>Product_Solution_Specialist_EG__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <description>This field is used on the E&amp;G Sales Implementation Request to capture Product/Solution Specialist</description>
-    <externalId>false</externalId>
     <label>Product/Solution Specialist</label>
     <referenceTo>User</referenceTo>
     <relationshipName>Deal_Support_RequestZUOn</relationshipName>

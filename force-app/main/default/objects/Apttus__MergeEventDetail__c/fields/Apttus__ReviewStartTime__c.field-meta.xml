@@ -3,7 +3,6 @@
     <fullName>Apttus__ReviewStartTime__c</fullName>
     <deprecated>false</deprecated>
     <description>The review start time</description>
-    <externalId>false</externalId>
     <inlineHelpText>The review start time</inlineHelpText>
     <label>Review Start Time</label>
     <required>false</required>

@@ -3,7 +3,6 @@
     <fullName>Customer__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <description>Customer related to the pickup booking job</description>
-    <externalId>false</externalId>
     <label>Customer</label>
     <referenceTo>Account</referenceTo>
     <relationshipLabel>Pickup Booking Jobs</relationshipLabel>

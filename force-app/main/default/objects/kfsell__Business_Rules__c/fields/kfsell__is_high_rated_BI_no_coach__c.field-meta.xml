@@ -3,7 +3,6 @@
     <fullName>kfsell__is_high_rated_BI_no_coach__c</fullName>
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
-    <externalId>false</externalId>
     <label>is high rated BI no coach</label>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>

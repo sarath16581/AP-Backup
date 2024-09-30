@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__AdjustmentType__c</fullName>
     <deprecated>false</deprecated>
     <description>The price adjustment type</description>
-    <externalId>false</externalId>
     <inlineHelpText>The price adjustment type</inlineHelpText>
     <label>Adjustment Type</label>
     <required>false</required>

@@ -3,7 +3,6 @@
     <fullName>Additional_Insurance_Special_Condition__c</fullName>
     <defaultValue>false</defaultValue>
     <description>Is Licensee required to maintain additional insurance?</description>
-    <externalId>false</externalId>
     <inlineHelpText>Is Licensee required to maintain additional insurance?</inlineHelpText>
     <label>Additional Insurance Special Condition</label>
     <securityClassification>INTERNAL</securityClassification>

@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__RelatedChargeType__c</fullName>
     <deprecated>false</deprecated>
     <description>The charge type associated with the related product/service</description>
-    <externalId>false</externalId>
     <inlineHelpText>The charge type associated with the related product/service</inlineHelpText>
     <label>Related Charge Type</label>
     <required>false</required>

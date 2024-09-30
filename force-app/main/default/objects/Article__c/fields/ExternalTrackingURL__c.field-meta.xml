@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>ExternalTrackingURL__c</fullName>
     <description>Store the international - Last Mile Provider tracking URL</description>
-    <externalId>false</externalId>
     <inlineHelpText>Last Mile Provider tracking URL</inlineHelpText>
     <label>External Tracking URL</label>
     <length>1000</length>

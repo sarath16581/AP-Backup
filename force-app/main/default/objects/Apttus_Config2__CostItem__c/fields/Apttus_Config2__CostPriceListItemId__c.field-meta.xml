@@ -4,7 +4,6 @@
     <deleteConstraint>SetNull</deleteConstraint>
     <deprecated>false</deprecated>
     <description>Id of the Price List Item of type Cost which won&apos;t have lookup to Product and will have a self-lookup to the related Price List Item for the given product</description>
-    <externalId>false</externalId>
     <inlineHelpText>Id of the Price List Item of type Cost which won&apos;t have lookup to Product and will have a self-lookup to the related Price List Item for the given product</inlineHelpText>
     <label>Cost Price List Item</label>
     <referenceTo>Apttus_Config2__PriceListItem__c</referenceTo>

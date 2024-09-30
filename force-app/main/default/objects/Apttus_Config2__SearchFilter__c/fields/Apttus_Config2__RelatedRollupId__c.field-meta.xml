@@ -4,7 +4,6 @@
     <deleteConstraint>SetNull</deleteConstraint>
     <deprecated>false</deprecated>
     <description>ID of the associated rollup. Only valid for child filters based on rollup data.</description>
-    <externalId>false</externalId>
     <inlineHelpText>ID of the associated rollup. Only valid for child filters based on rollup data.</inlineHelpText>
     <label>Related Rollup</label>
     <lookupFilter>

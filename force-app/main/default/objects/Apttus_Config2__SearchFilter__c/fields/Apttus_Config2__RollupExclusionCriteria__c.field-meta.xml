@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__RollupExclusionCriteria__c</fullName>
     <deprecated>false</deprecated>
     <description>The rollup exclusion filter criteria specification</description>
-    <externalId>false</externalId>
     <inlineHelpText>The rollup exclusion filter criteria specification</inlineHelpText>
     <label>Rollup Exclusion Criteria</label>
     <length>16000</length>

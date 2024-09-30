@@ -3,7 +3,6 @@
     <fullName>Controlled_Return__c</fullName>
     <defaultValue>false</defaultValue>
     <description>StarTrack: Capture controlled return inforamtion</description>
-    <externalId>false</externalId>
     <label>Controlled Return</label>
     <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>

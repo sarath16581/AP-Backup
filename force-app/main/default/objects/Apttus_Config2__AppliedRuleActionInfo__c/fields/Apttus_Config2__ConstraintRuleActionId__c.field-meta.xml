@@ -4,7 +4,6 @@
     <deleteConstraint>SetNull</deleteConstraint>
     <deprecated>false</deprecated>
     <description>References the constraint rule action</description>
-    <externalId>false</externalId>
     <label>Constraint Rule Action</label>
     <referenceTo>Apttus_Config2__ConstraintRuleAction__c</referenceTo>
     <relationshipLabel>Applied Rule Action Infos</relationshipLabel>

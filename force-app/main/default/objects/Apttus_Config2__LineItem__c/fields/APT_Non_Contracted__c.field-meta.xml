@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>APT_Non_Contracted__c</fullName>
-    <externalId>false</externalId>
     <formula>AND(Not( Apttus_Config2__ProductId__r.Non_contracted__c ) 
 , Not(ISPICKVAL(Apttus_Config2__AttributeValueId__r.APT_Volume_Thresholds__c , &apos;0 - 99K&apos;)) 
 , Not( Apttus_Config2__AttributeValueId__r.APT_Non_Contracted_Rates_Printpost__c ) 

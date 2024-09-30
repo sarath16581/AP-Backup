@@ -3,7 +3,6 @@
     <fullName>Lead_Seeker__c</fullName>
     <defaultValue>false</defaultValue>
     <description>Field to identify leads created using the Lead Seeker initiative</description>
-    <externalId>false</externalId>
     <inlineHelpText>Tick this checkbox if the lead was created as part of the Lead Seeker Initiative</inlineHelpText>
     <label>Lead Seeker</label>
     <securityClassification>INTERNAL</securityClassification>

@@ -4,7 +4,6 @@
     <businessStatus>Active</businessStatus>
     <defaultValue>false</defaultValue>
     <description>Used on MyNetwork community to add network response for ST cases.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Please tick this checkbox if more information is required from customer service.</inlineHelpText>
     <label>Require More Information</label>
     <securityClassification>INTERNAL</securityClassification>

@@ -3,7 +3,6 @@
     <fullName>NPSAgent__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <description>The agent that triggered the NPS</description>
-    <externalId>false</externalId>
     <label>NPS Agent</label>
     <referenceTo>User</referenceTo>
     <relationshipName>NPS_Cases</relationshipName>

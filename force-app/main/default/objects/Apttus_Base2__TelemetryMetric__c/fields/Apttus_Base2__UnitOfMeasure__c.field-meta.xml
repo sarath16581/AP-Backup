@@ -3,7 +3,6 @@
     <fullName>Apttus_Base2__UnitOfMeasure__c</fullName>
     <deprecated>false</deprecated>
     <description>Unit of measure for this metric.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Unit of measure for this metric.</inlineHelpText>
     <label>Unit of Measure</label>
     <required>false</required>

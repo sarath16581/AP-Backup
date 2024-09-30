@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__ProductScope__c</fullName>
     <deprecated>false</deprecated>
     <description>One or more products associated with the matrix</description>
-    <externalId>false</externalId>
     <inlineHelpText>One or more products associated with the matrix</inlineHelpText>
     <label>Product Scope</label>
     <required>false</required>

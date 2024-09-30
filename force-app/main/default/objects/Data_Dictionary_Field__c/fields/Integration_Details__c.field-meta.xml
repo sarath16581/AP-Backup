@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Integration_Details__c</fullName>
-    <externalId>false</externalId>
     <inlineHelpText>Details as to whether or not the field is populated or used by other systems outside of Salesforce.</inlineHelpText>
     <label>Integration Details</label>
     <length>1000</length>

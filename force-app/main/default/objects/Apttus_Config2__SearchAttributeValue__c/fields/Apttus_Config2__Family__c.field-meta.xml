@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__Family__c</fullName>
     <deprecated>false</deprecated>
     <description>Search field to search by product family</description>
-    <externalId>false</externalId>
     <label>Product Family</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>

@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__BillingInterval__c</fullName>
     <deprecated>false</deprecated>
     <description>The billing interval</description>
-    <externalId>false</externalId>
     <inlineHelpText>The billing interval</inlineHelpText>
     <label>Billing Interval</label>
     <required>false</required>

@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>UserLastSurveyDate__c</fullName>
     <description>This field capture the last Survey Date that was sent to the user (Requestor)</description>
-    <externalId>false</externalId>
     <inlineHelpText>This field capture the last Survey Date that was sent to the user (Requestor)</inlineHelpText>
     <label>User Last Survey Date</label>
     <required>false</required>

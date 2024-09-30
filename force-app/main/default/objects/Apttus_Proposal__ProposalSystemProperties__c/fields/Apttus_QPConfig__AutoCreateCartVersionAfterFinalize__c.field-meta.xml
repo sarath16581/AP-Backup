@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Indicates whether a new version of the cart is auto created after it is finalized</description>
-    <externalId>false</externalId>
     <inlineHelpText>Indicates whether a new version of the cart is auto created after it is finalized</inlineHelpText>
     <label>Auto Create Cart Version After Finalize</label>
     <trackTrending>false</trackTrending>

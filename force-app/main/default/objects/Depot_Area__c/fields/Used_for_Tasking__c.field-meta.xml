@@ -3,7 +3,6 @@
     <fullName>Used_for_Tasking__c</fullName>
     <defaultValue>false</defaultValue>
     <description>StarTrack: Capture &quot;Used for Tasking&quot; Information to decide if this Area should be available to populate on tasks.</description>
-    <externalId>false</externalId>
     <label>Used for Tasking</label>
     <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>

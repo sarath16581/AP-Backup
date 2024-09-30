@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>APMS_Application__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
-    <externalId>false</externalId>
     <label>APMS Application</label>
     <referenceTo>Application__c</referenceTo>
     <relationshipLabel>Apttus Contracts</relationshipLabel>

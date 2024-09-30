@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Opportunity__c</fullName>
     <description>Phase 2 - This field is the relationship between the Opportunity and the Revenue Schedule</description>
-    <externalId>false</externalId>
     <inlineHelpText>Related Opportunity</inlineHelpText>
     <label>Opportunity</label>
     <referenceTo>Opportunity</referenceTo>

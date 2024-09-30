@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>APT_TotalOPLineItemPrice__c</fullName>
-    <externalId>false</externalId>
     <label>APT Total Opportunity Line Item Price</label>
     <securityClassification>OFFICIAL_SENSITIVE</securityClassification>
     <summarizedField>APT_Opportunity_Product_Line_Item__c.APT_TotalPrice__c</summarizedField>

@@ -3,7 +3,6 @@
     <fullName>StartDate__c</fullName>
     <description>StartDate</description>
     <externalDeveloperName>StartDate</externalDeveloperName>
-    <externalId>false</externalId>
     <isFilteringDisabled>false</isFilteringDisabled>
     <isNameField>false</isNameField>
     <isSortingDisabled>false</isSortingDisabled>

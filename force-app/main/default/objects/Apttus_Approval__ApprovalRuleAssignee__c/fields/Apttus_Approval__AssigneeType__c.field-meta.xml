@@ -3,7 +3,6 @@
     <fullName>Apttus_Approval__AssigneeType__c</fullName>
     <deprecated>false</deprecated>
     <description>The assignee type</description>
-    <externalId>false</externalId>
     <label>Assignee Type</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>

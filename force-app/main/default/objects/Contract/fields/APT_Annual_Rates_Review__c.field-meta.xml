@@ -3,7 +3,6 @@
     <fullName>APT_Annual_Rates_Review__c</fullName>
     <defaultValue>false</defaultValue>
     <description>This is to indicate if the contract needs to follow annual rates renew and volume incentive mechanism</description>
-    <externalId>false</externalId>
     <inlineHelpText>This is to indicate if the contract needs to follow annual rates renew and volume incentive mechanism</inlineHelpText>
     <label>Annual Rates Review</label>
     <securityClassification>INTERNAL</securityClassification>

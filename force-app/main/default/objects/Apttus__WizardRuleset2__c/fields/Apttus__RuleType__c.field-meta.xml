@@ -3,7 +3,6 @@
     <fullName>Apttus__RuleType__c</fullName>
     <deprecated>false</deprecated>
     <description>Rule types that can be used for navigating the runtime wizard flow, determining the focus object and record type.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Rule types that can be used for navigating the runtime wizard flow, determining the focus object and record type.</inlineHelpText>
     <label>Rule Type</label>
     <required>false</required>

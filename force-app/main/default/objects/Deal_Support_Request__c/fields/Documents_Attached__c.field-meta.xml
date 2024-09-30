@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Documents_Attached__c</fullName>
-    <externalId>false</externalId>
     <inlineHelpText>Attach a copy of the proposed or any previous contract and any other relevant documents in the Notes &amp; Attachments section.</inlineHelpText>
     <label>Contract/Documents Attached</label>
     <required>false</required>

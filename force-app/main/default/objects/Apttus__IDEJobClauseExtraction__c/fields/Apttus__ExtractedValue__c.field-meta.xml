@@ -3,7 +3,6 @@
     <fullName>Apttus__ExtractedValue__c</fullName>
     <deprecated>false</deprecated>
     <description>Extracted value for the field</description>
-    <externalId>false</externalId>
     <inlineHelpText>Extracted value for the field</inlineHelpText>
     <label>Extracted Value</label>
     <length>32768</length>

@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>APT_Applicant1_Suspect_Lookup__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
-    <externalId>false</externalId>
     <label>Applicant 1 Suspect</label>
     <referenceTo>CreditSuspect__c</referenceTo>
     <relationshipLabel>Credit Assessments</relationshipLabel>

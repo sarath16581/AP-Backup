@@ -4,7 +4,6 @@
     <deleteConstraint>SetNull</deleteConstraint>
     <deprecated>false</deprecated>
     <description>Select a Billing Plan Template to auto fill Billing Plan settings.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Select a Billing Plan Template to auto fill Billing Plan settings.</inlineHelpText>
     <label>Billing Plan Template</label>
     <referenceTo>Apttus_Config2__BillingPlanTemplate__c</referenceTo>

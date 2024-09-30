@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Total_Actual_Revenue__c</fullName>
-    <externalId>false</externalId>
     <formula>Apr_Actual_Amount__c  +   Dec_Actual_Amount__c  +  Feb_Actual_Amount__c  +  Jan_Actual_Amount__c   + Jul_Actual_Amount__c  +  Jun_Actual_Amount__c  +  Mar_Actual_Amount__c +  May_Actual_Amount__c +  Nov_Actual_Amount__c  +  Oct_Actual_Amount__c  +  Sep_Actual_Amount__c  + Aug_Actual_Amount__c</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <label>Total Revenue Amount</label>

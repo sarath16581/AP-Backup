@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Storage_of_Mail_Fee__c</fullName>
     <description>Partner Addendum &apos;Storage of Mail Fee&apos; Sub Type Description</description>
-    <externalId>false</externalId>
     <label>Storage of Mail Fee</label>
     <required>false</required>
     <trackTrending>false</trackTrending>

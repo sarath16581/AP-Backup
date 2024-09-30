@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__ActionInputSpec__c</fullName>
     <deprecated>false</deprecated>
     <description>The action input specification</description>
-    <externalId>false</externalId>
     <inlineHelpText>The action input specification</inlineHelpText>
     <label>Action Input Spec</label>
     <length>2000</length>

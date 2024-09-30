@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__ExpirationDate__c</fullName>
     <deprecated>false</deprecated>
     <description>The rule expiration date. The rule becomes ineffective after this date and time.</description>
-    <externalId>false</externalId>
     <inlineHelpText>The rule expiration date. The rule becomes ineffective after this date and time.</inlineHelpText>
     <label>Expiration Date</label>
     <required>false</required>

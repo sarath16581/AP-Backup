@@ -3,7 +3,6 @@
     <fullName>ConvertedToDefect__c</fullName>
     <defaultValue>false</defaultValue>
     <description>Checkbox field to indicate if exception is converted to defect.</description>
-    <externalId>false</externalId>
     <label>Converted To Defect</label>
     <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>

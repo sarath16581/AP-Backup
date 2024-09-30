@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Indicates whether the step was auto completed</description>
-    <externalId>false</externalId>
     <label>Auto Complete</label>
     <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>

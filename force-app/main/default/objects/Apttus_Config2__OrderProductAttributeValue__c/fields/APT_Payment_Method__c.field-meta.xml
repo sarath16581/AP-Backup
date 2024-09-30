@@ -3,7 +3,6 @@
     <fullName>APT_Payment_Method__c</fullName>
     <description>means payment methods offered by Australia Post to Customers from time to time,
 		including  credit card, charge card, cash, cheque, EFTPOS and scheme debit cards.</description>
-    <externalId>false</externalId>
     <inlineHelpText>means payment methods offered by Australia Post to Customers from time to time,
 		including  credit card, charge card, cash, cheque, EFTPOS and scheme debit cards.</inlineHelpText>
     <label>Payment Method</label>

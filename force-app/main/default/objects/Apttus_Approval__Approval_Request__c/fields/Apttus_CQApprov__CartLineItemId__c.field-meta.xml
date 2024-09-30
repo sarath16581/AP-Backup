@@ -4,7 +4,6 @@
     <deleteConstraint>SetNull</deleteConstraint>
     <deprecated>false</deprecated>
     <description>ID of the associated cart line item</description>
-    <externalId>false</externalId>
     <label>Related Cart Line Item</label>
     <referenceTo>Apttus_Config2__LineItem__c</referenceTo>
     <relationshipLabel>Approval Requests</relationshipLabel>

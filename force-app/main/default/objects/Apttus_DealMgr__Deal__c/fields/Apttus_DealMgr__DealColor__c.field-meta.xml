@@ -3,7 +3,6 @@
     <fullName>Apttus_DealMgr__DealColor__c</fullName>
     <deprecated>false</deprecated>
     <description>The deal color</description>
-    <externalId>false</externalId>
     <label>Deal Color</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>

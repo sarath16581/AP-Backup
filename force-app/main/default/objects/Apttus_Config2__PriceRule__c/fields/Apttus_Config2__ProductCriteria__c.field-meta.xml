@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__ProductCriteria__c</fullName>
     <deprecated>false</deprecated>
     <description>One or more product inclusion/exclusion criteria</description>
-    <externalId>false</externalId>
     <inlineHelpText>One or more product inclusion/exclusion criteria</inlineHelpText>
     <label>Product Criteria</label>
     <required>false</required>

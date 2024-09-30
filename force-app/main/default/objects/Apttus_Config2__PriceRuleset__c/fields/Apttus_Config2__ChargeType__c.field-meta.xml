@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__ChargeType__c</fullName>
     <deprecated>false</deprecated>
     <description>The charge type associated with the rule set</description>
-    <externalId>false</externalId>
     <label>Charge Type</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>

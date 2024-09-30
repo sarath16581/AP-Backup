@@ -3,7 +3,6 @@
     <fullName>Coverage_Sales_Representative__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <description>Who is the Account Manager for this customer?</description>
-    <externalId>false</externalId>
     <label>Coverage Sales Representative</label>
     <referenceTo>User</referenceTo>
     <relationshipName>Implementation_Projects</relationshipName>

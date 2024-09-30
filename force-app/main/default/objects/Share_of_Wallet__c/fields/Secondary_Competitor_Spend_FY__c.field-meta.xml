@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Secondary_Competitor_Spend_FY__c</fullName>
-    <externalId>false</externalId>
     <inlineHelpText>What is the total amount the customer spends on this service with the secondary competitor per financial year?</inlineHelpText>
     <label>Secondary Competitor Spend (FY)</label>
     <precision>18</precision>

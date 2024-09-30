@@ -3,7 +3,6 @@
     <fullName>Proposed_Credit__c</fullName>
     <defaultValue>0</defaultValue>
     <description>The proposed credit to the customer. Populated by the individual investigating the claim</description>
-    <externalId>false</externalId>
     <label>Credit Amount</label>
     <precision>18</precision>
     <required>false</required>

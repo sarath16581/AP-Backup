@@ -3,7 +3,6 @@
     <fullName>Contact__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <description>The recipient who receives the email through Share Information</description>
-    <externalId>false</externalId>
     <label>Contact</label>
     <referenceTo>Contact</referenceTo>
     <relationshipLabel>ShareInfo Activities</relationshipLabel>

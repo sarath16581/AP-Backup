@@ -6,6 +6,23 @@
     <name>AP Case creation</name>
     <style>none</style>
     <subject>We&apos;re monitoring your case {!Case.CaseNumber}</subject>
+    <textOnly>Australia Post
+
+Case {!Case.CaseNumber}
+
+Hi {!IF(ISBLANK(Contact.Preferred_Name__c),Contact.FirstName,Contact.Preferred_Name__c)},
+
+Thank you for reaching out. Your reference for your enquiry is {!Case.CaseNumber}.
+
+We’ll be actively monitoring your delivery
+
+We understand how important your delivery is to you and we&apos;re sorry it&apos;s running late. While we expect it to arrive safely within 5 business days, please be assured we will keep you updated on the status of your case during that time.
+
+Australia Post
+
+This email was sent by Australia Post. Australia Post does not represent, warrant or 								guarantee that the integrity of this email communication has been maintained nor that 								the communication is free of errors, viruses or interference.
+
+Help &amp; support |  Terms &amp; conditions |  Privacy policy</textOnly>
     <type>custom</type>
     <uiType>Aloha</uiType>
 </EmailTemplate>

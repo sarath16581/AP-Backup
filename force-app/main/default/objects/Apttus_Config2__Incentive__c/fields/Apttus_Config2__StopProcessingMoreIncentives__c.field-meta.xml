@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Indicator to prevent subsequent incentives from processing</description>
-    <externalId>false</externalId>
     <inlineHelpText>Indicator to prevent subsequent incentives from processing</inlineHelpText>
     <label>Stop Processing More Incentives</label>
     <securityClassification>INTERNAL</securityClassification>

@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Product_Desciption__c</fullName>
     <description>Description of the product that the customer is disputing.</description>
-    <externalId>false</externalId>
     <label>Product Description</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>

@@ -4,7 +4,6 @@
     <businessStatus>Active</businessStatus>
     <complianceGroup>GDPR</complianceGroup>
     <description>Used on MyNetwork community to add network response for ST cases.REQ3111278-Renaming label and picklist values for better reporting</description>
-    <externalId>false</externalId>
     <inlineHelpText>Cases flagged will be reviewed by the CCC managers and feedback provided to the relevant team member</inlineHelpText>
     <label>Flag case for review</label>
     <required>false</required>

@@ -3,7 +3,6 @@
     <fullName>Line_Haul__c</fullName>
     <defaultValue>false</defaultValue>
     <description>Indicates that a Trailer is a Line Haul trailer, and not based in a location or territory</description>
-    <externalId>false</externalId>
     <inlineHelpText>Indicates that a Trailer is a Line Haul trailer, and not based in a location or territory</inlineHelpText>
     <label>Line Haul</label>
     <securityClassification>INTERNAL</securityClassification>

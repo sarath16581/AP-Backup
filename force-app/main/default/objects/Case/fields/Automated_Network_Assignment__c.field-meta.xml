@@ -3,7 +3,6 @@
     <fullName>Automated_Network_Assignment__c</fullName>
     <defaultValue>false</defaultValue>
     <description>Determines if a case is eligible for network assignment</description>
-    <externalId>false</externalId>
     <label>Automated Network Assignment</label>
     <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>

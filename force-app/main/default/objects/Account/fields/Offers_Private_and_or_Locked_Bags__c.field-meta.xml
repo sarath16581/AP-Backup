@@ -3,7 +3,6 @@
     <fullName>Offers_Private_and_or_Locked_Bags__c</fullName>
     <defaultValue>false</defaultValue>
     <description>Does this site offer Private or Locked Bags?</description>
-    <externalId>false</externalId>
     <inlineHelpText>Does this site offer Private or Locked Bags?</inlineHelpText>
     <label>Offers Private and/or Locked Bags</label>
     <securityClassification>INTERNAL</securityClassification>

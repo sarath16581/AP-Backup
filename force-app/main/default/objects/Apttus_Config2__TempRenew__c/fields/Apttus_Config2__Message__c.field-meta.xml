@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__Message__c</fullName>
     <deprecated>false</deprecated>
     <description>Error messages stored when validation fails.</description>
-    <externalId>false</externalId>
     <label>Message</label>
     <length>4096</length>
     <securityClassification>INTERNAL</securityClassification>

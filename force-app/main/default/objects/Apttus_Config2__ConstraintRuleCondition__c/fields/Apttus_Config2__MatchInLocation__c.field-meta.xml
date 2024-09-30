@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>When match is location is set to true action will be taken for the given location.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Set this value to true only for location specific rules.</inlineHelpText>
     <label>Match In Location</label>
     <securityClassification>INTERNAL</securityClassification>

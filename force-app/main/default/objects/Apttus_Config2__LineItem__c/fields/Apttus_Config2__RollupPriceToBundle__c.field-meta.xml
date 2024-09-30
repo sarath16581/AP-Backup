@@ -4,7 +4,6 @@
     <defaultValue>true</defaultValue>
     <deprecated>false</deprecated>
     <description>Indicates whether the option price is rolled up to the bundle. Only applicable to Option line types. This field is deprecated. Use the Price Included in Bundle field instead.</description>
-    <externalId>false</externalId>
     <label>Rollup Price To Bundle (Deprecated)</label>
     <securityClassification>OFFICIAL_SENSITIVE</securityClassification>
     <trackTrending>false</trackTrending>

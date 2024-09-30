@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__ContentUrl__c</fullName>
     <deprecated>false</deprecated>
     <description>The information content url</description>
-    <externalId>false</externalId>
     <label>Content Url</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>

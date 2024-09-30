@@ -3,7 +3,6 @@
     <fullName>Apttus__Criteria__c</fullName>
     <deprecated>false</deprecated>
     <description>Criteria for deriving the risk score on the insight</description>
-    <externalId>false</externalId>
     <inlineHelpText>Criteria for deriving the risk score on the insight</inlineHelpText>
     <label>Criteria Summary</label>
     <length>131072</length>

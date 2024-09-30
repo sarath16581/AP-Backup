@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__AccountScope__c</fullName>
     <deprecated>false</deprecated>
     <description>One or more accounts associated with the rule</description>
-    <externalId>false</externalId>
     <inlineHelpText>One or more accounts associated with the rule</inlineHelpText>
     <label>Account Scope</label>
     <required>false</required>

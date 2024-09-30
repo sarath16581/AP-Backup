@@ -3,7 +3,6 @@
     <fullName>Apttus__ComparisonOperator__c</fullName>
     <deprecated>false</deprecated>
     <description>Comparison operator used in the expression condition like equal to, contains, starts with etc</description>
-    <externalId>false</externalId>
     <inlineHelpText>Comparison operator used in the expression condition like equal to, contains, starts with etc</inlineHelpText>
     <label>Comparison Operator</label>
     <required>false</required>

@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Enable Task Creation on Every Best Action Created.</description>
-    <externalId>false</externalId>
     <label>Enable Task Creation</label>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>

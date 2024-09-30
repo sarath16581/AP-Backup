@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Set this flag to true to send emails with the sender specified in the &apos;Email Sender Org Wide Display Name&apos; custom setting.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Set this flag to true to send emails with the sender specified in the &apos;Email Sender Org Wide Display Name&apos; custom setting.</inlineHelpText>
     <label>Email Sender Org Wide Display Name Used</label>
     <trackTrending>false</trackTrending>

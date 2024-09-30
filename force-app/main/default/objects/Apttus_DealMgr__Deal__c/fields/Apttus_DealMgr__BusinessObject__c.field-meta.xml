@@ -3,7 +3,6 @@
     <fullName>Apttus_DealMgr__BusinessObject__c</fullName>
     <deprecated>false</deprecated>
     <description>THE API name of the business object associated with the deal</description>
-    <externalId>false</externalId>
     <inlineHelpText>THE API name of the business object associated with the deal</inlineHelpText>
     <label>Business Object</label>
     <required>false</required>

@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>APT_Print_Post_Collection_Point_Ids__c</fullName>
-    <externalId>false</externalId>
     <label>Print Post Collection Point Ids</label>
     <length>65536</length>
     <securityClassification>INTERNAL</securityClassification>

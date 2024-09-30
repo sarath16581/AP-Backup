@@ -3,7 +3,6 @@
     <fullName>SendEmail__c</fullName>
     <defaultValue>true</defaultValue>
     <description>Setting that determines whether &apos;Send Email to Owner&apos; flag during Lead Conversion will be defaulted to True. ***NOTE: This only applies to Lead Conversion***</description>
-    <externalId>false</externalId>
     <label>SendEmail</label>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>

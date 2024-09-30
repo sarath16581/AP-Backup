@@ -4,7 +4,6 @@
     <deleteConstraint>SetNull</deleteConstraint>
     <deprecated>false</deprecated>
     <description>The source holding the related adjustment amount. If the adjustment source does not hold a value, the value would default to the related adjustment amount.</description>
-    <externalId>false</externalId>
     <inlineHelpText>The source holding the related adjustment amount. If the adjustment source does not hold a value, the value would default to the related adjustment amount.</inlineHelpText>
     <label>Related Adjustment Amount Source</label>
     <lookupFilter>

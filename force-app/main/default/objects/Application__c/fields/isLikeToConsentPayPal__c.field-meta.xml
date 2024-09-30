@@ -3,7 +3,6 @@
     <fullName>isLikeToConsentPayPal__c</fullName>
     <defaultValue>false</defaultValue>
     <description>2014-08 APMS</description>
-    <externalId>false</externalId>
     <inlineHelpText>I give consent for my contact details to be shared with PayPal and to be contacted by PayPal about accepting PayPal payments through a payment gateway service. (I understand this will require a PayPal Business Account).</inlineHelpText>
     <label>Like to Consent and Accept PayPal?</label>
     <trackHistory>false</trackHistory>

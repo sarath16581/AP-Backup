@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Indicates whether VAT is enabled for the legal entity</description>
-    <externalId>false</externalId>
     <inlineHelpText>Indicates whether VAT is enabled for the legal entity</inlineHelpText>
     <label>VAT Enabled ?</label>
     <securityClassification>INTERNAL</securityClassification>

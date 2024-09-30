@@ -3,7 +3,6 @@
     <fullName>Apttus__Status__c</fullName>
     <deprecated>false</deprecated>
     <description>Wizard design status</description>
-    <externalId>false</externalId>
     <inlineHelpText>Wizard design status</inlineHelpText>
     <label>Status</label>
     <required>false</required>

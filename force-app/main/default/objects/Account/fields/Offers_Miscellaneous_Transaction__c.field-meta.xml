@@ -3,7 +3,6 @@
     <fullName>Offers_Miscellaneous_Transaction__c</fullName>
     <defaultValue>false</defaultValue>
     <description>Does this site offer miscellaneous transactions? (various transaction types that are offered at specific times of the year at specific outlets only. E.g. theatre/show tickets, event tickets)</description>
-    <externalId>false</externalId>
     <inlineHelpText>Does this site offer miscellaneous transactions? (various transaction types that are offered at specific times of the year at specific outlets only. E.g. theatre/show tickets, event tickets)</inlineHelpText>
     <label>Offers Miscellaneous Transaction</label>
     <securityClassification>INTERNAL</securityClassification>

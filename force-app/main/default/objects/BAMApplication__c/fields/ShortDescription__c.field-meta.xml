@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>ShortDescription__c</fullName>
     <description>Short Description of the Application that will be exposed in BAM.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Short Description of the Application that will be exposed in BAM.</inlineHelpText>
     <label>Short Description</label>
     <required>false</required>

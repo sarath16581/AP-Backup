@@ -3,7 +3,6 @@
     <fullName>Apttus_Approval__SubmitTime__c</fullName>
     <deprecated>false</deprecated>
     <description>Async action submit time</description>
-    <externalId>false</externalId>
     <inlineHelpText>Async action submit time</inlineHelpText>
     <label>Submit Time</label>
     <required>false</required>

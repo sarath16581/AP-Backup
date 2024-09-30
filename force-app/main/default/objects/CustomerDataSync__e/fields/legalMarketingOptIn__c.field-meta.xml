@@ -3,7 +3,6 @@
     <fullName>legalMarketingOptIn__c</fullName>
     <defaultValue>false</defaultValue>
     <description>Consumer Opt In for Legal Marketing</description>
-    <externalId>false</externalId>
     <isFilteringDisabled>false</isFilteringDisabled>
     <isNameField>false</isNameField>
     <isSortingDisabled>false</isSortingDisabled>

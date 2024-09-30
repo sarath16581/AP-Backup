@@ -3,7 +3,6 @@
     <fullName>Apttus_DocuApi__LastRecipientStatusSyncTime__c</fullName>
     <deprecated>false</deprecated>
     <description>DateTime to keep track of the last Successful Sync of Envelopes Recipient status System use only not to be used on Layout</description>
-    <externalId>false</externalId>
     <inlineHelpText>DateTime to keep track of the last Successful Sync of Envelopes Recipient status System use only not to be used on Layout</inlineHelpText>
     <label>Last Recipient Status Sync Time</label>
     <required>false</required>

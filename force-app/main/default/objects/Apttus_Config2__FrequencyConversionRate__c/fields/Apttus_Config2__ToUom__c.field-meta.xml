@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__ToUom__c</fullName>
     <deprecated>false</deprecated>
     <description>The unit of measure to convert to</description>
-    <externalId>false</externalId>
     <inlineHelpText>The unit of measure to convert to</inlineHelpText>
     <label>To Uom</label>
     <required>false</required>

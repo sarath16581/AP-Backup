@@ -4,7 +4,6 @@
     <defaultValue>&quot;Request for eSignatures. Please review and sign.&quot;</defaultValue>
     <deprecated>false</deprecated>
     <description>No longer used.</description>
-    <externalId>false</externalId>
     <inlineHelpText>This text will be the default text for the email body  of the email being sent for eSignature. You can also modify the email body on the eSignature page before sending for eSignature.</inlineHelpText>
     <label>Email Body (DEPRECATED)</label>
     <required>false</required>

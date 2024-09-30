@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>DeliveryDate__c</fullName>
     <description>The date that the item/s were delivered</description>
-    <externalId>false</externalId>
     <inlineHelpText>The date that the item/s were delivered</inlineHelpText>
     <label>Delivery Date</label>
     <required>false</required>

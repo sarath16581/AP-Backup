@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Impending_Retail_Activity_Changes__c</fullName>
     <description>Impending changes to retail activities that may affect the outlet e.g.. opening/closing of a nearby outlet</description>
-    <externalId>false</externalId>
     <inlineHelpText>Impending changes to retail activities that may affect the outlet e.g.. opening/closing of a nearby outlet</inlineHelpText>
     <label>Impending Retail Activity Changes</label>
     <length>1200</length>

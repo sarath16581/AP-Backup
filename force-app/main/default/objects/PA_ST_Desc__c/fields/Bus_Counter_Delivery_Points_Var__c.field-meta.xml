@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Bus_Counter_Delivery_Points_Var__c</fullName>
     <description>Partner Addendum &apos;Business Counter Delivery Points Variation&apos; Sub Type Description</description>
-    <externalId>false</externalId>
     <label>Bus Counter Delivery Points Var</label>
     <required>false</required>
     <trackTrending>false</trackTrending>

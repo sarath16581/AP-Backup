@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>StarTrack_ConSearch_Cert_Endpoint__c</fullName>
     <description>URL for Consignment Search using 2 Way SSL</description>
-    <externalId>false</externalId>
     <inlineHelpText>URL for Consignment Search using 2 Way SSL</inlineHelpText>
     <label>StarTrack ConSearch Cert Endpoint</label>
     <required>false</required>

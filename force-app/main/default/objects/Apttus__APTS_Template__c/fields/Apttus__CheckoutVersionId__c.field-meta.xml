@@ -4,7 +4,6 @@
     <deleteConstraint>SetNull</deleteConstraint>
     <deprecated>false</deprecated>
     <description>Version id that the user checked out for edit</description>
-    <externalId>false</externalId>
     <inlineHelpText>Version id that the user checked out for edit</inlineHelpText>
     <label>Checkout Version</label>
     <referenceTo>Apttus__TemplateVersion__c</referenceTo>

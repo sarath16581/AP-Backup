@@ -3,7 +3,6 @@
     <fullName>Apttus__NumberOfClauses__c</fullName>
     <deprecated>false</deprecated>
     <description>Indicates the number of clauses associated with the template</description>
-    <externalId>false</externalId>
     <inlineHelpText>Indicates the number of clauses associated with the template</inlineHelpText>
     <label>Number Of Clauses</label>
     <securityClassification>INTERNAL</securityClassification>

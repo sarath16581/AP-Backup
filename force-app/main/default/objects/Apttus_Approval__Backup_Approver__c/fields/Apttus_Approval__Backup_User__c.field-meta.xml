@@ -4,7 +4,6 @@
     <deleteConstraint>SetNull</deleteConstraint>
     <deprecated>false</deprecated>
     <description>The backup/delegate user for the current user.</description>
-    <externalId>false</externalId>
     <label>Backup/Delegate User</label>
     <referenceTo>User</referenceTo>
     <relationshipName>R00N700000028l1cEAA</relationshipName>

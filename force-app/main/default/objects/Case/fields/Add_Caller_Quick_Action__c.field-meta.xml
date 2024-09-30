@@ -3,7 +3,6 @@
     <fullName>Add_Caller_Quick_Action__c</fullName>
     <defaultValue>false</defaultValue>
     <description>StarTrack hidden from user field used in the &quot;Add Caller&quot; quick action (Used to differentiate between &quot;add caller&quot; during case creation vs add caller in quick action side panel)</description>
-    <externalId>false</externalId>
     <label>Add Caller Quick Action</label>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>

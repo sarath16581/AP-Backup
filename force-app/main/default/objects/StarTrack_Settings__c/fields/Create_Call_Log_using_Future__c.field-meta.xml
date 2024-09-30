@@ -3,7 +3,6 @@
     <fullName>Create_Call_Log_using_Future__c</fullName>
     <defaultValue>false</defaultValue>
     <description>Determine if call log record will be created via @future annotation or not.</description>
-    <externalId>false</externalId>
     <label>Create Call Log using Future</label>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>

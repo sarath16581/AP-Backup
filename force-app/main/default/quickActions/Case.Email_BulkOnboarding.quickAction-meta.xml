@@ -2,16 +2,16 @@
 <QuickAction xmlns="http://soap.sforce.com/2006/04/metadata">
     <description>This is for the bulk mail onboarding case management team to send outbound email</description>
     <fieldOverrides>
+        <field>BccAddress</field>
+        <formula>&quot;&quot;</formula>
+    </fieldOverrides>
+    <fieldOverrides>
         <field>FromAddress</field>
         <formula>Case.EmailToCaseAddress__c</formula>
     </fieldOverrides>
     <fieldOverrides>
         <field>ToAddress</field>
         <formula>Case.SuppliedEmail</formula>
-    </fieldOverrides>
-    <fieldOverrides>
-        <field>BccAddress</field>
-        <formula>&quot;&quot;</formula>
     </fieldOverrides>
     <label>Email</label>
     <optionsCreateFeedItem>true</optionsCreateFeedItem>

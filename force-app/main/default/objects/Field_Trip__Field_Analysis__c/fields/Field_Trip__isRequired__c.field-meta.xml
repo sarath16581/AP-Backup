@@ -3,7 +3,6 @@
     <fullName>Field_Trip__isRequired__c</fullName>
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
-    <externalId>false</externalId>
     <label>Required</label>
     <securityClassification>INTERNAL</securityClassification>
     <trackHistory>true</trackHistory>

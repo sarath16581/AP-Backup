@@ -3,7 +3,6 @@
     <fullName>grax__LastUpdateAsyncBackedUpRecords__c</fullName>
     <deprecated>false</deprecated>
     <description>The last date, and, time, when &quot;GRAXBatchToUpdateAsyncBackedUpRecords&quot; APEX Class&apos; process, succesfully ran, identifying Async Objects records that were correctly backed-up, in GRAX.</description>
-    <externalId>false</externalId>
     <label>LastUpdateAsyncBackedUpRecords</label>
     <required>false</required>
     <trackTrending>false</trackTrending>

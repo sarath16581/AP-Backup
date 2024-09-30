@@ -4,7 +4,6 @@
     <deleteConstraint>SetNull</deleteConstraint>
     <deprecated>false</deprecated>
     <description>ID of the original asset line item associated with an upgrade or replacement order</description>
-    <externalId>false</externalId>
     <inlineHelpText>ID of the original asset line item associated with an upgrade or replacement order</inlineHelpText>
     <label>Original Asset Line Item</label>
     <referenceTo>Apttus_Config2__AssetLineItem__c</referenceTo>

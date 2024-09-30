@@ -3,7 +3,6 @@
     <fullName>UseContinuationforAPConsignSearch__c</fullName>
     <defaultValue>false</defaultValue>
     <description>Determine if AP Consignment Search should use asynchronous callout or synchronous callout.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Determine if AP Consignment Search should use asynchronous callout or synchronous callout.</inlineHelpText>
     <label>Use Continuation for AP Consign Search</label>
     <trackTrending>false</trackTrending>

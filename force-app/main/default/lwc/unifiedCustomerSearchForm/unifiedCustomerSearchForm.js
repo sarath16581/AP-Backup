@@ -32,12 +32,13 @@ export const PHONE_INPUT_REGEX = '^[\\d ]+$'; // TODO: leverage existing utility
 export const ABN_ACN_INPUT_REGEX = '^(\\d{9}|\\d{11})$';
 
 // Error messages
-export const INVALID_NAME_MSG = 'Invalid Name format';
-export const INVALID_PHONE_NUMBER_MSG = 'Invalid Phone format';
-export const INVALID_EMAIL_ADDRESS_MSG = 'Incorrect Email format';
-export const INVALID_ABN_ACN_MSG = 'Invalid ABN/ACN format';
+export const INVALID_NAME_MSG = 'Incorrect Name Format';
+export const INVALID_PHONE_NUMBER_MSG = 'Incorrect Phone Format';
+export const INVALID_EMAIL_ADDRESS_MSG = 'Incorrect Email Format';
+export const INVALID_ABN_ACN_MSG = 'Incorrect ABN/ACN format';
 export const MORE_INFO_REQUIRED_ERROR_MESSAGE = 'More information needed to search';
 export const GENERIC_SEARCH_ERROR_MSG = 'Oops! That didn\'t work. Your criteria may be too broad. Please try again or consider refining your search criteria';
+export const INVALID_FORM_ERROR = 'Please Fix Errors and Try Again';
 
 // Element selectors
 export const INPUT_ELEMENT_SELECTORS = [
@@ -355,7 +356,7 @@ export default class UnifiedCustomerSearchForm extends LightningElement {
 		// Validate inputs before invoking the search method
 		if (!this.validateInputs()) {
 			if (this.errorMessage === undefined) {
-				this.errorMessage = GENERIC_SEARCH_ERROR_MSG;
+				this.errorMessage = INVALID_FORM_ERROR;
 			}
 			return;
 		}

@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Migration_Name__c</fullName>
     <description>Profile of the lodgement migration Customer</description>
-    <externalId>false</externalId>
     <inlineHelpText>Customer specific - only to be used when a customer demands a part-migration</inlineHelpText>
     <label>Migration Segment</label>
     <required>false</required>

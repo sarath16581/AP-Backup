@@ -3,7 +3,6 @@
     <fullName>Apttus__Subtype__c</fullName>
     <deprecated>false</deprecated>
     <description>This is a subtype of the recordtype.</description>
-    <externalId>false</externalId>
     <inlineHelpText>This is a subtype of the recordtype.</inlineHelpText>
     <label>Subtype</label>
     <required>false</required>

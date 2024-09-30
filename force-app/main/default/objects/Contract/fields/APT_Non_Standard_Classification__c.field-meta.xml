@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>APT_Non_Standard_Classification__c</fullName>
     <description>Created for Ariba mapping purposes. Reused for future records with Sellers input</description>
-    <externalId>false</externalId>
     <inlineHelpText>Ariba classification.</inlineHelpText>
     <label>Customised Classification</label>
     <required>false</required>

@@ -3,7 +3,6 @@
     <fullName>mh_Managers_Notes_Exist__c</fullName>
     <defaultValue>false</defaultValue>
     <description>SAM Integration FOP Gold Sheet</description>
-    <externalId>false</externalId>
     <label>Managers Notes Exist</label>
     <securityClassification>OFFICIAL_SENSITIVE</securityClassification>
     <trackTrending>false</trackTrending>

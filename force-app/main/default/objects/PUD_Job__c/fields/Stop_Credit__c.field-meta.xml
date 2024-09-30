@@ -3,7 +3,6 @@
     <fullName>Stop_Credit__c</fullName>
     <defaultValue>false</defaultValue>
     <description>This field indicates the jobs are marked with stop credit</description>
-    <externalId>false</externalId>
     <label>Stop Credit</label>
     <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>

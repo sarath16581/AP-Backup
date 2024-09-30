@@ -3,7 +3,6 @@
     <fullName>Apttus__ReviewCycle__c</fullName>
     <deprecated>false</deprecated>
     <description>Review Cycle Id</description>
-    <externalId>false</externalId>
     <inlineHelpText>Review Cycle Id</inlineHelpText>
     <label>Review Cycle</label>
     <referenceTo>Apttus__ReviewCycle__c</referenceTo>

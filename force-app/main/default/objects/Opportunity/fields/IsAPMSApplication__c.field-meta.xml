@@ -3,7 +3,6 @@
     <fullName>IsAPMSApplication__c</fullName>
     <defaultValue>false</defaultValue>
     <description>2014-04 This field determines whether this opportunity relate to APMS Application.</description>
-    <externalId>false</externalId>
     <label>APMS Application?</label>
     <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>

@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Impacted_Areas__c</fullName>
     <description>Identify the key geographical areas that are impacted by the Business AT Risk/Lost Business.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Identify the key geographical areas that are impacted by the Business AT Risk/Lost Business.</inlineHelpText>
     <label>Impacted Areas</label>
     <required>false</required>

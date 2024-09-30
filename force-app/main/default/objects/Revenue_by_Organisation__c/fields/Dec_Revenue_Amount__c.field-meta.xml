@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Dec_Revenue_Amount__c</fullName>
     <description>Revenue Amount for Month of December</description>
-    <externalId>false</externalId>
     <label>Dec Revenue Amount</label>
     <precision>18</precision>
     <required>false</required>

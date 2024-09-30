@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Date_ACN_Changed__c</fullName>
-    <externalId>false</externalId>
     <inlineHelpText>Date ACN is changed.</inlineHelpText>
     <label>Date ACN Changed</label>
     <required>false</required>

@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Completed_Timestamp__c</fullName>
     <description>The Date/Time when the job has been successfully completed by the driver in dispatch system.</description>
-    <externalId>false</externalId>
     <inlineHelpText>The Date/Time when the job has been successfully completed by the driver in dispatch system.</inlineHelpText>
     <label>Driver Completed Timestamp</label>
     <required>false</required>

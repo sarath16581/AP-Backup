@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Indicates whether the constraint rule will be evaluated within a bundle context.</description>
-    <externalId>false</externalId>
     <inlineHelpText>When checked all of the rule conditions will be evaluated within a bundle context.</inlineHelpText>
     <label>Is Bundle Context</label>
     <securityClassification>INTERNAL</securityClassification>

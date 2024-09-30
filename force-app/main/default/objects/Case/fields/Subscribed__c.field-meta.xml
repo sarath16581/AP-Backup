@@ -7,7 +7,6 @@
 At the conclusion of a case update, this field should be set back to False.
 
 Do not use this field for reporting.</description>
-    <externalId>false</externalId>
     <label>Subscribed</label>
     <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>

@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__DisplayType__c</fullName>
     <deprecated>false</deprecated>
     <description>Display type of the field in application setting</description>
-    <externalId>false</externalId>
     <inlineHelpText>Display type of the field in application setting</inlineHelpText>
     <label>Display Type</label>
     <required>false</required>

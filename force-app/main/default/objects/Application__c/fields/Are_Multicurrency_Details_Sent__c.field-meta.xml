@@ -3,7 +3,6 @@
     <fullName>Are_Multicurrency_Details_Sent__c</fullName>
     <defaultValue>false</defaultValue>
     <description>This is a new field to accommodate email functionality for Multi currency feature  in Secure Pay Project.</description>
-    <externalId>false</externalId>
     <label>Are Multicurrency Details Sent?</label>
     <securityClassification>OFFICIAL_SENSITIVE</securityClassification>
     <trackHistory>true</trackHistory>

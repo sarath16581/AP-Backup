@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>ResponseText__c</fullName>
     <description>response from external shystems</description>
-    <externalId>false</externalId>
     <label>ResponseText</label>
     <length>32768</length>
     <securityClassification>INTERNAL</securityClassification>

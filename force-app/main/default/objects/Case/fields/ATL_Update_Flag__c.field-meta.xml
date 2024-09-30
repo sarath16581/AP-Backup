@@ -3,7 +3,6 @@
     <fullName>ATL_Update_Flag__c</fullName>
     <defaultValue>false</defaultValue>
     <description>StarTrack ATL Update Flag field will determine if the ATL Publisher Action button was hit.</description>
-    <externalId>false</externalId>
     <label>LDC Approved or Rejected?</label>
     <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>

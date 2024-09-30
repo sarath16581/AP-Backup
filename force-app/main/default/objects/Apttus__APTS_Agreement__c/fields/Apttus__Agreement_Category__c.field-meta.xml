@@ -3,7 +3,6 @@
     <fullName>Apttus__Agreement_Category__c</fullName>
     <deprecated>false</deprecated>
     <description>Used to categorize agreement types.  When setting up a new agreement type make sure to seect approrpiate values for that agreement type and to set the right default</description>
-    <externalId>false</externalId>
     <inlineHelpText>Standard - no changes to Contract
 Customised - 3rd Party paper, or requested changes in Terms and Conditions</inlineHelpText>
     <label>Agreement Category</label>

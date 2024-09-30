@@ -3,7 +3,6 @@
     <fullName>Facility_Floor_Plan__c</fullName>
     <defaultValue>false</defaultValue>
     <description>Is Floor Plan included in the contract?</description>
-    <externalId>false</externalId>
     <inlineHelpText>Is Floor Plan included in the contract?</inlineHelpText>
     <label>Facility Floor Plan</label>
     <securityClassification>INTERNAL</securityClassification>

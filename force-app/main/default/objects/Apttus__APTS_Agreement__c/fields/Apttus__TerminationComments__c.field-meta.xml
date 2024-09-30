@@ -3,7 +3,6 @@
     <fullName>Apttus__TerminationComments__c</fullName>
     <deprecated>false</deprecated>
     <description>Termination Comments</description>
-    <externalId>false</externalId>
     <label>Termination Comments</label>
     <length>1024</length>
     <securityClassification>INTERNAL</securityClassification>

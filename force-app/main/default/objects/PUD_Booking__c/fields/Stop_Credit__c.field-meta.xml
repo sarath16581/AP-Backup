@@ -3,7 +3,6 @@
     <fullName>Stop_Credit__c</fullName>
     <defaultValue>false</defaultValue>
     <description>This field indicates the Booking is marked towards Stop Credit</description>
-    <externalId>false</externalId>
     <label>Stop Credit</label>
     <trackFeedHistory>false</trackFeedHistory>
     <trackTrending>false</trackTrending>

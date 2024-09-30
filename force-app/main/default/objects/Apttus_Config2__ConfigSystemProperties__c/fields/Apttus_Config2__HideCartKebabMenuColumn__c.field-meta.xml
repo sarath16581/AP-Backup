@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Settings help to Show or Hide the Additional Actions Column on the Cart Page.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Settings help to Show or Hide the Additional Actions Column on the Cart Page.</inlineHelpText>
     <label>Hide Cart Kebab Menu Column</label>
     <trackTrending>false</trackTrending>

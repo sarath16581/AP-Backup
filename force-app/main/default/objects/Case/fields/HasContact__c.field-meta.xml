@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>HasContact__c</fullName>
-    <externalId>false</externalId>
     <formula>IF(NOT(ISBLANK(ContactId)),true,false)</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <label>Has Contact</label>

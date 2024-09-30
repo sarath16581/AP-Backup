@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>EmailMobilesupplied__c</fullName>
     <description>Outbound consignments with both email &amp; mobile provided</description>
-    <externalId>false</externalId>
     <inlineHelpText>Outbound consignments with both email &amp; mobile provided</inlineHelpText>
     <label>Email &amp; Mobile supplied %</label>
     <precision>3</precision>

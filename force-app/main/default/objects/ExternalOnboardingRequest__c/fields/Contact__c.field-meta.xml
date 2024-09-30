@@ -3,7 +3,6 @@
     <fullName>Contact__c</fullName>
     <deleteConstraint>Restrict</deleteConstraint>
     <description>Related contact for the Parcel Send Onboarding process</description>
-    <externalId>false</externalId>
     <label>Contact</label>
     <referenceTo>Contact</referenceTo>
     <relationshipName>ExternalOnboardingRequests</relationshipName>

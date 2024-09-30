@@ -4,7 +4,6 @@
     <description>Phase 1 - Opportunity Assessment (PWC) 
 
 Identify major costs likely to be incurred during stages 4 and 5 of the Sales Process to pursue this opportunity</description>
-    <externalId>false</externalId>
     <inlineHelpText>What costs will we incur pursuing this opportunity?</inlineHelpText>
     <label>Opportunity Costs</label>
     <precision>18</precision>

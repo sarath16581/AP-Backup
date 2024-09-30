@@ -4,7 +4,6 @@
     <deleteConstraint>SetNull</deleteConstraint>
     <deprecated>false</deprecated>
     <description>Lookup to Wizard Step this ruleset belongs to</description>
-    <externalId>false</externalId>
     <inlineHelpText>Lookup to Wizard Step this ruleset belongs to</inlineHelpText>
     <label>Wizard Step</label>
     <referenceTo>Apttus__WizardStep__c</referenceTo>

@@ -3,7 +3,6 @@
     <fullName>PriceListId__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <description>ID of the associated price list</description>
-    <externalId>false</externalId>
     <label>Price List</label>
     <referenceTo>Apttus_Config2__PriceList__c</referenceTo>
     <relationshipLabel>Agreements</relationshipLabel>

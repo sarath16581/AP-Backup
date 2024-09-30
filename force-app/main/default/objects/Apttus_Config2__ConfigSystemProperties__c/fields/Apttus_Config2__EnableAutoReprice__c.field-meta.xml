@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Indicates whether auto reprice is enabled.</description>
-    <externalId>false</externalId>
     <inlineHelpText>A global setting to automatically reprice the cart when a price component is modified.</inlineHelpText>
     <label>Enable Auto Reprice</label>
     <trackTrending>false</trackTrending>

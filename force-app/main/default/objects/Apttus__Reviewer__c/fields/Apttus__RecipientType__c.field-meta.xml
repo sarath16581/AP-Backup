@@ -3,7 +3,6 @@
     <fullName>Apttus__RecipientType__c</fullName>
     <deprecated>false</deprecated>
     <description>Type of Recipient added.</description>
-    <externalId>false</externalId>
     <label>Recipient Type</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>

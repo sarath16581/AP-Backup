@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__RollupType__c</fullName>
     <deprecated>false</deprecated>
     <description>The rollup type</description>
-    <externalId>false</externalId>
     <inlineHelpText>The rollup type</inlineHelpText>
     <label>Rollup Type</label>
     <required>false</required>

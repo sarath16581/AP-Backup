@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>If_no_why__c</fullName>
     <description>Why is the merchant not considering selling on Amazon?</description>
-    <externalId>false</externalId>
     <inlineHelpText>Why is the merchant not considering selling on Amazon?</inlineHelpText>
     <label>If no, why?</label>
     <required>false</required>

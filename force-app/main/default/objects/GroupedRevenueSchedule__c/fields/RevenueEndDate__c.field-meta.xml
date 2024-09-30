@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>RevenueEndDate__c</fullName>
     <description>Revenue end date should be the contract end date, or earlier if that is what is expected. The revenue end date should not be beyond the contract end date.</description>
-    <externalId>false</externalId>
     <formula>OpportunityProduct__r.Contract_End_Date__c</formula>
     <inlineHelpText>Revenue end date should be the contract end date, or earlier if that is what is expected. The revenue end date should not be beyond the contract end date.</inlineHelpText>
     <label>Revenue End Date</label>

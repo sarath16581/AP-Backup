@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__CartDataCache__c</fullName>
     <deprecated>false</deprecated>
     <description>The cart data cache</description>
-    <externalId>false</externalId>
     <inlineHelpText>The cart data cache</inlineHelpText>
     <label>Cart Data Cache</label>
     <length>32768</length>

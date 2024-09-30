@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Redelivery__c</fullName>
     <description>StarTrack Allows redelivery restriction</description>
-    <externalId>false</externalId>
     <label>Allows redelivery?</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>

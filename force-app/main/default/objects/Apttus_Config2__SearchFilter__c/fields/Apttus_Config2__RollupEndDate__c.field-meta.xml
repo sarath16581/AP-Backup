@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__RollupEndDate__c</fullName>
     <deprecated>false</deprecated>
     <description>The rollup end date</description>
-    <externalId>false</externalId>
     <inlineHelpText>The rollup end date</inlineHelpText>
     <label>Rollup End Date</label>
     <required>false</required>

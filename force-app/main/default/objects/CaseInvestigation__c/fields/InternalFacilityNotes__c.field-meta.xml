@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>InternalFacilityNotes__c</fullName>
     <description>Field to capture internal facility notes</description>
-    <externalId>false</externalId>
     <inlineHelpText>Use this as a scribble pad for internal facility notes only and not investigation responses. Notes recorded here are not private. Please make use of the Still Under Investigation checkbox when adding updates to the investigation.</inlineHelpText>
     <label>Poster Notes</label>
     <length>32768</length>

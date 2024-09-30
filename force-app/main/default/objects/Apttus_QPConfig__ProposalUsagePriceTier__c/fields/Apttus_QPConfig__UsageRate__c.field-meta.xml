@@ -3,7 +3,6 @@
     <fullName>Apttus_QPConfig__UsageRate__c</fullName>
     <deprecated>false</deprecated>
     <description>The usage rate for the tier or period</description>
-    <externalId>false</externalId>
     <inlineHelpText>The usage rate for the tier or period</inlineHelpText>
     <label>Usage Rate</label>
     <precision>18</precision>

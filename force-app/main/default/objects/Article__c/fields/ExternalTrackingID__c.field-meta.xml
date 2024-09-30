@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>ExternalTrackingID__c</fullName>
     <description>This is to record the last mile provider tracking ID by SAP EM, this will be populated only for international parcels</description>
-    <externalId>false</externalId>
     <inlineHelpText>Last Mile Provider tracking ID</inlineHelpText>
     <label>External Tracking ID</label>
     <required>false</required>

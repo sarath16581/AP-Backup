@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__ChargeType__c</fullName>
     <deprecated>false</deprecated>
     <description>The charge type associated with the price rule</description>
-    <externalId>false</externalId>
     <inlineHelpText>The charge type associated with the price rule</inlineHelpText>
     <label>Charge Type</label>
     <required>false</required>

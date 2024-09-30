@@ -3,7 +3,6 @@
     <fullName>grax__Records_Successfully_Deleted__c</fullName>
     <deprecated>false</deprecated>
     <description>Field Used for Internal Auditing</description>
-    <externalId>false</externalId>
     <label># Records Successfully Deleted</label>
     <summaryFilterItems>
         <field>grax__GRAX_Data_Record_Id__c.grax__Status__c</field>

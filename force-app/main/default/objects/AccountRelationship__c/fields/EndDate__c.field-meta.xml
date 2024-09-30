@@ -4,7 +4,6 @@
     <businessStatus>Active</businessStatus>
     <complianceGroup>GDPR</complianceGroup>
     <description>The date at which this relationship has expired. The relationship is only considered &quot;Active&quot; between the createdDate and endDate values. If no value is specified, it is assumed that there is no end date.</description>
-    <externalId>false</externalId>
     <inlineHelpText>The date which this relationship expired. Leave blank for ongoing active relationships.</inlineHelpText>
     <label>End Date</label>
     <required>false</required>

@@ -3,7 +3,6 @@
     <fullName>Security_Bars_Grills_on_Windows_Sp_Cond__c</fullName>
     <defaultValue>false</defaultValue>
     <description>Is Licensee required to provide and maintain security bars/grilles on windows?</description>
-    <externalId>false</externalId>
     <inlineHelpText>Is Licensee required to provide and maintain security bars/grilles on windows?</inlineHelpText>
     <label>Security Bars/Grills on Windows Sp Cond</label>
     <securityClassification>INTERNAL</securityClassification>

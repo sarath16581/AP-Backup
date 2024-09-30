@@ -3,7 +3,6 @@
     <fullName>Billing_Account_Name__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <description>Billing Account Name</description>
-    <externalId>false</externalId>
     <inlineHelpText>Populated on the creation of an APR record, this is the account name that the APR value will be applied to.</inlineHelpText>
     <label>Billing Account Name</label>
     <referenceTo>Billing_Account__c</referenceTo>

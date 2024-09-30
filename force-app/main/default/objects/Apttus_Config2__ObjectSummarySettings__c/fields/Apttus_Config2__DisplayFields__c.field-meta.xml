@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__DisplayFields__c</fullName>
     <deprecated>false</deprecated>
     <description>Enter the list of fields from the given object displayed in the summary dialog.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Enter the list of fields from the given object displayed in the summary dialog.</inlineHelpText>
     <label>Display Fields</label>
     <required>false</required>

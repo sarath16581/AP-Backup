@@ -3,7 +3,6 @@
     <fullName>MaritzCX__Pre_pop_Fields__c</fullName>
     <deprecated>false</deprecated>
     <description>Field to store pre-pop data based on invitation settings</description>
-    <externalId>false</externalId>
     <label>Pre-pop Fields</label>
     <length>131072</length>
     <securityClassification>INTERNAL</securityClassification>

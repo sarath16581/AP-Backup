@@ -3,7 +3,6 @@
     <fullName>Apttus__ExtractedJSON__c</fullName>
     <deprecated>false</deprecated>
     <description>The extracted JSON string containing the mapped clause/field information</description>
-    <externalId>false</externalId>
     <inlineHelpText>The extracted JSON string containing the mapped clause/field information</inlineHelpText>
     <label>Extracted JSON</label>
     <length>131072</length>

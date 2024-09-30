@@ -3,7 +3,6 @@
     <fullName>isConsentReadAndAccept__c</fullName>
     <defaultValue>false</defaultValue>
     <description>I have read and accept the ...</description>
-    <externalId>false</externalId>
     <inlineHelpText>I have read and accept the Australia Post</inlineHelpText>
     <label>Consent - Read And Accept</label>
     <securityClassification>INTERNAL</securityClassification>

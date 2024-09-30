@@ -3,7 +3,6 @@
     <fullName>Phone_Number__c</fullName>
     <businessStatus>Active</businessStatus>
     <description>Accounts payable contact number</description>
-    <externalId>false</externalId>
     <inlineHelpText>Accounts payable contact number</inlineHelpText>
     <label>Phone Number</label>
     <required>false</required>

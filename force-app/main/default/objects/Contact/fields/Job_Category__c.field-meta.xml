@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Job_Category__c</fullName>
     <description>Highest level classification of the Contact’s job function. Controls value in Job Sub-Category. Added after Marketing review  to replace Title Group (Aug 2015)</description>
-    <externalId>false</externalId>
     <inlineHelpText>Select a category that is aligned to the contact’s job title.  Note: ONLY select Government &amp; Education when there is not relevant representation across the existing traditional Job Categories (i.e. Sales, etc.)</inlineHelpText>
     <label>Job Category</label>
     <required>false</required>
