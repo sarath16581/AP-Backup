@@ -28,6 +28,8 @@
  * 2024-07-23 - Marcel HK - Added filters for accountId and abn/acn lookup (CSLU-447)
  * 2024-08-08 - Marcel HK - Update Address filters for `selectByCustomerSearchParamsQB` (CSLU-1072)
  * 2024-09-10 - SteveL - added method selectByReversedPhoneNumbers
+ * 2024-09-30 - Parveen Kaushik - Removed Contact.IncentCredential__c from fieldList as this field is going to be decommissioned 
+ *
  */
 public virtual inherited sharing class ContactsSelector extends ApplicationSelector {
 	public enum Options {
@@ -61,7 +63,7 @@ public virtual inherited sharing class ContactsSelector extends ApplicationSelec
 		return new Set<SObjectField> {
 				Contact.Id, Contact.AccountId, Contact.FirstName, Contact.LastName, Contact.OwnerId, Contact.Name, Contact.APCN__c,
 				Contact.Email, Contact.OID_ID__c, Contact.CRMCSSOID__c , Contact.Phone , Contact.Fax, Contact.MobilePhone, Contact.HomePhone, Contact.Salutation, Contact.Title,
-				Contact.VerifiedMobile__c,Contact.Unique_Mobile__c, Contact.BillingAccount__c, Contact.IncentCredential__c
+				Contact.VerifiedMobile__c,Contact.Unique_Mobile__c, Contact.BillingAccount__c
 		};
 	}
 
