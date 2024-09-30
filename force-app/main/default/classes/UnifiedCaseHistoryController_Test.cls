@@ -168,9 +168,10 @@ public with sharing class UnifiedCaseHistoryController_Test {
 		// =====================================
 		// Stubbing
 		// =====================================
+		stubArticlesSelectorSelectById(new Map<Id, Article__c> { article.Id => article });
 		stubCasesSelectorSelectByConsignmentTrackingNumberCaseHistory(casesMap);
 
-		Integer dupCaseCount = UnifiedCaseHistoryController.getCountForDuplicatedCasesRelatedToArticle(article.ArticleID__c);
+		Integer dupCaseCount = UnifiedCaseHistoryController.getCountForDuplicatedCasesRelatedToArticle(article.Id);
 
 		Assert.areEqual(3, dupCaseCount,'Should have 3 results');
 	}

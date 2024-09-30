@@ -64,26 +64,28 @@ public with sharing class UnifiedCaseHistoryController {
 
 	/**
 	 * @description Retrieve count existing cases with specified criteria, used to prevent potential duplicate by blocking new case creation
-	 * @param consignmentTrackingNumber
+	 * @param trackingId tracking Id for article or consignment
 	 *
 	 * @return Integer Count of existing cases
 	 */
 	@AuraEnabled(Cacheable=true)
-	public static Integer getCountForDuplicatedCasesRelatedToArticle(String consignmentTrackingNumber) {
-		return getDuplicatedCasesRelatedToArticle(consignmentTrackingNumber).size();
+	public static Integer getCountForDuplicatedCasesRelatedToArticle(Id trackingId) {
+		return getDuplicatedCasesRelatedToArticle(trackingId).size();
 	}
 
 	/**
 	 * @description Retrieve existing cases with specified criteria, used to prevent potential duplicate by blocking new case creation
-	 * @param consignmentTrackingNumber
+	 * @param trackingId tracking Id for article or consignment
 	 *
 	 * @return List<Case> existing cases
 	 */
-	public static List<Case> getDuplicatedCasesRelatedToArticle(String consignmentTrackingNumber) {
+	public static List<Case> getDuplicatedCasesRelatedToArticle(Id trackingId) {
 		try {
-			if (String.isBlank(consignmentTrackingNumber)) {
+			if (String.isBlank(trackingId)) {
 				return new List<Case>();
 			}
+			// Need to grab the consignment's tracking number first, since it is used to query for related articles
+			String consignmentTrackingNumber = getConsignmentTrackingNumber(trackingId);
 			CasesSelector selector = CasesSelector.newInstance(FIELD_OVERRIDES);
 			Map<Id, Case> casesMap = selector.selectByConsignmentTrackingNumberCaseHistory(new Set<String>{ consignmentTrackingNumber }, SELECTOR_OPTIONS);
 			List<Case> dupCases = new List<Case>();

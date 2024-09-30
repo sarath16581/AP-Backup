@@ -18,7 +18,8 @@
  * 2024-06-18 - Seth Heang - Added EDD data mapping from StarTrack .NET query including SourceSystem and isDotNet Attribute
  * 2024-06-26 - Seth Heang - Added logic to publish LMS events for SAP callout completion and article selected
  * 2024-07-12 - Seth Heang - Added logic to handle the .NET StarTrack API warning from Controller and UI display
- * 2024-09-04 - Raghav Ravipati - updated getCriticalIncidentDetails logic to display errors. 
+ * 2024-09-04 - Raghav Ravipati - updated getCriticalIncidentDetails logic to display errors.
+ * 2024-09-24 - Raghav Ravipati - Added mappingModel varible to pass mapping model that we should use for enquiry case field mappings.
  */
 import { LightningElement, track, wire, api } from "lwc";
 import { getAnalyticsApiResponse, getTrackingApiResponse, getTrackingApiResponseForStarTrack, getCriticalIncidentDetails, getConfig, safeTrim, safeToUpper, subscribe, unsubscribe, downloadPODPDF, CONSTANTS } from 'c/happyParcelService'
@@ -63,6 +64,9 @@ export default class HappyParcelWrapper extends NavigationMixin(LightningElement
 	// if this is true then this allows any search on a single child article ID to also retrieve its parent consignment details and all related child articles (via SAP & StarTrack) if condition is met
 	// and the parent consignment details and all related child article details will be displayed on the UI
 	@api forceConsignmentLevelResults;
+
+	// Used to determine which mapping model we should use for enquiry case field mappings.
+	@api mappingModel;
 
 	// sender/receiver selected store the state of the selected customer boxes when supportsCustomerSelection is true
 	// these are only for consignment search results
@@ -277,7 +281,7 @@ export default class HappyParcelWrapper extends NavigationMixin(LightningElement
 		this.loadingTrackingApi = true;
 
 		// perform the actual callout to the api
-		const result = await getTrackingApiResponse(currentTrackingId, this.forceConsignmentLevelResults);
+		const result = await getTrackingApiResponse(currentTrackingId, this.forceConsignmentLevelResults, this.mappingModel);
 
 		// perform a check to ensure the current article id is the same article id that was passed into the async function
 		// it's possible that while the current search was in progress that another tracking id was passed into the mix
