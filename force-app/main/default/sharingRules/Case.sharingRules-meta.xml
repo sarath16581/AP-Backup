@@ -367,7 +367,7 @@
         <criteriaItems>
             <field>RecordTypeId</field>
             <operation>equals</operation>
-            <value>SSSW Service,SSSW Fax,NCCC Direct Email,SSSW Delivery,SSSW General Enquiry,Social Record Type,Unified General Enquiry,Unified Investigation</value>
+            <value>Unified General Enquiry,SSSW Fax,Unified Investigation,SSSW General Enquiry,SSSW Service,NCCC Direct Email,SSSW Delivery,Social Record Type</value>
         </criteriaItems>
         <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
@@ -627,7 +627,7 @@
         <criteriaItems>
             <field>RecordTypeId</field>
             <operation>equals</operation>
-            <value>Pickup Booking Enquiry,Sales Enquiry,General Enquiry</value>
+            <value>Unified General Enquiry,Sales Enquiry,General Enquiry,Unified Investigation,Pickup Booking Enquiry</value>
         </criteriaItems>
         <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
