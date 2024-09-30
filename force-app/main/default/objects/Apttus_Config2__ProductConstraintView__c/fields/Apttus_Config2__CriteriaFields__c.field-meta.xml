@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__CriteriaFields__c</fullName>
     <deprecated>false</deprecated>
     <description>List of fields used in condition criteria filter</description>
-    <externalId>false</externalId>
     <label>Criteria Fields</label>
     <length>8096</length>
     <securityClassification>INTERNAL</securityClassification>

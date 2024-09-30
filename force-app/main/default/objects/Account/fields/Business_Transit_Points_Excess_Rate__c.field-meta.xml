@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Business_Transit_Points_Excess_Rate__c</fullName>
     <description>The agreed rate per transit point per annum which is paid to a licensee for the delivery of mail for each business transit delivery point in excess of 400 points</description>
-    <externalId>false</externalId>
     <label>Business Transit Points Excess Rate</label>
     <precision>8</precision>
     <required>false</required>

@@ -4,7 +4,6 @@
     <deleteConstraint>SetNull</deleteConstraint>
     <deprecated>false</deprecated>
     <description>ID of the agreement associated with the recipient</description>
-    <externalId>false</externalId>
     <inlineHelpText>ID of the agreement associated with the recipient</inlineHelpText>
     <label>Agreement</label>
     <referenceTo>Apttus__APTS_Agreement__c</referenceTo>

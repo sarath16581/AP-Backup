@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Ruleset added to a step is in Transient state till the Step is saved.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Ruleset added to a step is in Transient state till the Step is saved.</inlineHelpText>
     <label>Transient</label>
     <securityClassification>INTERNAL</securityClassification>

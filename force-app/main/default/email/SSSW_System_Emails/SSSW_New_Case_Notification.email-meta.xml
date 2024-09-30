@@ -16,15 +16,17 @@ Reference number {!Case.CaseNumber}
 Hi {!Contact.FirstName},
 
 
-Thanks for contacting us{!IF(ISNULL(Case.ReferenceID__c), &apos;.&apos;, &apos; regarding &apos; + IF(LEN(Case.ReferenceID__c)&gt;9, &apos;article &apos;, &apos;customer reference &apos;) + Case.ReferenceID__c + &apos;.&apos;)} The reference number for your case is {!Case.CaseNumber}.
+Thanks for your enquiry about item {!IF(ISNULL(Case.ReferenceID__c), &apos;.&apos;, &apos; regarding &apos; + IF(LEN(Case.ReferenceID__c)&gt;9, &apos;article &apos;, &apos;customer reference &apos;) + Case.ReferenceID__c + &apos;.&apos;)} Your Reference number is {!Case.CaseNumber}.
 
-Sometimes enquiries can be resolved before we&apos;ve completed our investigation. If that happens, let us know here:
+Sometimes enquiries can be resolved before we&apos;ve completed our investigation. If that happens, click on the link below to close your case:
 
 CLOSE MY CASE
 
 If receiving a response takes longer than usual, please know we haven’t forgotten about you, it is just taking us a little longer as we are continuing to manage higher than normal enquiry volumes.
 
-We are people just like you, doing our best to assist through these difficult times. We will treat you with kindness and respect and ask that you do the same. All Australia Post employees have the right not to be subjected to any behaviour or abuse that includes threats of physical harm or violence, religious, cultural or racial insults, homophobic, sexist or other derogatory remarks.
+We want to help you as quickly as we can! To help us do that, please try to avoid sending us more than one enquiry about the same issue. We promise we’re on it, we handle every enquiry in the order it comes in. Thanks for your understanding.
+
+We are people just like you,we will treat you with kindness and respect and ask that you do the same. All Australia Post employees have the right not to be subjected to any behaviour or abuse that includes threats of physical harm or violence, religious, cultural or racial insults, homophobic, sexist or other derogatory remarks.
 
 We thank you for your cooperation. We&apos;ll be in touch as soon as we can.
 
@@ -34,6 +36,12 @@ We thank you for your cooperation. We&apos;ll be in touch as soon as we can.
 Kind regards,
 Australia Post
 {!Case.Thread_Id}
+
+You can trust the AusPost App, get legitimate notifications, and easily track and manage your deliveries. Download the AusPost app now and access additional benefits.
+
+Download on the App Store
+
+Get it on Google Play
 
 This email was sent by Australia Post. Australia Post does not represent, warrant or guarantee that the integrity of this email communication has been maintained nor that the communication is free of errors, viruses or interference.
 Help &amp; support  |  Terms &amp; conditions  |  Privacy policy</textOnly>

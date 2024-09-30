@@ -4,7 +4,6 @@
     <deleteConstraint>SetNull</deleteConstraint>
     <deprecated>false</deprecated>
     <description>ID of the sixth guided question.</description>
-    <externalId>false</externalId>
     <label>Guided Question 6</label>
     <referenceTo>Apttus_Config2__GuidedQuestion__c</referenceTo>
     <relationshipName>GuidedSearchRules6</relationshipName>

@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__CurrentActiveTask__c</fullName>
     <deprecated>false</deprecated>
     <description>The current active task for the cart</description>
-    <externalId>false</externalId>
     <inlineHelpText>The current active task for the cart</inlineHelpText>
     <label>Current Active Task</label>
     <required>false</required>

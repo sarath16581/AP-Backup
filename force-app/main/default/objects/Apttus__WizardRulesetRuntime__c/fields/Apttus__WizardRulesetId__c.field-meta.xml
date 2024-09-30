@@ -4,7 +4,6 @@
     <deleteConstraint>SetNull</deleteConstraint>
     <deprecated>false</deprecated>
     <description>Reference/Lookup to wizard ruleset</description>
-    <externalId>false</externalId>
     <inlineHelpText>Reference/Lookup to wizard ruleset</inlineHelpText>
     <label>Wizard Ruleset</label>
     <referenceTo>Apttus__WizardRuleset__c</referenceTo>

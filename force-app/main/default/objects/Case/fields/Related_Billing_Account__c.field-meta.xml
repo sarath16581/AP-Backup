@@ -3,7 +3,6 @@
     <fullName>Related_Billing_Account__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <description>StarTrack: Capture Related Billing Account Information</description>
-    <externalId>false</externalId>
     <label>Related Billing Account</label>
     <lookupFilter>
         <active>false</active>

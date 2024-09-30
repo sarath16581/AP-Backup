@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>ContentAmount__c</fullName>
     <description>Value of Contents of the posted item.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Value of Contents of the posted item.</inlineHelpText>
     <label>Content Amount</label>
     <precision>8</precision>

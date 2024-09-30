@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__NetPrice__c</fullName>
     <deprecated>false</deprecated>
     <description>Net price based on unit price and quantity for the PO line item</description>
-    <externalId>false</externalId>
     <inlineHelpText>Net price based on unit price and quantity for the PO line item</inlineHelpText>
     <label>Net Price</label>
     <precision>18</precision>

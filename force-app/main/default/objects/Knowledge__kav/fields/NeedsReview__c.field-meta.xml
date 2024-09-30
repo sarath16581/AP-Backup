@@ -3,7 +3,6 @@
     <fullName>NeedsReview__c</fullName>
     <defaultValue>true</defaultValue>
     <description>Indicates this article needs to be reviewed</description>
-    <externalId>false</externalId>
     <inlineHelpText>Indicates this article needs to be reviewed</inlineHelpText>
     <label>Needs Review</label>
     <trackHistory>true</trackHistory>

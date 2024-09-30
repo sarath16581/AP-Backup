@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Whether the options group is hidden in the page.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Check this field to hide the option group and its components in the select options pages.</inlineHelpText>
     <label>Is Hidden</label>
     <securityClassification>INTERNAL</securityClassification>

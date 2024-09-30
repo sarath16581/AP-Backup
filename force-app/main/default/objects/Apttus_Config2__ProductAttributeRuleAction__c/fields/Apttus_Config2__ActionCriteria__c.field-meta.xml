@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__ActionCriteria__c</fullName>
     <deprecated>false</deprecated>
     <description>The action criteria specification</description>
-    <externalId>false</externalId>
     <inlineHelpText>The action criteria specification</inlineHelpText>
     <label>Action Criteria</label>
     <length>8192</length>

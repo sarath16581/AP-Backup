@@ -4,7 +4,6 @@
     <deleteConstraint>SetNull</deleteConstraint>
     <deprecated>false</deprecated>
     <description>ID of the adjustment rule</description>
-    <externalId>false</externalId>
     <inlineHelpText>ID of the adjustment rule</inlineHelpText>
     <label>Price Rule</label>
     <referenceTo>Apttus_Config2__PriceRule__c</referenceTo>

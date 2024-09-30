@@ -3,7 +3,6 @@
     <fullName>Apttus__Amendment_Effective_Date__c</fullName>
     <deprecated>false</deprecated>
     <description>The date this amendment is effective</description>
-    <externalId>false</externalId>
     <inlineHelpText>Insert Date only if for Deed Of Variation Template</inlineHelpText>
     <label>Amendment Effective Date</label>
     <required>false</required>

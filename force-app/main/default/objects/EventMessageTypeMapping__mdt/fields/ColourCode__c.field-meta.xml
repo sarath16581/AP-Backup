@@ -3,7 +3,6 @@
     <fullName>ColourCode__c</fullName>
     <defaultValue>&quot;None&quot;</defaultValue>
     <description>Colour code associated with this event.</description>
-    <externalId>false</externalId>
     <fieldManageability>DeveloperControlled</fieldManageability>
     <inlineHelpText>Colour code associated with this event.</inlineHelpText>
     <label>Colour Code</label>

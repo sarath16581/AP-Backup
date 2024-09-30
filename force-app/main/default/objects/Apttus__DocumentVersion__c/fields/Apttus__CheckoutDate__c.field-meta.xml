@@ -3,7 +3,6 @@
     <fullName>Apttus__CheckoutDate__c</fullName>
     <deprecated>false</deprecated>
     <description>Date when this document was checked out</description>
-    <externalId>false</externalId>
     <inlineHelpText>Date when this document was checked out</inlineHelpText>
     <label>Checkout Date</label>
     <required>false</required>

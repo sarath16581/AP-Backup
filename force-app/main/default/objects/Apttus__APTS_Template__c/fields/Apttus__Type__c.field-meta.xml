@@ -3,7 +3,6 @@
     <fullName>Apttus__Type__c</fullName>
     <deprecated>false</deprecated>
     <description>Specifies the contract template type which can be either a template or clause type.</description>
-    <externalId>false</externalId>
     <label>Type</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>

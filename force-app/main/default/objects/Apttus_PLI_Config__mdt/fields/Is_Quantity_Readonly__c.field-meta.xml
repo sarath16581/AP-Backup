@@ -3,7 +3,6 @@
     <fullName>Is_Quantity_Readonly__c</fullName>
     <defaultValue>false</defaultValue>
     <description>To capture the field Apttus_Config2__IsQuantityReadOnly__c on the PLI based on product type</description>
-    <externalId>false</externalId>
     <fieldManageability>DeveloperControlled</fieldManageability>
     <label>Is Quantity Readonly?</label>
     <type>Checkbox</type>

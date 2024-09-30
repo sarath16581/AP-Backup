@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__IsRenewalPending__c</fullName>
     <deprecated>false</deprecated>
     <description>Indicates whether renewal is pending for the asset line item</description>
-    <externalId>false</externalId>
     <formula>Apttus_Config2__NextRenewEndDate__c &gt;= Apttus_Config2__EndDate__c</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <inlineHelpText>Indicates whether renewal is pending for the asset line item</inlineHelpText>

@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>IsChannelManager__c</fullName>
     <description>Field to determine if logged in user is the Channel Manager for Performance report used by reporting team.</description>
-    <externalId>false</externalId>
     <formula>(CreatedBy.Manager.ManagerId = $User.Id)</formula>
     <label>Is Senior Manager</label>
     <securityClassification>INTERNAL</securityClassification>

@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>A_S_ParentId__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
-    <externalId>false</externalId>
     <label>Parent Case ID</label>
     <referenceTo>A_Case__c</referenceTo>
     <relationshipLabel>OLD Archived Cases (A_S_ParentId__c)</relationshipLabel>

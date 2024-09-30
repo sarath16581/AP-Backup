@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>IconUrl__c</fullName>
     <description>The URL of the Icon that is connected to the Role (if any). Static Resource</description>
-    <externalId>false</externalId>
     <inlineHelpText>The URL of the Icon that is connected to the Role (if any). Static Resource</inlineHelpText>
     <label>Icon Url</label>
     <required>false</required>

@@ -3,7 +3,6 @@
     <fullName>Apttus__Type__c</fullName>
     <deprecated>false</deprecated>
     <description>Specifies the query template type</description>
-    <externalId>false</externalId>
     <inlineHelpText>Filter type</inlineHelpText>
     <label>Type</label>
     <required>false</required>

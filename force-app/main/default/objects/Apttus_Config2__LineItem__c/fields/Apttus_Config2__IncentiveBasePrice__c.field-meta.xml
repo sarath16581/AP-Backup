@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__IncentiveBasePrice__c</fullName>
     <deprecated>false</deprecated>
     <description>The incentive base price is Base price + Incentive Adjustments for individual products and options</description>
-    <externalId>false</externalId>
     <inlineHelpText>The incentive base price is Base price + Incentive Adjustments for individual products and options</inlineHelpText>
     <label>Incentive Base Price</label>
     <precision>18</precision>

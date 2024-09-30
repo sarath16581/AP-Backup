@@ -3,7 +3,6 @@
     <fullName>Apttus__Contract_Start_Date__c</fullName>
     <deprecated>false</deprecated>
     <description>The effective date of the agreement</description>
-    <externalId>false</externalId>
     <inlineHelpText>Agreement Commencement Date is defaulted to TODAY&apos;s date. Please review and update accordingly. When updating Agreement Commencement Date, ensure that Service Commencement Date is updated.</inlineHelpText>
     <label>Agreement Start Date</label>
     <required>false</required>

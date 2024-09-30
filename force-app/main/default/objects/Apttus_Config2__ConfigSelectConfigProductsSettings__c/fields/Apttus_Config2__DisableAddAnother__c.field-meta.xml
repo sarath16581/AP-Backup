@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>This custom setting removes the user&apos;s ability to add multiple instances of the same product.</description>
-    <externalId>false</externalId>
     <inlineHelpText>This custom setting removes the user&apos;s ability to add multiple instances of the same product.</inlineHelpText>
     <label>Disable Add Another</label>
     <trackTrending>false</trackTrending>

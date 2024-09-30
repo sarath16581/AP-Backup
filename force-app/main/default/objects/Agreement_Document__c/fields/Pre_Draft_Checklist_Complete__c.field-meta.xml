@@ -3,7 +3,6 @@
     <fullName>Pre_Draft_Checklist_Complete__c</fullName>
     <defaultValue>false</defaultValue>
     <description>Check box to indicate that all Pre Draft Checklist tasks are complete.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Checking this flag confirms that all the Pre Draft Checklist tasks have been completed.  This is required if there are Pre Draft Checklist tasks associated to the Document Type as displayed in the Checklist section below.</inlineHelpText>
     <label>Pre Draft Checklist Complete</label>
     <securityClassification>INTERNAL</securityClassification>

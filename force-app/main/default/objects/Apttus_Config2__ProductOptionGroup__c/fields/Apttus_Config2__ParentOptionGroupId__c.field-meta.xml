@@ -4,7 +4,6 @@
     <deleteConstraint>SetNull</deleteConstraint>
     <deprecated>false</deprecated>
     <description>ID of the parent option group</description>
-    <externalId>false</externalId>
     <label>Parent Option Group</label>
     <referenceTo>Apttus_Config2__ClassificationHierarchy__c</referenceTo>
     <relationshipLabel>Child Option Groups</relationshipLabel>

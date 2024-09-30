@@ -3,7 +3,6 @@
     <fullName>Apttus__GenerateSupportingDocument__c</fullName>
     <deprecated>false</deprecated>
     <description>Indicator to generate supporting documents for the agreement</description>
-    <externalId>false</externalId>
     <formula>True</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <inlineHelpText>Indicator to generate supporting documents for the agreement</inlineHelpText>

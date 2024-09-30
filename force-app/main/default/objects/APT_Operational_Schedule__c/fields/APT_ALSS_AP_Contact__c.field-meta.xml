@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>APT_ALSS_AP_Contact__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
-    <externalId>false</externalId>
     <label>ALSS AP Contact</label>
     <referenceTo>User</referenceTo>
     <relationshipName>Operational_Schedules6</relationshipName>

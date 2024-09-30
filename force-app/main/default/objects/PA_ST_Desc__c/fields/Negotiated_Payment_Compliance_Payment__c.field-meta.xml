@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Negotiated_Payment_Compliance_Payment__c</fullName>
     <description>Negotiated Payment – Compliance Payment</description>
-    <externalId>false</externalId>
     <label>Negotiated Payment – Compliance Payment</label>
     <required>false</required>
     <trackTrending>false</trackTrending>

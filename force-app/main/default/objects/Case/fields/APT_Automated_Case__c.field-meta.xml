@@ -3,7 +3,6 @@
     <fullName>APT_Automated_Case__c</fullName>
     <defaultValue>false</defaultValue>
     <description>This field will be true for the cases which are created by APTTUS system.</description>
-    <externalId>false</externalId>
     <inlineHelpText>This field will be true for the cases which are created by APTTUS system</inlineHelpText>
     <label>{Hidden} Automated Case</label>
     <securityClassification>INTERNAL</securityClassification>

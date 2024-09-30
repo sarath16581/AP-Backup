@@ -10,7 +10,6 @@ MOD( TODAY () - DATE( 1900, 1, 7 ), 7 ),
 TODAY () + 3
 )</defaultValue>
     <description>Date used as basis for task due date</description>
-    <externalId>false</externalId>
     <inlineHelpText>Date used as basis for task due date</inlineHelpText>
     <label>Task Due Date</label>
     <required>false</required>

@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>RoleDescription__c</fullName>
     <description>The Description of the Role in the context of the Application that it belongs to. Exposed in BAM</description>
-    <externalId>false</externalId>
     <inlineHelpText>The Description of the Role in the context of the Application that it belongs to. Exposed in BAM</inlineHelpText>
     <label>Role Description</label>
     <length>32768</length>

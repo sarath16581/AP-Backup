@@ -3,7 +3,6 @@
     <fullName>DSROwner__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <description>This field is a lookup to Deal Support Request object obtaining DSR Owner.</description>
-    <externalId>false</externalId>
     <label>DSR Owner</label>
     <referenceTo>Deal_Support_Request__c</referenceTo>
     <relationshipLabel>GetFeedback Surveys (DSR Owner)</relationshipLabel>

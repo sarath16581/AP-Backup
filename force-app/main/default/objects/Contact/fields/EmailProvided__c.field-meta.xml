@@ -3,7 +3,6 @@
     <fullName>EmailProvided__c</fullName>
     <defaultValue>false</defaultValue>
     <description>SSSW - used for reporting</description>
-    <externalId>false</externalId>
     <label>Email Provided</label>
     <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>

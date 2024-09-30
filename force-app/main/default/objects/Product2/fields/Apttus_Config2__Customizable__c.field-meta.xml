@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Indicates whether the product must be configured during selection.</description>
-    <externalId>false</externalId>
     <label>Must Configure</label>
     <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>

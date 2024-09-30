@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Indicates whether pre-pricing step should be executed automatically before pricing. Only applicable when before pricing is enabled by the pricing extension callback.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Indicates whether pre-pricing step should be executed automatically before pricing. Only applicable when before pricing is enabled by the pricing extension callback.</inlineHelpText>
     <label>Auto Execute Pre-Pricing Step</label>
     <trackTrending>false</trackTrending>

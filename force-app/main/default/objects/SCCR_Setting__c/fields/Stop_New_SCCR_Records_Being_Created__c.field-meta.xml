@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <description>At the end of the FY, the business requires no SSCR be created after a certain date.
 When this is set to TRUE, there is a validation rule to stop creating new SCCR records..</description>
-    <externalId>false</externalId>
     <inlineHelpText>TRUE = feeds into a validation rule to stop creating new SCCR records..</inlineHelpText>
     <label>Stop New SCCR Records Being Created</label>
     <trackTrending>false</trackTrending>

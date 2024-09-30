@@ -3,7 +3,6 @@
     <fullName>Pricing_Analyst_Manager__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <description>Pricing Analyst/Manager assigned to pricing support request</description>
-    <externalId>false</externalId>
     <inlineHelpText>Pricing Analyst/Manager assigned to pricing support request</inlineHelpText>
     <label>Pricing Analyst/Manager</label>
     <referenceTo>User</referenceTo>

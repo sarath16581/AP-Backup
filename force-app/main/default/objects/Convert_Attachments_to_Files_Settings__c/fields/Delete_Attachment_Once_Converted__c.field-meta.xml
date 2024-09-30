@@ -3,7 +3,6 @@
     <fullName>Delete_Attachment_Once_Converted__c</fullName>
     <defaultValue>false</defaultValue>
     <description>When checked then conversion process will delete the original Attachment once successfully converted to File. You may want to delete them to save storage space in your org.</description>
-    <externalId>false</externalId>
     <inlineHelpText>When checked then conversion process will delete the original Attachment once successfully converted to File. You may want to delete them to save storage space in your org.</inlineHelpText>
     <label>Delete Attachment Once Converted?</label>
     <trackTrending>false</trackTrending>

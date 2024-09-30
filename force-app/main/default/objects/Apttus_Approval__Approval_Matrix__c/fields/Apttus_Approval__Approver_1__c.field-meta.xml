@@ -3,7 +3,6 @@
     <fullName>Apttus_Approval__Approver_1__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <deprecated>false</deprecated>
-    <externalId>false</externalId>
     <label>Approver 1</label>
     <referenceTo>User</referenceTo>
     <relationshipName>R00N70000001lyCtEAI</relationshipName>

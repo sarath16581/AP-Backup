@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>RA_required__c</fullName>
     <description>Override Customer Account level restriction</description>
-    <externalId>false</externalId>
     <inlineHelpText>Override Customer Account level restriction</inlineHelpText>
     <label>Is RA required?</label>
     <required>false</required>

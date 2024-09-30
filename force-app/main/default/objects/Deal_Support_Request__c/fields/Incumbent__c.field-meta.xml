@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Incumbent__c</fullName>
     <description>STP : Who is/are the competitor(s) i.e. who has Share of Wallet SOW? Please also advise performance of the incumbent.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Who is/are the competitor(s) i.e. who has Share of Wallet SOW? Please also advise performance of the incumbent.</inlineHelpText>
     <label>Incumbent</label>
     <length>32768</length>

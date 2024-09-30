@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Key_Sales_Owner_Manager__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
-    <externalId>false</externalId>
     <inlineHelpText>The line manager of the key sales owner. This is the person that the risk mitigation plan will be sent to for approval</inlineHelpText>
     <label>Key Sales Owner Manager</label>
     <referenceTo>User</referenceTo>

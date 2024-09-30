@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>ObjectTriggersToBeDisabled__c</fullName>
     <description>Triggers on the objects mentioned would be deactivated.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Triggers on the objects mentioned would be deactivated. Please enter comma separated value for multiple objects.</inlineHelpText>
     <label>Object Triggers to be disabled</label>
     <required>false</required>

@@ -3,7 +3,6 @@
     <fullName>Organisation__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <description>look up to Organisation filed.</description>
-    <externalId>false</externalId>
     <label>Organisation</label>
     <referenceTo>Account</referenceTo>
     <relationshipLabel>SAP Contracts</relationshipLabel>

@@ -3,7 +3,6 @@
     <fullName>Approval_Level__c</fullName>
     <businessStatus>DeprecateCandidate</businessStatus>
     <description>DEPRECATED. DO NOT USE.</description>
-    <externalId>false</externalId>
     <label>Approval Level (DEPRECATED)</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>

@@ -4,7 +4,6 @@
     <deleteConstraint>SetNull</deleteConstraint>
     <deprecated>false</deprecated>
     <description>Id of the Cost Item associated with the product and the Cost Model</description>
-    <externalId>false</externalId>
     <inlineHelpText>Id of the Cost Item associated with the product and the Cost Model</inlineHelpText>
     <label>Cost Item</label>
     <referenceTo>Apttus_Config2__CostItem__c</referenceTo>

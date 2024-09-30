@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__RegionCriteria__c</fullName>
     <deprecated>false</deprecated>
     <description>One or more region inclusion/exclusion criteria</description>
-    <externalId>false</externalId>
     <inlineHelpText>One or more region inclusion/exclusion criteria</inlineHelpText>
     <label>Region Criteria</label>
     <required>false</required>

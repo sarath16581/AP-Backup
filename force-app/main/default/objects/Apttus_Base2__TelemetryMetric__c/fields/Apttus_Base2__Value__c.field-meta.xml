@@ -3,7 +3,6 @@
     <fullName>Apttus_Base2__Value__c</fullName>
     <deprecated>false</deprecated>
     <description>Metric value.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Metric value.</inlineHelpText>
     <label>Metric Value</label>
     <length>64000</length>

@@ -3,7 +3,6 @@
     <fullName>Deal_Desk_DSR_Exist__c</fullName>
     <defaultValue>false</defaultValue>
     <description>STP: Set to true once Deal Desk DSR is created against the opportunity.</description>
-    <externalId>false</externalId>
     <label>Deal Desk DSR Exist</label>
     <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>

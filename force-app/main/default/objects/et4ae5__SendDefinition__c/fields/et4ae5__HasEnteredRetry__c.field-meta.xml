@@ -3,7 +3,6 @@
     <fullName>et4ae5__HasEnteredRetry__c</fullName>
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
-    <externalId>false</externalId>
     <inlineHelpText>This job was retried at some point in the process. A job will be mainly retried due to connectivity issues.</inlineHelpText>
     <label>Retried</label>
     <securityClassification>INTERNAL</securityClassification>

@@ -3,7 +3,6 @@
     <fullName>Nominated_Partner_Contact_Incent_User__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <description>Contact used to integrate with the Incent application, and as the primary point of contact for communications.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Contact used to integrate with the Incent application, and as the primary point of contact for communications</inlineHelpText>
     <label>Nominated Partner Contact &amp; Incent User</label>
     <lookupFilter>

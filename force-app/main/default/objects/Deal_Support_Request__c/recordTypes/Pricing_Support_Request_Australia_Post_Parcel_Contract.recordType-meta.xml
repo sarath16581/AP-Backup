@@ -18,6 +18,10 @@
     <picklistValues>
         <picklist>Additional_Information_Reason__c</picklist>
         <values>
+            <fullName>Awaiting operations approval</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Copy of Contract or Uprate Letter required</fullName>
             <default>false</default>
         </values>

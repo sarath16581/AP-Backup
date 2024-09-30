@@ -3,7 +3,6 @@
     <fullName>Apttus_Base2__ProviderId__c</fullName>
     <deleteConstraint>Restrict</deleteConstraint>
     <deprecated>false</deprecated>
-    <externalId>false</externalId>
     <label>Data Provider</label>
     <lookupFilter>
         <active>true</active>

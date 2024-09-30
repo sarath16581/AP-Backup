@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Shows the specified attributes applicable to the line items in the cart. Attributes appear in the product dialog.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Shows the specified attributes applicable to the line items in the cart. Attributes appear in the product dialog.</inlineHelpText>
     <label>Show Attributes In Cart</label>
     <trackTrending>false</trackTrending>

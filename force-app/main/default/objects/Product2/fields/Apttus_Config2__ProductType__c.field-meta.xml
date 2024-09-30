@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__ProductType__c</fullName>
     <deprecated>false</deprecated>
     <description>The product type</description>
-    <externalId>false</externalId>
     <inlineHelpText>The product type</inlineHelpText>
     <label>Product Type</label>
     <required>false</required>

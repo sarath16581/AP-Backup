@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__MassEditActionCriteriaFields__c</fullName>
     <deprecated>false</deprecated>
     <description>List of comma separated asset line item field API names to enable the mass edit action</description>
-    <externalId>false</externalId>
     <inlineHelpText>List of comma separated asset line item field API names to enable the mass edit action</inlineHelpText>
     <label>Mass Edit Action Criteria Fields</label>
     <required>false</required>

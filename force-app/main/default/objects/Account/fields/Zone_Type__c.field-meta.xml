@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Zone_Type__c</fullName>
     <description>This field defines the customer zone 1,3,6 and 9</description>
-    <externalId>false</externalId>
     <inlineHelpText>This field defines the customer zone 1,3,6 and 9</inlineHelpText>
     <label>Zone Type</label>
     <required>false</required>

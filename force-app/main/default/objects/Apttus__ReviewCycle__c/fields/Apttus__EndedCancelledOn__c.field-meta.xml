@@ -3,7 +3,6 @@
     <fullName>Apttus__EndedCancelledOn__c</fullName>
     <deprecated>false</deprecated>
     <description>DateTime when the review is cancelled or Ended</description>
-    <externalId>false</externalId>
     <label>Ended/Cancelled On</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>

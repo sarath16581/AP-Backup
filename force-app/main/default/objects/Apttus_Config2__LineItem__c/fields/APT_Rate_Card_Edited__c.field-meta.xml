@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>APT_Rate_Card_Edited__c</fullName>
     <defaultValue>false</defaultValue>
-    <externalId>false</externalId>
     <label>Rate Card Edited</label>
     <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>

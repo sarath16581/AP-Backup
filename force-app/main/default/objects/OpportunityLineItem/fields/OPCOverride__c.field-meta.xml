@@ -4,7 +4,6 @@
     <businessStatus>Active</businessStatus>
     <complianceGroup>GDPR</complianceGroup>
     <description>Allows Product Classification to be overridden</description>
-    <externalId>false</externalId>
     <inlineHelpText>Allows Product Classification to be overridden</inlineHelpText>
     <label>OPC Override</label>
     <required>false</required>

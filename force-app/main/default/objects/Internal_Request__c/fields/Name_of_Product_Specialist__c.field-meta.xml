@@ -3,7 +3,6 @@
     <fullName>Name_of_Product_Specialist__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <description>Where there is a Product Specialist engaged</description>
-    <externalId>false</externalId>
     <inlineHelpText>Where there is a Product Specialist engaged</inlineHelpText>
     <label>Name of Product Specialist</label>
     <referenceTo>User</referenceTo>

@@ -3,7 +3,6 @@
     <fullName>AuspostDomain__c</fullName>
     <businessStatus>Active</businessStatus>
     <description>Domain name for Auspost website</description>
-    <externalId>false</externalId>
     <inlineHelpText>Domain name for Auspost website</inlineHelpText>
     <label>Auspost Domain</label>
     <required>false</required>

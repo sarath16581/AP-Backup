@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__NumberOfFilters__c</fullName>
     <deprecated>false</deprecated>
     <description>Indicates the number of filters associated with the default rule</description>
-    <externalId>false</externalId>
     <label>Number Of Filters</label>
     <securityClassification>INTERNAL</securityClassification>
     <summaryForeignKey>Apttus_Config2__ProductDefaultRuleFilter__c.Apttus_Config2__ProductDefaultRuleId__c</summaryForeignKey>

@@ -3,7 +3,6 @@
     <fullName>Send_to_Dispatch_System__c</fullName>
     <defaultValue>false</defaultValue>
     <description>Trigger sending to integrated dispatch system for dispatching to a resource.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Trigger sending to integrated dispatch system for dispatching to a resource.</inlineHelpText>
     <label>Send to Dispatch System</label>
     <trackTrending>false</trackTrending>

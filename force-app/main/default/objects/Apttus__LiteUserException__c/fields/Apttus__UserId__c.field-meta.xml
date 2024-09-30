@@ -4,7 +4,6 @@
     <deleteConstraint>SetNull</deleteConstraint>
     <deprecated>false</deprecated>
     <description>User Id belongs to lite profiles</description>
-    <externalId>false</externalId>
     <inlineHelpText>User Id</inlineHelpText>
     <label>User</label>
     <referenceTo>User</referenceTo>

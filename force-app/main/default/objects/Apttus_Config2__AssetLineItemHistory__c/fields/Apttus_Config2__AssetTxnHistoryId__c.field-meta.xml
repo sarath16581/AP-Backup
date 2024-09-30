@@ -4,7 +4,6 @@
     <deleteConstraint>SetNull</deleteConstraint>
     <deprecated>false</deprecated>
     <description>ID of the associated asset transaction history</description>
-    <externalId>false</externalId>
     <inlineHelpText>ID of the associated asset transaction history</inlineHelpText>
     <label>Asset Transaction History</label>
     <referenceTo>Apttus_Config2__AssetTransactionHistory__c</referenceTo>

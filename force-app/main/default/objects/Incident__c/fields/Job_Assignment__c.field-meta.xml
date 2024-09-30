@@ -3,7 +3,6 @@
     <fullName>Job_Assignment__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <description>This field is used to link the Job Assignment the incident is related to.</description>
-    <externalId>false</externalId>
     <label>Job Assignment</label>
     <referenceTo>Job_Assignment__c</referenceTo>
     <relationshipLabel>Incidents</relationshipLabel>

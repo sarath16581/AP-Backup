@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Urgent_notification_delivery_problems__c</fullName>
     <defaultValue>false</defaultValue>
-    <externalId>false</externalId>
     <label>Urgent notification delivery problems</label>
     <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>

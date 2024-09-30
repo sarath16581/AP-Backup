@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Role__c</fullName>
     <description>The name of the role that will be displayed in BAM</description>
-    <externalId>false</externalId>
     <inlineHelpText>The name of the role that will be displayed in BAM</inlineHelpText>
     <label>Role</label>
     <required>true</required>

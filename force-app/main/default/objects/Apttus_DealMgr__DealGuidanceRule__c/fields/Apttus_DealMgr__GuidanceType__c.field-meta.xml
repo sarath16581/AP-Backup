@@ -3,7 +3,6 @@
     <fullName>Apttus_DealMgr__GuidanceType__c</fullName>
     <deprecated>false</deprecated>
     <description>The guidance type associated with the rule. This determines the types of dimension sets that may be associated with the rule</description>
-    <externalId>false</externalId>
     <inlineHelpText>The guidance type associated with the rule. This determines the types of dimension sets that may be associated with the rule</inlineHelpText>
     <label>Guidance Type</label>
     <required>false</required>

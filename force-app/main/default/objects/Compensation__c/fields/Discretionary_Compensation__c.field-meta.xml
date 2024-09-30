@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Discretionary_Compensation__c</fullName>
     <defaultValue>false</defaultValue>
-    <externalId>false</externalId>
     <label>Goodwill Compensation</label>
     <securityClassification>INTERNAL</securityClassification>
     <trackHistory>true</trackHistory>

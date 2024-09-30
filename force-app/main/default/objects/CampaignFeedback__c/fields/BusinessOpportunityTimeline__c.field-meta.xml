@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>BusinessOpportunityTimeline__c</fullName>
     <description>When do you think the new opportunity will realise?</description>
-    <externalId>false</externalId>
     <inlineHelpText>When do you think the new opportunity will realise?</inlineHelpText>
     <label>Business Opportunity Timeline</label>
     <required>false</required>

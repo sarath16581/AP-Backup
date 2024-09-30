@@ -3,7 +3,6 @@
     <fullName>kfsell__Criteria__c</fullName>
     <deprecated>false</deprecated>
     <description>Quality Criteria- Action required to score; Universally agreed to best practices</description>
-    <externalId>false</externalId>
     <label>Criteria</label>
     <required>false</required>
     <trackHistory>false</trackHistory>

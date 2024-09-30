@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>APT_International_Indicator__c</fullName>
     <description>For SAP Mapping: International Indicator</description>
-    <externalId>false</externalId>
     <inlineHelpText>For SAP Mapping: International Indicator</inlineHelpText>
     <label>International Indicator</label>
     <required>false</required>

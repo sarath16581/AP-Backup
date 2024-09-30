@@ -3,7 +3,6 @@
     <fullName>containsArticleId__c</fullName>
     <defaultValue>true</defaultValue>
     <description>For deliveryConcern, containsArticleId should remain unchecked.</description>
-    <externalId>false</externalId>
     <fieldManageability>DeveloperControlled</fieldManageability>
     <inlineHelpText>Form Id = deliveryConcern, set containsArticleId = false/unchecked.</inlineHelpText>
     <label>containsArticleId</label>

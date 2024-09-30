@@ -3,7 +3,6 @@
     <fullName>Incumbents__c</fullName>
     <defaultValue>false</defaultValue>
     <description>Phase 1 - added after replacing Competitor and Supplier section</description>
-    <externalId>false</externalId>
     <inlineHelpText>Is this Party the Incumbent?</inlineHelpText>
     <label>Incumbent</label>
     <securityClassification>INTERNAL</securityClassification>

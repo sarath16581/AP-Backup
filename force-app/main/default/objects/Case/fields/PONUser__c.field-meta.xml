@@ -4,7 +4,6 @@
     <deleteConstraint>SetNull</deleteConstraint>
     <description>Field is for PON user assignment (REQ0591433)
 Re-purposed for MyNetwork UI uplift project, to assign cases to self, on Case List page</description>
-    <externalId>false</externalId>
     <label>Case Assigned To</label>
     <lookupFilter>
         <active>true</active>

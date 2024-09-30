@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__InputAgreementIds__c</fullName>
     <deprecated>false</deprecated>
     <description>A comma separated list of rebate agreement ids provided as input for the rebate calculation job</description>
-    <externalId>false</externalId>
     <inlineHelpText>A comma separated list of rebate agreement ids provided as input for the rebate calculation job</inlineHelpText>
     <label>Input Agreements</label>
     <length>500</length>

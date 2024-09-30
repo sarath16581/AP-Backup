@@ -3,7 +3,6 @@
     <fullName>ULD_s_incl_ULD_labels__c</fullName>
     <defaultValue>false</defaultValue>
     <description>Used for Sales Implementation case</description>
-    <externalId>false</externalId>
     <inlineHelpText>Include ULD Labels</inlineHelpText>
     <label>ULDs</label>
     <securityClassification>INTERNAL</securityClassification>

@@ -3,7 +3,6 @@
     <fullName>Subscription_Include_Lock_Records__c</fullName>
     <defaultValue>false</defaultValue>
     <description>This checkbox will determine if subscription script will include if locked case record or not.</description>
-    <externalId>false</externalId>
     <inlineHelpText>This checkbox will determine how locked cases will be handled. If set to true, then allow any subscription case action even if case record is locked. Otherwise, filter lock cases for subscription automation.</inlineHelpText>
     <label>Subscription Include Lock Records</label>
     <trackTrending>false</trackTrending>

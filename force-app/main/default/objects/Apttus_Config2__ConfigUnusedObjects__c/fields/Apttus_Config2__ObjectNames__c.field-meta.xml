@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__ObjectNames__c</fullName>
     <deprecated>false</deprecated>
     <description>Comma separated list of CPQ object names that are not used</description>
-    <externalId>false</externalId>
     <inlineHelpText>Comma separated list of CPQ object names that are not used</inlineHelpText>
     <label>Object Names</label>
     <required>false</required>

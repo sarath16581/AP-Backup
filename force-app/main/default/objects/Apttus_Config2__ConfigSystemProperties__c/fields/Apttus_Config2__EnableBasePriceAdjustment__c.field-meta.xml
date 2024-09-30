@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Indicates whether base price adjustment is allowed. When enabled Base Price Override is considered when calculating the net price adjustment  %.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Indicates whether base price adjustment is allowed. When enabled Base Price Override is considered when calculating the net price adjustment  %.</inlineHelpText>
     <label>Enable Base Price Adjustment</label>
     <trackTrending>false</trackTrending>

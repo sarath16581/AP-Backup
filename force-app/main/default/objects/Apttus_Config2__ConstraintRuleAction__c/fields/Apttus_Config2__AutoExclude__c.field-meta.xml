@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Match only in asset, ignore cart.</description>
-    <externalId>false</externalId>
     <label>Ignore Cart</label>
     <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>

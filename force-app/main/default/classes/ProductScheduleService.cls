@@ -145,58 +145,83 @@ public with sharing class ProductScheduleService {
 	* @param uow ApplicationUnitOfWork
 	*/
 	public static void registerDataForUpdateInsert(List<GroupedRevenueSchedule__c> schedules, ApplicationUnitOfWork uow) {
+        system.debug('*** database register for schedues '+schedules);
 		// newly created revenue schedules
-		List<GroupedRevenueSchedule__c> schedulesToInsert = new List<GroupedRevenueSchedule__c>();
+		Map<String,GroupedRevenueSchedule__c> schedulesToInsert = new Map<String,GroupedRevenueSchedule__c>();
 		// updated revenue schedules
-		List<GroupedRevenueSchedule__c> schedulesToUpdate = new List<GroupedRevenueSchedule__c>();
+		Map<String,GroupedRevenueSchedule__c> schedulesToUpdate = new Map<String,GroupedRevenueSchedule__c>();
+        // revenue schedules to delete (ouside revised contract dates)
+        Map<String,GroupedRevenueSchedule__c> schedulesToDelete = new Map<String,GroupedRevenueSchedule__c>();
 		// new product revenue records
-		List<GroupedAccountProductRevenue__c> revenuesToInsert = new List<GroupedAccountProductRevenue__c>();
+		Map<String,GroupedAccountProductRevenue__c> revenuesToInsert = new Map<String,GroupedAccountProductRevenue__c>();
 		// updated product revenue records
-		List<GroupedAccountProductRevenue__c> revenuesToUpdate = new List<GroupedAccountProductRevenue__c>();
+		Map<String,GroupedAccountProductRevenue__c> revenuesToUpdate = new Map<String,GroupedAccountProductRevenue__c>();
 		// updated line items
 		Map<id,OpportunityLineItem> itemsToUpdate = new Map<id,OpportunityLineItem>();
 		for (GroupedRevenueSchedule__c schedule : schedules) {
-			// schedules to be created or updated
-			if (schedule.Id == null) {
-				// record creation
-				schedulesToInsert.add(schedule);
-			}else {
-				// record update
-				schedulesToUpdate.add(schedule);
-			}
-			// revenue records associated with the schedules which are to be created or updated
-			if (schedule.GroupedAccountProductRevenue__r != null) {
-				if(schedule.GroupedAccountProductRevenue__r.Id == null) { 
-					// The Product Revenue record associated with this schedule does not exist yet.
-					// (1) register the relationship...
-					uow.registerRelationship(schedule, GroupedRevenueSchedule__c.GroupedAccountProductRevenue__c, schedule.GroupedAccountProductRevenue__r);
-					// (2) add the revenue record to the insert list, 
-					revenuesToInsert.add(schedule.GroupedAccountProductRevenue__r);
-				} else {
-					// revenue record associated with the schedule already exists, just update it. 
-					revenuesToUpdate.add(schedule.GroupedAccountProductRevenue__r);
-				}
-			}
-			if (schedule.opportunityProduct__r != null && !itemsToUpdate.containsKey(schedule.OpportunityProduct__r.id)) {
-				itemsToUpdate.put(schedule.OpportunityProduct__r.id,schedule.opportunityProduct__r);
-			}
+            // schedules to be deleted
+             system.debug('*** database register for schedue '+schedule);
+            if (schedule.id !=null && schedule.GroupedAccountProductRevenue__c == null && schedule.GroupedAccountProductRevenue__r == null) {
+                system.debug('*** adding schedule to delete ' +schedule.id);
+            	schedulesToDelete.put(schedule.id,schedule);
+            } else {
+            	if (schedule.Id == null) {
+                    // record creation
+                    string uid = schedule.GroupedAccountProductRevenue__c == null ? schedule.GroupedAccountProductRevenue__r.uid__c : schedule.GroupedAccountProductRevenue__c;
+                   	system.debug('*** adding schedule to insert ' +uid);
+                    schedulesToInsert.put(schedule.GroupedAccountProductRevenue__r.uid__c,schedule);
+                } else {
+                    // record update
+                   system.debug('*** adding schedule to update ' +schedule.id);
+                    schedulesToUpdate.put(schedule.id,schedule);
+                }
+                // revenue records associated with the schedules which are to be created or updated
+                if (schedule.GroupedAccountProductRevenue__r != null) {
+                    if(schedule.GroupedAccountProductRevenue__r.Id == null) { 
+                        // The Product Revenue record associated with this schedule does not exist yet.
+                        //  (1) register the relationship...
+                        uow.registerRelationship(schedule, GroupedRevenueSchedule__c.GroupedAccountProductRevenue__c, schedule.GroupedAccountProductRevenue__r);
+                        // (2) add the revenue record to the insert list, 
+                        system.debug('*** adding revenue to insert ' +schedule.GroupedAccountProductRevenue__r.uid__c);
+                        revenuesToInsert.put(schedule.GroupedAccountProductRevenue__r.uid__c, schedule.GroupedAccountProductRevenue__r);
+                    } else {
+                        // revenue record associated with the schedule already exists, just update it. 
+                        system.debug('*** adding revenue to update ' +schedule.GroupedAccountProductRevenue__r.uid__c);
+                        revenuesToUpdate.put(schedule.GroupedAccountProductRevenue__r.uid__c,schedule.GroupedAccountProductRevenue__r);
+                    }
+                }
+                if (schedule.opportunityProduct__r != null && !itemsToUpdate.containsKey(schedule.OpportunityProduct__r.id)) {
+                    system.debug('*** adding itemsToUpdate ' +schedule.OpportunityProduct__r.id);
+                    itemsToUpdate.put(schedule.OpportunityProduct__r.id,schedule.opportunityProduct__r);
+                }
+            }
 		}
 		// register new revenue records
+		system.debug('*** revenuesToInsert ' +revenuesToInsert);
 		if (!revenuesToInsert.isEmpty()) {
-			uow.registerNew(revenuesToInsert);
+			uow.registerNew(revenuesToInsert.values());
 		}
 		// register new schedules
+		system.debug('*** schedulesToInsert ' +schedulesToInsert);
 		if (!schedulesToInsert.isEmpty()) {
-			uow.registerNew(schedulesToInsert);
+			uow.registerNew(schedulesToInsert.values());
 		}
+        system.debug('*** revenuesToUpdate ' +revenuesToUpdate);
 		if (!revenuesToUpdate.isEmpty()) {
-			uow.registerDirty(revenuesToUpdate);
+			uow.registerDirty(revenuesToUpdate.values());
 		}
 		// register schedules to update
+		system.debug('*** schedulesToUpdate ' +schedulesToUpdate);
 		if (!schedulesToUpdate.isEmpty()) {
-			uow.registerDirty(schedulesToUpdate);
+			uow.registerDirty(schedulesToUpdate.values());
+		}
+        system.debug('*** schedulesToDelete ' +schedulesToDelete);
+        // register schdules to delete
+       	if (!schedulesToDelete.isEmpty()) {
+			uow.registerDeleted(schedulesToDelete.values());
 		}
 		// register items to update
+		system.debug('*** itemsToUpdate ' +itemsToUpdate);
 		if (!itemsToUpdate.isEmpty()) {
 			uow.registerDirty(itemsToUpdate.values());
 		}
@@ -214,8 +239,7 @@ public with sharing class ProductScheduleService {
 	*/
 	private List<GroupedRevenueSchedule__c> createUpdateRevenueSchedules(List<OpportunityLineItem> items, Set<String> uids) {
 		// the records to be returned
-		List<GroupedRevenueSchedule__c> schedulesToCreateOrUpdate = new List<GroupedRevenueSchedule__c>();
-
+		Map<String,GroupedRevenueSchedule__c> schedulesToCreateOrUpdate = new Map<String,GroupedRevenueSchedule__c>();
 		// collect relevant line item ids for the schedules
 		Set<id> oppLineItemIds = new Set<id>();
 		for (OpportunityLineItem item : items) {
@@ -232,6 +256,9 @@ public with sharing class ProductScheduleService {
 			RevenueScheduleCalculator calculator = new RevenueScheduleCalculator(nextItem.Contract_Start_Date__c,nextItem.Contract_End_Date__c,defaultRevenueAllocation);
 			// the revenue records should be up to date or refreshed for this value to be current.
 			Double nrtBaseline = productRevenueServiceInstance.getPastMonthsAverage(oppInfo.AccountId, nextItem.Product2Id, 3, nextItem.Contract_Start_Date__c);
+            system.debug(' ****** processing schedule for item '+nextItem);
+            system.debug(' ****** calculator.financialYearStart '+ calculator.financialYearStart);
+            system.debug(' ****** calculator.calculator.financialYearEnd '+ calculator.financialYearEnd);
 			for (Integer financialYear = calculator.financialYearStart; financialYear <= calculator.financialYearEnd; financialYear++) {
 				// obtain revenue schedule record for the year
 				String scheduleUid = getUID(nextItem.Id, String.valueOf(financialYear));
@@ -252,10 +279,27 @@ public with sharing class ProductScheduleService {
 				calculator.recalculateScheduleByReference(scheduleToCalculate);
 				// assign the line item
 				scheduleToCalculate.OpportunityProduct__r=nextItem;
-				schedulesToCreateOrUpdate.Add(scheduleToCalculate);
+                string uid = nextItem.id +  String.valueOf(financialYear);
+				system.debug('*** adding uid '+uid);
+                schedulesToCreateOrUpdate.put(uid,scheduleToCalculate);
 			}
+            // delete any other schedules associated with this product line item outside those of the revised revenue dates
+            system.debug('***** checking schedues to delete for product: '+nextItem.id);
+            for (GroupedRevenueSchedule__c nextSchedule : groupedSchedules.values()) {
+                if (nextSchedule!=null) {
+                    system.debug('***** checking schedue product: '+nextSchedule.OpportunityProduct__c+' '+'Year '+nextSchedule.year__c);
+                    if (nextSchedule.OpportunityProduct__c == nextItem.id && (nextSchedule.Year__c < calculator.financialYearStart || nextSchedule.Year__c > calculator.financialYearEnd)) {
+                        string scheduleUID = getUID(nextSchedule);
+                        if (!schedulesToCreateOrUpdate.containsKey(scheduleUID)) {
+                            nextSchedule.GroupedAccountProductRevenue__c = null;
+                            system.debug('********** marking for deletion the schedule '+nextSchedule);
+                            schedulesToCreateOrUpdate.put(getUID(nextSchedule),new GroupedRevenueSchedule__c(id = nextSchedule.id));
+                        }
+                    }
+                }
+            }
 		}
-		return schedulesToCreateOrUpdate;
+		return schedulesToCreateOrUpdate.values();
 	}
 
 
@@ -285,15 +329,21 @@ public with sharing class ProductScheduleService {
 			return newlyLoadedRecords;
 		}
 		for (GroupedRevenueSchedule__c groupedSchedule : additionalRevenueSchedules) {
-			groupedSchedules.put(getUID(groupedSchedule.OpportunityProduct__c, String.valueOf(groupedSchedule.Year__c)), groupedSchedule);
-			newlyLoadedRecords.put(getUID(groupedSchedule.OpportunityProduct__c, String.valueOf(groupedSchedule.Year__c)), groupedSchedule);
+			groupedSchedules.put(getUID(groupedSchedule), groupedSchedule);
+			newlyLoadedRecords.put(getUID(groupedSchedule), groupedSchedule);
 		}
 		return newlyLoadedRecords;
 	}
 
+	// Constructs a UID for Grouped Schedule Records based on the line item id and the year.
+    public static String getUID(GroupedRevenueSchedule__c schedule) {
+        if (schedule == null || schedule.OpportunityProduct__c ==null || schedule.Year__c ==null) {
+            return null;
+        } 
+        return getUID(schedule.OpportunityProduct__c, String.valueOf(schedule.Year__c));
+    }
 
-
-	// Constructs a UID for Grouped Revenue Records based on account, product and financial year of the record.
+	// Constructs a UID for Grouped Schedule Records based on the line item id and the year.
 	private static String getUID(String oppProductId, String financialYear) {
 		return oppProductId + financialYear;
 	}

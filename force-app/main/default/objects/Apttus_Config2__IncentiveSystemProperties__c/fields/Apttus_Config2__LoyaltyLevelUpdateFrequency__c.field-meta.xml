@@ -9,7 +9,6 @@ Auto
 OnDemand
 
 The default value is Auto</description>
-    <externalId>false</externalId>
     <inlineHelpText>Indicates the how updates to loyalty levels should be handled. Valid values are:
 
 Auto

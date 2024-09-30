@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__FavoriteConfigurationId__c</fullName>
     <deprecated>false</deprecated>
     <description>Id of the Favorite configuration record</description>
-    <externalId>false</externalId>
     <inlineHelpText>Id of the Favorite configuration record</inlineHelpText>
     <label>Favorite Configuration id</label>
     <referenceTo>Apttus_Config2__FavoriteConfiguration__c</referenceTo>

@@ -1,0 +1,11 @@
+{
+  "activeViewId" : "773408ac-6b31-4591-ab60-100703b6872b",
+  "appPageId" : "09e90440-dbed-4496-b14c-1a294d7bc2e4",
+  "configurationTags" : [ ],
+  "devName" : "Enablement_Program_Link",
+  "id" : "53db1ca7-2066-4b05-a679-c267e24a813a",
+  "label" : "Enablement Program Link",
+  "routeType" : "enablement-program-link",
+  "type" : "route",
+  "urlPrefix" : "enablement-program-link"
+}

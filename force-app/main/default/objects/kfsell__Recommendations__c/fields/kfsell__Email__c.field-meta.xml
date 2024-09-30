@@ -3,7 +3,6 @@
     <fullName>kfsell__Email__c</fullName>
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
-    <externalId>false</externalId>
     <label>Email</label>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>

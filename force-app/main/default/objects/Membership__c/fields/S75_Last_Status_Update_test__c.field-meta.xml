@@ -3,7 +3,6 @@
     <fullName>S75_Last_Status_Update_test__c</fullName>
     <defaultValue>NOW() + 1</defaultValue>
     <description>S75 re-purposed to Change of Details Information</description>
-    <externalId>false</externalId>
     <label>COD Last Status Update (fixed value)</label>
     <required>false</required>
     <trackFeedHistory>false</trackFeedHistory>

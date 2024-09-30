@@ -3,7 +3,6 @@
     <fullName>isLikeToConsentAmEx__c</fullName>
     <defaultValue>false</defaultValue>
     <description>2014-08 APMS</description>
-    <externalId>false</externalId>
     <inlineHelpText>I would like to apply to take recurring Direct Debit payments from my customers Bank accounts.</inlineHelpText>
     <label>Like to Consent and Accept AmEx?</label>
     <securityClassification>INTERNAL</securityClassification>

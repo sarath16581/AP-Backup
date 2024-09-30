@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>AMLCTF_Audit_Case__c</fullName>
     <description>The Case record this Action Statement belongs to.  Part of the Retail Audit Case Management Solution, AML/CTF Austrac Phase 2.</description>
-    <externalId>false</externalId>
     <inlineHelpText>The Case record this Action Statement belongs to.  Part of the Retail Audit Case Management Solution, AML/CTF Austrac Phase 2.</inlineHelpText>
     <label>Audit Case</label>
     <referenceTo>Case</referenceTo>

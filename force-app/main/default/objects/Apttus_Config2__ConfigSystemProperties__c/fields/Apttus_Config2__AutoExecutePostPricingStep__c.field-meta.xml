@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Indicates whether post-pricing step should be executed automatically after pricing. Only applicable when after pricing is enabled by the pricing extension callback.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Indicates whether post-pricing step should be executed automatically after pricing. Only applicable when after pricing is enabled by the pricing extension callback.</inlineHelpText>
     <label>Auto Execute Post-Pricing Step</label>
     <trackTrending>false</trackTrending>

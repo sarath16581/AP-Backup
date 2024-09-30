@@ -3,7 +3,6 @@
     <fullName>ActualApprover4User__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <description>The user who provided approval 4 for this credit approval.</description>
-    <externalId>false</externalId>
     <inlineHelpText>The user who provided approval 4 for this credit approval.</inlineHelpText>
     <label>Actual Approver 4 User</label>
     <referenceTo>User</referenceTo>

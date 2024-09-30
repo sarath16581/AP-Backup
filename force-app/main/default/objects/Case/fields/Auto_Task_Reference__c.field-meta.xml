@@ -3,7 +3,6 @@
     <fullName>Auto_Task_Reference__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <description>reference to Task Automation for UST team &lt;to be decommissioned - User Support Query RT cleanup&gt;</description>
-    <externalId>false</externalId>
     <label>TAM Reference</label>
     <referenceTo>Task_Automation_Management__c</referenceTo>
     <relationshipLabel>Case Created</relationshipLabel>

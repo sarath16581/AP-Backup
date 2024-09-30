@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Indicates whether there are any tasks pending for the order</description>
-    <externalId>false</externalId>
     <inlineHelpText>Indicates whether there are any tasks pending for the order</inlineHelpText>
     <label>Is Task Pending</label>
     <securityClassification>INTERNAL</securityClassification>

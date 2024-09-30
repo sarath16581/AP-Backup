@@ -4,7 +4,6 @@
     <businessStatus>Active</businessStatus>
     <deleteConstraint>Restrict</deleteConstraint>
     <description>This field is used to associate a Case Investigation with the Network where the contact facility is of MyNetwork.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Change the network name and &apos;Save Update&apos; to re-assign this case investigation to another facility.</inlineHelpText>
     <label>Network</label>
     <lookupFilter>

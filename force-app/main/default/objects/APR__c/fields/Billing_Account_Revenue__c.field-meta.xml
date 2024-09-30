@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Billing_Account_Revenue__c</fullName>
     <description>Billing Account Revenue for Last FY</description>
-    <externalId>false</externalId>
     <inlineHelpText>Billing Account total revenue for the previous financial year</inlineHelpText>
     <label>Billing Account Revenue</label>
     <precision>18</precision>

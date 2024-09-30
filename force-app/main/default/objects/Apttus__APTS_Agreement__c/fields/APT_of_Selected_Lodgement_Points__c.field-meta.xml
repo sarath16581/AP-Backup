@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>APT_of_Selected_Lodgement_Points__c</fullName>
-    <externalId>false</externalId>
     <inlineHelpText>Calculates number of all lodgement points selected for this agreement</inlineHelpText>
     <label># of Selected Lodgement Points</label>
     <securityClassification>INTERNAL</securityClassification>

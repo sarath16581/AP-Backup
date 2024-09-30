@@ -3,7 +3,6 @@
     <fullName>Band_Value__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <description>Product value of current active asset.</description>
-    <externalId>false</externalId>
     <label>Band Value</label>
     <referenceTo>Product2</referenceTo>
     <relationshipLabel>Active Band History</relationshipLabel>

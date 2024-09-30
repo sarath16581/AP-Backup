@@ -4,7 +4,6 @@
     <deleteConstraint>SetNull</deleteConstraint>
     <deprecated>false</deprecated>
     <description>Reference/Link to the corresponding record in the Term Exception master table.</description>
-    <externalId>false</externalId>
     <label>Exception Name</label>
     <referenceTo>Apttus__Term_Exception__c</referenceTo>
     <relationshipLabel>Agreement Term Exceptions</relationshipLabel>

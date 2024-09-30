@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__ContactPhone__c</fullName>
     <deprecated>false</deprecated>
     <description>The Contact phone number</description>
-    <externalId>false</externalId>
     <inlineHelpText>The Contact phone number</inlineHelpText>
     <label>Contact Phone</label>
     <required>false</required>

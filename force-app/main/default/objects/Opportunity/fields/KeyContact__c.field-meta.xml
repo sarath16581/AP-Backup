@@ -4,7 +4,6 @@
     <deleteConstraint>SetNull</deleteConstraint>
     <description>2013-12-12 Louis Wang (Bluewolf)
 Added to capture contact portion of Personal_Account__c (PA rollback)</description>
-    <externalId>false</externalId>
     <inlineHelpText>Primary customer  contact consulted or decision maker for this Opportunity  (Data Quality Score – 15)</inlineHelpText>
     <label>Key Contact</label>
     <lookupFilter>

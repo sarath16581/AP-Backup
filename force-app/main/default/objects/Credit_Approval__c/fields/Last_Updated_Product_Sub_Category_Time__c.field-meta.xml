@@ -3,7 +3,6 @@
     <fullName>Last_Updated_Product_Sub_Category_Time__c</fullName>
     <businessStatus>DeprecateCandidate</businessStatus>
     <description>DEPRECATED. DO NOT USE.</description>
-    <externalId>false</externalId>
     <label>Last Updated Product Sub Category Time</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>

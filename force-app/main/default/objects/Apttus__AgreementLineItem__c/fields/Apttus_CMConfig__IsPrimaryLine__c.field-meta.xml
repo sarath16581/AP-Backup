@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Indicates whether the line is the primary line for the product or option</description>
-    <externalId>false</externalId>
     <label>Is Primary Line</label>
     <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>

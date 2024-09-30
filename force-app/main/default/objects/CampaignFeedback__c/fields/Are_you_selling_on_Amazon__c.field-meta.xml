@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Are_you_selling_on_Amazon__c</fullName>
     <description>Is the merchant already, or intending to sell on Amazon</description>
-    <externalId>false</externalId>
     <inlineHelpText>Is the merchant already, or intending to sell on Amazon</inlineHelpText>
     <label>Are you selling on Amazon?</label>
     <required>false</required>

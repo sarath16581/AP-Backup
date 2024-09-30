@@ -3,7 +3,6 @@
     <fullName>Processes_Bulk_Mail__c</fullName>
     <defaultValue>false</defaultValue>
     <description>Does this site process bulk mail?</description>
-    <externalId>false</externalId>
     <inlineHelpText>Does this site process bulk mail?</inlineHelpText>
     <label>Processes Bulk Mail</label>
     <securityClassification>INTERNAL</securityClassification>

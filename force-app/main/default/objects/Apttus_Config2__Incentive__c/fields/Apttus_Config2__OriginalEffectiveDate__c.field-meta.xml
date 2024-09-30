@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__OriginalEffectiveDate__c</fullName>
     <deprecated>false</deprecated>
     <description>The original effective date associated with the incentive</description>
-    <externalId>false</externalId>
     <inlineHelpText>The original effective date associated with the incentive</inlineHelpText>
     <label>Original Effective Date</label>
     <required>false</required>

@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Exempted_Users__c</fullName>
     <description>Users to be exempted for trigger execution</description>
-    <externalId>false</externalId>
     <label>Exempted Users</label>
     <required>false</required>
     <trackTrending>false</trackTrending>

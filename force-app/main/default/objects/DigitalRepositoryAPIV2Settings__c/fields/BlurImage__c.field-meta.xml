@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
-	<fullName>BlurImage__c</fullName>
-	<defaultValue>false</defaultValue>
-	<description>Flag to indicate whether to obscure faces and any text detected for privacy reasons.</description>
-	<externalId>false</externalId>
-	<inlineHelpText>Mark to true if we have to blur the images.</inlineHelpText>
-	<label>Blur Image</label>
-	<securityClassification>INTERNAL</securityClassification>
-	<trackTrending>false</trackTrending>
-	<type>Checkbox</type>
+    <fullName>BlurImage__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>Flag to indicate whether to obscure faces and any text detected for privacy reasons.</description>
+    <inlineHelpText>Mark to true if we have to blur the images.</inlineHelpText>
+    <label>Blur Image</label>
+    <securityClassification>INTERNAL</securityClassification>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
 </CustomField>

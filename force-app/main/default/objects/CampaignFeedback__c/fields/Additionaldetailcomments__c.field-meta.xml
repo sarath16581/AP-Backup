@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Additionaldetailcomments__c</fullName>
     <description>Customer feedback of Australia Post performance, business at risk and/or win-back/growth opportunities’</description>
-    <externalId>false</externalId>
     <inlineHelpText>Customer feedback of Australia Post performance, business at risk and/or win-back/growth opportunities’</inlineHelpText>
     <label>Additional detail &amp; comments</label>
     <required>false</required>

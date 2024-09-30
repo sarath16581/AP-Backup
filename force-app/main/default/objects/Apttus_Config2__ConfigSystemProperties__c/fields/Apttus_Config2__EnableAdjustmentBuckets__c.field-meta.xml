@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Indicates whether adjustments may be grouped into buckets for use as targets for applying further adjustments. Only applicable when multiple adjustments are enabled via Max Adjustment Lines setting.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Indicates whether adjustments may be grouped into buckets for use as targets for applying further adjustments. Only applicable when multiple adjustments are enabled via Max Adjustment Lines setting.</inlineHelpText>
     <label>Enable Adjustment Buckets</label>
     <trackTrending>false</trackTrending>

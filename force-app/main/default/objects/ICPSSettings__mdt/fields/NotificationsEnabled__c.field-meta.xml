@@ -3,7 +3,6 @@
     <fullName>NotificationsEnabled__c</fullName>
     <defaultValue>false</defaultValue>
     <description>This flag will be used to indicate if SMS and email notifications are to be sent out to the ICPS recipients when the ABF Instructions field is updated on the ICPS record</description>
-    <externalId>false</externalId>
     <fieldManageability>SubscriberControlled</fieldManageability>
     <inlineHelpText>This flag will be used to indicate if SMS and email notifications are to be sent out to the ICPS recipients when the ABF Instructions field is updated on the ICPS record</inlineHelpText>
     <label>Notifications Enabled?</label>

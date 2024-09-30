@@ -3,7 +3,6 @@
     <fullName>Apttus_QPConfig__TaxAppliesTo__c</fullName>
     <deprecated>false</deprecated>
     <description>Indicates the price field the tax rate was applied to.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Indicates the price field the tax rate was applied to.</inlineHelpText>
     <label>Tax Applies To</label>
     <required>false</required>

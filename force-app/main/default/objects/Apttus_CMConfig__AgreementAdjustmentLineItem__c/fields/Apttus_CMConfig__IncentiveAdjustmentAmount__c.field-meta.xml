@@ -3,7 +3,6 @@
     <fullName>Apttus_CMConfig__IncentiveAdjustmentAmount__c</fullName>
     <deprecated>false</deprecated>
     <description>The incentive benefit amount</description>
-    <externalId>false</externalId>
     <inlineHelpText>The incentive benefit amount</inlineHelpText>
     <label>Incentive Adjustment Amount</label>
     <precision>18</precision>

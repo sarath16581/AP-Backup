@@ -4,7 +4,6 @@
     <defaultValue>true</defaultValue>
     <deprecated>false</deprecated>
     <description>Automatic DocuSign User Provisioning can be disabled unchecking this checkbox for manual provision.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Automatic DocuSign User Provisioning can be disabled unchecking this checkbox for manual provision.</inlineHelpText>
     <label>Auto Provision User Enabled</label>
     <trackTrending>false</trackTrending>

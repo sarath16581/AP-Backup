@@ -3,7 +3,6 @@
     <fullName>APT_Use_Offline_Rates__c</fullName>
     <defaultValue>false</defaultValue>
     <description>Use Offline Rates?</description>
-    <externalId>false</externalId>
     <label>Use Offline Rates</label>
     <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>

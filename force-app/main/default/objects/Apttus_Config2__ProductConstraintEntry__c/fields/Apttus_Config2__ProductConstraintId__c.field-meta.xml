@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__ProductConstraintId__c</fullName>
     <deprecated>false</deprecated>
     <description>ID of the associated constraint</description>
-    <externalId>false</externalId>
     <label>Product Constraint</label>
     <referenceTo>Apttus_Config2__ProductConstraint__c</referenceTo>
     <relationshipLabel>Constraint Entries</relationshipLabel>

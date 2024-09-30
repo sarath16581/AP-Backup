@@ -4,7 +4,6 @@
     <deleteConstraint>SetNull</deleteConstraint>
     <deprecated>false</deprecated>
     <description>ID of the price list effective for the configuration</description>
-    <externalId>false</externalId>
     <inlineHelpText>ID of the price list effective for the configuration</inlineHelpText>
     <label>Effective Price List</label>
     <referenceTo>Apttus_Config2__PriceList__c</referenceTo>

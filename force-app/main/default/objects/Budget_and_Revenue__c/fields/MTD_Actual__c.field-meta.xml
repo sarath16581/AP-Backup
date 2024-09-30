@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>MTD_Actual__c</fullName>
-    <externalId>false</externalId>
     <formula>IF(   Current_Year__c,CASE( MONTH(TODAY()),1, Jan_Revenue_Amount__c, 2, Feb_Revenue_Amount__c,3, Mar_Revenue_Amount__c,4, Apr_Revenue_Amount__c,5, May_Revenue_Amount__c, 6, Jun_Revenue_Amount__c, 7, Jul_Revenue_Amount__c, 8, Aug_Revenue_Amount__c, 9,Sep_Revenue_Amount__c, 10, Nov_Revenue_Amount__c, 11, Nov_Revenue_Amount__c, 12, Dec_Revenue_Amount__c,0 ),0)</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <inlineHelpText>MTD billed revenue for the current month, up to end of previous day. (On 13th July, revenue will be shown for 1-12 July inclusive)</inlineHelpText>

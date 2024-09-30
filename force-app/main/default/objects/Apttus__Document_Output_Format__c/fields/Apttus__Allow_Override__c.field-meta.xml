@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Indicates whether the user is allowed to override the default output format during the agreement document generation process.</description>
-    <externalId>false</externalId>
     <label>Allow Override</label>
     <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>

@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__TierMetricRollupDuration__c</fullName>
     <deprecated>false</deprecated>
     <description>Indicates the frequency for auto created rollup of the tiered metric value</description>
-    <externalId>false</externalId>
     <inlineHelpText>1.	NO ROLLUP:  Tier metric based on value from individual transaction only 
 2.	REBATE PAYOUT PERIOD:  Tier metric based on aggregated value over the entire rebate payout period as specified in rebate payout frequency</inlineHelpText>
     <label>Tier Metric Rollup Duration</label>

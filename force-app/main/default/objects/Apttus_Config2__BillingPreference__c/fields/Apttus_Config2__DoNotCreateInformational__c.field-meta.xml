@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Suppresses the creation of all informational billing schedules</description>
-    <externalId>false</externalId>
     <inlineHelpText>Suppresses the creation of all informational billing schedules</inlineHelpText>
     <label>Do Not Create Informational</label>
     <securityClassification>INTERNAL</securityClassification>

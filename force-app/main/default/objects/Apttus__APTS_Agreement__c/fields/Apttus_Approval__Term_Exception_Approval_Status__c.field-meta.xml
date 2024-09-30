@@ -3,7 +3,6 @@
     <fullName>Apttus_Approval__Term_Exception_Approval_Status__c</fullName>
     <deprecated>false</deprecated>
     <description>This field denotes the overall approval status for agreement term exceptions associated with the agreement.</description>
-    <externalId>false</externalId>
     <inlineHelpText>This field denotes the overall approval status for agreement term exceptions associated with the contract.</inlineHelpText>
     <label>Term Exception Approval Status</label>
     <required>false</required>

@@ -3,7 +3,6 @@
     <fullName>Apttus__Type__c</fullName>
     <deprecated>false</deprecated>
     <description>The type of document (i.e. scanned image, etc)</description>
-    <externalId>false</externalId>
     <label>Type</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>

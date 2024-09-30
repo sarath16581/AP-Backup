@@ -3,7 +3,6 @@
     <fullName>kfsell__trigger_bluesheet_required__c</fullName>
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
-    <externalId>false</externalId>
     <label>trigger for bluesheet required</label>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>

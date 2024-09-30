@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Preference_in_connecting_to_delivery__c</fullName>
     <description>Customers preference in ordering stock into Amazon warehouse</description>
-    <externalId>false</externalId>
     <inlineHelpText>Customers preference in ordering stock into Amazon warehouse</inlineHelpText>
     <label>Preference in connecting to delivery?</label>
     <required>false</required>

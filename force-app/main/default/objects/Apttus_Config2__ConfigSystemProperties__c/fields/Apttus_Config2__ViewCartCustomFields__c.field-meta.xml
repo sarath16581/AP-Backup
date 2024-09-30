@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__ViewCartCustomFields__c</fullName>
     <deprecated>false</deprecated>
     <description>Enter the list of custom fields from the line item object displayed in the custom view cart page</description>
-    <externalId>false</externalId>
     <inlineHelpText>Enter the list of custom fields from the line item object displayed in the custom view cart page. Additional fields may be entered using the View Cart Custom Fields 2 custom setting.</inlineHelpText>
     <label>View Cart Custom Fields</label>
     <required>false</required>

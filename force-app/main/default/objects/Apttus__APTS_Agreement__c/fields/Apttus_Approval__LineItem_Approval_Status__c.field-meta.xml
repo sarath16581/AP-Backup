@@ -3,7 +3,6 @@
     <fullName>Apttus_Approval__LineItem_Approval_Status__c</fullName>
     <deprecated>false</deprecated>
     <description>The overall approval status for line items associated with the agreement</description>
-    <externalId>false</externalId>
     <inlineHelpText>The overall approval status for line items associated with the contract</inlineHelpText>
     <label>Line Item Approval Status</label>
     <required>false</required>

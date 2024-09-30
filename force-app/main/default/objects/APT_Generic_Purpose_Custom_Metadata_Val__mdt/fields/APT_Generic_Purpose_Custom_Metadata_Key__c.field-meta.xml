@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>APT_Generic_Purpose_Custom_Metadata_Key__c</fullName>
-    <externalId>false</externalId>
     <fieldManageability>DeveloperControlled</fieldManageability>
     <label>APT_Generic_Purpose_Custom_Metadata_Key</label>
     <referenceTo>APT_Generic_Purpose_Custom_Metadata_Key__mdt</referenceTo>

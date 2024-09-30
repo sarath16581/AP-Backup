@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__ChargeTypeCriteriaOper__c</fullName>
     <deprecated>false</deprecated>
     <description>The charge type criteria operator</description>
-    <externalId>false</externalId>
     <inlineHelpText>The charge type criteria operator</inlineHelpText>
     <label>Charge Type Criteria Oper</label>
     <required>false</required>

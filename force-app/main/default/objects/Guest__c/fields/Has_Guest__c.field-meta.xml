@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Has_Guest__c</fullName>
     <defaultValue>false</defaultValue>
-    <externalId>false</externalId>
     <inlineHelpText>Has the invited guest brought another guest?</inlineHelpText>
     <label>Has Guest?</label>
     <securityClassification>INTERNAL</securityClassification>

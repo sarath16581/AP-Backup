@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__BillingStartDate__c</fullName>
     <deprecated>false</deprecated>
     <description>The billing start date</description>
-    <externalId>false</externalId>
     <inlineHelpText>The billing start date</inlineHelpText>
     <label>Billing Start Date</label>
     <required>false</required>

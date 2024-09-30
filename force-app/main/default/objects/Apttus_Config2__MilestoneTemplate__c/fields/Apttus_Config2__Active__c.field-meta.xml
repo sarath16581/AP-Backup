@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Indicates whether the template is active</description>
-    <externalId>false</externalId>
     <inlineHelpText>Indicates whether the template is active</inlineHelpText>
     <label>Active</label>
     <securityClassification>INTERNAL</securityClassification>

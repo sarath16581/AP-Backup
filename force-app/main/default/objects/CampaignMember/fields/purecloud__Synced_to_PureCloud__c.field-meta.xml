@@ -3,7 +3,6 @@
     <fullName>purecloud__Synced_to_PureCloud__c</fullName>
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
-    <externalId>false</externalId>
     <label>Synced to Genesys Cloud</label>
     <type>Checkbox</type>
 </CustomField>

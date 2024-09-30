@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>IT_Provider__c</fullName>
-    <externalId>false</externalId>
     <inlineHelpText>Contact name and email address for any 3rd party IT provider</inlineHelpText>
     <label>IT Provider</label>
     <required>false</required>

@@ -3,7 +3,6 @@
     <fullName>Int_Last_Upd_Date__c</fullName>
     <description>History
 - Sai/Gunith (7-8-19) - Changed Label (REQ1805117)</description>
-    <externalId>false</externalId>
     <label>Revenue Last Updated Date</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>

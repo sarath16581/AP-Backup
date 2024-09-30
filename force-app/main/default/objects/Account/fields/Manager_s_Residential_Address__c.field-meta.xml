@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Manager_s_Residential_Address__c</fullName>
     <description>Outlet managers residential address</description>
-    <externalId>false</externalId>
     <inlineHelpText>Outlet managers residential address</inlineHelpText>
     <label>Manager&apos;s Residential Address</label>
     <length>1000</length>

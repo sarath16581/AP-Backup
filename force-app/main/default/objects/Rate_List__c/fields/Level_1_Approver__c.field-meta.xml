@@ -3,7 +3,6 @@
     <fullName>Level_1_Approver__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <description>The approver used by the Rate List approval process.  This field is set by logic in flow Agree Mgt - Submit Approval - Rate List</description>
-    <externalId>false</externalId>
     <label>Level 1 Approver</label>
     <referenceTo>User</referenceTo>
     <relationshipName>Rate_Lists</relationshipName>

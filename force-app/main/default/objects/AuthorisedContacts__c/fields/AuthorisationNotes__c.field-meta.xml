@@ -3,7 +3,6 @@
     <fullName>AuthorisationNotes__c</fullName>
     <defaultValue>IF($RecordType.DeveloperName = &apos;AllCases&apos;, &apos;All Cases for Authorising Contact&apos;, &apos;&apos;)</defaultValue>
     <description>SSSW</description>
-    <externalId>false</externalId>
     <label>Notes</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>

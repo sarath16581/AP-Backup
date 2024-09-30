@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>APT_Pricing_Request_Type__c</fullName>
     <description>Reason for pricing update</description>
-    <externalId>false</externalId>
     <label>(depr) Opportunity Type</label>
     <required>false</required>
     <securityClassification>OFFICIAL_SENSITIVE</securityClassification>

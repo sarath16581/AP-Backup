@@ -3,7 +3,6 @@
     <fullName>APT_WFV_Working_with_Children_Check__c</fullName>
     <defaultValue>false</defaultValue>
     <description>Used for the Workforce Verification product and checked when Feature Type equals Working with Children Check</description>
-    <externalId>false</externalId>
     <label>WFV Working with Children Check</label>
     <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>

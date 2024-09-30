@@ -3,7 +3,6 @@
     <fullName>kfsell__Disabled_Score_Card__c</fullName>
     <defaultValue>true</defaultValue>
     <deprecated>false</deprecated>
-    <externalId>false</externalId>
     <label>Disabled Score Card</label>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>

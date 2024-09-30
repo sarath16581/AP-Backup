@@ -3,7 +3,6 @@
     <fullName>Apttus__DiffText2__c</fullName>
     <deprecated>false</deprecated>
     <description>The clause diff text</description>
-    <externalId>false</externalId>
     <inlineHelpText>The clause diff text</inlineHelpText>
     <label>Diff Text</label>
     <length>64000</length>

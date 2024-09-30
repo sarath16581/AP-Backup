@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Indicates whether volumeor revenue commitment is enabled for the product or option</description>
-    <externalId>false</externalId>
     <inlineHelpText>Indicates whether volumeor revenue commitment is enabled for the product or option</inlineHelpText>
     <label>Enable Commitment</label>
     <securityClassification>INTERNAL</securityClassification>

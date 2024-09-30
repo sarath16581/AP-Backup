@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>PreApprovalStatus__c</fullName>
     <description>Indicates the Pre-Approval status value that works in conjunction with CSQ Approval Process 1.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Indicates the Pre-Approval status value that works in conjunction with CSQ Approval Process 1.</inlineHelpText>
     <label>Pre-Approval Status</label>
     <required>false</required>

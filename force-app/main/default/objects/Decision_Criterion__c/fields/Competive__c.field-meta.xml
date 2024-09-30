@@ -4,7 +4,6 @@
     <description>Phase 1 - Opportunity Assessment (PWC) 
 
 Identify how competitive our value proposition is in regards to this criterion</description>
-    <externalId>false</externalId>
     <inlineHelpText>How competitive are we for this criterion?</inlineHelpText>
     <label>Competitive</label>
     <length>32768</length>

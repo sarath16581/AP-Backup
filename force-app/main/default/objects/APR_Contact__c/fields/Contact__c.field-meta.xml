@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Contact__c</fullName>
     <description>APR Contact</description>
-    <externalId>false</externalId>
     <inlineHelpText>APR Contact</inlineHelpText>
     <label>Contact</label>
     <lookupFilter>

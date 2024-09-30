@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>TotalRetainedInYearRevenue__c</fullName>
     <description>Sum of all retained revenue from line items.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Sum of all retained revenue from line items.</inlineHelpText>
     <label>Total Retained In Year Revenue</label>
     <securityClassification>INTERNAL</securityClassification>

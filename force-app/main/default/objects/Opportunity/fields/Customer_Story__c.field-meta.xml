@@ -3,7 +3,6 @@
     <fullName>Customer_Story__c</fullName>
     <businessStatus>DeprecateCandidate</businessStatus>
     <description>DEPRECATED. DO NOT USE. Used to capture the details gathered at lead validation step.</description>
-    <externalId>false</externalId>
     <label>Customer Story (DEPRECATED)</label>
     <length>32768</length>
     <securityClassification>INTERNAL</securityClassification>

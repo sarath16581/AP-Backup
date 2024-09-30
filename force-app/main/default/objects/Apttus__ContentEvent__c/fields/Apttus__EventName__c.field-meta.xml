@@ -3,7 +3,6 @@
     <fullName>Apttus__EventName__c</fullName>
     <deprecated>false</deprecated>
     <description>The published event</description>
-    <externalId>false</externalId>
     <label>Event Name</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>

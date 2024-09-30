@@ -5,7 +5,6 @@
     <description>It Validates RK Code based on 
 Domestic: Lodgment zone 
 International :Digital/Non-Digital, Band</description>
-    <externalId>false</externalId>
     <label>Validating RKcode 3</label>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>

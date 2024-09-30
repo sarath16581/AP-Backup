@@ -3,7 +3,6 @@
     <fullName>Processing__c</fullName>
     <defaultValue>false</defaultValue>
     <description>Has been picked up for processing by a queueable worker.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Has been picked up for processing by a queueable worker.</inlineHelpText>
     <label>Processing</label>
     <trackTrending>false</trackTrending>

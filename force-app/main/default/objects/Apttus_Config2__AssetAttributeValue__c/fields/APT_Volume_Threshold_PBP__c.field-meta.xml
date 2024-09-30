@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>APT_Volume_Threshold_PBP__c</fullName>
     <description>Forecast per annum to determine Tier Pricing for Post Billpay Products</description>
-    <externalId>false</externalId>
     <inlineHelpText>Forecast per annum to determine Tier Pricing</inlineHelpText>
     <label>Volume Threshold</label>
     <required>false</required>

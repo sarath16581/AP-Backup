@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__BundleInvoiceLevel__c</fullName>
     <deprecated>false</deprecated>
     <description>The invoice level associated with the bundle</description>
-    <externalId>false</externalId>
     <inlineHelpText>The invoice level associated with the bundle</inlineHelpText>
     <label>Bundle Invoice Level</label>
     <required>false</required>

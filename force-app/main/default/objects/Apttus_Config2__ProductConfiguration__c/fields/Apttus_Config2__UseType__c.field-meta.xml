@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__UseType__c</fullName>
     <deprecated>false</deprecated>
     <description>The product configuration type associated with the split cart.</description>
-    <externalId>false</externalId>
     <inlineHelpText>The product configuration type associated with the split cart.</inlineHelpText>
     <label>Use Type</label>
     <required>false</required>

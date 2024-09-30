@@ -3,7 +3,6 @@
     <fullName>Product__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <description>2014-04 APMS</description>
-    <externalId>false</externalId>
     <label>Product</label>
     <referenceTo>Product2</referenceTo>
     <relationshipLabel>Pricing Plans</relationshipLabel>

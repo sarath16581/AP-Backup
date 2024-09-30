@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>APT_Details_For_Contract_Consulting_Lega__c</fullName>
-    <externalId>false</externalId>
     <inlineHelpText>Provide as much details as possible before checking the &apos;Submit to Contract Consulting&apos; checkbox.</inlineHelpText>
     <label>Details for Contract Consulting/Legal</label>
     <length>25000</length>

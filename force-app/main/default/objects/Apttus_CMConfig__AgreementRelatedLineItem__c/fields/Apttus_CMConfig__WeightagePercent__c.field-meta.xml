@@ -3,7 +3,6 @@
     <fullName>Apttus_CMConfig__WeightagePercent__c</fullName>
     <deprecated>false</deprecated>
     <description>The effective weightage percent</description>
-    <externalId>false</externalId>
     <inlineHelpText>The effective weightage percent</inlineHelpText>
     <label>Weightage Percent</label>
     <precision>5</precision>

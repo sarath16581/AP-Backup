@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>kfsell__Possible_Action_Count__c</fullName>
     <deprecated>false</deprecated>
-    <externalId>false</externalId>
     <label>Possible Action Count</label>
     <summaryFilterItems>
         <field>kfsell__Action_Plan__c.kfsell__Is_a_Best_Action__c</field>

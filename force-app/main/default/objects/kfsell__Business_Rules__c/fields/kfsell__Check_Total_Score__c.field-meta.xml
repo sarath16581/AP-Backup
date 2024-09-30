@@ -3,7 +3,6 @@
     <fullName>kfsell__Check_Total_Score__c</fullName>
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
-    <externalId>false</externalId>
     <label>Check Total Score</label>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>

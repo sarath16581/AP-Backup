@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Indicates whether the column allows its value to be edited.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Indicates whether the column allows its value to be edited.</inlineHelpText>
     <label>Is Editable</label>
     <trackTrending>false</trackTrending>

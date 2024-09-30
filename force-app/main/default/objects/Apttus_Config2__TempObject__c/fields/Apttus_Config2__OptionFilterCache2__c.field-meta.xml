@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__OptionFilterCache2__c</fullName>
     <deprecated>false</deprecated>
     <description>The option filter cache</description>
-    <externalId>false</externalId>
     <label>Option Filter Cache 2</label>
     <length>128000</length>
     <trackTrending>false</trackTrending>

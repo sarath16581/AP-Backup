@@ -3,7 +3,6 @@
     <fullName>grax__Error_Message__c</fullName>
     <deprecated>false</deprecated>
     <description>Error_Message</description>
-    <externalId>false</externalId>
     <inlineHelpText>Description of the Error message received</inlineHelpText>
     <label>Error Message</label>
     <length>32768</length>

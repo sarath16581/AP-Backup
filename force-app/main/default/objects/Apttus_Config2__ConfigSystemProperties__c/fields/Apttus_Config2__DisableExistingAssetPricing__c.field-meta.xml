@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Indicates whether existing asset pricing is disabled.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Indicates whether existing asset pricing is disabled. If disabled,,prices of existing assets are not rolled up.</inlineHelpText>
     <label>Disable Existing Asset Pricing</label>
     <trackTrending>false</trackTrending>

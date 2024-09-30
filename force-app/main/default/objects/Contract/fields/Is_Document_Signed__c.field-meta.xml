@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Is_Document_Signed__c</fullName>
     <defaultValue>false</defaultValue>
-    <externalId>false</externalId>
     <label>Is Document Signed ?</label>
     <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>

@@ -4,7 +4,6 @@
     <deleteConstraint>SetNull</deleteConstraint>
     <deprecated>false</deprecated>
     <description>ID of the summary group associated with the item</description>
-    <externalId>false</externalId>
     <label>Deal Summary Group</label>
     <referenceTo>Apttus_DealMgr__DealSummaryGroup__c</referenceTo>
     <relationshipLabel>Deal Line Items</relationshipLabel>

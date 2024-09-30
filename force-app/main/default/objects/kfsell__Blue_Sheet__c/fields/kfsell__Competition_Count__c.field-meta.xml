@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>kfsell__Competition_Count__c</fullName>
     <deprecated>false</deprecated>
-    <externalId>false</externalId>
     <label>Competition Count</label>
     <summaryForeignKey>kfsell__Competition__c.kfsell__Blue_Sheet__c</summaryForeignKey>
     <summaryOperation>count</summaryOperation>

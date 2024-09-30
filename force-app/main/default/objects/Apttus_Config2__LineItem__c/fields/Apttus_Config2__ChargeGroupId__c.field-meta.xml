@@ -4,7 +4,6 @@
     <deleteConstraint>SetNull</deleteConstraint>
     <deprecated>false</deprecated>
     <description>ID of the charge group to which this charge type is associated</description>
-    <externalId>false</externalId>
     <inlineHelpText>ID of the charge group to which this charge type is associated</inlineHelpText>
     <label>Charge Group</label>
     <referenceTo>Apttus_Config2__ChargeGroup__c</referenceTo>

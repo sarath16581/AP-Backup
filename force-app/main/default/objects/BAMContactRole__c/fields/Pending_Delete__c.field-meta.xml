@@ -3,7 +3,6 @@
     <fullName>Pending_Delete__c</fullName>
     <defaultValue>false</defaultValue>
     <description>Flag for soft delete of the record while the provisioning flow is Pending.  When the provisioning flow completes the record will be deleted.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Flag for soft delete of the record while the provisioning flow is Pending.  When the provisioning flow completes the record will be deleted.</inlineHelpText>
     <label>Pending Delete</label>
     <trackTrending>false</trackTrending>

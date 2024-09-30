@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Indicates whether attribute values are populated in the extension objects</description>
-    <externalId>false</externalId>
     <inlineHelpText>Indicates whether attribute values are populated in the extension objects</inlineHelpText>
     <label>Populate Attribute Extensions</label>
     <trackTrending>false</trackTrending>

@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>AverageValueOfEachSalesHistoric__c</fullName>
     <description>User to input - Average value of each sales transaction - historic</description>
-    <externalId>false</externalId>
     <inlineHelpText>Average value of each transaction</inlineHelpText>
     <label>Average Value Of Each Sales - Historic</label>
     <precision>10</precision>

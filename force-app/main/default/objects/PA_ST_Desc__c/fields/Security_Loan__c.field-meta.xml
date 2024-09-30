@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Security_Loan__c</fullName>
     <description>Partner Addendum &apos;Security Loan&apos; Sub Type Description</description>
-    <externalId>false</externalId>
     <label>Security Loan</label>
     <required>false</required>
     <trackTrending>false</trackTrending>

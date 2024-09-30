@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Opportunity_Traded_Revenue_pc__c</fullName>
     <description>The field indicates the ratio between the Total Traded Revenue to Date and Total Schedule Revenue to Date.</description>
-    <externalId>false</externalId>
     <formula>IF(Total_Schedule_Revenue_to_Date__c = 0,
 0,
 (Opportunity_Traded_Revenue__c / Total_Schedule_Revenue_to_Date__c)

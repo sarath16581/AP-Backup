@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>AllowableOutputFormats__c</fullName>
     <description>The list of output formats allowed for the agreement.</description>
-    <externalId>false</externalId>
     <inlineHelpText>The list of output formats allowed for the contract.</inlineHelpText>
     <label>Allowable Output Formats</label>
     <required>false</required>

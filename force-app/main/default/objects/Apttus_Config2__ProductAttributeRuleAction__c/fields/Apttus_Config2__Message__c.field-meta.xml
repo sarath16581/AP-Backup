@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__Message__c</fullName>
     <deprecated>false</deprecated>
     <description>The action message</description>
-    <externalId>false</externalId>
     <inlineHelpText>The action message</inlineHelpText>
     <label>Message</label>
     <length>2048</length>

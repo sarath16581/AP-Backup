@@ -3,7 +3,6 @@
     <fullName>IsActive__c</fullName>
     <defaultValue>true</defaultValue>
     <description>Switch whether this record is set to active or not.</description>
-    <externalId>false</externalId>
     <fieldManageability>SubscriberControlled</fieldManageability>
     <inlineHelpText>Switch whether this record is set to active or not. Unticked records will be bypassed by the Histrory Tracking Framework</inlineHelpText>
     <label>Is Active</label>

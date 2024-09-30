@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Transaction_fee__c</fullName>
     <description>Transaction fee used for SecurePay (manual Sales user input)</description>
-    <externalId>false</externalId>
     <inlineHelpText>Payable each time a transaction is conducted, including refunds, pre-authorisations and card-issuer declined payments.</inlineHelpText>
     <label>Transaction fee</label>
     <required>false</required>

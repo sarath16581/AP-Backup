@@ -4,7 +4,6 @@
     <defaultValue>true</defaultValue>
     <deprecated>false</deprecated>
     <description>Enable Usage Data</description>
-    <externalId>false</externalId>
     <inlineHelpText>Enable Usage Data</inlineHelpText>
     <label>Enable Usage Data</label>
     <trackTrending>false</trackTrending>

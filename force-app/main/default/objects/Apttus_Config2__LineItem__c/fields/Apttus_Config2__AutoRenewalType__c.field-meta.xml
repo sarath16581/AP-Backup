@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__AutoRenewalType__c</fullName>
     <deprecated>false</deprecated>
     <description>The auto renewal type</description>
-    <externalId>false</externalId>
     <inlineHelpText>The auto renewal type</inlineHelpText>
     <label>Auto Renewal Type</label>
     <required>false</required>

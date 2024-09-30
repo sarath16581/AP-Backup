@@ -3,7 +3,6 @@
     <fullName>et4ae5__Subscribed_For_Tracking__c</fullName>
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
-    <externalId>false</externalId>
     <label>Subscribed For Tracking</label>
     <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>

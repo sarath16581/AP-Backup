@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>CaseType__c</fullName>
     <description>Its the &quot;Type&quot; field value of Case. Need to make sure that all the values in Case.Type do exist here.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Case.Type. If you cannot find a Type, ask your System Administrator to add it for you.</inlineHelpText>
     <label>Case Type</label>
     <required>false</required>

@@ -4,7 +4,6 @@
     <businessStatus>Active</businessStatus>
     <defaultValue>false</defaultValue>
     <description>Capture disclosure consent within license record in Salesforce</description>
-    <externalId>false</externalId>
     <inlineHelpText>Capture disclosure consent within license record in Salesforce</inlineHelpText>
     <label>Disclosure Consent</label>
     <securityClassification>INTERNAL</securityClassification>

@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Indicates whether fast cloning is enabled</description>
-    <externalId>false</externalId>
     <inlineHelpText>Indicates whether fast cloning is enabled.</inlineHelpText>
     <label>Enable Fast Cloning</label>
     <trackTrending>false</trackTrending>

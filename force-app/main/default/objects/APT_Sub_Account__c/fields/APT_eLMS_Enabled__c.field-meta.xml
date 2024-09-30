@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>APT_eLMS_Enabled__c</fullName>
-    <externalId>false</externalId>
     <inlineHelpText>If ‘Yes’, please ensure you provide an eLMS enabled lodgement point that is available in the main/parent account to this sub account request. Select “eLMS Enabled Lodgement Points” link below to view the valid lodgement points.</inlineHelpText>
     <label>eLMS/eLMS Enabled</label>
     <required>false</required>

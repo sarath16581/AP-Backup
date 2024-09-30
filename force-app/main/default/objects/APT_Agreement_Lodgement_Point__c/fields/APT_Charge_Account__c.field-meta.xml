@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>APT_Charge_Account__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
-    <externalId>false</externalId>
     <label>Charge Account</label>
     <referenceTo>APT_Charge_Account__c</referenceTo>
     <relationshipLabel>Agreement Lodgement Point</relationshipLabel>

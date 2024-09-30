@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__RuleType__c</fullName>
     <deprecated>false</deprecated>
     <description>The rule type</description>
-    <externalId>false</externalId>
     <inlineHelpText>1. SINGLE RATE:  Same rate for all qualified txns.
 2. RATE TABLE- NO TIERS:  Different rates based on discrete values e.g. Asia  – $5 | EMEA - $10
 3. RATE TABLE - WITH TIERS: Different rate based on volume or revenue tiers - 1-100 - $5, 101-1000 - $10</inlineHelpText>

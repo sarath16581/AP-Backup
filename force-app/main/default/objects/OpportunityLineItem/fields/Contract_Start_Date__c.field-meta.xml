@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Contract_Start_Date__c</fullName>
-    <externalId>false</externalId>
     <inlineHelpText>The ‘revenue start date’ is the date the customer is first invoiced for services provided to them. Please factor into the ‘start date’ any on-boarding and implementation time required for the product or service.</inlineHelpText>
     <label>Revenue Start Date</label>
     <required>false</required>

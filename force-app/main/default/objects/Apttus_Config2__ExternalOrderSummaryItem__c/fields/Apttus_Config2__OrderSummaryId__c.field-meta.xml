@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__OrderSummaryId__c</fullName>
     <deprecated>false</deprecated>
     <description>ID of the associated external summary order</description>
-    <externalId>false</externalId>
     <inlineHelpText>ID of the associated external summary order</inlineHelpText>
     <label>Order Summary</label>
     <referenceTo>Apttus_Config2__ExternalOrderSummary__c</referenceTo>

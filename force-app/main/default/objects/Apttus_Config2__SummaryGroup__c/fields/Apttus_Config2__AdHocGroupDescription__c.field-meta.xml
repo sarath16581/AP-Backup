@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__AdHocGroupDescription__c</fullName>
     <deprecated>false</deprecated>
     <description>The totaling group description</description>
-    <externalId>false</externalId>
     <label>Totaling Group Description</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>

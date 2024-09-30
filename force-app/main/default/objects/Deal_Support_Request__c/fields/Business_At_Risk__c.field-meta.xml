@@ -3,7 +3,6 @@
     <fullName>Business_At_Risk__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <description>To link the Business At Risk record where there is one</description>
-    <externalId>false</externalId>
     <label>Business At Risk</label>
     <referenceTo>At_Risk_Business__c</referenceTo>
     <relationshipLabel>Deal Support Request</relationshipLabel>

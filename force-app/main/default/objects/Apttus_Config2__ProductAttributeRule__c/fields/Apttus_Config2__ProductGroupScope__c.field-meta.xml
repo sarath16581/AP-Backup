@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__ProductGroupScope__c</fullName>
     <deprecated>false</deprecated>
     <description>One or more product groups associated with the rule</description>
-    <externalId>false</externalId>
     <inlineHelpText>One or more product groups associated with the rule</inlineHelpText>
     <label>Product Group Scope</label>
     <required>false</required>

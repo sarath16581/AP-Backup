@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__PriceListCriteriaOper__c</fullName>
     <deprecated>false</deprecated>
     <description>The price list criteria operator</description>
-    <externalId>false</externalId>
     <inlineHelpText>The price list criteria operator</inlineHelpText>
     <label>Price List Criteria Oper</label>
     <required>false</required>

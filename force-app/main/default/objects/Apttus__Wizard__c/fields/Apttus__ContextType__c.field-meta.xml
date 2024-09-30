@@ -5,7 +5,6 @@
     <description>Type of context, whether its All or Object.
 All means that any step can be used in the wizard design.
 Object means that only aligned (same object) steps can be used in the wizard design.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Type of context, whether its All or Object.
 All means that any step can be used in the wizard design.
 Object means that only aligned (same object) steps can be used in the wizard design.</inlineHelpText>

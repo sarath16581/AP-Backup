@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>APT_No_of_times_extension_was_approved__c</fullName>
-    <externalId>false</externalId>
     <inlineHelpText>Calculates number of extensions approved for this record</inlineHelpText>
     <label># Of Times Extension Was Approved</label>
     <securityClassification>INTERNAL</securityClassification>

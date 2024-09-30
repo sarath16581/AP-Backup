@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>AMLCTF_Audit_Program__c</fullName>
     <description>Audit Program document completed during site audit</description>
-    <externalId>false</externalId>
     <inlineHelpText>Audit Program document completed during site audit</inlineHelpText>
     <label>Audit Program</label>
     <referenceTo>AMLCTF_Audit_Program__c</referenceTo>

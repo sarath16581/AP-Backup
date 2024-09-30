@@ -4,7 +4,6 @@
     <defaultValue>true</defaultValue>
     <deprecated>false</deprecated>
     <description>Allows users to view the Add more button while sending documents for review to add supporting documents from their local or shared drive.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Allows users to view the Add more button while sending documents for review to add supporting documents from their local or shared drive.</inlineHelpText>
     <label>Show Add More Button During Review</label>
     <trackTrending>false</trackTrending>

@@ -4,7 +4,6 @@
     <deleteConstraint>SetNull</deleteConstraint>
     <deprecated>false</deprecated>
     <description>ID of the milestone associated with the plan item</description>
-    <externalId>false</externalId>
     <inlineHelpText>ID of the milestone associated with the plan item</inlineHelpText>
     <label>Milestone</label>
     <lookupFilter>

@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Healthy__c</fullName>
     <description>Is this account healthy? Only accounts that have no open cases are healthy</description>
-    <externalId>false</externalId>
     <inlineHelpText>you can only mark this account as healthy if there are no open cases.</inlineHelpText>
     <label>Healthy</label>
     <required>false</required>

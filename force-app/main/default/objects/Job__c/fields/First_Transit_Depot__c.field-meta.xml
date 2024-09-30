@@ -3,7 +3,6 @@
     <fullName>First_Transit_Depot__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <description>Field used to capture the first transit point in a delivery</description>
-    <externalId>false</externalId>
     <label>First Transit Depot</label>
     <lookupFilter>
         <active>true</active>

@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__RunDayOfMonth__c</fullName>
     <deprecated>false</deprecated>
     <description>The run day of month. Specific Day of Month, End of Month, etc when recurring monthly jobs should run.</description>
-    <externalId>false</externalId>
     <inlineHelpText>The run day of month. Specific Day of Month, End of Month, etc when recurring monthly jobs should run.</inlineHelpText>
     <label>Run Day Of Month</label>
     <required>false</required>

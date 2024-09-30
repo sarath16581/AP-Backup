@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__PaymentStatus__c</fullName>
     <deprecated>false</deprecated>
     <description>The payment status for the order</description>
-    <externalId>false</externalId>
     <inlineHelpText>The payment status for the order</inlineHelpText>
     <label>Payment Status</label>
     <required>false</required>

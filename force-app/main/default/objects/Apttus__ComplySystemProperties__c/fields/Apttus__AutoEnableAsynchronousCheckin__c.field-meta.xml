@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Auto Enable Asynchronous Checkin</description>
-    <externalId>false</externalId>
     <inlineHelpText>Default value of the Asynchronous Check-in checkbox available on the X-Author Contracts Check-in pop-up window.</inlineHelpText>
     <label>Auto Enable Asynchronous Checkin</label>
     <trackTrending>false</trackTrending>

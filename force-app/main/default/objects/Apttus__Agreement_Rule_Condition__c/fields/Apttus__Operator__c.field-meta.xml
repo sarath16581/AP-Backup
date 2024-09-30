@@ -3,7 +3,6 @@
     <fullName>Apttus__Operator__c</fullName>
     <deprecated>false</deprecated>
     <description>Comparison operator for a field expression in a query</description>
-    <externalId>false</externalId>
     <label>Comparison Operator</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>

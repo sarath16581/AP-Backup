@@ -3,7 +3,6 @@
     <fullName>Apttus_Approval__StepDisplayFieldNames__c</fullName>
     <deprecated>false</deprecated>
     <description>The API names of the fields to display for the step</description>
-    <externalId>false</externalId>
     <inlineHelpText>The API names of the fields to display for the step</inlineHelpText>
     <label>Step Display Field Names</label>
     <required>false</required>

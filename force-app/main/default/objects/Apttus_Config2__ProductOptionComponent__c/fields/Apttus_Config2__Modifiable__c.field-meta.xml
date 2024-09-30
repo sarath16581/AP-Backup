@@ -4,7 +4,6 @@
     <defaultValue>true</defaultValue>
     <deprecated>false</deprecated>
     <description>Indicates whether the option or component quantity is modifiable.</description>
-    <externalId>false</externalId>
     <label>Quantity Modifiable</label>
     <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>

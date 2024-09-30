@@ -3,7 +3,6 @@
     <fullName>ArticleType__c</fullName>
     <description>Used for Contact Us Form
 2014-05 CCU - Changed from multi-picklist to picklist as per instructed</description>
-    <externalId>false</externalId>
     <label>Article Type</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>

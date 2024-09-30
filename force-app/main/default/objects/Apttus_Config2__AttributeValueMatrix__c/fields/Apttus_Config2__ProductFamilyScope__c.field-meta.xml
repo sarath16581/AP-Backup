@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__ProductFamilyScope__c</fullName>
     <deprecated>false</deprecated>
     <description>One or more product families associated with the matrix</description>
-    <externalId>false</externalId>
     <inlineHelpText>One or more product families associated with the matrix</inlineHelpText>
     <label>Product Family Scope</label>
     <required>false</required>

@@ -3,7 +3,6 @@
     <fullName>Apttus_DealMgr__Measure__c</fullName>
     <deprecated>false</deprecated>
     <description>The measure used to provide the guidance</description>
-    <externalId>false</externalId>
     <inlineHelpText>The measure used to provide the guidance</inlineHelpText>
     <label>Measure</label>
     <required>false</required>

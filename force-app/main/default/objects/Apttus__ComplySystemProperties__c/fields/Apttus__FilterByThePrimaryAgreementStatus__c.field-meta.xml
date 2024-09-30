@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Enable filtering of agreements (Related/Sibling/Parent/Child) by Status Category or Status of the primary agreement.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Enable filtering of agreements (Related/Sibling/Parent/Child) by Status Category or Status of the primary agreement.</inlineHelpText>
     <label>Filter By The Primary Agreement Status</label>
     <trackTrending>false</trackTrending>

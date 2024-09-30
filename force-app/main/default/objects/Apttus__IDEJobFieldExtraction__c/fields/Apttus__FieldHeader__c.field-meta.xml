@@ -3,7 +3,6 @@
     <fullName>Apttus__FieldHeader__c</fullName>
     <deprecated>false</deprecated>
     <description>The field header text</description>
-    <externalId>false</externalId>
     <inlineHelpText>The field header text</inlineHelpText>
     <label>Field Header</label>
     <length>32768</length>

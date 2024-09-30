@@ -4,7 +4,6 @@
     <businessStatus>DeprecateCandidate</businessStatus>
     <deleteConstraint>SetNull</deleteConstraint>
     <description>DEPRECATED. DO NOT USE. Divisional CFO</description>
-    <externalId>false</externalId>
     <label>Divisional CFO (DEPRECATED)</label>
     <referenceTo>User</referenceTo>
     <relationshipName>Credit_Approval_Matrix2GLd</relationshipName>

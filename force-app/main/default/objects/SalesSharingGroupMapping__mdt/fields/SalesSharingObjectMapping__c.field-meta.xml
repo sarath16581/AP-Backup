@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>SalesSharingObjectMapping__c</fullName>
     <description>A relationship lookup to the custom metadata type containing object mapping details/</description>
-    <externalId>false</externalId>
     <fieldManageability>DeveloperControlled</fieldManageability>
     <inlineHelpText>A relationship lookup to the custom metadata type containing object mapping details/</inlineHelpText>
     <label>Sales Sharing Object Mapping</label>

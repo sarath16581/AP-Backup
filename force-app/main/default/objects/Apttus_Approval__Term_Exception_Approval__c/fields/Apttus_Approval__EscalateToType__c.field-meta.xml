@@ -3,7 +3,6 @@
     <fullName>Apttus_Approval__EscalateToType__c</fullName>
     <deprecated>false</deprecated>
     <description>The type of assignee the request will be escalated to if it is escalated at the term exception approval level.</description>
-    <externalId>false</externalId>
     <inlineHelpText>The type of assignee the request will be escalated to if it is escalated at the term exception approval level.</inlineHelpText>
     <label>Escalate To Type</label>
     <required>false</required>

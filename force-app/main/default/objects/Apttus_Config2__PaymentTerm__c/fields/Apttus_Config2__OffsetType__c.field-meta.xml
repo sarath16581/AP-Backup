@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__OffsetType__c</fullName>
     <deprecated>false</deprecated>
     <description>Indicates the date the payment term is calculated from</description>
-    <externalId>false</externalId>
     <inlineHelpText>Indicates the date the payment term is calculated from</inlineHelpText>
     <label>Offset Type</label>
     <required>false</required>

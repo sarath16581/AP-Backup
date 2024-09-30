@@ -3,7 +3,6 @@
     <fullName>Apttus__APTS_Contract_From__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <deprecated>false</deprecated>
-    <externalId>false</externalId>
     <label>Relationship From</label>
     <referenceTo>Apttus__APTS_Agreement__c</referenceTo>
     <relationshipName>R00N50000001Xl0WEAS</relationshipName>

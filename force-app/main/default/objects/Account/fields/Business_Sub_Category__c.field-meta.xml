@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Business_Sub_Category__c</fullName>
-    <externalId>false</externalId>
     <inlineHelpText>Marketing-based Business Subcategory alignment of Organisation. By default this is mapped to the organisations ANZSIC code, but can be manually realigned by the Marketing Team</inlineHelpText>
     <label>Business Sub-Category</label>
     <required>false</required>

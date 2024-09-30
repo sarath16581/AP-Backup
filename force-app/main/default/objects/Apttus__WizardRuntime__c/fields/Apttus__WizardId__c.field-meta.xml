@@ -4,7 +4,6 @@
     <deleteConstraint>SetNull</deleteConstraint>
     <deprecated>false</deprecated>
     <description>Reference/Lookup to wizard design</description>
-    <externalId>false</externalId>
     <inlineHelpText>Reference/Lookup to wizard design</inlineHelpText>
     <label>Wizard</label>
     <referenceTo>Apttus__Wizard__c</referenceTo>

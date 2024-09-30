@@ -3,7 +3,6 @@
     <fullName>Apttus__Request_Date__c</fullName>
     <deprecated>false</deprecated>
     <description>The date the agreement was requested</description>
-    <externalId>false</externalId>
     <label>Request Date</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>

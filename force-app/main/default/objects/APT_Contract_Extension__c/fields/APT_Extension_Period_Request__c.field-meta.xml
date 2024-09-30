@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>APT_Extension_Period_Request__c</fullName>
-    <externalId>false</externalId>
     <inlineHelpText>If an approval is granted, contracts can be extended for a maximum of 2 months from the original expiry date.  Please note that if a contract expires, your customer may not be able to access their service or, rates may revert to retail or full rates.</inlineHelpText>
     <label>Extension Period Request (in days)</label>
     <required>false</required>

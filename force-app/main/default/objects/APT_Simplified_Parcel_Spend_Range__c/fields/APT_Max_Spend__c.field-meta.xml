@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>APT_Max_Spend__c</fullName>
     <description>Spend Range - Max amount</description>
-    <externalId>false</externalId>
     <label>Max Spend</label>
     <precision>18</precision>
     <required>true</required>

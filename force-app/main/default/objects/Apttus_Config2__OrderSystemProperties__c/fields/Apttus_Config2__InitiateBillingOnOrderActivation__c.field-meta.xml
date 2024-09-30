@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Indicates whether billing should be initiated on order activation</description>
-    <externalId>false</externalId>
     <inlineHelpText>Indicates whether billing should be initiated on order activation</inlineHelpText>
     <label>Initiate Billing On Order Activation ?</label>
     <trackTrending>false</trackTrending>

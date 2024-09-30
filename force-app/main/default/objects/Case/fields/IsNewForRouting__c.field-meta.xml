@@ -4,7 +4,6 @@
     <defaultValue>true</defaultValue>
     <description>Field used by WFR to be set to False &quot;SSSW - Update IsNewForRouting&quot;.
 Used by code to determine Routing assignment based of New/Updated.</description>
-    <externalId>false</externalId>
     <label>IsNewForRouting?</label>
     <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>

@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Price_Type__c</fullName>
     <description>Price type associated with the respective product type/ product</description>
-    <externalId>false</externalId>
     <fieldManageability>DeveloperControlled</fieldManageability>
     <label>Price Type</label>
     <required>false</required>

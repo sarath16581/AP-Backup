@@ -3,7 +3,6 @@
     <fullName>Apttus_QPConfig__RollupId__c</fullName>
     <deprecated>false</deprecated>
     <description>ID of the associated rollup</description>
-    <externalId>false</externalId>
     <inlineHelpText>ID of the associated rollup</inlineHelpText>
     <label>Search Filter (CPQ)</label>
     <referenceTo>Apttus_Config2__SearchFilter__c</referenceTo>

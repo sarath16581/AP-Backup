@@ -3,7 +3,6 @@
     <fullName>grax__EnableDeleteTab__c</fullName>
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
-    <externalId>false</externalId>
     <label>Enable Delete Tab</label>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>

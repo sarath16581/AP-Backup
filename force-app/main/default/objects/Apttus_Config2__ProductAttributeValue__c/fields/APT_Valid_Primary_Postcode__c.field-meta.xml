@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>APT_Valid_Primary_Postcode__c</fullName>
     <defaultValue>false</defaultValue>
-    <externalId>false</externalId>
     <label>Valid Primary Postcode?</label>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>

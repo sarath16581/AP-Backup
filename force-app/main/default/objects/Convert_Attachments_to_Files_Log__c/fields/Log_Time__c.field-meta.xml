@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Log_Time__c</fullName>
     <description>In List Views and Reports the standard CreatedDate and LastModifiedDate display only the &quot;date&quot; portion and not the &quot;time&quot;. This formula field is workaround to to view the &quot;date&quot; and &quot;time&quot; together.</description>
-    <externalId>false</externalId>
     <formula>CreatedDate</formula>
     <label>Log Time</label>
     <required>false</required>

@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Privacy_Check__c</fullName>
     <defaultValue>false</defaultValue>
-    <externalId>false</externalId>
     <label>Privacy Check</label>
     <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>

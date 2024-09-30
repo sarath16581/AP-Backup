@@ -3,7 +3,6 @@
     <fullName>et4ae5__Allow_Personal_Reports__c</fullName>
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
-    <externalId>false</externalId>
     <label>Allow Personal Reports</label>
     <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>

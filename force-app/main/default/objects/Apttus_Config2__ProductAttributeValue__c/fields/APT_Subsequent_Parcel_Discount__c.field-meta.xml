@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>APT_Subsequent_Parcel_Discount__c</fullName>
     <defaultValue>1.36</defaultValue>
-    <externalId>false</externalId>
     <inlineHelpText>Where a customer send more than one parcel in a consignment, the charge for the heaviest parcel in the consignment will be at base (full) price. The charge of the subsequent parcels will be at the subsequent price (a discounted price off the base price). 
 
 Parcels form part of the same consignment if sent from and to the same address, are listed on the same manifest and are sent by the same speed service.</inlineHelpText>

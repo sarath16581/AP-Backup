@@ -4,7 +4,6 @@
     <deleteConstraint>SetNull</deleteConstraint>
     <deprecated>false</deprecated>
     <description>ID of the associated cart</description>
-    <externalId>false</externalId>
     <label>Related Cart</label>
     <referenceTo>Apttus_Config2__ProductConfiguration__c</referenceTo>
     <relationshipLabel>Approval Requests</relationshipLabel>

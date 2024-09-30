@@ -3,7 +3,6 @@
     <fullName>cloudx_cms__Raw_OGG_Video_URL__c</fullName>
     <deprecated>false</deprecated>
     <description>Raw Video URL in OGG Format</description>
-    <externalId>false</externalId>
     <inlineHelpText>Raw Video URL in OGG Format</inlineHelpText>
     <label>Raw OGG Video URL</label>
     <required>false</required>

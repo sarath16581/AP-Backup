@@ -3,7 +3,6 @@
     <fullName>et4ae5__SoftBounce__c</fullName>
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
-    <externalId>false</externalId>
     <inlineHelpText>The email sent was rejected due to a seemingly temporary condition, such as a full inbox, after the system retries unsuccessfully to send the email every 15 minutes for 72 hours. A subscriber will be set to Held status after three soft bounces</inlineHelpText>
     <label>Soft Bounce</label>
     <securityClassification>INTERNAL</securityClassification>

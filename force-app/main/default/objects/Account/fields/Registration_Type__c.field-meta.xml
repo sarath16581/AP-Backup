@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Registration_Type__c</fullName>
     <description>This field was created for MW0001719 - it is to help identify whether the lead came in via over the counter, the Internet or both</description>
-    <externalId>false</externalId>
     <inlineHelpText>This field is used to distinguish between the verification of identity (VOI) for Property Transfers channel/product each conveyancer/lawyer/mortgagee (CLM) has registered with Australia Post to use.</inlineHelpText>
     <label>Registration Type</label>
     <required>false</required>

@@ -3,7 +3,6 @@
     <fullName>All_Manual_Communications_Completed__c</fullName>
     <defaultValue>false</defaultValue>
     <description>This flag indicates that all manual communications have been completed. Cases with related contacts with &apos;Notification Required&apos; = true and &apos;Preferred Method of Contact&apos; = Phone, will not be set to Pending Customer Notification by the system when closed.</description>
-    <externalId>false</externalId>
     <inlineHelpText>This flag indicates that all manual communications have been completed. Cases with related contacts with &apos;Notification Required&apos; = true and &apos;Preferred Method of Contact&apos; = Phone, will not be set to Pending Customer Notification by the system when closed.</inlineHelpText>
     <label>All Manual Communications Completed</label>
     <securityClassification>INTERNAL</securityClassification>

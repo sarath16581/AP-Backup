@@ -3,7 +3,6 @@
     <fullName>Apttus__NormalizationResponse__c</fullName>
     <deprecated>false</deprecated>
     <description>Normalized extracted data</description>
-    <externalId>false</externalId>
     <inlineHelpText>Normalized extracted data</inlineHelpText>
     <label>Normalization Response</label>
     <length>32768</length>

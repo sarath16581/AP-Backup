@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Initial_Contract_Term__c</fullName>
-    <externalId>false</externalId>
     <inlineHelpText>The initial term of the Contract</inlineHelpText>
     <label>Initial Contract Term</label>
     <required>false</required>

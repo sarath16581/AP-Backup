@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>MTD_Original_Budget_R__c</fullName>
     <description>Phase 2 - This field will be used to roll up to the Account for the MTD Reporting.</description>
-    <externalId>false</externalId>
     <label>MTD Original Budget (R)</label>
     <precision>18</precision>
     <required>false</required>

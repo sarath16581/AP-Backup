@@ -3,7 +3,6 @@
     <fullName>IsAutoActivated__c</fullName>
     <defaultValue>false</defaultValue>
     <description>Indicates whether the agreement was activated by an auto system operation</description>
-    <externalId>false</externalId>
     <inlineHelpText>Indicates whether the agreement was activated by an auto system operation</inlineHelpText>
     <label>Is Auto Activated</label>
     <securityClassification>INTERNAL</securityClassification>

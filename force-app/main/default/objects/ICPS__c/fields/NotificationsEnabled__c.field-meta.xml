@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>NotificationsEnabled__c</fullName>
     <description>This field is a back-end indicator as to whether or not the solution should allow sending of notifications via Email and SMS</description>
-    <externalId>false</externalId>
     <formula>IF( $CustomMetadata.ICPSSettings__mdt.ICPS_Settings.NotificationsEnabled__c, TRUE, FALSE)</formula>
     <inlineHelpText>This field is a back-end indicator as to whether or not the solution should allow sending of notifications via Email and SMS</inlineHelpText>
     <label>Notifications Enabled?</label>

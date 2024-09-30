@@ -3,7 +3,6 @@
     <fullName>kfsell__Getting_Commitment__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <deprecated>false</deprecated>
-    <externalId>false</externalId>
     <label>Getting Commitment</label>
     <referenceTo>kfsell__Getting_Commitment__c</referenceTo>
     <relationshipLabel>KF Sell Best Actions</relationshipLabel>

@@ -3,7 +3,6 @@
     <fullName>IsSystemGenerated__c</fullName>
     <defaultValue>false</defaultValue>
     <description>Indicates whether this is a system generated agreement</description>
-    <externalId>false</externalId>
     <inlineHelpText>Indicates whether this is a system generated agreement</inlineHelpText>
     <label>Is System Generated</label>
     <securityClassification>INTERNAL</securityClassification>

@@ -3,7 +3,6 @@
     <fullName>Is_Complaint__c</fullName>
     <description>To be used to determine whether a CCC case is a complaint
 /*This is setting setting a complaint flag to true if and only if it is a Feedback or Investigation and the Enquiry sub type is one of the ones listed - so by default the case will not be a complaint unless t matches the values below*/</description>
-    <externalId>false</externalId>
     <formula>If ((ISPickval( Type, &quot;Feedback&quot;) ||Ispickval(Type,&quot;Investigation&quot;)) &amp;&amp;
 (IsPickval (EnquirySubType__c,&quot;Address not in NAF&quot;)||
 IsPickval (EnquirySubType__c,&quot;All Other&quot;)||

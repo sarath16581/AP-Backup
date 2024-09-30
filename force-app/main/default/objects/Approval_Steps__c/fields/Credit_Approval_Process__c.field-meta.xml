@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Credit_Approval_Process__c</fullName>
-    <externalId>false</externalId>
     <label>Credit Approval Process</label>
     <referenceTo>Credit_Approval_Process_Setting__c</referenceTo>
     <relationshipName>Approval_Steps</relationshipName>
