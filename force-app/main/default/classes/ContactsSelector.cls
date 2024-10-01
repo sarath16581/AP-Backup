@@ -33,6 +33,9 @@ public virtual inherited sharing class ContactsSelector extends ApplicationSelec
 	public enum Options {
 		WITH_RECORDTYPE, WITH_OWNER, WITH_ACCOUNT, WITH_BILLING_ACCOUNT, WITH_RELATED_CASES
 	}
+	public enum ComplexSubQueryOptions {
+		WITH_RECENT_CASES, WITH_ALL_RECENT_INTERACTIONS, WITH_RECENT_LIVE_CHAT_TRANSCRIPTS, WITH_RECENT_TASKS, WITH_RECENT_VOICE_CALLS
+	}
 
 	public static ContactsSelector newInstance() {
 		return (ContactsSelector)Application.Selectors.newInstance(ContactsSelector.class);
@@ -365,81 +368,85 @@ public virtual inherited sharing class ContactsSelector extends ApplicationSelec
 		return qb.toSoqlString();
 	}
 	/**
-	 * @description Select contacts with Cases and Interactions by Phone Number(exact match).
-	 * @param phoneNumber phoneNumber
+	 * @description Select contacts with Cases and Interactions by Reversed Phone Number(exact match).
+	 * @param phoneNumber reversed phoneNumber
 	 * @param bindMap map of bind variables
-	 * @param selectorOptions contacts selector options
+	 * @param complexQueryOptions Complex Search options to include child relationships
 	 * @return matching Contact records
 	 */
-	public List<Contact> selectWithCasesAndInteractionsByPhoneNumber(String phoneNumber, Map<String, Object> bindMap, Set<Object> selectorOptions) {
+	public List<Contact> selectWithCasesAndInteractionsByReversePhoneNumber(String phoneNumber, Map<String, Object> bindMap, Set<Object> complexQueryOptions) {
 		String queryConditions;
 		if(String.isNotBlank(phoneNumber)){
-			queryConditions= ' AND (HomePhone =:searchKey OR MobilePhone =:searchKey OR Phone =:searchKey)';
+			queryConditions= ' AND (ReverseMobilePhone__c =:searchKey OR ReversePhone__c =:searchKey OR ReverseVerifiedMobile__c =:searchKey)';
 			bindMap.put('searchKey', phoneNumber);
 		}
-		return selectWithCasesAndInteractionsHelper(queryConditions, bindMap, selectorOptions);
+		return selectWithCasesAndInteractionsHelper(queryConditions, bindMap, complexQueryOptions);
 	}
 	/**
 	 * @description Select contacts with Cases and Interactions by Email Address(exact match).
 	 * @param emailAddress emailAddress
 	 * @param bindMap map of bind variables
-	 * @param selectorOptions contacts selector options
+	 * @param complexQueryOptions Complex Search options to include child relationships
 	 * @return matching Contact records
 	 */
-	public List<Contact> selectWithCasesAndInteractionsByEmailAddress(String emailAddress, Map<String, Object> bindMap, Set<Object> selectorOptions) {
+	public List<Contact> selectWithCasesAndInteractionsByEmailAddress(String emailAddress, Map<String, Object> bindMap, Set<Object> complexQueryOptions) {
 		String queryConditions;
 		if(String.isNotBlank(emailAddress)){
 			queryConditions=' AND (Email =:searchKey)';
 			bindMap.put('searchKey', emailAddress);
 		}
-		return selectWithCasesAndInteractionsHelper(queryConditions, bindMap, selectorOptions);
+		return selectWithCasesAndInteractionsHelper(queryConditions, bindMap, complexQueryOptions);
 	}
 	/**
-	 * @description Helper method to query contacts with Cases & Interaction
+	 * @description Helper method to query Contacts with Cases & Interaction(LiveChatTranscripts, Tasks & VoiceCalls)
 	 * Filters contacts based on the following criteria
 	 * 1. PersonAccount
 	 * 2. Account.RecordType = Organisation
 	 * 3. Additional search conditions can be passed in queryConditions, searchKey
-	 * The Cases & Interactions are limited to last 30 days
+	 * The Cases & Interactions are limited by passing values for `closedCaseCutoffDate` & `interactionCutoffDate`
 	 * @param queryConditions additional conditions with field to be searched for SOQL
 	 * @param bindMap map of bind variables
-	 * searchKey search param [Mandatory]
-	 * caseRecordTypes set of case record types to filter on [Optional]
-	 * closedCaseCutoffDate Case ClosedDate filter [Optional. Mandatory if caseRecordTypes is provided]
-	 * interactionProfiles set of interaction profile names to filter on [Optional]
-	 * interactionCutoffDate Interaction cut off date filter [Optional. Mandatory if interactionProfiles is provided]
-	 * @param selectorOptions contacts selector options
+	 * `searchKey` search param [Mandatory]
+	 * `caseRecordTypes` set of case record types to filter on. Used to identify AP/ST/Unified Case types[Optional]
+	 * `closedCaseCutoffDate` Case ClosedDate filter [Optional. Mandatory if `caseRecordTypes` is provided]
+	 * `interactionProfiles` set of interaction profile names to filter on. Used to identify AP/ST/Unified teams.[Optional]
+	 * `interactionCutoffDate` Interaction cut off date filter [Optional. Mandatory if `interactionProfiles` is provided]
+	 * @param complexQueryOptions Complex Search options to include child relationships
 	 * @return  `List<Contact>`matching Contact records
 	 */
-	public List<Contact> selectWithCasesAndInteractionsHelper(String queryConditions, Map<String, Object> bindMap, Set<Object> selectorOptions) {
-	
-		Set<SobjectField> caseFields = new Set<SObjectField>{
-			Case.Id, Case.CaseNumber, Case.IsClosed, Case.ClosedDate, Case.Type
-			, Case.Call_Purpose__c, Case.EnquirySubType__c, Case.Enquiry_Type__c, Case.Status};
-		
+	public List<Contact> selectWithCasesAndInteractionsHelper(String queryConditions, Map<String, Object> bindMap, Set<Object> complexQueryOptions) {
+
 		final String businessContactRecordType = 'Business_Account',
 			apVoiceCallRecordType = 'SSSWCall';
 			bindMap.put('businessContactRecordType',businessContactRecordType);
-			bindMap.put('apVoiceCallRecordType',apVoiceCallRecordType);
-		String contactQueryConditions = ' (IsPersonAccount=true'
+
+			// create query condition to filter Consumer Accounts or Business Contacts only.
+			// keep this a string & use `SimpleCondition` so that the additional queryCondition like phone, email
+			// can be appended without complicating the order of conditions
+			String contactQueryConditions = ' (IsPersonAccount=true'
 			+ ' OR Account.RecordType.DeveloperName=:businessContactRecordType)';
-		//append additional query condition to include search key
-		if(String.isNotBlank(queryConditions)){
-			contactQueryConditions+=queryConditions;
-		}
-		QueryBuilder qb = newQueryBuilder(selectorOptions)
-			.addField('Contact.Account.RecordType.DeveloperName')
-			.addConditions()
-			.add(new QueryBuilder.SimpleCondition(contactQueryConditions))
-			.endConditions();
-		//add Cases subquery based on bind variable
-		if (bindMap.containsKey('caseRecordTypes')) {
+
+			//append additional query condition to include search key or any other additional filter
+			if(String.isNotBlank(queryConditions)){
+				contactQueryConditions+=queryConditions;
+			}
+			
+		QueryBuilder qb = newQueryBuilder(new Set<Object>{
+			Options.WITH_ACCOUNT
+			,AccountsSelector.Options.WITH_RECORDTYPE
+		})
+		.addConditions()
+		.add(new QueryBuilder.SimpleCondition(contactQueryConditions))
+		.endConditions();
+
+		//add Cases subquery
+		if(complexQueryOptions.contains(ComplexSubQueryOptions.WITH_RECENT_CASES)){
 			qb.addSubQuery(
-				CasesSelector.newInstance(0, caseFields)
-					.newQueryBuilder(new Set<Object>{CasesSelector.Options.WITH_RECORDTYPE
+				CasesSelector.newInstance(0, fieldOverrides)
+					.newQueryBuilder(new Set<Object>{
+						CasesSelector.Options.WITH_RECORDTYPE
+						,CasesSelector.Options.WITH_ARTICLE
 					})
-					.addField('ArticleTest__r.ArticleId__c')
-					.addField('ArticleTest__r.Name')
 					.addConditions()
 					.add(new QueryBuilder.CompareCondition(Case.IsClosed).eq(true))
 					.add(new QueryBuilder.SimpleCondition(Case.ClosedDate + ' >=:closedCaseCutoffDate'))
@@ -447,18 +454,29 @@ public virtual inherited sharing class ContactsSelector extends ApplicationSelec
 					.add(new QueryBuilder.SimpleCondition(' RecordType.DeveloperName  IN :caseRecordTypes'))
 					.setConditionOrder('((1 AND 2) OR 3) AND 4')
 					.endConditions()
-					.addOrderDesc(Case.ClosedDate)
+					
+					//sort by ClosedDate, as it will be NULL for Open Cases use NULLS FIRST
+					.setOrder(new QueryBuilder.Order(Case.ClosedDate)
+						.setSortingOrderDesc()
+						.setNullsOrderFirst())
 				, 'Cases'
 			);
 		}
-		//add interaction suqueries based on bind variable
-		if (bindMap.containsKey('interactionProfiles')) {
-			//add Tasks subquery
+
+		//add interaction subqueries 
+		//add Tasks subquery
+		if(complexQueryOptions.contains(ComplexSubQueryOptions.WITH_ALL_RECENT_INTERACTIONS) 
+			|| complexQueryOptions.contains(ComplexSubQueryOptions.WITH_RECENT_TASKS)){
+
+			//add AP Voice Calls bind variable to map
+			bindMap.put('apVoiceCallRecordType',apVoiceCallRecordType);
+
 			qb.addSubQuery(
 				TasksSelector.newInstance()
+					.setFieldOverrides(fieldOverrides)
 					.newQueryBuilder()
 					.addField(Task.ActivityDate)
-					.addField('CreatedBy.Profile.Name')
+					.addRelatedFields(UsersSelector.newInstance(0, fieldOverrides).newQueryBuilder(new Set<Object>{UsersSelector.Options.WITH_PROFILE}), 'CreatedBy')
 					.addConditions()
 					.add(new QueryBuilder.CompareCondition(Task.Type).eq('Phone Call'))
 					.add(new QueryBuilder.SimpleCondition(' RecordType.DeveloperName =:apVoiceCallRecordType'))
@@ -466,39 +484,53 @@ public virtual inherited sharing class ContactsSelector extends ApplicationSelec
 					.add(new QueryBuilder.SimpleCondition('Task.CreatedBy.Profile.Name IN :interactionProfiles'))
 					.setConditionOrder('(1 OR 2) AND 3 AND 4')
 					.endConditions()
-					.addOrderDesc(Task.CreatedDate)
+
+					//sort by CreatedDate instead of ActivityDate, as we need all Tasks created before interactionCutoffDate
+					.setOrder(new QueryBuilder.Order(Task.CreatedDate)
+						.setSortingOrderDesc())
 				,'Tasks'
 			);
-			//add VoiceCalls subquery
+		}
+
+		//add VoiceCalls subquery
+		if(complexQueryOptions.contains(ComplexSubQueryOptions.WITH_ALL_RECENT_INTERACTIONS) 
+			|| complexQueryOptions.contains(ComplexSubQueryOptions.WITH_RECENT_VOICE_CALLS)){
+
 			qb.addSubQuery(
 				VoiceCallsSelector.newInstance()
 					.newQueryBuilder()
 					.addField(VoiceCall.CreatedDate)
-					.addField('CreatedBy.Profile.Name')
+					.addRelatedFields(UsersSelector.newInstance(0, fieldOverrides).newQueryBuilder(new Set<Object>{UsersSelector.Options.WITH_PROFILE}), 'CreatedBy')
 					.addConditions()
 					.add(new QueryBuilder.SimpleCondition(VoiceCall.CreatedDate + ' >=:interactionCutoffDate'))
 					.add(new QueryBuilder.SimpleCondition('VoiceCall.CreatedBy.Profile.Name IN :interactionProfiles'))
 					.setConditionOrder('1 AND 2')
 					.endConditions()
-					.addOrderDesc(VoiceCall.CreatedDate)
 				,'RelatedRecords'
 			);
-			//add LiveChatTranscripts subquery
+		}
+
+		//add LiveChatTranscripts subquery
+		if(complexQueryOptions.contains(ComplexSubQueryOptions.WITH_ALL_RECENT_INTERACTIONS) 
+			|| complexQueryOptions.contains(ComplexSubQueryOptions.WITH_RECENT_LIVE_CHAT_TRANSCRIPTS)){
+
 			qb.addSubQuery(
 				LiveChatTranscriptsSelector.newInstance()
 					.newQueryBuilder()
 					.addField(LiveChatTranscript.CreatedDate)
-					.addField('Owner.Profile.Name')
+					.addRelatedFields(UsersSelector.newInstance(0, fieldOverrides).newQueryBuilder(new Set<Object>{UsersSelector.Options.WITH_PROFILE}), 'Owner')
 					.addConditions()
 					.add(new QueryBuilder.SimpleCondition(LiveChatTranscript.CreatedDate + ' >=:interactionCutoffDate'))
 					.add(new QueryBuilder.SimpleCondition('LiveChatTranscript.Owner.Profile.Name IN :interactionProfiles'))
 					.setConditionOrder('1 AND 2')
 					.endConditions()
-					.addOrderDesc(LiveChatTranscript.CreatedDate)
 				,'LiveChatTranscripts'
 			);
 		}
-		qb.addOrderAsc(Contact.Name);
+		
+		//sort by unified data score based on availability of phone & email
+		qb.setOrder(new QueryBuilder.Order(Contact.UnifiedDataScore__c)
+			.setSortingOrderDesc());
 		return Database.queryWithBinds(qb.toSoqlString(), bindMap, AccessLevel.USER_MODE);
 	}
 

@@ -26,6 +26,7 @@ public class ResourceCustomerInsightsV1_Test {
 		}
 		return integrationUser;
 	}
+
 	/**
 	 * @description : Create bindMap variable to be passed as bindMap for SOQL
 	 * @param hasCaseType 
@@ -34,20 +35,25 @@ public class ResourceCustomerInsightsV1_Test {
 	 */
 	static Map<String, Object> getBindMap(Boolean hasCaseType, Boolean hasInteractionType){
 		Map<String, Object> bindMap = new Map<String, Object>();
-		Set<String> caseRecordTypes = new Set<String>();
-		caseRecordTypes.addAll(ResourceCustomerInsightsV1.AP_CASE_RECORDTYPES);
-		caseRecordTypes.addAll(ResourceCustomerInsightsV1.ST_CASE_RECORDTYPES);
-		caseRecordTypes.addAll(ResourceCustomerInsightsV1.UNIFIED_CASE_RECORDTYPES);
-		Set<String> interactionProfiles = new Set<String>();
-		interactionProfiles.addAll(ResourceCustomerInsightsV1.AP_CC_PROFILES);
-		interactionProfiles.addAll(ResourceCustomerInsightsV1.ST_CC_PROFILES);
-		interactionProfiles.addAll(ResourceCustomerInsightsV1.U_CC_PROFILES);
-		bindMap.put('caseRecordTypes',caseRecordTypes);
-		bindMap.put('closedCaseCutoffDate',Date.today().addDays(-30));
-		bindMap.put('interactionProfiles', interactionProfiles);
-		bindMap.put('interactionCutoffDate', Date.today().addDays(-30));
+		if(hasCaseType){
+			Set<String> caseRecordTypes = new Set<String>();
+			caseRecordTypes.addAll(ResourceCustomerInsightsV1.AP_CASE_RECORDTYPES);
+			caseRecordTypes.addAll(ResourceCustomerInsightsV1.ST_CASE_RECORDTYPES);
+			caseRecordTypes.addAll(ResourceCustomerInsightsV1.UNIFIED_CASE_RECORDTYPES);
+			bindMap.put('caseRecordTypes',caseRecordTypes);
+			bindMap.put('closedCaseCutoffDate',Date.today().addDays(-30));
+		}
+		if(hasInteractionType){
+			Set<String> interactionProfiles = new Set<String>();
+			interactionProfiles.addAll(ResourceCustomerInsightsV1.AP_CC_PROFILES);
+			interactionProfiles.addAll(ResourceCustomerInsightsV1.ST_CC_PROFILES);
+			interactionProfiles.addAll(ResourceCustomerInsightsV1.U_CC_PROFILES);
+			bindMap.put('interactionProfiles', interactionProfiles);
+			bindMap.put('interactionCutoffDate', Date.today().addDays(-30));
+		}
 		return bindMap;
 	}
+
     /**
 	 * @description : Test with no access
 	 * Response should return error
@@ -137,6 +143,10 @@ public class ResourceCustomerInsightsV1_Test {
     @IsTest
 	static void testPhoneNumberParam(){
 		String customerPhone='0300300300';
+		
+		//reverse the phone number
+		String reversedPhone = Util.reversePhoneString(customerPhone);
+		
 		// Mock Data
 		RecordType accountRecordType = RecordTypesSelector.newInstance().selectByDeveloperName('Account', new Set<String>{'Business_Account'}).values()[0];
 		RecordType caseRecordType = RecordTypesSelector.newInstance().selectByDeveloperName('Case', new Set<String>{'SSSWGeneralEnquiry'}).values()[0];
@@ -146,15 +156,17 @@ public class ResourceCustomerInsightsV1_Test {
 		personAccount.RecordTypeId = accountRecordType.Id;
 		//Contact data
 		Contact personContact = ApplicationTestDataFactory.getContacts(1, personAccount.Id, true)[0];
+		personContact.Phone=customerPhone;
 		personAccount = (Account)ApplicationTestDataFactory.setUnwritableFields(personAccount, new Map<String, Object>{
 				'PersonContactId' => personContact.Id
 				,'RecordType.DeveloperName'=>'Business_Account'
 		});
 		personContact = (Contact)ApplicationTestDataFactory.setUnwritableFields(personContact, new Map<String, Object>{
 				'IsPersonAccount'=>true
+				,'ReversePhone__c'=> reversedPhone
 		});
-		personContact.Phone=customerPhone;
-		//case data
+
+		//Case data
 		Case caseRecord = ApplicationTestDataFactory.getCases(1, true)[0];
 		caseRecord.RecordTypeId = caseRecordType.Id;
 		caseRecord.Type = 'All Other Enquiries';
@@ -167,6 +179,7 @@ public class ResourceCustomerInsightsV1_Test {
 		});
 		
 		personContact = (Contact)ApplicationTestDataFactory.setChildRelationships(personContact,new Map <String, List <SObject>> {'Cases' => new List <Case>{ caseRecord }});
+
 		//Task data
 		Task taskRecord = ApplicationTestDataFactory.getTasks(2, null, true)[0];
 		taskRecord.RecordTypeId = taskRecordType.Id;
@@ -177,6 +190,7 @@ public class ResourceCustomerInsightsV1_Test {
 		});
 
 		personContact = (Contact)ApplicationTestDataFactory.setChildRelationships(personContact,new Map <String, List <SObject>> {'Tasks' => new List <Task>{ taskRecord }});
+
 		//VoiceCall Data
 		VoiceCall voiceCallRecord = new VoiceCall();
 		voiceCallRecord = (VoiceCall)ApplicationTestDataFactory.setUnwritableFields(voiceCallRecord, new Map<String, Object>{
@@ -192,6 +206,7 @@ public class ResourceCustomerInsightsV1_Test {
 		});
 
 		personContact = (Contact)ApplicationTestDataFactory.setChildRelationships(personContact,new Map <String, List <SObject>> {'LiveChatTranscripts' => new List <LiveChatTranscript>{ transcriptRecord }});
+		
 		//class bindMap variables
 		Map<String, Object> bindMap = getBindMap(true, true);
 		
@@ -199,12 +214,19 @@ public class ResourceCustomerInsightsV1_Test {
 		ContactsSelector mockContactsSelector = (ContactsSelector) MockUtility.mockSelector(ContactsSelector.class);
 
 		MockUtility.Mocks.startStubbing();
-		MockUtility.Mocks.when(mockContactsSelector.selectWithCasesAndInteractionsByPhoneNumber(customerPhone, bindMap, new Set<Object>()))
+		MockUtility.Mocks.when(mockContactsSelector.selectWithCasesAndInteractionsByReversePhoneNumber(
+			reversedPhone
+			, bindMap
+			, new Set<Object>{
+				ContactsSelector.ComplexSubQueryOptions.WITH_RECENT_CASES
+				, ContactsSelector.ComplexSubQueryOptions.WITH_ALL_RECENT_INTERACTIONS
+			}))
 			.thenReturn(new List<Contact>{personContact});
 		MockUtility.Mocks.stopStubbing();
 
 		RestRequest request = new RestRequest();
 		RestResponse response = new RestResponse();
+
 		//setup test user
 		User integrationUser = setupTestUser(true);
 
@@ -239,23 +261,31 @@ public class ResourceCustomerInsightsV1_Test {
     @IsTest
 	static void testValidPhoneNumberAndCaseTypeAndInteractionTypeParams(){
 		String customerPhone='0300300300';
+
+		//reverse the phone number
+		String reversedPhone = Util.reversePhoneString(customerPhone);
+
 		// Mock Data
 		RecordType accountRecordType = RecordTypesSelector.newInstance().selectByDeveloperName('Account', new Set<String>{'Business_Account'}).values()[0];
 		RecordType caseRecordType = RecordTypesSelector.newInstance().selectByDeveloperName('Case', new Set<String>{'SSSWGeneralEnquiry'}).values()[0];
 		RecordType taskRecordType = RecordTypesSelector.newInstance().selectByDeveloperName('Task', new Set<String>{'SSSWCall'}).values()[0];
+
 		//Account data
 		Account personAccount = ApplicationTestDataFactory.getPersonAccounts(1, true)[0];
 		personAccount.RecordTypeId = accountRecordType.Id;
+
 		//Contact data
 		Contact personContact = ApplicationTestDataFactory.getContacts(1, personAccount.Id, true)[0];
+		personContact.Phone=customerPhone;
 		personAccount = (Account)ApplicationTestDataFactory.setUnwritableFields(personAccount, new Map<String, Object>{
 				'PersonContactId' => personContact.Id
 				,'RecordType.DeveloperName'=>'Business_Account'
 		});
 		personContact = (Contact)ApplicationTestDataFactory.setUnwritableFields(personContact, new Map<String, Object>{
 				'IsPersonAccount'=>true
+				,'ReversePhone__c'=> reversedPhone
 		});
-		personContact.Phone=customerPhone;
+
 		//case data
 		Case caseRecord = ApplicationTestDataFactory.getCases(1, true)[0];
 		caseRecord.RecordTypeId = caseRecordType.Id;
@@ -269,6 +299,7 @@ public class ResourceCustomerInsightsV1_Test {
 		});
 		
 		personContact = (Contact)ApplicationTestDataFactory.setChildRelationships(personContact,new Map <String, List <SObject>> {'Cases' => new List <Case>{ caseRecord }});
+
 		//Task data
 		Task taskRecord = ApplicationTestDataFactory.getTasks(2, null, true)[0];
 		taskRecord.RecordTypeId = taskRecordType.Id;
@@ -279,6 +310,7 @@ public class ResourceCustomerInsightsV1_Test {
 		});
 
 		personContact = (Contact)ApplicationTestDataFactory.setChildRelationships(personContact,new Map <String, List <SObject>> {'Tasks' => new List <Task>{ taskRecord }});
+
 		//VoiceCall Data
 		VoiceCall voiceCallRecord = new VoiceCall();
 		voiceCallRecord = (VoiceCall)ApplicationTestDataFactory.setUnwritableFields(voiceCallRecord, new Map<String, Object>{
@@ -294,6 +326,7 @@ public class ResourceCustomerInsightsV1_Test {
 		});
 
 		personContact = (Contact)ApplicationTestDataFactory.setChildRelationships(personContact,new Map <String, List <SObject>> {'LiveChatTranscripts' => new List <LiveChatTranscript>{ transcriptRecord }});
+
 		//class bindMap variables
 		Map<String, Object> bindMap = getBindMap(true, true);
 		
@@ -301,7 +334,13 @@ public class ResourceCustomerInsightsV1_Test {
 		ContactsSelector mockContactsSelector = (ContactsSelector) MockUtility.mockSelector(ContactsSelector.class);
 
 		MockUtility.Mocks.startStubbing();
-		MockUtility.Mocks.when(mockContactsSelector.selectWithCasesAndInteractionsByPhoneNumber(customerPhone, bindMap, new Set<Object>()))
+		MockUtility.Mocks.when(mockContactsSelector.selectWithCasesAndInteractionsByReversePhoneNumber(
+			reversedPhone
+			, bindMap
+			, new Set<Object>{
+				ContactsSelector.ComplexSubQueryOptions.WITH_RECENT_CASES
+				, ContactsSelector.ComplexSubQueryOptions.WITH_ALL_RECENT_INTERACTIONS
+			}))
 			.thenReturn(new List<Contact>{personContact});
 		MockUtility.Mocks.stopStubbing();
 
@@ -343,6 +382,10 @@ public class ResourceCustomerInsightsV1_Test {
     @IsTest
 	static void testValidPhoneNumberAndInvalidCaseTypeAndInteractionTypeParams(){
 		String customerPhone='0300300300';
+
+		//reverse the phone number
+		String reversedPhone = Util.reversePhoneString(customerPhone);
+
 		// Mock Data
 		RecordType accountRecordType = RecordTypesSelector.newInstance().selectByDeveloperName('Account', new Set<String>{'Business_Account'}).values()[0];
 
@@ -351,23 +394,24 @@ public class ResourceCustomerInsightsV1_Test {
 		personAccount.RecordTypeId = accountRecordType.Id;
 		//Contact data
 		Contact personContact = ApplicationTestDataFactory.getContacts(1, personAccount.Id, true)[0];
+		personContact.Phone=customerPhone;
 		personAccount = (Account)ApplicationTestDataFactory.setUnwritableFields(personAccount, new Map<String, Object>{
 				'PersonContactId' => personContact.Id
 				,'RecordType.DeveloperName'=>'Business_Account'
 		});
 		personContact = (Contact)ApplicationTestDataFactory.setUnwritableFields(personContact, new Map<String, Object>{
 				'IsPersonAccount'=>true
+				,'ReversePhone__c'=> reversedPhone
 		});
-		personContact.Phone=customerPhone;
 		
 		//class bindMap variables
-		Map<String, Object> bindMap = new Map<String, Object>();
+		Map<String, Object> bindMap = getBindMap(false, false);
 		
 		//stubs
 		ContactsSelector mockContactsSelector = (ContactsSelector) MockUtility.mockSelector(ContactsSelector.class);
 
 		MockUtility.Mocks.startStubbing();
-		MockUtility.Mocks.when(mockContactsSelector.selectWithCasesAndInteractionsByPhoneNumber(customerPhone, bindMap, new Set<Object>()))
+		MockUtility.Mocks.when(mockContactsSelector.selectWithCasesAndInteractionsByReversePhoneNumber(reversedPhone, bindMap, new Set<Object>()))
 			.thenReturn(new List<Contact>{personContact});
 		MockUtility.Mocks.stopStubbing();
 
@@ -394,12 +438,10 @@ public class ResourceCustomerInsightsV1_Test {
 		List<Object> responseBody = (List<Object>)(jsonResponseBody.get('response'));
 		Map<String, Object> jsonCustomerRecord = (Map<String, Object>)responseBody[0];
 		List<Object> jsonCases = (List<Object>)(jsonCustomerRecord.get('cases'));
-		// Map<String, Object> jsonCaseRecord = (Map<String, Object>)jsonCases[0];
 		List<Object> jsonInteractions = (List<Object>)(jsonCustomerRecord.get('interactions'));
 		Assert.areEqual(200, response.statusCode, 'Respose code should be success');
 		Assert.areEqual(true, jsonResponseBody.get('success'),'Response code should be success');
 		Assert.areEqual(personContact.Id, jsonCustomerRecord.get('sfid'),'Contact Id should match');
-		// Assert.areEqual(caseRecord.Id, (String)jsonCaseRecord.get('sfid'),'Case Id should match');
 		Assert.areEqual(0, jsonCases.size(),'There should be 0 cases');
 		Assert.areEqual(0, jsonInteractions.size(),'There should be 0 interactions');
 	}
@@ -410,13 +452,16 @@ public class ResourceCustomerInsightsV1_Test {
     @IsTest
 	static void testEmailParam(){
 		String customerEmail='invalid@invalid.com.invalid';
+
 		// Mock Data
 		RecordType accountRecordType = RecordTypesSelector.newInstance().selectByDeveloperName('Account', new Set<String>{'Business_Account'}).values()[0];
 		RecordType caseRecordType = RecordTypesSelector.newInstance().selectByDeveloperName('Case', new Set<String>{'SSSWGeneralEnquiry'}).values()[0];
 		RecordType taskRecordType = RecordTypesSelector.newInstance().selectByDeveloperName('Task', new Set<String>{'SSSWCall'}).values()[0];
+
 		//Account data
 		Account personAccount = ApplicationTestDataFactory.getPersonAccounts(1, true)[0];
 		personAccount.RecordTypeId = accountRecordType.Id;
+
 		//Contact data
 		Contact personContact = ApplicationTestDataFactory.getContacts(1, personAccount.Id, true)[0];
 		personAccount = (Account)ApplicationTestDataFactory.setUnwritableFields(personAccount, new Map<String, Object>{
@@ -427,7 +472,8 @@ public class ResourceCustomerInsightsV1_Test {
 				'IsPersonAccount'=>true
 		});
 		personContact.Email=customerEmail;
-		//case data
+
+		//Case data
 		Case caseRecord = ApplicationTestDataFactory.getCases(1, true)[0];
 		caseRecord.RecordTypeId = caseRecordType.Id;
 		caseRecord.Type = 'All Other Enquiries';
@@ -440,6 +486,7 @@ public class ResourceCustomerInsightsV1_Test {
 		});
 		
 		personContact = (Contact)ApplicationTestDataFactory.setChildRelationships(personContact,new Map <String, List <SObject>> {'Cases' => new List <Case>{ caseRecord }});
+
 		//Task data
 		Task taskRecord = ApplicationTestDataFactory.getTasks(2, null, true)[0];
 		taskRecord.RecordTypeId = taskRecordType.Id;
@@ -465,6 +512,7 @@ public class ResourceCustomerInsightsV1_Test {
 		});
 
 		personContact = (Contact)ApplicationTestDataFactory.setChildRelationships(personContact,new Map <String, List <SObject>> {'LiveChatTranscripts' => new List <LiveChatTranscript>{ transcriptRecord }});
+
 		//class bindMap variables
 		Map<String, Object> bindMap = getBindMap(true, true);
 		
@@ -472,7 +520,13 @@ public class ResourceCustomerInsightsV1_Test {
 		ContactsSelector mockContactsSelector = (ContactsSelector) MockUtility.mockSelector(ContactsSelector.class);
 
 		MockUtility.Mocks.startStubbing();
-		MockUtility.Mocks.when(mockContactsSelector.selectWithCasesAndInteractionsByEmailAddress(customerEmail, bindMap, new Set<Object>()))
+		MockUtility.Mocks.when(mockContactsSelector.selectWithCasesAndInteractionsByEmailAddress(
+			customerEmail
+			, bindMap
+			, new Set<Object>{
+				ContactsSelector.ComplexSubQueryOptions.WITH_RECENT_CASES
+				, ContactsSelector.ComplexSubQueryOptions.WITH_ALL_RECENT_INTERACTIONS
+			}))
 			.thenReturn(new List<Contact>{personContact});
 		MockUtility.Mocks.stopStubbing();
 
@@ -482,6 +536,8 @@ public class ResourceCustomerInsightsV1_Test {
 		User integrationUser = setupTestUser(true);
 
 		Test.startTest();
+		System.debug('customerEmail T:'+ customerEmail);
+		System.debug('bindMap T:'+ JSON.serialize(bindMap));
         request.requestUri =
             '/api/1.0/insights/customer';
 			request.params.put('email', customerEmail);

@@ -25,7 +25,7 @@
 * 2024-07-23 - Marcel HK - Allow match if MailingStreet equals addressLine1 + addressLine2 (CSLU-1106)
 * 2024-07-23 - Marcel HK - Added filters for accountId and abn/acn lookup (CSLU-447)
 * 2024-08-08 - Marcel HK - Update Address filters for `selectByCustomerSearchParamsQB` (CSLU-1072)
-* 2024-09-23 - Rejeesh Raghavan - Added tests for `selectWithCasesAndInteractionsHelper` `selectWithCasesAndInteractionsByPhoneNumber` `selectWithCasesAndInteractionsByEmailAddress` (CSLU-1367)
+* 2024-09-23 - Rejeesh Raghavan - Added tests for `selectWithCasesAndInteractionsHelper` `selectWithCasesAndInteractionsByReversePhoneNumber` `selectWithCasesAndInteractionsByEmailAddress` (CSLU-1367)
 */
 @IsTest
 private with sharing class ContactsSelector_Test {
@@ -562,25 +562,74 @@ private with sharing class ContactsSelector_Test {
 		taskRecord.RecordTypeId = RecordTypes.getRecordTypeByName('SSSWCall', 'Task').Id;
 		insert taskRecord;
 
-		Test.startTest();
-
-		// Call the Selector method
+		//setup fieldOverrides
+		//Contact fields to be queried
 		Set<SObjectField> contactFields = new Set<SObjectField>{
 			Contact.Id, Contact.APCN__c, Contact.Firstname, Contact.Lastname, Contact.Email
 			, Contact.VerifiedEmail__c, Contact.Phone, Contact.MobilePhone, Contact.VerifiedMobile__c
 		};
-		ContactsSelector contactSelector = ContactsSelector.newInstance(0, contactFields);
-		List<Contact> contacts = contactSelector.selectWithCasesAndInteractionsHelper(queryConditions,bindMap, new Set<Object>());
+
+		//Account fields to be queried
+		Set<SObjectField> accountFields = new Set<SObjectField>{
+			Account.Id
+		};
+		
+		// Case fields to be queried
+		Set<SobjectField> caseFields = new Set<SObjectField>{
+			Case.Id, Case.CaseNumber, Case.IsClosed, Case.ClosedDate, Case.Type
+			, Case.Call_Purpose__c, Case.EnquirySubType__c, Case.Enquiry_Type__c, Case.Status};
+		
+		//Article fields to be queried
+		Set<SobjectField> articleFields = new Set<SObjectField>{
+			Article__c.Name, Article__c.ArticleId__c
+		};
+
+		//Task fields to be queried
+		Set<SobjectField> taskFields = new Set<SObjectField>{
+			Task.Id, Task.ActivityDate
+		};
+
+		//User fields to be queried
+		Set<SobjectField> userFields = new Set<SObjectField>{
+			User.Id
+		};
+
+		//Profile fields to be queried
+		Set<SobjectField> profileFields = new Set<SObjectField>{
+			Profile.Id, Profile.Name
+		};
+
+		//add fields to fieldOverrides map
+		Map<SObjectType,Set<SObjectField>> fieldOverrides = new Map<SObjectType,Set<SObjectField>>();
+		fieldOverrides.put(Contact.getSObjectType(), contactFields);
+		fieldOverrides.put(Account.getSObjectType(), accountFields);
+		fieldOverrides.put(Case.getSObjectType(), caseFields);
+		fieldOverrides.put(Article__c.getSObjectType(), articleFields);
+		fieldOverrides.put(Task.getSObjectType(), taskFields);
+		fieldOverrides.put(User.getSObjectType(), userFields);
+		fieldOverrides.put(Profile.getSObjectType(), profileFields);
+
+		Test.startTest();
+
+		// Call the Selector method
+		ContactsSelector contactSelector = ContactsSelector.newInstance(0, fieldOverrides);
+		List<Contact> contacts = contactSelector.selectWithCasesAndInteractionsHelper(
+			queryConditions
+			, bindMap
+			, new Set<Object>{
+				ContactsSelector.ComplexSubQueryOptions.WITH_RECENT_CASES
+				, ContactsSelector.ComplexSubQueryOptions.WITH_ALL_RECENT_INTERACTIONS
+			});
 		Test.stopTest();
 		Assert.areEqual(1, contacts.size(), '1 contact should be returned');
 		Assert.areEqual(1, contacts[0].Cases.size(), '1 Case should be returned');
 		Assert.areEqual(1, contacts[0].Tasks.size(), '1 Task should be returned');
 	}
 	/**
-	 * @description Test method for ContactsSelector.selectWithCasesAndInteractionsByPhoneNumber()
+	 * @description Test method for ContactsSelector.selectWithCasesAndInteractionsByReversePhoneNumber()
 	 */
     @IsTest
-	static void testSelectWithCasesAndInteractionsByPhoneNumber(){
+	static void testselectWithCasesAndInteractionsByReversePhoneNumber(){
 		String customerPhone='0300300300';
 		Map<String, Object> bindMap = new Map<String, Object>();
 		bindMap.put('searchKey', customerPhone);
@@ -601,7 +650,7 @@ private with sharing class ContactsSelector_Test {
 		ContactsSelector mockContactsSelector = (ContactsSelector) MockUtility.mockSelector(ContactsSelector.class);
 
 		MockUtility.Mocks.startStubbing();
-		MockUtility.Mocks.when(mockContactsSelector.selectWithCasesAndInteractionsByPhoneNumber(customerPhone, bindMap, new Set<Object>()))
+		MockUtility.Mocks.when(mockContactsSelector.selectWithCasesAndInteractionsByReversePhoneNumber(customerPhone, bindMap, new Set<Object>()))
 			.thenReturn(new List<Contact>{personContact});
 		MockUtility.Mocks.stopStubbing();
 
@@ -614,7 +663,7 @@ private with sharing class ContactsSelector_Test {
 			, Contact.VerifiedEmail__c, Contact.Phone, Contact.MobilePhone, Contact.VerifiedMobile__c
 		};
 		ContactsSelector contactSelector = ContactsSelector.newInstance(0, contactFields);
-		List<Contact> contacts = contactSelector.selectWithCasesAndInteractionsByPhoneNumber(customerPhone,bindMap, new Set<Object>());
+		List<Contact> contacts = contactSelector.selectWithCasesAndInteractionsByReversePhoneNumber(customerPhone,bindMap, new Set<Object>());
 		Test.stopTest();
 		Assert.areEqual(1, contacts.size(), '1 contact should be returned');
 	}

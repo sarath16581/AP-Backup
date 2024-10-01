@@ -22,6 +22,9 @@ public virtual inherited sharing class ArticlesSelector extends ApplicationSelec
 		WITH_EVENTMESSAGES_DESC_ORDER,
 		FILTER_BY_NETWORK_NOT_NULL
 	}
+	public enum ComplexSubQueryOptions {
+		WITH_RECENT_CASES
+	}
 
 	public static ArticlesSelector newInstance() {
 		return (ArticlesSelector)Application.Selectors.newInstance(ArticlesSelector.class);
@@ -161,16 +164,15 @@ public virtual inherited sharing class ArticlesSelector extends ApplicationSelec
 	 * trackingIds set of trackingIds [Mandatory]
 	 * caseRecordTypes set of case record types to filter on [Optional]
 	 * closedCaseCutoffDate Case ClosedDate filter [Optional. Mandatory if caseRecordTypes is provided]
-	 * @param selectorOptions Selector Options
+	 * @param complexQueryOptions Complex Sub Query options to include child relationships
 	 * @return  `Map<Id, Article__c>`
 	 */
-	public Map<Id, Article__c> selectWithCasesByIdOrTrackingOrName(Map<String, Object> bindMap, Set<Object> selectorOptions) {
-		// Set<String> trackingIds = new Set<String>();
-		Set<SobjectField> caseFields = new Set<SObjectField>{
-			Case.Id, Case.CaseNumber, Case.IsClosed, Case.ClosedDate, Case.Type
-			, Case.Call_Purpose__c, Case.EnquirySubType__c, Case.Enquiry_Type__c, Case.Status};
-		QueryBuilder qb = newQueryBuilder(selectorOptions)
-			.addField('Article__c.RecordType.DeveloperName')
+	public Map<Id, Article__c> selectWithCasesByIdOrTrackingOrName(Map<String, Object> bindMap, Set<Object> complexQueryOptions) {
+		
+		QueryBuilder qb = newQueryBuilder(
+			new Set<Object>{
+				Options.WITH_RECORDTYPE
+			})
 			.addConditions()
 			.add(new QueryBuilder.SimpleCondition('RecordTypeId != null'))
 			.add(new QueryBuilder.SimpleCondition('Name IN :trackingIds'))
@@ -180,24 +182,32 @@ public virtual inherited sharing class ArticlesSelector extends ApplicationSelec
 			.setConditionOrder('(1 AND (2 OR 3 OR 4 OR 5))')
 			.endConditions();
 		
-			if (bindMap.containsKey('caseRecordTypes')) {
+			if(complexQueryOptions.contains(ComplexSubQueryOptions.WITH_RECENT_CASES)){
 				qb.addSubQuery(
-					CasesSelector.newInstance(0, caseFields)
-						.newQueryBuilder(new Set<Object>{CasesSelector.Options.WITH_RECORDTYPE})
-						.addField('ArticleTest__r.ArticleId__c')
-						.addField('ArticleTest__r.Name')
+					CasesSelector.newInstance(0, fieldOverrides)
+						.newQueryBuilder(
+							new Set<Object>{
+								CasesSelector.Options.WITH_RECORDTYPE
+								, CasesSelector.Options.WITH_ARTICLE})
 						.addConditions()
 						.add(new QueryBuilder.CompareCondition(Case.IsClosed).eq(true))
-						.add(new QueryBuilder.SimpleCondition(Case.ClosedDate + ' <=:closedCaseCutoffDate'))
+						.add(new QueryBuilder.SimpleCondition(Case.ClosedDate + ' >=:closedCaseCutoffDate'))
 						.add(new QueryBuilder.CompareCondition(Case.IsClosed).eq(false))
 						.add(new QueryBuilder.SimpleCondition(' RecordType.DeveloperName  IN :caseRecordTypes'))
 						.setConditionOrder('((1 AND 2) OR 3) AND 4')
 						.endConditions()
-						.addOrderDesc(Case.ClosedDate)
+
+						//sort by ClosedDate, as it will be NULL for Open Cases use NULLS FIRST
+						.setOrder(new QueryBuilder.Order(Case.ClosedDate)
+							.setSortingOrderDesc()
+							.setNullsOrderFirst())
 					, 'Cases__r'
 				);
 			}
-			qb.addOrderDesc(Article__c.RecordType.Name);
+
+			//sort by Article__c.RecordType.Name , so that Consignments are in the list before Articles
+			qb.setOrder(new QueryBuilder.Order(Article__c.RecordType.Name)
+				.setSortingOrderDesc());
 
 		return new Map<Id, Article__c>(
 			(List<Article__c>)

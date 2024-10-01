@@ -122,16 +122,20 @@ public class ResourceEnquiryInsightsV1_Test {
 
 		article = (Article__c)ApplicationTestDataFactory.setChildRelationships(article,new Map <String, List <SObject>> {'Cases__r' => cases});
 		
-
-		Set<Object> selectorOptions = new Set<Object>();
 		Map<String, Object> bindMap = new Map<String, Object>();
+
+		//add Case record types to bindMap
 		Set<String> caseRecordTypes = new Set<String>();
 		caseRecordTypes.addAll(ResourceCustomerInsightsV1.AP_CASE_RECORDTYPES);
 		caseRecordTypes.addAll(ResourceCustomerInsightsV1.ST_CASE_RECORDTYPES);
 		caseRecordTypes.addAll(ResourceCustomerInsightsV1.UNIFIED_CASE_RECORDTYPES);
+		
+		//add Article tracking Id to bindMap
 		bindMap.put('trackingIds', new Set<String>{article.Name});
 		bindMap.put('caseRecordTypes',caseRecordTypes);
 		bindMap.put('closedCaseCutoffDate',Date.today().addDays(-30));
+
+
 		Set<String> caseIds = new Set<String>{cases[0].Id, cases[1].Id};
 
 		//stubs
@@ -141,7 +145,11 @@ public class ResourceEnquiryInsightsV1_Test {
 		MockUtility.Mocks.startStubbing();
 		MockUtility.Mocks.when(
 			mockArticlesSelector.selectWithCasesByIdOrTrackingOrName(
-				bindMap, selectorOptions))
+				bindMap
+				// add complex sub query option to include Cases in subquery
+				, new Set<Object>{
+					ArticlesSelector.ComplexSubQueryOptions.WITH_RECENT_CASES
+				}))
 			.thenReturn(new Map<Id, Article__c>{article.Id =>article});
 		MockUtility.Mocks.stopStubbing();
 
