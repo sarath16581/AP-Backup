@@ -71,16 +71,15 @@ public with sharing class TIBCOArticleSubscriptionService {
 				);
 				exceptionWrappers.add(ApplicationLogger.wrapException(ex));
 			}
+		}
+		// log exceptions in bulk
+		if (!exceptionWrappers.isEmpty()){
+			ApplicationLogger.getInstance()
+					.logException(exceptionWrappers, 'ArticleSubscription', TIBCOArticleSubscriptionService.class.getName(), 'sendArticleSubscriptionNotifications', 'ImpactedArticleTrigger', ApplicationLogger.LoggingLevel.ERROR);
+		}
 
-			// log exceptions in bulk
-			if (!exceptionWrappers.isEmpty()){
-				ApplicationLogger.getInstance()
-						.logException(exceptionWrappers, 'ArticleSubscription', TIBCOArticleSubscriptionService.class.getName(), 'sendArticleSubscriptionNotifications', 'ImpactedArticleTrigger', ApplicationLogger.LoggingLevel.ERROR);
-			}
-
-			if (!updatableSObjects.isEmpty()) {
-				ApplicationDatabase.getInstance().dmlUpdate(updatableSObjects);
-			}
+		if (!updatableSObjects.isEmpty()) {
+			ApplicationDatabase.getInstance().dmlUpdate(updatableSObjects);
 		}
 	}
 
