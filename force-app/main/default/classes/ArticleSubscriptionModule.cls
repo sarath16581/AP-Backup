@@ -113,7 +113,7 @@ public inherited sharing class ArticleSubscriptionModule extends ApplicationModu
 	}
 
 	/**
-	 * Async worker implementation that schedule action for Unified Case proactive monitoring if applicable
+	 * Async worker implementation that make a SOAP callout to send article subscription notification to TIBCO
 	 */
 	public without sharing class AsyncArticleSubscriptionActionWorker extends ApplicationUnitOfWork.AsyncWorker implements Database.AllowsCallouts {
 		@TestVisible
