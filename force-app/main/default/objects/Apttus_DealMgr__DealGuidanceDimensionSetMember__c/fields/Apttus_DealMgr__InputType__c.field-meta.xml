@@ -3,7 +3,6 @@
     <fullName>Apttus_DealMgr__InputType__c</fullName>
     <deprecated>false</deprecated>
     <description>The input type associated with the dimension</description>
-    <externalId>false</externalId>
     <label>Input Type</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>

@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Final_Risk_Position__c</fullName>
-    <externalId>false</externalId>
     <inlineHelpText>Select the final risk position for this contract.</inlineHelpText>
     <label>Final Risk Position</label>
     <required>false</required>

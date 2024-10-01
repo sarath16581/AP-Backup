@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>APT_Timeframe_Required__c</fullName>
     <description>Seller to populate preferred date by when they would like T&amp;C changes to be completed</description>
-    <externalId>false</externalId>
     <inlineHelpText>Preferred date by when changes to contracts are required</inlineHelpText>
     <label>Timeframe Required</label>
     <required>false</required>

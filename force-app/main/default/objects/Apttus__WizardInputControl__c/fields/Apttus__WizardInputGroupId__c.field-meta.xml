@@ -4,7 +4,6 @@
     <deleteConstraint>SetNull</deleteConstraint>
     <deprecated>false</deprecated>
     <description>Lookup to the input group that this input control belongs to</description>
-    <externalId>false</externalId>
     <inlineHelpText>Lookup to the input group that this input control belongs to</inlineHelpText>
     <label>Wizard Input Group</label>
     <referenceTo>Apttus__WizardInputGroup__c</referenceTo>

@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Question_Documentation__c</fullName>
     <description>Used to provide documentation in the customer needs analysis tool</description>
-    <externalId>false</externalId>
     <label>Question Documentation</label>
     <length>32768</length>
     <securityClassification>INTERNAL</securityClassification>

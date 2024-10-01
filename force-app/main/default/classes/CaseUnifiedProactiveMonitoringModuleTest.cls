@@ -6,6 +6,9 @@
  * 2024-07-30 - Seth Heang - Added test methods for 3Days/5Days Case monitoring Scheduled Actions functionalities
  * 2024-08-08 - Seth Heang - Added more test methods for missed use cases
  * 2024-08-28 - Seth Heang - Added testEnsureClosingCaseWillDeleteExistingScheduledAction()
+ * 2024-09-29 - Parveen Kaushik - Fixed testEnsureAfterUpdateRegisterAsyncWorkerAndDeleteExistingScheduledAction for correct Mock calls  
+ * 2024-09-30 - Parveen Kaushik - Fixed testEnsureClosingCaseWillDeleteExistingScheduledAction for correct Mock calls  
+ * 
  */
 @IsTest
 public with sharing class CaseUnifiedProactiveMonitoringModuleTest {
@@ -386,6 +389,8 @@ public with sharing class CaseUnifiedProactiveMonitoringModuleTest {
 		ApplicationUnitOfWork mockUow = MockUtility.mockUnitOfWork();
 		ScheduledActionsSelector mockScheduledActionsSelector = (ScheduledActionsSelector) MockUtility.mockSelector(ScheduledActionsSelector.class);
 		MockUtility.Mocks.startStubbing();
+		MockUtility.Mocks.when(mockScheduledActionsSelector.selectByCaseIdAndActionType((Set<Id>) fflib_Match.eq(new Set<Id>{ testCase.Id }), (Set<String>) fflib_Match.eq(new Set<String>{ actionTypeFor3Days })))
+			.thenReturn(new List<ScheduledAction__c>{ scheduledActionFor3Days, scheduledActionFor5Days });
 		MockUtility.Mocks.when(mockScheduledActionsSelector.selectByCaseId((Set<Id>) fflib_Match.eq(new Set<Id>{ testCase.Id })))
 			.thenReturn(new List<ScheduledAction__c>{ scheduledActionFor3Days, scheduledActionFor5Days });
 		((ApplicationUnitOfWork) MockUtility.Mocks.doAnswer(new MockUtility.AnswerVoid(), mockUow)).registerDeleted((List<SObject>) fflib_Match.anyObject());
@@ -434,7 +439,9 @@ public with sharing class CaseUnifiedProactiveMonitoringModuleTest {
 
 		// Since the Platform Event trigger does not automatically get triggered, explicitly call execute() to trigger the next step of automation
 		caseUnifiedCaseScheduledActionWorker.execute(mockUow);
-		((ScheduledActionsSelector) MockUtility.Mocks.verify(mockScheduledActionsSelector, 2)).selectByCaseId((Set<Id>) fflib_Match.eq(new Set<Id>{ testCase.Id }));
+        
+		((ScheduledActionsSelector) MockUtility.Mocks.verify(mockScheduledActionsSelector, 1)).selectByCaseId((Set<Id>) fflib_Match.eq(new Set<Id>{ testCase.Id }));
+		((ScheduledActionsSelector) MockUtility.Mocks.verify(mockScheduledActionsSelector, 1)).selectByCaseIdAndActionType((Set<Id>) fflib_Match.eq(new Set<Id>{ testCase.Id }), (Set<String>) fflib_Match.eq(new Set<String>{ actionTypeFor3Days }));
 
 		// verify the scheduled action is inserted correctly
 		fflib_ArgumentCaptor deletedScheduledActionCaptor = fflib_ArgumentCaptor.forClass(Object.class);
@@ -525,8 +532,11 @@ public with sharing class CaseUnifiedProactiveMonitoringModuleTest {
 		ApplicationUnitOfWork mockUow = MockUtility.mockUnitOfWork();
 		ScheduledActionsSelector mockScheduledActionsSelector = (ScheduledActionsSelector) MockUtility.mockSelector(ScheduledActionsSelector.class);
 		MockUtility.Mocks.startStubbing();
+		MockUtility.Mocks.when(mockScheduledActionsSelector.selectByCaseIdAndActionType((Set<Id>) fflib_Match.eq(new Set<Id>{ testCase.Id }), (Set<String>) fflib_Match.eq(new Set<String>{ actionTypeFor3Days })))
+			.thenReturn(new List<ScheduledAction__c>{ scheduledActionFor3Days, scheduledActionFor5Days });
 		MockUtility.Mocks.when(mockScheduledActionsSelector.selectByCaseId((Set<Id>) fflib_Match.eq(new Set<Id>{ testCase.Id })))
-				.thenReturn(new List<ScheduledAction__c>{ scheduledActionFor3Days, scheduledActionFor5Days });
+			.thenReturn(new List<ScheduledAction__c>{ scheduledActionFor3Days, scheduledActionFor5Days });
+
 		((ApplicationUnitOfWork) MockUtility.Mocks.doAnswer(new MockUtility.AnswerVoid(), mockUow)).registerDeleted((List<SObject>) fflib_Match.anyObject());
 		MockUtility.Mocks.stopStubbing();
 
@@ -550,7 +560,9 @@ public with sharing class CaseUnifiedProactiveMonitoringModuleTest {
 
 		// Since the Platform Event trigger does not automatically get triggered, explicitly call execute() to trigger the next step of automation
 		caseUnifiedCaseScheduledActionWorker.execute(mockUow);
-		((ScheduledActionsSelector) MockUtility.Mocks.verify(mockScheduledActionsSelector, 2)).selectByCaseId((Set<Id>) fflib_Match.eq(new Set<Id>{ testCase.Id }));
+
+		((ScheduledActionsSelector) MockUtility.Mocks.verify(mockScheduledActionsSelector, 1)).selectByCaseId((Set<Id>) fflib_Match.eq(new Set<Id>{ testCase.Id }));
+		((ScheduledActionsSelector) MockUtility.Mocks.verify(mockScheduledActionsSelector, 1)).selectByCaseIdAndActionType((Set<Id>) fflib_Match.eq(new Set<Id>{ testCase.Id }), (Set<String>) fflib_Match.eq(new Set<String>{ actionTypeFor3Days }));
 
 		// verify the scheduled action is inserted correctly
 		fflib_ArgumentCaptor deletedScheduledActionCaptor = fflib_ArgumentCaptor.forClass(Object.class);

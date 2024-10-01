@@ -4,7 +4,6 @@
     <deleteConstraint>Restrict</deleteConstraint>
     <deprecated>false</deprecated>
     <description>Lookup to Wizard Input Control</description>
-    <externalId>false</externalId>
     <inlineHelpText>Lookup to Wizard Input Control</inlineHelpText>
     <label>Wizard Input Control</label>
     <referenceTo>Apttus__WizardInputControl2__c</referenceTo>

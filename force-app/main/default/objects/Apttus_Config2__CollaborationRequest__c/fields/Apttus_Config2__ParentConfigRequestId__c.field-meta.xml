@@ -4,7 +4,6 @@
     <deleteConstraint>SetNull</deleteConstraint>
     <deprecated>false</deprecated>
     <description>Lookup to the Config Request record of Parent Cart</description>
-    <externalId>false</externalId>
     <inlineHelpText>Lookup to the Config Request record of Parent Cart</inlineHelpText>
     <label>Parent Config Request Id</label>
     <referenceTo>Apttus_Config2__TempObject__c</referenceTo>

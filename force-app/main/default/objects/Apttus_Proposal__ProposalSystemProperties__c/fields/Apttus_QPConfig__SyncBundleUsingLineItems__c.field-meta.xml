@@ -4,7 +4,6 @@
     <defaultValue>true</defaultValue>
     <deprecated>false</deprecated>
     <description>Indicates whether proposal line items should be used to synchronize bundle products. The default uses proposal summary objects. Only applicable when proposal summary is enabled.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Indicates whether proposal line items should be used to synchronize bundle products. The default uses proposal summary objects. Only applicable when proposal summary is enabled.</inlineHelpText>
     <label>Sync Bundle Using Line Items</label>
     <trackTrending>false</trackTrending>

@@ -3,7 +3,6 @@
     <fullName>APT_LPD_Ad_Hoc_Service_Charge__c</fullName>
     <description>The Ad Hoc Service Charge add $1 cost when selected as the available frequency for &apos;Delivery Service&apos;, &apos;Pickup Service&apos; and &apos;Pickup &amp; Delivery At the same time&apos; Service Type.
 This is used for &apos;Local Pickup and Delivery Services&apos; Product only.</description>
-    <externalId>false</externalId>
     <formula>IF(
     AND(
         OR(

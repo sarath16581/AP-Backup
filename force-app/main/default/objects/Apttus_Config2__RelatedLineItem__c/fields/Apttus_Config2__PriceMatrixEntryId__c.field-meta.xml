@@ -4,7 +4,6 @@
     <deleteConstraint>SetNull</deleteConstraint>
     <deprecated>false</deprecated>
     <description>ID of the associated price matrix entry</description>
-    <externalId>false</externalId>
     <inlineHelpText>ID of the associated price matrix entry</inlineHelpText>
     <label>Price Matrix Entry</label>
     <referenceTo>Apttus_Config2__PriceMatrixEntry__c</referenceTo>

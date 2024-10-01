@@ -3,7 +3,6 @@
     <fullName>Agent__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <description>Salesforce User who did outbound call , sent email , or commented on the case</description>
-    <externalId>false</externalId>
     <label>Agent</label>
     <referenceTo>User</referenceTo>
     <relationshipName>Case_Activities</relationshipName>

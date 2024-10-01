@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Show the option groups in a tab view. Top level option groups are displayed as tabs.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Check to show tab view. Top level option groups are displayed as tabs.</inlineHelpText>
     <label>Show Tab View</label>
     <securityClassification>INTERNAL</securityClassification>

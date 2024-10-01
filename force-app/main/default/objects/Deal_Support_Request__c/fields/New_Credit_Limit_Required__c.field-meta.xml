@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>New_Credit_Limit_Required__c</fullName>
     <description>New Credit Limit Request, which will be sent to the Credit Team.</description>
-    <externalId>false</externalId>
     <label>New Credit Limit Required</label>
     <precision>12</precision>
     <required>false</required>

@@ -3,7 +3,6 @@
     <fullName>Assignment_Confirmed__c</fullName>
     <defaultValue>false</defaultValue>
     <description>To display confirmation that the Assignment has been confirmed and Switch On process can occur</description>
-    <externalId>false</externalId>
     <inlineHelpText>To display confirmation that the Assignment has been confirmed and Switch-On process can occur</inlineHelpText>
     <label>Assignment Confirmed</label>
     <securityClassification>INTERNAL</securityClassification>

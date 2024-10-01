@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Merchantagreedtosubscribefornotific__c</fullName>
     <description>Merchant subscription to notifications</description>
-    <externalId>false</externalId>
     <inlineHelpText>Merchant subscription to notifications</inlineHelpText>
     <label>Merchant agreed to subscribe for notific</label>
     <required>false</required>

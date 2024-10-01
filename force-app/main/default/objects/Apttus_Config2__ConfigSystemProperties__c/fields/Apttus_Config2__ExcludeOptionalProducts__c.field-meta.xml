@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Enable this flag to exclude optional products when evaluating structural requirements of bundles.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Enable this flag to exclude optional products when evaluating structural requirements of bundles.</inlineHelpText>
     <label>Exclude Optional Products</label>
     <trackTrending>false</trackTrending>

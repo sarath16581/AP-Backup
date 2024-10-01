@@ -3,7 +3,6 @@
     <fullName>APT_RKcodeApplyonce__c</fullName>
     <defaultValue>false</defaultValue>
     <description>RK code is applied only once for a Bundle</description>
-    <externalId>false</externalId>
     <label>RK code Apply once</label>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>

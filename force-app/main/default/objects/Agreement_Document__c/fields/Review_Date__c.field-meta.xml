@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Review_Date__c</fullName>
     <description>The date the Agreement Document is up for review</description>
-    <externalId>false</externalId>
     <inlineHelpText>Date when the agreement is due to be reviewed</inlineHelpText>
     <label>Agreement Review Date</label>
     <required>false</required>

@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__Exception__c</fullName>
     <deprecated>false</deprecated>
     <description>The exception reported by the job</description>
-    <externalId>false</externalId>
     <inlineHelpText>The exception reported by the job</inlineHelpText>
     <label>Exception</label>
     <length>32000</length>

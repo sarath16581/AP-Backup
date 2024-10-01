@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__BillingEndDate__c</fullName>
     <deprecated>false</deprecated>
     <description>The billing end date. Also known as the last billing period end date.</description>
-    <externalId>false</externalId>
     <inlineHelpText>The billing end date. Also known as the last billing period end date.</inlineHelpText>
     <label>Billing End Date</label>
     <required>false</required>

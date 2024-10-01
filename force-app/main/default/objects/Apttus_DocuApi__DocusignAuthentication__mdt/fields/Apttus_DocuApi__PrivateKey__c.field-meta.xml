@@ -3,7 +3,6 @@
     <fullName>Apttus_DocuApi__PrivateKey__c</fullName>
     <deprecated>false</deprecated>
     <description>This field for DocuSign Private Key.</description>
-    <externalId>false</externalId>
     <fieldManageability>SubscriberControlled</fieldManageability>
     <inlineHelpText>To generate the Private Key, you can log into DocuSign as an admin and go to Settings &gt; Apps and keys &gt; Add app and integration key &gt; Generate RSA key.</inlineHelpText>
     <label>Private Key</label>

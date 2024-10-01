@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Annualised_Customer_Revenue_Internatnl__c</fullName>
     <description>Annualised Customer Revenue - for International business.  To be entered by sales staff</description>
-    <externalId>false</externalId>
     <label>Annualised Customer Revenue Internatnl</label>
     <precision>18</precision>
     <required>false</required>

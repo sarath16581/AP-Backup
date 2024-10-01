@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__RelationshipType__c</fullName>
     <deprecated>false</deprecated>
     <description>The type of relationship between the option and the product</description>
-    <externalId>false</externalId>
     <label>Relationship Type</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>

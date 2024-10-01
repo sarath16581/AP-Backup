@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__NetCost__c</fullName>
     <deprecated>false</deprecated>
     <description>Total cost for a const line item</description>
-    <externalId>false</externalId>
     <label>Net Cost</label>
     <precision>18</precision>
     <required>false</required>

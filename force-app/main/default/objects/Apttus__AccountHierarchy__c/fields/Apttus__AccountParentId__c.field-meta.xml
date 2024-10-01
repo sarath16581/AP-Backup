@@ -5,7 +5,6 @@
     <deprecated>false</deprecated>
     <description>The account Id of the parent.
 Root &gt; Parent &gt; Leaf</description>
-    <externalId>false</externalId>
     <inlineHelpText>The account Id of the parent.
 Root &gt; Parent &gt; Leaf</inlineHelpText>
     <label>Account Parent</label>

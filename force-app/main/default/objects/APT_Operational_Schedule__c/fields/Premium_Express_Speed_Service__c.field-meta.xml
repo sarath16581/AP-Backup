@@ -3,7 +3,6 @@
     <fullName>Premium_Express_Speed_Service__c</fullName>
     <defaultValue>false</defaultValue>
     <description>This filed is for one of the priority product</description>
-    <externalId>false</externalId>
     <inlineHelpText>This filed is for one of the priority product</inlineHelpText>
     <label>Premium Express Speed Service</label>
     <securityClassification>INTERNAL</securityClassification>

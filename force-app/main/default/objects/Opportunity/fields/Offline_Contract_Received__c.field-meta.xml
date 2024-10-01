@@ -3,7 +3,6 @@
     <fullName>Offline_Contract_Received__c</fullName>
     <defaultValue>false</defaultValue>
     <description>Override for when Offline contract has been received</description>
-    <externalId>false</externalId>
     <label>Offline Contract Received</label>
     <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>

@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Sales_Director__c</fullName>
-    <externalId>false</externalId>
     <inlineHelpText>Person in this field will be the approver of Segmentation Change Requests from Organisations owned by the user.</inlineHelpText>
     <label>{Hidden}Sales Director</label>
     <relationshipName>Sales_Director</relationshipName>

@@ -3,7 +3,6 @@
     <fullName>Apttus__Exception__c</fullName>
     <deprecated>false</deprecated>
     <description>Error reported by KIRA</description>
-    <externalId>false</externalId>
     <inlineHelpText>Error reported by KIRA</inlineHelpText>
     <label>Exception</label>
     <length>32768</length>

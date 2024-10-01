@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__FieldExpressionId__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <deprecated>false</deprecated>
-    <externalId>false</externalId>
     <label>Field Expression</label>
     <referenceTo>Apttus_Config2__FieldExpression__c</referenceTo>
     <relationshipLabel>Line Item Rollups</relationshipLabel>

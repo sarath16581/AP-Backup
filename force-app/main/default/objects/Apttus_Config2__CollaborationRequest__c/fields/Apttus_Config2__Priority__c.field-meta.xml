@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__Priority__c</fullName>
     <deprecated>false</deprecated>
     <description>Holds the priority of the task, P1 being highest priority and P5 being lowest.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Priority of the task, P1 being highest priority and P5 being lowest.</inlineHelpText>
     <label>Priority</label>
     <required>false</required>

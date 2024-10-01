@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>S75_Status_New_Date__c</fullName>
     <description>The date it changed the Type of Registration to “New Registration” or S75 Status is changed back to &quot;New&quot; as part of the S75 process. S75 re-purposed to Change of Details Information</description>
-    <externalId>false</externalId>
     <inlineHelpText>The date the Type of Registration was updated to New Registration or COD Status was updated to New</inlineHelpText>
     <label>COD Status New Date</label>
     <required>false</required>

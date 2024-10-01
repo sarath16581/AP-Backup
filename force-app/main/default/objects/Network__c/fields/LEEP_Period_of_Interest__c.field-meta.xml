@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>LEEP_Period_of_Interest__c</fullName>
     <description>Retail PON Geopointe Related Field</description>
-    <externalId>false</externalId>
     <label>LEEP Period of Interest</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>

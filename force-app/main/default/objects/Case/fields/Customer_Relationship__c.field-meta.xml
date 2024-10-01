@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Customer_Relationship__c</fullName>
     <description>.</description>
-    <externalId>false</externalId>
     <inlineHelpText>The Snapit case requester&apos;s relationship with customers.</inlineHelpText>
     <label>Customer Relationship</label>
     <required>false</required>

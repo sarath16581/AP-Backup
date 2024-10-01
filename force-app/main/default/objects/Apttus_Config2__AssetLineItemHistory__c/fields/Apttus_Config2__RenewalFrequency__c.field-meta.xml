@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__RenewalFrequency__c</fullName>
     <deprecated>false</deprecated>
     <description>The asset renewal frequency</description>
-    <externalId>false</externalId>
     <inlineHelpText>The asset renewal frequency</inlineHelpText>
     <label>Renewal Frequency</label>
     <required>false</required>

@@ -3,7 +3,6 @@
     <fullName>Apttus__CancelRequest__c</fullName>
     <deprecated>false</deprecated>
     <description>Indicator to cancel the agreement request</description>
-    <externalId>false</externalId>
     <formula>AND(OR(ISPICKVAL(Apttus__AgreementId__r.Apttus__Status_Category__c,&quot;Request&quot;), ISPICKVAL(Apttus__AgreementId__r.Apttus__Status_Category__c,&quot;In Authoring&quot;), ISPICKVAL(Apttus__AgreementId__r.Apttus__Status_Category__c,&quot;In Signatures&quot;), ISPICKVAL(Apttus__AgreementId__r.Apttus__Status_Category__c,&quot;In Filing&quot;)),NOT(ISPICKVAL(Apttus__AgreementId__r.Apttus__Status__c,&quot;Cancelled Request&quot;)))</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <inlineHelpText>Indicator to cancel the agreement request</inlineHelpText>

@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__NumberOfMatrices__c</fullName>
     <deprecated>false</deprecated>
     <description>Indicates the number of price matrices associated with the price list item</description>
-    <externalId>false</externalId>
     <label>Number Of Matrices</label>
     <securityClassification>INTERNAL</securityClassification>
     <summaryForeignKey>Apttus_Config2__PriceMatrix__c.Apttus_Config2__PriceListItemId__c</summaryForeignKey>

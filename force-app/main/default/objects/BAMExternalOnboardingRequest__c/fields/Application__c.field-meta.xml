@@ -3,7 +3,6 @@
     <fullName>Application__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <description>Related application record</description>
-    <externalId>false</externalId>
     <label>Application</label>
     <referenceTo>BAMApplication__c</referenceTo>
     <relationshipLabel>External Onboarding Requests</relationshipLabel>

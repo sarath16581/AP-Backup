@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Address__c</fullName>
     <description>Address field for StarTrack VOC (Case) Calculation</description>
-    <externalId>false</externalId>
     <label>Address</label>
     <length>32768</length>
     <securityClassification>INTERNAL</securityClassification>

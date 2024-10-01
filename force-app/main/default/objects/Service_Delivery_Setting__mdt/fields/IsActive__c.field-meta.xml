@@ -3,7 +3,6 @@
     <fullName>IsActive__c</fullName>
     <defaultValue>false</defaultValue>
     <description>Flag to set Conversion available</description>
-    <externalId>false</externalId>
     <fieldManageability>DeveloperControlled</fieldManageability>
     <label>IsActive</label>
     <type>Checkbox</type>

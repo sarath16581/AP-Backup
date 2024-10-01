@@ -4,7 +4,6 @@
     <businessStatus>Active</businessStatus>
     <defaultValue>false</defaultValue>
     <description>Determines the configuration is enabled or not for email to case address</description>
-    <externalId>false</externalId>
     <fieldManageability>DeveloperControlled</fieldManageability>
     <inlineHelpText>Determines the configuration is enabled or not for email to case address</inlineHelpText>
     <label>Is Active</label>

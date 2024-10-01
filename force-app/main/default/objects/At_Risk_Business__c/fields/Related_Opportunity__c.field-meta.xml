@@ -3,7 +3,6 @@
     <fullName>Related_Opportunity__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <description>Lookup on the Opportunity record</description>
-    <externalId>false</externalId>
     <inlineHelpText>Link the Risk to a current active opportunity</inlineHelpText>
     <label>Related Opportunity</label>
     <referenceTo>Opportunity</referenceTo>

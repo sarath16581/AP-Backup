@@ -3,7 +3,6 @@
     <fullName>Apttus__Office365StatusType__c</fullName>
     <deprecated>false</deprecated>
     <description>Status type of the Office 365 review cycle</description>
-    <externalId>false</externalId>
     <inlineHelpText>Status type of the Office 365 review cycle</inlineHelpText>
     <label>Office 365 Status Type</label>
     <required>false</required>

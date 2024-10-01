@@ -3,7 +3,6 @@
     <fullName>kfsell__OwnerID__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <deprecated>false</deprecated>
-    <externalId>false</externalId>
     <label>Owner</label>
     <referenceTo>User</referenceTo>
     <relationshipName>Gold_Sheets</relationshipName>

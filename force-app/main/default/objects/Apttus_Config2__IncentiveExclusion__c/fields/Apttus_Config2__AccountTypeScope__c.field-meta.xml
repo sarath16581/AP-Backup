@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__AccountTypeScope__c</fullName>
     <deprecated>false</deprecated>
     <description>One or more account types associated with the incentive exclusion</description>
-    <externalId>false</externalId>
     <inlineHelpText>One or more account types associated with the incentive exclusion</inlineHelpText>
     <label>Account Type Scope</label>
     <required>false</required>

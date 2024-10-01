@@ -3,7 +3,6 @@
     <fullName>Deal_Support_Request__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <description>Relationship to associate Survey to the original Deal Support Request</description>
-    <externalId>false</externalId>
     <label>Deal Support Request</label>
     <referenceTo>Deal_Support_Request__c</referenceTo>
     <relationshipLabel>GetFeedback Surveys</relationshipLabel>

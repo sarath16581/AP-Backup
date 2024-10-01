@@ -3,7 +3,6 @@
     <fullName>ClosedBySystem__c</fullName>
     <defaultValue>false</defaultValue>
     <description>SSSW - A Checkbox to determine if this Case was automatically closed by the system i.e if the Customer has not responded. This is to be used for reporting and not visible by the user.</description>
-    <externalId>false</externalId>
     <label>Closed by System</label>
     <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>

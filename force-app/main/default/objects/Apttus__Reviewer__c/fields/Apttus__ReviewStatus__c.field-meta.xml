@@ -3,7 +3,6 @@
     <fullName>Apttus__ReviewStatus__c</fullName>
     <deprecated>false</deprecated>
     <description>Review Status of the reviewer.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Review Status of the reviewer.</inlineHelpText>
     <label>Review Status</label>
     <required>false</required>

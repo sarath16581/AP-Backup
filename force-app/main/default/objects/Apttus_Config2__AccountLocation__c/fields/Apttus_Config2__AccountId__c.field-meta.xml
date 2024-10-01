@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__AccountId__c</fullName>
     <deprecated>false</deprecated>
     <description>ID of the associated account</description>
-    <externalId>false</externalId>
     <label>Account</label>
     <referenceTo>Account</referenceTo>
     <relationshipLabel>Account Locations</relationshipLabel>

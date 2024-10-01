@@ -3,7 +3,6 @@
     <fullName>Hidden_In_Year_Revenue_Estimate__c</fullName>
     <businessStatus>Hidden</businessStatus>
     <description>Currency Field stamped to record the In Year Revenue whenever a record is saved. This is for the purposes of Field History Tracking to determine the changes to pipeline amounts over time</description>
-    <externalId>false</externalId>
     <label>{Hidden} In Year Revenue Estimate</label>
     <precision>18</precision>
     <required>false</required>

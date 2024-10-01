@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__RebateAmount__c</fullName>
     <deprecated>false</deprecated>
     <description>The rebate amount associated with the product/service</description>
-    <externalId>false</externalId>
     <inlineHelpText>The rebate amount associated with the product/service</inlineHelpText>
     <label>Rebate Amount</label>
     <precision>18</precision>

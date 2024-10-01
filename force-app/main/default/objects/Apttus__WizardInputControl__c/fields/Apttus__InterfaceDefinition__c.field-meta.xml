@@ -3,7 +3,6 @@
     <fullName>Apttus__InterfaceDefinition__c</fullName>
     <deprecated>false</deprecated>
     <description>The definition of the data type entered in by the designer.</description>
-    <externalId>false</externalId>
     <inlineHelpText>The definition of the data type entered in by the designer.</inlineHelpText>
     <label>Interface Definition</label>
     <required>false</required>

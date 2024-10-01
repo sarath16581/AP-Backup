@@ -3,7 +3,6 @@
     <fullName>APT_LPD_Frequency__c</fullName>
     <description>Frequency picklist for &apos;Local Pickup and Delivery Services&apos; product only.
 The picklist value is dynamically filtered based on differently selected Service Type.</description>
-    <externalId>false</externalId>
     <label>Frequency</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>

@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>MTD_Revenue_Last_Year__c</fullName>
     <description>Phase 2 - For Reporting Purposes.</description>
-    <externalId>false</externalId>
     <label>MTD Revenue Last Year</label>
     <securityClassification>OFFICIAL_SENSITIVE</securityClassification>
     <summarizedField>Budget_and_Revenue__c.MTD_Actual_Last_Year_R__c</summarizedField>

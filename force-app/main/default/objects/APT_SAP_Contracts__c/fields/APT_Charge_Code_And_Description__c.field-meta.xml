@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>APT_Charge_Code_And_Description__c</fullName>
     <description>SAP Charge Codes linked to the associated Apttus contract</description>
-    <externalId>false</externalId>
     <inlineHelpText>SAP Charge Codes linked to the associated Apttus contract</inlineHelpText>
     <label>SAP Charge Code &amp; Description</label>
     <length>2000</length>

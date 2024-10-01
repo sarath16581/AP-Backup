@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Last_Payment_Amount__c</fullName>
     <description>This is the final term amount. This is the final term amount. This is a system generated field that calculates the balance of the allowance due from all the monthly fee amounts and adds that to the final monthly fee amount.</description>
-    <externalId>false</externalId>
     <formula>IF( Monthly_Payment_Amount__c  = 0, 0,  ROUND(  Amount__c  -  ( Monthly_Payment_Amount__c  *  (  Term__c  - 1 ) ), 2 ) )</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <label>Last Payment Amount</label>

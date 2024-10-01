@@ -4,7 +4,6 @@
     <defaultValue>true</defaultValue>
     <deprecated>false</deprecated>
     <description>Enables notification feeds for notifications. Currently, this feature is enabled for quote collaboration notifications.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Enables notification feeds for notifications. Currently, this feature is enabled for quote collaboration notifications.</inlineHelpText>
     <label>Enable Notification Feed</label>
     <trackTrending>false</trackTrending>

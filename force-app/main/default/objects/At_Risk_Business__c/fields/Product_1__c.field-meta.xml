@@ -3,7 +3,6 @@
     <fullName>Product_1__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <description>Look up on the &apos;Product&apos; record (Product Level 5).</description>
-    <externalId>false</externalId>
     <inlineHelpText>Where the Scale has been identified as Product Specific, please identify the product (max. 3)</inlineHelpText>
     <label>Product 1</label>
     <referenceTo>Product2</referenceTo>

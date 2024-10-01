@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Indicates whether the order line item associated with the proposal line item will be automatically activated when the quote/proposal is accepted.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Indicates whether the order line item associated with the proposal line item will be automatically activated when the quote/proposal is accepted.</inlineHelpText>
     <label>Auto Activate Order ?</label>
     <securityClassification>INTERNAL</securityClassification>

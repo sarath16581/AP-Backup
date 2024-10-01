@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__EvaluationContext__c</fullName>
     <deprecated>false</deprecated>
     <description>Gives expression evaluation context</description>
-    <externalId>false</externalId>
     <inlineHelpText>Gives expression evaluation context</inlineHelpText>
     <label>Evaluation Context</label>
     <required>false</required>

@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Collapse all the leaf option groups in the Config Options Detail View page</description>
-    <externalId>false</externalId>
     <inlineHelpText>Collapse all the leaf option groups in the Config Options Detail View page</inlineHelpText>
     <label>Collapse All Leaf Option Groups</label>
     <trackTrending>false</trackTrending>

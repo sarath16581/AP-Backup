@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>APT_Parcl_Servcs_eParcl_Identity_on_Deli__c</fullName>
     <defaultValue>false</defaultValue>
-    <externalId>false</externalId>
     <inlineHelpText>Parcel Services eParcel Identity on Delivery Service</inlineHelpText>
     <label>PS eParcel Identity on Delivery Service</label>
     <securityClassification>INTERNAL</securityClassification>

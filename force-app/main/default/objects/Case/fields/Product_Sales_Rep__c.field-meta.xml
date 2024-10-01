@@ -4,7 +4,6 @@
     <businessStatus>DeprecateCandidate</businessStatus>
     <deleteConstraint>SetNull</deleteConstraint>
     <description>Used by Sales Implementation Case</description>
-    <externalId>false</externalId>
     <label>Dep -Product Sales Rep</label>
     <referenceTo>User</referenceTo>
     <relationshipName>Cases7</relationshipName>

@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Renew only one ramp line item based on the new term in order of renewal term in asset line item, default renewal term in installed product setting and selling term in asset line item.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Renew only one ramp line item based on the new term in order of renewal term in asset line item, default renewal term in installed product setting and selling term in asset line item.</inlineHelpText>
     <label>Renew One Ramp</label>
     <trackTrending>false</trackTrending>

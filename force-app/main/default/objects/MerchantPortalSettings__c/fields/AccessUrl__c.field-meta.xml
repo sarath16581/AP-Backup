@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>AccessUrl__c</fullName>
     <description>The URL to access the Merchant Portal</description>
-    <externalId>false</externalId>
     <inlineHelpText>The URL to access the Merchant Portal</inlineHelpText>
     <label>Access Url</label>
     <required>false</required>

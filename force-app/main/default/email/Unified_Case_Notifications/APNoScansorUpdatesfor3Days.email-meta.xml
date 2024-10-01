@@ -3,9 +3,28 @@
     <available>true</available>
     <description>When no scans or updates have occurred for 3 days</description>
     <encodingKey>ISO-8859-1</encodingKey>
-    <name>AP No scans or updates for 3 Days</name>
+    <name>AP No scans or updates For 3 Days</name>
     <style>none</style>
     <subject>We are continuing to investigate your case {!Case.CaseNumber}</subject>
+    <textOnly>Australia Post
+
+Case {!Case.CaseNumber}
+
+Hi {!IF(ISBLANK(Contact.Preferred_Name__c),Contact.FirstName,Contact.Preferred_Name__c)},
+
+We are investigating the status of your delivery
+
+We appreciate your patience while we continue to look into the delivery of 											your item with tracking number {!Case.ReferenceID__c}.
+
+We will be in touch with an update shortly. In the unlikely event that your 											parcel is not delivered within the next few days, we’ll contact you with 											information and advice on what to do next.
+
+Thank you for your understanding.
+
+Australia Post
+
+This email was sent by Australia Post. Australia Post does not 							represent, warrant or guarantee that the integrity of this email 							communication has been maintained nor that the communication is 							free of errors, viruses or interference.
+
+Help &amp; support |  Terms &amp; conditions |  Privacy policy</textOnly>
     <type>custom</type>
     <uiType>Aloha</uiType>
 </EmailTemplate>

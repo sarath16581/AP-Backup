@@ -4,7 +4,6 @@
     <deleteConstraint>SetNull</deleteConstraint>
     <deprecated>false</deprecated>
     <description>ID of the associated product attribute value</description>
-    <externalId>false</externalId>
     <label>Attribute Value</label>
     <referenceTo>Apttus_QPConfig__ProposalProductAttributeValue__c</referenceTo>
     <relationshipLabel>Line Items</relationshipLabel>

@@ -3,7 +3,6 @@
     <fullName>Apttus_CMConfig__Color__c</fullName>
     <deprecated>false</deprecated>
     <description>Product color</description>
-    <externalId>false</externalId>
     <label>Color</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>

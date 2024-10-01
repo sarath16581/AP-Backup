@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__AccrualSummaryId__c</fullName>
     <deprecated>false</deprecated>
     <description>ID of the associated point accrual summary</description>
-    <externalId>false</externalId>
     <inlineHelpText>ID of the associated point accrual summary</inlineHelpText>
     <label>Accrual Summary</label>
     <referenceTo>Apttus_Config2__LoyaltyPointAccrualSummary__c</referenceTo>

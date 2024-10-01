@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Indicates whether the sidebar should be displayed for admin pages.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Indicates whether the sidebar should be displayed for admin pages.</inlineHelpText>
     <label>Show Admin Sidebar</label>
     <trackTrending>false</trackTrending>

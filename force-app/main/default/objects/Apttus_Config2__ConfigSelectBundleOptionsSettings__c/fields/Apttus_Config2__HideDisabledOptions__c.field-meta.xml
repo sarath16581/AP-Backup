@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Whether to hide options that have been disabled by exclusion rules.</description>
-    <externalId>false</externalId>
     <inlineHelpText>If checked, options which have been disabled by exclusion rules will not appear in the list of availbe options.</inlineHelpText>
     <label>Hide Disabled Options</label>
     <trackTrending>false</trackTrending>

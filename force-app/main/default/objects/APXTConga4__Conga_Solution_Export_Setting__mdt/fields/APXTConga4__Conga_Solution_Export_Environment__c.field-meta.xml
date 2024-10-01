@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>APXTConga4__Conga_Solution_Export_Environment__c</fullName>
     <deprecated>false</deprecated>
-    <externalId>false</externalId>
     <fieldManageability>SubscriberControlled</fieldManageability>
     <label>Conga Solution Export Environment</label>
     <referenceTo>APXTConga4__Conga_Solution_Export_Environment__mdt</referenceTo>

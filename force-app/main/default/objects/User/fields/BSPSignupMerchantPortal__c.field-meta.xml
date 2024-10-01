@@ -3,7 +3,6 @@
     <fullName>BSPSignupMerchantPortal__c</fullName>
     <defaultValue>false</defaultValue>
     <description>This field is used to determine that a user gained BSP access via Merchant Portal signup by a customer admin. This is also used to determine the content to send to a new BSP user in the welcome email. Check this option will push the user to login via Merchant Portal rather than the standard BSP login page.</description>
-    <externalId>false</externalId>
     <inlineHelpText>This field is used to determine that a user gained BSP access via Merchant Portal signup by a customer admin. This is also used to determine the content to send to a new BSP user in the welcome email.</inlineHelpText>
     <label>BSP Signup via Merchant Portal</label>
     <trackFeedHistory>false</trackFeedHistory>

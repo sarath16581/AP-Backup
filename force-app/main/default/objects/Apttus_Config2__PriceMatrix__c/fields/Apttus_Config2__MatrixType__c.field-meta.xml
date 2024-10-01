@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__MatrixType__c</fullName>
     <deprecated>false</deprecated>
     <description>The matrix type</description>
-    <externalId>false</externalId>
     <label>Matrix Type</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>

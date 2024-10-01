@@ -3,7 +3,6 @@
     <fullName>Get_All_Consignment_Details__c</fullName>
     <defaultValue>true</defaultValue>
     <description>Controls the behaviour of Consignment Search request message. If unchecked, then Action in the request body will be set to &quot;Level1&quot;. The response will include only Consignment Details, Article Details, Subdockets and Book-In Notes. if this field is checked, then the response will also include all Scan Events of Consignment and Articles and last 5 POD images.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Should the Consignment Search Response contain Scan Events and PODs?</inlineHelpText>
     <label>Get All Consignment Details</label>
     <trackTrending>false</trackTrending>

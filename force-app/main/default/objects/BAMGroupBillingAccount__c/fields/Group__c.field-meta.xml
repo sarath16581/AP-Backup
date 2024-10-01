@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Group__c</fullName>
     <description>The group this Billing Account should be linked to</description>
-    <externalId>false</externalId>
     <inlineHelpText>The group this Billing Account should be linked to</inlineHelpText>
     <label>Group</label>
     <referenceTo>BAMGroup__c</referenceTo>

@@ -4,7 +4,6 @@
     <deleteConstraint>Restrict</deleteConstraint>
     <deprecated>false</deprecated>
     <description>ID of the associated IDE provision</description>
-    <externalId>false</externalId>
     <inlineHelpText>ID of the associated IDE provision</inlineHelpText>
     <label>IDE Provision</label>
     <referenceTo>Apttus__IDEProvision__c</referenceTo>

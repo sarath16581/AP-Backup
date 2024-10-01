@@ -3,7 +3,6 @@
     <fullName>Apttus_Proposal__ExpectedStartDate__c</fullName>
     <deprecated>false</deprecated>
     <description>The expected start date for products and services</description>
-    <externalId>false</externalId>
     <label>Expected Start Date</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>

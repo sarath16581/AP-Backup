@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__ParentBusinessObjectType__c</fullName>
     <deprecated>false</deprecated>
     <description>Type of the parent business object.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Type of the parent business object.</inlineHelpText>
     <label>Parent Business Object Type</label>
     <required>false</required>

@@ -3,7 +3,6 @@
     <fullName>Reports_To__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <description>SSSW - Custom field for Person Account hierarchy</description>
-    <externalId>false</externalId>
     <label>Reports To</label>
     <lookupFilter>
         <active>true</active>

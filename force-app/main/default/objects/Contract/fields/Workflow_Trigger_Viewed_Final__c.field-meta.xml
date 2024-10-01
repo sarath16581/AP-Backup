@@ -3,7 +3,6 @@
     <fullName>Workflow_Trigger_Viewed_Final__c</fullName>
     <defaultValue>false</defaultValue>
     <description>Flag that gets set by the Generate Agreement scontrol when an agreement is generated.  This flag then becomes the trigger for workflow rules that get fired when the Generate Agreement action is completed.</description>
-    <externalId>false</externalId>
     <label>Workflow Trigger Generated Agreement</label>
     <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>

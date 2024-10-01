@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__LineItemCollId__c</fullName>
     <deprecated>false</deprecated>
     <description>ID of the associated line item collection</description>
-    <externalId>false</externalId>
     <inlineHelpText>ID of the associated line item collection</inlineHelpText>
     <label>Line Item Coll</label>
     <referenceTo>Apttus_Config2__RelatedOpportunityLineItemColl__c</referenceTo>

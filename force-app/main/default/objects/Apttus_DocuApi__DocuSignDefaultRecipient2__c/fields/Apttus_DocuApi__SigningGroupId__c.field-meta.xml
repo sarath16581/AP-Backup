@@ -4,7 +4,6 @@
     <deleteConstraint>SetNull</deleteConstraint>
     <deprecated>false</deprecated>
     <description>ID of the signing group recipient</description>
-    <externalId>false</externalId>
     <inlineHelpText>ID of the signing group recipient</inlineHelpText>
     <label>Signing Group</label>
     <referenceTo>Apttus_DocuApi__DocuSignSigningGroup__c</referenceTo>

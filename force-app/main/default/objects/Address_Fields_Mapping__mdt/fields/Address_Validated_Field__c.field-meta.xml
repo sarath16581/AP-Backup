@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Address_Validated_Field__c</fullName>
     <description>Field definition to map Address Validated field</description>
-    <externalId>false</externalId>
     <fieldManageability>SubscriberControlled</fieldManageability>
     <label>Address Validated Field</label>
     <metadataRelationshipControllingField>Address_Fields_Mapping__mdt.Object__c</metadataRelationshipControllingField>

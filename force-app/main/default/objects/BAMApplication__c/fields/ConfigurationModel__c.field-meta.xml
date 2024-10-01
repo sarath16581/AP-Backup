@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>ConfigurationModel__c</fullName>
     <description>Sets how Application is exposed to BAM. Per Customer requires an Asset to be created for it to be exposed in BAM for a customer., Private will never be exposed to BAM but allows behind the scenes Applications to be onboarded and exposed through Authorisation API</description>
-    <externalId>false</externalId>
     <inlineHelpText>Sets how Application is exposed to BAM. Per Customer requires an Asset to be created for it to be exposed in BAM for a customer., Private will never be exposed to BAM but allows behind the scenes Applications to be onboarded and exposed through Auth API</inlineHelpText>
     <label>Configuration Model</label>
     <required>true</required>

@@ -3,7 +3,6 @@
     <fullName>BillToAccountId__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <description>ID of the bill to account associated with the agreement</description>
-    <externalId>false</externalId>
     <inlineHelpText>ID of the bill to account associated with the contract</inlineHelpText>
     <label>Bill To</label>
     <referenceTo>Account</referenceTo>

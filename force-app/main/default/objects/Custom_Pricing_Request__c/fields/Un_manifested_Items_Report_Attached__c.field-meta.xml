@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Un_manifested_Items_Report_Attached__c</fullName>
     <defaultValue>false</defaultValue>
-    <externalId>false</externalId>
     <label>Un-manifested Items Report Attached</label>
     <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>

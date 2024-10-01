@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__AssetLineItemId__c</fullName>
     <deprecated>false</deprecated>
     <description>ID of the associated asset line item</description>
-    <externalId>false</externalId>
     <label>Asset Line Item</label>
     <referenceTo>Apttus_Config2__AssetLineItem__c</referenceTo>
     <relationshipLabel>Asset Usage Price Tiers</relationshipLabel>

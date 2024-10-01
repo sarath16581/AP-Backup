@@ -3,7 +3,6 @@
     <fullName>grax__Num_Records_Successfully_Sent_Lkp__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <deprecated>false</deprecated>
-    <externalId>false</externalId>
     <label>Num Records Successfully Sent Lkp</label>
     <referenceTo>grax__GRAX_Helper__c</referenceTo>
     <relationshipLabel>Num Records Successfully Sent Lkps</relationshipLabel>

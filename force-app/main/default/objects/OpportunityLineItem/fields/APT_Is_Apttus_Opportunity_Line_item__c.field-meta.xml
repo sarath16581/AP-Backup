@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>APT_Is_Apttus_Opportunity_Line_item__c</fullName>
     <defaultValue>false</defaultValue>
-    <externalId>false</externalId>
     <label>Is Apttus Opportunity Line item</label>
     <securityClassification>INTERNAL</securityClassification>
     <type>Checkbox</type>

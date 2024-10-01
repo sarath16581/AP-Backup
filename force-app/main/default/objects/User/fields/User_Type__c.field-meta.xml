@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>User_Type__c</fullName>
     <description>getting the user access process automated through existing IT processes. Requested by Brett Ashworth</description>
-    <externalId>false</externalId>
     <label>User Type</label>
     <required>false</required>
     <trackFeedHistory>false</trackFeedHistory>

@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>APT_DoV_Type__c</fullName>
-    <externalId>false</externalId>
     <inlineHelpText>Select the type of the DoV you are working on to have appropriate set of options</inlineHelpText>
     <label>DoV Type</label>
     <required>false</required>

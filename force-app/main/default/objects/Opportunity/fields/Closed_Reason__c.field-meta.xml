@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Closed_Reason__c</fullName>
-    <externalId>false</externalId>
     <inlineHelpText>Select a reason the opportunity is being closed. For Closed Duplicate, record the duplicate Opportunity number (Data Quality Score – 5)</inlineHelpText>
     <label>Closed Reason</label>
     <required>false</required>

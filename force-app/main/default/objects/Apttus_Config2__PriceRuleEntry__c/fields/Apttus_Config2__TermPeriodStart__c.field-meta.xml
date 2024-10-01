@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__TermPeriodStart__c</fullName>
     <deprecated>false</deprecated>
     <description>The term period start indicator</description>
-    <externalId>false</externalId>
     <inlineHelpText>The term period start indicator</inlineHelpText>
     <label>Term Period Start</label>
     <required>false</required>

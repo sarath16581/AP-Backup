@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__DisplayType__c</fullName>
     <deprecated>false</deprecated>
     <description>display type of the setting group such as List, Actions, Columns or Field Set</description>
-    <externalId>false</externalId>
     <inlineHelpText>display type of the setting group such as List, Actions, Columns or Field Set</inlineHelpText>
     <label>Display Type</label>
     <required>true</required>

@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Hide Cart Views</description>
-    <externalId>false</externalId>
     <inlineHelpText>Indicates whether cart views will be hidden</inlineHelpText>
     <label>Hide Cart Views</label>
     <trackTrending>false</trackTrending>

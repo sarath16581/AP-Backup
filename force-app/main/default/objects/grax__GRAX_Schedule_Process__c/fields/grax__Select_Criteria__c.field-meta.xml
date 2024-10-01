@@ -3,7 +3,6 @@
     <fullName>grax__Select_Criteria__c</fullName>
     <deprecated>false</deprecated>
     <description>Field Used for Internal Auditing</description>
-    <externalId>false</externalId>
     <label>Select Criteria</label>
     <required>false</required>
     <trackHistory>false</trackHistory>

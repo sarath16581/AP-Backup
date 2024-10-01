@@ -3,7 +3,6 @@
     <fullName>Apttus__Other_Party_Signed_By_Unlisted__c</fullName>
     <deprecated>false</deprecated>
     <description>Identifies other party signed by person that is not listed as a contact in salesforce</description>
-    <externalId>false</externalId>
     <label>Other Party Signed By (Unlisted)</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>

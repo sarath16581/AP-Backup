@@ -5,7 +5,6 @@
 
 Request, Submitted Request,
 Cancelled Request, In Amendment, Being Amended, Superseded, Activated, Expired, Internal Signatures, Author Contract, Expired, Terminated,  Ready for Signatures, Fully Signed, Signature Declined</description>
-    <externalId>false</externalId>
     <label>Contract Steps Status</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>

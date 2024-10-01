@@ -3,7 +3,6 @@
     <fullName>TriggerTimeBasedWorkflow__c</fullName>
     <defaultValue>false</defaultValue>
     <description>Prime next  time based workflow</description>
-    <externalId>false</externalId>
     <label>TriggerTimeBasedWorkflow</label>
     <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>

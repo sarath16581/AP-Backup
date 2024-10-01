@@ -3,7 +3,6 @@
     <fullName>Network__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <description>The network related to the pickup job</description>
-    <externalId>false</externalId>
     <label>Network</label>
     <referenceTo>Network__c</referenceTo>
     <relationshipLabel>Pickup Booking Jobs</relationshipLabel>

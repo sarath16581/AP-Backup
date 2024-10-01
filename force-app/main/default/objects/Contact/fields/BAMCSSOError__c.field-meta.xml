@@ -3,7 +3,6 @@
     <fullName>BAMCSSOError__c</fullName>
     <defaultValue>false</defaultValue>
     <description>An error has occurred when provisioning CSSO access for the contact as part of the Business Access Management process</description>
-    <externalId>false</externalId>
     <inlineHelpText>An error occurred when provisioning CSSO access</inlineHelpText>
     <label>BAM CSSO Error</label>
     <securityClassification>INTERNAL</securityClassification>

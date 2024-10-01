@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__RegionCriteriaOper__c</fullName>
     <deprecated>false</deprecated>
     <description>The region criteria operator</description>
-    <externalId>false</externalId>
     <inlineHelpText>The region criteria operator</inlineHelpText>
     <label>Region Criteria Oper</label>
     <required>false</required>

@@ -3,7 +3,6 @@
     <fullName>Apttus_Approval__PrevAssignedToType__c</fullName>
     <deprecated>false</deprecated>
     <description>The type of assignee the request was previously assigned to</description>
-    <externalId>false</externalId>
     <label>Prev Assigned To Type</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>

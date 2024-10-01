@@ -3,7 +3,6 @@
     <fullName>CSQ_Compliance_Check__c</fullName>
     <defaultValue>false</defaultValue>
     <description>This field indicates whether the submitter has verified all the required steps prior to CSQ submission for approval</description>
-    <externalId>false</externalId>
     <inlineHelpText>Indicates whether the submitter has verified all the required steps prior to CSQ submission for approval</inlineHelpText>
     <label>CSQ Compliance Check</label>
     <trackHistory>false</trackHistory>

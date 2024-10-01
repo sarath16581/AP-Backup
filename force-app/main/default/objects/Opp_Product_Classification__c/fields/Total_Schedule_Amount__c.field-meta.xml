@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Total_Schedule_Amount__c</fullName>
-    <externalId>false</externalId>
     <formula>Apr_Schedule_Amount__c  +  Aug_Schedule_Amount__c  +  Dec_Schedule_Amount__c  +  Feb_Schedule_Amount__c  +  Jan_Schedule_Amount__c  +  Jul_Schedule_Amount__c  +  Jun_Schedule_Amount__c  +  Mar_Schedule_Amount__c  +  May_Schedule_Amount__c  +  Nov_Schedule_Amount__c  +  Oct_Schedule_Amount__c  +  Sep_Schedule_Amount__c</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <label>Total Schedule Amount</label>

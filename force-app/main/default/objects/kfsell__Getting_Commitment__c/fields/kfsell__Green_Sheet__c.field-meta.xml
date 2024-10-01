@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>kfsell__Green_Sheet__c</fullName>
     <deprecated>false</deprecated>
-    <externalId>false</externalId>
     <label>Green Sheet</label>
     <referenceTo>kfsell__Green_Sheet__c</referenceTo>
     <relationshipLabel>Getting Commitment</relationshipLabel>

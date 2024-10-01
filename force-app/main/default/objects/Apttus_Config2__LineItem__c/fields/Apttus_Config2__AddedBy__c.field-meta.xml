@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__AddedBy__c</fullName>
     <deprecated>false</deprecated>
     <description>Indicates who added the product/service line item</description>
-    <externalId>false</externalId>
     <label>Added By</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>

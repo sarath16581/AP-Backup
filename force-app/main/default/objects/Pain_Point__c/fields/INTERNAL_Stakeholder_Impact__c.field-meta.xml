@@ -4,7 +4,6 @@
     <description>Phase 1 - Opportunity Assessment (PWC) 
 
 Identify wow this either drives/ exacerbates other issues being experienced by their colleagues</description>
-    <externalId>false</externalId>
     <inlineHelpText>Which other internal stakeholders does this affect?</inlineHelpText>
     <label>Internal Stakeholder Impact</label>
     <length>32768</length>

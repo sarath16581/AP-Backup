@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__MatchRule__c</fullName>
     <deprecated>false</deprecated>
     <description>Indicates if the rule should match all or match any filter conditions</description>
-    <externalId>false</externalId>
     <label>Match Rule</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>

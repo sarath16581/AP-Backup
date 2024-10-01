@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__OrderFulfillmentId__c</fullName>
     <deprecated>false</deprecated>
     <description>ID of the associated order fulfillment</description>
-    <externalId>false</externalId>
     <inlineHelpText>ID of the associated order fulfillment</inlineHelpText>
     <label>Order Fulfillment</label>
     <referenceTo>Apttus_Config2__OrderFulfillment__c</referenceTo>

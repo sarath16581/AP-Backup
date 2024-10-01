@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>APT_ABR_Report__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
-    <externalId>false</externalId>
     <label>ABR Report</label>
     <referenceTo>APT_ABRreport__c</referenceTo>
     <relationshipLabel>Credit Assessments</relationshipLabel>

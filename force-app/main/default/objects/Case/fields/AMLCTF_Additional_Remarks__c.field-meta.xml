@@ -3,7 +3,6 @@
     <fullName>AMLCTF_Additional_Remarks__c</fullName>
     <businessStatus>DeprecateCandidate</businessStatus>
     <description>Field added as part of the Retail Audit Case Management Solution, AML/CTF Austrac Phase 2.  Additional Remarks field used to merge additional custom messages into Please Explains.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Field added as part of the Retail Audit Case Management Solution, AML/CTF Austrac Phase 2.  Additional Remarks field used to merge additional custom messages into Please Explains.</inlineHelpText>
     <label>Dep -Additional Remarks</label>
     <required>false</required>

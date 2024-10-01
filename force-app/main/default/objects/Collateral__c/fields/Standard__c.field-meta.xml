@@ -3,7 +3,6 @@
     <fullName>Standard__c</fullName>
     <defaultValue>false</defaultValue>
     <description>Phase 1 - is this a standard document?</description>
-    <externalId>false</externalId>
     <inlineHelpText>Denotes if the document is standard or custom.</inlineHelpText>
     <label>Standard</label>
     <securityClassification>INTERNAL</securityClassification>

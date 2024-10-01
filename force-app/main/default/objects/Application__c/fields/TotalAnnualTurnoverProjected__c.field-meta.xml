@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>TotalAnnualTurnoverProjected__c</fullName>
     <description>User to input - Total Annual Business Turnover (including cash, cheques, cards etc) - Projected</description>
-    <externalId>false</externalId>
     <inlineHelpText>Total Annual Business turnover</inlineHelpText>
     <label>Total Annual Turnover - Projected</label>
     <precision>10</precision>

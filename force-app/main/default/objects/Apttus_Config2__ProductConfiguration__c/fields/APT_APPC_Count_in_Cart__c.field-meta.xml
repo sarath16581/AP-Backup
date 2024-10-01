@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>APT_APPC_Count_in_Cart__c</fullName>
-    <externalId>false</externalId>
     <label>APPC Count in Cart</label>
     <summaryFilterItems>
         <field>Apttus_Config2__LineItem__c.Apttus_Config2__Description__c</field>

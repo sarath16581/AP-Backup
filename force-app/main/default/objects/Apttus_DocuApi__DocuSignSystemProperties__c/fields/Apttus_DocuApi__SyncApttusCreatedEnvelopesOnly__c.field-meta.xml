@@ -4,7 +4,6 @@
     <defaultValue>true</defaultValue>
     <deprecated>false</deprecated>
     <description>This setting controls the behavior of the envelope status sync scheduled batch job. If checked, it only looks for envelope status changes for the Apttus created envelopes</description>
-    <externalId>false</externalId>
     <inlineHelpText>This setting controls the behavior of the envelope status sync scheduled batch job. If checked, it only looks for envelope status changes for the Apttus created envelopes</inlineHelpText>
     <label>Sync Apttus Created Envelopes Only</label>
     <trackTrending>false</trackTrending>

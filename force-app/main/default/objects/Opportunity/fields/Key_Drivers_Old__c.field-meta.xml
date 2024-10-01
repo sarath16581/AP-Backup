@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Key_Drivers_Old__c</fullName>
     <description>18/07/2013 This field stores the old that prior to changes of field type</description>
-    <externalId>false</externalId>
     <label>Key Drivers Old</label>
     <length>32768</length>
     <securityClassification>INTERNAL</securityClassification>

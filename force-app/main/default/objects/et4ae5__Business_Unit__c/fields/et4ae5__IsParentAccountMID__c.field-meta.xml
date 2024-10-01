@@ -3,7 +3,6 @@
     <fullName>et4ae5__IsParentAccountMID__c</fullName>
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
-    <externalId>false</externalId>
     <label>IsParentAccountMID</label>
     <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>

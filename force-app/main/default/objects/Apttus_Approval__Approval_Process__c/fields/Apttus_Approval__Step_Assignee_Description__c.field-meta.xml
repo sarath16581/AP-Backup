@@ -3,7 +3,6 @@
     <fullName>Apttus_Approval__Step_Assignee_Description__c</fullName>
     <deprecated>false</deprecated>
     <description>The step assignee description</description>
-    <externalId>false</externalId>
     <label>Step Assignee Description</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>

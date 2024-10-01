@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Whether this rule is satisfied by a specific line item. When this field value is true the source line number must have a value.</description>
-    <externalId>false</externalId>
     <label>Is Source Line Required</label>
     <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>

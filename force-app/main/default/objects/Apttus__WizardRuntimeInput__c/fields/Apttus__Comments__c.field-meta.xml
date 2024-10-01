@@ -3,7 +3,6 @@
     <fullName>Apttus__Comments__c</fullName>
     <deprecated>false</deprecated>
     <description>Holds comments entered for this input</description>
-    <externalId>false</externalId>
     <inlineHelpText>Holds comments entered for this input</inlineHelpText>
     <label>Comments</label>
     <length>500</length>

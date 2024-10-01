@@ -4,7 +4,6 @@
     <businessStatus>Active</businessStatus>
     <deleteConstraint>SetNull</deleteConstraint>
     <description>Indicates the StarTrack follower account responsible for paying the invoice when follower account is not yet provisioned in TEAM. Only used for StarTrack billing accounts managed in TEAM.</description>
-    <externalId>false</externalId>
     <inlineHelpText>This field indicates the TEAM account number that will be paying the invoice</inlineHelpText>
     <label>Parent Account Request</label>
     <lookupFilter>

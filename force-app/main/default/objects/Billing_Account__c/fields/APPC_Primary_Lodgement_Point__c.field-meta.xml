@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>APPC_Primary_Lodgement_Point__c</fullName>
     <description>Primary Lodgement point for Billing Account</description>
-    <externalId>false</externalId>
     <inlineHelpText>Primary Lodgement point for Billing Account</inlineHelpText>
     <label>APPC Primary Lodgement Point</label>
     <length>1000</length>

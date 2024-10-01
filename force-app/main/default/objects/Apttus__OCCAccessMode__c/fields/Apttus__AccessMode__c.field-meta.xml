@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Apttus__AccessMode__c</fullName>
     <deprecated>false</deprecated>
-    <externalId>false</externalId>
     <inlineHelpText>Each access mode has a set of pre-defined permissions. To learn more, see the Administration Guide.</inlineHelpText>
     <label>Access Mode</label>
     <required>true</required>

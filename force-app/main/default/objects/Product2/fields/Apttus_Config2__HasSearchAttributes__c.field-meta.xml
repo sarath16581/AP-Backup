@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>When set to true the product can be considered as base product for searching related products</description>
-    <externalId>false</externalId>
     <label>Has Search Attributes (Deprecated)</label>
     <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>

@@ -4,7 +4,6 @@
     <defaultValue>&quot;Not Submitted&quot;</defaultValue>
     <deprecated>false</deprecated>
     <description>Clause approval status</description>
-    <externalId>false</externalId>
     <inlineHelpText>Set an approval status</inlineHelpText>
     <label>Approval Status</label>
     <required>false</required>

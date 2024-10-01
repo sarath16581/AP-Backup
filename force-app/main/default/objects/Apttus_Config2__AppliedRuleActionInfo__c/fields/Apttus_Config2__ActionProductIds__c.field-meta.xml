@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__ActionProductIds__c</fullName>
     <deprecated>false</deprecated>
     <description>Id of the action products that can be selected and must be excluded</description>
-    <externalId>false</externalId>
     <label>Action Product Ids</label>
     <length>20900</length>
     <securityClassification>INTERNAL</securityClassification>

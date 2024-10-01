@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__NetPrice__c</fullName>
     <deprecated>false</deprecated>
     <description>The net price for the product or service</description>
-    <externalId>false</externalId>
     <label>Net Price</label>
     <precision>18</precision>
     <required>false</required>

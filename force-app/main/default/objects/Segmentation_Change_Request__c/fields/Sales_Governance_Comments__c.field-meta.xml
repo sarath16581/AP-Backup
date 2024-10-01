@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Sales_Governance_Comments__c</fullName>
     <description>For use by Sales Governance to provide comments on Sales Governance Approval</description>
-    <externalId>false</externalId>
     <inlineHelpText>For use by Sales Governance to provide comments on Sales Governance Approval</inlineHelpText>
     <label>Sales Governance Comments</label>
     <length>32768</length>

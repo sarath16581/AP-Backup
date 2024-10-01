@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>TotalAnnualTurnoverHistoric__c</fullName>
     <description>User to input - Total Annual Business Turnover (including cash, cheques, cards etc)</description>
-    <externalId>false</externalId>
     <inlineHelpText>Total Annual Business turnover</inlineHelpText>
     <label>Total Annual Turnover - Historic</label>
     <precision>10</precision>

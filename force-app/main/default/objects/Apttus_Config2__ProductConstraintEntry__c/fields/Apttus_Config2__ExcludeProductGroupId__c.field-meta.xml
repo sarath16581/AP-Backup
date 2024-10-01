@@ -4,7 +4,6 @@
     <deleteConstraint>SetNull</deleteConstraint>
     <deprecated>false</deprecated>
     <description>ID of the product group to exclude for selected products or options</description>
-    <externalId>false</externalId>
     <label>Exclude Product Group</label>
     <referenceTo>Apttus_Config2__ProductGroup__c</referenceTo>
     <relationshipLabel>Product Constraint Entries (Exclude Product Group)</relationshipLabel>

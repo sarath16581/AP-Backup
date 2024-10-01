@@ -3,7 +3,6 @@
     <fullName>Accepts_Bulk_Lodgement__c</fullName>
     <defaultValue>false</defaultValue>
     <description>Does this site accept bulk lodgement?</description>
-    <externalId>false</externalId>
     <inlineHelpText>Does this site accept bulk lodgement?</inlineHelpText>
     <label>Accepts Bulk Lodgement</label>
     <securityClassification>INTERNAL</securityClassification>

@@ -3,7 +3,6 @@
     <fullName>BillingPreferenceId__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <description>ID of the associated billing preference</description>
-    <externalId>false</externalId>
     <inlineHelpText>ID of the associated billing preference</inlineHelpText>
     <label>Billing Preference</label>
     <referenceTo>Apttus_Config2__BillingPreference__c</referenceTo>

@@ -4,7 +4,6 @@
     <businessStatus>DeprecateCandidate</businessStatus>
     <deleteConstraint>SetNull</deleteConstraint>
     <description>DEPRECATED. DO NOT USE. Delegated Approver within the delegation workflow. Referenced by the standard approval process</description>
-    <externalId>false</externalId>
     <label>Approver 9 (DEPRECATED)</label>
     <referenceTo>User</referenceTo>
     <relationshipName>Credit_Approvals9</relationshipName>

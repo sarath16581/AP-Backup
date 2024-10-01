@@ -3,7 +3,6 @@
     <fullName>AutoEmail__c</fullName>
     <description>If Salesforce is selected, a Salesforce welcome email will be sent to the user &amp; cc&apos;ing the CDMT team for setup in SAP. 
 If Salesforce Non Seller selected, an email will be sent to the user without cc the CDMT.</description>
-    <externalId>false</externalId>
     <inlineHelpText>If Salesforce is selected, a Salesforce welcome email will be sent to the user &amp; cc&apos;ing the CDMT team for setup in SAP. 
 If Salesforce Non Seller selected, an email will be sent to the user without cc the CDMT.</inlineHelpText>
     <label>AutoEmail</label>

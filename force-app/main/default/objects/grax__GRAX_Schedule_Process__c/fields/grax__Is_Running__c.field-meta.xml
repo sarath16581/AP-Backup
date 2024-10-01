@@ -3,7 +3,6 @@
     <fullName>grax__Is_Running__c</fullName>
     <deprecated>false</deprecated>
     <description>Field used to determine if the current Scheduled Process is in a &quot;running&quot; state</description>
-    <externalId>false</externalId>
     <formula>ISPICKVAL (grax__Status__c, &quot;Running&quot;) ||
 ISPICKVAL (grax__Status__c, &quot;Finding Data&quot;) ||
 ISPICKVAL (grax__Status__c, &quot;Backing Up Data&quot;) ||

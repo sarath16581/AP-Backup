@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Indicates whether child cost types should be hidden in the price waterfall</description>
-    <externalId>false</externalId>
     <inlineHelpText>Indicates whether child cost types should be hidden in the price waterfall</inlineHelpText>
     <label>Hide Child Cost Types in Price Waterfall</label>
     <securityClassification>INTERNAL</securityClassification>

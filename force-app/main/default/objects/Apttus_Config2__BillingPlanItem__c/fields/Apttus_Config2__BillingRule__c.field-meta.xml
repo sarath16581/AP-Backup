@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__BillingRule__c</fullName>
     <deprecated>false</deprecated>
     <description>The billing rule associated with the plan item</description>
-    <externalId>false</externalId>
     <inlineHelpText>The billing rule associated with the plan item</inlineHelpText>
     <label>Billing Rule (Deprecated)</label>
     <required>false</required>

@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Value_Proposition_to_Ensure_Win__c</fullName>
     <description>What is the value proposition to ensure win?</description>
-    <externalId>false</externalId>
     <inlineHelpText>What is the value proposition to ensure win?</inlineHelpText>
     <label>Value Proposition to Ensure Win</label>
     <length>5000</length>

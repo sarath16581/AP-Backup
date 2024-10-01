@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Filter the related/sibling/parent/child agreements by the status category/status values of the primary agreement i.e. agreement being sent for eSignature. This setting is used only when the &quot;Select Attachments From Related/Sibling&quot; setting is checked.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Filter the related/sibling/parent/child agreements by the status category/status values of the primary agreement i.e. agreement being sent for eSignature. This setting is used only when the &quot;Select Attachments From Related/Sibling&quot; setting is checked.</inlineHelpText>
     <label>Filter RSPC By Primary Agreement Status</label>
     <trackTrending>false</trackTrending>

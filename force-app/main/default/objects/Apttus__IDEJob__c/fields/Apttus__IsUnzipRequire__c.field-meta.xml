@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Indicates whether unzip is required or not</description>
-    <externalId>false</externalId>
     <inlineHelpText>Indicates whether unzip is required or not</inlineHelpText>
     <label>Is Unzip Required</label>
     <securityClassification>INTERNAL</securityClassification>

@@ -3,7 +3,6 @@
     <fullName>Apttus__RuleExpressionRuleType__c</fullName>
     <deprecated>false</deprecated>
     <description>Rule type for rule expressions</description>
-    <externalId>false</externalId>
     <inlineHelpText>Rule type for rule expressions</inlineHelpText>
     <label>Rule Type</label>
     <required>false</required>

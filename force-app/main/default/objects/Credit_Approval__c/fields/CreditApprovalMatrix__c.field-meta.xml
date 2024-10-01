@@ -3,7 +3,6 @@
     <fullName>CreditApprovalMatrix__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <description>Credit approval matrix record holding the approver configuration applicable to this Credit Approval.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Credit approval matrix record holding the approver configuration applicable to this Credit Approval.</inlineHelpText>
     <label>Credit Approval Matrix</label>
     <referenceTo>CreditApprovalMatrix__c</referenceTo>

@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__CountryCode__c</fullName>
     <deprecated>false</deprecated>
     <description>The Legal Entity Country Code</description>
-    <externalId>false</externalId>
     <inlineHelpText>The Legal Entity Country Code</inlineHelpText>
     <label>Legal Entity Country Code</label>
     <required>false</required>

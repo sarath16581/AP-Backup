@@ -3,7 +3,6 @@
     <fullName>OverwriteExistingValue__c</fullName>
     <defaultValue>false</defaultValue>
     <description>Whether or not to overwrite the Target Field when already populated upon matching</description>
-    <externalId>false</externalId>
     <fieldManageability>SubscriberControlled</fieldManageability>
     <inlineHelpText>Whether or not to overwrite the Target Field when already populated upon matching. Untick this box if the original populated value requires to remain unchanged upon sequential matching</inlineHelpText>
     <label>Overwrite Existing Value</label>

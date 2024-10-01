@@ -4,7 +4,6 @@
     <deleteConstraint>SetNull</deleteConstraint>
     <deprecated>false</deprecated>
     <description>ID of the previous version associated with the amendment purchase order item</description>
-    <externalId>false</externalId>
     <inlineHelpText>ID of the previous version associated with the amendment purchase order item</inlineHelpText>
     <label>Previous Version</label>
     <referenceTo>Apttus_Config2__CustomerPOItem__c</referenceTo>

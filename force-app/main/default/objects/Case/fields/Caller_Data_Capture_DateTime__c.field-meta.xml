@@ -3,7 +3,6 @@
     <fullName>Caller_Data_Capture_DateTime__c</fullName>
     <defaultValue>NOW()</defaultValue>
     <description>StarTrack Caller Data Capture DateTime used in a formula field which is then read for the purposes of a process builder scheduled action to asynchronously process the task</description>
-    <externalId>false</externalId>
     <label>Caller Data Capture DateTime</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>

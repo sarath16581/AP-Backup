@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>If this flag is true then we to send cancellation emails for Approved/Notified requests when approval requests are recalled.</description>
-    <externalId>false</externalId>
     <inlineHelpText>If this flag is true then we to send cancellation emails for Approved/Notified requests when approval requests are recalled.</inlineHelpText>
     <label>Cancellation Email to Approved/Notified</label>
     <trackTrending>false</trackTrending>

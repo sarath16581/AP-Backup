@@ -3,7 +3,6 @@
     <fullName>Performs_Out_of_Hours_Mail_Service__c</fullName>
     <defaultValue>false</defaultValue>
     <description>Mail Service Payment will be payed where AP requires the Licencee to accept and sort mail outside normal business hours</description>
-    <externalId>false</externalId>
     <inlineHelpText>Mail Service Payment will be payed where AP requires the Licencee to accept and sort mail outside normal business hours</inlineHelpText>
     <label>Mail Service Payment Special Condition</label>
     <securityClassification>INTERNAL</securityClassification>

@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__RelatedAdjustmentType__c</fullName>
     <deprecated>false</deprecated>
     <description>The related item price adjustment type</description>
-    <externalId>false</externalId>
     <label>Related Adjustment Type</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>

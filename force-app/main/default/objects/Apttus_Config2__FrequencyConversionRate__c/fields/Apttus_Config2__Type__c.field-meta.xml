@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__Type__c</fullName>
     <deprecated>false</deprecated>
     <description>The conversion metric type</description>
-    <externalId>false</externalId>
     <inlineHelpText>The conversion metric type</inlineHelpText>
     <label>Type</label>
     <required>false</required>

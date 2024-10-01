@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__Label__c</fullName>
     <deprecated>false</deprecated>
     <description>Cost Type Label</description>
-    <externalId>false</externalId>
     <label>Label</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>

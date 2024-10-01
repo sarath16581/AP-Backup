@@ -3,7 +3,6 @@
     <fullName>et4ae5__Enable_Cascading_Delete__c</fullName>
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
-    <externalId>false</externalId>
     <inlineHelpText>Automatically delete parent and child tracking data records when using Tracking Data Cleanup Tool. To avoid Apex governor limits on batch delete jobs, disable cascade-delete.</inlineHelpText>
     <label>Enable Cascade-Delete</label>
     <trackTrending>false</trackTrending>

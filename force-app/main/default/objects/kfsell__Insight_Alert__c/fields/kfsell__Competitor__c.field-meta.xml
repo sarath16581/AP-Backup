@@ -3,7 +3,6 @@
     <fullName>kfsell__Competitor__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <deprecated>false</deprecated>
-    <externalId>false</externalId>
     <label>Competitor</label>
     <referenceTo>Account</referenceTo>
     <relationshipLabel>Insight Alerts</relationshipLabel>

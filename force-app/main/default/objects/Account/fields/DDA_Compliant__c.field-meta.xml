@@ -3,7 +3,6 @@
     <fullName>DDA_Compliant__c</fullName>
     <defaultValue>false</defaultValue>
     <description>Is office Disability Act compliant?</description>
-    <externalId>false</externalId>
     <inlineHelpText>Is office Disability Act compliant?</inlineHelpText>
     <label>DDA Compliant</label>
     <securityClassification>INTERNAL</securityClassification>

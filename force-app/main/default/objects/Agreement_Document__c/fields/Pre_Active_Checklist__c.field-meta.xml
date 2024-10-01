@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Pre_Active_Checklist__c</fullName>
-    <externalId>false</externalId>
     <inlineHelpText>A list of tasks to complete before the Agreement Document record can be set to Active status.</inlineHelpText>
     <label>Pre Active Checklist</label>
     <length>1000</length>

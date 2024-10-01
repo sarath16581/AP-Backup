@@ -198,6 +198,10 @@
                 <behavior>Edit</behavior>
                 <field>Further_Advice_on_Pricing_Recommendation__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Revenue_Impact_of_Recommendation__c</field>
+            </layoutItems>
         </layoutColumns>
         <style>TwoColumnsLeftToRight</style>
     </layoutSections>

@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__ImpactTCV__c</fullName>
     <deprecated>false</deprecated>
     <description>The change in TCV due to the order</description>
-    <externalId>false</externalId>
     <inlineHelpText>The change in TCV due to the order</inlineHelpText>
     <label>ImpactTCV</label>
     <precision>18</precision>

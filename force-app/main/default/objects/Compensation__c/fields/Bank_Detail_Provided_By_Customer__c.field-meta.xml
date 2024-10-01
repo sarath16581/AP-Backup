@@ -3,7 +3,6 @@
     <fullName>Bank_Detail_Provided_By_Customer__c</fullName>
     <defaultValue>false</defaultValue>
     <description>Check if bank detail is provided by customer via compensation form</description>
-    <externalId>false</externalId>
     <inlineHelpText>Check if bank detail is provided by customer via compensation form</inlineHelpText>
     <label>Bank Detail Provided By Customer</label>
     <trackHistory>false</trackHistory>

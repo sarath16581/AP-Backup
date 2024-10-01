@@ -3,7 +3,6 @@
     <fullName>Despatch_Location__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <description>The Despatch Location to be linked to this Group. This is used for Parcel Send to assign a Despatch Id to the Group</description>
-    <externalId>false</externalId>
     <inlineHelpText>The Despatch Location to be linked to this Group. This is used for Parcel Send to assign a Despatch Id to the Group</inlineHelpText>
     <label>Despatch Location</label>
     <referenceTo>Location</referenceTo>

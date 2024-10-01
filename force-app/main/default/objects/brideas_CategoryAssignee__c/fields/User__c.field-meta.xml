@@ -3,7 +3,6 @@
     <fullName>User__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <description>Idea Categories Manager</description>
-    <externalId>false</externalId>
     <inlineHelpText>Idea Categories Manager</inlineHelpText>
     <label>User</label>
     <referenceTo>User</referenceTo>

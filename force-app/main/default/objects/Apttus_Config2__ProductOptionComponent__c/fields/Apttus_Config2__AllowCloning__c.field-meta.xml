@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Whether to display the cloning action in a sub bundle configuration</description>
-    <externalId>false</externalId>
     <label>Allow Cloning</label>
     <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>

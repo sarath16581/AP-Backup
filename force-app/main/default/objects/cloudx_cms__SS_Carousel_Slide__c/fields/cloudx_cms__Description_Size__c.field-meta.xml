@@ -3,7 +3,6 @@
     <fullName>cloudx_cms__Description_Size__c</fullName>
     <deprecated>false</deprecated>
     <description>Choose an appropriate Body text size.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Choose an appropriate Body text size.</inlineHelpText>
     <label>Body Text Size</label>
     <required>false</required>

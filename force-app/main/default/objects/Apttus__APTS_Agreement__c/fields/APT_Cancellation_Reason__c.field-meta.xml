@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>APT_Cancellation_Reason__c</fullName>
     <description>Maps to Closed Reason on Opportunity</description>
-    <externalId>false</externalId>
     <inlineHelpText>Reason for Cancellation</inlineHelpText>
     <label>Cancellation Reason</label>
     <required>false</required>

@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__BaseRelationCount__c</fullName>
     <deprecated>false</deprecated>
     <description>Counts the number of line items related to base product.</description>
-    <externalId>false</externalId>
     <label>Base Relation Count</label>
     <securityClassification>INTERNAL</securityClassification>
     <summaryFilterItems>

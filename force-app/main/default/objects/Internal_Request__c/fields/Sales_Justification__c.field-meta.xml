@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Sales_Justification__c</fullName>
     <description>Justification from the sales person to support the request</description>
-    <externalId>false</externalId>
     <inlineHelpText>Detailed summary of your required pricing position based on your initial assessment with supporting data</inlineHelpText>
     <label>Sales Justification</label>
     <length>5000</length>

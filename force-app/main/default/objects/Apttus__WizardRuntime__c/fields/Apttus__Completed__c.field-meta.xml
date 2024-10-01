@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Indicates status of a wizard as being completed or in progress</description>
-    <externalId>false</externalId>
     <inlineHelpText>Indicates status of a wizard as being completed or in progress</inlineHelpText>
     <label>Completed</label>
     <securityClassification>INTERNAL</securityClassification>

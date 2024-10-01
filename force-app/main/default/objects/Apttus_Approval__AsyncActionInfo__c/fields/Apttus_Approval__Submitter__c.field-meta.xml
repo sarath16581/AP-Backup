@@ -4,7 +4,6 @@
     <deleteConstraint>SetNull</deleteConstraint>
     <deprecated>false</deprecated>
     <description>User who performed the action</description>
-    <externalId>false</externalId>
     <inlineHelpText>User who performed the action</inlineHelpText>
     <label>Submitter</label>
     <referenceTo>User</referenceTo>

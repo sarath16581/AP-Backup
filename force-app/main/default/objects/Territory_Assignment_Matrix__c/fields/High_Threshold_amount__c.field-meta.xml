@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>High_Threshold_amount__c</fullName>
-    <externalId>false</externalId>
     <label>High Threshold amount</label>
     <precision>12</precision>
     <required>false</required>

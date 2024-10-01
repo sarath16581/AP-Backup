@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Indicates whether to match products in Assets. Only applicable to Inclusion based rules.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Indicates whether to match products in Assets. Only applicable to Inclusion based rules.</inlineHelpText>
     <label>Match In Asset</label>
     <securityClassification>INTERNAL</securityClassification>

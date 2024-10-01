@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Indicates whether to hide product image.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Check this to hide product image.</inlineHelpText>
     <label>Hide Product Image</label>
     <trackTrending>false</trackTrending>

@@ -3,7 +3,6 @@
     <fullName>Sales_Director__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <description>Field to allow the name of the Sales Director (ie 1 up manager of Coverage seller) to be captured</description>
-    <externalId>false</externalId>
     <inlineHelpText>Field to allow the name of the Sales Director (ie 1 up manager of Coverage seller) to be captured</inlineHelpText>
     <label>Sales Director</label>
     <referenceTo>User</referenceTo>

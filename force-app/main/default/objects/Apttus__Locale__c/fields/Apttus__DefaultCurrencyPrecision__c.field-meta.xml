@@ -3,7 +3,6 @@
     <fullName>Apttus__DefaultCurrencyPrecision__c</fullName>
     <deprecated>false</deprecated>
     <description>Select Default Precision of Currency fields.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Select Default Precision of Currency fields.</inlineHelpText>
     <label>Default Currency Precision</label>
     <required>false</required>

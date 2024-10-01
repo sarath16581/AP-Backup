@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__TaskCompletedDate__c</fullName>
     <deprecated>false</deprecated>
     <description>The date and time when the last task associated with the product configuration was completed</description>
-    <externalId>false</externalId>
     <inlineHelpText>The date and time when the last task associated with the product configuration was completed</inlineHelpText>
     <label>Task Completed Date</label>
     <required>false</required>

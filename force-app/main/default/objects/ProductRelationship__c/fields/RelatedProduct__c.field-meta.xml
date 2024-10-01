@@ -5,7 +5,6 @@
     <complianceGroup>GDPR</complianceGroup>
     <deleteConstraint>SetNull</deleteConstraint>
     <description>The product that is related to the parent product</description>
-    <externalId>false</externalId>
     <inlineHelpText>Choose the product that is related to the parent product.</inlineHelpText>
     <label>Related Product</label>
     <referenceTo>Product2</referenceTo>

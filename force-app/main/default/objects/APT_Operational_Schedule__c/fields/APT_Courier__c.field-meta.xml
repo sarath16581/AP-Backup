@@ -3,7 +3,6 @@
     <fullName>APT_Courier__c</fullName>
     <defaultValue>false</defaultValue>
     <description>Rename from &apos;Courier&apos; to &apos;Courier/Local Pickup &amp; Delivery Services&apos;, as part of Local Pickup and Delivery Services Minor Work.</description>
-    <externalId>false</externalId>
     <label>Courier/Local Pickup &amp; Delivery Services</label>
     <securityClassification>INTERNAL</securityClassification>
     <trackHistory>true</trackHistory>

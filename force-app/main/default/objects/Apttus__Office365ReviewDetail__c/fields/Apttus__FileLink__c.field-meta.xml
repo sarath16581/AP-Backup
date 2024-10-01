@@ -3,7 +3,6 @@
     <fullName>Apttus__FileLink__c</fullName>
     <deprecated>false</deprecated>
     <description>Sharable link to the Office 365 document to send to reviewers</description>
-    <externalId>false</externalId>
     <inlineHelpText>Sharable link to the Office 365 document to send to reviewers</inlineHelpText>
     <label>File Link</label>
     <length>32768</length>

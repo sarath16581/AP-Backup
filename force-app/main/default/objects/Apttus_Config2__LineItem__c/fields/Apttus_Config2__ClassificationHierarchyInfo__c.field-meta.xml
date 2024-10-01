@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__ClassificationHierarchyInfo__c</fullName>
     <deprecated>false</deprecated>
     <description>The category hierarchy information</description>
-    <externalId>false</externalId>
     <label>Category Hierarchy Info</label>
     <length>2000</length>
     <securityClassification>INTERNAL</securityClassification>

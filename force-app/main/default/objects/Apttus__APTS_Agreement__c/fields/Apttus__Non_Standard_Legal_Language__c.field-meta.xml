@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>To indicate whether this agreement contains non-standard language</description>
-    <externalId>false</externalId>
     <label>Non Standard Legal Language</label>
     <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>

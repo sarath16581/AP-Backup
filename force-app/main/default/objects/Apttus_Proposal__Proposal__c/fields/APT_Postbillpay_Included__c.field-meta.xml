@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>APT_Postbillpay_Included__c</fullName>
     <description>Used in System Configuration to display &apos;Create Postbillpay Contract&apos; button. Please make sure filter criteria match the exact name of the product behind the scenes (Case Sensitive)</description>
-    <externalId>false</externalId>
     <inlineHelpText>Used in System Configuration to display &apos;Create Postbillpay Contract&apos; button. Please make sure filter criteria match the exact name of the product behind the scenes (Case Sensitive)</inlineHelpText>
     <label>Postbillpay Included?</label>
     <securityClassification>INTERNAL</securityClassification>

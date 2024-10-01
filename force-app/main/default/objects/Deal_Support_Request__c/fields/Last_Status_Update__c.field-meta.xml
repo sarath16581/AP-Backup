@@ -3,7 +3,6 @@
     <fullName>Last_Status_Update__c</fullName>
     <defaultValue>TODAY()</defaultValue>
     <description>Hidden field to capture the date of the last status update for history reporting</description>
-    <externalId>false</externalId>
     <label>Last Status Update</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>

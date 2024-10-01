@@ -3,7 +3,6 @@
     <fullName>Location__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <description>Customer Location</description>
-    <externalId>false</externalId>
     <label>Location</label>
     <referenceTo>Location</referenceTo>
     <relationshipLabel>Authorization Rules</relationshipLabel>

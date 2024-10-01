@@ -4,7 +4,6 @@
     <deleteConstraint>SetNull</deleteConstraint>
     <deprecated>false</deprecated>
     <description>The first step of the wizard design used in all runtime instances</description>
-    <externalId>false</externalId>
     <inlineHelpText>The first step of the wizard design used in all runtime instances</inlineHelpText>
     <label>Wizard Start Step</label>
     <referenceTo>Apttus__WizardStep__c</referenceTo>

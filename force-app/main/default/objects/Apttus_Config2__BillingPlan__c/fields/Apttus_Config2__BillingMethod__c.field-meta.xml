@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__BillingMethod__c</fullName>
     <deprecated>false</deprecated>
     <description>The billing method</description>
-    <externalId>false</externalId>
     <inlineHelpText>The billing method</inlineHelpText>
     <label>Billing Method</label>
     <required>false</required>

@@ -4,7 +4,6 @@
     <defaultValue>true</defaultValue>
     <deprecated>false</deprecated>
     <description>Indicates whether the quote/proposal is the primary quote to update the related opportunity</description>
-    <externalId>false</externalId>
     <label>Primary</label>
     <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>

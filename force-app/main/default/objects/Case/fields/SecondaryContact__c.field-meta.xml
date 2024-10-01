@@ -3,7 +3,6 @@
     <fullName>SecondaryContact__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <description>SSSW - This field is used to allow for Cases to have a dual relationship to the Contacts in the System, and also for the Contact Us Form</description>
-    <externalId>false</externalId>
     <label>Secondary Contact</label>
     <referenceTo>Contact</referenceTo>
     <relationshipLabel>Secondary Cases</relationshipLabel>

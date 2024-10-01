@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Keyed matrix pricing performs keyed lookup to locate matrix entries in a large matrix</description>
-    <externalId>false</externalId>
     <inlineHelpText>Keyed matrix pricing performs keyed lookup to locate matrix entries in a large matrix</inlineHelpText>
     <label>Enable Keyed Matrix Pricing</label>
     <trackTrending>false</trackTrending>

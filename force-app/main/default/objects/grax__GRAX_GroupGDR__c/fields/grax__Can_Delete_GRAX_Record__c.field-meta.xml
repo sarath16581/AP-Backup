@@ -3,7 +3,6 @@
     <fullName>grax__Can_Delete_GRAX_Record__c</fullName>
     <deprecated>false</deprecated>
     <description>Field Used for Internal Auditing</description>
-    <externalId>false</externalId>
     <formula>(
   (grax__GRAX_Schedule_Process__c = null &amp;&amp; grax__Execution_Unique_Key__c != null) ||
   (

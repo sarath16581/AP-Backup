@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__RecurrenceFrequency__c</fullName>
     <deprecated>false</deprecated>
     <description>The recurrence frequency</description>
-    <externalId>false</externalId>
     <inlineHelpText>The recurrence frequency</inlineHelpText>
     <label>Recurrence Frequency</label>
     <required>false</required>

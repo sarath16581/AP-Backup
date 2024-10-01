@@ -3,7 +3,6 @@
     <fullName>Assigned_Team__c</fullName>
     <description>To identify the team currently working on the request.
 The field is used to add Queue Name for Credit Management Request DSR.</description>
-    <externalId>false</externalId>
     <label>Assigned Team</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>

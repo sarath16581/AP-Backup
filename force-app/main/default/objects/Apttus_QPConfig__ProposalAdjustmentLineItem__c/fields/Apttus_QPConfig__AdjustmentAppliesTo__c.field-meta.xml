@@ -3,7 +3,6 @@
     <fullName>Apttus_QPConfig__AdjustmentAppliesTo__c</fullName>
     <deprecated>false</deprecated>
     <description>Indicates the price field the price adjustment should be applied to.</description>
-    <externalId>false</externalId>
     <label>Adjustment Applies To</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>

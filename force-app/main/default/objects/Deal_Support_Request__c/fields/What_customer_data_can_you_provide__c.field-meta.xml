@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>What_customer_data_can_you_provide__c</fullName>
-    <externalId>false</externalId>
     <inlineHelpText>Freight info to contain any of:
 Consignment Lodgement Date; Dispatch Postcode; Dispatch Suburb, Receiver Postcode, Receiver Suburb, StarTrack Service Code; # items; Cubic dimensions (m3); Dead weight (kg); Carton/Satchel/Pallet &amp;/or Dangerous Goods (Y/N)</inlineHelpText>
     <label>What customer data can you provide?</label>

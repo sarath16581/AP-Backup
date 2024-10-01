@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Indicates whether price ramp is enabled for the product or option</description>
-    <externalId>false</externalId>
     <inlineHelpText>Indicates whether price ramp is enabled for the product or option</inlineHelpText>
     <label>Enable Price Ramp</label>
     <securityClassification>OFFICIAL_SENSITIVE</securityClassification>

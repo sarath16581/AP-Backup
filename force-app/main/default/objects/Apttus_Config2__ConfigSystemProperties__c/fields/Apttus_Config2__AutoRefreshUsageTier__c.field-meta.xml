@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Indicates whether modifiable usage tiers are refreshed upon PLI change</description>
-    <externalId>false</externalId>
     <inlineHelpText>Indicates whether modifiable usage tiers are refreshed upon PLI change</inlineHelpText>
     <label>Auto Refresh Usage Tier</label>
     <trackTrending>false</trackTrending>

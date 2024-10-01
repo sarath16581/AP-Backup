@@ -7,6 +7,7 @@
     <disableReputationRecordConversations>false</disableReputationRecordConversations>
     <emailSenderAddress>customerservice@auspost.com.au</emailSenderAddress>
     <emailSenderName>Australia Post Business Support Portal</emailSenderName>
+    <embeddedLoginEnabled>true</embeddedLoginEnabled>
     <enableApexCDNCaching>true</enableApexCDNCaching>
     <enableCustomVFErrorPageOverrides>false</enableCustomVFErrorPageOverrides>
     <enableDirectMessages>false</enableDirectMessages>

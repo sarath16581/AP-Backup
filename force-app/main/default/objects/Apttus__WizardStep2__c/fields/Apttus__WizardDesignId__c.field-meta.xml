@@ -4,7 +4,6 @@
     <deleteConstraint>Restrict</deleteConstraint>
     <deprecated>false</deprecated>
     <description>Lookup to wizard design this step belongs to.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Lookup to wizard design this step belongs to.</inlineHelpText>
     <label>Wizard Design</label>
     <referenceTo>Apttus__WizardDesign__c</referenceTo>

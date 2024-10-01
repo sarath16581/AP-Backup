@@ -3,7 +3,6 @@
     <fullName>Apttus_DealMgr__MatchRule__c</fullName>
     <deprecated>false</deprecated>
     <description>Indicates if the rule should match all or match any dimension</description>
-    <externalId>false</externalId>
     <inlineHelpText>Indicates if the rule should match all or match any dimension</inlineHelpText>
     <label>Match Rule</label>
     <required>false</required>

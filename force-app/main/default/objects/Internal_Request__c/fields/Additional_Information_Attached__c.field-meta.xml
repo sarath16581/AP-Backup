@@ -3,7 +3,6 @@
     <fullName>Additional_Information_Attached__c</fullName>
     <defaultValue>false</defaultValue>
     <description>To be checked when additional information is attached to a general enquiry</description>
-    <externalId>false</externalId>
     <inlineHelpText>Confirm that additional information has been attached to the request</inlineHelpText>
     <label>Additional Information Attached</label>
     <securityClassification>INTERNAL</securityClassification>

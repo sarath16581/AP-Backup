@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__ActionDisposition__c</fullName>
     <deprecated>false</deprecated>
     <description>Whether the action can be ignored.</description>
-    <externalId>false</externalId>
     <label>Action Disposition</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>

@@ -3,7 +3,6 @@
     <fullName>Apttus__TemplateId__c</fullName>
     <deprecated>false</deprecated>
     <description>Template this version belongs to.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Template this version belongs to.</inlineHelpText>
     <label>Template</label>
     <referenceTo>Apttus__APTS_Template__c</referenceTo>

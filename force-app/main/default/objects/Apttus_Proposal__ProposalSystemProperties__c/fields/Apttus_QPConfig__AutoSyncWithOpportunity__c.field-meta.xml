@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Indicates whether the proposal will be automatically synchronized with the opportunity when the proposal is accepted.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Indicates whether the proposal will be automatically synchronized with the opportunity when the proposal is accepted.</inlineHelpText>
     <label>Auto Sync With Opportunity</label>
     <trackTrending>false</trackTrending>

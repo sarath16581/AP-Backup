@@ -3,7 +3,6 @@
     <fullName>Apttus__Action__c</fullName>
     <deprecated>false</deprecated>
     <description>Select a clause action in a document during a negotiation</description>
-    <externalId>false</externalId>
     <inlineHelpText>Select a clause action in a document during a negotiation</inlineHelpText>
     <label>Action</label>
     <required>false</required>

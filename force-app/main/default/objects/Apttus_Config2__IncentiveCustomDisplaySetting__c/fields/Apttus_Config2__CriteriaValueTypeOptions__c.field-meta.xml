@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__CriteriaValueTypeOptions__c</fullName>
     <deprecated>false</deprecated>
     <description>List of options for the Value Type field in criteria, separated by a semicolon;.</description>
-    <externalId>false</externalId>
     <inlineHelpText>List of options for the Value Type field in criteria, separated by a semicolon.</inlineHelpText>
     <label>Criteria Value Type Options</label>
     <required>false</required>

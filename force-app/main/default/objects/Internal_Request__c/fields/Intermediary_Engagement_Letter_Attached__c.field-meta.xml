@@ -3,7 +3,6 @@
     <fullName>Intermediary_Engagement_Letter_Attached__c</fullName>
     <defaultValue>false</defaultValue>
     <description>Field to indicate that the intermediary engagement letter has been attached</description>
-    <externalId>false</externalId>
     <inlineHelpText>Please check when intermediary engagement letter has been attached to the request (attach to Notes &amp; Attachments section on request)</inlineHelpText>
     <label>Intermediary Engagement Letter Attached?</label>
     <securityClassification>INTERNAL</securityClassification>

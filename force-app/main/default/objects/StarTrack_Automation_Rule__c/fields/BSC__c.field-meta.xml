@@ -3,7 +3,6 @@
     <fullName>BSC__c</fullName>
     <defaultValue>false</defaultValue>
     <description>This checkbox will be matched against Case BSC flag.</description>
-    <externalId>false</externalId>
     <label>BSC</label>
     <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>

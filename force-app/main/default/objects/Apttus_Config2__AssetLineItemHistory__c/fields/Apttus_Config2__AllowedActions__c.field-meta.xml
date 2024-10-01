@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__AllowedActions__c</fullName>
     <deprecated>false</deprecated>
     <description>List of actions that are allowed for the asset line item record. One or more of the pick list values can be selected. When none of the values are selected it is considered as all actions are allowed. The custom settings named Hide Asset Actions overrides the actions listed here.</description>
-    <externalId>false</externalId>
     <label>Allowed Actions</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>

@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>StatusTrackingRollupsLastRun__c</fullName>
     <description>An internal field used to determine when the last time Status Tracking Rollups were completed on this record. This is used in the StatusTrackingRollupDelegator and the StatusTrackingRollup_Batchable classes.</description>
-    <externalId>false</externalId>
     <label>Status Tracking Rollups Last Run</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>

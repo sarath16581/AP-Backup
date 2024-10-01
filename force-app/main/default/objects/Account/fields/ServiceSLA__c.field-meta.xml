@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>ServiceSLA__c</fullName>
     <description>The Service SLA will alter the level of Service this customer will receive from the Service Team.</description>
-    <externalId>false</externalId>
     <inlineHelpText>The Service SLA will alter the level of Service this customer will receive from the Service Team.</inlineHelpText>
     <label>Service SLA</label>
     <required>false</required>

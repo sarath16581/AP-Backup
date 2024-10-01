@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>OrganisationType__c</fullName>
     <description>Drop down box to select company type e.g. Sole Trader, Company</description>
-    <externalId>false</externalId>
     <inlineHelpText>Select your business type</inlineHelpText>
     <label>Business Type</label>
     <required>false</required>

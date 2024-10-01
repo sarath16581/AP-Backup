@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>DemurrageStartDate__c</fullName>
     <description>This is the date that charges may be applied to the recipient if the article/s allocated to this ICPS have not been released for delivery</description>
-    <externalId>false</externalId>
     <inlineHelpText>This is the date that charges may be applied to the recipient if the article/s allocated to this ICPS have not been released for delivery</inlineHelpText>
     <label>Demurrage Start Date</label>
     <required>false</required>

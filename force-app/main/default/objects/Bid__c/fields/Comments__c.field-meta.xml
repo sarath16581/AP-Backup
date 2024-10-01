@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Comments__c</fullName>
     <description>Rich text comments field for Results information</description>
-    <externalId>false</externalId>
     <inlineHelpText>Include brief comments on the result of the bid</inlineHelpText>
     <label>Comments</label>
     <length>32768</length>

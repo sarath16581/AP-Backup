@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Indicates whether collate info is enabled for the quote/proposal</description>
-    <externalId>false</externalId>
     <inlineHelpText>Indicates whether collate info is enabled for the quote/proposal</inlineHelpText>
     <label>Enable Collate Info</label>
     <trackTrending>false</trackTrending>

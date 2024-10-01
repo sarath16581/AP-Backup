@@ -162,55 +162,65 @@ public class OpportunityRevenueReportController {
 	 */
 	public static void registerDataForUpdateInsert(List<GroupedRevenueSchedule__c> schedules) {
 		// newly created revenue schedules
-		List<GroupedRevenueSchedule__c> schedulesToInsert = new List<GroupedRevenueSchedule__c>();
+		Map<String,GroupedRevenueSchedule__c> schedulesToInsert = new Map<String,GroupedRevenueSchedule__c>();
 		// updated revenue schedules
-		List<GroupedRevenueSchedule__c> schedulesToUpdate = new List<GroupedRevenueSchedule__c>();
+		Map<String,GroupedRevenueSchedule__c> schedulesToUpdate = new Map<String,GroupedRevenueSchedule__c>();
+        // revenue schedules to delete (ouside revised contract dates)
+        Map<String,GroupedRevenueSchedule__c> schedulesToDelete = new Map<String,GroupedRevenueSchedule__c>();
 		// new product revenue records
-		List<GroupedAccountProductRevenue__c> revenuesToInsert = new List<GroupedAccountProductRevenue__c>();
+		Map<String,GroupedAccountProductRevenue__c> revenuesToInsert = new Map<String,GroupedAccountProductRevenue__c>();
 		// updated product revenue records
-		List<GroupedAccountProductRevenue__c> revenuesToUpdate = new List<GroupedAccountProductRevenue__c>();
+		Map<String,GroupedAccountProductRevenue__c> revenuesToUpdate = new Map<String,GroupedAccountProductRevenue__c>();
 		// updated line items
 		Map<id,OpportunityLineItem> itemsToUpdate = new Map<id,OpportunityLineItem>();
 		for (GroupedRevenueSchedule__c schedule : schedules) {
-			// schedules to be created or updated
-			if (schedule.Id == null) {
-				// record creation
-				schedulesToInsert.add(schedule);
-			}else {
-				// record update
-				schedulesToUpdate.add(schedule);
-			}
-			// revenue records associated with the schedules which are to be created or updated
-			if (schedule.GroupedAccountProductRevenue__r != null) {
-				if(schedule.GroupedAccountProductRevenue__r.Id == null) { 
-					// The Product Revenue record associated with this schedule does not exist yet.
-					//(1) register the relationship...
-					//uow.registerRelationship(schedule, GroupedRevenueSchedule__c.GroupedAccountProductRevenue__c, schedule.GroupedAccountProductRevenue__r);
-					// (2)add the revenue record to the insert list, 
-					revenuesToInsert.add(schedule.GroupedAccountProductRevenue__r);
-		 		} else {
-					// revenue record associated with the schedule already exists, just update it. 
-			 		revenuesToUpdate.add(schedule.GroupedAccountProductRevenue__r);
-		 		}
-			}
-			if (schedule.opportunityProduct__r != null && !itemsToUpdate.containsKey(schedule.OpportunityProduct__r.id)) {
-				itemsToUpdate.put(schedule.OpportunityProduct__r.id,schedule.opportunityProduct__r);
-			}
+			// schedules to be deleted
+            if (schedule.id !=null && schedule.GroupedAccountProductRevenue__c == null) {
+                system.debug('*** adding schedule to delete ' +schedule);
+            	schedulesToDelete.put(schedule.id,schedule);
+            } else {
+                if (schedule.Id == null) {
+                    // record creation
+                    schedulesToInsert.put(ProductScheduleService.getUID(schedule),schedule);
+                } else {
+                    // record update
+                    schedulesToUpdate.put(schedule.id,schedule);
+                }
+                // revenue records associated with the schedules which are to be created or updated
+                if (schedule.GroupedAccountProductRevenue__r != null) {
+                    if(schedule.GroupedAccountProductRevenue__r.Id == null) { 
+                        // The Product Revenue record associated with this schedule does not exist yet.
+                        // add the revenue record to the insert list, 
+                        revenuesToInsert.put(schedule.GroupedAccountProductRevenue__r.uid__c, schedule.GroupedAccountProductRevenue__r);
+                    } else {
+                        // revenue record associated with the schedule already exists, just update it. 
+                        revenuesToUpdate.put(schedule.GroupedAccountProductRevenue__r.uid__c,schedule.GroupedAccountProductRevenue__r);
+                    }
+                }
+                if (schedule.opportunityProduct__r != null && !itemsToUpdate.containsKey(schedule.OpportunityProduct__r.id)) {
+                    itemsToUpdate.put(schedule.OpportunityProduct__r.id,schedule.opportunityProduct__r);
+                }
+            }
 		}
-		// register new revenue records
+		// insert new revenue records
 		if (!revenuesToInsert.isEmpty()) {
-		 insert(revenuesToInsert);
+			insert(revenuesToInsert.values());
 		}
-		// register new schedules
+		// insert new schedules
 		if (!schedulesToInsert.isEmpty()) {
-			insert(schedulesToInsert);
+			insert(schedulesToInsert.values());
 		}
+        // update changed revenues
 		if (!revenuesToUpdate.isEmpty()) {
-			update(revenuesToUpdate);
+			update(revenuesToUpdate.values());
 		}
-		// register schedules to update
-		if (!schedulesToUpdate.isEmpty() && !Test.isRunningTest()) {
-			update(schedulesToUpdate);
+		// update changed schedules
+        if (!schedulesToUpdate.isEmpty() && !Test.isRunningTest()) { 
+			update(schedulesToUpdate.values());
+		}
+        // delete obsolete schedules
+       	if (!schedulesToDelete.isEmpty()) {
+			delete(schedulesToDelete.values());
 		}
 		// register items to update
 		if (!itemsToUpdate.isEmpty()) {
@@ -218,8 +228,7 @@ public class OpportunityRevenueReportController {
 		}
 	}
 	
-	
-	/**
+/**
  * @description calculate actual revenue for account products achieved over the past 12 months.
  * @param accountId - the account for the revenue record
  * @param productId - the product for the revenue record
