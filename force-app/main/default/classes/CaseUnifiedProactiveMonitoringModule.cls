@@ -11,6 +11,7 @@
  * 2024-07-18 - Seth Heang - Added new methods for processing 3 days and 5 days monitoring alerts
  * 2024-07-28 - Seth Heang - remove isClosed check from entry condition for processing scheduledActions
  * 2024-09-06 - George Nguyen - removed invalid comments
+ * 2024-09-29 - Parveen Kaushik - Added exemption for proactive monitoring SLA if Bypass_Data_enforcement__c = TRUE
  */
 public inherited sharing class CaseUnifiedProactiveMonitoringModule extends ApplicationModule {
 	@TestVisible
@@ -96,7 +97,7 @@ public inherited sharing class CaseUnifiedProactiveMonitoringModule extends Appl
 		Date fiveBusinessDaysAfterCreation = BusinessHoursService.newInstance().calculateNextBusinessDay(newRecord.CreatedDate.date(), 5);
 		Date currentDate = Date.today();
 		if (newRecord.OwnerId.equals((Id) QUEUE_SETTINGS.UnifiedDefaultMonitoringQueueId__c)) {
-			if (currentDate < fiveBusinessDaysAfterCreation) {
+			if (currentDate < fiveBusinessDaysAfterCreation || newRecord.Bypass_Data_enforcement__c == true) {
 				return true;
 			} else {
 				newRecord.addError(ERROR_SLA_EXPIRED);

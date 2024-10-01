@@ -4,10 +4,11 @@
  * @date 2026-09-05
  * @group Tracking
  * @changelog
+ * 2024-10-01 - Seth Heang - added notifyRecordUpdateAvailable after successful update on LiveChat
  */
 import { api, LightningElement, wire, track } from 'lwc';
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
-import { getRecord, getFieldValue, updateRecord } from 'lightning/uiRecordApi';
+import { getRecord, getFieldValue, updateRecord, notifyRecordUpdateAvailable } from 'lightning/uiRecordApi';
 import { getRelatedListRecords } from 'lightning/uiRelatedListApi';
 import { publish, MessageContext } from 'lightning/messageService';
 import GENERIC_LMS_CHANNEL from '@salesforce/messageChannel/genericMessageChannel__c';
@@ -187,13 +188,15 @@ export default class UnifiedTrackingChatWrapper extends LightningElement {
 	doUpdate(recordInput) {
 		updateRecord(recordInput)
 			.then(() => {
-				this.showSpinner = false;
 				this.enableSelectArticles = true;
+				notifyRecordUpdateAvailable([{ recordId: this.recordId }]);
 			})
 			.catch(error => {
 				console.error(error);
-				this.showSpinner = false;
 				this.displayToastMessage('Article link failed', 'Error', 'Error');
+			})
+			.finally(() =>{
+				this.showSpinner = false;
 			});
 	}
 
@@ -219,7 +222,12 @@ export default class UnifiedTrackingChatWrapper extends LightningElement {
 				selectedArticleIds: selectedArticles
 			}
 		};
-		publish(this.messageContext, GENERIC_LMS_CHANNEL, lmsEventPayload);
+		try {
+			publish(this.messageContext, GENERIC_LMS_CHANNEL, lmsEventPayload);
+		} catch (error) {
+			// One of the scenario that we expect to excecute the catch block is when user opens and closes the interaction record quickly before / while loading the happyparcel component.
+			console.error(error);
+		}
 	}
 
 	displayToastMessage(toastMessage, toastTittle, toastVariant) {

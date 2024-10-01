@@ -29,15 +29,13 @@ public virtual inherited sharing class VoiceCallsSelector extends ApplicationSel
 		return VoiceCall.getSObjectType();
 	}
 
-	public virtual override Set<SObjectField> getSObjectFieldList() { 
-		return new Set<SObjectField>{ VoiceCall.Id, VoiceCall.Name, VoiceCall.CallStartDateTime, VoiceCall.CallEndDateTime, VoiceCall.CallType, VoiceCall.Case__c};
+	public virtual override Set<SObjectField> getSObjectFieldList() {
+		return new Set<SObjectField>{ VoiceCall.Id,  VoiceCall.Name, VoiceCall.CallStartDateTime, VoiceCall.CallEndDateTime, VoiceCall.CallType, VoiceCall.Case__c};
 	}
-
 	public static VoiceCallsSelector newInstance(Set<SObjectField> fieldOverrides) {
 		return (VoiceCallsSelector) Application.Selectors.newInstance(VoiceCallsSelector.class)
 			.setFieldOverrides(fieldOverrides);
 	}
-
 
 	/**
 	 * @param selectorOptions Set<Object> selectorOptions
@@ -51,8 +49,22 @@ public virtual inherited sharing class VoiceCallsSelector extends ApplicationSel
 		QueryBuilder.ConditionsManager conditions = qb.addConditions();
 		conditions.add(new QueryBuilder.SimpleCondition(VoiceCall.Id + ' IN :callIds'));
 		conditions.endConditions();
-		String query = qb.toSoqlString();
-		return (List<VoiceCall>)Database.query(query);
+		return (List<VoiceCall>)Database.query(qb.toSoqlString());
+	}
+
+	/**
+	 * @param selectorOptions Set<Object> selectorOptions
+	 * @param conversationIds Set<Id>
+	 * @description returns a list of Voice Call records base on their ConversationId
+	 *
+	 * @return List<VoiceCall>
+	 */
+	public List<VoiceCall> selectByConversationIds(Set<Id> conversationIds, Set<Object> selectorOptions) {
+		QueryBuilder qb = newQueryBuilder(selectorOptions);
+		QueryBuilder.ConditionsManager conditions = qb.addConditions();
+		conditions.add(new QueryBuilder.SimpleCondition(VoiceCall.ConversationId + ' IN :conversationIds'));
+		conditions.endConditions();
+		return (List<VoiceCall>)Database.query(qb.toSoqlString());
 	}
 
 	/**
@@ -62,7 +74,6 @@ public virtual inherited sharing class VoiceCallsSelector extends ApplicationSel
 	 */
 	public virtual override QueryBuilder newQueryBuilder(Set<Object> selectorOptions) {
 		QueryBuilder builder = super.newQueryBuilder(selectorOptions);
-
 		if(selectorOptions.contains(Options.WITH_CALLER)) {
 			builder.addRelatedFields(ConversationParticipantsSelector.newInstance().newQueryBuilder(), 'Caller');
 		}
