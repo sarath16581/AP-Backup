@@ -210,16 +210,6 @@
         <field>ImpactedArticle__c.Article__c</field>
         <readable>true</readable>
     </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>ImpactedArticle__c.Subscribed__c</field>
-        <readable>false</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>ImpactedArticle__c.SubscriptionErrorCode__c</field>
-        <readable>false</readable>
-    </fieldPermissions>
     <hasActivationRequired>false</hasActivationRequired>
     <label>Unified Case Management</label>
     <license>Salesforce</license>
