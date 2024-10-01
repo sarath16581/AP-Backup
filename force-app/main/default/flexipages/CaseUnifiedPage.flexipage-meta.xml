@@ -1052,7 +1052,7 @@
                 <visibilityRule>
                     <criteria>
                         <leftValue>{!Record.ArticleTest__r.ArticleID__c}</leftValue>
-                        <operator>EQUAL</operator>
+                        <operator>NE</operator>
                     </criteria>
                 </visibilityRule>
             </componentInstance>
@@ -1107,6 +1107,12 @@
                 </componentInstanceProperties>
                 <componentName>force:relatedListSingleContainer</componentName>
                 <identifier>force_relatedListSingleContainer5</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.Contact.LastName}</leftValue>
+                        <operator>NE</operator>
+                    </criteria>
+                </visibilityRule>
             </componentInstance>
         </itemInstances>
         <name>Facet-5b1fe538-d633-41eb-b4e1-9ccf776ab223</name>
