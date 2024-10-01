@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__SubmenuActions__c</fullName>
     <deprecated>false</deprecated>
     <description>List of actions to be displayed in the asset action submenu dropdowns separated by commas.</description>
-    <externalId>false</externalId>
     <inlineHelpText>List of actions to be displayed in the asset action submenu dropdowns separated by commas.</inlineHelpText>
     <label>Submenu Actions</label>
     <required>false</required>

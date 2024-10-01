@@ -3,7 +3,6 @@
     <fullName>Apttus__FrameworkFormat__c</fullName>
     <deprecated>false</deprecated>
     <description>Template framework format</description>
-    <externalId>false</externalId>
     <inlineHelpText>Template framework format</inlineHelpText>
     <label>Framework Format</label>
     <required>false</required>

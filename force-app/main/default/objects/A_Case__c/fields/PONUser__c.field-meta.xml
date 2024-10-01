@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>PONUser__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
-    <externalId>false</externalId>
     <label>Case Assigned To</label>
     <referenceTo>User</referenceTo>
     <relationshipLabel>OLD Archived Cases (PONUser__c)</relationshipLabel>

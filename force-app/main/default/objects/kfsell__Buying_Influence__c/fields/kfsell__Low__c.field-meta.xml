@@ -3,7 +3,6 @@
     <fullName>kfsell__Low__c</fullName>
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
-    <externalId>false</externalId>
     <label>Low</label>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>

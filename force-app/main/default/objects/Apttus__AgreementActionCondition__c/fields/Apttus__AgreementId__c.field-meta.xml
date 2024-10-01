@@ -3,7 +3,6 @@
     <fullName>Apttus__AgreementId__c</fullName>
     <deprecated>false</deprecated>
     <description>ID of the associated agreement</description>
-    <externalId>false</externalId>
     <inlineHelpText>ID of the associated agreement</inlineHelpText>
     <label>Agreement</label>
     <referenceTo>Apttus__APTS_Agreement__c</referenceTo>

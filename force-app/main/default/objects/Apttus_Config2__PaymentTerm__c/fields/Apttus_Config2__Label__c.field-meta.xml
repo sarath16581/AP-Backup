@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__Label__c</fullName>
     <deprecated>false</deprecated>
     <description>The payment term label</description>
-    <externalId>false</externalId>
     <inlineHelpText>The payment term label</inlineHelpText>
     <label>Label</label>
     <required>false</required>

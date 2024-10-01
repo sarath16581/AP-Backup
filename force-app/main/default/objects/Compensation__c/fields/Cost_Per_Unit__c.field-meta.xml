@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Cost_Per_Unit__c</fullName>
-    <externalId>false</externalId>
     <formula>IF (ISPICKVAL( Replacement_Products__c ,&apos;Booklet of 10 stamps ($1)&apos;), 10,
 (IF(ISPICKVAL( Replacement_Products__c ,&apos;Booklet of 10 stamps ($11)&apos;), 11,
 (IF(ISPICKVAL( Replacement_Products__c ,&apos;Registered Post label&apos;), 3.5,

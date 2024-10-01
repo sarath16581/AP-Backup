@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>kfsell__Actual_Created_Date__c</fullName>
     <deprecated>false</deprecated>
-    <externalId>false</externalId>
     <formula>IF(
 				ISBLANK(kfsell__CreatedDate__c),
 				CreatedDate,

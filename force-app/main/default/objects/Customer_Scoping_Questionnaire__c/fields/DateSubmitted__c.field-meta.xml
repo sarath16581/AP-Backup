@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>DateSubmitted__c</fullName>
     <description>Captures the date value when the CSQ record is submitted for Approval, used in a list view to sort the submission order.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Captures the date value when the CSQ record is submitted for Approval, used in a list view to sort the submission order.</inlineHelpText>
     <label>Date Submitted</label>
     <required>false</required>

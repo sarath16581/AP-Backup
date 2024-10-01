@@ -3,7 +3,6 @@
     <fullName>ExpiredResponse__c</fullName>
     <defaultValue>false</defaultValue>
     <description>This checkbox is set if an expired response is returned from Camunda.</description>
-    <externalId>false</externalId>
     <inlineHelpText>This checkbox is set if an expired response is returned from Camunda.</inlineHelpText>
     <label>Expired Response</label>
     <securityClassification>INTERNAL</securityClassification>

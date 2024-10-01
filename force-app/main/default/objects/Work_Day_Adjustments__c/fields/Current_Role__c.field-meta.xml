@@ -3,7 +3,6 @@
     <fullName>Current_Role__c</fullName>
     <defaultValue>false</defaultValue>
     <description>This box is used to indicate whether this record relates the Assigned To users current role</description>
-    <externalId>false</externalId>
     <inlineHelpText>This box is used to indicate whether this record relates the Assigned To users current role</inlineHelpText>
     <label>Current Role</label>
     <securityClassification>INTERNAL</securityClassification>

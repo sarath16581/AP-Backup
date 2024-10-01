@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__FutureBenefitValidityType__c</fullName>
     <deprecated>false</deprecated>
     <description>Establishes the validity period of a future benefit. Only applicable to incentive rules.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Establishes the validity period of a future benefit. Only applicable to incentive rules.</inlineHelpText>
     <label>Future Benefit Validity Type</label>
     <required>false</required>

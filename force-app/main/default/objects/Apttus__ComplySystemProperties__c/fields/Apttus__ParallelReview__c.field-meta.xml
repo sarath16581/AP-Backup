@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Choice to Turn On-Off Parallel Review feature and have a way to make it available for users</description>
-    <externalId>false</externalId>
     <inlineHelpText>Enable/Disable Parallel Review for document review process</inlineHelpText>
     <label>Parallel Review</label>
     <trackTrending>false</trackTrending>

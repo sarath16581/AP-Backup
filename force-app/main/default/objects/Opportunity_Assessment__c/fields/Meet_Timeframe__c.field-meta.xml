@@ -5,7 +5,6 @@
     <description>Phase 1 - Opportunity Assessment (PWC) 
 
 Identify if we can develop new capabilities to fulfil customer requirements in the required timeframe</description>
-    <externalId>false</externalId>
     <inlineHelpText>Can we develop the required capabilities in the required timeframe?</inlineHelpText>
     <label>Meet Timeframe</label>
     <securityClassification>INTERNAL</securityClassification>

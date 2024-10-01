@@ -14,6 +14,7 @@
     <emailFooterText>Australia Post will never send you an email asking for your password, credit card details or account information. This email was sent by Australia Post, 111 Bourke Street, MELBOURNE VIC 3000. If you have any concerns, or don&apos;t think you should have received this email, please call us on 13 13 18. Visit auspost.com.au for further information on our online security. Please note that this is an automatically generated email, replies will not be answered. Australia Post does not represent, warrant or guarantee that the integrity of this email communication has been maintained nor that the communication is free of errors, viruses or interference.</emailFooterText>
     <emailSenderAddress>noreply@national.community.auspost.com.au</emailSenderAddress>
     <emailSenderName>Australia Post Community</emailSenderName>
+    <embeddedLoginEnabled>true</embeddedLoginEnabled>
     <enableApexCDNCaching>true</enableApexCDNCaching>
     <enableCustomVFErrorPageOverrides>true</enableCustomVFErrorPageOverrides>
     <enableDirectMessages>false</enableDirectMessages>
@@ -40,6 +41,21 @@
     <gatherCustomerSentimentData>false</gatherCustomerSentimentData>
     <headlessForgotPasswordTemplate>unfiled$public/CommunityHeadlessForgotPasswordTemplate</headlessForgotPasswordTemplate>
     <headlessRegistrationTemplate>unfiled$public/CommunityHeadlessRegistrationTemplate</headlessRegistrationTemplate>
+    <networkAuthApiSettings>
+        <doesForgotPasswordRequireAuth>false</doesForgotPasswordRequireAuth>
+        <doesPwdlessLoginRequireAuth>false</doesPwdlessLoginRequireAuth>
+        <doesRegistrationRequireAuth>false</doesRegistrationRequireAuth>
+        <isForgotPwdAllowed>false</isForgotPwdAllowed>
+        <isForgotPwdEmailTemplateAllowlistingEnabled>false</isForgotPwdEmailTemplateAllowlistingEnabled>
+        <isHeadlessUserRegistrationAllowed>false</isHeadlessUserRegistrationAllowed>
+        <isPwdlessLoginAllowed>false</isPwdlessLoginAllowed>
+        <isRecaptchaRequiredForgotPwd>false</isRecaptchaRequiredForgotPwd>
+        <isRecaptchaRequiredPwdlessLogin>false</isRecaptchaRequiredPwdlessLogin>
+        <isRecaptchaRequiredRgstr>false</isRecaptchaRequiredRgstr>
+        <isUniversalClientRgstrAllowed>false</isUniversalClientRgstrAllowed>
+        <maxPasswordResetAttempts>5</maxPasswordResetAttempts>
+        <recaptchaScoreThreshold>0.0</recaptchaScoreThreshold>
+    </networkAuthApiSettings>
     <networkMemberGroups>
         <permissionSet>Manage_Community_Feed</permissionSet>
         <permissionSet>Customer_Community_Permission_Set</permissionSet>

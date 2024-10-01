@@ -3,7 +3,6 @@
     <fullName>Apttus_Approval__Description__c</fullName>
     <deprecated>false</deprecated>
     <description>The description for the field</description>
-    <externalId>false</externalId>
     <inlineHelpText>The description for the field</inlineHelpText>
     <label>Description</label>
     <required>false</required>

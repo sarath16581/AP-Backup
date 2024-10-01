@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__AdjustmentSource__c</fullName>
     <deprecated>false</deprecated>
     <description>Indicates the source for the adjustment</description>
-    <externalId>false</externalId>
     <inlineHelpText>Indicates the source for the adjustment</inlineHelpText>
     <label>Adjustment Source</label>
     <required>false</required>

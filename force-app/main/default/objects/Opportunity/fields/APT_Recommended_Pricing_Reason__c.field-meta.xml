@@ -3,7 +3,6 @@
     <fullName>APT_Recommended_Pricing_Reason__c</fullName>
     <description>Description of why a pricing action is recommended, This could be blank if pricing
 		action is self-serve</description>
-    <externalId>false</externalId>
     <inlineHelpText>Description of why a pricing action is recommended, This could be blank if
 		pricing action is self-serve</inlineHelpText>
     <label>Recommended Pricing Reason</label>

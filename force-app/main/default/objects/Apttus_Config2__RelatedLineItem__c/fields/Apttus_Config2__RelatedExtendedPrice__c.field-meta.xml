@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__RelatedExtendedPrice__c</fullName>
     <deprecated>false</deprecated>
     <description>The related extended price is Quantity X Term X Related Base Price</description>
-    <externalId>false</externalId>
     <inlineHelpText>The related extended price is Quantity X Term X Related Base Price</inlineHelpText>
     <label>Related Extended Price</label>
     <precision>18</precision>

@@ -4,7 +4,6 @@
     <deleteConstraint>SetNull</deleteConstraint>
     <deprecated>false</deprecated>
     <description>ID of the price list this is based on</description>
-    <externalId>false</externalId>
     <label>Based On Price List</label>
     <referenceTo>Apttus_Config2__PriceList__c</referenceTo>
     <relationshipLabel>Derived Price Lists</relationshipLabel>

@@ -3,7 +3,6 @@
     <fullName>kfsell__Quick_Refresher_Trigger__c</fullName>
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
-    <externalId>false</externalId>
     <label>Quick Refresher Trigger</label>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>

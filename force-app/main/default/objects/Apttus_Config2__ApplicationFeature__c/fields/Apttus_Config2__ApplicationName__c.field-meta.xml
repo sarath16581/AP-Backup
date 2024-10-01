@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__ApplicationName__c</fullName>
     <deprecated>false</deprecated>
     <description>Name of the application</description>
-    <externalId>false</externalId>
     <inlineHelpText>Name of the application</inlineHelpText>
     <label>Application Name</label>
     <required>false</required>

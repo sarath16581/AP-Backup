@@ -3,7 +3,6 @@
     <fullName>Apttus__Context__c</fullName>
     <deprecated>false</deprecated>
     <description>The context of the given query.</description>
-    <externalId>false</externalId>
     <inlineHelpText>The context of the given query.</inlineHelpText>
     <label>Context</label>
     <required>false</required>

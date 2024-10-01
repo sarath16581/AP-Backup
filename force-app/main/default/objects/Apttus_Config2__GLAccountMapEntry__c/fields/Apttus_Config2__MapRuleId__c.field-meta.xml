@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__MapRuleId__c</fullName>
     <deprecated>false</deprecated>
     <description>ID of the associated mapping rule</description>
-    <externalId>false</externalId>
     <inlineHelpText>ID of the associated map rule</inlineHelpText>
     <label>Map Rule</label>
     <referenceTo>Apttus_Config2__GLAccountMapRule__c</referenceTo>

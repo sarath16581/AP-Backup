@@ -3,7 +3,6 @@
     <fullName>Type__c</fullName>
     <businessStatus>Active</businessStatus>
     <description>Specify type of container</description>
-    <externalId>false</externalId>
     <inlineHelpText>Specify type of container</inlineHelpText>
     <label>Type</label>
     <required>false</required>

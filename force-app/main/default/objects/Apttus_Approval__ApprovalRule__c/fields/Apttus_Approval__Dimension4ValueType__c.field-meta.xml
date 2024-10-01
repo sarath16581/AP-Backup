@@ -3,7 +3,6 @@
     <fullName>Apttus_Approval__Dimension4ValueType__c</fullName>
     <deprecated>false</deprecated>
     <description>The value type of the fourth dimension. Only applicable to Dimension rules.</description>
-    <externalId>false</externalId>
     <label>Dimension 4 Value Type</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>

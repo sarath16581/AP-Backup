@@ -4,7 +4,6 @@
     <defaultValue>true</defaultValue>
     <deprecated>false</deprecated>
     <description>Indicates whether the category is included in the totals view. Only applicable to offerings.</description>
-    <externalId>false</externalId>
     <label>Include In Totals View</label>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>

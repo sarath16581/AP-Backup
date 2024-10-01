@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>What_types_of_checks_are_required__c</fullName>
     <description>Specific needs analysis on type of check required</description>
-    <externalId>false</externalId>
     <inlineHelpText>Specific needs analysis on type of check required</inlineHelpText>
     <label>What types of checks are required?</label>
     <required>false</required>

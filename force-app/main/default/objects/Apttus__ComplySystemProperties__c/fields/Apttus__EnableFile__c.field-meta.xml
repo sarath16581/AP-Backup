@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Enable use of Files , It is mandatory to Run the Migration after making it true.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Enable use of Files , It is mandatory to Run the Migration after making it true.</inlineHelpText>
     <label>Enable File</label>
     <trackTrending>false</trackTrending>

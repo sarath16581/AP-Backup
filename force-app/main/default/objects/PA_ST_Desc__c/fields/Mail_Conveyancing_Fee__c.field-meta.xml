@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Mail_Conveyancing_Fee__c</fullName>
     <description>Partner Addendum &apos;Mail Conveyancing Fee&apos; Sub Type Description</description>
-    <externalId>false</externalId>
     <label>Mail Conveyancing Fee</label>
     <required>false</required>
     <trackTrending>false</trackTrending>

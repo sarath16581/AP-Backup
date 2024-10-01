@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Idea_suggested_by__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
-    <externalId>false</externalId>
     <inlineHelpText>If the Idea was suggested by a user without Ideas access please select the user the idea originated by.</inlineHelpText>
     <label>Idea suggested by</label>
     <referenceTo>User</referenceTo>

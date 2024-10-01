@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__RelatedBasePrice__c</fullName>
     <deprecated>false</deprecated>
     <description>The related base price computed based on the related product/service</description>
-    <externalId>false</externalId>
     <inlineHelpText>The related base price computed based on the related product/service</inlineHelpText>
     <label>Related Base Price</label>
     <precision>18</precision>

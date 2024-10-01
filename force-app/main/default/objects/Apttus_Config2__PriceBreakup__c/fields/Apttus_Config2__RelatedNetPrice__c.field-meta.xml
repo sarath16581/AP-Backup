@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__RelatedNetPrice__c</fullName>
     <deprecated>false</deprecated>
     <description>The net price associated with the related product/service</description>
-    <externalId>false</externalId>
     <inlineHelpText>The net price associated with the related product/service</inlineHelpText>
     <label>Related Net Price</label>
     <precision>18</precision>

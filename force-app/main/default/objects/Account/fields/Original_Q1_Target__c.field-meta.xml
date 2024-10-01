@@ -3,7 +3,6 @@
     <fullName>Original_Q1_Target__c</fullName>
     <defaultValue>0</defaultValue>
     <description>Stores the Original Q1 Target for Customer</description>
-    <externalId>false</externalId>
     <inlineHelpText>Stores the Original Q1 Target for Customer</inlineHelpText>
     <label>Original Q1 Target</label>
     <precision>18</precision>

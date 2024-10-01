@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Avg_Foreign_Currency_Transaction_Value__c</fullName>
     <description>New field to handle multi-currency feature for secure pay on platform site.</description>
-    <externalId>false</externalId>
     <label>Avg Foreign Currency Transaction Value</label>
     <precision>10</precision>
     <required>false</required>

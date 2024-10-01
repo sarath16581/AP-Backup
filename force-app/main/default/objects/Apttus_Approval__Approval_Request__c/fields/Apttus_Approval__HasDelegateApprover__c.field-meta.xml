@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Indicates that the assignee has a delegate approver setup in the system. Delegate Approver will be notified, and, will be permitted to take action on the request.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Indicates that the assignee has a delegate approver setup in the system. Delegate Approver will be notified, and, will be permitted to take action on the request.</inlineHelpText>
     <label>Has Delegate Approver</label>
     <securityClassification>INTERNAL</securityClassification>

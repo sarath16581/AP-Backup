@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>IsClosed__c</fullName>
     <description>Formula to check the case investigation status is closed or not</description>
-    <externalId>false</externalId>
     <formula>ISPICKVAL( Status__c , &apos;Closed&apos;) || ISPICKVAL(Status__c, &apos;More information required&apos;)</formula>
     <label>Is Closed</label>
     <securityClassification>INTERNAL</securityClassification>

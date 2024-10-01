@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Service__c</fullName>
-    <externalId>false</externalId>
     <inlineHelpText>Identify the Service that the Share of Wallet entry relates to</inlineHelpText>
     <label>Service Required</label>
     <required>false</required>

@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__Upgrade__c</fullName>
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
-    <externalId>false</externalId>
     <label>Upgrade</label>
     <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>

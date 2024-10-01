@@ -4,7 +4,6 @@
     <deleteConstraint>SetNull</deleteConstraint>
     <deprecated>false</deprecated>
     <description>The field associated with the cycle time data</description>
-    <externalId>false</externalId>
     <label>Cycle Time Field</label>
     <referenceTo>Apttus__CycleTimeField__c</referenceTo>
     <relationshipLabel>Cycle Time Field Data</relationshipLabel>

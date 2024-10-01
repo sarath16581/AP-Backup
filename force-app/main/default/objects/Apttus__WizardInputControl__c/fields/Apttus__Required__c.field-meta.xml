@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Indicates that an input value is required for the end user to continue the wizard</description>
-    <externalId>false</externalId>
     <inlineHelpText>Indicates that an input value is required for the end user to continue the wizard</inlineHelpText>
     <label>Required</label>
     <securityClassification>INTERNAL</securityClassification>

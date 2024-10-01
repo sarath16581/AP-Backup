@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>to_CCC_action__c</fullName>
     <defaultValue>false</defaultValue>
-    <externalId>false</externalId>
     <label>Further CCC action required?</label>
     <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>

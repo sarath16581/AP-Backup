@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Article__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
-    <externalId>false</externalId>
     <label>Article</label>
     <referenceTo>Article__c</referenceTo>
     <relationshipLabel>Case Investigations</relationshipLabel>

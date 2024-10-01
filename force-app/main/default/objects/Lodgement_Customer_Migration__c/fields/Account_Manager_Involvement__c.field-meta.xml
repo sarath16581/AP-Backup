@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Account_Manager_Involvement__c</fullName>
-    <externalId>false</externalId>
     <inlineHelpText>The level of interaction between Lodgement Migration and the AM.  To be set by the AM</inlineHelpText>
     <label>Account Manager Involvement</label>
     <required>false</required>

@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__ProductActive__c</fullName>
     <deprecated>false</deprecated>
     <description>Indicates whether the child product is active</description>
-    <externalId>false</externalId>
     <formula>Apttus_Config2__ChildProductId__r.IsActive</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <inlineHelpText>Indicates whether the child product is active</inlineHelpText>

@@ -3,7 +3,6 @@
     <fullName>Expiry_Date__c</fullName>
     <defaultValue>If(OR($RecordType.DeveloperName == &apos;AP_Adhoc_Pickup&apos;  ,$RecordType.DeveloperName == &apos;MPB_Pickup&apos;),TODAY(),NULL)</defaultValue>
     <description>Date the permanent booking becomes inactive</description>
-    <externalId>false</externalId>
     <inlineHelpText>Date the permanent booking becomes inactive</inlineHelpText>
     <label>Expiry Date</label>
     <required>false</required>

@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>APT_Print_Post__c</fullName>
     <defaultValue>false</defaultValue>
-    <externalId>false</externalId>
     <label>Print Post</label>
     <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>

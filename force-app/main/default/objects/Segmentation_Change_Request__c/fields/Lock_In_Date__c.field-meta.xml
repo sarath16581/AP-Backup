@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Lock_In_Date__c</fullName>
-    <externalId>false</externalId>
     <formula>Case(Month( Datevalue( CreatedDate ) ),
 1, IF(DAY(Datevalue( CreatedDate) )&gt;=23, Date( YEAR( Datevalue( CreatedDate) ) , 04, 23), Date( YEAR( Datevalue( CreatedDate) ) , 01, 23)),
 2, Date( YEAR( Datevalue( CreatedDate) ), 04, 23),

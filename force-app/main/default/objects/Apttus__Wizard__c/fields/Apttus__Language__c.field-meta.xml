@@ -3,7 +3,6 @@
     <fullName>Apttus__Language__c</fullName>
     <deprecated>false</deprecated>
     <description>The language the runtime user speaks.</description>
-    <externalId>false</externalId>
     <inlineHelpText>The language the runtime user speaks.</inlineHelpText>
     <label>Language</label>
     <required>false</required>

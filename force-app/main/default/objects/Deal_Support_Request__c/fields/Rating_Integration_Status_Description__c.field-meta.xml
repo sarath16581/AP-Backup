@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Rating_Integration_Status_Description__c</fullName>
     <description>Store the error status description for Rating Plan Activation request.</description>
-    <externalId>false</externalId>
     <label>Rating Integration Status Description</label>
     <length>32768</length>
     <trackFeedHistory>false</trackFeedHistory>

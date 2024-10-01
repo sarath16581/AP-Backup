@@ -3,7 +3,6 @@
     <fullName>isHandled__c</fullName>
     <defaultValue>false</defaultValue>
     <description>To define whether the Exception logged is a Handled Exception or Unhandled Exception.</description>
-    <externalId>false</externalId>
     <label>Is Handled</label>
     <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>

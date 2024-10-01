@@ -3,7 +3,6 @@
     <fullName>Billing_Account__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <description>This field would store the Billing account created as part of the Billing account Creation request Initiated from SF to SAP</description>
-    <externalId>false</externalId>
     <label>Billing Account</label>
     <referenceTo>Billing_Account__c</referenceTo>
     <relationshipLabel>Charge Account Requests</relationshipLabel>

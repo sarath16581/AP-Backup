@@ -3,7 +3,6 @@
     <fullName>grax__Last_Start_Time__c</fullName>
     <deprecated>false</deprecated>
     <description>Last Date/Time this process started</description>
-    <externalId>false</externalId>
     <label>Last Start Time</label>
     <required>false</required>
     <trackHistory>false</trackHistory>

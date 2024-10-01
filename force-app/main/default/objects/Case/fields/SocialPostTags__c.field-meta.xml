@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>SocialPostTags__c</fullName>
     <description>Post tags from the social post that originated this case. Only populated when the case is originated by a social network post.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Post tags present on the Social Post that originated the case.</inlineHelpText>
     <label>Social Post Tags</label>
     <length>32768</length>

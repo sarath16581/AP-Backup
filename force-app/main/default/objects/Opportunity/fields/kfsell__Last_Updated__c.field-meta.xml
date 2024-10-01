@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>kfsell__Last_Updated__c</fullName>
     <deprecated>false</deprecated>
-    <externalId>false</externalId>
     <formula>kfsell__Blue_Sheet__r.LastModifiedDate</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <label>Last Updated</label>

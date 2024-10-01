@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Indicator to enable the proposal summary object</description>
-    <externalId>false</externalId>
     <inlineHelpText>Indicator to enable the proposal summary object</inlineHelpText>
     <label>Enable Proposal Summary</label>
     <trackTrending>false</trackTrending>

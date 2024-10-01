@@ -3,7 +3,6 @@
     <fullName>Apttus_Proposal__EmailAttachments__c</fullName>
     <deprecated>false</deprecated>
     <description>A list of Attachment ID&apos;s used as attachments for sending email</description>
-    <externalId>false</externalId>
     <inlineHelpText>A list of Attachment ID&apos;s used as attachments for sending email</inlineHelpText>
     <label>Email Attachments</label>
     <length>32768</length>

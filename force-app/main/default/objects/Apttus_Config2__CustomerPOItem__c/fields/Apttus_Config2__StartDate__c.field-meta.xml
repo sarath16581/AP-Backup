@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__StartDate__c</fullName>
     <deprecated>false</deprecated>
     <description>The Expected start date of the subscription or service</description>
-    <externalId>false</externalId>
     <inlineHelpText>The Expected start date of the subscription or service</inlineHelpText>
     <label>Start Date</label>
     <required>false</required>

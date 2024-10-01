@@ -4,7 +4,6 @@
     <deleteConstraint>SetNull</deleteConstraint>
     <deprecated>false</deprecated>
     <description>ID of the parent approval request. Only applicable for child process steps.</description>
-    <externalId>false</externalId>
     <inlineHelpText>ID of the parent approval request. Only applicable for child process steps.</inlineHelpText>
     <label>Parent Request</label>
     <referenceTo>Apttus_Approval__Approval_Request__c</referenceTo>

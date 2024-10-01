@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>APT_Revenue_Category__c</fullName>
     <description>Created for Ariba mapping purposes. Reused for future records with Sellers input. Should be pre-populated from associated Opportunity when possible.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Ariba migrated field</inlineHelpText>
     <label>Revenue Category</label>
     <required>false</required>

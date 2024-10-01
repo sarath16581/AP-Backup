@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>FromCreditAmount__c</fullName>
     <description>Minimum credit amount applicable to this Credit Approval Matrix record.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Minimum credit amount applicable to this Credit Approval Matrix record.</inlineHelpText>
     <label>From Credit Amount</label>
     <precision>18</precision>

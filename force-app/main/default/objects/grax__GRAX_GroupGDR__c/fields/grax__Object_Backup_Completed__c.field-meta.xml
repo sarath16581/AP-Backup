@@ -3,7 +3,6 @@
     <fullName>grax__Object_Backup_Completed__c</fullName>
     <deprecated>false</deprecated>
     <description>Specifies that all the expected GDRs were generated for the object over all the hierarchy tree</description>
-    <externalId>false</externalId>
     <label>Object Backup Completed</label>
     <required>false</required>
     <trackHistory>true</trackHistory>

@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Indicates whether overlapping price ramps are allowed</description>
-    <externalId>false</externalId>
     <inlineHelpText>Indicates whether overlapping price ramps are allowed</inlineHelpText>
     <label>Allow Price Ramp Overlap</label>
     <trackTrending>false</trackTrending>

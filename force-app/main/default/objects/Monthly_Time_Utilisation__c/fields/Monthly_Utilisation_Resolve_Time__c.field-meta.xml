@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Monthly_Utilisation_Resolve_Time__c</fullName>
-    <externalId>false</externalId>
     <formula>If ( Monthly_Work_Hours__c =0, null,  Monthly_Resolve_Hours__c /Monthly_Work_Hours__c)</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <label>Monthly Utilisation - Resolve Time</label>

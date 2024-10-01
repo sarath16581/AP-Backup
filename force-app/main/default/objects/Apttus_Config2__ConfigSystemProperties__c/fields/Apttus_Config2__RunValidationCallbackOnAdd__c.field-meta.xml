@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Indicates whether the Validation Callback should be run when adding a product</description>
-    <externalId>false</externalId>
     <inlineHelpText>Indicates whether the Validation Callback should be run when adding a product</inlineHelpText>
     <label>Run Validation Callback On Add</label>
     <trackTrending>false</trackTrending>

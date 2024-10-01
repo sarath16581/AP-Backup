@@ -5,7 +5,6 @@
     <complianceGroup>GDPR</complianceGroup>
     <defaultValue>true</defaultValue>
     <description>enable/disable validation of report events for sensitive fields. Take action as per Transaction Security Policy for detected sensitive fields report events.</description>
-    <externalId>false</externalId>
     <inlineHelpText>enable/disable validation of report events for sensitive fields. Take action as per Transaction Security Policy for detected sensitive fields report events.</inlineHelpText>
     <label>Report Event Sensitive Field Validation</label>
     <securityClassification>INTERNAL</securityClassification>

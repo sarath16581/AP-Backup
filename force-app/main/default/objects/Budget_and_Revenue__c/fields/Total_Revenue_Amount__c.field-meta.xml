@@ -3,7 +3,6 @@
     <fullName>Total_Revenue_Amount__c</fullName>
     <defaultValue>0</defaultValue>
     <description>Previous name was &quot;Current FY – Total Revenue&quot; (MW0003520).</description>
-    <externalId>false</externalId>
     <inlineHelpText>Total revenue for the current Financial Year. The revenue is net of any rebates and credits.</inlineHelpText>
     <label>Traded YTD/FY Revenue</label>
     <precision>16</precision>

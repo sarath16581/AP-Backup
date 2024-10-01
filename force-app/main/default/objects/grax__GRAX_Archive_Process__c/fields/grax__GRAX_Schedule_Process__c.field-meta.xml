@@ -3,7 +3,6 @@
     <fullName>grax__GRAX_Schedule_Process__c</fullName>
     <deprecated>false</deprecated>
     <description>Related Schedule Process record</description>
-    <externalId>false</externalId>
     <label>GRAX Schedule Process</label>
     <referenceTo>grax__GRAX_Schedule_Process__c</referenceTo>
     <relationshipLabel>GRAX Archive Processes</relationshipLabel>

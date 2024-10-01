@@ -3,7 +3,6 @@
     <fullName>CacheQueryResponse__c</fullName>
     <defaultValue>false</defaultValue>
     <description>Determines whether the response should be cached.</description>
-    <externalId>false</externalId>
     <fieldManageability>DeveloperControlled</fieldManageability>
     <inlineHelpText>Determines whether the response should be cached.</inlineHelpText>
     <label>Cache Query Response</label>

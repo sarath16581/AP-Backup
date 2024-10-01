@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__LaunchDate__c</fullName>
     <deprecated>false</deprecated>
     <description>The date when the product is launched for selling.</description>
-    <externalId>false</externalId>
     <inlineHelpText>The date when the product is launched for selling.</inlineHelpText>
     <label>Launch Date</label>
     <required>false</required>

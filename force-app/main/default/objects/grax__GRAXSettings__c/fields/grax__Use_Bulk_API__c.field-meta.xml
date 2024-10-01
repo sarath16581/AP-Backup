@@ -3,7 +3,6 @@
     <fullName>grax__Use_Bulk_API__c</fullName>
     <defaultValue>true</defaultValue>
     <deprecated>false</deprecated>
-    <externalId>false</externalId>
     <label>Use Bulk API</label>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>

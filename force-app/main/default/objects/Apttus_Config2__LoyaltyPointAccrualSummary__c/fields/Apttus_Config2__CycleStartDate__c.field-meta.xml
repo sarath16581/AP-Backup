@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__CycleStartDate__c</fullName>
     <deprecated>false</deprecated>
     <description>The loyalty cycle start date associated with the point accrual summary</description>
-    <externalId>false</externalId>
     <inlineHelpText>The loyalty cycle start date associated with the point accrual summary</inlineHelpText>
     <label>Cycle Start Date</label>
     <required>false</required>

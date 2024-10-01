@@ -3,7 +3,6 @@
     <fullName>APT_Post_Billpay_Biller_Branded_Phone__c</fullName>
     <defaultValue>false</defaultValue>
     <description>Select if contract document need to include Biller Branded Phone.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Select if contract document need to include Biller Branded Phone.</inlineHelpText>
     <label>Post Billpay Biller Branded – Phone</label>
     <securityClassification>INTERNAL</securityClassification>

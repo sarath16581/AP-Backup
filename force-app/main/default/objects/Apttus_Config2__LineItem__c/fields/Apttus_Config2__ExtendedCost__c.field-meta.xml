@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__ExtendedCost__c</fullName>
     <deprecated>false</deprecated>
     <description>The extended cost is Quantity X Term X (Base Cost + Cost Adjustment + Option Cost)</description>
-    <externalId>false</externalId>
     <label>Extended Cost</label>
     <precision>18</precision>
     <required>false</required>

@@ -3,7 +3,6 @@
     <fullName>Phone_Payment_Vendors_used__c</fullName>
     <defaultValue>false</defaultValue>
     <description>Phase 1 - Marketing Characteristics</description>
-    <externalId>false</externalId>
     <label>Phone Payment Vendors used</label>
     <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>

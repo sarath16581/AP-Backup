@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Salesforce_Licence__c</fullName>
-    <externalId>false</externalId>
     <label>Salesforce Licence</label>
     <referenceTo>Salesforce_Licence__c</referenceTo>
     <relationshipName>Salesforce_Feature_Licenses</relationshipName>

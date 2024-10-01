@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>ConversationDueDate__c</fullName>
     <description>Date conversation is to be had by</description>
-    <externalId>false</externalId>
     <inlineHelpText>Date conversation is to be had by</inlineHelpText>
     <label>Conversation Due Date</label>
     <required>false</required>

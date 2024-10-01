@@ -3,7 +3,6 @@
     <fullName>Apttus_DealMgr__DealShape__c</fullName>
     <deprecated>false</deprecated>
     <description>The shape associated with the band</description>
-    <externalId>false</externalId>
     <inlineHelpText>The shape associated with the band</inlineHelpText>
     <label>Deal Shape</label>
     <required>false</required>

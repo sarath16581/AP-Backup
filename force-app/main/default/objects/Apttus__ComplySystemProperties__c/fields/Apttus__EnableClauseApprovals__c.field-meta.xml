@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Indicates whether clause approvals are enabled</description>
-    <externalId>false</externalId>
     <inlineHelpText>Indicates whether clause approvals are enabled</inlineHelpText>
     <label>Enable Clause Approvals</label>
     <trackTrending>false</trackTrending>

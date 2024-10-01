@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Phone__c</fullName>
     <description>Contact number</description>
-    <externalId>false</externalId>
     <label>Phone</label>
     <required>false</required>
     <securityClassification>OFFICIAL_SENSITIVE_PERSONAL</securityClassification>

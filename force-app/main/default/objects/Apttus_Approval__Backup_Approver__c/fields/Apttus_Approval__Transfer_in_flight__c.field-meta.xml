@@ -4,7 +4,6 @@
     <defaultValue>true</defaultValue>
     <deprecated>false</deprecated>
     <description>All in-flight and pending approval requests will be directed to the person designated as backup/delegate.</description>
-    <externalId>false</externalId>
     <label>Transfer in-flight</label>
     <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>

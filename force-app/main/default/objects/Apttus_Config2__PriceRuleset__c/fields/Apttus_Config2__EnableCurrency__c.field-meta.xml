@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Indicates whether currency is enabled for amount based price adjustments. Only applicable in a multi-currency org.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Indicates whether currency is enabled for amount based price adjustments. Only applicable in a multi-currency org.</inlineHelpText>
     <label>Enable Currency</label>
     <securityClassification>INTERNAL</securityClassification>

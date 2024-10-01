@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>BillingAccount__c</fullName>
     <description>The Billing Account to be applied to the Group</description>
-    <externalId>false</externalId>
     <inlineHelpText>The Billing Account to be applied to the Group</inlineHelpText>
     <label>Billing Account</label>
     <referenceTo>Billing_Account__c</referenceTo>

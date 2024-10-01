@@ -4,7 +4,6 @@
     <deleteConstraint>SetNull</deleteConstraint>
     <deprecated>false</deprecated>
     <description>ID of the category. This is no longer used.</description>
-    <externalId>false</externalId>
     <label>Category (Deprecated)</label>
     <referenceTo>Apttus_Config2__ClassificationHierarchy__c</referenceTo>
     <relationshipLabel>Category Information (Deprecated)</relationshipLabel>

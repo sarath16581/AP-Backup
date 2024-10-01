@@ -3,7 +3,6 @@
     <fullName>Apttus__Description__c</fullName>
     <deprecated>false</deprecated>
     <description>Provides more information for the runtime wizard user to understand the intended use of the runtime Wizard.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Provides more information for the runtime wizard user to understand the intended use of the runtime Wizard.</inlineHelpText>
     <label>Description</label>
     <required>false</required>

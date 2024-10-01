@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>kfsell__Best_Action_Commitment__c</fullName>
     <deprecated>false</deprecated>
-    <externalId>false</externalId>
     <label>Best Action Commitment</label>
     <length>32768</length>
     <trackHistory>false</trackHistory>

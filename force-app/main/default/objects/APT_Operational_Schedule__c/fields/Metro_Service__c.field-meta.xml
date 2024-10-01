@@ -3,7 +3,6 @@
     <fullName>Metro_Service__c</fullName>
     <defaultValue>false</defaultValue>
     <description>Checkbox to be used for Metro product templates. This indicates if the Operational schedule belongs to Metro Product</description>
-    <externalId>false</externalId>
     <label>Metro Service</label>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>

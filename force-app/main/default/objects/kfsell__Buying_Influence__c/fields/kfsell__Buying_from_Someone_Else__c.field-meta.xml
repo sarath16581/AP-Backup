@@ -3,7 +3,6 @@
     <fullName>kfsell__Buying_from_Someone_Else__c</fullName>
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
-    <externalId>false</externalId>
     <label>Buying from Someone Else</label>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>

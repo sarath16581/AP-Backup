@@ -3,7 +3,6 @@
     <fullName>Apttus__ResponseValue__c</fullName>
     <deprecated>false</deprecated>
     <description>User response for this input</description>
-    <externalId>false</externalId>
     <inlineHelpText>User response for this input</inlineHelpText>
     <label>Response Value</label>
     <length>4000</length>

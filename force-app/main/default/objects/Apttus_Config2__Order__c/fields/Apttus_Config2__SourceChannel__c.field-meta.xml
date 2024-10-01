@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__SourceChannel__c</fullName>
     <deprecated>false</deprecated>
     <description>The order source channel. Indicates the primary Sales Channel for the Order.</description>
-    <externalId>false</externalId>
     <inlineHelpText>The order source channel. Indicates the primary Sales Channel for the Order.</inlineHelpText>
     <label>Source Channel</label>
     <required>false</required>

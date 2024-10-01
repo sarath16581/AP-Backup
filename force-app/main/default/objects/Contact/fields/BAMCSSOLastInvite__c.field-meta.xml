@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>BAMCSSOLastInvite__c</fullName>
     <description>Internal field used by BAM/Merchant portal when inviting a user to CSSO. This stores the date/time of the last invite and is used to determine when to show the &apos;Reinvite&apos; button within the UI. This should not be set directly.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Internal field used by BAM/Merchant portal when inviting a user to CSSO. This stores the date/time of the last invite and is used to determine when to show the &apos;Reinvite&apos; button within the UI. This should not be set directly.</inlineHelpText>
     <label>BAM CSSO Last Invite</label>
     <required>false</required>

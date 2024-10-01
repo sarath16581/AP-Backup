@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Indicates whether to use the ratio field on the price rule.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Indicates whether to use the ratio field on the price rule.</inlineHelpText>
     <label>Is Bundle</label>
     <securityClassification>INTERNAL</securityClassification>

@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>APT_Price_Plan__c</fullName>
     <description>Created for Ariba mapping purposes. Reused for future records with Sellers input. Renamed from Price Plan to Domestic Merchant Service Fee. Used for SecurePay</description>
-    <externalId>false</externalId>
     <inlineHelpText>Payable (as a percentage of the transaction value) for all approved payments made on an domestically issued card</inlineHelpText>
     <label>Domestic Merchant Service Fee</label>
     <required>false</required>

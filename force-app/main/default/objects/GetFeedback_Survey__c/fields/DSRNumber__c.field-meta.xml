@@ -3,7 +3,6 @@
     <fullName>DSRNumber__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <description>This field is a lookup to Deal Support Request object obtaining DSR number.</description>
-    <externalId>false</externalId>
     <label>DSR Number</label>
     <referenceTo>Deal_Support_Request__c</referenceTo>
     <relationshipLabel>GetFeedback Surveys (DSR Number)</relationshipLabel>

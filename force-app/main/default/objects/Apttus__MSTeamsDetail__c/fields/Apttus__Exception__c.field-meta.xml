@@ -3,7 +3,6 @@
     <fullName>Apttus__Exception__c</fullName>
     <deprecated>false</deprecated>
     <description>Stores error coming from MS Teams, if any</description>
-    <externalId>false</externalId>
     <inlineHelpText>Error messages from MS Teams</inlineHelpText>
     <label>Exception</label>
     <length>32768</length>

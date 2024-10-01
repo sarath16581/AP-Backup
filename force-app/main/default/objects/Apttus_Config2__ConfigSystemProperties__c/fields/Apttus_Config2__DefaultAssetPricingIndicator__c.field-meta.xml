@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Indicates whether asset pricing is enabled by default for asset related line items</description>
-    <externalId>false</externalId>
     <inlineHelpText>Indicates whether asset pricing is enabled by default for asset related line items</inlineHelpText>
     <label>Default Asset Pricing Indicator ?</label>
     <trackTrending>false</trackTrending>

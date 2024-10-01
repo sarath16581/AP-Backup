@@ -3,7 +3,6 @@
     <fullName>Apttus__Office365Status__c</fullName>
     <deprecated>false</deprecated>
     <description>Status of the Office 365 review cycle</description>
-    <externalId>false</externalId>
     <inlineHelpText>Status of the Office 365 review cycle</inlineHelpText>
     <label>Office 365 Status</label>
     <required>false</required>

@@ -3,7 +3,6 @@
     <fullName>Apttus_Proposal__Approval_Stage__c</fullName>
     <deprecated>false</deprecated>
     <description>The proposal approval stage</description>
-    <externalId>false</externalId>
     <inlineHelpText>This indicates the status of your proposal record</inlineHelpText>
     <label>Approval Stage</label>
     <required>false</required>

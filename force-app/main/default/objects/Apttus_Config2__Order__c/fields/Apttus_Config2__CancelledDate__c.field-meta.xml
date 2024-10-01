@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__CancelledDate__c</fullName>
     <deprecated>false</deprecated>
     <description>The date when the order was cancelled</description>
-    <externalId>false</externalId>
     <inlineHelpText>The date when the order was cancelled</inlineHelpText>
     <label>Cancelled Date</label>
     <required>false</required>

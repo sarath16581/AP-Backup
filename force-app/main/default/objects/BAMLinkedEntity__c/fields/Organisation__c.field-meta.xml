@@ -3,7 +3,6 @@
     <fullName>Organisation__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <description>Organisation associated with this Role</description>
-    <externalId>false</externalId>
     <inlineHelpText>Organisation associated with this Role</inlineHelpText>
     <label>(DEPRECATED) Organisation</label>
     <referenceTo>Account</referenceTo>

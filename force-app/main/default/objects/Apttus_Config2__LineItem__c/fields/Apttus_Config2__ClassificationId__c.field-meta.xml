@@ -4,7 +4,6 @@
     <deleteConstraint>SetNull</deleteConstraint>
     <deprecated>false</deprecated>
     <description>ID of the product category</description>
-    <externalId>false</externalId>
     <label>Category</label>
     <referenceTo>Apttus_Config2__ClassificationHierarchy__c</referenceTo>
     <relationshipLabel>Line Items</relationshipLabel>

@@ -3,7 +3,6 @@
     <fullName>Apttus_DocuApi__Environment__c</fullName>
     <deprecated>false</deprecated>
     <description>This field for DocuSign Environment setting.</description>
-    <externalId>false</externalId>
     <fieldManageability>SubscriberControlled</fieldManageability>
     <inlineHelpText>Select a DocuSign Environment.</inlineHelpText>
     <label>Environment</label>

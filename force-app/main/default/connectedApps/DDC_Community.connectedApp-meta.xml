@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ConnectedApp xmlns="http://soap.sforce.com/2006/04/metadata">
+    <contactEmail>shruthi.kunchinadka@bluewolfgroup.com</contactEmail>
+    <label>DDC Community</label>
+    <oauthConfig>
+        <callbackUrl>https://callback</callbackUrl>
+        <certificate>MIIE0DCCA7igAwIBAgIJALEOkWSiccXLMA0GCSqGSIb3DQEBBQUAMIGgMQswCQYDVQQGEwJBVTERMA8GA1UECBMIVmljdG9yaWExEjAQBgNVBAcTCU1lbGJvdXJuZTEXMBUGA1UEChMOQXVzdHJhbGlhIFBvc3QxDDAKBgNVBAsTA0REQzEXMBUGA1UEAxMOSGVscEFuZFN1cHBvcnQxKjAoBgkqhkiG9w0BCQEWG2ppbS5tb3VyaWtpc0BhdXNwb3N0LmNvbS5hdTAeFw0xNDA5MTAyMzU4MjhaFw0zNDA5MDUyMzU4MjhaMIGgMQswCQYDVQQGEwJBVTERMA8GA1UECBMIVmljdG9yaWExEjAQBgNVBAcTCU1lbGJvdXJuZTEXMBUGA1UEChMOQXVzdHJhbGlhIFBvc3QxDDAKBgNVBAsTA0REQzEXMBUGA1UEAxMOSGVscEFuZFN1cHBvcnQxKjAoBgkqhkiG9w0BCQEWG2ppbS5tb3VyaWtpc0BhdXNwb3N0LmNvbS5hdTCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBAMsflZ8QE9Q5cnWCwGjdDNp4oqY0qD/ZNMUUIzZzXDbuGB6UGqcwBDcHIwLauhEXoORM+qmkDH2YQk8zwhLSz4gKOsiMDU/9b0v2UXPmXMyaRBjf++7lu3nsU800nz9py1HVapeJT03RO449b/E6P0z/Y1gLJWqqxqNgxsqd8M+5QHpXo/5gJjh1SVcriJ5mrz72vSXr2BOAKMyqCaOJidL0m/+EcO8HmvxBtSzKnLJVoVkx+d56zk7DVkcmFr+eik14EYHGGOpXaAIbFMEA2Yhi3dJzW0yPp4/j/uQegcYRLfsF65uPFBje+yAbsWQC7+wiwsE6MlzsfJtG48dlvqkCAwEAAaOCAQkwggEFMB0GA1UdDgQWBBTwQCm55eB3P4lkXaADHvJZlG3iizCB1QYDVR0jBIHNMIHKgBTwQCm55eB3P4lkXaADHvJZlG3ii6GBpqSBozCBoDELMAkGA1UEBhMCQVUxETAPBgNVBAgTCFZpY3RvcmlhMRIwEAYDVQQHEwlNZWxib3VybmUxFzAVBgNVBAoTDkF1c3RyYWxpYSBQb3N0MQwwCgYDVQQLEwNEREMxFzAVBgNVBAMTDkhlbHBBbmRTdXBwb3J0MSowKAYJKoZIhvcNAQkBFhtqaW0ubW91cmlraXNAYXVzcG9zdC5jb20uYXWCCQCxDpFkonHFyzAMBgNVHRMEBTADAQH/MA0GCSqGSIb3DQEBBQUAA4IBAQC7h7rcwi0Hd0gZynhzBAYqpmhwcuDeVZWKl+MfxAJQuM6f2Cv7rX1KBFpgK/AMsTVN4+Vx/camjyQg81ZKXfu5j34mcZTOC13AyGOlEfdGAp0Jc/8ucJYnOwTmbOi2IztYWlGLCsd+KE/cJpXbE9clwzn4LidpZq6hajCECG368pjfFyX9zz+OC4qpvkqaYMGkwhxXlMzGZfhlwFfWkBKxKUiq4u/xdw9MN4F67p+k8xyG+lLQcFX0bEv1CZw6dRbZdmTFX2/2YHQ+dVahSeN4oF/zhczTdiuuf9pIQ9QsLnJNXUWIMoq9SOLfoAdV0A7y0QElRfgVBCNJcodd/bfY</certificate>
+        <consumerKey>3MVG9vVKBifrxMjZTfLHEjlAtOG19L_Smg3IgYybwdbpErdhbdlSNuF__KwmZO9huCgDvgGWhzQdPbypIOQ1O</consumerKey>
+        <isAdminApproved>true</isAdminApproved>
+        <isClientCredentialEnabled>false</isClientCredentialEnabled>
+        <isCodeCredentialEnabled>false</isCodeCredentialEnabled>
+        <isCodeCredentialPostOnly>false</isCodeCredentialPostOnly>
+        <isConsumerSecretOptional>false</isConsumerSecretOptional>
+        <isIntrospectAllTokens>false</isIntrospectAllTokens>
+        <isNamedUserJwtEnabled>false</isNamedUserJwtEnabled>
+        <isPkceRequired>false</isPkceRequired>
+        <isRefreshTokenRotationEnabled>false</isRefreshTokenRotationEnabled>
+        <isSecretRequiredForRefreshToken>false</isSecretRequiredForRefreshToken>
+        <isSecretRequiredForTokenExchange>false</isSecretRequiredForTokenExchange>
+        <isTokenExchangeEnabled>false</isTokenExchangeEnabled>
+        <scopes>Basic</scopes>
+        <scopes>Api</scopes>
+        <scopes>Web</scopes>
+        <scopes>Full</scopes>
+        <scopes>Chatter</scopes>
+        <scopes>CustomApplications</scopes>
+        <scopes>RefreshToken</scopes>
+        <scopes>OpenID</scopes>
+        <scopes>CustomPermissions</scopes>
+    </oauthConfig>
+    <oauthPolicy>
+        <ipRelaxation>BYPASS</ipRelaxation>
+        <isTokenExchangeFlowEnabled>false</isTokenExchangeFlowEnabled>
+        <refreshTokenPolicy>zero</refreshTokenPolicy>
+    </oauthPolicy>
+    <profileName>Consumer Community Temp Access User</profileName>
+    <profileName>DDC Consumer Community User</profileName>
+</ConnectedApp>

@@ -3,7 +3,6 @@
     <fullName>Apttus_Approval__AsyncAction__c</fullName>
     <deprecated>false</deprecated>
     <description>Approval action being performed asynchronously</description>
-    <externalId>false</externalId>
     <inlineHelpText>Approval action being performed asynchronously</inlineHelpText>
     <label>Async Action</label>
     <required>true</required>

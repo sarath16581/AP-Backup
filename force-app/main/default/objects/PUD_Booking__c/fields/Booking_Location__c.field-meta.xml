@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Booking_Location__c</fullName>
     <deleteConstraint>Restrict</deleteConstraint>
-    <externalId>false</externalId>
     <inlineHelpText>Only Locations with an address are available for selection. 
 
 Please navigate to the Location screen to create a Location and set it&apos;s address.</inlineHelpText>

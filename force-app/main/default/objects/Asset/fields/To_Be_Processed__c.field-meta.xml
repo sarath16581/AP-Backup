@@ -3,7 +3,6 @@
     <fullName>To_Be_Processed__c</fullName>
     <defaultValue>false</defaultValue>
     <description>Flag is to be checked by a workflow when the Asset object is updated. Batch job is to process the record and update the flag to false once done.</description>
-    <externalId>false</externalId>
     <label>To Be Processed</label>
     <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>

@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__CompletedOnDate__c</fullName>
     <deprecated>false</deprecated>
     <description>The date the milestone was completed</description>
-    <externalId>false</externalId>
     <inlineHelpText>The date the milestone was completed</inlineHelpText>
     <label>Completed On</label>
     <required>false</required>

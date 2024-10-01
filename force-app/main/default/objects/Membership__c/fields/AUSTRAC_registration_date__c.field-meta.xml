@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>AUSTRAC_registration_date__c</fullName>
     <description>To store the date that this registration was activated by AUSTRAC</description>
-    <externalId>false</externalId>
     <inlineHelpText>Stores the date that this registration was activated by AUSTRAC</inlineHelpText>
     <label>AUSTRAC registration date</label>
     <required>false</required>

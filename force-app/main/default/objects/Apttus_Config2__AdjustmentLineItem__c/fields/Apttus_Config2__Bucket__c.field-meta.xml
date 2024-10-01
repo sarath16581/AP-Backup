@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__Bucket__c</fullName>
     <deprecated>false</deprecated>
     <description>The bucket for grouping adjustments</description>
-    <externalId>false</externalId>
     <inlineHelpText>The bucket for grouping adjustments</inlineHelpText>
     <label>Bucket</label>
     <required>false</required>

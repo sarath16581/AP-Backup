@@ -3,7 +3,6 @@
     <fullName>Reasonfordecision__c</fullName>
     <description>If  Merchant adoption of SOD to ATL = Mixed then what is the split. 
 If the split is others, please enter it here</description>
-    <externalId>false</externalId>
     <inlineHelpText>If  Merchant adoption of SOD to ATL = Mixed then what is the split. 
 If the split is others, please enter it here.</inlineHelpText>
     <label>Reason for decision</label>

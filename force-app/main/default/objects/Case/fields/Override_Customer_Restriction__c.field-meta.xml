@@ -3,7 +3,6 @@
     <fullName>Override_Customer_Restriction__c</fullName>
     <defaultValue>false</defaultValue>
     <description>StarTrack Override Customer Restriction field will be used to determine if the team leader wants to override the customer restriction.</description>
-    <externalId>false</externalId>
     <label>Override Customer Restriction</label>
     <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>

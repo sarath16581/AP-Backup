@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Indicates whether orders from child accounts with activate rebate agreements should excluded from rebate processing. Only applicable when including orders from account hierarchy.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Indicates whether orders from child accounts with activate rebate agreements should excluded from rebate processing. Only applicable when including orders from account hierarchy.</inlineHelpText>
     <label>Exclude Children With Active Programs ?</label>
     <securityClassification>INTERNAL</securityClassification>

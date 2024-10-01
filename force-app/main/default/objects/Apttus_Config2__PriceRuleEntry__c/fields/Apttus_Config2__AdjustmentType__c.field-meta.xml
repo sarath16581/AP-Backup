@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__AdjustmentType__c</fullName>
     <deprecated>false</deprecated>
     <description>The price adjustment type</description>
-    <externalId>false</externalId>
     <inlineHelpText>Indicates the rate type to be used. It can be Per Unit Amount, %, or Total Amount. 
 For Rebates, it indicates benefit or deduction rate type. 
 For Promotions, it indicates discount rate type

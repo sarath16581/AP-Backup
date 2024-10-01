@@ -3,7 +3,6 @@
     <fullName>et4ae5__Tracking_As_Of__c</fullName>
     <defaultValue>now()</defaultValue>
     <deprecated>false</deprecated>
-    <externalId>false</externalId>
     <inlineHelpText>The date and time the last tracking update was received</inlineHelpText>
     <label>Tracking As Of</label>
     <required>false</required>

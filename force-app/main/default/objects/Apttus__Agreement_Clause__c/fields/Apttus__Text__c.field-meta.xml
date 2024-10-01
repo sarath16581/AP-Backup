@@ -3,7 +3,6 @@
     <fullName>Apttus__Text__c</fullName>
     <deprecated>false</deprecated>
     <description>The clause text</description>
-    <externalId>false</externalId>
     <label>Text</label>
     <length>64000</length>
     <securityClassification>INTERNAL</securityClassification>

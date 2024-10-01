@@ -3,7 +3,6 @@
     <fullName>APT_Document_Notification_Off__c</fullName>
     <defaultValue>false</defaultValue>
     <description>The flag exclude the proposal document generation related notification email process</description>
-    <externalId>false</externalId>
     <inlineHelpText>The flag exclude the proposal document generation related notification email process</inlineHelpText>
     <label>Document Notification Disabled</label>
     <trackHistory>false</trackHistory>

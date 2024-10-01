@@ -3,7 +3,6 @@
     <fullName>Direct_LoadBP__c</fullName>
     <defaultValue>false</defaultValue>
     <description>Pick up to Receiver</description>
-    <externalId>false</externalId>
     <inlineHelpText>Pick up to Receiver</inlineHelpText>
     <label>Direct Load</label>
     <securityClassification>INTERNAL</securityClassification>

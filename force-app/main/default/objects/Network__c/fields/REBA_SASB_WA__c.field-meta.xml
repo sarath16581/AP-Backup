@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>REBA_SASB_WA__c</fullName>
     <defaultValue>false</defaultValue>
-    <externalId>false</externalId>
     <label>REBA_SASB_WA</label>
     <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>

@@ -4,7 +4,6 @@
     <businessStatus>DeprecateCandidate</businessStatus>
     <deleteConstraint>SetNull</deleteConstraint>
     <description>DEPRECATED. DO NOT USE. Used the in the Approval Process. Set by the approval matrix rules</description>
-    <externalId>false</externalId>
     <label>GM Of Sales (DEPRECATED)</label>
     <referenceTo>User</referenceTo>
     <relationshipLabel>GM Of Sales</relationshipLabel>

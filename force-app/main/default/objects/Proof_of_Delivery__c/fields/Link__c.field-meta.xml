@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Link__c</fullName>
     <description>The POD image link</description>
-    <externalId>false</externalId>
     <inlineHelpText>POD Image link</inlineHelpText>
     <label>Link</label>
     <required>false</required>

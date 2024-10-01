@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__BasedOnAdjustmentType__c</fullName>
     <deprecated>false</deprecated>
     <description>The adjustment type to apply to the based on price</description>
-    <externalId>false</externalId>
     <inlineHelpText>The adjustment type to apply to the based on price</inlineHelpText>
     <label>Based On Adjustment Type</label>
     <required>false</required>

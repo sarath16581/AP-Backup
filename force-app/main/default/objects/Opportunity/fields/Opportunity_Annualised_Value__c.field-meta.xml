@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Opportunity_Annualised_Value__c</fullName>
     <description>field rolling up the Annualised Value of all products, against the opportunity</description>
-    <externalId>false</externalId>
     <inlineHelpText>The annual value of the opportunity calculated as a sum of the annual value of each product attached to the opportunity</inlineHelpText>
     <label>Opportunity Annualised Value</label>
     <securityClassification>INTERNAL</securityClassification>

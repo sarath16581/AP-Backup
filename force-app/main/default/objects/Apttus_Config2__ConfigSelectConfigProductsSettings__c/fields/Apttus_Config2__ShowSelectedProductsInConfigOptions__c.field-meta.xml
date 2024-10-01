@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Shows the Selected Products widget in the Config Options Detail View page</description>
-    <externalId>false</externalId>
     <inlineHelpText>Shows the Selected Products widget in the Config Options Detail View page</inlineHelpText>
     <label>Show Selected Products in Config Options</label>
     <trackTrending>false</trackTrending>

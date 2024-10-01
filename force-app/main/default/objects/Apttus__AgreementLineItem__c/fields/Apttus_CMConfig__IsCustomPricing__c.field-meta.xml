@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Indicates whether custom pricing is in effect for the line item</description>
-    <externalId>false</externalId>
     <inlineHelpText>Indicates whether custom pricing is in effect for the line item</inlineHelpText>
     <label>Is Custom Pricing</label>
     <trackHistory>false</trackHistory>

@@ -4,7 +4,6 @@
     <businessStatus>Active</businessStatus>
     <complianceGroup>GDPR</complianceGroup>
     <description>The date that the compliance check for this contact was completed.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Compliance-check completion date</inlineHelpText>
     <label>Completion Date</label>
     <required>false</required>

@@ -4,7 +4,6 @@
     <deleteConstraint>SetNull</deleteConstraint>
     <deprecated>false</deprecated>
     <description>ID of the point accrual rule entry</description>
-    <externalId>false</externalId>
     <inlineHelpText>ID of the point accrual rule Entry</inlineHelpText>
     <label>Price Rule Entry</label>
     <referenceTo>Apttus_Config2__PriceRuleEntry__c</referenceTo>

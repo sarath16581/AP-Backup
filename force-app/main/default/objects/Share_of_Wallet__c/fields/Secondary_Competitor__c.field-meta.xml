@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Secondary_Competitor__c</fullName>
-    <externalId>false</externalId>
     <inlineHelpText>Who is the secondary competitor that that the organisation uses in relation to this service requirement?</inlineHelpText>
     <label>Secondary Competitor</label>
     <required>false</required>

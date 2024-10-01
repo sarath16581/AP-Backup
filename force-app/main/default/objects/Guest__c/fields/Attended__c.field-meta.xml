@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Attended__c</fullName>
     <description>Indicates whether the Invited Guest actually attended the event after accepting.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Has this guest actually attended this event?</inlineHelpText>
     <label>Attended?</label>
     <required>false</required>

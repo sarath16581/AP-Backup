@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__ConfigStatus__c</fullName>
     <deprecated>false</deprecated>
     <description>Represents whether line item configuration is pending. When a line item is must configure type and the user has not visited the configuration page, it is marked as pending.</description>
-    <externalId>false</externalId>
     <label>Config Status</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>

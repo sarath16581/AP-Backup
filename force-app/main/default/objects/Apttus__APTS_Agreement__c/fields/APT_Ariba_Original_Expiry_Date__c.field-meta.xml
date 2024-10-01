@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>APT_Ariba_Original_Expiry_Date__c</fullName>
     <description>Field Created for Ariba mapping purposes</description>
-    <externalId>false</externalId>
     <label>Ariba Original Expiry Date</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>

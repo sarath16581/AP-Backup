@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Applied_PSR__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
-    <externalId>false</externalId>
     <label>Applied PSR</label>
     <referenceTo>Deal_Support_Request__c</referenceTo>
     <relationshipLabel>Proposal Product Attribute Values</relationshipLabel>

@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__PriceMethod__c</fullName>
     <deprecated>false</deprecated>
     <description>The price method</description>
-    <externalId>false</externalId>
     <inlineHelpText>The price method</inlineHelpText>
     <label>Price Method</label>
     <required>false</required>

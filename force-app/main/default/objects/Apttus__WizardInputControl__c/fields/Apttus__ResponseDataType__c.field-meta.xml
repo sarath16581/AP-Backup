@@ -3,7 +3,6 @@
     <fullName>Apttus__ResponseDataType__c</fullName>
     <deprecated>false</deprecated>
     <description>The data type of the response by the end user.</description>
-    <externalId>false</externalId>
     <inlineHelpText>The data type of the response by the end user.</inlineHelpText>
     <label>Response Data Type</label>
     <required>false</required>

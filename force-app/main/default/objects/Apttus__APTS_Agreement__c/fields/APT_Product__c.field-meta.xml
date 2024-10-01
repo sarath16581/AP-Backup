@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>APT_Product__c</fullName>
     <description>Field Created for Ariba mapping purposes</description>
-    <externalId>false</externalId>
     <inlineHelpText>Ariba migrated field</inlineHelpText>
     <label>Product</label>
     <required>false</required>

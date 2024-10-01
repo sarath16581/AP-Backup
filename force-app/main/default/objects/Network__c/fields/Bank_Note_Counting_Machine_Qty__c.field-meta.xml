@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Bank_Note_Counting_Machine_Qty__c</fullName>
     <description>Total of Equipment Type Code starting with BNCM</description>
-    <externalId>false</externalId>
     <inlineHelpText>Total of Equipment Type Code starting with BNCM</inlineHelpText>
     <label>Bank Note Counting Machine Qty</label>
     <securityClassification>INTERNAL</securityClassification>

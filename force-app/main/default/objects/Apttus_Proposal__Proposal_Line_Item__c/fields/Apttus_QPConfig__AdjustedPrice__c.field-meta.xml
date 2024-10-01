@@ -3,7 +3,6 @@
     <fullName>Apttus_QPConfig__AdjustedPrice__c</fullName>
     <deprecated>false</deprecated>
     <description>The adjusted price (including option price)</description>
-    <externalId>false</externalId>
     <label>Adjusted Price</label>
     <precision>18</precision>
     <required>false</required>

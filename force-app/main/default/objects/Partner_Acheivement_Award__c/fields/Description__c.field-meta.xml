@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Description__c</fullName>
     <description>Award desciption</description>
-    <externalId>false</externalId>
     <inlineHelpText>Award desciption</inlineHelpText>
     <label>Description</label>
     <length>32768</length>

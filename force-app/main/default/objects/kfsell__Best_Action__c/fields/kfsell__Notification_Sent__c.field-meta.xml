@@ -3,7 +3,6 @@
     <fullName>kfsell__Notification_Sent__c</fullName>
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
-    <externalId>false</externalId>
     <label>Notification Sent</label>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>

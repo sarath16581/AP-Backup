@@ -3,7 +3,6 @@
     <fullName>Apttus__Agreement_Category__c</fullName>
     <deprecated>false</deprecated>
     <description>The agreement category to match.</description>
-    <externalId>false</externalId>
     <inlineHelpText>The agreement category to match.</inlineHelpText>
     <label>Agreement Category</label>
     <required>false</required>

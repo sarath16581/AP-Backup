@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Enable this flag to execute all rules on validate click.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Enable this flag to execute all rules on validate click.</inlineHelpText>
     <label>Execute Rules On Validate</label>
     <trackTrending>false</trackTrending>

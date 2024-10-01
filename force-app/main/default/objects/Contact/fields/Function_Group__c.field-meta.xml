@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Function_Group__c</fullName>
     <description>Phase 1 - List of Function Groups.  Dependent picklist will be Function Group Code</description>
-    <externalId>false</externalId>
     <inlineHelpText>Used by Marketing to categorise contacts. Select the most appropriate option from the picklist.</inlineHelpText>
     <label>Title Group</label>
     <required>false</required>

@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Indicates whether the recurring item would auto renew at end of term</description>
-    <externalId>false</externalId>
     <inlineHelpText>Indicates whether the recurring item would auto renew at end of term</inlineHelpText>
     <label>Auto Renew</label>
     <securityClassification>INTERNAL</securityClassification>

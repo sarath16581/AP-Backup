@@ -3,7 +3,6 @@
     <fullName>kfsell__Plan_Checklist_AP_BestAction_CompFocus__c</fullName>
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
-    <externalId>false</externalId>
     <label>Plan Checklist AP BestAction CompFocus</label>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>

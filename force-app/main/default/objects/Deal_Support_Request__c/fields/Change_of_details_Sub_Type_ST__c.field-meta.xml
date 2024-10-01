@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Change_of_details_Sub_Type_ST__c</fullName>
     <description>Added as a part of STP-4469. The field is capturing the pre-defined sub- type for StarTrack Billing account and  on the selected type of changes of billing account details for credit management request.</description>
-    <externalId>false</externalId>
     <label>Change of details Sub-Type (StarTrack)</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>

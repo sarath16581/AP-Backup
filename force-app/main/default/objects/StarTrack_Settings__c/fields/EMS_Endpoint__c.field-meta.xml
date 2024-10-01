@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>EMS_Endpoint__c</fullName>
     <description>StarTrack - EMS Endpoint</description>
-    <externalId>false</externalId>
     <label>EMS Endpoint</label>
     <required>false</required>
     <trackTrending>false</trackTrending>

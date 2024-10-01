@@ -3,7 +3,6 @@
     <fullName>Related_Account__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <description>Used in filter for Billing Account. This is auto populated where possible , and will need to be pre-populated on inserts to get Billing account filtered by account. This is a work around since  currently   Salesforce does not allow filtering on second level object</description>
-    <externalId>false</externalId>
     <label>Related Account</label>
     <referenceTo>Account</referenceTo>
     <relationshipName>Customer_Performance_Related_Billings</relationshipName>

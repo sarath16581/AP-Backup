@@ -4,7 +4,6 @@
     <deleteConstraint>SetNull</deleteConstraint>
     <deprecated>false</deprecated>
     <description>Looks up to Product Attribute Group</description>
-    <externalId>false</externalId>
     <inlineHelpText>Looks up to Product Attribute Group</inlineHelpText>
     <label>Product Attribute Group</label>
     <referenceTo>Apttus_Config2__ProductAttributeGroup__c</referenceTo>

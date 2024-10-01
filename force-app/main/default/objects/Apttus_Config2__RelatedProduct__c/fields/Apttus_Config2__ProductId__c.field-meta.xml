@@ -4,7 +4,6 @@
     <deleteConstraint>SetNull</deleteConstraint>
     <deprecated>false</deprecated>
     <description>The base product to which other products are associated.</description>
-    <externalId>false</externalId>
     <label>Product</label>
     <referenceTo>Product2</referenceTo>
     <relationshipLabel>Related Products</relationshipLabel>

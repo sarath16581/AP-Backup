@@ -3,7 +3,6 @@
     <fullName>kfsell__is_cust_time_later__c</fullName>
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
-    <externalId>false</externalId>
     <label>is cust time later</label>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>

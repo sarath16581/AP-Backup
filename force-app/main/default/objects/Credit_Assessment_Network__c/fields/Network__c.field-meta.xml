@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Network__c</fullName>
     <description>This field is to capture the related network information for the credit assessment. This will be considered as lodgement points for the online application. This is the secondary relationship.</description>
-    <externalId>false</externalId>
     <label>Network</label>
     <referenceTo>Network__c</referenceTo>
     <relationshipLabel>Credit Assessment Networks</relationshipLabel>

@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>TokenExpiry__c</fullName>
     <description>Token expiry date</description>
-    <externalId>false</externalId>
     <label>Token Expiry</label>
     <required>false</required>
     <trackTrending>false</trackTrending>

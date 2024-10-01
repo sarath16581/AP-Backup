@@ -3,7 +3,6 @@
     <fullName>kfsell__Question_Type__c</fullName>
     <deprecated>false</deprecated>
     <description>Question Type for Getting Information in Green Sheets</description>
-    <externalId>false</externalId>
     <label>Question Type</label>
     <required>true</required>
     <trackTrending>false</trackTrending>

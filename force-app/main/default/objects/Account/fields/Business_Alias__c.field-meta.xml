@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Business_Alias__c</fullName>
     <description>MPB - This field is used in track notifications for mypost business customers</description>
-    <externalId>false</externalId>
     <inlineHelpText>Customer’s self-nominated alternative Business Names, entered via MyPost Business account (“Other Business Names”) and maintained solely by MyPost Business user.  Not verified business names.</inlineHelpText>
     <label>Business Alias</label>
     <length>50000</length>

@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Send_Business_Credit_Account_Info__c</fullName>
     <description>Used on Zing w2L form</description>
-    <externalId>false</externalId>
     <label>Send Business Credit Account Information</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>

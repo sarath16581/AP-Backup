@@ -5,7 +5,6 @@
     <complianceGroup>GDPR</complianceGroup>
     <deleteConstraint>SetNull</deleteConstraint>
     <description>The Parent account in the Parent-Related account relationship.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Choose the primary (main) Parent account for this relationship.</inlineHelpText>
     <label>Parent Account</label>
     <referenceTo>Account</referenceTo>

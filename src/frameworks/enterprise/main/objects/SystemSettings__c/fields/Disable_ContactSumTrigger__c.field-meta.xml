@@ -3,7 +3,6 @@
     <fullName>Disable_ContactSumTrigger__c</fullName>
     <defaultValue>false</defaultValue>
     <description>To control contactsumtrigger for calculating the total of organisation contacts</description>
-    <externalId>false</externalId>
     <label>Disable ContactSumTrigger</label>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>

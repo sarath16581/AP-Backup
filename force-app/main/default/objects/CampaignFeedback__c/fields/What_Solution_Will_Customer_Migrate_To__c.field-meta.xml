@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>What_Solution_Will_Customer_Migrate_To__c</fullName>
     <description>Which solution will the customer proceed with?</description>
-    <externalId>false</externalId>
     <inlineHelpText>Which solution will the customer proceed with?</inlineHelpText>
     <label>What Solution Will Customer Migrate To?</label>
     <required>false</required>

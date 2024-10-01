@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__UseType__c</fullName>
     <deprecated>false</deprecated>
     <description>The rule use type</description>
-    <externalId>false</externalId>
     <label>Application Level</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>

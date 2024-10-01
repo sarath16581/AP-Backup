@@ -4,7 +4,6 @@
     <defaultValue>&quot;Create Offline Agreement&quot;</defaultValue>
     <deprecated>false</deprecated>
     <description>Indicates the use case for which the record is created</description>
-    <externalId>false</externalId>
     <inlineHelpText>Indicates the use case for which the record is created</inlineHelpText>
     <label>Source Use Case</label>
     <required>false</required>

@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>closedDateTime__c</fullName>
     <description>The date and time this consumer was flagged as Closed in SAP CRM.</description>
-    <externalId>false</externalId>
     <inlineHelpText>The date and time this consumer was flagged as Closed in SAP CRM.</inlineHelpText>
     <isFilteringDisabled>false</isFilteringDisabled>
     <isNameField>false</isNameField>

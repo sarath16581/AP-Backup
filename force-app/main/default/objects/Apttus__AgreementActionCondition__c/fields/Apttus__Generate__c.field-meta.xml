@@ -3,7 +3,6 @@
     <fullName>Apttus__Generate__c</fullName>
     <deprecated>false</deprecated>
     <description>Indicator to generate agreement documents</description>
-    <externalId>false</externalId>
     <formula>ISPICKVAL(Apttus__AgreementId__r.Apttus__Status_Category__c, &quot;Request&quot;)</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <inlineHelpText>Indicator to generate agreement documents</inlineHelpText>

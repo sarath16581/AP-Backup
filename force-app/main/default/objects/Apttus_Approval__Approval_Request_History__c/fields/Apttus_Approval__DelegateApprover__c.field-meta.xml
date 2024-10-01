@@ -4,7 +4,6 @@
     <deleteConstraint>SetNull</deleteConstraint>
     <deprecated>false</deprecated>
     <description>Approver who is designated as Delegate for the Request Assignee</description>
-    <externalId>false</externalId>
     <inlineHelpText>Approver who is designated as Delegate for the Request Assignee</inlineHelpText>
     <label>Delegate Approver</label>
     <referenceTo>User</referenceTo>

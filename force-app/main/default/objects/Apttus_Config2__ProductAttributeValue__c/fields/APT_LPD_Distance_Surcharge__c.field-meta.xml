@@ -3,7 +3,6 @@
     <fullName>APT_LPD_Distance_Surcharge__c</fullName>
     <description>The distance surcharge is calculated based on the Service type and Distance input combination for &apos;Local Pickup and Delivery Services&apos; Product.
 For any distance entered above 15 km, each km will cost $1.25 extra for three service types including &apos;Delivery Service&apos;, &apos;Pickup Service&apos;, &apos;Pickup &amp; Delivery At the same time&apos; and &apos;Consolidated Delivery&apos;, or cost $1.25 extra for &apos;Combined Pickup &amp; Delivery Service&apos; only.</description>
-    <externalId>false</externalId>
     <formula>IF(
     APT_LPD_Distance_Facility_Provided_In_Km__c &gt; 15,
     IF(

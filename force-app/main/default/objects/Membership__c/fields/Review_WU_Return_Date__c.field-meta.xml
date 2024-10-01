@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Review_WU_Return_Date__c</fullName>
     <description>Review WU Return Date - used in PB when status is updated to Review WU Return</description>
-    <externalId>false</externalId>
     <inlineHelpText>Updated when status set to Review WU Return</inlineHelpText>
     <label>Review WU Return Date</label>
     <required>false</required>

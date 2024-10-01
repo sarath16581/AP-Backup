@@ -3,7 +3,6 @@
     <fullName>APT_eParcel_Lodgment__c</fullName>
     <defaultValue>false</defaultValue>
     <description>eParcel Lodgment for Estimated Revenue Calculation</description>
-    <externalId>false</externalId>
     <label>Digital</label>
     <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>

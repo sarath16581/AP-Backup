@@ -4,7 +4,6 @@
     <deleteConstraint>SetNull</deleteConstraint>
     <deprecated>false</deprecated>
     <description>ID of the associated base product.</description>
-    <externalId>false</externalId>
     <label>Base Product</label>
     <referenceTo>Product2</referenceTo>
     <relationshipLabel>Proposal Line Items (Base Product)</relationshipLabel>

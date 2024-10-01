@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Sample_label_provided__c</fullName>
     <description>Has the customer provide a sample label with the form ?</description>
-    <externalId>false</externalId>
     <inlineHelpText>Has the customer provide a sample label with the form ?</inlineHelpText>
     <label>Sample label provided?</label>
     <required>false</required>

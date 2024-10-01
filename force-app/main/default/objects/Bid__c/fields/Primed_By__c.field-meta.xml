@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Primed_By__c</fullName>
     <description>Field that will indicate the name of Australia Post business unit that is priming the bid (and also the Bid team that is leading the response)</description>
-    <externalId>false</externalId>
     <inlineHelpText>Field that will indicate the name of Australia Post business unit that is priming the bid</inlineHelpText>
     <label>Primed By</label>
     <required>false</required>

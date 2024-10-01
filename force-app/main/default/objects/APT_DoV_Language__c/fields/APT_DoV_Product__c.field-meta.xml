@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>APT_DoV_Product__c</fullName>
     <description>Please select a product to associate with the DoV request.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Please select a product to associate with the DoV request.</inlineHelpText>
     <label>DoV Product</label>
     <required>false</required>

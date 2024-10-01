@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Tender_Due_Date__c</fullName>
     <description>used in the Legal Support Request Layout</description>
-    <externalId>false</externalId>
     <inlineHelpText>This is the date the tender is due to be submitted.  If there is a different date that the tender response material is required from Legal, please note that in the field below</inlineHelpText>
     <label>Tender Due Date</label>
     <required>false</required>

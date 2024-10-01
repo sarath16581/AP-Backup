@@ -4,7 +4,6 @@
     <deleteConstraint>SetNull</deleteConstraint>
     <deprecated>false</deprecated>
     <description>Prospect Account</description>
-    <externalId>false</externalId>
     <label>Account</label>
     <referenceTo>Account</referenceTo>
     <relationshipName>SFDC_520_Quote</relationshipName>

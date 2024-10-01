@@ -3,7 +3,6 @@
     <fullName>Apttus_Proposal__ExpectedEndDate__c</fullName>
     <deprecated>false</deprecated>
     <description>The expected end date for products and services</description>
-    <externalId>false</externalId>
     <label>Expected End Date</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>

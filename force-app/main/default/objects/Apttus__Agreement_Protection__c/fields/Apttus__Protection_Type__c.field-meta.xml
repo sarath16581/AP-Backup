@@ -3,7 +3,6 @@
     <fullName>Apttus__Protection_Type__c</fullName>
     <deprecated>false</deprecated>
     <description>Type of protection (none, prompt user, or automatically assigned by the system).</description>
-    <externalId>false</externalId>
     <label>Protection Type</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>

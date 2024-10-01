@@ -3,7 +3,6 @@
     <fullName>Apttus_Approval__DateEscalated__c</fullName>
     <deprecated>false</deprecated>
     <description>The date that the approval request is escalated.</description>
-    <externalId>false</externalId>
     <inlineHelpText>The date that the approval request is escalated.</inlineHelpText>
     <label>Date Escalated</label>
     <required>false</required>

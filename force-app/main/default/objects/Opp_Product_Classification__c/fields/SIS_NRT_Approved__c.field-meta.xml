@@ -3,7 +3,6 @@
     <fullName>SIS_NRT_Approved__c</fullName>
     <defaultValue>false</defaultValue>
     <description>This field will be used by the SIS manager for the sales incentive scheme.</description>
-    <externalId>false</externalId>
     <label>SIS NRT Approved</label>
     <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>

@@ -3,7 +3,6 @@
     <fullName>kfsell__Green_Sheet__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <deprecated>false</deprecated>
-    <externalId>false</externalId>
     <label>Green Sheet</label>
     <referenceTo>kfsell__Green_Sheet__c</referenceTo>
     <relationshipLabel>Basic Issues</relationshipLabel>

@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>UserSurveyDateSent__c</fullName>
     <description>This field is used to see if case has met the require business criteria to trigger a survey email to requestor.</description>
-    <externalId>false</externalId>
     <inlineHelpText>This field is used to see if case has met the require business criteria to trigger a survey email to requestor.</inlineHelpText>
     <label>User Survey Date Sent</label>
     <required>false</required>

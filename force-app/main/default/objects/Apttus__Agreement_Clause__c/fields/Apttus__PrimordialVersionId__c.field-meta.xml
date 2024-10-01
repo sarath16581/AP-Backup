@@ -4,7 +4,6 @@
     <deleteConstraint>SetNull</deleteConstraint>
     <deprecated>false</deprecated>
     <description>Lookup to the first version of agreement clause</description>
-    <externalId>false</externalId>
     <inlineHelpText>Lookup to the first version of agreement clause</inlineHelpText>
     <label>Primordial Agreement Clause</label>
     <referenceTo>Apttus__Agreement_Clause__c</referenceTo>

@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__ExclusionCriteria__c</fullName>
     <deprecated>false</deprecated>
     <description>The ruleset exclusion criteria specification</description>
-    <externalId>false</externalId>
     <inlineHelpText>The ruleset exclusion criteria specification</inlineHelpText>
     <label>Ruleset Exclusion Criteria</label>
     <length>32000</length>

@@ -4,7 +4,6 @@
     <businessStatus>Active</businessStatus>
     <defaultValue>100</defaultValue>
     <description>Default percentage allocated when splits are auto assigned on opportunity creation.</description>
-    <externalId>false</externalId>
     <fieldManageability>DeveloperControlled</fieldManageability>
     <inlineHelpText>Default percentage allocated when splits are auto assigned on opportunity creation.</inlineHelpText>
     <label>Default Percentage Assigned on Creation</label>

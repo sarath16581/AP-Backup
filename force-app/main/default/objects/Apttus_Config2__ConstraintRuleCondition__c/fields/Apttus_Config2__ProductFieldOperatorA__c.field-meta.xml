@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__ProductFieldOperatorA__c</fullName>
     <deprecated>false</deprecated>
     <description>Operator used to search products by product field</description>
-    <externalId>false</externalId>
     <label>Operator A</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>

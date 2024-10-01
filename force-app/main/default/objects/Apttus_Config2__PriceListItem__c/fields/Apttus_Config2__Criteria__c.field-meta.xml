@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__Criteria__c</fullName>
     <deprecated>false</deprecated>
     <description>The item criteria specification</description>
-    <externalId>false</externalId>
     <label>Charge Type Criteria</label>
     <length>16000</length>
     <securityClassification>INTERNAL</securityClassification>

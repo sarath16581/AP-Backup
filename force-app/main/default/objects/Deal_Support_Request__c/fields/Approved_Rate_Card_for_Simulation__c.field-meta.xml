@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Approved_Rate_Card_for_Simulation__c</fullName>
     <description>Use in Commercial analytics and modelling request.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Please provide an excel version of the rate card</inlineHelpText>
     <label>Approved Rate Card for Simulation</label>
     <required>false</required>

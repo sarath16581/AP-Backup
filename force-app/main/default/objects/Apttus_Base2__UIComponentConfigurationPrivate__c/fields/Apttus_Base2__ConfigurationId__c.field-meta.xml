@@ -3,7 +3,6 @@
     <fullName>Apttus_Base2__ConfigurationId__c</fullName>
     <deleteConstraint>Restrict</deleteConstraint>
     <deprecated>false</deprecated>
-    <externalId>false</externalId>
     <label>Component Configuration</label>
     <referenceTo>Apttus_Base2__UIComponentConfiguration__c</referenceTo>
     <relationshipLabel>Component Configuration</relationshipLabel>

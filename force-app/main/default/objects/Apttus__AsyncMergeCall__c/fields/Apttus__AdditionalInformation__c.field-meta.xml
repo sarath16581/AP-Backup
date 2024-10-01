@@ -3,7 +3,6 @@
     <fullName>Apttus__AdditionalInformation__c</fullName>
     <deprecated>false</deprecated>
     <description>Additional information for Async Request</description>
-    <externalId>false</externalId>
     <inlineHelpText>Additional information for Async Request</inlineHelpText>
     <label>Additional Information</label>
     <length>32768</length>

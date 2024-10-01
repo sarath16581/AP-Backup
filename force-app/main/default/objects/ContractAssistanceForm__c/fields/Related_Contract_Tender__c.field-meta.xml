@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Related_Contract_Tender__c</fullName>
-    <externalId>false</externalId>
     <inlineHelpText>Is this contract related to any other contract, tender or quote (current or expired)?  If so provide details (of contracts, products) and attach relevant documents</inlineHelpText>
     <label>Related Contract/Tender</label>
     <required>true</required>

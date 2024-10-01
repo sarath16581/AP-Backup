@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>IfrelevantHowelsecanwehelp__c</fullName>
     <description>What other areas can we assist the the customer with (product, support etc.)</description>
-    <externalId>false</externalId>
     <inlineHelpText>What other areas can we assist the the customer with (product, support etc.)</inlineHelpText>
     <label>If relevant - How else can we help?</label>
     <required>false</required>

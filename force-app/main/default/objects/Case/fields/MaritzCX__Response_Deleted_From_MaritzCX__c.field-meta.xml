@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>This field keeps track of whether the response is available or deleted from the system.</description>
-    <externalId>false</externalId>
     <label>Response Deleted From MaritzCX</label>
     <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>

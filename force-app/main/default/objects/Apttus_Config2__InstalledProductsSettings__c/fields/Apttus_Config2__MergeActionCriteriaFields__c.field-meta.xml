@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__MergeActionCriteriaFields__c</fullName>
     <deprecated>false</deprecated>
     <description>List of asset line item fields separated by comma to enable merge asset action</description>
-    <externalId>false</externalId>
     <inlineHelpText>List of asset line item fields separated by comma to enable merge asset action</inlineHelpText>
     <label>Merge Action Criteria Fields</label>
     <required>false</required>

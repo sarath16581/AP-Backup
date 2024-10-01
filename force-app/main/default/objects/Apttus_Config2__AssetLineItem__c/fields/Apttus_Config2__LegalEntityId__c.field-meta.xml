@@ -4,7 +4,6 @@
     <deleteConstraint>SetNull</deleteConstraint>
     <deprecated>false</deprecated>
     <description>ID of the legal entity associated with the asset. This will be used for downstream billing and revenue functions.</description>
-    <externalId>false</externalId>
     <inlineHelpText>ID of the legal entity associated with the asset. This will be used for downstream billing and revenue functions.</inlineHelpText>
     <label>Legal Entity</label>
     <referenceTo>Apttus_Config2__LegalEntity__c</referenceTo>

@@ -4,7 +4,6 @@
     <deleteConstraint>SetNull</deleteConstraint>
     <deprecated>false</deprecated>
     <description>ID of the parent quote/proposal</description>
-    <externalId>false</externalId>
     <inlineHelpText>ID of the parent quote/proposal</inlineHelpText>
     <label>Parent Quote/Proposal</label>
     <referenceTo>Apttus_Proposal__Proposal__c</referenceTo>

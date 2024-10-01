@@ -3,7 +3,6 @@
     <fullName>Notify_Child_Case_Team_Members__c</fullName>
     <defaultValue>false</defaultValue>
     <description>When checked an email notification is sent to child case team member upon adding a case comment on child case.</description>
-    <externalId>false</externalId>
     <fieldManageability>DeveloperControlled</fieldManageability>
     <label>Notify Child Case Team Members</label>
     <type>Checkbox</type>

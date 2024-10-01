@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Compatability_of_International_Freight__c</fullName>
     <description>For the sales person to indicate the compatability of the International Freight</description>
-    <externalId>false</externalId>
     <inlineHelpText>Any Dangerous Goods, Articles over 20kg, multi-consignment requirements, Return Solutions?</inlineHelpText>
     <label>Compatability of International Freight</label>
     <length>5000</length>

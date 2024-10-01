@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__SummaryGroupType__c</fullName>
     <deprecated>false</deprecated>
     <description>The summary group preference</description>
-    <externalId>false</externalId>
     <label>Summary Group Type</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>

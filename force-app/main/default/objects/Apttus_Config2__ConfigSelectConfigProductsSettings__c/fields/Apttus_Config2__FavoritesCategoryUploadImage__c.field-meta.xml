@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__FavoritesCategoryUploadImage__c</fullName>
     <deprecated>false</deprecated>
     <description>Upload an image for displaying across all Favorites categories</description>
-    <externalId>false</externalId>
     <inlineHelpText>Upload an image for displaying across all Favorites categories</inlineHelpText>
     <label>Favorites Upload Image</label>
     <required>false</required>

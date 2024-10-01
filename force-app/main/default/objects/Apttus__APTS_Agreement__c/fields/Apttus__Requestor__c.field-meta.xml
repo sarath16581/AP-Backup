@@ -3,7 +3,6 @@
     <fullName>Apttus__Requestor__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <deprecated>false</deprecated>
-    <externalId>false</externalId>
     <label>Requestor</label>
     <referenceTo>User</referenceTo>
     <relationshipName>Agreements</relationshipName>

@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>APT_Sales_Team__c</fullName>
     <description>Created for Ariba migration purposes, but to be reused it is being populated with name of the Role of the Owner, refreshed whenever Owner changes up until Agreement is Activated/Terminated/Expired/Cancelled</description>
-    <externalId>false</externalId>
     <inlineHelpText>Sales Team of the Owner of the Record</inlineHelpText>
     <label>Sales Team</label>
     <required>false</required>

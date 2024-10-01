@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__JobRecurrenceFrequency__c</fullName>
     <deprecated>false</deprecated>
     <description>The job recurrence frequency. For recurring jobs, this specifies how often the job should run</description>
-    <externalId>false</externalId>
     <inlineHelpText>The job recurrence frequency. For recurring jobs, this specifies how often the job should run</inlineHelpText>
     <label>Job Recurrence Frequency</label>
     <required>false</required>

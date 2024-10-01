@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Whether the cost type has relevant cost list item(price list item)</description>
-    <externalId>false</externalId>
     <label>Is Product Specific</label>
     <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>

@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>APT_Contracting_Entity__c</fullName>
     <description>Default is Australian Postal Corporation however product chosen will determine the value</description>
-    <externalId>false</externalId>
     <inlineHelpText>Default is Australian Postal Corporation however product chosen will determine the value</inlineHelpText>
     <label>Contracting Entity</label>
     <required>false</required>

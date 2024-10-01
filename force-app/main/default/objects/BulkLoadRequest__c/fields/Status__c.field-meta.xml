@@ -3,7 +3,6 @@
     <fullName>Status__c</fullName>
     <defaultValue>&quot;New&quot;</defaultValue>
     <description>Current status of the bulk load request. A request in &quot;New&quot; status indicates the line items are still getting loaded and the request is not ready for processing as yet. Bulk load request in &quot;Pending&quot; status is ready for processing to begin. Status is set to &quot;Processed&quot; when processing is completed.</description>
-    <externalId>false</externalId>
     <label>Status</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>

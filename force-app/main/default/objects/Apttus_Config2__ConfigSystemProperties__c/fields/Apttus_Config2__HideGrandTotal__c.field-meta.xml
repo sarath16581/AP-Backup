@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>When checked grand total price will be hidden</description>
-    <externalId>false</externalId>
     <inlineHelpText>When checked grand total line will be hidden</inlineHelpText>
     <label>Hide Grand Total</label>
     <trackTrending>false</trackTrending>

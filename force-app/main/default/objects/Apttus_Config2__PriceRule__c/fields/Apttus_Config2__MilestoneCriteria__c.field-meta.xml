@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__MilestoneCriteria__c</fullName>
     <deprecated>false</deprecated>
     <description>One or more milestone inclusion/exclusion criteria</description>
-    <externalId>false</externalId>
     <inlineHelpText>One or more milestone inclusion/exclusion criteria</inlineHelpText>
     <label>Milestone Criteria</label>
     <required>false</required>

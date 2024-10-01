@@ -3,7 +3,6 @@
     <fullName>LPO_WCC__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <description>Mapped with Lead LPO WCC attribute and gets populated via lead conversion process.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Enter Work Cost Centre Code to ensure incentives are paid to the correct LPO (only relevant to Local Business Partner sales).</inlineHelpText>
     <label>LPO WCC</label>
     <referenceTo>Network__c</referenceTo>

@@ -3,7 +3,6 @@
     <fullName>Primary_Campaign__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <description>Campaign associated with the account</description>
-    <externalId>false</externalId>
     <label>Primary Campaign</label>
     <referenceTo>Campaign</referenceTo>
     <relationshipLabel>At Risk Business</relationshipLabel>

@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Indicates whether the attribute is hidden</description>
-    <externalId>false</externalId>
     <inlineHelpText>Indicates whether the attribute is hidden</inlineHelpText>
     <label>Is Hidden</label>
     <securityClassification>INTERNAL</securityClassification>

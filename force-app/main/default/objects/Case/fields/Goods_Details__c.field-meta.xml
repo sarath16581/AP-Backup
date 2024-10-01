@@ -4,7 +4,6 @@
     <defaultValue>&apos;Value of Goods: &apos; &amp; BR() &amp;
 &apos;Description of Content: &apos; &amp; BR() &amp;
 &apos;Description of Packaging: &apos;</defaultValue>
-    <externalId>false</externalId>
     <label>Goods Details</label>
     <length>32768</length>
     <securityClassification>INTERNAL</securityClassification>

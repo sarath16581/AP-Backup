@@ -3,7 +3,6 @@
     <fullName>Apttus_Base2__Attributes__c</fullName>
     <deprecated>false</deprecated>
     <description>Long text area field used for capturing extra transaction data (in JSON format or similar) that was not captured in other fields.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Long text area field used for capturing extra transaction data (in JSON format or similar) that was not captured in other fields.</inlineHelpText>
     <label>Attributes (Extra Operation Data)</label>
     <length>64000</length>

@@ -3,7 +3,6 @@
     <fullName>Apttus_Approval__StepAutoReapprovalCriteria__c</fullName>
     <deprecated>false</deprecated>
     <description>The auto re-approval criteria for the step</description>
-    <externalId>false</externalId>
     <inlineHelpText>The auto re-approval criteria for the step</inlineHelpText>
     <label>Step Auto Reapproval Criteria</label>
     <length>32000</length>

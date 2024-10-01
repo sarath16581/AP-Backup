@@ -4,7 +4,6 @@
     <deleteConstraint>SetNull</deleteConstraint>
     <deprecated>false</deprecated>
     <description>ID of the summary group associated with the item</description>
-    <externalId>false</externalId>
     <label>Summary Group</label>
     <referenceTo>Apttus_CMConfig__AgreementSummaryGroup__c</referenceTo>
     <relationshipLabel>Line Items</relationshipLabel>

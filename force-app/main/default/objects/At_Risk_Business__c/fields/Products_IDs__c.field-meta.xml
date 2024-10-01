@@ -3,7 +3,6 @@
     <fullName>Products_IDs__c</fullName>
     <businessStatus>Active</businessStatus>
     <description>IDs for selected products</description>
-    <externalId>false</externalId>
     <inlineHelpText>IDs for selected products</inlineHelpText>
     <label>Products IDs</label>
     <length>131072</length>

@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Organisation__c</fullName>
     <description>Used to capture the sector of the organisation in Leads.  This will populate the Organisation Sector on the Organisation object when a lead is converted.</description>
-    <externalId>false</externalId>
     <label>Organisation Sector</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>

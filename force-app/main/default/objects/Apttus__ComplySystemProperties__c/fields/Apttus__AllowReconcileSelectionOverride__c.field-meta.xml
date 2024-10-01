@@ -4,7 +4,6 @@
     <defaultValue>true</defaultValue>
     <deprecated>false</deprecated>
     <description>Indicates whether the reconcile selection is allowed to be overridden by the user. Only applicable when reconciliation is auto enabled for documents.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Indicates whether the reconcile selection is allowed to be overridden by the user. Only applicable when reconciliation is auto enabled for documents.</inlineHelpText>
     <label>Allow Reconcile Selection Override</label>
     <trackTrending>false</trackTrending>

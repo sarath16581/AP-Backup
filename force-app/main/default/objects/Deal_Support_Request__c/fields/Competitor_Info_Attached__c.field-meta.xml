@@ -3,7 +3,6 @@
     <fullName>Competitor_Info_Attached__c</fullName>
     <defaultValue>false</defaultValue>
     <description>Field to indicate that the customer brief has been attached</description>
-    <externalId>false</externalId>
     <inlineHelpText>Please check when Competitor Info has been attached to the request (attach to Notes &amp; Attachments section on request)</inlineHelpText>
     <label>Competitor Info Attached?</label>
     <securityClassification>INTERNAL</securityClassification>

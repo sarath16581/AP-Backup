@@ -3,7 +3,6 @@
     <fullName>Opportunity__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <description>This field is lookup to the Opportunity that DSR request is linked to</description>
-    <externalId>false</externalId>
     <label>Opportunity</label>
     <referenceTo>Opportunity</referenceTo>
     <relationshipLabel>Deal Support Request</relationshipLabel>

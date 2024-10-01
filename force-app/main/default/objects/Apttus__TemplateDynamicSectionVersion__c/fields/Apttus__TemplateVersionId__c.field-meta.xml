@@ -3,7 +3,6 @@
     <fullName>Apttus__TemplateVersionId__c</fullName>
     <deprecated>false</deprecated>
     <description>Master-detail to the template version</description>
-    <externalId>false</externalId>
     <inlineHelpText>Master-detail to the template version</inlineHelpText>
     <label>Template Version</label>
     <referenceTo>Apttus__TemplateVersion__c</referenceTo>

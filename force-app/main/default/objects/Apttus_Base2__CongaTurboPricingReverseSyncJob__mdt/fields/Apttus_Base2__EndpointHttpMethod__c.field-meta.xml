@@ -3,7 +3,6 @@
     <fullName>Apttus_Base2__EndpointHttpMethod__c</fullName>
     <deprecated>false</deprecated>
     <description>Http method (GET, POST) used for the job.</description>
-    <externalId>false</externalId>
     <fieldManageability>SubscriberControlled</fieldManageability>
     <inlineHelpText>Http method (GET, POST) used for the job.</inlineHelpText>
     <label>Endpoint Http Method</label>

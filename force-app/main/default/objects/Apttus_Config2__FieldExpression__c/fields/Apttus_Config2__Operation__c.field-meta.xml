@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__Operation__c</fullName>
     <deprecated>false</deprecated>
     <description>Rollup operation applied to the value expression of the line items returned by the match expression.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Rollup operation applied to the value expression of the line items returned by the match expression.</inlineHelpText>
     <label>Operation</label>
     <required>false</required>

@@ -3,7 +3,6 @@
     <fullName>Apttus_Approval__Related_Agreement_Term_Exception__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <deprecated>false</deprecated>
-    <externalId>false</externalId>
     <label>Related Agreement Term Exception</label>
     <referenceTo>Apttus__Agreement_Term_Exception__c</referenceTo>
     <relationshipLabel>Approvals</relationshipLabel>

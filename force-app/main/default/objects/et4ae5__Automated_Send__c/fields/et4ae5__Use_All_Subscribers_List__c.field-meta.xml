@@ -3,7 +3,6 @@
     <fullName>et4ae5__Use_All_Subscribers_List__c</fullName>
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
-    <externalId>false</externalId>
     <label>Use All Subscribers List</label>
     <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>

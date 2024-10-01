@@ -3,7 +3,6 @@
     <fullName>Disabled__c</fullName>
     <defaultValue>false</defaultValue>
     <description>Use to determine this setting is disabled via triggers, etc.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Use to determine this setting is disabled via triggers, etc.</inlineHelpText>
     <label>Disabled</label>
     <trackTrending>false</trackTrending>

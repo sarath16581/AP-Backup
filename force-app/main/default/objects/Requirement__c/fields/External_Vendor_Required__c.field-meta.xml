@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>External_Vendor_Required__c</fullName>
     <description>This field will determine if an external vendor is required for work.</description>
-    <externalId>false</externalId>
     <label>External Vendor Required?</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>
