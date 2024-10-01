@@ -6,7 +6,7 @@
     <name>ST Last Mile - General/Other</name>
     <style>none</style>
     <subject>Good news! We&apos;ve located your delivery on case {!Case.CaseNumber}</subject>
-    <textOnly>Star Track
+    <textOnly>StarTrack
 
 Case {!Case.CaseNumber}
 

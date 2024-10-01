@@ -73,7 +73,23 @@
 										<p>
 											Thank you for your patience while we’ve been monitoring your delivery. We
 											are happy to report that the tracking has updated and you can now expect
-											your delivery on or before {!Case.EstimatedDelivery__c}
+											your delivery on or before {!IF(ISBLANK(Case.EstimatedDelivery__c), '',
+											TEXT(DAY(Case.EstimatedDelivery__c)) +" "+
+											CASE(
+											MONTH(Case.EstimatedDelivery__c),
+											1, "January",
+											2, "February",
+											3, "March",
+											4, "April",
+											5, "May",
+											6, "June",
+											7, "July",
+											8, "August",
+											9, "September",
+											10, "October",
+											11, "November",
+											"December"
+											)+" "+TEXT(YEAR(Case.EstimatedDelivery__c)))}.
 										</p>
 										<p>
 											When a parcel is redirected a new address label is applied by the delivery
