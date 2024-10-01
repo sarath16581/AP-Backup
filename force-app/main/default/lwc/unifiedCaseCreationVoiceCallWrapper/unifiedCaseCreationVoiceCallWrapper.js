@@ -212,9 +212,7 @@ export default class UnifiedCaseCreationVoiceCallWrapper extends LightningElemen
 			const existingCaseCount = await getExistingCasesCount({
 				trackingId: trackingSFId
 			});
-			if(existingCaseCount){
-				this.warningMessage = existingCaseCount + ' Existing Cases';
-			}
+			this.warningMessage = Number(existingCaseCount) > 0 ? `${existingCaseCount} Existing Cases` : undefined;
 		} catch (error) {
 			console.error(error);
 			this.errorMessage = reduceErrors(error).join(", ");
