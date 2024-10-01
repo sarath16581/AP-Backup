@@ -45,9 +45,9 @@ public inherited sharing class VoiceCallTriggerHandler extends ApplicationTrigge
 		// This provides an easy to reference lookup to the case the record is associated with
 		registerModule(CaseRecordPopulationModule.class);
 		// SVC/Unified
-		// - Synchronise VoiceCall attributes across consult/conferance/transferred calls
+		// - Synchronise authoritative VoiceCall attributes to Genesys
+		registerModule(GenesysVoiceCallModule.class, FILTER_ALLWITHVENDORKEY);
 		registerModule(UnifiedVoiceCallModule.class, FILTER_ALLWITHVENDORKEY);
-
 	}
 
 	/**
@@ -56,7 +56,7 @@ public inherited sharing class VoiceCallTriggerHandler extends ApplicationTrigge
 	 */
 	public static List<SObjectType> getUnitOfWorkSObjectTypes() {
 		return new List<SObjectType>{
-			AgentWork.SObjectType,VoiceCall.SObjectType
+			AgentWork.SObjectType, VoiceCall.SObjectType
 		};
 	}
 }
