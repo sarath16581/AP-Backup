@@ -210,105 +210,6 @@
                     <name>uiBehavior</name>
                     <value>none</value>
                 </fieldInstanceProperties>
-                <fieldItem>Record.Type</fieldItem>
-                <identifier>RecordTypeField</identifier>
-            </fieldInstance>
-        </itemInstances>
-        <itemInstances>
-            <fieldInstance>
-                <fieldInstanceProperties>
-                    <name>uiBehavior</name>
-                    <value>none</value>
-                </fieldInstanceProperties>
-                <fieldItem>Record.ProductCategory__c</fieldItem>
-                <identifier>RecordProductCategory_cField</identifier>
-            </fieldInstance>
-        </itemInstances>
-        <itemInstances>
-            <fieldInstance>
-                <fieldInstanceProperties>
-                    <name>uiBehavior</name>
-                    <value>none</value>
-                </fieldInstanceProperties>
-                <fieldItem>Record.Complaint__c</fieldItem>
-                <identifier>RecordComplaint_cField</identifier>
-            </fieldInstance>
-        </itemInstances>
-        <name>Facet-2451a612-894d-45a2-bc65-564c12593fa2</name>
-        <type>Facet</type>
-    </flexiPageRegions>
-    <flexiPageRegions>
-        <itemInstances>
-            <fieldInstance>
-                <fieldInstanceProperties>
-                    <name>uiBehavior</name>
-                    <value>none</value>
-                </fieldInstanceProperties>
-                <fieldItem>Record.EnquirySubType__c</fieldItem>
-                <identifier>RecordEnquirySubType_cField</identifier>
-            </fieldInstance>
-        </itemInstances>
-        <itemInstances>
-            <fieldInstance>
-                <fieldInstanceProperties>
-                    <name>uiBehavior</name>
-                    <value>none</value>
-                </fieldInstanceProperties>
-                <fieldItem>Record.ProductSubCategory__c</fieldItem>
-                <identifier>RecordProductSubCategory_cField</identifier>
-            </fieldInstance>
-        </itemInstances>
-        <itemInstances>
-            <fieldInstance>
-                <fieldInstanceProperties>
-                    <name>uiBehavior</name>
-                    <value>none</value>
-                </fieldInstanceProperties>
-                <fieldItem>Record.Exclude_Subscription_Automation__c</fieldItem>
-                <identifier>RecordExclude_Subscription_Automation_cField</identifier>
-                <visibilityRule>
-                    <criteria>
-                        <leftValue>{!Record.RecordType.DeveloperName}</leftValue>
-                        <operator>EQUAL</operator>
-                        <rightValue>UnifiedInvestigation</rightValue>
-                    </criteria>
-                </visibilityRule>
-            </fieldInstance>
-        </itemInstances>
-        <name>Facet-dcaa6326-031e-4ff8-8fad-d17993b12d69</name>
-        <type>Facet</type>
-    </flexiPageRegions>
-    <flexiPageRegions>
-        <itemInstances>
-            <componentInstance>
-                <componentInstanceProperties>
-                    <name>body</name>
-                    <value>Facet-2451a612-894d-45a2-bc65-564c12593fa2</value>
-                </componentInstanceProperties>
-                <componentName>flexipage:column</componentName>
-                <identifier>flexipage_column3</identifier>
-            </componentInstance>
-        </itemInstances>
-        <itemInstances>
-            <componentInstance>
-                <componentInstanceProperties>
-                    <name>body</name>
-                    <value>Facet-dcaa6326-031e-4ff8-8fad-d17993b12d69</value>
-                </componentInstanceProperties>
-                <componentName>flexipage:column</componentName>
-                <identifier>flexipage_column4</identifier>
-            </componentInstance>
-        </itemInstances>
-        <name>Facet-b96dbe6c-035e-46b7-9609-193f548f2ab3</name>
-        <type>Facet</type>
-    </flexiPageRegions>
-    <flexiPageRegions>
-        <itemInstances>
-            <fieldInstance>
-                <fieldInstanceProperties>
-                    <name>uiBehavior</name>
-                    <value>none</value>
-                </fieldInstanceProperties>
                 <fieldItem>Record.ReferenceID__c</fieldItem>
                 <identifier>RecordReferenceID_cField</identifier>
             </fieldInstance>
@@ -485,6 +386,105 @@
                     <name>uiBehavior</name>
                     <value>none</value>
                 </fieldInstanceProperties>
+                <fieldItem>Record.Type</fieldItem>
+                <identifier>RecordTypeField</identifier>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.ProductCategory__c</fieldItem>
+                <identifier>RecordProductCategory_cField</identifier>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Complaint__c</fieldItem>
+                <identifier>RecordComplaint_cField</identifier>
+            </fieldInstance>
+        </itemInstances>
+        <name>Facet-2451a612-894d-45a2-bc65-564c12593fa2</name>
+        <type>Facet</type>
+    </flexiPageRegions>
+    <flexiPageRegions>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.EnquirySubType__c</fieldItem>
+                <identifier>RecordEnquirySubType_cField</identifier>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.ProductSubCategory__c</fieldItem>
+                <identifier>RecordProductSubCategory_cField</identifier>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Exclude_Subscription_Automation__c</fieldItem>
+                <identifier>RecordExclude_Subscription_Automation_cField</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.RecordType.DeveloperName}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>UnifiedInvestigation</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <name>Facet-dcaa6326-031e-4ff8-8fad-d17993b12d69</name>
+        <type>Facet</type>
+    </flexiPageRegions>
+    <flexiPageRegions>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>body</name>
+                    <value>Facet-2451a612-894d-45a2-bc65-564c12593fa2</value>
+                </componentInstanceProperties>
+                <componentName>flexipage:column</componentName>
+                <identifier>flexipage_column3</identifier>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>body</name>
+                    <value>Facet-dcaa6326-031e-4ff8-8fad-d17993b12d69</value>
+                </componentInstanceProperties>
+                <componentName>flexipage:column</componentName>
+                <identifier>flexipage_column4</identifier>
+            </componentInstance>
+        </itemInstances>
+        <name>Facet-b96dbe6c-035e-46b7-9609-193f548f2ab3</name>
+        <type>Facet</type>
+    </flexiPageRegions>
+    <flexiPageRegions>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
                 <fieldItem>Record.Origin</fieldItem>
                 <identifier>RecordOriginField</identifier>
             </fieldInstance>
@@ -637,24 +637,6 @@
             <componentInstance>
                 <componentInstanceProperties>
                     <name>columns</name>
-                    <value>Facet-b96dbe6c-035e-46b7-9609-193f548f2ab3</value>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>horizontalAlignment</name>
-                    <value>true</value>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>label</name>
-                    <value>Summary</value>
-                </componentInstanceProperties>
-                <componentName>flexipage:fieldSection</componentName>
-                <identifier>flexipage_fieldSection2</identifier>
-            </componentInstance>
-        </itemInstances>
-        <itemInstances>
-            <componentInstance>
-                <componentInstanceProperties>
-                    <name>columns</name>
                     <value>Facet-1bd46d7d-2525-4de2-9081-fcef85db55a3</value>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
@@ -705,6 +687,24 @@
             <componentInstance>
                 <componentInstanceProperties>
                     <name>columns</name>
+                    <value>Facet-b96dbe6c-035e-46b7-9609-193f548f2ab3</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>horizontalAlignment</name>
+                    <value>true</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>label</name>
+                    <value>Summary</value>
+                </componentInstanceProperties>
+                <componentName>flexipage:fieldSection</componentName>
+                <identifier>flexipage_fieldSection2</identifier>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>columns</name>
                     <value>Facet-35eef44b-f24f-4085-8cbd-4a8ef8cff092</value>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
@@ -731,102 +731,6 @@
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>relatedListApiName</name>
-                    <value>OpenActivities</value>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>relatedListComponentOverride</name>
-                    <value>NONE</value>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>rowsToDisplay</name>
-                    <value>10</value>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>showActionBar</name>
-                    <value>true</value>
-                </componentInstanceProperties>
-                <componentName>force:relatedListSingleContainer</componentName>
-                <identifier>force_relatedListSingleContainer2</identifier>
-            </componentInstance>
-        </itemInstances>
-        <itemInstances>
-            <componentInstance>
-                <componentInstanceProperties>
-                    <name>parentFieldApiName</name>
-                    <value>Case.Id</value>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>relatedListApiName</name>
-                    <value>ActivityHistories</value>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>relatedListComponentOverride</name>
-                    <value>NONE</value>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>rowsToDisplay</name>
-                    <value>10</value>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>showActionBar</name>
-                    <value>true</value>
-                </componentInstanceProperties>
-                <componentName>force:relatedListSingleContainer</componentName>
-                <identifier>force_relatedListSingleContainer3</identifier>
-            </componentInstance>
-        </itemInstances>
-        <itemInstances>
-            <componentInstance>
-                <componentInstanceProperties>
-                    <name>parentFieldApiName</name>
-                    <value>Case.Id</value>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>relatedListApiName</name>
-                    <value>EmailMessages</value>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>relatedListComponentOverride</name>
-                    <value>NONE</value>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>rowsToDisplay</name>
-                    <value>10</value>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>showActionBar</name>
-                    <value>true</value>
-                </componentInstanceProperties>
-                <componentName>force:relatedListSingleContainer</componentName>
-                <identifier>force_relatedListSingleContainer4</identifier>
-            </componentInstance>
-        </itemInstances>
-        <itemInstances>
-            <componentInstance>
-                <componentInstanceProperties>
-                    <name>parentFieldApiName</name>
-                    <value>Case.Id</value>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>relatedListApiName</name>
-                    <value>Histories</value>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>relatedListComponentOverride</name>
-                    <value>NONE</value>
-                </componentInstanceProperties>
-                <componentName>force:relatedListSingleContainer</componentName>
-                <identifier>force_relatedListSingleContainer6</identifier>
-            </componentInstance>
-        </itemInstances>
-        <itemInstances>
-            <componentInstance>
-                <componentInstanceProperties>
-                    <name>parentFieldApiName</name>
-                    <value>Case.Id</value>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>relatedListApiName</name>
                     <value>AttachedContentDocuments</value>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
@@ -843,84 +747,6 @@
                 </componentInstanceProperties>
                 <componentName>force:relatedListSingleContainer</componentName>
                 <identifier>force_relatedListSingleContainer13</identifier>
-            </componentInstance>
-        </itemInstances>
-        <itemInstances>
-            <componentInstance>
-                <componentInstanceProperties>
-                    <name>parentFieldApiName</name>
-                    <value>Case.Id</value>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>relatedListApiName</name>
-                    <value>ImpactedArticles__r</value>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>relatedListComponentOverride</name>
-                    <value>NONE</value>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>rowsToDisplay</name>
-                    <value>10</value>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>showActionBar</name>
-                    <value>true</value>
-                </componentInstanceProperties>
-                <componentName>force:relatedListSingleContainer</componentName>
-                <identifier>force_relatedListSingleContainer15</identifier>
-            </componentInstance>
-        </itemInstances>
-        <itemInstances>
-            <componentInstance>
-                <componentInstanceProperties>
-                    <name>parentFieldApiName</name>
-                    <value>Case.Id</value>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>relatedListApiName</name>
-                    <value>CaseMilestones</value>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>relatedListComponentOverride</name>
-                    <value>NONE</value>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>rowsToDisplay</name>
-                    <value>10</value>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>showActionBar</name>
-                    <value>true</value>
-                </componentInstanceProperties>
-                <componentName>force:relatedListSingleContainer</componentName>
-                <identifier>force_relatedListSingleContainer16</identifier>
-            </componentInstance>
-        </itemInstances>
-        <itemInstances>
-            <componentInstance>
-                <componentInstanceProperties>
-                    <name>parentFieldApiName</name>
-                    <value>Case.Id</value>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>relatedListApiName</name>
-                    <value>TeamMembers</value>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>relatedListComponentOverride</name>
-                    <value>NONE</value>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>rowsToDisplay</name>
-                    <value>10</value>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>showActionBar</name>
-                    <value>true</value>
-                </componentInstanceProperties>
-                <componentName>force:relatedListSingleContainer</componentName>
-                <identifier>force_relatedListSingleContainer11</identifier>
             </componentInstance>
         </itemInstances>
         <itemInstances>
@@ -983,32 +809,6 @@
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>relatedListApiName</name>
-                    <value>AttachedContentNotes</value>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>relatedListComponentOverride</name>
-                    <value>NONE</value>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>rowsToDisplay</name>
-                    <value>10</value>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>showActionBar</name>
-                    <value>true</value>
-                </componentInstanceProperties>
-                <componentName>force:relatedListSingleContainer</componentName>
-                <identifier>force_relatedListSingleContainer7</identifier>
-            </componentInstance>
-        </itemInstances>
-        <itemInstances>
-            <componentInstance>
-                <componentInstanceProperties>
-                    <name>parentFieldApiName</name>
-                    <value>Case.Id</value>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>relatedListApiName</name>
                     <value>Authorised_Contacts__r</value>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
@@ -1025,32 +825,6 @@
                 </componentInstanceProperties>
                 <componentName>force:relatedListSingleContainer</componentName>
                 <identifier>force_relatedListSingleContainer8</identifier>
-            </componentInstance>
-        </itemInstances>
-        <itemInstances>
-            <componentInstance>
-                <componentInstanceProperties>
-                    <name>parentFieldApiName</name>
-                    <value>Case.Id</value>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>relatedListApiName</name>
-                    <value>Cases</value>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>relatedListComponentOverride</name>
-                    <value>NONE</value>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>rowsToDisplay</name>
-                    <value>10</value>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>showActionBar</name>
-                    <value>true</value>
-                </componentInstanceProperties>
-                <componentName>force:relatedListSingleContainer</componentName>
-                <identifier>force_relatedListSingleContainer9</identifier>
             </componentInstance>
         </itemInstances>
         <itemInstances>
@@ -1275,6 +1049,12 @@
                 </componentInstanceProperties>
                 <componentName>force:relatedListSingleContainer</componentName>
                 <identifier>force_relatedListSingleContainer17</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.ArticleTest__r.ArticleID__c}</leftValue>
+                        <operator>EQUAL</operator>
+                    </criteria>
+                </visibilityRule>
             </componentInstance>
         </itemInstances>
         <itemInstances>
@@ -1392,7 +1172,7 @@
         <name>rightcol</name>
         <type>Region</type>
     </flexiPageRegions>
-    <masterLabel>Case Unified Console Record Page</masterLabel>
+    <masterLabel>Case Unified Page</masterLabel>
     <sobjectType>Case</sobjectType>
     <template>
         <name>flexipage:recordHomeTwoColEqualHeaderTemplateDesktop</name>

@@ -358,70 +358,10 @@
             <actionType>QuickAction</actionType>
             <sortOrder>2</sortOrder>
         </platformActionListItems>
-        <platformActionListItems>
-            <actionName>Case.CaseTransfer</actionName>
-            <actionType>QuickAction</actionType>
-            <sortOrder>3</sortOrder>
-        </platformActionListItems>
     </platformActionList>
     <quickActionList/>
     <relatedLists>
-        <excludeButtons>NewEvent</excludeButtons>
-        <excludeButtons>NewTask</excludeButtons>
-        <fields>TASK.SUBJECT</fields>
-        <fields>TASK.WHO_NAME</fields>
-        <fields>ACTIVITY.TASK</fields>
-        <fields>TASK.DUE_DATE</fields>
-        <fields>Handling_Time__c</fields>
-        <fields>TASK.STATUS</fields>
-        <fields>TASK.PRIORITY</fields>
-        <fields>CORE.USERS.FULL_NAME</fields>
-        <relatedList>RelatedActivityList</relatedList>
-    </relatedLists>
-    <relatedLists>
-        <excludeButtons>LogCall</excludeButtons>
-        <excludeButtons>MailMerge</excludeButtons>
-        <excludeButtons>RequestUpdate</excludeButtons>
-        <excludeButtons>SendEmail</excludeButtons>
-        <excludeButtons>ViewAll</excludeButtons>
-        <fields>TASK.SUBJECT</fields>
-        <fields>TASK.WHO_NAME</fields>
-        <fields>ACTIVITY.TASK</fields>
-        <fields>TASK.DUE_DATE</fields>
-        <fields>Handling_Time__c</fields>
-        <fields>CORE.USERS.FULL_NAME</fields>
-        <fields>TASK.LAST_UPDATE</fields>
-        <relatedList>RelatedHistoryList</relatedList>
-    </relatedLists>
-    <relatedLists>
-        <relatedList>RelatedEmailMessageList</relatedList>
-    </relatedLists>
-    <relatedLists>
-        <relatedList>RelatedEntityHistoryList</relatedList>
-    </relatedLists>
-    <relatedLists>
         <relatedList>RelatedFileList</relatedList>
-    </relatedLists>
-    <relatedLists>
-        <fields>NAME</fields>
-        <fields>Article__c</fields>
-        <fields>ArticleId__c</fields>
-        <relatedList>ImpactedArticle__c.Case__c</relatedList>
-    </relatedLists>
-    <relatedLists>
-        <fields>MILESTONETYPE.MILESTONE</fields>
-        <fields>CASEMILESTONE.START_DATE</fields>
-        <fields>CASEMILESTONE.TARGET_DATE</fields>
-        <fields>CASEMILESTONE.COMPLETION_DATE</fields>
-        <fields>CASEMILESTONE.TIME_REMAIN_MINS</fields>
-        <fields>CASEMILESTONE.IS_VIOLATED_IN</fields>
-        <fields>CASEMILESTONE.IS_COMPLETED_IN</fields>
-        <relatedList>RelatedCaseMilestoneList</relatedList>
-        <sortField>CASEMILESTONE.START_DATE</sortField>
-        <sortOrder>Desc</sortOrder>
-    </relatedLists>
-    <relatedLists>
-        <relatedList>RelatedTeamMemberList</relatedList>
     </relatedLists>
     <relatedLists>
         <fields>Name</fields>
@@ -439,9 +379,6 @@
         <relatedList>VoiceCalls</relatedList>
     </relatedLists>
     <relatedLists>
-        <relatedList>RelatedContentNoteList</relatedList>
-    </relatedLists>
-    <relatedLists>
         <customButtons>NewRelatedContact</customButtons>
         <excludeButtons>New</excludeButtons>
         <fields>AuthorisingContact__c</fields>
@@ -453,6 +390,9 @@
         <relatedList>AuthorisedContacts__c.Case__c</relatedList>
     </relatedLists>
     <relatedLists>
+        <relatedList>RelatedCommentsList</relatedList>
+    </relatedLists>
+    <relatedLists>
         <fields>CASES.CASE_NUMBER</fields>
         <fields>CASES.SUBJECT</fields>
         <fields>CASES.PRIORITY</fields>
@@ -460,9 +400,6 @@
         <fields>CASES.STATUS</fields>
         <fields>OWNER_NAME</fields>
         <relatedList>RelatedChildCaseList</relatedList>
-    </relatedLists>
-    <relatedLists>
-        <relatedList>RelatedCommentsList</relatedList>
     </relatedLists>
     <relatedLists>
         <fields>Name</fields>
