@@ -23,7 +23,7 @@ public virtual inherited sharing class ArticlesSelector extends ApplicationSelec
 		FILTER_BY_NETWORK_NOT_NULL
 	}
 	public enum ComplexSubQueryOptions {
-		WITH_CASES
+		WITH_RECENT_CASES
 	}
 
 	public static ArticlesSelector newInstance() {
@@ -182,7 +182,7 @@ public virtual inherited sharing class ArticlesSelector extends ApplicationSelec
 			.setConditionOrder('(1 AND (2 OR 3 OR 4 OR 5))')
 			.endConditions();
 		
-			if(complexQueryOptions.contains(ComplexSubQueryOptions.WITH_CASES)){
+			if(complexQueryOptions.contains(ComplexSubQueryOptions.WITH_RECENT_CASES)){
 				qb.addSubQuery(
 					CasesSelector.newInstance(0, fieldOverrides)
 						.newQueryBuilder(

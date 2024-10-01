@@ -34,7 +34,7 @@ public virtual inherited sharing class ContactsSelector extends ApplicationSelec
 		WITH_RECORDTYPE, WITH_OWNER, WITH_ACCOUNT, WITH_BILLING_ACCOUNT, WITH_RELATED_CASES
 	}
 	public enum ComplexSubQueryOptions {
-		WITH_CASES, WITH_ALL_INTERACTIONS, WITH_LIVE_CHAT_TRANSCRIPTS, WITH_TASKS, WITH_VOICE_CALLS
+		WITH_RECENT_CASES, WITH_ALL_RECENT_INTERACTIONS, WITH_RECENT_LIVE_CHAT_TRANSCRIPTS, WITH_RECENT_TASKS, WITH_RECENT_VOICE_CALLS
 	}
 
 	public static ContactsSelector newInstance() {
@@ -368,16 +368,15 @@ public virtual inherited sharing class ContactsSelector extends ApplicationSelec
 		return qb.toSoqlString();
 	}
 	/**
-	 * @description Select contacts with Cases and Interactions by Phone Number(exact match).
-	 * @param phoneNumber phoneNumber
+	 * @description Select contacts with Cases and Interactions by Reversed Phone Number(exact match).
+	 * @param phoneNumber reversed phoneNumber
 	 * @param bindMap map of bind variables
 	 * @param complexQueryOptions Complex Search options to include child relationships
 	 * @return matching Contact records
 	 */
-	public List<Contact> selectWithCasesAndInteractionsByPhoneNumber(String phoneNumber, Map<String, Object> bindMap, Set<Object> complexQueryOptions) {
+	public List<Contact> selectWithCasesAndInteractionsByReversePhoneNumber(String phoneNumber, Map<String, Object> bindMap, Set<Object> complexQueryOptions) {
 		String queryConditions;
 		if(String.isNotBlank(phoneNumber)){
-			// queryConditions= ' AND (HomePhone =:searchKey OR MobilePhone =:searchKey OR Phone =:searchKey)';
 			queryConditions= ' AND (ReverseMobilePhone__c =:searchKey OR ReversePhone__c =:searchKey OR ReverseVerifiedMobile__c =:searchKey)';
 			bindMap.put('searchKey', phoneNumber);
 		}
@@ -441,7 +440,7 @@ public virtual inherited sharing class ContactsSelector extends ApplicationSelec
 		.endConditions();
 
 		//add Cases subquery
-		if(complexQueryOptions.contains(ComplexSubQueryOptions.WITH_CASES)){
+		if(complexQueryOptions.contains(ComplexSubQueryOptions.WITH_RECENT_CASES)){
 			qb.addSubQuery(
 				CasesSelector.newInstance(0, fieldOverrides)
 					.newQueryBuilder(new Set<Object>{
@@ -466,8 +465,8 @@ public virtual inherited sharing class ContactsSelector extends ApplicationSelec
 
 		//add interaction subqueries 
 		//add Tasks subquery
-		if(complexQueryOptions.contains(ComplexSubQueryOptions.WITH_ALL_INTERACTIONS) 
-			|| complexQueryOptions.contains(ComplexSubQueryOptions.WITH_TASKS)){
+		if(complexQueryOptions.contains(ComplexSubQueryOptions.WITH_ALL_RECENT_INTERACTIONS) 
+			|| complexQueryOptions.contains(ComplexSubQueryOptions.WITH_RECENT_TASKS)){
 
 			//add AP Voice Calls bind variable to map
 			bindMap.put('apVoiceCallRecordType',apVoiceCallRecordType);
@@ -494,8 +493,8 @@ public virtual inherited sharing class ContactsSelector extends ApplicationSelec
 		}
 
 		//add VoiceCalls subquery
-		if(complexQueryOptions.contains(ComplexSubQueryOptions.WITH_ALL_INTERACTIONS) 
-			|| complexQueryOptions.contains(ComplexSubQueryOptions.WITH_VOICE_CALLS)){
+		if(complexQueryOptions.contains(ComplexSubQueryOptions.WITH_ALL_RECENT_INTERACTIONS) 
+			|| complexQueryOptions.contains(ComplexSubQueryOptions.WITH_RECENT_VOICE_CALLS)){
 
 			qb.addSubQuery(
 				VoiceCallsSelector.newInstance()
@@ -512,8 +511,8 @@ public virtual inherited sharing class ContactsSelector extends ApplicationSelec
 		}
 
 		//add LiveChatTranscripts subquery
-		if(complexQueryOptions.contains(ComplexSubQueryOptions.WITH_ALL_INTERACTIONS) 
-			|| complexQueryOptions.contains(ComplexSubQueryOptions.WITH_LIVE_CHAT_TRANSCRIPTS)){
+		if(complexQueryOptions.contains(ComplexSubQueryOptions.WITH_ALL_RECENT_INTERACTIONS) 
+			|| complexQueryOptions.contains(ComplexSubQueryOptions.WITH_RECENT_LIVE_CHAT_TRANSCRIPTS)){
 
 			qb.addSubQuery(
 				LiveChatTranscriptsSelector.newInstance()

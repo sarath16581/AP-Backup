@@ -217,7 +217,7 @@ private class ArticlesSelector_Test {
 				,'caseRecordTypes'=>ResourceCustomerInsightsV1.AP_CASE_RECORDTYPES
 				,'closedCaseCutoffDate'=>Date.today().addDays(-30)
 			}
-			,new Set<Object>{ArticlesSelector.ComplexSubQueryOptions.WITH_CASES}
+			,new Set<Object>{ArticlesSelector.ComplexSubQueryOptions.WITH_RECENT_CASES}
 		);
 		Assert.areEqual(1, results.size(), 'Expected result size of 1');
 		Assert.areEqual(1, results.values()[0].Cases__r.size(), 'Expected result size of 1');

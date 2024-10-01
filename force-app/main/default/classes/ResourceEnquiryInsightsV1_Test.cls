@@ -148,7 +148,7 @@ public class ResourceEnquiryInsightsV1_Test {
 				bindMap
 				// add complex sub query option to include Cases in subquery
 				, new Set<Object>{
-					ArticlesSelector.ComplexSubQueryOptions.WITH_CASES
+					ArticlesSelector.ComplexSubQueryOptions.WITH_RECENT_CASES
 				}))
 			.thenReturn(new Map<Id, Article__c>{article.Id =>article});
 		MockUtility.Mocks.stopStubbing();

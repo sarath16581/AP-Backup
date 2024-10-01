@@ -25,7 +25,7 @@
 * 2024-07-23 - Marcel HK - Allow match if MailingStreet equals addressLine1 + addressLine2 (CSLU-1106)
 * 2024-07-23 - Marcel HK - Added filters for accountId and abn/acn lookup (CSLU-447)
 * 2024-08-08 - Marcel HK - Update Address filters for `selectByCustomerSearchParamsQB` (CSLU-1072)
-* 2024-09-23 - Rejeesh Raghavan - Added tests for `selectWithCasesAndInteractionsHelper` `selectWithCasesAndInteractionsByPhoneNumber` `selectWithCasesAndInteractionsByEmailAddress` (CSLU-1367)
+* 2024-09-23 - Rejeesh Raghavan - Added tests for `selectWithCasesAndInteractionsHelper` `selectWithCasesAndInteractionsByReversePhoneNumber` `selectWithCasesAndInteractionsByEmailAddress` (CSLU-1367)
 */
 @IsTest
 private with sharing class ContactsSelector_Test {
@@ -617,8 +617,8 @@ private with sharing class ContactsSelector_Test {
 			queryConditions
 			, bindMap
 			, new Set<Object>{
-				ContactsSelector.ComplexSubQueryOptions.WITH_CASES
-				, ContactsSelector.ComplexSubQueryOptions.WITH_ALL_INTERACTIONS
+				ContactsSelector.ComplexSubQueryOptions.WITH_RECENT_CASES
+				, ContactsSelector.ComplexSubQueryOptions.WITH_ALL_RECENT_INTERACTIONS
 			});
 		Test.stopTest();
 		Assert.areEqual(1, contacts.size(), '1 contact should be returned');
@@ -626,10 +626,10 @@ private with sharing class ContactsSelector_Test {
 		Assert.areEqual(1, contacts[0].Tasks.size(), '1 Task should be returned');
 	}
 	/**
-	 * @description Test method for ContactsSelector.selectWithCasesAndInteractionsByPhoneNumber()
+	 * @description Test method for ContactsSelector.selectWithCasesAndInteractionsByReversePhoneNumber()
 	 */
     @IsTest
-	static void testSelectWithCasesAndInteractionsByPhoneNumber(){
+	static void testselectWithCasesAndInteractionsByReversePhoneNumber(){
 		String customerPhone='0300300300';
 		Map<String, Object> bindMap = new Map<String, Object>();
 		bindMap.put('searchKey', customerPhone);
@@ -650,7 +650,7 @@ private with sharing class ContactsSelector_Test {
 		ContactsSelector mockContactsSelector = (ContactsSelector) MockUtility.mockSelector(ContactsSelector.class);
 
 		MockUtility.Mocks.startStubbing();
-		MockUtility.Mocks.when(mockContactsSelector.selectWithCasesAndInteractionsByPhoneNumber(customerPhone, bindMap, new Set<Object>()))
+		MockUtility.Mocks.when(mockContactsSelector.selectWithCasesAndInteractionsByReversePhoneNumber(customerPhone, bindMap, new Set<Object>()))
 			.thenReturn(new List<Contact>{personContact});
 		MockUtility.Mocks.stopStubbing();
 
@@ -663,7 +663,7 @@ private with sharing class ContactsSelector_Test {
 			, Contact.VerifiedEmail__c, Contact.Phone, Contact.MobilePhone, Contact.VerifiedMobile__c
 		};
 		ContactsSelector contactSelector = ContactsSelector.newInstance(0, contactFields);
-		List<Contact> contacts = contactSelector.selectWithCasesAndInteractionsByPhoneNumber(customerPhone,bindMap, new Set<Object>());
+		List<Contact> contacts = contactSelector.selectWithCasesAndInteractionsByReversePhoneNumber(customerPhone,bindMap, new Set<Object>());
 		Test.stopTest();
 		Assert.areEqual(1, contacts.size(), '1 contact should be returned');
 	}

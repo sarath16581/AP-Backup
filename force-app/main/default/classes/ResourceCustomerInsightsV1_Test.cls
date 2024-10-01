@@ -214,12 +214,12 @@ public class ResourceCustomerInsightsV1_Test {
 		ContactsSelector mockContactsSelector = (ContactsSelector) MockUtility.mockSelector(ContactsSelector.class);
 
 		MockUtility.Mocks.startStubbing();
-		MockUtility.Mocks.when(mockContactsSelector.selectWithCasesAndInteractionsByPhoneNumber(
+		MockUtility.Mocks.when(mockContactsSelector.selectWithCasesAndInteractionsByReversePhoneNumber(
 			reversedPhone
 			, bindMap
 			, new Set<Object>{
-				ContactsSelector.ComplexSubQueryOptions.WITH_CASES
-				, ContactsSelector.ComplexSubQueryOptions.WITH_ALL_INTERACTIONS
+				ContactsSelector.ComplexSubQueryOptions.WITH_RECENT_CASES
+				, ContactsSelector.ComplexSubQueryOptions.WITH_ALL_RECENT_INTERACTIONS
 			}))
 			.thenReturn(new List<Contact>{personContact});
 		MockUtility.Mocks.stopStubbing();
@@ -334,12 +334,12 @@ public class ResourceCustomerInsightsV1_Test {
 		ContactsSelector mockContactsSelector = (ContactsSelector) MockUtility.mockSelector(ContactsSelector.class);
 
 		MockUtility.Mocks.startStubbing();
-		MockUtility.Mocks.when(mockContactsSelector.selectWithCasesAndInteractionsByPhoneNumber(
+		MockUtility.Mocks.when(mockContactsSelector.selectWithCasesAndInteractionsByReversePhoneNumber(
 			reversedPhone
 			, bindMap
 			, new Set<Object>{
-				ContactsSelector.ComplexSubQueryOptions.WITH_CASES
-				, ContactsSelector.ComplexSubQueryOptions.WITH_ALL_INTERACTIONS
+				ContactsSelector.ComplexSubQueryOptions.WITH_RECENT_CASES
+				, ContactsSelector.ComplexSubQueryOptions.WITH_ALL_RECENT_INTERACTIONS
 			}))
 			.thenReturn(new List<Contact>{personContact});
 		MockUtility.Mocks.stopStubbing();
@@ -411,7 +411,7 @@ public class ResourceCustomerInsightsV1_Test {
 		ContactsSelector mockContactsSelector = (ContactsSelector) MockUtility.mockSelector(ContactsSelector.class);
 
 		MockUtility.Mocks.startStubbing();
-		MockUtility.Mocks.when(mockContactsSelector.selectWithCasesAndInteractionsByPhoneNumber(reversedPhone, bindMap, new Set<Object>()))
+		MockUtility.Mocks.when(mockContactsSelector.selectWithCasesAndInteractionsByReversePhoneNumber(reversedPhone, bindMap, new Set<Object>()))
 			.thenReturn(new List<Contact>{personContact});
 		MockUtility.Mocks.stopStubbing();
 
@@ -524,8 +524,8 @@ public class ResourceCustomerInsightsV1_Test {
 			customerEmail
 			, bindMap
 			, new Set<Object>{
-				ContactsSelector.ComplexSubQueryOptions.WITH_CASES
-				, ContactsSelector.ComplexSubQueryOptions.WITH_ALL_INTERACTIONS
+				ContactsSelector.ComplexSubQueryOptions.WITH_RECENT_CASES
+				, ContactsSelector.ComplexSubQueryOptions.WITH_ALL_RECENT_INTERACTIONS
 			}))
 			.thenReturn(new List<Contact>{personContact});
 		MockUtility.Mocks.stopStubbing();

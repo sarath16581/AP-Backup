@@ -210,7 +210,7 @@ public with sharing class ResourceCustomerInsightsV1 extends ResourceAPIService.
 			bindMap.put('closedCaseCutoffDate',Date.today().addDays(-30));
 
 			//specify complexSearchOptions to include ALL Cases
-			complexOptions.add(ContactsSelector.ComplexSubQueryOptions.WITH_CASES);
+			complexOptions.add(ContactsSelector.ComplexSubQueryOptions.WITH_RECENT_CASES);
 		}
 
 		//use interactionType param to filter Task, VoiceCall & LiveChatTranscript record teams
@@ -225,14 +225,14 @@ public with sharing class ResourceCustomerInsightsV1 extends ResourceAPIService.
 			bindMap.put('interactionCutoffDate',Date.today().addDays(-30));
 
 			//specify complexSearchOptions to include ALL Interactions
-			complexOptions.add(ContactsSelector.ComplexSubQueryOptions.WITH_ALL_INTERACTIONS);
+			complexOptions.add(ContactsSelector.ComplexSubQueryOptions.WITH_ALL_RECENT_INTERACTIONS);
 		}
 		System.debug('emailAddress:'+ emailAddress);
 		System.debug('bindMap:'+ JSON.serialize(bindMap));
 		System.debug('complexOptions:'+ JSON.serialize(complexOptions));
 		if(paramType==PARAM_NAMES.phone.name()){
-			//get contacts by Phone Number
-			contacts = contactSelector.selectWithCasesAndInteractionsByPhoneNumber(phoneNumber,bindMap, complexOptions);
+			//get contacts by Reversed Phone Number
+			contacts = contactSelector.selectWithCasesAndInteractionsByReversePhoneNumber(phoneNumber,bindMap, complexOptions);
 		}else if(paramType==PARAM_NAMES.email.name()){
 			//get contacts by EmailAddress
 			contacts = contactSelector.selectWithCasesAndInteractionsByEmailAddress(emailAddress, bindMap, complexOptions);

@@ -132,7 +132,7 @@ public with sharing class ResourceEnquiryInsightsV1 extends ResourceAPIService.I
 			bindMap.put('closedCaseCutoffDate',Date.today().addDays(-30));
 
 			//add complex sub query options
-			complexQueryOptions.add(ArticlesSelector.ComplexSubQueryOptions.WITH_CASES);
+			complexQueryOptions.add(ArticlesSelector.ComplexSubQueryOptions.WITH_RECENT_CASES);
 		}
 		return recordSelector.selectWithCasesByIdOrTrackingOrName(
 			bindMap, complexQueryOptions
