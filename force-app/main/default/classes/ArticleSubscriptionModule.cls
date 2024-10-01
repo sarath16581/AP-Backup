@@ -131,7 +131,7 @@ public inherited sharing class ArticleSubscriptionModule extends ApplicationModu
 		}
 
 		public override SObjectType getSObjectTypeGroup() {
-			return Case.SObjectType;
+			return ImpactedArticle__c.SObjectType;
 		}
 
 		public override void deserialiseParams(String serialisedParams) {
