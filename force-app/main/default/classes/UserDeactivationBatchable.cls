@@ -48,6 +48,8 @@
 	private static final List<String> DEFAULT_EXCLUDEDPROFILES = new List<String>{'Sales Insights Integration User','SalesforceIQ Integration User','B2BMA Integration User'};
 	// define all the profiles to be included for sending email notification prior to deactivation
 	private static final List<String> DEFAULT_NOTIFICATIONPROFILES = new List<String>{'MyNetwork Portal'};
+	// define all the roles to be included for sending email notification prior to deactivation for retail users
+	private static final List<String> DEFAULT_NOTIFICATIONROLES = new List<String>{'SSSW MyNetwork Manager'};
 	// define from notification email
 	private static final String DEFAULT_FROM_NOTIFICATIONEMAIL = 'no-reply@auspost.com.au';
 
@@ -69,10 +71,12 @@
 	private static final List<String> CONFIG_EXCLUDEDPROFILES = CONFIG?.ExcludedProfileNames__c?.split(',') ?? DEFAULT_EXCLUDEDPROFILES;
 	private static final List<String> CONFIG_NOTIFICATIONPROFILES = CONFIG?.NotificationProfileNames__c?.split(',') ?? DEFAULT_NOTIFICATIONPROFILES;
 	private static final String CONFIG_FROMNOTIFICATIONEMAIL = String.valueOf(CONFIG?.NotificationFromEmail__c) ?? DEFAULT_FROM_NOTIFICATIONEMAIL;
+	private static final List<String> CONFIG_NOTIFICATIONROLES = CONFIG?.NotificationRoleNames__c?.split(',') ?? DEFAULT_NOTIFICATIONROLES;
 	
 	//Fields to query
 	private static final Set<SObjectField> USER_FIELDS = new Set<SObjectField>{ User.Id, User.Name, User.Username, User.Email, User.CreatedDate, User.MyNetwork_Retail_User__c, User.LastAutoDeactivatedDate__c, User.LastLoginDate };
     private static final Set<SObjectField> PROFILE_FIELDS = new Set<SObjectField>{ Profile.Name };
+    private static final Set<SObjectField> USERROLE_FIELDS = new Set<SObjectField>{ UserRole.name };
 
 	public UserDeactivationBatchable() {
 		failedUserMap = new Map<Id, User>();
@@ -106,13 +110,13 @@
 	public Database.QueryLocator start(Database.BatchableContext bc) {
 		// Query for users who have been inactive and based on few more filters
 		Map<SObjectType, Set<SObjectField>> fieldOverrides = new Map<SObjectType, Set<SObjectField>>{
-			User.SObjectType => USER_FIELDS, Profile.SObjectType =>  PROFILE_FIELDS
+			User.SObjectType => USER_FIELDS, Profile.SObjectType =>  PROFILE_FIELDS, UserRole.SObjectType =>  USERROLE_FIELDS
 		};
 		return UsersSelector.newInstance(
 				0,
 				fieldOverrides
 			)
-			.selectUsersEligibleForDeactivationQueryLocator(DEFAULT_USERTYPE, CONFIG_NOTIFICATION_LASTLOGIN_DAYS, CONFIG_LASTINVITE_DAYS, new Set<String>(CONFIG_EXCLUDEDPROFILES), new Set<Object>{UsersSelector.Options.WITH_PROFILE});
+			.selectUsersEligibleForDeactivationQueryLocator(DEFAULT_USERTYPE, CONFIG_NOTIFICATION_LASTLOGIN_DAYS, CONFIG_LASTINVITE_DAYS, new Set<String>(CONFIG_EXCLUDEDPROFILES), new Set<Object>{UsersSelector.Options.WITH_PROFILE, UsersSelector.Options.WITH_ROLE});
 	}
 
 	public void execute(Database.BatchableContext bc, List<User> scope) {
@@ -123,7 +127,7 @@
 					usr.IsActive = false;
 					usr.LastAutoDeactivatedDate__c = Date.today();
 					updateable.add(usr);
-				} else if(CONFIG_NOTIFICATIONPROFILES.contains(usr.Profile.Name) && !usr.MyNetwork_Retail_User__c && usr.LastLoginDate < Datetime.now().addDays(-CONFIG_NOTIFICATION_LASTLOGIN_DAYS) && usr.LastLoginDate > Datetime.now().addDays(-CONFIG_LASTLOGIN_DAYS)) {
+				} else if(CONFIG_NOTIFICATIONPROFILES.contains(usr.Profile.Name) && (!usr.MyNetwork_Retail_User__c || (usr.MyNetwork_Retail_User__c && CONFIG_NOTIFICATIONROLES.contains(usr.UserRole.Name))) && usr.LastLoginDate < Datetime.now().addDays(-CONFIG_NOTIFICATION_LASTLOGIN_DAYS) && usr.LastLoginDate > Datetime.now().addDays(-CONFIG_LASTLOGIN_DAYS)) {
 					//Send email notification
 					userEmailNotification.add(usr);
 				}
