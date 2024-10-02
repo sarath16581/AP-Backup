@@ -80,10 +80,24 @@ export default class UnifiedCaseCreation extends LightningElement {
 	@api consignmentId;
 
 	/**
-	 * A list of article identifiers to associate with the Case via the `ImpactedArticle__c` object.
+	 * setter for a list of article identifiers to associate with the Case via the `ImpactedArticle__c` object.
+	 * and enable create button if it's disabled due to error message validation.
 	 * @type {string[]}
 	 */
-	@api impactedArticles;
+	@api set impactedArticles(value) {
+		if (Array.isArray(value) && value.length > 0) {
+			this._impactedArticles = value;
+			this.disableCreateBtn = false;
+		}
+	}
+
+	/**
+	 * getter for impacted articles value to associate with the Case record
+	 * @returns {string[]}
+	 */
+	get impactedArticles(){
+		return this._impactedArticles;
+	}
 
 	/**
 	 * getter for enquiry type value to associate with the Case record
@@ -166,6 +180,7 @@ export default class UnifiedCaseCreation extends LightningElement {
 	_enquirySubType = '';
 	_productCategory = '';
 	_productSubCategory = '';
+	_impactedArticles;
 
 	// Private properties without getter and setter
 	notes = '';
