@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>CaseClosureEmailAlertNameAusPost__c</fullName>
+    <description>Identifies the workflow email alert to use to notify customer when a case related to an &apos;AusPost&apos; product has been closed as a result of receiving this event message. Applicable only when IsCaseClosureEligible__c = true.</description>
+    <externalId>false</externalId>
+    <fieldManageability>DeveloperControlled</fieldManageability>
+    <inlineHelpText>Identifies the workflow email alert to use to notify customer when a case related to an &apos;AusPost&apos; product has been closed as a result of receiving this event message.</inlineHelpText>
+    <label>Case Closure Email Alert Name AusPost</label>
+    <length>80</length>
+    <required>false</required>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

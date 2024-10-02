@@ -4,7 +4,7 @@
     <protected>false</protected>
     <values>
         <field>CaseAutomationReassignmentReason__c</field>
-        <value xsi:nil="true"/>
+        <value xsi:type="xsd:string">Review scans</value>
     </values>
     <values>
         <field>CaseAutomationResolutionCode__c</field>
@@ -13,6 +13,14 @@
     <values>
         <field>CaseAutomationRootCause__c</field>
         <value xsi:type="xsd:string">Unclear EDD</value>
+    </values>
+    <values>
+        <field>CaseClosureEmailAlertNameAusPost__c</field>
+        <value xsi:nil="true"/>
+    </values>
+    <values>
+        <field>CaseClosureEmailAlertNameStarTrack__c</field>
+        <value xsi:nil="true"/>
     </values>
     <values>
         <field>Category__c</field>
@@ -24,11 +32,11 @@
     </values>
     <values>
         <field>IsCaseClosureEligible__c</field>
-        <value xsi:type="xsd:string">Yes</value>
+        <value xsi:type="xsd:string">No</value>
     </values>
     <values>
         <field>IsCaseReassignmentEligible__c</field>
-        <value xsi:type="xsd:string">No</value>
+        <value xsi:type="xsd:string">Yes</value>
     </values>
     <values>
         <field>IsEnquiryLodged__c</field>
