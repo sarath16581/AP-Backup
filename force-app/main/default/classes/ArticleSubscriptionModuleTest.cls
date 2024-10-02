@@ -2,6 +2,7 @@
  * @description Test class covering ArticleSubscriptionModule
  * @changelog
  * 2024-09-12 - Seth Heang - Created
+ * 2024-10-02 - Seth Heang - updated case test data with unified investigation record type
  */
 @IsTest
 public class ArticleSubscriptionModuleTest {
@@ -17,6 +18,7 @@ public class ArticleSubscriptionModuleTest {
 		// Data Preparation
 		// =====================================
 		Case caseTest = ApplicationTestDataFactoryCase.getCases(1, true)[0];
+		caseTest.RecordTypeId = ApplicationTestDataFactoryCase.caseUnifiedInvestigationRecordType;
 		Article__c consignment = ApplicationTestDataFactory.getConsignments(1, true)[0];
 		List<Article__c> articles = ApplicationTestDataFactory.getArticles(250, consignment.Id, true);
 		List<ImpactedArticle__c> impactedArticles = new List<ImpactedArticle__c>();
