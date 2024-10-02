@@ -44,6 +44,22 @@ private class ImpactedArticlesSelector_Test {
 		soql = qb.toSoqlString();
 		Assert.isTrue(Pattern.compile('(?ism)Case__r\\.IsClosed.*?\\bfrom ImpactedArticle__c\\b').matcher(soql).find(), 'Resulting query does not select Case__r fields: ' + soql);
 
+
+		Map<SObjectType, Set<SObjectField>> overrideFields = new Map<SObjectType, Set<SObjectField>>{
+			ImpactedArticle__c.SObjectType => new Set<SObjectField>{ ImpactedArticle__c.Case__c, ImpactedArticle__c.Article__c },
+			Case.SObjectType => new Set<SObjectField>{ Case.Id, Case.CaseNumber },
+			Article__c.SObjectType => new Set<SObjectField>{ Article__c.ArticleID__c }
+		};
+
+		selector = ImpactedArticlesSelector.newInstance(overrideFields);
+		qb = selector.newQueryBuilder(new Set<Object>{ ImpactedArticlesSelector.Options.WITH_CASE, ImpactedArticlesSelector.Options.WITH_ARTICLE });
+		soql = qb.toSoqlString();
+		Assert.areEqual(true, Pattern.compile('(?ism)\\bArticle__c\\b.*?\\bfrom ImpactedArticle__c\\b').matcher(soql).find(), 'Resulting query does not select Article__c field: ' + soql);
+		Assert.areEqual(true, Pattern.compile('(?ism)\\bCase__c\\b.*?\\bfrom ImpactedArticle__c\\b').matcher(soql).find(), 'Resulting query does not select Case__c field: ' + soql);
+		Assert.areEqual(true, Pattern.compile('(?ism)\\bCase__r.Id\\b.*?\\bfrom ImpactedArticle__c\\b').matcher(soql).find(), 'Resulting query does not select Case__r.Id field: ' + soql);
+		Assert.areEqual(true, Pattern.compile('(?ism)\\bCase__r.CaseNumber\\b.*?\\bfrom ImpactedArticle__c\\b').matcher(soql).find(), 'Resulting query does not select Case__r.CaseNumber field: ' + soql);
+		Assert.areEqual(true, Pattern.compile('(?ism)\\bArticle__r.ArticleID__c\\b.*?\\bfrom ImpactedArticle__c\\b').matcher(soql).find(), 'Resulting query does not select Article__r.ArticleID__c field: ' + soql);
+
 		Test.stopTest();
 		
 	}
@@ -132,7 +148,7 @@ private class ImpactedArticlesSelector_Test {
 		
 		Article__c consignment = ApplicationTestDataFactory.getConsignments(1, false)[0];		
 		INSERT consignment;
-	   
+	 
 		
 		Article__c article = ApplicationTestDataFactory.getArticles(2, consignment.Id, false)[0];
 		INSERT article;
@@ -153,8 +169,12 @@ private class ImpactedArticlesSelector_Test {
 		// =====================================
 		Test.startTest();
 		ImpactedArticlesSelector selector = ImpactedArticlesSelector.newInstance();
-		List<ImpactedArticle__c> results  = selector.selectByCaseId(new Set<Id>{caserec.Id}, new Set<Object>());
+		List<ImpactedArticle__c> results = selector.selectByCaseId(new Set<Id>{caserec.Id}, new Set<Object>());
 		System.assertEquals(1, results.size(), 'Expected result size of 1');
+
+		ImpactedArticlesSelector.newInstance();
+		results = selector.selectById(new Set<Id>{ impactedArticles[0].Id }, new Set<Object>());
+		Assert.areEqual(1, results.size(), 'Expected result size of 1');
 		Test.stopTest();
 		
 	}
