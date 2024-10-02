@@ -66,10 +66,14 @@ export default class UnifiedCaseCreation extends LightningElement {
 	 * @param value
 	 */
 	set contactId(value){
-		this._contactId = value;
+		if (value) {
+			this._contactId = value;
+			this.disableCreateBtn = false;
+		}
 		const el = this.template.querySelector('lightning-record-picker[data-field-name=contactId]');
 		if(el && !value){
 			el.clearSelection();
+			this._contactId = undefined;
 		}
 	}
 
