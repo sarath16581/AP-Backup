@@ -170,6 +170,16 @@ public with sharing class ResourceCustomerInsightsV1 extends ResourceAPIService.
 		Set<SobjectField> taskFields = new Set<SObjectField>{
 			Task.Id, Task.ActivityDate
 		};
+		
+		//VoiceCall fields to be queried
+		Set<SobjectField> voiceCallFields = new Set<SObjectField>{
+			VoiceCall.Id, VoiceCall.CreatedDate
+		};
+		
+		//LiveChatTranscript fields to be queried
+		Set<SobjectField> liveChatTranscriptFields = new Set<SObjectField>{
+			LiveChatTranscript.Id, LiveChatTranscript.CreatedDate
+		};
 
 		//User fields to be queried
 		Set<SobjectField> userFields = new Set<SObjectField>{
@@ -188,6 +198,8 @@ public with sharing class ResourceCustomerInsightsV1 extends ResourceAPIService.
 		fieldOverrides.put(Case.getSObjectType(), caseFields);
 		fieldOverrides.put(Article__c.getSObjectType(), articleFields);
 		fieldOverrides.put(Task.getSObjectType(), taskFields);
+		fieldOverrides.put(VoiceCall.getSObjectType(), voiceCallFields);
+		fieldOverrides.put(LiveChatTranscript.getSObjectType(), liveChatTranscriptFields);
 		fieldOverrides.put(User.getSObjectType(), userFields);
 		fieldOverrides.put(Profile.getSObjectType(), profileFields);
 
@@ -205,9 +217,10 @@ public with sharing class ResourceCustomerInsightsV1 extends ResourceAPIService.
 			caseRecordTypes.addAll(ST_CASE_RECORDTYPES);
 			caseRecordTypes.addAll(UNIFIED_CASE_RECORDTYPES);
 
-			//add caseRecordTypes & closedCaseCutoffDate to bindMap to be used in SOQL
+			//add Case sub-query conditions & bind variables, caseRecordTypes & closedCaseCutoffDate, to bindMap to be used in SOQL
 			bindMap.put('caseRecordTypes',caseRecordTypes);
 			bindMap.put('closedCaseCutoffDate',Date.today().addDays(-30));
+			bindMap.put('caseConditions', '((IsClosed = true AND ClosedDate >=:closedCaseCutoffDate) OR IsClosed = false) AND  RecordType.DeveloperName  IN :caseRecordTypes');
 
 			//specify complexSearchOptions to include ALL Cases
 			complexOptions.add(ContactsSelector.ComplexSubQueryOptions.WITH_RECENT_CASES);
@@ -224,12 +237,20 @@ public with sharing class ResourceCustomerInsightsV1 extends ResourceAPIService.
 			bindMap.put('interactionProfiles',interactionProfiles);
 			bindMap.put('interactionCutoffDate',Date.today().addDays(-30));
 
+			//add Tasks sub-query conditions
+			bindMap.put('taskType', 'Phone Call');
+			bindMap.put('apVoiceCallRecordType', 'SSSWCall');
+			bindMap.put('taskConditions', '(Type =:taskType  OR  RecordType.DeveloperName =:apVoiceCallRecordType) AND CreatedDate >=:interactionCutoffDate AND CreatedBy.Profile.Name IN :interactionProfiles');
+			
+			//add VoiceCalls sub-query conditions
+			bindMap.put('voiceCallsConditions', 'CreatedDate >=:interactionCutoffDate AND CreatedBy.Profile.Name IN :interactionProfiles');
+			
+			//add LiveChatTranscripts sub-query conditions
+			bindMap.put('liveChatTranscriptConditions', 'CreatedDate >=:interactionCutoffDate AND Owner.Profile.Name IN :interactionProfiles');
+
 			//specify complexSearchOptions to include ALL Interactions
 			complexOptions.add(ContactsSelector.ComplexSubQueryOptions.WITH_ALL_RECENT_INTERACTIONS);
 		}
-		System.debug('emailAddress:'+ emailAddress);
-		System.debug('bindMap:'+ JSON.serialize(bindMap));
-		System.debug('complexOptions:'+ JSON.serialize(complexOptions));
 		if(paramType==PARAM_NAMES.phone.name()){
 			//get contacts by Reversed Phone Number
 			contacts = contactSelector.selectWithCasesAndInteractionsByReversePhoneNumber(phoneNumber,bindMap, complexOptions);
