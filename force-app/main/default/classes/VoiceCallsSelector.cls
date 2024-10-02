@@ -5,6 +5,7 @@
  * @changelog
  * 2024-08-15 - Paul Perry - created
  * 2024-09-20 - Vasu Gorakati - Added method selectByRelatedRecordIds
+ * 2024-09-24 - George Nguyen - Included Case__c field as default. It qualifies to be as it will be commonly used. 
  */
 public virtual inherited sharing class VoiceCallsSelector extends ApplicationSelector {
 	public enum Options {
@@ -29,7 +30,7 @@ public virtual inherited sharing class VoiceCallsSelector extends ApplicationSel
 	}
 
 	public virtual override Set<SObjectField> getSObjectFieldList() {
-		return new Set<SObjectField>{ VoiceCall.Id,  VoiceCall.Name, VoiceCall.CallStartDateTime, VoiceCall.CallEndDateTime, VoiceCall.CallType};
+		return new Set<SObjectField>{ VoiceCall.Id,  VoiceCall.Name, VoiceCall.CallStartDateTime, VoiceCall.CallEndDateTime, VoiceCall.CallType, VoiceCall.Case__c};
 	}
 	public static VoiceCallsSelector newInstance(Set<SObjectField> fieldOverrides) {
 		return (VoiceCallsSelector) Application.Selectors.newInstance(VoiceCallsSelector.class)
