@@ -1,7 +1,7 @@
 import { createElement } from 'lwc';
-import getLatestCaseFeedsResults from '@salesforce/apex/UnifiedCaseFeedsUpdateController.getLatestCaseFeedsResults';
+import getLatestCaseFeedsResults from '@salesforce/apex/UnifiedCaseFeedController.getLatestCaseFeedsResults';
 import { refreshApex } from '@salesforce/apex';
-import UnifiedCaseFeeds from 'c/unifiedCaseFeeds';
+import UnifiedCaseFeed from 'c/unifiedCaseFeed';
 import { getNavigateCalledWith } from 'lightning/navigation';
 
 // Mock Apex Response data
@@ -17,7 +17,7 @@ const MOCK_GET_CASE_FEEDS_FAILURE = {
 
 // Mock imperative wire call
 jest.mock(
-	'@salesforce/apex/UnifiedCaseFeedsUpdateController.getLatestCaseFeedsResults',
+	'@salesforce/apex/UnifiedCaseFeedController.getLatestCaseFeedsResults',
 	() => {
 		const { createApexTestWireAdapter } = require("@salesforce/sfdx-lwc-jest");
 		return {
@@ -67,7 +67,7 @@ function flushAllPromises() {
 	return new Promise((resolve) => setTimeout(resolve, 0));
 }
 
-describe('c-unified-case-feeds', () => {
+describe('c-unified-case-feed', () => {
 	afterEach(() => {
 		// The jsdom instance is shared across test cases in a single file so reset the DOM
 		while (document.body.firstChild) {
@@ -80,8 +80,8 @@ describe('c-unified-case-feeds', () => {
 
 	it('displays case feed component with three feed results', async () => {
 		// Arrange
-		const element = createElement('c-unified-case-feeds', {
-			is: UnifiedCaseFeeds
+		const element = createElement('c-unified-case-feed', {
+			is: UnifiedCaseFeed
 		});
 
 		// Act
@@ -138,8 +138,8 @@ describe('c-unified-case-feeds', () => {
 
 	it('displays case feed component with more than three feed results', async () => {
 		// Arrange
-		const element = createElement('c-unified-case-feeds', {
-			is: UnifiedCaseFeeds
+		const element = createElement('c-unified-case-feed', {
+			is: UnifiedCaseFeed
 		});
 
 		// Act
@@ -209,8 +209,8 @@ describe('c-unified-case-feeds', () => {
 
 	it('displays case feed component with more than three feed results and toggle view more button', async () => {
 		// Arrange
-		const element = createElement('c-unified-case-feeds', {
-			is: UnifiedCaseFeeds
+		const element = createElement('c-unified-case-feed', {
+			is: UnifiedCaseFeed
 		});
 
 		// Act
@@ -277,8 +277,8 @@ describe('c-unified-case-feeds', () => {
 
 	it('displays case feed component with no feed results', async () => {
 		// Arrange
-		const element = createElement('c-unified-case-feeds', {
-			is: UnifiedCaseFeeds
+		const element = createElement('c-unified-case-feed', {
+			is: UnifiedCaseFeed
 		});
 
 		// Act
@@ -300,8 +300,8 @@ describe('c-unified-case-feeds', () => {
 
 	it('displays case feed component to refresh and verify refreshApex is called once', async () => {
 		// Arrange
-		const element = createElement('c-unified-case-feeds', {
-			is: UnifiedCaseFeeds
+		const element = createElement('c-unified-case-feed', {
+			is: UnifiedCaseFeed
 		});
 
 		refreshApex.mockResolvedValue(MOCK_CASE_FEED_MORE_THAN_THREE_RESULTS);
@@ -350,8 +350,8 @@ describe('c-unified-case-feeds', () => {
 
 	it('displays case feed component with unexpected failure in @wire adaptor', async () => {
 		// Arrange
-		const element = createElement('c-unified-case-feeds', {
-			is: UnifiedCaseFeeds
+		const element = createElement('c-unified-case-feed', {
+			is: UnifiedCaseFeed
 		});
 
 		// Act
@@ -370,8 +370,8 @@ describe('c-unified-case-feeds', () => {
 
 	it('allows record navigation when icon button is clicked on SCR', async () => {
 		// Arrange
-		const element = createElement('c-unified-case-feeds', {
-			is: UnifiedCaseFeeds
+		const element = createElement('c-unified-case-feed', {
+			is: UnifiedCaseFeed
 		});
 
 		// Act

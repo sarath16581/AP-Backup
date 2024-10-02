@@ -1,19 +1,19 @@
 /**
  * @description This LWC component displays case's related feed update from associated objects such as Scheduled Contact Requests, EmailMessage and Scan Event Messages
- *		The list is sorted in descending order where latest changes will be displayed at the top row, and in the leftmost of the three cards of the row.
+ *          The list is sorted in descending order where latest changes will be displayed at the top row, and in the leftmost of the three cards of the row.
  * @author Seth Heang
  * @changelog
  * 2024-06-23 - Seth Heang - created
  */
 import { LightningElement, wire, api } from 'lwc';
-import getLatestCaseFeedsResults from '@salesforce/apex/UnifiedCaseFeedsUpdateController.getLatestCaseFeedsResults';
+import getLatestCaseFeedsResults from '@salesforce/apex/UnifiedCaseFeedController.getLatestCaseFeedsResults';
 import { reduceErrors } from 'c/ldsUtils';
 import { refreshApex } from '@salesforce/apex';
 import { NavigationMixin } from 'lightning/navigation';
 
 const CONTACT_REQUEST_ICON = 'standard:contact_request';
 
-export default class UnifiedCaseFeeds extends NavigationMixin(LightningElement) {
+export default class UnifiedCaseFeed extends NavigationMixin(LightningElement) {
 	/**
 	 * The record Id from Case lightning record page where this component is used.
 	 * @type {string}
@@ -40,13 +40,13 @@ export default class UnifiedCaseFeeds extends NavigationMixin(LightningElement) 
 
 	/**
 	 * Used to store feed results from wire adaptor and used for refreshApex() data refresh
-	 * @type {[{feedHeader: string, feedBody: string, feedDateTime: string, feedCustomIcon: string, feedRecordId: string}]}
+	 * @type {{feedHeader: string, feedBody: string, feedDateTime: string, feedCustomIcon: string, feedRecordId: string}[]}
 	 */
-	wiredFeedResults = [];
+	wiredFeedResults= [];
 
 	/**
 	 * Used to store feed results and data manipulation (e.g. DateTime formatted and sorted) for UI display
-	 * @type {[{feedHeader: string, feedBody: string, feedDateTime: string, feedCustomIcon: string, feedRecordId: string}]}
+	 * @type {{feedHeader: string, feedBody: string, feedDateTime: string, feedCustomIcon: string, feedRecordId: string}[]}
 	 */
 	feedResults = [];
 
@@ -59,6 +59,7 @@ export default class UnifiedCaseFeeds extends NavigationMixin(LightningElement) 
 	wiredCaseFeeds(result) {
 		try {
 			this.isLoading = true;
+			console.log("SETH result wired: " + JSON.stringify(result));
 			// this variable "wiredFeedResults" is used for refreshApex()
 			this.wiredFeedResults = result;
 			if (result.error) {
@@ -67,7 +68,6 @@ export default class UnifiedCaseFeeds extends NavigationMixin(LightningElement) 
 				this.isLoading = false;
 			} else if (result.data) {
 				this.feedResults = result.data;
-				// update contact request icon css colour to similarly match tab icon colour
 				this.feedResults = this.feedResults.map((item) => {
 					return {
 						...item,
@@ -77,7 +77,7 @@ export default class UnifiedCaseFeeds extends NavigationMixin(LightningElement) 
 				// Sorting the feedResults by feedDateTime in descending order
 				this.feedResults = this.sortFeedDateTimeInDescendingOrder(this.feedResults);
 
-				// Loop over the feedResults and format each feedDateTime in more readable format
+				// Loop over the feedResults and format each feedDateTime
 				this.feedResults = this.feedResults.map((item) => {
 					return {
 						...item,
@@ -96,11 +96,11 @@ export default class UnifiedCaseFeeds extends NavigationMixin(LightningElement) 
 	/**
 	 * @description sort date time in descending order (latest date time comes first in the list)
 	 * @param feedResults
-	 * @returns {[{feedHeader: string, feedBody: string, feedDateTime: string, feedCustomIcon: string, feedRecordId: string}]}
+	 * @returns {{feedHeader: string, feedBody: string, feedDateTime: string, feedCustomIcon: string, feedRecordId: string}[]}
 	 */
 	sortFeedDateTimeInDescendingOrder(feedResults) {
 		if (!feedResults && feedResults.length === 0) {
-			return feedResults;
+			return;
 		}
 		return feedResults.sort((a, b) => new Date(b.feedDateTime) - new Date(a.feedDateTime));
 	}
@@ -155,7 +155,7 @@ export default class UnifiedCaseFeeds extends NavigationMixin(LightningElement) 
 
 	/**
 	 * @description split the full feed results list and only get the 3 latest feed results
-	 * @returns {[{feedHeader: string, feedBody: string, feedDateTime: string, feedCustomIcon: string, feedRecordId: string}]} the 3 latest feed results
+	 * @returns {{feedHeader: string, feedBody: string, feedDateTime: string, feedCustomIcon: string, feedRecordId: string}[]} the 3 latest feed results
 	 */
 	get latest3Feeds() {
 		return this.feedResults.slice(0, 3);
@@ -163,7 +163,7 @@ export default class UnifiedCaseFeeds extends NavigationMixin(LightningElement) 
 
 	/**
 	 * @description split the full feed results list and get the remaining feed results after the 3 latest feeds
-	 * @returns {[{feedHeader: string, feedBody: string, feedDateTime: string, feedCustomIcon: string, feedRecordId: string}]} remaining feed results after the 3 latest feeds
+	 * @returns {{feedHeader: string, feedBody: string, feedDateTime: string, feedCustomIcon: string, feedRecordId: string}[]} remaining feed results after the 3 latest feeds
 	 */
 	get remainingFeeds() {
 		return this.feedResults.slice(3);

@@ -1,16 +1,16 @@
 /**
- * @description Apex Controller for `UnifiedCaseFeedsUpdate` LWC component.
- *	It retrieves related important objects that are associated with the provided case such as:
- *	- Scheduled Contact Request (ContactRequest)
- *	- Email Message (EmailMessage)
- *	- Scan Event Message (EventMessage__c)
- *	Then display on the LWC component embedded on the case page layout.
- * @test UnifiedCaseFeedsUpdateControllerTest
+ * @description Apex Controller for `UnifiedCaseFeed` LWC component.
+ * It retrieves related important objects that are associated with the provided case such as:
+ * - Scheduled Contact Request (ContactRequest)
+ * - Email Message (EmailMessage)
+ * - Scan Event Message (EventMessage__c)
+ * Then display on the LWC component embedded on the case page layout.
+ * @test UnifiedCaseFeedControllerTest
  * @author Seth Heang
  * @changelog:
  * 2024-09-23 - Seth Heang - created
  */
-public with sharing class UnifiedCaseFeedsUpdateController {
+public with sharing class UnifiedCaseFeedController {
 	@TestVisible
 	private final static String FEED_HEADER_SCR = 'Scheduled Contact Request';
 	@TestVisible
