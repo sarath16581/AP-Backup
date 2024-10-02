@@ -40,13 +40,13 @@ export default class UnifiedCaseFeed extends NavigationMixin(LightningElement) {
 
 	/**
 	 * Used to store feed results from wire adaptor and used for refreshApex() data refresh
-	 * @type {{feedHeader: string, feedBody: string, feedDateTime: string, feedCustomIcon: string, feedRecordId: string}[]}
+	 * @type {[{feedHeader: string, feedBody: string, feedDateTime: string, feedCustomIcon: string, feedRecordId: string}]}
 	 */
 	wiredFeedResults= [];
 
 	/**
 	 * Used to store feed results and data manipulation (e.g. DateTime formatted and sorted) for UI display
-	 * @type {{feedHeader: string, feedBody: string, feedDateTime: string, feedCustomIcon: string, feedRecordId: string}[]}
+	 * @type {[{feedHeader: string, feedBody: string, feedDateTime: string, feedCustomIcon: string, feedRecordId: string}]}
 	 */
 	feedResults = [];
 
@@ -59,7 +59,6 @@ export default class UnifiedCaseFeed extends NavigationMixin(LightningElement) {
 	wiredCaseFeeds(result) {
 		try {
 			this.isLoading = true;
-			console.log("SETH result wired: " + JSON.stringify(result));
 			// this variable "wiredFeedResults" is used for refreshApex()
 			this.wiredFeedResults = result;
 			if (result.error) {
@@ -96,11 +95,11 @@ export default class UnifiedCaseFeed extends NavigationMixin(LightningElement) {
 	/**
 	 * @description sort date time in descending order (latest date time comes first in the list)
 	 * @param feedResults
-	 * @returns {{feedHeader: string, feedBody: string, feedDateTime: string, feedCustomIcon: string, feedRecordId: string}[]}
+	 * @returns {[{feedHeader: string, feedBody: string, feedDateTime: string, feedCustomIcon: string, feedRecordId: string}]}
 	 */
 	sortFeedDateTimeInDescendingOrder(feedResults) {
 		if (!feedResults && feedResults.length === 0) {
-			return;
+			return feedResults;
 		}
 		return feedResults.sort((a, b) => new Date(b.feedDateTime) - new Date(a.feedDateTime));
 	}
@@ -155,7 +154,7 @@ export default class UnifiedCaseFeed extends NavigationMixin(LightningElement) {
 
 	/**
 	 * @description split the full feed results list and only get the 3 latest feed results
-	 * @returns {{feedHeader: string, feedBody: string, feedDateTime: string, feedCustomIcon: string, feedRecordId: string}[]} the 3 latest feed results
+	 * @returns {[{feedHeader: string, feedBody: string, feedDateTime: string, feedCustomIcon: string, feedRecordId: string}]} the 3 latest feed results
 	 */
 	get latest3Feeds() {
 		return this.feedResults.slice(0, 3);
@@ -163,7 +162,7 @@ export default class UnifiedCaseFeed extends NavigationMixin(LightningElement) {
 
 	/**
 	 * @description split the full feed results list and get the remaining feed results after the 3 latest feeds
-	 * @returns {{feedHeader: string, feedBody: string, feedDateTime: string, feedCustomIcon: string, feedRecordId: string}[]} remaining feed results after the 3 latest feeds
+	 * @returns {[{feedHeader: string, feedBody: string, feedDateTime: string, feedCustomIcon: string, feedRecordId: string}]} remaining feed results after the 3 latest feeds
 	 */
 	get remainingFeeds() {
 		return this.feedResults.slice(3);
