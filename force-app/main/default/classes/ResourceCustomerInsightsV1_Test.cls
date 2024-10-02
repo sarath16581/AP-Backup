@@ -42,6 +42,9 @@ public class ResourceCustomerInsightsV1_Test {
 			caseRecordTypes.addAll(ResourceCustomerInsightsV1.UNIFIED_CASE_RECORDTYPES);
 			bindMap.put('caseRecordTypes',caseRecordTypes);
 			bindMap.put('closedCaseCutoffDate',Date.today().addDays(-30));
+			
+			//add Case sub-query conditions 
+			bindMap.put('caseConditions', '((IsClosed = true AND ClosedDate >=:closedCaseCutoffDate) OR IsClosed = false) AND  RecordType.DeveloperName  IN :caseRecordTypes');
 		}
 		if(hasInteractionType){
 			Set<String> interactionProfiles = new Set<String>();
@@ -50,6 +53,17 @@ public class ResourceCustomerInsightsV1_Test {
 			interactionProfiles.addAll(ResourceCustomerInsightsV1.U_CC_PROFILES);
 			bindMap.put('interactionProfiles', interactionProfiles);
 			bindMap.put('interactionCutoffDate', Date.today().addDays(-30));
+
+			//add Tasks sub-query conditions
+			bindMap.put('taskType', 'Phone Call');
+			bindMap.put('apVoiceCallRecordType', 'SSSWCall');
+			bindMap.put('taskConditions', '(Type =:taskType  OR  RecordType.DeveloperName =:apVoiceCallRecordType) AND CreatedDate >=:interactionCutoffDate AND CreatedBy.Profile.Name IN :interactionProfiles');
+			
+			//add VoiceCalls sub-query conditions
+			bindMap.put('voiceCallsConditions', 'CreatedDate >=:interactionCutoffDate AND CreatedBy.Profile.Name IN :interactionProfiles');
+			
+			//add LiveChatTranscripts sub-query conditions
+			bindMap.put('liveChatTranscriptConditions', 'CreatedDate >=:interactionCutoffDate AND Owner.Profile.Name IN :interactionProfiles');
 		}
 		return bindMap;
 	}

@@ -416,8 +416,7 @@ public virtual inherited sharing class ContactsSelector extends ApplicationSelec
 	 */
 	public List<Contact> selectWithCasesAndInteractionsHelper(String queryConditions, Map<String, Object> bindMap, Set<Object> complexQueryOptions) {
 
-		final String businessContactRecordType = 'Business_Account',
-			apVoiceCallRecordType = 'SSSWCall';
+		final String businessContactRecordType = 'Business_Account';
 			bindMap.put('businessContactRecordType',businessContactRecordType);
 
 			// create query condition to filter Consumer Accounts or Business Contacts only.
@@ -441,6 +440,15 @@ public virtual inherited sharing class ContactsSelector extends ApplicationSelec
 
 		//add Cases subquery
 		if(complexQueryOptions.contains(ComplexSubQueryOptions.WITH_RECENT_CASES)){
+
+			//get Case sub-query WHERE clause
+			String caseConditions = bindMap.containsKey('caseConditions')?(String)bindMap.get('caseConditions'):'';
+
+			//if Case sub-query WHERE clause is blank, add default clause to fetch closed cases in the past 30 days
+			if(String.isBlank(caseConditions)){
+				caseConditions = 'ClosedDate >=:closedCaseCutoffDate';
+				bindMap.put('closedCaseCutoffDate',Date.today().addDays(-30));
+			}
 			qb.addSubQuery(
 				CasesSelector.newInstance(0, fieldOverrides)
 					.newQueryBuilder(new Set<Object>{
@@ -448,11 +456,7 @@ public virtual inherited sharing class ContactsSelector extends ApplicationSelec
 						,CasesSelector.Options.WITH_ARTICLE
 					})
 					.addConditions()
-					.add(new QueryBuilder.CompareCondition(Case.IsClosed).eq(true))
-					.add(new QueryBuilder.SimpleCondition(Case.ClosedDate + ' >=:closedCaseCutoffDate'))
-					.add(new QueryBuilder.CompareCondition(Case.IsClosed).eq(false))
-					.add(new QueryBuilder.SimpleCondition(' RecordType.DeveloperName  IN :caseRecordTypes'))
-					.setConditionOrder('((1 AND 2) OR 3) AND 4')
+					.add(new QueryBuilder.SimpleCondition(caseConditions))
 					.endConditions()
 					
 					//sort by ClosedDate, as it will be NULL for Open Cases use NULLS FIRST
@@ -468,21 +472,22 @@ public virtual inherited sharing class ContactsSelector extends ApplicationSelec
 		if(complexQueryOptions.contains(ComplexSubQueryOptions.WITH_ALL_RECENT_INTERACTIONS) 
 			|| complexQueryOptions.contains(ComplexSubQueryOptions.WITH_RECENT_TASKS)){
 
-			//add AP Voice Calls bind variable to map
-			bindMap.put('apVoiceCallRecordType',apVoiceCallRecordType);
+			//get Task sub-query WHERE clause
+			String taskConditions = bindMap.containsKey('taskConditions')?(String)bindMap.get('taskConditions'):'';
+
+			//if Task sub-query WHERE clause is blank, add default clause to fetch Tasks created in the past 30 days
+			if(String.isBlank(taskConditions)){
+				taskConditions = 'CreatedDate >=:interactionCutoffDate';
+				bindMap.put('interactionCutoffDate',Date.today().addDays(-30));
+			}
 
 			qb.addSubQuery(
 				TasksSelector.newInstance()
 					.setFieldOverrides(fieldOverrides)
 					.newQueryBuilder()
-					.addField(Task.ActivityDate)
 					.addRelatedFields(UsersSelector.newInstance(0, fieldOverrides).newQueryBuilder(new Set<Object>{UsersSelector.Options.WITH_PROFILE}), 'CreatedBy')
 					.addConditions()
-					.add(new QueryBuilder.CompareCondition(Task.Type).eq('Phone Call'))
-					.add(new QueryBuilder.SimpleCondition(' RecordType.DeveloperName =:apVoiceCallRecordType'))
-					.add(new QueryBuilder.SimpleCondition(Task.CreatedDate + ' >=:interactionCutoffDate'))
-					.add(new QueryBuilder.SimpleCondition('Task.CreatedBy.Profile.Name IN :interactionProfiles'))
-					.setConditionOrder('(1 OR 2) AND 3 AND 4')
+					.add(new QueryBuilder.SimpleCondition(taskConditions))
 					.endConditions()
 
 					//sort by CreatedDate instead of ActivityDate, as we need all Tasks created before interactionCutoffDate
@@ -496,15 +501,22 @@ public virtual inherited sharing class ContactsSelector extends ApplicationSelec
 		if(complexQueryOptions.contains(ComplexSubQueryOptions.WITH_ALL_RECENT_INTERACTIONS) 
 			|| complexQueryOptions.contains(ComplexSubQueryOptions.WITH_RECENT_VOICE_CALLS)){
 
+			//get VoiceCalls sub-query WHERE clause
+			String voiceCallsConditions = bindMap.containsKey('voiceCallsConditions')?(String)bindMap.get('voiceCallsConditions'):'';
+
+			//if VoiceCalls sub-query WHERE clause is blank, add default clause to fetch Tasks created in the past 30 days
+			if(String.isBlank(voiceCallsConditions)){
+				voiceCallsConditions = 'CreatedDate >=:interactionCutoffDate';
+				bindMap.put('interactionCutoffDate',Date.today().addDays(-30));
+			}
+
 			qb.addSubQuery(
 				VoiceCallsSelector.newInstance()
+					.setFieldOverrides(fieldOverrides)
 					.newQueryBuilder()
-					.addField(VoiceCall.CreatedDate)
 					.addRelatedFields(UsersSelector.newInstance(0, fieldOverrides).newQueryBuilder(new Set<Object>{UsersSelector.Options.WITH_PROFILE}), 'CreatedBy')
 					.addConditions()
-					.add(new QueryBuilder.SimpleCondition(VoiceCall.CreatedDate + ' >=:interactionCutoffDate'))
-					.add(new QueryBuilder.SimpleCondition('VoiceCall.CreatedBy.Profile.Name IN :interactionProfiles'))
-					.setConditionOrder('1 AND 2')
+					.add(new QueryBuilder.SimpleCondition(voiceCallsConditions))
 					.endConditions()
 				,'RelatedRecords'
 			);
@@ -514,15 +526,22 @@ public virtual inherited sharing class ContactsSelector extends ApplicationSelec
 		if(complexQueryOptions.contains(ComplexSubQueryOptions.WITH_ALL_RECENT_INTERACTIONS) 
 			|| complexQueryOptions.contains(ComplexSubQueryOptions.WITH_RECENT_LIVE_CHAT_TRANSCRIPTS)){
 
+			//get LiveChatTranscripts sub-query WHERE clause
+			String liveChatTranscriptConditions = bindMap.containsKey('liveChatTranscriptConditions')?(String)bindMap.get('liveChatTranscriptConditions'):'';
+
+			//if LiveChatTranscripts sub-query WHERE clause is blank, add default clause to fetch Tasks created in the past 30 days
+			if(String.isBlank(liveChatTranscriptConditions)){
+				liveChatTranscriptConditions = 'CreatedDate >=:interactionCutoffDate';
+				bindMap.put('interactionCutoffDate',Date.today().addDays(-30));
+			}
+
 			qb.addSubQuery(
 				LiveChatTranscriptsSelector.newInstance()
+					.setFieldOverrides(fieldOverrides)
 					.newQueryBuilder()
-					.addField(LiveChatTranscript.CreatedDate)
 					.addRelatedFields(UsersSelector.newInstance(0, fieldOverrides).newQueryBuilder(new Set<Object>{UsersSelector.Options.WITH_PROFILE}), 'Owner')
 					.addConditions()
-					.add(new QueryBuilder.SimpleCondition(LiveChatTranscript.CreatedDate + ' >=:interactionCutoffDate'))
-					.add(new QueryBuilder.SimpleCondition('LiveChatTranscript.Owner.Profile.Name IN :interactionProfiles'))
-					.setConditionOrder('1 AND 2')
+					.add(new QueryBuilder.SimpleCondition(liveChatTranscriptConditions))
 					.endConditions()
 				,'LiveChatTranscripts'
 			);

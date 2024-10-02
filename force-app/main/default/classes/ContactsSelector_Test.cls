@@ -530,11 +530,29 @@ private with sharing class ContactsSelector_Test {
 		String queryConditions= ' AND (HomePhone =:searchKey OR MobilePhone =:searchKey OR Phone =:searchKey)';
 		String currentUserProfileName = [SELECT Name FROM Profile WHERE Id =:UserInfo.getProfileId() LIMIT 1].Name;
 		Map<String, Object> bindMap = new Map<String, Object>();
+		
+		
 		bindMap.put('searchKey', customerPhone);
+		
+		//add Case sub-query conditions & bind variables, caseRecordTypes & closedCaseCutoffDate, to bindMap to be used in SOQL
 		bindMap.put('caseRecordTypes',ResourceCustomerInsightsV1.AP_CASE_RECORDTYPES);
 		bindMap.put('closedCaseCutoffDate',Date.today().addDays(-30));
+		bindMap.put('caseConditions', '((IsClosed = true AND ClosedDate >=:closedCaseCutoffDate) OR IsClosed = false) AND  RecordType.DeveloperName  IN :caseRecordTypes');
+		
+		//add interactionProfiles & interactionCutoffDate to bindMap to be used in SOQL
 		bindMap.put('interactionProfiles',new Set<String>{currentUserProfileName});
 		bindMap.put('interactionCutoffDate',Date.today().addDays(-30));
+
+		//add Tasks sub-query conditions
+		bindMap.put('taskType', 'Phone Call');
+		bindMap.put('apVoiceCallRecordType', 'SSSWCall');
+		bindMap.put('taskConditions', '(Type =:taskType  OR  RecordType.DeveloperName =:apVoiceCallRecordType) AND CreatedDate >=:interactionCutoffDate AND CreatedBy.Profile.Name IN :interactionProfiles');
+		
+		//add VoiceCalls sub-query conditions
+		bindMap.put('voiceCallsConditions', 'CreatedDate >=:interactionCutoffDate AND CreatedBy.Profile.Name IN :interactionProfiles');
+		
+		//add LiveChatTranscripts sub-query conditions
+		bindMap.put('liveChatTranscriptConditions', 'CreatedDate >=:interactionCutoffDate AND Owner.Profile.Name IN :interactionProfiles');
 		
 		//Data setup
 		
@@ -588,6 +606,16 @@ private with sharing class ContactsSelector_Test {
 		Set<SobjectField> taskFields = new Set<SObjectField>{
 			Task.Id, Task.ActivityDate
 		};
+		
+		//VoiceCall fields to be queried
+		Set<SobjectField> voiceCallFields = new Set<SObjectField>{
+			VoiceCall.Id, VoiceCall.CreatedDate
+		};
+		
+		//LiveChatTranscript fields to be queried
+		Set<SobjectField> liveChatTranscriptFields = new Set<SObjectField>{
+			LiveChatTranscript.Id, LiveChatTranscript.CreatedDate
+		};
 
 		//User fields to be queried
 		Set<SobjectField> userFields = new Set<SObjectField>{
@@ -606,6 +634,8 @@ private with sharing class ContactsSelector_Test {
 		fieldOverrides.put(Case.getSObjectType(), caseFields);
 		fieldOverrides.put(Article__c.getSObjectType(), articleFields);
 		fieldOverrides.put(Task.getSObjectType(), taskFields);
+		fieldOverrides.put(VoiceCall.getSObjectType(), voiceCallFields);
+		fieldOverrides.put(LiveChatTranscript.getSObjectType(), liveChatTranscriptFields);
 		fieldOverrides.put(User.getSObjectType(), userFields);
 		fieldOverrides.put(Profile.getSObjectType(), profileFields);
 
