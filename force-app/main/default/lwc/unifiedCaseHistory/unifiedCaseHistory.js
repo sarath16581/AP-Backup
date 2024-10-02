@@ -11,9 +11,10 @@ const MAX_ROWS_TO_DISPLAY = 10;
 
 /**
  * Displays cases related to a specified ContactId or ArticleId (could be consignment or child article).
- * 
+ *
  * @changelog:
  * 2024-09-12 - Marcel HK - Created
+ * 2024-10-01 - Marcel HK - Minor UI enhancements for link/unlink, title, no cases found message
  */
 export default class UnifiedCaseHistory extends NavigationMixin(LightningElement) {
 	/**
@@ -54,10 +55,16 @@ export default class UnifiedCaseHistory extends NavigationMixin(LightningElement
 	}
 
 	/**
-	 * Disable linking of any Case records.
+	 * If 'true', hides the 'Link' button column
 	 * @type {boolean}
 	 */
 	@api disableLinking = false;
+
+	/**
+	 * If 'true', hides the Lightning Card title and icon
+	 * @type {boolean}
+	 */
+	@api hideCardTitle = false;
 
 	//
 	// CASES RELATED TO ARTICLE
@@ -88,6 +95,9 @@ export default class UnifiedCaseHistory extends NavigationMixin(LightningElement
 	 * Columns for the Cases related to Article `lightning-datatable` component.
 	 */
 	get casesRelatedToArticleColumns() {
+		if(this.disableLinking) {
+			return COLUMNS.filter(column => column.label !== 'Link');
+		}
 		return COLUMNS;
 	}
 

@@ -4,6 +4,7 @@
         <channel>Case_Channel</channel>
         <channel>sfdc_liveagent</channel>
         <channel>ContactRequest</channel>
+        <channel>sfdc_phone</channel>
     </channels>
     <label>Available for Chat</label>
 </ServicePresenceStatus>

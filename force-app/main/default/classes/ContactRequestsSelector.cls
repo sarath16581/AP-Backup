@@ -6,6 +6,7 @@
  * @changelog
  * 2024-07-15 - Ranjeewa Silva - created
  * 2024-09-23 - Seth Heang - added FILTER_STATUS_NOT_ABANDONED
+ * 2024-09-24 - George Nguyen - Included Case__c field as default. It qualifies to be as it will be commonly used. Included method .selectByIds(...) to be used by UnifiedInteractionService
  */
 public virtual inherited sharing class ContactRequestsSelector extends ApplicationSelector {
 
@@ -48,6 +49,21 @@ public virtual inherited sharing class ContactRequestsSelector extends Applicati
 				ContactRequest.PreferredChannel, ContactRequest.Case__c
 		};
 	}
+
+	/**
+	 * @param selectorOptions Set<Object> selectorOptions
+	 * @param ids Set<Id>
+	 * @description returns a list of records base on their Id
+	 *
+	 * @return List<ContactRequest>
+	 */
+	public List<ContactRequest> selectByIds(Set<Object> selectorOptions, Set<Id> ids) {		
+		QueryBuilder qb = newQueryBuilder(selectorOptions);  
+	   QueryBuilder.ConditionsManager conditions = qb.addConditions();
+	   conditions.add(new QueryBuilder.SimpleCondition(ContactRequest.Id + ' IN :ids'));
+	   conditions.endConditions();
+	   return (List<ContactRequest>)Database.query(qb.toSoqlString());
+   }
 
 	/**
 	 * Run a SOQL based on the search parameters passed in
