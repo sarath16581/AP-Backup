@@ -7,7 +7,6 @@
  * @changelog
  * 2020-08-02 - Nathan Franklin - Updated for new return values in ApplicationDatabase
  * 2022-11-29 - Mahesh Parvathaneni - Updated for selectByCaseIds method
- * 2024-05-02 - Vasu Gorakati - updated for selectByArticleNames
  */
 @IsTest
 private class ArticlesSelector_Test {
@@ -39,11 +38,6 @@ private class ArticlesSelector_Test {
 		String soql = qb.toSoqlString();
 
 		System.assertEquals(true, Pattern.compile('(?ism)\\bfrom Article__c\\b').matcher(soql).find(), 'Resulting query does not select from Article__c: ' + soql);
-
-		qb = selector.newQueryBuilder(new Set<Object>{ ArticlesSelector.Options.WITH_RECORDTYPE });
-		soql = qb.toSoqlString();
-
-		System.assertEquals(true, Pattern.compile('(?ism)\\bRecordType\\b').matcher(soql).find(), 'Resulting query does not select from RecordType: ' + soql);
 
 		Test.stopTest();
 
@@ -201,9 +195,6 @@ private class ArticlesSelector_Test {
 
 		results = selector.selectByCaseIds(new Set<Id>{cases[0].Id}, new Set<Object>{ArticlesSelector.Options.WITH_EVENTMESSAGES_DESC_ORDER});
 		System.assertEquals(1, results.size(), 'Expected result size of 1');
-		
-		List<Article__c> resultList = selector.selectByArticleNames(new Set<String>{articles[0].Name}, Constants.RECORDTYPE_NAME_ARTICLE_ARTICLE, new Set<Object>{ArticlesSelector.Options.WITH_RECORDTYPE});
-		System.assertEquals(1, resultList.size(), 'Expected result size of 1');
 
 		Test.stopTest();
 

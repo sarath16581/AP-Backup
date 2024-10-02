@@ -26,7 +26,7 @@
  * 2023-05-29 - Mahesh Parvathaneni - Added WITH_INCOMING_EMAIL_MESSAGES_ASC_ORDER enum in the options
  * 2023-08-16 - Hasantha Liyanage - Added fields in getSObjectFieldList.
  * 2023-12-04 - Steve L - added new methods: getClosedCasesByAccountIds, and getOpenCasesByAccountIds
- * 2024-04-25 - Vasu Gorakati - Added new method selectCasesByReferenceId and selectByArticleId
+ *
  */
 public virtual inherited sharing class CasesSelector extends ApplicationSelector {
 
@@ -256,6 +256,41 @@ public virtual inherited sharing class CasesSelector extends ApplicationSelector
 		return new Map<Id, Case>((List<Case>)Database.query(qb.toSoqlString()));
 	}
 
+	/*
+     * Select cases based on Reference Id
+     * @param caseReferences list of case references. a case reference could be a case number or case reference id.
+     * @param selectorOptions selector options to augment result set
+     *
+     * @return Case List
+     */
+    public virtual List<Case> selectCasesByReferenceId(Set<String> caseReferences, Set<Object> selectorOptions) {
+        QueryBuilder qb = newQueryBuilder(selectorOptions)
+                .addConditions()
+                .add(new QueryBuilder.SimpleCondition(Case.ReferenceID__c + ' in :caseReferences'))
+                .endConditions();
+        return (List<Case>)Database.query(qb.toSoqlString());
+    }
+
+    /*
+    * this method returns records with matching article Ids
+     * @param articleIds list of article ids
+     * @param recordTypeName case record type
+     * @param selectorOptions selector options to augment result set
+     *
+     * @return Case List
+    */
+    public List<Case> selectByArticleId(Set<Id> articleids, String recordTypeName, Set<Object> selectorOptions) {
+        QueryBuilder qb = newQueryBuilder(selectorOptions);
+        QueryBuilder.ConditionsManager conditions = qb.addConditions();
+        conditions.add(new QueryBuilder.SimpleCondition(Case.ArticleTest__c + ' IN :articleids'));
+        if (recordTypeName != null) {
+            conditions.add(new QueryBuilder.SimpleCondition('RecordType.DeveloperName = :recordTypeName'));
+        }
+        conditions.endConditions();
+
+        return (List<Case>)Database.query(qb.toSoqlString());
+    }
+
 	public virtual override QueryBuilder newQueryBuilder() {
 		return newQueryBuilder(new Set<Object>());
 	}
@@ -311,38 +346,4 @@ public virtual inherited sharing class CasesSelector extends ApplicationSelector
 		return builder;
 	}
 
-	/*
- 	 * Select cases based on Reference Id
-	 * @param caseReferences list of case references. a case reference could be a case number or case reference id.
-	 * @param selectorOptions selector options to augment result set
-	 *
-	 * @return Case List
-	 */
-	public virtual List<Case> selectCasesByReferenceId(Set<String> caseReferences, Set<Object> selectorOptions) {
-		QueryBuilder qb = newQueryBuilder(selectorOptions)
-				.addConditions()
-				.add(new QueryBuilder.SimpleCondition(Case.ReferenceID__c + ' in :caseReferences'))
-				.endConditions();
-		return (List<Case>)Database.query(qb.toSoqlString());
-	}
-
-	/*
-	* this method returns records with matching article Ids
-	 * @param articleIds list of article ids
-	 * @param recordTypeName case record type
-	 * @param selectorOptions selector options to augment result set
-	 *
-	 * @return Case List
-	*/
-	public List<Case> selectByArticleId(Set<Id> articleids, String recordTypeName, Set<Object> selectorOptions) {
-		QueryBuilder qb = newQueryBuilder(selectorOptions);
-		QueryBuilder.ConditionsManager conditions = qb.addConditions();
-		conditions.add(new QueryBuilder.SimpleCondition(Case.ArticleTest__c + ' IN :articleids'));
-	 	if (recordTypeName != null) {
-			conditions.add(new QueryBuilder.SimpleCondition('RecordType.DeveloperName = :recordTypeName'));
-		}
-		conditions.endConditions();
-
-		return (List<Case>)Database.query(qb.toSoqlString());
-	}
 }

@@ -5,15 +5,14 @@
             <alignment>left</alignment>
             <components>Console.BuiltInComponent.servicePresence</components>
             <components>Console.BuiltInComponent.mostRecentlyUsed</components>
-            <components>purecloud__PureCloudScript</components>
             <components>QuickLinks</components>
             <components>ContactSearch</components>
             <components>Console.BuiltInComponent.knowledgeOne</components>
             <components>URLShortenerComponent</components>
             <components>Fill_Inbox</components>
             <components>ConsoleChatterScrollBar</components>
+            <components>purecloud__PureCloudScript</components>
             <components>GenesysConnector</components>
-            <components>Genesys_Monitor</components>
         </componentList>
         <detailPageRefreshMethod>none</detailPageRefreshMethod>
         <keyboardShortcuts>

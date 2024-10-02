@@ -75,7 +75,8 @@ public virtual inherited sharing class TasksSelector extends ApplicationSelector
 		Date fromActivityDate = searchParams.get('fromActivityDate') == null ? null : Date.valueOf(String.valueOf(searchParams.get('fromActivityDate')));
 		Boolean isClosed = (Boolean) searchParams.get('isClosed');
 		Set<String> ctiInteractionIds = new Set<String>();
-
+		Set<String> subjects = (Set<String>)(searchParams.get('subjects') == null ? new Set<String>() : (searchParams.get('subjects') instanceof Set<String> ? searchParams.get('subjects') : new Set<String>{String.valueOf(searchParams.get('subjects'))}));
+		Set<Id> ownerIds = (Set<Id>)(searchParams.get('ownerIds') == null ? new Set<Id>() : (searchParams.get('ownerIds') instanceof Set<Id> ? searchParams.get('ownerIds') : new Set<Id>{(Id)searchParams.get('ownerIds')}));
 		// these are for backwards compatibility ONLY. This parameters should not be used anymore and are @deprecated
 		if(searchParams.get('WhatId') != null) {
 			whatIds.add((Id)searchParams.get('WhatId'));
