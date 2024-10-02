@@ -11,6 +11,8 @@
  * 2024-08-01 - Mona Raghav -  REQ3575796 - Feature added to notify the users via Email few days prior to the deactivation -
  * Execute method modification and new method sendNotificationEmail added.
  * 2024-08-19 - Mona Raghav -  REQ3575796 - Notification email to be sent via no-reply instead of salesforce support user.
+ * 2024-10-02 - Mona Raghav -  REQ3652804 - Updated condition in execute method used to filter users to send out deactivation prevetion notification, 
+ * My network retail managers will also receive notification.
  */
 
  public class UserDeactivationBatchable implements Database.Batchable<SObject>, Database.Stateful, Schedulable {
