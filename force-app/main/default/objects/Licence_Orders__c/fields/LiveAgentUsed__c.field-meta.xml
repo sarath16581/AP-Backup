@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>LiveAgentUsed__c</fullName>
-    <externalId>false</externalId>
     <label>LiveAgentUsed</label>
     <securityClassification>INTERNAL</securityClassification>
     <summarizedField>Salesforce_Licence__c.LiveAgent__c</summarizedField>

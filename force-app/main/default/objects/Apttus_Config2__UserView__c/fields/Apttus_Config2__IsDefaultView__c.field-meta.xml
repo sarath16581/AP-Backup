@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>As we create individual records for roles/users/profiles added in the admin UI, introducing this field to track view level default attribute</description>
-    <externalId>false</externalId>
     <inlineHelpText>As we create individual records for roles/users/profiles added in the admin UI, introducing this field to track view level default attribute</inlineHelpText>
     <label>IsDefaultView</label>
     <securityClassification>INTERNAL</securityClassification>

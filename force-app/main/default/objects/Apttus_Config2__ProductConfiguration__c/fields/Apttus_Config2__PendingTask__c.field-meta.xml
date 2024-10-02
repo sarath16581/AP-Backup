@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__PendingTask__c</fullName>
     <deprecated>false</deprecated>
     <description>The pending task for the cart</description>
-    <externalId>false</externalId>
     <inlineHelpText>The pending task for the cart</inlineHelpText>
     <label>PendingTask</label>
     <required>false</required>

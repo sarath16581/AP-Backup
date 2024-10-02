@@ -3,7 +3,6 @@
     <fullName>grax__Show_Audit_Tab__c</fullName>
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
-    <externalId>false</externalId>
     <label>Show Audit Tab</label>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>

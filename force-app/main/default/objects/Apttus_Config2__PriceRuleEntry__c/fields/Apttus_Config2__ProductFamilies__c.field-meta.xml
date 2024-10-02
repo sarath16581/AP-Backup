@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__ProductFamilies__c</fullName>
     <deprecated>false</deprecated>
     <description>The list of product families associated with the entry</description>
-    <externalId>false</externalId>
     <inlineHelpText>The list of product families associated with the entry</inlineHelpText>
     <label>Product Families</label>
     <required>false</required>

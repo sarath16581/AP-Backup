@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Dev_Oracle_IAM_Logout_URL__c</fullName>
     <description>The logout URL used (minus parameters) used to log the current user out of Oracle IAM.</description>
-    <externalId>false</externalId>
     <fieldManageability>SubscriberControlled</fieldManageability>
     <inlineHelpText>The logout URL used (minus parameters) used to log the current user out of Oracle IAM.</inlineHelpText>
     <label>Development Oracle IAM Logout URL</label>

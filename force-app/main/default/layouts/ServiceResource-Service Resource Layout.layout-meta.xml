@@ -7,6 +7,10 @@
         <label>Information</label>
         <layoutColumns>
             <layoutItems>
+                <behavior>Edit</behavior>
+                <field>SchedulingConstraintId</field>
+            </layoutItems>
+            <layoutItems>
                 <behavior>Required</behavior>
                 <field>Name</field>
             </layoutItems>
@@ -64,12 +68,27 @@
         <layoutColumns/>
         <style>CustomLinks</style>
     </layoutSections>
+    <miniLayout>
+        <fields>SchedulingConstraintId</fields>
+    </miniLayout>
+    <relatedLists>
+        <fields>ServiceAppointment</fields>
+        <relatedList>ServiceAppointments</relatedList>
+    </relatedLists>
     <relatedLists>
         <fields>SkillMasterLabel</fields>
         <fields>SkillLevel</fields>
         <fields>EffectiveStartDate</fields>
         <fields>EffectiveEndDate</fields>
         <relatedList>ServiceResourceSkills</relatedList>
+    </relatedLists>
+    <relatedLists>
+        <fields>Name</fields>
+        <fields>ServiceTerritory</fields>
+        <fields>TerritoryType</fields>
+        <fields>EffectiveStartDate</fields>
+        <fields>EffectiveEndDate</fields>
+        <relatedList>ServiceTerritoryRelatedList</relatedList>
     </relatedLists>
     <relatedLists>
         <relatedList>RelatedNoteList</relatedList>
@@ -82,6 +101,12 @@
     </relatedLists>
     <relatedLists>
         <relatedList>RelatedEntityHistoryList</relatedList>
+    </relatedLists>
+    <relatedLists>
+        <fields>Start</fields>
+        <fields>End</fields>
+        <fields>Type</fields>
+        <relatedList>ResourceAbsences</relatedList>
     </relatedLists>
     <showEmailCheckbox>false</showEmailCheckbox>
     <showRunAssignmentRulesCheckbox>false</showRunAssignmentRulesCheckbox>

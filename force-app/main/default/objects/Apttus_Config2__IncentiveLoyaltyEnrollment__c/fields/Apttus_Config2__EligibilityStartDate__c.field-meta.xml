@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__EligibilityStartDate__c</fullName>
     <deprecated>false</deprecated>
     <description>The date when the member becomes eligible</description>
-    <externalId>false</externalId>
     <inlineHelpText>The date when the member becomes eligible</inlineHelpText>
     <label>Eligibility Start Date</label>
     <required>false</required>

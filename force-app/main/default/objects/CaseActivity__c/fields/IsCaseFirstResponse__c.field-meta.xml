@@ -3,7 +3,6 @@
     <fullName>IsCaseFirstResponse__c</fullName>
     <defaultValue>false</defaultValue>
     <description>Indicates that case first response</description>
-    <externalId>false</externalId>
     <label>Is Case First Response</label>
     <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>

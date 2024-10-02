@@ -3,7 +3,6 @@
     <fullName>Apttus__ClauseConfigurationId__c</fullName>
     <deprecated>false</deprecated>
     <description>ID of the clause configuration record</description>
-    <externalId>false</externalId>
     <inlineHelpText>ID of the clause configuration record</inlineHelpText>
     <label>Clause Configuration</label>
     <referenceTo>Apttus__ClauseConfiguration__c</referenceTo>

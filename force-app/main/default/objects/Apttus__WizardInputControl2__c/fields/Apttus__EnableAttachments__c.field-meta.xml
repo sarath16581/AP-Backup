@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Indicates whether comments and attachments would be allowed in the wizard flow</description>
-    <externalId>false</externalId>
     <inlineHelpText>Indicates whether comments and attachments would be allowed in the wizard flow</inlineHelpText>
     <label>Allow Comments and Attachments</label>
     <securityClassification>INTERNAL</securityClassification>

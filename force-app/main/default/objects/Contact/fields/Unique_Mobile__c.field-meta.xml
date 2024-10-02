@@ -3,7 +3,6 @@
     <fullName>Unique_Mobile__c</fullName>
     <defaultValue>false</defaultValue>
     <description>An indicator that specifies whether or not the mobile number is unique.  This attribute is populated by SAP CRM and is not editable within Salesforce.</description>
-    <externalId>false</externalId>
     <inlineHelpText>A read only indicator that identifies if the mobile number is unique.</inlineHelpText>
     <label>Unique Mobile</label>
     <trackFeedHistory>false</trackFeedHistory>

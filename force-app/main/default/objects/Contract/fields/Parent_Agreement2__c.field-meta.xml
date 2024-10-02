@@ -3,7 +3,6 @@
     <fullName>Parent_Agreement2__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <description>Field that receives the clone value from Apttus__Parent_Agreement__c field from the parent clone sf contract.</description>
-    <externalId>false</externalId>
     <label>Parent Agreement</label>
     <referenceTo>Apttus__APTS_Agreement__c</referenceTo>
     <relationshipLabel>Contracts (Original Agreement)</relationshipLabel>

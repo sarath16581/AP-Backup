@@ -4,7 +4,6 @@
     <businessStatus>Active</businessStatus>
     <complianceGroup>GDPR</complianceGroup>
     <description>contains the text value for the given configuration name referenced by Enhanced Transaction security</description>
-    <externalId>false</externalId>
     <fieldManageability>DeveloperControlled</fieldManageability>
     <inlineHelpText>contains the text value for the given configuration name referenced by Enhanced Transaction security</inlineHelpText>
     <label>Config TextArea Value</label>

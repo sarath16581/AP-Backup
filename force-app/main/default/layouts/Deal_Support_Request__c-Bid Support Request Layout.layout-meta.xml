@@ -133,6 +133,10 @@
                 <behavior>Readonly</behavior>
                 <field>Opportunity_Type__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Revenue_Impact_of_Recommendation__c</field>
+            </layoutItems>
         </layoutColumns>
         <style>TwoColumnsLeftToRight</style>
     </layoutSections>

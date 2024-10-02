@@ -4,7 +4,6 @@
     <deleteConstraint>SetNull</deleteConstraint>
     <deprecated>false</deprecated>
     <description>Lookup to the product record</description>
-    <externalId>false</externalId>
     <inlineHelpText>Lookup to the product record</inlineHelpText>
     <label>Product</label>
     <referenceTo>Product2</referenceTo>

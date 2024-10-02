@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Indicates whether inflight order changes and cancellation are enabled</description>
-    <externalId>false</externalId>
     <inlineHelpText>Indicates whether inflight order changes and cancellation are enabled</inlineHelpText>
     <label>Enable Inflight Changes And Cancellation</label>
     <trackTrending>false</trackTrending>

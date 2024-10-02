@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__ConstraintCheckStatus__c</fullName>
     <deprecated>false</deprecated>
     <description>Keeps track of whether constraint rules are applied using the context line as the context</description>
-    <externalId>false</externalId>
     <label>Constraint Check Status</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>

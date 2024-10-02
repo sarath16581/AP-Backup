@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__RelatedPercentAppliesTo__c</fullName>
     <deprecated>false</deprecated>
     <description>Indicates the price field the percentage should be applied to</description>
-    <externalId>false</externalId>
     <label>Percent Applies To</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>

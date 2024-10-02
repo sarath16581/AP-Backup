@@ -3,7 +3,6 @@
     <fullName>Apttus__DocumentUrl__c</fullName>
     <deprecated>false</deprecated>
     <description>The url of the document associated with the object</description>
-    <externalId>false</externalId>
     <label>Document Url</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>

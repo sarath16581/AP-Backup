@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Customer_Revenue__c</fullName>
     <description>To store the customer revenue number for the AP record types</description>
-    <externalId>false</externalId>
     <inlineHelpText>Customer Revenue to calculate the APR uplift amounts</inlineHelpText>
     <label>Customer Revenue</label>
     <precision>18</precision>

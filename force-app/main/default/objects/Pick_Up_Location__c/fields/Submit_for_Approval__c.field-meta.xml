@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Submit_for_Approval__c</fullName>
     <defaultValue>false</defaultValue>
-    <externalId>false</externalId>
     <label>Submit for Approval</label>
     <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>

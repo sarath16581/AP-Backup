@@ -3,7 +3,6 @@
     <fullName>Auto_Renew_Consent__c</fullName>
     <defaultValue>false</defaultValue>
     <description>Indicates whether consent is required to extend / renew this agreement</description>
-    <externalId>false</externalId>
     <label>Renewal Consent</label>
     <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>

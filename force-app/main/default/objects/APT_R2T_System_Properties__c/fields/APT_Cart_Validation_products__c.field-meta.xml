@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>APT_Cart_Validation_products__c</fullName>
-    <externalId>false</externalId>
     <inlineHelpText>Enter product names for which &quot;Pricing Reason&quot; and &quot;Competitors&quot; field on cart should be mandatory in case of customized pricing. Each product should be semi-colon separated.</inlineHelpText>
     <label>Cart Validation products</label>
     <required>false</required>

@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>AMLCTF_Task_Name__c</fullName>
     <description>Task Name the Action is based on.  Part of the Retail Audit Case Management Solution, AML/CTF Austrac Phase 2.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Task Name the Action is based on.  Part of the Retail Audit Case Management Solution, AML/CTF Austrac Phase 2.</inlineHelpText>
     <label>Task Category</label>
     <length>131072</length>

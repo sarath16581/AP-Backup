@@ -3,7 +3,6 @@
     <fullName>Calculate_Run_Dock_and_Depot_Area__c</fullName>
     <defaultValue>false</defaultValue>
     <description>StarTrack checkbox that will determine if run dock and depot area calculation is permitted.</description>
-    <externalId>false</externalId>
     <label>Manage Delivery Flag</label>
     <securityClassification>INTERNAL</securityClassification>
     <type>Checkbox</type>

@@ -3,7 +3,6 @@
     <fullName>IsWelcomePackSent__c</fullName>
     <defaultValue>false</defaultValue>
     <description>2014 07 APMS</description>
-    <externalId>false</externalId>
     <label>Is Welcome Pack sent?</label>
     <securityClassification>INTERNAL</securityClassification>
     <trackHistory>true</trackHistory>

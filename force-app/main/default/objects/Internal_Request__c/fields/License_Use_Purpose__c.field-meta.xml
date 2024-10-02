@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>License_Use_Purpose__c</fullName>
     <description>The purpose for which the license request is raised</description>
-    <externalId>false</externalId>
     <inlineHelpText>End Of Project Transition to BAU</inlineHelpText>
     <label>License/Product Use/Purpose</label>
     <required>false</required>

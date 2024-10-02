@@ -3,7 +3,6 @@
     <fullName>Is_Signed__c</fullName>
     <defaultValue>false</defaultValue>
     <description>This field id used to differentiate between Signed Documents and Unsigned Documents</description>
-    <externalId>false</externalId>
     <label>Is Signed</label>
     <trackHistory>false</trackHistory>
     <type>Checkbox</type>

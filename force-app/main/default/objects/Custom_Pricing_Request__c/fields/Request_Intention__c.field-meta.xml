@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Request_Intention__c</fullName>
     <description>Phase 2</description>
-    <externalId>false</externalId>
     <inlineHelpText>Please record any issue with current carriers. How long have they been using the carrier? Is the client keen to make a change or just looking? Who else are they discussing the distribution with?</inlineHelpText>
     <label>Request Intention</label>
     <length>32768</length>

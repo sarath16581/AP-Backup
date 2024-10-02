@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Description_of_Goods__c</fullName>
     <description>to be shown as part of Legal Support Request layout</description>
-    <externalId>false</externalId>
     <inlineHelpText>Identify the types of goods to be consigned under the Contract including any specific risks (if any) associated with consigning the goods</inlineHelpText>
     <label>Description of Goods</label>
     <length>32768</length>

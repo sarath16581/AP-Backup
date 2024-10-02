@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>AgentType__c</fullName>
     <description>This field will be populated via backend processing so that when a SSSW Case is assigned to a BOH queue, the Agent Type will automatically be set to BOH.  Likewise, when a SSSW Case is assigned to a FOH queue, the Agent Type will automatically be set to FOH.</description>
-    <externalId>false</externalId>
     <inlineHelpText>This field will be populated via backend processing so that when a SSSW Case is assigned to a BOH queue, the Agent Type will automatically be set to BOH.  Likewise, when a SSSW Case is assigned to a FOH queue, the Agent Type will automatically be set to FOH.</inlineHelpText>
     <label>Agent Type</label>
     <required>false</required>

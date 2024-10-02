@@ -3,7 +3,6 @@
     <fullName>PaymentTermId__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <description>ID of the payment term associated with the agreement</description>
-    <externalId>false</externalId>
     <inlineHelpText>ID of the payment term associated with the contract</inlineHelpText>
     <label>Payment Term</label>
     <referenceTo>Apttus_Config2__PaymentTerm__c</referenceTo>

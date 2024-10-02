@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__ChangeStatus__c</fullName>
     <deprecated>false</deprecated>
     <description>The order line change status</description>
-    <externalId>false</externalId>
     <inlineHelpText>The order line change status</inlineHelpText>
     <label>Change Status</label>
     <required>false</required>

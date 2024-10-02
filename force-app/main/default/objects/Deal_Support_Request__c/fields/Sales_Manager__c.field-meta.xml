@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Sales_Manager__c</fullName>
     <description>The field is set to True if the current user is the Manager of the DSR Requestor.</description>
-    <externalId>false</externalId>
     <formula>Requestor__r.ManagerId = $User.Id</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <label>Sales Manager</label>

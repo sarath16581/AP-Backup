@@ -4,7 +4,6 @@
     <deleteConstraint>SetNull</deleteConstraint>
     <deprecated>false</deprecated>
     <description>ID of the fifth dimension</description>
-    <externalId>false</externalId>
     <label>Dimension 5</label>
     <referenceTo>Apttus_Config2__PriceDimension__c</referenceTo>
     <relationshipLabel>Price Matrices (Dimension 5)</relationshipLabel>

@@ -3,7 +3,6 @@
     <fullName>Apttus_DealMgr__PercentileTo__c</fullName>
     <deprecated>false</deprecated>
     <description>The percentile range to</description>
-    <externalId>false</externalId>
     <label>Percentile To</label>
     <precision>5</precision>
     <required>true</required>

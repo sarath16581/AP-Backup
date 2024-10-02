@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>NewLastActivityDate__c</fullName>
     <description>used by Task and Event triggers to store the last closed task or forward planned event for an associated Account</description>
-    <externalId>false</externalId>
     <inlineHelpText>The date when a last valid contact/visit was made by the Account Manager</inlineHelpText>
     <label>Last Activity Date</label>
     <required>false</required>

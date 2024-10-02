@@ -3,7 +3,6 @@
     <fullName>grax__Last_Sent_Date__c</fullName>
     <deprecated>false</deprecated>
     <description>Last_Sent_Date</description>
-    <externalId>false</externalId>
     <label>Last Sent Date</label>
     <required>false</required>
     <trackHistory>false</trackHistory>

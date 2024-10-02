@@ -3,7 +3,6 @@
     <fullName>APT_PostBillPay_Channel__c</fullName>
     <description>Mean the particular Post Billpay service(s) selected by the Principal to be
 		provided by Australia Post under this Agreement, as set out in Schedule 1.</description>
-    <externalId>false</externalId>
     <inlineHelpText>mean the particular Post Billpay service(s) selected by the Principal to be
 		provided by Australia Post under this Agreement, as set out in Schedule 1.</inlineHelpText>
     <label>Channel</label>

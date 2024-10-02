@@ -3,7 +3,6 @@
     <fullName>Contact_Us_Available__c</fullName>
     <defaultValue>true</defaultValue>
     <description>When checked,  the &quot;Contact Us&quot;  form will be available</description>
-    <externalId>false</externalId>
     <inlineHelpText>When checked,  the &quot;Contact Us&quot;  form will be available</inlineHelpText>
     <label>Contact Us Available</label>
     <trackTrending>false</trackTrending>

@@ -3,7 +3,6 @@
     <fullName>ACIC_Request_Approved__c</fullName>
     <defaultValue>false</defaultValue>
     <description>Approval request will be triggered automatically on checkout of the shopping cart. This field will be ticked when the Workforce Verification Team provide ACIC approval.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Approval request will be triggered automatically on checkout of the shopping cart. This field will be ticked when the Workforce Verification Team provide ACIC approval.</inlineHelpText>
     <label>ACIC Request Approved</label>
     <securityClassification>INTERNAL</securityClassification>

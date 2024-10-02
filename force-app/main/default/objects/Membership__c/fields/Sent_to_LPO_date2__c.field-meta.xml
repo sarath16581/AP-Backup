@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Sent_to_LPO_date2__c</fullName>
     <description>Sent to LPO date - used in PB when status is updated to Sent to LPO</description>
-    <externalId>false</externalId>
     <inlineHelpText>Updated when status is changed to sent to LPO</inlineHelpText>
     <label>Sent to LPO date</label>
     <required>false</required>

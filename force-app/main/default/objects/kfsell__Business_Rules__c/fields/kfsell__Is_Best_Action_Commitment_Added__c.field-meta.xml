@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Is_Best_Action_Commitment_Added</description>
-    <externalId>false</externalId>
     <label>Is Best Action Commitment Added</label>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>

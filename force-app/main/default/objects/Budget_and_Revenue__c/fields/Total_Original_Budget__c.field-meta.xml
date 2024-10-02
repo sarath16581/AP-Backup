@@ -3,7 +3,6 @@
     <fullName>Total_Original_Budget__c</fullName>
     <defaultValue>0</defaultValue>
     <description>Previous name was &quot;Original FY – Target&quot; (MW0003520).</description>
-    <externalId>false</externalId>
     <inlineHelpText>Total Target for the current financial year.</inlineHelpText>
     <label>Planned FY revenue</label>
     <precision>16</precision>

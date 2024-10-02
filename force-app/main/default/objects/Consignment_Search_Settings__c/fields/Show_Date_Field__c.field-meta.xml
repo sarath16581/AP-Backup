@@ -3,7 +3,6 @@
     <fullName>Show_Date_Field__c</fullName>
     <defaultValue>false</defaultValue>
     <description>StarTrack: Show date field to capture show/hide date filters information</description>
-    <externalId>false</externalId>
     <label>Show Date Field</label>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>

@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>kfsell__Best_Action_Due_Date__c</fullName>
     <deprecated>false</deprecated>
-    <externalId>false</externalId>
     <formula>kfsell__Action_Plan__r.kfsell__Due_Date__c</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <label>Best Action Due Date</label>

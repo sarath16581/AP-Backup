@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Indicates whether fulfillment is in progress</description>
-    <externalId>false</externalId>
     <inlineHelpText>Indicates whether fulfillment is in progress</inlineHelpText>
     <label>Fulfillment In Progress?</label>
     <securityClassification>INTERNAL</securityClassification>

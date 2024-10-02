@@ -3,7 +3,6 @@
     <fullName>Green_Sheet_Managers_License__c</fullName>
     <defaultValue>false</defaultValue>
     <description>SAM Green Sheet Managers licenses for large orgs.</description>
-    <externalId>false</externalId>
     <label>Green Sheet Managers License</label>
     <trackFeedHistory>false</trackFeedHistory>
     <type>Checkbox</type>

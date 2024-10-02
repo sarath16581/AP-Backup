@@ -3,7 +3,6 @@
     <fullName>Entitlement_Process_Stage__c</fullName>
     <businessStatus>DeprecateCandidate</businessStatus>
     <description>StarTrack - Entitlement Process Stage</description>
-    <externalId>false</externalId>
     <label>Dep - Entitlement Process Stage</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>

@@ -4,7 +4,6 @@
     <businessStatus>Active</businessStatus>
     <complianceGroup>GDPR</complianceGroup>
     <description>The Growth Amount for this account and all OPC related child accounts for the First Quarter</description>
-    <externalId>false</externalId>
     <formula>Jul_Group_Growth__c + Aug_Group_Growth__c + Sep_Group_Growth__c</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <inlineHelpText>Q1 OPC Grouped Growth Amount</inlineHelpText>

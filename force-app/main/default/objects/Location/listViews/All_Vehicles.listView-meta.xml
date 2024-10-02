@@ -11,6 +11,7 @@
     <columns>Hire_Vehicle__c</columns>
     <columns>Model__c</columns>
     <columns>ParentLocation</columns>
+    <columns>Service_Territory__c</columns>
     <columns>Line_Haul__c</columns>
     <columns>State__c</columns>
     <columns>LastModifiedDate</columns>

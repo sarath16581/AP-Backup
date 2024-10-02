@@ -3,7 +3,6 @@
     <fullName>Apttus_Approval__DateCancelled__c</fullName>
     <deprecated>false</deprecated>
     <description>The date when the approval request was cancelled</description>
-    <externalId>false</externalId>
     <label>Date Cancelled</label>
     <required>false</required>
     <trackHistory>false</trackHistory>

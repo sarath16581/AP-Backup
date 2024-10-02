@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__FulfilledDate__c</fullName>
     <deprecated>false</deprecated>
     <description>The date of the order fulfillment.</description>
-    <externalId>false</externalId>
     <inlineHelpText>The date of the order fulfillment.</inlineHelpText>
     <label>Fulfilled Date</label>
     <required>false</required>

@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__CascadeSharedAttributeStatus__c</fullName>
     <deprecated>false</deprecated>
     <description>Indicates one or more line status to which the cascade shared attribute updates should apply to</description>
-    <externalId>false</externalId>
     <inlineHelpText>Indicates one or more line status to which the cascade shared attribute updates should apply to</inlineHelpText>
     <label>Cascade Shared Attribute Status</label>
     <required>false</required>

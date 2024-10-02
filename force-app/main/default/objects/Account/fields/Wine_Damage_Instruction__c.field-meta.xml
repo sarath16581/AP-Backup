@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Wine_Damage_Instruction__c</fullName>
     <description>Wine damages instructions for organisation used in mynetwork forms</description>
-    <externalId>false</externalId>
     <label>Damage Instructions</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>

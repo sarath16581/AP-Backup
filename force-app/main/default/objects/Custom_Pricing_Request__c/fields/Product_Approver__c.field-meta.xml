@@ -3,7 +3,6 @@
     <fullName>Product_Approver__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <description>Phase 2</description>
-    <externalId>false</externalId>
     <label>Product Specialist</label>
     <lookupFilter>
         <active>false</active>

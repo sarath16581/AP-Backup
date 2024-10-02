@@ -3,7 +3,6 @@
     <fullName>Apttus_QPConfig__NetUnitPrice__c</fullName>
     <deprecated>false</deprecated>
     <description>The net unit price for the product or service is the Unit Adjusted Price after applying the Group Adjustment %</description>
-    <externalId>false</externalId>
     <inlineHelpText>The net unit price for the product or service is the Unit Adjusted Price after applying the Group Adjustment %</inlineHelpText>
     <label>Net Unit Price</label>
     <precision>18</precision>

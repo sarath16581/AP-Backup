@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Hub_Catchment__c</fullName>
-    <externalId>false</externalId>
     <inlineHelpText>This will be derived from the Hub Catchment Reference table after a Post Code is added in the Physical Address.</inlineHelpText>
     <label>Local Area Market</label>
     <required>false</required>

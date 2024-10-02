@@ -3,7 +3,6 @@
     <fullName>Apttus__Activate__c</fullName>
     <deprecated>false</deprecated>
     <description>Indicator to activate the agreement</description>
-    <externalId>false</externalId>
     <formula>OR(ISPICKVAL(Apttus__AgreementId__r.Apttus__Status_Category__c,&quot;In Signatures&quot;), ISPICKVAL(Apttus__AgreementId__r.Apttus__Status_Category__c,&quot;In Filing&quot;), AND(ISPICKVAL(Apttus__AgreementId__r.Apttus__Status_Category__c,&quot;In Authoring&quot;),ISPICKVAL(Apttus__AgreementId__r.Apttus__Source__c,&quot;Other Party Paper&quot;)))</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <inlineHelpText>Indicator to activate the agreement</inlineHelpText>

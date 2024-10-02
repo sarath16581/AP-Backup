@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>IT_CR_required__c</fullName>
-    <externalId>false</externalId>
     <inlineHelpText>Do we need to lodge a formal CR with IT to implement this?</inlineHelpText>
     <label>IT CR required?</label>
     <required>false</required>

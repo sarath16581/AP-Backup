@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Sub_Account_Request_Status_Description__c</fullName>
-    <externalId>false</externalId>
     <label>Sub Account Request Status Description</label>
     <length>1200</length>
     <securityClassification>INTERNAL</securityClassification>

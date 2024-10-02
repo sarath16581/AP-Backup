@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>OpportunityRatingPrioritisation__c</fullName>
     <description>High / Medium / Low priority for Growth Campaign</description>
-    <externalId>false</externalId>
     <inlineHelpText>Priority rating is based on revenue opportunity of the Growth products, the propensity for the customer to be inclined to be interested in this product, and whether the customer has previously used the product.</inlineHelpText>
     <label>Opportunity Rating (Prioritisation)</label>
     <required>false</required>

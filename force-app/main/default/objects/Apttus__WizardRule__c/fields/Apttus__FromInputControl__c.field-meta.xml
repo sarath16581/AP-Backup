@@ -4,7 +4,6 @@
     <deleteConstraint>SetNull</deleteConstraint>
     <deprecated>false</deprecated>
     <description>The input control that is driving the evaluation</description>
-    <externalId>false</externalId>
     <inlineHelpText>The input control that is driving the evaluation</inlineHelpText>
     <label>From Input Control</label>
     <referenceTo>Apttus__WizardInputControl__c</referenceTo>

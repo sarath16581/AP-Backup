@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__MaxBenefitAmount__c</fullName>
     <deprecated>false</deprecated>
     <description>The maximum benefit amount</description>
-    <externalId>false</externalId>
     <inlineHelpText>The maximum benefit amount</inlineHelpText>
     <label>Max Benefit Amount</label>
     <precision>18</precision>

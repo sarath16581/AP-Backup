@@ -4,7 +4,6 @@
     <businessStatus>Active</businessStatus>
     <defaultValue>false</defaultValue>
     <description>Used on MyNetwork portal to add network response for ST cases.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Add notes to the case investigation without sending it back to customer service.</inlineHelpText>
     <label>Still Under Investigation</label>
     <securityClassification>INTERNAL</securityClassification>

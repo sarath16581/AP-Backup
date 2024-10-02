@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>APT_What_type_of_freight_do_you_send__c</fullName>
-    <externalId>false</externalId>
     <label>What type of freight do you send?</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>

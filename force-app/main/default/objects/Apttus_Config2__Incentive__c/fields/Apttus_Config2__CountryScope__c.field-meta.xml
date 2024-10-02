@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__CountryScope__c</fullName>
     <deprecated>false</deprecated>
     <description>One or more countries associated with the incentive</description>
-    <externalId>false</externalId>
     <inlineHelpText>One or more countries associated with the incentive</inlineHelpText>
     <label>Country Scope</label>
     <required>false</required>

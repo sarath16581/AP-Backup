@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Disputed_Reason__c</fullName>
     <description>The reason the customer is disputing the charge.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Reason provided by the customer</inlineHelpText>
     <label>Disputed Reason</label>
     <required>false</required>

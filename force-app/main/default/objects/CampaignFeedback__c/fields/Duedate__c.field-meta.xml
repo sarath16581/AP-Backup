@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Duedate__c</fullName>
     <description>Due date</description>
-    <externalId>false</externalId>
     <inlineHelpText>Due date</inlineHelpText>
     <label>Due date</label>
     <required>false</required>

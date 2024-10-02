@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__Description__c</fullName>
     <deprecated>false</deprecated>
     <description>The matrix description</description>
-    <externalId>false</externalId>
     <inlineHelpText>The matrix description</inlineHelpText>
     <label>Description</label>
     <length>1000</length>

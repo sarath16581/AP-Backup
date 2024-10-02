@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__Dimension6ListValue__c</fullName>
     <deprecated>false</deprecated>
     <description>The list of values for the sixth dimension. Only applicable to List dimensions</description>
-    <externalId>false</externalId>
     <inlineHelpText>The list of values for the sixth dimension. Only applicable to List dimensions</inlineHelpText>
     <label>Dimension 6 List Value</label>
     <length>5000</length>

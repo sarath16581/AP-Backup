@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>True if the request was actioned (approved or rejected) through an email response as opposed to the user interface.</description>
-    <externalId>false</externalId>
     <label>Approval From Email</label>
     <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>

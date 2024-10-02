@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>LineItemPayload__c</fullName>
     <description>Payload of line item in JSON format.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Line item payload in JSON format.</inlineHelpText>
     <label>Line Item Payload</label>
     <length>32768</length>

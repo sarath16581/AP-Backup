@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__RateType__c</fullName>
     <deprecated>false</deprecated>
     <description>The exchange rate type</description>
-    <externalId>false</externalId>
     <inlineHelpText>The exchange rate type</inlineHelpText>
     <label>Rate Type</label>
     <required>false</required>

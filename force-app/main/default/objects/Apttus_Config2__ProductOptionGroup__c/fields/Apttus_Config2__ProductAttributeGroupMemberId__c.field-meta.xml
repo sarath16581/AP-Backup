@@ -4,7 +4,6 @@
     <deleteConstraint>SetNull</deleteConstraint>
     <deprecated>false</deprecated>
     <description>Product Attribute Group Member Id</description>
-    <externalId>false</externalId>
     <inlineHelpText>Product Attribute Group</inlineHelpText>
     <label>Product Attribute Group</label>
     <referenceTo>Apttus_Config2__ProductAttributeGroupMember__c</referenceTo>

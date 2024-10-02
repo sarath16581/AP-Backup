@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>hidden_Revenue_in_last_6_months__c</fullName>
     <description>This field is used for checking revenue of last 6 months of current FY</description>
-    <externalId>false</externalId>
     <formula>IF( Current_Year__c ,CASE( MONTH(TODAY()), 
 1, Aug_Revenue_Amount__c +Sep_Revenue_Amount__c +Oct_Revenue_Amount__c +Nov_Revenue_Amount__c + Dec_Revenue_Amount__c+ Jan_Revenue_Amount__c, 
 2, Sep_Revenue_Amount__c +Oct_Revenue_Amount__c +Nov_Revenue_Amount__c +Dec_Revenue_Amount__c + Jan_Revenue_Amount__c+ Feb_Revenue_Amount__c, 

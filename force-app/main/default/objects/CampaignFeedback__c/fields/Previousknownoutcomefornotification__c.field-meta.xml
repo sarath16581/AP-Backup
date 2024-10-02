@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Previousknownoutcomefornotification__c</fullName>
     <description>Results from the ATL campaign discussion</description>
-    <externalId>false</externalId>
     <inlineHelpText>Results from the ATL campaign discussion</inlineHelpText>
     <label>Previous known outcome for notification</label>
     <required>false</required>

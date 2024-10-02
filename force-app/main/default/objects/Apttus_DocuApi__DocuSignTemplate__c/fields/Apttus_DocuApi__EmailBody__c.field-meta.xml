@@ -3,7 +3,6 @@
     <fullName>Apttus_DocuApi__EmailBody__c</fullName>
     <deprecated>false</deprecated>
     <description>Email content defined on the template</description>
-    <externalId>false</externalId>
     <inlineHelpText>Email content defined on the template</inlineHelpText>
     <label>Email Body</label>
     <length>32768</length>

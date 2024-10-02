@@ -4,7 +4,6 @@
     <deleteConstraint>SetNull</deleteConstraint>
     <deprecated>false</deprecated>
     <description>ID of the ancestor incentive</description>
-    <externalId>false</externalId>
     <inlineHelpText>ID of the ancestor incentive</inlineHelpText>
     <label>Ancestor</label>
     <referenceTo>Apttus_Config2__Incentive__c</referenceTo>

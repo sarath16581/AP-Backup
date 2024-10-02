@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>CustomermailouteDMdate__c</fullName>
     <description>Date when DM/eDM will be sent to the customer</description>
-    <externalId>false</externalId>
     <inlineHelpText>Date of when the DM (Direct Mail) or EDM including relevant content will be sent to the customer.  Recommended customer engagement to be one week from this date.</inlineHelpText>
     <label>Customer Mail Out/eDM Date</label>
     <required>false</required>

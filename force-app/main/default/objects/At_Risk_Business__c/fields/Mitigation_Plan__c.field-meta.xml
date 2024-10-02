@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Mitigation_Plan__c</fullName>
     <description>Free Rich Text Field - user input</description>
-    <externalId>false</externalId>
     <inlineHelpText>In point form, articulate what we are doing to resolve the key customer issue and retain the at risk business</inlineHelpText>
     <label>Risk Mitigation Plan</label>
     <length>32768</length>

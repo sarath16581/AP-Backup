@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Due_Date_Time__c</fullName>
-    <externalId>false</externalId>
     <formula>CASE(Tier__c, &apos;1&apos;, CreatedDate + 1, &apos;2&apos;, CreatedDate + 20, &apos;3&apos;, CreatedDate + 30, &apos;4&apos;, null, null)</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <label>Due Date/Time</label>

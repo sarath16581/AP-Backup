@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Rep_Allow_First_Day_Covers__c</fullName>
     <description>Partner Addendum &apos;Representation Allowance - First Day Covers&apos; Sub Type Description</description>
-    <externalId>false</externalId>
     <label>Rep Allow First Day Covers</label>
     <required>false</required>
     <trackTrending>false</trackTrending>

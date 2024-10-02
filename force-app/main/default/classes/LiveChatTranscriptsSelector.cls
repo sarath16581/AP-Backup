@@ -1,14 +1,13 @@
 /**
- * @author 		Rejeesh Raghavan
- * @date 		10-09-2024
- * @group 		Selector
- * @tag			Selector
- *
- * @description 	A very simple selector class for LiveChatTranscript Object
+ * @description A very simple selector class for LiveChatTranscript Object
+ * @author George Nguyen
+ * @date 2024-09-24
+ * @changelog
+ * 2024-09-24 - George Nguyen - created
  */
 public virtual inherited sharing class LiveChatTranscriptsSelector extends ApplicationSelector {
 	public enum Options {
-		WITH_OWNER
+		WITH_CASE, WITH_OWNER
 	}
 
 	public static LiveChatTranscriptsSelector newInstance() {
@@ -27,42 +26,42 @@ public virtual inherited sharing class LiveChatTranscriptsSelector extends Appli
 		return LiveChatTranscript.getSObjectType();
 	}
 
-	public virtual override Set<SObjectField> getSObjectFieldList() {
-		Set<SObjectField> result = new Set<SObjectField>{
-			LiveChatTranscript.Id,
-			LiveChatTranscript.CreatedById,
-			LiveChatTranscript.OwnerId
-
-		};
-		return result;
+	public virtual override Set<SObjectField> getSObjectFieldList() { 
+		return new Set<SObjectField>{ LiveChatTranscript.Id,  LiveChatTranscript.CaseId, LiveChatTranscript.CreatedById, LiveChatTranscript.OwnerId };
 	}
-
+   
 	/**
 	 * @param selectorOptions Set<Object> selectorOptions
-	 * @param callIds Set<Id>
-	 * @description returns a list of Live Chat Transcript records base on their Id
+	 * @param ids Set<Id>
+	 * @description returns a list of records base on their Id
 	 *
 	 * @return List<LiveChatTranscript>
 	 */
-	public List<LiveChatTranscript> selectByIds(Set<Object> selectorOptions, Set<Id> transcriptIds) {
-		QueryBuilder qb = newQueryBuilder(selectorOptions)
-			.addConditions()
-			.add(new QueryBuilder.InCondition(LiveChatTranscript.Id).inCollection(transcriptIds))
-			.endConditions();
-
+	public List<LiveChatTranscript> selectByIds(Set<Object> selectorOptions, Set<Id> ids) {		
+ 		QueryBuilder qb = newQueryBuilder(selectorOptions);  
+		QueryBuilder.ConditionsManager conditions = qb.addConditions();
+		conditions.add(new QueryBuilder.SimpleCondition(LiveChatTranscript.Id + ' IN :ids'));
+		conditions.endConditions();
 		return (List<LiveChatTranscript>)Database.query(qb.toSoqlString());
 	}
 
 	/**
 	 * Contruct a new QueryBuilder based on the selector options passed in
+	 * @param selectorOptions Set<Object>
+	 * @return QueryBuilder
 	 */
 	public virtual override QueryBuilder newQueryBuilder(Set<Object> selectorOptions) {
 		QueryBuilder builder = super.newQueryBuilder(selectorOptions);
+		
+		if(selectorOptions.contains(Options.WITH_CASE)) {
+			builder.addRelatedFields(CasesSelector.newInstance().newQueryBuilder(), 'Case');
+		}
 
 		if (selectorOptions.contains(Options.WITH_OWNER)) {
 			builder.addRelatedFields(OwnersSelector.newInstance().newQueryBuilder(), 'Owner');
 		}
-
+		
+		
 		return builder;
 	}
 }

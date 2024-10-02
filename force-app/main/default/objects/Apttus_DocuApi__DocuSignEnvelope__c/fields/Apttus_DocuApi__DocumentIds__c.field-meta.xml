@@ -3,7 +3,6 @@
     <fullName>Apttus_DocuApi__DocumentIds__c</fullName>
     <deprecated>false</deprecated>
     <description>Document Ids selected for signatures</description>
-    <externalId>false</externalId>
     <inlineHelpText>Document Ids selected for signatures</inlineHelpText>
     <label>Document Ids</label>
     <length>1000</length>

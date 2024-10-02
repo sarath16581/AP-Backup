@@ -4,7 +4,6 @@
     <deleteConstraint>SetNull</deleteConstraint>
     <deprecated>false</deprecated>
     <description>Product Group should be specified only when product scope is set as product group</description>
-    <externalId>false</externalId>
     <label>Product Group</label>
     <referenceTo>Apttus_Config2__ProductGroup__c</referenceTo>
     <relationshipLabel>Constraint Rule Actions</relationshipLabel>

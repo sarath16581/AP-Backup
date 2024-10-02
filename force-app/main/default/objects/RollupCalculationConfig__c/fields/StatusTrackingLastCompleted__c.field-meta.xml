@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>StatusTrackingLastCompleted__c</fullName>
     <description>Stores when the time the status tracking rollup batchable was last completed successfully. THIS IS SET AUTOMATICALLY FROM StatusTrackingRollup_Batchable class.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Stores when the time the status tracking rollup batchable was last completed successfully.</inlineHelpText>
     <label>Status Tracking Last Completed</label>
     <required>false</required>

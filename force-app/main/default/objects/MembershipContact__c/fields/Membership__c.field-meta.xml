@@ -5,7 +5,6 @@
     <complianceGroup>GDPR</complianceGroup>
     <deleteConstraint>Restrict</deleteConstraint>
     <description>The membership associated with this contact</description>
-    <externalId>false</externalId>
     <inlineHelpText>Membership for the Contact</inlineHelpText>
     <label>Membership</label>
     <referenceTo>Membership__c</referenceTo>

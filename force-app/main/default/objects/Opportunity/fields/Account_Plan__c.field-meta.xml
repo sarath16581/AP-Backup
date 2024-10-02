@@ -3,7 +3,6 @@
     <fullName>Account_Plan__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <description>Phase 1 - Sales Process (PWC)</description>
-    <externalId>false</externalId>
     <label>Account Plan</label>
     <lookupFilter>
         <active>true</active>

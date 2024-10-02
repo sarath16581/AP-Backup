@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>ReasonforDowntrading__c</fullName>
     <description>Reasons for why the customer is downtrading</description>
-    <externalId>false</externalId>
     <inlineHelpText>Reasons for why the customer is downtrading</inlineHelpText>
     <label>Reason for Downtrading</label>
     <required>false</required>

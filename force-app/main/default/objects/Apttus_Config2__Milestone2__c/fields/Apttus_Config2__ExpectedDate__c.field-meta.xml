@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__ExpectedDate__c</fullName>
     <deprecated>false</deprecated>
     <description>The milestone expected date</description>
-    <externalId>false</externalId>
     <inlineHelpText>The milestone expected date</inlineHelpText>
     <label>Expected Date</label>
     <required>false</required>

@@ -4,6 +4,7 @@
  *
  * @changelog
  * 2024-09-11 - Marcel HK - Created
+ * 2024-09-12 - Seth Heang - added method getCountForDuplicatedCasesRelatedToArticle()
  */
 public with sharing class UnifiedCaseHistoryController {
 	// Case Record Types
@@ -56,6 +57,44 @@ public with sharing class UnifiedCaseHistoryController {
 			CaseHistoryResponse response = processResults(casesMap.values(), maxRecords, true);
 
 			return response;
+		} catch (Exception e) {
+			throw new AuraHandledException(e.getMessage());
+		}
+	}
+
+	/**
+	 * @description Retrieve count existing cases with specified criteria, used to prevent potential duplicate by blocking new case creation
+	 * @param trackingId tracking Id for article or consignment
+	 *
+	 * @return Integer Count of existing cases
+	 */
+	@AuraEnabled(Cacheable=true)
+	public static Integer getCountForDuplicatedCasesRelatedToArticle(Id trackingId) {
+		return getDuplicatedCasesRelatedToArticle(trackingId).size();
+	}
+
+	/**
+	 * @description Retrieve existing cases with specified criteria, used to prevent potential duplicate by blocking new case creation
+	 * @param trackingId tracking Id for article or consignment
+	 *
+	 * @return List<Case> existing cases
+	 */
+	public static List<Case> getDuplicatedCasesRelatedToArticle(Id trackingId) {
+		try {
+			if (String.isBlank(trackingId)) {
+				return new List<Case>();
+			}
+			// Need to grab the consignment's tracking number first, since it is used to query for related articles
+			String consignmentTrackingNumber = getConsignmentTrackingNumber(trackingId);
+			CasesSelector selector = CasesSelector.newInstance(FIELD_OVERRIDES);
+			Map<Id, Case> casesMap = selector.selectByConsignmentTrackingNumberCaseHistory(new Set<String>{ consignmentTrackingNumber }, SELECTOR_OPTIONS);
+			List<Case> dupCases = new List<Case>();
+			for (Case relatedCase : casesMap.values()) {
+				if (isDuplicatedCase(relatedCase)) {
+					dupCases.add(relatedCase);
+				}
+			}
+			return dupCases;
 		} catch (Exception e) {
 			throw new AuraHandledException(e.getMessage());
 		}
@@ -138,7 +177,6 @@ public with sharing class UnifiedCaseHistoryController {
 		// Map each Case record to the result object (up until the maxRecords limit reached)
 		for (Integer i = 0; i < (Math.min(cases.size(), maxRecords)); i++) {
 			Case caseRecord = cases.get(i);
-
 			CaseHistoryResult result = new CaseHistoryResult();
 			result.caseId = caseRecord.Id;
 			result.caseNumber = caseRecord.CaseNumber;
@@ -154,10 +192,10 @@ public with sharing class UnifiedCaseHistoryController {
 
 			// Set `isLinkable` property on the results per business rules
 			if (allowLinking == true) {
-				if (result.isUnifiedCase == true && result.isClosed == false) {
+				if (isOpenedUnifiedCase(caseRecord)) {
 					// Allow allow linking 'Unified' Cases which are 'Open'
 					result.isLinkable = true;
-				} else if (result.recordTypeDeveloperName == UNIFIED_GENERAL_ENQUIRY_CASE_RT) {
+				} else if (isUnifiedGeneralEnquiryRecordTypeCase(caseRecord)) {
 					// Allow linking 'Unified General Enquiry' Cases, even if they're closed
 					result.isLinkable = true;
 				}
@@ -167,6 +205,46 @@ public with sharing class UnifiedCaseHistoryController {
 		}
 
 		return response;
+	}
+
+	/**
+	 * @description check if case is unified general enquiry record type
+	 * @param caseRecord
+	 *
+	 * @return Boolean
+	 */
+	private static Boolean isUnifiedGeneralEnquiryRecordTypeCase(Case caseRecord) {
+		return caseRecord.RecordType.DeveloperName == UNIFIED_GENERAL_ENQUIRY_CASE_RT;
+	}
+
+	/**
+	 * @description check if case is an opened unified record type
+	 * @param caseRecord
+	 *
+	 * @return Boolean
+	 */
+	private static Boolean isOpenedUnifiedCase(Case caseRecord) {
+		return CommonUtils.isUnifiedCase(caseRecord.RecordType.DeveloperName) && caseRecord.IsClosed == false;
+	}
+
+	/**
+	 * @description check if case is an opened classic or unified case where type = investigation
+	 * @param caseRecord
+	 *
+	 * @return Boolean
+	 */
+	private static Boolean isOpenedClassicORUnifiedInvestigationCase(Case caseRecord) {
+		return caseRecord.Type.equals(INVESTIGATION_TYPE) && caseRecord.IsClosed == false;
+	}
+
+	/**
+	 * @description check if there is an existing case with specified criteria, used to prevent potential duplicate by blocking new case creation
+	 * @param caseRecord
+	 *
+	 * @return Boolean
+	 */
+	private static Boolean isDuplicatedCase(Case caseRecord) {
+		return isUnifiedGeneralEnquiryRecordTypeCase(caseRecord) || (isOpenedClassicORUnifiedInvestigationCase(caseRecord));
 	}
 
 	/**

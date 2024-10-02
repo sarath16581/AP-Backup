@@ -3,7 +3,6 @@
     <fullName>et4ae5__Active__c</fullName>
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
-    <externalId>false</externalId>
     <label>Active</label>
     <securityClassification>INTERNAL</securityClassification>
     <trackHistory>true</trackHistory>

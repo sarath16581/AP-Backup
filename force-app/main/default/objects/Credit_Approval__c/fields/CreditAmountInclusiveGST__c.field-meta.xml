@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>CreditAmountInclusiveGST__c</fullName>
     <description>Rolled up Summary Credit Amount Inclusive GST</description>
-    <externalId>false</externalId>
     <label>Credit Amount Inclusive GST</label>
     <precision>18</precision>
     <required>false</required>

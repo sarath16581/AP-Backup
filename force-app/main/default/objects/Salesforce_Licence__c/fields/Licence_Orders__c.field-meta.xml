@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Licence_Orders__c</fullName>
-    <externalId>false</externalId>
     <inlineHelpText>Which licence order was this purchased in?</inlineHelpText>
     <label>Licence Orders</label>
     <referenceTo>Licence_Orders__c</referenceTo>

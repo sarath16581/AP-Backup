@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Indicates whether the action is enabled for the display</description>
-    <externalId>false</externalId>
     <inlineHelpText>Indicates whether the action is enabled for the display</inlineHelpText>
     <label>Is Enabled</label>
     <trackTrending>false</trackTrending>

@@ -3,7 +3,6 @@
     <fullName>kfsell__Is_Alert_Enabled__c</fullName>
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
-    <externalId>false</externalId>
     <label>Is Alert Enabled</label>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>

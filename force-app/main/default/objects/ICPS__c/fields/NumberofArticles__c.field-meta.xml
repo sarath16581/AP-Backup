@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>NumberofArticles__c</fullName>
     <description>The number of articles associated with this ICPS record.</description>
-    <externalId>false</externalId>
     <inlineHelpText>The number of articles associated with this ICPS record.</inlineHelpText>
     <label>Number of Articles</label>
     <summaryForeignKey>ICPSArticle__c.ICPS__c</summaryForeignKey>

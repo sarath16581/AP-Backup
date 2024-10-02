@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>BusinessUnit__c</fullName>
     <description>which business unit this help text is belongs to</description>
-    <externalId>false</externalId>
     <fieldManageability>DeveloperControlled</fieldManageability>
     <label>Business Unit</label>
     <required>false</required>

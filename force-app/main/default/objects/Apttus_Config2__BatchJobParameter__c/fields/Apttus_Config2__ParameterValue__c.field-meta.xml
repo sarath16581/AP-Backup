@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__ParameterValue__c</fullName>
     <deprecated>false</deprecated>
     <description>The bind parameter value</description>
-    <externalId>false</externalId>
     <inlineHelpText>The bind parameter value</inlineHelpText>
     <label>ParameterValue</label>
     <length>4000</length>

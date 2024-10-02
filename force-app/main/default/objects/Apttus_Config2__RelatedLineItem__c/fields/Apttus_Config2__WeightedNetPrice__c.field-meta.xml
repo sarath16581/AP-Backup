@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__WeightedNetPrice__c</fullName>
     <deprecated>false</deprecated>
     <description>The weighted net price</description>
-    <externalId>false</externalId>
     <inlineHelpText>The weighted net price</inlineHelpText>
     <label>Weighted Net Price</label>
     <precision>18</precision>

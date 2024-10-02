@@ -3,7 +3,6 @@
     <fullName>Apttus_Approval__RequestType__c</fullName>
     <deprecated>false</deprecated>
     <description>The approval request type</description>
-    <externalId>false</externalId>
     <inlineHelpText>The approval request type</inlineHelpText>
     <label>Request Type</label>
     <required>false</required>

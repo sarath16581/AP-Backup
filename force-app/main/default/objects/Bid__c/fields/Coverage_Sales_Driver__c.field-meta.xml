@@ -3,7 +3,6 @@
     <fullName>Coverage_Sales_Driver__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <description>Who is the Coverage Sales Representative on this Opp?</description>
-    <externalId>false</externalId>
     <inlineHelpText>Who is the Coverage Sales Representative on this Opp?</inlineHelpText>
     <label>Coverage Sales Driver</label>
     <lookupFilter>

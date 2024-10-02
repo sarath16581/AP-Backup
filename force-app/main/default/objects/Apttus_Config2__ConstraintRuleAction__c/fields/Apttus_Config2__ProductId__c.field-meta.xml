@@ -4,7 +4,6 @@
     <deleteConstraint>SetNull</deleteConstraint>
     <deprecated>false</deprecated>
     <description>Product should be specified when product scope is set as Product.</description>
-    <externalId>false</externalId>
     <label>Product</label>
     <referenceTo>Product2</referenceTo>
     <relationshipLabel>Constraint Rule Actions</relationshipLabel>

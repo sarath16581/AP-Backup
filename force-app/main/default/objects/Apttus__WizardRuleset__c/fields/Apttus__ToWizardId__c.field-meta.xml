@@ -4,7 +4,6 @@
     <deleteConstraint>SetNull</deleteConstraint>
     <deprecated>false</deprecated>
     <description>Not currently used. Will be available in a future release, applicable to rule type &apos;Go To Wizard&apos;.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Not currently used. Will be available in a future release, applicable to rule type &apos;Go To Wizard&apos;.</inlineHelpText>
     <label>Go To Wizard</label>
     <referenceTo>Apttus__Wizard__c</referenceTo>

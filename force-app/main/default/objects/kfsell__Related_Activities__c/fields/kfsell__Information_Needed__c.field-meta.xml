@@ -3,7 +3,6 @@
     <fullName>kfsell__Information_Needed__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <deprecated>false</deprecated>
-    <externalId>false</externalId>
     <label>Information Needed</label>
     <referenceTo>kfsell__Information_Needed__c</referenceTo>
     <relationshipLabel>Related Activities</relationshipLabel>

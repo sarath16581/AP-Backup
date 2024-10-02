@@ -3,7 +3,6 @@
     <fullName>Apttus__Join__c</fullName>
     <deprecated>false</deprecated>
     <description>Logical operator for combining multiple field expressions in a query</description>
-    <externalId>false</externalId>
     <label>Boolean Operator</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>

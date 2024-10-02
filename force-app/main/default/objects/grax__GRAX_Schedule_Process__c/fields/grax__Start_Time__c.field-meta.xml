@@ -3,7 +3,6 @@
     <fullName>grax__Start_Time__c</fullName>
     <deprecated>false</deprecated>
     <description>Start Time of the Scheduled Process</description>
-    <externalId>false</externalId>
     <label>Start Time</label>
     <required>false</required>
     <trackHistory>false</trackHistory>

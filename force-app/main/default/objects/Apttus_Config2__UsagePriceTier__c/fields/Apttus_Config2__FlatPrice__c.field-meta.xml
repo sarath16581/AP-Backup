@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__FlatPrice__c</fullName>
     <deprecated>false</deprecated>
     <description>The flat price for the tier or period</description>
-    <externalId>false</externalId>
     <inlineHelpText>The flat price for the tier or period</inlineHelpText>
     <label>Flat Price</label>
     <precision>18</precision>

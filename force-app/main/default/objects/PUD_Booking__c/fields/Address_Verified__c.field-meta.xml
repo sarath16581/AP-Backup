@@ -3,7 +3,6 @@
     <fullName>Address_Verified__c</fullName>
     <defaultValue>false</defaultValue>
     <description>This field will be used to determine whether AME API call has successfully returned geo-cordinates.</description>
-    <externalId>false</externalId>
     <label>Address Verified</label>
     <trackFeedHistory>false</trackFeedHistory>
     <trackTrending>false</trackTrending>

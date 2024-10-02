@@ -3,7 +3,6 @@
     <fullName>kfsell__is_closed_date_past__c</fullName>
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
-    <externalId>false</externalId>
     <label>is closed date past</label>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>

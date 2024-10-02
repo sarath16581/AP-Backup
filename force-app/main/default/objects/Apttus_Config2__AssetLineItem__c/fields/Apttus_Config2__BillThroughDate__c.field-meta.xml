@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__BillThroughDate__c</fullName>
     <deprecated>false</deprecated>
     <description>The last billing period date through which invoice has been generated</description>
-    <externalId>false</externalId>
     <inlineHelpText>The last billing period date through which invoice has been generated</inlineHelpText>
     <label>Bill Through Date</label>
     <required>false</required>

@@ -3,7 +3,6 @@
     <fullName>Network__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <description>The network to collect from / deliver to, depending on the booking record type.</description>
-    <externalId>false</externalId>
     <inlineHelpText>The network to collect from / deliver to, depending on the booking record type.</inlineHelpText>
     <label>Network</label>
     <referenceTo>Network__c</referenceTo>

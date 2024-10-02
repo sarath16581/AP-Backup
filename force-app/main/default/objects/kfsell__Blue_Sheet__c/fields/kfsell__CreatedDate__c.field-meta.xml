@@ -3,7 +3,6 @@
     <fullName>kfsell__CreatedDate__c</fullName>
     <deprecated>false</deprecated>
     <description>Field to store date and time when Bluesheet is linked to Opportunity. Empty when Bluesheet is created for Standalone Scorecard. Filled in once Bluesheet is connected to Opportunity.</description>
-    <externalId>false</externalId>
     <label>Created Date</label>
     <required>false</required>
     <trackHistory>false</trackHistory>

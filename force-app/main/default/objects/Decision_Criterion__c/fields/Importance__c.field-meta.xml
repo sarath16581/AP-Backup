@@ -5,7 +5,6 @@
     <description>Phase 1 - Opportunity Assessment (PWC) 
 
 Identify the importance of each criterion relative to one another (% weighting)</description>
-    <externalId>false</externalId>
     <inlineHelpText>Importance to overall decision entered as a %</inlineHelpText>
     <label>Importance</label>
     <precision>5</precision>

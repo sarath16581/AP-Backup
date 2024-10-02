@@ -3,7 +3,6 @@
     <fullName>Apttus_Approval__ErrorMsgInfo2__c</fullName>
     <deprecated>false</deprecated>
     <description>Information about the failure</description>
-    <externalId>false</externalId>
     <inlineHelpText>Information about the failure</inlineHelpText>
     <label>Error Msg Info2</label>
     <length>8192</length>

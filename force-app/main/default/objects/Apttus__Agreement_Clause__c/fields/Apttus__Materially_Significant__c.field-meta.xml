@@ -3,7 +3,6 @@
     <fullName>Apttus__Materially_Significant__c</fullName>
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
-    <externalId>false</externalId>
     <label>Materially Significant</label>
     <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>

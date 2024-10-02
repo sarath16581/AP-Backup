@@ -3,7 +3,6 @@
     <fullName>Recommended_Pricing_Attached__c</fullName>
     <defaultValue>false</defaultValue>
     <description>Field to indicate that the recommended pricing has been attached</description>
-    <externalId>false</externalId>
     <inlineHelpText>Verify that recommended pricing has been attached to the request</inlineHelpText>
     <label>Recommended Pricing Attached?</label>
     <securityClassification>OFFICIAL_SENSITIVE</securityClassification>

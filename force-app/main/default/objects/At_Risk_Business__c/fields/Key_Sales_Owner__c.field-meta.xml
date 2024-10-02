@@ -3,7 +3,6 @@
     <fullName>Key_Sales_Owner__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <description>Lookup on User record</description>
-    <externalId>false</externalId>
     <inlineHelpText>The key sales owner/contact for this risk. Usually the Account manager for the Organisation.</inlineHelpText>
     <label>Key Sales Owner</label>
     <referenceTo>User</referenceTo>

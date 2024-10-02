@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Parent_Lic_Facility_Network_EPOS_Enabled__c</fullName>
-    <externalId>false</externalId>
     <formula>Account__r.Facility__r.Network_Facility__r.EPOS_Available__c</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <label>Parent Lic Facility Network EPOS Enabled</label>

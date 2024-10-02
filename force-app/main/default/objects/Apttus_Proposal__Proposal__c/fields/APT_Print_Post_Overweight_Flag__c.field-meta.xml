@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>APT_Print_Post_Overweight_Flag__c</fullName>
     <defaultValue>false</defaultValue>
-    <externalId>false</externalId>
     <label>Print Post Overweight Flag</label>
     <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>

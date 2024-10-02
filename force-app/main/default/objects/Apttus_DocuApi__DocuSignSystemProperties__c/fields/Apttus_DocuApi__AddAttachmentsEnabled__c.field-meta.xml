@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Add Attachments Enabled</description>
-    <externalId>false</externalId>
     <inlineHelpText>Add Attachments Enabled</inlineHelpText>
     <label>Add Attachments Enabled</label>
     <trackTrending>false</trackTrending>

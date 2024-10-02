@@ -4,7 +4,6 @@
     <deleteConstraint>SetNull</deleteConstraint>
     <deprecated>false</deprecated>
     <description>Agreement Id of the locked document.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Agreement Id of the locked document.</inlineHelpText>
     <label>Agreement</label>
     <referenceTo>Apttus__APTS_Agreement__c</referenceTo>

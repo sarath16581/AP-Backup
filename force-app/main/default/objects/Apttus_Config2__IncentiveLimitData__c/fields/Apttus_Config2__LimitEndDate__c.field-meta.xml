@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__LimitEndDate__c</fullName>
     <deprecated>false</deprecated>
     <description>The end date of the limit period</description>
-    <externalId>false</externalId>
     <inlineHelpText>The end date of the limit period</inlineHelpText>
     <label>Limit End Date</label>
     <required>false</required>

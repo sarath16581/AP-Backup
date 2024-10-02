@@ -5,6 +5,13 @@
  * @changelog
  * 2024-06-18 - Vasu Gorakati - Case Hand-off
  * 2024-07-18 - Raghav Ravipati - Added logic to perform additional callout if we have duplicate consignments see CSLU-696 for details.
+ * 2024-09-20 - Vasu Gorakati - CSLU-799 - Schedule Contact Request Cancellation
+ * 2024-09-24 - Vasu Gorakati - CSLU-799 - Schedule Contact Request Cancellation - to set auto abandoned flag
+ * 2024-09-26 - Rejeesh Raghavan - CSLU-1436 - Case Transfer - Add AI Summary fields to Case Comments
+ * 2024-09-29 - Parveen Kaushik - Fixed for the following:
+ * 								- Used fieldOverrides in Selectors
+ * 								- Null check in createRelatedContact
+ * 
  **/
 public with sharing class UnifiedCaseHandOffController {
 	private static final String AUSTRALIAPOST = 'AustraliaPost';
@@ -38,6 +45,7 @@ public with sharing class UnifiedCaseHandOffController {
 	 */
 	@AuraEnabled
 	public static void handOffCase(CaseHandOffWrapper handoffWrapper) {
+		// All these fields are selected for the purpose of copyng over and creating a child case (classic type) from the unified case.
 		Set<SObjectField> fields = new Set<SObjectField>{
 			Case.Id,
 			Case.Address3__c,
@@ -60,6 +68,7 @@ public with sharing class UnifiedCaseHandOffController {
 			Case.CaseTransferDate__c,
 			Case.CHASEnquiryType__c,
 			Case.CaseTransferReason__c,
+			Case.Description,
 			Case.EnquirySubType__c,
 			Case.EntitlementId,
 			Case.ProductCategory__c,
@@ -69,6 +78,7 @@ public with sharing class UnifiedCaseHandOffController {
 			Case.Type,
 			Case.ReferenceID__c,
 			Case.Recent_Caller_Type__c,
+			Case.ResolutionNote__c,
 			Case.Notification_Required__c,
 			Case.Origin
 		};
@@ -79,14 +89,16 @@ public with sharing class UnifiedCaseHandOffController {
 		casedetails.CaseTransferReason__c = handoffWrapper.handoffReason;
 
 		// Set traige queue as owner
-		GroupsSelector groupsSelector = GroupsSelector.newInstance();
+		GroupsSelector groupsSelector = ((GroupsSelector) GroupsSelector.newInstance().setFieldOverrides(new Set<SObjectField>{
+			Group.Id, Group.DeveloperName, Group.Type}));
 		Map<Id, Group> queueMap = groupsSelector.selectByGroupTypeAndDeveloperName(new Set<String>{ 'Queue' }, new Set<String>{ handoffWrapper.contactCenter });
 
 		if (!queueMap.isEmpty()) {
 			casedetails.OwnerId = queueMap.keySet().iterator().next();
 		}
 
-		ImpactedArticlesSelector impactedArticlesSelector = ImpactedArticlesSelector.newInstance();
+		ImpactedArticlesSelector impactedArticlesSelector = (ImpactedArticlesSelector) ImpactedArticlesSelector.newInstance().setFieldOverrides(new Set<SObjectField> {
+			ImpactedArticle__c.Article__c, ImpactedArticle__c.ArticleId__c, ImpactedArticle__c.Case__c});
 		List<ImpactedArticle__c> impactedArticles = impactedArticlesSelector.selectByCaseId(new Set<Id>{ casedetails.Id }, new Set<Object>());
 
 		if (handoffWrapper.businessUnit == AUSTRALIAPOST) {
@@ -120,9 +132,14 @@ public with sharing class UnifiedCaseHandOffController {
 				}
 			}
 		}
+		
 
-		// Creating case comment before updating the case because the case record will not available to the user as its owner will change to respective queue.
+		// Creating case comment before updating the case because the case record will not visible to the user as its owner will change to respective queue.
 		createCaseComment(casedetails, casedetails.CaseTransferReason__c, handoffWrapper.comment);
+
+		//Cancel schedule contact request
+		updateContactRequestStatus(new Set<Id>{casedetails.Id});
+
 		// Add related contact for star track
 		if (handoffWrapper.businessUnit == AUSTRALIAPOST) {
 			// This is added after parent case update so that latest info is available for child cases
@@ -172,9 +189,13 @@ public with sharing class UnifiedCaseHandOffController {
 	 * @param  comment - comment
 	 */
 	public static void createCaseComment(Case caseRec, String transferReason, String comment) {
+		String commentBody = 'Case Transfer Reason: ' + transferReason;
+		commentBody+='\nSubject: '+(String.isNotBlank(caseRec.Subject)?caseRec.Subject:'');
+		commentBody+='\nDescription: '+(String.isNotBlank(caseRec.Description)?caseRec.Description:'');
+		commentBody+='\nResolution Note: '+(String.isNotBlank(caseRec.ResolutionNote__c)?caseRec.ResolutionNote__c:'');
 		CaseComment caseComment = new CaseComment();
 		caseComment.ParentId = caseRec.Id;
-		caseComment.CommentBody = 'Case Transfer Reason: ' + transferReason + '\n' + comment;
+		caseComment.CommentBody = commentBody + '\n' + comment;
 		ApplicationDatabase.getInstance().dmlInsert(new List<SObject>{ caseComment });
 	}
 
@@ -299,18 +320,49 @@ public with sharing class UnifiedCaseHandOffController {
 		AuthorisedContacts__c relCont = new AuthorisedContacts__c();
 		relCont.Case__c = caseRec.Id;
 		relCont.RecordTypeId = Schema.SObjectType.AuthorisedContacts__c.getRecordTypeInfosByName().get(StarTrack_Constants.STRELCONT_RT).getRecordTypeId();
-		relCont.Related_Contact__c = caserec.ContactId;
-		relCont.Contact_Email__c = caseRec.Contact.Email;
-		relCont.Contact_Mobile_Number__c = caseRec.Contact.MobilePhone;
-		relCont.Contact_Phone_Number__c = caseRec.Contact.Phone;
-		relCont.First_Name__c = caseRec.Contact.FirstName;
-		relCont.Last_Name__c = caseRec.Contact.LastName;
 		relCont.Contact_Type__c = caseRec.Recent_Caller_Type__c;
 		relCont.Notification_Required__c = caseRec.Notification_Required__c;
+		// Set the following fields only if a Contact is present
+		if(String.isNotBlank(caserec.ContactId)){
+			relCont.Related_Contact__c = caserec.ContactId;
+			relCont.Contact_Email__c = caseRec.Contact.Email;
+			relCont.Contact_Mobile_Number__c = caseRec.Contact.MobilePhone;
+			relCont.Contact_Phone_Number__c = caseRec.Contact.Phone;
+			relCont.First_Name__c = caseRec.Contact.FirstName;
+			relCont.Last_Name__c = caseRec.Contact.LastName;
+		}
 
 		ApplicationDatabase.getInstance().dmlInsert(new List<SObject>{ relCont });
 	}
 
+	// Private method to update the status of ContactRequests
+	private static void updateContactRequestStatus(Set<Id> parentIds) {
+		List<ContactRequest> contactRequests = new List<ContactRequest>(
+			ContactRequestsSelector.newInstance(0, new Set<SObjectField>{
+				ContactRequest.Id, ContactRequest.WhatId, ContactRequest.Status, ContactRequest.AutoAbandonedFlag__c
+			}).search(new Map<String, Object>{
+				'whatIds' => parentIds
+			}, true)
+		);
+
+		// Filter the requests to update only those with status 'New' or 'Rescheduled'
+		List<ContactRequest> requestsToUpdate = new List<ContactRequest>();
+		for (ContactRequest cr : contactRequests) {
+			if (cr.Status == UnifiedConstants.CONTACT_REQUEST_STATUS_NEW || cr.Status == UnifiedConstants.CONTACT_REQUEST_STATUS_RESCHEDULED) {
+				cr.Status = UnifiedConstants.CONTACT_REQUEST_STATUS_ABANDONED; // Update status to 'Abandoned'
+				cr.AutoAbandonedFlag__c = true; //Set auto abandoned flag to true which is used for reporting
+				requestsToUpdate.add(cr);
+			}
+		}
+
+		// Perform the update operation using ApplicationDatabase
+		if (!requestsToUpdate.isEmpty()) {
+			ApplicationDatabase.getInstance().dmlUpdate(requestsToUpdate);
+		}
+	}  
+ 	/**
+	 * Method to get SSSW Entitlement Id
+	 */
 	public static Id getSSSWEntitlementId() {
 		List<Entitlement> entitlements = EntitlementsSelector.newInstance()
 			.selectByNameAndAccountName(new Set<String>{ SSSWConstants.SSSW_ENTITLEMENT }, new Set<String>{ SSSWConstants.ENTITLEMENT_ACC });

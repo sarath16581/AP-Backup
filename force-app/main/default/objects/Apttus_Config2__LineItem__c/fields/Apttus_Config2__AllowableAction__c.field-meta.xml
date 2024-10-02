@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__AllowableAction__c</fullName>
     <deprecated>false</deprecated>
     <description>The action allowed for the end user</description>
-    <externalId>false</externalId>
     <label>Allowable Action</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>

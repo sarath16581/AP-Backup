@@ -3,7 +3,6 @@
     <fullName>Apttus__Description__c</fullName>
     <deprecated>false</deprecated>
     <description>Describes the expected use of this step as a designer</description>
-    <externalId>false</externalId>
     <inlineHelpText>Describes the expected use of this step as a designer</inlineHelpText>
     <label>Description</label>
     <required>false</required>

@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Mailer_Daemon_Email__c</fullName>
     <description>Mailer Daemon email address details. Used to check if any emails are received (SF case) from this address then should not update any status.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Provide mailer daemon email address details</inlineHelpText>
     <label>Mailer Daemon Email</label>
     <required>false</required>

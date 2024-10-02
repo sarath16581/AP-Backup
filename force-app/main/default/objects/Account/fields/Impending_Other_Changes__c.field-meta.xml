@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Impending_Other_Changes__c</fullName>
     <description>Other impending changes that may affect the outlet (List)</description>
-    <externalId>false</externalId>
     <inlineHelpText>Other impending changes that may affect the outlet (List)</inlineHelpText>
     <label>Impending Other Changes</label>
     <length>1200</length>

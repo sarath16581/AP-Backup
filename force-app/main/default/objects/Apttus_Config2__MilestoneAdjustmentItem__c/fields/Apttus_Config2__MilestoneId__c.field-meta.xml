@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__MilestoneId__c</fullName>
     <deprecated>false</deprecated>
     <description>ID of the associated milestone</description>
-    <externalId>false</externalId>
     <inlineHelpText>ID of the associated milestone</inlineHelpText>
     <label>Milestone</label>
     <referenceTo>Apttus_Config2__Milestone2__c</referenceTo>

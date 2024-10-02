@@ -3,7 +3,6 @@
     <fullName>grax__Status__c</fullName>
     <deprecated>false</deprecated>
     <description>Status</description>
-    <externalId>false</externalId>
     <label>Status</label>
     <required>false</required>
     <trackHistory>true</trackHistory>

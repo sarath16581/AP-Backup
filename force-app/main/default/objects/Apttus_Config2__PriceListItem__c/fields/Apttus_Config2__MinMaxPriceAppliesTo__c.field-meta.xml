@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__MinMaxPriceAppliesTo__c</fullName>
     <deprecated>false</deprecated>
     <description>Indicates the price field the min/max price rule should be applied to</description>
-    <externalId>false</externalId>
     <label>Min/Max Price Applies To</label>
     <required>false</required>
     <securityClassification>OFFICIAL_SENSITIVE</securityClassification>

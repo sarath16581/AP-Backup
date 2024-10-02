@@ -3,7 +3,6 @@
     <fullName>Share_Private_Attachments__c</fullName>
     <defaultValue>false</defaultValue>
     <description>Attachments have &apos;IsPrivate&apos; field that limits access to owner and admins. Files related to records are not private. Enable this option to share converted private attachment Files with their parent record and to anyone who has access to the parent record.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Attachments have &apos;IsPrivate&apos; field that limits access to owner and admins. Files related to records are not private. Enable this option to share converted private attachment Files with their parent record and to anyone who has access to the parent record.</inlineHelpText>
     <label>Share Private Attachments?</label>
     <trackTrending>false</trackTrending>

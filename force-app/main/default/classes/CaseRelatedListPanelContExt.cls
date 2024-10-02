@@ -1,19 +1,20 @@
 /**
-  * @author       :
-  * @date         :
+  * @author	   :
+  * @date		 :
   * @description  : test class for Controller for CN18 form
   */
 /*******************************  History ************************************************
 03/01/2016  kalpita.talwadekar@auspost.com.au   updated the class to add the codes to accomodate the service now responses and the cn18 attachment updates
 March-16  kalpita.talwadekar@auspost.com.au   updated the class to add the codes to accomodate duplicate cases
 27/03/2017 Eric.Shen@auspost.com.au   Comment out AP Integration profile   -REQ1080244
-22/05/2017  nathan.franklin@auspost.com.au     Adding Safe drop guid retrieval from EventMessage__c
-11/10/2017 boris.bachovski@auspost.com.au       Merged code from CaseRelatedListSafeDropController (deleted)
-26/02/2018 nanda.kothamasu@auspost.com.au       to fix Case Error "Maximum View State Size Limit..." used transient on vairables
-26/11/2018 saiswetha.pingali@auspost.com.au     Added new field container_Id__c for REQ1469903
+22/05/2017  nathan.franklin@auspost.com.au	 Adding Safe drop guid retrieval from EventMessage__c
+11/10/2017 boris.bachovski@auspost.com.au	   Merged code from CaseRelatedListSafeDropController (deleted)
+26/02/2018 nanda.kothamasu@auspost.com.au	   to fix Case Error "Maximum View State Size Limit..." used transient on vairables
+26/11/2018 saiswetha.pingali@auspost.com.au	 Added new field container_Id__c for REQ1469903
 2021-10-14 - Nathan Franklin - Changed attach safe drop image to delivery proof pdf
 2022-06-06 - Talib Raza - INC1979490: condition added for cc email address
 2022-10-03 - Jacob Isaac - REQ2976037: removed condition for cc email address
+2024-09-20 - Vasu Gorakati - Case Hand-off - Voice call records visibility to classic users
 *******************************  History ************************************************/
 public with sharing class CaseRelatedListPanelContExt {
 
@@ -43,6 +44,7 @@ public with sharing class CaseRelatedListPanelContExt {
 	public transient List<Attachment> cn18Attachments { get; private set; } //transient
 	public String disclaimer { get; set; }
 	public List<Case> duplicateCases { get; private set; }
+	public List<VoiceCall> voiceCalls { get; private set; }
 
 	/**
 	 * Can be removed after the next successful deployment.
@@ -93,6 +95,7 @@ public with sharing class CaseRelatedListPanelContExt {
 			QM__c qm = QM__c.getOrgDefaults();
 			getNetworkEmail(qm);
 			getRtdListFaxStatusTrack(caseId, qm);
+			voiceCalls = getVoiceCalls(caseId);
 			//Moving showAttachDeliveryProof calculation inside the constructor.
 			showAttachDeliveryProof = (canAttachDeliveryProof(caseId) == DeliveryProofAvailability.AVAILABLE);				
 		}
@@ -110,7 +113,7 @@ public with sharing class CaseRelatedListPanelContExt {
 
 	/**
 	 @description  method to retrieve the service now responses to display them in the network responses
-	 @param    Id caseId
+	 @param	Id caseId
 	 @return   List<CaseComment>
 	 @return   NA
 	 */
@@ -135,7 +138,7 @@ public with sharing class CaseRelatedListPanelContExt {
 
 	/**
 	  @description  method to retrieve the duplicate cases
-	  @param    Id caseId
+	  @param	Id caseId
 	  @return   List<Case>
 	  @return   NA
 	  */
@@ -151,7 +154,7 @@ public with sharing class CaseRelatedListPanelContExt {
 
 	/**
 	  @description  method to retrieve the cn18 attachments
-	  @param    Id caseId
+	  @param	Id caseId
 	  @return   List<Attachment>
 	  @return   NA
 	  */
@@ -338,7 +341,7 @@ public with sharing class CaseRelatedListPanelContExt {
 		}
 
 		// if(fieldTrackingHistory!=null)
-		//     NetworkResponseSize = NetworkResponseSize + fieldTrackingHistory.size();
+		//	 NetworkResponseSize = NetworkResponseSize + fieldTrackingHistory.size();
 
 		if (serviceNowResp != null) {
 			networkResponseSize = networkResponseSize + serviceNowResp.size();
@@ -458,5 +461,23 @@ public with sharing class CaseRelatedListPanelContExt {
 			parentUrl = '/' + fi.ParentId;
 			isPublic = false;
 		}
+	}
+	
+ 	/*
+	* This method returns Voice Call records with matching case Id
+	* @param caseId - Case Id
+	*/
+	private List<VoiceCall> getVoiceCalls(Id caseId) {
+
+		Set<SObjectField> voiceCallFields = new Set<SObjectField>{
+			VoiceCall.Id, 
+			VoiceCall.Name, 
+			VoiceCall.CallStartDateTime, 
+			VoiceCall.CallEndDateTime, 
+			VoiceCall.CallType
+		};
+
+		List<VoiceCall> voiceCallList = VoiceCallsSelector.newInstance(voiceCallFields).selectByRelatedRecordIds(New Set<Id>{caseId},new Set<Object>());
+		return voiceCallList.isEmpty() ? null : voiceCallList;
 	}
 }

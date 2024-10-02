@@ -3,7 +3,6 @@
     <fullName>Organisation__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <description>To facilitate selected organisations to be associated with each campaign using which campaign target contacts are identified.</description>
-    <externalId>false</externalId>
     <label>Organisation</label>
     <referenceTo>Account</referenceTo>
     <relationshipLabel>Campaign Contact Assignments</relationshipLabel>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>New EDD new information + dropship</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>AP New EDD – New Information + Dropship</name>
+    <style>none</style>
+    <subject>We have a new estimated delivery date for case {!Case.CaseNumber}</subject>
+    <textOnly>Australia Post
+
+Case {!Case.CaseNumber}
+
+Hi {!IF(ISBLANK(Contact.Preferred_Name__c),Contact.FirstName,Contact.Preferred_Name__c)},
+
+Your delivery will arrive shortly
+
+Thank you for your patience while we’ve been monitoring your delivery. We 											are happy to report that the tracking has updated and you can now expect 											your delivery on or before {!Case.EstimatedDelivery__c}
+
+Where we’d previously calculated the journey of your parcel based on 											information from the sender, we’ve since received new information about the 											parcel allowing us to update you with this more accurate delivery estimate. 											You’ll see more activity on the tracking from here to help reassure that 											it’ll be with you shortly.
+
+Your case will be closed now that your delivery is on the way. You can 											continue to monitor the tracking for further updates – click here to 											see delivery options and notification preferences for this parcel.
+
+Australia Post
+
+This email was sent by Australia Post. Australia Post does not represent, warrant or 								guarantee that the integrity of this email communication has been maintained nor that 								the communication is free of errors, viruses or interference.
+
+Help &amp; support |  Terms &amp; conditions |  Privacy policy</textOnly>
+    <type>custom</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

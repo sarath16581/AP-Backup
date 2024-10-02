@@ -3,7 +3,6 @@
     <fullName>grax__Overall_SFObject_Process_End_Time__c</fullName>
     <deprecated>false</deprecated>
     <description>Overall SFObject Process End Time</description>
-    <externalId>false</externalId>
     <label>Overall SFObject Process End Time</label>
     <required>false</required>
     <trackHistory>false</trackHistory>

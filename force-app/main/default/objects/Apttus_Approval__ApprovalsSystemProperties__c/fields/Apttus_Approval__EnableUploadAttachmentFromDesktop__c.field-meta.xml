@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Enables user to upload attachments from the desktop instead of limiting attachments to those already associated with the object in the Notes &amp; Attachments section.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Enables user to upload attachments from the desktop instead of limiting attachments to those already associated with the object in the Notes &amp; Attachments section.</inlineHelpText>
     <label>Enable Upload Attachment From Desktop</label>
     <trackTrending>false</trackTrending>

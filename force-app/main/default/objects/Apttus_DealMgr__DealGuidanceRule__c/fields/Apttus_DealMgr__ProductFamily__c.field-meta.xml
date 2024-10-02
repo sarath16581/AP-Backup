@@ -3,7 +3,6 @@
     <fullName>Apttus_DealMgr__ProductFamily__c</fullName>
     <deprecated>false</deprecated>
     <description>One or more product families associated with the rule. Only applicable to Line Guidance Types.</description>
-    <externalId>false</externalId>
     <inlineHelpText>One or more product families associated with the rule. Only applicable to Line Guidance Types.</inlineHelpText>
     <label>Product Family Scope</label>
     <required>false</required>

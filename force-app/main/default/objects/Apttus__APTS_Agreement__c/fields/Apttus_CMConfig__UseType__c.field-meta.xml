@@ -3,7 +3,6 @@
     <fullName>Apttus_CMConfig__UseType__c</fullName>
     <deprecated>false</deprecated>
     <description>The type associated with the split agreement</description>
-    <externalId>false</externalId>
     <inlineHelpText>The type associated with the split agreement</inlineHelpText>
     <label>UseType</label>
     <required>false</required>

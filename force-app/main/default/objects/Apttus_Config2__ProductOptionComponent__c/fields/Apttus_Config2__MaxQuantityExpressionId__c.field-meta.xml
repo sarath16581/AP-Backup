@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__MaxQuantityExpressionId__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <deprecated>false</deprecated>
-    <externalId>false</externalId>
     <label>Max Quantity Expression</label>
     <referenceTo>Apttus_Config2__FieldExpression__c</referenceTo>
     <relationshipLabel>Product Option Components</relationshipLabel>

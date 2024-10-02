@@ -3,7 +3,6 @@
     <fullName>Record_Locked__c</fullName>
     <defaultValue>false</defaultValue>
     <description>To indicate that this record is currently locked.  Generally used by the controlling team while they are loading the APR information and then unlocked once the records can be edited by sales users.</description>
-    <externalId>false</externalId>
     <inlineHelpText>To indicate whether this record is currently locked.</inlineHelpText>
     <label>Record Locked</label>
     <securityClassification>INTERNAL</securityClassification>

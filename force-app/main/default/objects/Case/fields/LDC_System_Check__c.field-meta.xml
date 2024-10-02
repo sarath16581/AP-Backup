@@ -3,7 +3,6 @@
     <fullName>LDC_System_Check__c</fullName>
     <defaultValue>false</defaultValue>
     <description>StarTrack - LDC System Check</description>
-    <externalId>false</externalId>
     <label>LDC System Check</label>
     <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>

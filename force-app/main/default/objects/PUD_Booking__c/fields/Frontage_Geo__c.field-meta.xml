@@ -3,7 +3,6 @@
     <fullName>Frontage_Geo__c</fullName>
     <description>Geolocation of site frontage of the booking location.</description>
     <displayLocationInDecimal>true</displayLocationInDecimal>
-    <externalId>false</externalId>
     <inlineHelpText>Geolocation of site frontage of the booking location.</inlineHelpText>
     <label>Frontage Geo</label>
     <required>false</required>

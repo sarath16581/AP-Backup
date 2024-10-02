@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Risk_Of_Loss_Of_Business__c</fullName>
-    <externalId>false</externalId>
     <inlineHelpText>Assessment of whether a customer will leave due to the API.  Shoud be added to an existing BAR record</inlineHelpText>
     <label>Risk Of Loss Of Business</label>
     <required>false</required>

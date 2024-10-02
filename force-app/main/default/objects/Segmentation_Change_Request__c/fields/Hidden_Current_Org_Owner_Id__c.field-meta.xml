@@ -3,7 +3,6 @@
     <fullName>Hidden_Current_Org_Owner_Id__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <description>Phase 2 - This is a hidden field to capture the current owner of the Organisation</description>
-    <externalId>false</externalId>
     <label>Current Account Manager</label>
     <referenceTo>User</referenceTo>
     <relationshipName>Sales_Coverage_Change_Requests</relationshipName>

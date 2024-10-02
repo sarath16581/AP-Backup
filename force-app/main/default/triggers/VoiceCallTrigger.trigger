@@ -4,10 +4,10 @@
   * @description Trigger for handling VoiceCall object
   * @changelog
   */
-  trigger VoiceCallTrigger on VoiceCall (before insert, before update, after insert, after update) {
+trigger VoiceCallTrigger on VoiceCall (before insert, before update, after insert, after update) {
 
 	if(!TriggerHelper.isTriggerDisabled(String.valueOf(VoiceCall.sObjectType))){	 // verify if triggers are disabled
-		(new VoiceCallTriggerHandler()).dispatch();	
+		(new VoiceCallTriggerHandler()).dispatch();
 	}
 
 }

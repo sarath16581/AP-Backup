@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Indicates whether the asset is considered as Legacy for Billing</description>
-    <externalId>false</externalId>
     <inlineHelpText>Indicates whether the asset is considered as Legacy for Billing</inlineHelpText>
     <label>Is Legacy For Billing</label>
     <trackTrending>false</trackTrending>

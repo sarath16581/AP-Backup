@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>ItemType__c</fullName>
     <description>The Item Type assigned to the ICPS record.</description>
-    <externalId>false</externalId>
     <inlineHelpText>The Item Type assigned to the ICPS record.</inlineHelpText>
     <label>Item Type</label>
     <required>false</required>

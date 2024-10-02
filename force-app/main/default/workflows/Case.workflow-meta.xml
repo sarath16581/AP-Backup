@@ -1349,6 +1349,54 @@
         <template>Transport_Enquiry_Case_Template/Transport_Enquiry_New_Case_Notification</template>
     </alerts>
     <alerts>
+        <fullName>UnifiedCaseNoScansOrUpdatesClosureNotificationAP</fullName>
+        <description>Email alert to notify related contact on a Case related to an AP product, when the case is auto closed due to no scan event or update has been received for 5 business days.</description>
+        <protected>false</protected>
+        <recipients>
+            <field>ContactId</field>
+            <type>contactLookup</type>
+        </recipients>
+        <senderAddress>customerservice@auspost.com.au</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>Unified_Case_Notifications/APNoScansorUpdatesfor5Days</template>
+    </alerts>
+    <alerts>
+        <fullName>UnifiedCaseNoScansOrUpdatesClosureNotificationST</fullName>
+        <description>Email alert to notify related contact on a Case related to an StarTrack product, when the case is auto closed due to no scan event or update has been received for 5 business days.</description>
+        <protected>false</protected>
+        <recipients>
+            <field>ContactId</field>
+            <type>contactLookup</type>
+        </recipients>
+        <senderAddress>customerservice@startrack.com.au</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>Unified_Case_Notifications/STNoScansorUpdatesfor5Days</template>
+    </alerts>
+    <alerts>
+        <fullName>UnifiedCaseNoScansOrUpdatesNotificationAP</fullName>
+        <description>Email alert to notify related contact on a Case related to an AP product, when no scan event or update has been received for 3 business days.</description>
+        <protected>false</protected>
+        <recipients>
+            <field>ContactId</field>
+            <type>contactLookup</type>
+        </recipients>
+        <senderAddress>customerservice@auspost.com.au</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>Unified_Case_Notifications/APNoScansorUpdatesfor3Days</template>
+    </alerts>
+    <alerts>
+        <fullName>UnifiedCaseNoScansOrUpdatesNotificationST</fullName>
+        <description>Email alert to notify related contact on a Case related to a StarTrack product, when no scan event or update has been received for 3 business days.</description>
+        <protected>false</protected>
+        <recipients>
+            <field>ContactId</field>
+            <type>contactLookup</type>
+        </recipients>
+        <senderAddress>customerservice@startrack.com.au</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>Unified_Case_Notifications/STNoScansorUpdatesfor3Days</template>
+    </alerts>
+    <alerts>
         <fullName>UnifiedGeneralEnquiryToInvestigationAP</fullName>
         <description>Email alert to notify related contact on the Case when Unified General Enquiry case related to an AP product is converted in to Unified Investigation case.</description>
         <protected>false</protected>
@@ -1363,6 +1411,30 @@
     <alerts>
         <fullName>UnifiedGeneralEnquiryToInvestigationST</fullName>
         <description>Email alert to notify related contact on the Case when Unified General Enquiry case related to a StarTrack product is converted in to Unified Investigation case.</description>
+        <protected>false</protected>
+        <recipients>
+            <field>ContactId</field>
+            <type>contactLookup</type>
+        </recipients>
+        <senderAddress>customerservice@startrack.com.au</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>Unified_Case_Notifications/STCaseCreation</template>
+    </alerts>
+	<alerts>
+        <fullName>UnifiedInvestigationCaseCreationAP</fullName>
+        <description>Email alert to notify related contact on the Case when a new Unified Investigation case related to an AP product is created.</description>
+        <protected>false</protected>
+        <recipients>
+            <field>ContactId</field>
+            <type>contactLookup</type>
+        </recipients>
+        <senderAddress>customerservice@auspost.com.au</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>Unified_Case_Notifications/APCaseCreation</template>
+    </alerts>
+    <alerts>
+        <fullName>UnifiedInvestigationCaseCreationST</fullName>
+        <description>Email alert to notify related contact on the Case when a new Unified Investigation case related to an ST product is created.</description>
         <protected>false</protected>
         <recipients>
             <field>ContactId</field>
@@ -4534,7 +4606,7 @@ Warehouse: 0200, 0350, 0600, 0990</description>
             <name>Set_Closed_By_System</name>
             <type>FieldUpdate</type>
         </actions>
-        <active>true</active>
+        <active>false</active>
         <booleanFilter>1 AND 2 AND 3 AND 4 AND 5 AND 6 AND 7 AND 8 AND ((9 AND 10) OR 11)</booleanFilter>
         <criteriaItems>
             <field>Case.Article_Event_Codes__c</field>
@@ -4599,7 +4671,7 @@ Warehouse: 0200, 0350, 0600, 0990</description>
             <name>SSSW_Set_as_Network_Resolution</name>
             <type>FieldUpdate</type>
         </actions>
-        <active>true</active>
+        <active>false</active>
         <criteriaItems>
             <field>Case.Article_Event_Codes__c</field>
             <operation>equals</operation>
@@ -4622,7 +4694,7 @@ Warehouse: 0200, 0350, 0600, 0990</description>
             <name>Reassign_Case_to_Queue</name>
             <type>FieldUpdate</type>
         </actions>
-        <active>true</active>
+        <active>false</active>
         <formula>AND((((Article_Event_Codes__c = &apos;DD-ER4&apos;) || (Article_Event_Codes__c = &apos;NT-ER4&apos;) || (Article_Event_Codes__c = &apos;TTP-ER4&apos;) ) &amp;&amp; NOT(ISPICKVAL(Status, &apos;Closed&apos;)) &amp;&amp; ISBLANK(Contact.Email) &amp;&amp; TEXT(ProductCategory__c) != &apos;&apos; &amp;&amp; TEXT(ProductSubCategory__c) != &apos;&apos; &amp;&amp; TEXT(EnquirySubType__c) != &apos;&apos; &amp;&amp; TEXT(Type) != &apos;&apos;),OR(CONTAINS(Case_RecordType_Name__c, &apos;SSSW&apos;),(Case_RecordType_Name__c = &apos;Social Record Type&apos;)),OR(ISCHANGED(Article_Event_Codes__c), ISCHANGED(ProductCategory__c), ISCHANGED(ProductSubCategory__c), ISCHANGED(EnquirySubType__c), ISCHANGED(Type),ISCHANGED(Status)))</formula>
         <triggerType>onAllChanges</triggerType>
     </rules>
@@ -4632,7 +4704,7 @@ Warehouse: 0200, 0350, 0600, 0990</description>
             <name>Reassign_Case_to_Queue</name>
             <type>FieldUpdate</type>
         </actions>
-        <active>true</active>
+        <active>false</active>
         <formula>AND(((Article_Event_Codes__c = &apos;DD-ER4&apos;) || (Article_Event_Codes__c = &apos;NT-ER4&apos;) || (Article_Event_Codes__c = &apos;TTP-ER4&apos;) ),  NOT(ISPICKVAL(Status, &apos;Closed&apos;)), ISBLANK(Contact.Email), NOT(IsCR__c), NOT(IsHLC__c), OR(CONTAINS(Case_RecordType_Name__c, &apos;SSSW&apos;),(Case_RecordType_Name__c = &apos;Social Record Type&apos;)),OR(ISCHANGED(Article_Event_Codes__c), ISCHANGED(Status), ISCHANGED(IsCR__c), ISCHANGED(IsHLC__c)))</formula>
         <triggerType>onAllChanges</triggerType>
     </rules>
@@ -4658,7 +4730,7 @@ Warehouse: 0200, 0350, 0600, 0990</description>
             <name>Set_Closed_By_System</name>
             <type>FieldUpdate</type>
         </actions>
-        <active>true</active>
+        <active>false</active>
         <booleanFilter>1 AND 2 AND 3 AND 4 AND 5 AND 6 AND 7 AND 8 AND ((9 AND 10) OR 11)</booleanFilter>
         <criteriaItems>
             <field>Case.Article_Event_Codes__c</field>
@@ -4743,7 +4815,7 @@ Warehouse: 0200, 0350, 0600, 0990</description>
             <name>Set_Closed_By_System</name>
             <type>FieldUpdate</type>
         </actions>
-        <active>true</active>
+        <active>false</active>
         <booleanFilter>1 AND 2 AND 3 AND 4 AND 5 AND 6 AND 7 AND 8 AND ((9 AND 10) OR 11)</booleanFilter>
         <criteriaItems>
             <field>Case.Article_Event_Codes__c</field>
@@ -4824,7 +4896,7 @@ Warehouse: 0200, 0350, 0600, 0990</description>
             <name>Set_Closed_By_System</name>
             <type>FieldUpdate</type>
         </actions>
-        <active>true</active>
+        <active>false</active>
         <booleanFilter>1 AND 2 AND 3 AND 4 AND 5 AND 6 AND 7 AND 8 AND ((9 AND 10) OR 11)</booleanFilter>
         <criteriaItems>
             <field>Case.Article_Event_Codes__c</field>
@@ -4971,7 +5043,7 @@ Warehouse: 0200, 0350, 0600, 0990</description>
             <name>SSSW_Set_EnquirySubType_to_Tracking</name>
             <type>FieldUpdate</type>
         </actions>
-        <active>true</active>
+        <active>false</active>
         <booleanFilter>1 AND 3 AND 4 AND 5 AND 2</booleanFilter>
         <criteriaItems>
             <field>Case.Article_Event_Codes__c</field>
@@ -5057,7 +5129,7 @@ Warehouse: 0200, 0350, 0600, 0990</description>
             <name>SSSW_Set_Res_Result_Delivered</name>
             <type>FieldUpdate</type>
         </actions>
-        <active>true</active>
+        <active>false</active>
         <booleanFilter>1 AND 2 AND 3 AND 4 AND 5 AND 6 AND 7 AND 8</booleanFilter>
         <criteriaItems>
             <field>Case.Article_Event_Codes__c</field>

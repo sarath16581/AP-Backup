@@ -3,7 +3,6 @@
     <fullName>Hide_ST__c</fullName>
     <defaultValue>false</defaultValue>
     <description>Used to hide in StarTrack console</description>
-    <externalId>false</externalId>
     <inlineHelpText>Used to hide in StarTrack console</inlineHelpText>
     <label>Hide ST</label>
     <securityClassification>INTERNAL</securityClassification>

@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>High_Level_Overview__c</fullName>
-    <externalId>false</externalId>
     <inlineHelpText>Enter a high-level overview of the discussion with the customer including any important information that may assist the Migration owner in the implementation planning.</inlineHelpText>
     <label>High Level Overview</label>
     <length>10000</length>

@@ -3,7 +3,6 @@
     <fullName>Notification__c</fullName>
     <defaultValue>false</defaultValue>
     <description>SSSW -  Indicated if event notifications exist in SAP EM. Agent can query SAP EM if they want to see more details</description>
-    <externalId>false</externalId>
     <inlineHelpText>Event Notifications exist in SAP EM. Please query SAP EM to see more details.</inlineHelpText>
     <label>Notification</label>
     <securityClassification>INTERNAL</securityClassification>

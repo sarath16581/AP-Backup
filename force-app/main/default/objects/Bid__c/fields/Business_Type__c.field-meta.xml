@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Business_Type__c</fullName>
     <description>Field that indicates if the Opportunity the bid / proposal relates to is new business (ie not previously managed by AP) or is a response developed to retain existing work</description>
-    <externalId>false</externalId>
     <inlineHelpText>Field that indicates if the Opportunity the bid / proposal relates to is new business (ie not previously managed by AP), or is a response developed to retain existing work</inlineHelpText>
     <label>New Business or Retention?</label>
     <required>false</required>

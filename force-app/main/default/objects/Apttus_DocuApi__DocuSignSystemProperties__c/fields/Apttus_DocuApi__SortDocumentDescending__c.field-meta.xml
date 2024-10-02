@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Sort documents by updated data descending order</description>
-    <externalId>false</externalId>
     <inlineHelpText>Sort documents by updated data descending order</inlineHelpText>
     <label>Sort Document Descending</label>
     <trackTrending>false</trackTrending>

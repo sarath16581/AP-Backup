@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>hidden_OrgRevenue_in_last_6_months__c</fullName>
-    <externalId>false</externalId>
     <formula>IF( CurrentYear__c ,CASE( MONTH(TODAY()), 
 1, Aug_Revenue_Amount__c +Sep_Revenue_Amount__c +Oct_Revenue_Amount__c +Nov_Revenue_Amount__c + Dec_Revenue_Amount__c+ Jan_Revenue_Amount__c, 
 2, Sep_Revenue_Amount__c +Oct_Revenue_Amount__c +Nov_Revenue_Amount__c +Dec_Revenue_Amount__c + Jan_Revenue_Amount__c+ Feb_Revenue_Amount__c, 

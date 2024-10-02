@@ -3,7 +3,6 @@
     <fullName>Display_Start_Time__c</fullName>
     <businessStatus>DeprecateCandidate</businessStatus>
     <description>DEPRECATED. DO NOT USE. This field will be displayed on the duty board.</description>
-    <externalId>false</externalId>
     <label>Display Start Time (DEPRECATED)</label>
     <required>false</required>
     <trackFeedHistory>false</trackFeedHistory>

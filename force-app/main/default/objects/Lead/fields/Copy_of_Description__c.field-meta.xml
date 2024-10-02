@@ -3,7 +3,6 @@
     <fullName>Copy_of_Description__c</fullName>
     <businessStatus>DeprecateCandidate</businessStatus>
     <description>DEPRECATED. DO NOT USE. Added to allow for mapping of Lead Description field to Opportunity</description>
-    <externalId>false</externalId>
     <label>Copy of Description (DEPRECATED)</label>
     <length>32768</length>
     <securityClassification>INTERNAL</securityClassification>

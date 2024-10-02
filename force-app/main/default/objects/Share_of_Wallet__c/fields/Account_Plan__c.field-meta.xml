@@ -3,7 +3,6 @@
     <fullName>Account_Plan__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <description>Look up to the Account Plan</description>
-    <externalId>false</externalId>
     <inlineHelpText>The Account Plan that the Share of Wallet information should be linked to</inlineHelpText>
     <label>Account Plan</label>
     <referenceTo>Account_Plan__c</referenceTo>

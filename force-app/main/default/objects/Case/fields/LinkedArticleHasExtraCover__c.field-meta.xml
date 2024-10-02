@@ -3,7 +3,6 @@
     <fullName>LinkedArticleHasExtraCover__c</fullName>
     <defaultValue>false</defaultValue>
     <description>This field identifies if the article/s related to the case have extra cover. This field will be used by Omni-Channel so that cases with extra cover are allocated the Extra Cover skill</description>
-    <externalId>false</externalId>
     <inlineHelpText>This field identifies if the article/s related to the case have extra cover. This field will be used by Omni-Channel so that cases with extra cover are allocated the Extra Cover skill</inlineHelpText>
     <label>Linked Article Has Extra Cover</label>
     <trackFeedHistory>false</trackFeedHistory>

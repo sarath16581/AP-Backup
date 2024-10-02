@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Indicates whether the line item has a tiered price.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Indicates whether the line item has a tiered price.</inlineHelpText>
     <label>Has Tiered Price</label>
     <securityClassification>OFFICIAL_SENSITIVE</securityClassification>

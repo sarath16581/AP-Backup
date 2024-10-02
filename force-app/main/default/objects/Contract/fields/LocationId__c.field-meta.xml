@@ -3,7 +3,6 @@
     <fullName>LocationId__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <description>ID of the associated account location</description>
-    <externalId>false</externalId>
     <inlineHelpText>ID of the associated account location</inlineHelpText>
     <label>Location</label>
     <referenceTo>Apttus_Config2__AccountLocation__c</referenceTo>

@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__NumberOfEntries__c</fullName>
     <deprecated>false</deprecated>
     <description>Indicates the number of entries associated with the price matrix</description>
-    <externalId>false</externalId>
     <label>Number Of Entries</label>
     <securityClassification>INTERNAL</securityClassification>
     <summaryForeignKey>Apttus_Config2__PriceMatrixEntry__c.Apttus_Config2__PriceMatrixId__c</summaryForeignKey>

@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__TriggeringPrimaryNumbers__c</fullName>
     <deprecated>false</deprecated>
     <description>Primary numbers of the line items that has triggered the rule action.</description>
-    <externalId>false</externalId>
     <label>Triggering Primary Numbers</label>
     <length>6600</length>
     <securityClassification>INTERNAL</securityClassification>

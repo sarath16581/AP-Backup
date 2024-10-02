@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__ChargeTypes__c</fullName>
     <deprecated>false</deprecated>
     <description>The list of charge types associated with the entry</description>
-    <externalId>false</externalId>
     <inlineHelpText>The list of charge types associated with the entry</inlineHelpText>
     <label>Charge Types</label>
     <required>false</required>

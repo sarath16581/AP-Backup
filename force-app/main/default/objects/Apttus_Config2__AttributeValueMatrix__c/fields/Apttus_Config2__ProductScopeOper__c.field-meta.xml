@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__ProductScopeOper__c</fullName>
     <deprecated>false</deprecated>
     <description>The product scope operator</description>
-    <externalId>false</externalId>
     <inlineHelpText>The product scope operator</inlineHelpText>
     <label>Product Scope Oper</label>
     <required>false</required>

@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>For3__c</fullName>
     <description>Sales Forecast for March</description>
-    <externalId>false</externalId>
     <inlineHelpText>Sales Forecast for March</inlineHelpText>
     <label>March Forecast</label>
     <precision>5</precision>

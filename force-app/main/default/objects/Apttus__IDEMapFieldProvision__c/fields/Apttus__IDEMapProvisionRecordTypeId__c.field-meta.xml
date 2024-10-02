@@ -4,7 +4,6 @@
     <deleteConstraint>SetNull</deleteConstraint>
     <deprecated>false</deprecated>
     <description>IDE Provision Record Type</description>
-    <externalId>false</externalId>
     <inlineHelpText>Please provide IDE Provision Record Type</inlineHelpText>
     <label>IDE Provision Record Type</label>
     <referenceTo>Apttus__IDEMapProvisionRecordType__c</referenceTo>

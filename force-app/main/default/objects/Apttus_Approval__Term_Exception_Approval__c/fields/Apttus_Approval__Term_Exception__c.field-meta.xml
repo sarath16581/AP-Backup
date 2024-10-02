@@ -3,7 +3,6 @@
     <fullName>Apttus_Approval__Term_Exception__c</fullName>
     <deprecated>false</deprecated>
     <description>Denotes the term exception master record associated with this term exception approver record.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Denotes the term exception master record associated with this term exception approver record.</inlineHelpText>
     <label>Term Exception</label>
     <referenceTo>Apttus__Term_Exception__c</referenceTo>

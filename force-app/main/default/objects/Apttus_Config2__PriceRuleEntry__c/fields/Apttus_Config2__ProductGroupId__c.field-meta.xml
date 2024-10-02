@@ -4,7 +4,6 @@
     <deleteConstraint>SetNull</deleteConstraint>
     <deprecated>false</deprecated>
     <description>ID of the product group associated with the rule. Only applicable to Volume or Inclusion based rules.</description>
-    <externalId>false</externalId>
     <label>Product Group</label>
     <referenceTo>Apttus_Config2__ProductGroup__c</referenceTo>
     <relationshipLabel>Price Rule Entries</relationshipLabel>

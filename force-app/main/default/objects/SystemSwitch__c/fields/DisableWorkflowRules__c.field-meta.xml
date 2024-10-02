@@ -3,7 +3,6 @@
     <fullName>DisableWorkflowRules__c</fullName>
     <defaultValue>false</defaultValue>
     <description>Flag to deactivate workflow</description>
-    <externalId>false</externalId>
     <inlineHelpText>Workflow rule will be deactivated when checked. DO NOT turn off if you are not authorized or no approval.</inlineHelpText>
     <label>Disable Workflow Rules</label>
     <trackTrending>false</trackTrending>

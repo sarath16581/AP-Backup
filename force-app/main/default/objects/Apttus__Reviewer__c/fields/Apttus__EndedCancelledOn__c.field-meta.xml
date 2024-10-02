@@ -3,7 +3,6 @@
     <fullName>Apttus__EndedCancelledOn__c</fullName>
     <deprecated>false</deprecated>
     <description>Review End Date/time</description>
-    <externalId>false</externalId>
     <inlineHelpText>Review End Date/time</inlineHelpText>
     <label>Ended/Cancelled On</label>
     <required>false</required>

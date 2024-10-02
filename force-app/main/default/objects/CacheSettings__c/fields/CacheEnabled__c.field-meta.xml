@@ -3,7 +3,6 @@
     <fullName>CacheEnabled__c</fullName>
     <defaultValue>false</defaultValue>
     <description>Where platform cache should be enabled when using the CacheManager class</description>
-    <externalId>false</externalId>
     <inlineHelpText>Where platform cache should be enabled when using the CacheManager class</inlineHelpText>
     <label>Cache Enabled</label>
     <trackTrending>false</trackTrending>

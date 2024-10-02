@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Indicates whether synchronization of the product/service with the opportunity is disabled.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Indicates whether synchronization of the product/service with the opportunity is disabled.</inlineHelpText>
     <label>Disable Sync With Opportunity</label>
     <securityClassification>INTERNAL</securityClassification>

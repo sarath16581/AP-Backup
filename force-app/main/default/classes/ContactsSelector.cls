@@ -27,7 +27,9 @@
  * 2024-07-23 - Marcel HK - Allow match if MailingStreet equals addressLine1 + addressLine2 (CSLU-1106)
  * 2024-07-23 - Marcel HK - Added filters for accountId and abn/acn lookup (CSLU-447)
  * 2024-08-08 - Marcel HK - Update Address filters for `selectByCustomerSearchParamsQB` (CSLU-1072)
+ * 2024-09-10 - SteveL - added method selectByReversedPhoneNumbers
  * 2024-09-13 - Rejeesh Raghavan - Added changes for RoutingAPI-CustomerInsights
+ * 2024-09-30 - Parveen Kaushik - Removed Contact.IncentCredential__c from fieldList as this field is going to be decommissioned 
  */
 public virtual inherited sharing class ContactsSelector extends ApplicationSelector {
 	public enum Options {
@@ -64,7 +66,7 @@ public virtual inherited sharing class ContactsSelector extends ApplicationSelec
 		return new Set<SObjectField> {
 				Contact.Id, Contact.AccountId, Contact.FirstName, Contact.LastName, Contact.OwnerId, Contact.Name, Contact.APCN__c,
 				Contact.Email, Contact.OID_ID__c, Contact.CRMCSSOID__c , Contact.Phone , Contact.Fax, Contact.MobilePhone, Contact.HomePhone, Contact.Salutation, Contact.Title,
-				Contact.VerifiedMobile__c,Contact.Unique_Mobile__c, Contact.BillingAccount__c, Contact.IncentCredential__c
+				Contact.VerifiedMobile__c,Contact.Unique_Mobile__c, Contact.BillingAccount__c
 		};
 	}
 
@@ -174,21 +176,23 @@ public virtual inherited sharing class ContactsSelector extends ApplicationSelec
 		qb.addOrderAsc(Contact.Name);
 		return new Map<Id, Contact>((List<Contact>) Database.query(qb.toSoqlString()));
 	}
-	
+
 	/**
-	 * @description Select cloneable contact by parent account ID.
-	 * Cloneable contacts are active and maintained by Account Manager
-	 * @param accountId parent account ID
-	 * @return matching Contact records
+	 * @param selectorOptions Set<Object> selectorOptions
+	 * @param reversedPhoneNumbers Set<String> a collection of reversed phone numbers
+	 * @description returns a list of Contacts based on either matching on ReverseMobilePhone__c, ReverseVerifiedMobile__c, or ReversePhone__c
+	 *
+	 * @return Map<Id, Contact>
 	 */
-	public List<Contact> selectCloneableContactsByAccount(Id accountId) {
-		QueryBuilder qb = newQueryBuilder()
+	public Map<Id, Contact> selectByReversedPhoneNumbers(Set<Object> selectorOptions, Set<String> reversedPhoneNumbers) {
+		QueryBuilder qb = newQueryBuilder(selectorOptions)
 				.addConditions()
-				.add(new QueryBuilder.CompareCondition(Contact.AccountId).eq(accountId))
-				.add(new QueryBuilder.CompareCondition(Contact.Status__c).eq('Active'))
-				.add(new QueryBuilder.CompareCondition(Contact.Record_Maintainer__c).eq('Account Manager'))
+				.add(new QueryBuilder.SimpleCondition(Contact.ReverseMobilePhone__c + ' in :reversedPhoneNumbers'))
+				.add(new QueryBuilder.SimpleCondition(Contact.ReverseVerifiedMobile__c + ' in :reversedPhoneNumbers'))
+				.add(new QueryBuilder.SimpleCondition(Contact.ReversePhone__c + ' in :reversedPhoneNumbers'))
+				.setConditionOrder('(1 OR 2 OR 3)')
 				.endConditions();
-		return Database.query(qb.toSoqlString());
+		return new Map<Id, Contact>((List<Contact>) Database.query(qb.toSoqlString()));
 	}
 
 	/**
@@ -366,6 +370,22 @@ public virtual inherited sharing class ContactsSelector extends ApplicationSelec
 		qb.addOrder(new QueryBuilder.Order(Contact.LastName).setSortingOrderAsc().setNullsOrderLast());
 
 		return qb.toSoqlString();
+	}
+
+	/**
+	 * @description Select cloneable contact by parent account ID.
+	 * Cloneable contacts are active and maintained by Account Manager
+	 * @param accountId parent account ID
+	 * @return matching Contact records
+	 */
+	public List<Contact> selectCloneableContactsByAccount(Id accountId) {
+		QueryBuilder qb = newQueryBuilder()
+				.addConditions()
+				.add(new QueryBuilder.CompareCondition(Contact.AccountId).eq(accountId))
+				.add(new QueryBuilder.CompareCondition(Contact.Status__c).eq('Active'))
+				.add(new QueryBuilder.CompareCondition(Contact.Record_Maintainer__c).eq('Account Manager'))
+				.endConditions();
+		return Database.query(qb.toSoqlString());
 	}
 	/**
 	 * @description Select contacts with Cases and Interactions by Reversed Phone Number(exact match).

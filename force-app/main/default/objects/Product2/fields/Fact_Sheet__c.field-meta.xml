@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Fact_Sheet__c</fullName>
     <description>Link to the fact sheet</description>
-    <externalId>false</externalId>
     <inlineHelpText>Link to Fact Sheet</inlineHelpText>
     <label>Fact Sheet</label>
     <required>false</required>

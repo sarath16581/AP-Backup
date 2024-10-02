@@ -3,7 +3,6 @@
     <fullName>DisputeCurrency__c</fullName>
     <defaultValue>&quot;AUD&quot;</defaultValue>
     <description>The currency which the Customer organization in concern is dealing with.</description>
-    <externalId>false</externalId>
     <inlineHelpText>The currency which the Customer organization in concern is dealing with.</inlineHelpText>
     <label>Dispute Currency</label>
     <required>false</required>

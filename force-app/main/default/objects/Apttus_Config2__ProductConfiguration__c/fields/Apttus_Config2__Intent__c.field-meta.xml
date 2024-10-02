@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__Intent__c</fullName>
     <deprecated>false</deprecated>
     <description>The intent associated with the configuration</description>
-    <externalId>false</externalId>
     <inlineHelpText>The intent associated with the configuration</inlineHelpText>
     <label>Intent</label>
     <required>false</required>

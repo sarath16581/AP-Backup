@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>DowntradeNotes__c</fullName>
     <description>Downtrade Notes</description>
-    <externalId>false</externalId>
     <inlineHelpText>Downtrade Notes</inlineHelpText>
     <label>Downtrade Notes</label>
     <required>false</required>

@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Apttus_Approval__BusinessObjectIds__c</fullName>
     <deprecated>false</deprecated>
-    <externalId>false</externalId>
     <label>Business Object Ids</label>
     <length>8192</length>
     <trackHistory>false</trackHistory>

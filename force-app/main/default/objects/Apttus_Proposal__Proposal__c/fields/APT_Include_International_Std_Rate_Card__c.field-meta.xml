@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>APT_Include_International_Std_Rate_Card__c</fullName>
     <defaultValue>false</defaultValue>
-    <externalId>false</externalId>
     <label>Include International Std Rate Card</label>
     <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>

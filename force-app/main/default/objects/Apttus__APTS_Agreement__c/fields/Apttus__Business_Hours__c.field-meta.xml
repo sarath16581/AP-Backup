@@ -4,7 +4,6 @@
     <deleteConstraint>SetNull</deleteConstraint>
     <deprecated>false</deprecated>
     <description>Corporate Business Hours associated with the agreement</description>
-    <externalId>false</externalId>
     <label>Business Hours</label>
     <referenceTo>BusinessHours</referenceTo>
     <relationshipName>Agreements</relationshipName>

@@ -3,7 +3,6 @@
     <fullName>CoachingReceiver__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <description>User who is the recipient of the coaching</description>
-    <externalId>false</externalId>
     <label>Coaching Receiver</label>
     <referenceTo>User</referenceTo>
     <relationshipName>Sales_Coaching</relationshipName>

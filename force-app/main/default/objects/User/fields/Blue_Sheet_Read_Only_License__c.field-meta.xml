@@ -3,7 +3,6 @@
     <fullName>Blue_Sheet_Read_Only_License__c</fullName>
     <defaultValue>false</defaultValue>
     <description>SAM Blue Sheet licenses option for large orgs.</description>
-    <externalId>false</externalId>
     <label>Blue Sheet Read Only License</label>
     <trackFeedHistory>false</trackFeedHistory>
     <type>Checkbox</type>

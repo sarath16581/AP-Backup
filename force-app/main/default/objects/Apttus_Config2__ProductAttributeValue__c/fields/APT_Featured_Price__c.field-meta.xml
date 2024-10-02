@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>APT_Featured_Price__c</fullName>
-    <externalId>false</externalId>
     <formula>IF(APT_Average_Chargeable_Weight_Kg__c &lt; 1, 
  (APT_Up_to_500g_Rate__c  *  APT_Up_to_500g_of_Total_Returns_Volume__c) +  ((APT_Flag_Fall_Rate__c + ( APT_Average_Weight_Over_500g__c * APT_Per_Kg_Rate__c )) * (1 - APT_Up_to_500g_of_Total_Returns_Volume__c)) , 
 APT_Flag_Fall_Rate__c +  (APT_Average_Chargeable_Weight_Kg__c  *  APT_Per_Kg_Rate__c ))</formula>

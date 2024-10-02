@@ -30,6 +30,7 @@
  * 2024-07-19 - Ranjeewa Silva - Added new search method with search parameter validation
  * 2024-07-30 - Seth Heang - added fields in getSObjectFieldList.
  * 2024-08-12 - Ranjeewa Silva - New selector options to select child contact requests and impacted articles.
+ * 2024-09-12 - Seth Heang - added fields in getSObjectFieldList. These will be used in payload for TIBCO Subscription.
  */
 public virtual inherited sharing class CasesSelector extends ApplicationSelector {
 
@@ -95,8 +96,8 @@ public virtual inherited sharing class CasesSelector extends ApplicationSelector
 			Case.Article_Sender_Name__c, Case.Article_Sender_Address__c, Case.Description_of_contents__c, 
 			Case.Description_of_packaging__c, Case.Related_Billing_Account__c, Case.Value_of_Goods__c, Case.Calc_Link_Account__c,
 			Case.Checkbox__c, Case.Customer_Type__c, Case.Service_SLA__c, Case.Article_Receiver_Suburb__c, Case.Billing_Number__c,
-			Case.ProductSubCategory__c, Case.Exclude_Subscription_Automation__c
-
+			Case.ProductSubCategory__c, Case.Exclude_Subscription_Automation__c, Case.EventCode__c, Case.FacilityOrOutletWCC__c,
+			Case.OwnerUserName__c
 		};
 	}
 
@@ -280,6 +281,8 @@ public virtual inherited sharing class CasesSelector extends ApplicationSelector
 	 * @param searchParams A map containing searchable values:
 	 *						 caseIds: maps to Id (Set<Id>/Id)
 	 *						 recordTypeIds: maps to RecordTypeId (Set<Id>/Id)
+	 *						 relatedArticleIds: maps to ArticleTest__c (Set<Id>/Id)
+	 *						 isClosed: maps to IsClosed (Boolean).
 	 * @param selectorOptions selector options
 	 * @param matchAll If true will search based on AND, else search based on OR
 	 *
@@ -288,6 +291,8 @@ public virtual inherited sharing class CasesSelector extends ApplicationSelector
 	public List<Case> search(Map<String, Object> searchParams, Set<Object> selectorOptions, Boolean matchAll) {
 		Set<Id> caseIds = (Set<Id>)(searchParams.get('caseIds') == null ? new Set<Id>() : (searchParams.get('caseIds') instanceof Set<Id> ? searchParams.get('caseIds') : new Set<Id>{(Id)searchParams.get('caseIds')}));
 		Set<Id> recordTypeIds = (Set<Id>)(searchParams.get('recordTypeIds') == null ? new Set<Id>() : (searchParams.get('recordTypeIds') instanceof Set<Id> ? searchParams.get('recordTypeIds') : new Set<Id>{(Id)searchParams.get('recordTypeIds')}));
+		Set<Id> relatedArticleIds = (Set<Id>)(searchParams.get('relatedArticleIds') == null ? new Set<Id>() : (searchParams.get('relatedArticleIds') instanceof Set<Id> ? searchParams.get('relatedArticleIds') : new Set<Id>{(Id)searchParams.get('relatedArticleIds')}));
+		Boolean isClosed = searchParams.get('isClosed') instanceof Boolean ? (Boolean)searchParams.get('isClosed') : false;
 
 		return (List<Case>)Database.query(getSearchSoql(searchParams, selectorOptions, matchAll));
 	}
@@ -297,7 +302,7 @@ public virtual inherited sharing class CasesSelector extends ApplicationSelector
 	 */
 	@TestVisible
 	private String getSearchSoql(Map<String, Object> searchParams, Set<Object> selectorOptions, Boolean matchAll) {
-		validateSearchParams(searchParams.keySet(), new Set<String>{'caseIds', 'recordTypeIds'});
+		validateSearchParams(searchParams.keySet(), new Set<String>{'caseIds', 'recordTypeIds', 'relatedArticleIds', 'isClosed'});
 
 		QueryBuilder builder = newQueryBuilder(selectorOptions);
 		QueryBuilder.ConditionsManager conditions = builder.addConditions();
@@ -309,6 +314,14 @@ public virtual inherited sharing class CasesSelector extends ApplicationSelector
 		}
 		if(searchParams.containsKey('recordTypeIds')) {
 			conditions.add(new QueryBuilder.SimpleCondition(Case.RecordTypeId + ' in :recordTypeIds'));
+			conditionCount++;
+		}
+		if(searchParams.containsKey('relatedArticleIds')) {
+			conditions.add(new QueryBuilder.SimpleCondition(Case.ArticleTest__c + ' in :relatedArticleIds'));
+			conditionCount++;
+		}
+		if (searchParams.containsKey('isClosed')) {
+			conditions.add(new QueryBuilder.SimpleCondition(Case.IsClosed + ' = :isClosed'));
 			conditionCount++;
 		}
 
@@ -451,7 +464,7 @@ public virtual inherited sharing class CasesSelector extends ApplicationSelector
 		conditions.add(new QueryBuilder.SimpleCondition('ContactId IN :contactIds'));
 		conditions.endConditions();
 
-		qb.setOrder(new QueryBuilder.Order(Case.IsClosed).setSortingOrderDesc());
+		qb.setOrder(new QueryBuilder.Order(Case.IsClosed).setSortingOrderAsc());
 		qb.addOrder(new QueryBuilder.Order(Case.LastModifiedDate).setSortingOrderDesc());
 
 		return qb;
@@ -499,7 +512,7 @@ public virtual inherited sharing class CasesSelector extends ApplicationSelector
 		conditions.setConditionOrder('1 OR 2');
 		conditions.endConditions();
 
-		qb.setOrder(new QueryBuilder.Order(Case.IsClosed).setSortingOrderDesc());
+		qb.setOrder(new QueryBuilder.Order(Case.IsClosed).setSortingOrderAsc());
 		qb.addOrder(new QueryBuilder.Order(Case.LastModifiedDate).setSortingOrderDesc());
 		return qb;
 	}

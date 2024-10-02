@@ -3,7 +3,6 @@
     <fullName>Apttus__Action__c</fullName>
     <deprecated>false</deprecated>
     <description>The action which triggered the event</description>
-    <externalId>false</externalId>
     <label>Action</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>

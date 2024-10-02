@@ -3,7 +3,6 @@
     <fullName>RelatedCase__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <description>SSSW</description>
-    <externalId>false</externalId>
     <inlineHelpText>Another Case related to this enquiry that may provide supporting info.</inlineHelpText>
     <label>Related Case</label>
     <referenceTo>Case</referenceTo>

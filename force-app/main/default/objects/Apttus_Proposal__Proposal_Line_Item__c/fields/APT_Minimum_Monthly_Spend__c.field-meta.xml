@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>APT_Minimum_Monthly_Spend__c</fullName>
-    <externalId>false</externalId>
     <formula>Apttus_QPConfig__DerivedFromId__r.APT_Minimum_Monthly_Spend__c</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <label>Minimum Monthly Spend</label>

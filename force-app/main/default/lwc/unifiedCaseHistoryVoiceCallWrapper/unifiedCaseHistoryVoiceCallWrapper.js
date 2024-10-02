@@ -5,14 +5,15 @@ import { reduceErrors } from 'c/ldsUtils';
 
 import ID_FIELD from '@salesforce/schema/VoiceCall.Id';
 import CONTACT_ID_FIELD from '@salesforce/schema/VoiceCall.Contact__c';
-import CASE_ID_FIELD from '@salesforce/schema/VoiceCall.Case__c';
+import RELATED_RECORD_ID_FIELD from '@salesforce/schema/VoiceCall.RelatedRecordId';
 import CONSIGNMENT_ID_FIELD from '@salesforce/schema/VoiceCall.Consignment__c';
 
 /**
  * This component wraps the `unifiedCaseHistory` component specifically for the `VoiceCall` interaction record page.
- * 
+ *
  * @changelog:
  * 2024-09-12 - Marcel HK - Created
+ * 2024-09-25 - Marcel HK - Updated Case linking to use `ReleatedRecordId` instead of `Case__c`
  */
 export default class UnifiedCaseHistoryVoiceCallWrapper extends LightningElement {
 	/**
@@ -68,13 +69,13 @@ export default class UnifiedCaseHistoryVoiceCallWrapper extends LightningElement
 	 * @type {string}
 	 */
 	get linkedCaseId() {
-		return getFieldValue(this.interactionRecord, CASE_ID_FIELD);
+		return getFieldValue(this.interactionRecord, RELATED_RECORD_ID_FIELD);
 	}
 
 	/**
 	 * Wire the interaction (VoiceCall) record.
 	 */
-	@wire(getRecord, { recordId: '$recordId', fields: [CONSIGNMENT_ID_FIELD, CONTACT_ID_FIELD, CASE_ID_FIELD] })
+	@wire(getRecord, { recordId: '$recordId', fields: [CONSIGNMENT_ID_FIELD, CONTACT_ID_FIELD, RELATED_RECORD_ID_FIELD] })
 	wiredInterationRecord({ error, data }) {
 		if (data) {
 			this.interactionRecord = data;
@@ -101,7 +102,7 @@ export default class UnifiedCaseHistoryVoiceCallWrapper extends LightningElement
 			const caseId = event.detail?.caseId ?? null;
 
 			// Update record and notify other components that the record was updated.
-			await updateRecord({ fields: { [ID_FIELD.fieldApiName]: this.recordId, [CASE_ID_FIELD.fieldApiName]: caseId } });
+			await updateRecord({ fields: { [ID_FIELD.fieldApiName]: this.recordId, [RELATED_RECORD_ID_FIELD.fieldApiName]: caseId } });
 			await notifyRecordUpdateAvailable([{ recordId: this.recordId }]);
 
 			// Success toast message

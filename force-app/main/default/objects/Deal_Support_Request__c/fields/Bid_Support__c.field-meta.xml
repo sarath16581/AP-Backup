@@ -3,7 +3,6 @@
     <fullName>Bid_Support__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <description>Field that will allow any supporting resource assigned to manage the activity to be recorded</description>
-    <externalId>false</externalId>
     <inlineHelpText>Field that will allow any supporting resource assigned to manage the activity to be recorded</inlineHelpText>
     <label>Bid Support</label>
     <referenceTo>User</referenceTo>

@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>APT_of_requested_T_C_changes__c</fullName>
     <description>Total number of selected Contract Term Exceptions. COUNT of Contract Term Exception records</description>
-    <externalId>false</externalId>
     <inlineHelpText>Total number of selected Contract Term Exceptions</inlineHelpText>
     <label># Of Requested T&amp;C Changes</label>
     <securityClassification>INTERNAL</securityClassification>

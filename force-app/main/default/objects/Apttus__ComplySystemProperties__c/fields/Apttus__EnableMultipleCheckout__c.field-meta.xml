@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Indicates whether multiple checkout is allowed. Only applicable when version control is in effect.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Indicates whether multiple checkout is allowed. Only applicable when version control is in effect.</inlineHelpText>
     <label>Enable Multiple Checkout</label>
     <trackTrending>false</trackTrending>

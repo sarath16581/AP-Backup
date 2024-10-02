@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__FeatureName__c</fullName>
     <deprecated>false</deprecated>
     <description>Name of the feature</description>
-    <externalId>false</externalId>
     <inlineHelpText>Name of the feature</inlineHelpText>
     <label>Feature Name</label>
     <required>false</required>

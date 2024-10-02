@@ -4,7 +4,6 @@
     <description>Phase 1 - Opportunity Assessment (PWC)
 
 Identifying the key products we plan to offer and why the customer would choose us as opposed to the competition</description>
-    <externalId>false</externalId>
     <inlineHelpText>Why would the customer choose us over our competition? What is our unique value proposition? (8%)</inlineHelpText>
     <label>Customer Value Proposition</label>
     <required>false</required>

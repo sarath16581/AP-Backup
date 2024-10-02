@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Date_Last_Reviewed__c</fullName>
-    <externalId>false</externalId>
     <inlineHelpText>This is the date that the field was last reviewed.</inlineHelpText>
     <label>Date Last Reviewed</label>
     <required>false</required>

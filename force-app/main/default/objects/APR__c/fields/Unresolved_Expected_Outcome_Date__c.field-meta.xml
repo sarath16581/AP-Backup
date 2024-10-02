@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Unresolved_Expected_Outcome_Date__c</fullName>
-    <externalId>false</externalId>
     <inlineHelpText>Use this field only if the status of the APR record is Unresolved. This field indicates the date when an outcome is expected for this APR record.</inlineHelpText>
     <label>Unresolved Expected Outcome Date</label>
     <required>false</required>

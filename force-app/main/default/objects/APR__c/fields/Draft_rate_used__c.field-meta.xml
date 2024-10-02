@@ -3,7 +3,6 @@
     <fullName>Draft_rate_used__c</fullName>
     <defaultValue>false</defaultValue>
     <description>To indicate that a draft rate has been used in this APR record</description>
-    <externalId>false</externalId>
     <label>Draft rate used</label>
     <securityClassification>OFFICIAL_SENSITIVE</securityClassification>
     <trackHistory>false</trackHistory>

@@ -7,7 +7,6 @@
 - if set to true triggers the &quot;SSSW - Article Subscription&quot; WFR
 
 DEPRECATED: This field has now been deprecated and should be removed when possible, AUG-2020</description>
-    <externalId>false</externalId>
     <inlineHelpText>DEPRECATED: This field has now been deprecated and should be removed when possible, AUG-2020</inlineHelpText>
     <label>(DEPRECATED) Subscribe</label>
     <securityClassification>INTERNAL</securityClassification>

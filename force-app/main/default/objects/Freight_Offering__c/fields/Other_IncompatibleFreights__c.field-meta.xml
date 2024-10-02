@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Other_IncompatibleFreights__c</fullName>
     <defaultValue>false</defaultValue>
-    <externalId>false</externalId>
     <inlineHelpText>Non standard packaging</inlineHelpText>
     <label>Other</label>
     <securityClassification>INTERNAL</securityClassification>

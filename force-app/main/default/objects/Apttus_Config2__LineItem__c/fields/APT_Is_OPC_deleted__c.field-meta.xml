@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>APT_Is_OPC_deleted__c</fullName>
     <defaultValue>false</defaultValue>
-    <externalId>false</externalId>
     <label>Is OPC deleted?</label>
     <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>

@@ -3,7 +3,6 @@
     <fullName>EmailNotAvailable__c</fullName>
     <defaultValue>false</defaultValue>
     <description>Working together with validation rule, to enforce SSSW service agent to confirm the availability of customer email address if email was left empty (REQ2122521).</description>
-    <externalId>false</externalId>
     <inlineHelpText>Please check this box if the email is not available for this contact.</inlineHelpText>
     <label>I requested an email address</label>
     <securityClassification>INTERNAL</securityClassification>

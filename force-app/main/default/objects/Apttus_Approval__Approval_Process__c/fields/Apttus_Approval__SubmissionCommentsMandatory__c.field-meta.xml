@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Set this flag to make submission comments mandatory for this process at the process level. When set, the user will be forced to enter submission comments when the request is submitted for approval.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Set this flag to make submission comments mandatory for this process at the process level. When set, the user will be forced to enter submission comments when the request is submitted for approval.</inlineHelpText>
     <label>Submission Comments Mandatory</label>
     <securityClassification>INTERNAL</securityClassification>

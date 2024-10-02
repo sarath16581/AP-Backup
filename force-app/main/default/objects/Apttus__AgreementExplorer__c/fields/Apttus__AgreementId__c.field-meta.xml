@@ -4,7 +4,6 @@
     <deleteConstraint>SetNull</deleteConstraint>
     <deprecated>false</deprecated>
     <description>The agreement Id associated with this query.</description>
-    <externalId>false</externalId>
     <inlineHelpText>The agreement Id associated with this query.</inlineHelpText>
     <label>Agreement</label>
     <referenceTo>Apttus__APTS_Agreement__c</referenceTo>

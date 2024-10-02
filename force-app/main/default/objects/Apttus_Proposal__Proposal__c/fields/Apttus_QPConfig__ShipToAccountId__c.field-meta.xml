@@ -4,7 +4,6 @@
     <deleteConstraint>SetNull</deleteConstraint>
     <deprecated>false</deprecated>
     <description>ID of the ship to account associated with the quote/proposal</description>
-    <externalId>false</externalId>
     <inlineHelpText>ID of the ship to account associated with the quote/proposal</inlineHelpText>
     <label>Ship To</label>
     <referenceTo>Account</referenceTo>

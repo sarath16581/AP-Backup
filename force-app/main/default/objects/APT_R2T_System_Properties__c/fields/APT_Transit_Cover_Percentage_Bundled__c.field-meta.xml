@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>APT_Transit_Cover_Percentage_Bundled__c</fullName>
-    <externalId>false</externalId>
     <label>Transit Cover Percentage Bundled</label>
     <precision>18</precision>
     <required>false</required>

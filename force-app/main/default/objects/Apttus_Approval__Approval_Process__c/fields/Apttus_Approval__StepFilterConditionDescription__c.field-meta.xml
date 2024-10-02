@@ -3,7 +3,6 @@
     <fullName>Apttus_Approval__StepFilterConditionDescription__c</fullName>
     <deprecated>false</deprecated>
     <description>Enter a description for this step filter condition</description>
-    <externalId>false</externalId>
     <inlineHelpText>Enter a description for this step filter condition</inlineHelpText>
     <label>Step Filter Condition Description</label>
     <required>false</required>

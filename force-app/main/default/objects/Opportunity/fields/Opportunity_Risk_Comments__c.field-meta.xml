@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Opportunity_Risk_Comments__c</fullName>
-    <externalId>false</externalId>
     <inlineHelpText>Provide commentary about why the level of risk is Medium or High (4%)</inlineHelpText>
     <label>Opportunity Risk Comments</label>
     <required>false</required>

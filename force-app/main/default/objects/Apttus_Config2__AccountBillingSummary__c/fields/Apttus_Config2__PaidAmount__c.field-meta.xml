@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__PaidAmount__c</fullName>
     <deprecated>false</deprecated>
     <description>The total amount of paid invoices</description>
-    <externalId>false</externalId>
     <inlineHelpText>The total amount of paid invoices</inlineHelpText>
     <label>Paid Amount</label>
     <precision>18</precision>

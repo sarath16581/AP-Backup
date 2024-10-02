@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>APT_OPC_Line_Items__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
-    <externalId>false</externalId>
     <label>OPC Line Items</label>
     <referenceTo>APT_Opportunity_Product_Line_Item__c</referenceTo>
     <relationshipLabel>Opportunity Product</relationshipLabel>

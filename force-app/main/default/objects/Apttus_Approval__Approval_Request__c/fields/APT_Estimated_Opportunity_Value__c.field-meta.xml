@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>APT_Estimated_Opportunity_Value__c</fullName>
     <description>Opportunity initial estimate= Minimum Monthly spend on Proposal x 12</description>
-    <externalId>false</externalId>
     <formula>Apttus_QPApprov__ProposalId__r.Apttus_Proposal__Opportunity__r.APTMinimumMonthlySpend__c * 12</formula>
     <inlineHelpText>Opportunity initial estimate</inlineHelpText>
     <label>(depr) Estimated Opportunity Value</label>

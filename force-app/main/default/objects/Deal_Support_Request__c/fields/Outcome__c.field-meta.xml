@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Outcome__c</fullName>
     <description>Use in Commercial analytics &amp; modelling request.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Commercial analytics team to enter the outcome of the request prior to closure</inlineHelpText>
     <label>Outcome</label>
     <required>false</required>

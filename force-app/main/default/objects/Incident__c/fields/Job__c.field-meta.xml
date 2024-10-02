@@ -3,7 +3,6 @@
     <fullName>Job__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <description>Field used to link the Job the Incident is realted to</description>
-    <externalId>false</externalId>
     <label>Job</label>
     <referenceTo>Job__c</referenceTo>
     <relationshipLabel>Incidents</relationshipLabel>

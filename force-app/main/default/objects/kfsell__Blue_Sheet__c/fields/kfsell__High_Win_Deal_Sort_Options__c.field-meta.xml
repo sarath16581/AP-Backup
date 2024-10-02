@@ -3,7 +3,6 @@
     <fullName>kfsell__High_Win_Deal_Sort_Options__c</fullName>
     <deprecated>false</deprecated>
     <description>Sorting Options for High Win deals with blue sheet on account dashboard</description>
-    <externalId>false</externalId>
     <label>High Win Deal Sort Options</label>
     <required>false</required>
     <trackHistory>false</trackHistory>

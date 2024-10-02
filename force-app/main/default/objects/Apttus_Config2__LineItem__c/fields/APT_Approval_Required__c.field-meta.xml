@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>APT_Approval_Required__c</fullName>
-    <externalId>false</externalId>
     <formula>/* Backup on 20 December 2016
 IF(AND( Apttus_Config2__ConfigurationId__r.Apttus_QPConfig__Proposald__r.RecordType.Name ==&apos;Renewal Quote&apos; ,OR(APT_Product_Name__c == &quot;International Bundle&quot;,APT_Product_Name__c == &quot;eParcel&quot;, APT_Product_Name__c == &quot;eParcel Express&quot;)),TRUE,
 IF((ISPICKVAL(Apttus_Config2__AdjustmentType__c, &quot;Customised Pricing&quot;) || 

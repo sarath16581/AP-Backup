@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Probability__c</fullName>
     <description>Provides the percentage probability of the opportunity</description>
-    <externalId>false</externalId>
     <inlineHelpText>Value that is obtained from the opportunity linked to the Bid</inlineHelpText>
     <label>Probability (%)</label>
     <precision>5</precision>

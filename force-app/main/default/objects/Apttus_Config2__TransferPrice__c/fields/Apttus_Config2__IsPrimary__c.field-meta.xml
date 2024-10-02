@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Specifies whether this mapping is primary</description>
-    <externalId>false</externalId>
     <inlineHelpText>Specifies whether this mapping is primary</inlineHelpText>
     <label>Is Primary</label>
     <securityClassification>INTERNAL</securityClassification>

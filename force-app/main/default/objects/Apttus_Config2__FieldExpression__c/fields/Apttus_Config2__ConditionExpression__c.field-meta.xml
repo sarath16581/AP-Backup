@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__ConditionExpression__c</fullName>
     <deprecated>false</deprecated>
     <description>Expression used to determine qualifying line items for rollup.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Expression used to determine qualifying line items for rollup.</inlineHelpText>
     <label>Match Expression</label>
     <length>4096</length>

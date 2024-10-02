@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__RulesetId__c</fullName>
     <deprecated>false</deprecated>
     <description>ID of the associated rule set</description>
-    <externalId>false</externalId>
     <inlineHelpText>ID of the associated rule set</inlineHelpText>
     <label>Ruleset</label>
     <referenceTo>Apttus_Config2__OrderWorkflowRuleset__c</referenceTo>

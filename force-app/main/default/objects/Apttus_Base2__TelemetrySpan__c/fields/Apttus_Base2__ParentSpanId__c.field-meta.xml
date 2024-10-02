@@ -4,7 +4,6 @@
     <deleteConstraint>SetNull</deleteConstraint>
     <deprecated>false</deprecated>
     <description>The parent of a telemetry span record. A record with this field set to null represents the Root span node.</description>
-    <externalId>false</externalId>
     <inlineHelpText>The parent of a telemetry span record. A record with this field set to null represents the Root span node.</inlineHelpText>
     <label>Parent Span</label>
     <referenceTo>Apttus_Base2__TelemetrySpan__c</referenceTo>

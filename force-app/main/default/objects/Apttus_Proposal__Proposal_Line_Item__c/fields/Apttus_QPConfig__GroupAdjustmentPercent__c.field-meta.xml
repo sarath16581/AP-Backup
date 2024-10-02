@@ -3,7 +3,6 @@
     <fullName>Apttus_QPConfig__GroupAdjustmentPercent__c</fullName>
     <deprecated>false</deprecated>
     <description>The group adjustment percent</description>
-    <externalId>false</externalId>
     <label>Group Adjustment (%)</label>
     <precision>14</precision>
     <required>false</required>

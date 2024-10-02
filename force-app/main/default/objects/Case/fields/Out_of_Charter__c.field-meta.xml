@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Out_of_Charter__c</fullName>
-    <externalId>false</externalId>
     <formula>If (ISblank(SLATargetDate__c),false,                     /*if the SLATargetdate is blank don’t set charter */         
 (If(Isblank(ClosedDate),                                           /* check to see if closed date is set */ 
 IF(SLATargetDate__c &gt; now(),false,true),            /*compare SLA date to now flag on if we have passed the SLA target date*/ 

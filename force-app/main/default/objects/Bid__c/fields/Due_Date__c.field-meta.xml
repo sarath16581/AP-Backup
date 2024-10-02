@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Due_Date__c</fullName>
     <description>The date the Bid or Tender is due to be lodged</description>
-    <externalId>false</externalId>
     <inlineHelpText>When is the Bids or Tender due to be lodged/presented</inlineHelpText>
     <label>Due Date</label>
     <required>false</required>

@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__PicklistValues__c</fullName>
     <deprecated>false</deprecated>
     <description>The product pick list values for the corresponding field name.</description>
-    <externalId>false</externalId>
     <inlineHelpText>The product pick list values for the corresponding field name.</inlineHelpText>
     <label>Picklist Values</label>
     <length>32768</length>

@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Total_NRT_Revenue__c</fullName>
-    <externalId>false</externalId>
     <formula>IF(ISPICKVAL(Classification_c__c ,&quot;Growth&quot;),Total_NRT_Adjusted__c ,  Hidden_Total_Growth_OPC__c +Total_NRT_Adjusted__c)</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <label>Total NRT Revenue</label>

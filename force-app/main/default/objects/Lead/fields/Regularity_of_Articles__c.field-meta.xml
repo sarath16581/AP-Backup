@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Regularity_of_Articles__c</fullName>
     <description>Regularity of Articles</description>
-    <externalId>false</externalId>
     <inlineHelpText>Regularity of Articles identifies from the Lead Legends form How often articles may be used by the Lead.</inlineHelpText>
     <label>Regularity of Articles</label>
     <required>false</required>

@@ -4,7 +4,6 @@
     <deleteConstraint>SetNull</deleteConstraint>
     <deprecated>false</deprecated>
     <description>Line Item from collaborators cart from which transfer prices was received for this cost line item</description>
-    <externalId>false</externalId>
     <inlineHelpText>Line Item from collaborators cart from which transfer prices was received for this cost line item</inlineHelpText>
     <label>Transfer Price Line Item</label>
     <referenceTo>Apttus_Config2__LineItem__c</referenceTo>

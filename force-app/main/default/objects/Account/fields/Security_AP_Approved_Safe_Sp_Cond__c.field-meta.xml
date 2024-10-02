@@ -3,7 +3,6 @@
     <fullName>Security_AP_Approved_Safe_Sp_Cond__c</fullName>
     <defaultValue>false</defaultValue>
     <description>Is Licensee required to provide and maintain an Australia Post approved safe?</description>
-    <externalId>false</externalId>
     <inlineHelpText>Is Licensee required to provide and maintain an Australia Post approved safe?</inlineHelpText>
     <label>Security AP Approved Safe Sp Cond</label>
     <securityClassification>INTERNAL</securityClassification>

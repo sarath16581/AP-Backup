@@ -4,7 +4,6 @@
     <description>Phase 1 - Opportunity Assessment (PWC)
 
 Identify if there are any known suppliers competing for the same opportunity</description>
-    <externalId>false</externalId>
     <inlineHelpText>Who are the competitors for this opportunity?</inlineHelpText>
     <label>Competitors</label>
     <length>32768</length>

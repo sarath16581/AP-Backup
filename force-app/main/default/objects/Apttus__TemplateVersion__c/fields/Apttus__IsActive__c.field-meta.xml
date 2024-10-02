@@ -3,7 +3,6 @@
     <fullName>Apttus__IsActive__c</fullName>
     <deprecated>false</deprecated>
     <description>Indicates if this version is the version being used</description>
-    <externalId>false</externalId>
     <formula>Apttus__TemplateId__r.Apttus__ActiveVersionId__c ==  Id</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <inlineHelpText>Indicates if this version is the version being used</inlineHelpText>

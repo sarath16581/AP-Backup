@@ -3,7 +3,6 @@
     <fullName>Field_Trip__Field_Created_Date__c</fullName>
     <deprecated>false</deprecated>
     <description>Not functional in current version... reserved for use in future release.</description>
-    <externalId>false</externalId>
     <label>Field Created Date</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>

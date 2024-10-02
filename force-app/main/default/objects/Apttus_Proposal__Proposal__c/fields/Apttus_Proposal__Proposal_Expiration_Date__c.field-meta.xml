@@ -3,7 +3,6 @@
     <fullName>Apttus_Proposal__Proposal_Expiration_Date__c</fullName>
     <deprecated>false</deprecated>
     <description>The quote/proposal expiration date</description>
-    <externalId>false</externalId>
     <inlineHelpText>This date will be system generated, 60 days from the proposal created date. Expired proposals cannot be presented to the customer</inlineHelpText>
     <label>Proposal Expiration Date</label>
     <required>false</required>

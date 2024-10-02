@@ -3,7 +3,6 @@
     <fullName>DisableValidationRules__c</fullName>
     <defaultValue>false</defaultValue>
     <description>Flag to deactivate validation rules</description>
-    <externalId>false</externalId>
     <inlineHelpText>Validation rules will be deactivated when checked. DO NOT turn off if you are not authorized or no approval.</inlineHelpText>
     <label>Disable Validation Rules</label>
     <trackTrending>false</trackTrending>

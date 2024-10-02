@@ -3,7 +3,6 @@
     <fullName>CommunityAgent__c</fullName>
     <businessStatus>DeprecateCandidate</businessStatus>
     <deleteConstraint>SetNull</deleteConstraint>
-    <externalId>false</externalId>
     <label>Dep -Community Agent</label>
     <referenceTo>User</referenceTo>
     <relationshipName>CommunityAgent</relationshipName>

@@ -4,7 +4,6 @@
     <deleteConstraint>SetNull</deleteConstraint>
     <deprecated>false</deprecated>
     <description>ID of the revenue recognition policy for the product or service</description>
-    <externalId>false</externalId>
     <label>Revenue Recognition Policy</label>
     <referenceTo>Apttus_Config2__RevRecPolicy__c</referenceTo>
     <relationshipLabel>Price List Items</relationshipLabel>

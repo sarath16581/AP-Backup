@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>HoldUntilDate__c</fullName>
     <description>This is the date that the article/s allocated to this ICPS will be held until.</description>
-    <externalId>false</externalId>
     <inlineHelpText>This is the date that the article/s allocated to this ICPS will be held until.</inlineHelpText>
     <label>Hold Until Date</label>
     <required>false</required>

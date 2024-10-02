@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Marketing_Comms_Type__c</fullName>
     <description>Created to identify Orgs to receive comms for the Lead Nurture Program March 2015 by ECG Marketing</description>
-    <externalId>false</externalId>
     <inlineHelpText>Identifies the audience type for marketing communications (Marketing use only)</inlineHelpText>
     <label>Marketing Comms Type</label>
     <required>false</required>

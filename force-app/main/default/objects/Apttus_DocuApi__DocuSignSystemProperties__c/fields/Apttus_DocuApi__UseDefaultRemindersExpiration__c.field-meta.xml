@@ -4,7 +4,6 @@
     <defaultValue>true</defaultValue>
     <deprecated>false</deprecated>
     <description>This setting controls whether the default value defined for reminders &amp; expiration at the DocuSign account should be used for all the envelopes. If checked, the default values will be used, else, users will be able to modify the reminders and expiration values for individual envelopes at the additional details section on the user interface.</description>
-    <externalId>false</externalId>
     <inlineHelpText>This setting controls whether the default value defined for reminders &amp; expiration at the DocuSign account should be used for all the envelopes. If checked, the default values will be used, else, users will be able to modify the values on the screen.</inlineHelpText>
     <label>Use Default Reminders &amp; Expiration</label>
     <trackTrending>false</trackTrending>

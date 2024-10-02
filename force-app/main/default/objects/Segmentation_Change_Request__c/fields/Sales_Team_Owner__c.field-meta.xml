@@ -3,7 +3,6 @@
     <fullName>Sales_Team_Owner__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <description>This field is being set in the Process &apos;SCCR Update Incoming and Outgoing approver&apos; and will be used to assign a record submitted for approval in case of a holding user.</description>
-    <externalId>false</externalId>
     <label>Sales Team Owner</label>
     <referenceTo>User</referenceTo>
     <relationshipName>Sales_Coverage_Change_Requests3</relationshipName>
