@@ -24,6 +24,10 @@
     <groups>Knowledge: Recovery Team</groups>
     <groups>Knowledge: Specialist Skill</groups>
     <groups>Knowledge: StarTrack</groups>
+	<groups>Unified Agent</groups>
+    <groups>Unified Team Support Lead</groups>
+    <groups>Unified Team Lead</groups>
+    <groups>Unified Knowledge and Content</groups>
     <label>AP CCC Admin</label>
     <loginAccess>false</loginAccess>
     <permissionSetGroups>Unified Agent</permissionSetGroups>
