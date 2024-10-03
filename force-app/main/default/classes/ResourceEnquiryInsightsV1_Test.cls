@@ -132,8 +132,11 @@ public class ResourceEnquiryInsightsV1_Test {
 		
 		//add Article tracking Id to bindMap
 		bindMap.put('trackingIds', new Set<String>{article.Name});
+		
+		//add Case sub-query conditions & bind variables, caseRecordTypes & closedCaseCutoffDate, to bindMap to be used in SOQL
 		bindMap.put('caseRecordTypes',caseRecordTypes);
 		bindMap.put('closedCaseCutoffDate',Date.today().addDays(-30));
+		bindMap.put('caseConditions', '((IsClosed = true AND ClosedDate >=:closedCaseCutoffDate) OR IsClosed = false) AND  RecordType.DeveloperName  IN :caseRecordTypes');
 
 
 		Set<String> caseIds = new Set<String>{cases[0].Id, cases[1].Id};

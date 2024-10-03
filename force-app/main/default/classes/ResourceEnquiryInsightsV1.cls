@@ -128,8 +128,11 @@ public with sharing class ResourceEnquiryInsightsV1 extends ResourceAPIService.I
 			caseRecordTypes.addAll(ResourceCustomerInsightsV1.AP_CASE_RECORDTYPES);
 			caseRecordTypes.addAll(ResourceCustomerInsightsV1.ST_CASE_RECORDTYPES);
 			caseRecordTypes.addAll(ResourceCustomerInsightsV1.UNIFIED_CASE_RECORDTYPES);
+			
+			//add Case sub-query conditions & bind variables, caseRecordTypes & closedCaseCutoffDate, to bindMap to be used in SOQL
 			bindMap.put('caseRecordTypes',caseRecordTypes);
 			bindMap.put('closedCaseCutoffDate',Date.today().addDays(-30));
+			bindMap.put('caseConditions', '((IsClosed = true AND ClosedDate >=:closedCaseCutoffDate) OR IsClosed = false) AND  RecordType.DeveloperName  IN :caseRecordTypes');
 
 			//add complex sub query options
 			complexQueryOptions.add(ArticlesSelector.ComplexSubQueryOptions.WITH_RECENT_CASES);

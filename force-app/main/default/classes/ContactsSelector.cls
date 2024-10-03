@@ -427,10 +427,10 @@ public virtual inherited sharing class ContactsSelector extends ApplicationSelec
 	 * @param queryConditions additional conditions with field to be searched for SOQL
 	 * @param bindMap map of bind variables
 	 * `searchKey` search param [Mandatory]
-	 * `caseRecordTypes` set of case record types to filter on. Used to identify AP/ST/Unified Case types[Optional]
-	 * `closedCaseCutoffDate` Case ClosedDate filter [Optional. Mandatory if `caseRecordTypes` is provided]
-	 * `interactionProfiles` set of interaction profile names to filter on. Used to identify AP/ST/Unified teams.[Optional]
-	 * `interactionCutoffDate` Interaction cut off date filter [Optional. Mandatory if `interactionProfiles` is provided]
+	 * `caseConditions` WHERE clause for Cases sub-query(If not provided all child Cases for the last 30-days will be queried) [Optional]
+	 * `taskConditions` WHERE clause for Tasks sub-query(If not provided all child Tasks for the last 30-days will be queried) [Optional]
+	 * `voiceCallsConditions` WHERE clause for VoiceCall sub-query(If not provided all child VoiceCalls for the last 30-days will be queried) [Optional]
+	 * `liveChatTranscriptConditions` WHERE clause for LiveChatTranscripts sub-query(If not provided all child LiveChatTranscripts for the last 30-days will be queried) [Optional]
 	 * @param complexQueryOptions Complex Search options to include child relationships
 	 * @return  `List<Contact>`matching Contact records
 	 */
