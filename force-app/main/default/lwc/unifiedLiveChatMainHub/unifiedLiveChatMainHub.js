@@ -1,8 +1,8 @@
 /**
  * @description LWC wrapper on the main hub tab for the LiveChat flexipage.
- *  It contains Unified Tracking wrapper component and Customer Search wrapper component, under each respective accordion.
- *  The accordion headers are customised to be dynamic with population of article number and contact name.
- *  Both accordions can be opened and closed without restriction.
+ * It contains Unified Tracking wrapper component and Customer Search wrapper component, under each respective accordion.
+ * The accordion headers are customised to be dynamic with population of article number and contact name.
+ * Both accordions can be opened and closed without restriction.
  */
 import { LightningElement,api,wire } from 'lwc';
 import CONTACT_FIELD from '@salesforce/schema/LiveChatTranscript.ContactId';
