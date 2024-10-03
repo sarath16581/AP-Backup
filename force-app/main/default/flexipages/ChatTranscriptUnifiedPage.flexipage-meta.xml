@@ -355,7 +355,7 @@
     <masterLabel>Chat Transcript Unified Page</masterLabel>
     <sobjectType>LiveChatTranscript</sobjectType>
     <template>
-        <name>UnifiedCustomLiveChatPageTemplate</name>
+        <name>unifiedCustomLiveChatPageTemplate</name>
     </template>
     <type>RecordPage</type>
 </FlexiPage>
