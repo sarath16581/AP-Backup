@@ -3,7 +3,6 @@
     <fullName>Previous_ABH__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <description>Previous Active Band History Table record that belongs to Organisation.</description>
-    <externalId>false</externalId>
     <label>Previous ABH</label>
     <referenceTo>Active_Band_History__c</referenceTo>
     <relationshipLabel>Active Band History</relationshipLabel>

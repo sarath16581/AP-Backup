@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>DG_as_a_proportion_of_total_volume__c</fullName>
-    <externalId>false</externalId>
     <inlineHelpText>Ensure the DG is reviewed before seeking Operations review</inlineHelpText>
     <label>DG % as a proportion of total volume</label>
     <precision>18</precision>

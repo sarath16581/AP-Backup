@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Quantity_of_articles__c</fullName>
     <description>Quantity of articles is used for the Lead Legend form.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Quantity of articles is used for the Lead Legend form.</inlineHelpText>
     <label>Quantity of Articles</label>
     <required>false</required>

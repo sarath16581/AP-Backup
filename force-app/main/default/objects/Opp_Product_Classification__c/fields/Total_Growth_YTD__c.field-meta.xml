@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Total_Growth_YTD__c</fullName>
-    <externalId>false</externalId>
     <formula>Apr_Growth__c  +  Aug_Growth__c  +  Dec_Growth__c  +  Feb_Growth__c +  Jan_Growth__c  +  Jul_Growth__c  +  Jun_Growth__c  +  Mar_Growth__c  +  May_Growth__c +   Nov_Growth__c  +  Oct_Growth__c  +  Sep_Growth__c</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <label>Total Growth YTD +/-</label>

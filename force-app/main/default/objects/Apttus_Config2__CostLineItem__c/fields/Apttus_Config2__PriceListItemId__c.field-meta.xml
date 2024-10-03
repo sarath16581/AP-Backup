@@ -4,7 +4,6 @@
     <deleteConstraint>SetNull</deleteConstraint>
     <deprecated>false</deprecated>
     <description>Lookup to Price List Item</description>
-    <externalId>false</externalId>
     <label>Price List Item</label>
     <referenceTo>Apttus_Config2__PriceListItem__c</referenceTo>
     <relationshipLabel>Cost Line Items</relationshipLabel>

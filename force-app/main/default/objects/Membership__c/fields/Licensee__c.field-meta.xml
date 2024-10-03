@@ -3,7 +3,6 @@
     <fullName>Licensee__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <description>The owner for the AUSTRAC/Western Union registraion</description>
-    <externalId>false</externalId>
     <label>Licensee</label>
     <lookupFilter>
         <active>true</active>

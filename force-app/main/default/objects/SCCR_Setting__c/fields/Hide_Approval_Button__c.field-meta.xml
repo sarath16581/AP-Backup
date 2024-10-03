@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <description>At the end of the FY, the business requires no SSCR be submitted after a certain date.
 When this is set to TRUE, there is a filter on the SCCR Submit for approval button.</description>
-    <externalId>false</externalId>
     <inlineHelpText>TRUE = hides the approval button on the SCCR record
 FALSE = show the approval button on the SCCR record</inlineHelpText>
     <label>Hide Approval Button</label>

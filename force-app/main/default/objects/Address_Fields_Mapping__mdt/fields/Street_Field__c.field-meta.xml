@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Street_Field__c</fullName>
     <description>Field Definition to store street address in</description>
-    <externalId>false</externalId>
     <fieldManageability>SubscriberControlled</fieldManageability>
     <label>Street Field</label>
     <metadataRelationshipControllingField>Address_Fields_Mapping__mdt.Object__c</metadataRelationshipControllingField>

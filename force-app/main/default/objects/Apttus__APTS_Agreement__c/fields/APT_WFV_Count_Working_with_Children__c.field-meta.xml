@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>APT_WFV_Count_Working_with_Children__c</fullName>
     <description>Used for the Workforce Verification product and counts when Feature Type equals Working with Children</description>
-    <externalId>false</externalId>
     <label>WFV Count Working with Children</label>
     <securityClassification>INTERNAL</securityClassification>
     <summaryFilterItems>

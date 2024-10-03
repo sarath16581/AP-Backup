@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Object__c</fullName>
     <description>Reference the object to be supported by programmatic sharing solution for sales team. Referenced object must have a lookup relationship to Account object to be supported through the programmatic sharing solution for Sales Team. Extending sharing solution to support new objects require other apex components to be provisioned in addition to adding Custom Metadata Type here.</description>
-    <externalId>false</externalId>
     <fieldManageability>DeveloperControlled</fieldManageability>
     <inlineHelpText>Reference the object to be supported by programmatic sharing solution for sales team.</inlineHelpText>
     <label>Object</label>

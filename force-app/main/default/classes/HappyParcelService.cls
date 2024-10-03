@@ -12,6 +12,7 @@
  * 2024-05-17 - Seth Heang - Added continuation methods for async callout to .NET API for retrieving StarTrack consignment/article details
  * 2024-06-26 - Seth Heang - Added additional mapping for .NET Callout including EDD and SourceSystem to response payload
  * 2024-07-15 - Seth Heang - Updated .NET callout response handling to handle duplicate consignment scenario
+ * 2024-09-10 - Raghav Ravipati - Mapping hasDuplicates variable which helps to identify if the consignment number has duplicates
  **/
 public with sharing class HappyParcelService {
 	/**
@@ -56,7 +57,6 @@ public with sharing class HappyParcelService {
 
 	public Integer getApiTimeout() {
 		AusPostSettings__c setting = AusPostSettings__c.getValues('HAPPYPARCEL_GCP');
-		System.debug(setting);
 		return Integer.valueOf(setting.LockDuration__c);
 	}
 
@@ -64,9 +64,6 @@ public with sharing class HappyParcelService {
 		Integer statusCode = response.getStatusCode();
 		String statusText = response.getStatus();
 		String responseBody = response.getBody();
-		System.debug('statusCode: ' + statusCode);
-		System.debug('statusText: ' + statusText);
-		System.debug('Response: ' + responseBody);
 
 		Result result = new Result();
 		result.articles = new List<Article>();
@@ -81,7 +78,6 @@ public with sharing class HappyParcelService {
 				result.isSuccess = true;
 			} catch (Exception ex) {
 				// JSON parse error most likely meaning the data can not be surfaced
-				System.debug(ex);
 				result.isSuccess = false;
 				result.errors.add(ex.getMessage());
 			}
@@ -146,7 +142,6 @@ public with sharing class HappyParcelService {
 			}
 		}
 
-		System.debug('parsed articles: ' + articles);
 		return articles;
 	}
 
@@ -170,7 +165,6 @@ public with sharing class HappyParcelService {
 			}
 		}
 
-		System.debug('parsed errors: ' + errors);
 		return errors;
 	}
 
@@ -436,6 +430,12 @@ public with sharing class HappyParcelService {
 		if(conWrapper?.warningMessages != null){
 			trackingResult.warningMessages = conWrapper?.warningMessages;
 		}
+
+		// Map hasDuplicates which can be used to cater duplicate scenarios in UnifiedTrackingWrappers
+		trackingResult.hasDuplicates = false;
+		if(conWrapper?.hasDuplicates){
+			trackingResult.hasDuplicates = conWrapper?.hasDuplicates;
+		}
 		return trackingResult;
 	}
 
@@ -459,9 +459,13 @@ public with sharing class HappyParcelService {
 				thisConsignment.DeliveryInstructions__c = thisConsignment.DeliveryInstructions__c == null ? emsResponse.Consignment.DeliveryInstructions : thisConsignment.DeliveryInstructions__c;
 				thisConsignment.ConsignmentParcelCount__c = thisConsignment.ConsignmentParcelCount__c == null ? emsResponse.Consignment.ConsignmentParcelCount : thisConsignment.ConsignmentParcelCount__c;
 				thisConsignment.ExpectedDeliveryDate__c = emsResponse?.Consignment?.ExpectedDeliveryDate != null ? emsResponse.Consignment.ExpectedDeliveryDate : thisConsignment.ExpectedDeliveryDate__c;
-				thisConsignment.Source_System__c = emsResponse?.Consignment?.SourceSystem != null ? emsResponse.Consignment.SourceSystem : thisConsignment.Source_System__c;
+				//thisConsignment.Source_System__c = emsResponse?.Consignment?.SourceSystem != null ? emsResponse.Consignment.SourceSystem : thisConsignment.Source_System__c;
 				thisConsignment.Id = consignmentSFId;
 				results = ApplicationDatabase.getInstance().dmlUpdate(new List<SObject>{ thisConsignment });
+
+				thisConsignment.Source_System__c = emsResponse?.Consignment?.SourceSystem != null ? emsResponse.Consignment.SourceSystem : thisConsignment.Source_System__c;
+
+
 				return new StarTrackConsignmentSearchUtil.ConsignmentWrapper(true, null, new List<Article__c>{ thisConsignment });
 			}
 			// Duplicate Consignment Scenario
@@ -481,7 +485,7 @@ public with sharing class HappyParcelService {
 				// Multiple valid consignments after the filtering
 				else if (validDupConData.size() > 1) {
 					// Display duplicate consignment warning and do not update any new mappings from .NET API
-					return new StarTrackConsignmentSearchUtil.ConsignmentWrapper(false, null, null, new List<String>{ System.Label.HappyParcelNETDuplicateConsignmentWarningText });
+					return new StarTrackConsignmentSearchUtil.ConsignmentWrapper(false, null, null, new List<String>{ System.Label.HappyParcelNETDuplicateConsignmentWarningText }, true);
 				}
 			}
 		} catch (Exception e) {

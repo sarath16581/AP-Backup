@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>S75_Last_Status_Update__c</fullName>
     <description>Formula field to provide last S75 Status field update date when &quot;Issued&quot; or &quot;Missing Information&quot; is selected. This field is used by the flow responsible for creating followup tasks and notifications. S75 re-purposed to Change of Details Information</description>
-    <externalId>false</externalId>
     <formula>IF(
   OR(
     ISPICKVAL(Status__c, &quot;AUSTRAC Registered&quot;),

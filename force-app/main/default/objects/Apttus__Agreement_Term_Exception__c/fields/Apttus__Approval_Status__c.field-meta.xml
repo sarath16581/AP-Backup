@@ -3,7 +3,6 @@
     <fullName>Apttus__Approval_Status__c</fullName>
     <deprecated>false</deprecated>
     <description>Approval status of current agreement term exception.</description>
-    <externalId>false</externalId>
     <label>Approval Status</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>

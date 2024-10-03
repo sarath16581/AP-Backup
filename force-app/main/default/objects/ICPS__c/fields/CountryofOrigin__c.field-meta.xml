@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>CountryofOrigin__c</fullName>
     <description>This is the country that the international item is originally from</description>
-    <externalId>false</externalId>
     <inlineHelpText>This is the country that the international item is originally from</inlineHelpText>
     <label>Country of Origin</label>
     <required>false</required>

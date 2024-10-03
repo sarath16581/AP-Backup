@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Qualification_Category_Detail__c</fullName>
     <deleteConstraint>Restrict</deleteConstraint>
-    <externalId>false</externalId>
     <label>Qualification Category Detail</label>
     <referenceTo>Qualification_Category_Detail__c</referenceTo>
     <relationshipLabel>Qualification-Response Details</relationshipLabel>

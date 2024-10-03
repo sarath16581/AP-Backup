@@ -3,7 +3,6 @@
     <fullName>APT_Post_Billpay_Biller_Branded_Internet__c</fullName>
     <defaultValue>false</defaultValue>
     <description>Select if contract document need to include Biller Branded internet.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Select if contract document need to include Biller Branded internet.</inlineHelpText>
     <label>Post Billpay Biller Branded – Internet</label>
     <securityClassification>INTERNAL</securityClassification>

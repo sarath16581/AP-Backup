@@ -3,7 +3,6 @@
     <fullName>Default__c</fullName>
     <defaultValue>false</defaultValue>
     <description>This field helps to Identify the default configuration of image.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Only one default record is expected. Please check if there are any existing default records before checking.</inlineHelpText>
     <label>Default</label>
     <securityClassification>INTERNAL</securityClassification>

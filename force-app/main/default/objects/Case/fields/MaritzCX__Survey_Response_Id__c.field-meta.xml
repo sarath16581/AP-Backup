@@ -3,7 +3,6 @@
     <fullName>MaritzCX__Survey_Response_Id__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <deprecated>false</deprecated>
-    <externalId>false</externalId>
     <label>MaritzCX Survey Response</label>
     <referenceTo>MaritzCX__Survey_Response__c</referenceTo>
     <relationshipLabel>Cases</relationshipLabel>

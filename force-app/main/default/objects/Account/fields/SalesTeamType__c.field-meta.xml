@@ -5,7 +5,6 @@
     <description>Dependent picklist field to segment Accounts based on Sales team picklist. This field is populated by automation on business accounts based on the controlling &quot;Sales Team&quot; (API Name - &quot;Sales_Segment__c&quot;) pick list value and not intended to be populated directly. The value of this field drives sharing behaviour that handles access segmentation for Sales Team.
 - Criteria based sharing rules on Account (3 sharing rules)
 - Apex managed sharing for sensitive child objects having a lookup relationship to Account</description>
-    <externalId>false</externalId>
     <inlineHelpText>Segment of the Account based on the assigned Sales Team.</inlineHelpText>
     <label>Sales Team Type</label>
     <required>false</required>

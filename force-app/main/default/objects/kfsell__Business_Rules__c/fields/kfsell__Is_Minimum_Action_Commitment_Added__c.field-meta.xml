@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>No Min Action Commitments entered in Green Sheet</description>
-    <externalId>false</externalId>
     <label>Is Minimum Action Commitment Added</label>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>

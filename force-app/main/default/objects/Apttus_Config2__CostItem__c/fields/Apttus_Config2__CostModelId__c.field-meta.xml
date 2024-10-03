@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__CostModelId__c</fullName>
     <deprecated>false</deprecated>
     <description>Id of the Cost Model associated with the Product&apos;s price list</description>
-    <externalId>false</externalId>
     <inlineHelpText>Id of the Cost Model associated with the Product&apos;s price list</inlineHelpText>
     <label>Cost Model</label>
     <referenceTo>Apttus_Config2__CostModel__c</referenceTo>

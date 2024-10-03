@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__Source__c</fullName>
     <deprecated>false</deprecated>
     <description>The order source</description>
-    <externalId>false</externalId>
     <inlineHelpText>The order source</inlineHelpText>
     <label>Source</label>
     <required>false</required>

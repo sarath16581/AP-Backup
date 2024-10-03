@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Supply_Chain_Team__c</fullName>
     <description>Reflects the Sales team that the Parcel Customer Solutions Consultant is in.</description>
-    <externalId>false</externalId>
     <inlineHelpText>This field indicates the Team that the Parcel Customer Solutions Consultant is part of.</inlineHelpText>
     <label>Parcel Customer Solutions Team</label>
     <required>false</required>

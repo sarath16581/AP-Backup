@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Whatproducthasbeenoffered__c</fullName>
     <description>Advise which product of the Bank@Post suite that you have offered your customer</description>
-    <externalId>false</externalId>
     <inlineHelpText>Advise which product of the Bank@Post suite that you have offered your customer</inlineHelpText>
     <label>What product has been offered?</label>
     <required>false</required>

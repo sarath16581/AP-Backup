@@ -3,7 +3,6 @@
     <fullName>Approver_Required__c</fullName>
     <defaultValue>false</defaultValue>
     <description>Check where there is an approver required for this request</description>
-    <externalId>false</externalId>
     <label>Approver Required</label>
     <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>true</trackFeedHistory>

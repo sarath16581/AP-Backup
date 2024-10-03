@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Change_Classification__c</fullName>
-    <externalId>false</externalId>
     <inlineHelpText>A product classification of Renewal can be overwritten as Growth if sufficient justification exists. You must record in the Opportunity any evidence of the sales effort (e.g. emails with customer, call logs) to back your claim.</inlineHelpText>
     <label>Growth?</label>
     <required>false</required>

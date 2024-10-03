@@ -3,7 +3,6 @@
     <fullName>kfsell__Team_Member__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <deprecated>false</deprecated>
-    <externalId>false</externalId>
     <label>Our Team Member</label>
     <referenceTo>User</referenceTo>
     <relationshipName>Strategic_Players</relationshipName>

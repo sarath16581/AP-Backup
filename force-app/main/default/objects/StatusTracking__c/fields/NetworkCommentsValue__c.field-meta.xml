@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>NetworkCommentsValue__c</fullName>
     <description>Defines the value set by the user for the field Network Comments / Case</description>
-    <externalId>false</externalId>
     <label>NetworkCommentsValue</label>
     <length>32768</length>
     <securityClassification>INTERNAL</securityClassification>

@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__Website__c</fullName>
     <deprecated>false</deprecated>
     <description>The Legal Entity Website Address</description>
-    <externalId>false</externalId>
     <inlineHelpText>The Legal Entity Website Address</inlineHelpText>
     <label>Website</label>
     <required>false</required>

@@ -4,7 +4,6 @@
     <deleteConstraint>SetNull</deleteConstraint>
     <deprecated>false</deprecated>
     <description>ID of the product group to match. Only applicable to Inclusion based rules.</description>
-    <externalId>false</externalId>
     <inlineHelpText>ID of the product group to match. Only applicable to Inclusion based rules.</inlineHelpText>
     <label>Match Product Group</label>
     <referenceTo>Apttus_Config2__ProductGroup__c</referenceTo>

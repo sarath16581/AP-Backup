@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__OrderDate__c</fullName>
     <deprecated>false</deprecated>
     <description>The order date</description>
-    <externalId>false</externalId>
     <inlineHelpText>The order date</inlineHelpText>
     <label>Order Date</label>
     <required>false</required>

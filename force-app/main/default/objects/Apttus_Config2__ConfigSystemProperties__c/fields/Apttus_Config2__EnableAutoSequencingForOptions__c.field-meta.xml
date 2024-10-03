@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Indicates whether auto sequencing is enabled for options</description>
-    <externalId>false</externalId>
     <inlineHelpText>A global setting to enable auto sequencing for options</inlineHelpText>
     <label>Enable Auto Sequencing For Options</label>
     <trackTrending>false</trackTrending>

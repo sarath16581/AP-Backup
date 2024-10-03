@@ -3,7 +3,6 @@
     <fullName>Apttus_Approval__SubmissionCommentsPerStep__c</fullName>
     <deprecated>false</deprecated>
     <description>Select the number of submission comments allowed per step (up to three) when step level comments are enabled.  This value defaults to one whenever process level comments are used since there can only be a single submission comment at the process level.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Select the number of submission comments allowed per step (up to three) when step level comments are enabled.  This value defaults to one whenever process level comments are used since there can only be a single submission comment at the process level.</inlineHelpText>
     <label>Submission Comments Per Step</label>
     <required>false</required>

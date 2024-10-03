@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Ownership_of_Fax__c</fullName>
     <description>Indication of who owns the fax.</description>
-    <externalId>false</externalId>
     <label>Ownership of Fax</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>

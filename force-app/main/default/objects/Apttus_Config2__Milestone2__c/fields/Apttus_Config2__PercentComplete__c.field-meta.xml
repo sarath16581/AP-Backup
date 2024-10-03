@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__PercentComplete__c</fullName>
     <deprecated>false</deprecated>
     <description>Indicates the percent completion for partially completed milestones</description>
-    <externalId>false</externalId>
     <inlineHelpText>Indicates the percent completion for partially completed milestones</inlineHelpText>
     <label>% Complete</label>
     <precision>7</precision>

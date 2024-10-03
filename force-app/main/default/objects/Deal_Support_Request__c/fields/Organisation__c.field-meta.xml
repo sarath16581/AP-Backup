@@ -3,7 +3,6 @@
     <fullName>Organisation__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <description>This is field will store the Organisation details to which the DSR request is linked to</description>
-    <externalId>false</externalId>
     <label>Legal Entity Name</label>
     <referenceTo>Account</referenceTo>
     <relationshipLabel>Deal Support Request</relationshipLabel>

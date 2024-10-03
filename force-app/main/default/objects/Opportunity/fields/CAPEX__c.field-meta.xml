@@ -4,7 +4,6 @@
     <description>Phase 1 - Opportunity Assessment (PWC) 
 
 Identify if any additional CAPEX investment would be required</description>
-    <externalId>false</externalId>
     <inlineHelpText>Would additional CAPEX investment, by Australia Post, be required if we won? If so, how much?</inlineHelpText>
     <label>Cost to Implement</label>
     <precision>18</precision>

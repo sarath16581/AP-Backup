@@ -3,7 +3,6 @@
     <fullName>Source_Street__c</fullName>
     <description>Address field on Booking which gets sent over from MPB.
 Which will further be used to get geo-cordinates from AME,</description>
-    <externalId>false</externalId>
     <label>Source Street</label>
     <required>false</required>
     <trackFeedHistory>false</trackFeedHistory>

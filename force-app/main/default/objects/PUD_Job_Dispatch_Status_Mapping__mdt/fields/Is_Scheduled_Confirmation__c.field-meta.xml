@@ -3,7 +3,6 @@
     <fullName>Is_Scheduled_Confirmation__c</fullName>
     <defaultValue>false</defaultValue>
     <description>If true, this dispatch status indicates the the job has been scheduled in the dispatch system.</description>
-    <externalId>false</externalId>
     <fieldManageability>DeveloperControlled</fieldManageability>
     <inlineHelpText>If true, this dispatch status indicates the the job has been scheduled in the dispatch system.</inlineHelpText>
     <label>Is Scheduled Confirmation</label>

@@ -3,7 +3,6 @@
     <fullName>kfsell__is_curr_pos_negative__c</fullName>
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
-    <externalId>false</externalId>
     <label>is curr pos negative</label>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>

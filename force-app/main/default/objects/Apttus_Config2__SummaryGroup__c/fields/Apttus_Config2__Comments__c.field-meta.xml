@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__Comments__c</fullName>
     <deprecated>false</deprecated>
     <description>Memo text entered by the user</description>
-    <externalId>false</externalId>
     <label>Comments</label>
     <length>4000</length>
     <securityClassification>INTERNAL</securityClassification>

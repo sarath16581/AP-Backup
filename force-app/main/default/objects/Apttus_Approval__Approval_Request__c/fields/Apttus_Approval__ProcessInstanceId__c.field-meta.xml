@@ -4,7 +4,6 @@
     <deleteConstraint>SetNull</deleteConstraint>
     <deprecated>false</deprecated>
     <description>ID of the approval process instance associated with the approval request</description>
-    <externalId>false</externalId>
     <label>Approval Process Instance</label>
     <referenceTo>Apttus_Approval__ApprovalProcessInstance__c</referenceTo>
     <relationshipLabel>Approval Requests</relationshipLabel>

@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>MPDM_Reform_Offer__c</fullName>
-    <externalId>false</externalId>
     <inlineHelpText>MPDM Offer to be Communicated AS PART Efficiency Review</inlineHelpText>
     <label>MPDM Reform Offer</label>
     <required>false</required>

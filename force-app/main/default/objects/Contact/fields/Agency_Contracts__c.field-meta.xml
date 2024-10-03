@@ -3,7 +3,6 @@
     <fullName>Agency_Contracts__c</fullName>
     <defaultValue>false</defaultValue>
     <description>REQ1415701</description>
-    <externalId>false</externalId>
     <inlineHelpText>Notify this contact about any changes to Agency contracts associated to their Organisation.</inlineHelpText>
     <label>Agency Contracts</label>
     <securityClassification>INTERNAL</securityClassification>

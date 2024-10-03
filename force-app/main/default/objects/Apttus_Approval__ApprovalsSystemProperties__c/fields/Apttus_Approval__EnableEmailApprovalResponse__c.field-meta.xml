@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Enabling email approval response lets users reply to email approval requests by typing APPROVE or REJECT in the first line and adding comments in the second line.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Enabling email approval response lets users reply to email approval requests by typing APPROVE or REJECT in the first line and adding comments in the second line.</inlineHelpText>
     <label>Enable Email Approval Response</label>
     <trackTrending>false</trackTrending>

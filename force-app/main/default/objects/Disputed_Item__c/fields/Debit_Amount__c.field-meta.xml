@@ -3,7 +3,6 @@
     <fullName>Debit_Amount__c</fullName>
     <defaultValue>0</defaultValue>
     <description>Amount to be charged to the customer</description>
-    <externalId>false</externalId>
     <label>Debit Amount</label>
     <precision>18</precision>
     <required>false</required>

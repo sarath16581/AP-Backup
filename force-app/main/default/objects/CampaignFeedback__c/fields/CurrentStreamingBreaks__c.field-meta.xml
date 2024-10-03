@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>CurrentStreamingBreaks__c</fullName>
     <description>How customer currently sorts product</description>
-    <externalId>false</externalId>
     <inlineHelpText>How customer currently sorts product.</inlineHelpText>
     <label>Current Streaming Breaks</label>
     <required>false</required>

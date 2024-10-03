@@ -3,7 +3,6 @@
     <fullName>FCR__c</fullName>
     <defaultValue>false</defaultValue>
     <description>SSSW - Used for reporting</description>
-    <externalId>false</externalId>
     <label>FCR</label>
     <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>

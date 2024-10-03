@@ -28,10 +28,14 @@
 			});
 
 			function handleHappyParcelLightningEvent(e) {
+				console.log('Id click Event', JSON.stringify(e));
+
 				if(e && e.detail && e.type === 'idclick' && e.detail.id) {
+					console.log('Id click Event 2');
 					// this occurs if a link is clicked in Happy Parcel that requires a record page to be opened
 					if (sforce && sforce.console && sforce.console.isInConsole()) {
-						sforce.console.openPrimaryTab(null, '/' + e.detail.id, true);
+						console.log('Id click Event 3', e.detail.id);
+						sforce.console.openPrimaryTab(null, "/" + e.detail.id, true);
 					}
 				}
 			}

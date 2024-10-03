@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__ApplicationMethod__c</fullName>
     <deprecated>false</deprecated>
     <description>The rule application method. This field is deprecated. The Application method is moved to the Price Ruleset..</description>
-    <externalId>false</externalId>
     <label>Application Method (Deprecated)</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>

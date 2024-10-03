@@ -3,7 +3,6 @@
     <fullName>Apttus__XAJSEndPoint__c</fullName>
     <deprecated>false</deprecated>
     <description>XAJS End Point used to process the request through XAJS service</description>
-    <externalId>false</externalId>
     <inlineHelpText>Provide XAJS Endpoint instance url</inlineHelpText>
     <label>XAJS End Point</label>
     <required>false</required>

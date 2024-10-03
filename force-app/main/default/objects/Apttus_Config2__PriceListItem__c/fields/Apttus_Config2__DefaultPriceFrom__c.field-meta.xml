@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__DefaultPriceFrom__c</fullName>
     <deprecated>false</deprecated>
     <description>The related object to default the base price from. If the related object is not available, the list price will be used.</description>
-    <externalId>false</externalId>
     <inlineHelpText>The related object to default the base price from. If the related object is not available, the list price will be used.</inlineHelpText>
     <label>Default Price From</label>
     <required>false</required>

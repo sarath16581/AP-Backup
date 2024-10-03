@@ -3,7 +3,6 @@
     <fullName>Apttus__PublishStatus__c</fullName>
     <deprecated>false</deprecated>
     <description>The template publish status</description>
-    <externalId>false</externalId>
     <inlineHelpText>The template publish status</inlineHelpText>
     <label>Publish Status</label>
     <required>false</required>

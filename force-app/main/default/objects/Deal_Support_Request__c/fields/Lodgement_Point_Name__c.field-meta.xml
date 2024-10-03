@@ -4,7 +4,6 @@
     <deleteConstraint>SetNull</deleteConstraint>
     <description>The field is a lookup to existing lodgement point records and only accepts with a range of valid organisation unit type codes (i.e LPO, BC, RP).
 This field is planned for decommission as part of STP-4232.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Acceptable Lodgement Point with Organisation Unit Type code including LPO, BC and RP.</inlineHelpText>
     <label>Lodgement Point Name</label>
     <lookupFilter>

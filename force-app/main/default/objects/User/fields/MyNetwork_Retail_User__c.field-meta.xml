@@ -3,7 +3,6 @@
     <fullName>MyNetwork_Retail_User__c</fullName>
     <defaultValue>false</defaultValue>
     <description>Denotes that this user is a MyNetwork Retail User. These users are subject to a different logout procedure for the MyNetwork Community to ensure their Oracle session is killed when logging out</description>
-    <externalId>false</externalId>
     <inlineHelpText>Denotes that this user is a MyNetwork Retail User. These users are subject to a different logout procedure for the MyNetwork Community to ensure their Oracle session is killed when logging out.</inlineHelpText>
     <label>MyNetwork Retail User</label>
     <trackFeedHistory>false</trackFeedHistory>

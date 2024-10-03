@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Indicates whether preference may be overridden at lower levels</description>
-    <externalId>false</externalId>
     <inlineHelpText>Indicates whether preference may be overridden at lower levels</inlineHelpText>
     <label>Allow Preference Override ?</label>
     <securityClassification>INTERNAL</securityClassification>

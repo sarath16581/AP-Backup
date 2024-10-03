@@ -3,7 +3,6 @@
     <fullName>Apttus_Approval__AssigneeValue2__c</fullName>
     <deprecated>false</deprecated>
     <description>The assignee value</description>
-    <externalId>false</externalId>
     <label>Assignee Value</label>
     <length>2048</length>
     <trackTrending>false</trackTrending>

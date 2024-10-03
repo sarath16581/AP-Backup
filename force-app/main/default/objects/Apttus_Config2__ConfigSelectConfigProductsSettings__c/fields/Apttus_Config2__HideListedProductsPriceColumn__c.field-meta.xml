@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Whether to hide the price information column in listed product page.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Please be careful in hiding this critical price information column.</inlineHelpText>
     <label>Hide Listed Products Price Column</label>
     <trackTrending>false</trackTrending>

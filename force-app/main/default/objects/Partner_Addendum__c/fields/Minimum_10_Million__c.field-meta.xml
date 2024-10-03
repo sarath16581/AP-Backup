@@ -3,7 +3,6 @@
     <fullName>Minimum_10_Million__c</fullName>
     <defaultValue>false</defaultValue>
     <description>This states whether the insurance liability cover is at least $10 Million.</description>
-    <externalId>false</externalId>
     <label>Minimum 10 Million</label>
     <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>

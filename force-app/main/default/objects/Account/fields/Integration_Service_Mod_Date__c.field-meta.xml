@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Integration_Service_Mod_Date__c</fullName>
     <description>SSSW - Used in SFDC - SAP CRM integration. This field is populated by TIBCO with the datetime that the record was modified in SAP CRM.</description>
-    <externalId>false</externalId>
     <label>Integration Service Mod Date</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>

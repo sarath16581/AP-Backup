@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Credit_DSR_Routing__c</fullName>
     <description>Routing Logic to determine if the SSSW entry should be routed based on the Credit Person Code or Work Type for Credit Support Request Submission.</description>
-    <externalId>false</externalId>
     <label>Credit DSR Routing</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>

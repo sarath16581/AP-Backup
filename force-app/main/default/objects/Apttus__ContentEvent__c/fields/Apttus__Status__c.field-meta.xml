@@ -3,7 +3,6 @@
     <fullName>Apttus__Status__c</fullName>
     <deprecated>false</deprecated>
     <description>The event handling status</description>
-    <externalId>false</externalId>
     <label>Status</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>

@@ -4,7 +4,6 @@
     <defaultValue>true</defaultValue>
     <deprecated>false</deprecated>
     <description>Indicates whether asset changes are synchronized to open agreements</description>
-    <externalId>false</externalId>
     <inlineHelpText>Indicates whether asset changes are synchronized to open agreements</inlineHelpText>
     <label>Sync Asset Changes To Agreement</label>
     <securityClassification>INTERNAL</securityClassification>

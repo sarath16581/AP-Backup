@@ -3,7 +3,6 @@
     <fullName>Apttus_Base2__MetricType__c</fullName>
     <deprecated>false</deprecated>
     <description>Type of metric captured.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Type of metric captured.</inlineHelpText>
     <label>Metric Type</label>
     <required>false</required>

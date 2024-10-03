@@ -3,7 +3,6 @@
     <fullName>Non_Standard_Legal_Language__c</fullName>
     <defaultValue>false</defaultValue>
     <description>To indicate whether this agreement contains non-standard language</description>
-    <externalId>false</externalId>
     <label>Non Standard Legal Language</label>
     <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>

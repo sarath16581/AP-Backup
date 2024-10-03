@@ -4,7 +4,6 @@
     <defaultValue>true</defaultValue>
     <deprecated>false</deprecated>
     <description>Indicates whether the option price is rolled up to the bundle. Only applicable to product options.This field is deprecated. Use the Price Included in Bundle field instead.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Indicates whether the quantity is auto updated when the default quantity field gets a new value</inlineHelpText>
     <label>Auto Update Quantity</label>
     <securityClassification>OFFICIAL_SENSITIVE</securityClassification>

@@ -4,7 +4,6 @@
     <deleteConstraint>SetNull</deleteConstraint>
     <deprecated>false</deprecated>
     <description>ID of the sold to account</description>
-    <externalId>false</externalId>
     <inlineHelpText>ID of the sold to account</inlineHelpText>
     <label>Sold To</label>
     <referenceTo>Account</referenceTo>

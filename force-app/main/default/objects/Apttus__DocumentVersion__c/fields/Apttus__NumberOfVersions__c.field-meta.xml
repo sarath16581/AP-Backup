@@ -3,7 +3,6 @@
     <fullName>Apttus__NumberOfVersions__c</fullName>
     <deprecated>false</deprecated>
     <description>Indicates the number of detail versions associated with the version</description>
-    <externalId>false</externalId>
     <inlineHelpText>Indicates the number of detail versions associated with the version</inlineHelpText>
     <label>Number Of Versions</label>
     <securityClassification>INTERNAL</securityClassification>

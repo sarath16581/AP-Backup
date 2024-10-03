@@ -3,7 +3,6 @@
     <fullName>Primary_Competitor__c</fullName>
     <defaultValue>false</defaultValue>
     <description>Indicates if the competitor is the primary competitor for this customer&apos;s business. Is sued to Populate the Primary Competitor field on the Opportunity record</description>
-    <externalId>false</externalId>
     <inlineHelpText>Select if this is the Primary Competitor. There can only be 1 Primary Competitor per Opportunity</inlineHelpText>
     <label>Primary Competitor</label>
     <securityClassification>INTERNAL</securityClassification>

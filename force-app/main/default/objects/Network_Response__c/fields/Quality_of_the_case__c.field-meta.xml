@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Quality_of_the_case__c</fullName>
     <description>REQ3111278 - renamed label and added new picklist values. Used in myNetwork for SSSW</description>
-    <externalId>false</externalId>
     <inlineHelpText>Cases flagged will be reviewed by the CCC managers and feedback provided to the relevant team member</inlineHelpText>
     <label>Flag case for review</label>
     <required>false</required>

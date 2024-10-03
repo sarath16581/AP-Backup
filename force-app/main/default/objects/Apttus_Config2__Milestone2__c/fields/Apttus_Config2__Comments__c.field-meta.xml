@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__Comments__c</fullName>
     <deprecated>false</deprecated>
     <description>The milestone comments</description>
-    <externalId>false</externalId>
     <inlineHelpText>The milestone comments</inlineHelpText>
     <label>Comments</label>
     <length>4000</length>

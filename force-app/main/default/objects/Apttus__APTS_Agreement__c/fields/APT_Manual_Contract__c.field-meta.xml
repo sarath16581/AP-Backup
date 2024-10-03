@@ -3,7 +3,6 @@
     <fullName>APT_Manual_Contract__c</fullName>
     <defaultValue>false</defaultValue>
     <description>This field will be ticked manually by Sales users if the pricing aren&apos;t configured in Apttus shopping cart</description>
-    <externalId>false</externalId>
     <inlineHelpText>Tick this box for products that aren’t configured in Apttus. Ie StarTrack, Decipha</inlineHelpText>
     <label>Manual Contract?</label>
     <securityClassification>INTERNAL</securityClassification>

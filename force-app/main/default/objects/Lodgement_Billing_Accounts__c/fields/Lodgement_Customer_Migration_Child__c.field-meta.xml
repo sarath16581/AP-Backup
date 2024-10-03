@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Lodgement_Customer_Migration_Child__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
-    <externalId>false</externalId>
     <label>Lodgement Customer Migration Child</label>
     <referenceTo>Lodgement_Customer_Migration__c</referenceTo>
     <relationshipLabel>Lodgement Billing Accounts (Lodgement Customer Migration Child)</relationshipLabel>

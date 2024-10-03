@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Threat_Risk__c</fullName>
-    <externalId>false</externalId>
     <inlineHelpText>Extreme: Formal advice that cust will cease trading within 30days
 Very High: Formal advice that cust will cease trading due to service/price
 High: Verbal risk of streaming/loss to comp

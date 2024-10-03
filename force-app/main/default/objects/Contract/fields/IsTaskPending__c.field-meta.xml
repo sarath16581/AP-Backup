@@ -3,7 +3,6 @@
     <fullName>IsTaskPending__c</fullName>
     <defaultValue>false</defaultValue>
     <description>Indicates whether there are any tasks pending for the agreement</description>
-    <externalId>false</externalId>
     <inlineHelpText>Indicates whether there are any tasks pending for the agreement</inlineHelpText>
     <label>Is Task Pending</label>
     <securityClassification>INTERNAL</securityClassification>

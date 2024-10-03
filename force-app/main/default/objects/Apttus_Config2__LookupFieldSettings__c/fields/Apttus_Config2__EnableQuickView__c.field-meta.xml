@@ -4,7 +4,6 @@
     <defaultValue>true</defaultValue>
     <deprecated>false</deprecated>
     <description>This field controls how Lookup field is displayed in UI.</description>
-    <externalId>false</externalId>
     <inlineHelpText>This field controls how Lookup field is displayed in UI.</inlineHelpText>
     <label>Enable Quick View</label>
     <trackTrending>false</trackTrending>

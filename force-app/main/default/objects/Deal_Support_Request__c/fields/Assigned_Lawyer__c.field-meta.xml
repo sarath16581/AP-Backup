@@ -3,7 +3,6 @@
     <fullName>Assigned_Lawyer__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <description>Assigned Lawyer who will be assisting user with this Legal Support Request</description>
-    <externalId>false</externalId>
     <label>Assigned Lawyer</label>
     <lookupFilter>
         <active>true</active>

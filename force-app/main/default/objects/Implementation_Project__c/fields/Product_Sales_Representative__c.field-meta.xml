@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Product_Sales_Representative__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
-    <externalId>false</externalId>
     <label>Product Sales Representative</label>
     <referenceTo>User</referenceTo>
     <relationshipName>Implementation_Projects1</relationshipName>

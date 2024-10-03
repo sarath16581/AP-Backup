@@ -587,20 +587,24 @@ public with sharing class ProductRevenueService {
 		(record.Nov_Revenue_Amount__c == null ? 0 : record.Nov_Revenue_Amount__c)  ; 
 	}
 
-	private static Decimal calculateTotalInYearRevenue(Date contractStartDate, Date contractEndDate, Decimal totalPrice) {
+	public static Decimal calculateTotalInYearRevenue(Date contractStartDate, Date contractEndDate, Decimal totalPrice) {
 		if (contractStartDate == contractEndDate) {
 			return totalPrice;
 		}
 		Date today = Date.today();
+        system.debug('**** today '+today);
 		Date fiscalYearEnd = Date.newInstance(today.year(), 6, 30);
+        system.debug('**** fiscalYearEnd '+fiscalYearEnd);
 		Date nextFiscalYearEnd = Date.newInstance(today.year() + 1, 6, 30);
-
+		system.debug('**** nextFiscalYearEnd '+nextFiscalYearEnd);
 		Date effectiveEndDate = contractEndDate <= fiscalYearEnd ? contractEndDate : (contractStartDate > fiscalYearEnd ? fiscalYearEnd : nextFiscalYearEnd);
-		Date effectiveStartDate = contractStartDate >= fiscalYearEnd ? contractStartDate : (contractEndDate < fiscalYearEnd ? fiscalYearEnd : today);
-
-		Integer totalDays = contractEndDate.daysBetween(contractStartDate) + 1;
-		Integer effectiveDays = effectiveEndDate.daysBetween(effectiveStartDate) + 1;
-
+		system.debug('**** effectiveEndDate '+effectiveEndDate);
+        Date effectiveStartDate = contractStartDate >= fiscalYearEnd ? contractStartDate : (contractEndDate < fiscalYearEnd ? fiscalYearEnd : today);
+		system.debug('**** effectiveStartDate '+effectiveStartDate);
+		Integer totalDays = contractStartDate.daysBetween(contractEndDate) + 1;
+		system.debug('**** totalDays '+totalDays);
+        Integer effectiveDays = effectiveStartDate.daysBetween(effectiveEndDate) + 1;
+		system.debug('**** effectiveDays '+effectiveDays);
 		return (Decimal.valueOf(effectiveDays) / Decimal.valueOf(totalDays)) * totalPrice;
 	}
  
@@ -909,48 +913,47 @@ public with sharing class ProductRevenueService {
 				GroupedAccountProductRevenue__c currentGroupedRevenue =groupedRevenues.get(revenueKey);
                 system.debug('**** got grouped revenue '+ currentGroupedRevenue);
 				// update the current group revenue figures only in the case that
-				// (1) the revenue record is new (doesn't exist) or the revenue record is not more than 2 FY ago.
-				if(currentGroupedRevenue.id == null || year >currentFY-YEARS_HISTORY+1) {
-                     system.debug('**** updating grouped revenue '+ currentGroupedRevenue);
-					// zero the values in the revenue record
-					zeroRevenueValue(currentGroupedRevenue);
-					// don't add the revenue record for update / insert unless it is a new record or has budget and revenue data applied to it
-					Boolean isUpdated = currentGroupedRevenue.id == null ? true: false;
-					// add current budget and revenue values
-                    Set<String> childRevenueKeys = new Set<String>{currentGroupedRevenue.uid__c};
-					if (addRevenueValues(currentGroupedRevenue)) {
-						isUpdated = true;
-					}
-					// add records for child accounts from the Hierarchy
-					if (!recordOpportunity.DoNotUseAccountHierarchy__c) {
-						addChildAccountRevenueRecursive(item.Opportunity.AccountId,item.Product2.Id,String.valueOf(year),currentGroupedRevenue,parentToChildAccountMap,accountRestriction,childRevenueKeys);
-                        if (childRevenueKeys.size() > 0) {
-                            isUpdated = true;
+				// (1) the revenue record is new (doesn't exist) or the revenue record is not more than YEARS_HISTORY FY ago.
+                system.debug('**** updating grouped revenue '+ currentGroupedRevenue);
+                // zero the values in the revenue record
+                zeroRevenueValue(currentGroupedRevenue);
+                // don't add the revenue record for update / insert unless it is a new record or has budget and revenue data applied to it
+                Boolean isUpdated = currentGroupedRevenue.id == null ? true: false;
+                // add current budget and revenue values
+                Set<String> childRevenueKeys = new Set<String>{currentGroupedRevenue.uid__c};
+                    if (addRevenueValues(currentGroupedRevenue)) {
+                        isUpdated = true;
+                    }
+                // add records for child accounts from the Hierarchy
+                if (!recordOpportunity.DoNotUseAccountHierarchy__c) {
+                    addChildAccountRevenueRecursive(item.Opportunity.AccountId,item.Product2.Id,String.valueOf(year),currentGroupedRevenue,parentToChildAccountMap,accountRestriction,childRevenueKeys);
+                    if (childRevenueKeys.size() > 0) {
+                        isUpdated = true;
+                    }
+                }
+                // records for related accounts from the AccountRelationship Object
+                Set<Id> relatedAccounts = relatedChildAccountsMap.containsKey(recordOpportunity.AccountId) // AR contains the parent as keys
+                    && relatedChildAccountsMap.get(recordOpportunity.AccountId) != null // the children records exist
+                    ? relatedChildAccountsMap.get(recordOpportunity.AccountId) : new Set<Id>();
+                system.debug('**** relatedAccounts '+relatedAccounts);
+                system.debug('**** childRevenueKeys '+childRevenueKeys);
+                for (Id relatedAccountId : relatedAccounts) {
+                    // adhere to restrictions on accounts to include and don't double up on related accounts that are also child accounts.
+                    if(accountRestriction.isempty() || accountRestriction.contains(relatedAccountId)) {
+                        String relatedAccountRevenueKey = getUID(relatedAccountId,item.Product2.Id,String.valueOf(year));
+                        if(!childRevenueKeys.contains(relatedAccountRevenueKey)) {
+                            if (addRevenueValues(currentGroupedRevenue,relatedAccountRevenueKey)) {
+                                childRevenueKeys.add(relatedAccountRevenueKey);
+                                isUpdated = true;
+                            }
                         }
-						// records for related accounts from the AccountRelationship Object
-						Set<Id> relatedAccounts = relatedChildAccountsMap.containsKey(recordOpportunity.AccountId) // AR contains the parent as keys
-						&& relatedChildAccountsMap.get(recordOpportunity.AccountId) != null // the children records exist
-						? relatedChildAccountsMap.get(recordOpportunity.AccountId) : new Set<Id>();
-                        system.debug('**** relatedAccounts '+relatedAccounts);
-                        system.debug('**** childRevenueKeys '+childRevenueKeys);
-                        for (Id relatedAccountId : relatedAccounts) {
-                            // adhere to restrictions on accounts to include and don't double up on related accounts that are also child accounts.
-							if(accountRestriction.isempty() || accountRestriction.contains(relatedAccountId)) {
-								String relatedAccountRevenueKey = getUID(relatedAccountId,item.Product2.Id,String.valueOf(year));
-                                if(!childRevenueKeys.contains(relatedAccountRevenueKey)) {
-                                    if (addRevenueValues(currentGroupedRevenue,relatedAccountRevenueKey)) {
-                                        childRevenueKeys.add(relatedAccountRevenueKey);
-                                        isUpdated = true;
-                                    }
-                                }
-							}
-						}
-					}
-                    system.debug('*** isUpdated = '+isUpdated);
-					if (isUpdated) {
-						updatedRevenueRecords.put(currentGroupedRevenue.UID__c,currentGroupedRevenue);
-					}
-				}
+                    }
+                }
+                system.debug('*** isUpdated = '+isUpdated);
+                if (isUpdated) {
+                    updatedRevenueRecords.put(currentGroupedRevenue.UID__c,currentGroupedRevenue);
+                }
+				
 			}
 		}
 		return updatedRevenueRecords;
@@ -1089,9 +1092,9 @@ public with sharing class ProductRevenueService {
 		return true;
 	}
     
- private Boolean addRevenueValues(GroupedAccountProductRevenue__c summaryRecord) {
- 	return addRevenueValues(summaryRecord,summaryRecord.UID__c);
- }
+     private Boolean addRevenueValues(GroupedAccountProductRevenue__c summaryRecord) {
+        return addRevenueValues(summaryRecord,summaryRecord.UID__c);
+     }
 
 
 	/**
@@ -1252,10 +1255,14 @@ public with sharing class ProductRevenueService {
 		// retrieve any manually liked related accounts and place them into the global related account map.
 		for (AccountRelationship__c arr: AccountRelationshipSelector.newInstance().selectByOPCParentEndDateInFuture(unloadedAccountIds)) {
             if(arr.ParentAccount__c != null && arr.RelatedAccount__c != null) {
-                if (!relatedChildAccountsMap.containsKey(arr.ParentAccount__c)) {
+                if (!relatedChildAccountsMap.containsKey(arr.ParentAccount__c) || relatedChildAccountsMap.get(arr.ParentAccount__c)== null) {
                     system.debug('**** arr '+arr);
                     relatedChildAccountsMap.put(arr.ParentAccount__c, new Set<Id>{arr.RelatedAccount__c});
                 } else {
+                    system.debug('arr '+arr);
+                    system.debug('arr.ParentAccount__c '+arr.ParentAccount__c );
+                    system.debug('arr.RelatedAccount__c '+arr.RelatedAccount__c);
+                    system.debug('relatedChildAccountsMap.get(arr.ParentAccount__c) '+relatedChildAccountsMap.get(arr.ParentAccount__c));
                     relatedChildAccountsMap.get(arr.ParentAccount__c).add(arr.RelatedAccount__c);
                 }
             }

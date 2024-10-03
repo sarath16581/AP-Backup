@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>APT_Reasons_for_extension_request__c</fullName>
-    <externalId>false</externalId>
     <inlineHelpText>Why an extension has been requested?</inlineHelpText>
     <label>Reasons for extension requests</label>
     <required>false</required>

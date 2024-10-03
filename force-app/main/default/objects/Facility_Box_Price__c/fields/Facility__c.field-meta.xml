@@ -3,7 +3,6 @@
     <fullName>Facility__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <description>SSSW</description>
-    <externalId>false</externalId>
     <label>Network</label>
     <referenceTo>Network__c</referenceTo>
     <relationshipLabel>Network Box Price</relationshipLabel>

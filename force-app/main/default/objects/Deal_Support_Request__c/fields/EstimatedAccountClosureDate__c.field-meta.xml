@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>EstimatedAccountClosureDate__c</fullName>
     <description>This field is added on the automated ABN change DSR creation UI from Business At Risk record for Credit management DSR - Close All Billing Accounts DSR.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Enter targeted date for billing account to be closed</inlineHelpText>
     <label>Estimated Account Closure Date</label>
     <required>false</required>

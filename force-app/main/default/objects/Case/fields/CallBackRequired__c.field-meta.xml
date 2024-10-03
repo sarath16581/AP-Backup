@@ -3,7 +3,6 @@
     <fullName>CallBackRequired__c</fullName>
     <defaultValue>false</defaultValue>
     <description>SSSW .</description>
-    <externalId>false</externalId>
     <inlineHelpText>If this is Checked, the Customer would like to be called about this Case before closure.</inlineHelpText>
     <label>Call Back Required</label>
     <securityClassification>INTERNAL</securityClassification>

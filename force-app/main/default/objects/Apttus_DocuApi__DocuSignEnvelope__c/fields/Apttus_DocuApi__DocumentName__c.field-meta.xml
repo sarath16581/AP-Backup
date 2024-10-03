@@ -3,7 +3,6 @@
     <fullName>Apttus_DocuApi__DocumentName__c</fullName>
     <deprecated>false</deprecated>
     <description>List of Document names stored as JSON String of List&lt;String&gt; object</description>
-    <externalId>false</externalId>
     <inlineHelpText>List of Document names stored as JSON</inlineHelpText>
     <label>Document Name</label>
     <length>32768</length>

@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Merchantagreedtoprovideemailmobile__c</fullName>
     <description>Merchant provision of receiver details</description>
-    <externalId>false</externalId>
     <inlineHelpText>Merchant provision of receiver details</inlineHelpText>
     <label>Merchant agreed to provide email/mobile</label>
     <required>false</required>

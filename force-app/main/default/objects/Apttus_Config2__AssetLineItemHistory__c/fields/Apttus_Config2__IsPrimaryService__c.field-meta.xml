@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Indicates whether the service is primary or not.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Indicates whether the service is primary or not.</inlineHelpText>
     <label>Is Primary Service</label>
     <securityClassification>INTERNAL</securityClassification>

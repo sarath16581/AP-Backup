@@ -3,7 +3,6 @@
     <fullName>CNA_Status__c</fullName>
     <defaultValue>&quot;Not Started&quot;</defaultValue>
     <description>Used for Customer Needs Analysis reporting purpose</description>
-    <externalId>false</externalId>
     <label>CNA Status</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>

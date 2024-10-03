@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Reason_For_Deferral__c</fullName>
-    <externalId>false</externalId>
     <inlineHelpText>This box is to capture any additional information if the customer decides to defer</inlineHelpText>
     <label>Reason For Deferral</label>
     <required>false</required>

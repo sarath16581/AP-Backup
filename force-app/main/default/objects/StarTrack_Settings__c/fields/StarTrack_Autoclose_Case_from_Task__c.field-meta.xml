@@ -3,7 +3,6 @@
     <fullName>StarTrack_Autoclose_Case_from_Task__c</fullName>
     <defaultValue>false</defaultValue>
     <description>Used for autoclosing Depot Collection,  Redirection and Address Check cases from operations tasks.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Used for autoclosing Depot Collection,  Redirection and Address Check cases from operations tasks.</inlineHelpText>
     <label>StarTrack Autoclose Case from Task</label>
     <trackTrending>false</trackTrending>

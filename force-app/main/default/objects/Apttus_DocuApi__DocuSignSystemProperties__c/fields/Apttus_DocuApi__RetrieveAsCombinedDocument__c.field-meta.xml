@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>This retrieves a PDF containing the combined content of all documents after signing. It is defaulted to download as separate documents.</description>
-    <externalId>false</externalId>
     <inlineHelpText>This retrieves a PDF containing the combined content of all documents after signing. It is defaulted to download as separate documents.</inlineHelpText>
     <label>RetrieveAsCombinedDocument</label>
     <trackTrending>false</trackTrending>

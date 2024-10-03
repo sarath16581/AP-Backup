@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Profiles_Roles_For_Licenses__c</fullName>
     <description>The Profiles or roles using the licenses</description>
-    <externalId>false</externalId>
     <inlineHelpText>Add comma separated profiles or roles using the salesforce license</inlineHelpText>
     <label>Profiles/Roles For Licenses</label>
     <required>false</required>

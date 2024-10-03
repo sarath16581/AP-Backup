@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__RollupEffectiveDate__c</fullName>
     <deprecated>false</deprecated>
     <description>The rollup effective date</description>
-    <externalId>false</externalId>
     <inlineHelpText>The rollup effective date</inlineHelpText>
     <label>Rollup Effective Date</label>
     <required>false</required>

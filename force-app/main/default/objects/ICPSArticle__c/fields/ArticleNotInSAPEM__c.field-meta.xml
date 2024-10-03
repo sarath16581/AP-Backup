@@ -3,7 +3,6 @@
     <fullName>ArticleNotInSAPEM__c</fullName>
     <defaultValue>false</defaultValue>
     <description>This is a backend flag that can be used for reporting to identify the articles that were manually added without SAP EM integration</description>
-    <externalId>false</externalId>
     <inlineHelpText>This is a backend flag that can be used for reporting to identify the articles that were manually added without SAP EM integration</inlineHelpText>
     <label>Article not in SAP EM</label>
     <trackHistory>false</trackHistory>

@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__SourceAndTargetMatchCriteria__c</fullName>
     <deprecated>false</deprecated>
     <description>Criteria that will be used to match source and target data</description>
-    <externalId>false</externalId>
     <inlineHelpText>Criteria that will be used to match source and target data</inlineHelpText>
     <label>Source And Target Match Criteria</label>
     <length>2048</length>

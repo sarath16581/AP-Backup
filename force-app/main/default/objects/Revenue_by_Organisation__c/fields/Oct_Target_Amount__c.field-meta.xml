@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Oct_Target_Amount__c</fullName>
     <description>Target amount for month of Oct. Previous name was &quot;Oct Target Amount&quot; (MW0003520).</description>
-    <externalId>false</externalId>
     <label>Oct Planned Revenue</label>
     <precision>18</precision>
     <required>false</required>

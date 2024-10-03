@@ -4,7 +4,6 @@
     <deleteConstraint>SetNull</deleteConstraint>
     <description>requested by AVP for opportunity team reporting purpose.
 The field is removed from layout and planned for decommission as part of STP-2793.</description>
-    <externalId>false</externalId>
     <inlineHelpText>New Business Specialist Involved in this opportunity</inlineHelpText>
     <label>New Business Specialist Driver</label>
     <lookupFilter>

@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>APT_Lodgement_Zone__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
-    <externalId>false</externalId>
     <label>Lodgement Zone</label>
     <referenceTo>APT_Lodgement_Zone__c</referenceTo>
     <relationshipLabel>Agreement Product Attribute Values</relationshipLabel>

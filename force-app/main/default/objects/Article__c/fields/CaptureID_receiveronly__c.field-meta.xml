@@ -3,7 +3,6 @@
     <fullName>CaptureID_receiveronly__c</fullName>
     <defaultValue>false</defaultValue>
     <description>Captured ID of addressed receiver only</description>
-    <externalId>false</externalId>
     <label>Capture ID (addressed receiver only)</label>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>

@@ -3,7 +3,6 @@
     <fullName>Has_Solution_Consultant__c</fullName>
     <defaultValue>false</defaultValue>
     <description>STP: Indicates if an opportunity record has any Opportunity Team Member record with Role as Solution Consultant</description>
-    <externalId>false</externalId>
     <label>Has Solution Consultant</label>
     <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>

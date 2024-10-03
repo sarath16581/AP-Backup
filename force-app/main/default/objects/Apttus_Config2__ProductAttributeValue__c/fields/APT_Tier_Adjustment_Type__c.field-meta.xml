@@ -3,7 +3,6 @@
     <fullName>APT_Tier_Adjustment_Type__c</fullName>
     <description>For startrack delegation pricing-approvals
 (Proposal&apos;s Tier Adjustment Type)</description>
-    <externalId>false</externalId>
     <label>Tier Adjustment Type</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>

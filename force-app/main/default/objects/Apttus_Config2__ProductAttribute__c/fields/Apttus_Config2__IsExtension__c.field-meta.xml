@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Indicates whether the attribute is an extension attribute</description>
-    <externalId>false</externalId>
     <inlineHelpText>Indicates whether the attribute is an extension attribute</inlineHelpText>
     <label>Is Extension</label>
     <securityClassification>INTERNAL</securityClassification>

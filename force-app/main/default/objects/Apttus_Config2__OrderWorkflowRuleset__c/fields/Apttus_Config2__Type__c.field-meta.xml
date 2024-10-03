@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__Type__c</fullName>
     <deprecated>false</deprecated>
     <description>The ruleset type</description>
-    <externalId>false</externalId>
     <inlineHelpText>The ruleset type</inlineHelpText>
     <label>Type</label>
     <required>true</required>

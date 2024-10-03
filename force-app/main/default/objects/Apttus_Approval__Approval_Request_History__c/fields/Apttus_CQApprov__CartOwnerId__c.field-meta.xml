@@ -4,7 +4,6 @@
     <deleteConstraint>SetNull</deleteConstraint>
     <deprecated>false</deprecated>
     <description>ID of the associated cart owner</description>
-    <externalId>false</externalId>
     <label>Related Cart Owner</label>
     <referenceTo>User</referenceTo>
     <relationshipName>Approval_Request_History</relationshipName>

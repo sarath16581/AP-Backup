@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__SearchFilterFields__c</fullName>
     <deprecated>false</deprecated>
     <description>List of product fields of Checkbox or Picklist type that can be used for refining search results.</description>
-    <externalId>false</externalId>
     <inlineHelpText>List of product fields of Checkbox or Picklist type that can be used for refining search results.</inlineHelpText>
     <label>Search Filter Fields</label>
     <required>false</required>

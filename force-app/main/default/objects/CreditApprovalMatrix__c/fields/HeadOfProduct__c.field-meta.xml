@@ -4,7 +4,6 @@
     <businessStatus>DeprecateCandidate</businessStatus>
     <deleteConstraint>SetNull</deleteConstraint>
     <description>DEPRECATED. DO NOT USE.</description>
-    <externalId>false</externalId>
     <label>Head Of Product (DEPRECATED)</label>
     <referenceTo>User</referenceTo>
     <relationshipName>CAM_HeadOfProduct</relationshipName>

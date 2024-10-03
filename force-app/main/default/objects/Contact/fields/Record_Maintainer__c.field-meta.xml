@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Record_Maintainer__c</fullName>
-    <externalId>false</externalId>
     <inlineHelpText>The key details of the contact are kept up-to-date by this role.</inlineHelpText>
     <label>Contact Maintained By</label>
     <required>false</required>

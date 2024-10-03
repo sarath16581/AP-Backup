@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__PeriodEndDate__c</fullName>
     <deprecated>false</deprecated>
     <description>The period end date</description>
-    <externalId>false</externalId>
     <inlineHelpText>The period end date</inlineHelpText>
     <label>End Date</label>
     <required>false</required>

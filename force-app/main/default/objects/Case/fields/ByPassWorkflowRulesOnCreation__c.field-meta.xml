@@ -3,7 +3,6 @@
     <fullName>ByPassWorkflowRulesOnCreation__c</fullName>
     <defaultValue>false</defaultValue>
     <description>This field serves as a universal workflow rule bypass flag for case creation only. Workflow rule on case updates should not take this flag into consideration.</description>
-    <externalId>false</externalId>
     <inlineHelpText>This field serves as a universal workflow rule bypass flag for case creation only. Workflow rule on case updates should not take this flag into consideration.</inlineHelpText>
     <label>Bypass Workflow Rules On Creation</label>
     <securityClassification>INTERNAL</securityClassification>

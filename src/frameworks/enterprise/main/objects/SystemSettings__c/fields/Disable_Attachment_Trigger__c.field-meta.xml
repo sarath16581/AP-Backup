@@ -3,7 +3,6 @@
     <fullName>Disable_Attachment_Trigger__c</fullName>
     <defaultValue>false</defaultValue>
     <description>Check if attachment trigger should run</description>
-    <externalId>false</externalId>
     <label>Disable Attachment Trigger</label>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>

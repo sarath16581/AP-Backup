@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Enabling pdf security lets users apply security settings to pdf documents and protect them with a password.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Enabling pdf security lets users apply security settings to pdf documents and protect them with a password.</inlineHelpText>
     <label>Enable PDF Security</label>
     <trackTrending>false</trackTrending>

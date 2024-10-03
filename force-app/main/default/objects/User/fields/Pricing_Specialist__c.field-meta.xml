@@ -3,7 +3,6 @@
     <fullName>Pricing_Specialist__c</fullName>
     <defaultValue>false</defaultValue>
     <description>Phase 2 - this field will ensure that the user can be selected as a Pricing Specialist when running a Custom Pricing Request.</description>
-    <externalId>false</externalId>
     <label>Phase 2 - Pricing Specialist</label>
     <trackFeedHistory>false</trackFeedHistory>
     <type>Checkbox</type>

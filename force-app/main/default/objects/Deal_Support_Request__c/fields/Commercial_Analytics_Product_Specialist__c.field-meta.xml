@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Commercial_Analytics_Product_Specialist__c</fullName>
     <description>Formula return true if the Commercial Analytics request is to be assigned to Product Specialist Queue.</description>
-    <externalId>false</externalId>
     <formula>Is_Strategic_Account__c || Opportunity_Type__c = &quot;New Customer&quot; || Opportunity__r.Has_Product_Specialist__c || Opportunity__r.Has_Solution_Consultant__c</formula>
     <label>Commercial Analytics Product Specialist</label>
     <securityClassification>INTERNAL</securityClassification>

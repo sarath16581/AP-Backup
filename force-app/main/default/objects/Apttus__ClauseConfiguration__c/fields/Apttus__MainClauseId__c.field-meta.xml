@@ -3,7 +3,6 @@
     <fullName>Apttus__MainClauseId__c</fullName>
     <deprecated>false</deprecated>
     <description>Indicates ID of main/standard clause.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Indicates ID of main/standard clause.</inlineHelpText>
     <label>Main Clause</label>
     <referenceTo>Apttus__APTS_Template__c</referenceTo>

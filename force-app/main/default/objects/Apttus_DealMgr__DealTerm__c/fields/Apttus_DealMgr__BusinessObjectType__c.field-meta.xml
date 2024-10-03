@@ -3,7 +3,6 @@
     <fullName>Apttus_DealMgr__BusinessObjectType__c</fullName>
     <deprecated>false</deprecated>
     <description>The type of the business object associated with the deal term</description>
-    <externalId>false</externalId>
     <inlineHelpText>The type of the business object associated with the deal term</inlineHelpText>
     <label>Business Object Type</label>
     <required>false</required>

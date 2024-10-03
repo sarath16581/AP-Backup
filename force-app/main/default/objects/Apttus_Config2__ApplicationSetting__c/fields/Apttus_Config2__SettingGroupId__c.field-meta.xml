@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__SettingGroupId__c</fullName>
     <deprecated>false</deprecated>
     <description>Parent group of this setting</description>
-    <externalId>false</externalId>
     <inlineHelpText>Parent group of this setting</inlineHelpText>
     <label>Setting Group</label>
     <referenceTo>Apttus_Config2__SettingGroup__c</referenceTo>

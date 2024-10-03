@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>OmniRoutingSecondaryPriority__c</fullName>
     <description>This is being used by the Service Channel to assign the secondary priority on the PSR</description>
-    <externalId>false</externalId>
     <label>Omni Routing Secondary Priority</label>
     <required>false</required>
     <trackFeedHistory>false</trackFeedHistory>

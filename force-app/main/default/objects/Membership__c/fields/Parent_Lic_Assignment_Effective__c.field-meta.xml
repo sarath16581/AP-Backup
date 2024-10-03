@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Parent_Lic_Assignment_Effective__c</fullName>
-    <externalId>false</externalId>
     <formula>Account__r.Assignment_Effective_From_Date__c</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <label>Parent Lic Assignment Effective</label>

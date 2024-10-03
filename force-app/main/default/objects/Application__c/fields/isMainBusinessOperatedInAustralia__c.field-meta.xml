@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>isMainBusinessOperatedInAustralia__c</fullName>
     <description>Are the main business / company operations driven from an Australian location?</description>
-    <externalId>false</externalId>
     <inlineHelpText>Are the main business operations driven from an Australian location?</inlineHelpText>
     <label>Main Business Operated In Australia?</label>
     <required>false</required>

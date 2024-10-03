@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Indicates whether attachments will be selected from related, sibling, parent and child agreements</description>
-    <externalId>false</externalId>
     <inlineHelpText>Indicates whether attachments will be selected from related, sibling, parent and child agreements</inlineHelpText>
     <label>Select Attachments From Related/Sibling</label>
     <trackTrending>false</trackTrending>

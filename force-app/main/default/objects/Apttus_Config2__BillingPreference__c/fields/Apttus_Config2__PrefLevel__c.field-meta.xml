@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__PrefLevel__c</fullName>
     <deprecated>false</deprecated>
     <description>The level associated with the billing preference</description>
-    <externalId>false</externalId>
     <inlineHelpText>The level associated with the billing preference</inlineHelpText>
     <label>Preference Level</label>
     <required>false</required>

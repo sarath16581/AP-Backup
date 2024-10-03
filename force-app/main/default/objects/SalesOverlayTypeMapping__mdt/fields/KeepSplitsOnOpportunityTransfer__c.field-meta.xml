@@ -4,7 +4,6 @@
     <businessStatus>Active</businessStatus>
     <defaultValue>true</defaultValue>
     <description>Retain overlay opportunity splits assigned to previous opportunity owner when opportunity is transferred across to a new owner.</description>
-    <externalId>false</externalId>
     <fieldManageability>DeveloperControlled</fieldManageability>
     <inlineHelpText>Retain overlay opportunity splits assigned to previous opportunity owner when opportunity is transferred across to a new owner.</inlineHelpText>
     <label>Keep Splits on Opportunity Transfer</label>

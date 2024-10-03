@@ -3,7 +3,6 @@
     <fullName>Saturday_Delivery_Network__c</fullName>
     <defaultValue>false</defaultValue>
     <description>This is the indicator to state whether the LPO is in the Saturday Delivery Network and is eligible for payment.</description>
-    <externalId>false</externalId>
     <inlineHelpText>This is the indicator to state whether the LPO is in the Saturday Delivery Network and is eligible for payment.</inlineHelpText>
     <label>Saturday Delivery Network</label>
     <securityClassification>INTERNAL</securityClassification>

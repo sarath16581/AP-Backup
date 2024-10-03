@@ -3,7 +3,6 @@
     <fullName>Default__c</fullName>
     <defaultValue>false</defaultValue>
     <description>StarTrack: Default field to capture which field will be default in the search type picklist on consignment search page.</description>
-    <externalId>false</externalId>
     <label>Default</label>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>

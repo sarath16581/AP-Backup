@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Expected_Revenue_End_Date__c</fullName>
     <defaultValue>DATE( (YEAR(Today()) +  1) , MONTH(Today()) , DAY(Today()) )  + 30 + 30 -1</defaultValue>
-    <externalId>false</externalId>
     <inlineHelpText>Please provide estimated revenue end date, this value will be populated across Opportunity Products</inlineHelpText>
     <label>Expected Revenue End Date</label>
     <required>false</required>

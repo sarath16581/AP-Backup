@@ -3,7 +3,6 @@
     <fullName>Apttus_Approval__Is_Valid__c</fullName>
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
-    <externalId>false</externalId>
     <label>Is Valid</label>
     <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>

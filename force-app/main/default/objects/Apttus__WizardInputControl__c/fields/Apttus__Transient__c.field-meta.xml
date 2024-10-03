@@ -4,7 +4,6 @@
     <defaultValue>true</defaultValue>
     <deprecated>false</deprecated>
     <description>Input added to a Step is in Transient state until the Step is saved.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Input added to a Step is in Transient state until the Step is saved.</inlineHelpText>
     <label>Transient</label>
     <securityClassification>INTERNAL</securityClassification>

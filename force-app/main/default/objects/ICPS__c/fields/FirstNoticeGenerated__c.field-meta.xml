@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>FirstNoticeGenerated__c</fullName>
     <description>This is a backend checkbox formula to determine if the First Notice has been generated or not.  The reason why this field has been created is so that I can apply a filter on the Final Notice button on the Lightning Page</description>
-    <externalId>false</externalId>
     <formula>IF( ISBLANK( FirstNoticeDate__c ), FALSE, TRUE)</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <inlineHelpText>This is a backend checkbox formula to determine if the First Notice has been generated or not.  The reason why this field has been created is so that I can apply a filter on the Final Notice button on the Lightning Page</inlineHelpText>

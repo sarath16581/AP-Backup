@@ -3,7 +3,6 @@
     <fullName>Apttus_DealMgr__CurrencyScope__c</fullName>
     <deprecated>false</deprecated>
     <description>One or more currencies associated with the rule. Only applicable in multi-currency organizations.</description>
-    <externalId>false</externalId>
     <inlineHelpText>One or more currencies associated with the rule. Only applicable in multi-currency organizations.</inlineHelpText>
     <label>Currency Scope</label>
     <required>false</required>

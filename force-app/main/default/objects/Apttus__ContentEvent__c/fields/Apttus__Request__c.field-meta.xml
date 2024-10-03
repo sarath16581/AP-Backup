@@ -3,7 +3,6 @@
     <fullName>Apttus__Request__c</fullName>
     <deprecated>false</deprecated>
     <description>The Xml Request</description>
-    <externalId>false</externalId>
     <label>Request</label>
     <length>32000</length>
     <securityClassification>INTERNAL</securityClassification>

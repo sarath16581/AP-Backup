@@ -5,7 +5,6 @@
     <deprecated>false</deprecated>
     <description>The agreement Id of the root. A root agreement is the primordial agreement which has all of the children, grandchildren, etc. in the hierarchy. There can be only one root agreement for a hierarchy. 
 Root &gt; Parent &gt; Leaf</description>
-    <externalId>false</externalId>
     <inlineHelpText>The agreement Id of the root. A root agreement is the primordial agreement which has all of the children, grandchildren, etc. in the hierarchy. There can be only one root agreement for a hierarchy. 
 Root &gt; Parent &gt; Leaf</inlineHelpText>
     <label>Agreement Root</label>

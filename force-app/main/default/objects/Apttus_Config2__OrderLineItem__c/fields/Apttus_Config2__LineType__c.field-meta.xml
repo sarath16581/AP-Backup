@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__LineType__c</fullName>
     <deprecated>false</deprecated>
     <description>The line type</description>
-    <externalId>false</externalId>
     <label>Line Type</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>

@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Document Upload Status (System use only)</description>
-    <externalId>false</externalId>
     <inlineHelpText>Document Upload Status (System use only)</inlineHelpText>
     <label>Document Upload Status</label>
     <securityClassification>INTERNAL</securityClassification>

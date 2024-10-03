@@ -3,7 +3,6 @@
     <fullName>Primary_Organisation__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <description>Phase 1 - Added as endorsement of AusPost Solution 4.3</description>
-    <externalId>false</externalId>
     <label>Primary Organisation</label>
     <referenceTo>Account</referenceTo>
     <relationshipLabel>Business Contacts</relationshipLabel>

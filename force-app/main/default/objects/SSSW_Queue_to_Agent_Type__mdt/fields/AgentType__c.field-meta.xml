@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>AgentType__c</fullName>
     <description>Picklist values as per Case.AgentType__c</description>
-    <externalId>false</externalId>
     <fieldManageability>DeveloperControlled</fieldManageability>
     <inlineHelpText>Picklist values as per Case.AgentType__c</inlineHelpText>
     <label>Agent Type</label>

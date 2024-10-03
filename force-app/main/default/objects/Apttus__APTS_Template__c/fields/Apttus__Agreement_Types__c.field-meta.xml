@@ -3,7 +3,6 @@
     <fullName>Apttus__Agreement_Types__c</fullName>
     <deprecated>false</deprecated>
     <description>Note: If you add a new agreement record type, the type must also be manually added to this set of picklist values to keep record types in sync between agreements and templates.</description>
-    <externalId>false</externalId>
     <label>Agreement Types</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>

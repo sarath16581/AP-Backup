@@ -4,7 +4,6 @@
     <defaultValue>true</defaultValue>
     <deprecated>false</deprecated>
     <description>This flag is true if the term exception approval record is active.  Set this to false if you want the approvals engine to ignore this term exception approver during processing.</description>
-    <externalId>false</externalId>
     <inlineHelpText>This flag is true if the term exception approval record is active.  Set this to false if you want the approvals engine to ignore this term exception approver during processing.</inlineHelpText>
     <label>Active</label>
     <securityClassification>INTERNAL</securityClassification>

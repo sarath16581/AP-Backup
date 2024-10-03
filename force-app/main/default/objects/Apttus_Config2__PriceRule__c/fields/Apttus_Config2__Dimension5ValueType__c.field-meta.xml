@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__Dimension5ValueType__c</fullName>
     <deprecated>false</deprecated>
     <description>The value type of the fifth dimension. Only applicable to Dimension rules.</description>
-    <externalId>false</externalId>
     <label>Dimension 5 Value Type</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>

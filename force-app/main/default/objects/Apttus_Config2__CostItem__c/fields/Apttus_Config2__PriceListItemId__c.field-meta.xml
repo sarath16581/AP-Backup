@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__PriceListItemId__c</fullName>
     <deprecated>false</deprecated>
     <description>Id of the Price List Item for corresponding charge type</description>
-    <externalId>false</externalId>
     <inlineHelpText>Id of the Price List Item for corresponding charge type</inlineHelpText>
     <label>Price List Item</label>
     <referenceTo>Apttus_Config2__PriceListItem__c</referenceTo>

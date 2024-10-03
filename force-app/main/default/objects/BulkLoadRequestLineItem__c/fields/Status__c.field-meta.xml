@@ -3,7 +3,6 @@
     <fullName>Status__c</fullName>
     <defaultValue>&quot;New&quot;</defaultValue>
     <description>Processing status of this line item.</description>
-    <externalId>false</externalId>
     <label>Status</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>

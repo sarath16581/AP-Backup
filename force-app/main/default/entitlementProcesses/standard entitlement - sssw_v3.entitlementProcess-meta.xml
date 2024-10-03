@@ -308,14 +308,6 @@ Out of Charter updates</description>
         <minutesCustomClass>CalculateMilestoneTime</minutesCustomClass>
         <timeTriggers>
             <actions>
-                <name>Set_Closed_By_System</name>
-                <type>FieldUpdate</type>
-            </actions>
-            <timeLength>2</timeLength>
-            <workflowTimeTriggerUnit>Minutes</workflowTimeTriggerUnit>
-        </timeTriggers>
-        <timeTriggers>
-            <actions>
                 <name>Clear_Last_Incoming_Email_Value</name>
                 <type>FieldUpdate</type>
             </actions>
@@ -348,6 +340,14 @@ Out of Charter updates</description>
                 <type>FieldUpdate</type>
             </actions>
             <timeLength>1</timeLength>
+            <workflowTimeTriggerUnit>Minutes</workflowTimeTriggerUnit>
+        </timeTriggers>
+        <timeTriggers>
+            <actions>
+                <name>Set_Closed_By_System</name>
+                <type>FieldUpdate</type>
+            </actions>
+            <timeLength>2</timeLength>
             <workflowTimeTriggerUnit>Minutes</workflowTimeTriggerUnit>
         </timeTriggers>
         <useCriteriaStartTime>true</useCriteriaStartTime>

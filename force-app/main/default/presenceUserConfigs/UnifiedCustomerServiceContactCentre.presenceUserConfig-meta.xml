@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PresenceUserConfig xmlns="http://soap.sforce.com/2006/04/metadata">
+    <assignments>
+        <profiles>
+            <profile>unified customer service</profile>
+        </profiles>
+    </assignments>
+    <capacity>2</capacity>
+    <declineReasons>Other</declineReasons>
+    <declineReasons>Permission_to_Pause</declineReasons>
+    <declineReasons>Technical_Issues</declineReasons>
+    <enableAutoAccept>false</enableAutoAccept>
+    <enableDecline>true</enableDecline>
+    <enableDeclineReason>true</enableDeclineReason>
+    <enableDisconnectSound>true</enableDisconnectSound>
+    <enableRequestSound>true</enableRequestSound>
+    <interruptibleCapacity>2</interruptibleCapacity>
+    <label>Unified Customer Service Contact Centre</label>
+    <presenceStatusOnDecline>Personal</presenceStatusOnDecline>
+    <presenceStatusOnPushTimeout>Personal</presenceStatusOnPushTimeout>
+</PresenceUserConfig>

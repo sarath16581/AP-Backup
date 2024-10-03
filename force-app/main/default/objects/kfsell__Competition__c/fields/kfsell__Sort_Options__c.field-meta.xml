@@ -3,7 +3,6 @@
     <fullName>kfsell__Sort_Options__c</fullName>
     <deprecated>false</deprecated>
     <description>Sorting Options available to sort Competitor on account dashboard.</description>
-    <externalId>false</externalId>
     <label>Sort Options</label>
     <required>false</required>
     <trackHistory>false</trackHistory>

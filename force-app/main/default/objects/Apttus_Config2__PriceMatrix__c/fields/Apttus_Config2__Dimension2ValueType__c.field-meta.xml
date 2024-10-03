@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__Dimension2ValueType__c</fullName>
     <deprecated>false</deprecated>
     <description>The value type of the second dimension</description>
-    <externalId>false</externalId>
     <label>Dimension 2 Value Type</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>

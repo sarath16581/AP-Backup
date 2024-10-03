@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__CustomPricingFields__c</fullName>
     <deprecated>false</deprecated>
     <description>Enter the list of custom fields from the line item object used in pricing</description>
-    <externalId>false</externalId>
     <inlineHelpText>Enter the list of custom fields from the line item object used in pricing</inlineHelpText>
     <label>Custom Pricing Fields</label>
     <required>false</required>

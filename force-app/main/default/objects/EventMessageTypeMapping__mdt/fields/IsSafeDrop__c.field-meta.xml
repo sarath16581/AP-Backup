@@ -3,7 +3,6 @@
     <fullName>IsSafeDrop__c</fullName>
     <defaultValue>false</defaultValue>
     <description>Marks that the event message is a safe drop event type</description>
-    <externalId>false</externalId>
     <fieldManageability>DeveloperControlled</fieldManageability>
     <inlineHelpText>Marks that the event message is a safe drop event type</inlineHelpText>
     <label>Is Safe Drop</label>

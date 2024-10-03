@@ -3,7 +3,6 @@
     <fullName>Licensee_Refuses_to_Cooperate2__c</fullName>
     <defaultValue>false</defaultValue>
     <description>To indicate where a Licensee refuses to cooperate to get their registration completed</description>
-    <externalId>false</externalId>
     <inlineHelpText>To indicate where a Licensee refuses to cooperate to get their registration completed</inlineHelpText>
     <label>Licensee Refuses to Cooperate</label>
     <securityClassification>INTERNAL</securityClassification>

@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__AdjustmentReason__c</fullName>
     <deprecated>false</deprecated>
     <description>The adjustment reason.</description>
-    <externalId>false</externalId>
     <inlineHelpText>The adjustment reason.</inlineHelpText>
     <label>Adjustment Reason</label>
     <required>false</required>

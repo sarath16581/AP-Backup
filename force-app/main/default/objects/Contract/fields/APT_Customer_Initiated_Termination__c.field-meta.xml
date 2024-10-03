@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>APT_Customer_Initiated_Termination__c</fullName>
-    <externalId>false</externalId>
     <inlineHelpText>Was Termination of the Contract initiated by the Customer - select Yes, or No if it was initiated by Australia Post</inlineHelpText>
     <label>Customer Initiated Termination?</label>
     <required>false</required>

@@ -3,7 +3,6 @@
     <fullName>Apttus__Activated_Date__c</fullName>
     <deprecated>false</deprecated>
     <description>The date the agreement was activated in the system</description>
-    <externalId>false</externalId>
     <inlineHelpText>.</inlineHelpText>
     <label>Activated Date</label>
     <required>false</required>

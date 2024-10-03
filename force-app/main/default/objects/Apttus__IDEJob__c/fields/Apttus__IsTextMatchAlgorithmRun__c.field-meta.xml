@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Flag to indicate if text-match algorithm is run or not</description>
-    <externalId>false</externalId>
     <inlineHelpText>Flag to indicate if text-match algorithm is run or not</inlineHelpText>
     <label>Is Text Match Algorithm Run</label>
     <securityClassification>INTERNAL</securityClassification>

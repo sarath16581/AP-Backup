@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__BaseExtendedCost__c</fullName>
     <deprecated>false</deprecated>
     <description>The base extended cost is Quantity X Term (if applicable) X (Base Cost + Cost Adjustment) for individual products and options</description>
-    <externalId>false</externalId>
     <inlineHelpText>The base extended cost is Quantity X Term (if applicable) X (Base Cost + Cost Adjustment) for individual products and options</inlineHelpText>
     <label>Base Extended Cost</label>
     <precision>18</precision>

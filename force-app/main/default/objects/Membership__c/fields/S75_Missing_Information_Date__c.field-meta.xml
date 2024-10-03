@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>S75_Missing_Information_Date__c</fullName>
     <description>Date it Changed to the Status “Missing Information”, S75 re-purposed to Change of Details Information</description>
-    <externalId>false</externalId>
     <inlineHelpText>The date the COD status was updated to Missing Information</inlineHelpText>
     <label>COD Missing Information Date</label>
     <required>false</required>

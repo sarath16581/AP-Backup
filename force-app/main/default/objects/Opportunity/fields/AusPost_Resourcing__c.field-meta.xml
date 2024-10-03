@@ -4,7 +4,6 @@
     <description>Phase 1 - Opportunity Assessment (PWC)
 
 Identify if other parts of Australia Post need to be engaged as part of these initiatives</description>
-    <externalId>false</externalId>
     <inlineHelpText>Who else in Australia Post needs to be engaged for this step?</inlineHelpText>
     <label>AusPost Resourcing</label>
     <length>32768</length>

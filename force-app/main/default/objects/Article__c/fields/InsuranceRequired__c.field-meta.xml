@@ -3,7 +3,6 @@
     <fullName>InsuranceRequired__c</fullName>
     <defaultValue>false</defaultValue>
     <description>SSSW</description>
-    <externalId>false</externalId>
     <label>Transit/Extra Cover Required</label>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>

@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__ProductAttributeExtensionLookupFields__c</fullName>
     <deprecated>false</deprecated>
     <description>Contains the names of the Product Attribute Extension tables Lookup Field Names and will be read if the Attribute Extension is enabled</description>
-    <externalId>false</externalId>
     <inlineHelpText>Comma separated List of values to specify the Product Attribute Extension Objects Lookup Field Names.</inlineHelpText>
     <label>Product Attribute Extension Tables</label>
     <required>false</required>

@@ -4,7 +4,6 @@
     <defaultValue>true</defaultValue>
     <deprecated>false</deprecated>
     <description>Indicates whether the proposal is ready for presentation</description>
-    <externalId>false</externalId>
     <label>Ready To Present</label>
     <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>

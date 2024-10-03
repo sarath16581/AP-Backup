@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__UnbilledAmount__c</fullName>
     <deprecated>false</deprecated>
     <description>The amount unbilled for the account</description>
-    <externalId>false</externalId>
     <inlineHelpText>The amount unbilled for the account</inlineHelpText>
     <label>Unbilled Amount</label>
     <precision>18</precision>

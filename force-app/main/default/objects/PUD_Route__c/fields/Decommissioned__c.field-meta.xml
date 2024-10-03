@@ -4,7 +4,6 @@
     <businessStatus>Active</businessStatus>
     <defaultValue>false</defaultValue>
     <description>Indicates whether the route has been deleted in Adam. Sourced from Adam.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Indicates whether the route has been deleted in Adam. Sourced from Adam.</inlineHelpText>
     <label>Decommissioned</label>
     <trackHistory>false</trackHistory>

@@ -3,7 +3,6 @@
     <fullName>Required__c</fullName>
     <defaultValue>false</defaultValue>
     <description>This indicates if the Question requires a response</description>
-    <externalId>false</externalId>
     <inlineHelpText>This indicates if the Question requires a response</inlineHelpText>
     <label>Required</label>
     <securityClassification>INTERNAL</securityClassification>

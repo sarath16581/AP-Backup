@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Attach_2_Years_of_Cash_Flow_Bal_P_L_Stmt__c</fullName>
     <description>The field is used to confirm attachment of 2 Years of Cash Flow/Balance/Profit &amp; Loss Statement</description>
-    <externalId>false</externalId>
     <inlineHelpText>New Credit Limit Required &gt;50k?</inlineHelpText>
     <label>Attach 2 Years of Cash Flow/Bal/P&amp;L Stmt</label>
     <required>false</required>

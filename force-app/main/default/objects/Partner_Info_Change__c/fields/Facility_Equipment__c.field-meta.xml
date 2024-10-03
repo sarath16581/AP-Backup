@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Facility_Equipment__c</fullName>
     <description>Equipment that the outlet owns, but is not charged for</description>
-    <externalId>false</externalId>
     <inlineHelpText>Equipment that the outlet owns, but is not charged for</inlineHelpText>
     <label>Facility Equipment</label>
     <required>false</required>

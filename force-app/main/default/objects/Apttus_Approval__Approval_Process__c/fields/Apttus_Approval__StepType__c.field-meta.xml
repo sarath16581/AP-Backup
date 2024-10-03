@@ -3,7 +3,6 @@
     <fullName>Apttus_Approval__StepType__c</fullName>
     <deprecated>false</deprecated>
     <description>The Step Type</description>
-    <externalId>false</externalId>
     <inlineHelpText>The Step Type</inlineHelpText>
     <label>Step Type</label>
     <required>false</required>

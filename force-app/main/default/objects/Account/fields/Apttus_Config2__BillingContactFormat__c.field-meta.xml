@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__BillingContactFormat__c</fullName>
     <deprecated>false</deprecated>
     <description>Specifies Billing Contact setup format for a given account.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Specifies Billing Contact setup format for a given account.</inlineHelpText>
     <label>Billing Contact Format</label>
     <required>false</required>

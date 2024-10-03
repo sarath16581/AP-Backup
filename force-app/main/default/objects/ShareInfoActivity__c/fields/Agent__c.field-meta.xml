@@ -3,7 +3,6 @@
     <fullName>Agent__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <description>Agent who send the articles through the Share Information Page</description>
-    <externalId>false</externalId>
     <label>Agent</label>
     <referenceTo>User</referenceTo>
     <relationshipName>ShareInfoActivities</relationshipName>

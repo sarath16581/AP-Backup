@@ -3,7 +3,6 @@
     <fullName>IsMailingDiffToLocation__c</fullName>
     <defaultValue>false</defaultValue>
     <description>Please check this box if mailing address is different to Location Address</description>
-    <externalId>false</externalId>
     <inlineHelpText>I have a different business mailing address</inlineHelpText>
     <label>Mailing Is Different To Location Address</label>
     <securityClassification>INTERNAL</securityClassification>

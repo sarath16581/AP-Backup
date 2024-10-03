@@ -4,7 +4,6 @@
     <description>Phase 1 - Opportunity Assessment (PWC)
 
 Identify which internal stakeholder (Product, Solutions Sales, or Bids and Tenders) will progress this opportunity once it has reached stage 4</description>
-    <externalId>false</externalId>
     <inlineHelpText>Who will drive this opportunity once it has been Validated?</inlineHelpText>
     <label>Opportunity Validation Driver</label>
     <required>false</required>

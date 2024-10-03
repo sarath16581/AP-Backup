@@ -11,8 +11,18 @@
  *
  * @changelog
  * 2024-07-26 - Seth Heang - Created
+ * 2024-09-24 - Ranjeewa Silva - Updated to send customer notification email using ApplicationEmailService
+ * 2024-09-24 - Parveen Kaushik - Made the following changes:
+ * 				- Replaced describe call for user prefix with 005
+ * 				- Used fieldOverrides and filter by Action for ScheduledActionsSelector
+ * 				- Removed the check for Case Creator for the purpose of determining individual agent assignment
+ * 
  */
 public with sharing class CaseMonitoring3DayReminderEmailAction extends ApplicationScheduledAction {
+
+	// email alerts to use to notify customer on the case.
+	@TestVisible private static final String EMAIL_ALERT_NO_SCANS_OR_UPDATES_AP = 'UnifiedCaseNoScansOrUpdatesNotificationAP';
+	@TestVisible private static final String EMAIL_ALERT_NO_SCANS_OR_UPDATES_ST = 'UnifiedCaseNoScansOrUpdatesNotificationST';
 
 	private final static QM__c QUEUE_SETTINGS = QM__c.getInstance();
 	private final static Id RECORD_TYPE_UNIFIED_INVESTIGATION_ID {
@@ -38,26 +48,21 @@ public with sharing class CaseMonitoring3DayReminderEmailAction extends Applicat
 	 * @param actionRecordIds
 	 */
 	public override void execute(List<Id> actionRecordIds) {
-		// TODO: Dependency on other squad working on ApplicationEmailService framework
-		// Below code will be soon be replaced to make use of ApplicationEmailService once that is ready
-		// For testing purpose, the email message sent is hardcoded
-		List<ScheduledAction__c> actions = ScheduledActionsSelector.newInstance().selectById(new Set<Id>(actionRecordIds), new Set<Object>{ ScheduledActionsSelector.Options.WITH_CASE });
-		List<Messaging.SingleEmailMessage> mails = new List<Messaging.SingleEmailMessage>();
+		List<ScheduledAction__c> actions = ((ScheduledActionsSelector)ScheduledActionsSelector.newInstance().setFieldOverrides(new Map<SObjectType, Set<SObjectField>>{
+				ScheduledAction__c.SObjectType => new Set<SObjectField>{ScheduledAction__c.Id, ScheduledAction__c.Case__c},
+				Case.SObjectType => new Set<SObjectField>{Case.Id, Case.ProductSubCategory__c}
+		})).selectById(new Set<Id>(actionRecordIds), new Set<Object>{ ScheduledActionsSelector.Options.WITH_CASE });
 
-		for (ScheduledAction__c action : actions) {
-			Case newCase = action.Case__r;
-			Messaging.SingleEmailMessage mail = new Messaging.SingleEmailMessage();
-			mail.setToAddresses(new List<String>{ newCase.ContactEmail });
-			if (newCase.ProductSubCategory__c.contains('StarTrack')) {
-				mail.setSubject('TEST StarTrack Email');
-				mail.setPlainTextBody('StarTrack Email Body');
-			} else {
-				mail.setSubject('TEST AusPost Email');
-				mail.setPlainTextBody('AusPost Email Body');
+		if (!actions.isEmpty()) {
+			ApplicationEmailService emailService = ApplicationEmailService.getInstance();
+			for (ScheduledAction__c action : actions) {
+				String emailAlertName = CaseUnifiedAutomationService.isStarTrackCase(action.Case__r)
+						? EMAIL_ALERT_NO_SCANS_OR_UPDATES_ST
+						: EMAIL_ALERT_NO_SCANS_OR_UPDATES_AP;
+				emailService.queueEmailNotification(action.Case__c, Case.SObjectType, emailAlertName);
 			}
-			mails.add(mail);
+			emailService.dispatchAllPendingEmailNotifications();
 		}
-		Messaging.sendEmail(mails);
 	}
 
 	/**
@@ -104,7 +109,6 @@ public with sharing class CaseMonitoring3DayReminderEmailAction extends Applicat
 		}
 
 		Map<Id, List<AgentWork>> caseIdToAgentWorkMap = new Map<Id, List<AgentWork>>();
-		Map<Id, Id> caseIdToCreatorUserIdMap = new Map<Id, Id>();
 		// Query AgentWork and initialise maps
 		List<AgentWork> agentWorks = AgentWorkSelector.newInstance().selectByWorkItemIds(cases.keySet(), new Set<Object>{ AgentWorkSelector.Options.WITH_CASE });
 		for (AgentWork work : agentWorks) {
@@ -112,15 +116,15 @@ public with sharing class CaseMonitoring3DayReminderEmailAction extends Applicat
 				caseIdToAgentWorkMap.put(work.Case__c, new List<AgentWork>());
 			}
 			caseIdToAgentWorkMap.get(work.Case__c).add(work);
-			caseIdToCreatorUserIdMap.put(work.Case__c, work.Case__r.CreatedById);
 		}
-		// Validate if AgentWork has individual user assignment, excluding case creator
-		String userPrefix = User.getSObjectType().getDescribe().getKeyPrefix();
+		// Validate if AgentWork has individual user assignment, this includes case creator as agentwork record is not created as a result of agent creating the case.
+		// An AgentWork record for case creator is only possible if it has been pushed and assigned via Omni. In that case, we shall treat it as 
+		// Individual Agent assignment and not as Creator
+		String userPrefix = '005';
 		for (Id caseId : caseIdToAgentWorkMap.keySet()) {
 			for (AgentWork work : caseIdToAgentWorkMap.get(caseId)) {
 				String workOwnerPrefix = work.OwnerId.toString().substring(0, 3);
-				Id caseCreatorUserId = caseIdToCreatorUserIdMap.get(work.Case__c);
-				if (workOwnerPrefix == userPrefix && !work.OwnerId.equals(caseCreatorUserId)) {
+				if (workOwnerPrefix == userPrefix) {
 					caseIdHasNoIndividualAgentAssignment.put(work.Case__c, false);
 				}
 			}
@@ -152,11 +156,15 @@ public with sharing class CaseMonitoring3DayReminderEmailAction extends Applicat
 			Map<Id, ScheduledAction__c> existingActionsForDelete = new Map<Id, ScheduledAction__c>();
 			Map<Id, SObject> recordsWithExistingActions = new Map<Id, SObject>();
 			if(!validationStatusMap.isEmpty()){
-				for (ScheduledAction__c action : ScheduledActionsSelector.newInstance().selectByCaseId(validationStatusMap.keySet())){
-					if (successfulValidatedRecords.get(action.Case__c) != null && action.ActionType__c.equals(getName()) ){
+				Set<SObjectField> scheduledActionFields = new Set<SObjectField>{ScheduledAction__c.Case__c, ScheduledAction__c.ActionType__c};
+				List<ScheduledAction__c> actionRecordsList = ((ScheduledActionsSelector)ScheduledActionsSelector.newInstance().setFieldOverrides(scheduledActionFields))
+                    .selectByCaseIdAndActionType(validationStatusMap.keySet(), new Set<String>{ getName()});
+
+				for (ScheduledAction__c action : actionRecordsList){
+					if (successfulValidatedRecords.get(action.Case__c) != null){
 						recordsWithExistingActions.put(action.Case__c, parentRecords.get(action.Case__c));
 					}
-					else if (failedValidatedRecords.get(action.Case__c) != null && action.ActionType__c.equals(getName())){
+					else if (failedValidatedRecords.get(action.Case__c) != null){
 						existingActionsForDelete.put(action.Id, action);
 					}
 				}

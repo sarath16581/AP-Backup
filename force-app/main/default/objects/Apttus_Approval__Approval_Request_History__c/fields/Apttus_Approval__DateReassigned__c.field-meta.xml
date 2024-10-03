@@ -3,7 +3,6 @@
     <fullName>Apttus_Approval__DateReassigned__c</fullName>
     <deprecated>false</deprecated>
     <description>The date when the approval request was last reassigned</description>
-    <externalId>false</externalId>
     <label>Date Reassigned</label>
     <required>false</required>
     <trackHistory>false</trackHistory>

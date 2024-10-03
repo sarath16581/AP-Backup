@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Request_Description__c</fullName>
     <description>Description or purpose of the request raised</description>
-    <externalId>false</externalId>
     <label>Request Description</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>

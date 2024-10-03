@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__PricingSteps__c</fullName>
     <deprecated>false</deprecated>
     <description>The price calculation steps</description>
-    <externalId>false</externalId>
     <label>Pricing Steps</label>
     <length>20000</length>
     <securityClassification>OFFICIAL_SENSITIVE</securityClassification>

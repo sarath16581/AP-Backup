@@ -3,7 +3,6 @@
     <fullName>Is_System_Update__c</fullName>
     <defaultValue>false</defaultValue>
     <description>Indicates a system initiated updated. An update is triggered by the system during various lifecycle actions such as clone, amend, renew etc. The flag is set before the update and is reset when the update is initiated by a user.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Indicates a system initiated update.</inlineHelpText>
     <label>Is System Update</label>
     <securityClassification>INTERNAL</securityClassification>

@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__TierMetricType__c</fullName>
     <deprecated>false</deprecated>
     <description>The type of metric associated with rate table tiers</description>
-    <externalId>false</externalId>
     <inlineHelpText>Indicates the type of metric used to define the rate table tiers
 1.	VOLUME: Rate tiers based on the transaction volume (quantity)
 2.	REVENUE: Rate tiersbased on the transaction revenue (price)</inlineHelpText>

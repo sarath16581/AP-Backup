@@ -3,7 +3,6 @@
     <fullName>Apttus_Approval__Object_Type__c</fullName>
     <deprecated>false</deprecated>
     <description>This field represents the business context object for which this approval process applies</description>
-    <externalId>false</externalId>
     <inlineHelpText>This field represents the business context object for which this approval process applies</inlineHelpText>
     <label>Object Type</label>
     <required>false</required>

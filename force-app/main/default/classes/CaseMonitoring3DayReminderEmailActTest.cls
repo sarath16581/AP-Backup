@@ -6,6 +6,9 @@
  * @description Test class for CaseMonitoring3DayReminderEmailAction
  * @changelog
  * 2024-07-28 - Seth Heang - Created
+ * 2024-09-24 - Ranjeewa Silva - Updated tests to assert sending customer notification email.
+ * 2024-09-24 - Parveen Kaushik - Fixed the test case to not exclude Case Creaor for the purpose of determining individual agent assignment
+ * 
  */
 @IsTest(IsParallel=true)
 public with sharing class CaseMonitoring3DayReminderEmailActTest {
@@ -202,8 +205,8 @@ public with sharing class CaseMonitoring3DayReminderEmailActTest {
 
 	/**
 	 * Scenario: Test getCaseIdHasNoIndividualAgentAssignmentsMap()
-	 *			And Validate that correct Case status map is returned with one status being true and other false
-	 *			Where one case has individual agent and the other does not
+	 *          And Validate that correct Case status map is returned with one status being true and other false
+	 *          Where one case has individual agent and the other does not
 	 */
 	@IsTest
 	static void testBuildCaseIdHasNoIndividualAgentAssignmentsMap() {
@@ -222,28 +225,27 @@ public with sharing class CaseMonitoring3DayReminderEmailActTest {
 
 		List<AgentWork> agentWorks = new List<AgentWork>{
 			OmniChannelTestDataFactory.getAgentWorks(1, testUsers[0].Id, new Set<Id>{ testCases[0].Id }, true)[0],
-			OmniChannelTestDataFactory.getAgentWorks(1, testUsers[0].Id, new Set<Id>{ testCases[0].Id }, true)[0],
 			OmniChannelTestDataFactory.getAgentWorks(1, testUsers[0].Id, new Set<Id>{ testCases[1].Id }, true)[0],
 			OmniChannelTestDataFactory.getAgentWorks(1, testUsers[0].Id, new Set<Id>{ testCases[1].Id }, true)[0]
 		};
 
 		agentWorks[0].Case__c = testCases[0].Id;
-		agentWorks[1].Case__c = testCases[0].Id;
+		agentWorks[1].Case__c = testCases[1].Id;
 		agentWorks[2].Case__c = testCases[1].Id;
-		agentWorks[3].Case__c = testCases[1].Id;
 
 		agentWorks[0] = (AgentWork) ApplicationTestDataFactory.setUnwritableFields(agentWorks[0], new Map<String, Object>{ 'Case__r' => testCases[0] });
-		agentWorks[1] = (AgentWork) ApplicationTestDataFactory.setUnwritableFields(agentWorks[1], new Map<String, Object>{ 'Case__r' => testCases[0] });
+		agentWorks[1] = (AgentWork) ApplicationTestDataFactory.setUnwritableFields(agentWorks[1], new Map<String, Object>{ 'Case__r' => testCases[1] });
 		agentWorks[2] = (AgentWork) ApplicationTestDataFactory.setUnwritableFields(agentWorks[2], new Map<String, Object>{ 'Case__r' => testCases[1] });
-		agentWorks[3] = (AgentWork) ApplicationTestDataFactory.setUnwritableFields(agentWorks[3], new Map<String, Object>{ 'Case__r' => testCases[1] });
 
-		// Case 1 has Queue assignment and ownerId as case creator, therefore has no individual agent assignment excluding creator
+		// Case 1 has Queue assignment only. 
 		agentWorks[0].OwnerId = (Id) QM__c.getInstance().UnifiedDefaultMonitoringQueueId__c;
-		agentWorks[1].OwnerId = testUsers[0].Id;
+        
+        // Removed ownerId as case creator, it shall not exclude case creator for eligibility as individual agent assignment so it wasnt a valid test earlier
+		//agentWorks[1].OwnerId = testUsers[0].Id; 
 
 		// Case 2 has ownerId as user Id that is not case creator
-		agentWorks[2].OwnerId = testUsers[0].Id;
-		agentWorks[3].OwnerId = testUsers[1].Id; // different user Id from case creator
+		agentWorks[1].OwnerId = testUsers[0].Id;
+		agentWorks[2].OwnerId = testUsers[1].Id; // different user Id from case creator
 
 		Set<Id> caseIds = new Map<Id, Case>(testCases).keySet();
 		// =====================================
@@ -295,6 +297,7 @@ public with sharing class CaseMonitoring3DayReminderEmailActTest {
 		// Stubbing
 		// =====================================
 		ScheduledActionsSelector mockScheduledActionsSelector = (ScheduledActionsSelector) MockUtility.mockSelector(ScheduledActionsSelector.class);
+		ApplicationEmailService mockEmailService = (ApplicationEmailService) MockUtility.mockUtility(ApplicationEmailService.class);
 		MockUtility.Mocks.startStubbing();
 		MockUtility.Mocks.when(
 				mockScheduledActionsSelector.selectById((Set<Id>) fflib_Match.eq(new Set<Id>{ scheduledAction.Id }), (Set<Object>) fflib_Match.eq(new Set<Object>{ ScheduledActionsSelector.Options.WITH_CASE }))
@@ -307,17 +310,18 @@ public with sharing class CaseMonitoring3DayReminderEmailActTest {
 		// =====================================
 		Test.startTest();
 		CaseMonitoring3DayReminderEmailAction.newInstance().execute(new List<Id>{ scheduledAction.Id });
-		Integer invocations = Limits.getEmailInvocations();
 		Test.stopTest();
 
-		List<EmailMessage> sentEmails = [SELECT Id, ToAddress, TextBody, Subject FROM EmailMessage];
-		System.assertEquals(1, invocations, 'One email should have been sent.');
-		System.assertEquals(1, sentEmails.size(), 'One email should have been sent.');
-		System.assertEquals('seth@test.com', sentEmails[0].ToAddress, 'Expected ToAddress is seth@test.com but instead got: ' + sentEmails[0].ToAddress);
-		System.assertEquals(true, sentEmails[0].Subject.contains('AusPost'), 'Expected Subject to contains AusPost but it did not: ' + sentEmails[0].Subject);
-		System.assertEquals(true, sentEmails[0].TextBody.contains('AusPost'), 'Expected TextBody to contains AusPost but it did not: ' + sentEmails[0].TextBody);
-		((ScheduledActionsSelector) MockUtility.Mocks.verify(mockScheduledActionsSelector, 1))
-			.selectById((Set<Id>) fflib_Match.eq(new Set<Id>{ scheduledAction.Id }), (Set<Object>) fflib_Match.eq(new Set<Object>{ ScheduledActionsSelector.Options.WITH_CASE }));
+		// verify notification emails are queued for Aus Post case.
+		fflib_ArgumentCaptor caseIdArgCaptor = fflib_ArgumentCaptor.forClass(Id.class);
+		fflib_ArgumentCaptor emailAlertArgCaptor = fflib_ArgumentCaptor.forClass(String.class);
+		((ApplicationEmailService) MockUtility.Mocks.verify(mockEmailService, MockUtility.Mocks.times(1))).queueEmailNotification((Id)caseIdArgCaptor.capture(), fflib_Match.eqSObjectType(Case.SObjectType), (String)emailAlertArgCaptor.capture());
+
+		Id caseId = (Id)caseIdArgCaptor.getValue();
+		Assert.areEqual(testCase.Id, caseId, 'Expected email notification not sent for the AP Case');
+
+		String emailAlertName = (String)emailAlertArgCaptor.getValue();
+		Assert.areEqual(CaseMonitoring3DayReminderEmailAction.EMAIL_ALERT_NO_SCANS_OR_UPDATES_AP, emailAlertName, 'Incorrect email alert used to notify customer on AP Case.');
 	}
 
 	/**
@@ -341,6 +345,7 @@ public with sharing class CaseMonitoring3DayReminderEmailActTest {
 		// Stubbing
 		// =====================================
 		ScheduledActionsSelector mockScheduledActionsSelector = (ScheduledActionsSelector) MockUtility.mockSelector(ScheduledActionsSelector.class);
+		ApplicationEmailService mockEmailService = (ApplicationEmailService) MockUtility.mockUtility(ApplicationEmailService.class);
 		MockUtility.Mocks.startStubbing();
 		MockUtility.Mocks.when(
 				mockScheduledActionsSelector.selectById((Set<Id>) fflib_Match.eq(new Set<Id>{ scheduledAction.Id }), (Set<Object>) fflib_Match.eq(new Set<Object>{ ScheduledActionsSelector.Options.WITH_CASE }))
@@ -353,16 +358,17 @@ public with sharing class CaseMonitoring3DayReminderEmailActTest {
 		// =====================================
 		Test.startTest();
 		CaseMonitoring3DayReminderEmailAction.newInstance().execute(new List<Id>{ scheduledAction.Id });
-		Integer invocations = Limits.getEmailInvocations();
 		Test.stopTest();
 
-		List<EmailMessage> sentEmails = [SELECT Id, ToAddress, TextBody, Subject FROM EmailMessage];
-		System.assertEquals(1, invocations, 'One email should have been sent.');
-		System.assertEquals(1, sentEmails.size(), 'One email should have been sent.');
-		System.assertEquals('seth@test.com', sentEmails[0].ToAddress, 'Expected ToAddress is seth@test.com but instead got: ' + sentEmails[0].ToAddress);
-		System.assertEquals(true, sentEmails[0].Subject.contains('StarTrack'), 'Expected Subject to contains AusPost but it did not: ' + sentEmails[0].Subject);
-		System.assertEquals(true, sentEmails[0].TextBody.contains('StarTrack'), 'Expected TextBody to contains AusPost but it did not: ' + sentEmails[0].TextBody);
-		((ScheduledActionsSelector) MockUtility.Mocks.verify(mockScheduledActionsSelector, 1))
-			.selectById((Set<Id>) fflib_Match.eq(new Set<Id>{ scheduledAction.Id }), (Set<Object>) fflib_Match.eq(new Set<Object>{ ScheduledActionsSelector.Options.WITH_CASE }));
+		// verify notification emails are queued for StarTrack case.
+		fflib_ArgumentCaptor caseIdArgCaptor = fflib_ArgumentCaptor.forClass(Id.class);
+		fflib_ArgumentCaptor emailAlertArgCaptor = fflib_ArgumentCaptor.forClass(String.class);
+		((ApplicationEmailService) MockUtility.Mocks.verify(mockEmailService, MockUtility.Mocks.times(1))).queueEmailNotification((Id)caseIdArgCaptor.capture(), fflib_Match.eqSObjectType(Case.SObjectType), (String)emailAlertArgCaptor.capture());
+
+		Id caseId = (Id)caseIdArgCaptor.getValue();
+		Assert.areEqual(testCase.Id, caseId, 'Expected email notification not sent for the ST Case');
+
+		String emailAlertName = (String)emailAlertArgCaptor.getValue();
+		Assert.areEqual(CaseMonitoring3DayReminderEmailAction.EMAIL_ALERT_NO_SCANS_OR_UPDATES_ST, emailAlertName, 'Incorrect email alert used to notify customer on ST Case.');
 	}
 }

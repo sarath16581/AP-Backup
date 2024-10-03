@@ -3,7 +3,6 @@
     <fullName>SentToNetworkDatetime__c</fullName>
     <defaultValue>NOW()</defaultValue>
     <description>Field to capture the date time when case investigation is created and assigned to network. This field will also get updated with current date time when StarTrack contact centre agent post a chatter feed on CI record which is of Closed or More Information Required status.</description>
-    <externalId>false</externalId>
     <inlineHelpText>This is the date when case investigation is assigned to network.</inlineHelpText>
     <label>Sent To Network Date</label>
     <required>false</required>

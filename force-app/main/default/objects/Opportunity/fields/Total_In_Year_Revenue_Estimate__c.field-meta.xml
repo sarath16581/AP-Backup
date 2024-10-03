@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Total_In_Year_Revenue_Estimate__c</fullName>
     <description>field rolling up the In Year Revenue of all products against the opportunity</description>
-    <externalId>false</externalId>
     <inlineHelpText>The total in year revenue estimate calculated as a sum of the in year revenue estimates on each product attached to the opportunity</inlineHelpText>
     <label>Total In Year Revenue Estimate</label>
     <securityClassification>OFFICIAL_SENSITIVE</securityClassification>

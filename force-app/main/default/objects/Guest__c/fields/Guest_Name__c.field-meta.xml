@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Guest_Name__c</fullName>
     <deleteConstraint>Restrict</deleteConstraint>
-    <externalId>false</externalId>
     <inlineHelpText>Guest invited via Contact</inlineHelpText>
     <label>Guest Name</label>
     <referenceTo>Contact</referenceTo>

@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Agreement_Effective_To_Date__c</fullName>
     <description>The date the agreement is effective to</description>
-    <externalId>false</externalId>
     <inlineHelpText>Agreement End Date</inlineHelpText>
     <label>Agreement Effective To Date</label>
     <required>false</required>

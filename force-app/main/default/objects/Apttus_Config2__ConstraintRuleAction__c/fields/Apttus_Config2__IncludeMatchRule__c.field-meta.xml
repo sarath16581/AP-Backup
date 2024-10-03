@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__IncludeMatchRule__c</fullName>
     <deprecated>false</deprecated>
     <description>Applicable only to include type rule action. For include min/max include min product should be specified.</description>
-    <externalId>false</externalId>
     <label>Min/Max Match Rule</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>

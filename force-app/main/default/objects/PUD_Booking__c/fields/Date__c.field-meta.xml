@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Date__c</fullName>
     <description>Requested date for the booking.  Only applies to an adhoc booking.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Requested date for the booking.  Only applies to an adhoc booking.</inlineHelpText>
     <label>Date</label>
     <required>false</required>

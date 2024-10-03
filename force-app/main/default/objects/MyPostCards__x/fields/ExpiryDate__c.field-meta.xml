@@ -3,7 +3,6 @@
     <fullName>ExpiryDate__c</fullName>
     <description>ExpiryDate</description>
     <externalDeveloperName>ExpiryDate</externalDeveloperName>
-    <externalId>false</externalId>
     <isFilteringDisabled>false</isFilteringDisabled>
     <isNameField>false</isNameField>
     <isSortingDisabled>false</isSortingDisabled>

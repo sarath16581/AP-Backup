@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Survey_Type__c</fullName>
     <description>Survey Type for GetFeedback Survey</description>
-    <externalId>false</externalId>
     <label>Survey Type</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>

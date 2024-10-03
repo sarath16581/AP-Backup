@@ -3,7 +3,6 @@
     <fullName>Apttus__Exception__c</fullName>
     <deprecated>false</deprecated>
     <description>Term Exception as detailed in Term Exception master table.</description>
-    <externalId>false</externalId>
     <label>Exception</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>

@@ -3,7 +3,6 @@
     <fullName>Outdoor__c</fullName>
     <defaultValue>false</defaultValue>
     <description>Phase 1- Marketing Characteristics</description>
-    <externalId>false</externalId>
     <label>Outdoor</label>
     <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>

@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__NextStartDate__c</fullName>
     <deprecated>false</deprecated>
     <description>The next exchange period date</description>
-    <externalId>false</externalId>
     <inlineHelpText>The next exchange period date</inlineHelpText>
     <label>Next Start Date</label>
     <required>false</required>

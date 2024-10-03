@@ -3,7 +3,6 @@
     <fullName>Apttus__Other_Party_Returned_Date__c</fullName>
     <deprecated>false</deprecated>
     <description>Date other party returned signed agreement</description>
-    <externalId>false</externalId>
     <label>Other Party Returned Date</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>

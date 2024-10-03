@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>APT_Express_Courier_Over_2KG_Per_KG_NZ__c</fullName>
-    <externalId>false</externalId>
     <formula>$Setup.APT_R2T_System_Properties__c.APT_Express_Courier_Over_2KG_Per_KG_NZ__c</formula>
     <label>Express Courier Over 2KG Per KG NZ</label>
     <precision>18</precision>

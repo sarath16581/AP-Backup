@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>MerchantAdoptionofLargeParcelStream__c</fullName>
     <description>Merchant Adoption of Large Parcel Streaming.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Merchant Adoption of Large Parcel Streaming.</inlineHelpText>
     <label>Merchant Adoption of Large Parcel Stream</label>
     <required>false</required>

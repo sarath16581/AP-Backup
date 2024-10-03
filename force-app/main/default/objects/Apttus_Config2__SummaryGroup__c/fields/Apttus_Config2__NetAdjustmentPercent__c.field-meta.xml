@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__NetAdjustmentPercent__c</fullName>
     <deprecated>false</deprecated>
     <description>The net adjustment percent</description>
-    <externalId>false</externalId>
     <label>Net Adjustment (%)</label>
     <precision>14</precision>
     <required>false</required>

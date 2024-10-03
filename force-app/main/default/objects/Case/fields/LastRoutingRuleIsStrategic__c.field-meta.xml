@@ -3,7 +3,6 @@
     <fullName>LastRoutingRuleIsStrategic__c</fullName>
     <defaultValue>false</defaultValue>
     <description>2021-06-30 Modified to include Extra Cover rules. Determines whether the last routing rule applied to the case was Strategic or Extra Cover or not. This should not be used for reporting! This is considered to be a temporary field until OwnerID workflow rules can be decommissioned!</description>
-    <externalId>false</externalId>
     <inlineHelpText>Determines whether the last routing rule required article attributes (for Strategic rules and Extra Cover Rules)</inlineHelpText>
     <label>LastRoutingRuleRequiresArticleAttributes</label>
     <securityClassification>INTERNAL</securityClassification>

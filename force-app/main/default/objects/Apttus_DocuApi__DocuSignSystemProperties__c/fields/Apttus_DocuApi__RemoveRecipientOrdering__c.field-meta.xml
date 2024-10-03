@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>This setting controls the visibility of the move up/down arrows on the add recipient user interface. If checked, the move up/down arrows will be hidden.</description>
-    <externalId>false</externalId>
     <inlineHelpText>This setting controls the visibility of the move up/down arrows on the add recipient user interface. If checked, the move up/down arrows will be hidden.</inlineHelpText>
     <label>Remove Recipient Ordering</label>
     <trackTrending>false</trackTrending>

@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__ChangeStatus__c</fullName>
     <deprecated>false</deprecated>
     <description>The po item change status</description>
-    <externalId>false</externalId>
     <inlineHelpText>The po item change status</inlineHelpText>
     <label>Change Status</label>
     <required>false</required>

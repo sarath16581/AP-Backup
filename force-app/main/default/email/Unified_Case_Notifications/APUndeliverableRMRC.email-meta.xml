@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Undeliverable RMRC</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>AP Undeliverable – RMRC</name>
+    <style>none</style>
+    <subject>We have an update on your delivery for case {!Case.CaseNumber}</subject>
+    <textOnly>Australia Post
+
+Case {!Case.CaseNumber}
+
+Hi {!IF(ISBLANK(Contact.Preferred_Name__c),Contact.FirstName,Contact.Preferred_Name__c)},
+
+Your delivery was unable to be completed, please contact the sender for a 												resolution
+
+Thank you for your patience while we’ve been monitoring your delivery. We 											now have a tracking update and can recommend some next steps.
+
+We have been unable to deliver your parcel due to an issue with processing 											the label or address. The parcel will be catalogued into our returned mail 											redistribution centre (RMRC) for redelivery when we can identify its 											intended destination. Due to the volume of items in this facility it can 											take a few weeks to be reviewed and catalogued before being able to forward 											on your parcel, so please contact the sender regarding the next steps if you 											want to explore options any sooner; we trust they will be able to provide a 											way forward for you and they can in turn reach out to claim the parcel from 											the RMRC. If the sender is unable to assist please allow 10 business days 											before reaching out via our live chat or help and 													support portal  to check 											the status and we’d be happy to advise.
+
+Australia Post
+
+This email was sent by Australia Post. Australia Post does not represent, warrant or 								guarantee that the integrity of this email communication has been maintained nor that 								the communication is free of errors, viruses or interference.
+
+Help &amp; support |  Terms &amp; conditions |  Privacy policy</textOnly>
+    <type>custom</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

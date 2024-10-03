@@ -4,7 +4,6 @@
     <deleteConstraint>SetNull</deleteConstraint>
     <deprecated>false</deprecated>
     <description>Review Cycle initiator user</description>
-    <externalId>false</externalId>
     <inlineHelpText>Review Cycle initiator user</inlineHelpText>
     <label>User</label>
     <referenceTo>User</referenceTo>

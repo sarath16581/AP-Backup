@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>HandlerSettings__c</fullName>
     <description>Optional settings, specified in JSON format, applicable for the handler.</description>
-    <externalId>false</externalId>
     <fieldManageability>DeveloperControlled</fieldManageability>
     <inlineHelpText>Optional settings, specified in JSON format, applicable for the handler.</inlineHelpText>
     <label>Handler Settings</label>

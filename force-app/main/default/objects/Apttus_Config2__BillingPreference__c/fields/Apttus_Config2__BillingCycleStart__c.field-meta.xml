@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__BillingCycleStart__c</fullName>
     <deprecated>false</deprecated>
     <description>Indicates when the billing cycle should start</description>
-    <externalId>false</externalId>
     <inlineHelpText>Indicates when the billing cycle should start</inlineHelpText>
     <label>Billing Cycle Start</label>
     <required>false</required>

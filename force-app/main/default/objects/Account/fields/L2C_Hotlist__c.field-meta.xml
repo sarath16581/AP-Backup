@@ -3,7 +3,6 @@
     <fullName>L2C_Hotlist__c</fullName>
     <defaultValue>false</defaultValue>
     <description>Hotlist is used to distinguish delinquent customer prior to credit assessment process.</description>
-    <externalId>false</externalId>
     <label>Hotlist</label>
     <securityClassification>OFFICIAL_SENSITIVE</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>

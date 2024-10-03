@@ -3,7 +3,6 @@
     <fullName>PreventStatusChange__c</fullName>
     <defaultValue>false</defaultValue>
     <description>If this ticked, the status of the case will not automatically changed by the system. USED BY WFR on CaseComment &amp; EmailMessage</description>
-    <externalId>false</externalId>
     <label>Prevent Status Change</label>
     <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>

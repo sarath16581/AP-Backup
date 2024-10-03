@@ -3,7 +3,6 @@
     <fullName>grax__Schedule_Type__c</fullName>
     <deprecated>false</deprecated>
     <description>Schedule_Type</description>
-    <externalId>false</externalId>
     <inlineHelpText>Frequency of when the Scheduled Process will run</inlineHelpText>
     <label>Schedule Type</label>
     <required>false</required>

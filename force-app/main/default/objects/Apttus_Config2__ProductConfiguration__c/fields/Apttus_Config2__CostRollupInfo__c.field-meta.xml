@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__CostRollupInfo__c</fullName>
     <deprecated>false</deprecated>
     <description>Contains JSON string with Cost Rollup information showing how the Costs are rolled up from a child all the way to the topmost parent.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Contains JSON string with Cost Rollup information showing how the Costs are rolled up from a child all the way to the topmost parent.</inlineHelpText>
     <label>Cost Rollup Info</label>
     <length>4000</length>

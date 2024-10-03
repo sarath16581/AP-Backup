@@ -3,7 +3,6 @@
     <fullName>Primary_Sales_Contact__c</fullName>
     <defaultValue>false</defaultValue>
     <description>To indicate the main contact of the organisation - requested by Jason Gould</description>
-    <externalId>false</externalId>
     <inlineHelpText>Used to indicate the Segmentation Contact which will be the location for sales visits. Please ensure that the physical address is accurate as this field will be used for segmentation purposes. There should only be one Segmentation Contact per organisation</inlineHelpText>
     <label>Segmentation Contact</label>
     <securityClassification>INTERNAL</securityClassification>

@@ -3,7 +3,6 @@
     <fullName>ActivityTime__c</fullName>
     <defaultValue>NOW()</defaultValue>
     <description>Date and time when the email was sent</description>
-    <externalId>false</externalId>
     <label>Activity Time</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>

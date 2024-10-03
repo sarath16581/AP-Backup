@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Indicates whether the range dimension values are cumulative. This field is deprecated. Use the Cumulative Range value type instead.</description>
-    <externalId>false</externalId>
     <label>Is Cumulative Range (Deprecated)</label>
     <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>

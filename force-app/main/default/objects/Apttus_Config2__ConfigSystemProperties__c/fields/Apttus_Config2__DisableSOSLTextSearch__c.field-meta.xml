@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Indicator to disable SOSL catalog search. When disabled, system uses SOQL catalog search.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Indicator to disable SOSL catalog search. When disabled, system uses SOQL catalog search.</inlineHelpText>
     <label>Disable SOSL Text Search</label>
     <trackTrending>false</trackTrending>

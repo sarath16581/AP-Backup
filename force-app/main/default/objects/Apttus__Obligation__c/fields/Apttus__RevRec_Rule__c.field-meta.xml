@@ -3,7 +3,6 @@
     <fullName>Apttus__RevRec_Rule__c</fullName>
     <deprecated>false</deprecated>
     <description>The revenue recognition rule associated with the obligation</description>
-    <externalId>false</externalId>
     <inlineHelpText>The revenue recognition rule associated with the obligation</inlineHelpText>
     <label>Revenue Recognition Rule</label>
     <required>false</required>

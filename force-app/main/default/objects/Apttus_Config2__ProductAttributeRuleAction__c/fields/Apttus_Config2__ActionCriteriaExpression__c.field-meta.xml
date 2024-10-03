@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__ActionCriteriaExpression__c</fullName>
     <deprecated>false</deprecated>
     <description>The action criteria expression</description>
-    <externalId>false</externalId>
     <inlineHelpText>The action criteria expression</inlineHelpText>
     <label>Action Criteria Expression</label>
     <length>8192</length>

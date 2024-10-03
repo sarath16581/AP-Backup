@@ -3,7 +3,6 @@
     <fullName>Apttus_Approval__ConditionFieldNames__c</fullName>
     <deprecated>false</deprecated>
     <description>The list of field names used in criteria and conditions</description>
-    <externalId>false</externalId>
     <inlineHelpText>The list of field names used in criteria and conditions</inlineHelpText>
     <label>Condition Field Names</label>
     <length>1024</length>

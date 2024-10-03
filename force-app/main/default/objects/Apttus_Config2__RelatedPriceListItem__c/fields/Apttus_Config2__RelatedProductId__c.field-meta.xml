@@ -4,7 +4,6 @@
     <deleteConstraint>SetNull</deleteConstraint>
     <deprecated>false</deprecated>
     <description>ID of the related product</description>
-    <externalId>false</externalId>
     <inlineHelpText>ID of the related product</inlineHelpText>
     <label>Related Product</label>
     <referenceTo>Product2</referenceTo>

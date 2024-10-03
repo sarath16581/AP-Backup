@@ -3,7 +3,6 @@
     <fullName>Apttus__DocumentFormat__c</fullName>
     <deprecated>false</deprecated>
     <description>The output format of the merged document</description>
-    <externalId>false</externalId>
     <label>Document Format</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>

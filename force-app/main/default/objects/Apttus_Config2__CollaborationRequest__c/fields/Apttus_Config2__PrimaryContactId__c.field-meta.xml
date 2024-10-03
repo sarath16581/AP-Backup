@@ -4,7 +4,6 @@
     <deleteConstraint>SetNull</deleteConstraint>
     <deprecated>false</deprecated>
     <description>ID of the primary contact associated with the order</description>
-    <externalId>false</externalId>
     <inlineHelpText>ID of the primary contact associated with the order</inlineHelpText>
     <label>Primary Contact</label>
     <referenceTo>Contact</referenceTo>

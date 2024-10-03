@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>The look up to product record can be hidden by checking this setting.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Check this if you want to hide the column that  shows the product name.</inlineHelpText>
     <label>Hide Selected Products Column1</label>
     <trackTrending>false</trackTrending>

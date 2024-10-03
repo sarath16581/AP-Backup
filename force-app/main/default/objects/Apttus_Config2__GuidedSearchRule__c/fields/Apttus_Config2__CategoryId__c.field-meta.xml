@@ -4,7 +4,6 @@
     <deleteConstraint>SetNull</deleteConstraint>
     <deprecated>false</deprecated>
     <description>Represents the category the guided selling is occurring on.</description>
-    <externalId>false</externalId>
     <label>Category</label>
     <referenceTo>Apttus_Config2__ClassificationName__c</referenceTo>
     <relationshipLabel>Guided Selling Rules</relationshipLabel>

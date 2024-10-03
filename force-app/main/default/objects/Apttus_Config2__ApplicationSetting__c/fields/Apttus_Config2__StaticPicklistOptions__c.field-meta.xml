@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__StaticPicklistOptions__c</fullName>
     <deprecated>false</deprecated>
     <description>Field to contain a comma-separated list of available options if the setting is a picklist</description>
-    <externalId>false</externalId>
     <inlineHelpText>Field to contain a comma-separated list of available options if the setting is a picklist</inlineHelpText>
     <label>Static Picklist Options</label>
     <length>4000</length>

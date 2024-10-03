@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Set this field to true to have approval requests currently assigned or reassigned automatically escalated to another user or queue if no actions have been taken after a specified time.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Set this field to true to have approval requests currently assigned or reassigned automatically escalated to another user or queue if no actions have been taken after a specified time.</inlineHelpText>
     <label>Enable Approval Request Auto-Escalation</label>
     <trackTrending>false</trackTrending>

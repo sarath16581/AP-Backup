@@ -3,7 +3,6 @@
     <fullName>ECLM_CustomPricing__c</fullName>
     <defaultValue>false</defaultValue>
     <description>ECLM field</description>
-    <externalId>false</externalId>
     <label>Customised Pricing</label>
     <securityClassification>OFFICIAL_SENSITIVE</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>

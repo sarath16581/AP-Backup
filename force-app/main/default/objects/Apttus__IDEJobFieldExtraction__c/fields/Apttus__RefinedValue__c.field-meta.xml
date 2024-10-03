@@ -3,7 +3,6 @@
     <fullName>Apttus__RefinedValue__c</fullName>
     <deprecated>false</deprecated>
     <description>The refined value of the extracted data</description>
-    <externalId>false</externalId>
     <inlineHelpText>The refined value of the extracted data</inlineHelpText>
     <label>Refined Value</label>
     <length>32768</length>

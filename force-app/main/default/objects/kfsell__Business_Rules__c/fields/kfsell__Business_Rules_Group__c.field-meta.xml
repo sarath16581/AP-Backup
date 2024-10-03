@@ -3,7 +3,6 @@
     <fullName>kfsell__Business_Rules_Group__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <deprecated>false</deprecated>
-    <externalId>false</externalId>
     <label>Business Rules Group</label>
     <referenceTo>kfsell__Business_Rules_Group__c</referenceTo>
     <relationshipLabel>Business Rules</relationshipLabel>

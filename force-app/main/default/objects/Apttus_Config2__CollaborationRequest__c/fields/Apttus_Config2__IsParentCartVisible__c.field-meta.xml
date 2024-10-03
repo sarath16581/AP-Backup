@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Specifies whether the collaborator gets read-only access to the parent cart</description>
-    <externalId>false</externalId>
     <inlineHelpText>Specifies whether the collaborator gets read-only access to the parent cart</inlineHelpText>
     <label>Grant Access to Merge Cart (Read Only)</label>
     <securityClassification>INTERNAL</securityClassification>

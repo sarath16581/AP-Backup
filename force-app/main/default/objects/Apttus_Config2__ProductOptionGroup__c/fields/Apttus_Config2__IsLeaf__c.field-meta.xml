@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Indicates whether the group in the hierarchy is a leaf group.</description>
-    <externalId>false</externalId>
     <label>Is Leaf</label>
     <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>

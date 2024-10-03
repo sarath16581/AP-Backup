@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>DateofCommunication__c</fullName>
     <description>Date of Communication.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Date of Communication</inlineHelpText>
     <label>Date of Communication</label>
     <required>false</required>

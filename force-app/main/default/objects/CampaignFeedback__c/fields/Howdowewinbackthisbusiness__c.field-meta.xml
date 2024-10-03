@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Howdowewinbackthisbusiness__c</fullName>
     <description>What would AP need to do for the customer to consider giving us back their business?</description>
-    <externalId>false</externalId>
     <inlineHelpText>What would AP need to do for the customer to consider giving us back their business?</inlineHelpText>
     <label>How do we win back this business?</label>
     <required>false</required>

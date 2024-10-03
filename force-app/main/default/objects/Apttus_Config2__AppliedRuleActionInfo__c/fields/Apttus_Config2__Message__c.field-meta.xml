@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__Message__c</fullName>
     <deprecated>false</deprecated>
     <description>Translated and formatted message.</description>
-    <externalId>false</externalId>
     <label>Message</label>
     <length>8192</length>
     <trackTrending>false</trackTrending>

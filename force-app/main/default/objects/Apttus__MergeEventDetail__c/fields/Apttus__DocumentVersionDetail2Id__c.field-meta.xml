@@ -4,7 +4,6 @@
     <deleteConstraint>SetNull</deleteConstraint>
     <deprecated>false</deprecated>
     <description>The document version detail received from the reviewer</description>
-    <externalId>false</externalId>
     <inlineHelpText>The document version detail received from the reviewer</inlineHelpText>
     <label>Received Version Detail</label>
     <referenceTo>Apttus__DocumentVersionDetail__c</referenceTo>

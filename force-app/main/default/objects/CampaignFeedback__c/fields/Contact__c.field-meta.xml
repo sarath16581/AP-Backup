@@ -3,7 +3,6 @@
     <fullName>Contact__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <description>Contact.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Contact</inlineHelpText>
     <label>Contact</label>
     <referenceTo>Contact</referenceTo>

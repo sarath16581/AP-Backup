@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__MessageType__c</fullName>
     <deprecated>false</deprecated>
     <description>Type of message.</description>
-    <externalId>false</externalId>
     <label>Message Type</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>

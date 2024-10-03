@@ -4,7 +4,6 @@
     <deleteConstraint>SetNull</deleteConstraint>
     <deprecated>false</deprecated>
     <description>Applicable to rule type &apos;Go To Step&apos;.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Applicable to rule type &apos;Go To Step&apos;.</inlineHelpText>
     <label>Go To Wizard Step</label>
     <referenceTo>Apttus__WizardStep__c</referenceTo>

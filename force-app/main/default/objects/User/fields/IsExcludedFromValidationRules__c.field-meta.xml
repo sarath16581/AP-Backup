@@ -3,7 +3,6 @@
     <fullName>IsExcludedFromValidationRules__c</fullName>
     <description>Identify the user that we should exclude from validation rules (e.g. Integration users)
 08/2023 removed snnap integration profile reference</description>
-    <externalId>false</externalId>
     <formula>or(
 
 Profile.Name=&quot;Analytics Cloud Integration User&quot;,

@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__BenefitUom__c</fullName>
     <deprecated>false</deprecated>
     <description>The benefit unit of measure for the product</description>
-    <externalId>false</externalId>
     <inlineHelpText>The benefit unit of measure for the product</inlineHelpText>
     <label>Benefit Uom</label>
     <required>false</required>

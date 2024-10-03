@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Revised_Budget_Last_Year__c</fullName>
-    <externalId>false</externalId>
     <formula>IF( Current_Last_Year__c =&quot;LAST YEAR&quot;,   Total_Revised_Budget__c  ,0)</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <label>Quarterly Forecast Last Year</label>

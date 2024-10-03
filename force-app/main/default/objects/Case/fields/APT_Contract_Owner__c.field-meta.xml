@@ -3,7 +3,6 @@
     <fullName>APT_Contract_Owner__c</fullName>
     <businessStatus>DeprecateCandidate</businessStatus>
     <deleteConstraint>SetNull</deleteConstraint>
-    <externalId>false</externalId>
     <label>Dep - Contract Owner</label>
     <referenceTo>User</referenceTo>
     <relationshipName>Cases5JB6_del</relationshipName>

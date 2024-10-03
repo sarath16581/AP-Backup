@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>When a Unified Investigation Case has been created</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>ST Case Creation</name>
+    <style>none</style>
+    <subject>We&apos;re monitoring your case {!Case.CaseNumber}</subject>
+    <textOnly>Star Track
+
+Case {!Case.CaseNumber}
+
+Hi {!IF(ISBLANK(Contact.Preferred_Name__c),Contact.FirstName,Contact.Preferred_Name__c)},
+
+Thank you for reaching out. Your reference for your enquiry about {!Case.ReferenceID__c} is {!Case.CaseNumber}.
+
+We’ll be actively monitoring your delivery
+
+We understand how important your delivery is to you and we&apos;re sorry it&apos;s running late. While we expect it to arrive safely within 5 business days, please be assured we will keep you updated on the status of your case during that time.
+
+Read up on some frequently asked questions about delivery options here and we’ll be in touch shortly.
+
+StarTrack
+
+This email was sent by Startrack. Startrack does not represent, warrant or guarantee that the integrity of this email communication has been maintained nor that the communication is free of errors, viruses or interference.
+
+Help &amp; support |  Terms &amp; conditions |  Privacy policy</textOnly>
+    <type>custom</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

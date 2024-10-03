@@ -3,7 +3,6 @@
     <fullName>Credit_Approval_Limit__c</fullName>
     <defaultValue>0</defaultValue>
     <description>StarTrack field to capture the approval limit on the case.</description>
-    <externalId>false</externalId>
     <label>Credit Approval Limit</label>
     <precision>18</precision>
     <required>false</required>

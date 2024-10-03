@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>PaymentDate__c</fullName>
     <description>Date payment was to customer.</description>
-    <externalId>false</externalId>
     <inlineHelpText>EFT or Business Credit payment date.</inlineHelpText>
     <label>Payment Date</label>
     <required>false</required>

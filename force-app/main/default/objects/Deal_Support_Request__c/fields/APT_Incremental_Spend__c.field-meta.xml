@@ -3,7 +3,6 @@
     <fullName>APT_Incremental_Spend__c</fullName>
     <description>Field to capture Incremental spend by the customer, is manually captured by the
 		Business</description>
-    <externalId>false</externalId>
     <label>Incremental Spend</label>
     <precision>18</precision>
     <required>false</required>

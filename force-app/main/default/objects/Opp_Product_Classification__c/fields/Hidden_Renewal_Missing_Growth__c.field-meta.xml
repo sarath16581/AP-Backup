@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Hidden_Renewal_Missing_Growth__c</fullName>
     <defaultValue>false</defaultValue>
-    <externalId>false</externalId>
     <label>Hidden Renewal Missing Growth</label>
     <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>

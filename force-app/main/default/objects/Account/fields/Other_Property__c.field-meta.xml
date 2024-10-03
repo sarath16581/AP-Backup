@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Other_Property__c</fullName>
     <description>List Other Technology Equipment / Property</description>
-    <externalId>false</externalId>
     <inlineHelpText>List Other Technology Equipment / Property</inlineHelpText>
     <label>Other Property</label>
     <length>1000</length>

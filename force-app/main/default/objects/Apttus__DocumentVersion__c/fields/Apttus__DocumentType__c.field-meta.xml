@@ -3,7 +3,6 @@
     <fullName>Apttus__DocumentType__c</fullName>
     <deprecated>false</deprecated>
     <description>Document type represents type of document in agreement life cycle</description>
-    <externalId>false</externalId>
     <inlineHelpText>Document type represents type of document in agreement life cycle</inlineHelpText>
     <label>Document Type</label>
     <required>false</required>

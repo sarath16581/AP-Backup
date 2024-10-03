@@ -3,7 +3,6 @@
     <fullName>APT_WFV_Police_and_Visa_Check__c</fullName>
     <defaultValue>false</defaultValue>
     <description>Used for the Workforce Verification product and checked when Feature Type equals Police and Visa Check</description>
-    <externalId>false</externalId>
     <label>WFV Police and Visa Check</label>
     <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>
