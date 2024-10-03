@@ -1,0 +1,19 @@
+<template>
+	<lightning-accordion allow-multiple-sections-open
+	                     onsectiontoggle={handleSectionToggle}
+	                     active-section-name={activeSections}>
+		<lightning-accordion-section name="consignment" label={consignmentSectionTitle}>
+			<c-unified-tracking-chat-wrapper
+					record-id={recordId}
+					ontrackingsearchcomplete={handleSearchComplete}
+					onselectedarticles={handleSelectedArticles}
+			></c-unified-tracking-chat-wrapper>
+		</lightning-accordion-section>
+
+		<lightning-accordion-section name="customer" label={customerNameSectionTitle}>
+			<c-unified-customer-search-live-chat-wrapper
+					record-id={recordId}
+			></c-unified-customer-search-live-chat-wrapper>
+		</lightning-accordion-section>
+	</lightning-accordion>
+</template>
