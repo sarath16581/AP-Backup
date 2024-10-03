@@ -691,6 +691,12 @@ public with sharing class APT_AmendRenewController {
 				if(agreement != null && !String.isEmpty(agreement.Apttus_QPComply__RelatedProposalId__c)) {
 					//clone proposal
 					Apttus_Proposal__Proposal__c clonedProposal = APT_AmendRenewUtility.cloneProposal(APT_Constants.RECORD_TYPE_RENEWAL_QUOTE, opportunityId, priceListId, agreement);
+
+					//set promary contact from DSR
+					if (dsr != null) {
+						clonedProposal.Apttus_Proposal__Primary_Contact__c = dsr.CustomerContact1__c != null ? dsr.CustomerContact1__c : clonedProposal.Apttus_Proposal__Primary_Contact__c;
+					}
+
 					insert clonedProposal;
 
 					//proposalId = clonedProposal.Id;
@@ -767,6 +773,11 @@ public with sharing class APT_AmendRenewController {
 					//new proposal
 					Apttus_Proposal__Proposal__c newProposal = APT_AmendRenewUtility.newProposal(APT_Constants.RECORD_TYPE_RENEWAL_QUOTE,
 							opportunityId, priceListId, agreement);
+
+					//set promary contact from DSR
+					if (dsr != null) {
+						newProposal.Apttus_Proposal__Primary_Contact__c = dsr.CustomerContact1__c != null ? dsr.CustomerContact1__c : newProposal.Apttus_Proposal__Primary_Contact__c;
+					}
 					insert newProposal;
 					//proposalId = newProposal.Id;
 
@@ -1102,6 +1113,11 @@ public with sharing class APT_AmendRenewController {
 					// Statement will assign selected revenue type to proposal field revenue type
 					clonedProposal.APT_Revenue_Type__c = selectedRevenue;
 					APT_AmendRenewUtility.resetOpportunityProposalPrimary(Id.valueOf(opportunityId));
+
+					//set promary contact from DSR
+					if (dsr != null) {
+						clonedProposal.Apttus_Proposal__Primary_Contact__c = dsr.CustomerContact1__c != null ? dsr.CustomerContact1__c : clonedProposal.Apttus_Proposal__Primary_Contact__c;
+					}
 					insert clonedProposal;
 
 					/*
@@ -1173,6 +1189,12 @@ public with sharing class APT_AmendRenewController {
 					Apttus_Proposal__Proposal__c newProposal = APT_AmendRenewUtility.newProposal(APT_Constants.RECORD_TYPE_AMENDMENT_QUOTE,
 							opportunityId, priceListId, agreement);
 					APT_AmendRenewUtility.resetOpportunityProposalPrimary(Id.valueOf(opportunityId));
+
+					//set promary contact from DSR
+					if (dsr != null) {
+						newProposal.Apttus_Proposal__Primary_Contact__c = dsr.CustomerContact1__c != null ? dsr.CustomerContact1__c : newProposal.Apttus_Proposal__Primary_Contact__c;
+					}
+
 					insert newProposal;
 					//proposalId = newProposal.Id;
 
