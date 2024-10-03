@@ -63,21 +63,21 @@ class AgentWorkCaseAutomationModule_Test {
 		insert routingRule;
 
 		//AgentWork
-		List<AgentWork> records = OmniChannelTestDataFactory.getAgentWorks(8, UserInfo.getUserId(), cases.keySet(), true);
-		records[0] = (AgentWork)ApplicationTestDataFactory.setUnwritableFields(records[0], new Map<String, Object> { 'Status' => 'Opened', 'OriginalGroupId' => queues.values()[0].Id});
-		records[1] = (AgentWork)ApplicationTestDataFactory.setUnwritableFields(records[1], new Map<String, Object> { 'Status' => 'Assigned'});
-		records[2] = (AgentWork)ApplicationTestDataFactory.setUnwritableFields(records[2], new Map<String, Object> { 'Status' => 'Declined'});
-		records[3] = (AgentWork)ApplicationTestDataFactory.setUnwritableFields(records[3], new Map<String, Object> { 'Status' => 'Declined', 'PreferredUserId' => users[0].Id });
-		records[4] = (AgentWork)ApplicationTestDataFactory.setUnwritableFields(records[4], new Map<String, Object> { 'Status' => 'DeclinedOnPushTimeout', 'PreferredUserId' => users[0].Id });
-		records[5] = (AgentWork)ApplicationTestDataFactory.setUnwritableFields(records[5], new Map<String, Object> { 'Status' => 'Unavailable', 'PreferredUserId' => users[0].Id });
-		records[6] = (AgentWork)ApplicationTestDataFactory.setUnwritableFields(records[6], new Map<String, Object> { 'Status' => 'Opened', 'OriginalGroupId' => queues.values()[0].Id});
-		records[7] = (AgentWork)ApplicationTestDataFactory.setUnwritableFields(records[7], new Map<String, Object> { 'Status' => 'Declined', 'PreferredUserId' => users[0].Id });
+		List<AgentWork> agentWorks = OmniChannelTestDataFactory.getAgentWorks(8, UserInfo.getUserId(), cases.keySet(), true);
+		agentWorks[0] = (AgentWork)ApplicationTestDataFactory.setUnwritableFields(agentWorks[0], new Map<String, Object> { 'Status' => 'Opened', 'OriginalGroupId' => queues.values()[0].Id});
+		agentWorks[1] = (AgentWork)ApplicationTestDataFactory.setUnwritableFields(agentWorks[1], new Map<String, Object> { 'Status' => 'Assigned'});
+		agentWorks[2] = (AgentWork)ApplicationTestDataFactory.setUnwritableFields(agentWorks[2], new Map<String, Object> { 'Status' => 'Declined'});
+		agentWorks[3] = (AgentWork)ApplicationTestDataFactory.setUnwritableFields(agentWorks[3], new Map<String, Object> { 'Status' => 'Declined', 'PreferredUserId' => users[0].Id });
+		agentWorks[4] = (AgentWork)ApplicationTestDataFactory.setUnwritableFields(agentWorks[4], new Map<String, Object> { 'Status' => 'DeclinedOnPushTimeout', 'PreferredUserId' => users[0].Id });
+		agentWorks[5] = (AgentWork)ApplicationTestDataFactory.setUnwritableFields(agentWorks[5], new Map<String, Object> { 'Status' => 'Unavailable', 'PreferredUserId' => users[0].Id });
+		agentWorks[6] = (AgentWork)ApplicationTestDataFactory.setUnwritableFields(agentWorks[6], new Map<String, Object> { 'Status' => 'Opened', 'OriginalGroupId' => queues.values()[0].Id});
+		agentWorks[7] = (AgentWork)ApplicationTestDataFactory.setUnwritableFields(agentWorks[7], new Map<String, Object> { 'Status' => 'Declined', 'PreferredUserId' => users[0].Id });
 
-		Set<Id> caseIdsToQuery = new Set<Id>{records[0].WorkItemId, records[3].WorkItemId, records[4].WorkItemId, records[5].WorkItemId};
+		Set<Id> caseIdsToQuery = new Set<Id>{agentWorks[0].WorkItemId, agentWorks[3].WorkItemId, agentWorks[4].WorkItemId, agentWorks[5].WorkItemId};
 		List<Case> casesQueried = new List<Case>{cases.values()[0],cases.values()[3],cases.values()[4], cases.values()[5]};
 
 		//old AgentWork
-		List<AgentWork> existingRecords = records.deepClone(true, true, true);
+		List<AgentWork> existingRecords = agentWorks.deepClone(true, true, true);
 		existingRecords[0] = (AgentWork)ApplicationTestDataFactory.setUnwritableFields(existingRecords[0], new Map<String, Object> { 'Status' => 'Assigned'});
 		existingRecords[1] = (AgentWork)ApplicationTestDataFactory.setUnwritableFields(existingRecords[1], new Map<String, Object> { 'Status' => 'Assigned'});
 		existingRecords[2] = (AgentWork)ApplicationTestDataFactory.setUnwritableFields(existingRecords[2], new Map<String, Object> { 'Status' => 'Assigned'});
@@ -106,11 +106,11 @@ class AgentWorkCaseAutomationModule_Test {
 		// =====================================
 		Test.startTest();
 
-		new AgentWorkCaseAutomationModule().onAfterUpdate(records, new Map<Id, AgentWork>(existingRecords), mockUow);
+		new AgentWorkCaseAutomationModule().onAfterUpdate(agentWorks, new Map<Id, AgentWork>(existingRecords), mockUow);
 		
 		// ((ApplicationUnitOfWork) MockUtility.Mocks.verify(mockUow, 1)).registerDirty(
 		// 	(List<Case>) fflib_Match.eq(new List<Case>{
-		// 		new Case(Id = records[0].WorkItemId, AllocateToQueue__c = false, PreferredAgentExpiry__c = null, BypassPreferredAgent__c = false, Bypass_Data_enforcement__c = true)
+		// 		new Case(Id = agentWorks[0].WorkItemId, AllocateToQueue__c = false, PreferredAgentExpiry__c = null, BypassPreferredAgent__c = false, Bypass_Data_enforcement__c = true)
 		// 	}),
 		// 	(List<SObjectField>)fflib_Match.eq(new List<SObjectField>{ Case.BypassPreferredAgent__c, Case.PreferredAgentExpiry__c, Case.AllocateToQueue__c, Case.Bypass_Data_enforcement__c }),
 		// 	fflib_Match.eqString(AgentWorkAPCaseAutomationModule.class.getName())
@@ -130,28 +130,28 @@ class AgentWorkCaseAutomationModule_Test {
 		List<Case> dirtyRecords2 = (List<Case>)dirtyRecords[1];
 
 		System.assertEquals(1, dirtyRecords1.size());
-		System.assertEquals(records[0].WorkItemId, dirtyRecords1[0].Id);
+		System.assertEquals(agentWorks[0].WorkItemId, dirtyRecords1[0].Id);
 		System.assertEquals(false, dirtyRecords1[0].BypassPreferredAgent__c);
 		System.assertEquals(false, dirtyRecords1[0].AllocateToQueue__c);
 		System.assertEquals(true, dirtyRecords1[0].Bypass_Data_enforcement__c);
 		System.assertEquals(null, dirtyRecords1[0].PreferredAgentExpiry__c);
 
 		System.assertEquals(3, dirtyRecords2.size());
-		System.assertEquals(records[3].WorkItemId, dirtyRecords2[0].Id);
+		System.assertEquals(agentWorks[3].WorkItemId, dirtyRecords2[0].Id);
 		System.assertEquals(true, dirtyRecords2[0].Bypass_Data_enforcement__c);
 		System.assertEquals(true, dirtyRecords2[0].BypassPreferredAgent__c);
 		System.assertEquals(true, dirtyRecords2[0].AllocateToQueue__c);
 		System.assertEquals(null, dirtyRecords2[0].PreferredAgentExpiry__c);
 		System.assertEquals(true, CaseRoutingService.getInstance().isCaseRoutingEligibilityBypassed(dirtyRecords2[0].Id));
 
-		System.assertEquals(records[4].WorkItemId, dirtyRecords2[1].Id);
+		System.assertEquals(agentWorks[4].WorkItemId, dirtyRecords2[1].Id);
 		System.assertEquals(true, dirtyRecords2[1].Bypass_Data_enforcement__c);
 		System.assertEquals(true, dirtyRecords2[1].BypassPreferredAgent__c);
 		System.assertEquals(true, dirtyRecords2[1].AllocateToQueue__c);
 		System.assertEquals(null, dirtyRecords2[1].PreferredAgentExpiry__c);
 		System.assertEquals(true, CaseRoutingService.getInstance().isCaseRoutingEligibilityBypassed(dirtyRecords2[1].Id));
 
-		System.assertEquals(records[5].WorkItemId, dirtyRecords2[2].Id);
+		System.assertEquals(agentWorks[5].WorkItemId, dirtyRecords2[2].Id);
 		System.assertEquals(true, dirtyRecords2[2].Bypass_Data_enforcement__c);
 		System.assertEquals(true, dirtyRecords2[2].BypassPreferredAgent__c);
 		System.assertEquals(true, dirtyRecords2[2].AllocateToQueue__c);
@@ -206,15 +206,15 @@ class AgentWorkCaseAutomationModule_Test {
 		CaseTrackingHelper.isUpdateStatusTrackRecursive = false;
 
 		//AgentWork
-		List<AgentWork> records = OmniChannelTestDataFactory.getAgentWorks(1, UserInfo.getUserId(), new Set<Id>{insertedCase.Id}, true);
-		records[0] = (AgentWork)ApplicationTestDataFactory.setUnwritableFields(records[0], new Map<String, Object> { 'Status' => 'Opened', 'OriginalGroupId' => omniBOHQueue.Id}); 
-		records.addAll(OmniChannelTestDataFactory.getAgentWorks(1, UserInfo.getUserId(), new Set<Id>{insertedCase.Id}, true));
-		records[1] = (AgentWork)ApplicationTestDataFactory.setUnwritableFields(records[1], new Map<String, Object> { 'Status' => 'Opened', 'PreferredUserId' => agentUser.Id, 'OriginalGroupId' => null});
-		records.addAll(OmniChannelTestDataFactory.getAgentWorks(1, UserInfo.getUserId(), new Set<Id>{insertedCase.Id}, true));
-		records[2] = (AgentWork)ApplicationTestDataFactory.setUnwritableFields(records[2], new Map<String, Object> { 'Status' => 'Opened'}); 
+		List<AgentWork> agentWorks = OmniChannelTestDataFactory.getAgentWorks(1, UserInfo.getUserId(), new Set<Id>{insertedCase.Id}, true);
+		agentWorks[0] = (AgentWork)ApplicationTestDataFactory.setUnwritableFields(agentWorks[0], new Map<String, Object> { 'Status' => 'Opened', 'OriginalGroupId' => omniBOHQueue.Id}); 
+		agentWorks.addAll(OmniChannelTestDataFactory.getAgentWorks(1, UserInfo.getUserId(), new Set<Id>{insertedCase.Id}, true));
+		agentWorks[1] = (AgentWork)ApplicationTestDataFactory.setUnwritableFields(agentWorks[1], new Map<String, Object> { 'Status' => 'Opened', 'PreferredUserId' => agentUser.Id, 'OriginalGroupId' => null});
+		agentWorks.addAll(OmniChannelTestDataFactory.getAgentWorks(1, UserInfo.getUserId(), new Set<Id>{insertedCase.Id}, true));
+		agentWorks[2] = (AgentWork)ApplicationTestDataFactory.setUnwritableFields(agentWorks[2], new Map<String, Object> { 'Status' => 'Opened'}); 
 
 		//old AgentWork
-		List<AgentWork> existingRecords = records.deepClone(true, true, true);
+		List<AgentWork> existingRecords = agentWorks.deepClone(true, true, true);
 		existingRecords[0] = (AgentWork)ApplicationTestDataFactory.setUnwritableFields(existingRecords[0], new Map<String, Object> { 'Status' => 'Assigned'});
 		existingRecords[1] = (AgentWork)ApplicationTestDataFactory.setUnwritableFields(existingRecords[1], new Map<String, Object> { 'Status' => 'Assigned'});
 		existingRecords[2] = (AgentWork)ApplicationTestDataFactory.setUnwritableFields(existingRecords[2], new Map<String, Object> { 'Status' => 'Assigned'});
@@ -229,9 +229,9 @@ class AgentWorkCaseAutomationModule_Test {
 		// =====================================
 		Test.startTest();
 
-		new AgentWorkCaseAutomationModule().onAfterUpdate(new List<AgentWork>{records[0]}, new Map<Id, AgentWork>{existingRecords[0].Id => existingRecords[0]}, mockUow);
-		new AgentWorkCaseAutomationModule().onAfterUpdate(new List<AgentWork>{records[1]}, new Map<Id, AgentWork>{existingRecords[1].Id => existingRecords[1]}, mockUow);
-		new AgentWorkCaseAutomationModule().onAfterUpdate(new List<AgentWork>{records[2]}, new Map<Id, AgentWork>{existingRecords[2].Id => existingRecords[2]}, mockUow);
+		new AgentWorkCaseAutomationModule().onAfterUpdate(new List<AgentWork>{agentWorks[0]}, new Map<Id, AgentWork>{existingRecords[0].Id => existingRecords[0]}, mockUow);
+		new AgentWorkCaseAutomationModule().onAfterUpdate(new List<AgentWork>{agentWorks[1]}, new Map<Id, AgentWork>{existingRecords[1].Id => existingRecords[1]}, mockUow);
+		new AgentWorkCaseAutomationModule().onAfterUpdate(new List<AgentWork>{agentWorks[2]}, new Map<Id, AgentWork>{existingRecords[2].Id => existingRecords[2]}, mockUow);
 
 		Integer count = [SELECT COUNT() FROM StatusTracking__c WHERE Case__c = :insertedCase.Id];
 		System.assertEquals(4, count, '4 StatusTracking records should exist - 1 from Case insert and 3 from the module onAfterUpdate() calls');
@@ -245,49 +245,62 @@ class AgentWorkCaseAutomationModule_Test {
 	 */
 	@IsTest
 	static void checkCaseLookupField() {
+		ApplicationUnitOfWork mockUow = MockUtility.mockUnitOfWork();
+		UnifiedInteractionService mockUnifiedInteractionService = (UnifiedInteractionService)MockUtility.mockUtility(UnifiedInteractionService.class);
+
+		Account acc = ApplicationTestDataFactory.getAccounts(1, true)[0];
+		Contact ct = ApplicationTestDataFactory.getContacts(1, acc.Id, true)[0];
+		List<Case> caseList = ApplicationTestDataFactoryCase.getCases(4, true);
+
+		ContactRequest cr = ApplicationTestDataFactoryCase.getContactRequests(1, caseList[0].Id, ct.Id, true)[0];
+		cr.Case__c = caseList[0].Id; 
+
+		VoiceCall vc = ApplicationTestDataFactoryCase.getVoiceCalls(new List<Id>{caseList[1].Id}, true)[0];
+		vc.Case__c = caseList[1].Id; 
+
+		LiveChatTranscript lc = ApplicationTestDataFactoryCase.getLiveChatTranscripts(1, new List<Id>{caseList[2].Id}, true)[0];
 		
-		//User
-		List<User> users = ApplicationTestDataFactory.getUsers(1, true);
-
-		Map<Id, Group> queues = new Map<Id, Group>(ApplicationTestDataFactory.getGroups(1, 'Queue', true));	
-		
-		//Case
-		Map<Id, Case> cases = new Map<Id, Case>(ApplicationTestDataFactory.getCases(1, true));
-		Set<Id> ssswRecTypes = Utility.getRecordTypeIds(String.valueOf(Case.getsObjectType()),SSSWConstants.SSSW_APP);
-		Id recTypeId = ssswRecTypes.iterator().next();
-
-		for(Case csRec : cases.values()){
-			csRec.BypassPreferredAgent__c = true;
-			csRec.PreferredAgentExpiry__c = Datetime.now();
-			csRec.OwnerId = users[0].Id;
-			csRec.Origin = 'Email';
-			csRec.Status = 'New';
-			csRec.RecordTypeId = recTypeId;
-		}
-
-		//AgentWork
-		List<AgentWork> records = OmniChannelTestDataFactory.getAgentWorks(1, UserInfo.getUserId(), cases.keySet(), true);
-		records[0] = (AgentWork)ApplicationTestDataFactory.setUnwritableFields(records[0], new Map<String, Object> { 'Status' => 'Assigned', 'OriginalGroupId' => queues.values()[0].Id});
-
-		Set<Id> caseIdsToQuery = new Set<Id>{records[0].WorkItemId};
-		List<Case> casesQueried = new List<Case>{cases.values()[0]};
+		String source = 'AgentWorkCaseAutomationModule.populateCaseField';
+		List<AgentWork> agentWorks = OmniChannelTestDataFactory.getAgentWorks(4, UserInfo.getUserId(), new Set<Id>{cr.id, vc.id, lc.id, caseList[3].id}, true);
+		Map<SObjectType, Set<Id>> mappedObjectTypeAndIds = new Map<SObjectType, Set<Id>>{
+			ContactRequest.SObjectType => new Set<Id>{cr.id},
+			VoiceCall.SObjectType => new Set<Id>{vc.id},
+			LiveChatTranscript.SObjectType => new Set<Id>{lc.id}
+		};
+		List<AgentWork> qualifiedAgentWorkRecords = new List<AgentWork>{agentWorks[0], agentWorks[1], agentWorks[2]};
+		Map<Id, SObject> workItems = new Map<Id, SObject>{cr.id => cr, vc.id => vc, lc.id => lc};
 
 		// =====================================
 		// Stubbing
 		// =====================================
-		ApplicationUnitOfWork mockUow = MockUtility.mockUnitOfWork();
+		MockUtility.Mocks.startStubbing();
 
+		MockUtility.Mocks.when(mockUnifiedInteractionService.retrieveInteractionRecords(
+																(Map<SObjectType, Set<Id>>)fflib_Match.eq(mappedObjectTypeAndIds)															
+															)).thenReturn(
+																workItems
+															);
+
+		MockUtility.Mocks.stopStubbing();
+		
 		// =====================================
 		// Testing
 		// =====================================
 		Test.startTest();
 
-		new AgentWorkCaseAutomationModule().onBeforeInsert(new List<AgentWork>{ records[0]}, mockUow);
+		new AgentWorkCaseAutomationModule().onBeforeInsert(agentWorks, mockUow);
 
 		Test.stopTest();
 
 		// PMD Warning
-		System.assertEquals(cases.values()[0].Id,records[0].Case__c,'Case Id assigned to the AgentWork record is incorrect');
+		System.assertEquals(caseList[3].Id,agentWorks[3].Case__c,'Case Id assigned to the AgentWork record is incorrect');
+
+		((UnifiedInteractionService) MockUtility.Mocks.verify(mockUnifiedInteractionService, MockUtility.Mocks.times(1))).populateCaseFieldOnAgentWorks(
+															(Map<Id, SObject>)fflib_Match.eq(workItems), 
+															(List<AgentWork>)fflib_Match.eq(qualifiedAgentWorkRecords), 
+															(ApplicationUnitOfWork)fflib_Match.eq(mockUow),
+															(String)fflib_Match.eq(source)
+														);
 	}
 
 

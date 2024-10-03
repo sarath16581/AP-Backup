@@ -1,0 +1,15 @@
+<template>
+	<div class="slds-is-relative">
+		<template lwc:if={errorMessage}>
+			<h2 class="slds-text-heading_medium"><b>Error:</b> {errorMessage}</h2>
+		</template>
+
+		<template lwc:elseif={isLoading}>
+			<lightning-spinner></lightning-spinner>
+		</template>
+
+		<template lwc:else>
+			<c-unified-case-history disable-linking contact-id={linkedContactId} article-id={linkedConsignmentId}></c-unified-case-history>
+		</template>
+	</div>
+</template>
