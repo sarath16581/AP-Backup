@@ -221,8 +221,11 @@ private class ArticlesSelector_Test {
 		results = selector.selectWithCasesByIdOrTrackingOrName(
 			new Map<String, Object>{
 				'trackingIds'=> new Set<String>{articles[0].Name}
+				
+				//add Case sub-query conditions & bind variables, caseRecordTypes & closedCaseCutoffDate, to bindMap to be used in SOQL
 				,'caseRecordTypes'=>ResourceCustomerInsightsV1.AP_CASE_RECORDTYPES
 				,'closedCaseCutoffDate'=>Date.today().addDays(-30)
+				,'caseConditions'=> '((IsClosed = true AND ClosedDate >=:closedCaseCutoffDate) OR IsClosed = false) AND  RecordType.DeveloperName  IN :caseRecordTypes'
 			}
 			,new Set<Object>{ArticlesSelector.ComplexSubQueryOptions.WITH_RECENT_CASES}
 		);

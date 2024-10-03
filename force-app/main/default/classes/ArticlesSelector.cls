@@ -201,8 +201,7 @@ public virtual inherited sharing class ArticlesSelector extends ApplicationSelec
 	 * description Queries Articles, with related cases, by the Name, ArticleId__c, ConsignmentTrackingNumber__c
 	 * @param bindMap Map of Bind variables
 	 * trackingIds set of trackingIds [Mandatory]
-	 * caseRecordTypes set of case record types to filter on [Optional]
-	 * closedCaseCutoffDate Case ClosedDate filter [Optional. Mandatory if caseRecordTypes is provided]
+	 * `caseConditions` WHERE clause for Case sub-query(If not provided all child cases for the last 30-days will be queried) [Optional]
 	 * @param complexQueryOptions Complex Sub Query options to include child relationships
 	 * @return  `Map<Id, Article__c>`
 	 */
@@ -222,6 +221,15 @@ public virtual inherited sharing class ArticlesSelector extends ApplicationSelec
 			.endConditions();
 		
 			if(complexQueryOptions.contains(ComplexSubQueryOptions.WITH_RECENT_CASES)){
+
+				//get Case sub-query WHERE clause
+				String caseConditions = bindMap.containsKey('caseConditions')?(String)bindMap.get('caseConditions'):'';
+				//if Case sub-query WHERE clause is blank, add default clause to fetch closed cases in the past 30 days
+				if(String.isBlank(caseConditions)){
+					caseConditions = 'ClosedDate >=:closedCaseCutoffDate';
+					bindMap.put('closedCaseCutoffDate',Date.today().addDays(-30));
+				}
+
 				qb.addSubQuery(
 					CasesSelector.newInstance(0, fieldOverrides)
 						.newQueryBuilder(
@@ -229,11 +237,7 @@ public virtual inherited sharing class ArticlesSelector extends ApplicationSelec
 								CasesSelector.Options.WITH_RECORDTYPE
 								, CasesSelector.Options.WITH_ARTICLE})
 						.addConditions()
-						.add(new QueryBuilder.CompareCondition(Case.IsClosed).eq(true))
-						.add(new QueryBuilder.SimpleCondition(Case.ClosedDate + ' >=:closedCaseCutoffDate'))
-						.add(new QueryBuilder.CompareCondition(Case.IsClosed).eq(false))
-						.add(new QueryBuilder.SimpleCondition(' RecordType.DeveloperName  IN :caseRecordTypes'))
-						.setConditionOrder('((1 AND 2) OR 3) AND 4')
+						.add(new QueryBuilder.SimpleCondition(caseConditions))
 						.endConditions()
 
 						//sort by ClosedDate, as it will be NULL for Open Cases use NULLS FIRST
@@ -244,7 +248,7 @@ public virtual inherited sharing class ArticlesSelector extends ApplicationSelec
 				);
 			}
 
-			//sort by Article__c.RecordType.Name , so that Consignments are in the list before Articles
+			//sort by Article__c.RecordType.Name DESC, so that Consignments are in the list before Articles
 			qb.setOrder(new QueryBuilder.Order(Article__c.RecordType.Name)
 				.setSortingOrderDesc());
 
