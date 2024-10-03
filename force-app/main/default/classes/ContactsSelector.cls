@@ -18,6 +18,7 @@
  * 2023-10-01 - Hasantha Liyanage - Added Contact.BillingAccount__c in getSObjectFieldList
  * 2024-01-22 - Hasantha Liyanage - Added selectPrimaryContactByAccount method
  * 2024-05-24 - Harry Wang - Added selectCloneableContactsByAccount
+ * 2024-10-02 - Nathan Franklin - Added reverse number search temporarily until the new reverse phone fields are productionised
  */
 public virtual inherited sharing class ContactsSelector extends ApplicationSelector {
 	public enum Options {
@@ -133,6 +134,31 @@ public virtual inherited sharing class ContactsSelector extends ApplicationSelec
 			.endConditions();
 		qb.addOrder(new QueryBuilder.Order('Account.IsPersonAccount').setSortingOrderAsc().setNullsOrderFirst())
 			.addOrder(new QueryBuilder.Order(Contact.Name).setSortingOrderAsc().setNullsOrderFirst());
+		return new Map<Id, Contact>((List<Contact>) Database.query(qb.toSoqlString()));
+	}
+
+	/**
+	 * @description Select Contact by checking 'Like' operator on ReversePhoneFields__c
+	 * @param string phone
+	 * @return matching Contact records
+	 */
+	public Map<Id, Contact> selectByReversePhoneFieldBasic(string phone) {
+		return selectByLikedAnyPhoneOrderByName(phone, new Set<Object>());
+	}
+
+	/**
+	 * @description Select Contact by checking 'Like' operator on ReversePhoneFields__c
+	 * @param string phone
+	 * @return matching Contact records
+	 */
+	public Map<Id, Contact> selectByReversePhoneFieldBasic(string phone, Set<Object> selectorOptions) {
+		String reversedPhoneNumber = Util.reversePhoneString(phone);
+
+		QueryBuilder qb = newQueryBuilder(selectorOptions)
+			.addConditions()
+			.add(new QueryBuilder.LikeCondition(Contact.ReversePhoneFields__c).likeAnyRight(reversedPhoneNumber))
+			.endConditions();
+		qb.addOrderAsc(Contact.Name);
 		return new Map<Id, Contact>((List<Contact>) Database.query(qb.toSoqlString()));
 	}
 
