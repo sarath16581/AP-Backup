@@ -3,6 +3,7 @@
  * @author Ranjeewa Silva
  * @date 2024-08-30
  * @changelog
+ * 2024-10-03 - Ranjeewa Silva - Updated to verify population of case closure email alert name on parameters passed into CaseUnifiedAutomationService.
  */
 
 @IsTest
@@ -616,29 +617,50 @@ private class EventMessageUnifiedCaseAutoModule_Test {
 		EventMessageUnifiedCaseAutomationModule.automationEligibleEventTypeDefinitions.get('TEST-000').IsCaseClosureEligible__c = 'Yes';
 		EventMessageUnifiedCaseAutomationModule.automationEligibleEventTypeDefinitions.get('TEST-000').CaseAutomationResolutionCode__c = 'TEST-000 Resolution';
 		EventMessageUnifiedCaseAutomationModule.automationEligibleEventTypeDefinitions.get('TEST-000').CaseAutomationRootCause__c = 'TEST-000 Root Cause';
+		EventMessageUnifiedCaseAutomationModule.automationEligibleEventTypeDefinitions.get('TEST-000').CaseClosureEmailAlertNameAusPost__c = 'TEST-000 AP Alert';
+		EventMessageUnifiedCaseAutomationModule.automationEligibleEventTypeDefinitions.get('TEST-000').CaseClosureEmailAlertNameStarTrack__c = 'TEST-000 ST Alert';
 
-		List<Article__c> articles = ApplicationTestDataFactory.getArticles(1, true);
+		List<Article__c> articles = ApplicationTestDataFactory.getArticles(2, true);
 
 		// setup event messages for each article.
 		List<EventMessage__c> eventMessages = new List<EventMessage__c>();
 		eventMessages.add(ApplicationTestDataFactory.getEventMessages(1, articles[0].Id, true)[0]);
+		eventMessages.add(ApplicationTestDataFactory.getEventMessages(1, articles[1].Id, true)[0]);
 		eventMessages[0].EventType__c = 'TEST-000';
+		eventMessages[1].EventType__c = 'TEST-000';
 
 		articles[0] = (Article__c)ApplicationTestDataFactory.setChildRelationships(articles[0], new Map<String, List<SObject>>{
 				'Event_Messages__r' => eventMessages
 		});
 
+		articles[1] = (Article__c)ApplicationTestDataFactory.setChildRelationships(articles[1], new Map<String, List<SObject>>{
+				'Event_Messages__r' => eventMessages
+		});
+
 		// setup case records
-		List<Case> cases = ApplicationTestDataFactoryCase.getCases(1, true);
+		List<Case> cases = ApplicationTestDataFactoryCase.getCases(2, true);
+		//cases[0] is related to AusPost product
+		cases[0].ProductSubCategory__c = 'eParcel Parcel Post';
 		cases[0] = (Case)ApplicationTestDataFactory.setUnwritableFields(cases[0], new Map<String, Object>{
 				'IsClosed' => false
 		});
 
-		List<ImpactedArticle__c> impactedArticles = ApplicationTestDataFactoryCase.getImpactedArticles(1, new Map<Id, Case>(cases).keySet(), new Map<Id, Article__c>(articles).keySet(), true);
+		//cases[1] is related to StarTrack product
+		cases[1].ProductSubCategory__c = 'StarTrack Premium';
+		cases[1] = (Case)ApplicationTestDataFactory.setUnwritableFields(cases[1], new Map<String, Object>{
+				'IsClosed' => false
+		});
+
+		List<ImpactedArticle__c> impactedArticles = ApplicationTestDataFactoryCase.getImpactedArticles(2, new Map<Id, Case>(cases).keySet(), new Map<Id, Article__c>(articles).keySet(), true);
 		impactedArticles[0].Case__r = cases[0];
+		impactedArticles[1].Case__r = cases[1];
 
 		cases[0] = (Case)ApplicationTestDataFactory.setChildRelationships(cases[0], new Map<String, List<SObject>>{
-				'ImpactedArticles__r' => impactedArticles
+				'ImpactedArticles__r' => new List<ImpactedArticle__c>{impactedArticles[0]}
+		});
+
+		cases[1] = (Case)ApplicationTestDataFactory.setChildRelationships(cases[1], new Map<String, List<SObject>>{
+				'ImpactedArticles__r' => new List<ImpactedArticle__c>{impactedArticles[1]}
 		});
 
 		// =====================================
@@ -660,11 +682,15 @@ private class EventMessageUnifiedCaseAutoModule_Test {
 		// =====================================
 		Test.startTest();
 
-		EventMessageUnifiedCaseAutomationModule.UnifiedCaseAutomationAsyncWorkerParam param = new EventMessageUnifiedCaseAutomationModule.UnifiedCaseAutomationAsyncWorkerParam();
-		param.caseId = cases[0].Id;
-		param.closureEventTypes = new Set<String>{'TEST-000'};
+		List<EventMessageUnifiedCaseAutomationModule.UnifiedCaseAutomationAsyncWorkerParam> params = new List<EventMessageUnifiedCaseAutomationModule.UnifiedCaseAutomationAsyncWorkerParam>();
+		params.add(new EventMessageUnifiedCaseAutomationModule.UnifiedCaseAutomationAsyncWorkerParam());
+		params.add(new EventMessageUnifiedCaseAutomationModule.UnifiedCaseAutomationAsyncWorkerParam());
+		params[0].caseId = cases[0].Id;
+		params[0].closureEventTypes = new Set<String>{'TEST-000'};
+		params[1].caseId = cases[1].Id;
+		params[1].closureEventTypes = new Set<String>{'TEST-000'};
 		EventMessageUnifiedCaseAutomationModule.AsyncEventMessageUnifiedCaseAutomationWorker worker = new EventMessageUnifiedCaseAutomationModule.AsyncEventMessageUnifiedCaseAutomationWorker();
-		worker.deserialiseParams(JSON.serialize(new Map<Id, EventMessageUnifiedCaseAutomationModule.UnifiedCaseAutomationAsyncWorkerParam>{cases[0].Id => param}));
+		worker.deserialiseParams(JSON.serialize(new Map<Id, EventMessageUnifiedCaseAutomationModule.UnifiedCaseAutomationAsyncWorkerParam>{cases[0].Id => params[0], cases[1].Id => params[1]}));
 		worker.execute(mockUow);
 
 		Test.stopTest();
@@ -680,10 +706,17 @@ private class EventMessageUnifiedCaseAutoModule_Test {
 		((CaseUnifiedAutomationService)MockUtility.Mocks.verify(mockCaseAutomationService, 1)).processForCaseClosure((List<CaseUnifiedAutomationService.RecordWrapper>)serviceParamCaptor.capture(), (CaseUnifiedAutomationService.InvocationPoint)fflib_Match.anyObject(), (ApplicationUnitOfWork)fflib_Match.anyObject());
 		List<CaseUnifiedAutomationService.RecordWrapper> serviceParams = (List<CaseUnifiedAutomationService.RecordWrapper>)serviceParamCaptor.getValue();
 
-		Assert.areEqual(1, serviceParams.size(), 'Expected the case record to be passed in to service for closure');
-		Assert.areEqual(cases[0].Id, serviceParams[0].caseRecord.Id, 'Expected to pass Case record to service class for closure.');
-		Assert.areEqual('TEST-000 Resolution', serviceParams[0].newResolutionCode, 'Resolution code must be set based on event message type mapping metadata.');
-		Assert.areEqual('TEST-000 Root Cause', serviceParams[0].newRootCause, 'Root Cause must be set based on event message type mapping metadata.');
+		Assert.areEqual(2, serviceParams.size(), 'Expected both case records to be passed in to service for closure');
+		for (CaseUnifiedAutomationService.RecordWrapper serviceParam: serviceParams) {
+			Assert.isTrue(new Set<Id>{cases[0].Id, cases[1].Id}.contains(serviceParam.caseRecord.Id), 'Expected to pass Case record to service class for closure.');
+			Assert.areEqual('TEST-000 Resolution', serviceParam.newResolutionCode, 'Resolution code must be set based on event message type mapping metadata.');
+			Assert.areEqual('TEST-000 Root Cause', serviceParam.newRootCause, 'Root Cause must be set based on event message type mapping metadata.');
+			if (cases[0].Id == serviceParam.caseRecord.Id) {
+				Assert.areEqual('TEST-000 AP Alert', serviceParam.caseClosureEmailAlert, 'Case closure email alert name must be set based on event message type mapping metadata.');
+			} else {
+				Assert.areEqual('TEST-000 ST Alert', serviceParam.caseClosureEmailAlert, 'Case closure email alert name must be set based on event message type mapping metadata.');
+			}
+		}
 	}
 
 	/**
