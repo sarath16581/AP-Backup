@@ -13,6 +13,7 @@
  * 2024-05-29 - Seth Heang - Added ConsignmentTrackingNumber__c, FurtherReferences__c, ProductID__c, IsDelivered__c into SOQL field list 
  * 2024-04-24 - Vasu Gorakati - Added selectByArticleNames method
  * 2024-09-09 - Seth Heang - Added selectByConsignmentIdAndChildArticles and newInstance(fieldOverrides)
+ * 2024-09-23 - Rejeesh Raghavan - Added selectWithCasesByIdOrTrackingOrName method
  */
 public virtual inherited sharing class ArticlesSelector extends ApplicationSelector {
 
@@ -21,6 +22,9 @@ public virtual inherited sharing class ArticlesSelector extends ApplicationSelec
 		WITH_BILLINGACCOUNT, // using BillingAccountsSelector
 		WITH_EVENTMESSAGES_DESC_ORDER,
 		FILTER_BY_NETWORK_NOT_NULL
+	}
+	public enum ComplexSubQueryOptions {
+		WITH_RECENT_CASES
 	}
 
 	public static ArticlesSelector newInstance() {
@@ -192,6 +196,65 @@ public virtual inherited sharing class ArticlesSelector extends ApplicationSelec
 
 		String soql = conditions.endConditions().toSoqlString();
 		return new Map<Id, Article__c>((List<Article__c>)Database.query(soql));
+	}
+	/**
+	 * description Queries Articles, with related cases, by the Name, ArticleId__c, ConsignmentTrackingNumber__c
+	 * @param bindMap Map of Bind variables
+	 * trackingIds set of trackingIds [Mandatory]
+	 * `caseConditions` WHERE clause for Case sub-query(If not provided all child cases for the last 30-days will be queried) [Optional]
+	 * @param complexQueryOptions Complex Sub Query options to include child relationships
+	 * @return  `Map<Id, Article__c>`
+	 */
+	public Map<Id, Article__c> selectWithCasesByIdOrTrackingOrName(Map<String, Object> bindMap, Set<Object> complexQueryOptions) {
+		
+		QueryBuilder qb = newQueryBuilder(
+			new Set<Object>{
+				Options.WITH_RECORDTYPE
+			})
+			.addConditions()
+			.add(new QueryBuilder.SimpleCondition('RecordTypeId != null'))
+			.add(new QueryBuilder.SimpleCondition('Name IN :trackingIds'))
+			.add(new QueryBuilder.SimpleCondition('Consignment__r.Name IN :trackingIds'))
+			.add(new QueryBuilder.SimpleCondition('Consignment__r.ArticleID__c IN :trackingIds'))
+			.add(new QueryBuilder.SimpleCondition('ConsignmentTrackingNumber__c IN :trackingIds'))
+			.setConditionOrder('(1 AND (2 OR 3 OR 4 OR 5))')
+			.endConditions();
+		
+			if(complexQueryOptions.contains(ComplexSubQueryOptions.WITH_RECENT_CASES)){
+
+				//get Case sub-query WHERE clause
+				String caseConditions = bindMap.containsKey('caseConditions')?(String)bindMap.get('caseConditions'):'';
+				//if Case sub-query WHERE clause is blank, add default clause to fetch closed cases in the past 30 days
+				if(String.isBlank(caseConditions)){
+					caseConditions = 'ClosedDate >=:closedCaseCutoffDate';
+					bindMap.put('closedCaseCutoffDate',Date.today().addDays(-30));
+				}
+
+				qb.addSubQuery(
+					CasesSelector.newInstance(0, fieldOverrides)
+						.newQueryBuilder(
+							new Set<Object>{
+								CasesSelector.Options.WITH_RECORDTYPE
+								, CasesSelector.Options.WITH_ARTICLE})
+						.addConditions()
+						.add(new QueryBuilder.SimpleCondition(caseConditions))
+						.endConditions()
+
+						//sort by ClosedDate, as it will be NULL for Open Cases use NULLS FIRST
+						.setOrder(new QueryBuilder.Order(Case.ClosedDate)
+							.setSortingOrderDesc()
+							.setNullsOrderFirst())
+					, 'Cases__r'
+				);
+			}
+
+			//sort by Article__c.RecordType.Name DESC, so that Consignments are in the list before Articles
+			qb.setOrder(new QueryBuilder.Order(Article__c.RecordType.Name)
+				.setSortingOrderDesc());
+
+		return new Map<Id, Article__c>(
+			(List<Article__c>)
+				Database.queryWithBinds(qb.toSoqlString(), bindMap, AccessLevel.USER_MODE));
 	}
 
 	public virtual override QueryBuilder newQueryBuilder(Set<Object> selectorOptions) {
