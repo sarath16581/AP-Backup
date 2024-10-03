@@ -5,7 +5,7 @@
  * @test ArticleSubscriptionModuleTest
  * @changelog:
  * 2024-09-05 - Seth Heang - created
- * 2024-10-02 - Seth Heang - added filter and only allow article subscription on impacted articles associated with unified investigation case
+ * 2024-10-02 - Seth Heang - added filter and only allow article subscription on impacted articles associated with unified cases that are opened
  */
 public inherited sharing class ArticleSubscriptionModule extends ApplicationModule {
 	@TestVisible
@@ -25,16 +25,17 @@ public inherited sharing class ArticleSubscriptionModule extends ApplicationModu
 					Case.OwnerUserName__c,
 					Case.Subject,
 					Case.Type,
-					Case.RecordTypeId
+					Case.RecordTypeId,
+					Case.IsClosed
 			},
 			Article__c.SObjectType => new Set<SObjectField>{
 					Article__c.ArticleID__c
 			}
 	};
-	private static final Id RECORD_TYPE_UNIFIED_INVESTIGATION_ID {
+	private static final Set<Id> RECORD_TYPE_UNIFIED_INVESTIGATION_ID {
 		get {
 			if (RECORD_TYPE_UNIFIED_INVESTIGATION_ID == null) {
-				RECORD_TYPE_UNIFIED_INVESTIGATION_ID = CaseUnifiedAutomationService.getUnifiedInvestigationCaseRecordTypeId();
+				RECORD_TYPE_UNIFIED_INVESTIGATION_ID = CaseUnifiedAutomationService.getUnifiedCaseRecordTypeIds();
 			}
 			return RECORD_TYPE_UNIFIED_INVESTIGATION_ID;
 		}
@@ -77,14 +78,14 @@ public inherited sharing class ArticleSubscriptionModule extends ApplicationModu
 				} // related parent case and article
 		);
 
-		// filter impacted articles and only return those associated with unified investigation case
-		List<ImpactedArticle__c> impactedArticlesWithUnifiedInvestigationCase = getImpactedArticlesRelatedToUnifiedInvestigationCase(impactedArticles);
-		if(impactedArticlesWithUnifiedInvestigationCase.isEmpty()){
+		// filter impacted articles and only return those associated with opened unified case
+		List<ImpactedArticle__c> impactedArticlesWithOpenedUnifiedCase = getImpactedArticlesRelatedToOpenedUnifiedCase(impactedArticles);
+		if(impactedArticlesWithOpenedUnifiedCase.isEmpty()){
 			return;
 		}
 
 		// split the list into sublist of 100 as per batch size
-		List<List<ImpactedArticle__c>> impactedArticlesWithSubList = splitList(impactedArticlesWithUnifiedInvestigationCase, ARTICLE_SUBSCRIPTION_BATCH_SIZE);
+		List<List<ImpactedArticle__c>> impactedArticlesWithSubList = splitList(impactedArticlesWithOpenedUnifiedCase, ARTICLE_SUBSCRIPTION_BATCH_SIZE);
 
 		// each loop will enqueue AsyncArticleSubscriptionActionWorker with a list of 100 impacted articles as per the batch size
 		// batch size may be configured as appropriate to reduce or eliminate the timeout issue
@@ -95,15 +96,16 @@ public inherited sharing class ArticleSubscriptionModule extends ApplicationModu
 	}
 
 	/**
-	 * @description Filter impacted article and only keep those associated with unified investigation case
+	 * @description Filter impacted article and only keep those associated with unified cases that are opened
 	 * @param impactedArticles impacted articles associated to new case creation from the trigger without any filtering
 	 *
-	 * @return filtered impacted article with unified investigation case
+	 * @return filtered impacted article with opened unified case
 	 */
-	private static List<ImpactedArticle__c> getImpactedArticlesRelatedToUnifiedInvestigationCase(List<ImpactedArticle__c> impactedArticles){
+	private static List<ImpactedArticle__c> getImpactedArticlesRelatedToOpenedUnifiedCase(List<ImpactedArticle__c> impactedArticles){
 		List<ImpactedArticle__c> filteredImpactedArticleList = new List<ImpactedArticle__c>();
 		for (ImpactedArticle__c impactedArticle : impactedArticles){
-			if (impactedArticle.Case__r.RecordTypeId == RECORD_TYPE_UNIFIED_INVESTIGATION_ID){
+			if (RECORD_TYPE_UNIFIED_INVESTIGATION_ID.contains(impactedArticle.Case__r.RecordTypeId)
+					&& impactedArticle.Case__r.IsClosed == false ){
 				filteredImpactedArticleList.add(impactedArticle);
 			}
 		}
