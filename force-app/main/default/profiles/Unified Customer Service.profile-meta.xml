@@ -1902,181 +1902,49 @@
         <recordType>Account.Licence_PP</recordType>
     </layoutAssignments>
 	<layoutAssignments>
-        <layout>Case-Case Layout</layout>
-    </layoutAssignments>
-	<layoutAssignments>
-        <layout>Case-Case Layout</layout>
-        <recordType>Case.ACIC_Request</recordType>
-    </layoutAssignments>
-	<layoutAssignments>
-        <layout>Case-Case Layout</layout>
-        <recordType>Case.AMLCTF_Assurance_Audit</recordType>
-    </layoutAssignments>
-	<layoutAssignments>
-        <layout>Case-Case Layout</layout>
-        <recordType>Case.AMLCTF_Please_Explain_Audit</recordType>
-    </layoutAssignments>
-	<layoutAssignments>
-        <layout>Case-Case Layout</layout>
-        <recordType>Case.AMLCTF_Scheduled_Audit</recordType>
-    </layoutAssignments>
-	<layoutAssignments>
-        <layout>Case-Case Layout</layout>
-        <recordType>Case.AMLCTF_Unannounced_Audit</recordType>
-    </layoutAssignments>
-	<layoutAssignments>
-        <layout>Case-Case Layout</layout>
-        <recordType>Case.APGLSupportRequest</recordType>
-    </layoutAssignments>
-	<layoutAssignments>
-        <layout>Case-Case Layout</layout>
-        <recordType>Case.Business_Sales_Implementation</recordType>
-    </layoutAssignments>
-	<layoutAssignments>
-        <layout>Case-Case Layout</layout>
-        <recordType>Case.Business_System_Integration</recordType>
-    </layoutAssignments>
-	<layoutAssignments>
-        <layout>Case-Case Layout</layout>
-        <recordType>Case.CAR_Request</recordType>
-    </layoutAssignments>
-	<layoutAssignments>
-        <layout>Case-SSSW General Enquiry Layout</layout>
-        <recordType>Case.Community_General_Enquiry</recordType>
-    </layoutAssignments>
-	<layoutAssignments>
-        <layout>Case-Case Layout</layout>
-        <recordType>Case.Credit_Management</recordType>
-    </layoutAssignments>
-	<layoutAssignments>
-        <layout>Case-Case Layout</layout>
-        <recordType>Case.Customer_Integration_Application</recordType>
-    </layoutAssignments>
-	<layoutAssignments>
-        <layout>Case-Case Layout</layout>
-        <recordType>Case.Customer_Onboarding</recordType>
-    </layoutAssignments>
-	<layoutAssignments>
-        <layout>Case-Case Layout</layout>
-        <recordType>Case.Enterprise_Credit_Dispute_Claim</recordType>
-    </layoutAssignments>
-	<layoutAssignments>
-        <layout>Case-Case Layout</layout>
-        <recordType>Case.Enterprise_Credit_Dispute_Claim_Guest</recordType>
-    </layoutAssignments>
-	<layoutAssignments>
-        <layout>Case-Case Layout</layout>
-        <recordType>Case.Lean_Cases</recordType>
-    </layoutAssignments>
-	<layoutAssignments>
-        <layout>Case-Case Layout</layout>
-        <recordType>Case.Lodgement_Customer_Migrations</recordType>
-    </layoutAssignments>
-	<layoutAssignments>
-        <layout>Case-SSSW General Enquiry Layout</layout>
-        <recordType>Case.NCCCDirectEmail</recordType>
-    </layoutAssignments>
-	<layoutAssignments>
-        <layout>Case-Case Layout</layout>
-        <recordType>Case.Non_compliance_Lodgement_Issue</recordType>
-    </layoutAssignments>
-	<layoutAssignments>
-        <layout>Case-Case Layout</layout>
-        <recordType>Case.Retail_Dispute_Enquiry</recordType>
-    </layoutAssignments>
-	<layoutAssignments>
-        <layout>Case-Case Layout</layout>
-        <recordType>Case.Retail_Fulfilment_Support</recordType>
-    </layoutAssignments>
-	<layoutAssignments>
-        <layout>Case-Case Layout</layout>
-        <recordType>Case.SE_P_Data_Capture</recordType>
-    </layoutAssignments>
-	<layoutAssignments>
-        <layout>Case-Case Layout</layout>
-        <recordType>Case.SSSWDelivery</recordType>
-    </layoutAssignments>
-	<layoutAssignments>
-        <layout>Case-Case Layout</layout>
-        <recordType>Case.SSSWFax</recordType>
-    </layoutAssignments>
-	<layoutAssignments>
-        <layout>Case-Case Layout</layout>
-        <recordType>Case.SSSWGeneralEnquiry</recordType>
-    </layoutAssignments>
-	<layoutAssignments>
-        <layout>Case-Case Layout</layout>
-        <recordType>Case.SSSWService</recordType>
-    </layoutAssignments>
-	<layoutAssignments>
-        <layout>Case-Case Layout</layout>
-        <recordType>Case.Sales_Coordinator</recordType>
-    </layoutAssignments>
-	<layoutAssignments>
-        <layout>Case-Case Layout</layout>
-        <recordType>Case.Sales_Ops_Delivery</recordType>
-    </layoutAssignments>
-	<layoutAssignments>
-        <layout>Case-Case Layout</layout>
-        <recordType>Case.Security_Express</recordType>
-    </layoutAssignments>
-	<layoutAssignments>
-        <layout>Case-Case Layout</layout>
-        <recordType>Case.Social_Record_Type</recordType>
-    </layoutAssignments>
-	<layoutAssignments>
-        <layout>Case-Case Layout</layout>
-        <recordType>Case.Special_Services</recordType>
-    </layoutAssignments>
-	<layoutAssignments>
-        <layout>Case-Case Layout</layout>
-        <recordType>Case.StarTrack_Credit_Dispute_Claim</recordType>
-    </layoutAssignments>
-	<layoutAssignments>
-        <layout>Case-Case Layout</layout>
-        <recordType>Case.StarTrack_General_Enquiry</recordType>
-    </layoutAssignments>
-	<layoutAssignments>
-        <layout>Case-Case Layout</layout>
-        <recordType>Case.StarTrack_PUD_Enquiry</recordType>
-    </layoutAssignments>
-	<layoutAssignments>
-        <layout>Case-Case Layout</layout>
-        <recordType>Case.StarTrack_Pickup_Booking_Enquiry</recordType>
-    </layoutAssignments>
-	<layoutAssignments>
-        <layout>Case-Case Layout</layout>
-        <recordType>Case.StarTrack_Sales_Enquiry</recordType>
-    </layoutAssignments>
-	<layoutAssignments>
-        <layout>Case-Case Layout</layout>
-        <recordType>Case.StarTrack_Tactical</recordType>
-    </layoutAssignments>
-	<layoutAssignments>
-        <layout>Case-Case Layout</layout>
-        <recordType>Case.StarTrack_Transit_Warranty_Claim</recordType>
-    </layoutAssignments>
-	<layoutAssignments>
-        <layout>Case-Case Layout</layout>
-        <recordType>Case.StarTrack_Voice_of_Customer</recordType>
-    </layoutAssignments>
-	<layoutAssignments>
-        <layout>Case-Case Layout</layout>
-        <recordType>Case.StarTrack_Voice_of_Customer_Incident</recordType>
-    </layoutAssignments>
-	<layoutAssignments>
-        <layout>Case-Case Layout</layout>
-        <recordType>Case.Supply_Chain_Optimisation</recordType>
-    </layoutAssignments>
-	<layoutAssignments>
-        <layout>Case-Case Layout</layout>
-        <recordType>Case.Transport_Enquiry</recordType>
+        <layout>Case-Unified Case Layout</layout>
     </layoutAssignments>
 	<layoutAssignments>
         <layout>Case-Unified Case Layout</layout>
-        <recordType>Case.UnifiedGeneralEnquiry</recordType>
+        <recordType>Case.SSSWDelivery</recordType>
     </layoutAssignments>
 	<layoutAssignments>
+        <layout>Case-Unified Case Layout</layout>
+        <recordType>Case.SSSWGeneralEnquiry</recordType>
+    </layoutAssignments>
+	<layoutAssignments>
+        <layout>Case-Unified Case Layout</layout>
+        <recordType>Case.SSSWService</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Case-Unified Case Layout</layout>
+        <recordType>Case.Social_Record_Type</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Case-Unified Case Layout</layout>
+        <recordType>Case.StarTrack_Credit_Dispute_Claim</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Case-Unified Case Layout</layout>
+        <recordType>Case.StarTrack_General_Enquiry</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Case-Unified Case Layout</layout>
+        <recordType>Case.StarTrack_Pickup_Booking_Enquiry</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Case-Unified Case Layout</layout>
+        <recordType>Case.StarTrack_Sales_Enquiry</recordType>
+    </layoutAssignments>
+	<layoutAssignments>
+        <layout>Case-Unified Case Layout</layout>
+        <recordType>Case.StarTrack_Transit_Warranty_Claim</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Case-Unified Case Layout</layout>
+        <recordType>Case.UnifiedGeneralEnquiry</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
         <layout>Case-Unified Case Layout</layout>
         <recordType>Case.UnifiedInvestigation</recordType>
     </layoutAssignments>
