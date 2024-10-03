@@ -2,7 +2,7 @@
  * @description Test class covering ArticleSubscriptionModule
  * @changelog
  * 2024-09-12 - Seth Heang - Created
- * 2024-10-02 - Seth Heang - and added negative test to ensure no article subscription is enqueued for closed parent case
+ * 2024-10-02 - Seth Heang - added negative test to ensure no article subscription is enqueued for closed parent case
  */
 @IsTest
 public class ArticleSubscriptionModuleTest {
