@@ -8,11 +8,11 @@
     </values>
     <values>
         <field>CaseAutomationResolutionCode__c</field>
-        <value xsi:type="xsd:string">Located - new EDD provided - Other tracking update</value>
+        <value xsi:nil="true"/>
     </values>
     <values>
         <field>CaseAutomationRootCause__c</field>
-        <value xsi:type="xsd:string">Unclear EDD</value>
+        <value xsi:nil="true"/>
     </values>
     <values>
         <field>CaseClosureEmailAlertNameAusPost__c</field>
