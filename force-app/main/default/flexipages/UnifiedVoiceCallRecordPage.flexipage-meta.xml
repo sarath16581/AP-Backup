@@ -314,6 +314,12 @@
                 <identifier>c_unifiedCaseVoiceCallSync</identifier>
             </componentInstance>
         </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentName>unifiedCaseOutboundVoiceCall</componentName>
+                <identifier>c_unifiedCaseOutboundVoiceCall</identifier>
+            </componentInstance>
+        </itemInstances>
         <name>thirdElement</name>
         <type>Region</type>
     </flexiPageRegions>

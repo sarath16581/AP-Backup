@@ -19,7 +19,7 @@ public with sharing class UnifiedInteractionService {
 		VoiceCall.SObjectType => VoiceCall.Case__c
 	};
 
-    public static UnifiedInteractionService getInstance() {
+	public static UnifiedInteractionService getInstance() {
 		return (UnifiedInteractionService)Application.Utilities.getInstance(UnifiedInteractionService.class);
 	}
 

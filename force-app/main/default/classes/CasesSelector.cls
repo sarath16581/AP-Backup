@@ -30,6 +30,7 @@
  * 2024-07-19 - Ranjeewa Silva - Added new search method with search parameter validation
  * 2024-07-30 - Seth Heang - added fields in getSObjectFieldList.
  * 2024-08-12 - Ranjeewa Silva - New selector options to select child contact requests and impacted articles.
+ * 2024-09-12 - Seth Heang - added fields in getSObjectFieldList. These will be used in payload for TIBCO Subscription.
  */
 public virtual inherited sharing class CasesSelector extends ApplicationSelector {
 
@@ -95,8 +96,8 @@ public virtual inherited sharing class CasesSelector extends ApplicationSelector
 			Case.Article_Sender_Name__c, Case.Article_Sender_Address__c, Case.Description_of_contents__c, 
 			Case.Description_of_packaging__c, Case.Related_Billing_Account__c, Case.Value_of_Goods__c, Case.Calc_Link_Account__c,
 			Case.Checkbox__c, Case.Customer_Type__c, Case.Service_SLA__c, Case.Article_Receiver_Suburb__c, Case.Billing_Number__c,
-			Case.ProductSubCategory__c, Case.Exclude_Subscription_Automation__c
-
+			Case.ProductSubCategory__c, Case.Exclude_Subscription_Automation__c, Case.EventCode__c, Case.FacilityOrOutletWCC__c,
+			Case.OwnerUserName__c
 		};
 	}
 

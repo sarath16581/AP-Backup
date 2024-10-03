@@ -15,6 +15,21 @@
         <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
+        <fullName>SharedWithUnifiedAgents</fullName>
+        <accessLevel>Read</accessLevel>
+        <description>This sharing rule enables READ Only access to all network records for Unified agents</description>
+        <label>Shared with Unified Agents</label>
+        <sharedTo>
+            <roleAndSubordinatesInternal>UnifiedTeamLead</roleAndSubordinatesInternal>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Consignment,Article</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
         <fullName>StarTrack_Account_Manager</fullName>
         <accessLevel>Read</accessLevel>
         <description>This will give StarTrack Account Manager read only access to all record types specified consignment.</description>
