@@ -15,7 +15,7 @@ import IMPACTED_ARTICLE_OBJECT from '@salesforce/schema/ImpactedArticle__c';
 import CASE_STATUS_FIELD from '@salesforce/schema/Case.Status';
 import CASE_ARTICLE_ID_FIELD from '@salesforce/schema/Case.ArticleTest__c';
 import CASE_ID_FIELD from '@salesforce/schema/Case.Id';
-import CASE_TRACKING_ID_FIELD from '@salesforce/schema/Case.ArticleTest__r.TrackingID__c';
+import CASE_TRACKING_ID_FIELD from '@salesforce/schema/Case.ArticleTest__r.Name';
 import CASE_RECORDTYPE_NAME from '@salesforce/schema/Case.RecordType.DeveloperName';
 // Impacted Article Fields
 import IMPACTED_ARTICLE_ARTICLE_FIELD from '@salesforce/schema/ImpactedArticle__c.Article__c';
@@ -79,7 +79,7 @@ export default class UnifiedTrackingChatWrapper extends LightningElement {
 	}
 
 	configHappyParcelComponent() {
-		if (!this.consignmentIdFromRecord) {
+		if (!this.consignmentIdFromRecord || !this.trackingId) {
 			this.trackingId = '';
 			if (this.template.querySelector('c-happy-parcel')) {
 				this.template.querySelector('c-happy-parcel').resetSearch();
