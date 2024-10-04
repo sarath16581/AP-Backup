@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomMetadata xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <label>SF: Available For Case</label>
+    <protected>false</protected>
+    <values>
+        <field>GenesysStatusId__c</field>
+        <value xsi:type="xsd:string">6a3af858-942f-489d-9700-5f9bcdcdae9b</value>
+    </values>
+    <values>
+        <field>GenesysStatusLabel__c</field>
+        <value xsi:type="xsd:string">Available</value>
+    </values>
+    <values>
+        <field>SalesforcePresenceStatus__c</field>
+        <value xsi:type="xsd:string">AvailableForCase</value>
+    </values>
+    <values>
+        <field>SyncDirection__c</field>
+        <value xsi:type="xsd:string">SF =&gt; Gen</value>
+    </values>
+</CustomMetadata>
