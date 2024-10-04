@@ -2,7 +2,8 @@
 <ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Check_Post_Code_Length</fullName>
     <active>true</active>
-    <errorConditionFormula>AND(CONTAINS($Profile.Name, &apos;SSSW&apos;),OR(ISNEW(),OR(ISCHANGED(PersonMailingStreet),ISCHANGED(PersonMailingState),ISCHANGED(PersonMailingCity),ISCHANGED(PersonMailingPostalCode),ISCHANGED(PersonMailingCountry),ISCHANGED(MailingStreet2__c))),
+    <errorConditionFormula>AND(OR(CONTAINS($Profile.Name, &apos;SSSW&apos;),$Profile.Name = &apos;Unified Customer Service&apos;),
+		OR(ISNEW(),OR(ISCHANGED(PersonMailingStreet),ISCHANGED(PersonMailingState),ISCHANGED(PersonMailingCity),ISCHANGED(PersonMailingPostalCode),ISCHANGED(PersonMailingCountry),ISCHANGED(MailingStreet2__c))),
 
 OR(AND(OR(NOT(ISBLANK(PersonMailingStreet)),NOT(ISBLANK(PersonMailingState)),NOT(ISBLANK(PersonMailingCity))),OR(NOT(ISNUMBER( PersonMailingPostalCode )),LEN( PersonMailingPostalCode ) &lt;&gt; 4,ISBLANK(PersonMailingPostalCode)),OR(PersonMailingCountry = &apos;AU&apos;,ISBLANK(PersonMailingCountry)) ), 
 AND(PersonMailingCountry = &apos;AU&apos;, NOT(ISBLANK(PersonMailingPostalCode)),
