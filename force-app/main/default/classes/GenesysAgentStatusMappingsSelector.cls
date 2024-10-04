@@ -7,10 +7,19 @@
 public virtual inherited sharing class GenesysAgentStatusMappingsSelector extends ApplicationSelector {
 	public enum Options { }
 
+	/**
+	 * Create a new instance for the GenesysAgentStatusMappingsSelector
+	 * @return GenesysAgentStatusMappingsSelector instance
+	 */
 	public static GenesysAgentStatusMappingsSelector newInstance() {
 		return (GenesysAgentStatusMappingsSelector)Application.Selectors.newInstance(GenesysAgentStatusMappingsSelector.class);
 	}
 
+	/**
+	 * Create a new instance for the GenesysAgentStatusMappingsSelector with provided record limit
+	 * @param recordLimit the record limit
+	 * @return GenesysAgentStatusMappingsSelector instance
+	 */
 	public static GenesysAgentStatusMappingsSelector newInstance(Integer recordLimit) {
 		return (GenesysAgentStatusMappingsSelector)Application.Selectors.newInstance(GenesysAgentStatusMappingsSelector.class).setLimit(recordLimit);
 	}
@@ -31,6 +40,9 @@ public virtual inherited sharing class GenesysAgentStatusMappingsSelector extend
 
 	/**
 	 * Run a simple query to get matching record based on genesysStatusId
+	 * @param genesysStatusId the Genesys Cloud Status Id
+	 * @param selectorOptions set of selectorOptions
+	 * @return GenesysAgentStatusMapping__mdt record or null if not found
 	 */
 	public GenesysAgentStatusMapping__mdt selectByGenesysStatusId(String genesysStatusId, Set<Object> selectorOptions) {
 		Set<String> syncDirection = new Set<String>{
@@ -49,12 +61,15 @@ public virtual inherited sharing class GenesysAgentStatusMappingsSelector extend
 
 	/**
 	 * Run a simple query to get matching record based on (SalesforcePresenceStatus__c_ ServicePresence developerName
+	 * @param developerName the Salesforce Presence DeveloperName
+	 * @param selectorOptions set of selectorOptions
+	 * @return GenesysAgentStatusMapping__mdt record or null if not found
 	 */
 	public GenesysAgentStatusMapping__mdt selectBySalesforcePresenceStatus(String developerName, Set<Object> selectorOptions) {
 		Set<String> syncDirection = new Set<String>{
 			'Any', 'SF => Gen'
 		};
-
+		
 		QueryBuilder qb = newQueryBuilder(selectorOptions)
 			.addConditions()
 			.add(new QueryBuilder.SimpleCondition(GenesysAgentStatusMapping__mdt.SalesforcePresenceStatus__c + ' = :developerName'))
@@ -67,6 +82,8 @@ public virtual inherited sharing class GenesysAgentStatusMappingsSelector extend
 
 	/**
 	 * Contruct a new QueryBuilder based on the selector options passed in
+	 * @param selectorOptions set of selectorOptions
+	 * @return QueryBuilder instance created with provided selector options
 	 */
 	public virtual override QueryBuilder newQueryBuilder(Set<Object> selectorOptions) {
 		if (selectorOptions == null || selectorOptions.isEmpty()) {
