@@ -55,7 +55,7 @@ private class UnifiedLiveChatCustomerLinkingModuleTest {
 		// Testing
 		// =====================================
 		Test.startTest();
-		UnifiedLiveChatCustomerLinking.getInstance().linkChatsWithContact(chatTranscripts);
+		new UnifiedLiveChatCustomerLinkingModule().onBeforeInsert(chatTranscripts, null);
 		Test.stopTest();
 
 		Assert.areEqual(mockContactsList[0].Id, chatTranscripts[0].ContactId, 'Correct Contact Id should be set (single match)');
