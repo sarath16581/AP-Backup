@@ -36,6 +36,10 @@
         <apexClass>genesysps__getTranscript</apexClass>
         <enabled>true</enabled>
     </classAccesses>
+    <classAccesses>
+        <apexClass>genesysps__omniChannel</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
     <fieldPermissions>
         <editable>false</editable>
         <field>genesyscloud__Genesys_Attribute_Mapping__c.genesyscloud__Call_Center_Internal_Name__c</field>
