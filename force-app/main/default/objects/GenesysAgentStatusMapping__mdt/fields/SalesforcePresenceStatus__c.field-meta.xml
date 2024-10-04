@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>SalesforcePresenceStatus__c</fullName>
-    <dataSensitivity>Internal</dataSensitivity>
     <description>Provide the Service Presence Status DeveloperName. This will be mapped to the Genesys Target Status Id</description>
     <externalId>false</externalId>
     <fieldManageability>DeveloperControlled</fieldManageability>
