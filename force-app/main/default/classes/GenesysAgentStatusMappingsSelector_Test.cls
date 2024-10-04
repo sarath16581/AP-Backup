@@ -1,5 +1,5 @@
 /**
- * @description Test class for GenesysAgentStatusMapping__mdt
+ * @description Test class for GenesysAgentStatusMappingsSelector
  * @author 		Paul Perry
  * @date 		15-08-2024
  * @changelog
@@ -14,8 +14,7 @@ private with sharing class GenesysAgentStatusMappingsSelector_Test {
 	private static void testEnsureQueryBuilderProducesCorrectString() {
 		Test.startTest();
 
-		GenesysAgentStatusMappingsSelector.newInstance();
-		GenesysAgentStatusMappingsSelector selector = GenesysAgentStatusMappingsSelector.newInstance(1);
+		GenesysAgentStatusMappingsSelector selector = GenesysAgentStatusMappingsSelector.newInstance();
 
 		QueryBuilder qb = selector.newQueryBuilder();
 		String soql = qb.toSoqlString();
@@ -38,15 +37,15 @@ private with sharing class GenesysAgentStatusMappingsSelector_Test {
 		Test.startTest();
 
 		// Query Agreement Lodgement Point based on Apttus Contract Id
-		GenesysAgentStatusMapping__mdt resultBySfStatus = GenesysAgentStatusMappingsSelector.newInstance()
-			.selectBySalesforcePresenceStatus('Training', null);
+		GenesysAgentStatusMapping__mdt resultBySfStatus = GenesysAgentStatusMappingsSelector.newInstance(1)
+			.selectBySalesforcePresenceStatus('On_Break', null);
 
-		System.assertEquals('Training', resultBySfStatus?.SalesforcePresenceStatus__c, 'Invalid record returned');
+		System.assertEquals('On_Break', resultBySfStatus?.SalesforcePresenceStatus__c, 'Invalid record returned');
 
 		GenesysAgentStatusMapping__mdt resultByGenStatusId = GenesysAgentStatusMappingsSelector.newInstance()
 			.selectByGenesysStatusId(resultBySfStatus.GenesysStatusId__c, null);
 
-		System.assertEquals('Training', resultByGenStatusId?.SalesforcePresenceStatus__c, 'Invalid record returned');
+		System.assertEquals('On_Break', resultByGenStatusId?.SalesforcePresenceStatus__c, 'Invalid record returned');
 		System.assertEquals(resultBySfStatus.Id, resultByGenStatusId.Id, 'Records should be matching to the same instance');
 
 		Test.stopTest();
