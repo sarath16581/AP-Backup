@@ -492,7 +492,7 @@ public inherited sharing class OmniChannelService {
 	public without sharing class WithoutSharingRetrieveData{
 
 		private List<AgentWork> getLatestAcceptedAgentWorkItems(Set<Id> caseIds){
-			return AgentWorkSelector.newInstance(0, new Set<SObjectField>{AgentWork.Id, AgentWork.WorkItemId, AgentWork.UserId, AgentWork.AcceptDateTime}).selectAcceptedAgentWorkByCaseIdsAndActiveUser(caseIds, new Set<Object>());
+			return AgentWorkSelector.newInstance(0, new Set<SObjectField>{AgentWork.Id, AgentWork.WorkItemId, AgentWork.UserId, AgentWork.AcceptDateTime, AgentWork.Case__c}).selectAcceptedAgentWorkByCaseIdsAndActiveUser(caseIds, new Set<Object>());
 		}
 
 		private List<ServiceResourceSkill> getPreferredAgentServiceResourceSkills(Set<Id> userIds){
