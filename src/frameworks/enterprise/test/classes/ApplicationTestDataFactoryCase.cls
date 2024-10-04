@@ -3,6 +3,10 @@
  * @author Nathan Franklin
  * @date 2023-05-29
  * @changelog
+ * 2024-06-13 - Parveen Kaushik - Added default value for mapping model on test data. See CSLU-470 (JIRA) for details.
+ * 2024-07-23 - Ranjeewa Silva - New methods to return new ContactRequests and ImpactedArticle__c.
+ * 2024-08-23 - George Nguyen - added getLiveChatTranscripts(...), getVoiceCalls(...) and updated getContactRequests(...)
+ * 2024-09-06 - Seth Heang - added new method for getCaseTeamMember and caseTeamRoleUnifiedAgent
 */
 @IsTest
 public with sharing class ApplicationTestDataFactoryCase {
@@ -74,21 +78,24 @@ public with sharing class ApplicationTestDataFactoryCase {
 						ProductCategory__c = 'Domestic Parcels',
 						ProductSubcategory__c = 'eParcel- Regular',
 						SAPProductCategory__c = 'eParcel',
-						SAPProductSubcategory__c = 'eParcel Standard'
+						SAPProductSubcategory__c = 'eParcel Standard',
+						MappingModel__c = SSSWConstants.ENQUIRYMAPPING_CLASSIC_MODEL
 				),
 				new MiniCaseFieldMapping__c(
 						Id = (generateIds ? fflib_IDGenerator.generate(MiniCaseFieldMapping__c.SObjectType) : null),
 						ProductCategory__c = 'Domestic Parcels',
 						ProductSubcategory__c = 'StarTrack (Next Flight Premium & Express)',
 						SAPProductCategory__c = 'StarTrack',
-						SAPProductSubcategory__c = 'ST Next Flight'
+						SAPProductSubcategory__c = 'ST Next Flight',
+						MappingModel__c = SSSWConstants.ENQUIRYMAPPING_CLASSIC_MODEL
 				),
 				new MiniCaseFieldMapping__c(
 						Id = (generateIds ? fflib_IDGenerator.generate(MiniCaseFieldMapping__c.SObjectType) : null),
 						ProductCategory__c = 'Domestic Parcels',
 						ProductSubcategory__c = 'Express',
 						SAPProductCategory__c = 'Express Post',
-						SAPProductSubcategory__c = 'Express Post Medium'
+						SAPProductSubcategory__c = 'Express Post Medium',
+						MappingModel__c = SSSWConstants.ENQUIRYMAPPING_CLASSIC_MODEL
 				)
 		};
 
@@ -139,7 +146,47 @@ public with sharing class ApplicationTestDataFactoryCase {
 			AgentWork.UserId => userIds,
 			AgentWork.WorkItemId => workitemIds
 		}, count), generateIds);
-	}	
+	}
+
+	public static List<ContactRequest> getContactRequests(Integer count, Object whatIds, Object whoIds, Boolean generateIds) {
+		return (List<ContactRequest>)ApplicationTestDataFactory.maybeGenerateIds(ApplicationTestDataFactory.populateSObjects(ContactRequest.SObjectType, new Map<SObjectField, Object> {
+				ContactRequest.WhatId => whatIds,
+				ContactRequest.WhoId => whoIds,
+				ContactRequest.Status => 'New'
+		}, count), generateIds);
+	}
+
+	public static List<VoiceCall> getVoiceCalls(List<Id> relatedRecordIds, Boolean generateIds) {
+		List<VoiceCall> output = (List<VoiceCall>)ApplicationTestDataFactory.maybeGenerateIds(ApplicationTestDataFactory.populateSObjects(VoiceCall.SObjectType, new Map<SObjectField, Object> {
+		}, relatedRecordIds.size()), generateIds);
+
+		for(Integer i=0;i<relatedRecordIds.size();i++) {
+			output[i] = (VoiceCall)ApplicationTestDataFactory.setUnwritableFields(output[i], new Map<String, Object>{'RelatedRecordId' => relatedRecordIds[0]});
+		}
+
+		return output;
+	}
+
+	public static List<LiveChatTranscript> getLiveChatTranscripts(Integer count, Object caseIds, Boolean generateIds) {
+		return (List<LiveChatTranscript>)ApplicationTestDataFactory.maybeGenerateIds(ApplicationTestDataFactory.populateSObjects(LiveChatTranscript.SObjectType, new Map<SObjectField, Object> {
+			LiveChatTranscript.CaseId => caseIds
+		}, count), generateIds);
+	}
+
+	public static List<ImpactedArticle__c> getImpactedArticles(Integer count, Object caseIds, Object articleIds, Boolean generateIds) {
+		return (List<ImpactedArticle__c>)ApplicationTestDataFactory.maybeGenerateIds(ApplicationTestDataFactory.populateSObjects(ImpactedArticle__c.SObjectType, new Map<SObjectField, Object> {
+				ImpactedArticle__c.Article__c => articleIds,
+				ImpactedArticle__c.Case__c => caseIds
+		}, count), generateIds);
+	}
+
+	public static List<CaseTeamMember> getCaseTeamMembers(Integer count, Id caseId, Id memberId, Id teamRoleId, Boolean generateIds) {
+		return (List<CaseTeamMember>)ApplicationTestDataFactory.maybeGenerateIds(ApplicationTestDataFactory.populateSObjects(CaseTeamMember.SObjectType, new Map<SObjectField, Object> {
+				CaseTeamMember.ParentId => caseId,
+				CaseTeamMember.MemberId => memberId,
+				CaseTeamMember.TeamRoleId => teamRoleId
+		}, count), generateIds);
+	}
 
 	public static Id caseSSSWGeneralEnquiryRecordType {
 		get {
@@ -160,28 +207,27 @@ public with sharing class ApplicationTestDataFactoryCase {
 		}
 		private set;
 	}
-	
 	public static Id caseStarTrackDeliveryEnquiryRecordType {
 		get {
 			if(caseStarTrackDeliveryEnquiryRecordType == null) {
 				caseStarTrackDeliveryEnquiryRecordType = [Select Id From RecordType Where SObjectType = 'Case' And DeveloperName = 'StarTrack_PUD_Enquiry'].Id;
-			  }
-			  return caseStarTrackDeliveryEnquiryRecordType;
-		 }
-		 private set;
-	}
-	
-   public static Id caseStarTrackVoiceOfCustRecordType {
-	   get {
-		   if(caseStarTrackVoiceOfCustRecordType == null) {
-				caseStarTrackVoiceOfCustRecordType = [Select Id From RecordType Where SObjectType = 'Case' And DeveloperName = 'StarTrack_Voice_of_Customer'].Id;
-			 }
-			 return caseStarTrackVoiceOfCustRecordType;
+			}
+			return caseStarTrackDeliveryEnquiryRecordType;
 		}
 		private set;
-   }
+	}
 
-   public static Id caseStarTransitWarrantyClaimRecordType {
+	public static Id caseStarTrackVoiceOfCustRecordType {
+		get {
+			if(caseStarTrackVoiceOfCustRecordType == null) {
+				caseStarTrackVoiceOfCustRecordType = [Select Id From RecordType Where SObjectType = 'Case' And DeveloperName = 'StarTrack_Voice_of_Customer'].Id;
+			}
+			return caseStarTrackVoiceOfCustRecordType;
+		}
+		private set;
+	}
+
+	public static Id caseStarTransitWarrantyClaimRecordType {
 		get {
 			if(caseStarTransitWarrantyClaimRecordType == null) {
 				caseStarTransitWarrantyClaimRecordType = [Select Id From RecordType Where SObjectType = 'Case' And DeveloperName = 'StarTrack_Transit_Warranty_Claim'].Id;
@@ -190,7 +236,7 @@ public with sharing class ApplicationTestDataFactoryCase {
 		}
 		private set;
 	}
-	
+
 	public static Id casestarTrackGeneralEnquiryRecordType {
 		get {
 			if(casestarTrackGeneralEnquiryRecordType == null) {
@@ -200,7 +246,7 @@ public with sharing class ApplicationTestDataFactoryCase {
 		}
 		private set;
 	}
-	
+
 	public static Id casestarTrackCreditDisputeRecordType {
 		get {
 			if(casestarTrackCreditDisputeRecordType == null) {
@@ -221,4 +267,33 @@ public with sharing class ApplicationTestDataFactoryCase {
 		private set;
 	}
 
+	public static Id caseUnifiedInvestigationRecordType {
+		get {
+			if (caseUnifiedInvestigationRecordType == null) {
+				caseUnifiedInvestigationRecordType = SObjectType.Case.getRecordTypeInfosByDeveloperName().get('UnifiedInvestigation').getRecordTypeId();
+			}
+			return caseUnifiedInvestigationRecordType;
+		}
+		private set;
+	}
+
+	public static Id caseUnifiedGeneralEnquiryRecordType {
+		get {
+			if (caseUnifiedGeneralEnquiryRecordType == null) {
+				caseUnifiedGeneralEnquiryRecordType = SObjectType.Case.getRecordTypeInfosByDeveloperName().get('UnifiedGeneralEnquiry').getRecordTypeId();
+			}
+			return caseUnifiedGeneralEnquiryRecordType;
+		}
+		private set;
+	}
+
+	public static Id caseTeamRoleUnifiedAgent {
+		get {
+			if (caseTeamRoleUnifiedAgent == null) {
+				caseTeamRoleUnifiedAgent = [Select Id From CaseTeamRole Where Name = 'Unified Agent'].Id;
+			}
+			return caseTeamRoleUnifiedAgent;
+		}
+		private set;
+	}
 }

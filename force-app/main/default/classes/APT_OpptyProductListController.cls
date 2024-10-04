@@ -79,6 +79,51 @@ public with sharing class APT_OpptyProductListController {
 		return JSON.serialize(err);
 
 	}
+    
+    public static String getColumnDefinitions() {
+        // Create a list to hold the column definitions
+        List<ColumnDef> columnDefs = new List<ColumnDef>();
+        
+        // Helper method to add columns to the list
+        columnDefs.add(createColumn('Product Name', 'ProductName', false, true, 160, null, null));
+        columnDefs.add(createColumn('Revenue Start Date', 'Contract_Start_Date__c', true, false, 160, 'date-local', 'utility:stop'));
+        columnDefs.add(createColumn('Revenue End Date', 'Contract_End_Date__c', true, false, 160, 'date-local', 'utility:stop'));
+        columnDefs.add(createColumn('Quantity', 'Quantity', true, false, 160, 'Integer', 'utility:stop'));
+        columnDefs.add(createColumnWithAlignment('Unit Sales Price (Ex GST)', 'UnitPrice', true, false, 160, 'currency', 'utility:stop', 'left'));
+        columnDefs.add(createColumnWithAlignment('Total Price', 'TotalPrice', false, false, 160, 'currency', null, 'left'));
+        columnDefs.add(createColumnWithAlignment('ACV', 'Annualised_Value__c', false, false, 160, 'currency', null, 'left'));
+        columnDefs.add(createColumnWithAlignment('Last 12 months Revenue', 'TweleveMonthRevenue__c', false, false, 160, 'currency', null, 'left'));
+        columnDefs.add(createColumnWithAlignment('Retained ACV', 'RetainedRevenue__c', false, false, 160, 'currency', null, 'left'));
+        columnDefs.add(createColumnWithAlignment('Incremental ACV', 'IncrementalRevenue__c', false, false, 160, 'currency', null, 'left'));
+        columnDefs.add(createColumnWithAlignment('Classification', 'Classification__c', false, false, 160, 'text', null, 'left'));
+        columnDefs.add(createColumn('Quote Number', 'Contract_Number__c', true, false, 160, 'text', null));
+        columnDefs.add(createColumnWithAlignment('Contract Product?', 'ContractProduct', true, false, 160, 'boolean', 'utility:stop', 'center'));
+        
+        // Serialize the list to JSON
+        return JSON.serialize(columnDefs);
+    }
+
+    // Helper method to create a column definition without alignment
+    private static ColumnDef createColumn(String label, String fieldName, Boolean editable, Boolean wrapText, Integer initialWidth, String type, String iconName) {
+        ColumnDef columnDef = new ColumnDef();
+        columnDef.label = label;
+        columnDef.fieldName = fieldName;
+        columnDef.editable = editable;
+        columnDef.wrapText = wrapText;
+        columnDef.initialWidth = initialWidth;
+        columnDef.type = type;
+        columnDef.iconName = iconName;
+        return columnDef;
+    }
+    
+    // Helper method to create a column definition with alignment
+    private static ColumnDef createColumnWithAlignment(String label, String fieldName, Boolean editable, Boolean wrapText, Integer initialWidth, String type, String iconName, String alignment) {
+        ColumnDef columnDef = createColumn(label, fieldName, editable, wrapText, initialWidth, type, iconName);
+        columnDef.cellAttributes = new CellAttributes();
+        columnDef.cellAttributes.alignment = alignment;
+        return columnDef;
+    }
+        
 	//Wrapper class used to determine the error type accepted by lightning datatable.
 	Public class Errors{
 		Public String status;
@@ -96,4 +141,21 @@ public with sharing class APT_OpptyProductListController {
 		Public String title;
 		Public String[] errorMessages;
 	}
+    
+    public class CellAttributes
+    {
+        public string alignment { get; set; }
+    }
+
+    public class ColumnDef
+    {
+        public string label { get; set; }
+        public string fieldName { get; set; }
+        public boolean editable { get; set; }
+        public boolean wrapText { get; set; }
+        public integer initialWidth { get; set; }
+        public string type { get; set; }
+        public string iconName { get; set; }
+        public CellAttributes cellAttributes { get; set; }
+    }
 }

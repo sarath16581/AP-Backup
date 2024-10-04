@@ -3,9 +3,10 @@
   * @date 29/01/2020
   * @description Address Lookup wrapper for exposure on Lightning Pages
 --------------------------------------- History --------------------------------------------------
-29/01/2020    alex.volkov@auspost.com.au    Initial creation
-26/07/2021    naveen.rajanna@auspost.com.au   REQ2573263  Update the country code as AU only for leads
-21/02/2022    naveen.rajanna@auspost.com.au   REQ2755163  Minor label change and API version change
+2020-01-20	alex.volkov@auspost.com.au	Initial creation
+2021-07-26	naveen.rajanna@auspost.com.au   REQ2573263  Update the country code as AU only for leads
+2022-02-21	naveen.rajanna@auspost.com.au   REQ2755163  Minor label change and API version change
+2024-06-24 - Ranjeewa Silva - Reload component after successful record update if not navigating away (or page refresh).
 **/
 
 import { LightningElement, api, track } from 'lwc';
@@ -47,49 +48,7 @@ export default class AddressLookupRecordWrapper extends NavigationMixin(Lightnin
     // Use an alt record id in the event that there is no record id
     this.handleAltRecordId();
     // get settings for record id
-    getSettings({ pRecordId: this.recordId })
-      .then(result => {
-        this.objectAPIName = result.objectApiName;
-        if (!result.settings) {
-          this.dispatchEvent(new ShowToastEvent({
-            title: 'Error on Address component load',
-            message: 'Address metadata configuration not found. Please contact your system administrator.',
-            variant: 'error',
-          }),
-          );
-        }
-        else {
-          //populate configuration
-          this.settings = result.settings;
-          console.log('record::',result.currentRecord);
-          this.currentRecord = result.currentRecord;
-          this.params = { [this.addressType]: this.cardTitle, [this.addressType2]: this.cardTitle2, [this.addressType3]: this.cardTitle3 };
-
-          for (let aType in this.settings) {
-            if (this.params.hasOwnProperty(aType)) {
-              let add = {
-                streetValue: '', streetValue1: '', unitValue: '', unitValue1: '', city: '',
-                city1: '', postcode: '', postcode1: '', state: '', state1: '', addressType: aType, cTitle: this.params[aType]
-              }
-              if (this.currentRecord[[this.settings[aType].Street]]) {
-
-                add.currentAddress = this.currentRecord[[this.settings[aType].Street]] + ' ' + result.currentRecord[[this.settings[aType].City]] + ' ' + result.currentRecord[[this.settings[aType].State]] + ' ' + result.currentRecord[[this.settings[aType].PostCode]];
-              }
-              this.addressData = [...this.addressData, add];
-            }
-            }
-          }
-      })
-      .catch(error => {
-        this.dispatchEvent(
-          new ShowToastEvent({
-            title: 'Error on Address component load',
-            message: 'Address metadata configuration appears incorrect. Please contact your system administrator.' + error,
-            variant: 'error',
-          }),
-        );
-      });
-    this.showSpinner = false;
+    this.loadConfig();
   }
 
   //verify record id. use alt record id if there is no record id
@@ -103,8 +62,6 @@ export default class AddressLookupRecordWrapper extends NavigationMixin(Lightnin
   handleStreetValueChange(event) {
 
     this.address = event.detail;
-    console.log('address++',event.detail);
-    console.log('Target Id',event.target.dataset.id);
 
     let changedAddress = this.addressData.find(x => x.addressType === event.target.dataset.id);
 
@@ -179,20 +136,15 @@ export default class AddressLookupRecordWrapper extends NavigationMixin(Lightnin
         //new address entered and all components present
         if (addr.streetValue && addr.postcode && addr.city && addr.state) {
           record.fields[[this.settings[addr.addressType].Street]] = addr.streetValue;
-          //console.log('street ',addr.streetValue);
           record.fields[[this.settings[addr.addressType].PostCode]] = addr.postcode;
-          //console.log('postcode ',addr.postcode);
           record.fields[[this.settings[addr.addressType].City]] = addr.city;
-          //console.log('city ',addr.city);
           record.fields[[this.settings[addr.addressType].State]] = addr.state;
-          //console.log('state ',addr.state);
           //REQ2573263
           if (this.settings && this.settings.hasOwnProperty('Lead_Physical')){
             record.fields[[this.settings[addr.addressType].Country]] = 'AU';
           }
           if (this.settings[addr.addressType].DPID) {
             record.fields[[this.settings[addr.addressType].DPID]] = addr.dpid;
-            console.log('dpid ',addr.dpid);
           }
           if (this.settings[addr.addressType].AddressValidated) {
             record.fields[[this.settings[addr.addressType].AddressValidated]] = true;
@@ -217,8 +169,6 @@ export default class AddressLookupRecordWrapper extends NavigationMixin(Lightnin
       }
       //there is a change to save and all entries are valid
       if (dataUpdated && isValid) {
-        //console.log('dataUpdated',dataUpdated);
-        //console.log('isValid',isValid);
         if (this.containerContext.toLowerCase() == 'visualforce') {
           // need to use regular js
           updateRecord(record).then(() => {
@@ -228,7 +178,6 @@ export default class AddressLookupRecordWrapper extends NavigationMixin(Lightnin
         }
         else {
           // do the usual lightning stuff
-          //console.log('Record:::',record);
           updateRecord(record)
             .then(() => {
               this.showSpinner = false;
@@ -243,6 +192,13 @@ export default class AddressLookupRecordWrapper extends NavigationMixin(Lightnin
                     actionName: 'view'
                   }
                 });
+              } else {
+                  // component is configured to keep showing address component after successful save.
+                  // ensure the component is refreshed to ensure latest updates are reflected on the component.
+                  // this approach ensures minimum changes to current component and not impact any existing use cases
+                  // using this component.
+                  this.addressData = [];
+                  this.loadConfig();
               }
             })
             .catch(error => {
@@ -261,4 +217,52 @@ export default class AddressLookupRecordWrapper extends NavigationMixin(Lightnin
       }
     }
   }
- }
+
+	/**
+	 * load address configuration and record data to initialise the component.
+	 */
+	async loadConfig() {
+
+		try {
+			this.showSpinner = true;
+			// get settings for record id
+			const result = await getSettings({pRecordId: this.recordId});
+			this.objectAPIName = result.objectApiName;
+
+			if (!result.settings) {
+				this.dispatchEvent(new ShowToastEvent({
+					title: 'Error on Address component load',
+					message: 'Address metadata configuration not found. Please contact your system administrator.',
+					variant: 'error'
+				}));
+			} else {
+				//populate configuration
+				this.settings = result.settings;
+				this.currentRecord = result.currentRecord;
+				this.params = { [this.addressType]: this.cardTitle, [this.addressType2]: this.cardTitle2, [this.addressType3]: this.cardTitle3 };
+
+				for (let aType in this.settings) {
+					if (this.params.hasOwnProperty(aType)) {
+						let add = {
+							streetValue: '', streetValue1: '', unitValue: '', unitValue1: '', city: '',
+							city1: '', postcode: '', postcode1: '', state: '', state1: '', addressType: aType, cTitle: this.params[aType]
+						}
+						if (this.currentRecord[[this.settings[aType].Street]]) {
+							add.currentAddress = this.currentRecord[[this.settings[aType].Street]] + ' ' + result.currentRecord[[this.settings[aType].City]] + ' ' + result.currentRecord[[this.settings[aType].State]] + ' ' + result.currentRecord[[this.settings[aType].PostCode]];
+						}
+						this.addressData = [...this.addressData, add];
+					}
+				}
+			}
+
+		} catch (error) {
+			this.dispatchEvent(new ShowToastEvent({
+				title: 'Error on Address component load',
+				message: 'Address metadata configuration appears incorrect. Please contact your system administrator.' + error,
+				variant: 'error',
+			}));
+		} finally {
+			this.showSpinner = false;
+		}
+	}
+}

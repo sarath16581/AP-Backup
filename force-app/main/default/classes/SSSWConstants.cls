@@ -1,9 +1,9 @@
 /**
-  * @author       : nandan.narasappa@auspost.com.au
-  * @date         : 01/09/2015
+  * @author	   : nandan.narasappa@auspost.com.au
+  * @date		 : 01/09/2015
   * @description  : UTIL Class for saving constant values used across classes for SSSW.
   * @changelog
-  * 01.08.2016  DYU     Updated - Add Constants for MyPost Business AccountSource
+  * 01.08.2016  DYU	 Updated - Add Constants for MyPost Business AccountSource
   * 06.09.2016  Eric Shen  Add constact for processSnapitMissingItem
   * 24.03.2019  Ramtej.Juloori@auspost.com.au   Added method name insertCaseTeamMembersForChildCase
   * 02.04.2019  Rajesh Punjabi Added new constants for Five (5) days SLA Callback Requests. 
@@ -19,8 +19,15 @@
   * 16.05.2022   SaiSwetha Pingali  Removed snapIt logic as it is no longer required.
   * 20.03.2023	- Noel Lim - added constants SSSW_AGENT_PROFILE, SSSW_SOCIAL_INTEGRATION_PROFILE, SSSW_BSP_COMMUNITY_USER_PROFILE
   * 27.03.2023 StephenL added constant: RECTYPE_ARTICLE_CONSIGNMENT
-  * 2024-06-25 - Mona Raghav - REQ3564142 - CASE_ORIGIN_DIRECT_EMAIL Constant added
-  * 2024.08.16 - Talib Raza - PRB0051724, REQ3488651: Added CASE_ROOT_CAUSE_SSSW_NETWORK_QUEUE
+  * 2024-06-25 - Mona Raghav - REQ3564142 - CASE_ORIGIN_DIRECT_EMAIL Constant added 
+  * 13.06.2024 Parveen Kaushik Added new constants for Enquiry Mapping object to identify model type.
+  * 10.07.2024 Vasu Gorakati Added new constant SSSW_ENTITLEMENT
+  * 19-07-2024 - Ranjeewa Silva - Added constants for new SSSWRouting record type (UnifiedRouting) and new customer service agent profile name.
+  * 31.07.2024 - Seth Heang - added constants for case's new 'Update' and 'Monitoring' status
+  * 12.08.2024 - George Nguyen - added constants for Unified Investigation and Unified Entitlements
+  * 20.08.2024 - George Nguyen - Added Unified App constant
+  * 03.09.2024 - George Nguyen - Added CASE_TYPE_AND_PRODUCT_UNIFIED_MODEL & CASE_ENQUIRY_SUBTYPE_LATE_ITEM used to set the value on case when it changes from General Enquiry to Investigation
+  * 06.09.2024 - George Nguyen - Renamed the name of this constant: UNIFIED_AGENT_PROFILE
   */  
 public with sharing class SSSWConstants {
 
@@ -42,45 +49,52 @@ public with sharing class SSSWConstants {
 	public static final Set<String> CALLBACK_REQUEST_STATUS_ALL_CLOSED = new Set<String> {CALLBACK_REQUEST_STATUS_CLOSED};
 	 
 
-	/*** Case Object ***/
-	public static final String CASE_SLA_STATUS = 'Awaiting Network Response';
-	public static final String CASE_ROOT_CAUSE_SSSW_NETWORK_QUEUE = 'Awaiting Network Response';
-	public static final String CASE_TYPE = 'General Enquiry';
-	public static final String CASE_ORIGIN = 'Phone';
+    /*** Case Object ***/
+    public static final String CASE_SLA_STATUS = 'Awaiting Network Response';
+    
+	public static final String CASE_TYPE_GENERAL_ENQUIRY = 'General Enquiry';
+	public static final String CASE_TYPE = CASE_TYPE_GENERAL_ENQUIRY; // NOTE: Please do not use this as it is not properly named. Use CASE_TYPE_GENERAL_ENQUIRE instead
+    public static final String CASE_TYPE_INVESTIGATION  = 'Investigation';
+
+    public static final String CASE_ORIGIN = 'Phone';
 	public static final String CASE_ORIGIN_DIRECT_EMAIL = 'Direct Email';
-	public static final String CASE_PRIORITY = 'Low';
-	public static final String CASE_PROD_CAT = 'Domestic Parcels';
-	public static final String CASE_PROD_SUB_CAT = 'Cash on Delivery';
-	public static final String CASE_STATUS_CLOSED = 'Closed';
-	public static final String CASE_STATUS_INPROGRESS = 'In Progress';
-	public static final String CASE_STATUS_NEW = 'New';
-	public static final String CASE_TYPE_INVESTIGATION  = 'Investigation';
-	public static final String CASE_ENQUIRY_SUBTYPE = 'Disputed delivery scan';
-	public static final String CASE_LOCALITY_DOMESTIC = 'Domestic';
-	public static final String CASE_ORIGINATOR_ADDRESSEE = 'Addressee';
-	
-	/*** @author: rajesh.punjabi@mav3rik.com MyNetworkSmartForm Contants (Case Object)*/
-	public static final String CASE_PRIORITY_HIGH = 'High';
-	public static final String CASE_ORIGIN_INTERNAL_FORM = 'Internal Form';
-	public static final Boolean CASE_IS_NEW_FOR_ROUTING = true;
-	public static final String COMPENSATION_RT = 'Retail_Compensation';
-	public static final String CASE_RT_SSSW_DELIVERY = 'SSSWDelivery';
-	public static final Double COMPENSTATION_VALUE = 150.0;
-	public static final String CASE_RESOLUTION_CODE =  'MyNetwork Resolution';
-	public static final String CASE_RESOLUTION_RESULT_DAMAGES_MISSING_CONTENTS = 'Damaged & Missing Contents';
-	public static final String CASE_TYPE_OF_DAMAGE_WINE_DAMAGE = 'Wine Damage';
-	
-	//Queues List
-	public static final String QUEUE_NAME_SSSWNETWORKQUEUE = 'SSSW Network Queue'; 
-	public static final String QUEUE_NAME_CALLBACKREQUEST = 'Callback Request Queue';
-	public static final String QUEUE_NAME_REOPEN_Q='SSSW_Awaiting_Reopen';
-	public static final String QUEUE_DEV_NAME_SSSWNETWORKQUEUE='SSSWNetworkQueue';
-	
-	/*** Variables to hold Class constants ***/
-	public static final String SSSW_APP = 'SSSW';
-	
-	/*** CaseTriggerHelper Constants  ***/
-	public static final String CASE_TRIGGER = 'CaseTrigger'; 
+    public static final String CASE_PRIORITY = 'Low';
+    public static final String CASE_PROD_CAT = 'Domestic Parcels';
+    public static final String CASE_PROD_SUB_CAT = 'Cash on Delivery';
+    public static final String CASE_STATUS_CLOSED = 'Closed';
+    public static final String CASE_STATUS_INPROGRESS = 'In Progress';
+    public static final String CASE_STATUS_NEW = 'New';
+	public static final String CASE_STATUS_UPDATED = 'Updated';
+	public static final String CASE_STATUS_MONITORING = 'Monitoring';
+    public static final String CASE_ENQUIRY_SUBTYPE = 'Disputed delivery scan';
+    public static final String CASE_LOCALITY_DOMESTIC = 'Domestic';
+    public static final String CASE_ORIGINATOR_ADDRESSEE = 'Addressee';
+	public static final String CASE_TYPE_AND_PRODUCT_UNIFIED_MODEL = 'Unified Model';
+	public static final String CASE_ENQUIRY_SUBTYPE_LATE_ITEM = 'Late Item';
+    
+    /*** @author: rajesh.punjabi@mav3rik.com MyNetworkSmartForm Contants (Case Object)*/
+    public static final String CASE_PRIORITY_HIGH = 'High';
+    public static final String CASE_ORIGIN_INTERNAL_FORM = 'Internal Form';
+    public static final Boolean CASE_IS_NEW_FOR_ROUTING = true;
+    public static final String COMPENSATION_RT = 'Retail_Compensation';
+    public static final String CASE_RT_SSSW_DELIVERY = 'SSSWDelivery';
+    public static final Double COMPENSTATION_VALUE = 150.0;
+    public static final String CASE_RESOLUTION_CODE =  'MyNetwork Resolution';
+    public static final String CASE_RESOLUTION_RESULT_DAMAGES_MISSING_CONTENTS = 'Damaged & Missing Contents';
+    public static final String CASE_TYPE_OF_DAMAGE_WINE_DAMAGE = 'Wine Damage';
+    
+    //Queues List
+    public static final String QUEUE_NAME_SSSWNETWORKQUEUE = 'SSSW Network Queue'; 
+    public static final String QUEUE_NAME_CALLBACKREQUEST = 'Callback Request Queue';
+    public static final String QUEUE_NAME_REOPEN_Q='SSSW_Awaiting_Reopen';
+    public static final String QUEUE_DEV_NAME_SSSWNETWORKQUEUE='SSSWNetworkQueue';
+    
+    /*** Variables to hold Class constants ***/
+    public static final String SSSW_APP = 'SSSW';
+	public static final String UNIFIED_APP = 'Unified';
+    
+    /*** CaseTriggerHelper Constants  ***/
+    public static final String CASE_TRIGGER = 'CaseTrigger'; 
 	public static final String CASE_INVESTIGATION_TRIGGER = 'CaseInvestigationTrigger'; 
 	public static final String QUEUE_CHILDCASE_DEV = 'SSSWChildCases'; 
 	public static final String STAT_CHILD_CASE_UPDATE = 'Child Case Update'; 
@@ -123,6 +137,10 @@ public with sharing class SSSWConstants {
 	public static final String METH_UPDATE_MANAGER_HIERARCHY = 'updateHierarchyManager';
 	
 	/*** CaseMilestoneUtility Constants  ***/
+	public static final String UNIFIED_ENTITLEMENTS = 'Unified Entitlements';
+	public static final String UNIFIED_INVESTIGATION_DEVELOPER_NAME = 'UnifiedInvestigation';
+	public static final String UNIFIED_GENERAL_ENQUIRY_DEVELOPER_NAME = 'UnifiedGeneralEnquiry';
+
 	public static final Decimal DEF_MILESTONE_WARNING_PERCENT = 0.2;
 	public static final String STAT_COMPLETED = 'Completed';
 	public static final String STAT_AWAITING_CUST_RESPONSE = 'Awaiting Customer Response';
@@ -142,8 +160,8 @@ public with sharing class SSSWConstants {
 	
 	public static final String STATIC_BLOCK = 'staticBlock'; 
 	public static final String METH_INSERT_MILESTONES = 'insertMilestones';
-	public static final String METH_UPDATESLA = 'updateSLA';    
-	public static final String METH_SETSLA = 'setSLA';    
+	public static final String METH_UPDATESLA = 'updateSLA';	
+	public static final String METH_SETSLA = 'setSLA';	
 	public static final String METH_SETESCALATION = 'setEscalationMail';
 	public static final String METH_UPDATE_MILESTONES = 'updateMilestones';
 	public static final String METH_FUTURE_UPDATE = 'futureUpdate';
@@ -157,16 +175,17 @@ public with sharing class SSSWConstants {
 	public static final String METH_GETGROUPID = 'getGroupId';
 	public static final String METH_GETGROUPS = 'getGroups';
 	public static final String METH_GETGROUP_DETAILS = 'getGroupDetails';
-	public static final String METH_GETUSERS = 'getUsers';    
-	public static final String METH_GET_STD_ENTITLEMENT = 'getStandardEntitlement';    
+	public static final String METH_GETUSERS = 'getUsers';	
+	public static final String METH_GET_STD_ENTITLEMENT = 'getStandardEntitlement';	
 	public static final String PERCENT = '%';
-	public static final String ENTITLEMENT_ACC = 'SSSW Entitlements';
+	public static final String ENTITLEMENT_ACC = 'SSSW Entitlements';		
 
 	/*** SSSW Routing ***/
 	public static final String RECTYPEROUTING = 'SSSWRouting';
 	public static final String RECTYPENPS = 'SSSWNPS';
 	public static final String RECTYPEESCALATION = 'SSSWEscalation';
 	public static final String RECTYPEDESCRIPTION = 'SSSWDescription';
+	public static final String SSSWROUTING_RECTYPE_UNIFIEDROUTING = 'UnifiedRouting';
 	
 	/*** CaseTrackingHelper Constants  ***/
 	public static final String WHITE_SPACE = ' ';
@@ -181,7 +200,7 @@ public with sharing class SSSWConstants {
 	public static final String FLD_TZKEY = 'TimeZoneSidKey';
 	public static final String DEF_TZKEY = 'Australia/Sydney';
 	public static final String RECTYPE_ST_GENERAL = 'SSSW General';
-	public static final String RECTYPE_CASE_FAX = 'SSSW Fax';    
+	public static final String RECTYPE_CASE_FAX = 'SSSW Fax';	
 	public static final String STAT_TRACK_FORMAT = 'dd-MM-yyyy hh:mm:ss a';
 	public static final String STAT_NETWORK_RESPONDED = 'Network Responded';
 	
@@ -233,10 +252,10 @@ public with sharing class SSSWConstants {
 	public static final String SUBURB = 'Suburb'; 
 	public static final String ADDRE_STATE = 'Addressee Address State'; 
 	public static final String STATE = 'State'; 
-	public static final String ADDRE_COUNTRY = 'Addressee Address Country';                                              
+	public static final String ADDRE_COUNTRY = 'Addressee Address Country';											  
 	public static final String COUNTRY = 'Country';
 	public static final String ADDRE_POSTCODE = 'Addressee Address Postcode';
-	public static final String POSTCODE = 'Post Code';                  
+	public static final String POSTCODE = 'Post Code';				  
 	public static final String ADDRE_EMAIL = 'Addressee Email';
 	public static final String EMAIL = 'Email';
 	public static final String PHONE = 'Phone';   
@@ -290,12 +309,14 @@ public with sharing class SSSWConstants {
 	/*** START OF SSSW Send Bulk EMail Constants -- kalpita ***/
 	public static final String CASE_OBJ = 'Case';
 	public static final String CASE_RECTYPE_LIKE = 'SSSW%';
-	public static final String CASE_STATUS = 'New';
+	
+	public static final String CASE_STATUS = CASE_STATUS_NEW; // NOTE: Please do not use this as it is not properly named. Use CASE_STATUS_NEW instead
+
 	public static final String ORGWIDEEMAIL = 'customerservice@auspost.com.au';
 	public static final String TASK_SUB = 'Email: Australia Post – Case';
 	public static final String TASK_INT_TYPE = 'SSSW Bulk Emails';
 	public static final String GENERAL_ENQUIRY = 'General Enquiry';
-	public static final String Investigation = 'Investigation';
+	public static final String INVESTIGATION = 'Investigation';
 	public static final String Feedback = 'Feedback';
 	public static final String CLOSE = 'Close';
 	public static final String EMAIL_SUBJECT = 'Australia Post-No Reply';
@@ -321,13 +342,21 @@ public with sharing class SSSWConstants {
 	public static final String SSSW_AGENT_PROFILE = 'SSSW - Service Agent';
 	public static final String SSSW_SOCIAL_INTEGRATION_PROFILE = 'SSSW Social Integration';
 	public static final String SSSW_BSP_COMMUNITY_USER_PROFILE = 'BSP Community User';
+	public static final String UNIFIED_AGENT_PROFILE = 'Unified Customer Service';
 
 	/*** Omnichannel Constants ***/
 	public static final String OMNI_AGENTWORK_STATUS_OPENED = 'Opened';
 	public static final String OMNI_AGENTWORK_STATUS_DECLINED = 'Declined';
 	public static final String OMNI_AGENTWORK_STATUS_DECLINED_ONPUSHTIMEOUT = 'DeclinedOnPushTimeout';
 	public static final String OMNI_AGENTWORK_STATUS_UNAVAILABLE = 'Unavailable';
+	public static final String OMNI_AGENTWORK_STATUS_ASSIGNED = 'Assigned';
 
 	/* ExceptionCheckerService Constants*/
 	public static final String RECTYPE_ARTICLE_CONSIGNMENT = 'Consignment';
+
+	/*** Enquiry Mapping Constants ***/
+	public static final String ENQUIRYMAPPING_UNIFIED_MODEL = 'Unified';
+	public static final String ENQUIRYMAPPING_CLASSIC_MODEL = 'Classic';
+
+	public static final String SSSW_ENTITLEMENT = 'Standard Entitlement';
 }

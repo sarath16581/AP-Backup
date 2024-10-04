@@ -102,6 +102,11 @@
                 <label>Parcel Send Assistance/Training</label>
             </value>
             <value>
+                <fullName>Domestic</fullName>
+                <default>false</default>
+                <label>Domestic</label>
+            </value>
+            <value>
                 <fullName>StarTrack</fullName>
                 <default>false</default>
                 <label>StarTrack</label>

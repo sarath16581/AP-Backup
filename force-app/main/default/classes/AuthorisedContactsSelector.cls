@@ -60,6 +60,7 @@ public virtual inherited sharing class AuthorisedContactsSelector extends Applic
 	* this method returns records with matching case Ids
 	* @param caseId - set of case ids
 	* @param selecterOptions - selector options to augment result set
+	* @return List of authorised contacts
 	*/
 	public List<AuthorisedContacts__c> selectByCaseIdOrderByName(Set<Id> caseIds, Set<Object> selectorOptions) {
 		QueryBuilder qb = newQueryBuilder(selectorOptions);  
@@ -70,4 +71,5 @@ public virtual inherited sharing class AuthorisedContactsSelector extends Applic
 		qb.addOrderAsc(AuthorisedContacts__c.Calc_First_Name__c);
 		return (List<AuthorisedContacts__c>)Database.query(qb.toSoqlString());
 	}
+
 }

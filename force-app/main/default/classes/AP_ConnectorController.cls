@@ -6,6 +6,7 @@ History:
 2018-03-17 kalpita.talwadekar@auspost.com.au created
 2018-04-18 nathan.franklin@auspost.com.au changed query to increase performance
 2018-06-01 nathan.franklin@auspost.com.au added phone number to task creation and minor tidyups
+2024-06-13 Parveen Kaushik Added a filter in SOQL for mapping model. See CSLU-470 (JIRA) for details.
 **************************************************/
 global class AP_ConnectorController {
 
@@ -448,7 +449,7 @@ global class AP_ConnectorController {
 		CTIDefaultValue result = new CTIDefaultValue();
 		string key = customerSegment.trim() + serviceType.trim();
 		if (key != '') {
-			List<MiniCaseFieldMapping__c> mappings = [select ProductCategory__c, ProductSubcategory__c, Type__c from MiniCaseFieldMapping__c where CTIKey__c like :key];
+			List<MiniCaseFieldMapping__c> mappings = [select ProductCategory__c, ProductSubcategory__c, Type__c from MiniCaseFieldMapping__c where CTIKey__c like :key AND MappingModel__c =: SSSWConstants.ENQUIRYMAPPING_CLASSIC_MODEL];
 			if (mappings.size() > 0) {
 				result = new CTIDefaultValue(mappings[0]);
 			}

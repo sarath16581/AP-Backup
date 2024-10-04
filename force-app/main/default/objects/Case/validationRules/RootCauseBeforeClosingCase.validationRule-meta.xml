@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>RootCauseBeforeClosingCase</fullName>
+    <active>true</active>
+    <description>Root Cause field should be populated before closing “Investigation” record type cases</description>
+    <errorConditionFormula>AND(
+    RecordType.DeveloperName = &apos;UnifiedInvestigation&apos;, 
+    ISPICKVAL(Status,&quot;Closed&quot;),
+    ISBLANK(TEXT(Root_cause__c))
+)</errorConditionFormula>
+    <errorMessage>Provide root cause before closing the case</errorMessage>
+</ValidationRule>

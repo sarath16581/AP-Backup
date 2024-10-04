@@ -1,19 +1,23 @@
 /**************************************************
 Description:    Handles all the specific functionality when the LiveAgentTranscript trigger fires
+@Test LiveChatTranscriptTriggerTest
 History:
 --------------------------------------------------
 2018-10-28  nathan.franklin@auspost.com.au  Created
-
-05/08/2021 Prerna Rahangdale : A new method upDateIpAddress added to overide the Standard Ip address
- with the Custom visitorId Address the smart speak chatbot payload, the Standard Ip address was populating the
-  SS application Server address
+2021-08-05	Prerna Rahangdale : A new method upDateIpAddress added to overide the Standard Ip address with the Custom visitorId Address the smart speak chatbot payload, the Standard Ip address was populating the SS application Server address
+2024-08-23	George Nguyen	Added newInstance(...) to enable mocking of legacy calls. 
 **************************************************/
 public with sharing class LiveChatTranscriptTriggerHandler {
+
+	public static LiveChatTranscriptTriggerHandler getInstance() {
+		return (LiveChatTranscriptTriggerHandler) Application.Utilities.getInstance(LiveChatTranscriptTriggerHandler.class);
+	}
+
+	public void executeLegacy() {
+		LiveChatTranscriptTriggerHandler.execute();
+	}
     
-   /// public static Boolean isBeforeUpdateExecuted = false;
-  //  public static Boolean isAfterUpdateExecuted = false;
-    
-    public static void execute(){
+    public static void execute(){		
         if(Trigger.isBefore) {
             // invoke of before handler
             beforeHandler();

@@ -16,7 +16,7 @@
         <operation>notEqual</operation>
         <value>SSSW Delivery, SSSW Fax, SSSW General Enquiry, SSSW Service</value>
     </exitCriteriaFilterItems>
-    <isVersionDefault>true</isVersionDefault>
+    <isVersionDefault>false</isVersionDefault>
     <milestones>
         <milestoneCriteriaFilterItems>
             <field>Case.Origin</field>

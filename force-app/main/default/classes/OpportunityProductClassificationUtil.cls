@@ -283,7 +283,7 @@ public with sharing class OpportunityProductClassificationUtil {
         List<String> oliIdList = new List<String>();
         Map<Id, String> oliMap = new Map<Id, String>();
         List<Revenue_Schedule__c> rsUpdList = new List<Revenue_Schedule__c>();
-    
+    	/*
         for(OpportunityLineItem oli : oliList) {
             if (oli.Classification__c!=oldMap.get(oli.Id).Classification__c){
                 system.debug('Reclassification!');
@@ -291,7 +291,7 @@ public with sharing class OpportunityProductClassificationUtil {
                 oliMap.put(oli.Id, oli.Classification__c);
             }           
         }
-        
+        */
         List<Revenue_Schedule__c> rsList = [SELECT Id, Classification_c__c, OpportunityLineItem__c 
                                             FROM Revenue_Schedule__c 
                                             WHERE OpportunityLineItem__c in : oliIdList];

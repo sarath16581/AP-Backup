@@ -2,8 +2,8 @@
  * @description Yet another Test data factory... hopefully the last one before a tidyup... eek!
  *
  * IMPORTANT - New methods for generating test data are to be added in a domain specific (e.g. SSSW, StarTrack) application
- *		   test data factory. Please refer PUDTestDataFactory for an example.
- *		   Test data helpers currently in this class will be incrementally moved to domain specific test data factories.
+ *			test data factory. Please refer PUDTestDataFactory for an example.
+ *			Test data helpers currently in this class will be incrementally moved to domain specific test data factories.
  *
  * @author Nathan Franklin
  * @date 2020-04-24
@@ -22,6 +22,9 @@
  * 2023-08-09 - Mahesh Parvathaneni - Added method getNetworkMembers
  * 2023-09-22 - Ken McGuire - added methods for product revenue objects
  * 2024-04-17 - Deepak Kemidi - added method for creating vendor emails
+ * 2024-06-13 - Parveen Kaushik - Added default value for mapping model on test data. See CSLU-470 (JIRA) for details.
+ * 2024-07-10 - Vasu Gorakati - Added method getImpactedArticles
+ * 2024-07-26 - Seth Heang - Added method getScheduledActions
  * 2024-07-19 - Nathan Franklin - resetting data factory due to some overwrites
 */
 @IsTest
@@ -114,17 +117,6 @@ public with sharing class ApplicationTestDataFactory {
 		for(Integer i = 0; i < output.size(); i++) {
 			output[i] = (FeedComment)setUnwritableFields(output[i], new Map<String, Object>{'ParentId' => parentId});
 		}
-
-		return output;
-	}
-
-	public static List<Critical_Incident__kav> getCriticalIncidents(Integer count, Boolean generateIds) {
-		List<Critical_Incident__kav> output = (List<Critical_Incident__kav>)maybeGenerateIds(populateSObjects(Schema.SObjectType.Critical_Incident__kav.SObjectType, new Map<SObjectField, Object> {
-			Critical_Incident__kav.Title => 'Test Title %count%',
-			Critical_Incident__kav.UrlName => 'Test-UrlName-%count%',
-			Critical_Incident__kav.Time_To_Remind__c => System.today(),
-			Critical_Incident__kav.language => 'en_US'
-		}, count), generateIds);
 
 		return output;
 	}
@@ -421,21 +413,24 @@ public with sharing class ApplicationTestDataFactory {
 						ProductCategory__c = 'Domestic Parcels',
 						ProductSubcategory__c = 'eParcel- Regular',
 						SAPProductCategory__c = 'eParcel',
-						SAPProductSubcategory__c = 'eParcel Standard'
+						SAPProductSubcategory__c = 'eParcel Standard',
+						MappingModel__c = SSSWConstants.ENQUIRYMAPPING_CLASSIC_MODEL
 				),
 				new MiniCaseFieldMapping__c(
 						Id = (generateIds ? fflib_IDGenerator.generate(MiniCaseFieldMapping__c.SObjectType) : null),
 						ProductCategory__c = 'Domestic Parcels',
 						ProductSubcategory__c = 'StarTrack (Next Flight Premium & Express)',
 						SAPProductCategory__c = 'StarTrack',
-						SAPProductSubcategory__c = 'ST Next Flight'
+						SAPProductSubcategory__c = 'ST Next Flight',
+						MappingModel__c = SSSWConstants.ENQUIRYMAPPING_CLASSIC_MODEL
 				),
 				new MiniCaseFieldMapping__c(
 						Id = (generateIds ? fflib_IDGenerator.generate(MiniCaseFieldMapping__c.SObjectType) : null),
 						ProductCategory__c = 'Domestic Parcels',
 						ProductSubcategory__c = 'Express',
 						SAPProductCategory__c = 'Express Post',
-						SAPProductSubcategory__c = 'Express Post Medium'
+						SAPProductSubcategory__c = 'Express Post Medium',
+						MappingModel__c = SSSWConstants.ENQUIRYMAPPING_CLASSIC_MODEL
 				)
 		};
 
@@ -908,7 +903,7 @@ public with sharing class ApplicationTestDataFactory {
 			Budget_and_Revenue__c.Dec_Revenue_Amount__c => 1000
 		}, count), generateIds);
 	}
-    
+	
 
 
 	public static List<Product2> getProducts(Integer count, Boolean generateIds) {
@@ -927,16 +922,16 @@ public with sharing class ApplicationTestDataFactory {
         }, count), generateIds);
     }
 
-    public static List<OpportunityLineItem> getOpportunityLineItems(Integer count, Id opportunityId, Id pricebookEntryId, Boolean generateIds) {
-        Date todaysDate = Date.today();
-        return (List<OpportunityLineItem>) maybeGenerateIds(populateSObjects(OpportunityLineItem.SObjectType, new Map<SObjectField, Object> {
-            OpportunityLineItem.OpportunityId => opportunityId,
-            OpportunityLineItem.PricebookEntryId => pricebookEntryId,
-            OpportunityLineItem.TotalPrice => 1000,
-            OpportunityLineItem.Contract_Start_Date__c => todaysDate,
-            OpportunityLineItem.Contract_End_Date__c => todaysDate.addDays(3)
-        }, count), generateIds);
-    }
+	public static List<OpportunityLineItem> getOpportunityLineItems(Integer count, Id opportunityId, Id pricebookEntryId, Boolean generateIds) {
+		Date todaysDate = Date.today();
+		return (List<OpportunityLineItem>) maybeGenerateIds(populateSObjects(OpportunityLineItem.SObjectType, new Map<SObjectField, Object> {
+			OpportunityLineItem.OpportunityId => opportunityId,
+			OpportunityLineItem.PricebookEntryId => pricebookEntryId,
+			OpportunityLineItem.TotalPrice => 1000,
+			OpportunityLineItem.Contract_Start_Date__c => todaysDate,
+			OpportunityLineItem.Contract_End_Date__c => todaysDate.addDays(3)
+		}, count), generateIds);
+	}
 
 	public static List<BAMApplication__c> getBamApplications(Integer count, String appName, Id productId, Boolean generateIds) {
 		return (List<BAMApplication__c>)maybeGenerateIds(populateSObjects(BAMApplication__c.SObjectType, new Map<SObjectField, Object> {
@@ -975,6 +970,16 @@ public with sharing class ApplicationTestDataFactory {
                 BAMContactApplication__c.Status__c => 'Active'
         }, count), generateIds);
     }
+
+	public static List<ScheduledAction__c> getScheduledActions(Integer count, String name, String actionType, DateTime scheduledDateTime, Id caseId, Boolean generateIds) {
+		return (List<ScheduledAction__c>)maybeGenerateIds(populateSObjects(ScheduledAction__c.SObjectType, new Map<SObjectField, Object> {
+				ScheduledAction__c.Name => name,
+				ScheduledAction__c.ActionType__c => actionType,
+				ScheduledAction__c.ScheduledDate__c => scheduledDateTime,
+				ScheduledAction__c.Case__c => caseId,
+				ScheduledAction__c.Active__c => true
+		}, count), generateIds);
+	}
 
 	public static void generateRecordIds(List<SObject> records) {
 		for(SObject record : records) {
@@ -1121,6 +1126,16 @@ public with sharing class ApplicationTestDataFactory {
 			emailAddresses.add(email);
 		}
 		return (List<Auspost_Vendors_Email_Address__mdt>)maybeGenerateIds(emailAddresses, generateIds);
+	}
+
+	/**
+	* Generates test data for Impacted Articles
+	**/
+	public static List<ImpactedArticle__c> getImpactedArticles(integer count, Id caseId, Id articleId, Boolean generateIds){
+		return (List<ImpactedArticle__c>)maybeGenerateIds(populateSObjects(ImpactedArticle__c.SObjectType, new Map<SObjectField, Object> {
+			ImpactedArticle__c.Case__c => caseId,
+			ImpactedArticle__c.Article__c => articleId
+		}, count), generateIds);
 	}
 
 	/**

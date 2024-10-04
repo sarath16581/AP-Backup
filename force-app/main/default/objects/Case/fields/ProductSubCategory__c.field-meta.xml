@@ -923,6 +923,26 @@
                 <label>Product &amp; service information</label>
             </value>
             <value>
+                <fullName>StarTrack Road Express</fullName>
+                <default>false</default>
+                <label>StarTrack Road Express</label>
+            </value>
+            <value>
+                <fullName>StarTrack Premium</fullName>
+                <default>false</default>
+                <label>StarTrack Premium</label>
+            </value>
+            <value>
+                <fullName>eParcel Parcel Post</fullName>
+                <default>false</default>
+                <label>eParcel Parcel Post</label>
+            </value>
+            <value>
+                <fullName>eParcel Express Post</fullName>
+                <default>false</default>
+                <label>eParcel Express Post</label>
+            </value>
+            <value>
                 <fullName>New Links</fullName>
                 <default>false</default>
                 <label>New Links</label>
@@ -973,6 +993,22 @@
                 <label>ARC</label>
             </value>
         </valueSetDefinition>
+        <valueSettings>
+            <controllingFieldValue>Domestic</controllingFieldValue>
+            <valueName>StarTrack Road Express</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Domestic</controllingFieldValue>
+            <valueName>StarTrack Premium</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Domestic</controllingFieldValue>
+            <valueName>eParcel Parcel Post</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Domestic</controllingFieldValue>
+            <valueName>eParcel Express Post</valueName>
+        </valueSettings>
         <valueSettings>
             <controllingFieldValue>Card Transaction Monitoring</controllingFieldValue>
             <valueName>China Union Pay - CUP</valueName>

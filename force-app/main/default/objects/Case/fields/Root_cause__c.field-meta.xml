@@ -50,6 +50,111 @@
                 <default>false</default>
                 <label>Looping Parcel</label>
             </value>
+            <value>
+                <fullName>Poor Communication</fullName>
+                <default>false</default>
+                <label>Poor Communication</label>
+            </value>
+            <value>
+                <fullName>Unclear Scans</fullName>
+                <default>false</default>
+                <label>Unclear Scans</label>
+            </value>
+            <value>
+                <fullName>Force Majeure</fullName>
+                <default>false</default>
+                <label>Force Majeure</label>
+            </value>
+            <value>
+                <fullName>Unresolved Issue</fullName>
+                <default>false</default>
+                <label>Unresolved Issue</label>
+            </value>
+            <value>
+                <fullName>Service Failures</fullName>
+                <default>false</default>
+                <label>Service Failures</label>
+            </value>
+            <value>
+                <fullName>Driver Behaviour</fullName>
+                <default>false</default>
+                <label>Driver Behaviour</label>
+            </value>
+            <value>
+                <fullName>Agent Behaviour</fullName>
+                <default>false</default>
+                <label>Agent Behaviour</label>
+            </value>
+            <value>
+                <fullName>Retail Behaviour</fullName>
+                <default>false</default>
+                <label>Retail Behaviour</label>
+            </value>
+            <value>
+                <fullName>Unclear EDD</fullName>
+                <default>false</default>
+                <label>Unclear EDD</label>
+            </value>
+            <value>
+                <fullName>Compensation</fullName>
+                <default>false</default>
+                <label>Compensation</label>
+            </value>
+            <value>
+                <fullName>Can&apos;t find information</fullName>
+                <default>false</default>
+                <label>Can&apos;t find information</label>
+            </value>
+            <value>
+                <fullName>Changes to pricing/products</fullName>
+                <default>false</default>
+                <label>Changes to pricing/products</label>
+            </value>
+            <value>
+                <fullName>Changes to systems/technology</fullName>
+                <default>false</default>
+                <label>Changes to systems/technology</label>
+            </value>
+            <value>
+                <fullName>Technology useability issues</fullName>
+                <default>false</default>
+                <label>Technology useability issues</label>
+            </value>
+            <value>
+                <fullName>Can&apos;t self-service</fullName>
+                <default>false</default>
+                <label>Can&apos;t self-service</label>
+            </value>
+            <value>
+                <fullName>Sentimental/Urgent product</fullName>
+                <default>false</default>
+                <label>Sentimental/Urgent product</label>
+            </value>
+            <value>
+                <fullName>Scam/Watchdog</fullName>
+                <default>false</default>
+                <label>Scam/Watchdog</label>
+            </value>
+            <value>
+                <fullName>Unreasonable Expectations</fullName>
+                <default>false</default>
+                <label>Unreasonable Expectations</label>
+            </value>
+            <value>
+                <fullName>Local topical issue</fullName>
+                <default>false</default>
+                <label>Local topical issue</label>
+            </value>
+            <value>
+                <fullName>AP topical issue</fullName>
+                <default>false</default>
+                <label>AP topical issue</label>
+            </value>
+            <value>
+                <fullName>Product/service topical issue</fullName>
+                <default>false</default>
+                <label>Product/service topical issue</label>
+            </value>
         </valueSetDefinition>
     </valueSet>
 </CustomField>

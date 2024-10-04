@@ -82,16 +82,18 @@
 
 		// Wire up storage event to CTI Eventlistener
 		// - Storage events are used for cross window / iframe communication
-		window.addEventListener('storage', (event) => {
-			if (event.key.startsWith('CTI_')) {
-				// Provide event detail newValue and oldValue
-				const detail = ['newValue', 'oldValue'].reduce(
-					(res, item) => Object.assign(res, { [item] : GenesysCTIUtils.jsonToObj(event[item]) }), { }
-				);
-				// Provide array of changed attributes
-				detail.changes = GenesysCTIUtils.getDiff(detail.newValue, detail.oldValue);
-				handleCtiEvent('STORAGE', { detail, key : event.key });
-			}
+		window.addEventListener('storage', function(event) {
+			setTimeout(function() {
+				if (event.key.startsWith('CTI_')) {
+					// Provide event detail newValue and oldValue
+					const detail = ['newValue', 'oldValue'].reduce(
+						(res, item) => Object.assign(res, {[item]: GenesysCTIUtils.jsonToObj(event[item])}), {}
+					);
+					// Provide array of changed attributes
+					detail.changes = GenesysCTIUtils.getDiff(detail.newValue, detail.oldValue);
+					handleCtiEvent('STORAGE', {detail, key: event.key});
+				}
+			}, 0);
 		});
 
 		// Clearview codes

@@ -1,0 +1,72 @@
+<template>
+	<div class={gridClass}>
+		<div class="slds-col">
+			<!-- Empty State Illustration -->
+			<div class={illustrationClass}>
+				<svg
+					class="slds-illustration__svg"
+					viewBox="0 0 484 129"
+					aria-hidden="true"
+					xmlns="http://www.w3.org/2000/svg"
+				>
+					<rect
+						y="74"
+						width="220"
+						height="18"
+						rx="9"
+						class="slds-illustration__fill-secondary"
+					/>
+					<rect
+						x="236"
+						y="74"
+						width="248"
+						height="18"
+						rx="9"
+						class="slds-illustration__fill-secondary"
+					/>
+					<rect
+						y="37"
+						width="427"
+						height="18"
+						rx="9"
+						class="slds-illustration__fill-primary"
+					/>
+					<rect
+						y="111"
+						width="60"
+						height="18"
+						rx="9"
+						class="slds-illustration__fill-primary"
+					/>
+					<rect
+						x="78"
+						y="111"
+						width="197"
+						height="18"
+						rx="9"
+						class="slds-illustration__fill-primary"
+					/>
+					<rect
+						width="339"
+						height="18"
+						rx="9"
+						class="slds-illustration__fill-secondary"
+					/>
+				</svg>
+			</div>
+		</div>
+		<div class="slds-col slds-text-align_center slds-var-m-vertical_large">
+			<!-- Message -->
+			<h3
+				if:true={titleText}
+				class="slds-text-heading_medium slds-var-m-bottom_large"
+			>
+				{titleText}
+			</h3>
+			<p if:true={bodyText} class="slds-text-body_regular">{bodyText}</p>
+			<slot>
+				<!-- Child Elements (if applicable) -->
+			</slot>
+		</div>
+	</div>
+</template>

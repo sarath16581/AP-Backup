@@ -1,4 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Description</fullName>
+    <description>This field represents a text field where the agent can enter a summary of the call.</description>
+    <inlineHelpText>This field represents a text field where the agent can enter a summary of the call.</inlineHelpText>
+    <securityClassification>INTERNAL</securityClassification>
+    <trackFeedHistory>false</trackFeedHistory>
 </CustomField>

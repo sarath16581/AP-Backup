@@ -3,6 +3,7 @@ Description:    Common utility test methods
 
 2017-10-02          nathan.franklin@auspost.com.au             Created for Coverage
 2018-05-28			hasantha.liyanage@auspost.com.au			added tests only for test coverage
+2024-09-13			Marcel HK									Added isUnifiedCase method
 *******************************************************************************************/
 @isTest
 public class CommonUtils_Test {
@@ -32,4 +33,15 @@ public class CommonUtils_Test {
 		CommonUtils.getGlobalDescribe();
 	}
 
+	@IsTest
+	static void testIsUnifiedCasePositive() {
+		Assert.isTrue(CommonUtils.isUnifiedCase('UnifiedGeneralEnquiry'), '\'UnifiedGeneralEnquiry\' should return \'true\'');
+		Assert.isTrue(CommonUtils.isUnifiedCase('UnifiedInvestigation'), '\'UnifiedInvestigation\' should return \'true\'');
+	}
+
+	@IsTest
+	static void testIsUnifiedCaseNegative() {
+		Assert.isFalse(CommonUtils.isUnifiedCase('GeneralEnquiry'), '\'GeneralEnquiry\' should return \'false\'');
+		Assert.isFalse(CommonUtils.isUnifiedCase(null), 'null should return \'false\'');
+	}
 }

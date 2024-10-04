@@ -23,6 +23,10 @@
         <value xsi:type="xsd:string">Account</value>
     </values>
     <values>
+        <field>PersonAccountStandardAddressField__c</field>
+        <value xsi:nil="true"/>
+    </values>
+    <values>
         <field>Postcode_Field__c</field>
         <value xsi:nil="true"/>
     </values>

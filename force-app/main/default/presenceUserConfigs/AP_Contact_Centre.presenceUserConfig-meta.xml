@@ -2,6 +2,7 @@
 <PresenceUserConfig xmlns="http://soap.sforce.com/2006/04/metadata">
     <assignments>
         <profiles>
+            <profile>admin</profile>
             <profile>sssw - service agent</profile>
         </profiles>
     </assignments>

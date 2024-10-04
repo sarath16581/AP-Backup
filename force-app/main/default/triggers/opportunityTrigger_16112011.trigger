@@ -20,6 +20,7 @@
 	2023-05-04 - Ranjeewa Silva - Added support for domain based trigger dispatch.
 	2023-06-20 - Boris Bachovski - Introduce extension to a new module framework and establish a baseline for future refactoring of existing trigger code.
 	2023-08-22 - Ranjeewa Silva - Removed domain trigger handler and uplifted existing domain modules to new ApplicationModule framework.
+	2024-10-01 - Ken McGuire - removed phase 2 schedule generation 
 	**************************************************/
 trigger opportunityTrigger_16112011 on Opportunity (before insert, before update, after insert, after update, after delete, after undelete, before delete) {
 	if(!TriggerHelper.isTriggerDisabled(String.valueOf(Opportunity.sObjectType))){ // verify if triggers are disabled
@@ -60,14 +61,14 @@ trigger opportunityTrigger_16112011 on Opportunity (before insert, before update
 
 					//Phase 2 - Added 03.08.2012. Generate Revenue Schedules when the Opportunity is set to 'Closed Won'.
 					//16.08.2012 - Added extra condition to ignore BAU WF update to Modified Contract Start Date field.
-					if (opp.IsWon && (trigger.isInsert || (trigger.isUpdate && !trigger.oldMap.get(opp.Id).IsWon &&
+					/*if (opp.IsWon && (trigger.isInsert || (trigger.isUpdate && !trigger.oldMap.get(opp.Id).IsWon &&
 						(opp.Modified_Contract_Start_Date__c==trigger.oldMap.get(opp.Id).Modified_Contract_Start_Date__c)))){
 							closedoppIds.add(opp.Id);
-					}
+					}*/
 				}
 				if(!acctplanIds.isEmpty())
 					OpportunityUtility.updateAccountPlan(acctplanIds);
-
+				/*
 				//Phase 2
 				if(!closedoppIds.isEmpty()){
 					if (!OpportunityProductClassificationUtil.hasCreatedSchedules()) {
@@ -84,7 +85,7 @@ trigger opportunityTrigger_16112011 on Opportunity (before insert, before update
 					OpportunityProductClassificationUtil.setAlreadyCreatedSchedules();
 					}
 				}
-
+				*/
 			}
 		}
 	}
