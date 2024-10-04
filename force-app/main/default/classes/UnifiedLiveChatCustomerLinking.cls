@@ -1,27 +1,35 @@
 /**
- * @description 
+ * @description This class handles the linking of contact Id to Live Chat Transcript if exactly one contact is identified based on the Email Address entered by the customer in the pre-chat form.
+ * @author Marcel HK
+ * @date 2024-10-04
+ * @test UnifiedLiveChatCustomerLinkingTest
  * @changelog
- * 2024-10-04 - Marcel HK - Created
+ * 2024-10-04 - Marcel HK - Created.
  */
-public with sharing class ChatLinking {
+public with sharing class UnifiedLiveChatCustomerLinking {
+
+	public static UnifiedLiveChatCustomerLinking getInstance() {
+		return (UnifiedLiveChatCustomerLinking) Application.Utilities.getInstance(UnifiedLiveChatCustomerLinking.class);
+	}
+
 	/**
-	 * @description Populates the `LiveChatTranscript.ContactId` based on the 
+	 * @description Populates the `LiveChatTranscript.ContactId` based on the
 	 * Email Address entered by the customer in the pre-chat form.
-	 * 
+	 *
 	 * This method will only update the `ContactId` field if there is only 1
 	 * Customer Contact record that matches the Email Address exactly.
-	 * 
+	 *
 	 * Note: This method does not perform any DML updates.
-	 * 
+	 *
 	 * @param chatTranscripts - The List of `LiveChatTranscripts` to update
 	 */
-	public static void linkChatsWithContact(List<LiveChatTranscript> chatTranscripts) {
+	public void linkChatsWithContact(List<LiveChatTranscript> chatTranscripts) {
 		// Get a list of unique email addresses to query with
 		Set<String> emailAddresses = getUniqueEmailAddresses(chatTranscripts);
 
 		// Find all potential Contacts
 		List<Contact> contacts = ContactsSelector.newInstance()
-			.selectCustomerByEmail(emailAddresses, new Set<Object>());
+				.selectCustomerByEmail(emailAddresses, new Set<Object>());
 
 		// Map each Email address with unique list of Contact Ids
 		Map<String, List<Id>> emailContactsMap = mapContactsWithEmails(emailAddresses, contacts);
@@ -32,12 +40,12 @@ public with sharing class ChatLinking {
 
 	/**
 	 * @description Populate the Contact Id on each record (only where there is exactly 1 match)
-	 * 
+	 *
 	 * @param chatTranscripts - The List of `LiveChatTranscripts` to update
 	 * @param emailContactsMap - The Map of email addresses to a list of Contact Ids
 	 */
 	@TestVisible
-	private static void populateContactIds(List<LiveChatTranscript> chatTranscripts, Map<String, List<Id>> emailContactsMap) {
+	private void populateContactIds(List<LiveChatTranscript> chatTranscripts, Map<String, List<Id>> emailContactsMap) {
 		for(LiveChatTranscript chatTranscript : chatTranscripts) {
 			if(String.isBlank(chatTranscript.SuppliedEmail__c)) {
 				continue;
@@ -53,12 +61,12 @@ public with sharing class ChatLinking {
 	/**
 	 * @description Compile a list of email addresses from the list of chat transcripts.
 	 * This method also removes any blank or null values.
-	 * 
+	 *
 	 * @param chatTranscripts - The List of SObjects to update
 	 * @return Set<String> - The unique list of email addresses
 	 */
 	@TestVisible
-	private static Set<String> getUniqueEmailAddresses(List<LiveChatTranscript> chatTranscripts) {
+	private Set<String> getUniqueEmailAddresses(List<LiveChatTranscript> chatTranscripts) {
 		Set<String> emailAddresses = new Set<String>();
 		for (LiveChatTranscript ct : chatTranscripts) {
 			if(String.isNotBlank(ct.SuppliedEmail__c)) {
@@ -71,13 +79,13 @@ public with sharing class ChatLinking {
 	/**
 	 * @description Maps each email address with a unique list of Contact Ids
 	 * that have the email address in either `Email` or `VerifiedEmail__c`.
-	 * 
+	 *
 	 * @param emailAddresses - The unique list of email addresses
 	 * @param contacts - The Contact records to map the emails with
 	 * @return Map<String, List<Id>> - Map of email addresses to a list of Contact Ids
 	 */
 	@TestVisible
-	private static Map<String, List<Id>> mapContactsWithEmails(Set<String> emailAddresses, List<Contact> contacts) {
+	private Map<String, List<Id>> mapContactsWithEmails(Set<String> emailAddresses, List<Contact> contacts) {
 		Map<String, List<Id>> emailContactsMap = new Map<String, List<Id>>();
 		for(String emailAddress : emailAddresses) {
 			Set<Id> contactIds = new Set<Id>();
