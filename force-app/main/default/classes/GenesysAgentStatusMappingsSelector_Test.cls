@@ -38,14 +38,14 @@ private with sharing class GenesysAgentStatusMappingsSelector_Test {
 
 		// Query Agreement Lodgement Point based on Apttus Contract Id
 		GenesysAgentStatusMapping__mdt resultBySfStatus = GenesysAgentStatusMappingsSelector.newInstance(1)
-			.selectBySalesforcePresenceStatus('On_Break', null);
+			.selectBySalesforcePresenceStatus('Training', null);
 
-		System.assertEquals('On_Break', resultBySfStatus?.SalesforcePresenceStatus__c, 'Invalid record returned');
+		System.assertEquals('Training', resultBySfStatus?.SalesforcePresenceStatus__c, 'Invalid record returned');
 
 		GenesysAgentStatusMapping__mdt resultByGenStatusId = GenesysAgentStatusMappingsSelector.newInstance()
 			.selectByGenesysStatusId(resultBySfStatus.GenesysStatusId__c, null);
 
-		System.assertEquals('On_Break', resultByGenStatusId?.SalesforcePresenceStatus__c, 'Invalid record returned');
+		System.assertEquals('Training', resultByGenStatusId?.SalesforcePresenceStatus__c, 'Invalid record returned');
 		System.assertEquals(resultBySfStatus.Id, resultByGenStatusId.Id, 'Records should be matching to the same instance');
 
 		Test.stopTest();
