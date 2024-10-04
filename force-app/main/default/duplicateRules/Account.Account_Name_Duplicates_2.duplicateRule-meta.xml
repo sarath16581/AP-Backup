@@ -5,20 +5,20 @@
     <alertText>We found some other organisations with similar names. Use one of these?</alertText>
     <description>Warn users when similar account names with existing accounts are detected</description>
     <duplicateRuleFilter>
-        <booleanFilter>3 AND 8 AND  (1 OR 2 OR 4 OR 5 OR 6 OR 7 OR 9 OR 10)</booleanFilter>
+        <booleanFilter>1 AND 2 AND 3</booleanFilter>
         <duplicateRuleFilterItems>
             <field>Profile_Name_in_Text__c</field>
-            <operation>equals</operation>
-            <value>Customer Team</value>
+            <operation>contains</operation>
+            <value>Customer Team, Product Sales, Sales Admin, System Administrator, PT1, Credit Management, Hub Users, Network Partner Support, Unified Customer Service</value>
             <sortOrder>1</sortOrder>
             <table>User</table>
         </duplicateRuleFilterItems>
         <duplicateRuleFilterItems>
-            <field>Profile_Name_in_Text__c</field>
+            <field>RecordType</field>
             <operation>equals</operation>
-            <value>Product Sales</value>
+            <value>Organisation</value>
             <sortOrder>2</sortOrder>
-            <table>User</table>
+            <table>Account</table>
         </duplicateRuleFilterItems>
         <duplicateRuleFilterItems>
             <field>IsPersonAccount</field>
@@ -26,55 +26,6 @@
             <value>false</value>
             <sortOrder>3</sortOrder>
             <table>Account</table>
-        </duplicateRuleFilterItems>
-        <duplicateRuleFilterItems>
-            <field>Profile_Name_in_Text__c</field>
-            <operation>equals</operation>
-            <value>Sales Admin</value>
-            <sortOrder>4</sortOrder>
-            <table>User</table>
-        </duplicateRuleFilterItems>
-        <duplicateRuleFilterItems>
-            <field>Profile_Name_in_Text__c</field>
-            <operation>equals</operation>
-            <value>System Administrator</value>
-            <sortOrder>5</sortOrder>
-            <table>User</table>
-        </duplicateRuleFilterItems>
-        <duplicateRuleFilterItems>
-            <field>Profile_Name_in_Text__c</field>
-            <operation>equals</operation>
-            <value>PT1</value>
-            <sortOrder>6</sortOrder>
-            <table>User</table>
-        </duplicateRuleFilterItems>
-        <duplicateRuleFilterItems>
-            <field>Profile_Name_in_Text__c</field>
-            <operation>equals</operation>
-            <value>Credit Management</value>
-            <sortOrder>7</sortOrder>
-            <table>User</table>
-        </duplicateRuleFilterItems>
-        <duplicateRuleFilterItems>
-            <field>RecordType</field>
-            <operation>equals</operation>
-            <value>Organisation</value>
-            <sortOrder>8</sortOrder>
-            <table>Account</table>
-        </duplicateRuleFilterItems>
-        <duplicateRuleFilterItems>
-            <field>Profile_Name_in_Text__c</field>
-            <operation>equals</operation>
-            <value>Hub Users</value>
-            <sortOrder>9</sortOrder>
-            <table>User</table>
-        </duplicateRuleFilterItems>
-        <duplicateRuleFilterItems>
-            <field>Profile_Name_in_Text__c</field>
-            <operation>equals</operation>
-            <value>Network Partner Support</value>
-            <sortOrder>10</sortOrder>
-            <table>User</table>
         </duplicateRuleFilterItems>
     </duplicateRuleFilter>
     <duplicateRuleMatchRules>
