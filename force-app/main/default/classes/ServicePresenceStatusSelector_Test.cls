@@ -38,7 +38,7 @@ private with sharing class ServicePresenceStatusSelector_Test {
 		Test.startTest();
 
 		ServicePresenceStatus result = ServicePresenceStatusSelector.newInstance()
-			.selectByDeveloperName('Busy', null);
+			.selectByDeveloperName('On_Break', null);
 
 		System.assert(result != null, 'Expected result should contain at least 1 active status');
 		Test.stopTest();

@@ -54,7 +54,7 @@ public virtual inherited sharing class GenesysAgentStatusMappingsSelector extend
 		Set<String> syncDirection = new Set<String>{
 			'Any', 'SF => Gen'
 		};
-		
+
 		QueryBuilder qb = newQueryBuilder(selectorOptions)
 			.addConditions()
 			.add(new QueryBuilder.SimpleCondition(GenesysAgentStatusMapping__mdt.SalesforcePresenceStatus__c + ' = :developerName'))
