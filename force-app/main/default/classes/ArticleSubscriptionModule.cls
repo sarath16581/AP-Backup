@@ -32,12 +32,12 @@ public inherited sharing class ArticleSubscriptionModule extends ApplicationModu
 					Article__c.ArticleID__c
 			}
 	};
-	private static final Set<Id> RECORD_TYPE_UNIFIED_INVESTIGATION_ID {
+	private static final Set<Id> RECORDTYPES_UNIFIED {
 		get {
-			if (RECORD_TYPE_UNIFIED_INVESTIGATION_ID == null) {
-				RECORD_TYPE_UNIFIED_INVESTIGATION_ID = CaseUnifiedAutomationService.getUnifiedCaseRecordTypeIds();
+			if (RECORDTYPES_UNIFIED == null) {
+				RECORDTYPES_UNIFIED = CaseUnifiedAutomationService.getUnifiedCaseRecordTypeIds();
 			}
-			return RECORD_TYPE_UNIFIED_INVESTIGATION_ID;
+			return RECORDTYPES_UNIFIED;
 		}
 		private set;
 	}
@@ -104,7 +104,7 @@ public inherited sharing class ArticleSubscriptionModule extends ApplicationModu
 	private static List<ImpactedArticle__c> getImpactedArticlesRelatedToOpenedUnifiedCase(List<ImpactedArticle__c> impactedArticles){
 		List<ImpactedArticle__c> filteredImpactedArticleList = new List<ImpactedArticle__c>();
 		for (ImpactedArticle__c impactedArticle : impactedArticles){
-			if (RECORD_TYPE_UNIFIED_INVESTIGATION_ID.contains(impactedArticle.Case__r.RecordTypeId)
+			if (RECORDTYPES_UNIFIED.contains(impactedArticle.Case__r.RecordTypeId)
 					&& impactedArticle.Case__r.IsClosed == false ){
 				filteredImpactedArticleList.add(impactedArticle);
 			}
