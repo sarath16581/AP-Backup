@@ -7,7 +7,7 @@
  */
 public virtual inherited sharing class LiveChatTranscriptsSelector extends ApplicationSelector {
 	public enum Options {
-		WITH_CASE
+		WITH_CASE, WITH_OWNER
 	}
 
 	public static LiveChatTranscriptsSelector newInstance() {
@@ -27,7 +27,7 @@ public virtual inherited sharing class LiveChatTranscriptsSelector extends Appli
 	}
 
 	public virtual override Set<SObjectField> getSObjectFieldList() { 
-		return new Set<SObjectField>{ LiveChatTranscript.Id,  LiveChatTranscript.CaseId };
+		return new Set<SObjectField>{ LiveChatTranscript.Id,  LiveChatTranscript.CaseId, LiveChatTranscript.CreatedById, LiveChatTranscript.OwnerId };
 	}
    
 	/**
@@ -56,6 +56,11 @@ public virtual inherited sharing class LiveChatTranscriptsSelector extends Appli
 		if(selectorOptions.contains(Options.WITH_CASE)) {
 			builder.addRelatedFields(CasesSelector.newInstance().newQueryBuilder(), 'Case');
 		}
+
+		if (selectorOptions.contains(Options.WITH_OWNER)) {
+			builder.addRelatedFields(OwnersSelector.newInstance().newQueryBuilder(), 'Owner');
+		}
+		
 		
 		return builder;
 	}

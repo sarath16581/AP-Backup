@@ -24,6 +24,22 @@
         <apexClass>genesyscloud__SCVUninstallScript</apexClass>
         <enabled>true</enabled>
     </classAccesses>
+    <classAccesses>
+        <apexClass>genesysps__PureCloudKnowledgeUtilityController</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>	
+    <classAccesses>
+        <apexClass>genesysps__PureCloudTranscript</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>genesysps__getTranscript</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>genesysps__omniChannel</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
     <fieldPermissions>
         <editable>true</editable>
         <field>LiveChatTranscript.AccountId</field>
