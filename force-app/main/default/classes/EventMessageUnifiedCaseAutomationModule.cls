@@ -4,6 +4,7 @@
  * @date 2024-08-31
  * @test EventMessageUnifiedCaseAutoModule_Test
  * @changelog
+ * 2024-10-03 - Ranjeewa Silva - Updated to populate case closure email alert name on parameters passed into CaseUnifiedAutomationService.
  */
 public inherited sharing class EventMessageUnifiedCaseAutomationModule extends ApplicationModule {
 
@@ -183,7 +184,7 @@ public inherited sharing class EventMessageUnifiedCaseAutomationModule extends A
 			Map<Id, Case> cases = ((CasesSelector) CasesSelector.newInstance().setFieldOverrides(new Map<SObjectType, Set<SObjectField>>{
 					Case.SObjectType => new Set<SObjectField>{
 							Case.Id, Case.OwnerId, Case.IsClosed, Case.PreferredAgentExpiry__c, Case.BusinessHoursId, Case.Status,
-							Case.Exclude_Subscription_Automation__c, Case.ContactEmail
+							Case.Exclude_Subscription_Automation__c, Case.ContactEmail, Case.ProductSubCategory__c
 					},
 					ContactRequest.SObjectType => new Set<SObjectField>{ContactRequest.Id},
 					ImpactedArticle__c.SObjectType => new Set<SObjectField>{ImpactedArticle__c.Id, ImpactedArticle__c.Article__c, ImpactedArticle__c.Case__c}
@@ -201,32 +202,36 @@ public inherited sharing class EventMessageUnifiedCaseAutomationModule extends A
 			// list of case reassign parameters to be passed into service class
 			List<CaseUnifiedAutomationService.RecordWrapper> caseReassignServiceParams = new List<CaseUnifiedAutomationService.RecordWrapper>();
 			for (UnifiedCaseAutomationAsyncWorkerParam param: params.values()) {
+				Case caseRecord = cases.get(param.caseId);
 				CaseUnifiedAutomationService.RecordWrapper caseAutomationServiceParam = new CaseUnifiedAutomationService.RecordWrapper();
-				caseAutomationServiceParam.caseRecord = cases.get(param.caseId);
+				caseAutomationServiceParam.caseRecord = caseRecord;
 				caseAutomationServiceParam.srcObjectType = EventMessage__c.SObjectType;
-				if (!param.closureEventTypes.isEmpty() && !cases.get(param.caseId).IsClosed) {
+				if (!param.closureEventTypes.isEmpty() && !caseRecord.IsClosed) {
 					// open case has received closure event messages. check if we have closure events common across all impacted articles.
-					Set<String> commonClosureEventTypes = findCommonEventTypesAcrossImpactedArticles(param.closureEventTypes, cases.get(param.caseId), articles);
+					Set<String> commonClosureEventTypes = findCommonEventTypesAcrossImpactedArticles(param.closureEventTypes, caseRecord, articles);
 					if (commonClosureEventTypes.size() == 1) {
 						// we have found one common closure code across impacted articles. case need to be passed into service for closure.
 						EventMessageTypeMapping__mdt eventTypeDefinition = automationEligibleEventTypeDefinitions.get(commonClosureEventTypes.iterator().next());
 						caseAutomationServiceParam.newRootCause = eventTypeDefinition.CaseAutomationRootCause__c;
 						caseAutomationServiceParam.newResolutionCode = eventTypeDefinition.CaseAutomationResolutionCode__c;
+						caseAutomationServiceParam.caseClosureEmailAlert = (CaseUnifiedAutomationService.isStarTrackCase(caseRecord)
+								? eventTypeDefinition?.CaseClosureEmailAlertNameStarTrack__c
+								: eventTypeDefinition?.CaseClosureEmailAlertNameAusPost__c);
 						caseClosureServiceParams.add(caseAutomationServiceParam);
 					} else {
 						// either we haven't found common closure codes across impacted articles or there are more than one common closure codes.
 						// case need to be passed into service for reassignment.
-						caseAutomationServiceParam.newReassignmentReason = (cases.get(param.caseId).ImpactedArticles__r.size() == 1 ?
+						caseAutomationServiceParam.newReassignmentReason = (caseRecord.ImpactedArticles__r.size() == 1 ?
 								CASE_REASSIGNMENT_REASON_SINGLE_ARTICLE_DIFFERENT_EVENT_TRIGGERS : CASE_REASSIGNMENT_REASON_DIFFERENT_EVENT_TRIGGERS);
 						caseReassignServiceParams.add(caseAutomationServiceParam);
 					}
-				} else if (!param.reassignmentEventTypes.isEmpty() && !cases.get(param.caseId).IsClosed) {
+				} else if (!param.reassignmentEventTypes.isEmpty() && !caseRecord.IsClosed) {
 					// open case has received reassignment event messages.
 					if (param.reassignmentEventTypes.size() == 1) {
 						EventMessageTypeMapping__mdt eventTypeDefinition = automationEligibleEventTypeDefinitions.get(param.reassignmentEventTypes.iterator().next());
 						caseAutomationServiceParam.newReassignmentReason = eventTypeDefinition?.CaseAutomationReassignmentReason__c;
 					} else {
-						caseAutomationServiceParam.newReassignmentReason = (cases.get(param.caseId).ImpactedArticles__r.size() == 1 ?
+						caseAutomationServiceParam.newReassignmentReason = (caseRecord.ImpactedArticles__r.size() == 1 ?
 								CASE_REASSIGNMENT_REASON_SINGLE_ARTICLE_DIFFERENT_EVENT_TRIGGERS : CASE_REASSIGNMENT_REASON_DIFFERENT_EVENT_TRIGGERS);
 					}
 					caseReassignServiceParams.add(caseAutomationServiceParam);
