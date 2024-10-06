@@ -529,7 +529,7 @@ private with sharing class ContactsSelector_Test {
 	/**
 	 * @description Test method for ContactsSelector.selectWithCasesAndInteractionsHelper()
 	 */
-    @IsTest
+	@IsTest
 	static void testSelectWithCasesAndInteractionsHelper(){
 		String customerPhone='0300300300';
 		String queryConditions= ' AND (HomePhone =:searchKey OR MobilePhone =:searchKey OR Phone =:searchKey)';
@@ -663,7 +663,7 @@ private with sharing class ContactsSelector_Test {
 	/**
 	 * @description Test method for ContactsSelector.selectWithCasesAndInteractionsByReversePhoneNumber()
 	 */
-    @IsTest
+	@IsTest
 	static void testselectWithCasesAndInteractionsByReversePhoneNumber(){
 		String customerPhone='0300300300';
 		Map<String, Object> bindMap = new Map<String, Object>();
@@ -705,7 +705,7 @@ private with sharing class ContactsSelector_Test {
 	/**
 	 * @description Test method for ContactsSelector.selectWithCasesAndInteractionsByEmailAddress()
 	 */
-    @IsTest
+	@IsTest
 	static void testSelectWithCasesAndInteractionsByEmailAddress(){
 		String customerEmail='invalid@invalid.com.invalid';
 		Map<String, Object> bindMap = new Map<String, Object>();
