@@ -5,6 +5,7 @@
 * @changelog
 * 2024-06-18 - Vasu Gorakati - Case Hand-off
 * 2024-08-31 - Ranjeewa Silva - Added new search method with search parameter validation.
+* 2024-09-06 - Seth Heang - added selectById() and added newInstance(fieldOverrides)
 **/
 public virtual inherited sharing class ImpactedArticlesSelector extends ApplicationSelector {
 
@@ -21,6 +22,17 @@ public virtual inherited sharing class ImpactedArticlesSelector extends Applicat
 		ImpactedArticlesSelector selector = (ImpactedArticlesSelector)Application.Selectors.newInstance(ImpactedArticlesSelector.class).setLimit(recordLimit).setFieldOverrides(fieldOverrides);
 		return selector;
 	}
+
+	/**
+	 * Instantiate the ImpactedArticlesSelector and passed in fieldOverrides
+	 * @param fieldOverrides NOTE: Field overrides should only ever be used when the results are not passed from method to method.
+	 *						 This approach removes data consistency and prevents possible caching of results
+	 * @return new instance of ImpactedArticlesSelector with setFieldOverrides
+	 */
+	public static ImpactedArticlesSelector newInstance(Map<SObjectType,Set<SObjectField>> fieldOverrides) {
+		return (ImpactedArticlesSelector) Application.Selectors.newInstance(ImpactedArticlesSelector.class)
+				.setFieldOverrides(fieldOverrides);
+	}
 	
 	public virtual override SObjectType getSObjectType() {
 		return ImpactedArticle__c.getSObjectType();
@@ -32,8 +44,8 @@ public virtual inherited sharing class ImpactedArticlesSelector extends Applicat
 		};
 	}
 	
-   	/*
-	* this method returns records with matching case ids
+	/*
+	 * this method returns records with matching case ids
 	 * @param caseIds list of case ids
 	 * @param selectorOptions selector options to augment result set
 	 *
@@ -42,6 +54,26 @@ public virtual inherited sharing class ImpactedArticlesSelector extends Applicat
  	public virtual List<ImpactedArticle__c> selectByCaseId(Set<Id> caseIds, Set<Object> selectorOptions) {		
 		QueryBuilder qb = newQueryBuilder(selectorOptions).addConditions().add(new QueryBuilder.SimpleCondition(ImpactedArticle__c.Case__c + ' in :caseIds')).endConditions();
 		return (List<ImpactedArticle__c>)Database.query(qb.toSoqlString());		
+	}
+
+	/**
+	 * @description Run a simple query to get records by Id
+	 * @param ids
+	 * @return List<ImpactedArticle__c>
+	 */
+	public virtual List<ImpactedArticle__c> selectById(Set<Id> ids) {
+		return selectById(ids, new Set<Object>());
+	}
+
+	/**
+	 * @description Run a simple query to get records by Id
+	 * @param ids
+	 * @param selectorOptions
+	 * @return List<ImpactedArticle__c>
+	 */
+	public virtual List<ImpactedArticle__c> selectById(Set<Id> ids, Set<Object> selectorOptions) {
+		QueryBuilder qb = newQueryBuilder(selectorOptions).addConditions().add(new QueryBuilder.SimpleCondition(ImpactedArticle__c.Id + ' in :ids')).endConditions();
+		return (List<ImpactedArticle__c>)Database.query(qb.toSoqlString());
 	}
 
 	/**

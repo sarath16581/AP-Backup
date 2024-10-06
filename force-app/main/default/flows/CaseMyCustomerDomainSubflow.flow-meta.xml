@@ -628,7 +628,7 @@ email alert : SSSW - Email on Creation New Case For BSP Before EDD</description>
     <formulas>
         <name>vNewCaseEmail</name>
         <dataType>Boolean</dataType>
-        <expression>(TEXT({!vCase.Origin}) = &apos;Email&apos; || TEXT({!vCase.Origin}) = &apos;Internal Specialist Threat - Email&apos; || TEXT({!vCase.Origin}) = &apos;Assisted referral&apos; || TEXT({!vCase.Origin}) = &apos;CN08 - Email&apos;) &amp;&amp; CONTAINS({!vCase.RecordType.DeveloperName},&quot;SSSW&quot;) &amp;&amp; NOT(ISBLANK({!vCase.SuppliedEmail})) &amp;&amp; ISBLANK({!vCase.ParentId}) &amp;&amp; (ISBLANK({!$Setup.QM__c.NoAutoreplyQueue__c}) ||(NOT(ISBLANK({!$Setup.QM__c.NoAutoreplyQueue__c})) &amp;&amp; NOT(CONTAINS({!$Setup.QM__c.NoAutoreplyQueue__c},RIGHT({!vCase.SuppliedEmail},(LEN({!vCase.SuppliedEmail})-FIND(&quot;@&quot;,{!vCase.SuppliedEmail})-1))))))</expression>
+        <expression>(TEXT({!vCase.Origin}) = &apos;Email&apos; || TEXT({!vCase.Origin}) = &apos;Assisted referral&apos; || TEXT({!vCase.Origin}) = &apos;CN08 - Email&apos;) &amp;&amp; CONTAINS({!vCase.RecordType.DeveloperName},&quot;SSSW&quot;) &amp;&amp; NOT(ISBLANK({!vCase.SuppliedEmail})) &amp;&amp; ISBLANK({!vCase.ParentId}) &amp;&amp; (ISBLANK({!$Setup.QM__c.NoAutoreplyQueue__c}) ||(NOT(ISBLANK({!$Setup.QM__c.NoAutoreplyQueue__c})) &amp;&amp; NOT(CONTAINS({!$Setup.QM__c.NoAutoreplyQueue__c},RIGHT({!vCase.SuppliedEmail},(LEN({!vCase.SuppliedEmail})-FIND(&quot;@&quot;,{!vCase.SuppliedEmail})-1))))))</expression>
     </formulas>
     <formulas>
         <description>AFTER EDD + 10</description>

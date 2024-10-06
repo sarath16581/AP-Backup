@@ -1,11 +1,14 @@
 /***
  * @author Nathan Franklin
  * @date 2024-05-16
+ * @description Schema Class used by TIBCOArticleSubscriptionSOAPService to build payloads for sending Article Subscription notifications to SAP via existing TIBCO Integration service.
+ * @test TIBCOArticleSubscriptionSchemaTest
  * @changelog
- */	
-public class ArticleSubscriptionTypes {
+ * 2024-05-16 - Nathan Franklin - Created
+ */
+public class TIBCOArticleSubscriptionSchema {
 	private static final String s_ns0 = 'urn:sobject.enterprise.soap.sforce.com';
-	
+
 	//Extends urn:sobject.enterprise.soap.sforce.com:sObject
 	//Warning: '<xsd:any>' element type has been changed to dataType List<DOM.XmlNode> called anyElement
 	public class AggregateResult {
@@ -18,7 +21,7 @@ public class ArticleSubscriptionTypes {
 		private transient String[] apex_schema_type_info = new String[]{s_ns0,'true','false'};
 		private transient String[] field_order_type_info = new String[]{'fieldsToNull','Id','anyElement'};
 	}
-	
+
 	public class Case_x {
 		public String[] fieldsToNull;
 		public String Id;
