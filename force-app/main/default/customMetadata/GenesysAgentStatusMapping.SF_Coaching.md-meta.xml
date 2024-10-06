@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomMetadata xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <label>SF: Coaching</label>
+    <protected>false</protected>
+    <values>
+        <field>GenesysStatusId__c</field>
+        <value xsi:type="xsd:string">e665a132-a45a-46cc-8f98-44082e2f8b62</value>
+    </values>
+    <values>
+        <field>GenesysStatusLabel__c</field>
+        <value xsi:type="xsd:string">Meeting</value>
+    </values>
+    <values>
+        <field>SalesforcePresenceStatus__c</field>
+        <value xsi:type="xsd:string">Coaching</value>
+    </values>
+    <values>
+        <field>SyncDirection__c</field>
+        <value xsi:type="xsd:string">SF =&gt; Gen</value>
+    </values>
+</CustomMetadata>
