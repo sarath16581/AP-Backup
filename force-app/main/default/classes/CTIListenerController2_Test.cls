@@ -6,6 +6,9 @@ History:
 2018-06-18  TDO-59 : rahul.kapoor@coroma.com.au Refactored comments and indentation,
             added assertEquals and assertNotEquals, added new tests to create custom
             activity, tests to to load cases or contacts and to find Contact and Case.
+
+2024-06-13	Parveen Kaushik Added default value for mapping model on test data. 
+			See CSLU-470 (JIRA) for details.			
 **************************************************************************************/
 @isTest
 private class CTIListenerController2_Test {
@@ -64,6 +67,7 @@ private class CTIListenerController2_Test {
                                     testMcfm.ProductCategory__c = 'test pc';
                                     testMcfm.ProductSubcategory__c = 'test psc';
                                     testMcfm.Type__c = 'Feedback';
+									testMcfm.MappingModel__c = SSSWConstants.ENQUIRYMAPPING_CLASSIC_MODEL;
             testMcfmList.add(testMcfm);
         }
         insert testMcfmList;

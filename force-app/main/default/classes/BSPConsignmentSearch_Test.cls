@@ -5,6 +5,7 @@
  * @group BSP
  * @changelog
  * 2020-08-12 - Nathan Franklin - Bug fix after removing CaseArticleUtility
+ * 2024-06-13	Parveen Kaushik Added default value for mapping model on test data. See CSLU-470 (JIRA) for details. 
  */
 @isTest
 private class BSPConsignmentSearch_Test {
@@ -121,7 +122,7 @@ private class BSPConsignmentSearch_Test {
         insert appRoles;
 
         //Insert Enquiry Mappings
-        MiniCaseFieldMapping__c mp = new MiniCaseFieldMapping__c(SAPProductCategory__c ='Parcel Post',SAPProductSubcategory__c ='Parcel Post', ProductCategory__c = 'Domestic Parcels', ProductSubcategory__c = 'eParcel- Regular', Type__c = 'type' );
+        MiniCaseFieldMapping__c mp = new MiniCaseFieldMapping__c(SAPProductCategory__c ='Parcel Post', SAPProductSubcategory__c ='Parcel Post', ProductCategory__c = 'Domestic Parcels', ProductSubcategory__c = 'eParcel- Regular', Type__c = 'type', MappingModel__c = SSSWConstants.ENQUIRYMAPPING_CLASSIC_MODEL);
         insert mp;
 
         //TODO add CCViewAllOrgCases settings if needed

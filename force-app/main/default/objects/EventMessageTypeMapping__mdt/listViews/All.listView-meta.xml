@@ -9,6 +9,8 @@
     <columns>IsSignatureOnDelivery__c</columns>
     <columns>IsFeatured__c</columns>
     <columns>ColourCode__c</columns>
+    <columns>IsCaseClosureEligible__c</columns>
+    <columns>IsCaseReassignmentEligible__c</columns>
     <filterScope>Everything</filterScope>
     <label>All</label>
     <language>en_US</language>

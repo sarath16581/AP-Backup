@@ -1646,6 +1646,7 @@ public without sharing class APMSApplication
                 
         if(isDmlError == false)
         {       
+           	system.debug('***** SETTING CLASSIFICATION INSIDE APMSAPPLICATION ');
             if(isNewAccount == true)
             {
                 oppProduct.Classification__c = 'New Business - One Off';

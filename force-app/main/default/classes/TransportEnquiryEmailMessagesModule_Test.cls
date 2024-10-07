@@ -3,6 +3,7 @@
  * @author Mahesh Parvathaneni
  * @date 2023-05-30
  * @changelog
+ * 2024-08-07 - Ranjeewa Silva - Test class updates after uplifting the module to new ApplicationModule framework.
 */
 
 @IsTest
@@ -82,7 +83,7 @@ private class TransportEnquiryEmailMessagesModule_Test {
 		// =====================================
 		Test.startTest();
 
-		TransportEnquiryEmailMessagesModule.newInstance().onAfterInsert(records, mockUow);
+		new TransportEnquiryEmailMessagesModule().onAfterInsert(records, mockUow);
 
 		Test.stopTest();
 
@@ -160,7 +161,7 @@ private class TransportEnquiryEmailMessagesModule_Test {
 		// =====================================
 		Test.startTest();
 
-		TransportEnquiryEmailMessagesModule module = TransportEnquiryEmailMessagesModule.newInstance();
+		TransportEnquiryEmailMessagesModule module = new TransportEnquiryEmailMessagesModule();
 		module.onAfterInsert(new List<EmailMessage>{records[1], records[3]}, mockUow);
 		Datetime dt = module.currentTime;
 
@@ -242,7 +243,7 @@ private class TransportEnquiryEmailMessagesModule_Test {
 		// =====================================
 		Test.startTest();
 
-		TransportEnquiryEmailMessagesModule module = TransportEnquiryEmailMessagesModule.newInstance();
+		TransportEnquiryEmailMessagesModule module = new TransportEnquiryEmailMessagesModule();
 		module.onAfterInsert(new List<EmailMessage>{records[1], records[3]}, mockUow);
 		Datetime dt = module.currentTime;
 

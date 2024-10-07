@@ -459,10 +459,16 @@
             </criteriaItems>
         </ruleEntry>
         <ruleEntry>
+            <booleanFilter>1 OR 2</booleanFilter>
             <criteriaItems>
                 <field>Case.RecordTypeId</field>
                 <operation>contains</operation>
                 <value>SSSW</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Case.RecordTypeId</field>
+                <operation>equals</operation>
+                <value>Social Record Type</value>
             </criteriaItems>
         </ruleEntry>
         <ruleEntry>

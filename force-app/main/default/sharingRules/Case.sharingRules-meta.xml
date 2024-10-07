@@ -446,6 +446,34 @@
         <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
+        <fullName>ShareClassicCasesWithUnifiedAgents</fullName>
+        <accessLevel>Read</accessLevel>
+        <label>Share Classic Cases With Unified Agents</label>
+        <sharedTo>
+            <roleAndSubordinatesInternal>UnifiedTeamLead</roleAndSubordinatesInternal>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>SSSW General Enquiry,Delivery Enquiry,Transit Warranty Claim,SSSW Service,Sales Enquiry,General Enquiry,SSSW Delivery,Pickup Booking Enquiry,Credit Dispute Claim,Social Record Type</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>ShareUnifiedCasesWithUnifiedAgents</fullName>
+        <accessLevel>Edit</accessLevel>
+        <label>Share Unified Cases With Unified Agents</label>
+        <sharedTo>
+            <role>UnifiedAgent</role>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Unified General Enquiry,Unified Investigation</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
         <fullName>Share_ASH_With_Their_Public_Group</fullName>
         <accessLevel>Edit</accessLevel>
         <description>This is to share the Accounting Services Helpdesk record type to their group to allow management of their cases</description>
@@ -617,6 +645,36 @@
             <value>Service Optimisation</value>
         </criteriaItems>
         <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>UnifiedCasesToAllStarTrackUsers</fullName>
+        <accessLevel>Read</accessLevel>
+        <description>This sharing rule gives Unified case access to all StarTrack users</description>
+        <label>Unified Cases to All StarTrack Users</label>
+        <sharedTo>
+            <group>All_StarTrack_Users</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Unified General Enquiry,Unified Investigation</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>UnifiedCasesToSSSWManagement</fullName>
+        <accessLevel>Read</accessLevel>
+        <description>This sharing rule gives Unified case access to SSSW Management and subordinates</description>
+        <label>Unified Cases to SSSW Management</label>
+        <sharedTo>
+            <roleAndSubordinatesInternal>SSSW_Management</roleAndSubordinatesInternal>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Unified General Enquiry,Unified Investigation</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
         <fullName>VOC_Incident_Read_Only</fullName>

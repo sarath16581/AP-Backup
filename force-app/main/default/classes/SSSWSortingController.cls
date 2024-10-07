@@ -5,6 +5,7 @@
  *--------------------------------------- History --------------------------------------------------
  *
  * 17-Nov-2020 - Ranjeewa Silva - Updated to include new field on SSSW Rule - 'SocialPostTags__c'
+ * 24-Jul-2024 - Ranjeeea Silva - Updated to return "Unified Routing" records for display only.
 **/
 public with sharing class SSSWSortingController {
     public String pageMode { get; set; }
@@ -17,6 +18,7 @@ public with sharing class SSSWSortingController {
     public List<SSSWRouting__c> rulesForNPS { get; set; }
     public List<SSSWRouting__c> rulesForEscalate { get; set; }
     public List<SSSWRouting__c> rulesForDescription { get; set; }
+    public List<RoutingWrapper> rulesForUnifiedCaseRouting { get; set; }
     public String selectedRecordType { get; set; }
     public String recType { get; set; }
 
@@ -53,6 +55,7 @@ public with sharing class SSSWSortingController {
         getNPS();
         getEscalate();
         getDescription();
+        getUnifiedRoutingRules();
     }
 
     public void sortRoutings() {
@@ -323,6 +326,24 @@ public with sharing class SSSWSortingController {
         selectedRecordType = 'SSSW Routing';
         System.debug('newSeqFrom--->'+newSeqFrom);
         System.debug('rulesWithQueues--->'+rulesWithQueues);
+    }
+
+    public void getUnifiedRoutingRules() {
+        rulesForUnifiedCaseRouting = new List<routingWrapper>();
+        List<SSSWRouting__c> unifiedrules = getRules(SSSWConstants.SSSWROUTING_RECTYPE_UNIFIEDROUTING);
+        Set<Id> groupIds = new Set<Id>();
+        for (SSSWRouting__c unifiedrule: unifiedrules) {
+            if (String.isNotBlank(unifiedrule.Queue_ID__c)) {
+                groupIds.add(unifiedrule.Queue_ID__c);
+            }
+        }
+
+        Map<Id, Group> groups = ((GroupsSelector)GroupsSelector.newInstance().setFieldOverrides(new Set<SObjectField>{Group.Id, Group.Name})).selectById(groupIds);
+        for (SSSWRouting__c unifiedrule: unifiedrules) {
+            if (String.isNotBlank(unifiedrule.Queue_ID__c) && groups.containsKey(unifiedrule.Queue_ID__c)) {
+                rulesForUnifiedCaseRouting.add(new routingWrapper(groups.get(unifiedrule.Queue_ID__c).Name, unifiedrule));
+            }
+        }
     }
 
     public void getNPS() {

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Last mile attempted delivery</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>ST Last Mile - Attempted Delivery</name>
+    <style>none</style>
+    <subject>Good news! We&apos;ve located your delivery on case {!Case.CaseNumber}</subject>
+    <textOnly>Star Track
+
+Case {!Case.CaseNumber}
+
+Hi {!IF(ISBLANK(Contact.Preferred_Name__c),Contact.FirstName,Contact.Preferred_Name__c)},
+
+Your delivery will soon be ready to collect
+
+Thank you for your patience while we’ve been monitoring your delivery. We are delighted to see that it has now been located and has had an attempted delivery today.
+
+You’ll have received a card or a digital notification with next steps, and you can use our  missed delivery tool to explore your options.
+
+Your case will be closed now that your delivery is almost there.
+
+StarTrack
+
+This email was sent by Startrack. Startrack does not represent, warrant or guarantee that 								the integrity of this email communication has been maintained nor that the communication 								is free of errors, viruses or interference.
+
+Help &amp; support |  Terms &amp; conditions |  Privacy policy</textOnly>
+    <type>custom</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

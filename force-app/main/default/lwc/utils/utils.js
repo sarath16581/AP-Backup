@@ -248,3 +248,39 @@ export const poll = async (fn,interval,timeout,refreshData) => {
 	let date = new Date(dateToFormat);
 	return dateTimeFormat.format(date);
 }
+  /**
+   * Tests to see if a string is blank.
+   * Blank strings include `undefined`, `null`, or `''` values.
+   * By default, a string with only whitespace will be considered to be blank.
+   *
+   * @param {string|undefined|null} str - The string to test.
+   * @param {object} [options] - Options to configure the test.
+   * @param {boolean} [options.allowWhitespace] - If 'true' will not treat a string with only spaces as blank.
+   *
+   * @returns {boolean} Returns `true` if the field is blank, otherwise `false`.
+   */
+  export function isBlank(str, options) {
+	const allowWhitespace = (options ?? {}).allowWhitespace === true;
+	if (typeof str !== "string" && str !== undefined && str !== null) {
+	  throw new TypeError(`'${typeof str}' is not a string`);
+	}
+	if (str == undefined || str == null) {
+	  return true;
+	}
+	return (allowWhitespace ? str : str?.replace(/\s/g, "")) === "";
+  }
+  
+  /**
+   * Tests to see if a string is not blank.
+   * Blank strings include `undefined`, `null`, or `''` values.
+   * By default, a string with only whitespace will be considered to be blank.
+   *
+   * @param {string|undefined|null} str - The string to test.
+   * @param {object} [options] - Options to configure the test.
+   * @param {boolean} [options.allowWhitespace] - If 'true' will not treat a string with only spaces as blank.
+   *
+   * @returns {boolean} Returns `true` if the field is not blank, otherwise `false`.
+   */
+  export function isNotBlank(str, options) {
+	return isBlank(str, options) === false;
+  }

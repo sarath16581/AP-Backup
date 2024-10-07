@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<UserAccessPolicy xmlns="http://soap.sforce.com/2006/04/metadata">
+    <booleanFilter>1 AND 2 AND 3</booleanFilter>
+    <description>This policy is used to onboard new users as Unified Knowledge and Content Users</description>
+    <masterLabel>UnifiedAgentKnowledgeAndContentPolicy</masterLabel>
+    <order>1</order>
+    <status>Design</status>
+    <triggerType>CreateAndUpdate</triggerType>
+    <userAccessPolicyActions>
+        <action>Grant</action>
+        <target>UnifiedAgentKnowledgeAndContent</target>
+        <type>PermissionSetGroup</type>
+    </userAccessPolicyActions>
+    <userAccessPolicyFilters>
+        <operation>equals</operation>
+        <sortOrder>1</sortOrder>
+        <target>unified customer service</target>
+        <type>Profile</type>
+    </userAccessPolicyFilters>
+    <userAccessPolicyFilters>
+        <operation>equals</operation>
+        <sortOrder>2</sortOrder>
+        <target>UnifiedTeamSupportLead</target>
+        <type>UserRole</type>
+    </userAccessPolicyFilters>
+    <userAccessPolicyFilters>
+        <columnName>IsActive</columnName>
+        <operation>equals</operation>
+        <sortOrder>3</sortOrder>
+        <target>User</target>
+        <type>User</type>
+        <value>True</value>
+    </userAccessPolicyFilters>
+</UserAccessPolicy>

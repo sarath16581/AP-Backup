@@ -1,6 +1,7 @@
 /*
  * @changelog
  * 2021-08-24 - Seth Heang - Uplift SF API Version to 52, the class is pending for decommission in the future date
+ * 2024-06-13	Parveen Kaushik Added default value for mapping model on test data. See CSLU-470 (JIRA) for details.
 */
 @isTest(seealldata=true)
 private class CTI_Test {
@@ -113,6 +114,7 @@ private class CTI_Test {
         mcfm.ProductCategory__c = 'test pc';
         mcfm.ProductSubcategory__c = 'test psc';
         mcfm.Type__c = 'Feedback';
+		mcfm.MappingModel__c = SSSWConstants.ENQUIRYMAPPING_CLASSIC_MODEL;
         insert mcfm;
         
         CTIListenerController instance = new CTIListenerController();
@@ -165,6 +167,7 @@ private class CTI_Test {
         mcfm.ProductCategory__c = 'test pc';
         mcfm.ProductSubcategory__c = 'test psc';
         mcfm.Type__c = 'Feedback';
+		mcfm.MappingModel__c = SSSWConstants.ENQUIRYMAPPING_CLASSIC_MODEL;
         insert mcfm;
         
         CTIListenerController instance = new CTIListenerController();

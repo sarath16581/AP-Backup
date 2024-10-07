@@ -1,0 +1,23 @@
+<template>
+	<lightning-modal-header label={label}> {header} </lightning-modal-header>
+	<lightning-modal-body>
+		<!-- modal content specified in LightningModal component -->
+		{body}
+	</lightning-modal-body>
+	<lightning-modal-footer>
+		{footer}
+		<lightning-button-group if:true={_buttons}>
+			<template for:each={_buttons} for:item="button">
+				<lightning-button
+					key={button.name}
+					label={button.label}
+					name={button.name}
+					icon-name={button.iconName}
+					disabled={button.disabled}
+					variant={button.variant}
+					onclick={handleClick}
+				></lightning-button>
+			</template>
+		</lightning-button-group>
+	</lightning-modal-footer>
+</template>

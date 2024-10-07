@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomMetadata xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <label>001</label>
+    <protected>false</protected>
+    <values>
+        <field>BusinessUnit__c</field>
+        <value xsi:type="xsd:string">AustraliaPost</value>
+    </values>
+    <values>
+        <field>Mapping__c</field>
+        <value xsi:type="xsd:string">{
+    &quot;mappings&quot;: [
+        {
+            &quot;unifiedField&quot;: &quot;Status&quot;,
+            &quot;classicField&quot;: &quot;Status&quot;,
+            &quot;valuesMapping&quot;: {
+                &quot;New&quot;: &quot;New&quot;,
+                &quot;Monitoring&quot;: &quot;In Progress&quot;,
+                &quot;Updated&quot;: &quot;In Progress&quot;
+            }
+        },
+        {
+            &quot;unifiedField&quot;: &quot;EnquirySubType__c&quot;,
+            &quot;classicField&quot;: &quot;EnquirySubType__c&quot;,
+            &quot;valuesMapping&quot;: {
+                &quot;Late Item&quot;: &quot;Missing Item&quot;
+            }
+        },
+        {
+            &quot;unifiedField&quot;: &quot;CaseOriginator__c&quot;,
+            &quot;classicField&quot;: &quot;CaseOriginator__c&quot;,
+            &quot;valuesMapping&quot;: {
+                &quot;3rd Party&quot;: &quot;Customer&quot;
+            }
+        },
+        {
+            &quot;unifiedField&quot;: &quot;RecordTypeId&quot;,
+            &quot;classicField&quot;: &quot;RecordTypeId&quot;,
+            &quot;valuesMapping&quot;: {
+                &quot;UnifiedInvestigation&quot;: &quot;SSSWDelivery&quot;
+            }
+        },
+        {
+            &quot;unifiedField&quot;: &quot;ProductCategory__c&quot;,
+            &quot;classicField&quot;: &quot;ProductCategory__c&quot;,
+            &quot;valuesMapping&quot;: {
+                &quot;Domestic&quot;: &quot;Domestic Parcels&quot;
+            }
+        },
+        {
+            &quot;unifiedField&quot;: &quot;ProductSubCategory__c&quot;,
+            &quot;classicField&quot;: &quot;ProductSubCategory__c&quot;,
+            &quot;valuesMapping&quot;: {
+                &quot;StarTrack Road Express&quot;: &quot;StarTrack (Next Flight Premium &amp; Express)&quot;,
+                &quot;StarTrack Premium&quot;: &quot;StarTrack (Next Flight Premium &amp; Express)&quot;,
+                &quot;eParcel Parcel Post&quot;: &quot;eParcel- Regular&quot;,
+                &quot;eParcel Express Post&quot;: &quot;eParcel- Express&quot;
+            }
+        }
+    ]
+}</value>
+    </values>
+    <values>
+        <field>UnifiedRecordTypeDeveloperName__c</field>
+        <value xsi:type="xsd:string">UnifiedInvestigation</value>
+    </values>
+</CustomMetadata>

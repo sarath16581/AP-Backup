@@ -59,6 +59,11 @@
                 <label>Nurturing</label>
             </value>
             <value>
+                <fullName>Scam</fullName>
+                <default>false</default>
+                <label>Scam</label>
+            </value>
+            <value>
                 <fullName>Test Lead</fullName>
                 <default>false</default>
                 <label>Test Lead</label>
@@ -109,6 +114,10 @@
         <valueSettings>
             <controllingFieldValue>Disqualified</controllingFieldValue>
             <valueName>Incorrect Contact Details</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Disqualified</controllingFieldValue>
+            <valueName>Scam</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Disqualified</controllingFieldValue>

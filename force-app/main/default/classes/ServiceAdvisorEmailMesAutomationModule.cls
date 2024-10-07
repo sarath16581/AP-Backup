@@ -1,5 +1,5 @@
 /**
- * @description Domain Module generic for Service Advisor Case Email Messages Automation
+ * @description Application Module generic for Service Advisor Case Email Messages Automation
  * @author Naveen Rajanna
  * @date 2022-10-25
  * @group Modules
@@ -8,10 +8,7 @@
  * @changelog
  * 2022-10-25 - Naveen Rajanna - Created - REQ2859152
  */
-public inherited sharing class ServiceAdvisorEmailMesAutomationModule extends ApplicationDomain.Module {
-	public static ServiceAdvisorEmailMesAutomationModule newInstance() {
-		return (ServiceAdvisorEmailMesAutomationModule) Application.Utilities.newInstance(ServiceAdvisorEmailMesAutomationModule.class);
-	}
+public inherited sharing class ServiceAdvisorEmailMesAutomationModule extends ApplicationModule {
 
 	// Setup which triggers this module should respond to
 	public ServiceAdvisorEmailMesAutomationModule() {

@@ -257,15 +257,6 @@
         <object>Case</object>
         <viewAllRecords>false</viewAllRecords>
     </objectPermissions>
-    <objectPermissions>
-        <allowCreate>false</allowCreate>
-        <allowDelete>false</allowDelete>
-        <allowEdit>false</allowEdit>
-        <allowRead>true</allowRead>
-        <modifyAllRecords>false</modifyAllRecords>
-        <object>QuickText</object>
-        <viewAllRecords>true</viewAllRecords>
-    </objectPermissions>
     <recordTypeVisibilities>
         <recordType>Case.Transport_Enquiry</recordType>
         <visible>true</visible>
