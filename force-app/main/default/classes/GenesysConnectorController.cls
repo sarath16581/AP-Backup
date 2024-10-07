@@ -329,8 +329,16 @@ global with sharing class GenesysConnectorController implements purecloud.CTIExt
 	* @param phoneNumber
 	*/	
 	private static List<Contact> searchPhoneNumber(String phoneNumber) {
+		String reversedPhoneNumber = Util.reversePhoneString(phoneNumber);
+
+		// Temporary to return no records if the phone number is not valid
+		// This temporary fix should be remeadiated. it should occur at the front end
+		if(String.isEmpty(reversedPhoneNumber)) {
+			return new List<Contact>();
+		}
+
 		Set<SObjectField> fields = new Set<SObjectField>{Contact.Id, Contact.Name, Contact.AccountId, Contact.Account.IsPersonAccount};
-		return ContactsSelector.newInstance(0, fields).selectByLikedAnyPhoneOrderByName(
+		return ContactsSelector.newInstance(0, fields).selectByReversePhoneFieldBasic(
 			phoneNumber,
 			new Set<Object>{ContactsSelector.Options.WITH_RECORDTYPE}
 		).values();

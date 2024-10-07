@@ -15,6 +15,7 @@ import {
 	MORE_INFO_REQUIRED_ERROR_MESSAGE,
 	INPUT_ELEMENT_SELECTORS,
 	GENERIC_SEARCH_ERROR_MSG,
+	INVALID_FORM_ERROR
 } from 'c/unifiedCustomerSearchForm';
 
 const CUSTOMER_SEARCH_RES_SUCCESS = {
@@ -295,7 +296,7 @@ describe('c-unified-customer-search-form', () => {
 		// Assert
 		const errorDiv = element.shadowRoot.querySelector("div[data-id='error']");
 		expect(errorDiv).not.toBeNull();
-		expect(errorDiv.textContent).toBe(GENERIC_SEARCH_ERROR_MSG);
+		expect(errorDiv.textContent).toBe(INVALID_FORM_ERROR);
 	});
 
 	it('displays error when submitted without any values', async () => {

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <QueueRoutingConfig xmlns="http://soap.sforce.com/2006/04/metadata">
     <capacityPercentage>50.0</capacityPercentage>
+    <capacityType>INTERRUPTIBLE</capacityType>
     <isAttributeBased>false</isAttributeBased>
     <label>Unified Customer Service Case Routing Configuration</label>
     <pushTimeout>60</pushTimeout>

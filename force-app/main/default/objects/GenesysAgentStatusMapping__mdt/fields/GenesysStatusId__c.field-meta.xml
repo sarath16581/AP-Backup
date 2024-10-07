@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>GenesysStatusId__c</fullName>
+    <description>UUID That represents Genesys Status which is mapped to the Salesforce Service Presence Status</description>
+    <externalId>false</externalId>
+    <fieldManageability>DeveloperControlled</fieldManageability>
+    <inlineHelpText>UUID That represents Genesys Status which is mapped to the Salesforce Service Presence Status</inlineHelpText>
+    <label>Genesys Status Id</label>
+    <length>255</length>
+    <required>true</required>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>
