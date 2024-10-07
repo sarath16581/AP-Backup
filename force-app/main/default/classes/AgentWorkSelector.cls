@@ -6,6 +6,7 @@
 * 2023-05-21 - Nathan Franklin - Added new constructors
 * 2024-08-09 - Ranjeewa Silva - Added new search method with search parameter validation
 * 2024-09-16 - Seth Heang - Added Case__c, OwnerId to SOQL fields
+* 2024-09-30 - Ranjeewa Silva - Updated 'selectAcceptedAgentWorkByCaseIdsAndActiveUser' to use AgentWork.Case__c.
 */
 public inherited sharing class AgentWorkSelector extends ApplicationSelector {
 
@@ -60,15 +61,15 @@ public inherited sharing class AgentWorkSelector extends ApplicationSelector {
 		return (List<AgentWork>)Database.query(qb.toSoqlString());
 	}
 
-	public List<AgentWork> selectByAcceptedWorkItemIdsAndActiveUser(Set<Id> workItemIds, Set<Object> selectorOptions) {
+	public List<AgentWork> selectAcceptedAgentWorkByCaseIdsAndActiveUser(Set<Id> caseIds, Set<Object> selectorOptions) {
 		selectorOptions.add(ApplicationSelector.Options.WITHOUT_DEFAULT_ORDER);
 		QueryBuilder qb = newQueryBuilder(selectorOptions).addConditions()
-			.add(new QueryBuilder.SimpleCondition(AgentWork.WorkItemId + ' in :workItemIds'))
+			.add(new QueryBuilder.SimpleCondition(AgentWork.Case__c + ' in :caseIds'))
 			.add(new QueryBuilder.SimpleCondition(AgentWork.AcceptDateTime + ' != NULL'))
 			.add(new QueryBuilder.SimpleCondition('User.IsActive = TRUE'))
 			.endConditions();
 
-		qb.addOrder(new QueryBuilder.Order(AgentWork.WorkItemId))
+		qb.addOrder(new QueryBuilder.Order(AgentWork.Case__c))
 			.addOrder(new QueryBuilder.Order(AgentWork.AcceptDateTime).setSortingOrderDesc());
 
 		return (List<AgentWork>)Database.query(qb.toSoqlString());
