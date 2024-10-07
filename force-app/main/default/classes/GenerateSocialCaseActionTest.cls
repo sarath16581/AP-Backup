@@ -131,7 +131,7 @@ public with sharing class GenerateSocialCaseActionTest {
 		cases[0].Requestor_Workgroup__c='test';
         // cases[0].ClosedDate = Date.Today().addDays(-5);
 		insert cases;
-		cases[0] = (Case)ApplicationTestDataFactory.setUnwritableFields(cases[0], new Map<String, Object>{'ClosedDate' => Date.Today().addDays(-5), 'IsClosed' => true});
+		cases[0] = (Case)ApplicationTestDataFactory.setUnwritableFields(cases[0], new Map<String, Object>{'ClosedDate' => Date.Today().addDays(-6), 'IsClosed' => true});
 
 		update cases;
 
