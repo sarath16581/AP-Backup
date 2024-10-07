@@ -1,10 +1,8 @@
 /*
+* @description 	A very simple selector class for ServicePreseneStatus
+*
 * @author 		Paul Perry
 * @date 		15-08-2024
-* @group 		Selector
-* @tag			Selector
-*
-* @description 	A very simple selector class for ServicePreseneStatus
 */
 public virtual inherited sharing class ServicePresenceStatusSelector extends ApplicationSelector {
 	public enum Options { }
@@ -30,27 +28,27 @@ public virtual inherited sharing class ServicePresenceStatusSelector extends App
 	}
 
 	/**
-	 * Run a simple query to get records based on parent product Id's
+	 * Run a simple query to get records based on DeveloperName
 	 */
-	public List<ServicePresenceStatus> selectActiveStatuses() {
-		return selectActiveStatuses(new Set<Object>{ ApplicationSelector.Options.WITHOUT_DEFAULT_ORDER });
-	}
-
-	/**
-	 * Run a simple query to get records based on parent product Id's
-	 */
-	public List<ServicePresenceStatus> selectActiveStatuses(Set<Object> selectorOptions) {
+	public ServicePresenceStatus selectByDeveloperName(String developerName, Set<Object> selectorOptions) {
 		QueryBuilder qb = newQueryBuilder(selectorOptions)
 			.addConditions()
-			.add(new QueryBuilder.SimpleCondition(ServicePresenceStatus.IsDeleted + ' = false'))
+			.add(new QueryBuilder.SimpleCondition(ServicePresenceStatus.DeveloperName + ' = :developerName'))
 			.endConditions();
-		return (List<ServicePresenceStatus>)Database.query(qb.toSoqlString());
+
+		List<ServicePresenceStatus> result = (List<ServicePresenceStatus>)Database.query(qb.toSoqlString());
+		return result.isEmpty() ? null : result.get(0);
 	}
 
 	/**
 	 * Contruct a new QueryBuilder based on the selector options passed in
 	 */
 	public virtual override QueryBuilder newQueryBuilder(Set<Object> selectorOptions) {
+		if (selectorOptions == null || selectorOptions.isEmpty()) {
+			// ServicePresenceStatus object doesn't have a CreatedDate field
+			selectorOptions = new Set<Object>{ ApplicationSelector.Options.WITHOUT_DEFAULT_ORDER };
+		}
+
 		QueryBuilder builder = super.newQueryBuilder(selectorOptions);
 
 		return builder;

@@ -30,6 +30,7 @@
  * 2024-09-10 - SteveL - added method selectByReversedPhoneNumbers
  * 2024-09-13 - Rejeesh Raghavan - Added changes for RoutingAPI-CustomerInsights
  * 2024-09-30 - Parveen Kaushik - Removed Contact.IncentCredential__c from fieldList as this field is going to be decommissioned 
+ * 2024-10-02 - Nathan Franklin - Added reverse number search temporarily until the new reverse phone fields are productionised
  */
 public virtual inherited sharing class ContactsSelector extends ApplicationSelector {
 	public enum Options {
@@ -148,6 +149,31 @@ public virtual inherited sharing class ContactsSelector extends ApplicationSelec
 			.endConditions();
 		qb.addOrder(new QueryBuilder.Order('Account.IsPersonAccount').setSortingOrderAsc().setNullsOrderFirst())
 			.addOrder(new QueryBuilder.Order(Contact.Name).setSortingOrderAsc().setNullsOrderFirst());
+		return new Map<Id, Contact>((List<Contact>) Database.query(qb.toSoqlString()));
+	}
+
+	/**
+	 * @description Select Contact by checking 'Like' operator on ReversePhoneFields__c
+	 * @param string phone
+	 * @return matching Contact records
+	 */
+	public Map<Id, Contact> selectByReversePhoneFieldBasic(string phone) {
+		return selectByLikedAnyPhoneOrderByName(phone, new Set<Object>());
+	}
+
+	/**
+	 * @description Select Contact by checking 'Like' operator on ReversePhoneFields__c
+	 * @param string phone
+	 * @return matching Contact records
+	 */
+	public Map<Id, Contact> selectByReversePhoneFieldBasic(string phone, Set<Object> selectorOptions) {
+		String reversedPhoneNumber = Util.reversePhoneString(phone);
+
+		QueryBuilder qb = newQueryBuilder(selectorOptions)
+			.addConditions()
+			.add(new QueryBuilder.LikeCondition(Contact.ReversePhoneFields__c).likeAnyRight(reversedPhoneNumber))
+			.endConditions();
+		qb.addOrderAsc(Contact.Name);
 		return new Map<Id, Contact>((List<Contact>) Database.query(qb.toSoqlString()));
 	}
 

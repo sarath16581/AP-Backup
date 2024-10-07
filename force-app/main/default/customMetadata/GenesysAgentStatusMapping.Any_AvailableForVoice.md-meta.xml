@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomMetadata xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <label>Any: Available For Voice</label>
+    <protected>false</protected>
+    <values>
+        <field>GenesysStatusId__c</field>
+        <value xsi:type="xsd:string">e08eaf1b-ee47-4fa9-a231-1200e284798f</value>
+    </values>
+    <values>
+        <field>GenesysStatusLabel__c</field>
+        <value xsi:type="xsd:string">On Queue</value>
+    </values>
+    <values>
+        <field>SalesforcePresenceStatus__c</field>
+        <value xsi:type="xsd:string">AvailableForVoice</value>
+    </values>
+    <values>
+        <field>SyncDirection__c</field>
+        <value xsi:type="xsd:string">Any</value>
+    </values>
+</CustomMetadata>

@@ -14,7 +14,23 @@ Hi {!IF(ISBLANK(Contact.Preferred_Name__c),Contact.FirstName,Contact.Preferred_N
 
 Your delivery will arrive shortly
 
-Thank you for your patience while we’ve been monitoring your delivery. We 											are happy to report that the tracking has updated and you can now expect 											your delivery on or before {!Case.EstimatedDelivery__c}
+Thank you for your patience while we’ve been monitoring your delivery. We 											are happy to report that the tracking has updated and you can now expect 											your delivery on or before {!IF(ISBLANK(Case.EstimatedDelivery__c), '',
+											TEXT(DAY(Case.EstimatedDelivery__c)) +" "+
+											CASE(
+											MONTH(Case.EstimatedDelivery__c),
+											1, "January",
+											2, "February",
+											3, "March",
+											4, "April",
+											5, "May",
+											6, "June",
+											7, "July",
+											8, "August",
+											9, "September",
+											10, "October",
+											11, "November",
+											"December"
+											)+" "+TEXT(YEAR(Case.EstimatedDelivery__c)))}
 
 Where we’d previously calculated the journey of your parcel based on 											information from the sender, we’ve since received new information about the 											parcel allowing us to update you with this more accurate delivery estimate. 											You’ll see more activity on the tracking from here to help reassure that 											it’ll be with you shortly.
 
