@@ -6,7 +6,7 @@
     <name>ST Delivered - Safe Dropped</name>
     <style>none</style>
     <subject>We&apos;ve safe dropped your delivery for case {!Case.CaseNumber}</subject>
-    <textOnly>Star Track
+    <textOnly>StarTrack
 
 Case {!Case.CaseNumber}
 

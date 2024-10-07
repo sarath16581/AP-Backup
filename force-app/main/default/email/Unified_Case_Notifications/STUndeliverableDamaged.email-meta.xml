@@ -6,7 +6,7 @@
     <name>ST Undeliverable – Damaged</name>
     <style>none</style>
     <subject>We have an update on your delivery for case {!Case.CaseNumber}</subject>
-    <textOnly>Star Track
+    <textOnly>StarTrack
 
 Case {!Case.CaseNumber}
 

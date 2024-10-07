@@ -6,7 +6,7 @@
     <name>ST Manual template</name>
     <style>none</style>
     <subject>Manual template</subject>
-    <textOnly>Star Track
+    <textOnly>StarTrack
 
 Case {!Case.CaseNumber}
 

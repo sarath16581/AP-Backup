@@ -1901,10 +1901,7 @@
         <layout>Account-Unified Agent Organisation Layout</layout>
         <recordType>Account.Licence_PP</recordType>
     </layoutAssignments>
-	<layoutAssignments>
-        <layout>Case-Unified Case Layout</layout>
-    </layoutAssignments>
-	<layoutAssignments>
+    <layoutAssignments>
         <layout>Case-Unified Case Layout</layout>
         <recordType>Case.SSSWDelivery</recordType>
     </layoutAssignments>

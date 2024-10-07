@@ -3,6 +3,7 @@
     <fullName>UnifiedGeneralEnquiry</fullName>
     <active>true</active>
     <businessProcess>Unified Process</businessProcess>
+    <compactLayoutAssignment>UnifiedCompactLayout</compactLayoutAssignment>
     <description>General type enquiry for Unified cases</description>
     <label>Unified General Enquiry</label>
     <picklistValues>

@@ -3,6 +3,8 @@
  * @author Ranjeewa Silva
  * @date 2024-07-15
  * @changelog
+ * 2024-07-15 - Ranjeewa Silva - created
+ * 2024-09-23 - Seth Heang - added test for FILTER_STATUS_NOT_ABANDONED
  * 2024-09-24 - George Nguyen - fixed test errors
  */
 @IsTest
@@ -70,8 +72,12 @@ private class ContactRequestsSelector_Test {
 		});
 		QueryBuilder qb = selector.newQueryBuilder();
 		String soql = qb.toSoqlString();
-		System.assertEquals(true, Pattern.compile('(?ism)WhoId.*?\\bfrom ContactRequest\\b').matcher(soql).find(), 'Resulting query does not select WhoId: ' + soql);
-		System.assertEquals(false, Pattern.compile('(?ism)WhatId.*?\\bfrom ContactRequest\\b').matcher(soql).find(), 'Resulting query selects WhatId but should not: ' + soql);
+		Assert.areEqual(true, Pattern.compile('(?ism)WhoId.*?\\bfrom ContactRequest\\b').matcher(soql).find(), 'Resulting query does not select WhoId: ' + soql);
+		Assert.areEqual(false, Pattern.compile('(?ism)WhatId.*?\\bfrom ContactRequest\\b').matcher(soql).find(), 'Resulting query selects WhatId but should not: ' + soql);
+
+		qb = selector.newQueryBuilder(new Set<Object>{ ContactRequestsSelector.Options.FILTER_STATUS_NOT_ABANDONED });
+		soql = qb.toSoqlString();
+		Assert.areEqual(true, Pattern.compile('(?ism)\\bfrom ContactRequest\\b.*Status\\s*!=\\s*\'?Abandoned\'?').matcher(soql).find(), 'Resulting query does not filter false Abandoned status: ' + soql);
 
 		Test.stopTest();
 	}
@@ -162,7 +168,7 @@ private class ContactRequestsSelector_Test {
 		};
 
 		soql = selector.getSearchSoql(searchParams, new Set<Object>(), false);
-		System.assertEquals(true, Pattern.compile('(?ism)\\s+from ContactRequest\\s+where\\b.*?\\bOR\\b').matcher(soql).find(), 'Resulting query does not limit by ANY');
+		Assert.areEqual(true, Pattern.compile('(?ism)\\s+from ContactRequest\\s+where\\b.*?\\bOR\\b').matcher(soql).find(), 'Resulting query does not limit by ANY');
 
 		// make sure the query is valid (even though no records will be returned)
 		// note if the query fails, an exception will be thrown
