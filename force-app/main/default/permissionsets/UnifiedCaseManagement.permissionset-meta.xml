@@ -206,11 +206,6 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Case.ContactId</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
         <field>Case.CreditRepresentative__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -442,11 +437,6 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Case.ResolutionCode__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>Case.ResolutionNote__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
