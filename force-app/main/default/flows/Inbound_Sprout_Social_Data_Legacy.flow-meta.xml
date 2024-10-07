@@ -1,10 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Flow xmlns="http://soap.sforce.com/2006/04/metadata">
     <actionCalls>
+        <name>GenerateCasesAction</name>
+        <label>Generate Cases Action</label>
+        <locationX>330</locationX>
+        <locationY>647</locationY>
+        <actionName>GenerateSocialCaseAction</actionName>
+        <actionType>apex</actionType>
+        <connector>
+            <targetReference>HasExistingCaseToUpdate</targetReference>
+        </connector>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>socialPersona</name>
+            <value>
+                <elementReference>Process_Social_Persona_Action</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>socialPost</name>
+            <value>
+                <elementReference>SocialPostRecord</elementReference>
+            </value>
+        </inputParameters>
+        <outputParameters>
+            <assignToReference>CaseRecord</assignToReference>
+            <name>output</name>
+        </outputParameters>
+    </actionCalls>
+    <actionCalls>
         <description>Accepts a Sprout Social Data Event record and determines whether new SocialPersona records need to be created or if existing records need to be updated.</description>
         <name>Process_Social_Persona_Action</name>
         <label>Process Social Persona Action</label>
-        <locationX>264</locationX>
+        <locationX>330</locationX>
         <locationY>431</locationY>
         <actionName>ProcessSocialPersonaAction</actionName>
         <actionType>apex</actionType>
@@ -21,40 +49,15 @@
         <storeOutputAutomatically>true</storeOutputAutomatically>
     </actionCalls>
     <actionCalls>
-        <description>Finds an existing case record to reopen or creates a new one if cases are not matching with the criteria.</description>
-        <name>ProcessCaseAction</name>
-        <label>Process Case Action</label>
-        <locationX>264</locationX>
-        <locationY>647</locationY>
-        <actionName>ProcessSocialCaseAction</actionName>
-        <actionType>apex</actionType>
-        <connector>
-            <targetReference>DeleteSocialDataEvent</targetReference>
-        </connector>
-        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
-        <inputParameters>
-            <name>socialPersona</name>
-            <value>
-                <elementReference>Process_Social_Persona_Action</elementReference>
-            </value>
-        </inputParameters>
-        <inputParameters>
-            <name>socialPost</name>
-            <value>
-                <elementReference>ProcessSocialPostAction</elementReference>
-            </value>
-        </inputParameters>
-    </actionCalls>
-    <actionCalls>
         <description>Accepts a Sprout Social Data Event and Social Persona records and determines whether new Social Post records need to be created or need to update the existing records.</description>
         <name>ProcessSocialPostAction</name>
         <label>Process Social Post Action</label>
-        <locationX>264</locationX>
+        <locationX>330</locationX>
         <locationY>539</locationY>
         <actionName>ProcessSocialPostAction</actionName>
         <actionType>apex</actionType>
         <connector>
-            <targetReference>ProcessCaseAction</targetReference>
+            <targetReference>GenerateCasesAction</targetReference>
         </connector>
         <flowTransactionModel>CurrentTransaction</flowTransactionModel>
         <inputParameters>
@@ -69,9 +72,53 @@
                 <elementReference>Process_Social_Persona_Action</elementReference>
             </value>
         </inputParameters>
-        <storeOutputAutomatically>true</storeOutputAutomatically>
+        <outputParameters>
+            <assignToReference>SocialPostRecord</assignToReference>
+            <name>output</name>
+        </outputParameters>
     </actionCalls>
     <apiVersion>59.0</apiVersion>
+    <assignments>
+        <name>AssignCaseToSocialPost</name>
+        <label>Assign Case To Social Post</label>
+        <locationX>330</locationX>
+        <locationY>1055</locationY>
+        <assignmentItems>
+            <assignToReference>SocialPostRecord.ParentId</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>CaseRecord.Id</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>UpdateSocialPost</targetReference>
+        </connector>
+    </assignments>
+    <decisions>
+        <name>HasExistingCaseToUpdate</name>
+        <label>Has Existing Case To Update</label>
+        <locationX>330</locationX>
+        <locationY>755</locationY>
+        <defaultConnector>
+            <targetReference>CreateCase</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>No</defaultConnectorLabel>
+        <rules>
+            <name>Yes</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>CaseRecord.Id</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>UpdateCase</targetReference>
+            </connector>
+            <label>Yes</label>
+        </rules>
+    </decisions>
     <decisions>
         <description>Check if the incoming post shouldn&apos;t be captured in Salesforce</description>
         <name>Is_Invalid_Post</name>
@@ -127,13 +174,43 @@
         </value>
     </processMetadataValues>
     <processType>AutoLaunchedFlow</processType>
+    <recordCreates>
+        <name>CreateCase</name>
+        <label>Create Case</label>
+        <locationX>462</locationX>
+        <locationY>863</locationY>
+        <connector>
+            <targetReference>AssignCaseToSocialPost</targetReference>
+        </connector>
+        <inputReference>CaseRecord</inputReference>
+    </recordCreates>
     <recordDeletes>
         <name>DeleteSocialDataEvent</name>
         <label>Delete Social Data Event</label>
         <locationX>176</locationX>
-        <locationY>839</locationY>
+        <locationY>1355</locationY>
         <inputReference>$Record</inputReference>
     </recordDeletes>
+    <recordUpdates>
+        <name>UpdateCase</name>
+        <label>Update Case</label>
+        <locationX>198</locationX>
+        <locationY>863</locationY>
+        <connector>
+            <targetReference>AssignCaseToSocialPost</targetReference>
+        </connector>
+        <inputReference>CaseRecord</inputReference>
+    </recordUpdates>
+    <recordUpdates>
+        <name>UpdateSocialPost</name>
+        <label>Update Social Post</label>
+        <locationX>330</locationX>
+        <locationY>1163</locationY>
+        <connector>
+            <targetReference>DeleteSocialDataEvent</targetReference>
+        </connector>
+        <inputReference>SocialPostRecord</inputReference>
+    </recordUpdates>
     <sourceTemplate>SproutSocialApp__Inbound_Sprout_Social_Data</sourceTemplate>
     <start>
         <locationX>50</locationX>
@@ -147,6 +224,14 @@
     </start>
     <status>Active</status>
     <variables>
+        <name>CaseRecord</name>
+        <dataType>SObject</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>true</isOutput>
+        <objectType>Case</objectType>
+    </variables>
+    <variables>
         <description>Scocial Persona Records that has latest information of social data events. These records can be an existing records or new records that are created as part of this transaction.</description>
         <name>SocialPersonaRecords</name>
         <dataType>SObject</dataType>
@@ -154,6 +239,14 @@
         <isInput>true</isInput>
         <isOutput>true</isOutput>
         <objectType>SocialPersona</objectType>
+    </variables>
+    <variables>
+        <name>SocialPostRecord</name>
+        <dataType>SObject</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>true</isOutput>
+        <objectType>SocialPost</objectType>
     </variables>
     <variables>
         <name>SocialPosts</name>
