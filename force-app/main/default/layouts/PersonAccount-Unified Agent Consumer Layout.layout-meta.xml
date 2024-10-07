@@ -134,6 +134,14 @@
         <sortOrder>Desc</sortOrder>
     </relatedLists>
     <relatedLists>
+        <fields>CallAcceptDateTime</fields>
+        <fields>CallEndDateTime</fields>
+        <fields>FromPhoneNumber</fields>
+        <relatedList>VoiceCall.Contact__c</relatedList>
+        <sortField>CallAcceptDateTime</sortField>
+        <sortOrder>Desc</sortOrder>
+    </relatedLists>
+    <relatedLists>
         <excludeButtons>MassChangeOwner</excludeButtons>
         <excludeButtons>New</excludeButtons>
         <fields>NAME</fields>
