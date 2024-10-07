@@ -6,11 +6,11 @@
     <name>ST No Scans Or Updates For 3 Days</name>
     <style>none</style>
     <subject>We are continuing to investigate your case {!Case.CaseNumber}</subject>
-    <textOnly>Star Track
+    <textOnly>StarTrack
 
 Case {!Case.CaseNumber}
 
-Hi NAME,
+Hi {!IF(ISBLANK(Contact.Preferred_Name__c),Contact.FirstName,Contact.Preferred_Name__c)},
 
 We are investigating the status of your delivery
 
