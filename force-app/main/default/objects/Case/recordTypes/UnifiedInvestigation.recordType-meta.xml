@@ -3,6 +3,7 @@
     <fullName>UnifiedInvestigation</fullName>
     <active>true</active>
     <businessProcess>Unified Process</businessProcess>
+    <compactLayoutAssignment>UnifiedCompactLayout</compactLayoutAssignment>
     <description>Investigation type enquiry for Unified cases</description>
     <label>Unified Investigation</label>
     <picklistValues>

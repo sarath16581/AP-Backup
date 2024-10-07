@@ -4,9 +4,15 @@
  * @description A very simple selector class
  * @test ContactRequestsSelector_Test
  * @changelog
+ * 2024-07-15 - Ranjeewa Silva - created
+ * 2024-09-23 - Seth Heang - added FILTER_STATUS_NOT_ABANDONED
  * 2024-09-24 - George Nguyen - Included Case__c field as default. It qualifies to be as it will be commonly used. Included method .selectByIds(...) to be used by UnifiedInteractionService
  */
 public virtual inherited sharing class ContactRequestsSelector extends ApplicationSelector {
+
+	public enum Options {
+		FILTER_STATUS_NOT_ABANDONED
+	}
 
 	public static ContactRequestsSelector newInstance() {
 		return (ContactRequestsSelector)Application.Selectors.newInstance(ContactRequestsSelector.class);
@@ -39,7 +45,8 @@ public virtual inherited sharing class ContactRequestsSelector extends Applicati
 
 	protected override Set<SObjectField> getSObjectFieldList() {
 		return new Set<SObjectField>{
-				ContactRequest.Id, ContactRequest.OwnerId, ContactRequest.WhatId, ContactRequest.WhoId, ContactRequest.Status, ContactRequest.Case__c
+				ContactRequest.Id, ContactRequest.OwnerId, ContactRequest.WhatId, ContactRequest.WhoId, ContactRequest.Status,
+				ContactRequest.PreferredChannel, ContactRequest.Case__c
 		};
 	}
 
@@ -119,5 +126,20 @@ public virtual inherited sharing class ContactRequestsSelector extends Applicati
 		conditions.setConditionOrder(conditionOrder);
 
 		return conditions.endConditions().toSoqlString();
+	}
+
+	/**
+	 * @description appends additional clause or criteria to the query such as adding related objects subquery or filtering conditions
+	 * @param selectorOptions specify options to add additional subquery or filtering condition
+	 *
+	 * @return QueryBuilder final query with all condition or criteria updated
+	 */
+	public virtual override QueryBuilder newQueryBuilder(Set<Object> selectorOptions) {
+		QueryBuilder builder = super.newQueryBuilder(selectorOptions);
+
+		if(selectorOptions.contains(Options.FILTER_STATUS_NOT_ABANDONED)) {
+			builder.addConditions().add(new QueryBuilder.CompareCondition(ContactRequest.Status).ne('Abandoned')).endConditions();
+		}
+		return builder;
 	}
 }
