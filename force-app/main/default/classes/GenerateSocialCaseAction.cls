@@ -93,23 +93,6 @@ global with sharing class GenerateSocialCaseAction {
 
 		return socialCase;
 	}
-
-	/**
-	 * @description Updates the socialPost record with Case ids
-	 * @param socialPostIdCaseMap social post Id and its related case.
-	 */
-	private static void updateSocialPosts(Map<Id, Case> socialPostIdCaseMap) {
-		List<SocialPost> updateSocialPost = new List<SocialPost>();
-		for (Id socialPostId : socialPostIdCaseMap.keySet()) {
-			Socialpost post = new SocialPost();
-			post.Id = socialPostId;
-			post.ParentId = socialPostIdCaseMap.get(socialPostId).Id;
-			updateSocialPost.add(post);
-		}
-		if (!updateSocialPost.isEmpty()) {
-			update updateSocialPost;
-		}
-	}
 	
 	/**
 	 * @description Prepares case subject based on the Provider and Message type
