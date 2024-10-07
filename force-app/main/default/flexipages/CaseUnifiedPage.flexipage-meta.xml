@@ -909,8 +909,8 @@
     <flexiPageRegions>
         <itemInstances>
             <componentInstance>
-                <componentName>unifiedCaseFeeds</componentName>
-                <identifier>c_unifiedCaseFeeds</identifier>
+                <componentName>unifiedCaseFeed</componentName>
+                <identifier>c_unifiedCaseFeed</identifier>
             </componentInstance>
         </itemInstances>
         <itemInstances>
