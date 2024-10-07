@@ -14,7 +14,23 @@ Hi {!IF(ISBLANK(Contact.Preferred_Name__c),Contact.FirstName,Contact.Preferred_N
 
 Your delivery will arrive shortly
 
-Thank you for your patience while we’ve been monitoring your delivery. We 											are happy to report that the tracking has updated and you can now expect 											your delivery on or before {!Case.EstimatedDelivery__c}
+Thank you for your patience while we’ve been monitoring your delivery. We 											are happy to report that the tracking has updated and you can now expect 											your delivery on or before {!IF(ISBLANK(Case.EstimatedDelivery__c), '',
+											TEXT(DAY(Case.EstimatedDelivery__c)) +" "+
+											CASE(
+											MONTH(Case.EstimatedDelivery__c),
+											1, "January",
+											2, "February",
+											3, "March",
+											4, "April",
+											5, "May",
+											6, "June",
+											7, "July",
+											8, "August",
+											9, "September",
+											10, "October",
+											11, "November",
+											"December"
+											)+" "+TEXT(YEAR(Case.EstimatedDelivery__c)))}
 
 When a parcel is redirected a new address label is applied by the delivery 											facility that looks after the original address, who then send it on to the 											updated address. As you’ll have been made aware this redirection does add a 											little time to the journey but it’s on the final stretch now and will arrive 											at the new address shortly.
 
