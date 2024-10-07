@@ -560,11 +560,11 @@ public virtual inherited sharing class ContactsSelector extends ApplicationSelec
 				VoiceCallsSelector.newInstance()
 					.setFieldOverrides(fieldOverrides)
 					.newQueryBuilder()
-					.addRelatedFields(UsersSelector.newInstance(0, fieldOverrides).newQueryBuilder(new Set<Object>{UsersSelector.Options.WITH_PROFILE}), 'CreatedBy')
+					.addRelatedFields(UsersSelector.newInstance(0, fieldOverrides).newQueryBuilder(new Set<Object>{UsersSelector.Options.WITH_PROFILE}), 'LastModifiedBy')
 					.addConditions()
 					.add(new QueryBuilder.SimpleCondition(voiceCallsConditions))
 					.endConditions()
-				,'RelatedRecords'
+				,'Voice_Calls__r'
 			);
 		}
 
