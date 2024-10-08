@@ -1,0 +1,30 @@
+<template>
+	<lightning-modal-header label="Monitor (Push to Monitoring Queue)"></lightning-modal-header>
+	<lightning-modal-body class="slds-is-relative">
+		<template if:true={isLoading}>
+			<div class="slds-p-around_large">
+				<lightning-spinner alternative-text="Loading" variant="brand" size="medium"></lightning-spinner>
+			</div>
+		</template>
+		<template if:false={isLoading}>
+			<template if:true={errorMessages.length}>
+				<div class="slds-p-around_large slds-text-color_error slds-text-heading_small">
+					<template for:each={errorMessages} for:item="message">
+						<div key={message}>
+							{message}
+						</div>
+					</template>
+				</div>
+			</template>
+			<template if:false={errorMessages.length}>
+				<div class='slds-p-around_large slds-text-color_default slds-text-heading_small'>
+					Case has been successfully activated for proactive monitoring. <br/>
+					Ownership transferred to Unified Customer Service Monitoring Queue.
+				</div>
+			</template>
+		</template>
+	</lightning-modal-body>
+	<lightning-modal-footer>
+		<lightning-button label="OK" variant="brand" onclick={handleClose} disabled={isLoading}></lightning-button>
+	</lightning-modal-footer>
+</template>

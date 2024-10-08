@@ -586,4 +586,48 @@ private class ApplicationUnitOfWork_Test {
 
 	}
 
+	@IsTest
+	private static void testQueueingOfEmailNotifications() {
+
+		// =====================================
+		// Data Preparation
+		// =====================================
+		
+		List<Case> testCases = ApplicationTestDataFactory.getCases(10, true);
+
+		// =====================================
+		// Stubbing
+		// =====================================
+		// None!
+
+		// =====================================
+		// Testing
+		// =====================================
+		Test.startTest();
+
+		List<SObjectType> sObjectTypes = new List<SObjectType>{
+			Case.SObjectType
+		};
+		
+		ApplicationUnitOfWork uow = ApplicationUnitOfWork.newInstance(sObjectTypes);
+		
+		for (Case testCase : testCases) {
+			uow.queueEmailNotification(testCase.Id, Case.sObjectType, 'Test_Case_Email');
+		}
+
+		// check the registered emails in ApplicationEmailService instance
+		System.assertEquals(10, ApplicationEmailService.getInstance().getRegistrySize(), '10 entries in ApplicationEmailService registry should have been created via the unitOfWork');
+	
+		// commit the work to dispatch emails
+		uow.commitWork();
+
+		// kick off platform events
+		Test.getEventBus().deliver();
+
+		Test.stopTest();
+		
+		System.assertEquals(1, [SELECT COUNT() FROM AsyncApexJob], 'A single asyncWorker should have been queued to dispatch emails');
+
+	}
+
 }

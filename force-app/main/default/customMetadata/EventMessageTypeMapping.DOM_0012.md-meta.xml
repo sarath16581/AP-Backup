@@ -3,12 +3,40 @@
     <label>DOM-0012</label>
     <protected>false</protected>
     <values>
+        <field>CaseAutomationReassignmentReason__c</field>
+        <value xsi:type="xsd:string">Review scans</value>
+    </values>
+    <values>
+        <field>CaseAutomationResolutionCode__c</field>
+        <value xsi:type="xsd:string">Located - undeliverable - Other</value>
+    </values>
+    <values>
+        <field>CaseAutomationRootCause__c</field>
+        <value xsi:type="xsd:string">Unclear EDD</value>
+    </values>
+    <values>
+        <field>CaseClosureEmailAlertNameAusPost__c</field>
+        <value xsi:type="xsd:string">UnifiedCaseClosureOnUndeliverableRefusedScanEventAP</value>
+    </values>
+    <values>
+        <field>CaseClosureEmailAlertNameStarTrack__c</field>
+        <value xsi:nil="true"/>
+    </values>
+    <values>
         <field>Category__c</field>
         <value xsi:type="xsd:string">AttemptedDelivery</value>
     </values>
     <values>
         <field>ColourCode__c</field>
         <value xsi:type="xsd:string">Orange</value>
+    </values>
+    <values>
+        <field>IsCaseClosureEligible__c</field>
+        <value xsi:type="xsd:string">Yes - AP Only</value>
+    </values>
+    <values>
+        <field>IsCaseReassignmentEligible__c</field>
+        <value xsi:type="xsd:string">Yes - ST Only</value>
     </values>
     <values>
         <field>IsEnquiryLodged__c</field>

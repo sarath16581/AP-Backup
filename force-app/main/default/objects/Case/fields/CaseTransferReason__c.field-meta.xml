@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>CaseTransferReason__c</fullName>
+    <description>Reason selected by the agent when the case was handed off to the classic team.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Reason selected by the agent when the case was handed off to the classic team.</inlineHelpText>
+    <label>Case Transfer Reason</label>
+    <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Compensation required</fullName>
+                <default>false</default>
+                <label>Compensation required</label>
+            </value>
+            <value>
+                <fullName>Network contact required</fullName>
+                <default>false</default>
+                <label>Network contact required</label>
+            </value>
+            <value>
+                <fullName>Customer Care Specialist</fullName>
+                <default>false</default>
+                <label>Customer Care Specialist</label>
+            </value>
+            <value>
+                <fullName>High Priority investigation</fullName>
+                <default>false</default>
+                <label>High Priority investigation</label>
+            </value>
+            <value>
+                <fullName>Manager escalation</fullName>
+                <default>false</default>
+                <label>Manager escalation</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

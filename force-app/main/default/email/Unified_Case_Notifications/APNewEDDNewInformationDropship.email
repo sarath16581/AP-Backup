@@ -1,0 +1,152 @@
+<!DOCTYPE html
+	PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+	<title>Australia Post</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<style type="text/css">
+		* {
+			-ms-text-size-adjust: 100%;
+			-webkit-text-size-adjust: none;
+			-webkit-text-resize: 100%;
+			text-resize: 100%;
+		}
+
+		@media only screen and (max-width:500px) {
+			table[class="wrapper"] {
+				min-width: 320px !important;
+			}
+
+			table[class="flexible"] {
+				width: 100% !important;
+			}
+
+			td[class="alignjustify"] {
+				text-align: justify !important;
+			}
+		}
+	</style>
+</head>
+
+<body style="margin:0; padding:0;">
+	<table class="wrapper" width="100%" cellspacing="0" cellpadding="0">
+		<tr>
+			<td style="padding:19px 5px;">
+				<table class="flexible" align="center" width="510" cellpadding="0" cellspacing="0">
+					<tr>
+						<td style="padding:0 0 25px;">
+							<table width="100%" cellpadding="0" cellspacing="0">
+								<tr>
+									<td>
+										<table width="100%" cellpadding="0" cellspacing="0">
+											<tr>
+												<td align="right" style="padding:0 0 10px;"><a
+														href="http://auspost.com.au?ilink=track-em4-edm-aplogo"><img
+															src="https://cdn.bfldr.com/O9150MZM/at/c39tbx6msfffvmw8j8t4h2v/ap_symbol_red_rgb.svg?auto=webp&format=png"
+															border="0" style="vertical-align:top;" width="99"
+															height="100" alt="Australia Post" /></a></td>
+											</tr>
+											<tr>
+												<td align="right" width="60"
+													style="padding:1px; font:11px/16px Arial, Helvetica, sans-serif;">
+													Case {!Case.CaseNumber}</td>
+											</tr>
+										</table>
+									</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<td bgcolor="#ffffff" style="padding:17px 10px 0px 10px; border-radius:0 0 2px 2px;">
+							<table width="100%" cellpadding="0" cellspacing="0">
+								<tr>
+									<td style="padding:0 0 10px; font:13px/16px Arial, Helvetica, sans-serif;">
+
+										<p>
+											Hi {!IF(ISBLANK(Contact.Preferred_Name__c),Contact.FirstName,Contact.Preferred_Name__c)},
+										</p>
+										<p>
+											<b>Your delivery will arrive shortly</b>
+										</p>
+										<p>
+											Thank you for your patience while we’ve been monitoring your delivery. We
+											are happy to report that the tracking has updated and you can now expect
+											your delivery on or before {!IF(ISBLANK(Case.EstimatedDelivery__c), '',
+											TEXT(DAY(Case.EstimatedDelivery__c)) +" "+
+											CASE(
+											MONTH(Case.EstimatedDelivery__c),
+											1, "January",
+											2, "February",
+											3, "March",
+											4, "April",
+											5, "May",
+											6, "June",
+											7, "July",
+											8, "August",
+											9, "September",
+											10, "October",
+											11, "November",
+											"December"
+											) +" "+ TEXT(YEAR(Case.EstimatedDelivery__c)))}.
+										</p>
+										<p>
+											Where we’d previously calculated the journey of your parcel based on
+											information from the sender, we’ve since received new information about the
+											parcel allowing us to update you with this more accurate delivery estimate.
+											You’ll see more activity on the tracking from here to help reassure that
+											it’ll be with you shortly.
+										</p>
+										<p>
+											Your case will be closed now that your delivery is on the way. You can
+											continue to monitor the tracking for further updates – <a
+												href="https://auspost.com.au/mypost/track/details/{!Case.ReferenceID__c}"
+												style="text-decoration:none; color:#0000FF;"><u>click here</u></a> to
+											see delivery options and notification preferences for this parcel.
+										</p>
+										<p>
+											Australia Post
+										</p>
+									</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+		<tr>
+			<td style="padding:45px 5px;">
+				<table align="center" class="flexible" width="510" cellpadding="0" cellspacing="0">
+					<tr>
+						<td width="13%">&nbsp;</td>
+						<td style="font:11px/16px Arial, Helvetica, sans-serif; text-align: justify !important;">
+							<p>This email was sent by Australia Post. Australia Post does not represent, warrant or
+								guarantee that the integrity of this email communication has been maintained nor that
+								the communication is free of errors, viruses or interference.
+							</p>
+						</td>
+						<td width="13%">&nbsp;</td>
+					</tr>
+					<tr>
+						<td width="13%">&nbsp;</td>
+						<td align="center" style="font:11px/0px Arial, Helvetica, sans-serif;">
+							<p>
+								<a href="https://auspost.com.au/help-and-support"
+									style="text-decoration:none; color:#0000FF;"><u>Help & support</u> | </a> <a
+									href="https://auspost.com.au/terms-conditions"
+									style="text-decoration:none; color:#0000FF;"><u>Terms & conditions</u> | </a> <a
+									href="https://auspost.com.au/privacy"
+									style="text-decoration:none; color:#0000FF;"><u>Privacy policy</u></a><br>
+							</p>
+						</td>
+						<td width="13%">&nbsp;</td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+	</table>
+</body>
+
+</html>

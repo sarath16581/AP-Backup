@@ -5,7 +5,7 @@
     <alertText>There is another record with this ABN/ACN. Please check the ABN/ACN or use the existing record. If you require further assistance, please contact the Sales Operations Support team.</alertText>
     <description>Verifies that LIPOMS Legal Entity with similar ABN does not already exist.</description>
     <duplicateRuleFilter>
-        <booleanFilter>1 AND 2 AND 3</booleanFilter>
+        <booleanFilter>1 AND 2 AND (3 OR 4)</booleanFilter>
         <duplicateRuleFilterItems>
             <field>IsPersonAccount</field>
             <operation>equals</operation>
@@ -25,6 +25,13 @@
             <operation>contains</operation>
             <value>Coverage Sales, Sales 3rd Party, PartnerInfo Read Only, Enterprise Onboarding, Retail Operations, StarTrack Support, SSSW - Service Agent, BG Base, SecurePay SuperUser, System Administrator, Hub Users, Credit Management, Product Sales, Sales Admin, Marketing, PT1</value>
             <sortOrder>3</sortOrder>
+            <table>User</table>
+        </duplicateRuleFilterItems>
+        <duplicateRuleFilterItems>
+            <field>Profile_Name_in_Text__c</field>
+            <operation>contains</operation>
+            <value>Unified Customer Service</value>
+            <sortOrder>4</sortOrder>
             <table>User</table>
         </duplicateRuleFilterItems>
     </duplicateRuleFilter>

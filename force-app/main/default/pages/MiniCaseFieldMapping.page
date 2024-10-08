@@ -24,7 +24,10 @@
 				<apex:param name="productCategory" assignTo="{!proxyCase.ProductCategory__c}" value="" />
 			</apex:actionfunction>
 			
-			
+			<apex:pageblocksection columns="2" title="Mapping Model">
+				<apex:inputfield value="{!MiniCaseFieldMapping__c.MappingModel__c}" styleClass="form-control input-sm maxWidth" />					
+			</apex:pageblocksection>	
+
 			<apex:pageblocksection columns="2" title="CTI Mappings">
 				<apex:inputfield value="{!MiniCaseFieldMapping__c.CTICustomerSegment__c}" styleClass="form-control input-sm maxWidth" />					
 				<apex:inputfield value="{!MiniCaseFieldMapping__c.CTIServiceType__c}" styleClass="form-control input-sm maxWidth" />
@@ -107,6 +110,7 @@
 					<apex:column value="{!r.ProductCategory__c}" />
 					<apex:column value="{!r.ProductSubcategory__c}" />
 					<apex:column value="{!r.Type__c}" />
+					<apex:column value="{!r.MappingModel__c}"/>
 				</apex:pageblocktable>
 			</apex:pageblock>
 			<apex:pageblock rendered="{!!existingSAPMappings.empty}" title="Existing SAP Settings">
@@ -119,6 +123,7 @@
 					<apex:column value="{!r.ProductCategory__c}" />
 					<apex:column value="{!r.ProductSubcategory__c}" />
 					<apex:column value="{!r.Type__c}" />
+					<apex:column value="{!r.MappingModel__c}"/>
 				</apex:pageblocktable>
 			</apex:pageblock>
 		</apex:outputpanel>

@@ -14,6 +14,7 @@
  * 2023-08-11 - SteveL - added selectByWhatIdAllRows
  * 2024-05-09 - Paul Perry - add support for search on ctiInteractionIds
  * 2024-05-28 - Ranjeewa Silva - Fixed a bug in search method by defining bind variables for 'subjects' and 'ownerIds' search parameters
+ * 2024-05-09 - Paul Perry - add support for search on ctiInteractionIds
  */
 public virtual inherited sharing class TasksSelector extends ApplicationSelector {
 

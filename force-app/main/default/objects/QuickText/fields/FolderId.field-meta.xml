@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>FolderId</fullName>
+    <businessStatus>Active</businessStatus>
+    <description>ID of folder for storing quick text, system generated field.</description>
+    <inlineHelpText>Folder where quick text are stored.</inlineHelpText>
+    <securityClassification>INTERNAL</securityClassification>
+    <trackHistory>false</trackHistory>
+    <type>Lookup</type>
+</CustomField>

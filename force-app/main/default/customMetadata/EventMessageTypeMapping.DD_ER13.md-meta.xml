@@ -3,12 +3,40 @@
     <label>DD-ER13</label>
     <protected>false</protected>
     <values>
+        <field>CaseAutomationReassignmentReason__c</field>
+        <value xsi:nil="true"/>
+    </values>
+    <values>
+        <field>CaseAutomationResolutionCode__c</field>
+        <value xsi:type="xsd:string">Located - last mile scan - Delivered/Collected</value>
+    </values>
+    <values>
+        <field>CaseAutomationRootCause__c</field>
+        <value xsi:type="xsd:string">Unclear EDD</value>
+    </values>
+    <values>
+        <field>CaseClosureEmailAlertNameAusPost__c</field>
+        <value xsi:type="xsd:string">UnifiedCaseClosureOnDeliveredScanEventAP</value>
+    </values>
+    <values>
+        <field>CaseClosureEmailAlertNameStarTrack__c</field>
+        <value xsi:type="xsd:string">UnifiedCaseClosureOnDeliveredScanEventST</value>
+    </values>
+    <values>
         <field>Category__c</field>
         <value xsi:type="xsd:string">Delivered</value>
     </values>
     <values>
         <field>ColourCode__c</field>
         <value xsi:type="xsd:string">Green</value>
+    </values>
+    <values>
+        <field>IsCaseClosureEligible__c</field>
+        <value xsi:type="xsd:string">Yes</value>
+    </values>
+    <values>
+        <field>IsCaseReassignmentEligible__c</field>
+        <value xsi:type="xsd:string">No</value>
     </values>
     <values>
         <field>IsEnquiryLodged__c</field>

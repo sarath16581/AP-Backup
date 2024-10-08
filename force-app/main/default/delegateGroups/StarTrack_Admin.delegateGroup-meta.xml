@@ -97,6 +97,13 @@
     <groups>StarTrack Service Team</groups>
     <groups>StarTrack LDC Approval Step 2</groups>
     <groups>StarTrack Recycle Bin</groups>
+    <groups>Knowledge: Article Managers</groups>
+    <groups>Knowledge: Australia Post</groups>
+    <groups>Knowledge: FAQ</groups>
+    <groups>Knowledge: Manager</groups>
+    <groups>Knowledge: Recovery Team</groups>
+    <groups>Knowledge: Specialist Skill</groups>
+    <groups>Knowledge: StarTrack</groups>
     <groups>BSC - Schenker</groups>
     <groups>BSC - Banking</groups>
     <label>StarTrack Admin</label>
@@ -122,8 +129,12 @@
     <permissionSets>StarTrack:Edit &quot;Is Bulk Task?&quot; on Task and &quot;Close Bulk Tasks&quot; on case</permissionSets>
     <permissionSets>Create Report and Dashboard</permissionSets>
     <permissionSets>Manage StarTrack Articles</permissionSets>
+    <permissionSets>Knowledge - API</permissionSets>
+    <permissionSets>Knowledge - Manage Articles</permissionSets>
     <permissionSets>ACL Remediation</permissionSets>
     <permissionSets>StarTrack View Unified Tracking</permissionSets>
+    <permissionSets>Knowledge - Manage FAQs</permissionSets>
+    <permissionSets>Knowledge - View Articles</permissionSets>
     <profiles>StarTrack Partner Community</profiles>
     <profiles>SSSE User</profiles>
     <profiles>SSSE- Depot User</profiles>

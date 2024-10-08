@@ -19,6 +19,7 @@
 * 2022-12-16 - George Nguyen - added processPreferredAgentExpiry
 * 2023-03-02 - Noel Lim - added logic to assign cases without a matched routing rule to a default Omni queue
 * 2023-05-15 - Nathan Franklin - rejigging routing engine code and debug message tidyup
+* 2024-07-16 - Ranjeewa Silva - Changes to support routing for unified cases.
 **/
 
 public class SSSW_Routing {
@@ -168,30 +169,6 @@ public class SSSW_Routing {
 	// Avoid Queue Check change from Reassign Button
 	public static Boolean reassignNoCheckOwnerQueue = false;
 
-	// Date Modified : 12/03/2021- Moving getRules() to an inner class GetRulesForAllProfiles. 
-	// This is to allow guest profiles as well to access the method
-	/**
-	 * Load the rules from the routing table based on the Recordtype passed in
-	 *	  NPS, Escalation or Routing
-	 */
-	/*private static List<SSSWRouting__c> getRules(String recordTypeName) {
-		System.debug('recordTypeName--->'+recordTypeName);
-		List<String> sswFields = new List<String>();
-		//sswFields.addAll(fieldsMapping.keyset());
-		sswFields.addAll(routingFields);
-		String queryString = String.format('select {0},Sequence__c, Match_Rules_On__c, NPS_criteria__c, AutoEscalate__c, Recordtype.DeveloperName, ' +
-				'Queue_ID__c, DefaultCaseDetails__c from SSSWRouting__c WHERE IsActive__c = true and Match_Rules_On__c != null and ' +
-				'(RecordType.DeveloperName=\'\'{1}\'\') order by Sequence__c',
-				new List<String>{
-					String.escapeSingleQuotes(String.join(sswFields, ',').removeEnd(',')),
-					(recordTypeName)
-				});
-
-		System.debug('queryString--->'+queryString);
-		System.debug('sswFields--->'+sswFields);
-
-		return (List<SSSWRouting__c>)Database.query(queryString);
-	}*/
 	/**
 	  * @description	   This inner class is created to allow guest user profiles access the getRules() method.
 						   This would help cases created by guest users to have the case description populated 
@@ -201,17 +178,25 @@ public class SSSW_Routing {
 	*/
 	private without sharing class GetRulesForAllProfiles {
 		
-		public List<SSSWRouting__c> getRules(String recordTypeName) {
-			List<String> sswFields = new List<String>();
-			sswFields.addAll(routingFields);
-			String queryString = String.format('select {0},Sequence__c, Match_Rules_On__c, NPS_criteria__c, AutoEscalate__c, Recordtype.DeveloperName, ' +
-											   'Queue_ID__c, DefaultCaseDetails__c, RuleRequiresArticleAttributes__c,PreferredAgentExpiry__c from SSSWRouting__c WHERE IsActive__c = true and Match_Rules_On__c != null and ' +
-											   '(RecordType.DeveloperName=\'\'{1}\'\') order by Sequence__c',
-											   new List<String>{
-												   String.escapeSingleQuotes(String.join(sswFields, ',').removeEnd(',')),
-													   (recordTypeName)
-													   });
-			return (List<SSSWRouting__c>)Database.query(queryString);
+		public List<SSSWRouting__c> getRules(Set<String> recordTypeDeveloperNames) {
+
+			Set<SObjectField> fieldOverrides = new Set<SObjectField>{
+					// include all routing fields mapped ('routingFields')
+					SSSWRouting__c.Origin__c, SSSWRouting__c.High_Level_Complaint_Flag__c, SSSWRouting__c.EnquirySubType__c,
+					SSSWRouting__c.Customer_Recovery_Flag__c, SSSWRouting__c.CaseType__c, SSSWRouting__c.CustomerQueueType__c,
+					SSSWRouting__c.ProductCategory__c, SSSWRouting__c.ProductSubCategory__c, SSSWRouting__c.Status__c,
+					SSSWRouting__c.IsNew__c, SSSWRouting__c.IsStrategic__c, SSSWRouting__c.SocialPostTags__c, SSSWRouting__c.HasExtraCover__c,
+					// additional SSSWRouting__c fields used in routing engine
+					SSSWRouting__c.Sequence__c, SSSWRouting__c.Match_Rules_On__c, SSSWRouting__c.NPS_criteria__c, SSSWRouting__c.AutoEscalate__c,
+					SSSWRouting__c.Queue_ID__c, SSSWRouting__c.DefaultCaseDetails__c, SSSWRouting__c.RuleRequiresArticleAttributes__c,
+					SSSWRouting__c.PreferredAgentExpiry__c
+			};
+
+			return ((SSSWRoutingSelector)SSSWRoutingSelector.newInstance().setFieldOverrides(fieldOverrides)).search(new Map<String, Object>{
+					'recordtypeDeveloperNames' => recordTypeDeveloperNames,
+					'isActive' => true,
+					'matchRulesOn' => new Set<String>{'ANY', 'ALL'}
+			}, new Set<Object>{SSSWRoutingSelector.Options.WITH_RECORDTYPE}, true);
 		}
 	}
 	
@@ -363,15 +348,20 @@ public class SSSW_Routing {
 		//Replacing it with GetRulesForAllProfiles
 		//List<SSSWRouting__c> rules = getRules(recType);
 		GetRulesForAllProfiles obj = new GetRulesForAllProfiles ();
-		List<SSSWRouting__c> rules = obj.getRules(recType);		
+		List<SSSWRouting__c> rules = obj.getRules(new Set<String>{
+				SSSWConstants.RECTYPEROUTING, SSSWConstants.RECTYPEDESCRIPTION, SSSWConstants.SSSWROUTING_RECTYPE_UNIFIEDROUTING
+		});
 
 		List<SSSWRouting__c> routeRule = new List<SSSWRouting__c>();
 		List<SSSWRouting__c> descRule = new List<SSSWRouting__c>();
+		List<SSSWRouting__c> unifiedRoutingRules = new List<SSSWRouting__c>();
 		for(SSSWRouting__c rule : rules){
 			if(rule.DefaultCaseDetails__c != '' && rule.RecordType.DeveloperName == SSSWConstants.RECTYPEDESCRIPTION) {
 				descRule.add(rule);
-			} else if(rule.Queue_ID__c != '' && rule.RecordType.DeveloperName == SSSWConstants.RECTYPEROUTING) {
+			} else if (String.isNotBlank(rule.Queue_ID__c) && rule.RecordType.DeveloperName == SSSWConstants.RECTYPEROUTING) {
 				routeRule.add(rule);
+			} else if (String.isNotBlank(rule.Queue_ID__c) && rule.RecordType.DeveloperName == SSSWConstants.SSSWROUTING_RECTYPE_UNIFIEDROUTING) {
+				unifiedRoutingRules.add(rule);
 			}
 		}
 		// system caches mapping for cases articles(based on ReferenceID__c) to strategic customers
@@ -394,6 +384,8 @@ public class SSSW_Routing {
 		for (Case cs : cases) {
 			Id routingOwner; 
 			Case oldCase = oldMap != null ? oldMap.get(cs.Id) : null;
+
+			Boolean isUnifiedCase = CaseRoutingService.unifiedRecordTypeIds.contains(cs.RecordTypeId);
 			
 			// we only want to process the routing rules in these scenarios:
 			// 1. if the case is being reassigned (through the ui) - CaseDetails page
@@ -402,7 +394,7 @@ public class SSSW_Routing {
 			if(reassignNoCheckOwnerQueue || (cs.AllocateToQueue__c != null && cs.AllocateToQueue__c == true)) {
 				Boolean routingRuleMatched = false;
 
-				for (SSSWRouting__c rule : routeRule) {			
+				for (SSSWRouting__c rule : (isUnifiedCase ? unifiedRoutingRules : routeRule)) {
 					
 					if (rule.Match_Rules_On__c.equals('ANY')) {
 
@@ -490,7 +482,10 @@ public class SSSW_Routing {
 
 				if(!routingRuleMatched) {
 					System.debug('DEFAULT ROUTING RULE TRIGGERED!');
-					setRoutingCaseOwner(cs, omniService.omniDefaultQueueId, null);
+					setRoutingCaseOwner(cs, (isUnifiedCase ? omniService.omniUnifiedDefaultQueueId : omniService.omniDefaultQueueId), null);
+
+					// default preferred agent expiry is to be set when no routing rules match.
+					processPreferredAgentExpiry(cs, oldCase, null, isFinalPass);
 
 					// debug messaging to inform admin of routing path
 					CaseRoutingService.getInstance().populateRoutingDebug(cs, 'default routing rule hit!');
@@ -518,11 +513,15 @@ public class SSSW_Routing {
 	*/
 	@TestVisible
 	private static void processPreferredAgentExpiry(Case cs, Case oldCase, SSSWRouting__c rule, Boolean isFinalPass) {
-		if(cs.PreferredAgentExpiry__c == null && 
+		// get the default preferred agent expiry applicable for this case
+		Decimal defaultPreferredAgentExpiry = CaseRoutingService.unifiedRecordTypeIds.contains(cs.RecordTypeId) ? OmniChannelService.omniUnifiedPreferredAgentExpiry : OmniChannelService.defaultPreferredAgentExpiry;
+		if(cs.PreferredAgentExpiry__c == null &&
 				(isFinalPass || (oldCase != null && oldCase.PreferredAgentExpiry__c == null)) && 
 				cs.BusinessHoursId != null &&
-				rule.PreferredAgentExpiry__c != null) {
-			cs.PreferredAgentExpiry__c = BusinessHours.add(cs.BusinessHoursId, Datetime.now(), rule.PreferredAgentExpiry__c.longValue() * 3600000);
+				(rule?.PreferredAgentExpiry__c != null || defaultPreferredAgentExpiry != null)) {
+
+			Decimal preferredAgentExpiryInHours = (rule?.PreferredAgentExpiry__c != null ? rule.PreferredAgentExpiry__c : defaultPreferredAgentExpiry);
+			cs.PreferredAgentExpiry__c = BusinessHours.add(cs.BusinessHoursId, Datetime.now(), preferredAgentExpiryInHours.longValue() * 3600000);
 		}
 	}
 
@@ -552,7 +551,7 @@ public class SSSW_Routing {
 		//Replacing it with GetRulesForAllProfiles
 		//List<SSSWRouting__c> rules = getRules(SSSWConstants.RECTYPENPS);
 		GetRulesForAllProfiles obj = new GetRulesForAllProfiles ();
-		List<SSSWRouting__c> rules = obj.getRules(SSSWConstants.RECTYPENPS);
+		List<SSSWRouting__c> rules = obj.getRules(new Set<String>{SSSWConstants.RECTYPENPS});
 		Boolean ruleFound = false; //Check if rule exist else set NPS details
 		DateTime currentTime = Datetime.now();
 		System.debug('NPS rules--->'+rules);
@@ -602,7 +601,7 @@ public class SSSW_Routing {
 		//Replacing it with GetRulesForAllProfiles
 		//List<SSSWRouting__c> rules = getRules(SSSWConstants.RECTYPEESCALATION);
 		GetRulesForAllProfiles obj = new GetRulesForAllProfiles ();
-		List<SSSWRouting__c> rules = obj.getRules(SSSWConstants.RECTYPEESCALATION);
+		List<SSSWRouting__c> rules = obj.getRules(new Set<String>{SSSWConstants.RECTYPEESCALATION});
 		DateTime currentTime = Datetime.now();
 		for (SSSWRouting__c rule : rules) {
 			if(Rule.Match_Rules_On__c.equals('ANY')) {
@@ -661,7 +660,7 @@ public class SSSW_Routing {
 	 * @return - N/A
 	 */
 	public static void FlipReassignDescription() {
-		reassignDescription = True;
+		reassignDescription = true;
 	}
 
 	/**
@@ -685,7 +684,7 @@ public class SSSW_Routing {
 		// Replacing it with GetRulesForAllProfiles
 		//List<SSSWRouting__c> rules = getRules(SSSWConstants.RECTYPEDESCRIPTION);
 		GetRulesForAllProfiles obj = new GetRulesForAllProfiles ();
-		List<SSSWRouting__c> rules = obj.getRules(SSSWConstants.RECTYPEDESCRIPTION);
+		List<SSSWRouting__c> rules = obj.getRules(new Set<String>{SSSWConstants.RECTYPEDESCRIPTION});
 		List<SSSWRouting__c> descRule = new List<SSSWRouting__c>();
 		for(SSSWRouting__c rule : rules){
 			if(rule.DefaultCaseDetails__c!='' && rule.recordtype.developerName == SSSWConstants.RECTYPEDESCRIPTION){
@@ -782,29 +781,4 @@ public class SSSW_Routing {
 	 */
 	@TestVisible
 	private class ErrorException extends Exception { }
-
-	// public static void assignDescription(list<Case> cases) {
-	//	 System.debug('Inside assignDescription--->');
-	//	 List<SSSWRouting__c> rules = getRules(SSSWConstants.RECTYPEDESCRIPTION);
-	//	 System.debug('rules--->'+rules);
-	//	 for (Case cs : cases) {
-	//		 for (SSSWRouting__c rule : rules) {
-	//			 if(Rule.Match_Rules_On__c.equals('ANY')) {
-	//				 System.debug(LoggingLevel.ERROR,'**Processing ANY rule Description');
-	//				 if(processAny(cs, rule, routingFields)) {
-	//					 cs.Description = (cs.Description !=null && !String.isEmpty(cs.Description)?cs.Description +'\n' :'')
-	//											   + (rule.DefaultCaseDetails__c!=null &&!String.isEmpty(rule.DefaultCaseDetails__c) ? rule.DefaultCaseDetails__c:'');
-	//					 break;
-	//				 }
-	//			 } else if(Rule.Match_Rules_On__c.equals('ALL')) {
-	//				 System.debug(LoggingLevel.ERROR,'**Processing ALL rule Description');
-	//				 if(processAll(cs, rule, routingFields)) {
-	//					 cs.Description = (cs.Description !=null && !String.isEmpty(cs.Description)?cs.Description +'\n' :'')
-	//											   + (rule.DefaultCaseDetails__c!=null &&!String.isEmpty(rule.DefaultCaseDetails__c) ? rule.DefaultCaseDetails__c:'');
-	//					 break;
-	//				 }
-	//			 }
-	//		 }
-	//	 }
-	// }
 }

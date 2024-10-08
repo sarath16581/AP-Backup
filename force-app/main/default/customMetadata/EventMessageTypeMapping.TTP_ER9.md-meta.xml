@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomMetadata xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <label>TTP-ER9</label>
+    <protected>false</protected>
+    <values>
+        <field>CaseAutomationReassignmentReason__c</field>
+        <value xsi:nil="true"/>
+    </values>
+    <values>
+        <field>CaseAutomationResolutionCode__c</field>
+        <value xsi:nil="true"/>
+    </values>
+    <values>
+        <field>CaseAutomationRootCause__c</field>
+        <value xsi:nil="true"/>
+    </values>
+    <values>
+        <field>CaseClosureEmailAlertNameAusPost__c</field>
+        <value xsi:nil="true"/>
+    </values>
+    <values>
+        <field>CaseClosureEmailAlertNameStarTrack__c</field>
+        <value xsi:nil="true"/>
+    </values>
+    <values>
+        <field>Category__c</field>
+        <value xsi:type="xsd:string">None</value>
+    </values>
+    <values>
+        <field>ColourCode__c</field>
+        <value xsi:type="xsd:string">None</value>
+    </values>
+    <values>
+        <field>IsCaseClosureEligible__c</field>
+        <value xsi:type="xsd:string">No</value>
+    </values>
+    <values>
+        <field>IsCaseReassignmentEligible__c</field>
+        <value xsi:type="xsd:string">No</value>
+    </values>
+    <values>
+        <field>IsEnquiryLodged__c</field>
+        <value xsi:type="xsd:boolean">false</value>
+    </values>
+    <values>
+        <field>IsFeatured__c</field>
+        <value xsi:type="xsd:boolean">false</value>
+    </values>
+    <values>
+        <field>IsInternational__c</field>
+        <value xsi:type="xsd:boolean">false</value>
+    </values>
+    <values>
+        <field>IsSafeDrop__c</field>
+        <value xsi:type="xsd:boolean">false</value>
+    </values>
+    <values>
+        <field>IsSignatureOnDelivery__c</field>
+        <value xsi:type="xsd:boolean">false</value>
+    </values>
+</CustomMetadata>

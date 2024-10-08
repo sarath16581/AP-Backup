@@ -86,6 +86,11 @@
                 <default>false</default>
                 <label>Closed - Invalid</label>
             </value>
+			<value>
+                <fullName>Closed - Tracking only</fullName>
+                <default>false</default>
+                <label>Closed - Tracking only</label>
+            </value>
             <value>
                 <fullName>Closed - Resolved by Advocate</fullName>
                 <default>false</default>
@@ -565,6 +570,76 @@
                 <fullName>Invalid/Duplicate</fullName>
                 <default>false</default>
                 <label>Invalid/Duplicate</label>
+            </value>
+            <value>
+                <fullName>Lost - unscanned</fullName>
+                <default>false</default>
+                <label>Lost - unscanned</label>
+            </value>
+            <value>
+                <fullName>Lost - incident</fullName>
+                <default>false</default>
+                <label>Lost - incident</label>
+            </value>
+            <value>
+                <fullName>Located - undeliverable - RTS</fullName>
+                <default>false</default>
+                <label>Located - undeliverable - RTS</label>
+            </value>
+            <value>
+                <fullName>Located - undeliverable - Damaged</fullName>
+                <default>false</default>
+                <label>Located - undeliverable - Damaged</label>
+            </value>
+            <value>
+                <fullName>Located - undeliverable - Other</fullName>
+                <default>false</default>
+                <label>Located - undeliverable - Other</label>
+            </value>
+            <value>
+                <fullName>Located - last mile scan - On board for delivery</fullName>
+                <default>false</default>
+                <label>Located - last mile scan - On board for delivery</label>
+            </value>
+            <value>
+                <fullName>Located - last mile scan - Delivered/Collected</fullName>
+                <default>false</default>
+                <label>Located - last mile scan - Delivered/Collected</label>
+            </value>
+            <value>
+                <fullName>Located - last mile scan - Awaiting collection</fullName>
+                <default>false</default>
+                <label>Located - last mile scan - Awaiting collection</label>
+            </value>
+            <value>
+                <fullName>Located - last mile scan - Other</fullName>
+                <default>false</default>
+                <label>Located - last mile scan - Other</label>
+            </value>
+            <value>
+                <fullName>Located - new EDD provided - Other Tracking Update</fullName>
+                <default>false</default>
+                <label>Located - new EDD provided - Other Tracking Update</label>
+            </value>
+            <value>
+                <fullName>Located - new EDD provided - Redirected</fullName>
+                <default>false</default>
+                <label>Located - new EDD provided - Redirected</label>
+            </value>
+            <value>
+                <fullName>Located - new EDD provided - Missorted</fullName>
+                <default>false</default>
+                <label>Located - new EDD provided - Missorted</label>
+            </value>
+            <value>
+                <fullName>Closed - resolved by sender</fullName>
+                <default>false</default>
+                <label>Closed - resolved by sender</label>
+            </value>
+            <value>
+                <fullName>Closed - Customer Requested</fullName>
+                <default>false</default>
+                <label>Closed - Customer Requested</label>
             </value>
         </valueSetDefinition>
     </valueSet>

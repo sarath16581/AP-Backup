@@ -6,6 +6,7 @@
  * @description :Test Class covering CaseMilestonesSelector
  * @changelog
  * 2022-02-22 - Naveen Rajanna - REQ2723199	Added tests for FILTER_VIOLATED selector and selectByIdsWithParentStarTrackCase method
+ * 2024-08-14	George Nguyen	Add test for  FILTER_NOT_VIOLATED, FILTER_COMPLETED and FILTER_NOT_COMPLETED filters
  */
 @IsTest
 private class CaseMilestonesSelector_Test {
@@ -44,6 +45,18 @@ private class CaseMilestonesSelector_Test {
 		soql = qb.toSoqlString();
 		System.assertEquals(true, Pattern.compile('(?ism)\\bfrom CaseMilestone\\b.*?IsViolated\\s*?=\\s*?true\\b').matcher(soql).find(), 'Resulting query did not filter IsViolated');
 		
+		qb = selector.newQueryBuilder(new Set<Object>{CaseMilestonesSelector.Options.FILTER_NOT_VIOLATED});
+		soql = qb.toSoqlString();
+		System.assertEquals(true, Pattern.compile('(?ism)\\bfrom CaseMilestone\\b.*?IsViolated\\s*?=\\s*?false\\b').matcher(soql).find(), 'Resulting query did not filter IsViolated');
+		
+		qb = selector.newQueryBuilder(new Set<Object>{CaseMilestonesSelector.Options.FILTER_COMPLETED});
+		soql = qb.toSoqlString();
+		System.assertEquals(true, Pattern.compile('(?ism)\\bfrom CaseMilestone\\b.*?IsCompleted\\s*?=\\s*?true\\b').matcher(soql).find(), 'Resulting query did not filter IsViolated');
+		
+		qb = selector.newQueryBuilder(new Set<Object>{CaseMilestonesSelector.Options.FILTER_NOT_COMPLETED});
+		soql = qb.toSoqlString();
+		System.assertEquals(true, Pattern.compile('(?ism)\\bfrom CaseMilestone\\b.*?IsCompleted\\s*?=\\s*?false\\b').matcher(soql).find(), 'Resulting query did not filter IsViolated');
+
 		Test.stopTest();
 	}
 

@@ -12,6 +12,7 @@
 * 06.07.2018	dilshan.egodawela@auspost.com.au Updated to return an empty status when the ineligibility code returned from SAP EM is not in Ineligibility_Reason__mdt table
 * 28.02.2019   disha.kariya@auspost.com.au   Updated to pass requester name to SAP EM
 * 2020-03-16   nathan.franklin@auspost.com.au   Exposed getSAPEMValues, saveToSAPEM, unsetSafeDrop to Aura and added some security best practices to getSAPEMValues
+* 13.06.2024	Parveen Kaushik Added a filter in SOQL for mapping model. See CSLU-470 (JIRA) for details.
 */
 global class TIBCOArticleComponentCont {
 	public string productCategory { get; set; }
@@ -143,7 +144,7 @@ global class TIBCOArticleComponentCont {
 			string key = string.isEmpty(boundArticle.proxyArticle.ProductCategory__c) ? '' : boundArticle.proxyArticle.ProductCategory__c.trim();
 			key += string.isEmpty(boundArticle.proxyArticle.SubProduct__c) ? '' : boundArticle.proxyArticle.SubProduct__c.trim();
 			if (key != '') {
-				List<MiniCaseFieldMapping__c> mappings = [select ProductCategory__c, ProductSubcategory__c, Type__c from MiniCaseFieldMapping__c where SAPKey__c = :key];
+				List<MiniCaseFieldMapping__c> mappings = [select ProductCategory__c, ProductSubcategory__c, Type__c from MiniCaseFieldMapping__c where SAPKey__c = :key AND MappingModel__c =: SSSWConstants.ENQUIRYMAPPING_CLASSIC_MODEL];
 				if (mappings.size() > 0) {
 					productCategory = mappings[0].ProductCategory__c;
 					productSubcategory = mappings[0].ProductSubcategory__c;

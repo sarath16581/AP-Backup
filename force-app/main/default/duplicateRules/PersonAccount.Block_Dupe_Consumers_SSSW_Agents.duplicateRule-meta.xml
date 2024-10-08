@@ -5,12 +5,19 @@
     <alertText>A consumer with the same first name, last name and email or phone number already exists.</alertText>
     <description xsi:nil="true"/>
     <duplicateRuleFilter>
-        <booleanFilter xsi:nil="true"/>
+        <booleanFilter>1 OR 2</booleanFilter>
         <duplicateRuleFilterItems>
             <field>Profile</field>
             <operation>equals</operation>
             <value>SSSW - Service Agent</value>
             <sortOrder>1</sortOrder>
+            <table>User</table>
+        </duplicateRuleFilterItems>
+        <duplicateRuleFilterItems>
+            <field>Profile</field>
+            <operation>equals</operation>
+            <value>Unified Customer Service</value>
+            <sortOrder>2</sortOrder>
             <table>User</table>
         </duplicateRuleFilterItems>
     </duplicateRuleFilter>

@@ -2,6 +2,9 @@
   * @author       :Dilshan Egodawela 
   * @date         :
   * @description  : Class created as the controller for Customer SAPEM Articel list page.
+  * @changelog
+  * 01.01.1970 Created date unknown.
+  * 13.06.2024 Parveen Kaushik Added a filter in SOQL for mapping model. See CSLU-470 (JIRA) for details.
 **/
 
 public with sharing class CustomerSAPEMArticlesController {
@@ -32,7 +35,7 @@ public with sharing class CustomerSAPEMArticlesController {
         }
         productMapping = new Map<String,String>();
         subProdMap = new Map<String,String>();
-        for(MiniCaseFieldMapping__c mfm : [SELECT SAPProductSubcategory__c,ProductCategory__c,ProductSubcategory__c FROM MiniCaseFieldMapping__c]){
+        for(MiniCaseFieldMapping__c mfm : [SELECT SAPProductSubcategory__c,ProductCategory__c,ProductSubcategory__c FROM MiniCaseFieldMapping__c WHERE MappingModel__c =: SSSWConstants.ENQUIRYMAPPING_CLASSIC_MODEL]){
             if(!productMapping.containsKey(mfm.SAPProductSubcategory__c)){
                 productMapping.put(mfm.SAPProductSubcategory__c,mfm.ProductCategory__c);}
             if(!subProdMap.containsKey(mfm.SAPProductSubcategory__c)){

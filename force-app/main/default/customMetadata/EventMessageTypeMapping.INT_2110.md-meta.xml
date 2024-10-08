@@ -3,12 +3,40 @@
     <label>INT-2110</label>
     <protected>false</protected>
     <values>
+        <field>CaseAutomationReassignmentReason__c</field>
+        <value xsi:nil="true"/>
+    </values>
+    <values>
+        <field>CaseAutomationResolutionCode__c</field>
+        <value xsi:nil="true"/>
+    </values>
+    <values>
+        <field>CaseAutomationRootCause__c</field>
+        <value xsi:nil="true"/>
+    </values>
+    <values>
+        <field>CaseClosureEmailAlertNameAusPost__c</field>
+        <value xsi:nil="true"/>
+    </values>
+    <values>
+        <field>CaseClosureEmailAlertNameStarTrack__c</field>
+        <value xsi:nil="true"/>
+    </values>
+    <values>
         <field>Category__c</field>
         <value xsi:type="xsd:string">AttemptedDelivery</value>
     </values>
     <values>
         <field>ColourCode__c</field>
         <value xsi:type="xsd:string">Orange</value>
+    </values>
+    <values>
+        <field>IsCaseClosureEligible__c</field>
+        <value xsi:type="xsd:string">No</value>
+    </values>
+    <values>
+        <field>IsCaseReassignmentEligible__c</field>
+        <value xsi:type="xsd:string">No</value>
     </values>
     <values>
         <field>IsEnquiryLodged__c</field>

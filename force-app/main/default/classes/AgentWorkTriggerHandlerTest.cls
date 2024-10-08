@@ -3,7 +3,8 @@
  * @domain Core
  * @description Test class for AgentWorkTriggerHandler 
  * @changelog
- * 2023-02-16 - George Nguyen - this class was created a long time ago. I have refactor it to use our framework. 
+ * 2023-02-16 - George Nguyen - this class was created a long time ago. I have refactor it to use our framework.
+ * 2024-07-22 - Ranjeewa Silva - Test class updates after uplifting Trigger Handler class to new domain less trigger dispatch framework.
  */
 @IsTest
 public class AgentWorkTriggerHandlerTest {
@@ -12,56 +13,55 @@ public class AgentWorkTriggerHandlerTest {
 	private static void main() {
 
 		AgentWorkTriggerHandler handler = new AgentWorkTriggerHandler();
+		handler.registerModules();
 
 		System.assertNotEquals(null, handler.newUnitOfWork(), 'Expected a valid instance of ApplicationUnitOfWork; but got null');
-		System.assertNotEquals(null, handler.registerDomains(), 'Expected valid list of domain types to be returned');
 		System.assertEquals(AgentWork.SObjectType, handler.getSObjectType(), 'Expected the correct sobject type');
 		System.assert(AgentWorkTriggerHandler.getUnitOfWorkSObjectTypes().contains(AgentWork.SObjectType), 'Expected valid list of sobject types to be returned');
 		System.assert(AgentWorkTriggerHandler.getUnitOfWorkSObjectTypes().contains(Case.SObjectType), 'Expected valid list of sobject types to be returned');
+
 	}
 
-	/*
-	* NOTE: Existing test method. Should be uplifted to using the Framework. 
-	*/
+	/**
+	 * Ensure AgentWork record filters are applied as expected.
+	 */
 	@IsTest
-    public static void assignDeclinedRemindersToQueueTest(){
-        /*** Create Case record records. */
-        Case cs2 = new Case();
-        cs2.RecordTypeId=Schema.SObjectType.Case.getRecordTypeInfosByName().get('SSSW General Enquiry').getRecordTypeId();
-        cs2.BusinessHoursId=[SELECT Id FROM BusinessHours WHERE Name='SSSWSydney'].Id;
-        cs2.Type = SSSWConstants.CASE_TYPE;
-        cs2.Origin = SSSWConstants.CASE_ORIGIN;
-        cs2.ProductCategory__c = SSSWConstants.CASE_PROD_CAT;
-        cs2.ProductSubCategory__c = SSSWConstants.CASE_PROD_SUB_CAT;
-        cs2.Priority = SSSWConstants.CASE_PRIORITY;
-        cs2.Subject='Testing 5 Days SLA';
-        cs2.Status=SSSWConstants.CASE_SLA_STATUS;
-        cs2.OwnerId = [SELECT Id, QueueId FROM QueueSobject WHERE Queue.Name='SSSW Network Queue'].QueueId;
-        insert cs2;
-        /*** Create Callback Reminder record records. */
-        Id SSSW_Callback_ReminderId = Schema.SObjectType.Callback_Request__c.getRecordTypeInfosByDeveloperName().get('SSSW_Callback_Reminder').getRecordTypeId();
-        List<Callback_Request__c> callbackRequestList = new List<Callback_Request__c>();
-        DateTime dtNow = System.now();
-        callbackRequestList.add(new Callback_Request__c(Type__c ='Business',ReExecutionDateTime__c=dtNow.addMinutes(15), RecordTypeId=SSSW_Callback_ReminderId,Status__c=SSSWConstants.CALLBACK_REQUEST_STATUS_NEW, CaseId__c=cs2.Id, CaseBusinessHoursId__c=cs2.BusinessHoursId));
-		callbackRequestList.add(new Callback_Request__c(Type__c ='FCR',ReExecutionDateTime__c=dtNow.addMinutes(15),RecordTypeId=SSSW_Callback_ReminderId,Status__c=SSSWConstants.CALLBACK_REQUEST_STATUS_NEW, CaseId__c=cs2.Id, CaseBusinessHoursId__c=cs2.BusinessHoursId));
-        insert callbackRequestList;
-    
-        List<AgentWork> agentWorkListOld = new List<AgentWork>();
-        List<AgentWork> agentWorkList = new List<AgentWork>();
-        Callback_Request__c cbr = [SELECT Id, Type__c FROM Callback_Request__c WHERE Type__c ='Business' LIMIT 1];
-        
-        AgentWork aw = new AgentWork();
-        aw.ServiceChannelId = [SELECT Id FROM ServiceChannel WHERE DeveloperName='Callback_Request_Channel'].Id;
-        aw.WorkItemId=cbr.Id;
-        agentWorkList.add(aw);
-        
-        Test.startTest();
-        AgentWorkTriggerHandler.assignDeclinedRemindersToQueue(agentWorkListOld,agentWorkList);
-        Test.stopTest();
-		cbr = [SELECT Id, Type__c, OwnerId FROM Callback_Request__c WHERE Type__c ='Business' LIMIT 1];
-        String retId = String.valueOf(cbr.OwnerId).substring(0,3);
+	private static void testPrimeRecordFilters() {
+		// =====================================
+		// Data Preparation
+		// =====================================
+		List<Case> cases = ApplicationTestDataFactory.getCases(2, true);
+		Callback_Request__c callbackRequest = new Callback_Request__c(Id=fflib_IDGenerator.generate(Callback_Request__c.SObjectType));
 
-        System.assert(retId=='00G', 'Owner changed to Queue');
-    }
-    
+		List<AgentWork> agentWork = ApplicationTestDataFactoryCase.getAgentWorks(3, UserInfo.getUserId(), new List<Id>{cases[0].Id, cases[1].Id, callbackRequest.Id}, true);
+		// AgentWork related to cases
+		agentWork[0] = (AgentWork) ApplicationTestDataFactory.setUnwritableFields(agentWork[0], new Map<String, Object>{'WorkItemId' => cases[0].Id});
+		agentWork[1] = (AgentWork) ApplicationTestDataFactory.setUnwritableFields(agentWork[1], new Map<String, Object>{'WorkItemId' => cases[1].Id});
+		// AgentWork related to callback request
+		agentWork[2] = (AgentWork) ApplicationTestDataFactory.setUnwritableFields(agentWork[2], new Map<String, Object>{'WorkItemId' => callbackRequest.Id});
+
+		// =====================================
+		// Stubbing
+		// =====================================
+		// None
+
+		// =====================================
+		// Testing
+		// =====================================
+
+		Test.startTest();
+
+		Map<String, List<SObject>> filteredRecords = new AgentWorkTriggerHandler().primeRecordFilters(agentWork);
+
+		Test.stopTest();
+
+		Assert.areEqual(2, filteredRecords.size());
+
+		Assert.areEqual(2, filteredRecords.get('filterCaseWorkItems').size());
+		Assert.areEqual(agentWork[0].Id, filteredRecords.get('filterCaseWorkItems')[0].Id);
+		Assert.areEqual(agentWork[1].Id, filteredRecords.get('filterCaseWorkItems')[1].Id);
+
+		Assert.areEqual(1, filteredRecords.get('filterCallbackRequestWorkItems').size());
+		Assert.areEqual(agentWork[2].Id, filteredRecords.get('filterCallbackRequestWorkItems')[0].Id);
+	}
 }

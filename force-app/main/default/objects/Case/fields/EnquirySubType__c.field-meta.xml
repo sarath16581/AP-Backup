@@ -2,6 +2,8 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>EnquirySubType__c</fullName>
     <description>SSSW - Dependant on Sub Product</description>
+    <inlineHelpText>SSSW - Dependent on Sub Product</inlineHelpText>
+    <externalId>false</externalId>
     <label>Enquiry Sub Type</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>
@@ -751,6 +753,11 @@
                 <fullName>Customised Packaging</fullName>
                 <default>false</default>
                 <label>Customised Packaging</label>
+            </value>
+            <value>
+                <fullName>Late item</fullName>
+                <default>false</default>
+                <label>Late item</label>
             </value>
         </valueSetDefinition>
         <valueSettings>
@@ -3135,6 +3142,10 @@
             <valueName>Product Order</valueName>
         </valueSettings>
         <valueSettings>
+            <controllingFieldValue>Unified Model</controllingFieldValue>
+            <valueName>Late item</valueName>
+        </valueSettings>
+        <valueSettings>
             <controllingFieldValue>Feedback|International Parcels|Airmail over 2kg</controllingFieldValue>
             <controllingFieldValue>Feedback|International Parcels|Airmail under 2kg</controllingFieldValue>
             <controllingFieldValue>Feedback|International Parcels|Economy Air under 2kg</controllingFieldValue>
@@ -3214,6 +3225,7 @@
             <valueName>Facility reported damages</valueName>
         </valueSettings>
         <valueSettings>
+            <controllingFieldValue>Unified Model</controllingFieldValue>
             <controllingFieldValue>General Enquiry|Domestic Parcels|Metro</controllingFieldValue>
             <controllingFieldValue>General Enquiry|Domestic Letters|Premium Unaddressed Mail</controllingFieldValue>
             <controllingFieldValue>General Enquiry|Domestic Parcels|Cash on Delivery</controllingFieldValue>

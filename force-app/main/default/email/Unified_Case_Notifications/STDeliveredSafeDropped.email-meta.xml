@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Delivery completed safe dropped</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>ST Delivered - Safe Dropped</name>
+    <style>none</style>
+    <subject>We&apos;ve safe dropped your delivery for case {!Case.CaseNumber}</subject>
+    <textOnly>StarTrack
+
+Case {!Case.CaseNumber}
+
+Hi {!IF(ISBLANK(Contact.Preferred_Name__c),Contact.FirstName,Contact.Preferred_Name__c)},
+
+Your delivery has been completed
+
+Thank you for your patience while we’ve been monitoring your delivery. We 											are delighted to see it has now been located and left in a safe place at the 											property. You can view an image of where this was left here if you need any 											help locating it.
+
+The vast majority of Startrack deliveries are completed on time. We&apos;re sorry 											that on this occasion your delivery was later than expected.
+
+StarTrack
+
+This email was sent by Startrack. Startrack does not represent, warrant or guarantee that 								the integrity of this email communication has been maintained nor that the communication 								is free of errors, viruses or interference.
+
+Help &amp; support |  Terms &amp; conditions |  Privacy policy</textOnly>
+    <type>custom</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>
