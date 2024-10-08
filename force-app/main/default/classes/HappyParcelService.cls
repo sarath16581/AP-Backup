@@ -433,7 +433,7 @@ public with sharing class HappyParcelService {
 
 		// Map hasDuplicates which can be used to cater duplicate scenarios in UnifiedTrackingWrappers
 		trackingResult.hasDuplicates = false;
-		if(conWrapper?.hasDuplicates){
+		if(conWrapper?.hasDuplicates != null){
 			trackingResult.hasDuplicates = conWrapper?.hasDuplicates;
 		}
 		return trackingResult;
