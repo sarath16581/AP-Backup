@@ -4,8 +4,8 @@
  * @author Paul Perry
  * @date 2024-04-26
  * @changelog
- *
- */
+ *	2024-10-03: Minor fixes after Go-Live (outbound call Genesys Attribute Sync)
+*/
 class GenesysAPBusinessLogic {
 
 	// required local variables:
@@ -289,6 +289,23 @@ class GenesysAPBusinessLogic {
 							Id : event.objectId
 						};
 
+						if (prefix === '001') {
+							this.actions.fetchPersonContactIdByAccountId(
+								event.objectId
+							).then(personContactId => {
+								this.tracking[this.TRACKTYPES[prefix]] = {
+									Id: personContactId
+								};
+
+								pushGenesysAttributes({ contactId: personContactId });
+								updateTrackingRecovery();
+							});
+
+							return;
+						} else if (prefix === '003') {
+							pushGenesysAttributes({ contactId: event.objectId });
+						}
+
 						updateTrackingRecovery();
 					}
 				}
@@ -436,11 +453,28 @@ class GenesysAPBusinessLogic {
 				}
 			} else if (ctiEventDetail.direction === 'Outbound') {
 				// get object Ids from both primary tab and sub tab for linking
+				const getTabRecordIdsTask = new AsyncTask();
+
 				Promise.all([
 					UIInteraction.getFocusedPrimaryTabObjectId(),
 					UIInteraction.getFocusedSubtabObjectId()
 				]).then(objectIds => {
-					[...new Set(objectIds || [])].forEach(objectId => {
+					objectIds = [...new Set(objectIds || [])];
+					const accountIds = objectIds.filter(objectId => objectId.startsWith('001'));
+					const recordIds = objectIds.filter(objectId => !accountIds.includes(objectId));
+
+					Promise.all(accountIds.map(
+						accountId => this.actions.fetchPersonContactIdByAccountId(accountId)
+					)).then(
+						result => getTabRecordIdsTask.complete(new Set([
+							...recordIds,
+							...result.filter(recordId => recordId)
+						]))
+					);
+				}).catch(err => getTabRecordIdsTask.fail(err));
+
+				getTabRecordIdsTask.promise.then(recordIds => {
+					Promise.all([...recordIds].map(objectId => {
 						const objType = this.TRACKTYPES[objectId?.substr(0, 3)];
 
 						if (!this.tracking) {
@@ -448,19 +482,22 @@ class GenesysAPBusinessLogic {
 						};
 
 						if (objType) {
+							const recordId = GenesysCTIUtils.caseSafeId(objectId);
 							this.tracking[objType] = {
-								Id : GenesysCTIUtils.caseSafeId(objectId),
+								Id : recordId,
 								isLocked : true
 							};
 
 							if (objType === 'case') {
 								return fetchCaseAndTrackDetails();
+							} else if (objType === 'contact') {
+								return pushGenesysAttributes({ contactId: recordId });
 							}
 						}
-					})
 
-					this.trackingTask.complete();
-				});
+						return Promise.resolve();
+					})).then(this.trackingTask.complete);
+				}).catch(this.trackingTask.fail);
 			}
 
 			return this.trackingTask.promise;
@@ -626,6 +663,28 @@ class GenesysAPBusinessLogic {
 			return fetchCaseTask.promise;
 		},
 
+		fetchPersonContactIdByAccountId : (accountId) => {
+			const fetchPersonContactId = new AsyncTask();
+
+			new Promise(callback => {
+				GenesysConnectorController.getContactByAccountIdAP(
+					accountId,
+					callback
+				)
+			}).then((result) => {
+				if (!result) {
+					throw new Error('Account coudn\'t be obtained');
+				}
+
+				fetchPersonContactId.complete(result);
+			}).catch(
+				// any other unexpected error
+				(error) => fetchPersonContactId.fail(error)
+			);
+
+			return fetchPersonContactId.promise;
+		},
+
 		updateGenesysInteraction : (syncAttribs) => new Promise(res => {
 			const genesysCustomAttribs = Object.keys(this.genesysFieldMappings).reduce(
 				(res,key) => {
@@ -686,13 +745,12 @@ class GenesysAPBusinessLogic {
 					&& event.detail?.direction === 'Outbound'
 			},
 			tasks : [ this.actions.track, this.actions.logTask ]
-		},
-		{
-			// Whenever a localStorage event gets captured with a key starting with CTI_[tabId]
-			name : 'onStorage',
+		}, {
+			// Whenever a the MiniCase component gets initialised for the same tabId
+			name: 'onMiniCaseComponent_Ready',
 			criteria : (eventName, event) =>
-				eventName === 'STORAGE'
-				&& event.key === `CTI_${this.landingTabId}`
+				eventName === 'MiniCaseComponent_Ready'
+				&& event.message === this.landingTabId
 				&& event.lastDetail?.isConnected,
 			tasks : [ this.actions.syncMiniCaseFields ]
 		}, {
@@ -781,10 +839,15 @@ class GenesysAPBusinessLogic {
 						phoneNumber = `0${phoneNumber.slice(3)}`;
 					}
 
-					if(!GenesysCTIUtils.isAnonymousPhoneNumber(phoneNumber)) {
-						url += `&ANI=${phoneNumber}`;
-						tabName += phoneNumber;
-						title += ' - ' + phoneNumber;
+					// remove all non-digit characters
+					const fmtPhoneNumber = phoneNumber.replace(/\D/g, '');
+
+					// if not anonymous and not empty (after removing non-digits)
+					// pre-populate phone number in search screen
+					if(!GenesysCTIUtils.isAnonymousPhoneNumber(phoneNumber) && fmtPhoneNumber) {
+						url += `&ANI=${fmtPhoneNumber}`;
+						tabName += fmtPhoneNumber;
+						title += ' - ' + fmtPhoneNumber;
 					}
 				}
 
@@ -1020,6 +1083,4 @@ class UIInteraction {
 			}
 		)
 	)
-
-	static logPrefix = [`%c* GenCTI_AP *%c`, 'color:white;background-color:#dc1928;font-weight:bold', null];
 }

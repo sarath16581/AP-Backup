@@ -464,12 +464,6 @@ global with sharing class GenesysConnectorController implements purecloud.CTIExt
 		CasesSelector selector = CasesSelector.newInstance(fieldMappings.keySet());
 		List<Case> cases = selector.selectById(new Set<Id> { caseId }).values();
 
-		// // Best practice: Strip fields that are not accessible to the user
-		// SObjectAccessDecision decision = Security.stripInaccessible(
-		// 	AccessType.READABLE,
-		// 	cases
-		// );
-
 		Map<String,Object> result = new Map<String,Object>();
 
 		if (!cases.isEmpty()) {
@@ -480,6 +474,29 @@ global with sharing class GenesysConnectorController implements purecloud.CTIExt
 					result.put(fieldMappings.get(field), value);
 				}
 			}
+		}
+
+		return result;
+	}
+	
+	/**
+	* Obtain personContactId details from AcountId
+	* @param Id accountId
+	* @return Account if found
+	*/
+	@RemoteAction
+	public static String getContactByAccountIdAP(Id accountId) {
+		Set<SObjectField> fieldSet = new Set<SObjectField>{
+			Account.PersonContactId
+		};
+
+		List<Account> accounts = AccountsSelector.newInstance(0, fieldSet)
+			.selectById(new Set<Id>{ accountId }).values();
+
+		Id result;
+
+		if (!accounts.isEmpty()) {
+			result = accounts[0].PersonContactId;
 		}
 
 		return result;
