@@ -67,13 +67,13 @@
         <label>Address Information</label>
         <layoutColumns>
             <layoutItems>
-                <behavior>Edit</behavior>
+                <behavior>Readonly</behavior>
                 <field>PersonOtherAddress</field>
             </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>
-                <behavior>Edit</behavior>
+                <behavior>Readonly</behavior>
                 <field>PersonMailingAddress</field>
             </layoutItems>
         </layoutColumns>
@@ -131,6 +131,14 @@
         <fields>Status</fields>
         <relatedList>RelatedLiveChatTranscriptList</relatedList>
         <sortField>StartTime</sortField>
+        <sortOrder>Desc</sortOrder>
+    </relatedLists>
+    <relatedLists>
+        <fields>CallAcceptDateTime</fields>
+        <fields>CallEndDateTime</fields>
+        <fields>FromPhoneNumber</fields>
+        <relatedList>VoiceCall.Contact__c</relatedList>
+        <sortField>CallAcceptDateTime</sortField>
         <sortOrder>Desc</sortOrder>
     </relatedLists>
     <relatedLists>
