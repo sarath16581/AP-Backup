@@ -1937,6 +1937,10 @@
         <layout>Case-Unified Case Read Only Layout</layout>
         <recordType>Case.StarTrack_Transit_Warranty_Claim</recordType>
     </layoutAssignments>
+	<layoutAssignments>
+        <layout>Case-Unified Case Read Only Layout</layout>
+        <recordType>Case.StarTrack_PUD_Enquiry</recordType>
+    </layoutAssignments>
     <layoutAssignments>
         <layout>Case-Unified Case Layout</layout>
         <recordType>Case.UnifiedGeneralEnquiry</recordType>
