@@ -1902,39 +1902,43 @@
         <recordType>Account.Licence_PP</recordType>
     </layoutAssignments>
     <layoutAssignments>
-        <layout>Case-Unified Case Layout</layout>
+        <layout>Case-Unified Case Read Only Layout</layout>
         <recordType>Case.SSSWDelivery</recordType>
     </layoutAssignments>
 	<layoutAssignments>
-        <layout>Case-Unified Case Layout</layout>
+        <layout>Case-Unified Case Read Only Layout</layout>
         <recordType>Case.SSSWGeneralEnquiry</recordType>
     </layoutAssignments>
 	<layoutAssignments>
-        <layout>Case-Unified Case Layout</layout>
+        <layout>Case-Unified Case Read Only Layout</layout>
         <recordType>Case.SSSWService</recordType>
     </layoutAssignments>
-    <layoutAssignments>
-        <layout>Case-Unified Case Layout</layout>
+	<layoutAssignments>
+        <layout>Case-Unified Case Read Only Layout</layout>
         <recordType>Case.Social_Record_Type</recordType>
     </layoutAssignments>
     <layoutAssignments>
-        <layout>Case-Unified Case Layout</layout>
+        <layout>Case-Unified Case Read Only Layout</layout>
+        <recordType>Case.StarTrack_Sales_Enquiry</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Case-Unified Case Read Only Layout</layout>
         <recordType>Case.StarTrack_Credit_Dispute_Claim</recordType>
     </layoutAssignments>
     <layoutAssignments>
-        <layout>Case-Unified Case Layout</layout>
+        <layout>Case-Unified Case Read Only Layout</layout>
         <recordType>Case.StarTrack_General_Enquiry</recordType>
     </layoutAssignments>
     <layoutAssignments>
-        <layout>Case-Unified Case Layout</layout>
+        <layout>Case-Unified Case Read Only Layout</layout>
         <recordType>Case.StarTrack_Pickup_Booking_Enquiry</recordType>
     </layoutAssignments>
     <layoutAssignments>
-        <layout>Case-Unified Case Layout</layout>
+        <layout>Case-Unified Case Read Only Layout</layout>
         <recordType>Case.StarTrack_Sales_Enquiry</recordType>
     </layoutAssignments>
 	<layoutAssignments>
-        <layout>Case-Unified Case Layout</layout>
+        <layout>Case-Unified Case Read Only Layout</layout>
         <recordType>Case.StarTrack_Transit_Warranty_Claim</recordType>
     </layoutAssignments>
     <layoutAssignments>
