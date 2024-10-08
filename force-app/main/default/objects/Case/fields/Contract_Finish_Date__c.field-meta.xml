@@ -3,7 +3,6 @@
     <fullName>Contract_Finish_Date__c</fullName>
     <businessStatus>DeprecateCandidate</businessStatus>
     <description>sales implementation case</description>
-    <externalId>false</externalId>
     <label>Dep -Contract Finish Date</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>

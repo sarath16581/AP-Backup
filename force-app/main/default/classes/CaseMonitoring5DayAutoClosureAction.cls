@@ -11,6 +11,8 @@
  *
  * @changelog
  * 2024-07-29 - Seth Heang - Created
+ * 2024-09-29 - Parveen Kaushik - Used fieldOverrides for ScheduledActionsSelector
+ * 
  */
 public with sharing class CaseMonitoring5DayAutoClosureAction extends ApplicationScheduledAction {
 
@@ -41,7 +43,11 @@ public with sharing class CaseMonitoring5DayAutoClosureAction extends Applicatio
 	public override void execute(List<Id> actionRecordIds) {
 		List<CaseUnifiedAutomationService.RecordWrapper> caseClosureWrappers = new List<CaseUnifiedAutomationService.RecordWrapper>();
 		List<CaseUnifiedAutomationService.RecordWrapper> caseReassignmentWrappers = new List<CaseUnifiedAutomationService.RecordWrapper>();
-		List<ScheduledAction__c> actions = ScheduledActionsSelector.newInstance().selectById(new Set<Id>(actionRecordIds), new Set<Object>{ ScheduledActionsSelector.Options.WITH_CASE });
+
+		Set<SObjectField> scheduledActionFields = new Set<SObjectField>{ScheduledAction__c.Case__c, ScheduledAction__c.ActionType__c};
+		List<ScheduledAction__c> actions = ((ScheduledActionsSelector)ScheduledActionsSelector.newInstance().setFieldOverrides(scheduledActionFields))
+			.selectById(new Set<Id>(actionRecordIds), new Set<Object>{ ScheduledActionsSelector.Options.WITH_CASE });
+
 		for (ScheduledAction__c action : actions) {
 			Case newCase = action.Case__r;
 			// check CaseClosure eligibility and build a RecordWrapper

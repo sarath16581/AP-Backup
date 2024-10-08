@@ -3,7 +3,6 @@
     <fullName>grax__Frequency_Type__c</fullName>
     <deprecated>false</deprecated>
     <description>Picklist used to set how often this process will run</description>
-    <externalId>false</externalId>
     <label>Frequency Type</label>
     <required>false</required>
     <trackHistory>false</trackHistory>

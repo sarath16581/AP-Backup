@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>AverageTotalOutstandingValue__c</fullName>
     <description>What is your average total outstanding value of prepayment of more than 7 days?</description>
-    <externalId>false</externalId>
     <inlineHelpText>What is your average total outstanding value of prepayment of more than 7 days?</inlineHelpText>
     <label>Average Total Outstanding Value</label>
     <precision>10</precision>

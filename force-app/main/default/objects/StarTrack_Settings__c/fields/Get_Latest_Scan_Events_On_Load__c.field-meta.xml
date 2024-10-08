@@ -3,7 +3,6 @@
     <fullName>Get_Latest_Scan_Events_On_Load__c</fullName>
     <defaultValue>false</defaultValue>
     <description>StarTrack - Get Latest Scan Events On Load</description>
-    <externalId>false</externalId>
     <label>Get Latest Scan Events On Load</label>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>

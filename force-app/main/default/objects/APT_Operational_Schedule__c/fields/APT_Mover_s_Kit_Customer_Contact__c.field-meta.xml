@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>APT_Mover_s_Kit_Customer_Contact__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
-    <externalId>false</externalId>
     <label>Mover’s Kit Customer Contact</label>
     <referenceTo>Contact</referenceTo>
     <relationshipLabel>Operational Schedules (Mover’s Kit Customer Contact)</relationshipLabel>

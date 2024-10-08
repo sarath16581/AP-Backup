@@ -3,7 +3,6 @@
     <fullName>grax__Last_Run_Date__c</fullName>
     <deprecated>false</deprecated>
     <description>Last Date this process successfully ran</description>
-    <externalId>false</externalId>
     <inlineHelpText>Last time this Scheduled Process was run</inlineHelpText>
     <label>Last Run Date</label>
     <required>false</required>

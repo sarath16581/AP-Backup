@@ -3,7 +3,6 @@
     <fullName>Apttus_Approval__Step_Group_Active__c</fullName>
     <defaultValue>true</defaultValue>
     <deprecated>false</deprecated>
-    <externalId>false</externalId>
     <label>Step Group Active</label>
     <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>

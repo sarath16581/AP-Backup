@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__OffsetType__c</fullName>
     <deprecated>false</deprecated>
     <description>Indicates which type of value will be used to calculate the time between billing periods.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Indicates which type of value will be used to calculate the time between billing periods.</inlineHelpText>
     <label>Offset Type</label>
     <required>false</required>

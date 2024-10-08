@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__Text__c</fullName>
     <deprecated>false</deprecated>
     <description>The footnote text. This is deprecated. Please use the Body to store the content.</description>
-    <externalId>false</externalId>
     <inlineHelpText>The footnote text. This is deprecated. Please use the Body to store the content.</inlineHelpText>
     <label>Text (Deprecated)</label>
     <length>32768</length>

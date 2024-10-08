@@ -3,7 +3,6 @@
     <fullName>kfsell__Position_Checklist_Timing__c</fullName>
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
-    <externalId>false</externalId>
     <label>Position Checklist Timing</label>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>

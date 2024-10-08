@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__EditableFieldsForCancelledLines__c</fullName>
     <deprecated>false</deprecated>
     <description>Comma separated list of editable asset line item fields for cancelled lines.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Comma separated list of editable asset line item fields for cancelled lines.</inlineHelpText>
     <label>Editable Fields For Cancelled Lines</label>
     <required>false</required>

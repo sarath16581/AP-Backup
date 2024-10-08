@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>APT_StarTrack_Dangerous_Goods_Flag__c</fullName>
     <defaultValue>false</defaultValue>
-    <externalId>false</externalId>
     <label>StarTrack Dangerous Goods Flag</label>
     <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>

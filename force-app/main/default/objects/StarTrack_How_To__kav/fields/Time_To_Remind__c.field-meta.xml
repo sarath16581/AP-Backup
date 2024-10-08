@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Time_To_Remind__c</fullName>
     <description>A reminder date for reminding/updating the article</description>
-    <externalId>false</externalId>
     <inlineHelpText>A reminder date for reminding/updating the article</inlineHelpText>
     <label>Time To Remind</label>
     <required>true</required>

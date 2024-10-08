@@ -3,7 +3,6 @@
     <fullName>Apttus_CMConfig__EffectiveDate__c</fullName>
     <deprecated>false</deprecated>
     <description>The effective date for products and services</description>
-    <externalId>false</externalId>
     <label>Effective Date</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>

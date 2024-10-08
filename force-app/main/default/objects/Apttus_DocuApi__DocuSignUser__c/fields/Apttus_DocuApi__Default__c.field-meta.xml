@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>This DocuSign is credential is will be used as default OAuth info to handle SFDC Organization wide needs</description>
-    <externalId>false</externalId>
     <inlineHelpText>This DocuSign is credential is will be used as default OAuth info to handle SFDC Organization wide needs</inlineHelpText>
     <label>Default</label>
     <securityClassification>INTERNAL</securityClassification>

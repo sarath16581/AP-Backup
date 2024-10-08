@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Distribution_Type__c</fullName>
-    <externalId>false</externalId>
     <inlineHelpText>Identify whether the Service is primarily used for Business to Consumer or Business to Business distribution (use Not Applicable where there is no logical match)</inlineHelpText>
     <label>Distribution Type</label>
     <required>false</required>

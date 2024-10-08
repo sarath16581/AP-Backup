@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Indicates whether the product is listed for indexing by search engines.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Indicates whether the product is listed for indexing by search engines.</inlineHelpText>
     <label>Exclude From Sitemap</label>
     <securityClassification>INTERNAL</securityClassification>

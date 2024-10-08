@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__ProductCount__c</fullName>
     <deprecated>false</deprecated>
     <description>The number of products associated with the classification</description>
-    <externalId>false</externalId>
     <label>Product Count</label>
     <securityClassification>INTERNAL</securityClassification>
     <summaryForeignKey>Apttus_Config2__ProductClassification__c.Apttus_Config2__ClassificationId__c</summaryForeignKey>

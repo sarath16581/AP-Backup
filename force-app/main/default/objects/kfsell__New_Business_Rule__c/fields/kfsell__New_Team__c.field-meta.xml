@@ -3,7 +3,6 @@
     <fullName>kfsell__New_Team__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <deprecated>false</deprecated>
-    <externalId>false</externalId>
     <label>New Team</label>
     <referenceTo>kfsell__New_Team__c</referenceTo>
     <relationshipLabel>New Business Rules</relationshipLabel>

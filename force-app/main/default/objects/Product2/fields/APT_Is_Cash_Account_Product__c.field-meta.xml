@@ -3,7 +3,6 @@
     <fullName>APT_Is_Cash_Account_Product__c</fullName>
     <defaultValue>false</defaultValue>
     <description>To check if the Billing Account associated to the product is of Cash Type</description>
-    <externalId>false</externalId>
     <label>Is Cash Account Product</label>
     <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>

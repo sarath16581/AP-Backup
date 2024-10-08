@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>specifies if all charge types should be displayed for the selected products in the tree view options page.</description>
-    <externalId>false</externalId>
     <inlineHelpText>specifies if all charge types should be displayed for the selected products in the tree view options page.</inlineHelpText>
     <label>Show Selected Product All Charges</label>
     <trackTrending>false</trackTrending>

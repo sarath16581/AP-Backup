@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__ConfigurationSyncDate__c</fullName>
     <deprecated>false</deprecated>
     <description>Date when the configuration was synchronized or finalized for the order</description>
-    <externalId>false</externalId>
     <inlineHelpText>Date when the configuration was synchronized for the order</inlineHelpText>
     <label>Configuration Sync/Finalized Date</label>
     <required>false</required>

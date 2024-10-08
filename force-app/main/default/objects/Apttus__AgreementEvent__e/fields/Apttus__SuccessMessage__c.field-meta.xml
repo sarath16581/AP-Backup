@@ -3,7 +3,6 @@
     <fullName>Apttus__SuccessMessage__c</fullName>
     <deprecated>false</deprecated>
     <description>Success Message</description>
-    <externalId>false</externalId>
     <isFilteringDisabled>false</isFilteringDisabled>
     <isNameField>false</isNameField>
     <isSortingDisabled>false</isSortingDisabled>

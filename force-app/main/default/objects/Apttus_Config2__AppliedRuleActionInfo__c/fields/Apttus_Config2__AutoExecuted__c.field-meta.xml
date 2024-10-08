@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Whether the rule action inclusion or exclusion was automatically executed.</description>
-    <externalId>false</externalId>
     <label>Auto Executed</label>
     <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>

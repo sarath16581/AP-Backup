@@ -3,7 +3,6 @@
     <fullName>Apttus_Proposal__MergeWebserviceEndpoint__c</fullName>
     <deprecated>false</deprecated>
     <description>The Apttus merge web service endpoint</description>
-    <externalId>false</externalId>
     <label>Merge Webservice Endpoint</label>
     <required>false</required>
     <trackTrending>false</trackTrending>

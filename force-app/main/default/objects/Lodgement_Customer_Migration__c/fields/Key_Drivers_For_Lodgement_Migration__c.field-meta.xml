@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Key_Drivers_For_Lodgement_Migration__c</fullName>
-    <externalId>false</externalId>
     <inlineHelpText>Identify the potential selling points for the customer</inlineHelpText>
     <label>Key Customer Drivers</label>
     <required>false</required>

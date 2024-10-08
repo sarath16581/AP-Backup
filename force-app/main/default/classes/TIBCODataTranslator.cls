@@ -70,6 +70,10 @@ public without sharing class TIBCODataTranslator {
 	}
 
 	public void save(Boolean showMessages, Boolean throwException) {
+
+		System.debug('Saving consignment:' + consignments);
+		System.debug('Saving articles: ' + articles);
+
 		if (consignments.size() > 0) {
 			try {
 				upsert consignments.values() ArticleID__c;

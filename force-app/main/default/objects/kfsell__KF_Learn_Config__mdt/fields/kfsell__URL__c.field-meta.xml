@@ -3,7 +3,6 @@
     <fullName>kfsell__URL__c</fullName>
     <deprecated>false</deprecated>
     <description>Base URL for KF Learn</description>
-    <externalId>false</externalId>
     <fieldManageability>SubscriberControlled</fieldManageability>
     <inlineHelpText>Base URL for KF Learn</inlineHelpText>
     <label>URL</label>

@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>IsAbandoned__c</fullName>
-    <externalId>false</externalId>
     <formula>IF(ISPICKVAL(Status,&quot;Missed&quot;),True,False)</formula>
     <label>Is Abandoned</label>
     <securityClassification>INTERNAL</securityClassification>

@@ -5,7 +5,6 @@
     <description>The geo precision needs to be less than 100m, then we need to know the addressee details, a check between the two GPS details is then performed, if: 
 The two locations are within 50m – Delivery continues as per normal – The delivery event will record with “Outside Delivery Radius = No
 The two locations are greater than 50m – Pop up received on scanner – Driver confirms at the right location “Outside Delivery Radius = Yes</description>
-    <externalId>false</externalId>
     <label>Outside Delivery Radius</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>

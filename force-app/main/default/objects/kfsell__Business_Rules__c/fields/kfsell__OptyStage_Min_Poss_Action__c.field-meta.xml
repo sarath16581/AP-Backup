@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>kfsell__OptyStage_Min_Poss_Action__c</fullName>
     <deprecated>false</deprecated>
-    <externalId>false</externalId>
     <label>Opportunity Stage</label>
     <length>32768</length>
     <trackHistory>false</trackHistory>

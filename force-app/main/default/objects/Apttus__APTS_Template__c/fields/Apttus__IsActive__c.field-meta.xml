@@ -4,7 +4,6 @@
     <defaultValue>true</defaultValue>
     <deprecated>false</deprecated>
     <description>Denotes whether the contract template is active or not</description>
-    <externalId>false</externalId>
     <label>IsActive</label>
     <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>

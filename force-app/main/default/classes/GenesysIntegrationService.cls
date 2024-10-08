@@ -3,7 +3,6 @@
  *	NOTE: Genesys Intergration enables callouts to all Genesys Api's (see: https://developer.genesys.cloud/devapps/api-explorer)
  * @author 	Paul Perry
  * @date 	2024-08-27
- * @group 	SCV/Unified
  * @test 	GenesysIntegration_Test
  * @changelog
  */
@@ -11,8 +10,8 @@ public with sharing class GenesysIntegrationService {
 	/**
 	 * Instance for mocking
 	 */
-	public static GenesysIntegrationService newInstance() {
-		return (GenesysIntegrationService)Application.Utilities.newInstance(GenesysIntegrationService.class);
+	public static GenesysIntegrationService getInstance() {
+		return (GenesysIntegrationService)Application.Utilities.getInstance(GenesysIntegrationService.class);
 	}
 
 	/**

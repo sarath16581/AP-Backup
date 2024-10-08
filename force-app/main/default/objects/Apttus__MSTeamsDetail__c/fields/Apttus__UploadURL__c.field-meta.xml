@@ -3,7 +3,6 @@
     <fullName>Apttus__UploadURL__c</fullName>
     <deprecated>false</deprecated>
     <description>Upload URL of MS teams</description>
-    <externalId>false</externalId>
     <inlineHelpText>Upload URL of MS teams</inlineHelpText>
     <label>Upload URL</label>
     <length>32768</length>

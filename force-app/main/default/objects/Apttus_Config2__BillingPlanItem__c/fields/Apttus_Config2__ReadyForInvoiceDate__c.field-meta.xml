@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__ReadyForInvoiceDate__c</fullName>
     <deprecated>false</deprecated>
     <description>The date when the plan is ready for generating an invoice</description>
-    <externalId>false</externalId>
     <inlineHelpText>The date when the plan is ready for generating an invoice</inlineHelpText>
     <label>Ready For Invoice Date</label>
     <required>false</required>

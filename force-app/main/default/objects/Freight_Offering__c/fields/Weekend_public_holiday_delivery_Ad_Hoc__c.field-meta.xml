@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Weekend_public_holiday_delivery_Ad_Hoc__c</fullName>
     <defaultValue>false</defaultValue>
-    <externalId>false</externalId>
     <label>Weekend/public holiday delivery *Ad Hoc</label>
     <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>

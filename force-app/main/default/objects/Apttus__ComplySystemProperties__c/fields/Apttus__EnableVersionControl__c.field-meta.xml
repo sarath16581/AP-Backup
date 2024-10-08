@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Indicates whether version control is in effect. If enabled, checkout/check-in policy is enforced for agreement documents.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Indicates whether version control is in effect. If enabled, checkout/check-in policy is enforced for agreement documents.</inlineHelpText>
     <label>Enable Version Control</label>
     <trackTrending>false</trackTrending>

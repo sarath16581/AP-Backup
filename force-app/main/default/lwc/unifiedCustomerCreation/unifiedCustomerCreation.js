@@ -42,13 +42,13 @@ export const EMAIL_INPUT_REGEX = undefined; // TODO: leverage existing utility c
 export const PHONE_INPUT_REGEX = '^[\\d ]+$'; // TODO: leverage existing utility class
 
 // Error messages
-export const INVALID_NAME_MSG = 'Invalid name format';
-export const INVALID_PHONE_NUMBER_MSG = 'Invalid phone number';
-export const INVALID_EMAIL_ADDRESS_MSG = 'Invalid email address format';
+export const INVALID_NAME_MSG = 'Incorrect Name Format';
+export const INVALID_PHONE_NUMBER_MSG = 'Incorrect Phone Format';
+export const INVALID_EMAIL_ADDRESS_MSG = 'Incorrect Email Format';
 export const PHONE_OR_EMAIL_REQUIRED_ERROR_MESSAGE = 'Please enter at least one of Phone or Email.';
 export const CUSTOMER_TYPE_REQUIRED_ERROR_MESSAGE = 'Please select a customer type.';
 export const ORGANISATION_REQUIRED_ERROR_MESSAGE = 'Please enter Organisation.';
-export const INVALID_FORM_ERROR = 'Please fix errors and try again';
+export const INVALID_FORM_ERROR = 'Please Fix Errors and Try Again';
 
 /**
  * Helper method to get the value of the onchange event from an input component

@@ -10,6 +10,7 @@
  * 2024-08-23 - Seth Heang - Added Assertion on PreferredAgentExpiry__c for Reassigned Case Update Check
  * 2024-09-02 - Ranjeewa Silva - Added tests to cover case reassignment / closure on scan event automation
  * 2024-09-24 - Ranjeewa Silva - Updated tests to assert case closure email for proactively monitored cases.
+ * 2024-10-03 - Ranjeewa Silva - Updated tests to assert case closure email when cases are closed due to scan events.
  */
 @IsTest(IsParallel=true)
 public with sharing class CaseUnifiedAutomationServiceTest {
@@ -621,7 +622,8 @@ public with sharing class CaseUnifiedAutomationServiceTest {
 		Assert.areEqual(SSSWConstants.CASE_STATUS_UPDATED, updateableCases[0].Status, 'Expected the case status to be set to \'Updated\'.');
 		Assert.isNull(updateableCases[0].ReassignmentReason__c, 'Expected the case reassignment reason to be null, as the case is not reassigned.');
 
-		//((ApplicationUnitOfWork) MockUtility.Mocks.verify(mockUow, MockUtility.Mocks.times(0))).registerDirty((List<Case>) fflib_Match.anyObject(), fflib_Match.eqBoolean(false), fflib_Match.anyString());
+		// verify emails are not queued
+		((ApplicationUnitOfWork) MockUtility.Mocks.verify(mockUow, MockUtility.Mocks.times(0))).queueEmailNotification(fflib_Match.anyId(), fflib_Match.anySObjectType(), fflib_Match.anyString());
 	}
 
 	/**
@@ -663,6 +665,7 @@ public with sharing class CaseUnifiedAutomationServiceTest {
 		caseWrapper.caseRecord = caseRecord;
 		caseWrapper.newRootCause = 'test root cause';
 		caseWrapper.newResolutionCode = 'test resolution code';
+		caseWrapper.caseClosureEmailAlert = 'CaseClosureAlert';
 		CaseUnifiedAutomationService.getInstance().processForCaseClosure(new List<CaseUnifiedAutomationService.RecordWrapper>{caseWrapper}, CaseUnifiedAutomationService.InvocationPoint.SCANAUTO, mockUow);
 
 		Test.stopTest();
@@ -677,6 +680,9 @@ public with sharing class CaseUnifiedAutomationServiceTest {
 		Assert.areEqual(SSSWConstants.CASE_STATUS_CLOSED, updateableCases[0].Status, 'Expected the case status to be closed.');
 		Assert.areEqual(caseWrapper.newRootCause, updateableCases[0].Root_cause__c, 'Expected the case root cause to be set.');
 		Assert.areEqual(caseWrapper.newResolutionCode, updateableCases[0].ResolutionCode__c, 'Expected the case resolution code to be set.');
+
+		// verify customer notification email is queued
+		((ApplicationUnitOfWork) MockUtility.Mocks.verify(mockUow, MockUtility.Mocks.times(1))).queueEmailNotification(fflib_Match.eqId(caseRecord.Id), fflib_Match.eqSObjectType(Case.SObjectType), fflib_Match.eqString(caseWrapper.caseClosureEmailAlert));
 	}
 
 	/**
@@ -730,6 +736,9 @@ public with sharing class CaseUnifiedAutomationServiceTest {
 		Assert.areEqual(CaseUnifiedAutomationService.QUEUE_SETTINGS?.UnifiedDefaultOmniQueueId__c, updateableCases[0].OwnerId, 'Expected the case to be assigned to unified cases omni queue.');
 		Assert.areEqual(SSSWConstants.CASE_STATUS_UPDATED, updateableCases[0].Status, 'Expected the case status to be updated.');
 		Assert.areEqual(CaseUnifiedAutomationService.REASSIGNMENT_REASON_OPT_OUT_AUTOMATION, updateableCases[0].ReassignmentReason__c, 'Expected the case reassignment reason to be set.');
+
+		// verify emails are not queued
+		((ApplicationUnitOfWork) MockUtility.Mocks.verify(mockUow, MockUtility.Mocks.times(0))).queueEmailNotification(fflib_Match.anyId(), fflib_Match.anySObjectType(), fflib_Match.anyString());
 	}
 
 	/**
@@ -779,6 +788,9 @@ public with sharing class CaseUnifiedAutomationServiceTest {
 		Assert.areEqual(CaseUnifiedAutomationService.QUEUE_SETTINGS?.UnifiedDefaultOmniQueueId__c, updateableCases[0].OwnerId, 'Expected the case to be assigned to unified cases omni queue.');
 		Assert.areEqual(SSSWConstants.CASE_STATUS_UPDATED, updateableCases[0].Status, 'Expected the case status to be updated.');
 		Assert.areEqual(CaseUnifiedAutomationService.REASSIGNMENT_REASON_MISSING_CUSTOMER_EMAIL, updateableCases[0].ReassignmentReason__c, 'Expected the case reassignment reason to be set.');
+
+		// verify emails are not queued
+		((ApplicationUnitOfWork) MockUtility.Mocks.verify(mockUow, MockUtility.Mocks.times(0))).queueEmailNotification(fflib_Match.anyId(), fflib_Match.anySObjectType(), fflib_Match.anyString());
 	}
 
 	/**
@@ -841,6 +853,7 @@ public with sharing class CaseUnifiedAutomationServiceTest {
 			caseWrapper.caseRecord = caseRecord;
 			caseWrapper.newResolutionCode = 'test resolution code';
 			caseWrapper.newRootCause = 'test root cause';
+			caseWrapper.caseClosureEmailAlert = 'CaseClosureAlert';
 			caseWrappers.add(caseWrapper);
 		}
 		CaseUnifiedAutomationService.getInstance().processForCaseClosure(caseWrappers, CaseUnifiedAutomationService.InvocationPoint.SCANAUTO, mockUow);
@@ -857,6 +870,9 @@ public with sharing class CaseUnifiedAutomationServiceTest {
 		Assert.areEqual(SSSWConstants.CASE_STATUS_CLOSED, updateableCases[0].Status, 'Expected the case to be closed.');
 		Assert.areEqual(caseWrappers[2].newRootCause, updateableCases[0].Root_cause__c, 'Expected the case root cause to be set.');
 		Assert.areEqual(caseWrappers[2].newResolutionCode, updateableCases[0].ResolutionCode__c, 'Expected the case resolution code to be set.');
+
+		// verify customer notification email is queued for the closed case
+		((ApplicationUnitOfWork) MockUtility.Mocks.verify(mockUow, MockUtility.Mocks.times(1))).queueEmailNotification(fflib_Match.eqId(cases[2].Id), fflib_Match.eqSObjectType(Case.SObjectType), fflib_Match.eqString(caseWrappers[2].caseClosureEmailAlert));
 	}
 
 }

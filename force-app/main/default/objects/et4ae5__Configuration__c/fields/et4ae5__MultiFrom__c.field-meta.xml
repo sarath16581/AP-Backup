@@ -3,7 +3,6 @@
     <fullName>et4ae5__MultiFrom__c</fullName>
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
-    <externalId>false</externalId>
     <label>Alternate From Options</label>
     <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>

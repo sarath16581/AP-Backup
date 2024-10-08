@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__OverrideReason__c</fullName>
     <deprecated>false</deprecated>
     <description>The reason for the loyalty level override</description>
-    <externalId>false</externalId>
     <inlineHelpText>The reason for the loyalty level override</inlineHelpText>
     <label>Override Reason</label>
     <required>false</required>

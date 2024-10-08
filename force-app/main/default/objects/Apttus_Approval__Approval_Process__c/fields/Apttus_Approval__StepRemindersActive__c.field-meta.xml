@@ -3,7 +3,6 @@
     <fullName>Apttus_Approval__StepRemindersActive__c</fullName>
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
-    <externalId>false</externalId>
     <label>Step Reminders Active</label>
     <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>

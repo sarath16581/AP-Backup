@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__PurchaseDate__c</fullName>
     <deprecated>false</deprecated>
     <description>The purchase date for products or services.</description>
-    <externalId>false</externalId>
     <label>Purchase Date</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>

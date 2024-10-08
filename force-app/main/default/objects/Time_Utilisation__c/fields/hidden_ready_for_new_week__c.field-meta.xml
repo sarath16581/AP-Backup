@@ -3,7 +3,6 @@
     <fullName>hidden_ready_for_new_week__c</fullName>
     <defaultValue>false</defaultValue>
     <description>used for workflow to trigger the new week record via process builder</description>
-    <externalId>false</externalId>
     <label>{hidden ready for new week</label>
     <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>

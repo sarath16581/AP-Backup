@@ -3,7 +3,6 @@
     <fullName>Primary_Agreement__c</fullName>
     <defaultValue>false</defaultValue>
     <description>Flag to indicate if this is the Primary Agreement for the Licence Type</description>
-    <externalId>false</externalId>
     <inlineHelpText>Flag to indicate if this is the Primary Agreement for the Licence Type</inlineHelpText>
     <label>Primary Agreement</label>
     <securityClassification>INTERNAL</securityClassification>

@@ -18,7 +18,7 @@ import ID_FIELD from '@salesforce/schema/VoiceCall.Id';
 import CASE_FIELD from '@salesforce/schema/VoiceCall.Case__c';
 
 const VOICECALL_FIELDS = [ARTICLE_ID_FIELD, TRACKING_ID_FIELD, CASE_FIELD, ID_FIELD];
-const IMPCATED_ARTICLE_FIELDS = ['ImpactedArticle__c.Id', 'ImpactedArticle__c.Article__c', 'ImpactedArticle__c.ArticleId__c'];
+const IMPACTED_ARTICLE_FIELDS = ['ImpactedArticle__c.Id', 'ImpactedArticle__c.Article__c', 'ImpactedArticle__c.Name'];
 const IMPACTED_ARTICLE_RELATION_ID = 'ImpactedArticles__r';
 
 export default class UnifiedTrackingVoiceWrapper extends LightningElement {
@@ -43,6 +43,8 @@ export default class UnifiedTrackingVoiceWrapper extends LightningElement {
 	consignmentIdFromRecord;
 	// Holds case record Id available on the voice all record.
 	caseId;
+	// Holds tracking Id that has duplicates
+	duplicateTrackingId;
 	// wire the message context and pass to publisher to send LMS events
 	@wire(MessageContext)
 	messageContext;
@@ -96,7 +98,7 @@ export default class UnifiedTrackingVoiceWrapper extends LightningElement {
 	@wire(getRelatedListRecords, {
 		parentRecordId: '$caseId',
 		relatedListId: IMPACTED_ARTICLE_RELATION_ID,
-		fields: IMPCATED_ARTICLE_FIELDS
+		fields: IMPACTED_ARTICLE_FIELDS
 	})
 	listInfo({ error, data }) {
 		if (error) {
@@ -104,7 +106,7 @@ export default class UnifiedTrackingVoiceWrapper extends LightningElement {
 			console.error(error);
 		} else if (data && data.records) {
 			this.impactedArticleIds = [];
-			data.records.forEach(element => this.impactedArticleIds.push(element.fields.ArticleId__c.value));
+			data.records.forEach(element => this.impactedArticleIds.push(element.fields.Name.value));
 			this.selectOrDeselectImpactedArticles();
 		}
 	}
@@ -116,11 +118,22 @@ export default class UnifiedTrackingVoiceWrapper extends LightningElement {
 			if (eventDetail.articleRecordId) {
 				this.articleRecordId = eventDetail.articleRecordId;
 				this.trackingId = eventDetail.trackingId;
-				// Link only consignment if there is no consignment on the voice call record
-				if (this.trackingIdFromRecord && !this.consignmentIdFromRecord && !this.noConsignment) {
-					this.autoLinkOnlyConsignment();
-				} else if (this.articleRecordId && this.consignmentIdFromRecord !== this.articleRecordId) {
-					this.autoLink();
+				// Auto link only if there are no duplicates
+				if (!eventDetail.hasDuplicates) {
+					if (!this.duplicateTrackingId) {
+						// Link only consignment if there is no consignment on the voice call record
+						if (this.trackingIdFromRecord && !this.consignmentIdFromRecord && !this.noConsignment) {
+							this.autoLinkOnlyConsignment();
+						} else if (this.articleRecordId && this.consignmentIdFromRecord !== this.articleRecordId) {
+							this.autoLink();
+						}
+					} else {
+						// This will only run if the previous transaction has duplicates.
+						this.duplicateTrackingId = '';
+						this.autoLink();
+					}
+				} else {
+					this.duplicateTrackingId = this.trackingId;
 				}
 				// executes only if case available and the page loaded or refreshed.
 				if (this.caseId) {
@@ -139,8 +152,8 @@ export default class UnifiedTrackingVoiceWrapper extends LightningElement {
 	}
 
 	/** Handler to receive messages from happy parcel component when checkboxes selected.
-	* Publishes LMS on select event.
-	*/
+	 * Publishes LMS on select event.
+	 */
 	handleSelectedArticles(event) {
 		// build and publish LMS Event for selected articles
 		this.publishSelectedArticlesLMS(this.trackingId, event.detail);
@@ -206,7 +219,12 @@ export default class UnifiedTrackingVoiceWrapper extends LightningElement {
 				selectedArticleIds: selectedArticles
 			}
 		};
-		publish(this.messageContext, GENERIC_LMS_CHANNEL, lmsEventPayload);
+		try {
+			publish(this.messageContext, GENERIC_LMS_CHANNEL, lmsEventPayload);
+		} catch (error) {
+			// One of the scenario that we expect to excecute the catch block is when user opens and closes the interaction record quickly before / while loading the happyparcel component.
+			console.error(error);
+		}
 	}
 
 	displayToastMessage(toastMessage, toastTittle, toastVariant) {

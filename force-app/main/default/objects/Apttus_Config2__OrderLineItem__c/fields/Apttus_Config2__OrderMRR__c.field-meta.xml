@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__OrderMRR__c</fullName>
     <deprecated>false</deprecated>
     <description>The change in monthly recurring revenue due to the order over the original service period of the asset.</description>
-    <externalId>false</externalId>
     <inlineHelpText>The change in monthly recurring revenue due to the order over the original service period of the asset.</inlineHelpText>
     <label>Order MRR</label>
     <precision>18</precision>

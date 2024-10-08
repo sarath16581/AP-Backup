@@ -4,7 +4,6 @@
     <description>Phase 1 - Opportuntity Assessment (PWC)
 
 The expected outcomes the customer is hoping to achieve</description>
-    <externalId>false</externalId>
     <inlineHelpText>What are the expected benefits?</inlineHelpText>
     <label>Expected Benefits</label>
     <length>32768</length>

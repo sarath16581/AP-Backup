@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Checks if Valid Business Reason Added to Green Sheet</description>
-    <externalId>false</externalId>
     <label>Is Valid Business Reason Added</label>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>

@@ -48,7 +48,7 @@ export const ENQUIRY_TYPE_OPTIONS = [
 
 export const IMPACTED_ARTICLE_MISSING_ERROR = 'Impacted articles cannot be empty, Please link at least one impacted article.';
 export const CONTACTID_MISSING_ERROR = 'Contact cannot be empty for investigation case, Please link a contact.';
-export const INVALID_FORM_ERROR = 'Please fix errors and try again';
+export const INVALID_FORM_ERROR = 'Please Fix Errors and Try Again';
 
 export default class UnifiedCaseCreation extends LightningElement {
 
@@ -66,10 +66,14 @@ export default class UnifiedCaseCreation extends LightningElement {
 	 * @param value
 	 */
 	set contactId(value){
-		this._contactId = value;
+		if (value) {
+			this._contactId = value;
+			this.disableCreateBtn = false;
+		}
 		const el = this.template.querySelector('lightning-record-picker[data-field-name=contactId]');
 		if(el && !value){
 			el.clearSelection();
+			this._contactId = undefined;
 		}
 	}
 
@@ -80,10 +84,24 @@ export default class UnifiedCaseCreation extends LightningElement {
 	@api consignmentId;
 
 	/**
-	 * A list of article identifiers to associate with the Case via the `ImpactedArticle__c` object.
+	 * setter for a list of article identifiers to associate with the Case via the `ImpactedArticle__c` object.
+	 * and enable create button if it's disabled due to error message validation.
 	 * @type {string[]}
 	 */
-	@api impactedArticles;
+	@api set impactedArticles(value) {
+		if (Array.isArray(value) && value.length > 0) {
+			this._impactedArticles = value;
+			this.disableCreateBtn = false;
+		}
+	}
+
+	/**
+	 * getter for impacted articles value to associate with the Case record
+	 * @returns {string[]}
+	 */
+	get impactedArticles(){
+		return this._impactedArticles;
+	}
 
 	/**
 	 * getter for enquiry type value to associate with the Case record
@@ -166,6 +184,7 @@ export default class UnifiedCaseCreation extends LightningElement {
 	_enquirySubType = '';
 	_productCategory = '';
 	_productSubCategory = '';
+	_impactedArticles;
 
 	// Private properties without getter and setter
 	notes = '';

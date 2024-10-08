@@ -3,7 +3,6 @@
     <fullName>Apttus_Approval__DateRejected__c</fullName>
     <deprecated>false</deprecated>
     <description>The date when the approval request was rejected</description>
-    <externalId>false</externalId>
     <label>Date Rejected</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>

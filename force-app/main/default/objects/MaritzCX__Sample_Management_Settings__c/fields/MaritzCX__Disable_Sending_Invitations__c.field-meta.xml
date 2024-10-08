@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>This flag is used to stop Sample Management operations.</description>
-    <externalId>false</externalId>
     <inlineHelpText>This flag is used to stop Sample Management operations.</inlineHelpText>
     <label>Disable Sending Invitations</label>
     <trackTrending>false</trackTrending>

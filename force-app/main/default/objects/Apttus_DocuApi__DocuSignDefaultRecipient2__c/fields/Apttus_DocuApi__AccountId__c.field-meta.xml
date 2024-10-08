@@ -3,7 +3,6 @@
     <fullName>Apttus_DocuApi__AccountId__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <deprecated>false</deprecated>
-    <externalId>false</externalId>
     <label>Account</label>
     <referenceTo>Account</referenceTo>
     <relationshipLabel>DocuSign Recipients</relationshipLabel>

@@ -3,7 +3,6 @@
     <fullName>Apttus__Keywords__c</fullName>
     <deprecated>false</deprecated>
     <description>Keywords on which the contract template can be searched and included in search layouts</description>
-    <externalId>false</externalId>
     <label>Keywords</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>

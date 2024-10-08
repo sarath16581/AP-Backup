@@ -1,5 +1,7 @@
 <template>
-	<lightning-card title="Related Cases" icon-name="standard:case">
+	<lightning-card>
+		<h1 if:false={hideCardTitle} slot="title"><lightning-icon icon-name="standard:case" size="small" class="slds-m-right_small"></lightning-icon>Related Cases</h1>
+
 		<!-- Cases Related Article -->
 		<lightning-card>
 			<lightning-spinner if:true={casesRelatedToArticleIsLoading} title="Loading" alternative-text="Loading data" variant="brand"></lightning-spinner>
@@ -35,11 +37,11 @@
 					</template>
 				</template>
 				<template lwc:else>
-					<c-empty-state illustration="desert" size="small" title-text="No Cases Related to Article"></c-empty-state>
+					<h3 class="slds-var-m-vertical_medium slds-text-align_center slds-text-heading_small">No Cases Found</h3>
 				</template>
 			</template>
 			<template lwc:else>
-				<h3 class="slds-var-m-vertical_medium slds-text-align_center slds-text-heading_small">No Article Selected</h3>
+				<h3 class="slds-var-m-vertical_medium slds-text-align_center slds-text-heading_small">No Cases Found</h3>
 			</template>
 		</lightning-card>
 
@@ -78,11 +80,11 @@
 					</template>
 				</template>
 				<template lwc:else>
-					<c-empty-state illustration="desert" size="small" title-text="No Cases Related to Contact"></c-empty-state>
+					<h3 class="slds-var-m-vertical_medium slds-text-align_center slds-text-heading_small">No Cases Found</h3>
 				</template>
 			</template>
 			<template lwc:else>
-				<h3 class="slds-var-m-vertical_medium slds-text-align_center slds-text-heading_small">No Contact Selected</h3>
+				<h3 class="slds-var-m-vertical_medium slds-text-align_center slds-text-heading_small">No Cases Found</h3>
 			</template>
 		</lightning-card>
 	</lightning-card>

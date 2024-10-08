@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>GenesysStatusLabel__c</fullName>
+    <description>The label that represents the Genesys Status Id. This field is just for troubleshooting and is not used in the mappings</description>
+    <externalId>false</externalId>
+    <fieldManageability>DeveloperControlled</fieldManageability>
+    <inlineHelpText>The label that represents the Genesys Status Id. This field is just for troubleshooting and is not used in the mappings</inlineHelpText>
+    <label>Genesys Status Label</label>
+    <length>255</length>
+    <required>false</required>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

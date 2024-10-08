@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__LastSuccessfulSync__c</fullName>
     <deprecated>false</deprecated>
     <description>Datetime of last successful sync</description>
-    <externalId>false</externalId>
     <inlineHelpText>Datetime of last successful sync</inlineHelpText>
     <label>Last Successful Sync</label>
     <required>false</required>

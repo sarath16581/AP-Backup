@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Credit_Assessment__c</fullName>
     <description>This field looks up to Credit Assessment object. This is primary relationship with Credit Assessment object.</description>
-    <externalId>false</externalId>
     <label>Credit Assessment</label>
     <referenceTo>APT_Credit_Assessment__c</referenceTo>
     <relationshipLabel>Credit Assessment Networks</relationshipLabel>

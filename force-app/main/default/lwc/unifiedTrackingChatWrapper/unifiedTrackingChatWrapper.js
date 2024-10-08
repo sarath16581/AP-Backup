@@ -4,10 +4,11 @@
  * @date 2026-09-05
  * @group Tracking
  * @changelog
+ * 2024-10-01 - Seth Heang - added notifyRecordUpdateAvailable after successful update on LiveChat
  */
 import { api, LightningElement, wire, track } from 'lwc';
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
-import { getRecord, getFieldValue, updateRecord } from 'lightning/uiRecordApi';
+import { getRecord, getFieldValue, updateRecord, notifyRecordUpdateAvailable } from 'lightning/uiRecordApi';
 import { getRelatedListRecords } from 'lightning/uiRelatedListApi';
 import { publish, MessageContext } from 'lightning/messageService';
 import GENERIC_LMS_CHANNEL from '@salesforce/messageChannel/genericMessageChannel__c';
@@ -18,7 +19,7 @@ import ID_FIELD from '@salesforce/schema/LiveChatTranscript.Id';
 import CASE_FIELD from '@salesforce/schema/LiveChatTranscript.CaseId';
 
 const CHAT_FIELDS = [ARTICLE_ID_FIELD, TRACKING_ID_FIELD, CASE_FIELD, ID_FIELD];
-const IMPCATED_ARTICLE_FIELDS = ['ImpactedArticle__c.Id', 'ImpactedArticle__c.Article__c', 'ImpactedArticle__c.ArticleId__c'];
+const IMPACTED_ARTICLE_FIELDS = ['ImpactedArticle__c.Id', 'ImpactedArticle__c.Article__c', 'ImpactedArticle__c.Name'];
 const IMPACTED_ARTICLE_RELATION_ID = 'ImpactedArticles__r';
 
 export default class UnifiedTrackingChatWrapper extends LightningElement {
@@ -98,14 +99,14 @@ export default class UnifiedTrackingChatWrapper extends LightningElement {
 	@wire(getRelatedListRecords, {
 		parentRecordId: '$caseId',
 		relatedListId: IMPACTED_ARTICLE_RELATION_ID,
-		fields: IMPCATED_ARTICLE_FIELDS
+		fields: IMPACTED_ARTICLE_FIELDS
 	})
 	listInfo({ error, data }) {
 		if (error) {
 			this.showSpinner = false;
 			console.error(error);
 		} else if (data && data.records) {
-			data.records.forEach(element => this.impactedArticleIds.push(element.fields.ArticleId__c.value));
+			data.records.forEach(element => this.impactedArticleIds.push(element.fields.Name.value));
 			this.selectOrDeselectImpactedArticles();
 		}
 	}
@@ -187,13 +188,15 @@ export default class UnifiedTrackingChatWrapper extends LightningElement {
 	doUpdate(recordInput) {
 		updateRecord(recordInput)
 			.then(() => {
-				this.showSpinner = false;
 				this.enableSelectArticles = true;
+				notifyRecordUpdateAvailable([{ recordId: this.recordId }]);
 			})
 			.catch(error => {
 				console.error(error);
-				this.showSpinner = false;
 				this.displayToastMessage('Article link failed', 'Error', 'Error');
+			})
+			.finally(() =>{
+				this.showSpinner = false;
 			});
 	}
 
@@ -219,7 +222,12 @@ export default class UnifiedTrackingChatWrapper extends LightningElement {
 				selectedArticleIds: selectedArticles
 			}
 		};
-		publish(this.messageContext, GENERIC_LMS_CHANNEL, lmsEventPayload);
+		try {
+			publish(this.messageContext, GENERIC_LMS_CHANNEL, lmsEventPayload);
+		} catch (error) {
+			// One of the scenario that we expect to excecute the catch block is when user opens and closes the interaction record quickly before / while loading the happyparcel component.
+			console.error(error);
+		}
 	}
 
 	displayToastMessage(toastMessage, toastTittle, toastVariant) {

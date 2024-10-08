@@ -3,7 +3,6 @@
     <fullName>Locally_Managed__c</fullName>
     <defaultValue>false</defaultValue>
     <description>This field will assist with the Hub program of entering Lead Legends.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Check this box if you are raising a lead as a Hub User.</inlineHelpText>
     <label>Locally Managed?</label>
     <securityClassification>INTERNAL</securityClassification>

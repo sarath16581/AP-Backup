@@ -3,7 +3,6 @@
     <fullName>EnableBusinessEnablementSurveys__c</fullName>
     <defaultValue>true</defaultValue>
     <description>Variable to control whether the business Enablement Survey sends are enabled or disabled</description>
-    <externalId>false</externalId>
     <label>Enable Business Enablement Surveys</label>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>

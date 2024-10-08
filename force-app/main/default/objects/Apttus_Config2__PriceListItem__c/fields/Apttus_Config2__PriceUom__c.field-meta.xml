@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__PriceUom__c</fullName>
     <deprecated>false</deprecated>
     <description>The pricing unit of measure for the product</description>
-    <externalId>false</externalId>
     <label>Price Uom</label>
     <required>false</required>
     <trackTrending>false</trackTrending>

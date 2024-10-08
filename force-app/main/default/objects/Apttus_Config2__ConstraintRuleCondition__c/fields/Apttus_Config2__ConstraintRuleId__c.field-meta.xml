@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__ConstraintRuleId__c</fullName>
     <deprecated>false</deprecated>
     <description>Reference to the master record which is a constraint rule.</description>
-    <externalId>false</externalId>
     <label>Constraint Rule</label>
     <referenceTo>Apttus_Config2__ConstraintRule__c</referenceTo>
     <relationshipLabel>Constraint Rule Conditions</relationshipLabel>

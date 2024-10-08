@@ -3,7 +3,6 @@
     <fullName>grax__Salesforce_Object__c</fullName>
     <deprecated>false</deprecated>
     <description>Salesforce_Object</description>
-    <externalId>false</externalId>
     <inlineHelpText>Name of Salesforce object which is being backed up</inlineHelpText>
     <label>Salesforce Object</label>
     <required>false</required>

@@ -3,7 +3,6 @@
     <fullName>Apttus__Subcategory__c</fullName>
     <deprecated>false</deprecated>
     <description>Dependent on the category field, whose list values shall allow users to search, find, and select Wizard designs</description>
-    <externalId>false</externalId>
     <inlineHelpText>Dependent on the category field, whose list values shall allow users to search, find, and select Wizard designs</inlineHelpText>
     <label>Subcategory</label>
     <required>false</required>

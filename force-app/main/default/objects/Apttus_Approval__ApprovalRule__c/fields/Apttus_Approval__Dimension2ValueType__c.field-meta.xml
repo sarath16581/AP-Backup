@@ -3,7 +3,6 @@
     <fullName>Apttus_Approval__Dimension2ValueType__c</fullName>
     <deprecated>false</deprecated>
     <description>The value type of the second dimension. Only applicable to Dimension rules.</description>
-    <externalId>false</externalId>
     <label>Dimension 2 Value Type</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>

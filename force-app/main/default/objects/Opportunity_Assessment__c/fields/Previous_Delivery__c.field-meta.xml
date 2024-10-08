@@ -4,7 +4,6 @@
     <description>Phase 1 - Opportunity Assessment (PWC)
 
 Identify with internal stakeholders if we have delivered this product previously</description>
-    <externalId>false</externalId>
     <inlineHelpText>Do we have a track record in delivering these types of products/ solutions?</inlineHelpText>
     <label>Previous Delivery</label>
     <length>32768</length>

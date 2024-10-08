@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__Hash__c</fullName>
     <deprecated>false</deprecated>
     <description>The encoded matrix information.</description>
-    <externalId>false</externalId>
     <inlineHelpText>The encoded matrix information.</inlineHelpText>
     <label>Hash</label>
     <length>51200</length>

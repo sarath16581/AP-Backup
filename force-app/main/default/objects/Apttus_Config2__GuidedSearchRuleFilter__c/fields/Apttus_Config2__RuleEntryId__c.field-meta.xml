@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__RuleEntryId__c</fullName>
     <deprecated>false</deprecated>
     <description>ID of the associated rule entry</description>
-    <externalId>false</externalId>
     <label>Rule Entry</label>
     <referenceTo>Apttus_Config2__GuidedSearchRuleEntry__c</referenceTo>
     <relationshipName>GuidedSearchFilters</relationshipName>

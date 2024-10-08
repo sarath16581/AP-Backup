@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Riskofmigrationatalaterdate__c</fullName>
     <description>Migrate to Signature at later date.?</description>
-    <externalId>false</externalId>
     <inlineHelpText>Migrate to Signature at later date?</inlineHelpText>
     <label>Risk of migration at a later date</label>
     <required>false</required>

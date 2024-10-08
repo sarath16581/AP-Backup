@@ -8,6 +8,7 @@
     <trackTrending>false</trackTrending>
     <type>Picklist</type>
     <valueSet>
+        <restricted>true</restricted>
         <valueSetDefinition>
             <sorted>false</sorted>
             <value>
@@ -34,6 +35,12 @@
                 <fullName>BusinessCannot recall</fullName>
                 <default>false</default>
                 <label>BusinessCannot recall</label>
+            </value>
+            <value>
+                <fullName>ResidentialRecalls - safe drop</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>ResidentialRecalls - safe drop</label>
             </value>
         </valueSetDefinition>
     </valueSet>

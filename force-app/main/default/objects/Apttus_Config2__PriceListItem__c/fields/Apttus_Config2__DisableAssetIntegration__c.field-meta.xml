@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Indicates whether asset integration is disabled for the product or service</description>
-    <externalId>false</externalId>
     <inlineHelpText>Indicates whether asset integration is disabled for the product or service</inlineHelpText>
     <label>Disable Asset Integration</label>
     <securityClassification>INTERNAL</securityClassification>

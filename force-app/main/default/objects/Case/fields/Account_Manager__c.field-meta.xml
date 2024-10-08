@@ -3,7 +3,6 @@
     <fullName>Account_Manager__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <description>account manager information used for report request case type</description>
-    <externalId>false</externalId>
     <label>Account Manager</label>
     <referenceTo>User</referenceTo>
     <relationshipName>Cases88</relationshipName>

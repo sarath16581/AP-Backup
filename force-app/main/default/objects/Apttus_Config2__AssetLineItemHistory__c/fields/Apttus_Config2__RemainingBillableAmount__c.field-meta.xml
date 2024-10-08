@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__RemainingBillableAmount__c</fullName>
     <deprecated>false</deprecated>
     <description>Indicates how much is remaining to be be billed for the asset</description>
-    <externalId>false</externalId>
     <inlineHelpText>Indicates how much is remaining to be be billed for the asset. The field will be updated every time the “Status” of a Billing Schedule changes from “Pending Billing” to “Invoiced” and vice versa.</inlineHelpText>
     <label>Remaining Billable Amount</label>
     <precision>18</precision>

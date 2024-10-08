@@ -3,6 +3,9 @@
  * @author Ranjeewa Silva
  * @date 2024-07-15
  * @changelog
+ * 2024-07-15 - Ranjeewa Silva - created
+ * 2024-09-23 - Seth Heang - added test for FILTER_STATUS_NOT_ABANDONED
+ * 2024-09-24 - George Nguyen - fixed test errors
  */
 @IsTest
 private class ContactRequestsSelector_Test {
@@ -31,8 +34,13 @@ private class ContactRequestsSelector_Test {
 		ContactRequestsSelector selector = ContactRequestsSelector.newInstance();
 		QueryBuilder qb = selector.newQueryBuilder();
 		String soql = qb.toSoqlString();
-
 		Assert.isTrue(Pattern.compile('(?ism)\\bfrom ContactRequest\\b').matcher(soql).find(), 'Resulting query does not select from ContactRequest: ' + soql);
+
+		Set<SObjectField> fieldOverrides=new Set<SObjectField>{ContactRequest.PreferredChannel};
+		ContactRequestsSelector selector2 = ContactRequestsSelector.newInstance(1,fieldOverrides);
+		QueryBuilder qb2 = selector2.newQueryBuilder();
+		String soql2 = qb2.toSoqlString();
+		System.assertEquals(true, Pattern.compile('(?is)\\bPreferredChannel\\b').matcher(soql2).find(), 'Resulting query does not do filter overrides');
 
 		Test.stopTest();
 
@@ -64,8 +72,12 @@ private class ContactRequestsSelector_Test {
 		});
 		QueryBuilder qb = selector.newQueryBuilder();
 		String soql = qb.toSoqlString();
-		System.assertEquals(true, Pattern.compile('(?ism)WhoId.*?\\bfrom ContactRequest\\b').matcher(soql).find(), 'Resulting query does not select WhoId: ' + soql);
-		System.assertEquals(false, Pattern.compile('(?ism)WhatId.*?\\bfrom ContactRequest\\b').matcher(soql).find(), 'Resulting query selects WhatId but should not: ' + soql);
+		Assert.areEqual(true, Pattern.compile('(?ism)WhoId.*?\\bfrom ContactRequest\\b').matcher(soql).find(), 'Resulting query does not select WhoId: ' + soql);
+		Assert.areEqual(false, Pattern.compile('(?ism)WhatId.*?\\bfrom ContactRequest\\b').matcher(soql).find(), 'Resulting query selects WhatId but should not: ' + soql);
+
+		qb = selector.newQueryBuilder(new Set<Object>{ ContactRequestsSelector.Options.FILTER_STATUS_NOT_ABANDONED });
+		soql = qb.toSoqlString();
+		Assert.areEqual(true, Pattern.compile('(?ism)\\bfrom ContactRequest\\b.*Status\\s*!=\\s*\'?Abandoned\'?').matcher(soql).find(), 'Resulting query does not filter false Abandoned status: ' + soql);
 
 		Test.stopTest();
 	}
@@ -156,7 +168,7 @@ private class ContactRequestsSelector_Test {
 		};
 
 		soql = selector.getSearchSoql(searchParams, new Set<Object>(), false);
-		System.assertEquals(true, Pattern.compile('(?ism)\\s+from ContactRequest\\s+where\\b.*?\\bOR\\b').matcher(soql).find(), 'Resulting query does not limit by ANY');
+		Assert.areEqual(true, Pattern.compile('(?ism)\\s+from ContactRequest\\s+where\\b.*?\\bOR\\b').matcher(soql).find(), 'Resulting query does not limit by ANY');
 
 		// make sure the query is valid (even though no records will be returned)
 		// note if the query fails, an exception will be thrown
@@ -177,5 +189,47 @@ private class ContactRequestsSelector_Test {
 
 		Test.stopTest();
 
+	}
+
+	/**
+	  * Executes a query to ensure it returns expected results with actual inserted data
+	  */
+	@IsTest
+	private static void testSelectorIntegration() {
+
+		// =====================================
+		// Data Preparation
+		// =====================================
+		MockUtility.disableTriggerExecution();
+
+		Contact con = TestDataProvider.createTestContact();
+        insert con;
+
+		List<Case> cases = ApplicationTestDataFactory.getCases(1, false);
+		Insert cases;
+
+		ContactRequest cr = new ContactRequest(
+		WhoId = con.Id,
+		WhatId = cases[0].id,
+		RequestDescription = 'test call'
+		);
+
+		insert cr;
+
+		// =====================================
+		// Stubbing
+		// =====================================
+		// None!
+
+		// =====================================
+		// Testing
+		// =====================================
+		Test.startTest();
+
+		ContactRequestsSelector selector = ContactRequestsSelector.newInstance(2);
+		List<ContactRequest> results = selector.selectByIds(new Set<Object>(), new Set<Id>{cr.Id});
+		System.assertEquals(1, results.size(), 'Expected result size of 1');
+
+		Test.stopTest();
 	}
 }

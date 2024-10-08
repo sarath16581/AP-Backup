@@ -3,7 +3,6 @@
     <fullName>Apttus__PeriodEndDate__c</fullName>
     <deprecated>false</deprecated>
     <description>End date of the login count</description>
-    <externalId>false</externalId>
     <inlineHelpText>End date of the login count period</inlineHelpText>
     <label>Period End Date</label>
     <required>true</required>

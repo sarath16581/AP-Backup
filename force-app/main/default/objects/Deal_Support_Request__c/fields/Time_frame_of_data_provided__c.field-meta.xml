@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Time_frame_of_data_provided__c</fullName>
     <description>Use in Commercial Analytics and Modelling request</description>
-    <externalId>false</externalId>
     <inlineHelpText>Please ensure the timeframe reflects the period of the analytics being requested</inlineHelpText>
     <label>Time frame of data provided?</label>
     <required>false</required>

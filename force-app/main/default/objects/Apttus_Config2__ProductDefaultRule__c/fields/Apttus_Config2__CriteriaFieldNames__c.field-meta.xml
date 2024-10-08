@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__CriteriaFieldNames__c</fullName>
     <deprecated>false</deprecated>
     <description>The list of field names used in the rule criteria</description>
-    <externalId>false</externalId>
     <label>Criteria Field Names</label>
     <length>1024</length>
     <securityClassification>INTERNAL</securityClassification>

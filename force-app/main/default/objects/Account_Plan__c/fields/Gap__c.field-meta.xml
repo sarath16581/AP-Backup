@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Gap__c</fullName>
     <description>Phase 1 - Sales Process (PWC)</description>
-    <externalId>false</externalId>
     <formula>Target__c - Opportunity_Value__c</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <label>Gap</label>

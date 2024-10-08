@@ -3,7 +3,6 @@
     <fullName>Route_Lookup__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <description>The name of the route the booking must be performed within.</description>
-    <externalId>false</externalId>
     <inlineHelpText>The name of the route the booking must be performed within.</inlineHelpText>
     <label>Route</label>
     <referenceTo>PUD_Route__c</referenceTo>

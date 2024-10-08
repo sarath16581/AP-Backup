@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__ModifiableType__c</fullName>
     <deprecated>false</deprecated>
     <description>Indicates the type of modification allowed during selection. Variable indicates the option group and its components are modifiable and Fixed indicates the option group is not modifiable.</description>
-    <externalId>false</externalId>
     <label>Modifiable Type</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>

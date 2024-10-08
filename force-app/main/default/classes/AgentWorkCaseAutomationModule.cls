@@ -71,10 +71,31 @@ public inherited sharing class AgentWorkCaseAutomationModule extends Application
 	 * @param uow instance of UnitOfWork to flag records for DML operations
 	 */
 	private void populateCaseField(List<AgentWork> records, ApplicationUnitOfWork uow){
+		String source = 'AgentWorkCaseAutomationModule.populateCaseField';
+
+		Map<SObjectType, Set<Id>> mappedObjectTypeAndIds = new Map<SObjectType, Set<Id>>();
+		List<AgentWork> qualifiedAgentWorkRecords = new List<AgentWork>();
+
 		for(AgentWork aw: records) {
-			if(aw.WorkItemId.getSobjectType() == Case.SObjectType){
+			SObjectType objType = aw.WorkItemId.getSobjectType();
+			if(objType == Case.SObjectType){
 				aw.Case__c = aw.WorkItemId;
 			}
+			
+			// Mapping SObject types to work item ids
+			if(UnifiedInteractionService.MAPPED_CASE_FIELDS.containsKey(objType) == true) {
+				if(mappedObjectTypeAndIds.containsKey(objType) == false) {
+					mappedObjectTypeAndIds.put(objType, new Set<Id>());
+				}
+
+				mappedObjectTypeAndIds.get(objType).add(aw.WorkItemId);
+				qualifiedAgentWorkRecords.add(aw);
+			}
+		}
+
+		if(mappedObjectTypeAndIds.isEmpty() == false && qualifiedAgentWorkRecords.isEmpty() == false) {
+			Map<Id, SObject> workItems = UnifiedInteractionService.getInstance().retrieveInteractionRecords(mappedObjectTypeAndIds);
+			UnifiedInteractionService.getInstance().populateCaseFieldOnAgentWorks(workItems, qualifiedAgentWorkRecords, uow, source);
 		}
 	}
 

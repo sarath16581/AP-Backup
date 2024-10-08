@@ -3,7 +3,6 @@
     <fullName>Credit_Assessment__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <description>The field is a lookup to an associated credit assessment for credit management deal support request.</description>
-    <externalId>false</externalId>
     <label>Credit Assessment</label>
     <referenceTo>APT_Credit_Assessment__c</referenceTo>
     <relationshipLabel>Deal Support Request</relationshipLabel>

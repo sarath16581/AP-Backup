@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__SubType__c</fullName>
     <deprecated>false</deprecated>
     <description>The price list item sub type</description>
-    <externalId>false</externalId>
     <label>Sub Type</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>

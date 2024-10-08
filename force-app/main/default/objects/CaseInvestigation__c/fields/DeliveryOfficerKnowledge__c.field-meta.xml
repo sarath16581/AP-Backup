@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>DeliveryOfficerKnowledge__c</fullName>
     <description>Used on MyNetwork community to add network response for ST cases.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Does the officer remember the delivery?</inlineHelpText>
     <label>Delivery Officer Knowledge</label>
     <required>false</required>

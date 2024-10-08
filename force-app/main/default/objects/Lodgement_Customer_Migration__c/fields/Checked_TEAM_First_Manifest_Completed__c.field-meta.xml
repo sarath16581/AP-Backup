@@ -3,7 +3,6 @@
     <fullName>Checked_TEAM_First_Manifest_Completed__c</fullName>
     <defaultValue>false</defaultValue>
     <description>Checked in TEAM that first manifest completed</description>
-    <externalId>false</externalId>
     <inlineHelpText>Checked in TEAM that first manifest completed</inlineHelpText>
     <label>Checked TEAM - First Manifest Completed</label>
     <securityClassification>INTERNAL</securityClassification>

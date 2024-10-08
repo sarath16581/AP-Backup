@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Is this a &quot;progressive&quot;/incremental Scheduled Process</description>
-    <externalId>false</externalId>
     <label>Incremental</label>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>

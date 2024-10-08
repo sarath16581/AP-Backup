@@ -9,23 +9,24 @@ import { api, LightningElement, wire, track } from 'lwc';
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 import { getRecord, getFieldValue, createRecord, deleteRecord } from 'lightning/uiRecordApi';
 import { getRelatedListRecords } from 'lightning/uiRelatedListApi';
+import { RefreshEvent } from "lightning/refresh";
 // Object
 import IMPACTED_ARTICLE_OBJECT from '@salesforce/schema/ImpactedArticle__c';
 // Case Fields
 import CASE_STATUS_FIELD from '@salesforce/schema/Case.Status';
 import CASE_ARTICLE_ID_FIELD from '@salesforce/schema/Case.ArticleTest__c';
 import CASE_ID_FIELD from '@salesforce/schema/Case.Id';
-import CASE_TRACKING_ID_FIELD from '@salesforce/schema/Case.ArticleTest__r.TrackingID__c';
+import CASE_TRACKING_ID_FIELD from '@salesforce/schema/Case.ArticleTest__r.Name';
 import CASE_RECORDTYPE_NAME from '@salesforce/schema/Case.RecordType.DeveloperName';
 // Impacted Article Fields
 import IMPACTED_ARTICLE_ARTICLE_FIELD from '@salesforce/schema/ImpactedArticle__c.Article__c';
-import IMPACTED_ARTICLE_ARTICLEID_FIELD from '@salesforce/schema/ImpactedArticle__c.ArticleId__c';
+import IMPACTED_ARTICLE_NAME_FIELD from '@salesforce/schema/ImpactedArticle__c.Name';
 import IMPACTED_ARTICLE_CASE_FIELD from '@salesforce/schema/ImpactedArticle__c.Case__c';
 // Apex class
 import checkIsUnifiedCase from '@salesforce/apex/UnifiedTrackingCaseWrapperController.isUnifiedCase';
 
 const CASE_FIELDS = [CASE_STATUS_FIELD, CASE_ARTICLE_ID_FIELD, CASE_ID_FIELD, CASE_TRACKING_ID_FIELD, CASE_RECORDTYPE_NAME];
-const IMPCATED_ARTICLE_FIELDS = ['ImpactedArticle__c.Id', 'ImpactedArticle__c.Article__c', 'ImpactedArticle__c.ArticleId__c'];
+const IMPCATED_ARTICLE_FIELDS = ['ImpactedArticle__c.Id', 'ImpactedArticle__c.Article__c', 'ImpactedArticle__c.Name'];
 const IMPACTED_ARTICLE_RELATION_ID = 'ImpactedArticles__r';
 
 export default class UnifiedTrackingChatWrapper extends LightningElement {
@@ -71,6 +72,11 @@ export default class UnifiedTrackingChatWrapper extends LightningElement {
 	wiredIsUnifiedCase({ error, data }) {
 		if (data) {
 			this.isUnifiedCase = data;
+			if(!this.isUnifiedCase){
+				// Empty impacted articles related variables if it is not unified case
+				this.impactedArticleIds = [];
+				this.impactedArticleIdsWithTrackingIds = {};
+			}
 			this.configHappyParcelComponent();
 		} else if (error) {
 			this.isUnifiedCase = false;
@@ -79,7 +85,7 @@ export default class UnifiedTrackingChatWrapper extends LightningElement {
 	}
 
 	configHappyParcelComponent() {
-		if (!this.consignmentIdFromRecord) {
+		if (!this.consignmentIdFromRecord || !this.trackingId) {
 			this.trackingId = '';
 			if (this.template.querySelector('c-happy-parcel')) {
 				this.template.querySelector('c-happy-parcel').resetSearch();
@@ -105,11 +111,11 @@ export default class UnifiedTrackingChatWrapper extends LightningElement {
 	listInfo({ error, data }) {
 		if (error) {
 			console.error(error);
-		} else if (data && data.records && this.isUnifiedCase) {
+		} else if (data && data.records) {
 			this.impactedArticleIds = [];
 			data.records.forEach(element => {
-				this.impactedArticleIds.push(element.fields.ArticleId__c.value);
-				this.impactedArticleIdsWithTrackingIds[element.fields.ArticleId__c.value] = element.fields.Id.value;
+				this.impactedArticleIds.push(element.fields.Name.value);
+				this.impactedArticleIdsWithTrackingIds[element.fields.Name.value] = element.fields.Id.value;
 			});
 		}
 	}
@@ -169,7 +175,7 @@ export default class UnifiedTrackingChatWrapper extends LightningElement {
 
 		try {
 			for (let indx = 0; indx < selectedArticles.length; indx++) {
-				fields[IMPACTED_ARTICLE_ARTICLEID_FIELD.fieldApiName] = selectedArticles[indx];
+				fields[IMPACTED_ARTICLE_NAME_FIELD.fieldApiName] = selectedArticles[indx];
 				let recordInput = { apiName: IMPACTED_ARTICLE_OBJECT.objectApiName, fields };
 
 				const impactedArticle = await createRecord(recordInput);
@@ -179,6 +185,8 @@ export default class UnifiedTrackingChatWrapper extends LightningElement {
 					this.impactedArticleIdsWithTrackingIds[selectedArticles[indx]] = impactedArticle.id;
 				}
 			}
+			//Adding this as CreateRecord is not refreshing the related list.
+			this.dispatchEvent(new RefreshEvent());
 			this.handleEnableCheckBoxes(true);
 		} catch (error) {
 			this.handleEnableCheckBoxes(true);

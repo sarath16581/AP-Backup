@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Whatwaspositiveabouttheexperience__c</fullName>
     <description>Factors that influenced customer to be satisfied or not with AP performance</description>
-    <externalId>false</externalId>
     <inlineHelpText>Factors that influenced customer to be satisfied or not with AP performance</inlineHelpText>
     <label>What was positive about the experience?</label>
     <required>false</required>

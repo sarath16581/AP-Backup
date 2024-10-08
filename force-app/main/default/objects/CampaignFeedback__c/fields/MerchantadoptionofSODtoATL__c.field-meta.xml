@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>MerchantadoptionofSODtoATL__c</fullName>
     <description>Merchant adoption of SOD to ATL.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Merchant adoption of SOD to ATL</inlineHelpText>
     <label>Merchant adoption of SOD to ATL</label>
     <required>false</required>

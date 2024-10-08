@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Indicates whether constraint rules are disabled</description>
-    <externalId>false</externalId>
     <inlineHelpText>A global setting to turn off constraint rules.</inlineHelpText>
     <label>Disable Constraint Rules</label>
     <trackTrending>false</trackTrending>

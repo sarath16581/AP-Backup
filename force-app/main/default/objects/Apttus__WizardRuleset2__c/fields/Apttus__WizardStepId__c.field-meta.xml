@@ -4,7 +4,6 @@
     <deleteConstraint>Restrict</deleteConstraint>
     <deprecated>false</deprecated>
     <description>Lookup to Wizard Step</description>
-    <externalId>false</externalId>
     <inlineHelpText>Lookup to Wizard Step</inlineHelpText>
     <label>Wizard Step</label>
     <referenceTo>Apttus__WizardStep2__c</referenceTo>

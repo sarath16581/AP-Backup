@@ -4,7 +4,6 @@
     <deleteConstraint>SetNull</deleteConstraint>
     <deprecated>false</deprecated>
     <description>The Input Control this is associated to</description>
-    <externalId>false</externalId>
     <inlineHelpText>The Input Control this is associated to</inlineHelpText>
     <label>To Input Control</label>
     <referenceTo>Apttus__WizardInputControl__c</referenceTo>

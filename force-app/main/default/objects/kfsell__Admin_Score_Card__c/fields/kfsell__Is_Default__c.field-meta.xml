@@ -3,7 +3,6 @@
     <fullName>kfsell__Is_Default__c</fullName>
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
-    <externalId>false</externalId>
     <label>Is Default</label>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>

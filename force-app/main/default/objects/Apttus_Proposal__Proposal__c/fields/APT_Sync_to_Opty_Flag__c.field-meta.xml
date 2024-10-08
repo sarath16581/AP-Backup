@@ -3,7 +3,6 @@
     <fullName>APT_Sync_to_Opty_Flag__c</fullName>
     <defaultValue>false</defaultValue>
     <description>Since multiple instances of the same product can exist on the Quote Line Items the user must indicate which products they want to sync to the opportunity</description>
-    <externalId>false</externalId>
     <label>Sync to Opty Flag</label>
     <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>

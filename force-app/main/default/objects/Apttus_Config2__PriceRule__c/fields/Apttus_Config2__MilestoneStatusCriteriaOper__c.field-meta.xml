@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__MilestoneStatusCriteriaOper__c</fullName>
     <deprecated>false</deprecated>
     <description>The milestone status criteria operator</description>
-    <externalId>false</externalId>
     <inlineHelpText>The milestone status criteria operator</inlineHelpText>
     <label>Milestone Status Criteria Oper</label>
     <required>false</required>

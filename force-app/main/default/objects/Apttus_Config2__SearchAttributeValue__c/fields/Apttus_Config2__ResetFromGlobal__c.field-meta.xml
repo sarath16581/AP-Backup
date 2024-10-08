@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Whether to reset from global before using the search values. This flag is set to true when global values are modified. It is set to false when global values are set into the record.</description>
-    <externalId>false</externalId>
     <label>Reset From Global</label>
     <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>

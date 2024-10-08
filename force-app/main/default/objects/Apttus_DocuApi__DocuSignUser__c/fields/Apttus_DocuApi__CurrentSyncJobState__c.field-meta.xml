@@ -3,7 +3,6 @@
     <fullName>Apttus_DocuApi__CurrentSyncJobState__c</fullName>
     <deprecated>false</deprecated>
     <description>Docusign envelope status sync job state.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Docusign envelope status sync job state.</inlineHelpText>
     <label>CurrentSyncJobState</label>
     <required>false</required>

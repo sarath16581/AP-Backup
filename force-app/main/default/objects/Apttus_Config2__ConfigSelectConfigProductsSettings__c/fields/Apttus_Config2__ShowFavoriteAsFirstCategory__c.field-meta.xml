@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>If checked favorites category will be shown on top in list of product categories.</description>
-    <externalId>false</externalId>
     <label>Show Favorite as First Category</label>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>

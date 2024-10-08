@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__BaseCostOverride__c</fullName>
     <deprecated>false</deprecated>
     <description>User entered value to override base cost</description>
-    <externalId>false</externalId>
     <label>Base Cost (Override)</label>
     <precision>18</precision>
     <required>false</required>

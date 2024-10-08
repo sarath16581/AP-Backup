@@ -4,7 +4,6 @@
     <deleteConstraint>Restrict</deleteConstraint>
     <deprecated>false</deprecated>
     <description>ID of the associated clause</description>
-    <externalId>false</externalId>
     <label>Clause</label>
     <referenceTo>Apttus__APTS_Template__c</referenceTo>
     <relationshipLabel>Template References</relationshipLabel>

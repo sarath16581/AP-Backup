@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__FirstBillingDate__c</fullName>
     <deprecated>false</deprecated>
     <description>The first day of billing for the asset.</description>
-    <externalId>false</externalId>
     <inlineHelpText>The first day of billing for the asset. Primarily used for the legacy assets.</inlineHelpText>
     <label>First Billing Date</label>
     <required>false</required>

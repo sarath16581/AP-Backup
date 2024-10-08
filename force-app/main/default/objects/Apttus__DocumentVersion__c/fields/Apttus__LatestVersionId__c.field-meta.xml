@@ -4,7 +4,6 @@
     <deleteConstraint>SetNull</deleteConstraint>
     <deprecated>false</deprecated>
     <description>Lookup to latest version object</description>
-    <externalId>false</externalId>
     <inlineHelpText>Lookup to latest version object</inlineHelpText>
     <label>Latest Version Detail</label>
     <referenceTo>Apttus__DocumentVersionDetail__c</referenceTo>

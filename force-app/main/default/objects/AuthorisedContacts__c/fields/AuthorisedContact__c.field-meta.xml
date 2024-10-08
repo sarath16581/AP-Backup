@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>AuthorisedContact__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
-    <externalId>false</externalId>
     <label>Authorised Contact</label>
     <referenceTo>Contact</referenceTo>
     <relationshipName>Authorised_Contacts</relationshipName>

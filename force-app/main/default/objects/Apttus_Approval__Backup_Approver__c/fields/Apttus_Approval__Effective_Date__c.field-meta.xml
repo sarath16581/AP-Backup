@@ -3,7 +3,6 @@
     <fullName>Apttus_Approval__Effective_Date__c</fullName>
     <deprecated>false</deprecated>
     <description>Please enter an effective date only if you are not activating it immediately. Otherwise use the Activate button to activate the backup/delegate approver immediately.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Please enter an effective date only if you are not activating it immediately. Otherwise use the Activate button on the next screen to Activate Backup immediately.</inlineHelpText>
     <label>Effective Date</label>
     <required>false</required>

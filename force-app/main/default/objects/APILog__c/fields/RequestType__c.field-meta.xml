@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>RequestType__c</fullName>
     <description>Request type for incoming requests</description>
-    <externalId>false</externalId>
     <inlineHelpText>Request type for incoming requests</inlineHelpText>
     <label>Request Type</label>
     <required>false</required>

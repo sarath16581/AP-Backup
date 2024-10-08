@@ -3,7 +3,6 @@
     <fullName>Old_Customer_Name__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <description>This field is only required to be completed for ABN SCCR’s. The is the customer which is currently in your portfolio that will no longer trade</description>
-    <externalId>false</externalId>
     <inlineHelpText>This field is only required to be completed for ABN SCCR’s. The is the customer which is currently in your portfolio that will no longer trade</inlineHelpText>
     <label>Old Customer Name</label>
     <referenceTo>Account</referenceTo>

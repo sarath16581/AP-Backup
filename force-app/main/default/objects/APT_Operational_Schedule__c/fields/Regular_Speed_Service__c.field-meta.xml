@@ -3,7 +3,6 @@
     <fullName>Regular_Speed_Service__c</fullName>
     <defaultValue>false</defaultValue>
     <description>This field is for one of the priority product</description>
-    <externalId>false</externalId>
     <inlineHelpText>This field is for one of the priority product</inlineHelpText>
     <label>Regular Speed Service</label>
     <securityClassification>INTERNAL</securityClassification>

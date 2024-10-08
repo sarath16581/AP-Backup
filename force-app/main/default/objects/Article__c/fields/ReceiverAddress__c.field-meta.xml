@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>ReceiverAddress__c</fullName>
     <description>Address of Receiver</description>
-    <externalId>false</externalId>
     <label>Receiver Address</label>
     <required>false</required>
     <trackHistory>false</trackHistory>

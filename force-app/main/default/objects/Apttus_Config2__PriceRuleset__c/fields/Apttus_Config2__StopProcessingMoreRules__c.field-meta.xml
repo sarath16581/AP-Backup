@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Indicator to prevent subsequent rules from processing</description>
-    <externalId>false</externalId>
     <label>Stop Processing More Rules</label>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>

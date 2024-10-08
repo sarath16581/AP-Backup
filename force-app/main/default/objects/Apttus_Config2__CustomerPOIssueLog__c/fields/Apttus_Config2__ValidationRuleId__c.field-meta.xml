@@ -4,7 +4,6 @@
     <deleteConstraint>SetNull</deleteConstraint>
     <deprecated>false</deprecated>
     <description>ID of the associated data validation rule</description>
-    <externalId>false</externalId>
     <inlineHelpText>ID of the associated data validation rule</inlineHelpText>
     <label>Validation Rule</label>
     <referenceTo>Apttus_Config2__DataValidationRule__c</referenceTo>

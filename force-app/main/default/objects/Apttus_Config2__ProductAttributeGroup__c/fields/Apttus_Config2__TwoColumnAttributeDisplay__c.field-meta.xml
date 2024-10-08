@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Check if you would like to display the attribute details in this group in a two-column fashion. If unchecked the default is one column.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Check if you would like to display the attribute details in this group in a two-column fashion. If unchecked the default is one column.</inlineHelpText>
     <label>Two Column Attribute Display</label>
     <securityClassification>INTERNAL</securityClassification>

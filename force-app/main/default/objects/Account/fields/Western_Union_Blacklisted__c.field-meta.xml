@@ -3,7 +3,6 @@
     <fullName>Western_Union_Blacklisted__c</fullName>
     <defaultValue>false</defaultValue>
     <description>To indicate where an organisation has been blacklisted by Western Union or the Workforce Integrity team</description>
-    <externalId>false</externalId>
     <inlineHelpText>Indicates where an organisation has been blacklisted by Western Union or the Workforce Integrity team</inlineHelpText>
     <label>Western Union Blacklisted</label>
     <securityClassification>OFFICIAL_SENSITIVE</securityClassification>

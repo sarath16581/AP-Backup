@@ -3,7 +3,6 @@
     <fullName>Apttus_Approval__ProcessEscalateToType__c</fullName>
     <deprecated>false</deprecated>
     <description>The type of assignee the request will be escalated to if it is escalated at the process level.</description>
-    <externalId>false</externalId>
     <inlineHelpText>The type of assignee the request will be escalated to if it is escalated at the process level.</inlineHelpText>
     <label>Process Escalate To Type</label>
     <required>false</required>

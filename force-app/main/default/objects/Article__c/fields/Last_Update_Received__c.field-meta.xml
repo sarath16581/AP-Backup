@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Last_Update_Received__c</fullName>
     <description>StarTrack - Indicates the last time the Consignment related data i.e. Events, PODs, Book-In Notes or Sub-dockets is updated.</description>
-    <externalId>false</externalId>
     <label>Last Update Received</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>

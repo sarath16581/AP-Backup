@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Assessed_Revenue__c</fullName>
     <description>The value of the revenue assessed in this request</description>
-    <externalId>false</externalId>
     <label>Assessed Revenue</label>
     <precision>18</precision>
     <required>false</required>

@@ -3,7 +3,6 @@
     <fullName>Apttus__ProtectionLevel__c</fullName>
     <deprecated>false</deprecated>
     <description>The protection level applied to the merged document.</description>
-    <externalId>false</externalId>
     <label>Protection Level</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>

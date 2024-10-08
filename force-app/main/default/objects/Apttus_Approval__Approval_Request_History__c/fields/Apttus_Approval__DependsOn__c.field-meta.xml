@@ -3,7 +3,6 @@
     <fullName>Apttus_Approval__DependsOn__c</fullName>
     <deprecated>false</deprecated>
     <description>List of steps which must be completed before this step</description>
-    <externalId>false</externalId>
     <label>Depends On</label>
     <length>2048</length>
     <securityClassification>INTERNAL</securityClassification>

@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Calculated_Base_Rate__c</fullName>
     <description>This field is Created to Perform the Base Rate Calculation only for Banded Z6 Price Structure , If Price structure is not Banded Z6 , This field will return the Base Rate coming as part of SAP Rate Creation and hence will not impact any legacy pricing rate</description>
-    <externalId>false</externalId>
     <formula>IF(Price_Structure__c = &apos;BANDED {Z6}&apos; ,
 	IF(APT_Weight_Range_Code__c &lt;=0.5 ,APT_Base_Rate__c +( 0.5*APT_Per_Kg_Rate__c*Cubic_Factor__c),
 		If(APT_Weight_Range_Code__c &lt;=1,APT_Base_Rate__c + (1*APT_Per_Kg_Rate__c*Cubic_Factor__c),

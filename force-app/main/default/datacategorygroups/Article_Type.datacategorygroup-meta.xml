@@ -48,7 +48,7 @@
     <description>Used for filtering Knowledge Articles in Classic</description>
     <label>Article Type</label>
     <objectUsage>
-        <object>SvcCatalogItemDef</object>
         <object>KnowledgeArticleVersion</object>
+        <object>SvcCatalogItemDef</object>
     </objectUsage>
 </DataCategoryGroup>

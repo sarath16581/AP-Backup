@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Hide the breadcrumb navigation element.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Hide the breadcrumb navigation element.</inlineHelpText>
     <label>Hide Breadcrumb</label>
     <trackTrending>false</trackTrending>

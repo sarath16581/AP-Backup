@@ -4,7 +4,6 @@
     <deleteConstraint>SetNull</deleteConstraint>
     <deprecated>false</deprecated>
     <description>ID of the second dimension. Only applicable to Dimension rules.</description>
-    <externalId>false</externalId>
     <label>Dimension 2</label>
     <referenceTo>Apttus_Approval__ApprovalRuleDimension__c</referenceTo>
     <relationshipLabel>Approval Rules (Dimension 2)</relationshipLabel>

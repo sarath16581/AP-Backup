@@ -433,7 +433,7 @@ public with sharing class HappyParcelService {
 
 		// Map hasDuplicates which can be used to cater duplicate scenarios in UnifiedTrackingWrappers
 		trackingResult.hasDuplicates = false;
-		if(conWrapper?.hasDuplicates){
+		if(conWrapper?.hasDuplicates != null){
 			trackingResult.hasDuplicates = conWrapper?.hasDuplicates;
 		}
 		return trackingResult;
@@ -459,9 +459,13 @@ public with sharing class HappyParcelService {
 				thisConsignment.DeliveryInstructions__c = thisConsignment.DeliveryInstructions__c == null ? emsResponse.Consignment.DeliveryInstructions : thisConsignment.DeliveryInstructions__c;
 				thisConsignment.ConsignmentParcelCount__c = thisConsignment.ConsignmentParcelCount__c == null ? emsResponse.Consignment.ConsignmentParcelCount : thisConsignment.ConsignmentParcelCount__c;
 				thisConsignment.ExpectedDeliveryDate__c = emsResponse?.Consignment?.ExpectedDeliveryDate != null ? emsResponse.Consignment.ExpectedDeliveryDate : thisConsignment.ExpectedDeliveryDate__c;
-				thisConsignment.Source_System__c = emsResponse?.Consignment?.SourceSystem != null ? emsResponse.Consignment.SourceSystem : thisConsignment.Source_System__c;
+				//thisConsignment.Source_System__c = emsResponse?.Consignment?.SourceSystem != null ? emsResponse.Consignment.SourceSystem : thisConsignment.Source_System__c;
 				thisConsignment.Id = consignmentSFId;
 				results = ApplicationDatabase.getInstance().dmlUpdate(new List<SObject>{ thisConsignment });
+
+				thisConsignment.Source_System__c = emsResponse?.Consignment?.SourceSystem != null ? emsResponse.Consignment.SourceSystem : thisConsignment.Source_System__c;
+
+
 				return new StarTrackConsignmentSearchUtil.ConsignmentWrapper(true, null, new List<Article__c>{ thisConsignment });
 			}
 			// Duplicate Consignment Scenario

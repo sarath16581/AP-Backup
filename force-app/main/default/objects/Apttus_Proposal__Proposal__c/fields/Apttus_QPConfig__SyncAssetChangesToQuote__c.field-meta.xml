@@ -4,7 +4,6 @@
     <defaultValue>true</defaultValue>
     <deprecated>false</deprecated>
     <description>Indicates whether asset changes are synchronized to open quotes</description>
-    <externalId>false</externalId>
     <inlineHelpText>Indicates whether asset changes are synchronized to open quotes</inlineHelpText>
     <label>Sync Asset Changes To Quote</label>
     <securityClassification>INTERNAL</securityClassification>

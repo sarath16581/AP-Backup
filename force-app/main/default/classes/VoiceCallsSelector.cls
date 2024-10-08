@@ -5,6 +5,7 @@
  * @changelog
  * 2024-08-15 - Paul Perry - created
  * 2024-09-20 - Vasu Gorakati - Added method selectByRelatedRecordIds
+ * 2024-09-24 - George Nguyen - Included Case__c field as default. It qualifies to be as it will be commonly used. 
  */
 public virtual inherited sharing class VoiceCallsSelector extends ApplicationSelector {
 	public enum Options {
@@ -29,14 +30,12 @@ public virtual inherited sharing class VoiceCallsSelector extends ApplicationSel
 	}
 
 	public virtual override Set<SObjectField> getSObjectFieldList() {
-		return new Set<SObjectField>{ VoiceCall.Id,  VoiceCall.Name, VoiceCall.CallStartDateTime, VoiceCall.CallEndDateTime, VoiceCall.CallType};
+		return new Set<SObjectField>{ VoiceCall.Id,  VoiceCall.Name, VoiceCall.CallStartDateTime, VoiceCall.CallEndDateTime, VoiceCall.CallType, VoiceCall.Case__c};
 	}
-
 	public static VoiceCallsSelector newInstance(Set<SObjectField> fieldOverrides) {
 		return (VoiceCallsSelector) Application.Selectors.newInstance(VoiceCallsSelector.class)
 			.setFieldOverrides(fieldOverrides);
 	}
-
 
 	/**
 	 * @param selectorOptions Set<Object> selectorOptions
@@ -54,13 +53,27 @@ public virtual inherited sharing class VoiceCallsSelector extends ApplicationSel
 	}
 
 	/**
+	 * @param selectorOptions Set<Object> selectorOptions
+	 * @param conversationIds Set<Id>
+	 * @description returns a list of Voice Call records base on their ConversationId
+	 *
+	 * @return List<VoiceCall>
+	 */
+	public List<VoiceCall> selectByConversationIds(Set<Id> conversationIds, Set<Object> selectorOptions) {
+		QueryBuilder qb = newQueryBuilder(selectorOptions);
+		QueryBuilder.ConditionsManager conditions = qb.addConditions();
+		conditions.add(new QueryBuilder.SimpleCondition(VoiceCall.ConversationId + ' IN :conversationIds'));
+		conditions.endConditions();
+		return (List<VoiceCall>)Database.query(qb.toSoqlString());
+	}
+
+	/**
 	 * Contruct a new QueryBuilder based on the selector options passed in
 	 * @param selectorOptions Set<Object>
 	 * @return QueryBuilder
 	 */
 	public virtual override QueryBuilder newQueryBuilder(Set<Object> selectorOptions) {
 		QueryBuilder builder = super.newQueryBuilder(selectorOptions);
-
 		if(selectorOptions.contains(Options.WITH_CALLER)) {
 			builder.addRelatedFields(ConversationParticipantsSelector.newInstance().newQueryBuilder(), 'Caller');
 		}

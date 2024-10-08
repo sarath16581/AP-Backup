@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__Criteria__c</fullName>
     <deprecated>false</deprecated>
     <description>The additional criteria used to select the input records for processing.</description>
-    <externalId>false</externalId>
     <inlineHelpText>The additional criteria used to select the input records for processing.</inlineHelpText>
     <label>Criteria</label>
     <length>4000</length>

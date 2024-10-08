@@ -3,7 +3,6 @@
     <fullName>Apttus__FieldSet__c</fullName>
     <deprecated>false</deprecated>
     <description>A comma separated list of API names of fields to display in the result set for the query</description>
-    <externalId>false</externalId>
     <inlineHelpText>A comma separated list of API names of fields to display in the result set for the query</inlineHelpText>
     <label>Result Field Set</label>
     <length>4000</length>

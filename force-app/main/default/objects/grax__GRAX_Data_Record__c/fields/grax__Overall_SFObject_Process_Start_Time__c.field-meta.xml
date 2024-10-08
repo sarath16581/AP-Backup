@@ -3,7 +3,6 @@
     <fullName>grax__Overall_SFObject_Process_Start_Time__c</fullName>
     <deprecated>false</deprecated>
     <description>Overall SFObject Process Start Time</description>
-    <externalId>false</externalId>
     <label>Overall SFObject Process Start Time</label>
     <required>false</required>
     <trackHistory>false</trackHistory>

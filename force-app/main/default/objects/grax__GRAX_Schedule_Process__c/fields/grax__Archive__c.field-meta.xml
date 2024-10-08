@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Is this an “Archive” process</description>
-    <externalId>false</externalId>
     <label>Archive</label>
     <trackHistory>true</trackHistory>
     <trackTrending>false</trackTrending>

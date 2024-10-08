@@ -3,7 +3,6 @@
     <fullName>Ready_For_Approval__c</fullName>
     <defaultValue>false</defaultValue>
     <description>Field used to all test all conditions are met before submitting for approval</description>
-    <externalId>false</externalId>
     <inlineHelpText>Field used to all test all conditions are met before submitting for approval</inlineHelpText>
     <label>Ready For Approval</label>
     <securityClassification>INTERNAL</securityClassification>

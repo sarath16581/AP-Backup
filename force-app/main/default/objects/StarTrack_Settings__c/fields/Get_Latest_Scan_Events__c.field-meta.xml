@@ -3,7 +3,6 @@
     <fullName>Get_Latest_Scan_Events__c</fullName>
     <defaultValue>false</defaultValue>
     <description>StarTrack - Get Latest Scan Events On Refresh</description>
-    <externalId>false</externalId>
     <label>Get Latest Scan Events On Refresh</label>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>

@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Flag indicating whether to treat null entries as a wildcard</description>
-    <externalId>false</externalId>
     <inlineHelpText>Flag indicating whether to treat null entries as a wildcard</inlineHelpText>
     <label>Treat Null As Wildcard ?</label>
     <securityClassification>INTERNAL</securityClassification>

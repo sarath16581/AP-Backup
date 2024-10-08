@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__PriceListScopeOper__c</fullName>
     <deprecated>false</deprecated>
     <description>The price list scope operator</description>
-    <externalId>false</externalId>
     <inlineHelpText>The price list scope operator</inlineHelpText>
     <label>Price List Scope Oper</label>
     <required>false</required>

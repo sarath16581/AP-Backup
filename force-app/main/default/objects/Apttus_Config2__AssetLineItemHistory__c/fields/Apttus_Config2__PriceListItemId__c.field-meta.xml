@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__PriceListItemId__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <deprecated>false</deprecated>
-    <externalId>false</externalId>
     <label>Price List Item</label>
     <referenceTo>Apttus_Config2__PriceListItem__c</referenceTo>
     <relationshipName>AssetLineItemHistory</relationshipName>

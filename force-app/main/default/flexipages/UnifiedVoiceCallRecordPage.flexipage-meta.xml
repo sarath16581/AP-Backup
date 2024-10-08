@@ -201,7 +201,6 @@
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>privateKey</name>
-                    <value>-----BEGIN RSA PRIVATE KEY----- MIIEowIBAAKCAQEAvnVByx6uc1+o8RVDe74AeUDXQLJjX5MvqqJ1fx29ElbnF4Ph BYr88+qADAepijgTAnPsLvPl/XG75Q+P6bKy+dv5Edt0BRCheYly2Yna+V9tKNYM xkQ968mhF5nuH+NB1ulmkKHbrVBjywPobMRyWAH52Nz3z9gSFbcHbQIaevoh/uy9 jddGFBxRpNRzGOhRjDICLmqyu9su95YiBwJ7OUnnqyJMVUKTXT8sEacqEO0eR842 fWqnXiYbEhdJH2SVoWor0R2MPN2/Ahl3fIsBD9QXOvKRG5ONwvebdpmaMLjcpPBE oersJa9YZoiOPaaNyobpONQXKjN7E5LXjOWgswIDAQABAoIBADtr3AYiYW0vmEb3 SmGuCvnJqB7QST7Fbia/nwb04Ut6f4kPpUIUdg0nyaF3NocgLZYjUrnncIcdV/EE ZPMVxM89uTzACjeWU7rWjlWetAn/otAN0Fh/bA5HjxIM/YVHYwBJO62+QgqVvTzW 0Eo3FDGvFCN79XkMQcAypYd2E4rwO5WooRPkJO34yLLO4l+hvEc+a9/NND+6FBEO P3+xrumuoJ6xVcp6raP8G6RiqGY0dZpK4kaJ2qMcJwmc6k1IeL9BSQMlu6IdrLIz +HiHRC3+ya09/jMaWI1WJ8TpFq5lAPoVfJqtCZHAUP+MAIScX2yafoBPa/lHgopi aXbHZhECgYEA5BuRfpiOHhYzmCO0j9j8Az27Ufta5uSzoxXVJyamZ2iv+XaGG2lM EHqfGjxuq0u51t9F/QmgSxR9N1bH7cWkXTp7ZI+ffA04K4rka3nHb13GM1QTeT8S raPm4COO7lMtvSec5jLI31Kadv38zKuQBrWOl9DF8PmZB0G97YUd3qsCgYEA1b8l OYSTjad5L8ABj8I7Ty7kOc5Plf32geoDYUrKmQ//Jv415S1P92b3dxPOJsry5xGW AISNqRZBKHhqUFfGh7VSNdDqCjp5DoDAc1vMVj8YLGStpUAenxh1V7Ahhpls1QGF NzGgOa/dHmiLwVzXUBf2nSsiELJLM7SFxqvIphkCgYEAiC2hJZfDuFh+wsQGJp5e jTzMWLwbX56HU8RT9USQsUmBTQeiNjkdjPT3iP0tAJx7vLicmtylUk1QF7p6Lwv/ /RxN0BIiHzfxIaWQik0wb97m1XvLCGZMK1efHI595O/JbZR5icAlxZUV3BXzVujR WgAHucCMezk3T2rDDUqcM3MCgYAcTZE6SonXSgPMBNqwFIIR/B2QYfc730MS9M+5 xFOLbQjWOvcb/6IFGodOJzs2+8yqODPqoaK4bw/1sewx802AjsvyAFXdQNzixL23 CMLH8NbcmgA8T38+hdiT4eiukAZPNkJTiqiyuszGyAUpd4ezPVkUeq+qElHO6OqF 4h1RkQKBgBJ/Vm3uZOwLxz2/h/G87P4AA2+xM75FG2aAfLzjOVWLSHO46N5cIcil tboZqB07qOFiOq3KQLCjpwGzVLljs1tn+nUqViPH2EA1oMCusCsIdAZtW/GpIcgu vr4EwnOf9gMHFuy4WkURHMuRidNOjfzYn/E1a3Xye+LFJeURxViW -----END RSA PRIVATE KEY-----</value>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>trainedModelId</name>
@@ -312,6 +311,12 @@
             <componentInstance>
                 <componentName>unifiedCaseVoiceCallSync</componentName>
                 <identifier>c_unifiedCaseVoiceCallSync</identifier>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentName>unifiedCaseOutboundVoiceCall</componentName>
+                <identifier>c_unifiedCaseOutboundVoiceCall</identifier>
             </componentInstance>
         </itemInstances>
         <name>thirdElement</name>

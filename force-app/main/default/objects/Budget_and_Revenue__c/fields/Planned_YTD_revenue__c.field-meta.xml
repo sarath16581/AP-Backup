@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Planned_YTD_revenue__c</fullName>
     <description>Sum of all previous including current monthly planned customer revenue’s for current financial year.</description>
-    <externalId>false</externalId>
     <formula>IF(Current_Last_Year__c=&apos;THIS YEAR&apos;,
 (
   CASE(MONTH(TODAY()),

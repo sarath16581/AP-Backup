@@ -4,7 +4,6 @@
     <deleteConstraint>SetNull</deleteConstraint>
     <deprecated>false</deprecated>
     <description>The group associated with the cycle time data</description>
-    <externalId>false</externalId>
     <label>Cycle Time Group</label>
     <referenceTo>Apttus__CycleTimeGroup__c</referenceTo>
     <relationshipLabel>Cycle Time Group Data</relationshipLabel>

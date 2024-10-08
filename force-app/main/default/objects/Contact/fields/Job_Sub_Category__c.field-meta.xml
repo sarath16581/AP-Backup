@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Job_Sub_Category__c</fullName>
     <description>Second level classification of the Contact’s job function. Dependent on the value in Job Category. Added after Marketing review  to replace Title Group (Aug 2015)</description>
-    <externalId>false</externalId>
     <inlineHelpText>Select the relevant Job Sub-Category associated with the chosen Job Category.</inlineHelpText>
     <label>Job Sub-Category</label>
     <required>false</required>

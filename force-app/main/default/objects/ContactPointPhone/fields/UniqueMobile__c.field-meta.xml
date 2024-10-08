@@ -3,7 +3,6 @@
     <fullName>UniqueMobile__c</fullName>
     <defaultValue>false</defaultValue>
     <description>Indicates if the verified mobile number has been marked as Unique from SAP CRM</description>
-    <externalId>false</externalId>
     <inlineHelpText>Indicates if the verified mobile number has been marked as Unique from SAP CRM</inlineHelpText>
     <label>Unique Mobile</label>
     <trackHistory>false</trackHistory>

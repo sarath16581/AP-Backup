@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__DataType__c</fullName>
     <deprecated>false</deprecated>
     <description>The type of field in application setting</description>
-    <externalId>false</externalId>
     <inlineHelpText>The type of field in application setting</inlineHelpText>
     <label>Data Type</label>
     <required>false</required>

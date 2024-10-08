@@ -3,7 +3,6 @@
     <fullName>Apttus_QPConfig__SourceChannel__c</fullName>
     <deprecated>false</deprecated>
     <description>The quote channel. Indicates the primary Sales Channel for the Quote/Proposal.</description>
-    <externalId>false</externalId>
     <inlineHelpText>The quote source channel. Indicates the primary Sales Channel for the Quote/Proposal.</inlineHelpText>
     <label>Source Channel</label>
     <required>false</required>

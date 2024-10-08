@@ -3,7 +3,6 @@
     <fullName>Apttus_Approval__DateAssigned__c</fullName>
     <deprecated>false</deprecated>
     <description>The date when the approval request was assigned</description>
-    <externalId>false</externalId>
     <label>Date Assigned</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>

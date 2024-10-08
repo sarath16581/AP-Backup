@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>ICPS__c</fullName>
     <description>This is the linking of the ICPS article to the ICPS record.</description>
-    <externalId>false</externalId>
     <inlineHelpText>This is the linking of the ICPS article to the ICPS record.</inlineHelpText>
     <label>ICPS</label>
     <referenceTo>ICPS__c</referenceTo>

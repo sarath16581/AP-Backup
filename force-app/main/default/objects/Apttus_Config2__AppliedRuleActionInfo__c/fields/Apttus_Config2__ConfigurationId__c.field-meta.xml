@@ -4,7 +4,6 @@
     <deleteConstraint>SetNull</deleteConstraint>
     <deprecated>false</deprecated>
     <description>References the configuration record to which the rule is applied</description>
-    <externalId>false</externalId>
     <label>Configuration</label>
     <referenceTo>Apttus_Config2__ProductConfiguration__c</referenceTo>
     <relationshipLabel>Applied Rule Action Infos</relationshipLabel>

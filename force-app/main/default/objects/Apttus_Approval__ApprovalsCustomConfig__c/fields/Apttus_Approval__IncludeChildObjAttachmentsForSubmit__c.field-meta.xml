@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Indicates whether or not to include attachments associated with the current context object&apos;s children in the attachment selection screen when submitting for approval.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Indicates whether or not to include attachments associated with the current context object&apos;s children in the attachment selection screen when submitting for approval.</inlineHelpText>
     <label>Include Child Obj Attachments For Submit</label>
     <trackTrending>false</trackTrending>

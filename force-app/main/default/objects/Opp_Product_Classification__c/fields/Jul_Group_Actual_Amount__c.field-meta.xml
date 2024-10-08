@@ -4,7 +4,6 @@
     <businessStatus>Active</businessStatus>
     <complianceGroup>GDPR</complianceGroup>
     <description>The Revenue Amount for this account and all OPC related child accounts for the month of July</description>
-    <externalId>false</externalId>
     <inlineHelpText>July OPC Grouped Revenue Amount</inlineHelpText>
     <label>Jul Group Revenue Amount</label>
     <precision>18</precision>

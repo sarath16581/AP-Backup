@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>When enabled a new Lead will be created for a Response for which an associated Lead is not found. This setting will work only if &apos;Insert Unmapped Responses&apos; setting is enabled.</description>
-    <externalId>false</externalId>
     <inlineHelpText>When enabled a new Lead will be created for a Response for which an associated Lead is not found. This setting will work only if &apos;Insert Unmapped Responses&apos; setting is enabled.</inlineHelpText>
     <label>Create New Lead On Survey Response</label>
     <trackTrending>false</trackTrending>

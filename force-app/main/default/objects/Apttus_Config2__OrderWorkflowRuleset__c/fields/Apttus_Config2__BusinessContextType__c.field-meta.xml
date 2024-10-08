@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__BusinessContextType__c</fullName>
     <deprecated>false</deprecated>
     <description>The business context type</description>
-    <externalId>false</externalId>
     <inlineHelpText>The business context type</inlineHelpText>
     <label>Business Context Type</label>
     <required>true</required>

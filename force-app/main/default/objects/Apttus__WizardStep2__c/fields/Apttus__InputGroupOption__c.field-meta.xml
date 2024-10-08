@@ -3,7 +3,6 @@
     <fullName>Apttus__InputGroupOption__c</fullName>
     <deprecated>false</deprecated>
     <description>Indicates how the inputs within a step are grouped. Repeatable allows the user to enter multiple set of values of configured inputs and Table Layout displays it as a table.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Indicates how the inputs within a step are grouped. Repeatable allows the user to enter multiple set of values of configured inputs and Table Layout displays it as a table.</inlineHelpText>
     <label>Input Group Option</label>
     <required>false</required>

@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>default view for each user</description>
-    <externalId>false</externalId>
     <label>Is Default</label>
     <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>

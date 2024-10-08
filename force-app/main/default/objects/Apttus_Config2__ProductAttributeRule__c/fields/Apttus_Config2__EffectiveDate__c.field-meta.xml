@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__EffectiveDate__c</fullName>
     <deprecated>false</deprecated>
     <description>Start date when the rule will be effective.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Leave this blank for always effective.</inlineHelpText>
     <label>Effective Date</label>
     <required>false</required>

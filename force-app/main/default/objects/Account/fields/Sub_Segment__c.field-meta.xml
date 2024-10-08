@@ -3,7 +3,6 @@
     <fullName>Sub_Segment__c</fullName>
     <description>Used to further segment data from the segment field.
 Requested and owned by Matthew Whitmore and Judy Barnett</description>
-    <externalId>false</externalId>
     <inlineHelpText>To clearly &amp; easily Identify Enterprise and Government sub-segments</inlineHelpText>
     <label>Sub Segment</label>
     <required>false</required>

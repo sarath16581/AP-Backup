@@ -3,7 +3,6 @@
     <fullName>DoNotDisclose__c</fullName>
     <defaultValue>false</defaultValue>
     <description>SSSW</description>
-    <externalId>false</externalId>
     <label>Do Not Disclose</label>
     <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>

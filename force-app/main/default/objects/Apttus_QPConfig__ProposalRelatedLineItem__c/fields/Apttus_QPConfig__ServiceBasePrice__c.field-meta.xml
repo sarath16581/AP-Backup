@@ -3,7 +3,6 @@
     <fullName>Apttus_QPConfig__ServiceBasePrice__c</fullName>
     <deprecated>false</deprecated>
     <description>The related or service base price computed based on the related asset or line item</description>
-    <externalId>false</externalId>
     <inlineHelpText>The related or service base price computed based on the related asset or line item</inlineHelpText>
     <label>Related/Service Base Price</label>
     <precision>18</precision>

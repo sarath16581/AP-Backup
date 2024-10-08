@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__BenefitType__c</fullName>
     <deprecated>false</deprecated>
     <description>The rule benefit type</description>
-    <externalId>false</externalId>
     <inlineHelpText>The rule benefit type</inlineHelpText>
     <label>Benefit Type</label>
     <required>false</required>

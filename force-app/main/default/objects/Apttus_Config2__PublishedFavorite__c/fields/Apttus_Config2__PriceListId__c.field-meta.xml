@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__PriceListId__c</fullName>
     <deprecated>false</deprecated>
     <description>Id of the Price List record</description>
-    <externalId>false</externalId>
     <inlineHelpText>Id of the price list Record</inlineHelpText>
     <label>Price List Id</label>
     <referenceTo>Apttus_Config2__PriceList__c</referenceTo>

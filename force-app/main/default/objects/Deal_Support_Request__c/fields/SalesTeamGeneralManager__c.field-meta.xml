@@ -3,7 +3,6 @@
     <fullName>SalesTeamGeneralManager__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <description>Field to allow the name of the Sales Team General Manager to be captured</description>
-    <externalId>false</externalId>
     <inlineHelpText>Field to allow the name of the Sales Team General Manager to be captured</inlineHelpText>
     <label>Sales Team General Manager</label>
     <referenceTo>User</referenceTo>

@@ -4,7 +4,6 @@
     <businessStatus>Active</businessStatus>
     <complianceGroup>GDPR</complianceGroup>
     <description>The Revenue Amount for this account and all OPC related child accounts for the year to date</description>
-    <externalId>false</externalId>
     <formula>Apr_Group_Actual_Amount__c + Dec_Group_Actual_Amount__c + Feb_Group_Actual_Amount__c + Jan_Group_Actual_Amount__c + Jul_Group_Actual_Amount__c + Jun_Group_Actual_Amount__c + Mar_Group_Actual_Amount__c + May_Group_Actual_Amount__c + Nov_Group_Actual_Amount__c + Oct_Group_Actual_Amount__c + Sep_Group_Actual_Amount__c + Aug_Group_Actual_Amount__c</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <inlineHelpText>YTD OPC Grouped Revenue Amount</inlineHelpText>

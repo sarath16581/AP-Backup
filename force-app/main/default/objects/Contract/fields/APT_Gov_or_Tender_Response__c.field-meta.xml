@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>APT_Gov_or_Tender_Response__c</fullName>
     <description>Created for Ariba mapping purposes. Reused for future records with Sellers input</description>
-    <externalId>false</externalId>
     <inlineHelpText>Ariba migrated field</inlineHelpText>
     <label>Gov Or Tender Response?</label>
     <required>false</required>

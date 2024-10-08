@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>kfsell__Count_Actions__c</fullName>
     <deprecated>false</deprecated>
-    <externalId>false</externalId>
     <label>Count Actions</label>
     <summaryForeignKey>kfsell__Action_Plan__c.kfsell__Blue_Sheet__c</summaryForeignKey>
     <summaryOperation>count</summaryOperation>

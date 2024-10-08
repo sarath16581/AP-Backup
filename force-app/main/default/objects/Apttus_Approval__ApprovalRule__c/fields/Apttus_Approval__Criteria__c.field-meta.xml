@@ -3,7 +3,6 @@
     <fullName>Apttus_Approval__Criteria__c</fullName>
     <deprecated>false</deprecated>
     <description>The rule criteria specification</description>
-    <externalId>false</externalId>
     <label>Rule Criteria</label>
     <length>8000</length>
     <securityClassification>INTERNAL</securityClassification>

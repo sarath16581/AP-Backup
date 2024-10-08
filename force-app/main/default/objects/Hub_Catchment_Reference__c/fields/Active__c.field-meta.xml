@@ -3,7 +3,6 @@
     <fullName>Active__c</fullName>
     <defaultValue>false</defaultValue>
     <description>Describe the status of business hub operation.</description>
-    <externalId>false</externalId>
     <label>Active</label>
     <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>

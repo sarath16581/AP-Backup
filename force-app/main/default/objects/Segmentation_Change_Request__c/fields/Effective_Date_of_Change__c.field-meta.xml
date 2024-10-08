@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Effective_Date_of_Change__c</fullName>
     <description>.</description>
-    <externalId>false</externalId>
     <inlineHelpText>If approved but later than Lock in Date, push to the next process date.</inlineHelpText>
     <label>Process Date</label>
     <required>false</required>

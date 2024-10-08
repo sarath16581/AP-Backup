@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Indicates whether user override is allowed for promotions</description>
-    <externalId>false</externalId>
     <inlineHelpText>Indicates whether user override is allowed for promotions</inlineHelpText>
     <label>Allow User Override ?</label>
     <trackTrending>false</trackTrending>

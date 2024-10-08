@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Nation_Wise_Will_Kits__c</fullName>
     <description>Retail PON Geopointe Related Field</description>
-    <externalId>false</externalId>
     <label>Nation Wise Will Kits</label>
     <precision>18</precision>
     <required>false</required>

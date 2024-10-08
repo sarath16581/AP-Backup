@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Indicates whether cart versioning is disabled for the agreement</description>
-    <externalId>false</externalId>
     <inlineHelpText>Indicates whether cart versioning is disabled for the agreement</inlineHelpText>
     <label>Disable Cart Versioning</label>
     <trackFeedHistory>false</trackFeedHistory>

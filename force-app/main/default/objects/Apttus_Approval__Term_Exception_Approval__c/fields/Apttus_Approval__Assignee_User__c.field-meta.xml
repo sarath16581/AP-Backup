@@ -4,7 +4,6 @@
     <deleteConstraint>SetNull</deleteConstraint>
     <deprecated>false</deprecated>
     <description>Used to specify a user assignee using standard salesforce lookup behavior instead of having to type the user&apos;s name.  Using standard lookup prevents typing errors and ensures that the user is correctly assigned regardless of locale settings.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Used to specify a user assignee using standard salesforce lookup behavior instead of having to type the user&apos;s name.  Using standard lookup prevents typing errors and ensures that the user is correctly assigned regardless of locale settings.</inlineHelpText>
     <label>Assignee User</label>
     <lookupFilter>

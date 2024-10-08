@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>AMLCTF_Comments_or_Findings__c</fullName>
     <description>Auditor&apos;s comments / findings needing Licensee to action upon.  Part of the Retail Audit Case Management Solution, AML/CTF Austrac Phase 2.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Auditor&apos;s Observations / Issues Identified needing Licensee to action upon.  Part of the Retail Audit Case Management Solution, AML/CTF Austrac Phase 2.</inlineHelpText>
     <label>Observations or Issues Identified</label>
     <length>131072</length>

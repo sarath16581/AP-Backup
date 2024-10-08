@@ -3,7 +3,6 @@
     <fullName>IsVIP__c</fullName>
     <defaultValue>false</defaultValue>
     <description>Flag to capture if customer is VIP</description>
-    <externalId>false</externalId>
     <label>VIP</label>
     <securityClassification>OFFICIAL_SENSITIVE</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>

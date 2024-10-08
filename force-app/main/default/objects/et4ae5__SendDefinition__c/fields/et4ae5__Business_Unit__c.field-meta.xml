@@ -3,7 +3,6 @@
     <fullName>et4ae5__Business_Unit__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <deprecated>false</deprecated>
-    <externalId>false</externalId>
     <label>Business Unit</label>
     <lookupFilter>
         <active>true</active>

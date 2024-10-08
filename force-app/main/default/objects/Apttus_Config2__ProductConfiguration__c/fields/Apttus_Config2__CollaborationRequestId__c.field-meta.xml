@@ -4,7 +4,6 @@
     <deleteConstraint>SetNull</deleteConstraint>
     <deprecated>false</deprecated>
     <description>Lookup to the Collaboration Request business object.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Lookup to the Collaboration Request business object.</inlineHelpText>
     <label>Collaboration Request</label>
     <referenceTo>Apttus_Config2__CollaborationRequest__c</referenceTo>

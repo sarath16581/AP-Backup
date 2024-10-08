@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>StartedResponseReceived__c</fullName>
     <description>The date/time the started response was received.</description>
-    <externalId>false</externalId>
     <inlineHelpText>The date/time the started response was received.</inlineHelpText>
     <label>Started Response Received</label>
     <required>false</required>

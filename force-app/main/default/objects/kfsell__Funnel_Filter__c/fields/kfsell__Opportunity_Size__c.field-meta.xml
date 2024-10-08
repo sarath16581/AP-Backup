@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>kfsell__Opportunity_Size__c</fullName>
     <deprecated>false</deprecated>
-    <externalId>false</externalId>
     <label>Opportunity Size</label>
     <required>false</required>
     <trackHistory>false</trackHistory>

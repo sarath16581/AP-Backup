@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Disable saving the favorite, favorites category and other favorites related UI items</description>
-    <externalId>false</externalId>
     <inlineHelpText>Disable saving the favorite, favorites category and other favorites related UI items</inlineHelpText>
     <label>Disable Favorites</label>
     <trackTrending>false</trackTrending>

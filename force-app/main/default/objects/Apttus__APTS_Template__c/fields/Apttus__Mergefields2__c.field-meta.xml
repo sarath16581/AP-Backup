@@ -3,7 +3,6 @@
     <fullName>Apttus__Mergefields2__c</fullName>
     <deprecated>false</deprecated>
     <description>Merge fields used both in the template and clauses nested in the template. Automatically maintained by the Apttus Author.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Merge fields used both in the template and clauses nested in the template. Automatically maintained by the Apttus Author.</inlineHelpText>
     <label>Mergefields</label>
     <length>32768</length>

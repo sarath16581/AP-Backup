@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Principal1DOB__c</fullName>
     <description>User to input with option for calendar selection - numeric dd/mm/yyyy</description>
-    <externalId>false</externalId>
     <label>Date of Birth</label>
     <required>false</required>
     <trackHistory>false</trackHistory>

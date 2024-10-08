@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Stock_Order_Day__c</fullName>
     <description>Normal Stock Order Day of Week</description>
-    <externalId>false</externalId>
     <inlineHelpText>Normal Stock Order Day of Week</inlineHelpText>
     <label>Stock Order Day</label>
     <required>false</required>

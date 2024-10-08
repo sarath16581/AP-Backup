@@ -3,7 +3,6 @@
     <fullName>Apttus__Exception__c</fullName>
     <deprecated>false</deprecated>
     <description>The exception reported by the call</description>
-    <externalId>false</externalId>
     <label>Exception</label>
     <length>32000</length>
     <securityClassification>INTERNAL</securityClassification>

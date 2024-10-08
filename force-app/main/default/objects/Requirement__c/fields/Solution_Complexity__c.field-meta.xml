@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Solution_Complexity__c</fullName>
     <description>How complex do we believe the solution is?</description>
-    <externalId>false</externalId>
     <inlineHelpText>How complex do we believe the solution is?</inlineHelpText>
     <label>Solution Complexity</label>
     <required>false</required>

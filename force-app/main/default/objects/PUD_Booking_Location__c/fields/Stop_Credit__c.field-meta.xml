@@ -3,7 +3,6 @@
     <fullName>Stop_Credit__c</fullName>
     <defaultValue>false</defaultValue>
     <description>This field will be driving the logic to prevent new Bookings to happen and future jobs to get marked with Stop Credit</description>
-    <externalId>false</externalId>
     <label>Stop Credit</label>
     <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>

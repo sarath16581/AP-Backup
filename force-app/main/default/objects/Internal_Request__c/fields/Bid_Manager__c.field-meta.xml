@@ -3,7 +3,6 @@
     <fullName>Bid_Manager__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <description>User that is the bid manager</description>
-    <externalId>false</externalId>
     <label>Bid Manager</label>
     <referenceTo>User</referenceTo>
     <relationshipName>Deal_Support_Requests6</relationshipName>

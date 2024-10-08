@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>APT_Apttus_Contract__c</fullName>
-    <externalId>false</externalId>
     <label>Apttus Contract</label>
     <referenceTo>Apttus__APTS_Agreement__c</referenceTo>
     <relationshipLabel>SAP Rates</relationshipLabel>

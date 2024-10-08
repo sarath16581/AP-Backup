@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>kfsell__Strengths__c</fullName>
     <deprecated>false</deprecated>
-    <externalId>false</externalId>
     <label>Strengths</label>
     <summaryFilterItems>
         <field>kfsell__Summary_of_My_Position_Today__c.kfsell__Is_a_Strength__c</field>

@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__UseType__c</fullName>
     <deprecated>false</deprecated>
     <description>The formula use type</description>
-    <externalId>false</externalId>
     <inlineHelpText>The formula use type</inlineHelpText>
     <label>Use Type</label>
     <required>false</required>

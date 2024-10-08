@@ -3,7 +3,6 @@
     <fullName>Apttus__Agreement__c</fullName>
     <deprecated>false</deprecated>
     <description>Associated Agreement</description>
-    <externalId>false</externalId>
     <label>Agreement</label>
     <referenceTo>Apttus__APTS_Agreement__c</referenceTo>
     <relationshipLabel>Agreement Term Exceptions</relationshipLabel>

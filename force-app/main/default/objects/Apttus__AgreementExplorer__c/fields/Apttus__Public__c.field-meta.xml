@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Determines if the query is public or private.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Determines if the query is public or private.</inlineHelpText>
     <label>Public</label>
     <securityClassification>INTERNAL</securityClassification>

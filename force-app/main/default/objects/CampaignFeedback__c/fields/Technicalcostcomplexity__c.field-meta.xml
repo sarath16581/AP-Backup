@@ -3,7 +3,6 @@
     <fullName>Technicalcostcomplexity__c</fullName>
     <defaultValue>false</defaultValue>
     <description>Technical cost / complexity.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Technical cost / complexity</inlineHelpText>
     <label>Technical cost / complexity</label>
     <securityClassification>INTERNAL</securityClassification>

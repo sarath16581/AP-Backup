@@ -3,7 +3,6 @@
     <fullName>Apttus__Type__c</fullName>
     <deprecated>false</deprecated>
     <description>Type of the Insight/Provision Name</description>
-    <externalId>false</externalId>
     <inlineHelpText>Type of the Insight/Provision Name</inlineHelpText>
     <label>Type</label>
     <required>false</required>

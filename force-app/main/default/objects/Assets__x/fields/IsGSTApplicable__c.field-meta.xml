@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <description>IsGSTApplicable</description>
     <externalDeveloperName>IsGSTApplicable</externalDeveloperName>
-    <externalId>false</externalId>
     <isFilteringDisabled>false</isFilteringDisabled>
     <isNameField>false</isNameField>
     <isSortingDisabled>false</isSortingDisabled>

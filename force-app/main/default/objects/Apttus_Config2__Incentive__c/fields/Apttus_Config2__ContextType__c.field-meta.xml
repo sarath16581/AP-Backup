@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__ContextType__c</fullName>
     <deprecated>false</deprecated>
     <description>The type of context associated with the incentive</description>
-    <externalId>false</externalId>
     <inlineHelpText>The type of context associated with the incentive</inlineHelpText>
     <label>Context Type</label>
     <required>false</required>

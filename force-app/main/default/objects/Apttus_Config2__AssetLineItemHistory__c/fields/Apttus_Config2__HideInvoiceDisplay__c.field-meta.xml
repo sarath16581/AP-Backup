@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Indicates whether the item would be hidden in the invoice display.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Indicates whether the item would be hidden in the invoice display.</inlineHelpText>
     <label>Hide Invoice Display</label>
     <securityClassification>INTERNAL</securityClassification>

@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>APT_List_Percent__c</fullName>
-    <externalId>false</externalId>
     <formula>Apttus_CMConfig__PriceListItemId__r.Apttus_Config2__RelatedPercent__c</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <label>List Percent</label>

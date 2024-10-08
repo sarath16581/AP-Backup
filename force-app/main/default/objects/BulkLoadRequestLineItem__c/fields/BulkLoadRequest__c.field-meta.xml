@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>BulkLoadRequest__c</fullName>
     <description>Parent bulk load request that included this line item.</description>
-    <externalId>false</externalId>
     <label>Bulk Load Request</label>
     <referenceTo>BulkLoadRequest__c</referenceTo>
     <relationshipLabel>Bulk Load Request Line Items</relationshipLabel>

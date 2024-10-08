@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Customer_Readiness__c</fullName>
     <description>.</description>
-    <externalId>false</externalId>
     <inlineHelpText>How the customer has received the discussion about APIs</inlineHelpText>
     <label>Customer Readiness</label>
     <required>false</required>

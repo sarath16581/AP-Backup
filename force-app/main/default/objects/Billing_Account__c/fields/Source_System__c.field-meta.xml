@@ -3,7 +3,6 @@
     <fullName>Source_System__c</fullName>
     <description>PeopleSoft
 TEAM</description>
-    <externalId>false</externalId>
     <label>Source System</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>

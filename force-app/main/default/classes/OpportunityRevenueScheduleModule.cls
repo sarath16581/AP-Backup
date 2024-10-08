@@ -46,6 +46,7 @@ public inherited sharing class OpportunityRevenueScheduleModule extends Applicat
                 system.debug('**** opportunity onAfterUPdate EXIT');
         } catch(Exception ex) {
             // Error Logged to Exception object for analysis
+            system.debug('***** error '+ex);
             UTIL_LoggingService.logHandledException(ex, UserInfo.getOrganizationId(), SSSWConstants.SSSW_APP, CaseSurveyInvitationModule.class.getName(), 'onAfterUpdate', 'BudgetAndRevenueTrigger', LoggingLevel.ERROR);
         }
     }
@@ -70,6 +71,7 @@ public inherited sharing class OpportunityRevenueScheduleModule extends Applicat
                 system.debug('**** opportunity onAfterUPdate EXIT');
         } catch(Exception ex) {
             // Error Logged to Exception object for analysis
+            system.debug('***** error '+ex);
             UTIL_LoggingService.logHandledException(ex, UserInfo.getOrganizationId(), SSSWConstants.SSSW_APP, CaseSurveyInvitationModule.class.getName(), 'onAfterUpdate', 'BudgetAndRevenueTrigger', LoggingLevel.ERROR);
         }
     }

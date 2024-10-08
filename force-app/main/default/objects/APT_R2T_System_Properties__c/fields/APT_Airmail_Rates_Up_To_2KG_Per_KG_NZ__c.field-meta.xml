@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>APT_Airmail_Rates_Up_To_2KG_Per_KG_NZ__c</fullName>
-    <externalId>false</externalId>
     <inlineHelpText>Airmail Rates &gt; Up To 2KG Per KG for Newzealand</inlineHelpText>
     <label>Airmail Rates Up To 2KG Per KG NZ</label>
     <precision>18</precision>

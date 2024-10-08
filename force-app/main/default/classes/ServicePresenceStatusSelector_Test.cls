@@ -1,12 +1,10 @@
 /**
-* @author Paul Perry
-* @date 15/08/2024
-* @group Tests
-* @tag Selector
-* @tag ServicePresenceStatus SObject
-* @description
-*	A very simple selector class for ServicePresenceStatus
-*/
+ * @description
+ *	A very simple selector class for ServicePresenceStatus
+ * @author Paul Perry
+ * @date 15/08/2024
+ * @changelog
+ */
 @IsTest
 private with sharing class ServicePresenceStatusSelector_Test {
 	/**
@@ -36,12 +34,13 @@ private with sharing class ServicePresenceStatusSelector_Test {
 	@IsTest
 	private static void testEnsureSelectorOutput() {
 		final String systemSource = 'Genesys';
-		
+
 		Test.startTest();
 
-		List<ServicePresenceStatus> results = ServicePresenceStatusSelector.newInstance().selectActiveStatuses();
+		ServicePresenceStatus result = ServicePresenceStatusSelector.newInstance()
+			.selectByDeveloperName('On_Break', null);
 
-		System.assert(!results.isEmpty(), 'Expected result should contain at least 1 active status');
+		System.assert(result != null, 'Expected result should contain at least 1 active status');
 		Test.stopTest();
 	}
 }

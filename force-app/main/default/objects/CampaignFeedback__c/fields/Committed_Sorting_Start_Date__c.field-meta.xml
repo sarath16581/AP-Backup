@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Committed_Sorting_Start_Date__c</fullName>
     <description>Streaming start date committed by customer</description>
-    <externalId>false</externalId>
     <inlineHelpText>Streaming start date committed by customer</inlineHelpText>
     <label>Committed Sorting Start Date</label>
     <required>false</required>

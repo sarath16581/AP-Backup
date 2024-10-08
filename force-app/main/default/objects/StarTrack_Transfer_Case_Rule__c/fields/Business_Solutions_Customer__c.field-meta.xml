@@ -3,7 +3,6 @@
     <fullName>Business_Solutions_Customer__c</fullName>
     <defaultValue>false</defaultValue>
     <description>Capture Case BSC value.</description>
-    <externalId>false</externalId>
     <label>Business Solutions Customer</label>
     <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>

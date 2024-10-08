@@ -3,7 +3,6 @@
     <fullName>Apttus_Approval__Backup_From_User__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <deprecated>false</deprecated>
-    <externalId>false</externalId>
     <label>Backup From User</label>
     <referenceTo>User</referenceTo>
     <relationshipLabel>Backup From User History</relationshipLabel>

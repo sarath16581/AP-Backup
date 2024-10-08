@@ -23,6 +23,7 @@ public inherited sharing class LiveChatTranscriptAutomationTrigHandler extends A
 		// populate the case id on both the relevant agent work records and the contactrequest records themselves
 		// This provides an easy to reference lookup to the case the record is associated with
 		registerModule(CaseRecordPopulationModule.class);
+		registerModule(ProductCategoryPopulationModule.class);
 
 	}
 

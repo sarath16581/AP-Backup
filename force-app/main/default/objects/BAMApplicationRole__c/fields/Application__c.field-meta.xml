@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Application__c</fullName>
     <description>The Parent application that this role belongs to</description>
-    <externalId>false</externalId>
     <inlineHelpText>The Parent application that this role belongs to</inlineHelpText>
     <label>Application</label>
     <referenceTo>BAMApplication__c</referenceTo>

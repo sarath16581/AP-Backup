@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Indicates whether to wait for button click before processing option selection and validation.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Indicates whether to wait for button click before processing option selection and validation.</inlineHelpText>
     <label>Use Button To Save Selection</label>
     <trackTrending>false</trackTrending>

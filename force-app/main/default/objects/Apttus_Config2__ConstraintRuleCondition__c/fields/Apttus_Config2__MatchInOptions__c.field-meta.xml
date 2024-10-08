@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Conditions are evaluated against the products added as options.</description>
-    <externalId>false</externalId>
     <label>Match In Options</label>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>

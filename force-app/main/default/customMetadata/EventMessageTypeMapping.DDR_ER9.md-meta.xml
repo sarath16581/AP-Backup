@@ -15,6 +15,14 @@
         <value xsi:type="xsd:string">Unclear EDD</value>
     </values>
     <values>
+        <field>CaseClosureEmailAlertNameAusPost__c</field>
+        <value xsi:type="xsd:string">UnifiedCaseClosureOnUndeliverableRefusedScanEventAP</value>
+    </values>
+    <values>
+        <field>CaseClosureEmailAlertNameStarTrack__c</field>
+        <value xsi:nil="true"/>
+    </values>
+    <values>
         <field>Category__c</field>
         <value xsi:type="xsd:string">AttemptedDelivery</value>
     </values>

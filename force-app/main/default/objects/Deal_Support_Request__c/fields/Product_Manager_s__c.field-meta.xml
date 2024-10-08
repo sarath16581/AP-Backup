@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Product_Manager_s__c</fullName>
     <description>Identify the Product Manager/s for the products/services included in this contract</description>
-    <externalId>false</externalId>
     <inlineHelpText>Identify the Product Manager/s for the products/services included in this contract</inlineHelpText>
     <label>Product Manager/s</label>
     <required>false</required>

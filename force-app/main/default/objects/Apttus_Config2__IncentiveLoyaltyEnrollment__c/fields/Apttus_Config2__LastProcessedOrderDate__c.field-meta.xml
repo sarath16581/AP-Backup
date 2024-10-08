@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__LastProcessedOrderDate__c</fullName>
     <deprecated>false</deprecated>
     <description>The last order date processed for loyalty point accrual</description>
-    <externalId>false</externalId>
     <inlineHelpText>The last order date processed for loyalty point accrual</inlineHelpText>
     <label>Last Processed Order Date</label>
     <required>false</required>

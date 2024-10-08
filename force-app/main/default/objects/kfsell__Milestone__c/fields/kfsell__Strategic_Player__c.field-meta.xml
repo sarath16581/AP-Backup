@@ -3,7 +3,6 @@
     <fullName>kfsell__Strategic_Player__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <deprecated>false</deprecated>
-    <externalId>false</externalId>
     <label>Strategic Player</label>
     <referenceTo>kfsell__Strategic_Player__c</referenceTo>
     <relationshipLabel>Milestones</relationshipLabel>

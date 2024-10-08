@@ -4,7 +4,6 @@
     <defaultValue>true</defaultValue>
     <deprecated>false</deprecated>
     <description>Select first document default to send for eSignature</description>
-    <externalId>false</externalId>
     <inlineHelpText>Select first document default to send for eSignature</inlineHelpText>
     <label>Select First Document Default</label>
     <trackTrending>false</trackTrending>

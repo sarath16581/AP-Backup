@@ -3,7 +3,6 @@
     <fullName>Published_Date__c</fullName>
     <defaultValue>DATE(YEAR(TODAY()),11,1)</defaultValue>
     <description>Published Date</description>
-    <externalId>false</externalId>
     <inlineHelpText>The APR increase scheduled date that has been agreed to and is applicable in the given year.</inlineHelpText>
     <label>Published Date</label>
     <required>false</required>

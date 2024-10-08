@@ -3,7 +3,6 @@
     <fullName>ApttusReady__c</fullName>
     <defaultValue>false</defaultValue>
     <description>Is the user trained for Apttus?</description>
-    <externalId>false</externalId>
     <inlineHelpText>Is the user trained for Apttus?</inlineHelpText>
     <label>ApttusReady</label>
     <trackFeedHistory>false</trackFeedHistory>

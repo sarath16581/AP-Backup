@@ -4,7 +4,6 @@
     <deleteConstraint>SetNull</deleteConstraint>
     <deprecated>false</deprecated>
     <description>Reference to the parent Product Option Component</description>
-    <externalId>false</externalId>
     <label>Parent Product Option Component</label>
     <referenceTo>Apttus_Config2__ProductOptionComponent__c</referenceTo>
     <relationshipName>ChildSystemComponents</relationshipName>

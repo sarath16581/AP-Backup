@@ -3,7 +3,6 @@
     <fullName>eParcelDamagesDelegate__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <description>eParcel Damages delegate contact</description>
-    <externalId>false</externalId>
     <label>eParcel Damages Delegate</label>
     <referenceTo>Contact</referenceTo>
     <relationshipLabel>Organisations (eParcel Damages Delegate)</relationshipLabel>

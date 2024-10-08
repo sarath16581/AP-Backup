@@ -3,7 +3,6 @@
     <fullName>Apttus_Approval__EndTime__c</fullName>
     <deprecated>false</deprecated>
     <description>the process end time</description>
-    <externalId>false</externalId>
     <label>End Time</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>

@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__RollupRecurrenceFrequency__c</fullName>
     <deprecated>false</deprecated>
     <description>The rollup recurrence frequency</description>
-    <externalId>false</externalId>
     <inlineHelpText>The rollup recurrence frequency</inlineHelpText>
     <label>Rollup Recurrence Frequency</label>
     <required>false</required>

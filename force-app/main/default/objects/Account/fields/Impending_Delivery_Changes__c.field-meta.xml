@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Impending_Delivery_Changes__c</fullName>
     <description>Impending changes to delivery that may affect the outlet e.g. change to primary sort function</description>
-    <externalId>false</externalId>
     <inlineHelpText>Impending changes to delivery that may affect the outlet e.g. change to primary sort function</inlineHelpText>
     <label>Impending Delivery Changes</label>
     <length>1200</length>

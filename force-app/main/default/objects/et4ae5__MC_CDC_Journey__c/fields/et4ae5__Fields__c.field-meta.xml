@@ -3,7 +3,6 @@
     <fullName>et4ae5__Fields__c</fullName>
     <deprecated>false</deprecated>
     <description>List of filter and data fields used in the Journey</description>
-    <externalId>false</externalId>
     <label>Fields</label>
     <length>100000</length>
     <securityClassification>INTERNAL</securityClassification>

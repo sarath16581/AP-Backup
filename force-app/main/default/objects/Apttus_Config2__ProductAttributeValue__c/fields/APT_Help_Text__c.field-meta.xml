@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>APT_Help_Text__c</fullName>
     <defaultValue>&quot;Time of day expressed in twenty-four hour clock notation (00:00-23:59).Name of facilities for PO Box and Locked Bag clearances and attach Box Clearance Authority. Include any location specific instructions including any customer site specific Health and Safety instructions.Day of week (M-F; M, Tu, W, Th, F, Sa, Su). Unless otherwise indicated, all prices are GST inclusive.Volume of mail included in price, according to the specified measure: number of tubs, bags, items (pcs), or volume (m3) and/or mass/cubic assessed weight (kg). Additional services are charged in accordance with the Sundry Charges Pricing Schedule.&quot;</defaultValue>
-    <externalId>false</externalId>
     <label>Help Text</label>
     <length>32768</length>
     <securityClassification>INTERNAL</securityClassification>

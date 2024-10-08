@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Mail_Service_Payment__c</fullName>
     <description>Partner Addendum &apos;Mail Service Payment&apos; Sub Type Description</description>
-    <externalId>false</externalId>
     <label>Mail Service Payment</label>
     <required>false</required>
     <trackTrending>false</trackTrending>

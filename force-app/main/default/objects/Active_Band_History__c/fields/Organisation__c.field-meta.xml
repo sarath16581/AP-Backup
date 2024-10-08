@@ -3,7 +3,6 @@
     <fullName>Organisation__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <description>Account to which Assets are associated.</description>
-    <externalId>false</externalId>
     <label>Organisation</label>
     <referenceTo>Account</referenceTo>
     <relationshipLabel>Active Band History</relationshipLabel>

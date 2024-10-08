@@ -4,7 +4,6 @@
     <deleteConstraint>SetNull</deleteConstraint>
     <deprecated>false</deprecated>
     <description>ID of the product attribute which provides the value for the dimension.</description>
-    <externalId>false</externalId>
     <label>Attribute</label>
     <referenceTo>Apttus_Config2__ProductAttribute__c</referenceTo>
     <relationshipLabel>Price Dimensions</relationshipLabel>

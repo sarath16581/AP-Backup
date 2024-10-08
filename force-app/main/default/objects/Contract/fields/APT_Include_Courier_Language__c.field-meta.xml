@@ -3,7 +3,6 @@
     <fullName>APT_Include_Courier_Language__c</fullName>
     <defaultValue>false</defaultValue>
     <description>Adds Courier language to generated Short Form Contract - used as a part of conditional document generation in Templates</description>
-    <externalId>false</externalId>
     <inlineHelpText>Adds Courier language to generated Short Form Contract</inlineHelpText>
     <label>Include Courier Language</label>
     <securityClassification>INTERNAL</securityClassification>

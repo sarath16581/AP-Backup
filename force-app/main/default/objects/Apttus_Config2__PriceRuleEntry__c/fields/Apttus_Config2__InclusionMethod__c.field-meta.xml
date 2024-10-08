@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__InclusionMethod__c</fullName>
     <deprecated>false</deprecated>
     <description>The inclusion rule method. Only applicable to Inclusion based rules.</description>
-    <externalId>false</externalId>
     <label>Inclusion Method</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>

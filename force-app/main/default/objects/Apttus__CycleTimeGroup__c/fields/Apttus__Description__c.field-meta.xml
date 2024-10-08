@@ -3,7 +3,6 @@
     <fullName>Apttus__Description__c</fullName>
     <deprecated>false</deprecated>
     <description>The group description</description>
-    <externalId>false</externalId>
     <label>Description</label>
     <length>32000</length>
     <securityClassification>INTERNAL</securityClassification>

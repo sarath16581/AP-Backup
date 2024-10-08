@@ -3,7 +3,6 @@
     <fullName>ECLM_Government_or_Customer_Contract__c</fullName>
     <defaultValue>false</defaultValue>
     <description>ECLM Field</description>
-    <externalId>false</externalId>
     <label>Government or Tender Contract</label>
     <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>

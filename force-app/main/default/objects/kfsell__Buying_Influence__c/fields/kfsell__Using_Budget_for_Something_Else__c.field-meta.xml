@@ -3,7 +3,6 @@
     <fullName>kfsell__Using_Budget_for_Something_Else__c</fullName>
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
-    <externalId>false</externalId>
     <label>Using Budget for Something Else</label>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>

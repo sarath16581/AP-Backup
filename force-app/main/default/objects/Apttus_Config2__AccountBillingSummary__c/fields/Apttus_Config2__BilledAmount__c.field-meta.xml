@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__BilledAmount__c</fullName>
     <deprecated>false</deprecated>
     <description>The amount billed for the account</description>
-    <externalId>false</externalId>
     <inlineHelpText>The amount billed for the account</inlineHelpText>
     <label>Billed Amount</label>
     <precision>18</precision>

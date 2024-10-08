@@ -3,7 +3,6 @@
     <fullName>IsBam__c</fullName>
     <defaultValue>false</defaultValue>
     <description>Determines that this is a BAM request.</description>
-    <externalId>false</externalId>
     <isFilteringDisabled>false</isFilteringDisabled>
     <isNameField>false</isNameField>
     <isSortingDisabled>false</isSortingDisabled>

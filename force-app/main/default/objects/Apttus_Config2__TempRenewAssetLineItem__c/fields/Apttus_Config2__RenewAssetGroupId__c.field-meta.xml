@@ -4,7 +4,6 @@
     <deleteConstraint>SetNull</deleteConstraint>
     <deprecated>false</deprecated>
     <description>ID of the associated renew group</description>
-    <externalId>false</externalId>
     <inlineHelpText>ID of the associated renew group</inlineHelpText>
     <label>Renew Asset Group</label>
     <referenceTo>Apttus_Config2__TempRenewAssetGroup__c</referenceTo>

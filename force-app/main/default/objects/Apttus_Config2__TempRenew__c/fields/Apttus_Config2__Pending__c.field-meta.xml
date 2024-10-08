@@ -4,7 +4,6 @@
     <defaultValue>true</defaultValue>
     <deprecated>false</deprecated>
     <description>Whether the asset action is pending. When line item is created from asset pending is set to false.</description>
-    <externalId>false</externalId>
     <label>Pending</label>
     <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>

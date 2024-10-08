@@ -3,7 +3,6 @@
     <fullName>Apttus_Approval__SubstepDependsOn__c</fullName>
     <deprecated>false</deprecated>
     <description>List of sub steps (belonging to the same subprocess) which must be completed before this substep. The list contains a comma separated substep sequence numbers</description>
-    <externalId>false</externalId>
     <label>Substep Depends On</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>

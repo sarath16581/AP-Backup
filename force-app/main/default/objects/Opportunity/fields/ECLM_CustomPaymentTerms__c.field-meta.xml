@@ -3,7 +3,6 @@
     <fullName>ECLM_CustomPaymentTerms__c</fullName>
     <defaultValue>false</defaultValue>
     <description>ECLM Field</description>
-    <externalId>false</externalId>
     <label>Customised Payment Terms</label>
     <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>

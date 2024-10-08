@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Field to specify whether the referenced setting is to be displayed as a picklist</description>
-    <externalId>false</externalId>
     <inlineHelpText>Field to specify whether the referenced setting is to be displayed as a picklist</inlineHelpText>
     <label>Is Picklist</label>
     <securityClassification>INTERNAL</securityClassification>
