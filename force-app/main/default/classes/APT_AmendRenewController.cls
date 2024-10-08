@@ -692,10 +692,7 @@ public with sharing class APT_AmendRenewController {
 					//clone proposal
 					Apttus_Proposal__Proposal__c clonedProposal = APT_AmendRenewUtility.cloneProposal(APT_Constants.RECORD_TYPE_RENEWAL_QUOTE, opportunityId, priceListId, agreement);
 
-					//set promary contact from DSR
-					if (dsr != null) {
-						clonedProposal.Apttus_Proposal__Primary_Contact__c = dsr.CustomerContact1__c != null ? dsr.CustomerContact1__c : clonedProposal.Apttus_Proposal__Primary_Contact__c;
-					}
+					clonedProposal = setProposalPrimaryContact(clonedProposal);
 
 					insert clonedProposal;
 
@@ -774,10 +771,7 @@ public with sharing class APT_AmendRenewController {
 					Apttus_Proposal__Proposal__c newProposal = APT_AmendRenewUtility.newProposal(APT_Constants.RECORD_TYPE_RENEWAL_QUOTE,
 							opportunityId, priceListId, agreement);
 
-					//set promary contact from DSR
-					if (dsr != null) {
-						newProposal.Apttus_Proposal__Primary_Contact__c = dsr.CustomerContact1__c != null ? dsr.CustomerContact1__c : newProposal.Apttus_Proposal__Primary_Contact__c;
-					}
+					newProposal = setProposalPrimaryContact(newProposal);
 					insert newProposal;
 					//proposalId = newProposal.Id;
 
@@ -1114,10 +1108,8 @@ public with sharing class APT_AmendRenewController {
 					clonedProposal.APT_Revenue_Type__c = selectedRevenue;
 					APT_AmendRenewUtility.resetOpportunityProposalPrimary(Id.valueOf(opportunityId));
 
-					//set promary contact from DSR
-					if (dsr != null) {
-						clonedProposal.Apttus_Proposal__Primary_Contact__c = dsr.CustomerContact1__c != null ? dsr.CustomerContact1__c : clonedProposal.Apttus_Proposal__Primary_Contact__c;
-					}
+					clonedProposal = setProposalPrimaryContact(clonedProposal);
+
 					insert clonedProposal;
 
 					/*
@@ -1190,10 +1182,7 @@ public with sharing class APT_AmendRenewController {
 							opportunityId, priceListId, agreement);
 					APT_AmendRenewUtility.resetOpportunityProposalPrimary(Id.valueOf(opportunityId));
 
-					//set promary contact from DSR
-					if (dsr != null) {
-						newProposal.Apttus_Proposal__Primary_Contact__c = dsr.CustomerContact1__c != null ? dsr.CustomerContact1__c : newProposal.Apttus_Proposal__Primary_Contact__c;
-					}
+					newProposal = setProposalPrimaryContact(newProposal);
 
 					insert newProposal;
 					//proposalId = newProposal.Id;
@@ -1281,5 +1270,16 @@ public with sharing class APT_AmendRenewController {
 			List<OpportunityLineItem> listClonedOpportunityLineItem = APT_AmendRenewUtility.copyOpporunityProducts(opportunityId, agreement, listOpportunityLineItem, APT_Constants.ACTION_TYPE_RENEWAL);
 			ApplicationDatabase.getInstance().dmlInsert(listClonedOpportunityLineItem);
 		}
+	}
+
+	/*
+	Set Key Contact for Proposal and return the respected proposal
+	*/
+	private Apttus_Proposal__Proposal__c setProposalPrimaryContact(Apttus_Proposal__Proposal__c proposal) {
+		//set primary contact from DSR
+		if (dsr != null) {
+			proposal.Apttus_Proposal__Primary_Contact__c = dsr.CustomerContact1__c != null ? dsr.CustomerContact1__c : proposal.Apttus_Proposal__Primary_Contact__c;
+		}
+		return proposal;
 	}
 }
