@@ -16,7 +16,8 @@
  * 													Add queuesToAgentTypesShouldReturnCustomMetadata
  *		17/07/2024  Ranjeewa Silva					Added tests to verify changes to support preferred agent selection for Unified cases.
  *													Replaced references to 'getCaseIdsWithLatestAcceptedAgentWorks' with new method 'getLatestAcceptedAgentWork'
- * 
+ *		30/09/2024  Ranjeewa Silva					Updated tests to verify changes to use AgentWork.Case__c in finding the latest accepted AgentWork in-scope for a Case.
+ *
 **/
 @IsTest (IsParallel=true)
 public class OmniChannelService_Test {
@@ -359,7 +360,7 @@ public class OmniChannelService_Test {
 		// set up our responses
 		MockUtility.Mocks.startStubbing();
 		
-		MockUtility.Mocks.when(mockAgentWorkSelector.selectByAcceptedWorkItemIdsAndActiveUser(
+		MockUtility.Mocks.when(mockAgentWorkSelector.selectAcceptedAgentWorkByCaseIdsAndActiveUser(
 			(Set<Id>)fflib_Match.eq(caseIds), 
 			(Set<Object>)fflib_Match.eq(new Set<Object>())		
 		)).thenReturn(agentWorks);
@@ -374,7 +375,7 @@ public class OmniChannelService_Test {
 
 		System.runAs(communityUser){
 			try{
-				caseIdsVsAgentWorks = OmniChannelService.getInstance().getLatestAcceptedAgentWork(new Map<Id, Case>(cases), false);
+				caseIdsVsAgentWorks = OmniChannelService.getInstance().getLatestAcceptedAgentWorkInCaseScope(new Map<Id, Case>(cases).keySet());
 			} catch(Exception ex) {
 				Assert.fail('Unexpected exception thrown running as community user : ' + ex.getMessage());
 			}		   
@@ -427,66 +428,8 @@ public class OmniChannelService_Test {
 	}
 
 	/**
-	 * Tests selecting AgentWork on work items when 'includeChildContactRequestWorkItems=false' does not consider AgentWork
-	 * on child ContactRequests.
-	 */
-	@IsTest
-	public static void testGetLatestAcceptedAgentWorkExcludingChildContactRequests() {
-		// =====================================
-		// Data Preparation
-		// =====================================
-		List<Case> cases = ApplicationTestDataFactoryCase.getCases(3, true);
-		for (Case caseRec : cases) {
-			caseRec.RecordTypeId = ApplicationTestDataFactoryCase.caseUnifiedInvestigationRecordType;
-		}
-
-		// setup contact requests for each case
-		Account consumer = ApplicationTestDataFactory.getPersonAccounts(1, true)[0];
-		List<ContactRequest> contactRequests = ApplicationTestDataFactoryCase.getContactRequests(3, new List<Id>{cases[0].Id, cases[1].Id, cases[2].Id}, consumer.PersonContactId, true);
-
-		User agentUser = ApplicationTestDataFactory.getUsers(1, true)[0];
-
-		// setup existing AgentWork on case records and contact requests.
-		// cases[0] has 2 AgentWork records, cases[1] has only 1 AgentWork record, cases[2] has no AgentWork record.
-		List<AgentWork> agentWorkOnCases = OmniChannelTestDataFactory.getAgentWorks(3, agentUser.Id, new List<Id>{cases[0].Id, cases[0].Id, cases[1].Id}, true);
-		// each contact request has one AgentWork record.
-		List<AgentWork> agentWorkOnContactRequests = OmniChannelTestDataFactory.getAgentWorks(3, agentUser.Id, new List<Id>(new Map<Id,ContactRequest>(contactRequests).keySet()), true);
-
-		// =====================================
-		// Stubbing
-		// =====================================
-		AgentWorkSelector mockAgentWorksSelector = (AgentWorkSelector)MockUtility.mockSelector(AgentWorkSelector.class);
-		ContactRequestsSelector mockContactRequestsSelector = (ContactRequestsSelector)MockUtility.mockSelector(ContactRequestsSelector.class);
-
-		// set up our responses
-		MockUtility.Mocks.startStubbing();
-		MockUtility.Mocks.when(mockAgentWorksSelector.selectByAcceptedWorkItemIdsAndActiveUser((Set<Id>)fflib_Match.eq(new Set<Id>{cases[0].Id, cases[1].Id, cases[2].Id}), (Set<Object>)fflib_Match.anyObject())).thenReturn(agentWorkOnCases);
-		MockUtility.Mocks.stopStubbing();
-
-		// =====================================
-		// Testing
-		// =====================================
-		Test.startTest();
-
-		Map<Id, AgentWork> results = OmniChannelService.getInstance().getLatestAcceptedAgentWork(new Map<Id, Case>(cases), false);
-
-		Test.stopTest();
-
-		Assert.isNotNull(results, 'Expected a valid AgentWorks mapping for cases, but received null');
-		Assert.areEqual(2, results.size(), 'Expected AgentWork mappings only for cases with existing AgentWork.');
-		Assert.isTrue(results.containsKey(cases[0].Id), 'Expected AgentWork mapping for cases[0], it has 2 previous AgentWork records.');
-		Assert.isTrue(results.containsKey(cases[1].Id), 'Expected AgentWork mapping for cases[1], it has 1 previous AgentWork records.');
-		Assert.isFalse(results.containsKey(cases[2].Id), 'Expected no AgentWork mapping for cases[2], it has no previous AgentWork records.');
-		Assert.areEqual(agentWorkOnCases[0].Id, results.get(cases[0].Id).Id, 'Expected only one AgentWork to be returned for cases[0] based on the selector query results order.');
-		Assert.areEqual(agentWorkOnCases[2].Id, results.get(cases[1].Id).Id, 'Expected only AgentWork available to be returned for cases[1].');
-
-		// verify contact request selector is not called as we are setting includeChildContactRequestWorkItems=false to exclude contact request agent work.
-		((ContactRequestsSelector)MockUtility.Mocks.verify(mockContactRequestsSelector, 0)).search((Map<String, Object>)fflib_Match.anyObject(), fflib_Match.anyBoolean());
-	}
-
-	/**
-	 * Tests selecting AgentWork on work items when 'includeChildContactRequestWorkItems=true' consider AgentWork
-	 * on child ContactRequests.
+	 * Tests selecting latest accepted AgentWork within case scope, consider AgentWork on child ContactRequests / Chat / Voice interactions
+	 * via the AgentWork.Case__c field.
 	 */
 	@IsTest
 	public static void testGetLatestAcceptedAgentWorkIncludingChildContactRequests() {
@@ -514,43 +457,47 @@ public class OmniChannelService_Test {
 
 		// related to cases[0]. should not be selected as the latest.
 		agentWorkOnCases[0] = (AgentWork)ApplicationTestDataFactory.setUnwritableFields(agentWorkOnCases[0], new Map<String, Object>{
-				'AcceptDateTime' => Datetime.now().addDays(-5)
+				'AcceptDateTime' => Datetime.now().addDays(-5),
+				'Case__c' => cases[0].Id
 		});
 		// related to cases[0]. should be selected as latest AgentWork for cases[0].
 		agentWorkOnCases[1] = (AgentWork)ApplicationTestDataFactory.setUnwritableFields(agentWorkOnCases[1], new Map<String, Object>{
-				'AcceptDateTime' => Datetime.now().addDays(-2)
+				'AcceptDateTime' => Datetime.now().addDays(-2),
+				'Case__c' => cases[0].Id
 		});
 		// related to cases[1]. should not be selected as more recent AgentWork on child contact request.
 		agentWorkOnCases[2] = (AgentWork)ApplicationTestDataFactory.setUnwritableFields(agentWorkOnCases[2], new Map<String, Object>{
-				'AcceptDateTime' => Datetime.now().addDays(-5)
+				'AcceptDateTime' => Datetime.now().addDays(-5),
+				'Case__c' => cases[1].Id
 		});
 		// related to contactRequests[0] linked to cases[0]. should not be selected as more recent AgentWork on Case.
 		agentWorkOnContactRequests[0] = (AgentWork)ApplicationTestDataFactory.setUnwritableFields(agentWorkOnContactRequests[0], new Map<String, Object>{
-				'AcceptDateTime' => Datetime.now().addDays(-4)
+				'AcceptDateTime' => Datetime.now().addDays(-4),
+				'Case__c' => cases[0].Id
 		});
 		// related to contactRequests[1] linked to cases[1]. should be selected as latest AgentWork on Case.
 		agentWorkOnContactRequests[1] = (AgentWork)ApplicationTestDataFactory.setUnwritableFields(agentWorkOnContactRequests[1], new Map<String, Object>{
-				'AcceptDateTime' => Datetime.now().addDays(-4)
+				'AcceptDateTime' => Datetime.now().addDays(-4),
+				'Case__c' => cases[1].Id
 		});
 		// related to contactRequests[2] linked to cases[2]. should be selected as latest AgentWork on Case.
 		agentWorkOnContactRequests[2] = (AgentWork)ApplicationTestDataFactory.setUnwritableFields(agentWorkOnContactRequests[2], new Map<String, Object>{
-				'AcceptDateTime' => Datetime.now().addDays(-10)
+				'AcceptDateTime' => Datetime.now().addDays(-10),
+				'Case__c' => cases[2].Id
 		});
 
 		// =====================================
 		// Stubbing
 		// =====================================
 		AgentWorkSelector mockAgentWorksSelector = (AgentWorkSelector)MockUtility.mockSelector(AgentWorkSelector.class);
-		ContactRequestsSelector mockContactRequestsSelector = (ContactRequestsSelector)MockUtility.mockSelector(ContactRequestsSelector.class);
 
 		// set up our responses
 		MockUtility.Mocks.startStubbing();
-		MockUtility.Mocks.when(mockContactRequestsSelector.search((Map<String, Object>)fflib_Match.anyObject(), fflib_Match.eqBoolean(true))).thenReturn(contactRequests);
-		Set<Id> workItemIds = new Set<Id>{cases[0].Id, cases[1].Id, cases[2].Id, contactRequests[0].Id, contactRequests[1].Id, contactRequests[2].Id};
+		//MockUtility.Mocks.when(mockContactRequestsSelector.search((Map<String, Object>)fflib_Match.anyObject(), fflib_Match.eqBoolean(true))).thenReturn(contactRequests);
+		Set<Id> workItemIds = new Set<Id>{cases[0].Id, cases[1].Id, cases[2].Id};
 		// ensure AgentWork returned by mock selector is orderd simulating order by in query
-		List<AgentWork> agentWorkResults = new List<AgentWork>{agentWorkOnCases[1], agentWorkOnCases[0], agentWorkOnCases[2], agentWorkOnContactRequests[0], agentWorkOnContactRequests[1], agentWorkOnContactRequests[2]};
-		agentWorkResults.addAll(agentWorkOnContactRequests);
-		MockUtility.Mocks.when(mockAgentWorksSelector.selectByAcceptedWorkItemIdsAndActiveUser((Set<Id>)fflib_Match.eq(workItemIds), (Set<Object>)fflib_Match.anyObject())).thenReturn(agentWorkResults);
+		List<AgentWork> agentWorkResults = new List<AgentWork>{agentWorkOnCases[1], agentWorkOnContactRequests[0], agentWorkOnCases[0], agentWorkOnContactRequests[1], agentWorkOnCases[2], agentWorkOnContactRequests[2]};
+		MockUtility.Mocks.when(mockAgentWorksSelector.selectAcceptedAgentWorkByCaseIdsAndActiveUser((Set<Id>)fflib_Match.eq(workItemIds), (Set<Object>)fflib_Match.anyObject())).thenReturn(agentWorkResults);
 		MockUtility.Mocks.stopStubbing();
 
 		// =====================================
@@ -558,7 +505,7 @@ public class OmniChannelService_Test {
 		// =====================================
 		Test.startTest();
 
-		Map<Id, AgentWork> results = OmniChannelService.getInstance().getLatestAcceptedAgentWork(new Map<Id, Case>(cases), true);
+		Map<Id, AgentWork> results = OmniChannelService.getInstance().getLatestAcceptedAgentWorkInCaseScope(new Map<Id, Case>(cases).keySet());
 
 		Test.stopTest();
 
@@ -570,9 +517,6 @@ public class OmniChannelService_Test {
 		Assert.areEqual(agentWorkOnCases[1].Id, results.get(cases[0].Id).Id, 'Expected the last accepted AgentWork to be returned for cases[0] considering AgentWork on child contact requests.');
 		Assert.areEqual(agentWorkOnContactRequests[1].Id, results.get(cases[1].Id).Id, 'Expected the last accepted AgentWork to be returned for cases[1] considering AgentWork on child contact requests.');
 		Assert.areEqual(agentWorkOnContactRequests[2].Id, results.get(cases[2].Id).Id, 'Expected the last accepted AgentWork to be returned for cases[2] considering AgentWork on child contact requests.');
-
-		// verify contact request selector is called as we are setting includeChildContactRequestWorkItems=true to include contact request agent work.
-		((ContactRequestsSelector)MockUtility.Mocks.verify(mockContactRequestsSelector, 1)).search((Map<String, Object>)fflib_Match.anyObject(), fflib_Match.anyBoolean());
 	}
 
 	/**
