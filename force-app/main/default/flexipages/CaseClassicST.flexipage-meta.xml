@@ -2133,6 +2133,16 @@
                 <identifier>RecordOriginField5</identifier>
             </fieldInstance>
         </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>readonly</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Pickup_Booking_Reference__c</fieldItem>
+                <identifier>RecordPickup_Booking_Reference_cField</identifier>
+            </fieldInstance>
+        </itemInstances>
         <name>Facet-stlt3vy9q2</name>
         <type>Facet</type>
     </flexiPageRegions>
