@@ -9,7 +9,7 @@
  * 2020-07-22 - Nathan Franklin - Added field override capability
  * 2021-10-01 - Nathan Franklin - Added new fields list
  * 2022-11-23 - Mahesh Parvathaneni - Added selectByCaseIds method
- * 2023-03-10 - Mahesh Parvathaneni - Updated WITH_EVENTMESSAGES_DESC_ORDER options
+ * 2023-03-10 - Mahesh Parvathaneni - Updated WITH_EVENTMESSAGES_DESC_ORDER options 
  * 2024-05-29 - Seth Heang - Added ConsignmentTrackingNumber__c, FurtherReferences__c, ProductID__c, IsDelivered__c into SOQL field list 
  * 2024-04-24 - Vasu Gorakati - Added selectByArticleNames method
  * 2024-09-09 - Seth Heang - Added selectByConsignmentIdAndChildArticles and newInstance(fieldOverrides)
@@ -80,7 +80,7 @@ public virtual inherited sharing class ArticlesSelector extends ApplicationSelec
 				Article__c.InsuranceAmount__c, Article__c.InsuranceChargeAmount__c, Article__c.InsuranceSDR__c, Article__c.CTCDollarAmount__c, Article__c.AdditionalServices__c,
 				Article__c.AdditionalServicesPayload__c, Article__c.CustCommDecisionCode__c, Article__c.CustCommDecisionDescription__c, Article__c.CustDelPrefOptionCode__c,
 				Article__c.CustDelPrefDescription__c, Article__c.Notification__c, Article__c.RecordTypeId, Article__c.Description_of_Goods__c, Article__c.Customer_Ref__c,
-				Article__c.Delivered__c, Article__c.TrackingID__c, Article__c.Consignment__c, Article__c.MLID__c, Article__c.HasExtraCover__c, Article__c.CID__c, Article__c.ConsignmentTrackingNumber__c,
+				Article__c.Delivered__c, Article__c.TrackingID__c, Article__c.Consignment__c, Article__c.MLID__c, Article__c.HasExtraCover__c, Article__c.CID__c,  Article__c.ConsignmentTrackingNumber__c,
 				Article__c.FurtherReferences__c, Article__c.IsDelivered__c, Article__c.ProductID__c
 		};
 	}
@@ -290,6 +290,7 @@ public virtual inherited sharing class ArticlesSelector extends ApplicationSelec
 			builder.addConditions().add(new QueryBuilder.CompareCondition(Article__c.Network__c).ne('')).endConditions();
 			builder.addConditions().add(new QueryBuilder.NullCondition(Article__c.Network__c).notNull()).endConditions();
 		}
+
 		return builder;
 	}
 
