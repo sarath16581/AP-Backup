@@ -135,6 +135,9 @@
 						</td>
 						<td width="13%">&nbsp;</td>
 					</tr>
+					<tr>
+						<td colspan="3" style="font:2px Arial, Helvetica, sans-serif; color:White;">{!Case.Thread_Id}</td>
+					</tr>
 				</table>
 			</td>
 		</tr>
