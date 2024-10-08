@@ -164,6 +164,186 @@
         <type>Flexipage</type>
         <profile>SSSW - Service Agent</profile>
     </profileActionOverrides>
+	<profileActionOverrides>
+        <actionName>View</actionName>
+        <content>CaseClassicAP</content>
+        <formFactor>Small</formFactor>
+        <pageOrSobjectType>Case</pageOrSobjectType>
+        <recordType>Case.SSSWDelivery</recordType>
+        <type>Flexipage</type>
+        <profile>Unified Customer Service</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>CaseClassicAP</content>
+        <formFactor>Large</formFactor>
+        <pageOrSobjectType>Case</pageOrSobjectType>
+        <recordType>Case.SSSWDelivery</recordType>
+        <type>Flexipage</type>
+        <profile>Unified Customer Service</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>CaseClassicAP</content>
+        <formFactor>Small</formFactor>
+        <pageOrSobjectType>Case</pageOrSobjectType>
+        <recordType>Case.SSSWGeneralEnquiry</recordType>
+        <type>Flexipage</type>
+        <profile>Unified Customer Service</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>CaseClassicAP</content>
+        <formFactor>Large</formFactor>
+        <pageOrSobjectType>Case</pageOrSobjectType>
+        <recordType>Case.SSSWGeneralEnquiry</recordType>
+        <type>Flexipage</type>
+        <profile>Unified Customer Service</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>CaseClassicAP</content>
+        <formFactor>Small</formFactor>
+        <pageOrSobjectType>Case</pageOrSobjectType>
+        <recordType>Case.Social_Record_Type</recordType>
+        <type>Flexipage</type>
+        <profile>Unified Customer Service</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>CaseClassicAP</content>
+        <formFactor>Large</formFactor>
+        <pageOrSobjectType>Case</pageOrSobjectType>
+        <recordType>Case.Social_Record_Type</recordType>
+        <type>Flexipage</type>
+        <profile>Unified Customer Service</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>CaseClassicAP</content>
+        <formFactor>Small</formFactor>
+        <pageOrSobjectType>Case</pageOrSobjectType>
+        <recordType>Case.SSSWService</recordType>
+        <type>Flexipage</type>
+        <profile>Unified Customer Service</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>CaseClassicAP</content>
+        <formFactor>Large</formFactor>
+        <pageOrSobjectType>Case</pageOrSobjectType>
+        <recordType>Case.SSSWService</recordType>
+        <type>Flexipage</type>
+        <profile>Unified Customer Service</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>CaseClassicST</content>
+        <formFactor>Small</formFactor>
+        <pageOrSobjectType>Case</pageOrSobjectType>
+        <recordType>Case.StarTrack_Sales_Enquiry</recordType>
+        <type>Flexipage</type>
+        <profile>Unified Customer Service</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>CaseClassicST</content>
+        <formFactor>Large</formFactor>
+        <pageOrSobjectType>Case</pageOrSobjectType>
+        <recordType>Case.StarTrack_Sales_Enquiry</recordType>
+        <type>Flexipage</type>
+        <profile>Unified Customer Service</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>CaseClassicST</content>
+        <formFactor>Small</formFactor>
+        <pageOrSobjectType>Case</pageOrSobjectType>
+        <recordType>Case.StarTrack_Credit_Dispute_Claim</recordType>
+        <type>Flexipage</type>
+        <profile>Unified Customer Service</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>CaseClassicST</content>
+        <formFactor>Large</formFactor>
+        <pageOrSobjectType>Case</pageOrSobjectType>
+        <recordType>Case.StarTrack_Credit_Dispute_Claim</recordType>
+        <type>Flexipage</type>
+        <profile>Unified Customer Service</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>CaseClassicST</content>
+        <formFactor>Small</formFactor>
+        <pageOrSobjectType>Case</pageOrSobjectType>
+        <recordType>Case.StarTrack_PUD_Enquiry</recordType>
+        <type>Flexipage</type>
+        <profile>Unified Customer Service</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>CaseClassicST</content>
+        <formFactor>Large</formFactor>
+        <pageOrSobjectType>Case</pageOrSobjectType>
+        <recordType>Case.StarTrack_PUD_Enquiry</recordType>
+        <type>Flexipage</type>
+        <profile>Unified Customer Service</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>CaseClassicST</content>
+        <formFactor>Small</formFactor>
+        <pageOrSobjectType>Case</pageOrSobjectType>
+        <recordType>Case.StarTrack_General_Enquiry</recordType>
+        <type>Flexipage</type>
+        <profile>Unified Customer Service</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>CaseClassicST</content>
+        <formFactor>Large</formFactor>
+        <pageOrSobjectType>Case</pageOrSobjectType>
+        <recordType>Case.StarTrack_General_Enquiry</recordType>
+        <type>Flexipage</type>
+        <profile>Unified Customer Service</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>CaseClassicST</content>
+        <formFactor>Small</formFactor>
+        <pageOrSobjectType>Case</pageOrSobjectType>
+        <recordType>Case.StarTrack_Pickup_Booking_Enquiry</recordType>
+        <type>Flexipage</type>
+        <profile>Unified Customer Service</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>CaseClassicST</content>
+        <formFactor>Large</formFactor>
+        <pageOrSobjectType>Case</pageOrSobjectType>
+        <recordType>Case.StarTrack_Pickup_Booking_Enquiry</recordType>
+        <type>Flexipage</type>
+        <profile>Unified Customer Service</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>CaseClassicST</content>
+        <formFactor>Small</formFactor>
+        <pageOrSobjectType>Case</pageOrSobjectType>
+        <recordType>Case.StarTrack_Transit_Warranty_Claim</recordType>
+        <type>Flexipage</type>
+        <profile>Unified Customer Service</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>CaseClassicST</content>
+        <formFactor>Large</formFactor>
+        <pageOrSobjectType>Case</pageOrSobjectType>
+        <recordType>Case.StarTrack_Transit_Warranty_Claim</recordType>
+        <type>Flexipage</type>
+        <profile>Unified Customer Service</profile>
+    </profileActionOverrides>
     <setupExperience>service</setupExperience>
     <tabs>standard-home</tabs>
     <tabs>standard-Case</tabs>
