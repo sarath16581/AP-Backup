@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Prevent_Classic_Case_update_by_Unified</fullName>
+    <active>true</active>
+    <description>Classic case should be read only for Unified agents</description>
+    <errorConditionFormula>AND(
+	NOT(ISNEW()),
+	CONTAINS($Profile.Name, &apos;Unified&apos;),
+	OR(
+		RecordType.DeveloperName == &apos;StarTrack_General_Enquiry&apos;,
+		RecordType.DeveloperName == &apos;StarTrack_PUD_Enquiry&apos;,
+		RecordType.DeveloperName == &apos;StarTrack_Sales_Enquiry&apos;,
+		RecordType.DeveloperName == &apos;StarTrack_Credit_Dispute_Claim&apos;,
+		RecordType.DeveloperName == &apos;StarTrack_Pickup_Booking_Enquiry&apos;,
+		RecordType.DeveloperName == &apos;StarTrack_Transit_Warranty_Claim&apos;,
+		RecordType.DeveloperName == &apos;SSSWDelivery&apos;,
+		RecordType.DeveloperName == &apos;SSSWGeneralEnquiry&apos;,
+		RecordType.DeveloperName == &apos;SSSWService&apos;,
+		RecordType.DeveloperName == &apos;Social_Record_Type&apos;
+	)
+)</errorConditionFormula>
+    <errorMessage>Updates are not allowed on Classic cases.</errorMessage>
+</ValidationRule>
