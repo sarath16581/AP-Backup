@@ -214,7 +214,7 @@ public with sharing class UnifiedCaseHistoryController {
 	 * @return Boolean
 	 */
 	private static Boolean isUnifiedGeneralEnquiryRecordTypeCase(Case caseRecord) {
-		return caseRecord.RecordType.DeveloperName == UNIFIED_GENERAL_ENQUIRY_CASE_RT;
+		return caseRecord?.RecordType?.DeveloperName == UNIFIED_GENERAL_ENQUIRY_CASE_RT;
 	}
 
 	/**
@@ -224,7 +224,7 @@ public with sharing class UnifiedCaseHistoryController {
 	 * @return Boolean
 	 */
 	private static Boolean isOpenedUnifiedCase(Case caseRecord) {
-		return CommonUtils.isUnifiedCase(caseRecord.RecordType.DeveloperName) && caseRecord.IsClosed == false;
+		return CommonUtils.isUnifiedCase(caseRecord?.RecordType?.DeveloperName) && caseRecord?.IsClosed == false;
 	}
 
 	/**
@@ -234,7 +234,7 @@ public with sharing class UnifiedCaseHistoryController {
 	 * @return Boolean
 	 */
 	private static Boolean isOpenedClassicORUnifiedInvestigationCase(Case caseRecord) {
-		return caseRecord.Type != INVESTIGATION_TYPE && caseRecord.IsClosed == false;
+		return caseRecord?.Type != INVESTIGATION_TYPE && caseRecord?.IsClosed == false;
 	}
 
 	/**
