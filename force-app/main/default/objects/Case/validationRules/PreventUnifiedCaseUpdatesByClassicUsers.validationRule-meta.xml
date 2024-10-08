@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
-    <fullName>Prevent_Unified_Case_update_by_Classic</fullName>
+    <fullName>PreventUnifiedCaseUpdatesByClassicUsers</fullName>
     <active>true</active>
     <description>Unified case should be read only for Classic agents</description>
     <errorConditionFormula>AND(
