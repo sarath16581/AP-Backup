@@ -1933,10 +1933,6 @@
         <layout>Case-Unified Case Read Only Layout</layout>
         <recordType>Case.StarTrack_Pickup_Booking_Enquiry</recordType>
     </layoutAssignments>
-    <layoutAssignments>
-        <layout>Case-Unified Case Read Only Layout</layout>
-        <recordType>Case.StarTrack_Sales_Enquiry</recordType>
-    </layoutAssignments>
 	<layoutAssignments>
         <layout>Case-Unified Case Read Only Layout</layout>
         <recordType>Case.StarTrack_Transit_Warranty_Claim</recordType>
