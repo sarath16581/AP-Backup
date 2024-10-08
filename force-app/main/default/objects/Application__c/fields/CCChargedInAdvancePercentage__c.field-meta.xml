@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>CCChargedInAdvancePercentage__c</fullName>
     <description>Payments made in advance, where the cardholder is charged prior to receiving goods or service - Percentage</description>
-    <externalId>false</externalId>
     <inlineHelpText>Payment received in advance of customer receiving goods/services</inlineHelpText>
     <label>CC Charged In Advance - Percentage</label>
     <precision>3</precision>

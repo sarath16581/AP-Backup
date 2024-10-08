@@ -3,7 +3,6 @@
     <fullName>APT_Product__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <description>Product Lookup</description>
-    <externalId>false</externalId>
     <label>Product</label>
     <referenceTo>Product2</referenceTo>
     <relationshipLabel>Pricing Data</relationshipLabel>

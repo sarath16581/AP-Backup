@@ -17,8 +17,22 @@
     <groups>SSSW Knowledge Publish Articles</groups>
     <groups>Community Agents</groups>
     <groups>SSSW BO Admin</groups>
+    <groups>Knowledge: Article Managers</groups>
+    <groups>Knowledge: Australia Post</groups>
+    <groups>Knowledge: FAQ</groups>
+    <groups>Knowledge: Manager</groups>
+    <groups>Knowledge: Recovery Team</groups>
+    <groups>Knowledge: Specialist Skill</groups>
+    <groups>Knowledge: StarTrack</groups>
+    <groups>Unified Agent</groups>
+    <groups>Unified Knowledge and Content</groups>
+    <groups>Unified Team Lead</groups>
+    <groups>Unified Team Support Lead</groups>
     <label>AP CCC Admin</label>
     <loginAccess>false</loginAccess>
+    <permissionSetGroups>Unified Agent</permissionSetGroups>
+    <permissionSetGroups>Unified Agent Knowledge and Content</permissionSetGroups>
+    <permissionSetGroups>Unified Agent Team Lead</permissionSetGroups>
     <permissionSets>SSSW Omni Supervisor PermSet</permissionSets>
     <permissionSets>SSSW Allow Quick Text</permissionSets>
     <permissionSets>SSSW Callback Reminder Manager</permissionSets>
@@ -43,11 +57,16 @@
     <permissionSets>SSSW Social Media Management Permissions</permissionSets>
     <permissionSets>SSSW Live Agent Management</permissionSets>
     <permissionSets>SSSW_Knowledge_Management FAQ</permissionSets>
+    <permissionSets>Knowledge - API</permissionSets>
+    <permissionSets>Knowledge - Manage Articles</permissionSets>
+    <permissionSets>Knowledge - Manage FAQs</permissionSets>
+    <permissionSets>Knowledge - View Articles</permissionSets>
     <permissionSets>ACL Remediation</permissionSets>
     <permissionSets>CC Compensation Supervisor</permissionSets>
     <permissionSets>CC Compensation User</permissionSets>
     <profiles>MyNetwork Portal</profiles>
     <profiles>SSSW Read Only</profiles>
     <profiles>SSSW - Service Agent</profiles>
+    <profiles>Unified Customer Service</profiles>
     <roles>SSSW Management</roles>
 </DelegateGroup>

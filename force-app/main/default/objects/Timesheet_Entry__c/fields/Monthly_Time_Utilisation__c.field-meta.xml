@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Monthly_Time_Utilisation__c</fullName>
     <description>associate time sheet record to Monthly Time Utilisation record</description>
-    <externalId>false</externalId>
     <label>Monthly Time Utilisation</label>
     <referenceTo>Monthly_Time_Utilisation__c</referenceTo>
     <relationshipLabel>Timesheet Entries</relationshipLabel>

@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>MHS_Published_Rate__c</fullName>
-    <externalId>false</externalId>
     <inlineHelpText>The Manual Handling Surcharge that has been agreed to and is applicable in the given year.</inlineHelpText>
     <label>MHS Published Amount</label>
     <precision>12</precision>

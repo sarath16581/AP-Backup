@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__InstanceUrl__c</fullName>
     <deprecated>false</deprecated>
     <description>The Salesforce instance url</description>
-    <externalId>false</externalId>
     <inlineHelpText>The url of your Salesforce instance. The instance url will be used to create an absolute url for your custom pages.</inlineHelpText>
     <label>Instance Url</label>
     <required>false</required>

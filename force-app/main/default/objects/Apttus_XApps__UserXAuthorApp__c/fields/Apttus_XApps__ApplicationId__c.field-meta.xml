@@ -3,7 +3,6 @@
     <fullName>Apttus_XApps__ApplicationId__c</fullName>
     <deprecated>false</deprecated>
     <description>X-Author Application ID</description>
-    <externalId>false</externalId>
     <label>Application</label>
     <referenceTo>Apttus_XApps__Application__c</referenceTo>
     <relationshipName>UserXAuthorApps</relationshipName>

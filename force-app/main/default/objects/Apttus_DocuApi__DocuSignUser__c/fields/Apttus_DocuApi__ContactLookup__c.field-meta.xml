@@ -4,7 +4,6 @@
     <deleteConstraint>SetNull</deleteConstraint>
     <deprecated>false</deprecated>
     <description>Contact Lookup System only user.(For contact search to get Email and Title) as recipient</description>
-    <externalId>false</externalId>
     <label>Contact Lookup</label>
     <referenceTo>Contact</referenceTo>
     <relationshipLabel>DocuSignUsers</relationshipLabel>

@@ -3,7 +3,6 @@
     <fullName>Uniforms_Special_Condition__c</fullName>
     <defaultValue>false</defaultValue>
     <description>Is AP corporate uniform to be worn by staff?</description>
-    <externalId>false</externalId>
     <inlineHelpText>Is AP corporate uniform to be worn by staff?</inlineHelpText>
     <label>Uniforms Special Condition</label>
     <securityClassification>INTERNAL</securityClassification>

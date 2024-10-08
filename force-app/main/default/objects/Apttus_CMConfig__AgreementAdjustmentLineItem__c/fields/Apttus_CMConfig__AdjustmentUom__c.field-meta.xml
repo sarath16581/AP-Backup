@@ -3,7 +3,6 @@
     <fullName>Apttus_CMConfig__AdjustmentUom__c</fullName>
     <deprecated>false</deprecated>
     <description>The adjustment unit of measure</description>
-    <externalId>false</externalId>
     <inlineHelpText>The adjustment unit of measure</inlineHelpText>
     <label>Adjustment Uom</label>
     <required>false</required>

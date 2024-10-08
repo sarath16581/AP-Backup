@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Ancillary_Pricing_Conditions__c</fullName>
     <description>To attach/include any Ancillary Pricing &amp; Conditions that are applicable to this request</description>
-    <externalId>false</externalId>
     <label>Ancillary Pricing &amp; Conditions</label>
     <length>5000</length>
     <securityClassification>OFFICIAL_SENSITIVE</securityClassification>

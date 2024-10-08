@@ -3,7 +3,6 @@
     <fullName>Campaign_Contact_Owner__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <description>This field will give Campaign Contact Assignment visibility to the user in this field along with the Account Manager.</description>
-    <externalId>false</externalId>
     <label>Campaign Contact Owner</label>
     <referenceTo>User</referenceTo>
     <relationshipName>Campaign_Contact_Assignments</relationshipName>

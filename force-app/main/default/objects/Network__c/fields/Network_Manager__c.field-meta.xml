@@ -3,7 +3,6 @@
     <fullName>Network_Manager__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <description>Partner Info - Approval authority to assign new Licences to LPO or update existing Licences</description>
-    <externalId>false</externalId>
     <inlineHelpText>This user has the authority to approve new Licences to LPO or update existing Licences.</inlineHelpText>
     <label>Network Manager</label>
     <referenceTo>User</referenceTo>

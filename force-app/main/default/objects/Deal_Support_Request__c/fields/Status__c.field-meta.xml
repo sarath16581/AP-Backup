@@ -3,7 +3,6 @@
     <fullName>Status__c</fullName>
     <description>Status of the request
 //INC2228959 reverted Restrict picklist to TRUE, unknown why unchecked.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Please select most accurate option available from the list.</inlineHelpText>
     <label>Status</label>
     <required>false</required>

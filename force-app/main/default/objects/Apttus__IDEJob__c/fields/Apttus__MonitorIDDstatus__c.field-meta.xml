@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Indicates whether IDD status is getting monitored.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Indicates whether IDD status is getting monitored.</inlineHelpText>
     <label>Monitor IDD status?</label>
     <trackTrending>false</trackTrending>

@@ -3,7 +3,6 @@
     <fullName>Apttus_QPConfig__NetPrice__c</fullName>
     <deprecated>false</deprecated>
     <description>The net price for the group is the Adjusted Price after applying the Group Adjustment %</description>
-    <externalId>false</externalId>
     <label>Net Price</label>
     <precision>18</precision>
     <required>false</required>

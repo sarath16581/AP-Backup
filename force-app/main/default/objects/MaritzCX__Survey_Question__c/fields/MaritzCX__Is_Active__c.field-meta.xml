@@ -4,7 +4,6 @@
     <defaultValue>true</defaultValue>
     <deprecated>false</deprecated>
     <description>This flag field is inactive if it is deselected from the Allegiance Question Mapping Configuration</description>
-    <externalId>false</externalId>
     <label>Is Active</label>
     <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>

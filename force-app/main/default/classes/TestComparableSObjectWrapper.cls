@@ -36,12 +36,10 @@ private class TestComparableSObjectWrapper {
         
         wrappers2.sort();
         
-        //if the sort field is not a number field then the SObjects are considered equal and sorting returns the same list
-        System.assertEquals('Acc50', wrappers2[0].sObj.get('Name'));
+        //if the sort field is not a number field then still sort the SObjects
+        System.assertEquals('Acc50', wrappers2[3].sObj.get('Name'));
         System.assertEquals('Acc20', wrappers2[1].sObj.get('Name'));
         System.assertEquals('Acc25', wrappers2[2].sObj.get('Name'));
-        System.assertEquals('Acc10', wrappers2[3].sObj.get('Name'));
-        
-        
+        System.assertEquals('Acc10', wrappers2[0].sObj.get('Name'));        
     }
 }

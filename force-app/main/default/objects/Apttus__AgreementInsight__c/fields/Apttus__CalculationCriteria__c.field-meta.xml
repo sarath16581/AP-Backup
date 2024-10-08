@@ -3,7 +3,6 @@
     <fullName>Apttus__CalculationCriteria__c</fullName>
     <deprecated>false</deprecated>
     <description>Displays the formula for the calculation done on the defined criteria</description>
-    <externalId>false</externalId>
     <inlineHelpText>Displays the formula for the calculation done on the defined criteria</inlineHelpText>
     <label>Calculation Criteria</label>
     <length>131072</length>

@@ -3,7 +3,6 @@
     <fullName>Green_Sheet_Read_Only_License__c</fullName>
     <defaultValue>false</defaultValue>
     <description>SAM Green Sheet Read Only license for large orgs.</description>
-    <externalId>false</externalId>
     <label>Green Sheet Read Only License</label>
     <trackFeedHistory>false</trackFeedHistory>
     <type>Checkbox</type>

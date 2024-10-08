@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Who_pays_for_the_background_checks__c</fullName>
     <description>Solution profiling; is it user pays or merchant pays?</description>
-    <externalId>false</externalId>
     <inlineHelpText>Solution profiling; is it user pays or merchant pays?</inlineHelpText>
     <label>Who pays for the background checks?</label>
     <required>false</required>

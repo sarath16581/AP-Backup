@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<MilestoneType xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>SLA target milestone will be violated after 5 business days + 20 minutes</description>
+    <recurrenceType>none</recurrenceType>
+</MilestoneType>

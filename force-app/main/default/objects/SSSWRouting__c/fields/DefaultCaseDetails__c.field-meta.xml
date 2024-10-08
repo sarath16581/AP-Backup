@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>DefaultCaseDetails__c</fullName>
-    <externalId>false</externalId>
     <inlineHelpText>NOTE: Only the matching criteria for the “Consumer” Type and associated Clearview Codes will be used when assigning a default value for Case Details. (i.e the Customer type criteria is ignored when a match is found.)</inlineHelpText>
     <label>Default Case Details</label>
     <length>32768</length>

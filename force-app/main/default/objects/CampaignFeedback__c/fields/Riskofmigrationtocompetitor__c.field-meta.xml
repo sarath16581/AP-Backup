@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Riskofmigrationtocompetitor__c</fullName>
     <description>Are there any future signs or issues that will result in this customer migrating to a competitor?</description>
-    <externalId>false</externalId>
     <inlineHelpText>Are there any future signs or issues that will result in this customer migrating to a competitor?</inlineHelpText>
     <label>Risk of migration to competitor</label>
     <required>false</required>

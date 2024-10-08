@@ -3,7 +3,6 @@
     <fullName>Apttus_CMConfig__ABOType__c</fullName>
     <deprecated>false</deprecated>
     <description>The asset based order type</description>
-    <externalId>false</externalId>
     <inlineHelpText>The asset based order type</inlineHelpText>
     <label>ABO Type</label>
     <required>false</required>

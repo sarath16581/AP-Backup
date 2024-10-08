@@ -3,7 +3,6 @@
     <fullName>Apttus_Approval__Entry_Criteria_Active__c</fullName>
     <defaultValue>true</defaultValue>
     <deprecated>false</deprecated>
-    <externalId>false</externalId>
     <label>Entry Criteria Active</label>
     <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>

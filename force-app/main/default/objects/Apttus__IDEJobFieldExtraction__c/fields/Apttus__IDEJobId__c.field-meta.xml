@@ -3,7 +3,6 @@
     <fullName>Apttus__IDEJobId__c</fullName>
     <deprecated>false</deprecated>
     <description>ID of the associated job</description>
-    <externalId>false</externalId>
     <inlineHelpText>ID of the associated job</inlineHelpText>
     <label>IDE Job</label>
     <referenceTo>Apttus__IDEJob__c</referenceTo>

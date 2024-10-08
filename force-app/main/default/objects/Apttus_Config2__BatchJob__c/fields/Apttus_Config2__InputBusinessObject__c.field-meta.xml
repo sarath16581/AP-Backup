@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__InputBusinessObject__c</fullName>
     <deprecated>false</deprecated>
     <description>The business object which provides the context for the input filter</description>
-    <externalId>false</externalId>
     <inlineHelpText>The business object which provides the context for the input filter</inlineHelpText>
     <label>Input Business Object</label>
     <required>false</required>

@@ -4,7 +4,6 @@
     <deleteConstraint>SetNull</deleteConstraint>
     <deprecated>false</deprecated>
     <description>Last Blue sheet used in the self guided journey</description>
-    <externalId>false</externalId>
     <label>Blue Sheet Used</label>
     <referenceTo>kfsell__Blue_Sheet__c</referenceTo>
     <relationshipLabel>Self Guided Journeys</relationshipLabel>

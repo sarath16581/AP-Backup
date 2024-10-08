@@ -3,7 +3,6 @@
     <fullName>CampaignName__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <description>Enter Campaign name or lookup an existing Campaign name</description>
-    <externalId>false</externalId>
     <inlineHelpText>Enter Campaign name or lookup an existing Campaign name.</inlineHelpText>
     <label>Campaign Name</label>
     <referenceTo>Campaign</referenceTo>

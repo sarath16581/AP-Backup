@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>APT_Help_Text_PrintPost__c</fullName>
     <defaultValue>&quot;Customers must lodge a minimum of 100 items per lodgement and a minimum of 2 annual lodgements to qualify for Print Post.&quot;</defaultValue>
-    <externalId>false</externalId>
     <label>Help Text</label>
     <length>32768</length>
     <securityClassification>INTERNAL</securityClassification>

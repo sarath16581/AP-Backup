@@ -3,7 +3,6 @@
     <fullName>OpportunityProduct__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <description>Sales Forecast for December</description>
-    <externalId>false</externalId>
     <inlineHelpText>Sales Forecast for December</inlineHelpText>
     <label>Opportunity Product</label>
     <referenceTo>OpportunityLineItem</referenceTo>

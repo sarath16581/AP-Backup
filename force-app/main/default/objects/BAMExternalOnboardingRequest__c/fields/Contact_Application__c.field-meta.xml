@@ -3,7 +3,6 @@
     <fullName>Contact_Application__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <description>The related Contact Application</description>
-    <externalId>false</externalId>
     <label>BAM Contact Application</label>
     <referenceTo>BAMContactApplication__c</referenceTo>
     <relationshipName>BAM_External_Onboarding_Requests</relationshipName>

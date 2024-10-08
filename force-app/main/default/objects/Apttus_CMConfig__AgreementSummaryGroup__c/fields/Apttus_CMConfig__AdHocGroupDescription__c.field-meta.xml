@@ -3,7 +3,6 @@
     <fullName>Apttus_CMConfig__AdHocGroupDescription__c</fullName>
     <deprecated>false</deprecated>
     <description>The ad hoc group description</description>
-    <externalId>false</externalId>
     <label>Ad Hoc Group Description</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>

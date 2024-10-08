@@ -3,7 +3,6 @@
     <fullName>Apttus_DealMgr__ExtendedListPrice__c</fullName>
     <deprecated>false</deprecated>
     <description>The extended list price for the group</description>
-    <externalId>false</externalId>
     <label>Extended List Price</label>
     <precision>18</precision>
     <required>false</required>

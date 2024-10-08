@@ -3,7 +3,6 @@
     <fullName>LPO_WCC__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <description>The purpose of this field is to leverage a unique ID to clearly identify which LPO the lead originated from.</description>
-    <externalId>false</externalId>
     <label>LPO WCC</label>
     <referenceTo>Network__c</referenceTo>
     <relationshipLabel>Leads</relationshipLabel>

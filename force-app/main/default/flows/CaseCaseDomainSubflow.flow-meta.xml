@@ -15,6 +15,7 @@
             </value>
         </inputParameters>
         <nameSegment>Case.ACIC_Send_Case_Status_Notification</nameSegment>
+        <offset>0</offset>
         <versionSegment>1</versionSegment>
     </actionCalls>
     <actionCalls>
@@ -35,6 +36,7 @@
             </value>
         </inputParameters>
         <nameSegment>Case.ASH_Email_Alert_on_new_case_creation</nameSegment>
+        <offset>0</offset>
         <versionSegment>1</versionSegment>
     </actionCalls>
     <actionCalls>
@@ -53,6 +55,7 @@
             </value>
         </inputParameters>
         <nameSegment>Case.Bulk_Mail_Send_an_Email_when_a_Case_closed</nameSegment>
+        <offset>0</offset>
         <versionSegment>1</versionSegment>
     </actionCalls>
     <actionCalls>
@@ -71,6 +74,7 @@
             </value>
         </inputParameters>
         <nameSegment>Case.Bulk_Mail_Send_an_Email_when_a_Case_reopened</nameSegment>
+        <offset>0</offset>
         <versionSegment>1</versionSegment>
     </actionCalls>
     <actionCalls>
@@ -89,6 +93,7 @@
             </value>
         </inputParameters>
         <nameSegment>Case.Bulk_Mail_Send_an_Email_when_a_new_Case_created</nameSegment>
+        <offset>0</offset>
         <versionSegment>1</versionSegment>
     </actionCalls>
     <actionCalls>
@@ -109,6 +114,7 @@
             </value>
         </inputParameters>
         <nameSegment>Case.Customer_Analytics_Reporting_Cases_Auto_Email_Response</nameSegment>
+        <offset>0</offset>
         <versionSegment>1</versionSegment>
     </actionCalls>
     <actionCalls>
@@ -127,6 +133,7 @@
             </value>
         </inputParameters>
         <nameSegment>Case.CAR_Send_Email_Closed_Alert</nameSegment>
+        <offset>0</offset>
         <versionSegment>1</versionSegment>
     </actionCalls>
     <actionCalls>
@@ -144,6 +151,7 @@
             </value>
         </inputParameters>
         <nameSegment>Case.CAR_Send_Email_Closed_Bounce_Back_Alert</nameSegment>
+        <offset>0</offset>
         <versionSegment>1</versionSegment>
     </actionCalls>
     <actionCalls>
@@ -164,6 +172,7 @@
             </value>
         </inputParameters>
         <nameSegment>Case.Dispute_Case_Approved</nameSegment>
+        <offset>0</offset>
         <versionSegment>1</versionSegment>
     </actionCalls>
     <actionCalls>
@@ -184,6 +193,7 @@
             </value>
         </inputParameters>
         <nameSegment>Case.Dispute_Case_Approved_StarTrack</nameSegment>
+        <offset>0</offset>
         <versionSegment>1</versionSegment>
     </actionCalls>
     <actionCalls>
@@ -201,6 +211,7 @@
             </value>
         </inputParameters>
         <nameSegment>Case.email_non_compliance_case</nameSegment>
+        <offset>0</offset>
         <versionSegment>1</versionSegment>
     </actionCalls>
     <actionCalls>
@@ -221,6 +232,7 @@
             </value>
         </inputParameters>
         <nameSegment>Case.Late_Payment_Dispute_Case_Approved</nameSegment>
+        <offset>0</offset>
         <versionSegment>1</versionSegment>
     </actionCalls>
     <actionCalls>
@@ -239,6 +251,7 @@
             </value>
         </inputParameters>
         <nameSegment>Case.NetworkPartnerCaseClosureEmail</nameSegment>
+        <offset>0</offset>
         <versionSegment>1</versionSegment>
     </actionCalls>
     <actionCalls>
@@ -259,6 +272,7 @@
             </value>
         </inputParameters>
         <nameSegment>Case.New_Dispute_Claim_Case_Created</nameSegment>
+        <offset>0</offset>
         <versionSegment>1</versionSegment>
     </actionCalls>
     <actionCalls>
@@ -279,6 +293,7 @@
             </value>
         </inputParameters>
         <nameSegment>Case.New_Dispute_Claim_Case_Created_Origin_Email</nameSegment>
+        <offset>0</offset>
         <versionSegment>1</versionSegment>
     </actionCalls>
     <actionCalls>
@@ -299,6 +314,7 @@
             </value>
         </inputParameters>
         <nameSegment>Case.New_Dispute_Claim_Case_Created_StarTrack</nameSegment>
+        <offset>0</offset>
         <versionSegment>1</versionSegment>
     </actionCalls>
     <actionCalls>
@@ -319,6 +335,7 @@
             </value>
         </inputParameters>
         <nameSegment>Case.New_Dispute_Claim_Case_Created_StarTrack_Origin_Email</nameSegment>
+        <offset>0</offset>
         <versionSegment>1</versionSegment>
     </actionCalls>
     <actionCalls>
@@ -339,6 +356,7 @@
             </value>
         </inputParameters>
         <nameSegment>Case.New_Late_Payment_Dispute_Claim_Case_Created</nameSegment>
+        <offset>0</offset>
         <versionSegment>1</versionSegment>
     </actionCalls>
     <actionCalls>
@@ -360,6 +378,7 @@
             </value>
         </inputParameters>
         <nameSegment>Case.NetworkPartnerCaseCreationEmail</nameSegment>
+        <offset>0</offset>
         <versionSegment>1</versionSegment>
     </actionCalls>
     <actionCalls>
@@ -377,6 +396,7 @@
             </value>
         </inputParameters>
         <nameSegment>Case.Notify_Account_Manager_Dispute_Case_Result</nameSegment>
+        <offset>0</offset>
         <versionSegment>1</versionSegment>
     </actionCalls>
     <actionCalls>
@@ -397,6 +417,7 @@
             </value>
         </inputParameters>
         <nameSegment>Case.Sales_Coordinator_Case_Created_Notification</nameSegment>
+        <offset>0</offset>
         <versionSegment>1</versionSegment>
     </actionCalls>
     <actionCalls>
@@ -417,6 +438,7 @@
             </value>
         </inputParameters>
         <nameSegment>Case.Security_Express_Case_Creation_Email_Alert</nameSegment>
+        <offset>0</offset>
         <versionSegment>1</versionSegment>
     </actionCalls>
     <actionCalls>
@@ -435,6 +457,7 @@
             </value>
         </inputParameters>
         <nameSegment>Case.Transport_Enquiry_Send_a_Email_when_a_new_Email_to_Case_has_been_created</nameSegment>
+        <offset>0</offset>
         <versionSegment>1</versionSegment>
     </actionCalls>
     <actionCalls>
@@ -452,6 +475,7 @@
             </value>
         </inputParameters>
         <nameSegment>Case.Special_Services_Case_Creation_Email_Alert</nameSegment>
+        <offset>0</offset>
         <versionSegment>1</versionSegment>
     </actionCalls>
     <apiVersion>59.0</apiVersion>
@@ -1298,27 +1322,32 @@
     <formulas>
         <name>vNewACK</name>
         <dataType>Boolean</dataType>
-        <expression>AND(NOT(ISBLANK({!vCase.Email_Address__c})), ISPICKVAL({!vCase.Status}, &apos;New&apos;), {!vCase.Exclude_Notification_Automation__c} = false, ISPICKVAL({!vCase.Business_Unit__c}, &apos;Australia Post&apos;), NOT(ISPICKVAL({!vCase.ReasonforCreditClaim__c}, &apos;Late payment&apos;)),  NOT(ISPICKVAL({!vCase.Origin}, &apos;Email&apos;))  )</expression>
+        <expression>AND(NOT(ISBLANK({!vCase.Email_Address__c})), ISPICKVAL({!vCase.Status}, &apos;New&apos;), {!vCase.Exclude_Notification_Automation__c} = false, ISPICKVAL({!vCase.Business_Unit__c}, &apos;Australia Post&apos;), NOT(ISPICKVAL({!vCase.ReasonforCreditClaim__c}, &apos;Late payment&apos;)),  NOT(ISPICKVAL({!vCase.Origin}, &apos;Email&apos;)), NOT(BEGINS({!vCase.Email_Address__c}, &apos;noreply&apos;)), NOT(BEGINS({!vCase.Email_Address__c}, &apos;no-reply&apos;)),  NOT(BEGINS({!vCase.Email_Address__c}, &apos;postmaster&apos;)), NOT(BEGINS({!vCase.Email_Address__c}, &apos;mailer-daemon&apos;)), NOT(CONTAINS(
+LOWER({!$Setup.StarTrack_Settings__c.Blacklisted_Sender_Email_Addresses__c}),LOWER({!vCase.Email_Address__c}))))</expression>
     </formulas>
     <formulas>
         <name>vNewACKLatePayment</name>
         <dataType>Boolean</dataType>
-        <expression>AND(NOT(ISBLANK({!vCase.Email_Address__c})), ISPICKVAL({!vCase.Status}, &apos;New&apos;), {!vCase.Exclude_Notification_Automation__c} = false, OR(ISPICKVAL({!vCase.Business_Unit__c}, &apos;Australia Post&apos;), ISPICKVAL({!vCase.Business_Unit__c}, &apos;StarTrack&apos;)), ISPICKVAL({!vCase.Enquiry_Type__c}, &apos;Billing Dispute&apos;), ISPICKVAL({!vCase.ReasonforCreditClaim__c}, &apos;Late payment&apos;))</expression>
+        <expression>AND(NOT(ISBLANK({!vCase.Email_Address__c})), ISPICKVAL({!vCase.Status}, &apos;New&apos;), {!vCase.Exclude_Notification_Automation__c} = false, OR(ISPICKVAL({!vCase.Business_Unit__c}, &apos;Australia Post&apos;), ISPICKVAL({!vCase.Business_Unit__c}, &apos;StarTrack&apos;)), ISPICKVAL({!vCase.Enquiry_Type__c}, &apos;Billing Dispute&apos;), ISPICKVAL({!vCase.ReasonforCreditClaim__c}, &apos;Late payment&apos;),NOT(BEGINS({!vCase.Email_Address__c}, &apos;noreply&apos;)), NOT(BEGINS({!vCase.Email_Address__c}, &apos;no-reply&apos;)),  NOT(BEGINS({!vCase.Email_Address__c}, &apos;postmaster&apos;)), NOT(BEGINS({!vCase.Email_Address__c}, &apos;mailer-daemon&apos;)), NOT(CONTAINS(
+LOWER({!$Setup.StarTrack_Settings__c.Blacklisted_Sender_Email_Addresses__c}),LOWER({!vCase.Email_Address__c}))))</expression>
     </formulas>
     <formulas>
         <name>vNewACKOriginEmail</name>
         <dataType>Boolean</dataType>
-        <expression>AND(NOT(ISBLANK({!vCase.Email_Address__c})), ISPICKVAL({!vCase.Status}, &apos;New&apos;), {!vCase.Exclude_Notification_Automation__c} = false, ISPICKVAL({!vCase.Business_Unit__c}, &apos;Australia Post&apos;), NOT(ISPICKVAL({!vCase.ReasonforCreditClaim__c}, &apos;Late payment&apos;)),  ISPICKVAL({!vCase.Origin}, &apos;Email&apos;)  )</expression>
+        <expression>AND(NOT(ISBLANK({!vCase.Email_Address__c})), ISPICKVAL({!vCase.Status}, &apos;New&apos;), {!vCase.Exclude_Notification_Automation__c} = false, ISPICKVAL({!vCase.Business_Unit__c}, &apos;Australia Post&apos;), NOT(ISPICKVAL({!vCase.ReasonforCreditClaim__c}, &apos;Late payment&apos;)),  ISPICKVAL({!vCase.Origin}, &apos;Email&apos;),NOT(BEGINS({!vCase.Email_Address__c}, &apos;noreply&apos;)), NOT(BEGINS({!vCase.Email_Address__c}, &apos;no-reply&apos;)),  NOT(BEGINS({!vCase.Email_Address__c}, &apos;postmaster&apos;)), NOT(BEGINS({!vCase.Email_Address__c}, &apos;mailer-daemon&apos;)), NOT(CONTAINS(
+LOWER({!$Setup.StarTrack_Settings__c.Blacklisted_Sender_Email_Addresses__c}),LOWER({!vCase.Email_Address__c}))))</expression>
     </formulas>
     <formulas>
         <name>vNewACKStarTrack</name>
         <dataType>Boolean</dataType>
-        <expression>AND(NOT(ISBLANK({!vCase.Email_Address__c})), ISPICKVAL({!vCase.Status}, &apos;New&apos;), {!vCase.Exclude_Notification_Automation__c} = false, ISPICKVAL({!vCase.Business_Unit__c}, &apos;StarTrack&apos;), NOT(ISPICKVAL({!vCase.ReasonforCreditClaim__c}, &apos;Late payment&apos;)), NOT(ISPICKVAL({!vCase.Origin}, &apos;Email&apos;)) )</expression>
+        <expression>AND(NOT(ISBLANK({!vCase.Email_Address__c})), ISPICKVAL({!vCase.Status}, &apos;New&apos;), {!vCase.Exclude_Notification_Automation__c} = false, ISPICKVAL({!vCase.Business_Unit__c}, &apos;StarTrack&apos;), NOT(ISPICKVAL({!vCase.ReasonforCreditClaim__c}, &apos;Late payment&apos;)), NOT(ISPICKVAL({!vCase.Origin}, &apos;Email&apos;)),NOT(BEGINS({!vCase.Email_Address__c}, &apos;noreply&apos;)), NOT(BEGINS({!vCase.Email_Address__c}, &apos;no-reply&apos;)),  NOT(BEGINS({!vCase.Email_Address__c}, &apos;postmaster&apos;)), NOT(BEGINS({!vCase.Email_Address__c}, &apos;mailer-daemon&apos;)), NOT(CONTAINS(
+LOWER({!$Setup.StarTrack_Settings__c.Blacklisted_Sender_Email_Addresses__c}),LOWER({!vCase.Email_Address__c}))))</expression>
     </formulas>
     <formulas>
         <name>vNewACKStarTrackOriginEmail</name>
         <dataType>Boolean</dataType>
-        <expression>AND(NOT(ISBLANK({!vCase.Email_Address__c})), ISPICKVAL({!vCase.Status}, &apos;New&apos;), {!vCase.Exclude_Notification_Automation__c} = false, ISPICKVAL({!vCase.Business_Unit__c}, &apos;StarTrack&apos;), NOT(ISPICKVAL({!vCase.ReasonforCreditClaim__c}, &apos;Late payment&apos;)), ISPICKVAL({!vCase.Origin}, &apos;Email&apos;))</expression>
+        <expression>AND(NOT(ISBLANK({!vCase.Email_Address__c})), ISPICKVAL({!vCase.Status}, &apos;New&apos;), {!vCase.Exclude_Notification_Automation__c} = false, ISPICKVAL({!vCase.Business_Unit__c}, &apos;StarTrack&apos;), NOT(ISPICKVAL({!vCase.ReasonforCreditClaim__c}, &apos;Late payment&apos;)), ISPICKVAL({!vCase.Origin}, &apos;Email&apos;),NOT(BEGINS({!vCase.Email_Address__c}, &apos;noreply&apos;)), NOT(BEGINS({!vCase.Email_Address__c}, &apos;no-reply&apos;)),  NOT(BEGINS({!vCase.Email_Address__c}, &apos;postmaster&apos;)), NOT(BEGINS({!vCase.Email_Address__c}, &apos;mailer-daemon&apos;)), NOT(CONTAINS(
+LOWER({!$Setup.StarTrack_Settings__c.Blacklisted_Sender_Email_Addresses__c}),LOWER({!vCase.Email_Address__c}))))</expression>
     </formulas>
     <formulas>
         <name>vNewCaseArticleDamage</name>

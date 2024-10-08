@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>APT_Cubic_Status__c</fullName>
-    <externalId>false</externalId>
     <inlineHelpText>Helps determine the cubic status for pricing and lodgement teams,
 if Y - customer must provide dimensions,
 if EasyCube, a pre-determine cubic factor is applied</inlineHelpText>

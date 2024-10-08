@@ -4,6 +4,7 @@ History:
 --------------------------------------------------
 24-June-2014	:	di.chen@bluewolf.com Created
 04-July-2018	:	dilshan.egodawela@auspost.com.au Updated
+13.06.2024 Parveen Kaushik Added default value for mapping model on test data.
 **************************************************/
 
 /**
@@ -34,7 +35,7 @@ global class TIBCOArticleComponentCont_Test {
         oa.Name = 'SAPEMCustomerArticles';
         insert oa;
         
-        MiniCaseFieldMapping__c mn = new MiniCaseFieldMapping__c(ProductCategory__c='eParcel', ProductSubcategory__c='eParcel Standard', Type__c='testing', SAPProductCategory__c ='eParcele', SAPProductSubcategory__c ='Parcel Standard');
+        MiniCaseFieldMapping__c mn = new MiniCaseFieldMapping__c(ProductCategory__c='eParcel', ProductSubcategory__c='eParcel Standard', Type__c='testing', SAPProductCategory__c ='eParcele', SAPProductSubcategory__c ='Parcel Standard', MappingModel__c = SSSWConstants.ENQUIRYMAPPING_CLASSIC_MODEL);
 		insert mn;
 		
 	}

@@ -3,7 +3,6 @@
     <fullName>Apttus_CMConfig__LimitAppliesTo__c</fullName>
     <deprecated>false</deprecated>
     <description>Indicates the scope the limit should be applied to</description>
-    <externalId>false</externalId>
     <inlineHelpText>Indicates the scope the limit should be applied to</inlineHelpText>
     <label>Limit Applies To</label>
     <required>false</required>

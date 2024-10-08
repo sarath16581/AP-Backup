@@ -3,7 +3,6 @@
     <fullName>Apttus_CMConfig__LineItemId__c</fullName>
     <deprecated>false</deprecated>
     <description>ID of the associated agreement line item</description>
-    <externalId>false</externalId>
     <label>Line Item</label>
     <referenceTo>Apttus__AgreementLineItem__c</referenceTo>
     <relationshipLabel>Adjustment Line Items</relationshipLabel>

@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>When checked the category will be expanded to one level by default.</description>
-    <externalId>false</externalId>
     <inlineHelpText>When checked this category will be expanded to one level by default. The parent category should also be marked as expanded by default.</inlineHelpText>
     <label>Expanded By Default</label>
     <securityClassification>INTERNAL</securityClassification>

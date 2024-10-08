@@ -3,7 +3,6 @@
     <fullName>mh_Blue_Sheet_Read_Write_License__c</fullName>
     <defaultValue>false</defaultValue>
     <description>SAM Blue Sheet License for large orgs.</description>
-    <externalId>false</externalId>
     <label>Blue Sheet Read Write License</label>
     <trackFeedHistory>false</trackFeedHistory>
     <type>Checkbox</type>

@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>CaseOriginator__c</fullName>
     <description>SSSW</description>
-    <externalId>false</externalId>
     <label>Case Originator</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>
@@ -36,6 +35,11 @@
                 <fullName>Addressee</fullName>
                 <default>false</default>
                 <label>Addressee</label>
+            </value>
+            <value>
+                <fullName>3rd Party</fullName>
+                <default>false</default>
+                <label>3rd Party</label>
             </value>
         </valueSetDefinition>
     </valueSet>

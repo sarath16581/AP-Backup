@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>LastContactCentreUpdate__c</fullName>
     <description>This records timestamp whenever StarTrack contact centre team post an update on Case Investigation.</description>
-    <externalId>false</externalId>
     <inlineHelpText>This records timestamp whenever StarTrack contact centre team post an update on Case Investigation.</inlineHelpText>
     <label>Last Contact Centre Update</label>
     <required>false</required>

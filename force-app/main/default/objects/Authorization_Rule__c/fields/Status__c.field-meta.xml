@@ -3,7 +3,6 @@
     <fullName>Status__c</fullName>
     <defaultValue>IF($RecordType.DeveloperName = &quot;Lodgement_Rules&quot;, &quot;Active&quot;, &quot;&quot;)</defaultValue>
     <description>to check if authorization rule is active/applicable or not</description>
-    <externalId>false</externalId>
     <label>Status</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>

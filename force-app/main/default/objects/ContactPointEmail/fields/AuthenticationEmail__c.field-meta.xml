@@ -3,7 +3,6 @@
     <fullName>AuthenticationEmail__c</fullName>
     <defaultValue>false</defaultValue>
     <description>Indicates if this is the email used by the consumer for authentication onto online portals.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Indicates if this is the email used by the consumer for authentication onto online portals.</inlineHelpText>
     <label>Authentication Email</label>
     <trackHistory>false</trackHistory>

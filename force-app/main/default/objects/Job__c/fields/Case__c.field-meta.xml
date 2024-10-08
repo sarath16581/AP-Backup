@@ -3,7 +3,6 @@
     <fullName>Case__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <description>Used to link the case with the Job</description>
-    <externalId>false</externalId>
     <label>Case</label>
     <referenceTo>Case</referenceTo>
     <relationshipLabel>Jobs</relationshipLabel>

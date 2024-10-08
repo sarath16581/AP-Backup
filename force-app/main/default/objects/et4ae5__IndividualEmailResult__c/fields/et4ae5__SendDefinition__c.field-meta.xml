@@ -3,7 +3,6 @@
     <fullName>et4ae5__SendDefinition__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <deprecated>false</deprecated>
-    <externalId>false</externalId>
     <label>Send Definition</label>
     <referenceTo>et4ae5__SendDefinition__c</referenceTo>
     <relationshipLabel>Individual Email Results</relationshipLabel>

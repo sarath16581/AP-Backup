@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>International_Merchant_Service_Fee__c</fullName>
     <description>International Merchant Service Fee used for SecurePay (manual Sales user input).</description>
-    <externalId>false</externalId>
     <inlineHelpText>Payable (as a percentage of the transaction value) for all approved payments made on an internationally issued card</inlineHelpText>
     <label>International Merchant Service Fee</label>
     <required>false</required>

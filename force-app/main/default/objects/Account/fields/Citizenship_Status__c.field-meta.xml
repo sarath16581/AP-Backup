@@ -3,7 +3,6 @@
     <fullName>Citizenship_Status__c</fullName>
     <businessStatus>Active</businessStatus>
     <description>Capture the citizenship status of an appointed LPO manager</description>
-    <externalId>false</externalId>
     <inlineHelpText>Capture the citizenship status of an appointed LPO manager</inlineHelpText>
     <label>Citizenship Status</label>
     <required>false</required>

@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__ChargeTypeCriteria__c</fullName>
     <deprecated>false</deprecated>
     <description>One or more charge type inclusion/exclusion criteria</description>
-    <externalId>false</externalId>
     <inlineHelpText>One or more charge type inclusion/exclusion criteria</inlineHelpText>
     <label>Charge Type Criteria</label>
     <required>false</required>

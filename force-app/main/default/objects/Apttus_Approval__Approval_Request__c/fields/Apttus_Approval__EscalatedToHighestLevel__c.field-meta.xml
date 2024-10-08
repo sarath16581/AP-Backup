@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>This field is set to true if the request has been escalated to the highest level which is typically the backup admin approver defined in the approvals configuration settings.</description>
-    <externalId>false</externalId>
     <inlineHelpText>This field is set to true if the request has been escalated to the highest level which is typically the backup admin approver defined in the approvals configuration settings.</inlineHelpText>
     <label>Escalated To Highest Level</label>
     <securityClassification>INTERNAL</securityClassification>

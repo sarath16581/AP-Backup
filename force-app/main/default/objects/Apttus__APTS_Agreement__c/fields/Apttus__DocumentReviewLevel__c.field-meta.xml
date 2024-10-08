@@ -3,7 +3,6 @@
     <fullName>Apttus__DocumentReviewLevel__c</fullName>
     <deprecated>false</deprecated>
     <description>This field will store the value of Review Level of the Imported Document</description>
-    <externalId>false</externalId>
     <inlineHelpText>Review Level of the Imported Document</inlineHelpText>
     <label>Document Review Level</label>
     <required>false</required>

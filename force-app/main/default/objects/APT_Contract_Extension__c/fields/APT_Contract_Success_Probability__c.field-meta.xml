@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>APT_Contract_Success_Probability__c</fullName>
-    <externalId>false</externalId>
     <inlineHelpText>Likelihood of a new contract being signed &amp; uploaded before the expiry date (%)</inlineHelpText>
     <label>Contract Success Probability (%)</label>
     <precision>3</precision>

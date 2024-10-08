@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EntitlementProcess xmlns="http://soap.sforce.com/2006/04/metadata">
+    <SObjectType>Case</SObjectType>
+    <active>true</active>
+    <businessHours>SSSWSydney</businessHours>
+    <description>This entitlement is used for Unified Cases</description>
+    <entryStartDateField>Case.CreatedDate</entryStartDateField>
+    <exitCriteriaFilterItems>
+        <field>Case.Permanent_Close__c</field>
+        <operation>equals</operation>
+        <value>true</value>
+    </exitCriteriaFilterItems>
+    <exitCriteriaFilterItems>
+        <field>Case.Case_Type__c</field>
+        <operation>equals</operation>
+        <value>Unified Investigation</value>
+    </exitCriteriaFilterItems>
+    <isVersionDefault>true</isVersionDefault>
+    <milestones>
+        <businessHours>SSSWSydney</businessHours>
+        <milestoneName>SLA Target</milestoneName>
+        <minutesToComplete>3020</minutesToComplete>
+        <useCriteriaStartTime>false</useCriteriaStartTime>
+    </milestones>
+    <milestones>
+        <businessHours>SSSWSydney</businessHours>
+        <milestoneName>Charter</milestoneName>
+        <minutesToComplete>6000</minutesToComplete>
+        <useCriteriaStartTime>false</useCriteriaStartTime>
+    </milestones>
+    <name>Unified Entitlements</name>
+    <versionMaster>552Bm000006xELF</versionMaster>
+    <versionNumber>1</versionNumber>
+</EntitlementProcess>

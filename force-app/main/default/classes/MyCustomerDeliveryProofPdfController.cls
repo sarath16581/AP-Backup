@@ -228,20 +228,26 @@ public with sharing class MyCustomerDeliveryProofPdfController {
 	 * @return	List<SafeDropImageState> e.g. SafeDropImageState in JSON: ([{guidID: "guidId123456", requireDownload: true}])
 	 */
 	public static List<SafeDropImageState> getCurrentStateOfSafeDropImageRequiredForDownload(String trackingId) {
+        
 		List<Article__c> consignments = queryConsignmentByTrackingId(trackingId);
+        
 		List<DeliveryProofAttributes> deliveryEventKeyList = buildAttributesForPDFDisplay(getArticleIdsFromArticles(consignments));
 		// Build a list of State object with the latest State of SafeDrop image cache in Salesforce for the entire consignment set
 		List<SafeDropImageState> safeDropImageStates = new List<SafeDropImageState>();
-		for (DeliveryProofAttributes dpAttr : deliveryEventKeyList) {
-			SafeDropImageState state = new SafeDropImageState();
-			String guidID = dpAttr.eventMessage?.Safe_Drop_GUID__c;
-			if (!String.isBlank(guidID)) {
-				state.eventMessageId = dpAttr.eventMessage.Id;
-				state.guidID = guidID;
-				state.requireDownload = dpAttr.requiredSafeDropCallout != null ? dpAttr.requiredSafeDropCallout : false;
-				safeDropImageStates.add(state);
+		
+		if (deliveryEventKeyList != null) {
+			for (DeliveryProofAttributes dpAttr : deliveryEventKeyList) {
+				SafeDropImageState state = new SafeDropImageState();
+				String guidID = dpAttr.eventMessage?.Safe_Drop_GUID__c;
+				if (!String.isBlank(guidID)) {
+					state.eventMessageId = dpAttr.eventMessage.Id;
+					state.guidID = guidID;
+					state.requireDownload = dpAttr.requiredSafeDropCallout != null ? dpAttr.requiredSafeDropCallout : false;
+					safeDropImageStates.add(state);
+				}
 			}
 		}
+        
 		return safeDropImageStates;
 	}
 
@@ -254,9 +260,11 @@ public with sharing class MyCustomerDeliveryProofPdfController {
 		List<Article__c> consignments = ArticlesSelector.newInstance()
 			.selectByIdOrTracking(new Set<String>{ trackingId }, new Set<Id>(), new Set<Object>{ ArticlesSelector.Options.WITH_CONSIGNMENT, ArticlesSelector.Options.WITH_RECORDTYPE }, true)
 			.values();
+        
 		Boolean requireConsignmentQuery = isNotConsignmentTrackingID(consignments);
 		isConsignment = !requireConsignmentQuery;
 		if (requireConsignmentQuery) {
+            
 			consignments = ArticlesSelector.newInstance()
 				.selectByIdOrTracking(
 					new Set<String>{ consignments.get(0).ConsignmentTrackingNumber__c },
@@ -266,6 +274,7 @@ public with sharing class MyCustomerDeliveryProofPdfController {
 				)
 				.values();
 		}
+
 		return consignments;
 	}
 
@@ -275,6 +284,7 @@ public with sharing class MyCustomerDeliveryProofPdfController {
 	 * @return	List<DeliveryProofAttributes> - each wrapper will generate exactly one VF Page
 	 */
 	public static List<DeliveryProofAttributes> buildAttributesForPDFDisplay(Set<String> articleIds) {
+        
 		List<DeliveryProofAttributes> podAttributes = new List<DeliveryProofAttributes>();
 		// note the order is determined by the selector configuration
 		Set<Object> selectorOptions = new Set<Object>{
@@ -283,10 +293,11 @@ public with sharing class MyCustomerDeliveryProofPdfController {
 			EventMessagesSelector.Options.WITH_ARTICLE,
 			ArticlesSelector.Options.WITH_CONSIGNMENT
 		};
-
+            
 		List<EventMessage__c> eventMessages = EventMessagesSelector.newInstance().selectByArticleNumber(articleIds, selectorOptions);
-		Map<String, List<DeliveryProofAttributes>> deliveryEventKeyMap = buildDeliveryEventKeyMapFromValidEventMessages(eventMessages);
-
+        
+		Map<String, List<DeliveryProofAttributes>> deliveryEventKeyMap = buildDeliveryEventKeyMapFromValidEventMessages(eventMessages);        
+        
 		// validate if there is no valid event message with safedrop/signature scan event
 		if (deliveryEventKeyMap.size() == 0) {
 			pageError = 'Tracking number is not associated to any safe drop or signature scan event';
@@ -423,9 +434,10 @@ public with sharing class MyCustomerDeliveryProofPdfController {
 		// Make sure we only deal with eventmessages that are designated
 		// this loops from oldest to newest
 		for (EventMessage__c message : eventMessages) {
+
 			Boolean hasSignature = getSignatureFlagFromEventMessageTypeMapping(message);
 			Boolean hasSafeDrop = getSafeDropFlagFromEventMessageTypeMapping(message);
-			//if (isDelivered(message)) {
+			
 			if (hasSignature || hasSafeDrop) {
 				// build a key to identify a unique delivery event key when a driver made a successful delivery
 				String uniqueDeliveryEventKey = message.Article__r.ConsignmentTrackingNumber__c + ':' + message.ActualDateTime__c.toString();
@@ -468,16 +480,6 @@ public with sharing class MyCustomerDeliveryProofPdfController {
 	public static Boolean getSafeDropFlagFromEventMessageTypeMapping(EventMessage__c eventMsg) {
 		return (EventMessageUtil.getInstance().getEventMessageTypeDefinitions().get(eventMsg.EventType__c)?.IsSafeDrop__c == true && !String.isEmpty(eventMsg?.Safe_Drop_GUID__c));
 	}
-
-	/*
-	public static Boolean isDelivered(EventMessage__c eventMsg) {
-
-		System.debug('Event category: ' + eventMsg.EventType__c + ' => ' + EventMessageUtil.getInstance().getEventMessageTypeDefinitions().get(eventMsg.EventType__c)?.Category__c);
-
-
-		return (EventMessageUtil.getInstance().getEventMessageTypeDefinitions().get(eventMsg.EventType__c)?.Category__c == 'Delivered');
-	}
-	*/
 
 	/**
 	 * @description State object used to keep track of the SafeDrop image state if it already exists in Salesforce

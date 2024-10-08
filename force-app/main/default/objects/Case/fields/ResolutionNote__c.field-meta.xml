@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>ResolutionNote__c</fullName>
     <description>Captures the resolution note of a case record.</description>
-    <externalId>false</externalId>
     <label>Resolution Note</label>
     <length>32768</length>
     <securityClassification>INTERNAL</securityClassification>

@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Type_and_Product__c</fullName>
     <description>Used by the Mini Case to determine Fields for selection in the UI</description>
-    <externalId>false</externalId>
     <label>Type and Product</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>
@@ -1546,6 +1545,11 @@
                 <fullName>Investigation|Domestic Parcels|Metro</fullName>
                 <default>false</default>
                 <label>Investigation|Domestic Parcels|Metro</label>
+            </value>
+            <value>
+                <fullName>Unified Model</fullName>
+                <default>false</default>
+                <label>Unified Model</label>
             </value>
         </valueSetDefinition>
     </valueSet>

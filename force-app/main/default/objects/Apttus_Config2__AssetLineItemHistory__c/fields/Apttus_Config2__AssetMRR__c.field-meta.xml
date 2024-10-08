@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__AssetMRR__c</fullName>
     <deprecated>false</deprecated>
     <description>The average monthly recurring revenue from the asset over its lifetime</description>
-    <externalId>false</externalId>
     <inlineHelpText>The average monthly recurring revenue from the asset over its lifetime</inlineHelpText>
     <label>Asset MRR</label>
     <precision>18</precision>

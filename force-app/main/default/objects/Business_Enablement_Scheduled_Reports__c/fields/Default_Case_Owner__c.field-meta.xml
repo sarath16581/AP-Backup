@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Default_Case_Owner__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
-    <externalId>false</externalId>
     <label>Default Case Owner</label>
     <referenceTo>User</referenceTo>
     <relationshipName>Business_Enablement_Scheduled_Reports</relationshipName>

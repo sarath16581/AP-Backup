@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>View In DocuSign Enabled</description>
-    <externalId>false</externalId>
     <inlineHelpText>View In DocuSign Enabled</inlineHelpText>
     <label>View In DocuSign Enabled</label>
     <trackTrending>false</trackTrending>

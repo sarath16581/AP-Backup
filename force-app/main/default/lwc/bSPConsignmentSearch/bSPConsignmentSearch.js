@@ -38,6 +38,7 @@ export default class BSPConsignmentSearch extends NavigationMixin(LightningEleme
 	 * call consinment number search
 	 */
 	handleSearch = () => {
+		console.log('Searching...');
 		this.isLoading = true;
 		this.consignmentSearchResultsWrapper = null;
 		this.errorMessages = [];
@@ -239,14 +240,18 @@ export default class BSPConsignmentSearch extends NavigationMixin(LightningEleme
         // notify child components that safe drop images are loading
 		this.notifyChildrenOfSafeDropImageLoadingState(true);
 		
+		console.log('Getting safe drop image states');
 		// retrieve the current state of safe drop images caches in Salesforce
 		const safeDropImageState = await getCurrentStateOfSafeDropImageRequiredForDownload({
 			trackingId: trackingIds
 		});
+		console.log('Safe drop image states retrieved', safeDropImageState);
         
 		// download safe drop images as required if they do not exist in Salesforce
 		await this.processSafeDropImagesDownloading(safeDropImageState);
 		
+		console.log('Finished downloading safe drop images');
+
 		this._safeDropDownloadLoading = false;
 		// notify child components that safe drop images have completed loading
 		this.notifyChildrenOfSafeDropImageLoadingState(false);

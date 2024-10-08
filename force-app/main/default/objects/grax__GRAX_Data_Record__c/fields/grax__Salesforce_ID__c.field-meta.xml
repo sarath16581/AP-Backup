@@ -3,7 +3,6 @@
     <fullName>grax__Salesforce_ID__c</fullName>
     <deprecated>false</deprecated>
     <description>Salesforce_ID</description>
-    <externalId>false</externalId>
     <inlineHelpText>List of ID&apos;s for all Salesforce records to be sent to Data Lake</inlineHelpText>
     <label>Salesforce ID</label>
     <length>131072</length>

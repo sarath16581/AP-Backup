@@ -4,7 +4,6 @@
     <deleteConstraint>SetNull</deleteConstraint>
     <deprecated>false</deprecated>
     <description>User who has checked out the template</description>
-    <externalId>false</externalId>
     <inlineHelpText>User who has checked out the template</inlineHelpText>
     <label>Checkout By</label>
     <referenceTo>User</referenceTo>

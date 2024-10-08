@@ -4,7 +4,6 @@
     <defaultValue>true</defaultValue>
     <deprecated>false</deprecated>
     <description>Whether the rule require processing.</description>
-    <externalId>false</externalId>
     <label>Need Processing</label>
     <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>

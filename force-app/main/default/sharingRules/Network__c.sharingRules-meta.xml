@@ -58,4 +58,19 @@
         </criteriaItems>
         <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>SharedWithUnifiedAgents</fullName>
+        <accessLevel>Read</accessLevel>
+        <description>This sharing rule enables READ Only access to all network records for Unified agents</description>
+        <label>Shared with Unified Agents</label>
+        <sharedTo>
+            <roleAndSubordinatesInternal>UnifiedTeamLead</roleAndSubordinatesInternal>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Agent,Retail,Lockers,Street Posting Box,Metro,Care Agent,Digital,Regional,Delivery,Business Hub,International,Other</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
 </SharingRules>

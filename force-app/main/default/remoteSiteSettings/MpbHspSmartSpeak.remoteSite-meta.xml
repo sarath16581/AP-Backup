@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RemoteSiteSetting xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>This remote site enables the outbound AJAX call required to integrate MPB Help &amp; Support Portal for &quot;Call Me Back&quot; feature</description>
+    <disableProtocolSecurity>false</disableProtocolSecurity>
+    <isActive>true</isActive>
+    <url>https://api.smartspeak.com</url>
+</RemoteSiteSetting>

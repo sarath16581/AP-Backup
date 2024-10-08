@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>AnchorOrganisation__c</fullName>
     <description>This field identifies the &apos;Anchor&apos; account for the revenue summary. Sales revenue from all associated child accounts within the hierarchy will be aggregated.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Select the &apos;Anchor&apos; account for this revenue summary. All revenue from linked child accounts in the hierarchy will be included in this aggregation.</inlineHelpText>
     <label>Anchor Organisation</label>
     <referenceTo>Account</referenceTo>

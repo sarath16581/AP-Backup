@@ -3,7 +3,6 @@
     <fullName>Override_ST_Priority_Express__c</fullName>
     <defaultValue>false</defaultValue>
     <description>Override StarTrack Priority Express Customer</description>
-    <externalId>false</externalId>
     <label>Override StarTrack Priority Express Cust</label>
     <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>

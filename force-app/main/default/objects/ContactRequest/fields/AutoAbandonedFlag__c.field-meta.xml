@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>AutoAbandonedFlag__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>This is set to true when the Scheduled Contact Request is marked as &quot;Abandoned&quot; through an automated process and is used for reporting purposes.</description>
+    <inlineHelpText>This is set to true when the Scheduled Contact Request is marked as &quot;Abandoned&quot; through an automated process and is used for reporting purposes.</inlineHelpText>
+    <label>Auto Abandoned Flag</label>
+    <securityClassification>INTERNAL</securityClassification>
+    <type>Checkbox</type>
+</CustomField>

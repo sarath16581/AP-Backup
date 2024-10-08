@@ -3,7 +3,6 @@
     <fullName>Update_Related_Cases__c</fullName>
     <defaultValue>false</defaultValue>
     <description>StarTrack field that will determine if there&apos;s a need to update related cases via PB.</description>
-    <externalId>false</externalId>
     <label>Update Related Cases?</label>
     <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>

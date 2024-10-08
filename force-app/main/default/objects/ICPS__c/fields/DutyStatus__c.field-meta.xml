@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>DutyStatus__c</fullName>
     <description>Indicates the status of the duty owed, i.e. Delivery Duty Paid (DDP) or Delivery Duty Unpaid (DDU)</description>
-    <externalId>false</externalId>
     <inlineHelpText>Indicates the status of the duty owed, i.e. Delivery Duty Paid (DDP) or Delivery Duty Unpaid (DDU)</inlineHelpText>
     <label>Duty Status</label>
     <required>false</required>

@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Ifothercompetitorapplicable__c</fullName>
     <description>Can customer reveal who they are using if applicable?</description>
-    <externalId>false</externalId>
     <inlineHelpText>Can customer reveal who they are using if applicable?</inlineHelpText>
     <label>If other competitor applicable</label>
     <required>false</required>

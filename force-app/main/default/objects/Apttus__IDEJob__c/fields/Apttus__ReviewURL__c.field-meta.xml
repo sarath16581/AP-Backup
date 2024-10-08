@@ -3,7 +3,6 @@
     <fullName>Apttus__ReviewURL__c</fullName>
     <deprecated>false</deprecated>
     <description>The Review url received from KIRA</description>
-    <externalId>false</externalId>
     <inlineHelpText>The Review url received from KIRA</inlineHelpText>
     <label>Review URL</label>
     <length>32768</length>

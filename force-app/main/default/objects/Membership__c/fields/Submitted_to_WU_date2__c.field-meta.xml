@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Submitted_to_WU_date2__c</fullName>
     <description>Submitted to WU date - used in PB when status is updated to Submitted to WU</description>
-    <externalId>false</externalId>
     <inlineHelpText>Updated when status set to Submitted to WU</inlineHelpText>
     <label>Submitted to WU date</label>
     <required>false</required>

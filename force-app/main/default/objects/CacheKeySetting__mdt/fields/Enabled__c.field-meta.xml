@@ -3,7 +3,6 @@
     <fullName>Enabled__c</fullName>
     <defaultValue>true</defaultValue>
     <description>Whether or not this key should cache.</description>
-    <externalId>false</externalId>
     <fieldManageability>SubscriberControlled</fieldManageability>
     <inlineHelpText>Whether or not this key should cache.</inlineHelpText>
     <label>Enabled</label>

@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Hides the clone button at the bottom of the page when checked.</description>
-    <externalId>false</externalId>
     <label>Hide Clone Button</label>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>

@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>QTD_Variance_Actual_to_Budget__c</fullName>
     <description>Previous name was &quot;QTD Variance Revenue to Target&quot; (MW0003520)</description>
-    <externalId>false</externalId>
     <formula>QTD_Actual__c - QTD_Original_Budget__c</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <inlineHelpText>QTD billed revenue for the current quarter minus the current quarter Target amount. This will display the gap between expected Target and revenue received to date within the quarter.</inlineHelpText>

@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>APT_A1_Consent_to_check_credit_history__c</fullName>
     <defaultValue>false</defaultValue>
-    <externalId>false</externalId>
     <label>Signature of Authorised Signatory</label>
     <securityClassification>OFFICIAL_SENSITIVE_PERSONAL</securityClassification>
     <trackTrending>false</trackTrending>

@@ -3,7 +3,6 @@
     <fullName>Apttus_QPConfig__IncentiveAdjustmentAmount__c</fullName>
     <deprecated>false</deprecated>
     <description>The incentive adjustment amount</description>
-    <externalId>false</externalId>
     <inlineHelpText>The incentive adjustment amount</inlineHelpText>
     <label>Incentive Adjustment Amount</label>
     <precision>18</precision>

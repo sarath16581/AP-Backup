@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>RuleRequiresArticleAttributes__c</fullName>
     <description>Used for routing of case when article attributes are required</description>
-    <externalId>false</externalId>
     <formula>OR(IsStrategic__c, HasExtraCover__c)</formula>
     <inlineHelpText>Used for routing of case when article attributes are required</inlineHelpText>
     <label>Rule Requires Article Attributes</label>

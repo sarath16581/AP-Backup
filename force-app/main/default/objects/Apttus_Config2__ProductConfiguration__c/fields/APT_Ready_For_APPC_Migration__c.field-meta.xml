@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>APT_Ready_For_APPC_Migration__c</fullName>
-    <externalId>false</externalId>
     <formula>Apttus_Config2__AccountId__r.APT_Ready_For_APPC_Migration__c</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <label>Ready For APPC Migration</label>

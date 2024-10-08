@@ -3,7 +3,6 @@
     <fullName>Submit_for_Approval__c</fullName>
     <defaultValue>false</defaultValue>
     <description>StarTrack field to determine if the owner wants to submit the record for approval.</description>
-    <externalId>false</externalId>
     <label>Submit for Approval</label>
     <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>

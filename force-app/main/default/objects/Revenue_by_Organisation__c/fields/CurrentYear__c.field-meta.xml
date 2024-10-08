@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>CurrentYear__c</fullName>
     <description>Current year flag checked for this financial year</description>
-    <externalId>false</externalId>
     <formula>IF(Current_Last_Year__c=&apos;THIS YEAR&apos;, true,false)</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <inlineHelpText>True when current year is this FY</inlineHelpText>

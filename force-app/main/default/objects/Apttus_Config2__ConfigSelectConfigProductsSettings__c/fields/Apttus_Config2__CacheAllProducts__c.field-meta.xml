@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Cache all products to avoid SOQL queries. Should be enabled when number of product records are small.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Check to cache all products to avoid extra SOQL queries.</inlineHelpText>
     <label>Cache All Products</label>
     <trackTrending>false</trackTrending>

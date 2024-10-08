@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Indicates if the template is a transient record. Usually when a template is created without checking in the document</description>
-    <externalId>false</externalId>
     <inlineHelpText>Indicates if the template is a transient record. Usually when a template is created without checking in the document</inlineHelpText>
     <label>Is Transient</label>
     <securityClassification>INTERNAL</securityClassification>

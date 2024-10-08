@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Disqualified_Lead_Reason__c</fullName>
     <description>BAU - This field is a Dependent filed of the Lead status field, this field captures reasons why a lead has been disqualified.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Please provide a lead disqualification reason, values provided not suitable please select &quot;Other&quot;.</inlineHelpText>
     <label>Lead Status Reason</label>
     <required>false</required>
@@ -60,6 +59,11 @@
                 <label>Nurturing</label>
             </value>
             <value>
+                <fullName>Scam</fullName>
+                <default>false</default>
+                <label>Scam</label>
+            </value>
+            <value>
                 <fullName>Test Lead</fullName>
                 <default>false</default>
                 <label>Test Lead</label>
@@ -88,15 +92,6 @@
             <valueName>Nurturing</valueName>
         </valueSettings>
         <valueSettings>
-            <controllingFieldValue>MyPost Business</controllingFieldValue>
-            <controllingFieldValue>Disqualified</controllingFieldValue>
-            <valueName>Enquiry only</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>MyPost Business</controllingFieldValue>
-            <valueName>Verified</valueName>
-        </valueSettings>
-        <valueSettings>
             <controllingFieldValue>Disqualified</controllingFieldValue>
             <valueName>Could not contact</valueName>
         </valueSettings>
@@ -114,7 +109,15 @@
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Disqualified</controllingFieldValue>
+            <valueName>Enquiry only</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Disqualified</controllingFieldValue>
             <valueName>Incorrect Contact Details</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Disqualified</controllingFieldValue>
+            <valueName>Scam</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Disqualified</controllingFieldValue>

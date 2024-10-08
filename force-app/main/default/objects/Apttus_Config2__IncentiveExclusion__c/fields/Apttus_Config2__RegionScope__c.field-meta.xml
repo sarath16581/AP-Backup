@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__RegionScope__c</fullName>
     <deprecated>false</deprecated>
     <description>One or more regions associated with the incentive exclusion</description>
-    <externalId>false</externalId>
     <inlineHelpText>One or more regions associated with the incentive exclusion</inlineHelpText>
     <label>Region Scope</label>
     <required>false</required>

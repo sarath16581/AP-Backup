@@ -1,3 +1,8 @@
+/**
+  * @changelog
+  * 01.01.1970 Created date unknown.
+  * 13.06.2024 Parveen Kaushik Added a filter in SOQL for mapping model. See CSLU-470 (JIRA) for details.
+  */  
 global without sharing class MiniCaseFieldMappingController {
     public ApexPages.StandardController controller {get;set;}
     public Case proxyCase {get;set;}
@@ -56,7 +61,7 @@ global without sharing class MiniCaseFieldMappingController {
             if(key != ''){  
                 existingCTIMappings = [select CTICustomerSegment__c,CTIServiceType__c,ProductCategory__c,ProductSubcategory__c,Type__c 
                                        from MiniCaseFieldMapping__c 
-                                       where CTIKey__c=:key and id!=:r.id];
+                                       where CTIKey__c=:key and id!=:r.id AND MappingModel__c =: r.MappingModel__c];
             }
             
             if(existingCTIMappings.size() > 0){
@@ -70,7 +75,7 @@ global without sharing class MiniCaseFieldMappingController {
             if(key != ''){  
                 existingSAPMappings = [select SAPProductCategory__c,SAPProductSubcategory__c,ProductCategory__c,ProductSubcategory__c,Type__c 
                                        from MiniCaseFieldMapping__c 
-                                       where SAPKey__c=:key and id!=:r.id];
+                                       where SAPKey__c=:key and id!=:r.id AND MappingModel__c =: r.MappingModel__c];
             }
                                                
             if(existingSAPMappings.size() > 0){

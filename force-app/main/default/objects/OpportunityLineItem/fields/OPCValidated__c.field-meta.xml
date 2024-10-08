@@ -3,7 +3,6 @@
     <fullName>OPCValidated__c</fullName>
     <defaultValue>false</defaultValue>
     <description>CM 5/9/2013 - Flag to indicate that the OPC Classification Batch has validated this line item.</description>
-    <externalId>false</externalId>
     <label>OPCValidated</label>
     <securityClassification>INTERNAL</securityClassification>
     <type>Checkbox</type>

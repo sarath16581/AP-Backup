@@ -3,7 +3,6 @@
     <fullName>Company_Signed_By__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <description>Link to contact record to identify internal signatory</description>
-    <externalId>false</externalId>
     <label>Company Signed By</label>
     <referenceTo>Contact</referenceTo>
     <relationshipName>SFCon_R00N50000001Xl0CEAS</relationshipName>

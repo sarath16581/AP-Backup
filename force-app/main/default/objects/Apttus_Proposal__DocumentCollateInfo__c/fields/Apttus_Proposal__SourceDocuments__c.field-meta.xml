@@ -3,7 +3,6 @@
     <fullName>Apttus_Proposal__SourceDocuments__c</fullName>
     <deprecated>false</deprecated>
     <description>A list of Attachment ID&apos;s used to generate the final document</description>
-    <externalId>false</externalId>
     <inlineHelpText>A list of Attachment ID&apos;s used to generate the final document</inlineHelpText>
     <label>Source Documents</label>
     <length>32768</length>

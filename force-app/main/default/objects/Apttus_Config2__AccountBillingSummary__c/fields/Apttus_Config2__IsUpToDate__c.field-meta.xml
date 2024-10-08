@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Indicates whether the summary object is up to date</description>
-    <externalId>false</externalId>
     <inlineHelpText>Indicates whether the summary object is up to date</inlineHelpText>
     <label>Is UpTo Date</label>
     <securityClassification>INTERNAL</securityClassification>

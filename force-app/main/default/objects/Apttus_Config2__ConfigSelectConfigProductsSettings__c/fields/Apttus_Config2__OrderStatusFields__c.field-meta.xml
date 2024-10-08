@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__OrderStatusFields__c</fullName>
     <deprecated>false</deprecated>
     <description>List of line item fields to display inventory and  order status</description>
-    <externalId>false</externalId>
     <inlineHelpText>Enter the list of line item fields separated by comma that has information about promotion, delivery info, shipping info etc.</inlineHelpText>
     <label>Order Status Fields</label>
     <required>false</required>

@@ -3,7 +3,6 @@
     <fullName>Product__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <description>The application product</description>
-    <externalId>false</externalId>
     <inlineHelpText>The application product</inlineHelpText>
     <label>Product</label>
     <referenceTo>Product2</referenceTo>

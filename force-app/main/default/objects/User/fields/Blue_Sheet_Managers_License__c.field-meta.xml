@@ -3,7 +3,6 @@
     <fullName>Blue_Sheet_Managers_License__c</fullName>
     <defaultValue>false</defaultValue>
     <description>SAM - Blue Sheet Managers license for large org.</description>
-    <externalId>false</externalId>
     <label>Blue Sheet Managers License</label>
     <trackFeedHistory>false</trackFeedHistory>
     <type>Checkbox</type>

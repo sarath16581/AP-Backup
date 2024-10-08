@@ -7,6 +7,7 @@
 * @description Test class for OpportunityLineItemSelector
 * @changelog
 * 2023-04-12 - Harry Wang - Created
+* 2024-09-12 - Harry Wang - Added tests for selectByOPCCalculationOpportunityIds
 */
 @IsTest
 public with sharing class OpportunityLineItemSelector_Test {
@@ -70,6 +71,12 @@ public with sharing class OpportunityLineItemSelector_Test {
 		System.assertEquals(true, Pattern.compile('(?ism)Product2\\..*?\\bfrom OpportunityLineItem\\b').matcher(soql).find(), 'Resulting query does not select Product2 field');
 		System.assertEquals(false, Pattern.compile('(?ism)Opportunity\\..*?\\bfrom OpportunityLineItem\\b').matcher(soql).find(), 'Resulting query should not select Opportunity field');
 
+		Set<SObjectField> fieldOverridesSet = new Set<SObjectField>{OpportunityLineItem.Id, OpportunityLineItem.Name, OpportunityLineItem.Quantity};
+		selector = OpportunityLineItemSelector.newInstance(1, fieldOverridesSet);
+		soql = selector.newQueryBuilder().toSoqlString();
+		System.assertEquals(true, Pattern.compile('(?ism)Name.*?\\bfrom OpportunityLineItem\\b').matcher(soql).find(), 'Resulting query does not select Name field');
+		System.assertEquals(true, Pattern.compile('(?ism)Quantity.*?\\bfrom OpportunityLineItem\\b').matcher(soql).find(), 'Resulting query does not select Quantity field');
+
 		Map<SObjectType, Set<SObjectField>> fieldOverrides = new Map<SObjectType, Set<SObjectField>>{
 				OpportunityLineItem.SObjectType => new Set<SObjectField>{
 						OpportunityLineItem.Id, OpportunityLineItem.Name, OpportunityLineItem.Quantity},
@@ -99,6 +106,7 @@ public with sharing class OpportunityLineItemSelector_Test {
 		insert accountList;
 
 		List<Opportunity> oppList = ApplicationTestDataFactory.getOpportunities(2, accountList[0].Id, false);
+		oppList[0].OverrideOPCCalculation__c = false;
 		insert oppList;
 
 		Product2 product = APT_TestUtils.createInternationalProduct('Test Product','26940998','Postal Services');
@@ -127,6 +135,10 @@ public with sharing class OpportunityLineItemSelector_Test {
 		List<OpportunityLineItem> results = selector.selectById(new Set<Id>{oppLIList[0].Id});
 		System.assertEquals(1, results.size(), 'Result count was wrong');
 
+		results = selector.selectById(new Set<Id>{oppLIList[0].Id}, new Set<Object>{OpportunityLineItemSelector.Options.WITH_PRODUCT});
+		System.assertEquals(1, results.size(), 'Result count was wrong');
+		System.assertNotEquals(null, results[0].Product2.Id, 'Expected product Id');
+
 		Map<SObjectType, Set<SObjectField>> fieldOverrides = new Map<SObjectType, Set<SObjectField>>{
 				OpportunityLineItem.SObjectType => new Set<SObjectField>{OpportunityLineItem.Name},
 				Product2.SObjectType => new Set<SObjectField>{Product2.Name},
@@ -138,6 +150,9 @@ public with sharing class OpportunityLineItemSelector_Test {
 		System.assertNotEquals(null, results[0].Name, 'Expected name');
 		System.assertNotEquals(null, results[0].Opportunity.Name, 'Expected opportunity name');
 		System.assertNotEquals(null, results[0].Product2.Name, 'Expected product name');
+
+		selector.selectByOPCCalculationOpportunityIds(new Set<Id>{oppList[0].Id},new Set<Object>{});
+		System.assertEquals(2, results.size(), 'Result count was wrong');
 
 		Test.stopTest();
 	}

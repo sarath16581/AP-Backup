@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__Telephone__c</fullName>
     <deprecated>false</deprecated>
     <description>The Legal Entity Phone Number</description>
-    <externalId>false</externalId>
     <inlineHelpText>The Legal Entity Phone Number</inlineHelpText>
     <label>Phone Number</label>
     <required>false</required>

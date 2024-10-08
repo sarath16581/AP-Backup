@@ -3,7 +3,6 @@
     <fullName>MaritzCX__Delivery_Type__c</fullName>
     <deprecated>false</deprecated>
     <description>Determines the survey delivery type (real time or scheduled)</description>
-    <externalId>false</externalId>
     <label>Delivery Type</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>

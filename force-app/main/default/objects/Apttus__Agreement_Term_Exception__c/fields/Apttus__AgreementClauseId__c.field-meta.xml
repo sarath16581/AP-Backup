@@ -4,7 +4,6 @@
     <deleteConstraint>SetNull</deleteConstraint>
     <deprecated>false</deprecated>
     <description>ID of the associated agreement clause</description>
-    <externalId>false</externalId>
     <label>Agreement Clause</label>
     <referenceTo>Apttus__Agreement_Clause__c</referenceTo>
     <relationshipLabel>Agreement Term Exceptions</relationshipLabel>

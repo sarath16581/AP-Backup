@@ -3,7 +3,6 @@
     <fullName>Opportunity_Driver_1_3__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <description>This field will capture who the Driver was for stages 1-3 in the Opportunity.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Please choose who the Opportunity Driver was for Opportunity Stages 1-3.</inlineHelpText>
     <label>Opportunity Driver 1-3</label>
     <referenceTo>User</referenceTo>

@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__TotalInvoiceAmount__c</fullName>
     <deprecated>false</deprecated>
     <description>The total of all charges that are invoiced</description>
-    <externalId>false</externalId>
     <inlineHelpText>The total of all charges that are invoiced</inlineHelpText>
     <label>Total Invoice Amount</label>
     <precision>18</precision>

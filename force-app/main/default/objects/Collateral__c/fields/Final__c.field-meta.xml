@@ -3,7 +3,6 @@
     <fullName>Final__c</fullName>
     <defaultValue>false</defaultValue>
     <description>Phase 1 - is this a final document or not.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Denotes that the document is in final stage.</inlineHelpText>
     <label>Final</label>
     <securityClassification>INTERNAL</securityClassification>

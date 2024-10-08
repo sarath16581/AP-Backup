@@ -3,6 +3,7 @@
  * @author Boris Bachovski
  * @date 14/05/2024
  * @changelog
+ * 2024-08-07 - Ranjeewa Silva - Test class updates after uplifting the module to new ApplicationModule framework.
 */
 
 @IsTest
@@ -62,7 +63,7 @@ private class BulkMailEmailMessagesModule_Test {
 		// =====================================
 		Test.startTest();
 
-		BulkMailEmailMessagesModule.newInstance().onAfterInsert(new List <EmailMessage> { emailMessageRecord }, mockUow);
+		new BulkMailEmailMessagesModule().onAfterInsert(new List <EmailMessage> { emailMessageRecord }, mockUow);
 
 		Test.stopTest();
 
@@ -125,7 +126,7 @@ private class BulkMailEmailMessagesModule_Test {
 		// =====================================
 		Test.startTest();
 
-		BulkMailEmailMessagesModule module = BulkMailEmailMessagesModule.newInstance();
+		BulkMailEmailMessagesModule module = new BulkMailEmailMessagesModule();
 		module.onAfterInsert(new List <EmailMessage> { emailMessageRecord }, mockUow);
 		Datetime dt = module.currentTime;
 
@@ -197,8 +198,7 @@ private class BulkMailEmailMessagesModule_Test {
 		// =====================================
 		Test.startTest();
 
-		BulkMailEmailMessagesModule module = BulkMailEmailMessagesModule.newInstance();
-		module.onAfterInsert(new List <EmailMessage> { emailMessageRecord }, mockUow);
+		new BulkMailEmailMessagesModule().onAfterInsert(new List <EmailMessage> { emailMessageRecord }, mockUow);
 
 		Test.stopTest();
 
@@ -214,7 +214,7 @@ private class BulkMailEmailMessagesModule_Test {
 		Assert.areEqual(1, MockUtility.mockUnitOfWorkDMLs.size(), 'Expected 1 case record to be updated');
 		Assert.areEqual(BulkMailCaseService.IN_PROGRESS_STATUS, ((Case)MockUtility.mockUnitOfWorkDMLs[0]).Status, 'Expected case status to be ' + BulkMailCaseService.IN_PROGRESS_STATUS);
 	
-        ((ApplicationDatabase)MockUtility.Mocks.verify(mockDatabase, MockUtility.Mocks.times(1))).dmlUpdate((List<SObject>)fflib_Match.anyObject());
+		((ApplicationDatabase)MockUtility.Mocks.verify(mockDatabase, MockUtility.Mocks.times(1))).dmlUpdate((List<SObject>)fflib_Match.anyObject());
 		
 		// Assert Milestone update
 		fflib_ArgumentCaptor updateCaptor = fflib_ArgumentCaptor.forClass(List <SObject>.class);

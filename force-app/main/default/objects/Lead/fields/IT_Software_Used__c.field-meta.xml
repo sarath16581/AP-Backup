@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>IT_Software_Used__c</fullName>
     <description>This field is used for Land Title Webform from https://auspost.com.au/forms/land-title.html</description>
-    <externalId>false</externalId>
     <inlineHelpText>Please provide IT Software Used</inlineHelpText>
     <label>IT Software Used</label>
     <required>false</required>

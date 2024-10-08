@@ -1,9 +1,10 @@
 /**
  * @description Test Class used for the CTI Integration for Australia Post and StarTrack
  * @author Vasu Gorakati
- * @date 2025-05-03
+ * @date 2024-05-03
  * @changelog
- * 2025-05-03 - Vasu Gorakati - Initial version
+ * 2024-05-03 - Vasu Gorakati - Initial version
+ * 2024-10-02 - Nathan Franklin - test class failure
  */
 @isTest
 public class GenesysConnectorController_Test {
@@ -482,7 +483,7 @@ public class GenesysConnectorController_Test {
 
 		// set up our responses
 		MockUtility.Mocks.startStubbing();
-		MockUtility.Mocks.when(mockContactsSelector.selectByLikedAnyPhoneOrderByName(contacts[0].Phone, new Set<Object>{ContactsSelector.Options.WITH_RECORDTYPE}))
+		MockUtility.Mocks.when(mockContactsSelector.selectByReversePhoneFieldBasic(contacts[0].Phone, new Set<Object>{ContactsSelector.Options.WITH_RECORDTYPE}))
 			.thenReturn(new Map<Id, Contact>(contacts));
 		MockUtility.Mocks.stopStubbing();
 
@@ -500,10 +501,10 @@ public class GenesysConnectorController_Test {
 
 		System.assertEquals('phoneNumber', result.get('match'));
 
-		((ContactsSelector)MockUtility.Mocks.verify(mockContactsSelector, MockUtility.Mocks.times(1))).selectByLikedAnyPhoneOrderByName((String)fflib_Match.eq(contacts[0].Phone),(Set<Object>)fflib_Match.anyObject());
+		((ContactsSelector)MockUtility.Mocks.verify(mockContactsSelector, MockUtility.Mocks.times(1))).selectByReversePhoneFieldBasic((String)fflib_Match.eq(contacts[0].Phone),(Set<Object>)fflib_Match.anyObject());
 
 		fflib_ArgumentCaptor contactphoneCaptor = fflib_ArgumentCaptor.forClass(Map<String, Object>.class);
-		((ContactsSelector)MockUtility.Mocks.verify(mockContactsSelector, MockUtility.Mocks.times(1))).selectByLikedAnyPhoneOrderByName((String)contactPhoneCaptor.capture(), (Set<Object>)fflib_Match.anyObject());
+		((ContactsSelector)MockUtility.Mocks.verify(mockContactsSelector, MockUtility.Mocks.times(1))).selectByReversePhoneFieldBasic((String)contactPhoneCaptor.capture(), (Set<Object>)fflib_Match.anyObject());
 
 		System.assertEquals(true, contactPhoneCaptor != null);
 	}

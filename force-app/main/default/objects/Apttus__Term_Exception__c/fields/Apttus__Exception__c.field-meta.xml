@@ -3,7 +3,6 @@
     <fullName>Apttus__Exception__c</fullName>
     <deprecated>false</deprecated>
     <description>Description</description>
-    <externalId>false</externalId>
     <label>Exception</label>
     <required>true</required>
     <trackHistory>false</trackHistory>

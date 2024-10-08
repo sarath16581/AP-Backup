@@ -3,7 +3,6 @@
     <fullName>System__c</fullName>
     <defaultValue>false</defaultValue>
     <description>StarTrack: Capture system information</description>
-    <externalId>false</externalId>
     <label>System</label>
     <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>

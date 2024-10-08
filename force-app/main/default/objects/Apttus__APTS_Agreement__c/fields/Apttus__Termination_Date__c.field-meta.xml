@@ -3,7 +3,6 @@
     <fullName>Apttus__Termination_Date__c</fullName>
     <deprecated>false</deprecated>
     <description>Date contract terminated</description>
-    <externalId>false</externalId>
     <label>Termination Date</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>

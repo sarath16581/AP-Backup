@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__Specifications__c</fullName>
     <deprecated>false</deprecated>
     <description>Holds any specifications to be passed on to the collaborator.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Holds any specifications to be passed on to the collaborator.</inlineHelpText>
     <label>Specifications</label>
     <length>32768</length>

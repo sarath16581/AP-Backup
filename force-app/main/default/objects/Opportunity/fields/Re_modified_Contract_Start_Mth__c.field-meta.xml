@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Re_modified_Contract_Start_Mth__c</fullName>
     <description>This field is used for Sales Operations reporting, if the Contract Start Date is not completed the Closing date + 1 Month is used for the Number of Days remaining to EOFY calculation.</description>
-    <externalId>false</externalId>
     <formula>Modified_Contract_Start_Date__c</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <label>Re-modified Contract Start Mth</label>

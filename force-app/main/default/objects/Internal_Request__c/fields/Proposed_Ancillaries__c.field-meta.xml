@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Proposed_Ancillaries__c</fullName>
     <description>Required variation to Standard Ancillary Surcharges</description>
-    <externalId>false</externalId>
     <inlineHelpText>Does customer require variation to Standard Ancillary Surcharges?</inlineHelpText>
     <label>Proposed Ancillaries</label>
     <required>false</required>

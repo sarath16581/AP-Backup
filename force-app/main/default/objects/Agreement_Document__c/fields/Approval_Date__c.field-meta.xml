@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Approval_Date__c</fullName>
     <description>The date the Agreement Document record was approved</description>
-    <externalId>false</externalId>
     <label>Approval Date</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>

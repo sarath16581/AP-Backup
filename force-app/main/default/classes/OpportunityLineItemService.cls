@@ -64,7 +64,6 @@ public inherited sharing class OpportunityLineItemService {
 		overrideRenewalToGrowth(populatedLineItems);
 	}
 
-
 	// OPC CALCULATION ENTRY POINT FOR UPDATE OPPORTUNITY LINE ITEM
 	/**********************************
 	 * Description: recalculate the OPC upon change of Opty Line Item's Revenue Dates
@@ -119,7 +118,7 @@ public inherited sharing class OpportunityLineItemService {
 			UTIL_LoggingService.logHandledException(excp, ORGID, 'Sales', CLASSNAME, 'recalculateClassification', triggerName, LoggingLevel.ERROR);
 		}
 	}
-
+	
 	 // OPC CALCULATION ENTRY POINT FOR UPDATE OF AN OPPORTUNITY
 	 /*********************************
 	 * Description: Updates all the opportunity line items OPC for opportunities that have been closed-won
@@ -269,7 +268,7 @@ public inherited sharing class OpportunityLineItemService {
 
 					errors.add('Null Classification Id: ' + optyLine.id + ' ChangeClassification: ' + optyLine.Change_Classification__c + ' prior Classification: ' + optyLine.Classification__c);
 				}
-
+				system.debug('****** SETTING CLASSIFICATION INSIDE OPPORTUNITYLINEITEMSERVICE');
 				// If the new classification is different than the existing one, update it and add it to the list of updated items.
 				if (optyLine.Classification__c != newClassification) {
 					optyLine.Classification__c = newClassification;
@@ -668,7 +667,8 @@ public inherited sharing class OpportunityLineItemService {
 		for (OpportunityLineItem currentItem : getNewOverrideRenewalToGrowth(opportunityLineItems)) {
 			// if the item is renewal and it shoud be growth, change it.
 			// If the item is not renewal and also not growth, you can't override it.
-			if (currentItem.Classification__c == Constants.CLSS_RENEWAL) {
+			system.debug('***** CALCULATING CLASSIFICATION INSIDE OPPORTUNITY LINE ITEM SERVICE');
+            if (currentItem.Classification__c == Constants.CLSS_RENEWAL) {
 				currentItem.Classification__c = Constants.CLSS_GROWTH;
 			} else if (currentItem.Classification__c != Constants.CLSS_GROWTH) {
 				currentItem.Change_Classification__c.addError(Label.Not_Renewal);
@@ -695,6 +695,7 @@ public inherited sharing class OpportunityLineItemService {
 		for (OpportunityLineItem currentItem : getNewOverrideRenewalToGrowth(opportunityLineItems,priorValues)) {
 			// if the item is renewal and it shoud be growth, change it.
 			// If the item is not renewal and also not growth, you can't override it.
+			system.debug('CALCULATING CLASSIFICATION INSIDE OPPORTUNITY LINE ITEM SERVICE');
 			if (currentItem.Classification__c == Constants.CLSS_RENEWAL) {
 				currentItem.Classification__c = Constants.CLSS_GROWTH;
 			} else if (currentItem.Classification__c != Constants.CLSS_GROWTH) {

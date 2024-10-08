@@ -4,6 +4,10 @@
  * @date 2023-06-12
  * @changelog
  * 2023-11-23 - Thang Nguyen - include the credit claim case business logic
+ * 2024-07-08 - Seth Heang - Added 'filterUnified' to recordtype filtering and register a new module for handling proactive monitoring queue routing
+ * 2024-08-20 - George Nguyen - Added registerModule(CaseAutomationClassificationModule.class) to classify cases
+ * 2024-09-03 - Seth Heang - registered CaseUnifiedTeamMemberModule for unified case
+ * 2024-09-29 - Parveen Kaushik - Added unifiedCases filter for AutomationClassification module
  */
 public inherited sharing class CaseAutomationTriggerHandler extends ApplicationTriggerHandler {
 
@@ -17,10 +21,10 @@ public inherited sharing class CaseAutomationTriggerHandler extends ApplicationT
 					'SSSW' => new Set<Id>(),
 					'SSSWWithSocial' => new Set<Id>(),
 					'StarTrack' => new Set<Id>(),
-					'Enterprise_Credit_Dispute_Claim' => new Set<Id>()
+					'Enterprise_Credit_Dispute_Claim' => new Set<Id>(),
+					'Unified' => new Set<Id>()
 				};
-				List<RecordType> recordTypes = new RecordTypesSelector().selectByDeveloperNamesLike('Case', new Set<String>{'SSSW', 'Social', 'StarTrack', 'Enterprise_Credit_Dispute_Claim'}).values();
-
+				List<RecordType> recordTypes = new RecordTypesSelector().selectByDeveloperNamesLike('Case', new Set<String>{'SSSW', 'Social', 'StarTrack', 'Enterprise_Credit_Dispute_Claim', 'Unified'}).values();
 				for(RecordType rt : recordTypes) {
 					if(rt.DeveloperName.startsWithIgnoreCase('SSSW')) {
 						recordTypesByKey.get('SSSW').add(rt.Id);
@@ -34,7 +38,10 @@ public inherited sharing class CaseAutomationTriggerHandler extends ApplicationT
 					}
 					if(rt.DeveloperName.startsWithIgnoreCase('Enterprise_Credit_Dispute_Claim')) {
 						recordTypesByKey.get('Enterprise_Credit_Dispute_Claim').add(rt.Id);
-					}					
+					}
+					if(rt.DeveloperName.startsWithIgnoreCase('Unified')) {
+						recordTypesByKey.get('Unified').add(rt.Id);
+					}
 				}
 			}
 			return recordTypesByKey;
@@ -60,7 +67,8 @@ public inherited sharing class CaseAutomationTriggerHandler extends ApplicationT
 			'filterSSSW' => new List<SObject>(),
 			'filterSSSWWithSocial' => new List<SObject>(),
 			'filterStarTrack' => new List<SObject>(),
-			'filterCreditDisputeClaim' => new List<SObject>()
+			'filterCreditDisputeClaim' => new List<SObject>(),
+			'filterUnified' => new List<SObject>()
 		};
 		for(SObject record : records) {
 			Id recordTypeId = (Id)record.get('RecordTypeId');
@@ -76,7 +84,9 @@ public inherited sharing class CaseAutomationTriggerHandler extends ApplicationT
 			if(recordTypesByKey.get('Enterprise_Credit_Dispute_Claim').contains(recordTypeId)) {
 				filteredRecords.get('filterCreditDisputeClaim').add(record);
 			}
-
+			if(recordTypesByKey.get('Unified').contains(recordTypeId)) {
+				filteredRecords.get('filterUnified').add(record);
+			}
 		}
 		return filteredRecords;
 	}
@@ -99,6 +109,9 @@ public inherited sharing class CaseAutomationTriggerHandler extends ApplicationT
 		// all of the old case execution logic which hasn't been uplifted yet
 		registerModule(CaseLegacyAutomationModule.class);
 
+		// This module will use fields on the case to classify them. Such as Type and Record types
+		registerModule(CaseAutomationClassificationModule.class, 'filterUnified');
+
 		// these module will be available for domain operations and trigger execution
 		// each module will register their trigger entry points
 		// additionally, each module will specify a list of fields that it monitors changes for.
@@ -118,6 +131,11 @@ public inherited sharing class CaseAutomationTriggerHandler extends ApplicationT
 		// Refactor Guidance - the logic in this code needs to be positioned: i) in CaseTriggerUtility.beforeHandler() ii) when caseUtility.assignContactIDToCase() is called
 		registerModule(CaseSkillBasedRoutingModule.class, 'filterSSSW');
 
+		// Logic related to proactive monitor queue routing including time-based SLA validation
+		registerModule(CaseUnifiedProactiveMonitoringModule.class, 'filterUnified');
+
+		// Update CaseTeamMember from Case's owner
+		registerModule(CaseUnifiedTeamMemberModule.class, 'filterUnified');
 	}
 
 	/**
@@ -132,7 +150,9 @@ public inherited sharing class CaseAutomationTriggerHandler extends ApplicationT
 			CaseMilestone.SObjectType,
 			AuthorisedContacts__c.SObjectType,
 			PendingServiceRouting.SObjectType,
-			CaseInvestigation__c.SObjectType
+			CaseInvestigation__c.SObjectType,
+			ScheduledAction__c.SObjectType,
+			CaseTeamMember.SObjectType
 		};
 	}
 

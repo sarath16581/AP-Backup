@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>SupportingDocumentDownloadURL__c</fullName>
     <description>Public URL to download supporting documents related to the disputed item.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Public URL to download supporting documents related to the disputed item.</inlineHelpText>
     <label>Supporting Document Download URL</label>
     <length>2048</length>

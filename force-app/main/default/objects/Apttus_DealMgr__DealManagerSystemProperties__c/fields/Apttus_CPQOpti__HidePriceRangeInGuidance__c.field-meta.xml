@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Indicates whether price range will be hidden in the pricing guidance display. Either percentile range or price range may be hidden, not both.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Indicates whether price range will be hidden in the pricing guidance display. Either percentile range or price range may be hidden, not both.</inlineHelpText>
     <label>Hide Price Range In Guidance</label>
     <trackTrending>false</trackTrending>

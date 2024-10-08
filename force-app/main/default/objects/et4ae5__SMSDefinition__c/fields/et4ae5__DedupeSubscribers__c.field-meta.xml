@@ -3,7 +3,6 @@
     <fullName>et4ae5__DedupeSubscribers__c</fullName>
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
-    <externalId>false</externalId>
     <label>Dedupe Subscribers</label>
     <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>

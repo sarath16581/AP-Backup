@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Benefit__c</fullName>
     <description>What benefit  and impact the request will have once completed</description>
-    <externalId>false</externalId>
     <label>Benefit</label>
     <precision>18</precision>
     <required>false</required>

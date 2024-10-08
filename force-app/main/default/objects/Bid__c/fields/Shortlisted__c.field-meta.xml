@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Shortlisted__c</fullName>
     <description>if Post gets short listed on a bid</description>
-    <externalId>false</externalId>
     <inlineHelpText>if Post gets short listed on a bid</inlineHelpText>
     <label>Shortlisted</label>
     <required>false</required>

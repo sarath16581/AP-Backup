@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Result_Date__c</fullName>
     <description>The date the result is expected or actually received.</description>
-    <externalId>false</externalId>
     <inlineHelpText>The date the result is expected or actually received.</inlineHelpText>
     <label>Result Date</label>
     <required>false</required>

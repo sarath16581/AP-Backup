@@ -3,7 +3,6 @@
     <fullName>Organisation__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <description>The Account to which the approvals billing account is related</description>
-    <externalId>false</externalId>
     <label>Legal Entity Name</label>
     <referenceTo>Account</referenceTo>
     <relationshipLabel>Credit Approvals</relationshipLabel>

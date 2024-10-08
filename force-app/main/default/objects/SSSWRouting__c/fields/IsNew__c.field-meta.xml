@@ -3,7 +3,6 @@
     <fullName>IsNew__c</fullName>
     <defaultValue>false</defaultValue>
     <description>Checkbox used to route new cases [cases never seen by Auspost agents]</description>
-    <externalId>false</externalId>
     <label>Is New?</label>
     <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>

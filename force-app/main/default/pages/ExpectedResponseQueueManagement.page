@@ -1,185 +1,191 @@
 <!--
 2017-10-01 	nathan.franklin@auspost.com.au Added ScriptLoader component to manage frontend scripts
 2021-09-10	seth.heang@auspost.com.au	Uplift SF API version to 52
+2024-07-15	 Paul Perry  Case Hand-off banner changes
 -->
 <apex:page standardController="Case"
-    extensions="ExpectedResponseQueueManagementExt" showHeader="false">
+	extensions="ExpectedResponseQueueManagementExt" showHeader="false">
 
 	<c:ScriptLoader jsLibraries="jquery,jqueryui,ssswconsole,interaction,integration,bootstrap"
 					cssLibraries="jqueryui,bootstrap,ssswconsole" />
 
-    <style>
+	<style>
 .rowwrapper {
-    margin: 20px 20px;
+	margin: 20px 20px;
 }
 
 .btn {
-    width: 50px;
+	width: 50px;
 }
 
 </style>
-    <script>
-        var j$ = jQuery.noConflict();
+	<script>
+		var j$ = jQuery.noConflict();
 
-        function btnYesSystemUpdateClicked() {
-            showProgress();
-            yesSystemUpdateClicked();
-        }
+		function btnYesSystemUpdateClicked() {
+			showProgress();
+			yesSystemUpdateClicked();
+		}
 
-        function btnNoSystemUpdateClicked() {
-            showProgress();
-            noSystemUpdateClicked();
-        }
-        
-        function btnYesStillWaitingClicked() {
-            showProgress();
-            yesStillWaitingClicked();
-        }
+		function btnNoSystemUpdateClicked() {
+			showProgress();
+			noSystemUpdateClicked();
+		}
+		
+		function btnYesStillWaitingClicked() {
+			showProgress();
+			yesStillWaitingClicked();
+		}
 
-        function btnNoStillWaitingClicked() {
-            showProgress();
-            noStillWaitingClicked();
-        }
+		function btnNoStillWaitingClicked() {
+			showProgress();
+			noStillWaitingClicked();
+		}
 
-        function refreshPrimaryTab() {
-            sforce.console.getFocusedPrimaryTabId(function(result) {
-                //sforce.console.refreshPrimaryTabById(result.id, true);
-                sforce.console.openPrimaryTab(result.id, '/{!case.Id}', true);
-            });
-        }
-        
-        function openObjectInPrimaryTab(rId){
-            if(rId != '')
-            {
-                 sforce.console.getPrimaryTabIds(function(result){               
-                    j$.each(result.ids, function(index, value) {
-                        sforce.console.getPageInfo(value, function(l){
-                            var pageInfo = j$.evalJSON(l.pageInfo);
-                            if(pageInfo != null && pageInfo.objectId != null && rId.indexOf(pageInfo.objectId) > -1){
-                                sforce.console.focusPrimaryTabById(value);  
-                            }
-                        }); 
-                    });
-                   sforce.console.openPrimaryTab(null, '/' + rId, true);   
-                });
-            }
-        }
-        
-        function openAChildTab() {
-            showProgress();
-            window.console&&console.log('inside child tab fn');
-            var caseId = '{!currentCase.Id}';
-            var URL = '/';
-            var parentCase = '{!currentCase.ParentId}'; // Added for REQ0584647 fix : Nandan N
-            if(parentCase == undefined || parentCase == null || parentCase == ''){  // Added for REQ0584647 fix : Nandan N
-                ExpectedResponseQueueManagementExt.getChildCaseId(caseId,function(result,event){
-                    hideProgress();
-                    window.console&&console.log('result: ' + result);
-                    if(event.status) {
-                        window.console&&console.log(result);
-                        URL = URL + result;
-                        sforce.console.openPrimaryTab(null,URL,true);
-                    }
-                });   
-            }
-            else{   // Added for REQ0584647 fix : Nandan N
-                alert('{!$Label.Contact_Another_Network_Error}');
-                location.reload(true);
-            }
-            
-        }  
-        
-    </script>
-    <apex:form > 
-        <div>
-        <!--apex:commandButton value="Contact Another Network" styleClass="btn-xs" onClick="openAChildTab();return false;" /-->
-        <button type="button" id="contactAnotherNWBtn" class="btn-xs" style="font-size:0.95em" onclick="openAChildTab();return false;" >Contact Another Network</button>
-         <script>
-            //Added for  REQ0998943 DYU - Disbale the contact another network button when a case is close or permanently closed
-            if('{!CurrentCase.IsClosed}' == 'true'){
-               document.getElementById('contactAnotherNWBtn').disabled = true;
-               //document.getElementById('contactAnotherNWBtn').color = 'gray;
-            }
-            
-        </script>
-        </div>
-        
-        <apex:messages />
-         <!--Added for  REQ0998943 DYU - Display message whern contact another network button is closed -->
-        <apex:pageMessage severity="info" strength="1" rendered="{!CurrentCase.IsClosed}">
-                                                              Cannot create a Child case on a closed case. Create a new case
-                                                            </apex:pageMessage>                        
-        <apex:pageMessage severity="error" strength="1" rendered="{!isOpenFeedback}">
-                                                               <b>Feedback</b> has been selected.
-                                                               <br /><br />
-                                                               <b>Contact the Network</b><br/>or Close this Case.<br/>
-                                                            </apex:pageMessage>                     
-        <br/>       
-        <apex:pageMessage severity="warning" strength="1" rendered="{!isNotTheOwner}">
-                                                               You are currently not the owner of this case.
-                                                               <br /><br />
-                                                               This case is owned by <br/>
-                                                               <b>{!ownedByName}</b>
-                                                            </apex:pageMessage>                     
-        <br/>
-        <apex:outputtext rendered="{!IF(NOT(ISBLANK(Case.Parentid)),true,false)}">
-        <b>Parent Case:  <a href="#" onclick="openObjectInPrimaryTab('{!Case.ParentId}');">{!Case.Parent.CaseNumber}</a></b>
-        </apex:outputtext>
-        <apex:outputtext rendered="{!IF(NOT(ISBLANK(Case.RelatedCase__c)),true,false)}">
-        <b>Related from Case:  <a href="#" onclick="openObjectInPrimaryTab('{!Case.RelatedCase__c}');">{!Case.RelatedCase__r.CaseNumber}</a></b>
-        </apex:outputtext>      
-        <apex:actionfunction name="yesStillWaitingClicked" action="{!yesStillWaitingClicked}" immediate="false"
-            rerender="pnlStatusResponded" oncomplete="refreshPrimaryTab()" />
-        <apex:actionfunction name="noStillWaitingClicked" action="{!noStillWaitingClicked}" immediate="false"
-            rerender="pnlStatusResponded" oncomplete="refreshPrimaryTab()" />
-        <apex:outputpanel layout="block" rendered="{!hasStatusResponded}" id="pnlStatusResponded">
-            <div class="rowwrapper">
-                <p>This Case has received a Response.</p>
-                <p>There are other Related Cases still awaiting a Response. Are you still waiting for these responses?</p>
-            </div>
-            <div class="rowwrapper">
-                <apex:outputpanel id="pnlStillWaitingMessageNoNetwork" rendered="{!(currentCase.Status == 'Network Responded' && currentCase.Network__c == null)}">
-                <span style="color:red">Please select a network and click save to proceed.</span>
-                </apex:outputpanel>
-            
-            <apex:outputpanel id="pnlStillWaitingMessageHasNetwork" rendered="{!!(currentCase.Status == 'Network Responded' && currentCase.Network__c == null)}">
-                <apex:commandbutton id="btnYesStillWaiting" value="Yes" immediate="false"
-                    onclick="btnYesStillWaitingClicked();return false;" />
-                &nbsp;&nbsp;
-                <apex:commandbutton id="btnNoStillWaiting" value="No"
-                    onclick="btnNoStillWaitingClicked();return false;" immediate="false" />
-                    </apex:outputpanel>
-            </div>
-        </apex:outputpanel>
-    
-        <!--<apex:outputpanel layout="block" rendered="{!(currentCase.Status = 'Network Responded')}">
-            Response Rating:    <apex:inputfield value="{!proxyCase.Network_Response__c}"    />
-            <apex:commandbutton value="Rate" action="{!rateResponse}" oncomplete="refreshPrimaryTab();" />
-        </apex:outputpanel>
-        -->
-    
-        <apex:actionfunction name="yesSystemUpdateClicked" action="{!yesSystemUpdateClicked}" immediate="false"
-            rerender="pnlSystemUpdate" oncomplete="refreshPrimaryTab()" />
-        <apex:actionfunction name="noSystemUpdateClicked" action="{!noSystemUpdateClicked}" immediate="false"
-            rerender="pnlSystemUpdate" oncomplete="refreshPrimaryTab()" />
-        <apex:outputpanel layout="block" rendered="{!hasSystemUpdate}"
-            id="pnlSystemUpdate">
-            <div class="rowwrapper">
-                A <b>"{!currentCase.SystemUpdate__c}"</b> has been received. Please
-                review this update.
-            </div>
-            <div class="rowwrapper">
-                Is the status of <b>"{!currentCase.status}"</b> still correct?
-            </div>
-            <div class="rowwrapper">
-                <apex:commandbutton id="btnYesSystemUpdate" value="Yes" immediate="false"
-                    onclick="btnYesSystemUpdateClicked();return false;" />
-                &nbsp;&nbsp;
-                <apex:commandbutton id="btnNoSystemUpdate" value="No"
-                    onclick="btnNoSystemUpdateClicked();return false;" immediate="false" />
-            </div>
-        </apex:outputpanel>
-        <c:LoadingSpinnerComponent showFunctionName="showProgress" topMargin="25%" leftMargin="23%"
-            hideFunctionName="hideProgress" />
-    </apex:form>
+		function refreshPrimaryTab() {
+			sforce.console.getFocusedPrimaryTabId(function(result) {
+				//sforce.console.refreshPrimaryTabById(result.id, true);
+				sforce.console.openPrimaryTab(result.id, '/{!case.Id}', true);
+			});
+		}
+		
+		function openObjectInPrimaryTab(rId){
+			if(rId != '')
+			{
+				 sforce.console.getPrimaryTabIds(function(result){			   
+					j$.each(result.ids, function(index, value) {
+						sforce.console.getPageInfo(value, function(l){
+							var pageInfo = j$.evalJSON(l.pageInfo);
+							if(pageInfo != null && pageInfo.objectId != null && rId.indexOf(pageInfo.objectId) > -1){
+								sforce.console.focusPrimaryTabById(value);  
+							}
+						}); 
+					});
+				   sforce.console.openPrimaryTab(null, '/' + rId, true);   
+				});
+			}
+		}
+		
+		function openAChildTab() {
+			showProgress();
+			window.console&&console.log('inside child tab fn');
+			var caseId = '{!currentCase.Id}';
+			var URL = '/';
+			var parentCase = '{!currentCase.ParentId}'; // Added for REQ0584647 fix : Nandan N
+			if(parentCase == undefined || parentCase == null || parentCase == ''){  // Added for REQ0584647 fix : Nandan N
+				ExpectedResponseQueueManagementExt.getChildCaseId(caseId,function(result,event){
+					hideProgress();
+					window.console&&console.log('result: ' + result);
+					if(event.status) {
+						window.console&&console.log(result);
+						URL = URL + result;
+						sforce.console.openPrimaryTab(null,URL,true);
+					}
+				});   
+			}
+			else{   // Added for REQ0584647 fix : Nandan N
+				alert('{!$Label.Contact_Another_Network_Error}');
+				location.reload(true);
+			}
+			
+		}  
+		
+	</script>
+	<apex:form > 
+		<div>
+		<!--apex:commandButton value="Contact Another Network" styleClass="btn-xs" onClick="openAChildTab();return false;" /-->
+		<button type="button" id="contactAnotherNWBtn" class="btn-xs" style="font-size:0.95em" onclick="openAChildTab();return false;" >Contact Another Network</button>
+		 <script>
+			//Added for  REQ0998943 DYU - Disbale the contact another network button when a case is close or permanently closed
+			if('{!CurrentCase.IsClosed}' == 'true'){
+			   document.getElementById('contactAnotherNWBtn').disabled = true;
+			   //document.getElementById('contactAnotherNWBtn').color = 'gray;
+			}
+			
+		</script>
+		</div>
+		
+		<apex:messages />
+
+		<apex:pageMessage severity="info" strength="1" rendered="{!isCaseTransfer}">
+			Case is transferred by Unified Team
+		</apex:pageMessage>
+						
+		 <!--Added for  REQ0998943 DYU - Display message whern contact another network button is closed -->
+		<apex:pageMessage severity="info" strength="1" rendered="{!CurrentCase.IsClosed}">
+															  Cannot create a Child case on a closed case. Create a new case
+															</apex:pageMessage>						
+		<apex:pageMessage severity="error" strength="1" rendered="{!isOpenFeedback}">
+															   <b>Feedback</b> has been selected.
+															   <br /><br />
+															   <b>Contact the Network</b><br/>or Close this Case.<br/>
+															</apex:pageMessage>					 
+
+		<apex:pageMessage severity="warning" strength="1" rendered="{!isNotTheOwner}">
+															   You are currently not the owner of this case.
+															   <br /><br />
+															   This case is owned by <br/>
+															   <b>{!ownedByName}</b>
+															</apex:pageMessage>					 
+
+		<apex:outputtext rendered="{!IF(NOT(ISBLANK(Case.Parentid)),true,false)}">
+		<b>Parent Case:  <a href="#" onclick="openObjectInPrimaryTab('{!Case.ParentId}');">{!Case.Parent.CaseNumber}</a></b>
+		</apex:outputtext>
+		<apex:outputtext rendered="{!IF(NOT(ISBLANK(Case.RelatedCase__c)),true,false)}">
+		<b>Related from Case:  <a href="#" onclick="openObjectInPrimaryTab('{!Case.RelatedCase__c}');">{!Case.RelatedCase__r.CaseNumber}</a></b>
+		</apex:outputtext>	  
+		<apex:actionfunction name="yesStillWaitingClicked" action="{!yesStillWaitingClicked}" immediate="false"
+			rerender="pnlStatusResponded" oncomplete="refreshPrimaryTab()" />
+		<apex:actionfunction name="noStillWaitingClicked" action="{!noStillWaitingClicked}" immediate="false"
+			rerender="pnlStatusResponded" oncomplete="refreshPrimaryTab()" />
+		<apex:outputpanel layout="block" rendered="{!hasStatusResponded}" id="pnlStatusResponded">
+			<div class="rowwrapper">
+				<p>This Case has received a Response.</p>
+				<p>There are other Related Cases still awaiting a Response. Are you still waiting for these responses?</p>
+			</div>
+			<div class="rowwrapper">
+				<apex:outputpanel id="pnlStillWaitingMessageNoNetwork" rendered="{!(currentCase.Status == 'Network Responded' && currentCase.Network__c == null)}">
+				<span style="color:red">Please select a network and click save to proceed.</span>
+				</apex:outputpanel>
+			
+			<apex:outputpanel id="pnlStillWaitingMessageHasNetwork" rendered="{!!(currentCase.Status == 'Network Responded' && currentCase.Network__c == null)}">
+				<apex:commandbutton id="btnYesStillWaiting" value="Yes" immediate="false"
+					onclick="btnYesStillWaitingClicked();return false;" />
+				&nbsp;&nbsp;
+				<apex:commandbutton id="btnNoStillWaiting" value="No"
+					onclick="btnNoStillWaitingClicked();return false;" immediate="false" />
+					</apex:outputpanel>
+			</div>
+		</apex:outputpanel>
+	
+		<!--<apex:outputpanel layout="block" rendered="{!(currentCase.Status = 'Network Responded')}">
+			Response Rating:	<apex:inputfield value="{!proxyCase.Network_Response__c}"	/>
+			<apex:commandbutton value="Rate" action="{!rateResponse}" oncomplete="refreshPrimaryTab();" />
+		</apex:outputpanel>
+		-->
+	
+		<apex:actionfunction name="yesSystemUpdateClicked" action="{!yesSystemUpdateClicked}" immediate="false"
+			rerender="pnlSystemUpdate" oncomplete="refreshPrimaryTab()" />
+		<apex:actionfunction name="noSystemUpdateClicked" action="{!noSystemUpdateClicked}" immediate="false"
+			rerender="pnlSystemUpdate" oncomplete="refreshPrimaryTab()" />
+		<apex:outputpanel layout="block" rendered="{!hasSystemUpdate}"
+			id="pnlSystemUpdate">
+			<div class="rowwrapper">
+				A <b>"{!currentCase.SystemUpdate__c}"</b> has been received. Please
+				review this update.
+			</div>
+			<div class="rowwrapper">
+				Is the status of <b>"{!currentCase.status}"</b> still correct?
+			</div>
+			<div class="rowwrapper">
+				<apex:commandbutton id="btnYesSystemUpdate" value="Yes" immediate="false"
+					onclick="btnYesSystemUpdateClicked();return false;" />
+				&nbsp;&nbsp;
+				<apex:commandbutton id="btnNoSystemUpdate" value="No"
+					onclick="btnNoSystemUpdateClicked();return false;" immediate="false" />
+			</div>
+		</apex:outputpanel>
+		<c:LoadingSpinnerComponent showFunctionName="showProgress" topMargin="25%" leftMargin="23%"
+			hideFunctionName="hideProgress" />
+	</apex:form>
 </apex:page>

@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Third_Party_Involvement__c</fullName>
-    <externalId>false</externalId>
     <inlineHelpText>If part or all of the services are provided by a third party provide details (name and ABN).</inlineHelpText>
     <label>Third Party Involvement</label>
     <length>131072</length>

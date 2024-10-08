@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>APT_Parcel_Collection_Widget_included__c</fullName>
     <defaultValue>false</defaultValue>
-    <externalId>false</externalId>
     <label>Parcel Collection Widget Included?</label>
     <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>

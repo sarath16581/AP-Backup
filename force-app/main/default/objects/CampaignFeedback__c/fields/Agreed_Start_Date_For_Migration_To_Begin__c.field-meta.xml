@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Agreed_Start_Date_For_Migration_To_Begin__c</fullName>
     <description>When has the customer agreed to commence migration to APIs/ Parcel Send?</description>
-    <externalId>false</externalId>
     <inlineHelpText>When has the customer agreed to commence migration to APIs/ Parcel Send?</inlineHelpText>
     <label>Agreed Start Date For Migration To Begin</label>
     <required>false</required>

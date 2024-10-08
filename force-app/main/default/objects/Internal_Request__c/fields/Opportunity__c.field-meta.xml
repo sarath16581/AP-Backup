@@ -3,7 +3,6 @@
     <fullName>Opportunity__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <description>For the related opportunity link where a DSR is raised from an Opportunity or a BAR with an Opportunity linked</description>
-    <externalId>false</externalId>
     <label>Opportunity</label>
     <referenceTo>Opportunity</referenceTo>
     <relationshipLabel>Pricing Support Requests</relationshipLabel>

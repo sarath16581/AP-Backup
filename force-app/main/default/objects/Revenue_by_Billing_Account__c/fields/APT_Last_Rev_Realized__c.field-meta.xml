@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>APT_Last_Rev_Realized__c</fullName>
-    <externalId>false</externalId>
     <formula>IF(Jun_Revenue_Amount__c &gt; 0, ADDMONTHS(DATE(VALUE(Financial_Year__c),06,01),1),
 IF(May_Revenue_Amount__c &gt; 0, ADDMONTHS(DATE(VALUE(Financial_Year__c),05,01),1),
 IF(Apr_Revenue_Amount__c &gt; 0, ADDMONTHS(DATE(VALUE(Financial_Year__c),04,01),1),

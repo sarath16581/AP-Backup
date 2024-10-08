@@ -3,7 +3,6 @@
     <fullName>Case__c</fullName>
     <deleteConstraint>Restrict</deleteConstraint>
     <description>The first spam case that was created with this email.</description>
-    <externalId>false</externalId>
     <label>Case</label>
     <referenceTo>Case</referenceTo>
     <relationshipLabel>Spam Emails</relationshipLabel>

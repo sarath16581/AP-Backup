@@ -4,7 +4,6 @@
     <deleteConstraint>SetNull</deleteConstraint>
     <deprecated>false</deprecated>
     <description>The proposal which contains the source documents</description>
-    <externalId>false</externalId>
     <inlineHelpText>The proposal which contains the source documents</inlineHelpText>
     <label>Quote/Proposal</label>
     <referenceTo>Apttus_Proposal__Proposal__c</referenceTo>

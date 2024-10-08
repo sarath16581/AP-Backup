@@ -16,9 +16,7 @@ public with sharing class opcNavToBulkEditController {
 	@AuraEnabled
 	public static Boolean recalculateRevenue(String oppId) {
 		try {
-            system.debug('*** getting uow for' + oppId);
 			ApplicationUnitOfWork uow = ApplicationUnitOfWork.newInstance(getUnitOfWorkSObjectTypes());
-            system.debug('*** performing updates for '+uow);
 			GroupedLineItemSalesModule.newInstance().performRevenueUpdates(new Set<Id>{oppId}, uow);
 			uow.commitWork();
 			return true;

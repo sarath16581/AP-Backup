@@ -3,7 +3,6 @@
     <fullName>Apttus__RecordTypes__c</fullName>
     <deprecated>false</deprecated>
     <description>Note: If you add a new agreement/quote record type, the type must also be manually added to this set of picklist values to keep record types in sync between agreements/quotes and templates.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Note: If you add a new agreement/quote record type, the type must also be manually added to this set of picklist values to keep record types in sync between agreements/quotes and templates.</inlineHelpText>
     <label>Record Types</label>
     <required>false</required>

@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__HideNarrowYourSearch__c</fullName>
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
-    <externalId>false</externalId>
     <inlineHelpText>When checked Narrow Your Search is hidden.</inlineHelpText>
     <label>Hide Narrow Your Search</label>
     <trackTrending>false</trackTrending>

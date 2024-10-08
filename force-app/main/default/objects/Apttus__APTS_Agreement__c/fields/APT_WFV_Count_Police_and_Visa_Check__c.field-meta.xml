@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>APT_WFV_Count_Police_and_Visa_Check__c</fullName>
     <description>Used for the Workforce Verification product and checked when Feature Type equals Police and Visa Check</description>
-    <externalId>false</externalId>
     <label>WFV Count Police and Visa Check</label>
     <securityClassification>INTERNAL</securityClassification>
     <summaryFilterItems>

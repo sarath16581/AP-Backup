@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Ad_hoc__c</fullName>
     <description>Partner Addendum &apos;Ad-hoc&apos; Sub Type Description</description>
-    <externalId>false</externalId>
     <label>Ad hoc</label>
     <required>false</required>
     <trackTrending>false</trackTrending>

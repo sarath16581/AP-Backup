@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Total_Revenue_For_Cal__c</fullName>
-    <externalId>false</externalId>
     <formula>IF(  ISPICKVAL(Classification__c , &quot;Growth&quot;) , Total_Actual_Revenue__c + Total_Growth_YTD__c, Total_Actual_Revenue__c)</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <label>Total Revenue For % Cal</label>

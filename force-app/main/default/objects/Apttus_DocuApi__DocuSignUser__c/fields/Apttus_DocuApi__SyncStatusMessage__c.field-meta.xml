@@ -3,7 +3,6 @@
     <fullName>Apttus_DocuApi__SyncStatusMessage__c</fullName>
     <deprecated>false</deprecated>
     <description>DocuSign sync status message : Apttus system internal use only</description>
-    <externalId>false</externalId>
     <inlineHelpText>DocuSign sync status message : Apttus system internal use only</inlineHelpText>
     <label>Sync Status Message</label>
     <required>false</required>

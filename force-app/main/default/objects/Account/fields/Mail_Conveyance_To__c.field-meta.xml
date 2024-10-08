@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Mail_Conveyance_To__c</fullName>
     <description>Convey mail to location (may be a list of multiple locations)</description>
-    <externalId>false</externalId>
     <inlineHelpText>Convey mail to location (may be a list of multiple locations)</inlineHelpText>
     <label>Mail Conveyance To</label>
     <length>1000</length>

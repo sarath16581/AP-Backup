@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>UnifiedPreferredAgentExpirySCR__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <description>For SCRs, the timeout value in minutes for the preferred agent expiry.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>For SCRs, the timeout value in minutes for the preferred agent expiry.</inlineHelpText>
+    <label>Unified Preferred Agent Expiry - SCR</label>
+    <precision>5</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <securityClassification>INTERNAL</securityClassification>
+    <trackTrending>false</trackTrending>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

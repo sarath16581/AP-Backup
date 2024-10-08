@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Competitive_Status__c</fullName>
-    <externalId>false</externalId>
     <inlineHelpText>What is our current position against our competitors? (3%)</inlineHelpText>
     <label>Competitive Status</label>
     <required>false</required>

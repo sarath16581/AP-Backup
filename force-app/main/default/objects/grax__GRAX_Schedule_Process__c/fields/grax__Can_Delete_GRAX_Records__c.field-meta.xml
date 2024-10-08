@@ -3,7 +3,6 @@
     <fullName>grax__Can_Delete_GRAX_Records__c</fullName>
     <deprecated>false</deprecated>
     <description>Field Used for Internal Auditing</description>
-    <externalId>false</externalId>
     <formula>NOT(grax__Is_Running__c)</formula>
     <label>Can Delete GRAX Records?</label>
     <trackHistory>false</trackHistory>

@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>kfsell__Is_Opportunity_Section__c</fullName>
     <deprecated>false</deprecated>
-    <externalId>false</externalId>
     <formula>If(kfsell__Section__c == &apos;Opportunity&apos;, true,false)</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <label>Is Opportunity Section</label>

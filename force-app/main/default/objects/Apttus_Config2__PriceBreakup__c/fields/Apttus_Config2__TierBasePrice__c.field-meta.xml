@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__TierBasePrice__c</fullName>
     <deprecated>false</deprecated>
     <description>The unit price associated with the tier</description>
-    <externalId>false</externalId>
     <inlineHelpText>The unit price associated with the tier</inlineHelpText>
     <label>Tier Unit Price</label>
     <precision>18</precision>

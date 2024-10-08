@@ -4,7 +4,6 @@
     <deleteConstraint>SetNull</deleteConstraint>
     <deprecated>false</deprecated>
     <description>ID Of the associated purchase order item</description>
-    <externalId>false</externalId>
     <inlineHelpText>ID Of the associated purchase order item</inlineHelpText>
     <label>Purchase Order Item</label>
     <referenceTo>Apttus_Config2__CustomerPOItem__c</referenceTo>

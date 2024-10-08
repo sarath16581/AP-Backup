@@ -4,7 +4,6 @@
     <deleteConstraint>Restrict</deleteConstraint>
     <deprecated>false</deprecated>
     <description>ID of the dimension set associated with the rule.</description>
-    <externalId>false</externalId>
     <label>Dimension Set</label>
     <lookupFilter>
         <active>true</active>

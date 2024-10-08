@@ -3,7 +3,6 @@
     <fullName>Network__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <description>StarTrack: Capture network information for an article</description>
-    <externalId>false</externalId>
     <label>Network</label>
     <referenceTo>Network__c</referenceTo>
     <relationshipLabel>Articles</relationshipLabel>

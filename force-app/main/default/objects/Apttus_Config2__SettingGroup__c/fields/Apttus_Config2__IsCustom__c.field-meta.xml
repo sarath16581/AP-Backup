@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Boolean field to specify whether the group is custom created</description>
-    <externalId>false</externalId>
     <inlineHelpText>Boolean field to specify whether the group is custom created</inlineHelpText>
     <label>Is Custom</label>
     <securityClassification>INTERNAL</securityClassification>

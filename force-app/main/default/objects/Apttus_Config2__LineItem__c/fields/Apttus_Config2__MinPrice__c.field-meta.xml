@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__MinPrice__c</fullName>
     <deprecated>false</deprecated>
     <description>The minimum price or net adjustment % for the line item</description>
-    <externalId>false</externalId>
     <label>Min Price/Net Adj %</label>
     <precision>18</precision>
     <required>false</required>

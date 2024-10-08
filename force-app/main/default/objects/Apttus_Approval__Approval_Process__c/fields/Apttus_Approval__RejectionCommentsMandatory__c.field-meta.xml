@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Set this flag to make rejection comments mandatory for this process. When set, the user will be forced to enter comments when a request is rejected.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Set this flag to make rejection comments mandatory for this process. When set, the user will be forced to enter comments when a request is rejected.</inlineHelpText>
     <label>Rejection Comments Mandatory</label>
     <securityClassification>INTERNAL</securityClassification>

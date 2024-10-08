@@ -3,7 +3,6 @@
     <fullName>Transport_Collections__c</fullName>
     <defaultValue>false</defaultValue>
     <description>Used for Sales Implementation Case</description>
-    <externalId>false</externalId>
     <label>Transport Collections</label>
     <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>

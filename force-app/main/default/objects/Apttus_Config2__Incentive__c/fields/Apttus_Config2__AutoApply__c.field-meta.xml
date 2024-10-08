@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Indicates whether the incentive would be automatically applied during pricing</description>
-    <externalId>false</externalId>
     <inlineHelpText>Indicates whether the incentive would be automatically applied during pricing</inlineHelpText>
     <label>Auto Apply ?</label>
     <securityClassification>INTERNAL</securityClassification>

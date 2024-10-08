@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>BillingAccountFilter__c</fullName>
     <description>Stores the JSON config for filtering billing accounts at application level.</description>
-    <externalId>false</externalId>
     <inlineHelpText>JSON config to filter the billing accounts at application level</inlineHelpText>
     <label>Billing Account Filter</label>
     <length>32768</length>

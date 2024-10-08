@@ -3,7 +3,6 @@
     <fullName>Apttus__TemplateId__c</fullName>
     <deprecated>false</deprecated>
     <description>ID of the associated template</description>
-    <externalId>false</externalId>
     <inlineHelpText>ID of the associated template</inlineHelpText>
     <label>Template</label>
     <referenceTo>Apttus__APTS_Template__c</referenceTo>

@@ -3,7 +3,6 @@
     <fullName>Apttus__LongValue__c</fullName>
     <deprecated>false</deprecated>
     <description>Holds long value</description>
-    <externalId>false</externalId>
     <inlineHelpText>Holds long value</inlineHelpText>
     <label>Long Value</label>
     <length>10000</length>

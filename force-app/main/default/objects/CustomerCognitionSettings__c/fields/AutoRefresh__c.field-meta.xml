@@ -3,7 +3,6 @@
     <fullName>AutoRefresh__c</fullName>
     <defaultValue>false</defaultValue>
     <description>If true, then Cognition Page will be refreshed automatically at regular intervals</description>
-    <externalId>false</externalId>
     <inlineHelpText>If true, then Cognition Page will be refreshed automatically at regular intervals</inlineHelpText>
     <label>AutoRefresh</label>
     <trackTrending>false</trackTrending>

@@ -4,7 +4,6 @@
     <deleteConstraint>SetNull</deleteConstraint>
     <deprecated>false</deprecated>
     <description>ID of the previous process instance. Only applicable to resubmissions</description>
-    <externalId>false</externalId>
     <inlineHelpText>ID of the previous process instance. Only applicable to resubmissions</inlineHelpText>
     <label>Previous Process Instance</label>
     <referenceTo>Apttus_Approval__ApprovalProcessInstance__c</referenceTo>

@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Customer_Scoping_Questionnaire_CSQ__c</fullName>
-    <externalId>false</externalId>
     <label>Customer Scoping Questionnaire (CSQ)</label>
     <referenceTo>Customer_Scoping_Questionnaire__c</referenceTo>
     <relationshipName>IT_Contacts_and_Integration_Details</relationshipName>

@@ -3,7 +3,6 @@
     <fullName>ECLM_IsRenewal__c</fullName>
     <defaultValue>false</defaultValue>
     <description>ECLM field</description>
-    <externalId>false</externalId>
     <label>IsRenewal</label>
     <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>

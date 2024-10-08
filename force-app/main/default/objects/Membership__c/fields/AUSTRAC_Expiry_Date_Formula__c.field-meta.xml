@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>AUSTRAC_Expiry_Date_Formula__c</fullName>
     <description>Calculation for the expiry of this registration record</description>
-    <externalId>false</externalId>
     <formula>if((
 OR(((MOD(YEAR(AUSTRAC_registration_date__c),4)=0)&amp;&amp;(MONTH(AUSTRAC_registration_date__c)&gt;2)),((MOD(YEAR(AUSTRAC_registration_date__c),4)=1)&amp;&amp;(MONTH(AUSTRAC_registration_date__c)&lt;=2)))),((AUSTRAC_registration_date__c) +1095),((AUSTRAC_registration_date__c) +1096))</formula>
     <inlineHelpText>Calculation for the expiry of this registration record</inlineHelpText>

@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>ATL_Allowed_Billing_Accounts__c</fullName>
     <description>StarTrack Billing Account is an ATL allowed Billing Account</description>
-    <externalId>false</externalId>
     <formula>IF(OR(CONTAINS(Account.ATL_Allowed_Billing_Accounts__c ,  &apos;Y&apos; + Related_Billing_Account__c),  AND(NOT(CONTAINS(Account.ATL_Allowed_Billing_Accounts__c , Related_Billing_Account__c)),ISPICKVAL(Account.Authority_to_leave__c, &apos;Yes&apos;))), true, false)</formula>
     <label>ATL Allowed</label>
     <securityClassification>INTERNAL</securityClassification>

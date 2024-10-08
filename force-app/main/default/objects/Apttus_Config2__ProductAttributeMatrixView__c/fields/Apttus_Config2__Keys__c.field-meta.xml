@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__Keys__c</fullName>
     <deprecated>false</deprecated>
     <description>The encoded column tokens.</description>
-    <externalId>false</externalId>
     <inlineHelpText>The encoded column tokens.</inlineHelpText>
     <label>Keys</label>
     <length>32768</length>

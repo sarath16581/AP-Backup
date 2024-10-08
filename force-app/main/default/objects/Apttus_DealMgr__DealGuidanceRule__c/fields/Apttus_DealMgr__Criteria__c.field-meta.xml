@@ -3,7 +3,6 @@
     <fullName>Apttus_DealMgr__Criteria__c</fullName>
     <deprecated>false</deprecated>
     <description>The rule criteria specification</description>
-    <externalId>false</externalId>
     <label>Rule Criteria</label>
     <length>4000</length>
     <securityClassification>INTERNAL</securityClassification>

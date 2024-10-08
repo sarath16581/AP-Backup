@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<AuthProvider xmlns="http://soap.sforce.com/2006/04/metadata">
+    <authorizeUrl>https://digitalapi-stest.npe.auspost.com.au/ap-auth/authorize?audience=https://digitalapi.auspost.com.au/high</authorizeUrl>
+    <consumerKey>JHiNVKOpJ9vKrISAoRSLamL1V9hGZG2E</consumerKey>
+    <consumerSecret>Placeholder_Value</consumerSecret>
+    <defaultScopes>id profile email openid https://scopes.auspost.com.au/auth/sf/v1/authentication</defaultScopes>
+    <executionUser>jithandler@auspost.com.au.stest</executionUser>
+    <friendlyName>Single Sign On (Merchant Portal)</friendlyName>
+    <includeOrgIdInIdentifier>false</includeOrgIdInIdentifier>
+    <isPkceEnabled>true</isPkceEnabled>
+    <logoutUrl>https://welcome.stest.auspost.com.au/oidc/logout?post_logout_redirect_uri=https%3A%2F%2Fauspost.com.au%2F&amp;client_id=JHiNVKOpJ9vKrISAoRSLamL1V9hGZG2E</logoutUrl>
+    <providerType>OpenIdConnect</providerType>
+    <registrationHandler>MerchantPortalOIDCRegHandler</registrationHandler>
+    <requireMfa>false</requireMfa>
+    <sendAccessTokenInHeader>true</sendAccessTokenInHeader>
+    <sendClientCredentialsInHeader>false</sendClientCredentialsInHeader>
+    <sendSecretInApis>true</sendSecretInApis>
+    <tokenUrl>https://digitalapi-stest.npe.auspost.com.au/ap-auth/oauth/token</tokenUrl>
+    <userInfoUrl>https://welcome.stest.auspost.com.au/userinfo</userInfoUrl>
+</AuthProvider>

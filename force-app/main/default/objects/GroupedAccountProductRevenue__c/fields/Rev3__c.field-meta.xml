@@ -3,7 +3,6 @@
     <fullName>Rev3__c</fullName>
     <defaultValue>0</defaultValue>
     <description>This field captures the total revenue for the month of March.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Enter the total revenue for March.</inlineHelpText>
     <label>Revenue March</label>
     <precision>18</precision>

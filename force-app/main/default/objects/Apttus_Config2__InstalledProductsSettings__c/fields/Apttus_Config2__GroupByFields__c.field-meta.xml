@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__GroupByFields__c</fullName>
     <deprecated>false</deprecated>
     <description>To configure GroupBy field for custom views on Assets page</description>
-    <externalId>false</externalId>
     <inlineHelpText>To configure GroupBy field for custom views on Assets page</inlineHelpText>
     <label>GroupByFields</label>
     <required>false</required>

@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>APT_Is_Cloned__c</fullName>
     <defaultValue>false</defaultValue>
-    <externalId>false</externalId>
     <label>Is Cloned</label>
     <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>

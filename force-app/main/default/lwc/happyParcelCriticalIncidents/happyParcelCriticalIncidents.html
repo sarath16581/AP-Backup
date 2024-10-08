@@ -9,8 +9,8 @@
 				button-variant="bare" oncardbuttonclick={closePopup}>
 				<div class="slds-col slds-size_1-of-1 slds-border_top">
 					<template for:each={criticalIncidents} for:item="wrapper">
-						<div class="slds-truncate slds-var-p-around_x-small" key={wrapper.Id}>
-							<a data-id={wrapper.Id} class="slds-text-link"
+						<div class="slds-truncate slds-var-p-around_x-small" key={wrapper.KnowledgeArticleId}>
+							<a data-id={wrapper.KnowledgeArticleId} class="slds-text-link"
 								onclick={handleKnowledgeClick}>{wrapper.Title}</a>
 						</div>
 					</template>

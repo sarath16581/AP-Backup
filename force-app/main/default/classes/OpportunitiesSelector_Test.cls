@@ -11,6 +11,7 @@
  * 2023-08-18 - Ranjeewa Silva - Updated tests to cover new selector options to include competitor, dsr and apttus contracts
  * 2023-10-26 - Mahesh Parvathaneni - Updated tests to cover selector option WITH_OPPORTUNITY_LINE_ITEMS
  * 2024-06-20 - Harry Wang - Added test for selectByAccountId with WITH_KEY_CONTACT option
+ * 2024-08-20 - Ken McGuire - Added test for selectOpenOpportunitiesByAccountIds
  */
 
 @IsTest
@@ -144,6 +145,9 @@ public with sharing class OpportunitiesSelector_Test {
 		System.assertEquals(account.Id, opportunities[0].AccountId, 'Parent account Id not matched');
 		System.assertEquals(contact.Id, opportunities[0].KeyContact__c, 'Key contact Id not matched');
 
+        results = selector.selectOpenOpportunitiesByAccountIds(new Set<Id>{account.Id});
+		System.assertEquals(account.Id, results.get(opportunityRecord.id).AccountId, 'Parent account Id not matched');
+        
 		Test.stopTest();
 
 	}

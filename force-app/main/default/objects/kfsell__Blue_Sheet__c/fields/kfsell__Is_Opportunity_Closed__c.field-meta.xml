@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>kfsell__Is_Opportunity_Closed__c</fullName>
     <deprecated>false</deprecated>
-    <externalId>false</externalId>
     <formula>kfsell__Opportunity__r.IsClosed</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <label>Is Opportunity Closed</label>

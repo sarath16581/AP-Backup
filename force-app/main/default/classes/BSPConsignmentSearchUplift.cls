@@ -1120,6 +1120,8 @@ public without sharing class BSPConsignmentSearchUplift {
 	class ErrorException extends Exception {
 	}
 
+	
+
 	/**
 	 * @description	Retrieve a snapshot of the current state of SafeDrop image file per article under the parent consignment if they exist in Salesforce
 	 * 				Or, it's required to be downloaded.
@@ -1127,7 +1129,41 @@ public without sharing class BSPConsignmentSearchUplift {
 	 */
 	@AuraEnabled(Cacheable=false)
 	public static List<MyCustomerDeliveryProofPdfController.SafeDropImageState> getCurrentStateOfSafeDropImageRequiredForDownload(String trackingId) {
-		return MyCustomerDeliveryProofPdfController.getCurrentStateOfSafeDropImageRequiredForDownload(trackingId);
+		
+		List<MyCustomerDeliveryProofPdfController.SafeDropImageState> safeDropImageStates = new List<MyCustomerDeliveryProofPdfController.SafeDropImageState>();
+		
+		// find the existing article record for the searched tracking number
+		List<Article__c> articleResults = ArticlesSelector.newInstance().selectByIdOrTracking(
+			new Set<String>{ trackingId }, 
+			new Set<Id>(), 
+			new Set<Object>{ ArticlesSelector.Options.WITH_RECORDTYPE }, 
+			false
+		).values();
+
+		// if record found, attempt to bring in any related articles or parent consignments from SAP into Salesforce, since that will be needed
+		// for the POD
+		if (!articleResults.isEmpty()) {
+			
+			// Expect only one so get the first in the list
+			Article__c article = articleResults.get(0);
+
+			// Get the parent consignment tracking number, depending on whether the found record is an article or consignment
+			String consignmentTrackingNumber;
+			if (article.RecordType.DeveloperName == 'Article') {
+				consignmentTrackingNumber = article.ConsignmentTrackingNumber__c;
+			} else {
+				consignmentTrackingNumber = article.ArticleId__c;
+			}
+			
+			// Search SAP for the consignment number (which should bring in all child articles as well)
+			TIBCOArticleService.getInstance().search(new List<String>{consignmentTrackingNumber}, true, false, false, false, true);
+			
+			// Now that all related sibling articles and parent consignment is in Salesforce, find which ones have safe drop images that need
+			// to be downloaded
+			safeDropImageStates.addAll(MyCustomerDeliveryProofPdfController.getCurrentStateOfSafeDropImageRequiredForDownload(trackingId));
+		}
+		
+		return safeDropImageStates;		
 	}
 
 	/**

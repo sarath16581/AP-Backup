@@ -3,7 +3,6 @@
     <fullName>Apttus_Approval__Description__c</fullName>
     <deprecated>false</deprecated>
     <description>Denotes a description for the particular approval process record type being used (i.e. initial action description, final submission action, etc)</description>
-    <externalId>false</externalId>
     <inlineHelpText>Denotes a description for the particular approval process record type being used (i.e. initial action description, final submission action, etc)</inlineHelpText>
     <label>Description</label>
     <required>false</required>

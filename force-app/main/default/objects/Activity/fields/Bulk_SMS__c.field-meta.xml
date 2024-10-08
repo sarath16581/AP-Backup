@@ -3,7 +3,6 @@
     <fullName>Bulk_SMS__c</fullName>
     <defaultValue>false</defaultValue>
     <description>This will determine if SMS task was created in bulk or not.</description>
-    <externalId>false</externalId>
     <label>Bulk SMS?</label>
     <securityClassification>INTERNAL</securityClassification>
     <type>Checkbox</type>

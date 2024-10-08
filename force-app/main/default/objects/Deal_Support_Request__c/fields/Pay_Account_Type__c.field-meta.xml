@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Pay_Account_Type__c</fullName>
     <description>The field is used for &apos;Credit Management Request&apos; DSR record type and is also used as a controlling field of Work Type which aim to differentiate between billing account or sub account.</description>
-    <externalId>false</externalId>
     <label>Pay Account Type</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>

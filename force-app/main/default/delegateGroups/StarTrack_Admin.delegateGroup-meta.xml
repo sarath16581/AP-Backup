@@ -99,6 +99,13 @@
     <groups>StarTrack Recycle Bin</groups>
     <groups>BSC - Schenker</groups>
     <groups>BSC - Banking</groups>
+    <groups>Knowledge: Article Managers</groups>
+    <groups>Knowledge: Australia Post</groups>
+    <groups>Knowledge: FAQ</groups>
+    <groups>Knowledge: Manager</groups>
+    <groups>Knowledge: Recovery Team</groups>
+    <groups>Knowledge: Specialist Skill</groups>
+    <groups>Knowledge: StarTrack</groups>
     <label>StarTrack Admin</label>
     <loginAccess>false</loginAccess>
     <permissionSetGroups>ST Team Leader Basic Permissions</permissionSetGroups>
@@ -124,6 +131,10 @@
     <permissionSets>Manage StarTrack Articles</permissionSets>
     <permissionSets>ACL Remediation</permissionSets>
     <permissionSets>StarTrack View Unified Tracking</permissionSets>
+    <permissionSets>Knowledge - API</permissionSets>
+    <permissionSets>Knowledge - Manage Articles</permissionSets>
+    <permissionSets>Knowledge - Manage FAQs</permissionSets>
+    <permissionSets>Knowledge - View Articles</permissionSets>
     <profiles>StarTrack Partner Community</profiles>
     <profiles>SSSE User</profiles>
     <profiles>SSSE- Depot User</profiles>

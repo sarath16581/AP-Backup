@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>APT_Holding_Company__c</fullName>
     <defaultValue>false</defaultValue>
-    <externalId>false</externalId>
     <label>Holding Company</label>
     <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>

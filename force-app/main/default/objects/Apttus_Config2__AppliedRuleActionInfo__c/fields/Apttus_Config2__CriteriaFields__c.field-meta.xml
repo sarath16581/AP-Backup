@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__CriteriaFields__c</fullName>
     <deprecated>false</deprecated>
     <description>Criteria fields affected</description>
-    <externalId>false</externalId>
     <label>Criteria Fields</label>
     <length>8096</length>
     <securityClassification>INTERNAL</securityClassification>

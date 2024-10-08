@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Distribution_Type__c</fullName>
     <description>Please identify whether the customer intends to distribute primarily to other Businesses or Consumers.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Please identify whether the customer intends to distribute primarily to other Businesses or Consumers.</inlineHelpText>
     <label>Distribution Type</label>
     <required>false</required>

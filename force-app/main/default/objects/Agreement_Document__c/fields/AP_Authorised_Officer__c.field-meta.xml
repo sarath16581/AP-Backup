@@ -3,7 +3,6 @@
     <fullName>AP_Authorised_Officer__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <description>The person that is authorised to sign the document</description>
-    <externalId>false</externalId>
     <inlineHelpText>Salesforce User / Name of Australia Post Authorised Officer who signed the agreement OR Name of Australia Post representative who provided the disclosure document to the Licencee.</inlineHelpText>
     <label>AP Authorised Officer</label>
     <referenceTo>User</referenceTo>

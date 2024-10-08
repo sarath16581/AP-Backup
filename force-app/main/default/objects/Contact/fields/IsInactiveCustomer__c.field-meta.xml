@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>IsInactiveCustomer__c</fullName>
     <description>Indicates a closed or merged account, ready to be archived and deleted. Examples - customer request, deceased etc. Derived from the Status__c field value</description>
-    <externalId>false</externalId>
     <formula>ISPICKVAL(Status__c, &quot;Inactive&quot;)</formula>
     <inlineHelpText>Closed or Merged account, soon to be archived and deleted. Examples include deceased, customer request etc.</inlineHelpText>
     <label>Is Inactive Customer</label>

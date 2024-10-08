@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>External_Vendor_Cost__c</fullName>
     <description>This field will show the cost of the Vendor work to complete requirement.</description>
-    <externalId>false</externalId>
     <label>External Vendor Cost</label>
     <precision>18</precision>
     <required>false</required>

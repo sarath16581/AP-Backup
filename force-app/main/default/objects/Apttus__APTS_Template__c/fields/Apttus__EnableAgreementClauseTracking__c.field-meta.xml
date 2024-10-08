@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Enables tracking of agreement clause changes</description>
-    <externalId>false</externalId>
     <inlineHelpText>Enables tracking of agreement clause changes</inlineHelpText>
     <label>Enable Agreement Clause Tracking</label>
     <securityClassification>INTERNAL</securityClassification>

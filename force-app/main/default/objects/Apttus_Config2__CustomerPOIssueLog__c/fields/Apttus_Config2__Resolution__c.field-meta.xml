@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__Resolution__c</fullName>
     <deprecated>false</deprecated>
     <description>Holds information about the final resolution of the issue</description>
-    <externalId>false</externalId>
     <inlineHelpText>Holds information about the final resolution of the issue</inlineHelpText>
     <label>Resolution</label>
     <required>false</required>

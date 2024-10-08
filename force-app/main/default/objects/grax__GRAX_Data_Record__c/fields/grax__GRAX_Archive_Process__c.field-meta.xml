@@ -4,7 +4,6 @@
     <deleteConstraint>SetNull</deleteConstraint>
     <deprecated>false</deprecated>
     <description>Related Archive Process if &quot;Archive&quot; has been selected</description>
-    <externalId>false</externalId>
     <label>GRAX Archive Process</label>
     <referenceTo>grax__GRAX_Archive_Process__c</referenceTo>
     <relationshipLabel>GRAX Data Records</relationshipLabel>

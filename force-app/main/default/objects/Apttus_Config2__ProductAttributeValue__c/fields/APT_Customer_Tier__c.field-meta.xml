@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>APT_Customer_Tier__c</fullName>
-    <externalId>false</externalId>
     <inlineHelpText>Customers who spend more with Australia Post will have access to lower prices. Access to Tier 9+ will require approval by Pricing. 
 Value (ex Gst) 
 TIER 1: $2.5K - $4.99K 

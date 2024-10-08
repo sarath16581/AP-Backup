@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Competitive_Advantage__c</fullName>
     <description>Phase 1 - Replaced Incumbent Section on Oppty.</description>
-    <externalId>false</externalId>
     <inlineHelpText>What is our competitive advantage over our primary competitors? (3%)</inlineHelpText>
     <label>Competitive Advantage</label>
     <length>32768</length>

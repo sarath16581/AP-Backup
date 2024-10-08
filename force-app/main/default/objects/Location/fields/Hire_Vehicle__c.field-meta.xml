@@ -3,7 +3,6 @@
     <fullName>Hire_Vehicle__c</fullName>
     <defaultValue>false</defaultValue>
     <description>Indicates the vehicle is a hire vehicle, not a company vehicle</description>
-    <externalId>false</externalId>
     <inlineHelpText>Indicates the vehicle is a hire vehicle, not a company vehicle</inlineHelpText>
     <label>Hire Vehicle</label>
     <securityClassification>INTERNAL</securityClassification>

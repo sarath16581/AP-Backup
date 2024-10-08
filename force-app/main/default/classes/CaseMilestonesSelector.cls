@@ -6,11 +6,15 @@
  * @description A very simple selector class that sits in the base domain
  * @changelog
  * 2022-03-05	Naveen Rajanna	REQ2723199 Added enum and selectByCaseAndMilestoneNames method
+ * 2024-08-14	George Nguyen	Added FILTER_NOT_VIOLATED, FILTER_COMPLETED and FILTER_NOT_COMPLETED
  */
 public virtual inherited sharing class CaseMilestonesSelector extends ApplicationSelector {
 	
 	public enum Options {
-		FILTER_VIOLATED
+		FILTER_VIOLATED,
+		FILTER_NOT_VIOLATED,
+		FILTER_COMPLETED,
+		FILTER_NOT_COMPLETED
 	}
 	
 	public static CaseMilestonesSelector newInstance() {
@@ -51,9 +55,21 @@ public virtual inherited sharing class CaseMilestonesSelector extends Applicatio
 
 	public virtual override QueryBuilder newQueryBuilder(Set<Object> selectorOptions) {
 		QueryBuilder builder = super.newQueryBuilder(selectorOptions);
+
+		// Violated or Not Violated
 		if(selectorOptions.contains(Options.FILTER_VIOLATED)) {
 			builder.addConditions().add(new QueryBuilder.CompareCondition(CaseMilestone.IsViolated).eq(true)).endConditions();
+		} else if(selectorOptions.contains(Options.FILTER_NOT_VIOLATED)) {
+			builder.addConditions().add(new QueryBuilder.CompareCondition(CaseMilestone.IsViolated).eq(false)).endConditions();
 		}
+
+		// Completed or Not Completed
+		if(selectorOptions.contains(Options.FILTER_COMPLETED)) {
+			builder.addConditions().add(new QueryBuilder.CompareCondition(CaseMilestone.IsCompleted).eq(true)).endConditions();
+		} else if(selectorOptions.contains(Options.FILTER_NOT_COMPLETED)) {
+			builder.addConditions().add(new QueryBuilder.CompareCondition(CaseMilestone.IsCompleted).eq(false)).endConditions();
+		}
+
 		return builder;
 	}
 

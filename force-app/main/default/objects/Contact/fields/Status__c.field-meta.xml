@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Status__c</fullName>
-    <externalId>false</externalId>
     <inlineHelpText>A Contact is Active if Post have an ongoing business relationship with that person. Contacts who have Left Organisation are Unmanaged. 
 
 Consider setting Status to Inactive, if (Contact Maintained By = Unmanaged &amp; No Activity for 12 months).</inlineHelpText>

@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Q3_NRT_Revenue__c</fullName>
-    <externalId>false</externalId>
     <formula>IF(ISPICKVAL(Classification_c__c ,&quot;Growth&quot;), Opportunity_Product_Classification__r.Q3_NRT_Adjustment__c  ,  Opportunity_Product_Classification__r.Q3_Growth__c + Opportunity_Product_Classification__r.Q3_NRT_Adjustment__c )</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <label>Q3 NRT Revenue</label>

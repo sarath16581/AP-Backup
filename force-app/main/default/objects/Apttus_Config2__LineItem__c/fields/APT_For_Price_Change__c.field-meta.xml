@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>APT_For_Price_Change__c</fullName>
-    <externalId>false</externalId>
     <formula>if(Apttus_Config2__ConfigurationId__r.Apttus_QPConfig__Proposald__r.APT_DoV_Category__c =&apos;Contract Review / Price Change&apos;,true,false)</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <label>For Price Change</label>

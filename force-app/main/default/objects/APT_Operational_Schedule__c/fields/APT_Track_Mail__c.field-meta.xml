@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>APT_Track_Mail__c</fullName>
     <defaultValue>false</defaultValue>
-    <externalId>false</externalId>
     <label>Track Mail</label>
     <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>

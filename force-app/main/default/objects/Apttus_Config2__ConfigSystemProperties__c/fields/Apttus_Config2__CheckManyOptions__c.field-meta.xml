@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Enables mass selection of options</description>
-    <externalId>false</externalId>
     <label>Check Many Options</label>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>

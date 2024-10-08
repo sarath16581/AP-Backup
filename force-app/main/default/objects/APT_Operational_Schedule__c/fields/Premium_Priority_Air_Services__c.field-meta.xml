@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Premium_Priority_Air_Services__c</fullName>
     <defaultValue>false</defaultValue>
-    <externalId>false</externalId>
     <label>Premium</label>
     <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>

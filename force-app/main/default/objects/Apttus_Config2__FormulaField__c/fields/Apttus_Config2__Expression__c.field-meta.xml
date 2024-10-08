@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__Expression__c</fullName>
     <deprecated>false</deprecated>
     <description>The formula expression. Either use field or expression.</description>
-    <externalId>false</externalId>
     <inlineHelpText>The formula expression. Either use field or expression.</inlineHelpText>
     <label>Expression</label>
     <length>4096</length>

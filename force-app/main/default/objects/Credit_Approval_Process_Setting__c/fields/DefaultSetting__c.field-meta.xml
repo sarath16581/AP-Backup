@@ -3,7 +3,6 @@
     <fullName>DefaultSetting__c</fullName>
     <defaultValue>false</defaultValue>
     <description>Indicates the record is the default setting should no matches be found when assigning to the workflow reporting table</description>
-    <externalId>false</externalId>
     <label>Default Setting</label>
     <securityClassification>INTERNAL</securityClassification>
     <trackTrending>false</trackTrending>

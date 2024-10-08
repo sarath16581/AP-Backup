@@ -3,7 +3,6 @@
     <fullName>Apttus_QPConfig__TaxRate__c</fullName>
     <deprecated>false</deprecated>
     <description>The tax rate</description>
-    <externalId>false</externalId>
     <inlineHelpText>The tax rate</inlineHelpText>
     <label>TaxRate</label>
     <precision>5</precision>

@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>APT_Is_Create_Contract_Batch_Job_Running__c</fullName>
     <defaultValue>false</defaultValue>
-    <externalId>false</externalId>
     <label>Is Create Contract Batch Job Running?</label>
     <securityClassification>INTERNAL</securityClassification>
     <trackHistory>false</trackHistory>

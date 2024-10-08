@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>APT_Proposal_Line_Item__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
-    <externalId>false</externalId>
     <label>Proposal Line Item</label>
     <referenceTo>Apttus_Proposal__Proposal_Line_Item__c</referenceTo>
     <relationshipName>Quote_Lodgement_Point</relationshipName>

@@ -3,7 +3,6 @@
     <fullName>Convert_attachment_to_files__c</fullName>
     <defaultValue>false</defaultValue>
     <description>True if we want to convert attachments to files if Child Case is using Files.</description>
-    <externalId>false</externalId>
     <fieldManageability>DeveloperControlled</fieldManageability>
     <label>Convert attachment to files</label>
     <type>Checkbox</type>

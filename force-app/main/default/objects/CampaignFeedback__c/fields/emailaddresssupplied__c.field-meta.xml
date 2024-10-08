@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>emailaddresssupplied__c</fullName>
     <description>Consignment with Email %.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Consignment with Email %</inlineHelpText>
     <label>Email address supplied %</label>
     <precision>5</precision>

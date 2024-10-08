@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>APT_Provisioned_in_SAP_Date__c</fullName>
     <description>Used for Provisioning in SAP</description>
-    <externalId>false</externalId>
     <inlineHelpText>Indicate when was provisioning done in SAP. If you leave this field empty, system will populate it with the date when the checkbox was checked.</inlineHelpText>
     <label>Provisioned In SAP Date</label>
     <required>false</required>

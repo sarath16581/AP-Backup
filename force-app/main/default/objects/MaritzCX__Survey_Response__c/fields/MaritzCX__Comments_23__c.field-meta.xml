@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>MaritzCX__Comments_23__c</fullName>
     <deprecated>false</deprecated>
-    <externalId>false</externalId>
     <label>Comments 23</label>
     <length>32768</length>
     <securityClassification>INTERNAL</securityClassification>

@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>If unchecked, requests assigned to the current user get assigned to the backup instead.  When checked, requests assigned to the current user remain assigned to them but their delegates are notified and can take action on the requests as well.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Indicates that the this entry is for delegate user.</inlineHelpText>
     <label>Is Delegate</label>
     <securityClassification>INTERNAL</securityClassification>

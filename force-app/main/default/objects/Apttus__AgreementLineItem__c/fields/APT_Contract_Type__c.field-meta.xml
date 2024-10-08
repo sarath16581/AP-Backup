@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>APT_Contract_Type__c</fullName>
-    <externalId>false</externalId>
     <formula>ISPICKVAL(Apttus__AgreementId__r.APT_Contract_Type__c, &apos;DoV Contract&apos;) || ISPICKVAL(Apttus__AgreementId__r.APT_Contract_Type__c, &apos;Renewal Contract&apos;)</formula>
     <label>Contract Type Not New</label>
     <securityClassification>INTERNAL</securityClassification>

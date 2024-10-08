@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Business_Lifecycle__c</fullName>
     <description>Business Life cycle records where an organisation is at in their lifecycle at the point in time of the opportunity being noticed - values defined by the Marketing team.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Where is the customer placed in their business lifecycle? (6%)</inlineHelpText>
     <label>Business Lifecycle</label>
     <required>false</required>

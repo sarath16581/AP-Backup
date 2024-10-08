@@ -4,7 +4,6 @@
     <businessStatus>DeprecateCandidate</businessStatus>
     <deleteConstraint>SetNull</deleteConstraint>
     <description>Reference to Time Utilisation object &lt;to be decommissioned - User Support Query RT cleanup&gt;</description>
-    <externalId>false</externalId>
     <label>Dep - Time Utilisation Ref</label>
     <referenceTo>Time_Utilisation__c</referenceTo>
     <relationshipLabel>Weekly Cases</relationshipLabel>

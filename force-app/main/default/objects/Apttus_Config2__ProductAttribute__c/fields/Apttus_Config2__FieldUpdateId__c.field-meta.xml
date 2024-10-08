@@ -4,7 +4,6 @@
     <deleteConstraint>SetNull</deleteConstraint>
     <deprecated>false</deprecated>
     <description>This field is deprecated</description>
-    <externalId>false</externalId>
     <label>Field Update (Deprecated)</label>
     <referenceTo>Apttus_Config2__FieldExpression__c</referenceTo>
     <relationshipLabel>Product Attributes</relationshipLabel>

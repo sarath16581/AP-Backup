@@ -3,7 +3,6 @@
     <fullName>Billing_Account__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <description>The field is a lookup to an associated billing account for credit management deal support request.</description>
-    <externalId>false</externalId>
     <label>Billing Account</label>
     <referenceTo>Billing_Account__c</referenceTo>
     <relationshipLabel>Deal Support Request</relationshipLabel>

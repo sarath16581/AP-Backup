@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__ApplicationMethod__c</fullName>
     <deprecated>false</deprecated>
     <description>The incentive application method, depends on the application type.</description>
-    <externalId>false</externalId>
     <inlineHelpText>The incentive application method, depends on the application type.</inlineHelpText>
     <label>Application Method</label>
     <required>false</required>

@@ -60,7 +60,6 @@ global with sharing class ProcessSocialPostAction {
 		for (SocialPost existingPost : getExistingSocialPost(responseContextExternalIds)) {
 			existingPostMap.put(existingPost.ResponseContextExternalId, existingPost);
 		}
-
 		// Maps latest information to existing socialPost and removes existing records from the sociel data event map
 		for (SocialPost post : getSocialPostWithProvidersAndExternalIds(providers, externalIds)) {
 			if(socialPostParamsMap.containsKey(post.ExternalPostId)){				

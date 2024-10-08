@@ -3,7 +3,6 @@
     <fullName>APT_Interstate_Distribution__c</fullName>
     <defaultValue>false</defaultValue>
     <description>This Field is deprecated as part of the story CI-1075 and is no longer required to be populated in any of the templates</description>
-    <externalId>false</externalId>
     <label>Interstate Distribution(Deprecated)</label>
     <securityClassification>INTERNAL</securityClassification>
     <trackHistory>true</trackHistory>

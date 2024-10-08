@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Billing_System_more_than_one__c</fullName>
     <description>Billing system for integrated account</description>
-    <externalId>false</externalId>
     <inlineHelpText>Billing system for integrated account</inlineHelpText>
     <label>Billing System (more than one)</label>
     <required>false</required>

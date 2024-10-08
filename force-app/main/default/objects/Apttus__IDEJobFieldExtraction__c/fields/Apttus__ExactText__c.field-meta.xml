@@ -3,7 +3,6 @@
     <fullName>Apttus__ExactText__c</fullName>
     <deprecated>false</deprecated>
     <description>Text used to normalize extracted data</description>
-    <externalId>false</externalId>
     <inlineHelpText>Text used to normalize extracted data</inlineHelpText>
     <label>Exact Text</label>
     <length>32768</length>

@@ -3,7 +3,6 @@
     <fullName>et4ae5__ValidExactTargetUser__c</fullName>
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
-    <externalId>false</externalId>
     <label>Valid Marketing Cloud User</label>
     <trackFeedHistory>false</trackFeedHistory>
     <type>Checkbox</type>

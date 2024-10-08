@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Initiating_Area__c</fullName>
     <description>Information about the area that the Case Initiator works. Will remain the same, even if Initiator moves departments - meaning data will remain constant.</description>
-    <externalId>false</externalId>
     <inlineHelpText>The busienss area where the Initiated By: user works</inlineHelpText>
     <label>Initiating Area</label>
     <required>false</required>

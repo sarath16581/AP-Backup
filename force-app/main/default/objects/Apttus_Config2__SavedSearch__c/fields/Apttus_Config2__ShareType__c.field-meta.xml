@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__ShareType__c</fullName>
     <deprecated>false</deprecated>
     <description>The share type</description>
-    <externalId>false</externalId>
     <inlineHelpText>The share type</inlineHelpText>
     <label>Share Type</label>
     <required>false</required>

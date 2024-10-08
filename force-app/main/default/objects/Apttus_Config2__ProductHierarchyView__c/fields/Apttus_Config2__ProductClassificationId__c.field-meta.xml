@@ -4,7 +4,6 @@
     <deleteConstraint>SetNull</deleteConstraint>
     <deprecated>false</deprecated>
     <description>The associated product classification ID.</description>
-    <externalId>false</externalId>
     <inlineHelpText>The associated product classification ID.</inlineHelpText>
     <label>Product Classification</label>
     <referenceTo>Apttus_Config2__ProductClassification__c</referenceTo>

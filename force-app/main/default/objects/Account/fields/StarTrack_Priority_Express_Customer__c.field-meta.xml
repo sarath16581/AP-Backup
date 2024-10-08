@@ -3,7 +3,6 @@
     <fullName>StarTrack_Priority_Express_Customer__c</fullName>
     <defaultValue>false</defaultValue>
     <description>StarTrack Priority Express Customer</description>
-    <externalId>false</externalId>
     <label>StarTrack Priority Express Customer</label>
     <securityClassification>INTERNAL</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>

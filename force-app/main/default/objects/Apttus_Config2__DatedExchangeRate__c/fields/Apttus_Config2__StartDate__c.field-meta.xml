@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__StartDate__c</fullName>
     <deprecated>false</deprecated>
     <description>The current exchange period date</description>
-    <externalId>false</externalId>
     <inlineHelpText>The current exchange period date</inlineHelpText>
     <label>Start Date</label>
     <required>true</required>

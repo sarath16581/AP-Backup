@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Status__c</fullName>
     <description>Manually completed by the owner/acct mgr/seller once the event is ACTUALLY completed. This drives the completion count for &quot;Event&quot; type activities</description>
-    <externalId>false</externalId>
     <inlineHelpText>Manually completed by the owner/acct mgr/seller once the event is ACTUALLY completed. This drives the completion count for &quot;Event&quot; type activities</inlineHelpText>
     <label>Status</label>
     <required>false</required>

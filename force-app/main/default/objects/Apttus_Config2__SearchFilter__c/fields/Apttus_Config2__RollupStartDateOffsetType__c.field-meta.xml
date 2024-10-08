@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__RollupStartDateOffsetType__c</fullName>
     <deprecated>false</deprecated>
     <description>The type of offset to apply to the rollup start date</description>
-    <externalId>false</externalId>
     <inlineHelpText>The type of offset to apply to the rollup start date</inlineHelpText>
     <label>Rollup Start Date Offset Type</label>
     <required>false</required>

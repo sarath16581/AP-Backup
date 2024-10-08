@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Indicates whether the usage price tier is modifiable for the product or option</description>
-    <externalId>false</externalId>
     <inlineHelpText>Indicates whether the usage price tier is modifiable for the product or option</inlineHelpText>
     <label>Is Usage Tier Modifiable</label>
     <trackTrending>false</trackTrending>

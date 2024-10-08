@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
     <description>Whether the field value is selected.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Select this to filter the search result.</inlineHelpText>
     <label>Is Selected</label>
     <securityClassification>INTERNAL</securityClassification>

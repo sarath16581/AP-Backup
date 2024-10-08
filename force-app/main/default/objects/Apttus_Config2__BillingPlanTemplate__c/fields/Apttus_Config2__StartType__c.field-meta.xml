@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__StartType__c</fullName>
     <deprecated>false</deprecated>
     <description>Select how the billing plan start date will be determined.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Select how the billing plan start date will be determined.</inlineHelpText>
     <label>Start Type</label>
     <required>false</required>

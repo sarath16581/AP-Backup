@@ -3,7 +3,6 @@
     <fullName>International_Product__c</fullName>
     <defaultValue>false</defaultValue>
     <description>International Product type, used by Metro Transport fleet.</description>
-    <externalId>false</externalId>
     <label>International</label>
     <trackFeedHistory>false</trackFeedHistory>
     <trackTrending>false</trackTrending>

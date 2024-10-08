@@ -3,7 +3,6 @@
     <fullName>kfsell__is_past_action_due__c</fullName>
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
-    <externalId>false</externalId>
     <label>is past action due</label>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>

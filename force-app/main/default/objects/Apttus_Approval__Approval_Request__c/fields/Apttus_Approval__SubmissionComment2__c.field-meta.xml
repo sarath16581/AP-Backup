@@ -3,7 +3,6 @@
     <fullName>Apttus_Approval__SubmissionComment2__c</fullName>
     <deprecated>false</deprecated>
     <description>A second comment entered by the submitter when the request was submitted.  The comment label is specified by the &quot;Submission Comment 2 Label&quot; field in the related approval process definition.</description>
-    <externalId>false</externalId>
     <inlineHelpText>A second comment entered by the submitter when the request was submitted.  The comment label is specified by the &quot;Submission Comment 2 Label&quot; field in the related approval process definition.</inlineHelpText>
     <label>Submission Comment 2</label>
     <length>4096</length>

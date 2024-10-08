@@ -3,7 +3,6 @@
     <fullName>kfsell__Over_Confident__c</fullName>
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
-    <externalId>false</externalId>
     <label>Over Confident</label>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>

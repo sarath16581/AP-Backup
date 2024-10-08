@@ -3,7 +3,6 @@
     <fullName>Applied_PSR__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <description>Stores the recordId of PSR applied on Shopping cart for APPC Product</description>
-    <externalId>false</externalId>
     <label>Applied PSR</label>
     <referenceTo>Deal_Support_Request__c</referenceTo>
     <relationshipLabel>Asset Attribute Values</relationshipLabel>

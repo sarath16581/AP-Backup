@@ -3,7 +3,6 @@
     <fullName>Depot_Role__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <description>StarTrack: Capture depot area for activity</description>
-    <externalId>false</externalId>
     <label>Depot Area</label>
     <lookupFilter>
         <active>true</active>

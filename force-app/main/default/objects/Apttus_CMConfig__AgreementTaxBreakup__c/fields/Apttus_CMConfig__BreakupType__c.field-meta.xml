@@ -3,7 +3,6 @@
     <fullName>Apttus_CMConfig__BreakupType__c</fullName>
     <deprecated>false</deprecated>
     <description>The tax break type</description>
-    <externalId>false</externalId>
     <inlineHelpText>The tax break type</inlineHelpText>
     <label>Breakup Type</label>
     <required>false</required>

@@ -3,7 +3,6 @@
     <fullName>Apttus__Category__c</fullName>
     <deprecated>false</deprecated>
     <description>Controlling the subcategory field, whose list values shall allow users to search, find, and select Input controls</description>
-    <externalId>false</externalId>
     <inlineHelpText>Controlling the subcategory field, whose list values shall allow users to search, find, and select Input Controls</inlineHelpText>
     <label>Category</label>
     <required>false</required>

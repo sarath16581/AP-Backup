@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__Columns__c</fullName>
     <deprecated>false</deprecated>
     <description>The product attribute columns</description>
-    <externalId>false</externalId>
     <inlineHelpText>The product attribute columns</inlineHelpText>
     <label>Columns</label>
     <length>1024</length>

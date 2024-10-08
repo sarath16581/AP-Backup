@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Calculated_Subsequent_Rate__c</fullName>
     <description>This field field is Created to Perform the Subsequent Rate Calculation only for Banded Z6 Price Structure to display the output rates in the CSV files created for SAP . For Banded Z6 subsequent Rate output rate would always be same as Calculated Base rate for less than 5kg and for &gt;5kg it would be the existing subsequent being fed as part of the SAP Record creation . If Price Structure is not Banded Z6 it would return original Subsequent Rate being fed as part of SAP rate creation.</description>
-    <externalId>false</externalId>
     <formula>IF(AND(APT_Weight_Range_Code__c &lt;= 5 , Price_Structure__c = &apos;BANDED {Z6}&apos; ) , Calculated_Base_Rate__c, APT_Subsequent_Rate__c)</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <label>Calculated Subsequent Rate</label>

@@ -2,8 +2,7 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Ret5__c</fullName>
     <description>Retained Revenue forecast for May</description>
-    <externalId>false</externalId>
-    <formula>For5__c *  TotalRetained__c</formula>
+    <formula>For5__c *  OpportunityProduct__r.TotalRetained__c</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <inlineHelpText>Retained Revenue forecast for May</inlineHelpText>
     <label>May Expected Retained Value</label>

@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__Description__c</fullName>
     <deprecated>false</deprecated>
     <description>The incentive exclusion description</description>
-    <externalId>false</externalId>
     <inlineHelpText>The incentive exclusion description</inlineHelpText>
     <label>Description</label>
     <length>1000</length>

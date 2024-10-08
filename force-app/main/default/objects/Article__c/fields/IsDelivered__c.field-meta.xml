@@ -3,7 +3,6 @@
     <fullName>IsDelivered__c</fullName>
     <defaultValue>false</defaultValue>
     <description>Indicate if the article has been successfully delivered. The data is not live and is refreshed when an article search occurs.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Indicate if this article has been successfully delivered</inlineHelpText>
     <label>Is Delivered</label>
     <securityClassification>INTERNAL</securityClassification>

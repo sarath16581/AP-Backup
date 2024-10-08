@@ -3,7 +3,6 @@
     <fullName>kfsell__Override_Alert_Email_Text__c</fullName>
     <defaultValue>false</defaultValue>
     <deprecated>false</deprecated>
-    <externalId>false</externalId>
     <label>Override Alert/Email Text</label>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>

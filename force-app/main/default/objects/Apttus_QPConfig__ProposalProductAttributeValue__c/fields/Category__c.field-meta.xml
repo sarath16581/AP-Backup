@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Category__c</fullName>
-    <externalId>false</externalId>
     <inlineHelpText>Test Help Test for Category</inlineHelpText>
     <label>Category</label>
     <required>false</required>

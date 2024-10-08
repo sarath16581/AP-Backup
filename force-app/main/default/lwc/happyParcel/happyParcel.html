@@ -148,8 +148,51 @@
 					</c-happy-parcel-article-details>
 				</div>
 			</div>
-
 			<div class="slds-card slds-card_boundary">
+				<div
+					class="slds-grid slds-theme_shade slds-p-top_xx-small slds-p-bottom_xx-small slds-p-left_xx-small slds-p-right_small slds-border_bottom">
+					<h3 class="slds-section__title">
+						<span class="slds-p-horizontal_small" title="Articles">Articles</span>
+					</h3>
+					<template if:true={supportsSelectableChildArticles}>
+						<div class="slds-col_bump-left slds-show_inline-block slds-box_border slds-is-relative"
+							style="width: 30px; height: 30px; background-color:white" onclick={handleSelectAllDeselectAll}>
+							<template if:true={displaySelectAllTick}>
+				
+								<div style="pointer-events: none">
+									<c-happy-parcel-custom-icon icon="tick" size="small"
+										style="position: absolute; top: 50%; left: 50%; margin-left: -10px; margin-top: -10px"></c-happy-parcel-custom-icon>
+								</div>
+							</template>
+							<template if:true={displayIndeterminate}>
+				
+								<div style="pointer-events: none">
+									<c-happy-parcel-custom-icon icon="dash" size="small"
+										style="position: absolute; top: 50%; left: 40%; margin-left: -10px; margin-top: -10px"></c-happy-parcel-custom-icon>
+								</div>
+							</template>
+						</div>
+					</template>
+					<template if:true={supportsReadOnlyCheckboxChildArticles}>
+						<div class="slds-col_bump-left slds-show_inline-block slds-box_border slds-is-relative read-only-checkbox"
+							style="width: 30px; height: 30px">
+							<template if:true={displaySelectAllTick}>
+				
+								<div style="pointer-events: none">
+									<c-happy-parcel-custom-icon icon="tick" size="small"
+										style="position: absolute; top: 50%; left: 50%; margin-left: -10px; margin-top: -10px"></c-happy-parcel-custom-icon>
+								</div>
+							</template>
+							<template if:true={displayIndeterminate}>
+				
+								<div style="pointer-events: none">
+									<c-happy-parcel-custom-icon icon="dash" size="small"
+										style="position: absolute; top: 50%; left: 40%; margin-left: -10px; margin-top: -10px"></c-happy-parcel-custom-icon>
+								</div>
+							</template>
+						</div>
+					</template>
+				</div>
 				<lightning-accordion allow-multiple-sections-open active-section-name={activeSections} onsectiontoggle={handleToggleSection}>
 					<template for:each={articles} for:item="article">
 						<lightning-accordion-section name={article.trackingId} label={article.trackingId} key={article.trackingId} class="slds-is-relative">
@@ -159,13 +202,30 @@
 									<c-happy-parcel-milestone-path loading-tracking-api={loadingTrackingApi} tracking-api-result={article.trackingResult} class="slds-show_inline-block" variant="compact">
 									</c-happy-parcel-milestone-path>
 								</template>
-
 								<template if:true={supportsSelectableChildArticles}>
 									<div
 										class="slds-show_inline-block slds-box_border slds-m-left_large slds-is-relative"
 										data-article={article.trackingId}
 										style="width: 30px; height: 30px"
 										onclick={handleArticleSelectorClick}
+									>
+									
+										<div style="pointer-events: none">
+											<template if:true={article.articleSelected}>
+												<c-happy-parcel-custom-icon
+													icon="tick"
+													size="small"
+													style="position: absolute; top: 50%; left: 50%; margin-left: -10px; margin-top: -10px"
+												></c-happy-parcel-custom-icon>
+											</template>
+										</div>
+									</div>
+								</template>
+								<template if:true={supportsReadOnlyCheckboxChildArticles}>
+									<div
+										class="slds-show_inline-block slds-box_border slds-m-left_large slds-is-relative read-only-checkbox"
+										data-article={article.trackingId}
+										style="width: 30px; height: 30px"
 									>
 										<div style="pointer-events: none">
 											<template if:true={article.articleSelected}>

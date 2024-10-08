@@ -3,7 +3,6 @@
     <fullName>Apttus__UploadURL__c</fullName>
     <deprecated>false</deprecated>
     <description>Upload URL of Office 365</description>
-    <externalId>false</externalId>
     <inlineHelpText>Upload URL of Office 365</inlineHelpText>
     <label>Upload URL</label>
     <length>32768</length>

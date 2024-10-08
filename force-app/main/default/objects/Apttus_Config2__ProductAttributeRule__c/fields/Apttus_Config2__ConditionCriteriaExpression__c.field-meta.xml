@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__ConditionCriteriaExpression__c</fullName>
     <deprecated>false</deprecated>
     <description>The rule criteria expression</description>
-    <externalId>false</externalId>
     <inlineHelpText>The rule criteria expression</inlineHelpText>
     <label>Condition Criteria Expression</label>
     <length>8192</length>

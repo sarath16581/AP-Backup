@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Date_Fax_Changed__c</fullName>
     <description>Set the date on this field to whevnever a change is made to the fax number</description>
-    <externalId>false</externalId>
     <label>Date Fax Changed</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>

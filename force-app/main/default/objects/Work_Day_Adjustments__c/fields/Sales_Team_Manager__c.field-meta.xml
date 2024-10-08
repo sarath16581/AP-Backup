@@ -3,7 +3,6 @@
     <fullName>Sales_Team_Manager__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <description>The Manager of the sales team</description>
-    <externalId>false</externalId>
     <inlineHelpText>The Manager of the sales team</inlineHelpText>
     <label>Sales Team Manager</label>
     <referenceTo>User</referenceTo>

@@ -3,7 +3,6 @@
     <fullName>APT_Domestic_Pricing__c</fullName>
     <defaultValue>false</defaultValue>
     <description>if true then product pricing will be handled using domestic pricing batch</description>
-    <externalId>false</externalId>
     <inlineHelpText>if true then product pricing will be handled using domestic pricing batch</inlineHelpText>
     <label>Domestic Pricing</label>
     <securityClassification>OFFICIAL_SENSITIVE</securityClassification>

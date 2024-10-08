@@ -121,7 +121,7 @@ public inherited sharing class GroupedLineItemSalesModule extends ApplicationMod
 			removeRevenueSchedulesForRecords(records, uow);
 		} catch(Exception ex) {
 			// Error Logged to Exception object for analysis
-			UTIL_LoggingService.logHandledException(ex, UserInfo.getOrganizationId(), SSSWConstants.SSSW_APP, GroupedLineItemSalesModule.class.getName(), 'onAfterUpdate', SSSWConstants.CASE_TRIGGER, LoggingLevel.ERROR);
+			UTIL_LoggingService.logHandledException(ex, UserInfo.getOrganizationId(), SSSWConstants.SSSW_APP, GroupedLineItemSalesModule.class.getName(), 'onAfterDelete', SSSWConstants.CASE_TRIGGER, LoggingLevel.ERROR);
 		}
 	}
 	
@@ -135,65 +135,70 @@ public inherited sharing class GroupedLineItemSalesModule extends ApplicationMod
 	 * @return void - updates to records are stored in the unit of work
 	 */
 	public void performRevenueUpdates(Set<Id> opportunityCandidates, ApplicationUnitOfWork uow) {
-		// a collection of opportunity ids whose line items are to be updated
-		Set<Id> opportunityIds = new Set<Id>();
-		// prevent recursion, no need to update the opportunity line items more than once.
-		for (id candidate : opportunityCandidates) {
-			if (!updatedOpportunities.contains(candidate)) {
-				opportunityIds.add(candidate);
-			}
+        try {
+            // a collection of opportunity ids whose line items are to be updated
+            Set<Id> opportunityIds = new Set<Id>();
+            // prevent recursion, no need to update the opportunity line items more than once.
+            for (id candidate : opportunityCandidates) {
+                if (!updatedOpportunities.contains(candidate)) {
+                    opportunityIds.add(candidate);
+                }
+            }
+            // exit in the case that there are no opportunities whose line items require updates
+            if (opportunityIds.isEmpty()) {
+                 return;
+            }
+            // instantiate the service responsible for updating product revenues
+            ProductRevenueService service = ProductRevenueService.getInstance();
+            // load line item candidates
+            List<OpportunityLineItem> lineItemCandidates = service.getProductLineItemsForOpportunities(opportunityIds);
+            // a subset of line items associated with the opportunity that are to be updated
+            Map<Id,OpportunityLineItem> lineItemsToUpdate = new Map<Id,OpportunityLineItem>();
+            // prevent recursion in the case that this line item has been updated already.
+            for (OpportunityLineItem candidate: lineItemCandidates) {
+                if (!updatedLineItems.contains(candidate.id)) {
+                    lineItemsToUpdate.put(candidate.id,candidate);
+                }
+            }
+            // exit in the case that there are no opportunity line items to update
+            if (lineItemsToUpdate.isEmpty()) {
+                return;
+            }
+             // use the product revenue service to bring the revenue history for all the opportunity line items up to date (current)
+            Map<String,GroupedAccountProductRevenue__c> reCalculatedRevenues = service.reCalculateGroupRevenuesForLineItems(lineItemsToUpdate.values());
+            // recalculate the retained and incremental values for the line items based on the newly recalculated product revenues
+            service.reCalculateRetainedIncremental(lineItemsToUpdate.values());
+            // assign a classificaton to the updated line items
+            service.calculateClassification(lineItemsToUpdate.values(),true);
+            // add the new and updated revenue records to lists for registration with the unit of work.
+            Map<String,GroupedAccountProductRevenue__c> revenuesUpdatable = new Map<String,GroupedAccountProductRevenue__c>();
+            Map<String,GroupedAccountProductRevenue__c> revenuesInsertable = new Map<String,GroupedAccountProductRevenue__c>();
+            for (GroupedAccountProductRevenue__c revenue: reCalculatedRevenues.values()) {
+                if (revenue.Id == null) {
+                    revenuesInsertable.put(revenue.uid__c,revenue);
+                } else {
+                    revenuesUpdatable.put(revenue.uid__c, revenue);
+                }
+            }
+            // insert new revenue records
+            if (!revenuesInsertable.isEmpty()) {
+                uow.registerNew(revenuesInsertable.values());
+            }
+            // update existing revenue records
+            if (!revenuesUpdatable.isEmpty()) {
+                uow.registerDirty(revenuesUpdatable.values());
+            }
+            // update sales information placed on line items
+            if (!lineItemsToUpdate.isEmpty()) {
+                uow.registerDirty(lineItemsToUpdate.values());
+            }
+            // prevent recursion.
+            updatedOpportunities.addAll(opportunityIds);
+            updatedLineItems.addAll(lineItemsToUpdate.keyset());
+        } catch(Exception ex) {
+			// Error Logged to Exception object for analysis
+			UTIL_LoggingService.logHandledException(ex, UserInfo.getOrganizationId(), SSSWConstants.SSSW_APP, GroupedLineItemSalesModule.class.getName(), 'performRevenueUpdates', SSSWConstants.CASE_TRIGGER, LoggingLevel.ERROR);
 		}
-		// exit in the case that there are no opportunities whose line items require updates
-		if (opportunityIds.isEmpty()) {
-			 return;
-		}
-		// instantiate the service responsible for updating product revenues
-		ProductRevenueService service = ProductRevenueService.getInstance();
-		// load line item candidates
-		List<OpportunityLineItem> lineItemCandidates = service.getProductLineItemsForOpportunities(opportunityIds);
-		// a subset of line items associated with the opportunity that are to be updated
-		Map<Id,OpportunityLineItem> lineItemsToUpdate = new Map<Id,OpportunityLineItem>();
-		// prevent recursion in the case that this line item has been updated already.
-		for (OpportunityLineItem candidate: lineItemCandidates) {
-			if (!updatedLineItems.contains(candidate.id)) {
-				lineItemsToUpdate.put(candidate.id,candidate);
-			}
-		}
-		// exit in the case that there are no opportunity line items to update
-		if (lineItemsToUpdate.isEmpty()) {
-			return;
-		}
-		 // use the product revenue service to bring the revenue history for all the opportunity line items up to date (current)
-		Map<String,GroupedAccountProductRevenue__c> reCalculatedRevenues = service.reCalculateGroupRevenuesForLineItems(lineItemsToUpdate.values());
-		// recalculate the retained and incremental values for the line items based on the newly recalculated product revenues
-		service.reCalculateRetainedIncremental(lineItemsToUpdate.values());
-		// assign a classificaton to the updated line items
-		service.calculateClassification(lineItemsToUpdate.values(),true);
-		// add the new and updated revenue records to lists for registration with the unit of work.
-		List<GroupedAccountProductRevenue__c> revenuesUpdatable = new List<GroupedAccountProductRevenue__c>();
-		List<GroupedAccountProductRevenue__c> revenuesInsertable = new List<GroupedAccountProductRevenue__c>();
-		for (GroupedAccountProductRevenue__c revenue: reCalculatedRevenues.values()) {
-			if (revenue.Id == null) {
-				revenuesInsertable.add(revenue);
-			} else {
-				revenuesUpdatable.add(revenue);
-			}
-		}
-		// insert new revenue records
-		if (!revenuesInsertable.isEmpty()) {
-			uow.registerNew(revenuesInsertable);
-		}
-		// update existing revenue records
-		if (!revenuesUpdatable.isEmpty()) {
-			uow.registerDirty(revenuesUpdatable);
-		}
-		// update sales information placed on line items
-		if (!lineItemsToUpdate.isEmpty()) {
-			uow.registerDirty(lineItemsToUpdate.values());
-		}
-		// prevent recursion.
-		updatedOpportunities.addAll(opportunityIds);
-		updatedLineItems.addAll(lineItemsToUpdate.keyset());
 	}
 
 	 /**
@@ -209,13 +214,19 @@ public inherited sharing class GroupedLineItemSalesModule extends ApplicationMod
 		if (lineItems.size()==0) {
 			return;
 		}
-		// call on the product schedule service to effect the creation/update of schedules. 
-		// The schedule service, in turn, depends on the revenue service to effect updates to revenues and product information
-		List<GroupedRevenueSchedule__c> schedules = ProductScheduleService.newInstance().createUpdateRevenueSchedules(lineItems);
-		// register all the canged or updated revenue and schedule records with the unit of work data object.
-		ProductScheduleService.registerDataForUpdateInsert(schedules,uow);
-		//prevent recusion, there is no need to repeat these updates.
-		updatedLineItems.AddAll(lineItems.keyset());
+        try {
+           	// call on the product schedule service to effect the creation/update of schedules. 
+            // The schedule service, in turn, depends on the revenue service to effect updates to revenues and product information
+            List<GroupedRevenueSchedule__c> schedules = ProductScheduleService.newInstance().createUpdateRevenueSchedules(lineItems);
+            // register all the canged or updated revenue and schedule records with the unit of work data object.
+            ProductScheduleService.registerDataForUpdateInsert(schedules,uow);
+            //prevent recusion, there is no need to repeat these updates.
+            updatedLineItems.AddAll(lineItems.keyset());
+        } catch(Exception ex) {
+			// Error Logged to Exception object for analysis
+			UTIL_LoggingService.logHandledException(ex, UserInfo.getOrganizationId(), SSSWConstants.SSSW_APP, GroupedLineItemSalesModule.class.getName(), 'performScheduleUpdatesForLineItems', SSSWConstants.CASE_TRIGGER, LoggingLevel.ERROR);
+		}
+
 	}
 	 
 

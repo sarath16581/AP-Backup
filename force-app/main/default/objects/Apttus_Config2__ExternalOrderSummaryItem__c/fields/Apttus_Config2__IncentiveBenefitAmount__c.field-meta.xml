@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__IncentiveBenefitAmount__c</fullName>
     <deprecated>false</deprecated>
     <description>The total incentive benefit amount</description>
-    <externalId>false</externalId>
     <inlineHelpText>The total incentive benefit amount</inlineHelpText>
     <label>Incentive Benefit Amount</label>
     <securityClassification>INTERNAL</securityClassification>

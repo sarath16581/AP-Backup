@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>MTD_Last_Year__c</fullName>
-    <externalId>false</externalId>
     <formula>IF(OR(Month(Today())&gt;=7&amp;&amp;Financial_Year__c =text(Year(today())),
 Month(Today())&lt;7&amp;&amp;Financial_Year__c =text(Year(today())-1)), MTD__c, 0)</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>

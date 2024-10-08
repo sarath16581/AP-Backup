@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__CurrentContractUnitPrice__c</fullName>
     <deprecated>false</deprecated>
     <description>The value of the current contract unit price for the product or service determined for the current contract term during a new sale or a renewal. Mid term changes do not result in a change to this value.</description>
-    <externalId>false</externalId>
     <inlineHelpText>The value of the current contract unit price for the product or service determined for the current contract term during a new sale or a renewal. Mid term changes do not result in a change to this value.</inlineHelpText>
     <label>Current Contract Unit Price</label>
     <precision>18</precision>

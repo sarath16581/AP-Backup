@@ -3,7 +3,6 @@
     <fullName>Apttus_QPConfig__PeriodEndDate__c</fullName>
     <deprecated>false</deprecated>
     <description>The rollup period end date</description>
-    <externalId>false</externalId>
     <inlineHelpText>The rollup period end date</inlineHelpText>
     <label>Period End Date</label>
     <required>false</required>

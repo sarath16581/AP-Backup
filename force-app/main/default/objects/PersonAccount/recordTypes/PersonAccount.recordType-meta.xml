@@ -2,7 +2,7 @@
 <RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>PersonAccount</fullName>
     <active>true</active>
-    <compactLayoutAssignment>Community_Person_Account_Compact_Layout</compactLayoutAssignment>
+    <compactLayoutAssignment>ConsumerCompactLayout</compactLayoutAssignment>
     <description>Consumer allows the capture of information for Consumers</description>
     <label>Consumer</label>
     <picklistValues>

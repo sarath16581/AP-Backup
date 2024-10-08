@@ -3,7 +3,6 @@
     <fullName>Apttus_Config2__DefaultQuantityFrom__c</fullName>
     <deprecated>false</deprecated>
     <description>The related object to default the quantity from. If the related object is not available, the quantity default value will be used.</description>
-    <externalId>false</externalId>
     <inlineHelpText>The related object to default the quantity from. If the related object is not available, the quantity default value will be used.</inlineHelpText>
     <label>Default Quantity From</label>
     <required>false</required>
