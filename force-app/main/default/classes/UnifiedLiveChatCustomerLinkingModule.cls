@@ -52,8 +52,8 @@ public inherited sharing class UnifiedLiveChatCustomerLinkingModule extends Appl
 		// Find all potential Contacts
 		List<Contact> contacts = ContactsSelector.newInstance().selectCustomerByEmail(emailAddresses, new Set<Object>());
 
-		// Map each Email address with unique list of Contact Ids
-		Map<String, List<Id>> emailContactsMap = mapContactsWithEmails(emailAddresses, contacts);
+		// Map each Email address with unique set of Contact Ids
+		Map<String, Set<Id>> emailContactsMap = mapContactsWithEmails(emailAddresses, contacts);
 
 		// Populate the Contact Id on each record (only where there is exactly 1 match)
 		populateContactIds(chatTranscripts, emailContactsMap);
@@ -61,19 +61,27 @@ public inherited sharing class UnifiedLiveChatCustomerLinkingModule extends Appl
 
 	/**
 	 * @description Populate the Contact Id on each record (only where there is exactly 1 match)
+	 * 
+	 * Note: All email addresses are converted to lower-case to improve matching results
 	 *
 	 * @param chatTranscripts - The List of `LiveChatTranscripts` to update
 	 * @param emailContactsMap - The Map of email addresses to a list of Contact Ids
 	 */
 	@TestVisible
-	private static void populateContactIds(List<LiveChatTranscript> chatTranscripts, Map<String, List<Id>> emailContactsMap) {
+	private static void populateContactIds(List<LiveChatTranscript> chatTranscripts, Map<String, Set<Id>> emailContactsMap) {
 		for (LiveChatTranscript chatTranscript : chatTranscripts) {
-			if (String.isBlank(chatTranscript.Email__c)) {
+			if(chatTranscript.ContactId != null) {
+				// Avoid overwriting existing values
 				continue;
 			}
 
-			List<Id> contactIds = emailContactsMap.get(chatTranscript.Email__c);
-			if (contactIds.size() == 1) {
+			String emailAddress = (chatTranscript.Email__c ?? '').toLowerCase();
+			if (String.isBlank(emailAddress) || !emailContactsMap.containsKey(emailAddress)) {
+				continue;
+			}
+
+			List<Id> contactIds = new List<Id>(emailContactsMap.get(emailAddress));
+			if (contactIds != null && contactIds.size() == 1) {
 				chatTranscript.ContactId = contactIds.get(0);
 			}
 		}
@@ -82,6 +90,8 @@ public inherited sharing class UnifiedLiveChatCustomerLinkingModule extends Appl
 	/**
 	 * @description Compile a list of email addresses from the list of chat transcripts.
 	 * This method also removes any blank or null values.
+	 * 
+	 * Note: All email addresses are converted to lower-case to improve matching results
 	 *
 	 * @param chatTranscripts - The List of SObjects to update
 	 * @return Set<String> - The unique list of email addresses
@@ -91,7 +101,7 @@ public inherited sharing class UnifiedLiveChatCustomerLinkingModule extends Appl
 		Set<String> emailAddresses = new Set<String>();
 		for (LiveChatTranscript ct : chatTranscripts) {
 			if (String.isNotBlank(ct.Email__c)) {
-				emailAddresses.add(ct.Email__c);
+				emailAddresses.add(ct.Email__c.toLowerCase());
 			}
 		}
 		return emailAddresses;
@@ -100,23 +110,30 @@ public inherited sharing class UnifiedLiveChatCustomerLinkingModule extends Appl
 	/**
 	 * @description Maps each email address with a unique list of Contact Ids
 	 * that have the email address in either `Email` or `VerifiedEmail__c`.
+	 * 
+	 * Note: All email addresses are converted to lower-case to improve matching results
 	 *
 	 * @param emailAddresses - The unique list of email addresses
 	 * @param contacts - The Contact records to map the emails with
 	 * @return Map<String, List<Id>> - Map of email addresses to a list of Contact Ids
 	 */
 	@TestVisible
-	private static Map<String, List<Id>> mapContactsWithEmails(Set<String> emailAddresses, List<Contact> contacts) {
-		Map<String, List<Id>> emailContactsMap = new Map<String, List<Id>>();
-		for (String emailAddress : emailAddresses) {
-			Set<Id> contactIds = new Set<Id>();
-			for (Contact c : contacts) {
-				if (String.isNotBlank(emailAddress) && (c.Email == emailAddress || c.VerifiedEmail__c == emailAddress)) {
-					contactIds.add(c.Id);
-				}
-			}
-			emailContactsMap.put(emailAddress, new List<Id>(contactIds));
+	private static Map<String, Set<Id>> mapContactsWithEmails(Set<String> emailAddresses, List<Contact> contacts) {
+		Map<String, Set<Id>> emailContactsMap = new Map<String, Set<Id>>();
+		for(String emailAddress : emailAddresses) {
+			emailContactsMap.put(emailAddress.toLowerCase(), new Set<Id>());
 		}
+
+		for (Contact c : contacts) {
+			if(String.isNotBlank(c.Email)) {
+				emailContactsMap.get(c.Email.toLowerCase()).add(c.Id);
+			}
+
+			if(String.isNotBlank(c.VerifiedEmail__c)) {
+				emailContactsMap.get(c.VerifiedEmail__c.toLowerCase()).add(c.Id);
+			}
+		}
+
 		return emailContactsMap;
 	}
 }

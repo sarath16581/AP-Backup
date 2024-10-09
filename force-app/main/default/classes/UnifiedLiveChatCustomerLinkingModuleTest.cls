@@ -64,7 +64,7 @@ private class UnifiedLiveChatCustomerLinkingModuleTest {
 		// Data Preparation
 		// =====================================
 		List<Contact> mockContactsList = new List<Contact>{
-			new Contact(Id = mockContactId(), Email = 'test1@example.com'),
+			new Contact(Id = mockContactId(), Email = 'TEST1@eXaMpLe.com'), // tests case insensitivity
 			new Contact(Id = mockContactId(), Email = 'test2@example.com'),
 			new Contact(Id = mockContactId(), Email = 'test2@example.com')
 		};
@@ -119,10 +119,10 @@ private class UnifiedLiveChatCustomerLinkingModuleTest {
 		Id contactId2 = mockContactId();
 		Id contactId3 = mockContactId();
 
-		Map<String, List<Id>> emailContactsMap = new Map<String, List<Id>>();
-		emailContactsMap.put('test1@example.com', new List<Id>{ contactId1 });
-		emailContactsMap.put('test2@example.com', new List<Id>{ contactId2, contactId3 });
-		emailContactsMap.put('test3@example.com', new List<Id>());
+		Map<String, Set<Id>> emailContactsMap = new Map<String, Set<Id>>();
+		emailContactsMap.put('test1@example.com', new Set<Id>{ contactId1 });
+		emailContactsMap.put('test2@example.com', new Set<Id>{ contactId2, contactId3 });
+		emailContactsMap.put('test3@example.com', new Set<Id>());
 
 		// =====================================
 		// Stubbing
@@ -142,6 +142,36 @@ private class UnifiedLiveChatCustomerLinkingModuleTest {
 		Assert.isNull(chatTranscripts[3].ContactId, 'Contact Id not should be set (no email)');
 		Assert.isNull(chatTranscripts[4].ContactId, 'Contact Id not should be set (no email)');
 		Assert.isNull(chatTranscripts[5].ContactId, 'Contact Id not should be set (no email)');
+	}
+
+	@IsTest
+	static void testPopulateContactIdsDoNotOverwriteContactId() {
+		// =====================================
+		// Data Preparation
+		// =====================================
+		Id contactId1 = mockContactId();
+		Id contactId2 = mockContactId();
+
+		List<LiveChatTranscript> chatTranscripts = new List<LiveChatTranscript>{
+			new LiveChatTranscript(Email__c = 'test1@example.com', ContactId = contactId1)
+		};
+
+		Map<String, Set<Id>> emailContactsMap = new Map<String, Set<Id>>();
+		emailContactsMap.put('test1@example.com', new Set<Id>{ contactId2 });
+
+		// =====================================
+		// Stubbing
+		// =====================================
+		// None!
+
+		// =====================================
+		// Testing
+		// =====================================
+		Test.startTest();
+		UnifiedLiveChatCustomerLinkingModule.populateContactIds(chatTranscripts, emailContactsMap);
+		Test.stopTest();
+
+		Assert.areEqual(contactId1, chatTranscripts[0].ContactId, 'Correct Contact Id should be changed');
 	}
 
 	@IsTest
@@ -194,7 +224,7 @@ private class UnifiedLiveChatCustomerLinkingModuleTest {
 		// Testing
 		// =====================================
 		Test.startTest();
-		Map<String, List<Id>> result = UnifiedLiveChatCustomerLinkingModule.mapContactsWithEmails(emailAddresses, contacts);
+		Map<String, Set<Id>> result = UnifiedLiveChatCustomerLinkingModule.mapContactsWithEmails(emailAddresses, contacts);
 		Test.stopTest();
 
 		Assert.areEqual(3, result.size(), 'Results should have 3 keys');
