@@ -1,15 +1,14 @@
 /******************************************************************************************************
- * @description 	Creates cases when there is no exisiting cases available or the current case closeddate is older than three days for the given social post.
- * 					Updates cases if the case closedDate is less than 3 days.
- * 					Updates socialPost with its respective case Id.
+ * @description 	Collects the exiting cases and create new case instance when social case needs to be created.
+
  * @author 			Raghav Ravipati
- * @test			ProcessSocialCaseActionTest
- * @date 			2024-07-29
+ * @test			GenerateSocialCaseActionTest
+ * @date 			2024-10-07
  * *****************************************************************************************************
  * @changelog
  * *****************************************************************************************************
  */
-global with sharing class ProcessSocialCaseAction {
+global with sharing class GenerateSocialCaseAction {
 	private static final String STATUS_NEW = 'New';
 	private static final String CASETYPE_GENERAL_ENQUIRY = 'General Enquiry';
 	private static final String CASE_ORIGIN = 'Social';
@@ -19,15 +18,16 @@ global with sharing class ProcessSocialCaseAction {
 	private static final String MESSAGETYPE_POST = 'Post';
 	private static final String MESSAGETYPE_COMMENT = 'General Enquiry';
 	private static final Id CASE_SOCIAL_RECORDTYPEID = Schema.SObjectType.Case.getRecordTypeInfosByName().get('Social Record Type').getRecordTypeId();
-
+ 
 	@InvocableMethod(label='Process Case' description='Each new post from social persona will create a case')
-	public static void processCases(List<SocialBusinessCaseParams> socialBusinessCaseParams) {
+	public static List<Case> processCases(List<SocialBusinessCaseParams> socialBusinessCaseParams) {
 		Set<Id> caseIds = new Set<Id>();
 		for (SocialBusinessCaseParams param : socialBusinessCaseParams) {
 			if (param.socialPost != null && param.socialPost.ReplyTo != null && param.socialPost.ReplyTo.ParentId != null) {
 				caseIds.add(param.socialPost.ReplyTo.ParentId);
 			}
 		}
+
 		Set<Id> caseIdsToUpdate = new Set<Id>();
 		BusinessHoursService businessHoursService = BusinessHoursService.newInstance();	
 		// Select cases by Id
@@ -40,17 +40,18 @@ global with sharing class ProcessSocialCaseAction {
 				caseIdsToUpdate.add(socialCase.Id);
 			}
 		}
-		// Repoens the case or creates a new case for the social posts that has no case.
-		upsertCasesAndUpdateSocialPost(socialBusinessCaseParams, caseIdsToUpdate);
+		// Repoens the case or creates a new case instance for the social posts that has no case.
+		return upsertCasesAndUpdateSocialPost(socialBusinessCaseParams, caseIdsToUpdate);
 	}
 
 	/**
-	 * @description Reopens the case if the caseId is available in caseIdsToUpdate else creates a new case.
+	 * @description Reopens the case if the caseId is available in caseIdsToUpdate else creates a new case instance.
 	 * @param socialPosts List of social post records.
 	 * @param caseIdsToUpdate list of case Ids should be reopened.
 	 */
-	private static void upsertCasesAndUpdateSocialPost(List<SocialBusinessCaseParams> socialBusinessCaseParams, Set<Id> caseIdsToUpdate) {
-		Map<Id, Case> socialPostIdCaseMap = new Map<Id, Case>();
+	private static List<Case> upsertCasesAndUpdateSocialPost(List<SocialBusinessCaseParams> socialBusinessCaseParams, Set<Id> caseIdsToUpdate) {
+		List<Case> casesLst = new List<Case>();
+		
 		for (SocialBusinessCaseParams param : socialBusinessCaseParams) {
 			SocialPost post = param.socialPost;
 			if (post != null && post.ReplyTo != null && post.ReplyTo.ParentId != null && caseIdsToUpdate.contains(post.ReplyTo.ParentId)) {
@@ -60,16 +61,13 @@ global with sharing class ProcessSocialCaseAction {
 				existingCase.AllocateToQueue__c = true;
 				existingCase.IsNewForRouting__c = true;
 				existingCase.Type = CASETYPE_GENERAL_ENQUIRY;
-				socialPostIdCaseMap.put(post.Id, existingCase);
+				casesLst.add(existingCase);
 			} else if (!post.isOutbound) { // only create cases for inbound posts
-				socialPostIdCaseMap.put(post.Id, createCase(param));
+				casesLst.add(createCase(param));
 			}
 		}
-		if (!socialPostIdCaseMap.Values().isEmpty()) {
-			upsert socialPostIdCaseMap.Values();
-			// Updates the social posts Parent Id with case Id
-			updateSocialPosts(socialPostIdCaseMap);
-		}
+
+		return casesLst;
 	}
 
 	/**
@@ -94,23 +92,6 @@ global with sharing class ProcessSocialCaseAction {
 		socialCase.Subject = getCaseSubject(params);
 
 		return socialCase;
-	}
-
-	/**
-	 * @description Updates the socialPost record with Case ids
-	 * @param socialPostIdCaseMap social post Id and its related case.
-	 */
-	private static void updateSocialPosts(Map<Id, Case> socialPostIdCaseMap) {
-		List<SocialPost> updateSocialPost = new List<SocialPost>();
-		for (Id socialPostId : socialPostIdCaseMap.keySet()) {
-			Socialpost post = new SocialPost();
-			post.Id = socialPostId;
-			post.ParentId = socialPostIdCaseMap.get(socialPostId).Id;
-			updateSocialPost.add(post);
-		}
-		if (!updateSocialPost.isEmpty()) {
-			update updateSocialPost;
-		}
 	}
 	
 	/**

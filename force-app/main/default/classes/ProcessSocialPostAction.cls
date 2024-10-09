@@ -1,7 +1,5 @@
 /******************************************************************************************************
- * @description 	Creates cases when there is no exisiting cases available or the current case closeddate is older than three days for the given social post.
- * 					Updates cases if the case closedDate is less than 3 days.
- * 					Updates socialPost with its respective case Id.
+ * @description 	Creates or updates Social Post records using Social Data Event Records ans SocialPersonas.
  * @author 			Raghav Ravipati
  * @test			ProcessSocialPostActionTest
  * @date 			2024-07-29
@@ -62,7 +60,6 @@ global with sharing class ProcessSocialPostAction {
 		for (SocialPost existingPost : getExistingSocialPost(responseContextExternalIds)) {
 			existingPostMap.put(existingPost.ResponseContextExternalId, existingPost);
 		}
-		System.debug(existingPostMap);
 		// Maps latest information to existing socialPost and removes existing records from the sociel data event map
 		for (SocialPost post : getSocialPostWithProvidersAndExternalIds(providers, externalIds)) {
 			if(socialPostParamsMap.containsKey(post.ExternalPostId)){				
