@@ -329,7 +329,6 @@ public with sharing class CasesSelector_Test {
 		results = selector.selectByCaseNumber(new Set<String>{cases[0].CaseNumber});
 		System.assertEquals(1, results.size(), 'Expected result size of 1');
 		System.assertEquals(cases[0].Id, results.values()[0].Id);
-		System.assertEquals(cases[0].Id, results.values()[0].Id);
 
 		results = selector.selectById(caseIds, new Set<Object>{CasesSelector.Options.WITH_RECORDTYPE, CasesSelector.Options.WITH_OWNER, CasesSelector.Options.WITH_CONTACT});
 		System.assertEquals(2, results.size(), 'Expected result size of 2');
