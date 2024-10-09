@@ -125,6 +125,7 @@ public virtual inherited sharing class EventMessagesSelector extends Application
 	 * @return List<EventMessage__c>
 	 */
 	public virtual List<EventMessage__c> selectByArticleIdAndEventType(Set<Id> articleIds, Set<String> eventTypes, Set<Object> selectorOptions) {
+		articleIds.remove(null);
 		QueryBuilder qb = newQueryBuilder(selectorOptions)
 				.addConditions()
 				.add(new QueryBuilder.SimpleCondition(EventMessage__c.Article__c + ' in :articleIds'))
