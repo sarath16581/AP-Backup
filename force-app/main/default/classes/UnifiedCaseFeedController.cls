@@ -9,6 +9,7 @@
  * @author Seth Heang
  * @changelog:
  * 2024-09-23 - Seth Heang - created
+ * 2024-10-09 - Seth Heang - update query criteria to retrieve related scan event
  */
 public with sharing class UnifiedCaseFeedController {
 	@TestVisible
@@ -125,15 +126,30 @@ public with sharing class UnifiedCaseFeedController {
 				filteredEventTypesWithIsFeatured.add(eventMessageTypeMapping.Label);
 			}
 		}
-		Set<SObjectField> eventMessageFields = new Set<SObjectField>{
+
+		List<ImpactedArticle__c> impactedArticles = ImpactedArticlesSelector.newInstance(0,
+				new Set<SObjectField> {
+					ImpactedArticle__c.Article__c
+				}).selectByCaseId(new Set<Id>{ caseId });
+		Set<Id> articleIds = new Set<Id>();
+		for(ImpactedArticle__c impactedArticle : impactedArticles){
+			articleIds.add(impactedArticle.Article__c);
+		}
+
+		Map<SObjectType, Set<SObjectField>> eventMessageFields = new Map<SObjectType, Set<SObjectField>>{
+			EventMessage__c.SObjectType => new Set<SObjectField>{
 				EventMessage__c.Case__c,
 				EventMessage__c.EventDescription__c,
 				EventMessage__c.ActualDateTime__c,
 				EventMessage__c.EventType__c
+			},
+			Article__c.SObjectType => new Set<SObjectField>{
+				Article__c.Case__c
+			}
 		};
 		List<EventMessage__c> filteredEventMessages = EventMessagesSelector.newInstance(eventMessageFields)
-				.selectByCaseIdAndEventType(
-						new Set<Id>{ caseId },
+				.selectByArticleIdAndEventType(
+						articleIds,
 						filteredEventTypesWithIsFeatured
 				);
 		return filteredEventMessages;
