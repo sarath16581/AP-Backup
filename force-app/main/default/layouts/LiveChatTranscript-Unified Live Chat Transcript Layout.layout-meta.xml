@@ -28,11 +28,11 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>SuppliedFirstName__c</field>
+                <field>FirstName__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>SuppliedEmail__c</field>
+                <field>Email__c</field>
             </layoutItems>
         </layoutColumns>
         <layoutColumns>
@@ -58,7 +58,7 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>SuppliedLastName__c</field>
+                <field>LastName__c</field>
             </layoutItems>
         </layoutColumns>
         <style>TwoColumnsLeftToRight</style>
