@@ -253,10 +253,10 @@ public with sharing class ResourceCustomerInsightsV1 extends ResourceAPIService.
 		}
 		if(paramType==PARAM_NAMES.phone.name()){
 			//get contacts by Reversed Phone Number
-			contacts = contactSelector.selectWithCasesAndInteractionsByReversePhoneNumber(phoneNumber,bindMap, complexOptions);
+			contacts = contactSelector.selectWithComplexSubQueriesByReversePhoneNumber(phoneNumber,bindMap, complexOptions);
 		}else if(paramType==PARAM_NAMES.email.name()){
 			//get contacts by EmailAddress
-			contacts = contactSelector.selectWithCasesAndInteractionsByEmailAddress(emailAddress, bindMap, complexOptions);
+			contacts = contactSelector.selectWithComplexSubQueriesByEmailAddress(emailAddress, bindMap, complexOptions);
 		}
 		return contacts;
 	}

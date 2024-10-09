@@ -414,37 +414,45 @@ public virtual inherited sharing class ContactsSelector extends ApplicationSelec
 		return Database.query(qb.toSoqlString());
 	}
 	/**
-	 * @description Select contacts with Cases and Interactions by Reversed Phone Number(exact match).
+	 * @description Select contacts with Complex Sub-queries by Reversed Phone Number(exact match).
 	 * @param phoneNumber reversed phoneNumber
 	 * @param bindMap map of bind variables
 	 * @param complexQueryOptions Complex Search options to include child relationships
 	 * @return matching Contact records
 	 */
-	public List<Contact> selectWithCasesAndInteractionsByReversePhoneNumber(String phoneNumber, Map<String, Object> bindMap, Set<Object> complexQueryOptions) {
+	public List<Contact> selectWithComplexSubQueriesByReversePhoneNumber(String phoneNumber, Map<String, Object> bindMap, Set<Object> complexQueryOptions) {
 		String queryConditions;
 		if(String.isNotBlank(phoneNumber)){
 			queryConditions= ' AND (ReverseMobilePhone__c =:searchKey OR ReversePhone__c =:searchKey OR ReverseVerifiedMobile__c =:searchKey)';
 			bindMap.put('searchKey', phoneNumber);
 		}
-		return selectWithCasesAndInteractionsHelper(queryConditions, bindMap, complexQueryOptions);
+		// if phone number is blank don't query records
+		else{
+			return new List<Contact>();
+		}
+		return selectWithComplexSubQueriesHelper(queryConditions, bindMap, complexQueryOptions);
 	}
 	/**
-	 * @description Select contacts with Cases and Interactions by Email Address(exact match).
+	 * @description Select contacts with Complex Sub-queries by Email Address(exact match).
 	 * @param emailAddress emailAddress
 	 * @param bindMap map of bind variables
 	 * @param complexQueryOptions Complex Search options to include child relationships
 	 * @return matching Contact records
 	 */
-	public List<Contact> selectWithCasesAndInteractionsByEmailAddress(String emailAddress, Map<String, Object> bindMap, Set<Object> complexQueryOptions) {
+	public List<Contact> selectWithComplexSubQueriesByEmailAddress(String emailAddress, Map<String, Object> bindMap, Set<Object> complexQueryOptions) {
 		String queryConditions;
 		if(String.isNotBlank(emailAddress)){
 			queryConditions=' AND (Email =:searchKey)';
 			bindMap.put('searchKey', emailAddress);
 		}
-		return selectWithCasesAndInteractionsHelper(queryConditions, bindMap, complexQueryOptions);
+		// if phone Email Address is blank don't query records
+		else{
+			return new List<Contact>();
+		}
+		return selectWithComplexSubQueriesHelper(queryConditions, bindMap, complexQueryOptions);
 	}
 	/**
-	 * @description Helper method to query Contacts with Cases & Interaction(LiveChatTranscripts, Tasks & VoiceCalls)
+	 * @description Helper method to query Contacts with Complex Sub-queries(Cases, LiveChatTranscripts, Tasks & VoiceCalls)
 	 * Filters contacts based on the following criteria
 	 * 1. PersonAccount
 	 * 2. Account.RecordType = Organisation
@@ -460,7 +468,8 @@ public virtual inherited sharing class ContactsSelector extends ApplicationSelec
 	 * @param complexQueryOptions Complex Search options to include child relationships
 	 * @return  `List<Contact>`matching Contact records
 	 */
-	public List<Contact> selectWithCasesAndInteractionsHelper(String queryConditions, Map<String, Object> bindMap, Set<Object> complexQueryOptions) {
+	@TestVisible
+	private List<Contact> selectWithComplexSubQueriesHelper(String queryConditions, Map<String, Object> bindMap, Set<Object> complexQueryOptions) {
 
 		final String businessContactRecordType = 'Business_Account';
 			bindMap.put('businessContactRecordType',businessContactRecordType);
