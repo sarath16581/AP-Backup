@@ -45,7 +45,8 @@ public inherited sharing class UnifiedLiveChatCustomerLinkingModule extends Appl
 	 *
 	 * @param chatTranscripts - The List of `LiveChatTranscripts` to update
 	 */
-	public static void linkChatsWithContact(List<LiveChatTranscript> chatTranscripts) {
+	@TestVisible
+	private static void linkChatsWithContact(List<LiveChatTranscript> chatTranscripts) {
 		// Get a list of unique email addresses to query with
 		Set<String> emailAddresses = getUniqueEmailAddresses(chatTranscripts);
 
