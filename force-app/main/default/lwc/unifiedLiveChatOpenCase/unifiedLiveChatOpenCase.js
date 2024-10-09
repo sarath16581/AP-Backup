@@ -1,6 +1,6 @@
 /**
  * @description : This component is to provide a button to be put in the Case Tab on the Live Chat Flexipage.
- * It opens up a new console tab and navigate to the related case of the Live Chat record.
+ *  It opens up a new console tab and navigate to the related case of the Live Chat record.
  * @changelog:
  * 2024-10-03 - Seth Heang - created
  */
@@ -33,9 +33,8 @@ export default class UnifiedLiveChatOpenCase extends NavigationMixin(LightningEl
 
 	/**
 	 * @description navigate to the related case Id associated to the live chat record
-	 * @param event
 	 */
-	handleNavigateToCase(event) {
+	handleNavigateToCase() {
 		this[NavigationMixin.Navigate]({
 			type: 'standard__recordPage',
 			attributes: {

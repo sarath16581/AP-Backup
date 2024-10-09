@@ -6,9 +6,16 @@
  */
 import { LightningElement,api,wire } from 'lwc';
 import CONTACT_FIELD from '@salesforce/schema/LiveChatTranscript.ContactId';
-import FIRST_NAME_FIELD from '@salesforce/schema/Contact.FirstName';
-import LAST_NAME_FIELD from '@salesforce/schema/Contact.LastName';
+import FIRST_NAME_FIELD from '@salesforce/schema/LiveChatTranscript.Contact.FirstName';
+import LAST_NAME_FIELD from '@salesforce/schema/LiveChatTranscript.Contact.LastName';
 import {getRecord, getFieldValue} from 'lightning/uiRecordApi';
+import { ShowToastEvent } from 'lightning/platformShowToastEvent';
+
+const LIVE_CHAT_FIELDS = [
+	CONTACT_FIELD,
+	FIRST_NAME_FIELD,
+	LAST_NAME_FIELD
+];
 
 export default class UnifiedLiveChatMainHub extends LightningElement {
 	@api recordId;
@@ -21,23 +28,24 @@ export default class UnifiedLiveChatMainHub extends LightningElement {
 	/**
 	 * Wire adapter to fetch the Live Chat record field data
 	 */
-	@wire(getRecord, { recordId: '$recordId', fields: [CONTACT_FIELD] })
+	@wire(getRecord, { recordId: '$recordId', fields: LIVE_CHAT_FIELDS })
 	liveChatRecord({ error, data }) {
 		if (data) {
 			this.relatedContactId = getFieldValue(data,CONTACT_FIELD);
+			this.customerName = getFieldValue(data,FIRST_NAME_FIELD) + ' ' + getFieldValue(data,LAST_NAME_FIELD);
 			if (!this.relatedContactId) {
 				this.customerName = '';
 			}
-		}
-	}
-
-	/**
-	 * Wire adapter to fetch the related contact data
-	 */
-	@wire(getRecord, { recordId: '$relatedContactId', fields: [FIRST_NAME_FIELD, LAST_NAME_FIELD]})
-	contactRecord({ error, data }) {
-		if (data) {
-			this.customerName = getFieldValue(data,FIRST_NAME_FIELD) + ' ' + getFieldValue(data,LAST_NAME_FIELD);
+		} else if (error){
+			console.error('Error retrieving live chat record:', error);
+			// Dispatch the ShowToastEvent
+			this.dispatchEvent(
+				new ShowToastEvent({
+					title: 'Error',
+					message: 'Unexpected error encountered while retrieving Live Chat Data',
+					variant: 'error'
+				})
+			);
 		}
 	}
 
@@ -45,7 +53,7 @@ export default class UnifiedLiveChatMainHub extends LightningElement {
 	 * Toggle section or accordion on and off
 	 */
 	handleSectionToggle(event) {
-		const openSections = event.detail.openSections;
+		this.activeSections = event.detail.openSections;
 	}
 
 	/**
