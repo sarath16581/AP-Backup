@@ -58,7 +58,7 @@ public with sharing class ResourceCustomerInsightsV1 extends ResourceAPIService.
 	 * @description Set of UCC team profile names
 	 */
 	public final static Set<String> U_CC_PROFILES = new Set<String>{
-		'CustomerService'
+		'Unified Customer Service'
 	};
 
 	//custom permission API used to validate access to this apex class
@@ -243,7 +243,7 @@ public with sharing class ResourceCustomerInsightsV1 extends ResourceAPIService.
 			bindMap.put('taskConditions', '(Type =:taskType  OR  RecordType.DeveloperName =:apVoiceCallRecordType) AND CreatedDate >=:interactionCutoffDate AND CreatedBy.Profile.Name IN :interactionProfiles');
 			
 			//add VoiceCalls sub-query conditions
-			bindMap.put('voiceCallsConditions', 'CreatedDate >=:interactionCutoffDate AND CreatedBy.Profile.Name IN :interactionProfiles');
+			bindMap.put('voiceCallsConditions', 'CreatedDate >=:interactionCutoffDate AND LastModifiedBy.Profile.Name IN :interactionProfiles');
 			
 			//add LiveChatTranscripts sub-query conditions
 			bindMap.put('liveChatTranscriptConditions', 'CreatedDate >=:interactionCutoffDate AND Owner.Profile.Name IN :interactionProfiles');
@@ -253,10 +253,10 @@ public with sharing class ResourceCustomerInsightsV1 extends ResourceAPIService.
 		}
 		if(paramType==PARAM_NAMES.phone.name()){
 			//get contacts by Reversed Phone Number
-			contacts = contactSelector.selectWithCasesAndInteractionsByReversePhoneNumber(phoneNumber,bindMap, complexOptions);
+			contacts = contactSelector.selectWithComplexSubQueriesByReversePhoneNumber(phoneNumber,bindMap, complexOptions);
 		}else if(paramType==PARAM_NAMES.email.name()){
 			//get contacts by EmailAddress
-			contacts = contactSelector.selectWithCasesAndInteractionsByEmailAddress(emailAddress, bindMap, complexOptions);
+			contacts = contactSelector.selectWithComplexSubQueriesByEmailAddress(emailAddress, bindMap, complexOptions);
 		}
 		return contacts;
 	}
@@ -284,14 +284,16 @@ public with sharing class ResourceCustomerInsightsV1 extends ResourceAPIService.
 			'interactions'=>null
 		};
 		List<Map<String, Object>> output = new List<Map<String, Object>>();
-		List<Object> listCases = new List<Object>()
-			, listInteractions = new List<Object>();
+		List<Object> listCases, 
+			listInteractions;
 		Map<String, Object> mapRecord
 			, mapCase  = new Map<String, Object>()
 			, mapInteraction = new Map<String, Object>();
 		//loop through the contact records
 		for(Contact record : records) {
+
 			mapRecord = new Map<String, Object>();
+			
 			for(String key : contactMapping.keySet()) {
 				if(contactMapping.get(key)!=null){
 					//value for 'type' key cannot be directly mapped, instead has to be mapped based on Account.RecordType
@@ -307,34 +309,39 @@ public with sharing class ResourceCustomerInsightsV1 extends ResourceAPIService.
 					}
 				}
 			}
+
 			//loop through cases
+			listCases = new List<Object>();
 			for(Case caseRecord: record.Cases){
 				mapCase = getCaseMapping(caseRecord);
 				listCases.add(mapCase);
 			}
+			mapRecord.put('cases', listCases);
 			
-			mapRecord.put('cases',listCases);
-			mapInteraction = new Map<String, Object>();
 			//map all the Tasks, VoiceCall & LiveChatTranscript interactions
-			for(Task taskRecord: record.Tasks){
+			listInteractions = new List<Object>();
+			for (Task taskRecord: record.Tasks) {
+				mapInteraction = new Map<String, Object>();
 				mapInteraction.put('type','Voice');
 				mapInteraction.put('date',taskRecord.ActivityDate);
 				mapInteraction.put('team', getInteractionTeam(taskRecord.CreatedBy.Profile.Name));
 				listInteractions.add(mapInteraction);
 			}
-			for(VoiceCall voiceCallRecord: record.RelatedRecords){
+			for (VoiceCall voiceCallRecord: record.Voice_Calls__r) {
+				mapInteraction = new Map<String, Object>();
 				mapInteraction.put('type','Voice');
 				mapInteraction.put('date',voiceCallRecord.CreatedDate);
-				mapInteraction.put('team', getInteractionTeam(voiceCallRecord.CreatedBy.Profile.Name));
+				mapInteraction.put('team', getInteractionTeam(voiceCallRecord.LastModifiedBy.Profile.Name));
 				listInteractions.add(mapInteraction);
 			}
-			for(LiveChatTranscript transcriptRecord: record.LiveChatTranscripts){
+			for (LiveChatTranscript transcriptRecord: record.LiveChatTranscripts) {
+				mapInteraction = new Map<String, Object>();
 				mapInteraction.put('type','Chat');
 				mapInteraction.put('date',transcriptRecord.CreatedDate);
 				mapInteraction.put('team', getInteractionTeam(transcriptRecord.Owner.Profile.Name));
 				listInteractions.add(mapInteraction);
 			}
-			mapRecord.put('interactions',listInteractions);
+			mapRecord.put('interactions', listInteractions);
 			output.add(mapRecord);
 		}
         return output;

@@ -347,14 +347,7 @@ export default class HappyParcelWrapper extends NavigationMixin(LightningElement
 					if (!Object.keys(this.articles[articleIndex]).includes('articleDetailsExpanded')) {
 						this.articles[articleIndex].articleDetailsExpanded = !this.isConsignment;
 					}
-					//Add related critical incidents to the article based on network Id
-					let events = item.events;
-					events.forEach((event) => {
-						if (event.event && event.event.FacilityOrganisationID__c && criticalIncidents.criticalIncidentsResults) {
-							let criticalIncidentsMap = JSON.parse(criticalIncidents.criticalIncidentsResults);
-							event.criticalIncidents = criticalIncidentsMap[event.event.FacilityOrganisationID__c];
-						}
-					});
+					
 
 				} else {
 					// note because we are adding this article we can set the default value of articleDetailsExpanded
@@ -368,6 +361,15 @@ export default class HappyParcelWrapper extends NavigationMixin(LightningElement
 						articleSelected: false
 					}); //, articleDetailsExpanded: !this.isConsignment
 				}
+
+				//Add related critical incidents to the article based on network Id
+				let events = item.events;
+				events.forEach((event) => {
+					if (event.event && event.event.FacilityOrganisationID__c && criticalIncidents.criticalIncidentsResults) {
+						let criticalIncidentsMap = JSON.parse(criticalIncidents.criticalIncidentsResults);
+						event.criticalIncidents = criticalIncidentsMap[event.event.FacilityOrganisationID__c];
+					}
+				});
 			});
 		}
 
@@ -453,7 +455,7 @@ export default class HappyParcelWrapper extends NavigationMixin(LightningElement
 		// populate EDD for StarTrack including a flag to pass down to child component(happyParcelEdd)
 		this.articles?.forEach(item => {
 			// only set isDotNetEdd to TRUE if both EDD and SourceSystem data from .NET are not null
-			const dotNetEddExists = !!(result.article?.ExpectedDeliveryDate__c && result.article?.Source_System__c);
+			const dotNetEddExists = !!(result.article && result.article.ExpectedDeliveryDate__c && result.article.Source_System__c);
 			item.trackingResult.isDotNetEdd = dotNetEddExists;
 			item.trackingResult.article.ExpectedDeliveryDate__c = dotNetEddExists ? result.article?.ExpectedDeliveryDate__c : item.trackingResult.article?.ExpectedDeliveryDate__c;
 			item.trackingResult.article.Source_System__c = dotNetEddExists ? result.article?.Source_System__c : item.trackingResult.article?.Source_System__c;

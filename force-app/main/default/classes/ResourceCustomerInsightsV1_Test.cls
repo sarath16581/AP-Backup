@@ -60,7 +60,7 @@ public class ResourceCustomerInsightsV1_Test {
 			bindMap.put('taskConditions', '(Type =:taskType  OR  RecordType.DeveloperName =:apVoiceCallRecordType) AND CreatedDate >=:interactionCutoffDate AND CreatedBy.Profile.Name IN :interactionProfiles');
 			
 			//add VoiceCalls sub-query conditions
-			bindMap.put('voiceCallsConditions', 'CreatedDate >=:interactionCutoffDate AND CreatedBy.Profile.Name IN :interactionProfiles');
+			bindMap.put('voiceCallsConditions', 'CreatedDate >=:interactionCutoffDate AND LastModifiedBy.Profile.Name IN :interactionProfiles');
 			
 			//add LiveChatTranscripts sub-query conditions
 			bindMap.put('liveChatTranscriptConditions', 'CreatedDate >=:interactionCutoffDate AND Owner.Profile.Name IN :interactionProfiles');
@@ -208,10 +208,10 @@ public class ResourceCustomerInsightsV1_Test {
 		//VoiceCall Data
 		VoiceCall voiceCallRecord = new VoiceCall();
 		voiceCallRecord = (VoiceCall)ApplicationTestDataFactory.setUnwritableFields(voiceCallRecord, new Map<String, Object>{
-				'CreatedBy.Profile.Name' =>'SSSW - Service Agent'
+				'LastModifiedBy.Profile.Name' =>'SSSW - Service Agent'
 		});
 
-		personContact = (Contact)ApplicationTestDataFactory.setChildRelationships(personContact,new Map <String, List <SObject>> {'RelatedRecords' => new List <VoiceCall>{ voiceCallRecord }});
+		personContact = (Contact)ApplicationTestDataFactory.setChildRelationships(personContact,new Map <String, List <SObject>> {'Voice_Calls__r' => new List <VoiceCall>{ voiceCallRecord }});
 		
 		//LiveChatTranscript data
 		LiveChatTranscript transcriptRecord = new LiveChatTranscript();
@@ -228,7 +228,7 @@ public class ResourceCustomerInsightsV1_Test {
 		ContactsSelector mockContactsSelector = (ContactsSelector) MockUtility.mockSelector(ContactsSelector.class);
 
 		MockUtility.Mocks.startStubbing();
-		MockUtility.Mocks.when(mockContactsSelector.selectWithCasesAndInteractionsByReversePhoneNumber(
+		MockUtility.Mocks.when(mockContactsSelector.selectWithComplexSubQueriesByReversePhoneNumber(
 			reversedPhone
 			, bindMap
 			, new Set<Object>{
@@ -328,10 +328,10 @@ public class ResourceCustomerInsightsV1_Test {
 		//VoiceCall Data
 		VoiceCall voiceCallRecord = new VoiceCall();
 		voiceCallRecord = (VoiceCall)ApplicationTestDataFactory.setUnwritableFields(voiceCallRecord, new Map<String, Object>{
-				'CreatedBy.Profile.Name' =>'SSSW - Service Agent'
+				'LastModifiedBy.Profile.Name' =>'SSSW - Service Agent'
 		});
 
-		personContact = (Contact)ApplicationTestDataFactory.setChildRelationships(personContact,new Map <String, List <SObject>> {'RelatedRecords' => new List <VoiceCall>{ voiceCallRecord }});
+		personContact = (Contact)ApplicationTestDataFactory.setChildRelationships(personContact,new Map <String, List <SObject>> {'Voice_Calls__r' => new List <VoiceCall>{ voiceCallRecord }});
 		
 		//LiveChatTranscript data
 		LiveChatTranscript transcriptRecord = new LiveChatTranscript();
@@ -348,7 +348,7 @@ public class ResourceCustomerInsightsV1_Test {
 		ContactsSelector mockContactsSelector = (ContactsSelector) MockUtility.mockSelector(ContactsSelector.class);
 
 		MockUtility.Mocks.startStubbing();
-		MockUtility.Mocks.when(mockContactsSelector.selectWithCasesAndInteractionsByReversePhoneNumber(
+		MockUtility.Mocks.when(mockContactsSelector.selectWithComplexSubQueriesByReversePhoneNumber(
 			reversedPhone
 			, bindMap
 			, new Set<Object>{
@@ -425,7 +425,7 @@ public class ResourceCustomerInsightsV1_Test {
 		ContactsSelector mockContactsSelector = (ContactsSelector) MockUtility.mockSelector(ContactsSelector.class);
 
 		MockUtility.Mocks.startStubbing();
-		MockUtility.Mocks.when(mockContactsSelector.selectWithCasesAndInteractionsByReversePhoneNumber(reversedPhone, bindMap, new Set<Object>()))
+		MockUtility.Mocks.when(mockContactsSelector.selectWithComplexSubQueriesByReversePhoneNumber(reversedPhone, bindMap, new Set<Object>()))
 			.thenReturn(new List<Contact>{personContact});
 		MockUtility.Mocks.stopStubbing();
 
@@ -514,10 +514,10 @@ public class ResourceCustomerInsightsV1_Test {
 		//VoiceCall Data
 		VoiceCall voiceCallRecord = new VoiceCall();
 		voiceCallRecord = (VoiceCall)ApplicationTestDataFactory.setUnwritableFields(voiceCallRecord, new Map<String, Object>{
-				'CreatedBy.Profile.Name' =>'SSSW - Service Agent'
+				'LastModifiedBy.Profile.Name' =>'SSSW - Service Agent'
 		});
 
-		personContact = (Contact)ApplicationTestDataFactory.setChildRelationships(personContact,new Map <String, List <SObject>> {'RelatedRecords' => new List <VoiceCall>{ voiceCallRecord }});
+		personContact = (Contact)ApplicationTestDataFactory.setChildRelationships(personContact,new Map <String, List <SObject>> {'Voice_Calls__r' => new List <VoiceCall>{ voiceCallRecord }});
 		
 		//LiveChatTranscript data
 		LiveChatTranscript transcriptRecord = new LiveChatTranscript();
@@ -534,7 +534,7 @@ public class ResourceCustomerInsightsV1_Test {
 		ContactsSelector mockContactsSelector = (ContactsSelector) MockUtility.mockSelector(ContactsSelector.class);
 
 		MockUtility.Mocks.startStubbing();
-		MockUtility.Mocks.when(mockContactsSelector.selectWithCasesAndInteractionsByEmailAddress(
+		MockUtility.Mocks.when(mockContactsSelector.selectWithComplexSubQueriesByEmailAddress(
 			customerEmail
 			, bindMap
 			, new Set<Object>{
