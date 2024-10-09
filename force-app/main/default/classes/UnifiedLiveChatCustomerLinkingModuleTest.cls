@@ -26,11 +26,11 @@ private class UnifiedLiveChatCustomerLinkingModuleTest {
 			new Contact(Id = mockContactId(), Email = 'test2@example.com')
 		};
 		List<LiveChatTranscript> chatTranscripts = new List<LiveChatTranscript>{
-			new LiveChatTranscript(SuppliedEmail__c = 'test1@example.com'),
-			new LiveChatTranscript(SuppliedEmail__c = 'test2@example.com'),
-			new LiveChatTranscript(SuppliedEmail__c = 'test3@example.com'),
-			new LiveChatTranscript(SuppliedEmail__c = ''),
-			new LiveChatTranscript(SuppliedEmail__c = null),
+			new LiveChatTranscript(Email__c = 'test1@example.com'),
+			new LiveChatTranscript(Email__c = 'test2@example.com'),
+			new LiveChatTranscript(Email__c = 'test3@example.com'),
+			new LiveChatTranscript(Email__c = ''),
+			new LiveChatTranscript(Email__c = null),
 			new LiveChatTranscript()
 		};
 
@@ -69,11 +69,11 @@ private class UnifiedLiveChatCustomerLinkingModuleTest {
 			new Contact(Id = mockContactId(), Email = 'test2@example.com')
 		};
 		List<LiveChatTranscript> chatTranscripts = new List<LiveChatTranscript>{
-			new LiveChatTranscript(SuppliedEmail__c = 'test1@example.com'),
-			new LiveChatTranscript(SuppliedEmail__c = 'test2@example.com'),
-			new LiveChatTranscript(SuppliedEmail__c = 'test3@example.com'),
-			new LiveChatTranscript(SuppliedEmail__c = ''),
-			new LiveChatTranscript(SuppliedEmail__c = null),
+			new LiveChatTranscript(Email__c = 'test1@example.com'),
+			new LiveChatTranscript(Email__c = 'test2@example.com'),
+			new LiveChatTranscript(Email__c = 'test3@example.com'),
+			new LiveChatTranscript(Email__c = ''),
+			new LiveChatTranscript(Email__c = null),
 			new LiveChatTranscript()
 		};
 
@@ -107,11 +107,11 @@ private class UnifiedLiveChatCustomerLinkingModuleTest {
 		// Data Preparation
 		// =====================================
 		List<LiveChatTranscript> chatTranscripts = new List<LiveChatTranscript>{
-			new LiveChatTranscript(SuppliedEmail__c = 'test1@example.com'),
-			new LiveChatTranscript(SuppliedEmail__c = 'test2@example.com'),
-			new LiveChatTranscript(SuppliedEmail__c = 'test3@example.com'),
-			new LiveChatTranscript(SuppliedEmail__c = ''),
-			new LiveChatTranscript(SuppliedEmail__c = null),
+			new LiveChatTranscript(Email__c = 'test1@example.com'),
+			new LiveChatTranscript(Email__c = 'test2@example.com'),
+			new LiveChatTranscript(Email__c = 'test3@example.com'),
+			new LiveChatTranscript(Email__c = ''),
+			new LiveChatTranscript(Email__c = null),
 			new LiveChatTranscript()
 		};
 
@@ -150,11 +150,11 @@ private class UnifiedLiveChatCustomerLinkingModuleTest {
 		// Data Preparation
 		// =====================================
 		List<LiveChatTranscript> chatTranscripts = new List<LiveChatTranscript>{
-			new LiveChatTranscript(SuppliedEmail__c = 'test1@example.com'),
-			new LiveChatTranscript(SuppliedEmail__c = 'test1@example.com'),
-			new LiveChatTranscript(SuppliedEmail__c = 'test2@example.com'),
-			new LiveChatTranscript(SuppliedEmail__c = ''),
-			new LiveChatTranscript(SuppliedEmail__c = null),
+			new LiveChatTranscript(Email__c = 'test1@example.com'),
+			new LiveChatTranscript(Email__c = 'test1@example.com'),
+			new LiveChatTranscript(Email__c = 'test2@example.com'),
+			new LiveChatTranscript(Email__c = ''),
+			new LiveChatTranscript(Email__c = null),
 			new LiveChatTranscript()
 		};
 

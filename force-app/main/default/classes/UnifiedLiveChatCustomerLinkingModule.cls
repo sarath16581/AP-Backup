@@ -68,11 +68,11 @@ public inherited sharing class UnifiedLiveChatCustomerLinkingModule extends Appl
 	@TestVisible
 	private static void populateContactIds(List<LiveChatTranscript> chatTranscripts, Map<String, List<Id>> emailContactsMap) {
 		for (LiveChatTranscript chatTranscript : chatTranscripts) {
-			if (String.isBlank(chatTranscript.SuppliedEmail__c)) {
+			if (String.isBlank(chatTranscript.Email__c)) {
 				continue;
 			}
 
-			List<Id> contactIds = emailContactsMap.get(chatTranscript.SuppliedEmail__c);
+			List<Id> contactIds = emailContactsMap.get(chatTranscript.Email__c);
 			if (contactIds.size() == 1) {
 				chatTranscript.ContactId = contactIds.get(0);
 			}
@@ -90,8 +90,8 @@ public inherited sharing class UnifiedLiveChatCustomerLinkingModule extends Appl
 	private static Set<String> getUniqueEmailAddresses(List<LiveChatTranscript> chatTranscripts) {
 		Set<String> emailAddresses = new Set<String>();
 		for (LiveChatTranscript ct : chatTranscripts) {
-			if (String.isNotBlank(ct.SuppliedEmail__c)) {
-				emailAddresses.add(ct.SuppliedEmail__c);
+			if (String.isNotBlank(ct.Email__c)) {
+				emailAddresses.add(ct.Email__c);
 			}
 		}
 		return emailAddresses;
