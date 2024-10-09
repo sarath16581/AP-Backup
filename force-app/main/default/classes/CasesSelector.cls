@@ -261,6 +261,41 @@ public virtual inherited sharing class CasesSelector extends ApplicationSelector
 		return new Map<Id, Case>((List<Case>)Database.query(qb.toSoqlString()));
 	}
 
+	/*
+     * Select cases based on Reference Id
+     * @param caseReferences list of case references. a case reference could be a case number or case reference id.
+     * @param selectorOptions selector options to augment result set
+     *
+     * @return Case List
+     */
+    public virtual List<Case> selectCasesByReferenceId(Set<String> caseReferences, Set<Object> selectorOptions) {
+        QueryBuilder qb = newQueryBuilder(selectorOptions)
+                .addConditions()
+                .add(new QueryBuilder.SimpleCondition(Case.ReferenceID__c + ' in :caseReferences'))
+                .endConditions();
+        return (List<Case>)Database.query(qb.toSoqlString());
+    }
+
+    /*
+    * this method returns records with matching article Ids
+     * @param articleIds list of article ids
+     * @param recordTypeName case record type
+     * @param selectorOptions selector options to augment result set
+     *
+     * @return Case List
+    */
+    public List<Case> selectByArticleId(Set<Id> articleids, String recordTypeName, Set<Object> selectorOptions) {
+        QueryBuilder qb = newQueryBuilder(selectorOptions);
+        QueryBuilder.ConditionsManager conditions = qb.addConditions();
+        conditions.add(new QueryBuilder.SimpleCondition(Case.ArticleTest__c + ' IN :articleids'));
+        if (recordTypeName != null) {
+            conditions.add(new QueryBuilder.SimpleCondition('RecordType.DeveloperName = :recordTypeName'));
+        }
+        conditions.endConditions();
+
+        return (List<Case>)Database.query(qb.toSoqlString());
+    }
+
 	/**
 	 * Run a SOQL based on the search parameters passed in
 	 *
@@ -398,40 +433,6 @@ public virtual inherited sharing class CasesSelector extends ApplicationSelector
 		return builder;
 	}
 
-	/*
- 	 * Select cases based on Reference Id
-	 * @param caseReferences list of case references. a case reference could be a case number or case reference id.
-	 * @param selectorOptions selector options to augment result set
-	 *
-	 * @return Case List
-	 */
-	public virtual List<Case> selectCasesByReferenceId(Set<String> caseReferences, Set<Object> selectorOptions) {
-		QueryBuilder qb = newQueryBuilder(selectorOptions)
-				.addConditions()
-				.add(new QueryBuilder.SimpleCondition(Case.ReferenceID__c + ' in :caseReferences'))
-				.endConditions();
-		return (List<Case>)Database.query(qb.toSoqlString());
-	}
-
-	/*
-	* this method returns records with matching article Ids
-	 * @param articleIds list of article ids
-	 * @param recordTypeName case record type
-	 * @param selectorOptions selector options to augment result set
-	 *
-	 * @return Case List
-	*/
-	public List<Case> selectByArticleId(Set<Id> articleids, String recordTypeName, Set<Object> selectorOptions) {
-		QueryBuilder qb = newQueryBuilder(selectorOptions);
-		QueryBuilder.ConditionsManager conditions = qb.addConditions();
-		conditions.add(new QueryBuilder.SimpleCondition(Case.ArticleTest__c + ' IN :articleids'));
-	 	if (recordTypeName != null) {
-			conditions.add(new QueryBuilder.SimpleCondition('RecordType.DeveloperName = :recordTypeName'));
-		}
-		conditions.endConditions();
-
-		return (List<Case>)Database.query(qb.toSoqlString());
-	}
 
 	/**
 	 * This method is used by the the `UnifiedCaseHistoryController` to return Cases which are related
