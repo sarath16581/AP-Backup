@@ -71,6 +71,7 @@ export default class APT_CheckoutLWC extends LightningElement {
 	opportunityStageName ='';
 	userProfileName = '';
 	salesUserProfile = 'BG Base';
+	cartConfigProcessMsg = 'The product(s) in this shopping cart requires pricing to be complete before you checkout.';
 	@api
 	get errorMsg() {
 		//Disable Buttons in case of error
@@ -101,7 +102,7 @@ export default class APT_CheckoutLWC extends LightningElement {
 			this.isLoading = false;
 		})
 		.catch((error) => {
-			this.error = error;
+			this.error = this.cartConfigProcessMsg;
 			this.isLoading = false;
 		});
 
@@ -197,7 +198,7 @@ export default class APT_CheckoutLWC extends LightningElement {
 				}
 			})
 			.catch((error) => {
-				this.error = error;
+					this.error = this.cartConfigProcessMsg;
 				this.isLoading = false;
 			});
 	}
@@ -227,7 +228,7 @@ export default class APT_CheckoutLWC extends LightningElement {
 				}
 			})
 			.catch((error) => {
-				this.error = error;
+				this.error = this.cartConfigProcessMsg;
 				this.isLoading = false;
 			});
 		}
@@ -254,7 +255,7 @@ export default class APT_CheckoutLWC extends LightningElement {
 				}
 			})
 			.catch((error) => {
-				this.error = error;
+				this.error = this.cartConfigProcessMsg;
 				this.isLoading = false;
 		});
 	}
@@ -282,7 +283,7 @@ export default class APT_CheckoutLWC extends LightningElement {
 				}, this.waitTime);
 			})
 			.catch((error) => {
-				this.error = error;
+				this.error = this.cartConfigProcessMsg;
 				this.isLoading = false;
 		});
 	}
@@ -314,7 +315,7 @@ export default class APT_CheckoutLWC extends LightningElement {
 				}
 			})
 			.catch((error) => {
-				this.error = error;
+					this.error = this.cartConfigProcessMsg;
 				this.isLoading = false;
 			});
 			}
@@ -349,7 +350,7 @@ export default class APT_CheckoutLWC extends LightningElement {
 				}
 			})
 			.catch((error) => {
-				this.error = error;
+				this.error = this.cartConfigProcessMsg;
 				this.isLoading = false;
 			});
 	}
@@ -380,7 +381,7 @@ export default class APT_CheckoutLWC extends LightningElement {
 				this.isLoading = false;
 			})
 			.catch((error) => {
-				this.error = error;
+				this.error = this.cartConfigProcessMsg;
 				this.isLoading = false;
 			});
 	}
@@ -417,7 +418,7 @@ export default class APT_CheckoutLWC extends LightningElement {
 				}
 			})
 			.catch((error) => {
-				this.error = error;
+				this.error = this.cartConfigProcessMsg;
 				this.isLoading = false;
 			});
 	}
