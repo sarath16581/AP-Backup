@@ -78,8 +78,11 @@
 	 Map<Id, Case> casesContacts = CasesSelector.newInstance()
 	   .selectById(new Set<Id>{ cases[0].Id }, new Set<Object>{ CasesSelector.Options.WITH_CHILDINITIALCONTACT });
 	 List<AuthorisedContacts__c> authContactList = casesContacts.get(cases[0].Id).Authorised_Contacts__r;
+	   
+	 Set<SObjectField> authContactFields = new Set<SObjectField>{AuthorisedContacts__c.Id, AuthorisedContacts__c.Initial_Contact__c};
  
-	 AuthorisedContactsSelector authConsSelector = AuthorisedContactsSelector.newInstance();
+	 AuthorisedContactsSelector authConsSelector = AuthorisedContactsSelector.newInstance(authContactFields);
+	 
 	 List<AuthorisedContacts__c> authorisedContacts = authConsSelector.selectByCaseId(new Set<Id>{cases[0].Id});
 	 List<AuthorisedContacts__c> authContacts = AuthorisedContactsSelector.newInstance()
 	  .selectByCaseIdOrderByName(new Set<Id>{ cases[0].Id }, new Set<Object>());
