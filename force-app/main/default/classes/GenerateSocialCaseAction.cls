@@ -50,8 +50,8 @@ global with sharing class GenerateSocialCaseAction {
 	 * @param caseIdsToUpdate list of case Ids should be reopened.
 	 */
 	private static List<Case> upsertCasesAndUpdateSocialPost(List<SocialBusinessCaseParams> socialBusinessCaseParams, Set<Id> caseIdsToUpdate) {
-		Map<Id, Case> socialPostIdCaseMap = new Map<Id, Case>();
 		List<Case> casesLst = new List<Case>();
+		
 		for (SocialBusinessCaseParams param : socialBusinessCaseParams) {
 			SocialPost post = param.socialPost;
 			if (post != null && post.ReplyTo != null && post.ReplyTo.ParentId != null && caseIdsToUpdate.contains(post.ReplyTo.ParentId)) {
