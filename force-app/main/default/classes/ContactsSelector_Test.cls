@@ -26,7 +26,7 @@
 * 2024-07-23 - Marcel HK - Added filters for accountId and abn/acn lookup (CSLU-447)
 * 2024-08-08 - Marcel HK - Update Address filters for `selectByCustomerSearchParamsQB` (CSLU-1072)
 * 2024-09-10 - SteveL - added test for selectByReversedPhoneNumbers
-* 2024-09-23 - Rejeesh Raghavan - Added tests for `selectWithCasesAndInteractionsHelper` `selectWithCasesAndInteractionsByReversePhoneNumber` `selectWithCasesAndInteractionsByEmailAddress` (CSLU-1367)
+* 2024-09-23 - Rejeesh Raghavan - Added tests for `selectWithComplexSubQueriesHelper` `selectWithComplexSubQueriesByReversePhoneNumber` `selectWithComplexSubQueriesByEmailAddress` (CSLU-1367)
 */
 @IsTest
 private with sharing class ContactsSelector_Test {
@@ -527,10 +527,10 @@ private with sharing class ContactsSelector_Test {
 		Assert.isTrue(Pattern.compile('(?is)' + subQueryPattern).matcher(soql).find(), subQueryExMsg);
 	}
 	/**
-	 * @description Test method for ContactsSelector.selectWithCasesAndInteractionsHelper()
+	 * @description Test method for ContactsSelector.selectWithComplexSubQueriesHelper()
 	 */
     @IsTest
-	static void testSelectWithCasesAndInteractionsHelper(){
+	static void testselectWithComplexSubQueriesHelper(){
 		String customerPhone='0300300300';
 		String queryConditions= ' AND (HomePhone =:searchKey OR MobilePhone =:searchKey OR Phone =:searchKey)';
 		String currentUserProfileName = [SELECT Name FROM Profile WHERE Id =:UserInfo.getProfileId() LIMIT 1].Name;
@@ -648,7 +648,7 @@ private with sharing class ContactsSelector_Test {
 
 		// Call the Selector method
 		ContactsSelector contactSelector = ContactsSelector.newInstance(0, fieldOverrides);
-		List<Contact> contacts = contactSelector.selectWithCasesAndInteractionsHelper(
+		List<Contact> contacts = contactSelector.selectWithComplexSubQueriesHelper(
 			queryConditions
 			, bindMap
 			, new Set<Object>{
@@ -661,10 +661,10 @@ private with sharing class ContactsSelector_Test {
 		Assert.areEqual(1, contacts[0].Tasks.size(), '1 Task should be returned');
 	}
 	/**
-	 * @description Test method for ContactsSelector.selectWithCasesAndInteractionsByReversePhoneNumber()
+	 * @description Test method for ContactsSelector.selectWithComplexSubQueriesByReversePhoneNumber()
 	 */
     @IsTest
-	static void testselectWithCasesAndInteractionsByReversePhoneNumber(){
+	static void testselectWithComplexSubQueriesByReversePhoneNumber(){
 		String customerPhone='0300300300';
 		Map<String, Object> bindMap = new Map<String, Object>();
 		bindMap.put('searchKey', customerPhone);
@@ -685,7 +685,7 @@ private with sharing class ContactsSelector_Test {
 		ContactsSelector mockContactsSelector = (ContactsSelector) MockUtility.mockSelector(ContactsSelector.class);
 
 		MockUtility.Mocks.startStubbing();
-		MockUtility.Mocks.when(mockContactsSelector.selectWithCasesAndInteractionsByReversePhoneNumber(customerPhone, bindMap, new Set<Object>()))
+		MockUtility.Mocks.when(mockContactsSelector.selectWithComplexSubQueriesByReversePhoneNumber(customerPhone, bindMap, new Set<Object>()))
 			.thenReturn(new List<Contact>{personContact});
 		MockUtility.Mocks.stopStubbing();
 
@@ -698,15 +698,15 @@ private with sharing class ContactsSelector_Test {
 			, Contact.VerifiedEmail__c, Contact.Phone, Contact.MobilePhone, Contact.VerifiedMobile__c
 		};
 		ContactsSelector contactSelector = ContactsSelector.newInstance(0, contactFields);
-		List<Contact> contacts = contactSelector.selectWithCasesAndInteractionsByReversePhoneNumber(customerPhone,bindMap, new Set<Object>());
+		List<Contact> contacts = contactSelector.selectWithComplexSubQueriesByReversePhoneNumber(customerPhone,bindMap, new Set<Object>());
 		Test.stopTest();
 		Assert.areEqual(1, contacts.size(), '1 contact should be returned');
 	}
 	/**
-	 * @description Test method for ContactsSelector.selectWithCasesAndInteractionsByEmailAddress()
+	 * @description Test method for ContactsSelector.selectWithComplexSubQueriesByEmailAddress()
 	 */
     @IsTest
-	static void testSelectWithCasesAndInteractionsByEmailAddress(){
+	static void testselectWithComplexSubQueriesByEmailAddress(){
 		String customerEmail='invalid@invalid.com.invalid';
 		Map<String, Object> bindMap = new Map<String, Object>();
 		bindMap.put('searchKey', customerEmail);
@@ -727,7 +727,7 @@ private with sharing class ContactsSelector_Test {
 		ContactsSelector mockContactsSelector = (ContactsSelector) MockUtility.mockSelector(ContactsSelector.class);
 
 		MockUtility.Mocks.startStubbing();
-		MockUtility.Mocks.when(mockContactsSelector.selectWithCasesAndInteractionsByEmailAddress(customerEmail, bindMap, new Set<Object>()))
+		MockUtility.Mocks.when(mockContactsSelector.selectWithComplexSubQueriesByEmailAddress(customerEmail, bindMap, new Set<Object>()))
 			.thenReturn(new List<Contact>{personContact});
 		MockUtility.Mocks.stopStubbing();
 
@@ -740,7 +740,7 @@ private with sharing class ContactsSelector_Test {
 			, Contact.VerifiedEmail__c, Contact.Phone, Contact.MobilePhone, Contact.VerifiedMobile__c
 		};
 		ContactsSelector contactSelector = ContactsSelector.newInstance(0, contactFields);
-		List<Contact> contacts = contactSelector.selectWithCasesAndInteractionsByEmailAddress(customerEmail,bindMap, new Set<Object>());
+		List<Contact> contacts = contactSelector.selectWithComplexSubQueriesByEmailAddress(customerEmail,bindMap, new Set<Object>());
 		Test.stopTest();
 		Assert.areEqual(1, contacts.size(), '1 contact should be returned');
 	}
