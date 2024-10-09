@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+	<apiVersion>61.0</apiVersion>
+	<description>This LWC is to be used on the Live Chat Transcript Flexipage in conjunction with the Case overview component, it contains a button once clicked will navigate to the Case view in a new console tab</description>
+	<isExposed>true</isExposed>
+	<masterLabel>Unified Live Chat Open Case</masterLabel>
+	<targets>
+		<target>lightning__RecordPage</target>
+	</targets>
+	<targetConfigs>
+		<targetConfig targets="lightning__RecordPage">
+			<objects>
+				<object>LiveChatTranscript</object>
+			</objects>
+		</targetConfig>
+	</targetConfigs>
+</LightningComponentBundle>

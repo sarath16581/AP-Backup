@@ -228,7 +228,7 @@ public class ResourceCustomerInsightsV1_Test {
 		ContactsSelector mockContactsSelector = (ContactsSelector) MockUtility.mockSelector(ContactsSelector.class);
 
 		MockUtility.Mocks.startStubbing();
-		MockUtility.Mocks.when(mockContactsSelector.selectWithCasesAndInteractionsByReversePhoneNumber(
+		MockUtility.Mocks.when(mockContactsSelector.selectWithComplexSubQueriesByReversePhoneNumber(
 			reversedPhone
 			, bindMap
 			, new Set<Object>{
@@ -348,7 +348,7 @@ public class ResourceCustomerInsightsV1_Test {
 		ContactsSelector mockContactsSelector = (ContactsSelector) MockUtility.mockSelector(ContactsSelector.class);
 
 		MockUtility.Mocks.startStubbing();
-		MockUtility.Mocks.when(mockContactsSelector.selectWithCasesAndInteractionsByReversePhoneNumber(
+		MockUtility.Mocks.when(mockContactsSelector.selectWithComplexSubQueriesByReversePhoneNumber(
 			reversedPhone
 			, bindMap
 			, new Set<Object>{
@@ -425,7 +425,7 @@ public class ResourceCustomerInsightsV1_Test {
 		ContactsSelector mockContactsSelector = (ContactsSelector) MockUtility.mockSelector(ContactsSelector.class);
 
 		MockUtility.Mocks.startStubbing();
-		MockUtility.Mocks.when(mockContactsSelector.selectWithCasesAndInteractionsByReversePhoneNumber(reversedPhone, bindMap, new Set<Object>()))
+		MockUtility.Mocks.when(mockContactsSelector.selectWithComplexSubQueriesByReversePhoneNumber(reversedPhone, bindMap, new Set<Object>()))
 			.thenReturn(new List<Contact>{personContact});
 		MockUtility.Mocks.stopStubbing();
 
@@ -534,7 +534,7 @@ public class ResourceCustomerInsightsV1_Test {
 		ContactsSelector mockContactsSelector = (ContactsSelector) MockUtility.mockSelector(ContactsSelector.class);
 
 		MockUtility.Mocks.startStubbing();
-		MockUtility.Mocks.when(mockContactsSelector.selectWithCasesAndInteractionsByEmailAddress(
+		MockUtility.Mocks.when(mockContactsSelector.selectWithComplexSubQueriesByEmailAddress(
 			customerEmail
 			, bindMap
 			, new Set<Object>{
