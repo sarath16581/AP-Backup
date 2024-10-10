@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <SharingRules xmlns="http://soap.sforce.com/2006/04/metadata">
     <sharingOwnerRules>
+        <fullName>ClassicLiveChatTranscriptSharedWithUnifiedAgents</fullName>
+        <accessLevel>Read</accessLevel>
+        <label>Classic Live Chat Transcript Shared With Unified Agents</label>
+        <sharedTo>
+            <role>UnifiedAgent</role>
+        </sharedTo>
+        <sharedFrom>
+            <roleAndSubordinatesInternal>SSSW_Management</roleAndSubordinatesInternal>
+        </sharedFrom>
+    </sharingOwnerRules>
+    <sharingOwnerRules>
         <fullName>Live_Chat_Transcript_for_CCC_Agents</fullName>
         <accessLevel>Read</accessLevel>
         <description>Records owned by role and internal subordinate for &apos;SSSW Call center manager&apos; share with role and internal subordinate for &apos;SSSW Call center manager&apos;.</description>
@@ -10,6 +21,29 @@
         </sharedTo>
         <sharedFrom>
             <roleAndSubordinatesInternal>SSSW_Call_Centre_Manager</roleAndSubordinatesInternal>
+        </sharedFrom>
+    </sharingOwnerRules>
+    <sharingOwnerRules>
+        <fullName>UnifiedLiveChatTranscriptSharedWithClassicAgents</fullName>
+        <accessLevel>Read</accessLevel>
+        <label>Unified Live Chat Transcript Shared With Classic Agents</label>
+        <sharedTo>
+            <roleAndSubordinatesInternal>SSSW_Management</roleAndSubordinatesInternal>
+        </sharedTo>
+        <sharedFrom>
+            <role>UnifiedAgent</role>
+        </sharedFrom>
+    </sharingOwnerRules>
+    <sharingOwnerRules>
+        <fullName>UnifiedLiveChatTranscriptSharedWithUnifiedAgents</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>Records owned by role and internal subordinate for &apos;SSSW Call center manager&apos; share with role and internal subordinate for &apos;SSSW Call center manager&apos;.</description>
+        <label>Unified Live Chat Transcript Shared With Unified Agents</label>
+        <sharedTo>
+            <role>UnifiedAgent</role>
+        </sharedTo>
+        <sharedFrom>
+            <role>UnifiedAgent</role>
         </sharedFrom>
     </sharingOwnerRules>
 </SharingRules>
