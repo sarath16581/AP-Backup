@@ -1,0 +1,17 @@
+<design:component>
+	<flexipage:template>
+		<!-- Header Region -->
+		<flexipage:region name="header" defaultWidth="LARGE">
+			<!-- <flexipage:formfactor type="LARGE" width="LARGE" /> -->
+		</flexipage:region>
+
+		<!-- Main Content Regions -->
+		<flexipage:region name="firstColumn" defaultWidth="SMALL" />
+		<flexipage:region name="secondColumn" defaultWidth="SMALL" />
+		<flexipage:region name="main" defaultWidth="MEDIUM" />
+	</flexipage:template>
+	<design:supportedFormFactors>
+		<design:supportedFormFactor type="Small" />
+		<design:supportedFormFactor type="Large" />
+	</design:supportedFormFactors>
+</design:component>

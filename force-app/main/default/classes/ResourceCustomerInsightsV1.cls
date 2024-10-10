@@ -372,21 +372,27 @@ public with sharing class ResourceCustomerInsightsV1 extends ResourceAPIService.
 					mapCase.put(key, caseRecord.IsClosed?'Closed':'Open');
 				}//value for 'enquiry_type' key cannot be directly mapped, instead has to be mapped based on caseRecord.RecordType
 				else if(key=='enquiry_type'){
-					mapCase.put(key, AP_CASE_RECORDTYPES.contains(caseRecord.RecordType.DeveloperName)?
+					mapCase.put(key,
+						(AP_CASE_RECORDTYPES.contains(caseRecord.RecordType.DeveloperName)
+							|| UNIFIED_CASE_RECORDTYPES.contains(caseRecord.RecordType.DeveloperName))?
 						caseRecord.Type:
 						ST_CASE_RECORDTYPES.contains(caseRecord.RecordType.DeveloperName)?
 							caseRecord.Call_Purpose__c:
 							null);
 				}//value for 'enquiry_subtype' key cannot be directly mapped, instead has to be mapped based on caseRecord.RecordType
 				else if(key=='enquiry_subtype'){
-					mapCase.put(key, AP_CASE_RECORDTYPES.contains(caseRecord.RecordType.DeveloperName)?
+					mapCase.put(key,
+						(AP_CASE_RECORDTYPES.contains(caseRecord.RecordType.DeveloperName)
+							|| UNIFIED_CASE_RECORDTYPES.contains(caseRecord.RecordType.DeveloperName))?
 						caseRecord.EnquirySubType__c:
 						ST_CASE_RECORDTYPES.contains(caseRecord.RecordType.DeveloperName)?
 							caseRecord.Enquiry_Type__c:
 							null);
 				}//value for 'tracking_id' key cannot be directly mapped, instead has to be mapped based on caseRecord.RecordType
 				else if(key=='tracking_id'){
-					mapCase.put(key, AP_CASE_RECORDTYPES.contains(caseRecord.RecordType.DeveloperName)?
+					mapCase.put(key,
+						(AP_CASE_RECORDTYPES.contains(caseRecord.RecordType.DeveloperName)
+							|| UNIFIED_CASE_RECORDTYPES.contains(caseRecord.RecordType.DeveloperName))?
 						caseRecord.ArticleTest__r.ArticleId__c:
 						ST_CASE_RECORDTYPES.contains(caseRecord.RecordType.DeveloperName)?
 							caseRecord.ArticleTest__r.Name:

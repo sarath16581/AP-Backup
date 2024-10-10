@@ -16,7 +16,7 @@
     </values>
     <values>
         <field>CaseClosureEmailAlertNameAusPost__c</field>
-        <value xsi:type="xsd:string">UnifiedCaseClosureOnDeliveredDeliveredToPOBoxScanEventAP</value>
+        <value xsi:type="xsd:string">UnifiedCaseClosureOnLastMileOnBoardForDeliveryScanEventAP</value>
     </values>
     <values>
         <field>CaseClosureEmailAlertNameStarTrack__c</field>
