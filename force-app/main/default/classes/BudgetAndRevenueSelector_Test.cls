@@ -32,7 +32,7 @@ public class BudgetAndRevenueSelector_Test {
 		Test.stopTest();
 	}
 	@isTest
-	static void testSelectByOrganisationId_withFY() {
+	static void testSelectByOrganisationIdWithFY() {
 		// =====================================
 		// Data Preparation
 		// =====================================
