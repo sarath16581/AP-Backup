@@ -15,5 +15,5 @@ public with sharing class UnifiedConstants {
 	public static final String CONTACT_REQUEST_STATUS_RESCHEDULED = 'Rescheduled';
 	public static final String CONTACT_REQUEST_STATUS_ABANDONED = 'Abandoned';
 	// Account Record Types
-	public static final String ACCOUNT_RECORD_TYPE_ORGANISATION = 'Organisation';
+	public static final String ACCOUNT_RECORD_TYPE_ORGANISATION = 'Business_Account';
 }

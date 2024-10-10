@@ -768,13 +768,13 @@ private with sharing class ContactsSelector_Test {
 		String f1 = '\\bEmail IN :emailAddresses\\b';
 		String f2 = '\\bVerifiedEmail__c IN :emailAddresses\\b';
 		String f3 = '\\bIsPersonAccount = TRUE\\b';
-		String f4 = '\\bAccount\\.RecordType\\.Name = \'Organisation\'';
+		String f4 = '\\bAccount\\.RecordType\\.DeveloperName = :accountRecordTypeOrganisation';
 
 		// Verify the WHERE includes the correct conditions
 		Assert.isTrue(Pattern.compile('(?is)' + f1).matcher(soql).find(), 'Missing condition for \'Email\'');
 		Assert.isTrue(Pattern.compile('(?is)' + f2).matcher(soql).find(), 'Missing condition for \'VerifiedEmail__c\'');
 		Assert.isTrue(Pattern.compile('(?is)' + f3).matcher(soql).find(), 'Missing condition for \'IsPersonAccount\'');
-		Assert.isTrue(Pattern.compile('(?is)' + f4).matcher(soql).find(), 'Missing condition for \'Account.RecordType.Name\'');
+		Assert.isTrue(Pattern.compile('(?is)' + f4).matcher(soql).find(), 'Missing condition for \'Account.RecordType.DeveloperName\'');
 		Assert.isTrue(Pattern.compile('(?is)\\bWHERE \\(' + f1 +' OR ' + f2 + '\\) AND \\(' + f3 +' OR ' + f4 + '\\)').matcher(soql).find(), 'Missing or incorrect conditions.');
 	}
 }

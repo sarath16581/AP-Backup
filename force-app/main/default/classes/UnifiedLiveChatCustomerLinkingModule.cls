@@ -51,7 +51,10 @@ public inherited sharing class UnifiedLiveChatCustomerLinkingModule extends Appl
 		Set<String> emailAddresses = getUniqueEmailAddresses(chatTranscripts);
 
 		// Find all potential Contacts
-		List<Contact> contacts = ContactsSelector.newInstance().selectCustomerByEmail(emailAddresses, new Set<Object>());
+		Set<SObjectField> fieldOverrides = new Set<SObjectField> {
+			Contact.Id, Contact.Email, Contact.VerifiedEmail__c
+		};
+		List<Contact> contacts = ContactsSelector.newInstance(fieldOverrides).selectCustomerByEmail(emailAddresses, new Set<Object>());
 
 		// Map each Email address with unique set of Contact Ids
 		Map<String, Set<Id>> emailContactsMap = mapContactsWithEmails(emailAddresses, contacts);

@@ -44,6 +44,12 @@ public virtual inherited sharing class ContactsSelector extends ApplicationSelec
 	public static ContactsSelector newInstance() {
 		return (ContactsSelector)Application.Selectors.newInstance(ContactsSelector.class);
 	}
+
+	public static ContactsSelector newInstance(Set<SObjectField> fieldOverrides) {
+		return (ContactsSelector) Application.Selectors.newInstance(ContactsSelector.class)
+			.setFieldOverrides(fieldOverrides);
+	}
+
 	public static ContactsSelector newInstance(Integer recordLimit) {
 		return (ContactsSelector)Application.Selectors.newInstance(ContactsSelector.class).setLimit(recordLimit);
 	}
@@ -413,7 +419,8 @@ public virtual inherited sharing class ContactsSelector extends ApplicationSelec
 		if(emailAddresses.isEmpty()) {
 			return new List<Contact>();
 		}
-
+		// Set bind variable used in the query. Bind variables doesn't work with direct reference to constant.
+		String accountRecordTypeOrganisation = UnifiedConstants.ACCOUNT_RECORD_TYPE_ORGANISATION;
 		return (List<Contact>) Database.query(this.selectCustomerByEmailQB(selectorOptions));
 	}
 
@@ -423,13 +430,14 @@ public virtual inherited sharing class ContactsSelector extends ApplicationSelec
 	 * @param selectorOptions - Selector Options to use
 	 * @return SOQL query string
 	 */
-	public String selectCustomerByEmailQB(Set<Object> selectorOptions) {
+	@TestVisible
+	private String selectCustomerByEmailQB(Set<Object> selectorOptions) {
 		QueryBuilder qb = newQueryBuilder(selectorOptions)
 			.addConditions()
 			.add(new QueryBuilder.SimpleCondition(Contact.Email + ' IN :emailAddresses'))
 			.add(new QueryBuilder.SimpleCondition(Contact.VerifiedEmail__c + ' IN :emailAddresses'))
 			.add(new QueryBuilder.SimpleCondition(Contact.IsPersonAccount + ' = TRUE'))
-			.add(new QueryBuilder.SimpleCondition('Account.RecordType.Name = \'' + UnifiedConstants.ACCOUNT_RECORD_TYPE_ORGANISATION  + '\''))
+			.add(new QueryBuilder.SimpleCondition('Account.RecordType.DeveloperName = :accountRecordTypeOrganisation'))
 			.setConditionOrder('(1 OR 2) AND (3 OR 4)')
 			.endConditions();
 
