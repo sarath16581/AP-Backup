@@ -457,8 +457,11 @@ export default class HappyParcelWrapper extends NavigationMixin(LightningElement
 			// only set isDotNetEdd to TRUE if both EDD and SourceSystem data from .NET are not null
 			const dotNetEddExists = !!(result.article && result.article.ExpectedDeliveryDate__c && result.article.Source_System__c);
 			item.trackingResult.isDotNetEdd = dotNetEddExists;
-			item.trackingResult.article.ExpectedDeliveryDate__c = dotNetEddExists ? result.article?.ExpectedDeliveryDate__c : item.trackingResult.article?.ExpectedDeliveryDate__c;
-			item.trackingResult.article.Source_System__c = dotNetEddExists ? result.article?.Source_System__c : item.trackingResult.article?.Source_System__c;
+
+			if(item.trackingResult.article){
+				item.trackingResult.article.ExpectedDeliveryDate__c = dotNetEddExists ? result.article?.ExpectedDeliveryDate__c : item.trackingResult.article?.ExpectedDeliveryDate__c;
+				item.trackingResult.article.Source_System__c = dotNetEddExists ? result.article?.Source_System__c : item.trackingResult.article?.Source_System__c;
+			}
 		});
 		// update display attributes from StarTrack response
 		this.consignment.trackingResult = result;
