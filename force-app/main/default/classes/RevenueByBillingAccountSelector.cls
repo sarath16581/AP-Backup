@@ -27,9 +27,9 @@ public virtual inherited sharing class RevenueByBillingAccountSelector extends A
 	/**
 	 * @description Query duplicates revenues
 	 */
-    public List<Revenue_by_Billing_Account__c> selectByDups()
+	public List<Revenue_by_Billing_Account__c> selectByDups()
 	{
-        QueryBuilder qb = newQueryBuilder().addConditions().add(new QueryBuilder.CompareCondition(Revenue_by_Billing_Account__c.Customer_Mismatch__c).eq('Duplicate')).endConditions();
+		QueryBuilder qb = newQueryBuilder().addConditions().add(new QueryBuilder.CompareCondition(Revenue_by_Billing_Account__c.Customer_Mismatch__c).eq('Duplicate')).endConditions();
 
 				
 		return (List<Revenue_by_Billing_Account__c>)Database.query((qb.toSoqlString()));
