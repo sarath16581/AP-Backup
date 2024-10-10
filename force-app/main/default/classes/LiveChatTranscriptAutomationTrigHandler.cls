@@ -4,9 +4,10 @@
  * @author Nathan Franklin
  * @date 2024-07-31
  * @changelog
+ * 2024-10-04 - Seth Heang - registered UnifiedLiveChatCustomerLinkingModule
  */
 public inherited sharing class LiveChatTranscriptAutomationTrigHandler extends ApplicationTriggerHandler {
-	
+
 	public override SObjectType getSObjectType() {
 		return LiveChatTranscript.SObjectType;
 	}
@@ -25,17 +26,19 @@ public inherited sharing class LiveChatTranscriptAutomationTrigHandler extends A
 		registerModule(CaseRecordPopulationModule.class);
 		registerModule(ProductCategoryPopulationModule.class);
 
+		// link customer Id to Live Chat
+		registerModule(UnifiedLiveChatCustomerLinkingModule.class);
 	}
 
 	/**
-	 * This defines a list of objects that may be 'touched' during module execution. 
+	 * This defines a list of objects that may be 'touched' during module execution.
 	 * It also defines the order in which the work will be committed
 	 */
 	public static List<SObjectType> getUnitOfWorkSObjectTypes() {
 		return new List<SObjectType>{
-			AgentWork.SObjectType
+				LiveChatTranscript.SObjectType,
+				AgentWork.SObjectType,
+				Contact.SObjectType
 		};
 	}
-
-
 }
