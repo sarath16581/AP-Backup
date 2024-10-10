@@ -1,201 +1,204 @@
 <!--
-    2017-10-04 nathan.franklin@auspost.com.au Added ScriptLoader component to manage frontend scripts
-    2019-01-14 swati.mogadala@auspost.com.au  stringify(ArticleID) to make sure the article number is passed properly to the sidepanel INC1264425 
+	2017-10-04 nathan.franklin@auspost.com.au Added ScriptLoader component to manage frontend scripts
+	2019-01-14 swati.mogadala@auspost.com.au  stringify(ArticleID) to make sure the article number is passed properly to the sidepanel INC1264425
+	2024-10-10 - Ranjeewa Silva - Remove article id hyperlink when displayed in lightning.
 -->
 <apex:page standardController="Account" extensions="CustomerSAPEMArticlesController" showHeader="false" sidebar="false">
-    <c:ScriptLoader jsLibraries="jquery,jqueryui,ssswconsole,interaction,integration,bootstrap"
-                    cssLibraries="jqueryui,ssswconsole,bootstrap"/>
+	<c:ScriptLoader jsLibraries="jquery,jqueryui,ssswconsole,interaction,integration,bootstrap"
+					cssLibraries="jqueryui,ssswconsole,bootstrap"/>
 
-    <script>
-        var j$ = jQuery.noConflict();
-        var startSearchTime;
-    
-        //Used to pass data across to Enquiry Panel
-        function openReport(ArticleId,productCategory,subProdCategory) {
-            //window.console&&console.log('openReport clicked... ' + reportId);
-            var openSubtab = function(result) {
-                sforce.console.fireEvent('MiniCaseFieldSet_ReferenceID__c',JSON.stringify(ArticleId), function(){window.console && console.log('Called MiniCaseFieldSet_ReferenceID__c');});
-                sforce.console.fireEvent('MiniCaseFieldSet_Type', "{!$Label.MiniCaseFieldSet_Type}", function(){window.console && console.log('Called MiniCaseFieldSet_Type');});
-                sforce.console.fireEvent('MiniCaseFieldSet_ProductCategory__c', productCategory, function(){window.console && console.log('Called MiniCaseFieldSet_ProductCategory__c');});
-                sforce.console.fireEvent('MiniCaseFieldSet_ProductSubCategory__c', subProdCategory, function(result){});
-            };
+	<script>
+		var j$ = jQuery.noConflict();
+		var startSearchTime;
+	
+		//Used to pass data across to Enquiry Panel
+		function openReport(ArticleId,productCategory,subProdCategory) {
+			//window.console&&console.log('openReport clicked... ' + reportId);
+			var openSubtab = function(result) {
+				sforce.console.fireEvent('MiniCaseFieldSet_ReferenceID__c',JSON.stringify(ArticleId), function(){window.console && console.log('Called MiniCaseFieldSet_ReferenceID__c');});
+				sforce.console.fireEvent('MiniCaseFieldSet_Type', "{!$Label.MiniCaseFieldSet_Type}", function(){window.console && console.log('Called MiniCaseFieldSet_Type');});
+				sforce.console.fireEvent('MiniCaseFieldSet_ProductCategory__c', productCategory, function(){window.console && console.log('Called MiniCaseFieldSet_ProductCategory__c');});
+				sforce.console.fireEvent('MiniCaseFieldSet_ProductSubCategory__c', subProdCategory, function(result){});
+			};
 
-            sforce.console.getEnclosingPrimaryTabId(openSubtab);
-        }
-        function showProgress() {
-            j$('#waitingDiv').show();
-            startSearchTime = Date.now();
-        }
-        function hideProgress() {
-            j$('#waitingDiv').hide();
-            var text = j$('[id$="advancedresultsdetail"]').find('.mainTitle').text();
-            //j$('[id$="advancedresultsdetail"]').find('.mainTitle').text(text + ' [in ' + (Date.now()-startSearchTime) / 1000 + ' s]');
-        }
-    </script>
-    <style>
-        .waitingHolder {
-            background-color: white;
-            /*border-width: 2px;
-                            border-style: solid;*/
-            z-index: 9999;
-            left: 43.7%;
-            padding: 19px 0px 19px 24px;
-            position: absolute;
-            border-radius: 6px;
-            width: 119px;
-            top: 39%;
-            -moz-box-shadow: 3px 3px 5px #888888;
-            -webkit-box-shadow: 3px 3px 5px #888888;
-            box-shadow: 3px 3px 5px #888888;
-        }
+			sforce.console.getEnclosingPrimaryTabId(openSubtab);
+		}
+		function showProgress() {
+			j$('#waitingDiv').show();
+			startSearchTime = Date.now();
+		}
+		function hideProgress() {
+			j$('#waitingDiv').hide();
+			var text = j$('[id$="advancedresultsdetail"]').find('.mainTitle').text();
+			//j$('[id$="advancedresultsdetail"]').find('.mainTitle').text(text + ' [in ' + (Date.now()-startSearchTime) / 1000 + ' s]');
+		}
+	</script>
+	<style>
+		.waitingHolder {
+			background-color: white;
+			/*border-width: 2px;
+							border-style: solid;*/
+			z-index: 9999;
+			left: 43.7%;
+			padding: 19px 0px 19px 24px;
+			position: absolute;
+			border-radius: 6px;
+			width: 119px;
+			top: 39%;
+			-moz-box-shadow: 3px 3px 5px #888888;
+			-webkit-box-shadow: 3px 3px 5px #888888;
+			box-shadow: 3px 3px 5px #888888;
+		}
 
-        .waitingBackground {
-            background-color: black;
-            opacity: 0.20;
-            filter: alpha(opacity = 20);
-            position: fixed;
-            width: 100%;
-            height: 100%;
-            top: 0;
-            left: 0;
-            z-index: 9998;
-        }
+		.waitingBackground {
+			background-color: black;
+			opacity: 0.20;
+			filter: alpha(opacity = 20);
+			position: fixed;
+			width: 100%;
+			height: 100%;
+			top: 0;
+			left: 0;
+			z-index: 9998;
+		}
 
-        .waitingDescription {
-            float: left;
-            height: 24px;
-            line-height: 24px;
-            margin-left: 11px;
-        }
+		.waitingDescription {
+			float: left;
+			height: 24px;
+			line-height: 24px;
+			margin-left: 11px;
+		}
 
-        .waitingImage {
-            float: left;
-            margin-left: 32px;
-        }
-        
-        body input.btn {
-            font-family: Arial;
-            font-size: 1.08em;
-            background: #eaebed url(/resource/SAP-Logo.png) no-repeat center 40px;
-            border: 1px solid #c5c6c8;
-            border-bottom-color: #7f7f7f;
-            color: #404c5b;
-            display: inline-block;
-            padding-top: 0;
-            padding-bottom: 1px;
-            padding-left: 10px;
-            padding-right: 10px;
-            height: 30px;
-            -moz-border-radius: 3px;
-            border-radius: 3px;
-            -moz-box-shadow: 0 1px 2px 0 #adadad;
-            -webkit-box-shadow: 0 1px 2px 0 #adadad;
-            box-shadow: 0 1px 2px 0 #adadad;
-            margin: 0;
-            font-weight: bold;
-            text-decoration: none;
-            padding: 3px 6px;
-            text-shadow: none;
-            margin-right: 10px;
-            margin-bottom: 10px;
-        }
-        .sap-logo {
-            float: right;
-        }
+		.waitingImage {
+			float: left;
+			margin-left: 32px;
+		}
+		
+		body input.btn {
+			font-family: Arial;
+			font-size: 1.08em;
+			background: #eaebed url(/resource/SAP-Logo.png) no-repeat center 40px;
+			border: 1px solid #c5c6c8;
+			border-bottom-color: #7f7f7f;
+			color: #404c5b;
+			display: inline-block;
+			padding-top: 0;
+			padding-bottom: 1px;
+			padding-left: 10px;
+			padding-right: 10px;
+			height: 30px;
+			-moz-border-radius: 3px;
+			border-radius: 3px;
+			-moz-box-shadow: 0 1px 2px 0 #adadad;
+			-webkit-box-shadow: 0 1px 2px 0 #adadad;
+			box-shadow: 0 1px 2px 0 #adadad;
+			margin: 0;
+			font-weight: bold;
+			text-decoration: none;
+			padding: 3px 6px;
+			text-shadow: none;
+			margin-right: 10px;
+			margin-bottom: 10px;
+		}
+		.sap-logo {
+			float: right;
+		}
 
-    </style>
-    <apex:form >
+	</style>
+	<apex:form >
 
-        <apex:outputPanel id="pnlSAP">
-            <div id="pnlSAPEMArticleMessage" style="display:none;">
-                <apex:pagemessage severity="error" strength="3" summary="There is an error"/>
-            </div>
-            <apex:commandButton value="Query SAP" action="{!getCustomerArticleList}" onclick="showProgress()"
-                                oncomplete="hideProgress()" reRender="advancedresultsdetail,pnlSAP"/>
-            <apex:image styleClass="sap-logo" value="{!$Resource.SAPIcon}" height="30"/>
-            <!-- <input disabled="true" value="DGV2313195010828" class="form-control input-sm detail string sap-logo" style="width:250px;margin-right:10px;" />
-             -->
-            <apex:outputPanel rendered="{!showError}" id="pnlError">
-                <apex:pageMessages />
-            </apex:outputPanel>
-        </apex:outputPanel>
-        <apex:pageBlock id="advancedresultsdetail">
-            <apex:panelGrid columns="4" cellspacing=" 2" style="float:left;" rendered="{!totalrecords != null}">
-                <apex:outputText value="{!totalrecords}"/>
-                Records!
-            </apex:panelGrid>
-            <apex:pageBlockTable value="{!articleList}" var="o">
-                <apex:column >
-                    <apex:outputpanel >
-                        <apex:facet name="header">Service Type</apex:facet>
-                    </apex:outputpanel>
-                </apex:column>
-                <apex:column style="vertical-align:top;">
-                    <apex:facet name="header">Article Id</apex:facet><a href="#" onclick="openReport('{!o.ArticleID}','{!o.prodCategory}','{!o.subProdCategory}');return false"><apex:outputtext rendered="true" value="{!o.ArticleID}"/><apex:outputtext value="" /></a>
-                    <!-- <apex:outputtext rendered="true" value="{!o.ArticleID}"/> -->
-                    <apex:outputtext value=""/>
-                    <br/>
-                </apex:column>
-                <apex:column style="vertical-align:top; color:{!IF(o.Status == 'Delivered' || o.Status == 'Awaiting collection',o.color,IF(o.pastEDD == true,'#FF0000',o.color))}">
-                    <apex:facet name="header">Tracking Status</apex:facet>
-                    <apex:outputText value="{!o.Status}"
-                                     escape="false"/>
-                </apex:column>
-                <apex:column style="vertical-align:top;">
-                    <apex:facet name="header">Estimated Delivery Date</apex:facet>
-                    <apex:outputText value="{!o.EDD}"
-                                     escape="false"/>
-                </apex:column>
-                <apex:column style="vertical-align:top;">
-                    <apex:facet name="header">Product</apex:facet>
-                    <apex:outputText rendered="true"
-                                     value="{!o.CustomerType}"
-                                     escape="false">
-                    </apex:outputText>
-                </apex:column>
-                <apex:column style="vertical-align:top;">
-                    <apex:facet name="header">Last Event Date</apex:facet>
-                    <apex:outputText value="{!o.LastEventDate}"
-                                     escape="false"/>
-                </apex:column>
-            </apex:pageBlockTable>
-            <br/>
-            <!--  <input type="button" class="btn" id="btnAddCustomer" value="Add as New Contact" onclick="jAddCustomer();"  /> -->
-            <apex:panelGrid columns="4" cellspacing=" 2" style="float:right;"
-                            rendered="{!totalrecords != null && totalrecords > 0}">
-                <apex:outputText value="{!pagenumber}"/>
-                /
-                <apex:outputText value="{!totalpages}"/>
-                page(s)
-            </apex:panelGrid>
-            <apex:panelGrid columns="5" cellspacing=" 2" style="float:center;">
-                <br/>
-                <apex:commandLink action="{!first}" rendered="{!hasPrev}" onclick="showProgress()"
-                                  oncomplete="hideProgress()" reRender="advancedresultsdetail"
-                                  status="status">First |
-                </apex:commandLink>
-                <apex:commandLink action="{!previous}" rendered="{!hasPrev}" onclick="showProgress()"
-                                  oncomplete="hideProgress()" reRender="advancedresultsdetail"
-                                  status="status">Previous |
-                </apex:commandLink>
-                <apex:commandLink action="{!next}" rendered="{!hasNext}" onclick="showProgress()"
-                                  oncomplete="hideProgress()" reRender="advancedresultsdetail"
-                                  status="status">Next |
-                </apex:commandLink>
-                <apex:commandLink action="{!last}" rendered="{!hasNext}" onclick="showProgress()"
-                                  oncomplete="hideProgress()" reRender="advancedresultsdetail"
-                                  status="status">Last |
-                </apex:commandLink>
-            </apex:panelGrid>
-        </apex:pageBlock>
-        <!-- Loading -->
-        <div id="waitingDiv" style="display: none;">
-            <div class="waitingBackground"/>
-            <div class="waitingHolder">
-                <img src="{!$Resource.loading32}" class="waitingImage"
-                     title="Please Wait..."/>
-                <div class="waitingDescription">Please Wait...</div>
-            </div>
-        </div>
-    </apex:form>
+		<apex:outputPanel id="pnlSAP">
+			<div id="pnlSAPEMArticleMessage" style="display:none;">
+				<apex:pagemessage severity="error" strength="3" summary="There is an error"/>
+			</div>
+			<apex:commandButton value="Query SAP" action="{!getCustomerArticleList}" onclick="showProgress()"
+								oncomplete="hideProgress()" reRender="advancedresultsdetail,pnlSAP"/>
+			<apex:image styleClass="sap-logo" value="{!$Resource.SAPIcon}" height="30"/>
+			<!-- <input disabled="true" value="DGV2313195010828" class="form-control input-sm detail string sap-logo" style="width:250px;margin-right:10px;" />
+			 -->
+			<apex:outputPanel rendered="{!showError}" id="pnlError">
+				<apex:pageMessages />
+			</apex:outputPanel>
+		</apex:outputPanel>
+		<apex:pageBlock id="advancedresultsdetail">
+			<apex:panelGrid columns="4" cellspacing=" 2" style="float:left;" rendered="{!totalrecords != null}">
+				<apex:outputText value="{!totalrecords}"/>
+				Records!
+			</apex:panelGrid>
+			<apex:pageBlockTable value="{!articleList}" var="o">
+				<apex:column >
+					<apex:outputpanel >
+						<apex:facet name="header">Service Type</apex:facet>
+					</apex:outputpanel>
+				</apex:column>
+				<apex:column style="vertical-align:top;">
+					<apex:facet name="header">Article Id</apex:facet>
+					<!-- Article Id is displayed as a hyperlink in classic and populates Happy Parcels UI upon clicking the link -->
+					<!-- Passing article id to Unified Tracking is not delivered in "Unified Customer Service" MVP. -->
+					<!-- Displaying 'Article Id' as text when viewed in Lightning for MVP. This might be delivered in a future release -->
+					<apex:outputLink value="#" onClick="openReport('{!o.ArticleID}','{!o.prodCategory}','{!o.subProdCategory}');return false" rendered="{!AND($User.UIThemeDisplayed != 'Theme4d', $User.UIThemeDisplayed != 'Theme4t', $User.UIThemeDisplayed != 'Theme4u')}"><apex:outputtext value="{!o.ArticleID}"/></apex:outputLink>
+					<apex:outputtext value="{!o.ArticleID}" rendered="{!OR($User.UIThemeDisplayed == 'Theme4d', $User.UIThemeDisplayed == 'Theme4t', $User.UIThemeDisplayed == 'Theme4u')}"/>
+				</apex:column>
+				<apex:column style="vertical-align:top; color:{!IF(o.Status == 'Delivered' || o.Status == 'Awaiting collection',o.color,IF(o.pastEDD == true,'#FF0000',o.color))}">
+					<apex:facet name="header">Tracking Status</apex:facet>
+					<apex:outputText value="{!o.Status}"
+									 escape="false"/>
+				</apex:column>
+				<apex:column style="vertical-align:top;">
+					<apex:facet name="header">Estimated Delivery Date</apex:facet>
+					<apex:outputText value="{!o.EDD}"
+									 escape="false"/>
+				</apex:column>
+				<apex:column style="vertical-align:top;">
+					<apex:facet name="header">Product</apex:facet>
+					<apex:outputText rendered="true"
+									 value="{!o.CustomerType}"
+									 escape="false">
+					</apex:outputText>
+				</apex:column>
+				<apex:column style="vertical-align:top;">
+					<apex:facet name="header">Last Event Date</apex:facet>
+					<apex:outputText value="{!o.LastEventDate}"
+									 escape="false"/>
+				</apex:column>
+			</apex:pageBlockTable>
+			<br/>
+			<!--  <input type="button" class="btn" id="btnAddCustomer" value="Add as New Contact" onclick="jAddCustomer();"  /> -->
+			<apex:panelGrid columns="4" cellspacing=" 2" style="float:right;"
+							rendered="{!totalrecords != null && totalrecords > 0}">
+				<apex:outputText value="{!pagenumber}"/>
+				/
+				<apex:outputText value="{!totalpages}"/>
+				page(s)
+			</apex:panelGrid>
+			<apex:panelGrid columns="5" cellspacing=" 2" style="float:center;">
+				<br/>
+				<apex:commandLink action="{!first}" rendered="{!hasPrev}" onclick="showProgress()"
+								  oncomplete="hideProgress()" reRender="advancedresultsdetail"
+								  status="status">First |
+				</apex:commandLink>
+				<apex:commandLink action="{!previous}" rendered="{!hasPrev}" onclick="showProgress()"
+								  oncomplete="hideProgress()" reRender="advancedresultsdetail"
+								  status="status">Previous |
+				</apex:commandLink>
+				<apex:commandLink action="{!next}" rendered="{!hasNext}" onclick="showProgress()"
+								  oncomplete="hideProgress()" reRender="advancedresultsdetail"
+								  status="status">Next |
+				</apex:commandLink>
+				<apex:commandLink action="{!last}" rendered="{!hasNext}" onclick="showProgress()"
+								  oncomplete="hideProgress()" reRender="advancedresultsdetail"
+								  status="status">Last |
+				</apex:commandLink>
+			</apex:panelGrid>
+		</apex:pageBlock>
+		<!-- Loading -->
+		<div id="waitingDiv" style="display: none;">
+			<div class="waitingBackground"/>
+			<div class="waitingHolder">
+				<img src="{!$Resource.loading32}" class="waitingImage"
+					 title="Please Wait..."/>
+				<div class="waitingDescription">Please Wait...</div>
+			</div>
+		</div>
+	</apex:form>
 </apex:page>

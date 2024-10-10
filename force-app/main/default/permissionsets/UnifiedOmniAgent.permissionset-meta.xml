@@ -44,6 +44,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>LiveChatTranscript.Body</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>LiveChatTranscript.CaseId</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -79,6 +84,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>LiveChatTranscript.Email__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>LiveChatTranscript.EndTime</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -99,6 +109,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>LiveChatTranscript.FirstName__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>LiveChatTranscript.IsAbandoned__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -110,6 +125,11 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>LiveChatTranscript.IsDropped__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>LiveChatTranscript.LastName__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -140,21 +160,6 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>LiveChatTranscript.Status</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>LiveChatTranscript.SuppliedEmail__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>LiveChatTranscript.SuppliedFirstName__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>LiveChatTranscript.SuppliedLastName__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -314,6 +319,10 @@
         <object>genesyscloud__Packaging_Information__c</object>
         <viewAllRecords>false</viewAllRecords>
     </objectPermissions>
+    <tabSettings>
+        <tab>standard-LiveChatTranscript</tab>
+        <visibility>Visible</visibility>
+    </tabSettings>
     <tabSettings>
         <tab>standard-VoiceCall</tab>
         <visibility>Visible</visibility>

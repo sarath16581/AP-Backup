@@ -31,6 +31,7 @@
  * 2024-09-13 - Rejeesh Raghavan - Added changes for RoutingAPI-CustomerInsights
  * 2024-09-30 - Parveen Kaushik - Removed Contact.IncentCredential__c from fieldList as this field is going to be decommissioned 
  * 2024-10-02 - Nathan Franklin - Added reverse number search temporarily until the new reverse phone fields are productionised
+ * 2024-10-04 - Marcel HK - Added new selector `selectCustomerByEmail`
  */
 public virtual inherited sharing class ContactsSelector extends ApplicationSelector {
 	public enum Options {
@@ -43,6 +44,12 @@ public virtual inherited sharing class ContactsSelector extends ApplicationSelec
 	public static ContactsSelector newInstance() {
 		return (ContactsSelector)Application.Selectors.newInstance(ContactsSelector.class);
 	}
+
+	public static ContactsSelector newInstance(Set<SObjectField> fieldOverrides) {
+		return (ContactsSelector) Application.Selectors.newInstance(ContactsSelector.class)
+			.setFieldOverrides(fieldOverrides);
+	}
+
 	public static ContactsSelector newInstance(Integer recordLimit) {
 		return (ContactsSelector)Application.Selectors.newInstance(ContactsSelector.class).setLimit(recordLimit);
 	}
@@ -67,7 +74,7 @@ public virtual inherited sharing class ContactsSelector extends ApplicationSelec
 		return new Set<SObjectField> {
 				Contact.Id, Contact.AccountId, Contact.FirstName, Contact.LastName, Contact.OwnerId, Contact.Name, Contact.APCN__c,
 				Contact.Email, Contact.OID_ID__c, Contact.CRMCSSOID__c , Contact.Phone , Contact.Fax, Contact.MobilePhone, Contact.HomePhone, Contact.Salutation, Contact.Title,
-				Contact.VerifiedMobile__c,Contact.Unique_Mobile__c, Contact.BillingAccount__c
+				Contact.VerifiedMobile__c,Contact.Unique_Mobile__c, Contact.BillingAccount__c, Contact.VerifiedEmail__c
 		};
 	}
 
@@ -397,6 +404,46 @@ public virtual inherited sharing class ContactsSelector extends ApplicationSelec
 
 		return qb.toSoqlString();
 	}
+
+	/**
+	 * @description Generates the SOQL query to select Customer Contacts (Consumer or Organisation) based on the email address.
+	 * 
+	 * @param emailAddresses - Unique list of email addresses to include in the query
+	 * @param selectorOptions - Selector Options to use
+	 * @return List of Contact records matching the criteria
+	 */
+	public List<Contact> selectCustomerByEmail(Set<String> emailAddresses, Set<Object> selectorOptions) {
+		// Avoid running query without any criteria
+		emailAddresses.remove('');
+		emailAddresses.remove(null);
+		if(emailAddresses.isEmpty()) {
+			return new List<Contact>();
+		}
+		// Set bind variable used in the query. Bind variables doesn't work with direct reference to constant.
+		String accountRecordTypeOrganisation = UnifiedConstants.ACCOUNT_RECORD_TYPE_ORGANISATION;
+		return (List<Contact>) Database.query(this.selectCustomerByEmailQB(selectorOptions));
+	}
+
+	/**
+	 * @description Generates the SOQL query to select Customer Contacts (Consumer or Organisation) based on the email address.
+	 * 
+	 * @param selectorOptions - Selector Options to use
+	 * @return SOQL query string
+	 */
+	@TestVisible
+	private String selectCustomerByEmailQB(Set<Object> selectorOptions) {
+		QueryBuilder qb = newQueryBuilder(selectorOptions)
+			.addConditions()
+			.add(new QueryBuilder.SimpleCondition(Contact.Email + ' IN :emailAddresses'))
+			.add(new QueryBuilder.SimpleCondition(Contact.VerifiedEmail__c + ' IN :emailAddresses'))
+			.add(new QueryBuilder.SimpleCondition(Contact.IsPersonAccount + ' = TRUE'))
+			.add(new QueryBuilder.SimpleCondition('Account.RecordType.DeveloperName = :accountRecordTypeOrganisation'))
+			.setConditionOrder('(1 OR 2) AND (3 OR 4)')
+			.endConditions();
+
+		return qb.toSoqlString();
+	}
+
 
 	/**
 	 * @description Select cloneable contact by parent account ID.

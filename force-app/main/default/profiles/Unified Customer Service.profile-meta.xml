@@ -9613,22 +9613,12 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>IsOptedOut</field>
-        <readable>false</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
         <field>Job_Assignment__c.Parent_Job_Status__c</field>
         <readable>false</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
         <field>JobProfile.Description</field>
-        <readable>false</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>Klout</field>
         <readable>false</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -14633,11 +14623,6 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>UserId</field>
-        <readable>false</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
         <field>VoiceCall.Case__c</field>
         <readable>false</readable>
     </fieldPermissions>
@@ -14837,7 +14822,7 @@
         <layout>Case-Unified Case Read Only Layout</layout>
         <recordType>Case.StarTrack_Transit_Warranty_Claim</recordType>
     </layoutAssignments>
-	<layoutAssignments>
+    <layoutAssignments>
         <layout>Case-Unified Case Read Only Layout</layout>
         <recordType>Case.StarTrack_PUD_Enquiry</recordType>
     </layoutAssignments>
@@ -14910,7 +14895,7 @@
         <recordType>Knowledge__kav.Support</recordType>
     </layoutAssignments>
     <layoutAssignments>
-        <layout>LiveChatTranscript-Live Chat Transcript Layout</layout>
+        <layout>LiveChatTranscript-Unified Live Chat Transcript Layout</layout>
     </layoutAssignments>
     <layoutAssignments>
         <layout>MiniCaseFieldMapping__c-Mini Case Field Mapping Layout</layout>

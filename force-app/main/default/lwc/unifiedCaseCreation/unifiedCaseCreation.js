@@ -92,6 +92,8 @@ export default class UnifiedCaseCreation extends LightningElement {
 		if (Array.isArray(value) && value.length > 0) {
 			this._impactedArticles = value;
 			this.disableCreateBtn = false;
+		} else {
+			this._impactedArticles = undefined;
 		}
 	}
 
