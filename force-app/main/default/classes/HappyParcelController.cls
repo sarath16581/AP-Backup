@@ -731,6 +731,8 @@ public with sharing class HappyParcelController {
 		public String caseProductSubCategory;
 		@AuraEnabled
 		public List<String> warningMessages;
+		@AuraEnabled
+		public Boolean hasDuplicates;
 
 		@AuraEnabled
 		public TIBCOArticleWrapper.ArticleTransientAttributes transientAttributes;

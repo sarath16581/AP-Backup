@@ -54,11 +54,6 @@
                 <sidebarComponents>
                     <componentType>KnowledgeOne</componentType>
                 </sidebarComponents>
-                <sidebarComponents>
-                    <componentType>VisualForcePage</componentType>
-                    <label>Social Profile</label>
-                    <page>SocialPersonaDetail</page>
-                </sidebarComponents>
                 <style>Tabs</style>
                 <unit>Percentage</unit>
                 <width>20</width>
@@ -138,6 +133,22 @@
         </rightComponents>
         <useInlineFiltersInConsole>false</useInlineFiltersInConsole>
     </feedLayout>
+    <layoutSections>
+        <customLabel>true</customLabel>
+        <detailHeading>false</detailHeading>
+        <editHeading>false</editHeading>
+        <label>Case Hand-off section</label>
+        <layoutColumns>
+            <layoutItems>
+                <height>26</height>
+                <page>UnifiedCaseHandOffIndicator</page>
+                <showLabel>false</showLabel>
+                <showScrollbars>false</showScrollbars>
+                <width>100%</width>
+            </layoutItems>
+        </layoutColumns>
+        <style>OneColumn</style>
+    </layoutSections>
     <layoutSections>
         <customLabel>true</customLabel>
         <detailHeading>true</detailHeading>

@@ -36,7 +36,7 @@ global with sharing class ProcessSocialCaseAction {
 		// Collects cases to reopen.
 		for (Case socialCase : caseMap.values()) {
 			// Add case to reopen list if case is open or closed date is less than 3 business days
-			if(!socialCase.IsClosed || (socialCase.ClosedDate != null && socialCase.ClosedDate < businessHoursService.calculateNextBusinessDateTime(socialCase.ClosedDate, 3))){
+			if(!socialCase.IsClosed || (socialCase.ClosedDate != null && Datetime.now() < businessHoursService.calculateNextBusinessDateTime(socialCase.ClosedDate, 3))){
 				caseIdsToUpdate.add(socialCase.Id);
 			}
 		}

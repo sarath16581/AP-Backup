@@ -237,6 +237,7 @@ public with sharing class ProductRevenueService {
         system.debug('***** accountProductSalesAllTime ' + accountProductSalesAllTime);
 		// iterate through each line item to classify the opportunity line item
 		for (OpportunityLineItem lineItem : lineItems) {
+            system.debug('calculating classification for line item  '+lineItem);
 			Opportunity oppInfo = opportunityInfo.get(lineItem.opportunityid);
             system.debug('***** oppInfo ' + oppInfo);
 			boolean accountHasAnySales = accountProductSalesAllTime.containsKey(oppInfo.accountId);
@@ -253,6 +254,7 @@ public with sharing class ProductRevenueService {
 			} else {
 				lineItem.Classification__c = CLASSIFICATION_WIN_BACK; //opposite of renewal, is the last 12 months logic is 0, but not 0 going before that
 			}
+            system.debug('classification is '+lineItem.Classification__c);
 		}
 		return lineItems;
 	}
@@ -324,7 +326,7 @@ public with sharing class ProductRevenueService {
 		Integer targetMonth = targetDate.month(); // should not include the current month
 		String uniqueId = getUID(accountId,productId,String.valueOf(targetYear));
 		GroupedAccountProductRevenue__c targetData = groupedRevenues.get(uniqueId);
-		for (Integer i = 1; i <= 3; i++) {
+		for (Integer i = 1; i <= numberOfMonths; i++) {
 			// adjust target month and financial year.
 			targetMonth -= 1;
 			if (targetMonth == 6) {
@@ -601,11 +603,11 @@ public with sharing class ProductRevenueService {
 		system.debug('**** effectiveEndDate '+effectiveEndDate);
         Date effectiveStartDate = contractStartDate >= fiscalYearEnd ? contractStartDate : (contractEndDate < fiscalYearEnd ? fiscalYearEnd : today);
 		system.debug('**** effectiveStartDate '+effectiveStartDate);
-		Integer totalDays = contractStartDate.daysBetween(contractEndDate) + 1;
+		Decimal totalDays = Decimal.valueOf(contractStartDate.daysBetween(contractEndDate) + 1);
 		system.debug('**** totalDays '+totalDays);
         Integer effectiveDays = effectiveStartDate.daysBetween(effectiveEndDate) + 1;
 		system.debug('**** effectiveDays '+effectiveDays);
-		return (Decimal.valueOf(effectiveDays) / Decimal.valueOf(totalDays)) * totalPrice;
+		return totalDays == 0 ? totalPrice : effectiveDays /totalDays * totalPrice;
 	}
  
  
@@ -827,46 +829,27 @@ public with sharing class ProductRevenueService {
 
 	/**
 	* Updates the retained and incremental revenue fields for a given OpportunityLineItem record. based on the historical sales value.
-	* @param record The OpportunityLineItem object to be updated.
+	* @param record Th-------e OpportunityLineItem object to be updated.
 	* @param pastSales The sales amount for the past twelve months for the account and product related to the record.
 	* @param contractDays contractDays
 	*/
 	private void updateRetainedIncremental(OpportunityLineItem record, Double pastSales, Integer contractDays) {
-		// the value of the opportunity line item over its contract period 
-		Double totalValue = record.Annualised_Value__c;
-		// the annual value of the opportunity line item
-		Double annualValue = totalValue / contractDays * DAYS_IN_YEAR;
 		// sales for the past twelve months
 		record.TweleveMonthRevenue__c = pastSales;
+        double correctedSales = pastSales < 0 ? 0 : pastSales;
 		// calculate retained and incremental based on the sales history 
-		if (contractDays < DAYS_IN_YEAR ) {
-			if (totalValue > pastSales) {
-				// sales of the contract exceed historical sales.
-				// The retained revenue will be based on sales history
-				record.RetainedRevenue__c = pastSales;
-				// The incremental revenue will be the contract value in excess of sales history
-				record.IncrementalRevenue__c = totalValue - pastSales;
-			} else {
-				// sales of the contract are less or equal to the sales history.
-				// Only retained value applies, and is equal to the total value of the contract.
-				record.RetainedRevenue__c = totalValue;
-				record.IncrementalRevenue__c = 0;
-			}
-		} else
-		{
-			if (annualValue > pastSales) {
-				// sales of the contract exceed historical sales.
-				// The retained revenue will be based on sales history
-				record.RetainedRevenue__c = pastSales / DAYS_IN_YEAR * contractDays;
-				// The incremental revenue will be the contract value in excess of sales history
-				record.IncrementalRevenue__c = (annualValue - pastSales) / DAYS_IN_YEAR * contractDays;
-			} else {
-				// sales of the contract are less or equal to the sales history.
-				// Only retained value applies, and is equal to the total value of the contract.
-				record.RetainedRevenue__c = totalValue;
-				record.IncrementalRevenue__c = 0;
-			}
-		}
+        if (record.Annualised_Value__c > correctedSales) {
+            // sales of the contract exceed historical sales.
+            // The retained revenue will be based on sales history
+            record.RetainedRevenue__c = correctedSales;
+            // The incremental revenue will be the contract value in excess of sales history
+            record.IncrementalRevenue__c = record.Annualised_Value__c - correctedSales;
+        } else {
+            // sales of the contract are less or equal to the sales history.
+            // Only retained value applies, and is equal to the total value of the contract.
+            record.RetainedRevenue__c = record.Annualised_Value__c;
+            record.IncrementalRevenue__c = 0;
+        } 
     }
 
 	/**
@@ -953,6 +936,7 @@ public with sharing class ProductRevenueService {
                 if (isUpdated) {
                     updatedRevenueRecords.put(currentGroupedRevenue.UID__c,currentGroupedRevenue);
                 }
+                    
 				
 			}
 		}
@@ -978,13 +962,13 @@ public with sharing class ProductRevenueService {
 		// work out what revenue records we need
 		for (OpportunityLineItem nextItem : items) {
 			Date targetDate = useDefaultDate ? revenueCalculationContextDate : getDateToUse(nextItem);
-			// the start and end financial years for this item
+			// the start and end financial years to retrieve revenue records for this item
 			Integer startYear = targetDate.month() - 1 >= FINANCIAL_YEAR_STARTING_MONTH ? targetDate.year() + 1 : targetDate.year();
-			Integer endYear = nextItem.Contract_End_Date__c.month() >= 7 ? nextItem.Contract_End_Date__c.year() + 2 : nextItem.Contract_End_Date__c.year() + 1;
+			Integer endYear = nextItem.Contract_End_Date__c.month() >= 7 ? nextItem.Contract_End_Date__c.year() + 3 : nextItem.Contract_End_Date__c.year() + 2;
 			// opportunity information for the current product line item
 			Opportunity oppInfo = opportunityInfo.get(nextItem.opportunityId);
 			// construct revenue record uids for the required years.
-			for (Integer year = startYear-numberOfYears; year <= endYear; year++) {
+			for (Integer year = startYear-numberOfYears; year <= endYear+1; year++) {
 				uids.add(getUID(oppInfo.AccountId, nextItem.Product2Id, String.valueOf(year)));
 			}
 		}

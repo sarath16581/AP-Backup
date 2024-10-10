@@ -70,6 +70,8 @@ private class OpportunityRevenueReportController_Test {
         productRevenueService.newInstance().OpportunityInfo.put(oppRec.id,oppRec);
 		List<OpportunityRevenueReportController.RevenueData> revData = OpportunityRevenueReportController.getRevenueData(String.valueOf(oppRec.Id));
        	OpportunityRevenueReportController.RefreshRevenue(oppRec.id); 
+        oppRec.StageName = 'ClosedWon';
+        OpportunityRevenueReportController.RefreshRevenue(oppRec.id); 
         boolean hasPermission = OpportunityRevenueReportController.hasRefreshRevenuePermission();
         system.assertEquals(true,hasPermission,'User should have permission to refresh revenue');
 		System.assert(!revData.isEmpty(), 'Controller failed to construct Revenue Data');

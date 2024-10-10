@@ -58,11 +58,14 @@
     </actionOverrides>
     <actionOverrides>
         <actionName>View</actionName>
-        <type>Default</type>
+        <comment>Action override updated by Lightning App Builder during activation.</comment>
+        <content>UnifiedVoiceCallRecordPage</content>
+        <formFactor>Large</formFactor>
+        <skipRecordTypeSelect>false</skipRecordTypeSelect>
+        <type>Flexipage</type>
     </actionOverrides>
     <actionOverrides>
         <actionName>View</actionName>
-        <formFactor>Large</formFactor>
         <type>Default</type>
     </actionOverrides>
     <actionOverrides>
@@ -70,8 +73,8 @@
         <formFactor>Small</formFactor>
         <type>Default</type>
     </actionOverrides>
-    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
-    <enableFeeds>false</enableFeeds>
+    <compactLayoutAssignment>VoiceCallCompactLayout</compactLayoutAssignment>
+    <enableFeeds>true</enableFeeds>
     <searchLayouts>
         <lookupDialogsAdditionalFields>CallStartDateTime</lookupDialogsAdditionalFields>
         <lookupDialogsAdditionalFields>CallType</lookupDialogsAdditionalFields>
@@ -87,16 +90,12 @@
         <lookupPhoneDialogsAdditionalFields>CallDisposition</lookupPhoneDialogsAdditionalFields>
         <lookupPhoneDialogsAdditionalFields>CallDurationInSeconds</lookupPhoneDialogsAdditionalFields>
         <lookupPhoneDialogsAdditionalFields>QualityScore</lookupPhoneDialogsAdditionalFields>
-        <lookupPhoneDialogsAdditionalFields>FromPhoneNumber</lookupPhoneDialogsAdditionalFields>
-        <lookupPhoneDialogsAdditionalFields>ToPhoneNumber</lookupPhoneDialogsAdditionalFields>
         <searchResultsAdditionalFields>CallType</searchResultsAdditionalFields>
         <searchResultsAdditionalFields>FromPhoneNumber</searchResultsAdditionalFields>
         <searchResultsAdditionalFields>CallResolution</searchResultsAdditionalFields>
         <searchResultsAdditionalFields>CallStartDateTime</searchResultsAdditionalFields>
-        <searchResultsAdditionalFields>EndUser</searchResultsAdditionalFields>
-        <searchResultsAdditionalFields>Owner</searchResultsAdditionalFields>
-        <searchResultsAdditionalFields>CallOrigin</searchResultsAdditionalFields>
-        <searchResultsAdditionalFields>QualityScore</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>CallEndDateTime</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>User</searchResultsAdditionalFields>
     </searchLayouts>
     <sharingModel>Private</sharingModel>
 </CustomObject>

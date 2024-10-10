@@ -1,0 +1,33 @@
+<!--
+  @description : This component is a quick action which is used to transfer unified cases to classic team
+  =========================================================================================================
+  @History
+  =========================================================================================================
+	2024-06-21 Vasu Gorakati Created
+-->
+<template>
+	<!-- Lightning quick action panel -->
+	<lightning-quick-action-panel header="Case Transfer">
+		<!-- Conditionally render a lightning-spinner component while isLoading is true -->
+		<template if:true={isLoading}>
+			<lightning-spinner variant="brand" alternative-text="Loading" size="medium"></lightning-spinner>
+		</template>
+		<!-- fields for Contact Center and Transfer Reason -->
+		<div class="slds-modal__content slds-var-p-around_medium" id="modal-content-page-1">
+			<lightning-combobox label="Contact Center" value={handoffWrapper.contactCenter} options={contactCenterOptions} onchange={handleContactCenterChange} data-id="contactCenter" required>
+			</lightning-combobox>
+			<lightning-combobox label="Transfer Reason" options={handoffReasonOptions} onchange={handleHandOffReasonChange} data-id="handoffReason" required> </lightning-combobox>
+			<lightning-textarea label="Comment" value={handoffWrapper.comment} onchange={handleCommentChange} required> </lightning-textarea>
+		</div>
+		<template if:true={errorMessage}>
+			<div class="slds-var-p-around_x-small slds-text-color_error">{errorMessage}</div>
+		</template>
+		<!--Footer-->
+		<div slot="footer">
+			<!-- calls handleCancel method on click -->
+			<lightning-button variant="neutral" label="Cancel" onclick={handleCancel}></lightning-button>
+			<!-- calls handleOffCase method on click -->
+			<lightning-button variant="brand" label="Transfer" class="slds-m-left_x-small" onclick={handOffCase}></lightning-button>
+		</div>
+	</lightning-quick-action-panel>
+</template>

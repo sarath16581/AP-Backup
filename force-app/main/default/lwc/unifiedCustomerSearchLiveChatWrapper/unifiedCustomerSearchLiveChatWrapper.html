@@ -1,0 +1,40 @@
+<template>
+	<div class="slds-is-relative">
+		<template lwc:if={errorMessage}>
+			<h2 class="slds-text-heading_medium"><b>Error:</b> {errorMessage}</h2>
+		</template>
+
+		<template lwc:elseif={isLoading}>
+			<lightning-spinner></lightning-spinner>
+		</template>
+
+		<template lwc:else>
+			<lightning-spinner if:true={isUpdating}></lightning-spinner>
+
+			<template lwc:if={showContactCard}>
+				<c-unified-customer-search-contact-card
+					record-id={linkedContactId}
+					show-unlink-button={showUnlinkButton}
+					use-compact
+					onunlinkcontact={handleLinkUnlinkContact}
+				></c-unified-customer-search-contact-card>
+			</template>
+
+			<template lwc:elseif={showSearchForm}>
+				<c-unified-customer-search
+					auto-search-on-load={autoSearchOnLoad}
+					auto-link-contact={autoLinkContact}
+					onconnected={handleCustomerSearchConnected}
+					onlinkcontact={handleLinkUnlinkContact}
+					oncustomercreated={handleLinkUnlinkContact}
+				></c-unified-customer-search>
+			</template>
+
+			<template lwc:else>
+				<div class="slds-var-m-top_large">
+					<c-empty-state illustration="desert" size="small" title-text="No Contact Linked"></c-empty-state>
+				</div>
+			</template>
+		</template>
+	</div>
+</template>

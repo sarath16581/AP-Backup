@@ -1,6 +1,8 @@
 <!--
 04-Mar-2019 saiswetha.pingali@auspost.com.au Added Is New flag to display on SSSWSorting page for REQ1708775
 18-Nov-2020 - Ranjeewa Silva - Updated to display new 'SocialPostTags__c' field on the page.
+24-Jul-2024 - Ranjeewa Silva - Updated to show "Unified Routing" record type on the page. "Unified Routing" routing rules
+                                are displayed as read only on the page.
 -->
 <apex:page id="SSSWSorting" controller="SSSWSortingController">
     <!-- <apex:includeScript value="{!URLFOR($Resource.SSSWSorting, '/jquery-3.1.1.min.js')}"/> -->
@@ -10,7 +12,7 @@
     <c:ScriptLoader jsLibraries="jquery,jqueryui" />
     <apex:stylesheet value="{!$Resource.SSSWSortingCSS}" />
     <style>
-        #sortableRoute, #sortableNPS, #sortableEscalate, #sortableDescription {
+        #sortableRoute, #sortableNPS, #sortableEscalate, #sortableDescription, #readOnlyUnifiedRoute {
             list-style-type: none;
             margin: 0;
             padding: 0;
@@ -25,19 +27,19 @@
             max-width:1px;"
         }
 
-        #sortableRoute  li, #sortableNPS  li, #sortableEscalate  li, #sortableDescription li {
+        #sortableRoute  li, #sortableNPS  li, #sortableEscalate  li, #sortableDescription li, #readOnlyUnifiedRoute li {
             margin: 0 3px 3px 3px;
             padding: 0.4em;
             padding-left: 1.5em;
             font-size: 1.4em;
         }
 
-        #sortableRoute  li span, #sortableNPS  li span, #sortableEscalate  li span, #sortableDescription li span {
+        #sortableRoute  li span, #sortableNPS  li span, #sortableEscalate  li span, #sortableDescription li span, #readOnlyUnifiedRoute li span {
             position: absolute;
             margin-left: -1.3em;
         }
 
-        #sortableRoute  li span.table-outputPanel, #sortableNPS  li span.table-outputPanel, #sortableEscalate  li span.table-outputPanel, #sortableDescription li span.table-outputPanel {
+        #sortableRoute  li span.table-outputPanel, #sortableNPS  li span.table-outputPanel, #sortableEscalate  li span.table-outputPanel, #sortableDescription li span.table-outputPanel, #readOnlyUnifiedRoute li span.table-outputPanel {
             position: absolute;
             margin-left: 0em;
         }
@@ -291,11 +293,13 @@
                     var recordType = document.getElementById('SSSWSorting:SSSWSorting:routingForm:recType');
                     var myPicklistValue = recordType.options[recordType.selectedIndex].value;
                     console.log(myPicklistValue);
+                    $(".actionButtonsPanel").show();
                     if(myPicklistValue == 'SSSW Routing'){
                         $("#routingDiv").show();
                         $("#npsDiv").hide();
                         $("#escalateDiv").hide();
                         $("#descriptionDiv").hide();
+                        $("#unifiedRoutingDiv").hide();
                         //{!recType} = 'SSSW Routing';
                         jQuery('[id$=myHiddenField]').val('SSSW Routing');
                     }
@@ -304,6 +308,7 @@
                         $("#npsDiv").show();
                         $("#escalateDiv").hide();
                         $("#descriptionDiv").hide();
+                        $("#unifiedRoutingDiv").hide();
                         //{!recType} = 'SSSW NPS';
                         jQuery('[id$=myHiddenField]').val('SSSW NPS');
                     }
@@ -312,20 +317,30 @@
                         $("#npsDiv").hide();
                         $("#escalateDiv").show();
                         $("#descriptionDiv").hide();
+                        $("#unifiedRoutingDiv").hide();
                         jQuery('[id$=myHiddenField]').val('SSSW Escalation');
                     }
                     else if(myPicklistValue == 'SSSW Description'){
                         $("#routingDiv").hide();
                         $("#npsDiv").hide();
                         $("#escalateDiv").hide();
+                        $("#unifiedRoutingDiv").hide();
                         $("#descriptionDiv").show();
                         jQuery('[id$=myHiddenField]').val('SSSW Description');
+                    } else if (myPicklistValue == 'Unified Routing') {
+                        $("#routingDiv").hide();
+                        $("#npsDiv").hide();
+                        $("#escalateDiv").hide();
+                        $("#descriptionDiv").hide();
+                        $("#unifiedRoutingDiv").show();
+                        $(".actionButtonsPanel").hide();
+                        jQuery('[id$=myHiddenField]').val('Unified Routing');
                     }
                } 
             </script> 
             <apex:inputHidden value="{!recType}" id="myHiddenField"/>
             <!-- <div id="routingDiv"> -->
-            <apex:outputPanel id="sortButton" >
+            <apex:outputPanel id="sortButton" styleClass="actionButtonsPanel">
                 <apex:commandButton value="Sort Table" action="{!sortRoutings}" 
                                     rendered="{!IF(pageMode != 'sort', true, false)}"/>
                 <apex:outputPanel rendered="{!IF(pageMode != 'sort', true, false)}">
@@ -723,6 +738,69 @@
                 <h6><b> No records to Display </b></h6>
             </apex:outputPanel>
             </div>
-            </apex:form>
-            </apex:pageblock>
+        </apex:form>
+
+        <div id="unifiedRoutingDiv">
+            <apex:outputPanel >
+                <apex:messages />
+                <br/>
+                <br/>
+                <ul id="readOnlyUnifiedRoute">
+                    <apex:repeat value="{!rulesForUnifiedCaseRouting}" var="r">
+                        <!-- Specific fields to display for "UnifiedRouting" record type is not currently defined.
+                             Displaying same fields as 'SSSW Routing' record type here. -->
+                        <li class="ui-state-default">
+                            <div class="sequenceUnifiedRoute">{!r.rule.Sequence__c}</div>
+                            <div class="seqDetails">
+                                <table class="ssswList">
+                                    <tr>
+                                        <td class="queueName col1"><b>Queue:</b>{!r.queueName}</td>
+                                        <td class="col2">
+                                            <b>Description:</b> {!r.rule.Description__c}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="col1"><b>Is New?:</b> {!r.rule.IsNew__c}</td>
+                                        <td class="col2"><b>Match On:</b> {!r.rule.Match_Rules_On__c}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="col1"><b>Channel:</b> {!r.rule.Origin__c}</td>
+                                        <td class="col2"><b>Customer Type:</b> {!r.rule.CustomerQueueType__c}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="col1"><b>Product Category:</b> {!r.rule.ProductCategory__c}</td>
+                                        <td class="col2"><b>Enquiry Type:</b> {!r.rule.CaseType__c}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="col1"><b>Product Sub Category:</b> {!r.rule.ProductSubCategory__c}</td>
+                                        <td class="col2"><b>Enquiry Sub Type:</b> {!r.rule.EnquirySubType__c}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="col1"><b>High Level Complaint?:</b> {!r.rule.High_Level_Complaint_Flag__c}</td>
+                                        <td class="col2"><b>Customer Recovery?:</b> {!r.rule.Customer_Recovery_Flag__c}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="col1"><b>Is Strategic?:</b> {!r.rule.IsStrategic__c}</td>
+                                        <td class="col2"><b>Social Post Tags:</b> {!r.rule.SocialPostTags__c}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="col1"><b>Has Extra Cover?:</b> {!r.rule.HasExtraCover__c}</td>
+                                        <td class="col2"><b>Status</b> {!r.rule.Status__c}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="col1"><b>Preferred Agent Expiry (in hours):</b> {!r.rule.PreferredAgentExpiry__c}</td>
+                                        <td class="col2"><b></b> </td>
+                                    </tr>
+
+                                </table>
+                            </div>
+                        </li>
+                    </apex:repeat>
+                </ul>
+            </apex:outputPanel>
+            <apex:outputPanel rendered="{!rulesForUnifiedCaseRouting.size == 0}">
+                <h6><b> No records to Display </b></h6>
+            </apex:outputPanel>
+        </div>
+    </apex:pageblock>
 </apex:page>

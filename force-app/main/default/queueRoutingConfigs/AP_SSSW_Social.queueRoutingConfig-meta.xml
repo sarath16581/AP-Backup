@@ -4,7 +4,7 @@
     <capacityType>INHERITED</capacityType>
     <isAttributeBased>true</isAttributeBased>
     <label>AP SSSW Social</label>
-    <pushTimeout>60</pushTimeout>
+    <pushTimeout>120</pushTimeout>
     <routingModel>MOST_AVAILABLE</routingModel>
     <routingPriority>20</routingPriority>
 </QueueRoutingConfig>

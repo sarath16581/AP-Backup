@@ -7,11 +7,21 @@
  * @changelog
  * 2022-11-08 - George Nguyen - Created
  * 2023-02-16 - Noel Lim - Added method getQueuesToAgentType
+ * 2024-07-22 - Ranjeewa Silva - Method parameter type updates to accept Object type inplace of specified types to promote reuse.
 */
 @IsTest
 public with sharing class OmniChannelTestDataFactory {
 
-	public static List<ServiceResourceSkill> getServiceResourceSkills(Integer count, Set<Id> skillIds, Set<Id> serviceResourceIds, Boolean generateIds) {
+	/**
+	 * Returns new ServiceResourceSkill records
+	 * @param count number of records to return.
+	 * @param skillIds maps to ServiceResourceSkill.SkillId (Supports Id / Set<Id> / List<Id>)
+	 * @param serviceResourceIds maps to ServiceResourceSkill.ServiceResourceId (Supports Id / Set<Id> / List<Id>)
+	 * @param generateIds generate record ids on new records
+	 *
+	 * @return new ServiceResourceSkill records.
+	 */
+	public static List<ServiceResourceSkill> getServiceResourceSkills(Integer count, Object skillIds, Object serviceResourceIds, Boolean generateIds) {
 		return (List<ServiceResourceSkill>)ApplicationTestDataFactory.maybeGenerateIds(ApplicationTestDataFactory.populateSObjects(ServiceResourceSkill.SObjectType, new Map<SObjectField, Object> {
 			ServiceResourceSkill.SkillId => skillIds,
 			ServiceResourceSkill.SkillLevel => 1,
@@ -62,9 +72,19 @@ public with sharing class OmniChannelTestDataFactory {
 		}, count), generateIds);
 	}
 
-	public static List<AgentWork> getAgentWorks(Integer count, Id userId, Set<Id> workitemIds, Boolean generateIds) {
+	/**
+	 * Returns new AgentWork records
+	 *
+	 * @param count number of records to return.
+	 * @param userIds maps to AgentWork.UserId (Supports Id / Set<Id> / List<Id>)
+	 * @param workitemIds maps to AgentWork.WorkItemId (Supports Id / Set<Id> / List<Id>)
+	 * @param generateIds generate record ids on new records
+	 *
+	 * @return new AgentWork records.
+	 */
+	public static List<AgentWork> getAgentWorks(Integer count, Object userIds, Object workitemIds, Boolean generateIds) {
 		return (List<AgentWork>)ApplicationTestDataFactory.maybeGenerateIds(ApplicationTestDataFactory.populateSObjects(AgentWork.SObjectType, new Map<SObjectField, Object> {
-			AgentWork.UserId => userId,
+			AgentWork.UserId => userIds,
 			AgentWork.WorkItemId => workitemIds
 		}, count), generateIds);
 	}	

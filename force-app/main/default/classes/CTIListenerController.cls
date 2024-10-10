@@ -1,4 +1,9 @@
-global class CTIListenerController {
+/**
+  * @changelog
+  * 01.01.1970 Created date unknown.
+  * 13.06.2024 Parveen Kaushik Added a filter in SOQL for mapping model. See CSLU-470 (JIRA) for details.
+  */  
+  global class CTIListenerController {
 	public string txtRefID {get;set;}
 	public string txtPhoneNumber {get;set;}
 	public Case proxyCase {get;Set;}
@@ -118,7 +123,7 @@ global class CTIListenerController {
     	CTIDefaultValue result = new CTIDefaultValue();
     	string key = customerSegment.trim() + serviceType.trim();
     	if(key != ''){
-    		List<MiniCaseFieldMapping__c> mappings = [select ProductCategory__c, ProductSubcategory__c, Type__c from MiniCaseFieldMapping__c where CTIKey__c like :key];
+    		List<MiniCaseFieldMapping__c> mappings = [select ProductCategory__c, ProductSubcategory__c, Type__c from MiniCaseFieldMapping__c where CTIKey__c like :key AND MappingModel__c =: SSSWConstants.ENQUIRYMAPPING_CLASSIC_MODEL];
 	    	if(mappings.size() > 0){
 	    		result = new CTIDefaultValue(mappings[0]);
 	    	} 

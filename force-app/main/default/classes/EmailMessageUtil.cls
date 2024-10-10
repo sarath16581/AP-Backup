@@ -14,6 +14,7 @@ History:
 2023-02-09  Swati.mogadala@auspost.com.au - Added 'From Email address' check when filtering ST duplicate cases created from incoming emails
 2023-05-29  mahesh.parvathaneni@auspost.com.au - Added record type check for Transport Enquiry record type to not to update the EmailToCaseAddress__c
 2024-04-08  Thang Nguyen - Added record type check for Bulk Mail record type to not to update the EmailToCaseAddress__c + email message mapping functions
+2024-08-05 - Ranjeewa Silva - Added method to check auto generated emails (e.g. out of office response) based on email headers.
 **************************************************/
 public inherited sharing class EmailMessageUtil {
 
@@ -31,6 +32,12 @@ public inherited sharing class EmailMessageUtil {
 	private static Map<String,Pattern> compiledPatternsMap;
 	private static Set<String> emailHeaders = new Set<String>{'X-MS-Exchange-ForwardingLoop','X-MS-Exchange-Inbox-Rules-Loop'};
 
+	// email header names and possible values for each header to identify auto generated emails (e.g. auto reply).
+	// key - header name(String), value - acceptable header values (Set<String>)
+	private static final Map<String, Set<String>> AUTO_GENERATED_EMAIL_HEADERS = new Map<String, Set<String>>{
+		'auto-submitted' => new Set<String>{'auto-generated'}
+	};
+
 	/**
 	 * This is used to set the source email to case address on a case when it's first received
 	 */
@@ -42,7 +49,7 @@ public inherited sharing class EmailMessageUtil {
 		// Get Secure Post settings.
 		SecurePost__c securePostSetting = SecurePost__c.getInstance();
 		// Get Product for Secure Post.
-		List<Product2> productList = [SELECT id, name from Product2 where name = :securePostSetting.ProductName__c limit 1];
+		List<Product2> productList = [SELECT id, name FROM Product2 WHERE name = :securePostSetting.ProductName__c LIMIT 1];
 		Map<SObjectType, Set<SObjectField>> fieldOverrides = new Map<SObjectType, Set<SObjectField>>{
 			EmailMessage.SObjectType => new Set<SObjectField>{EmailMessage.Id, EmailMessage.ParentId, EmailMessage.Headers, EmailMessage.Incoming, EmailMessage.ToAddress, EmailMessage.CcAddress, EmailMessage.FromAddress},
 			Case.SObjectType => new Set<SObjectField>{Case.EmailToCaseAddress__c, Case.Bypass_Data_enforcement__c},
@@ -91,7 +98,7 @@ public inherited sharing class EmailMessageUtil {
 			}
 		}
 		Map<String, List<Case>> shortListed = new Map<String, List<Case>>();
-		for (Case c : [select Origin, SuppliedEmail, Prevent_Email__c from Case where SuppliedEmail != null and Origin = 'Direct Email' and id in :caseIds]) {
+		for (Case c : [SELECT Origin, SuppliedEmail, Prevent_Email__c FROM Case WHERE SuppliedEmail != NULL AND Origin = 'Direct Email' AND id IN :caseIds]) {
 			if (shortListed.get(c.SuppliedEmail) == null) {
 				shortListed.put(c.SuppliedEmail, new List<Case>());
 			}
@@ -107,7 +114,7 @@ public inherited sharing class EmailMessageUtil {
 			integer secondsInterval = settings.Number1__c == null ? 30 : integer.valueOf(settings.Number1__c);
 			Map<String, EmailMessage> emailsToBlacklist = new Map<String, EmailMessage>();
 			String currentFromEmail = null;
-			for (EmailMessage em : [select FromAddress, parentId, Incoming, createdDate from EmailMessage where id not in :newEmails and Incoming = true and parent.Origin = 'Direct Email' and createdDate = today and FromAddress in :shortListed.keySet() order by FromAddress, createdDate desc]) {
+			for (EmailMessage em : [SELECT FromAddress, parentId, Incoming, createdDate FROM EmailMessage WHERE id NOT IN :newEmails AND Incoming = TRUE AND parent.Origin = 'Direct Email' AND createdDate = TODAY AND FromAddress IN :shortListed.keySet() ORDER BY FromAddress, createdDate DESC]) {
 				if (currentFromEmail == null || currentFromEmail != em.FromAddress) {
 					if (em.CreatedDate.addSeconds(secondsInterval) > Datetime.now()) {
 						emailsToBlacklist.put(em.FromAddress, em);
@@ -118,7 +125,7 @@ public inherited sharing class EmailMessageUtil {
 
 			if (!emailsToBlacklist.isEmpty()) {
 				Set<String> existingBlacklist = new Set<String>();
-				for (SpamEmail__c s : [select FromEmail__c from SpamEmail__c where FromEmail__c in :emailsToBlacklist.keySet()]) {
+				for (SpamEmail__c s : [SELECT FromEmail__c FROM SpamEmail__c WHERE FromEmail__c IN :emailsToBlacklist.keySet()]) {
 					existingBlacklist.add(s.FromEmail__c);
 				}
 				Map<String, SpamEmail__c> newBlacklist = new Map<String, SpamEmail__c>();
@@ -148,7 +155,7 @@ public inherited sharing class EmailMessageUtil {
 		}
 
 		List<SpamEmail__c> changedSpamEmails = new List<SpamEmail__c>();
-		for (SpamEmail__c sp : [select FromEmail__c,Case__c from SpamEmail__c where FromEmail__c in :emailsToCheck]) {
+		for (SpamEmail__c sp : [SELECT FromEmail__c,Case__c FROM SpamEmail__c WHERE FromEmail__c IN :emailsToCheck]) {
 			id caseId = sp.Case__c;
 			for (EmailMessage em : mappedNewEmails.get(sp.FromEmail__c)) {
 				if (caseId == null) {
@@ -174,7 +181,7 @@ public inherited sharing class EmailMessageUtil {
 		for (EmailMessage em : newEmails) {
 			if ((em.FromAddress == custfromAddress || em.FromAddress == networkfromAddress) && em.Incoming) {
 				em.Incoming = false;
-                em.EmailRoutingAddressId = null; // Spring-24 release new field introduced
+				em.EmailRoutingAddressId = null; // Spring-24 release new field introduced
 			}
 		}
 	}
@@ -304,7 +311,7 @@ public inherited sharing class EmailMessageUtil {
 				}
 			}
 
-			for (Case incidentCase : [SELECT Id, ParentId, RecordType.Name FROM Case WHERE ParentId != null AND Id IN :emailMessageMap.keySet() AND RecordType.Name = :StarTrack_Constants.CASE_VOCINC_RT]) {
+			for (Case incidentCase : [SELECT Id, ParentId, RecordType.Name FROM Case WHERE ParentId != NULL AND Id IN :emailMessageMap.keySet() AND RecordType.Name = :StarTrack_Constants.CASE_VOCINC_RT]) {
 				childToParentMap.put(incidentCase.Id, incidentCase.ParentId);
 			}
 
@@ -399,5 +406,18 @@ public inherited sharing class EmailMessageUtil {
 		}
 		return emailAddress;
 	}
-	
+
+	public static Boolean isAutoGeneratedEmailMessage(EmailMessage emailMessage) {
+		if (emailMessage.Headers != null) {
+			// we have email headers. EmailMessage.Headers is a TextArea field. it contains multiple header lines separated with '\n'
+			for (String header : emailMessage.Headers.split('\n')) {
+				// split header on first colon in to two pieces
+				List<String> segments = header.toLowerCase().split(':', 2);
+				if (segments.size() > 1 && AUTO_GENERATED_EMAIL_HEADERS.containsKey(segments[0].trim())) {
+					return AUTO_GENERATED_EMAIL_HEADERS.get(segments[0].trim()).contains(segments[1].trim());
+				}
+			}
+		}
+		return false;
+	}
 }

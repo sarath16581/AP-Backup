@@ -420,6 +420,29 @@
         </values>
     </picklistValues>
     <picklistValues>
+        <picklist>CaseTransferReason__c</picklist>
+        <values>
+            <fullName>Compensation required</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Customer Care Specialist</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>High Priority investigation</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Manager escalation</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Network contact required</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
         <picklist>Case_Reason__c</picklist>
         <values>
             <fullName>Campaign</fullName>
