@@ -8,6 +8,7 @@
 * @description A very simple selector class that sits in the base domain
 * @changelog
 * 2023-04-21 - Pratyush Chalasani - Created
+* 2024-10-10 - Swati Mogadala - New method added selectByDups() 
 */
 public virtual inherited sharing class BudgetAndRevenueSelector extends ApplicationSelector {
 	public static BudgetAndRevenueSelector newInstance() {
@@ -80,5 +81,11 @@ public virtual inherited sharing class BudgetAndRevenueSelector extends Applicat
 		}
 
 		return (List<Budget_and_Revenue__c>)Database.query(qb.toSoqlString());
+	}
+	  public List<Budget_and_Revenue__c> selectByDups(){
+        QueryBuilder qb = newQueryBuilder().addConditions().add(new QueryBuilder.CompareCondition(Budget_and_Revenue__c.Check_Duplicate__c).eq('Duplicate')).endConditions();
+
+		return (List<Budget_and_Revenue__c>)Database.query((qb.toSoqlString()));
+
 	}
 }
