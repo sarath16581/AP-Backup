@@ -31,6 +31,11 @@ My name is {!User_FirstName}, how may I help you?</autoGreeting>
     <supervisorDefaultAgentStatusFilter>Online</supervisorDefaultAgentStatusFilter>
     <supervisorDefaultButtonFilter>Unified</supervisorDefaultButtonFilter>
     <transferableButtons>
+        <button>Consumer_Domestic_General</button>
+        <button>Consumer_H_S_General</button>
+        <button>Consumer_H_S_Specialist</button>
+        <button>Consumer_International_General</button>
         <button>General_SSSW</button>
+        <button>MPBSP_H_S_Portal_Chat_Button</button>
     </transferableButtons>
 </LiveChatAgentConfig>
