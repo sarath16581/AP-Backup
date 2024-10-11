@@ -6,6 +6,7 @@
     <permissionSets>UnifiedCaseManagement</permissionSets>
     <permissionSets>UnifiedCustomerManagement</permissionSets>
     <permissionSets>UnifiedKnowledgeAndReportingManagement</permissionSets>
+    <permissionSets>UnifiedOmniChatReadOnlyAccessForContentManagement</permissionSets>
     <permissionSets>UnifiedOmniSupervisor</permissionSets>
     <permissionSets>UnifiedQuickTextAndReporting</permissionSets>
     <status>Updated</status>
