@@ -129,6 +129,9 @@ public virtual inherited sharing class EventMessagesSelector extends Application
 		articleIds.remove(null);
 		eventTypes.remove(null);
 		eventTypes.remove('');
+		if(articleIds.isEmpty() || eventTypes.isEmpty()){
+			return new List<EventMessage__c>();
+		}
 		QueryBuilder qb = newQueryBuilder(selectorOptions)
 				.addConditions()
 				.add(new QueryBuilder.SimpleCondition(EventMessage__c.Article__c + ' in :articleIds'))
