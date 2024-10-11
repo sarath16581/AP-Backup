@@ -20,6 +20,7 @@
   * 20.03.2023	- Noel Lim - added constants SSSW_AGENT_PROFILE, SSSW_SOCIAL_INTEGRATION_PROFILE, SSSW_BSP_COMMUNITY_USER_PROFILE
   * 27.03.2023 StephenL added constant: RECTYPE_ARTICLE_CONSIGNMENT
   * 2024-06-25 - Mona Raghav - REQ3564142 - CASE_ORIGIN_DIRECT_EMAIL Constant added 
+  * 2024.08.16 - Talib Raza - PRB0051724, REQ3488651: Added CASE_ROOT_CAUSE_SSSW_NETWORK_QUEUE
   * 13.06.2024 Parveen Kaushik Added new constants for Enquiry Mapping object to identify model type.
   * 10.07.2024 Vasu Gorakati Added new constant SSSW_ENTITLEMENT
   * 19-07-2024 - Ranjeewa Silva - Added constants for new SSSWRouting record type (UnifiedRouting) and new customer service agent profile name.
@@ -51,6 +52,7 @@ public with sharing class SSSWConstants {
 
     /*** Case Object ***/
     public static final String CASE_SLA_STATUS = 'Awaiting Network Response';
+	public static final String CASE_ROOT_CAUSE_SSSW_NETWORK_QUEUE = 'Awaiting Network Response';    
     
 	public static final String CASE_TYPE_GENERAL_ENQUIRY = 'General Enquiry';
 	public static final String CASE_TYPE = CASE_TYPE_GENERAL_ENQUIRY; // NOTE: Please do not use this as it is not properly named. Use CASE_TYPE_GENERAL_ENQUIRE instead
