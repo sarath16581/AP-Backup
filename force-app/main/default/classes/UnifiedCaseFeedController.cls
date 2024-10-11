@@ -135,6 +135,9 @@ public with sharing class UnifiedCaseFeedController {
 		for(ImpactedArticle__c impactedArticle : impactedArticles){
 			articleIds.add(impactedArticle.Article__c);
 		}
+		if(articleIds.isEmpty() || filteredEventTypesWithIsFeatured.isEmpty()){
+			return new List<EventMessage__c>();
+		}
 
 		Map<SObjectType, Set<SObjectField>> eventMessageFields = new Map<SObjectType, Set<SObjectField>>{
 			EventMessage__c.SObjectType => new Set<SObjectField>{
