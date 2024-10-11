@@ -647,12 +647,12 @@
         <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
-        <fullName>UnifiedCasesToAllStarTrackUsers</fullName>
+        <fullName>UnifiedCasesToSSSWManagement</fullName>
         <accessLevel>Read</accessLevel>
-        <description>This sharing rule gives Unified case access to all StarTrack users</description>
-        <label>Unified Cases to All StarTrack Users</label>
+        <description>This sharing rule gives Unified case access to SSSW Management and subordinates</description>
+        <label>Unified Cases to SSSW Management</label>
         <sharedTo>
-            <group>All_StarTrack_Users</group>
+            <roleAndSubordinatesInternal>SSSW_Management</roleAndSubordinatesInternal>
         </sharedTo>
         <criteriaItems>
             <field>RecordTypeId</field>
@@ -662,12 +662,27 @@
         <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
-        <fullName>UnifiedCasesToSSSWManagement</fullName>
+        <fullName>UnifiedCasesToStarTrackCSCManagers</fullName>
         <accessLevel>Read</accessLevel>
-        <description>This sharing rule gives Unified case access to SSSW Management and subordinates</description>
-        <label>Unified Cases to SSSW Management</label>
+        <description>Sharing Unified cases with ST CSC Managers</description>
+        <label>Unified Cases to StarTrack CSC Managers</label>
         <sharedTo>
-            <roleAndSubordinatesInternal>SSSW_Management</roleAndSubordinatesInternal>
+            <roleAndSubordinatesInternal>StarTrack_CSC_Manager</roleAndSubordinatesInternal>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Unified General Enquiry,Unified Investigation</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>UnifiedCasesToStarTrackVOCManagers</fullName>
+        <accessLevel>Read</accessLevel>
+        <description>Sharing Unified cases with ST VOC managers</description>
+        <label>Unified Cases to StarTrack VOC Managers</label>
+        <sharedTo>
+            <roleAndSubordinatesInternal>StarTrack_VOC_Manager</roleAndSubordinatesInternal>
         </sharedTo>
         <criteriaItems>
             <field>RecordTypeId</field>
