@@ -414,7 +414,7 @@ public virtual inherited sharing class CasesSelector extends ApplicationSelector
 	}
 
 	/*
-	* this method returns records with matching article Ids
+	 * this method returns records with matching article Ids
 	 * @param articleIds list of article ids
 	 * @param recordTypeName case record type
 	 * @param selectorOptions selector options to augment result set
