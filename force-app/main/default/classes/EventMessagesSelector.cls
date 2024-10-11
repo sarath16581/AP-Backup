@@ -127,7 +127,6 @@ public virtual inherited sharing class EventMessagesSelector extends Application
 	public virtual List<EventMessage__c> selectByArticleIdAndEventType(Set<Id> articleIds, Set<String> eventTypes, Set<Object> selectorOptions) {
 		// Avoid running query without any criteria
 		articleIds.remove(null);
-		articleIds.remove('');
 		eventTypes.remove(null);
 		eventTypes.remove('');
 		QueryBuilder qb = newQueryBuilder(selectorOptions)
