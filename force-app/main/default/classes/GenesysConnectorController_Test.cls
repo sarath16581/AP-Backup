@@ -123,7 +123,7 @@ public class GenesysConnectorController_Test {
 		System.assertEquals(1, articleIdsCaptured.size());
 	}
 
-  /*****************************************************************
+	/*****************************************************************
 	 * Scenario:
 	 * Attempts to do find consignment on an article that doesn't exist in salesforce yet.
 	 * A continuation will be invoked to queries .net webservice
@@ -608,6 +608,12 @@ public class GenesysConnectorController_Test {
 		Test.stopTest();
 
 		System.Assert(result != null, 'task should be inserted');
+		
+		System.assertEquals(
+			contactId,
+			GenesysConnectorController.getContactByAccountIdAP(personAccountId),
+			'Unexpected value'
+		);
 	}
 
 	public static List<AuthorisedContacts__c> getAuthorisedContacts(Id caseId) {
