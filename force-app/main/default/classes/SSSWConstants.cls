@@ -25,11 +25,12 @@
   * 19-07-2024 - Ranjeewa Silva - Added constants for new SSSWRouting record type (UnifiedRouting) and new customer service agent profile name.
   * 31.07.2024 - Seth Heang - added constants for case's new 'Update' and 'Monitoring' status
   * 12.08.2024 - George Nguyen - added constants for Unified Investigation and Unified Entitlements
+  * 2024.08.16 - Talib Raza - PRB0051724, REQ3488651: Added CASE_ROOT_CAUSE_SSSW_NETWORK_QUEUE
   * 20.08.2024 - George Nguyen - Added Unified App constant
   * 03.09.2024 - George Nguyen - Added CASE_TYPE_AND_PRODUCT_UNIFIED_MODEL & CASE_ENQUIRY_SUBTYPE_LATE_ITEM used to set the value on case when it changes from General Enquiry to Investigation
   * 06.09.2024 - George Nguyen - Renamed the name of this constant: UNIFIED_AGENT_PROFILE
   */  
-public with sharing class SSSWConstants {
+  public with sharing class SSSWConstants {
 
 	// NOT USED
 	//public static final String CASE_PROFILES_ALLOWED_TO_CLOSE = 'DDC Consumer Community User,BSP Community User';
@@ -51,6 +52,7 @@ public with sharing class SSSWConstants {
 
     /*** Case Object ***/
     public static final String CASE_SLA_STATUS = 'Awaiting Network Response';
+    public static final String CASE_ROOT_CAUSE_SSSW_NETWORK_QUEUE = 'Awaiting Network Response';
     
 	public static final String CASE_TYPE_GENERAL_ENQUIRY = 'General Enquiry';
 	public static final String CASE_TYPE = CASE_TYPE_GENERAL_ENQUIRY; // NOTE: Please do not use this as it is not properly named. Use CASE_TYPE_GENERAL_ENQUIRE instead

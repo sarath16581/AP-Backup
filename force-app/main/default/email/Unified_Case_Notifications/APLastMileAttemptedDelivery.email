@@ -76,12 +76,12 @@
 											delivery today.
 										</p>
 										<p>
-											Your delivery will be dropped off at the end of the driver's run. 
-											Please wait for your tracking to update with “awaiting
-											collection” to know [when and where] it’s ready for you [to pick up].
+											Your delivery will be dropped off soon - by end of day today or tomorrow morning. Please wait for your tracking to update with “awaiting collection” to know when and where it’s ready for you.
 										</p>
 										<p>
-											Bring along some photo ID
+											You have 10 business days to collect your parcel and you can find the location and hours <a
+												href="https://auspost.com.au/locate/"
+												style="text-decoration:none; color:#0000FF;"><u>here</u></a>. Bring along some photo ID
 											showing your name or the address matching the parcel, or <a
 												href="https://auspost.com.au/receiving/collecting-missed-deliveries"
 												style="text-decoration:none; color:#0000FF;"><u>find other ways to
@@ -127,6 +127,9 @@
 							</p>
 						</td>
 						<td width="13%">&nbsp;</td>
+					</tr>
+					<tr>
+						<td colspan="3" style="font:2px Arial, Helvetica, sans-serif; color:White;">{!Case.Thread_Id}</td>
 					</tr>
 				</table>
 			</td>

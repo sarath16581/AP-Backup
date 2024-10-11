@@ -3,16 +3,16 @@
     <fullName>Check_Post_Code_Length</fullName>
     <active>true</active>
     <description>Validation to ensure the post code is in correct format.</description>
-    <errorConditionFormula>AND(OR(CONTAINS($Profile.Name, &apos;SSSW&apos;),$Profile.Name = &apos;Customer Service&apos;),OR(ISNEW(),OR(ISCHANGED(MailingStreet),ISCHANGED(MailingState),ISCHANGED(MailingCity),ISCHANGED(MailingPostalCode),ISCHANGED(MailingCountry),ISCHANGED(MailingStreet2__c))),
-
-OR(AND(OR(NOT(ISBLANK(MailingStreet)),NOT(ISBLANK(MailingState)),NOT(ISBLANK(MailingCity))),OR(NOT(ISNUMBER( MailingPostalCode )),LEN( MailingPostalCode ) &lt;&gt; 4,ISBLANK(MailingPostalCode)),OR(MailingCountry = &apos;AU&apos;,ISBLANK(MailingCountry)) ), 
-AND(MailingCountry = &apos;AU&apos;, NOT(ISBLANK(MailingPostalCode)),
-OR(NOT(ISNUMBER( MailingPostalCode )),LEN( MailingPostalCode ) &lt;&gt; 4) 
-
-),AND(NOT(ISNUMBER( MailingPostalCode )) ,NOT(ISBLANK( MailingPostalCode )),MailingCountry = &apos;AU&apos; )
-)
-
-)</errorConditionFormula>
+    <errorConditionFormula>AND(OR(CONTAINS($Profile.Name, &apos;SSSW&apos;),$Profile.Name = &apos;Unified Customer Service&apos;),OR(ISNEW(),OR(ISCHANGED(MailingStreet),ISCHANGED(MailingState),ISCHANGED(MailingCity),ISCHANGED(MailingPostalCode),ISCHANGED(MailingCountry),ISCHANGED(MailingStreet2__c))),
+    
+    OR(AND(OR(NOT(ISBLANK(MailingStreet)),NOT(ISBLANK(MailingState)),NOT(ISBLANK(MailingCity))),OR(NOT(ISNUMBER( MailingPostalCode )),LEN( MailingPostalCode ) &lt;&gt; 4,ISBLANK(MailingPostalCode)),OR(MailingCountry = &apos;AU&apos;,ISBLANK(MailingCountry)) ), 
+    AND(MailingCountry = &apos;AU&apos;, NOT(ISBLANK(MailingPostalCode)),
+    OR(NOT(ISNUMBER( MailingPostalCode )),LEN( MailingPostalCode ) &lt;&gt; 4) 
+    
+    ),AND(NOT(ISNUMBER( MailingPostalCode )) ,NOT(ISBLANK( MailingPostalCode )),MailingCountry = &apos;AU&apos; )
+    )
+    
+    )</errorConditionFormula>
     <errorDisplayField>MailingPostalCode</errorDisplayField>
     <errorMessage>Missing or Invalid Postcode.</errorMessage>
 </ValidationRule>

@@ -6,7 +6,7 @@
     <name>ST Undeliverable – Damaged</name>
     <style>none</style>
     <subject>We have an update on your delivery for case {!Case.CaseNumber}</subject>
-    <textOnly>Star Track
+    <textOnly>StarTrack
 
 Case {!Case.CaseNumber}
 
@@ -24,7 +24,8 @@ StarTrack
 
 This email was sent by Startrack. Startrack does not represent, warrant or guarantee that 								the integrity of this email communication has been maintained nor that the communication 								is free of errors, viruses or interference.
 
-Help &amp; support |  Terms &amp; conditions |  Privacy policy</textOnly>
+Help &amp; support |  Terms &amp; conditions |  Privacy policy
+{!Case.Thread_Id}</textOnly>
     <type>custom</type>
     <uiType>Aloha</uiType>
 </EmailTemplate>

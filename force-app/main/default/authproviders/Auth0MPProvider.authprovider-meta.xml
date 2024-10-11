@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <AuthProvider xmlns="http://soap.sforce.com/2006/04/metadata">
-    <authorizeUrl>https://digitalapi-stest.npe.auspost.com.au/ap-auth/authorize?audience=https://digitalapi.auspost.com.au/high</authorizeUrl>
+    <authorizeUrl>https://digitalapi-stest.npe.auspost.com.au/ap-auth/authorize?audience=https://digitalapi.auspost.com.au/high&amp;ext-caller=MERCHANT_PORTAL</authorizeUrl>
     <consumerKey>JHiNVKOpJ9vKrISAoRSLamL1V9hGZG2E</consumerKey>
     <consumerSecret>Placeholder_Value</consumerSecret>
     <defaultScopes>id profile email openid https://scopes.auspost.com.au/auth/sf/v1/authentication</defaultScopes>

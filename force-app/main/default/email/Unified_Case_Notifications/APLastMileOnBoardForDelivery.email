@@ -76,7 +76,7 @@
 											delivery today.
 										</p>
 										<p>
-											The driver will arrive with your parcel between 1-3pm / by end of day today.
+											The driver will arrive with your parcel by end of day today.
 											If you're not at home, we'll either leave it in a safe place at the delivery
 											address (if the sender hasn't requested a signature), or it will be taken to
 											a Post Office for collection.
@@ -89,8 +89,7 @@
 											see delivery options and notification preferences for this parcel.
 										</p>
 										<p>
-											Your case will be closed now that your delivery is almost there.
-										</p>
+															</p>
 										<p>
 											Australia Post
 										</p>
@@ -128,6 +127,9 @@
 							</p>
 						</td>
 						<td width="13%">&nbsp;</td>
+					</tr>
+					<tr>
+						<td colspan="3" style="font:2px Arial, Helvetica, sans-serif; color:White;">{!Case.Thread_Id}</td>
 					</tr>
 				</table>
 			</td>

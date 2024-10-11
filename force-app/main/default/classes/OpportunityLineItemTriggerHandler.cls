@@ -13,7 +13,6 @@ public without sharing class OpportunityLineItemTriggerHandler  extends Applicat
 {
 	private static final String STR_LOWER_CASE_NO = 'no';
 	private static final Decimal THREE_MILLION = 3000000.00;
-
 	private static final String APP_COMPLEXITY_DRIVERS = 'Complexity Drivers';
 	private static final String METHOD_PROCESS_BNGACTIONAFTERDELETE = 'processBndGActionAfterDelete';
 	private static final String METHOD_PROCESS_BNGACTIONAFTERINSERT = 'processBndGActionAfterInsert';

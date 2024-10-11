@@ -19,7 +19,7 @@ import ID_FIELD from '@salesforce/schema/LiveChatTranscript.Id';
 import CASE_FIELD from '@salesforce/schema/LiveChatTranscript.CaseId';
 
 const CHAT_FIELDS = [ARTICLE_ID_FIELD, TRACKING_ID_FIELD, CASE_FIELD, ID_FIELD];
-const IMPCATED_ARTICLE_FIELDS = ['ImpactedArticle__c.Id', 'ImpactedArticle__c.Article__c', 'ImpactedArticle__c.ArticleId__c'];
+const IMPACTED_ARTICLE_FIELDS = ['ImpactedArticle__c.Id', 'ImpactedArticle__c.Article__c', 'ImpactedArticle__c.Name'];
 const IMPACTED_ARTICLE_RELATION_ID = 'ImpactedArticles__r';
 
 export default class UnifiedTrackingChatWrapper extends LightningElement {
@@ -99,14 +99,14 @@ export default class UnifiedTrackingChatWrapper extends LightningElement {
 	@wire(getRelatedListRecords, {
 		parentRecordId: '$caseId',
 		relatedListId: IMPACTED_ARTICLE_RELATION_ID,
-		fields: IMPCATED_ARTICLE_FIELDS
+		fields: IMPACTED_ARTICLE_FIELDS
 	})
 	listInfo({ error, data }) {
 		if (error) {
 			this.showSpinner = false;
 			console.error(error);
 		} else if (data && data.records) {
-			data.records.forEach(element => this.impactedArticleIds.push(element.fields.ArticleId__c.value));
+			data.records.forEach(element => this.impactedArticleIds.push(element.fields.Name.value));
 			this.selectOrDeselectImpactedArticles();
 		}
 	}

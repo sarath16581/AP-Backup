@@ -105,16 +105,26 @@ public class OpportunityRevenueReportController {
 	}
 
 	
-	@AuraEnabled
-	public static void RefreshRevenue(Id opportunityId) {
-        Opportunity oppInfo = ProductRevenueService.NewInstance().loadOpportunityInfo(new Set<id>{opportunityId}).get(opportunityId);
-        if (oppInfo.StageName.toUpperCase().contains('CLOSED')) {
-            performScheduleUpdates(opportunityId);
+    @AuraEnabled
+    public static void RefreshRevenue(Id opportunityId) {
+        try {
+            // Load Opportunity Information using a custom service class
+            Opportunity oppInfo = ProductRevenueService.NewInstance().loadOpportunityInfo(new Set<Id>{opportunityId}).get(opportunityId);
+            
+            // Check if the Opportunity StageName contains 'CLOSED'
+            if (oppInfo.StageName.toUpperCase().contains('CLOSED')) {
+                // If closed, perform schedule updates
+                performScheduleUpdates(opportunityId);
+            } else {
+                // If not closed, recalculate the revenue
+                recalculateRevenue(opportunityId);
+            }
+        } catch (Exception e) {
+            // Handle any exceptions and log them for debugging purposes
+            System.debug('Error in RefreshRevenue method: ' + e.getMessage());
+            throw new AuraHandledException('An error occurred while refreshing the revenue: ' + e.getMessage());
         }
-        else {
-            recalculateRevenue(opportunityId);
-        }
-	}
+    }
 	
 	@AuraEnabled
 	public static Boolean hasRefreshRevenuePermission() {
@@ -122,15 +132,9 @@ public class OpportunityRevenueReportController {
 	}
 	
    private static void recalculateRevenue(Id opportunityId) {
-		try {
-			ApplicationUnitOfWork uow = ApplicationUnitOfWork.newInstance(getUnitOfWorkSObjectTypes());
-			GroupedLineItemSalesModule.newInstance().performRevenueUpdates(new Set<Id>{opportunityId}, uow);
-			uow.commitWork();
-		} catch (Exception ex) {
-  			System.debug('***** Error: ' + ex.getMessage());
-    		System.debug('***** Stack Trace: ' + ex.getStackTraceString());
-            UTIL_LoggingService.logHandledException(ex, UserInfo.getOrganizationId(), 'opcNavToBulkEditController', opcNavToBulkEditController.class.getName(), 'recalculateRevenue', 'opcNavToBulkEditController', LoggingLevel.ERROR);
-		}
+       ApplicationUnitOfWork uow = ApplicationUnitOfWork.newInstance(getUnitOfWorkSObjectTypes());
+       GroupedLineItemSalesModule.newInstance().performRevenueUpdates(new Set<Id>{opportunityId}, uow);
+       uow.commitWork();
 	}
 	
 	private static List<SObjectType> getUnitOfWorkSObjectTypes() {

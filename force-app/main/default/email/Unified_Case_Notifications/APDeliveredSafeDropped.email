@@ -73,9 +73,8 @@
 										<p>
 											Thank you for your patience while we’ve been monitoring your delivery. We
 											are delighted to see it has now been located and left in a safe place at the
-											property. You can view an image of where this was left here if you need any
-											<a href="https://helpandsupport.auspost.com.au/s/missing-or-lost-item"
-												style="text-decoration:none; color:#0000FF;"><u>help</u></a> locating
+											property. You can view an image of where this was left <a href="https://helpandsupport.auspost.com.au/s/missing-or-lost-item"
+												style="text-decoration:none; color:#0000FF;"><u>here</u></a> if you need any help locating
 											it.
 										</p>
 										<p>
@@ -126,6 +125,9 @@
 							</p>
 						</td>
 						<td width="13%">&nbsp;</td>
+					</tr>
+					<tr>
+						<td colspan="3" style="font:2px Arial, Helvetica, sans-serif; color:White;">{!Case.Thread_Id}</td>
 					</tr>
 				</table>
 			</td>

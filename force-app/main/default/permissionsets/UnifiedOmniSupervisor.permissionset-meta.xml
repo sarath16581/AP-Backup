@@ -20,18 +20,6 @@
         <apexClass>genesyscloud__SCVUninstallScript</apexClass>
         <enabled>true</enabled>
     </classAccesses>
-    <classAccesses>
-        <apexClass>genesysps__PureCloudKnowledgeUtilityController</apexClass>
-        <enabled>true</enabled>
-    </classAccesses>
-    <classAccesses>
-        <apexClass>genesysps__PureCloudTranscript</apexClass>
-        <enabled>true</enabled>
-    </classAccesses>
-    <classAccesses>
-        <apexClass>genesysps__getTranscript</apexClass>
-        <enabled>true</enabled>
-    </classAccesses>
     <description>This permission set shall be used for TL/TSLs and defines additional permissions for the purpose of using Salesforce Omni Supervisor and its features</description>
     <fieldPermissions>
         <editable>false</editable>
@@ -116,11 +104,6 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>genesyscloud__Packaging_Information__c.genesyscloud__Version__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
-        <field>genesysps__Chat_Transcript__c.genesysps__Body__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <hasActivationRequired>false</hasActivationRequired>

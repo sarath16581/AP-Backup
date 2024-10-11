@@ -31,6 +31,7 @@ History:
 				moving stage from "Qualify" to "Propose" and beyond. Implemented as a opportunity validation rule.
 2023-11-09 - Mahesh Parvathaneni - Removed validation check on revenue start date in checkIfAllowedToCloseWin method. This
 				is now moved to OpportunitySalesPipelineModule as the validation is required from Qualify stage and beyond.
+7/10/2024 Ken McGuire Removed obsolete line item opc classification methods.
 **************************************************/
 public with sharing class OpportunityUtility
 {
@@ -39,7 +40,6 @@ public with sharing class OpportunityUtility
 	public static final String triggerName = 'opportunityTrigger_16112011';
 	public static final String STRING_YES = 'Yes';
 	public static final String STRING_COMPLETED = 'Completed';
-
 	public static void updateAccountPlan(Set<Id> planIds)
 	{
 		// 28/05/2020 LJ only update if the value has changed
@@ -369,16 +369,6 @@ public with sharing class OpportunityUtility
 		return oppErrorMap;
 	}
 
-	/*********************************
-	 *Description: Populates the Opportunity product's Classification field
-	 *Author: Prince Encina
-	 *History:
-	 *08/20/19 Created
-	 ********************************/
-	public static void populateClassification(List<Opportunity> newOptyList, Map<Id, Opportunity> oldRecMap)
-	{
-		OpportunityLineItemService.updateClassification(newOptyList, oldRecMap);
-	}
 
 	/*********************************
 	 *Description: Populates the Apttus product's Classification field

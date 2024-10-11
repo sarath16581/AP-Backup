@@ -16,17 +16,17 @@ Your delivery is coming today
 
 Thank you for your patience while we’ve been monitoring your delivery. We 											are delighted to see that it has now been located and is with a driver for 											delivery today.
 
-The driver will arrive with your parcel between 1-3pm / by end of day today. 											If you&apos;re not at home, we&apos;ll either leave it in a safe place at the delivery 											address (if the sender hasn&apos;t requested a signature), or it will be taken to 											a Post Office for collection.
+The driver will arrive with your parcel by end of day today. 											If you&apos;re not at home, we&apos;ll either leave it in a safe place at the delivery 											address (if the sender hasn&apos;t requested a signature), or it will be taken to 											a Post Office for collection.
 
 Your case will be closed now that your delivery is on the way. You can 											continue to monitor the tracking for further updates – click here to 											see delivery options and notification preferences for this parcel.
 
-Your case will be closed now that your delivery is almost there.
 
 Australia Post
 
 This email was sent by Australia Post. Australia Post does not represent, warrant or 								guarantee that the integrity of this email communication has been maintained nor that 								the communication is free of errors, viruses or interference.
 
-Help &amp; support |  Terms &amp; conditions |  Privacy policy</textOnly>
+Help &amp; support |  Terms &amp; conditions |  Privacy policy
+{!Case.Thread_Id}</textOnly>
     <type>custom</type>
     <uiType>Aloha</uiType>
 </EmailTemplate>

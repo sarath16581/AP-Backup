@@ -3,6 +3,7 @@
 * Author: Jeoffrey Palmero
 * History:
 * 08/6/2019        Created
+* 08.10.2024 Ken McGurie removed legacy opc calculations
 ********************************/
 public class APTOptyLineItemService {
     public static final String CLASSNAME = 'APTOptyLineItemService';

@@ -73,7 +73,23 @@
 										<p>
 											Thank you for your patience while we’ve been monitoring your delivery. We
 											are happy to report that the tracking has updated, and you can now expect
-											your delivery on or before {!Case.EstimatedDelivery__c}
+											your delivery on or before {!IF(ISBLANK(Case.EstimatedDelivery__c), '',
+											TEXT(DAY(Case.EstimatedDelivery__c)) +" "+
+											CASE(
+											MONTH(Case.EstimatedDelivery__c),
+											1, "January",
+											2, "February",
+											3, "March",
+											4, "April",
+											5, "May",
+											6, "June",
+											7, "July",
+											8, "August",
+											9, "September",
+											10, "October",
+											11, "November",
+											"December"
+											) +" "+ TEXT(YEAR(Case.EstimatedDelivery__c)))}
 										</p>
 										<p>
 											A sorting error led to your parcel arriving at a facility outside of your
@@ -93,9 +109,6 @@
 												href="https://auspost.com.au/track/"
 												style="text-decoration:none; color:#0000FF;"><u>click here</u></a> to
 											see delivery options and notification preferences for this parcel.
-										</p>
-										<p>
-											Your case will be closed now that your delivery is almost there.
 										</p>
 										<p>
 											Australia Post
@@ -134,6 +147,9 @@
 							</p>
 						</td>
 						<td width="13%">&nbsp;</td>
+					</tr>
+					<tr>
+						<td colspan="3" style="font:2px Arial, Helvetica, sans-serif; color:White;">{!Case.Thread_Id}</td>
 					</tr>
 				</table>
 			</td>

@@ -554,7 +554,7 @@ private with sharing class ContactsSelector_Test {
 		bindMap.put('taskConditions', '(Type =:taskType  OR  RecordType.DeveloperName =:apVoiceCallRecordType) AND CreatedDate >=:interactionCutoffDate AND CreatedBy.Profile.Name IN :interactionProfiles');
 		
 		//add VoiceCalls sub-query conditions
-		bindMap.put('voiceCallsConditions', 'CreatedDate >=:interactionCutoffDate AND CreatedBy.Profile.Name IN :interactionProfiles');
+		bindMap.put('voiceCallsConditions', 'CreatedDate >=:interactionCutoffDate AND LastModifiedBy.Profile.Name IN :interactionProfiles');
 		
 		//add LiveChatTranscripts sub-query conditions
 		bindMap.put('liveChatTranscriptConditions', 'CreatedDate >=:interactionCutoffDate AND Owner.Profile.Name IN :interactionProfiles');

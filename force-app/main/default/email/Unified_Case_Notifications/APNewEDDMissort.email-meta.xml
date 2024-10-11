@@ -14,7 +14,7 @@ Hi {!IF(ISBLANK(Contact.Preferred_Name__c),Contact.FirstName,Contact.Preferred_N
 
 Your delivery will arrive shortly
 
-Thank you for your patience while we’ve been monitoring your delivery. We 											are happy to report that the tracking has updated, and you can now expect 											your delivery on or before {!Case.EstimatedDelivery__c}
+Thank you for your patience while we’ve been monitoring your delivery. We 											are happy to report that the tracking has updated, and you can now expect 											your delivery on or before {!IF(ISBLANK(Case.EstimatedDelivery__c), &apos;&apos;, 											TEXT(DAY(Case.EstimatedDelivery__c)) +&quot; &quot;+ 											CASE( 											MONTH(Case.EstimatedDelivery__c), 											1, &quot;January&quot;, 											2, &quot;February&quot;, 											3, &quot;March&quot;, 											4, &quot;April&quot;, 											5, &quot;May&quot;, 											6, &quot;June&quot;, 											7, &quot;July&quot;, 											8, &quot;August&quot;, 											9, &quot;September&quot;, 											10, &quot;October&quot;, 											11, &quot;November&quot;, 											&quot;December&quot; 											) +&quot; &quot;+ TEXT(YEAR(Case.EstimatedDelivery__c)))}
 
 A sorting error led to your parcel arriving at a facility outside of your 											area however our team members have already picked up on this and manually 											forwarded it to the correct location.
 
@@ -22,13 +22,12 @@ Errors like this can occur due to damaged or unclear labels and barcodes, or 			
 
 Your case will be closed now that your delivery is on the way. You can 											continue to monitor the tracking for further updates – click here to 											see delivery options and notification preferences for this parcel.
 
-Your case will be closed now that your delivery is almost there.
-
 Australia Post
 
 This email was sent by Australia Post. Australia Post does not represent, warrant or 								guarantee that the integrity of this email communication has been maintained nor that 								the communication is free of errors, viruses or interference.
 
-Help &amp; support |  Terms &amp; conditions |  Privacy policy</textOnly>
+Help &amp; support |  Terms &amp; conditions |  Privacy policy
+{!Case.Thread_Id}</textOnly>
     <type>custom</type>
     <uiType>Aloha</uiType>
 </EmailTemplate>

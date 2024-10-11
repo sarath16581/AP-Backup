@@ -43,7 +43,7 @@ public inherited sharing class OpportunityRevenueScheduleModule extends Applicat
                     opportunityToUpdate.RevenueCalculationAccountIDs__c = opportunityAccountList.get(opportunityToUpdate.id);
                     system.debug('**** opportunityToUpdate.RevenueCalculationAccountIDs__c  '+opportunityToUpdate.RevenueCalculationAccountIDs__c );
                 }
-                system.debug('**** opportunity onAfterUPdate EXIT');
+                system.debug('**** opportunity onBeforeUpdate EXIT');
         } catch(Exception ex) {
             // Error Logged to Exception object for analysis
             system.debug('***** error '+ex);
