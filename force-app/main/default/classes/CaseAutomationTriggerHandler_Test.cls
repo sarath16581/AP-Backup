@@ -104,8 +104,6 @@ private class CaseAutomationTriggerHandler_Test {
 
 		CaseAutomationTriggerHandler handler = new CaseAutomationTriggerHandler();
 
-		ApplicationUnitOfWork uow = handler.newUnitOfWork();
-
 		handler.registerModules();
 
 		Id ssswRecordType = new List<Id>(new RecordTypesSelector().selectByDeveloperNamesLike('Case', new Set<String>{'SSSW'}).keySet())[0];

@@ -69,7 +69,6 @@ class CaseUnifiedMilestoneModuleTest {
 		List<Entitlement> entitlements = new List<Entitlement>(ApplicationTestDataFactory.getEntitlements(1, true,SSSWConstants.UNIFIED_ENTITLEMENTS,sla.Id,orgAaccounts[0].Id));
 		EntitlementsSelector mockEntitlementSelector = (EntitlementsSelector)MockUtility.mockSelector(EntitlementsSelector.class);
 		CaseMilestonesSelector mockCaseMilestonesSelector = (CaseMilestonesSelector)MockUtility.mockSelector(CaseMilestonesSelector.class);
-		ApplicationDatabase mockApplicationDatabase = MockUtility.mockDatabase();
 
 		Id unifiedInvestigationRecordTypeId = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName().get(SSSWConstants.UNIFIED_INVESTIGATION_DEVELOPER_NAME).getRecordTypeId();
 		Id unifiedGeneralEnquiryRecordTypeId = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName().get(SSSWConstants.UNIFIED_GENERAL_ENQUIRY_DEVELOPER_NAME).getRecordTypeId();

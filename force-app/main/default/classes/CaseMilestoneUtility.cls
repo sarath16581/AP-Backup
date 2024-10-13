@@ -181,8 +181,6 @@ public with sharing class CaseMilestoneUtility{
 	  */
 	private static void AssignBGSEntitlement(List<Case> bgsCases)
 	{
-		System.debug('CaseMilestoneUtility::AssignBGSEntitlement:');
-
 		//query just the VIC entitlement to default all cases to VIC
 		List<Entitlement> entitlementList = EntitlementsSelector.newInstance().selectByNameAndAccountName(new Set<String>{BGSConstants.BGS_ENTITLEMENT_VIC}, new Set<String>{BGSConstants.BGS_ENTITLEMENT_STANDARD});
 		if(!entitlementList.isEmpty()) {
@@ -261,7 +259,7 @@ public with sharing class CaseMilestoneUtility{
 			Id userBusinessHourId = Utility.getCurrentUserBussinessHour();  // get current user's business hour
 			MilestoneWarningTime__c settings = MilestoneWarningTime__c.getValues(SSSWConstants.CHARTER_MILESTONE);
 			Decimal percentage = (settings != null) ? (settings.Percentage__c/100) : SSSWConstants.DEF_MILESTONE_WARNING_PERCENT;
-			System.debug('** userBusinessHourId ==>'+ userBusinessHourId);
+			
 			Map<Id,Case> updateMap = new Map<Id,Case>();
 			Case updatedCase = null;
 			for(Case csRec : caseList){
@@ -717,7 +715,6 @@ public with sharing class CaseMilestoneUtility{
 		{
 			bgsEntitlementIds.put(ent.Name, ent.Id);
 		}
-		//System.debug('BGS Entitlements:' + bgsEntitlementIds);
 		return bgsEntitlementIds;
 	}*/
 	

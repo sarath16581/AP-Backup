@@ -130,7 +130,6 @@ public inherited sharing class CaseUnifiedMilestoneModule extends ApplicationMod
 	private void setMilestoneCompletionDates(List<Case> cases, Datetime completionDate, ApplicationUnitOfWork uow){
 		List<CaseMilestone> milestonesToUpdate = new List<CaseMilestone>();
 		Map<Id, Case> casesMap = new Map<Id, Case>(cases);
-		Datetime now = Datetime.now();
 		Set<Object> filterOptions = new Set<Object>{CaseMilestonesSelector.Options.FILTER_NOT_VIOLATED};
 		// if the completion date is specified then only update the ones that have IsCompleted = False, or else update only those with IsComplete = True (ie. setting it to null)
 		if(completionDate != null) {
