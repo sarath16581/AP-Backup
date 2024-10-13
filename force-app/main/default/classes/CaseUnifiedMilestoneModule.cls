@@ -147,14 +147,9 @@ public inherited sharing class CaseUnifiedMilestoneModule extends ApplicationMod
 			uow.registerDirty(milestonesToUpdate);
 		}
 	} 
-
-	/* 
-	This method is invoked in After Update event, checks that cases are Unified reocrd type and that Type has changed from General Enquiry to Investigation
-	This is required in After Update because the Case.EntitlementId is set on Before Update and the milestones will not be exist (yet)
-	*/
 	
 	/**
-	 * Inner class to register a New Async Worker
+	 * Inner class to register a New Async Worker to update the Start Date on the related Case Milestone records
 	 */
 	public without sharing class AsyncUpdateCaseMilestoneWorker extends ApplicationUnitOfWork.AsyncWorker {
 		@TestVisible
