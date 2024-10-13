@@ -23,7 +23,7 @@ public inherited sharing class CaseUnifiedMilestoneModule extends ApplicationMod
 		private set;
 	}
 
-    public static CaseUnifiedMilestoneModule newInstance() {
+	public static CaseUnifiedMilestoneModule newInstance() {
 		return (CaseUnifiedMilestoneModule) Application.Utilities.newInstance(CaseUnifiedMilestoneModule.class);
 	}
 
