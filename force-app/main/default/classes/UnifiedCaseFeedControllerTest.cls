@@ -3,6 +3,7 @@
  * @author Seth Heang
  * @changelog:
  * 2024-09-25 - Seth Heang - created
+ * 2024-10-09 - Seth Heang - updated selector query selectByArticleIdAndEventType for EventMessage
  */
 @IsTest(IsParallel=true)
 private class UnifiedCaseFeedControllerTest {
@@ -88,10 +89,14 @@ private class UnifiedCaseFeedControllerTest {
 		// Data Preparation
 		// =====================================
 		Case testCase = ApplicationTestDataFactoryCase.getCases(1, true)[0];
-		Article__c testArticle = ApplicationTestDataFactory.getArticles(1, true)[0];
-		List<EventMessage__c> scanEvents = ApplicationTestDataFactory.getEventMessages(2, testArticle.Id, true);
-		scanEvents[0].Case__c = testCase.Id;
-		scanEvents[1].Case__c = testCase.Id;
+		List<Article__c> testArticles = ApplicationTestDataFactory.getArticles(2, true);
+		List<ImpactedArticle__c> impactedArticles = ApplicationTestDataFactory.getImpactedArticles(2, testCase.Id, null, true);
+		impactedArticles[0].Article__c = testArticles[0].Id;
+		impactedArticles[1].Article__c = testArticles[1].Id;
+
+		List<EventMessage__c> scanEvents = ApplicationTestDataFactory.getEventMessages(2, null, true);
+		scanEvents[0] = (EventMessage__c) ApplicationTestDataFactory.setUnwritableFields(scanEvents[0], new Map<String, Object>{ 'Article__c' => testArticles[0].Id });
+		scanEvents[1] = (EventMessage__c) ApplicationTestDataFactory.setUnwritableFields(scanEvents[1], new Map<String, Object>{ 'Article__c' => testArticles[1].Id });
 		// set scan event type to 'ADMIN-ER39' whose isFeature flag is true in the 'EventMessageTypeMapping__mdt' mapping table to meet criteria check
 		scanEvents[0].EventType__c = 'ADMIN-ER39';
 		// set scan event type to 'INT-2119' whose isFeature flag is false in the 'EventMessageTypeMapping__mdt' mapping table to fail the criteria check
@@ -103,7 +108,7 @@ private class UnifiedCaseFeedControllerTest {
 		EventMessagesSelector mockEventMessagesSelector = (EventMessagesSelector) MockUtility.mockSelector(EventMessagesSelector.class);
 		MockUtility.Mocks.startStubbing();
 		// Selectors
-		MockUtility.Mocks.when(mockEventMessagesSelector.selectByCaseIdAndEventType((Set<Id>) fflib_Match.anyObject(), (Set<String>) fflib_Match.anyObject())).thenReturn(new List<EventMessage__c>{ scanEvents[0] });
+		MockUtility.Mocks.when(mockEventMessagesSelector.selectByArticleIdAndEventType((Set<Id>) fflib_Match.anyObject(), (Set<String>) fflib_Match.anyObject())).thenReturn(new List<EventMessage__c>{ scanEvents[0] });
 		MockUtility.Mocks.stopStubbing();
 		// =====================================
 		// Testing
@@ -129,10 +134,14 @@ private class UnifiedCaseFeedControllerTest {
 		// Data Preparation
 		// =====================================
 		Case testCase = ApplicationTestDataFactoryCase.getCases(1, true)[0];
-		Article__c testArticle = ApplicationTestDataFactory.getArticles(1, true)[0];
-		List<EventMessage__c> scanEvents = ApplicationTestDataFactory.getEventMessages(2, testArticle.Id, true);
-		scanEvents[0].Case__c = testCase.Id;
-		scanEvents[1].Case__c = testCase.Id;
+		List<Article__c> testArticles = ApplicationTestDataFactory.getArticles(2, true);
+		List<ImpactedArticle__c> impactedArticles = ApplicationTestDataFactory.getImpactedArticles(2, testCase.Id, null, true);
+		impactedArticles[0].Article__c = testArticles[0].Id;
+		impactedArticles[1].Article__c = testArticles[1].Id;
+
+		List<EventMessage__c> scanEvents = ApplicationTestDataFactory.getEventMessages(2, null, true);
+		scanEvents[0] = (EventMessage__c) ApplicationTestDataFactory.setUnwritableFields(scanEvents[0], new Map<String, Object>{ 'Article__c' => testArticles[0].Id });
+		scanEvents[1] = (EventMessage__c) ApplicationTestDataFactory.setUnwritableFields(scanEvents[1], new Map<String, Object>{ 'Article__c' => testArticles[1].Id });
 		// set scan event type to 'ADMIN-ER39' whose isFeature flag is true in the 'EventMessageTypeMapping__mdt' mapping table to meet criteria check
 		scanEvents[0].EventType__c = 'ADMIN-ER39';
 		// set scan event type to 'INT-2119' whose isFeature flag is false in the 'EventMessageTypeMapping__mdt' mapping table to fail the criteria check
@@ -157,7 +166,7 @@ private class UnifiedCaseFeedControllerTest {
 		MockUtility.Mocks.when(mockContactRequestsSelector.search((Map<String, Object>) fflib_Match.anyObject(), (Set<Object>) fflib_Match.anyObject(), (Boolean) fflib_Match.anyBoolean()))
 			.thenReturn(new List<ContactRequest>{ conReqs[0] });
 		MockUtility.Mocks.when(mockEmailMessagesSelector.selectByParentIds((Set<Id>) fflib_Match.anyObject(), (Set<Object>) fflib_Match.anyObject())).thenReturn(new List<EmailMessage>{ emails[0] });
-		MockUtility.Mocks.when(mockEventMessagesSelector.selectByCaseIdAndEventType((Set<Id>) fflib_Match.anyObject(), (Set<String>) fflib_Match.anyObject())).thenReturn(new List<EventMessage__c>{ scanEvents[0] });
+		MockUtility.Mocks.when(mockEventMessagesSelector.selectByArticleIdAndEventType((Set<Id>) fflib_Match.anyObject(), (Set<String>) fflib_Match.anyObject())).thenReturn(new List<EventMessage__c>{ scanEvents[0] });
 		MockUtility.Mocks.stopStubbing();
 		// =====================================
 		// Testing
@@ -249,10 +258,14 @@ private class UnifiedCaseFeedControllerTest {
 		// Data Preparation
 		// =====================================
 		Case testCase = ApplicationTestDataFactoryCase.getCases(1, true)[0];
-		Article__c testArticle = ApplicationTestDataFactory.getArticles(1, true)[0];
-		List<EventMessage__c> scanEvents = ApplicationTestDataFactory.getEventMessages(2, testArticle.Id, true);
-		scanEvents[0].Case__c = testCase.Id;
-		scanEvents[1].Case__c = testCase.Id;
+		List<Article__c> testArticles = ApplicationTestDataFactory.getArticles(2, true);
+		List<ImpactedArticle__c> impactedArticles = ApplicationTestDataFactory.getImpactedArticles(2, testCase.Id, null, true);
+		impactedArticles[0].Article__c = testArticles[0].Id;
+		impactedArticles[1].Article__c = testArticles[1].Id;
+
+		List<EventMessage__c> scanEvents = ApplicationTestDataFactory.getEventMessages(2, null, true);
+		scanEvents[0] = (EventMessage__c) ApplicationTestDataFactory.setUnwritableFields(scanEvents[0], new Map<String, Object>{ 'Article__c' => testArticles[0].Id });
+		scanEvents[1] = (EventMessage__c) ApplicationTestDataFactory.setUnwritableFields(scanEvents[1], new Map<String, Object>{ 'Article__c' => testArticles[1].Id });
 		scanEvents[0].ActualDateTime__c = Datetime.now();
 		scanEvents[0].EventDescription__c = 'Onboard for Delivery';
 		// set scan event type to 'ADMIN-ER39' whose isFeature flag is true in the 'EventMessageTypeMapping__mdt' mapping table to meet criteria check
@@ -282,7 +295,7 @@ private class UnifiedCaseFeedControllerTest {
 		MockUtility.Mocks.when(mockContactRequestsSelector.search((Map<String, Object>) fflib_Match.anyObject(), (Set<Object>) fflib_Match.anyObject(), (Boolean) fflib_Match.anyBoolean()))
 			.thenReturn(new List<ContactRequest>{ conReqs[0] });
 		MockUtility.Mocks.when(mockEmailMessagesSelector.selectByParentIds((Set<Id>) fflib_Match.anyObject(), (Set<Object>) fflib_Match.anyObject())).thenReturn(new List<EmailMessage>{ emails[0] });
-		MockUtility.Mocks.when(mockEventMessagesSelector.selectByCaseIdAndEventType((Set<Id>) fflib_Match.anyObject(), (Set<String>) fflib_Match.anyObject())).thenReturn(new List<EventMessage__c>{ scanEvents[0] });
+		MockUtility.Mocks.when(mockEventMessagesSelector.selectByArticleIdAndEventType((Set<Id>) fflib_Match.anyObject(), (Set<String>) fflib_Match.anyObject())).thenReturn(new List<EventMessage__c>{ scanEvents[0] });
 		MockUtility.Mocks.stopStubbing();
 		// =====================================
 		// Testing

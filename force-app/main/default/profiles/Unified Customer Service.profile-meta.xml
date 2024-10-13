@@ -14895,7 +14895,7 @@
         <recordType>Knowledge__kav.Support</recordType>
     </layoutAssignments>
     <layoutAssignments>
-        <layout>LiveChatTranscript-Live Chat Transcript Layout</layout>
+        <layout>LiveChatTranscript-Unified Live Chat Transcript Layout</layout>
     </layoutAssignments>
     <layoutAssignments>
         <layout>MiniCaseFieldMapping__c-Mini Case Field Mapping Layout</layout>

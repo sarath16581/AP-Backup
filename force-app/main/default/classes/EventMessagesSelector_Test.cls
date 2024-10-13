@@ -15,13 +15,14 @@
  * 2023-03-08 - Mahesh Parvathaneni - Updated options FILTER_GEO_LOCATION in tests
  * 2023-03-10 - Mahesh Parvathaneni - Removed the option FILTER_AP_NETWORK_NOT_NULL
  * 2024-09-23 - Seth Heang - added test for selectByCaseIdAndEventType
+ * 2024-10-09 - Seth Heang - renamed test from selectByCaseIdAndEventType to selectByArticleIdAndEventType
  */
 @IsTest
 public with sharing class EventMessagesSelector_Test {
 
 	/**
 	 * Test:
-	 *  Ensures that the selectors QueryBuilder is generating the correct output
+	 * Ensures that the selectors QueryBuilder is generating the correct output
 	 */
 	@IsTest
 	public static void testEnsureQueryBuilderProducesCorrectString() {
@@ -121,9 +122,6 @@ public with sharing class EventMessagesSelector_Test {
 		Network__c network = ApplicationTestDataFactory.getNetworks(1, false)[0];
 		insert network;
 
-		Case testCase = ApplicationTestDataFactoryCase.getCases(1, false)[0];
-		insert testCase;
-
 		Map<String, List<EventMessageTypeMapping__mdt>> eventMessageType = EventMessageUtil.getEventMessageTypesByCategory();
 		List<EventMessage__c> events = ApplicationTestDataFactory.getEventMessages(2, article.Id, false);
 		events[0].EventType__c = eventMessageType.get('AttemptedDelivery')[0].Label;
@@ -168,7 +166,7 @@ public with sharing class EventMessagesSelector_Test {
 		System.assertEquals(1, eventsList.size(), 'Expected result size of 1');
 
 		selector = EventMessagesSelector.newInstance();
-		resultsList = selector.selectByCaseIdAndEventType(new Set<Id>{ testCase.Id }, new Set<String>{ events[1].EventType__c });
+		resultsList = selector.selectByArticleIdAndEventType(new Set<Id>{ article.Id }, new Set<String>{ events[1].EventType__c });
 		System.assertEquals(1, eventsList.size(), 'Expected result size of 1');
 
 		Test.stopTest();
