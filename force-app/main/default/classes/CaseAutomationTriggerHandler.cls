@@ -136,6 +136,9 @@ public inherited sharing class CaseAutomationTriggerHandler extends ApplicationT
 
 		// Update CaseTeamMember from Case's owner
 		registerModule(CaseUnifiedTeamMemberModule.class, 'filterUnified');
+
+		// Update Case Milestone for Unified Cases
+		registerModule(CaseUnifiedMilestoneModule.class, 'filterUnified');
 	}
 
 	/**

@@ -20,10 +20,6 @@
   * 2022-02-16 - Nathan Franklin - Uplifted BGS entitlement to limit scope of entitlement selection
   * 2023-06-02 - Mahesh Parvathaneni - Added logic to assign entitlement to transport enquiry record type cases
   * 2024-05-07 - Boris Bachovski - Add logic to assign entitlement to bulk mail record type cases
-  * 2024-08-12 - George Nguyen - Added Unified Entitlement process to cases with Unifield Investigation record types
-  * 2024-08-16 - George Nguyen - Added futureUpdateUnifiedMilestones(...) to future update the StartDate of the milestones
-  * 2024-08-19 - George Nguyen - Removed IsViolated filter from cases when moved from General Enquiry to Investigation because the case creation date might have passed the milestone threshold
-  * 2024-08-21 - George Nguyen - Added Unified General Enquiry to the list of Unified Record Types. 
   */
 public with sharing class CaseMilestoneUtility{
 	   
@@ -35,10 +31,6 @@ public with sharing class CaseMilestoneUtility{
 	private static Set<Id> ssswRecTypes;	// SSSW record types
 	private static Set<String> closedStatus;				// set of closed case statuses
 	private static Id STD_ENTITLEMENT;  // sssw entitlement to be linked with case
-	@TestVisible
-	private static Id UNIFIED_ENTITLEMENT_ID; // Unifield Entitlement to be linked with case
-	@TestVisible
-	private static Set<Id> unifiedRecordTypes;
 
 	// Added for BGS Case Milestones
 	private static Set<Id> bgsRecTypes;  // the BGS Case Record Type "Service Delivery/Sales_Ops_Delivery"
@@ -58,13 +50,6 @@ public with sharing class CaseMilestoneUtility{
 
 			// Get the Record Type Id for BGS Service Delivery Cases
 			bgsRecTypes =  Utility.getRecordTypeIds(String.valueOf(Case.getsObjectType()), BGSConstants.SERVICE_DELIVERY_NAME);
-
-			List<Entitlement> entitlements = EntitlementsSelector.newInstance().selectByNameAndAccountName(new Set<String>{SSSWConstants.UNIFIED_ENTITLEMENTS}, new Set<String>{SSSWConstants.UNIFIED_ENTITLEMENTS});
-			if(entitlements.isEmpty() == false) {
-				UNIFIED_ENTITLEMENT_ID = entitlements[0].Id;
-			}
-
-			unifiedRecordTypes = RecordTypesSelector.newInstance().selectByDeveloperNameLike(String.valueOf(Case.getsObjectType()), SSSWConstants.UNIFIED_APP).keySet();
 		}
 		catch(Exception exp){
 			// Error Logged to Exception object for analysis
@@ -137,17 +122,12 @@ public with sharing class CaseMilestoneUtility{
 			Case_Entitlements__mdt caseEntitlement = Case_Entitlements__mdt.getInstance('origins');
 			List<String> originList = new List<String>();
 			originList = caseEntitlement.Case_Origin__c.split(',');
-			
 
 			for(Case csRec : caseList){
 
 				// SSSW entitlement assignment
 				if(Utility.isValidRecordType(ssswRecTypes,csRec.RecordTypeId) && STD_ENTITLEMENT != null){  // verify if its SSSW recordtype
 					csRec.EntitlementId = STD_ENTITLEMENT;  // assign default entitlement to cases
-				}
-				else if(UNIFIED_ENTITLEMENT_ID != null && unifiedRecordTypes.contains(csRec.RecordTypeId) == true && csRec.Type == SSSWConstants.CASE_TYPE_INVESTIGATION) {
-					
-					csRec.EntitlementId = UNIFIED_ENTITLEMENT_ID; 
 				}
 				else if(Utility.isValidRecordType(bgsRecTypes, csRec.RecordTypeId) && (!originList.contains(csRec.Origin) || (originList.contains(csRec.Origin) && UserInfo.getUserId() != systemSupportUserId)))//only this condition modified for SMWD-312 - MW0004779
 				{
@@ -427,35 +407,6 @@ public with sharing class CaseMilestoneUtility{
 		return escalationMap;
 	}
 
-	/* 
-	This method is invoked in After Update event, checks that cases are Unified reocrd type and that Type has changed from General Enquiry to Investigation
-	This is required in After Update because the Case.EntitlementId is set on Before Update and the milestones will not be exist (yet)
-	*/
-	@future
-	static void futureUpdateUnifiedMilestones(Set<Id> caseIds){
-		try{
-			Datetime now = Datetime.now();
-			List<CaseMilestone> milestonesToUpdate = new List<CaseMilestone>();
-			Set<Object> filterOptions = new Set<Object>{CaseMilestonesSelector.Options.FILTER_NOT_COMPLETED};
-
-			for(CaseMilestone cm: CaseMilestonesSelector.newInstance().selectByCase(caseIds, filterOptions).values()) {
-				cm.StartDate = now;
-				milestonesToUpdate.add(cm);
-			}
-			
-			if(milestonesToUpdate.isEmpty() == false) {
-				ApplicationDatabase.getInstance().dmlUpdate(milestonesToUpdate);
-			}
-		}
-		catch(Exception exp){
-			// Error Logged to Exception object for analysis
-			UTIL_LoggingService.logHandledException(exp, UserInfo.getOrganizationId(), SSSWConstants.UNIFIED_ENTITLEMENTS, 
-													CaseMilestoneUtility.class.getName(), 'futureUpdateUnifiedMilestones', 
-													SSSWConstants.CASE_TRIGGER, LoggingLevel.ERROR);
-		}
-	}
-
-	
 	/**
 	  * @description	   This method is invoked in Before udpate event, sets the escalation mail if 
 						   case is assigned to network or assigned to agent or case owner is changed
@@ -468,27 +419,9 @@ public with sharing class CaseMilestoneUtility{
 			Set<Id> ownerIds = new Set<Id>();
 			List<Case> ownerChangedCases = new List<Case>();
 			List<Case> completeCharterCases = new List<Case>();
-			List<Case> milestoneStoppedCases = new List<Case>();
-			List<Case> milestoneResumedCases = new List<Case>();
-			Set<Id> caseIdToFutureUpdateMilestones = new Set<Id>(); 
 
 			for(Case csRec : caseList){
 				Case oldCase = oldMap.get(csRec.Id);	// get old values of case
-
-				if(UNIFIED_ENTITLEMENT_ID != null && unifiedRecordTypes.contains(csRec.RecordTypeId) == true) {
-					if(oldCase.Type == SSSWConstants.CASE_TYPE_GENERAL_ENQUIRY && csRec.Type == SSSWConstants.CASE_TYPE_INVESTIGATION) {
-						csRec.EntitlementId = UNIFIED_ENTITLEMENT_ID;
-						caseIdToFutureUpdateMilestones.add(csRec.Id); // this is required because the milestones will be created upon setting the Case.EntitlementId. 
-					}
-
-					if(closedStatus.contains(oldCase.Status) == false && closedStatus.contains(csRec.Status) == true) {
-						csRec.IsStopped = true;
-						milestoneStoppedCases.add(csRec);
-					} else if(closedStatus.contains(oldCase.Status) == true && closedStatus.contains(csRec.Status) == false) {
-						csRec.IsStopped = false;
-						milestoneResumedCases.add(csRec);
-					}
-				}
 
 				if(Utility.isValidRecordType(ssswRecTypes,csRec.RecordTypeId)){  // verify if its SSSW recordtype
 					// check if owner is changed and an agent (user)
@@ -521,18 +454,6 @@ public with sharing class CaseMilestoneUtility{
 			isMilestoneUpdated = true;  // set flag to true
 			
 			updateCaseStatusTracking(caseList,oldMap);  // update open status tracking record
-
-			if(milestoneStoppedCases.isEmpty() == false) {
-				setMilestoneCompletionDates(milestoneStoppedCases, Datetime.now()); // this will set the Completion Date and IsCompleted will be come True
-			}
-
-			if(milestoneResumedCases.isEmpty() == false) {
-				setMilestoneCompletionDates(milestoneResumedCases, null); // this will resume the milestone
-			}
-
-			if(caseIdToFutureUpdateMilestones.isEmpty() == false) {
-				futureUpdateUnifiedMilestones(caseIdToFutureUpdateMilestones);
-			}
 		}
 		catch(Exception exp){
 			// Error Logged to Exception object for analysis
