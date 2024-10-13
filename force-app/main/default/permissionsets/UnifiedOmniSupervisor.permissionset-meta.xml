@@ -5,7 +5,19 @@
     <label>Unified Omni Supervisor</label>
     <license>Salesforce</license>
     <classAccesses>
+        <apexClass>genesyscloud__AuraComponentsController</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>genesyscloud__GenesysSCVExtensionService</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>genesyscloud__GenesysSCVExtensionClass</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>genesyscloud__GenesysSCVExtension</apexClass>
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
@@ -14,6 +26,18 @@
     </classAccesses>
     <classAccesses>
         <apexClass>genesyscloud__GenesysServiceCloudVoiceUtilities</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>genesyscloud__OAuthClient</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>genesyscloud__OAuthSetting</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>genesyscloud__RestClient</apexClass>
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
@@ -27,7 +51,7 @@
     <classAccesses>
         <apexClass>genesysps__PureCloudKnowledgeUtilityController</apexClass>
         <enabled>true</enabled>
-    </classAccesses>	
+    </classAccesses>
     <classAccesses>
         <apexClass>genesysps__PureCloudTranscript</apexClass>
         <enabled>true</enabled>
