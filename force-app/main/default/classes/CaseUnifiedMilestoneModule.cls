@@ -67,7 +67,10 @@ public inherited sharing class CaseUnifiedMilestoneModule extends ApplicationMod
 		}
 	}
 
-	
+	/**
+	 * This method sets Stop/Start on milestones whenever a unified case is Closed/Opens. 
+	 * It also checks if the Case.Type has changed from Unified General Enquiry to Unified Investigation and sets the EntitlementId to start the milestones.
+	 */
 	void updateMilestones(List<Case> records, Map<Id, Case> existingRecords, ApplicationUnitOfWork uow) {
 		if(unifiedEntitlementId != null) {
 			// for AfterUpdate Scenario, check for changed state
