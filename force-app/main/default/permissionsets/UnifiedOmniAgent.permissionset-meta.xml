@@ -2,7 +2,19 @@
 <PermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
     <description>This permission set shall be used for all agents (including supervisor) and defines all permissions for the purpose of using Salesforce Omni and its features</description>
     <classAccesses>
+        <apexClass>genesyscloud__AuraComponentsController</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>genesyscloud__GenesysSCVExtensionService</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>genesyscloud__GenesysSCVExtensionClass</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>genesyscloud__GenesysSCVExtension</apexClass>
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
@@ -11,6 +23,18 @@
     </classAccesses>
     <classAccesses>
         <apexClass>genesyscloud__GenesysServiceCloudVoiceUtilities</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>genesyscloud__OAuthClient</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>genesyscloud__OAuthSetting</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>genesyscloud__RestClient</apexClass>
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
@@ -24,7 +48,7 @@
     <classAccesses>
         <apexClass>genesysps__PureCloudKnowledgeUtilityController</apexClass>
         <enabled>true</enabled>
-    </classAccesses>	
+    </classAccesses>
     <classAccesses>
         <apexClass>genesysps__PureCloudTranscript</apexClass>
         <enabled>true</enabled>
