@@ -8,6 +8,7 @@
 * @description A very simple selector class that sits in the base domain
 * @changelog
 * 2023-04-21 - Pratyush Chalasani - Created
+* 2024-10-10 - Swati Mogadala - New method added selectByDups() 
 */
 public virtual inherited sharing class BudgetAndRevenueSelector extends ApplicationSelector {
 	public static BudgetAndRevenueSelector newInstance() {
@@ -35,7 +36,7 @@ public virtual inherited sharing class BudgetAndRevenueSelector extends Applicat
 		return (List<Budget_and_Revenue__c>)Database.query(qb.toSoqlString());
 	}
 
-    public Map<Id, Budget_and_Revenue__c> selectByUniqueIds(Set<String> uniqueIds) {
+	public Map<Id, Budget_and_Revenue__c> selectByUniqueIds(Set<String> uniqueIds) {
 		QueryBuilder qb = newQueryBuilder().addConditions().add(new QueryBuilder.SimpleCondition(Budget_and_Revenue__c.uid__c + ' in :uniqueIds')).endConditions();
 		return new Map<Id, Budget_and_Revenue__c>((List<Budget_and_Revenue__c>)Database.query(qb.toSoqlString()));
 	}
@@ -52,33 +53,39 @@ public virtual inherited sharing class BudgetAndRevenueSelector extends Applicat
 
 		return (List<Budget_and_Revenue__c>)Database.query(qb.toSoqlString());
 	}
-    
-    public List<Budget_and_Revenue__c> selectByOrganisationAndProduct(Set<Id> organisationIds, Set<Id> productIds, Set<Integer> financialYears, Set<Id> recordsToExclude) {
-        Set<String> fy = new Set<String>();
-        for (integer currentY : financialYears) {
-            fy.add(String.ValueOf(currentY));
-        }
-        return selectByOrganisationAndProduct(organisationIds, productIds, fy,recordsToExclude);
-    }
-    
+	
+	public List<Budget_and_Revenue__c> selectByOrganisationAndProduct(Set<Id> organisationIds, Set<Id> productIds, Set<Integer> financialYears, Set<Id> recordsToExclude) {
+		Set<String> fy = new Set<String>();
+		for (integer currentY : financialYears) {
+			fy.add(String.ValueOf(currentY));
+		}
+		return selectByOrganisationAndProduct(organisationIds, productIds, fy,recordsToExclude);
+	}
+	
 	/**
 	 * @description Query revenues by accounts and products and financial years
 	 */
 	public List<Budget_and_Revenue__c> selectByOrganisationAndProduct(Set<Id> organisationIds, Set<Id> productIds, Set<String> financialYears, Set<Id> recordsToExclude) {
 		QueryBuilder qb = newQueryBuilder().addConditions().add(new QueryBuilder.SimpleCondition(Budget_and_Revenue__c.Organisation__c + ' in :organisationIds')).endConditions();
 
-        if (!productIds.isEmpty()) {
+		if (!productIds.isEmpty()) {
 			qb.addConditions().add(new QueryBuilder.SimpleCondition(Budget_and_Revenue__c.Product__c + ' in :productIds')).endConditions();
 		}
-        
-        if (!financialYears.isEmpty()) {
+		
+		if (!financialYears.isEmpty()) {
 			qb.addConditions().add(new QueryBuilder.SimpleCondition(Budget_and_Revenue__c.Financial_Year__c + ' in :financialYears')).endConditions();
 		}
-        
+		
 		if (!recordsToExclude.isEmpty()) {
 			qb.addConditions().add(new QueryBuilder.SimpleCondition(Budget_and_Revenue__c.uid__c + 'not in :recordsToExclude')).endConditions();
 		}
 
 		return (List<Budget_and_Revenue__c>)Database.query(qb.toSoqlString());
+	}
+	  public List<Budget_and_Revenue__c> selectByDups(){
+		QueryBuilder qb = newQueryBuilder().addConditions().add(new QueryBuilder.CompareCondition(Budget_and_Revenue__c.Check_Duplicate__c).eq('Duplicate')).endConditions();
+
+		return (List<Budget_and_Revenue__c>)Database.query((qb.toSoqlString()));
+
 	}
 }
