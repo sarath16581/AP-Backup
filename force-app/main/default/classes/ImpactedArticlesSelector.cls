@@ -6,6 +6,7 @@
 * 2024-06-18 - Vasu Gorakati - Case Hand-off
 * 2024-08-31 - Ranjeewa Silva - Added new search method with search parameter validation.
 * 2024-09-06 - Seth Heang - added selectById() and added newInstance(fieldOverrides)
+* 2024-10-09 - Seth Heang - added selectByCaseId()
 **/
 public virtual inherited sharing class ImpactedArticlesSelector extends ApplicationSelector {
 
@@ -43,7 +44,17 @@ public virtual inherited sharing class ImpactedArticlesSelector extends Applicat
 				ImpactedArticle__c.Article__c, ImpactedArticle__c.ArticleId__c, ImpactedArticle__c.Case__c
 		};
 	}
-	
+
+	/*
+	 * Retrieve Impacted Articles with matching case ids
+	 * @param caseIds list of case ids
+	 *
+	 * @return List<ImpactedArticle__c>
+	*/
+	public virtual List<ImpactedArticle__c> selectByCaseId(Set<Id> caseIds) {
+		return selectByCaseId(caseIds, new Set<Object>());
+	}
+
 	/*
 	 * this method returns records with matching case ids
 	 * @param caseIds list of case ids

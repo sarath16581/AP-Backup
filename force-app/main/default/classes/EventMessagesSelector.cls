@@ -70,7 +70,7 @@ public virtual inherited sharing class EventMessagesSelector extends Application
 	
 	/**
 	 * @param fieldOverrides NOTE: Field overrides should only ever be used when the results are not passed from method to method.
-	 *						  This approach removes data consistency and prevents possible caching of results
+	 *						 This approach removes data consistency and prevents possible caching of results
 	 */
 	public static EventMessagesSelector newInstance(Map<SObjectType, Set<SObjectField>> fieldOverrides) {
 		EventMessagesSelector selector = (EventMessagesSelector)Application.Selectors.newInstance(EventMessagesSelector.class).setFieldOverrides(fieldOverrides);
@@ -113,8 +113,8 @@ public virtual inherited sharing class EventMessagesSelector extends Application
 	 * @param eventTypes set of event type string
 	 * @return List<EventMessage__c>
 	 */
-	public virtual List<EventMessage__c> selectByCaseIdAndEventType(Set<Id> caseIds, Set<String> eventTypes) {
-		return selectByCaseIdAndEventType(caseIds, eventTypes, new Set<Object>());
+	public virtual List<EventMessage__c> selectByArticleIdAndEventType(Set<Id> articleIds, Set<String> eventTypes) {
+		return selectByArticleIdAndEventType(articleIds, eventTypes, new Set<Object>());
 	}
 
 	/**
@@ -124,10 +124,17 @@ public virtual inherited sharing class EventMessagesSelector extends Application
 	 * @param selectorOptions options for retrieving related objects or additional filter
 	 * @return List<EventMessage__c>
 	 */
-	public virtual List<EventMessage__c> selectByCaseIdAndEventType(Set<Id> caseIds, Set<String> eventTypes, Set<Object> selectorOptions) {
+	public virtual List<EventMessage__c> selectByArticleIdAndEventType(Set<Id> articleIds, Set<String> eventTypes, Set<Object> selectorOptions) {
+		// Avoid running query without any criteria
+		articleIds.remove(null);
+		eventTypes.remove(null);
+		eventTypes.remove('');
+		if(articleIds.isEmpty() || eventTypes.isEmpty()){
+			return new List<EventMessage__c>();
+		}
 		QueryBuilder qb = newQueryBuilder(selectorOptions)
 				.addConditions()
-				.add(new QueryBuilder.SimpleCondition(EventMessage__c.Case__c + ' in :caseIds'))
+				.add(new QueryBuilder.SimpleCondition(EventMessage__c.Article__c + ' in :articleIds'))
 				.add(new QueryBuilder.SimpleCondition(EventMessage__c.EventType__c + ' in :eventTypes'))
 				.endConditions();
 		return (List<EventMessage__c>) Database.query(qb.toSoqlString());

@@ -20,6 +20,9 @@ import RECIPIENT_PARTICIPANT_DISPLAY_NAME_FIELD from '@salesforce/schema/VoiceCa
  *
  * The wrapper retrieves data from the interaction record, and handles updates when linking/unlinking the Contact,
  * as well has controlling the availability of the Customer Search form based on the linked Contact and/or Case records.
+ * 
+ * @changelog:
+ * 2024-10-03 - Removed 'auto-link' feature as handled via Apex Trigger (CSLU-1470)
  */
 export default class UnifiedCustomerSearchVoiceCallWrapper extends LightningElement {
 	/**
@@ -33,12 +36,6 @@ export default class UnifiedCustomerSearchVoiceCallWrapper extends LightningElem
 	 * @type {boolean}
 	 */
 	autoSearchOnLoad = true;
-
-	/**
-	 * If enabled, the a search will automatically link the Contact if only one is found.
-	 * @type {boolean}
-	 */
-	autoLinkContact = true;
 
 	/**
 	 * Used to display an error message to the user.
@@ -161,10 +158,6 @@ export default class UnifiedCustomerSearchVoiceCallWrapper extends LightningElem
 		try {
 			// This event may have bubbled up from a child component
 			event.stopPropagation();
-
-			// Disable auto-linking after first link/unlink event
-			// TODO: handle this better based on component initial load/search rather than link
-			this.autoLinkContact = false;
 
 			// Show loading spinner while updating the interation record
 			this.isUpdating = true;

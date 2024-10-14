@@ -3,6 +3,7 @@
  * @changelog:
  * 2024-08-08 - added handler methods to handle `createcontact` and `backtosearch` events and pass `formInputs` params to child LWCs
  * 2024-08-28 - Added public properties `autoSearchOnLoad` and `autoLinkContact`, added public method `setFormInput`
+ * 2024-10-03 - Removed 'auto-link' feature as handled via Apex Trigger (CSLU-1470)
  */
 import { LightningElement, api } from 'lwc';
 
@@ -22,12 +23,6 @@ export default class UnifiedCustomerSearch extends LightningElement {
 	 * @type {boolean}
 	 */
 	@api autoSearchOnLoad = false;
-
-	/**
-	 * If enabled, then a search will automatically link the Contact if only one is found.
-	 * @type {boolean}
-	 */
-	@api autoLinkContact = false;
 
 	/**
 	 * Sets the form fields for the firstName, lastName, emailAddress, and phoneNumber.
