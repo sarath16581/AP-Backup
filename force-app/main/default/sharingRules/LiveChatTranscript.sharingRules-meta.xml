@@ -3,9 +3,10 @@
     <sharingOwnerRules>
         <fullName>ClassicLiveChatTranscriptSharedWithUnifiedAgents</fullName>
         <accessLevel>Read</accessLevel>
+        <description>Records owned by role and internal subordinate for &apos;SSSW Management&apos; share with role and internal subordinate for &apos;Unified Team Lead&apos;.</description>
         <label>Classic Live Chat Transcript Shared With Unified Agents</label>
         <sharedTo>
-            <role>UnifiedAgent</role>
+            <roleAndSubordinatesInternal>UnifiedTeamLead</roleAndSubordinatesInternal>
         </sharedTo>
         <sharedFrom>
             <roleAndSubordinatesInternal>SSSW_Management</roleAndSubordinatesInternal>
@@ -26,24 +27,25 @@
     <sharingOwnerRules>
         <fullName>UnifiedLiveChatTranscriptSharedWithClassicAgents</fullName>
         <accessLevel>Read</accessLevel>
+        <description>Records owned by role and internal subordinate for &apos;Unified Team Lead&apos; share with role and internal subordinate for &apos;SSSW Management&apos;.</description>
         <label>Unified Live Chat Transcript Shared With Classic Agents</label>
         <sharedTo>
             <roleAndSubordinatesInternal>SSSW_Management</roleAndSubordinatesInternal>
         </sharedTo>
         <sharedFrom>
-            <role>UnifiedAgent</role>
+            <roleAndSubordinatesInternal>UnifiedTeamLead</roleAndSubordinatesInternal>
         </sharedFrom>
     </sharingOwnerRules>
     <sharingOwnerRules>
         <fullName>UnifiedLiveChatTranscriptSharedWithUnifiedAgents</fullName>
         <accessLevel>Edit</accessLevel>
-        <description>Records owned by role and internal subordinate for &apos;SSSW Call center manager&apos; share with role and internal subordinate for &apos;SSSW Call center manager&apos;.</description>
+        <description>Records owned by role and internal subordinate for &apos;Unified Team Lead&apos; share with role and internal subordinate for &apos;Unified Team Lead&apos;.</description>
         <label>Unified Live Chat Transcript Shared With Unified Agents</label>
         <sharedTo>
-            <role>UnifiedAgent</role>
+            <roleAndSubordinatesInternal>UnifiedTeamLead</roleAndSubordinatesInternal>
         </sharedTo>
         <sharedFrom>
-            <role>UnifiedAgent</role>
+            <roleAndSubordinatesInternal>UnifiedTeamLead</roleAndSubordinatesInternal>
         </sharedFrom>
     </sharingOwnerRules>
 </SharingRules>
