@@ -10,53 +10,53 @@ import { LightningElement, api, track } from 'lwc';
 import LwcForm from 'c/lwcForm';
 
 export default class ContentAndPostageClaim extends LwcForm {
-    @track amountNotValid = false;
-    @api contentClaimChangeHandler;
-    @api postageClaimChangeHandler;
+	@track amountNotValid = false;
+	@api contentClaimChangeHandler;
+	@api postageClaimChangeHandler;
 
-    connectedCallback() {
-        this.values.contentClaim = 0;
-        this.values.postageClaim = 0;
-        this.fireChangeHandlerContentClaim();
-        this.fireChangeHandlerPostageClaim();
-    }
+	connectedCallback() {
+		this.values.contentClaim = 0;
+		this.values.postageClaim = 0;
+		this.fireChangeHandlerContentClaim();
+		this.fireChangeHandlerPostageClaim();
+	}
 
-    handleContentClaimChange(event) {
-        this.amountNotValid = false;
-        this.values.contentClaim = event.target.value;
-        this.fireChangeHandlerContentClaim();
-    }
+	handleContentClaimChange(event) {
+		this.amountNotValid = false;
+		this.values.contentClaim = event.target.value;
+		this.fireChangeHandlerContentClaim();
+	}
 
-    handlePostageClaimChange(event) {
-        this.amountNotValid = false;
-        this.values.postageClaim = event.target.value;
-        this.fireChangeHandlerPostageClaim();
-    }
+	handlePostageClaimChange(event) {
+		this.amountNotValid = false;
+		this.values.postageClaim = event.target.value;
+		this.fireChangeHandlerPostageClaim();
+	}
 
-    fireChangeHandlerContentClaim() {
-        if (typeof this.contentClaimChangeHandler === 'function') {
-            this.contentClaimChangeHandler(this.values.contentClaim);
-        }
-    }
+	fireChangeHandlerContentClaim() {
+		if (typeof this.contentClaimChangeHandler === 'function') {
+			this.contentClaimChangeHandler(this.values.contentClaim);
+		}
+	}
 
-    fireChangeHandlerPostageClaim() {
-        if (typeof this.postageClaimChangeHandler === 'function') {
-            this.postageClaimChangeHandler(this.values.postageClaim);
-        }
-    }
+	fireChangeHandlerPostageClaim() {
+		if (typeof this.postageClaimChangeHandler === 'function') {
+			this.postageClaimChangeHandler(this.values.postageClaim);
+		}
+	}
 
-    @api reportValidity() {
-        const inputComponents = this.template.querySelectorAll(".form-input");
-        const inputsArray = inputComponents ? [...inputComponents] : [];
-        inputsArray.forEach(inputCmp => inputCmp.reportValidity());
-    }
+	@api reportValidity() {
+		const inputComponents = this.template.querySelectorAll(".form-input");
+		const inputsArray = inputComponents ? [...inputComponents] : [];
+		inputsArray.forEach(inputCmp => inputCmp.reportValidity());
+	}
 
-    @api checkValidity() {
-        const inputComponents = this.template.querySelectorAll(".form-input");
-        const inputsArray = inputComponents ? [...inputComponents] : [];
-        return inputsArray.reduce((acc, inputCmp) => {
-            inputCmp.reportValidity();
-            return acc && inputCmp.checkValidity();
-        }, true);
-    }
+	@api checkValidity() {
+		const inputComponents = this.template.querySelectorAll(".form-input");
+		const inputsArray = inputComponents ? [...inputComponents] : [];
+		return inputsArray.reduce((acc, inputCmp) => {
+			inputCmp.reportValidity();
+			return acc && inputCmp.checkValidity();
+		}, true);
+	}
 }
