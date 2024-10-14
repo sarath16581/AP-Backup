@@ -54,11 +54,6 @@
                 <sidebarComponents>
                     <componentType>KnowledgeOne</componentType>
                 </sidebarComponents>
-                <sidebarComponents>
-                    <componentType>VisualForcePage</componentType>
-                    <label>Social Profile</label>
-                    <page>SocialPersonaDetail</page>
-                </sidebarComponents>
                 <style>Tabs</style>
                 <unit>Percentage</unit>
                 <width>20</width>

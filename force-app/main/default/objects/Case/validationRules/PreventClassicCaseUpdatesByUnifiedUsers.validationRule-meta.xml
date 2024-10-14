@@ -5,6 +5,8 @@
     <description>Classic case should be read only for Unified agents</description>
     <errorConditionFormula>AND(
 	NOT(ISNEW()),
+	OR(ISCHANGED(Status),ISCHANGED(OwnerId),ISCHANGED(RecordTypeId)),
+	NOT(CONTAINS(PRIORVALUE(hidden_Record_Type_Name__c), 'Unified')),
 	CONTAINS($Profile.Name, &apos;Unified&apos;),
 	OR(
 		RecordType.DeveloperName == &apos;StarTrack_General_Enquiry&apos;,

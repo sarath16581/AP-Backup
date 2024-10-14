@@ -2,7 +2,7 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Act4__c</fullName>
     <description>Actual sales figure for April.</description>
-    <formula>GroupedAccountProductRevenue__r.Rev4__c</formula>
+    <formula>if( For4__c =0,0,  GroupedAccountProductRevenue__r.Rev4__c)</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <inlineHelpText>Actual sales figure for April.</inlineHelpText>
     <label>April Revenue</label>

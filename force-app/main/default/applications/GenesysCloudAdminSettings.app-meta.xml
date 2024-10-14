@@ -16,6 +16,7 @@
     <tabs>GCCoreServicies</tabs>
     <tabs>GCPackageManager</tabs>
     <tabs>GCforSCVSettings</tabs>
+    <tabs>genesyscloud__Log__c</tabs>
     <uiType>Lightning</uiType>
     <utilityBar>Genesys_Cloud_Admin_Settings_UtilityBar</utilityBar>
     <workspaceConfig>
@@ -27,6 +28,9 @@
         </mappings>
         <mappings>
             <tab>GCforSCVSettings</tab>
+        </mappings>
+        <mappings>
+            <tab>genesyscloud__Log__c</tab>
         </mappings>
     </workspaceConfig>
 </CustomApplication>

@@ -691,6 +691,9 @@ public with sharing class APT_AmendRenewController {
 				if(agreement != null && !String.isEmpty(agreement.Apttus_QPComply__RelatedProposalId__c)) {
 					//clone proposal
 					Apttus_Proposal__Proposal__c clonedProposal = APT_AmendRenewUtility.cloneProposal(APT_Constants.RECORD_TYPE_RENEWAL_QUOTE, opportunityId, priceListId, agreement);
+
+					clonedProposal = setProposalPrimaryContact(clonedProposal);
+
 					insert clonedProposal;
 
 					//proposalId = clonedProposal.Id;
@@ -767,6 +770,8 @@ public with sharing class APT_AmendRenewController {
 					//new proposal
 					Apttus_Proposal__Proposal__c newProposal = APT_AmendRenewUtility.newProposal(APT_Constants.RECORD_TYPE_RENEWAL_QUOTE,
 							opportunityId, priceListId, agreement);
+
+					newProposal = setProposalPrimaryContact(newProposal);
 					insert newProposal;
 					//proposalId = newProposal.Id;
 
@@ -1102,6 +1107,9 @@ public with sharing class APT_AmendRenewController {
 					// Statement will assign selected revenue type to proposal field revenue type
 					clonedProposal.APT_Revenue_Type__c = selectedRevenue;
 					APT_AmendRenewUtility.resetOpportunityProposalPrimary(Id.valueOf(opportunityId));
+
+					clonedProposal = setProposalPrimaryContact(clonedProposal);
+
 					insert clonedProposal;
 
 					/*
@@ -1173,6 +1181,9 @@ public with sharing class APT_AmendRenewController {
 					Apttus_Proposal__Proposal__c newProposal = APT_AmendRenewUtility.newProposal(APT_Constants.RECORD_TYPE_AMENDMENT_QUOTE,
 							opportunityId, priceListId, agreement);
 					APT_AmendRenewUtility.resetOpportunityProposalPrimary(Id.valueOf(opportunityId));
+
+					newProposal = setProposalPrimaryContact(newProposal);
+
 					insert newProposal;
 					//proposalId = newProposal.Id;
 
@@ -1259,5 +1270,16 @@ public with sharing class APT_AmendRenewController {
 			List<OpportunityLineItem> listClonedOpportunityLineItem = APT_AmendRenewUtility.copyOpporunityProducts(opportunityId, agreement, listOpportunityLineItem, APT_Constants.ACTION_TYPE_RENEWAL);
 			ApplicationDatabase.getInstance().dmlInsert(listClonedOpportunityLineItem);
 		}
+	}
+
+	/*
+	Set Key Contact for Proposal and return the respected proposal
+	*/
+	private Apttus_Proposal__Proposal__c setProposalPrimaryContact(Apttus_Proposal__Proposal__c proposal) {
+		//set primary contact from DSR
+		if (dsr != null) {
+			proposal.Apttus_Proposal__Primary_Contact__c = dsr.CustomerContact1__c != null ? dsr.CustomerContact1__c : proposal.Apttus_Proposal__Primary_Contact__c;
+		}
+		return proposal;
 	}
 }

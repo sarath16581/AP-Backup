@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>NotificationRoleNames__c</fullName>
+    <defaultValue>&apos;SSSW MyNetwork Manager&apos;</defaultValue>
+    <description>Roles to be included for sending email notification prior to deactivation for retail users</description>
+    <inlineHelpText>Roles to be included for sending email notification prior to deactivation for retail users</inlineHelpText>
+    <label>Notification Role Names</label>
+    <required>false</required>
+    <securityClassification>INTERNAL</securityClassification>
+    <trackTrending>false</trackTrending>
+    <type>TextArea</type>
+</CustomField>

@@ -994,6 +994,22 @@
             </value>
         </valueSetDefinition>
         <valueSettings>
+            <controllingFieldValue>Domestic</controllingFieldValue>
+            <valueName>StarTrack Road Express</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Domestic</controllingFieldValue>
+            <valueName>StarTrack Premium</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Domestic</controllingFieldValue>
+            <valueName>eParcel Parcel Post</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Domestic</controllingFieldValue>
+            <valueName>eParcel Express Post</valueName>
+        </valueSettings>
+        <valueSettings>
             <controllingFieldValue>Card Transaction Monitoring</controllingFieldValue>
             <valueName>China Union Pay - CUP</valueName>
         </valueSettings>

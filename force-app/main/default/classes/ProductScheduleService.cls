@@ -192,6 +192,7 @@ public with sharing class ProductScheduleService {
                 }
                 if (schedule.opportunityProduct__r != null && !itemsToUpdate.containsKey(schedule.OpportunityProduct__r.id)) {
                     system.debug('*** adding itemsToUpdate ' +schedule.OpportunityProduct__r.id);
+                    system.debug('**** item classification being updated '+schedule.opportunityProduct__r.classification__c);
                     itemsToUpdate.put(schedule.OpportunityProduct__r.id,schedule.opportunityProduct__r);
                 }
             }
@@ -277,6 +278,7 @@ public with sharing class ProductScheduleService {
 				}
 				// recalculate the schedule. This calculation only depends on the value of the line item, not its sales history.
 				calculator.recalculateScheduleByReference(scheduleToCalculate);
+                scheduleToCalculate.NRTBaseline__c = nrtBaseline;
 				// assign the line item
 				scheduleToCalculate.OpportunityProduct__r=nextItem;
                 string uid = nextItem.id +  String.valueOf(financialYear);

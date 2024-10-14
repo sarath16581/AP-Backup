@@ -784,4 +784,12 @@
         <name>b2bma_canvas</name>
         <type>ConnectedApp</type>
     </appMenuItems>
+    <appMenuItems>
+        <name>GenesysCloudAdminSettings</name>
+        <type>CustomApplication</type>
+    </appMenuItems>
+    <appMenuItems>
+        <name>UnifiedCustomerService</name>
+        <type>CustomApplication</type>
+    </appMenuItems>
 </AppMenu>

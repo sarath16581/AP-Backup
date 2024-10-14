@@ -160,7 +160,6 @@ public with sharing class ProductRevenueService {
 		// collect accounts associated with the line items
 		loadOpportunityAccounts(opportunityInfo.values());
         
-		system.debug('Loaded opportunity accounts for items '+items);
 		// return the newly created or recalculated grouped revenues
 		return reCalculateGroupRevenues(items,false);
 	}
@@ -176,22 +175,20 @@ public with sharing class ProductRevenueService {
 		loadOpportunityInfoForOpportunityLineItems(itemsToUpdate);
 		// update opportunity line item incremental and retained values
 		for (OpportunityLineItem record : itemsToUpdate) {
-            system.debug('*** updating fiancials for record '+record);
 			Opportunity recordOpportunity = this.opportunityInfo.get(record.opportunityid);
-            system.debug('**** record opportunity '+recordOpportunity);
-			record.Hidden_In_Year_Revenue__c = record.In_Year_Revenue__c;
-			// pre-conditions
-			if (record.Contract_Start_Date__c != null && record.Contract_End_Date__c != null) {
-				// get last twelve months sales history
-				date startDate = getDateToUse(record);
-				system.debug('**** getting past sales account '+recordOpportunity.AccountId +' product '+ record.Product2Id +' start date '+ startDate);
-				Double pastSales = getSumOfPastTwelveMonths(recordOpportunity.AccountId, record.Product2Id, startDate);
-                system.debug('**** past sales '+pastSales);
-				updateRetainedIncrementalAnnualised(record,pastSales);
-				record.X3MonthAverageActual__c = getPastMonthsAverage(recordOpportunity.AccountId, record.Product2Id, 3, startDate);
-				record.TotalInYearRevenue__c = calculateTotalInYearRevenue(record.contract_Start_Date__c, record.contract_End_Date__c, record.totalPrice);
-			}
-		}
+            if(recordOpportunity.OverrideOPCCalculation__c == false) {
+                record.Hidden_In_Year_Revenue__c = record.In_Year_Revenue__c;
+                // pre-conditions
+                if (record.Contract_Start_Date__c != null && record.Contract_End_Date__c != null) {
+                    // get last twelve months sales history
+                    date startDate = getDateToUse(record);
+                    Double pastSales = getSumOfPastTwelveMonths(recordOpportunity.AccountId, record.Product2Id, startDate);
+                    updateRetainedIncrementalAnnualised(record,pastSales);
+                    record.X3MonthAverageActual__c = getPastMonthsAverage(recordOpportunity.AccountId, record.Product2Id, 3, startDate);
+                    record.TotalInYearRevenue__c = calculateTotalInYearRevenue(record.contract_Start_Date__c, record.contract_End_Date__c, record.totalPrice);
+                }
+            }
+        }
 	}
  
 	/**
@@ -217,7 +214,6 @@ public with sharing class ProductRevenueService {
 		// create a map from the account to a set of products that have any sales history (last 5 years)
 		Map<Id,Set<id>> accountProductSalesAllTime = new Map<id,Set<Id>>();
 		// build out the account sales map
-		system.debug('***** groupedRevenues.keyset()  ' + groupedRevenues.keyset());
 		for (GroupedAccountProductRevenue__c revenueRecord : groupedRevenues.values()) {
 			if (revenueRecord != null && fytotal(revenueRecord)>0) {
 				if (!accountProductSalesAllTime.containsKey(revenueRecord.AnchorOrganisation__c)) {
@@ -234,25 +230,22 @@ public with sharing class ProductRevenueService {
 				accountProductSalesAllTime.get(revenueRecord.Organisation__c).add(revenueRecord.Product__c);
 			}
 		}
-        system.debug('***** accountProductSalesAllTime ' + accountProductSalesAllTime);
 		// iterate through each line item to classify the opportunity line item
 		for (OpportunityLineItem lineItem : lineItems) {
 			Opportunity oppInfo = opportunityInfo.get(lineItem.opportunityid);
-            system.debug('***** oppInfo ' + oppInfo);
-			boolean accountHasAnySales = accountProductSalesAllTime.containsKey(oppInfo.accountId);
-            system.debug('***** accountHasAnySales ' + accountHasAnySales);
-			boolean accountHasProductSales = accountHasAnySales ? accountProductSalesAllTime.get(oppInfo.accountId).contains(lineitem.Product2Id) : false;
-            system.debug('***** accountHasAnySales ' + accountHasProductSales);
-            system.debug('***** lineItem.IncrementalRevenue__c  ' + lineItem.IncrementalRevenue__c );
-			if (!accountHasAnySales) { 
-				lineItem.Classification__c = CLASSIFICATION_NEW_BUSINESS; //cannot find any CustomerRev records => new business
-			} else if (!accountHasProductSales) {
-				lineItem.Classification__c = CLASSIFICATION_CROSS_SELL; //Customer Rev record for this product does not exist, but there are other Customer Rev records for this grouped account
-			} else if (lineItem.TweleveMonthRevenue__c > 0) { // the line item has some sales in the past 12 months
-				lineItem.Classification__c = lineItem.IncrementalRevenue__c != null && lineItem.IncrementalRevenue__c > 0 ? CLASSIFICATION_GROWTH : CLASSIFICATION_RENEWAL;
-			} else {
-				lineItem.Classification__c = CLASSIFICATION_WIN_BACK; //opposite of renewal, is the last 12 months logic is 0, but not 0 going before that
-			}
+            if (oppInfo.OverrideOPCCalculation__c == false || lineItem.Classification__c == null) {
+                boolean accountHasAnySales = accountProductSalesAllTime.containsKey(oppInfo.accountId);
+                boolean accountHasProductSales = accountHasAnySales ? accountProductSalesAllTime.get(oppInfo.accountId).contains(lineitem.Product2Id) : false;
+                if (!accountHasAnySales) { 
+                    lineItem.Classification__c = CLASSIFICATION_NEW_BUSINESS; //cannot find any CustomerRev records => new business
+                } else if (!accountHasProductSales) {
+                    lineItem.Classification__c = CLASSIFICATION_CROSS_SELL; //Customer Rev record for this product does not exist, but there are other Customer Rev records for this grouped account
+                } else if (lineItem.TweleveMonthRevenue__c > 0) { // the line item has some sales in the past 12 months
+                    lineItem.Classification__c = lineItem.IncrementalRevenue__c != null && lineItem.IncrementalRevenue__c > 0 ? CLASSIFICATION_GROWTH : CLASSIFICATION_RENEWAL;
+                } else {
+                    lineItem.Classification__c = CLASSIFICATION_WIN_BACK; //opposite of renewal, is the last 12 months logic is 0, but not 0 going before that
+                }
+            }
 		}
 		return lineItems;
 	}
@@ -286,7 +279,6 @@ public with sharing class ProductRevenueService {
 		// Iterate through the past 12 months
 		Integer targetYear = getAustralianFinancialYear(targetDate);
 		Integer targetMonth = targetDate.month();
-        system.debug('targetYear = '+targetYear +' target month '+targetMonth);
 		for (Integer i = 1; i <= 12; i++) {
 			// last twelve months sales does not include the current month
 			// go backwards one month
@@ -324,7 +316,7 @@ public with sharing class ProductRevenueService {
 		Integer targetMonth = targetDate.month(); // should not include the current month
 		String uniqueId = getUID(accountId,productId,String.valueOf(targetYear));
 		GroupedAccountProductRevenue__c targetData = groupedRevenues.get(uniqueId);
-		for (Integer i = 1; i <= 3; i++) {
+		for (Integer i = 1; i <= numberOfMonths; i++) {
 			// adjust target month and financial year.
 			targetMonth -= 1;
 			if (targetMonth == 6) {
@@ -430,10 +422,10 @@ public with sharing class ProductRevenueService {
 			OpportunityLineItem.Contract_Start_Date__c, OpportunityLineItem.Contract_End_Date__c,OpportunityLineItem.UnitPrice,
 			OpportunityLineItem.TotalPrice, OpportunityLineItem.Annualised_Value__c, OpportunityLineItem.RetainedRevenue__c,
 			OpportunityLineItem.IncrementalRevenue__c, OpportunityLineItem.TweleveMonthRevenue__c, OpportunityLineItem.X3MonthAverageActual__c,
-			OpportunityLineItem.In_Year_Revenue__c, OpportunityLineItem.Hidden_In_Year_Revenue__c, OpportunityLineItem.TotalInYearRevenue__c
+			OpportunityLineItem.In_Year_Revenue__c, OpportunityLineItem.Hidden_In_Year_Revenue__c, OpportunityLineItem.TotalInYearRevenue__c, OpportunityLineItem.Classification__c
 		},
 		Product2.SObjectType => new Set<SObjectField>{Product2.Name},
-		Opportunity.SObjectType => new Set<SObjectField>{Opportunity.Name,Opportunity.AccountId,Opportunity.Id,Opportunity.StageName,Opportunity.DoNotUseAccountHierarchy__c, Opportunity.closedate, Opportunity.Pre_Entry__c, Opportunity.RevenueCalculationAccountIDs__c}
+		Opportunity.SObjectType => new Set<SObjectField>{Opportunity.Name,Opportunity.AccountId,Opportunity.Id,Opportunity.StageName,Opportunity.DoNotUseAccountHierarchy__c, Opportunity.closedate, Opportunity.Pre_Entry__c, Opportunity.RevenueCalculationAccountIDs__c,Opportunity.OverrideOPCCalculation__c}
 		};
 		List<OpportunityLineItem> loadedItems = OpportunityLineItemSelector.newInstance(0, fieldOverrides).selectByOPCCalculationOpportunityIds(opportunityIds, new Set<Object>{OpportunityLineItemSelector.Options.WITH_OPPORTUNITY, OpportunityLineItemSelector.Options.WITH_PRODUCT});
 		// store related opportunities 
@@ -457,10 +449,10 @@ public with sharing class ProductRevenueService {
 			OpportunityLineItem.Contract_Start_Date__c, OpportunityLineItem.Contract_End_Date__c,OpportunityLineItem.UnitPrice,
 			OpportunityLineItem.TotalPrice, OpportunityLineItem.Annualised_Value__c, OpportunityLineItem.RetainedRevenue__c,
 			OpportunityLineItem.IncrementalRevenue__c, OpportunityLineItem.TweleveMonthRevenue__c, OpportunityLineItem.X3MonthAverageActual__c,
-			OpportunityLineItem.In_Year_Revenue__c, OpportunityLineItem.Hidden_In_Year_Revenue__c
+			OpportunityLineItem.In_Year_Revenue__c, OpportunityLineItem.Hidden_In_Year_Revenue__c,OpportunityLineItem.Classification__c
 		},
 		Product2.SObjectType => new Set<SObjectField>{Product2.Name},
-		Opportunity.SObjectType => new Set<SObjectField>{Opportunity.Name,Opportunity.AccountId,Opportunity.Id,Opportunity.StageName,Opportunity.DoNotUseAccountHierarchy__c, Opportunity.closedate, Opportunity.Pre_Entry__c, Opportunity.RevenueCalculationAccountIDs__c}
+		Opportunity.SObjectType => new Set<SObjectField>{Opportunity.Name,Opportunity.AccountId,Opportunity.Id,Opportunity.StageName,Opportunity.DoNotUseAccountHierarchy__c, Opportunity.closedate, Opportunity.Pre_Entry__c, Opportunity.RevenueCalculationAccountIDs__c, Opportunity.OverrideOPCCalculation__c}
 		};
 		List<OpportunityLineItem> loadedItems = OpportunityLineItemSelector.newInstance(0, fieldOverrides).selectbyId(lineItemIds, new Set<Object>{OpportunityLineItemSelector.Options.WITH_OPPORTUNITY, OpportunityLineItemSelector.Options.WITH_PRODUCT});
 		// store related opportunities 
@@ -473,12 +465,10 @@ public with sharing class ProductRevenueService {
 	}
  
 	public Map<String,String> getOpportunityAccountList(List<Opportunity> opportunities) {
-		system.debug('**** generating account list for opportunities '+opportunities);
         Map<String,String> opportunityAccountList = new Map<String,String>();
 		Set<Id> loadedAccounts = loadOpportunityAccounts(opportunities);
         
 		Map<Id,Set<Id>> parentToChildMap = getParentToChildAccountMap();
-        system.debug('**** parent to child account map '+parentToChildMap);
 		for(Opportunity opp : opportunities) {
 			Set<String> opportunityAccountIds = new Set<String>();
             if (opp.DoNotUseAccountHierarchy__c == false){
@@ -532,7 +522,6 @@ public with sharing class ProductRevenueService {
 		for(Opportunity opp : opportunities) {
 			// get the primary opportunity account ids
 			accountIds.add(opp.AccountId);
-			system.debug('all accounts accountIds'+accountIds);
 			// if the opportunity specifies revenue accounts, load these as related accounts
             if(!string.isBlank(opp.RevenueCalculationAccountIDs__c)) {
                 if (!relatedChildAccountsMap.containsKey(opp.accountId)) {
@@ -542,7 +531,6 @@ public with sharing class ProductRevenueService {
                     accountIds.add(specifiedAccountId);
                     relatedChildAccountsMap.get(opp.accountId).add(specifiedAccountId);
                 }
-                system.debug('***** added the following revenue calculation account ids to related accounts '+relatedChildAccountsMap.get(opp.accountId) );
             }
 		}
 		// collect related accounts
@@ -592,20 +580,13 @@ public with sharing class ProductRevenueService {
 			return totalPrice;
 		}
 		Date today = Date.today();
-        system.debug('**** today '+today);
 		Date fiscalYearEnd = Date.newInstance(today.year(), 6, 30);
-        system.debug('**** fiscalYearEnd '+fiscalYearEnd);
 		Date nextFiscalYearEnd = Date.newInstance(today.year() + 1, 6, 30);
-		system.debug('**** nextFiscalYearEnd '+nextFiscalYearEnd);
 		Date effectiveEndDate = contractEndDate <= fiscalYearEnd ? contractEndDate : (contractStartDate > fiscalYearEnd ? fiscalYearEnd : nextFiscalYearEnd);
-		system.debug('**** effectiveEndDate '+effectiveEndDate);
         Date effectiveStartDate = contractStartDate >= fiscalYearEnd ? contractStartDate : (contractEndDate < fiscalYearEnd ? fiscalYearEnd : today);
-		system.debug('**** effectiveStartDate '+effectiveStartDate);
-		Integer totalDays = contractStartDate.daysBetween(contractEndDate) + 1;
-		system.debug('**** totalDays '+totalDays);
+		Decimal totalDays = Decimal.valueOf(contractStartDate.daysBetween(contractEndDate) + 1);
         Integer effectiveDays = effectiveStartDate.daysBetween(effectiveEndDate) + 1;
-		system.debug('**** effectiveDays '+effectiveDays);
-		return (Decimal.valueOf(effectiveDays) / Decimal.valueOf(totalDays)) * totalPrice;
+		return totalDays == 0 ? totalPrice : effectiveDays /totalDays * totalPrice;
 	}
  
  
@@ -636,16 +617,13 @@ public with sharing class ProductRevenueService {
 		//If the pre-entry scenario checkbox has been ticked, then use the Contract Start Date of the Line Item
 		Opportunity recordOpportunity = this.opportunityInfo.get(item.opportunityid);
 		if (item.opportunity.Pre_Entry__c == true && item.Contract_Start_Date__c != null) { 
-            system.debug(' using item.contract_start_date '+ item.Contract_Start_Date__c);
 			return item.Contract_Start_Date__c;
 		}
 		//If the pre-entry scenario checkbox is unticked, then use the Close Date of the opportunity. 
 		if (recordOpportunity.Pre_Entry__c == false && recordOpportunity.StageName == OPPORTUNITY_CLOSED_WON) { 
-            system.debug(' using opportunity close date of '+recordOpportunity.CloseDate);
 			return recordOpportunity.CloseDate;
 		}
 		// a default date to use
-	    system.debug(' using revenueCalculationContextDate of '+revenueCalculationContextDate);
 		return revenueCalculationContextDate;
 	}
  
@@ -762,7 +740,6 @@ public with sharing class ProductRevenueService {
  
 	private set<id> getRelatedChildAccountIds() {
 		set<id> relatedAccountIds = new set<id>();
-        system.debug('************ relatedChildAccountsMap '+relatedChildAccountsMap);
 		for (id nextRelatedAccountId : relatedChildAccountsMap.keyset()) {
             Set<id> relatedAccountsToAdd = relatedChildAccountsMap.get(nextRelatedAccountId);
             if (relatedAccountsToAdd != null) {
@@ -817,9 +794,10 @@ public with sharing class ProductRevenueService {
 	private void updateRetainedIncrementalAnnualised(OpportunityLineItem record, Double pastSales) {
 		// Calculations will be based on contract days.
 		Integer contractDays = contractDays(record);
+        Integer leapDays = leapYearDays(record);
 		// Annualize values based on contract days
-		if (contractDays > DAYS_IN_YEAR) {
-			contractDays = DAYS_IN_YEAR;
+        if (contractDays > DAYS_IN_YEAR+leapDays) {
+			contractDays = DAYS_IN_YEAR+leapDays;
 		}
 		// the value of the opportunity line item over its contract period
 		updateRetainedIncremental(record, pastSales, contractDays);
@@ -827,46 +805,27 @@ public with sharing class ProductRevenueService {
 
 	/**
 	* Updates the retained and incremental revenue fields for a given OpportunityLineItem record. based on the historical sales value.
-	* @param record The OpportunityLineItem object to be updated.
+	* @param record Th-------e OpportunityLineItem object to be updated.
 	* @param pastSales The sales amount for the past twelve months for the account and product related to the record.
 	* @param contractDays contractDays
 	*/
 	private void updateRetainedIncremental(OpportunityLineItem record, Double pastSales, Integer contractDays) {
-		// the value of the opportunity line item over its contract period 
-		Double totalValue = record.Annualised_Value__c;
-		// the annual value of the opportunity line item
-		Double annualValue = totalValue / contractDays * DAYS_IN_YEAR;
 		// sales for the past twelve months
 		record.TweleveMonthRevenue__c = pastSales;
+        double correctedSales = pastSales < 0 ? 0 : pastSales;
 		// calculate retained and incremental based on the sales history 
-		if (contractDays < DAYS_IN_YEAR ) {
-			if (totalValue > pastSales) {
-				// sales of the contract exceed historical sales.
-				// The retained revenue will be based on sales history
-				record.RetainedRevenue__c = pastSales;
-				// The incremental revenue will be the contract value in excess of sales history
-				record.IncrementalRevenue__c = totalValue - pastSales;
-			} else {
-				// sales of the contract are less or equal to the sales history.
-				// Only retained value applies, and is equal to the total value of the contract.
-				record.RetainedRevenue__c = totalValue;
-				record.IncrementalRevenue__c = 0;
-			}
-		} else
-		{
-			if (annualValue > pastSales) {
-				// sales of the contract exceed historical sales.
-				// The retained revenue will be based on sales history
-				record.RetainedRevenue__c = pastSales / DAYS_IN_YEAR * contractDays;
-				// The incremental revenue will be the contract value in excess of sales history
-				record.IncrementalRevenue__c = (annualValue - pastSales) / DAYS_IN_YEAR * contractDays;
-			} else {
-				// sales of the contract are less or equal to the sales history.
-				// Only retained value applies, and is equal to the total value of the contract.
-				record.RetainedRevenue__c = totalValue;
-				record.IncrementalRevenue__c = 0;
-			}
-		}
+        if (record.Annualised_Value__c > correctedSales) {
+            // sales of the contract exceed historical sales.
+            // The retained revenue will be based on sales history
+            record.RetainedRevenue__c = correctedSales;
+            // The incremental revenue will be the contract value in excess of sales history
+            record.IncrementalRevenue__c = record.Annualised_Value__c - correctedSales;
+        } else {
+            // sales of the contract are less or equal to the sales history.
+            // Only retained value applies, and is equal to the total value of the contract.
+            record.RetainedRevenue__c = record.Annualised_Value__c;
+            record.IncrementalRevenue__c = 0;
+        } 
     }
 
 	/**
@@ -879,6 +838,29 @@ public with sharing class ProductRevenueService {
 		Integer contractDays = record.Contract_Start_Date__c.daysBetween(record.Contract_End_Date__c)+1;
 		return contractDays; // == 0 ? 1 : contractDays;
 	}
+    
+    private Integer leapYearDays(OpportunityLineItem record) {
+        Date startDate = record.Contract_Start_Date__c;
+        Date endDate = record.Contract_End_Date__c;
+        
+        // Check if contract spans February (between February 1st and February 28/29)
+        if (startDate.month() <= 2) {
+            // Check if the start year is a leap year
+            if (Date.isLeapYear(startDate.year())) {
+                return 1;
+            }
+        }
+        else if (endDate.month() >= 2) {  // Check if the end year is a leap year
+            if (Date.isLeapYear(endDate.year())) {
+                return 1;
+            }
+        }
+        
+        // No leap year February found
+        return 0;
+    }
+
+
 
 	/**
 	* @description 	Recalculate Grouped Revenues for opportunity line items
@@ -889,32 +871,24 @@ public with sharing class ProductRevenueService {
 	private Map<String ,GroupedAccountProductRevenue__c> reCalculateGroupRevenues(List<OpportunityLineItem> items, boolean useDefaultDate) {
 		// get the uids for the budget and revenue records that will be needed
 		Set<String> uids = getCreateGroupedRevenues(items, useDefaultDate,YEARS_HISTORY,false);
-		system.debug('***** uids for items for use in retrieving budget and revenue records '+uids);
 		Map<String,GroupedAccountProductRevenue__c> updatedRevenueRecords = new Map<String,GroupedAccountProductRevenue__c>(); 
 		// add related and child accounts to the uids to retrieve budget and revenue records
 		uids.addAll(configureProductAccountMaps(items, useDefaultDate));
 		// get all relevant budget and revenue records
 		loadBudgetAndRevenueRecords(uids);
-        system.debug('*** have budget and revenue records '+budgetAndRevenues.values());
 		// reconfigure account and product maps
 		Map<Id,Set<Id>> parentToChildAccountMap = getParentToChildAccountMap();
 		for(OpportunityLineItem item : items) {
-            system.debug('***** recalculating grouped revenues for item '+ item);
-            system.debug('***** useDefaultDate'+ useDefaultDate);
 			Date dateToUse = useDefaultDate ? revenueCalculationContextDate : getDateToUse(item);
 			Integer currentFY = getAustralianFinancialYear(dateToUse);
-            system.debug('******* currentfy '+currentFY);
 			opportunity recordOpportunity = opportunityInfo.get(item.opportunityId);
 			List<String> accountRestriction = csvToList(recordOpportunity.RevenueCalculationAccountIDs__c);
 			for (Integer year = currentFY-YEARS_HISTORY; year <currentFY+1; year++) {
                 String revenueKey = getUID(recordOpportunity.AccountId, item.Product2Id, String.valueOf(year));
-				system.debug('**** getting grouped revenue record for uid '+revenueKey);
                 // retrieve the grouped revenue records for this item
 				GroupedAccountProductRevenue__c currentGroupedRevenue =groupedRevenues.get(revenueKey);
-                system.debug('**** got grouped revenue '+ currentGroupedRevenue);
 				// update the current group revenue figures only in the case that
 				// (1) the revenue record is new (doesn't exist) or the revenue record is not more than YEARS_HISTORY FY ago.
-                system.debug('**** updating grouped revenue '+ currentGroupedRevenue);
                 // zero the values in the revenue record
                 zeroRevenueValue(currentGroupedRevenue);
                 // don't add the revenue record for update / insert unless it is a new record or has budget and revenue data applied to it
@@ -935,8 +909,6 @@ public with sharing class ProductRevenueService {
                 Set<Id> relatedAccounts = relatedChildAccountsMap.containsKey(recordOpportunity.AccountId) // AR contains the parent as keys
                     && relatedChildAccountsMap.get(recordOpportunity.AccountId) != null // the children records exist
                     ? relatedChildAccountsMap.get(recordOpportunity.AccountId) : new Set<Id>();
-                system.debug('**** relatedAccounts '+relatedAccounts);
-                system.debug('**** childRevenueKeys '+childRevenueKeys);
                 for (Id relatedAccountId : relatedAccounts) {
                     // adhere to restrictions on accounts to include and don't double up on related accounts that are also child accounts.
                     if(accountRestriction.isempty() || accountRestriction.contains(relatedAccountId)) {
@@ -949,10 +921,10 @@ public with sharing class ProductRevenueService {
                         }
                     }
                 }
-                system.debug('*** isUpdated = '+isUpdated);
                 if (isUpdated) {
                     updatedRevenueRecords.put(currentGroupedRevenue.UID__c,currentGroupedRevenue);
                 }
+                    
 				
 			}
 		}
@@ -978,13 +950,13 @@ public with sharing class ProductRevenueService {
 		// work out what revenue records we need
 		for (OpportunityLineItem nextItem : items) {
 			Date targetDate = useDefaultDate ? revenueCalculationContextDate : getDateToUse(nextItem);
-			// the start and end financial years for this item
+			// the start and end financial years to retrieve revenue records for this item
 			Integer startYear = targetDate.month() - 1 >= FINANCIAL_YEAR_STARTING_MONTH ? targetDate.year() + 1 : targetDate.year();
-			Integer endYear = nextItem.Contract_End_Date__c.month() >= 7 ? nextItem.Contract_End_Date__c.year() + 2 : nextItem.Contract_End_Date__c.year() + 1;
+			Integer endYear = nextItem.Contract_End_Date__c.month() >= 7 ? nextItem.Contract_End_Date__c.year() + 3 : nextItem.Contract_End_Date__c.year() + 2;
 			// opportunity information for the current product line item
 			Opportunity oppInfo = opportunityInfo.get(nextItem.opportunityId);
 			// construct revenue record uids for the required years.
-			for (Integer year = startYear-numberOfYears; year <= endYear; year++) {
+			for (Integer year = startYear-numberOfYears; year <= endYear+1; year++) {
 				uids.add(getUID(oppInfo.AccountId, nextItem.Product2Id, String.valueOf(year)));
 			}
 		}
@@ -1027,7 +999,6 @@ public with sharing class ProductRevenueService {
 		}
 		// load account hierarchy
 		loadChildToParentAccountMap(allAccounts);
-        system.debug('all accounts after load '+allAccounts);
 		return allAccounts;
 	}
 
@@ -1075,7 +1046,6 @@ public with sharing class ProductRevenueService {
 	* @return 	true if the sales history record was found.
 	*/
 	private Boolean addRevenueValues(GroupedAccountProductRevenue__c summaryRecord, String revenueKey) {
-		system.debug('*** Modifying grouped account product revenue with key '+revenueKey);
         if (!budgetAndRevenues.containsKey(revenueKey)) {
 			return false;
 		}
@@ -1083,7 +1053,6 @@ public with sharing class ProductRevenueService {
 		if (recordToAdd == null) {
 			return false;
 		}
-        system.debug('*** adding in the budget and revenue record '+revenueKey);
 		for (Integer i = 1; i<13; i++) {
 			Double summaryValue = getValueForMonth(summaryRecord,i);
 			Double valueToAdd = getValueForMonth(recordToAdd,i);
@@ -1130,7 +1099,6 @@ public with sharing class ProductRevenueService {
 	*/
 	private void loadBudgetAndRevenueRecords(Set<String> uniqueIds) {
 		// Only load this data from the DB once
-		system.debug('**** requested customer revenue uids '+uniqueIds);
 		Set<String> unloadedIds = new Set<String>();
 		for (String uniqueId : uniqueIds) {
 			if (!budgetAndRevenues.containsKey(uniqueId)) {
@@ -1138,13 +1106,11 @@ public with sharing class ProductRevenueService {
 				budgetAndRevenues.put(uniqueId,null);
 			}
 		}
-        system.debug('**** unloadedIds '+unloadedIds);
 		if(unloadedIds.isEmpty()) {
 			return;
 		}
 		// populate unloaded budget and revenue records
 		for (Budget_and_Revenue__c currentBudget : BudgetAndRevenueSelector.newInstance().selectByUniqueIds(unloadedIds).values()) {
-            system.debug('**** adding to budget '+currentBudget);
 			budgetAndRevenues.put(currentBudget.uid__c, currentBudget);
 		}
 	}
@@ -1216,7 +1182,7 @@ public with sharing class ProductRevenueService {
 	public Map<Id,Opportunity> loadOpportunityInfo(Set<Id> opportunityIds) {
 		Map<SObjectType, Set<SObjectField>> fieldOverrides = new Map<SObjectType, Set<SObjectField>>{
 		Opportunity.SObjectType => new Set<SObjectField> { 
-			Opportunity.Name,Opportunity.AccountId,Opportunity.Id,Opportunity.StageName,Opportunity.DoNotUseAccountHierarchy__c, Opportunity.CloseDate, Opportunity.Pre_Entry__c, Opportunity.RevenueCalculationAccountIDs__c}
+			Opportunity.Name,Opportunity.AccountId,Opportunity.Id,Opportunity.StageName,Opportunity.DoNotUseAccountHierarchy__c, Opportunity.CloseDate, Opportunity.Pre_Entry__c, Opportunity.RevenueCalculationAccountIDs__c, Opportunity.OverrideOPCCalculation__c}
 		};
 		Map<Id,Opportunity> loadedItems = OpportunitySelector.newInstance(1, fieldOverrides).selectById(opportunityIds);
 		for (Opportunity item : loadedItems.values()) {
@@ -1256,13 +1222,8 @@ public with sharing class ProductRevenueService {
 		for (AccountRelationship__c arr: AccountRelationshipSelector.newInstance().selectByOPCParentEndDateInFuture(unloadedAccountIds)) {
             if(arr.ParentAccount__c != null && arr.RelatedAccount__c != null) {
                 if (!relatedChildAccountsMap.containsKey(arr.ParentAccount__c) || relatedChildAccountsMap.get(arr.ParentAccount__c)== null) {
-                    system.debug('**** arr '+arr);
                     relatedChildAccountsMap.put(arr.ParentAccount__c, new Set<Id>{arr.RelatedAccount__c});
                 } else {
-                    system.debug('arr '+arr);
-                    system.debug('arr.ParentAccount__c '+arr.ParentAccount__c );
-                    system.debug('arr.RelatedAccount__c '+arr.RelatedAccount__c);
-                    system.debug('relatedChildAccountsMap.get(arr.ParentAccount__c) '+relatedChildAccountsMap.get(arr.ParentAccount__c));
                     relatedChildAccountsMap.get(arr.ParentAccount__c).add(arr.RelatedAccount__c);
                 }
             }

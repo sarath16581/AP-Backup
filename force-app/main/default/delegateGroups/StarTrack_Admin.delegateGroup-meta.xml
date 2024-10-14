@@ -106,6 +106,13 @@
     <groups>Knowledge: StarTrack</groups>
     <groups>BSC - Schenker</groups>
     <groups>BSC - Banking</groups>
+    <groups>Knowledge: Article Managers</groups>
+    <groups>Knowledge: Australia Post</groups>
+    <groups>Knowledge: FAQ</groups>
+    <groups>Knowledge: Manager</groups>
+    <groups>Knowledge: Recovery Team</groups>
+    <groups>Knowledge: Specialist Skill</groups>
+    <groups>Knowledge: StarTrack</groups>
     <label>StarTrack Admin</label>
     <loginAccess>false</loginAccess>
     <permissionSetGroups>ST Team Leader Basic Permissions</permissionSetGroups>

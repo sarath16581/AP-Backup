@@ -2,7 +2,7 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Inc9__c</fullName>
     <description>Incremental Sales forecast for September</description>
-    <formula>For9__c *  OpportunityProduct__r.IncrementalRevenue__c</formula>
+    <formula>For9__c *  OpportunityProduct__r.TotalIncremental__c</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <inlineHelpText>Incremental Sales forecast for September</inlineHelpText>
     <label>September  Expected Incremental Value</label>

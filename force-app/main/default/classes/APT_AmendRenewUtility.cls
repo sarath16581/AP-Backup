@@ -146,6 +146,7 @@ public without sharing class APT_AmendRenewUtility {
 		try {
 			for(OpportunityLineItem originalOTM : listOpportunityLineItem) {
 				OpportunityLineItem otm = originalOTM.clone(false, true);
+                system.debug('**** MODIFYING CLASSIFICATION INSIDE APT_AMEDRENEWALUTILITY');
 				if(!String.isEmpty(actionType) && actionType.equalsIgnoreCase(APT_Constants.ACTION_TYPE_RENEWAL)) {
 					otm.Classification__c = APT_Constants.CLASSIFICATION_RENEWAL;
 				} else if(!String.isEmpty(actionType) && actionType.equalsIgnoreCase(APT_Constants.ACTION_NAME_DoV)) {

@@ -95,7 +95,7 @@
 								<td style="padding:0 0 0px; font:13px/16px Arial, Helvetica, sans-serif; color:#807370;"><br/><p>Hi {!Contact.FirstName},</p></td>
 							</tr>				
 													<tr>
-								<td style="padding:0 0 10px; font:13px/16px Arial, Helvetica, sans-serif; color:#807370;border-bottom:1px solid #cdc6c5;"><br/>Thanks for your enquiry about item {!IF(ISNULL(Case.ReferenceID__c), '.', ' regarding ' + IF(LEN(Case.ReferenceID__c)>9, 'article ', 'customer reference ') + Case.ReferenceID__c + '.')} Your Reference number is {!Case.CaseNumber}.
+								<td style="padding:0 0 10px; font:13px/16px Arial, Helvetica, sans-serif; color:#807370;border-bottom:1px solid #cdc6c5;"><br/>Thanks for your enquiry {!IF(ISNULL(Case.ReferenceID__c), '.', ' regarding ' + IF(LEN(Case.ReferenceID__c)>9, 'article ', 'customer reference ') + Case.ReferenceID__c + '.')} Your Reference number is {!Case.CaseNumber}.
 </p>
 
 <p><b>Sometimes enquiries can be resolved before we've completed our investigation. If that happens, click on the link below to close your case:</b></p>
@@ -106,7 +106,7 @@
 
 <p>We want to help you as quickly as we can! To help us do that, please try to avoid sending us more than one enquiry about the same issue. We promise we’re on it, we handle every enquiry in the order it comes in. Thanks for your understanding.</p>
 
-<p>We are people just like you,we will treat you with kindness and respect and ask that you do the same. All Australia Post employees have the right not to be subjected to any behaviour or abuse that includes threats of physical harm or violence, religious, cultural or racial insults, homophobic, sexist or other derogatory remarks.</p>
+<p>We are people just like you, we will treat you with kindness and respect and ask that you do the same. All Australia Post employees have the right not to be subjected to any behaviour or abuse that includes threats of physical harm or violence, religious, cultural or racial insults, homophobic, sexist or other derogatory remarks.</p>
  
 <p>We thank you for your cooperation. We'll be in touch as soon as we can.</p>
 <p></p><br/></td>
@@ -154,7 +154,6 @@
 					<br/><br/>
 					<a href='https://play.google.com/store/apps/details?id=au.com.auspost.android&hl=en_AU'>Get it on Google Play</a>
 				</tr>
-				<br/>
 				<tr>
 					<td class="alignjustify" style="padding:0 2px 12px; font:11px/13px Arial, Helvetica, sans-serif; color:#444;">This email was sent by Australia Post. Australia Post does not represent, warrant or guarantee that the integrity of this email communication has been maintained nor that the communication is free of errors, viruses or interference.</td>
 				</tr>

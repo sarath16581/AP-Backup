@@ -10,6 +10,7 @@
 public with sharing class GenesysConstants {
 	public static final String VOICE_CALL_OUTBOUND_CALL_TYPE = 'Outbound';
 	public static final String VOICE_CALL_INBOUND_CALL_TYPE = 'Inbound';
+	public static final String VOICE_CALL_TRANSFER_CALL_TYPE = 'Transfer';
 	public static final String VOICE_CALL_ENQUIRY_TYPE_GENERAL_ENQUIRY = 'General Enquiry';
 	public static final String VOICE_CALL_ENQUIRY_TYPE_INVESTIGATION = 'Investigation';
 	/**

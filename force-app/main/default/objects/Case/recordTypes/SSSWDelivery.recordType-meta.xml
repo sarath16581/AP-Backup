@@ -1379,10 +1379,6 @@
             <fullName>Internal Specialist Threat - Email</fullName>
             <default>false</default>
         </values>
-		<values>
-            <fullName>Support Lead Case</fullName>
-            <default>false</default>
-        </values>
         <values>
             <fullName>MyPost Business</fullName>
             <default>false</default>

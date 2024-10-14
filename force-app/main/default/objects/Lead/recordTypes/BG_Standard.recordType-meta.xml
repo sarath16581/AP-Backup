@@ -331,6 +331,10 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Scam</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Test Lead</fullName>
             <default>false</default>
         </values>
