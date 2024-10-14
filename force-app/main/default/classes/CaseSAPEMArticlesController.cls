@@ -63,10 +63,15 @@ global with sharing class CaseSAPEMArticlesController {
 
 			Boolean matchAll = true;
 
-			Set<SObjectField> fieldOverrides = new Set<SObjectField>{
-				Case.Id,
-				Case.IsClosed,
-				Case.ReferenceID__c
+			Map<SObjectType, Set<SObjectField>> fieldOverrides = new Map<SObjectType, Set<SObjectField>>{
+				Case.getSObjectType() => new Set<SObjectField>{
+					Case.Id,
+					Case.IsClosed,
+					Case.ReferenceID__c
+				},
+				Article__c.getSObjectType() => new Set<SObjectField>{
+					Article__c.ReferenceID__c
+				}
 			};
 
 			List<Case> cases = CasesSelector.newInstance(100, fieldOverrides).search(searchParams, selectorOptions, matchAll);
