@@ -143,7 +143,7 @@ public inherited sharing class CaseUnifiedMilestoneModule extends ApplicationMod
 			filterOptions.add(CaseMilestonesSelector.Options.FILTER_COMPLETED);
 		}
 		for(CaseMilestone cm: CaseMilestonesSelector.newInstance().selectByCase(casesMap.keySet(), filterOptions).values()) {
-			cm.CompletionDate = completionDate;
+			cm.CompletionDate = completionDate; // when completionDate = null SF will restart the milestone automatically
 			milestonesToUpdate.add(cm);
 		}
 		
