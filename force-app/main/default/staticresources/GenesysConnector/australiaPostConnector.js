@@ -4,8 +4,10 @@
  * @author Paul Perry
  * @date 2024-04-26
  * @changelog
- *	2024-10-03: Minor fixes after Go-Live (outbound call Genesys Attribute Sync)
-*/
+ *	2024-10-03: Paul Perry -  Minor fixes after Go-Live (outbound call Genesys Attribute Sync)
+ *		- Fix for tracking contact / case on inbound + outbound 
+ *		- Fix for searching on empty phone number
+ */
 class GenesysAPBusinessLogic {
 
 	// required local variables:
