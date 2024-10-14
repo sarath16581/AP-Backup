@@ -477,7 +477,7 @@
         <inputParameters>
             <name>SObjectRowId</name>
             <value>
-                <elementReference>Process_Flow_Email_Type_Requests.emailAlertName</elementReference>
+                <elementReference>Process_Flow_Email_Type_Requests.srcRecordId</elementReference>
             </value>
         </inputParameters>
         <nameSegment>Case.UnifiedCaseClosureOnDeliveredMarkedAsDeliveredOnTheAppScanEventAP</nameSegment>
@@ -1524,7 +1524,7 @@
                 <leftValueReference>Process_Flow_Email_Type_Requests.emailAlertName</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
-                    <stringValue>UnifiedCaseLastMileOnBoardForDeliveryEventMessageClosureNotificationStarTrack</stringValue>
+                    <stringValue>UnifiedCaseClosureOnLastMileOnBoardForDeliveryScanEventST</stringValue>
                 </rightValue>
             </conditions>
             <connector>
