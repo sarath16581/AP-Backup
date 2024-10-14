@@ -10,6 +10,7 @@
 26.03.2021    Madhuri Awasthi            REQ2447384 - Adding new Wine damages fields
 01.06.2024    Jacob Isaac                REQ3357026 - new question on wine/edamages form
 28.05.2024    Snigdha Sahu               REQ2911157 - Update to Lost Article Form
+08.10.2024	  Talib Raza				 REQ3526971 - Compensation, content and postage claim changes.
 **/
 
 public class MyNetworkSmartFormsWrapper {
@@ -97,6 +98,8 @@ public class MyNetworkSmartFormsWrapper {
     public String compensationBeingPaid;
     public String compensationAmount;
     public String postagevalue;
+	public String contentClaim;
+	public String postageClaim;
     public String comments{
         get{
             if(String.isBlank(comments)){return '';}

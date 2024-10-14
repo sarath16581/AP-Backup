@@ -7,12 +7,12 @@
 				<template if:true={fileUploaded}>
 					<div class="text-center">File {fileName} succesfully uploaded and attached to case {caseNumber}.</div>
 					<div class="text-center slds-m-around_large">Customer name : {customerName}</div>
-					<div class="text-center">If paying compensation, please process using TC 1068 for contents and TC 141 for postage.</div>
+					<div class="text-center">To process a postage refund, please use TC 141.<br><br> All other compensation claims will be reviewed and processed by the Customer Contact Centre.<br> <br></div>
 				</template>
 				<template if:false={fileUploaded}>
 					<div class="text-center slds-m-around_large">Case {caseNumber} was successfully created.</div>
 					<div class="text-center slds-m-around_large">Customer name : {customerName}</div>
-					<div class="text-center">If paying compensation, please process using TC 1068 for contents and TC 141 for postage.</div>
+					<div class="text-center">To process a postage refund, please use TC 141.<br><br> All other compensation claims will be reviewed and processed by the Customer Contact Centre.<br> <br></div>
 					<div class="slds-box text-center slds-no-print">If you would like to include a photo or file, attach here.
 						<div class="slds-align_absolute-center slds-m-around_large">
 							<lightning-file-upload
@@ -306,18 +306,30 @@
 							</c-lwc-form-element>
 						</lightning-layout-item>
 					
-				   <lightning-layout-item size="6" padding="horizontal-small">
-						<c-lwc-form-element visibility-state={visibilities} name="compensation" render-config={compensationRenderConfig}>
-							<c-compensation-and-postage-value  
-							class="form-input compensation-section"
-							label="Compensation section"
-							compensation-postage-change-handler={postageValueChangeHandler}
-							compensation-change-handler={compensationAmountChangeHandler}                                        
-							>
-							</c-compensation-and-postage-value>
-						</c-lwc-form-element>
-					</lightning-layout-item>
-				</template> 
+						<lightning-layout-item size="6" padding="horizontal-small">
+							<c-lwc-form-element visibility-state={visibilities} name="compensation" render-config={compensationRenderConfig}>
+								<div class="slds-text-heading_small slds-text-color_error">
+									Paying compensation for postage will finalise this case. The customer will not be able to make any further claims in relation to this article.
+								</div>
+								<c-compensation-and-postage-value  
+								class="form-input compensation-section"
+								label="Compensation section"
+								compensation-postage-change-handler={postageValueChangeHandler}
+								compensation-change-handler={compensationAmountChangeHandler}                                        
+								>
+								</c-compensation-and-postage-value>
+							</c-lwc-form-element>
+							<c-lwc-form-element visibility-state={visibilities} name="contentAndPostage" render-config={contentAndPostageRenderConfig}>
+								<c-content-and-postage-claim  
+									class="form-input content-postage-section"
+									label="Content and Postage section"
+									content-claim-change-handler={contentClaimChangeHandler}
+									postage-claim-change-handler={postageClaimChangeHandler}                                      
+								>
+								</c-content-and-postage-claim>
+							</c-lwc-form-element>
+						</lightning-layout-item>						
+					</template> 
 				</div>
 				<template if:true={displayErrorMsg}>
 					<lightning-layout-item size="12" padding="around-small">

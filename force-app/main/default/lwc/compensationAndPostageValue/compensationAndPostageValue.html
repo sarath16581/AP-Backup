@@ -12,11 +12,12 @@
             formatter="currency"
             min=0
             step=any
-            onblur={handleCompensationValueChange}>
+            onblur={handleCompensationValueChange} style="display: none;">
         </lightning-input>
         <lightning-input 
             class="form-input postageValue" 
             name="postagevalue"
+			field-level-help="Up to $50 compensation for postage only can be paid in store."
             type="number" 
             required
             message-when-value-missing="Please enter an amount"

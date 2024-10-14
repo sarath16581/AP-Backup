@@ -9,6 +9,7 @@
 17.02.2020    Gunith Devasurendra        REQ2092604: Remove null when adding Address as Case Comment when Address Line 2 is null
 19.04.2023    Talib Raza				 REQ2906534: API version uplifted to 57.0
 24.05.2024    Snigdha Sahu               REQ2911157 :Update to LostArticle method
+08.10.2024	  Talib Raza			     REQ3526971 - For compensation yes, comments removed, API version uplifted
 **/
 
 @IsTest (IsParallel=true)
@@ -118,7 +119,7 @@ public class MyNetworkSmartFormsService_Test {
         smartForm.createCaseComments (caseWrapper, oCase);
         Test.stopTest();
         CaseComment comment = [SELECT Id, CommentBody FROM CaseComment WHERE ParentId = :oCase.Id ORDER BY LastModifiedDate DESC LIMIT 1];
-        System.assertEquals('Damaged article or missing contents? - Damaged\nAdditional comments/damage report - Additional comments/damage report - details\nType of damage - Damaged after delivery\nDescription of contents - Description of contents - details\nValue of contents - 50\nIn your opinion, was the article adequately packaged? - no\nIs the article on hand? - null\nAre you paying compensation to the customer? - yes\nAmount compensated for contents ($) - 30\nAmount refunded for postage ($) - 10\n\n\nFirst Name - Sammy\nLast Name - K\nContact Number - 0435814728\nEmail - sameed.khan@gmail.com\nCustomer Address: - 111 Bourke Rd Melbourne Clayton South VIC 3169', comment.CommentBody);
+        System.assertEquals('Damaged article or missing contents? - Damaged\nAdditional comments/damage report - Additional comments/damage report - details\nType of damage - Damaged after delivery\nDescription of contents - Description of contents - details\nValue of contents - 50\nIn your opinion, was the article adequately packaged? - no\nIs the article on hand? - null\nAre you paying compensation to the customer? - yes\nAmount refunded for postage ($) - 10\n\n\nFirst Name - Sammy\nLast Name - K\nContact Number - 0435814728\nEmail - sameed.khan@gmail.com\nCustomer Address: - 111 Bourke Rd Melbourne Clayton South VIC 3169', comment.CommentBody);
     }
     
     @IsTest 
@@ -131,7 +132,7 @@ public class MyNetworkSmartFormsService_Test {
         smartForm.createCaseComments (caseWrapper, oCase);
         Test.stopTest();
         CaseComment comment = [SELECT Id, CommentBody FROM CaseComment WHERE ParentId = :oCase.Id ORDER BY LastModifiedDate DESC LIMIT 1];
-        System.assertEquals('Additional comments - Additional comments - details\nHas the article been scanned as Delivered? - Yes\nDescription of contents - Description of contents - details\nValue of contents - 25\nAre you paying compensation to the customer? - yes\nAmount compensated for contents ($) - 30\nAmount refunded for postage ($) - 10\n\n\nFirst Name - Sammy\nLast Name - K\nContact Number - 0435814728\nEmail - sameed.khan@gmail.com\nCustomer Address: - 111 Bourke Rd Clayton South VIC 3169', comment.CommentBody);
+        System.assertEquals('Additional comments - Additional comments - details\nHas the article been scanned as Delivered? - Yes\nDescription of contents - Description of contents - details\nValue of contents - 25\nAre you paying compensation to the customer? - yes\nAmount refunded for postage ($) - 10\n\n\nFirst Name - Sammy\nLast Name - K\nContact Number - 0435814728\nEmail - sameed.khan@gmail.com\nCustomer Address: - 111 Bourke Rd Clayton South VIC 3169', comment.CommentBody);
     }
     
     @IsTest 

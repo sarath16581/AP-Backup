@@ -7,7 +7,9 @@
   *                 and also provides validation behaviour
 --------------------------------------- History --------------------------------------------------
 06/06/2019    Gnana   Created 
-18/11/2019    saiswetha.pingali@auspost.com.au MW0003819 **/
+18/11/2019    saiswetha.pingali@auspost.com.au MW0003819 
+08.10.2024	  Talib Raza			   REQ3526971 - Compensation amount field hidden and Message changes
+**/
 
 import { LightningElement,api,track} from 'lwc'
 import LwcForm from 'c/lwcForm'
@@ -74,7 +76,7 @@ export default class compensationAndPostageValue extends LwcForm {
         if(Number(postageValue) >50)
         {//this.amountNotValid = true;
             //EventTarget.setCustomValidity('Errored');
-            event.target.setCustomValidity('As total exceeds $50, click \'No\' to send to CCC for review');
+            event.target.setCustomValidity('As postage exceeds $50, click \'No\' to send to CCC for review');
             event.target.reportValidity();
         }
         else if(Number(postageValue)+Number(compensationCalc)<=0)

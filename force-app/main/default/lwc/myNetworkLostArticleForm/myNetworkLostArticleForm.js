@@ -11,6 +11,7 @@
 26.08.2019    spingali REQ1924536 -  Logic to calculate and display characters left for an user as he enters data in a text field.
 26.05.2021    Naveen Rajanna           REQ2513603 Show Print button when submitted and hide few tags upon print
 18.08.2021    Naveen Rajanna           REQ2588480 Introduce Copy to buttons and logic to Copy customer details to sender/addressee
+08.10.2024	  Talib Raza			   REQ3526971 - Compensation, content and postage claim changes.
 **/
 
 import { track } from 'lwc'
@@ -27,6 +28,11 @@ export default class myNetworkLostArticleForm extends LwcForm {
 	compensationRenderConfig = {
 		parentName: 'compensationBeingPaid',
 		showFor: 'yes',
+	}
+
+	contentAndPostageRenderConfig = {
+		parentName: 'compensationBeingPaid',
+		showFor: 'no',
 	}
 
 	yesNoOptions = [
@@ -392,6 +398,14 @@ export default class myNetworkLostArticleForm extends LwcForm {
 
 	postageValueChangeHandler = postageVal => {
 		this.setFormValue({ postageValue: postageVal })
+	}
+	
+	contentClaimChangeHandler = contentClaim => {
+		this.setFormValue({ contentClaim: contentClaim })
+	}
+
+	postageClaimChangeHandler = postageClaim => {
+		this.setFormValue({ postageClaim: postageClaim })
 	}
 	
 	handleFacilityValueChange(event){

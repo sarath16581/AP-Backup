@@ -19,6 +19,7 @@
 18.10.2022    Talib Raza                 REQ2866516 - getAll() only return 255 char, replace it with SOQL 
 01.06.2024    Jacob Isaac                REQ3357026 - new question on wine/edamages form
 28.05.2024    Snigdha Sahu               REQ2911157 - Update to Lost Article Form
+08.10.2024	  Talib Raza				 REQ3526971 - Compensation, content and postage claim changes.
 **/
 
 public with sharing class MyNetworkSmartFormsService {
@@ -244,10 +245,12 @@ public with sharing class MyNetworkSmartFormsService {
             sDamageArticle += SSSWConstants.NEW_LINE + 'Are you paying compensation to the customer? - ' + oSmartFormWrapper.compensationBeingPaid;
         }
         if(oSmartFormWrapper.compensationBeingPaid == 'yes'){
-            sDamageArticle += SSSWConstants.NEW_LINE + 'Amount compensated for contents ($) - ' + oSmartFormWrapper.compensationAmount;
             sDamageArticle += SSSWConstants.NEW_LINE + 'Amount refunded for postage ($) - ' + oSmartFormWrapper.postagevalue;
         }
-        
+        if(oSmartFormWrapper.compensationBeingPaid == 'no'){
+			sDamageArticle += SSSWConstants.NEW_LINE + 'Amount being claimed for contents ($) - ' + oSmartFormWrapper.contentClaim;
+			sDamageArticle += SSSWConstants.NEW_LINE + 'Amount being claimed for postage ($) - ' + oSmartFormWrapper.postageClaim;
+		}
         sDamageArticle += SSSWConstants.NEW_LINE;
         
         return sDamageArticle;
@@ -269,10 +272,12 @@ public with sharing class MyNetworkSmartFormsService {
             sLostArticle += SSSWConstants.NEW_LINE + 'Are you paying compensation to the customer? - ' + oSmartFormWrapper.compensationBeingPaid;
         }   
         if(oSmartFormWrapper.compensationBeingPaid == 'yes'){
-            sLostArticle += SSSWConstants.NEW_LINE + 'Amount compensated for contents ($) - ' + oSmartFormWrapper.compensationAmount;
             sLostArticle += SSSWConstants.NEW_LINE + 'Amount refunded for postage ($) - ' + oSmartFormWrapper.postagevalue;
         }
-        
+		if(oSmartFormWrapper.compensationBeingPaid == 'no'){
+            sLostArticle += SSSWConstants.NEW_LINE + 'Amount being claimed for contents ($) - ' + oSmartFormWrapper.contentClaim;
+			sLostArticle += SSSWConstants.NEW_LINE + 'Amount being claimed for postage ($) - ' + oSmartFormWrapper.postageClaim;
+        }
         sLostArticle += SSSWConstants.NEW_LINE;
         
         return sLostArticle;
@@ -350,7 +355,6 @@ public with sharing class MyNetworkSmartFormsService {
             sSomethingElse += SSSWConstants.NEW_LINE + 'Are you paying compensation to the customer? - ' + oSmartFormWrapper.compensationBeingPaid;
         }
         if(oSmartFormWrapper.compensationBeingPaid == 'yes'){
-            sSomethingElse += SSSWConstants.NEW_LINE + 'Amount compensated for contents ($) - ' + oSmartFormWrapper.compensationAmount;
             sSomethingElse += SSSWConstants.NEW_LINE + 'Amount refunded for postage ($) - ' + oSmartFormWrapper.postagevalue;
         }
         return sSomethingElse;
