@@ -14,6 +14,7 @@
  * 2020-10-08 - Disha Kariya - Allow safe drop attachment for child case creation
  * 2021-09-08	seth.heang@auspost.com.au		Uplift SF API version to 52
  * 2021-10-10 - Nathan Franklin - Changed the way attach delivery proof works
+ * 2024-10-08 - George Nguyen - Included Unified cases in the search
  */
 global with sharing class CaseSAPEMArticlesController {
 	public Boolean showError {get; set;}
@@ -40,10 +41,39 @@ global with sharing class CaseSAPEMArticlesController {
 	public CaseSAPEMArticlesController(ApexPages.StandardController controller){
 		String cid = controller.getRecord().Id;
 		if (cid != null) {
-			List<Case> cases = SSSWCasesSelector.newInstance().selectById(new Set<Id>{cid}, new set<Object>{CasesSelector.Options.WITH_ARTICLE}).values();
+
+			Map<String, Object> searchParams = new Map<String, Object> {
+				'recordTypeDeveloperNames' => new Set<String>{
+					SSSWConstants.CASE_RT_SSSW_DELIVERY,
+					SSSWConstants.CASE_RT_SSSW_FAX,
+					SSSWConstants.CASE_RT_SSSW_GENERAL_ENQUIRY,
+					SSSWConstants.CASE_RT_SSSW_SERVICE,
+					SSSWConstants.CASE_RT_SSSW_SOCIAL_RECORD_TYPE,
+					SSSWConstants.CASE_RT_SSSW_NCCC_DIRECT_EMAIL,
+
+					SSSWConstants.UNIFIED_INVESTIGATION_DEVELOPER_NAME,
+					SSSWConstants.UNIFIED_GENERAL_ENQUIRY_DEVELOPER_NAME
+				},
+				'caseIds' => new Set<Id>{cid}
+			};
+
+			Set<Object> selectorOptions = new Set<Object>{
+				CasesSelector.Options.WITH_ARTICLE
+			};
+
+			Boolean matchAll = true;
+
+			Set<SObjectField> fieldOverrides = new Set<SObjectField>{
+				Case.Id,
+				Case.IsClosed,
+				Case.ReferenceID__c
+			};
+
+			List<Case> cases = CasesSelector.newInstance(100, fieldOverrides).search(searchParams, selectorOptions, matchAll);
+
 			if (cases.size() > 0) {
 				currentCase = cases[0];
-				articleID = currentCase.ReferenceID__c;
+				articleID = currentCase.ArticleTest__r != null ? currentCase.ArticleTest__r.ReferenceID__c : currentCase.ReferenceID__c;
 				isConsignment = currentCase.ArticleTest__r.RecordType !=null ? currentCase.ArticleTest__r.RecordType.Name.containsIgnoreCase('consignment') : false;
 			}
 		}
