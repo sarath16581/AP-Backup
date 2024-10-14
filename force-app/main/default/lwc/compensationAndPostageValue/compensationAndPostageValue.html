@@ -1,38 +1,39 @@
 <template >
-    <div class="container">
-    <compensation>
-        <lightning-input 
-            class="form-input compensationAmount" 
-            name="compensationAmount"
-            type="number" 
-            required
-            message-when-value-missing="Please enter an amount"
-            label="Amount compensated for contents ($)" 
-            value={values.compensationAmount} 
-            formatter="currency"
-            min=0
-            step=any
-            onblur={handleCompensationValueChange}>
-        </lightning-input>
-        <lightning-input 
-            class="form-input postageValue" 
-            name="postagevalue"
-            type="number" 
-            required
-            message-when-value-missing="Please enter an amount"
-            label="Amount refunded for postage ($)" 
-            value={values.postagevalue} 
-            formatter="currency"
-            min=0
-            step=any
-            onblur={handlePostageValueChange}>
-        </lightning-input>
-    </compensation>
+	<div class="container">
+	<compensation>
+		<lightning-input 
+			class="form-input compensationAmount" 
+			name="compensationAmount"
+			type="number" 
+			required
+			message-when-value-missing="Please enter an amount"
+			label="Amount compensated for contents ($)" 
+			value={values.compensationAmount} 
+			formatter="currency"
+			min=0
+			step=any
+			onblur={handleCompensationValueChange} style="display: none;">
+		</lightning-input>
+		<lightning-input 
+			class="form-input postageValue" 
+			name="postagevalue"
+			field-level-help="Up to $50 compensation for postage only can be paid in store."
+			type="number" 
+			required
+			message-when-value-missing="Please enter an amount"
+			label="Amount refunded for postage ($)" 
+			value={values.postagevalue} 
+			formatter="currency"
+			min=0
+			step=any
+			onblur={handlePostageValueChange}>
+		</lightning-input>
+	</compensation>
    <!-- <template if:true={amountNotValid}>
-        <div class="slds-m-vertical_medium slds-text-color_error">
-            As total exceeds $50, click 'No' to send to CCC for review
-        </div>
-    </template>
-    -->
-    </div>
+		<div class="slds-m-vertical_medium slds-text-color_error">
+			As total exceeds $50, click 'No' to send to CCC for review
+		</div>
+	</template>
+	-->
+	</div>
 </template>

@@ -14,6 +14,7 @@
 18.08.2021    Naveen Rajanna           REQ2588480 Introduce Copy to buttons and logic to Copy customer details to sender/addressee
 10.01.2022    SaiSwetha Pingali        REQ2689571 Added custom error message on "Type of Damage" field on 'Damaged/Missing Contents form'. 
 07.07.2022    Talib Raza               REQ2859463: Changed the label for article-search to "Article ID" from Tracking number
+08.10.2024	  Talib Raza			   REQ3526971 - Compensation, content and postage claim changes.
 **/
 
 import { track } from 'lwc'
@@ -36,6 +37,11 @@ export default class myNetworkMissingContentsForm extends LwcForm {
 	compensationRenderConfig = {
 		parentName: 'compensationBeingPaid',
 		showFor: 'yes',
+	}
+
+	contentAndPostageRenderConfig = {
+		parentName: 'compensationBeingPaid',
+		showFor: 'no',
 	}
 
 	yesNoOptions = [
@@ -504,6 +510,14 @@ export default class myNetworkMissingContentsForm extends LwcForm {
 
 	postageValueChangeHandler = postageVal => {
 		this.setFormValue({ postageValue: postageVal })
+	}
+
+	contentClaimChangeHandler = contentClaim => {
+		this.setFormValue({ contentClaim: contentClaim })
+	}
+
+	postageClaimChangeHandler = postageClaim => {
+		this.setFormValue({ postageClaim: postageClaim })
 	}
 
 	handleFacilityValueChange(event){
