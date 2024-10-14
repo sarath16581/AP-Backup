@@ -8,6 +8,7 @@
 * 2020-05-10 - Nathan Franklin - rewrite with Mocks
 * 2020-10-08 - Disha Kariya - Allow safe drop attachment for child case creation
 * 2021-09-08 - seth.heang@auspost.com.au - Uplift SF API version to 52
+* 2024-10-08 - George Nguyen - Included unified cases in search results
 */
 @IsTest
 private class CaseSAPEMArticlesController_Test {
@@ -24,14 +25,45 @@ private class CaseSAPEMArticlesController_Test {
 	    c.ArticleTest__c = consignment.Id;
 	    consignment = (Article__c)ApplicationTestDataFactory.setUnwritableFields(consignment, new Map<String, Object>{'RecordType.Name' => 'Consignment'});
 
+		Map<String, Object> searchParams = new Map<String, Object> {
+			'recordTypeDeveloperNames' => new Set<String>{
+				SSSWConstants.CASE_RT_SSSW_DELIVERY,
+				SSSWConstants.CASE_RT_SSSW_FAX,
+				SSSWConstants.CASE_RT_SSSW_GENERAL_ENQUIRY,
+				SSSWConstants.CASE_RT_SSSW_SERVICE,
+				SSSWConstants.CASE_RT_SSSW_SOCIAL_RECORD_TYPE,
+				SSSWConstants.CASE_RT_SSSW_NCCC_DIRECT_EMAIL,
+
+				SSSWConstants.UNIFIED_INVESTIGATION_DEVELOPER_NAME,
+				SSSWConstants.UNIFIED_GENERAL_ENQUIRY_DEVELOPER_NAME
+			},
+			'caseIds' => new Set<Id>{c.id}
+		};
+
+		Set<Object> selectorOptions = new Set<Object>{
+			CasesSelector.Options.WITH_ARTICLE
+		};
+
+		Boolean matchAll = true;
+
+		Set<SObjectField> fieldOverrides = new Set<SObjectField>{
+			Case.Id,
+			Case.IsClosed,
+			Case.ReferenceID__c
+		};
+
         // =====================================
         // Stubbing
         // =====================================
-        SSSWCasesSelector mockSelector = (SSSWCasesSelector)MockUtility.mockSelector(SSSWCasesSelector.class);
+        CasesSelector mockSelector = (CasesSelector)MockUtility.mockSelector(CasesSelector.class);
 
         // set up our responses
         MockUtility.Mocks.startStubbing();
-        MockUtility.Mocks.when(mockSelector.selectById((Set<Id>)fflib_Match.anyObject(), (Set<Object>)fflib_Match.anyObject())).thenReturn(new Map<Id, Case>{c.Id => c});
+        MockUtility.Mocks.when(mockSelector.search(
+												(Map<String, Object>)fflib_Match.eq(searchParams), 
+												(Set<Object>)fflib_Match.eq(selectorOptions),
+												(Boolean)fflib_Match.eq(true)
+											)).thenReturn(new List<Case>{c});
         MockUtility.Mocks.stopStubbing();
 
         // =====================================

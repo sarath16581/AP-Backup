@@ -31,6 +31,7 @@
  * 2024-07-30 - Seth Heang - added fields in getSObjectFieldList.
  * 2024-08-12 - Ranjeewa Silva - New selector options to select child contact requests and impacted articles.
  * 2024-09-12 - Seth Heang - added fields in getSObjectFieldList. These will be used in payload for TIBCO Subscription.
+ * 2024-10-08 - George Nguyen - added searchByReferenceIdPartial(...). This allows for partial matching of the Case.ReferenceId__c allowing And using search params
  */
 public virtual inherited sharing class CasesSelector extends ApplicationSelector {
 
@@ -192,18 +193,18 @@ public virtual inherited sharing class CasesSelector extends ApplicationSelector
 	public virtual Map<Id, Case> selectOpenCasesByCaseNumberOrReferenceId(Set<String> caseReferences, Set<Id> recordTypeIds, Set<Object> selectorOptions) {
 		QueryBuilder qb = newQueryBuilder(selectorOptions);
 
-		QueryBuilder.ConditionsManager conditions = qb.addConditions();
-		conditions.add(new QueryBuilder.CompareCondition(Case.IsClosed).eq(false));
-		conditions.add(new QueryBuilder.SimpleCondition(Case.CaseNumber + ' in :caseReferences'));
-		conditions.add(new QueryBuilder.SimpleCondition(Case.ReferenceID__c + ' in :caseReferences'));
+		QueryBuilder.ConditionsManager conditionsManager = qb.addConditions();
+		conditionsManager.add(new QueryBuilder.CompareCondition(Case.IsClosed).eq(false));
+		conditionsManager.add(new QueryBuilder.SimpleCondition(Case.CaseNumber + ' in :caseReferences'));
+		conditionsManager.add(new QueryBuilder.SimpleCondition(Case.ReferenceID__c + ' in :caseReferences'));
 
 		if (recordTypeIds != null && !recordTypeIds.isEmpty()) {
-			conditions.add(new QueryBuilder.SimpleCondition(Case.RecordTypeId + ' in :recordTypeIds'));
-			conditions.setConditionOrder('1 AND (2 OR 3) AND 4');
+			conditionsManager.add(new QueryBuilder.SimpleCondition(Case.RecordTypeId + ' in :recordTypeIds'));
+			conditionsManager.setConditionOrder('1 AND (2 OR 3) AND 4');
 		} else {
-			conditions.setConditionOrder('1 AND (2 OR 3)');
+			conditionsManager.setConditionOrder('1 AND (2 OR 3)');
 		}
-		String soql = conditions.endConditions().toSoqlString();
+		String soql = conditionsManager.endConditions().toSoqlString();
 		return new Map<Id, Case>((List<Case>)Database.query(soql));
 	}
 
@@ -291,37 +292,62 @@ public virtual inherited sharing class CasesSelector extends ApplicationSelector
 	public List<Case> search(Map<String, Object> searchParams, Set<Object> selectorOptions, Boolean matchAll) {
 		Set<Id> caseIds = (Set<Id>)(searchParams.get('caseIds') == null ? new Set<Id>() : (searchParams.get('caseIds') instanceof Set<Id> ? searchParams.get('caseIds') : new Set<Id>{(Id)searchParams.get('caseIds')}));
 		Set<Id> recordTypeIds = (Set<Id>)(searchParams.get('recordTypeIds') == null ? new Set<Id>() : (searchParams.get('recordTypeIds') instanceof Set<Id> ? searchParams.get('recordTypeIds') : new Set<Id>{(Id)searchParams.get('recordTypeIds')}));
+		Set<String> recordTypeDeveloperNames = (Set<String>)(searchParams.get('recordTypeDeveloperNames') == null ? new Set<String>() : (searchParams.get('recordTypeDeveloperNames') instanceof Set<String> ? searchParams.get('recordTypeDeveloperNames') : new Set<String>{(String)searchParams.get('recordTypeDeveloperNames')}));
 		Set<Id> relatedArticleIds = (Set<Id>)(searchParams.get('relatedArticleIds') == null ? new Set<Id>() : (searchParams.get('relatedArticleIds') instanceof Set<Id> ? searchParams.get('relatedArticleIds') : new Set<Id>{(Id)searchParams.get('relatedArticleIds')}));
 		Boolean isClosed = searchParams.get('isClosed') instanceof Boolean ? (Boolean)searchParams.get('isClosed') : false;
 
-		return (List<Case>)Database.query(getSearchSoql(searchParams, selectorOptions, matchAll));
+		QueryBuilder builder = newQueryBuilder(selectorOptions);
+		QueryBuilder.ConditionsManager conditionsManager = builder.addConditions();
+		String queryString = getSearchSoql(conditionsManager, searchParams, selectorOptions, matchAll);
+
+		return (List<Case>)Database.query(queryString);
+	}
+
+	/**
+	 * @description Run a simple query to get records based on a partial match of ReferenceID__c. This also include additional filtering based on record type developer names via the search params
+	 */
+	public List<Case> searchByReferenceIdPartial(String referenceId, Map<String, Object> searchParams, Set<Object> selectorOptions, Boolean matchAll) {
+		// creating the variable below so they can be binded in the Database.query(...)
+		Set<Id> caseIds = (Set<Id>)(searchParams.get('caseIds') == null ? new Set<Id>() : (searchParams.get('caseIds') instanceof Set<Id> ? searchParams.get('caseIds') : new Set<Id>{(Id)searchParams.get('caseIds')}));
+		Set<Id> recordTypeIds = (Set<Id>)(searchParams.get('recordTypeIds') == null ? new Set<Id>() : (searchParams.get('recordTypeIds') instanceof Set<Id> ? searchParams.get('recordTypeIds') : new Set<Id>{(Id)searchParams.get('recordTypeIds')}));
+		Set<String> recordTypeDeveloperNames = (Set<String>)(searchParams.get('recordTypeDeveloperNames') == null ? new Set<String>() : (searchParams.get('recordTypeDeveloperNames') instanceof Set<String> ? searchParams.get('recordTypeDeveloperNames') : new Set<String>{(String)searchParams.get('recordTypeDeveloperNames')}));
+		Set<Id> relatedArticleIds = (Set<Id>)(searchParams.get('relatedArticleIds') == null ? new Set<Id>() : (searchParams.get('relatedArticleIds') instanceof Set<Id> ? searchParams.get('relatedArticleIds') : new Set<Id>{(Id)searchParams.get('relatedArticleIds')}));
+		Boolean isClosed = searchParams.get('isClosed') instanceof Boolean ? (Boolean)searchParams.get('isClosed') : false;
+
+		QueryBuilder builder = newQueryBuilder(selectorOptions);
+		QueryBuilder.ConditionsManager conditionsManager = builder.addConditions();
+		conditionsManager.add(new QueryBuilder.LikeCondition(Case.ReferenceID__c).likeAnyRight(referenceId));
+		String queryString = getSearchSoql(conditionsManager, searchParams, selectorOptions, matchAll);
+
+		return (List<Case>)Database.query(queryString);
 	}
 
 	/**
 	 * Separated from search method so SOQL can be inspected in Test class
 	 */
 	@TestVisible
-	private String getSearchSoql(Map<String, Object> searchParams, Set<Object> selectorOptions, Boolean matchAll) {
-		validateSearchParams(searchParams.keySet(), new Set<String>{'caseIds', 'recordTypeIds', 'relatedArticleIds', 'isClosed'});
+	private String getSearchSoql(QueryBuilder.ConditionsManager conditionsManager, Map<String, Object> searchParams, Set<Object> selectorOptions, Boolean matchAll) {
+		validateSearchParams(searchParams.keySet(), new Set<String>{'caseIds', 'recordTypeIds', 'relatedArticleIds', 'isClosed', 'recordTypeDeveloperNames'});
 
-		QueryBuilder builder = newQueryBuilder(selectorOptions);
-		QueryBuilder.ConditionsManager conditions = builder.addConditions();
-
-		Integer conditionCount = 0;
+		Integer conditionCount = conditionsManager.conditions.size();
 		if(searchParams.containsKey('caseIds')) {
-			conditions.add(new QueryBuilder.SimpleCondition(Case.Id + ' in :caseIds'));
+			conditionsManager.add(new QueryBuilder.SimpleCondition(Case.Id + ' in :caseIds'));
+			conditionCount++;
+		}
+		if(searchParams.containsKey('recordTypeDeveloperNames')) {
+			conditionsManager.add(new QueryBuilder.SimpleCondition('RecordType.DeveloperName in :recordTypeDeveloperNames'));
 			conditionCount++;
 		}
 		if(searchParams.containsKey('recordTypeIds')) {
-			conditions.add(new QueryBuilder.SimpleCondition(Case.RecordTypeId + ' in :recordTypeIds'));
+			conditionsManager.add(new QueryBuilder.SimpleCondition(Case.RecordTypeId + ' in :recordTypeIds'));
 			conditionCount++;
 		}
 		if(searchParams.containsKey('relatedArticleIds')) {
-			conditions.add(new QueryBuilder.SimpleCondition(Case.ArticleTest__c + ' in :relatedArticleIds'));
+			conditionsManager.add(new QueryBuilder.SimpleCondition(Case.ArticleTest__c + ' in :relatedArticleIds'));
 			conditionCount++;
 		}
 		if (searchParams.containsKey('isClosed')) {
-			conditions.add(new QueryBuilder.SimpleCondition(Case.IsClosed + ' = :isClosed'));
+			conditionsManager.add(new QueryBuilder.SimpleCondition(Case.IsClosed + ' = :isClosed'));
 			conditionCount++;
 		}
 
@@ -332,9 +358,9 @@ public virtual inherited sharing class CasesSelector extends ApplicationSelector
 		for (Integer i=0; i<conditionCount; i++) {
 			conditionOrder += (!String.isEmpty(conditionOrder) ? (matchAll ? ' AND ' : ' OR ') : '') + ' ' + (i+1);
 		}
-		conditions.setConditionOrder(conditionOrder);
+		conditionsManager.setConditionOrder(conditionOrder);
 
-		return conditions.endConditions().toSoqlString();
+		return conditionsManager.endConditions().toSoqlString();
 	}
 
 	public virtual override QueryBuilder newQueryBuilder() {
@@ -423,12 +449,12 @@ public virtual inherited sharing class CasesSelector extends ApplicationSelector
 	*/
 	public List<Case> selectByArticleId(Set<Id> articleids, String recordTypeName, Set<Object> selectorOptions) {
 		QueryBuilder qb = newQueryBuilder(selectorOptions);
-		QueryBuilder.ConditionsManager conditions = qb.addConditions();
-		conditions.add(new QueryBuilder.SimpleCondition(Case.ArticleTest__c + ' IN :articleids'));
+		QueryBuilder.ConditionsManager conditionsManager = qb.addConditions();
+		conditionsManager.add(new QueryBuilder.SimpleCondition(Case.ArticleTest__c + ' IN :articleids'));
 	 	if (recordTypeName != null) {
-			conditions.add(new QueryBuilder.SimpleCondition('RecordType.DeveloperName = :recordTypeName'));
+			conditionsManager.add(new QueryBuilder.SimpleCondition('RecordType.DeveloperName = :recordTypeName'));
 		}
-		conditions.endConditions();
+		conditionsManager.endConditions();
 
 		return (List<Case>)Database.query(qb.toSoqlString());
 	}
@@ -460,9 +486,9 @@ public virtual inherited sharing class CasesSelector extends ApplicationSelector
 	@TestVisible
 	private QueryBuilder selectByContactIdCaseHistoryQB(Set<Id> contactIds, Set<Object> selectorOptions) {
 		QueryBuilder qb = newQueryBuilder(selectorOptions);
-		QueryBuilder.ConditionsManager conditions = qb.addConditions();
-		conditions.add(new QueryBuilder.SimpleCondition('ContactId IN :contactIds'));
-		conditions.endConditions();
+		QueryBuilder.ConditionsManager conditionsManager = qb.addConditions();
+		conditionsManager.add(new QueryBuilder.SimpleCondition('ContactId IN :contactIds'));
+		conditionsManager.endConditions();
 
 		qb.setOrder(new QueryBuilder.Order(Case.IsClosed).setSortingOrderAsc());
 		qb.addOrder(new QueryBuilder.Order(Case.LastModifiedDate).setSortingOrderDesc());
@@ -504,13 +530,13 @@ public virtual inherited sharing class CasesSelector extends ApplicationSelector
 	@TestVisible
 	private QueryBuilder selectByConsignmentTrackingNumberCaseHistoryQB(Set<String> consignmentTrackingNumbers, Set<Object> selectorOptions) {
 		QueryBuilder qb = newQueryBuilder(selectorOptions);
-		QueryBuilder.ConditionsManager conditions = qb.addConditions();
+		QueryBuilder.ConditionsManager conditionsManager = qb.addConditions();
 		// Consignment directly related to the Case
-		conditions.add(new QueryBuilder.SimpleCondition('ArticleTest__r.' + String.valueOf(Article__c.ArticleId__c) + ' IN :consignmentTrackingNumbers'));
+		conditionsManager.add(new QueryBuilder.SimpleCondition('ArticleTest__r.' + String.valueOf(Article__c.ArticleId__c) + ' IN :consignmentTrackingNumbers'));
 		// Consignment's child article is related to the Case
-		conditions.add(new QueryBuilder.SimpleCondition('ArticleTest__r.' + String.valueOf(Article__c.ConsignmentTrackingNumber__c) + ' IN :consignmentTrackingNumbers'));
-		conditions.setConditionOrder('1 OR 2');
-		conditions.endConditions();
+		conditionsManager.add(new QueryBuilder.SimpleCondition('ArticleTest__r.' + String.valueOf(Article__c.ConsignmentTrackingNumber__c) + ' IN :consignmentTrackingNumbers'));
+		conditionsManager.setConditionOrder('1 OR 2');
+		conditionsManager.endConditions();
 
 		qb.setOrder(new QueryBuilder.Order(Case.IsClosed).setSortingOrderAsc());
 		qb.addOrder(new QueryBuilder.Order(Case.LastModifiedDate).setSortingOrderDesc());
