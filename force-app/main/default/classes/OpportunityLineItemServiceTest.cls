@@ -10,10 +10,10 @@
 * 29/2/2023	Ken McGurie	allow for OPC override and forward planning
 * 2023-05-04	Ken McGuire - Resolve testing issues by making the date of opp line items relative to current FY
 * 2023-08-24 - Ranjeewa Silva - Updates to existing tests to ensure test data conforms to new sales pipeline governance validations on Opportunity.
+7/10/2024 Ken McGuire Removed obsolete line item opc classification methods.
 ***************************************/
 @isTest
 public class OpportunityLineItemServiceTest {
-
 	@testSetup
 	static void setup() {
 		Id pricebookId = Test.getStandardPricebookId();
@@ -338,10 +338,10 @@ public class OpportunityLineItemServiceTest {
 		optyLIList.add(oliVar);
 
 		test.startTest();
-		OpportunityLineItemService.populateClassification(optyLIList);
+		//OpportunityLineItemService.populateClassification(optyLIList);
 		test.stopTest();
 
-		System.assertEquals('Cross Sell', oliVar.Classification__c);
+		//System.assertEquals('Cross Sell', oliVar.Classification__c);
 
 
 	}
@@ -383,10 +383,10 @@ public class OpportunityLineItemServiceTest {
 		optyLIList.add(oliVar);
 
 
-		OpportunityLineItemService.populateClassification(optyLIList);
+		//OpportunityLineItemService.populateClassification(optyLIList);
 		test.stopTest();
 
-		System.assertEquals('Win Back', oliVar.Classification__c);
+		//System.assertEquals('Win Back', oliVar.Classification__c);
 	}
 
 	/*********************************
@@ -424,10 +424,10 @@ public class OpportunityLineItemServiceTest {
 		optyLIList.add(oliVar);
 
 		test.startTest();
-		OpportunityLineItemService.populateClassification(optyLIList);
+		//OpportunityLineItemService.populateClassification(optyLIList);
 		test.stopTest();
 
-		System.assertEquals('Win Back', oliVar.Classification__c);
+		//System.assertEquals('Win Back', oliVar.Classification__c);
 	}
 
 	/*********************************
@@ -465,10 +465,10 @@ public class OpportunityLineItemServiceTest {
 		optyLIList.add(oliVar);
 
 		test.startTest();
-		OpportunityLineItemService.populateClassification(optyLIList);
+		//OpportunityLineItemService.populateClassification(optyLIList);
 		test.stopTest();
 
-		System.assertEquals('New Business', oliVar.Classification__c);
+		//System.assertEquals('New Business', oliVar.Classification__c);
 	}
 
 	/*********************************
@@ -507,10 +507,10 @@ public class OpportunityLineItemServiceTest {
 		optyLIList.add(oliVar);
 
 		test.startTest();
-		OpportunityLineItemService.populateClassification(optyLIList);
+		//OpportunityLineItemService.populateClassification(optyLIList);
 		test.stopTest();
 
-		System.assertEquals(Constants.CLSS_RENEWAL, oliVar.Classification__c);
+		//System.assertEquals(Constants.CLSS_RENEWAL, oliVar.Classification__c);
 	}
 
 	/*********************************
@@ -548,10 +548,10 @@ public class OpportunityLineItemServiceTest {
 		optyLIList.add(oliVar);
 
 		test.startTest();
-		OpportunityLineItemService.populateClassification(optyLIList);
+		//OpportunityLineItemService.populateClassification(optyLIList);
 		test.stopTest();
 
-		System.assertEquals(Constants.CLSS_GROWTH, oliVar.Classification__c);
+		//System.assertEquals(Constants.CLSS_GROWTH, oliVar.Classification__c);
 	}
 
 	/*********************************
@@ -591,10 +591,10 @@ public class OpportunityLineItemServiceTest {
 
 
 		test.startTest();
-		OpportunityLineItemService.populateClassification(optyLIList);
+		//OpportunityLineItemService.populateClassification(optyLIList);
 		test.stopTest();
 
-		System.assertEquals(Constants.CLSS_GROWTH, oliVar.Classification__c);
+		//System.assertEquals(Constants.CLSS_GROWTH, oliVar.Classification__c);
 	}
 
 	 /*********************************
@@ -633,10 +633,10 @@ public class OpportunityLineItemServiceTest {
 
 
 		test.startTest();
-		OpportunityLineItemService.populateClassification(optyLIList);
+		//OpportunityLineItemService.populateClassification(optyLIList);
 		test.stopTest();
 
-		System.assertEquals(Constants.CLSS_RENEWAL, oliVar.Classification__c);
+		//System.assertEquals(Constants.CLSS_RENEWAL, oliVar.Classification__c);
 	}
 
 	/*********************************
@@ -674,10 +674,10 @@ public class OpportunityLineItemServiceTest {
 		optyLIList.add(oliVar);
 
 		test.startTest();
-		OpportunityLineItemService.populateClassification(optyLIList);
+		//OpportunityLineItemService.populateClassification(optyLIList);
 		test.stopTest();
 
-		System.assertEquals('New Business', oliVar.Classification__c);
+		//System.assertEquals('New Business', oliVar.Classification__c);
 	}
 
 	/*********************************
@@ -724,10 +724,10 @@ public class OpportunityLineItemServiceTest {
 
 
 		test.startTest();
-		OpportunityLineItemService.recalculateClassification(optyLIList, oldRecMap);
+		//OpportunityLineItemService.recalculateClassification(optyLIList, oldRecMap);
 		test.stopTest();
 		//
-		System.assertEquals(Constants.CLSS_RENEWAL, newOpty.Classification__c);
+		//System.assertEquals(Constants.CLSS_RENEWAL, newOpty.Classification__c);
 	}
 
 	/*********************************
@@ -774,10 +774,10 @@ public class OpportunityLineItemServiceTest {
 
 
 		test.startTest();
-		OpportunityLineItemService.recalculateClassification(optyLIList, oldRecMap);
+		//OpportunityLineItemService.recalculateClassification(optyLIList, oldRecMap);
 		test.stopTest();
 		//
-		System.assertEquals(Constants.CLSS_GROWTH, newOpty.Classification__c);
+		//System.assertEquals(Constants.CLSS_GROWTH, newOpty.Classification__c);
 	}
 	/*********************************
 	* Description: Tests the populateClassification() method for Renewal
@@ -825,10 +825,10 @@ public class OpportunityLineItemServiceTest {
 
 
 		test.startTest();
-		OpportunityLineItemService.recalculateClassification(optyLIList, oldRecMap);
+		//OpportunityLineItemService.recalculateClassification(optyLIList, oldRecMap);
 		test.stopTest();
 
-		System.assertEquals(Constants.CLSS_RENEWAL, newOpty.Classification__c);
+		//System.assertEquals(Constants.CLSS_RENEWAL, newOpty.Classification__c);
 	}
 
 	/*********************************
@@ -876,13 +876,13 @@ public class OpportunityLineItemServiceTest {
 		newOptyLI.Contract_Start_Date__c = Date.newInstance(System.Today().year(), monthToUse, 9);
 		newOptyLI.Contract_End_Date__c = Date.newInstance(System.Today().year(), monthToUse+1, 16);
 		newOptyLI.Change_Classification__c = 'No';
-		UPDATE newOptyLI;
+		//UPDATE newOptyLI;
 
-		System.assertEquals(Constants.CLSS_GROWTH, newOptyLI.Classification__c);
+	//	System.assertEquals(Constants.CLSS_GROWTH, newOptyLI.Classification__c);
 		test.startTest();
-		OpportunityLineItemService.recalculateClassification(optyLIList, oldRecMap);
+		//OpportunityLineItemService.recalculateClassification(optyLIList, oldRecMap);
 		test.stopTest();
-		System.assertEquals(Constants.CLSS_RENEWAL, newOptyLI.Classification__c);
+		//System.assertEquals(Constants.CLSS_RENEWAL, newOptyLI.Classification__c);
 
 	}
 
@@ -932,10 +932,10 @@ public class OpportunityLineItemServiceTest {
 
 
 		test.startTest();
-		OpportunityLineItemService.recalculateClassification(optyLIList, oldRecMap);
+		//OpportunityLineItemService.recalculateClassification(optyLIList, oldRecMap);
 		test.stopTest();
 
-		System.assertEquals(Constants.CLSS_GROWTH, newOpty.Classification__c);
+		//System.assertEquals(Constants.CLSS_GROWTH, newOpty.Classification__c);
 	}
 
 	/*********************************
@@ -983,10 +983,10 @@ public class OpportunityLineItemServiceTest {
 		UPDATE newOpty;
 		optyLIList.add(newOpty);
 		test.startTest();
-		OpportunityLineItemService.recalculateClassification(optyLIList, oldRecMap);
+		//OpportunityLineItemService.recalculateClassification(optyLIList, oldRecMap);
 		test.stopTest();
 
-		System.assertEquals('New Business', newOpty.Classification__c);
+		//System.assertEquals('New Business', newOpty.Classification__c);
 	}
 
 	/*********************************
@@ -1037,10 +1037,10 @@ public class OpportunityLineItemServiceTest {
 
 
 		test.startTest();
-		OpportunityLineItemService.recalculateClassification(optyLIList, oldRecMap);
+		//OpportunityLineItemService.recalculateClassification(optyLIList, oldRecMap);
 		test.stopTest();
 
-		System.assertEquals('Cross Sell', newOpty.Classification__c);
+		//System.assertEquals('Cross Sell', newOpty.Classification__c);
 	}
 
 	/*********************************
@@ -1087,10 +1087,10 @@ public class OpportunityLineItemServiceTest {
 		optyLIList.add(newOpty);
 
 		test.startTest();
-		OpportunityLineItemService.recalculateClassification(optyLIList, oldRecMap);
+		//OpportunityLineItemService.recalculateClassification(optyLIList, oldRecMap);
 		test.stopTest();
 
-		System.assertEquals('Win Back', newOpty.Classification__c);
+		//System.assertEquals('Win Back', newOpty.Classification__c);
 	}
 
 	/*********************************
@@ -1248,14 +1248,14 @@ public class OpportunityLineItemServiceTest {
 
 			OpportunityLineItem newOpty = [SELECT Id, OpportunityId, Contract_End_Date__c, Classification__c, Contract_Start_Date__c, Product2Id, TotalPrice, Change_Classification__c,OPCOverride__c FROM OpportunityLineItem WHERE OpportunityId =: oppVar.Id AND Product2Id =: testProd.Id AND TotalPrice =: 93.00 LIMIT 1];
 
-			System.assertEquals(oliVar.Classification__c, newOpty.Classification__c);
+			//System.assertEquals(oliVar.Classification__c, newOpty.Classification__c);
 			newOpty.Change_Classification__c = 'No';
-			UPDATE newOpty;
+			//UPDATE newOpty;
 
 			optyLIList.add(newOpty);
-			OpportunityLineItemService.recalculateClassification(optyLIList,oldRecMap);
+		//	OpportunityLineItemService.recalculateClassification(optyLIList,oldRecMap);
 
-			System.assertEquals(Constants.CLSS_RENEWAL, newOpty.Classification__c);
+		//	System.assertEquals(Constants.CLSS_RENEWAL, newOpty.Classification__c);
 
 		}
 		test.stopTest();
@@ -1327,12 +1327,12 @@ public class OpportunityLineItemServiceTest {
 			OpportunityLineItem newOpty = [SELECT Id, OpportunityId, Contract_End_Date__c, Classification__c, Contract_Start_Date__c, Product2Id, TotalPrice,Change_Classification__c,OPCOverride__c
 											 FROM OpportunityLineItem WHERE OpportunityId =: oppVar.Id AND Product2Id =: testProd.Id AND TotalPrice =: 93.00 LIMIT 1];
 			newOpty.Change_Classification__c = 'No';
-			UPDATE newOpty;
+			//UPDATE newOpty;
 
 			optyLIList.add(newOpty);
-			OpportunityLineItemService.recalculateClassification(optyLIList,oldRecMap);
+		//	OpportunityLineItemService.recalculateClassification(optyLIList,oldRecMap);
 
-			System.assertEquals(Constants.CLSS_RENEWAL, newOpty.Classification__c);
+		//	System.assertEquals(Constants.CLSS_RENEWAL, newOpty.Classification__c);
 
 		}
 		test.stopTest();
@@ -1405,12 +1405,12 @@ public class OpportunityLineItemServiceTest {
 			OpportunityLineItem newOpty = [SELECT Id, OpportunityId, Contract_End_Date__c, Classification__c, Contract_Start_Date__c, Product2Id, TotalPrice,Change_Classification__c,OPCOverride__c
 											 FROM OpportunityLineItem WHERE OpportunityId =: oppVar.Id AND Product2Id =: testProd.Id AND TotalPrice =: 93.00 LIMIT 1];
 			newOpty.Change_Classification__c = 'No';
-			UPDATE newOpty;
+			//UPDATE newOpty;
 
 			optyLIList.add(newOpty);
-			OpportunityLineItemService.recalculateClassification(optyLIList,oldRecMap);
+		//	OpportunityLineItemService.recalculateClassification(optyLIList,oldRecMap);
 
-			System.assertEquals(Constants.CLSS_RENEWAL, newOpty.Classification__c);
+		//	System.assertEquals(Constants.CLSS_RENEWAL, newOpty.Classification__c);
 
 		}
 		test.stopTest();
@@ -1459,10 +1459,10 @@ public class OpportunityLineItemServiceTest {
 		// related account sales history
 
 		test.startTest();
-		OpportunityLineItemService.populateClassification(optyLIList);
+		//OpportunityLineItemService.populateClassification(optyLIList);
 		test.stopTest();
 
-		System.assertEquals('Cross Sell', oliVar.Classification__c);
+		//System.assertEquals('Cross Sell', oliVar.Classification__c);
 
 	}
 
@@ -1576,9 +1576,111 @@ public class OpportunityLineItemServiceTest {
 		optyLIList.add(newOpty);
 
 		test.startTest();
-		OpportunityLineItemService.recalculateClassification(optyLIList, oldRecMap);
+		//OpportunityLineItemService.recalculateClassification(optyLIList, oldRecMap);
 		test.stopTest();
 
-		System.assertEquals(Constants.CLSS_RENEWAL, newOpty.Classification__c);
+		//System.assertEquals(Constants.CLSS_RENEWAL, newOpty.Classification__c);
 	}
+    
+
+	// TradingHistoryMapsTest coverage - to be removed 
+
+    @IsTest
+    public static void testAddTradedProduct() {
+        // Create instance of the TradingHistoryMaps class
+        OpportunityLineItemService.TradingHistoryMaps tradingHistory = new OpportunityLineItemService.TradingHistoryMaps();
+
+        // Define test Account Id and Product Id
+        Id testAccountId = Id.valueOf('001000000000001AAA');
+        Id testProductId = Id.valueOf('01t000000000001AAA');
+
+        // Add traded product
+        tradingHistory.addTradedProduct(testAccountId, testProductId);
+
+        // Verify that the traded product was added
+        System.assert(tradingHistory.tradedProductSet.containsKey(testAccountId), 'Account should exist in tradedProductSet');
+        System.assert(tradingHistory.tradedProductSet.get(testAccountId).contains(testProductId), 'Product should be in the traded products for the account');
+    }
+
+    @IsTest
+    public static void testAddSignificantTradedProduct() {
+        // Create instance of the TradingHistoryMaps class
+        OpportunityLineItemService.TradingHistoryMaps tradingHistory = new OpportunityLineItemService.TradingHistoryMaps();
+		Account account = ApplicationTestDataFactory.getAccounts(1, true)[0];
+        Product2 prod = ApplicationTestDataFactory.getProducts(1,true)[0];
+
+        // Define test Account Id and Product Id
+        Id testAccountId = account.Id;
+        Id testProductId = prod.Id;
+
+        // Add significant traded product
+        tradingHistory.addSignificantTradedProduct(testAccountId, testProductId);
+
+        // Verify that the significant traded product was added
+        System.assert(tradingHistory.significantTradedProductSet.containsKey(testAccountId), 'Account should exist in significantTradedProductSet');
+        System.assert(tradingHistory.significantTradedProductSet.get(testAccountId).contains(testProductId), 'Product should be in the significant traded products for the account');
+    }
+
+    @IsTest
+    public static void testProductPreviouslyTraded() {
+        // Create instance of the TradingHistoryMaps class
+        OpportunityLineItemService.TradingHistoryMaps tradingHistory = new OpportunityLineItemService.TradingHistoryMaps();
+
+        // Define test Account Id and Product Id
+		Account account = ApplicationTestDataFactory.getAccounts(1, true)[0];
+        Product2 prod = ApplicationTestDataFactory.getProducts(1,true)[0];
+
+        // Define test Account Id and Product Id
+        Id testAccountId = account.Id;
+        Id testProductId = prod.Id;
+
+        // Initially, product should not be marked as previously traded
+        System.assert(!tradingHistory.productPreviouslyTraded(testAccountId, testProductId), 'Product should not be previously traded initially');
+
+        // Add traded product and check again
+        tradingHistory.addTradedProduct(testAccountId, testProductId);
+        System.assert(tradingHistory.productPreviouslyTraded(testAccountId, testProductId), 'Product should be marked as previously traded after adding it');
+    }
+
+    @IsTest
+    public static void testProductSignificantlyTraded() {
+        // Create instance of the TradingHistoryMaps class
+        OpportunityLineItemService.TradingHistoryMaps tradingHistory = new OpportunityLineItemService.TradingHistoryMaps();
+
+        // Define test Account Id and Product Id
+		Account account = ApplicationTestDataFactory.getAccounts(1, true)[0];
+        Product2 prod = ApplicationTestDataFactory.getProducts(1,true)[0];
+
+        // Define test Account Id and Product Id
+        Id testAccountId = account.Id;
+        Id testProductId = prod.Id;
+
+        // Initially, product should not be marked as significantly traded
+        System.assert(!tradingHistory.productSignificantlyTraded(testAccountId, testProductId), 'Product should not be significantly traded initially');
+
+        // Add significant traded product and check again
+        tradingHistory.addSignificantTradedProduct(testAccountId, testProductId);
+        System.assert(tradingHistory.productSignificantlyTraded(testAccountId, testProductId), 'Product should be marked as significantly traded after adding it');
+    }
+
+    @IsTest
+    public static void testAnyProductSignificantlyTraded() {
+        // Create instance of the TradingHistoryMaps class
+        OpportunityLineItemService.TradingHistoryMaps tradingHistory = new OpportunityLineItemService.TradingHistoryMaps();
+		Account account = ApplicationTestDataFactory.getAccounts(1, true)[0];
+        Product2 prod = ApplicationTestDataFactory.getProducts(1,true)[0];
+
+        // Define test Account Id and Product Id
+        Id testAccountId = account.Id;
+        Id testProductId = prod.Id;
+
+
+        // Initially, there should be no significantly traded products for the account
+        System.assert(!tradingHistory.anyProductSignificantlyTraded(testAccountId), 'No products should be significantly traded for the account initially');
+
+        tradingHistory.addSignificantTradedProduct(testAccountId, testProductId);
+
+        // Now, there should be at least one significantly traded product for the account
+        System.assert(tradingHistory.anyProductSignificantlyTraded(testAccountId), 'There should be a significantly traded product for the account');
+    }
 }

@@ -7,12 +7,12 @@ August 2, 2018 - Created by conrad.c.v.borbon
 28/05/2020 Lija Jawahar SOQL Error fix update
 14/03/2023 Nasir Jawed Added function populateRevenueDate() to inset the Revenue start/End Date when an OLI in inserted at beforeInsertActions
 02/05/2023 Ken McGuire modified opc recalculation calls to newly refactored methods.
+1/10/2024 Ken McGuire removed legacy opc recalculation calls. Classificaiton is now calculated by the product revenue service.
 **************************************************/
 public without sharing class OpportunityLineItemTriggerHandler  extends ApplicationTriggerHandler
 {
 	private static final String STR_LOWER_CASE_NO = 'no';
 	private static final Decimal THREE_MILLION = 3000000.00;
-
 	private static final String APP_COMPLEXITY_DRIVERS = 'Complexity Drivers';
 	private static final String METHOD_PROCESS_BNGACTIONAFTERDELETE = 'processBndGActionAfterDelete';
 	private static final String METHOD_PROCESS_BNGACTIONAFTERINSERT = 'processBndGActionAfterInsert';
@@ -398,6 +398,7 @@ public without sharing class OpportunityLineItemTriggerHandler  extends Applicat
 		// populate revenue dates for for Conga related line items.
 		OpportunityLineItemService.populateRevenueDate(newOppLineItemList);
 		
+        /********* obsolete
 		// filter the line items for those which should be given OPC classifications
 		List<OpportunityLineItem> populateClassificationFilteredList = new List<OpportunityLineItem>();
 		
@@ -409,12 +410,15 @@ public without sharing class OpportunityLineItemTriggerHandler  extends Applicat
 			}
 		}
 		// assign the classification to the filtered list of line items.
-		OpportunityLineItemService.populateClassification(populateClassificationFilteredList);
-	}
 
+        OpportunityLineItemService.populateClassification(populateClassificationFilteredList);
+		*/
+    }
+    
+	// This method is now obsolete
 	public static void beforeUpdateActions(List<OpportunityLineItem> newOppLineItemList, Map<Id, OpportunityLineItem> oldRecMap)
 	{
-		OpportunityLineItemService.recalculateClassification(RecursionUtility.getUnprocessedRecords('Recalculate Classification', newOppLineItemList, Constants.optyLIComparisonFields()), oldRecMap);
+		//OpportunityLineItemService.recalculateClassification(RecursionUtility.getUnprocessedRecords('Recalculate Classification', newOppLineItemList, Constants.optyLIComparisonFields()), oldRecMap);
 	}
 
 	public static void beforeDeleteActions(List<OpportunityLineItem> newOppLineItemList, Map<Id, OpportunityLineItem> oldRecMap)

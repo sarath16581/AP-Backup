@@ -5,6 +5,7 @@ History:
 --------------------------------------------------
 2024-01-22Ken McGuire - Created
 2024-07-31 	Ken McGuire	- added refresh revenue capability.
+2024-10-01 Ken McGuire - prevent the creation of schedules when refreshing open opportunities.
 **************************************************/
 public class OpportunityRevenueReportController {
 
@@ -34,14 +35,7 @@ public class OpportunityRevenueReportController {
 			this.productRevenues = new Map<String, Decimal>();
 		}
 	}
-    
-    public static void tempDeleteThis(RevenueData data) {
-        system.debug('company name: '+data.companyName);
-        for(String product : data.productRevenues.keyset()) {
-            system.debug('Product '+product+ ' Revenue ' + data.productRevenues.get(product));
-        }
-    }
-    
+        
 	// Method to get revenue data
 	@AuraEnabled(cacheable=true)
 	public static List<RevenueData> getRevenueData(String opportunityId) {
@@ -77,14 +71,12 @@ public class OpportunityRevenueReportController {
 			buildRevenueData(mainAccountId,oppLineItem.values(),customerRevenues,data);
 			revenues.add(data);
             system.debug('**** adding revenues for main acocunts ');
-            tempDeleteThis(data);
 			// get data rows for child accounts
 			for (Account child : childAccounts.values()) {
 				if (child.Id != mainAccountId && (restrictedAccounts.isEmpty() || restrictedAccounts.contains(child.id))) {
 					data = new RevenueData(child.Name);
 					if (buildRevenueData(child.Id,oppLineItem.values(),customerRevenues,data)) {
 						system.debug('**** adding revenues for child accounts ');
-                        tempdeletethis(data);
                         revenues.add(data);
 					}
 
@@ -96,7 +88,6 @@ public class OpportunityRevenueReportController {
 					data = new RevenueData(relatedAccount.relatedAccount__r.Name);
 					if (buildRevenueData(relatedAccount.relatedAccount__c,oppLineItem.values(),customerRevenues,data)) {
                         system.debug('**** adding revenues for related accounts ');
-                        tempdeletethis(data);
 						revenues.add(data);
 					}
 				}
@@ -114,19 +105,44 @@ public class OpportunityRevenueReportController {
 	}
 
 	
-	@AuraEnabled
-	public static void RefreshRevenue(Id opportunityId) {
-		
-		performScheduleUpdates(opportunityId);
-	}
+    @AuraEnabled
+    public static void RefreshRevenue(Id opportunityId) {
+        try {
+            // Load Opportunity Information using a custom service class
+            Opportunity oppInfo = ProductRevenueService.NewInstance().loadOpportunityInfo(new Set<Id>{opportunityId}).get(opportunityId);
+            
+            // Check if the Opportunity StageName contains 'CLOSED'
+            if (oppInfo.StageName.toUpperCase().contains('CLOSED')) {
+                // If closed, perform schedule updates
+                performScheduleUpdates(opportunityId);
+            } else {
+                // If not closed, recalculate the revenue
+                recalculateRevenue(opportunityId);
+            }
+        } catch (Exception e) {
+            // Handle any exceptions and log them for debugging purposes
+            System.debug('Error in RefreshRevenue method: ' + e.getMessage());
+            throw new AuraHandledException('An error occurred while refreshing the revenue: ' + e.getMessage());
+        }
+    }
 	
 	@AuraEnabled
 	public static Boolean hasRefreshRevenuePermission() {
 		return new PermissionChecker().hasRefreshRevenuePermission();
 	}
 	
+   private static void recalculateRevenue(Id opportunityId) {
+       ApplicationUnitOfWork uow = ApplicationUnitOfWork.newInstance(getUnitOfWorkSObjectTypes());
+       GroupedLineItemSalesModule.newInstance().performRevenueUpdates(new Set<Id>{opportunityId}, uow);
+       uow.commitWork();
+	}
 	
-	
+	private static List<SObjectType> getUnitOfWorkSObjectTypes() {
+		return new List<SObjectType>{
+				OpportunityLineItem.SObjectType,
+				GroupedAccountProductRevenue__c.SObjectType
+		};
+	}
 	 /**
 	 * @description this method creates/ updates all the revenues and schedules for an opportununity's line items 
 	 * as if the opportunity was just closed won. useful when an opportunity has products or account relationships 

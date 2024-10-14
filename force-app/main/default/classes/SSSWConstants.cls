@@ -30,7 +30,7 @@
   * 03.09.2024 - George Nguyen - Added CASE_TYPE_AND_PRODUCT_UNIFIED_MODEL & CASE_ENQUIRY_SUBTYPE_LATE_ITEM used to set the value on case when it changes from General Enquiry to Investigation
   * 06.09.2024 - George Nguyen - Renamed the name of this constant: UNIFIED_AGENT_PROFILE
   */  
-public with sharing class SSSWConstants {
+  public with sharing class SSSWConstants {
 
 	// NOT USED
 	//public static final String CASE_PROFILES_ALLOWED_TO_CLOSE = 'DDC Consumer Community User,BSP Community User';

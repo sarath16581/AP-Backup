@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CallCenter xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <adapterUrl>https://apps.mypurecloud.com.au/salesforce-scv/index.html</adapterUrl>
+    <customSettings>{&quot;messageBridgeComponentFqn&quot;:&quot;genesyscloud:lwcBridge&quot;,&quot;scvVendorLoginUrl&quot;:&quot;https://apps.mypurecloud.com.au/salesforce-scv/login.html&quot;,&quot;reqTimeout&quot;:&quot;5000&quot;,&quot;vendorInfoApiName&quot;:&quot;genesyscloud__genesys_apac_sydney&quot;,&quot;reqStandbyUrl&quot;:&quot;https://domain:port/softphone&quot;,&quot;reqCallCenterType&quot;:&quot;SCVBYOT&quot;,&quot;reqSoftphoneHeight&quot;:&quot;300&quot;,&quot;reqUseApi&quot;:&quot;true&quot;,&quot;reqSoftphoneWidth&quot;:&quot;500&quot;,&quot;reqSalesforceCompatibilityMode&quot;:&quot;Lightning&quot;}</customSettings>
+    <displayName>Unified Contact Center</displayName>
+    <displayNameLabel>Display Name</displayNameLabel>
+    <internalNameLabel>InternalName</internalNameLabel>
+    <sections>
+        <items>
+            <label>Conversation Vendor Info Developer Name</label>
+            <name>reqVendorInfoApiName</name>
+            <value>genesyscloud__genesys_apac_sydney</value>
+        </items>
+        <items>
+            <label>CTI Adapter URL</label>
+            <name>reqAdapterUrl</name>
+            <value>https://apps.mypurecloud.com.au/salesforce-scv/index.html</value>
+        </items>
+        <label>General Information</label>
+        <name>reqGeneralInfo</name>
+    </sections>
+    <sections>
+        <items>
+            <label>Telephony Integration Certificate</label>
+            <name>reqTelephonyIntegrationCertificate</name>
+            <value>-----BEGIN CERTIFICATE-----
+MIIEATCCAumgAwIBAgIUGwAnLy9h/Gc6ANeXpRs4gqi9Vd4wDQYJKoZIhvcNAQEL
+BQAwgagxCzAJBgNVBAYTAkFVMREwDwYDVQQIDAhWaWN0b3JpYTESMBAGA1UEBwwJ
+TWVsYm91cm5lMRcwFQYDVQQKDA5FbmdhZ2UgUHR5IExUZDESMBAGA1UECwwJU29s
+dXRpb25zMR4wHAYDVQQDDBVhcC1xYWNzdC5lbmdhZ2VwdHlsdGQxJTAjBgkqhkiG
+9w0BCQEWFmFuZHlAbGV0c2VuZ2FnZS5jb20uYXUwHhcNMjQwOTMwMDU1ODE0WhcN
+MjUwOTMwMDU1ODE0WjCBqDELMAkGA1UEBhMCQVUxETAPBgNVBAgMCFZpY3Rvcmlh
+MRIwEAYDVQQHDAlNZWxib3VybmUxFzAVBgNVBAoMDkVuZ2FnZSBQdHkgTFRkMRIw
+EAYDVQQLDAlTb2x1dGlvbnMxHjAcBgNVBAMMFWFwLXFhY3N0LmVuZ2FnZXB0eWx0
+ZDElMCMGCSqGSIb3DQEJARYWYW5keUBsZXRzZW5nYWdlLmNvbS5hdTCCASIwDQYJ
+KoZIhvcNAQEBBQADggEPADCCAQoCggEBAOYbuu08ZCjr/Zpa4hLng7GlYmiq4sdW
+1IYpIDYPeaVrh6Gmoraeb+oj1FNlRrElZTv1mmju4wdSOSnvzTkVLGfM1+MSPNvb
+kqKw/rx3BJxJKmZrAxKSm5v4Baxycp7z5LYtxQnvnZn3m086zbOrSoqirtWA2M8a
+otEvy8kKqlotKIKjMlrd54Jc3iZ3N8DRbBuLJLJ9gfS4DsEykzbd218QFvi3+bW+
+fEhvpqZynR1E1yHl6q/GlW0f4gHu+750bUnqmsh0/Xq9IN8uNSWwQl9kunXmUjPj
+npsS0UA7CdoU55+8idau04RSz6lwZBMBk4D6fQHzakjCTx2kK1q8hFsCAwEAAaMh
+MB8wHQYDVR0OBBYEFCE3RG2wuzeS3Mb5zGnWlrmAnHQiMA0GCSqGSIb3DQEBCwUA
+A4IBAQCPJQ8kF/JoLrig5YocgRgfLbNiop+nbHDNjcLv/8ptCKDL3zJUKFAAQoRH
+jsijqe2G+rGAIA4jSeG/RlFVtF4iyGUzSM2ZIGeFbGF7ZnkPqeDZfq1yIagNRoiq
+0eGecH0XIfpvuHAmQzSL6RVQCBUzi2WXzTddkTc4Fz3NhJ9vVeFdBuBU7gOEt/0E
+4ym/kDslYbbPSUkf7dqlpwKWbZOCWyFIAIA6booESl/KGewAezbewp1XAioO0j6C
+0s6DLmNp2BFosAOh68b9EzBVqkWRA8vY4hmIOPbrBNTAXPhy2nX9VEzpzH/I6XRX
+WSKaTMmcK8rlSejEWKm6NM47lN+N
+-----END CERTIFICATE-----</value>
+        </items>
+        <items>
+            <label>Long Distance Prefix</label>
+            <name>reqLongDistPrefix</name>
+            <value>+61</value>
+        </items>
+        <items>
+            <label>Telephony Provider</label>
+            <name>reqTelephonyProvider</name>
+            <value>Genesys Asia Pacific (Sydney)</value>
+        </items>
+        <items>
+            <label>Created BY XML</label>
+            <name>reqIsCreatedByXML</name>
+            <value>true</value>
+        </items>
+        <items>
+            <label>Cloud Formation template version</label>
+            <name>reqVersion</name>
+            <value>1.0</value>
+        </items>
+        <items>
+            <label>Quick Connect for Omni Flow Transfer Id</label>
+            <name>reqTransferTargetForOmniFlowTransfer</name>
+            <value xsi:nil="true"/>
+        </items>
+        <items>
+            <label>Quick Connect for Omni Flow Transfer</label>
+            <name>reqTransferTargetForOmniFlowTransferDisplayName</name>
+            <value xsi:nil="true"/>
+        </items>
+        <items>
+            <label>Voice Extension Flexipage</label>
+            <name>reqVoiceExtensionFlexipage</name>
+            <value xsi:nil="true"/>
+        </items>
+        <items>
+            <label>Universal Call Recording Access</label>
+            <name>reqUniversalCallRecordingAccess</name>
+            <value>false</value>
+        </items>
+        <items>
+            <label>Always Show Voice Extension</label>
+            <name>reqAlwaysShowVoiceExtension</name>
+            <value>false</value>
+        </items>
+        <items>
+            <label>Presence Sync Status Access</label>
+            <name>reqPresenceStatusSyncAccess</name>
+            <value>false</value>
+        </items>
+        <label>SCV Settings</label>
+        <name>reqHvcc</name>
+    </sections>
+    <sections>
+        <items>
+            <label>SSO Identity Provider Name</label>
+            <name>providerName</name>
+            <value xsi:nil="true"/>
+        </items>
+        <items>
+            <label>Genesys Cloud Organization Name</label>
+            <name>orgName</name>
+            <value xsi:nil="true"/>
+        </items>
+        <label>SSO Settings</label>
+        <name>ssoSettings</name>
+    </sections>
+    <version>1</version>
+</CallCenter>

@@ -29,5 +29,5 @@
     &amp;&amp;
     NOT(CONTAINS($Profile.Name,&quot;LPO Partner Community User&quot;))</errorConditionFormula>
     <errorMessage>A contact must have a mailing address.
-If you are changing the Status to &apos;Left Organisation&apos; the mailing address remains mandatory, please ensure that the contact meets the minimum mailing address requirements.</errorMessage>
+    If you are changing the Status to &apos;Left Organisation&apos; the mailing address remains mandatory, please ensure that the contact meets the minimum mailing address requirements.</errorMessage>
 </ValidationRule>
