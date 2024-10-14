@@ -486,11 +486,7 @@ global with sharing class GenesysConnectorController implements purecloud.CTIExt
 	*/
 	@RemoteAction
 	public static String getContactByAccountIdAP(Id accountId) {
-		Set<SObjectField> fieldSet = new Set<SObjectField>{
-			Account.PersonContactId
-		};
-
-		List<Account> accounts = AccountsSelector.newInstance(0, fieldSet)
+		List<Account> accounts = AccountsSelector.newInstance(0, new Set<SObjectField>{ Account.PersonContactId })
 			.selectById(new Set<Id>{ accountId }).values();
 
 		Id result;
