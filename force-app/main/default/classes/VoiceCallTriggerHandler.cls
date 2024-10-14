@@ -5,6 +5,7 @@
  * @date 2024-08-27
  * @changelog
  * 2024-08-27 Paul Perry - create it
+ * 2024-10-11 SteveL - re-ordered module execution order
  */
 public inherited sharing class VoiceCallTriggerHandler extends ApplicationTriggerHandler {
 	@TestVisible
@@ -41,13 +42,14 @@ public inherited sharing class VoiceCallTriggerHandler extends ApplicationTrigge
 	 * List of modules that are registered within this Trigger Handler
 	 */
 	public override void registerModules() {
+		// performs Voice Call auto field population logic
+		registerModule(UnifiedVoiceCallModule.class, FILTER_ALLWITHVENDORKEY);
 		// populate the case id on both the relevant agent work records and the contactrequest records themselves
 		// This provides an easy to reference lookup to the case the record is associated with
 		registerModule(CaseRecordPopulationModule.class);
 		// SVC/Unified
 		// - Synchronise authoritative VoiceCall attributes to Genesys
 		registerModule(GenesysVoiceCallModule.class, FILTER_ALLWITHVENDORKEY);
-		registerModule(UnifiedVoiceCallModule.class, FILTER_ALLWITHVENDORKEY);
 	}
 
 	/**
