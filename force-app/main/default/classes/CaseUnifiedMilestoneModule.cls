@@ -89,6 +89,7 @@ public inherited sharing class CaseUnifiedMilestoneModule extends ApplicationMod
 				Set<SObjectField> changedFields = recordState.changedFields;
 				Map<String, Object> previousState = recordState.previousState;
 				
+				// check if the Type has changed from General Enquiry to Investigation then set the EntitlementId on the case to start the milestones
 				if(changedFields.contains(Case.Type) == true) {
 					if(String.valueOf(previousState.get('Type')) == SSSWConstants.CASE_TYPE_GENERAL_ENQUIRY && csRec.Type == SSSWConstants.CASE_TYPE_INVESTIGATION) {
 						csRec.EntitlementId = unifiedEntitlementId;
@@ -96,6 +97,10 @@ public inherited sharing class CaseUnifiedMilestoneModule extends ApplicationMod
 					}
 				}
 
+				/** 
+				 * If the Case.Status has changed to a Closed status then we need to flag it as Stopped = True and we also need to Stop the Milestones. 
+				 * If the Case.Status has change to a Not Closed status then we need to flag it as Stopped = False and we also need to Start the milestones.
+				 */
 				if(changedFields.contains(Case.Status) == true) {
 					String oldCaseStatus = String.valueOf(previousState.get('Status'));
 					if(closedStatus.contains(oldCaseStatus) == false && closedStatus.contains(csRec.Status) == true) {
