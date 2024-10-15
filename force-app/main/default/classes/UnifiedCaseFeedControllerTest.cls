@@ -105,11 +105,15 @@ private class UnifiedCaseFeedControllerTest {
 		// =====================================
 		// Stubbing
 		// =====================================
+		ImpactedArticlesSelector mockImpactedArticlesSelector = (ImpactedArticlesSelector) MockUtility.mockSelector(ImpactedArticlesSelector.class);
 		EventMessagesSelector mockEventMessagesSelector = (EventMessagesSelector) MockUtility.mockSelector(EventMessagesSelector.class);
+
 		MockUtility.Mocks.startStubbing();
 		// Selectors
+		MockUtility.Mocks.when(mockImpactedArticlesSelector.selectByCaseId((Set<Id>) fflib_Match.anyObject())).thenReturn(impactedArticles);
 		MockUtility.Mocks.when(mockEventMessagesSelector.selectByArticleIdAndEventType((Set<Id>) fflib_Match.anyObject(), (Set<String>) fflib_Match.anyObject())).thenReturn(new List<EventMessage__c>{ scanEvents[0] });
 		MockUtility.Mocks.stopStubbing();
+
 		// =====================================
 		// Testing
 		// =====================================
@@ -118,7 +122,6 @@ private class UnifiedCaseFeedControllerTest {
 		Test.stopTest();
 
 		Assert.isNotNull(result, 'EventMessage__c result should not be null');
-		// event message with type 'INT-2119' should not be returned
 		Assert.areEqual(1, result.size(), 'EventMessage__c result size should be 1 but instead got ' + result.size());
 		Assert.areEqual(scanEvents[0].Id, result[0].Id, 'EventMessage__c result Id should match but instead got ' + result[0].Id);
 		Assert.areEqual(scanEvents[0].EventType__c, result[0].EventType__c, 'EventMessage__c result event type should match but instead got ' + result[0].EventType__c);
@@ -158,16 +161,20 @@ private class UnifiedCaseFeedControllerTest {
 		// =====================================
 		// Stubbing
 		// =====================================
+		ImpactedArticlesSelector mockImpactedArticlesSelector = (ImpactedArticlesSelector) MockUtility.mockSelector(ImpactedArticlesSelector.class);
 		EventMessagesSelector mockEventMessagesSelector = (EventMessagesSelector) MockUtility.mockSelector(EventMessagesSelector.class);
 		EmailMessagesSelector mockEmailMessagesSelector = (EmailMessagesSelector) MockUtility.mockSelector(EmailMessagesSelector.class);
 		ContactRequestsSelector mockContactRequestsSelector = (ContactRequestsSelector) MockUtility.mockSelector(ContactRequestsSelector.class);
+
 		MockUtility.Mocks.startStubbing();
 		// Selectors
+		MockUtility.Mocks.when(mockImpactedArticlesSelector.selectByCaseId((Set<Id>) fflib_Match.anyObject())).thenReturn(impactedArticles);
 		MockUtility.Mocks.when(mockContactRequestsSelector.search((Map<String, Object>) fflib_Match.anyObject(), (Set<Object>) fflib_Match.anyObject(), (Boolean) fflib_Match.anyBoolean()))
 			.thenReturn(new List<ContactRequest>{ conReqs[0] });
 		MockUtility.Mocks.when(mockEmailMessagesSelector.selectByParentIds((Set<Id>) fflib_Match.anyObject(), (Set<Object>) fflib_Match.anyObject())).thenReturn(new List<EmailMessage>{ emails[0] });
 		MockUtility.Mocks.when(mockEventMessagesSelector.selectByArticleIdAndEventType((Set<Id>) fflib_Match.anyObject(), (Set<String>) fflib_Match.anyObject())).thenReturn(new List<EventMessage__c>{ scanEvents[0] });
 		MockUtility.Mocks.stopStubbing();
+
 		// =====================================
 		// Testing
 		// =====================================
@@ -287,16 +294,20 @@ private class UnifiedCaseFeedControllerTest {
 		// =====================================
 		// Stubbing
 		// =====================================
+		ImpactedArticlesSelector mockImpactedArticlesSelector = (ImpactedArticlesSelector) MockUtility.mockSelector(ImpactedArticlesSelector.class);
 		EventMessagesSelector mockEventMessagesSelector = (EventMessagesSelector) MockUtility.mockSelector(EventMessagesSelector.class);
 		EmailMessagesSelector mockEmailMessagesSelector = (EmailMessagesSelector) MockUtility.mockSelector(EmailMessagesSelector.class);
 		ContactRequestsSelector mockContactRequestsSelector = (ContactRequestsSelector) MockUtility.mockSelector(ContactRequestsSelector.class);
+
 		MockUtility.Mocks.startStubbing();
 		// Selectors
+		MockUtility.Mocks.when(mockImpactedArticlesSelector.selectByCaseId((Set<Id>) fflib_Match.anyObject())).thenReturn(impactedArticles);
 		MockUtility.Mocks.when(mockContactRequestsSelector.search((Map<String, Object>) fflib_Match.anyObject(), (Set<Object>) fflib_Match.anyObject(), (Boolean) fflib_Match.anyBoolean()))
 			.thenReturn(new List<ContactRequest>{ conReqs[0] });
 		MockUtility.Mocks.when(mockEmailMessagesSelector.selectByParentIds((Set<Id>) fflib_Match.anyObject(), (Set<Object>) fflib_Match.anyObject())).thenReturn(new List<EmailMessage>{ emails[0] });
 		MockUtility.Mocks.when(mockEventMessagesSelector.selectByArticleIdAndEventType((Set<Id>) fflib_Match.anyObject(), (Set<String>) fflib_Match.anyObject())).thenReturn(new List<EventMessage__c>{ scanEvents[0] });
 		MockUtility.Mocks.stopStubbing();
+
 		// =====================================
 		// Testing
 		// =====================================
