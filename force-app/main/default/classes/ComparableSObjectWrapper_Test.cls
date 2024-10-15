@@ -6,24 +6,29 @@
  * @group 	Global
  * @changelog
  * 2024-09-23 - Paul Perry - created
+ * 2024-10-15 - Fix for incorrect DateTime comparison logic
  */
 @IsTest
 public with sharing class ComparableSObjectWrapper_Test {
 	@IsTest
 	static void testSortRecords() {
+		DateTime todayAdd50 = System.now().addDays(50);
+		DateTime todayAdd75 = System.now().addDays(75);
+		DateTime todayAdd100 = System.now().addDays(100);
+
 		// Create test data
 		List<Account> accounts = new List<Account>{
 			(Account)ApplicationTestDataFactory.setUnwritableFields(
 				new Account(Name = 'Test C', AnnualRevenue = 1000, NumberOfEmployees = 50),
-				new Map<String,Object>{ 'CreatedDate' => System.now().addDays(50) }
+				new Map<String,Object>{ 'CreatedDate' => todayAdd50 }
 			),
 			(Account)ApplicationTestDataFactory.setUnwritableFields(
 				new Account(Name = 'Test A', AnnualRevenue = 3000, NumberOfEmployees = 100),
-				new Map<String,Object>{ 'CreatedDate' => System.now().addDays(100) }
+				new Map<String,Object>{ 'CreatedDate' => todayAdd100 }
 			),
 			(Account)ApplicationTestDataFactory.setUnwritableFields(
 				new Account(Name = 'Test B', AnnualRevenue = 2000, NumberOfEmployees = 75),
-				new Map<String,Object>{ 'CreatedDate' => System.now().addDays(75) }
+				new Map<String,Object>{ 'CreatedDate' => todayAdd75 }
 			)
 		};
 
@@ -46,8 +51,8 @@ public with sharing class ComparableSObjectWrapper_Test {
 
 		// Test sorting by DateTime field (CreatedDate)
 		List<SObject> sortedByCreatedDate = ComparableSObjectWrapper.sortRecords(accounts, Account.CreatedDate, 'DESC');
-		System.assertEquals(System.now().addDays(100), ((Account)sortedByCreatedDate[0]).CreatedDate, 'First account should have Today + 100 as CreatedDate');
-		System.assertEquals(System.now().addDays(50), ((Account)sortedByCreatedDate[2]).CreatedDate, 'Last account should have Today + 50 as CreatedDate');
+		System.assertEquals(todayAdd100, ((Account)sortedByCreatedDate[0]).CreatedDate, 'First account should have Today + 100 as CreatedDate');
+		System.assertEquals(todayAdd50, ((Account)sortedByCreatedDate[2]).CreatedDate, 'Last account should have Today + 50 as CreatedDate');
 
 		Test.stopTest();
 	}
