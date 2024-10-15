@@ -4,7 +4,7 @@
  * @author Paul Perry
  * @date 2024-04-26
  * @changelog
- *
+ *	2024-10-03: Minor fixes after Go-Live
  */
 	// Properties used for each interaction
 	let businessLogic;
@@ -80,22 +80,6 @@
 		sforce.console.onFocusedPrimaryTab((event) => handleCtiEvent('PRIMTABFOCUS_CHANGE', event));
 		sforce.console.onFocusedSubtab((event) => handleCtiEvent('SUBTABFOCUS_CHANGE', event));
 
-		// Wire up storage event to CTI Eventlistener
-		// - Storage events are used for cross window / iframe communication
-		window.addEventListener('storage', function(event) {
-			setTimeout(function() {
-				if (event.key.startsWith('CTI_')) {
-					// Provide event detail newValue and oldValue
-					const detail = ['newValue', 'oldValue'].reduce(
-						(res, item) => Object.assign(res, {[item]: GenesysCTIUtils.jsonToObj(event[item])}), {}
-					);
-					// Provide array of changed attributes
-					detail.changes = GenesysCTIUtils.getDiff(detail.newValue, detail.oldValue);
-					handleCtiEvent('STORAGE', {detail, key: event.key});
-				}
-			}, 0);
-		});
-
 		// Clearview codes
 		['Complaint__c', 'Type', 'ProductCategory__c', 'ProductSubCategory__c', 'EnquirySubType__c'].forEach(
 			field => sforce.console.addEventListener(
@@ -111,6 +95,12 @@
 			const ctiEvent = JSON.parse(event.message);
 			handleCtiEvent(ctiEvent.eventName, ctiEvent.message);
 		});
+
+		// Catch events fired by the mini case component when ready / onloadcompleted
+		sforce.console.addEventListener('MiniCaseComponent_Ready', (event) => {
+			// Event params contain the parentTabId
+			handleCtiEvent('MiniCaseComponent_Ready', event);
+		})
 	}
 
 	// Which call centre logic do we need to handle calls? (AP / ST)
@@ -163,6 +153,8 @@
 			if (result.category === 'add' /*&& !businessLogic*/) {
 				// first CTI event for inbound call (category 'add') means wiring up the division specific CTI adapter logic
 				businessLogic = initialiseCallCentreHandlerInstance(result);
+				// Clear the eventList before every incoming call, prevents draining browser memory
+				eventList = [];
 			}
 		} else if (eventName !== 'INTERACTION_EVENT') {
 			if (eventName === 'INTERACTION_DISCONNECTED' && lastCtiInteractionLog) {
@@ -176,7 +168,7 @@
 			result.lastDetail = lastCtiInteractionLog;
 		}
 
-		// For tracking purposes only
+		// For tracking purposes only, which will allow a developer to pull the eventhistory for the current interaction for troubleshooting purposes
 		const trackedEvents = ['INTERACTION_CONNECTED', 'INTERACTION_DISCONNECTED', 'LOGGED_OUT', 'ACW_REQUIRED', 'ACW_COMPLETED', 'INTERACTION_EVENT'];
 		if (trackedEvents.includes(eventName)) {
 			eventList.push({
@@ -186,6 +178,9 @@
 		}
 
 		sforce.console.fireEvent('genesys.connector.trackevent', JSON.stringify({ eventName, ctiEvent : result }));
+
+		// The one single console log event for troubleshooting purposes
+		console.log(...GenesysCTIUtils.logPrefix, eventName, result);
 
 		// Pass the event onto the instance that handles the business logic
 		if (businessLogic && (eventName !== 'INTERACTION_EVENT' || (result.category === 'add' || result.changes?.length))) {

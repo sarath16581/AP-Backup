@@ -334,6 +334,8 @@ class GenesysCTIUtils {
 
         return storageTarget.setItem(propName, value);
     }
+
+	static logPrefix = [`%c* GenCTI *%c`, 'color:white;background-color:#dc1928;font-weight:bold', null];
 }
 
 class CallInteractionProxy {
