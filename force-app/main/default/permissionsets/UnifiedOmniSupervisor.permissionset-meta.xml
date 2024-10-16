@@ -1,7 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <PermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>This permission set shall be used for TL/TSLs and defines additional permissions for the purpose of using Salesforce Omni Supervisor and its features</description>
+    <hasActivationRequired>false</hasActivationRequired>
+    <label>Unified Omni Supervisor</label>
+    <license>Salesforce</license>
+    <classAccesses>
+        <apexClass>genesyscloud__AuraComponentsController</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
     <classAccesses>
         <apexClass>genesyscloud__GenesysSCVExtensionService</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>genesyscloud__GenesysSCVExtensionClass</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>genesyscloud__GenesysSCVExtension</apexClass>
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
@@ -13,6 +29,18 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>genesyscloud__OAuthClient</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>genesyscloud__OAuthSetting</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>genesyscloud__RestClient</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>genesyscloud__SCVPostInstallScript</apexClass>
         <enabled>true</enabled>
     </classAccesses>
@@ -20,7 +48,22 @@
         <apexClass>genesyscloud__SCVUninstallScript</apexClass>
         <enabled>true</enabled>
     </classAccesses>
-    <description>This permission set shall be used for TL/TSLs and defines additional permissions for the purpose of using Salesforce Omni Supervisor and its features</description>
+    <classAccesses>
+        <apexClass>genesysps__PureCloudKnowledgeUtilityController</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>genesysps__PureCloudTranscript</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>genesysps__getTranscript</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>genesysps__omniChannel</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
     <fieldPermissions>
         <editable>false</editable>
         <field>genesyscloud__Genesys_Attribute_Mapping__c.genesyscloud__Call_Center_Internal_Name__c</field>
@@ -106,9 +149,16 @@
         <field>genesyscloud__Packaging_Information__c.genesyscloud__Version__c</field>
         <readable>true</readable>
     </fieldPermissions>
-    <hasActivationRequired>false</hasActivationRequired>
-    <label>Unified Omni Supervisor</label>
-    <license>Salesforce</license>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>genesysps__Chat_Transcript__c.genesysps__Body__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>LiveChatTranscript.SupervisorTranscriptBody</field>
+        <readable>true</readable>
+    </fieldPermissions>
     <objectPermissions>
         <allowCreate>false</allowCreate>
         <allowDelete>false</allowDelete>

@@ -3,6 +3,7 @@
     <fullName>RootCause__c</fullName>
     <businessStatus>Active</businessStatus>
     <description>Root Cause</description>
+    <externalId>false</externalId>
     <inlineHelpText>Root Cause</inlineHelpText>
     <label>Root Cause</label>
     <required>false</required>

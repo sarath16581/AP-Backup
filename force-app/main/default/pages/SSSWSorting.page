@@ -741,8 +741,8 @@
         </apex:form>
 
         <div id="unifiedRoutingDiv">
-            <apex:outputPanel >
-                <apex:messages />
+            <apex:outputPanel>
+                <apex:messages/>
                 <br/>
                 <br/>
                 <ul id="readOnlyUnifiedRoute">

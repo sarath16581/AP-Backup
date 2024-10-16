@@ -4,30 +4,30 @@
     <active>true</active>
     <description>Ensures the Mailing Address is populated for active contacts</description>
     <errorConditionFormula>ISBLANK(MailingCity &amp; MailingState &amp; MailingStreet &amp; MailingPostalCode )
-        &amp;&amp;
-        NOT(CONTAINS($Profile.Name,&quot;SSSW&quot;))
-        &amp;&amp;
-        NOT(CONTAINS($Profile.Name,&quot;Unified Customer Service&quot;))
-        &amp;&amp;
-        NOT(CONTAINS($Profile.Name,&quot;AusPost Integration&quot;))
-        &amp;&amp;
-        NOT(CONTAINS($Profile.Name,&quot;AusPost Integration API Only&quot;))
-        &amp;&amp; 
-        NOT(ISPICKVAL($User.UserType,&quot;AutomatedProcess&quot;)) 
-        &amp;&amp;
-        NOT(CONTAINS($Profile.Name,&quot;System Administrator&quot;))
-        &amp;&amp;
-        NOT($Permission.BSP_Community_Access)
-        &amp;&amp;
-        NOT(CONTAINS($Profile.Name,&quot;Merchant Portal Community User&quot;))
-        &amp;&amp;
-        NOT(CONTAINS($Profile.Name,&quot;Mypost Business Help &amp; Support Community User&quot;))
-        &amp;&amp;
-        NOT(CONTAINS($Profile.Name,&quot;Customer Team&quot;))
-        &amp;&amp;
-        Not( ISPICKVAL( Status__c , &quot;Inactive&quot;) )
-        &amp;&amp;
-        NOT(CONTAINS($Profile.Name,&quot;LPO Partner Community User&quot;))</errorConditionFormula>
+    &amp;&amp;
+    NOT(CONTAINS($Profile.Name,&quot;SSSW&quot;))
+    &amp;&amp;
+    NOT(CONTAINS($Profile.Name,&quot;Unified Customer Service&quot;))
+    &amp;&amp;
+    NOT(CONTAINS($Profile.Name,&quot;AusPost Integration&quot;))
+    &amp;&amp;
+    NOT(CONTAINS($Profile.Name,&quot;AusPost Integration API Only&quot;))
+    &amp;&amp; 
+    NOT(ISPICKVAL($User.UserType,&quot;AutomatedProcess&quot;)) 
+    &amp;&amp;
+    NOT(CONTAINS($Profile.Name,&quot;System Administrator&quot;))
+    &amp;&amp;
+    NOT($Permission.BSP_Community_Access)
+    &amp;&amp;
+    NOT(CONTAINS($Profile.Name,&quot;Merchant Portal Community User&quot;))
+    &amp;&amp;
+    NOT(CONTAINS($Profile.Name,&quot;Mypost Business Help &amp; Support Community User&quot;))
+    &amp;&amp;
+    NOT(CONTAINS($Profile.Name,&quot;Customer Team&quot;))
+    &amp;&amp;
+    Not( ISPICKVAL( Status__c , &quot;Inactive&quot;) )
+    &amp;&amp;
+    NOT(CONTAINS($Profile.Name,&quot;LPO Partner Community User&quot;))</errorConditionFormula>
     <errorMessage>A contact must have a mailing address.
     If you are changing the Status to &apos;Left Organisation&apos; the mailing address remains mandatory, please ensure that the contact meets the minimum mailing address requirements.</errorMessage>
 </ValidationRule>

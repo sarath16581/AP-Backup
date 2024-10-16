@@ -5,6 +5,7 @@
  * @date 	2024-08-27
  * @changelog
  * 2024-08-27 Paul Perry - created
+ * 2024-10-10 SteveL - updated with copyLookupDetailsFromTextValues to have the transferred calls lookup fields values populated from their text fields counterparts
  */
 public with sharing class UnifiedVoiceCallModule extends ApplicationModule {
 	public static UnifiedVoiceCallModule newInstance() {
@@ -15,7 +16,15 @@ public with sharing class UnifiedVoiceCallModule extends ApplicationModule {
 	 * Constructor
 	 */
 	public UnifiedVoiceCallModule() {
-		getTriggerEvents().enableAfterInsert();
+		getTriggerEvents().enableBeforeInsert().enableAfterInsert();
+	}
+
+	public override void onBeforeInsert(List<SObject> records, ApplicationUnitOfWork uow) {
+		try {
+			copyLookupDetailsFromTextValues(records);
+		} catch (Exception ex) {
+			ApplicationLogger.getInstance().logException(ApplicationLogger.wrapException(ex), 'Unified Voice Call', UnifiedVoiceCallModule.class.getName(), 'onBeforeInsert', 'VoiceCall', ApplicationLogger.LoggingLevel.ERROR);
+		}
 	}
 
 	public override void onAfterInsert(List<SObject> records, ApplicationUnitOfWork uow) {
@@ -27,7 +36,7 @@ public with sharing class UnifiedVoiceCallModule extends ApplicationModule {
 	}
 
 	/**
-	 * when a Voice Call record is created, attempt to auto populate the Contact__c field base on the phone number
+	 * when a Voice Call record is created, attempt to auto populate the Contact__c field base on the phone number when the Call Type is either inbound or outbound
 	 * @param records List<SObject>
 	 * @param uow ApplicationUnitOfWork
 	 */
@@ -96,6 +105,22 @@ public with sharing class UnifiedVoiceCallModule extends ApplicationModule {
 		}
 
 		uow.registerDirty(voiceCallRecordsMap.values());
+	}
+
+	/**
+	 * when a new Voice Call is created with Call Type as Transfer, populate the Lookup up fields RelatedRecordId and Contact__c with the values from their respective text field value, then clear out the text field values
+	 * @param records List<SObject>
+	 */
+	@TestVisible
+	private static void copyLookupDetailsFromTextValues(List<SObject> records) {
+		for (VoiceCall vc : (List<VoiceCall>) records) {
+			if (vc.CallType == GenesysConstants.VOICE_CALL_TRANSFER_CALL_TYPE  && vc.PreviousCallId != null) {
+				vc.Contact__c = vc.ContactId__c; // populate the Lookup field Contact__c from its text field equivalent as Genesys mapping does not support lookup fields
+				vc.RelatedRecordId = vc.CaseId__c; // populate the Lookup field RelatedRecordId from its text field equivalent as Genesys mapping does not support lookup fields
+				vc.ContactId__c = null;
+				vc.CaseId__c = null;
+			}
+		}
 	}
 
 	@TestVisible

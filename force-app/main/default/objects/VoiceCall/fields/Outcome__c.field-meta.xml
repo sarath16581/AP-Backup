@@ -3,6 +3,7 @@
     <fullName>Outcome__c</fullName>
     <businessStatus>Active</businessStatus>
     <description>Outcome of Voice Call</description>
+    <externalId>false</externalId>
     <inlineHelpText>Outcome of Voice Call</inlineHelpText>
     <label>Outcome</label>
     <required>false</required>

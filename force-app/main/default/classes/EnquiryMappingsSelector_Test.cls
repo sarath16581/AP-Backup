@@ -88,7 +88,9 @@ private class EnquiryMappingsSelector_Test {
 		MockUtility.disableTriggerExecution();
 
 		List<MiniCaseFieldMapping__c> mappings = ApplicationTestDataFactoryCase.getEnquiryTypeMappings(false);
-		mappings[0].MappingModel__c = 'Classic';
+        // expect a list of mappings defaulted to Classic mapping model
+		
+        mappings[0].MappingModel__c = SSSWConstants.ENQUIRYMAPPING_UNIFIED_MODEL; // set one of them to unified
 		insert mappings;
 
 		// =====================================
@@ -102,8 +104,9 @@ private class EnquiryMappingsSelector_Test {
 		Test.startTest();
 
 		EnquiryMappingsSelector selector = EnquiryMappingsSelector.newInstance();
-		List<MiniCaseFieldMapping__c> results = selector.selectBySAPKeyAndMappingModel(new Set<String>{'eParceleParcel Standard', 'StarTrackST Next Flight', 'Express PostExpress Post Medium'}, new Set<String>{ 'Classic' });
-		System.assertEquals(1, results.size(), 'Expected result size of 1');
+		List<MiniCaseFieldMapping__c> results = selector.selectBySAPKeyAndMappingModel(new Set<String>{'eParceleParcel Standard', 'StarTrackST Next Flight', 'Express PostExpress Post Medium'}, new Set<String>{ SSSWConstants.ENQUIRYMAPPING_UNIFIED_MODEL });
+		
+		System.assertEquals(1, results.size(), 'Expected only one Unified mapping');
 
 		Test.stopTest();
 

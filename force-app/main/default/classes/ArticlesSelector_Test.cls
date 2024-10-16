@@ -8,6 +8,7 @@
  * 2020-08-02 - Nathan Franklin - Updated for new return values in ApplicationDatabase
  * 2022-11-29 - Mahesh Parvathaneni - Updated for selectByCaseIds method
  * 2024-05-02 - Vasu Gorakati - updated for selectByArticleNames
+ * 2024-05-02 - Vasu Gorakati - updated for selectByArticleNames
  * 2024-09-09 - Seth Heang - added test for selectByConsignmentIdAndChildArticles() and newInstance(fieldOverrides)
  * 2024-09-23 - Rejeesh Raghavan - Added test for `selectWithCasesByIdOrTrackingOrName` method
  */

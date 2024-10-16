@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
-    <fullName>EnquiryType__c</fullName>
-    <businessStatus>Active</businessStatus>
-    <description>Clear View Code - Enquiry Type</description>
-    <externalId>false</externalId>
-    <inlineHelpText>Clear View Code - Enquiry Type</inlineHelpText>
-    <label>Enquiry Type</label>
-    <length>255</length>
-    <required>false</required>
-    <securityClassification>INTERNAL</securityClassification>
-    <trackHistory>false</trackHistory>
-    <type>Text</type>
-    <unique>false</unique>
+	<fullName>EnquiryType__c</fullName>
+	<businessStatus>Active</businessStatus>
+	<description>Clear View Code - Enquiry Type</description>
+	<externalId>false</externalId>
+	<inlineHelpText>Clear View Code - Enquiry Type</inlineHelpText>
+	<label>Enquiry Type</label>
+	<length>255</length>
+	<required>false</required>
+	<securityClassification>INTERNAL</securityClassification>
+	<trackHistory>false</trackHistory>
+	<type>Text</type>
+	<unique>false</unique>
 </CustomField>

@@ -20,17 +20,17 @@
   * 20.03.2023	- Noel Lim - added constants SSSW_AGENT_PROFILE, SSSW_SOCIAL_INTEGRATION_PROFILE, SSSW_BSP_COMMUNITY_USER_PROFILE
   * 27.03.2023 StephenL added constant: RECTYPE_ARTICLE_CONSIGNMENT
   * 2024-06-25 - Mona Raghav - REQ3564142 - CASE_ORIGIN_DIRECT_EMAIL Constant added 
+  * 2024.08.16 - Talib Raza - PRB0051724, REQ3488651: Added CASE_ROOT_CAUSE_SSSW_NETWORK_QUEUE
   * 13.06.2024 Parveen Kaushik Added new constants for Enquiry Mapping object to identify model type.
   * 10.07.2024 Vasu Gorakati Added new constant SSSW_ENTITLEMENT
   * 19-07-2024 - Ranjeewa Silva - Added constants for new SSSWRouting record type (UnifiedRouting) and new customer service agent profile name.
   * 31.07.2024 - Seth Heang - added constants for case's new 'Update' and 'Monitoring' status
   * 12.08.2024 - George Nguyen - added constants for Unified Investigation and Unified Entitlements
-  * 2024.08.16 - Talib Raza - PRB0051724, REQ3488651: Added CASE_ROOT_CAUSE_SSSW_NETWORK_QUEUE
   * 20.08.2024 - George Nguyen - Added Unified App constant
   * 03.09.2024 - George Nguyen - Added CASE_TYPE_AND_PRODUCT_UNIFIED_MODEL & CASE_ENQUIRY_SUBTYPE_LATE_ITEM used to set the value on case when it changes from General Enquiry to Investigation
   * 06.09.2024 - George Nguyen - Renamed the name of this constant: UNIFIED_AGENT_PROFILE
   */  
-  public with sharing class SSSWConstants {
+public with sharing class SSSWConstants {
 
 	// NOT USED
 	//public static final String CASE_PROFILES_ALLOWED_TO_CLOSE = 'DDC Consumer Community User,BSP Community User';
@@ -48,55 +48,61 @@
 	public static final String CALLBACK_REQUEST_STATUS_ASSIGNED = 'Assigned';
 	public static final Set<String> CALLBACK_REQUEST_STATUS_RE_EXECUTION = new Set<String> {CALLBACK_REQUEST_STATUS_CASE_UNRESOLVED,CALLBACK_REQUEST_STATUS_VOICEMAIL,CALLBACK_REQUEST_STATUS_NO_VOICEMAIL};
 	public static final Set<String> CALLBACK_REQUEST_STATUS_ALL_CLOSED = new Set<String> {CALLBACK_REQUEST_STATUS_CLOSED};
-	 
 
-    /*** Case Object ***/
-    public static final String CASE_SLA_STATUS = 'Awaiting Network Response';
-    public static final String CASE_ROOT_CAUSE_SSSW_NETWORK_QUEUE = 'Awaiting Network Response';
-    
+	// Record Types
+	public static final String CASE_RT_SSSW_DELIVERY = 'SSSWDelivery';
+	public static final String CASE_RT_SSSW_FAX = 'SSSWFax';
+	public static final String CASE_RT_SSSW_GENERAL_ENQUIRY = 'SSSWGeneralEnquiry';
+	public static final String CASE_RT_SSSW_SERVICE = 'SSSWService';
+	public static final String CASE_RT_SSSW_SOCIAL_RECORD_TYPE = 'Social_Record_Type';
+	public static final String CASE_RT_SSSW_NCCC_DIRECT_EMAIL = 'NCCCDirectEmail';
+
+	/*** Case Object ***/
+	public static final String CASE_SLA_STATUS = 'Awaiting Network Response';
+	public static final String CASE_ROOT_CAUSE_SSSW_NETWORK_QUEUE = 'Awaiting Network Response';    
+	
 	public static final String CASE_TYPE_GENERAL_ENQUIRY = 'General Enquiry';
 	public static final String CASE_TYPE = CASE_TYPE_GENERAL_ENQUIRY; // NOTE: Please do not use this as it is not properly named. Use CASE_TYPE_GENERAL_ENQUIRE instead
-    public static final String CASE_TYPE_INVESTIGATION  = 'Investigation';
+	public static final String CASE_TYPE_INVESTIGATION  = 'Investigation';
 
-    public static final String CASE_ORIGIN = 'Phone';
+	public static final String CASE_ORIGIN = 'Phone';
 	public static final String CASE_ORIGIN_DIRECT_EMAIL = 'Direct Email';
-    public static final String CASE_PRIORITY = 'Low';
-    public static final String CASE_PROD_CAT = 'Domestic Parcels';
-    public static final String CASE_PROD_SUB_CAT = 'Cash on Delivery';
-    public static final String CASE_STATUS_CLOSED = 'Closed';
-    public static final String CASE_STATUS_INPROGRESS = 'In Progress';
-    public static final String CASE_STATUS_NEW = 'New';
+	public static final String CASE_PRIORITY = 'Low';
+	public static final String CASE_PROD_CAT = 'Domestic Parcels';
+	public static final String CASE_PROD_SUB_CAT = 'Cash on Delivery';
+	public static final String CASE_STATUS_CLOSED = 'Closed';
+	public static final String CASE_STATUS_INPROGRESS = 'In Progress';
+	public static final String CASE_STATUS_NEW = 'New';
 	public static final String CASE_STATUS_UPDATED = 'Updated';
 	public static final String CASE_STATUS_MONITORING = 'Monitoring';
-    public static final String CASE_ENQUIRY_SUBTYPE = 'Disputed delivery scan';
-    public static final String CASE_LOCALITY_DOMESTIC = 'Domestic';
-    public static final String CASE_ORIGINATOR_ADDRESSEE = 'Addressee';
+	public static final String CASE_ENQUIRY_SUBTYPE = 'Disputed delivery scan';
+	public static final String CASE_LOCALITY_DOMESTIC = 'Domestic';
+	public static final String CASE_ORIGINATOR_ADDRESSEE = 'Addressee';
 	public static final String CASE_TYPE_AND_PRODUCT_UNIFIED_MODEL = 'Unified Model';
 	public static final String CASE_ENQUIRY_SUBTYPE_LATE_ITEM = 'Late Item';
-    
-    /*** @author: rajesh.punjabi@mav3rik.com MyNetworkSmartForm Contants (Case Object)*/
-    public static final String CASE_PRIORITY_HIGH = 'High';
-    public static final String CASE_ORIGIN_INTERNAL_FORM = 'Internal Form';
-    public static final Boolean CASE_IS_NEW_FOR_ROUTING = true;
-    public static final String COMPENSATION_RT = 'Retail_Compensation';
-    public static final String CASE_RT_SSSW_DELIVERY = 'SSSWDelivery';
-    public static final Double COMPENSTATION_VALUE = 150.0;
-    public static final String CASE_RESOLUTION_CODE =  'MyNetwork Resolution';
-    public static final String CASE_RESOLUTION_RESULT_DAMAGES_MISSING_CONTENTS = 'Damaged & Missing Contents';
-    public static final String CASE_TYPE_OF_DAMAGE_WINE_DAMAGE = 'Wine Damage';
-    
-    //Queues List
-    public static final String QUEUE_NAME_SSSWNETWORKQUEUE = 'SSSW Network Queue'; 
-    public static final String QUEUE_NAME_CALLBACKREQUEST = 'Callback Request Queue';
-    public static final String QUEUE_NAME_REOPEN_Q='SSSW_Awaiting_Reopen';
-    public static final String QUEUE_DEV_NAME_SSSWNETWORKQUEUE='SSSWNetworkQueue';
-    
-    /*** Variables to hold Class constants ***/
-    public static final String SSSW_APP = 'SSSW';
+	
+	/*** @author: rajesh.punjabi@mav3rik.com MyNetworkSmartForm Contants (Case Object)*/
+	public static final String CASE_PRIORITY_HIGH = 'High';
+	public static final String CASE_ORIGIN_INTERNAL_FORM = 'Internal Form';
+	public static final Boolean CASE_IS_NEW_FOR_ROUTING = true;
+	public static final String COMPENSATION_RT = 'Retail_Compensation';
+	public static final Double COMPENSTATION_VALUE = 150.0;
+	public static final String CASE_RESOLUTION_CODE =  'MyNetwork Resolution';
+	public static final String CASE_RESOLUTION_RESULT_DAMAGES_MISSING_CONTENTS = 'Damaged & Missing Contents';
+	public static final String CASE_TYPE_OF_DAMAGE_WINE_DAMAGE = 'Wine Damage';
+	
+	//Queues List
+	public static final String QUEUE_NAME_SSSWNETWORKQUEUE = 'SSSW Network Queue'; 
+	public static final String QUEUE_NAME_CALLBACKREQUEST = 'Callback Request Queue';
+	public static final String QUEUE_NAME_REOPEN_Q='SSSW_Awaiting_Reopen';
+	public static final String QUEUE_DEV_NAME_SSSWNETWORKQUEUE='SSSWNetworkQueue';
+	
+	/*** Variables to hold Class constants ***/
+	public static final String SSSW_APP = 'SSSW';
 	public static final String UNIFIED_APP = 'Unified';
-    
-    /*** CaseTriggerHelper Constants  ***/
-    public static final String CASE_TRIGGER = 'CaseTrigger'; 
+	
+	/*** CaseTriggerHelper Constants  ***/
+	public static final String CASE_TRIGGER = 'CaseTrigger'; 
 	public static final String CASE_INVESTIGATION_TRIGGER = 'CaseInvestigationTrigger'; 
 	public static final String QUEUE_CHILDCASE_DEV = 'SSSWChildCases'; 
 	public static final String STAT_CHILD_CASE_UPDATE = 'Child Case Update'; 

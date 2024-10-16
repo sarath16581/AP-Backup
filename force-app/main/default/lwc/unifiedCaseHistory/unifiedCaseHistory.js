@@ -20,7 +20,17 @@ export default class UnifiedCaseHistory extends NavigationMixin(LightningElement
 	/**
 	 * The Case Id that is currently linked to the interaction
 	 */
-	@api linkedCaseId;
+	_linkedCaseId;
+	@api set linkedCaseId(value) {
+		if (this._linkedCaseId !== value) {
+			this._linkedCaseId = value;
+			refreshApex(this._wiredCasesRelatedToContact);
+			refreshApex(this._wiredCasesRelatedToArticle);
+		}
+	}
+	get linkedCaseId() {
+		return this._linkedCaseId;
+	}
 
 	_contactId;
 	/**
@@ -31,7 +41,7 @@ export default class UnifiedCaseHistory extends NavigationMixin(LightningElement
 		if (this._contactId !== value) {
 			this._contactId = value;
 			this.casesRelatedToContactData = undefined;
-			refreshApex(this.wiredCasesRelatedToContact);
+			refreshApex(this._wiredCasesRelatedToContact);
 		}
 	}
 	get contactId() {

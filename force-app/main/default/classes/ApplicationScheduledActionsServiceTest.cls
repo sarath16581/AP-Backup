@@ -6,6 +6,7 @@
  * @description Test class for CaseUnifiedAutomationService
  * @changelog
  * 2024-07-28 - Seth Heang - Created
+ * 2024-10-15 - Ranjeewa Silva - Refactored test method 'testExecuteAllActions' to only verify logic in method under test ApplicationScheduledActionsService.executeAll.
  */
 @IsTest(IsParallel=true)
 public with sharing class ApplicationScheduledActionsServiceTest {
@@ -95,49 +96,34 @@ public with sharing class ApplicationScheduledActionsServiceTest {
 
 	/**
 	 * Scenario: Test Invocable method to execute all actions for Case automated action including 3 days and 5 days case monitoring scheduled actions
-	 *			Validate that 3 days and 5 days scheduled actions are executed and appropriate actions are executed such as:
-	 *			- Send reminder email for 3 days action
-	 *			- Send closure email for 5 days action
-	 *			- Update Case detail for Case closure scenario
+	 *			Validate that 3 days and 5 days scheduled actions are executed. Verifying specifics of 3 days and 5 days
+	 *			case monitoring scheduled actions are covered in respective action tests.
 	 */
 	@IsTest
 	static void testExecuteAllActions() {
 		// =====================================
 		// Data Preparation
 		// =====================================
-		Case testCase = ApplicationTestDataFactory.getCases(1, true)[0];
+		Case testCase = ApplicationTestDataFactoryCase.getCases(1, true)[0];
 		testCase.RecordTypeId = ApplicationTestDataFactoryCase.caseUnifiedInvestigationRecordType;
 		testCase.OwnerId = (Id) QM__c.getInstance().UnifiedDefaultMonitoringQueueId__c;
 		testCase.Exclude_Subscription_Automation__c = false;
 		testCase.ProductSubCategory__c = 'StarTrack Express';
 		testCase = (Case) ApplicationTestDataFactory.setUnwritableFields(testCase, new Map<String, Object>{ 'ContactEmail' => 'seth@test.com' });
 
-		String actionTypeFor3Days = CaseMonitoring3DayReminderEmailAction.newInstance().getName();
-		String actionTypeFor5Days = CaseMonitoring5DayAutoClosureAction.newInstance().getName();
-		ScheduledAction__c scheduledActionFor3Days = ApplicationTestDataFactory.getScheduledActions(1, 'Test Scheduled Action For 3 Days', actionTypeFor3Days, System.now(), testCase.Id, true)[0];
-		scheduledActionFor3Days = (ScheduledAction__c) ApplicationTestDataFactory.setUnwritableFields(scheduledActionFor3Days, new Map<String, Object>{ 'Case__r' => testCase });
+		ScheduledAction__c scheduledActionFor3Days = ApplicationTestDataFactory.getScheduledActions(1, 'Test Scheduled Action For 3 Days', CaseMonitoring3DayReminderEmailAction.class.getName(), System.now(), testCase.Id, true)[0];
 
-		ScheduledAction__c scheduledActionFor5Days = ApplicationTestDataFactory.getScheduledActions(1, 'Test Scheduled Action For 5 Days', actionTypeFor5Days, System.now(), testCase.Id, true)[0];
-		scheduledActionFor5Days = (ScheduledAction__c) ApplicationTestDataFactory.setUnwritableFields(scheduledActionFor5Days, new Map<String, Object>{ 'Case__r' => testCase });
+		ScheduledAction__c scheduledActionFor5Days = ApplicationTestDataFactory.getScheduledActions(1, 'Test Scheduled Action For 5 Days', CaseMonitoring5DayAutoClosureAction.class.getName(), System.now(), testCase.Id, true)[0];
 
 		// =====================================
 		// Stubbing
 		// =====================================
 		ScheduledActionsSelector mockScheduledActionsSelector = (ScheduledActionsSelector) MockUtility.mockSelector(ScheduledActionsSelector.class);
-		ApplicationDatabase mockDatabase = MockUtility.mockDatabase();
+		CaseMonitoring3DayReminderEmailAction mock3DayReminderEmailAction = (CaseMonitoring3DayReminderEmailAction) MockUtility.mockUtility(CaseMonitoring3DayReminderEmailAction.class);
+		CaseMonitoring5DayAutoClosureAction mock5DayCaseClosureEmailAction = (CaseMonitoring5DayAutoClosureAction) MockUtility.mockUtility(CaseMonitoring5DayAutoClosureAction.class);
 		MockUtility.Mocks.startStubbing();
 		MockUtility.Mocks.when(mockScheduledActionsSelector.selectById((Set<Id>) fflib_Match.eq(new Set<Id>{ scheduledActionFor3Days.Id, scheduledActionFor5Days.Id })))
 			.thenReturn(new List<ScheduledAction__c>{ scheduledActionFor3Days, scheduledActionFor5Days });
-		MockUtility.Mocks.when(
-				mockScheduledActionsSelector.selectById((Set<Id>) fflib_Match.eq(new Set<Id>{ scheduledActionFor3Days.Id }), (Set<Object>) fflib_Match.eq(new Set<Object>{ ScheduledActionsSelector.Options.WITH_CASE }))
-			)
-			.thenReturn(new List<ScheduledAction__c>{ scheduledActionFor3Days });
-		MockUtility.Mocks.when(
-				mockScheduledActionsSelector.selectById((Set<Id>) fflib_Match.eq(new Set<Id>{ scheduledActionFor5Days.Id }), (Set<Object>) fflib_Match.eq(new Set<Object>{ ScheduledActionsSelector.Options.WITH_CASE }))
-			)
-			.thenReturn(new List<ScheduledAction__c>{ scheduledActionFor5Days });
-
-		MockUtility.Mocks.when(mockDatabase.dmlUpdate((List<SObject>) fflib_Match.anyObject(), (Boolean) fflib_Match.anyBoolean())).thenReturn(true);
 		MockUtility.Mocks.stopStubbing();
 
 		// =====================================
@@ -145,39 +131,15 @@ public with sharing class ApplicationScheduledActionsServiceTest {
 		// =====================================
 		Test.startTest();
 		ApplicationScheduledActionsService.executeAll(new List<Id>{ scheduledActionFor3Days.Id, scheduledActionFor5Days.Id });
-		Integer invocations = Limits.getEmailInvocations();
 		Test.stopTest();
 
-		List<EmailMessage> sentEmails = [SELECT Id, ToAddress, TextBody, Subject FROM EmailMessage];
-		System.assertEquals(2, invocations, 'Two emails should have been sent.');
-		System.assertEquals(2, sentEmails.size(), 'Two emails should have been sent.');
-		System.assertEquals('seth@test.com', sentEmails[0].ToAddress, 'Expected ToAddress is seth@test.com but instead got: ' + sentEmails[0].ToAddress);
-		System.assertEquals(true, sentEmails[0].Subject.contains('StarTrack'), 'Expected Subject to contains StarTrack but it did not: ' + sentEmails[0].Subject);
-		System.assertEquals(true, sentEmails[0].TextBody.contains('StarTrack'), 'Expected TextBody to contains StarTrack but it did not: ' + sentEmails[0].TextBody);
-
-		System.assertEquals('seth@test.com', sentEmails[1].ToAddress, 'Expected ToAddress is seth@test.com but instead got: ' + sentEmails[1].ToAddress);
-		System.assertEquals(true, sentEmails[1].Subject.contains('StarTrack'), 'Expected Subject to contains StarTrack but it did not: ' + sentEmails[1].Subject);
-		System.assertEquals(true, sentEmails[1].TextBody.contains('StarTrack'), 'Expected TextBody to contains StarTrack but it did not: ' + sentEmails[1].TextBody);
-
+		// verify scheduled action records are queried using the selector
 		((ScheduledActionsSelector) MockUtility.Mocks.verify(mockScheduledActionsSelector, 1)).selectById((Set<Id>) fflib_Match.eq(new Set<Id>{ scheduledActionFor3Days.Id, scheduledActionFor5Days.Id }));
-		((ScheduledActionsSelector) MockUtility.Mocks.verify(mockScheduledActionsSelector, 1))
-			.selectById((Set<Id>) fflib_Match.eq(new Set<Id>{ scheduledActionFor3Days.Id }), (Set<Object>) fflib_Match.eq(new Set<Object>{ ScheduledActionsSelector.Options.WITH_CASE }));
-		((ScheduledActionsSelector) MockUtility.Mocks.verify(mockScheduledActionsSelector, 1))
-			.selectById((Set<Id>) fflib_Match.eq(new Set<Id>{ scheduledActionFor5Days.Id }), (Set<Object>) fflib_Match.eq(new Set<Object>{ ScheduledActionsSelector.Options.WITH_CASE }));
 
-		fflib_ArgumentCaptor updatableCasesCaptor = fflib_ArgumentCaptor.forClass(List<Case>.class);
-
-		((ApplicationDatabase) MockUtility.Mocks.verify(mockDatabase, MockUtility.Mocks.times(1))).dmlUpdate((List<Case>) updatableCasesCaptor.capture());
-		Map<Id, Case> updateableCases = new Map<Id, Case>((List<Case>) updatableCasesCaptor.getValue());
-		Assert.areEqual('Service Failure', updateableCases.get(testCase.Id).Root_cause__c, 'Case Root_cause__c should match but instead got ' + updateableCases.get(testCase.Id).Root_cause__c);
-		Assert.areEqual('Lost - unscanned', updateableCases.get(testCase.Id).ResolutionCode__c, 'Case ResolutionCode__c should matchbut instead got ' + updateableCases.get(testCase.Id).ResolutionCode__c);
-		Assert.areEqual(
-			QM__c.getInstance().ClosedQueueId__c,
-			updateableCases.get(testCase.Id).OwnerId,
-			'Case OwnerId should match but instead got ' + updateableCases.get(testCase.Id).OwnerId
-		);
-		Assert.areEqual(true, updateableCases.get(testCase.Id).ClosedBySystem__c, 'Case ClosedBySystem__c should match but instead got ' + updateableCases.get(testCase.Id).ClosedBySystem__c);
-		Assert.areEqual(SSSWConstants.CASE_STATUS_CLOSED, updateableCases.get(testCase.Id).Status, 'Case Status should match but instead got ' + updateableCases.get(testCase.Id).Status);
+		// verify 3-day case monitoring scheduled actions are executed
+		((CaseMonitoring3DayReminderEmailAction) MockUtility.Mocks.verify(mock3DayReminderEmailAction, 1)).execute((List<Id>) fflib_Match.eq(new List<Id>{ scheduledActionFor3Days.Id }));
+		// verify 5-day case monitoring scheduled actions are executed
+		((CaseMonitoring5DayAutoClosureAction) MockUtility.Mocks.verify(mock5DayCaseClosureEmailAction, 1)).execute((List<Id>) fflib_Match.eq(new List<Id>{ scheduledActionFor5Days.Id }));
 	}
 
 	/**

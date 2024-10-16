@@ -2,6 +2,7 @@
  * @description Test class covering ArticleSubscriptionModule
  * @changelog
  * 2024-09-12 - Seth Heang - Created
+ * 2024-10-02 - Seth Heang - added negative test to ensure no article subscription is enqueued for closed parent case
  */
 @IsTest
 public class ArticleSubscriptionModuleTest {
@@ -17,6 +18,7 @@ public class ArticleSubscriptionModuleTest {
 		// Data Preparation
 		// =====================================
 		Case caseTest = ApplicationTestDataFactoryCase.getCases(1, true)[0];
+		caseTest.RecordTypeId = ApplicationTestDataFactoryCase.caseUnifiedInvestigationRecordType;
 		Article__c consignment = ApplicationTestDataFactory.getConsignments(1, true)[0];
 		List<Article__c> articles = ApplicationTestDataFactory.getArticles(250, consignment.Id, true);
 		List<ImpactedArticle__c> impactedArticles = new List<ImpactedArticle__c>();
@@ -58,6 +60,62 @@ public class ArticleSubscriptionModuleTest {
 		// we have no way to retrieving the 1st and 2nd batch async worker based on the current implement of ApplicationUnitOfWork.registerAsyncWork() as it does not take a List<AsyncStagingWorker>
 		// verify the last batch size which is 50
 		Assert.areEqual(50, articleSubscriptionActionWorkerParam.impactedArticles.size(), 'Impacted articles list size should be 50 but instead got: ' + articleSubscriptionActionWorkerParam.impactedArticles.size());
+	}
+
+	/**
+	 * Test: AfterInsert Scenario, when new ImpactedArticles are created
+	 * Verify that AsyncArticleSubscriptionActionWorker is not enqueued if parent case is closed
+	 */
+	@IsTest
+	static void testProcessArticleSubscriptionAndEnsureNoAsyncWorkerIsEnqueuedDueToClosedCase(){
+		// =====================================
+		// Data Preparation
+		// =====================================
+		Case caseTest = ApplicationTestDataFactoryCase.getCases(1, true)[0];
+		caseTest.RecordTypeId = ApplicationTestDataFactoryCase.caseUnifiedInvestigationRecordType;
+		caseTest = (Case) ApplicationTestDataFactory.setUnwritableFields(
+				caseTest,
+				new Map<String, Object>{
+						'IsClosed' => true
+				}
+		);
+		Article__c consignment = ApplicationTestDataFactory.getConsignments(1, true)[0];
+		List<Article__c> articles = ApplicationTestDataFactory.getArticles(250, consignment.Id, true);
+		List<ImpactedArticle__c> impactedArticles = new List<ImpactedArticle__c>();
+		for(Article__c article : articles){
+			ImpactedArticle__c impactedArticle = ApplicationTestDataFactory.getImpactedArticles(1, caseTest.Id, article.Id, true)[0];
+			impactedArticle = (ImpactedArticle__c) ApplicationTestDataFactory.setUnwritableFields(
+					impactedArticle,
+					new Map<String, Object>{
+							'Case__r' => caseTest,
+							'Article__r' => article
+					}
+			);
+			impactedArticles.add(impactedArticle);
+		}
+
+		// =====================================
+		// Stubbing
+		// =====================================
+		ApplicationUnitOfWork mockUow = MockUtility.mockUnitOfWork();
+		ImpactedArticlesSelector impactedArticlesSelector = (ImpactedArticlesSelector) MockUtility.mockSelector(ImpactedArticlesSelector.class);
+		MockUtility.Mocks.startStubbing();
+		MockUtility.Mocks.when(impactedArticlesSelector.selectById((Set<Id>) fflib_Match.anyObject(), (Set<Object>) fflib_Match.anyObject()))
+				.thenReturn(impactedArticles);
+		MockUtility.Mocks.stopStubbing();
+		// =====================================
+		// Testing
+		// =====================================
+		Test.startTest();
+		ArticleSubscriptionModule module = new ArticleSubscriptionModule();
+		module.onAfterInsert(impactedArticles, mockUow);
+		Test.stopTest();
+
+		// verify that no worker was enqueued as parent case is closed
+		fflib_ArgumentCaptor stagedWorkerCapture = fflib_ArgumentCaptor.forClass(List<ApplicationUnitOfWork.AsyncStagingWorker>.class);
+		((ApplicationUnitOfWork) MockUtility.Mocks.verify(mockUow, MockUtility.Mocks.times(0))).registerAsyncWork((ApplicationUnitOfWork.AsyncStagingWorker) stagedWorkerCapture.capture());
+		ApplicationUnitOfWork.AsyncStagingWorker stagedWorker = (ApplicationUnitOfWork.AsyncStagingWorker) stagedWorkerCapture.getValue();
+		Assert.isNull(stagedWorker, 'staged worker should be null');
 	}
 
 	/**

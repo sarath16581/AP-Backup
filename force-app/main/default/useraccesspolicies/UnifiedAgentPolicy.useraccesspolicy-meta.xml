@@ -2,7 +2,7 @@
 <UserAccessPolicy xmlns="http://soap.sforce.com/2006/04/metadata">
     <booleanFilter>1 AND 2 AND 3</booleanFilter>
     <description>This policy is used to onboard new users as Unified Agents</description>
-    <masterLabel>UnifiedAgentPolicy</masterLabel>
+    <masterLabel>Unified Agent Policy</masterLabel>
     <order>1</order>
     <status>Design</status>
     <triggerType>CreateAndUpdate</triggerType>

@@ -4,6 +4,7 @@
     <businessStatus>Active</businessStatus>
     <description>Specify the standard compound address field on Person Account. Can only be used when &apos;Account&apos; is selected in &apos;Object&apos; field. 
 &apos;Account.PersonMailingAddress&apos; and &apos;Account.PersonOtherAddress&apos; standard address fields are not available for selection in Standard_Address_Field__c [Data Type - Metadata Relationship(Field Definition)].</description>
+    <externalId>false</externalId>
     <fieldManageability>DeveloperControlled</fieldManageability>
     <inlineHelpText>Specify standard compound address field for Person Account. Can only be used when &apos;Account&apos; is selected in &apos;Object&apos; field.</inlineHelpText>
     <label>Standard Address Field (Person Account)</label>

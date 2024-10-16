@@ -3,6 +3,7 @@
  * @changelog:
  * 2024-08-08 - added handler methods to handle `createcontact` and `backtosearch` events and pass `formInputs` params to child LWCs
  * 2024-08-28 - Added public properties `autoSearchOnLoad` and `autoLinkContact`, added `connectedCallback` to handle auto-search-on-load.
+ * 2024-10-03 - Removed 'auto-link' feature as handled via Apex Trigger (CSLU-1470)
  */
 import { LightningElement, api } from 'lwc';
 import customerSearch from '@salesforce/apex/UnifiedCustomerSearchController.search';
@@ -206,19 +207,13 @@ export default class UnifiedCustomerSearchForm extends LightningElement {
 	@api autoSearchOnLoad = false;
 
 	/**
-	 * If enabled, the a search will automatically link the Contact if only one is found.
-	 * @type {boolean}
-	 */
-	@api autoLinkContact;
-
-	/**
 	 * The `connectedCallback` lifecycle hook is called after the component is inserted into the DOM.
 	 * 
 	 * This is used to invoke the search method automatically (if required).
 	 */
 	connectedCallback() {
 		if (this.autoSearchOnLoad) {
-			this.performSearch(this.autoLinkContact);
+			this.performSearch();
 		}
 	}
 
@@ -346,13 +341,11 @@ export default class UnifiedCustomerSearchForm extends LightningElement {
 	/**
 	 * Submits the form and performs the search.
 	 *
-	 * @param {boolean} autoLink If true, will automatically link the found account to the form.
-	 *
 	 * @fires UnifiedCustomerSearchForm#search
 	 * @fires UnifiedCustomerSearchForm#result
 	 * @fires UnifiedCustomerSearchForm#error
 	 */
-	async performSearch(autoLink = false) {
+	async performSearch() {
 		// Validate inputs before invoking the search method
 		if (!this.validateInputs()) {
 			if (this.errorMessage === undefined) {
@@ -386,12 +379,6 @@ export default class UnifiedCustomerSearchForm extends LightningElement {
 					abnAcn: this.consumerCheckbox || this.organisationAccountId ? null : this.abnAcn
 				}
 			});
-			
-			// If enabled, automatically link the Contact if there's only 1 result
-			if (autoLink && (res.searchResults ?? []).length === 1) {
-				const contactId = res.searchResults[0].contactId;
-				this.dispatchEvent(new CustomEvent('linkcontact', { detail: { contactId }, bubbles:true, composed: true }));
-			}
 
 			// Handle search results
 			this.dispatchEvent(

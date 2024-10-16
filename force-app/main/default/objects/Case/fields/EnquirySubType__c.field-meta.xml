@@ -3,6 +3,7 @@
     <fullName>EnquirySubType__c</fullName>
     <description>SSSW - Dependant on Sub Product</description>
     <inlineHelpText>SSSW - Dependent on Sub Product</inlineHelpText>
+    <externalId>false</externalId>
     <label>Enquiry Sub Type</label>
     <required>false</required>
     <securityClassification>INTERNAL</securityClassification>
@@ -3142,33 +3143,6 @@
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Unified Model</controllingFieldValue>
-            <controllingFieldValue>General Enquiry|Domestic Parcels|Metro</controllingFieldValue>
-            <controllingFieldValue>General Enquiry|Domestic Letters|Premium Unaddressed Mail</controllingFieldValue>
-            <controllingFieldValue>General Enquiry|Domestic Parcels|Cash on Delivery</controllingFieldValue>
-            <controllingFieldValue>General Enquiry|Domestic Parcels|Courier Post</controllingFieldValue>
-            <controllingFieldValue>General Enquiry|Domestic Parcels|eParcel- Express</controllingFieldValue>
-            <controllingFieldValue>General Enquiry|Domestic Parcels|eParcel- Regular</controllingFieldValue>
-            <controllingFieldValue>General Enquiry|Domestic Parcels|Parcel Post</controllingFieldValue>
-            <controllingFieldValue>General Enquiry|Domestic Parcels|Express</controllingFieldValue>
-            <controllingFieldValue>General Enquiry|Domestic Parcels|Express Platinum</controllingFieldValue>
-            <controllingFieldValue>General Enquiry|Domestic Parcels|Secure Accept and Collect</controllingFieldValue>
-            <controllingFieldValue>General Enquiry|Domestic Parcels|Premium Express Parcel</controllingFieldValue>
-            <controllingFieldValue>General Enquiry|Domestic Parcels|Standard Parcel</controllingFieldValue>
-            <controllingFieldValue>General Enquiry|Domestic Letters|Business Letters</controllingFieldValue>
-            <controllingFieldValue>General Enquiry|Domestic Letters|Cash on Delivery</controllingFieldValue>
-            <controllingFieldValue>General Enquiry|Domestic Letters|Priority Mail</controllingFieldValue>
-            <controllingFieldValue>General Enquiry|Domestic Letters|Registered Post</controllingFieldValue>
-            <controllingFieldValue>General Enquiry|Domestic Letters|Regular Mail</controllingFieldValue>
-            <controllingFieldValue>General Enquiry|Domestic Letters|Express Post</controllingFieldValue>
-            <controllingFieldValue>General Enquiry|Domestic Letters|Unaddressed Mail</controllingFieldValue>
-            <controllingFieldValue>General Enquiry|Domestic Letters|Tracked Letter</controllingFieldValue>
-            <controllingFieldValue>Service Delivery</controllingFieldValue>
-            <controllingFieldValue>General Enquiry|Domestic Parcels|StarTrack (Next Flight Premium &amp; Express)</controllingFieldValue>
-            <controllingFieldValue>General Enquiry|Domestic Parcels|StarTrack Courier</controllingFieldValue>
-            <valueName>Tracking</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Unified Model</controllingFieldValue>
             <valueName>Late item</valueName>
         </valueSettings>
         <valueSettings>
@@ -3249,6 +3223,33 @@
             <controllingFieldValue>Feedback|Domestic Parcels|StarTrack Courier</controllingFieldValue>
             <controllingFieldValue>Investigation|Domestic Parcels|StarTrack Courier</controllingFieldValue>
             <valueName>Facility reported damages</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Unified Model</controllingFieldValue>
+            <controllingFieldValue>General Enquiry|Domestic Parcels|Metro</controllingFieldValue>
+            <controllingFieldValue>General Enquiry|Domestic Letters|Premium Unaddressed Mail</controllingFieldValue>
+            <controllingFieldValue>General Enquiry|Domestic Parcels|Cash on Delivery</controllingFieldValue>
+            <controllingFieldValue>General Enquiry|Domestic Parcels|Courier Post</controllingFieldValue>
+            <controllingFieldValue>General Enquiry|Domestic Parcels|eParcel- Express</controllingFieldValue>
+            <controllingFieldValue>General Enquiry|Domestic Parcels|eParcel- Regular</controllingFieldValue>
+            <controllingFieldValue>General Enquiry|Domestic Parcels|Parcel Post</controllingFieldValue>
+            <controllingFieldValue>General Enquiry|Domestic Parcels|Express</controllingFieldValue>
+            <controllingFieldValue>General Enquiry|Domestic Parcels|Express Platinum</controllingFieldValue>
+            <controllingFieldValue>General Enquiry|Domestic Parcels|Secure Accept and Collect</controllingFieldValue>
+            <controllingFieldValue>General Enquiry|Domestic Parcels|Premium Express Parcel</controllingFieldValue>
+            <controllingFieldValue>General Enquiry|Domestic Parcels|Standard Parcel</controllingFieldValue>
+            <controllingFieldValue>General Enquiry|Domestic Letters|Business Letters</controllingFieldValue>
+            <controllingFieldValue>General Enquiry|Domestic Letters|Cash on Delivery</controllingFieldValue>
+            <controllingFieldValue>General Enquiry|Domestic Letters|Priority Mail</controllingFieldValue>
+            <controllingFieldValue>General Enquiry|Domestic Letters|Registered Post</controllingFieldValue>
+            <controllingFieldValue>General Enquiry|Domestic Letters|Regular Mail</controllingFieldValue>
+            <controllingFieldValue>General Enquiry|Domestic Letters|Express Post</controllingFieldValue>
+            <controllingFieldValue>General Enquiry|Domestic Letters|Unaddressed Mail</controllingFieldValue>
+            <controllingFieldValue>General Enquiry|Domestic Letters|Tracked Letter</controllingFieldValue>
+            <controllingFieldValue>Service Delivery</controllingFieldValue>
+            <controllingFieldValue>General Enquiry|Domestic Parcels|StarTrack (Next Flight Premium &amp; Express)</controllingFieldValue>
+            <controllingFieldValue>General Enquiry|Domestic Parcels|StarTrack Courier</controllingFieldValue>
+            <valueName>Tracking</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>General Enquiry|Travel &amp; ID|Passport</controllingFieldValue>

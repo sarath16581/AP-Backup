@@ -30,7 +30,6 @@ private class CaseAutomationTriggerHandler_Test {
 		System.assert(types.contains(PendingServiceRouting.SObjectType), 'Should have PendingServiceRouting sobject type');
 		System.assert(types.contains(CaseInvestigation__c.SObjectType), 'Should have CaseInvestigation__c sobject type');
 		System.assert(types.contains(ScheduledAction__c.SObjectType), 'Should have ScheduledAction__c sobject type');
-
 	}
 
 	/*
@@ -91,7 +90,10 @@ private class CaseAutomationTriggerHandler_Test {
 		System.assertEquals(recordFilterIndexes.get(CaseSurveyInvitationModule.class), null, 'It should have the correct filter');
 
 		System.assert(recordFilterIndexes.containsKey(CaseAutomationClassificationModule.class), 'It should have CaseAutomationClassificationModule class registered');
-		System.assertEquals(recordFilterIndexes.get(CaseAutomationClassificationModule.class), null, 'It should have the correct filter');
+		System.assertEquals(recordFilterIndexes.get(CaseAutomationClassificationModule.class), 'filterUnified', 'It should have the correct filter');
+
+		System.assert(recordFilterIndexes.containsKey(CaseUnifiedMilestoneModule.class), 'It should have CaseUnifiedMilestoneModule class registered');
+		System.assertEquals(recordFilterIndexes.get(CaseUnifiedMilestoneModule.class), 'filterUnified', 'It should have the correct filter');
 	}
 	
 	/**
@@ -101,8 +103,6 @@ private class CaseAutomationTriggerHandler_Test {
 	private static void testForCoverage() {
 
 		CaseAutomationTriggerHandler handler = new CaseAutomationTriggerHandler();
-
-		ApplicationUnitOfWork uow = handler.newUnitOfWork();
 
 		handler.registerModules();
 

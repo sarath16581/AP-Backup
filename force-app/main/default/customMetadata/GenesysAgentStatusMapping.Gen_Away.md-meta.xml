@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomMetadata xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <label>Gen: Away</label>
+    <protected>false</protected>
+    <values>
+        <field>GenesysStatusId__c</field>
+        <value xsi:type="xsd:string">5e5c5c66-ea97-4e7f-ac41-6424784829f2</value>
+    </values>
+    <values>
+        <field>GenesysStatusLabel__c</field>
+        <value xsi:nil="true"/>
+    </values>
+    <values>
+        <field>SalesforcePresenceStatus__c</field>
+        <value xsi:type="xsd:string">PauseBreatheReset</value>
+    </values>
+    <values>
+        <field>SyncDirection__c</field>
+        <value xsi:type="xsd:string">Gen =&gt; SF</value>
+    </values>
+</CustomMetadata>

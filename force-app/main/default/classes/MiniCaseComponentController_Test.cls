@@ -9,6 +9,7 @@
  * 2020-10-05 disha.kariya@auspost.com.au Added safe drop attachment test
  * 2021-09-09 seth.heang@auspost.com.au Uplift SF API version to 52
  * 2021-10-10 - Nathan Franklin - Removed safe drop queueable test methods, moved to DeliveryProofService_Test
+ * 2024-10-08 - George Nguyen - include Unified cases in the search result
  */
 @isTest
 public class MiniCaseComponentController_Test {
@@ -53,6 +54,18 @@ public class MiniCaseComponentController_Test {
         case1.ContactId = con.Id;
         case1.ReferenceID__c = '123';
         insert case1;
+
+		Case case2 = new Case();
+        case2.RecordTypeId = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName().get(SSSWConstants.UNIFIED_GENERAL_ENQUIRY_DEVELOPER_NAME).getRecordTypeId();
+        case2.Type = 'Feedback';
+        case2.Subject = 'Newsdd';
+        case2.Status = 'New';
+        case2.ProductCategory__c = 'Travel & ID';
+        case2.EnquirySubType__c = 'Product Support';
+        case2.ProductSubCategory__c = 'KeyPass';
+        case2.ContactId = con.Id;
+        case2.ReferenceID__c = '123';
+        insert case2;
         
         Test.startTest();
 
@@ -65,7 +78,7 @@ public class MiniCaseComponentController_Test {
 
         mini.proxyCase.ReferenceID__c = '123';
         mini.loadRelatedCases();
-        System.assertEquals(1, mini.existingCaseOrActivities.size());
+        System.assertEquals(2, mini.existingCaseOrActivities.size());
 
         Test.stopTest();
     }

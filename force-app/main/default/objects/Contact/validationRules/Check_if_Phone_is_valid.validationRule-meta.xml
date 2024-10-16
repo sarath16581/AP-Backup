@@ -4,49 +4,49 @@
     <active>true</active>
     <description>Validation to ensure the phone number is in correct format.</description>
     <errorConditionFormula>AND(OR(CONTAINS($Profile.Name, &apos;SSSW&apos;),$Profile.Name = &apos;Unified Customer Service&apos;),
-    OR(ISNEW(),OR(ISCHANGED(HomePhone),ISCHANGED(Phone),ISCHANGED(Fax),ISCHANGED(OtherPhone),ISCHANGED(MobilePhone))), 
-    
-    OR(
-    AND(NOT(ISBLANK(HomePhone)),OR(LEN(  SUBSTITUTE(HomePhone, &apos;+&apos;, &apos;&apos;)   ) &lt;6,
-    LEN(  SUBSTITUTE(HomePhone, &apos;(&apos;, &apos;&apos;)   ) &lt;6,
-    LEN(  SUBSTITUTE(HomePhone, &apos;)&apos;, &apos;&apos;)   ) &lt;6,
-    LEN(  SUBSTITUTE(HomePhone, &apos; &apos;, &apos;&apos;)   ) &lt;6,
-    LEN(HomePhone) &lt; 6)) ,
-    
-    AND(NOT(ISBLANK(Phone)),OR(LEN(  SUBSTITUTE(Phone, &apos;+&apos;, &apos;&apos;)   ) &lt;6,
-    LEN(  SUBSTITUTE(Phone, &apos;(&apos;, &apos;&apos;)   ) &lt;6,
-    LEN(  SUBSTITUTE(Phone, &apos;)&apos;, &apos;&apos;)   ) &lt;6,
-    LEN(  SUBSTITUTE(Phone, &apos; &apos;, &apos;&apos;)   ) &lt;6,
-    LEN(Phone) &lt; 6)) ,
-    
-    AND(NOT(ISBLANK(Fax)),OR(LEN(  SUBSTITUTE(Fax, &apos;+&apos;, &apos;&apos;)   ) &lt;6,
-    LEN(  SUBSTITUTE(Fax, &apos;(&apos;, &apos;&apos;)   ) &lt;6,
-    LEN(  SUBSTITUTE(Fax, &apos;)&apos;, &apos;&apos;)   ) &lt;6,
-    LEN(  SUBSTITUTE(Fax, &apos; &apos;, &apos;&apos;)   ) &lt;6,
-    LEN(Fax) &lt; 6)) ,
-    
-    AND(NOT(ISBLANK(OtherPhone)),OR(LEN(  SUBSTITUTE(OtherPhone, &apos;(&apos;, &apos;&apos;)   ) &lt;6,
-    LEN(  SUBSTITUTE(OtherPhone, &apos;)&apos;, &apos;&apos;)   ) &lt;6,
-    LEN(  SUBSTITUTE(OtherPhone, &apos; &apos;, &apos;&apos;)   ) &lt;6,
-    LEN(OtherPhone) &lt; 6)) ,
-    
-    AND(NOT(ISBLANK(MobilePhone)),OR(LEN(  SUBSTITUTE(MobilePhone, &apos;+&apos;, &apos;&apos;)   ) &lt;6,
-    LEN(  SUBSTITUTE(MobilePhone, &apos;(&apos;, &apos;&apos;)   ) &lt;6,
-    LEN(  SUBSTITUTE(MobilePhone, &apos;)&apos;, &apos;&apos;)   ) &lt;6,
-    LEN(  SUBSTITUTE(MobilePhone, &apos; &apos;, &apos;&apos;)   ) &lt;6,
-    LEN(MobilePhone) &lt; 6)) ,
-    
-    
-    
-    OR(OR(NOT(REGEX( Phone , &quot;[0-9+\\-\\(\\)\\s]*&quot;)),CONTAINS(RIGHT(Phone,6),&apos;+&apos;),CONTAINS(RIGHT(Phone,6),&apos;(&apos;),CONTAINS(RIGHT(Phone,6),&apos;)&apos;)),
-    OR(NOT(REGEX( MobilePhone , &quot;[0-9+\\-\\(\\)\\s]*&quot;)),CONTAINS(RIGHT(MobilePhone,6),&apos;+&apos;),CONTAINS(RIGHT(MobilePhone,6),&apos;(&apos;),CONTAINS(RIGHT(MobilePhone,6),&apos;)&apos;)),
-    OR(NOT(REGEX( Fax , &quot;[0-9+\\-\\(\\)\\s]*&quot;)),CONTAINS(RIGHT(Fax,6),&apos;+&apos;),CONTAINS(RIGHT(Fax,6),&apos;(&apos;),CONTAINS(RIGHT(Fax,6),&apos;)&apos;)),
-    OR(NOT(REGEX( OtherPhone , &quot;[0-9+\\-\\(\\)\\s]*&quot;)),CONTAINS(RIGHT(OtherPhone,6),&apos;+&apos;),CONTAINS(RIGHT(OtherPhone,6),&apos;(&apos;),CONTAINS(RIGHT(OtherPhone,6),&apos;)&apos;)),
-    OR(NOT(REGEX( HomePhone , &quot;[0-9+\\-\\(\\)\\s]*&quot;)),CONTAINS(RIGHT(HomePhone,6),&apos;+&apos;),CONTAINS(RIGHT(HomePhone,6),&apos;(&apos;),CONTAINS(RIGHT(HomePhone,6),&apos;)&apos;))
-    )
-     
-    )
-    
-    )</errorConditionFormula>
+OR(ISNEW(),OR(ISCHANGED(HomePhone),ISCHANGED(Phone),ISCHANGED(Fax),ISCHANGED(OtherPhone),ISCHANGED(MobilePhone))), 
+
+OR(
+AND(NOT(ISBLANK(HomePhone)),OR(LEN(  SUBSTITUTE(HomePhone, &apos;+&apos;, &apos;&apos;)   ) &lt;6,
+LEN(  SUBSTITUTE(HomePhone, &apos;(&apos;, &apos;&apos;)   ) &lt;6,
+LEN(  SUBSTITUTE(HomePhone, &apos;)&apos;, &apos;&apos;)   ) &lt;6,
+LEN(  SUBSTITUTE(HomePhone, &apos; &apos;, &apos;&apos;)   ) &lt;6,
+LEN(HomePhone) &lt; 6)) ,
+
+AND(NOT(ISBLANK(Phone)),OR(LEN(  SUBSTITUTE(Phone, &apos;+&apos;, &apos;&apos;)   ) &lt;6,
+LEN(  SUBSTITUTE(Phone, &apos;(&apos;, &apos;&apos;)   ) &lt;6,
+LEN(  SUBSTITUTE(Phone, &apos;)&apos;, &apos;&apos;)   ) &lt;6,
+LEN(  SUBSTITUTE(Phone, &apos; &apos;, &apos;&apos;)   ) &lt;6,
+LEN(Phone) &lt; 6)) ,
+
+AND(NOT(ISBLANK(Fax)),OR(LEN(  SUBSTITUTE(Fax, &apos;+&apos;, &apos;&apos;)   ) &lt;6,
+LEN(  SUBSTITUTE(Fax, &apos;(&apos;, &apos;&apos;)   ) &lt;6,
+LEN(  SUBSTITUTE(Fax, &apos;)&apos;, &apos;&apos;)   ) &lt;6,
+LEN(  SUBSTITUTE(Fax, &apos; &apos;, &apos;&apos;)   ) &lt;6,
+LEN(Fax) &lt; 6)) ,
+
+AND(NOT(ISBLANK(OtherPhone)),OR(LEN(  SUBSTITUTE(OtherPhone, &apos;(&apos;, &apos;&apos;)   ) &lt;6,
+LEN(  SUBSTITUTE(OtherPhone, &apos;)&apos;, &apos;&apos;)   ) &lt;6,
+LEN(  SUBSTITUTE(OtherPhone, &apos; &apos;, &apos;&apos;)   ) &lt;6,
+LEN(OtherPhone) &lt; 6)) ,
+
+AND(NOT(ISBLANK(MobilePhone)),OR(LEN(  SUBSTITUTE(MobilePhone, &apos;+&apos;, &apos;&apos;)   ) &lt;6,
+LEN(  SUBSTITUTE(MobilePhone, &apos;(&apos;, &apos;&apos;)   ) &lt;6,
+LEN(  SUBSTITUTE(MobilePhone, &apos;)&apos;, &apos;&apos;)   ) &lt;6,
+LEN(  SUBSTITUTE(MobilePhone, &apos; &apos;, &apos;&apos;)   ) &lt;6,
+LEN(MobilePhone) &lt; 6)) ,
+
+
+
+OR(OR(NOT(REGEX( Phone , &quot;[0-9+\\-\\(\\)\\s]*&quot;)),CONTAINS(RIGHT(Phone,6),&apos;+&apos;),CONTAINS(RIGHT(Phone,6),&apos;(&apos;),CONTAINS(RIGHT(Phone,6),&apos;)&apos;)),
+OR(NOT(REGEX( MobilePhone , &quot;[0-9+\\-\\(\\)\\s]*&quot;)),CONTAINS(RIGHT(MobilePhone,6),&apos;+&apos;),CONTAINS(RIGHT(MobilePhone,6),&apos;(&apos;),CONTAINS(RIGHT(MobilePhone,6),&apos;)&apos;)),
+OR(NOT(REGEX( Fax , &quot;[0-9+\\-\\(\\)\\s]*&quot;)),CONTAINS(RIGHT(Fax,6),&apos;+&apos;),CONTAINS(RIGHT(Fax,6),&apos;(&apos;),CONTAINS(RIGHT(Fax,6),&apos;)&apos;)),
+OR(NOT(REGEX( OtherPhone , &quot;[0-9+\\-\\(\\)\\s]*&quot;)),CONTAINS(RIGHT(OtherPhone,6),&apos;+&apos;),CONTAINS(RIGHT(OtherPhone,6),&apos;(&apos;),CONTAINS(RIGHT(OtherPhone,6),&apos;)&apos;)),
+OR(NOT(REGEX( HomePhone , &quot;[0-9+\\-\\(\\)\\s]*&quot;)),CONTAINS(RIGHT(HomePhone,6),&apos;+&apos;),CONTAINS(RIGHT(HomePhone,6),&apos;(&apos;),CONTAINS(RIGHT(HomePhone,6),&apos;)&apos;))
+)
+ 
+)
+
+)</errorConditionFormula>
     <errorMessage>Invalid Phone number</errorMessage>
 </ValidationRule>

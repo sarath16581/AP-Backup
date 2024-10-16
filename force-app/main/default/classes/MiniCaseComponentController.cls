@@ -15,6 +15,7 @@
  * 2021-06-15 - Ranjeewa Silva - Renamed Event Message selector option 'FILTER_NOT_BLANK_GUID' to 'FILTER_SAFE_DROP_GUID'
  * 2021-09-09 seth.heang@auspost.com.au Uplift SF API version to 52
  * 2021-10-03 - Nathan Franklin - Changed the safe drop attachment queueable from attaching an image to attaching PDF
+ * 2024-10-08 - George Nguyen - include Unified cases in the search result
  */
 global with sharing class MiniCaseComponentController {
 
@@ -135,8 +136,44 @@ global with sharing class MiniCaseComponentController {
 		existingCaseOrActivities = new List<ExistingCaseOrActivityDisplay>();
 		if(!String.isEmpty(proxyCase.ReferenceID__c)) {
 
-			List<Case> existingCases = SSSWCasesSelector.newInstance(100).selectByReferenceIdPartial(proxyCase.ReferenceID__c, new Set<Object>{CasesSelector.Options.WITH_CONTACT, CasesSelector.Options.WITH_OWNER}).values();
-			System.debug('existing cases = ' + existingCases.size());
+			Map<String, Object> searchParams = new Map<String, Object> {
+				'recordTypeDeveloperNames' => new Set<String>{
+					SSSWConstants.CASE_RT_SSSW_DELIVERY,
+					SSSWConstants.CASE_RT_SSSW_FAX,
+					SSSWConstants.CASE_RT_SSSW_GENERAL_ENQUIRY,
+					SSSWConstants.CASE_RT_SSSW_SERVICE,
+					SSSWConstants.CASE_RT_SSSW_SOCIAL_RECORD_TYPE,
+					SSSWConstants.CASE_RT_SSSW_NCCC_DIRECT_EMAIL,
+
+					SSSWConstants.UNIFIED_INVESTIGATION_DEVELOPER_NAME,
+					SSSWConstants.UNIFIED_GENERAL_ENQUIRY_DEVELOPER_NAME
+				}
+			};
+
+			Set<Object> selectorOptions = new Set<Object>{
+				CasesSelector.Options.WITH_CONTACT, 
+				CasesSelector.Options.WITH_OWNER
+			};
+
+			Boolean matchAll = true;
+
+			Set<SObjectField> fieldOverrides = new Set<SObjectField>{
+				Case.Id,
+				Case.CaseNumber,
+				Case.ReferenceID__c,
+				Case.Subject,
+				Case.Description,
+				Case.Status,
+				Case.LastModifiedDate,
+				Case.CaseOriginator__c
+			};
+
+			List<Case> existingCases = CasesSelector.newInstance(100, fieldOverrides).searchByReferenceIdPartial(
+																			proxyCase.ReferenceID__c, 
+																			searchParams,
+																			selectorOptions,
+																			matchAll																			
+																		);
 
 			for (Case c : existingCases) {
 				existingCaseOrActivities.add(new ExistingCaseOrActivityDisplay(

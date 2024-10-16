@@ -9,7 +9,7 @@
         <enabled>true</enabled>
     </classAccesses>
     <description>This permission set shall be used to define and control all object, app and user permissions for the Unified Tracking</description>
-    <fieldPermissions>
+	<fieldPermissions>
         <editable>false</editable>
         <field>Article__c.ATL_Flag__c</field>
         <readable>true</readable>
@@ -1669,7 +1669,7 @@
         <field>ImpactedArticle__c.Article__c</field>
         <readable>true</readable>
     </fieldPermissions>
-    <fieldPermissions>
+	<fieldPermissions>
         <editable>true</editable>
         <field>LiveChatTranscript.Consignment__c</field>
         <readable>true</readable>
@@ -1685,7 +1685,7 @@
     <objectPermissions>
         <allowCreate>true</allowCreate>
         <allowDelete>false</allowDelete>
-        <allowEdit>true</allowEdit>
+        <allowEdit>false</allowEdit>
         <allowRead>true</allowRead>
         <modifyAllRecords>false</modifyAllRecords>
         <object>Article__c</object>
@@ -1701,9 +1701,9 @@
         <viewAllRecords>false</viewAllRecords>
     </objectPermissions>
     <objectPermissions>
-        <allowCreate>true</allowCreate>
-        <allowDelete>true</allowDelete>
-        <allowEdit>true</allowEdit>
+        <allowCreate>false</allowCreate>
+        <allowDelete>false</allowDelete>
+        <allowEdit>false</allowEdit>
         <allowRead>true</allowRead>
         <modifyAllRecords>false</modifyAllRecords>
         <object>EventMessage__c</object>
@@ -1718,7 +1718,7 @@
         <object>ImpactedArticle__c</object>
         <viewAllRecords>false</viewAllRecords>
     </objectPermissions>
-    <objectPermissions>
+	<objectPermissions>
         <allowCreate>false</allowCreate>
         <allowDelete>false</allowDelete>
         <allowEdit>true</allowEdit>
@@ -1727,7 +1727,7 @@
         <object>LiveChatTranscript</object>
         <viewAllRecords>false</viewAllRecords>
     </objectPermissions>
-    <objectPermissions>
+	<objectPermissions>
         <allowCreate>false</allowCreate>
         <allowDelete>false</allowDelete>
         <allowEdit>true</allowEdit>
