@@ -3,6 +3,7 @@
     <fullName>Consignment__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <description>Linked consignment.</description>
+    <externalId>false</externalId>
     <inlineHelpText>Linked consignment.</inlineHelpText>
     <label>Consignment</label>
     <referenceTo>Article__c</referenceTo>

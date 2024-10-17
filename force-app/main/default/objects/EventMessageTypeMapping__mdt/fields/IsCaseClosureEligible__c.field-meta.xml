@@ -3,6 +3,7 @@
     <fullName>IsCaseClosureEligible__c</fullName>
     <businessStatus>Active</businessStatus>
     <description>Identifies if this event code is a designated Closure Code for Unified Cases.</description>
+    <externalId>false</externalId>
     <fieldManageability>DeveloperControlled</fieldManageability>
     <inlineHelpText>Identifies if this event code is a designated Closure Code for Unified Cases.</inlineHelpText>
     <label>Is Case Closure Eligible?</label>

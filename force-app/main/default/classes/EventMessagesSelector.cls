@@ -17,11 +17,12 @@
  * 2023-03-06 - Mahesh Parvathaneni - Added field ActualDateTime_Timestamp__c
  * 2023-03-08 - Mahesh Parvathaneni - Added options FILTER_GEO_LOCATION
  * 2023-03-10 - Mahesh Parvathaneni - Removed the option FILTER_AP_NETWORK_NOT_NULL
+ * 2024-09-23 - Seth Heang - added selectByCaseIdAndEventType()
  */
 public virtual inherited sharing class EventMessagesSelector extends ApplicationSelector {
 
 	public static String sortOrder ='Asc';
-    public static String sortfieldAPIName = 'ActualDateTime__c';
+	public static String sortfieldAPIName = 'ActualDateTime__c';
 
 	/**
 	 * NOTE: WITH_SIGNATURE_FIELD allows us to conditionally add the signature long text field only when it's needed
@@ -38,14 +39,14 @@ public virtual inherited sharing class EventMessagesSelector extends Application
 	}
 
 	public static EventMessagesSelector newInstance(String sortField, String order){
-        if(!String.isEmpty(sortField)) {
+		if(!String.isEmpty(sortField)) {
 			sortfieldAPIName = sortField;
 		}
-        if(!String.isEmpty(order)) {
+		if(!String.isEmpty(order)) {
 			sortOrder = order;
 		}
-        return (EventMessagesSelector)Application.Selectors.newInstance(EventMessagesSelector.class);
-    }
+		return (EventMessagesSelector)Application.Selectors.newInstance(EventMessagesSelector.class);
+	}
 
 	/**
 	 * NOTE: Field overrides should only ever be used when the results are not passed from method to method.
@@ -69,7 +70,7 @@ public virtual inherited sharing class EventMessagesSelector extends Application
 	
 	/**
 	 * @param fieldOverrides NOTE: Field overrides should only ever be used when the results are not passed from method to method.
-	 *						  This approach removes data consistency and prevents possible caching of results
+	 *						 This approach removes data consistency and prevents possible caching of results
 	 */
 	public static EventMessagesSelector newInstance(Map<SObjectType, Set<SObjectField>> fieldOverrides) {
 		EventMessagesSelector selector = (EventMessagesSelector)Application.Selectors.newInstance(EventMessagesSelector.class).setFieldOverrides(fieldOverrides);
@@ -87,7 +88,7 @@ public virtual inherited sharing class EventMessagesSelector extends Application
 			EventMessage__c.Id, EventMessage__c.DriverContract__c, EventMessage__c.RoundNo__c, EventMessage__c.UserName__c, EventMessage__c.SignatoryName__c, EventMessage__c.Safe_Drop_GUID__c, 
 			EventMessage__c.Article__c, EventMessage__c.EventGeoLocation__Latitude__s, EventMessage__c.EventGeoLocation__Longitude__s, EventMessage__c.EventType__c, EventMessage__c.AttachmentGUID__c,
 			EventMessage__c.AttachmentType__c, EventMessage__c.EventDescription__c, EventMessage__c.ActualDateTime__c, EventMessage__c.TrackingID__c, EventMessage__c.FacilityOrganisationID__c,
-			EventMessage__c.ActualDateTime_Timestamp__c, EventMessage__c.Post_Office_Code__c
+			EventMessage__c.ActualDateTime_Timestamp__c, EventMessage__c.Post_Office_Code__c, EventMessage__c.Case__c
 		};
 	}
 
@@ -104,6 +105,39 @@ public virtual inherited sharing class EventMessagesSelector extends Application
 	public virtual Map<Id, EventMessage__c> selectById(Set<Id> ids, Set<Object> selectorOptions) {
 		QueryBuilder qb = newQueryBuilder(selectorOptions).addConditions().add(new QueryBuilder.SimpleCondition(EventMessage__c.Id + ' in :ids')).endConditions();
 		return new Map<Id, EventMessage__c>((List<EventMessage__c>)Database.query(qb.toSoqlString()));
+	}
+
+	/**
+	 * @description Run a simple query to get event messages based on Case Id AND Event Type
+	 * @param caseIds set of case Ids
+	 * @param eventTypes set of event type string
+	 * @return List<EventMessage__c>
+	 */
+	public virtual List<EventMessage__c> selectByArticleIdAndEventType(Set<Id> articleIds, Set<String> eventTypes) {
+		return selectByArticleIdAndEventType(articleIds, eventTypes, new Set<Object>());
+	}
+
+	/**
+	 * @description Run a simple query to get event messages based on Case Id AND Event Type
+	 * @param caseIds set of case Ids
+	 * @param eventTypes set of event type string
+	 * @param selectorOptions options for retrieving related objects or additional filter
+	 * @return List<EventMessage__c>
+	 */
+	public virtual List<EventMessage__c> selectByArticleIdAndEventType(Set<Id> articleIds, Set<String> eventTypes, Set<Object> selectorOptions) {
+		// Avoid running query without any criteria
+		articleIds.remove(null);
+		eventTypes.remove(null);
+		eventTypes.remove('');
+		if(articleIds.isEmpty() || eventTypes.isEmpty()){
+			return new List<EventMessage__c>();
+		}
+		QueryBuilder qb = newQueryBuilder(selectorOptions)
+				.addConditions()
+				.add(new QueryBuilder.SimpleCondition(EventMessage__c.Article__c + ' in :articleIds'))
+				.add(new QueryBuilder.SimpleCondition(EventMessage__c.EventType__c + ' in :eventTypes'))
+				.endConditions();
+		return (List<EventMessage__c>) Database.query(qb.toSoqlString());
 	}
 	
 	/**

@@ -25,6 +25,7 @@
  * 2023-12-04 - SteveL - Added tests for: getClosedCasesByAccountIdsNMonths, and getOpenCasesByAccountIds
  * 2024-04-25 - Vasu Gorakati - Added test method for selectCasesByReferenceId
  * 2024-08-12 - Ranjeewa Silva - Updated tests to verify selector options WITH_CONTACT_REQUESTS, WITH_IMPACTED_ARTICLES
+ * 2024-10-08 - George Nguyen - added searchByReferenceIdPartial(...). This allows for partial matching of the Case.ReferenceId__c allowing And using search params
  */
 @IsTest
 public with sharing class CasesSelector_Test {
@@ -213,6 +214,7 @@ public with sharing class CasesSelector_Test {
 		Test.startTest();
 
 		Map<String, Object> searchParams;
+		Set<Object> selectorOptions = new Set<Object>();
 
 		CasesSelector selector = CasesSelector.newInstance(1);
 
@@ -220,13 +222,18 @@ public with sharing class CasesSelector_Test {
 				'caseIds' => new Set<Id>{'500000000000000'},
 				'recordTypeIds' => new Set<Id>{'012Bm000005SlxBIAS', '012900000015ftpAAA'},
 				'relatedArticleIds' => new Set<Id>{'a1h000000000000000'},
-				'isClosed' => false
+				'isClosed' => false,
+				'recordTypeDeveloperNames' => new Set<String> {SSSWConstants.UNIFIED_INVESTIGATION_DEVELOPER_NAME}
 		};
 
-		String soql = selector.getSearchSoql(searchParams, new Set<Object>(), true);
+		QueryBuilder builder = selector.newQueryBuilder(selectorOptions);
+		QueryBuilder.ConditionsManager conditionsManager = builder.addConditions();
+
+		String soql = selector.getSearchSoql(conditionsManager, searchParams, new Set<Object>(), true);
 		Assert.isTrue(Pattern.compile('(?ism)\\s+from Case\\s+where\\b.*?\\bRecordTypeId\\s+In\\b').matcher(soql).find(), 'Resulting query does not filter RecordType.');
 		Assert.isTrue(Pattern.compile('(?ism)\\s+from Case\\s+where\\b.*?\\bId\\s+In\\b').matcher(soql).find(), 'Resulting query does not filter Case Id.');
 		Assert.isTrue(Pattern.compile('(?ism)\\s+from Case\\s+where\\b.*?\\bArticleTest__c\\s+In\\b').matcher(soql).find(), 'Resulting query does not filter article id : ' + soql);
+		Assert.isTrue(Pattern.compile('(?ism)\\s+from Case\\s+where\\b.*?\\bRecordType.DeveloperName\\s+In\\b').matcher(soql).find(), 'Resulting query does not filter record type developer name id : ' + soql);
 		Assert.isTrue(Pattern.compile('(?ism)\\s+from Case\\s+where\\b.*?\\bIsClosed\\s*=\\s').matcher(soql).find(), 'Resulting query does not filter case IsClosed : ' + soql);
 		Assert.isTrue(Pattern.compile('(?ism)\\s+from Case\\s+where\\b.*?\\bAND\\b').matcher(soql).find(), 'Resulting query does not limit by ALL');
 
@@ -238,7 +245,9 @@ public with sharing class CasesSelector_Test {
 				'caseIds' => new Set<Id>{'500000000000000'}
 		};
 
-		soql = selector.getSearchSoql(searchParams, new Set<Object>(), true);
+		builder = selector.newQueryBuilder(selectorOptions);
+		conditionsManager = builder.addConditions();
+		soql = selector.getSearchSoql(conditionsManager, searchParams, new Set<Object>(), true);
 		Assert.isTrue(Pattern.compile('(?ism)\\s+from Case\\s+where\\b.*?\\bId\\s+In\\b').matcher(soql).find(), 'Resulting query does not filter Case Id.');
 		Assert.isFalse(Pattern.compile('(?ism)\\s+from Case\\s+where\\b.*?\\bRecordTypeId\\s+In\\b').matcher(soql).find(), 'Resulting query filter RecordType, but it should not.');
 
@@ -253,7 +262,9 @@ public with sharing class CasesSelector_Test {
 		};
 
 		try {
-			soql = selector.getSearchSoql(searchParams, new Set<Object>(), false);
+			builder = selector.newQueryBuilder(selectorOptions);
+			conditionsManager = builder.addConditions();
+			soql = selector.getSearchSoql(conditionsManager, searchParams, new Set<Object>(), false);
 		} catch (Exception e) {
 			// ensure correct type of exception thrown
 			Assert.isInstanceOfType(e, ApplicationSelector.SelectorException.class);
@@ -283,7 +294,7 @@ public with sharing class CasesSelector_Test {
 		Article__c article = new Article__c();
 		insert new List<SObject>{ contact, article };
 
-		List<Case> cases = ApplicationTestDataFactory.getCases(3, new List<Id>{contact.Id, contact.Id, contact.Id}, false);
+		List<Case> cases = ApplicationTestDataFactory.getCases(5, new List<Id>{contact.Id, contact.Id, contact.Id, contact.Id, contact.Id}, false);
 		cases[0].RecordTypeId = rt.Id;
 		cases[0].Type = 'General Enquiry';
 		cases[0].ArticleTest__c = article.Id;
@@ -292,6 +303,15 @@ public with sharing class CasesSelector_Test {
 		cases[1].ReferenceID__c = '5555000';
 		//assigning ST case record type ID.
 		cases[2].RecordTypeId = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName().get('StarTrack_PUD_Enquiry').getRecordTypeId();
+
+		cases[3].ReferenceID__c = 'TEST1234000001';
+		cases[3].Type = 'Investigation';
+		cases[3].RecordTypeId = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName().get(SSSWConstants.UNIFIED_INVESTIGATION_DEVELOPER_NAME).getRecordTypeId();
+
+		cases[4].ReferenceID__c = 'TEST1234';
+		cases[4].Type = 'Investigation';
+		cases[4].RecordTypeId = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName().get(SSSWConstants.CASE_RT_SSSW_DELIVERY).getRecordTypeId();
+
 		insert cases;
 
 		List<Network__c> networks = ApplicationTestDataFactory.getNetworks(1, false);
@@ -357,6 +377,15 @@ public with sharing class CasesSelector_Test {
 
 		listResults = selector.selectByArticleId(new Set<Id>{ article.Id }, 'SSSWGeneralEnquiry', new Set<Object>());
 		System.assertEquals(1, listResults.size(), 'Expected result size of 1');
+
+		String referenceId = 'TEST1234';
+		Map<String, Object> searchParams = new Map<String, Object>{
+			'recordTypeDeveloperNames' => new Set<String> {SSSWConstants.UNIFIED_INVESTIGATION_DEVELOPER_NAME, SSSWConstants.CASE_RT_SSSW_DELIVERY}
+		};
+		Set<Object> selectorOptions = new Set<Object>();
+		listResults = selector.searchByReferenceIdPartial(referenceId, searchParams, selectorOptions, true);
+		System.assertEquals(2, listResults.size(), 'Expected result size of 2');
+
 		Test.stopTest();
 
 	}
@@ -385,4 +414,5 @@ public with sharing class CasesSelector_Test {
 		Assert.isTrue(Pattern.compile('(?is)\\bOR ArticleTest__r.ConsignmentTrackingNumber__c IN :consignmentTrackingNumbers').matcher(soql).find(),  'Did not include the ConsignmentTrackingNumber__c filter');
 		Assert.isTrue(Pattern.compile('(?is)\\bORDER BY IsClosed ASC, LastModifiedDate DESC').matcher(soql).find(),  'Did not include the correct ORDER BY');
 	}
+	
 }

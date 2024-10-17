@@ -67,8 +67,7 @@ global with sharing class ProcessSocialCaseAction {
 		}
 		if (!socialPostIdCaseMap.Values().isEmpty()) {
 			upsert socialPostIdCaseMap.Values();
-			//insert socialPostIdCaseMap.values();
-            // Updates the social posts Parent Id with case Id
+			// Updates the social posts Parent Id with case Id
 			updateSocialPosts(socialPostIdCaseMap);
 		}
 	}

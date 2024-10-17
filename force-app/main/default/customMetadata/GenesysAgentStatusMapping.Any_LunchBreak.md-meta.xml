@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomMetadata xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <label>Any: Lunch Break</label>
+    <protected>false</protected>
+    <values>
+        <field>GenesysStatusId__c</field>
+        <value xsi:type="xsd:string">26085809-a4aa-4b4f-beda-903583763330</value>
+    </values>
+    <values>
+        <field>GenesysStatusLabel__c</field>
+        <value xsi:type="xsd:string">Lunch Break</value>
+    </values>
+    <values>
+        <field>SalesforcePresenceStatus__c</field>
+        <value xsi:type="xsd:string">LunchBreak</value>
+    </values>
+    <values>
+        <field>SyncDirection__c</field>
+        <value xsi:type="xsd:string">Any</value>
+    </values>
+</CustomMetadata>

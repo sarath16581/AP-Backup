@@ -14,7 +14,23 @@ Hi {!IF(ISBLANK(Contact.Preferred_Name__c),Contact.FirstName,Contact.Preferred_N
 
 Your delivery will arrive shortly
 
-Thank you for your patience while we’ve been monitoring your delivery. We 											are happy to advise that your parcel has received a new scan, and you can 											now expect your delivery on or before {!Case.EstimatedDelivery__c}
+Thank you for your patience while we’ve been monitoring your delivery. We 											are happy to advise that your parcel has received a new scan, and you can 											now expect your delivery on or before {!IF(ISBLANK(Case.EstimatedDelivery__c), '',
+											TEXT(DAY(Case.EstimatedDelivery__c)) +" "+
+											CASE(
+											MONTH(Case.EstimatedDelivery__c),
+											1, "January",
+											2, "February",
+											3, "March",
+											4, "April",
+											5, "May",
+											6, "June",
+											7, "July",
+											8, "August",
+											9, "September",
+											10, "October",
+											11, "November",
+											"December"
+											)+" "+TEXT(YEAR(Case.EstimatedDelivery__c)))}
 
 Australia Post delivers more than 2 billion parcels each year, and the vast majority are delivered on time. We&apos;re sorry that on this occasion your delivery was later than expected.
 
@@ -24,7 +40,9 @@ Australia Post
 
 This email was sent by Australia Post. Australia Post does not represent, warrant or 								guarantee that the integrity of this email communication has been maintained nor that 								the communication is free of errors, viruses or interference.
 
-Help &amp; support |  Terms &amp; conditions |  Privacy policy</textOnly>
+Help &amp; support |  Terms &amp; conditions |  Privacy policy
+{!Case.Thread_Id}
+</textOnly>
     <type>custom</type>
     <uiType>Aloha</uiType>
 </EmailTemplate>

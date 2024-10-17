@@ -4,6 +4,7 @@
     <businessStatus>Active</businessStatus>
     <deleteConstraint>SetNull</deleteConstraint>
     <description>This field links the Case to this record and among its multiple uses, one is to utilise it for omni channel routing eligibility calculations</description>
+    <externalId>false</externalId>
     <inlineHelpText>This field links the Case to this record and among its multiple uses, one is to utilise it for omni channel routing eligibility calculations</inlineHelpText>
     <label>Case</label>
     <referenceTo>Case</referenceTo>

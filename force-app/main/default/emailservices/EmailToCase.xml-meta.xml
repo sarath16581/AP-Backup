@@ -71,6 +71,12 @@
         <runAsUser>salessystemssupport@auspost.com.au.stest</runAsUser>
     </emailServicesAddresses>
     <emailServicesAddresses>
+        <developerName>csttesting2024</developerName>
+        <isActive>true</isActive>
+        <localPart>csttesting2024</localPart>
+        <runAsUser>salessystemssupport@auspost.com.au.stest</runAsUser>
+    </emailServicesAddresses>
+    <emailServicesAddresses>
         <developerName>customer_satisfaction</developerName>
         <isActive>true</isActive>
         <localPart>customer.satisfaction</localPart>

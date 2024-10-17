@@ -4,6 +4,7 @@
     <businessStatus>Active</businessStatus>
     <deleteConstraint>SetNull</deleteConstraint>
     <description>Linked Consignment</description>
+    <externalId>false</externalId>
     <inlineHelpText>Linked Consignment</inlineHelpText>
     <label>Consignment</label>
     <referenceTo>Article__c</referenceTo>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LiveChatAgentConfig xmlns="http://soap.sforce.com/2006/04/metadata">
+    <assignments>
+        <profiles>
+            <profile>unified customer service</profile>
+        </profiles>
+    </assignments>
+    <autoGreeting>Hello {!LiveAgent_VisitorName}, 
+Welcome. 
+My name is {!User_FirstName}, how may I help you?</autoGreeting>
+    <criticalWaitTime>60</criticalWaitTime>
+    <customAgentName>Australia Post Service Agent</customAgentName>
+    <disableTransferConferenceGreeting>false</disableTransferConferenceGreeting>
+    <enableAgentFileTransfer>false</enableAgentFileTransfer>
+    <enableAgentSneakPeek>true</enableAgentSneakPeek>
+    <enableAssistanceFlag>false</enableAssistanceFlag>
+    <enableAutoAwayOnDecline>true</enableAutoAwayOnDecline>
+    <enableAutoAwayOnPushTimeout>false</enableAutoAwayOnPushTimeout>
+    <enableChatConferencing>false</enableChatConferencing>
+    <enableChatMonitoring>true</enableChatMonitoring>
+    <enableChatTransferToAgent>true</enableChatTransferToAgent>
+    <enableChatTransferToButton>true</enableChatTransferToButton>
+    <enableChatTransferToSkill>true</enableChatTransferToSkill>
+    <enableLogoutSound>true</enableLogoutSound>
+    <enableNotifications>true</enableNotifications>
+    <enableRequestSound>true</enableRequestSound>
+    <enableSneakPeek>false</enableSneakPeek>
+    <enableVisitorBlocking>false</enableVisitorBlocking>
+    <enableWhisperMessage>false</enableWhisperMessage>
+    <label>Unified Live Agent</label>
+    <supervisorDefaultAgentStatusFilter>Online</supervisorDefaultAgentStatusFilter>
+    <supervisorDefaultButtonFilter>Unified</supervisorDefaultButtonFilter>
+    <transferableButtons>
+        <button>Consumer_Domestic_General</button>
+        <button>Consumer_H_S_General</button>
+        <button>Consumer_H_S_Specialist</button>
+        <button>Consumer_International_General</button>
+        <button>General_SSSW</button>
+        <button>MPBSP_H_S_Portal_Chat_Button</button>
+    </transferableButtons>
+</LiveChatAgentConfig>

@@ -2,6 +2,7 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>BusinessUnit__c</fullName>
     <description>Business Unit</description>
+    <externalId>false</externalId>
     <fieldManageability>DeveloperControlled</fieldManageability>
     <inlineHelpText>Business Unit such as &quot;AustraliaPost&quot; or &quot;StarTrack&quot;</inlineHelpText>
     <label>Business Unit</label>

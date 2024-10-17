@@ -234,7 +234,7 @@ public with sharing class UnifiedCaseHistoryController {
 	 * @return Boolean
 	 */
 	private static Boolean isOpenedClassicORUnifiedInvestigationCase(Case caseRecord) {
-		return caseRecord.Type.equals(INVESTIGATION_TYPE) && caseRecord.IsClosed == false;
+		return caseRecord.Type == INVESTIGATION_TYPE && caseRecord.IsClosed == false;
 	}
 
 	/**

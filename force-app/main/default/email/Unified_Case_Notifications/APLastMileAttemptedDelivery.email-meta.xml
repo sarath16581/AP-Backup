@@ -16,9 +16,9 @@ Your delivery will soon be ready to collect
 
 Thank you for your patience while we’ve been monitoring your delivery. We 											are delighted to see that it has now been located and has had an attempted 											delivery today.
 
-Your delivery will be dropped off at the end of the driver&apos;s run. 											Please wait for your tracking to update with “awaiting 											collection” to know [when and where] it’s ready for you [to pick up].
+Your delivery will be dropped off soon - by end of day today or tomorrow morning. Please wait for your tracking to update with “awaiting collection” to know when and where it’s ready for you.
 
-Bring along some photo ID 											showing your name or the address matching the parcel, or find other ways to 													collect or to authorise someone else on your behalf.
+You have 10 business days to collect your parcel and you can find the location and hours here. Bring along some photo ID 											showing your name or the address matching the parcel, or find other ways to 													collect or to authorise someone else on your behalf.
 
 Your case will be closed now that your delivery is almost there.
 
@@ -26,7 +26,9 @@ Australia Post
 
 This email was sent by Australia Post. Australia Post does not represent, warrant or 								guarantee that the integrity of this email communication has been maintained nor that 								the communication is free of errors, viruses or interference.
 
-Help &amp; support |  Terms &amp; conditions |  Privacy policy</textOnly>
+Help &amp; support |  Terms &amp; conditions |  Privacy policy
+{!Case.Thread_Id}
+</textOnly>
     <type>custom</type>
     <uiType>Aloha</uiType>
 </EmailTemplate>

@@ -19,6 +19,10 @@ private class MiniCaseFieldMappingController_Test {
     	MiniCaseFieldMapping__c mcfm = TestDataProvider.createTestMiniCaseFieldMapping();
     	insert mcfm;
     	
+        Case testCase = ApplicationTestDataFactoryCase.getCases(1, false).get(0);
+        testCase.referenceId__c = 'SSSWCase';
+        insert testCase;
+        
         Test.startTest();
         
         ApexPages.StandardController stdCtl = new ApexPages.StandardController(mcfm);
@@ -27,6 +31,10 @@ private class MiniCaseFieldMappingController_Test {
         ext.save();
         
         system.assert(mcfm.Id != null);
+        
+        String recordTypeId = MiniCaseFieldMappingController.getRecordTypeId('General Enquiry', 'Domestic Parcels', 'Express');
+        System.assert(recordTypeId != null, 'RecordTypeId expected');
+        
         Test.stopTest();
     }
 }

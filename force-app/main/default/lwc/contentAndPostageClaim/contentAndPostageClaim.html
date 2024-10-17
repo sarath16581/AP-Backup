@@ -1,0 +1,32 @@
+<template >
+    <div class="container">
+    <contentAndPostage>
+        <lightning-input
+            class="form-input contentClaim"
+            name="contentClaim"
+            type="number"
+            required
+            message-when-value-missing="Please enter an amount"
+            label="Amount being claimed for contents ($)" 
+            value={values.contentClaim} 
+            formatter="currency"
+            min=0
+            step=any
+            onblur={handleContentClaimChange}>
+        </lightning-input>
+        <lightning-input 
+            class="form-input postageClaim" 
+            name="postageClaim"
+            type="number" 
+            required
+            message-when-value-missing="Please enter an amount"
+            label="Amount being claimed for postage ($)" 
+            value={values.postageClaim} 
+            formatter="currency"
+            min=0
+            step=any
+            onblur={handlePostageClaimChange}>
+        </lightning-input>
+    </contentAndPostage>
+    </div>
+</template>

@@ -1349,6 +1349,426 @@
         <template>Transport_Enquiry_Case_Template/Transport_Enquiry_New_Case_Notification</template>
     </alerts>
     <alerts>
+        <fullName>UnifiedCaseClosureOnDeliveredCollectedScanEventAP</fullName>
+        <description>Email alert to notify related contact when Unified case related to an AusPost product is closed as a result of &quot;Delivered - Collected&quot; scan event.</description>
+        <protected>false</protected>
+        <recipients>
+            <field>ContactId</field>
+            <type>contactLookup</type>
+        </recipients>
+        <senderAddress>customerservice@auspost.com.au</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>Unified_Case_Notifications/APDeliveredCollected</template>
+    </alerts>
+    <alerts>
+        <fullName>UnifiedCaseClosureOnDeliveredCollectedScanEventST</fullName>
+        <description>Email alert to notify related contact when Unified case related to a StarTrack product is closed as a result of &quot;Delivered - Collected&quot; scan event.</description>
+        <protected>false</protected>
+        <recipients>
+            <field>ContactId</field>
+            <type>contactLookup</type>
+        </recipients>
+        <senderAddress>customerservice@startrack.com.au</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>Unified_Case_Notifications/STDeliveredCollected</template>
+    </alerts>
+    <alerts>
+        <fullName>UnifiedCaseClosureOnDeliveredDeliveredToPOBoxScanEventAP</fullName>
+        <description>Email alert to notify related contact when Unified case related to an AusPost product is closed as a result of &quot;Delivered - Delivered to PO BOX&quot; scan event.</description>
+        <protected>false</protected>
+        <recipients>
+            <field>ContactId</field>
+            <type>contactLookup</type>
+        </recipients>
+        <senderAddress>customerservice@auspost.com.au</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>Unified_Case_Notifications/APDeliveredDeliveredToPOBox</template>
+    </alerts>
+    <alerts>
+        <fullName>UnifiedCaseClosureOnDeliveredDeliveredToPOBoxScanEventST</fullName>
+        <description>Email alert to notify related contact when Unified case related to a StarTrack product is closed as a result of &quot;Delivered - Delivered to PO BOX&quot; scan event.</description>
+        <protected>false</protected>
+        <recipients>
+            <field>ContactId</field>
+            <type>contactLookup</type>
+        </recipients>
+        <senderAddress>customerservice@startrack.com.au</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>Unified_Case_Notifications/STDeliveredDeliveredToPOBox</template>
+    </alerts>
+    <alerts>
+        <fullName>UnifiedCaseClosureOnDeliveredMarkedAsDeliveredOnTheAppScanEventAP</fullName>
+        <description>Email alert to notify related contact when Unified case related to an AusPost product is closed as a result of &quot;Delivered - Marked as Delivered on the App&quot; scan event.</description>
+        <protected>false</protected>
+        <recipients>
+            <field>ContactId</field>
+            <type>contactLookup</type>
+        </recipients>
+        <senderAddress>customerservice@auspost.com.au</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>Unified_Case_Notifications/APDeliveredMarkedAsDeliveredOnTheApp</template>
+    </alerts>
+    <alerts>
+        <fullName>UnifiedCaseClosureOnDeliveredMarkedAsDeliveredOnTheAppScanEventST</fullName>
+        <description>Email alert to notify related contact when Unified case related to a StarTrack product is closed as a result of &quot;Delivered - Marked as Delivered on the App&quot; scan event.</description>
+        <protected>false</protected>
+        <recipients>
+            <field>ContactId</field>
+            <type>contactLookup</type>
+        </recipients>
+        <senderAddress>customerservice@startrack.com.au</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>Unified_Case_Notifications/STDeliveredMarkedAsDeliveredOnTheApp</template>
+    </alerts>
+    <alerts>
+        <fullName>UnifiedCaseClosureOnDeliveredSafeDroppedScanEventAP</fullName>
+        <description>Email alert to notify related contact when Unified case related to an AusPost product is closed as a result of &quot;Delivered - Safe Dropped&quot; scan event.</description>
+        <protected>false</protected>
+        <recipients>
+            <field>ContactId</field>
+            <type>contactLookup</type>
+        </recipients>
+        <senderAddress>customerservice@auspost.com.au</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>Unified_Case_Notifications/APDeliveredSafeDropped</template>
+    </alerts>
+    <alerts>
+        <fullName>UnifiedCaseClosureOnDeliveredSafeDroppedScanEventST</fullName>
+        <description>Email alert to notify related contact when Unified case related to a StarTrack product is closed as a result of &quot;Delivered - Safe Droped&quot; scan event.</description>
+        <protected>false</protected>
+        <recipients>
+            <field>ContactId</field>
+            <type>contactLookup</type>
+        </recipients>
+        <senderAddress>customerservice@startrack.com.au</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>Unified_Case_Notifications/STDeliveredSafeDropped</template>
+    </alerts>
+    <alerts>
+        <fullName>UnifiedCaseClosureOnDeliveredScanEventAP</fullName>
+        <description>Email alert to notify related contact when Unified case related to an AusPost product is closed as a result of &quot;Delivered&quot; scan event.</description>
+        <protected>false</protected>
+        <recipients>
+            <field>ContactId</field>
+            <type>contactLookup</type>
+        </recipients>
+        <senderAddress>customerservice@auspost.com.au</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>Unified_Case_Notifications/APDelivered</template>
+    </alerts>
+    <alerts>
+        <fullName>UnifiedCaseClosureOnDeliveredScanEventST</fullName>
+        <description>Email alert to notify related contact when Unified case related to a StarTrack product is closed as a result of &quot;Delivered&quot; scan event.</description>
+        <protected>false</protected>
+        <recipients>
+            <field>ContactId</field>
+            <type>contactLookup</type>
+        </recipients>
+        <senderAddress>customerservice@startrack.com.au</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>Unified_Case_Notifications/STDelivered</template>
+    </alerts>
+    <alerts>
+        <fullName>UnifiedCaseClosureOnLastMileAttemptedDeliveryScanEventAP</fullName>
+        <description>Email alert to notify related contact when Unified case related to an AusPost product is closed as a result of &quot;Last Mile - Attempted Delivery&quot; scan event.</description>
+        <protected>false</protected>
+        <recipients>
+            <field>ContactId</field>
+            <type>contactLookup</type>
+        </recipients>
+        <senderAddress>customerservice@auspost.com.au</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>Unified_Case_Notifications/APLastMileAttemptedDelivery</template>
+    </alerts>
+    <alerts>
+        <fullName>UnifiedCaseClosureOnLastMileAttemptedDeliveryScanEventST</fullName>
+        <description>Email alert to notify related contact when Unified case related to a StarTrack product is closed as a result of &quot;Last Mile - Attempted Delivery&quot; scan event.</description>
+        <protected>false</protected>
+        <recipients>
+            <field>ContactId</field>
+            <type>contactLookup</type>
+        </recipients>
+        <senderAddress>customerservice@startrack.com.au</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>Unified_Case_Notifications/STLastMileAttemptedDelivery</template>
+    </alerts>
+    <alerts>
+        <fullName>UnifiedCaseClosureOnLastMileAwaitingCollectionScanEventAP</fullName>
+        <description>Email alert to notify related contact when Unified case related to an AusPost product is closed as a result of &quot;Last Mile - Awaiting Collection&quot; scan event.</description>
+        <protected>false</protected>
+        <recipients>
+            <field>ContactId</field>
+            <type>contactLookup</type>
+        </recipients>
+        <senderAddress>customerservice@auspost.com.au</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>Unified_Case_Notifications/APLastMileAwaitingCollection</template>
+    </alerts>
+    <alerts>
+        <fullName>UnifiedCaseClosureOnLastMileAwaitingCollectionScanEventST</fullName>
+        <description>Email alert to notify related contact when Unified case related to a StarTrack product is closed as a result of &quot;Last Mile - Awaiting Collection&quot; scan event.</description>
+        <protected>false</protected>
+        <recipients>
+            <field>ContactId</field>
+            <type>contactLookup</type>
+        </recipients>
+        <senderAddress>customerservice@startrack.com.au</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>Unified_Case_Notifications/STLastMileAwaitingCollection</template>
+    </alerts>
+    <alerts>
+        <fullName>UnifiedCaseClosureOnLastMileGeneralOtherScanEventAP</fullName>
+        <description>Email alert to notify related contact when Unified case related to an AusPost product is closed as a result of &quot;Last Mile - General/Other&quot; scan event.</description>
+        <protected>false</protected>
+        <recipients>
+            <field>ContactId</field>
+            <type>contactLookup</type>
+        </recipients>
+        <senderAddress>customerservice@auspost.com.au</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>Unified_Case_Notifications/APLastMileGeneralOther</template>
+    </alerts>
+    <alerts>
+        <fullName>UnifiedCaseClosureOnLastMileGeneralOtherScanEventST</fullName>
+        <description>Email alert to notify related contact when Unified case related to a StarTrack product is closed as a result of &quot;Last Mile - General/Other&quot; scan event.</description>
+        <protected>false</protected>
+        <recipients>
+            <field>ContactId</field>
+            <type>contactLookup</type>
+        </recipients>
+        <senderAddress>customerservice@startrack.com.au</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>Unified_Case_Notifications/STLastMileGeneralOther</template>
+    </alerts>
+    <alerts>
+        <fullName>UnifiedCaseClosureOnLastMileOnBoardForDeliveryScanEventAP</fullName>
+        <description>Email alert to notify related contact when Unified case related to an AusPost product is closed as a result of &quot;Last Mile - On board for Delivery&quot; scan event.</description>
+        <protected>false</protected>
+        <recipients>
+            <field>ContactId</field>
+            <type>contactLookup</type>
+        </recipients>
+        <senderAddress>customerservice@auspost.com.au</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>Unified_Case_Notifications/APLastMileOnBoardForDelivery</template>
+    </alerts>
+    <alerts>
+        <fullName>UnifiedCaseClosureOnLastMileOnBoardForDeliveryScanEventST</fullName>
+        <description>Email alert to notify related contact when Unified case related to a StarTrack product is closed as a result of &quot;Last Mile - On board for Delivery&quot; scan event.</description>
+        <protected>false</protected>
+        <recipients>
+            <field>ContactId</field>
+            <type>contactLookup</type>
+        </recipients>
+        <senderAddress>customerservice@startrack.com.au</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>Unified_Case_Notifications/STLastMileOnBoardForDelivery</template>
+    </alerts>
+    <alerts>
+        <fullName>UnifiedCaseClosureOnNewEDDGeneralScanEventAP</fullName>
+        <description>Email alert to notify related contact when Unified case related to an AusPost product is closed as a result of &quot;New EDD - General&quot; scan event.</description>
+        <protected>false</protected>
+        <recipients>
+            <field>ContactId</field>
+            <type>contactLookup</type>
+        </recipients>
+        <senderAddress>customerservice@auspost.com.au</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>Unified_Case_Notifications/APNewEDDGeneral</template>
+    </alerts>
+    <alerts>
+        <fullName>UnifiedCaseClosureOnNewEDDMissortScanEventAP</fullName>
+        <description>Email alert to notify related contact when Unified case related to an AusPost product is closed as a result of &quot;New EDD - Missort&quot; scan event.</description>
+        <protected>false</protected>
+        <recipients>
+            <field>ContactId</field>
+            <type>contactLookup</type>
+        </recipients>
+        <senderAddress>customerservice@auspost.com.au</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>Unified_Case_Notifications/APNewEDDMissort</template>
+    </alerts>
+    <alerts>
+        <fullName>UnifiedCaseClosureOnNewEDDMissortScanEventST</fullName>
+        <description>Email alert to notify related contact when Unified case related to a StarTrack product is closed as a result of &quot;New EDD - Missort&quot; scan event.</description>
+        <protected>false</protected>
+        <recipients>
+            <field>ContactId</field>
+            <type>contactLookup</type>
+        </recipients>
+        <senderAddress>customerservice@startrack.com.au</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>Unified_Case_Notifications/STNewEDDMissort</template>
+    </alerts>
+    <alerts>
+        <fullName>UnifiedCaseClosureOnNewEDDNewInformationDropshipScanEventAP</fullName>
+        <description>Email alert to notify related contact when Unified case related to an AusPost product is closed as a result of &quot;New EDD - New Information + Dropship&quot; scan event.</description>
+        <protected>false</protected>
+        <recipients>
+            <field>ContactId</field>
+            <type>contactLookup</type>
+        </recipients>
+        <senderAddress>customerservice@auspost.com.au</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>Unified_Case_Notifications/APNewEDDNewInformationDropship</template>
+    </alerts>
+    <alerts>
+        <fullName>UnifiedCaseClosureOnNewEDDNewInformationDropshipScanEventST</fullName>
+        <description>Email alert to notify related contact when Unified case related to a StarTrack product is closed as a result of &quot;New EDD - New Information + Dropship&quot; scan event.</description>
+        <protected>false</protected>
+        <recipients>
+            <field>ContactId</field>
+            <type>contactLookup</type>
+        </recipients>
+        <senderAddress>customerservice@startrack.com.au</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>Unified_Case_Notifications/STNewEDDNewInformationDropship</template>
+    </alerts>
+    <alerts>
+        <fullName>UnifiedCaseClosureOnUndeliverableDamagedScanEventAP</fullName>
+        <description>Email alert to notify related contact when Unified case related to an AusPost product is closed as a result of &quot;Undeliverable - Damaged&quot; scan event.</description>
+        <protected>false</protected>
+        <recipients>
+            <field>ContactId</field>
+            <type>contactLookup</type>
+        </recipients>
+        <senderAddress>customerservice@auspost.com.au</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>Unified_Case_Notifications/APUndeliverableDamaged</template>
+    </alerts>
+    <alerts>
+        <fullName>UnifiedCaseClosureOnUndeliverableDamagedScanEventST</fullName>
+        <description>Email alert to notify related contact when Unified case related to a StarTrack product is closed as a result of &quot;Undeliverable - Damaged&quot; scan event.</description>
+        <protected>false</protected>
+        <recipients>
+            <field>ContactId</field>
+            <type>contactLookup</type>
+        </recipients>
+        <senderAddress>customerservice@startrack.com.au</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>Unified_Case_Notifications/STUndeliverableDamaged</template>
+    </alerts>
+    <alerts>
+        <fullName>UnifiedCaseClosureOnUndeliverableGeneralScanEventAP</fullName>
+        <description>Email alert to notify related contact when Unified case related to an AusPost product is closed as a result of &quot;Undeliverable - General&quot; scan event.</description>
+        <protected>false</protected>
+        <recipients>
+            <field>ContactId</field>
+            <type>contactLookup</type>
+        </recipients>
+        <senderAddress>customerservice@auspost.com.au</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>Unified_Case_Notifications/APUndeliverableGeneral</template>
+    </alerts>
+    <alerts>
+        <fullName>UnifiedCaseClosureOnUndeliverableIncorrectAddressScanEventAP</fullName>
+        <description>Email alert to notify related contact when Unified case related to an AusPost product is closed as a result of &quot;Undeliverable - Incorrect Address&quot; scan event.</description>
+        <protected>false</protected>
+        <recipients>
+            <field>ContactId</field>
+            <type>contactLookup</type>
+        </recipients>
+        <senderAddress>customerservice@auspost.com.au</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>Unified_Case_Notifications/APUndeliverableIncorrectAddress</template>
+    </alerts>
+    <alerts>
+        <fullName>UnifiedCaseClosureOnUndeliverableIssueInTransitScanEventAP</fullName>
+        <description>Email alert to notify related contact when Unified case related to an AusPost product is closed as a result of &quot;Undeliverable - Issue in Transit&quot; scan event.</description>
+        <protected>false</protected>
+        <recipients>
+            <field>ContactId</field>
+            <type>contactLookup</type>
+        </recipients>
+        <senderAddress>customerservice@auspost.com.au</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>Unified_Case_Notifications/APUndeliverableIssueInTransit</template>
+    </alerts>
+    <alerts>
+        <fullName>UnifiedCaseClosureOnUndeliverableIssueInTransitScanEventST</fullName>
+        <description>Email alert to notify related contact when Unified case related to a StarTrack product is closed as a result of &quot;Undeliverable - Issue in Transit&quot; scan event.</description>
+        <protected>false</protected>
+        <recipients>
+            <field>ContactId</field>
+            <type>contactLookup</type>
+        </recipients>
+        <senderAddress>customerservice@startrack.com.au</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>Unified_Case_Notifications/STUndeliverableIssueInTransit</template>
+    </alerts>
+    <alerts>
+        <fullName>UnifiedCaseClosureOnUndeliverableIssueReceivingParcelScanEventAP</fullName>
+        <description>Email alert to notify related contact when Unified case related to an AusPost product is closed as a result of &quot;Undeliverable - Issue Receiving Parcel&quot; scan event.</description>
+        <protected>false</protected>
+        <recipients>
+            <field>ContactId</field>
+            <type>contactLookup</type>
+        </recipients>
+        <senderAddress>customerservice@auspost.com.au</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>Unified_Case_Notifications/APUndeliverableIssueReceivingParcel</template>
+    </alerts>
+    <alerts>
+        <fullName>UnifiedCaseClosureOnUndeliverableIssueReceivingParcelScanEventST</fullName>
+        <description>Email alert to notify related contact when Unified case related to a StarTrack product is closed as a result of &quot;Undeliverable - Issue Receiving Parcel&quot; scan event.</description>
+        <protected>false</protected>
+        <recipients>
+            <field>ContactId</field>
+            <type>contactLookup</type>
+        </recipients>
+        <senderAddress>customerservice@startrack.com.au</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>Unified_Case_Notifications/STUndeliverableIssueReceivingParcel</template>
+    </alerts>
+    <alerts>
+        <fullName>UnifiedCaseClosureOnUndeliverableRefusedScanEventAP</fullName>
+        <description>Email alert to notify related contact when Unified case related to an AusPost product is closed as a result of &quot;Undeliverable - Refused&quot; scan event.</description>
+        <protected>false</protected>
+        <recipients>
+            <field>ContactId</field>
+            <type>contactLookup</type>
+        </recipients>
+        <senderAddress>customerservice@auspost.com.au</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>Unified_Case_Notifications/APUndeliverableRefused</template>
+    </alerts>
+    <alerts>
+        <fullName>UnifiedCaseClosureOnUndeliverableRMRCScanEventAP</fullName>
+        <description>Email alert to notify related contact when Unified case related to an AusPost product is closed as a result of &quot;Undeliverable - RMRC&quot; scan event.</description>
+        <protected>false</protected>
+        <recipients>
+            <field>ContactId</field>
+            <type>contactLookup</type>
+        </recipients>
+        <senderAddress>customerservice@auspost.com.au</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>Unified_Case_Notifications/APUndeliverableRMRC</template>
+    </alerts>
+    <alerts>
+        <fullName>UnifiedCaseClosureOnUndeliverableRTSScanEventAP</fullName>
+        <description>Email alert to notify related contact when Unified case related to an AusPost product is closed as a result of &quot;Undeliverable - RTS&quot; scan event.</description>
+        <protected>false</protected>
+        <recipients>
+            <field>ContactId</field>
+            <type>contactLookup</type>
+        </recipients>
+        <senderAddress>customerservice@auspost.com.au</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>Unified_Case_Notifications/APUndeliverableRTS</template>
+    </alerts>
+    <alerts>
+        <fullName>UnifiedCaseClosureOnUndeliverableRTSScanEventST</fullName>
+        <description>Email alert to notify related contact when Unified case related to a StarTrack product is closed as a result of &quot;Undeliverable - RTS&quot; scan event.</description>
+        <protected>false</protected>
+        <recipients>
+            <field>ContactId</field>
+            <type>contactLookup</type>
+        </recipients>
+        <senderAddress>customerservice@startrack.com.au</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>Unified_Case_Notifications/STUndeliverableRTS</template>
+    </alerts>
+    <alerts>
         <fullName>UnifiedCaseNoScansOrUpdatesClosureNotificationAP</fullName>
         <description>Email alert to notify related contact on a Case related to an AP product, when the case is auto closed due to no scan event or update has been received for 5 business days.</description>
         <protected>false</protected>
@@ -1420,7 +1840,7 @@
         <senderType>OrgWideEmailAddress</senderType>
         <template>Unified_Case_Notifications/STCaseCreation</template>
     </alerts>
-    <alerts>
+	<alerts>
         <fullName>UnifiedInvestigationCaseCreationAP</fullName>
         <description>Email alert to notify related contact on the Case when a new Unified Investigation case related to an AP product is created.</description>
         <protected>false</protected>

@@ -8,6 +8,7 @@
  * @changelog
  * 2022-10-20 George Nguyen - Created
  * 2024-08-12 - Ranjeewa Silva - Added test to verify search method behaviour.
+ * 2024-09-30 - Ranjeewa Silva - Updated to verify filtering in 'selectAcceptedAgentWorkByCaseIdsAndActiveUser' by AgentWork.Case__c
  */
 @IsTest
 public with sharing class AgentWorkSelector_Test {
@@ -58,10 +59,10 @@ public with sharing class AgentWorkSelector_Test {
 
 		qa = QueryBuilder.newInstance();
 		QueryBuilder.mockFactory.put(AgentWorkSelector.class, qa); 
-		selector.selectByAcceptedWorkItemIdsAndActiveUser(agentWorks.keySet(), new Set<Object>());
+		selector.selectAcceptedAgentWorkByCaseIdsAndActiveUser(cases.keySet(), new Set<Object>());
 		queryString = qa.toSoqlString();
-		System.assertEquals(true, Pattern.compile('\\b' + AgentWork.WorkItemId + ' in :workItemIds AND ' + AgentWork.AcceptDateTime + ' != NULL AND User.IsActive = TRUE\\b').matcher(queryString).find(), 'Filters by workItemIds and AcceptDateTime not null in query');
-		System.assertEquals(true, Pattern.compile('\\bORDER BY ' + AgentWork.WorkItemId + ' ASC, ' + AgentWork.AcceptDateTime + ' DESC').matcher(queryString).find(), 'Order by work item id and date in query');
+		System.assertEquals(true, Pattern.compile('\\b' + AgentWork.Case__c + ' in :caseIds AND ' + AgentWork.AcceptDateTime + ' != NULL AND User.IsActive = TRUE\\b').matcher(queryString).find(), 'Filters by caseIds and AcceptDateTime not null in query');
+		System.assertEquals(true, Pattern.compile('\\bORDER BY ' + AgentWork.Case__c + ' ASC, ' + AgentWork.AcceptDateTime + ' DESC').matcher(queryString).find(), 'Order by case id and date in query');
 	}
 
 	/**

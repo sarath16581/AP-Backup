@@ -3,6 +3,7 @@
     <fullName>Case__c</fullName>
     <businessStatus>Active</businessStatus>
     <description>Identifies the parent case</description>
+    <externalId>false</externalId>
     <inlineHelpText>Identifies the parent case</inlineHelpText>
     <label>Case</label>
     <referenceTo>Case</referenceTo>

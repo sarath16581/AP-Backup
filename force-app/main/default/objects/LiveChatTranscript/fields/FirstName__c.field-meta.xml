@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>FirstName__c</fullName>
+    <complianceGroup>PII</complianceGroup>
+    <description>The First Name that was supplied by the customer when initiating the chat. This field is used to automatically link a Contact when a LiveChatTranscript record is crated. Note: The field is not updated when a Contact is linked and may not reflect the actual customer&apos;s details.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>The The First Name that was supplied by the customer when initiating the chat.</inlineHelpText>
+    <label>First Name</label>
+    <length>50</length>
+    <required>false</required>
+    <securityClassification>OFFICIAL_SENSITIVE_PERSONAL</securityClassification>
+    <trackHistory>false</trackHistory>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

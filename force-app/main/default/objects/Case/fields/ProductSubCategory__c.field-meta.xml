@@ -1278,6 +1278,37 @@
             <valueName>Parcel Send Assistance/Training</valueName>
         </valueSettings>
         <valueSettings>
+            <controllingFieldValue>Domestic</controllingFieldValue>
+            <controllingFieldValue>Domestic Letters</controllingFieldValue>
+            <valueName>Express Post</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Domestic</controllingFieldValue>
+            <controllingFieldValue>Domestic Parcels</controllingFieldValue>
+            <valueName>Metro</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Domestic</controllingFieldValue>
+            <controllingFieldValue>Domestic Parcels</controllingFieldValue>
+            <valueName>Parcel Post</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Domestic</controllingFieldValue>
+            <valueName>StarTrack Road Express</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Domestic</controllingFieldValue>
+            <valueName>StarTrack Premium</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Domestic</controllingFieldValue>
+            <valueName>eParcel Parcel Post</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Domestic</controllingFieldValue>
+            <valueName>eParcel Express Post</valueName>
+        </valueSettings>
+        <valueSettings>
             <controllingFieldValue>Fit2Work</controllingFieldValue>
             <valueName>New Links</valueName>
         </valueSettings>
@@ -1522,7 +1553,7 @@
         <valueSettings>
             <controllingFieldValue>Domestic Letters</controllingFieldValue>
             <valueName>Business Letters</valueName>
-        </valueSettings>
+		</valueSettings>
         <valueSettings>
             <controllingFieldValue>Domestic Letters</controllingFieldValue>
             <valueName>Express Post</valueName>

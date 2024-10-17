@@ -62,7 +62,20 @@ public inherited sharing  class BudgetAndRevenueModule extends ApplicationModule
     // update grouped revenues with the revised values of budget and revenue
 	public override void onAfterUpdate(List<SObject> records, Map<Id, SObject> existingRecords, ApplicationUnitOfWork uow)  {
 		try {
-            Set<SObjectField> monitoredFields = getMonitoredFields();
+            Set<SObjectField> monitoredFields = new Set<SObjectField>{
+                Budget_And_Revenue__c.Jan_Revenue_Amount__c,
+                Budget_And_Revenue__c.Feb_Revenue_Amount__c,
+                Budget_And_Revenue__c.Mar_Revenue_Amount__c,
+                Budget_And_Revenue__c.Apr_Revenue_Amount__c,
+                Budget_And_Revenue__c.May_Revenue_Amount__c,
+                Budget_And_Revenue__c.Jun_Revenue_Amount__c,
+                Budget_And_Revenue__c.Jul_Revenue_Amount__c,
+                Budget_And_Revenue__c.Aug_Revenue_Amount__c,
+                Budget_And_Revenue__c.Sep_Revenue_Amount__c,
+                Budget_And_Revenue__c.Oct_Revenue_Amount__c,
+                Budget_And_Revenue__c.Nov_Revenue_Amount__c,
+                Budget_And_Revenue__c.Dec_Revenue_Amount__c
+            };
             String context = 'updateGroupedRevenues.action';
             List<ApplicationRecursion.RecordState> changedRecords = ApplicationRecursion.getInstance().getProcessableRecords(context, records, existingRecords, monitoredFields); 
              system.debug('****** changedRecords '+changedRecords);
@@ -75,7 +88,7 @@ public inherited sharing  class BudgetAndRevenueModule extends ApplicationModule
 		}
 	}
     
-   /**
+                /**
     * Filters updated budget and revenue recorsd for those with revenue.
     * @param revenue Records the updated revenue records
     * @param changedRecords - a list of changed records
@@ -125,65 +138,6 @@ public inherited sharing  class BudgetAndRevenueModule extends ApplicationModule
 		for(Budget_and_Revenue__c record : records) {
 			record.uid__c = ProductRevenueService.getUID(record);
 		}
-	}
-    
-    private static Set<SObjectField> getMonitoredFields() {
-        return new Set<SObjectField>{
-                Budget_And_Revenue__c.Jan_Revenue_Amount__c,
-                Budget_And_Revenue__c.Feb_Revenue_Amount__c,
-                Budget_And_Revenue__c.Mar_Revenue_Amount__c,
-                Budget_And_Revenue__c.Apr_Revenue_Amount__c,
-                Budget_And_Revenue__c.May_Revenue_Amount__c,
-                Budget_And_Revenue__c.Jun_Revenue_Amount__c,
-                Budget_And_Revenue__c.Jul_Revenue_Amount__c,
-                Budget_And_Revenue__c.Aug_Revenue_Amount__c,
-                Budget_And_Revenue__c.Sep_Revenue_Amount__c,
-                Budget_And_Revenue__c.Oct_Revenue_Amount__c,
-                Budget_And_Revenue__c.Nov_Revenue_Amount__c,
-                Budget_And_Revenue__c.Dec_Revenue_Amount__c
-            };
-    }
-    
-    private  Set<SObjectField> getPastMonthsFields(Integer numberOfMonths) {
-        Set<SObjectField> monitoredFields = new Set<SObjectField>();
-        Date targetDate = date.today();
-		Integer targetYear = getAustralianFinancialYear(targetDate);
-		Integer targetMonth = targetDate.month(); 
-		monitoredFields.add(getMonthField(targetMonth));
-		for (Integer i = 1; i <= numberOfMonths; i++) {
-			// adjust target month and financial year.
-			targetMonth -= 1;
-			if (targetMonth == 6) {
-				break;
-			}
-			else if (targetMonth==0) {
-				targetMonth = 12;
-			}
-			monitoredFields.add(getMonthField(targetMonth));
-	 	}
-        return monitoredFields;
-	}
-    
-    private static SObjectField getMonthField(Integer month) {
-        switch on month {
-            when 1 { return Budget_And_Revenue__c.Jan_Revenue_Amount__c; }
-            when 2 { return Budget_And_Revenue__c.Feb_Revenue_Amount__c; }
-            when 3 { return Budget_And_Revenue__c.Mar_Revenue_Amount__c; }
-            when 4 { return Budget_And_Revenue__c.Apr_Revenue_Amount__c; }
-            when 5 { return Budget_And_Revenue__c.May_Revenue_Amount__c; }
-            when 6 { return Budget_And_Revenue__c.Jun_Revenue_Amount__c; }
-            when 7 { return Budget_And_Revenue__c.Jul_Revenue_Amount__c; }
-            when 8 { return Budget_And_Revenue__c.Aug_Revenue_Amount__c; }
-            when 9 { return Budget_And_Revenue__c.Sep_Revenue_Amount__c; }
-            when 10 { return Budget_And_Revenue__c.Oct_Revenue_Amount__c; }
-            when 11 { return Budget_And_Revenue__c.Nov_Revenue_Amount__c; }
-            when 12 { return Budget_And_Revenue__c.Dec_Revenue_Amount__c; }
-        }
-        return null; // Default return in case the month doesn't match
-    }
-    
-	private static Integer getAustralianFinancialYear(Date dateToConvert) {
-		return dateToConvert.month() >= 7 ? dateToConvert.year() + 1 : dateToConvert.year();
 	}
 
 }

@@ -3,6 +3,7 @@
     <fullName>IsCaseReassignmentEligible__c</fullName>
     <businessStatus>Active</businessStatus>
     <description>Identifies if this event code is a designated code for the purpose of triggering re-routing/re-assignment for Unified Cases.</description>
+    <externalId>false</externalId>
     <fieldManageability>DeveloperControlled</fieldManageability>
     <inlineHelpText>Identifies if this event code is a designated code for the purpose of triggering re-routing/re-assignment for Unified Cases.</inlineHelpText>
     <label>Is Case Reassignment Eligible?</label>

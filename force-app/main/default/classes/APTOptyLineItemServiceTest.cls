@@ -6,7 +6,8 @@
  *     09/13/2019                               Added test methods for populateClassification()
  *     09/30/2019                               Added test method for productControlWhenClosedWon()
  *     09/30/2019  shashwat.nath@accenture.com  Updated Test methods with dynamic dateTime test data to fix test failure due to static dateTime
- ***************************************/
+* 08.10.2024 Ken McGurie removed legacy opc calculations 
+***************************************/
 @isTest
 public class APTOptyLineItemServiceTest {
     @testSetup

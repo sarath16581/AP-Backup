@@ -205,7 +205,7 @@ export default class AddressLookupRecordWrapper extends NavigationMixin(Lightnin
               this.showSpinner = false;
               this.dispatchEvent(new ShowToastEvent({
                 title: 'Error on Address save',
-                message: 'You do not have access to update this record. Please raise a case record to the Data Quality Management team with your change request.',
+                message: 'You do not have access to update this record. Please raise a case record to the Sales Operations Support team with your change request.',
                 variant: 'error',
               })
               );

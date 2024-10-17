@@ -14,6 +14,7 @@
  * 2024-09-02 - Ranjeewa Silva - Updated case closure / reassignment to cater for scan event automation.
  * 2024-09-24 - Ranjeewa Silva - Implemented email notification on case closure due to no activity on monitored cases.
  * 2024-09-29 - Parveen Kaushik - Used prefix 005 (user object) for perf improvements. 
+ * 2024-10-03 - Ranjeewa Silva - Implemented case closure email notification when cases are closed due to scan events.
  */
 public inherited sharing class CaseUnifiedAutomationService {
 	@TestVisible private static final String REASSIGNMENT_REASON_OPT_OUT_AUTOMATION = 'Cannot autoclose due to opt out automations';
@@ -295,9 +296,9 @@ public inherited sharing class CaseUnifiedAutomationService {
 				updatable.Root_cause__c = wrapper.newRootCause;
 				updatable.ResolutionCode__c = wrapper.newResolutionCode;
 				updatableCases.add(updatable);
-				// TODO dependency on ApplicationEmailService feature. Implement logic to send email once the email templates
-				// requirements are confirmed.
-				// uow.queueEmailNotification(wrapper.caseRecord.Id, Case.SObjectType, 'TBD?');
+				if (String.isNotBlank(wrapper.caseClosureEmailAlert)) {
+					uow.queueEmailNotification(wrapper.caseRecord.Id, Case.SObjectType, wrapper.caseClosureEmailAlert);
+				}
 			} else if (closureEligibilityResult.reassignableCasesIds.contains(wrapper.caseRecord.Id)) {
 				// case is eligible for reassignment. update relevant fields.
 				updatable.Status = SSSWConstants.CASE_STATUS_UPDATED;
@@ -496,6 +497,7 @@ public inherited sharing class CaseUnifiedAutomationService {
 		public String newRootCause { get; set; } // May be available if eligibility check is confirmed at source (entry point)
 		public String newReassignmentReason { get; set; } // May be available if eligibility check is confirmed at source (entry point)
 		public Boolean isClosedBySystem { get; set; } // True as default. Caller may set it to False and is mapped to ClosedBySystem__c
+		public String caseClosureEmailAlert { get; set; } // email alert to use to notify customer on automated case closure
 		public RecordWrapper() {
 			determineEligibility = false;
 			isClosedBySystem = true;

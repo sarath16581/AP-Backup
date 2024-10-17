@@ -4,7 +4,6 @@
     <hasActivationRequired>false</hasActivationRequired>
     <label>Unified Agent Team Lead</label>
     <mutingPermissionSets>UnifiedAgentTeamLead_Muted</mutingPermissionSets>
-    <permissionSets>ServiceCloudVoiceAgent</permissionSets>
     <permissionSets>UnifiedCaseManagement</permissionSets>
     <permissionSets>UnifiedCustomerManagement</permissionSets>
     <permissionSets>UnifiedOmniAgent</permissionSets>
@@ -14,5 +13,6 @@
     <permissionSets>force__EinsteinGPTServiceReplies</permissionSets>
     <permissionSets>force__EinsteinGPTWorkSummaries</permissionSets>
     <permissionSets>force__EinsteinReplyRecommendations</permissionSets>
+	<permissionSets>ServiceCloudVoiceAgent</permissionSets>
     <status>Updated</status>
 </PermissionSetGroup>

@@ -11,6 +11,7 @@
  * 2023-08-07 - Nathan Franklin - Change to force routing for all cases moving from closed -> open (excluded certain scenarios)
  * 2024-07-19 - Ranjeewa Silva - Changes to enable routing for Unified cases and preferred agent override logic for Unified cases
  * 2024-09-10 - Ranjeewa Silva - Updated to move Unified cases in monitoring queue into closed cases queue on case closure.
+ * 2024-09-30 - Ranjeewa Silva - Changes to method parameter types when calling 'getLatestAcceptedAgentWorkInCaseScope'.
  */
 public inherited sharing class CaseRoutingService {
 
@@ -783,8 +784,8 @@ public inherited sharing class CaseRoutingService {
 
 		Map<Id, Id> results = new Map<Id, Id>();
 
-		// get latest accepted AgentWork for the work items. key - CaseId, value - latest accepted AgentWork
-		Map<Id, AgentWork> latestAcceptedAgentWork = OmniChannelService.getInstance().getLatestAcceptedAgentWork(caseRecords, true);
+		// get latest accepted AgentWork in-scope for cases. key - CaseId, value - latest accepted AgentWork
+		Map<Id, AgentWork> latestAcceptedAgentWork = OmniChannelService.getInstance().getLatestAcceptedAgentWorkInCaseScope(caseRecords.keySet());
 
 		// if we find any agents who worked on the case previously, we need to check if they are still eligible to
 		// work on the case assigned to omni queue.

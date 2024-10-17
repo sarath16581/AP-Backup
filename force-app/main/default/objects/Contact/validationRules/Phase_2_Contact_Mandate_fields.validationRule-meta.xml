@@ -7,7 +7,7 @@
     &amp;&amp;
     NOT(CONTAINS($Profile.Name,&quot;SSSW&quot;))
     &amp;&amp;
-    NOT(CONTAINS($Profile.Name,&quot;Customer Service&quot;))
+    NOT(CONTAINS($Profile.Name,&quot;Unified Customer Service&quot;))
     &amp;&amp;
     NOT(CONTAINS($Profile.Name,&quot;AusPost Integration&quot;))
     &amp;&amp;
@@ -29,5 +29,5 @@
     &amp;&amp;
     NOT(CONTAINS($Profile.Name,&quot;LPO Partner Community User&quot;))</errorConditionFormula>
     <errorMessage>A contact must have a mailing address.
-If you are changing the Status to &apos;Left Organisation&apos; the mailing address remains mandatory, please ensure that the contact meets the minimum mailing address requirements.</errorMessage>
+    If you are changing the Status to &apos;Left Organisation&apos; the mailing address remains mandatory, please ensure that the contact meets the minimum mailing address requirements.</errorMessage>
 </ValidationRule>

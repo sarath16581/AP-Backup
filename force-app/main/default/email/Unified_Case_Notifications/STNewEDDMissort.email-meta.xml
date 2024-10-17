@@ -6,7 +6,7 @@
     <name>ST New EDD – Missort</name>
     <style>none</style>
     <subject>We have a new estimated delivery date for case {!Case.CaseNumber}</subject>
-    <textOnly>Star Track
+    <textOnly>StarTrack
 
 Case {!Case.CaseNumber}
 
@@ -14,19 +14,37 @@ Hi {!IF(ISBLANK(Contact.Preferred_Name__c),Contact.FirstName,Contact.Preferred_N
 
 Your delivery will arrive shortly
 
-Thank you for your patience while we’ve been monitoring your delivery. We 											are happy to report that the tracking has updated, and you can now expect 											your delivery on or before {!Case.EstimatedDelivery__c}.
+Thank you for your patience while we’ve been monitoring your delivery. We 											are happy to report that the tracking has updated, and you can now expect 											your delivery on or before {!IF(ISBLANK(Case.EstimatedDelivery__c), '',
+											TEXT(DAY(Case.EstimatedDelivery__c)) +" "+
+											CASE(
+											MONTH(Case.EstimatedDelivery__c),
+											1, "January",
+											2, "February",
+											3, "March",
+											4, "April",
+											5, "May",
+											6, "June",
+											7, "July",
+											8, "August",
+											9, "September",
+											10, "October",
+											11, "November",
+											"December"
+											)+" "+TEXT(YEAR(Case.EstimatedDelivery__c)))}.
 
 A sorting error led to your parcel arriving at a facility outside of your 											area however our team members have already picked up on this and manually 											forwarded it to the correct location.
 
 Errors like this can occur due to damaged or unclear labels and barcodes, or 											automated sorting machines reading the wrong area of the address label. 											Missorts are rare, and are rectified as soon as they are detected. We are 											sorry for the concern this delay may have caused and can assure you that the 											delivery is back on track.
 
-Your case will be closed now that your delivery is on the way. You can 											continue to monitor the tracking tracking for 											further updates.
+Your case will be closed now that your delivery is on the way. You can 											continue to monitor the tracking for 											further updates.
 
 StarTrack
 
 This email was sent by Startrack. Startrack does not represent, warrant or guarantee that 								the integrity of this email communication has been maintained nor that the communication 								is free of errors, viruses or interference.
 
-Help &amp; support |  Terms &amp; conditions |  Privacy policy</textOnly>
+Help &amp; support |  Terms &amp; conditions |  Privacy policy
+{!Case.Thread_Id}
+</textOnly>
     <type>custom</type>
     <uiType>Aloha</uiType>
 </EmailTemplate>

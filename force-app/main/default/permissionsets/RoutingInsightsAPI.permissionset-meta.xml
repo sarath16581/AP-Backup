@@ -4,7 +4,7 @@
         <apexClass>ResourceApiController</apexClass>
         <enabled>true</enabled>
     </classAccesses>
-    <customPermissions>
+	<customPermissions>
         <enabled>true</enabled>
         <name>AccessRoutingInsightsAPI</name>
     </customPermissions>
@@ -34,7 +34,7 @@
         <field>Article__c.Source_System__c</field>
         <readable>true</readable>
     </fieldPermissions>
-    <fieldPermissions>
+	<fieldPermissions>
         <editable>false</editable>
         <field>Case.ArticleTest__c</field>
         <readable>true</readable>
@@ -106,17 +106,17 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Contact.UnifiedDataScore__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
         <field>Contact.VerifiedEmail__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
         <field>Contact.VerifiedMobile__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Contact.UnifiedDataScore__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

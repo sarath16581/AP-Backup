@@ -11,6 +11,8 @@
  * 2021-11-23 - Nathan Franklin - Added tests for INCOMING/OUTGOING filters
  * 2022-02-22 - Naveen Rajanna - REQ2723199	Added tests for WITH_CASE selector and selectByIdsWithParentStarTrackCase method
  * 2023-05-30 - Mahesh Parvathaneni - Added tests for selectByIdsAndParentRecordTypeId
+ * 2023-11-06 - hasantha.liyanage@auspost.com.au - Modified: added test for selectByParentIds
+ * 2024-10-14 - Marcel HK - Revert commit which removed above change
  */
 @IsTest
 private class EmailMessagesSelector_Test {
@@ -144,5 +146,29 @@ private class EmailMessagesSelector_Test {
 		Test.stopTest();
 
 		System.assertEquals(1, resultEmailMessagesList.size(), 'EmailMessage is not returned');	
+	}
+
+	@IsTest
+	private static void testSelectByParentIds() {
+		// =====================================
+		// Data Preparation
+		// =====================================
+		MockUtility.disableTriggerExecution();
+
+		//Create Case and EmailMessage
+		List<Case> cases = ApplicationTestDataFactory.getCases(1, false);
+		insert cases;
+
+		List<EmailMessage> emailMessages = new List<EmailMessage>(ApplicationTestDataFactory.getEmailMessages(1, false, true, 'test@test.com', 'amazonstrategicsupport@auspost.com.au', 'Inbound Email', cases[0].Id));
+		insert emailMessages;
+		// =====================================
+		// Testing
+		// =====================================
+		Test.startTest();
+		EmailMessagesSelector selector = EmailMessagesSelector.newInstance();
+		List<EmailMessage> resultEmailMessagesList = selector.selectByParentIds(new Set<Id>{cases[0].Id}, new Set<Object>{});
+		Test.stopTest();
+
+		System.assertEquals(1, resultEmailMessagesList.size(), 'EmailMessage is not returned');
 	}
 }

@@ -4,6 +4,7 @@
     <businessStatus>Active</businessStatus>
     <deleteConstraint>SetNull</deleteConstraint>
     <description>Identifies and links to the problem article in a Consignment. This related list should not be on Consignment layout. Use this on Article layout instead.</description>
+    <externalId>false</externalId>
     <inlineHelpText>Identifies and links to the problem article in a Consignment</inlineHelpText>
     <label>Article</label>
     <referenceTo>Article__c</referenceTo>
