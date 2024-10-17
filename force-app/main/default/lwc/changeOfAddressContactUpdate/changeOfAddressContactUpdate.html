@@ -1,0 +1,109 @@
+<!--
+-->
+<template>
+    <lightning-card>
+        <div class="slds-var-p-around_small">
+            <div align="center">
+                <h3 class="slds-m-top_large slds-text-title_bold slds-text-title_underline titlecss">
+                    Contacts selection
+                </h3>
+            </div>
+            <template lwc:if={error}>
+                <div class="slds-text-title_bold errorcolor">{error}</div>
+            </template>
+            <!--Layout to display the changed address and previous address-->
+            <lightning-layout multiple-rows>
+                <template lwc:if={isBillingAddressChanged}>
+                    <lightning-layout-item size="6" padding="around-small">
+                        <div class="slds-text-title_bold">
+                            Billing Address Change
+                        </div><br/>
+                        <div>
+                            Current Address: {orgRecord}
+                        </div>
+                        <div>
+                            New Address: {newBillingAddress}
+                        </div>
+                    </lightning-layout-item>
+                </template>
+                <template lwc:if={isPhysicalAddressChanged}>
+                    <lightning-layout-item size="6" padding="around-small">
+                        <div class="slds-text-title_bold">
+                            Physical Address Change
+                        </div><br/>
+                        <div>
+                            Current Address: {orgRecord}
+                        </div>
+                        <div>
+                            New Address:  {newPhysicalAddress}
+                        </div>
+                    </lightning-layout-item>
+                </template>
+            </lightning-layout>
+            <!--Accordion to display the contact selection table and the selected contacts table-->
+            <!-- needs to be removed later if the numbers should be hidden strt-->
+            <lightning-layout multiple-rows>
+                <lightning-layout-item size="6" padding="around-small">
+                    <div class="slds-form-element__label">
+                        Total Records: {fulldataset.length}
+                    </div> 
+                    <div class="slds-form-element__label">
+                        Total selected records: {fulldataselected.length}
+                    </div> 
+                </lightning-layout-item>
+                <lightning-layout-item size="6" padding="around-small">
+
+                </lightning-layout-item>
+            </lightning-layout>
+            <!-- needs to be removed if the numbers should be hidden end-->
+            <lightning-accordion active-section-name="A">
+                <lightning-accordion-section name="A" label="Contacts">
+                    <!--Layout to display the search input and button-->
+                    <lightning-layout horizontal-align="end">
+						<lightning-layout-item>
+							<div class="slds-float_right slds-button-group-row">
+								<lightning-input class="slds-m-right_x-small" type="search" placeholder="Search contacts" autocomplete="off" onchange={handleSearchText}></lightning-input>
+							</div>   
+						</lightning-layout-item>   
+                    </lightning-layout>
+					<lightning-layout> 
+						<lightning-layout-item  padding="around-small">
+							<template lwc:if={errorMoreThan50}>
+								<div class="slds-text-title_bold errorcolor">{errorMoreThan50}</div>
+							</template>
+						</lightning-layout-item>	
+					</lightning-layout>
+					<lightning-layout multiple-rows>
+						<lightning-layout-item size="12">
+							<div class="slds-border_top" style="height:400px">
+								<lightning-datatable key-field="Id" data={data} columns={columns} load-more-offset="20"
+									onloadmore={handleLoadMore} enable-infinite-loading={enableInfinteLoading} show-checkbox-column hide-row-number-column
+									onrowselection={handleRowSelection}>
+								</lightning-datatable>
+							</div>
+							{loadMoreStatus}	
+						</lightning-layout-item>	
+					</lightning-layout>
+                </lightning-accordion-section>
+                <lightning-accordion-section name="B" label="Selected Contacts">
+					<lightning-layout>
+						<lightning-layout-item size="12" padding="around-small">
+							<div class="slds-border_top" style="height:400px">
+								<lightning-datatable key-field="Id" data={selecteddata} columns={columns} load-more-offset="20"
+									onloadmore={handleLoadMoreselected} enable-infinite-loading={enableInfinteLoadingSelected} show-row-number-column hide-checkbox-column >
+								</lightning-datatable>
+							</div>
+						</lightning-layout-item>
+					</lightning-layout>
+                    
+                </lightning-accordion-section>
+            </lightning-accordion>
+            <!--Navigation Buttons -->
+            <div align="center">
+                <lightning-button  label="Cancel" onclick={handleCancel} class="slds-button slds-padding-around-small" ></lightning-button>
+                <lightning-button  label="Back" onclick={handleBack} class="slds-button slds-padding-around-small"></lightning-button>
+                <lightning-button  label="Next" onclick={handleNext} class="slds-button slds-padding-around-small"></lightning-button>  
+            </div>
+        </div>
+    </lightning-card>
+</template>
