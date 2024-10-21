@@ -1,0 +1,65 @@
+<!--
+  @description       : 
+-->
+<template>
+	<lightning-card>
+		<div class="titlestyle"><h1 slot="title" class="titlestyle">{title}</h1></div>
+		<template lwc:if={error}>
+			<div class="slds-text-title_bold errorcolor">{error}</div>
+		</template>
+		<!--Layout to display the changed address and previous address-->
+		<lightning-layout multiple-rows>
+			<template lwc:if={isBillingAddressChanged}>
+				<lightning-layout-item size="6" padding="around-small">
+					<div class="slds-text-title_bold">
+						Billing Address Change
+					</div><br/>
+					<div>
+						Current Address: {orgRecord}
+					</div>
+					<div>
+						New Address: {newBillingAddress}
+					</div>
+				</lightning-layout-item>
+			</template>
+			<template lwc:if={isPhysicalAddressChanged}>
+				<lightning-layout-item size="6" padding="around-small">
+					<div class="slds-text-title_bold">
+						Physical Address Change
+					</div><br/>
+					<div>
+						Current Address: {orgRecord}
+					</div>
+					<div>
+						New Address:  {newPhysicalAddress}
+					</div>
+				</lightning-layout-item>
+			</template>
+		</lightning-layout>
+		<!--- Customer Request Attachment-->
+		<lightning-file-upload
+			label="Customer Request Attachment"
+			name="fileUploader"
+			accept={acceptedFormats}
+			record-id={orgId}
+			onuploadfinished={handleUploadFinished}
+			multiple=false
+			required>
+		</lightning-file-upload>
+		<!--- Credit DSR for AP billing address change based on accType Enterprise changeOfAddressDSRCreation-->
+		<!--- Credit DSR for ST billing address change based on accType Enterprise changeOfAddressDSRCreation-->
+		<!--- Case for AP billing address change based on accType Small/medium changeOfAddressEmailCaseCreation-->
+		<!--- Case for ST billing address change based on accType Small/medium changeOfAddressEmailCaseCreation-->
+		<!--- Standard message for AP physical address change changeOfAddressDSRCreation-->
+		<!--- Onboarding DSR for ST physical address change changeOfAddressDSRCreation-->
+		
+		<!--Navigation Buttons -->
+		<div align="center">
+			<lightning-button  label="Cancel" onclick={handleCancel} class="slds-button slds-padding-around-small" ></lightning-button>
+			<lightning-button  label="Back" onclick={handleBack} class="slds-button slds-padding-around-small"></lightning-button>
+			<lightning-button  label="Next" onclick={handleNext} class="slds-button slds-padding-around-small"></lightning-button>  
+		</div>
+		
+	</lightning-card>
+    
+</template>

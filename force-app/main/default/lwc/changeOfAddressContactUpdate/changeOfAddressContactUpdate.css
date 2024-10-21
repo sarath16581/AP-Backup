@@ -11,3 +11,15 @@
 .titlecss {
     text-decoration: underline;
 }
+.paddingforparagraps {
+    padding-top: 25px;
+}
+.righttextalignforparagraps {
+    text-align: right;
+}
+.titlestyle{
+	background-color: rgba(65, 148, 249, 1);
+	color:white;
+	text-align: center;
+	padding:20px;
+}

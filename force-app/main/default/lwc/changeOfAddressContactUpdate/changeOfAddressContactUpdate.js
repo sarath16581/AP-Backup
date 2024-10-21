@@ -47,6 +47,7 @@ export default class changeOfAddressContactUpdate extends NavigationMixin( Light
 	offSetCountSelected =0;
 	searchedRecords = [];
 	fulldataselected=[];
+	title = 'Contact Selection';
 
 	connectedCallback() {
 		//remove this when the container component pass the data to this component start

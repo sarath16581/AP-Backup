@@ -1,5 +1,7 @@
+/**
+**/
 public with sharing class ChangeOfAddressController {
-	private static final Set<SObjectField> ACCOUNT_FIELD_OVERRIDES = new Set<SObjectField>{
+	/*private static final Set<SObjectField> ACCOUNT_FIELD_OVERRIDES = new Set<SObjectField>{
 			Account.Id, Account.Role_Type_Roll_Up__c, Account.Sales_Segment__c
 	};
 
@@ -46,11 +48,12 @@ public with sharing class ChangeOfAddressController {
 			}
 		}
 		return null;
-	}
+	} */
 
 	@AuraEnabled
 	public static Map<String, Object> fetchAllContactsFromDB(String orgId) {
-		orgId='001Bm00000MZ5mYIAT';
+		//orgId='001Bm00000MZ5mYIAT'; //commented -- 001Bm00000MZ5mYIAT
+		orgId = '001Qy00000YiHpbIAF';
 		Set<Id> accIds = new set<Id>{(Id)orgId};
 		Set<SObjectField> CONTACT_FIELD_OVERRIDES = new Set<SObjectField>{Contact.Id, Contact.AccountId,Contact.Name,Contact.MobilePhone,Contact.Email,Contact.MailingAddress,Contact.OtherAddress,Contact.MailingStreet,Contact.MailingCity,Contact.MailingState,Contact.MailingPostalCode,Contact.MailingCountry,Contact.OtherStreet,Contact.OtherCity,Contact.OtherState,Contact.OtherPostalCode,Contact.OtherCountry,Contact.Has_Online_Credential__c,Contact.Record_Maintainer__c};
 		Map<String, Object> resp = new Map<String, Object>();
@@ -114,5 +117,108 @@ public with sharing class ChangeOfAddressController {
 		public AddressWrapper(){
 			this.address='';
 		}
+	}
+
+	@AuraEnabled
+	public static Map<String, Object> frameServicerequests(SRRequestParams reqParams){
+		Map<String, Object> resp = new Map<String, Object>();
+		try {
+			switch on reqParams.baOptionSelected {
+				when 'AP' {		
+					if(reqParams.isBillingAddressChanged) {
+						resp = frameAPBillingAddressDSR(reqParams);
+					}
+				}	
+				when 'ST' {		
+					if(reqParams.isBillingAddressChanged) {
+						resp.putAll(frameSTBillingAddressDSR(reqParams));
+					}
+					if(reqParams.isPhysicalAddressChanged) {
+						resp.putAll(frameSTPhysicalAddressDSR(reqParams));
+					}
+				}
+				when else {//Covers 'Both' and default scenarios
+					if(reqParams.isBillingAddressChanged) {
+						resp.putAll(frameAPBillingAddressDSR(reqParams));
+						resp.putAll(frameSTBillingAddressDSR(reqParams));
+					}
+					if(reqParams.isPhysicalAddressChanged) {
+						resp.putAll(frameSTPhysicalAddressDSR(reqParams));
+					}
+				}
+			}	
+		} catch (Exception e) {
+			resp.put(('error'), e.getMessage());
+			throw new AuraHandledException(e.getMessage());
+		}
+		return resp;
+	}
+
+	private static Map<String, Object> frameAPBillingAddressDSR(SRRequestParams reqParams){
+		Map<String, Object> resp = new Map<String, Object>();
+		SRResponseParams srp = new SRResponseParams();
+		if(reqParams.accType.contains('Small Business')){
+			//Frame Email to case
+		}else{
+			resp.put('creditDSRAPRec',frameCreditDSR(reqParams));
+		}
+		return resp;
+	}
+
+	private static Map<String, Object> frameSTBillingAddressDSR(SRRequestParams reqParams){
+		Map<String, Object> resp = new Map<String, Object>();
+		if(reqParams.accType.contains('Small Business')){
+			//Frame Email to case
+		}else{
+			resp.put('creditDSRSTRec',frameCreditDSR(reqParams));
+		}
+		return resp;
+	}
+
+	private static Map<String, Object> frameSTPhysicalAddressDSR(SRRequestParams reqParams){
+		Map<String, Object> resp = new Map<String, Object>();
+		return resp;
+	}
+
+	private static Deal_Support_Request__c frameCreditDSR(SRRequestParams reqParams){
+		Deal_Support_Request__c creditDSR = new Deal_Support_Request__c();
+		Id creditDSRRecTypeId = Schema.SObjectType.Deal_Support_Request__c.getRecordTypeInfosByDeveloperName().get('Credit_Management_Request').getRecordTypeId();
+		creditDSR.Credit_Work_Type__c = 'Change billing account details'; //Move this Constants
+		creditDSR.Billing_Account_Change_of_Details_Type__c = 'Contact Information Details'; //Move this Constants
+		creditDSR.Billing_Account_Change_of_Details_Sub_Ty__c = 'New Mailing Address'; //Move this Constants 
+		if(reqParams.apBillingAccCount>5){
+			creditDSR.Billing_Account_Change_of_Details_Desc__c = 'Please update Billing Address for Numbers(s): '+reqParams.newBillingAddress; //Move this Constants
+		}else{
+			creditDSR.Billing_Account_Change_of_Details_Desc__c = 'Count of Parent Accounts: '+reqParams.apBillingAccCount+' Update the Billing Address to '+reqParams.newBillingAddress+' Generate CSV for all billing accounts'; 
+		}
+		creditDSR.Customer_Request_Attached__c = reqParams.customerRequestAttached; //Move this Constants
+		creditDSR.RecordTypeId = creditDSRRecTypeId; //Move this Constants
+		return creditDSR;
+	}
+
+	public class SRRequestParams{
+		@AuraEnabled
+		public Integer apBillingAccCount {get; set;}
+		@AuraEnabled
+		public Integer stBillingAccCount {get; set;}
+		@AuraEnabled
+		public String customerRequestAttached {get; set;}
+		@AuraEnabled
+		public String baOptionSelected {get; set;}
+		@AuraEnabled
+		public String accType {get; set;}
+		@AuraEnabled
+		public String newBillingAddress {get; set;}
+		@AuraEnabled
+		public Boolean isBillingAddressChanged {get; set;}
+		@AuraEnabled
+		public Boolean isPhysicalAddressChanged {get; set;}
+		
+	}
+
+	public class SRResponseParams{
+		@AuraEnabled
+		public String emailAddress {get; set;}
+		
 	}
 }
