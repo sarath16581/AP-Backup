@@ -177,6 +177,7 @@ public with sharing class ChangeOfAddressController {
 
 	private static Map<String, Object> frameSTPhysicalAddressDSR(SRRequestParams reqParams){
 		Map<String, Object> resp = new Map<String, Object>();
+			resp.put('onboardingDSRSTRec',frameOnboardingDSR(reqParams));
 		return resp;
 	}
 
@@ -196,6 +197,23 @@ public with sharing class ChangeOfAddressController {
 		return creditDSR;
 	}
 
+	//Need to change this method recordtype params etc
+	private static Deal_Support_Request__c frameOnboardingDSR(SRRequestParams reqParams){
+		Deal_Support_Request__c onboardingDSR = new Deal_Support_Request__c();
+			Id onboardingDSRRecTypeId = Schema.SObjectType.Deal_Support_Request__c.getRecordTypeInfosByDeveloperName().get('Credit_Management_Request').getRecordTypeId();
+			onboardingDSR.Credit_Work_Type__c = 'Change billing account details'; //Move this Constants
+			onboardingDSR.Billing_Account_Change_of_Details_Type__c = 'Contact Information Details'; //Move this Constants
+			onboardingDSR.Billing_Account_Change_of_Details_Sub_Ty__c = 'New Mailing Address'; //Move this Constants 
+			if(reqParams.apBillingAccCount>5){
+				onboardingDSR.Billing_Account_Change_of_Details_Desc__c = 'Please update Billing Address for Numbers(s): '+reqParams.newPhysicalAddress; //Move this Constants
+			}else{
+				onboardingDSR.Billing_Account_Change_of_Details_Desc__c = 'Count of Parent Accounts: '+reqParams.apBillingAccCount+' Update the Billing Address to '+reqParams.newPhysicalAddress+' Generate CSV for all billing accounts'; 
+			}
+			onboardingDSR.Customer_Request_Attached__c = reqParams.customerRequestAttached; //Move this Constants
+			onboardingDSR.RecordTypeId = onboardingDSRRecTypeId; //Move this Constants
+		return onboardingDSR;
+	}
+
 	public class SRRequestParams{
 		@AuraEnabled
 		public Integer apBillingAccCount {get; set;}
@@ -213,6 +231,8 @@ public with sharing class ChangeOfAddressController {
 		public Boolean isBillingAddressChanged {get; set;}
 		@AuraEnabled
 		public Boolean isPhysicalAddressChanged {get; set;}
+		@AuraEnabled
+		public String newPhysicalAddress {get; set;}
 		
 	}
 
