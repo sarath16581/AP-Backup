@@ -1,0 +1,103 @@
+<template>
+	<lightning-layout>
+		<template lwc:if={newBillingAddress}>
+			<lightning-layout-item flexibility="auto" padding="around-small">
+				<div class="header-column">
+					<label class="slds-text-heading_small slds-p-top_xx-small">Billing Address Change</label>
+					<h3><strong>Current Address: <lightning-formatted-text value={currentBillingAddress}></lightning-formatted-text></strong></h3>
+					<h3><strong>New Address: <lightning-formatted-text value={newBillingAddress}></lightning-formatted-text></strong></h3>
+				</div>
+			</lightning-layout-item>
+		</template>
+		<template lwc:if={showPhysicalAddressChange}>
+			<lightning-layout-item flexibility="auto" padding="around-small">
+				<div class="header-column">
+					<label class="slds-text-heading_small slds-p-top_xx-small">Physical Address Change</label>
+					<h3><strong>Current Address: <lightning-formatted-text value={currentPhysicalAddress}></lightning-formatted-text></strong></h3>
+					<h3><strong>New Address: <lightning-formatted-text value={newPhysicalAddress}></lightning-formatted-text></strong></h3>
+				</div>
+			</lightning-layout-item>
+		</template>
+	</lightning-layout>
+
+	<template lwc:if={showProductOptions}>
+		<lightning-checkbox-group
+				class=slds-p-left_small
+				label="Product Options"
+				options={productSelection}
+				value={productSelected}
+				onchange={handleProductSelected}>
+		</lightning-checkbox-group>
+	</template>
+
+	<template lwc:if={infoMessage}>
+		<div class="slds-text-body_small slds-m-around_x-small">
+			<lightning-icon icon-name="utility:info" size="x-small" class="slds-m-right_xx-small"></lightning-icon>
+			{infoMessage}
+		</div>
+	</template>
+	<template lwc:if={showAPBillingAccounts}>
+		<div class="slds-p-around_small" style="background-color:#f3f3f3;">
+			<lightning-icon icon-name="standard:opportunity" size="small" class="slds-m-right_x-small"></lightning-icon>
+			<label class="slds-text-heading_small slds-p-top_xx-small">AP Billing Accounts</label>
+			<div class="slds-float_right slds-button-group-row">
+				<lightning-input class="slds-m-right_x-small"
+								 data-id="apBASearch"
+								 type="search"
+								 label="Search Billing Accounts"
+								 placeholder="Search this list.."
+								 value={apSearchTerm}
+								 autocomplete="off"
+								 variant="label-hidden"
+								 onchange={handleSearchChange}></lightning-input>
+			</div>
+		</div>
+		<div class="slds-border_top" style="height: 200px">
+			<c-change-of-address-datatable
+					data-id="apBA"
+					columns={apBillingAccountsColumns}
+					data={filteredAPBillingAccounts}
+					key-field="Id"
+					selected-rows={selectedAPBAIds}
+					enable-infinite-loading
+					onloadmore={handleLoadData}
+					onrowselection={handleSelectedRows}>
+			</c-change-of-address-datatable>
+		</div>
+<!--		<div class="slds-text-body_regular slds-p-bottom_small slds-text-color_error">{apOppSelectionError}</div>-->
+	</template>
+	<template lwc:if={showSTBillingAccounts}>
+		<div class="slds-p-around_small" style="background-color:#f3f3f3;">
+			<lightning-icon icon-name="standard:opportunity" size="small" class="slds-m-right_x-small"></lightning-icon>
+			<label class="slds-text-heading_small slds-p-top_xx-small">ST Billing Accounts</label>
+			<div class="slds-float_right slds-button-group-row">
+				<lightning-input class="slds-m-right_x-small"
+								 data-id="stBASearch"
+								 type="search"
+								 label="Search Billing Accounts"
+								 placeholder="Search this list.."
+								 value={stSearchTerm}
+								 autocomplete="off"
+								 variant="label-hidden"
+								 onchange={handleSearchChange}></lightning-input>
+			</div>
+		</div>
+		<div class="slds-border_top" style="height: 200px">
+			<c-change-of-address-datatable
+					data-id="stBA"
+					columns={stBillingAccountsColumns}
+					data={filteredSTBillingAccounts}
+					key-field="Id"
+					selected-rows={selectedSTBAIds}
+					enable-infinite-loading
+					onloadmore={handleLoadData}
+					onrowselection={handleSelectedRows}
+			>
+			</c-change-of-address-datatable>
+		</div>
+<!--		<div class="slds-text-body_regular slds-p-bottom_small slds-text-color_error">{apOppSelectionError}</div>-->
+	</template>
+	<div lwc:if={isLoading}>
+		<lightning-spinner alternative-text="Loading" variant="brand" size="medium"></lightning-spinner>
+	</div>
+</template>

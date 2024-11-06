@@ -1,0 +1,56 @@
+<template>
+	<template lwc:if={displayOld}>
+		<c-address-lookup-record-wrapper
+				address-type={addressType}
+				card-title={cardTitle}
+				address-type2={addressType2}
+				card-title2={cardTitle2}
+				address-type3={addressType3}
+				record-id={recordId}
+				alt-record-id={altRecordId}
+				no-refresh-after-save={noRefreshAfterSave}
+				refresh-after-save={refreshAfterSave}
+				refresh-not-navigate={refreshNotNavigate}>
+		</c-address-lookup-record-wrapper>
+	</template>
+	<template lwc:elseif={displayNew}>
+		<template lwc:if={isAddressScreen}>
+			<c-change-of-address-new-address
+					current-billing-address={currentBillingAddress}
+					current-physical-address={currentPhysicalAddress}
+					data-screen-name="addressScreen">
+			</c-change-of-address-new-address>
+		</template>
+		<template lwc:if={isContactScreen}>
+			<c-change-of-address-contact-update
+					current-billing-address={currentBillingAddress}
+					current-physical-address={currentPhysicalAddress}
+					new-billing-address={newBillingAddress}
+					new-physical-address={newPhysicalAddress}
+					data-screen-name="contactScreen">
+			</c-change-of-address-contact-update>
+		</template>
+		<template lwc:if={isBillingAccountScreen}>
+			<c-change-of-address-billing-account-selection
+					account-id={recordId}
+					new-billing-address={newBillingAddress}
+					new-physical-address={newPhysicalAddress}
+					current-billing-address={currentBillingAddress}
+					current-physical-address={currentPhysicalAddress}>
+			</c-change-of-address-billing-account-selection>
+		</template>
+		<div align="right">
+			<lightning-button  label="Cancel" onclick={handleCancel}  class="slds-button slds-padding-around-small" ></lightning-button>
+			<lightning-button  label="Previous" onclick={handlePrevious} disabled={isAddressScreen} class="slds-button slds-padding-around-small"></lightning-button>
+			<lightning-button  label="Next" onclick={handleNext} disabled={isFinalScreen} class="slds-button slds-padding-around-small"></lightning-button>  
+		</div>
+	</template>
+	<template lwc:else>
+		<div class="slds-text-title_bold">{unavailableError}</div>
+	</template>
+	<div lwc:if={isLoading}>
+		<lightning-spinner alternative-text="Loading" variant="brand" size="medium"></lightning-spinner>
+	</div>
+	 <!--Navigation Buttons -->
+	
+</template>

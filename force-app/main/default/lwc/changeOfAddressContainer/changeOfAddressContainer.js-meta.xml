@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+	<apiVersion>61.0</apiVersion>
+	<description>Change Of Address Container</description>
+	<isExposed>true</isExposed>
+	<targets>
+		<target>lightning__RecordPage</target>
+	</targets>
+	<targetConfigs>
+		<targetConfig targets="lightning__RecordPage">
+			<property name="addressType" type="String" label="Address Type" description="Which type of address to map data to" datasource="apex://AddressTypePicklist" required="true" default="Lead_Physical"/>
+			<property name="cardTitle" type="String" label="Component Title" description="The title of component" required="true" default="Enter Address"/>
+			<property name="addressType2" type="String" label="Address Type 2" description="Additional address" datasource="apex://AddressTypePicklist" required="false"/>
+			<property name="cardTitle2" type="String" label="Component Title 2" description="The title of component" required="false" default="Enter Address"/>
+			<property name="addressType3" type="String" label="Address Type 3" description="Additional address" datasource="apex://AddressTypePicklist" required="false"/>
+			<property name="cardTitle3" type="String" label="Component Title 3" description="The title of component" required="false" default="Enter Address"/>
+			<property name="refreshAfterSave" type="Boolean" label="Refresh after Save (Not used. Use noRefreshAfterSave instead)" description="The title of component" required="false" default="true"/>
+			<property name="noRefreshAfterSave" type="Boolean" label="Do not Refresh after Save" description="The title of component" required="false" default="false"/>
+			<property name="refreshNotNavigate" type="Boolean" label="Refresh Not Navigate" description="Check this box to indicate a refresh the current page action rather than performing a Page Navigation like the other two options" required="false" default="false"/>
+			<property name="altRecordId" type="String" label="Alternate Record Id" description="If the component is not a record page, we can specify the record id from this variable" required="false" default=""/>
+			<property name="recordId" type="String" />
+		</targetConfig>
+	</targetConfigs>
+	<masterLabel>Change Of Address Container</masterLabel>
+</LightningComponentBundle>

@@ -1,0 +1,39 @@
+<template>
+	<lightning-card title="Billing Address" icon-name="standard:record" class="slds-card__body_inner">
+		<template if:true={currentBillingAddress}>
+			<div class="slds-align_absolute-center">
+				<h3><strong>Current Address: <lightning-formatted-text value={currentBillingAddress} linkify></lightning-formatted-text></strong></h3>
+			</div>
+		</template>
+		<c-ame-address-validation2
+				data-id="billing-address"
+				label="Address"
+				help-text="If address not found, please expand and manually enter address."
+				variant="show-detail-onsearch"
+				oneditaddress={handleAddressUpdated}
+				onselectaddress={handleAddressUpdated}>
+		</c-ame-address-validation2>
+		<br/>
+	</lightning-card>
+
+	<lightning-card title="Physical Address" icon-name="standard:record" class="slds-card__body_inner">
+		<template if:true={currentPhysicalAddress}>
+			<div class="slds-align_absolute-center">
+				<h3><strong>Current Address: <lightning-formatted-text value={currentPhysicalAddress}></lightning-formatted-text></strong></h3>
+			</div>
+		</template>
+		<c-ame-address-validation2
+				data-id="physical-address"
+				label="Address"
+				help-text="If address not found, please expand and manually enter address."
+				variant="show-detail-onsearch"
+				oneditaddress={handleAddressUpdated}
+				default-address=""
+				onselectaddress={handleAddressUpdated}>
+		</c-ame-address-validation2>
+		<br/>
+		<template lwc:if={addressError}>
+			<div class="slds-text-color_error slds-text-body_small slds-p-left_xx-small">{addressError}</div>
+		</template>
+	</lightning-card>
+</template>
