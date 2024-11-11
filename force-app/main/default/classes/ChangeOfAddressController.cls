@@ -1,5 +1,5 @@
 public with sharing class ChangeOfAddressController {
-	private static final Set<SObjectField> ACCOUNT_FIELD_OVERRIDES = new Set<SObjectField>{
+	/*private static final Set<SObjectField> ACCOUNT_FIELD_OVERRIDES = new Set<SObjectField>{
 			Account.Id, Account.Role_Type_Roll_Up__c, Account.Sales_Segment__c
 	};
 
@@ -60,6 +60,7 @@ public with sharing class ChangeOfAddressController {
 		return BillingAccountsSelector.newInstance(0, BILLING_ACCOUNT_FIELD_OVERRIDES).selectByOrgId(new Set<Id> {orgId}, new Set<Object>{BillingAccountsSelector.Options.FILTER_ACTIVE, BillingAccountsSelector.Options.WITH_PAYER_ACCOUNT_ID, BillingAccountsSelector.Options.WITH_LEADER_ACCOUNT}).values();
 	}
 
+	*/
 	/**
 	 * @description Get datatable columns from given field set
 	 * @param objectName Object API name for the field set
@@ -148,9 +149,9 @@ public with sharing class ChangeOfAddressController {
 	private static Map<String, Object> frameAPBillingAddressDSR(SRRequestParams reqParams){
 		Map<String, Object> resp = new Map<String, Object>();
 		if(reqParams.accType.contains('Small Business')){
-			resp.put('emailCaseAPRec',frameEmailToCase(reqParams));
+			resp.put('emailCaseAPRec',frameEmailToCase(reqParams, 'AP'));
 		}else{
-			resp.put('creditDSRAPRec',frameCreditDSR(reqParams));
+			resp.put('creditDSRAPRec',frameCreditDSR(reqParams, 'AP'));
 		}
 		return resp;
 	}
@@ -158,9 +159,9 @@ public with sharing class ChangeOfAddressController {
 	private static Map<String, Object> frameSTBillingAddressDSR(SRRequestParams reqParams){
 		Map<String, Object> resp = new Map<String, Object>();
 		if(reqParams.accType.contains('Small Business')){
-			resp.put('emailCaseSTRec',frameEmailToCase(reqParams));
+			resp.put('emailCaseSTRec',frameEmailToCase(reqParams, 'ST'));
 		}else{
-			resp.put('creditDSRSTRec',frameCreditDSR(reqParams));
+			resp.put('creditDSRSTRec',frameCreditDSR(reqParams, 'ST'));
 		}
 		return resp;
 	}
@@ -171,13 +172,13 @@ public with sharing class ChangeOfAddressController {
 		return resp;
 	}
 
-	private static Deal_Support_Request__c frameCreditDSR(SRRequestParams reqParams){
+	private static Deal_Support_Request__c frameCreditDSR(SRRequestParams reqParams, String productSelected){
 		Deal_Support_Request__c creditDSR = new Deal_Support_Request__c();
 		Id creditDSRRecTypeId = Schema.SObjectType.Deal_Support_Request__c.getRecordTypeInfosByDeveloperName().get('Credit_Management_Request').getRecordTypeId();
 		creditDSR.Credit_Work_Type__c = 'Change billing account details'; //Move this Constants
 		creditDSR.Billing_Account_Change_of_Details_Type__c = 'Contact Information Details'; //Move this Constants
 		creditDSR.Billing_Account_Change_of_Details_Sub_Ty__c = 'New Mailing Address'; //Move this Constants 
-		switch on reqParams.baOptionSelected {
+		switch on productSelected {
 			when 'AP' {		
 				if(reqParams.apBillingAccCount>5){
 					creditDSR.Billing_Account_Change_of_Details_Desc__c = 'Please update Billing Address for Numbers(s): '+reqParams.newBillingAddress; //Move this Constants
@@ -215,25 +216,27 @@ public with sharing class ChangeOfAddressController {
 		return onboardingDSR;
 	}
 
-	private static SRResponseParams frameEmailToCase(SRRequestParams reqParams){
+	private static SRResponseParams frameEmailToCase(SRRequestParams reqParams, String productSelected){
 		SRResponseParams srp = new SRResponseParams();
 		srp.senderEmail = Userinfo.getUserEmail();
 		srp.receiverEmail = Userinfo.getUserEmail(); // This needs to be configurable and hold emailtocase address for Prod it has to be billing@auspost.com.au
 		srp.accountId = reqParams.orgId;
-		switch on reqParams.baOptionSelected {
+		switch on productSelected {
 			when 'AP' {		
 				if(reqParams.apBillingAccCount>5){
 					srp.description = 'Please update Billing Address for Numbers(s): '+reqParams.newBillingAddress; //Move this Constants
 				}else{
 					srp.description = 'Count of Parent Accounts: '+reqParams.apBillingAccCount+' Update the Billing Address to '+reqParams.newBillingAddress+' Generate CSV for all billing accounts'; 
 				}
+				srp.subject = 'AP billing address change';
 			}	
-			when 'ST' {		
+			when 'ST' {		 
 				if(reqParams.stBillingAccCount>5){
 					srp.description = 'Please update Billing Address for Numbers(s): '+reqParams.newBillingAddress; //Move this Constants
 				}else{
 					srp.description = 'Count of Parent Accounts: '+reqParams.apBillingAccCount+' Update the Billing Address to '+reqParams.newBillingAddress+' Generate CSV for all billing accounts'; 
 				}
+				srp.subject = 'ST billing address change';
 			}
 		}
 		return srp;

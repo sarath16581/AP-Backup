@@ -3,7 +3,16 @@
 -->
 <template>
 	<lightning-card>
-		<div class="titlestyle"><h1 slot="title" class="titlestyle">{title}</h1></div>
+		<div class="slds-var-p-around_small">
+			<!-- Standard List View Header Styling -->
+			<div class="slds-page-header">
+				<div class="slds-page-header__row">
+					<div class="slds-page-header__col-title">
+						<h1 class="slds-page-header__title slds-text-heading_medium">{title}</h1>
+					</div>
+				</div>
+			</div>
+		</div>
 		<template lwc:if={error}>
 			<div class="slds-text-title_bold errorcolor">{error}</div>
 		</template>
@@ -45,35 +54,45 @@
 		</lightning-file-upload>
 		<!--- Credit DSR for AP billing address change based on accType Enterprise changeOfAddressDSRCreation-->
 		<template lwc:if={creditDSRAPRec}>
-			<p class="sectionstyle">Credit DSR for AP Billing Address change</p>
+			<h1 class="slds-page-header__title slds-text-heading_small sectionstyle">Credit DSR for AP Billing Address change</h1>
 			<lightning-layout multiple-rows>
 				<lightning-layout-item size="6" padding="around-small">
+					<div class="labelstyle">
+						Credit Work Type
+					</div>
 					<div class="slds-box">
-						<label class="">Credit Work Type</label>
 						<lightning-formatted-text value={creditDSRAPRec.Credit_Work_Type__c} ></lightning-formatted-text>
 					</div>
 				</lightning-layout-item>
 				<lightning-layout-item size="6" padding="around-small">
+					<div class="labelstyle">
+						Change of details Sub-Type(AP)
+					</div>
 					<div class="slds-box">
-						<label class="">Change of details Sub-Type(AP)</label>
 						<lightning-formatted-text value={creditDSRAPRec.Billing_Account_Change_of_Details_Sub_Ty__c} ></lightning-formatted-text>
 					</div>
 				</lightning-layout-item>
 				<lightning-layout-item size="6" padding="around-small">
+					<div class="labelstyle">
+						Change of details Type
+					</div>
 					<div class="slds-box">
-						<label class="">Change of details Type</label>
 						<lightning-formatted-text value={creditDSRAPRec.Billing_Account_Change_of_Details_Type__c} ></lightning-formatted-text>
 					</div>
 				</lightning-layout-item>
 				<lightning-layout-item size="6" padding="around-small">
+					<div class="labelstyle">
+						Change of details Description
+					</div>
 					<div class="slds-box">
-						<label class="">Change of details Description</label>
 						<lightning-formatted-text value={creditDSRAPRec.Billing_Account_Change_of_Details_Desc__c} ></lightning-formatted-text>
 					</div>
 				</lightning-layout-item>
 				<lightning-layout-item size="6" padding="around-small">
+					<div class="labelstyle">
+						Customer Request Attached
+					</div>
 					<div class="slds-box">
-						<label class="">Customer Request Attached</label>
 						<lightning-formatted-text value={creditDSRAPRec.Customer_Request_Attached__c} ></lightning-formatted-text>
 					</div>
 				</lightning-layout-item>
@@ -81,35 +100,45 @@
 		</template>
 		<!--- Credit DSR for ST billing address change based on accType Enterprise changeOfAddressDSRCreation-->
 		<template lwc:if={creditDSRSTRec}>
-			<p class="sectionstyle">Credit DSR for ST Billing Address change</p>
+			<h1 class="slds-page-header__title slds-text-heading_small sectionstyle">Credit DSR for ST Billing Address change</h1>
 			<lightning-layout multiple-rows>
 				<lightning-layout-item size="6" padding="around-small">
+					<div class="labelstyle">
+						Credit Work Type
+					</div>
 					<div class="slds-box">
-						<label class="">Credit Work Type</label>
 						<lightning-formatted-text value={creditDSRSTRec.Credit_Work_Type__c} ></lightning-formatted-text>
 					</div>
 				</lightning-layout-item>
 				<lightning-layout-item size="6" padding="around-small">
+					<div class="labelstyle">
+						Change of details Sub-Type
+					</div>
 					<div class="slds-box">
-						<label class="">Change of details Sub-Type(AP)</label>
 						<lightning-formatted-text value={creditDSRSTRec.Billing_Account_Change_of_Details_Sub_Ty__c} ></lightning-formatted-text>
 					</div>
 				</lightning-layout-item>
 				<lightning-layout-item size="6" padding="around-small">
+					<div class="labelstyle">
+						Change of details Type
+					</div>
 					<div class="slds-box">
-						<label class="">Change of details Type</label>
 						<lightning-formatted-text value={creditDSRSTRec.Billing_Account_Change_of_Details_Type__c} ></lightning-formatted-text>
 					</div>
 				</lightning-layout-item>
 				<lightning-layout-item size="6" padding="around-small">
+					<div class="labelstyle">
+						Change of details Description
+					</div>
 					<div class="slds-box">
-						<label class="">Change of details Description</label>
 						<lightning-formatted-text value={creditDSRSTRec.Billing_Account_Change_of_Details_Desc__c} ></lightning-formatted-text>
 					</div>
 				</lightning-layout-item>
 				<lightning-layout-item size="6" padding="around-small">
+					<div class="labelstyle">
+						Customer Request Attached
+					</div>
 					<div class="slds-box">
-						<label class="">Customer Request Attached</label>
 						<lightning-formatted-text value={creditDSRSTRec.Customer_Request_Attached__c} ></lightning-formatted-text>
 					</div>
 				</lightning-layout-item>
@@ -117,73 +146,83 @@
 		</template>
 		<!--- Case for AP billing address change based on accType Small/medium changeOfAddressEmailCaseCreation-->
 		<template lwc:if={emailCaseAPRec}>
-			<p class="sectionstyle">Email to case for AP Billing Address change</p>
+			<h1 class="slds-page-header__title slds-text-heading_small sectionstyle">Email to case for AP Billing Address change</h1>
 			<lightning-layout multiple-rows>
-				<lightning-layout-item size="6" padding="around-small">
+				<lightning-layout-item size="6" padding="around-small" >
+					<div class="labelstyle">
+						Sender Email
+					</div>
 					<div class="slds-box">
-						<label class="">Sender Email</label>
 						<lightning-formatted-text value={emailCaseAPRec.senderEmail} ></lightning-formatted-text>
 					</div>
 				</lightning-layout-item>
 				<lightning-layout-item size="6" padding="around-small">
+					<div class="labelstyle">
+						Receiver Email
+					</div>
 					<div class="slds-box">
-						<label class="">Receiver Email</label>
 						<lightning-formatted-text value={emailCaseAPRec.receiverEmail} ></lightning-formatted-text>
 					</div>
 				</lightning-layout-item>
 				<lightning-layout-item size="6" padding="around-small">
+					<div class="labelstyle">
+						Subject
+					</div>
 					<div class="slds-box">
-						<label class="">Subject</label>
 						<lightning-formatted-text value={emailCaseAPRec.subject} ></lightning-formatted-text>
 					</div>
 				</lightning-layout-item>
 				<lightning-layout-item size="6" padding="around-small">
+					<div class="labelstyle">
+						Description
+					</div>
 					<div class="slds-box">
-						<label class="">Description</label>
-						<lightning-formatted-text value={emailCaseAPRec.Description} ></lightning-formatted-text>
+						<lightning-formatted-text value={emailCaseAPRec.description} ></lightning-formatted-text>
 					</div>
 				</lightning-layout-item>
 				<lightning-layout-item size="6" padding="around-small">
-					<div class="slds-box">
-						<label class="">Customer Contact</label>
-						<lightning-record-picker object-api-name="Contact" filter={filter} value={emailCaseAPRec.customerContact}></lightning-record-picker>
-					</div>
+					<lightning-record-picker filter={filter} object-api-name="Contact" label="Customer Contact" placeholder="Select a Contact" value={emailCaseAPRec.customerContact}></lightning-record-picker>
 				</lightning-layout-item>
 			</lightning-layout>
 		</template>
 		<!--- Case for ST billing address change based on accType Small/medium changeOfAddressEmailCaseCreation-->
 		<template lwc:if={emailCaseSTRec}>
-			<p class="sectionstyle">Email to case for ST Billing Address change</p>
+			<h1 class="slds-page-header__title slds-text-heading_small sectionstyle">Email to case for ST Billing Address change</h1>
 			<lightning-layout multiple-rows>
 				<lightning-layout-item size="6" padding="around-small">
+					<div class="labelstyle">
+						Sender Email
+					</div>
 					<div class="slds-box">
-						<label class="">Sender Email</label>
 						<lightning-formatted-text value={emailCaseSTRec.senderEmail} ></lightning-formatted-text>
 					</div>
 				</lightning-layout-item>
 				<lightning-layout-item size="6" padding="around-small">
+					<div class="labelstyle">
+						Receiver Email
+					</div>
 					<div class="slds-box">
-						<label class="">Receiver Email</label>
 						<lightning-formatted-text value={emailCaseSTRec.receiverEmail} ></lightning-formatted-text>
 					</div>
 				</lightning-layout-item>
 				<lightning-layout-item size="6" padding="around-small">
+					<div class="labelstyle">
+						Subject
+					</div>
 					<div class="slds-box">
-						<label class="">Subject</label>
 						<lightning-formatted-text value={emailCaseSTRec.subject} ></lightning-formatted-text>
 					</div>
 				</lightning-layout-item>
 				<lightning-layout-item size="6" padding="around-small">
+					<div class="labelstyle">
+						Description
+					</div>
 					<div class="slds-box">
-						<label class="">Description</label>
-						<lightning-formatted-text value={emailCaseSTRec.Description} ></lightning-formatted-text>
+						<lightning-formatted-text value={emailCaseSTRec.description} ></lightning-formatted-text>
 					</div>
 				</lightning-layout-item>
 				<lightning-layout-item size="6" padding="around-small">
-					<div class="slds-box">
-						<label class="">Customer Contact</label>
-						<lightning-record-picker object-api-name="Contact" filter={filter} value={emailCaseSTRec.customerContact}></lightning-record-picker>
-					</div>
+					<lightning-record-picker filter={filter} object-api-name="Contact" label="Customer Contact" placeholder="Select a Contact"  value={emailCaseSTRec.customerContact}></lightning-record-picker>
 				</lightning-layout-item>
 			</lightning-layout>
 		</template>
@@ -193,35 +232,45 @@
 		</template>
 		<!--- Onboarding DSR for ST physical address change changeOfAddressDSRCreation-->
 		<template lwc:if={onboardingDSRSTRec}>
-			<p class="sectionstyle">onboarding DSR for ST Billing Address change</p>
+			<h1 class="slds-page-header__title slds-text-heading_small sectionstyle">Onboarding DSR for ST Billing Address change</h1>
 			<lightning-layout multiple-rows>
 				<lightning-layout-item size="6" padding="around-small">
+					<div class="labelstyle">
+						Credit Work Type
+					</div>
 					<div class="slds-box">
-						<label class="">Credit Work Type</label>
 						<lightning-formatted-text value={onboardingDSRSTRec.Credit_Work_Type__c} ></lightning-formatted-text>
 					</div>
 				</lightning-layout-item>
 				<lightning-layout-item size="6" padding="around-small">
+					<div class="labelstyle">
+						Change of details Sub-Type
+					</div>
 					<div class="slds-box">
-						<label class="">Change of details Sub-Type(AP)</label>
 						<lightning-formatted-text value={onboardingDSRSTRec.Billing_Account_Change_of_Details_Sub_Ty__c} ></lightning-formatted-text>
 					</div>
 				</lightning-layout-item>
 				<lightning-layout-item size="6" padding="around-small">
+					<div class="labelstyle">
+						Change of details Type
+					</div>
 					<div class="slds-box">
-						<label class="">Change of details Type</label>
 						<lightning-formatted-text value={onboardingDSRSTRec.Billing_Account_Change_of_Details_Type__c} ></lightning-formatted-text>
 					</div>
 				</lightning-layout-item>
 				<lightning-layout-item size="6" padding="around-small">
+					<div class="labelstyle">
+						Change of details Description
+					</div>
 					<div class="slds-box">
-						<label class="">Change of details Description</label>
 						<lightning-formatted-text value={onboardingDSRSTRec.Billing_Account_Change_of_Details_Desc__c} ></lightning-formatted-text>
 					</div>
 				</lightning-layout-item>
 				<lightning-layout-item size="6" padding="around-small">
+					<div class="labelstyle">
+						Customer Request Attached
+					</div>
 					<div class="slds-box">
-						<label class="">Customer Request Attached</label>
 						<lightning-formatted-text value={onboardingDSRSTRec.Customer_Request_Attached__c} ></lightning-formatted-text>
 					</div>
 				</lightning-layout-item>

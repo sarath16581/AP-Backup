@@ -4,7 +4,7 @@ import frameServicerequests from '@salesforce/apex/ChangeOfAddressController.fra
 
 export default class ChangeOfAddressServiceRequestCreation extends LightningElement {
 	@api accountRecord;//This scenario is only applicable for (Enterprise, Financial, Intermediaries) Account Types. This covers Billing Account selection for both AP and ST Accounts.
-	@api accountId; 
+	@api accountId ='001Qy00000YiHpbIAF';  //remove this later
 	@api newBillingAddress;
 	@api newPhysicalAddress;
 	@api currentBillingAddress;
@@ -19,6 +19,7 @@ export default class ChangeOfAddressServiceRequestCreation extends LightningElem
 	emailCaseAPRec;
 	emailCaseSTRec;
 	title;
+	filter = {};    
 	//customer request attachment has to be created as CV and 2 CDL's has to be created
 
     get acceptedFormats() {
@@ -26,11 +27,23 @@ export default class ChangeOfAddressServiceRequestCreation extends LightningElem
     }
 	connectedCallback() {
 		this.title='Service Request Form';
+		this.frameServicerequests();
+		this.accountId ='001Qy00000YiHpbIAF';
+		this.filter = {
+            criteria: [
+				{
+					fieldPath: 'Account',
+					operator: 'eq',
+					value: this.accountId,
+				}
+			]
+        };
+
 	}
     handleUploadFinished(event) {
         // Get the list of uploaded files
         const uploadedFiles = event.detail.files;
-        alert('No. of files uploaded : ' + uploadedFiles.length);
+        console.log('No. of files uploaded : ' + uploadedFiles.length);
 		if(this.creditDSRAPRec){
 			this.creditDSRAPRec.Customer_Request_Attached__c = 'Yes';
 		}
@@ -38,16 +51,6 @@ export default class ChangeOfAddressServiceRequestCreation extends LightningElem
 			this.creditDSRSTRec.Customer_Request_Attached__c = 'Yes';
 		}
     }
-
-	filter = {
-		criteria: [
-			{
-				fieldPath: 'accountId',
-				operator: 'eq',
-				value: this.accountId,
-			}
-		]
-	};
 
 	getapPhysicalAddressChange(){
 		if(this.productSelected==='AP' || this.productSelected==='Both'){
@@ -60,7 +63,8 @@ export default class ChangeOfAddressServiceRequestCreation extends LightningElem
 	
 	frameServicerequests(){
 		const requestDetails = {};
-        requestDetails.apBillingAccCount = this.billingAccsSelectedAP?this.billingAccsSelectedAP.length:0;
+		//commented this and needs to be uncommented when values from child cmp passes correctly start
+        /*requestDetails.apBillingAccCount = this.billingAccsSelectedAP?this.billingAccsSelectedAP.length:0;
         requestDetails.stBillingAccCount = this.billingAccsSelectedST?this.billingAccsSelectedST.length:0;
         requestDetails.customerRequestAttached = 'No';
 		requestDetails.baOptionSelected = this.productSelected;
@@ -70,7 +74,21 @@ export default class ChangeOfAddressServiceRequestCreation extends LightningElem
 		requestDetails.isPhysicalAddressChanged = this.newPhysicalAddress? true : false;
 		requestDetails.newPhysicalAddress = this.newPhysicalAddress;
 		requestDetails.accountId = this.accountId;
-		requestDetails.accountRecord = this.accountRecord;
+		requestDetails.accountRecord = this.accountRecord; */
+		//commented this and needs to be uncommented when values from child cmp passes correctly end
+		//remove this when values from child cmp passes correctly start
+
+		//remove this when values from child cmp passes correctly end
+		requestDetails.apBillingAccCount = 5;
+		requestDetails.stBillingAccCount = 5;
+		requestDetails.customerRequestAttached = 'No';
+		requestDetails.baOptionSelected = '';
+		requestDetails.accType = ''; // modify the value to [requestDetails.accType = "Small Business"] to render email to case sections
+		requestDetails.newBillingAddress = 'test new billing address';
+		requestDetails.isBillingAddressChanged = true;
+		requestDetails.isPhysicalAddressChanged = true;
+		requestDetails.newPhysicalAddress = 'test new physical address';
+		requestDetails.orgId = '001Qy00000YiHpbIAF';
 		
 		frameServicerequests({reqParams: requestDetails})
 		.then(result => {

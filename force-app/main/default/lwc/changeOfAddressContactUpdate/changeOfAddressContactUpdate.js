@@ -62,6 +62,7 @@ export default class changeOfAddressContactUpdate extends NavigationMixin( Light
 		this.offSetCount = ROW_LIMIT;
 		this.offSetCountSelected = ROW_LIMIT;
 		//this.getAllRecords();
+		this.isLoading = false;
 	}
 
 	//get all the contacts
@@ -69,6 +70,7 @@ export default class changeOfAddressContactUpdate extends NavigationMixin( Light
 	wiredContacts({ error, data }) {
 		if (data) {
 			//this.isLoading = true;
+			console.log('came in here');
 			let conlist = JSON.parse(JSON.stringify(data.conlist));
 			conlist.forEach(record => {
 				record.Id=record.contactRecord.Id;

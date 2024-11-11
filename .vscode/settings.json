@@ -4,6 +4,21 @@
 		"**/bower_components": true,
 		"**/.sfdx": true
 	},
+		"workbench.colorCustomizations": {
+		"statusBar.background": "#f01bff",
+		"statusBar.foreground": "#000000",
+		"statusBarItem.hoverBackground": "#8b8680",
+		"statusBarItem.activeBackground": "#8b8680",
+		"statusBar.border": "#f01bff",
+		"activityBar.activeBackground": "#f01bff",
+		"activityBar.activeBorder": "#f01bff",
+		"activityBar.background": "#f01bff",
+		"activityBar.foreground": "#000000",
+		"titleBar.activeBackground": "#f01bff",
+		"titleBar.activeForeground": "#000000",
+		"titleBar.border": "#f01bff",
+		"titleBar.inactiveBackground": "#f01bff"
+	},
 		"salesforcedx-vscode-core.show-cli-success-msg": false,
 		"editor.tabSize": 4,
 		"editor.insertSpaces": false,
