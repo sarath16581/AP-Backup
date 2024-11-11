@@ -50,4 +50,57 @@ private class ChangeOfAddressController_Test {
 		System.assertEquals('new', result, 'Expected new');
 		Test.stopTest();
 	}
+
+	/**
+	 * Test:
+	 *  Ensures that active billing accounts are retrieved with no issues
+	 */
+	@IsTest
+	private static void testGetActiveBillingAccounts() {
+		// =====================================
+		// Data Preparation
+		// =====================================
+		List<Account> accounts = ApplicationTestDataFactory.getAccounts(1, true);
+		List<Billing_Account__c> billingAccounts = ApplicationTestDataFactory.getBillingAccounts(1, accounts[0].Id, 'SAP ERP', true);
+
+		// =====================================
+		// Stubbing
+		// =====================================
+		BillingAccountsSelector billingAccountsSelector = (BillingAccountsSelector) MockUtility.mockSelector(BillingAccountsSelector.class);
+
+		MockUtility.Mocks.startStubbing();
+
+		MockUtility.Mocks.when(billingAccountsSelector.selectByOrgId((Set<Id>) fflib_Match.anyObject(), (Set<Object>) fflib_Match.anyObject())).thenReturn(new Map<Id, Billing_Account__c>(billingAccounts));
+		MockUtility.Mocks.stopStubbing();
+
+		// =====================================
+		// Testing
+		// =====================================
+		Test.startTest();
+		List<Billing_Account__c> bAccounts = ChangeOfAddressController.getActiveBillingAccounts(accounts[0].Id);
+
+		System.assertEquals('SAP ERP', bAccounts[0].Source_System__c, 'Expected SAP ERP');
+		Test.stopTest();
+	}
+
+	/**
+	 * Test:
+	 *  Ensures that columns are retrieved with no issues
+	 */
+	@IsTest
+	private static void testGetColumns() {
+		// =====================================
+		// Data Preparation
+		// =====================================
+		// None!
+		// =====================================
+		// Stubbing
+		// =====================================
+		// None!
+		// =====================================
+		// Testing
+		// =====================================
+		List<ChangeOfAddressController.DataTableColumn> columns = ChangeOfAddressController.getColumns('Billing_Account__c', 'ChangeOfAddressAPBillingAccountColumn');
+		System.assertEquals(3, columns.size(), 'Expected 3 columns');
+	}
 }

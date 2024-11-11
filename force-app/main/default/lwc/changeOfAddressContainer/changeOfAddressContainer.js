@@ -38,12 +38,16 @@ export default class ChangeOfAddressContainer extends NavigationMixin(LightningE
     @api noRefreshAfterSave;
     @api refreshAfterSave;
     @api refreshNotNavigate;
-
+	@track isPreviousScreen=false;
+	test;
     // Address data and UI flags
     currentBillingAddress;
     currentPhysicalAddress;
     newBillingAddress;
     newPhysicalAddress;
+	productSelected=[];
+	billingAccsSelectedST;
+	billingAccsSelectedAP;
     showNewAddress = true;
     showBillingAccountSelection = false;
     isLoading = true;
@@ -54,8 +58,8 @@ export default class ChangeOfAddressContainer extends NavigationMixin(LightningE
     
     // Screen navigation tracking
     @track currentScreenName = 'addressScreen'; // Initial screen
-    screenSequence = ['addressScreen', 'contactScreen', 'billingAccountScreen', 'supportScreen', 'confirmationScreen'];
-    screenData = {}; // Stores data for each screen
+    screenSequence = ['addressScreen', 'contactScreen', 'billingAccountScreen', 'serviceRequestScreen', 'confirmationScreen'];
+    userSelectedData = {}; // Stores data for each screen
     recordData;
     @wire(displayChangeAddress, { orgId: '$recordId' })
     handleDisplayChangeAddress({ error, data }) {
@@ -105,54 +109,89 @@ export default class ChangeOfAddressContainer extends NavigationMixin(LightningE
         return this.currentScreenName === 'billingAccountScreen';
     }
 
-    get isSupportScreen() {
-        return this.currentScreenName === 'supportScreen';
+    get isServiceRequestScreen() {
+        return this.currentScreenName === 'serviceRequestScreen';
     }
 
     get isConfirmationScreen() {
         return this.currentScreenName === 'confirmationScreen';
     }
 
+	get newBillingAddressConcat() {
+		return [this.newBillingAddress?.addressLine1, this.newBillingAddress?.addressLine2, this.newBillingAddress?.city, this.newBillingAddress?.state, this.newBillingAddress?.postcode].filter(e => e != null).join(' ');
+	}
+
+	get newPhysicalAddressConcat() {
+		return [this.newPhysicalAddress?.addressLine1, this.newPhysicalAddress?.addressLine2, this.newPhysicalAddress?.city, this.newPhysicalAddress?.state, this.newPhysicalAddress?.postcode].filter(e => e != null).join(' ');
+	}
+
     // Handle 'Next' button click to move to the next screen
     async handleNext() {
+		console.log('start time' +Date.now())
         const activeChildComponent = this.template.querySelector(`[data-screen-name="${this.currentScreenName}"]`);
         if (activeChildComponent) {
-            const returnedData = await activeChildComponent.getReturnData();
-			console.log('@@@1A' +JSON.stringify(returnedData));
-            if (returnedData) {
-                this.screenData[this.currentScreenName] = returnedData;
+            const selectedData = await activeChildComponent.getUserSelectedData();
+			// check if validation fails
+			if (selectedData === -1) {
+				return;
+			}
+            if (selectedData) {
+                this.userSelectedData[this.currentScreenName] = selectedData;
 				if(this.currentScreenName==='addressScreen'){
-					this.newBillingAddress = returnedData.billingAddress || this.newBillingAddress;
-					this.newPhysicalAddress = returnedData.physicalAddress || this.newPhysicalAddress;	
+					this.newBillingAddress = selectedData.billingAddress || this.newBillingAddress;
+					this.newPhysicalAddress = selectedData.physicalAddress || this.newPhysicalAddress;	
 				}
-            }
+				if(this.currentScreenName==='serviceRequestScreen'){
+					this.productSelected = 'AP';
+					this.billingAccsSelectedST ='';
+					this.billingAccsSelectedAP='';
+				}
+			}
+			// Navigate to the next screen in sequence
+			const currentIndex = this.screenSequence.indexOf(this.currentScreenName);
+			if (currentIndex < this.screenSequence.length - 1) {
+				this.currentScreenName = this.screenSequence[currentIndex + 1];
+				console.log('this.currentScreenName'+this.currentScreenName);
+			} else {
+				console.log("Final Screen");
+			}
+			console.log('end time' +Date.now())
+            
         } else {
             console.error('Active child component not found.');
-        }
-
-        // Navigate to the next screen in sequence
-        const currentIndex = this.screenSequence.indexOf(this.currentScreenName);
-        if (currentIndex < this.screenSequence.length - 1) {
-            this.currentScreenName = this.screenSequence[currentIndex + 1];
-			console.log('@@@1B' +JSON.stringify(this.currentScreenName));
-        } else {
-            console.log("Final Screen");
         }
     }
 
     // Handle 'Previous' button click to go back to the previous screen
-    handlePrevious() {
+    async handlePrevious() {
+		this.isLoading=true;
+		/*const activeChildComponent = this.template.querySelector(`[data-screen-name="${this.currentScreenName}"]`);
+        if (activeChildComponent) {
+            const selectedData = await activeChildComponent.getUserSelectedData();
+            if (selectedData) {
+                this.userSelectedData[this.currentScreenName] = selectedData;
+				if(this.currentScreenName==='addressScreen'){
+					this.newBillingAddress = selectedData.billingAddress || this.newBillingAddress;
+					this.newPhysicalAddress = selectedData.physicalAddress || this.newPhysicalAddress;	
+				}
+			}
+		}else {
+            console.error('Active child component not found.');
+        }*/
         const currentIndex = this.screenSequence.indexOf(this.currentScreenName);
         if (currentIndex > 0) {
-            this.currentScreenName = this.screenSequence[currentIndex - 1];
-			console.log('this.currentScreenName' +this.currentScreenName);
-			const activeChildComponent = this.template.querySelector(`[data-screen-name="${this.currentScreenName}"]`);
-			const savedData = this.screenData[this.currentScreenName];
-			console.log('@@@' +JSON.stringify(savedData));
-			if (activeChildComponent && savedData) {
-				activeChildComponent.restoreState(savedData); // Call restore method in child
-			}
-        }
+			// Update the current screen name to the previous screen
+			this.currentScreenName = this.screenSequence[currentIndex - 1];
+			// Use setTimeout to ensure DOM is updated before querying the component
+			setTimeout(() => {
+				const activeChildComponent = this.template.querySelector(`[data-screen-name="${this.currentScreenName}"]`);
+				const savedData = this.userSelectedData[this.currentScreenName];
+				if (activeChildComponent && savedData) {
+					activeChildComponent.restoreState(savedData); // Call restore method in child
+				}
+			}, 0);
+		}
+		this.isLoading=false;
     }
 
     // Handle cancellation of the address change flow

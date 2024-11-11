@@ -1,4 +1,4 @@
-import { LightningElement, api } from 'lwc';
+import { LightningElement, api,track,wire } from 'lwc';
 import { NavigationMixin } from 'lightning/navigation';
 import fetchAllContactsFromDB from '@salesforce/apex/ChangeOfAddressController.fetchAllContactsFromDB';
 import { debounce } from 'c/utils'
@@ -28,9 +28,9 @@ export default class changeOfAddressContactUpdate extends NavigationMixin( Light
 	errorMoreThan50;
 	// variable to store the required details from container component
 	@api orgRecord;
-	@api orgId;
-	@api isBillingAddressChanged;
-	@api isPhysicalAddressChanged;
+	@api accountId;
+	@api currentBillingAddress;
+	@api currentPhysicalAddress;
 	@api newBillingAddress;
 	@api newPhysicalAddress;
 	@api cmpCalledFrom;
@@ -46,43 +46,49 @@ export default class changeOfAddressContactUpdate extends NavigationMixin( Light
 	selecteddata =[];
 	offSetCountSelected =0;
 	searchedRecords = [];
-	fulldataselected=[];
-	title = 'Contact Selection';
+	@track fulldataselected=[];
+	isLoading=true;
+	@track selectedRowIds = [];
 
+	get billingAddressDisplay() {
+		return this.newBillingAddress?.address || '';
+	}
+	get physicalAddressDisplay() {
+		return this.newPhysicalAddress?.address || '';
+	}
 	connectedCallback() {
-		//remove this when the container component pass the data to this component start
-		this.isBillingAddressChanged = true;
-		this.isPhysicalAddressChanged = true;
-		//remove this when the container component pass the data to this component end
+		this.isLoading = true;
+		console.log('in cc');
 		this.offSetCount = ROW_LIMIT;
 		this.offSetCountSelected = ROW_LIMIT;
-		this.getAllRecords();
+		//this.getAllRecords();
 	}
 
 	//get all the contacts
-	getAllRecords() {
-		fetchAllContactsFromDB({orgId: this.orgId})
-			.then(result => {
-				// Returned result if from sobject and can't be extended so objectifying the result to make it extensible
-				var conlist = result.conlist;
-				conlist = JSON.parse(JSON.stringify(conlist));
-				conlist.forEach(record => {
-					record.Id=record.contactRecord.Id;
-					record.Name = record.contactRecord.Name;
-					record.MobilePhone=record.contactRecord.MobilePhone;
-					record.Email=record.contactRecord.Email;
-					record.Has_Online_Credential__c=record.contactRecord.Has_Online_Credential__c;
-					record.Record_Maintainer__c=record.contactRecord.Record_Maintainer__c;
-				});
-				this.fulldataset = [...this.fulldataset, ...conlist];
-				this.setDatatableRecords();
-			})
-			.catch(error => {
-				this.error = error;
-				console.log('error : ' + JSON.stringify(this.error));
+	@wire(fetchAllContactsFromDB, {orgId: '$accountId'})
+	wiredContacts({ error, data }) {
+		if (data) {
+			//this.isLoading = true;
+			let conlist = JSON.parse(JSON.stringify(data.conlist));
+			conlist.forEach(record => {
+				record.Id=record.contactRecord.Id;
+				record.Name = record.contactRecord.Name;
+				record.MobilePhone=record.contactRecord.MobilePhone;
+				record.Email=record.contactRecord.Email;
+				record.Has_Online_Credential__c=record.contactRecord.Has_Online_Credential__c;
+				record.Record_Maintainer__c=record.contactRecord.Record_Maintainer__c;
 			});
+			this.fulldataset = [...this.fulldataset, ...conlist];
+			this.setDatatableRecords();
+			this.isLoading = false;
+		}
+		else if(error){
+			this.error = error;
+			console.log('error : ' + JSON.stringify(this.error));
+			this.isLoading = false;	
+		}
 	}
-
+		
 	// Event to handle onloadmore on lightning datatable markup
 	handleLoadMore(event) {
 		if (this.fulldataset.length < this.offSetCount) {
@@ -92,9 +98,6 @@ export default class changeOfAddressContactUpdate extends NavigationMixin( Light
 			this.setDatatableRecords();
 		}
 	}
-
-	
-
 	handleRowSelection(event){
 		var selectedRows=event.detail.selectedRows;
 		var selectedaction = event.detail.config.action;
@@ -138,6 +141,7 @@ export default class changeOfAddressContactUpdate extends NavigationMixin( Light
 	setDatatableRecords(){
 		this.data = this.fulldataset.slice(0, this.offSetCount);
 		this.initialRecords = this.data;
+	
 	}
 
 	handleSearchText(event){
@@ -183,38 +187,23 @@ export default class changeOfAddressContactUpdate extends NavigationMixin( Light
 			this.enableInfinteLoading = true;
 		}
 	}
-
-	handleCancel(){
-		const cancelEvent = new CustomEvent("handlecancel", {
-			detail:{
-				backScreen: this.cmpCalledFrom,
-				cameFrom:'contactselection'
-			}
-		});
-		// dispatch the event
-		this.dispatchEvent(cancelEvent);
+	@api
+    async getUserSelectedData() {
+		console.log('@@@fulldata' +this.fulldataselected);
+		if(this.fulldataselected) {
+			this.selectedRowIds = this.fulldataselected.map(row => row.Id);
+			//this.selecteddata = this.fulldataselected.slice(0, this.offSetCountSelected);
+		}
+		return this.fulldataselected;	
 	}
-
-	handleBack(){
-		const backEvent = new CustomEvent("handleback", {
-			detail:{
-				backScreen: this.cmpCalledFrom,
-				cameFrom:'contactselection'
-			}
-		});
-		// dispatch the event
-		this.dispatchEvent(backEvent);
-	}
-
-	handleNext(){
-		const nextEvent = new CustomEvent("handlenext", {
-			detail:{
-				backScreen: this.cmpCalledFrom,
-				cameFrom:'contactselection',
-				selectedcontacts:this.fulldataselected
-			}
-		});
-		// dispatch the event
-		this.dispatchEvent(nextEvent);
+	@api
+	async restoreState(data) {
+		this.fulldataselected=data;
+		this.selectedRowIds = this.fulldataselected.map(row => row.Id);
+		this.selecteddata = this.fulldataselected.slice(0, this.offSetCountSelected);
+        //console.log('@@@data' +JSON.stringify(this.selectedRowIds));
+    }
+	disconnectedCallback() {
+		console.log('in Disconnect')
 	}
 }
