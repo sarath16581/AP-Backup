@@ -32,7 +32,7 @@ export default class ChangeOfAddressServiceRequestCreation extends LightningElem
 		this.filter = {
             criteria: [
 				{
-					fieldPath: 'Account',
+					fieldPath: 'AccountId',
 					operator: 'eq',
 					value: this.accountId,
 				}
@@ -44,13 +44,27 @@ export default class ChangeOfAddressServiceRequestCreation extends LightningElem
         // Get the list of uploaded files
         const uploadedFiles = event.detail.files;
         console.log('No. of files uploaded : ' + uploadedFiles.length);
+		
 		if(this.creditDSRAPRec){
-			this.creditDSRAPRec.Customer_Request_Attached__c = 'Yes';
+			let creditDSRAPReclocal = this.creditDSRAPRec;
+			creditDSRAPReclocal.Customer_Request_Attached__c = 'Yes';
+			this.creditDSRAPRec = JSON.parse(JSON.stringify(creditDSRAPReclocal));
 		}
 		if(this.creditDSRSTRec){
-			this.creditDSRSTRec.Customer_Request_Attached__c = 'Yes';
+			let creditDSRSTReclocal = this.creditDSRSTRec;
+			creditDSRSTReclocal.Customer_Request_Attached__c = 'Yes';
+			this.creditDSRSTRec = JSON.parse(JSON.stringify(creditDSRSTReclocal)); //both ways works direct assignment or parse and stringify
 		}
-    }
+		if(this.onboardingDSRSTRec){
+			let onboardingDSRSTReclocal = this.onboardingDSRSTRec;
+			onboardingDSRSTReclocal.Customer_Request_Attached__c = 'Yes';
+			this.onboardingDSRSTRec = JSON.parse(JSON.stringify(onboardingDSRSTReclocal)); //both ways works
+		}
+		// If the record-id  is passed in the file uploader in html, no need of creating any cdl. the relationship will get created by the system
+		// if there is no record-id then this will give you uploadedFiles[0].documentId, contentdocument id and  cdl has to be created in code.
+		console.log('content document id ' + uploadedFiles[0].documentId); 
+		console.log('content document name ' + uploadedFiles[0].name);
+	}
 
 	getapPhysicalAddressChange(){
 		if(this.productSelected==='AP' || this.productSelected==='Both'){
@@ -61,6 +75,21 @@ export default class ChangeOfAddressServiceRequestCreation extends LightningElem
 		return false;
 	}
 	
+	handleContactSelection(event){
+		const contactid = event.detail.recordId;
+		const calledfromname = event.target.name;
+		if(calledfromname === 'stcustomercontact'){
+			let emailCaseSTReclocal = this.emailCaseSTRec;
+			emailCaseSTReclocal.customerContact = contactid;
+			this.emailCaseSTRec = JSON.parse(JSON.stringify(emailCaseSTReclocal));
+		}else if(calledfromname === 'apcustomercontact'){
+			let emailCaseAPReclocal = this.emailCaseAPRec;
+			emailCaseAPReclocal.customerContact = contactid;
+			this.emailCaseAPRec = JSON.parse(JSON.stringify(emailCaseAPReclocal));
+		}
+		
+	}
+
 	frameServicerequests(){
 		const requestDetails = {};
 		//commented this and needs to be uncommented when values from child cmp passes correctly start
@@ -83,7 +112,7 @@ export default class ChangeOfAddressServiceRequestCreation extends LightningElem
 		requestDetails.stBillingAccCount = 5;
 		requestDetails.customerRequestAttached = 'No';
 		requestDetails.baOptionSelected = '';
-		requestDetails.accType = ''; // modify the value to [requestDetails.accType = "Small Business"] to render email to case sections
+		requestDetails.accType = 'Small Business'; // modify the value to [requestDetails.accType = "Small Business"] to render email to case sections
 		requestDetails.newBillingAddress = 'test new billing address';
 		requestDetails.isBillingAddressChanged = true;
 		requestDetails.isPhysicalAddressChanged = true;

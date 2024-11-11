@@ -47,7 +47,6 @@
 			label="Customer Request Attachment"
 			name="fileUploader"
 			accept={acceptedFormats}
-			record-id={orgId}
 			onuploadfinished={handleUploadFinished}
 			multiple=false
 			required>
@@ -181,7 +180,7 @@
 					</div>
 				</lightning-layout-item>
 				<lightning-layout-item size="6" padding="around-small">
-					<lightning-record-picker filter={filter} object-api-name="Contact" label="Customer Contact" placeholder="Select a Contact" value={emailCaseAPRec.customerContact}></lightning-record-picker>
+					<lightning-record-picker name="apcustomercontact" onchange={handleContactSelection} filter={filter} object-api-name="Contact" label="Customer Contact" placeholder="Select a Contact" value={emailCaseAPRec.customerContact}></lightning-record-picker>
 				</lightning-layout-item>
 			</lightning-layout>
 		</template>
@@ -222,7 +221,7 @@
 					</div>
 				</lightning-layout-item>
 				<lightning-layout-item size="6" padding="around-small">
-					<lightning-record-picker filter={filter} object-api-name="Contact" label="Customer Contact" placeholder="Select a Contact"  value={emailCaseSTRec.customerContact}></lightning-record-picker>
+					<lightning-record-picker name="stcustomercontact" onchange={handleContactSelection} filter={filter} object-api-name="Contact" label="Customer Contact" placeholder="Select a Contact"  value={emailCaseSTRec.customerContact}></lightning-record-picker>
 				</lightning-layout-item>
 			</lightning-layout>
 		</template>
