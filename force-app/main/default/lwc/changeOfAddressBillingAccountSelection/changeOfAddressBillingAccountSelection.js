@@ -30,11 +30,12 @@ export default class ChangeOfAddressBillingAccountSelection extends LightningEle
 	productSelected = [];
 	apRowOffset = ROW_LIMIT;
 	stRowOffset = ROW_LIMIT;
+	billingAccountError;
 
 	@wire(getBillingAccounts, {orgId: '$accountId'})
 	wiredData(result) {
 		const {data} = result;
-		if (data?.length > 0) {
+		if (data) {
 			let nameUrl;
 			let billingAddress;
 			let physicalAddress;
@@ -55,6 +56,19 @@ export default class ChangeOfAddressBillingAccountSelection extends LightningEle
 				return {...row , nameUrl, billingAddress, physicalAddress, PAYER_ACCOUNT_ID__c, LeaderAccount__c}
 			});
 
+			let noApOrSt = [];
+			if (this.apBillingAccounts.length === 0) {
+				noApOrSt.push('AP');
+			}
+			if (this.apBillingAccounts.length === 0) {
+				noApOrSt.push('ST');
+			}
+
+			if (noApOrSt.length > 0) {
+				this.billingAccountError = `No active ${noApOrSt.join(' or ')} Billing Accounts exist under this Organisation. Please click Next to proceed with address update on Organisation and selected contacts.`;
+
+			}
+
 			getColumns({objectName:'Billing_Account__c', fieldSetName: 'ChangeOfAddressAPBillingAccountColumn'}).then(c => {
 				this.apBillingAccountsColumns = c.map(item => {
 					return {...item};
@@ -74,7 +88,7 @@ export default class ChangeOfAddressBillingAccountSelection extends LightningEle
 	}
 
 	get infoMessage() {
-		if (this.newPhysicalAddress && this.apBillingAccounts?.length > 0) {
+		if (this.newPhysicalAddress && this.apBillingAccounts?.length > 0 && this.stBillingAccounts?.length === 0) {
 			return LABEL_DSR_NOT_REQUIRED_FOR_AP;
 		}
 	}
@@ -85,6 +99,14 @@ export default class ChangeOfAddressBillingAccountSelection extends LightningEle
 
 	get showSTBillingAccounts() {
 		return this.stBillingAccounts?.length > 0 && (this.showProductOptions ? this.productSelected.includes('ST') : true);
+	}
+
+	get showSelectedAPBillingAccounts() {
+		return this.selectedAPBAs?.length > 0;
+	}
+
+	get showSelectedSTBillingAccounts() {
+		return this.selectedSTBAs?.length > 0;
 	}
 
 	get filteredAPBillingAccounts() {
@@ -233,4 +255,15 @@ export default class ChangeOfAddressBillingAccountSelection extends LightningEle
 	handleProductSelected(event) {
 		this.productSelected = event.detail.value;
 	}
+	@api
+    async getUserSelectedData() {
+		return {selectedAP: this.selectedAPBAs, selectedST: this.selectedSTBAs};
+	}
+	@api
+	async restoreState(data) {
+		this.selectedAPBAs = data.selectedAP;
+		this.selectedSTBAs = data.selectedST;
+    }
+	
+	//TODO: handleRowSelection not work when user input search term
 }

@@ -23,21 +23,34 @@
 		</template>
 		<template lwc:if={isContactScreen}>
 			<c-change-of-address-contact-update
+					account-id={recordId}
 					current-billing-address={currentBillingAddress}
 					current-physical-address={currentPhysicalAddress}
-					new-billing-address={newBillingAddress}
-					new-physical-address={newPhysicalAddress}
+					new-billing-address={newBillingAddressConcat}
+					new-physical-address={newPhysicalAddressConcat}
 					data-screen-name="contactScreen">
 			</c-change-of-address-contact-update>
 		</template>
 		<template lwc:if={isBillingAccountScreen}>
 			<c-change-of-address-billing-account-selection
 					account-id={recordId}
-					new-billing-address={newBillingAddress}
-					new-physical-address={newPhysicalAddress}
+					new-billing-address={newBillingAddressConcat}
+					new-physical-address={newPhysicalAddressConcat}
 					current-billing-address={currentBillingAddress}
-					current-physical-address={currentPhysicalAddress}>
+					current-physical-address={currentPhysicalAddress}
+					data-screen-name="billingAccountScreen">
 			</c-change-of-address-billing-account-selection>
+		</template>
+		<template lwc:if={isServiceRequestScreen}>
+			<c-change-of-address-service-request-creation
+					account-id={recordId}
+					account-record={recordData}
+					new-billing-address={newBillingAddressConcat}
+					new-physical-address={newPhysicalAddressConcat}
+					current-billing-address={currentBillingAddress}
+					current-physical-address={currentPhysicalAddress}
+					data-screen-name="billingAccountScreen">
+			</c-change-of-address-service-request-creation>
 		</template>
 		<div align="right">
 			<lightning-button  label="Cancel" onclick={handleCancel}  class="slds-button slds-padding-around-small" ></lightning-button>

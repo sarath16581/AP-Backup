@@ -1,4 +1,3 @@
-
 .adjustbuttonheight {
     margin-top: 20px;
 }
@@ -11,15 +10,10 @@
 .titlecss {
     text-decoration: underline;
 }
-.paddingforparagraps {
-    padding-top: 25px;
-}
-.righttextalignforparagraps {
-    text-align: right;
-}
-.titlestyle{
-	background-color: rgba(65, 148, 249, 1);
-	color:white;
-	text-align: center;
-	padding:20px;
+.datatable-container {
+    max-height: 200px; /* Sets the height for the scroll area */
+    overflow-y: auto; /* Enables vertical scroll */
+	border-left: 0.5px solid #000207 !important; /* Adds a border to the bottom of the head	er */
+    border-right: 0.5px solid #00040a !important; /* Adds a border between header cells */
+	border-top: 0.5px solid #000309 !important; /* Adds a border to the bottom of the header */
 }

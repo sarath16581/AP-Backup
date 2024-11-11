@@ -11,6 +11,7 @@
 				help-text="If address not found, please expand and manually enter address."
 				variant="show-detail-onsearch"
 				oneditaddress={handleAddressUpdated}
+				default-address={newBillingAddress}
 				onselectaddress={handleAddressUpdated}>
 		</c-ame-address-validation2>
 		<br/>
@@ -28,7 +29,7 @@
 				help-text="If address not found, please expand and manually enter address."
 				variant="show-detail-onsearch"
 				oneditaddress={handleAddressUpdated}
-				default-address=""
+				default-address={newPhysicalAddress}
 				onselectaddress={handleAddressUpdated}>
 		</c-ame-address-validation2>
 		<br/>

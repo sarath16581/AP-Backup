@@ -1,21 +1,26 @@
-/**
-**/
 public with sharing class ChangeOfAddressController {
-	/*private static final Set<SObjectField> ACCOUNT_FIELD_OVERRIDES = new Set<SObjectField>{
+	private static final Set<SObjectField> ACCOUNT_FIELD_OVERRIDES = new Set<SObjectField>{
 			Account.Id, Account.Role_Type_Roll_Up__c, Account.Sales_Segment__c
 	};
 
+	private static final Set<SObjectField> BILLING_ACCOUNT_FIELD_OVERRIDES = new Set<SObjectField>{
+			Billing_Account__c.Name, Billing_Account__c.LEGACY_ID__c, Billing_Account__c.BillingAccountType__c, Billing_Account__c.Street__c, Billing_Account__c.Suburb__c,
+			Billing_Account__c.State__c, Billing_Account__c.Postal_Code__c, Billing_Account__c.Source_System__c, Billing_Account__c.PhysicalStreet__c,
+			Billing_Account__c.PhysicalSuburb__c, Billing_Account__c.PhysicalState__c, Billing_Account__c.PhysicalPostalCode__c
+	};
+
+	
 	@AuraEnabled(Cacheable=true)
 	public static String displayOldOrNewChangeAddress(String orgId) {
 		Account org = AccountsSelector.newInstance(1, ACCOUNT_FIELD_OVERRIDES).selectById(new Set<Id>{orgId}, new Set<Object>{AccountsSelector.Options.WITH_OWNER}).values()[0];
-		String accountType = [SELECT AccountType__c FROM SalesSegmentAccountType__mdt WHERE SalesSegment__c =:org.Sales_Segment__c LIMIT 1].AccountType__c;
+		//String accountType = [SELECT AccountType__c FROM SalesSegmentAccountType__mdt WHERE SalesSegment__c =:org.Sales_Segment__c LIMIT 1].AccountType__c;
 
-		if (org.Role_Type_Roll_Up__c != 'Customer' || accountType == 'Government' || accountType == 'Other PP&eCS') {
+		if (org.Role_Type_Roll_Up__c != 'Customer' || (org.Role_Type_Roll_Up__c.equalsIgnoreCase('Customer') && (org.Sales_Segment__c.containsIgnoreCase('Other PP&eCS') || org.Sales_Segment__c.containsIgnoreCase('Government')))){
 			return 'old';
 		}
 
 		String profileName = ProfilesSelector.newInstance().selectById(new Set<Id>{System.UserInfo.getProfileId()}).values()[0].Name;
-		if (profileName != 'BG Base' && org.Role_Type_Roll_Up__c == 'Customer') {
+		if (profileName != 'BG Base' && org.Role_Type_Roll_Up__c .equalsIgnoreCase('Customer')) {
 			return 'new';
 		}
 
@@ -26,7 +31,7 @@ public with sharing class ChangeOfAddressController {
 		// check if user's role is same as owner's role or one level above or the sibling sales specialist role
 		List<String> userAccessRoles = new List<String>();
 		for (Change_Of_Address_Access_Role__mdt accessRole: accessRoles) {
-			if (accessRole.RoleName__c == ownerRoleName) {
+			if (accessRole.RoleName__c.equalsIgnoreCase(ownerRoleName)) {
 				userAccessRoles.add(accessRole.RoleName__c);
 				if (accessRole.SupervisorRole__c != null) {
 					userAccessRoles.add(accessRole.SupervisorRole__c);
@@ -35,7 +40,7 @@ public with sharing class ChangeOfAddressController {
 			}
 		}
 
-		if (profileName == 'BG Base' && (org.Owner.Email.contains('holding.user') || org.OwnerId == System.UserInfo.getUserRoleId() || userAccessRoles.contains(currentUserRoleName))) {
+		if (profileName.equalsIgnoreCase('BG Base') && (org.Owner.Email.contains('holding.user') || org.OwnerId==System.UserInfo.getUserRoleId()) || userAccessRoles.contains(currentUserRoleName)) {
 			return 'new';
 		}
 		return 'none';
@@ -48,12 +53,36 @@ public with sharing class ChangeOfAddressController {
 			}
 		}
 		return null;
-	} */
+	}
 
-	@AuraEnabled
+	@AuraEnabled(Cacheable=true)
+	public static List<Billing_Account__c> getActiveBillingAccounts(String orgId) {
+		return BillingAccountsSelector.newInstance(0, BILLING_ACCOUNT_FIELD_OVERRIDES).selectByOrgId(new Set<Id> {orgId}, new Set<Object>{BillingAccountsSelector.Options.FILTER_ACTIVE, BillingAccountsSelector.Options.WITH_PAYER_ACCOUNT_ID, BillingAccountsSelector.Options.WITH_LEADER_ACCOUNT}).values();
+	}
+
+	/**
+	 * @description Get datatable columns from given field set
+	 * @param objectName Object API name for the field set
+	 * @param fieldSetName Name of the field set to be used to map columns
+	 * @return list of datatable column wrapper
+	 */
+	@AuraEnabled(Cacheable=true)
+	public static List<DataTableColumn> getColumns(String objectName, String fieldSetName) {
+		try {
+			List<DataTableColumn> dataTableColumnList = new List<DataTableColumn>();
+			for (Schema.FieldSetMember fs: Schema.getGlobalDescribe().get(objectName).getDescribe().fieldSets.getMap().get(fieldSetName).getFields()) {
+				DataTableColumn datatableColumn = new DataTableColumn(fs.getLabel(), fs.getFieldPath(), String.valueOf(fs.getType()));
+				dataTableColumnList.add(datatableColumn);
+			}
+			return dataTableColumnList;
+		} catch (Exception e) {
+			throw new AuraHandledException(e.getMessage());
+		}
+	}
+
+	@AuraEnabled(cacheable=true)
 	public static Map<String, Object> fetchAllContactsFromDB(String orgId) {
-		//orgId='001Bm00000MZ5mYIAT'; //commented -- 001Bm00000MZ5mYIAT
-		orgId = '001Qy00000YiHpbIAF';
+		orgId='001Bm00000MZ5mYIAT';
 		Set<Id> accIds = new set<Id>{(Id)orgId};
 		Set<SObjectField> CONTACT_FIELD_OVERRIDES = new Set<SObjectField>{Contact.Id, Contact.AccountId,Contact.Name,Contact.MobilePhone,Contact.Email,Contact.MailingAddress,Contact.OtherAddress,Contact.MailingStreet,Contact.MailingCity,Contact.MailingState,Contact.MailingPostalCode,Contact.MailingCountry,Contact.OtherStreet,Contact.OtherCity,Contact.OtherState,Contact.OtherPostalCode,Contact.OtherCountry,Contact.Has_Online_Credential__c,Contact.Record_Maintainer__c};
 		Map<String, Object> resp = new Map<String, Object>();
@@ -81,44 +110,6 @@ public with sharing class ChangeOfAddressController {
 		resp.put('conlist', contactsList);
 		return resp;
 	}
-
-	public class contactRecordWrapper {
-		@AuraEnabled
-		public Contact contactRecord {get; set;}
-		@AuraEnabled
-		public String recordUrl { get; set;}
-		@AuraEnabled
-		public String mailingAddress {get; set;}
-		@AuraEnabled
-		public String physicalAddress {get; set;}
-	}
-
-	public class AddressWrapper {
-		@AuraEnabled
-		public String street {get; set;}
-		@AuraEnabled
-		public String city {get; set;}
-		@AuraEnabled
-		public String state {get; set;}
-		@AuraEnabled
-		public String postalCode {get; set;}
-		@AuraEnabled
-		public String country {get; set;}
-		@AuraEnabled
-		public String address {get; set;}
-		public AddressWrapper(String street, String city, String state, String postalCode, String country){
-			this.street = street;
-			this.city = city;
-			this.state = state;
-			this.postalCode = postalCode;
-			this.country = country;
-			this.address = street+' '+city+' '+state+' '+postalCode+' '+country;
-		}
-		public AddressWrapper(){
-			this.address='';
-		}
-	}
-
 	@AuraEnabled
 	public static Map<String, Object> frameServicerequests(SRRequestParams reqParams){
 		Map<String, Object> resp = new Map<String, Object>();
@@ -156,9 +147,8 @@ public with sharing class ChangeOfAddressController {
 
 	private static Map<String, Object> frameAPBillingAddressDSR(SRRequestParams reqParams){
 		Map<String, Object> resp = new Map<String, Object>();
-		SRResponseParams srp = new SRResponseParams();
 		if(reqParams.accType.contains('Small Business')){
-			//Frame Email to case
+			resp.put('emailCaseAPRec',frameEmailToCase(reqParams));
 		}else{
 			resp.put('creditDSRAPRec',frameCreditDSR(reqParams));
 		}
@@ -168,7 +158,7 @@ public with sharing class ChangeOfAddressController {
 	private static Map<String, Object> frameSTBillingAddressDSR(SRRequestParams reqParams){
 		Map<String, Object> resp = new Map<String, Object>();
 		if(reqParams.accType.contains('Small Business')){
-			//Frame Email to case
+			resp.put('emailCaseSTRec',frameEmailToCase(reqParams));
 		}else{
 			resp.put('creditDSRSTRec',frameCreditDSR(reqParams));
 		}
@@ -187,10 +177,21 @@ public with sharing class ChangeOfAddressController {
 		creditDSR.Credit_Work_Type__c = 'Change billing account details'; //Move this Constants
 		creditDSR.Billing_Account_Change_of_Details_Type__c = 'Contact Information Details'; //Move this Constants
 		creditDSR.Billing_Account_Change_of_Details_Sub_Ty__c = 'New Mailing Address'; //Move this Constants 
-		if(reqParams.apBillingAccCount>5){
-			creditDSR.Billing_Account_Change_of_Details_Desc__c = 'Please update Billing Address for Numbers(s): '+reqParams.newBillingAddress; //Move this Constants
-		}else{
-			creditDSR.Billing_Account_Change_of_Details_Desc__c = 'Count of Parent Accounts: '+reqParams.apBillingAccCount+' Update the Billing Address to '+reqParams.newBillingAddress+' Generate CSV for all billing accounts'; 
+		switch on reqParams.baOptionSelected {
+			when 'AP' {		
+				if(reqParams.apBillingAccCount>5){
+					creditDSR.Billing_Account_Change_of_Details_Desc__c = 'Please update Billing Address for Numbers(s): '+reqParams.newBillingAddress; //Move this Constants
+				}else{
+					creditDSR.Billing_Account_Change_of_Details_Desc__c = 'Count of Parent Accounts: '+reqParams.apBillingAccCount+' Update the Billing Address to '+reqParams.newBillingAddress+' Generate CSV for all billing accounts'; 
+				}
+			}	
+			when 'ST' {		
+				if(reqParams.stBillingAccCount>5){
+					creditDSR.Billing_Account_Change_of_Details_Desc__c = 'Please update Billing Address for Numbers(s): '+reqParams.newBillingAddress; //Move this Constants
+				}else{
+					creditDSR.Billing_Account_Change_of_Details_Desc__c = 'Count of Parent Accounts: '+reqParams.apBillingAccCount+' Update the Billing Address to '+reqParams.newBillingAddress+' Generate CSV for all billing accounts'; 
+				}
+			}
 		}
 		creditDSR.Customer_Request_Attached__c = reqParams.customerRequestAttached; //Move this Constants
 		creditDSR.RecordTypeId = creditDSRRecTypeId; //Move this Constants
@@ -204,7 +205,7 @@ public with sharing class ChangeOfAddressController {
 			onboardingDSR.Credit_Work_Type__c = 'Change billing account details'; //Move this Constants
 			onboardingDSR.Billing_Account_Change_of_Details_Type__c = 'Contact Information Details'; //Move this Constants
 			onboardingDSR.Billing_Account_Change_of_Details_Sub_Ty__c = 'New Mailing Address'; //Move this Constants 
-			if(reqParams.apBillingAccCount>5){
+			if(reqParams.stBillingAccCount>5){
 				onboardingDSR.Billing_Account_Change_of_Details_Desc__c = 'Please update Billing Address for Numbers(s): '+reqParams.newPhysicalAddress; //Move this Constants
 			}else{
 				onboardingDSR.Billing_Account_Change_of_Details_Desc__c = 'Count of Parent Accounts: '+reqParams.apBillingAccCount+' Update the Billing Address to '+reqParams.newPhysicalAddress+' Generate CSV for all billing accounts'; 
@@ -213,6 +214,31 @@ public with sharing class ChangeOfAddressController {
 			onboardingDSR.RecordTypeId = onboardingDSRRecTypeId; //Move this Constants
 		return onboardingDSR;
 	}
+
+	private static SRResponseParams frameEmailToCase(SRRequestParams reqParams){
+		SRResponseParams srp = new SRResponseParams();
+		srp.senderEmail = Userinfo.getUserEmail();
+		srp.receiverEmail = Userinfo.getUserEmail(); // This needs to be configurable and hold emailtocase address for Prod it has to be billing@auspost.com.au
+		srp.accountId = reqParams.orgId;
+		switch on reqParams.baOptionSelected {
+			when 'AP' {		
+				if(reqParams.apBillingAccCount>5){
+					srp.description = 'Please update Billing Address for Numbers(s): '+reqParams.newBillingAddress; //Move this Constants
+				}else{
+					srp.description = 'Count of Parent Accounts: '+reqParams.apBillingAccCount+' Update the Billing Address to '+reqParams.newBillingAddress+' Generate CSV for all billing accounts'; 
+				}
+			}	
+			when 'ST' {		
+				if(reqParams.stBillingAccCount>5){
+					srp.description = 'Please update Billing Address for Numbers(s): '+reqParams.newBillingAddress; //Move this Constants
+				}else{
+					srp.description = 'Count of Parent Accounts: '+reqParams.apBillingAccCount+' Update the Billing Address to '+reqParams.newBillingAddress+' Generate CSV for all billing accounts'; 
+				}
+			}
+		}
+		return srp;
+	}
+
 
 	public class SRRequestParams{
 		@AuraEnabled
@@ -233,12 +259,78 @@ public with sharing class ChangeOfAddressController {
 		public Boolean isPhysicalAddressChanged {get; set;}
 		@AuraEnabled
 		public String newPhysicalAddress {get; set;}
+		@AuraEnabled
+		public String orgId {get; set;}
+		@AuraEnabled
+		public Account orgRecord {get; set;}
 		
 	}
 
 	public class SRResponseParams{
 		@AuraEnabled
-		public String emailAddress {get; set;}
+		public String senderEmail {get; set;}
+		@AuraEnabled
+		public String receiverEmail {get; set;}
+		@AuraEnabled
+		public String subject {get; set;}
+		@AuraEnabled
+		public String description {get; set;}
+		@AuraEnabled
+		public String customerContact {get; set;}
+		@AuraEnabled
+		public String accountId {get; set;}
 		
+	}
+	public class contactRecordWrapper {
+		@AuraEnabled
+		public Contact contactRecord {get; set;}
+		@AuraEnabled
+		public String recordUrl { get; set;}
+		@AuraEnabled
+		public String mailingAddress {get; set;}
+		@AuraEnabled
+		public String physicalAddress {get; set;}
+	}
+
+	public class AddressWrapper {
+		@AuraEnabled
+		public String street {get; set;}
+		@AuraEnabled
+		public String city {get; set;}
+		@AuraEnabled
+		public String state {get; set;}
+		@AuraEnabled
+		public String postalCode {get; set;}
+		@AuraEnabled
+		public String country {get; set;}
+		@AuraEnabled
+		public String address {get; set;}
+		public AddressWrapper(String street, String city, String state, String postalCode, String country){
+			this.street = street;
+			this.city = city;
+			this.state = state;
+			this.postalCode = postalCode;
+			this.country = country;
+			this.address = street+' '+city+' '+state+' '+postalCode+' '+country;
+		}
+		public AddressWrapper(){
+			this.address='';
+		}
+	}
+
+	public class DataTableColumn {
+		@AuraEnabled
+		public String label {get;set;}
+		@AuraEnabled
+		public String fieldName {get;set;}
+		@AuraEnabled
+		public String type {get;set;}
+
+		public DataTableColumn(String label, String fieldName, String type)
+		{
+			this.label = label;
+			this.fieldName = fieldName;
+			this.type = type;
+		}
 	}
 }

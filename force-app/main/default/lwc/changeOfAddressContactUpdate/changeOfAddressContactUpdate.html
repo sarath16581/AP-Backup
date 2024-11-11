@@ -1,99 +1,111 @@
-<!--
--->
 <template>
     <lightning-card>
-		<div class="titlestyle"><h1 slot="title" class="titlestyle">{title}</h1></div>
-        
+		
+		<div class="slds-var-p-around_small">
+			<!-- Standard List View Header Styling -->
+			<div class="slds-page-header">
+				<div class="slds-page-header__row">
+					<div class="slds-page-header__col-title">
+						<h1 class="slds-page-header__title slds-text-heading_medium">Contacts Selection</h1>
+					</div>
+				</div>
+			</div>
+		</div>	
+		<!-- Error Message -->
 		<template lwc:if={error}>
-			<div class="slds-text-title_bold errorcolor">{error}</div>
+			<div class="slds-text-color_error slds-text-title_bold slds-m-bottom_x-small">{error}</div>
 		</template>
-		<!--Layout to display the changed address and previous address-->
+
+		<!-- Address Layout -->
 		<lightning-layout multiple-rows>
-			<template lwc:if={isBillingAddressChanged}>
+			<template lwc:if={newBillingAddress}>
 				<lightning-layout-item size="6" padding="around-small">
-					<div class="slds-text-title_bold">
-						Billing Address Change
-					</div><br/>
-					<div>
-						Current Address: {orgRecord}
-					</div>
-					<div>
-						New Address: {newBillingAddress}
-					</div>
+					<h2 class="slds-text-title_bold slds-m-bottom_x-small">Billing Address Change</h2>
+					<div>Current Address: {currentBillingAddress}</div>
+					<div>New Address: {newBillingAddress}</div>
 				</lightning-layout-item>
 			</template>
-			<template lwc:if={isPhysicalAddressChanged}>
+			<template lwc:if={newPhysicalAddress}>
 				<lightning-layout-item size="6" padding="around-small">
-					<div class="slds-text-title_bold">
-						Physical Address Change
-					</div><br/>
-					<div>
-						Current Address: {orgRecord}
-					</div>
-					<div>
-						New Address:  {newPhysicalAddress}
-					</div>
-				</lightning-layout-item>
+					<h2 class="slds-text-title_bold slds-m-bottom_x-small">Physical Address Change</h2>
+					<div>Current Address: {currentPhysicalAddress}</div>
+					<div>New Address: {newPhysicalAddress}</div>
+				</lightning-layout-item> 
 			</template>
 		</lightning-layout>
-		<!--Accordion to display the contact selection table and the selected contacts table-->
-		<lightning-accordion active-section-name="A">
+
+		<!-- Record Counts -->
+		<lightning-layout>
+			<lightning-layout-item size="6" padding="around-small">
+				<div class="slds-form-element__label">Total Records: {fulldataset.length}</div>
+				<div class="slds-form-element__label">Total selected records: {fulldataselected.length}</div>
+			</lightning-layout-item>
+		</lightning-layout>
+
+		<!-- Accordion for Contacts and Selected Contacts -->
+		<lightning-accordion allow-multiple-sections-open active-section-name="A">
 			<lightning-accordion-section name="A" label="Contacts">
-				<!--Layout to display the search input and button-->
-				<lightning-layout multiple-rows>
-					<lightning-layout-item size="7" padding="around-small">
-						<p class="paddingforparagraps">{selecteddata.length} selected</p>
-					</lightning-layout-item>
-					<lightning-layout-item size="2" padding="around-small">
-						<template lwc:if={searchKey}>
-							<p class="paddingforparagraps righttextalignforparagraps">{data.length} of {searchedRecords.length}</p>
-						</template>
-						<template lwc:else>
-							<p class="paddingforparagraps righttextalignforparagraps">{data.length} of {fulldataset.length}</p>
-						</template>
-					</lightning-layout-item>
-					<lightning-layout-item size="3" padding="around-small">
-						<lightning-input class="slds-m-right_x-small" type="search" placeholder="Search contacts" autocomplete="off" onchange={handleSearchText}></lightning-input>
-					</lightning-layout-item>   
-				</lightning-layout>
-				<lightning-layout> 
-					<lightning-layout-item  padding="around-small">
-						<template lwc:if={errorMoreThan50}>
-							<div class="slds-text-title_bold errorcolor">{errorMoreThan50}</div>
-						</template>
-					</lightning-layout-item>	
-				</lightning-layout>
-				<lightning-layout multiple-rows>
-					<lightning-layout-item size="12">
-						<div class="slds-border_top" style="height:400px">
-							<lightning-datatable key-field="Id" data={data} columns={columns} load-more-offset="20"
-								onloadmore={handleLoadMore} enable-infinite-loading={enableInfinteLoading} show-checkbox-column hide-row-number-column
-								onrowselection={handleRowSelection}>
-							</lightning-datatable>
-						</div>
-						{loadMoreStatus}	
-					</lightning-layout-item>	
-				</lightning-layout>
-			</lightning-accordion-section>
+				<div class="slds-p-around_small" style="background-color:#f3f3f3;">
+					<lightning-icon icon-name="standard:opportunity" size="small" class="slds-m-right_x-small"></lightning-icon>
+					<label class="slds-text-heading_small slds-p-top_xx-small">Active Contacts</label>
+					<!-- Search Bar and Error Message Layout -->
+					<div class="slds-float_right slds-button-group-row">
+						<lightning-input class="slds-m-right_x-small" type="search" placeholder="Search this list.." autocomplete="off" onchange={handleSearchText}></lightning-input>
+					</div>
+				</div>  
+				<br/>
+				<template lwc:if={errorMoreThan50}>
+					<div class="slds-text-color_error slds-text-title_bold">{errorMoreThan50}</div>
+				</template>
+				<template lwc:if={data}>
+					<div class="datatable-container">
+						<c-change-of-address-datatable
+							columns={columns}
+							data={data}
+							key-field="Id"
+							onloadmore={handleLoadMore}
+							onrowselection={handleRowSelection}
+							selected-rows={selectedRowIds}
+							load-more-offset="20"
+							enable-infinite-loading={enableInfinteLoadingSelected}
+							show-checkbox-column
+							hide-row-number-column>
+						</c-change-of-address-datatable>
+					</div>
+					{loadMoreStatus} 
+				</template>
+				   
+			</lightning-accordion-section>		
+
 			<lightning-accordion-section name="B" label="Selected Contacts">
-				<lightning-layout>
-					<lightning-layout-item size="12" padding="around-small">
-						<div class="slds-border_top" style="height:400px">
-							<lightning-datatable key-field="Id" data={selecteddata} columns={columns} load-more-offset="20"
-								onloadmore={handleLoadMoreselected} enable-infinite-loading={enableInfinteLoadingSelected} show-row-number-column hide-checkbox-column >
-							</lightning-datatable>
-						</div>
-					</lightning-layout-item>
-				</lightning-layout>
-				
+				<div class="slds-p-around_small" style="background-color:#f3f3f3;">
+					<lightning-icon icon-name="standard:contact" size="small" class="slds-m-right_x-small"></lightning-icon>
+					<label class="slds-text-heading_small slds-p-top_xx-small">Selected Contacts</label>
+					<lightning-layout>
+						<lightning-layout-item size="12" padding="around-small">
+							<div class="slds-border_top" style="height:400px">
+								<c-change-of-address-datatable
+									columns={columns}
+									data={selecteddata}
+									key-field="Id"
+									onloadmore={handleLoadMoreselected}
+									onrowselection={handleSelectedRows}
+									load-more-offset="20"
+									enable-infinite-loading={enableInfinteLoadingSelected}
+									show-row-number-column
+									hide-checkbox-column>
+								</c-change-of-address-datatable>
+							</div>
+						</lightning-layout-item>
+					</lightning-layout>
+				</div>
 			</lightning-accordion-section>
 		</lightning-accordion>
-		<!--Navigation Buttons -->
-		<div align="center">
-			<lightning-button  label="Cancel" onclick={handleCancel} class="slds-button slds-padding-around-small" ></lightning-button>
-			<lightning-button  label="Back" onclick={handleBack} class="slds-button slds-padding-around-small"></lightning-button>
-			<lightning-button  label="Next" onclick={handleNext} class="slds-button slds-padding-around-small"></lightning-button>  
-		</div>
-        
+		
+		<template lwc:if={isLoading}>
+			<lightning-spinner alternative-text="Loading" variant="brand" size="medium"></lightning-spinner>
+		</template>
+
     </lightning-card>
+	
 </template>
