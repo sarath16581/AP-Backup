@@ -34,37 +34,12 @@
 			</template>
 		</lightning-layout>
 
-		<!-- Record Counts -->
-		<lightning-layout>
-			<lightning-layout-item size="6" padding="around-small">
-				<div class="slds-form-element__label">Total Records: {fulldataset.length}</div>
-				<div class="slds-form-element__label">Total selected records: {fulldataselected.length}</div>
-			</lightning-layout-item>
-		</lightning-layout>
-
 		<!-- Accordion for Contacts and Selected Contacts -->
 		<lightning-accordion allow-multiple-sections-open active-section-name="A">
 			<lightning-accordion-section name="A" label="Contacts">
 				<div class="slds-p-around_small" style="background-color:#f3f3f3;">
 					<lightning-icon icon-name="standard:opportunity" size="small" class="slds-m-right_x-small"></lightning-icon>
 					<label class="slds-text-heading_small slds-p-top_xx-small">Active Contacts</label>
-					<!--Layout to display the search input and button
-					<lightning-layout multiple-rows>
-						<lightning-layout-item size="7" >
-							<p class="paddingforparagraps">{selecteddata.length} selected</p>
-						</lightning-layout-item>
-						<lightning-layout-item size="2" >
-							<template lwc:if={searchKey}>
-								<p class="paddingforparagraps righttextalignforparagraps">{data.length} of {searchedRecords.length}</p>
-							</template>
-							<template lwc:else>
-								<p class="paddingforparagraps righttextalignforparagraps">{data.length} of {fulldataset.length}</p>
-							</template>
-						</lightning-layout-item>
-						<lightning-layout-item size="3" >
-							<lightning-input class="slds-m-right_x-small" type="search" placeholder="Search contacts" autocomplete="off" onchange={handleSearchText}></lightning-input>
-						</lightning-layout-item>   
-					</lightning-layout> -->
 					<!-- Search Bar and Error Message Layout -->
 					<div class="slds-float_right paddingforsearchinput">
 						<lightning-input class="slds-m-right_x-small" type="search" placeholder="Search this list.." autocomplete="off" onchange={handleSearchText}></lightning-input>
@@ -78,11 +53,6 @@
 					<template lwc:else>
 						<div>{selecteddata.length} selected
 						<p class="slds-float_right">{data.length} of {fulldataset.length}</p></div>
-					</template>
-				</div>
-				<div class="slds-p-around_small">
-					<template lwc:if={errorMoreThan50}>
-						<div class="slds-text-color_error slds-text-title_bold">{errorMoreThan50}</div>
 					</template>
 				</div>
 				<template lwc:if={data}>

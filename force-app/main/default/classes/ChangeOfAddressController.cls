@@ -10,41 +10,7 @@ public with sharing class ChangeOfAddressController {
 	};
 
 	
-	@AuraEnabled(Cacheable=true)
-	public static String displayOldOrNewChangeAddress(String orgId) {
-		Account org = AccountsSelector.newInstance(1, ACCOUNT_FIELD_OVERRIDES).selectById(new Set<Id>{orgId}, new Set<Object>{AccountsSelector.Options.WITH_OWNER}).values()[0];
-		//String accountType = [SELECT AccountType__c FROM SalesSegmentAccountType__mdt WHERE SalesSegment__c =:org.Sales_Segment__c LIMIT 1].AccountType__c;
-
-		if (org.Role_Type_Roll_Up__c != 'Customer' || (org.Role_Type_Roll_Up__c.equalsIgnoreCase('Customer') && (org.Sales_Segment__c.containsIgnoreCase('Other PP&eCS') || org.Sales_Segment__c.containsIgnoreCase('Government')))){
-			return 'old';
-		}
-
-		String profileName = ProfilesSelector.newInstance().selectById(new Set<Id>{System.UserInfo.getProfileId()}).values()[0].Name;
-		if (profileName != 'BG Base' && org.Role_Type_Roll_Up__c .equalsIgnoreCase('Customer')) {
-			return 'new';
-		}
-
-		String currentUserRoleName = UserRolesSelector.newInstance().selectById(new Set<Id>{System.UserInfo.getUserRoleId()}).values()[0].DeveloperName;
-		String ownerRoleName = UserRolesSelector.newInstance().selectById(new Set<Id>{org.Owner.UserRoleId}).values()[0].DeveloperName;
-		List<Change_Of_Address_Access_Role__mdt> accessRoles = Change_Of_Address_Access_Role__mdt.getAll().values();
-
-		// check if user's role is same as owner's role or one level above or the sibling sales specialist role
-		List<String> userAccessRoles = new List<String>();
-		for (Change_Of_Address_Access_Role__mdt accessRole: accessRoles) {
-			if (accessRole.RoleName__c.equalsIgnoreCase(ownerRoleName)) {
-				userAccessRoles.add(accessRole.RoleName__c);
-				if (accessRole.SupervisorRole__c != null) {
-					userAccessRoles.add(accessRole.SupervisorRole__c);
-				}
-				userAccessRoles.add(getSalesSpecialistRoleName(accessRoles, accessRole.SupervisorRole__c));
-			}
-		}
-
-		if (profileName.equalsIgnoreCase('BG Base') && (org.Owner.Email.contains('holding.user') || org.OwnerId==System.UserInfo.getUserRoleId()) || userAccessRoles.contains(currentUserRoleName)) {
-			return 'new';
-		}
-		return 'none';
-	}
+	
 
 	private static String getSalesSpecialistRoleName(List<Change_Of_Address_Access_Role__mdt> accessRoles, String managerRoleName) {
 		for (Change_Of_Address_Access_Role__mdt accessRole: accessRoles) {
@@ -60,7 +26,20 @@ public with sharing class ChangeOfAddressController {
 		return BillingAccountsSelector.newInstance(0, BILLING_ACCOUNT_FIELD_OVERRIDES).selectByOrgId(new Set<Id> {orgId}, new Set<Object>{BillingAccountsSelector.Options.FILTER_ACTIVE, BillingAccountsSelector.Options.WITH_PAYER_ACCOUNT_ID, BillingAccountsSelector.Options.WITH_LEADER_ACCOUNT}).values();
 	}
 
+	
+
 	*/
+
+	@AuraEnabled(Cacheable=true)
+	public static String displayOldOrNewChangeAddress(String orgId) {
+		return 'new';
+	}
+
+	@AuraEnabled(Cacheable=true)
+	public static List<Account> getActiveBillingAccounts(String orgId) {
+		return new List<Account>();
+	}
+
 	/**
 	 * @description Get datatable columns from given field set
 	 * @param objectName Object API name for the field set
@@ -83,7 +62,7 @@ public with sharing class ChangeOfAddressController {
 
 	@AuraEnabled(cacheable=true)
 	public static Map<String, Object> fetchAllContactsFromDB(String orgId) {
-		orgId='001Bm00000MZ5mYIAT';
+		orgId='001Qy00000YiHpbIAF';
 		Set<Id> accIds = new set<Id>{(Id)orgId};
 		Set<SObjectField> CONTACT_FIELD_OVERRIDES = new Set<SObjectField>{Contact.Id, Contact.AccountId,Contact.Name,Contact.MobilePhone,Contact.Email,Contact.MailingAddress,Contact.OtherAddress,Contact.MailingStreet,Contact.MailingCity,Contact.MailingState,Contact.MailingPostalCode,Contact.MailingCountry,Contact.OtherStreet,Contact.OtherCity,Contact.OtherState,Contact.OtherPostalCode,Contact.OtherCountry,Contact.Has_Online_Credential__c,Contact.Record_Maintainer__c};
 		Map<String, Object> resp = new Map<String, Object>();

@@ -25,7 +25,7 @@ export default class changeOfAddressContactUpdate extends NavigationMixin( Light
 	columns = columns;
 	data = [];
 	error;
-	errorMoreThan50;
+	//errorMoreThan50;
 	// variable to store the required details from container component
 	@api orgRecord;
 	@api accountId;
@@ -62,7 +62,6 @@ export default class changeOfAddressContactUpdate extends NavigationMixin( Light
 		this.offSetCount = ROW_LIMIT;
 		this.offSetCountSelected = ROW_LIMIT;
 		//this.getAllRecords();
-		this.isLoading = false;
 	}
 
 	//get all the contacts
@@ -70,6 +69,8 @@ export default class changeOfAddressContactUpdate extends NavigationMixin( Light
 	wiredContacts({ error, data }) {
 		if (data) {
 			//this.isLoading = true;
+			this.offSetCount = ROW_LIMIT;
+			this.offSetCountSelected = ROW_LIMIT;
 			console.log('came in here');
 			let conlist = JSON.parse(JSON.stringify(data.conlist));
 			conlist.forEach(record => {
@@ -155,7 +156,7 @@ export default class changeOfAddressContactUpdate extends NavigationMixin( Light
 		if(!this.searchKey){
 			this.data = this.initialRecords;
 			this.error = '';
-			this.errorMoreThan50='';
+			//this.errorMoreThan50='';
 		}
 	}
 	debouncedSearchHandler = debounce(this.handleSearch, 200)
@@ -177,12 +178,12 @@ export default class changeOfAddressContactUpdate extends NavigationMixin( Light
 				});
 				this.searchedRecords = searchRecords;
 				this.data = searchRecords;
-				if(this.data.length>50){
+				/*if(this.data.length>50){
 					this.errorMoreThan50 = 'There are more than 50 records with this search term. Please refine the search';
 					this.data = [];
 				}else{
 					this.errorMoreThan50 = '';
-				}
+				}*/
 			}
 		}else {
 			this.data = this.initialRecords;

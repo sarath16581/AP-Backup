@@ -20,6 +20,7 @@ export default class ChangeOfAddressServiceRequestCreation extends LightningElem
 	emailCaseSTRec;
 	title;
 	filter = {};    
+	customerRequestDocId;
 	//customer request attachment has to be created as CV and 2 CDL's has to be created
 
     get acceptedFormats() {
@@ -44,7 +45,7 @@ export default class ChangeOfAddressServiceRequestCreation extends LightningElem
         // Get the list of uploaded files
         const uploadedFiles = event.detail.files;
         console.log('No. of files uploaded : ' + uploadedFiles.length);
-		
+		this.customerRequestDocId = uploadedFiles[0].documentId;
 		if(this.creditDSRAPRec){
 			let creditDSRAPReclocal = this.creditDSRAPRec;
 			creditDSRAPReclocal.Customer_Request_Attached__c = 'Yes';
@@ -147,5 +148,56 @@ export default class ChangeOfAddressServiceRequestCreation extends LightningElem
 			console.log('error : ' + JSON.stringify(this.error));
 		});
 	}
+
+	@api
+    async getUserSelectedData() {
+		let data = [];
+		if(this.creditDSRAPRec) {
+			data['creditDSRAPRec'] = this.creditDSRAPRec;
+		}
+		if(this.creditDSRSTRec) {
+			data['creditDSRSTRec'] = this.creditDSRSTRec;
+		}
+		if(this.onboardingDSRSTRec) {
+			data['onboardingDSRSTRec'] = this.onboardingDSRSTRec;
+		}
+		if(this.phyAddressAPMessage) {
+			data['phyAddressAPMessage'] = this.phyAddressAPMessage;
+		}
+		if(this.emailCaseAPRec) {
+			data['emailCaseAPRec'] = this.emailCaseAPRec;
+		}
+		if(this.emailCaseSTRec) {
+			data['emailCaseSTRec'] = this.emailCaseSTRec;
+		}
+		if(this.customerRequestDocId){
+			data['customerRequestDocId'] = this.customerRequestDocId;
+		}
+		return data;	
+	}
+	@api
+	async restoreState(data) {
+		if(data.creditDSRAPRec){
+			this.creditDSRAPRec = data.creditDSRAPRec; // if this is not working try this:  JSON.parse(JSON.stringify(data.creditDSRAPRec))
+		}
+		if(data.creditDSRSTRec){
+			this.creditDSRSTRec = data.creditDSRSTRec;
+		}
+		if(data.onboardingDSRSTRec){
+			this.onboardingDSRSTRec = data.onboardingDSRSTRec;
+		}
+		if(data.phyAddressAPMessage){
+			this.phyAddressAPMessage = data.phyAddressAPMessage;
+		}
+		if(data.emailCaseAPRec){
+			this.emailCaseAPRec = data.emailCaseAPRec;
+		}
+		if(data.emailCaseSTRec){
+			this.emailCaseSTRec = data.emailCaseSTRec;
+		}
+		if(data.customerRequestDocId){
+			this.customerRequestDocId = data.customerRequestDocId;
+		}
+    }
 
 }
