@@ -59,7 +59,7 @@
 					<div class="labelstyle">
 						Credit Work Type
 					</div>
-					<div class="slds-box">
+					<div>
 						<lightning-formatted-text value={creditDSRAPRec.Credit_Work_Type__c} ></lightning-formatted-text>
 					</div>
 				</lightning-layout-item>
@@ -67,7 +67,7 @@
 					<div class="labelstyle">
 						Change of details Sub-Type(AP)
 					</div>
-					<div class="slds-box">
+					<div>
 						<lightning-formatted-text value={creditDSRAPRec.Billing_Account_Change_of_Details_Sub_Ty__c} ></lightning-formatted-text>
 					</div>
 				</lightning-layout-item>
@@ -75,7 +75,7 @@
 					<div class="labelstyle">
 						Change of details Type
 					</div>
-					<div class="slds-box">
+					<div>
 						<lightning-formatted-text value={creditDSRAPRec.Billing_Account_Change_of_Details_Type__c} ></lightning-formatted-text>
 					</div>
 				</lightning-layout-item>
@@ -83,16 +83,8 @@
 					<div class="labelstyle">
 						Change of details Description
 					</div>
-					<div class="slds-box">
+					<div>
 						<lightning-formatted-text value={creditDSRAPRec.Billing_Account_Change_of_Details_Desc__c} ></lightning-formatted-text>
-					</div>
-				</lightning-layout-item>
-				<lightning-layout-item size="6" padding="around-small">
-					<div class="labelstyle">
-						Customer Request Attached
-					</div>
-					<div class="slds-box">
-						<lightning-formatted-text value={creditDSRAPRec.Customer_Request_Attached__c} ></lightning-formatted-text>
 					</div>
 				</lightning-layout-item>
 			</lightning-layout>
@@ -105,7 +97,7 @@
 					<div class="labelstyle">
 						Credit Work Type
 					</div>
-					<div class="slds-box">
+					<div>
 						<lightning-formatted-text value={creditDSRSTRec.Credit_Work_Type__c} ></lightning-formatted-text>
 					</div>
 				</lightning-layout-item>
@@ -113,7 +105,7 @@
 					<div class="labelstyle">
 						Change of details Sub-Type
 					</div>
-					<div class="slds-box">
+					<div>
 						<lightning-formatted-text value={creditDSRSTRec.Billing_Account_Change_of_Details_Sub_Ty__c} ></lightning-formatted-text>
 					</div>
 				</lightning-layout-item>
@@ -121,7 +113,7 @@
 					<div class="labelstyle">
 						Change of details Type
 					</div>
-					<div class="slds-box">
+					<div>
 						<lightning-formatted-text value={creditDSRSTRec.Billing_Account_Change_of_Details_Type__c} ></lightning-formatted-text>
 					</div>
 				</lightning-layout-item>
@@ -129,16 +121,8 @@
 					<div class="labelstyle">
 						Change of details Description
 					</div>
-					<div class="slds-box">
+					<div>
 						<lightning-formatted-text value={creditDSRSTRec.Billing_Account_Change_of_Details_Desc__c} ></lightning-formatted-text>
-					</div>
-				</lightning-layout-item>
-				<lightning-layout-item size="6" padding="around-small">
-					<div class="labelstyle">
-						Customer Request Attached
-					</div>
-					<div class="slds-box">
-						<lightning-formatted-text value={creditDSRSTRec.Customer_Request_Attached__c} ></lightning-formatted-text>
 					</div>
 				</lightning-layout-item>
 			</lightning-layout>
@@ -149,25 +133,25 @@
 			<lightning-layout multiple-rows>
 				<lightning-layout-item size="6" padding="around-small" >
 					<div class="labelstyle">
-						Sender Email
+						Sender
 					</div>
-					<div class="slds-box">
-						<lightning-formatted-text value={emailCaseAPRec.senderEmail} ></lightning-formatted-text>
+					<div>
+						<lightning-formatted-text value={emailCaseAPRec.sender} ></lightning-formatted-text>
 					</div>
 				</lightning-layout-item>
 				<lightning-layout-item size="6" padding="around-small">
 					<div class="labelstyle">
-						Receiver Email
+						Receiver
 					</div>
-					<div class="slds-box">
-						<lightning-formatted-text value={emailCaseAPRec.receiverEmail} ></lightning-formatted-text>
+					<div>
+						<lightning-formatted-text value={emailCaseAPRec.receiver} ></lightning-formatted-text>
 					</div>
 				</lightning-layout-item>
 				<lightning-layout-item size="6" padding="around-small">
 					<div class="labelstyle">
 						Subject
 					</div>
-					<div class="slds-box">
+					<div>
 						<lightning-formatted-text value={emailCaseAPRec.subject} ></lightning-formatted-text>
 					</div>
 				</lightning-layout-item>
@@ -175,12 +159,12 @@
 					<div class="labelstyle">
 						Description
 					</div>
-					<div class="slds-box">
+					<div>
 						<lightning-formatted-text value={emailCaseAPRec.description} ></lightning-formatted-text>
 					</div>
 				</lightning-layout-item>
 				<lightning-layout-item size="6" padding="around-small">
-					<lightning-record-picker name="apcustomercontact" onchange={handleContactSelection} filter={filter} object-api-name="Contact" label="Customer Contact" placeholder="Select a Contact" value={emailCaseAPRec.customerContact}></lightning-record-picker>
+					<lightning-record-picker required name="apcustomercontact" onchange={handleContactSelection} filter={filter} object-api-name="Contact" label="Customer Contact" placeholder="Select a Contact" value={emailCaseAPRec.customerContact}></lightning-record-picker>
 				</lightning-layout-item>
 			</lightning-layout>
 		</template>
@@ -190,25 +174,25 @@
 			<lightning-layout multiple-rows>
 				<lightning-layout-item size="6" padding="around-small">
 					<div class="labelstyle">
-						Sender Email
+						Sender
 					</div>
-					<div class="slds-box">
-						<lightning-formatted-text value={emailCaseSTRec.senderEmail} ></lightning-formatted-text>
+					<div>
+						<lightning-formatted-text value={emailCaseSTRec.sender} ></lightning-formatted-text>
 					</div>
 				</lightning-layout-item>
 				<lightning-layout-item size="6" padding="around-small">
 					<div class="labelstyle">
-						Receiver Email
+						Receiver
 					</div>
-					<div class="slds-box">
-						<lightning-formatted-text value={emailCaseSTRec.receiverEmail} ></lightning-formatted-text>
+					<div>
+						<lightning-formatted-text value={emailCaseSTRec.receiver} ></lightning-formatted-text>
 					</div>
 				</lightning-layout-item>
 				<lightning-layout-item size="6" padding="around-small">
 					<div class="labelstyle">
 						Subject
 					</div>
-					<div class="slds-box">
+					<div>
 						<lightning-formatted-text value={emailCaseSTRec.subject} ></lightning-formatted-text>
 					</div>
 				</lightning-layout-item>
@@ -216,12 +200,12 @@
 					<div class="labelstyle">
 						Description
 					</div>
-					<div class="slds-box">
+					<div>
 						<lightning-formatted-text value={emailCaseSTRec.description} ></lightning-formatted-text>
 					</div>
 				</lightning-layout-item>
 				<lightning-layout-item size="6" padding="around-small">
-					<lightning-record-picker name="stcustomercontact" onchange={handleContactSelection} filter={filter} object-api-name="Contact" label="Customer Contact" placeholder="Select a Contact"  value={emailCaseSTRec.customerContact}></lightning-record-picker>
+					<lightning-record-picker required name="stcustomercontact" onchange={handleContactSelection} filter={filter} object-api-name="Contact" label="Customer Contact" placeholder="Select a Contact"  value={emailCaseSTRec.customerContact}></lightning-record-picker>
 				</lightning-layout-item>
 			</lightning-layout>
 		</template>
@@ -237,7 +221,7 @@
 					<div class="labelstyle">
 						Credit Work Type
 					</div>
-					<div class="slds-box">
+					<div>
 						<lightning-formatted-text value={onboardingDSRSTRec.Credit_Work_Type__c} ></lightning-formatted-text>
 					</div>
 				</lightning-layout-item>
@@ -245,7 +229,7 @@
 					<div class="labelstyle">
 						Change of details Sub-Type
 					</div>
-					<div class="slds-box">
+					<div>
 						<lightning-formatted-text value={onboardingDSRSTRec.Billing_Account_Change_of_Details_Sub_Ty__c} ></lightning-formatted-text>
 					</div>
 				</lightning-layout-item>
@@ -253,7 +237,7 @@
 					<div class="labelstyle">
 						Change of details Type
 					</div>
-					<div class="slds-box">
+					<div>
 						<lightning-formatted-text value={onboardingDSRSTRec.Billing_Account_Change_of_Details_Type__c} ></lightning-formatted-text>
 					</div>
 				</lightning-layout-item>
@@ -261,16 +245,8 @@
 					<div class="labelstyle">
 						Change of details Description
 					</div>
-					<div class="slds-box">
+					<div>
 						<lightning-formatted-text value={onboardingDSRSTRec.Billing_Account_Change_of_Details_Desc__c} ></lightning-formatted-text>
-					</div>
-				</lightning-layout-item>
-				<lightning-layout-item size="6" padding="around-small">
-					<div class="labelstyle">
-						Customer Request Attached
-					</div>
-					<div class="slds-box">
-						<lightning-formatted-text value={onboardingDSRSTRec.Customer_Request_Attached__c} ></lightning-formatted-text>
 					</div>
 				</lightning-layout-item>
 			</lightning-layout>

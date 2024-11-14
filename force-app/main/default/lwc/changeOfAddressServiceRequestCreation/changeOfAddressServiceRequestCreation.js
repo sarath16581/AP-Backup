@@ -24,7 +24,7 @@ export default class ChangeOfAddressServiceRequestCreation extends LightningElem
 	//customer request attachment has to be created as CV and 2 CDL's has to be created
 
     get acceptedFormats() {
-        return ['.csv', '.png'];
+        return ['.png', '.jpeg', '.jpg'];
     }
 	connectedCallback() {
 		this.title='Service Request Form';
@@ -94,7 +94,7 @@ export default class ChangeOfAddressServiceRequestCreation extends LightningElem
 	frameServicerequests(){
 		const requestDetails = {};
 		//commented this and needs to be uncommented when values from child cmp passes correctly start
-        /*requestDetails.apBillingAccCount = this.billingAccsSelectedAP?this.billingAccsSelectedAP.length:0;
+        requestDetails.apBillingAccCount = this.billingAccsSelectedAP?this.billingAccsSelectedAP.length:0;
         requestDetails.stBillingAccCount = this.billingAccsSelectedST?this.billingAccsSelectedST.length:0;
         requestDetails.customerRequestAttached = 'No';
 		requestDetails.baOptionSelected = this.productSelected;
@@ -104,12 +104,12 @@ export default class ChangeOfAddressServiceRequestCreation extends LightningElem
 		requestDetails.isPhysicalAddressChanged = this.newPhysicalAddress? true : false;
 		requestDetails.newPhysicalAddress = this.newPhysicalAddress;
 		requestDetails.accountId = this.accountId;
-		requestDetails.accountRecord = this.accountRecord; */
+		requestDetails.accountRecord = this.accountRecord; 
 		//commented this and needs to be uncommented when values from child cmp passes correctly end
 		//remove this when values from child cmp passes correctly start
 
 		//remove this when values from child cmp passes correctly end
-		requestDetails.apBillingAccCount = 5;
+		/*requestDetails.apBillingAccCount = 5;
 		requestDetails.stBillingAccCount = 5;
 		requestDetails.customerRequestAttached = 'No';
 		requestDetails.baOptionSelected = '';
@@ -118,7 +118,7 @@ export default class ChangeOfAddressServiceRequestCreation extends LightningElem
 		requestDetails.isBillingAddressChanged = true;
 		requestDetails.isPhysicalAddressChanged = true;
 		requestDetails.newPhysicalAddress = 'test new physical address';
-		requestDetails.orgId = '001Qy00000YiHpbIAF';
+		requestDetails.orgId = '001Qy00000YiHpbIAF'; */
 		
 		frameServicerequests({reqParams: requestDetails})
 		.then(result => {

@@ -197,8 +197,8 @@ public with sharing class ChangeOfAddressController {
 
 	private static SRResponseParams frameEmailToCase(SRRequestParams reqParams, String productSelected){
 		SRResponseParams srp = new SRResponseParams();
-		srp.senderEmail = Userinfo.getUserEmail();
-		srp.receiverEmail = Userinfo.getUserEmail(); // This needs to be configurable and hold emailtocase address for Prod it has to be billing@auspost.com.au
+		srp.sender = Userinfo.getName();
+		srp.receiver = 'Billing Auspost'; // This needs to be configurable and hold emailtocase address for Prod it has to be billing@auspost.com.au
 		srp.accountId = reqParams.orgId;
 		switch on productSelected {
 			when 'AP' {		
@@ -250,9 +250,9 @@ public with sharing class ChangeOfAddressController {
 
 	public class SRResponseParams{
 		@AuraEnabled
-		public String senderEmail {get; set;}
+		public String sender {get; set;}
 		@AuraEnabled
-		public String receiverEmail {get; set;}
+		public String receiver {get; set;}
 		@AuraEnabled
 		public String subject {get; set;}
 		@AuraEnabled
