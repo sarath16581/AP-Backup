@@ -25,7 +25,7 @@ export default class changeOfAddressContactUpdate extends NavigationMixin( Light
 	columns = columns;
 	data = [];
 	error;
-	errorMoreThan50;
+	//errorMoreThan50;
 	// variable to store the required details from container component
 	@api orgRecord;
 	@api accountId;
@@ -35,7 +35,7 @@ export default class changeOfAddressContactUpdate extends NavigationMixin( Light
 	@api newPhysicalAddress;
 	@api cmpCalledFrom;
 	// offSetCount to send to apex to get the subsequent result. 0 in offSetCount signifies for the initial load of records on component load.
-	offSetCount = 0;
+	offSetCount = ROW_LIMIT;
 	loadMoreStatus;
 	targetDatatable; // capture the loadmore event to fetch data and stop infinite loading
 	initialRecords;
@@ -44,31 +44,20 @@ export default class changeOfAddressContactUpdate extends NavigationMixin( Light
 	enableInfinteLoadingSelected=true;
 	fulldataset = [];
 	selecteddata =[];
-	offSetCountSelected =0;
+	offSetCountSelected =ROW_LIMIT;
 	searchedRecords = [];
 	@track fulldataselected=[];
 	isLoading=true;
 	@track selectedRowIds = [];
-
-	get billingAddressDisplay() {
-		return this.newBillingAddress?.address || '';
-	}
-	get physicalAddressDisplay() {
-		return this.newPhysicalAddress?.address || '';
-	}
-	connectedCallback() {
-		this.isLoading = true;
-		console.log('in cc');
-		this.offSetCount = ROW_LIMIT;
-		this.offSetCountSelected = ROW_LIMIT;
-		//this.getAllRecords();
-	}
+	@track activeSections = ['A'];
 
 	//get all the contacts
 	@wire(fetchAllContactsFromDB, {orgId: '$accountId'})
 	wiredContacts({ error, data }) {
 		if (data) {
 			//this.isLoading = true;
+			this.offSetCount = ROW_LIMIT;
+			this.offSetCountSelected = ROW_LIMIT;
 			let conlist = JSON.parse(JSON.stringify(data.conlist));
 			conlist.forEach(record => {
 				record.Id=record.contactRecord.Id;
@@ -91,6 +80,7 @@ export default class changeOfAddressContactUpdate extends NavigationMixin( Light
 		
 	// Event to handle onloadmore on lightning datatable markup
 	handleLoadMore(event) {
+
 		if (this.fulldataset.length < this.offSetCount) {
 			this.enableInfinteLoading = false;
 		} else {
@@ -98,9 +88,8 @@ export default class changeOfAddressContactUpdate extends NavigationMixin( Light
 			this.setDatatableRecords();
 		}
 	}
+	
 	handleRowSelection(event){
-		var selectedRows=event.detail.selectedRows;
-		var selectedaction = event.detail.config.action;
 		switch (event.detail.config.action) {
 			case 'selectAllRows':
 				if (this.searchKey) {
@@ -125,6 +114,7 @@ export default class changeOfAddressContactUpdate extends NavigationMixin( Light
 			default:
 				break;
 		}
+		this.handleActiveSections();
 		this.handleLoadMoreselected();
 
 	}
@@ -137,7 +127,16 @@ export default class changeOfAddressContactUpdate extends NavigationMixin( Light
 		}
 		this.selecteddata = this.fulldataselected.slice(0, this.offSetCountSelected);
 	}
-	
+	handleActiveSections(){
+	// Manage active sections
+		if (this.fulldataselected.length > 0) {
+			if (!this.activeSections.includes('B')) {
+				this.activeSections = ['A', 'B'];
+			}
+		} else {
+			this.activeSections = ['A'];
+		}	
+	}
 	setDatatableRecords(){
 		this.data = this.fulldataset.slice(0, this.offSetCount);
 		this.initialRecords = this.data;
@@ -146,15 +145,15 @@ export default class changeOfAddressContactUpdate extends NavigationMixin( Light
 
 	handleSearchText(event){
 		this.searchKey = event.target.value.toLowerCase();
-
 		if(this.searchKey.length>=3){
 			this.debouncedSearchHandler(this.searchKey);
 		}
 		if(!this.searchKey){
-			this.data = this.initialRecords;
+			this.data = this.initialRecords;	
 			this.error = '';
-			this.errorMoreThan50='';
+			//this.errorMoreThan50='';
 		}
+		this.selectedRowIds = this.fulldataselected.map(row => row.Id);
 	}
 	debouncedSearchHandler = debounce(this.handleSearch, 200)
 	handleSearch() {
@@ -175,12 +174,12 @@ export default class changeOfAddressContactUpdate extends NavigationMixin( Light
 				});
 				this.searchedRecords = searchRecords;
 				this.data = searchRecords;
-				if(this.data.length>50){
+				/*if(this.data.length>50){
 					this.errorMoreThan50 = 'There are more than 50 records with this search term. Please refine the search';
 					this.data = [];
 				}else{
 					this.errorMoreThan50 = '';
-				}
+				}*/
 			}
 		}else {
 			this.data = this.initialRecords;
@@ -189,10 +188,8 @@ export default class changeOfAddressContactUpdate extends NavigationMixin( Light
 	}
 	@api
     async getUserSelectedData() {
-		console.log('@@@fulldata' +this.fulldataselected);
 		if(this.fulldataselected) {
 			this.selectedRowIds = this.fulldataselected.map(row => row.Id);
-			//this.selecteddata = this.fulldataselected.slice(0, this.offSetCountSelected);
 		}
 		return this.fulldataselected;	
 	}
@@ -201,9 +198,6 @@ export default class changeOfAddressContactUpdate extends NavigationMixin( Light
 		this.fulldataselected=data;
 		this.selectedRowIds = this.fulldataselected.map(row => row.Id);
 		this.selecteddata = this.fulldataselected.slice(0, this.offSetCountSelected);
-        //console.log('@@@data' +JSON.stringify(this.selectedRowIds));
+		this.handleActiveSections();
     }
-	disconnectedCallback() {
-		console.log('in Disconnect')
-	}
 }
