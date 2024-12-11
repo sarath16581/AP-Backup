@@ -5,7 +5,7 @@
 			<!-- Standard List View Header Styling -->
 			<div class="slds-page-header">
 				<div class="slds-page-header__row">
-					<div class="slds-page-header__col-title">
+					<div class="slds-page-header__col-title slds-float_left">
 						<h1 class="slds-page-header__title slds-text-heading_medium">Contacts Selection</h1>
 					</div>
 				</div>
@@ -34,29 +34,27 @@
 			</template>
 		</lightning-layout>
 
-		<!-- Record Counts -->
-		<lightning-layout>
-			<lightning-layout-item size="6" padding="around-small">
-				<div class="slds-form-element__label">Total Records: {fulldataset.length}</div>
-				<div class="slds-form-element__label">Total selected records: {fulldataselected.length}</div>
-			</lightning-layout-item>
-		</lightning-layout>
-
 		<!-- Accordion for Contacts and Selected Contacts -->
-		<lightning-accordion allow-multiple-sections-open active-section-name="A">
+		<lightning-accordion allow-multiple-sections-open active-section-name={activeSections}>
 			<lightning-accordion-section name="A" label="Contacts">
 				<div class="slds-p-around_small" style="background-color:#f3f3f3;">
-					<lightning-icon icon-name="standard:opportunity" size="small" class="slds-m-right_x-small"></lightning-icon>
-					<label class="slds-text-heading_small slds-p-top_xx-small">Active Contacts</label>
+					<lightning-icon icon-name="standard:contact" size="small" class="slds-m-right_x-small"></lightning-icon>
+					<label class="slds-text-heading_small slds-p-top_xx-small">Contacts</label>
 					<!-- Search Bar and Error Message Layout -->
-					<div class="slds-float_right slds-button-group-row">
+					<div class="slds-float_right paddingforsearchinput">
 						<lightning-input class="slds-m-right_x-small" type="search" placeholder="Search this list.." autocomplete="off" onchange={handleSearchText}></lightning-input>
-					</div>
+					</div>	
 				</div>  
-				<br/>
-				<template lwc:if={errorMoreThan50}>
-					<div class="slds-text-color_error slds-text-title_bold">{errorMoreThan50}</div>
-				</template>
+				<div class="slds-p-around_small">
+					<template lwc:if={searchKey}>
+						<div>{fulldataselected.length} selected
+						<p class="slds-float_right">{data.length} of {searchedRecords.length}</p></div>
+					</template>
+					<template lwc:else>
+						<div>{fulldataselected.length} selected
+						<p class="slds-float_right">{data.length} of {fulldataset.length}</p></div>
+					</template>
+				</div>
 				<template lwc:if={data}>
 					<div class="datatable-container">
 						<c-change-of-address-datatable
@@ -67,7 +65,7 @@
 							onrowselection={handleRowSelection}
 							selected-rows={selectedRowIds}
 							load-more-offset="20"
-							enable-infinite-loading={enableInfinteLoadingSelected}
+							enable-infinite-loading={enableInfinteLoading}
 							show-checkbox-column
 							hide-row-number-column>
 						</c-change-of-address-datatable>
@@ -83,7 +81,7 @@
 					<label class="slds-text-heading_small slds-p-top_xx-small">Selected Contacts</label>
 					<lightning-layout>
 						<lightning-layout-item size="12" padding="around-small">
-							<div class="slds-border_top" style="height:400px">
+							<div  class="slds-border_top" style="height: 200px">
 								<c-change-of-address-datatable
 									columns={columns}
 									data={selecteddata}
