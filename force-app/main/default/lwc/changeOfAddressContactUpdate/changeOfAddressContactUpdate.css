@@ -11,9 +11,21 @@
     text-decoration: underline;
 }
 .datatable-container {
-    max-height: 200px; /* Sets the height for the scroll area */
+    height: 200px; /* Sets the height for the scroll area */
     overflow-y: auto; /* Enables vertical scroll */
 	border-left: 0.5px solid #000207 !important; /* Adds a border to the bottom of the head	er */
     border-right: 0.5px solid #00040a !important; /* Adds a border between header cells */
 	border-top: 0.5px solid #000309 !important; /* Adds a border to the bottom of the header */
+}
+.paddingforparagraps {
+    padding-top: 25px;
+}
+.righttextalignforparagraps {
+    text-align: right;
+}
+.paddingforsearchinput {
+    margin-top: -23px;
+}
+.slds-page-header {
+	padding:0rem;
 }
