@@ -68,9 +68,9 @@
 							selected-rows={selectedRowIds}
 							load-more-offset="20"
 							enable-infinite-loading={enableInfinteLoadingSelected}
-							show-checkbox-column
-							hide-row-number-column>
-						</c-change-of-address-datatable>
+							hide-checkbox-column=false
+							show-row-number-column=false>
+						</c-change-of-address-datatable> 
 					</div>
 					{loadMoreStatus} 
 				</template>
@@ -92,8 +92,8 @@
 									onrowselection={handleSelectedRows}
 									load-more-offset="20"
 									enable-infinite-loading={enableInfinteLoadingSelected}
-									show-row-number-column
-									hide-checkbox-column>
+									show-row-number-column=true
+									hide-checkbox-column=true>
 								</c-change-of-address-datatable>
 							</div>
 						</lightning-layout-item>

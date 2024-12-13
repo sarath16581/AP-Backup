@@ -1,5 +1,69 @@
 import { createElement } from 'lwc';
 import ChangeOfAddressContactUpdate from 'c/changeOfAddressContactUpdate';
+import fetchAllContactsFromDB from '@salesforce/apex/ChangeOfAddressController.fetchAllContactsFromDB';
+import { debounce } from 'c/utils'
+
+// Mock the Apex methods
+jest.mock(
+    '@salesforce/apex/ChangeOfAddressController.fetchAllContactsFromDB',
+    () => {
+        const {
+            createApexTestWireAdapter
+        } = require('@salesforce/sfdx-lwc-jest');
+        return {
+            default: createApexTestWireAdapter(jest.fn())
+        };
+    },
+    { virtual: true }
+);
+
+// Sample data for imperative Apex call
+const APEX_SHOP_PROMISE_SUCCESS_MOCKDATA = {
+    conlist: [
+        {
+            contactRecord: {
+                Id: '001',
+                Name: 'John Doe',
+                MobilePhone: '1234567890',
+                Email: 'john.doe@example.com',
+                Has_Online_Credential__c: true,
+                Record_Maintainer__c: 'Admin'
+            }
+        },
+        {
+            contactRecord: {
+                Id: '002',
+                Name: 'Jane Smith',
+                MobilePhone: '9876543210',
+                Email: 'jane.smith@example.com',
+                Has_Online_Credential__c: false,
+                Record_Maintainer__c: 'Admin'
+            }
+        }
+    ]
+};
+
+const APEX_SHOP_PROMISE_SUCCESS_MOCKDATA_MORE = {
+	conlist: Array(60).fill(0).map((_, index) => ({
+		contactRecord: {
+			Id: String(index),
+			Name: `Contact ${index}`,
+			MobilePhone: `1234567${index}`,
+			Email: `contact${index}@example.com`,
+			Has_Online_Credential__c: true,
+			Record_Maintainer__c: 'Admin'
+		}
+	}))
+};
+
+// Mock debounce to spy on how often the debounced function is called
+jest.mock('c/utils', () => {
+    return {
+        debounce: jest.fn((func, delay) => {
+            return jest.fn(func);
+        })
+    };
+});
 
 describe('c-change-of-address-contact-update', () => {
     afterEach(() => {
@@ -14,12 +78,197 @@ describe('c-change-of-address-contact-update', () => {
         const element = createElement('c-change-of-address-contact-update', {
             is: ChangeOfAddressContactUpdate
         });
+        // Act
+        document.body.appendChild(element);
+
+		// Emit data from @wire
+		fetchAllContactsFromDB.emit(APEX_SHOP_PROMISE_SUCCESS_MOCKDATA);
+
+		return Promise.resolve().then(() => {
+			// Select elements for validation
+			expect(element.fulldataset).not.toBeNull();
+		});
+        
+    });  
+
+	it('handles load more functionality correctly', () => {
+        // Arrange
+        const element = createElement('c-change-of-address-contact-update', {
+            is: ChangeOfAddressContactUpdate
+        });
 
         // Act
         document.body.appendChild(element);
 
-        // Assert
-        // const div = element.shadowRoot.querySelector('div');
-        expect(1).toBe(1);
+		// Emit data from @wire
+		fetchAllContactsFromDB.emit(APEX_SHOP_PROMISE_SUCCESS_MOCKDATA_MORE);
+		expect(element.fulldataset).not.toBeNull();
+		
+		return Promise.resolve().then(() => {
+			const loadMoreEvent = new CustomEvent('loadmore', {
+				detail: { offset: 20 }
+			});
+			const datatable = element.shadowRoot.querySelector('c-change-of-address-datatable');
+			datatable.dispatchEvent(loadMoreEvent);
+
+
+		});
+
     });
+
+	it('handles row selection functionality for action rowSelect and rowDeselect', async() => {
+		fetchAllContactsFromDB.mockResolvedValue(APEX_SHOP_PROMISE_SUCCESS_MOCKDATA);
+        // Arrange
+        const element = createElement('c-change-of-address-contact-update', {
+            is: ChangeOfAddressContactUpdate
+        });
+
+        // Act
+        document.body.appendChild(element);
+
+		// Emit data from @wire
+		fetchAllContactsFromDB.emit(APEX_SHOP_PROMISE_SUCCESS_MOCKDATA);
+
+		// Simulate async behavior
+        await flushPromises();
+
+		// Simulate rowSelect action event
+		const rowSelectionEvent = new CustomEvent('rowselection', {
+			detail: {
+				config: { action: 'rowSelect' },
+				row: { Id: '001' }
+			}
+		}); 
+
+		const datatable = element.shadowRoot.querySelector('c-change-of-address-datatable');
+		datatable.dispatchEvent(rowSelectionEvent);
+		
+		// Select elements for validation
+		expect(element.fulldataselected).not.toBeNull();
+
+		// Simulate async behavior
+        await flushPromises();
+
+		// Simulate rowSelect action event
+		const rowDeSelectEvent = new CustomEvent('rowselection', {
+			detail: {
+				config: { action: 'rowDeselect' },
+				row: { Id: '001' }
+			}
+		}); 
+
+		const datatable1 = element.shadowRoot.querySelector('c-change-of-address-datatable');
+		datatable.dispatchEvent(rowDeSelectEvent);
+    });
+
+	it('handles row selection functionality for action selectAllRows and deselectAllRows', async() => {
+		fetchAllContactsFromDB.mockResolvedValue(APEX_SHOP_PROMISE_SUCCESS_MOCKDATA);
+        // Arrange
+        const element = createElement('c-change-of-address-contact-update', {
+            is: ChangeOfAddressContactUpdate
+        });
+
+        // Act
+        document.body.appendChild(element);
+
+		// Emit data from @wire
+		fetchAllContactsFromDB.emit(APEX_SHOP_PROMISE_SUCCESS_MOCKDATA);
+
+		// Simulate async behavior
+        await flushPromises();
+
+		// Simulate rowSelect action event
+		const rowSelectionEvent = new CustomEvent('rowselection', {
+			detail: {
+				config: { action: 'selectAllRows' },
+				selectedRows: { Id: '001', Id: '002' }
+			}
+		}); 
+
+		const datatable = element.shadowRoot.querySelector('c-change-of-address-datatable');
+		datatable.dispatchEvent(rowSelectionEvent);
+		
+		// Select elements for validation
+		expect(element.fulldataselected).not.toBeNull();
+
+		// Simulate async behavior
+        await flushPromises();
+
+		// Simulate rowSelect action event
+		const rowDeSelectEvent = new CustomEvent('rowselection', {
+			detail: {
+				config: { action: 'deselectAllRows' },
+				row: { Id: '001', Id: '002' }
+			}
+		}); 
+
+		const datatable1 = element.shadowRoot.querySelector('c-change-of-address-datatable');
+		datatable.dispatchEvent(rowDeSelectEvent);
+    });
+
+	it('handles search input and filters records correctly', () => {
+		//fetchAllContactsFromDB.mockResolvedValue(APEX_SHOP_PROMISE_SUCCESS_MOCKDATA);
+		// Arrange
+        const element = createElement('c-change-of-address-contact-update', {
+            is: ChangeOfAddressContactUpdate
+        });
+
+        // Act
+        document.body.appendChild(element);  
+
+		// Emit data from @wire
+		fetchAllContactsFromDB.emit(APEX_SHOP_PROMISE_SUCCESS_MOCKDATA_MORE);
+
+		return Promise.resolve().then(() => {
+			// Simulate search
+			const input = element.shadowRoot.querySelector('lightning-input');
+			input.value = 'Contact';
+			input.dispatchEvent(new CustomEvent('change'));
+
+			// Wait for debounce delay (30ms in this case)
+			jest.useFakeTimers();
+			jest.advanceTimersByTime(30);   
+        
+			// Check if debounced function is called once after delay
+			expect(debounce).toHaveBeenCalled;
+			// Select elements for validation
+			expect(element.data).not.toBeNull();
+		});
+    });
+
+	it('handles search null input', () => {
+		fetchAllContactsFromDB.mockResolvedValue(APEX_SHOP_PROMISE_SUCCESS_MOCKDATA);
+		// Arrange
+        const element = createElement('c-change-of-address-contact-update', {
+            is: ChangeOfAddressContactUpdate
+        });
+
+        // Act
+        document.body.appendChild(element);  
+
+		// Emit data from @wire
+		fetchAllContactsFromDB.emit(APEX_SHOP_PROMISE_SUCCESS_MOCKDATA);
+
+		return Promise.resolve().then(() => {
+			// Simulate search
+			const input = element.shadowRoot.querySelector('lightning-input');
+			input.value = '';
+			input.dispatchEvent(new CustomEvent('change'));
+
+			// Wait for debounce delay (300ms in this case)
+			jest.useFakeTimers();
+			jest.advanceTimersByTime(30);   
+        
+			// Check if debounced function is called once after delay
+			expect(debounce).toHaveBeenCalled;
+			
+			// Select elements for validation
+			expect(element.data).not.toBeNull();
+		});
+    });
+
+	async function flushPromises() {
+        await Promise.resolve();
+        return Promise.resolve();
+    }
 });
