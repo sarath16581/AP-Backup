@@ -1,0 +1,72 @@
+<template>
+    <lightning-accordion allow-multiple-sections-open active-section-name={activeSectionName}>
+		<lightning-accordion-section name="A" label="Identify Customer">
+			<div class="slds-p-around_small" style="background-color:#f3f3f3;">
+				<lightning-layout multiple-rows>
+					<lightning-layout-item size="10">
+						<lightning-input class="slds-m-right_x-small" type="search" placeholder="Enter MBP / Business Credit Account number.." onchange={handlesearchinput}></lightning-input>
+					</lightning-layout-item>
+					<div class="slds-float_right slds-button-group-row">
+						<lightning-button class="adjustbuttonheight" label="Search" onclick={handleSearch} disabled={isSearchDisabled}></lightning-button>
+					</div>
+				</lightning-layout>
+				<!-- Error Message -->
+				<template lwc:if={errorMessage}>
+					<div class="slds-text-color_error slds-text-title_bold slds-m-bottom_x-small">{errorMessage}</div>
+				</template>
+				<br/>
+				<template lwc:if={accountswrap}>
+					<lightning-layout multiple-rows>
+						<template for:each={accountswrap} for:item="account">
+							<!--<input type="radio" name="accountTile" value={account.accrec.Id} onchange={handleTileSelection} class="radio-input"
+								/> -->
+								<lightning-tile
+									key={account.accrec.Id}
+									label={account.accrec.Name}
+									class={account.classname}
+									onclick={handleTileSelection}
+									data-id={account.accrec.Id}
+									tabindex="0"
+									role="radio" 
+									>
+									<p class="slds-truncate">APCN: {account.accrec.APCN__c}</p> 
+									<p class="slds-truncate">ACN: {account.accrec.ACN__c}</p>
+									<p class="slds-truncate">Phone: {account.accrec.Phone}</p>
+									<p class="slds-truncate">Website: {account.accrec.Website}</p>
+								</lightning-tile>
+						</template>
+					</lightning-layout>
+					<br/>
+					<lightning-button align="center" label="Confirm" onclick={handleICConfirm} disabled={isICConfirmDisabled}></lightning-button>
+				</template>
+			</div>
+		</lightning-accordion-section>		
+
+		
+		<lightning-accordion-section name="B" label="Privacy Statement">
+			<template lwc:if={expandprivacystatement}>
+				<div class="slds-p-around_small" style="background-color:#f3f3f3;">
+					<p><lightning-formatted-text value={privacyStatement} ></lightning-formatted-text></p>
+					<br/>
+					<lightning-button label="Accept" onclick={handlePSAccept}></lightning-button>
+				</div>
+			</template>
+		</lightning-accordion-section>
+		
+		<lightning-accordion-section name="C" label="Customer Data">
+			<template lwc:if={expandcustomerfields}>
+				<div class="slds-p-around_small" style="background-color:#f3f3f3;">
+					<!-- later physical address needs to be changed to c-ame-address-validation2-->
+					<lightning-input class="slds-m-right_x-small" label="Physical Address" type="search" placeholder="Enter physical address" onchange={handleaddressinput} required></lightning-input>
+   					<lightning-input class="slds-m-right_x-small" label="Phone" type="tel" minlength="10" maxlength="10" placeholder="Enter Phone" onchange={handlephoneinput} required
+						message-when-too-short="Phone number must be at least 10 characters"
+						message-when-too-long="Phone number must be at least 10 characters">
+					</lightning-input>
+					<lightning-input class="slds-m-right_x-small" label="Website" type="text" placeholder="Enter Website" onchange={handlewebsiteinput}></lightning-input>
+					<lightning-button label="Submit" onclick={handleFormSubmit} disabled={isSubmitDisabled}></lightning-button>
+				</div>
+			</template>
+		</lightning-accordion-section>
+		
+	</lightning-accordion>
+</template>

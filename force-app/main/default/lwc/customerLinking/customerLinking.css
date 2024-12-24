@@ -1,0 +1,52 @@
+.adjustbuttonheight {
+    margin-top: 20px;
+}
+.tile-container {
+    display: flex;
+    gap: 10px;
+    margin: 20px 0;
+    flex-wrap: wrap;
+}
+
+.tile{
+	background-color: #f4f6f9;
+    cursor: pointer;
+    width: 300px;
+    text-align: center;
+    border: 2px solid #d8dde6;
+    border-radius: 8px;
+    padding: 20px;
+	padding-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    /*transition: background-color 0.3s ease;*/
+	margin-top: 8px;
+    margin-right: 8px;
+}
+
+.selectedtile {
+    background-color: #0070d2;
+    color: white;
+}
+
+.nonselectedtile{
+	background-color: #f4f6f9;
+}
+
+.tile:hover {
+    background-color: #e4e7ec;
+}
+
+.radio-input {
+    display: none;
+}
+
+.lightning-tile label {
+    cursor: pointer;
+}
+
+.setpadding {
+	padding-bottom:20px;
+}
