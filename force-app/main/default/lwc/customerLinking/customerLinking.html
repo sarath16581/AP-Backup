@@ -1,5 +1,6 @@
 <template>
     <lightning-accordion allow-multiple-sections-open active-section-name={activeSectionName}>
+		
 		<lightning-accordion-section name="A" label="Identify Customer">
 			<div class="slds-p-around_small" style="background-color:#f3f3f3;">
 				<lightning-layout multiple-rows>
@@ -63,6 +64,7 @@
 						message-when-too-long="Phone number must be at least 10 characters">
 					</lightning-input>
 					<lightning-input class="slds-m-right_x-small" label="Website" type="text" placeholder="Enter Website" onchange={handlewebsiteinput}></lightning-input>
+					<br/>
 					<lightning-button label="Submit" onclick={handleFormSubmit} disabled={isSubmitDisabled}></lightning-button>
 				</div>
 			</template>

@@ -1,5 +1,6 @@
 import { LightningElement, wire } from 'lwc';
 import identifyCustomer from '@salesforce/apex/CustomerLinkingController.identifyCustomer';
+import customerLinkingFormSubmit from '@salesforce/apex/CustomerLinkingController.customerLinkingFormSubmit';
 import {getRecord} from 'lightning/uiRecordApi'
 import USER_ID from '@salesforce/user/Id';
 import ACCOUNT_ID from '@salesforce/schema/User.AccountId';
@@ -140,12 +141,38 @@ export default class CustomerLinking extends LightningElement {
 	handleFormSubmit(){
 		if(this.isvalidphysicaladdress){
 			this.dispatchSuccess('Your request is successfully submitted, we will get back to you with results shortly');
-			// call batch
+			this.callApexOnSubmit(true);
 		}else{
 			this.dispatchError('Your request is not submitted, as Physical Address is not valid');
-			// call DSR creation
+			this.callApexOnSubmit(false);
 		}
-		
+	}
+
+	callApexOnSubmit(isAllValidated){
+		customerLinkingFormSubmit({physicalAddress: this.physicaladdress,
+			website: this.website,
+			phone: this.phone,
+			customer: this.selectedAccount,
+			userId: USER_ID,
+			isAllValidated: isAllValidated
+		})
+        .then((result) => {
+            // handle result
+            if(result){
+                if(Object.hasOwn(result, 'dsrcreated') && result.dsrcreated){
+                    // pass the DSR number and modify the success message
+					// this.dispatchSuccess('Your request is successfully submitted, we will get back to you with results shortly');
+                }
+				this.isSubmitDisabled=true;
+            }
+        })
+        .catch((error) => {
+            console.log('<<errror in callApexOnSubmit'+JSON.stringify(error));
+			this.errorMessage = error;
+			this.isSubmitDisabled=true;
+        }).finally(()=>{
+            // if something has to be done
+        })
 	}
 
 	handleenablesubmit(){
